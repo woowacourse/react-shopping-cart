@@ -1,5 +1,5 @@
 import * as path from "path";
-import { Configuration as WebpackConfiguration, Template } from "webpack";
+import { Configuration as WebpackConfiguration } from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
@@ -19,7 +19,7 @@ const config: Configuration = {
     extensions: [".ts", ".tsx", ".js"],
   },
   module: {
-    rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],
+    rules: [{ test: /\.tsx?$/, loader: "babel-loader" }],
   },
   devServer: {
     port: 3000,
