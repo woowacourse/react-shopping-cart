@@ -1,0 +1,8 @@
+{
+  "short_name": "인치동동 배민상회",
+  "name": "인치동동 배민상회",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
