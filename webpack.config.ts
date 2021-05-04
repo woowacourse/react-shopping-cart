@@ -8,8 +8,8 @@ interface Configuration extends WebpackConfiguration {
 }
 
 const config: Configuration = {
-  mode: "production",
-  entry: "./src/index.ts",
+  mode: "development",
+  entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
