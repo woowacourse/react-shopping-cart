@@ -6,7 +6,6 @@ import Header from ".";
 export default {
   title: "Header",
   component: Header,
-  argTypes: {},
 } as Meta;
 
 const Template: Story = () => <Header />;
