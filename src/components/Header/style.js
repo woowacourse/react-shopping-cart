@@ -2,9 +2,10 @@ import Styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 
 export const Header = Styled.header`
-  height: 80px;
+  height: 5rem;
   background-color: ${PALETTE.BAEMINT};
-  padding: 0 25px;
+  padding: 0 1.5rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
 export const HeaderInner = Styled.div`

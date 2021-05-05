@@ -21,3 +21,7 @@ export const HEADER = {
   APP_TITLE: 'WOOWA SHOP',
   NAV_LIST: [PAGES.CART, PAGES.ORDERS],
 };
+
+export const UNIT = {
+  MONEY: '원',
+};

@@ -4,8 +4,9 @@ import App from './App';
 import GlobalStyle from './globalStyle';
 
 ReactDOM.render(
-  <GlobalStyle>
+  <>
+    <GlobalStyle />
     <App />
-  </GlobalStyle>,
+  </>,
   document.getElementById('root')
 );

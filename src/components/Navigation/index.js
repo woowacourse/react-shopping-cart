@@ -17,13 +17,12 @@ const Navigation = ({ navList }) => {
 };
 
 Navigation.propTypes = {
-  // navList: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     NAME: PropTypes.string.isRequired,
-  //     ADDRESS: PropTypes.string.isRequired,
-  //   })
-  // ),
-  navList: PropTypes.array,
+  navList: PropTypes.arrayOf(
+    PropTypes.shape({
+      NAME: PropTypes.string.isRequired,
+      ADDRESS: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Navigation;

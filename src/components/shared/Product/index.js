@@ -6,7 +6,7 @@ const Product = ({ imageUrl, alt, size, direction, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
       <img src={imageUrl} alt={alt} />
-      <div>{children}</div>
+      {children}
     </Styled.ProductContainer>
   );
 };
