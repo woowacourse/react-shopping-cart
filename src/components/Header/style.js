@@ -17,12 +17,13 @@ export const HeaderInner = styled.div`
   justify-content: space-between;
 `;
 
-export const HeaderTitle = styled.div`
+export const HeaderTitle = styled.a`
   display: flex;
   align-items: center;
   font-size: 2.5rem;
   font-weight: bold;
   color: ${PALETTE.WHITE};
+  cursor: pointer;
 
   & > * {
     display: flex;

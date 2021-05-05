@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import * as Styled from './style';
 
-const Header = ({ logo, title, children }) => {
+const Header = ({ logo, title, homeAddress, children }) => {
   return (
     <Styled.Header>
       <Styled.HeaderInner>
-        <Styled.HeaderTitle>
+        <Styled.HeaderTitle src={homeAddress}>
           <span>{logo}</span>
           {title}
         </Styled.HeaderTitle>
@@ -19,12 +19,14 @@ const Header = ({ logo, title, children }) => {
 Header.propTypes = {
   logo: PropTypes.elementType,
   title: PropTypes.string,
+  homeAddress: PropTypes.string,
   children: PropTypes.elementType,
 };
 
 Header.defaultProps = {
   logo: null,
   title: '',
+  homeAddress: '/',
 };
 
 export default Header;
