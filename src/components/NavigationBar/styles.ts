@@ -12,6 +12,7 @@ export const NavigationBarContainer = styled.div`
 
 export const NavigationBarInnerContainer = styled.div`
   width: 80rem;
+  min-width: 80rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
