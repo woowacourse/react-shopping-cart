@@ -66,6 +66,14 @@
         "rules": {
           "import/prefer-default-export": "off"
         }
+      },
+      {
+        "files": [
+          "./src/store/modules/**/*"
+        ],
+        "rules": {
+          "no-param-reassign": "off"
+        }
       }
     ],
     "ignorePatterns": "node_modules"
