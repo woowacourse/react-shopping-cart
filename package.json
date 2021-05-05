@@ -15,12 +15,16 @@
     }
   ],
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -73,7 +77,8 @@
     "eslint-config-prettier": "^8.3.0",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "redux-devtools": "^3.7.0"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix",
