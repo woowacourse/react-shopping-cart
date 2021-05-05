@@ -1,12 +1,12 @@
-import ProductItem from './ProductItem';
+import ColumnProductItem from './ColumnProductItem';
 
 export default {
-  title: 'ShoppingCart/ProductItem',
-  component: ProductItem,
+  title: 'ShoppingCart/ColumnProductItem',
+  component: ColumnProductItem,
   argTypes: { children: { control: 'text' } },
 };
 
-const Template = args => <ProductItem {...args} />;
+const Template = args => <ColumnProductItem {...args} />;
 
 export const Basic = Template.bind({});
 

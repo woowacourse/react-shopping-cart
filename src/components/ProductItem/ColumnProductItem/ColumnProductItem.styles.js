@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  width: 280px;
   height: 360px;
+  width: 280px;
 `;
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
 `;
 
-const BottomContainer = styled.div`
+const DetailContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,4 +26,4 @@ const Price = styled.div`
   font-size: 1.2rem;
 `;
 
-export { Container, Image, BottomContainer, ProductDetail, Name, Price };
+export { Container, Image, DetailContainer, ProductDetail, Name, Price };
