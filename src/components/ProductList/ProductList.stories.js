@@ -5,6 +5,7 @@ import { reactFamily } from '../../mockData';
 import ShoppingCart from '../common/Icon/ShoppingCart';
 import Header from '../Header';
 import Navigation from '../Navigation';
+import Main from '../Main';
 
 export default {
   title: 'ProductList',
@@ -24,7 +25,9 @@ export const Page = (args) => (
     <Header logo={<ShoppingCart />} title={HEADER.APP_TITLE}>
       <Navigation navList={HEADER.NAV_LIST} />
     </Header>
-    <ProductList {...args} />
+    <Main>
+      <ProductList {...args} />
+    </Main>
   </>
 );
 
