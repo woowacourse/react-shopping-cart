@@ -3,48 +3,48 @@
     "id": "1",
     "name": "PET보틀-정사각(420ml)",
     "price": "43400",
-    "img": "/src/mockData/images/img1.png"
+    "img": "/mockImages/img1.png"
   },
   {
     "id": "2",
     "name": "PET보틀-밀크티(370ml)",
     "price": "73400",
-    "img": "/src/mockData/images/img2.png"
+    "img": "/mockImages/img2.png"
   },
   {
     "id": "3",
     "name": "PET보틀-정사각(370ml)",
     "price": "41000",
-    "img": "/src/mockData/images/img3.png"
+    "img": "/mockImages/img3.png"
   },
   {
     "id": "4",
     "name": "PET보틀-납작(450ml)",
     "price": "39900",
-    "img": "/src/mockData/images/img4.png"
+    "img": "/mockImages/img4.png"
   },
   {
     "id": "5",
     "name": "PET보틀-단지(480ml)",
     "price": "41000",
-    "img": "/src/mockData/images/img5.png"
+    "img": "/mockImages/img5.png"
   },
   {
     "id": "6",
     "name": "PET보틀-납작(260ml)",
     "price": "61800",
-    "img": "/src/mockData/images/img6.png"
+    "img": "/mockImages/img6.png"
   },
   {
     "id": "7",
     "name": "PET보틀-원형(500ml)",
     "price": "42200",
-    "img": "/src/mockData/images/img7.png"
+    "img": "/mockImages/img7.png"
   },
   {
     "id": "8",
     "name": "PET보틀-원형(600ml)",
     "price": "44500",
-    "img": "/src/mockData/images/img7.png"
+    "img": "/mockImages/img7.png"
   }
 ]
