@@ -6,7 +6,7 @@ import { ContentContainer } from './style';
 
 const ProductCard: VFC<Product> = ({ name, price, imgSrc }) => {
   return (
-    <Card type="vertical" width="17.5rem" height="22rem" imgSrc={imgSrc}>
+    <Card type="vertical" width="100%" height="22rem" imgSrc={imgSrc}>
       <ContentContainer>
         <div>
           <Text margin="0 0 0.5rem 0">{name}</Text>

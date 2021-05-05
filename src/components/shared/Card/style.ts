@@ -22,6 +22,7 @@ const horizontalTypeStyle = css<CardContainerProps>`
   flex-direction: row;
   height: ${({ height }) => height};
   width: ${({ width }) => width};
+
   & > img {
     height: ${({ height }) => height};
     width: ${({ height }) => height};
