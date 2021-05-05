@@ -7,7 +7,7 @@ const NavBar = () => (
     <InnerNav>
       <LogoWrapper>
         <span>
-          <i className="fas fa-shopping-cart"></i>
+          <i className="fas fa-shopping-cart" />
         </span>
         <span>WOOWA SHOP</span>
       </LogoWrapper>

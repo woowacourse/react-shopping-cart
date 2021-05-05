@@ -54,12 +54,25 @@
 
 ```
   - component
+    - page
+      - Products
+        - ProductList
+        - ProductDetail
+
+      - Shopping
+        - 장바구니
+        - 주문결제
+        - OrderList
+        - OrderDetail
+
     - NavBar
     - Header
     - Button
-    - ProductItem
+
     - ProductList
+    - ProductItem
     - ProductDetail
+
     - ShoppingItem
     - ShoppingManagement
     - OrderItem

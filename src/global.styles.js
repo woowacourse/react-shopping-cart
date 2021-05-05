@@ -6,10 +6,15 @@ const GlobalStyle = createGlobalStyle`
   /* Color */
   --color-mint: #2AC1BC;
   --color-white: #ffffff;
+  --color-grey-100: #d6d6d6;
+  --color-grey-200: #a7a7a7;
+  --color-grey-300: #737373;
+  --color-grey-400: #3e3e3e;
+  --color-black: #000000;
 
   /* Font size */
   --font-micro: 0.75rem;
-  --font-small: 0.1rem;
+  --font-small: 1rem;
   --font-normal: 1.25rem;
   --font-large: 1.5rem;
 
@@ -28,18 +33,21 @@ const GlobalStyle = createGlobalStyle`
   padding:0;
 }
 
-body {
+html, body {
+  // TODO: height: 100vh로 바꾸어 보기 
+  height: 100%;
   cursor: default;
   margin:0;
   padding:0;
 }
 
-a {
-  text-decoration: none;
+#root {
+  height: 100%;
 }
 
-ul {
-  padding-left: 0;
+a {
+  text-decoration: none;
+  outline: none;
 }
 
 li {
@@ -48,6 +56,8 @@ li {
 
 button {
   cursor: pointer;
+  background: transparent;
+  border: 0;
 }
 `;
 

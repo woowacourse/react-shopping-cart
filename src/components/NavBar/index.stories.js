@@ -6,8 +6,4 @@ export default {
   component: NavBar,
 };
 
-export const Primary = () => (
-  <div>
-    <NavBar />
-  </div>
-);
+export const Primary = () => <NavBar />;
