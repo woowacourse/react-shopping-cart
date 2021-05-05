@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { MouseEventHandler, VFC } from "react";
 import { Link } from "react-router-dom";
 
 import { IProductImageProps } from "../ProductImage";
@@ -11,7 +11,7 @@ interface IProductProps {
   name: string;
   price: string;
   id: string;
-  onClickCart: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Product: VFC<IProductProps> = ({
@@ -31,7 +31,7 @@ const Product: VFC<IProductProps> = ({
         </Desc>
       </div>
     </Link>
-    <CartButton onClick={onClickCart}>
+    <CartButton type="button" onClick={onClickCart}>
       <Icon.Cart size={SIZE.ICON.CART.SM} color={COLOR.GRAY_600} />
     </CartButton>
   </Container>

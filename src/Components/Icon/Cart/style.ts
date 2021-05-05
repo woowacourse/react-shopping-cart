@@ -7,7 +7,7 @@ interface IContainerProps {
 const Container = styled.svg<IContainerProps>`
   width: ${({ size }) => size};
 
-  &: before {
+  &:before {
     display: block;
     padding-top: ${(44 * 100) / 51}%;
   }

@@ -5,7 +5,7 @@
 - [x] Product
 - [x] Button
 - [x] PageTitle
-- [ ] CheckBox
+- [x] CheckBox
 - [ ] CartItem
 - [ ] SubmitBox
 - [ ] OrderProductItem
