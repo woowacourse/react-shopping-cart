@@ -19,5 +19,4 @@ const Container = styled.button<IContainerProps>`
   font-weight:700;
 `;
 
-export default Container;
-export { IContainerProps };
+export { Container, IContainerProps };

@@ -3,12 +3,12 @@
 - [x] Header
 - [ ] ProductImage
 - [x] Product
-- [ ] ProductDetail
 - [x] Button
-- [ ] PageTitle
+- [x] PageTitle
 - [ ] CheckBox
 - [ ] CartItem
 - [ ] SubmitBox
 - [ ] OrderProductItem
 - [ ] OrderList
 - [ ] TextWithHighLight
+- [ ] ProductDetail

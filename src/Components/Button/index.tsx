@@ -1,6 +1,6 @@
 import React, { VFC } from "react";
 
-import Container, { IContainerProps } from "./style";
+import { Container, IContainerProps } from "./style";
 
 interface IButtonProps extends IContainerProps {
   text: string;
