@@ -1,9 +1,9 @@
 import React from 'react';
 import Checkbox from '.';
-import Product from '../Product';
+import Product from '../../shared/Product';
 
 export default {
-  title: 'Shared/Checkbox',
+  title: 'Common/Checkbox',
   component: Checkbox,
   argTypes: {},
 };
