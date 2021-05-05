@@ -4,12 +4,12 @@ import * as S from "./Nav.styled";
 
 const Nav = () => (
   <S.Nav>
-    <div className="nav-wrapper">
+    <S.NavWrapper>
       <a href="/" className="nav-title">
         <CartIcon />
         <h1>WOOWA SHOP</h1>
       </a>
-      <ul className="nav-menu">
+      <S.NavMenu>
         <li>
           <a href="/">
             <span>장바구니</span>
@@ -20,8 +20,8 @@ const Nav = () => (
             <span>주문목록</span>
           </a>
         </li>
-      </ul>
-    </div>
+      </S.NavMenu>
+    </S.NavWrapper>
   </S.Nav>
 );
 

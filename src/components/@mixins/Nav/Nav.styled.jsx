@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const navWrapperStyle = css`
+export const NavWrapper = styled.div`
   max-width: 75rem;
   height: 100%;
   margin: 0 auto;
@@ -20,7 +20,7 @@ const navWrapperStyle = css`
   }
 `;
 
-const navMenuStyle = css`
+export const NavMenu = styled.ul`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -36,12 +36,4 @@ export const Nav = styled.nav`
   background-color: #2ac1bc;
   color: white;
   height: 5rem;
-
-  .nav-wrapper {
-    ${navWrapperStyle}
-
-    .nav-menu {
-      ${navMenuStyle}
-    }
-  }
 `;
