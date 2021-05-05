@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '../../../constants';
+import { COLOR } from '../../constants';
 
 export const Container = styled.header`
   position: fixed;

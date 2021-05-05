@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Wrapper, Logo, Menu, MenuItem } from './style';
-import logo from '../../../assets/icons/logo.svg';
+import logo from '../../assets/icons/logo.svg';
 
 const Header = ({ menuList }) => {
   return (
