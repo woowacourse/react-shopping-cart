@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { VFC } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Components/Header";
 
-const App: FC = () => {
+const App: VFC = () => {
   return (
     <BrowserRouter>
       <GlobalStyles />

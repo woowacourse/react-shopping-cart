@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { COLOR } from "../../constants/theme";
 
-const HeaderContainer = styled.header`
+const Container = styled.header`
   background-color: ${COLOR.MAIN};
   color: ${COLOR.WHITE};
   height: 5rem;
@@ -11,7 +11,7 @@ const HeaderContainer = styled.header`
   padding: 0 1rem;
 `;
 
-const HeaderInner = styled.div`
+const Inner = styled.div`
   display: flex;
   height: 100%;
   align-items: center;
@@ -38,4 +38,4 @@ const NavigationItem = styled(Link)`
   font-size: 1.5rem
 `;
 
-export { HeaderContainer, HeaderInner, Flex, H1, NavigationItem };
+export { Container, Inner, Flex, H1, NavigationItem };

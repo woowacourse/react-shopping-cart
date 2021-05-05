@@ -11,4 +11,10 @@ const COLOR = {
   GRAY_600: "#373737",
 };
 
-export { COLOR };
+const SIZE = {
+  ICON: {
+    CART: { LG: "51px", SM: "30px" },
+  },
+};
+
+export { COLOR, SIZE };

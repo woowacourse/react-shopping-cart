@@ -2,7 +2,7 @@
 
 - [x] Header
 - [ ] ProductImage
-- [ ] Product
+- [x] Product
 - [ ] ProductDetail
 - [ ] Button
 - [ ] PageTitle

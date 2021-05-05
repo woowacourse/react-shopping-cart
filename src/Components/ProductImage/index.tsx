@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React, { VFC, ImgHTMLAttributes } from "react";
 
-import { ImageContainer } from "./style";
+import { ImageContainer, IImageContainerProps } from "./style";
 
-interface IProductImageProps extends React.HTMLAttributes<HTMLImageElement> {
-  size: string;
-}
+interface IProductImageProps
+  extends ImgHTMLAttributes<HTMLImageElement>,
+    IImageContainerProps {}
 
 // TODO: 이미지 비율에 맞게 중앙 배치
-const ProductImage: FC<IProductImageProps> = ({ size, ...props }) => (
+const ProductImage: VFC<IProductImageProps> = ({ size, ...props }) => (
   <ImageContainer size={size}>
     <img {...props} />
   </ImageContainer>

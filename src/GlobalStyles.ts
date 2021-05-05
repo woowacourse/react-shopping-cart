@@ -12,11 +12,18 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     outline: none;
+    border:none;
+    background:none;
     cursor: pointer;
+
   }
 
   a {
     text-decoration: none;
+  }
+
+  p {
+    margin: 0
   }
 `;
 

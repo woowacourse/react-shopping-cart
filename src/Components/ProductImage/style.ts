@@ -9,4 +9,4 @@ const ImageContainer = styled.div<IImageContainerProps>`
   overflow: hidden;
 `;
 
-export { ImageContainer };
+export { ImageContainer, IImageContainerProps };
