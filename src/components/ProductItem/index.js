@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Product, Image, Description, Name, Price } from './index.styles';
-import noImage from '../../assets/image/noImage.jpeg';
+import { FALLBACK } from '../../constants';
 
 const ProductItem = ({
-  imgUrl = noImage,
-  imgAlt = '상품 이미지',
-  name = '상품명 없음',
-  price = 0,
+  imgUrl = FALLBACK.PRODUCT.IMG_URL,
+  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
+  name = FALLBACK.PRODUCT.NAME,
+  price = FALLBACK.PRODUCT.PRICE,
   onClick = () => {},
 }) => (
   <Product>
@@ -25,11 +25,11 @@ const ProductItem = ({
 );
 
 ProductItem.propTypes = {
-  imgUrl: PropTypes.string.isRequired,
-  imgAlt: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
+  imgUrl: PropTypes.string,
+  imgAlt: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 export default ProductItem;
