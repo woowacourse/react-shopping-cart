@@ -7,8 +7,8 @@ interface Props {
 const TemplateContainer = styled.div<Props>`
   display: flex;
   justify-content: center;
-   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
+  padding-top: 4rem;
+  ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
 `;
 
 export default TemplateContainer;
-
