@@ -5,12 +5,13 @@ interface Props {
   children: React.ReactNode;
   backgroundColor?: string;
   title?: string;
+  innerWidth?: string;
 }
 
-const Template: FC<Props> = ({ children, backgroundColor, title }) => {
+const Template: FC<Props> = ({ children, backgroundColor, title, innerWidth }) => {
   return (
     <TemplateContainer backgroundColor={backgroundColor}>
-      <InnerTemplateContainer>
+      <InnerTemplateContainer width={innerWidth}>
         {title && <Title>{title}</Title>}
         {children}
       </InnerTemplateContainer>

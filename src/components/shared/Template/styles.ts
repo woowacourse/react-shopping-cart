@@ -10,9 +10,13 @@ export const TemplateContainer = styled.div<Props>`
   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
 `;
 
-export const InnerTemplateContainer = styled.div`
+interface InnerTemplateContainerProps {
+  width?: string;
+}
+
+export const InnerTemplateContainer = styled.div<InnerTemplateContainerProps>`
   padding-top: 4rem;
-  width: 76rem;
+  ${({ width }) => width && `width: ${width}`}
 `;
 
 export const Title = styled.h2`
