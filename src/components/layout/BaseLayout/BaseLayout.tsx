@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Header from '../../shared/Header/Header';
 import Styled from './BaseLayout.styles';
 
 type BaseLayoutProps = {
@@ -8,7 +9,7 @@ type BaseLayoutProps = {
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
     <Styled.Root>
-      <header />
+      <Header />
       {children}
     </Styled.Root>
   );
