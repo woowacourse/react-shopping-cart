@@ -7,7 +7,9 @@ const SIZE = {
   'x-large': '570px',
 };
 
-export const Container = styled.div`
+export const Container = styled.div``;
+
+export const Wrapper = styled.div`
   width: ${({ size }) => SIZE[size]};
   height: ${({ size }) => SIZE[size]};
   overflow: hidden;

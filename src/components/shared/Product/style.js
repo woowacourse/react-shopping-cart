@@ -16,7 +16,7 @@ export const InformationWrapper = styled.div`
 export const Title = styled.h4`
   display: -webkit-box;
   width: 80%;
-  height: 2.5  font-size: 1.25rem;
+  font-size: 1.25rem;
   font-weight: normal;
   line-height: 1.25rem;
   overflow: hidden;

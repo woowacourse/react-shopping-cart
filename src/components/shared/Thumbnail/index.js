@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Image } from './style';
+import { Container, Wrapper, Image } from './style';
 
 /*
 Default: medium
@@ -11,8 +11,10 @@ Default: medium
 
 const Thumbnail = ({ image, alt, size = 'middle' }) => {
   return (
-    <Container size={size}>
-      <Image src={image} alt={alt} />
+    <Container>
+      <Wrapper size={size}>
+        <Image src={image} alt={alt} />
+      </Wrapper>
     </Container>
   );
 };
