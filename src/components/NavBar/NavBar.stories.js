@@ -14,7 +14,7 @@ export const Basic = Template.bind({});
 Basic.args = {
   Logo: (
     <>
-      <ShoppingCartIcon scale="0.8" />
+      <ShoppingCartIcon scale="0.8" color="white" />
       <span>WOOWA SHOP</span>
     </>
   ),

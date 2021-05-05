@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-const Container = styled.div`
-  svg {
-    transform: ${({ scale }) => scale && `scale(${scale})`};
-  }
+const SVG = styled.svg`
+  cursor: pointer;
+  transform: ${({ scale }) => scale && `scale(${scale})`};
 `;
 
-export { Container };
+export { SVG };
