@@ -1,5 +1,6 @@
 /* atoms */
 export { CartIcon } from './atoms/CartIcon';
+export { Line } from './atoms/Line';
 
 /* molecules */
 export { NavBar } from './molecules/NavBar';
