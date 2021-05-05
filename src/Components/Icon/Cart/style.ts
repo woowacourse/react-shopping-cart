@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-interface ICartContainerProps {
+interface IContainerProps {
   size: string;
 }
 
-const CartContainer = styled.svg<ICartContainerProps>`
+const Container = styled.svg<IContainerProps>`
   width: ${({ size }) => size};
 
-  $: before {
+  &: before {
     display: block;
     padding-top: ${(44 * 100) / 51}%;
   }
 `;
 
-export { CartContainer, ICartContainerProps };
+export { Container, IContainerProps };

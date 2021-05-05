@@ -1,16 +1,16 @@
 import React, { VFC, ImgHTMLAttributes } from "react";
 
-import { ImageContainer, IImageContainerProps } from "./style";
+import { Container, IContainerProps } from "./style";
 
 interface IProductImageProps
   extends ImgHTMLAttributes<HTMLImageElement>,
-    IImageContainerProps {}
+    IContainerProps {}
 
 // TODO: 이미지 비율에 맞게 중앙 배치
 const ProductImage: VFC<IProductImageProps> = ({ size, ...props }) => (
-  <ImageContainer size={size}>
-    <img {...props} />
-  </ImageContainer>
+  <Container size={size}>
+    <img width={size} {...props} />
+  </Container>
 );
 
 export default ProductImage;

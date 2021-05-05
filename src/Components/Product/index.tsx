@@ -11,7 +11,7 @@ interface IProductProps {
   name: string;
   price: string;
   id: string;
-  onClickCart: (event: React.MouseEvent<HTMLElement>) => void;
+  onClickCart: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Product: VFC<IProductProps> = ({

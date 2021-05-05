@@ -22,6 +22,6 @@ Basic.args = {
   ),
   name: "브랜브랜 철봉",
   price: "1000000",
-  link: "./",
-  onClickCart: (event) => console.log("Test"),
+  id: "1",
+  onClickCart: () => {},
 };

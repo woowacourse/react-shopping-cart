@@ -4,7 +4,7 @@
 - [ ] ProductImage
 - [x] Product
 - [ ] ProductDetail
-- [ ] Button
+- [x] Button
 - [ ] PageTitle
 - [ ] CheckBox
 - [ ] CartItem

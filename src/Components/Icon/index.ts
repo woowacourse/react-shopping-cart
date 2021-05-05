@@ -1,4 +1,4 @@
-import { Cart, ICartProps } from "./Cart";
+import Cart, { ICartProps } from "./Cart";
 
 const Icon = { Cart };
 
