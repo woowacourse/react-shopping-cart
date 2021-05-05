@@ -57,6 +57,14 @@
           "import/no-anonymous-default-export": "off",
           "react/jsx-props-no-spreading": "off"
         }
+      },
+      {
+        "files": [
+          "**/*.styled.*"
+        ],
+        "rules": {
+          "import/prefer-default-export": "off"
+        }
       }
     ],
     "ignorePatterns": "node_modules"
