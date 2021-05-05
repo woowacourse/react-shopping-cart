@@ -9,6 +9,14 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'jest'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/jsx-filename-extension': [
+      1,
+      {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    ],
+    'react/jsx-props-no-spreading': 0,
+    'react/no-unescaped-entities': 0,
   },
   env: {
     browser: true,
