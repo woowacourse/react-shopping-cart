@@ -16,7 +16,7 @@ Product.propTypes = {
   alt: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['row', 'column']).isRequired,
-  children: PropTypes.elementType,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType, PropTypes.element]),
 };
 
 export default Product;

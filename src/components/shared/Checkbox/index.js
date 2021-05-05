@@ -12,7 +12,7 @@ const Checkbox = ({ align, children }) => {
 };
 
 Checkbox.propTypes = {
-  children: PropTypes.elementType,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType, PropTypes.element]),
   align: PropTypes.oneOf(['flex-start', 'center']),
 };
 
