@@ -30,6 +30,25 @@ export const NavMenu = styled.ul`
   li:not(:last-child) {
     margin-right: 2.5rem;
   }
+
+  .cart-link {
+    position: relative;
+
+    .cart-amount {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 100%;
+      position: absolute;
+      top: -0.75rem;
+      right: -1rem;
+      background-color: #e63434;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 `;
 
 export const Nav = styled.nav`
