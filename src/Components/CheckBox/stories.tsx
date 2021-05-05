@@ -13,6 +13,6 @@ const Template: Story<ICheckBoxProps> = (args) => <CheckBox {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  size: "282px",
-  src: "http://via.placeholder.com/400x400",
+  checked: false,
+  onChange: () => {},
 };
