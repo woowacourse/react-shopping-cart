@@ -1,10 +1,17 @@
 import React from 'react';
+import ProductItem from '../../components/units/ProductItem/ProductItem';
 import Styled from './ProductsPage.styles';
 
 const ProductsPage = () => {
   return (
     <Styled.Root>
-      <div>상품목록페이지당</div>
+      <Styled.ProductList>
+        {Array.from({ length: 7 }, (_, index) => (
+          <li key={index}>
+            <ProductItem title="밀크티존맛탱" price={1000000} />
+          </li>
+        ))}
+      </Styled.ProductList>
     </Styled.Root>
   );
 };

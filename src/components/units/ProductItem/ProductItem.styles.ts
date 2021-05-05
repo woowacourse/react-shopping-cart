@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 const Styled = {
   Root: styled.div`
     width: 282px;
+    label: product-item-root;
+  `,
+
+  ImageWrapper: styled.div`
+    min-height: 282px;
   `,
 
   Image: styled.img`
-    width: 282px;
-    height: 282px;
+    width: 100%;
     object-fit: contain;
   `,
 

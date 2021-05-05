@@ -4,17 +4,19 @@ import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import defaultImageUrl from '../../../assets/images/default_product_item.png';
 
 type ProductItemProps = {
-  imageUrl: string;
+  imageUrl?: string;
   title: string;
   price: number;
 };
 
 const ProductItem = (props: ProductItemProps) => {
-  const { imageUrl = defaultImageUrl, title = '아주아주 길고 길고 기나긴 상품 이름', price = 30000 } = props;
+  const { imageUrl, title, price } = props;
 
   return (
     <Styled.Root>
-      <Styled.Image src={imageUrl} alt={title} />
+      <Styled.ImageWrapper>
+        <Styled.Image src={imageUrl} alt={title} />
+      </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>
           <Styled.Title>{title}</Styled.Title>
@@ -26,6 +28,12 @@ const ProductItem = (props: ProductItemProps) => {
       </Styled.Content>
     </Styled.Root>
   );
+};
+
+ProductItem.displayName = 'ProductItem';
+
+ProductItem.defaultProps = {
+  imageUrl: defaultImageUrl,
 };
 
 export default ProductItem;
