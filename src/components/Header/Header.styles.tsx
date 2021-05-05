@@ -6,7 +6,7 @@ export const Header = styled.div`
   align-items: center;
   height: 80px;
   padding: 0 300px;
-  background-color: ${({ theme }) => theme.primaryColor};
+  background-color: ${({ theme }) => theme.PRIMARY_COLOR};
 `;
 
 export const Logo = styled.img`

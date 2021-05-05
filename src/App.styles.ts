@@ -2,6 +2,6 @@ import { COLORS } from './constants';
 
 export const theme = {
   ...COLORS,
-  primaryColor: COLORS.MINT_500,
-  textColor: COLORS.BLACK_500,
+  PRIMARY_COLOR: COLORS.MINT_500,
+  TEXT_COLOR: COLORS.BLACK_500,
 };
