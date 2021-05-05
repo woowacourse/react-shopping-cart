@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { baeminCyan } from '../../../../constants';
 
 export const NavBar = styled.div`
+  position: fixed;
+  top: 0;
   width: 100vw;
   height: 5rem;
   background-color: ${baeminCyan};
