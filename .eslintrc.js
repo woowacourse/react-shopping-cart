@@ -7,6 +7,9 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   plugins: ['react', '@typescript-eslint', 'jest'],
+  rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+  },
   env: {
     browser: true,
     es6: true,
