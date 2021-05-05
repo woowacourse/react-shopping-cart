@@ -1,4 +1,5 @@
-import Styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 const imgSize = {
   xs: css`
@@ -19,11 +20,12 @@ const imgSize = {
   `,
 };
 
-export const ProductContainer = Styled.div`
+export const ProductContainer = styled.div`
   display: flex;
   flex-direction: ${({ direction }) => direction};
 
   img {
+    background-color: ${PALETTE.BLACK_TRANSPARENT_005};
     ${({ size }) => imgSize[size]}
   }
 `;

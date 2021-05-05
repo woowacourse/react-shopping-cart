@@ -1,7 +1,7 @@
-import Styled from 'styled-components';
+import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 
-export const NavList = Styled.ul`
+export const NavList = styled.ul`
   display: flex;
   list-style: none;
   font-size: 1.5rem;
