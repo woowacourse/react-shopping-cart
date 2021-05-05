@@ -10,7 +10,7 @@ const StyledNavigationContainer = styled.div`
 const StyledNavigation = styled.nav`
   display: flex;
   max-width: 1440px;
-  height: 80px;
+  height: 60px;
   margin: 0 auto;
   padding: 0 60px;
   justify-content: space-between;
@@ -27,16 +27,15 @@ const StyledRightUl = styled.ul`
   justify-content: space-between;
   align-items: center;
   color: #ffffff;
-  font-size: 18px;
 `;
 
-const Navigation = (props) => (
+const Navigation = () => (
   <StyledNavigationContainer>
     <StyledNavigation>
       <StyledLeftUl>
         <li>
           <Link to="/">
-            <img src={logo} width="100%" height="100%" alt="장바구니" />
+            <img src={logo} width="80%" height="80%" alt="장바구니" />
           </Link>
         </li>
       </StyledLeftUl>
