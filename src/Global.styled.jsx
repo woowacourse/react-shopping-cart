@@ -4,15 +4,16 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
-  *{
+  * {
     box-sizing: border-box;
   }
 
   body {
     font-size: 16px;
+    color: #333333;
   }
 
-  a{
+  a {
     text-decoration: none;
     color: inherit;
   }
