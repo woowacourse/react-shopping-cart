@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import mainLogo from '../assets/mainPageLogo.png';
+import homePageLogo from '../assets/homePageLogo.png';
 
 const StyledImg = styled.img`
   position: absolute;
@@ -9,12 +9,12 @@ const StyledImg = styled.img`
   transform: translate3d(-50%, -50%, 0);
 `;
 
-const Main = (props) => {
+const Home = () => {
   return (
     <div>
-      <StyledImg src={mainLogo} height="200px" weight="200px" alt="main-logo" />
+      <StyledImg src={homePageLogo} height="200px" weight="200px" alt="main-logo" />
     </div>
   );
 };
 
-export default Main;
+export default Home;

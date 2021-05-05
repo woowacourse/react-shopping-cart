@@ -7,6 +7,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    color: #333333;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   ul {
