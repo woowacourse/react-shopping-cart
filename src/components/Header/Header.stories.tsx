@@ -1,7 +1,7 @@
 import Header from './Header';
 
 export default {
-  title: 'Commons/Header',
+  title: 'Components/Header',
   component: Header,
   argTypes: {},
 };

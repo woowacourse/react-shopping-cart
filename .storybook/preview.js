@@ -1,4 +1,4 @@
-import { configure, addDecorator } from '@storybook/react';
+import { addDecorator } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { theme } from '../src/App.styles';
