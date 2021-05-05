@@ -14,14 +14,9 @@ const Product = ({ imageUrl, alt, size, direction, children }) => {
 Product.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
-  direction: PropTypes.oneOf(['row', 'column']),
+  size: PropTypes.string.isRequired,
+  direction: PropTypes.oneOf(['row', 'column']).isRequired,
   children: PropTypes.elementType,
-};
-
-Product.defaultProps = {
-  size: 'md',
-  direction: 'column',
 };
 
 export default Product;

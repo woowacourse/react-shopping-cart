@@ -5,7 +5,7 @@ export const Header = styled.header`
   height: 5rem;
   background-color: ${PALETTE.BAEMINT};
   padding: 0 1.5rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px ${PALETTE.BLACK_TRANSPARENT_007};
 `;
 
 export const HeaderInner = styled.div`

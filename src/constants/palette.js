@@ -2,6 +2,8 @@ const PALETTE = {
   WHITE: '#ffffff',
   BLACK: '#333333',
   BAEMINT: '#2AC1BC',
+  BLACK_TRANSPARENT_007: '#00000070',
+  BLACK_TRANSPARENT_005: '#00000008',
 };
 
 export default PALETTE;

@@ -11,7 +11,7 @@ const ProductList = ({ products }) => {
     <Styled.ProductList>
       {products.map((product) => (
         <li key={product.id}>
-          <Product imageUrl={product.image.url} alt={product.image.alt} direction={'column'} size={'md'}>
+          <Product imageUrl={product.image.url} alt={product.image.alt} direction={'column'} size={'17.5rem'}>
             <Styled.ProductInfoContainer>
               <Styled.ProductInfo>
                 <Styled.ProductName>{product.name}</Styled.ProductName>

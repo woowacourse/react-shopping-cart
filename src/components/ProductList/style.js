@@ -4,8 +4,12 @@ export const ProductList = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 2.5rem;
-  width: 100%;
+  grid-gap: 2rem;
+
+  li {
+    min-width: 0;
+    min-height: 0;
+  }
 `;
 
 export const ProductInfoContainer = styled.div`
