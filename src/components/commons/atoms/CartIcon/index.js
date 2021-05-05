@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const CartIcon = (props) => {
   const { width, color } = props;
 
@@ -9,4 +11,14 @@ export const CartIcon = (props) => {
       />
     </svg>
   );
+};
+
+CartIcon.propTypes = {
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  color: PropTypes.string,
+};
+
+CartIcon.defaultProps = {
+  width: 50,
+  color: '#000000',
 };

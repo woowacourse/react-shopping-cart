@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 import { CartIcon } from '../../';
 import { getFormattedAsKRW } from '../../../../utils';
@@ -30,4 +31,13 @@ export const ProductItem = (props) => {
       </Styled.Footer>
     </Styled.Container>
   );
+};
+
+ProductItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    img: PropTypes.string,
+  }),
 };

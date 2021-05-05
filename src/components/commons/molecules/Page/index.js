@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 
 export const Page = (props) => {
@@ -9,4 +10,8 @@ export const Page = (props) => {
       </Styled.Page>
     </>
   );
+};
+
+Page.propTypes = {
+  children: PropTypes.node.isRequired,
 };
