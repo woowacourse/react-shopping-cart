@@ -24,6 +24,8 @@ export const ImgDetail = styled.div`
 `;
 
 export const AddCartButton = styled.button`
+  font-size: 1.25rem;
+  font-weight: 700;
   position: absolute;
   bottom: 5px;
   right: 5px;
@@ -35,15 +37,36 @@ export const AddCartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1px 2px 0 0;
+  padding: 0;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 
   &:hover {
     background-color: #2ac1bc;
+    color: white;
 
     svg {
       fill: white;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .product-amount {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2ac1bc;
+    color: white;
+
+    &:hover {
+      background-color: #1a9b96;
     }
   }
 `;

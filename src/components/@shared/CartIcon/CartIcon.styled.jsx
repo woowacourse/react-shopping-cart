@@ -5,6 +5,7 @@ const STYLE = {
     fill: black;
     border-radius: 100%;
     width: 65%;
+    padding: 1px 2px 0 0;
   `,
 };
 
