@@ -13,6 +13,7 @@ export const HeaderInner = Styled.div`
   max-width: 1300px;
   height: 100%;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const HeaderTitle = Styled.div`
