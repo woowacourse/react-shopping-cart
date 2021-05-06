@@ -1,4 +1,5 @@
 /* atoms */
+export { Button } from './atoms/Button';
 export { CartIcon } from './atoms/CartIcon';
 export { Checkbox } from './atoms/Checkbox';
 export { DownwardIcon } from './atoms/DownwardIcon';
