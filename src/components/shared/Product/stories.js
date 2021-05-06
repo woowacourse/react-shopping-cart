@@ -13,7 +13,11 @@ const Template = args => <Product {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  thumbnail: <Thumbnail image={itemImage} alt="임시이미지" size="medium" />,
+  thumbnail: {
+    image: itemImage,
+    alt: '임시 이미지',
+    size: 'small'
+  }
   information: {
     title:
       '상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. ',

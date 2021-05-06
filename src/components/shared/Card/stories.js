@@ -13,13 +13,19 @@ export const Default = Template.bind({});
 export const WithDescription = Template.bind({});
 
 Default.args = {
-  image: itemImage,
+  thumbnail: {
+    image: itemImage,
+    alt: '임시 이미지',
+  },
   title:
     '상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다.',
 };
 
 WithDescription.args = {
-  image: itemImage,
+  thumbnail: {
+    image: itemImage,
+    alt: '임시 이미지',
+  },
   title:
     '상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다.',
   description: (

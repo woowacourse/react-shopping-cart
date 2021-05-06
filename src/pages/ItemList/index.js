@@ -25,7 +25,7 @@ const ItemList = () => {
         <Card
           key={id}
           title={name}
-          image={image}
+          thumbnail={{ image, alt: name }}
           description={
             <Description>
               <Price>{price.toLocaleString('ko-KR')} 원</Price>

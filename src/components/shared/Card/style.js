@@ -4,13 +4,6 @@ export const Container = styled.div`
   width: 282px;
 `;
 
-export const Image = styled.img`
-  display: block;
-  width: 282px;
-  height: 282px;
-  object-fit: cover;
-`;
-
 export const InformationWrapper = styled.div`
   position: relative;
   padding: 1rem 1rem 0;
