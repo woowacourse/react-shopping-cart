@@ -3,6 +3,7 @@ import * as Styled from './Button.styles';
 
 export interface Props {
   children: React.ReactNode;
+  /** 버튼의 크기 및 폰트 크기 유형 */
   size: 'SM' | 'MD' | 'LG';
   backgroundColor?: string;
   fontColor?: string;
