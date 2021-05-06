@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button, { TYPE } from '../components/button/Button';
 import Checkbox from '../components/checkbox/Checkbox';
 
 const ShoppingCart = () => {
@@ -9,9 +10,12 @@ const ShoppingCart = () => {
   };
 
   return (
-    <Checkbox onChange={handleCheckbox} isChecked={isChecked}>
-      선택해제
-    </Checkbox>
+    <>
+      <Checkbox onChange={handleCheckbox} isChecked={isChecked}>
+        선택해제
+      </Checkbox>
+      <Button type={TYPE.MEDIUM}>장바구니</Button>
+    </>
   );
 };
 

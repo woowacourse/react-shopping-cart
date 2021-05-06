@@ -21,6 +21,13 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+
+  button {
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+  }
 `;
 
 export default GlobalStyle;
