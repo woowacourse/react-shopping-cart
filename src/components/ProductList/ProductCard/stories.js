@@ -2,7 +2,7 @@ import ProductCard from '.';
 
 export default {
   component: ProductCard,
-  title: 'components/productList/ProductCard',
+  title: 'components/ProductList/ProductCard',
 };
 
 const Template = (args) => <ProductCard {...args} />;

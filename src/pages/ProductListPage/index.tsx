@@ -1,4 +1,4 @@
-import ProductList from '../../components/productList';
+import ProductList from '../../components/ProductList';
 import Template from '../../components/shared/Template';
 import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
 import { PRODUCT_LIST_MOCK } from '../../mock';

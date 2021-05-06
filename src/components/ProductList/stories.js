@@ -3,7 +3,7 @@ import { PRODUCT_LIST_MOCK } from '../../mock';
 
 export default {
   component: ProductList,
-  title: 'components/productList',
+  title: 'components/ProductList',
 };
 
 const Template = (args) => <ProductList {...args} />;
