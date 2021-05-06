@@ -1,5 +1,5 @@
 {
-  "product": [
+  "productList": [
     {
       "id": 1,
       "img": "https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif",
@@ -20,6 +20,18 @@
     },
     {
       "id": 4,
+      "img": "https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif",
+      "name": "브랜4",
+      "price": 3000
+    },
+    {
+      "id": 5,
+      "img": "https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif",
+      "name": "브랜4",
+      "price": 3000
+    },
+    {
+      "id": 6,
       "img": "https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif",
       "name": "브랜4",
       "price": 3000
