@@ -5,7 +5,7 @@ import { Container, LogoContainer, ButtonContainer } from './NavBar.styles';
 
 const NavBar = ({ Logo, Buttons }) => (
   <Container>
-    <LogoContainer>{Logo}</LogoContainer>
+    <LogoContainer to="/">{Logo}</LogoContainer>
     <ButtonContainer>{Buttons}</ButtonContainer>
   </Container>
 );
@@ -17,10 +17,10 @@ NavBar.propTypes = {
 
 NavBar.defaultProps = {
   Logo: (
-    <Link to="/">
+    <>
       <ShoppingCartIcon scale="0.8" color="white" />
       <span>WOOWA SHOP</span>
-    </Link>
+    </>
   ),
   Buttons: (
     <>

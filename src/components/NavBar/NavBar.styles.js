@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.nav`
   display: flex;
@@ -6,21 +7,19 @@ const Container = styled.nav`
   justify-content: space-around;
   width: 100%;
   height: 80px;
-  color: white;
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 `;
 
-const LogoContainer = styled.div`
+const LogoContainer = styled(Link)`
   font-size: 2rem;
   display: flex;
   align-items: center;
+  color: white;
+  font-weight: 900;
+
   & > *:not(:last-child) {
     margin-right: 10px;
-  }
-  & > span {
-    font-weight: 900;
   }
 `;
 
@@ -29,8 +28,9 @@ const ButtonContainer = styled.div`
     margin-right: 40px;
   }
 
-  & > * {
+  & > a {
     cursor: pointer;
+    color: white;
   }
 `;
 

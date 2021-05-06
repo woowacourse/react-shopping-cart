@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '../ShoppingCartIcon/ShoppingCartIcon';
 import NavBar from './NavBar';
 
@@ -20,8 +21,8 @@ Basic.args = {
   ),
   Buttons: (
     <>
-      <span>장바구니</span>
-      <span>주문목록</span>
+      <Link to="/cart">장바구니</Link>
+      <Link to="/orders">주문목록</Link>
     </>
   ),
 };

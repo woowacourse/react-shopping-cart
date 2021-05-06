@@ -1,5 +1,6 @@
 import { configure, addDecorator } from '@storybook/react';
 import * as React from 'react';
+import { HashRouter as Router } from 'react-router-dom';
 import GlobalStyles from '../src/GlobalStyles';
 
 export const parameters = {
@@ -15,7 +16,7 @@ export const parameters = {
 addDecorator(style => (
   <>
     <GlobalStyles />
-    {style()}
+    <Router>{style()}</Router>
   </>
 ));
 
