@@ -7,9 +7,9 @@ import HighlightText from '../../common/HighlightText';
 import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
 
-const PriceInfoBox = ({ title, priceInfo, submitText }) => {
+const PriceInfoBox = ({ width, margin, title, priceInfo, submitText }) => {
   return (
-    <FlexContainer direction={'column'} border={`1px solid ${PALETTE.GRAY_004}`}>
+    <FlexContainer width={width} margin={margin} direction={'column'} border={`1px solid ${PALETTE.GRAY_004}`}>
       <Styled.PriceInfoTitle>{title}</Styled.PriceInfoTitle>
       <FlexContainer direction={'column'} padding={'1.8rem 1.4rem'}>
         <FlexContainer justifyContent={'space-between'} margin={submitText && '0 0 3rem 0'}>
@@ -35,6 +35,8 @@ const PriceInfoBox = ({ title, priceInfo, submitText }) => {
 };
 
 PriceInfoBox.propTypes = {
+  width: PropTypes.string,
+  margin: PropTypes.string,
   title: PropTypes.string,
   priceInfo: PropTypes.shape({
     name: PropTypes.string,

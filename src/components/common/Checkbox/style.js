@@ -12,6 +12,7 @@ export const Checkbox = styled.input`
   cursor: pointer;
   position: relative;
   margin-right: 1rem;
+  outline: none;
 
   &:before {
     width: 1.75rem;
@@ -34,7 +35,7 @@ export const Checkbox = styled.input`
     border-color: ${PALETTE.WHITE};
     transform: rotate(-45deg);
     position: absolute;
-    top: 20%;
-    left: 15%;
+    top: 0.45rem;
+    left: 0.25rem;
   }
 `;

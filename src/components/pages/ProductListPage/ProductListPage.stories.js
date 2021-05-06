@@ -1,14 +1,14 @@
 import React from 'react';
 import ProductListPage from '.';
-import { HEADER } from '../../constants/appInfo';
-import { reactFamily } from '../../mockData';
-import ShoppingCart from '../common/Icon/ShoppingCart';
-import Header from '../Header';
-import Navigation from '../Navigation';
-import Main from '../Main';
+import { HEADER } from '../../../constants/appInfo';
+import { reactFamily } from '../../../mockData';
+import ShoppingCart from '../../common/Icon/ShoppingCart';
+import Header from '../../Header';
+import Navigation from '../../Navigation';
+import Main from '../../Main';
 
 export default {
-  title: 'ProductListPage',
+  title: 'pages/ProductListPage',
   component: ProductListPage,
   argTypes: {},
 };

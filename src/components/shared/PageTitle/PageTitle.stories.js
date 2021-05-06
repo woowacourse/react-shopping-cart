@@ -11,5 +11,5 @@ const Template = (args) => <PageTitle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  title: '장바구니',
+  children: '장바구니',
 };

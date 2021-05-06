@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Product from '../shared/Product';
-import ShoppingCart from '../common/Icon/ShoppingCart';
-import { UNIT } from '../../constants/appInfo';
-import PALETTE from '../../constants/palette';
+import Product from '../../shared/Product';
+import ShoppingCart from '../../common/Icon/ShoppingCart';
+import { UNIT } from '../../../constants/appInfo';
+import PALETTE from '../../../constants/palette';
 import * as Styled from './style';
 
 const ProductListPage = ({ products }) => {
@@ -31,7 +31,18 @@ const ProductListPage = ({ products }) => {
 };
 
 ProductListPage.propTypes = {
-  products: PropTypes.array,
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.shape({
+        url: PropTypes.string,
+        alt: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })
+  ),
 };
 
 export default ProductListPage;

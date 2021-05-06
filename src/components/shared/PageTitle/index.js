@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const PageTitle = ({ title }) => {
-  return <Styled.TitleContainer>{title}</Styled.TitleContainer>;
+const PageTitle = ({ children }) => {
+  return <Styled.TitleContainer>{children}</Styled.TitleContainer>;
 };
 
 PageTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default PageTitle;
