@@ -56,27 +56,27 @@
   - component
     - page
       - Products
-        - ProductList
-        - ProductDetail
+        - [] ProductList
+        - [] ProductDetail
 
       - Shopping
-        - 장바구니
-        - 주문결제
-        - OrderList
-        - OrderDetail
+        - [] 장바구니
+        - [] 주문결제
+        - [] OrderList
+        - [] OrderDetail
 
-    - NavBar
-    - Header
-    - Button
+    - [x] NavBar
+    - [] PageHeader
+    - [] Button
 
-    - ProductList
-    - ProductItem
-    - ProductDetail
+    - [] ProductList
+    - [x] ProductItem
+    - [x] ProductDetail
 
-    - ShoppingItem
-    - ShoppingManagement
-    - OrderItem
-    - OrderList
-    - CompletedOrderList
-    - PaymentSheet
+    - [] ShoppingItem
+    - [] ShoppingManagement
+    - [] OrderItem
+    - [] OrderList
+    - [] CompletedOrderList
+    - [] PaymentSheet
 ```
