@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Detail,
-  Image,
-  Name,
-  PriceWrapper,
-  Product,
-} from './index.styles';
-import { FALLBACK } from '../../constants';
+import Button from '../common/Button';
+import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
+import { FALLBACK, STYLE } from '../../constants';
 
 const ProductDetail = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
@@ -26,7 +20,7 @@ const ProductDetail = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button>장바구니</Button>
+    <Button buttonStyle={STYLE.BUTTON.BROWN}>장바구니</Button>
   </Product>
 );
 

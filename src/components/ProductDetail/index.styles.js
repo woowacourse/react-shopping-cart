@@ -31,11 +31,3 @@ export const PriceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export const Button = styled.button`
-  height: 2.7rem;
-  background-color: var(--color-brown);
-  color: var(--color-white);
-  font-size: var(--font-semi-large);
-  font-weight: var(--weight-semi-bold);
-`;
