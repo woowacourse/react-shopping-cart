@@ -3,6 +3,7 @@ export { CartIcon } from './atoms/CartIcon';
 export { Checkbox } from './atoms/Checkbox';
 export { Line } from './atoms/Line';
 export { Page } from './atoms/Page';
+export { TrashCanIcon } from './atoms/TrashCanIcon';
 
 /* molecules */
 export { Header } from './molecules/Header';
