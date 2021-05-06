@@ -3,6 +3,7 @@ import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { Switch, Route } from 'react-router-dom';
 import { PATH } from './constants';
+import { ItemList } from './pages';
 
 function App() {
   return (
@@ -11,9 +12,7 @@ function App() {
       <Header menuList={['장바구니', '주문목록']} />
       <MainContainer>
         <Switch>
-          <Route exact path={PATH.MAIN}>
-            MAIN
-          </Route>
+          <Route exact path={PATH.MAIN} component={ItemList} />
           <Route exact path={PATH.GOODS_DETAIL}>
             GOODS_DETAIL
           </Route>
