@@ -9,6 +9,6 @@
 - [x] CartItem
 - [x] SubmitBox
 - [x] TextWithHighlight
-- [ ] OrderProductItem
+- [x] OrderProductItem
 - [ ] OrderList
 - [ ] ProductDetail

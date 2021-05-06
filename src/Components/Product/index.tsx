@@ -1,15 +1,15 @@
-import React, { MouseEventHandler, VFC } from "react";
+import React, { MouseEventHandler, ReactElement, VFC } from "react";
 import { Link } from "react-router-dom";
 
-import { IProductImageProps } from "../ProductImage";
+import ProductImage, { IProductImageProps } from "../ProductImage";
 import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, Desc, Name, Price, CartButton } from "./style";
 
 interface IProductProps {
-  Image: React.ReactElement<IProductImageProps>;
+  Image: ReactElement<IProductImageProps>;
   name: string;
-  price: string;
+  price: number;
   id: string;
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
@@ -27,7 +27,7 @@ const Product: VFC<IProductProps> = ({
       <div>
         <Desc>
           <Name>{name}</Name>
-          <Price>{price}</Price>
+          <Price>{price}원</Price>
         </Desc>
       </div>
     </Link>

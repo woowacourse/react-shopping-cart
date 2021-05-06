@@ -15,6 +15,6 @@ export const Basic = Template.bind({});
 Basic.args = {
   id: "1",
   name: "브랜브랜의 철봉",
-  price: "1000000",
+  price: 1000000,
   onClickDeleteButton: () => {},
 };

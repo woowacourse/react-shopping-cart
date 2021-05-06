@@ -14,7 +14,7 @@ import {
 interface ICartItemProps {
   id: string;
   name: string;
-  price: string;
+  price: number;
   onClickDeleteButton: EventHandler<MouseEvent>;
 }
 
