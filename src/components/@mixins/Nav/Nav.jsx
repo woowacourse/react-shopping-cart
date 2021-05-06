@@ -19,7 +19,7 @@ const Nav = () => {
         </a>
         <S.NavMenu>
           <li>
-            <a href="/" className="cart-link">
+            <a href="/" className="cart-link" aria-label="cart-link">
               <span>장바구니</span>
               {cartAmount > 0 && (
                 <span className="cart-amount">{cartAmount}</span>

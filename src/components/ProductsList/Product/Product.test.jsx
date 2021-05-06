@@ -5,6 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import store from "../../../store";
 import { clearCart } from "../../../store/modules/cartSlice";
 import Product from "./Product";
+import Nav from "../../@mixins/Nav/Nav";
 
 const product = {
   id: 1,
@@ -49,5 +50,22 @@ describe("Product", () => {
 
     fireEvent.click(button);
     expect(button).toHaveTextContent("3");
+  });
+
+  test("장바구니에 담긴 상품의 개수가 Nav 장바구니 메뉴 우측에 표시된다.", () => {
+    render(
+      <Provider store={store}>
+        <Nav />
+      </Provider>
+    );
+    const button = screen.getByRole("button");
+
+    fireEvent.click(button);
+    fireEvent.click(button);
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    const cartLink = screen.getByRole("link", { name: "cart-link" });
+    expect(cartLink).toHaveTextContent("4");
   });
 });
