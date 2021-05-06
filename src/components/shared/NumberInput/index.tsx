@@ -1,22 +1,31 @@
 import { NumberInputContainer, IncreaseButton, DecreaseButton } from './style';
 import Container from '../Container';
 import Input from '../Input';
-import { ChangeEvent, useEffect, VFC } from 'react';
+import { ChangeEvent, useEffect, useState, VFC } from 'react';
 
 interface Props {
   value: number;
   setValue: (value: number) => void;
-  min: number;
-  max: number;
+  min?: number;
+  max?: number;
 }
 
 const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infinity }) => {
+  const [num, setNum] = useState(value);
+
   const isValidInput = (input: number) => input >= min && input <= max;
 
   const onChangeInput = ({ target: { valueAsNumber } }: ChangeEvent<HTMLInputElement>) => {
-    if (!isValidInput(valueAsNumber)) return;
+    setNum(valueAsNumber);
+  };
 
-    setValue(valueAsNumber);
+  const onBlurInput = () => {
+    if (!isValidInput(num)) {
+      setNum(value);
+      return;
+    }
+
+    setValue(num);
   };
 
   const onClickIncreaseButton = () => {
@@ -32,14 +41,23 @@ const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infin
   };
 
   useEffect(() => {
-    if (isValidInput(value)) return;
+    if (!isValidInput(value)) {
+      throw Error('Invalid value: value should be within min and max range ');
+    }
 
-    throw Error('Invalid value: value should be within min and max range ');
-  }, []);
+    setNum(value);
+  }, [value]);
 
   return (
     <NumberInputContainer>
-      <Input type="number" value={value} min={min} max={max} onChange={onChangeInput} />
+      <Input
+        type="number"
+        value={num}
+        min={min}
+        max={max}
+        onChange={onChangeInput}
+        onBlur={onBlurInput}
+      />
       <Container>
         <IncreaseButton onClick={onClickIncreaseButton}>
           <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
