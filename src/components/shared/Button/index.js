@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container } from './style';
 
 const Button = ({ children, type, color, borderColor, disabled, width, height, onClick }) => {
@@ -15,6 +16,17 @@ const Button = ({ children, type, color, borderColor, disabled, width, height, o
       {children}
     </Container>
   );
+};
+
+Button.propTypes = {
+  type: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  borderColor: PropTypes.string.isRequired,
+  disabled: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default Button;

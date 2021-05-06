@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Thumbnail from '../Thumbnail';
 import { Container, InformationWrapper, Title, Description, ExtraWrapper } from './style';
 
@@ -13,6 +14,21 @@ const Product = ({ thumbnail, information, extra }) => {
       <ExtraWrapper>{extra}</ExtraWrapper>
     </Container>
   );
+};
+
+Product.propTypes = {
+  thumbnail: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    size: PropTypes.string,
+  }),
+
+  information: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }),
+
+  extra: PropTypes.element,
 };
 
 export default Product;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Wrapper, Image } from './style';
 
 /*
@@ -17,6 +18,12 @@ const Thumbnail = ({ image, alt, size = 'middle' }) => {
       </Wrapper>
     </Container>
   );
+};
+
+Thumbnail.propTypes = {
+  image: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  size: PropTypes.string,
 };
 
 export default Thumbnail;

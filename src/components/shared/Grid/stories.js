@@ -12,11 +12,12 @@ const Template = args => <Grid {...args} />;
 
 export const Default = Template.bind({});
 
+// TODO: 스토리북에서 생성한 컴포넌트 재사용하기
 Default.args = {
   col: 4,
   children: Array.from({ length: 18 }).map(() => (
     <Card
-      image={itemImage}
+      thumbnail={{ image: itemImage, alt: '임시이미지' }}
       title="상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다 "
       description={
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

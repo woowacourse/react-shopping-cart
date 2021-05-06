@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container } from './style';
 
 /**
@@ -6,6 +7,11 @@ import { Container } from './style';
  */
 const Grid = ({ col, children }) => {
   return <Container col={col}>{children}</Container>;
+};
+
+Grid.propTypes = {
+  col: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default Grid;

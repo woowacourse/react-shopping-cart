@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Wrapper, Logo, Menu, MenuItem } from './style';
 import logo from '../../assets/icons/logo.svg';
 
@@ -18,5 +19,7 @@ const Header = ({ menuList }) => {
     </>
   );
 };
+
+Header.propTypes = {};
 
 export default Header;

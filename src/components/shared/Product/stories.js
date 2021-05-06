@@ -1,6 +1,5 @@
 import React from 'react';
 import Product from './index';
-import Thumbnail from '../Thumbnail';
 import itemImage from '../../../assets/images/product-item01.png';
 
 export default {
@@ -16,8 +15,8 @@ Default.args = {
   thumbnail: {
     image: itemImage,
     alt: '임시 이미지',
-    size: 'small'
-  }
+    size: 'small',
+  },
   information: {
     title:
       '상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. 상품이름은 최대 2줄입니다. ',
