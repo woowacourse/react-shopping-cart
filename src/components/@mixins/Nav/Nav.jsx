@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
@@ -13,23 +14,23 @@ const Nav = () => {
   return (
     <S.Nav>
       <S.NavWrapper>
-        <a href="/" className="nav-title">
+        <Link to="/" className="nav-title">
           <CartIcon />
           <h1>WOOWA SHOP</h1>
-        </a>
+        </Link>
         <S.NavMenu>
           <li>
-            <a href="/" className="cart-link" aria-label="cart-link">
+            <Link to="/cart" className="cart-link" aria-label="cart-link">
               <span>장바구니</span>
               {cartAmount > 0 && (
                 <span className="cart-amount">{cartAmount}</span>
               )}
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/">
+            <Link to="/order">
               <span>주문목록</span>
-            </a>
+            </Link>
           </li>
         </S.NavMenu>
       </S.NavWrapper>
