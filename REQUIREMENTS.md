@@ -10,5 +10,5 @@
 - [x] SubmitBox
 - [x] TextWithHighlight
 - [x] OrderProductItem
-- [ ] OrderList
+- [x] OrderList
 - [ ] ProductDetail

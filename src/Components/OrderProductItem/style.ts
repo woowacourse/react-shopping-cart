@@ -7,7 +7,8 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   padding: 2.5% 2.2%;
-  border: 1px solid black;
+  border-top: 1px solid ${COLOR.GRAY_250};
+  background-color: ${COLOR.WHITE};
 `;
 
 const Desc = styled.div`

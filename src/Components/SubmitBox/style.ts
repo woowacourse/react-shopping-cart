@@ -12,7 +12,7 @@ const Container = styled.div<ContainerProps>`
     width: ${width};
     height: ${height};
   `}
-  border: 1px solid ${COLOR.GRAY_150};
+  border: 1px solid ${COLOR.GRAY_100};
 `;
 
 const Title = styled.h3`
@@ -22,7 +22,7 @@ const Title = styled.h3`
   height: 25%;
   font-size: 1.5rem;
   padding: 1.25rem 1.9rem;
-  border-bottom: 1px solid ${COLOR.GRAY_150};
+  border-bottom: 1px solid ${COLOR.GRAY_100};
 `;
 
 const Main = styled(FlexBetween("div"))`

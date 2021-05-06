@@ -4,5 +4,19 @@ import { default as Product } from "./Product";
 import { default as ProductImage } from "./ProductImage";
 import { default as CheckBox } from "./CheckBox";
 import { default as Button } from "./Button";
+import {
+  default as OrderProductItem,
+  OrderProductItemProps,
+} from "./OrderProductItem";
 
-export { Header, Icon, Product, ProductImage, CheckBox, Button };
+// TODO: 인터페이스도 re-export하기 (모두)
+export {
+  Header,
+  Icon,
+  Product,
+  ProductImage,
+  CheckBox,
+  Button,
+  OrderProductItem,
+};
+export { OrderProductItemProps };

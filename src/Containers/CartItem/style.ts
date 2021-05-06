@@ -23,7 +23,6 @@ const Desc = styled.div`
 const NameLink = styled(Link)`
   color: ${COLOR.GRAY_600};
   font-size: 1.25rem;
-  font-weight: 400;
   cursor: pointer;
   line-height: 2;
 
@@ -44,11 +43,11 @@ const Counter = styled.div`
   display: flex;
   width: 100%;
   height: 3.75rem;
-  border: 1px solid ${COLOR.GRAY_150};
+  border: 1px solid ${COLOR.GRAY_100};
 
   > input {
     width: 64.3%;
-    border-right: 1px solid ${COLOR.GRAY_150};
+    border-right: 1px solid ${COLOR.GRAY_100};
     font-size: 1.5rem;
     text-align: center;
   }
@@ -63,7 +62,7 @@ const Counter = styled.div`
       height: 1.85rem;
 
       :last-child {
-        border-top: 1px solid ${COLOR.GRAY_150};
+        border-top: 1px solid ${COLOR.GRAY_100};
       }
     }
   }
