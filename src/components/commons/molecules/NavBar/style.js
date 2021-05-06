@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { baeminCyan } from '../../../../constants';
 import '../../../fonts/BMYEONSUNG.css';
 
-export const NavBar = styled.div`
+export const NavBar = styled.nav`
   position: fixed;
   top: 0;
   width: 100vw;
@@ -25,7 +25,7 @@ export const LeftItems = styled.div`
   align-items: center;
 `;
 
-export const Title = styled.span`
+export const Title = styled.h1`
   font-family: 'BMYEONSUNG';
   color: #ffffff;
   margin: 0 1rem;

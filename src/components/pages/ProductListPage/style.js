@@ -5,6 +5,8 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
+export const Main = styled.main``;
+
 export const ProductList = styled.ul`
   list-style: none;
   display: grid;
