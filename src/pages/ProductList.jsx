@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ProductListItem from '../components/productListItem/ProductListItem';
 
@@ -9,20 +9,8 @@ const StyledUl = styled.ul`
   row-gap: 28px;
 `;
 
-const ProductList = () => {
+const ProductList = ({ productListState }) => {
   // TODO: ~State 뺄지
-  const [productListState, setProductListState] = useState(null);
-
-  useEffect(() => {
-    const getProductList = async () => {
-      const response = await fetch('http://localhost:4000/products');
-      const result = await response.json();
-
-      setProductListState(result);
-    };
-
-    getProductList();
-  }, []);
 
   return (
     <StyledUl>

@@ -14,7 +14,7 @@ const StyledShoppingCartItemContainer = styled.ul`
 
 const StyledLeftLi = styled.li`
   display: flex;
-  & > * {
+  & > *:not(:first-child) {
     margin-left: 15px;
   }
 `;

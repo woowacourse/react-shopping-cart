@@ -4,5 +4,6 @@ export const COLOR = {
   WHITE: '#FFFFFF',
   GRAY_200: '#DDDDDD',
   GRAY_300: '#BBBBBB',
+  GRAY_400: '#AAAAAA',
   GRAY_800: '#333333',
 };

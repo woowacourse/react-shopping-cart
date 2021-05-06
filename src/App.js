@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Navigation from './components/navigation/Navigation';
@@ -16,6 +16,19 @@ const StyledContents = styled.div`
 `;
 
 function App() {
+  const [productListState, setProductListState] = useState(null);
+
+  useEffect(() => {
+    const getProductList = async () => {
+      const response = await fetch('http://localhost:4000/products');
+      const result = await response.json();
+
+      setProductListState(result);
+    };
+
+    getProductList();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
@@ -26,10 +39,10 @@ function App() {
             <Home />
           </Route>
           <Route exact path="/productList">
-            <ProductList />
+            <ProductList productListState={productListState} />
           </Route>
           <Route exact path="/shoppingCart">
-            <ShoppingCart />
+            <ShoppingCart productListState={productListState} />
           </Route>
           <Route exact path="/orderList">
             <OrderList />

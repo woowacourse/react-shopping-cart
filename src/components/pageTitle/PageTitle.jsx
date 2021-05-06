@@ -4,7 +4,6 @@ import { COLOR } from '../../constants/color';
 
 const StyledTitle = styled.div`
   height: 67px;
-  padding-bottom: 29px;
   border-bottom: 4px solid ${COLOR.GRAY_800};
   font-size: 32px;
   text-align: center;

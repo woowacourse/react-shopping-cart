@@ -74,7 +74,7 @@ const StyledDownArrow = styled(StyledButton)`
 
 const NumberInput = () => (
   <StyledNumberInputContainer>
-    <StyledNumberInput min="1" disabled />
+    <StyledNumberInput value="1" min="1" disabled />
     <StyledArrowContainer>
       <StyledUpArrow>
         <img src={upArrow} alt="증가" />
