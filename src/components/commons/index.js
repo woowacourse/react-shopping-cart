@@ -1,6 +1,7 @@
 /* atoms */
 export { CartIcon } from './atoms/CartIcon';
 export { Checkbox } from './atoms/Checkbox';
+export { DownwardIcon } from './atoms/DownwardIcon';
 export { Line } from './atoms/Line';
 export { Page } from './atoms/Page';
 export { TrashCanIcon } from './atoms/TrashCanIcon';
