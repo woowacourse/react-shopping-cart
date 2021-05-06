@@ -10,6 +10,7 @@ const GlobalStyles = () => (
         padding: 0;
         overflow: hidden;
         height: 100vh;
+        width: 100%;
       }
 
       #root {
