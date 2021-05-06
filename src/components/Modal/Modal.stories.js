@@ -1,12 +1,12 @@
-import AlertModal from './AlertModal';
+import Modal from './Modal';
 
 export default {
-  title: 'ShoppingCart/AlertModal',
-  component: AlertModal,
+  title: 'ShoppingCart/Modal',
+  component: Modal,
   argTypes: { children: { control: 'text' } },
 };
 
-const Template = ({ ...args }) => <AlertModal {...args} />;
+const Template = ({ ...args }) => <Modal {...args} />;
 
 export const Basic = Template.bind({});
 
@@ -17,4 +17,5 @@ Basic.args = {
       <button type="button">{'장바구니 바로가기 >'}</button>
     </>
   ),
+  onClickClose: () => alert('모달 닫기'),
 };
