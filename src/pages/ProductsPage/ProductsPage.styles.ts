@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 
 const Styled = {
-  Root: styled.section``,
+  Root: styled.section`
+    margin: 60px 0;
+  `,
 
   ProductList: styled.ul`
     margin: 0;
-    margin-top: 60px;
     padding: 0;
     list-style: none;
     display: grid;

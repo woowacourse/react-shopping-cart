@@ -23,7 +23,6 @@ const Styled = {
   `,
 
   Detail: styled.div`
-    color: ${(props) => props.theme.textColor.defaultBlack};
     letter-spacing: 0.5px;
     max-width: 200px;
   `,

@@ -21,9 +21,14 @@ export const theme: Theme = {
   bgColor: {
     primary: '#2AC1BC',
   },
+  color: {
+    defaultBlack: '#333333',
+  },
   textColor: {
     defaultWhite: '#FFFFFF',
-    defaultBlack: '#333333',
+  },
+  borderColor: {
+    dividerGrey: '#aaaaaa',
   },
 };
 

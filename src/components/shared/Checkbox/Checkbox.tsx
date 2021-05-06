@@ -3,7 +3,7 @@ import React from 'react';
 import Styled from './Checkbox.styles';
 
 type CheckboxProps = {
-  labelText: string;
+  labelText?: string;
 };
 
 const Checkbox = (props: CheckboxProps) => {
@@ -12,12 +12,16 @@ const Checkbox = (props: CheckboxProps) => {
   return (
     <>
       <Styled.Label className="container">
-        {labelText}
+        <Styled.Text>{labelText}</Styled.Text>
         <Styled.Checkbox type="checkbox" />
         <Styled.CheckMark className="checkmark" />
       </Styled.Label>
     </>
   );
+};
+
+Checkbox.defaultProps = {
+  labelText: '',
 };
 
 export default Checkbox;

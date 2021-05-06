@@ -6,6 +6,7 @@ const Styled = {
     max-width: 1320px;
     min-width: 768px;
     margin: 0 auto;
+    color: ${(props) => props.theme.color.defaultBlack};
   `,
 };
 

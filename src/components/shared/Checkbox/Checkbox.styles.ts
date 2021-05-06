@@ -6,7 +6,7 @@ const Styled = {
   Label: styled.label`
     display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 28px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 16px;
@@ -15,6 +15,10 @@ const Styled = {
     &:hover .checkmark {
       background-color: #e1f5f4;
     }
+  `,
+
+  Text: styled.span`
+    padding-left: 7px;
   `,
 
   Checkbox: styled.input`

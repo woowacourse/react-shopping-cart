@@ -5,9 +5,17 @@ declare module '@emotion/react' {
     bgColor: {
       primary: string;
     };
+
+    color: {
+      defaultBlack: string;
+    };
+
     textColor: {
       defaultWhite: string;
-      defaultBlack: string;
+    };
+
+    borderColor: {
+      dividerGrey: string;
     };
   }
 }
