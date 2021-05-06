@@ -8,7 +8,7 @@ interface Props {
   height: string;
 }
 
-const IconButton: VFC = styled(Button)<Props>`
+const IconButton = styled(Button)<Props>`
   background-image: url(${({ imgSrc }) => imgSrc});
   background-size: contain;
   background-repeat: no-repeat;

@@ -7,6 +7,8 @@ interface Props {
   direction?: FlexDirection;
   justifyContent?: JustifyContent;
   alignCenter?: boolean;
+  width?: string;
+  height?: string;
 }
 
 const Container = styled.div<Props>`
@@ -14,6 +16,8 @@ const Container = styled.div<Props>`
   flex-direction: ${({ direction }) => direction || 'column'};
   ${({ justifyContent }) => justifyContent && `justify-content: ${justifyContent}`};
   ${({ alignCenter }) => alignCenter && 'align-items: center;'};
+  ${({ width }) => width && `width: ${width}`};
+  ${({ height }) => height && `height: ${height}`};
 `;
 
 export default Container;

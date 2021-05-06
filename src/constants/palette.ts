@@ -5,6 +5,9 @@ const PALETTE = {
   WHITE: {
     900: '#FFFFFF',
   },
+  GRAY: {
+    300: '#DDDDDD',
+  },
 };
 
 export default PALETTE;
