@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Container, Image, DetailContainer, ProductDetail, Name, Price } from './ColumnProductItem.styles';
 import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
+import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
 
 const ColumnProductItem = ({ imgSrc, name, price, onClick }) => (
   <Container>
@@ -26,8 +27,7 @@ ColumnProductItem.propTypes = {
 };
 
 ColumnProductItem.defaultProps = {
-  imgSrc:
-    'https://lh3.googleusercontent.com/proxy/1c4QW5NSZSE7GWkRDMJC-0fBKuXA0rOGWy3b7orSCWSui-lGrgG7yx03uivU67j0Rm2bWAdF46VvqAnW2mFJ3n-EQDu1fr7XzQey',
+  imgSrc: productNotFoundImg,
   onClick: () => {},
 };
 
