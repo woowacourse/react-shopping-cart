@@ -1,9 +1,11 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
-import store from "../../../store";
-import { clearCart } from "../../../store/modules/cartSlice";
+import {
+  fireEvent,
+  render,
+  screen,
+} from "../../../store/customReactTestLibrary";
 import Product from "./Product";
 import Nav from "../../@mixins/Nav/Nav";
 
@@ -15,19 +17,9 @@ const product = {
 };
 
 describe("Product", () => {
-  beforeEach(() => {
-    render(
-      <Provider store={store}>
-        <Product product={product} />
-      </Provider>
-    );
-  });
-
-  afterEach(() => {
-    store.dispatch(clearCart());
-  });
-
   test("카트 아이콘을 클릭하면 카트아이콘 대신 숫자 1이 표시된다", () => {
+    render(<Product product={product} />);
+
     const button = screen.getByRole("button");
     const cartIcon = screen.getByTitle("cart-icon");
 
@@ -40,6 +32,8 @@ describe("Product", () => {
   });
 
   test("숫자를 클릭하면 숫자가 1씩 증가한다", () => {
+    render(<Product product={product} />);
+
     const button = screen.getByRole("button");
 
     fireEvent.click(button);
@@ -54,10 +48,12 @@ describe("Product", () => {
 
   test("장바구니에 담긴 상품의 개수가 Nav 장바구니 메뉴 우측에 표시된다.", () => {
     render(
-      <Provider store={store}>
+      <BrowserRouter>
         <Nav />
-      </Provider>
+        <Product product={product} />
+      </BrowserRouter>
     );
+
     const button = screen.getByRole("button");
 
     fireEvent.click(button);
