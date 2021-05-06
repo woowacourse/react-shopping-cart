@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
 import { UpwardIcon, DownwardIcon } from '../../';
+import * as Styled from './style.js';
 
 export const QuantityStepper = (props) => {
   const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = props;
