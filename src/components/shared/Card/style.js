@@ -19,6 +19,11 @@ export const Title = styled.h4`
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const DescriptionWrapper = styled.div`

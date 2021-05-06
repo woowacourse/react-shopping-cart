@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Card } from '../../components/shared';
 import { Description, Price, CartButton, CartIcon } from './style';
 import cartIcon from '../../assets/icons/cart.svg';
+import { BASE_URL, PATH } from '../../constants';
+import { useHistory } from 'react-router-dom';
 
 const ItemList = () => {
   const [list, setList] = useState([]);
 
+  const history = useHistory();
+
   useEffect(() => {
     const getItemListRequest = async () => {
-      const response = await fetch(
-        'https://sunhpark42.github.io/test_asset/woowa-mart/itemList.json',
-      );
+      const response = await fetch(`${BASE_URL}/itemList.json`);
 
       const result = await response.json();
       setList(result);
@@ -26,13 +28,26 @@ const ItemList = () => {
           key={id}
           title={name}
           thumbnail={{ image, alt: name }}
+          onClick={() => {
+            history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
+          }}
           description={
             <Description>
               <Price>{price.toLocaleString('ko-KR')} 원</Price>
               <CartButton
-                onClick={() => {
-                  // 장바구니 추가 REQUEST
-                  console.log(id);
+                onClick={async () => {
+                  try {
+                    const response = await fetch(`${BASE_URL}/addCart.json`);
+
+                    if (!response.ok) {
+                      throw new Error('add Cart Error');
+                    }
+
+                    alert(`장바구니에 추가되었습니다. 상품 id : ${id}`);
+                  } catch (error) {
+                    console.error(error.message);
+                    alert('장바구니에 추가하지 못했습니다.');
+                  }
                 }}
               >
                 <CartIcon src={cartIcon} alt="장바구니" />

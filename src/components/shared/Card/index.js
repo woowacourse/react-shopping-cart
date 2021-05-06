@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import Thumbnail from '../Thumbnail';
 import { Container, InformationWrapper, DescriptionWrapper, Title } from './style';
 
-const Card = ({ thumbnail, title, description }) => {
+const Card = ({ thumbnail, title, description, onClick }) => {
   return (
     <Container>
-      <Thumbnail image={thumbnail.image} alt={thumbnail.alt} size={thumbnail.size ?? 'large'} />
+      <Thumbnail
+        image={thumbnail.image}
+        alt={thumbnail.alt}
+        size={thumbnail.size ?? 'large'}
+        onClick={onClick}
+      />
       <InformationWrapper>
-        <Title>{title}</Title>
+        <Title onClick={onClick}>{title}</Title>
         <DescriptionWrapper>{description}</DescriptionWrapper>
       </InformationWrapper>
     </Container>
@@ -23,6 +28,7 @@ Card.propTypes = {
   }),
   title: PropTypes.string.isRequired,
   description: PropTypes.element,
+  onClick: PropTypes.func,
 };
 
 export default Card;

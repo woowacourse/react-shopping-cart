@@ -10,9 +10,9 @@ Default: medium
 - x-large 570px * 570px
 */
 
-const Thumbnail = ({ image, alt, size = 'middle' }) => {
+const Thumbnail = ({ image, alt, size = 'middle', onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Wrapper size={size}>
         <Image src={image} alt={alt} />
       </Wrapper>
@@ -24,6 +24,7 @@ Thumbnail.propTypes = {
   image: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   size: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Thumbnail;
