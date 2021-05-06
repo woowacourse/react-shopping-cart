@@ -6,7 +6,7 @@ import logo from '../asset/logo.svg';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
-  width: 100vw;
+  min-width: 1440px;
   height: 80px;
   background-color: #2ac1bc;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
@@ -16,9 +16,10 @@ const StyledHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1320px;
-  margin: 0 auto;
+  max-width: 1440px;
   height: 100%;
+  padding: 0 60px;
+  margin: 0 auto;
 `;
 
 // TODO : h1 태그에 글자가 없어서 접근성 요소 넣어야함
