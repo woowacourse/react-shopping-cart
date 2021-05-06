@@ -11,6 +11,8 @@ import styled from 'styled-components';
 const StyledContents = styled.div`
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 60px;
+  margin-top: 40px;
 `;
 
 function App() {

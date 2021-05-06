@@ -7,8 +7,6 @@ const StyledUl = styled.ul`
   grid-template-columns: repeat(4, 282px);
   column-gap: 60px;
   row-gap: 28px;
-  padding: 0 60px;
-  margin-top: 40px;
 `;
 
 const ProductList = () => {
