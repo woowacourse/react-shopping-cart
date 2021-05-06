@@ -1,6 +1,7 @@
 import React from 'react';
 import Checkbox from '.';
 import Product from '../../shared/Product';
+import { reactFamily } from '../../../mockData';
 
 export default {
   title: 'Common/Checkbox',
@@ -18,10 +19,6 @@ LabelCenter.args = {
 
 export const LabelFlexStart = Template.bind({});
 LabelFlexStart.args = {
-  children: (
-    <Product imageUrl={`${process.env.PUBLIC_URL}/logo512.png`} alt={'default image'} size={'10rem'} direction={'row'}>
-      <p>리액트</p>
-    </Product>
-  ),
+  children: <Product product={reactFamily[0]} size={'10rem'} direction={'row'} />,
   align: 'flex-start',
 };

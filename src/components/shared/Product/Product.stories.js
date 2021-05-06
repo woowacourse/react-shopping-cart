@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '.';
+import { reactFamily } from '../../../mockData';
 
 export default {
   title: 'Shared/Product',
@@ -11,18 +12,16 @@ const Template = (args) => <Product {...args} />;
 
 export const Column = Template.bind({});
 Column.args = {
-  imageUrl: `${process.env.PUBLIC_URL}/logo512.png`,
-  alt: 'default image',
+  product: reactFamily[0],
   size: '10rem',
   direction: 'column',
-  children: <p>리액트</p>,
+  productDetail: '수량 : 1개',
 };
 
 export const Row = Template.bind({});
 Row.args = {
-  imageUrl: `${process.env.PUBLIC_URL}/logo512.png`,
-  alt: 'default image',
+  product: reactFamily[0],
   size: '10rem',
   direction: 'row',
-  children: <p>리액트</p>,
+  productDetail: '57,000원 / 수량 : 1개',
 };

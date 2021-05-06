@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from '.';
+import ProductListPage from '.';
 import { HEADER } from '../../constants/appInfo';
 import { reactFamily } from '../../mockData';
 import ShoppingCart from '../common/Icon/ShoppingCart';
@@ -8,12 +8,12 @@ import Navigation from '../Navigation';
 import Main from '../Main';
 
 export default {
-  title: 'ProductList',
-  component: ProductList,
+  title: 'ProductListPage',
+  component: ProductListPage,
   argTypes: {},
 };
 
-const Template = (args) => <ProductList {...args} />;
+const Template = (args) => <ProductListPage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -26,7 +26,7 @@ export const Page = (args) => (
       <Navigation navList={HEADER.NAV_LIST} />
     </Header>
     <Main>
-      <ProductList {...args} />
+      <ProductListPage {...args} />
     </Main>
   </>
 );

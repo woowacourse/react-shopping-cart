@@ -20,8 +20,8 @@ const Button = ({ type, width, height, fontSize, color, backgroundColor, borderC
 
 Button.propTypes = {
   type: PropTypes.string,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
   color: PropTypes.string,
   fontSize: PropTypes.string,
   backgroundColor: PropTypes.string,

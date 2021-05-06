@@ -6,12 +6,12 @@ import { UNIT } from '../../constants/appInfo';
 import PALETTE from '../../constants/palette';
 import * as Styled from './style';
 
-const ProductList = ({ products }) => {
+const ProductListPage = ({ products }) => {
   return (
     <Styled.ProductList>
       {products.map((product) => (
         <li key={product.id}>
-          <Product imageUrl={product.image.url} alt={product.image.alt} direction={'column'} size={'17.5rem'}>
+          <Product product={product} direction={'column'} size={'17.5rem'}>
             <Styled.ProductInfoContainer>
               <Styled.ProductInfo>
                 <Styled.ProductName>{product.name}</Styled.ProductName>
@@ -30,8 +30,8 @@ const ProductList = ({ products }) => {
   );
 };
 
-ProductList.propTypes = {
+ProductListPage.propTypes = {
   products: PropTypes.array,
 };
 
-export default ProductList;
+export default ProductListPage;
