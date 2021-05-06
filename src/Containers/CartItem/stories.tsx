@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react";
 import CartItem, { ICartItemProps } from ".";
 
 export default {
-  title: "CartItem",
+  title: "Containers/CartItem",
   component: CartItem,
 } as Meta;
 

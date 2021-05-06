@@ -3,6 +3,7 @@ const COLOR = {
   BLACK: "#000000",
   WHITE: "#ffffff",
   GRAY_100: "#e7e7e7",
+  GRAY_150: "#dddddd",
   GRAY_200: "#b7b7b7",
   GRAY_300: "#979797",
   GRAY_400: "#777777",

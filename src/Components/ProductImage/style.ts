@@ -1,14 +1,18 @@
 import styled from "styled-components";
 
-interface IContainerProps {
+interface IImageProps {
   size: string;
 }
 
-const Container = styled.div<IContainerProps>`
+const Container = styled.div<IImageProps>`
   ${({ size }) => `width: ${size}; 
     height: ${size};
   `}
   overflow: hidden;
 `;
 
-export { Container, IContainerProps };
+const Img = styled.img<IImageProps>`
+  ${({ size }) => `width: ${size};`}
+`;
+
+export { Container, Img, IImageProps };

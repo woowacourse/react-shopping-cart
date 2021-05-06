@@ -11,11 +11,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button {
+    padding: 0;
     outline: none;
     border:none;
     background:none;
     cursor: pointer;
-
   }
 
   a {
@@ -23,7 +23,18 @@ const GlobalStyles = createGlobalStyle`
   }
 
   p {
-    margin: 0
+    margin: 0;
+  }
+
+  input{
+    border:none;
+    outline: none;
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button{
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 `;
 
