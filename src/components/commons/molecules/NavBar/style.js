@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { baeminCyan } from '../../../../constants';
+import '../../../fonts/BMYEONSUNG.css';
 
 export const NavBar = styled.div`
   position: fixed;
@@ -25,6 +26,7 @@ export const LeftItems = styled.div`
 `;
 
 export const Title = styled.span`
+  font-family: 'BMYEONSUNG';
   color: #ffffff;
   margin: 0 1rem;
   padding-top: 0.3rem;

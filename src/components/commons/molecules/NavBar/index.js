@@ -8,7 +8,7 @@ export const NavBar = () => {
         <Styled.LeftItems>
           <Styled.Button>
             <CartIcon width="50" color="#FFFFFF" />
-            <Styled.Title>WOOWA SHOP</Styled.Title>
+            <Styled.Title>심바하루의 쇼핑은 즐거워</Styled.Title>
           </Styled.Button>
         </Styled.LeftItems>
         <Styled.RightItems>
