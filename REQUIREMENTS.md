@@ -8,7 +8,7 @@
 - [x] CheckBox
 - [x] CartItem
 - [x] SubmitBox
+- [x] TextWithHighlight
 - [ ] OrderProductItem
 - [ ] OrderList
-- [ ] TextWithHighLight
 - [ ] ProductDetail
