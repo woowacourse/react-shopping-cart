@@ -27,7 +27,7 @@ const Product: VFC<IProductProps> = ({
       <div>
         <Desc>
           <Name>{name}</Name>
-          <Price>{price} 원</Price>
+          <Price>{price}</Price>
         </Desc>
       </div>
     </Link>

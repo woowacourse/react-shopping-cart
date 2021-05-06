@@ -1,14 +1,14 @@
-import React, { VFC } from "react";
+import React, { ReactNode, FC } from "react";
 
 import { Container, IContainerProps } from "./style";
 
 interface IButtonProps extends IContainerProps {
-  text: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  children: ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: VFC<IButtonProps> = ({ text, ...props }) => (
-  <Container {...props}>{text}</Container>
+const Button: FC<IButtonProps> = ({ children, ...props }) => (
+  <Container {...props}>{children}</Container>
 );
 
 export default Button;

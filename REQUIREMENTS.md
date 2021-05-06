@@ -6,8 +6,8 @@
 - [x] Button
 - [x] PageTitle
 - [x] CheckBox
-- [ ] CartItem
-- [ ] SubmitBox
+- [x] CartItem
+- [x] SubmitBox
 - [ ] OrderProductItem
 - [ ] OrderList
 - [ ] TextWithHighLight

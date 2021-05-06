@@ -19,5 +19,5 @@ Basic.args = {
   backgroundColor: COLOR.BROWN,
   color: COLOR.WHITE,
   fontSize: SIZE.BUTTON.PRODUCT_DETAIL.FONT,
-  text: "Basic버튼",
+  children: "Basic버튼",
 };
