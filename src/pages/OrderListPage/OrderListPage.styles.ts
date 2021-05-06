@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-const Styled = {
-  Root: styled.section``,
-};
+const Root = styled.section``;
 
-export default Styled;
+export default {
+  Root,
+};
