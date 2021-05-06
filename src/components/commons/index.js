@@ -5,6 +5,7 @@ export { DownwardIcon } from './atoms/DownwardIcon';
 export { Line } from './atoms/Line';
 export { Page } from './atoms/Page';
 export { TrashCanIcon } from './atoms/TrashCanIcon';
+export { UnderlinedText } from './atoms/UnderlinedText';
 export { UpwardIcon } from './atoms/UpwardIcon';
 
 /* molecules */
