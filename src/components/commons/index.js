@@ -11,3 +11,4 @@ export { UpwardIcon } from './atoms/UpwardIcon';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
 export { ProductItem } from './molecules/ProductItem';
+export { QuantityStepper } from './molecules/QuantityStepper';
