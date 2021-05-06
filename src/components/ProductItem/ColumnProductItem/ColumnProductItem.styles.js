@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  height: 360px;
+  max-height: 360px;
   width: 280px;
 `;
 const Image = styled.img`
