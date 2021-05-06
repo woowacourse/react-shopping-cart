@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../Button';
 import Container from '../Container';
 import Input from '../Input';
 import PALETTE from '../../../constants/palette';
 
 export const NumberInputContainer = styled(Container)`
-  height: 4rem;
+  height: 3.625rem;
   width: 7.125rem;
   flex-direction: row;
   border: 1px solid ${PALETTE.GRAY[300]};
@@ -24,21 +24,34 @@ export const NumberInputContainer = styled(Container)`
   }
 
   ${Container} {
+    position: relative;
     width: 40%;
     height: 100%;
+    box-sizing: border-box;
   }
 `;
 
-export const IncreaseButton = styled(Button)`
+const ButtonStyle = css`
+  position: absolute;
   width: 100%;
-  height: 100%;
+  height: 50%;
   border: 1px solid ${PALETTE.GRAY[300]};
+  border-radius: 0;
+  border-right: none;
+  right: 0;
+`;
+
+export const IncreaseButton = styled(Button)`
+  ${ButtonStyle}
+  top:0;
+  border-top: none;
 `;
 
 export const DecreaseButton = styled(Button)`
-  width: 100%;
-  height: 100%;
-  border: 1px solid ${PALETTE.GRAY[300]};
+  ${ButtonStyle}
+  bottom:0;
+  border-top: none;
+  border-bottom: none;
 
   img {
     transform: rotate(180deg);
