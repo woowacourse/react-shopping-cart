@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Grid, Card } from '../../components/shared';
 import { Description, Price, CartButton, CartIcon } from './style';
 import cartIcon from '../../assets/icons/cart.svg';
-import { BASE_URL, PATH } from '../../constants';
-import { useHistory } from 'react-router-dom';
+import { PATH } from '../../constants';
+import { addItemToCart } from '../../store';
+import { API } from '../../utils';
 
 const ItemList = () => {
-  const [list, setList] = useState([]);
-
+  const list = useSelector(state => state.itemList);
+  const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    const getItemListRequest = async () => {
-      const response = await fetch(`${BASE_URL}/itemList.json`);
-
-      const result = await response.json();
-      setList(result);
-    };
-
-    getItemListRequest();
-  }, []);
 
   return (
     <Grid col="4">
@@ -37,11 +29,10 @@ const ItemList = () => {
               <CartButton
                 onClick={async () => {
                   try {
-                    const response = await fetch(`${BASE_URL}/addCart.json`);
+                    const data = { id: id, quantity: 1 };
+                    const newCartItem = await API.addItemToCart(data);
 
-                    if (!response.ok) {
-                      throw new Error('add Cart Error');
-                    }
+                    dispatch(addItemToCart(newCartItem));
 
                     alert(`장바구니에 추가되었습니다. 상품 id : ${id}`);
                   } catch (error) {
