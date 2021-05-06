@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Product, Image, Description, Name, Price } from './index.styles';
 import { FALLBACK } from '../../constants';
+import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
@@ -18,7 +19,7 @@ const ProductItem = ({
         <Price>{price} 원</Price>
       </div>
       <button type="button" onClick={onClick}>
-        <i className="fas fa-shopping-cart" />
+        <Cart width="30" height="30" />
       </button>
     </Description>
   </Product>

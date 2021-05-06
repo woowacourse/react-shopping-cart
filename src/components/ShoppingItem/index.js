@@ -25,7 +25,7 @@ const ShoppingItem = ({
     <Name>{name}</Name>
     <Controller>
       <Button onClick={() => {}}>
-        <TrashCan />
+        <TrashCan width="20" height="20" />
       </Button>
       <QuantityInput type="number" />
       <span>{price}</span>

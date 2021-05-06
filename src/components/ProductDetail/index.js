@@ -20,7 +20,9 @@ const ProductDetail = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button buttonStyle={STYLE.BUTTON.BROWN}>장바구니</Button>
+    <Button buttonStyle={STYLE.BUTTON.BROWN} onClick={() => {}}>
+      장바구니
+    </Button>
   </Product>
 );
 

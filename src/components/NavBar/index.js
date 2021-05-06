@@ -1,13 +1,14 @@
 import React from 'react';
 import { InnerNav, LogoWrapper, Menu, Nav } from './index.styles';
 import { Router } from '../../constants';
+import { Cart } from '../../assets/svg';
 
 const NavBar = () => (
   <Nav>
     <InnerNav>
       <LogoWrapper>
         <span>
-          <i className="fas fa-shopping-cart" />
+          <Cart width="30" height="30" color="white" />
         </span>
         <span>WOOWA SHOP</span>
       </LogoWrapper>
