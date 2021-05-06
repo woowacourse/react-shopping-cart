@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import ColumnProductItem from '../../components/ProductItem/ColumnProductItem/ColumnProductItem';
-import ProductList from '../../db.json';
+import db from '../../db.json';
 import {
   Container,
   ModalText,
@@ -27,7 +27,7 @@ const ProductListPage = ({ location }) => {
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
-        {ProductList.productList.map(({ id, img, name, price }) => (
+        {Object.entries(db.productList).map(([id, { img, name, price }]) => (
           <ColumnProductItem key={id} imgSrc={img} name={name} price={`${price}`} onClick={() => setModalOpen(true)} />
         ))}
       </Container>
@@ -41,16 +41,18 @@ const ProductListPage = ({ location }) => {
           <RecommendedContainer>
             <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
             <RecommendedList>
-              {ProductList.productList.slice(3).map(({ id, img, name, price }) => (
-                <ColumnProductItem
-                  key={id}
-                  imgSrc={img}
-                  name={name}
-                  price={`${price}`}
-                  onClick={() => setModalOpen(true)}
-                  isVisibleIcon={false}
-                />
-              ))}
+              {Object.entries(db.productList)
+                .slice(3)
+                .map(([id, { img, name, price }]) => (
+                  <ColumnProductItem
+                    key={id}
+                    imgSrc={img}
+                    name={name}
+                    price={`${price}`}
+                    onClick={() => setModalOpen(true)}
+                    isVisibleIcon={false}
+                  />
+                ))}
             </RecommendedList>
           </RecommendedContainer>
         </Modal>

@@ -20,6 +20,7 @@ const Header = styled.div`
 const ProductList = styled.div`
   & > * {
     padding: 40px 25px;
+    background-color: white;
   }
   & > *:not(:last-child) {
     border-bottom: 1px solid #aaaaaa;

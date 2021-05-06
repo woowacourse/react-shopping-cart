@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Container, Header, ProductList } from './OrderContainer.styles';
 
+// TODO: 컴포넌트안에 string 고정된 것 확인
 const OrderContainer = ({ orderId, children }) => (
   <Container>
     <Header>

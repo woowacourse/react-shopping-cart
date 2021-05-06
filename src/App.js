@@ -3,6 +3,7 @@ import GlobalStyles from './GlobalStyles';
 import NavBar from './components/NavBar/NavBar';
 import { ROUTE } from './constants';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
+import OrderListPage from './pages/OrderListPage/OrderListPage';
 
 const App = () => (
   <>
@@ -12,6 +13,7 @@ const App = () => (
 
       <Switch>
         <Route exact path={ROUTE.HOME} component={ProductListPage} />
+        <Route exact path={ROUTE.ORDER_LIST} component={OrderListPage} />
       </Switch>
     </Router>
   </>

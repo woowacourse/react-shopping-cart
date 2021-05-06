@@ -9,6 +9,7 @@ const Container = styled.h2`
   text-align: center;
   padding-bottom: 25px;
   letter-spacing: 0.5px;
+  margin-bottom: 50px;
 `;
 
 export { Container };
