@@ -10,6 +10,7 @@ export { UnderlinedText } from './atoms/UnderlinedText';
 export { UpwardIcon } from './atoms/UpwardIcon';
 
 /* molecules */
+export { BorderTopList } from './molecules/BorderTopList';
 export { CheckoutBox } from './molecules/CheckoutBox';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
