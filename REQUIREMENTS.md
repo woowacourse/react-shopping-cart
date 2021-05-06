@@ -65,10 +65,11 @@
         - [] OrderList
         - [] OrderDetail
 
-    - [x] NavBar
-    - [] PageHeader
-    - [] Button
+    - common
+      - [] Button
 
+    - [x] NavBar
+    - [x] PageHeader
     - [] ProductList
     - [x] ProductItem
     - [x] ProductDetail

@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
   --color-grey-200: #a7a7a7;
   --color-grey-300: #737373;
   --color-grey-400: #3e3e3e;
+  --color-grey-500: #333333;
   --color-black: #000000;
 
   /* Font size */
