@@ -6,13 +6,13 @@ const StyledCheckboxContainer = styled.div`
   vertical-align: middle;
 `;
 
-const Icon = styled.svg`
+const StyledIcon = styled.svg`
   fill: none;
   stroke: white;
   stroke-width: 2.5px;
 `;
 
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const StyledHiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -32,7 +32,7 @@ const StyledCheckbox = styled.div`
   border-radius: 3px;
   border: 1px solid #22a6a2;
 
-  ${Icon} {
+  ${StyledIcon} {
     visibility: ${(props) => (props.isChecked ? 'visible' : 'hidden')};
   }
 `;
@@ -44,11 +44,11 @@ const StyledLabelText = styled.span`
 const Checkbox = ({ isChecked, children, onChange }) => (
   <label>
     <StyledCheckboxContainer>
-      <HiddenCheckbox checked={isChecked} onChange={onChange} />
+      <StyledHiddenCheckbox checked={isChecked} onChange={onChange} />
       <StyledCheckbox isChecked={isChecked}>
-        <Icon viewBox="0 0 24 24">
+        <StyledIcon viewBox="0 0 24 24">
           <polyline points="21 7 10 18 4 12" />
-        </Icon>
+        </StyledIcon>
       </StyledCheckbox>
     </StyledCheckboxContainer>
     {children ? <StyledLabelText>{children}</StyledLabelText> : ''}
