@@ -47,8 +47,13 @@ const StyledButton = styled.button`
   text-align: center;
   border: none;
   ${(props) => (Object.keys(TYPE).includes(props.type) ? buttonStyle[props.type] : buttonStyle['MEDIUM'])};
+  ${(props) => ({ ...props.styles })};
 `;
 
-const Button = ({ children, type }) => <StyledButton type={type}>{children}</StyledButton>;
+const Button = ({ children, type, styles }) => (
+  <StyledButton type={type} styles={styles}>
+    {children}
+  </StyledButton>
+);
 
 export default Button;

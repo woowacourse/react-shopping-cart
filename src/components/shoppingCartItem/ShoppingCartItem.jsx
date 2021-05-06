@@ -1,6 +1,6 @@
 import React from 'react';
 import Checkbox from '../checkbox/Checkbox';
-import ProductImage, { SIZE } from '../productImage/ProductImage';
+import ProductImage, { TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import NumberInput from '../numberInput/NumberInput';
@@ -40,7 +40,7 @@ const ShoppingCartItem = ({ src, alt, name, price }) => (
   <StyledShoppingCartItemContainer>
     <StyledLeftLi>
       <Checkbox />
-      <ProductImage size={SIZE.SMALL} src={src} alt={alt} />
+      <ProductImage type={TYPE.SMALL} src={src} alt={alt} />
       <StyledName>{name}</StyledName>
     </StyledLeftLi>
     <StyledRightLi>

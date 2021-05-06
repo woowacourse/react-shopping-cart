@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const SIZE = Object.freeze({
+export const TYPE = Object.freeze({
   LARGE: 'LARGE',
   MEDIUM: 'MEDIUM',
   SMALL: 'SMALL',
 });
 
-const productImageSize = {
+const productImageStyle = {
   LARGE: {
     width: '570px',
     height: '570px',
@@ -26,10 +26,10 @@ const productImageSize = {
 
 // TODO: util로 나중에 뺄지 고민  - Object.keys(SIZE).includes(props.size)
 const StyledProductImg = styled.img`
-  ${(props) => (Object.keys(SIZE).includes(props.size) ? productImageSize[props.size] : productImageSize['MEDIUM'])}
+  ${(props) => (Object.keys(TYPE).includes(props.type) ? productImageStyle[props.type] : productImageStyle['MEDIUM'])}
 `;
 
 // src가 들어오지 않았을 때 예외처리를 할지 고민
-const ProductImage = ({ size, src, alt }) => <StyledProductImg size={size} src={src} alt={alt} />;
+const ProductImage = ({ type, src, alt }) => <StyledProductImg type={type} src={src} alt={alt} />;
 
 export default ProductImage;

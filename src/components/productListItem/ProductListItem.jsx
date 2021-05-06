@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductImage, { SIZE } from '../productImage/ProductImage';
+import ProductImage, { TYPE } from '../productImage/ProductImage';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
 
@@ -24,7 +24,7 @@ const StyledPrice = styled.div`
 
 const ProductListItem = ({ src, name, price, alt }) => (
   <div>
-    <ProductImage size={SIZE.MEDIUM} src={src} alt={alt} />
+    <ProductImage type={TYPE.MEDIUM} src={src} alt={alt} />
     <StyledUl>
       <li>
         <StyledName>{name}</StyledName>
