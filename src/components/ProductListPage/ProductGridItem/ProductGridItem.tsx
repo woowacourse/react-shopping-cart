@@ -14,7 +14,7 @@ const ProductGridItem = ({ productName, productPrice, productThumbnail }: Props)
       <Styled.GridBottomWrapper>
         <Styled.GridTextWrapper>
           <Styled.ProductName>{productName}</Styled.ProductName>
-          <Styled.ProductPrice>{productPrice}</Styled.ProductPrice>
+          <Styled.ProductPrice>{productPrice} 원</Styled.ProductPrice>
         </Styled.GridTextWrapper>
         <Styled.CartIcon src={shoppingCartDarkSVG} />
       </Styled.GridBottomWrapper>

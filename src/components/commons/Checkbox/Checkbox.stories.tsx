@@ -1,4 +1,3 @@
-import { COLORS } from '../../../constants';
 import Checkbox, { Props } from './Checkbox';
 
 export default {
