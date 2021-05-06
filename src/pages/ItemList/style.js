@@ -30,10 +30,7 @@ export const CartButton = styled.button`
   }
 `;
 
-// TODO: img SVG 색상 바꾸는 법 찾아보기 (not brightness)
 export const CartIcon = styled.img`
-  // color: ${COLOR.BLACK};
   width: 30px;
   height: 26px;
-  filter: brightness(0);
 `;
