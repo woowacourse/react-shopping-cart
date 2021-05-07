@@ -13,6 +13,7 @@ export { UpwardIcon } from './atoms/UpwardIcon';
 export { BorderTopList } from './molecules/BorderTopList';
 export { CartItem } from './molecules/CartItem';
 export { CheckoutBox } from './molecules/CheckoutBox';
+export { CheckoutItem } from './molecules/CheckoutItem';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
 export { ProductItem } from './molecules/ProductItem';

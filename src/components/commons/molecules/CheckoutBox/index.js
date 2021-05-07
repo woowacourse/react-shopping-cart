@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { getFormattedAsKRW } from '../../../../utils';
+import { Link } from 'react-router-dom';
 import { UnderlinedText } from '../../';
 import * as Styled from './style.js';
 
 export const CheckoutBox = (props) => {
-  const { title, label, price, buttonText } = props;
+  const { title, label, price, buttonText, route } = props;
 
   return (
     <Styled.Container>
@@ -12,9 +12,11 @@ export const CheckoutBox = (props) => {
       <Styled.Content>
         <Styled.Bill>
           <UnderlinedText>{label}</UnderlinedText>
-          <UnderlinedText>{getFormattedAsKRW(price)}</UnderlinedText>
+          <UnderlinedText>{price}</UnderlinedText>
         </Styled.Bill>
-        <Styled.CheckoutButton>{buttonText}</Styled.CheckoutButton>
+        <Link to={route}>
+          <Styled.CheckoutButton>{buttonText}</Styled.CheckoutButton>
+        </Link>
       </Styled.Content>
     </Styled.Container>
   );
@@ -25,4 +27,5 @@ CheckoutBox.propTypes = {
   label: PropTypes.string,
   price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   buttonText: PropTypes.string,
+  route: PropTypes.string,
 };

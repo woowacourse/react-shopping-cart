@@ -14,4 +14,8 @@ export const List = styled.ul`
     min-height: 3.5rem;
     border-top: 0.0625rem solid #aaaaaa;
   }
+
+  & > li:last-child {
+    border-bottom: 0.0625rem solid #aaaaaa;
+  }
 `;
