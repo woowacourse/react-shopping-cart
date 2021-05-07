@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { patterFileName } from '../../../../constants';
+import { PATTERN_FILE_NAME } from '../../../../constants';
 
 export const Container = styled.li`
   padding: 1.5rem 0.25rem;
@@ -11,7 +11,7 @@ export const Container = styled.li`
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src,
-  alt: props.src.match(patterFileName)[0],
+  alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
   width: 9rem;
 `;

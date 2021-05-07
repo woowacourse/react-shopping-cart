@@ -1,1 +1,1 @@
-export const baeminCyan = '#2AC1BC';
+export const BAEMIN_CYAN = '#2AC1BC';

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '../../';
-import { baeminCyan } from '../../../../constants';
+import { BAEMIN_CYAN } from '../../../../constants';
 
 export const Container = styled.div`
   width: 100%;
@@ -39,7 +39,7 @@ export const Bill = styled.p`
 
 export const CheckoutButton = styled(Button)`
   font-size: 1.5rem;
-  background-color: ${baeminCyan};
+  background-color: ${BAEMIN_CYAN};
   color: #ffffff;
   width: 100%;
   height: 4.5rem;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { baeminCyan } from '../../../../constants';
+import { BAEMIN_CYAN } from '../../../../constants';
 import '../../../../fonts/BMYEONSUNG.css';
 
 export const NavBar = styled.nav`
@@ -7,7 +7,7 @@ export const NavBar = styled.nav`
   top: 0;
   width: 100vw;
   height: 5rem;
-  background-color: ${baeminCyan};
+  background-color: ${BAEMIN_CYAN};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   z-index: 999;
 `;

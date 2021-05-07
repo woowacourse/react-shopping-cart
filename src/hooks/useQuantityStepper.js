@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { patternOnlyNumber } from '../constants';
+import { PATTERN_ONLY_NUMBER } from '../constants';
 
 export const useQuantityStepper = (
   initialState = 1,
@@ -14,7 +14,7 @@ export const useQuantityStepper = (
       return;
     }
 
-    setQuantity(() => quantity.replace(patternOnlyNumber, ''));
+    setQuantity(() => quantity.replace(PATTERN_ONLY_NUMBER, ''));
   };
 
   const handleIncrement = () => {
