@@ -1,9 +1,13 @@
 import * as Styled from './Header.styles';
 import shoppingCartSVG from '../../assets/svgs/shopping-cart.svg';
 
-const Header = () => {
+export interface Props {
+  styles: React.CSSProperties;
+}
+
+const Header = ({ styles }: Props) => {
   return (
-    <Styled.Header>
+    <Styled.Header styles={styles}>
       <Styled.HeaderTitle>
         <Styled.Logo src={shoppingCartSVG} />
         WOOWA SHOP

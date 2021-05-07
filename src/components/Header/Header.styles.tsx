@@ -1,13 +1,16 @@
+import { Props } from './Header';
 import styled from 'styled-components';
+import { COLORS } from '../../constants';
 
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
-  padding: 0 300px;
-  background-color: ${({ theme }) => theme.PRIMARY_COLOR};
-`;
+export const Header = styled.div(({ styles }: Props) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  height: '80px',
+  padding: '0 300px',
+  backgroundColor: COLORS.MINT_500,
+  ...styles,
+}));
 
 export const Logo = styled.img`
   margin-right: 23px;

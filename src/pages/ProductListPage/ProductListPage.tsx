@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { STATUS_CODE, URL } from '../../constants';
-import Header from '../../components/Header/Header';
 import ProductGridItem from '../../components/ProductListPage/ProductGridItem/ProductGridItem';
 
 import * as Styled from './ProductListPage.styles';
@@ -30,12 +29,7 @@ const ProductListPage = () => {
     <ProductGridItem key={product.id} name={product.name} price={product.price} thumbnail={product.thumbnail} />
   ));
 
-  return (
-    <>
-      <Header />
-      <Styled.ProductList>{productGridItemList}</Styled.ProductList>
-    </>
-  );
+  return <Styled.ProductListPage>{productGridItemList}</Styled.ProductListPage>;
 };
 
 export default ProductListPage;

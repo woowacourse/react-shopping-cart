@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductListPage = styled.div`
+export const ProductDetailPage = styled.div`
   margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(4, 282px);
