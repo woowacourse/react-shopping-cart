@@ -11,13 +11,14 @@ import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
 import PriceInfoBox from '../../shared/PriceInfoBox';
 import ProductList from '../../shared/ProductList';
+import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
 const CartPage = ({ products }) => {
   return (
     <Main>
       <PageTitle>{PAGES.CART.NAME}</PageTitle>
-      <FlexContainer justifyContent={'space-evenly'} align={'flex-start'}>
+      <FlexContainer align={'flex-start'}>
         <FlexContainer width={'58%'} margin={'3rem auto 0 1.5rem'} direction={'column'}>
           <FlexContainer justifyContent={'space-between'} align={'flex-start'}>
             <Checkbox>선택해제</Checkbox>
@@ -27,13 +28,23 @@ const CartPage = ({ products }) => {
           </FlexContainer>
           <Styled.ProductListTitle>든든배송 상품 ({products.length}개)</Styled.ProductListTitle>
           <ProductList isCheckbox={true} products={products} width={'100%'}>
-            <FlexContainer direction={'column'} justifyContent={'space-between'} align={'flex-end'}>
-              <Button backgroundColor={'transparent'}>
-                <TrashBin width={'1.5rem'} color={PALETTE.GRAY_002} />
-              </Button>
-              <AmountInput amount={1} setAmount={() => {}} />
-              <p>30,000 원</p>
-            </FlexContainer>
+            {products.map((item) => (
+              <ProductListItem
+                key={item.id}
+                listStyle={'lineStyle'}
+                isCheckbox={true}
+                imageSize={'9rem'}
+                product={item}
+              >
+                <FlexContainer direction={'column'} justifyContent={'space-between'} align={'flex-end'}>
+                  <Button backgroundColor={'transparent'}>
+                    <TrashBin width={'1.5rem'} color={PALETTE.GRAY_002} />
+                  </Button>
+                  <AmountInput amount={1} setAmount={() => {}} />
+                  <p>{item.price.toLocaleString()} 원</p>
+                </FlexContainer>
+              </ProductListItem>
+            ))}
           </ProductList>
         </FlexContainer>
         <PriceInfoBox
