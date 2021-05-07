@@ -5,6 +5,7 @@ import { IProductImageProps } from "../ProductImage";
 import { IButtonProps } from "../Button";
 import { Container, Desc, NameLink, OptionPricePart } from "./style";
 
+// TODO: price => optional이 맞는가?
 interface OrderProductItemProps {
   Image: ReactElement<IProductImageProps>;
   Button?: ReactElement<IButtonProps>;

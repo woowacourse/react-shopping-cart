@@ -19,6 +19,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve",
+    "jest-watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -45,7 +46,6 @@
     "eslint": "^7.25.0",
     "eslint-plugin-react": "^7.23.2",
     "html-webpack-plugin": "^5.3.1",
-    "react-router-dom": "^5.2.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4",
     "webpack": "^5.36.2",
@@ -53,12 +53,19 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@jest/types": "^26.6.2",
+    "@types/react-redux": "^7.1.16",
+    "@types/redux": "^3.6.0",
     "@types/styled-components": "^5.1.9",
     "core-js": "^3.11.2",
     "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
     "storybook": "^6.2.9",
     "styled-components": "^5.2.3"
   }

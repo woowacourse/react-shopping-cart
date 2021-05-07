@@ -6,6 +6,7 @@ import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, Desc, Name, Price, CartButton } from "./style";
 
+// TODO: Product type 상속?
 interface IProductProps {
   Image: ReactElement<IProductImageProps>;
   name: string;
