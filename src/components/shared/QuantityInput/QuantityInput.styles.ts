@@ -7,7 +7,7 @@ const Root = styled.div`
 const Input = styled.input`
   width: 72px;
   height: 60px;
-  border: 1px solid #dddddd;
+  border: 1px solid ${(props) => props.theme.borderColor.lightGrey};
   border-right: 0;
   box-sizing: border-box;
   text-align: center;
@@ -32,7 +32,7 @@ const Control = styled.div`
 const ArrowWrapper = styled.button`
   width: 42px;
   height: 30px;
-  border: 1px solid #dddddd;
+  border: 1px solid ${(props) => props.theme.borderColor.lightGrey};
   background: none;
   cursor: pointer;
 
