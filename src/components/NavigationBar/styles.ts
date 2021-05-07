@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
+import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
 
 export const NavigationBarContainer = styled.div`
   background-color: ${PALETTE.BAE_MINT[500]};
@@ -11,8 +12,8 @@ export const NavigationBarContainer = styled.div`
 `;
 
 export const NavigationBarInnerContainer = styled.div`
-  width: 80rem;
-  min-width: 80rem;
+  width: ${INNER_TEMPLATE_WIDTH};
+  min-width: ${INNER_TEMPLATE_WIDTH};
   display: flex;
   justify-content: space-between;
   align-items: center;

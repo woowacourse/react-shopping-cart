@@ -21,6 +21,7 @@ time, mark, audio, video, input {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
+	font-weight: normal;
 	font-family: 'Noto Sans KR', sans-serif;
 	vertical-align: baseline;
   text-decoration: none;

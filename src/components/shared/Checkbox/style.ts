@@ -4,6 +4,7 @@ import PALETTE from '../../../constants/palette';
 export const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
+  height: fit-content;
 
   input[type='checkbox'] {
     appearance: none;
@@ -13,8 +14,9 @@ export const CheckboxLabel = styled.label`
     &::before {
       content: '';
       display: inline-block;
-      width: 1.875rem;
-      height: 1.875rem;
+      box-sizing: border-box;
+      width: 1.75rem;
+      height: 1.75rem;
       border: 1px solid ${PALETTE.BAE_MINT[500]};
       border-radius: 2px;
     }
@@ -33,8 +35,8 @@ export const CheckboxLabel = styled.label`
       border-radius: 4px;
       transform: rotate(45deg);
       position: absolute;
-      left: 0.425rem;
-      top: -0.125rem;
+      left: 0.375rem;
+      top: -0.25rem;
     }
   }
 `;

@@ -1,16 +1,16 @@
-import { FC } from 'react';
+import { VFC } from 'react';
 import { CheckboxLabel } from './style';
 
 interface Props {
-  children: React.ReactNode;
+  className?: string;
+  description?: string;
 }
 
-const Checkbox: FC<Props> = ({ children }) => {
+const Checkbox: VFC<Props> = ({ className, description }) => {
   return (
-    <CheckboxLabel>
+    <CheckboxLabel className={className}>
       <input type="checkbox" />
-
-      {children}
+      <span>{description}</span>
     </CheckboxLabel>
   );
 };

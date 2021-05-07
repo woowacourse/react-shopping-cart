@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface Props {
   backgroundColor?: string;
@@ -14,9 +14,14 @@ interface InnerTemplateContainerProps {
   width?: string;
 }
 
+const widthStyle = css<InnerTemplateContainerProps>`
+  width: ${({ width }) => width};
+  min-width: ${({ width }) => width};
+`;
+
 export const InnerTemplateContainer = styled.div<InnerTemplateContainerProps>`
   padding-top: 4rem;
-  ${({ width }) => width && `width: ${width}`}
+  ${({ width }) => width && widthStyle}
 `;
 
 export const Title = styled.h2`

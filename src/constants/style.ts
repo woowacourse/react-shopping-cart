@@ -1,1 +1,1 @@
-export const INNER_TEMPLATE_WIDTH = '76rem';
+export const INNER_TEMPLATE_WIDTH = '82.5rem';

@@ -1,7 +1,7 @@
 import { VFC } from 'react';
 import { Product } from '../../../types';
 import Card from '../../shared/Card';
-import { Text } from '../../shared/Text';
+import Text from '../../shared/Text';
 import { ContentContainer } from './style';
 
 const ProductCard: VFC<Product> = ({ name, price, imgSrc }) => {
