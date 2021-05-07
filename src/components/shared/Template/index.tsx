@@ -13,7 +13,7 @@ const Template: FC<Props> = ({ children, backgroundColor, title, innerWidth }) =
     <TemplateContainer backgroundColor={backgroundColor}>
       <InnerTemplateContainer width={innerWidth}>
         {title && <Title>{title}</Title>}
-        {children}
+        <div>{children}</div>
       </InnerTemplateContainer>
     </TemplateContainer>
   );
