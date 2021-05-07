@@ -2,13 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const FlexContainer = ({ width, height, padding, margin, border, direction, align, justifyContent, children }) => {
+const FlexContainer = ({
+  width,
+  height,
+  padding,
+  margin,
+  backgroundColor,
+  border,
+  direction,
+  align,
+  justifyContent,
+  children,
+}) => {
   return (
     <Styled.FlexContainer
       width={width}
       height={height}
       padding={padding}
       margin={margin}
+      backgroundColor={backgroundColor}
       border={border}
       direction={direction}
       align={align}
@@ -24,6 +36,7 @@ FlexContainer.propTypes = {
   height: PropTypes.string,
   padding: PropTypes.string,
   margin: PropTypes.string,
+  backgroundColor: PropTypes.string,
   border: PropTypes.string,
   direction: PropTypes.string,
   align: PropTypes.string,

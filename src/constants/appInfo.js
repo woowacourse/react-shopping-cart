@@ -24,4 +24,5 @@ export const HEADER = {
 
 export const UNIT = {
   MONEY: '원',
+  AMOUNT: '개',
 };
