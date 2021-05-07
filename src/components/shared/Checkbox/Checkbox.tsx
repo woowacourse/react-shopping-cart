@@ -4,24 +4,26 @@ import Styled from './Checkbox.styles';
 
 type CheckboxProps = {
   labelText?: string;
+  checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Checkbox = (props: CheckboxProps) => {
-  const { labelText } = props;
+  const { labelText, checked, onChange } = props;
 
   return (
-    <>
-      <Styled.Label className="container">
-        <Styled.Text>{labelText}</Styled.Text>
-        <Styled.Checkbox type="checkbox" />
-        <Styled.CheckMark className="checkmark" />
-      </Styled.Label>
-    </>
+    <Styled.Label>
+      <Styled.Checkbox type="checkbox" checked={checked} onChange={onChange} />
+      <Styled.CheckMark />
+      <Styled.Text>{labelText}</Styled.Text>
+    </Styled.Label>
   );
 };
 
 Checkbox.defaultProps = {
   labelText: '',
+  checked: false,
+  onChange: () => {},
 };
 
 export default Checkbox;

@@ -1,45 +1,7 @@
 import styled from '@emotion/styled';
 
-const Root = styled.section``;
-
-const Label = styled.label`
-  display: block;
-  position: relative;
-  padding-left: 28px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  user-select: none;
-
-  &:hover .checkmark {
-    background-color: #e1f5f4;
-  }
-`;
-
-const Text = styled.span`
-  padding-left: 7px;
-`;
-
-const Checkbox = styled.input`
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-
-  &:checked {
-    & ~ .checkmark {
-      background-color: ${(props) => props.theme.bgColor.primary};
-    }
-
-    & ~ .checkmark:after {
-      display: block;
-    }
-  }
-`;
-
 const CheckMark = styled.span`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   height: 28px;
@@ -63,8 +25,42 @@ const CheckMark = styled.span`
   }
 `;
 
+const Label = styled.label`
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+  align-items: center;
+
+  &:hover ${CheckMark} {
+    background-color: #e1f5f4;
+  }
+`;
+
+const Text = styled.span`
+  padding-left: 7px;
+`;
+
+const Checkbox = styled.input`
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+  &:checked {
+    & ~ ${CheckMark} {
+      background-color: ${(props) => props.theme.bgColor.primary};
+    }
+
+    & ~ ${CheckMark}:after {
+      display: block;
+    }
+  }
+`;
+
 export default {
-  Root,
   Label,
   Text,
   Checkbox,
