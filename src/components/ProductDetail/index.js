@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/Button';
+import Button from '../common/BoxButton';
 import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
 import { FALLBACK, STYLE } from '../../constants';
 
