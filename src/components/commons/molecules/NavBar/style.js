@@ -20,9 +20,10 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const LeftItems = styled.div`
+export const NavTitle = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
 `;
 
 export const Title = styled.h1`
@@ -34,7 +35,7 @@ export const Title = styled.h1`
   font-weight: 700;
 `;
 
-export const RightItems = styled.ul`
+export const NavItems = styled.ul`
   display: flex;
   list-style: none;
   align-items: center;

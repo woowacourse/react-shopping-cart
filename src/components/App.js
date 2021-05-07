@@ -1,13 +1,22 @@
-import { ProductListPage } from './pages';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ProductListPage, CartPage } from './pages';
 import { Page, NavBar } from './commons';
+import { ROUTE } from '../constants';
 
 export const App = () => {
   return (
-    <>
+    <Router>
       <NavBar />
       <Page>
-        <ProductListPage />
+        <Switch>
+          <Route exact path={[ROUTE.HOME, ROUTE.PRODUCT_LIST]}>
+            <ProductListPage />
+          </Route>
+          <Route path={ROUTE.CART}>
+            <CartPage />
+          </Route>
+        </Switch>
       </Page>
-    </>
+    </Router>
   );
 };
