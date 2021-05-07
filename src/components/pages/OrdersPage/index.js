@@ -11,7 +11,7 @@ import ProductListItem from '../../shared/ProductList/ProductListItem';
 
 const CheckoutPage = ({ orders }) => {
   return (
-    <Main backgroundColor={PALETTE.GRAY_005}>
+    <Main backgroundColor={PALETTE.GRAY_006}>
       <PageTitle>{PAGES.ORDERS.NAME}</PageTitle>
       <FlexContainer direction={'column'}>
         {orders.map((order) => (
@@ -19,7 +19,7 @@ const CheckoutPage = ({ orders }) => {
             <FlexContainer
               padding={'1.5rem 1.5rem 1.5rem 2.5rem'}
               border={`1px solid ${PALETTE.GRAY_001}`}
-              backgroundColor={PALETTE.GRAY_006}
+              backgroundColor={PALETTE.GRAY_007}
               justifyContent={'space-between'}
             >
               <span>주문번호: {order.id}</span>
