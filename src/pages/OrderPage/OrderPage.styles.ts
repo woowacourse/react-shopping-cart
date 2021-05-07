@@ -19,11 +19,11 @@ const OrderListHeader = styled.div`
   font-weight: 700;
   letter-spacing: 0.5px;
   padding-bottom: 24px;
-  border-bottom: 4px solid #aaaaaa;
+  border-bottom: 4px solid ${(props) => props.theme.borderColor.darkGrey};
 `;
 
 const PriceOverviewWrapper = styled.div`
-  margin-top: 60px;
+  margin-top: 4px;
 `;
 
 const HighlightTextWrapper = styled.div`
