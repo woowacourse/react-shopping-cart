@@ -4,8 +4,8 @@ import { theme } from './App.styles';
 import Header from './components/Header/Header';
 import GlobalStyle from './Global.styles';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
-
 import ProductListPage from './pages/ProductListPage/ProductListPage';
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 
 function App() {
   return (
@@ -19,6 +19,9 @@ function App() {
           </Route>
           <Route exact path="/detail">
             <ProductDetailPage />
+          </Route>
+          <Route exact path="/cart">
+            <ShoppingCartPage />
           </Route>
         </Switch>
       </HashRouter>
