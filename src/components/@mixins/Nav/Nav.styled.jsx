@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLOR } from "../../../constants/style";
 
 export const NavWrapper = styled.div`
   max-width: 75rem;
@@ -44,7 +45,7 @@ export const NavMenu = styled.ul`
       position: absolute;
       top: -0.75rem;
       right: -1rem;
-      background-color: #e63434;
+      background-color: ${COLOR.RED.PRIMARY};
       align-items: center;
       justify-content: center;
     }
@@ -52,7 +53,7 @@ export const NavMenu = styled.ul`
 `;
 
 export const Nav = styled.nav`
-  background-color: #2ac1bc;
+  background-color: ${COLOR.CYAN.PRIMARY};
   color: white;
   height: 5rem;
 `;

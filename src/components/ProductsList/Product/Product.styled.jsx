@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLOR } from "../../../constants/style";
 
 export const Product = styled.div`
   width: 100%;
@@ -42,7 +43,7 @@ export const AddCartButton = styled.button`
   transition: all 0.1s ease-in-out;
 
   &:hover {
-    background-color: #2ac1bc;
+    background-color: ${COLOR.CYAN.PRIMARY};
     color: white;
 
     svg {
@@ -62,11 +63,11 @@ export const AddCartButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #2ac1bc;
+    background-color: ${COLOR.CYAN.PRIMARY};
     color: white;
 
     &:hover {
-      background-color: #1a9b96;
+      background-color: ${COLOR.CYAN.DARK};
     }
   }
 `;
