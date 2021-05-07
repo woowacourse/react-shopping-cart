@@ -26,10 +26,10 @@ const NumberInput = ({ initValue = 1, maxLength = 2 }: Props) => {
       <Styled.Input maxLength={maxLength} value={number} onChange={onNumberChange} />
       <Styled.TriangleButtonWrapper>
         <Styled.TriangleButton>
-          <img src={triangleUpSVG} />
+          <img src={triangleUpSVG} alt="수량 증가 버튼" />
         </Styled.TriangleButton>
         <Styled.TriangleButton>
-          <img src={triangleDownSVG} />
+          <img src={triangleDownSVG} alt="수량 감소 버튼" />
         </Styled.TriangleButton>
       </Styled.TriangleButtonWrapper>
     </Styled.NumberInput>
