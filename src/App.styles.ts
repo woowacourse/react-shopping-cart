@@ -28,7 +28,8 @@ export const theme: Theme = {
     defaultWhite: '#FFFFFF',
   },
   borderColor: {
-    dividerGrey: '#aaaaaa',
+    darkGrey: '#aaaaaa',
+    lightGrey: '#dddddd',
   },
 };
 
