@@ -66,18 +66,16 @@
         - [] OrderDetail
 
     - common
-      - [] Button
+      - [x] Button
 
     - [x] NavBar
     - [x] PageHeader
-    - [] ProductList
     - [x] ProductItem
     - [x] ProductDetail
 
-    - [] ShoppingItem
-    - [] ShoppingManagement
+    - [x] ShoppingItem
     - [] OrderItem
     - [] OrderList
     - [] CompletedOrderList
-    - [] PaymentSheet
+    - [x] PaymentSheet
 ```
