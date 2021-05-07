@@ -7,6 +7,7 @@ const Root = styled.section`
 const Cart = styled.div`
   display: flex;
   margin-top: 50px;
+  gap: 80px;
 `;
 
 const CartListContainer = styled.div`
@@ -16,9 +17,8 @@ const CartListContainer = styled.div`
 const CartListOption = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 26px;
-  label: cart-list-option;
 `;
 
 const DeleteButton = styled.button`
@@ -31,10 +31,6 @@ const DeleteButton = styled.button`
   cursor: pointer;
   width: 117px;
   height: 50px;
-`;
-
-const QuantityInputWrapper = styled.div`
-  margin-bottom: 13px;
 `;
 
 const CartListHeader = styled.div`
@@ -50,63 +46,8 @@ const CartItemList = styled.ul`
   width: 100%;
 `;
 
-const CartItem = styled.li`
-  display: flex;
-  width: 100%;
-  padding: 30px 0;
-  border-bottom: 1.5px solid #cccccc;
-`;
-
-const CartItemImage = styled.img`
-  width: 144px;
-  height: 144px;
-  object-fit: contain;
-  margin-left: 15px;
-  border: 1px solid ${(props) => props.theme.borderColor.dividerGrey};
-  box-sizing: border-box;
-  border-radius: 2px;
-`;
-
-const CartItemTitle = styled.div`
-  flex: 1;
-  margin-left: 20px;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-`;
-
-const CartItemOption = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-left: 20px;
-`;
-
-const CartItemDelete = styled.button`
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  margin-bottom: 20px;
-`;
-
-const CartItemPrice = styled.div`
-  font-size: 16px;
-`;
-
-const TotalPriceContainer = styled.div`
-  width: 448px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const TotalPriceHeader = styled.div``;
-
-const TotalPriceContent = styled.div``;
-
-const OrderButton = styled.button`
-  border: none;
-  background-color: ${(props) => props.theme.bgColor.primary};
-  color: ${(props) => props.theme.textColor.defaultWhite};
+const PriceOverviewWrapper = styled.div`
+  margin-top: 42px;
 `;
 
 export default {
@@ -115,17 +56,7 @@ export default {
   CartListContainer,
   CartListOption,
   DeleteButton,
-  QuantityInputWrapper,
   CartListHeader,
   CartItemList,
-  CartItem,
-  CartItemImage,
-  CartItemTitle,
-  CartItemOption,
-  CartItemDelete,
-  CartItemPrice,
-  TotalPriceContainer,
-  TotalPriceHeader,
-  TotalPriceContent,
-  OrderButton,
+  PriceOverviewWrapper,
 };
