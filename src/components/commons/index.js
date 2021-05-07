@@ -11,6 +11,7 @@ export { UpwardIcon } from './atoms/UpwardIcon';
 
 /* molecules */
 export { BorderTopList } from './molecules/BorderTopList';
+export { CartItem } from './molecules/CartItem';
 export { CheckoutBox } from './molecules/CheckoutBox';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';

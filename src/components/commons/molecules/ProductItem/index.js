@@ -9,7 +9,7 @@ import { getFormattedAsKRW } from '../../../../utils';
     "id": "1",
     "name": "PET보틀-정사각(420ml)",
     "price": "43400",
-    "img": "/src/mockData/images/img1.png"
+    "img": "/mockImages/img1.png"
   },
 */
 

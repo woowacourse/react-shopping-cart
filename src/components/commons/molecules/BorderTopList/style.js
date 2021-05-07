@@ -9,10 +9,6 @@ export const List = styled.ul`
   border-top: 0.0625rem solid #aaaaaa;
 
   & > li {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin: 0;
     width: 100%;
     min-height: 3.5rem;

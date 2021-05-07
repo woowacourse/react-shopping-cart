@@ -13,6 +13,7 @@ export const Input = styled.input`
   border-style: solid;
   text-align: center;
   font-size: 1.5rem;
+  color: #333333;
 
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,

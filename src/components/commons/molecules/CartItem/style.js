@@ -2,41 +2,39 @@ import styled from 'styled-components';
 import { patterFileName } from '../../../../constants';
 
 export const Container = styled.li`
-  margin: 1.5rem;
+  padding: 1.5rem 0.25rem;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  width: 100%;
 `;
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src,
   alt: props.src.match(patterFileName)[0],
 }))`
-  width: 100%;
-`;
-
-export const Footer = styled.div`
-  width: 95%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-`;
-
-export const Label = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 9rem;
 `;
 
 export const Name = styled.span`
-  font-size: 1rem;
-  margin: 0.2rem 0;
+  flex-grow: 1;
+  padding-left: 1.25rem;
+  font-size: 1.25rem;
+  color: #333333;
+`;
+
+export const Controller = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
 `;
 
 export const Price = styled.span`
-  font-size: 1.25rem;
-  margin: 0.2rem 0;
+  font-size: 1rem;
+  color: #333333;
+  text-align: right;
 `;
 
 export const Button = styled.button`
