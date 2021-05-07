@@ -1,16 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TrashCan } from '../../assets/svg';
-import { FALLBACK } from '../../constants';
 import Button from '../common/Button';
 import CheckBox from '../common/CheckBox';
-import {
-  Controller,
-  Image,
-  Name,
-  Product,
-  QuantityInput,
-} from './index.styles';
+import QuantityInput from '../common/QuantityInput';
+import { TrashCan } from '../../assets/svg';
+import { FALLBACK } from '../../constants';
+import { Controller, Image, Name, Product } from './index.styles';
 
 const ShoppingItem = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,

@@ -31,5 +31,3 @@ export const Controller = styled.div`
   color: var(--color-grey-500);
   font-size: var(--font-small);
 `;
-
-export const QuantityInput = styled.input``;
