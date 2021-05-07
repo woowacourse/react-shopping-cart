@@ -1,6 +1,6 @@
 import Template from '../../components/shared/Template';
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
-import ShoppingCartResult from '../../components/ShoppingCart/ShoppingCartResult';
+import ResultSubmitCard from '../../components/shared/ResultSubmitCard';
 import ShoppingCartInnerContainer from '../../components/ShoppingCart/ShoppingCartInnerContainer';
 import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
 
@@ -11,7 +11,12 @@ const ShoppingCartPage = () => {
     <Template title={TITLE} innerWidth={INNER_TEMPLATE_WIDTH}>
       <ShoppingCartInnerContainer>
         <ShoppingCartSectionList />
-        <ShoppingCartResult />
+        <ResultSubmitCard
+          title="결제예상금액"
+          resultAmount="21,700원"
+          resultDescription="결제예상금액"
+          buttonText="주문하기(2개)"
+        />
       </ShoppingCartInnerContainer>
     </Template>
   );

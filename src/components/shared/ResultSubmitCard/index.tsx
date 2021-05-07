@@ -1,25 +1,33 @@
-import Text from '../../shared/Text';
+import { VFC } from 'react';
+import Text from '../Text';
 import {
-  OrderButton,
+  ResultSubmitButton,
   ResultAmountContainer,
   ResultInnerContainer,
   ResultTitle,
-  ShoppingCartResultContainer,
+  ResultSubmitCardContainer,
 } from './style';
 
-const ShoppingCartResult = () => {
+interface Props {
+  title: string;
+  resultDescription: string;
+  resultAmount: string;
+  buttonText: string;
+}
+
+const ResultSubmitCard: VFC<Props> = ({ title, resultDescription, resultAmount, buttonText }) => {
   return (
-    <ShoppingCartResultContainer>
-      <ResultTitle>결제예상금액</ResultTitle>
+    <ResultSubmitCardContainer>
+      <ResultTitle>{title}</ResultTitle>
       <ResultInnerContainer>
         <ResultAmountContainer>
-          <Text>결제예상금액</Text>
-          <Text>21,700원</Text>
+          <Text>{resultDescription}</Text>
+          <Text>{resultAmount}</Text>
         </ResultAmountContainer>
-        <OrderButton>주문하기(2개)</OrderButton>
+        <ResultSubmitButton>{buttonText}</ResultSubmitButton>
       </ResultInnerContainer>
-    </ShoppingCartResultContainer>
+    </ResultSubmitCardContainer>
   );
 };
 
-export default ShoppingCartResult;
+export default ResultSubmitCard;

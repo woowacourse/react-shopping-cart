@@ -4,7 +4,7 @@ import Button from '../../shared/Button';
 import Container from '../../shared/Container';
 import Text from '../../shared/Text';
 
-export const ShoppingCartResultContainer = styled(Container)`
+export const ResultSubmitCardContainer = styled(Container)`
   border: 1px solid ${PALETTE.GRAY[300]};
   width: 28rem;
   height: 19.875rem;
@@ -49,7 +49,7 @@ export const ResultAmountContainer = styled(Container)`
   }
 `;
 
-export const OrderButton = styled(Button)`
+export const ResultSubmitButton = styled(Button)`
   background-color: ${PALETTE.BAE_MINT[500]};
   color: white;
   font-size: 1.5rem;
