@@ -22,3 +22,10 @@ LabelFlexStart.args = {
   children: <Product product={reactFamily[0]} size={'10rem'} direction={'row'} />,
   align: 'flex-start',
 };
+
+export const Checked = Template.bind({});
+Checked.args = {
+  children: <Product product={reactFamily[0]} size={'10rem'} direction={'row'} />,
+  align: 'flex-start',
+  isChecked: true,
+};

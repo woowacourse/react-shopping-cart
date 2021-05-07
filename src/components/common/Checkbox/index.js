@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const Checkbox = ({ align, children }) => {
+const Checkbox = ({ isChecked, align, children }) => {
   return (
     <Styled.CheckboxContainer align={align}>
-      <Styled.Checkbox type={'checkbox'} />
+      <Styled.Checkbox type={'checkbox'} checked={isChecked ? 'checked' : ''} />
       {children}
     </Styled.CheckboxContainer>
   );
@@ -13,11 +13,13 @@ const Checkbox = ({ align, children }) => {
 
 Checkbox.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType, PropTypes.element]),
+  isChecked: PropTypes.bool,
   align: PropTypes.oneOf(['flex-start', 'center']),
 };
 
 Checkbox.defaultProps = {
   align: 'center',
+  isChecked: false,
 };
 
 export default Checkbox;

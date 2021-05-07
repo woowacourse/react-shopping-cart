@@ -9,7 +9,13 @@ const ProductListItem = ({ product, listStyle, productDetail, isCheckbox, imageS
 
   return (
     <Styled.ProductListItem listStyle={listStyle}>
-      {isCheckbox ? <Checkbox align={'flex-start'}>{productElement}</Checkbox> : productElement}
+      {isCheckbox ? (
+        <Checkbox align={'flex-start'} isChecked={product.isChecked}>
+          {productElement}
+        </Checkbox>
+      ) : (
+        productElement
+      )}
       {children}
     </Styled.ProductListItem>
   );
@@ -17,7 +23,17 @@ const ProductListItem = ({ product, listStyle, productDetail, isCheckbox, imageS
 
 ProductListItem.propTypes = {
   listStyle: PropTypes.string,
-  product: PropTypes.object.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string,
+      alt: PropTypes.string,
+    }),
+    amount: PropTypes.number,
+    isChecked: PropTypes.bool,
+  }).isRequired,
   productDetail: PropTypes.string,
   isCheckbox: PropTypes.bool,
   imageSize: PropTypes.string,
