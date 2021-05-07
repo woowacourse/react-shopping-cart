@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/BoxButton';
+import BoxButton from '../common/BoxButton';
 import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
 import { FALLBACK, STYLE } from '../../constants';
 
@@ -20,9 +20,9 @@ const ProductDetail = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button buttonStyle={STYLE.BUTTON.BROWN} onClick={() => {}}>
+    <BoxButton buttonStyle={STYLE.BUTTON.BROWN} onClick={() => {}}>
       장바구니
-    </Button>
+    </BoxButton>
   </Product>
 );
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/Button';
+import BoxButton from '../common/BoxButton';
 import CheckBox from '../common/CheckBox';
 import QuantityInput from '../common/QuantityInput';
 import { TrashCan } from '../../assets/svg';
@@ -19,9 +19,9 @@ const ShoppingItem = ({
     <Image src={imgUrl} alt={imgAlt} />
     <Name>{name}</Name>
     <Controller>
-      <Button onClick={() => {}}>
+      <BoxButton onClick={() => {}}>
         <TrashCan width="20" height="20" />
-      </Button>
+      </BoxButton>
       <QuantityInput type="number" />
       <span>{price}</span>
     </Controller>
