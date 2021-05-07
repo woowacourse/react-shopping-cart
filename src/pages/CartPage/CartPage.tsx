@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Styled from './CartPage.styles';
 import Checkbox from '../../components/shared/Checkbox/Checkbox';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
@@ -32,7 +33,9 @@ const CartPage = () => {
               <HighlightText text="결제예상금액" />
               <HighlightText text="300,000원" />
             </Styled.HighlightTextWrapper>
-            <Button text="주문하기(2개)" size={T.ButtonSize.LARGE} />
+            <Link to="/order/complete">
+              <Button text="주문하기(2개)" size={T.ButtonSize.LARGE} />
+            </Link>
           </PriceOverview>
         </Styled.PriceOverviewWrapper>
       </Styled.Cart>
