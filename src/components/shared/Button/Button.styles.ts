@@ -9,7 +9,7 @@ type RootProps = {
 
 const sizeTable = {
   [T.ButtonSize.REGULAR]: {
-    width: '183px',
+    width: '138px',
     height: '47px',
     fontSize: '20px',
   },
