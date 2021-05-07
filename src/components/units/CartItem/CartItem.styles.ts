@@ -13,7 +13,6 @@ const CartItemImage = styled.img`
   height: 144px;
   object-fit: contain;
   margin-left: 15px;
-  border: 1px solid ${(props) => props.theme.borderColor.darkGrey};
   box-sizing: border-box;
   border-radius: 2px;
 `;

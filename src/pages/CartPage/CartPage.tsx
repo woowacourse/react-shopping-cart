@@ -33,7 +33,7 @@ const CartPage = () => {
               <HighlightText text="결제예상금액" />
               <HighlightText text="300,000원" />
             </Styled.HighlightTextWrapper>
-            <Link to="/order/complete">
+            <Link to="/order">
               <Button text="주문하기(2개)" size={T.ButtonSize.LARGE} />
             </Link>
           </PriceOverview>
