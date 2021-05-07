@@ -8,14 +8,20 @@ export const AmountInputContainer = styled.div`
   display: flex;
 `;
 
-export const NumberContainer = styled.div`
+export const NumberContainer = styled.input`
+  width: 100%;
   height: 100%;
-  flex-grow: 1;
+  border: none;
   border-right: 1px solid ${PALETTE.GRAY_004};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-size: 1.5rem;
+  outline: none;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export const ButtonContainer = styled.div`
