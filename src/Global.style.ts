@@ -1,15 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;900&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
-* {
-  font-family: 'Noto Sans KR', sans-serif;
-  user-select: none;
-}
 
 html, body, div, span, applet, object, iframe,
- p, blockquote, pre,
+ p, blockquote, pre, h1, h2 ,h3, h4, h5, h6,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -20,12 +16,12 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, input {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: 'Noto Sans KR', sans-serif;
 	vertical-align: baseline;
   text-decoration: none;
 }
@@ -37,7 +33,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
+ol, ul{
 	list-style: none;
 }
 blockquote, q {
@@ -52,6 +48,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+	 * {
+		user-select: none;
+	}
 `;
 
 export default GlobalStyle;
