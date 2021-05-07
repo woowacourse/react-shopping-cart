@@ -31,4 +31,9 @@ export const HeaderTitle = styled.a`
     justify-content: center;
     margin-right: 1.5rem;
   }
+
+  h1 {
+    font-size: 2.5rem;
+    color: ${PALETTE.WHITE};
+  }
 `;

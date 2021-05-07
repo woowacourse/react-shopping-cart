@@ -8,7 +8,7 @@ const Header = ({ logo, title, homeAddress, children }) => {
       <Styled.HeaderInner>
         <Styled.HeaderTitle src={homeAddress}>
           <span>{logo}</span>
-          {title}
+          <h1>{title}</h1>
         </Styled.HeaderTitle>
         {children}
       </Styled.HeaderInner>

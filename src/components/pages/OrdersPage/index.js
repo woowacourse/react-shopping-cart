@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import { PAGES, UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import Button from '../../common/Button';
@@ -9,7 +8,6 @@ import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
 import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
-import * as Styled from './style';
 
 const CheckoutPage = ({ orders }) => {
   return (
