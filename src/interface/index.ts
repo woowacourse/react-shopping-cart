@@ -10,8 +10,18 @@ interface ProductsObject {
   };
 }
 
+interface CartItem {
+  id: string;
+  quantity: number;
+  isSelected: boolean;
+}
+
+interface Cart {
+  cart: CartItem[];
+}
+
 interface RequestError {
   requestErrorMessage: string | null;
 }
 
-export { Product, ProductsObject, RequestError };
+export { Product, ProductsObject, CartItem, Cart, RequestError };

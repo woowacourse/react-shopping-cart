@@ -1,7 +1,6 @@
 import productsReducer, { initialState } from ".";
-import { ProductsObject, RequestError } from "../../interface";
+import { ProductsObject } from "../../interface";
 import actions from "../../actions";
-import { isMainThread } from "node:worker_threads";
 
 // TODO: 로딩에 대한 처리
 describe("productReducer test", () => {

@@ -24,15 +24,15 @@ const CartItem: VFC<ICartItemProps> = ({
   price,
   onClickDeleteButton,
 }) => {
-  const [selected, setSelected] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
 
-  const onChangeSelected = () => {
-    setSelected((prev) => !prev);
+  const onChangeChecked = () => {
+    setIsSelected((prev) => !prev);
   };
 
   return (
     <Container>
-      <CheckBox checked={selected} onChange={onChangeSelected} />
+      <CheckBox checked={isSelected} onChange={onChangeChecked} />
       <ProductImageLink to={`/cart/${id}`}>
         <ProductImage
           size="7.75rem"
