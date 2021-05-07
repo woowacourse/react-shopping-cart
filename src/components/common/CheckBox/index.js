@@ -4,11 +4,11 @@ import { HiddenCheckBox, StyledCheckBox } from './index.styles';
 import { Check } from '../../../assets/svg';
 
 const CheckBox = ({ checked, onClick }) => (
-  <div onClick={onClick}>
-    <HiddenCheckBox />
-    <StyledCheckBox checked={checked}>
+  <div>
+    <StyledCheckBox onClick={onClick} checked={checked}>
       <Check />
     </StyledCheckBox>
+    <HiddenCheckBox />
   </div>
 );
 

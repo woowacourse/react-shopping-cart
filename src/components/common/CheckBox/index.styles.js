@@ -2,13 +2,17 @@ import styled, { css } from 'styled-components';
 
 export const HiddenCheckBox = styled.input.attrs(() => ({
   type: 'checkbox',
+  name: 'checkbox',
 }))`
   width: 1px;
   opacity: 0;
   position: absolute;
 `;
 
-export const StyledCheckBox = styled.span`
+export const StyledCheckBox = styled.label.attrs(({ onClick }) => ({
+  htmlFor: 'checkbox',
+  onClick,
+}))`
   display: flex;
   justify-content: center;
   align-items: center;
