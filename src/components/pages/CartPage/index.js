@@ -70,6 +70,7 @@ CartPage.propTypes = {
         alt: PropTypes.string,
       }),
       amount: PropTypes.number,
+      isChecked: PropTypes.bool,
     })
   ),
 };

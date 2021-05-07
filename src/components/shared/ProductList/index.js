@@ -8,7 +8,7 @@ const ProductList = ({ children }) => {
 };
 
 ProductList.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.arrayOf(PropTypes.elementType),
 };
 
 export default ProductList;

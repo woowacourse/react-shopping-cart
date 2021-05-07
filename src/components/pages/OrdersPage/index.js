@@ -52,14 +52,19 @@ const CheckoutPage = ({ orders }) => {
 CheckoutPage.propTypes = {
   orders: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.shape({
-        url: PropTypes.string,
-        alt: PropTypes.string,
-      }),
-      amount: PropTypes.number,
+      id: PropTypes.number,
+      products: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          price: PropTypes.number.isRequired,
+          image: PropTypes.shape({
+            url: PropTypes.string,
+            alt: PropTypes.string,
+          }),
+          amount: PropTypes.number,
+        })
+      ),
     })
   ),
 };
