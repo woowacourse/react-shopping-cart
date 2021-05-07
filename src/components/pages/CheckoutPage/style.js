@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from '../../commons';
 
 export const Container = styled.div`
   height: 100%;
@@ -12,26 +11,12 @@ export const Main = styled.main`
   height: 100%;
 `;
 
-export const OrderOptionsSection = styled.section`
+export const CartListSection = styled.section`
   display: flex;
   flex-direction: column;
   margin: 1.5rem;
   width: 63%;
   height: 100%;
-`;
-
-export const OrderOptionsController = styled.p`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const DeleteButton = styled(Button)`
-  justify-content: center;
-  width: 7.375rem;
-  height: 3.125rem;
-  font-size: 1rem;
-  color: #333333;
-  border: 0.0625rem solid #bbbbbb;
 `;
 
 export const ListLabel = styled.h3`
@@ -51,6 +36,6 @@ export const Sticky = styled.section`
   position: -webkit-sticky;
   position: sticky;
   top: 15%;
-  margin-top: 5.125rem;
+  margin-top: 4.875rem;
   width: 100%;
 `;

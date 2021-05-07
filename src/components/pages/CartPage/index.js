@@ -1,5 +1,7 @@
 import { BorderTopList, CartItem, Checkbox, CheckoutBox, Header } from '../../commons';
 import * as Styled from './style.js';
+import { getFormattedAsKRW } from '../../../utils';
+import { ROUTE } from '../../../constants';
 import cartItems from '../../../mockData/product.json';
 
 export const CartPage = () => {
@@ -8,14 +10,14 @@ export const CartPage = () => {
       <Header>장바구니</Header>
       <Styled.Main>
         <Styled.OrderOptionsSection>
-          <Styled.OrderListController>
+          <Styled.OrderOptionsController>
             <Checkbox label="선택해제" />
             <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
-          </Styled.OrderListController>
+          </Styled.OrderOptionsController>
           <Styled.ListLabel>선택상품 ({cartItems.length}개)</Styled.ListLabel>
           <BorderTopList>
             {cartItems.map((item) => (
-              <CartItem item={item} />
+              <CartItem key={item.id} item={item} />
             ))}
           </BorderTopList>
         </Styled.OrderOptionsSection>
@@ -24,8 +26,9 @@ export const CartPage = () => {
             <CheckoutBox
               title="결제예상금액"
               label="결제예상금액"
-              price="27100"
+              price={getFormattedAsKRW(27100)}
               buttonText="주문하기(2개)"
+              route={ROUTE.CHECKOUT}
             />
           </Styled.Sticky>
         </Styled.CheckoutSection>

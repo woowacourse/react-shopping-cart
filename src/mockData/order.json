@@ -3,30 +3,30 @@
     "orderId": "1",
     "orderItems": [
       {
-        "amount": 2,
+        "quantity": 2,
         "product": {
           "id": "1",
           "name": "PET보틀-정사각(420ml)",
           "price": "43400",
-          "img": "/images/img1.png"
+          "img": "/mockImages/img1.png"
         }
       },
       {
-        "amount": 3,
+        "quantity": 3,
         "product": {
           "id": "2",
           "name": "PET보틀-밀크티(370ml)",
           "price": "73400",
-          "img": "/images/img2.png"
+          "img": "/mockImages/img2.png"
         }
       },
       {
-        "amount": 5,
+        "quantity": 5,
         "product": {
           "id": "5",
           "name": "PET보틀-단지(480ml)",
           "price": "41000",
-          "img": "/images/img5.png"
+          "img": "/mockImages/img5.png"
         }
       }
     ]
@@ -35,21 +35,21 @@
     "orderId": "2",
     "orderItems": [
       {
-        "amount": 7,
+        "quantity": 7,
         "product": {
           "id": "3",
           "name": "PET보틀-정사각(370ml)",
           "price": "41000",
-          "img": "/images/img3.png"
+          "img": "/mockImages/img3.png"
         }
       },
       {
-        "amount": 1,
+        "quantity": 1,
         "product": {
           "id": "7",
           "name": "PET보틀-원형(500ml)",
           "price": "42200",
-          "img": "/images/img7.png"
+          "img": "/mockImages/img7.png"
         }
       }
     ]
