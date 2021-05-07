@@ -50,6 +50,12 @@ const PriceOverviewWrapper = styled.div`
   margin-top: 42px;
 `;
 
+const HighlightTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
+`;
+
 export default {
   Root,
   Cart,
@@ -59,4 +65,5 @@ export default {
   CartListHeader,
   CartItemList,
   PriceOverviewWrapper,
+  HighlightTextWrapper,
 };

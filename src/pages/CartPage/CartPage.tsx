@@ -5,6 +5,9 @@ import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
 import CardItemImageURL from '../../assets/images/kimmari.png';
 import CartItem from '../../components/units/CartItem/CartItem';
+import HighlightText from '../../components/shared/HighlightText/HighlightText';
+import Button from '../../components/shared/Button/Button';
+import * as T from '../../types';
 
 const CartPage = () => {
   return (
@@ -24,7 +27,13 @@ const CartPage = () => {
           </Styled.CartItemList>
         </Styled.CartListContainer>
         <Styled.PriceOverviewWrapper>
-          <PriceOverview />
+          <PriceOverview headerText="결제예상금액">
+            <Styled.HighlightTextWrapper>
+              <HighlightText text="결제예상금액" />
+              <HighlightText text="300,000원" />
+            </Styled.HighlightTextWrapper>
+            <Button text="주문하기(2개)" size={T.ButtonSize.LARGE} />
+          </PriceOverview>
         </Styled.PriceOverviewWrapper>
       </Styled.Cart>
     </Styled.Root>

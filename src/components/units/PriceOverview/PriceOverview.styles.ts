@@ -26,16 +26,10 @@ const TotalPriceContent = styled.div`
   padding: 34px 30px;
 `;
 
-const HighlightTextWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 70px;
-`;
-
 const OrderButton = styled.button`
   border: none;
   background-color: ${(props) => props.theme.bgColor.primary};
   color: ${(props) => props.theme.textColor.defaultWhite};
 `;
 
-export default { Root, TotalPriceHeader, Divider, TotalPriceContent, HighlightTextWrapper, OrderButton };
+export default { Root, TotalPriceHeader, Divider, TotalPriceContent, OrderButton };
