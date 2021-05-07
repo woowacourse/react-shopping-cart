@@ -24,6 +24,7 @@ const ProductListPage = ({ location }) => {
 
     setModalOpen(false);
   };
+
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
