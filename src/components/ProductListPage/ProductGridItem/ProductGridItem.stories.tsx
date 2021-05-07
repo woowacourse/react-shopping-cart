@@ -10,7 +10,7 @@ const Template = (args: Props) => <ProductGridItem {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   productName: '상품 이름',
   productPrice: '18,900',
   productThumbnail:

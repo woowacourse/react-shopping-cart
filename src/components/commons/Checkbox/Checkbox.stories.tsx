@@ -10,6 +10,6 @@ const Template = (args: Props) => <Checkbox {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   labelText: '라벨 텍스트',
 };

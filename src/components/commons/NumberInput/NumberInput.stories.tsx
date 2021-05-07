@@ -10,7 +10,7 @@ const Template = (args: Props) => <NumberInput {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   initValue: 1,
   maxLength: 2,
 };

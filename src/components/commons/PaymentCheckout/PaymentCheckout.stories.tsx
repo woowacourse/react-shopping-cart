@@ -10,7 +10,7 @@ const Template = (args: Props) => <PaymentCheckout {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   title: '결제금액',
   priceLabel: '총 결제금액',
   price: '18,900원',

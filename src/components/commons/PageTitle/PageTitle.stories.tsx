@@ -9,6 +9,6 @@ export default {
 const Template = (args: Props) => <PageTitle {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
+(Default as any).args = {
   children: '주문목록',
 };

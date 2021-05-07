@@ -23,6 +23,6 @@ const Template = (args: Props) => (
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   orderNumber: '2',
 };

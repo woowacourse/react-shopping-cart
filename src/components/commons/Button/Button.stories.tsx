@@ -11,7 +11,7 @@ const Template = (args: Props) => <Button {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {
+(Default as any).args = {
   fontColor: COLORS.WHITE,
   backgroundColor: COLORS.MINT_500,
   size: 'MD',
