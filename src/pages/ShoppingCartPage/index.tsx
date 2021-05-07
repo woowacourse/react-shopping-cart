@@ -1,5 +1,5 @@
 import Template from '../../components/shared/Template';
-import ShoppingCartItemList from '../../components/ShoppingCart/ShoppingCartItemList';
+import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResult from '../../components/ShoppingCart/ShoppingCartResult';
 import { ShoppingCartPageInnerContainer } from './style';
 import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
@@ -10,7 +10,7 @@ const ShoppingCartPage = () => {
   return (
     <Template title={TITLE} innerWidth={INNER_TEMPLATE_WIDTH}>
       <ShoppingCartPageInnerContainer>
-        <ShoppingCartItemList />
+        <ShoppingCartSectionList />
         <ShoppingCartResult />
       </ShoppingCartPageInnerContainer>
     </Template>

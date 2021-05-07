@@ -7,7 +7,7 @@ import {
   CartSelectContainer,
 } from './style';
 
-const ShoppingCartItemList = () => {
+const ShoppingCartSectionList = () => {
   const items = PRODUCT_LIST_MOCK;
 
   return (
@@ -21,4 +21,4 @@ const ShoppingCartItemList = () => {
   );
 };
 
-export default ShoppingCartItemList;
+export default ShoppingCartSectionList;
