@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
-const OrderItem = styled.li`
+const Root = styled.li`
   display: flex;
   align-items: flex-start;
   width: 100%;
   padding: 20px 0;
-  border-bottom: 1.5px solid #cccccc;
+  border-bottom: 1.5px solid ${(props) => props.theme.borderColor.defaultGrey};
 `;
 
-const OrderItemImage = styled.img`
+const Image = styled.img`
   width: 120px;
   height: 120px;
   object-fit: contain;
@@ -17,25 +17,25 @@ const OrderItemImage = styled.img`
   border-radius: 2px;
 `;
 
-const OrderItemInfo = styled.div``;
+const Info = styled.div``;
 
-const OrderItemTitle = styled.div`
+const Title = styled.div`
   margin-left: 20px;
   font-size: 20px;
   letter-spacing: 0.5px;
   margin-bottom: 15px;
 `;
 
-const OrderItemQuantity = styled.div`
+const Quantity = styled.div`
   margin-left: 20px;
   font-size: 16px;
   letter-spacing: 0.5px;
 `;
 
 export default {
-  OrderItem,
-  OrderItemImage,
-  OrderItemInfo,
-  OrderItemTitle,
-  OrderItemQuantity,
+  Root,
+  Image,
+  Info,
+  Title,
+  Quantity,
 };

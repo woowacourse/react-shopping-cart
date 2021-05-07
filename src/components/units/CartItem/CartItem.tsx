@@ -16,20 +16,20 @@ const CartItem = (props: CartItemProps) => {
   const { title, imageUrl, price, checked } = props;
 
   return (
-    <Styled.CartItem>
+    <Styled.Root>
       <Checkbox checked={checked} />
-      <Styled.CartItemImage src={imageUrl} alt="김말이" />
-      <Styled.CartItemTitle>{title}</Styled.CartItemTitle>
-      <Styled.CartItemOption>
-        <Styled.CartItemDelete>
+      <Styled.Image src={imageUrl} alt="김말이" />
+      <Styled.Title>{title}</Styled.Title>
+      <Styled.Option>
+        <Styled.Delete>
           <DeleteIcon />
-        </Styled.CartItemDelete>
+        </Styled.Delete>
         <Styled.QuantityInputWrapper>
           <QuantityInput value={1} min={1} max={99} />
         </Styled.QuantityInputWrapper>
-        <Styled.CartItemPrice>{price.toLocaleString('ko-KR')} 원</Styled.CartItemPrice>
-      </Styled.CartItemOption>
-    </Styled.CartItem>
+        <Styled.Price>{price.toLocaleString('ko-KR')} 원</Styled.Price>
+      </Styled.Option>
+    </Styled.Root>
   );
 };
 

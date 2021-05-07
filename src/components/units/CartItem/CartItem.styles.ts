@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const CartItem = styled.li`
+const Root = styled.li`
   display: flex;
   align-items: flex-start;
   width: 100%;
@@ -8,7 +8,7 @@ const CartItem = styled.li`
   border-bottom: 1.5px solid #cccccc;
 `;
 
-const CartItemImage = styled.img`
+const Image = styled.img`
   width: 144px;
   height: 144px;
   object-fit: contain;
@@ -17,21 +17,21 @@ const CartItemImage = styled.img`
   border-radius: 2px;
 `;
 
-const CartItemTitle = styled.div`
+const Title = styled.div`
   flex: 1;
   margin-left: 20px;
   font-size: 20px;
   letter-spacing: 0.5px;
 `;
 
-const CartItemOption = styled.div`
+const Option = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin-left: 20px;
 `;
 
-const CartItemDelete = styled.button`
+const Delete = styled.button`
   background: none;
   border: none;
   color: inherit;
@@ -39,7 +39,7 @@ const CartItemDelete = styled.button`
   margin-bottom: 20px;
 `;
 
-const CartItemPrice = styled.div`
+const Price = styled.div`
   font-size: 16px;
 `;
 
@@ -48,11 +48,11 @@ const QuantityInputWrapper = styled.div`
 `;
 
 export default {
-  CartItem,
-  CartItemImage,
-  CartItemTitle,
-  CartItemOption,
-  CartItemDelete,
-  CartItemPrice,
+  Root,
+  Image,
+  Title,
+  Option,
+  Delete,
+  Price,
   QuantityInputWrapper,
 };

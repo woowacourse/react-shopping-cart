@@ -4,6 +4,8 @@ declare module '@emotion/react' {
   export interface Theme {
     bgColor: {
       primary: string;
+      secondary: string;
+      lightGrey: string;
     };
 
     color: {
@@ -12,10 +14,12 @@ declare module '@emotion/react' {
 
     textColor: {
       defaultWhite: string;
+      defaultGrey: string;
     };
 
     borderColor: {
       darkGrey: string;
+      defaultGrey: string;
       lightGrey: string;
     };
   }

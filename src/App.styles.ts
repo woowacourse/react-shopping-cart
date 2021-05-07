@@ -20,15 +20,19 @@ export const globalStyle = css`
 export const theme: Theme = {
   bgColor: {
     primary: '#2AC1BC',
+    secondary: '#f6f6f6',
+    lightGrey: '#e5e5e5',
   },
   color: {
     defaultBlack: '#333333',
   },
   textColor: {
     defaultWhite: '#FFFFFF',
+    defaultGrey: '#888888',
   },
   borderColor: {
     darkGrey: '#aaaaaa',
+    defaultGrey: '#cccccc',
     lightGrey: '#dddddd',
   },
 };

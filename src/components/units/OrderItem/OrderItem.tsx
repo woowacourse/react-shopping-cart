@@ -12,14 +12,13 @@ const OrderItem = (props: OrderItemProps) => {
   const { title, imageUrl, quantity } = props;
 
   return (
-    <Styled.OrderItem>
-      <Styled.OrderItemImage src={imageUrl} alt="김말이" />
-
-      <Styled.OrderItemInfo>
-        <Styled.OrderItemTitle>{title}</Styled.OrderItemTitle>
-        <Styled.OrderItemQuantity>수량 : {quantity}개</Styled.OrderItemQuantity>
-      </Styled.OrderItemInfo>
-    </Styled.OrderItem>
+    <Styled.Root>
+      <Styled.Image src={imageUrl} alt="김말이" />
+      <Styled.Info>
+        <Styled.Title>{title}</Styled.Title>
+        <Styled.Quantity>수량 : {quantity}개</Styled.Quantity>
+      </Styled.Info>
+    </Styled.Root>
   );
 };
 
