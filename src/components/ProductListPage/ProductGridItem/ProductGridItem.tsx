@@ -2,19 +2,19 @@ import * as Styled from './ProductGridItem.styles';
 import shoppingCartDarkSVG from '../../../assets/svgs/shopping-cart-dark.svg';
 
 export interface Props {
-  productName: string;
-  productPrice: string;
-  productThumbnail: string;
+  name: string;
+  price: string;
+  thumbnail: string;
 }
 
-const ProductGridItem = ({ productName, productPrice, productThumbnail }: Props) => {
+const ProductGridItem = ({ name, price, thumbnail }: Props) => {
   return (
     <Styled.ProductGridItem>
-      <Styled.ProductThumbnail src={productThumbnail} />
+      <Styled.ProductThumbnail src={thumbnail} />
       <Styled.GridBottomWrapper>
         <Styled.GridTextWrapper>
-          <Styled.ProductName>{productName}</Styled.ProductName>
-          <Styled.ProductPrice>{productPrice} 원</Styled.ProductPrice>
+          <Styled.ProductName>{name}</Styled.ProductName>
+          <Styled.ProductPrice>{price} 원</Styled.ProductPrice>
         </Styled.GridTextWrapper>
         <Styled.CartIcon src={shoppingCartDarkSVG} />
       </Styled.GridBottomWrapper>
