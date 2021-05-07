@@ -19,7 +19,6 @@ export const Input = styled.input`
   border: 1px solid #22a6a2;
   border-radius: 2px;
   cursor: pointer;
-  margin-right: 12px;
 
   &:checked {
     background-color: #22a6a2;
@@ -39,6 +38,7 @@ export const Input = styled.input`
 export const Label = styled.label`
   position: relative;
   top: -1px;
+  margin-left: 12px;
   color: ${({ theme }) => theme.TEXT_COLOR};
   letter-spacing: 0.5px;
 `;
