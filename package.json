@@ -67,6 +67,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
     "storybook": "^6.2.9",
-    "styled-components": "^5.2.3"
+    "styled-components": "^5.2.3",
+    "typesafe-actions": "^5.1.0"
   }
 }

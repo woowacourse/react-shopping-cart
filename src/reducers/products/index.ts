@@ -1,15 +1,30 @@
-interface Product {
-  name: string;
-  price: number;
-}
+import { ProductsObject, RequestError } from "../../interface";
+import { productsActionType } from "../../actions/products";
 
-interface ProductsObject {
-  [key: string]: Product;
-}
+const initialState: ProductsObject & RequestError = {
+  products: {},
+  requestErrorMessage: null,
+};
 
-const initialState: ProductsObject = {};
+const productsReducer = (state = initialState, action: productsActionType) => {
+  switch (action.type) {
+    case "products/get/success":
+      return {
+        ...state,
+        products: { ...action.payload.products },
+        requestErrorMessage: null,
+      };
 
-const productsReducer = (state = initialState, action) => {};
+    case "products/get/failure":
+      return {
+        ...state,
+        requestErrorMessage: action.payload.requestErrorMessage,
+      };
+
+    default:
+      return { state };
+  }
+};
 
 export default productsReducer;
-export { Product, ProductsObject };
+export { initialState };
