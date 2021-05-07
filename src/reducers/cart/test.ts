@@ -1,7 +1,6 @@
 import cartReducer, { initialState } from ".";
 import actions from "../../actions";
 import { Cart } from "../../interface";
-import productsReducer from "../products";
 
 describe("cartReducer test", () => {
   it("should handle cart/get/success", () => {
