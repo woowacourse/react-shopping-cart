@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 import { useQuantityStepper } from '../../../../hooks';
-import { Checkbox, TrashCanIcon, QuantityStepper } from '../..';
+import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../..';
 import { getFormattedAsKRW } from '../../../../utils';
 
 /*
@@ -25,9 +25,7 @@ export const CartItem = (props) => {
       <Styled.Image src={img} />
       <Styled.Name>{name}</Styled.Name>
       <Styled.Controller>
-        <Styled.Button>
-          <TrashCanIcon />
-        </Styled.Button>
+        <Button children={<TrashCanIcon />} />
         <QuantityStepper
           quantity={quantity}
           handleQuantityChange={handleQuantityChange}

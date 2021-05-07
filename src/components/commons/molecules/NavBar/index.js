@@ -1,4 +1,4 @@
-import { CartIcon } from '../../';
+import { Button, CartIcon } from '../../';
 import * as Styled from './style.js';
 
 export const NavBar = () => {
@@ -6,18 +6,18 @@ export const NavBar = () => {
     <Styled.NavBar>
       <Styled.Container>
         <Styled.LeftItems>
-          <Styled.Button>
+          <Button>
             <CartIcon width="50" color="#FFFFFF" />
             <Styled.Title>심바하루의 쇼핑은 즐거워</Styled.Title>
-          </Styled.Button>
+          </Button>
         </Styled.LeftItems>
         <Styled.RightItems>
-          <Styled.Button>
+          <Button>
             <Styled.Item>장바구니</Styled.Item>
-          </Styled.Button>
-          <Styled.Button>
+          </Button>
+          <Button>
             <Styled.Item>주문목록</Styled.Item>
-          </Styled.Button>
+          </Button>
         </Styled.RightItems>
       </Styled.Container>
     </Styled.NavBar>

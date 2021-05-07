@@ -7,4 +7,5 @@ export const Button = (props) => {
 
 Button.propTypes = {
   style: PropTypes.object,
+  onClick: PropTypes.func,
 };

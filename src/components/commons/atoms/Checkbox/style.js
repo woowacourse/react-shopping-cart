@@ -13,6 +13,7 @@ export const Container = styled.label`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color: #333333;
 `;
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Styled from './style.js';
-import { CartIcon } from '../../';
+import { Button, CartIcon } from '../../';
 import { getFormattedAsKRW } from '../../../../utils';
 
 /*
@@ -25,9 +25,9 @@ export const ProductItem = (props) => {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{getFormattedAsKRW(price)}</Styled.Price>
         </Styled.Label>
-        <Styled.Button>
+        <Button>
           <CartIcon width="30" color="#333333" />
-        </Styled.Button>
+        </Button>
       </Styled.Footer>
     </Styled.Container>
   );

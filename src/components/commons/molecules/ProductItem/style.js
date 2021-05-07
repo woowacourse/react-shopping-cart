@@ -38,12 +38,3 @@ export const Price = styled.span`
   font-size: 1.25rem;
   margin: 0.2rem 0;
 `;
-
-export const Button = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-`;

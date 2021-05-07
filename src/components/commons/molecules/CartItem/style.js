@@ -36,12 +36,3 @@ export const Price = styled.span`
   color: #333333;
   text-align: right;
 `;
-
-export const Button = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-`;

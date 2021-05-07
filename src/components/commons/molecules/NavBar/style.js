@@ -48,12 +48,3 @@ export const Item = styled.li`
   min-width: 6.5rem;
   margin: 0 0.5rem;
 `;
-
-export const Button = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-`;
