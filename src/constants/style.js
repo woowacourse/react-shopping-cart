@@ -9,5 +9,12 @@ export const COLOR = {
   },
   GRAY: {
     DARK: "#333333",
+    LIGHT_100: "#AAAAAA",
+    LIGHT_200: "#CCCCCC",
+    LIGHT_300: "#DDDDDD",
+  },
+  BROWN: {
+    PRIMARY: "#73675C",
+    DARK: "#594f47",
   },
 };
