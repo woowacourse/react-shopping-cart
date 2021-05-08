@@ -1,23 +1,23 @@
-import { ActionType, createAction } from "typesafe-actions";
-import { Id, Cart, CartItem, RequestError } from "../interface";
+import { ActionType, createAction } from 'typesafe-actions';
+import { Cart, CartItem, RequestError } from '../interface';
 
 const cart = {
   get: {
-    request: createAction("cart/get/request")(),
-    success: createAction("cart/get/success", (cart: Cart) => cart)<Cart>(),
+    request: createAction('cart/get/request')(),
+    success: createAction('cart/get/success', (cart: Cart) => cart)<Cart>(),
     failure: createAction(
-      "cart/get/failure",
+      'cart/get/failure',
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
   post: {
     request: createAction(
-      "cart/post/request",
-      (productId: Id) => productId
-    )<Id>(),
-    success: createAction("cart/post/success")(),
+      'cart/post/request',
+      (cartItem: CartItem) => cartItem
+    )<CartItem>(),
+    success: createAction('cart/post/success')(),
     failure: createAction(
-      "cart/post/failure",
+      'cart/post/failure',
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },

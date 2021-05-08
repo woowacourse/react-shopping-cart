@@ -1,5 +1,19 @@
 import { ActionType, createAction } from 'typesafe-actions';
-import { OrderList, RequestError } from '../interface';
+import { Order, OrderList, RequestError } from '../interface';
+
+const order = {
+  post: {
+    request: createAction(
+      'orderList/item/post/request',
+      (order: Order) => order
+    )<Order>(),
+    success: createAction('orderList/item/post/success')(),
+    failure: createAction(
+      'orderList/item/post/failure',
+      (requestErrorMessage: RequestError) => requestErrorMessage
+    )<RequestError>(),
+  },
+};
 
 const orderList = {
   get: {
@@ -13,9 +27,11 @@ const orderList = {
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
+  item: { ...order },
 };
 
-type orderListActionType = ActionType<typeof orderList.get>;
+type orderListActionType = ActionType<typeof orderList.get | typeof order.post>;
+type orderListItemPostActionType = ActionType<typeof orderList.item.post>;
 
 export default orderList;
-export { orderListActionType };
+export { orderListActionType, orderListItemPostActionType };
