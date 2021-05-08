@@ -42,6 +42,7 @@ const TextWrapper = styled.div`
   font-size: 20px;
 `;
 
+// TODO: 컴포넌트로 뺄 수 있을 것 같음
 const TextHighlight = styled.span`
   position: relative;
 
@@ -58,8 +59,7 @@ const TextHighlight = styled.span`
   }
 `;
 
-// TODO: 스타일드 컴포넌트 변수명 생각해보기 Styled도 붙고, PaymetAmount가 있는데 또 붙어 있어서 지저분함
-// TODO: 여기에서 Link를 가지고 있어도 괜찮을지? 잘 모르겠다.
+// TODO: Button 컴포넌트에 들어가는 텍스트를 함수로 변경
 const PaymentAmount = ({ type, price, count }) => (
   <Container>
     <Title>{paymentAmountText[type].title}</Title>

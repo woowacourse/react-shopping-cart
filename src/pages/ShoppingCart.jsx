@@ -12,7 +12,6 @@ import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
 const Content = styled.section`
   position: relative;
   display: flex;
-  margin-top: 51px;
   padding: 0 18px;
 `;
 
@@ -47,7 +46,7 @@ const ShoppingCart = ({ productListState }) => {
             <Button type={BUTTON_TYPE.X_SMALL}>상품삭제</Button>
           </ShoppingCartItemModification>
           <SelectedProductList
-            type={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
+            listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
             count={3}
             productList={productListState}
             ListItem={ShoppingCartItem}

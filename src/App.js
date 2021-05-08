@@ -45,11 +45,11 @@ function App() {
           <Route exact path="/shoppingCart">
             <ShoppingCart productListState={productListState} />
           </Route>
-          <Route exact path="/orderList">
-            <OrderList />
-          </Route>
           <Route exact path="/orderPayment">
             <OrderPayment productListState={productListState} />
+          </Route>
+          <Route exact path="/orderList">
+            <OrderList productListState={productListState} />
           </Route>
         </Switch>
       </StyledContents>

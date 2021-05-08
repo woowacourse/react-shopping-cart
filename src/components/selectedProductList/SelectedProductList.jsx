@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 
+// TODO: TYPE을 그냥 길게 다 써주기
 export const TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
@@ -11,27 +12,50 @@ export const TYPE = Object.freeze({
 
 const selectedProductStyle = {
   SHOPPING_CART: {
-    paddingBottom: '24px',
-    borderBottom: `4px solid ${COLOR.GRAY_400}`,
-    fontSize: '20px',
+    Header: {
+      paddingBottom: '24px',
+      borderBottom: `4px solid ${COLOR.GRAY_200}`,
+      fontSize: '20px',
+    },
+    ListItemWrapper: {
+      borderBottom: `2px solid ${COLOR.GRAY_200}`,
+      padding: '24px 0 12px 0',
+    },
   },
-
   ORDER_PAYMENT: {
-    paddingBottom: '24px',
-    borderBottom: `4px solid ${COLOR.GRAY_400}`,
-    fontSize: '24px',
-    fontWeight: '500',
+    Header: {
+      paddingBottom: '24px',
+      borderBottom: `4px solid ${COLOR.GRAY_200}`,
+      fontSize: '24px',
+      fontWeight: '500',
+    },
+    ListItemWrapper: {
+      borderBottom: `2px solid ${COLOR.GRAY_200}`,
+      padding: '20px 0',
+    },
+  },
+  ORDER_LIST: {
+    Header: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '28px 36px',
+      fontSize: '20px',
+      backgroundColor: `#F6F6F6`,
+      borderBottom: `2px solid ${COLOR.GRAY_200}`,
+    },
+    ListItemWrapper: {
+      borderBottom: `2px solid ${COLOR.GRAY_200}`,
+      padding: '38px 0',
+    },
   },
 };
 
 const Header = styled.div`
-  ${({ type }) => selectedProductStyle[type]}
+  ${({ type }) => selectedProductStyle[type].Header}
 `;
 
 const ListItemWrapper = styled.li`
-  border-bottom: 2px solid ${COLOR.GRAY_200};
-  margin-top: 24px;
-  padding-bottom: 12px;
+  ${({ type }) => selectedProductStyle[type].ListItemWrapper}
 `;
 
 const getHeader = ({ type, count, orderNumber }) => {
@@ -41,7 +65,7 @@ const getHeader = ({ type, count, orderNumber }) => {
     ORDER_LIST: (
       <Header type={type}>
         <div>주문번호 : {orderNumber}</div>
-        <Link>상세보기{'>'} </Link>
+        <Link>상세보기 {'>'} </Link>
       </Header>
     ),
   };
@@ -49,13 +73,13 @@ const getHeader = ({ type, count, orderNumber }) => {
   return headerType[type];
 };
 
-const SelectedProductList = ({ type, orderNumber, count, productList, ListItem }) => (
+const SelectedProductList = ({ listType, itemType, orderNumber, productList, ListItem }) => (
   <>
-    {getHeader({ type, count, orderNumber })}
+    {getHeader({ type: listType, count: productList.length, orderNumber })}
     <ul>
-      {productList.map(({ src, id, alt, name, price }) => (
-        <ListItemWrapper key={id}>
-          <ListItem src={src} alt={alt} name={name} price={price} />
+      {productList.map(({ src, id, alt, name, price, count = 1 }) => (
+        <ListItemWrapper type={listType} key={id}>
+          <ListItem type={itemType} src={src} alt={alt} name={name} price={price} count={count} />
         </ListItemWrapper>
       ))}
     </ul>

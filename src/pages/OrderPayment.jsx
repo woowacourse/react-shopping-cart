@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import OrderListItem from '../components/orderListItem/OrderListItem';
+import OrderListItem, { TYPE as ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
 import PageTitle from '../components/pageTitle/PageTitle';
 import PaymentAmount, { TYPE as PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
-import SelectedProductList, { TYPE as ORDER_PAYMENT_TYPE } from '../components/selectedProductList/SelectedProductList';
+import SelectedProductList, {
+  TYPE as SELECTED_PRODUCT_LIST_TYPE,
+} from '../components/selectedProductList/SelectedProductList';
 
 const Content = styled.section`
   position: relative;
@@ -24,8 +26,8 @@ const OrderPayment = ({ productListState }) => (
     <Content>
       <div>
         <SelectedProductList
-          type={ORDER_PAYMENT_TYPE.ORDER_PAYMENT}
-          count={4}
+          listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
+          itemType={ORDER_LIST_ITEM_TYPE.ORDER_PAYMENT}
           productList={productListState}
           ListItem={OrderListItem}
         />

@@ -5,5 +5,6 @@ export const COLOR = {
   GRAY_200: '#DDDDDD',
   GRAY_300: '#BBBBBB',
   GRAY_400: '#AAAAAA',
+  GRAY_600: '#888888',
   GRAY_800: '#333333',
 };
