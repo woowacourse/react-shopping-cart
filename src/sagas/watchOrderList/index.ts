@@ -1,17 +1,30 @@
-import { put, takeLatest } from '@redux-saga/core/effects';
+import firebase from "firebase";
+import { call, put, takeLatest } from "@redux-saga/core/effects";
 
-import actions from '../../actions';
-import { orderListItemPostActionType } from '../../actions/orderList';
+import actions from "../../actions";
+import { orderListItemPostRequestActionType } from "../../actions/orderList";
+import api from "../../apis";
+import { Order, OrderList } from "../../interface";
+import { isDefined } from "../../util/typeGuard";
 
 function* watchOrderList() {
-  yield takeLatest('orderList/get/request', getOrderList);
-  yield takeLatest('orderList/item/post/request', postOrder);
+  yield takeLatest("orderList/get/request", getOrderList);
+  yield takeLatest("orderList/item/post/request", postOrder);
 }
 
 function* getOrderList() {
   try {
-    // const orderList = yield call(Api);
-    // yield put(actions.orderList.get.success(orderList));
+    const response: firebase.firestore.DocumentSnapshot<Order>[] = yield call(
+      api.orderList.get
+    );
+
+    const orders: Order[] = response
+      .map((order) => order.data())
+      .filter(isDefined);
+
+    const orderList: OrderList = { orderList: orders };
+
+    yield put(actions.orderList.get.success(orderList));
   } catch (error) {
     yield put(
       actions.orderList.get.failure({ requestErrorMessage: error.message })
@@ -19,10 +32,10 @@ function* getOrderList() {
   }
 }
 
-function* postOrder(action: orderListItemPostActionType) {
+function* postOrder(action: orderListItemPostRequestActionType) {
   try {
-    // const res = yield call(Api, action.payload);
-    //
+    yield call(api.order.post, action.payload);
+
     yield put(actions.orderList.item.post.success());
   } catch (error) {
     yield put(
