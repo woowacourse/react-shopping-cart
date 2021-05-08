@@ -2,16 +2,19 @@ import styled from 'styled-components';
 
 export const OrderListPage = styled.div`
   display: flex;
-  justify-content: center;
+  height: ${({ theme }) => theme.PAGE_HEIGHT};
+  flex-direction: column;
+  align-items: center;
   background-color: #e5e5e5;
   margin-top: -60px;
   padding-top: 60px;
 `;
 
-export const pageWrapper = styled.div`
+export const PageWrapper = styled.div`
   width: 1320px;
 `;
-export const pageTitleWrapper = styled.div`
+
+export const PageTitleWrapper = styled.div`
   margin-bottom: 55px;
 `;
 
@@ -26,4 +29,11 @@ export const OrderWrapper = styled.div`
   padding: 38px 26px;
   border-bottom: 1px solid ${({ theme }) => theme.GRAY_400};
   background-color: ${({ theme }) => theme.WHITE};
+`;
+
+export const PageBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;

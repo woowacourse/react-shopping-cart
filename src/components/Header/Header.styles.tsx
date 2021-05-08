@@ -1,12 +1,12 @@
 import { Props } from './Header';
 import styled from 'styled-components';
-import { COLORS } from '../../constants';
+import { COLORS, SIZE } from '../../constants';
 
 export const Header = styled.div(({ styles }: Props) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  height: '80px',
+  height: SIZE.HEADER_HEIGHT,
   padding: '0 300px',
   backgroundColor: COLORS.MINT_500,
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',

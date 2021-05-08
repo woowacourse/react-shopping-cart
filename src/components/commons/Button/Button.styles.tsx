@@ -22,6 +22,9 @@ const BUTTON_SIZE = {
 };
 
 export const Button = styled.button<ButtonProps>(({ size, fontColor, backgroundColor }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   color: fontColor,
   backgroundColor,
   ...BUTTON_SIZE[size],

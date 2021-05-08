@@ -7,10 +7,10 @@ import Button from '../../components/commons/Button/Button';
 const OrderListPage = () => {
   return (
     <Styled.OrderListPage>
-      <Styled.pageWrapper>
-        <Styled.pageTitleWrapper>
+      <Styled.PageWrapper>
+        <Styled.PageTitleWrapper>
           <PageTitle>주문목록</PageTitle>
-        </Styled.pageTitleWrapper>
+        </Styled.PageTitleWrapper>
         <Styled.ItemGroupWrapper>
           <ItemGroup orderNumber="1">
             <Styled.OrderWrapper>
@@ -35,7 +35,7 @@ const OrderListPage = () => {
             </Styled.OrderWrapper>
           </ItemGroup>
         </Styled.ItemGroupWrapper>
-      </Styled.pageWrapper>
+      </Styled.PageWrapper>
     </Styled.OrderListPage>
   );
 };

@@ -22,7 +22,6 @@ export const Container = styled.div`
 export const PriceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 66px;
 `;
 
 export const PriceLabel = styled.span`

@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export const OrderListPage = styled.div`
   display: flex;
+  min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   justify-content: center;
   background-color: #e5e5e5;
   margin-top: -60px;
   padding-top: 60px;
 `;
 
-export const pageWrapper = styled.div`
+export const PageWrapper = styled.div`
   width: 1320px;
 `;
-export const pageTitleWrapper = styled.div`
+export const PageTitleWrapper = styled.div`
   margin-bottom: 55px;
 `;
 
