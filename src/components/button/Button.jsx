@@ -43,7 +43,7 @@ const buttonStyle = {
   },
 };
 
-const StyledButton = styled.button`
+const Container = styled.button`
   text-align: center;
   border: none;
   ${(props) => (Object.keys(TYPE).includes(props.type) ? buttonStyle[props.type] : buttonStyle['MEDIUM'])};
@@ -51,9 +51,9 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ children, type, styles }) => (
-  <StyledButton type={type} styles={styles}>
+  <Container type={type} styles={styles}>
     {children}
-  </StyledButton>
+  </Container>
 );
 
 export default Button;

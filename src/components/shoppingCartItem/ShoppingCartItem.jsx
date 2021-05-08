@@ -3,23 +3,23 @@ import Checkbox from '../checkbox/Checkbox';
 import ProductImage, { TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
-import NumberInput from '../numberInput/NumberInput';
+import CountInput from '../countInput/CountInput';
 
-const StyledShoppingCartItemContainer = styled.ul`
+const Container = styled.ul`
   display: flex;
   justify-content: space-between;
   width: 731px;
   height: 156px;
 `;
 
-const StyledLeftLi = styled.li`
+const LeftContent = styled.li`
   display: flex;
   & > *:not(:first-child) {
     margin-left: 15px;
   }
 `;
 
-const StyledRightLi = styled.li`
+const RightContent = styled.li`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -27,28 +27,28 @@ const StyledRightLi = styled.li`
   padding-bottom: 5px;
 `;
 
-const StyledName = styled.div`
+const Name = styled.div`
   font-size: 20px;
 `;
 
-const StyledTrashCan = styled.img`
+const TrashCanImage = styled.img`
   width: 24px;
   height: 24px;
 `;
 
 const ShoppingCartItem = ({ src, alt, name, price }) => (
-  <StyledShoppingCartItemContainer>
-    <StyledLeftLi>
+  <Container>
+    <LeftContent>
       <Checkbox />
       <ProductImage type={TYPE.SMALL} src={src} alt={alt} />
-      <StyledName>{name}</StyledName>
-    </StyledLeftLi>
-    <StyledRightLi>
-      <StyledTrashCan src={trashCan} alt="쓰레기통" />
-      <NumberInput />
+      <Name>{name}</Name>
+    </LeftContent>
+    <RightContent>
+      <TrashCanImage src={trashCan} alt="쓰레기통" />
+      <CountInput />
       <div>{price.toLocaleString('ko-KR')} 원</div>
-    </StyledRightLi>
-  </StyledShoppingCartItemContainer>
+    </RightContent>
+  </Container>
 );
 
 export default ShoppingCartItem;

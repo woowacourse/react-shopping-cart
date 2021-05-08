@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 
-const StyledNavigationContainer = styled.div`
+const Container = styled.div`
   background-color: #2ac1bc;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5);
 `;
 
-const StyledNavigation = styled.nav`
+const Content = styled.nav`
   display: flex;
   max-width: 1440px;
   height: 60px;
@@ -17,12 +17,13 @@ const StyledNavigation = styled.nav`
   justify-content: space-between;
 `;
 
-const StyledLeftUl = styled.ul`
+const Logo = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const StyledRightUl = styled.ul`
+
+const Menu = styled.ul`
   display: flex;
   width: 280px;
   justify-content: space-between;
@@ -31,16 +32,16 @@ const StyledRightUl = styled.ul`
 `;
 
 const Navigation = () => (
-  <StyledNavigationContainer>
-    <StyledNavigation>
-      <StyledLeftUl>
+  <Container>
+    <Content>
+      <Logo>
         <li>
           <Link to="/">
-            <img src={logo} width="80%" height="80%" alt="장바구니" />
+            <img src={logo} width="80%" height="80%" alt="메인 로고" />
           </Link>
         </li>
-      </StyledLeftUl>
-      <StyledRightUl>
+      </Logo>
+      <Menu>
         {/* TODO: 상수화 */}
         <li>
           <Link to="/productList">상품목록</Link>
@@ -51,9 +52,9 @@ const Navigation = () => (
         <li>
           <Link to="/orderList">주문목록</Link>
         </li>
-      </StyledRightUl>
-    </StyledNavigation>
-  </StyledNavigationContainer>
+      </Menu>
+    </Content>
+  </Container>
 );
 
 export default Navigation;

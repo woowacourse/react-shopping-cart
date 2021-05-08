@@ -4,7 +4,7 @@ import upArrow from '../../assets/upArrow.svg';
 import downArrow from '../../assets/downArrow.svg';
 import { COLOR } from '../../constants/color';
 
-const StyledNumberInputContainer = styled.div`
+const Container = styled.div`
   position: relative;
   left: -42px;
 
@@ -23,7 +23,7 @@ const StyledNumberInputContainer = styled.div`
   }
 `;
 
-const StyledNumberInput = styled.input.attrs({ type: 'number' })`
+const NumberInput = styled.input.attrs({ type: 'number' })`
   font-size: 24px;
   width: 72px;
   height: 60px;
@@ -40,7 +40,7 @@ const StyledNumberInput = styled.input.attrs({ type: 'number' })`
   }
 `;
 
-const StyledArrowContainer = styled.div`
+const ButtonWrapper = styled.div`
   float: left;
   position: relative;
   height: 60px;
@@ -58,32 +58,32 @@ const StyledButton = styled.div`
   border-width: 0;
 `;
 
-const StyledUpArrow = styled(StyledButton)`
+const Increment = styled(StyledButton)`
   position: absolute;
   height: 50%;
   top: 0;
   border-width: 1px 1px 0 0;
 `;
 
-const StyledDownArrow = styled(StyledButton)`
+const Decrement = styled(StyledButton)`
   position: absolute;
   bottom: 0;
   height: 50%;
   border-width: 1px 1px 1px 0;
 `;
 
-const NumberInput = () => (
-  <StyledNumberInputContainer>
-    <StyledNumberInput value="1" min="1" disabled />
-    <StyledArrowContainer>
-      <StyledUpArrow>
+const CountInput = () => (
+  <Container>
+    <NumberInput value="1" min="1" disabled />
+    <ButtonWrapper>
+      <Increment>
         <img src={upArrow} alt="증가" />
-      </StyledUpArrow>
-      <StyledDownArrow>
+      </Increment>
+      <Decrement>
         <img src={downArrow} alt="감소" />
-      </StyledDownArrow>
-    </StyledArrowContainer>
-  </StyledNumberInputContainer>
+      </Decrement>
+    </ButtonWrapper>
+  </Container>
 );
 
-export default NumberInput;
+export default CountInput;

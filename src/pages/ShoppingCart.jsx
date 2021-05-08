@@ -14,26 +14,26 @@ const MOCK_UP_DATA = {
   name: 'PET보틀-정사각(420ml)',
 };
 
-const StyledShoppingCartSection = styled.section`
+const Content = styled.section`
   position: relative;
   display: flex;
   margin-top: 51px;
   padding: 0 18px;
 `;
 
-const StyledShoppingCartTop = styled.div`
+const ShoppingCartItemModification = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 26px;
 `;
 
-const StyledShoppingCartItemCount = styled.div`
+const ShoppingCartCount = styled.div`
   padding-bottom: 24px;
   border-bottom: 4px solid ${COLOR.GRAY_400};
   font-size: 20px;
 `;
 
-const StyledShoppingCartItem = styled.li`
+const ShoppingCartItemWrapper = styled.li`
   &:not(:last-child) {
     border-bottom: 2px solid ${COLOR.GRAY_200};
     margin-top: 24px;
@@ -41,7 +41,7 @@ const StyledShoppingCartItem = styled.li`
   }
 `;
 
-const StyledPaymentAmountWrapper = styled.div`
+const PaymentAmountWrapper = styled.div`
   position: absolute;
   top: 50px;
   right: 0;
@@ -57,27 +57,27 @@ const ShoppingCart = ({ productListState }) => {
   return (
     <>
       <PageTitle>장바구니</PageTitle>
-      <StyledShoppingCartSection>
+      <Content>
         <div>
-          <StyledShoppingCartTop>
+          <ShoppingCartItemModification>
             <Checkbox onChange={handleCheckbox} isChecked={isChecked}>
               선택해제
             </Checkbox>
             <Button type={BUTTON_TYPE.X_SMALL}>상품삭제</Button>
-          </StyledShoppingCartTop>
-          <StyledShoppingCartItemCount>든든배송 상품 (3개) </StyledShoppingCartItemCount>
+          </ShoppingCartItemModification>
+          <ShoppingCartCount>든든배송 상품 (3개) </ShoppingCartCount>
           <ul>
             {productListState.map(({ src, alt, name, price }) => (
-              <StyledShoppingCartItem>
+              <ShoppingCartItemWrapper>
                 <ShoppingCartItem {...MOCK_UP_DATA} src={src} alt={alt} name={name} price={price} />
-              </StyledShoppingCartItem>
+              </ShoppingCartItemWrapper>
             ))}
           </ul>
         </div>
-        <StyledPaymentAmountWrapper>
+        <PaymentAmountWrapper>
           <PaymentAmount type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART} price={MOCK_UP_DATA.price} count={2} />
-        </StyledPaymentAmountWrapper>
-      </StyledShoppingCartSection>
+        </PaymentAmountWrapper>
+      </Content>
     </>
   );
 };

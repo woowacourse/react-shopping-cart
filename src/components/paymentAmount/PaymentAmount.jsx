@@ -19,21 +19,21 @@ const paymentAmountText = {
   },
 };
 
-const StyledPaymentAmountContainer = styled.div`
+const Container = styled.div`
   width: 448px;
   height: 318px;
   border: 1px solid ${COLOR.GRAY_200};
   padding: 22px 0 35px 0;
 `;
 
-const StyledPaymentAmountTitle = styled.span`
+const Title = styled.span`
   display: block;
   border-bottom: 3px solid ${COLOR.GRAY_200};
   padding: 0 0 19px 30px;
   font-size: 24px;
 `;
 
-const StyledPaymentAmountContentWrapper = styled.div`
+const TextWrapper = styled.div`
   display: flex;
   font-weight: bold;
   justify-content: space-between;
@@ -41,7 +41,7 @@ const StyledPaymentAmountContentWrapper = styled.div`
   font-size: 20px;
 `;
 
-const StyledPaymentAmountContent = styled.span`
+const TextHighlight = styled.span`
   position: relative;
 
   &::after {
@@ -59,20 +59,20 @@ const StyledPaymentAmountContent = styled.span`
 
 // TODO: 스타일드 컴포넌트 변수명 생각해보기 Styled도 붙고, PaymetAmount가 있는데 또 붙어 있어서 지저분함
 const PaymentAmount = ({ type, price, count }) => (
-  <StyledPaymentAmountContainer>
-    <StyledPaymentAmountTitle>{paymentAmountText[type].title}</StyledPaymentAmountTitle>
+  <Container>
+    <Title>{paymentAmountText[type].title}</Title>
     <div>
-      <StyledPaymentAmountContentWrapper>
-        <StyledPaymentAmountContent>{paymentAmountText[type].content}</StyledPaymentAmountContent>
-        <StyledPaymentAmountContent>{price.toLocaleString('ko-KR')}원</StyledPaymentAmountContent>
-      </StyledPaymentAmountContentWrapper>
+      <TextWrapper>
+        <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
+        <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
+      </TextWrapper>
       <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM}>
         {paymentAmountText[type] === 'SHOPPING_CART'
           ? `주문하기(${count})개`
           : `${price.toLocaleString('ko-KR')}원 결제하기`}
       </Button>
     </div>
-  </StyledPaymentAmountContainer>
+  </Container>
 );
 
 export default PaymentAmount;

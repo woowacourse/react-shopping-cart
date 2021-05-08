@@ -3,19 +3,19 @@ import ProductImage, { TYPE } from '../productImage/ProductImage';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
 
-const StyledUl = styled.ul`
+const Content = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px 12px 0 12px;
 `;
 
-const StyledName = styled.div`
+const Name = styled.div`
   letter-spacing: 0.5px;
   line-height: 22px;
 `;
 
-const StyledPrice = styled.div`
+const Price = styled.div`
   font-size: 20px;
   margin-top: 3px;
   letter-spacing: 0.5px;
@@ -25,15 +25,15 @@ const StyledPrice = styled.div`
 const ProductListItem = ({ src, name, price, alt }) => (
   <div>
     <ProductImage type={TYPE.MEDIUM} src={src} alt={alt} />
-    <StyledUl>
+    <Content>
       <li>
-        <StyledName>{name}</StyledName>
-        <StyledPrice>{price.toLocaleString('ko-KR')} 원</StyledPrice>
+        <Name>{name}</Name>
+        <Price>{price.toLocaleString('ko-KR')} 원</Price>
       </li>
       <li>
         <img src={shoppingCartImg} alt="장바구니" />
       </li>
-    </StyledUl>
+    </Content>
   </div>
 );
 
