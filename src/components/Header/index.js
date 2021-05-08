@@ -17,10 +17,10 @@ const Header = ({ logo, title, homeAddress, children }) => {
 };
 
 Header.propTypes = {
-  logo: PropTypes.elementType,
+  logo: PropTypes.element,
   title: PropTypes.string,
   homeAddress: PropTypes.string,
-  children: PropTypes.elementType,
+  children: PropTypes.element,
 };
 
 Header.defaultProps = {

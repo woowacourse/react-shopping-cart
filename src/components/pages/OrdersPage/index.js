@@ -32,9 +32,10 @@ const CheckoutPage = ({ orders }) => {
                   product={product}
                   listStyle={'tableStyle'}
                   imageSize={'9rem'}
-                  productDetail={`${product.price * product.amount + UNIT.MONEY} / 수량 : ${
-                    product.amount + UNIT.AMOUNT
-                  }`}
+                  productDetail={{
+                    text: `${product.price * product.amount + UNIT.MONEY} / 수량 : ${product.amount + UNIT.AMOUNT}`,
+                    color: PALETTE.GRAY_000,
+                  }}
                 >
                   <Button backgroundColor={PALETTE.BAEMINT} color={PALETTE.WHITE} width={'8.5rem'} height={'3rem'}>
                     장바구니

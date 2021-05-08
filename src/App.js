@@ -2,10 +2,10 @@ import React from 'react';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
-import ProductList from './components/ProductList';
 import { HEADER, PAGES } from './constants/appInfo';
 import Main from './components/Main';
 import { reactFamily } from './mockData';
+import ProductListPage from './components/pages/ProductListPage';
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         <Navigation navList={HEADER.NAV_LIST} />
       </Header>
       <Main>
-        <ProductList products={reactFamily} />
+        <ProductListPage products={reactFamily} />
       </Main>
     </div>
   );

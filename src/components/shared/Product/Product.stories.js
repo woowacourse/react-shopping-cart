@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '.';
+import PALETTE from '../../../constants/palette';
 import { reactFamily } from '../../../mockData';
 
 export default {
@@ -15,7 +16,7 @@ Column.args = {
   product: reactFamily[0],
   size: '10rem',
   direction: 'column',
-  productDetail: '수량 : 1개',
+  productDetail: { text: '수량 : 1개' },
 };
 
 export const Row = Template.bind({});
@@ -23,5 +24,9 @@ Row.args = {
   product: reactFamily[0],
   size: '10rem',
   direction: 'row',
-  productDetail: '57,000원 / 수량 : 1개',
+  productDetail: {
+    text: '57,000원 / 수량 : 1개',
+    fontSize: '1.5rem',
+    color: PALETTE.GRAY_000,
+  },
 };

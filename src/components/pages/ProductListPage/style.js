@@ -20,19 +20,11 @@ export const ProductInfoContainer = styled.div`
   margin-top: 1rem;
 `;
 
-export const ProductInfo = styled.div`
+export const ProductName = styled.p`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-export const ProductName = styled.p`
   font-size: 1rem;
-`;
-
-export const ProductPrice = styled.p`
-  font-size: 1.25rem;
-  margin-top: 0.5rem;
 `;
 
 export const CartButton = styled.button`

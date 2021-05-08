@@ -21,5 +21,6 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductDetail = styled.p`
-  color: ${PALETTE.GRAY_000};
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : '1rem')};
+  color: ${({ color }) => (color ? color : PALETTE.BLACK)};
 `;

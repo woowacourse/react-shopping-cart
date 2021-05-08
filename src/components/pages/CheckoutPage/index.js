@@ -28,7 +28,7 @@ const CheckoutPage = ({ products }) => {
                 isCheckbox={false}
                 imageSize={'7.5rem'}
                 product={item}
-                productDetail={`수량: ${item.amount}`}
+                productDetail={{ text: `수량: ${item.amount}` }}
               />
             ))}
           </ProductList>
