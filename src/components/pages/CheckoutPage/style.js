@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { CheckoutBox, List } from '../../commons';
+import { CheckoutBox, List, Template } from '../../commons';
 
-export const Container = styled.div`
-  height: 100%;
+export const Page = styled(Template)`
+  background-color: #ffffff;
 `;
 
 export const Main = styled.main`

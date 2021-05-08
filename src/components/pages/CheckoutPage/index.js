@@ -1,12 +1,12 @@
 import * as Styled from './style.js';
-import { Header, CheckoutBox, CheckoutItem } from '../../commons';
+import { Header, CheckoutItem } from '../../commons';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
 import cartItems from '../../../mockData/order.json';
 
 export const CheckoutPage = () => {
   return (
-    <Styled.Container>
+    <Styled.Page>
       <Header>주문/결제</Header>
       <Styled.Main>
         <Styled.CartListSection>
@@ -27,6 +27,6 @@ export const CheckoutPage = () => {
           />
         </Styled.CheckoutSection>
       </Styled.Main>
-    </Styled.Container>
+    </Styled.Page>
   );
 };

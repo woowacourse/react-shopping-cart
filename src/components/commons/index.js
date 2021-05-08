@@ -5,7 +5,7 @@ export { Checkbox } from './atoms/Checkbox';
 export { DownwardIcon } from './atoms/DownwardIcon';
 export { Line } from './atoms/Line';
 export { List } from './atoms/List';
-export { Page } from './atoms/Page';
+export { Template } from './atoms/Template';
 export { TrashCanIcon } from './atoms/TrashCanIcon';
 export { UnderlinedText } from './atoms/UnderlinedText';
 export { UpwardIcon } from './atoms/UpwardIcon';

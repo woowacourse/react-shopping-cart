@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import { Template } from '../../commons';
 
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
+export const Page = styled(Template)`
+  background-color: #ffffff;
 `;
 
 export const Main = styled.main``;

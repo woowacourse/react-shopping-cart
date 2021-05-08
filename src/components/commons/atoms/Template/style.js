@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
+export const Container = styled.div`
   padding-top: 5rem;
   width: 100vw;
   min-height: 100vh;
@@ -8,6 +8,6 @@ export const Page = styled.div`
   justify-content: center;
 `;
 
-export const Container = styled.div`
+export const Viewport = styled.div`
   width: 66.666%;
 `;

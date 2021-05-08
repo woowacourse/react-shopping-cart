@@ -4,7 +4,7 @@ import orders from '../../../mockData/order.json';
 
 export const OrderListPage = () => {
   return (
-    <Styled.Container>
+    <Styled.Page>
       <Header>주문목록</Header>
       <Styled.Main>
         {orders.map(({ orderId, orderItems }) => (
@@ -21,6 +21,6 @@ export const OrderListPage = () => {
           </>
         ))}
       </Styled.Main>
-    </Styled.Container>
+    </Styled.Page>
   );
 };

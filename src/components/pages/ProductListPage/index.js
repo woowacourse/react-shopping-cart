@@ -4,12 +4,12 @@ import product from '../../../mockData/product.json';
 
 export const ProductListPage = () => {
   return (
-    <Styled.Container>
+    <Styled.Page>
       <Styled.ProductList>
         {product.map((item) => (
           <ProductItem key={item.id} item={item} />
         ))}
       </Styled.ProductList>
-    </Styled.Container>
+    </Styled.Page>
   );
 };

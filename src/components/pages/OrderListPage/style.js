@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { Button, List } from '../../commons';
+import { Button, List, Template } from '../../commons';
 
-export const Container = styled.div`
-  height: 100%;
+export const Page = styled(Template)`
   background-color: #eeeeee;
 `;
 

@@ -1,4 +1,4 @@
-import { CartItem, Checkbox, CheckoutBox, Header } from '../../commons';
+import { CartItem, Checkbox, Header } from '../../commons';
 import * as Styled from './style.js';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
@@ -6,7 +6,7 @@ import cartItems from '../../../mockData/product.json';
 
 export const CartPage = () => {
   return (
-    <Styled.Container>
+    <Styled.Page>
       <Header>장바구니</Header>
       <Styled.Main>
         <Styled.OrderOptionsSection>
@@ -31,6 +31,6 @@ export const CartPage = () => {
           />
         </Styled.CheckoutSection>
       </Styled.Main>
-    </Styled.Container>
+    </Styled.Page>
   );
 };
