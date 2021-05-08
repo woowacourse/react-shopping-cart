@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../../commons';
+import { Button, List } from '../../commons';
 
 export const Container = styled.div`
   height: 100%;
@@ -26,7 +26,6 @@ export const OrderOptionsController = styled.p`
 `;
 
 export const DeleteButton = styled(Button)`
-  justify-content: center;
   width: 7.375rem;
   height: 3.125rem;
   font-size: 1rem;
@@ -36,6 +35,14 @@ export const DeleteButton = styled(Button)`
 
 export const ListLabel = styled.h3`
   font-size: 1.25rem;
+`;
+
+export const CartList = styled(List)`
+  border-top: 0.0625rem solid #aaaaaa;
+
+  & > li {
+    border-top: 0.0625rem solid #aaaaaa;
+  }
 `;
 
 export const CheckoutSection = styled.section`

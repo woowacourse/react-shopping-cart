@@ -1,4 +1,4 @@
-import { BorderTopList, CartItem, Checkbox, CheckoutBox, Header } from '../../commons';
+import { CartItem, Checkbox, CheckoutBox, Header } from '../../commons';
 import * as Styled from './style.js';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
@@ -15,11 +15,11 @@ export const CartPage = () => {
             <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
           </Styled.OrderOptionsController>
           <Styled.ListLabel>선택상품 ({cartItems.length}개)</Styled.ListLabel>
-          <BorderTopList>
+          <Styled.CartList>
             {cartItems.map((item) => (
               <CartItem key={item.id} item={item} />
             ))}
-          </BorderTopList>
+          </Styled.CartList>
         </Styled.OrderOptionsSection>
         <Styled.CheckoutSection>
           <Styled.Sticky>

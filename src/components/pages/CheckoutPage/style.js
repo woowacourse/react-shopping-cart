@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { List } from '../../commons';
 
 export const Container = styled.div`
   height: 100%;
@@ -21,6 +22,18 @@ export const CartListSection = styled.section`
 
 export const ListLabel = styled.h3`
   font-size: 1.25rem;
+`;
+
+export const CartList = styled(List)`
+  border-top: 0.0625rem solid #aaaaaa;
+
+  & > li {
+    border-top: 0.0625rem solid #aaaaaa;
+  }
+
+  & > li:last-child {
+    border-bottom: 0.0625rem solid #aaaaaa;
+  }
 `;
 
 export const CheckoutSection = styled.section`
