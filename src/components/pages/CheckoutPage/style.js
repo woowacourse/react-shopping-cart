@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { List } from '../../commons';
+import { CheckoutBox, List } from '../../commons';
 
 export const Container = styled.div`
   height: 100%;
@@ -45,7 +45,7 @@ export const CheckoutSection = styled.section`
   height: 100%;
 `;
 
-export const Sticky = styled.section`
+export const StickyCheckoutBox = styled(CheckoutBox)`
   position: -webkit-sticky;
   position: sticky;
   top: 15%;

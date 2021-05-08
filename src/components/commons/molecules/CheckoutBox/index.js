@@ -4,10 +4,10 @@ import { UnderlinedText } from '../../';
 import * as Styled from './style.js';
 
 export const CheckoutBox = (props) => {
-  const { title, label, price, buttonText, route } = props;
+  const { title, label, price, buttonText, route, ...rest } = props;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Styled.Title>{title}</Styled.Title>
       <Styled.Content>
         <Styled.Bill>

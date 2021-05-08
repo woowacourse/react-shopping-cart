@@ -22,15 +22,13 @@ export const CartPage = () => {
           </Styled.CartList>
         </Styled.OrderOptionsSection>
         <Styled.CheckoutSection>
-          <Styled.Sticky>
-            <CheckoutBox
-              title="결제예상금액"
-              label="결제예상금액"
-              price={getFormattedAsKRW(27100)}
-              buttonText="주문하기(2개)"
-              route={ROUTE.CHECKOUT}
-            />
-          </Styled.Sticky>
+          <Styled.StickyCheckoutBox
+            title="결제예상금액"
+            label="결제예상금액"
+            price={getFormattedAsKRW(27100)}
+            buttonText="주문하기(2개)"
+            route={ROUTE.CHECKOUT}
+          />
         </Styled.CheckoutSection>
       </Styled.Main>
     </Styled.Container>

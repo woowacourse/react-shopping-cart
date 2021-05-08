@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, List } from '../../commons';
+import { Button, CheckoutBox, List } from '../../commons';
 
 export const Container = styled.div`
   height: 100%;
@@ -54,10 +54,10 @@ export const CheckoutSection = styled.section`
   height: 100%;
 `;
 
-export const Sticky = styled.section`
+export const StickyCheckoutBox = styled(CheckoutBox)`
   position: -webkit-sticky;
   position: sticky;
   top: 15%;
-  margin-top: 5.125rem;
+  margin-top: 4.875rem;
   width: 100%;
 `;
