@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 
 export const Header = styled.header`
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
   height: 5rem;
   background-color: ${PALETTE.BAEMINT};
   padding: 0 1.5rem;
@@ -17,7 +21,7 @@ export const HeaderInner = styled.div`
   justify-content: space-between;
 `;
 
-export const HeaderTitle = styled.a`
+export const HeaderTitle = styled.span`
   display: flex;
   align-items: center;
   font-size: 2.5rem;

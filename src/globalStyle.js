@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${PALETTE.BLACK};
   }
 
+  a {
+    text-decoration: none;
+  }
+
   @media only screen and (max-width: 960px) {
     html {
       font-size: 12px;
