@@ -1,13 +1,13 @@
 import { VFC } from 'react';
-import { ShoppingCartItem } from '../../../../types';
+import { OrderItem } from '../../../../types';
 import Container from '../../../shared/Container';
 import { OrderItemCard, ProductName } from './style';
 
 interface Props {
-  item: ShoppingCartItem;
+  item: OrderItem;
 }
 
-const OrderItem: VFC<Props> = ({ item: { imgSrc, name, amount } }) => {
+const OrderConfirmListItem: VFC<Props> = ({ item: { imgSrc, name, amount } }) => {
   return (
     <OrderItemCard type="horizontal" imgSrc={imgSrc}>
       <Container>
@@ -18,4 +18,4 @@ const OrderItem: VFC<Props> = ({ item: { imgSrc, name, amount } }) => {
   );
 };
 
-export default OrderItem;
+export default OrderConfirmListItem;

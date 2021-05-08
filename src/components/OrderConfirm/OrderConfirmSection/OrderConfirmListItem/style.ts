@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Card from '../../../shared/Card';
-import Container from '../../../shared/Container';
 
 export const OrderItemCard = styled(Card)`
   box-sizing: content-box;

@@ -9,11 +9,14 @@ const PALETTE = {
   },
 
   GRAY: {
+    200: '#f6f6f6',
     300: '#DDDDDD',
     400: '#CCCCCC',
     500: '#BBBBBB',
     600: '#AAAAAA',
   },
 };
+
+export const PALE = {};
 
 export default PALETTE;

@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { INNER_TEMPLATE_WIDTH } from '../../../constants/style';
 
 interface Props {
   backgroundColor?: string;
@@ -14,14 +15,10 @@ interface InnerTemplateContainerProps {
   width?: string;
 }
 
-const widthStyle = css<InnerTemplateContainerProps>`
-  width: ${({ width }) => width};
-  min-width: ${({ width }) => width};
-`;
-
 export const InnerTemplateContainer = styled.div<InnerTemplateContainerProps>`
   padding-top: 4rem;
-  ${({ width }) => width && widthStyle}
+  width: ${INNER_TEMPLATE_WIDTH};
+  min-width: ${INNER_TEMPLATE_WIDTH};
 `;
 
 export const Title = styled.h2`

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PALETTE from '../../../constants/palette';
 import Container from '../../shared/Container';
-import { OrderItemCard } from './OrderItem/style';
+import { OrderItemCard } from './OrderConfirmListItem/style';
 
 export const OrderItemListContainer = styled(Container)`
   width: 46rem;

@@ -5,13 +5,12 @@ interface Props {
   children: React.ReactNode;
   backgroundColor?: string;
   title?: string;
-  innerWidth?: string;
 }
 
-const Template: FC<Props> = ({ children, backgroundColor, title, innerWidth }) => {
+const ReactShoppingCartTemplate: FC<Props> = ({ children, backgroundColor, title }) => {
   return (
     <TemplateContainer backgroundColor={backgroundColor}>
-      <InnerTemplateContainer width={innerWidth}>
+      <InnerTemplateContainer>
         {title && <Title>{title}</Title>}
         <div>{children}</div>
       </InnerTemplateContainer>
@@ -19,4 +18,4 @@ const Template: FC<Props> = ({ children, backgroundColor, title, innerWidth }) =
   );
 };
 
-export default Template;
+export default ReactShoppingCartTemplate;

@@ -1,9 +1,14 @@
 export interface Product {
   name: string;
-  price: string;
+  price: number;
   imgSrc: string;
 }
 
-export interface ShoppingCartItem extends Product {
+export interface OrderItem extends Product {
   amount: number;
+}
+
+export interface Order {
+  id: string;
+  items: OrderItem[];
 }
