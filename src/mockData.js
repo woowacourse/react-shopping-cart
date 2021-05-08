@@ -90,3 +90,8 @@ export const reactFamily = [
     },
   },
 ];
+
+export const reactFamilyOrders = [
+  { id: 0, products: reactFamily.map((item) => ({ ...item, amount: 1 })) },
+  { id: 1, products: reactFamily.map((item) => ({ ...item, amount: 1 })) },
+];
