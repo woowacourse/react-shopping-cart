@@ -10,10 +10,13 @@ export const Main = styled.main`
   flex-direction: column;
   margin: 0 auto;
   width: 95%;
-  height: 100%;
 `;
 
-export const ListLabel = styled.div`
+export const OrderList = styled(List)``;
+
+export const OrderItem = styled.li``;
+
+export const OrderLabel = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 2.5rem;
@@ -37,7 +40,7 @@ export const ToDetailButton = styled(Button)`
   color: #333333;
 `;
 
-export const OrderList = styled(List)`
+export const OrderedProductList = styled(List)`
   margin-top: 0;
   margin-bottom: 2.5rem;
   background-color: #ffffff;

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Styled from './style.js';
-import { Button, CartIcon } from '../../';
+import { Button, CartIcon } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
 
 /*

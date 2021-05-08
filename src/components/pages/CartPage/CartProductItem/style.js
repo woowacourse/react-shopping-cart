@@ -5,8 +5,6 @@ export const Container = styled.li`
   padding: 1.5rem 0.25rem;
   box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
-  width: 100%;
 `;
 
 export const Image = styled.img.attrs((props) => ({
@@ -28,7 +26,6 @@ export const Controller = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  height: 100%;
 `;
 
 export const Price = styled.span`

@@ -5,7 +5,7 @@ export const Page = styled(Template)`
   background-color: #ffffff;
 `;
 
-export const Main = styled.main``;
+export const Main = styled.main;
 
 export const ProductList = styled.ul`
   list-style: none;

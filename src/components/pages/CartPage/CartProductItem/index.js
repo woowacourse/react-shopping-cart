@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 import { useQuantityStepper } from '../../../../hooks';
-import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../..';
+import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
 
 /*
@@ -14,7 +14,7 @@ import { getFormattedAsKRW } from '../../../../utils';
   },
 */
 
-export const CartItem = (props) => {
+export const CartProductItem = (props) => {
   const { item, ...rest } = props;
   const { name, price, img } = item;
   const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = useQuantityStepper();
@@ -38,7 +38,7 @@ export const CartItem = (props) => {
   );
 };
 
-CartItem.propTypes = {
+CartProductItem.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

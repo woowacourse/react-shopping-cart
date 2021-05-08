@@ -9,22 +9,20 @@ export const Main = styled.main`
   display: flex;
   margin: 0 auto;
   width: 95%;
-  height: 100%;
 `;
 
-export const CartListSection = styled.section`
+export const ListSection = styled.section`
   display: flex;
   flex-direction: column;
   margin: 1.5rem;
   width: 63%;
-  height: 100%;
 `;
 
 export const ListLabel = styled.h3`
   font-size: 1.25rem;
 `;
 
-export const CartList = styled(List)`
+export const CheckoutProductList = styled(List)`
   border-top: 0.0625rem solid #aaaaaa;
 
   & > li {
@@ -42,7 +40,6 @@ export const CheckoutSection = styled.section`
   align-items: flex-start;
   margin: 1.5rem;
   width: 37%;
-  height: 100%;
 `;
 
 export const StickyCheckoutBox = styled(CheckoutBox)`

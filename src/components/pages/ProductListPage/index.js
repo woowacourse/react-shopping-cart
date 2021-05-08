@@ -1,5 +1,5 @@
 import * as Styled from './style.js';
-import { ProductItem } from '../../commons';
+import { ProductItem } from './ProductItem';
 import product from '../../../mockData/product.json';
 
 export const ProductListPage = () => {

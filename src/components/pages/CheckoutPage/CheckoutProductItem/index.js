@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { getFormattedAsKRW } from '../../../../utils';
 import * as Styled from './style.js';
 
 /*
@@ -15,30 +14,25 @@ import * as Styled from './style.js';
   },
 */
 
-export const OrderedItem = (props) => {
+export const CheckoutProductItem = (props) => {
   const { quantity, item, ...rest } = props;
-  const { name, price, img } = item;
-  const totalPriceAsKRW = getFormattedAsKRW(price * quantity);
+  const { name, img } = item;
 
   return (
     <Styled.Container {...rest}>
       <Styled.Image src={img} />
       <Styled.Content>
         <Styled.Name>{name}</Styled.Name>
-        <Styled.OrderSummary>
-          {totalPriceAsKRW} / 수량 : {quantity}
-        </Styled.OrderSummary>
+        <Styled.Quantity>수량 : {quantity}</Styled.Quantity>
       </Styled.Content>
-      <Styled.AddToCartButton>장바구니</Styled.AddToCartButton>
     </Styled.Container>
   );
 };
 
-OrderedItem.propTypes = {
+CheckoutProductItem.propTypes = {
   quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   item: PropTypes.shape({
     name: PropTypes.string,
-    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     img: PropTypes.string,
   }),
 };

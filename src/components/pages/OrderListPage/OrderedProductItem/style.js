@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../../';
+import { Button } from '../../../commons';
 import { PATTERN_FILE_NAME, BAEMIN_CYAN } from '../../../../constants';
 
 export const Container = styled.li`

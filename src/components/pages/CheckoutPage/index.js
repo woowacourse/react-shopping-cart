@@ -1,5 +1,6 @@
 import * as Styled from './style.js';
-import { Header, CheckoutItem } from '../../commons';
+import { CheckoutProductItem } from './CheckoutProductItem';
+import { Header } from '../../commons';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
 import cartItems from '../../../mockData/order.json';
@@ -9,14 +10,14 @@ export const CheckoutPage = () => {
     <Styled.Page>
       <Header>주문/결제</Header>
       <Styled.Main>
-        <Styled.CartListSection>
+        <Styled.ListSection>
           <Styled.ListLabel>주문 상품 ({cartItems[0].orderItems.length}건)</Styled.ListLabel>
-          <Styled.CartList>
+          <Styled.CheckoutProductList>
             {cartItems[0].orderItems.map(({ quantity, product }) => (
-              <CheckoutItem key={product.id} quantity={quantity} item={product} />
+              <CheckoutProductItem key={product.id} quantity={quantity} item={product} />
             ))}
-          </Styled.CartList>
-        </Styled.CartListSection>
+          </Styled.CheckoutProductList>
+        </Styled.ListSection>
         <Styled.CheckoutSection>
           <Styled.StickyCheckoutBox
             title="결제예상금액"
