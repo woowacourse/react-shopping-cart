@@ -5,13 +5,6 @@ import actions from "../../actions";
 import api from "../../apis";
 import { Id, Product, ProductsObject } from "../../interface";
 
-interface ProductsGetReturnType {
-  id: string;
-  name: string;
-  price: number;
-  imageSrc: string;
-}
-
 function* watchProducts() {
   yield takeLatest(actions.products.get.request().type, getProducts);
 }

@@ -1,33 +1,37 @@
-import { watch } from 'node:fs';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
+import firebase from "firebase";
 
-import actions from '../../actions';
-import cart, { cartPostActionType } from '../../actions/cart';
+import actions from "../../actions";
+import { cartPostRequestActionType } from "../../actions/cart";
+import api from "../../apis";
+import { CartItem } from "../../interface";
+import { isDefined } from "../../util/typeGuard";
 
 // TODO: type 상수화 => 필히 고려
 function* watchCart() {
   yield takeLatest(actions.cart.get.request().type, getCart);
-  yield takeLatest('cart/post/request', postCart);
+  yield takeLatest("cart/post/request", postCart);
 }
 
 function* getCart() {
   try {
-    // const cart = yield call(Api, args)
-    // yield put(acitons.cart.get.success(cart));
+    const response: firebase.firestore.DocumentSnapshot<CartItem>[] = yield call(api.cart.get);
+
+    const cartItem = response.map(cartItem => cartItem.data()).filter(isDefined);
+
+    yield put(actions.cart.get.success({ cart: cartItem }));
   } catch (error) {
     yield put(actions.cart.get.failure({ requestErrorMessage: error.message }));
   }
 }
 
-// TODO: action의 타입이 모든 Post action이 아닌 request에 대해서만 대응해야함
-function* postCart(action: cartPostActionType) {
+function* postCart(action: cartPostRequestActionType) {
   try {
-    // const res = yield call(Api, action.payload);
-    // yield put(actions.cart.post.success());
+    yield call(api.cart.post, action.payload);
+
+    yield put(actions.cart.post.success());
   } catch (error) {
-    yield put(
-      actions.cart.post.failure({ requestErrorMessage: error.message })
-    );
+    yield put(actions.cart.post.failure({ requestErrorMessage: error.message }));
   }
 }
 
