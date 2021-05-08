@@ -18,27 +18,21 @@ const CartPage = ({ products }) => {
   return (
     <Main>
       <PageTitle>{PAGES.CART.NAME}</PageTitle>
-      <FlexContainer align={'flex-start'}>
-        <FlexContainer width={'58%'} margin={'3rem auto 0 1.5rem'} direction={'column'}>
-          <FlexContainer justifyContent={'space-between'} align={'flex-start'}>
+      <FlexContainer align="flex-start">
+        <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
+          <FlexContainer justifyContent="space-between" align="flex-start">
             <Checkbox>선택해제</Checkbox>
-            <Button backgroundColor={PALETTE.WHITE} borderColor={PALETTE.GRAY_002} width={'7.3rem'} height={'3rem'}>
+            <Button backgroundColor={PALETTE.WHITE} borderColor={PALETTE.GRAY_002} width="7.3rem" height="3rem">
               상품삭제
             </Button>
           </FlexContainer>
           <Styled.ProductListTitle>든든배송 상품 ({products.length}개)</Styled.ProductListTitle>
-          <ProductList isCheckbox={true} products={products} width={'100%'}>
+          <ProductList isCheckbox={true} products={products} width="100%">
             {products.map((item) => (
-              <ProductListItem
-                key={item.id}
-                listStyle={'lineStyle'}
-                isCheckbox={true}
-                imageSize={'9rem'}
-                product={item}
-              >
-                <FlexContainer direction={'column'} justifyContent={'space-between'} align={'flex-end'}>
-                  <Button backgroundColor={'transparent'}>
-                    <TrashBin width={'1.5rem'} color={PALETTE.GRAY_002} />
+              <ProductListItem key={item.id} listStyle="lineStyle" isCheckbox={true} imageSize="9rem" product={item}>
+                <FlexContainer direction="column" justifyContent="space-between" align="flex-end">
+                  <Button backgroundColor="transparent">
+                    <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                   </Button>
                   <AmountInput amount={1} setAmount={() => {}} />
                   <p>{item.price.toLocaleString()} 원</p>
@@ -48,11 +42,14 @@ const CartPage = ({ products }) => {
           </ProductList>
         </FlexContainer>
         <PriceInfoBox
-          width={'30%'}
-          margin={'6rem 1.5rem 0 auto'}
-          title={'결제예상금액'}
+          width="30%"
+          margin="6rem 1.5rem 0 auto"
+          title="결제예상금액"
           priceInfo={{ name: '결제예상금액', price: 21700 }}
-          submitText={'주문하기'}
+          submitInfo={{
+            text: '주문하기',
+            address: PAGES.CHECKOUT.ADDRESS,
+          }}
         />
       </FlexContainer>
     </Main>

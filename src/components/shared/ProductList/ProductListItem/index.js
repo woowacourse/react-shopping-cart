@@ -5,12 +5,12 @@ import Product from '../../Product';
 import Checkbox from '../../../common/Checkbox';
 
 const ProductListItem = ({ product, listStyle, productDetail, isCheckbox, imageSize, children }) => {
-  const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction={'row'} />;
+  const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction="row" />;
 
   return (
     <Styled.ProductListItem listStyle={listStyle}>
       {isCheckbox ? (
-        <Checkbox align={'flex-start'} isChecked={product.isChecked}>
+        <Checkbox align="flex-start" isChecked={product.isChecked}>
           {productElement}
         </Checkbox>
       ) : (
@@ -37,7 +37,7 @@ ProductListItem.propTypes = {
   productDetail: PropTypes.string,
   isCheckbox: PropTypes.bool,
   imageSize: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element, PropTypes.elementType, PropTypes.string]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element, PropTypes.node, PropTypes.string]),
 };
 
 ProductListItem.defaultProps = {

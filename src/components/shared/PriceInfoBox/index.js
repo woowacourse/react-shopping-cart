@@ -7,26 +7,31 @@ import HighlightText from '../../common/HighlightText';
 import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
 
-const PriceInfoBox = ({ width, margin, title, priceInfo, submitText }) => {
+const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo }) => {
+  const onClick = () => {
+    window.location.hash = `#${submitInfo.address}`;
+  };
+
   return (
-    <FlexContainer width={width} margin={margin} direction={'column'} border={`1px solid ${PALETTE.GRAY_004}`}>
+    <FlexContainer width={width} margin={margin} direction="column" border={`1px solid ${PALETTE.GRAY_004}`}>
       <Styled.PriceInfoTitle>{title}</Styled.PriceInfoTitle>
-      <FlexContainer direction={'column'} padding={'1.8rem 1.4rem'}>
-        <FlexContainer justifyContent={'space-between'} margin={submitText && '0 0 3rem 0'}>
+      <FlexContainer direction="column" padding="1.8rem 1.4rem">
+        <FlexContainer justifyContent="space-between" margin={submitInfo && '0 0 3rem 0'}>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{priceInfo.name}</HighlightText>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{`${priceInfo.price.toLocaleString()} ${
             UNIT.MONEY
           }`}</HighlightText>
         </FlexContainer>
-        {submitText && (
+        {submitInfo && (
           <Button
-            width={'100%'}
-            height={'4.5rem'}
+            width="100%"
+            height="4.5rem"
             backgroundColor={PALETTE.BAEMINT}
             color={PALETTE.WHITE}
-            fontSize={'1.3rem'}
+            fontSize="1.3rem"
+            onClick={onClick}
           >
-            {submitText}
+            {submitInfo.text}
           </Button>
         )}
       </FlexContainer>
@@ -42,7 +47,10 @@ PriceInfoBox.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
   }),
-  submitText: PropTypes.string,
+  submitInfo: PropTypes.shape({
+    text: PropTypes.string,
+    address: PropTypes.string,
+  }),
 };
 
 export default PriceInfoBox;

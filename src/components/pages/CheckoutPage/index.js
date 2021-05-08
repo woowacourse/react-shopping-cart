@@ -17,16 +17,16 @@ const CheckoutPage = ({ products }) => {
   return (
     <Main>
       <PageTitle>{PAGES.CHECKOUT.NAME}</PageTitle>
-      <FlexContainer align={'flex-start'}>
-        <FlexContainer width={'58%'} margin={'3rem auto 0 1.5rem'} direction={'column'}>
+      <FlexContainer align="flex-start">
+        <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <Styled.ProductListTitle>{`주문 상품(${products.length}건)`}</Styled.ProductListTitle>
           <ProductList>
             {products.map((item) => (
               <ProductListItem
                 key={item.id}
-                listStyle={'lineStyle'}
+                listStyle="lineStyle"
                 isCheckbox={false}
-                imageSize={'7.5rem'}
+                imageSize="7.5rem"
                 product={item}
                 productDetail={{ text: `수량: ${item.amount}` }}
               />
@@ -34,11 +34,11 @@ const CheckoutPage = ({ products }) => {
           </ProductList>
         </FlexContainer>
         <PriceInfoBox
-          width={'30%'}
-          margin={'6rem 1.5rem 0 auto'}
-          title={'결제금액'}
+          width="30%"
+          margin="6rem 1.5rem 0 auto"
+          title="결제금액"
           priceInfo={{ name: '총 결제금액', price: totalPrice }}
-          submitText={`${totalPrice}원 결제하기`}
+          submitInfo={{ text: `${totalPrice.toLocaleString()}원 결제하기`, address: PAGES.ORDERS.ADDRESS }}
         />
       </FlexContainer>
     </Main>

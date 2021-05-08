@@ -5,14 +5,14 @@ import * as Styled from './style';
 const Checkbox = ({ isChecked, align, children }) => {
   return (
     <Styled.CheckboxContainer align={align}>
-      <Styled.Checkbox type={'checkbox'} checked={isChecked ? 'checked' : ''} />
+      <Styled.Checkbox type="checkbox" checked={isChecked ? 'checked' : ''} />
       {children}
     </Styled.CheckboxContainer>
   );
 };
 
 Checkbox.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType, PropTypes.element]),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   isChecked: PropTypes.bool,
   align: PropTypes.oneOf(['flex-start', 'center']),
 };

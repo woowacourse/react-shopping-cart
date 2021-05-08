@@ -7,15 +7,15 @@ const Product = ({ product, productDetail, size, direction, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
       <img src={product.image.url} alt={product.image.alt} />
-      <FlexContainer justifyContent={'space-between'} align={'center'} padding={'0 1rem'}>
-        <div>
+      <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
+        <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
           {productDetail && (
             <Styled.ProductDetail fontSize={productDetail.fontSize} color={productDetail.color}>
               {productDetail.text}
             </Styled.ProductDetail>
           )}
-        </div>
+        </FlexContainer>
         {children}
       </FlexContainer>
     </Styled.ProductContainer>

@@ -37,9 +37,9 @@ WithChildren.args = {
   product: reactFamily[0],
   isCheckbox: true,
   children: (
-    <FlexContainer direction={'column'} justifyContent={'space-between'} align={'flex-end'}>
-      <Button backgroundColor={'transparent'}>
-        <TrashBin width={'1.5rem'} color={PALETTE.GRAY_002} />
+    <FlexContainer direction="column" justifyContent="space-between" align="flex-end">
+      <Button backgroundColor="transparent">
+        <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
       </Button>
       <AmountInput amount={1} setAmount={() => {}} />
       <p>30,000 원</p>
