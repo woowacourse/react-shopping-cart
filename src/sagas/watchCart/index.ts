@@ -1,11 +1,12 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import actions from "../../actions";
-import cart, { cartPostActionType } from "../../actions/cart";
+import { call, put, takeLatest } from 'redux-saga/effects';
+
+import actions from '../../actions';
+import cart, { cartPostActionType } from '../../actions/cart';
 
 // TODO: type 상수화 => 필히 고려
 function* watchCart() {
   yield takeLatest(actions.cart.get.request().type, getCart);
-  yield takeLatest("cart/post/request", postCart);
+  yield takeLatest('cart/post/request', postCart);
 }
 
 function* getCart() {

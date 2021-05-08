@@ -1,19 +1,21 @@
-import { ProductsObject, RequestError } from "../interface";
-import { createAction, ActionType } from "typesafe-actions";
+import { ProductsObject, RequestError } from '../interface';
+import { createAction, ActionType } from 'typesafe-actions';
 
 const products = {
   get: {
-    request: createAction("products/get/request")(),
+    request: createAction('products/get/request')(),
     success: createAction(
-      "products/get/success",
+      'products/get/success',
       (products: ProductsObject) => products
     )<ProductsObject>(),
     failure: createAction(
-      "products/get/failure",
+      'products/get/failure',
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
 };
 
+type productsActionType = ActionType<typeof products.get>;
+
 export default products;
-export type productsActionType = ActionType<typeof products.get>;
+export { productsActionType };
