@@ -24,7 +24,7 @@ export const CheckoutPage = () => {
               label="총 결제금액"
               price={getFormattedAsKRW(325600)}
               buttonText={`${getFormattedAsKRW(325600)} 결제하기`}
-              route={ROUTE.CHECKOUT}
+              route={ROUTE.ORDER_LIST}
             />
           </Styled.Sticky>
         </Styled.CheckoutSection>

@@ -16,5 +16,6 @@ export { CheckoutBox } from './molecules/CheckoutBox';
 export { CheckoutItem } from './molecules/CheckoutItem';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
+export { OrderedItem } from './molecules/OrderedItem';
 export { ProductItem } from './molecules/ProductItem';
 export { QuantityStepper } from './molecules/QuantityStepper';
