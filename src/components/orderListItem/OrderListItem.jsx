@@ -4,7 +4,7 @@ import ProductImage, { TYPE } from '../productImage/ProductImage';
 
 const Container = styled.div`
   display: flex;
-  width: 394px;
+  width: 731px;
 `;
 
 const TextWrapper = styled.div`

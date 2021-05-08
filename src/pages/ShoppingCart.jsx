@@ -60,8 +60,8 @@ const ShoppingCart = ({ productListState }) => {
           </ShoppingCartItemModification>
           <ShoppingCartCount>든든배송 상품 (3개) </ShoppingCartCount>
           <ul>
-            {productListState.map(({ src, alt, name, price }) => (
-              <ShoppingCartItemWrapper>
+            {productListState.map(({ src, id, alt, name, price }) => (
+              <ShoppingCartItemWrapper key={id}>
                 <ShoppingCartItem src={src} alt={alt} name={name} price={price} />
               </ShoppingCartItemWrapper>
             ))}
