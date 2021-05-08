@@ -35,11 +35,7 @@ const OrderCheckoutPage = ({ location }) => {
             {db.shoppingCart.productIdList.map(productId => {
               const { img, name, price } = db.productList[productId];
 
-              return (
-                <div>
-                  <RowProductItem key={productId} imgSrc={img} name={name} price={price} amount="3" />
-                </div>
-              );
+              return <RowProductItem key={productId} imgSrc={img} name={name} price={price} amount={3} />;
             })}
           </CheckoutList>
         </CheckoutListContainer>

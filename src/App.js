@@ -5,6 +5,7 @@ import { ROUTE } from './constants';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
 import OrderCheckoutPage from './pages/OrderCheckoutPage/OrderCheckoutPage';
+import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 
 const App = () => (
   <>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path={ROUTE.HOME} component={ProductListPage} />
         <Route exact path={ROUTE.ORDER_LIST} component={OrderListPage} />
         <Route exact path={ROUTE.ORDER_CHECKOUT} component={OrderCheckoutPage} />
+        <Route exact path={ROUTE.SHOPPING_CART} component={ShoppingCartPage} />
       </Switch>
     </Router>
   </>

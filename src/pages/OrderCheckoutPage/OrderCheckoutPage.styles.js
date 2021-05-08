@@ -3,11 +3,17 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CheckoutListContainer = styled.div`
   width: 60%;
   margin-right: 5%;
+  min-width: 500px;
 `;
 
 const CheckoutListTitle = styled.div`
