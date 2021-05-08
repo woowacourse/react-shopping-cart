@@ -24,6 +24,18 @@ const cartReducer = (
         requestErrorMessage: action.payload.requestErrorMessage,
       };
 
+    case "cart/post/success":
+      return {
+        ...state,
+        requestErrorMessage: null,
+      };
+
+    case "cart/post/failure":
+      return {
+        ...state,
+        requestErrorMessage: action.payload.requestErrorMessage,
+      };
+
     default:
       return state;
   }

@@ -3,10 +3,10 @@ import { put, takeLatest } from "redux-saga/effects";
 import actions from "../../actions";
 
 function* watchProducts() {
-  yield takeLatest(actions.products.get.request().type, fetchProducts);
+  yield takeLatest(actions.products.get.request().type, getProducts);
 }
 
-function* fetchProducts() {
+function* getProducts() {
   try {
     // const products = yield call(Api,args)
     // yield put(actions.products.get.success(products));

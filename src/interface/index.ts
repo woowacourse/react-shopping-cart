@@ -10,8 +10,11 @@ interface ProductsObject {
   };
 }
 
-interface CartItem {
+interface Id {
   id: string;
+}
+
+interface CartItem extends Id {
   quantity: number;
   isSelected: boolean;
 }
@@ -20,13 +23,11 @@ interface Cart {
   cart: CartItem[];
 }
 
-interface OrderItem {
-  id: string;
+interface OrderItem extends Id {
   quantity: number;
 }
 
-interface Order {
-  id: string;
+interface Order extends Id {
   itemList: OrderItem[];
 }
 
@@ -41,6 +42,7 @@ interface RequestError {
 export {
   Product,
   ProductsObject,
+  Id,
   CartItem,
   Cart,
   Order,
