@@ -8,6 +8,7 @@ import ProductListPage from './pages/ProductListPage/ProductListPage';
 import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
+import OrderDetailPage from './pages/OrderDetailPage/OrderDetailPage';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route exact path="/order-list">
             <OrderListPage />
+          </Route>
+          <Route exact path="/order-detail">
+            <OrderDetailPage />
           </Route>
         </Switch>
       </HashRouter>
