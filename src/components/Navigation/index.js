@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
@@ -8,7 +9,7 @@ const Navigation = ({ navList }) => {
       <Styled.NavList>
         {navList.map((navItem, index) => (
           <li key={index}>
-            <a href={navItem.ADDRESS}>{navItem.NAME}</a>
+            <Link to={`${navItem.ADDRESS}`}>{navItem.NAME}</Link>
           </li>
         ))}
       </Styled.NavList>
