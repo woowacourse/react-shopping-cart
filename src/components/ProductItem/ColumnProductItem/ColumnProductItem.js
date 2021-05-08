@@ -5,7 +5,7 @@ import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg
 
 const ColumnProductItem = ({ imgSrc, name, price, onClick, isVisibleIcon }) => (
   <Container>
-    <Image src={imgSrc} />
+    <Image src={imgSrc} loading="lazy" />
     <DetailContainer>
       <ProductDetail>
         <Name>{name}</Name>

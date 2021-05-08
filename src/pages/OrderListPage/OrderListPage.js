@@ -31,11 +31,11 @@ const OrderListPage = ({ location }) => {
             <OrderContainer key={id} orderId={id}>
               {targetOrderDetail.productIdList.map((productId, index) => {
                 const { img, name, price } = db.productList[productId];
-                const amount = String(targetOrderDetail.productAmountList[index]);
+                const amount = targetOrderDetail.productAmountList[index];
 
                 return (
                   <OrderItemContainer key={productId}>
-                    <RowProductItem imgSrc={img} name={name} price={String(price)} amount={amount} />
+                    <RowProductItem imgSrc={img} name={name} price={price} amount={amount} />
                     <Button onClick={() => onClickShoppingCartButton(productId)}>장바구니</Button>
                   </OrderItemContainer>
                 );

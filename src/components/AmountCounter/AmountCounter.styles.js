@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: flex;
-  height: 100%;
 `;
 
 const Input = styled.input`
