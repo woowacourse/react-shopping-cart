@@ -1,12 +1,13 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { watch } from "node:fs";
+import { call, put, takeLatest } from "redux-saga/effects";
 
-import actions from '../../actions';
-import cart, { cartPostActionType } from '../../actions/cart';
+import actions from "../../actions";
+import cart, { cartPostActionType } from "../../actions/cart";
 
 // TODO: type 상수화 => 필히 고려
 function* watchCart() {
   yield takeLatest(actions.cart.get.request().type, getCart);
-  yield takeLatest('cart/post/request', postCart);
+  yield takeLatest("cart/post/request", postCart);
 }
 
 function* getCart() {
@@ -28,3 +29,5 @@ function* postCart(action: cartPostActionType) {
     );
   }
 }
+
+export default watchCart;
