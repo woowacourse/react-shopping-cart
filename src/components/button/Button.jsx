@@ -47,7 +47,7 @@ const Container = styled.button`
   text-align: center;
   border: none;
   ${(props) => (Object.keys(TYPE).includes(props.type) ? buttonStyle[props.type] : buttonStyle['MEDIUM'])};
-  ${(props) => ({ ...props.styles })};
+  ${(props) => props.styles};
 `;
 
 const Button = ({ children, type, styles }) => (
