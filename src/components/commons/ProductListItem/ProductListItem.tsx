@@ -1,14 +1,21 @@
 import * as Styled from './ProductListItem.styles';
+import noImagePNG from '../../../assets/images/no-image.png';
 
 export interface Props {
   size: 'SM' | 'MD';
-  productThumbnail: string;
+  productThumbnail?: string;
   productName: string;
   productPrice: string;
   productQuantity: string;
 }
 
-const ProductListItem = ({ size = 'SM', productThumbnail, productName, productPrice, productQuantity }: Props) => {
+const ProductListItem = ({
+  size = 'SM',
+  productThumbnail = noImagePNG,
+  productName,
+  productPrice,
+  productQuantity,
+}: Props) => {
   return (
     <Styled.ProductListItem>
       <Styled.ProductThumbnail size={size} src={productThumbnail} />

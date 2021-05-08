@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import GlobalStyle from './Global.styles';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
+import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <ShoppingCartPage />
+          </Route>
+          <Route exact path="/order">
+            <ProductOrderPage />
           </Route>
         </Switch>
       </HashRouter>
