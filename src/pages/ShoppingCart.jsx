@@ -7,13 +7,6 @@ import PaymentAmount, { TYPE as PAYMENT_AMOUNT_TYPE } from '../components/paymen
 import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
 import { COLOR } from '../constants/color';
 
-const MOCK_UP_DATA = {
-  src: 'https://user-images.githubusercontent.com/40762111/117096676-c9fd6200-ada4-11eb-9ccb-8bd52ec86210.png',
-  alt: 'PET보틀-정사각(420ml)',
-  price: 43400,
-  name: 'PET보틀-정사각(420ml)',
-};
-
 const Content = styled.section`
   position: relative;
   display: flex;
@@ -69,13 +62,13 @@ const ShoppingCart = ({ productListState }) => {
           <ul>
             {productListState.map(({ src, alt, name, price }) => (
               <ShoppingCartItemWrapper>
-                <ShoppingCartItem {...MOCK_UP_DATA} src={src} alt={alt} name={name} price={price} />
+                <ShoppingCartItem src={src} alt={alt} name={name} price={price} />
               </ShoppingCartItemWrapper>
             ))}
           </ul>
         </div>
         <PaymentAmountWrapper>
-          <PaymentAmount type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART} price={MOCK_UP_DATA.price} count={2} />
+          <PaymentAmount type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART} price={40000} count={2} />
         </PaymentAmountWrapper>
       </Content>
     </>

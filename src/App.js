@@ -7,6 +7,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import OrderList from './pages/OrderList';
 import GlobalStyle from './GlobalStyle';
 import styled from 'styled-components';
+import OrderPayment from './pages/OrderPayment';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route exact path="/orderList">
             <OrderList />
+          </Route>
+          <Route exact path="/orderPayment">
+            <OrderPayment productListState={productListState} />
           </Route>
         </Switch>
       </StyledContents>

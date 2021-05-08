@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import Button, { TYPE as BUTTON_TYPE } from '../button/Button';
@@ -58,6 +59,7 @@ const TextHighlight = styled.span`
 `;
 
 // TODO: 스타일드 컴포넌트 변수명 생각해보기 Styled도 붙고, PaymetAmount가 있는데 또 붙어 있어서 지저분함
+// TODO: 여기에서 Link를 가지고 있어도 괜찮을지? 잘 모르겠다.
 const PaymentAmount = ({ type, price, count }) => (
   <Container>
     <Title>{paymentAmountText[type].title}</Title>
@@ -66,11 +68,13 @@ const PaymentAmount = ({ type, price, count }) => (
         <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM}>
-        {paymentAmountText[type] === 'SHOPPING_CART'
-          ? `주문하기(${count})개`
-          : `${price.toLocaleString('ko-KR')}원 결제하기`}
-      </Button>
+      <Link to="/orderPayment">
+        <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM}>
+          {paymentAmountText[type] === 'SHOPPING_CART'
+            ? `주문하기(${count})개`
+            : `${price.toLocaleString('ko-KR')}원 결제하기`}
+        </Button>
+      </Link>
     </div>
   </Container>
 );
