@@ -9,6 +9,7 @@ export const Header = styled.div(({ styles }: Props) => ({
   height: '80px',
   padding: '0 300px',
   backgroundColor: COLORS.MINT_500,
+  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
   ...styles,
 }));
 

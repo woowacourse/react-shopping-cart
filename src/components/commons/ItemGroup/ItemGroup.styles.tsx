@@ -21,6 +21,4 @@ export const orderNumber = styled.span``;
 
 export const detailLink = styled.a``;
 
-export const ItemContainer = styled.div`
-  padding: 37px 26px;
-`;
+export const ItemContainer = styled.div``;

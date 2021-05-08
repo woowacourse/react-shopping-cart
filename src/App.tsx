@@ -7,6 +7,7 @@ import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
 import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
+import OrderListPage from './pages/OrderListPage/OrderListPage';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route exact path="/order">
             <ProductOrderPage />
+          </Route>
+          <Route exact path="/order-list">
+            <OrderListPage />
           </Route>
         </Switch>
       </HashRouter>
