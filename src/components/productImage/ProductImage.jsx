@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TYPE = Object.freeze({
+export const PRODUCT_IMAGE_TYPE = Object.freeze({
   LARGE: 'LARGE',
   MEDIUM: 'MEDIUM',
   SMALL: 'SMALL',
@@ -12,12 +12,10 @@ const productImageStyle = {
     width: '570px',
     height: '570px',
   },
-
   MEDIUM: {
     width: '282px',
     height: '282px',
   },
-
   SMALL: {
     width: '144px',
     height: '144px',
@@ -25,8 +23,10 @@ const productImageStyle = {
 };
 
 // TODO: util로 나중에 뺄지 고민  - Object.keys(SIZE).includes(props.size)
+// TODO: Object.keys()로 할 필요가 있나? productImageStyle[type] ? productImageStyle[type] : productImageStyle['MEDIUM']하면 될 듯
 const Image = styled.img`
-  ${(props) => (Object.keys(TYPE).includes(props.type) ? productImageStyle[props.type] : productImageStyle['MEDIUM'])}
+  ${({ type }) =>
+    Object.keys(PRODUCT_IMAGE_TYPE).includes(type) ? productImageStyle[type] : productImageStyle['MEDIUM']}
 `;
 
 // src가 들어오지 않았을 때 예외처리를 할지 고민

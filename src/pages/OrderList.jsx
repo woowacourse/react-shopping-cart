@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PageTitle from '../components/pageTitle/PageTitle';
-import OrderListItem, { TYPE as ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
-import SelectedProductList, {
-  TYPE as SELECTED_PRODUCT_LIST_TYPE,
-} from '../components/selectedProductList/SelectedProductList';
+import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
+import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import { COLOR } from '../constants/color';
 
 const Content = styled.div`

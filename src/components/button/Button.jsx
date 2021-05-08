@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 
-export const TYPE = Object.freeze({
+export const BUTTON_TYPE = Object.freeze({
   LARGE: 'LARGE',
   MEDIUM: 'MEDIUM',
   SMALL: 'SMALL',
@@ -18,7 +18,6 @@ const buttonStyle = {
     backgroundColor: COLOR.BROWN_500,
     color: COLOR.WHITE,
   },
-
   MEDIUM: {
     width: '388px',
     height: '73px',
@@ -26,7 +25,6 @@ const buttonStyle = {
     backgroundColor: COLOR.MINT_500,
     color: COLOR.WHITE,
   },
-
   SMALL: {
     width: '138px',
     height: '47px',
@@ -34,7 +32,6 @@ const buttonStyle = {
     backgroundColor: COLOR.MINT_500,
     color: COLOR.WHITE,
   },
-
   X_SMALL: {
     width: '117px',
     height: '50px',
@@ -43,11 +40,14 @@ const buttonStyle = {
   },
 };
 
+// TODO Object.keys()로 할 필요가 있나? buttonStyle[type] ? buttonStyle[type] : buttonStyle['MEDIUM']하면 될 듯
 const Container = styled.button`
   text-align: center;
   border: none;
-  ${(props) => (Object.keys(TYPE).includes(props.type) ? buttonStyle[props.type] : buttonStyle['MEDIUM'])};
-  ${(props) => props.styles};
+  cursor: pointer;
+
+  ${({ type }) => (Object.keys(BUTTON_TYPE).includes(type) ? buttonStyle[type] : buttonStyle['MEDIUM'])};
+  ${({ styles }) => styles};
 `;
 
 const Button = ({ children, type, styles }) => (

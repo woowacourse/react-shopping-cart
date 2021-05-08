@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button, { TYPE as BUTTON_TYPE } from '../components/button/Button';
+import Button, { BUTTON_TYPE } from '../components/button/Button';
 import Checkbox from '../components/checkbox/Checkbox';
 import PageTitle from '../components/pageTitle/PageTitle';
-import PaymentAmount, { TYPE as PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
-import SelectedProductList, {
-  TYPE as SELECTED_PRODUCT_LIST_TYPE,
-} from '../components/selectedProductList/SelectedProductList';
+import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
+import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
 
 const Content = styled.section`

@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
-import Button, { TYPE as BUTTON_TYPE } from '../button/Button';
+import Button, { BUTTON_TYPE } from '../button/Button';
 
-export const TYPE = Object.freeze({
+export const PAYMENT_AMOUNT_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
 });
@@ -59,7 +59,15 @@ const TextHighlight = styled.span`
   }
 `;
 
-// TODO: Button 컴포넌트에 들어가는 텍스트를 함수로 변경
+const getButtonText = ({ type, count, price }) => {
+  const buttonTextType = {
+    SHOPPING_CART: `주문하기(${count}개)`,
+    ORDER_PAYMENT: `${price.toLocaleString('ko-KR')}원 결제하기`,
+  };
+
+  return buttonTextType[type];
+};
+
 const PaymentAmount = ({ type, price, count }) => (
   <Container>
     <Title>{paymentAmountText[type].title}</Title>
@@ -68,12 +76,8 @@ const PaymentAmount = ({ type, price, count }) => (
         <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Link to="/orderPayment">
-        <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM}>
-          {paymentAmountText[type] === 'SHOPPING_CART'
-            ? `주문하기(${count})개`
-            : `${price.toLocaleString('ko-KR')}원 결제하기`}
-        </Button>
+      <Link style={{ marginLeft: '30px' }} to="/orderPayment">
+        <Button type={BUTTON_TYPE.MEDIUM}>{getButtonText({ type, price, count })}</Button>
       </Link>
     </div>
   </Container>

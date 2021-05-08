@@ -1,6 +1,6 @@
 import React from 'react';
 import Checkbox from '../checkbox/Checkbox';
-import ProductImage, { TYPE } from '../productImage/ProductImage';
+import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
@@ -34,13 +34,14 @@ const Name = styled.div`
 const TrashCanImage = styled.img`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 const ShoppingCartItem = ({ src, alt, name, price }) => (
   <Container>
     <LeftContent>
       <Checkbox />
-      <ProductImage type={TYPE.SMALL} src={src} alt={alt} />
+      <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
       <Name>{name}</Name>
     </LeftContent>
     <RightContent>

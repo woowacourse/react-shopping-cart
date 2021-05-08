@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 
-// TODO: TYPE을 그냥 길게 다 써주기
-export const TYPE = Object.freeze({
+export const SELECTED_PRODUCT_LIST_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
   ORDER_PAYMENT: 'ORDER_PAYMENT',
   ORDER_LIST: 'ORDER_LIST',
@@ -18,7 +17,6 @@ const selectedProductStyle = {
       fontSize: '20px',
     },
     ListItemWrapper: {
-      borderBottom: `2px solid ${COLOR.GRAY_200}`,
       padding: '24px 0 12px 0',
     },
   },
@@ -30,7 +28,6 @@ const selectedProductStyle = {
       fontWeight: '500',
     },
     ListItemWrapper: {
-      borderBottom: `2px solid ${COLOR.GRAY_200}`,
       padding: '20px 0',
     },
   },
@@ -44,7 +41,6 @@ const selectedProductStyle = {
       borderBottom: `2px solid ${COLOR.GRAY_200}`,
     },
     ListItemWrapper: {
-      borderBottom: `2px solid ${COLOR.GRAY_200}`,
       padding: '38px 0',
     },
   },
@@ -55,6 +51,8 @@ const Header = styled.div`
 `;
 
 const ListItemWrapper = styled.li`
+  border-bottom: 2px solid ${COLOR.GRAY_200};
+
   ${({ type }) => selectedProductStyle[type].ListItemWrapper}
 `;
 

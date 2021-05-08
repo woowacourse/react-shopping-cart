@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button, { TYPE as BUTTON_TYPE } from '../button/Button';
-import ProductImage, { TYPE as PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
+import Button, { BUTTON_TYPE } from '../button/Button';
+import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import { COLOR } from '../../constants/color';
 
-export const TYPE = Object.freeze({
+export const ORDER_LIST_ITEM_TYPE = Object.freeze({
   ORDER_PAYMENT: 'ORDER_PAYMENT',
   ORDER_LIST: 'ORDER_LIST',
 });

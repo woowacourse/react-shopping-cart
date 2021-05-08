@@ -16,12 +16,12 @@ const CheckboxShapeDiv = styled.div`
   display: inline-block;
   width: 28px;
   height: 28px;
-  background-color: ${(props) => (props.isChecked ? '#22A6A2' : 'white')};
+  background-color: ${({ isChecked }) => (isChecked ? '#22A6A2' : 'white')};
   border-radius: 3px;
   border: 1px solid #22a6a2;
 
   ${CheckIcon} {
-    visibility: ${(props) => (props.isChecked ? 'visible' : 'hidden')};
+    visibility: ${({ isChecked }) => (isChecked ? 'visible' : 'hidden')};
   }
 `;
 

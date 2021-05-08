@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import OrderListItem, { TYPE as ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
+import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
 import PageTitle from '../components/pageTitle/PageTitle';
-import PaymentAmount, { TYPE as PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
-import SelectedProductList, {
-  TYPE as SELECTED_PRODUCT_LIST_TYPE,
-} from '../components/selectedProductList/SelectedProductList';
+import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
+import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 
 const Content = styled.section`
   position: relative;
