@@ -15,11 +15,11 @@ import * as Styled from './style.js';
 */
 
 export const CheckoutItem = (props) => {
-  const { quantity, item } = props;
+  const { quantity, item, ...rest } = props;
   const { name, img } = item;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Styled.Image src={img} />
       <Styled.Content>
         <Styled.Name>{name}</Styled.Name>

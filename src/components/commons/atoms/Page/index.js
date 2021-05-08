@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 
 export const Page = (props) => {
-  const { children } = props;
+  const { children, ...rest } = props;
   return (
     <>
-      <Styled.Page>
+      <Styled.Page {...rest}>
         <Styled.Container>{children}</Styled.Container>
       </Styled.Page>
     </>

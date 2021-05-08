@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 
 export const Checkbox = (props) => {
-  const { label } = props;
+  const { label, ...rest } = props;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       {label}
       <Styled.Checkbox />
       <Styled.CheckMark />

@@ -3,9 +3,9 @@ import { CartIcon } from '../../';
 import * as Styled from './style.js';
 import { ROUTE } from '../../../../constants';
 
-export const NavBar = () => {
+export const NavBar = (props) => {
   return (
-    <Styled.NavBar>
+    <Styled.NavBar {...props}>
       <Styled.Container>
         <Link to={ROUTE.HOME}>
           <Styled.NavTitle>

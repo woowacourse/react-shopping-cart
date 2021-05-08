@@ -15,12 +15,12 @@ import { getFormattedAsKRW } from '../../../../utils';
 */
 
 export const CartItem = (props) => {
-  const { item } = props;
+  const { item, ...rest } = props;
   const { name, price, img } = item;
   const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = useQuantityStepper();
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Checkbox />
       <Styled.Image src={img} />
       <Styled.Name>{name}</Styled.Name>

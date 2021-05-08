@@ -14,11 +14,11 @@ import { getFormattedAsKRW } from '../../../../utils';
 */
 
 export const ProductItem = (props) => {
-  const { item } = props;
+  const { item, ...rest } = props;
   const { name, price, img } = item;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Styled.Image src={img} />
       <Styled.Footer>
         <Styled.Label>

@@ -3,10 +3,10 @@ import { UpwardIcon, DownwardIcon } from '../../';
 import * as Styled from './style.js';
 
 export const QuantityStepper = (props) => {
-  const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = props;
+  const { quantity, handleQuantityChange, handleIncrement, handleDecrement, ...rest } = props;
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Styled.Input value={quantity} onChange={handleQuantityChange} />
       <Styled.Controller>
         <Styled.StepperButton onClick={handleIncrement} children={<UpwardIcon />} isUpward />

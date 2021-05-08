@@ -16,12 +16,12 @@ import * as Styled from './style.js';
 */
 
 export const OrderedItem = (props) => {
-  const { quantity, item } = props;
+  const { quantity, item, ...rest } = props;
   const { name, price, img } = item;
   const totalPriceAsKRW = getFormattedAsKRW(price * quantity);
 
   return (
-    <Styled.Container>
+    <Styled.Container {...rest}>
       <Styled.Image src={img} />
       <Styled.Content>
         <Styled.Name>{name}</Styled.Name>
