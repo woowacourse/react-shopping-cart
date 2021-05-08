@@ -1,21 +1,18 @@
-import ShoppingCartItem from '.';
-import { PRODUCT_LIST_MOCK } from '../../../../../mock';
+import OrderItem from '.';
+import { PRODUCT_LIST_MOCK } from '../../../../mock';
 
 export default {
-  component: ShoppingCartItem,
-  title: 'components/ShoppingCartItemList/ShoppingCartSection/ShoppingCartItem',
+  component: OrderItem,
+  title: 'components/OrderConfirm/OrderConfirmSection/OrderItem',
 };
 
-const Template = (args) => (
-  <ul>
-    <ShoppingCartItem {...args} />
-  </ul>
-);
+const StoryTemplate = (args) => <OrderItem {...args} />;
 
-export const Default = Template.bind({});
-
-const [productMock] = PRODUCT_LIST_MOCK;
+export const Default = StoryTemplate.bind({});
 
 Default.args = {
-  product: productMock,
+  item: {
+    ...PRODUCT_LIST_MOCK[0],
+    amount: 2,
+  },
 };

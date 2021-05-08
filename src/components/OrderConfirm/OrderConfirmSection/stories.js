@@ -1,16 +1,16 @@
-import ShoppingCartItemList from '.';
-import { PRODUCT_LIST_MOCK } from '../../../../mock';
+import OrderConfirmSection from '.';
+import { ORDER_LIST_MOCK } from '../../../mock';
 
 export default {
-  component: ShoppingCartItemList,
-  title: 'components/ShoppingCartItemList',
+  component: OrderConfirmSection,
+  title: 'components/OrderConfirm/OrderConfirmSection',
 };
 
-const Template = (args) => <ShoppingCartItemList {...args} />;
+const StoryTemplate = (args) => <OrderConfirmSection {...args} />;
 
-export const Default = Template.bind({});
+export const Default = StoryTemplate.bind({});
 
 Default.args = {
-  title: '',
-  items: PRODUCT_LIST_MOCK,
+  title: '주문 상품',
+  items: ORDER_LIST_MOCK,
 };

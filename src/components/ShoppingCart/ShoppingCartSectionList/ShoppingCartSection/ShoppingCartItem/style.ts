@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Card from '../../../../shared/Card';
 import Container from '../../../../shared/Container';
 
 export const ShoppingCartItemContainer = styled.li`
@@ -11,6 +12,13 @@ export const ShoppingCartItemContainer = styled.li`
     justify-content: space-evenly;
   }
 `;
+
+export const ShoppingCartItemCard = styled(Card)``;
+
+ShoppingCartItemCard.defaultProps = {
+  height: '9.125rem',
+  width: '100%',
+};
 
 export const ProductName = styled.p`
   font-size: 1.25rem;

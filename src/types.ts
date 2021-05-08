@@ -3,3 +3,7 @@ export interface Product {
   price: string;
   imgSrc: string;
 }
+
+export interface ShoppingCartItem extends Product {
+  amount: number;
+}

@@ -6,7 +6,7 @@ import Container from '../../../../shared/Container';
 import IconButton from '../../../../shared/IconButton';
 import NumberInput from '../../../../shared/NumberInput';
 import Text from '../../../../shared/Text';
-import { ProductName, ShoppingCartItemContainer } from './style';
+import { ProductName, ShoppingCartItemCard, ShoppingCartItemContainer } from './style';
 
 interface Props {
   product: Product;
@@ -16,9 +16,9 @@ interface Props {
 const ShoppingCartItem: VFC<Props> = ({ product: { imgSrc, name, price }, className }) => (
   <ShoppingCartItemContainer className={className}>
     <Checkbox />
-    <Card type="horizontal" imgSrc={imgSrc} height="9.125rem" width="100%">
+    <ShoppingCartItemCard type="horizontal" imgSrc={imgSrc}>
       <ProductName>{name}</ProductName>
-    </Card>
+    </ShoppingCartItemCard>
     <Container>
       <IconButton
         imgSrc={process.env.PUBLIC_URL + '/icons/trash-bin.svg'}

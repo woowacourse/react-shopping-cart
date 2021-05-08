@@ -1,27 +1,27 @@
 import { VFC } from 'react';
-import { Product } from '../../../../types';
-import ShoppingCartItem from './OrderItem';
-import List from '../../../shared/List';
-import { InnerTitle } from './style';
+import { ShoppingCartItem } from '../../../types';
+import List from '../../shared/List';
+import OrderItem from './OrderItem';
+import { InnerTitle, OrderItemListContainer } from './style';
 
 interface Props {
   title: string;
-  items: Product[];
+  items: ShoppingCartItem[];
 }
 
-const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
+const OrderConfirmSection: VFC<Props> = ({ title, items }) => {
   return (
-    <section>
+    <OrderItemListContainer>
       <InnerTitle>
-        {title} ({items.length}개)
+        {title} ({items.length}건)
       </InnerTitle>
       <List>
         {items.map((item) => (
-          <ShoppingCartItem product={item} />
+          <OrderItem item={item} />
         ))}
       </List>
-    </section>
+    </OrderItemListContainer>
   );
 };
 
-export default ShoppingCartSection;
+export default OrderConfirmSection;

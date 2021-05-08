@@ -25,3 +25,5 @@ export const PRODUCT_LIST_MOCK = [
     price: '43400',
   },
 ];
+
+export const ORDER_LIST_MOCK = PRODUCT_LIST_MOCK.map((item) => ({ ...item, amount: 2 }));

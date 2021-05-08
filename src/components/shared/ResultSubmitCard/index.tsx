@@ -13,11 +13,18 @@ interface Props {
   resultDescription: string;
   resultAmount: string;
   buttonText: string;
+  className?: string;
 }
 
-const ResultSubmitCard: VFC<Props> = ({ title, resultDescription, resultAmount, buttonText }) => {
+const ResultSubmitCard: VFC<Props> = ({
+  title,
+  resultDescription,
+  resultAmount,
+  buttonText,
+  className,
+}) => {
   return (
-    <ResultSubmitCardContainer>
+    <ResultSubmitCardContainer className={className}>
       <ResultTitle>{title}</ResultTitle>
       <ResultInnerContainer>
         <ResultAmountContainer>
