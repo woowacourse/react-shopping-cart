@@ -1,13 +1,12 @@
 import ProductList from '../../components/ProductList';
-import Template from '../../components/shared/Template';
-import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
+import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import { PRODUCT_LIST_MOCK } from '../../mock';
 
 const ProductListPage = () => {
   return (
-    <Template innerWidth={INNER_TEMPLATE_WIDTH}>
+    <ReactShoppingCartTemplate>
       <ProductList products={PRODUCT_LIST_MOCK} />
-    </Template>
+    </ReactShoppingCartTemplate>
   );
 };
 
