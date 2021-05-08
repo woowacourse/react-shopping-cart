@@ -1,10 +1,10 @@
-import db from '../firebase';
+import db from "../firebase";
 
-import { CartItem, Id, Order, Product } from '../interface';
+import { CartItem, Id, Order, Product } from "../interface";
 
-const products = db.collection('products');
-const cart = db.collection('cart');
-const orderList = db.collection('orderList');
+const products = db.collection("products");
+const cart = db.collection("cart");
+const orderList = db.collection("orderList");
 
 const api = {
   products: {
