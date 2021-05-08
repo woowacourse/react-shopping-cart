@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const Button = ({ type, width, height, fontSize, color, backgroundColor, borderColor, children }) => {
+const Button = ({ type, width, height, fontSize, color, backgroundColor, borderColor, children, onClick }) => {
   return (
     <Styled.Button
       type={type}
@@ -12,6 +12,7 @@ const Button = ({ type, width, height, fontSize, color, backgroundColor, borderC
       fontSize={fontSize}
       backgroundColor={backgroundColor}
       borderColor={borderColor}
+      onClick={onClick}
     >
       {children}
     </Styled.Button>
@@ -26,7 +27,8 @@ Button.propTypes = {
   fontSize: PropTypes.string,
   backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.elementType]),
+  onClick: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 Button.defaultProps = {
