@@ -7,10 +7,12 @@ const GlobalStyle = createGlobalStyle`
   --color-mint: #2AC1BC;
   --color-brown: #73675C;
   --color-white: #ffffff;
+  --color-light-grey: #F6F6F6;
   --color-grey-50: #DDDDDD;
   --color-grey-100: #d6d6d6;
   --color-grey-150: #cccccc;
   --color-grey-200: #a7a7a7;
+  --color-grey-250: #888888;
   --color-grey-300: #737373;
   --color-grey-400: #3e3e3e;
   --color-grey-500: #333333;

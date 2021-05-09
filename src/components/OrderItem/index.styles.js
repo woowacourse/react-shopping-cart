@@ -21,7 +21,7 @@ export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
 `;
 
 export const OrderDetail = styled.div`
-  flex-basis: 80%;
+  flex-basis: 60%;
   display: flex;
   flex-direction: column;
 `;
@@ -32,7 +32,12 @@ export const Name = styled.span`
   margin-bottom: 1rem;
 `;
 
-export const Quantity = styled.span`
+export const PriceAndQuantity = styled.span`
   font-size: var(--font-micro);
-  color: var(--color-grey-500);
+  color: ${({ price }) =>
+    price ? `var(--color-grey-250)` : `var(--color-grey-500)`};
+`;
+
+export const ButtonWrapper = styled.div`
+  flex-basis: 20%;
 `;

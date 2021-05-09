@@ -6,14 +6,17 @@ import {
   OrderDetail,
   Image,
   Name,
-  Quantity,
+  PriceAndQuantity,
   ImageWrapper,
+  ButtonWrapper,
 } from './index.styles';
+import BoxButton from '../common/BoxButton';
 
 const OrderItem = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
+  price,
   quantity = 0,
 }) => (
   <Order>
@@ -22,8 +25,13 @@ const OrderItem = ({
     </ImageWrapper>
     <OrderDetail>
       <Name>{name}</Name>
-      <Quantity> 수량: {quantity}</Quantity>
+      <PriceAndQuantity price={price}>
+        {price && `${price}원 /`} 수량: {quantity}
+      </PriceAndQuantity>
     </OrderDetail>
+    <ButtonWrapper>
+      <BoxButton buttonStyle="mint-button">장바구니</BoxButton>
+    </ButtonWrapper>
   </Order>
 );
 
@@ -31,6 +39,7 @@ OrderItem.propTypes = {
   imgUrl: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
+  price: PropTypes.number,
   quantity: PropTypes.number,
 };
 

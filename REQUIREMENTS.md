@@ -74,8 +74,7 @@
     - [x] ProductDetail
 
     - [x] ShoppingItem
-    - [] OrderItem
-    - [] OrderList
+    - [x] OrderItem
     - [] CompletedOrderList
     - [x] PaymentSheet
 ```
