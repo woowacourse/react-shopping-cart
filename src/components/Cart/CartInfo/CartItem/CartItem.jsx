@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { toggleChecked } from "../../../../store/modules/cartSlice";
+import {
+  toggleChecked,
+  changeAmount,
+} from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import CheckBox from "../../../@shared/CheckBox/CheckBox";
 import NumberInput from "../../../@shared/NumberInput/NumberInput";
@@ -15,6 +18,14 @@ const CartItem = ({
 
   const handleCheckBoxChange = () => {
     dispatch(toggleChecked({ id }));
+  };
+
+  const handleAmountChange = (event) => {
+    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 0 }));
+  };
+
+  const handleAmountBlur = (event) => {
+    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 1 }));
   };
 
   return (
@@ -32,8 +43,12 @@ const CartItem = ({
       </S.Detail>
       <S.Control>
         <TrashIcon />
-        <NumberInput value={amount} onChange={() => {}} />
-        <span>{formatPrice(price)}원</span>
+        <NumberInput
+          value={amount}
+          onChange={handleAmountChange}
+          onBlur={handleAmountBlur}
+        />
+        <span>{formatPrice(amount * price)}원</span>
       </S.Control>
     </S.CartItem>
   );

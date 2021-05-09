@@ -30,9 +30,19 @@ const cartSlice = createSlice({
         state[id].checked = checked;
       });
     },
+
+    changeAmount: (state, action) => {
+      const { id, amount } = action.payload;
+      state[id].amount = amount;
+    },
   },
 });
 
-export const { addToCart, toggleChecked, toggleAllChecked } = cartSlice.actions;
+export const {
+  addToCart,
+  toggleChecked,
+  toggleAllChecked,
+  changeAmount,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
