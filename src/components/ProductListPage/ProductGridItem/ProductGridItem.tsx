@@ -2,16 +2,15 @@ import * as Styled from './ProductGridItem.styles';
 import shoppingCartDarkSVG from '../../../assets/svgs/shopping-cart-dark.svg';
 
 export interface Props {
-  id?: string;
   name: string;
   price: string;
   thumbnail: string;
-  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: () => void;
 }
 
-const ProductGridItem = ({ id, name, price, thumbnail, onClick }: Props) => {
+const ProductGridItem = ({ name, price, thumbnail, onClick }: Props) => {
   return (
-    <Styled.ProductGridItem id={id} onClick={onClick}>
+    <Styled.ProductGridItem onClick={onClick}>
       <Styled.ProductThumbnail src={thumbnail} />
       <Styled.GridBottomWrapper>
         <Styled.GridTextWrapper>

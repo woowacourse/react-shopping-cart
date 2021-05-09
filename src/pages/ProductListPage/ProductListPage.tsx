@@ -18,18 +18,13 @@ const ProductListPage = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const onProductItemClick = (event: React.MouseEvent) => {
-    if (!(event.target instanceof Element)) {
-      return;
-    }
-    const productId = event.target.id;
-    history.push(PATH.PRODUCT_DETAIL, productId);
+  const onProductItemClick = (productId: string) => {
+    history.push({ pathname: PATH.PRODUCT_DETAIL, state: { productId } });
   };
 
   const productGridItemList = products.map((product: Product) => (
     <ProductGridItem
-      onClick={onProductItemClick}
-      id={product.id}
+      onClick={() => onProductItemClick(product.id)}
       key={product.id}
       name={product.name}
       price={product.price}
