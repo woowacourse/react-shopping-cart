@@ -40,5 +40,11 @@ export const Button = styled.button`
     outline: none;
   }
 
+  &:disabled,
+  &:disabled:hover {
+    background-color: ${COLOR.GRAY.LIGHT_100};
+    cursor: not-allowed;
+  }
+
   ${({ type }) => buttonStyle[type]}
 `;

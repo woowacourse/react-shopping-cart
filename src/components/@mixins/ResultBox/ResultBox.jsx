@@ -1,22 +1,36 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { formatPrice } from "../../../utils/utils";
 import Button from "../../@shared/Button/Button";
 import * as S from "./Resultbox.styled";
 
-const ResultBox = () => (
+const ResultBox = ({ title, text, price, buttonContent, disabled }) => (
   <S.ResultBox>
     <S.Title>
-      <h3>결제예상금액</h3>
+      <h3>{title}</h3>
     </S.Title>
     <S.Main>
       <S.Info>
-        <span>결제예상금액</span>
-        <span>21,700원</span>
+        <span>{text}</span>
+        <span>{formatPrice(price)}원</span>
       </S.Info>
       <S.Button>
-        <Button>주문하기(2개)</Button>
+        <Button disabled={disabled}>{buttonContent}</Button>
       </S.Button>
     </S.Main>
   </S.ResultBox>
 );
+
+ResultBox.propTypes = {
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  buttonContent: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+};
+
+ResultBox.defaultProps = {
+  disabled: false,
+};
 
 export default ResultBox;

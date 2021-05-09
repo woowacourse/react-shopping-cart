@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import { toggleAllChecked } from "../../../store/modules/cartSlice";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
 import CartItem from "./CartItem/CartItem";
 import * as S from "./CartInfo.styled";
 
-const CartInfo = () => {
-  const cart = useSelector((state) => state.cart);
+const CartInfo = ({ cart }) => {
   const dispatch = useDispatch();
 
   const [checkAll, setCheckAll] = useState(false);
@@ -54,6 +54,11 @@ const CartInfo = () => {
       </div>
     </S.CartInfo>
   );
+};
+
+CartInfo.propTypes = {
+  cart: PropTypes.shape({ id: PropTypes.shape(CartItem.propTypes.item) })
+    .isRequired,
 };
 
 export default CartInfo;
