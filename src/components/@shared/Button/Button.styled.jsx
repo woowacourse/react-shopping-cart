@@ -16,6 +16,12 @@ const buttonStyle = {
       background-color: ${COLOR.BROWN.DARK};
     }
   `,
+  secondary: css`
+    border: 1px solid ${COLOR.GRAY.LIGHT_150};
+    background-color: white;
+
+    color: ${COLOR.GRAY.DARK};
+  `,
 };
 
 export const Button = styled.button`

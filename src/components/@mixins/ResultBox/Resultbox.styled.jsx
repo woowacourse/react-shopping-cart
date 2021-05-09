@@ -3,6 +3,7 @@ import { COLOR } from "../../../constants/style";
 
 export const ResultBox = styled.aside`
   width: 28rem;
+  flex-shrink: 0;
   border: 1px solid ${COLOR.GRAY.LIGHT_300};
 `;
 
