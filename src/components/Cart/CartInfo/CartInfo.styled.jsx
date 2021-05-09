@@ -22,6 +22,12 @@ export const CheckAllLabel = styled.label`
 export const RemoveChecked = styled.div`
   button {
     padding: 1rem 1.75rem;
+    font-weight: bold;
+
+    &:hover {
+      border: 1px solid ${COLOR.RED.PRIMARY};
+      color: ${COLOR.RED.PRIMARY};
+    }
   }
 `;
 

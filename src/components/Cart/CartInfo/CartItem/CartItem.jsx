@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   toggleChecked,
   changeAmount,
+  removeFromCart,
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import CheckBox from "../../../@shared/CheckBox/CheckBox";
@@ -28,6 +29,11 @@ const CartItem = ({
     dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 1 }));
   };
 
+  const handleItemDelete = () => {
+    if (!window.confirm(`'${name}' 를 장바구니에서 제거하시겠습니까?`)) return;
+    dispatch(removeFromCart({ id }));
+  };
+
   return (
     <S.CartItem>
       <S.Detail>
@@ -42,7 +48,7 @@ const CartItem = ({
         <S.Name>{name}</S.Name>
       </S.Detail>
       <S.Control>
-        <TrashIcon />
+        <TrashIcon onClick={handleItemDelete} />
         <NumberInput
           value={amount}
           onChange={handleAmountChange}

@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {},
+  initialState,
   reducers: {
     addToCart: (state, action) => {
       const { id, ...product } = action.payload.product;
@@ -17,6 +19,19 @@ const cartSlice = createSlice({
           checked: true,
         };
       }
+    },
+
+    removeFromCart: (state, action) => {
+      const { id } = action.payload;
+      delete state[id];
+    },
+
+    removeChecked: (state) => {
+      Object.entries(state).forEach(([id, item]) => {
+        if (item.checked) {
+          delete state[id];
+        }
+      });
     },
 
     toggleChecked: (state, action) => {
@@ -40,6 +55,8 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
+  removeFromCart,
+  removeChecked,
   toggleChecked,
   toggleAllChecked,
   changeAmount,
