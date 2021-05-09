@@ -9,8 +9,8 @@ const ItemGroup = ({ children, orderNumber }: Props) => {
   return (
     <Styled.ItemGroup>
       <Styled.Header>
-        <Styled.orderNumber>주문번호 : {orderNumber}</Styled.orderNumber>
-        <Styled.detailLink>상세보기 {'>'}</Styled.detailLink>
+        <Styled.OrderNumber>주문번호 : {orderNumber}</Styled.OrderNumber>
+        <Styled.DetailLink>상세보기 {'>'}</Styled.DetailLink>
       </Styled.Header>
       <Styled.ItemContainer>{children}</Styled.ItemContainer>
     </Styled.ItemGroup>

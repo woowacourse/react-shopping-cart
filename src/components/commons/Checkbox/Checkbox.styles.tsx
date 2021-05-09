@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Props } from './Checkbox';
 import checkSVG from '../../../assets/svgs/check.svg';
 
 export const Checkbox = styled.div`

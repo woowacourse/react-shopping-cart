@@ -1,7 +1,7 @@
-const END_POINT = 'http://localhost:4000';
+const BASE_URL = 'http://localhost:4000';
 
 export const URL = {
-  PRODUCTS: `${END_POINT}/products`,
+  PRODUCTS: `${BASE_URL}/products`,
 };
 
 export const STATUS_CODE = {

@@ -1,29 +1,18 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-import { STATUS_CODE, URL } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getProducts } from '../../modules/product';
+import { RootState } from '../../modules';
 import ProductGridItem from '../../components/ProductListPage/ProductGridItem/ProductGridItem';
 
 import * as Styled from './ProductListPage.styles';
 
 const ProductListPage = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const { products } = useSelector((state: RootState) => state.product);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(URL.PRODUCTS);
-
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          throw new Error('Fail to get products');
-        }
-
-        setProducts(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
+    dispatch(getProducts());
+  }, [dispatch]);
 
   const productGridItemList = products.map((product: Product) => (
     <ProductGridItem key={product.id} name={product.name} price={product.price} thumbnail={product.thumbnail} />

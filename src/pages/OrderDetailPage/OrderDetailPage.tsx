@@ -32,7 +32,7 @@ const OrderDetailPage = () => {
         </Styled.ItemGroupWrapper>
         <Styled.PageBottom>
           <Button size="MD" backgroundColor={COLORS.BROWN_500}>
-            <img src={leftArrowSVG} />
+            <img src={leftArrowSVG} alt="주문목록 돌아가기" />
             &nbsp;&nbsp;주문목록 돌아가기
           </Button>
           <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price="325,600" />

@@ -14,11 +14,11 @@ const CartItem = ({ name, price, thumbnail = noImagePNG }: Props) => {
   return (
     <Styled.CartItem>
       <Checkbox />
-      <Styled.Thumbnail src={thumbnail} />
+      <Styled.Thumbnail src={thumbnail} alt="cart item thumbnail" />
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>
           <Styled.ItemName>{name}</Styled.ItemName>
-          <img src={trashCanSVG} />
+          <img src={trashCanSVG} alt="cart item delete button" />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
           <NumberInput initValue={1} />

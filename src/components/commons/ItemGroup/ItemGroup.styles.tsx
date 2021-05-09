@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Props } from './ItemGroup';
 
 export const ItemGroup = styled.div`
   border: 1px solid ${({ theme }) => theme.GRAY_400};
@@ -17,8 +16,8 @@ export const Header = styled.div`
   line-height: 24px;
 `;
 
-export const orderNumber = styled.span``;
+export const OrderNumber = styled.span``;
 
-export const detailLink = styled.a``;
+export const DetailLink = styled.a``;
 
 export const ItemContainer = styled.div``;
