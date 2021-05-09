@@ -1,3 +1,4 @@
-import useServerApi from './useServerAPI';
+import useServerAPI from './useServerAPI';
+import useModal from './useModal';
 
-export { useServerApi };
+export { useServerAPI, useModal };
