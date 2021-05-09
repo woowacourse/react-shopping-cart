@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import CheckBox from "../../@shared/CheckBox/CheckBox";
-import NumberInput from "../../@shared/NumberInput/NumberInput";
-import TrashIcon from "../../@shared/TrashIcon/TrashIcon";
+import { toggleChecked } from "../../../../store/modules/cartSlice";
+import { formatPrice } from "../../../../utils/utils";
+import CheckBox from "../../../@shared/CheckBox/CheckBox";
+import NumberInput from "../../../@shared/NumberInput/NumberInput";
+import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
 import * as S from "./CartItem.styled";
-import { formatPrice } from "../../../utils/utils";
-
-import { toggleChecked } from "../../../store/modules/cartSlice";
 
 const CartItem = ({
   item: { id, name, thumbnail, amount, price, checked },

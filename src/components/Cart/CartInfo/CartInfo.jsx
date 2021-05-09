@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleAllChecked } from "../../../store/modules/cartSlice";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
-import CartItem from "../CartItem/CartItem";
+import CartItem from "./CartItem/CartItem";
 import * as S from "./CartInfo.styled";
 
 const CartInfo = () => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR } from "../../../constants/style";
+import { COLOR } from "../../../../constants/style";
 
 export const CartItem = styled.div`
   display: flex;
