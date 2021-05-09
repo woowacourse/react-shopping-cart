@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const Product = styled.div`
   width: 12rem;
-  height: 15rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin: 0 auto;
 `;
 
 export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
@@ -20,7 +21,8 @@ export const Description = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem 0.7rem;
+  align-items: flex-start;
+  padding: 0.2rem 0.5rem;
 
   & > div {
     display: flex;
