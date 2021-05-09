@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Sheet = styled.div`
-  width: 20rem;
+  max-width: 20rem;
   border: 1px solid var(--color-grey-50);
 `;
 

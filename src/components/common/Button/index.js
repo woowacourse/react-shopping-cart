@@ -10,7 +10,7 @@ const Button = ({ children, onClick, backgroundColor = '' }) => (
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func, // TODO: isRequired 넣기
   buttonStyle: PropTypes.string,
 };
 

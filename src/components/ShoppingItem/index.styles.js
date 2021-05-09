@@ -6,7 +6,7 @@ export const Product = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 1rem 0;
-  border: 1px solid black;
+  border-bottom: 1px solid var(--color-grey-150);
 `;
 
 export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`

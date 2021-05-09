@@ -23,7 +23,7 @@ const ShoppingItem = ({
         <TrashCan width="20" height="20" />
       </Button>
       <QuantityInput type="number" />
-      <span>{price}</span>
+      <span>{price}원</span>
     </Controller>
   </Product>
 );

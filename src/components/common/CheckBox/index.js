@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { HiddenCheckBox, StyledCheckBox } from './index.styles';
 import { Check } from '../../../assets/svg';
 
-const CheckBox = ({ checked, onClick }) => (
+const CheckBox = ({ checked, onClick, value }) => (
   <div>
     <StyledCheckBox onClick={onClick} checked={checked}>
       <Check />
