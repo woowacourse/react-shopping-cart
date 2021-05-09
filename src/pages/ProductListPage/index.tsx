@@ -6,11 +6,7 @@ import { requestProductList } from '../../service/request';
 import { Product } from '../../types';
 
 const ProductListPage = () => {
-  const productList = useFetch(() => requestProductList());
-
-  useEffect(() => {
-    console.log(productList.data);
-  }, [productList.data]);
+  const productList = useFetch(requestProductList);
 
   return (
     <ReactShoppingCartTemplate>
