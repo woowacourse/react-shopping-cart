@@ -48,3 +48,30 @@ export const ORDERS_MOCK = [
     items: ORDER_LIST_MOCK,
   },
 ];
+
+export const CART_ITEM_LIST_MOCK = [
+  {
+    id: '1',
+    image: 'https://picsum.photos/200/200',
+    name: 'test cart item name',
+    price: 43400,
+    checked: true,
+    quantity: 3,
+  },
+  {
+    id: '2',
+    image: 'https://picsum.photos/200/200',
+    name: 'PET보틀-정사각(420ml)',
+    price: 43400,
+    checked: true,
+    quantity: 3,
+  },
+  {
+    id: '3',
+    image: 'https://picsum.photos/200/200',
+    name: 'PET보틀-정사각(420ml)',
+    price: 43400,
+    checked: true,
+    quantity: 3,
+  },
+];
