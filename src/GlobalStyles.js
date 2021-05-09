@@ -40,6 +40,10 @@ const GlobalStyles = () => (
         outline: none;
         border: none;
         background: none;
+        cursor: pointer;
+        &[disabled] {
+          cursor: not-allowed;
+        }
       }
     `}
   />

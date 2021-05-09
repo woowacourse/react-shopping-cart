@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import Header from '../../components/Header/Header';
 import PaymentInfoBox from '../../components/PaymentInfoBox/PaymentInfoBox';
 import CheckBox from '../../components/CheckBox/CheckBox';
@@ -17,9 +17,9 @@ import {
   ShoppingCartItemOption,
   DeleteButton,
 } from './ShoppingCartPage.styles';
-import db from '../../db.json';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
-import { ROUTE } from '../../constants';
+import { ROUTE, AMOUNT_COUNT } from '../../constants';
+import useServerAPI from '../../hooks/useServerAPI';
 
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -31,14 +31,98 @@ const TrashCanIcon = (
   </svg>
 );
 
-const ShoppingCartPage = ({ location }) => {
+const ShoppingCartPage = () => {
   const history = useHistory();
+  const location = useLocation();
+  const { value: productList } = useServerAPI([], 'productList');
+  const { value: shoppingCartList, putData: deleteShoppingCartItem } = useServerAPI([], 'shoppingCart');
+
+  const [checkedIdList, setCheckedIdList] = useState([]);
+  const [isAllChecked, setAllChecked] = useState(false);
+  const [shoppingCartItemList, setShoppingCartItemList] = useState([]);
+  const [expectedPrice, setExpectedPrice] = useState(0);
+
+  const onClickAllCheckBox = () => {
+    setAllChecked(!isAllChecked);
+  };
+
+  const onClickCheckBox = event => {
+    const { target } = event;
+
+    if (target.checked) {
+      setCheckedIdList(prevState => [...prevState, target.id]);
+    } else {
+      setCheckedIdList(prevState => prevState.filter(productId => productId !== target.id));
+    }
+  };
+
+  const onClickDeleteButton = targetId => {
+    if (!window.confirm('정말로 삭제하시겠습니까?')) return;
+
+    const content = {
+      productIdList: targetId
+        ? shoppingCartList[0]?.productIdList.filter(productId => productId !== targetId)
+        : shoppingCartList[0]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
+    };
+
+    deleteShoppingCartItem(shoppingCartList[0].id, content);
+  };
 
   const onClickPaymentButton = () => {
+    if (!window.confirm('상품을 결제하시겠습니까?')) return;
+
+    const content = {
+      productIdList: shoppingCartList[0]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
+    };
+
+    deleteShoppingCartItem(shoppingCartList[0].id, content);
+
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
+      state: {
+        checkedItemList: shoppingCartItemList.filter(product => checkedIdList.includes(product.id)),
+      },
     });
   };
+
+  const onClickAmountCounter = (productId, flag) => {
+    const newState = [...shoppingCartItemList];
+    const targetProduct = newState.find(item => item.id === productId);
+
+    if (flag === 'up') {
+      targetProduct.amount += targetProduct.amount < AMOUNT_COUNT.MAX ? 1 : 0;
+    } else if (flag === 'down') {
+      targetProduct.amount -= targetProduct.amount > AMOUNT_COUNT.MIN ? 1 : 0;
+    }
+
+    setShoppingCartItemList(newState);
+  };
+
+  useEffect(() => {
+    setShoppingCartItemList(
+      productList
+        .filter(product => shoppingCartList[0]?.productIdList.includes(product.id))
+        .map(product => ({ ...product, amount: 1 }))
+    );
+  }, [productList, shoppingCartList]);
+
+  useEffect(() => {
+    if (isAllChecked) {
+      setCheckedIdList(shoppingCartList[0]?.productIdList);
+    } else {
+      setCheckedIdList([]);
+    }
+  }, [isAllChecked, shoppingCartList]);
+
+  useEffect(() => {
+    const newExpectedPrice = checkedIdList.reduce((acc, checkedId) => {
+      const { price, amount } = shoppingCartItemList.find(shoppingCartItem => shoppingCartItem.id === checkedId);
+
+      return acc + price * amount;
+    }, 0);
+
+    setExpectedPrice(newExpectedPrice);
+  }, [checkedIdList, shoppingCartItemList]);
 
   return (
     <ScreenContainer route={location.pathname}>
@@ -47,28 +131,35 @@ const ShoppingCartPage = ({ location }) => {
       <Container>
         <ShoppingCartContainer>
           <OptionContainer>
-            <CheckBox />
+            <CheckBox id="all-check" onClick={onClickAllCheckBox} isChecked={isAllChecked} />
             <span>모두선택</span>
-            <DeleteButton>상품삭제</DeleteButton>
+            <DeleteButton onClick={() => onClickDeleteButton()}>상품삭제</DeleteButton>
           </OptionContainer>
 
-          <ShoppingCartListTitle>{`장바구니 상품 (${db.shoppingCart.productIdList.length}개)`}</ShoppingCartListTitle>
+          <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
 
           <ShoppingCartList>
-            {db.shoppingCart.productIdList.map(productId => {
-              const { img, name, price } = db.productList[productId];
+            {shoppingCartItemList.map(item => {
+              const { id, img, name, price, amount } = item;
+              const isChecked = checkedIdList.includes(id);
 
               return (
-                <ShoppingCartItemContainer key={productId}>
+                <ShoppingCartItemContainer key={id}>
                   <ShoppingCartItem>
-                    <CheckBox />
-                    <RowProductItem imgSrc={img} name={name} price={price} amount={3} />
+                    <CheckBox id={id} onClick={onClickCheckBox} isChecked={isChecked} />
+                    <RowProductItem imgSrc={img} name={name} />
                   </ShoppingCartItem>
 
                   <ShoppingCartItemOption>
-                    {TrashCanIcon}
-                    <AmountCounter value="1" />
-                    <span>{`${price * 3}원`}</span>
+                    <button type="button" onClick={() => onClickDeleteButton(id)}>
+                      {TrashCanIcon}
+                    </button>
+                    <AmountCounter
+                      value={amount}
+                      onClickUp={() => onClickAmountCounter(id, 'up')}
+                      onClickDown={() => onClickAmountCounter(id, 'down')}
+                    />
+                    <span>{`${price * amount}원`}</span>
                   </ShoppingCartItemOption>
                 </ShoppingCartItemContainer>
               );
@@ -80,20 +171,15 @@ const ShoppingCartPage = ({ location }) => {
           <PaymentInfoBox
             title="결제예상금액"
             detailText="결제예상금액"
-            price="0"
-            buttonText="주문하기(2개)"
+            price={expectedPrice}
+            buttonText={`주문하기(${checkedIdList.length}개)`}
             onClick={onClickPaymentButton}
+            isDisable={!checkedIdList.length}
           />
         </PaymentInfoBoxContainer>
       </Container>
     </ScreenContainer>
   );
-};
-
-ShoppingCartPage.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ShoppingCartPage;

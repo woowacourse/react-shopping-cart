@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Container, Title, Content, PaymentDetail, PaymentButton } from './PaymentInfoBox.styles';
 
-const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick }) => (
+const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick, isDisable }) => (
   <Container>
     <Title>{title}</Title>
     <Content>
@@ -9,7 +9,9 @@ const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick }) => (
         <span>{detailText}</span>
         <span>{`${price} 원`}</span>
       </PaymentDetail>
-      <PaymentButton onClick={onClick}>{buttonText}</PaymentButton>
+      <PaymentButton onClick={onClick} disabled={isDisable}>
+        {buttonText}
+      </PaymentButton>
     </Content>
   </Container>
 );
@@ -20,6 +22,11 @@ PaymentInfoBox.propTypes = {
   price: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  isDisable: PropTypes.bool,
+};
+
+PaymentInfoBox.defaultProps = {
+  isDisable: false,
 };
 
 export default PaymentInfoBox;

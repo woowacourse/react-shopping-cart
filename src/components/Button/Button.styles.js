@@ -12,6 +12,14 @@ const Container = styled.button`
   &:hover {
     background-color: #27a39f;
   }
+
+  &[disabled] {
+    background-color: #dddddd;
+  }
+
+  &[disabled]:hover {
+    background-color: #dddddd;
+  }
 `;
 
 export { Container };
