@@ -32,7 +32,6 @@ export const getProducts = () => async (dispatch: Dispatch<ProductAction>) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
   try {
     const response = await axios.get(URL.PRODUCTS);
-    console.log(response);
 
     if (response.status !== STATUS_CODE.GET_SUCCESS) {
       throw new Error('');
