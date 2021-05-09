@@ -11,6 +11,7 @@ import {
 } from './OrderCheckoutPage.styles';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import { ROUTE } from '../../constants';
+import useServerAPI from '../../hooks/useServerAPI';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -24,8 +25,16 @@ const OrderCheckoutPage = () => {
     return acc + price * amount;
   }, 0);
 
+  const { postData: createOrder } = useServerAPI([], 'order');
+
   const onClickPaymentButton = () => {
     if (!window.confirm('상품을 결제하시겠습니까?')) return;
+
+    const content = {
+      orderedProductList: checkedItemList.map(({ id, amount }) => ({ id, amount })),
+    };
+
+    createOrder(content);
 
     history.push({
       pathname: ROUTE.ORDER_LIST,

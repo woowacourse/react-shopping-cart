@@ -1,22 +1,36 @@
-import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router';
 import Header from '../../components/Header/Header';
 import OrderContainer from '../../components/OrderContainer/OrderContainer';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import db from '../../db.json';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import Button from '../../components/Button/Button';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { ROUTE } from '../../constants';
+import { useModal, useServerAPI } from '../../hooks';
+import {
+  ModalButton,
+  ModalText,
+  RecommendedContainer,
+  RecommendedList,
+  RecommendedTitle,
+} from '../ProductListPage/ProductListPage.styles';
+import ColumnProductItem from '../../components/ProductItem/ColumnProductItem/ColumnProductItem';
 
-const OrderListPage = ({ location }) => {
+const OrderListPage = () => {
   const history = useHistory();
+  const location = useLocation();
+
+  const { value: productList } = useServerAPI([], 'productList');
+  const { value: shoppingCartList, putData: addShoppingCartItem } = useServerAPI([], 'shoppingCart');
+  const { value: orderList } = useServerAPI([], 'order');
+
+  const { Modal, setModalOpen } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
-    // TODO 장바구니에 상품을 담는 로직
-    console.log(`${productId}가 장바구니에 담겼습니다.`);
+    const content = { productIdList: [...new Set([...shoppingCartList[0].productIdList, productId])] };
+    addShoppingCartItem(shoppingCartList[0].id, content);
 
-    history.push({ pathname: ROUTE.SHOPPING_CART });
+    setModalOpen(true);
   };
 
   return (
@@ -24,34 +38,46 @@ const OrderListPage = ({ location }) => {
       <Header>주문 목록</Header>
 
       <Container>
-        {Object.entries(db.orderList).map(([id, order]) => {
-          const targetOrderDetail = db.orderDetailList[order.orderDetailId];
+        {orderList.map(order => (
+          <OrderContainer key={order.id} orderId={order.id}>
+            {order.orderedProductList?.map(orderedProduct => {
+              const { id, amount } = orderedProduct;
+              const { img, name, price } = productList.find(product => product.id === id);
 
-          return (
-            <OrderContainer key={id} orderId={id}>
-              {targetOrderDetail.productIdList.map((productId, index) => {
-                const { img, name, price } = db.productList[productId];
-                const amount = targetOrderDetail.productAmountList[index];
-
-                return (
-                  <OrderItemContainer key={productId}>
-                    <RowProductItem imgSrc={img} name={name} price={price} amount={amount} />
-                    <Button onClick={() => onClickShoppingCartButton(productId)}>장바구니</Button>
-                  </OrderItemContainer>
-                );
-              })}
-            </OrderContainer>
-          );
-        })}
+              return (
+                <OrderItemContainer key={id}>
+                  <RowProductItem imgSrc={img} name={name} price={price * amount} amount={amount} />
+                  <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>
+                </OrderItemContainer>
+              );
+            })}
+          </OrderContainer>
+        ))}
       </Container>
+      <Modal>
+        <ModalText>상품이 장바구니에 담겼습니다.</ModalText>
+        <ModalButton onClick={() => history.push({ pathname: ROUTE.SHOPPING_CART })}>
+          {'장바구니 바로가기 >'}
+        </ModalButton>
+
+        <RecommendedContainer>
+          <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
+          <RecommendedList>
+            {productList.slice(0, 3).map(({ id, img, name, price }) => (
+              <ColumnProductItem
+                key={id}
+                imgSrc={img}
+                name={name}
+                price={`${price}`}
+                onClick={() => setModalOpen(true)}
+                isVisibleIcon={false}
+              />
+            ))}
+          </RecommendedList>
+        </RecommendedContainer>
+      </Modal>
     </ScreenContainer>
   );
-};
-
-OrderListPage.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default OrderListPage;

@@ -19,7 +19,7 @@ const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick, isDisab
 PaymentInfoBox.propTypes = {
   title: PropTypes.string.isRequired,
   detailText: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   buttonText: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   isDisable: PropTypes.bool,

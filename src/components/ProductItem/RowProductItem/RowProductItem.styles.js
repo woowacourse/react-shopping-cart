@@ -26,7 +26,7 @@ const Name = styled.div`
 `;
 
 const ProductDetail = styled.div`
-  color: #333333;
+  color: #888888;
   font-size: 1rem;
 `;
 

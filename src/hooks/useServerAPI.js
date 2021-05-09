@@ -62,6 +62,8 @@ export default (defaultValue, schema) => {
 
   useEffect(() => {
     getAllData();
+
+    return () => setValue(defaultValue);
   }, []);
 
   return { value, setValue, getAllData, getData, putData, postData };

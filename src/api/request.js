@@ -2,7 +2,7 @@ import { firestore } from '../firebase';
 
 const collection = {
   productList: firestore.collection('productList'),
-  orderList: firestore.collection('orderList'),
+  order: firestore.collection('order'),
   shoppingCart: firestore.collection('shoppingCart'),
 };
 

@@ -19,7 +19,7 @@ AmountCounter.propTypes = {
   min: PropTypes.string,
   max: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.number,
   onClickUp: PropTypes.func,
   onClickDown: PropTypes.func,
 };
@@ -29,7 +29,7 @@ AmountCounter.defaultProps = {
   min: '1',
   max: '20',
   onChange: () => {},
-  value: '',
+  value: 1,
   onClickUp: () => {},
   onClickDown: () => {},
 };
