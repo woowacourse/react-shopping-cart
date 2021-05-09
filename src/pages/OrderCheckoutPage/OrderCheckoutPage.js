@@ -10,8 +10,8 @@ import {
   PaymentInfoBoxContainer,
 } from './OrderCheckoutPage.styles';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
-import { ROUTE } from '../../constants';
-import useServerAPI from '../../hooks/useServerAPI';
+import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
+import { useServerAPI } from '../../hooks';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -25,10 +25,10 @@ const OrderCheckoutPage = () => {
     return acc + price * amount;
   }, 0);
 
-  const { postData: createOrder } = useServerAPI([], 'order');
+  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
 
   const onClickPaymentButton = () => {
-    if (!window.confirm('상품을 결제하시겠습니까?')) return;
+    if (!window.confirm(CONFIRM_MESSAGE.CHECKOUT)) return;
 
     const content = {
       orderedProductList: checkedItemList.map(({ id, amount }) => ({ id, amount })),
@@ -50,11 +50,9 @@ const OrderCheckoutPage = () => {
           <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList.map(item => {
-              const { id, img, name, amount } = item;
-
-              return <RowProductItem key={id} imgSrc={img} name={name} amount={amount} />;
-            })}
+            {checkedItemList.map(({ id, img, name, amount }) => (
+              <RowProductItem key={id} imgSrc={img} name={name} amount={amount} />
+            ))}
           </CheckoutList>
         </CheckoutListContainer>
 

@@ -18,7 +18,7 @@ import {
   DeleteButton,
 } from './ShoppingCartPage.styles';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
-import { ROUTE, AMOUNT_COUNT } from '../../constants';
+import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG, CUSTOMER_ID } from '../../constants';
 import useServerAPI from '../../hooks/useServerAPI';
 
 const TrashCanIcon = (
@@ -34,8 +34,8 @@ const TrashCanIcon = (
 const ShoppingCartPage = () => {
   const history = useHistory();
   const location = useLocation();
-  const { value: productList } = useServerAPI([], 'productList');
-  const { value: shoppingCartList, putData: deleteShoppingCartItem } = useServerAPI([], 'shoppingCart');
+  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: shoppingCartList, putData: deleteShoppingCartItem } = useServerAPI([], SCHEMA.SHOPPING_CART);
 
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [isAllChecked, setAllChecked] = useState(false);
@@ -57,41 +57,43 @@ const ShoppingCartPage = () => {
   };
 
   const onClickDeleteButton = targetId => {
-    if (!window.confirm('정말로 삭제하시겠습니까?')) return;
+    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
     const content = {
       productIdList: targetId
-        ? shoppingCartList[0]?.productIdList.filter(productId => productId !== targetId)
-        : shoppingCartList[0]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
+        ? shoppingCartList[CUSTOMER_ID]?.productIdList.filter(productId => productId !== targetId)
+        : shoppingCartList[CUSTOMER_ID]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
     };
 
-    deleteShoppingCartItem(shoppingCartList[0].id, content);
+    deleteShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
   };
 
   const onClickPaymentButton = () => {
-    if (!window.confirm('상품을 결제하시겠습니까?')) return;
+    if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
     const content = {
-      productIdList: shoppingCartList[0]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
+      productIdList: shoppingCartList[CUSTOMER_ID]?.productIdList.filter(
+        productId => !checkedIdList.includes(productId)
+      ),
     };
 
-    deleteShoppingCartItem(shoppingCartList[0].id, content);
+    deleteShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
       state: {
-        checkedItemList: shoppingCartItemList.filter(product => checkedIdList.includes(product.id)),
+        checkedItemList: shoppingCartItemList.filter(({ id }) => checkedIdList.includes(id)),
       },
     });
   };
 
   const onClickAmountCounter = (productId, flag) => {
     const newState = [...shoppingCartItemList];
-    const targetProduct = newState.find(item => item.id === productId);
+    const targetProduct = newState.find(({ id }) => id === productId);
 
-    if (flag === 'up') {
+    if (flag === AMOUNT_COUNTER_FLAG.UP) {
       targetProduct.amount += targetProduct.amount < AMOUNT_COUNT.MAX ? 1 : 0;
-    } else if (flag === 'down') {
+    } else if (flag === AMOUNT_COUNTER_FLAG.DOWN) {
       targetProduct.amount -= targetProduct.amount > AMOUNT_COUNT.MIN ? 1 : 0;
     }
 
@@ -101,14 +103,14 @@ const ShoppingCartPage = () => {
   useEffect(() => {
     setShoppingCartItemList(
       productList
-        .filter(product => shoppingCartList[0]?.productIdList.includes(product.id))
+        .filter(({ id }) => shoppingCartList[CUSTOMER_ID]?.productIdList.includes(id))
         .map(product => ({ ...product, amount: 1 }))
     );
   }, [productList, shoppingCartList]);
 
   useEffect(() => {
     if (isAllChecked) {
-      setCheckedIdList(shoppingCartList[0]?.productIdList);
+      setCheckedIdList(shoppingCartList[CUSTOMER_ID]?.productIdList);
     } else {
       setCheckedIdList([]);
     }
@@ -116,7 +118,7 @@ const ShoppingCartPage = () => {
 
   useEffect(() => {
     const newExpectedPrice = checkedIdList.reduce((acc, checkedId) => {
-      const { price, amount } = shoppingCartItemList.find(shoppingCartItem => shoppingCartItem.id === checkedId);
+      const { price, amount } = shoppingCartItemList.find(({ id }) => id === checkedId);
 
       return acc + price * amount;
     }, 0);
@@ -139,8 +141,7 @@ const ShoppingCartPage = () => {
           <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
 
           <ShoppingCartList>
-            {shoppingCartItemList.map(item => {
-              const { id, img, name, price, amount } = item;
+            {shoppingCartItemList.map(({ id, img, name, price, amount }) => {
               const isChecked = checkedIdList.includes(id);
 
               return (

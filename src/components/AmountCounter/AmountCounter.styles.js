@@ -34,7 +34,7 @@ const Nav = styled.div`
   flex-direction: column;
   align-items: center;
 
-  & > *:first-child {
+  & > *:first-of-type {
     border-bottom: 1px solid #dddddd;
   }
 `;

@@ -1,29 +1,23 @@
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import ColumnProductItem from '../../components/ProductItem/ColumnProductItem/ColumnProductItem';
-import {
-  Container,
-  ModalText,
-  ModalButton,
-  RecommendedContainer,
-  RecommendedTitle,
-  RecommendedList,
-} from './ProductListPage.styles';
-import { ROUTE } from '../../constants';
-
+import { Container } from './ProductListPage.styles';
+import { CUSTOMER_ID, SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
+import SuccessAddedModal from '../../components/Modal/SuccessAddedModal/SuccessAddedModal';
 
 const ProductListPage = () => {
   const { setModalOpen, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], 'productList');
-  const { value: shoppingCartList, putData: addShoppingCartItem } = useServerAPI([], 'shoppingCart');
+  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: shoppingCartList, putData: addShoppingCartItem } = useServerAPI([], SCHEMA.SHOPPING_CART);
 
-  const history = useHistory();
   const location = useLocation();
 
   const onClickShoppingCartIcon = productId => {
-    const content = { productIdList: [...new Set([...shoppingCartList[0].productIdList, productId])] };
-    addShoppingCartItem(shoppingCartList[0].id, content);
+    const content = {
+      productIdList: [...new Set([...shoppingCartList[CUSTOMER_ID].productIdList, productId])],
+    };
+    addShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
 
     setModalOpen(true);
   };
@@ -41,27 +35,9 @@ const ProductListPage = () => {
           />
         ))}
       </Container>
-      <Modal>
-        <ModalText>상품이 장바구니에 담겼습니다.</ModalText>
-        <ModalButton onClick={() => history.push({ pathname: ROUTE.SHOPPING_CART })}>
-          {'장바구니 바로가기 >'}
-        </ModalButton>
 
-        <RecommendedContainer>
-          <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
-          <RecommendedList>
-            {productList.slice(0, 3).map(({ id, img, name, price }) => (
-              <ColumnProductItem
-                key={id}
-                imgSrc={img}
-                name={name}
-                price={`${price}`}
-                onClick={() => setModalOpen(true)}
-                isVisibleIcon={false}
-              />
-            ))}
-          </RecommendedList>
-        </RecommendedContainer>
+      <Modal>
+        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

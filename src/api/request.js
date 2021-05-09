@@ -1,9 +1,10 @@
+import { SCHEMA } from '../constants';
 import { firestore } from '../firebase';
 
 const collection = {
-  productList: firestore.collection('productList'),
-  order: firestore.collection('order'),
-  shoppingCart: firestore.collection('shoppingCart'),
+  [SCHEMA.PRODUCT]: firestore.collection(SCHEMA.PRODUCT),
+  [SCHEMA.ORDER]: firestore.collection(SCHEMA.ORDER),
+  [SCHEMA.SHOPPING_CART]: firestore.collection(SCHEMA.SHOPPING_CART),
 };
 
 const requestTable = {

@@ -33,6 +33,11 @@
     "arrow-parens": "off",
     "import/prefer-default-export": "off",
     "object-curly-newline": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "operator-linebreak": "off",
+    "consistent-return": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-alert": "off"
   }
 }
