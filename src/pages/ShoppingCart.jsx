@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button, { BUTTON_TYPE } from '../components/button/Button';
 import Checkbox from '../components/checkbox/Checkbox';
@@ -25,7 +26,9 @@ const PaymentAmountWrapper = styled.div`
   right: 0;
 `;
 
-const ShoppingCart = ({ productListState }) => {
+const ShoppingCart = () => {
+  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
+
   const [isChecked, setCheck] = useState(false);
 
   const handleCheckbox = ({ target }) => {
@@ -46,7 +49,7 @@ const ShoppingCart = ({ productListState }) => {
           <SelectedProductList
             listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
             count={3}
-            productList={productListState}
+            productList={shoppingCartList}
             ListItem={ShoppingCartItem}
           />
         </div>

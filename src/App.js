@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import OrderPayment from './pages/OrderPayment';
 import { fetchProductList } from './modules/product';
 import { useDispatch } from 'react-redux';
+import { fetchShoppingCartList } from './modules/shoppingCart';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -23,13 +24,21 @@ function App() {
 
   useEffect(() => {
     const getProductList = async () => {
-      const response = await fetch('http://localhost:4000/products');
+      const response = await fetch('http://localhost:4000/productList');
       const result = await response.json();
 
       dispatch(fetchProductList(result));
     };
 
+    const getShoppingCartList = async () => {
+      const response = await fetch('http://localhost:4000/shoppingCartList');
+      const result = await response.json();
+
+      dispatch(fetchShoppingCartList(result));
+    };
+
     getProductList();
+    getShoppingCartList();
   }, [dispatch]);
 
   return (

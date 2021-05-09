@@ -13,13 +13,11 @@ const Container = styled.ul`
 const ProductList = () => {
   const productList = useSelector((state) => state.product.productList);
 
-  // TODO: ~State 뺄지
-
   return (
     <Container>
       {productList.map((product) => (
         <li key={product.id}>
-          <ProductListItem src={product.src} name={product.name} price={product.price} alt={product.alt} />
+          <ProductListItem product={product} />
         </li>
       ))}
     </Container>

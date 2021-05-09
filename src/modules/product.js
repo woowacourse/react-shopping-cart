@@ -1,11 +1,9 @@
 const FETCH_PRODUCT_LIST = 'product/FETCH_PRODUCT_LIST';
 
-export const fetchProductList = (productList) => {
-  return {
-    type: FETCH_PRODUCT_LIST,
-    payload: productList,
-  };
-};
+export const fetchProductList = (productList) => ({
+  type: FETCH_PRODUCT_LIST,
+  payload: productList,
+});
 
 const initialState = {
   productList: [],
