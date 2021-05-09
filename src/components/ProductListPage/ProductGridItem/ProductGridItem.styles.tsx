@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ProductGridItem = styled.div`
   width: 282px;
   color: ${({ theme }) => theme.TEXT_COLOR};
+  cursor: pointer;
 `;
 
 export const ProductThumbnail = styled.img`

@@ -1,6 +1,8 @@
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './App.styles';
+import { PATH } from './constants';
+
 import Header from './components/Header/Header';
 import GlobalStyle from './Global.styles';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
@@ -17,22 +19,22 @@ function App() {
       <Header styles={{ marginBottom: '60px' }} />
       <HashRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={PATH.ROOT}>
             <ProductListPage />
           </Route>
-          <Route exact path="/detail">
+          <Route exact path={PATH.PRODUCT_DETAIL}>
             <ProductDetailPage />
           </Route>
-          <Route exact path="/cart">
+          <Route exact path={PATH.CART}>
             <ShoppingCartPage />
           </Route>
-          <Route exact path="/order">
+          <Route exact path={PATH.ORDER}>
             <ProductOrderPage />
           </Route>
-          <Route exact path="/order-list">
+          <Route exact path={PATH.ORDER_LIST}>
             <OrderListPage />
           </Route>
-          <Route exact path="/order-detail">
+          <Route exact path={PATH.ORDER_DETAIL}>
             <OrderDetailPage />
           </Route>
         </Switch>
