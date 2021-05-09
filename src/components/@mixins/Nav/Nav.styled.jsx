@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
 
+export const Nav = styled.nav`
+  background-color: ${COLOR.CYAN.PRIMARY};
+  color: white;
+  height: 5rem;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+`;
+
 export const NavWrapper = styled.div`
   max-width: 75rem;
   height: 100%;
@@ -50,10 +61,4 @@ export const NavMenu = styled.ul`
       justify-content: center;
     }
   }
-`;
-
-export const Nav = styled.nav`
-  background-color: ${COLOR.CYAN.PRIMARY};
-  color: white;
-  height: 5rem;
 `;

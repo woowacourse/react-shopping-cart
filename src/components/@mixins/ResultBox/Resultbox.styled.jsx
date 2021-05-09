@@ -3,8 +3,14 @@ import { COLOR } from "../../../constants/style";
 
 export const ResultBox = styled.aside`
   width: 28rem;
+  height: fit-content;
+
   flex-shrink: 0;
   border: 1px solid ${COLOR.GRAY.LIGHT_300};
+
+  position: sticky;
+  top: 8rem;
+  right: 0;
 `;
 
 export const Title = styled.div`

@@ -4,7 +4,6 @@ import { COLOR } from "../../../constants/style";
 export const CheckBox = styled.label`
   input[type="checkbox"] {
     appearance: none;
-    margin-right: 0.75rem;
     border: 1px solid ${COLOR.CYAN.DARK};
     border-radius: 2px;
     width: 1.75rem;

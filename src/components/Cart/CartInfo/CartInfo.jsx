@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
+import CartItem from "../CartItem/CartItem";
 import * as S from "./CartInfo.styled";
 
 const CartInfo = () => (
@@ -14,7 +15,21 @@ const CartInfo = () => (
         <Button type="secondary">상품삭제</Button>
       </S.RemoveChecked>
     </S.Menu>
-    <div>상품목록</div>
+    <S.Title>든든배송 상품 (3개)</S.Title>
+    <div>
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+      <CartItem />
+    </div>
   </S.CartInfo>
 );
 
