@@ -6,17 +6,17 @@ export type CardType = 'horizontal' | 'vertical';
 interface Props {
   className?: string;
   children: React.ReactNode;
-  imgSrc: string;
+  image: string;
   type: CardType;
   width?: string;
   height?: string;
   alt?: string;
 }
 
-const Card: FC<Props> = ({ children, imgSrc, alt, type, width, height, className }) => {
+const Card: FC<Props> = ({ children, image, alt, type, width, height, className }) => {
   return (
     <CardContainer className={className} type={type} width={width} height={height}>
-      <img src={imgSrc} alt={alt} />
+      <img src={image} alt={alt} />
       {children}
     </CardContainer>
   );

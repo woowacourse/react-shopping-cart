@@ -4,9 +4,9 @@ import Card from '../../shared/Card';
 import Text from '../../shared/Text';
 import { ContentContainer } from './style';
 
-const ProductCard: VFC<Product> = ({ name, price, imgSrc }) => {
+const ProductCard: VFC<Product> = ({ name, price, image }) => {
   return (
-    <Card type="vertical" width="100%" height="22rem" imgSrc={imgSrc}>
+    <Card type="vertical" width="100%" height="22rem" image={image}>
       <ContentContainer>
         <div>
           <Text margin="0 0 0.5rem 0">{name}</Text>

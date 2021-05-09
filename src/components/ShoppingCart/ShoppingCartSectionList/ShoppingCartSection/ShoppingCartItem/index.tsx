@@ -13,15 +13,15 @@ interface Props {
   className?: string;
 }
 
-const ShoppingCartItem: VFC<Props> = ({ product: { imgSrc, name, price }, className }) => (
+const ShoppingCartItem: VFC<Props> = ({ product: { image, name, price }, className }) => (
   <ShoppingCartItemContainer className={className}>
     <Checkbox />
-    <ShoppingCartItemCard type="horizontal" imgSrc={imgSrc}>
+    <ShoppingCartItemCard type="horizontal" image={image}>
       <ProductName>{name}</ProductName>
     </ShoppingCartItemCard>
     <Container>
       <IconButton
-        imgSrc={process.env.PUBLIC_URL + '/icons/trash-bin.svg'}
+        image={process.env.PUBLIC_URL + '/icons/trash-bin.svg'}
         width="1.5rem"
         height="1.5rem"
       />

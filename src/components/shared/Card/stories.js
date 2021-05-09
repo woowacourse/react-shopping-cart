@@ -14,7 +14,7 @@ const Template = (args) => (
 export const Vertical = Template.bind({});
 
 Vertical.args = {
-  imgSrc: 'https://picsum.photos/200/200',
+  image: 'https://picsum.photos/200/200',
   type: 'vertical',
   width: '282px',
   height: '358px',
@@ -23,7 +23,7 @@ Vertical.args = {
 export const Horizontal = Template.bind({});
 
 Horizontal.args = {
-  imgSrc: 'https://picsum.photos/200/200',
+  image: 'https://picsum.photos/200/200',
   type: 'horizontal',
   height: '282px',
   width: '358px',

@@ -1,18 +1,18 @@
 import { VFC } from 'react';
-import { OrderItem } from '../../../../types';
+import { ItemInCart } from '../../../../types';
 import Container from '../../../shared/Container';
 import { OrderItemCard, ProductName } from './style';
 
 interface Props {
-  item: OrderItem;
+  item: ItemInCart;
 }
 
-const OrderConfirmListItem: VFC<Props> = ({ item: { imgSrc, name, amount } }) => {
+const OrderConfirmListItem: VFC<Props> = ({ item: { image, name, quantity } }) => {
   return (
-    <OrderItemCard type="horizontal" imgSrc={imgSrc}>
+    <OrderItemCard type="horizontal" image={image}>
       <Container>
         <ProductName>{name}</ProductName>
-        <p>수량: {amount}</p>
+        <p>수량: {quantity}</p>
       </Container>
     </OrderItemCard>
   );

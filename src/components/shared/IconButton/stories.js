@@ -10,7 +10,7 @@ const StoryTemplate = (args) => <IconButton {...args} />;
 export const Default = StoryTemplate.bind({});
 
 Default.args = {
-  imgSrc: 'https://picsum.photos/200/200',
+  image: 'https://picsum.photos/200/200',
   width: '200px',
   height: '200px',
 };

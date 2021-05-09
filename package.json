@@ -15,6 +15,7 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
+    "json-server": "json-server ./data.json --port 7000",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
