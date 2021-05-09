@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import ColumnProductItem from '../../components/ProductItem/ColumnProductItem/ColumnProductItem';
-import db from '../../db.json';
 import {
   Container,
   ModalText,
@@ -14,10 +12,16 @@ import {
 } from './ProductListPage.styles';
 import Modal from '../../components/Modal/Modal';
 import { ROUTE } from '../../constants';
+import useServerAPI from '../../hooks/useServerAPI';
 
-const ProductListPage = ({ location }) => {
+const ProductListPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const { value: productList } = useServerAPI([], 'productList');
+  const { value: shoppingCartList, putData: addShoppingCartItem } = useServerAPI([], 'shoppingCart');
+
   const history = useHistory();
+  const location = useLocation();
 
   const onClickClose = event => {
     if (event.target !== event.currentTarget) return;
@@ -25,11 +29,24 @@ const ProductListPage = ({ location }) => {
     setModalOpen(false);
   };
 
+  const onClickShoppingCartIcon = productId => {
+    const content = { productIdList: [...new Set([...shoppingCartList[0].productIdList, productId])] };
+    addShoppingCartItem(shoppingCartList[0].id, content);
+
+    setModalOpen(true);
+  };
+
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
-        {Object.entries(db.productList).map(([id, { img, name, price }]) => (
-          <ColumnProductItem key={id} imgSrc={img} name={name} price={`${price}`} onClick={() => setModalOpen(true)} />
+        {productList.map(({ id, img, name, price }) => (
+          <ColumnProductItem
+            key={id}
+            imgSrc={img}
+            name={name}
+            price={`${price}`}
+            onClickShoppingCartIcon={() => onClickShoppingCartIcon(id)}
+          />
         ))}
       </Container>
       {isModalOpen && (
@@ -42,30 +59,22 @@ const ProductListPage = ({ location }) => {
           <RecommendedContainer>
             <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
             <RecommendedList>
-              {Object.entries(db.productList)
-                .slice(3)
-                .map(([id, { img, name, price }]) => (
-                  <ColumnProductItem
-                    key={id}
-                    imgSrc={img}
-                    name={name}
-                    price={`${price}`}
-                    onClick={() => setModalOpen(true)}
-                    isVisibleIcon={false}
-                  />
-                ))}
+              {productList.slice(0, 3).map(({ id, img, name, price }) => (
+                <ColumnProductItem
+                  key={id}
+                  imgSrc={img}
+                  name={name}
+                  price={`${price}`}
+                  onClick={() => setModalOpen(true)}
+                  isVisibleIcon={false}
+                />
+              ))}
             </RecommendedList>
           </RecommendedContainer>
         </Modal>
       )}
     </ScreenContainer>
   );
-};
-
-ProductListPage.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ProductListPage;

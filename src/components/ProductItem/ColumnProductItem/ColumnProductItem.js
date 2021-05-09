@@ -3,7 +3,7 @@ import { Container, Image, DetailContainer, ProductDetail, Name, Price } from '.
 import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
 import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
 
-const ColumnProductItem = ({ imgSrc, name, price, onClick, isVisibleIcon }) => (
+const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon }) => (
   <Container>
     <Image src={imgSrc} loading="lazy" />
     <DetailContainer>
@@ -13,7 +13,7 @@ const ColumnProductItem = ({ imgSrc, name, price, onClick, isVisibleIcon }) => (
       </ProductDetail>
 
       {isVisibleIcon && (
-        <button type="button" onClick={onClick}>
+        <button type="button" onClick={onClickShoppingCartIcon}>
           <ShoppingCartIcon scale="0.6" />
         </button>
       )}
@@ -25,13 +25,13 @@ ColumnProductItem.propTypes = {
   imgSrc: PropTypes.string,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  onClickShoppingCartIcon: PropTypes.func,
   isVisibleIcon: PropTypes.bool,
 };
 
 ColumnProductItem.defaultProps = {
   imgSrc: productNotFoundImg,
-  onClick: () => {},
+  onClickShoppingCartIcon: () => {},
   isVisibleIcon: true,
 };
 
