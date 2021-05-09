@@ -2,8 +2,7 @@ import OrderConfirmInnerContainer from '../../components/OrderConfirm/OrderConfi
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
-import { ORDER_LIST_MOCK } from '../../mock';
+import { ORDER_LIST_MOCK } from '../../mocks/mockData';
 
 const TITLE = '주문/결제';
 

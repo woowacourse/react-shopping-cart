@@ -1,12 +1,12 @@
 import { VFC } from 'react';
-import { OrderItem } from '../../../types';
+import { ItemInCart } from '../../../types';
 import List from '../../shared/List';
 import OrderConfirmListItem from './OrderConfirmListItem';
 import { InnerTitle, OrderItemListContainer } from './style';
 
 interface Props {
   title: string;
-  items: OrderItem[];
+  items: ItemInCart[];
 }
 
 const OrderConfirmSection: VFC<Props> = ({ title, items }) => {

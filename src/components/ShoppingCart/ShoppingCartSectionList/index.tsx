@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_MOCK } from '../../../mock';
+import { PRODUCT_LIST_MOCK } from '../../../mocks/mockData';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {

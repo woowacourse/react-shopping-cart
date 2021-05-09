@@ -1,5 +1,5 @@
 import OrderListPage from '.';
-import { ORDERS_MOCK } from '../../mock';
+import { ORDERS_MOCK } from '../../mocks/mockData';
 
 export default {
   component: OrderListPage,

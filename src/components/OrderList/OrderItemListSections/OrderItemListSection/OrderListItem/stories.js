@@ -1,5 +1,5 @@
 import OrderListItem from '.';
-import { ORDER_LIST_MOCK } from '../../../../../mock';
+import { ORDER_LIST_MOCK } from '../../../../../mocks/mockData';
 
 export default {
   component: OrderListItem,

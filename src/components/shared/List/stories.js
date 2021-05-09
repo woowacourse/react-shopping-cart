@@ -1,5 +1,5 @@
 import List from '.';
-import { PRODUCT_LIST_MOCK } from '../../../mock';
+import { PRODUCT_LIST_MOCK } from '../../../mocks/mockData';
 
 export default {
   component: List,
