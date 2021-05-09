@@ -31,7 +31,7 @@ export const Controller = styled.div`
   color: var(--color-grey-500);
   font-size: var(--font-small);
 
-  // TODO: Button / BoxButton 추상화
+  // TODO: Button / Button 추상화
   & > button {
     width: auto;
     text-align: right;

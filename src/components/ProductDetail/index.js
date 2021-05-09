@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BoxButton from '../common/BoxButton';
+import Button from '../common/Button';
 import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
-import { FALLBACK, STYLE } from '../../constants';
+import { FALLBACK } from '../../constants';
+
+const BUTTON_COLOR = 'var(--color-brown)';
 
 const ProductDetail = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
@@ -20,9 +22,9 @@ const ProductDetail = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <BoxButton buttonStyle={STYLE.BUTTON.BROWN} onClick={() => {}}>
+    <Button backgroundColor={BUTTON_COLOR} onClick={() => {}}>
       장바구니
-    </BoxButton>
+    </Button>
   </Product>
 );
 

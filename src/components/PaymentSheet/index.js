@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { STYLE } from '../../constants';
-import BoxButton from '../common/BoxButton';
+import Button from '../common/Button';
 import { Content, Header, Payment, Sheet } from './index.styles';
 
 const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
@@ -18,9 +17,9 @@ const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
           <span></span>
         </div>
       </Payment>
-      <BoxButton onClick={() => {}} buttonStyle={STYLE.BUTTON.MINT}>
+      <Button onClick={() => {}} backgroundColor={'#2AC1BC'}>
         {buttonText}
-      </BoxButton>
+      </Button>
     </Content>
   </Sheet>
 );

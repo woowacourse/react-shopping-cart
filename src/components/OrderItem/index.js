@@ -10,7 +10,9 @@ import {
   ImageWrapper,
   ButtonWrapper,
 } from './index.styles';
-import BoxButton from '../common/BoxButton';
+import Button from '../common/Button';
+
+const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
@@ -30,7 +32,7 @@ const OrderItem = ({
       </PriceAndQuantity>
     </OrderDetail>
     <ButtonWrapper>
-      <BoxButton buttonStyle="mint-button">장바구니</BoxButton>
+      <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
     </ButtonWrapper>
   </Order>
 );
