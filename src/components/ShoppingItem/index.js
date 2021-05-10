@@ -19,9 +19,9 @@ const ShoppingItem = ({
     <Image src={imgUrl} alt={imgAlt} />
     <Name>{name}</Name>
     <Controller>
-      <Button onClick={() => {}}>
+      <button type="button" onClick={() => {}}>
         <TrashCan width="20" height="20" />
-      </Button>
+      </button>
       <QuantityInput type="number" />
       <span>{price}원</span>
     </Controller>

@@ -30,8 +30,8 @@ export const Controller = styled.div`
   align-items: flex-end;
   color: var(--color-grey-500);
   font-size: var(--font-small);
+  gap: 0.5rem;
 
-  // TODO: Button / Button 추상화
   & > button {
     width: auto;
     text-align: right;

@@ -1,45 +1,62 @@
 import React from 'react';
 import PageHeader from '../../PageHeader';
-import { products } from '../../../mockData';
 import PaymentSheet from '../../PaymentSheet';
-import { Main, Page } from './index.styles';
 import ShoppingItem from '../../ShoppingItem';
 import CheckBox from '../../common/CheckBox';
 import Button from '../../common/Button';
+import {
+  Main,
+  Page,
+  Controller,
+  CheckBoxWrapper,
+  ShoppingList,
+} from './index.styles';
+import PropTypes from 'prop-types';
 
-const ShoppingCart = props => (
+const ShoppingCart = ({ products }) => (
   <Page>
     <PageHeader>장바구니</PageHeader>
     <Main>
-      <div className="first">
-        <div className="controller">
-          <div className="flex">
+      <div>
+        <Controller>
+          <CheckBoxWrapper>
             <CheckBox checked={false} onClick={() => {}} />
             <span>선택해제</span>
-          </div>
-          <div>
-            <Button backgroundColor="black">상품삭제</Button>
-          </div>
-        </div>
-        <div className="legacy">배송 상품</div>
-        <ul>
-          {products.map(({ id, ...product }) => (
-            <li key={id}>
-              <ShoppingItem {...product} />
-            </li>
-          ))}
-        </ul>
+          </CheckBoxWrapper>
+          <Button>상품삭제</Button>
+        </Controller>
+        <ShoppingList>
+          <div>배송 상품</div>
+          <ul>
+            {products.map(({ id, ...product }) => (
+              <li key={id}>
+                <ShoppingItem {...product} />
+              </li>
+            ))}
+          </ul>
+        </ShoppingList>
       </div>
-      <div className="second">
-        <PaymentSheet
-          title="결제예상금액"
-          priceInfo="결제예상금액"
-          price={10000}
-          buttonText="주문하기"
-        />
-      </div>
+      <PaymentSheet
+        title="결제예상금액"
+        priceInfo="결제예상금액"
+        price={10000}
+        buttonText="주문하기"
+      />
     </Main>
   </Page>
 );
+
+ShoppingCart.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      image: PropTypes.string,
+      imageAlt: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      quantity: PropTypes.number,
+    })
+  ),
+};
 
 export default ShoppingCart;

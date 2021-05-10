@@ -13,32 +13,39 @@ export const Main = styled.main`
   flex-wrap: wrap;
   padding: 1rem;
 
-  & > .first {
+  & > div:first-child {
     flex-basis: 70%;
     padding-right: 4rem;
   }
 
-  & > .second {
+  & > div:last-child {
     flex-basis: 30%;
+    margin-top: 3rem;
   }
+`;
 
-  .controller {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+export const Controller = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    .flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      span {
-        margin-left: 0.6rem;
-      }
-    }
+  & > button {
+    width: 20%;
   }
+`;
 
-  .legacy {
+export const CheckBoxWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    margin-left: 0.6rem;
+  }
+`;
+
+export const ShoppingList = styled.div`
+  & > div:first-child {
     border-bottom: 2px solid black;
     padding: 1rem 0;
   }
