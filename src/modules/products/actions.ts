@@ -25,9 +25,11 @@ export type ProductsAction = ProductsRequestAction | ProductsSuccessAction | Pro
 
 export const getProductsRequest = () => async (dispatch: Dispatch<ProductsAction>) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
+
   try {
-    const res = await api.get('/products');
-    const products = res.data;
+    const response = await api.get('/products');
+    const products = response.data;
+
     dispatch({ type: GET_PRODUCTS_SUCCESS, products });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_FAILURE, error });

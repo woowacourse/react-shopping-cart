@@ -1,39 +1,39 @@
 import React from 'react';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
-import defaultImageUrl from '../../../assets/images/default_product_item.png';
+import * as T from '../../../types';
 
 type ProductItemProps = {
-  imageUrl?: string;
-  title: string;
-  price: number;
+  product: T.Product;
+  onClickCart: (productId: T.Product['id']) => void;
 };
 
 const ProductItem = (props: ProductItemProps) => {
-  const { imageUrl, title, price } = props;
+  const {
+    product: { id, name, image, price },
+    onClickCart,
+  } = props;
+
+  const handleClickCart = () => {
+    onClickCart(id);
+  };
 
   return (
     <Styled.Root>
       <Styled.ImageWrapper>
-        <Styled.Image src={imageUrl} alt={title} />
+        <Styled.Image src={image} alt={name} />
       </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>
-          <Styled.Title>{title}</Styled.Title>
+          <Styled.Title>{name}</Styled.Title>
           <Styled.Price>{price.toLocaleString('ko-KR')}</Styled.Price>
         </Styled.Detail>
-        <Styled.CartButton>
+        <Styled.CartButton onClick={handleClickCart}>
           <CartIcon />
         </Styled.CartButton>
       </Styled.Content>
     </Styled.Root>
   );
-};
-
-ProductItem.displayName = 'ProductItem';
-
-ProductItem.defaultProps = {
-  imageUrl: defaultImageUrl,
 };
 
 export default ProductItem;
