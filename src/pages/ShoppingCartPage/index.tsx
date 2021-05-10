@@ -17,13 +17,19 @@ const ShoppingCartPage = () => {
 
   const items = useAppSelector(({ cart }) => cart.items);
 
-  const totalPrice: number = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
+  const totalPrice: number = items.reduce(
+    (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
+    0
+  );
 
   return (
     <ReactShoppingCartTemplate title={TITLE}>
       <ShoppingCartInnerContainer>
         <ShoppingCartSectionList />
-        <ShoppingCartResultSubmitCard totalPrice={totalPrice} totalQuantity={items.length} />
+        <ShoppingCartResultSubmitCard
+          totalPrice={totalPrice}
+          totalQuantity={items.filter((item) => item.checked).length}
+        />
       </ShoppingCartInnerContainer>
     </ReactShoppingCartTemplate>
   );
