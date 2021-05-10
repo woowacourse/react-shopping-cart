@@ -1,7 +1,7 @@
 import { API_BASE_URL, METHOD } from '../constants/API';
 
 const APIClient = {
-  async get<T>(path: string) {
+  async get<T>(path: string): Promise<T> {
     const response = await fetch(API_BASE_URL + path);
 
     return response.json();
@@ -19,7 +19,7 @@ const APIClient = {
     return response.json();
   },
 
-  async put<T>(path: string, data:T) {
+  async put<T>(path: string, data: T) {
     const response = await fetch(API_BASE_URL + path, {
       method: METHOD.PUT,
       headers: {
@@ -29,7 +29,16 @@ const APIClient = {
     });
 
     return response.json();
-  }
+  },
+
+  delete(path: string) {
+    fetch(API_BASE_URL + path, {
+      method: METHOD.DELETE,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  },
 };
 
 export default APIClient;

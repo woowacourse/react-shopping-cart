@@ -10,3 +10,6 @@ export const requestAddShoppingCartItem = (item: ItemInCart) =>
 
 export const requestChangeShoppingCartItem = (item: ItemInCart) =>
   APIClient.put<ItemInCart>(`/cart/${item.id}`, item);
+
+export const requestDeleteShoppingCartItem = (itemId: string) =>
+  APIClient.delete(`/cart/${itemId}`);

@@ -11,11 +11,12 @@ import { ProductName, ShoppingCartItemCard, ShoppingCartItemContainer } from './
 interface Props {
   item: ItemInCart;
   changeQuantity: (item: ItemInCart, value: number) => void;
+  deleteItem: (itemId: string) => void;
   className?: string;
 }
 
-const ShoppingCartItem: VFC<Props> = ({ item, changeQuantity, className }) => {
-  const { image, name, quantity, price } = item;
+const ShoppingCartItem: VFC<Props> = ({ item, changeQuantity, deleteItem, className }) => {
+  const { image, name, quantity, price, id } = item;
 
   return (
     <ShoppingCartItemContainer className={className}>
@@ -28,6 +29,7 @@ const ShoppingCartItem: VFC<Props> = ({ item, changeQuantity, className }) => {
           image={process.env.PUBLIC_URL + '/icons/trash-bin.svg'}
           width="1.5rem"
           height="1.5rem"
+          onClick={() => deleteItem(id)}
         />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
         <Text>{price * quantity} 원</Text>

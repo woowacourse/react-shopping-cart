@@ -4,6 +4,7 @@ import { Action, ActionWithPayload, AppThunk } from '.';
 import {
   requestAddShoppingCartItem,
   requestChangeShoppingCartItem,
+  requestDeleteShoppingCartItem,
   requestShoppingCartItemList,
 } from '../../service/request';
 import { ItemInCart, Product } from '../../types';
@@ -22,6 +23,10 @@ export const ADD_CART_ITEM_ERROR = 'cart/ADD_CART_ITEM_ERROR';
 export const CHANGE_ITEM_QUANTITY = 'cart/CHANGE_ITEM_QUANTITY';
 export const CHANGE_ITEM_QUANTITY_SUCCESS = 'cart/CHANGE_ITEM_QUANTITY_SUCCESS';
 export const CHANGE_ITEM_QUANTITY_ERROR = 'cart/CHANGE_ITEM_QUANTITY_ERROR';
+
+export const DELETE_CART_ITEM = 'cart/DELETE_ITEM';
+export const DELETE_CART_ITEM_SUCCESS = 'cart/DELETE_ITEM_SUCCESS';
+export const DELETE_CART_ITEM_ERROR = 'cart/DELETE_ITEM_ERROR';
 
 export const addItem = (item: Product): ActionWithPayload<typeof ADD_ITEM, Product> => ({
   type: ADD_ITEM,
@@ -67,6 +72,17 @@ export const thunkChangeItemQuantity = (item: ItemInCart, quantity: number): App
   }
 };
 
+export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch: Dispatch) => {
+  dispatch({ type: DELETE_CART_ITEM });
+
+  try {
+    await requestDeleteShoppingCartItem(itemId);
+    dispatch({ type: DELETE_CART_ITEM_SUCCESS, payload: itemId });
+  } catch (error) {
+    dispatch({ type: DELETE_CART_ITEM_ERROR, payload: error });
+  }
+};
+
 export type CartAction =
   | ActionWithPayload<typeof ADD_ITEM, Product>
   | Action<typeof GET_CART_ITEMS>
@@ -75,6 +91,9 @@ export type CartAction =
   | Action<typeof ADD_CART_ITEM>
   | ActionWithPayload<typeof ADD_CART_ITEM_SUCCESS, ItemInCart>
   | ActionWithPayload<typeof ADD_CART_ITEM_ERROR, Error>
+  | Action<typeof DELETE_CART_ITEM>
+  | ActionWithPayload<typeof DELETE_CART_ITEM_SUCCESS, string>
+  | ActionWithPayload<typeof DELETE_CART_ITEM_ERROR, Error>
   | Action<typeof CHANGE_ITEM_QUANTITY>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, ItemInCart>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>;

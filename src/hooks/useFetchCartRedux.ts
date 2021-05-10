@@ -3,6 +3,7 @@ import {
   thunkAddItemToCart,
   thunkGetCartItems,
   thunkChangeItemQuantity,
+  thunkDeleteCartItem,
 } from '../states/actions/cart';
 import { useAppDispatch } from '../states/store';
 import { ItemInCart, Product } from '../types';
@@ -27,7 +28,11 @@ const useFetchCartRedux = () => {
     dispatch(thunkChangeItemQuantity(item, quantity));
   };
 
-  return { doFetch, addItem, changeQuantity };
+  const deleteItem = (itemId: string) => {
+    dispatch(thunkDeleteCartItem(itemId));
+  };
+
+  return { doFetch, addItem, changeQuantity, deleteItem };
 };
 
 export default useFetchCartRedux;

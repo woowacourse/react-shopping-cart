@@ -12,6 +12,9 @@ import {
   CHANGE_ITEM_QUANTITY,
   CHANGE_ITEM_QUANTITY_SUCCESS,
   CHANGE_ITEM_QUANTITY_ERROR,
+  DELETE_CART_ITEM,
+  DELETE_CART_ITEM_SUCCESS,
+  DELETE_CART_ITEM_ERROR,
 } from '../actions/cart';
 
 interface CartState {
@@ -80,6 +83,23 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         isLoading: false,
       };
     case CHANGE_ITEM_QUANTITY_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case DELETE_CART_ITEM:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case DELETE_CART_ITEM_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter((item) => item.id !== action.payload),
+        isLoading: false,
+      };
+    case DELETE_CART_ITEM_ERROR:
       return {
         ...state,
         error: action.payload,

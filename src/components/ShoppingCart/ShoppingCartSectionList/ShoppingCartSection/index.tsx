@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
-  const { changeQuantity } = useFetchCartRedux();
+  const { changeQuantity, deleteItem } = useFetchCartRedux();
 
   return (
     <section>
@@ -20,7 +20,12 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
       </InnerTitle>
       <List>
         {items.map((item) => (
-          <ShoppingCartItem key={item.id} item={item} changeQuantity={changeQuantity} />
+          <ShoppingCartItem
+            key={item.id}
+            item={item}
+            changeQuantity={changeQuantity}
+            deleteItem={deleteItem}
+          />
         ))}
       </List>
     </section>
