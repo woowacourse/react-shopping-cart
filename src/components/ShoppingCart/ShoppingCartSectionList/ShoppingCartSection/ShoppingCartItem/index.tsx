@@ -30,7 +30,7 @@ const ShoppingCartItem: VFC<Props> = ({ item, changeQuantity, className }) => {
           height="1.5rem"
         />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
-        <Text>{price} 원</Text>
+        <Text>{price * quantity} 원</Text>
       </Container>
     </ShoppingCartItemContainer>
   );
