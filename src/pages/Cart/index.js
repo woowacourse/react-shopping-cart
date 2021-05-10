@@ -4,8 +4,13 @@ import Button from '../../components/shared/Button';
 import HighlightText from '../../components/shared/HighlightText';
 import NumericInput from '../../components/shared/NumericInput';
 import Product from '../../components/shared/Product';
-import { COLOR } from '../../constants';
-import { setAllCartItemCheckbox, toggleCartItemCheckbox, setCartItemQuantity } from '../../store';
+import { COLOR, MESSAGE } from '../../constants';
+import {
+  setAllCartItemCheckbox,
+  toggleCartItemCheckbox,
+  setCartItemQuantity,
+  deleteCartItems,
+} from '../../store';
 import {
   Container,
   Header,
@@ -28,7 +33,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const checkedCount = list.filter(item => item.checked).length;
-  const isAllChecked = checkedCount === list.length;
+  const isAllChecked = checkedCount && checkedCount === list.length;
   const checkOptionText = isAllChecked
     ? '선택해제'
     : checkedCount
@@ -40,6 +45,7 @@ const Cart = () => {
       const { price, quantity } = item;
       return total + price * quantity;
     }, 0);
+  const checkedItemIdList = list.filter(item => item.checked).map(({ id }) => id);
 
   const onCheckBoxChange = ({ id }) => {
     dispatch(toggleCartItemCheckbox(id));
@@ -51,6 +57,12 @@ const Cart = () => {
 
   const onItemQuantityChange = ({ id, quantity }) => {
     dispatch(setCartItemQuantity({ id, quantity }));
+  };
+
+  const onDelete = idList => {
+    if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
+      dispatch(deleteCartItems(idList));
+    }
   };
 
   return (
@@ -71,6 +83,7 @@ const Cart = () => {
               backgroundColor={COLOR.WHITE}
               borderColor={COLOR['GRAY-300']}
               fontSize="1rem"
+              onClick={() => onDelete(checkedItemIdList)}
             >
               상품 삭제
             </Button>
@@ -94,7 +107,9 @@ const Cart = () => {
                     information={{ title: name }}
                     extra={
                       <>
-                        <button>휴지통</button>
+                        <button type="button" onClick={() => onDelete([id])}>
+                          휴지통
+                        </button>
                         <NumericInput
                           min={1}
                           max={99}
