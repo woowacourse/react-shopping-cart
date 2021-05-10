@@ -3,9 +3,11 @@ import {
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   REMOVE_SELECTED_PRODUCTS,
+  TOGGLE_PRODUCT_SELECTION,
   addProduct,
   removeProduct,
   removeSelectedProducts,
+  toggleProductSelection,
   cartReducer,
 } from './cartReducer';
 
@@ -60,5 +62,19 @@ describe('cartReducer 테스트', () => {
 
   it('REMOVE_SELECTED_PRODUCTS 액션을 받을 경우, cartReducer는 해당 PRODUCT 들을 제거한 state를 반환한다.', () => {
     expect(cartReducer(mockState, removeSelectedProducts())).toEqual(INITIAL_STATE);
+  });
+
+  it('toggleProductSelection 함수는 TOGGLE_PRODUCT_SELECTION 타입의 액션을 생성한다.', () => {
+    expect(toggleProductSelection(mockId)).toEqual({
+      type: TOGGLE_PRODUCT_SELECTION,
+      payload: mockId,
+    });
+  });
+
+  it('TOGGLE_PRODUCT_SELECTION 액션을 받을 경우, cartReducer는 해당 PRODUCT 의 선택여부를 변경한다.', () => {
+    expect(cartReducer(mockState, toggleProductSelection(mockId))).toEqual({
+      ...mockState,
+      [mockId]: { ...mockState[mockId], isSelected: false },
+    });
   });
 });

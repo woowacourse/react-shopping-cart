@@ -5,6 +5,7 @@ import { getPropertyRemoved } from '../utils';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_SELECTED_PRODUCTS = 'REMOVE_SELECTED_PRODUCTS';
+export const TOGGLE_PRODUCT_SELECTION = 'TOGGLE_PRODUCT_SELECTION';
 
 /* ACTION CREATOR */
 
@@ -26,6 +27,9 @@ export function removeSelectedProducts() {
   return {
     type: REMOVE_SELECTED_PRODUCTS,
   };
+}
+
+export function toggleProductSelection(id) {
 }
 
 /* REDUCER */
