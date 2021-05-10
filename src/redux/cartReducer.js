@@ -38,6 +38,10 @@ export function toggleProductSelection(id) {
 }
 
 export function toggleAllProductsSelection(willBeSelected) {
+  return {
+    type: TOGGLE_ALL_PRODUCTS_SELECTION,
+    payload: willBeSelected,
+  };
 }
 
 /* REDUCER */
@@ -69,6 +73,16 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
     case TOGGLE_PRODUCT_SELECTION:
       const willBeSelected = !state[payload].isSelected;
       return { ...state, [payload]: { ...state[payload], isSelected: willBeSelected } };
+
+    /* payload: willBeSelected */
+    case TOGGLE_ALL_PRODUCTS_SELECTION:
+      return Object.entries(state).reduce(
+        (acc, [id]) => {
+          acc[id].isSelected = payload;
+          return acc;
+        },
+        { ...state }
+      );
 
     default:
       return state;
