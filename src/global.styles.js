@@ -56,6 +56,10 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     outline: none;
+    
+    &:visited {
+      color: inherit;
+    }
   }
 
   li {

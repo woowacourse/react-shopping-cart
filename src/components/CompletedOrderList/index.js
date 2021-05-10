@@ -10,7 +10,7 @@ const CompletedOrderList = ({ order }) => {
     <OrderList>
       <Header>
         <span>주문번호 : {id}</span>
-        <span>상세보기 > </span>
+        <span>상세보기 ᐳ </span>
       </Header>
       <ul>
         {products.map(({ id, image, imageAlt, name, price, quantity }) => (

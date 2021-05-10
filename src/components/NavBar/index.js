@@ -2,6 +2,7 @@ import React from 'react';
 import { InnerNav, LogoWrapper, Menu, Nav } from './index.styles';
 import { Router } from '../../constants';
 import { Cart } from '../../assets/svg';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => (
   <Nav>
@@ -10,11 +11,15 @@ const NavBar = () => (
         <span>
           <Cart width="30" height="30" color="white" />
         </span>
-        <span>WOOWA SHOP</span>
+        <Link to="/">WOOWA SHOP</Link>
       </LogoWrapper>
       <Menu>
-        <li>{Router.SHOPPING_CART}</li>
-        <li>{Router.COMPLETED_ORDER_LIST}</li>
+        <li>
+          <Link to="/carts">{Router.SHOPPING_CART}</Link>
+        </li>
+        <li>
+          <Link to="/completed-orders">{Router.COMPLETED_ORDER_LIST}</Link>
+        </li>
       </Menu>
     </InnerNav>
   </Nav>

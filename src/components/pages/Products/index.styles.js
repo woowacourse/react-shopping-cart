@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ProductPage = styled.main`
-  max-width: 1080px; //TODO: 상수화
-  margin: 4rem auto;
+  max-width: 960px; //TODO: 상수화
+  margin: 7rem auto;
 `;
 
 export const ProductList = styled.ul`
@@ -11,6 +11,6 @@ export const ProductList = styled.ul`
   grid-gap: 1rem 0;
 
   & > li {
-    width: 250px;
+    margin: 0 auto;
   }
 `;

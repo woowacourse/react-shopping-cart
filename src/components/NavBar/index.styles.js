@@ -8,6 +8,7 @@ export const Nav = styled.nav`
   background-color: var(--color-mint);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   color: var(--color-white);
+  z-index: 50;
 `;
 
 export const InnerNav = styled.div`

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/Button';
 import CheckBox from '../common/CheckBox';
 import QuantityInput from '../common/QuantityInput';
 import { TrashCan } from '../../assets/svg';
