@@ -20,6 +20,7 @@ const OrderItem = ({
   name = FALLBACK.PRODUCT.NAME,
   price,
   quantity = 0,
+  isOrdered,
 }) => (
   <Order>
     <ImageWrapper>
@@ -32,7 +33,7 @@ const OrderItem = ({
       </PriceAndQuantity>
     </OrderDetail>
     <ButtonWrapper>
-      <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
+      {isOrdered && <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>}
     </ButtonWrapper>
   </Order>
 );
@@ -43,6 +44,7 @@ OrderItem.propTypes = {
   name: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,
+  isOrdered: PropTypes.bool,
 };
 
 export default OrderItem;
