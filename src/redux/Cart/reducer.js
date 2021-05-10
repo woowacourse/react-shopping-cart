@@ -4,6 +4,7 @@ import {
   REMOVE_PRODUCT_SUCCESS,
   REMOVE_CHECKED_PRODUCTS_SUCCESS,
   TOGGLE_CART_CHECKBOX,
+  CHANGE_AMOUNT,
 } from './actions';
 
 const cartReducer = (state = [], action) => {
@@ -24,6 +25,11 @@ const cartReducer = (state = [], action) => {
 
     case REMOVE_PRODUCT_SUCCESS:
       return state.filter((product) => product.id !== action.productId);
+
+    case CHANGE_AMOUNT:
+      return state.map((product) =>
+        product.id === action.productId ? { ...product, amount: action.amount } : product
+      );
 
     default:
       return state;

@@ -3,20 +3,37 @@ import PropTypes from 'prop-types';
 import * as Styled from './style';
 
 const AmountInput = ({ min, max, step, amount, setAmount }) => {
-  const increase = () => {
+  const onIncrease = () => {
     setAmount(amount + step);
   };
 
-  const decrease = () => {
+  const onDecrease = () => {
+    if (amount <= min) return;
+
     setAmount(amount - step);
+  };
+
+  const onChangeAmountInput = ({ target: { valueAsNumber } }) => {
+    if (isNaN(valueAsNumber) || valueAsNumber <= min) {
+      setAmount(min);
+    }
+
+    setAmount(valueAsNumber);
   };
 
   return (
     <Styled.AmountInputContainer>
-      <Styled.NumberContainer type="number" min={min} max={max} step={step} defaultValue={amount} />
+      <Styled.NumberContainer
+        type="number"
+        onChange={onChangeAmountInput}
+        min={min}
+        max={max}
+        step={step}
+        value={amount}
+      />
       <Styled.ButtonContainer>
-        <button type="button" onClick={increase}></button>
-        <button type="button" onClick={decrease}></button>
+        <button type="button" onClick={onIncrease}></button>
+        <button type="button" onClick={onDecrease}></button>
       </Styled.ButtonContainer>
     </Styled.AmountInputContainer>
   );
@@ -29,6 +46,10 @@ AmountInput.propTypes = {
   step: PropTypes.number,
   amount: PropTypes.number.isRequired,
   setAmount: PropTypes.func.isRequired,
+};
+
+AmountInput.defaultProps = {
+  step: 1,
 };
 
 export default AmountInput;

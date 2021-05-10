@@ -4,6 +4,7 @@ import { PAGES } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import {
   changeAllCheckboxesInCart,
+  changeAmount,
   removeCheckedProducts,
   removeProduct,
   toggleCartCheckbox,
@@ -45,7 +46,12 @@ const CartPage = () => {
     dispatch(removeProduct(productId));
   };
 
+  const onChangeAmount = (productId) => (amount) => {
+    dispatch(changeAmount(productId, amount));
+  };
+
   useEffect(() => {
+    console.log(cart);
     if (cart.length === 0) return;
 
     if (isAllChecked && cart.some((product) => product.isChecked === false)) {
@@ -92,7 +98,7 @@ const CartPage = () => {
                     <Button type="button" onClick={onRemoveProduct} backgroundColor="transparent">
                       <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                     </Button>
-                    <AmountInput amount={product.amount} setAmount={() => {}} />
+                    <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.id)} />
                     <p>{product.price.toLocaleString()} 원</p>
                   </FlexContainer>
                 </div>

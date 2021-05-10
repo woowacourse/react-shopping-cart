@@ -41,3 +41,11 @@ export const removeProduct = (productId) => {
     productId,
   };
 };
+
+export const changeAmount = (productId, amount) => {
+  return {
+    type: CHANGE_AMOUNT,
+    productId,
+    amount,
+  };
+};
