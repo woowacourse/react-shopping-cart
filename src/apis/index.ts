@@ -22,7 +22,9 @@ const api = {
     post: (cartItem: CartItem) => {
       cart.doc(cartItem.id).set(cartItem);
     },
-    delete: () => {},
+    delete: (id: string) => {
+      cart.doc(id).delete();
+    },
   },
   order: {
     get: (id: string) => {

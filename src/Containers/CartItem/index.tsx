@@ -23,8 +23,8 @@ interface ICartItemProps {
   name: string;
   price: number;
   quantity: number;
+  imageSrc: string;
   isChecked: boolean;
-  orderCount: number;
   onIncrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onDecrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onChangeChecked: ChangeEventHandler<HTMLInputElement>;
@@ -36,8 +36,8 @@ const CartItem: VFC<ICartItemProps> = ({
   name,
   price,
   quantity,
+  imageSrc,
   isChecked,
-  orderCount,
   onIncrementOrderCount,
   onDecrementOrderCount,
   onChangeChecked,
@@ -46,17 +46,13 @@ const CartItem: VFC<ICartItemProps> = ({
   <Container>
     <CheckBox checked={isChecked} onChange={onChangeChecked} />
     <ProductImageLink to={`/cart/${id}`}>
-      <ProductImage
-        size="7.75rem"
-        src="http://via.placeholder.com/282x282"
-        alt="dummy"
-      />
+      <ProductImage size="7.75rem" src={imageSrc} alt={`${name}이미지`} />
     </ProductImageLink>
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
     </Desc>
     <ControlBox>
-      <button>
+      <button onClick={onClickDeleteButton}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -72,7 +68,7 @@ const CartItem: VFC<ICartItemProps> = ({
         </svg>
       </button>
       <Counter>
-        <input type="number" value={orderCount} min="1" max="100" />
+        <input type="number" value={quantity} min="1" max="100" />
         <div>
           <button onClick={onIncrementOrderCount}>
             <Svg viewBox="0 0 10 10">

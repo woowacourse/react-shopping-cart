@@ -1,10 +1,4 @@
-import React, {
-  ChangeEventHandler,
-  ChangeEvent,
-  useEffect,
-  useState,
-  VFC,
-} from "react";
+import React, { useEffect, useState, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { Button, CheckBox } from "../../Components";
@@ -44,7 +38,9 @@ const Cart: VFC = () => {
     })
   );
 
-  const totalPrice = cart.reduce((acc, { price }) => acc + price, 0);
+  const totalPrice = cart.reduce((acc, { id, price }) => {
+    return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
+  }, 0);
 
   const setCheckedListAll = (checked: boolean) => {
     setCheckedList(
@@ -157,19 +153,21 @@ const Cart: VFC = () => {
         <Section>
           <CartListTitle>든든상품 ({cart.length} 개)</CartListTitle>
           <ul>
-            {cart.map(({ id, name, price, quantity }) => (
+            {cart.map(({ id, name, price, imageSrc }) => (
               <li key={id}>
                 <CartItem
                   id={id}
                   name={name}
                   price={price}
-                  quantity={quantity}
+                  imageSrc={imageSrc}
                   isChecked={checkedList[id]}
-                  orderCount={orderCountList[id]}
+                  quantity={orderCountList[id]}
                   onIncrementOrderCount={() => onIncrementOrderCount(id)}
                   onDecrementOrderCount={() => onDecrementOrderCount(id)}
                   onChangeChecked={() => onChangeChecked(id)}
-                  onClickDeleteButton={() => {}}
+                  onClickDeleteButton={() => {
+                    dispatch(actions.cart.delete.request(id));
+                  }}
                 />
               </li>
             ))}
@@ -181,7 +179,7 @@ const Cart: VFC = () => {
           width="448px"
           height="318px"
           target={{ name: "결제예상금액", value: `${totalPrice}원` }}
-          buttonName={`주문하기(${cart.length}개)`}
+          buttonName={`주문하기(${getCheckedCount()}개)`}
         />
       </Main>
     </>
