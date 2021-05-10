@@ -9,10 +9,6 @@ export const ADD_CART_ITEM_REQUEST = 'cartItems/ADD_CART_ITEM_REQUEST' as const;
 export const ADD_CART_ITEM_SUCCESS = 'cartItems/ADD_CART_ITEM_SUCCESS' as const;
 export const ADD_CART_ITEM_FAILURE = 'cartItems/ADD_CART_ITEM_FAILURE' as const;
 
-export const GET_CART_ITEM_REQUEST = 'cartItems/GET_CART_ITEM_REQUEST' as const;
-export const GET_CART_ITEM_SUCCESS = 'cartItems/GET_CART_ITEM_SUCCESS' as const;
-export const GET_CART_ITEM_FAILURE = 'cartItems/GET_CART_ITEM_FAILURE' as const;
-
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
   productId: T.Product['id'];
@@ -27,22 +23,7 @@ interface AddCartItemFailureAction {
   error: AxiosError;
 }
 
-interface GetCartItemRequestAction {
-  type: typeof GET_CART_ITEM_REQUEST;
-}
-
-interface GetCartItemSuccessAction {
-  type: typeof GET_CART_ITEM_SUCCESS;
-  cartItem: T.CartItem;
-}
-
-interface GetCartItemFailureAction {
-  type: typeof GET_CART_ITEM_FAILURE;
-  error: AxiosError;
-}
-
 export type AddCartItemAction = AddCartItemRequestAction | AddCartItemSuccessAction | AddCartItemFailureAction;
-export type GetCartItemAction = GetCartItemRequestAction | GetCartItemSuccessAction | GetCartItemFailureAction;
 
 export const addCartItemRequest = (productId: T.Product['id']) => async (dispatch: Dispatch<AddCartItemAction>) => {
   dispatch({ type: ADD_CART_ITEM_REQUEST, productId });

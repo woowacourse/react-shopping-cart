@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Styled from './ProductsPage.styles';
@@ -11,8 +10,10 @@ import { getProductsRequest } from '../../modules/products/actions';
 import { addCartItemRequest } from '../../modules/cartItems/actions';
 import { ProductsState } from '../../modules/products/reducers';
 import { CartState } from '../../modules/cartItems/reducers';
+import useSnackbar from '../../hooks/useSnackbar';
 
 const ProductsPage = () => {
+  const { Snackbar, openSnackbar } = useSnackbar();
   const products: ProductsState['products'] = useSelector((state: RootState) => state.productsReducer.products);
 
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -29,13 +30,13 @@ const ProductsPage = () => {
 
   useEffect(() => {
     if (cartItems.error) {
-      alert(cartItems.error.message);
+      openSnackbar(cartItems.error.message);
     }
 
     if (cartItems.success) {
-      alert(MESSAGE.ADDED_CART_ITEM_SUCCESS);
+      openSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
     }
-  }, [cartItems]);
+  }, [cartItems, openSnackbar]);
 
   return (
     <Styled.Root>
@@ -52,6 +53,7 @@ const ProductsPage = () => {
           ))}
         </Styled.ProductList>
       )}
+      <Snackbar />
     </Styled.Root>
   );
 };
