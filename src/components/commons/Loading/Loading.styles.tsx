@@ -7,3 +7,7 @@ export const Loading = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const Image = styled.img`
+  transform: translateY(-50%);
+`;

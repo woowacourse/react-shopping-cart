@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 export const OrderListPage = styled.div`
   display: flex;
-  height: ${({ theme }) => theme.PAGE_HEIGHT};
+  min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   flex-direction: column;
   align-items: center;
   background-color: #e5e5e5;
-  margin-top: -60px;
-  padding-top: 60px;
+  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;
 
 export const PageWrapper = styled.div`

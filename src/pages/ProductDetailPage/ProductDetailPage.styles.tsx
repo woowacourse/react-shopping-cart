@@ -3,8 +3,10 @@ import styled from 'styled-components';
 export const ProductDetailPage = styled.div`
   display: flex;
   width: 100%;
+  min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   justify-content: center;
   align-items: center;
+  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;
 
 export const ProductWrapper = styled.div`

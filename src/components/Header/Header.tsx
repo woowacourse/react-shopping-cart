@@ -2,7 +2,7 @@ import * as Styled from './Header.styles';
 import shoppingCartSVG from '../../assets/svgs/shopping-cart.svg';
 
 export interface Props {
-  styles: React.CSSProperties;
+  styles?: React.CSSProperties;
 }
 
 const Header = ({ styles }: Props) => {

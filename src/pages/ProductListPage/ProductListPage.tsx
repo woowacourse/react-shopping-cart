@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { getProducts } from '../../modules/product';
 import { RootState } from '../../modules';
 import ProductGridItem from '../../components/ProductListPage/ProductGridItem/ProductGridItem';
-import loadingSVG from '../../assets/svgs/loading.svg';
 import { PATH } from '../../constants';
+import Loading from '../../components/commons/Loading/Loading';
 
 import * as Styled from './ProductListPage.styles';
 
@@ -19,7 +19,7 @@ const ProductListPage = () => {
   }, [dispatch]);
 
   const onProductItemClick = (productId: string) => {
-    history.push({ pathname: PATH.PRODUCT_DETAIL, state: { productId } });
+    history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
   };
 
   const productGridItemList = products.map((product: Product) => (
@@ -34,12 +34,7 @@ const ProductListPage = () => {
 
   return (
     <>
-      {loading && (
-        <Styled.LoadingWrapper>
-          <img src={loadingSVG} alt="로딩 중" />
-          {!loading && products?.length === 0 && <h1>등록된 상품이 없습니다</h1>}
-        </Styled.LoadingWrapper>
-      )}
+      {loading && <Loading />}
       <Styled.ProductListPage>{productGridItemList}</Styled.ProductListPage>
     </>
   );

@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const ProductOrderPage = styled.div`
   width: 100%;
+  min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;
 
 export const PageWrapper = styled.div`

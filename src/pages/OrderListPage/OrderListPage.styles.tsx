@@ -5,8 +5,7 @@ export const OrderListPage = styled.div`
   min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   justify-content: center;
   background-color: #e5e5e5;
-  margin-top: -60px;
-  padding-top: 60px;
+  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;
 
 export const PageWrapper = styled.div`

@@ -16,13 +16,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Header styles={{ marginBottom: '60px' }} />
+      <Header />
       <HashRouter>
         <Switch>
           <Route exact path={PATH.ROOT}>
             <ProductListPage />
           </Route>
-          <Route exact path={PATH.PRODUCT_DETAIL}>
+          <Route path={PATH.PRODUCT_DETAIL}>
             <ProductDetailPage />
           </Route>
           <Route exact path={PATH.CART}>
