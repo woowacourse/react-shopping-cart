@@ -8,6 +8,7 @@ import { PATH } from '../../constants';
 import Loading from '../../components/commons/Loading/Loading';
 
 import * as Styled from './ProductListPage.styles';
+import { getMoneyString } from '../../utils/format';
 
 const ProductListPage = () => {
   const history = useHistory();
@@ -27,7 +28,7 @@ const ProductListPage = () => {
       onClick={() => onProductItemClick(product.id)}
       key={product.id}
       name={product.name}
-      price={product.price}
+      price={getMoneyString(product.price)}
       thumbnail={product.thumbnail}
     />
   ));

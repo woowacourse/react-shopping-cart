@@ -7,6 +7,7 @@ import noImagePNG from '../../assets/images/no-image.png';
 import axios from 'axios';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
+import { getMoneyString } from '../../utils/format';
 
 const defaultProduct: Product = {
   id: '0',
@@ -59,6 +60,8 @@ const ProductDetailPage = () => {
     );
   }
 
+  const productPrice = getMoneyString(Number(product.price) * Number(productQuantity));
+
   return (
     <Styled.ProductDetailPage>
       <Styled.ProductWrapper>
@@ -69,7 +72,7 @@ const ProductDetailPage = () => {
         </Styled.ProductNameWrapper>
         <Styled.ProductPriceWrapper>
           <Styled.PriceLabel>금액</Styled.PriceLabel>
-          <Styled.ProductPrice>{Number(product.price) * Number(productQuantity)}원</Styled.ProductPrice>
+          <Styled.ProductPrice>{productPrice}원</Styled.ProductPrice>
         </Styled.ProductPriceWrapper>
         <Button size="LG" backgroundColor={COLORS.BROWN_500}>
           장바구니 담기
