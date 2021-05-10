@@ -1,21 +1,15 @@
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../../redux';
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
 import { Button, CartIcon } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
-
-/*
-  item 데이터 형식
-  {
-    "id": "1",
-    "name": "PET보틀-정사각(420ml)",
-    "price": "43400",
-    "img": "/mockImages/img1.png"
-  },
-*/
+import * as Styled from './style.js';
 
 export const ProductItem = (props) => {
-  const { item, ...rest } = props;
-  const { name, price, img } = item;
+  const { product, ...rest } = props;
+  const { name, price, img } = product;
+  const dispatch = useDispatch();
+  const onAddProduct = () => dispatch(addProduct(product));
 
   return (
     <Styled.Container {...rest}>
@@ -25,7 +19,7 @@ export const ProductItem = (props) => {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{getFormattedAsKRW(price)}</Styled.Price>
         </Styled.Label>
-        <Button>
+        <Button onClick={onAddProduct}>
           <CartIcon width="30" color="#333333" />
         </Button>
       </Styled.Footer>
@@ -34,7 +28,7 @@ export const ProductItem = (props) => {
 };
 
 ProductItem.propTypes = {
-  item: PropTypes.shape({
+  product: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

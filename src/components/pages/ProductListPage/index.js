@@ -1,13 +1,13 @@
 import * as Styled from './style.js';
 import { ProductItem } from './ProductItem';
-import product from '../../../mockData/product.json';
+import products from '../../../mockData/product.json';
 
 export const ProductListPage = () => {
   return (
     <Styled.Page>
       <Styled.ProductList>
-        {product.map((item) => (
-          <ProductItem key={item.id} item={item} />
+        {products.map((product) => (
+          <ProductItem key={product.id} product={product} />
         ))}
       </Styled.ProductList>
     </Styled.Page>
