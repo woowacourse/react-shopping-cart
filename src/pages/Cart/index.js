@@ -97,7 +97,7 @@ const Cart = () => {
             </Button>
           </ListOptionMenu>
           <ProductListWrapper>
-            <ProductListHeader>든든배송상품</ProductListHeader>
+            <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
             <ProductList>
               {list.map(({ id, name, image, price, quantity, checked }) => (
                 <ProductWrapper key={id}>
