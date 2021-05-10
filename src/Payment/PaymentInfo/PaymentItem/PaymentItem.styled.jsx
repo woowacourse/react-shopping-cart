@@ -7,6 +7,7 @@ export const PaymentItem = styled.div`
   padding: 1rem;
   border-bottom: 1.5px solid ${COLOR.GRAY.LIGHT_200};
 `;
+
 export const Img = styled.img`
   width: 7.5rem;
   height: 7.5rem;
@@ -22,7 +23,7 @@ export const Detail = styled.div`
 
 export const Name = styled.span`
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
 `;
 
 export const Amount = styled.span``;

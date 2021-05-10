@@ -23,7 +23,7 @@ const Payment = () => {
   }
 
   return (
-    <div>
+    <S.Payment>
       <PageTitle>주문/결제</PageTitle>
       <S.Main>
         <PaymentInfo checkedItems={checkedItems} />
@@ -34,7 +34,7 @@ const Payment = () => {
           buttonContent={`${formatPrice(totalPrice)}원 결제하기`}
         />
       </S.Main>
-    </div>
+    </S.Payment>
   );
 };
 
