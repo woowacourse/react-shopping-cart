@@ -30,6 +30,10 @@ export function removeSelectedProducts() {
 }
 
 export function toggleProductSelection(id) {
+  return {
+    type: TOGGLE_PRODUCT_SELECTION,
+    payload: id,
+  };
 }
 
 /* REDUCER */
@@ -45,15 +49,22 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
   const { type = '', payload = '' } = action;
 
   switch (type) {
+    /* payload: product */
     case ADD_PRODUCT:
       return { ...state, [payload.id]: { ...payload, ...INITIAL_CART_PRODUCT_PROPS } };
 
+    /* payload: id */
     case REMOVE_PRODUCT:
       return getPropertyRemoved({ ...state }, payload);
 
     case REMOVE_SELECTED_PRODUCTS:
       const leftProducts = Object.entries(state).filter(([_, product]) => !product.isSelected);
       return Object.fromEntries(leftProducts);
+
+    /* payload: id */
+    case TOGGLE_PRODUCT_SELECTION:
+      const willBeSelected = !state[payload].isSelected;
+      return { ...state, [payload]: { ...state[payload], isSelected: willBeSelected } };
 
     default:
       return state;
