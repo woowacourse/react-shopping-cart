@@ -5,11 +5,12 @@ export const Container = styled.div`
   background-color: ${COLOR.WHITE};
   display: flex;
   width: 100%;
-  padding: 40px 24px;
+  padding: 2% 24px;
   border-bottom: 1.5px solid ${COLOR['GRAY-300']};
 `;
 
 export const InformationWrapper = styled.div`
+  width: 100%;
   margin-left: 2%;
 `;
 

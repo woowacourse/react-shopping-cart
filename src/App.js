@@ -5,7 +5,7 @@ import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
-import { ItemList } from './pages';
+import { Cart, ItemList } from './pages';
 import { setItemList, store } from './store';
 import { API } from './utils';
 
@@ -30,9 +30,7 @@ function App() {
             <Route exact path={PATH.GOODS_DETAIL}>
               GOODS_DETAIL
             </Route>
-            <Route exact path={PATH.CART}>
-              CART
-            </Route>
+            <Route exact path={PATH.CART} component={Cart} />
             <Route exact path={PATH.ORDER}>
               ORDER
             </Route>

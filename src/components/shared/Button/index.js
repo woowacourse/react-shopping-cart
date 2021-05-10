@@ -1,17 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from './style';
+import { Container, ButtonText } from './style';
 
-const Button = ({ children, type, color, borderColor, disabled, width, height, onClick }) => {
+const Button = ({
+  children,
+  type,
+  backgroundColor,
+  color,
+  fontSize,
+  borderColor,
+  disabled,
+  width,
+  height,
+  onClick,
+}) => {
   return (
     <Container
       type={type}
-      color={color}
+      backgroundColor={backgroundColor}
       disabled={disabled}
       width={width}
       height={height}
       borderColor={borderColor}
       onClick={onClick}
+      fontSize={fontSize}
+      color={color}
     >
       {children}
     </Container>
@@ -20,8 +33,10 @@ const Button = ({ children, type, color, borderColor, disabled, width, height, o
 
 Button.propTypes = {
   type: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   borderColor: PropTypes.string.isRequired,
+  fontSize: PropTypes.string.isRequired,
   disabled: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,

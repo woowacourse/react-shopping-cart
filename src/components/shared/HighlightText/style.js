@@ -7,6 +7,7 @@ export const Container = styled.span`
     ${({ color }) => color} 20% 50%,
     transparent 30%
   );
+  font-size: ${({ fontSize }) => fontSize};
 
   padding: 0 0.1rem;
 `;
