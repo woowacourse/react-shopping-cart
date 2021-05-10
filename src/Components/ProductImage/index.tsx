@@ -1,6 +1,6 @@
 import React, { VFC, ImgHTMLAttributes } from "react";
 
-import { Container, Img, IImageProps } from "./style";
+import { Container, Img, IImageProps, Background } from "./style";
 
 interface IProductImageProps
   extends ImgHTMLAttributes<HTMLImageElement>,
@@ -10,6 +10,7 @@ interface IProductImageProps
 const ProductImage: VFC<IProductImageProps> = ({ size, ...props }) => (
   <Container size={size}>
     <Img size={size} {...props} />
+    <Background />
   </Container>
 );
 

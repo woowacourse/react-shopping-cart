@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import { FlexBetween } from "../../SharedStyled/Flex";
 import { COLOR } from "../../constants/theme";
 
 const Container = styled.div`
@@ -6,9 +8,12 @@ const Container = styled.div`
   position: relative;
 `;
 
+const ItemInfoWrap = styled(FlexBetween("div"))`
+  padding: 0 0.8rem;
+`;
+
 const Desc = styled.div`
   margin-top: 1.1rem;
-  padding-left: 0.75rem;
   color: ${COLOR.GRAY_600};
 `;
 
@@ -20,10 +25,6 @@ const Price = styled.p`
   font-size: 1.25rem;
 `;
 
-const CartButton = styled.button`
-  position: absolute;
-  right: 0;
-  bottom: 0.7rem;
-`;
+const CartButton = styled.button``;
 
-export { Container, Desc, Name, Price, CartButton };
+export { Container, ItemInfoWrap, Desc, Name, Price, CartButton };
