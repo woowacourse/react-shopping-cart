@@ -6,11 +6,16 @@ import * as S from "./Payment.styled";
 import PageTitle from "../components/@mixins/PageTitle/PageTitle";
 import ResultBox from "../components/@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
+import { formatPrice } from "../utils/utils";
 
 const Payment = () => {
   const location = useLocation();
   const cart = useSelector((state) => state.cart);
   const checkedItems = Object.values(cart).filter((item) => item.checked);
+  const totalPrice = checkedItems.reduce(
+    (acc, { amount, price }) => acc + amount * price,
+    0
+  );
 
   if (!location.state?.isAllowed) {
     window.alert("비정상적인 접근입니다");
@@ -25,8 +30,8 @@ const Payment = () => {
         <ResultBox
           title="결제금액"
           text="총 결제금액"
-          price={325600}
-          buttonContent="325000원 결제하기"
+          price={totalPrice}
+          buttonContent={`${formatPrice(totalPrice)}원 결제하기`}
         />
       </S.Main>
     </div>
