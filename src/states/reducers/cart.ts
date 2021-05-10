@@ -21,6 +21,9 @@ import {
   CHANGE_ALL_CART_ITEM_CHECKED,
   CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS,
   CHANGE_ALL_CART_ITEM_CHECKED_ERROR,
+  DELETE_CHECKED_CART_ITEM,
+  DELETE_CHECKED_CART_ITEM_SUCCESS,
+  DELETE_CHECKED_CART_ITEM_ERROR,
 } from '../actions/cart';
 
 interface CartState {
@@ -141,6 +144,23 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         isLoading: false,
       };
     case DELETE_CART_ITEM_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case DELETE_CHECKED_CART_ITEM:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case DELETE_CHECKED_CART_ITEM_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter((item) => !item.checked),
+        isLoading: false,
+      };
+    case DELETE_CHECKED_CART_ITEM_ERROR:
       return {
         ...state,
         error: action.payload,

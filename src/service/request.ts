@@ -22,3 +22,7 @@ export const requestChangeAllShoppingCartItemChecked = (items: ItemInCart[], che
     items.map((item) => APIClient.put<ItemInCart>(`/cart/${item.id}`, { ...item, checked }))
   );
 };
+
+export const requestDeleteShoppingCartItems = (items: ItemInCart[]) => {
+  Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
+};

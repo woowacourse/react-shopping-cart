@@ -7,6 +7,7 @@ import {
   requestChangeShoppingCartItem,
   requestChangeShoppingCartItemChecked,
   requestDeleteShoppingCartItem,
+  requestDeleteShoppingCartItems,
   requestShoppingCartItemList,
 } from '../../service/request';
 import { ItemInCart, Product } from '../../types';
@@ -37,6 +38,10 @@ export const CHANGE_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ITEM_CHECKED_ERROR';
 export const CHANGE_ALL_CART_ITEM_CHECKED = 'cart/CHANGE_ALL_ITEM_CHECKED';
 export const CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ALL_ITEM_CHECKED_SUCCESS';
 export const CHANGE_ALL_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ALL_ITEM_CHECKED_ERROR';
+
+export const DELETE_CHECKED_CART_ITEM = 'cart/DELETE_CHECKED_ITEM';
+export const DELETE_CHECKED_CART_ITEM_SUCCESS = 'cart/DELETE_CHECKED_ITEM_SUCCESS';
+export const DELETE_CHECKED_CART_ITEM_ERROR = 'cart/DELETE_CHECKED_ITEM_ERROR';
 
 export const addItem = (item: Product): ActionWithPayload<typeof ADD_ITEM, Product> => ({
   type: ADD_ITEM,
@@ -122,6 +127,21 @@ export const thunkChangeAllItemChecked = (
   }
 };
 
+export const thunkDeleteCheckedCartItem = (items: ItemInCart[]): AppThunk => async (
+  dispatch: Dispatch
+) => {
+  dispatch({ type: DELETE_CHECKED_CART_ITEM });
+
+  try {
+    const checkedItems = items.filter((item) => item.checked);
+
+    await requestDeleteShoppingCartItems(checkedItems);
+    dispatch({ type: DELETE_CHECKED_CART_ITEM_SUCCESS });
+  } catch (error) {
+    dispatch({ type: DELETE_CHECKED_CART_ITEM_ERROR, payload: error });
+  }
+};
+
 export type CartAction =
   | ActionWithPayload<typeof ADD_ITEM, Product>
   | Action<typeof GET_CART_ITEMS>
@@ -133,6 +153,9 @@ export type CartAction =
   | Action<typeof DELETE_CART_ITEM>
   | ActionWithPayload<typeof DELETE_CART_ITEM_SUCCESS, string>
   | ActionWithPayload<typeof DELETE_CART_ITEM_ERROR, Error>
+  | Action<typeof DELETE_CHECKED_CART_ITEM>
+  | Action<typeof DELETE_CHECKED_CART_ITEM_SUCCESS>
+  | ActionWithPayload<typeof DELETE_CHECKED_CART_ITEM_ERROR, Error>
   | Action<typeof CHANGE_CART_ITEM_CHECKED>
   | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
   | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_ERROR, Error>

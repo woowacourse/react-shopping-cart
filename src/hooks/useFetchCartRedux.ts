@@ -6,6 +6,7 @@ import {
   thunkDeleteCartItem,
   thunkChangeItemChecked,
   thunkChangeAllItemChecked,
+  thunkDeleteCheckedCartItem,
 } from '../states/actions/cart';
 import { useAppDispatch } from '../states/store';
 import { ItemInCart, Product } from '../types';
@@ -34,6 +35,7 @@ const useFetchCartRedux = () => {
     dispatch(thunkChangeItemChecked(item));
   };
 
+  //TODO: items 바로 불러와서 인자로받지 말게하기
   const changeAllChecked = (items: ItemInCart[], checked: boolean) => {
     dispatch(thunkChangeAllItemChecked(items, checked));
   };
@@ -42,7 +44,19 @@ const useFetchCartRedux = () => {
     dispatch(thunkDeleteCartItem(itemId));
   };
 
-  return { doFetch, addItem, changeQuantity, deleteItem, changeChecked, changeAllChecked };
+  const deleteCheckedItems = (items: ItemInCart[]) => {
+    dispatch(thunkDeleteCheckedCartItem(items));
+  };
+
+  return {
+    doFetch,
+    addItem,
+    changeQuantity,
+    deleteItem,
+    deleteCheckedItems,
+    changeChecked,
+    changeAllChecked,
+  };
 };
 
 export default useFetchCartRedux;
