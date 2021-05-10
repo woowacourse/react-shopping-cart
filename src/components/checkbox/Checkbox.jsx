@@ -41,18 +41,20 @@ const Text = styled.span`
   margin-left: 12px;
 `;
 
-const Checkbox = ({ isChecked, children, onChange }) => (
-  <label>
-    <Content>
-      <HiddenCheckboxInput checked={isChecked} onChange={onChange} />
-      <CheckboxShapeDiv isChecked={isChecked}>
-        <CheckIcon viewBox="0 0 24 24">
-          <polyline points="21 7 10 18 4 12" />
-        </CheckIcon>
-      </CheckboxShapeDiv>
-    </Content>
-    {children ? <Text>{children}</Text> : ''}
-  </label>
-);
+const Checkbox = ({ isChecked, children, onChange }) => {
+  return (
+    <label>
+      <Content>
+        <HiddenCheckboxInput checked={isChecked} onChange={onChange} />
+        <CheckboxShapeDiv isChecked={isChecked}>
+          <CheckIcon viewBox="0 0 24 24">
+            <polyline points="21 7 10 18 4 12" />
+          </CheckIcon>
+        </CheckboxShapeDiv>
+      </Content>
+      {children ? <Text>{children}</Text> : ''}
+    </label>
+  );
+};
 
 export default Checkbox;

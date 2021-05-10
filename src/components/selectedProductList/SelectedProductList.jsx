@@ -75,9 +75,18 @@ const SelectedProductList = ({ listType, itemType, orderNumber, productList, Lis
   <>
     {getHeader({ type: listType, count: productList.length, orderNumber })}
     <ul>
-      {productList.map(({ src, id, alt, name, price, count = 1 }) => (
+      {productList.map(({ src, id, alt, name, price, count = 1, isChecked }) => (
         <ListItemWrapper type={listType} key={id}>
-          <ListItem type={itemType} src={src} alt={alt} name={name} price={price} count={count} />
+          <ListItem
+            type={itemType}
+            id={id}
+            src={src}
+            alt={alt}
+            name={name}
+            price={price}
+            count={count}
+            isChecked={isChecked}
+          />
         </ListItemWrapper>
       ))}
     </ul>

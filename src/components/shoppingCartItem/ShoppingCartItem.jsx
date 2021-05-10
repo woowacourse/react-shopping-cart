@@ -4,6 +4,8 @@ import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
+import { toggleShoppingCartItem } from '../../modules/shoppingCart';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.ul`
   display: flex;
@@ -37,19 +39,26 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
-const ShoppingCartItem = ({ src, alt, name, price }) => (
-  <Container>
-    <LeftContent>
-      <Checkbox />
-      <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
-      <Name>{name}</Name>
-    </LeftContent>
-    <RightContent>
-      <TrashCanImage src={trashCan} alt="쓰레기통" />
-      <CountInput />
-      <div>{price.toLocaleString('ko-KR')} 원</div>
-    </RightContent>
-  </Container>
-);
+const ShoppingCartItem = ({ id, src, alt, name, price, isChecked }) => {
+  const dispatch = useDispatch();
+  const handleShoppingCartItemToggle = () => {
+    dispatch(toggleShoppingCartItem(id));
+  };
+
+  return (
+    <Container>
+      <LeftContent>
+        <Checkbox isChecked={isChecked} onChange={handleShoppingCartItemToggle} />
+        <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
+        <Name>{name}</Name>
+      </LeftContent>
+      <RightContent>
+        <TrashCanImage src={trashCan} alt="쓰레기통" />
+        <CountInput />
+        <div>{price.toLocaleString('ko-KR')} 원</div>
+      </RightContent>
+    </Container>
+  );
+};
 
 export default ShoppingCartItem;
