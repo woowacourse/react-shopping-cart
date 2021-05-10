@@ -31,5 +31,22 @@
       "price": 43400
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "1",
+      "image": "https://picsum.photos/200/200",
+      "name": "1오예오에",
+      "price": 43400,
+      "checked": false,
+      "quantity": 1
+    },
+    {
+      "id": "2",
+      "image": "https://picsum.photos/200/200",
+      "name": "2PET보틀-정사각(420ml)",
+      "price": 43400,
+      "checked": false,
+      "quantity": 1
+    }
+  ]
 }

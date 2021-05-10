@@ -12,15 +12,22 @@ interface Props {
   item: ItemInCart;
   changeQuantity: (item: ItemInCart, value: number) => void;
   deleteItem: (itemId: string) => void;
+  changeChecked: (item: ItemInCart) => void;
   className?: string;
 }
 
-const ShoppingCartItem: VFC<Props> = ({ item, changeQuantity, deleteItem, className }) => {
-  const { image, name, quantity, price, id } = item;
+const ShoppingCartItem: VFC<Props> = ({
+  item,
+  changeQuantity,
+  deleteItem,
+  changeChecked,
+  className,
+}) => {
+  const { image, name, quantity, price, id, checked } = item;
 
   return (
     <ShoppingCartItemContainer className={className}>
-      <Checkbox />
+      <Checkbox checked={checked} onChange={() => changeChecked(item)} />
       <ShoppingCartItemCard type="horizontal" image={image}>
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>

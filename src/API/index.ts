@@ -39,6 +39,16 @@ const APIClient = {
       },
     });
   },
+
+  patch<T>(path: string, data: Partial<T>[]) {
+    fetch(API_BASE_URL + path, {
+      method: METHOD.PATCH,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  },
 };
 
 export default APIClient;

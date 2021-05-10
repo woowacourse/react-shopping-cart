@@ -3,7 +3,9 @@ import { ThunkAction } from 'redux-thunk';
 import { Action, ActionWithPayload, AppThunk } from '.';
 import {
   requestAddShoppingCartItem,
+  requestChangeAllShoppingCartItemChecked,
   requestChangeShoppingCartItem,
+  requestChangeShoppingCartItemChecked,
   requestDeleteShoppingCartItem,
   requestShoppingCartItemList,
 } from '../../service/request';
@@ -27,6 +29,14 @@ export const CHANGE_ITEM_QUANTITY_ERROR = 'cart/CHANGE_ITEM_QUANTITY_ERROR';
 export const DELETE_CART_ITEM = 'cart/DELETE_ITEM';
 export const DELETE_CART_ITEM_SUCCESS = 'cart/DELETE_ITEM_SUCCESS';
 export const DELETE_CART_ITEM_ERROR = 'cart/DELETE_ITEM_ERROR';
+
+export const CHANGE_CART_ITEM_CHECKED = 'cart/CHANGE_ITEM_CHECKED';
+export const CHANGE_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ITEM_CHECKED_SUCCESS';
+export const CHANGE_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ITEM_CHECKED_ERROR';
+
+export const CHANGE_ALL_CART_ITEM_CHECKED = 'cart/CHANGE_ALL_ITEM_CHECKED';
+export const CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ALL_ITEM_CHECKED_SUCCESS';
+export const CHANGE_ALL_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ALL_ITEM_CHECKED_ERROR';
 
 export const addItem = (item: Product): ActionWithPayload<typeof ADD_ITEM, Product> => ({
   type: ADD_ITEM,
@@ -83,6 +93,35 @@ export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch
   }
 };
 
+export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
+  dispatch: Dispatch
+) => {
+  dispatch({ type: CHANGE_CART_ITEM_CHECKED });
+
+  const changedItem = { ...item, checked: !item.checked };
+
+  try {
+    await requestChangeShoppingCartItemChecked(changedItem);
+    dispatch({ type: CHANGE_CART_ITEM_CHECKED_SUCCESS, payload: changedItem });
+  } catch (error) {
+    dispatch({ type: CHANGE_CART_ITEM_CHECKED_ERROR, payload: error });
+  }
+};
+
+export const thunkChangeAllItemChecked = (
+  items: ItemInCart[],
+  checked: boolean
+): AppThunk => async (dispatch: Dispatch) => {
+  dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED });
+
+  try {
+    await requestChangeAllShoppingCartItemChecked(items, checked);
+    dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, payload: checked });
+  } catch (error) {
+    dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_ERROR, payload: error });
+  }
+};
+
 export type CartAction =
   | ActionWithPayload<typeof ADD_ITEM, Product>
   | Action<typeof GET_CART_ITEMS>
@@ -94,6 +133,12 @@ export type CartAction =
   | Action<typeof DELETE_CART_ITEM>
   | ActionWithPayload<typeof DELETE_CART_ITEM_SUCCESS, string>
   | ActionWithPayload<typeof DELETE_CART_ITEM_ERROR, Error>
+  | Action<typeof CHANGE_CART_ITEM_CHECKED>
+  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
+  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_ERROR, Error>
+  | Action<typeof CHANGE_ALL_CART_ITEM_CHECKED>
+  | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, boolean>
+  | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_ERROR, Error>
   | Action<typeof CHANGE_ITEM_QUANTITY>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, ItemInCart>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>;

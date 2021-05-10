@@ -15,6 +15,12 @@ import {
   DELETE_CART_ITEM,
   DELETE_CART_ITEM_SUCCESS,
   DELETE_CART_ITEM_ERROR,
+  CHANGE_CART_ITEM_CHECKED,
+  CHANGE_CART_ITEM_CHECKED_SUCCESS,
+  CHANGE_CART_ITEM_CHECKED_ERROR,
+  CHANGE_ALL_CART_ITEM_CHECKED,
+  CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS,
+  CHANGE_ALL_CART_ITEM_CHECKED_ERROR,
 } from '../actions/cart';
 
 interface CartState {
@@ -83,6 +89,41 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         isLoading: false,
       };
     case CHANGE_ITEM_QUANTITY_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case CHANGE_CART_ITEM_CHECKED:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case CHANGE_CART_ITEM_CHECKED_SUCCESS:
+      return {
+        ...state,
+        // TODO: 중복
+        items: state.items.map((item) => (item.id === action.payload.id ? action.payload : item)),
+        isLoading: false,
+      };
+    case CHANGE_CART_ITEM_CHECKED_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case CHANGE_ALL_CART_ITEM_CHECKED:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map((item) => ({ ...item, checked: action.payload })),
+        isLoading: false,
+      };
+    case CHANGE_ALL_CART_ITEM_CHECKED_ERROR:
       return {
         ...state,
         error: action.payload,

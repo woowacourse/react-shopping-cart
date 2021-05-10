@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
-  const { changeQuantity, deleteItem } = useFetchCartRedux();
+  const { changeQuantity, deleteItem, changeChecked } = useFetchCartRedux();
 
   return (
     <section>
@@ -24,6 +24,7 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
             key={item.id}
             item={item}
             changeQuantity={changeQuantity}
+            changeChecked={changeChecked}
             deleteItem={deleteItem}
           />
         ))}
