@@ -1,5 +1,16 @@
-// eslint-disable-next-line import/prefer-default-export
 export enum ButtonSize {
   LARGE = 'LARGE',
   REGULAR = 'REGULAR',
 }
+
+export type Product = {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+};
+
+export type CartItem = {
+  product: Product;
+  quantity: number;
+};

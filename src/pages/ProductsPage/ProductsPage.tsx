@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Spinner from '../../components/shared/Spinner/Spinner';
 import ProductItem from '../../components/units/ProductItem/ProductItem';
+import { RootState } from '../../modules';
+import { getProductsRequest } from '../../modules/products/actions';
 import Styled from './ProductsPage.styles';
 
 const ProductsPage = () => {
+  const { isLoading, data } = useSelector((state: RootState) => state.productsReducer.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductsRequest());
+  }, [dispatch]);
+
   return (
     <Styled.Root>
-      <Styled.ProductList>
-        {Array.from({ length: 7 }, (_, index) => (
-          <li key={index}>
-            <ProductItem title="밀크티존맛탱" price={1000000} />
-          </li>
-        ))}
-      </Styled.ProductList>
+      {isLoading ? (
+        <Styled.SpinnerWrapper>
+          <Spinner />
+        </Styled.SpinnerWrapper>
+      ) : (
+        <Styled.ProductList>
+          {data.map((product) => (
+            <li key={product.id}>
+              <ProductItem title={product.name} price={product.price} imageUrl={product.image} />
+            </li>
+          ))}
+        </Styled.ProductList>
+      )}
     </Styled.Root>
   );
 };

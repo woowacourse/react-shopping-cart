@@ -15,7 +15,13 @@ const ProductList = styled.ul`
   justify-content: center;
 `;
 
+const SpinnerWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
 export default {
   Root,
   ProductList,
+  SpinnerWrapper,
 };
