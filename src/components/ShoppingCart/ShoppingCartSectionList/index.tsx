@@ -1,4 +1,5 @@
-import { PRODUCT_LIST_MOCK } from '../../../mocks/mockData';
+import { useAppSelector } from '../../../states/store';
+import { ItemInCart } from '../../../types';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {
@@ -8,8 +9,9 @@ import {
 } from './style';
 
 const ShoppingCartSectionList = () => {
-  const items = PRODUCT_LIST_MOCK;
+  const items = useAppSelector((state) => state.cart.items);
 
+  console.log('ㅎ하하하하하;', items);
   return (
     <ShoppingCartItemListContainer>
       <CartSelectContainer>
