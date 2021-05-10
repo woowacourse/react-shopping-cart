@@ -8,18 +8,6 @@ import { paymentItems } from '../data/mock';
 
 import styled from 'styled-components';
 
-//TODO: PageWrapper Component로 만들기
-const StyledPaymentPageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 1440px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 60px;
-`;
-
 const StyledPaymentItemWrapper = styled.div`
   display: flex;
   width: 1320px;
@@ -82,7 +70,6 @@ function PaymentPage() {
           height="120px"
           src={paymentItem.image}
           alt={paymentItem.name}
-          className="product-image"
           isBackgroundImageNeeded={true}
         />
         <StyledPaymentItemInfoWrapper>
@@ -93,7 +80,7 @@ function PaymentPage() {
     ));
 
   return (
-    <StyledPaymentPageWrapper>
+    <>
       <PageTitle pageTitle="주문/결제" />
 
       <StyledPaymentItemWrapper>
@@ -103,7 +90,7 @@ function PaymentPage() {
         </StyledPaymentItemSection>
         <FloatingBox />
       </StyledPaymentItemWrapper>
-    </StyledPaymentPageWrapper>
+    </>
   );
 }
 

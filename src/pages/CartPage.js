@@ -10,17 +10,6 @@ import IconButton from '../components/utils/IconButton';
 import CounterButton from '../components/CounterButton';
 import bin from '../asset/bin-icon.svg';
 
-const CartPageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 1440px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 60px;
-`;
-
 const ItemContents = styled.div`
   display: flex;
 `;
@@ -96,7 +85,6 @@ const getPaymentItem = (paymentsItems) =>
           height="144px"
           src={paymentItem.image}
           alt={paymentItem.name}
-          className="product-image"
           isBackgroundImageNeeded={true}
         />
         <CartItemName>{paymentItem.name}</CartItemName>
@@ -111,28 +99,29 @@ const getPaymentItem = (paymentsItems) =>
 
 function CartPage() {
   return (
-    <CartPageWrapper>
+    <>
       <PageTitle pageTitle="장바구니" />
       <CartItemWrapper>
         <CartItemSection>
           <CartItemHeader>
             <CheckBox labelName="선택해제" id="cartItemCheckBox" />
             <Button
-              buttonName="상품삭제"
               width="117px"
               height="50px"
               backgroundColor="inherit"
               border="1px solid #bbbbbb"
               color="#333333"
               fontSize="16px"
-            />
+            >
+              상품삭제
+            </Button>
           </CartItemHeader>
           <CartItemSectionTitle>든든배송 상품 ({paymentItems.length}개)</CartItemSectionTitle>
           <CartItemList>{getPaymentItem(paymentItems)}</CartItemList>
         </CartItemSection>
         <FloatingBox />
       </CartItemWrapper>
-    </CartPageWrapper>
+    </>
   );
 }
 

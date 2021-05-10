@@ -7,17 +7,32 @@ import CartPage from '../src/pages/CartPage';
 import PaymentPage from '../src/pages/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';
 
+import styled from 'styled-components';
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 60px;
+`;
+
 function App() {
   return (
     <div className="App">
       <Header />
-      <Switch>
-        <Route exact path={['/', '/products']} component={ProductListPage} />
-        <Route exact path="/orders" component={OrderListPage} />
-        <Route path="/cart" component={CartPage} />
-        <Route path="/payment" component={PaymentPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <PageWrapper>
+        <Switch>
+          <Route exact path={['/', '/products']} component={ProductListPage} />
+          <Route exact path="/orders" component={OrderListPage} />
+          <Route path="/cart" component={CartPage} />
+          <Route path="/payment" component={PaymentPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </PageWrapper>
     </div>
   );
 }

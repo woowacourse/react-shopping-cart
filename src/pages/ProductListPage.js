@@ -10,15 +10,6 @@ import cartImage from '../asset/cart.png';
 
 import styled from 'styled-components';
 
-const StyledProductListWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  max-width: 1440px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 60px;
-`;
-
 const StyledProduct = styled.li`
   box-sizing: border-box;
   position: relative;
@@ -76,11 +67,11 @@ function ProductListPage() {
   };
 
   return (
-    <StyledProductListWrapper>
+    <>
       <GridColumnList gridColumnGap="48px" gridRowGap="28px" gridColumnRepeatCount="4" gridColumnWidth="282px">
         {getProductItem()}
       </GridColumnList>
-    </StyledProductListWrapper>
+    </>
   );
 }
 
