@@ -1,15 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../../redux';
 import PropTypes from 'prop-types';
 import { Button, CartIcon } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
 import * as Styled from './style.js';
 
 export const ProductItem = (props) => {
-  const { product, ...rest } = props;
+  const { product, onAddProduct, ...rest } = props;
   const { name, price, img } = product;
-  const dispatch = useDispatch();
-  const onAddProduct = () => dispatch(addProduct(product));
 
   return (
     <Styled.Container {...rest}>
@@ -19,7 +15,7 @@ export const ProductItem = (props) => {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{getFormattedAsKRW(price)}</Styled.Price>
         </Styled.Label>
-        <Button onClick={onAddProduct}>
+        <Button onClick={() => onAddProduct(product)}>
           <CartIcon width="30" color="#333333" />
         </Button>
       </Styled.Footer>
@@ -33,5 +29,6 @@ ProductItem.propTypes = {
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     img: PropTypes.string,
-  }),
+  }).isRequired,
+  onAddProduct: PropTypes.func.isRequired,
 };
