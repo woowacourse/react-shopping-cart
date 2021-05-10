@@ -6,16 +6,16 @@ const StyledButton = styled.button`
 
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) => props.backgroundColor || 'inherit'};
   color: ${(props) => props.color};
   border: ${(props) => props.border};
   font-size: ${(props) => props.fontSize};
 `;
 
-function Button({ type = 'button', buttonName, ...props }) {
+function Button({ type = 'button', children, ...props }) {
   return (
     <StyledButton type={type} {...props}>
-      {buttonName}
+      {children}
     </StyledButton>
   );
 }
