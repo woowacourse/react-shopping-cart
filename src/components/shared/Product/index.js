@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import Thumbnail from '../Thumbnail';
 import { Container, InformationWrapper, Title, Description, ExtraWrapper } from './style';
 
-const Product = ({ thumbnail, information, extra }) => {
+const Product = ({ thumbnail, information, extra, onClick }) => {
   return (
     <Container>
-      <Thumbnail image={thumbnail.image} alt={thumbnail.alt} size={thumbnail.size} />
+      <Thumbnail
+        image={thumbnail.image}
+        alt={thumbnail.alt}
+        size={thumbnail.size}
+        onClick={onClick}
+      />
       <InformationWrapper>
-        <Title>{information.title}</Title>
+        <Title onClick={onClick}>{information.title}</Title>
         <Description>{information.description}</Description>
       </InformationWrapper>
       <ExtraWrapper>{extra}</ExtraWrapper>

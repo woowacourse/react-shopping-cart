@@ -111,6 +111,9 @@ const Cart = () => {
                     <span></span>
                   </CheckBox>
                   <Product
+                    onClick={() => {
+                      history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
+                    }}
                     thumbnail={{ image: image, alt: name, size: 'small' }}
                     information={{ title: name }}
                     extra={

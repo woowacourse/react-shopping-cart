@@ -34,7 +34,6 @@ const Order = () => {
 
   const onPurchase = async () => {
     const [orderDetail] = await API.purchase(list.map(item => item.id));
-    console.log(orderDetail);
     alert('주문이 완료되었습니다.');
 
     dispatch(deleteCartItems(list.map(item => item.id)));

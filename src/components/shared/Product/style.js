@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import COLOR from '../../../constants/color';
 
 export const Container = styled.div`
@@ -25,6 +25,15 @@ export const Title = styled.h4`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   color: ${COLOR.BLACK};
+
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    `};
 `;
 
 export const Description = styled.div`
