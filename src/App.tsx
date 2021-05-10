@@ -1,13 +1,13 @@
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
-import useFetchCartItemsRedux from './hooks/useFetchCartItemsRedux';
+import useFetchCartRedux from './hooks/useFetchCartRedux';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
 function App() {
-  useFetchCartItemsRedux();
+  useFetchCartRedux();
 
   return (
     <div className="App">

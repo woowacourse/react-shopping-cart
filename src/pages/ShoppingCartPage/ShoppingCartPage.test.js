@@ -4,8 +4,15 @@ import ShoppingCartPage from '.';
 import { server } from '../../mocks/server';
 import store from '../../states/store';
 
-server.listen();
+beforeAll(() => {
+  server.listen();
+});
+
 afterEach(() => server.resetHandlers());
+
+afterAll(() => {
+  server.close();
+});
 
 describe('ShoppingCartPage', () => {
   test('장바구니에 담긴 상품들을 불러온다.', async () => {
@@ -15,8 +22,6 @@ describe('ShoppingCartPage', () => {
       </Provider>
     );
 
-    await waitFor(() => screen.getByText('test cart name'));
+    await waitFor(() => screen.getByText('test cart item name'));
   });
 });
-
-server.close();

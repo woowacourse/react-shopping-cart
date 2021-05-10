@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import ProductList from '../../components/ProductList';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/useFetch';

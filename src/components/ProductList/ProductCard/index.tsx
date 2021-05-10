@@ -1,7 +1,5 @@
-import { useEffect, VFC } from 'react';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../../../states/actions/cart';
-import { AppDispatch } from '../../../states/store';
+import { VFC } from 'react';
+import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import { Product } from '../../../types';
 import Card from '../../shared/Card';
 import IconButton from '../../shared/IconButton';
@@ -9,8 +7,8 @@ import Text from '../../shared/Text';
 import { ContentContainer } from './style';
 
 const ProductCard: VFC<Product> = (product) => {
-  const dispatch = useDispatch<AppDispatch>();
   const { name, price, image } = product;
+  const { addItem } = useFetchCartRedux();
 
   return (
     <Card type="vertical" width="100%" height="22rem" image={image}>
@@ -26,7 +24,7 @@ const ProductCard: VFC<Product> = (product) => {
           width="3rem"
           height="3rem"
           data-testid="add-cart-button"
-          onClick={() => dispatch(addItem(product))}
+          onClick={() => addItem(product)}
         />
       </ContentContainer>
     </Card>

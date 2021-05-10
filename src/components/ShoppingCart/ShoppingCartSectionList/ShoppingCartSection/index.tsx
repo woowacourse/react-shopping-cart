@@ -1,12 +1,12 @@
 import { VFC } from 'react';
-import { Product } from '../../../../types';
+import { ItemInCart } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
 
 interface Props {
   title: string;
-  items: Product[];
+  items: ItemInCart[];
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
@@ -17,7 +17,7 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
       </InnerTitle>
       <List>
         {items.map((item) => (
-          <ShoppingCartItem product={item} />
+          <ShoppingCartItem key={item.id} product={item} />
         ))}
       </List>
     </section>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { thunkGetCartItems } from '../states/actions/cart';
+import { thunkAddItemToCart, thunkGetCartItems } from '../states/actions/cart';
 import { useAppDispatch } from '../states/store';
+import { Product } from '../types';
 
-const useFetchCartItemsRedux = () => {
+const useFetchCartRedux = () => {
   const dispatch = useAppDispatch();
   const [updateToggle, setUpdateToggle] = useState(false);
 
@@ -14,7 +15,11 @@ const useFetchCartItemsRedux = () => {
     dispatch(thunkGetCartItems());
   }, [updateToggle]);
 
-  return { doFetch };
+  const addItem = (item: Product) => {
+    dispatch(thunkAddItemToCart(item));
+  };
+
+  return { doFetch, addItem };
 };
 
-export default useFetchCartItemsRedux;
+export default useFetchCartRedux;

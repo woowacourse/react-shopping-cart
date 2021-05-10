@@ -1,28 +1,26 @@
 import { ItemInCart, Product } from '../../types';
+import { createItemInCart } from '../../utils/cart';
 import {
   ADD_ITEM,
   GET_CART_ITEMS,
   CartAction,
   GET_CART_ITEMS_SUCCESS,
   GET_CART_ITEMS_ERROR,
+  ADD_CART_ITEM,
+  ADD_CART_ITEM_SUCCESS,
+  ADD_CART_ITEM_ERROR,
 } from '../actions/cart';
 
 interface CartState {
   items: ItemInCart[];
+  isLoading: boolean;
+  error: Error | null;
 }
 
-const initialState = {
+const initialState: CartState = {
   items: [],
   isLoading: false,
   error: null,
-};
-
-const createItemInCart = (product: Product): ItemInCart => {
-  return {
-    ...product,
-    checked: true,
-    quantity: 1,
-  };
 };
 
 const cartReducer = (state: CartState = initialState, action: CartAction) => {
@@ -36,7 +34,7 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
       return {
         ...state,
         isLoading: true,
-        hasError: false,
+        error: null,
       };
     case GET_CART_ITEMS_SUCCESS:
       return {
@@ -45,6 +43,23 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         isLoading: false,
       };
     case GET_CART_ITEMS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case ADD_CART_ITEM:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case ADD_CART_ITEM_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        isLoading: false,
+      };
+    case ADD_CART_ITEM_ERROR:
       return {
         ...state,
         error: action.payload,

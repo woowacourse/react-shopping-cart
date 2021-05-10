@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../../states/store';
-import { ItemInCart } from '../../../types';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {
@@ -9,7 +8,7 @@ import {
 } from './style';
 
 const ShoppingCartSectionList = () => {
-  const items = useAppSelector((state) => state.cart.items);
+  const items = useAppSelector(({ cart }) => cart.items);
 
   return (
     <ShoppingCartItemListContainer>
