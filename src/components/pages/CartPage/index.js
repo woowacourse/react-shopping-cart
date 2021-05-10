@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
+import { changeAllCheckboxesInCart, toggleCartCheckbox } from '../../../redux/Cart/actions';
 import AmountInput from '../../common/AmountInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
@@ -15,8 +16,32 @@ import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
 const CartPage = () => {
+  const [isAllChecked, setIsAllChecked] = useState(false);
   const { cart } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const totalPrice = cart.reduce((sum, product) => (sum += product.isChecked ? product.price * product.amount : 0), 0);
+
+  const onChangeCheckbox = (productId) => {
+    dispatch(toggleCartCheckbox(productId));
+  };
+
+  const onChangeAllCheckbox = () => {
+    setIsAllChecked(!isAllChecked);
+    dispatch(changeAllCheckboxesInCart(!isAllChecked));
+  };
+
+  useEffect(() => {
+    if (cart.length === 0) return;
+
+    if (isAllChecked && cart.some((product) => product.isChecked === false)) {
+      setIsAllChecked(false);
+    }
+
+    if (!isAllChecked && cart.every((product) => product.isChecked === true)) {
+      setIsAllChecked(true);
+    }
+  }, [cart]);
 
   return (
     <Main>
@@ -24,7 +49,9 @@ const CartPage = () => {
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <FlexContainer justifyContent="space-between" align="flex-start">
-            <Checkbox>선택해제</Checkbox>
+            <Checkbox onChange={onChangeAllCheckbox} isChecked={isAllChecked}>
+              {isAllChecked ? '선택해제' : '전체선택'}
+            </Checkbox>
             <Button backgroundColor={PALETTE.WHITE} borderColor={PALETTE.GRAY_002} width="7.3rem" height="3rem">
               상품삭제
             </Button>
@@ -32,7 +59,14 @@ const CartPage = () => {
           <Styled.ProductListTitle>든든배송 상품 ({cart.length}개)</Styled.ProductListTitle>
           <ProductList width="100%">
             {cart.map((item) => (
-              <ProductListItem key={item.id} listStyle="lineStyle" isCheckbox={true} imageSize="9rem" product={item}>
+              <ProductListItem
+                key={item.id}
+                listStyle="lineStyle"
+                isCheckbox={true}
+                onChange={onChangeCheckbox}
+                imageSize="9rem"
+                product={item}
+              >
                 <FlexContainer direction="column" justifyContent="space-between" align="flex-end">
                   <Button backgroundColor="transparent">
                     <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />

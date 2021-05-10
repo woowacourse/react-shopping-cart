@@ -4,13 +4,17 @@ import * as Styled from './style';
 import Product from '../../Product';
 import Checkbox from '../../../common/Checkbox';
 
-const ProductListItem = ({ product, listStyle, productDetail, isCheckbox, imageSize, children }) => {
+const ProductListItem = ({ product, listStyle, onChange, productDetail, isCheckbox, imageSize, children }) => {
   const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction="row" />;
+
+  const onChangeCheckbox = () => {
+    onChange(product.id);
+  };
 
   return (
     <Styled.ProductListItem listStyle={listStyle}>
       {isCheckbox ? (
-        <Checkbox align="flex-start" isChecked={product.isChecked}>
+        <Checkbox align="flex-start" isChecked={product.isChecked} onChange={onChangeCheckbox}>
           {productElement}
         </Checkbox>
       ) : (
@@ -23,6 +27,7 @@ const ProductListItem = ({ product, listStyle, productDetail, isCheckbox, imageS
 
 ProductListItem.propTypes = {
   listStyle: PropTypes.string,
+  onChange: PropTypes.func,
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -46,4 +51,4 @@ ProductListItem.defaultProps = {
   imageSize: '9rem',
 };
 
-export default ProductListItem;
+export default React.memo(ProductListItem);

@@ -10,4 +10,4 @@ PageTitle.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-export default PageTitle;
+export default React.memo(PageTitle);

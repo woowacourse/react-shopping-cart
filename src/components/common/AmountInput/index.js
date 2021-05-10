@@ -13,7 +13,7 @@ const AmountInput = ({ min, max, step, amount, setAmount }) => {
 
   return (
     <Styled.AmountInputContainer>
-      <Styled.NumberContainer type="number" min={min} max={max} step={step} value={amount} />
+      <Styled.NumberContainer type="number" min={min} max={max} step={step} defaultValue={amount} />
       <Styled.ButtonContainer>
         <button type="button" onClick={increase}></button>
         <button type="button" onClick={decrease}></button>
