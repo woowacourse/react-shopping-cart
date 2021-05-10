@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLOR } from '../../../constants';
 
 export const Container = styled.button`
   width: ${({ width }) => width};
@@ -15,6 +16,11 @@ export const Container = styled.button`
   }
 
   &:disabled {
-    background-color: blue;
+    background-color: ${COLOR['GRAY-200']};
+    cursor: default;
+  }
+
+  &:disabled:hover {
+    filter: none;
   }
 `;
