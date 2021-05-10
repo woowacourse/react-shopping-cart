@@ -9,7 +9,11 @@ import { useEffect } from 'react';
 const TITLE = '장바구니';
 
 const ShoppingCartPage = () => {
-  useFetchCartRedux();
+  const { doFetch } = useFetchCartRedux();
+
+  useEffect(() => {
+    doFetch();
+  }, []);
 
   const items = useAppSelector(({ cart }) => cart.items);
 

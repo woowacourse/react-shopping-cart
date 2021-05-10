@@ -3,6 +3,7 @@ import { ItemInCart } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
+import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
 
 interface Props {
   title: string;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
+  const { changeQuantity } = useFetchCartRedux();
+
   return (
     <section>
       <InnerTitle>
@@ -17,7 +20,7 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
       </InnerTitle>
       <List>
         {items.map((item) => (
-          <ShoppingCartItem key={item.id} product={item} />
+          <ShoppingCartItem key={item.id} item={item} changeQuantity={changeQuantity} />
         ))}
       </List>
     </section>

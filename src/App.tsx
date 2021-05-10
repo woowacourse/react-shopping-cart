@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
 import useFetchCartRedux from './hooks/useFetchCartRedux';
@@ -7,7 +8,11 @@ import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
 function App() {
-  useFetchCartRedux();
+  const { doFetch } = useFetchCartRedux();
+
+  useEffect(() => {
+    doFetch();
+  }, []);
 
   return (
     <div className="App">

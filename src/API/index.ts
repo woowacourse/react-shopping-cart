@@ -18,6 +18,18 @@ const APIClient = {
 
     return response.json();
   },
+
+  async put<T>(path: string, data:T) {
+    const response = await fetch(API_BASE_URL + path, {
+      method: METHOD.PUT,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    return response.json();
+  }
 };
 
 export default APIClient;

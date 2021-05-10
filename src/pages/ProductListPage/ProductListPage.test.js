@@ -4,16 +4,6 @@ import ProductListPage from '.';
 import { server } from '../../mocks/server';
 import store from '../../states/store';
 
-beforeAll(() => {
-  server.listen();
-});
-
-afterEach(() => server.resetHandlers());
-
-afterAll(() => {
-  server.close();
-});
-
 describe('ProductListPage', () => {
   test('상품 리스트를 불러온다.', async () => {
     render(

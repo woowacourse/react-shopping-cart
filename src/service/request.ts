@@ -7,3 +7,6 @@ export const requestShoppingCartItemList = (): Promise<ItemInCart[]> => APIClien
 
 export const requestAddShoppingCartItem = (item: ItemInCart) =>
   APIClient.post<ItemInCart>('/cart', item);
+
+export const requestChangeShoppingCartItem = (item: ItemInCart) =>
+  APIClient.put<ItemInCart>(`/cart/${item.id}`, item);
