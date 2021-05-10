@@ -9,7 +9,6 @@ export const Main = styled.main`
   width: 100%;
   display: flex;
   align-items: flex-start;
-  margin-top: 2rem;
   flex-wrap: wrap;
   padding: 1rem;
 

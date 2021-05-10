@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
   :root {
   /* Color */
+  --color-background: #E5E5E5;
+
   --color-mint: #2AC1BC;
   --color-brown: #73675C;
   --color-white: #ffffff;

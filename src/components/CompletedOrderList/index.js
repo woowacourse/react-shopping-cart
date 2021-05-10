@@ -21,6 +21,7 @@ const CompletedOrderList = ({ order }) => {
               name={name}
               price={price}
               quantity={quantity}
+              isOrdered={true}
             />
           </li>
         ))}

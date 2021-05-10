@@ -7,6 +7,7 @@ export const Order = styled.div`
   padding: 1rem;
   border-bottom: 1px solid var(--color-grey-150);
   justify-content: space-between;
+  background-color: var(--color-white);
 `;
 
 export const ImageWrapper = styled.div`

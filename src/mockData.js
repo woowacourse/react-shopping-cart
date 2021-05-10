@@ -78,3 +78,54 @@ export const products = [
     checked: false,
   },
 ];
+
+export const totalOrders = [
+  {
+    id: 0,
+    products: [
+      {
+        id: 0,
+        name: '[든든] 냉동조미유부삼각 (60장) 1kg',
+        image:
+          'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
+        price: 8400,
+        quantity: 1,
+        checked: false,
+      },
+      {
+        id: 1,
+        name: '[든든] 진맛살 1kg',
+        imgAlt: '이미지 설명',
+        imgUrl:
+          'https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png',
+        price: 7100,
+        quantity: 1,
+        checked: false,
+      },
+      {
+        id: 2,
+        name: '[든든] 신-키리모찌 1kg',
+        imgAlt: '이미지 설명',
+        imgUrl:
+          'https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png',
+        price: 12000,
+        quantity: 1,
+        checked: false,
+      },
+    ],
+  },
+  {
+    id: 1,
+    products: [
+      {
+        id: 1,
+        name: '[든든] 냉동조미유부삼각 (60장) 1kg',
+        image:
+          'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
+        price: 8400,
+        quantity: 1,
+        checked: false,
+      },
+    ],
+  },
+];
