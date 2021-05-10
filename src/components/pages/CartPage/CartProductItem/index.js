@@ -4,28 +4,18 @@ import { useQuantityStepper } from '../../../../hooks';
 import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
 
-/*
-  item 데이터 형식
-  {
-    "id": "1",
-    "name": "PET보틀-정사각(420ml)",
-    "price": "43400",
-    "img": "/mockImages/img1.png"
-  },
-*/
-
 export const CartProductItem = (props) => {
-  const { item, ...rest } = props;
-  const { name, price, img } = item;
+  const { product, onRemoveProduct, ...rest } = props;
+  const { id, name, price, img, isSelected } = product;
   const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = useQuantityStepper();
 
   return (
     <Styled.Container {...rest}>
-      <Checkbox />
+      <Checkbox isChecked={isSelected} />
       <Styled.Image src={img} />
       <Styled.Name>{name}</Styled.Name>
       <Styled.Controller>
-        <Button children={<TrashCanIcon />} />
+        <Button children={<TrashCanIcon />} onClick={() => onRemoveProduct(id)} />
         <QuantityStepper
           quantity={quantity}
           handleQuantityChange={handleQuantityChange}
@@ -39,9 +29,12 @@ export const CartProductItem = (props) => {
 };
 
 CartProductItem.propTypes = {
-  item: PropTypes.shape({
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     img: PropTypes.string,
-  }),
+    isSelected: PropTypes.bool,
+  }).isRequired,
+  onRemoveProduct: PropTypes.func.isRequired,
 };
