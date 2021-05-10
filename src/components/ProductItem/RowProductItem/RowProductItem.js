@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { numberWithCommas } from '../../../shared/utils';
 import { Container, Image, ProductContainer, ProductDetail, Name } from './RowProductItem.styles';
 
 const RowProductItem = ({ imgSrc, name, price, amount }) => (
@@ -7,7 +8,7 @@ const RowProductItem = ({ imgSrc, name, price, amount }) => (
     <ProductContainer>
       <Name>{name}</Name>
       <ProductDetail>
-        {price && <span>{`${price} 원 / `}</span>}
+        {price && <span>{`${numberWithCommas(price)} 원 / `}</span>}
         {amount && <span>{`수량: ${amount} 개`}</span>}
       </ProductDetail>
     </ProductContainer>

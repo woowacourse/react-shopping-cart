@@ -22,6 +22,7 @@ import RowProductItem from '../../components/ProductItem/RowProductItem/RowProdu
 import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
 import useServerAPI from '../../hooks/useServerAPI';
 import { deleteShoppingCartItems } from '../../redux/action';
+import { numberWithCommas } from '../../shared/utils';
 
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -134,7 +135,9 @@ const ShoppingCartPage = () => {
           <OptionContainer>
             <CheckBox id="all-check" onClick={onClickAllCheckBox} isChecked={isAllChecked} />
             <span>모두선택</span>
-            <DeleteButton onClick={() => onClickDeleteButton()}>상품삭제</DeleteButton>
+            <DeleteButton onClick={() => onClickDeleteButton()} disabled={!checkedIdList.length}>
+              상품삭제
+            </DeleteButton>
           </OptionContainer>
 
           <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
@@ -159,7 +162,7 @@ const ShoppingCartPage = () => {
                       onClickUp={() => onClickAmountCounter(id, 'up')}
                       onClickDown={() => onClickAmountCounter(id, 'down')}
                     />
-                    <span>{`${price * amount}원`}</span>
+                    <span>{`${numberWithCommas(price * amount)}원`}</span>
                   </ShoppingCartItemOption>
                 </ShoppingCartItemContainer>
               );

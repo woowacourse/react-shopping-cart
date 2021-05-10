@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { numberWithCommas } from '../../shared/utils';
 import { Container, Title, Content, PaymentDetail, PaymentButton } from './PaymentInfoBox.styles';
 
 const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick, isDisable }) => (
@@ -7,7 +8,7 @@ const PaymentInfoBox = ({ title, detailText, price, buttonText, onClick, isDisab
     <Content>
       <PaymentDetail>
         <span>{detailText}</span>
-        <span>{`${price} 원`}</span>
+        <span>{`${numberWithCommas(price)} 원`}</span>
       </PaymentDetail>
       <PaymentButton onClick={onClick} disabled={isDisable}>
         {buttonText}

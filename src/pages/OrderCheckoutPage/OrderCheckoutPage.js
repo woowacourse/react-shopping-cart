@@ -12,6 +12,7 @@ import {
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
 import { useServerAPI } from '../../hooks';
+import { numberWithCommas } from '../../shared/utils';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -61,7 +62,7 @@ const OrderCheckoutPage = () => {
             title="결제금액"
             detailText="총 결제금액"
             price={expectedPrice}
-            buttonText={`${expectedPrice}원 결제하기`}
+            buttonText={`${numberWithCommas(expectedPrice)}원 결제하기`}
             onClick={onClickPaymentButton}
           />
         </PaymentInfoBoxContainer>
