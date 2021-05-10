@@ -1,5 +1,6 @@
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
+const DELETE_CHECKED_SHOPPING_CART_LIST = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_LIST';
 const FETCH_SHOPPING_CART_LIST = 'shoppingCart/FETCH_SHOPPING_CART_LIST';
 const TOGGLE_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_SHOPPING_CART_ITEM';
 const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_CART_ITEM';
@@ -15,6 +16,10 @@ export const insertShoppingCartItem = (shoppingCartItem) => ({
 export const deleteShoppingCartItem = (shoppingCartItemId) => ({
   type: DELETE_SHOPPING_CART_ITEM,
   payload: shoppingCartItemId,
+});
+
+export const deleteCheckedShoppingCartList = () => ({
+  type: DELETE_CHECKED_SHOPPING_CART_LIST,
 });
 
 export const fetchShoppingCartList = (shoppingCartList) => ({
@@ -57,6 +62,11 @@ const shoppingCart = (state = initialState, action) => {
       return {
         ...state,
         shoppingCartList: state.shoppingCartList.filter((shoppingCartItem) => shoppingCartItem.id !== action.payload),
+      };
+    case DELETE_CHECKED_SHOPPING_CART_LIST:
+      return {
+        ...state,
+        shoppingCartList: state.shoppingCartList.filter((shoppingCartItem) => !shoppingCartItem.isChecked),
       };
     case FETCH_SHOPPING_CART_LIST: {
       return {

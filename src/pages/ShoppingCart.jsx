@@ -7,7 +7,7 @@ import PageTitle from '../components/pageTitle/PageTitle';
 import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
-import { toggleAllShoppingCartItem } from '../modules/shoppingCart';
+import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
 
 const Content = styled.section`
   position: relative;
@@ -40,6 +40,17 @@ const ShoppingCart = () => {
     dispatch(toggleAllShoppingCartItem());
   };
 
+  // TODO: custom confirm 다이얼로그 만들기
+  const handleCheckedShoppingCartListDelete = () => {
+    if (!window.confirm(`${checkedShoppingCartList.length}개의 상품을 삭제하시겠습니까?`)) return;
+
+    checkedShoppingCartList.forEach(({ id }) =>
+      fetch(`http://localhost:4000/shoppingCartList/${id}`, { method: 'DELETE' })
+    );
+
+    dispatch(deleteCheckedShoppingCartList());
+  };
+
   return (
     <>
       <PageTitle>장바구니</PageTitle>
@@ -49,7 +60,13 @@ const ShoppingCart = () => {
             <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
               {isChecked ? '선택해제' : '전체선택'}
             </Checkbox>
-            <Button type={BUTTON_TYPE.X_SMALL}>상품삭제</Button>
+            <Button
+              onClick={handleCheckedShoppingCartListDelete}
+              type={BUTTON_TYPE.X_SMALL}
+              disabled={!checkedShoppingCartList.length}
+            >
+              상품삭제
+            </Button>
           </ShoppingCartItemModification>
           <SelectedProductList
             listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}

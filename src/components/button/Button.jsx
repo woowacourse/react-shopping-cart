@@ -44,14 +44,15 @@ const buttonStyle = {
 const Container = styled.button`
   text-align: center;
   border: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
+  color: ${({ disabled }) => (disabled ? COLOR.GRAY_300 : 'inherit')};
 
   ${({ type }) => (Object.keys(BUTTON_TYPE).includes(type) ? buttonStyle[type] : buttonStyle['MEDIUM'])};
   ${({ styles }) => styles};
 `;
 
-const Button = ({ children, type, styles }) => (
-  <Container type={type} styles={styles}>
+const Button = ({ children, type, styles, disabled = false, onClick }) => (
+  <Container type={type} styles={styles} disabled={disabled} onClick={onClick}>
     {children}
   </Container>
 );
