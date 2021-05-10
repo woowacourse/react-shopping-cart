@@ -4,7 +4,7 @@ import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
-import { toggleShoppingCartItem } from '../../modules/shoppingCart';
+import { decreaseCount, increaseCount, toggleShoppingCartItem } from '../../modules/shoppingCart';
 import { useDispatch } from 'react-redux';
 
 const Container = styled.ul`
@@ -39,11 +39,20 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
-const ShoppingCartItem = ({ id, src, alt, name, price, isChecked }) => {
+const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   const dispatch = useDispatch();
 
   const handleShoppingCartItemToggle = () => {
     dispatch(toggleShoppingCartItem(id));
+  };
+
+  // TODO: 개수 error 처리 모달
+  const handleIncrement = () => {
+    count < 100 && dispatch(increaseCount(id));
+  };
+
+  const handleDecrement = () => {
+    count > 1 && dispatch(decreaseCount(id));
   };
 
   return (
@@ -55,8 +64,8 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked }) => {
       </LeftContent>
       <RightContent>
         <TrashCanImage src={trashCan} alt="쓰레기통" />
-        <CountInput />
-        <div>{price.toLocaleString('ko-KR')} 원</div>
+        <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
+        <div>{(count * price).toLocaleString('ko-KR')} 원</div>
       </RightContent>
     </Container>
   );

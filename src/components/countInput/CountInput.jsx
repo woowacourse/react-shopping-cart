@@ -73,14 +73,14 @@ const Decrement = styled(StyledButton)`
   border-width: 1px 1px 1px 0;
 `;
 
-const CountInput = () => (
+const CountInput = ({ value, onIncrease, onDecrease }) => (
   <Container>
-    <NumberInput value="1" min="1" disabled />
+    <NumberInput value={value} disabled />
     <ButtonWrapper>
-      <Increment>
+      <Increment onClick={onIncrease}>
         <img src={upArrow} alt="증가" />
       </Increment>
-      <Decrement>
+      <Decrement onClick={onDecrease}>
         <img src={downArrow} alt="감소" />
       </Decrement>
     </ButtonWrapper>

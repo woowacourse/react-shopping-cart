@@ -2,6 +2,8 @@ const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const FETCH_SHOPPING_CART_LIST = 'shoppingCart/FETCH_SHOPPING_CART_LIST';
 const TOGGLE_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_SHOPPING_CART_ITEM';
 const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_CART_ITEM';
+const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
+const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
 // TODO: payload or 우리가 원하는 키 주기
 export const insertShoppingCartItem = (shoppingCartItem) => ({
@@ -21,6 +23,16 @@ export const toggleShoppingCartItem = (shoppingCartItemId) => ({
 
 export const toggleAllShoppingCartItem = () => ({
   type: TOGGLE_ALL_SHOPPING_CART_ITEM,
+});
+
+export const increaseCount = (shoppingCartItemId) => ({
+  type: INCREASE_COUNT,
+  payload: shoppingCartItemId,
+});
+
+export const decreaseCount = (shoppingCartItemId) => ({
+  type: DECREASE_COUNT,
+  payload: shoppingCartItemId,
 });
 
 const initialState = {
@@ -67,13 +79,39 @@ const shoppingCart = (state = initialState, action) => {
     case TOGGLE_ALL_SHOPPING_CART_ITEM: {
       return {
         ...state,
-        shoppingCartList: [
-          ...state.shoppingCartList.map((shoppingCartItem) => ({
-            ...shoppingCartItem,
-            isChecked: !state.isAllShoppingCartItemChecked,
-          })),
-        ],
+        shoppingCartList: state.shoppingCartList.map((shoppingCartItem) => ({
+          ...shoppingCartItem,
+          isChecked: !state.isAllShoppingCartItemChecked,
+        })),
         isAllShoppingCartItemChecked: !state.isAllShoppingCartItemChecked,
+      };
+    }
+    case INCREASE_COUNT: {
+      return {
+        ...state,
+        shoppingCartList: state.shoppingCartList.map((shoppingCartItem) => {
+          if (shoppingCartItem.id === action.payload) {
+            return {
+              ...shoppingCartItem,
+              count: shoppingCartItem.count + 1,
+            };
+          }
+          return shoppingCartItem;
+        }),
+      };
+    }
+    case DECREASE_COUNT: {
+      return {
+        ...state,
+        shoppingCartList: state.shoppingCartList.map((shoppingCartItem) => {
+          if (shoppingCartItem.id === action.payload) {
+            return {
+              ...shoppingCartItem,
+              count: shoppingCartItem.count - 1,
+            };
+          }
+          return shoppingCartItem;
+        }),
       };
     }
     default:
