@@ -25,9 +25,12 @@ const PaymentAmountWrapper = styled.div`
   top: 50px;
   right: 0;
 `;
+const getExpectedPaymentAmount = (checkedShoppingCartList) =>
+  checkedShoppingCartList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
 const ShoppingCart = () => {
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
+  const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
 
   const [isChecked, setCheck] = useState(false);
 
@@ -54,7 +57,11 @@ const ShoppingCart = () => {
           />
         </div>
         <PaymentAmountWrapper>
-          <PaymentAmount type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART} price={40000} count={2} />
+          <PaymentAmount
+            type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
+            price={getExpectedPaymentAmount(checkedShoppingCartList)}
+            count={checkedShoppingCartList.length}
+          />
         </PaymentAmountWrapper>
       </Content>
     </>
