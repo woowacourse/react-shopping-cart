@@ -5,7 +5,7 @@ import FloatingBox from '../components/FloatingBox';
 import CheckBox from '../components/utils/CheckBox';
 import Button from '../components/utils/Button';
 import { paymentItems } from '../data/mock';
-import ImageWrapper from '../components/utils/ImageWrapper';
+import Image from '../components/utils/Image';
 import IconButton from '../components/utils/IconButton';
 import CounterButton from '../components/CounterButton';
 import bin from '../asset/bin-icon.svg';
@@ -91,7 +91,7 @@ const getPaymentItem = (paymentsItems) =>
     <CartItem key={paymentItem.id}>
       <CheckBox id={paymentItem.id} />
       <ItemContents>
-        <ImageWrapper
+        <Image
           width="144px"
           height="144px"
           src={paymentItem.image}

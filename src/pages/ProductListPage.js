@@ -1,13 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+
+import GridColumnList from '../components/utils/GridColumnList';
+import Image from '../components/utils/Image';
+import IconButton from '../components/utils/IconButton';
+import PriceText from '../components/utils/PriceText';
 
 import { products } from '../data/mock';
 import cartImage from '../asset/cart.png';
 
-import GridColumnList from '../components/utils/GridColumnList';
-import ImageWrapper from '../components/utils/ImageWrapper';
-import IconButton from '../components/utils/IconButton';
-import PriceText from '../components/utils/PriceText';
+import styled from 'styled-components';
 
 const StyledProductListWrapper = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ function ProductListPage() {
   const getProductItem = () => {
     return products.map((product) => (
       <StyledProduct key={product.id}>
-        <ImageWrapper src={product.image} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
+        <Image src={product.image} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
 
         <StyledProductDescDiv>
           <StyledProductInfoDiv>
