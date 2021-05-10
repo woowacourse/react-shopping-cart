@@ -4,6 +4,8 @@ import Button from '../../components/shared/Button';
 import HighlightText from '../../components/shared/HighlightText';
 import NumericInput from '../../components/shared/NumericInput';
 import Product from '../../components/shared/Product';
+import IconButton from '../../components/shared/IconButton';
+import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
 import { COLOR, MESSAGE } from '../../constants';
 import {
   setAllCartItemCheckbox,
@@ -39,12 +41,15 @@ const Cart = () => {
     : checkedCount
     ? `${checkedCount}개 선택`
     : '전체선택';
+
   const totalPrice = list
     .filter(item => item.checked)
     .reduce((total, item) => {
       const { price, quantity } = item;
       return total + price * quantity;
     }, 0);
+  const isPurchasable = totalPrice > 0;
+
   const checkedItemIdList = list.filter(item => item.checked).map(({ id }) => id);
 
   const onCheckBoxChange = ({ id }) => {
@@ -84,6 +89,7 @@ const Cart = () => {
               borderColor={COLOR['GRAY-300']}
               fontSize="1rem"
               onClick={() => onDelete(checkedItemIdList)}
+              disabled={checkedCount === 0}
             >
               상품 삭제
             </Button>
@@ -107,9 +113,9 @@ const Cart = () => {
                     information={{ title: name }}
                     extra={
                       <>
-                        <button type="button" onClick={() => onDelete([id])}>
-                          휴지통
-                        </button>
+                        <IconButton type="button" size="small" onClick={() => onDelete([id])}>
+                          <TrashBin />
+                        </IconButton>
                         <NumericInput
                           min={1}
                           max={99}
@@ -143,6 +149,7 @@ const Cart = () => {
               backgroundColor={COLOR.MINT}
               color={COLOR.WHITE}
               fontSize="1.5rem"
+              disabled={!isPurchasable}
             >
               주문하기
             </Button>
