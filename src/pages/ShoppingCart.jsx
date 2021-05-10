@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button, { BUTTON_TYPE } from '../components/button/Button';
 import Checkbox from '../components/checkbox/Checkbox';
@@ -7,6 +7,7 @@ import PageTitle from '../components/pageTitle/PageTitle';
 import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
+import { toggleAllShoppingCartItem } from '../modules/shoppingCart';
 
 const Content = styled.section`
   position: relative;
@@ -25,17 +26,18 @@ const PaymentAmountWrapper = styled.div`
   top: 50px;
   right: 0;
 `;
+
 const getExpectedPaymentAmount = (checkedShoppingCartList) =>
   checkedShoppingCartList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
 const ShoppingCart = () => {
+  const dispatch = useDispatch();
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
+  const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
   const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
 
-  const [isChecked, setCheck] = useState(false);
-
-  const handleCheckbox = ({ target }) => {
-    setCheck(target.checked);
+  const handleAllShoppingCartItemToggle = () => {
+    dispatch(toggleAllShoppingCartItem());
   };
 
   return (
@@ -44,8 +46,8 @@ const ShoppingCart = () => {
       <Content>
         <div>
           <ShoppingCartItemModification>
-            <Checkbox onChange={handleCheckbox} isChecked={isChecked}>
-              선택해제
+            <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
+              {isChecked ? '선택해제' : '전체선택'}
             </Checkbox>
             <Button type={BUTTON_TYPE.X_SMALL}>상품삭제</Button>
           </ShoppingCartItemModification>

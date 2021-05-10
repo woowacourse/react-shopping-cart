@@ -41,6 +41,7 @@ const TrashCanImage = styled.img`
 
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked }) => {
   const dispatch = useDispatch();
+
   const handleShoppingCartItemToggle = () => {
     dispatch(toggleShoppingCartItem(id));
   };
