@@ -1,25 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledCartButton = styled.button`
-  max-width: 43px;
-  height: 43px;
+const ButtonWrapper = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 
   &:focus {
     outline: none;
   }
+
+  && {
+    ${(props) => props.css}
+  }
 `;
 
 function IconButton(props) {
-  const { src, alt } = props;
+  const { type = 'button', src, alt, width, height, css } = props;
 
   return (
-    <StyledCartButton>
+    <ButtonWrapper type={type} width={width} height={height} css={css}>
       <img src={src} alt={alt} />
-    </StyledCartButton>
+    </ButtonWrapper>
   );
 }
 
