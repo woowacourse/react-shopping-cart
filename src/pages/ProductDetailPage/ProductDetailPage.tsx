@@ -20,7 +20,6 @@ const defaultProduct: Product = {
 };
 
 const ProductDetailPage = () => {
-  const productId = window.location.hash.split('/').slice(-1);
   const history = useHistory();
   const [productQuantity, setProductQuantity] = useState<string>('1');
   const [product, setProduct] = useState<Product>(defaultProduct);
@@ -31,6 +30,7 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const productId = window.location.hash.split('/').slice(-1);
         const response = await axios.get(`${URL.PRODUCTS}/${productId}`);
         if (response.status !== STATUS_CODE.GET_SUCCESS) {
           throw new Error('상품 상세 정보 조회 실패');
@@ -45,7 +45,7 @@ const ProductDetailPage = () => {
       }
     };
     fetchData();
-  }, [productId]);
+  }, []);
 
   const onCartButtonClick = async () => {
     try {
