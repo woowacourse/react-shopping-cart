@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import logo from '../asset/logo.svg';
 
 import styled from 'styled-components';
 
-const StyledHeader = styled.header`
+const HeaderWrapper = styled.header`
   min-width: 1440px;
   height: 80px;
   background-color: #2ac1bc;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
-const StyledHeaderDiv = styled.div`
+const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,18 +23,18 @@ const StyledHeaderDiv = styled.div`
 `;
 
 // TODO : h1 태그에 글자가 없어서 접근성 요소 넣어야함
-const StyledLogoImage = styled.img`
+const LogoImage = styled.img`
   width: 360px;
   height: 44px;
 `;
 
-const StyledNavUl = styled.ul`
+const NavUl = styled.ul`
   display: flex;
   justify-content: space-between;
   width: 225px;
 `;
 
-const StyledNavItem = styled(NavLink)`
+const NavItem = styled(NavLink)`
   text-decoration: none;
   color: #ffffff;
   font-size: 24px;
@@ -42,26 +42,26 @@ const StyledNavItem = styled(NavLink)`
 
 function Header() {
   return (
-    <StyledHeader>
-      <StyledHeaderDiv>
+    <HeaderWrapper>
+      <HeaderDiv>
         <h1>
-          <Link to="/">
-            <StyledLogoImage src={logo} alt="신세티케의 장바구니 로고" />
-          </Link>
+          <NavLink to="/">
+            <LogoImage src={logo} alt="신세티케의 장바구니 로고" />
+          </NavLink>
         </h1>
 
         <nav>
-          <StyledNavUl>
+          <NavUl>
             <li>
-              <StyledNavItem to="/cart">장바구니</StyledNavItem>
+              <NavItem to="/cart">장바구니</NavItem>
             </li>
             <li>
-              <StyledNavItem to="/orders">주문목록</StyledNavItem>
+              <NavItem to="/orders">주문목록</NavItem>
             </li>
-          </StyledNavUl>
+          </NavUl>
         </nav>
-      </StyledHeaderDiv>
-    </StyledHeader>
+      </HeaderDiv>
+    </HeaderWrapper>
   );
 }
 
