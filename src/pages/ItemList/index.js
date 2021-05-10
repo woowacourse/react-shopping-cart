@@ -2,8 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Grid, Card } from '../../components/shared';
-import { Description, Price, CartButton, CartIcon } from './style';
-import cartIcon from '../../assets/icons/cart.svg';
+import { Description, Price } from './style';
+import IconButton from '../../components/shared/IconButton';
+import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 import { PATH } from '../../constants';
 import { addItemToCart } from '../../store';
 import { API } from '../../utils';
@@ -26,7 +27,8 @@ const ItemList = () => {
           description={
             <Description>
               <Price>{price.toLocaleString('ko-KR')} 원</Price>
-              <CartButton
+              <IconButton
+                size="medium"
                 onClick={async () => {
                   try {
                     const data = { id: id, quantity: 1 };
@@ -41,8 +43,8 @@ const ItemList = () => {
                   }
                 }}
               >
-                <CartIcon src={cartIcon} alt="장바구니" />
-              </CartButton>
+                <CartIcon />
+              </IconButton>
             </Description>
           }
         />
