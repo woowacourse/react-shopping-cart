@@ -1,10 +1,10 @@
 export {
   ADD_PRODUCT,
   REMOVE_PRODUCT,
-  REMOVE_PRODUCTS,
+  REMOVE_SELECTED_PRODUCTS,
   addProduct,
   removeProduct,
-  removeProducts,
+  removeSelectedProducts,
   cartReducer,
 } from './cartReducer';
 export { store } from './store';

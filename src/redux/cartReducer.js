@@ -4,7 +4,7 @@ import { getPropertyRemoved } from '../utils';
 
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-export const REMOVE_PRODUCTS = 'REMOVE_PRODUCTS';
+export const REMOVE_SELECTED_PRODUCTS = 'REMOVE_SELECTED_PRODUCTS';
 
 /* ACTION CREATOR */
 
@@ -22,10 +22,9 @@ export function removeProduct(id) {
   };
 }
 
-export function removeProducts(ids) {
+export function removeSelectedProducts() {
   return {
-    type: REMOVE_PRODUCTS,
-    payload: ids,
+    type: REMOVE_SELECTED_PRODUCTS,
   };
 }
 
@@ -48,8 +47,9 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_PRODUCT:
       return getPropertyRemoved({ ...state }, payload);
 
-    case REMOVE_PRODUCTS:
-      return payload.reduce((acc, cur) => getPropertyRemoved(acc, cur), { ...state });
+    case REMOVE_SELECTED_PRODUCTS:
+      const leftProducts = Object.entries(state).filter(([_, product]) => !product.isSelected);
+      return Object.fromEntries(leftProducts);
 
     default:
       return state;

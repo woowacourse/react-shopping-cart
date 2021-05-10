@@ -2,10 +2,10 @@ import {
   INITIAL_STATE,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
-  REMOVE_PRODUCTS,
+  REMOVE_SELECTED_PRODUCTS,
   addProduct,
   removeProduct,
-  removeProducts,
+  removeSelectedProducts,
   cartReducer,
 } from './cartReducer';
 
@@ -52,14 +52,13 @@ describe('cartReducer 테스트', () => {
     expect(cartReducer(mockState, removeProduct(mockId))).toEqual(INITIAL_STATE);
   });
 
-  it('removeProducts 함수는 REMOVE_PRODUCT 타입의 액션을 생성한다.', () => {
-    expect(removeProducts([mockId])).toEqual({
-      type: REMOVE_PRODUCTS,
-      payload: [mockId],
+  it('removeSelectedProducts 함수는 REMOVE_PRODUCT 타입의 액션을 생성한다.', () => {
+    expect(removeSelectedProducts()).toEqual({
+      type: REMOVE_SELECTED_PRODUCTS,
     });
   });
 
-  it('REMOVE_PRODUCTS 액션을 받을 경우, cartReducer는 해당 PRODUCT 들을 제거한 state를 반환한다.', () => {
-    expect(cartReducer(mockState, removeProducts([mockId]))).toEqual(INITIAL_STATE);
+  it('REMOVE_SELECTED_PRODUCTS 액션을 받을 경우, cartReducer는 해당 PRODUCT 들을 제거한 state를 반환한다.', () => {
+    expect(cartReducer(mockState, removeSelectedProducts())).toEqual(INITIAL_STATE);
   });
 });
