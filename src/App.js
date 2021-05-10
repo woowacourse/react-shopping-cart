@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
@@ -8,6 +8,7 @@ import { PATH } from './constants';
 import { Cart, ItemList } from './pages';
 import { setItemList, setCartItemList, store } from './store';
 import { API } from './utils';
+import { ReactComponent as Logo } from './assets/icons/logo.svg';
 
 function App() {
   useEffect(() => {
@@ -29,10 +30,20 @@ function App() {
     <>
       <Provider store={store}>
         <GlobalStyle />
-        <Header menuList={['장바구니', '주문목록']} />
+        <Header>
+          <div>
+            <Link to={PATH.MAIN}>
+              <Logo height="48px" />
+            </Link>
+          </div>
+          <div>
+            <Link to={PATH.CART}>장바구니</Link>
+            <Link to={PATH.MYMART_ORDER}>주문목록</Link>,
+          </div>
+        </Header>
         <MainContainer>
           <Switch>
-            <Route exact path={PATH.MAIN} component={ItemList} />
+            <Route exact path={[PATH.MAIN, PATH.GOODS]} component={ItemList} />
             <Route exact path={PATH.GOODS_DETAIL}>
               GOODS_DETAIL
             </Route>

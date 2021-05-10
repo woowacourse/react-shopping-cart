@@ -19,27 +19,20 @@ export const Wrapper = styled.div`
   width: 1440px;
   height: 100%;
   margin: 0 auto;
-`;
 
-export const Logo = styled.img`
-  height: 60%;
-  cursor: pointer;
-`;
+  & a {
+    color: ${COLOR.WHITE};
+    padding: 0 20px;
+    font-size: 1.5rem;
+    color: ${COLOR.WHITE};
+    cursor: pointer;
+    text-decoration: none;
 
-export const Menu = styled.ul`
-  display: flex;
-`;
-
-export const MenuItem = styled.li`
-  padding: 0 20px;
-  font-size: 1.5rem;
-  color: ${COLOR.WHITE};
-  cursor: pointer;
-
-  &:first-child {
-    padding-left: 0;
-  }
-  &:last-child {
-    padding-right: 0;
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
   }
 `;

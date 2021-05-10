@@ -1,25 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Wrapper, Logo, Menu, MenuItem } from './style';
-import logo from '../../assets/icons/logo.svg';
+import { Container, Wrapper } from './style';
 
-const Header = ({ menuList }) => {
+const Header = ({ children }) => {
   return (
     <>
       <Container>
-        <Wrapper>
-          <Logo src={logo} alt="WOOWA SHOP"></Logo>
-          <Menu>
-            {menuList.map(menu => (
-              <MenuItem key={menu}>{menu}</MenuItem>
-            ))}
-          </Menu>
-        </Wrapper>
+        <Wrapper>{children}</Wrapper>
       </Container>
     </>
   );
 };
 
-Header.propTypes = {};
+Header.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Header;
