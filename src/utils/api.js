@@ -21,6 +21,9 @@ const API = {
   getCartItemList: async () => {
     return await request(`${BASE_URL}/cartItemList.json`);
   },
+  purchase: async data => {
+    return await request(`${BASE_URL}/purchase.json`, { method: 'GET', data });
+  },
 };
 
 export default API;

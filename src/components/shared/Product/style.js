@@ -27,7 +27,9 @@ export const Title = styled.h4`
   color: ${COLOR.BLACK};
 `;
 
-export const Description = styled.span``;
+export const Description = styled.div`
+  margin-top: 1rem;
+`;
 
 export const ExtraWrapper = styled.div`
   display: flex;

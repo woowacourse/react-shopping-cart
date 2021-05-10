@@ -5,7 +5,7 @@ import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
-import { Cart, ItemList } from './pages';
+import { Cart, ItemList, Order } from './pages';
 import { setItemList, setCartItemList, store } from './store';
 import { API } from './utils';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
@@ -21,7 +21,6 @@ function App() {
       const result = await API.getCartItemList();
       store.dispatch(setCartItemList(result));
     };
-
     getItemListRequest();
     getCartItemListRequest();
   }, []);
@@ -48,9 +47,7 @@ function App() {
               GOODS_DETAIL
             </Route>
             <Route exact path={PATH.CART} component={Cart} />
-            <Route exact path={PATH.ORDER}>
-              ORDER
-            </Route>
+            <Route exact path={PATH.ORDER} component={Order} />
             <Route exact path={PATH.MYMART_ORDER}>
               MYMART_ORDER
             </Route>

@@ -6,7 +6,7 @@ import NumericInput from '../../components/shared/NumericInput';
 import Product from '../../components/shared/Product';
 import IconButton from '../../components/shared/IconButton';
 import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
-import { COLOR, MESSAGE } from '../../constants';
+import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
   setAllCartItemCheckbox,
   toggleCartItemCheckbox,
@@ -29,10 +29,12 @@ import {
   ReceiptRow,
   CheckBox,
 } from './style';
+import { useHistory } from 'react-router';
 
 const Cart = () => {
   const list = useSelector(state => state.cart);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const checkedCount = list.filter(item => item.checked).length;
   const isAllChecked = checkedCount && checkedCount === list.length;
@@ -132,7 +134,7 @@ const Cart = () => {
           </ProductListWrapper>
         </ProductListContainer>
         <ReceiptWrapper>
-          <ReceiptHeader>결제예상금액 헤더</ReceiptHeader>
+          <ReceiptHeader>결제예상금액</ReceiptHeader>
           <ReceiptContent>
             <ReceiptRow>
               <HighlightText color={COLOR.HIGHLIGHT_MINT} fontSize="1.25rem">
@@ -142,6 +144,7 @@ const Cart = () => {
                 {totalPrice.toLocaleString('ko-KR')} 원
               </HighlightText>
             </ReceiptRow>
+
             <Button
               type="button"
               width="100%"
@@ -150,6 +153,9 @@ const Cart = () => {
               color={COLOR.WHITE}
               fontSize="1.5rem"
               disabled={!isPurchasable}
+              onClick={() => {
+                history.push(PATH.ORDER);
+              }}
             >
               주문하기({checkedCount}개)
             </Button>
