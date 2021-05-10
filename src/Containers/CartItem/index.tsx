@@ -24,6 +24,9 @@ interface ICartItemProps {
   price: number;
   quantity: number;
   isChecked: boolean;
+  orderCount: number;
+  onIncrementOrderCount: MouseEventHandler<HTMLButtonElement>;
+  onDecrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onChangeChecked: ChangeEventHandler<HTMLInputElement>;
   onClickDeleteButton: MouseEventHandler<HTMLButtonElement>;
 }
@@ -34,15 +37,14 @@ const CartItem: VFC<ICartItemProps> = ({
   price,
   quantity,
   isChecked,
+  orderCount,
+  onIncrementOrderCount,
+  onDecrementOrderCount,
   onChangeChecked,
   onClickDeleteButton,
 }) => (
   <Container>
-    <CheckBox
-      checked={isChecked}
-      onChange={onChangeChecked}
-      data-product-id={id}
-    />
+    <CheckBox checked={isChecked} onChange={onChangeChecked} />
     <ProductImageLink to={`/cart/${id}`}>
       <ProductImage
         size="7.75rem"
@@ -70,14 +72,14 @@ const CartItem: VFC<ICartItemProps> = ({
         </svg>
       </button>
       <Counter>
-        <input type="number" min="1" max="100" />
+        <input type="number" value={orderCount} min="1" max="100" />
         <div>
-          <button>
+          <button onClick={onIncrementOrderCount}>
             <Svg viewBox="0 0 10 10">
               <path d="M 4 6, L 5,4 L 6,6"></path>
             </Svg>
           </button>
-          <button>
+          <button onClick={onDecrementOrderCount}>
             <Svg viewBox="0 0 10 10">
               <path d="M 4 4, L 5,6 L 6,4"></path>
             </Svg>

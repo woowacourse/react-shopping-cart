@@ -27,9 +27,16 @@ interface CheckedList {
   [key: string]: boolean;
 }
 
+interface OrderCountList {
+  [key: string]: number;
+}
+
 const Cart: VFC = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
+  const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
+
   const dispatch = useDispatch();
+  // TODO: 에러 어떻게 처리?
   const { cart, requestErrorMessage } = useSelector(
     ({ cart: { cart, requestErrorMessage } }: RootState) => ({
       cart,
@@ -39,37 +46,30 @@ const Cart: VFC = () => {
 
   const totalPrice = cart.reduce((acc, { price }) => acc + price, 0);
 
-  useEffect(() => {
-    dispatch(actions.cart.get.request());
-  }, []);
+  const setCheckedListAll = (checked: boolean) => {
+    setCheckedList(
+      cart.reduce((acc: CheckedList, { id }) => {
+        acc[id] = checked;
 
-  useEffect(() => {
-    const initialCheckList = cart.reduce((acc: CheckedList, { id }) => {
-      acc[id] = true;
+        return acc;
+      }, {})
+    );
+  };
 
-      return acc;
-    }, {});
+  const resetOrderCountList = () => {
+    setOrderCountList(
+      cart.reduce((acc: OrderCountList, { id }) => {
+        acc[id] = 1;
 
-    setCheckedList(initialCheckList);
-  }, [cart]);
-
-  const onChangeTotalChecked = () => {};
-
-  const onChangeChecked: ChangeEventHandler<HTMLInputElement> = ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
-    if (target.dataset.productId === undefined) {
-      return;
-    }
-
-    const id = target.dataset.productId;
-
-    setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
+        return acc;
+      }, {})
+    );
   };
 
   const getCheckedCount = () => {
-    return Object.values(checkedList).filter((checked) => checked).length;
+    return Object.values(checkedList).filter(Boolean).length;
   };
+
   const getTotalCheckedIndicator = () => {
     const checkedCount = getCheckedCount();
 
@@ -77,6 +77,56 @@ const Cart: VFC = () => {
     if (checkedCount === 0) return "전체 선택";
     return `${checkedCount}개 선택`;
   };
+
+  const onChangeTotalChecked = () => {
+    const checkedCount = getCheckedCount();
+
+    setCheckedListAll(checkedCount !== cart.length);
+  };
+
+  const onChangeChecked = (id: string) => {
+    setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const onIncrementOrderCount = (id: string) => {
+    setOrderCountList((prev) => {
+      const prevCount = prev[id];
+
+      // TODO: 매직넘어
+      if (prevCount >= 100) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [id]: prev[id] + 1,
+      };
+    });
+  };
+
+  const onDecrementOrderCount = (id: string) => {
+    setOrderCountList((prev) => {
+      const prevCount = prev[id];
+
+      if (prevCount <= 1) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [id]: prev[id] - 1,
+      };
+    });
+  };
+
+  useEffect(() => {
+    dispatch(actions.cart.get.request());
+  }, []);
+
+  useEffect(() => {
+    setCheckedListAll(true);
+    resetOrderCountList();
+  }, [cart]);
 
   return (
     <>
@@ -115,7 +165,10 @@ const Cart: VFC = () => {
                   price={price}
                   quantity={quantity}
                   isChecked={checkedList[id]}
-                  onChangeChecked={onChangeChecked}
+                  orderCount={orderCountList[id]}
+                  onIncrementOrderCount={() => onIncrementOrderCount(id)}
+                  onDecrementOrderCount={() => onDecrementOrderCount(id)}
+                  onChangeChecked={() => onChangeChecked(id)}
                   onClickDeleteButton={() => {}}
                 />
               </li>
