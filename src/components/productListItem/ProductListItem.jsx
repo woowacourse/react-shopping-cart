@@ -32,8 +32,7 @@ const ProductListItem = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleShoppingCartImage = (product) => {
-    const shoppingCartItem = { ...product, isChecked: true };
-    dispatch(insertShoppingCartItem(shoppingCartItem));
+    const shoppingCartItem = { ...product, isChecked: true, count: 1 };
 
     fetch('http://localhost:4000/shoppingCartList', {
       method: 'POST',
@@ -42,6 +41,8 @@ const ProductListItem = ({ product }) => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     });
+
+    dispatch(insertShoppingCartItem(shoppingCartItem));
   };
 
   return (

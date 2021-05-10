@@ -4,7 +4,12 @@ import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
-import { decreaseCount, increaseCount, toggleShoppingCartItem } from '../../modules/shoppingCart';
+import {
+  decreaseCount,
+  deleteShoppingCartItem,
+  increaseCount,
+  toggleShoppingCartItem,
+} from '../../modules/shoppingCart';
 import { useDispatch } from 'react-redux';
 
 const Container = styled.ul`
@@ -46,6 +51,17 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
     dispatch(toggleShoppingCartItem(id));
   };
 
+  // TODO: 커스텀 confirm 다이얼로그 만들기
+  const handleShoppingCartItemDelete = () => {
+    if (!window.confirm('해당 상품을 삭제하시겠습니까?')) return;
+
+    fetch(`http://localhost:4000/shoppingCartList/${id}`, {
+      method: 'DELETE',
+    });
+
+    dispatch(deleteShoppingCartItem(id));
+  };
+
   // TODO: 개수 error 처리 모달
   const handleIncrement = () => {
     count < 100 && dispatch(increaseCount(id));
@@ -63,7 +79,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
         <Name>{name}</Name>
       </LeftContent>
       <RightContent>
-        <TrashCanImage src={trashCan} alt="쓰레기통" />
+        <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
         <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
         <div>{(count * price).toLocaleString('ko-KR')} 원</div>
       </RightContent>

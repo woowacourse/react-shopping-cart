@@ -1,4 +1,5 @@
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
+const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
 const FETCH_SHOPPING_CART_LIST = 'shoppingCart/FETCH_SHOPPING_CART_LIST';
 const TOGGLE_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_SHOPPING_CART_ITEM';
 const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_CART_ITEM';
@@ -9,6 +10,11 @@ const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 export const insertShoppingCartItem = (shoppingCartItem) => ({
   type: INSERT_SHOPPING_CART_ITEM,
   payload: shoppingCartItem,
+});
+
+export const deleteShoppingCartItem = (shoppingCartItemId) => ({
+  type: DELETE_SHOPPING_CART_ITEM,
+  payload: shoppingCartItemId,
 });
 
 export const fetchShoppingCartList = (shoppingCartList) => ({
@@ -46,6 +52,11 @@ const shoppingCart = (state = initialState, action) => {
       return {
         ...state,
         shoppingCartList: [...state.shoppingCartList, action.payload],
+      };
+    case DELETE_SHOPPING_CART_ITEM:
+      return {
+        ...state,
+        shoppingCartList: state.shoppingCartList.filter((shoppingCartItem) => shoppingCartItem.id !== action.payload),
       };
     case FETCH_SHOPPING_CART_LIST: {
       return {
