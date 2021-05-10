@@ -1,9 +1,1 @@
-<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<path d="M0 0H24V25H0V0Z" fill="url(#pattern0)"/>
-<defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0" transform="translate(-0.0208333) scale(0.0260417 0.025)"/>
-</pattern>
-<image id="image0" width="40" height="40" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABmUExURbu7u////729vbu7u7y8vLy8vLy8vEdwTLy8vLy8vLy8vL+/v7u7u7y8vLu7u7u7u729vbu7u7+/v7u7u7u7u7u7u7u7u7y8vL6+vru7u7y8vL29vbu7u7u7u7y8vLy8vLu7u7u7u6hNFAIAAAAhdFJOU4ABRsRoNnsAf4N6JJOSfL2+fTBxzPxXvzN4b1Z1zcCC+y6w4fIAAACdSURBVDjL7dTJDsIgFEBROvponedZ7///pKYmDS3QIBuN8W7K4iSEqWoUmIqA9bZSnapT7YKrDVb3ow33OFta8ABr3Z1aX+BsQQXWwm6wsKA4oIapAaVpDjvpdYXZa9RAAnoPSkBxRxgAXXvY39/vgc+DFPP7h78LP3HNxAfFhCVkylMGZQvT4deftjAZD7lJYrzrIvdNnRfxP/vhHjYnSVqiKRrnAAAAAElFTkSuQmCC"/>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138 138"><defs><style>.cls-1{fill:#ddd;}</style></defs><g id="레이어_2" data-name="레이어 2"><g id="레이어_1-2" data-name="레이어 1"><path class="cls-1" d="M116,120.81a3.19,3.19,0,0,1-3.19,3.19H25.19A3.19,3.19,0,0,1,22,120.81V46H8v74.81A17.21,17.21,0,0,0,25.19,138h87.62A17.21,17.21,0,0,0,130,120.81V46H116Z"/><path class="cls-1" d="M113,23V14.06A14.08,14.08,0,0,0,99,0H39A14.08,14.08,0,0,0,25,14.06V23H0V37H138V23ZM39,14l60,.06V23H39Z"/><rect class="cls-1" x="47.35" y="62" width="14" height="45"/><rect class="cls-1" x="78.35" y="62" width="14" height="45"/></g></g></svg>
