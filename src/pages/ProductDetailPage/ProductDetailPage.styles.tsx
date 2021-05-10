@@ -6,7 +6,6 @@ export const ProductDetailPage = styled.div`
   min-height: ${({ theme }) => theme.PAGE_HEIGHT};
   justify-content: center;
   align-items: center;
-  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;
 
 export const ProductWrapper = styled.div`
@@ -34,6 +33,17 @@ export const ProductNameWrapper = styled.div`
   border-bottom: 4px solid ${({ theme }) => theme.GRAY_400};
   padding: 15px 35px 19px;
   margin-bottom: 34px;
+`;
+
+export const ButtonWrapper = styled.div`
+  position: relative;
+`;
+
+export const TooltipWrapper = styled.div`
+  position: absolute;
+  left: 50%;
+  top: -150px;
+  transform: translateX(-50%);
 `;
 
 export const ProductName = styled.span``;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Tooltip = styled.div`
   position: relative;
-  width: 254px;
+  width: 260px;
   padding: 24px;
   display: flex;
   flex-direction: column;

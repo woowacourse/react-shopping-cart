@@ -1,13 +1,22 @@
-import { COLORS } from '../../../constants';
-import Button from '../Button/Button';
+import { useEffect } from 'react';
 import * as Styled from './Tooltip.styles';
 
 export interface Props {
   children: React.ReactNode;
   button?: React.ReactNode;
+  setTooltipShown: React.Dispatch<React.SetStateAction<boolean>>;
+  timeOut: number;
 }
 
-const Tooltip = ({ children, button }: Props) => {
+const Tooltip = ({ children, button, setTooltipShown, timeOut }: Props) => {
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setTooltipShown(false);
+    }, timeOut);
+
+    return () => clearTimeout(id);
+  }, [setTooltipShown, timeOut]);
+
   return (
     <Styled.Tooltip>
       <Styled.ToolTipText>{children}</Styled.ToolTipText>

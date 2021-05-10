@@ -7,11 +7,18 @@ export interface Props {
   size: 'SM' | 'MD' | 'LG';
   backgroundColor?: string;
   fontColor?: string;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
-const Button = ({ children, size = 'SM', backgroundColor = COLORS.MINT_500, fontColor = COLORS.WHITE }: Props) => {
+const Button = ({
+  children,
+  size = 'SM',
+  onClick,
+  backgroundColor = COLORS.MINT_500,
+  fontColor = COLORS.WHITE,
+}: Props) => {
   return (
-    <Styled.Button size={size} backgroundColor={backgroundColor} fontColor={fontColor}>
+    <Styled.Button onClick={onClick} size={size} backgroundColor={backgroundColor} fontColor={fontColor}>
       {children}
     </Styled.Button>
   );
