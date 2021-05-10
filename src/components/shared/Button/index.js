@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, ButtonText } from './style';
+import { Container } from './style';
 
 const Button = ({
   children,
