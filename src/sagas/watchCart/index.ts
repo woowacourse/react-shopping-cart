@@ -15,9 +15,13 @@ function* watchCart() {
 
 function* getCart() {
   try {
-    const response: firebase.firestore.DocumentSnapshot<CartItem>[] = yield call(api.cart.get);
+    const response: firebase.firestore.QuerySnapshot<CartItem> = yield call(
+      api.cart.get
+    );
 
-    const cartItem = response.map(cartItem => cartItem.data()).filter(isDefined);
+    const cartItem = response.docs
+      .map((cartItem) => cartItem.data())
+      .filter(isDefined);
 
     yield put(actions.cart.get.success({ cart: cartItem }));
   } catch (error) {
@@ -31,7 +35,9 @@ function* postCart(action: cartPostRequestActionType) {
 
     yield put(actions.cart.post.success());
   } catch (error) {
-    yield put(actions.cart.post.failure({ requestErrorMessage: error.message }));
+    yield put(
+      actions.cart.post.failure({ requestErrorMessage: error.message })
+    );
   }
 }
 

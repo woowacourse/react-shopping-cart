@@ -1,6 +1,8 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
+import store from "../src/store";
 import GlobalStyles from "../src/GlobalStyles";
 
 export const parameters = {
@@ -16,10 +18,12 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <>
-      <MemoryRouter>
-        <GlobalStyles />
-        <Story />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <GlobalStyles />
+          <Story />
+        </MemoryRouter>
+      </Provider>
     </>
   ),
 ];

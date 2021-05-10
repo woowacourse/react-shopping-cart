@@ -4,6 +4,8 @@ import { default as Product } from "./Product";
 import { default as ProductImage } from "./ProductImage";
 import { default as CheckBox } from "./CheckBox";
 import { default as Button } from "./Button";
+
+// TODO: re-export warning
 import {
   default as OrderProductItem,
   OrderProductItemProps,

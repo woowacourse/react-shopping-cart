@@ -8,18 +8,18 @@ import { Container, Desc, Name, Price, CartButton } from "./style";
 
 // TODO: Product type 상속?
 interface IProductProps {
+  id: string;
   Image: ReactElement<IProductImageProps>;
   name: string;
   price: number;
-  id: string;
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Product: VFC<IProductProps> = ({
+  id,
   Image,
   name,
   price,
-  id,
   onClickCart,
 }) => (
   <Container>

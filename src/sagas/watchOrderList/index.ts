@@ -14,11 +14,11 @@ function* watchOrderList() {
 
 function* getOrderList() {
   try {
-    const response: firebase.firestore.DocumentSnapshot<Order>[] = yield call(
+    const response: firebase.firestore.QuerySnapshot<Order> = yield call(
       api.orderList.get
     );
 
-    const orders: Order[] = response
+    const orders: Order[] = response.docs
       .map((order) => order.data())
       .filter(isDefined);
 

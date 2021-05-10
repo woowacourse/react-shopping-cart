@@ -1,5 +1,5 @@
-import { ProductsObject, RequestError } from '../../interface';
-import { productsActionType } from '../../actions/products';
+import { ProductsObject, RequestError } from "../../interface";
+import { productsActionType } from "../../actions/products";
 
 const initialState: ProductsObject & RequestError = {
   products: {},
@@ -8,14 +8,14 @@ const initialState: ProductsObject & RequestError = {
 
 const productsReducer = (state = initialState, action: productsActionType) => {
   switch (action.type) {
-    case 'products/get/success':
+    case "products/get/success":
       return {
         ...state,
         products: { ...action.payload.products },
         requestErrorMessage: null,
       };
 
-    case 'products/get/failure':
+    case "products/get/failure":
       return {
         ...state,
         requestErrorMessage: action.payload.requestErrorMessage,

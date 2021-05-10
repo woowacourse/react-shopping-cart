@@ -11,11 +11,11 @@ function* watchProducts() {
 
 function* getProducts() {
   try {
-    const response: firebase.firestore.DocumentSnapshot<
-      Id & Product
-    >[] = yield call(api.products.get);
+    const response: firebase.firestore.QuerySnapshot<Id & Product> = yield call(
+      api.products.get
+    );
 
-    const products: ProductsObject = response.reduce(
+    const products: ProductsObject = response.docs.reduce(
       (acc: ProductsObject, product) => {
         const productData: (Id & Product) | undefined = product.data();
 
