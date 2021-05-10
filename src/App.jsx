@@ -4,7 +4,7 @@ import * as S from "./App.styled";
 import Nav from "./components/@mixins/Nav/Nav";
 import ProductsList from "./components/ProductsList/ProductsList";
 import Cart from "./components/Cart/Cart";
-import Payment from "./Payment/Payment";
+import Payment from "./components/Payment/Payment";
 import OrdersList from "./components/OrdersList/OrdersList";
 
 const App = () => (

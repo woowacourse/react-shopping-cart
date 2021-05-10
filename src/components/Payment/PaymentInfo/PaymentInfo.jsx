@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CartItem from "../../components/Cart/CartInfo/CartItem/CartItem";
+import CartItem from "../../Cart/CartInfo/CartItem/CartItem";
 import * as S from "./PaymentInfo.styled";
 import PaymentItem from "./PaymentItem/PaymentItem";
 

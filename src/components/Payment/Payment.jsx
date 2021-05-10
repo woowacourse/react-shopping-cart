@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import * as S from "./Payment.styled";
-import PageTitle from "../components/@mixins/PageTitle/PageTitle";
-import ResultBox from "../components/@mixins/ResultBox/ResultBox";
+import PageTitle from "../@mixins/PageTitle/PageTitle";
+import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
-import { formatPrice } from "../utils/utils";
-import { removeChecked } from "../store/modules/cartSlice";
-import { addToOrdersList } from "../store/modules/orderSlice";
+import { formatPrice } from "../../utils/utils";
+import { removeChecked } from "../../store/modules/cartSlice";
+import { addToOrdersList } from "../../store/modules/orderSlice";
 
 const Payment = () => {
   const location = useLocation();
