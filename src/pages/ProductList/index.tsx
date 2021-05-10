@@ -31,8 +31,10 @@ const ProductList: VFC = () => {
 
     const cartItem: CartItem = {
       id,
+      name: products[id].name,
+      price: products[id].price,
+      imageSrc: products[id].imageSrc,
       quantity: 1,
-      isSelected: true,
     };
 
     dispatch(actions.cart.post.request(cartItem));

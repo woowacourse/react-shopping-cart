@@ -7,7 +7,7 @@ import { COLOR } from "../../constants/theme";
 const Container = styled.div`
   display: flex;
   width: 100%;
-  padding: 1.5rem;
+  padding: 1.5rem 0;
   border-top: 1px solid ${COLOR.GRAY_600};
 `;
 

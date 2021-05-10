@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 
-import { Container } from "./style";
+import { Container, H1 } from "./style";
 
 interface IPageTitleProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface IPageTitleProps {
 
 const PageTitle: FC<IPageTitleProps> = ({ children }) => (
   <Container>
-    <h1>{children}</h1>
+    <H1>{children}</H1>
   </Container>
 );
 

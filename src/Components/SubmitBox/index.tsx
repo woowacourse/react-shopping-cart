@@ -2,6 +2,7 @@ import React, { VFC } from "react";
 
 import { Button } from "..";
 import { COLOR } from "../../constants/theme";
+import TextWithHighlight from "../TextWithHighlight";
 import { Container, ContainerProps, Main, Title, Desc } from "./style";
 
 interface SubmitBoxProps extends ContainerProps {
@@ -24,8 +25,24 @@ const SubmitBox: VFC<SubmitBoxProps> = ({
     <Title>{title}</Title>
     <Main>
       <Desc>
-        <p>{target.name}</p>
-        <p>{target.value}</p>
+        <p>
+          <TextWithHighlight
+            highlightColor={COLOR.MAIN}
+            text={target.name}
+            fontSize="1.25rem"
+            color={COLOR.GRAY_600}
+            fontWeight="700"
+          />
+        </p>
+        <p>
+          <TextWithHighlight
+            highlightColor={COLOR.MAIN}
+            text={target.value}
+            fontSize="1.25rem"
+            color={COLOR.GRAY_600}
+            fontWeight="700"
+          />
+        </p>
       </Desc>
       <Button
         width="100%"

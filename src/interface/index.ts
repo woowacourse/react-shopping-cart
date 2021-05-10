@@ -14,16 +14,15 @@ interface Id {
   id: string;
 }
 
-interface CartItem extends Id {
+interface CartItem extends Product, Id {
   quantity: number;
-  isSelected: boolean;
 }
 
 interface Cart {
   cart: CartItem[];
 }
 
-interface OrderItem extends Id {
+interface OrderItem extends Product, Id {
   quantity: number;
 }
 

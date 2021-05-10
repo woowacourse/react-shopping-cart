@@ -8,4 +8,8 @@ const Container = styled(FlexCenter("div"))`
   border-bottom: 0.25rem solid ${COLOR.GRAY_600};
 `;
 
-export { Container };
+const H1 = styled.h1`
+  line-height: 2.5;
+`;
+
+export { Container, H1 };
