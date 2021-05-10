@@ -1,28 +1,27 @@
 import { useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Header from '../../components/Header/Header';
 import OrderContainer from '../../components/OrderContainer/OrderContainer';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import Button from '../../components/Button/Button';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
-import { CUSTOMER_ID, SCHEMA } from '../../constants';
+import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import SuccessAddedModal from '../../components/Modal/SuccessAddedModal/SuccessAddedModal';
+import { addShoppingCartItem } from '../../redux/action';
 
 const OrderListPage = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
-  const { value: shoppingCartList, putData: addShoppingCartItem } = useServerAPI([], SCHEMA.SHOPPING_CART);
   const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
   const { Modal, setModalOpen } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
-    const content = {
-      productIdList: [...new Set([...shoppingCartList[CUSTOMER_ID].productIdList, productId])],
-    };
-    addShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
+    dispatch(addShoppingCartItem(productId));
 
     setModalOpen(true);
   };

@@ -38,6 +38,7 @@
     "consistent-return": "off",
     "implicit-arrow-linebreak": "off",
     "function-paren-newline": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-param-reassign": "off"
   }
 }

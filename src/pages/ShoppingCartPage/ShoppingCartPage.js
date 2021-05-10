@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header/Header';
 import PaymentInfoBox from '../../components/PaymentInfoBox/PaymentInfoBox';
 import CheckBox from '../../components/CheckBox/CheckBox';
@@ -18,8 +19,9 @@ import {
   DeleteButton,
 } from './ShoppingCartPage.styles';
 import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
-import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG, CUSTOMER_ID } from '../../constants';
+import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
 import useServerAPI from '../../hooks/useServerAPI';
+import { deleteShoppingCartItems } from '../../redux/action';
 
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -34,8 +36,13 @@ const TrashCanIcon = (
 const ShoppingCartPage = () => {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
+
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
-  const { value: shoppingCartList, putData: deleteShoppingCartItem } = useServerAPI([], SCHEMA.SHOPPING_CART);
+
+  const { myShoppingCartProductIds } = useSelector(state => ({
+    myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
+  }));
 
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [isAllChecked, setAllChecked] = useState(false);
@@ -59,25 +66,17 @@ const ShoppingCartPage = () => {
   const onClickDeleteButton = targetId => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    const content = {
-      productIdList: targetId
-        ? shoppingCartList[CUSTOMER_ID]?.productIdList.filter(productId => productId !== targetId)
-        : shoppingCartList[CUSTOMER_ID]?.productIdList.filter(productId => !checkedIdList.includes(productId)),
-    };
-
-    deleteShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
+    if (targetId) {
+      dispatch(deleteShoppingCartItems([targetId]));
+    } else {
+      dispatch(deleteShoppingCartItems(checkedIdList));
+    }
   };
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
-    const content = {
-      productIdList: shoppingCartList[CUSTOMER_ID]?.productIdList.filter(
-        productId => !checkedIdList.includes(productId)
-      ),
-    };
-
-    deleteShoppingCartItem(shoppingCartList[CUSTOMER_ID].id, content);
+    dispatch(deleteShoppingCartItems(checkedIdList));
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
@@ -102,19 +101,17 @@ const ShoppingCartPage = () => {
 
   useEffect(() => {
     setShoppingCartItemList(
-      productList
-        .filter(({ id }) => shoppingCartList[CUSTOMER_ID]?.productIdList.includes(id))
-        .map(product => ({ ...product, amount: 1 }))
+      productList.filter(({ id }) => myShoppingCartProductIds.includes(id)).map(product => ({ ...product, amount: 1 }))
     );
-  }, [productList, shoppingCartList]);
+  }, [productList, myShoppingCartProductIds]);
 
   useEffect(() => {
     if (isAllChecked) {
-      setCheckedIdList(shoppingCartList[CUSTOMER_ID]?.productIdList);
+      setCheckedIdList(myShoppingCartProductIds);
     } else {
       setCheckedIdList([]);
     }
-  }, [isAllChecked, shoppingCartList]);
+  }, [isAllChecked, myShoppingCartProductIds]);
 
   useEffect(() => {
     const newExpectedPrice = checkedIdList.reduce((acc, checkedId) => {
