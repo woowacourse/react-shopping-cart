@@ -151,7 +151,7 @@ const Cart = () => {
               fontSize="1.5rem"
               disabled={!isPurchasable}
             >
-              주문하기
+              주문하기({checkedCount}개)
             </Button>
           </ReceiptContent>
         </ReceiptWrapper>
