@@ -1,13 +1,26 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
+import { reactFamily } from '../../../mockData';
+import { getProducts, resetProducts } from '../../../redux/ProductList/actions';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
 
-const ProductListPage = ({ products }) => {
+const ProductListPage = () => {
+  const products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts(reactFamily));
+
+    return () => {
+      dispatch(resetProducts());
+    };
+  }, []);
+
   return (
     <Main>
       <Styled.ProductList>
@@ -31,21 +44,6 @@ const ProductListPage = ({ products }) => {
       </Styled.ProductList>
     </Main>
   );
-};
-
-ProductListPage.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.shape({
-        url: PropTypes.string,
-        alt: PropTypes.string,
-      }),
-      amount: PropTypes.number,
-    })
-  ),
 };
 
 export default ProductListPage;

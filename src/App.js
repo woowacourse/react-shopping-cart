@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
 import Header from './components/Header';
@@ -18,7 +19,7 @@ const App = () => {
       </Header>
       <Switch>
         <Route path={PAGES.PRODUCT.ADDRESS} exact>
-          <ProductListPage products={reactFamily} />
+          <ProductListPage />
         </Route>
         <Route path={PAGES.CART.ADDRESS}>
           <CartPage products={reactFamily.map((item) => ({ ...item, amount: 1, isChecked: false }))} />
