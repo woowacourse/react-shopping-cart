@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const initialState = {
   itemList: [],
@@ -8,9 +9,9 @@ const initialState = {
 
 const ACTION_TYPE = {
   SET_ITEM_LIST: 'SET_ITEM_LIST',
-  SET_CART_ITEM_LIST: 'SET_CART_ITEM_LIST',
 
   ADD_ITEM_TO_CART: 'ADD_ITEM_TO_CART',
+  SET_CART_ITEM_LIST: 'SET_CART_ITEM_LIST',
   TOGGLE_CART_ITEM_CHECKBOX: 'TOGGLE_CART_ITEM_CHECKBOX',
   SET_ALL_CART_ITEM_CHECKBOX: 'SET_ALL_CART_ITEM_CHECKBOX',
   SET_CART_ITEM_QUANTITY: 'SET_CART_ITEM_QUANTITY',
@@ -141,4 +142,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export const store = createStore(reducer);
+export const store = createStore(reducer, composeWithDevTools());
