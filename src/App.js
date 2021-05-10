@@ -6,7 +6,8 @@ import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
 import { Cart, ItemList, Order } from './pages';
-import { setItemList, setCartItemList, store } from './store';
+import { setItemList, store } from './store';
+import { setCartItemList } from './store/cartReducer';
 import { API } from './utils';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
 

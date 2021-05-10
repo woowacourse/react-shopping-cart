@@ -12,7 +12,7 @@ import {
   toggleCartItemCheckbox,
   setCartItemQuantity,
   deleteCartItems,
-} from '../../store';
+} from '../../store/cartReducer';
 import {
   Container,
   Header,
@@ -32,7 +32,7 @@ import {
 import { useHistory } from 'react-router';
 
 const Cart = () => {
-  const list = useSelector(state => state.cart);
+  const list = useSelector(state => state.cartReducer.cart);
   const dispatch = useDispatch();
   const history = useHistory();
 

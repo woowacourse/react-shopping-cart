@@ -6,11 +6,11 @@ import { Description, Price } from './style';
 import IconButton from '../../components/shared/IconButton';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 import { PATH } from '../../constants';
-import { addItemToCart } from '../../store';
+import { addItemToCart } from '../../store/cartReducer';
 import { API } from '../../utils';
 
 const ItemList = () => {
-  const list = useSelector(state => state.itemList);
+  const list = useSelector(state => state.reducer.itemList);
   const dispatch = useDispatch();
   const history = useHistory();
 

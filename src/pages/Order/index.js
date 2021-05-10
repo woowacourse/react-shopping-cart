@@ -5,7 +5,8 @@ import Button from '../../components/shared/Button';
 import HighlightText from '../../components/shared/HighlightText';
 import Product from '../../components/shared/Product';
 import { COLOR, PATH } from '../../constants';
-import { addOrderDetail, deleteCartItems } from '../../store';
+import { addOrderDetail } from '../../store';
+import { deleteCartItems } from '../../store/cartReducer';
 import { API } from '../../utils';
 import {
   Container,
@@ -23,7 +24,7 @@ import {
 } from './style';
 
 const Order = () => {
-  const list = useSelector(state => state.cart.filter(item => item.checked));
+  const list = useSelector(state => state.cartReducer.cart.filter(item => item.checked));
   const totalPrice = list.reduce((total, item) => {
     const { price, quantity } = item;
     return total + price * quantity;
