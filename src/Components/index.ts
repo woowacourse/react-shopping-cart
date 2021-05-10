@@ -4,6 +4,7 @@ import { default as Product } from "./Product";
 import { default as ProductImage } from "./ProductImage";
 import { default as CheckBox } from "./CheckBox";
 import { default as Button } from "./Button";
+import { default as OrderList } from "./OrderList";
 
 // TODO: re-export warning
 import {
@@ -19,6 +20,7 @@ export {
   ProductImage,
   CheckBox,
   Button,
+  OrderList,
   OrderProductItem,
 };
 export { OrderProductItemProps };

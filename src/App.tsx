@@ -5,6 +5,7 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./Components/Header";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
+import Order from "./Pages/Order";
 
 const App: VFC = () => {
   return (
@@ -17,6 +18,9 @@ const App: VFC = () => {
         </Route>
         <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route exact path="/order">
+          <Order />
         </Route>
       </Switch>
     </BrowserRouter>

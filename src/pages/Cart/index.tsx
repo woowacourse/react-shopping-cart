@@ -1,5 +1,7 @@
 import React, { useEffect, useState, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import actions from "../../actions";
 import { Button, CheckBox } from "../../Components";
 import PageTitle from "../../Components/PageTitle";
@@ -9,6 +11,7 @@ import { COLOR } from "../../constants/theme";
 import CartItem from "../../Containers/CartItem";
 import { RootState } from "../../store";
 import {
+  Container,
   Main,
   AllDealControlBox,
   Section,
@@ -29,6 +32,7 @@ const Cart: VFC = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
   const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
 
+  const history = useHistory();
   const dispatch = useDispatch();
   // TODO: 에러 어떻게 처리?
   const { cart, requestErrorMessage } = useSelector(
@@ -115,6 +119,15 @@ const Cart: VFC = () => {
     });
   };
 
+  const onClickSubmitButton = () => {
+    history.push("/order", {
+      order: cart
+        .filter(({ id }) => checkedList[id])
+        .map((item) => ({ ...item, quantity: orderCountList[item.id] })),
+      totalPrice,
+    });
+  };
+
   useEffect(() => {
     dispatch(actions.cart.get.request());
   }, []);
@@ -125,7 +138,7 @@ const Cart: VFC = () => {
   }, [cart]);
 
   return (
-    <>
+    <Container>
       <PageTitle>장바구니</PageTitle>
       <Main>
         <AllDealControlBox>
@@ -180,9 +193,10 @@ const Cart: VFC = () => {
           height="318px"
           target={{ name: "결제예상금액", value: `${totalPrice}원` }}
           buttonName={`주문하기(${getCheckedCount()}개)`}
+          onClickSubmitButton={onClickSubmitButton}
         />
       </Main>
-    </>
+    </Container>
   );
 };
 

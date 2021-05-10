@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { MouseEventHandler, VFC } from "react";
 
 import { Button } from "..";
 import { COLOR } from "../../constants/theme";
@@ -12,6 +12,7 @@ interface SubmitBoxProps extends ContainerProps {
     value: string;
   };
   buttonName: string;
+  onClickSubmitButton: MouseEventHandler<HTMLButtonElement>;
 }
 
 const SubmitBox: VFC<SubmitBoxProps> = ({
@@ -20,6 +21,7 @@ const SubmitBox: VFC<SubmitBoxProps> = ({
   height,
   target,
   buttonName,
+  onClickSubmitButton,
 }) => (
   <Container width={width} height={height}>
     <Title>{title}</Title>
@@ -50,6 +52,7 @@ const SubmitBox: VFC<SubmitBoxProps> = ({
         color={COLOR.WHITE}
         fontSize="1.5rem"
         backgroundColor={COLOR.MAIN}
+        onClick={onClickSubmitButton}
       >
         {buttonName}
       </Button>

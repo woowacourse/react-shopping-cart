@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { FlexBetween } from "../../SharedStyled/Flex";
 
+const Container = styled.div`
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+`;
+
 const Main = styled(FlexBetween("div"))`
   width: 100%;
   flex-wrap: wrap;
@@ -32,11 +38,12 @@ const Section = styled.section`
   width: 60%;
 `;
 
-const CartListTitle = styled.div`
+const CartListTitle = styled.h2`
   padding: 1.625rem 0 1rem;
 `;
 
 export {
+  Container,
   Main,
   AllDealControlBox,
   AllDealSelect,
