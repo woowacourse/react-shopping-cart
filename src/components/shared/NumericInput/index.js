@@ -6,20 +6,43 @@ import arrowDown from '../../../assets/icons/arrow-down.svg';
 
 const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1 }) => {
   const onIncrement = () => {
-    setValue(value + step);
+    if (value < max) {
+      setValue(Number(value) + step);
+    }
   };
 
   const onDecrement = () => {
-    setValue(value - step);
+    if (value > min) {
+      setValue(Number(value) - step);
+    }
   };
 
   const onChange = ({ target }) => {
-    setValue(target.value);
+    if (target.value === '') {
+      setValue(target.value);
+    }
+
+    if (min <= target.value && target.value <= max) {
+      setValue(target.value);
+    }
+  };
+
+  const onFocusout = ({ target }) => {
+    if (target.value === '') {
+      setValue(min);
+    }
   };
 
   return (
     <Container>
-      <Input type="number" min={min} max={max} value={value} onChange={onChange} />
+      <Input
+        type="number"
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChange}
+        onBlur={onFocusout}
+      />
       <ButtonWrapper>
         <Button onClick={onIncrement}>
           <Icon src={arrowUp} alt="증가" />
@@ -35,7 +58,7 @@ const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1 }) => {
 NumericInput.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   setValue: PropTypes.func.isRequired,
   step: PropTypes.number,
 };

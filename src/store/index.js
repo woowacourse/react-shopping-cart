@@ -13,6 +13,7 @@ const ACTION = {
   ADD_ITEM_TO_CART: 'ADD_ITEM_TO_CART',
   TOGGLE_CART_ITEM_CHECKBOX: 'TOGGLE_CART_ITEM_CHECKBOX',
   SET_ALL_CART_ITEM_CHECKBOX: 'SET_ALL_CART_ITEM_CHECKBOX',
+  SET_CART_ITEM_QUANTITY: 'SET_CART_ITEM_QUANTITY',
 };
 
 export const setItemList = data => {
@@ -47,6 +48,13 @@ export const setAllCartItemCheckbox = isChecked => {
   return {
     type: ACTION.SET_ALL_CART_ITEM_CHECKBOX,
     payload: { isChecked },
+  };
+};
+
+export const setCartItemQuantity = ({ id, quantity }) => {
+  return {
+    type: ACTION.SET_CART_ITEM_QUANTITY,
+    payload: { id, quantity },
   };
 };
 
@@ -88,6 +96,18 @@ const reducer = (state = initialState, action) => {
           ...item,
           checked: !action.payload.isChecked,
         })),
+      };
+    case ACTION.SET_CART_ITEM_QUANTITY:
+      return {
+        ...state,
+        cart: state.cart.map(item =>
+          item.id === action.payload.id
+            ? {
+                ...item,
+                quantity: action.payload.quantity,
+              }
+            : item,
+        ),
       };
     default:
       return state;

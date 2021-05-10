@@ -5,7 +5,7 @@ import HighlightText from '../../components/shared/HighlightText';
 import NumericInput from '../../components/shared/NumericInput';
 import Product from '../../components/shared/Product';
 import { COLOR } from '../../constants';
-import { setAllCartItemCheckbox, toggleCartItemCheckbox } from '../../store';
+import { setAllCartItemCheckbox, toggleCartItemCheckbox, setCartItemQuantity } from '../../store';
 import {
   Container,
   Header,
@@ -34,6 +34,12 @@ const Cart = () => {
     : checkedCount
     ? `${checkedCount}개 선택`
     : '전체선택';
+  const totalPrice = list
+    .filter(item => item.checked)
+    .reduce((total, item) => {
+      const { price, quantity } = item;
+      return total + price * quantity;
+    }, 0);
 
   const onCheckBoxChange = ({ id }) => {
     dispatch(toggleCartItemCheckbox(id));
@@ -41,6 +47,10 @@ const Cart = () => {
 
   const onCheckOptionChange = () => {
     dispatch(setAllCartItemCheckbox(isAllChecked));
+  };
+
+  const onItemQuantityChange = ({ id, quantity }) => {
+    dispatch(setCartItemQuantity({ id, quantity }));
   };
 
   return (
@@ -85,8 +95,12 @@ const Cart = () => {
                     extra={
                       <>
                         <button>휴지통</button>
-                        {/* TODO: setValue 만들기 */}
-                        <NumericInput value={quantity} />
+                        <NumericInput
+                          min={1}
+                          max={99}
+                          value={quantity}
+                          setValue={quantity => onItemQuantityChange({ id, quantity })}
+                        />
                         <div>{(price * quantity).toLocaleString('ko-KR')} 원</div>
                       </>
                     }
@@ -104,7 +118,7 @@ const Cart = () => {
                 결제예상금액
               </HighlightText>
               <HighlightText color={COLOR.HIGHLIGHT_MINT} fontSize="1.25rem">
-                10,000원
+                {totalPrice.toLocaleString('ko-KR')} 원
               </HighlightText>
             </ReceiptRow>
             <Button
