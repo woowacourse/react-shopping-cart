@@ -2,10 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const Button = ({ type, width, height, fontSize, color, backgroundColor, borderColor, children, onClick }) => {
+const Button = ({
+  hoverAnimation,
+  className,
+  type,
+  width,
+  height,
+  fontSize,
+  color,
+  backgroundColor,
+  borderColor,
+  children,
+  onClick,
+}) => {
   return (
     <Styled.Button
       type={type}
+      hoverAnimation={hoverAnimation}
+      className={className}
       width={width}
       height={height}
       color={color}
@@ -21,6 +35,8 @@ const Button = ({ type, width, height, fontSize, color, backgroundColor, borderC
 
 Button.propTypes = {
   type: PropTypes.string,
+  hoverAnimation: PropTypes.string,
+  className: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
   color: PropTypes.string,

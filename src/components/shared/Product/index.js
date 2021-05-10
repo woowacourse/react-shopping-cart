@@ -43,4 +43,4 @@ Product.propTypes = {
   children: PropTypes.element,
 };
 
-export default Product;
+export default React.memo(Product);

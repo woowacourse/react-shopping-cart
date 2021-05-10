@@ -1,5 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PALETTE from '../../../constants/palette';
+
+const animation = {
+  scale: css`
+    transform: scale(1.1);
+  `,
+};
 
 export const Button = styled.button`
   width: ${({ width }) => width};
@@ -9,4 +15,8 @@ export const Button = styled.button`
   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor};`}
   border: ${({ borderColor }) => (borderColor ? `1px solid ${borderColor}` : 'none')};
   cursor: pointer;
+
+  &:hover {
+    ${({ hoverAnimation }) => hoverAnimation && animation[hoverAnimation]}
+  }
 `;

@@ -26,13 +26,3 @@ export const ProductName = styled.p`
   justify-content: center;
   font-size: 1rem;
 `;
-
-export const CartButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
