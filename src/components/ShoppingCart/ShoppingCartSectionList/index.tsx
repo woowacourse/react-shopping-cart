@@ -22,5 +22,3 @@ const ShoppingCartSectionList = () => {
 };
 
 export default ShoppingCartSectionList;
-
-// https://redux.js.org/recipes/usage-with-typescript#define-root-state-and-dispatch-types

@@ -10,7 +10,7 @@ interface Props {
 const ProductList: VFC<Props> = ({ products }) => {
   return (
     <ProductListContainer>
-      {(products || []).map((product) => (
+      {products.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
     </ProductListContainer>

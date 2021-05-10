@@ -55,6 +55,22 @@
       "price": 43400,
       "checked": true,
       "quantity": 1
+    },
+    {
+      "id": "2",
+      "image": "https://picsum.photos/200/200",
+      "name": "2PET보틀-정사각(420ml)",
+      "price": 43400,
+      "checked": true,
+      "quantity": 1
+    },
+    {
+      "id": "5",
+      "image": "https://picsum.photos/200/200",
+      "name": "5PET보틀-정사각(420ml)",
+      "price": 43400,
+      "checked": true,
+      "quantity": 1
     }
   ]
 }
