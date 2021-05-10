@@ -6,6 +6,7 @@ export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_SELECTED_PRODUCTS = 'REMOVE_SELECTED_PRODUCTS';
 export const TOGGLE_PRODUCT_SELECTION = 'TOGGLE_PRODUCT_SELECTION';
+export const TOGGLE_ALL_PRODUCTS_SELECTION = 'TOGGLE_ALL_PRODUCTS_SELECTION';
 
 /* ACTION CREATOR */
 
@@ -34,6 +35,9 @@ export function toggleProductSelection(id) {
     type: TOGGLE_PRODUCT_SELECTION,
     payload: id,
   };
+}
+
+export function toggleAllProductsSelection(willBeSelected) {
 }
 
 /* REDUCER */
