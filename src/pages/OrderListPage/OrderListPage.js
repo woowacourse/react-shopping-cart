@@ -1,15 +1,11 @@
 import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
-import Header from '../../components/Header/Header';
-import OrderContainer from '../../components/OrderContainer/OrderContainer';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
-import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
-import Button from '../../components/Button/Button';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import SuccessAddedModal from '../../components/Modal/SuccessAddedModal/SuccessAddedModal';
 import { addShoppingCartItem } from '../../redux/action';
+import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
+import ScreenContainer from '../../shared/styles/ScreenContainer';
 
 const OrderListPage = () => {
   const location = useLocation();

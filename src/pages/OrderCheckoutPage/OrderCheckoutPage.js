@@ -1,7 +1,4 @@
 import { useHistory, useLocation } from 'react-router';
-import Header from '../../components/Header/Header';
-import PaymentInfoBox from '../../components/PaymentInfoBox/PaymentInfoBox';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
 import {
   Container,
   CheckoutListContainer,
@@ -9,10 +6,11 @@ import {
   CheckoutListTitle,
   PaymentInfoBoxContainer,
 } from './OrderCheckoutPage.styles';
-import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
 import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
+import { Header, PaymentInfoBox, RowProductItem } from '../../components';
+import ScreenContainer from '../../shared/styles/ScreenContainer';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();

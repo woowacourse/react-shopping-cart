@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import Header from '../../components/Header/Header';
-import PaymentInfoBox from '../../components/PaymentInfoBox/PaymentInfoBox';
-import CheckBox from '../../components/CheckBox/CheckBox';
-import AmountCounter from '../../components/AmountCounter/AmountCounter';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
 import {
   Container,
   OptionContainer,
@@ -18,11 +13,12 @@ import {
   ShoppingCartItemOption,
   DeleteButton,
 } from './ShoppingCartPage.styles';
-import RowProductItem from '../../components/ProductItem/RowProductItem/RowProductItem';
 import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import useServerAPI from '../../hooks/useServerAPI';
 import { deleteShoppingCartItems } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
+import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
+import ScreenContainer from '../../shared/styles/ScreenContainer';
+import useServerAPI from '../../hooks/useServerAPI';
 
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">

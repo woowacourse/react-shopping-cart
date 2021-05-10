@@ -4,11 +4,8 @@ import { useDispatch } from 'react-redux';
 import GlobalStyles from './GlobalStyles';
 import NavBar from './components/NavBar/NavBar';
 import { ROUTE, SCHEMA } from './constants';
-import ProductListPage from './pages/ProductListPage/ProductListPage';
-import OrderListPage from './pages/OrderListPage/OrderListPage';
-import OrderCheckoutPage from './pages/OrderCheckoutPage/OrderCheckoutPage';
-import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import { getMyShoppingCartAsync } from './redux/action';
+import { OrderCheckoutPage, OrderListPage, ProductListPage, ShoppingCartPage } from './pages';
 
 const App = () => {
   const dispatch = useDispatch();

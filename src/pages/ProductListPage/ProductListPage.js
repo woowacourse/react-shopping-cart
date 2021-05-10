@@ -1,12 +1,11 @@
 import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
-import ColumnProductItem from '../../components/ProductItem/ColumnProductItem/ColumnProductItem';
 import { Container } from './ProductListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import SuccessAddedModal from '../../components/Modal/SuccessAddedModal/SuccessAddedModal';
 import { addShoppingCartItem } from '../../redux/action';
+import { ColumnProductItem, SuccessAddedModal } from '../../components';
+import ScreenContainer from '../../shared/styles/ScreenContainer';
 
 const ProductListPage = () => {
   const location = useLocation();
