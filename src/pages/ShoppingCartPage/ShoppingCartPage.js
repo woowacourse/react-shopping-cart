@@ -45,7 +45,7 @@ const ShoppingCartPage = () => {
   }));
 
   const [checkedIdList, setCheckedIdList] = useState([]);
-  const [isAllChecked, setAllChecked] = useState(false);
+  const [isAllChecked, setAllChecked] = useState(true);
   const [shoppingCartItemList, setShoppingCartItemList] = useState([]);
   const [expectedPrice, setExpectedPrice] = useState(0);
 
@@ -114,6 +114,8 @@ const ShoppingCartPage = () => {
   }, [isAllChecked, myShoppingCartProductIds]);
 
   useEffect(() => {
+    if (!shoppingCartItemList.length) return;
+
     const newExpectedPrice = checkedIdList.reduce((acc, checkedId) => {
       const { price, amount } = shoppingCartItemList.find(({ id }) => id === checkedId);
 
