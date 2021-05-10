@@ -28,7 +28,7 @@ const Nav = () => {
             </Link>
           </li>
           <li>
-            <Link to="/order">
+            <Link to="/orders-list">
               <span>주문목록</span>
             </Link>
           </li>
