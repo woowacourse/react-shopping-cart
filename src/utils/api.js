@@ -18,6 +18,9 @@ const API = {
   addItemToCart: async data => {
     return await request(`${BASE_URL}/addCart/${data.id}.json`, { method: 'GET', data });
   },
+  getCartItemList: async () => {
+    return await request(`${BASE_URL}/cartItemList.json`);
+  },
 };
 
 export default API;

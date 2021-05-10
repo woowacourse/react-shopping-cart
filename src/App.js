@@ -6,7 +6,7 @@ import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
 import { Cart, ItemList } from './pages';
-import { setItemList, store } from './store';
+import { setItemList, setCartItemList, store } from './store';
 import { API } from './utils';
 
 function App() {
@@ -16,7 +16,13 @@ function App() {
       store.dispatch(setItemList(result));
     };
 
+    const getCartItemListRequest = async () => {
+      const result = await API.getCartItemList();
+      store.dispatch(setCartItemList(result));
+    };
+
     getItemListRequest();
+    getCartItemListRequest();
   }, []);
 
   return (
