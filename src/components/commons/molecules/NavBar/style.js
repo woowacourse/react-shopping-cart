@@ -42,10 +42,28 @@ export const NavItems = styled.ul`
 `;
 
 export const Item = styled.li`
+  position: relative;
   color: #ffffff;
   font-size: 1.5rem;
   text-align: center;
   align-items: center;
   min-width: 6.5rem;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
+
+  &::after {
+    content: '${(props) => props.noticeLength}';
+    display: ${(props) => (props.noticeLength ? 'inline-block' : 'none')};
+    position: absolute;
+    top: -0.25rem;
+    right: -0.75rem;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 25%;
+    background-color: #6660ff;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  }
 `;

@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { CartIcon } from '../../';
 import * as Styled from './style.js';
 import { ROUTE } from '../../../../constants';
 
 export const NavBar = (props) => {
+  const cartLength = useSelector(({ cartReducer }) => Object.keys(cartReducer).length);
+
   return (
     <Styled.NavBar {...props}>
       <Styled.Container>
@@ -15,7 +18,7 @@ export const NavBar = (props) => {
         </Link>
         <Styled.NavItems>
           <Link to={ROUTE.CART}>
-            <Styled.Item>장바구니</Styled.Item>
+            <Styled.Item noticeLength={cartLength}>장바구니</Styled.Item>
           </Link>
           <Link to={ROUTE.ORDER_LIST}>
             <Styled.Item>주문목록</Styled.Item>
