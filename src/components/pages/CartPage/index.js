@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
-import { changeAllCheckboxesInCart, toggleCartCheckbox } from '../../../redux/Cart/actions';
+import {
+  changeAllCheckboxesInCart,
+  removeCheckedProducts,
+  removeProduct,
+  toggleCartCheckbox,
+} from '../../../redux/Cart/actions';
 import AmountInput from '../../common/AmountInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
@@ -31,6 +36,15 @@ const CartPage = () => {
     dispatch(changeAllCheckboxesInCart(!isAllChecked));
   };
 
+  const onRemoveCheckedProducts = () => {
+    dispatch(removeCheckedProducts());
+  };
+
+  const onRemoveProduct = ({ target }) => {
+    const productId = Number(target.closest('div[data-product-id]').dataset.productId);
+    dispatch(removeProduct(productId));
+  };
+
   useEffect(() => {
     if (cart.length === 0) return;
 
@@ -52,28 +66,36 @@ const CartPage = () => {
             <Checkbox onChange={onChangeAllCheckbox} isChecked={isAllChecked}>
               {isAllChecked ? '선택해제' : '전체선택'}
             </Checkbox>
-            <Button backgroundColor={PALETTE.WHITE} borderColor={PALETTE.GRAY_002} width="7.3rem" height="3rem">
+            <Button
+              onClick={onRemoveCheckedProducts}
+              backgroundColor={PALETTE.WHITE}
+              borderColor={PALETTE.GRAY_002}
+              width="7.3rem"
+              height="3rem"
+            >
               상품삭제
             </Button>
           </FlexContainer>
           <Styled.ProductListTitle>든든배송 상품 ({cart.length}개)</Styled.ProductListTitle>
           <ProductList width="100%">
-            {cart.map((item) => (
+            {cart.map((product) => (
               <ProductListItem
-                key={item.id}
+                key={product.id}
                 listStyle="lineStyle"
                 isCheckbox={true}
                 onChange={onChangeCheckbox}
                 imageSize="9rem"
-                product={item}
+                product={product}
               >
-                <FlexContainer direction="column" justifyContent="space-between" align="flex-end">
-                  <Button backgroundColor="transparent">
-                    <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
-                  </Button>
-                  <AmountInput amount={item.amount} setAmount={() => {}} />
-                  <p>{item.price.toLocaleString()} 원</p>
-                </FlexContainer>
+                <div data-product-id={product.id}>
+                  <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
+                    <Button type="button" onClick={onRemoveProduct} backgroundColor="transparent">
+                      <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
+                    </Button>
+                    <AmountInput amount={product.amount} setAmount={() => {}} />
+                    <p>{product.price.toLocaleString()} 원</p>
+                  </FlexContainer>
+                </div>
               </ProductListItem>
             ))}
           </ProductList>
