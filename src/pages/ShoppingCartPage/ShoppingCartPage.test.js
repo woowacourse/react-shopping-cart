@@ -15,7 +15,7 @@ describe('ShoppingCartPage', () => {
       </Provider>
     );
 
-    await waitFor(() => screen.getByText('test cart item name'));
+    await waitFor(() => screen.getByText('test cart name'));
   });
 });
 

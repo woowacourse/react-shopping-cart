@@ -1,5 +1,11 @@
 import { ItemInCart, Product } from '../../types';
-import { ADD_ITEM, CartAction } from '../actions/cart';
+import {
+  ADD_ITEM,
+  GET_CART_ITEMS,
+  CartAction,
+  GET_CART_ITEMS_SUCCESS,
+  GET_CART_ITEMS_ERROR,
+} from '../actions/cart';
 
 interface CartState {
   items: ItemInCart[];
@@ -7,6 +13,8 @@ interface CartState {
 
 const initialState = {
   items: [],
+  isLoading: false,
+  error: null,
 };
 
 const createItemInCart = (product: Product): ItemInCart => {
@@ -23,6 +31,23 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
       return {
         ...state,
         items: [...state.items, createItemInCart(action.payload)],
+      };
+    case GET_CART_ITEMS:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+      };
+    case GET_CART_ITEMS_SUCCESS:
+      return {
+        ...state,
+        items: [...action.payload],
+        isLoading: false,
+      };
+    case GET_CART_ITEMS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

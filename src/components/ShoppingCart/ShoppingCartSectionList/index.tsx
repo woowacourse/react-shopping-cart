@@ -11,7 +11,6 @@ import {
 const ShoppingCartSectionList = () => {
   const items = useAppSelector((state) => state.cart.items);
 
-  console.log('ㅎ하하하하하;', items);
   return (
     <ShoppingCartItemListContainer>
       <CartSelectContainer>
@@ -24,3 +23,5 @@ const ShoppingCartSectionList = () => {
 };
 
 export default ShoppingCartSectionList;
+
+// https://redux.js.org/recipes/usage-with-typescript#define-root-state-and-dispatch-types

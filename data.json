@@ -30,5 +30,32 @@
       "name": "PET보틀-정사각(420ml)",
       "price": 43400
     }
+  ],
+
+  "cart": [
+    {
+      "id": "1",
+      "image": "https://picsum.photos/200/200",
+      "name": "test cart name",
+      "price": 43400,
+      "quantity": 2,
+      "checked": true
+    },
+    {
+      "id": "2",
+      "image": "https://picsum.photos/200/200",
+      "name": "PET보틀-정사각(420ml)",
+      "price": 43400,
+      "quantity": 2,
+      "checked": true
+    },
+    {
+      "id": "3",
+      "image": "https://picsum.photos/200/200",
+      "name": "PET보틀-정사각(420ml)",
+      "price": 43400,
+      "quantity": 2,
+      "checked": true
+    }
   ]
 }
