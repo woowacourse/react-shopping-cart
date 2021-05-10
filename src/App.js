@@ -11,6 +11,8 @@ import OrderPayment from './pages/OrderPayment';
 import { fetchProductList } from './modules/product';
 import { useDispatch } from 'react-redux';
 import { fetchShoppingCartList } from './modules/shoppingCart';
+import OrderListDetail from './pages/OrderListDetail';
+import ProductDetail from './pages/ProductDetail';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -53,6 +55,9 @@ function App() {
           <Route exact path="/productList">
             <ProductList />
           </Route>
+          <Route exact path="/productDetail">
+            <ProductDetail />
+          </Route>
           <Route exact path="/shoppingCart">
             <ShoppingCart />
           </Route>
@@ -61,6 +66,9 @@ function App() {
           </Route>
           <Route exact path="/orderList">
             <OrderList />
+          </Route>
+          <Route exact path="/orderListDetail">
+            <OrderListDetail />
           </Route>
         </Switch>
       </StyledContents>

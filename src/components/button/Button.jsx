@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
+import PropTypes from 'prop-types';
 
 export const BUTTON_TYPE = Object.freeze({
   LARGE: 'LARGE',
@@ -47,14 +48,27 @@ const Container = styled.button`
   cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
   color: ${({ disabled }) => (disabled ? COLOR.GRAY_300 : 'inherit')};
 
-  ${({ type }) => (Object.keys(BUTTON_TYPE).includes(type) ? buttonStyle[type] : buttonStyle['MEDIUM'])};
+  ${({ type }) => (Object.keys(BUTTON_TYPE).includes(type) ? buttonStyle[type] : buttonStyle[BUTTON_TYPE.MEDIUM])};
   ${({ styles }) => styles};
 `;
 
-const Button = ({ children, type, styles, disabled = false, onClick }) => (
+const Button = ({ children, type, styles, disabled, onClick }) => (
   <Container type={type} styles={styles} disabled={disabled} onClick={onClick}>
     {children}
   </Container>
 );
+
+Button.defaultProps = {
+  type: BUTTON_TYPE.MEDIUM,
+  disabled: false,
+};
+
+Button.propTypes = {
+  children: PropTypes.string,
+  type: PropTypes.string,
+  styles: PropTypes.object,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+};
 
 export default Button;

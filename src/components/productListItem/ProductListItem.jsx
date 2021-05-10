@@ -4,6 +4,7 @@ import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
+import PropTypes from 'prop-types';
 
 const Content = styled.ul`
   display: flex;
@@ -59,6 +60,15 @@ const ProductListItem = ({ product }) => {
       </Content>
     </div>
   );
+};
+
+ProductListItem.propTypes = {
+  product: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ProductListItem;

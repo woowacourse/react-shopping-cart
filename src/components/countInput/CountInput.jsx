@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import upArrow from '../../assets/upArrow.svg';
 import downArrow from '../../assets/downArrow.svg';
 import { COLOR } from '../../constants/color';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   position: relative;
@@ -86,5 +87,11 @@ const CountInput = ({ value, onIncrease, onDecrease }) => (
     </ButtonWrapper>
   </Container>
 );
+
+CountInput.propTypes = {
+  value: PropTypes.number.isRequired,
+  onIncrease: PropTypes.func,
+  onDecrease: PropTypes.func,
+};
 
 export default CountInput;

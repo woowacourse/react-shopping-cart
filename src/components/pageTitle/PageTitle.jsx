@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   height: 67px;
@@ -12,5 +13,9 @@ const Container = styled.div`
 `;
 
 const PageTitle = ({ children }) => <Container>{children}</Container>;
+
+PageTitle.propTypes = {
+  children: PropTypes.string,
+};
 
 export default PageTitle;

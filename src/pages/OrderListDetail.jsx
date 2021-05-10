@@ -1,5 +1,5 @@
 import React from 'react';
 
-const OrderListDetail = (props) => <div>OrderListDetail</div>;
+const OrderListDetail = () => <div>OrderListDetail</div>;
 
 export default OrderListDetail;

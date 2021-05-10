@@ -70,7 +70,6 @@ const ShoppingCart = () => {
           </ShoppingCartItemModification>
           <SelectedProductList
             listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
-            count={3}
             productList={shoppingCartList}
             ListItem={ShoppingCartItem}
           />

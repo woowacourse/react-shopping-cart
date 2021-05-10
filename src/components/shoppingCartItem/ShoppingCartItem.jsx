@@ -4,13 +4,14 @@ import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
+import { useDispatch } from 'react-redux';
 import {
   decreaseCount,
   deleteShoppingCartItem,
   increaseCount,
   toggleShoppingCartItem,
 } from '../../modules/shoppingCart';
-import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Container = styled.ul`
   display: flex;
@@ -85,6 +86,16 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
       </RightContent>
     </Container>
   );
+};
+
+ShoppingCartItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
 };
 
 export default ShoppingCartItem;

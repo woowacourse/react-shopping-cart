@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import Button, { BUTTON_TYPE } from '../button/Button';
+import PropTypes from 'prop-types';
 
 export const PAYMENT_AMOUNT_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
@@ -82,5 +83,11 @@ const PaymentAmount = ({ type, price, count }) => (
     </div>
   </Container>
 );
+
+PaymentAmount.propTypes = {
+  type: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+};
 
 export default PaymentAmount;

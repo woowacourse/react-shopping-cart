@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Content = styled.div`
   display: inline-block;
@@ -54,5 +55,15 @@ const Checkbox = ({ isChecked, children, onChange }) => (
     {children ? <Text>{children}</Text> : ''}
   </label>
 );
+
+Checkbox.defaultProps = {
+  isChecked: false,
+};
+
+Checkbox.propTypes = {
+  isChecked: PropTypes.bool,
+  children: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default Checkbox;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
+import PropTypes from 'prop-types';
 
 export const SELECTED_PRODUCT_LIST_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
@@ -63,7 +64,7 @@ const getHeader = ({ type, count, orderNumber }) => {
     ORDER_LIST: (
       <Header type={type}>
         <div>주문번호 : {orderNumber}</div>
-        <Link>상세보기 {'>'} </Link>
+        <Link to="./orderListDetail">상세보기 {'>'} </Link>
       </Header>
     ),
   };
@@ -75,7 +76,7 @@ const SelectedProductList = ({ listType, itemType, orderNumber, productList, Lis
   <>
     {getHeader({ type: listType, count: productList.length, orderNumber })}
     <ul>
-      {productList.map(({ src, id, alt, name, price, count = 1, isChecked }) => (
+      {productList.map(({ src, id, alt, name, price, count, isChecked }) => (
         <ListItemWrapper type={listType} key={id}>
           <ListItem
             type={itemType}
@@ -92,5 +93,22 @@ const SelectedProductList = ({ listType, itemType, orderNumber, productList, Lis
     </ul>
   </>
 );
+
+SelectedProductList.propTypes = {
+  listType: PropTypes.string.isRequired,
+  itemType: PropTypes.string,
+  orderNumber: PropTypes.number,
+  productList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      alt: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      isChecked: PropTypes.bool,
+    }).isRequired
+  ).isRequired,
+};
 
 export default SelectedProductList;

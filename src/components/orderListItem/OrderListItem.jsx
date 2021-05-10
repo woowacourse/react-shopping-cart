@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button, { BUTTON_TYPE } from '../button/Button';
 import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import { COLOR } from '../../constants/color';
+import PropTypes from 'prop-types';
 
 export const ORDER_LIST_ITEM_TYPE = Object.freeze({
   ORDER_PAYMENT: 'ORDER_PAYMENT',
@@ -68,6 +69,7 @@ const getFloatingButton = ({ type }) => {
   return buttonType[type];
 };
 
+// TODO: type이 들어오지 않았을 때 error처리 생각해보기
 const OrderListItem = ({ type, src, alt, name, count, price }) => (
   <Container type={type}>
     <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
@@ -78,5 +80,14 @@ const OrderListItem = ({ type, src, alt, name, count, price }) => (
     {getFloatingButton({ type })}
   </Container>
 );
+
+OrderListItem.propTypes = {
+  type: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+};
 
 export default OrderListItem;
