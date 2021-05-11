@@ -14,21 +14,15 @@ function* watchOrderList() {
 
 function* getOrderList() {
   try {
-    const response: firebase.firestore.QuerySnapshot<Order> = yield call(
-      api.orderList.get
-    );
+    const response: firebase.firestore.QuerySnapshot<Order> = yield call(api.orderList.get);
 
-    const orders: Order[] = response.docs
-      .map((order) => order.data())
-      .filter(isDefined);
+    const orders: Order[] = response.docs.map((order) => order.data()).filter(isDefined);
 
     const orderList: OrderList = { orderList: orders };
 
     yield put(actions.orderList.get.success(orderList));
   } catch (error) {
-    yield put(
-      actions.orderList.get.failure({ requestErrorMessage: error.message })
-    );
+    yield put(actions.orderList.get.failure({ requestErrorMessage: error.message }));
   }
 }
 

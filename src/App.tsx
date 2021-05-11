@@ -3,8 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Components/Header";
-import ProductList from "./pages/ProductList";
-import Cart from "./pages/Cart";
+import ProductList from "./Pages/ProductList";
+import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 
 const App: VFC = () => {

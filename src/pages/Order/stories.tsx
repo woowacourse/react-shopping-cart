@@ -25,11 +25,7 @@ export default {
   component: Order,
   decorators: [
     (Story) => (
-      <MemoryRouter
-        initialEntries={[
-          { pathname: "/order", state: { order, totalPrice: 2000000 } },
-        ]}
-      >
+      <MemoryRouter initialEntries={[{ pathname: "/order", state: { order, totalPrice: 2000000 } }]}>
         <Story />
       </MemoryRouter>
     ),

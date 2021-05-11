@@ -5,7 +5,6 @@ import { COLOR } from "../../constants/theme";
 
 const Container = styled.header`
   background-color: ${COLOR.MAIN};
-  color: ${COLOR.WHITE};
   height: 5rem;
   box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.2);
   padding: 0 1rem;
@@ -26,6 +25,7 @@ const Flex = styled.div`
 `;
 
 const H1 = styled.h1`
+  color: ${COLOR.WHITE};
   font-weight: 900;
   font-size: 2.5rem;
   padding-left: 1rem;
@@ -34,8 +34,8 @@ const H1 = styled.h1`
 const NavigationItem = styled(Link)`
   color: ${COLOR.WHITE};
   margin-left: 2.7rem;
-  font-weight: 500
-  font-size: 1.5rem
+  font-weight: 500;
+  font-size: 1.5rem;
 `;
 
 export { Container, Inner, Flex, H1, NavigationItem };

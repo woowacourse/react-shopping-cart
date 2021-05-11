@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 import ProductImage, { IProductImageProps } from "../ProductImage";
 import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
-import {
-  Container,
-  ItemInfoWrap,
-  Desc,
-  Name,
-  Price,
-  CartButton,
-} from "./style";
+import { Container, ItemInfoWrap, Desc, Name, Price, CartButton } from "./style";
 
 // TODO: Product type 상속?
 interface IProductProps {
@@ -22,13 +15,7 @@ interface IProductProps {
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Product: VFC<IProductProps> = ({
-  id,
-  Image,
-  name,
-  price,
-  onClickCart,
-}) => (
+const Product: VFC<IProductProps> = ({ id, Image, name, price, onClickCart }) => (
   <Container>
     <Link to={`/products/${id}`}>{Image}</Link>
     <ItemInfoWrap>

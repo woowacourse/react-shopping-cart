@@ -7,9 +7,7 @@ interface IButtonProps extends IContainerProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: FC<IButtonProps> = ({ children, ...props }) => (
-  <Container {...props}>{children}</Container>
-);
+const Button: FC<IButtonProps> = ({ children, ...props }) => <Container {...props}>{children}</Container>;
 
 export default Button;
 export { IButtonProps };

@@ -38,13 +38,4 @@ interface RequestError {
   requestErrorMessage: string | null;
 }
 
-export {
-  Product,
-  ProductsObject,
-  Id,
-  CartItem,
-  Cart,
-  Order,
-  OrderList,
-  RequestError,
-};
+export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError };

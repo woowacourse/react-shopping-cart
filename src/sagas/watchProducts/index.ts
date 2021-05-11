@@ -11,9 +11,7 @@ function* watchProducts() {
 
 function* getProducts() {
   try {
-    const response: firebase.firestore.QuerySnapshot<Id & Product> = yield call(
-      api.products.get
-    );
+    const response: firebase.firestore.QuerySnapshot<Id & Product> = yield call(api.products.get);
 
     const products: ProductsObject = response.docs.reduce(
       (acc: ProductsObject, product) => {
@@ -36,9 +34,7 @@ function* getProducts() {
 
     yield put(actions.products.get.success(products));
   } catch (error) {
-    yield put(
-      actions.products.get.failure({ requestErrorMessage: error.message })
-    );
+    yield put(actions.products.get.failure({ requestErrorMessage: error.message }));
   }
 }
 

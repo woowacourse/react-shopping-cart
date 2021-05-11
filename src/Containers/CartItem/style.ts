@@ -74,12 +74,4 @@ const Svg = styled.svg`
   color: ${COLOR.GRAY_600};
 `;
 
-export {
-  Container,
-  ProductImageLink,
-  Desc,
-  NameLink,
-  ControlBox,
-  Counter,
-  Svg,
-};
+export { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg };

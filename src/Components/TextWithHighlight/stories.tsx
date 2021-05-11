@@ -9,9 +9,7 @@ export default {
   component: TextWithHighlight,
 } as Meta;
 
-const Template: Story<TextWithhighlightProps> = (args) => (
-  <TextWithHighlight {...args} />
-);
+const Template: Story<TextWithhighlightProps> = (args) => <TextWithHighlight {...args} />;
 
 export const Basic = Template.bind({});
 

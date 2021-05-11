@@ -7,20 +7,8 @@ import { default as Button } from "./Button";
 import { default as OrderList } from "./OrderList";
 
 // TODO: re-export warning
-import {
-  default as OrderProductItem,
-  OrderProductItemProps,
-} from "./OrderProductItem";
+import { default as OrderProductItem, OrderProductItemProps } from "./OrderProductItem";
 
 // TODO: 인터페이스도 re-export하기 (모두)
-export {
-  Header,
-  Icon,
-  Product,
-  ProductImage,
-  CheckBox,
-  Button,
-  OrderList,
-  OrderProductItem,
-};
+export { Header, Icon, Product, ProductImage, CheckBox, Button, OrderList, OrderProductItem };
 export { OrderProductItemProps };

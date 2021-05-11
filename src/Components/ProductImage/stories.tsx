@@ -8,9 +8,7 @@ export default {
   component: ProductImage,
 } as Meta;
 
-const Template: Story<IProductImageProps> = (args) => (
-  <ProductImage {...args} />
-);
+const Template: Story<IProductImageProps> = (args) => <ProductImage {...args} />;
 
 export const Basic = Template.bind({});
 

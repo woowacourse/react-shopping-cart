@@ -18,7 +18,7 @@ function* getCart() {
   try {
     const response: firebase.firestore.QuerySnapshot<CartItem> = yield call(api.cart.get);
 
-    const cartItem = response.docs.map(cartItem => cartItem.data()).filter(isDefined);
+    const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
 
     yield put(actions.cart.get.success({ cart: cartItem }));
   } catch (error) {
@@ -41,7 +41,7 @@ function* deleteCart(action: cartDeleteRequestActionType) {
   try {
     const ids = action.payload;
 
-    yield all(ids.map(id => call(api.cart.delete, id)));
+    yield all(ids.map((id) => call(api.cart.delete, id)));
 
     yield put(actions.cart.delete.success());
 

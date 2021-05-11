@@ -6,10 +6,7 @@ const initialState: Cart & RequestError = {
   requestErrorMessage: null,
 };
 
-const cartReducer = (
-  state: Cart & RequestError = initialState,
-  action: cartActionType
-) => {
+const cartReducer = (state: Cart & RequestError = initialState, action: cartActionType) => {
   switch (action.type) {
     case "cart/get/success":
       return {

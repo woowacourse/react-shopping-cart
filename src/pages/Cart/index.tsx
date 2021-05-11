@@ -10,16 +10,7 @@ import { COLOR } from "../../constants/theme";
 
 import CartItem from "../../Containers/CartItem";
 import { RootState } from "../../store";
-import {
-  Container,
-  Main,
-  AllDealControlBox,
-  Section,
-  AllDealSelect,
-  AllDealDelete,
-  CartListTitle,
-} from "./styles";
-
+import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 interface CheckedList {
   [key: string]: boolean;
 }
@@ -35,12 +26,10 @@ const Cart: VFC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // TODO: 에러 어떻게 처리?
-  const { cart, requestErrorMessage } = useSelector(
-    ({ cart: { cart, requestErrorMessage } }: RootState) => ({
-      cart,
-      requestErrorMessage,
-    })
-  );
+  const { cart, requestErrorMessage } = useSelector(({ cart: { cart, requestErrorMessage } }: RootState) => ({
+    cart,
+    requestErrorMessage,
+  }));
 
   const totalPrice = cart.reduce((acc, { id, price }) => {
     return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
@@ -89,9 +78,9 @@ const Cart: VFC = () => {
   };
 
   const onClickDeleteSelectedButton = () => {
-    const selectedIds = Object.keys(checkedList).filter((id)=>checkedList[id])
-    dispatch(actions.cart.delete.request(selectedIds))
-  }
+    const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
+    dispatch(actions.cart.delete.request(selectedIds));
+  };
 
   const onIncrementOrderCount = (id: string) => {
     setOrderCountList((prev) => {
@@ -126,9 +115,7 @@ const Cart: VFC = () => {
 
   const onClickSubmitButton = () => {
     history.push("/order", {
-      order: cart
-        .filter(({ id }) => checkedList[id])
-        .map((item) => ({ ...item, quantity: orderCountList[item.id] })),
+      order: cart.filter(({ id }) => checkedList[id]).map((item) => ({ ...item, quantity: orderCountList[item.id] })),
       totalPrice,
     });
   };
@@ -148,10 +135,7 @@ const Cart: VFC = () => {
       <Main>
         <AllDealControlBox>
           <AllDealSelect>
-            <CheckBox
-              checked={getCheckedCount() === cart.length}
-              onChange={onChangeTotalChecked}
-            />
+            <CheckBox checked={getCheckedCount() === cart.length} onChange={onChangeTotalChecked} />
             <span>{getTotalCheckedIndicator()}</span>
           </AllDealSelect>
           <AllDealDelete>

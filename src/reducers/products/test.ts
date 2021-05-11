@@ -15,9 +15,7 @@ describe("productReducer test", () => {
       },
     };
 
-    expect(
-      productsReducer(initialState, actions.products.get.success(products))
-    ).toEqual({
+    expect(productsReducer(initialState, actions.products.get.success(products))).toEqual({
       ...initialState,
       ...products,
       requestErrorMessage: null,
@@ -27,11 +25,9 @@ describe("productReducer test", () => {
   it("should handle product/get/failure", () => {
     const requestErrorMessage = { requestErrorMessage: "요청에 실패했습니다." };
 
-    expect(
-      productsReducer(
-        initialState,
-        actions.products.get.failure(requestErrorMessage)
-      )
-    ).toEqual({ ...initialState, ...requestErrorMessage });
+    expect(productsReducer(initialState, actions.products.get.failure(requestErrorMessage))).toEqual({
+      ...initialState,
+      ...requestErrorMessage,
+    });
   });
 });

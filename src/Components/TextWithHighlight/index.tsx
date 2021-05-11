@@ -7,12 +7,7 @@ interface TextWithhighlightProps extends TextProps, HighlightProps {
 }
 
 // TODO: rest 파라미터 사용 목적과 기준
-const TextWithHighlight: VFC<TextWithhighlightProps> = ({
-  highlightColor,
-  text,
-  fontSize,
-  ...props
-}) => (
+const TextWithHighlight: VFC<TextWithhighlightProps> = ({ highlightColor, text, fontSize, ...props }) => (
   <Text fontSize={fontSize} {...props}>
     {text}
     <HighLight highlightColor={highlightColor} />

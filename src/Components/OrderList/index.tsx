@@ -8,17 +8,11 @@ interface OrderListProps {
   isVisibleShowDetailLink: boolean;
   children: ReactElement<OrderProductItemProps>[];
 }
-const OrderList: VFC<OrderListProps> = ({
-  id,
-  isVisibleShowDetailLink,
-  children,
-}) => (
+const OrderList: VFC<OrderListProps> = ({ id, isVisibleShowDetailLink, children }) => (
   <Container>
     <Header>
       <span>주문번호:{id}</span>
-      {isVisibleShowDetailLink && (
-        <ShowDetailLink to={`/order/${id}`}>{"상세보기 >"}</ShowDetailLink>
-      )}
+      {isVisibleShowDetailLink && <ShowDetailLink to={`/order/${id}`}>{"상세보기 >"}</ShowDetailLink>}
     </Header>
     <ul>{children}</ul>
   </Container>
