@@ -7,5 +7,5 @@ export const getDateInNumber = () => {
   const mm = date.getMinutes().toString().padStart(2, '0');
   const ss = date.getSeconds().toString().padStart(2, '0');
 
-  return `${YYYY}${MM}${DD}${hh}${mm}${ss}`;
+  return `${YYYY}-${MM}-${DD}-${hh}${mm}${ss}`;
 };

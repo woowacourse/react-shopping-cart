@@ -17,10 +17,13 @@ export const CheckoutPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onClickCheckoutButton = () => {
+    const orderId = getDateInNumber();
+    const orderItems = checkoutProducts;
+
     addData({
       table: ORDER_LIST,
-      key: getDateInNumber(),
-      value: Object.fromEntries(checkoutProducts.map((product) => [product.id, product])),
+      key: orderId,
+      value: { orderId, orderItems },
     });
     dispatch(getAction.checkout());
     history.push(ROUTE.ORDER_LIST);

@@ -1,9 +1,16 @@
-import * as Styled from './style.js';
+import { useState, useEffect } from 'react';
+import { loadData, ORDER_LIST } from '../../../firebase';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../commons';
-import orders from '../../../mockData/order.json';
+import * as Styled from './style.js';
 
 export const OrderListPage = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    loadData({ table: ORDER_LIST, handler: setOrders });
+  }, []);
+
   return (
     <Styled.Page>
       <Header>주문목록</Header>
@@ -16,8 +23,8 @@ export const OrderListPage = () => {
                 <Styled.ToDetailButton>상세보기 {`>`}</Styled.ToDetailButton>
               </Styled.OrderLabel>
               <Styled.OrderedProductList>
-                {orderItems.map(({ quantity, product }) => (
-                  <OrderedProductItem key={product.id} quantity={quantity} item={product} />
+                {orderItems.map((product) => (
+                  <OrderedProductItem key={product.id} product={product} />
                 ))}
               </Styled.OrderedProductList>
             </Styled.OrderItem>
