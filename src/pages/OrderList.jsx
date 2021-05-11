@@ -13,7 +13,7 @@ const OrderItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const orderItemList = useSelector((state) => state.orderList.orderItemList);
+  const orderItemList = useSelector((state) => state.orderList.orderItemList.data);
 
   return (
     <>

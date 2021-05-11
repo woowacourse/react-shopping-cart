@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { fetchShoppingCartList } from './modules/shoppingCart';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { fetchOrderItemList } from './modules/orderList';
+import { getOrderItemList } from './modules/orderList';
 import { PATH } from './constants/path';
 
 const StyledContents = styled.div`
@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProductList());
     dispatch(fetchShoppingCartList());
-    dispatch(fetchOrderItemList());
+    dispatch(getOrderItemList());
   }, [dispatch]);
 
   return (

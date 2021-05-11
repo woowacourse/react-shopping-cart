@@ -26,7 +26,7 @@ const TextHighlight = ({ children, height, backgroundColor }) => (
 );
 
 TextHighlight.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.array]),
   height: PropTypes.string,
   backgroundColor: PropTypes.string,
 };

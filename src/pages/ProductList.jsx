@@ -11,7 +11,7 @@ const Container = styled.ul`
 `;
 
 const ProductList = () => {
-  const productList = useSelector((state) => state.product.productList);
+  const productList = useSelector((state) => state.product.productList.data);
 
   return (
     <Container>

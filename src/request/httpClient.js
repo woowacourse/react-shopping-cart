@@ -2,7 +2,6 @@ import { API_END_POINT, API_METHOD } from '../constants/api';
 
 const request = async ({ path, body, method, returnType }) => {
   const response = await fetch(`${API_END_POINT}${path}`, fetchOptions({ method, body }));
-
   if (!response.ok) {
     throw new Error(await response.text());
   }
