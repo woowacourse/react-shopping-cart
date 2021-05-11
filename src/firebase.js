@@ -1,18 +1,24 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { SCHEMA } from './constants';
+import db from './test/mockData.json';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAXzzQq5ujPGoXrGpxy3qG04XdUpm0dzcM',
-  authDomain: 'react-shopping-cart-6509f.firebaseapp.com',
-  projectId: 'react-shopping-cart-6509f',
-  storageBucket: 'react-shopping-cart-6509f.appspot.com',
-  messagingSenderId: '850224930398',
-  appId: '1:850224930398:web:9f7559b116f0fbf9101ecf',
-  measurementId: 'G-DBWVTKQ6WE',
+  apiKey: 'AIzaSyAMOeYg3Z4rve_ayjWXifc7eGM_C7JUjjo',
+  authDomain: 'doby-react-shopping-cart.firebaseapp.com',
+  projectId: 'doby-react-shopping-cart',
+  storageBucket: 'doby-react-shopping-cart.appspot.com',
+  messagingSenderId: '597867993730',
+  appId: '1:597867993730:web:daa41ec94188e916cd729b',
+  measurementId: 'G-P45WL17LRV',
 };
 
 firebase.initializeApp(firebaseConfig);
 
 const firestore = firebase.firestore();
 
-export { firestore };
+const initFirebaseState = () => {
+  db.productList.forEach((product, index) => firestore.collection(SCHEMA.PRODUCT).doc(`${index}`).set(product));
+};
+
+export { firestore, initFirebaseState };
