@@ -39,7 +39,10 @@ ProductListItem.propTypes = {
     amount: PropTypes.number,
     isChecked: PropTypes.bool,
   }).isRequired,
-  productDetail: PropTypes.string,
+  productDetail: PropTypes.shape({
+    text: PropTypes.string,
+    color: PropTypes.string,
+  }),
   isCheckbox: PropTypes.bool,
   imageSize: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.element, PropTypes.node, PropTypes.string]),

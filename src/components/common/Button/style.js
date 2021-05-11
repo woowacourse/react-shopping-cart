@@ -3,7 +3,7 @@ import PALETTE from '../../../constants/palette';
 
 const animation = {
   scale: css`
-    transform: scale(1.1);
+    transform: scale(1.2);
   `,
 };
 

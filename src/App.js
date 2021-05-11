@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
 import Header from './components/Header';
@@ -9,7 +8,6 @@ import CheckoutPage from './components/pages/CheckoutPage';
 import OrdersPage from './components/pages/OrdersPage';
 import ProductListPage from './components/pages/ProductListPage';
 import { HEADER, PAGES } from './constants/appInfo';
-import { reactFamily, reactFamilyOrders } from './mockData';
 
 const App = () => {
   return (
@@ -22,13 +20,13 @@ const App = () => {
           <ProductListPage />
         </Route>
         <Route path={PAGES.CART.ADDRESS}>
-          <CartPage products={reactFamily.map((item) => ({ ...item, amount: 1, isChecked: false }))} />
+          <CartPage />
         </Route>
         <Route path={PAGES.CHECKOUT.ADDRESS}>
-          <CheckoutPage products={reactFamily.map((item) => ({ ...item, amount: 1 }))} />
+          <CheckoutPage />
         </Route>
         <Route path={PAGES.ORDERS.ADDRESS}>
-          <OrdersPage orders={reactFamilyOrders} />
+          <OrdersPage />
         </Route>
       </Switch>
     </Router>

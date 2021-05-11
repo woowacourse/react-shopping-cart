@@ -1,34 +1,52 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
-import PALETTE from '../../../constants/palette';
-import Button from '../../common/Button';
+import { removeCheckedProducts } from '../../../redux/Cart/actions';
+import { setOrder } from '../../../redux/Orders/actions';
 import FlexContainer from '../../common/FlexContainer';
 import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
+import PriceInfoBox from '../../shared/PriceInfoBox';
 import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
-import PriceInfoBox from '../../shared/PriceInfoBox';
 import * as Styled from './style';
 
-const CheckoutPage = ({ products }) => {
-  const totalPrice = products.reduce((prev, product) => prev + product.price * product.amount, 0);
+const CheckoutPage = () => {
+  const { cart } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const checkedProducts = cart.filter((product) => product.isChecked);
+  const totalPrice = checkedProducts.reduce((prev, product) => prev + product.price * product.amount, 0);
+
+  const onOrder = () => {
+    const order = checkedProducts.map((product) => {
+      const productCopy = { ...product };
+      delete productCopy.isChecked;
+
+      return productCopy;
+    });
+
+    dispatch(setOrder(order));
+
+    alert('주문 성공!');
+    dispatch(removeCheckedProducts());
+  };
+
   return (
     <Main>
       <PageTitle>{PAGES.CHECKOUT.NAME}</PageTitle>
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
-          <Styled.ProductListTitle>{`주문 상품(${products.length}건)`}</Styled.ProductListTitle>
+          <Styled.ProductListTitle>{`주문 상품(${checkedProducts.length}건)`}</Styled.ProductListTitle>
           <ProductList>
-            {products.map((item) => (
+            {checkedProducts.map((product) => (
               <ProductListItem
-                key={item.id}
+                key={product.id}
                 listStyle="lineStyle"
                 isCheckbox={false}
                 imageSize="7.5rem"
-                product={item}
-                productDetail={{ text: `수량: ${item.amount}` }}
+                product={product}
+                productDetail={{ text: `수량: ${product.amount}` }}
               />
             ))}
           </ProductList>
@@ -39,25 +57,11 @@ const CheckoutPage = ({ products }) => {
           title="결제금액"
           priceInfo={{ name: '총 결제금액', price: totalPrice }}
           submitInfo={{ text: `${totalPrice.toLocaleString()}원 결제하기`, address: PAGES.ORDERS.ADDRESS }}
+          onOrder={onOrder}
         />
       </FlexContainer>
     </Main>
   );
-};
-
-CheckoutPage.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.shape({
-        url: PropTypes.string,
-        alt: PropTypes.string,
-      }),
-      amount: PropTypes.number,
-    })
-  ),
 };
 
 export default CheckoutPage;

@@ -7,8 +7,9 @@ import HighlightText from '../../common/HighlightText';
 import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
 
-const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo }) => {
+const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) => {
   const onClick = () => {
+    onOrder && onOrder();
     window.location.hash = `#${submitInfo.address}`;
   };
 
@@ -24,6 +25,7 @@ const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo }) => {
         </FlexContainer>
         {submitInfo && (
           <Button
+            type="button"
             width="100%"
             height="4.5rem"
             backgroundColor={PALETTE.BAEMINT}
@@ -51,6 +53,7 @@ PriceInfoBox.propTypes = {
     text: PropTypes.string,
     address: PropTypes.string,
   }),
+  onOrder: PropTypes.func,
 };
 
 export default PriceInfoBox;

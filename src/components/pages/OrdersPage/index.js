@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { PAGES, UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import Button from '../../common/Button';
@@ -10,13 +11,19 @@ import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
-const CheckoutPage = ({ orders }) => {
+const OrdersPage = () => {
+  const { orders } = useSelector((state) => state);
+
+  useEffect(() => {
+    console.log(orders);
+  }, [orders]);
+
   return (
-    <Styled.CheckoutPageContainer>
+    <Styled.OrdersPageContainer>
       <Main>
         <PageTitle>{PAGES.ORDERS.NAME}</PageTitle>
         <FlexContainer direction="column">
-          {orders.map((order) => (
+          {orders.reverse().map((order) => (
             <FlexContainer key={order.id} margin="3rem 0 1rem 0" direction="column">
               <FlexContainer
                 padding="1.5rem 1.5rem 1.5rem 2.5rem"
@@ -25,7 +32,9 @@ const CheckoutPage = ({ orders }) => {
                 justifyContent="space-between"
               >
                 <span>주문번호: {order.id}</span>
-                <Button backgroundColor="transparent">상세보기 {'>'}</Button>
+                <Button type="button" backgroundColor="transparent">
+                  {'상세보기 >'}
+                </Button>
               </FlexContainer>
               <ProductList>
                 {order.products.map((product) => (
@@ -39,7 +48,13 @@ const CheckoutPage = ({ orders }) => {
                       color: PALETTE.GRAY_000,
                     }}
                   >
-                    <Button backgroundColor={PALETTE.BAEMINT} color={PALETTE.WHITE} width="8.5rem" height="3rem">
+                    <Button
+                      type="button"
+                      backgroundColor={PALETTE.BAEMINT}
+                      color={PALETTE.WHITE}
+                      width="8.5rem"
+                      height="3rem"
+                    >
                       장바구니
                     </Button>
                   </ProductListItem>
@@ -49,11 +64,11 @@ const CheckoutPage = ({ orders }) => {
           ))}
         </FlexContainer>
       </Main>
-    </Styled.CheckoutPageContainer>
+    </Styled.OrdersPageContainer>
   );
 };
 
-CheckoutPage.propTypes = {
+OrdersPage.propTypes = {
   orders: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -73,4 +88,4 @@ CheckoutPage.propTypes = {
   ),
 };
 
-export default CheckoutPage;
+export default OrdersPage;

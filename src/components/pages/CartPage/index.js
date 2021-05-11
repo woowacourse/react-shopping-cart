@@ -9,6 +9,7 @@ import {
   removeProduct,
   toggleCartCheckbox,
 } from '../../../redux/Cart/actions';
+import { setOrder } from '../../../redux/Orders/actions';
 import AmountInput from '../../common/AmountInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
@@ -51,7 +52,6 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    console.log(cart);
     if (cart.length === 0) return;
 
     if (isAllChecked && cart.some((product) => product.isChecked === false)) {
