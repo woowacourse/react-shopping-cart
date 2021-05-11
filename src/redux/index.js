@@ -7,14 +7,7 @@ export {
   INCREMENT_PRODUCT_QUANTITY,
   DECREMENT_PRODUCT_QUANTITY,
   INPUT_PRODUCT_QUANTITY,
-  addProduct,
-  removeProduct,
-  removeSelectedProducts,
-  toggleProductSelection,
-  toggleAllProductsSelection,
-  incrementProductQuantity,
-  decrementProductQuantity,
-  inputProductQuantity,
+  getAction,
   cartReducer,
 } from './cartReducer';
 export { store } from './store';

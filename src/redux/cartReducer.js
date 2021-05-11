@@ -15,60 +15,24 @@ export const INPUT_PRODUCT_QUANTITY = 'INPUT_PRODUCT_QUANTITY';
 
 /* ACTION CREATOR */
 
-export function addProduct(product) {
-  return {
-    type: ADD_PRODUCT,
-    payload: product,
-  };
-}
+export const getAction = {
+  addProduct: (product) => ({ type: ADD_PRODUCT, payload: product }),
+  removeProduct: (id) => ({ type: REMOVE_PRODUCT, payload: id }),
+  removeSelectedProducts: () => ({ type: REMOVE_SELECTED_PRODUCTS }),
 
-export function removeProduct(id) {
-  return {
-    type: REMOVE_PRODUCT,
-    payload: id,
-  };
-}
-
-export function removeSelectedProducts() {
-  return {
-    type: REMOVE_SELECTED_PRODUCTS,
-  };
-}
-
-export function toggleProductSelection(id) {
-  return {
-    type: TOGGLE_PRODUCT_SELECTION,
-    payload: id,
-  };
-}
-
-export function toggleAllProductsSelection(willBeSelected) {
-  return {
+  toggleProductSelection: (id) => ({ type: TOGGLE_PRODUCT_SELECTION, payload: id }),
+  toggleAllProductsSelection: (willBeSelected) => ({
     type: TOGGLE_ALL_PRODUCTS_SELECTION,
     payload: willBeSelected,
-  };
-}
+  }),
 
-export function incrementProductQuantity(id) {
-  return {
-    type: INCREMENT_PRODUCT_QUANTITY,
-    payload: id,
-  };
-}
-
-export function decrementProductQuantity(id) {
-  return {
-    type: DECREMENT_PRODUCT_QUANTITY,
-    payload: id,
-  };
-}
-
-export function inputProductQuantity(id, quantity) {
-  return {
+  incrementProductQuantity: (id) => ({ type: INCREMENT_PRODUCT_QUANTITY, payload: id }),
+  decrementProductQuantity: (id) => ({ type: DECREMENT_PRODUCT_QUANTITY, payload: id }),
+  inputProductQuantity: (id, quantity) => ({
     type: INPUT_PRODUCT_QUANTITY,
     payload: { id, quantity },
-  };
-}
+  }),
+};
 
 /* REDUCER */
 
