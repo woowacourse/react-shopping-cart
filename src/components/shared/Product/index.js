@@ -6,7 +6,7 @@ import FlexContainer from '../../common/FlexContainer';
 const Product = ({ product, productDetail, size, direction, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <img src={product.image.url} alt={product.image.alt} />
+      <img src={product.image} alt={product.name} />
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
@@ -24,14 +24,10 @@ const Product = ({ product, productDetail, size, direction, children }) => {
 
 Product.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.shape({
-      url: PropTypes.string,
-      alt: PropTypes.string,
-    }),
-    amount: PropTypes.number,
+    price: PropTypes.string.isRequired,
+    image: PropTypes.string,
   }),
   productDetail: PropTypes.shape({
     text: PropTypes.string,

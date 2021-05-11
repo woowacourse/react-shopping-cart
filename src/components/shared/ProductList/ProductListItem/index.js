@@ -29,13 +29,10 @@ ProductListItem.propTypes = {
   listStyle: PropTypes.string,
   onChange: PropTypes.func,
   product: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.shape({
-      url: PropTypes.string,
-      alt: PropTypes.string,
-    }),
+    price: PropTypes.string.isRequired,
+    image: PropTypes.string,
     amount: PropTypes.number,
     isChecked: PropTypes.bool,
   }).isRequired,

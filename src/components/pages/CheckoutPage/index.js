@@ -16,7 +16,7 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
 
   const checkedProducts = cart.filter((product) => product.isChecked);
-  const totalPrice = checkedProducts.reduce((prev, product) => prev + product.price * product.amount, 0);
+  const totalPrice = checkedProducts.reduce((prev, product) => prev + Number(product.price) * product.amount, 0);
 
   const onOrder = () => {
     const order = checkedProducts.map((product) => {

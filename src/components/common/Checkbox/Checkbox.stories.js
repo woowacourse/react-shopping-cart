@@ -1,7 +1,7 @@
 import React from 'react';
 import Checkbox from '.';
 import Product from '../../shared/Product';
-import { reactFamily } from '../../../mockData';
+import { mockData } from '../../../mockData';
 
 export default {
   title: 'Common/Checkbox',
@@ -19,13 +19,13 @@ LabelCenter.args = {
 
 export const LabelFlexStart = Template.bind({});
 LabelFlexStart.args = {
-  children: <Product product={reactFamily[0]} size="10rem" direction="row" />,
+  children: <Product product={mockData[0]} size="10rem" direction="row" />,
   align: 'flex-start',
 };
 
 export const Checked = Template.bind({});
 Checked.args = {
-  children: <Product product={reactFamily[0]} size="10rem" direction="row" />,
+  children: <Product product={mockData[0]} size="10rem" direction="row" />,
   align: 'flex-start',
   isChecked: true,
 };

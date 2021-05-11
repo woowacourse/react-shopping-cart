@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductListPage from '.';
 import { HEADER } from '../../../constants/appInfo';
-import { reactFamily } from '../../../mockData';
+import { mockData } from '../../../mockData';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Header from '../../Header';
 import Navigation from '../../Navigation';
@@ -17,7 +17,7 @@ const Template = (args) => <ProductListPage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  products: reactFamily,
+  products: mockData,
 };
 
 export const Page = (args) => (
@@ -32,5 +32,5 @@ export const Page = (args) => (
 );
 
 Page.args = {
-  products: reactFamily,
+  products: mockData,
 };

@@ -99,7 +99,7 @@ const CartPage = () => {
                       <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                     </Button>
                     <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.id)} />
-                    <p>{product.price.toLocaleString()} 원</p>
+                    <p>{Number(product.price).toLocaleString()} 원</p>
                   </FlexContainer>
                 </div>
               </ProductListItem>

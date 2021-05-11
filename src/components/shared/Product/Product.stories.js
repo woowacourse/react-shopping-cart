@@ -1,7 +1,7 @@
 import React from 'react';
 import Product from '.';
 import PALETTE from '../../../constants/palette';
-import { reactFamily } from '../../../mockData';
+import { mockData } from '../../../mockData';
 
 export default {
   title: 'Shared/Product',
@@ -13,7 +13,7 @@ const Template = (args) => <Product {...args} />;
 
 export const Column = Template.bind({});
 Column.args = {
-  product: reactFamily[0],
+  product: mockData[0],
   size: '10rem',
   direction: 'column',
   productDetail: { text: '수량 : 1개' },
@@ -21,7 +21,7 @@ Column.args = {
 
 export const Row = Template.bind({});
 Row.args = {
-  product: reactFamily[0],
+  product: mockData[0],
   size: '10rem',
   direction: 'row',
   productDetail: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import CartPage from '.';
 import { HEADER } from '../../../constants/appInfo';
-import { reactFamily } from '../../../mockData';
+import { mockData } from '../../../mockData';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Header from '../../Header';
 import Navigation from '../../Navigation';
@@ -17,5 +17,5 @@ const Template = (args) => <CartPage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  products: reactFamily.map((item) => ({ ...item, amount: 1, isChecked: false })),
+  products: mockData.map((item) => ({ ...item, amount: 1, isChecked: false })),
 };

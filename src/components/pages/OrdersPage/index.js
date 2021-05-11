@@ -14,10 +14,6 @@ import * as Styled from './style';
 const OrdersPage = () => {
   const { orders } = useSelector((state) => state);
 
-  useEffect(() => {
-    console.log(orders);
-  }, [orders]);
-
   return (
     <Styled.OrdersPageContainer>
       <Main>
@@ -44,7 +40,9 @@ const OrdersPage = () => {
                     listStyle="tableStyle"
                     imageSize="9rem"
                     productDetail={{
-                      text: `${product.price * product.amount + UNIT.MONEY} / 수량 : ${product.amount + UNIT.AMOUNT}`,
+                      text: `${(Number(product.price) * product.amount).toLocaleString() + UNIT.MONEY} / 수량 : ${
+                        product.amount + UNIT.AMOUNT
+                      }`,
                       color: PALETTE.GRAY_000,
                     }}
                   >
@@ -74,13 +72,10 @@ OrdersPage.propTypes = {
       id: PropTypes.number,
       products: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
-          price: PropTypes.number.isRequired,
-          image: PropTypes.shape({
-            url: PropTypes.string,
-            alt: PropTypes.string,
-          }),
+          price: PropTypes.string.isRequired,
+          image: PropTypes.string,
           amount: PropTypes.number,
         })
       ),

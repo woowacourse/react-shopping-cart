@@ -1,6 +1,6 @@
 import React from 'react';
 import OrdersPage from '.';
-import { reactFamilyOrders } from '../../../mockData';
+import { mockDataOrders } from '../../../mockData';
 
 export default {
   title: 'pages/OrdersPage',
@@ -12,5 +12,5 @@ const Template = (args) => <OrdersPage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  orders: reactFamilyOrders,
+  orders: mockDataOrders,
 };

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
-import { reactFamily } from '../../../mockData';
+import { mockData } from '../../../mockData';
 import { addToCart } from '../../../redux/Cart/actions';
 import { getProducts, resetProducts } from '../../../redux/ProductList/actions';
 import Button from '../../common/Button';
@@ -16,7 +16,7 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts(reactFamily));
+    dispatch(getProducts(mockData));
 
     return () => {
       dispatch(resetProducts());
@@ -24,7 +24,7 @@ const ProductListPage = () => {
   }, []);
 
   const onAddToCart = ({ target }) => {
-    const selectedProductId = Number(target.closest('li[data-product-id]').dataset.productId);
+    const selectedProductId = target.closest('li[data-product-id]').dataset.productId;
 
     if (cart.findIndex((product) => product.id === selectedProductId) >= 0) return;
 
@@ -40,7 +40,7 @@ const ProductListPage = () => {
             <Product
               product={product}
               productDetail={{
-                text: `${product.price.toLocaleString()} ${UNIT.MONEY}`,
+                text: `${Number(product.price).toLocaleString()} ${UNIT.MONEY}`,
                 fontSize: '1.5rem',
               }}
               direction="column"
