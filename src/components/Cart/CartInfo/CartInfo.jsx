@@ -67,7 +67,7 @@ const CartInfo = ({ cart }) => {
           {checkAllLabel}
         </S.CheckAllLabel>
         <S.RemoveChecked>
-          <Button type="secondary" onClick={confirmDelete}>
+          <Button theme="secondary" onClick={confirmDelete}>
             상품삭제
           </Button>
         </S.RemoveChecked>

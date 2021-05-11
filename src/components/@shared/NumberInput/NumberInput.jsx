@@ -24,10 +24,10 @@ const NumberInput = ({ value, onChange, onBlur, min, max }) => {
         onBlur={onBlur}
       />
       <div>
-        <Button type="secondary" onClick={() => change(CART.ADD_DIFF)}>
+        <Button theme="secondary" onClick={() => change(CART.ADD_DIFF)}>
           ▲
         </Button>
-        <Button type="secondary" onClick={() => change(-CART.ADD_DIFF)}>
+        <Button theme="secondary" onClick={() => change(-CART.ADD_DIFF)}>
           ▼
         </Button>
       </div>

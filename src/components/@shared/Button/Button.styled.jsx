@@ -46,5 +46,5 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
 
-  ${({ type }) => buttonStyle[type]}
+  ${({ theme }) => buttonStyle[theme]}
 `;
