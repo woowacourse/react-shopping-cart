@@ -25,8 +25,8 @@ export const RemoveChecked = styled.div`
     font-weight: bold;
 
     &:hover {
-      border: 1px solid ${COLOR.RED.PRIMARY};
-      color: ${COLOR.RED.PRIMARY};
+      border: 1px solid ${COLOR.RED[400]};
+      color: ${COLOR.RED[400]};
     }
   }
 `;
@@ -34,7 +34,7 @@ export const RemoveChecked = styled.div`
 export const Title = styled.div`
   font-size: 1.25rem;
   padding-bottom: 1.75rem;
-  border-bottom: 4px solid ${COLOR.GRAY.LIGHT_100};
+  border-bottom: 4px solid ${COLOR.GRAY[600]};
 `;
 
 export const List = styled.ul``;

@@ -6,7 +6,7 @@ export const CartItem = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem 0;
-  border-bottom: 1.5px solid ${COLOR.GRAY.LIGHT_200};
+  border-bottom: 1.5px solid ${COLOR.GRAY[400]};
 `;
 
 export const Detail = styled.div`

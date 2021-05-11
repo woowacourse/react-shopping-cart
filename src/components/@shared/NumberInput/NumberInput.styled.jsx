@@ -9,7 +9,7 @@ export const NumberInput = styled.div`
     width: 4.5rem;
     text-align: center;
     font-size: 1.5rem;
-    border: 1px solid ${COLOR.GRAY.LIGHT_300};
+    border: 1px solid ${COLOR.GRAY[300]};
     border-right: 1px solid transparent;
 
     -moz-appearance: textfield;
@@ -28,7 +28,7 @@ export const NumberInput = styled.div`
       padding: 0;
       width: 2.5rem;
       font-size: 0.75rem;
-      border: 1px solid ${COLOR.GRAY.LIGHT_300};
+      border: 1px solid ${COLOR.GRAY[300]};
     }
   }
 `;

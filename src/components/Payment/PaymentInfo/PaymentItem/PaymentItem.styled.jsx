@@ -5,7 +5,7 @@ export const PaymentItem = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1.5px solid ${COLOR.GRAY.LIGHT_200};
+  border-bottom: 1.5px solid ${COLOR.GRAY[400]};
 `;
 
 export const Img = styled.img`

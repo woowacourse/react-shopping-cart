@@ -3,7 +3,7 @@ import { COLOR } from "../../../constants/style";
 
 export const Nav = styled.nav`
   padding: 0 1rem;
-  background-color: ${COLOR.CYAN.PRIMARY};
+  background-color: ${COLOR.CYAN[400]};
   color: white;
   height: 5rem;
   width: 100%;
@@ -63,7 +63,7 @@ export const NavMenu = styled.ul`
       position: absolute;
       top: -0.75rem;
       right: -1rem;
-      background-color: ${COLOR.RED.PRIMARY};
+      background-color: ${COLOR.RED[400]};
       text-align: center;
       line-height: 1.8rem;
     }

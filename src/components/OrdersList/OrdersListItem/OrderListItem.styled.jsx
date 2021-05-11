@@ -11,6 +11,6 @@ export const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 2.25rem;
-  background-color: ${COLOR.GRAY.LIGHT_400};
-  border: 1px solid ${COLOR.GRAY.LIGHT_100};
+  background-color: ${COLOR.GRAY[200]};
+  border: 1px solid ${COLOR.GRAY[600]};
 `;

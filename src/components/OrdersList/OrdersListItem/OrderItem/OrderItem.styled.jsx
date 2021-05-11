@@ -6,7 +6,7 @@ export const OrderItem = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem 1.5rem;
-  border: 1px solid ${COLOR.GRAY.LIGHT_200};
+  border: 1px solid ${COLOR.GRAY[400]};
   border-top: 0;
 `;
 
@@ -34,7 +34,7 @@ export const Name = styled.span`
 `;
 
 export const PriceAmount = styled.span`
-  color: ${COLOR.GRAY.DARK_200};
+  color: ${COLOR.GRAY[700]};
 `;
 
 export const Button = styled.div`

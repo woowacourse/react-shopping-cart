@@ -46,7 +46,7 @@ export const Button = styled.button`
   transition: all 0.1s ease-in-out;
 
   &:hover {
-    background-color: ${COLOR.CYAN.PRIMARY};
+    background-color: ${COLOR.CYAN[400]};
     color: white;
 
     svg {
@@ -66,11 +66,11 @@ export const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${COLOR.CYAN.PRIMARY};
+    background-color: ${COLOR.CYAN[400]};
     color: white;
 
     &:hover {
-      background-color: ${COLOR.CYAN.DARK};
+      background-color: ${COLOR.CYAN[700]};
     }
   }
 `;
