@@ -35,13 +35,13 @@ Button.propTypes = {
   type: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  borderColor: PropTypes.string.isRequired,
+  borderColor: PropTypes.string,
   fontSize: PropTypes.string.isRequired,
-  disabled: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Button;
