@@ -34,10 +34,13 @@ const Order = () => {
   const dispatch = useDispatch();
 
   const onPurchase = async () => {
-    const [orderDetail] = await API.purchase(list.map(item => item.id));
-    alert('주문이 완료되었습니다.');
+    const orderItemIdList = list.map(item => item.id);
+    const orderDetail = await API.purchase({ products: [list] });
 
-    dispatch(deleteCartItems(list.map(item => item.id)));
+    await Promise.all(orderItemIdList.map(id => API.deleteCartItem({ id })));
+
+    alert('주문이 완료되었습니다.');
+    dispatch(deleteCartItems(orderItemIdList));
     dispatch(addOrderDetail(orderDetail));
     history.push(`${PATH.MYMART_ORDER_DETAIL}?id=${orderDetail.id}`);
   };

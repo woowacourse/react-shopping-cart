@@ -31,15 +31,15 @@ const ItemList = () => {
                 size="medium"
                 onClick={async () => {
                   try {
-                    const data = { id: id, quantity: 1 };
+                    const data = { id, name, image, price, quantity: 1, checked: true };
                     const newCartItem = await API.addItemToCart(data);
 
                     dispatch(addItemToCart(newCartItem));
 
-                    alert(`장바구니에 추가되었습니다. 상품 id : ${id}`);
+                    alert(`장바구니에 추가되었습니다.`);
                   } catch (error) {
                     console.error(error.message);
-                    alert('장바구니에 추가하지 못했습니다.');
+                    alert('이미 추가된 상품입니다.');
                   }
                 }}
               >

@@ -30,6 +30,7 @@ import {
   CheckBox,
 } from './style';
 import { useHistory } from 'react-router';
+import { API } from '../../utils';
 
 const Cart = () => {
   const list = useSelector(state => state.cartReducer.cart);
@@ -66,8 +67,9 @@ const Cart = () => {
     dispatch(setCartItemQuantity({ id, quantity }));
   };
 
-  const onDelete = idList => {
+  const onDelete = async idList => {
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
+      await Promise.all(idList.map(id => API.deleteCartItem({ id })));
       dispatch(deleteCartItems(idList));
     }
   };

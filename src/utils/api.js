@@ -13,16 +13,33 @@ const request = async (url, option = {}) => {
 
 const API = {
   getItemList: async () => {
-    return await request(`${BASE_URL}/itemList.json`);
+    return await request(`${BASE_URL}/products`);
   },
   addItemToCart: async data => {
-    return await request(`${BASE_URL}/addCart/${data.id}.json`, { method: 'GET', data });
+    return await request(`${BASE_URL}/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
   },
   getCartItemList: async () => {
-    return await request(`${BASE_URL}/cartItemList.json`);
+    return await request(`${BASE_URL}/cart`);
+  },
+  deleteCartItem: async data => {
+    return await request(`${BASE_URL}/cart/${data.id}`, {
+      method: 'DELETE',
+    });
   },
   purchase: async data => {
-    return await request(`${BASE_URL}/purchase.json`, { method: 'GET', data });
+    return await request(`${BASE_URL}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
   },
 };
 
