@@ -20,8 +20,8 @@ const ProductsPage = () => {
 
   const dispatch = useDispatch();
 
-  const handleClickCart = (productId: T.Product['id']) => {
-    dispatch(addCartItemRequest(productId));
+  const handleClickCart = (product: T.Product) => {
+    dispatch(addCartItemRequest(product));
   };
 
   useEffect(() => {

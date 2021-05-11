@@ -4,14 +4,14 @@ export enum ButtonSize {
 }
 
 export type Product = {
-  id: string;
+  id: number;
   name: string;
   image: string;
   price: number;
 };
 
 export type CartItem = {
-  id: string;
-  productId: Product['id'];
+  id: number;
+  product: Product;
   quantity: number;
 };

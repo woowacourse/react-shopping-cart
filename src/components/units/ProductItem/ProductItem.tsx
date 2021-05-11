@@ -5,17 +5,15 @@ import * as T from '../../../types';
 
 type ProductItemProps = {
   product: T.Product;
-  onClickCart: (productId: T.Product['id']) => void;
+  onClickCart: (product: T.Product) => void;
 };
 
 const ProductItem = (props: ProductItemProps) => {
-  const {
-    product: { id, name, image, price },
-    onClickCart,
-  } = props;
+  const { product, onClickCart } = props;
+  const { name, image, price } = product;
 
   const handleClickCart = () => {
-    onClickCart(id);
+    onClickCart(product);
   };
 
   return (
