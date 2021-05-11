@@ -1,7 +1,5 @@
-import APIClient from '../API';
-import { ItemInCart, Product } from '../types';
-
-export const requestProductList = (): Promise<Product[]> => APIClient.get('/productList');
+import APIClient from '../../API';
+import { ItemInCart } from '../../types';
 
 export const requestShoppingCartItemList = (): Promise<ItemInCart[]> => APIClient.get('/cart');
 

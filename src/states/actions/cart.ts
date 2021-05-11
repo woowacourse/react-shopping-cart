@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { Action, ActionWithPayload, AppThunk } from '.';
 import {
   requestAddShoppingCartItem,
@@ -9,7 +8,7 @@ import {
   requestDeleteShoppingCartItem,
   requestDeleteShoppingCartItems,
   requestShoppingCartItemList,
-} from '../../service/request';
+} from '../../service/request/cart';
 import { ItemInCart, Product } from '../../types';
 import { createItemInCart } from '../../utils/cart';
 

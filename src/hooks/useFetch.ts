@@ -5,12 +5,12 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   const [hasError, setHasError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const doFetch = async () => {
+  const reFetch = async () => {
     setHasError(null);
     setIsLoading(true);
     try {
       const value = await callback();
-
+      console.log(value);
       setData(value);
     } catch (error) {
       setHasError(error);
@@ -20,10 +20,10 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   };
 
   useEffect(() => {
-    doFetch();
+    reFetch();
   }, []);
 
-  return { data, doFetch, hasError, isLoading };
+  return { data, doFetch: reFetch, hasError, isLoading };
 };
 
 export default useFetch;

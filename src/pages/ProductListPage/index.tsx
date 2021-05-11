@@ -1,8 +1,7 @@
-import ErrorBoundary from '../../components/ErrorBoundary';
 import ProductList from '../../components/ProductList';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/useFetch';
-import { requestProductList } from '../../service/request';
+import { requestProductList } from '../../service/request/productList';
 import { Product } from '../../types';
 
 const ProductListPage = () => {

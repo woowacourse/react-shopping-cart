@@ -10,6 +10,7 @@ interface Props {
 }
 
 const OrderConfirmSection: VFC<Props> = ({ title, items }) => {
+  console.log(items);
   return (
     <OrderItemListContainer>
       <InnerTitle>

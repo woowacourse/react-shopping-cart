@@ -1,14 +1,20 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
-import ShoppingCartInnerContainer from '../../components/ShoppingCart/ShoppingCartInnerContainer';
+import ShoppingCartInnerContainer from '../../components/ShoppingCart/ShoppingCartForm';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetchCartRedux from '../../hooks/useFetchCartRedux';
 import { useAppSelector } from '../../states/store';
-import { useEffect } from 'react';
+import { FormEvent, useEffect, VFC } from 'react';
+import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
+import useFetch from '../../hooks/useFetch';
+import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
+import { RouteComponentProps } from 'react-router';
 
 const TITLE = '장바구니';
 
-const ShoppingCartPage = () => {
+interface Props extends RouteComponentProps {}
+
+const ShoppingCartPage: VFC<Props> = ({ history }) => {
   const { doFetch } = useFetchCartRedux();
 
   useEffect(() => {
@@ -22,15 +28,27 @@ const ShoppingCartPage = () => {
     0
   );
 
+  const onSubmitCartItems = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      await requestRegisterOrderConfirmItems(items.filter(({ checked }) => checked));
+    } catch (error) {
+      throw error;
+    }
+
+    history.push('/orderConfirm');
+  };
+
   return (
     <ReactShoppingCartTemplate title={TITLE}>
-      <ShoppingCartInnerContainer>
+      <ShoppingCartForm onSubmit={onSubmitCartItems}>
         <ShoppingCartSectionList />
         <ShoppingCartResultSubmitCard
           totalPrice={totalPrice}
           totalQuantity={items.filter((item) => item.checked).length}
         />
-      </ShoppingCartInnerContainer>
+      </ShoppingCartForm>
     </ReactShoppingCartTemplate>
   );
 };
