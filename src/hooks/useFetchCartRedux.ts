@@ -41,9 +41,8 @@ const useFetchCartRedux = () => {
     dispatch(thunkChangeItemChecked(item));
   };
 
-  //TODO: items 바로 불러와서 인자로받지 말게하기
-  const changeAllChecked = (items: ItemInCart[], checked: boolean) => {
-    dispatch(thunkChangeAllItemChecked(items, checked));
+  const changeAllChecked = (checked: boolean) => {
+    dispatch(thunkChangeAllItemChecked(itemsInCart, checked));
   };
 
   const deleteItem = (itemId: string) => {

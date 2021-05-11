@@ -16,7 +16,7 @@ const ShoppingCartSectionList = () => {
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;
-    changeAllChecked(items, negatedChecked);
+    changeAllChecked(negatedChecked);
     setChecked(negatedChecked);
   };
 
