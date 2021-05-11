@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
@@ -12,6 +13,11 @@ export const CartPage = () => {
   const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
   const isAllUnselected = !cartProducts.some(({ isSelected }) => isSelected);
+
+  const history = useHistory();
+  const onClickCheckoutButton = () => {
+    history.push(ROUTE.CHECKOUT);
+  };
 
   const dispatch = useDispatch();
   const dispatchRemoveProduct = (id) => dispatch(getAction.removeProduct(id));
@@ -66,7 +72,7 @@ export const CartPage = () => {
             price={getFormattedAsKRW(totalPrice)}
             buttonText={`주문하기(${selectedProducts.length}개)`}
             buttonDisabled={isAllUnselected}
-            route={ROUTE.CHECKOUT}
+            onClickButton={onClickCheckoutButton}
           />
         </Styled.CheckoutSection>
       </Styled.Main>

@@ -1,8 +1,11 @@
-import { useSelector } from 'react-redux';
-import * as Styled from './style.js';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAction } from '../../../redux';
+import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header } from '../../commons';
-import { getFormattedAsKRW } from '../../../utils';
+import * as Styled from './style.js';
+import { getFormattedAsKRW, getDateInNumber } from '../../../utils';
 import { ROUTE } from '../../../constants';
 
 export const CheckoutPage = () => {
@@ -10,6 +13,18 @@ export const CheckoutPage = () => {
   const checkoutProducts = cartProducts.filter((product) => product.isSelected);
   const totalPrice = checkoutProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   const totalPriceAsKRW = getFormattedAsKRW(totalPrice);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onClickCheckoutButton = () => {
+    addData({
+      table: ORDER_LIST,
+      key: getDateInNumber(),
+      value: Object.fromEntries(checkoutProducts.map((product) => [product.id, product])),
+    });
+    dispatch(getAction.checkout());
+    history.push(ROUTE.ORDER_LIST);
+  };
 
   return (
     <Styled.Page>
@@ -29,7 +44,7 @@ export const CheckoutPage = () => {
             label="총 결제금액"
             price={totalPriceAsKRW}
             buttonText={`${totalPriceAsKRW} 결제하기`}
-            route={ROUTE.ORDER_LIST}
+            onClickButton={onClickCheckoutButton}
           />
         </Styled.CheckoutSection>
       </Styled.Main>

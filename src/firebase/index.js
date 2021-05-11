@@ -14,10 +14,14 @@ firebase.initializeApp(config);
 
 export const firestore = firebase.firestore();
 
-export const PRODUCT_LIST_COLLECTION = 'ProductList';
-export const ORDER_LIST_COLLECTION = 'OrderList';
+export const PRODUCT_LIST = 'ProductList';
+export const ORDER_LIST = 'OrderList';
 
-export const loadData = async (handleResponse, collectionName) => {
-  const response = await firestore.collection(collectionName).get();
-  handleResponse(response.docs.map((doc) => doc.data()));
+export const loadData = async ({ table, handler }) => {
+  const response = await firestore.collection(table).get();
+  handler(response.docs.map((doc) => doc.data()));
+};
+
+export const addData = async ({ table, key, value }) => {
+  firestore.collection(table).doc(key).set(value);
 };

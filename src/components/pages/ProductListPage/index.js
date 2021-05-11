@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadData, PRODUCT_LIST_COLLECTION } from '../../../firebase';
+import { loadData, PRODUCT_LIST } from '../../../firebase';
 import { getAction } from '../../../redux';
 import * as Styled from './style.js';
 import { ProductItem } from './ProductItem';
@@ -11,7 +11,7 @@ export const ProductListPage = () => {
   const dispatchAddProduct = (product) => dispatch(getAction.addProduct(product));
 
   useEffect(() => {
-    loadData(setProducts, PRODUCT_LIST_COLLECTION);
+    loadData({ table: PRODUCT_LIST, handler: setProducts });
   }, []);
 
   return (
