@@ -16,5 +16,7 @@ declare interface CartItem {
 }
 
 type Cart = CartItem[];
-
-declare interface Order {}
+declare interface Order {
+  id: number;
+  orderItems: CartItem[];
+}
