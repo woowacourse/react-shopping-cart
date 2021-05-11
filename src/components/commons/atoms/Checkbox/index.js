@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import * as Styled from './style.js';
 
 export const Checkbox = (props) => {
-  const { label, ...rest } = props;
+  const { label, isChecked, onChange, ...rest } = props;
 
   return (
     <Styled.Container {...rest}>
       {label}
-      <Styled.Checkbox />
+      <Styled.Checkbox checked={isChecked} onChange={onChange} />
       <Styled.CheckMark />
     </Styled.Container>
   );
@@ -15,4 +15,5 @@ export const Checkbox = (props) => {
 
 Checkbox.propTypes = {
   label: PropTypes.string,
+  onChange: PropTypes.func,
 };

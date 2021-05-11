@@ -5,13 +5,13 @@ import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../common
 import { getFormattedAsKRW } from '../../../../utils';
 
 export const CartProductItem = (props) => {
-  const { product, onRemoveProduct, ...rest } = props;
+  const { product, onRemoveProduct, onToggleCheckbox, ...rest } = props;
   const { id, name, price, img, isSelected } = product;
   const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = useQuantityStepper();
 
   return (
     <Styled.Container {...rest}>
-      <Checkbox isChecked={isSelected} />
+      <Checkbox isChecked={isSelected} onChange={() => onToggleCheckbox(id)} />
       <Styled.Image src={img} />
       <Styled.Name>{name}</Styled.Name>
       <Styled.Controller>
@@ -37,4 +37,5 @@ CartProductItem.propTypes = {
     isSelected: PropTypes.bool,
   }).isRequired,
   onRemoveProduct: PropTypes.func.isRequired,
+  onToggleCheckbox: PropTypes.func.isRequired,
 };

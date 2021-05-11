@@ -6,16 +6,13 @@ import products from '../../../mockData/product.json';
 
 export const ProductListPage = () => {
   const dispatch = useDispatch();
+  const dispatchAddProduct = (product) => dispatch(addProduct(product));
 
   return (
     <Styled.Page>
       <Styled.ProductList>
         {products.map((product) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            onAddProduct={(product) => dispatch(addProduct(product))}
-          />
+          <ProductItem key={product.id} product={product} onAddProduct={dispatchAddProduct} />
         ))}
       </Styled.ProductList>
     </Styled.Page>

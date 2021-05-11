@@ -1,5 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeProduct, removeSelectedProducts } from '../../../redux';
+import {
+  removeProduct,
+  removeSelectedProducts,
+  toggleProductSelection,
+  toggleAllProductsSelection,
+} from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
 import * as Styled from './style.js';
@@ -12,6 +17,8 @@ export const CartPage = () => {
   const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
   const dispatch = useDispatch();
+  const dispatchRemoveProduct = (id) => dispatch(removeProduct(id));
+  const dispatchToggleProductSelection = (id) => dispatch(toggleProductSelection(id));
 
   return (
     <Styled.Page>
@@ -19,7 +26,11 @@ export const CartPage = () => {
       <Styled.Main>
         <Styled.OrderOptionsSection>
           <Styled.OrderOptionsController>
-            <Checkbox label="선택해제" isChecked={isAllSelected} />
+            <Checkbox
+              label={isAllSelected ? '선택해제' : '전체선택'}
+              isChecked={isAllSelected}
+              onChange={() => dispatch(toggleAllProductsSelection(!isAllSelected))}
+            />
             <Styled.DeleteButton onClick={() => dispatch(removeSelectedProducts())}>
               상품삭제
             </Styled.DeleteButton>
@@ -32,7 +43,8 @@ export const CartPage = () => {
               <CartProductItem
                 key={product.id}
                 product={product}
-                onRemoveProduct={(id) => dispatch(removeProduct(id))}
+                onRemoveProduct={dispatchRemoveProduct}
+                onToggleCheckbox={dispatchToggleProductSelection}
               />
             ))}
           </Styled.CartProductList>
