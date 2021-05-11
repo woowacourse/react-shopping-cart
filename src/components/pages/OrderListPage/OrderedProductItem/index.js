@@ -3,7 +3,7 @@ import { getFormattedAsKRW } from '../../../../utils';
 import * as Styled from './style.js';
 
 export const OrderedProductItem = (props) => {
-  const { product, ...rest } = props;
+  const { product, addProduct, ...rest } = props;
   const { name, price, img, quantity } = product;
   const totalPriceAsKRW = getFormattedAsKRW(price * quantity);
 
@@ -16,7 +16,7 @@ export const OrderedProductItem = (props) => {
           {totalPriceAsKRW} / 수량 : {quantity}
         </Styled.OrderSummary>
       </Styled.Content>
-      <Styled.AddToCartButton>장바구니</Styled.AddToCartButton>
+      <Styled.AddToCartButton onClick={() => addProduct(product)}>장바구니</Styled.AddToCartButton>
     </Styled.Container>
   );
 };
