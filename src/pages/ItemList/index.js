@@ -29,6 +29,7 @@ const ItemList = () => {
               <Price>{price.toLocaleString('ko-KR')} 원</Price>
               <IconButton
                 size="medium"
+                ariaLabel={`${name}을 장바구니에 담기`}
                 onClick={async () => {
                   try {
                     const data = { id, name, image, price, quantity: 1, checked: true };
