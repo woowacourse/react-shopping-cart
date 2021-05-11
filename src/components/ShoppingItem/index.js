@@ -13,21 +13,31 @@ const ShoppingItem = ({
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
   isChecked = FALLBACK.PRODUCT.CHECKED,
+  onIncreaseQuantity = () => {},
+  onDecreaseQuantity = () => {},
   // onClick = () => {},
-}) => (
-  <Product>
-    <CheckBox checked={isChecked} onClick={() => {}} />
-    <Image src={imgUrl} alt={imgAlt} />
-    <Name>{name}</Name>
-    <Controller>
-      <button type="button" onClick={() => {}}>
-        <TrashCan width="20" height="20" />
-      </button>
-      <QuantityInput type="number" quantity={quantity} />
-      <span>{price}원</span>
-    </Controller>
-  </Product>
-);
+}) => {
+  return (
+    <Product>
+      <CheckBox checked={isChecked} onClick={() => {}} />
+      <Image src={imgUrl} alt={imgAlt} />
+      <Name>{name}</Name>
+      <Controller>
+        <button type="button" onClick={() => {}}>
+          <TrashCan width="20" height="20" />
+        </button>
+
+        <QuantityInput
+          type="number"
+          quantity={quantity}
+          onIncreaseQuantity={onIncreaseQuantity}
+          onDecreaseQuantity={onDecreaseQuantity}
+        />
+        <span>{price}원</span>
+      </Controller>
+    </Product>
+  );
+};
 
 ShoppingItem.propTypes = {
   imgUrl: PropTypes.string,

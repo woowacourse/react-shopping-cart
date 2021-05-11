@@ -12,12 +12,23 @@ import {
   ShoppingList,
 } from './index.styles';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { PRODUCTS } from '../../../constants/actionType';
 
 const ShoppingCart = () => {
   const products = Object.values(
     useSelector(({ product }) => product.pickedProducts)
   );
+
+  const dispatch = useDispatch();
+
+  const handleIncreaseQuantity = id => {
+    dispatch({ type: PRODUCTS.INCREASE_QUANTITY, id });
+  };
+
+  const handleDecreaseQuantity = id => {
+    dispatch({ type: PRODUCTS.DECREASE_QUANTITY, id });
+  };
 
   return (
     <Page>
@@ -36,7 +47,11 @@ const ShoppingCart = () => {
             <ul>
               {products.map(({ id, ...product }) => (
                 <li key={id}>
-                  <ShoppingItem {...product} />
+                  <ShoppingItem
+                    {...product}
+                    onIncreaseQuantity={() => handleIncreaseQuantity(id)}
+                    onDecreaseQuantity={() => handleDecreaseQuantity(id)}
+                  />
                 </li>
               ))}
             </ul>

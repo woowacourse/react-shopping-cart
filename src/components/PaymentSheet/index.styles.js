@@ -32,7 +32,7 @@ export const Payment = styled.div`
       opacity: 0.7;
       background-color: var(--color-mint);
       position: absolute;
-      top: 0.7rem;
+      top: 1rem;
       left: 0;
       z-index: -1;
     }

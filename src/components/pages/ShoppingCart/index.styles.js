@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const Page = styled.div`
-  padding: 7rem 15rem;
+  padding: 7rem;
+  min-width: 55rem;
+  max-width: 65rem;
+  margin: 0 auto;
 `;
 
 export const Main = styled.main`

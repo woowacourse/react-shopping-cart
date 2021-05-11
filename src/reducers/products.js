@@ -21,6 +21,34 @@ const productReducer = (state = initialState, action) => {
           },
         },
       };
+
+    case PRODUCTS.INCREASE_QUANTITY:
+      return {
+        ...state,
+        pickedProducts: {
+          ...state.pickedProducts,
+          [action.id]: {
+            ...state.pickedProducts[action.id],
+            quantity: state.pickedProducts[action.id].quantity + 1,
+          },
+        },
+      };
+
+    case PRODUCTS.DECREASE_QUANTITY:
+      return {
+        ...state,
+        pickedProducts: {
+          ...state.pickedProducts,
+          [action.id]: {
+            ...state.pickedProducts[action.id],
+            quantity:
+              state.pickedProducts[action.id].quantity === 0
+                ? 0
+                : state.pickedProducts[action.id].quantity - 1,
+          },
+        },
+      };
+
     default:
       return state;
   }

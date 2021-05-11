@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InputWrapper, Input, ControlButtons } from './index.styles';
 
-const QuantityInput = ({ quantity = 1 }) => {
-  const handleIncrement = () => {};
-  const handleDecrement = () => {};
-
+const QuantityInput = ({
+  quantity = 1,
+  onIncreaseQuantity,
+  onDecreaseQuantity,
+}) => {
   return (
     <InputWrapper>
       <label htmlFor="quantity-input"></label>
       <Input quantity={quantity} />
       <ControlButtons>
-        <button onClick={handleIncrement}> ▲ </button>
-        <button onClick={handleDecrement}> ▼ </button>
+        <button onClick={onIncreaseQuantity}> ▲ </button>
+        <button onClick={onDecreaseQuantity}> ▼ </button>
       </ControlButtons>
     </InputWrapper>
   );
