@@ -14,7 +14,7 @@ const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVis
       </ProductDetail>
 
       {isVisibleIcon && (
-        <button type="button" onClick={onClickShoppingCartIcon}>
+        <button data-testid="shopping-cart-icon" type="button" onClick={onClickShoppingCartIcon}>
           <ShoppingCartIcon scale="0.6" />
         </button>
       )}

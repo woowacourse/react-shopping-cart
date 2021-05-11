@@ -56,6 +56,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
+    "firebase-mock": "^2.3.2",
+    "firestore-jest-mock": "^0.11.1",
     "prettier": "^2.2.1"
   }
 }
