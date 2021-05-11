@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Button, { BUTTON_TYPE } from '../components/button/Button';
 import Checkbox from '../components/checkbox/Checkbox';
@@ -32,9 +33,11 @@ const getExpectedPaymentAmount = (checkedShoppingCartList) =>
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
   const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
+  const totalPrice = getExpectedPaymentAmount(checkedShoppingCartList);
 
   const handleAllShoppingCartItemToggle = () => {
     dispatch(toggleAllShoppingCartItem());
@@ -49,6 +52,13 @@ const ShoppingCart = () => {
     );
 
     dispatch(deleteCheckedShoppingCartList());
+  };
+
+  const handleHistoryRouter = () => {
+    history.push('./orderPayment', {
+      orderPaymentList: checkedShoppingCartList,
+      totalPrice,
+    });
   };
 
   return (
@@ -77,8 +87,9 @@ const ShoppingCart = () => {
         <PaymentAmountWrapper>
           <PaymentAmount
             type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
-            price={getExpectedPaymentAmount(checkedShoppingCartList)}
+            price={totalPrice}
             count={checkedShoppingCartList.length}
+            onClick={handleHistoryRouter}
           />
         </PaymentAmountWrapper>
       </Content>

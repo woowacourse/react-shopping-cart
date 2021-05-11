@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import Button, { BUTTON_TYPE } from '../button/Button';
@@ -69,7 +68,7 @@ const getButtonText = ({ type, count, price }) => {
   return buttonTextType[type];
 };
 
-const PaymentAmount = ({ type, price, count }) => (
+const PaymentAmount = ({ type, price, count, onClick }) => (
   <Container>
     <Title>{paymentAmountText[type].title}</Title>
     <div>
@@ -77,9 +76,9 @@ const PaymentAmount = ({ type, price, count }) => (
         <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Link style={{ marginLeft: '30px' }} to="/orderPayment">
-        <Button type={BUTTON_TYPE.MEDIUM}>{getButtonText({ type, price, count })}</Button>
-      </Link>
+      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
+        {getButtonText({ type, price, count })}
+      </Button>
     </div>
   </Container>
 );
@@ -87,7 +86,7 @@ const PaymentAmount = ({ type, price, count }) => (
 PaymentAmount.propTypes = {
   type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
 };
 
 export default PaymentAmount;

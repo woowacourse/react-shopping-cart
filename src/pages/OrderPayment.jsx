@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
 import PageTitle from '../components/pageTitle/PageTitle';
@@ -20,8 +20,7 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
-  const orderPaymentList = shoppingCartList.filter((item) => item.isChecked);
+  const { state } = useLocation();
 
   return (
     <>
@@ -31,12 +30,12 @@ const OrderPayment = () => {
           <SelectedProductList
             listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
             itemType={ORDER_LIST_ITEM_TYPE.ORDER_PAYMENT}
-            productList={orderPaymentList}
+            productList={state.orderPaymentList}
             ListItem={OrderListItem}
           />
         </div>
         <OrderPaymentAmountWrapper>
-          <PaymentAmount type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT} price={325000} />
+          <PaymentAmount type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT} price={state.totalPrice} />
         </OrderPaymentAmountWrapper>
       </Content>
     </>
