@@ -1,51 +1,21 @@
 import * as Styled from './ProductDetailPage.styles';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '../../components/commons/Button/Button';
 import NumberInput from '../../components/commons/NumberInput/NumberInput';
 import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
-import noImagePNG from '../../assets/images/no-image.png';
 import axios from 'axios';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import { getMoneyString } from '../../utils/format';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
 import { useHistory } from 'react-router';
-
-const defaultProduct: Product = {
-  id: '0',
-  name: '상품 정보 없음',
-  price: '0',
-  thumbnail: noImagePNG,
-  stock: 0,
-};
+import useProductDetail from '../../hooks/productDetail';
 
 const ProductDetailPage = () => {
   const history = useHistory();
   const [productQuantity, setProductQuantity] = useState<string>('1');
-  const [product, setProduct] = useState<Product>(defaultProduct);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
   const [isToolTipShown, setToolTipShown] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productId = window.location.hash.split('/').slice(-1);
-        const response = await axios.get(`${URL.PRODUCTS}/${productId}`);
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          throw new Error('상품 상세 정보 조회 실패');
-        }
-        setProduct(response.data);
-        setResponseOK(true);
-      } catch (error) {
-        console.error(error);
-        setResponseOK(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { product, loading, responseOK } = useProductDetail();
 
   const onCartButtonClick = async () => {
     try {
