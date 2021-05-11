@@ -8,9 +8,11 @@ export interface Props {
   name: string;
   price: string;
   thumbnail?: string;
+  quantity: CartItem['quantity'];
+  setQuantity: (quantity: CartItem['quantity']) => void;
 }
 
-const CartItem = ({ name, price, thumbnail = noImagePNG }: Props) => {
+const CartItem = ({ name, price, thumbnail = noImagePNG, quantity, setQuantity }: Props) => {
   return (
     <Styled.CartItem>
       <Checkbox />
@@ -21,7 +23,7 @@ const CartItem = ({ name, price, thumbnail = noImagePNG }: Props) => {
           <img src={trashCanSVG} alt="cart item delete button" />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
-          <NumberInput initValue={1} />
+          <NumberInput value={quantity} setValue={setQuantity} />
           <Styled.Price>{price}원</Styled.Price>
         </Styled.ItemContentBottom>
       </Styled.ItemContentWrapper>

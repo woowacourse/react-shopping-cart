@@ -57,7 +57,7 @@ const ProductDetailPage = () => {
         <Styled.ProductImage src={product.thumbnail} />
         <Styled.ProductNameWrapper>
           <Styled.ProductName>{product.name}</Styled.ProductName>
-          <NumberInput initValue={1} value={productQuantity} setValue={setProductQuantity} />
+          <NumberInput value={productQuantity} setValue={setProductQuantity} />
         </Styled.ProductNameWrapper>
         <Styled.ProductPriceWrapper>
           <Styled.PriceLabel>금액</Styled.PriceLabel>

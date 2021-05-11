@@ -5,7 +5,14 @@ declare interface Product {
   price: string;
   stock: number;
 }
+declare interface CartItem {
+  id: string;
+  name: string;
+  thumbnail: string;
+  price: string;
+  quantity: string;
+}
 
-declare interface Cart {}
+type Cart = CartItem[];
 
 declare interface Order {}

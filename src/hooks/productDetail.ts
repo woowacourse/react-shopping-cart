@@ -18,6 +18,7 @@ const useProductDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const productId = window.location.hash.split('/').slice(-1);
         const response = await axios.get(`${URL.PRODUCTS}/${productId}`);

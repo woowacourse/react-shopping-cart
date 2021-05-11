@@ -4,17 +4,20 @@ import triangleDownSVG from '../../../assets/svgs/triangle-down.svg';
 import { isPositiveNumber } from '../../../utils/validation';
 
 export interface Props {
-  initValue: number;
   value?: string;
-  setValue?: React.Dispatch<React.SetStateAction<string>>;
+  setValue?: React.Dispatch<React.SetStateAction<string>> | ((value: string) => void);
   maxLength?: number;
 }
 
-const NumberInput = ({ initValue = 1, maxLength = 2, value = '1', setValue }: Props) => {
+const NumberInput = ({ maxLength = 2, value = '1', setValue }: Props) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!setValue) {
+      return;
+    }
+
     const { value } = event.target;
     if (value === '') {
-      setValue && setValue('');
+      setValue('');
       return;
     }
 
@@ -22,7 +25,7 @@ const NumberInput = ({ initValue = 1, maxLength = 2, value = '1', setValue }: Pr
       return;
     }
 
-    setValue && setValue(value);
+    setValue(String(value));
   };
 
   const onNumberIncrease = () => {
@@ -30,7 +33,8 @@ const NumberInput = ({ initValue = 1, maxLength = 2, value = '1', setValue }: Pr
   };
 
   const onNumberDecrease = () => {
-    setValue && setValue(state => (isPositiveNumber(Number(state) - 1) ? String(Number(value) - 1) : state));
+    const newValue = isPositiveNumber(Number(value) - 1) ? String(Number(value) - 1) : value;
+    setValue && setValue(newValue);
   };
 
   return (

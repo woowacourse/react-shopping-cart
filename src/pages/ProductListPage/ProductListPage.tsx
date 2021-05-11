@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { useHistory } from 'react-router-dom';
 
 import ProductGridItem from '../../components/ProductListPage/ProductGridItem/ProductGridItem';
@@ -15,12 +13,7 @@ import * as Styled from './ProductListPage.styles';
 
 const ProductListPage = () => {
   const history = useHistory();
-  const { products, loading, error, fetchProducts } = useProducts();
-
-  useEffect(() => {
-    if (products.length !== 0) return;
-    fetchProducts();
-  }, [fetchProducts, products]);
+  const { products, loading, error } = useProducts();
 
   const onProductItemClick = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
