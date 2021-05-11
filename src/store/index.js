@@ -22,7 +22,7 @@ export const addOrderDetail = data => {
   };
 };
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.SET_ITEM_LIST:
       return {
