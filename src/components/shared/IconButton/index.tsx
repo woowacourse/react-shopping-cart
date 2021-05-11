@@ -1,11 +1,11 @@
-import { VFC } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Button from '../Button';
 
 interface Props {
-  image: string;
-  width: string;
-  height: string;
+  image?: string;
+  width?: string;
+  height?: string;
 }
 
 const IconButton = styled(Button)<Props>`

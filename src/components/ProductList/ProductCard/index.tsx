@@ -1,10 +1,13 @@
 import { VFC } from 'react';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import { Product } from '../../../types';
-import Card from '../../shared/Card';
-import IconButton from '../../shared/IconButton';
-import Text from '../../shared/Text';
-import { ContentContainer } from './style';
+import {
+  CartIconButton,
+  ContentContainer,
+  ProductNameText,
+  ProductText,
+  StyledProductCard,
+} from './style';
 
 const ProductCard: VFC<Product> = (product) => {
   const { name, price, image } = product;
@@ -17,23 +20,15 @@ const ProductCard: VFC<Product> = (product) => {
   };
 
   return (
-    <Card type="vertical" width="17.625rem" height="22rem" image={image}>
+    <StyledProductCard type="vertical" image={image}>
       <ContentContainer>
         <div>
-          <Text margin="0 0 0.5rem 0" data-testid="product-name">
-            {name}
-          </Text>
-          <Text size="1.25rem">{price} 원</Text>
+          <ProductNameText data-testid="product-name">{name}</ProductNameText>
+          <ProductText>{price} 원</ProductText>
         </div>
-        <IconButton
-          image="/icons/shopping-cart-black.svg"
-          width="3rem"
-          height="3rem"
-          data-testid="add-cart-button"
-          onClick={onClickAddCart}
-        />
+        <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>
-    </Card>
+    </StyledProductCard>
   );
 };
 
