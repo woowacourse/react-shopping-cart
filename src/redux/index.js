@@ -7,6 +7,7 @@ export {
   INCREMENT_PRODUCT_QUANTITY,
   DECREMENT_PRODUCT_QUANTITY,
   INPUT_PRODUCT_QUANTITY,
+  CHECKOUT,
   getAction,
   cartReducer,
 } from './cartReducer';

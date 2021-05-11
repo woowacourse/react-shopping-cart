@@ -34,6 +34,8 @@ export const getAction = {
     type: INPUT_PRODUCT_QUANTITY,
     payload: { id, quantity },
   }),
+
+  checkout: () => ({ type: CHECKOUT }),
 };
 
 /* REDUCER */
@@ -58,8 +60,10 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
       return getPropertyRemoved({ ...state }, payload);
 
     case REMOVE_SELECTED_PRODUCTS:
-      const leftProducts = Object.entries(state).filter(([_, product]) => !product.isSelected);
-      return Object.fromEntries(leftProducts);
+      const notRemovedProducts = Object.entries(state).filter(
+        ([_, product]) => !product.isSelected
+      );
+      return Object.fromEntries(notRemovedProducts);
 
     /* payload: id */
     case TOGGLE_PRODUCT_SELECTION:
@@ -89,6 +93,12 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
     /* payload: { id, quantity } */
     case INPUT_PRODUCT_QUANTITY:
       return { ...state, [payload.id]: { ...state[payload.id], quantity: payload.quantity } };
+
+    case CHECKOUT:
+      const notOrderedProducts = Object.entries(state).filter(
+        ([_, product]) => !product.isSelected
+      );
+      return Object.fromEntries(notOrderedProducts);
 
     default:
       return state;
