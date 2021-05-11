@@ -131,7 +131,7 @@ const ShoppingCartPage = () => {
   const onOrderLinkButtonClick = () => {
     const selectedItems = getSelectedItems();
     if (selectedItems.length === 0) return;
-    history.push(PATH.ORDER, { selectedItems });
+    history.push({ pathname: PATH.ORDER, state: { selectedItems } });
   };
 
   return (
