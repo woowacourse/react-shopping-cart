@@ -1,15 +1,14 @@
-import { VFC } from 'react';
+import { ButtonHTMLAttributes, VFC } from 'react';
 import { OrderedItem } from '../../../../../types';
 import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderConfirmListItem/style';
 import Container from '../../../../shared/Container';
 import { AddCartButton, OrderListItemCard, StyledOrderItemListItem } from './styles';
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   item: OrderedItem;
-  className?: string;
 }
 
-const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity } }) => (
+const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity }, onClick }) => (
   <StyledOrderItemListItem>
     <OrderListItemCard type="horizontal" image={image}>
       <Container>
@@ -19,7 +18,9 @@ const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity } }) =
         </p>
       </Container>
     </OrderListItemCard>
-    <AddCartButton size="small">장바구니</AddCartButton>
+    <AddCartButton type="button" onClick={onClick} size="small">
+      장바구니
+    </AddCartButton>
   </StyledOrderItemListItem>
 );
 
