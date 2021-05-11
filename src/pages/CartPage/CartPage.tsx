@@ -31,10 +31,10 @@ const CartPage = () => {
             <Checkbox labelText="전체 선택" />
             <Styled.DeleteButton>선택 삭제</Styled.DeleteButton>
           </Styled.CartListOption>
-          <Styled.CartListHeader>든든배송 상품 (3개)</Styled.CartListHeader>
+          <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
           <Styled.CartItemList>
             {cartItems.data.map((cartItem) => (
-              <CartItem product={cartItem.product} quantity={cartItem.quantity} checked />
+              <CartItem key={cartItem.id} cartItem={cartItem} checked />
             ))}
           </Styled.CartItemList>
         </Styled.CartListContainer>

@@ -12,6 +12,10 @@ export const GET_CART_ITEMS_REQUEST = 'cartItems/GET_CART_ITEMS_REQUEST' as cons
 export const GET_CART_ITEMS_SUCCESS = 'cartItems/GET_CART_ITEMS_SUCCESS' as const;
 export const GET_CART_ITEMS_FAILURE = 'cartItems/GET_CART_ITEMS_FAILURE' as const;
 
+export const UPDATE_QUANTITY_REQUEST = 'cartItems/UPDATE_QUANTITY_REQUEST' as const;
+export const UPDATE_QUANTITY_SUCCESS = 'cartItems/UPDATE_QUANTITY_SUCCESS' as const;
+export const UPDATE_QUANTITY_FAILURE = 'cartItems/UPDATE_QUANTITY_FAILURE' as const;
+
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
   product: T.Product;
@@ -40,8 +44,29 @@ interface GetCartItemFailureAction {
   error: AxiosError;
 }
 
+interface UpdateQuantityRequestAction {
+  type: typeof UPDATE_QUANTITY_REQUEST;
+}
+
+interface UpdateQuantitySuccessAction {
+  type: typeof UPDATE_QUANTITY_SUCCESS;
+  payload: {
+    id: number;
+    quantity: number;
+  };
+}
+
+interface UpdateQuantityFailureAction {
+  type: typeof UPDATE_QUANTITY_FAILURE;
+  error: AxiosError;
+}
+
 export type AddCartItemAction = AddCartItemRequestAction | AddCartItemSuccessAction | AddCartItemFailureAction;
 export type GetCartItemsAction = GetCartItemRequestAction | GetCartItemSuccessAction | GetCartItemFailureAction;
+export type UpdateQuantityAction =
+  | UpdateQuantityRequestAction
+  | UpdateQuantitySuccessAction
+  | UpdateQuantityFailureAction;
 
 export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
   dispatch({ type: ADD_CART_ITEM_REQUEST, product });
@@ -71,5 +96,21 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
     dispatch({ type: GET_CART_ITEMS_SUCCESS, cartItems });
   } catch (error) {
     dispatch({ type: GET_CART_ITEMS_FAILURE, error });
+  }
+};
+
+export const updateQuantityRequest = (id: number, quantity: number) => async (
+  dispatch: Dispatch<UpdateQuantityAction>
+) => {
+  // TODO :quantity 0개 이하로 내려갔을 때 내려가지 않도록 방지하기
+
+  dispatch({ type: UPDATE_QUANTITY_REQUEST });
+
+  try {
+    await api.patch(`/cart/${id}`, { quantity });
+
+    dispatch({ type: UPDATE_QUANTITY_SUCCESS, payload: { id, quantity } });
+  } catch (error) {
+    dispatch({ type: UPDATE_QUANTITY_FAILURE, error });
   }
 };
