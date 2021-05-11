@@ -13,6 +13,7 @@ import {
 } from "../../../store/modules/cartSlice";
 import { MESSAGE } from "../../../constants/constants";
 import { useConfirm } from "../../../utils/useConfirm";
+import Empty from "../../@mixins/Empty/Empty";
 
 const checkAllIdentifier = (cart) => {
   const checkedSet = new Set(Object.values(cart).map(({ checked }) => checked));
@@ -52,7 +53,7 @@ const CartInfo = ({ cart }) => {
   };
 
   const checkAllLabel = checkAll ? "선택해제" : "전체선택";
-
+  const cartLength = Object.keys(cart).length;
   return (
     <S.CartInfo>
       <S.Menu>
@@ -72,12 +73,16 @@ const CartInfo = ({ cart }) => {
           </Button>
         </S.RemoveChecked>
       </S.Menu>
-      <S.Title>든든배송 상품 ({Object.keys(cart).length}개)</S.Title>
-      <S.List aria-label="cart-item-list">
-        {Object.entries(cart).map(([id, item]) => (
-          <CartItem key={id} item={item} />
-        ))}
-      </S.List>
+      <S.Title>든든배송 상품 ({cartLength}개)</S.Title>
+      {cartLength === 0 ? (
+        <Empty>장바구니가 텅 비어있어요</Empty>
+      ) : (
+        <S.List aria-label="cart-item-list">
+          {Object.entries(cart).map(([id, item]) => (
+            <CartItem key={id} item={item} />
+          ))}
+        </S.List>
+      )}
     </S.CartInfo>
   );
 };

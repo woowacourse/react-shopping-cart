@@ -21,3 +21,8 @@ export const CART = {
   MIN_AMOUNT: 1,
   MAX_AMOUNT: 99,
 };
+
+export const IMAGE = {
+  EMPTY:
+    "https://firebasestorage.googleapis.com/v0/b/payment-react-ca0a5.appspot.com/o/empty.png?alt=media&token=b0847dcc-5151-4237-8423-8d352e6315f5",
+};
