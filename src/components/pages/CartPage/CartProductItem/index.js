@@ -70,6 +70,7 @@ CartProductItem.propTypes = {
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     img: PropTypes.string,
+    quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isSelected: PropTypes.bool,
   }).isRequired,
   removeProduct: PropTypes.func.isRequired,

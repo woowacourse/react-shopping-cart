@@ -1,20 +1,25 @@
+import { useSelector } from 'react-redux';
 import * as Styled from './style.js';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header } from '../../commons';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
-import cartItems from '../../../mockData/order.json';
 
 export const CheckoutPage = () => {
+  const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
+  const checkoutProducts = cartProducts.filter((product) => product.isSelected);
+  const totalPrice = checkoutProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
+  const totalPriceAsKRW = getFormattedAsKRW(totalPrice);
+
   return (
     <Styled.Page>
       <Header>주문/결제</Header>
       <Styled.Main>
         <Styled.ListSection>
-          <Styled.ListLabel>주문 상품 ({cartItems[0].orderItems.length}건)</Styled.ListLabel>
+          <Styled.ListLabel>주문 상품 ({checkoutProducts.length}건)</Styled.ListLabel>
           <Styled.CheckoutProductList>
-            {cartItems[0].orderItems.map(({ quantity, product }) => (
-              <CheckoutProductItem key={product.id} quantity={quantity} item={product} />
+            {checkoutProducts.map((product) => (
+              <CheckoutProductItem key={product.id} product={product} />
             ))}
           </Styled.CheckoutProductList>
         </Styled.ListSection>
@@ -22,8 +27,8 @@ export const CheckoutPage = () => {
           <Styled.StickyCheckoutBox
             title="결제예상금액"
             label="총 결제금액"
-            price={getFormattedAsKRW(325600)}
-            buttonText={`${getFormattedAsKRW(325600)} 결제하기`}
+            price={totalPriceAsKRW}
+            buttonText={`${totalPriceAsKRW} 결제하기`}
             route={ROUTE.ORDER_LIST}
           />
         </Styled.CheckoutSection>
