@@ -50,12 +50,24 @@ export function toggleAllProductsSelection(willBeSelected) {
 }
 
 export function incrementProductQuantity(id) {
+  return {
+    type: INCREMENT_PRODUCT_QUANTITY,
+    payload: id,
+  };
 }
 
 export function decrementProductQuantity(id) {
+  return {
+    type: DECREMENT_PRODUCT_QUANTITY,
+    payload: id,
+  };
 }
 
 export function inputProductQuantity(id, quantity) {
+  return {
+    type: INPUT_PRODUCT_QUANTITY,
+    payload: { id, quantity },
+  };
 }
 
 /* REDUCER */
@@ -97,6 +109,20 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         },
         { ...state }
       );
+
+    /* payload: id */
+    case INCREMENT_PRODUCT_QUANTITY:
+      const incrementedQuantity = state[payload].quantity + 1;
+      return { ...state, [payload]: { ...state[payload], quantity: incrementedQuantity } };
+
+    /* payload: id */
+    case DECREMENT_PRODUCT_QUANTITY:
+      const decrementedQuantity = state[payload].quantity - 1;
+      return { ...state, [payload]: { ...state[payload], quantity: decrementedQuantity } };
+
+    /* payload: { id, quantity } */
+    case INPUT_PRODUCT_QUANTITY:
+      return { ...state, [payload.id]: { ...state[payload.id], quantity: payload.quantity } };
 
     default:
       return state;

@@ -4,11 +4,17 @@ export {
   REMOVE_SELECTED_PRODUCTS,
   TOGGLE_PRODUCT_SELECTION,
   TOGGLE_ALL_PRODUCTS_SELECTION,
+  INCREMENT_PRODUCT_QUANTITY,
+  DECREMENT_PRODUCT_QUANTITY,
+  INPUT_PRODUCT_QUANTITY,
   addProduct,
   removeProduct,
   removeSelectedProducts,
   toggleProductSelection,
   toggleAllProductsSelection,
+  incrementProductQuantity,
+  decrementProductQuantity,
+  inputProductQuantity,
   cartReducer,
 } from './cartReducer';
 export { store } from './store';
