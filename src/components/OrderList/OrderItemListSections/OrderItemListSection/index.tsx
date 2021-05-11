@@ -1,6 +1,7 @@
 import { VFC } from 'react';
+import { CONFIRM } from '../../../../constants/message';
 import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
-import { Order } from '../../../../types';
+import { ItemInCart, Order, OrderedItem } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
 
@@ -12,6 +13,14 @@ interface Props {
 const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) => {
   const { addItem } = useFetchCartRedux();
 
+  const onClickAddCart = (item: OrderedItem) => {
+    if (!window.confirm(CONFIRM.ADD_CART)) return;
+
+    const newItem: ItemInCart = { ...item, checked: true };
+
+    addItem(newItem);
+  };
+
   return (
     <StyledOrderItemListSection className={className}>
       <OrderItemListHeader>
@@ -20,7 +29,7 @@ const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) =
       </OrderItemListHeader>
       <OrderList>
         {items.map((item) => (
-          <OrderListItem item={item} onClick={() => addItem(item)} />
+          <OrderListItem key={item.id} item={item} onClick={() => onClickAddCart(item)} />
         ))}
       </OrderList>
     </StyledOrderItemListSection>

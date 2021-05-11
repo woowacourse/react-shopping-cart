@@ -9,17 +9,25 @@ import {
   thunkDeleteCheckedCartItem,
   thunkClearCart,
 } from '../states/actions/cart';
-import { useAppDispatch } from '../states/store';
+import { useAppDispatch, useAppSelector } from '../states/store';
 import { ItemInCart, Product } from '../types';
 
 const useFetchCartRedux = () => {
   const dispatch = useAppDispatch();
+  const itemsInCart = useAppSelector(({ cart }) => cart.items);
 
   const doFetch = () => {
     dispatch(thunkGetCartItems());
   };
 
   const addItem = (item: Product) => {
+    const itemInCart = itemsInCart.find((itemInCart) => itemInCart.id === item.id);
+
+    if (itemInCart) {
+      dispatch(thunkChangeItemQuantity(itemInCart, itemInCart.quantity + 1));
+      return;
+    }
+
     dispatch(thunkAddItemToCart(item));
   };
 

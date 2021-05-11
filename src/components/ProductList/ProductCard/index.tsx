@@ -10,6 +10,12 @@ const ProductCard: VFC<Product> = (product) => {
   const { name, price, image } = product;
   const { addItem } = useFetchCartRedux();
 
+  const onClickAddCart = () => {
+    if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
+
+    addItem(product);
+  };
+
   return (
     <Card type="vertical" width="100%" height="22rem" image={image}>
       <ContentContainer>
@@ -24,7 +30,7 @@ const ProductCard: VFC<Product> = (product) => {
           width="3rem"
           height="3rem"
           data-testid="add-cart-button"
-          onClick={() => addItem(product)}
+          onClick={onClickAddCart}
         />
       </ContentContainer>
     </Card>

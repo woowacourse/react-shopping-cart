@@ -10,7 +10,7 @@ const OrderItemListSections: VFC<Props> = ({ orders }) => {
   return (
     <>
       {orders.map((order) => (
-        <OrderItemListSection order={order} />
+        <OrderItemListSection key={order.id} order={order} />
       ))}
     </>
   );
