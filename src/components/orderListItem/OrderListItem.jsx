@@ -48,7 +48,7 @@ const getInfo = ({ type, count, price }) => {
     ORDER_PAYMENT: <Info type={type}>수량: {count}</Info>,
     ORDER_LIST: (
       <Info type={type}>
-        {price.toLocaleString('ko-KR')} / 수량: {count}개
+        {price.toLocaleString('ko-KR')}원 / 수량: {count}개
       </Info>
     ),
   };

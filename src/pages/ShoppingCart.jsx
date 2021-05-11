@@ -54,7 +54,7 @@ const ShoppingCart = () => {
     dispatch(deleteCheckedShoppingCartList());
   };
 
-  const handleHistoryRouter = () => {
+  const handleOrderPaymentPageRouter = () => {
     history.push('./orderPayment', {
       orderPaymentList: checkedShoppingCartList,
       totalPrice,
@@ -89,7 +89,7 @@ const ShoppingCart = () => {
             type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
             price={totalPrice}
             count={checkedShoppingCartList.length}
-            onClick={handleHistoryRouter}
+            onClick={handleOrderPaymentPageRouter}
           />
         </PaymentAmountWrapper>
       </Content>
