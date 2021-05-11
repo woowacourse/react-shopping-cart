@@ -1,4 +1,12 @@
-import { API_BASE_URL, METHOD } from '../constants/API';
+import { API_BASE_URL, HTTPMethod } from '../constants/API';
+
+const fetchOption = (method: HTTPMethod, data?: unknown) => ({
+  method,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+});
 
 const APIClient = {
   async get<T>(path: string): Promise<T> {
@@ -8,46 +16,23 @@ const APIClient = {
   },
 
   async post<T>(path: string, data: T) {
-    const response = await fetch(API_BASE_URL + path, {
-      method: METHOD.POST,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(API_BASE_URL + path, fetchOption('POST', data as T));
 
     return response.json();
   },
 
   async put<T>(path: string, data: T) {
-    const response = await fetch(API_BASE_URL + path, {
-      method: METHOD.PUT,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(API_BASE_URL + path, fetchOption('PUT', data as T));
 
     return response.json();
   },
 
   delete(path: string) {
-    fetch(API_BASE_URL + path, {
-      method: METHOD.DELETE,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    fetch(API_BASE_URL + path, fetchOption('DELETE'));
   },
 
-  patch<T>(path: string, data: Partial<T>[]) {
-    fetch(API_BASE_URL + path, {
-      method: METHOD.PATCH,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+  patch<T>(path: string, data: Partial<T>) {
+    fetch(API_BASE_URL + path, fetchOption('PATCH', data as Partial<T>));
   },
 };
 

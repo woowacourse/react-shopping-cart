@@ -108,7 +108,6 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
     case CHANGE_CART_ITEM_CHECKED_SUCCESS:
       return {
         ...state,
-        // TODO: 중복
         items: state.items.map((item) => (item.id === action.payload.id ? action.payload : item)),
         isLoading: false,
       };
