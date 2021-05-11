@@ -1,4 +1,13 @@
-import { ADD_CART_ITEM_REQUEST, ADD_CART_ITEM_SUCCESS, ADD_CART_ITEM_FAILURE, AddCartItemAction } from './actions';
+import {
+  ADD_CART_ITEM_REQUEST,
+  ADD_CART_ITEM_SUCCESS,
+  ADD_CART_ITEM_FAILURE,
+  GET_CART_ITEMS_REQUEST,
+  GET_CART_ITEMS_SUCCESS,
+  GET_CART_ITEMS_FAILURE,
+  AddCartItemAction,
+  GetCartItemsAction,
+} from './actions';
 import * as T from '../../types';
 
 export type CartState = {
@@ -17,7 +26,7 @@ const initialState: CartState = {
   },
 };
 
-export const cartReducer = (state: CartState = initialState, action: AddCartItemAction) => {
+export const cartReducer = (state: CartState = initialState, action: AddCartItemAction | GetCartItemsAction) => {
   switch (action.type) {
     case ADD_CART_ITEM_REQUEST:
       return {
@@ -38,6 +47,33 @@ export const cartReducer = (state: CartState = initialState, action: AddCartItem
         },
       };
     case ADD_CART_ITEM_FAILURE:
+      return {
+        ...state,
+        cartItems: {
+          ...state.cartItems,
+          success: false,
+          error: action.error,
+        },
+      };
+    case GET_CART_ITEMS_REQUEST:
+      return {
+        ...state,
+        cartItems: {
+          ...state.cartItems,
+          success: false,
+          error: null,
+        },
+      };
+    case GET_CART_ITEMS_SUCCESS:
+      return {
+        ...state,
+        cartItems: {
+          data: action.cartItems,
+          success: true,
+          error: null,
+        },
+      };
+    case GET_CART_ITEMS_FAILURE:
       return {
         ...state,
         cartItems: {

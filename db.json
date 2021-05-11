@@ -369,7 +369,7 @@
         "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png",
         "price": 7100
       },
-      "quantity": 1,
+      "quantity": 10,
       "id": 1
     },
     {
@@ -379,7 +379,7 @@
         "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png",
         "price": 12000
       },
-      "quantity": 1,
+      "quantity": 3,
       "id": 2
     },
     {
@@ -391,6 +391,16 @@
       },
       "quantity": 1,
       "id": 3
+    },
+    {
+      "product": {
+        "id": 11,
+        "name": "[든든] 종가집 콩이가득두부 (찌개용) 3kg",
+        "image": "https://cdn-mart.baemin.com/sellergoods/main/efc1aca6-6888-4207-b4ce-03b3aeeb2f12.jpg",
+        "price": 5000
+      },
+      "quantity": 1,
+      "id": 4
     }
   ]
 }

@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Styled from './CartPage.styles';
 import Checkbox from '../../components/shared/Checkbox/Checkbox';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
-import CardItemImageURL from '../../assets/images/kimmari.png';
 import CartItem from '../../components/units/CartItem/CartItem';
 import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import * as T from '../../types';
+import { CartState } from '../../modules/cartItems/reducers';
+import { RootState } from '../../modules';
+import { getCartItemsRequest } from '../../modules/cartItems/actions';
 
 const CartPage = () => {
+  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCartItemsRequest());
+  }, [dispatch]);
+
   return (
     <Styled.Root>
       <PageHeader title="장바구니" />
@@ -22,9 +33,9 @@ const CartPage = () => {
           </Styled.CartListOption>
           <Styled.CartListHeader>든든배송 상품 (3개)</Styled.CartListHeader>
           <Styled.CartItemList>
-            <CartItem title="[든든] 야채바삭 김말이 700g" imageUrl={CardItemImageURL} price={5100} checked />
-            <CartItem title="[든든] 야채바삭 김말이 700g" imageUrl={CardItemImageURL} price={5100} checked />
-            <CartItem title="[든든] 야채바삭 김말이 700g" imageUrl={CardItemImageURL} price={5100} checked />
+            {cartItems.data.map((cartItem) => (
+              <CartItem product={cartItem.product} quantity={cartItem.quantity} checked />
+            ))}
           </Styled.CartItemList>
         </Styled.CartListContainer>
         <Styled.PriceOverviewWrapper>

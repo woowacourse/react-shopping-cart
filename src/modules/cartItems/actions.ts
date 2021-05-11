@@ -65,7 +65,7 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
   dispatch({ type: GET_CART_ITEMS_REQUEST });
 
   try {
-    const response = await api.get(`/cart`);
+    const response = await api.get('/cart');
     const cartItems = response.data;
 
     dispatch({ type: GET_CART_ITEMS_SUCCESS, cartItems });
