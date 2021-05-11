@@ -12,19 +12,33 @@ export const Preview = styled.div`
 `;
 
 export const Img = styled.img`
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-export const ImgDetail = styled.div`
+export const Thumbnail = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:hover img {
+    border: 3px solid red;
+    transform: scale(1.1);
+  }
 `;
 
 export const Button = styled.button`
@@ -44,6 +58,7 @@ export const Button = styled.button`
   padding: 0;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+  z-index: 11;
 
   &:hover {
     background-color: ${COLOR.CYAN[400]};

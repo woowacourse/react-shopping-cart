@@ -29,16 +29,16 @@ const Product = ({ product }) => {
   return (
     <S.Product>
       <S.Preview>
-        <S.Img src={thumbnail} alt={name} />
-        <S.ImgDetail>
-          <S.Button onClick={handleAddCartClick}>
-            {cartAmount === 0 ? (
-              <CartIcon type="product" />
-            ) : (
-              <span className="product-amount">{cartAmount}</span>
-            )}
-          </S.Button>
-        </S.ImgDetail>
+        <S.Thumbnail>
+          <S.Img src={thumbnail} alt={name} />
+        </S.Thumbnail>
+        <S.Button onClick={handleAddCartClick}>
+          {cartAmount === 0 ? (
+            <CartIcon type="product" />
+          ) : (
+            <span className="product-amount">{cartAmount}</span>
+          )}
+        </S.Button>
       </S.Preview>
       <S.Detail>
         <span className="product-name">{name}</span>
