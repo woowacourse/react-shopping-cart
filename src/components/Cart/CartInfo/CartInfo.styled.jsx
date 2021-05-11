@@ -36,3 +36,5 @@ export const Title = styled.div`
   padding-bottom: 1.75rem;
   border-bottom: 4px solid ${COLOR.GRAY.LIGHT_100};
 `;
+
+export const List = styled.ul``;

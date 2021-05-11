@@ -62,11 +62,11 @@ const CartInfo = ({ cart }) => {
         </S.RemoveChecked>
       </S.Menu>
       <S.Title>든든배송 상품 ({Object.keys(cart).length}개)</S.Title>
-      <div>
+      <S.List aria-label="cart-item-list">
         {Object.entries(cart).map(([id, item]) => (
           <CartItem key={id} item={item} />
         ))}
-      </div>
+      </S.List>
     </S.CartInfo>
   );
 };

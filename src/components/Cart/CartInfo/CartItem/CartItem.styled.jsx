@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLOR } from "../../../../constants/style";
 
-export const CartItem = styled.div`
+export const CartItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
