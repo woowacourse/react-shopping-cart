@@ -13,11 +13,18 @@ import {
   removeFromCart,
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
+import { useConfirm } from "../../../../utils/useConfirm";
 
 const CartItem = ({
   item: { id, name, thumbnail, amount, price, checked },
 }) => {
   const dispatch = useDispatch();
+  const confirmDelete = useConfirm(
+    `'${name}' 를 장바구니에서 제거하시겠습니까?`,
+    () => {
+      dispatch(removeFromCart({ id }));
+    }
+  );
 
   const handleCheckBoxChange = () => {
     dispatch(toggleChecked({ id }));
@@ -29,11 +36,6 @@ const CartItem = ({
 
   const handleAmountBlur = (event) => {
     dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 1 }));
-  };
-
-  const handleItemDelete = () => {
-    if (!window.confirm(`'${name}' 를 장바구니에서 제거하시겠습니까?`)) return;
-    dispatch(removeFromCart({ id }));
   };
 
   return (
@@ -50,7 +52,7 @@ const CartItem = ({
         <S.Name>{name}</S.Name>
       </S.Detail>
       <S.Control>
-        <TrashIcon onClick={handleItemDelete} />
+        <TrashIcon onClick={confirmDelete} />
         <NumberInput
           value={amount}
           onChange={handleAmountChange}

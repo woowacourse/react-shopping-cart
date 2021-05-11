@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import * as S from "./CartInfo.styled";
 
 import CartItem from "./CartItem/CartItem";
@@ -12,6 +12,7 @@ import {
   toggleAllChecked,
 } from "../../../store/modules/cartSlice";
 import { MESSAGE } from "../../../constants/constants";
+import { useConfirm } from "../../../utils/useConfirm";
 
 const checkAllIdentifier = (cart) => {
   const checkedSet = new Set(Object.values(cart).map(({ checked }) => checked));
@@ -30,6 +31,12 @@ const checkAllIdentifier = (cart) => {
 
 const CartInfo = ({ cart }) => {
   const dispatch = useDispatch();
+  const confirmDelete = useConfirm(
+    MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART,
+    () => {
+      dispatch(removeChecked());
+    }
+  );
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {
@@ -42,12 +49,6 @@ const CartInfo = ({ cart }) => {
   const handleCheckBoxChange = () => {
     dispatch(toggleAllChecked({ checked: !checkAll }));
     setCheckAll(!checkAll);
-  };
-
-  const handleRemoveCheckedClick = () => {
-    if (!window.confirm(MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART)) return;
-
-    dispatch(removeChecked());
   };
 
   const checkAllLabel = checkAll ? "선택해제" : "전체선택";
@@ -66,7 +67,7 @@ const CartInfo = ({ cart }) => {
           {checkAllLabel}
         </S.CheckAllLabel>
         <S.RemoveChecked>
-          <Button type="secondary" onClick={handleRemoveCheckedClick}>
+          <Button type="secondary" onClick={confirmDelete}>
             상품삭제
           </Button>
         </S.RemoveChecked>
