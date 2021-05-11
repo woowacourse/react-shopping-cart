@@ -14,12 +14,13 @@ import {
   DeleteButton,
 } from './ShoppingCartPage.styles';
 import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import { deleteShoppingCartItems } from '../../redux/action';
+import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import useServerAPI from '../../hooks/useServerAPI';
 
+// TODO: 컴포넌트 분리
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
     <path
@@ -37,7 +38,8 @@ const ShoppingCartPage = () => {
 
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
-  const { myShoppingCartProductIds } = useSelector(state => ({
+  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
+    myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
@@ -64,16 +66,23 @@ const ShoppingCartPage = () => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
     if (targetId) {
-      dispatch(deleteShoppingCartItems([targetId]));
+      const newContent = { productIdList: myShoppingCartProductIds.filter(productId => productId !== targetId) };
+      dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
     } else {
-      dispatch(deleteShoppingCartItems(checkedIdList));
+      const newContent = {
+        productIdList: myShoppingCartProductIds.filter(productId => !checkedIdList.includes(productId)),
+      };
+      dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
     }
   };
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
-    dispatch(deleteShoppingCartItems(checkedIdList));
+    const newContent = {
+      productIdList: myShoppingCartProductIds.filter(productId => !checkedIdList.includes(productId)),
+    };
+    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,

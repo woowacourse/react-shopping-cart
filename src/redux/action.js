@@ -1,16 +1,24 @@
 import { requestTable } from '../api/request';
 import { CUSTOMER_ID } from '../constants';
-import { ADD_ITEM, DELETE_ITEMS, GET_MY_SHOPPING_CART } from './actionType';
+import { ADD_ITEM, GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
 
 const addShoppingCartItem = id => ({
   type: ADD_ITEM,
   productId: id,
 });
 
-const deleteShoppingCartItems = productIds => ({
-  type: DELETE_ITEMS,
-  productIds,
-});
+const updateShoppingCartItemsAsync = (schema, targetId, content) => async dispatch => {
+  try {
+    await requestTable.PUT(schema, targetId, content);
+
+    dispatch({
+      type: UPDATE_MY_SHOPPING_CART_ITEMS,
+      productIdList: content.productIdList,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const getMyShoppingCartAsync = schema => async dispatch => {
   try {
@@ -25,4 +33,4 @@ const getMyShoppingCartAsync = schema => async dispatch => {
   }
 };
 
-export { addShoppingCartItem, deleteShoppingCartItems, getMyShoppingCartAsync };
+export { addShoppingCartItem, updateShoppingCartItemsAsync, getMyShoppingCartAsync };

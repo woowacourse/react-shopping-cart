@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from './ProductListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItem } from '../../redux/action';
+import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { ColumnProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 
@@ -11,11 +12,17 @@ const ProductListPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
+    myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
+    myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
+  }));
+
   const { setModalOpen, Modal } = useModal(false);
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
   const onClickShoppingCartIcon = productId => {
-    dispatch(addShoppingCartItem(productId));
+    const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
+    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
 
     setModalOpen(true);
   };

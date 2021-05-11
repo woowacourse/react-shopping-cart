@@ -1,9 +1,9 @@
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItem } from '../../redux/action';
+import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 
@@ -11,13 +11,19 @@ const OrderListPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
+    myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
+    myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
+  }));
+
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
   const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
   const { Modal, setModalOpen } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
-    dispatch(addShoppingCartItem(productId));
+    const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
+    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
 
     setModalOpen(true);
   };
