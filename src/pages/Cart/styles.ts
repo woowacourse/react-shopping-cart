@@ -4,7 +4,7 @@ import { FlexBetween } from "../../SharedStyled/Flex";
 const Container = styled.div`
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 3.75rem 1.5rem 0 1.5rem;
 `;
 
 const Main = styled(FlexBetween("div"))`
@@ -42,12 +42,4 @@ const CartListTitle = styled.h2`
   padding: 1.625rem 0 1rem;
 `;
 
-export {
-  Container,
-  Main,
-  AllDealControlBox,
-  AllDealSelect,
-  AllDealDelete,
-  Section,
-  CartListTitle,
-};
+export { Container, Main, AllDealControlBox, AllDealSelect, AllDealDelete, Section, CartListTitle };

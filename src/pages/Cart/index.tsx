@@ -88,6 +88,11 @@ const Cart: VFC = () => {
     setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const onClickDeleteSelectedButton = () => {
+    const selectedIds = Object.keys(checkedList).filter((id)=>checkedList[id])
+    dispatch(actions.cart.delete.request(selectedIds))
+  }
+
   const onIncrementOrderCount = (id: string) => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
@@ -157,7 +162,7 @@ const Cart: VFC = () => {
               fontSize="1rem"
               backgroundColor="none"
               border={`1px solid ${COLOR.GRAY_200}`}
-              onClick={() => {}}
+              onClick={onClickDeleteSelectedButton}
             >
               상품삭제
             </Button>
@@ -179,7 +184,7 @@ const Cart: VFC = () => {
                   onDecrementOrderCount={() => onDecrementOrderCount(id)}
                   onChangeChecked={() => onChangeChecked(id)}
                   onClickDeleteButton={() => {
-                    dispatch(actions.cart.delete.request(id));
+                    dispatch(actions.cart.delete.request([id]));
                   }}
                 />
               </li>

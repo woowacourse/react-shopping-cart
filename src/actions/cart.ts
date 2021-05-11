@@ -11,10 +11,7 @@ const cart = {
     )<RequestError>(),
   },
   post: {
-    request: createAction(
-      "cart/post/request",
-      (cartItem: CartItem) => cartItem
-    )<CartItem>(),
+    request: createAction("cart/post/request", (cartItem: CartItem) => cartItem)<CartItem>(),
     success: createAction("cart/post/success")(),
     failure: createAction(
       "cart/post/failure",
@@ -22,7 +19,7 @@ const cart = {
     )<RequestError>(),
   },
   delete: {
-    request: createAction("cart/delete/request", (id: string) => id)<string>(),
+    request: createAction("cart/delete/request", (ids: string[]) => ids)<string[]>(),
     success: createAction("cart/delete/success")(),
     failure: createAction(
       "cart/delete/failure",
@@ -31,15 +28,9 @@ const cart = {
   },
 };
 
-type cartActionType = ActionType<
-  typeof cart.get | typeof cart.post | typeof cart.delete
->;
+type cartActionType = ActionType<typeof cart.get | typeof cart.post | typeof cart.delete>;
 type cartPostRequestActionType = ActionType<typeof cart.post.request>;
 type cartDeleteRequestActionType = ActionType<typeof cart.delete.request>;
 
 export default cart;
-export {
-  cartActionType,
-  cartPostRequestActionType,
-  cartDeleteRequestActionType,
-};
+export { cartActionType, cartPostRequestActionType, cartDeleteRequestActionType };

@@ -1,11 +1,8 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 import firebase from "firebase";
 
 import actions from "../../actions";
-import {
-  cartDeleteRequestActionType,
-  cartPostRequestActionType,
-} from "../../actions/cart";
+import { cartDeleteRequestActionType, cartPostRequestActionType } from "../../actions/cart";
 import api from "../../apis";
 import { CartItem } from "../../interface";
 import { isDefined } from "../../util/typeGuard";
@@ -19,13 +16,9 @@ function* watchCart() {
 
 function* getCart() {
   try {
-    const response: firebase.firestore.QuerySnapshot<CartItem> = yield call(
-      api.cart.get
-    );
+    const response: firebase.firestore.QuerySnapshot<CartItem> = yield call(api.cart.get);
 
-    const cartItem = response.docs
-      .map((cartItem) => cartItem.data())
-      .filter(isDefined);
+    const cartItem = response.docs.map(cartItem => cartItem.data()).filter(isDefined);
 
     yield put(actions.cart.get.success({ cart: cartItem }));
   } catch (error) {
@@ -40,23 +33,21 @@ function* postCart(action: cartPostRequestActionType) {
 
     yield put(actions.cart.post.success());
   } catch (error) {
-    yield put(
-      actions.cart.post.failure({ requestErrorMessage: error.message })
-    );
+    yield put(actions.cart.post.failure({ requestErrorMessage: error.message }));
   }
 }
 
 function* deleteCart(action: cartDeleteRequestActionType) {
   try {
-    yield call(api.cart.delete, action.payload);
+    const ids = action.payload;
+
+    yield all(ids.map(id => call(api.cart.delete, id)));
 
     yield put(actions.cart.delete.success());
 
     yield call(getCart);
   } catch (error) {
-    yield put(
-      actions.cart.delete.failure({ requestErrorMessage: error.message })
-    );
+    yield put(actions.cart.delete.failure({ requestErrorMessage: error.message }));
   }
 }
 
