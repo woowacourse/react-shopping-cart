@@ -1,9 +1,7 @@
 import { VFC } from 'react';
-import { couldStartTrivia } from 'typescript';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/useFetch';
-import { ORDERS_MOCK } from '../../mocks/mockData';
 import { requestOrders } from '../../service/request/order';
 import { Order } from '../../types';
 

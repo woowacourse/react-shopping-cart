@@ -11,5 +11,5 @@ const Template = (args) => <OrderListItem {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  item: ORDER_LIST_MOCK[0],
+  item: ORDER_LIST_MOCK[0].items[0],
 };

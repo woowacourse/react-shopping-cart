@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import ProductListPage from '.';
-import { server } from '../../mocks/server';
 import store from '../../states/store';
 
 describe('ProductListPage', () => {

@@ -1,4 +1,4 @@
-import { ItemInCart, Product } from '../../types';
+import { ItemInCart } from '../../types';
 import { createItemInCart } from '../../utils/cart';
 import {
   ADD_ITEM,

@@ -1,6 +1,5 @@
 import { VFC } from 'react';
 import { ItemInCart } from '../../../../../types';
-import Card from '../../../../shared/Card';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
 import IconButton from '../../../../shared/IconButton';

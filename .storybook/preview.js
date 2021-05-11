@@ -1,4 +1,7 @@
 import GlobalStyle from '../src/Global.style';
+import StoryRouter from 'storybook-react-router';
+import { Provider } from 'react-redux';
+import store from '../src/states/store';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -11,10 +14,13 @@ export const parameters = {
 };
 
 export const decorators = [
+  StoryRouter(),
   (Story) => (
     <>
       <GlobalStyle />
-      <Story />
+      <Provider store={store}>
+        <Story />
+      </Provider>
     </>
   ),
 ];

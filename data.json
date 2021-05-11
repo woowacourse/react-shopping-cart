@@ -35,18 +35,10 @@
     {
       "id": "1",
       "image": "https://picsum.photos/200/200",
-      "name": "1오예오에",
+      "name": "test cart item name",
       "price": 43400,
-      "checked": false,
-      "quantity": 1
-    },
-    {
-      "id": "3",
-      "image": "https://picsum.photos/200/200",
-      "name": "3PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 3
+      "quantity": 3,
+      "checked": true
     },
     {
       "id": "4",

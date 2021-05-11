@@ -1,9 +1,9 @@
 import ShoppingCartItemList from '.';
-import { PRODUCT_LIST_MOCK } from '../../../../mocks/mockData';
+import { ORDER_LIST_MOCK } from '../../../../mocks/mockData';
 
 export default {
   component: ShoppingCartItemList,
-  title: 'components/ShoppingCartItemList',
+  title: 'components/ShoppingCart/ShoppingCartSectionList/ShoppingCartSection',
 };
 
 const Template = (args) => <ShoppingCartItemList {...args} />;
@@ -11,6 +11,6 @@ const Template = (args) => <ShoppingCartItemList {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  title: '',
-  items: PRODUCT_LIST_MOCK,
+  title: 'ShoppingCartSection TEST',
+  items: ORDER_LIST_MOCK[0].items,
 };

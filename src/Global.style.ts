@@ -25,6 +25,7 @@ time, mark, audio, video, input {
 	font-family: 'Noto Sans KR', sans-serif;
 	vertical-align: baseline;
   text-decoration: none;
+	color: inherit;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,

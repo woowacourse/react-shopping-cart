@@ -1,9 +1,14 @@
 import ShoppingCartItem from '.';
-import { PRODUCT_LIST_MOCK } from '../../../../../mocks/mockData';
+import { CART_ITEM_LIST_MOCK } from '../../../../../mocks/mockData';
 
 export default {
   component: ShoppingCartItem,
-  title: 'components/ShoppingCartItemList/ShoppingCartSection/ShoppingCartItem',
+  title: 'components/ShoppingCart/ShoppingCartSectionList/ShoppingCartSection/ShoppingCartItem',
+  argTypes: {
+    changeQuantity: { action: 'changeQuantity' },
+    deleteItem: { action: 'deleteItem' },
+    changeChecked: { action: 'changeChecked' },
+  },
 };
 
 const Template = (args) => (
@@ -14,8 +19,6 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
-const [productMock] = PRODUCT_LIST_MOCK;
-
 Default.args = {
-  product: productMock,
+  item: CART_ITEM_LIST_MOCK[0],
 };

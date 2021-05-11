@@ -1,12 +1,10 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
-import ShoppingCartInnerContainer from '../../components/ShoppingCart/ShoppingCartForm';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetchCartRedux from '../../hooks/useFetchCartRedux';
 import { useAppSelector } from '../../states/store';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
-import useFetch from '../../hooks/useFetch';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { RouteComponentProps } from 'react-router';
 

@@ -58,20 +58,31 @@ export const CART_ITEM_LIST_MOCK = [
   },
 ];
 
-export const ORDER_LIST_MOCK = PRODUCT_LIST_MOCK.map((item) => ({
-  ...item,
-  amount: 2,
-  quantity: 1,
-  checked: false,
-}));
-
-export const ORDERS_MOCK = [
+export const ORDER_LIST_MOCK = [
   {
-    id: '1',
-    items: ORDER_LIST_MOCK,
-  },
-  {
-    id: '2',
-    items: ORDER_LIST_MOCK,
+    id: 'orders-mock',
+    items: [
+      {
+        id: '1',
+        image: 'https://picsum.photos/200/200',
+        name: 'test cart item name',
+        price: 43400,
+        quantity: 3,
+      },
+      {
+        id: '2',
+        image: 'https://picsum.photos/200/200',
+        name: 'PET보틀-정사각(420ml)',
+        price: 43400,
+        quantity: 3,
+      },
+      {
+        id: '3',
+        image: 'https://picsum.photos/200/200',
+        name: 'PET보틀-정사각(420ml)',
+        price: 43400,
+        quantity: 3,
+      },
+    ],
   },
 ];

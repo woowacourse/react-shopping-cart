@@ -1,5 +1,5 @@
 import OrderItem from '.';
-import { PRODUCT_LIST_MOCK } from '../../../../mocks/mockData';
+import { ORDER_LIST_MOCK, PRODUCT_LIST_MOCK } from '../../../../mocks/mockData';
 
 export default {
   component: OrderItem,
@@ -11,8 +11,5 @@ const StoryTemplate = (args) => <OrderItem {...args} />;
 export const Default = StoryTemplate.bind({});
 
 Default.args = {
-  item: {
-    ...PRODUCT_LIST_MOCK[0],
-    amount: 2,
-  },
+  item: ORDER_LIST_MOCK[0].items[0],
 };

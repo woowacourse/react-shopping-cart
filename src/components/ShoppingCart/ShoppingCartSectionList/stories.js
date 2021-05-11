@@ -2,7 +2,7 @@ import ShoppingCartList from '.';
 
 export default {
   component: ShoppingCartList,
-  title: 'components/ShoppingCart/ShoppingCartItemList',
+  title: 'components/ShoppingCart/ShoppingCartSectionList',
 };
 
 const Template = (args) => <ShoppingCartList {...args} />;
