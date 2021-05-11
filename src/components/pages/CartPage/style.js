@@ -29,6 +29,11 @@ export const DeleteButton = styled(Button)`
   font-size: 1rem;
   color: #333333;
   border: 0.0625rem solid #bbbbbb;
+
+  &:disabled {
+    cursor: default;
+    color: #bbbbbb;
+  }
 `;
 
 export const ListLabel = styled.h3`

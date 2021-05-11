@@ -16,6 +16,7 @@ export const CartPage = () => {
   const selectedProducts = cartProducts.filter(({ isSelected }) => isSelected);
   const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
+  const isAllUnselected = !cartProducts.some(({ isSelected }) => isSelected);
   const dispatch = useDispatch();
   const dispatchRemoveProduct = (id) => dispatch(removeProduct(id));
   const dispatchToggleProductSelection = (id) => dispatch(toggleProductSelection(id));
@@ -31,7 +32,10 @@ export const CartPage = () => {
               isChecked={isAllSelected}
               onChange={() => dispatch(toggleAllProductsSelection(!isAllSelected))}
             />
-            <Styled.DeleteButton onClick={() => dispatch(removeSelectedProducts())}>
+            <Styled.DeleteButton
+              onClick={() => dispatch(removeSelectedProducts())}
+              disabled={isAllUnselected}
+            >
               상품삭제
             </Styled.DeleteButton>
           </Styled.OrderOptionsController>
@@ -55,6 +59,7 @@ export const CartPage = () => {
             label="결제예상금액"
             price={getFormattedAsKRW(totalPrice)}
             buttonText={`주문하기(${selectedProducts.length}개)`}
+            buttonDisabled={isAllUnselected}
             route={ROUTE.CHECKOUT}
           />
         </Styled.CheckoutSection>
