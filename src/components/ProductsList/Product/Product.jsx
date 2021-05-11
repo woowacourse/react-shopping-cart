@@ -6,6 +6,7 @@ import * as S from "./Product.styled";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 
 import { addToCart } from "../../../store/modules/cartSlice";
+import { CART } from "../../../constants/constants";
 
 const Product = ({ product }) => {
   const { id, thumbnail, name, price } = product;
@@ -14,6 +15,14 @@ const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddCartClick = () => {
+    if (cartAmount >= CART.MAX_AMOUNT) {
+      // eslint-disable-next-line no-alert
+      window.alert(
+        `품목당 한번에 최소 ${CART.MIN_AMOUNT}개 이상, 최대 ${CART.MAX_AMOUNT}개 이하만 주문할 수 있습니다.`
+      );
+      return;
+    }
+
     dispatch(addToCart({ product }));
   };
 
