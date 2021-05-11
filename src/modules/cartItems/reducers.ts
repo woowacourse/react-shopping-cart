@@ -12,6 +12,10 @@ import {
   AddCartItemAction,
   GetCartItemsAction,
   UpdateQuantityAction,
+  CheckCartItemAction,
+  CHECK_CART_ITEM,
+  CHECK_ALL_CART_ITEMS,
+  CheckAllCartItemsAction,
 } from './actions';
 import * as T from '../../types';
 
@@ -33,7 +37,7 @@ const initialState: CartState = {
 
 export const cartReducer = (
   state: CartState = initialState,
-  action: AddCartItemAction | GetCartItemsAction | UpdateQuantityAction
+  action: AddCartItemAction | GetCartItemsAction | UpdateQuantityAction | CheckCartItemAction | CheckAllCartItemsAction
 ) => {
   switch (action.type) {
     case ADD_CART_ITEM_REQUEST:
@@ -62,7 +66,8 @@ export const cartReducer = (
 
     case GET_CART_ITEMS_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.data = action.cartItems;
+        const newCartItems = action.cartItems.map((item) => ({ ...item, checked: true }));
+        draft.cartItems.data = newCartItems;
         draft.cartItems.success = true;
         draft.cartItems.error = null;
       });
@@ -89,6 +94,17 @@ export const cartReducer = (
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.success = false;
         draft.cartItems.error = null;
+      });
+
+    case CHECK_CART_ITEM:
+      return produce(state, (draft: Draft<CartState>) => {
+        const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
+        if (target) target.checked = action.payload.checked;
+      });
+
+    case CHECK_ALL_CART_ITEMS:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.data = [...draft.cartItems.data].map((item) => ({ ...item, checked: action.checked }));
       });
 
     default:

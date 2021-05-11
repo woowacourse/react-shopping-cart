@@ -16,6 +16,9 @@ export const UPDATE_QUANTITY_REQUEST = 'cartItems/UPDATE_QUANTITY_REQUEST' as co
 export const UPDATE_QUANTITY_SUCCESS = 'cartItems/UPDATE_QUANTITY_SUCCESS' as const;
 export const UPDATE_QUANTITY_FAILURE = 'cartItems/UPDATE_QUANTITY_FAILURE' as const;
 
+export const CHECK_CART_ITEM = 'cartItems/CHECK_CART_ITEM' as const;
+export const CHECK_ALL_CART_ITEMS = 'cartItems/CHECK_ALL_CART_ITEMS' as const;
+
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
   product: T.Product;
@@ -61,6 +64,19 @@ interface UpdateQuantityFailureAction {
   error: AxiosError;
 }
 
+export type CheckCartItemAction = {
+  type: typeof CHECK_CART_ITEM;
+  payload: {
+    id: T.CartItem['id'];
+    checked: T.CartItem['checked'];
+  };
+};
+
+export type CheckAllCartItemsAction = {
+  type: typeof CHECK_ALL_CART_ITEMS;
+  checked: boolean;
+};
+
 export type AddCartItemAction = AddCartItemRequestAction | AddCartItemSuccessAction | AddCartItemFailureAction;
 export type GetCartItemsAction = GetCartItemRequestAction | GetCartItemSuccessAction | GetCartItemFailureAction;
 export type UpdateQuantityAction =
@@ -102,8 +118,6 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
 export const updateQuantityRequest = (id: number, quantity: number) => async (
   dispatch: Dispatch<UpdateQuantityAction>
 ) => {
-  // TODO :quantity 0개 이하로 내려갔을 때 내려가지 않도록 방지하기
-
   dispatch({ type: UPDATE_QUANTITY_REQUEST });
 
   try {
@@ -114,3 +128,13 @@ export const updateQuantityRequest = (id: number, quantity: number) => async (
     dispatch({ type: UPDATE_QUANTITY_FAILURE, error });
   }
 };
+
+export const checkCartItem = (id: T.CartItem['id'], checked: T.CartItem['checked']) => ({
+  type: CHECK_CART_ITEM,
+  payload: { id, checked },
+});
+
+export const checkAllCartItems = (checked: boolean) => ({
+  type: CHECK_ALL_CART_ITEMS,
+  checked,
+});

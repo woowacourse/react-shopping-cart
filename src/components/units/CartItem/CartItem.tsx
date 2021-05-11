@@ -12,10 +12,11 @@ import CART_ITEM_QUANTITY from '../../../constants/cart';
 type CartItemProps = {
   cartItem: T.CartItem;
   checked?: boolean;
+  onCheck: (id: number, isChecked: boolean) => void;
 };
 
 const CartItem = (props: CartItemProps) => {
-  const { cartItem, checked } = props;
+  const { cartItem, checked, onCheck } = props;
   const { id, product, quantity } = cartItem;
   const { name, image, price } = product;
 
@@ -51,9 +52,14 @@ const CartItem = (props: CartItemProps) => {
 
   const totalPrice = price * quantity;
 
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+    onCheck(id, isChecked);
+  };
+
   return (
     <Styled.Root>
-      <Checkbox checked={checked} />
+      <Checkbox checked={checked} onChange={handleCheck} />
       <Styled.Image src={image || NoImageURL} alt="김말이" />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>

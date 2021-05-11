@@ -14,4 +14,5 @@ export type CartItem = {
   id: number;
   product: Product;
   quantity: number;
+  checked: boolean;
 };
