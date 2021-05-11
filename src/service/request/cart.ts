@@ -24,3 +24,9 @@ export const requestChangeAllShoppingCartItemChecked = (items: ItemInCart[], che
 export const requestDeleteShoppingCartItems = (items: ItemInCart[]) => {
   Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
 };
+
+export const requestClearShoppingCartItems = async () => {
+  const items = await requestShoppingCartItemList();
+
+  return Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
+};

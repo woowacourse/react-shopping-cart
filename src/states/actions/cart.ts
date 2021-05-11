@@ -5,6 +5,7 @@ import {
   requestChangeAllShoppingCartItemChecked,
   requestChangeShoppingCartItem,
   requestChangeShoppingCartItemChecked,
+  requestClearShoppingCartItems,
   requestDeleteShoppingCartItem,
   requestDeleteShoppingCartItems,
   requestShoppingCartItemList,
@@ -41,6 +42,10 @@ export const CHANGE_ALL_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ALL_ITEM_CHECKED_
 export const DELETE_CHECKED_CART_ITEM = 'cart/DELETE_CHECKED_ITEM';
 export const DELETE_CHECKED_CART_ITEM_SUCCESS = 'cart/DELETE_CHECKED_ITEM_SUCCESS';
 export const DELETE_CHECKED_CART_ITEM_ERROR = 'cart/DELETE_CHECKED_ITEM_ERROR';
+
+export const CLEAR_CART = 'cart/CLEAR_CART';
+export const CLEAR_CART_SUCCESS = 'cart/CLEAR_CART_SUCCESS';
+export const CLEAR_CART_ERROR = 'cart/CLEAR_CART_ERROR';
 
 export const addItem = (item: Product): ActionWithPayload<typeof ADD_ITEM, Product> => ({
   type: ADD_ITEM,
@@ -141,6 +146,17 @@ export const thunkDeleteCheckedCartItem = (items: ItemInCart[]): AppThunk => asy
   }
 };
 
+export const thunkClearCart = (): AppThunk => async (dispatch: Dispatch) => {
+  dispatch({ type: CLEAR_CART });
+
+  try {
+    await requestClearShoppingCartItems();
+    dispatch({ type: CLEAR_CART_SUCCESS });
+  } catch (error) {
+    dispatch({ type: CLEAR_CART_ERROR, payload: error });
+  }
+};
+
 export type CartAction =
   | ActionWithPayload<typeof ADD_ITEM, Product>
   | Action<typeof GET_CART_ITEMS>
@@ -163,4 +179,7 @@ export type CartAction =
   | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_ERROR, Error>
   | Action<typeof CHANGE_ITEM_QUANTITY>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, ItemInCart>
-  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>;
+  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>
+  | Action<typeof CLEAR_CART>
+  | Action<typeof CLEAR_CART_SUCCESS>
+  | ActionWithPayload<typeof CLEAR_CART_ERROR, Error>;

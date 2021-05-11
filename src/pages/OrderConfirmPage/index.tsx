@@ -1,18 +1,26 @@
-import { useEffect, useState } from 'react';
-import OrderConfirmInnerContainer from '../../components/OrderConfirm/OrderConfirmInnerContainer';
+import { FormEvent, useEffect, useState, VFC } from 'react';
+import { RouteComponentProps } from 'react-router';
+import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/useFetch';
-import { ORDER_LIST_MOCK } from '../../mocks/mockData';
-import { requestOrderConfirmItems } from '../../service/request/orderConfirm';
+import useFetchCartRedux from '../../hooks/useFetchCartRedux';
+import { requestOrderItems } from '../../service/request/order';
+import {
+  requestClearOrderConfirmItems,
+  requestOrderConfirmItems,
+} from '../../service/request/orderConfirm';
 import { ItemInCart } from '../../types';
 
 const TITLE = '주문/결제';
 
-const OrderConfirmPage = () => {
+interface Props extends RouteComponentProps {}
+
+const OrderConfirmPage: VFC<Props> = ({ history }) => {
   const { data: items, isLoading, hasError } = useFetch(requestOrderConfirmItems);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { clearCart } = useFetchCartRedux();
 
   useEffect(() => {
     if (!items) return;
@@ -22,16 +30,39 @@ const OrderConfirmPage = () => {
     setTotalPrice(calculatedPrice);
   }, [items]);
 
+  const order = async () => {
+    try {
+      await requestOrderItems(items as ItemInCart[]);
+      await requestClearOrderConfirmItems();
+      clearCart();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const onSubmitOrderConfirm = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      await order();
+      alert('주문이 성공했습니다!');
+    } catch (error) {
+      console.error(error);
+    }
+
+    history.replace('/');
+  };
+
   return (
     <ReactShoppingCartTemplate title={TITLE}>
-      <OrderConfirmInnerContainer>
+      <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
         {isLoading ? (
           <div>로딩중</div>
         ) : (
           <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
         )}
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
-      </OrderConfirmInnerContainer>
+      </OrderConfirmForm>
     </ReactShoppingCartTemplate>
   );
 };

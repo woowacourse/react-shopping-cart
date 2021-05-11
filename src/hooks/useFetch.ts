@@ -10,7 +10,6 @@ const useFetch = <T>(callback: () => Promise<T>) => {
     setIsLoading(true);
     try {
       const value = await callback();
-      console.log(value);
       setData(value);
     } catch (error) {
       setHasError(error);

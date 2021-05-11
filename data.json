@@ -31,64 +31,87 @@
       "price": 43400
     }
   ],
-  "cart": [
+  "cart": [],
+  "orderConfirm": [],
+  "order": [
     {
-      "id": "2",
-      "image": "https://picsum.photos/200/200",
-      "name": "2PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
+      "id": "8BvkCjE2mSckjExBMNJOI",
+      "items": [
+        {
+          "id": "1",
+          "image": "https://picsum.photos/200/200",
+          "name": "1오예오에",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        },
+        {
+          "id": "5",
+          "image": "https://picsum.photos/200/200",
+          "name": "5PET보틀-정사각(420ml)",
+          "price": 43400,
+          "checked": true,
+          "quantity": 2
+        },
+        {
+          "id": "3",
+          "image": "https://picsum.photos/200/200",
+          "name": "3PET보틀-정사각(420ml)",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        }
+      ]
     },
     {
-      "id": "4",
-      "image": "https://picsum.photos/200/200",
-      "name": "4PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
+      "id": "XkaGGnGgrFdgMGMz9Qapo",
+      "items": [
+        {
+          "id": "2",
+          "image": "https://picsum.photos/200/200",
+          "name": "2PET보틀-정사각(420ml)",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "image": "https://picsum.photos/200/200",
+          "name": "3PET보틀-정사각(420ml)",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        },
+        {
+          "id": "1",
+          "image": "https://picsum.photos/200/200",
+          "name": "1오예오에",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        }
+      ]
     },
     {
-      "id": "1",
-      "image": "https://picsum.photos/200/200",
-      "name": "1오예오에",
-      "price": 43400,
-      "checked": false,
-      "quantity": 1
-    },
-    {
-      "id": "3",
-      "image": "https://picsum.photos/200/200",
-      "name": "3PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
-    }
-  ],
-  "orderConfirm": [
-    {
-      "id": "2",
-      "image": "https://picsum.photos/200/200",
-      "name": "2PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
-    },
-    {
-      "id": "4",
-      "image": "https://picsum.photos/200/200",
-      "name": "4PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
-    },
-    {
-      "id": "3",
-      "image": "https://picsum.photos/200/200",
-      "name": "3PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
+      "id": "Cm6KxYvAUh0r_kI7AgfE8",
+      "items": [
+        {
+          "id": "1",
+          "image": "https://picsum.photos/200/200",
+          "name": "1오예오에",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "image": "https://picsum.photos/200/200",
+          "name": "3PET보틀-정사각(420ml)",
+          "price": 43400,
+          "checked": true,
+          "quantity": 1
+        }
+      ]
     }
   ]
 }
