@@ -25,7 +25,7 @@ const RecommendedTitle = styled.span`
 const RecommendedList = styled.div`
   display: flex;
   align-items: center;
-  max-height: 200px;
+  max-height: 1500px;
 
   & > *:not(:last-child) {
     margin-right: 15px;

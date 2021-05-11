@@ -6,6 +6,25 @@ const Container = styled.div`
   display: flex;
 `;
 
+const ImageContainer = styled.div`
+  position: relative;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:after {
+    content: '';
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+`;
+
 const Image = styled.img`
   width: 140px;
   height: 140px;
@@ -20,6 +39,9 @@ const ProductContainer = styled.div`
 `;
 
 const Name = styled.div`
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: 25px;
   font-size: 1.2rem;
   color: #333333;
@@ -30,4 +52,4 @@ const ProductDetail = styled.div`
   font-size: 1rem;
 `;
 
-export { Container, Image, ProductContainer, ProductDetail, Name };
+export { Container, ImageContainer, Image, ProductContainer, ProductDetail, Name };

@@ -1,12 +1,22 @@
 import PropTypes from 'prop-types';
-import { Container, Image, DetailContainer, ProductDetail, Name, Price } from './ColumnProductItem.styles';
+import {
+  Container,
+  ImageContainer,
+  Image,
+  DetailContainer,
+  ProductDetail,
+  Name,
+  Price,
+} from './ColumnProductItem.styles';
 import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
 import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
 import { numberWithCommas } from '../../../shared/utils';
 
 const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon }) => (
   <Container>
-    <Image src={imgSrc} loading="lazy" />
+    <ImageContainer>
+      <Image src={imgSrc} loading="lazy" />
+    </ImageContainer>
     <DetailContainer>
       <ProductDetail>
         <Name>{name}</Name>

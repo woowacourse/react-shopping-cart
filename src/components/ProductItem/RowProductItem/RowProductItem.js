@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { numberWithCommas } from '../../../shared/utils';
-import { Container, Image, ProductContainer, ProductDetail, Name } from './RowProductItem.styles';
+import { Container, ImageContainer, Image, ProductContainer, ProductDetail, Name } from './RowProductItem.styles';
 
 const RowProductItem = ({ imgSrc, name, price, amount }) => (
   <Container>
-    <Image src={imgSrc} />
+    <ImageContainer>
+      <Image src={imgSrc} />
+    </ImageContainer>
     <ProductContainer>
       <Name>{name}</Name>
       <ProductDetail>
