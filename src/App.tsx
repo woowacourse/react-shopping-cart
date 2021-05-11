@@ -16,8 +16,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Header />
       <HashRouter>
+        <Header />
         <Switch>
           <Route exact path={PATH.ROOT}>
             <ProductListPage />

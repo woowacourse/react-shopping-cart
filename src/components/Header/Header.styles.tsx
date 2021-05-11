@@ -15,6 +15,7 @@ export const Header = styled.div(({ styles }: Props) => ({
 
 export const Logo = styled.img`
   margin-right: 23px;
+  cursor: pointer;
 `;
 
 export const HeaderTitle = styled.h1`
@@ -23,6 +24,7 @@ export const HeaderTitle = styled.h1`
   color: ${({ theme }) => theme.WHITE};
   font-size: 40px;
   font-weight: 900;
+  cursor: pointer;
 `;
 
 export const LinkButton = styled.button`
