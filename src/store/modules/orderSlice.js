@@ -8,7 +8,7 @@ const orderSlice = createSlice({
       const { items } = action.payload;
       const id = Object.keys(state).length + 1;
 
-      state[id] = items;
+      state[id] = { items, addedDate: Date.now() };
     },
   },
 });

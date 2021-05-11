@@ -11,8 +11,8 @@ const OrdersList = () => {
     <S.OrdersList>
       <PageTitle>주문목록</PageTitle>
       <S.List aria-label="orders-list">
-        {Object.entries(ordersList).map(([id, items]) => (
-          <OrdersListItem key={id} id={id} items={items} />
+        {Object.entries(ordersList).map(([id, value]) => (
+          <OrdersListItem key={id} id={id} items={value.items} />
         ))}
       </S.List>
     </S.OrdersList>
