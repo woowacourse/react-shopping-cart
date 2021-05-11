@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     color: #333333;
     font-family: 'Noto Sans KR', sans-serif;
+    height: 100%;
   }
 
   ul {
