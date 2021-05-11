@@ -54,6 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
+    color: inherit;
     text-decoration: none;
     outline: none;
     
@@ -71,7 +72,6 @@ const GlobalStyle = createGlobalStyle`
     background: transparent;
     border: 0;
   }
-
 `;
 
 export default GlobalStyle;

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Button from '../common/Button';
 import { Content, Header, Payment, Sheet } from './index.styles';
 
+const BUTTON_COLOR = 'var(--color-mint)';
+
 const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
   <Sheet>
     <Header>{title}</Header>
@@ -17,7 +19,7 @@ const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
           <span></span>
         </div>
       </Payment>
-      <Button onClick={() => {}} backgroundColor={'#2AC1BC'}>
+      <Button onClick={() => {}} backgroundColor={BUTTON_COLOR}>
         {buttonText}
       </Button>
     </Content>

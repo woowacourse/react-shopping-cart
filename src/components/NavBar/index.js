@@ -15,7 +15,7 @@ const NavBar = () => (
       </LogoWrapper>
       <Menu>
         <li>
-          <Link to="/carts">{Router.SHOPPING_CART}</Link>
+          <Link to="/cart">{Router.SHOPPING_CART}</Link>
         </li>
         <li>
           <Link to="/completed-orders">{Router.COMPLETED_ORDER_LIST}</Link>

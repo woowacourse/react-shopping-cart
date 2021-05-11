@@ -11,17 +11,19 @@ const ShoppingItem = ({
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
+  quantity = FALLBACK.PRODUCT.QUANTITY,
+  isChecked = FALLBACK.PRODUCT.CHECKED,
   // onClick = () => {},
 }) => (
   <Product>
-    <CheckBox checked={true} onClick={() => {}} />
+    <CheckBox checked={isChecked} onClick={() => {}} />
     <Image src={imgUrl} alt={imgAlt} />
     <Name>{name}</Name>
     <Controller>
       <button type="button" onClick={() => {}}>
         <TrashCan width="20" height="20" />
       </button>
-      <QuantityInput type="number" />
+      <QuantityInput type="number" quantity={quantity} />
       <span>{price}원</span>
     </Controller>
   </Product>
@@ -32,6 +34,8 @@ ShoppingItem.propTypes = {
   imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
+  quantity: PropTypes.number,
+  isChecked: PropTypes.bool,
   onClick: PropTypes.func,
 };
 

@@ -5,32 +5,38 @@ import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
+  id,
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
-  onClick = () => {},
-}) => (
-  <Product>
-    <Image src={imgUrl} alt={imgAlt} />
-    <Description>
-      <div>
-        <Name>{name}</Name>
-        <Price>{price} 원</Price>
-      </div>
-      <button type="button" onClick={onClick}>
-        <Cart width="30" height="30" />
-      </button>
-    </Description>
-  </Product>
-);
+  onCartButtonClick = () => {},
+}) => {
+  return (
+    <Product>
+      <Image src={imgUrl} alt={imgAlt} />
+      <Description>
+        <div>
+          <Name>{name}</Name>
+          <Price>{price} 원</Price>
+        </div>
+        <button
+          type="button"
+          onClick={() => onCartButtonClick({ id, imgUrl, imgAlt, name, price })}
+        >
+          <Cart width="30" height="30" />
+        </button>
+      </Description>
+    </Product>
+  );
+};
 
 ProductItem.propTypes = {
   imgUrl: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
-  onClick: PropTypes.func,
+  onCartButtonClick: PropTypes.func,
 };
 
 export default ProductItem;

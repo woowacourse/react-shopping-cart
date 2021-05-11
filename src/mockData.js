@@ -6,8 +6,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png',
     price: 4900,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 1,
@@ -16,8 +14,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png',
     price: 7100,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 2,
@@ -26,8 +22,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png',
     price: 12000,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 3,
@@ -36,8 +30,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11263-main-01.png',
     price: 1300,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 4,
@@ -46,8 +38,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11277-main-01.png',
     price: 4000,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 5,
@@ -56,8 +46,6 @@ export const products = [
     imgUrl:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11280-main-01.png',
     price: 1100,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 6,
@@ -65,8 +53,6 @@ export const products = [
     image:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11315-main-01.png',
     price: 2800,
-    quantity: 1,
-    checked: false,
   },
   {
     id: 7,
@@ -74,8 +60,6 @@ export const products = [
     image:
       'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
     price: 8400,
-    quantity: 1,
-    checked: false,
   },
 ];
 
@@ -89,8 +73,6 @@ export const totalOrders = [
         image:
           'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
         price: 8400,
-        quantity: 1,
-        checked: false,
       },
       {
         id: 1,
@@ -99,8 +81,6 @@ export const totalOrders = [
         imgUrl:
           'https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png',
         price: 7100,
-        quantity: 1,
-        checked: false,
       },
       {
         id: 2,
@@ -109,8 +89,6 @@ export const totalOrders = [
         imgUrl:
           'https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png',
         price: 12000,
-        quantity: 1,
-        checked: false,
       },
     ],
   },
@@ -123,8 +101,6 @@ export const totalOrders = [
         image:
           'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
         price: 8400,
-        quantity: 1,
-        checked: false,
       },
     ],
   },
