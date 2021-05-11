@@ -21,3 +21,10 @@ export const COLOR = {
     700: "#594f47",
   },
 };
+
+export const BREAK_POINT = {
+  MOBILE: "37.5rem",
+  TABLET: "55rem",
+  DESKTOP: "70rem",
+  DESKTOP_WIDE: "75rem",
+};

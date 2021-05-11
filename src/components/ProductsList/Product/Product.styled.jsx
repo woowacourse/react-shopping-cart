@@ -3,6 +3,7 @@ import { COLOR } from "../../../constants/style";
 
 export const Product = styled.article`
   width: 100%;
+  min-width: 15.5rem;
 `;
 
 export const Preview = styled.div`
@@ -23,6 +24,7 @@ export const Thumbnail = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: pointer;
 
   &:after {
     content: "";
