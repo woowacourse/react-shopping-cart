@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router';
+import ErrorBoundary from './components/ErrorBoundary';
 import NavigationBar from './components/NavigationBar';
 import useFetchCartRedux from './hooks/useFetchCartRedux';
 import OrderConfirmPage from './pages/OrderConfirmPage';
@@ -17,12 +18,14 @@ function App() {
   return (
     <div className="App">
       <NavigationBar />
-      <Switch>
-        <Route path="/" exact component={ProductListPage} />
-        <Route path="/shoppingCart" component={ShoppingCartPage} />
-        <Route path="/orderList" component={OrderListPage} />
-        <Route path="/orderConfirm" component={OrderConfirmPage} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          <Route path="/" exact component={ProductListPage} />
+          <Route path="/shoppingCart" component={ShoppingCartPage} />
+          <Route path="/orderList" component={OrderListPage} />
+          <Route path="/orderConfirm" component={OrderConfirmPage} />
+        </Switch>
+      </ErrorBoundary>
     </div>
   );
 }
