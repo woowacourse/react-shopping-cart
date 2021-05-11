@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import GlobalStyles from './GlobalStyles';
@@ -25,6 +25,7 @@ const App = () => {
           <Route exact path={ROUTE.ORDER_LIST} component={OrderListPage} />
           <Route exact path={ROUTE.ORDER_CHECKOUT} component={OrderCheckoutPage} />
           <Route exact path={ROUTE.SHOPPING_CART} component={ShoppingCartPage} />
+          <Route component={() => <Redirect to={ROUTE.HOME} />} />
         </Switch>
       </Router>
     </>
