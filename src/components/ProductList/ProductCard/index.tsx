@@ -17,7 +17,7 @@ const ProductCard: VFC<Product> = (product) => {
   };
 
   return (
-    <Card type="vertical" width="100%" height="22rem" image={image}>
+    <Card type="vertical" width="17.625rem" height="22rem" image={image}>
       <ContentContainer>
         <div>
           <Text margin="0 0 0.5rem 0" data-testid="product-name">
