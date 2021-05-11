@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import * as S from "./CartInfo.styled";
+
+import CartItem from "./CartItem/CartItem";
+import Button from "../../@shared/Button/Button";
+import CheckBox from "../../@shared/CheckBox/CheckBox";
+
 import {
   removeChecked,
   toggleAllChecked,
 } from "../../../store/modules/cartSlice";
-import Button from "../../@shared/Button/Button";
-import CheckBox from "../../@shared/CheckBox/CheckBox";
-import CartItem from "./CartItem/CartItem";
-import * as S from "./CartInfo.styled";
+import { MESSAGE } from "../../../constants/constants";
+
+const checkAllIdentifier = (cart) => {
+  const checkedSet = new Set(Object.values(cart).map(({ checked }) => checked));
+
+  switch (checkedSet.size) {
+    case 0:
+      return false;
+
+    case 1:
+      return [...checkedSet].pop();
+
+    default:
+      return null;
+  }
+};
 
 const CartInfo = ({ cart }) => {
   const dispatch = useDispatch();
-
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {
-    const checkedSet = new Set(
-      Object.values(cart).map(({ checked }) => checked)
-    );
-
-    if (checkedSet.size === 0) {
-      setCheckAll(false);
-    }
-    if (checkedSet.size === 1) {
-      setCheckAll([...checkedSet].pop());
+    const isCheckAll = checkAllIdentifier(cart);
+    if (isCheckAll !== null) {
+      setCheckAll(isCheckAll);
     }
   }, [cart]);
 
@@ -34,8 +45,7 @@ const CartInfo = ({ cart }) => {
   };
 
   const handleRemoveCheckedClick = () => {
-    if (!window.confirm("선택한 상품들을 장바구니에서 제거하시겠습니까?"))
-      return;
+    if (!window.confirm(MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART)) return;
 
     dispatch(removeChecked());
   };

@@ -10,7 +10,6 @@ export const ResultBox = styled.aside`
 
   position: sticky;
   top: 8rem;
-  right: 0;
 `;
 
 export const Title = styled.div`

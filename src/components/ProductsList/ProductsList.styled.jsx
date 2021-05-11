@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductsList = styled.div`
+export const ProductsList = styled.section`
   width: 100%;
   padding: 2rem;
   display: grid;

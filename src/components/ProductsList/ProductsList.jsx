@@ -11,6 +11,7 @@ const ProductsList = () => {
       const { data } = await res.json();
       setProductsList(data);
     };
+
     fetchProductsList();
   }, []);
 

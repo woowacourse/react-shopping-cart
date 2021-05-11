@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { COLOR } from "../../../constants/style";
 import * as S from "../../@shared/CheckBox/CheckBox.styled";
+import { COLOR } from "../../../constants/style";
 
 export const CartInfo = styled.div`
   width: 100%;

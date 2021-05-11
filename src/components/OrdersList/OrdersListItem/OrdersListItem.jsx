@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CartItem from "../../Cart/CartInfo/CartItem/CartItem";
-import OrderItem from "./OrderItem/OrderItem";
 import * as S from "./OrderListItem.styled";
+
+import OrderItem from "./OrderItem/OrderItem";
+import CartItem from "../../Cart/CartInfo/CartItem/CartItem";
 
 const OrdersListItem = ({ id, items }) => (
   <S.OrdersListItem>

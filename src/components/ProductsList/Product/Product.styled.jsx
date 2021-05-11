@@ -1,17 +1,20 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
 
-export const Product = styled.div`
+export const Product = styled.article`
   width: 100%;
 `;
 
 export const Preview = styled.div`
   width: 100%;
+  height: 15.5rem;
   position: relative;
 `;
 
 export const Img = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const ImgDetail = styled.div`
@@ -24,7 +27,7 @@ export const ImgDetail = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
 `;
 
-export const AddCartButton = styled.button`
+export const Button = styled.button`
   font-size: 1.25rem;
   font-weight: 700;
   position: absolute;

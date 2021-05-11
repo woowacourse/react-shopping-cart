@@ -5,21 +5,22 @@ import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
+import { ROUTE } from "../../constants/constants";
 
 const Cart = () => {
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
+
+  const handleButtonClick = () => {
+    history.push({ pathname: ROUTE.PAYMENT, state: { isAllowed: true } });
+  };
+
   const checkedItems = Object.values(cart).filter((item) => item.checked);
   const hasCheckedItems = checkedItems.length > 0;
   const totalPrice = checkedItems.reduce(
     (acc, { amount, price }) => acc + amount * price,
     0
   );
-
-  const handleButtonClick = () => {
-    history.push({ pathname: "/payment", state: { isAllowed: true } });
-  };
-
   return (
     <S.Cart>
       <PageTitle>장바구니</PageTitle>

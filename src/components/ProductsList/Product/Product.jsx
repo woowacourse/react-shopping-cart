@@ -22,13 +22,13 @@ const Product = ({ product }) => {
       <S.Preview>
         <S.Img src={thumbnail} alt={name} />
         <S.ImgDetail>
-          <S.AddCartButton onClick={handleAddCartClick}>
+          <S.Button onClick={handleAddCartClick}>
             {cartAmount === 0 ? (
               <CartIcon type="product" />
             ) : (
               <span className="product-amount">{cartAmount}</span>
             )}
-          </S.AddCartButton>
+          </S.Button>
         </S.ImgDetail>
       </S.Preview>
       <S.Detail>

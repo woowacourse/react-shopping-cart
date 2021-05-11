@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import PageTitle from "../@mixins/PageTitle/PageTitle";
-import OrdersListItem from "./OrdersListItem/OrdersListItem";
 import * as S from "./OrdersList.styled";
+
+import OrdersListItem from "./OrdersListItem/OrdersListItem";
+import PageTitle from "../@mixins/PageTitle/PageTitle";
 
 const OrdersList = () => {
   const ordersList = useSelector((state) => state.order);

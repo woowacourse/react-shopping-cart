@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PageTitle = styled.div`
+export const PageTitle = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;

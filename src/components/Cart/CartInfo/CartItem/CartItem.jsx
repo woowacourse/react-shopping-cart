@@ -1,16 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import * as S from "./CartItem.styled";
+
+import CheckBox from "../../../@shared/CheckBox/CheckBox";
+import NumberInput from "../../../@shared/NumberInput/NumberInput";
+import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
+
 import {
   toggleChecked,
   changeAmount,
   removeFromCart,
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
-import CheckBox from "../../../@shared/CheckBox/CheckBox";
-import NumberInput from "../../../@shared/NumberInput/NumberInput";
-import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
-import * as S from "./CartItem.styled";
 
 const CartItem = ({
   item: { id, name, thumbnail, amount, price, checked },
@@ -54,7 +56,7 @@ const CartItem = ({
           onChange={handleAmountChange}
           onBlur={handleAmountBlur}
         />
-        <span>{formatPrice(amount * price)}원</span>
+        <S.Price>{formatPrice(amount * price)}원</S.Price>
       </S.Control>
     </S.CartItem>
   );

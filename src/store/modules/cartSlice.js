@@ -26,12 +26,9 @@ const cartSlice = createSlice({
       delete state[id];
     },
 
-    removeChecked: (state) => {
-      Object.entries(state).forEach(([id, item]) => {
-        if (item.checked) {
-          delete state[id];
-        }
-      });
+    changeAmount: (state, action) => {
+      const { id, amount } = action.payload;
+      state[id].amount = amount;
     },
 
     toggleChecked: (state, action) => {
@@ -46,9 +43,12 @@ const cartSlice = createSlice({
       });
     },
 
-    changeAmount: (state, action) => {
-      const { id, amount } = action.payload;
-      state[id].amount = amount;
+    removeChecked: (state) => {
+      Object.entries(state).forEach(([id, item]) => {
+        if (item.checked) {
+          delete state[id];
+        }
+      });
     },
   },
 });
@@ -56,10 +56,10 @@ const cartSlice = createSlice({
 export const {
   addToCart,
   removeFromCart,
-  removeChecked,
+  changeAmount,
   toggleChecked,
   toggleAllChecked,
-  changeAmount,
+  removeChecked,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
