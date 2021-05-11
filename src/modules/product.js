@@ -1,9 +1,15 @@
 const FETCH_PRODUCT_LIST = 'product/FETCH_PRODUCT_LIST';
 
-export const fetchProductList = (productList) => ({
-  type: FETCH_PRODUCT_LIST,
-  payload: productList,
-});
+export const fetchProductList = () => async (dispatch) => {
+  try {
+    const response = await fetch('http://localhost:4000/productList');
+    const productList = await response.json();
+
+    dispatch({ type: FETCH_PRODUCT_LIST, payload: productList });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const initialState = {
   productList: [],

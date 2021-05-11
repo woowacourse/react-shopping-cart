@@ -25,22 +25,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getProductList = async () => {
-      const response = await fetch('http://localhost:4000/productList');
-      const result = await response.json();
-
-      dispatch(fetchProductList(result));
-    };
-
-    const getShoppingCartList = async () => {
-      const response = await fetch('http://localhost:4000/shoppingCartList');
-      const result = await response.json();
-
-      dispatch(fetchShoppingCartList(result));
-    };
-
-    getProductList();
-    getShoppingCartList();
+    dispatch(fetchProductList());
+    dispatch(fetchShoppingCartList());
   }, [dispatch]);
 
   return (

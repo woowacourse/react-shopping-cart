@@ -29,15 +29,7 @@ const OrderPayment = () => {
   const { orderPaymentList: orderItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    await fetch('http://localhost:4000/orderItemList', {
-      method: 'POST',
-      body: JSON.stringify(orderItemList),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-
-    dispatch(insertOrderItemList(orderItemList));
+    await dispatch(insertOrderItemList(orderItemList));
 
     history.push('./orderList');
   };

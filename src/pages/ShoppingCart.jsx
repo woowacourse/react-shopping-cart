@@ -68,14 +68,10 @@ const ShoppingCart = () => {
   };
 
   // TODO: custom confirm 다이얼로그 만들기
-  const handleCheckedShoppingCartListDelete = () => {
+  const handleCheckedShoppingCartListDelete = async () => {
     if (!window.confirm(`${checkedShoppingCartList.length}개의 상품을 삭제하시겠습니까?`)) return;
 
-    checkedShoppingCartList.forEach(({ id }) =>
-      fetch(`http://localhost:4000/shoppingCartList/${id}`, { method: 'DELETE' })
-    );
-
-    dispatch(deleteCheckedShoppingCartList());
+    dispatch(deleteCheckedShoppingCartList(checkedShoppingCartList));
   };
 
   const handleOrderPaymentPageRouter = () => {

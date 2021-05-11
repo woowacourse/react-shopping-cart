@@ -9,24 +9,54 @@ const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
 const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
 // TODO: payload or 우리가 원하는 키 주기
-export const insertShoppingCartItem = (shoppingCartItem) => ({
-  type: INSERT_SHOPPING_CART_ITEM,
-  payload: shoppingCartItem,
-});
+export const insertShoppingCartItem = (shoppingCartItem) => async (dispatch) => {
+  await fetch('http://localhost:4000/shoppingCartList', {
+    method: 'POST',
+    body: JSON.stringify(shoppingCartItem),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
 
-export const deleteShoppingCartItem = (shoppingCartItemId) => ({
-  type: DELETE_SHOPPING_CART_ITEM,
-  payload: shoppingCartItemId,
-});
+  dispatch({ type: INSERT_SHOPPING_CART_ITEM, payload: shoppingCartItem });
+};
 
-export const deleteCheckedShoppingCartList = () => ({
-  type: DELETE_CHECKED_SHOPPING_CART_LIST,
-});
+export const deleteShoppingCartItem = (shoppingCartItemId) => async (dispatch) => {
+  try {
+    await fetch(`http://localhost:4000/shoppingCartList/${shoppingCartItemId}`, {
+      method: 'DELETE',
+    });
 
-export const fetchShoppingCartList = (shoppingCartList) => ({
-  type: FETCH_SHOPPING_CART_LIST,
-  payload: shoppingCartList,
-});
+    dispatch({ type: DELETE_SHOPPING_CART_ITEM, payload: shoppingCartItemId });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteCheckedShoppingCartList = (checkedShoppingCartList) => async (dispatch) => {
+  try {
+    await Promise.all(
+      checkedShoppingCartList.map(({ id }) =>
+        fetch(`http://localhost:4000/shoppingCartList/${id}`, { method: 'DELETE' })
+      )
+    );
+
+    dispatch({ type: DELETE_CHECKED_SHOPPING_CART_LIST });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchShoppingCartList = () => async (dispatch) => {
+  try {
+    const response = await fetch('http://localhost:4000/shoppingCartList');
+    const shoppingCartList = await response.json();
+
+    dispatch({ type: FETCH_SHOPPING_CART_LIST, payload: shoppingCartList });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const toggleShoppingCartItem = (shoppingCartItemId) => ({
   type: TOGGLE_SHOPPING_CART_ITEM,

@@ -35,14 +35,6 @@ const ProductListItem = ({ product }) => {
   const handleShoppingCartImage = (product) => {
     const shoppingCartItem = { ...product, isChecked: true, count: 1 };
 
-    fetch('http://localhost:4000/shoppingCartList', {
-      method: 'POST',
-      body: JSON.stringify(shoppingCartItem),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-
     dispatch(insertShoppingCartItem(shoppingCartItem));
   };
 

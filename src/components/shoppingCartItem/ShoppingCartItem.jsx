@@ -56,10 +56,6 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   const handleShoppingCartItemDelete = () => {
     if (!window.confirm('해당 상품을 삭제하시겠습니까?')) return;
 
-    fetch(`http://localhost:4000/shoppingCartList/${id}`, {
-      method: 'DELETE',
-    });
-
     dispatch(deleteShoppingCartItem(id));
   };
 
