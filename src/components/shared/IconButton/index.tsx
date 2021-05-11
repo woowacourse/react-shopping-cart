@@ -15,6 +15,15 @@ const IconButton = styled(Button)<Props>`
   background-position: center;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  overflow: visible;
+
+  &::after {
+    border-radius: 50%;
+    width: 140%;
+    height: 140%;
+    top: -20%;
+    left: -20%;
+  }
 `;
 
 export default IconButton;

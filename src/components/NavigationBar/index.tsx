@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
-import {
-  Logo,
-  NavigationBarContainer,
-  NavigationBarInnerContainer,
-  NavLinkContainer,
-} from './styles';
+import Container from '../shared/Container';
+import { Logo, NavigationBarContainer, NavigationBarInnerContainer, StyledLink } from './styles';
 
 const NavigationBar = () => {
   return (
@@ -17,10 +13,10 @@ const NavigationBar = () => {
           </Logo>
         </Link>
 
-        <NavLinkContainer>
-          <Link to="/shoppingCart">장바구니</Link>
-          <Link to="/orderList">주문목록</Link>
-        </NavLinkContainer>
+        <Container direction="row">
+          <StyledLink to="/shoppingCart">장바구니</StyledLink>
+          <StyledLink to="/orderList">주문목록</StyledLink>
+        </Container>
       </NavigationBarInnerContainer>
     </NavigationBarContainer>
   );

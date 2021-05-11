@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 import { INNER_TEMPLATE_WIDTH } from '../../constants/style';
@@ -32,9 +33,33 @@ export const Logo = styled.div`
   }
 `;
 
-export const NavLinkContainer = styled.div`
-  a {
-    color: white;
-    margin-left: 1.5rem;
+export const StyledLink = styled(Link)`
+  color: white;
+  margin-left: 1.5rem;
+  position: relative;
+  z-index: 1;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    z-index: -1;
+    transition: all ease-in 0.07s;
+  }
+
+  &:hover::after {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) inset;
+  }
+
+  &:active::after {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;

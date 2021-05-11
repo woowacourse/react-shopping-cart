@@ -31,24 +31,7 @@
       "price": 43400
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "image": "https://picsum.photos/200/200",
-      "name": "test cart item name",
-      "price": 43400,
-      "quantity": 3,
-      "checked": true
-    },
-    {
-      "id": "4",
-      "image": "https://picsum.photos/200/200",
-      "name": "4PET보틀-정사각(420ml)",
-      "price": 43400,
-      "checked": true,
-      "quantity": 1
-    }
-  ],
+  "cart": [],
   "orderConfirm": [],
   "order": [
     {
