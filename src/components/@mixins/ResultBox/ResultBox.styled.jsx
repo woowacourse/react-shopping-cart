@@ -3,6 +3,7 @@ import { BREAK_POINT, COLOR } from "../../../constants/style";
 
 export const ResultBox = styled.aside`
   width: 28rem;
+  min-width: 18rem;
   height: fit-content;
 
   flex-shrink: 0;
@@ -28,12 +29,14 @@ export const Main = styled.div`
 export const Info = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 4rem;
 
   span {
     position: relative;
+    margin: 0.25rem;
 
     &::after {
       content: "";

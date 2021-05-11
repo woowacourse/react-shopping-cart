@@ -4,6 +4,7 @@ import { COLOR } from "../../../constants/style";
 export const PaymentInfo = styled.div`
   width: 100%;
   margin-right: 5rem;
+  margin-bottom: 5rem;
 `;
 
 export const Title = styled.div`

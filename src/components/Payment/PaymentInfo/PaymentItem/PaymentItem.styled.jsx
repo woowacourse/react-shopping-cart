@@ -24,6 +24,13 @@ export const Detail = styled.div`
 export const Name = styled.span`
   font-size: 1.25rem;
   margin-bottom: 1.75rem;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 export const Amount = styled.span``;
