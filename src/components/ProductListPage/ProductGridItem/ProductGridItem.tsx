@@ -6,9 +6,15 @@ export interface Props {
   price: string;
   thumbnail: string;
   onClick?: () => void;
+  onCartButtonClick?: () => void;
 }
 
-const ProductGridItem = ({ name, price, thumbnail, onClick }: Props) => {
+const ProductGridItem = ({ name, price, thumbnail, onClick, onCartButtonClick }: Props) => {
+  const onCartIconClick = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.stopPropagation();
+    onCartButtonClick && onCartButtonClick();
+  };
+
   return (
     <Styled.ProductGridItem onClick={onClick}>
       <Styled.ProductThumbnail src={thumbnail} />
@@ -17,7 +23,7 @@ const ProductGridItem = ({ name, price, thumbnail, onClick }: Props) => {
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{price} 원</Styled.ProductPrice>
         </Styled.GridTextWrapper>
-        <Styled.CartIcon src={shoppingCartDarkSVG} />
+        <Styled.CartIcon onClick={onCartIconClick} src={shoppingCartDarkSVG} />
       </Styled.GridBottomWrapper>
     </Styled.ProductGridItem>
   );
