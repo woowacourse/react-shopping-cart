@@ -5,8 +5,13 @@ import { getPropertyRemoved } from '../utils';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_SELECTED_PRODUCTS = 'REMOVE_SELECTED_PRODUCTS';
+
 export const TOGGLE_PRODUCT_SELECTION = 'TOGGLE_PRODUCT_SELECTION';
 export const TOGGLE_ALL_PRODUCTS_SELECTION = 'TOGGLE_ALL_PRODUCTS_SELECTION';
+
+export const INCREMENT_PRODUCT_QUANTITY = 'INCREMENT_PRODUCT_QUANTITY';
+export const DECREMENT_PRODUCT_QUANTITY = 'DECREMENT_PRODUCT_QUANTITY';
+export const INPUT_PRODUCT_QUANTITY = 'INPUT_PRODUCT_QUANTITY';
 
 /* ACTION CREATOR */
 
@@ -42,6 +47,15 @@ export function toggleAllProductsSelection(willBeSelected) {
     type: TOGGLE_ALL_PRODUCTS_SELECTION,
     payload: willBeSelected,
   };
+}
+
+export function incrementProductQuantity(id) {
+}
+
+export function decrementProductQuantity(id) {
+}
+
+export function inputProductQuantity(id, quantity) {
 }
 
 /* REDUCER */
