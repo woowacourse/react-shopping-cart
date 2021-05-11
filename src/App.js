@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import GlobalStyles from './GlobalStyles';
-import NavBar from './components/NavBar/NavBar';
 import { ROUTE, SCHEMA } from './constants';
 import { getMyShoppingCartAsync } from './redux/action';
 import { OrderCheckoutPage, OrderListPage, ProductListPage, ShoppingCartPage } from './pages';
+import { GlobalNavbar } from './components/templates';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const App = () => {
     <>
       <GlobalStyles />
       <Router>
-        <NavBar />
+        <GlobalNavbar />
 
         <Switch>
           <Route exact path={ROUTE.HOME} component={ProductListPage} />

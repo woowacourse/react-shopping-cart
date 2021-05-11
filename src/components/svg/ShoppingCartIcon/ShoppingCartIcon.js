@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
-import { SVG } from './ShoppingCartIcon.styles';
+import styled from '@emotion/styled';
+
+const SVG = styled.svg`
+  cursor: pointer;
+  transform: ${({ scale }) => scale && `scale(${scale})`};
+`;
 
 const ShoppingCartIcon = ({ scale, color }) => (
   <SVG scale={scale} width="51" height="44" viewBox="0 0 51 44" fill="none" xmlns="http://www.w3.org/2000/svg">

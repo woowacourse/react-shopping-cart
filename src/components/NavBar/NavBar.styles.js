@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 
 const Container = styled.nav`
   display: flex;
@@ -10,18 +9,6 @@ const Container = styled.nav`
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   position: relative;
-`;
-
-const LogoContainer = styled(Link)`
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  color: white;
-  font-weight: 900;
-
-  & > *:not(:last-child) {
-    margin-right: 10px;
-  }
 `;
 
 const ButtonContainer = styled.div`
@@ -35,4 +22,4 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export { Container, LogoContainer, ButtonContainer };
+export { Container, ButtonContainer };

@@ -5,8 +5,10 @@ import { Container } from './ProductListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { updateShoppingCartItemsAsync } from '../../redux/action';
-import { ColumnProductItem, SuccessAddedModal } from '../../components';
+import { ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { SuccessAddedModal } from '../../components/templates';
+import { numberWithCommas } from '../../shared/utils';
 
 const ProductListPage = () => {
   const location = useLocation();
@@ -35,7 +37,7 @@ const ProductListPage = () => {
             key={id}
             imgSrc={img}
             name={name}
-            price={`${price}`}
+            price={`${numberWithCommas(price)} 원`}
             onClickShoppingCartIcon={() => onClickShoppingCartIcon(id)}
           />
         ))}

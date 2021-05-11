@@ -50,7 +50,7 @@ const OrderCheckoutPage = () => {
 
           <CheckoutList>
             {checkedItemList.map(({ id, img, name, amount }) => (
-              <RowProductItem key={id} imgSrc={img} name={name} amount={amount} />
+              <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />
             ))}
           </CheckoutList>
         </CheckoutListContainer>
@@ -59,7 +59,7 @@ const OrderCheckoutPage = () => {
           <PaymentInfoBox
             title="결제금액"
             detailText="총 결제금액"
-            price={expectedPrice}
+            price={`${numberWithCommas(expectedPrice)} 원`}
             buttonText={`${numberWithCommas(expectedPrice)}원 결제하기`}
             onClick={onClickPaymentButton}
           />

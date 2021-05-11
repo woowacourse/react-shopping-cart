@@ -1,3 +1,4 @@
+import { numberWithCommas } from '../../../shared/utils';
 import RowProductItem from './RowProductItem';
 
 export default {
@@ -12,7 +13,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   name: '브랜의 풀업 셋트',
-  price: 100,
-  amount: 2,
+  price: `${numberWithCommas(100)} 원`,
+  amount: `수량: ${100} 개`,
   imgSrc: 'https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif',
 };

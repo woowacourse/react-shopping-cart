@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
+
 import { ROUTE } from '../../../constants';
-import ColumnProductItem from '../../ProductItem/ColumnProductItem/ColumnProductItem';
+import { numberWithCommas } from '../../../shared/utils';
+import { ColumnProductItem } from '../..';
 import {
   ModalText,
   ModalButton,
@@ -27,7 +29,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
               key={id}
               imgSrc={img}
               name={name}
-              price={`${price}`}
+              price={`${numberWithCommas(price)} 원`}
               onClick={() => setModalOpen(true)}
               isVisibleIcon={false}
             />

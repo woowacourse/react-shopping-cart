@@ -4,8 +4,10 @@ import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { updateShoppingCartItemsAsync } from '../../redux/action';
-import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
+import { Button, Header, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { OrderContainer, SuccessAddedModal } from '../../components/templates';
+import { numberWithCommas } from '../../shared/utils';
 
 const OrderListPage = () => {
   const location = useLocation();
@@ -40,7 +42,12 @@ const OrderListPage = () => {
 
               return (
                 <OrderItemContainer key={id}>
-                  <RowProductItem imgSrc={img} name={name} price={price * amount} amount={amount} />
+                  <RowProductItem
+                    imgSrc={img}
+                    name={name}
+                    price={`${numberWithCommas(price * amount)}원 / `}
+                    amount={`수량: ${amount} 개`}
+                  />
                   <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>
                 </OrderItemContainer>
               );

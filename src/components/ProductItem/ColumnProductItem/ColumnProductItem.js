@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import { Container, Image, DetailContainer, ProductDetail, Name, Price } from './ColumnProductItem.styles';
-import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
 import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
-import { numberWithCommas } from '../../../shared/utils';
+import ShoppingCartIcon from '../../svg/ShoppingCartIcon/ShoppingCartIcon';
 
 const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon }) => (
   <Container>
@@ -10,7 +9,7 @@ const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVis
     <DetailContainer>
       <ProductDetail>
         <Name>{name}</Name>
-        <Price>{`${numberWithCommas(price)} 원`}</Price>
+        <Price>{price}</Price>
       </ProductDetail>
 
       {isVisibleIcon && (

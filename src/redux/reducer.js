@@ -1,7 +1,5 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
-// import { requestTable } from '../api/request';
-// import { SCHEMA } from '../constants';
 import { GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
 
 const initialState = {

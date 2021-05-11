@@ -12,7 +12,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   name: '브랜',
-  price: 100,
+  price: '100',
   imgSrc: 'https://zereight.github.io/react-payments/static/media/pullup.befeeb55.gif',
   onClick: () => {
     alert('장바구니 버튼 클릭');

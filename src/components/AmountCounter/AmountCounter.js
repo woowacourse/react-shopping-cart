@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { AMOUNT_COUNT } from '../../constants';
 import { Container, Input, Nav, ArrowContainer, ArrowUp, ArrowDown } from './AmountCounter.styles';
 
 const AmountCounter = ({ min, max, onChange, value, onClickUp, onClickDown }) => (
@@ -16,18 +17,17 @@ const AmountCounter = ({ min, max, onChange, value, onClickUp, onClickDown }) =>
 );
 
 AmountCounter.propTypes = {
-  min: PropTypes.string,
-  max: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
   onChange: PropTypes.func,
   value: PropTypes.number,
   onClickUp: PropTypes.func,
   onClickDown: PropTypes.func,
 };
 
-// TODO: 상수화
 AmountCounter.defaultProps = {
-  min: '1',
-  max: '20',
+  min: AMOUNT_COUNT.MIN,
+  max: AMOUNT_COUNT.MAX,
   onChange: () => {},
   value: 1,
   onClickUp: () => {},
