@@ -11,6 +11,8 @@ export const MESSAGE = {
   },
   ALERT: {
     INVALID_APPROACH: "비정상적인 접근입니다",
+    FAILED_GET_PRODUCT_LIST:
+      "상품목록을 불러오는데 실패했습니다...! \n오류가 지속되면 관리자에게 문의하세요",
   },
 };
 
