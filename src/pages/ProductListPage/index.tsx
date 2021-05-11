@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import ProductList from '../../components/ProductList';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import { NETWORK_ERROR } from '../../constants/error';
 import useFetch from '../../hooks/useFetch';
 import { requestProductList } from '../../service/request/productList';
 import { Product } from '../../types';

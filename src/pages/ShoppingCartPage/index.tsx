@@ -7,19 +7,18 @@ import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { RouteComponentProps } from 'react-router';
+import { NETWORK_ERROR } from '../../constants/error';
 
 const TITLE = '장바구니';
 
 interface Props extends RouteComponentProps {}
 
 const ShoppingCartPage: VFC<Props> = ({ history }) => {
-  const { doFetch } = useFetchCartRedux();
+  const { doFetch, itemsInCart: items } = useFetchCartRedux();
 
   useEffect(() => {
     doFetch();
   }, []);
-
-  const items = useAppSelector(({ cart }) => cart.items);
 
   const totalPrice = items.reduce(
     (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),

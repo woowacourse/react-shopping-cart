@@ -18,7 +18,7 @@ const TITLE = '주문/결제';
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: VFC<Props> = ({ history }) => {
-  const { data: items, isLoading, hasError } = useFetch(requestOrderConfirmItems);
+  const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
   const [totalPrice, setTotalPrice] = useState(0);
   const { clearCart } = useFetchCartRedux();
 

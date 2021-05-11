@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
-import { useAppSelector } from '../../../states/store';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {
@@ -10,9 +9,8 @@ import {
 } from './style';
 
 const ShoppingCartSectionList = () => {
-  const items = useAppSelector(({ cart }) => cart.items);
   const [checked, setChecked] = useState(false);
-  const { changeAllChecked, deleteCheckedItems } = useFetchCartRedux();
+  const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useFetchCartRedux();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;

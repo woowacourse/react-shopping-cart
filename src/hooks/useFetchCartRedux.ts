@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
+import { NETWORK_ERROR } from '../constants/error';
 import {
   thunkAddItemToCart,
   thunkGetCartItems,
@@ -14,7 +16,17 @@ import { ItemInCart, Product } from '../types';
 
 const useFetchCartRedux = () => {
   const dispatch = useAppDispatch();
-  const itemsInCart = useAppSelector(({ cart }) => cart.items);
+  const [
+    itemsInCart,
+    hasError,
+    isLoading,
+  ] = useAppSelector(({ cart: { items, error, isLoading } }) => [items, error, isLoading]);
+
+  useEffect(() => {
+    if (!hasError) return;
+
+    throw new Error(NETWORK_ERROR);
+  }, [hasError]);
 
   const doFetch = () => {
     dispatch(thunkGetCartItems());
@@ -66,6 +78,8 @@ const useFetchCartRedux = () => {
     changeChecked,
     changeAllChecked,
     clearCart,
+    itemsInCart,
+    isLoading,
   };
 };
 

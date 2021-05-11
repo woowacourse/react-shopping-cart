@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NETWORK_ERROR } from '../constants/error';
 
 const useFetch = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
@@ -21,6 +22,12 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   useEffect(() => {
     reFetch();
   }, []);
+
+  useEffect(() => {
+    if (!hasError) return;
+
+    throw new Error(NETWORK_ERROR);
+  }, [hasError]);
 
   return { data, doFetch: reFetch, hasError, isLoading };
 };
