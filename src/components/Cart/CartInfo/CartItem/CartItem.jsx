@@ -14,6 +14,7 @@ import {
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import { useConfirm } from "../../../../utils/useConfirm";
+import { CART } from "../../../../constants/constants";
 
 const CartItem = ({
   item: { id, name, thumbnail, amount, price, checked },
@@ -30,8 +31,15 @@ const CartItem = ({
     dispatch(toggleChecked({ id }));
   };
 
-  const handleAmountChange = (event) => {
-    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 0 }));
+  const handleAmountChange = ({ target: { valueAsNumber } }) => {
+    if (valueAsNumber < CART.MIN_AMOUNT || valueAsNumber > CART.MAX_AMOUNT) {
+      window.alert(
+        `품목당 한번에 최소 ${CART.MIN_AMOUNT}개 이상, 최대 ${CART.MAX_AMOUNT}개 이하만 주문할 수 있습니다.`
+      );
+      return;
+    }
+
+    dispatch(changeAmount({ id, amount: valueAsNumber || 0 }));
   };
 
   const handleAmountBlur = (event) => {
@@ -57,6 +65,8 @@ const CartItem = ({
           value={amount}
           onChange={handleAmountChange}
           onBlur={handleAmountBlur}
+          min={CART.MIN_AMOUNT}
+          max={CART.MAX_AMOUNT}
         />
         <S.Price>{formatPrice(amount * price)}원</S.Price>
       </S.Control>

@@ -13,3 +13,9 @@ export const MESSAGE = {
     INVALID_APPROACH: "비정상적인 접근입니다",
   },
 };
+
+export const CART = {
+  ADD_DIFF: 1,
+  MIN_AMOUNT: 1,
+  MAX_AMOUNT: 99,
+};
