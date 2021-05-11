@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
 
-export const OrdersListItem = styled.article`
+export const OrdersListItem = styled.li`
   margin-bottom: 4.5rem;
 `;
 
