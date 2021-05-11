@@ -1,10 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  removeProduct,
-  removeSelectedProducts,
-  toggleProductSelection,
-  toggleAllProductsSelection,
-} from '../../../redux';
+import { getAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
 import * as Styled from './style.js';
@@ -17,9 +12,17 @@ export const CartPage = () => {
   const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
   const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
   const isAllUnselected = !cartProducts.some(({ isSelected }) => isSelected);
+
   const dispatch = useDispatch();
-  const dispatchRemoveProduct = (id) => dispatch(removeProduct(id));
-  const dispatchToggleProductSelection = (id) => dispatch(toggleProductSelection(id));
+  const dispatchRemoveProduct = (id) => dispatch(getAction.removeProduct(id));
+  const dispatchRemoveSelectedProducts = () => dispatch(getAction.removeSelectedProducts());
+  const dispatchToggleProductSelection = (id) => dispatch(getAction.toggleProductSelection(id));
+  const dispatchToggleAllProductSelection = () =>
+    dispatch(getAction.toggleAllProductsSelection(!isAllSelected));
+  const dispatchIncrementProductQuantity = (id) => dispatch(getAction.incrementProductQuantity(id));
+  const dispatchDecrementProductQuantity = (id) => dispatch(getAction.decrementProductQuantity(id));
+  const dispatchInputProductQuantity = (id, quantity) =>
+    dispatch(getAction.inputProductQuantity(id, quantity));
 
   return (
     <Styled.Page>
@@ -30,10 +33,10 @@ export const CartPage = () => {
             <Checkbox
               label={isAllSelected ? '선택해제' : '전체선택'}
               isChecked={isAllSelected}
-              onChange={() => dispatch(toggleAllProductsSelection(!isAllSelected))}
+              onChange={dispatchToggleAllProductSelection}
             />
             <Styled.DeleteButton
-              onClick={() => dispatch(removeSelectedProducts())}
+              onClick={dispatchRemoveSelectedProducts}
               disabled={isAllUnselected}
             >
               상품삭제
@@ -47,8 +50,11 @@ export const CartPage = () => {
               <CartProductItem
                 key={product.id}
                 product={product}
-                onRemoveProduct={dispatchRemoveProduct}
-                onToggleCheckbox={dispatchToggleProductSelection}
+                removeProduct={dispatchRemoveProduct}
+                toggleCheckbox={dispatchToggleProductSelection}
+                incrementQuantity={dispatchIncrementProductQuantity}
+                decrementQuantity={dispatchDecrementProductQuantity}
+                inputQuantity={dispatchInputProductQuantity}
               />
             ))}
           </Styled.CartProductList>

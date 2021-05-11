@@ -3,14 +3,14 @@ import { UpwardIcon, DownwardIcon } from '../../';
 import * as Styled from './style.js';
 
 export const QuantityStepper = (props) => {
-  const { quantity, handleQuantityChange, handleIncrement, handleDecrement, ...rest } = props;
+  const { quantity, onIncrement, onDecrement, onInput, ...rest } = props;
 
   return (
     <Styled.Container {...rest}>
-      <Styled.Input value={quantity} onChange={handleQuantityChange} />
+      <Styled.Input value={quantity} onChange={onInput} />
       <Styled.Controller>
-        <Styled.StepperButton onClick={handleIncrement} children={<UpwardIcon />} isUpward />
-        <Styled.StepperButton onClick={handleDecrement} children={<DownwardIcon />} />
+        <Styled.StepperButton onClick={onIncrement} children={<UpwardIcon />} isUpward />
+        <Styled.StepperButton onClick={onDecrement} children={<DownwardIcon />} />
       </Styled.Controller>
     </Styled.Container>
   );
@@ -18,9 +18,9 @@ export const QuantityStepper = (props) => {
 
 QuantityStepper.propTypes = {
   quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  handleQuantityChange: PropTypes.func.isRequired,
-  handleIncrement: PropTypes.func.isRequired,
-  handleDecrement: PropTypes.func.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired,
+  onInput: PropTypes.func.isRequired,
 };
 
 QuantityStepper.defaultProps = {

@@ -47,5 +47,6 @@ export const CheckoutButton = styled(Button)`
   &:disabled {
     color: rgb(187, 187, 187);
     background-color: rgb(238, 238, 238);
+    cursor: default;
   }
 `;

@@ -1,26 +1,62 @@
 import PropTypes from 'prop-types';
 import * as Styled from './style.js';
-import { useQuantityStepper } from '../../../../hooks';
+import { PATTERN_ONLY_NUMBER } from '../../../../constants';
 import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
 
+const MIN_PRODUCT_QUANTITY = 1;
+const MAX_PRODUCT_QUANTITY = 99;
+
 export const CartProductItem = (props) => {
-  const { product, onRemoveProduct, onToggleCheckbox, ...rest } = props;
-  const { id, name, price, img, isSelected } = product;
-  const { quantity, handleQuantityChange, handleIncrement, handleDecrement } = useQuantityStepper();
+  const {
+    product,
+    removeProduct,
+    toggleCheckbox,
+    incrementQuantity,
+    decrementQuantity,
+    inputQuantity,
+    ...rest
+  } = props;
+  const { id, name, price, img, quantity, isSelected } = product;
+
+  const onIncrementQuantity = () => {
+    if (quantity >= MAX_PRODUCT_QUANTITY) {
+      return;
+    }
+    incrementQuantity(id);
+  };
+  const onDecrementQuantity = () => {
+    if (quantity <= MIN_PRODUCT_QUANTITY) {
+      return;
+    }
+    decrementQuantity(id);
+  };
+  const onInputQuantity = ({ target }) => {
+    const inputValue = target.value.replace(PATTERN_ONLY_NUMBER, '');
+
+    /* 빈 문자열(falsy)을 숫자연산 하기 전에 처리 */
+    if (inputValue === '') {
+      inputQuantity(id, inputValue);
+      return;
+    }
+    if (inputValue < MIN_PRODUCT_QUANTITY || inputValue > MAX_PRODUCT_QUANTITY) {
+      return;
+    }
+    inputQuantity(id, inputValue);
+  };
 
   return (
     <Styled.Container {...rest}>
-      <Checkbox isChecked={isSelected} onChange={() => onToggleCheckbox(id)} />
+      <Checkbox isChecked={isSelected} onChange={() => toggleCheckbox(id)} />
       <Styled.Image src={img} />
       <Styled.Name>{name}</Styled.Name>
       <Styled.Controller>
-        <Button children={<TrashCanIcon />} onClick={() => onRemoveProduct(id)} />
+        <Button children={<TrashCanIcon />} onClick={() => removeProduct(id)} />
         <QuantityStepper
           quantity={quantity}
-          handleQuantityChange={handleQuantityChange}
-          handleIncrement={handleIncrement}
-          handleDecrement={handleDecrement}
+          onIncrement={onIncrementQuantity}
+          onDecrement={onDecrementQuantity}
+          onInput={onInputQuantity}
         />
         <Styled.Price>{getFormattedAsKRW(price)}</Styled.Price>
       </Styled.Controller>
@@ -36,6 +72,9 @@ CartProductItem.propTypes = {
     img: PropTypes.string,
     isSelected: PropTypes.bool,
   }).isRequired,
-  onRemoveProduct: PropTypes.func.isRequired,
-  onToggleCheckbox: PropTypes.func.isRequired,
+  removeProduct: PropTypes.func.isRequired,
+  toggleCheckbox: PropTypes.func.isRequired,
+  incrementQuantity: PropTypes.func.isRequired,
+  decrementQuantity: PropTypes.func.isRequired,
+  inputQuantity: PropTypes.func.isRequired,
 };
