@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import {
   thunkAddItemToCart,
   thunkGetCartItems,
@@ -32,9 +32,6 @@ const useFetchCartRedux = () => {
   };
 
   const changeQuantity = (item: ItemInCart, quantity: number) => {
-    // TODO : 상수화
-    const CART_ITEM_MIN_QUANTITY = 1;
-
     if (quantity < CART_ITEM_MIN_QUANTITY) return;
 
     dispatch(thunkChangeItemQuantity(item, quantity));
