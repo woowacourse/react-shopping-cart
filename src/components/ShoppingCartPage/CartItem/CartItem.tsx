@@ -10,12 +10,14 @@ export interface Props {
   thumbnail?: string;
   quantity: CartItem['quantity'];
   setQuantity: (quantity: CartItem['quantity']) => void;
+  isSelected: boolean;
+  setSelected: (isSelected: CartItem['isSelected']) => void;
 }
 
-const CartItem = ({ name, price, thumbnail = noImagePNG, quantity, setQuantity }: Props) => {
+const CartItem = ({ name, price, thumbnail = noImagePNG, quantity, setQuantity, isSelected, setSelected }: Props) => {
   return (
     <Styled.CartItem>
-      <Checkbox />
+      <Checkbox isChecked={isSelected} onCheck={setSelected} />
       <Styled.Thumbnail src={thumbnail} alt="cart item thumbnail" />
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>

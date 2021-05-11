@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
@@ -7,10 +8,12 @@ import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentChe
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 import { URL, STATUS_CODE } from '../../constants';
 import useCart from '../../hooks/cart';
+import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 
 const ShoppingCartPage = () => {
   const { cartItems, loading, responseOK, setCartItems } = useCart();
+  const [isTotalChecked, setTotalChecked] = useState<boolean>();
 
   if (loading) {
     return (
@@ -48,22 +51,47 @@ const ShoppingCartPage = () => {
     setCartItems(newCartItems);
   };
 
+  const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    const newCartItem = { ...newCartItems[targetIndex], isSelected };
+    newCartItems.splice(targetIndex, 1, newCartItem);
+    setCartItems(newCartItems);
+  };
+
+  const onTotalCheckClick = () => {
+    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
+    setTotalChecked(isTotalChecked => !isTotalChecked);
+    setCartItems(newCartItems);
+  };
+
   const cartItemList = cartItems.map(cartItem => (
-    <Styled.CartItemWrapper>
+    <Styled.CartItemWrapper key={cartItem.id}>
       <CartItem
-        key={cartItem.id}
         thumbnail={cartItem.thumbnail}
         name={cartItem.name}
-        price={String(Number(cartItem.price) * Number(cartItem.quantity))}
+        price={getMoneyString(Number(cartItem.price) * Number(cartItem.quantity))}
         quantity={cartItem.quantity}
         setQuantity={quantity => setCartItemQuantity(cartItem.id, quantity)}
+        isSelected={cartItem.isSelected}
+        setSelected={isSelected => setCartItemSelected(cartItem.id, isSelected)}
       />
     </Styled.CartItemWrapper>
   ));
 
   const totalPrice = String(
-    cartItems.reduce((acc, cartItem) => acc + Number(cartItem.price) * Number(cartItem.quantity), 0)
+    cartItems.reduce((acc, cartItem) => {
+      if (!cartItem.isSelected) {
+        return acc;
+      }
+
+      return acc + Number(cartItem.price) * Number(cartItem.quantity);
+    }, 0)
   );
+
+  const getSelectedItemCount = () => {
+    return cartItems.filter(item => item.isSelected).length;
+  };
 
   return (
     <Styled.ShoppingCartPage>
@@ -74,7 +102,7 @@ const ShoppingCartPage = () => {
         <Styled.Container>
           <Styled.CartContainer>
             <Styled.ControlWrapper>
-              <Checkbox labelText="선택해제" />
+              <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} />
               <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
@@ -87,8 +115,8 @@ const ShoppingCartPage = () => {
           <PaymentCheckout
             title="결제예상금액"
             priceLabel="결제예상금액"
-            price={totalPrice}
-            buttonText="주문하기(2개)"
+            price={getMoneyString(totalPrice)}
+            buttonText={`주문하기(${getSelectedItemCount()}개)`}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>

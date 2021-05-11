@@ -5,12 +5,14 @@ declare interface Product {
   price: string;
   stock: number;
 }
+
 declare interface CartItem {
   id: string;
   name: string;
   thumbnail: string;
   price: string;
   quantity: string;
+  isSelected: boolean;
 }
 
 type Cart = CartItem[];

@@ -21,16 +21,8 @@ export const Input = styled.input`
 
   &:checked {
     background-color: #22a6a2;
-    &::after {
-      position: absolute;
-      content: '';
-      top: 0;
-      left: 1px;
-      width: 100%;
-      height: 100%;
-      background-image: url(${checkSVG});
-      background-repeat: no-repeat;
-    }
+    background-image: url(${checkSVG});
+    background-repeat: no-repeat;
   }
 `;
 

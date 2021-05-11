@@ -16,7 +16,9 @@ const useCart = () => {
           setResponseOK(false);
           throw new Error('장바구니 정보를 불러오지 못했습니다');
         }
-        setCartItems(response.data);
+
+        const cartItems = response.data.map((item: CartItem) => ({ ...item, isSelected: false }));
+        setCartItems(cartItems);
       } catch (error) {
         console.error(error);
       } finally {
