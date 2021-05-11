@@ -21,13 +21,13 @@ const OrderListPage = () => {
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
   const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
-  const { Modal, setModalOpen } = useModal(false);
+  const { Modal, open: openModal } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
     dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
 
-    setModalOpen(true);
+    openModal();
   };
 
   return (
@@ -57,7 +57,7 @@ const OrderListPage = () => {
       </Container>
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal productList={productList} openModal={openModal} />
       </Modal>
     </ScreenContainer>
   );

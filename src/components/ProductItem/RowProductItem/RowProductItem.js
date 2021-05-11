@@ -7,8 +7,8 @@ const RowProductItem = ({ imgSrc, name, price, amount }) => (
     <ProductContainer>
       <Name>{name}</Name>
       <ProductDetail>
-        {price && <span>{price}</span>}
-        {amount && <span>{amount}</span>}
+        {price !== null && <span>{price}</span>}
+        {amount !== null && <span>{amount}</span>}
       </ProductDetail>
     </ProductContainer>
   </Container>

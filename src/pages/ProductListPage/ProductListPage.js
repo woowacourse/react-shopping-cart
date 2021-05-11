@@ -19,14 +19,14 @@ const ProductListPage = () => {
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
-  const { setModalOpen, Modal } = useModal(false);
+  const { open: openModal, Modal } = useModal(false);
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
   const onClickShoppingCartIcon = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
     dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
 
-    setModalOpen(true);
+    openModal();
   };
 
   return (
@@ -44,7 +44,7 @@ const ProductListPage = () => {
       </Container>
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal productList={productList} openModal={openModal} />
       </Modal>
     </ScreenContainer>
   );

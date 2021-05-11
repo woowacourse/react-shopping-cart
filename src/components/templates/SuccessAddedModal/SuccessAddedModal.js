@@ -13,7 +13,7 @@ import {
   RecommendedList,
 } from './SuccessAddedModal.styles';
 
-const SuccessAddedModal = ({ productList, setModalOpen }) => {
+const SuccessAddedModal = ({ productList, openModal }) => {
   const history = useHistory();
 
   return (
@@ -30,7 +30,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
               imgSrc={img}
               name={name}
               price={`${numberWithCommas(price)} 원`}
-              onClick={() => setModalOpen(true)}
+              onClick={openModal}
               isVisibleIcon={false}
             />
           ))}
@@ -42,7 +42,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
 
 SuccessAddedModal.propTypes = {
   productList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setModalOpen: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default SuccessAddedModal;

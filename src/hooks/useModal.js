@@ -3,12 +3,24 @@ import PropTypes from 'prop-types';
 import ModalComponent from '../components/Modal/Modal';
 
 export default defaultValue => {
-  const [isModalOpen, setModalOpen] = useState(defaultValue);
+  const [isModalOpen, setModalState] = useState(defaultValue);
 
   const onClickClose = event => {
     if (event.target !== event.currentTarget) return;
 
-    setModalOpen(false);
+    setModalState(false);
+  };
+
+  const open = () => {
+    setModalState(true);
+  };
+
+  const close = () => {
+    setModalState(false);
+  };
+
+  const toggle = () => {
+    setModalState(state => !state);
   };
 
   const Modal = ({ children }) =>
@@ -18,5 +30,5 @@ export default defaultValue => {
     children: PropTypes.node.isRequired,
   };
 
-  return { isModalOpen, setModalOpen, onClickClose, Modal };
+  return { isModalOpen, setModalState, onClickClose, Modal, open, close, toggle };
 };
