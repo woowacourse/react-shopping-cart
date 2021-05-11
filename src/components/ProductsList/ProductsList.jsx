@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MESSAGE } from "../../constants/constants";
+import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
@@ -27,7 +28,7 @@ const ProductsList = () => {
   }, []);
 
   return loading ? (
-    <div>상품목록을 불러오는 중입니다</div>
+    <Loading>상품목록을 불러오는 중입니다</Loading>
   ) : (
     <S.ProductsList>
       {productsList.map((product) => (
