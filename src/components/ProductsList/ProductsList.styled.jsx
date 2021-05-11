@@ -7,7 +7,7 @@ export const ProductsList = styled.section`
   display: grid;
   grid-template-columns: repeat(4, minmax(14.5rem, 1fr));
   grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
+  grid-row-gap: 2.5rem;
 
   @media (max-width: ${BREAK_POINT.DESKTOP}) {
     grid-template-columns: repeat(3, minmax(14.5rem, 1fr));
@@ -15,6 +15,7 @@ export const ProductsList = styled.section`
 
   @media (max-width: ${BREAK_POINT.TABLET}) {
     grid-template-columns: repeat(2, minmax(14.5rem, 1fr));
+    grid-row-gap: 3.5rem;
   }
 
   @media (max-width: ${BREAK_POINT.MOBILE}) {

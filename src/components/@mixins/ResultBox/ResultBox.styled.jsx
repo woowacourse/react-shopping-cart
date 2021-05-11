@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR } from "../../../constants/style";
+import { BREAK_POINT, COLOR } from "../../../constants/style";
 
 export const ResultBox = styled.aside`
   width: 28rem;
@@ -9,6 +9,10 @@ export const ResultBox = styled.aside`
   border: 1px solid ${COLOR.GRAY[300]};
   position: sticky;
   top: 8rem;
+
+  @media (max-width: ${BREAK_POINT.DESKTOP}) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.div`

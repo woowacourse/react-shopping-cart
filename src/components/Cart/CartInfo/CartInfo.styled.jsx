@@ -5,6 +5,7 @@ import { COLOR } from "../../../constants/style";
 export const CartInfo = styled.div`
   width: 100%;
   margin-right: 5rem;
+  margin-bottom: 5rem;
 `;
 
 export const Menu = styled.div`
