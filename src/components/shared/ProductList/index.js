@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ProductListItem from './ProductListItem';
 import * as Styled from './style';
 
 const ProductList = ({ children }) => {

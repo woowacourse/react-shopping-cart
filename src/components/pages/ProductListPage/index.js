@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
-import { mockData } from '../../../mockData';
 import { addToCart } from '../../../redux/Cart/actions';
 import { getProducts, resetProducts } from '../../../redux/ProductList/actions';
 import Button from '../../common/Button';
@@ -16,7 +15,7 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts(mockData));
+    dispatch(getProducts());
 
     return () => {
       dispatch(resetProducts());
