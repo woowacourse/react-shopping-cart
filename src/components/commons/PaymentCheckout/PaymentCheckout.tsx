@@ -6,9 +6,10 @@ export interface Props {
   priceLabel: string;
   price: string;
   buttonText: string;
+  onButtonClick?: () => void;
 }
 
-const PaymentCheckout = ({ title, priceLabel, price, buttonText }: Props) => {
+const PaymentCheckout = ({ title, priceLabel, price, buttonText, onButtonClick }: Props) => {
   return (
     <Styled.PaymentCheckout>
       <Styled.Title>{title}</Styled.Title>
@@ -17,7 +18,9 @@ const PaymentCheckout = ({ title, priceLabel, price, buttonText }: Props) => {
           <Styled.PriceLabel>{priceLabel}</Styled.PriceLabel>
           <Styled.Price>{price}</Styled.Price>
         </Styled.PriceWrapper>
-        <Button size="MD">{buttonText}</Button>
+        <Button size="MD" onClick={onButtonClick}>
+          {buttonText}
+        </Button>
       </Styled.Container>
     </Styled.PaymentCheckout>
   );

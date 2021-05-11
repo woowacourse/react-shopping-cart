@@ -7,7 +7,6 @@ export interface Props {
 }
 
 const Checkbox = ({ labelText, isChecked, onCheck }: Props) => {
-  console.log(isChecked);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     onCheck && onCheck(isChecked);

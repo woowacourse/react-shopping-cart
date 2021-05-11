@@ -1,17 +1,19 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
-import { URL, STATUS_CODE } from '../../constants';
+import { URL, STATUS_CODE, PATH } from '../../constants';
 import useCart from '../../hooks/cart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 
 const ShoppingCartPage = () => {
+  const history = useHistory();
   const { cartItems, loading, responseOK, setCartItems } = useCart();
   const [isTotalChecked, setTotalChecked] = useState<boolean>();
 
@@ -65,6 +67,38 @@ const ShoppingCartPage = () => {
     setCartItems(newCartItems);
   };
 
+  const onCartItemDelete = async (id: CartItem['id']) => {
+    try {
+      const response = await axios.delete(`${URL.CART}/${id}`);
+      if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
+        throw new Error('장바구니 아이템 삭제에 실패하였습니다');
+      }
+      const newCartItems = [...cartItems];
+      const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+      newCartItems.splice(targetIndex, 1);
+      setCartItems(newCartItems);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSelectedCartItemDelete = async () => {
+    const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
+    try {
+      selectedCartItemIdList.forEach(async id => {
+        const response = await axios.delete(`${URL.CART}/${id}`);
+        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
+          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
+        }
+      });
+      const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
+      console.log(newCartItems);
+      setCartItems(newCartItems);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
       <CartItem
@@ -75,6 +109,7 @@ const ShoppingCartPage = () => {
         setQuantity={quantity => setCartItemQuantity(cartItem.id, quantity)}
         isSelected={cartItem.isSelected}
         setSelected={isSelected => setCartItemSelected(cartItem.id, isSelected)}
+        onCartItemDelete={() => onCartItemDelete(cartItem.id)}
       />
     </Styled.CartItemWrapper>
   ));
@@ -89,8 +124,14 @@ const ShoppingCartPage = () => {
     }, 0)
   );
 
-  const getSelectedItemCount = () => {
-    return cartItems.filter(item => item.isSelected).length;
+  const getSelectedItems = () => {
+    return cartItems.filter(item => item.isSelected);
+  };
+
+  const onOrderLinkButtonClick = () => {
+    const selectedItems = getSelectedItems();
+    if (selectedItems.length === 0) return;
+    history.push(PATH.ORDER, { selectedItems });
   };
 
   return (
@@ -103,7 +144,7 @@ const ShoppingCartPage = () => {
           <Styled.CartContainer>
             <Styled.ControlWrapper>
               <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} />
-              <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
+              <Styled.DeleteButton onClick={onSelectedCartItemDelete}>상품삭제</Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
               <Styled.CartHeader>배송상품 ({cartItems.length}개)</Styled.CartHeader>
@@ -116,7 +157,8 @@ const ShoppingCartPage = () => {
             title="결제예상금액"
             priceLabel="결제예상금액"
             price={getMoneyString(totalPrice)}
-            buttonText={`주문하기(${getSelectedItemCount()}개)`}
+            buttonText={`주문하기(${getSelectedItems().length}개)`}
+            onButtonClick={onOrderLinkButtonClick}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>

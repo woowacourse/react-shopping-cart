@@ -12,9 +12,19 @@ export interface Props {
   setQuantity: (quantity: CartItem['quantity']) => void;
   isSelected: boolean;
   setSelected: (isSelected: CartItem['isSelected']) => void;
+  onCartItemDelete: () => void;
 }
 
-const CartItem = ({ name, price, thumbnail = noImagePNG, quantity, setQuantity, isSelected, setSelected }: Props) => {
+const CartItem = ({
+  name,
+  price,
+  thumbnail = noImagePNG,
+  quantity,
+  setQuantity,
+  isSelected,
+  setSelected,
+  onCartItemDelete,
+}: Props) => {
   return (
     <Styled.CartItem>
       <Checkbox isChecked={isSelected} onCheck={setSelected} />
@@ -22,7 +32,7 @@ const CartItem = ({ name, price, thumbnail = noImagePNG, quantity, setQuantity, 
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>
           <Styled.ItemName>{name}</Styled.ItemName>
-          <img src={trashCanSVG} alt="cart item delete button" />
+          <Styled.DeleteIcon src={trashCanSVG} alt="cart item delete button" onClick={onCartItemDelete} />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
           <NumberInput value={quantity} setValue={setQuantity} />
