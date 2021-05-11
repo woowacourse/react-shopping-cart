@@ -23,7 +23,7 @@ const ShoppingCartPage: VFC<Props> = ({ history }) => {
 
   const items = useAppSelector(({ cart }) => cart.items);
 
-  const totalPrice: number = items.reduce(
+  const totalPrice = items.reduce(
     (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
     0
   );

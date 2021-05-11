@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import OrderConfirmInnerContainer from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
@@ -11,6 +12,15 @@ const TITLE = '주문/결제';
 
 const OrderConfirmPage = () => {
   const { data: items, isLoading, hasError } = useFetch(requestOrderConfirmItems);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (!items) return;
+
+    const calculatedPrice = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
+
+    setTotalPrice(calculatedPrice);
+  }, [items]);
 
   return (
     <ReactShoppingCartTemplate title={TITLE}>
@@ -20,7 +30,7 @@ const OrderConfirmPage = () => {
         ) : (
           <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
         )}
-        <OrderConfirmResultSubmitCard />
+        <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmInnerContainer>
     </ReactShoppingCartTemplate>
   );

@@ -59,10 +59,10 @@ const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infin
         onBlur={onBlurInput}
       />
       <Container>
-        <IncreaseButton onClick={onClickIncreaseButton}>
+        <IncreaseButton type="button" onClick={onClickIncreaseButton}>
           <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </IncreaseButton>
-        <DecreaseButton onClick={onClickDecreaseButton}>
+        <DecreaseButton type="button" onClick={onClickDecreaseButton}>
           <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </DecreaseButton>
       </Container>
