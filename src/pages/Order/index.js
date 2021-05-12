@@ -72,7 +72,7 @@ const Order = () => {
                 총 결제금액
               </HighlightText>
               <HighlightText color={COLOR.HIGHLIGHT_MINT} fontSize="1.25rem">
-                {totalPrice.toLocaleString('ko-KR')}원
+                {`${totalPrice.toLocaleString('ko-KR')} 원`}
               </HighlightText>
             </ReceiptRow>
             <Button

@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`상품목록 페이지 store에 있는 products가 제대로 렌더링 되는지 확인한다. 1`] = `
+<div>
+  <div
+    class="sc-jrQzUz lfOQXA"
+  >
+    <h2
+      class="sc-kDThTU gmVbch"
+    >
+      주문/결제
+    </h2>
+    <div
+      class="sc-iqsfdx jxfPjD"
+    >
+      <div
+        class="sc-crHlIS gDZFKk"
+      >
+        <div
+          class="sc-egiSv"
+        >
+          <h3
+            class="sc-bqiQRQ eOchcu"
+          >
+            주문 상품(
+            1
+            건)
+          </h3>
+          <div
+            class="sc-ksdxAp"
+          >
+            <div
+              class="sc-hBURRC fdQIKC"
+            >
+              <div
+                class="sc-jRQAMF jPnclg"
+              >
+                <div
+                  class="sc-dkPtyc"
+                >
+                  <div
+                    class="sc-hKwCoD fjBkgY"
+                  >
+                    <img
+                      alt="[든든] 유부 슬라이스 500g"
+                      class="sc-eCImvq egarCP"
+                      src="https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sc-gKckTs cZGTdm"
+                >
+                  <h4
+                    class="sc-iCfLBT dVjvsT"
+                  >
+                    [든든] 유부 슬라이스 500g
+                  </h4>
+                  <div
+                    class="sc-furvIG kdXeYp"
+                  >
+                    수량: 4
+                  </div>
+                </div>
+                <div
+                  class="sc-pVTma eFUTTj"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sc-fotPbf gkYcCa"
+      >
+        <h3
+          class="sc-fFehDp gwjIWc"
+        >
+          결제금액
+        </h3>
+        <div
+          class="sc-bkkfTU iaJzfb"
+        >
+          <div
+            class="sc-ieebsP iddjjI"
+          >
+            <span
+              class="sc-gsDJrp cVrBFO"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              총 결제금액
+            </span>
+            <span
+              class="sc-gsDJrp cVrBFO"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              19,600 원
+            </span>
+          </div>
+          <button
+            class="sc-bdvvaa jnIuRd"
+            color="#FFFFFF"
+            font-size="1.5rem"
+            height="74px"
+            type="button"
+            width="100%"
+          >
+            19,600
+            원 주문하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
