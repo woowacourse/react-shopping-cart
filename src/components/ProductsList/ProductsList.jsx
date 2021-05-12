@@ -1,37 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { MESSAGE } from "../../constants/constants";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../store/modules/productSlice";
 import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
 const ProductsList = () => {
-  const [loading, setLoading] = useState(true);
-  const [productsList, setProductsList] = useState([]);
+  const dispatch = useDispatch();
+  const { products, loading, errorMessage } = useSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
-    const fetchProductsList = async () => {
-      try {
-        setLoading(true);
+    dispatch(getProducts());
+  }, [dispatch]);
 
-        const res = await fetch(`${process.env.PUBLIC_URL}/data/data.json`);
-        const { data } = await res.json();
-        setProductsList(data);
-      } catch {
-        // eslint-disable-next-line no-alert
-        window.alert(MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductsList();
-  }, []);
+  useEffect(() => {
+    if (errorMessage) {
+      // eslint-disable-next-line no-alert
+      window.alert(errorMessage);
+    }
+  }, [errorMessage]);
 
   return loading ? (
     <Loading>상품목록을 불러오는 중입니다</Loading>
   ) : (
     <S.ProductsList>
-      {productsList.map((product) => (
+      {products.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </S.ProductsList>
