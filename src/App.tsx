@@ -1,7 +1,5 @@
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './App.styles';
-import { PATH } from './constants';
 
 import Header from './components/Header/Header';
 import GlobalStyle from './Global.styles';
@@ -11,6 +9,10 @@ import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
 import OrderDetailPage from './pages/OrderDetailPage/OrderDetailPage';
+
+import { PATH } from './constants';
+
+import { theme } from './App.styles';
 
 function App() {
   return (

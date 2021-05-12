@@ -7,6 +7,11 @@ export const API = {
       const product = products.find(product => product.id === id);
       const response = await axios.post(URL.CART, { ...product, quantity: '1' });
 
+      if (response.status === STATUS_CODE.ALREADY_EXIST) {
+        alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+        throw new Error('해당 상품이 이미 장바구니에 존재합니다.');
+      }
+
       if (response.status !== STATUS_CODE.POST_SUCCESS) {
         throw new Error('상품을 장바구니에 담지 못했습니다.');
       }
