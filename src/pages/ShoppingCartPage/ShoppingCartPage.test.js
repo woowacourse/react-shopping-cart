@@ -104,4 +104,36 @@ describe('ShoppingCartPage', () => {
       expect($checkbox.checked).toEqual($selectAllCheckbox.checked);
     });
   });
+
+  test('상품을 선택해서 일괄 삭제할 수 있다.', async () => {
+    render(
+      <Provider store={store}>
+        <ShoppingCartPage />
+      </Provider>
+    );
+
+    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('선택해제'));
+    fireEvent.click($selectAllCheckbox);
+
+    const $deleteSelectedItemButton = screen.getByText('상품삭제');
+    fireEvent.click($deleteSelectedItemButton);
+
+    await waitForElementToBeRemoved(screen.getAllByTestId('cart-item'));
+  });
+
+  test('주문하기 버튼내 수량은 선택된 상품만큼 변한다.', async () => {
+    render(
+      <Provider store={store}>
+        <ShoppingCartPage />
+      </Provider>
+    );
+
+    const $$cartItems = await waitFor(() => screen.getAllByTestId('cart-item'));
+
+    const $orderButton = await waitFor(() => screen.getByText(/주문하기/));
+    const quantityTextInButton = $orderButton.textContent.replace(/[^0-9]/g, '');
+    const cartItemQuantity = $$cartItems.length;
+
+    expect(quantityTextInButton == cartItemQuantity).toBe(true);
+  });
 });
