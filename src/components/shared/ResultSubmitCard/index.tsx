@@ -13,6 +13,7 @@ interface Props {
   resultDescription: string;
   resultAmount: string;
   buttonText: string;
+  disabled?: boolean;
   className?: string;
 }
 
@@ -22,6 +23,7 @@ const ResultSubmitCard: VFC<Props> = ({
   resultAmount,
   buttonText,
   className,
+  disabled,
 }) => (
   <ResultSubmitCardContainer className={className}>
     <ResultTitle>{title}</ResultTitle>
@@ -30,7 +32,7 @@ const ResultSubmitCard: VFC<Props> = ({
         <Text>{resultDescription}</Text>
         <Text>{resultAmount}</Text>
       </ResultAmountContainer>
-      <ResultSubmitButton>{buttonText}</ResultSubmitButton>
+      <ResultSubmitButton disabled={disabled}>{buttonText}</ResultSubmitButton>
     </ResultInnerContainer>
   </ResultSubmitCardContainer>
 );

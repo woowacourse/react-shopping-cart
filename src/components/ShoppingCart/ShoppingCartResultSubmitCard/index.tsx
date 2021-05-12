@@ -13,6 +13,7 @@ const ShoppingCartResultSubmitCard: VFC<Props> = ({ totalQuantity, totalPrice })
     resultAmount={KRCurrency(totalPrice)}
     resultDescription="결제예상금액"
     buttonText={`주문하기(${totalQuantity}개)`}
+    disabled={totalQuantity === 0}
   />
 );
 

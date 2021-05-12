@@ -3,7 +3,6 @@ import { ItemInCart } from '../../../../../types';
 import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
-import IconButton from '../../../../shared/IconButton';
 import NumberInput from '../../../../shared/NumberInput';
 import Text from '../../../../shared/Text';
 import {
