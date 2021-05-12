@@ -8,7 +8,6 @@ import { ProductItem } from './ProductItem';
 export const ProductListPage = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const dispatchAddProduct = (product) => dispatch(cartAction.addProduct(product));
 
   useEffect(() => {
     loadData({ table: PRODUCT_LIST, handler: setProducts });
@@ -18,7 +17,11 @@ export const ProductListPage = () => {
     <S.Page>
       <S.ProductList>
         {products.map((product) => (
-          <ProductItem key={product.id} product={product} addProduct={dispatchAddProduct} />
+          <ProductItem
+            key={product.id}
+            product={product}
+            addProduct={(product) => dispatch(cartAction.addProduct(product))}
+          />
         ))}
       </S.ProductList>
     </S.Page>

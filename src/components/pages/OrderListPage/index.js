@@ -9,7 +9,6 @@ import * as S from './style.js';
 export const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
-  const dispatchAddProduct = (product) => dispatch(cartAction.addProduct(product));
 
   useEffect(() => {
     loadSortedData({
@@ -36,7 +35,7 @@ export const OrderListPage = () => {
                   <OrderedProductItem
                     key={product.id}
                     product={product}
-                    addProduct={dispatchAddProduct}
+                    addProduct={(product) => dispatch(cartAction.addProduct(product))}
                   />
                 ))}
               </S.OrderedProductList>

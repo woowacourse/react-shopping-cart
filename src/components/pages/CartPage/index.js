@@ -20,32 +20,18 @@ export const CartPage = () => {
   };
 
   const dispatch = useDispatch();
-  const dispatchRemoveProduct = (id) => dispatch(cartAction.removeProduct(id));
-  const dispatchRemoveSelectedProducts = () => dispatch(cartAction.removeSelectedProducts());
-
-  const dispatchToggleProductSelection = (id) => dispatch(cartAction.toggleProductSelection(id));
-  const dispatchToggleAllProductSelection = () =>
-    dispatch(cartAction.toggleAllProductsSelection(!isAllSelected));
-
-  const dispatchIncrementProductQuantity = (id) =>
-    dispatch(cartAction.incrementProductQuantity(id));
-  const dispatchDecrementProductQuantity = (id) =>
-    dispatch(cartAction.decrementProductQuantity(id));
-  const dispatchInputProductQuantity = (id, quantity) =>
-    dispatch(cartAction.inputProductQuantity(id, quantity));
-
   const dispatchOpenConfirm = ({ message, approve }) =>
     dispatch(confirmAction.openConfirm({ message, approve }));
 
   const onClickDeleteButton = () =>
     dispatchOpenConfirm({
       message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
-      approve: dispatchRemoveSelectedProducts,
+      approve: () => dispatch(cartAction.removeSelectedProducts()),
     });
   const onClickTrashIconButton = (id) =>
     dispatchOpenConfirm({
       message: `해당 상품을 삭제하시겠습니까?`,
-      approve: () => dispatchRemoveProduct(id),
+      approve: () => dispatch(cartAction.removeProduct(id)),
     });
 
   return (
@@ -66,7 +52,7 @@ export const CartPage = () => {
                 <Checkbox
                   label={isAllSelected ? '선택해제' : '전체선택'}
                   isChecked={isAllSelected}
-                  onChange={dispatchToggleAllProductSelection}
+                  onChange={() => dispatch(cartAction.toggleAllProductsSelection(!isAllSelected))}
                 />
                 <S.DeleteButton onClick={onClickDeleteButton} disabled={isAllUnselected}>
                   상품삭제
@@ -80,11 +66,13 @@ export const CartPage = () => {
                   <CartProductItem
                     key={product.id}
                     product={product}
-                    removeProduct={onClickTrashIconButton}
-                    toggleCheckbox={dispatchToggleProductSelection}
-                    incrementQuantity={dispatchIncrementProductQuantity}
-                    decrementQuantity={dispatchDecrementProductQuantity}
-                    inputQuantity={dispatchInputProductQuantity}
+                    removeProduct={(id) => onClickTrashIconButton(id)}
+                    toggleCheckbox={(id) => dispatch(cartAction.toggleProductSelection(id))}
+                    incrementQuantity={(id) => dispatch(cartAction.incrementProductQuantity(id))}
+                    decrementQuantity={(id) => dispatch(cartAction.decrementProductQuantity(id))}
+                    inputQuantity={(id, quantity) =>
+                      dispatch(cartAction.inputProductQuantity(id, quantity))
+                    }
                   />
                 ))}
               </S.CartProductList>
