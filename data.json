@@ -33,19 +33,19 @@
   ],
   "cart": [
     {
-      "id": "2",
+      "id": "3",
       "image": "https://picsum.photos/200/200",
       "name": "PET보틀-정사각(420ml)",
       "price": 43400,
-      "checked": true,
+      "checked": false,
       "quantity": 3
     }
   ],
   "orderConfirm": [
     {
-      "id": "2",
+      "id": "1",
       "image": "https://picsum.photos/200/200",
-      "name": "PET보틀-정사각(420ml)",
+      "name": "test cart item name",
       "price": 43400,
       "checked": true,
       "quantity": 3
@@ -59,12 +59,20 @@
       "quantity": 3
     },
     {
-      "id": "1",
+      "id": "4",
       "image": "https://picsum.photos/200/200",
-      "name": "test cart item name",
+      "name": "PET보틀-정사각(420ml)",
       "price": 43400,
       "checked": true,
-      "quantity": 3
+      "quantity": 2
+    },
+    {
+      "id": "5",
+      "image": "https://picsum.photos/200/200",
+      "name": "PET보틀-정사각(420ml)",
+      "price": 43400,
+      "checked": true,
+      "quantity": 2
     }
   ],
   "order": [

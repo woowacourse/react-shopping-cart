@@ -22,7 +22,7 @@ const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) =
   };
 
   return (
-    <StyledOrderItemListSection className={className}>
+    <StyledOrderItemListSection data-testid="order-section" className={className}>
       <OrderItemListHeader>
         <span>주문번호 : {id}</span>
         <a href="/">{'상세보기 >'}</a>

@@ -34,7 +34,9 @@ const ShoppingCartPage: VFC<Props> = ({ history }) => {
       throw error;
     }
 
-    history.push('/orderConfirm');
+    if (history) {
+      history.push('/orderConfirm');
+    }
   };
 
   return (

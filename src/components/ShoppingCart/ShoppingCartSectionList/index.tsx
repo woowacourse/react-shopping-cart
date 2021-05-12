@@ -23,6 +23,7 @@ const ShoppingCartSectionList = () => {
       <CartSelectContainer>
         <Checkbox description="선택해제" checked={checked} onChange={onChangeCheckAll} />
         <SelectedItemDeleteButton
+          type="button"
           onClick={() => {
             deleteCheckedItems(items);
           }}
