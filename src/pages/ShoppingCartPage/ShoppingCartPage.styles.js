@@ -83,6 +83,10 @@ const ShoppingCartItemOption = styled.div`
   align-items: flex-end;
 `;
 
+const EmptyPageImage = styled.img`
+  margin: 0 auto;
+`;
+
 export {
   Container,
   OptionContainer,
@@ -94,4 +98,5 @@ export {
   ShoppingCartItem,
   ShoppingCartItemOption,
   DeleteButton,
+  EmptyPageImage,
 };
