@@ -60,7 +60,7 @@ const Button = styled.button`
   color: #ffffff;
 `;
 
-function FloatingBox() {
+function FloatingBox({ price, selectedItems }) {
   return (
     <FloatingBoxWrapper>
       <FloatingBoxTitleWrapper>
@@ -71,11 +71,13 @@ function FloatingBox() {
         <FloatingBoxTextWrapper>
           <FloatingBoxText>총 결제금액</FloatingBoxText>
           <StyledPriceText fontSize="20px" fontWeight="700">
-            325,600
+            {price}
           </StyledPriceText>
         </FloatingBoxTextWrapper>
 
-        <Button type="button">325,600원 결제하기</Button>
+        <Button type="button">
+          {price}원 결제하기({selectedItems}개)
+        </Button>
       </FloatingBoxContentWrapper>
     </FloatingBoxWrapper>
   );

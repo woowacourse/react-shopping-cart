@@ -46,7 +46,7 @@ const CartItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const CartItem = ({ cartItem }) => {
+const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
   const dispatch = useDispatch();
 
   const onIncreaseButtonClick = () => {
@@ -63,7 +63,7 @@ const CartItem = ({ cartItem }) => {
 
   return (
     <SingleCartItem>
-      <CheckBox id={cartItem.id} />
+      <CheckBox id={cartItem.id} checked={checked} onChange={onCheckboxClick} />
       <ItemContents>
         <Image width="144px" height="144px" src={cartItem.image} alt={cartItem.name} isBackgroundImageNeeded={true} />
         <CartItemName>{cartItem.name}</CartItemName>

@@ -1,10 +1,12 @@
 const INCREASE_QUANTITY = 'counter/INCREASE_QUANTITY';
 const DECREASE_QUANTITY = 'counter/DECREASE_QUANTITY';
 const DELETE_ITEM = 'cart/DELETE_ITEM';
+const TOGGLE_CHECKBOX = 'cart/TOGGLE_CHECKBOX';
 
 export const increaseQuantity = (cartItemId) => ({ type: INCREASE_QUANTITY, payload: cartItemId });
 export const decreaseQuantity = (cartItemId) => ({ type: DECREASE_QUANTITY, payload: cartItemId });
 export const deleteItem = (cartItemId) => ({ type: DELETE_ITEM, payload: cartItemId });
+export const toggleCheckbox = (cartItemId) => ({ type: TOGGLE_CHECKBOX, payload: cartItemId });
 
 const initialState = [
   {
@@ -63,6 +65,20 @@ const changeCount = (state, id, mode) => {
   ];
 };
 
+const toggleCheck = (state, id) => {
+  const targetIndex = state.findIndex((value) => value.id === id);
+  if (targetIndex === -1) {
+    return state;
+  }
+  const targetItem = state[targetIndex];
+
+  return [
+    ...state.slice(0, targetIndex),
+    { ...targetItem, checked: !targetItem.checked },
+    ...state.slice(targetIndex + 1),
+  ];
+};
+
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREASE_QUANTITY:
@@ -71,6 +87,8 @@ const cartReducer = (state = initialState, action) => {
       return changeCount(state, action.payload, 'decrease');
     case DELETE_ITEM:
       return state.filter((item) => item.id !== action.payload);
+    case TOGGLE_CHECKBOX:
+      return toggleCheck(state, action.payload);
     default:
       return state;
   }

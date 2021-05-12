@@ -1,11 +1,13 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
 import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import CartItem from './CartItem';
+
+import { toggleCheckbox } from '../../modules/cart';
 
 import styled from 'styled-components';
 
@@ -41,6 +43,15 @@ const CartItemList = styled.ul`
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const checkedItemIds = cartItems.filter((item) => item.checked).map((item) => item.id);
+
+  const onCheckboxClick = (cartItemId) => {
+    dispatch(toggleCheckbox(cartItemId));
+  };
+
+  const getTotalPrice = () =>
+    cartItems.reduce((totalPrice, item) => (totalPrice += item.checked ? item.price * item.quantity : 0), 0);
 
   return (
     <>
@@ -62,11 +73,20 @@ const CartPage = () => {
               </Button>
             </CartItemHeader>
             <CartItemSectionTitle>든든배송 상품 ({cartItems.length}개)</CartItemSectionTitle>
+
             <CartItemList>
-              {cartItems && cartItems.map((cartItem) => <CartItem key={cartItem.id} cartItem={cartItem} />)}
+              {cartItems &&
+                cartItems.map((cartItem) => (
+                  <CartItem
+                    key={cartItem.id}
+                    cartItem={cartItem}
+                    checked={checkedItemIds.includes(cartItem.id)}
+                    onCheckboxClick={onCheckboxClick}
+                  />
+                ))}
             </CartItemList>
           </CartItemSection>
-          <FloatingBox />
+          <FloatingBox price={getTotalPrice()} selectedItems={checkedItemIds.length} />
         </CartItemWrapper>
       ) : (
         '장바구니에 담은 상품이 없습니다.'

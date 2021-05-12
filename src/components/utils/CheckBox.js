@@ -48,10 +48,10 @@ const Label = styled.label`
   }
 `;
 
-function CheckBox({ labelName, id }) {
+function CheckBox({ labelName, id, checked, onChange }) {
   return (
     <CheckboxWrapper>
-      <Input type="checkbox" id={id}></Input>
+      <Input type="checkbox" id={id} checked={checked} onChange={(e) => onChange(e.target.id)} />
       <Label htmlFor={id}>{labelName}</Label>
     </CheckboxWrapper>
   );
