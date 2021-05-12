@@ -11,11 +11,11 @@ export const ORDER_LIST_ITEM_TYPE = Object.freeze({
 });
 
 const orderListItemStyle = {
-  ORDER_PAYMENT: {
+  [ORDER_LIST_ITEM_TYPE.ORDER_PAYMENT]: {
     Container: { width: '731px' },
     TextWrapper: { marginLeft: '18px' },
   },
-  ORDER_LIST: {
+  [ORDER_LIST_ITEM_TYPE.ORDER_LIST]: {
     TextWrapper: { marginLeft: '33px' },
     Info: { color: COLOR.GRAY_600 },
   },

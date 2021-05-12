@@ -11,11 +11,11 @@ export const PAYMENT_AMOUNT_TYPE = Object.freeze({
 });
 
 const paymentAmountText = {
-  SHOPPING_CART: {
+  [PAYMENT_AMOUNT_TYPE.SHOPPING_CART]: {
     title: '결제예상금액',
     content: '결제예상금액',
   },
-  ORDER_PAYMENT: {
+  [PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT]: {
     title: '결제금액',
     content: '총 결제금액',
   },

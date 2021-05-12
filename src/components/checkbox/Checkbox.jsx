@@ -10,7 +10,7 @@ const Content = styled.div`
 
 const CheckIcon = styled.svg`
   fill: none;
-  stroke: white;
+  stroke: ${COLOR.WHITE};
   stroke-width: 2.5px;
 `;
 

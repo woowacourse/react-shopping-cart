@@ -12,7 +12,7 @@ export const SELECTED_PRODUCT_LIST_TYPE = Object.freeze({
 });
 
 const selectedProductStyle = {
-  SHOPPING_CART: {
+  [SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART]: {
     Header: {
       paddingBottom: '24px',
       borderBottom: `4px solid ${COLOR.GRAY_200}`,
@@ -22,7 +22,7 @@ const selectedProductStyle = {
       padding: '24px 0 12px 0',
     },
   },
-  ORDER_PAYMENT: {
+  [SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT]: {
     Header: {
       paddingBottom: '24px',
       borderBottom: `4px solid ${COLOR.GRAY_200}`,
@@ -33,7 +33,7 @@ const selectedProductStyle = {
       padding: '20px 0',
     },
   },
-  ORDER_LIST: {
+  [SELECTED_PRODUCT_LIST_TYPE.ORDER_LIST]: {
     Header: {
       display: 'flex',
       justifyContent: 'space-between',

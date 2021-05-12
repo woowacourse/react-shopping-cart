@@ -11,7 +11,7 @@ export const BUTTON_TYPE = Object.freeze({
 });
 
 const buttonStyle = {
-  LARGE: {
+  [BUTTON_TYPE.LARGE]: {
     width: '638px',
     height: '98px',
     fontSize: '32px',
@@ -19,21 +19,21 @@ const buttonStyle = {
     backgroundColor: COLOR.BROWN_500,
     color: COLOR.WHITE,
   },
-  MEDIUM: {
+  [BUTTON_TYPE.MEDIUM]: {
     width: '388px',
     height: '73px',
     fontSize: '24px',
     backgroundColor: COLOR.MINT_500,
     color: COLOR.WHITE,
   },
-  SMALL: {
+  [BUTTON_TYPE.SMALL]: {
     width: '138px',
     height: '47px',
     fontSize: '20px',
     backgroundColor: COLOR.MINT_500,
     color: COLOR.WHITE,
   },
-  X_SMALL: {
+  [BUTTON_TYPE.X_SMALL]: {
     width: '117px',
     height: '50px',
     backgroundColor: COLOR.WHITE,
@@ -63,7 +63,6 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  children: PropTypes.string,
   type: PropTypes.string,
   styles: PropTypes.object,
   disabled: PropTypes.bool,

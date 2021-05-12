@@ -9,15 +9,15 @@ export const PRODUCT_IMAGE_TYPE = Object.freeze({
 });
 
 const productImageStyle = {
-  LARGE: {
+  [PRODUCT_IMAGE_TYPE.LARGE]: {
     width: '570px',
     height: '570px',
   },
-  MEDIUM: {
+  [PRODUCT_IMAGE_TYPE.MEDIUM]: {
     width: '282px',
     height: '282px',
   },
-  SMALL: {
+  [PRODUCT_IMAGE_TYPE.SMALL]: {
     width: '144px',
     height: '144px',
   },
