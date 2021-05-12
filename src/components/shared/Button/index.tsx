@@ -5,6 +5,7 @@ type Size = 'small' | 'medium' | 'large';
 interface Props {
   size?: Size;
   backgroundColor?: string;
+  disabled?: boolean;
 }
 
 const smallStyle = css`
@@ -30,7 +31,8 @@ const sizeMap: { [key: string]: FlattenSimpleInterpolation } = {
 
 const Button = styled.button<Props>`
   position: relative;
-  background: ${({ backgroundColor }) => backgroundColor || `rgba(0, 0, 0, 0)`};
+  background-color: ${(props) => props.backgroundColor || `rgba(0, 0, 0, 0)`};
+  background-color: ${(props) => props.disabled && `rgba(0, 0, 0, 0.2)`};
   outline: none;
   border: none;
   cursor: pointer;
