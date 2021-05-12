@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import PriceText from './utils/PriceText';
+
+import styled from 'styled-components';
 
 const FloatingBoxWrapper = styled.div`
   position: sticky;
@@ -82,7 +83,10 @@ function FloatingBox({ price, selectedItems }) {
         </FloatingBoxTextWrapper>
 
         <Button type="button">
-          {price}원 결제하기 ({selectedItems}개)
+          <PriceText color="#ffffff" fontSize="24px">
+            {price}
+          </PriceText>{' '}
+          결제하기 ({selectedItems}개)
         </Button>
       </FloatingBoxContentWrapper>
     </FloatingBoxWrapper>

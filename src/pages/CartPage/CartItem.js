@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import CounterButton from '../../components/CounterButton';
 import IconButton from '../../components/utils/IconButton';
+import PriceText from '../../components/utils/PriceText';
 import CheckBox from '../../components/utils/CheckBox';
 import Image from '../../components/utils/Image';
 
@@ -83,7 +84,9 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
           onIncreaseButtonClick={onIncreaseButtonClick}
           onDecreaseButtonClick={onDecreaseButtonClick}
         />
-        <CartItemPrice>{cartItem.quantity * cartItem.price}원</CartItemPrice>
+        <CartItemPrice>
+          <PriceText>{cartItem.quantity * cartItem.price}</PriceText>
+        </CartItemPrice>
       </ManageCartItem>
     </SingleCartItem>
   );
