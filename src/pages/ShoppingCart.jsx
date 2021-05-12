@@ -100,37 +100,35 @@ const ShoppingCart = () => {
     <>
       <PageTitle>장바구니</PageTitle>
       <Content>
-        <>
-          <div>
-            <ShoppingCartItemModification>
-              <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
-                {isChecked ? '선택해제' : '전체선택'}
-              </Checkbox>
-              <Button
-                onClick={handleCheckedShoppingCartListDelete}
-                type={BUTTON_TYPE.X_SMALL}
-                disabled={!checkedShoppingCartList.length}
-              >
-                상품삭제
-              </Button>
-            </ShoppingCartItemModification>
-            <SelectedProductList
-              listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
-              productList={shoppingCartList}
-              ListItem={ShoppingCartItem}
+        <div>
+          <ShoppingCartItemModification>
+            <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
+              {isChecked ? '선택해제' : '전체선택'}
+            </Checkbox>
+            <Button
+              onClick={handleCheckedShoppingCartListDelete}
+              type={BUTTON_TYPE.X_SMALL}
+              disabled={!checkedShoppingCartList.length}
+            >
+              상품삭제
+            </Button>
+          </ShoppingCartItemModification>
+          <SelectedProductList
+            listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
+            productList={shoppingCartList}
+            ListItem={ShoppingCartItem}
+          />
+        </div>
+        <div>
+          <PaymentAmountWrapper>
+            <PaymentAmount
+              type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
+              price={totalPrice}
+              count={checkedShoppingCartList.length}
+              onClick={handleOrderPaymentPageRouter}
             />
-          </div>
-          <div>
-            <PaymentAmountWrapper>
-              <PaymentAmount
-                type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
-                price={totalPrice}
-                count={checkedShoppingCartList.length}
-                onClick={handleOrderPaymentPageRouter}
-              />
-            </PaymentAmountWrapper>
-          </div>
-        </>
+          </PaymentAmountWrapper>
+        </div>
       </Content>
     </>
   );
