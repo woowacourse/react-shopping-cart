@@ -6,7 +6,7 @@ import FlexContainer from '../../common/FlexContainer';
 const Product = ({ product, productDetail, size, direction, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <img src={product.image} alt={product.name} />
+      <img src={product.image} alt={product.name} loading="lazy" />
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
