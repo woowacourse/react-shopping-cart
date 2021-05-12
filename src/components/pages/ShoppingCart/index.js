@@ -57,6 +57,14 @@ const ShoppingCart = () => {
     dispatch({ type: PRODUCTS.TOGGLE_ENTIRE_CHECKED, isChecked: isCheckedAll });
   };
 
+  const handleDeleteButtonClick = id => {
+    dispatch({ type: PRODUCTS.DELETE, id });
+  };
+
+  const handleCheckedDeleteButton = () => {
+    dispatch({ type: PRODUCTS.DELETE_CHECKED });
+  };
+
   return (
     <Page>
       <PageHeader>장바구니</PageHeader>
@@ -75,7 +83,7 @@ const ShoppingCart = () => {
                 })`}
               </span>
             </CheckBoxWrapper>
-            <Button>상품삭제</Button>
+            <Button onClick={handleCheckedDeleteButton}>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
@@ -87,6 +95,7 @@ const ShoppingCart = () => {
                     onIncreaseQuantity={() => handleIncreaseQuantity(id)}
                     onDecreaseQuantity={() => handleDecreaseQuantity(id)}
                     onCheckBoxClick={() => handleCheckBoxClick(id)}
+                    onDeleteButtonClick={() => handleDeleteButtonClick(id)}
                   />
                 </li>
               ))}

@@ -17,6 +17,27 @@ const toggleCheckedAll = (products, isChecked) => {
   return newProducts;
 };
 
+const deleteCheckedProducts = products => {
+  const newProducts = {};
+
+  Object.values(products).forEach(product => {
+    if (!product.isChecked) {
+      newProducts[product.id] = {
+        ...product,
+      };
+    }
+  });
+
+  return newProducts;
+};
+
+const deleteProduct = (products, id) => {
+  const newProducts = { ...products };
+  delete newProducts[id];
+
+  return newProducts;
+};
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case PRODUCTS.ADD_TO_CART:
@@ -81,6 +102,18 @@ const productReducer = (state = initialState, action) => {
           state.pickedProducts,
           action.isChecked
         ),
+      };
+
+    case PRODUCTS.DELETE_CHECKED:
+      return {
+        ...state,
+        pickedProducts: deleteCheckedProducts(state.pickedProducts),
+      };
+
+    case PRODUCTS.DELETE:
+      return {
+        ...state,
+        pickedProducts: deleteProduct(state.pickedProducts, action.id),
       };
 
     default:

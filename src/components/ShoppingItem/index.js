@@ -17,6 +17,7 @@ const ShoppingItem = ({
   onIncreaseQuantity = () => {},
   onDecreaseQuantity = () => {},
   onCheckBoxClick = () => {},
+  onDeleteButtonClick = () => {},
 }) => {
   return (
     <Product>
@@ -24,7 +25,7 @@ const ShoppingItem = ({
       <Image src={imgUrl} alt={imgAlt} />
       <Name>{name}</Name>
       <Controller>
-        <button type="button" onClick={() => {}}>
+        <button type="button" onClick={onDeleteButtonClick}>
           <TrashCan width="20" height="20" />
         </button>
 
@@ -47,6 +48,7 @@ ShoppingItem.propTypes = {
   price: PropTypes.number,
   quantity: PropTypes.number,
   isChecked: PropTypes.bool,
+  onDeleteButtonClick: PropTypes.func,
   onIncreaseQuantity: PropTypes.func,
   onDecreaseQuantity: PropTypes.func,
   onCheckBoxClick: PropTypes.func,
