@@ -3,7 +3,7 @@ import { Container as Button } from '../../components/Button/Button.styles';
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   color: #333333;
 
   @media screen and (max-width: 900px) {
