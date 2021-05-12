@@ -30,6 +30,11 @@ const Root = styled.button<RootProps>`
   border: none;
   border-radius: 2px;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 `;
 
 export default { Root };
