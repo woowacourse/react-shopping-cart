@@ -113,7 +113,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
           )}
 
           {type === DIALOG_TYPE.ALERT && (
-            <Dialog type={type} onConfirm={handleConfirm}>
+            <Dialog type={type} onConfirm={handleConfirm} onClose={handleCancel}>
               <p>
                 구매 수량 안내 <br /> 최대 99개까지 구매가 가능합니다.
               </p>

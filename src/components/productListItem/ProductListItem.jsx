@@ -35,7 +35,7 @@ const ADD_SUCCESS = 'ADD_SUCCESS';
 const ADD_FAILURE = 'ADD_FAILURE';
 
 const ProductListItem = ({ product }) => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, type, setType } = useDialog();
+  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList.data);
   const dispatch = useDispatch();
 
@@ -74,7 +74,7 @@ const ProductListItem = ({ product }) => {
       </div>
 
       {isDialogOpen && (
-        <Dialog type={DIALOG_TYPE.ALERT} onConfirm={handleConfirm}>
+        <Dialog type={DIALOG_TYPE.ALERT} onConfirm={handleConfirm} onClose={clickCancel}>
           {type === ADD_FAILURE ? '이미 장바구니에 추가되어 있습니다.' : '장바구니에 추가되었습니다.'}
         </Dialog>
       )}

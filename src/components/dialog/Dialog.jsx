@@ -72,16 +72,24 @@ const getButton = ({ type, onConfirm, onCancel }) => {
   return dialogType[type];
 };
 
-const Dialog = ({ children, type, onConfirm, onCancel }) => (
-  <DialogPortal>
-    <Container>
-      <Content type={type}>
-        <TextWrapper>{children}</TextWrapper>
-        <section>{getButton({ type, onConfirm, onCancel })}</section>
-      </Content>
-    </Container>
-  </DialogPortal>
-);
+const Dialog = ({ children, type, onConfirm, onCancel, onClose }) => {
+  const handleDialogClose = (e) => {
+    if (e.currentTarget === e.target) {
+      onClose && onClose();
+    }
+  };
+
+  return (
+    <DialogPortal>
+      <Container onClick={handleDialogClose}>
+        <Content type={type}>
+          <TextWrapper>{children}</TextWrapper>
+          <section>{getButton({ type, onConfirm, onCancel })}</section>
+        </Content>
+      </Container>
+    </DialogPortal>
+  );
+};
 
 Dialog.defaultProps = {
   type: DIALOG_TYPE.CONFIRM,
