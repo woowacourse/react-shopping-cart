@@ -46,7 +46,7 @@ const OrderListPage = () => {
                   <RowProductItem
                     imgSrc={img}
                     name={name}
-                    price={`${numberWithCommas(price * amount)}원 / `}
+                    price={`${numberWithCommas(price * amount)} 원 / `}
                     amount={`수량: ${amount} 개`}
                   />
                   <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>

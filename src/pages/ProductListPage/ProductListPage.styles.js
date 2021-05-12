@@ -20,4 +20,17 @@ const Container = styled.div`
   }
 `;
 
-export { Container };
+const PageButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  font-size: 2em;
+`;
+
+const PageIndex = styled.span`
+  margin: auto 50px;
+`;
+
+export { Container, PageButtonContainer, PageIndex };

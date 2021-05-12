@@ -6,8 +6,8 @@ const SpinnerContainer = styled.div`
   & {
     position: fixed;
     z-index: 999;
-    height: ${props => props.size};
-    width: ${props => props.size};
+    height: 100px;
+    width: 100px;
     overflow: visible;
     margin: auto;
     top: 0;
@@ -19,6 +19,8 @@ const SpinnerContainer = styled.div`
   &::before {
     content: '';
     display: block;
+    transform: scale(${props => props.size});
+
     position: fixed;
     top: 0;
     left: 0;
@@ -122,14 +124,14 @@ const SpinnerContainer = styled.div`
   }
 `;
 
-const Spinner = ({ size }) => <SpinnerContainer size={size} />;
+const Spinner = ({ scale }) => <SpinnerContainer scale={scale} />;
 
 Spinner.propTypes = {
-  size: PropTypes.string,
+  scale: PropTypes.string,
 };
 
 Spinner.defaultProps = {
-  size: '2em',
+  scale: '1.0',
 };
 
 export default Spinner;

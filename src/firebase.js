@@ -21,4 +21,7 @@ const initFirebaseState = () => {
   mockData.productList.forEach((product, index) => firestore.collection(SCHEMA.PRODUCT).doc(`${index}`).set(product));
 };
 
+/** init Firebase State Once */
+// initFirebaseState();
+
 export { firestore, initFirebaseState };

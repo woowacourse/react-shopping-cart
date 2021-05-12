@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container } from './ProductListPage.styles';
+import { Container, PageButtonContainer, PageIndex } from './ProductListPage.styles';
 import { SCHEMA } from '../../constants';
-import { useModal, useServerAPI } from '../../hooks';
+import { useModal, usePaging, useServerAPI } from '../../hooks';
 import { updateShoppingCartItemsAsync } from '../../redux/action';
-import { ColumnProductItem } from '../../components';
+import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
@@ -21,6 +21,17 @@ const ProductListPage = () => {
 
   const { open: openModal, Modal } = useModal(false);
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const {
+    currentPageIndex: currentPage,
+    maxPageIndex,
+    onClickNext: onClickNextPage,
+    onClickPrev: onClickPrevPage,
+    displayContents: displayProducts,
+  } = usePaging({
+    initPageIndex: 0,
+    contents: productList,
+    contentsPerPage: 10,
+  });
 
   const onClickShoppingCartIcon = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
@@ -32,7 +43,7 @@ const ProductListPage = () => {
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
-        {productList.map(({ id, img, name, price }) => (
+        {displayProducts.map(({ id, img, name, price }) => (
           <ColumnProductItem
             key={id}
             imgSrc={img}
@@ -48,6 +59,15 @@ const ProductListPage = () => {
           <SuccessAddedModal productList={productList} openModal={openModal} />
         </Modal>
       </ModalPortal>
+      <PageButtonContainer>
+        <Button onClick={onClickPrevPage} disabled={currentPage === 0}>
+          이전
+        </Button>
+        <PageIndex>{currentPage + 1}</PageIndex>
+        <Button onClick={onClickNextPage} disabled={currentPage === maxPageIndex}>
+          다음
+        </Button>
+      </PageButtonContainer>
     </ScreenContainer>
   );
 };
