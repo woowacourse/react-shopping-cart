@@ -4,6 +4,7 @@ const Container = styled.div`
   height: 140px;
   width: inherit;
   display: flex;
+  width: 100%;
 `;
 
 const Image = styled.img`
