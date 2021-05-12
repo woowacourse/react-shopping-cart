@@ -4,6 +4,7 @@ import {
   ACTIVATE_LOADING_SPINNER,
   DEACTIVATE_LOADING_SPINNER,
   GET_MY_SHOPPING_CART,
+  UPDATE_CHECKED_PRODUCT_ITEMS,
   UPDATE_MY_SHOPPING_CART_ITEMS,
   UPDATE_PRODUCT_ITEMS,
 } from './actionType';
@@ -18,6 +19,24 @@ const loadingState = {
 
 const productListState = {
   productList: [],
+};
+
+const checkedProductState = {
+  checkedProductList: [],
+};
+
+const checkedProductReducer = (state = checkedProductState, action) => {
+  switch (action.type) {
+    case UPDATE_CHECKED_PRODUCT_ITEMS: {
+      return {
+        ...state,
+        checkedProductList: action.productItems,
+      };
+    }
+
+    default:
+      return state;
+  }
 };
 
 const myShoppingCartReducer = (state = myShoppingCartState, action) => {
@@ -61,6 +80,11 @@ const productListReducer = (state = productListState, action) => {
   }
 };
 
-const rootReducer = combineReducers({ myShoppingCartReducer, loadingReducer, productListReducer });
+const rootReducer = combineReducers({
+  myShoppingCartReducer,
+  loadingReducer,
+  productListReducer,
+  checkedProductReducer,
+});
 
 export default rootReducer;

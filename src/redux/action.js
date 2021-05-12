@@ -4,6 +4,7 @@ import {
   ACTIVATE_LOADING_SPINNER,
   DEACTIVATE_LOADING_SPINNER,
   GET_MY_SHOPPING_CART,
+  UPDATE_CHECKED_PRODUCT_ITEMS,
   UPDATE_MY_SHOPPING_CART_ITEMS,
   UPDATE_PRODUCT_ITEMS,
 } from './actionType';
@@ -15,6 +16,11 @@ const activateLoading = () => ({
 
 const deactivateLoading = () => ({
   type: DEACTIVATE_LOADING_SPINNER,
+});
+
+const updateCheckedProductItems = productItems => ({
+  type: UPDATE_CHECKED_PRODUCT_ITEMS,
+  productItems,
 });
 
 const updateProductItemsAsync = () => async dispatch => {
@@ -68,6 +74,7 @@ const getMyShoppingCartAsync = () => async dispatch => {
 export {
   activateLoading,
   deactivateLoading,
+  updateCheckedProductItems,
   updateShoppingCartItemsAsync,
   getMyShoppingCartAsync,
   updateProductItemsAsync,

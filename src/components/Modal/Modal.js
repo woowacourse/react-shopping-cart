@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import CloseIcon from '../svg/CloseIcon/CloseIcon';
-
 import { Dimmer, Container, CloseButton } from './Modal.styles';
 
 const Modal = ({ children, onClickClose }) => (
