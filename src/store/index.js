@@ -29,11 +29,13 @@ export const reducer = (state = initialState, action) => {
         ...state,
         itemList: action.payload,
       };
+
     case ACTION_TYPE.ADD_ORDER_DETAIL:
       return {
         ...state,
         orderList: state.orderList.concat(action.payload),
       };
+
     default:
       return state;
   }

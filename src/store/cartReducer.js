@@ -49,17 +49,17 @@ export const deleteCartItems = idList => {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.ADD_ITEM_TO_CART:
-      const newCartItemList = state.cart.filter(({ id }) => id !== action.payload.id);
-
       return {
         ...state,
-        cart: [...newCartItemList, action.payload],
+        cart: [state.cart.filter(({ id }) => id !== action.payload.id), action.payload],
       };
+
     case ACTION_TYPE.SET_CART_ITEM_LIST:
       return {
         ...state,
         cart: action.payload,
       };
+
     case ACTION_TYPE.TOGGLE_CART_ITEM_CHECKBOX:
       return {
         ...state,
@@ -72,6 +72,7 @@ export const cartReducer = (state = initialState, action) => {
             : item,
         ),
       };
+
     case ACTION_TYPE.SET_ALL_CART_ITEM_CHECKBOX:
       return {
         ...state,
@@ -80,6 +81,7 @@ export const cartReducer = (state = initialState, action) => {
           checked: !action.payload.isChecked,
         })),
       };
+
     case ACTION_TYPE.SET_CART_ITEM_QUANTITY:
       return {
         ...state,
@@ -92,11 +94,13 @@ export const cartReducer = (state = initialState, action) => {
             : item,
         ),
       };
+
     case ACTION_TYPE.DELETE_CART_ITEMS:
       return {
         ...state,
         cart: state.cart.filter(item => !action.payload.idList.includes(item.id)),
       };
+
     default:
       return state;
   }
