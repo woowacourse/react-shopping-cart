@@ -64,8 +64,13 @@ const Cart = () => {
 
   const onDelete = async idList => {
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
-      await Promise.all(idList.map(id => API.deleteCartItem({ id })));
-      dispatch(deleteCartItems(idList));
+      try {
+        await Promise.all(idList.map(id => API.deleteCartItem({ id })));
+        dispatch(deleteCartItems(idList));
+      } catch (error) {
+        console.error(error);
+        alert(MESSAGE.FAIL_DELETE_ITEM);
+      }
     }
   };
 
