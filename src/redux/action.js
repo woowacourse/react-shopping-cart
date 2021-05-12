@@ -1,6 +1,19 @@
 import { requestTable } from '../api/request';
 import { CUSTOMER_ID } from '../constants';
-import { GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
+import {
+  ACTIVATE_LOADING_SPINNER,
+  DEACTIVATE_LOADING_SPINNER,
+  GET_MY_SHOPPING_CART,
+  UPDATE_MY_SHOPPING_CART_ITEMS,
+} from './actionType';
+
+const activateLoading = () => ({
+  type: ACTIVATE_LOADING_SPINNER,
+});
+
+const deactivateLoading = () => ({
+  type: DEACTIVATE_LOADING_SPINNER,
+});
 
 const updateShoppingCartItemsAsync = (schema, targetId, content) => async dispatch => {
   try {
@@ -28,4 +41,4 @@ const getMyShoppingCartAsync = schema => async dispatch => {
   }
 };
 
-export { updateShoppingCartItemsAsync, getMyShoppingCartAsync };
+export { activateLoading, deactivateLoading, updateShoppingCartItemsAsync, getMyShoppingCartAsync };

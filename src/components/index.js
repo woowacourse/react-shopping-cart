@@ -10,6 +10,7 @@ import RowProductItem from './ProductItem/RowProductItem/RowProductItem';
 import ShoppingCartIcon from './svg/ShoppingCartIcon/ShoppingCartIcon';
 import CloseIcon from './svg/CloseIcon/CloseIcon';
 import TrashCanIcon from './svg/TrashIcon/TrashIcon';
+import Spinner from './Spinner/Spinner';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   AmountCounter,
   CloseIcon,
   TrashCanIcon,
+  Spinner,
 };

@@ -1,12 +1,21 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
-import { GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
+import {
+  ACTIVATE_LOADING_SPINNER,
+  DEACTIVATE_LOADING_SPINNER,
+  GET_MY_SHOPPING_CART,
+  UPDATE_MY_SHOPPING_CART_ITEMS,
+} from './actionType';
 
-const initialState = {
+const myShoppingCartState = {
   myShoppingCart: { id: null, productIdList: [] },
 };
 
-const myShoppingCartReducer = (state = initialState, action) => {
+const loadingState = {
+  loading: false,
+};
+
+const myShoppingCartReducer = (state = myShoppingCartState, action) => {
   switch (action.type) {
     case UPDATE_MY_SHOPPING_CART_ITEMS: {
       return produce(state, draft => {
@@ -23,6 +32,19 @@ const myShoppingCartReducer = (state = initialState, action) => {
   }
 };
 
-const rootReducer = combineReducers({ myShoppingCartReducer });
+const loadingReducer = (state = loadingState, action) => {
+  switch (action.type) {
+    case ACTIVATE_LOADING_SPINNER: {
+      return { ...state, loading: true };
+    }
+    case DEACTIVATE_LOADING_SPINNER: {
+      return { ...state, loading: false };
+    }
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({ myShoppingCartReducer, loadingReducer });
 
 export default rootReducer;

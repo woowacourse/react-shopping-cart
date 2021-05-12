@@ -39,6 +39,7 @@
     "implicit-arrow-linebreak": "off",
     "function-paren-newline": "off",
     "no-alert": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-console": "off"
   }
 }
