@@ -9,7 +9,7 @@ import Image from '../../components/utils/Image';
 import bin from '../../asset/bin-icon.svg';
 import styled from 'styled-components';
 
-import { increaseQuantity, decreaseQuantity } from '../../modules/cart';
+import { increaseQuantity, decreaseQuantity, deleteItem } from '../../modules/cart';
 
 const SingleCartItem = styled.li`
   display: flex;
@@ -57,6 +57,10 @@ const CartItem = ({ cartItem }) => {
     dispatch(decreaseQuantity(cartItem.id));
   };
 
+  const onDeleteItemButtonClick = () => {
+    dispatch(deleteItem(cartItem.id));
+  };
+
   return (
     <SingleCartItem>
       <CheckBox id={cartItem.id} />
@@ -66,7 +70,13 @@ const CartItem = ({ cartItem }) => {
       </ItemContents>
 
       <ManageCartItem>
-        <IconButton src={bin} alt="아이템 삭제 버튼" width="24px" height="24px" />
+        <IconButton
+          src={bin}
+          alt="해당 상품을 장바구니에서 삭제"
+          width="24px"
+          height="24px"
+          onClick={onDeleteItemButtonClick}
+        />
         <CounterButton
           id={cartItem.id}
           count={cartItem.quantity}

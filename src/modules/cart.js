@@ -1,8 +1,10 @@
 const INCREASE_QUANTITY = 'counter/INCREASE_QUANTITY';
 const DECREASE_QUANTITY = 'counter/DECREASE_QUANTITY';
+const DELETE_ITEM = 'cart/DELETE_ITEM';
 
 export const increaseQuantity = (cartItemId) => ({ type: INCREASE_QUANTITY, payload: cartItemId });
 export const decreaseQuantity = (cartItemId) => ({ type: DECREASE_QUANTITY, payload: cartItemId });
+export const deleteItem = (cartItemId) => ({ type: DELETE_ITEM, payload: cartItemId });
 
 const initialState = [
   {
@@ -67,6 +69,8 @@ const cartReducer = (state = initialState, action) => {
       return changeCount(state, action.payload, 'increase');
     case DECREASE_QUANTITY:
       return changeCount(state, action.payload, 'decrease');
+    case DELETE_ITEM:
+      return state.filter((item) => item.id !== action.payload);
     default:
       return state;
   }
