@@ -22,7 +22,11 @@ const ShoppingCartSectionList: VFC = () => {
   return (
     <ShoppingCartItemListContainer>
       <CartSelectContainer>
-        <Checkbox description="선택해제" checked={checked} onChange={onChangeCheckAll} />
+        <Checkbox
+          description={checked ? '선택해제' : '전체선택'}
+          checked={checked}
+          onChange={onChangeCheckAll}
+        />
         <SelectedItemDeleteButton type="button" onClick={() => deleteCheckedItems(items)}>
           상품삭제
         </SelectedItemDeleteButton>
