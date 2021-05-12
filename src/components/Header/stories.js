@@ -15,7 +15,6 @@ Default.args = {
   children: (
     <>
       <div>
-        {' '}
         <Logo height="48px" />
       </div>
       <div>

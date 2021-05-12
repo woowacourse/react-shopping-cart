@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLOR } from '../../constants';
+import { FlexContainer } from '../shared/style';
 
 export const Container = styled.header`
   position: fixed;
@@ -12,10 +13,8 @@ export const Container = styled.header`
   z-index: 100;
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
+export const Wrapper = styled(FlexContainer)`
   justify-content: space-between;
-  align-items: center;
   width: 1440px;
   height: 100%;
   margin: 0 auto;
