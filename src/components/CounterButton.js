@@ -37,17 +37,31 @@ const IconButtonStyle = css`
   border-left: none;
 `;
 
-function CounterButton({ count = '1' }) {
+const CounterButton = ({ count = '1', onIncreaseButtonClick, onDecreaseButtonClick }) => {
   return (
     <CounterButtonWrapper>
       <CounterScreen>{count}</CounterScreen>
 
       <IconButtonWrapper>
-        <IconButton src={upperIcon} alt="카운터 증가 버튼" width="40px" height="30px" css={IconButtonStyle} />
-        <IconButton src={downIcon} alt="카운터 감소 버튼" width="40px" height="30px" css={IconButtonStyle} />
+        <IconButton
+          src={upperIcon}
+          alt="카운터 증가 버튼"
+          width="40px"
+          height="30px"
+          css={IconButtonStyle}
+          onClick={onIncreaseButtonClick}
+        />
+        <IconButton
+          src={downIcon}
+          alt="카운터 감소 버튼"
+          width="40px"
+          height="30px"
+          css={IconButtonStyle}
+          onClick={onDecreaseButtonClick}
+        />
       </IconButtonWrapper>
     </CounterButtonWrapper>
   );
-}
+};
 
 export default CounterButton;

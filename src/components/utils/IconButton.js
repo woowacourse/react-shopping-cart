@@ -17,14 +17,14 @@ const ButtonWrapper = styled.button`
   }
 `;
 
-function IconButton(props) {
-  const { type = 'button', src, alt, width, height, css } = props;
+const IconButton = (props) => {
+  const { type = 'button', src, alt, width, height, css, onClick } = props;
 
   return (
-    <ButtonWrapper type={type} width={width} height={height} css={css}>
+    <ButtonWrapper type={type} width={width} height={height} css={css} onClick={onClick}>
       <img src={src} alt={alt} />
     </ButtonWrapper>
   );
-}
+};
 
 export default IconButton;

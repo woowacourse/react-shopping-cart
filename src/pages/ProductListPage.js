@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import GridColumnList from '../components/utils/GridColumnList';
 import Image from '../components/utils/Image';
@@ -7,6 +7,7 @@ import PriceText from '../components/utils/PriceText';
 
 import { products } from '../data/mock';
 import cartImage from '../asset/cart.png';
+import { getProducts } from '../api/products';
 
 import styled from 'styled-components';
 
@@ -47,6 +48,16 @@ const StyledProductName = styled.span`
 `;
 
 function ProductListPage() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const setProductsByFetch = async () => {
+      setProducts(await getProducts());
+    };
+
+    setProductsByFetch();
+  }, []);
+
   const getProductItem = () => {
     return products.map((product) => (
       <StyledProduct key={product.id}>
