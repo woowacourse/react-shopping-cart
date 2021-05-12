@@ -84,7 +84,7 @@ Dialog.defaultProps = {
 };
 
 Dialog.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   type: PropTypes.string.isRequired,
   onConfirm: PropTypes.func,
   onCancel: PropTypes.func,
