@@ -1,18 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../../components/shared/Button';
-import HighlightText from '../../components/shared/HighlightText';
-import NumericInput from '../../components/shared/NumericInput';
-import Product from '../../components/shared/Product';
-import IconButton from '../../components/shared/IconButton';
-import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
-import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
   setAllCartItemCheckbox,
   toggleCartItemCheckbox,
   setCartItemQuantity,
   deleteCartItems,
 } from '../../store/cartReducer';
+import { API } from '../../utils';
+import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
+import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
   Container,
   Header,
@@ -29,15 +26,15 @@ import {
   ReceiptRow,
   CheckBox,
 } from './style';
-import { useHistory } from 'react-router';
-import { API } from '../../utils';
+import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
 
 const Cart = () => {
   const list = useSelector(state => state.cartReducer.cart);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const checkedCount = list.filter(item => item.checked).length;
+  const checkedItemIdList = list.filter(item => item.checked).map(({ id }) => id);
+  const checkedCount = checkedItemIdList.length;
   const isAllChecked = checkedCount && checkedCount === list.length;
   const checkOptionText = isAllChecked
     ? '선택해제'
@@ -53,8 +50,6 @@ const Cart = () => {
     }, 0);
   const isPurchasable = totalPrice > 0;
 
-  const checkedItemIdList = list.filter(item => item.checked).map(({ id }) => id);
-
   const onCheckBoxChange = ({ id }) => {
     dispatch(toggleCartItemCheckbox(id));
   };
@@ -63,7 +58,7 @@ const Cart = () => {
     dispatch(setAllCartItemCheckbox(isAllChecked));
   };
 
-  const onItemQuantityChange = ({ id, quantity }) => {
+  const onItemQuantityChange = id => quantity => {
     dispatch(setCartItemQuantity({ id, quantity }));
   };
 
@@ -136,7 +131,7 @@ const Cart = () => {
                           min={1}
                           max={99}
                           value={quantity}
-                          setValue={quantity => onItemQuantityChange({ id, quantity })}
+                          setValue={onItemQuantityChange(id)}
                           ariaLabel={`${name} 수량 변경`}
                         />
                         <div aria-label={`${name} 합산 가격`}>

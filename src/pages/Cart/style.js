@@ -85,11 +85,12 @@ export const CheckBox = styled.label`
 
 export const ReceiptWrapper = styled.div`
   width: 448px;
-  max-height: 440px;
+  max-height: 320px;
   border: 1px solid ${COLOR['GRAY-200']};
   position: sticky;
   top: 120px;
   left: 70%;
+  padding-bottom: 1rem;
 `;
 
 export const ReceiptHeader = styled.h3`
@@ -103,7 +104,7 @@ export const ReceiptContent = styled.div`
   display: flex;
   height: 80%;
   flex-direction: column;
-  /* justify-content: space-around; */
+  justify-content: space-between;
   padding: 20px 30px;
 `;
 

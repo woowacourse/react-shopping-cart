@@ -3,26 +3,26 @@
 exports[`<Cart /> matches snapshot 1`] = `
 <div>
   <div
-    class="sc-ksdxAp cFwGOh"
+    class="sc-ieebsP cLKEWA"
   >
     <h2
-      class="sc-hBURRC eBjsOr"
+      class="sc-dJjZJu fqvgKC"
     >
       장바구니
     </h2>
     <div
-      class="sc-fotPbf dYrQej"
+      class="sc-hGPAah jgGCxB"
     >
       <div
-        class="sc-fFehDp ctsaqC"
+        class="sc-dlVyqM bLAYPQ"
       >
         <div
           aria-label="상품선택 옵션 메뉴"
-          class="sc-bkkfTU kAcZej"
+          class="sc-kfPtPH lasNxH"
         >
           <label
             aria-checked="true"
-            class="sc-kfPtPH juLErD"
+            class="sc-llYToB jSdIpu"
             role="checkbox"
           >
             <input
@@ -34,7 +34,7 @@ exports[`<Cart /> matches snapshot 1`] = `
             선택해제
           </label>
           <button
-            class="sc-bdvvaa MselZ"
+            class="sc-furvIG fCAsIi"
             color="#333333"
             type="button"
           >
@@ -43,23 +43,23 @@ exports[`<Cart /> matches snapshot 1`] = `
         </div>
         <div
           aria-label="장바구니 상품 목록"
-          class="sc-ieebsP"
+          class="sc-fKVsgm"
         >
           <h3
-            class="sc-dJjZJu cNyfZz"
+            class="sc-bBHwJV jWujwF"
           >
             배송상품 (
             2
             개)
           </h3>
           <div
-            class="sc-hGPAah"
+            class="sc-iwjezw"
           >
             <div
-              class="sc-dlVyqM dsYsil"
+              class="sc-cxpRKc krDmGH"
             >
               <label
-                class="sc-kfPtPH juLErD"
+                class="sc-llYToB jSdIpu"
               >
                 <input
                   checked=""
@@ -73,39 +73,39 @@ exports[`<Cart /> matches snapshot 1`] = `
                 />
               </label>
               <div
-                class="sc-jrQzUz ffqCKT"
+                class="sc-bqiQRQ eEanMH"
               >
                 <div
-                  class="sc-iCfLBT"
+                  class="sc-gsDJrp"
                 >
                   <div
-                    class="sc-furvIG bEiCtt"
+                    class="sc-dkPtyc jnrmNB"
                   >
                     <img
                       alt="[든든] 유부 슬라이스 500g"
-                      class="sc-pVTma gOPKiY"
+                      class="sc-hKwCoD doJTuW"
                       src="https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png"
                     />
                   </div>
                 </div>
                 <div
-                  class="sc-kDThTU bQjZIX"
+                  class="sc-ksdxAp jfWVEg"
                 >
                   <h4
-                    class="sc-iqsfdx hvMujD"
+                    class="sc-hBURRC dxyBOS"
                   >
                     [든든] 유부 슬라이스 500g
                   </h4>
                   <div
-                    class="sc-crHlIS cPCMEP"
+                    class="sc-fotPbf jqZEHt"
                   />
                 </div>
                 <div
-                  class="sc-egiSv ggtrWD"
+                  class="sc-fFehDp bItAXM"
                 >
                   <button
                     aria-label="[든든] 유부 슬라이스 500g 삭제"
-                    class="sc-bqiQRQ suzEO"
+                    class="sc-bkkfTU ixEQNr"
                     type="button"
                   >
                     <svg>
@@ -113,36 +113,36 @@ exports[`<Cart /> matches snapshot 1`] = `
                     </svg>
                   </button>
                   <div
-                    class="sc-dkPtyc ibPmRP"
+                    class="sc-jrQzUz fkRfCi"
                   >
                     <input
                       aria-label="[든든] 유부 슬라이스 500g 수량 변경 입력"
-                      class="sc-hKwCoD kXeTvV"
+                      class="sc-kDThTU eoA-Dnz"
                       max="99"
                       min="1"
                       type="number"
                       value="4"
                     />
                     <div
-                      class="sc-eCImvq isEnoV"
+                      class="sc-iqsfdx fEQBmJ"
                     >
                       <button
                         aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 증가"
-                        class="sc-jRQAMF crVgkL"
+                        class="sc-crHlIS kvGdlv"
                       >
                         <img
                           alt="증가"
-                          class="sc-gKckTs fNcpol"
+                          class="sc-egiSv jRJOfA"
                           src="arrow-up.svg"
                         />
                       </button>
                       <button
-                        class="sc-jRQAMF crVgkL"
+                        class="sc-crHlIS kvGdlv"
                       >
                         <img
                           alt="감소"
                           aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 감소"
-                          class="sc-gKckTs fNcpol"
+                          class="sc-egiSv jRJOfA"
                           src="arrow-down.svg"
                         />
                       </button>
@@ -157,10 +157,10 @@ exports[`<Cart /> matches snapshot 1`] = `
               </div>
             </div>
             <div
-              class="sc-dlVyqM dsYsil"
+              class="sc-cxpRKc krDmGH"
             >
               <label
-                class="sc-kfPtPH juLErD"
+                class="sc-llYToB jSdIpu"
               >
                 <input
                   checked=""
@@ -174,39 +174,39 @@ exports[`<Cart /> matches snapshot 1`] = `
                 />
               </label>
               <div
-                class="sc-jrQzUz ffqCKT"
+                class="sc-bqiQRQ eEanMH"
               >
                 <div
-                  class="sc-iCfLBT"
+                  class="sc-gsDJrp"
                 >
                   <div
-                    class="sc-furvIG bEiCtt"
+                    class="sc-dkPtyc jnrmNB"
                   >
                     <img
                       alt="[든든] 진맛살 1kg"
-                      class="sc-pVTma gOPKiY"
+                      class="sc-hKwCoD doJTuW"
                       src="https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png"
                     />
                   </div>
                 </div>
                 <div
-                  class="sc-kDThTU bQjZIX"
+                  class="sc-ksdxAp jfWVEg"
                 >
                   <h4
-                    class="sc-iqsfdx hvMujD"
+                    class="sc-hBURRC dxyBOS"
                   >
                     [든든] 진맛살 1kg
                   </h4>
                   <div
-                    class="sc-crHlIS cPCMEP"
+                    class="sc-fotPbf jqZEHt"
                   />
                 </div>
                 <div
-                  class="sc-egiSv ggtrWD"
+                  class="sc-fFehDp bItAXM"
                 >
                   <button
                     aria-label="[든든] 진맛살 1kg 삭제"
-                    class="sc-bqiQRQ suzEO"
+                    class="sc-bkkfTU ixEQNr"
                     type="button"
                   >
                     <svg>
@@ -214,36 +214,36 @@ exports[`<Cart /> matches snapshot 1`] = `
                     </svg>
                   </button>
                   <div
-                    class="sc-dkPtyc ibPmRP"
+                    class="sc-jrQzUz fkRfCi"
                   >
                     <input
                       aria-label="[든든] 진맛살 1kg 수량 변경 입력"
-                      class="sc-hKwCoD kXeTvV"
+                      class="sc-kDThTU eoA-Dnz"
                       max="99"
                       min="1"
                       type="number"
                       value="1"
                     />
                     <div
-                      class="sc-eCImvq isEnoV"
+                      class="sc-iqsfdx fEQBmJ"
                     >
                       <button
                         aria-label="[든든] 진맛살 1kg 수량 변경 1개 증가"
-                        class="sc-jRQAMF crVgkL"
+                        class="sc-crHlIS kvGdlv"
                       >
                         <img
                           alt="증가"
-                          class="sc-gKckTs fNcpol"
+                          class="sc-egiSv jRJOfA"
                           src="arrow-up.svg"
                         />
                       </button>
                       <button
-                        class="sc-jRQAMF crVgkL"
+                        class="sc-crHlIS kvGdlv"
                       >
                         <img
                           alt="감소"
                           aria-label="[든든] 진맛살 1kg 수량 변경 1개 감소"
-                          class="sc-gKckTs fNcpol"
+                          class="sc-egiSv jRJOfA"
                           src="arrow-down.svg"
                         />
                       </button>
@@ -261,21 +261,21 @@ exports[`<Cart /> matches snapshot 1`] = `
         </div>
       </div>
       <div
-        class="sc-fKVsgm bTeRLh"
+        class="sc-iJKOzS cRmxz"
       >
         <h3
-          class="sc-bBHwJV hCzjLe"
+          class="sc-giYgFv kelwgJ"
         >
           결제예상금액
         </h3>
         <div
-          class="sc-iwjezw dYJmqN"
+          class="sc-ezbkgU pdkco"
         >
           <div
-            class="sc-cxpRKc jWStsh"
+            class="sc-bYoCmx imTysK"
           >
             <span
-              class="sc-gsDJrp cVrBFO"
+              class="sc-pVTma ixgaok"
               color="#94E0DD"
               font-size="1.25rem"
             >
@@ -283,7 +283,7 @@ exports[`<Cart /> matches snapshot 1`] = `
             </span>
             <span
               aria-label="결제예상금액"
-              class="sc-gsDJrp cVrBFO"
+              class="sc-pVTma ixgaok"
               color="#94E0DD"
               font-size="1.25rem"
             >
@@ -291,7 +291,7 @@ exports[`<Cart /> matches snapshot 1`] = `
             </span>
           </div>
           <button
-            class="sc-bdvvaa dmFACg"
+            class="sc-furvIG fkHJhn"
             color="#FFFFFF"
             type="button"
           >
