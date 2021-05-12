@@ -2,7 +2,7 @@ import React from 'react';
 import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
 import PropTypes from 'prop-types';
 import useDialog from '../../hooks/useDialog';
@@ -33,12 +33,19 @@ const Image = styled.img`
 
 const ProductListItem = ({ product }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm } = useDialog();
+  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList.data);
   const dispatch = useDispatch();
 
-  const handleShoppingCartImage = () => {
-    const shoppingCartItem = { ...product, isChecked: true, count: 1 };
+  const isExistedInShoppingCart = () => shoppingCartList.some((shoppingCartItem) => shoppingCartItem.id === product.id);
 
-    dispatch(insertShoppingCartItem(shoppingCartItem, setIsDialogOpen.bind(null, true)));
+  const handleShoppingCartImage = () => {
+    if (isExistedInShoppingCart()) {
+      setIsDialogOpen(true);
+
+      return;
+    }
+
+    dispatch(insertShoppingCartItem({ ...product, isChecked: true, count: 1 }));
   };
 
   const handleConfirm = () => {
