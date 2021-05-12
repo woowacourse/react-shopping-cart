@@ -31,7 +31,13 @@ const ShoppingCartItem: VFC<Props> = ({
       data-testid="cart-item"
       data-test-item-id={item.id}
     >
-      <Checkbox checked={checked} onChange={() => changeChecked(item)} />
+      <Checkbox
+        checked={checked}
+        onChange={() => changeChecked(item)}
+        description="상품선택"
+        labelTextHidden
+        data-testid="select-checkbox"
+      />
       <ShoppingCartItemCard type="horizontal" image={image}>
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>

@@ -1,5 +1,7 @@
 import {
   fireEvent,
+  getAllByLabelText,
+  getByLabelText,
   getByTestId,
   render,
   screen,
@@ -84,5 +86,22 @@ describe('ShoppingCartPage', () => {
     fireEvent.click($deleteButton);
 
     await waitForElementToBeRemoved(document.querySelector(`[data-test-item-id="${itemId}"]`));
+  });
+
+  test('상품을 일괄 선택할 수 있다.', async () => {
+    render(
+      <Provider store={store}>
+        <ShoppingCartPage />
+      </Provider>
+    );
+
+    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('선택해제'));
+    fireEvent.click($selectAllCheckbox);
+
+    const $$checkboxes = await waitFor(() => getAllByLabelText(document, '상품선택'));
+
+    $$checkboxes.forEach(($checkbox) => {
+      expect($checkbox.checked).toEqual($selectAllCheckbox.checked);
+    });
   });
 });
