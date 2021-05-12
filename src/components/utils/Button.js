@@ -10,11 +10,25 @@ const StyledButton = styled.button`
   color: ${(props) => props.color};
   border: ${(props) => props.border};
   font-size: ${(props) => props.fontSize};
+
+  &:hover {
+    color: #ffffff;
+    background-color: #2ac1bc;
+    border: 1px solid #2ac1bc;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: ${(props) => props.backgroundColor || 'inherit'};
+    border: ${(props) => props.border};
+    color: ${(props) => props.color};
+    cursor: not-allowed;
+  }
 `;
 
-function Button({ type = 'button', children, ...props }) {
+function Button({ type = 'button', children, onClick, disabled, ...props }) {
   return (
-    <StyledButton type={type} {...props}>
+    <StyledButton type={type} {...props} onClick={onClick} disabled={disabled}>
       {children}
     </StyledButton>
   );

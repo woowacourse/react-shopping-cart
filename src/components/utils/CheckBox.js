@@ -46,6 +46,10 @@ const Label = styled.label`
     background-position: center;
     content: '';
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 function CheckBox({ labelName, id, checked, onChange }) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PageTitle from '../../components/PageTitle';
@@ -7,7 +7,7 @@ import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import CartItem from './CartItem';
 
-import { toggleCheckbox } from '../../modules/cart';
+import { toggleCheckbox, allCheck, allUnCheck, deleteItem } from '../../modules/cart';
 
 import styled from 'styled-components';
 
@@ -53,6 +53,31 @@ const CartPage = () => {
   const getTotalPrice = () =>
     cartItems.reduce((totalPrice, item) => (totalPrice += item.checked ? item.price * item.quantity : 0), 0);
 
+  const getCheckboxMessage = () => {
+    switch (checkedItemIds.length) {
+      case cartItems.length:
+        return '선택해제';
+      case 0:
+        return '전체선택';
+      default:
+        return `${checkedItemIds.length}개 선택`;
+    }
+  };
+
+  const onAllCheckboxClick = () => {
+    if (checkedItemIds.length === cartItems.length) {
+      dispatch(allUnCheck());
+    } else {
+      dispatch(allCheck());
+    }
+  };
+
+  const onDeleteCheckedItemsButtonClick = () => {
+    checkedItemIds.forEach((id) => {
+      dispatch(deleteItem(id));
+    });
+  };
+
   return (
     <>
       <PageTitle pageTitle="장바구니" />
@@ -60,7 +85,12 @@ const CartPage = () => {
         <CartItemWrapper>
           <CartItemSection>
             <CartItemHeader>
-              <CheckBox labelName="선택해제" id="cartItemCheckBox" />
+              <CheckBox
+                labelName={getCheckboxMessage()}
+                id="cartItemCheckBox"
+                checked={checkedItemIds.length === cartItems.length}
+                onChange={onAllCheckboxClick}
+              />
               <Button
                 width="117px"
                 height="50px"
@@ -68,6 +98,8 @@ const CartPage = () => {
                 border="1px solid #bbbbbb"
                 color="#333333"
                 fontSize="16px"
+                onClick={onDeleteCheckedItemsButtonClick}
+                disabled={checkedItemIds.length === 0}
               >
                 상품삭제
               </Button>
