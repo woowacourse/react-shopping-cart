@@ -121,7 +121,12 @@ const Cart = () => {
                     information={{ title: name }}
                     extra={
                       <>
-                        <IconButton type="button" size="small" onClick={() => onDelete([id])}>
+                        <IconButton
+                          type="button"
+                          size="small"
+                          onClick={() => onDelete([id])}
+                          ariaLabel={`${name} 삭제`}
+                        >
                           <TrashBin />
                         </IconButton>
                         <NumericInput
