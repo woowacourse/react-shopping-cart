@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
@@ -55,6 +55,7 @@ function App() {
             <Route exact path={PATH.MYMART_ORDER_DETAIL}>
               MYMART_ORDER_DETAIL
             </Route>
+            <Redirect to={PATH.MAIN} />
           </Switch>
         </MainContainer>
       </Provider>
