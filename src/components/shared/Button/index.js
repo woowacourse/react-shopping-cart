@@ -37,7 +37,7 @@ Button.propTypes = {
   color: PropTypes.string.isRequired,
   borderColor: PropTypes.string,
   fontSize: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
