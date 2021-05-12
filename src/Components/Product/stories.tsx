@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import Product, { IProductProps } from ".";
+import Product, { ProductProps } from ".";
 import ProductImage from "../ProductImage";
 
 export default {
@@ -9,7 +9,7 @@ export default {
   component: Product,
 } as Meta;
 
-const Template: Story<IProductProps> = (args) => <Product {...args} />;
+const Template: Story<ProductProps> = (args) => <Product {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {

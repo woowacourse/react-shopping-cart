@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import Button, { IButtonProps } from ".";
+import Button, { ButtonProps } from ".";
 import { COLOR, SIZE } from "../../constants/theme";
 
 export default {
@@ -9,7 +9,7 @@ export default {
   component: Button,
 } as Meta;
 
-const Template: Story<IButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Basic = Template.bind({});
 

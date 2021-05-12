@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-interface IImageProps {
+interface ImageProps {
   size: string;
 }
 
-const Container = styled.div<IImageProps>`
+const Container = styled.div<ImageProps>`
   ${({ size }) => `width: ${size}; 
     height: ${size};
   `}
@@ -12,7 +12,7 @@ const Container = styled.div<IImageProps>`
   overflow: hidden;
 `;
 
-const Img = styled.img<IImageProps>`
+const Img = styled.img<ImageProps>`
   ${({ size }) => `width: ${size};`}
 `;
 
@@ -25,4 +25,4 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
 `;
 
-export { Container, Img, IImageProps, Background };
+export { Container, Img, ImageProps, Background };

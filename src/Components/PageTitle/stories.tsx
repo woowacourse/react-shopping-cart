@@ -1,14 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import PageTitle, { IPageTitleProps } from ".";
+import PageTitle, { PageTitleProps } from ".";
 
 export default {
   title: "PageTitle",
   component: PageTitle,
 } as Meta;
 
-const Template: Story<IPageTitleProps> = (args) => <PageTitle {...args} />;
+const Template: Story<PageTitleProps> = (args) => <PageTitle {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {

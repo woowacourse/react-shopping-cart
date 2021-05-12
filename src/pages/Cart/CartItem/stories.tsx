@@ -1,14 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import CartItem, { ICartItemProps } from ".";
+import CartItem, { CartItemProps } from ".";
 
 export default {
   title: "Containers/CartItem",
   component: CartItem,
 } as Meta;
 
-const Template: Story<ICartItemProps> = (args) => <CartItem {...args} />;
+const Template: Story<CartItemProps> = (args) => <CartItem {...args} />;
 
 export const Basic = Template.bind({});
 

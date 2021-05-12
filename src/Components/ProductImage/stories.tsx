@@ -1,14 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import ProductImage, { IProductImageProps } from ".";
+import ProductImage, { ProductImageProps } from ".";
 
 export default {
   title: "ProductImage",
   component: ProductImage,
 } as Meta;
 
-const Template: Story<IProductImageProps> = (args) => <ProductImage {...args} />;
+const Template: Story<ProductImageProps> = (args) => <ProductImage {...args} />;
 
 export const Basic = Template.bind({});
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface IContainerProps {
+interface ContainerProps {
   width: string;
   height: string;
   color: string;
@@ -9,7 +9,7 @@ interface IContainerProps {
   border?: string;
 }
 
-const Container = styled.button<IContainerProps>`
+const Container = styled.button<ContainerProps>`
   ${({ width, height, color, fontSize, backgroundColor, border }) => `
       width: ${width}; 
       height: ${height}; 
@@ -21,4 +21,4 @@ const Container = styled.button<IContainerProps>`
   font-weight:700;
 `;
 
-export { Container, IContainerProps };
+export { Container, ContainerProps };

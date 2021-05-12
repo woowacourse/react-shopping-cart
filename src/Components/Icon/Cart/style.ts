@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-interface IContainerProps {
+interface ContainerProps {
   size: string;
 }
 
-const Container = styled.svg<IContainerProps>`
+const Container = styled.svg<ContainerProps>`
   width: ${({ size }) => size};
 
   &:before {
@@ -13,4 +13,4 @@ const Container = styled.svg<IContainerProps>`
   }
 `;
 
-export { Container, IContainerProps };
+export { Container, ContainerProps };

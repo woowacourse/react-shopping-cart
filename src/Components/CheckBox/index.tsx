@@ -2,11 +2,11 @@ import React, { HTMLAttributes, VFC } from "react";
 
 import { Container, CheckMark, Input, Svg, Path } from "./style";
 
-interface ICheckBoxProps extends HTMLAttributes<HTMLInputElement> {
+interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   checked: boolean;
 }
 
-const CheckBox: VFC<ICheckBoxProps> = ({ ...props }) => (
+const CheckBox: VFC<CheckBoxProps> = ({ ...props }) => (
   <Container>
     <Input type="checkbox" {...props} />
     <CheckMark>
@@ -18,4 +18,4 @@ const CheckBox: VFC<ICheckBoxProps> = ({ ...props }) => (
 );
 
 export default CheckBox;
-export { ICheckBoxProps };
+export { CheckBoxProps };

@@ -1,14 +1,14 @@
 import React, { ReactElement, VFC } from "react";
 
 import { Link } from "react-router-dom";
-import { IProductImageProps } from "../ProductImage";
-import { IButtonProps } from "../Button";
+import { ProductImageProps } from "../ProductImage";
+import { ButtonProps } from "../Button";
 import { Container, Desc, NameLink, OptionPricePart } from "./style";
 
 interface OrderProductItemProps {
   id: string;
-  Image: ReactElement<IProductImageProps>;
-  Button?: ReactElement<IButtonProps>;
+  Image: ReactElement<ProductImageProps>;
+  Button?: ReactElement<ButtonProps>;
   name: string;
   price?: number;
   quantity: number;

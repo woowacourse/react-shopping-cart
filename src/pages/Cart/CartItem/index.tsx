@@ -3,7 +3,7 @@ import React, { VFC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, Mous
 import { ProductImage, CheckBox } from "../../../Components";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
 
-interface ICartItemProps {
+interface CartItemProps {
   id: string;
   name: string;
   price: number;
@@ -16,7 +16,7 @@ interface ICartItemProps {
   onClickDeleteButton: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CartItem: VFC<ICartItemProps> = ({
+const CartItem: VFC<CartItemProps> = ({
   id,
   name,
   price,
@@ -67,4 +67,4 @@ const CartItem: VFC<ICartItemProps> = ({
 );
 
 export default CartItem;
-export { ICartItemProps };
+export { CartItemProps };
