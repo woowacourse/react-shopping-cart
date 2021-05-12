@@ -1,7 +1,7 @@
 export const createAsyncThunk = (type, asyncFunc) => {
   const [SUCCESS, FAILURE] = [`${type}_SUCCESS`, `${type}_FAILURE`];
 
-  return (param) => async (dispatch) => {
+  return (param, errorCallback) => async (dispatch) => {
     dispatch({ type });
     try {
       if (!param) {
@@ -14,6 +14,7 @@ export const createAsyncThunk = (type, asyncFunc) => {
       await asyncFunc(param);
       dispatch({ type: SUCCESS, payload: param });
     } catch (error) {
+      errorCallback && errorCallback();
       console.error(error);
       dispatch({ type: FAILURE, payload: error });
     }

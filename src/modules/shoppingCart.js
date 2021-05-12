@@ -27,7 +27,6 @@ const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 const requestDeleteCheckedItemList = (checkedItemList) =>
   Promise.all(checkedItemList.map(({ id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)));
 
-// TODO: payload or 우리가 원하는 키 주기
 export const insertShoppingCartItem = createAsyncThunk(
   INSERT_SHOPPING_CART_ITEM,
   requestInsertItem.bind(null, API_PATH.SHOPPING_CART_LIST)

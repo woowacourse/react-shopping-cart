@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
 import PropTypes from 'prop-types';
+import useDialog from '../../hooks/useDialog';
+import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 
 const Content = styled.ul`
   display: flex;
@@ -30,27 +32,39 @@ const Image = styled.img`
 `;
 
 const ProductListItem = ({ product }) => {
+  const { isDialogOpen, setIsDialogOpen, clickConfirm } = useDialog();
   const dispatch = useDispatch();
 
   const handleShoppingCartImage = () => {
     const shoppingCartItem = { ...product, isChecked: true, count: 1 };
 
-    dispatch(insertShoppingCartItem(shoppingCartItem));
+    dispatch(insertShoppingCartItem(shoppingCartItem, setIsDialogOpen.bind(null, true)));
+  };
+
+  const handleConfirm = () => {
+    clickConfirm();
   };
 
   return (
-    <div>
-      <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.src} alt={product.alt} />
-      <Content>
-        <li>
-          <Name>{product.name}</Name>
-          <Price>{product.price.toLocaleString('ko-KR')} 원</Price>
-        </li>
-        <li>
-          <Image onClick={handleShoppingCartImage} src={shoppingCartImg} alt="장바구니" />
-        </li>
-      </Content>
-    </div>
+    <>
+      <div>
+        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.src} alt={product.alt} />
+        <Content>
+          <li>
+            <Name>{product.name}</Name>
+            <Price>{product.price.toLocaleString('ko-KR')} 원</Price>
+          </li>
+          <li>
+            <Image onClick={handleShoppingCartImage} src={shoppingCartImg} alt="장바구니" />
+          </li>
+        </Content>
+      </div>
+      {isDialogOpen && (
+        <Dialog type={DIALOG_TYPE.ALERT} onConfirm={handleConfirm}>
+          이미 장바구니에 추가되어 있습니다.
+        </Dialog>
+      )}
+    </>
   );
 };
 
