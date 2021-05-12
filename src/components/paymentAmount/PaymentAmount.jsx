@@ -45,7 +45,7 @@ const TextWrapper = styled.div`
 
 const getButtonText = ({ type, count, price }) => {
   const buttonTextType = {
-    SHOPPING_CART: `주문하기(${count}개)`,
+    SHOPPING_CART: count ? `주문하기(${count}개)` : '주문하기',
     ORDER_PAYMENT: `${price.toLocaleString('ko-KR')}원 결제하기`,
   };
 
@@ -60,7 +60,7 @@ const PaymentAmount = ({ type, price, count, onClick }) => (
         <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
+      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick} disabled={count === 0}>
         {getButtonText({ type, price, count })}
       </Button>
     </div>
