@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { COLOR } from '../../constants/color';
+import DialogPortal from '../../DialogPortal';
 
 export const DIALOG_TYPE = Object.freeze({
   ALERT: 'ALERT',
@@ -72,12 +73,14 @@ const getButton = ({ type, onConfirm, onCancel }) => {
 };
 
 const Dialog = ({ children, type, onConfirm, onCancel }) => (
-  <Container>
-    <Content type={type}>
-      <TextWrapper>{children}</TextWrapper>
-      <section>{getButton({ type, onConfirm, onCancel })}</section>
-    </Content>
-  </Container>
+  <DialogPortal>
+    <Container>
+      <Content type={type}>
+        <TextWrapper>{children}</TextWrapper>
+        <section>{getButton({ type, onConfirm, onCancel })}</section>
+      </Content>
+    </Container>
+  </DialogPortal>
 );
 
 Dialog.defaultProps = {

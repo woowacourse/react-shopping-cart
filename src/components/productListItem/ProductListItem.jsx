@@ -31,8 +31,11 @@ const Image = styled.img`
   cursor: pointer;
 `;
 
+const ADD_SUCCESS = 'ADD_SUCCESS';
+const ADD_FAILURE = 'ADD_FAILURE';
+
 const ProductListItem = ({ product }) => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm } = useDialog();
+  const { isDialogOpen, setIsDialogOpen, clickConfirm, type, setType } = useDialog();
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList.data);
   const dispatch = useDispatch();
 
@@ -40,11 +43,14 @@ const ProductListItem = ({ product }) => {
 
   const handleShoppingCartImage = () => {
     if (isExistedInShoppingCart()) {
+      setType(ADD_FAILURE);
       setIsDialogOpen(true);
 
       return;
     }
 
+    setType(ADD_SUCCESS);
+    setIsDialogOpen(true);
     dispatch(insertShoppingCartItem({ ...product, isChecked: true, count: 1 }));
   };
 
@@ -66,9 +72,10 @@ const ProductListItem = ({ product }) => {
           </li>
         </Content>
       </div>
+
       {isDialogOpen && (
         <Dialog type={DIALOG_TYPE.ALERT} onConfirm={handleConfirm}>
-          이미 장바구니에 추가되어 있습니다.
+          {type === ADD_FAILURE ? '이미 장바구니에 추가되어 있습니다.' : '장바구니에 추가되었습니다.'}
         </Dialog>
       )}
     </>

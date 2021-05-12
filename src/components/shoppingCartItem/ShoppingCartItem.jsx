@@ -12,7 +12,6 @@ import {
   toggleShoppingCartItem,
 } from '../../modules/shoppingCart';
 import PropTypes from 'prop-types';
-import DialogPortal from '../../DialogPortal';
 import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
 
@@ -104,7 +103,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
       </Container>
 
       {isDialogOpen && (
-        <DialogPortal>
+        <>
           {type === DIALOG_TYPE.CONFIRM && (
             <Dialog type={type} onConfirm={handleConfirm} onCancel={handleCancel}>
               <p>
@@ -120,7 +119,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
               </p>
             </Dialog>
           )}
-        </DialogPortal>
+        </>
       )}
     </>
   );
