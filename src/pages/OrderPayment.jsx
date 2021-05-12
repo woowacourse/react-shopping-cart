@@ -8,6 +8,7 @@ import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import { PATH } from '../constants/path';
 import { insertOrderItemList } from '../modules/orderList';
+import { deleteCheckedShoppingCartList } from '../modules/shoppingCart';
 
 const Content = styled.section`
   position: relative;
@@ -32,6 +33,7 @@ const OrderPayment = () => {
 
   const handleOrderListPageRouter = async () => {
     await dispatch(insertOrderItemList(orderItemList));
+    await dispatch(deleteCheckedShoppingCartList(orderItemList));
 
     history.push(PATH.ORDER_LIST);
   };
