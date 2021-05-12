@@ -20,9 +20,7 @@
   ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -30,9 +28,7 @@
     ],
     "overrides": [
       {
-        "files": [
-          "**/*.stories.*"
-        ],
+        "files": "",
         "rules": {
           "import/no-anonymous-default-export": "off"
         }
@@ -50,16 +46,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/node-logger": "^6.2.9",
-    "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.2.9"
-  },
-  "resolutions": {
-    "babel-loader": "8.1.0"
   }
 }

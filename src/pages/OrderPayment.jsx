@@ -14,12 +14,13 @@ const Content = styled.section`
   display: flex;
   margin-top: 25px;
   padding: 0 18px;
+  gap: 100px;
 `;
 
 const OrderPaymentAmountWrapper = styled.div`
-  position: absolute;
+  position: sticky;
+  margin-top: 50px;
   top: 50px;
-  right: 0;
 `;
 
 const OrderPayment = () => {
@@ -47,13 +48,15 @@ const OrderPayment = () => {
             ListItem={OrderListItem}
           />
         </div>
-        <OrderPaymentAmountWrapper>
-          <PaymentAmount
-            type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT}
-            price={totalPrice}
-            onClick={handleOrderListPageRouter}
-          />
-        </OrderPaymentAmountWrapper>
+        <div>
+          <OrderPaymentAmountWrapper>
+            <PaymentAmount
+              type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT}
+              price={totalPrice}
+              onClick={handleOrderListPageRouter}
+            />
+          </OrderPaymentAmountWrapper>
+        </div>
       </Content>
     </>
   );
