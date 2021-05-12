@@ -209,4 +209,30 @@ describe('<Cart />', () => {
     expect(checkOptionLabel).toBeChecked();
     checkBoxes.forEach(checkbox => expect(checkbox).toBeChecked());
   });
+
+  it('상품 삭제 버튼 클릭 시, 선택되어 있는 아이템이 삭제된다.', async () => {
+    const utils = render(<Cart />, { initialState: initialStateWithNotChecked });
+    const deleteButton = utils.getByRole('button', { name: /상품 삭제/i });
+
+    const productList = utils.getByLabelText('장바구니 상품 목록');
+    const [targetItemCheckbox] = within(productList).getAllByRole('checkbox');
+    const productNames = within(productList)
+      .getAllByRole('heading')
+      .map(heading => heading.textContent);
+    const [productListHeading, targetProductName] = productNames;
+    const confirmSpy = jest.spyOn(window, 'confirm');
+    confirmSpy.mockImplementation(jest.fn(() => true));
+
+    fireEvent.click(targetItemCheckbox);
+    fireEvent.click(deleteButton);
+    expect(confirmSpy).toBeCalled();
+
+    await waitFor(() => {
+      const names = within(productList)
+        .getAllByRole('heading')
+        .map(heading => heading.textContent);
+      expect(names[0]).toBe('배송상품 (1개)');
+      expect(names.includes(targetProductName)).toBe(false);
+    });
+  });
 });
