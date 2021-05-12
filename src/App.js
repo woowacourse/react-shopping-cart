@@ -7,11 +7,13 @@ import {
   OrderPayment,
 } from './components';
 import GlobalStyle from './global.styles';
-import { products, totalOrders } from '../src/mockData';
+import { totalOrders } from '../src/mockData';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import productReducer from './reducers/products';
 import { ROUTE } from './constants';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const reducer = combineReducers({
   product: productReducer,
@@ -20,6 +22,18 @@ const reducer = combineReducers({
 const store = createStore(reducer);
 
 function App() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const response = await axios.get('/products');
+
+      setProducts(response.data);
+    }
+
+    fetchProducts();
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>

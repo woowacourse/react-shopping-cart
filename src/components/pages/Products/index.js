@@ -31,12 +31,10 @@ const Products = ({ products }) => {
 Products.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
       image: PropTypes.string,
-      imageAlt: PropTypes.string,
       name: PropTypes.string,
       price: PropTypes.number,
-      quantity: PropTypes.number,
     })
   ),
 };
