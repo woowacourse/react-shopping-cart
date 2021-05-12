@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PriceText from './utils/PriceText';
 
 const FloatingBoxWrapper = styled.div`
+  position: sticky;
+  top: 20%;
   width: 448px;
   height: 318px;
   margin: 120px 25px 120px 0;
@@ -58,6 +60,10 @@ const Button = styled.button`
   background-color: #2ac1bc;
   border: none;
   color: #ffffff;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 function FloatingBox({ price, selectedItems }) {
@@ -76,7 +82,7 @@ function FloatingBox({ price, selectedItems }) {
         </FloatingBoxTextWrapper>
 
         <Button type="button">
-          {price}원 결제하기({selectedItems}개)
+          {price}원 결제하기 ({selectedItems}개)
         </Button>
       </FloatingBoxContentWrapper>
     </FloatingBoxWrapper>
