@@ -6,11 +6,11 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useProducts from '../../hooks/products';
 
-import { PATH, STATUS_CODE, URL } from '../../constants';
+import { PATH, STATUS_CODE } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 
 import * as Styled from './ProductListPage.styles';
-import axios from 'axios';
+import { requestAddProductToCart } from '../../apis';
 
 const ProductListPage = () => {
   const history = useHistory();
@@ -21,15 +21,19 @@ const ProductListPage = () => {
   };
 
   const onCartButtonClick = async (id: Product['id']) => {
-    try {
-      const product = products.find(product => product.id === id);
-      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
+    const product = products.find(product => product.id === id);
+    if (!product) {
+      return;
+    }
 
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('상품을 장바구니에 담지 못했습니다.');
-      }
+    try {
+      await requestAddProductToCart(product);
       alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
+      if (error.status === STATUS_CODE.POST_FAILURE) {
+        alert(`'${product?.name}'는 이미 장바구니에 담긴 상품입니다.`);
+        return;
+      }
       console.error(error);
     }
   };

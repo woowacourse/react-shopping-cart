@@ -7,12 +7,13 @@ import useOrders from '../../hooks/orders';
 import { getMoneyString } from '../../utils/format';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
-import axios from 'axios';
-import { PATH, STATUS_CODE, URL } from '../../constants';
+import { PATH } from '../../constants';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import { confirm } from '../../utils/confirm';
 import * as Styled from './OrderListPage.styles';
+import { requestAddProductToCart } from '../../apis';
+import { alert } from '../../utils/alert';
 
 const OrderListPage = () => {
   const { orders, loading, responseOK } = useOrders();
@@ -36,13 +37,15 @@ const OrderListPage = () => {
     if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
       return;
     }
+
+    if (!product) {
+      return;
+    }
+
     try {
-      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('상품을 장바구니에 담지 못했습니다.');
-      }
+      await requestAddProductToCart(product);
     } catch (error) {
-      console.error(error);
+      alert('상품을 장바구니에 담지 못했습니다.');
     }
   };
 

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
 import Loading from '../../components/commons/Loading/Loading';
@@ -7,11 +6,14 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
-import { URL, STATUS_CODE, PATH } from '../../constants';
+import { STATUS_CODE, PATH } from '../../constants';
 import useCart from '../../hooks/cart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { confirm } from '../../utils/confirm';
+import { requestCartItemDelete, requestCartItemQuantityPatch } from '../../apis';
+import { alert } from '../../utils/alert';
+import { requestCartItemsDelete } from '../../apis/cart';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -34,22 +36,13 @@ const ShoppingCartPage = () => {
     );
   }
 
-  const patchItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    try {
-      const response = await axios.patch(`${URL.CART}/${id}`, { quantity });
-      if (response.status !== STATUS_CODE.PUT_SUCCESS) {
-        throw new Error('상품 수량 변경에 실패하였습니다');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const setCartItemQuantity = (id: CartItem['id'], quantity: CartItem['quantity']) => {
+  const setCartItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const newCartItem = { ...newCartItems[targetIndex], quantity };
-    patchItemQuantity(id, quantity);
+    try {
+      requestCartItemQuantityPatch(id, quantity);
+    } catch (error) {}
     newCartItems.splice(targetIndex, 1, newCartItem);
     setCartItems(newCartItems);
   };
@@ -71,20 +64,17 @@ const ShoppingCartPage = () => {
   const onCartItemDelete = async (id: CartItem['id']) => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    if (!confirm(`${newCartItems[targetIndex].name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
+    const targetCartItem = newCartItems[targetIndex];
+    if (!confirm(`${targetCartItem.name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
     }
 
     try {
-      const response = await axios.delete(`${URL.CART}/${id}`);
-      if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-        throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-      }
-
+      await requestCartItemDelete(id);
       newCartItems.splice(targetIndex, 1);
       setCartItems(newCartItems);
     } catch (error) {
-      console.error(error);
+      alert(`${targetCartItem.name}을(를) 장바구니에서 삭제하는데 실패했습니다!`);
     }
   };
 
@@ -92,18 +82,15 @@ const ShoppingCartPage = () => {
     if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
       return;
     }
-    const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
+
     try {
-      selectedCartItemIdList.forEach(async id => {
-        const response = await axios.delete(`${URL.CART}/${id}`);
-        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-        }
-      });
+      const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
+      await requestCartItemsDelete(selectedCartItemIdList);
       const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
       setCartItems(newCartItems);
     } catch (error) {
-      console.error(error);
+      const failCount = error.statusList?.filter((status: number) => status !== STATUS_CODE.POST_SUCCESS);
+      alert(`${failCount}개의 상품들을 장바구니에서 삭제하는데 실패했습니다!`);
     }
   };
 

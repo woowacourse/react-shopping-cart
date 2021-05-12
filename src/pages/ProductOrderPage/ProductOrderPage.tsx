@@ -1,12 +1,14 @@
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
-import { PATH, URL, STATUS_CODE } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
 import { confirm } from '../../utils/confirm';
+import { requestOrderAdd } from '../../apis';
+import { alert } from '../../utils/alert';
+import { requestCartItemsDelete } from '../../apis/cart';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
@@ -32,27 +34,42 @@ const ProductOrderPage = () => {
     }, 0)
   );
 
+  const tryAddOrder = async (orderItems: CartItem[]) => {
+    try {
+      await requestOrderAdd(orderItems);
+    } catch (error) {
+      alert('주문 요청에 실패하였습니다.');
+      return false;
+    }
+
+    return true;
+  };
+
+  const tryDeleteOrderedCartItems = async (idList: Array<CartItem['id']>) => {
+    try {
+      await requestCartItemsDelete(idList);
+    } catch (error) {
+      alert('기존의 장바구니 상품들을 삭제하는데 실패하였습니다.');
+      return false;
+    }
+
+    return true;
+  };
+
   const onOrderButtonClick = async () => {
     if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
       return;
     }
-    try {
-      let response = await axios.post(URL.ORDERS, { orderItems });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('주문에 실패하였습니다.');
-      }
-
-      orderItems.forEach(async item => {
-        response = await axios.delete(`${URL.CART}/${item.id}`);
-        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-        }
-      });
-
-      history.push(PATH.ORDER_LIST);
-    } catch (error) {
-      console.error(error);
+    const isOrderSucceed = await tryAddOrder(orderItems);
+    if (!isOrderSucceed) {
+      return;
     }
+    const orderItemIdList = orderItems.map(orderItem => orderItem.id);
+    const isOrderedCarItemDeleted = await tryDeleteOrderedCartItems(orderItemIdList);
+    if (!isOrderedCarItemDeleted) {
+      return;
+    }
+    history.push(PATH.ORDER_LIST);
   };
 
   return (

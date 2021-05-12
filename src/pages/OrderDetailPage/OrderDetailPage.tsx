@@ -4,17 +4,17 @@ import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 import Button from '../../components/commons/Button/Button';
 import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
-import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
+import { COLORS, PATH } from '../../constants';
 import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
 import useOrderDetail from '../../hooks/orderDetail';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
-import axios from 'axios';
 import { Redirect, useHistory } from 'react-router';
 import { confirm } from '../../utils/confirm';
 import { getMoneyString } from '../../utils/format';
+import { requestAddProductToCart } from '../../apis';
 
 const OrderDetailPage = () => {
   const orderId = window.location.hash.split('/').slice(-1);
@@ -36,17 +36,18 @@ const OrderDetailPage = () => {
 
   const onCartButtonClick = async (id: Product['id']) => {
     const product = products.find(product => product.id === id);
-
     if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
       return;
     }
+
+    if (!product) {
+      return;
+    }
+
     try {
-      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('상품을 장바구니에 담지 못했습니다.');
-      }
+      await requestAddProductToCart(product);
     } catch (error) {
-      console.error(error);
+      alert('상품을 장바구니에 담지 못했습니다.');
     }
   };
 
