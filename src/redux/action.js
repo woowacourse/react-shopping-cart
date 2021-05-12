@@ -8,6 +8,7 @@ import {
   INCREASE_PRODUCT_AMOUNT,
   UPDATE_CHECKED_PRODUCT_ITEMS,
   UPDATE_MY_SHOPPING_CART_ITEMS,
+  UPDATE_PAGE_INDEX,
   UPDATE_PRODUCT_AMOUNT_LIST,
   UPDATE_PRODUCT_ITEMS,
 } from './actionType';
@@ -89,6 +90,11 @@ const getMyShoppingCartAsync = () => async dispatch => {
   }
 };
 
+const updatePageIndex = pageIndex => ({
+  type: UPDATE_PAGE_INDEX,
+  pageIndex,
+});
+
 export {
   activateLoading,
   deactivateLoading,
@@ -99,4 +105,5 @@ export {
   updateShoppingCartItemsAsync,
   getMyShoppingCartAsync,
   updateProductItemsAsync,
+  updatePageIndex,
 };

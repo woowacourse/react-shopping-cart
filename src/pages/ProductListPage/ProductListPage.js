@@ -1,14 +1,14 @@
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, PageButtonContainer, PageIndex } from './ProductListPage.styles';
-import { useModal, usePaging } from '../../hooks';
-import { updateShoppingCartItemsAsync } from '../../redux/action';
+import { useModal } from '../../hooks';
+import { updatePageIndex, updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
-import { ROUTE } from '../../constants';
+import { CONTENT_PER_PAGE, ROUTE } from '../../constants';
 
 const ProductListPage = () => {
   const location = useLocation();
@@ -20,29 +20,34 @@ const ProductListPage = () => {
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
+  const { pageIndex } = useSelector(state => ({
+    pageIndex: state.pageIndexReducer.pageIndex,
+  }));
+
   const { productList } = useSelector(state => ({
     productList: state.productListReducer.productList,
   }));
 
   const { open: openModal, Modal } = useModal(false);
 
-  const {
-    currentPageIndex: currentPage,
-    maxPageIndex,
-    onClickNext: onClickNextPage,
-    onClickPrev: onClickPrevPage,
-    displayContents: displayProducts,
-  } = usePaging({
-    initPageIndex: 0,
-    contents: productList,
-    contentsPerPage: 10,
-  });
+  const displayProducts = productList.slice(pageIndex * CONTENT_PER_PAGE, (pageIndex + 1) * CONTENT_PER_PAGE);
+  const maxPageIndex = Math.ceil(productList.length / CONTENT_PER_PAGE) - 1;
 
   const onClickShoppingCartIcon = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
     dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
 
     openModal();
+  };
+
+  const onClickNextPage = () => {
+    const newPageIndex = pageIndex + 1 <= maxPageIndex ? pageIndex + 1 : pageIndex;
+    dispatch(updatePageIndex(newPageIndex));
+  };
+
+  const onClickPrevPage = () => {
+    const newPageIndex = pageIndex < 1 ? 0 : pageIndex - 1;
+    dispatch(updatePageIndex(newPageIndex));
   };
 
   return (
@@ -69,11 +74,11 @@ const ProductListPage = () => {
         </Modal>
       </ModalPortal>
       <PageButtonContainer>
-        <Button onClick={onClickPrevPage} disabled={currentPage === 0}>
+        <Button onClick={onClickPrevPage} disabled={pageIndex === 0}>
           이전
         </Button>
-        <PageIndex>{currentPage + 1}</PageIndex>
-        <Button onClick={onClickNextPage} disabled={currentPage === maxPageIndex}>
+        <PageIndex>{pageIndex + 1}</PageIndex>
+        <Button onClick={onClickNextPage} disabled={pageIndex === maxPageIndex}>
           다음
         </Button>
       </PageButtonContainer>
