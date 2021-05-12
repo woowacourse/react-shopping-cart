@@ -18,12 +18,14 @@ const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1, ariaLabel 
   };
 
   const onChange = ({ target }) => {
+    const inputValue = Number(target.value);
+
     if (target.value === '') {
-      setValue(target.value);
+      setValue(inputValue);
     }
 
     if (min <= target.value && target.value <= max) {
-      setValue(target.value);
+      setValue(inputValue);
     }
   };
 
@@ -39,7 +41,7 @@ const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1, ariaLabel 
         type="number"
         min={min}
         max={max}
-        value={value}
+        value={value || ''}
         onChange={onChange}
         onBlur={onFocusout}
         aria-label={`${ariaLabel} 입력`}

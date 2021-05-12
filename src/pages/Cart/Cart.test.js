@@ -58,4 +58,16 @@ describe('<Cart />', () => {
     expect(number.value).toBe('5');
     expect(price).toHaveTextContent('24,500 원');
   });
+
+  it('수량 입력 칸에 20을 입력할 시, 수량이 20이 되고, 해당 상품 가격과 총 금액이 변화한다.', () => {
+    const utils = render(<Cart />, { initialState });
+    const number = utils.getByRole('spinbutton', {
+      name: /\[든든\] 유부 슬라이스 500g 수량 변경 입력/i,
+    });
+    const price = utils.getByLabelText('[든든] 유부 슬라이스 500g 합산 가격');
+
+    fireEvent.change(number, { target: { value: 20 } });
+    expect(number.value).toBe('20');
+    expect(price).toHaveTextContent('98,000 원');
+  });
 });
