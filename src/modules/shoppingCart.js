@@ -1,7 +1,6 @@
 import { API_PATH, RETURN_TYPE } from '../constants/api';
 import { httpClient } from '../request/httpClient';
 
-// TODO: LIST -> ITEM_LIST 또는 페이지 이름을 변경
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
 const DELETE_CHECKED_SHOPPING_CART_LIST = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_LIST';

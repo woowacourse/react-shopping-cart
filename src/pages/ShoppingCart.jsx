@@ -12,9 +12,9 @@ import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../mod
 import emptyCart from '../assets/empty-cart.png';
 import { Link } from 'react-router-dom';
 import { PATH } from '../constants/path';
+import Dialog, { DIALOG_TYPE } from '../components/dialog/Dialog';
 import useDialog from '../hooks/useDialog';
 import DialogPortal from '../DialogPortal';
-import Dialog from '../components/dialog/Dialog';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -142,7 +142,7 @@ const ShoppingCart = () => {
 
       {isDialogOpen && (
         <DialogPortal>
-          <Dialog onConfirm={handleConfirm} onCancel={handleCancel}>
+          <Dialog type={DIALOG_TYPE.CONFIRM} onConfirm={handleConfirm} onCancel={handleCancel}>
             <p>
               선택한 {checkedShoppingCartList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
             </p>

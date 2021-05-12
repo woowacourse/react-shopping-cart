@@ -13,7 +13,7 @@ import {
 } from '../../modules/shoppingCart';
 import PropTypes from 'prop-types';
 import DialogPortal from '../../DialogPortal';
-import Dialog from '../dialog/Dialog';
+import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
 
 const Container = styled.ul`
@@ -49,7 +49,7 @@ const TrashCanImage = styled.img`
 `;
 
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
+  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
 
   const dispatch = useDispatch();
 
@@ -59,19 +59,26 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
 
   const handleShoppingCartItemDelete = () => {
     setIsDialogOpen(true);
+    setType(DIALOG_TYPE.CONFIRM);
   };
 
   const handleConfirm = () => {
-    clickConfirm(dispatch.bind(null, deleteShoppingCartItem(id)));
+    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch.bind(null, deleteShoppingCartItem(id))) : clickConfirm();
   };
 
   const handleCancel = () => {
     clickCancel();
   };
 
-  // TODO: 개수 error 처리 모달
   const handleIncrement = () => {
-    count < 100 && dispatch(increaseCount(id));
+    if (count >= 99) {
+      setIsDialogOpen(true);
+      setType(DIALOG_TYPE.ALERT);
+
+      return;
+    }
+
+    dispatch(increaseCount(id));
   };
 
   const handleDecrement = () => {
@@ -95,11 +102,21 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
 
       {isDialogOpen && (
         <DialogPortal>
-          <Dialog onConfirm={handleConfirm} onCancel={handleCancel}>
-            <p>
-              해당 상품을 <br /> 삭제하시겠습니까?
-            </p>
-          </Dialog>
+          {type === DIALOG_TYPE.CONFIRM && (
+            <Dialog type={type} onConfirm={handleConfirm} onCancel={handleCancel}>
+              <p>
+                해당 상품을 <br /> 삭제하시겠습니까?
+              </p>
+            </Dialog>
+          )}
+
+          {type === DIALOG_TYPE.ALERT && (
+            <Dialog type={type} onConfirm={handleConfirm}>
+              <p>
+                구매 수량 안내 <br /> 최대 99개까지 구매가 가능합니다.
+              </p>
+            </Dialog>
+          )}
         </DialogPortal>
       )}
     </>
