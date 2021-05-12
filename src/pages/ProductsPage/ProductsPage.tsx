@@ -21,22 +21,20 @@ const ProductsPage = () => {
   const dispatch = useDispatch();
 
   const handleClickCart = (product: T.Product) => {
+    if (cartItems.isLoading) return;
+
     dispatch(addCartItemRequest(product));
+
+    if (cartItems.error) {
+      openSnackbar(cartItems.error.message);
+    } else {
+      openSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
+    }
   };
 
   useEffect(() => {
     dispatch(getProductsRequest());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (cartItems.error) {
-      openSnackbar(cartItems.error.message);
-    }
-
-    if (cartItems.success) {
-      openSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-    }
-  }, [cartItems, openSnackbar]);
 
   return (
     <Styled.Root>

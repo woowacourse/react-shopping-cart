@@ -23,8 +23,8 @@ const SnackbarInner = styled.div<SnackbarInnerProps>`
   border-radius: 2px;
   padding: 16px;
 
-  -webkit-animation: fadeIn 0.5s, fadeOut 0.5s 1.7s;
-  animation: fadeIn 0.5s, fadeOut 0.5s 1.7s;
+  // -webkit-animation: fadeIn 0.5s, fadeOut 0.5s 1.7s;
+  // animation: fadeIn 0.5s, fadeOut 0.5s 1.7s;
 
   @keyframes fadeIn {
     from {

@@ -27,6 +27,8 @@ export const DELETE_CHECKED_ITEMS_REQUEST = 'cartItems/DELETE_CHECKED_ITEMS_REQU
 export const DELETE_CHECKED_ITEMS_SUCCESS = 'cartItems/DELETE_CHECKED_ITEMS_SUCCESS' as const;
 export const DELETE_CHECKED_ITEMS_FAILURE = 'cartItems/DELETE_CHECKED_ITEMS_FAILURE' as const;
 
+export const RESET_CART_ITEMS_STATE = 'cartItems/RESET_CART_ITEMS_STATE' as const;
+
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
   product: T.Product;
