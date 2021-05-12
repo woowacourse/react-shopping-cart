@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import PageTitle from '../components/pageTitle/PageTitle';
-import OrderListItem from '../components/orderListItem/OrderListItem';
-import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import { COLOR } from '../constants/color';
 import { useSelector } from 'react-redux';
+import { PageTitle } from '../components';
+import { OrderListItem } from '../components';
+import { SelectedProductList, SELECTED_PRODUCT_LIST_TYPE } from '../components';
 
 const OrderItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};

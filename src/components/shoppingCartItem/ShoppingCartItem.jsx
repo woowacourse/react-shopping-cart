@@ -1,9 +1,7 @@
 import React from 'react';
-import Checkbox from '../checkbox/Checkbox';
-import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
-import trashCan from '../../assets/trashCan.svg';
 import styled from 'styled-components';
-import CountInput from '../countInput/CountInput';
+import PropTypes from 'prop-types';
+import trashCan from '../../assets/trashCan.svg';
 import { useDispatch } from 'react-redux';
 import {
   decreaseCount,
@@ -11,9 +9,11 @@ import {
   increaseCount,
   toggleShoppingCartItem,
 } from '../../modules/shoppingCart';
-import PropTypes from 'prop-types';
-import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
+import { CountInput } from '../';
+import { Checkbox } from '../';
+import { Dialog, DIALOG_TYPE } from '../';
+import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
 
 const Container = styled.ul`
   display: flex;

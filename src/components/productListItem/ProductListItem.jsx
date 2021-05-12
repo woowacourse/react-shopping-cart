@@ -1,12 +1,12 @@
 import React from 'react';
-import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
-import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
+import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
 import PropTypes from 'prop-types';
 import useDialog from '../../hooks/useDialog';
-import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
+import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
+import { Dialog, DIALOG_TYPE } from '../';
 
 const Content = styled.ul`
   display: flex;

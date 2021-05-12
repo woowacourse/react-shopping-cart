@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import GlobalStyle from './GlobalStyle';
 import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Home from './pages/Home';
-import Navigation from './components/navigation/Navigation';
 import ProductList from './pages/ProductList';
 import ShoppingCart from './pages/ShoppingCart';
 import OrderList from './pages/OrderList';
-import GlobalStyle from './GlobalStyle';
-import styled from 'styled-components';
 import OrderPayment from './pages/OrderPayment';
-import { fetchProductList } from './modules/product';
-import { useDispatch } from 'react-redux';
-import { fetchShoppingCartList } from './modules/shoppingCart';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
+import { fetchProductList } from './modules/product';
+import { fetchShoppingCartList } from './modules/shoppingCart';
 import { getOrderItemList } from './modules/orderList';
+import { Navigation } from './components';
 import { PATH } from './constants/path';
 
 const StyledContents = styled.div`

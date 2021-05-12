@@ -33,7 +33,7 @@ const Menu = styled.ul`
   color: ${COLOR.WHITE};
 `;
 
-const Navigation = () => (
+const HeaderNavigation = () => (
   <Container>
     <Content>
       <Logo>
@@ -58,4 +58,4 @@ const Navigation = () => (
   </Container>
 );
 
-export default Navigation;
+export default HeaderNavigation;

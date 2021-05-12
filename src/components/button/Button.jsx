@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLOR } from '../../constants/color';
 import PropTypes from 'prop-types';
+import { COLOR } from '../../constants/color';
 
 export const BUTTON_TYPE = Object.freeze({
   LARGE: 'LARGE',

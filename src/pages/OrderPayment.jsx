@@ -1,14 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import styled from 'styled-components';
-import OrderListItem from '../components/orderListItem/OrderListItem';
-import PageTitle from '../components/pageTitle/PageTitle';
-import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
-import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
-import { PATH } from '../constants/path';
 import { insertOrderItemList } from '../modules/orderList';
 import { deleteCheckedShoppingCartList } from '../modules/shoppingCart';
+import { OrderListItem } from '../components';
+import { PageTitle } from '../components';
+import { PaymentAmount, PAYMENT_AMOUNT_TYPE } from '../components';
+import { SelectedProductList, SELECTED_PRODUCT_LIST_TYPE } from '../components';
+import { PATH } from '../constants/path';
 
 const Content = styled.section`
   position: relative;

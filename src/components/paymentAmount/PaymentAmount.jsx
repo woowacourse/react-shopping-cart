@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLOR } from '../../constants/color';
-import Button, { BUTTON_TYPE } from '../button/Button';
 import PropTypes from 'prop-types';
-import TextHighlight from '../textHighlight/TextHighlight';
+import { Button, BUTTON_TYPE } from '../';
+import { TextHighlight } from '../';
+import { COLOR } from '../../constants/color';
 
 export const PAYMENT_AMOUNT_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',

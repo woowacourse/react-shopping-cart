@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import upArrow from '../../assets/upArrow.svg';
 import downArrow from '../../assets/downArrow.svg';
 import { COLOR } from '../../constants/color';
-import PropTypes from 'prop-types';
 
 const Container = styled.div`
   position: relative;

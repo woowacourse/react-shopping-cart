@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLOR } from '../../constants/color';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { COLOR } from '../../constants/color';
 import { PATH } from '../../constants/path';
 
 export const SELECTED_PRODUCT_LIST_TYPE = Object.freeze({

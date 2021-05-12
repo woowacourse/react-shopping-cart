@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { COLOR } from '../../constants/color';
 import DialogPortal from '../../DialogPortal';
+import { COLOR } from '../../constants/color';
 
 export const DIALOG_TYPE = Object.freeze({
   ALERT: 'ALERT',
