@@ -3,9 +3,12 @@ import { CUSTOMER_ID, SCHEMA } from '../constants';
 import {
   ACTIVATE_LOADING_SPINNER,
   DEACTIVATE_LOADING_SPINNER,
+  DECREASE_PRODUCT_AMOUNT,
   GET_MY_SHOPPING_CART,
+  INCREASE_PRODUCT_AMOUNT,
   UPDATE_CHECKED_PRODUCT_ITEMS,
   UPDATE_MY_SHOPPING_CART_ITEMS,
+  UPDATE_PRODUCT_AMOUNT_LIST,
   UPDATE_PRODUCT_ITEMS,
 } from './actionType';
 import { store } from './store';
@@ -18,7 +21,20 @@ const deactivateLoading = () => ({
   type: DEACTIVATE_LOADING_SPINNER,
 });
 
-// const addProductAmount;
+const increaseProductAmount = productId => ({
+  type: INCREASE_PRODUCT_AMOUNT,
+  productId,
+});
+
+const decreaseProductAmount = productId => ({
+  type: DECREASE_PRODUCT_AMOUNT,
+  productId,
+});
+
+const updateProductAmount = productId => ({
+  type: UPDATE_PRODUCT_AMOUNT_LIST,
+  productId,
+});
 
 const updateCheckedProductItems = productItems => ({
   type: UPDATE_CHECKED_PRODUCT_ITEMS,
@@ -77,6 +93,9 @@ export {
   activateLoading,
   deactivateLoading,
   updateCheckedProductItems,
+  increaseProductAmount,
+  decreaseProductAmount,
+  updateProductAmount,
   updateShoppingCartItemsAsync,
   getMyShoppingCartAsync,
   updateProductItemsAsync,

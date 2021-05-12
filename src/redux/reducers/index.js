@@ -5,6 +5,7 @@ import productListReducer from './productList';
 import myShoppingCartReducer from './myShoppingCart';
 import loadingReducer from './loading';
 import checkedProductReducer from './checkedProductList';
+import productAmountDictReducer from './productAmount';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   loadingReducer,
   productListReducer,
   checkedProductReducer,
+  productAmountDictReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -13,8 +13,14 @@ import {
   ShoppingCartItemOption,
   DeleteButton,
 } from './ShoppingCartPage.styles';
-import { ROUTE, AMOUNT_COUNT, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import { updateShoppingCartItemsAsync, updateCheckedProductItems } from '../../redux/action';
+import { ROUTE, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
+import {
+  updateShoppingCartItemsAsync,
+  updateCheckedProductItems,
+  increaseProductAmount,
+  decreaseProductAmount,
+  updateProductAmount,
+} from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem, TrashCanIcon } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
@@ -37,8 +43,12 @@ const ShoppingCartPage = () => {
     checkedProductList: state.checkedProductReducer.checkedProductList,
   }));
 
+  const { productAmountDict } = useSelector(state => ({
+    productAmountDict: state.productAmountDictReducer.productAmountDict,
+  }));
+
   const [isAllChecked, setAllChecked] = useState(false);
-  const [shoppingCartItemList, setShoppingCartItemList] = useState([]);
+
   const [expectedPrice, setExpectedPrice] = useState(0);
 
   const onClickAllCheckBox = () => {
@@ -68,11 +78,15 @@ const ShoppingCartPage = () => {
     if (targetId) {
       const newContent = { productIdList: myShoppingCartProductIds.filter(productId => productId !== targetId) };
       dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+      dispatch(updateProductAmount(targetId));
+      dispatch(updateCheckedProductItems(checkedProductList.filter(checkedProductId => checkedProductId !== targetId)));
     } else {
       const newContent = {
         productIdList: myShoppingCartProductIds.filter(productId => !checkedProductList.includes(productId)),
       };
+      Promise.all(myShoppingCartProductIds.map(productId => dispatch(updateProductAmount(productId))));
       dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+      dispatch(updateCheckedProductItems([]));
     }
   };
 
@@ -82,46 +96,38 @@ const ShoppingCartPage = () => {
     const newContent = {
       productIdList: myShoppingCartProductIds.filter(productId => !checkedProductList.includes(productId)),
     };
+    const checkedItemList = [...checkedProductList].map(id => ({ id, amount: productAmountDict[id] }));
+
     dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+    Promise.all(checkedProductList.map(productId => dispatch(updateProductAmount(productId))));
+    dispatch(updateCheckedProductItems([]));
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
       state: {
-        checkedItemList: shoppingCartItemList.filter(({ id }) => checkedProductList.includes(id)),
+        checkedItemList,
       },
     });
   };
 
   const onClickAmountCounter = (productId, flag) => {
-    const newState = [...shoppingCartItemList];
-    const targetProduct = newState.find(({ id }) => id === productId);
-
     if (flag === AMOUNT_COUNTER_FLAG.UP) {
-      targetProduct.amount += targetProduct.amount < AMOUNT_COUNT.MAX ? 1 : 0;
+      dispatch(increaseProductAmount(productId));
     } else if (flag === AMOUNT_COUNTER_FLAG.DOWN) {
-      targetProduct.amount -= targetProduct.amount > AMOUNT_COUNT.MIN ? 1 : 0;
+      dispatch(decreaseProductAmount(productId));
     }
-
-    setShoppingCartItemList(newState);
   };
 
   useEffect(() => {
-    setShoppingCartItemList(
-      productList.filter(({ id }) => myShoppingCartProductIds.includes(id)).map(product => ({ ...product, amount: 1 }))
-    );
-  }, [productList, myShoppingCartProductIds]);
-
-  useEffect(() => {
-    if (!shoppingCartItemList.length) return;
-
-    const newExpectedPrice = checkedProductList.reduce((acc, checkedId) => {
-      const { price, amount } = shoppingCartItemList.find(({ id }) => id === checkedId);
-
+    const newExpectedPrice = checkedProductList.reduce((acc, productId) => {
+      const amount = productAmountDict[productId] || 0;
+      const { price } = productList.find(product => product.id === productId);
+      console.log(amount, price);
       return acc + price * amount;
     }, 0);
 
     setExpectedPrice(newExpectedPrice);
-  }, [checkedProductList, shoppingCartItemList]);
+  }, [checkedProductList, myShoppingCartProductIds, productAmountDict, productList]);
 
   return (
     <ScreenContainer route={location.pathname}>
@@ -137,27 +143,32 @@ const ShoppingCartPage = () => {
             </DeleteButton>
           </OptionContainer>
 
-          <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
+          <ShoppingCartListTitle>{`장바구니 상품 (${myShoppingCartProductIds.length}개)`}</ShoppingCartListTitle>
 
           <ShoppingCartList>
-            {shoppingCartItemList.map(({ id, img, name, price, amount }) => {
-              const isChecked = checkedProductList.includes(id);
+            {myShoppingCartProductIds.map(productId => {
+              const isChecked = checkedProductList.includes(productId);
+              const { img, name, price } = productList.find(({ id }) => id === productId);
+              const amount = productAmountDict[productId] || 1;
+              if (!productAmountDict[productId]) {
+                dispatch(updateProductAmount(productId));
+              }
 
               return (
-                <ShoppingCartItemContainer key={id}>
+                <ShoppingCartItemContainer key={productId}>
                   <ShoppingCartItem>
-                    <CheckBox id={id} onClick={onClickCheckBox} isChecked={isChecked} />
+                    <CheckBox id={productId} onClick={onClickCheckBox} isChecked={isChecked} />
                     <RowProductItem imgSrc={img} name={name} />
                   </ShoppingCartItem>
 
                   <ShoppingCartItemOption>
-                    <button type="button" onClick={() => onClickDeleteButton(id)}>
+                    <button type="button" onClick={() => onClickDeleteButton(productId)}>
                       <TrashCanIcon />
                     </button>
                     <AmountCounter
                       value={amount}
-                      onClickUp={() => onClickAmountCounter(id, 'up')}
-                      onClickDown={() => onClickAmountCounter(id, 'down')}
+                      onClickUp={() => onClickAmountCounter(productId, 'up')}
+                      onClickDown={() => onClickAmountCounter(productId, 'down')}
                     />
                     <span>{`${numberWithCommas(price * amount)}원`}</span>
                   </ShoppingCartItemOption>
