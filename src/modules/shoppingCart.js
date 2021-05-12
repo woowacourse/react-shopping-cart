@@ -1,6 +1,6 @@
 import { httpClient } from '../request/httpClient';
 
-// TODO: LIST -> ITEM_LIST
+// TODO: LIST -> ITEM_LIST 또는 페이지 이름을 변경
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
 const DELETE_CHECKED_SHOPPING_CART_LIST = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_LIST';
@@ -10,7 +10,6 @@ const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_CART_ITE
 const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
 const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
-// TODO: payload or 우리가 원하는 키 주기
 export const insertShoppingCartItem = (shoppingCartItem) => async (dispatch) => {
   try {
     await httpClient.post({ path: 'shoppingCartList', body: shoppingCartItem });
@@ -98,7 +97,6 @@ const shoppingCart = (state = initialState, action) => {
         shoppingCartList: action.payload,
       };
     }
-    // TODO: 알고리즘 수정하기
     case TOGGLE_SHOPPING_CART_ITEM: {
       const changedShoppingCartList = state.shoppingCartList.map((shoppingCartItem) => {
         if (shoppingCartItem.id === action.payload) {

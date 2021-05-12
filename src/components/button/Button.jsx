@@ -41,14 +41,13 @@ const buttonStyle = {
   },
 };
 
-// TODO Object.keys()로 할 필요가 있나? buttonStyle[type] ? buttonStyle[type] : buttonStyle['MEDIUM']하면 될 듯
 const Container = styled.button`
   text-align: center;
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
   color: ${({ disabled }) => (disabled ? COLOR.GRAY_300 : 'inherit')};
 
-  ${({ type }) => (Object.keys(BUTTON_TYPE).includes(type) ? buttonStyle[type] : buttonStyle[BUTTON_TYPE.MEDIUM])};
+  ${({ type }) => buttonStyle[type] || buttonStyle[BUTTON_TYPE.MEDIUM]};
   ${({ styles }) => styles};
 `;
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import Button, { BUTTON_TYPE } from '../button/Button';
 import PropTypes from 'prop-types';
+import TextHighlight from '../textHighlight/TextHighlight';
 
 export const PAYMENT_AMOUNT_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
@@ -40,23 +41,6 @@ const TextWrapper = styled.div`
   justify-content: space-between;
   padding: 32px 30px 64px 30px;
   font-size: 20px;
-`;
-
-// TODO: 컴포넌트로 뺄 수 있을 것 같음
-const TextHighlight = styled.span`
-  position: relative;
-
-  &::after {
-    position: absolute;
-    display: inline-block;
-    content: ' ';
-    width: 100%;
-    height: 8px;
-    background: rgba(42, 193, 188, 0.5);
-    left: 0px;
-    bottom: 0px;
-    z-index: -1;
-  }
 `;
 
 const getButtonText = ({ type, count, price }) => {

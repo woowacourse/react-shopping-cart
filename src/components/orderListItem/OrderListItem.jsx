@@ -69,7 +69,6 @@ const getFloatingButton = ({ type }) => {
   return buttonType[type];
 };
 
-// TODO: type이 들어오지 않았을 때 error처리 생각해보기
 const OrderListItem = ({ type, src, alt, name, count, price }) => (
   <Container type={type}>
     <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />

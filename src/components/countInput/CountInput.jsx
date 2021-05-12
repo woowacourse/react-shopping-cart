@@ -47,7 +47,6 @@ const ButtonWrapper = styled.div`
   height: 60px;
 `;
 
-// TODO: div?? button으로 바꿀 수 있으면 바꾸자
 const StyledButton = styled.div`
   position: relative;
   cursor: pointer;
