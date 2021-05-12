@@ -73,14 +73,14 @@ const getHeader = ({ type, count, orderNumber }) => {
   return headerType[type];
 };
 
-const SelectedProductList = ({ listType, itemType, orderNumber, productList, ListItem }) => (
+const SelectedProductList = ({ type, orderNumber, productList, ListItem }) => (
   <>
-    {getHeader({ type: listType, count: productList.length, orderNumber })}
+    {getHeader({ type, count: productList.length, orderNumber })}
     <ul>
       {productList.map(({ src, id, alt, name, price, count, isChecked }) => (
-        <ListItemWrapper type={listType} key={id}>
+        <ListItemWrapper type={type} key={id}>
           <ListItem
-            type={itemType}
+            type={type}
             id={id}
             src={src}
             alt={alt}
@@ -96,8 +96,7 @@ const SelectedProductList = ({ listType, itemType, orderNumber, productList, Lis
 );
 
 SelectedProductList.propTypes = {
-  listType: PropTypes.string.isRequired,
-  itemType: PropTypes.string,
+  type: PropTypes.string.isRequired,
   orderNumber: PropTypes.number,
   productList: PropTypes.arrayOf(
     PropTypes.shape({

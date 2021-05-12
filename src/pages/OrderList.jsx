@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PageTitle from '../components/pageTitle/PageTitle';
-import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
+import OrderListItem from '../components/orderListItem/OrderListItem';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import { COLOR } from '../constants/color';
 import { useSelector } from 'react-redux';
@@ -22,8 +22,7 @@ const OrderList = () => {
         {orderItemList.map((orderItem) => (
           <OrderItemListWrapper key={orderItem.orderNumber}>
             <SelectedProductList
-              listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_LIST}
-              itemType={ORDER_LIST_ITEM_TYPE.ORDER_LIST}
+              type={SELECTED_PRODUCT_LIST_TYPE.ORDER_LIST}
               productList={orderItem.itemList}
               orderNumber={orderItem.orderNumber}
               ListItem={OrderListItem}

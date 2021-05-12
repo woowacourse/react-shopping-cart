@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
-import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
+import OrderListItem from '../components/orderListItem/OrderListItem';
 import PageTitle from '../components/pageTitle/PageTitle';
 import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
@@ -44,8 +44,7 @@ const OrderPayment = () => {
       <Content>
         <div>
           <SelectedProductList
-            listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
-            itemType={ORDER_LIST_ITEM_TYPE.ORDER_PAYMENT}
+            type={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
             productList={orderItemList}
             ListItem={OrderListItem}
           />

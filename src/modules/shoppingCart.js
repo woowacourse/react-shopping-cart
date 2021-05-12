@@ -145,7 +145,6 @@ const shoppingCart = (state = initialState, action) => {
       };
     }
 
-    // TODO: 알고리즘 수정하기
     case TOGGLE_SHOPPING_CART_ITEM: {
       const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
         if (shoppingCartItem.id === action.payload) {
@@ -170,49 +169,49 @@ const shoppingCart = (state = initialState, action) => {
     }
 
     case TOGGLE_ALL_SHOPPING_CART_ITEM: {
+      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => ({
+        ...shoppingCartItem,
+        isChecked: !state.isAllShoppingCartItemChecked,
+      }));
+
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(
-          state.shoppingCartList.data.map((shoppingCartItem) => ({
-            ...shoppingCartItem,
-            isChecked: !state.isAllShoppingCartItemChecked,
-          }))
-        ),
+        shoppingCartList: reducerUtils.success(changedShoppingCartList),
         isAllShoppingCartItemChecked: !state.isAllShoppingCartItemChecked,
       };
     }
 
     case INCREASE_COUNT: {
+      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
+        if (shoppingCartItem.id === action.payload) {
+          return {
+            ...shoppingCartItem,
+            count: shoppingCartItem.count + 1,
+          };
+        }
+        return shoppingCartItem;
+      });
+
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(
-          state.shoppingCartList.data.map((shoppingCartItem) => {
-            if (shoppingCartItem.id === action.payload) {
-              return {
-                ...shoppingCartItem,
-                count: shoppingCartItem.count + 1,
-              };
-            }
-            return shoppingCartItem;
-          })
-        ),
+        shoppingCartList: reducerUtils.success(changedShoppingCartList),
       };
     }
 
     case DECREASE_COUNT: {
+      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
+        if (shoppingCartItem.id === action.payload) {
+          return {
+            ...shoppingCartItem,
+            count: shoppingCartItem.count - 1,
+          };
+        }
+        return shoppingCartItem;
+      });
+
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(
-          state.shoppingCartList.data.map((shoppingCartItem) => {
-            if (shoppingCartItem.id === action.payload) {
-              return {
-                ...shoppingCartItem,
-                count: shoppingCartItem.count - 1,
-              };
-            }
-            return shoppingCartItem;
-          })
-        ),
+        shoppingCartList: reducerUtils.success(changedShoppingCartList),
       };
     }
     default:

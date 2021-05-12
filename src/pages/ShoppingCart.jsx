@@ -127,7 +127,7 @@ const ShoppingCart = () => {
             </Button>
           </ShoppingCartItemModification>
           <SelectedProductList
-            listType={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
+            type={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
             productList={shoppingCartList}
             ListItem={ShoppingCartItem}
           />
