@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashRouter as Router } from 'react-router-dom';
 import Header from '.';
 import { HEADER } from '../../constants/appInfo';
 import ShoppingCart from '../common/Icon/ShoppingCart';
@@ -10,7 +11,11 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Header {...args} />;
+const Template = (args) => (
+  <Router>
+    <Header {...args} />
+  </Router>
+);
 
 export const Default = Template.bind({});
 Default.args = {
