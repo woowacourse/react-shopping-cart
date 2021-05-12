@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const Template = (props) => {
   const { viewport, children, ...rest } = props;
   return (
     <>
-      <Styled.Container {...rest}>
-        <Styled.Viewport style={viewport}>{children}</Styled.Viewport>
-      </Styled.Container>
+      <S.Container {...rest}>
+        <S.Viewport style={viewport}>{children}</S.Viewport>
+      </S.Container>
     </>
   );
 };

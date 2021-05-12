@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
-import * as Styled from './style.js';
+import * as S from './style.js';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
 
@@ -31,27 +31,24 @@ export const CartPage = () => {
     dispatch(getAction.inputProductQuantity(id, quantity));
 
   return (
-    <Styled.Page>
+    <S.Page>
       <Header>장바구니</Header>
-      <Styled.Main>
-        <Styled.OrderOptionsSection>
-          <Styled.OrderOptionsController>
+      <S.Main>
+        <S.OrderOptionsSection>
+          <S.OrderOptionsController>
             <Checkbox
               label={isAllSelected ? '선택해제' : '전체선택'}
               isChecked={isAllSelected}
               onChange={dispatchToggleAllProductSelection}
             />
-            <Styled.DeleteButton
-              onClick={dispatchRemoveSelectedProducts}
-              disabled={isAllUnselected}
-            >
+            <S.DeleteButton onClick={dispatchRemoveSelectedProducts} disabled={isAllUnselected}>
               상품삭제
-            </Styled.DeleteButton>
-          </Styled.OrderOptionsController>
-          <Styled.ListLabel>
+            </S.DeleteButton>
+          </S.OrderOptionsController>
+          <S.ListLabel>
             선택상품 ({selectedProducts.length} / {cartProducts.length}개)
-          </Styled.ListLabel>
-          <Styled.CartProductList>
+          </S.ListLabel>
+          <S.CartProductList>
             {cartProducts.map((product) => (
               <CartProductItem
                 key={product.id}
@@ -63,10 +60,10 @@ export const CartPage = () => {
                 inputQuantity={dispatchInputProductQuantity}
               />
             ))}
-          </Styled.CartProductList>
-        </Styled.OrderOptionsSection>
-        <Styled.CheckoutSection>
-          <Styled.StickyCheckoutBox
+          </S.CartProductList>
+        </S.OrderOptionsSection>
+        <S.CheckoutSection>
+          <S.StickyCheckoutBox
             title="결제예상금액"
             label="결제예상금액"
             price={getFormattedAsKRW(totalPrice)}
@@ -74,8 +71,8 @@ export const CartPage = () => {
             buttonDisabled={isAllUnselected}
             onClickButton={onClickCheckoutButton}
           />
-        </Styled.CheckoutSection>
-      </Styled.Main>
-    </Styled.Page>
+        </S.CheckoutSection>
+      </S.Main>
+    </S.Page>
   );
 };

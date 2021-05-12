@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const Button = (props) => {
-  return <Styled.Button {...props}></Styled.Button>;
+  return <S.Button {...props}></S.Button>;
 };
 
 Button.propTypes = {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { getFormattedAsKRW } from '../../../../utils';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const OrderedProductItem = (props) => {
   const { product, addProduct, ...rest } = props;
@@ -8,16 +8,16 @@ export const OrderedProductItem = (props) => {
   const totalPriceAsKRW = getFormattedAsKRW(price * quantity);
 
   return (
-    <Styled.Container {...rest}>
-      <Styled.Image src={img} />
-      <Styled.Content>
-        <Styled.Name>{name}</Styled.Name>
-        <Styled.OrderSummary>
+    <S.Container {...rest}>
+      <S.Image src={img} />
+      <S.Content>
+        <S.Name>{name}</S.Name>
+        <S.OrderSummary>
           {totalPriceAsKRW} / 수량 : {quantity}
-        </Styled.OrderSummary>
-      </Styled.Content>
-      <Styled.AddToCartButton onClick={() => addProduct(product)}>장바구니</Styled.AddToCartButton>
-    </Styled.Container>
+        </S.OrderSummary>
+      </S.Content>
+      <S.AddToCartButton onClick={() => addProduct(product)}>장바구니</S.AddToCartButton>
+    </S.Container>
   );
 };
 

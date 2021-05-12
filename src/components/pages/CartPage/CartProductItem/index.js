@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
+import * as S from './style.js';
 import { PATTERN_ONLY_NUMBER } from '../../../../constants';
 import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../commons';
 import { getFormattedAsKRW } from '../../../../utils';
@@ -46,11 +46,11 @@ export const CartProductItem = (props) => {
   };
 
   return (
-    <Styled.Container {...rest}>
+    <S.Container {...rest}>
       <Checkbox isChecked={isSelected} onChange={() => toggleCheckbox(id)} />
-      <Styled.Image src={img} />
-      <Styled.Name>{name}</Styled.Name>
-      <Styled.Controller>
+      <S.Image src={img} />
+      <S.Name>{name}</S.Name>
+      <S.Controller>
         <Button children={<TrashCanIcon />} onClick={() => removeProduct(id)} />
         <QuantityStepper
           quantity={quantity}
@@ -58,9 +58,9 @@ export const CartProductItem = (props) => {
           onDecrement={onDecrementQuantity}
           onInput={onInputQuantity}
         />
-        <Styled.Price>{getFormattedAsKRW(price)}</Styled.Price>
-      </Styled.Controller>
-    </Styled.Container>
+        <S.Price>{getFormattedAsKRW(price)}</S.Price>
+      </S.Controller>
+    </S.Container>
   );
 };
 

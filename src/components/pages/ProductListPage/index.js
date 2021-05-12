@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadData, PRODUCT_LIST } from '../../../firebase';
 import { getAction } from '../../../redux';
-import * as Styled from './style.js';
+import * as S from './style.js';
 import { ProductItem } from './ProductItem';
 
 export const ProductListPage = () => {
@@ -15,12 +15,12 @@ export const ProductListPage = () => {
   }, []);
 
   return (
-    <Styled.Page>
-      <Styled.ProductList>
+    <S.Page>
+      <S.ProductList>
         {products.map((product) => (
           <ProductItem key={product.id} product={product} addProduct={dispatchAddProduct} />
         ))}
-      </Styled.ProductList>
-    </Styled.Page>
+      </S.ProductList>
+    </S.Page>
   );
 };

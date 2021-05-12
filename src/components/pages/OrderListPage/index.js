@@ -4,7 +4,7 @@ import { getAction } from '../../../redux';
 import { loadSortedData, ORDER_LIST, ORDER_ID, DESC } from '../../../firebase';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../commons';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
@@ -21,17 +21,17 @@ export const OrderListPage = () => {
   }, []);
 
   return (
-    <Styled.Page>
+    <S.Page>
       <Header>주문목록</Header>
-      <Styled.Main>
-        <Styled.OrderList>
+      <S.Main>
+        <S.OrderList>
           {orders.map(({ orderId, orderItems }) => (
-            <Styled.OrderItem key={orderId}>
-              <Styled.OrderLabel>
-                <Styled.OrderNumber>주문번호 : {orderId}</Styled.OrderNumber>
-                <Styled.ToDetailButton>상세보기 {`>`}</Styled.ToDetailButton>
-              </Styled.OrderLabel>
-              <Styled.OrderedProductList>
+            <S.OrderItem key={orderId}>
+              <S.OrderLabel>
+                <S.OrderNumber>주문번호 : {orderId}</S.OrderNumber>
+                <S.ToDetailButton>상세보기 {`>`}</S.ToDetailButton>
+              </S.OrderLabel>
+              <S.OrderedProductList>
                 {orderItems.map((product) => (
                   <OrderedProductItem
                     key={product.id}
@@ -39,11 +39,11 @@ export const OrderListPage = () => {
                     addProduct={dispatchAddProduct}
                   />
                 ))}
-              </Styled.OrderedProductList>
-            </Styled.OrderItem>
+              </S.OrderedProductList>
+            </S.OrderItem>
           ))}
-        </Styled.OrderList>
-      </Styled.Main>
-    </Styled.Page>
+        </S.OrderList>
+      </S.Main>
+    </S.Page>
   );
 };

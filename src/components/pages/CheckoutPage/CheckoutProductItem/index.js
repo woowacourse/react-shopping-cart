@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const CheckoutProductItem = (props) => {
   const { product, ...rest } = props;
   const { name, img, quantity } = product;
 
   return (
-    <Styled.Container {...rest}>
-      <Styled.Image src={img} />
-      <Styled.Content>
-        <Styled.Name>{name}</Styled.Name>
-        <Styled.Quantity>수량 : {quantity}</Styled.Quantity>
-      </Styled.Content>
-    </Styled.Container>
+    <S.Container {...rest}>
+      <S.Image src={img} />
+      <S.Content>
+        <S.Name>{name}</S.Name>
+        <S.Quantity>수량 : {quantity}</S.Quantity>
+      </S.Content>
+    </S.Container>
   );
 };
 

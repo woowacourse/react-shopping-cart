@@ -4,7 +4,7 @@ import { getAction } from '../../../redux';
 import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header } from '../../commons';
-import * as Styled from './style.js';
+import * as S from './style.js';
 import { getFormattedAsKRW, getDateInNumber } from '../../../utils';
 import { ROUTE } from '../../../constants';
 
@@ -30,27 +30,27 @@ export const CheckoutPage = () => {
   };
 
   return (
-    <Styled.Page>
+    <S.Page>
       <Header>주문/결제</Header>
-      <Styled.Main>
-        <Styled.ListSection>
-          <Styled.ListLabel>주문 상품 ({checkoutProducts.length}건)</Styled.ListLabel>
-          <Styled.CheckoutProductList>
+      <S.Main>
+        <S.ListSection>
+          <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
+          <S.CheckoutProductList>
             {checkoutProducts.map((product) => (
               <CheckoutProductItem key={product.id} product={product} />
             ))}
-          </Styled.CheckoutProductList>
-        </Styled.ListSection>
-        <Styled.CheckoutSection>
-          <Styled.StickyCheckoutBox
+          </S.CheckoutProductList>
+        </S.ListSection>
+        <S.CheckoutSection>
+          <S.StickyCheckoutBox
             title="결제예상금액"
             label="총 결제금액"
             price={totalPriceAsKRW}
             buttonText={`${totalPriceAsKRW} 결제하기`}
             onClickButton={onClickCheckoutButton}
           />
-        </Styled.CheckoutSection>
-      </Styled.Main>
-    </Styled.Page>
+        </S.CheckoutSection>
+      </S.Main>
+    </S.Page>
   );
 };

@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import { UpwardIcon, DownwardIcon } from '../../';
-import * as Styled from './style.js';
+import * as S from './style.js';
 
 export const QuantityStepper = (props) => {
   const { quantity, onIncrement, onDecrement, onInput, ...rest } = props;
 
   return (
-    <Styled.Container {...rest}>
-      <Styled.Input value={quantity} onChange={onInput} />
-      <Styled.Controller>
-        <Styled.StepperButton onClick={onIncrement} children={<UpwardIcon />} isUpward />
-        <Styled.StepperButton onClick={onDecrement} children={<DownwardIcon />} />
-      </Styled.Controller>
-    </Styled.Container>
+    <S.Container {...rest}>
+      <S.Input value={quantity} onChange={onInput} />
+      <S.Controller>
+        <S.StepperButton onClick={onIncrement} children={<UpwardIcon />} isUpward />
+        <S.StepperButton onClick={onDecrement} children={<DownwardIcon />} />
+      </S.Controller>
+    </S.Container>
   );
 };
 
