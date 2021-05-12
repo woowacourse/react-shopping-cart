@@ -4,7 +4,7 @@ import { Container, Input, ButtonWrapper, Button, Icon } from './style';
 import arrowUp from '../../../assets/icons/arrow-up.svg';
 import arrowDown from '../../../assets/icons/arrow-down.svg';
 
-const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1 }) => {
+const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1, ariaLabel }) => {
   const onIncrement = () => {
     if (value < max) {
       setValue(Number(value) + step);
@@ -42,13 +42,14 @@ const NumericInput = ({ min = 0, max = 99, value, setValue, step = 1 }) => {
         value={value}
         onChange={onChange}
         onBlur={onFocusout}
+        aria-label={`${ariaLabel} 입력`}
       />
       <ButtonWrapper>
-        <Button onClick={onIncrement}>
+        <Button onClick={onIncrement} aria-label={`${ariaLabel} ${step}개 증가`}>
           <Icon src={arrowUp} alt="증가" />
         </Button>
         <Button onClick={onDecrement}>
-          <Icon src={arrowDown} alt="감소" />
+          <Icon src={arrowDown} alt="감소" aria-label={`${ariaLabel} ${step}개 감소`} />
         </Button>
       </ButtonWrapper>
     </Container>

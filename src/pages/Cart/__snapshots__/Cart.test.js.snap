@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cart /> matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-ksdxAp cFwGOh"
+  >
+    <h2
+      class="sc-hBURRC eBjsOr"
+    >
+      장바구니
+    </h2>
+    <div
+      class="sc-fotPbf dYrQej"
+    >
+      <div
+        class="sc-fFehDp ctsaqC"
+      >
+        <div
+          class="sc-bkkfTU kAcZej"
+        >
+          <label
+            class="sc-kfPtPH bmIoel"
+          >
+            <input
+              checked=""
+              hidden=""
+              type="checkbox"
+            />
+            <span />
+            선택해제
+          </label>
+          <button
+            class="sc-bdvvaa VaouB"
+            color="#333333"
+            font-size="1rem"
+            height="50px"
+            type="button"
+            width="118px"
+          >
+            상품 삭제
+          </button>
+        </div>
+        <div
+          class="sc-ieebsP"
+        >
+          <h3
+            class="sc-dJjZJu cNyfZz"
+          >
+            배송상품 (
+            1
+            개)
+          </h3>
+          <div
+            class="sc-hGPAah"
+          >
+            <div
+              class="sc-dlVyqM dsYsil"
+            >
+              <label
+                class="sc-kfPtPH bmIoel"
+              >
+                <input
+                  checked=""
+                  hidden=""
+                  type="checkbox"
+                />
+                <span />
+              </label>
+              <div
+                class="sc-jrQzUz ffqCKT"
+              >
+                <div
+                  class="sc-iCfLBT"
+                >
+                  <div
+                    class="sc-furvIG bEiCtt"
+                  >
+                    <img
+                      alt="[든든] 유부 슬라이스 500g"
+                      class="sc-pVTma gOPKiY"
+                      src="https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sc-kDThTU bQjZIX"
+                >
+                  <h4
+                    class="sc-iqsfdx hvMujD"
+                  >
+                    [든든] 유부 슬라이스 500g
+                  </h4>
+                  <div
+                    class="sc-crHlIS cPCMEP"
+                  />
+                </div>
+                <div
+                  class="sc-egiSv ggtrWD"
+                >
+                  <button
+                    class="sc-bqiQRQ suzEO"
+                    type="button"
+                  >
+                    <svg>
+                      trash-bin.svg
+                    </svg>
+                  </button>
+                  <div
+                    class="sc-dkPtyc ibPmRP"
+                  >
+                    <input
+                      aria-label="[든든] 유부 슬라이스 500g 수량 변경 입력"
+                      class="sc-hKwCoD kXeTvV"
+                      max="99"
+                      min="1"
+                      type="number"
+                      value="4"
+                    />
+                    <div
+                      class="sc-eCImvq isEnoV"
+                    >
+                      <button
+                        aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 증가"
+                        class="sc-jRQAMF crVgkL"
+                      >
+                        <img
+                          alt="증가"
+                          class="sc-gKckTs fNcpol"
+                          src="arrow-up.svg"
+                        />
+                      </button>
+                      <button
+                        class="sc-jRQAMF crVgkL"
+                      >
+                        <img
+                          alt="감소"
+                          aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 감소"
+                          class="sc-gKckTs fNcpol"
+                          src="arrow-down.svg"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="[든든] 유부 슬라이스 500g 합산 가격"
+                  >
+                    19,600
+                     원
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sc-fKVsgm bTeRLh"
+      >
+        <h3
+          class="sc-bBHwJV hCzjLe"
+        >
+          결제예상금액
+        </h3>
+        <div
+          class="sc-iwjezw dYJmqN"
+        >
+          <div
+            class="sc-cxpRKc jWStsh"
+          >
+            <span
+              class="sc-gsDJrp cVrBFO"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              결제예상금액
+            </span>
+            <span
+              aria-label="결제예상금액"
+              class="sc-gsDJrp cVrBFO"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              19,600원
+            </span>
+          </div>
+          <button
+            class="sc-bdvvaa jnIuRd"
+            color="#FFFFFF"
+            font-size="1.5rem"
+            height="74px"
+            type="button"
+            width="100%"
+          >
+            주문하기(
+            1
+            개)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

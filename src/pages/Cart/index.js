@@ -89,6 +89,7 @@ const Cart = () => {
               type="button"
               width="118px"
               height="50px"
+              color={COLOR.BLACK}
               backgroundColor={COLOR.WHITE}
               borderColor={COLOR['GRAY-300']}
               fontSize="1rem"
@@ -128,8 +129,11 @@ const Cart = () => {
                           max={99}
                           value={quantity}
                           setValue={quantity => onItemQuantityChange({ id, quantity })}
+                          ariaLabel={`${name} 수량 변경`}
                         />
-                        <div>{(price * quantity).toLocaleString('ko-KR')} 원</div>
+                        <div aria-label={`${name} 합산 가격`}>
+                          {(price * quantity).toLocaleString('ko-KR')} 원
+                        </div>
                       </>
                     }
                   />
@@ -145,8 +149,12 @@ const Cart = () => {
               <HighlightText color={COLOR.HIGHLIGHT_MINT} fontSize="1.25rem">
                 결제예상금액
               </HighlightText>
-              <HighlightText color={COLOR.HIGHLIGHT_MINT} fontSize="1.25rem">
-                {totalPrice.toLocaleString('ko-KR')} 원
+              <HighlightText
+                color={COLOR.HIGHLIGHT_MINT}
+                fontSize="1.25rem"
+                ariaLabel="결제예상금액"
+              >
+                {totalPrice.toLocaleString('ko-KR') + '원'}
               </HighlightText>
             </ReceiptRow>
 
