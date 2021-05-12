@@ -22,19 +22,29 @@ firebase.initializeApp(config);
 
 const db = firebase.firestore();
 
-// TODO 에러 처리
 export const loadData = async ({ table, handler }) => {
-  const response = await db.collection(table).get();
-  handler(response.docs.map((doc) => doc.data()));
+  try {
+    const response = await db.collection(table).get();
+    handler(response.docs.map((doc) => doc.data()));
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-// TODO 에러 처리
 export const loadSortedData = async ({ table, handler, sortField = '', sortDirection = ASC }) => {
-  const response = await db.collection(table).orderBy(sortField, sortDirection).get();
-  handler(response.docs.map((doc) => doc.data()));
+  try {
+    const response = await db.collection(table).orderBy(sortField, sortDirection).get();
+    handler(response.docs.map((doc) => doc.data()));
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-// TODO 에러 처리
 export const addData = async ({ table, key, value }) => {
-  db.collection(table).doc(key).set(value);
+  try {
+    db.collection(table).doc(key).set(value);
+  } catch (e) {
+    console.error(e);
+    throw new Error(e);
+  }
 };

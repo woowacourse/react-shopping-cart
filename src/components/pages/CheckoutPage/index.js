@@ -20,13 +20,17 @@ export const CheckoutPage = () => {
     const orderId = getDateInNumber();
     const orderItems = checkoutProducts;
 
-    addData({
-      table: ORDER_LIST,
-      key: orderId,
-      value: { orderId, orderItems },
-    });
-    dispatch(cartAction.checkout());
-    history.push(ROUTE.ORDER_LIST);
+    try {
+      addData({
+        table: ORDER_LIST,
+        key: orderId,
+        value: { orderId, orderItems },
+      });
+      dispatch(cartAction.checkout());
+      history.push(ROUTE.ORDER_LIST);
+    } catch (e) {
+      // TODO: 구매 실패 안내 페이지로 이동
+    }
   };
 
   return (
