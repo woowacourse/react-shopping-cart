@@ -168,4 +168,13 @@ describe('<Cart />', () => {
     checkBoxes.forEach(checkbox => expect(checkbox).toBeChecked());
     expect(totalPrice.textContent).toBe('26,700원');
   });
+
+  it('모든 상품이 선택해제되어 있을 때 상품삭제버튼과, 결제버튼이 비활성화 된다.', () => {
+    const utils = render(<Cart />, { initialState: initialStateWithNotChecked });
+    const deleteButton = utils.getByRole('button', { name: /상품 삭제/i });
+    const purchaseButton = utils.getByRole('button', { name: /주문하기\(0개\)/i });
+
+    expect(deleteButton).toBeDisabled();
+    expect(purchaseButton).toBeDisabled();
+  });
 });
