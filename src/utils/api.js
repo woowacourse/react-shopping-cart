@@ -1,14 +1,18 @@
 import { BASE_URL } from '../constants';
 
 const request = async (url, option = {}) => {
-  const res = await fetch(url, option);
-  const body = await res.json();
+  try {
+    const res = await fetch(url, option);
+    const body = await res.json();
 
-  if (!res.ok) {
-    throw new Error(`http request Error : ${res.status}${body.error.message}`);
+    if (!res.ok) {
+      throw new Error(`http request Error : ${res.status}`);
+    }
+
+    return body;
+  } catch (error) {
+    throw new Error(`http request Error : ${error}`);
   }
-
-  return body;
 };
 
 const API = {
