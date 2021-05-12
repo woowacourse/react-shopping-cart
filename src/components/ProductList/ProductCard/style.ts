@@ -4,6 +4,13 @@ import Container from '../../shared/Container';
 import IconButton from '../../shared/IconButton';
 import Text from '../../shared/Text';
 
+export const StyledProductCard = styled(Card)`
+  width: 17.625rem;
+  height: 22rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+`;
+
 export const ContentContainer = styled(Container)`
   padding: 0 0.875rem;
 
@@ -19,11 +26,20 @@ ContentContainer.defaultProps = {
   alignCenter: true,
 };
 
-export const ProductNameText = styled(Text)`
-  margin-bottom: 0.5rem;
+export const ProductTextContainer = styled(Container)`
+  padding-right: 0.75rem;
+  width: 80%;
 `;
 
-export const ProductText = styled(Text)`
+export const ProductNameText = styled(Text)`
+  margin-bottom: 0.5rem;
+  height: 1.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const PriceText = styled(Text)`
   size: 1.25rem;
 `;
 
@@ -35,8 +51,3 @@ export const CartIconButton = styled(IconButton)`
 CartIconButton.defaultProps = {
   image: '/icons/shopping-cart-black.svg',
 };
-
-export const StyledProductCard = styled(Card)`
-  width: 17.625rem;
-  height: 22rem;
-`;

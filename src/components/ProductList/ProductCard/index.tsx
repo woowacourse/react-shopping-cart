@@ -6,7 +6,8 @@ import {
   CartIconButton,
   ContentContainer,
   ProductNameText,
-  ProductText,
+  PriceText,
+  ProductTextContainer,
   StyledProductCard,
 } from './style';
 
@@ -23,10 +24,10 @@ const ProductCard: VFC<Product> = (product) => {
   return (
     <StyledProductCard type="vertical" image={image}>
       <ContentContainer>
-        <div>
+        <ProductTextContainer>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>
-          <ProductText>{KRCurrency(price)}</ProductText>
-        </div>
+          <PriceText>{KRCurrency(price)}</PriceText>
+        </ProductTextContainer>
         <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>
     </StyledProductCard>
