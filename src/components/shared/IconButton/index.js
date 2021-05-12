@@ -2,19 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './style';
 
-const IconButton = ({ children, icon, size = 'small', type, onClick, ariaLabel }) => {
+const IconButton = ({ children, size, type, onClick, ariaLabel }) => {
   return (
-    <Container type={type} onClick={onClick} size={size} aria-label={ariaLabel}>
+    <Container
+      type={type || 'submit'}
+      onClick={onClick}
+      size={size || 'small'}
+      aria-label={ariaLabel}
+    >
       {children}
     </Container>
   );
 };
 
 IconButton.propTypes = {
-  icon: PropTypes.string,
   size: PropTypes.string,
   type: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  ariaLabel: PropTypes.string.isRequired,
 };
 
 export default IconButton;

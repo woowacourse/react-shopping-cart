@@ -12,7 +12,6 @@ const Template = args => <Grid {...args} />;
 
 export const Default = Template.bind({});
 
-// TODO: 스토리북에서 생성한 컴포넌트 재사용하기
 Default.args = {
   col: 4,
   children: Array.from({ length: 18 }).map(() => (

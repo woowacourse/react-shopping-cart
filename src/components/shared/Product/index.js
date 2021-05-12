@@ -34,6 +34,7 @@ Product.propTypes = {
   }),
 
   extra: PropTypes.element,
+  onClick: PropTypes.func,
 };
 
 export default Product;

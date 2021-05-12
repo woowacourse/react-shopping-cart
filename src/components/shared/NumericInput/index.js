@@ -64,6 +64,7 @@ NumericInput.propTypes = {
   value: PropTypes.number.isRequired,
   setValue: PropTypes.func.isRequired,
   step: PropTypes.number,
+  ariaLabel: PropTypes.string,
 };
 
 export default NumericInput;

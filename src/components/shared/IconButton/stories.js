@@ -15,4 +15,6 @@ Default.args = {
   type: 'button',
   size: 'medium',
   children: <TrashBin />,
+  onClick: () => {},
+  ariaLabel: '쓰레기통',
 };
