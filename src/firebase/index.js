@@ -1,6 +1,14 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
+export const PRODUCT_LIST = 'ProductList';
+export const ORDER_LIST = 'OrderList';
+
+export const ASC = 'asc';
+export const DESC = 'desc';
+
+export const ORDER_ID = 'orderId';
+
 const config = {
   apiKey: 'AIzaSyAY9up5-vA-fWCY6pjoPaZWH2aaHb4nXwk',
   authDomain: 'simba-haru-s-happy-shopping.firebaseapp.com',
@@ -12,16 +20,21 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const firestore = firebase.firestore();
+const db = firebase.firestore();
 
-export const PRODUCT_LIST = 'ProductList';
-export const ORDER_LIST = 'OrderList';
-
+// TODO 에러 처리
 export const loadData = async ({ table, handler }) => {
-  const response = await firestore.collection(table).get();
+  const response = await db.collection(table).get();
   handler(response.docs.map((doc) => doc.data()));
 };
 
+// TODO 에러 처리
+export const loadSortedData = async ({ table, handler, sortField = '', sortDirection = ASC }) => {
+  const response = await db.collection(table).orderBy(sortField, sortDirection).get();
+  handler(response.docs.map((doc) => doc.data()));
+};
+
+// TODO 에러 처리
 export const addData = async ({ table, key, value }) => {
-  firestore.collection(table).doc(key).set(value);
+  db.collection(table).doc(key).set(value);
 };

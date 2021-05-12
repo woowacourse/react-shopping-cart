@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAction } from '../../../redux';
-import { loadData, ORDER_LIST } from '../../../firebase';
+import { loadSortedData, ORDER_LIST, ORDER_ID, DESC } from '../../../firebase';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../commons';
 import * as Styled from './style.js';
@@ -12,7 +12,12 @@ export const OrderListPage = () => {
   const dispatchAddProduct = (product) => dispatch(getAction.addProduct(product));
 
   useEffect(() => {
-    loadData({ table: ORDER_LIST, handler: setOrders });
+    loadSortedData({
+      table: ORDER_LIST,
+      handler: setOrders,
+      sortField: ORDER_ID,
+      sortDirection: DESC,
+    });
   }, []);
 
   return (
