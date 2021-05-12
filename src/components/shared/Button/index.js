@@ -1,30 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './style';
+import { COLOR } from '../../../constants';
 
 const Button = ({
-  children,
   type,
-  backgroundColor,
-  color,
-  fontSize,
-  borderColor,
-  disabled,
+  size,
   width,
-  height,
+  backgroundColor,
+  borderColor,
+  color,
+  disabled,
   onClick,
+  children,
 }) => {
   return (
     <Container
-      type={type}
-      backgroundColor={backgroundColor}
-      disabled={disabled}
+      type={type || 'submit'}
+      size={size}
+      backgroundColor={backgroundColor || COLOR.MINT}
+      borderColor={borderColor || 'transparent'}
+      disabled={disabled || false}
       width={width}
-      height={height}
-      borderColor={borderColor}
+      color={color || COLOR.WHITE}
       onClick={onClick}
-      fontSize={fontSize}
-      color={color}
     >
       {children}
     </Container>
@@ -32,16 +31,15 @@ const Button = ({
 };
 
 Button.propTypes = {
-  type: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
-  fontSize: PropTypes.string.isRequired,
+  color: PropTypes.string,
   disabled: PropTypes.bool,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default Button;

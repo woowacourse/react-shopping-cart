@@ -92,12 +92,10 @@ const Cart = () => {
             </CheckBox>
             <Button
               type="button"
-              width="118px"
-              height="50px"
+              size="small"
               color={COLOR.BLACK}
               backgroundColor={COLOR.WHITE}
               borderColor={COLOR['GRAY-300']}
-              fontSize="1rem"
               onClick={() => onDelete(checkedItemIdList)}
               disabled={checkedCount === 0}
             >
@@ -142,7 +140,7 @@ const Cart = () => {
                           ariaLabel={`${name} 수량 변경`}
                         />
                         <div aria-label={`${name} 합산 가격`}>
-                          {(price * quantity).toLocaleString('ko-KR')} 원
+                          {`${(price * quantity).toLocaleString('ko-KR')}원`}
                         </div>
                       </>
                     }
@@ -164,23 +162,19 @@ const Cart = () => {
                 fontSize="1.25rem"
                 ariaLabel="결제예상금액"
               >
-                {totalPrice.toLocaleString('ko-KR') + '원'}
+                {`${totalPrice.toLocaleString('ko-KR')}원`}
               </HighlightText>
             </ReceiptRow>
 
             <Button
               type="button"
-              width="100%"
-              height="74px"
-              backgroundColor={COLOR.MINT}
-              color={COLOR.WHITE}
-              fontSize="1.5rem"
+              size="medium"
               disabled={!isPurchasable}
               onClick={() => {
                 history.push(PATH.ORDER);
               }}
             >
-              주문하기({checkedCount}개)
+              {`주문하기(${checkedCount}개)`}
             </Button>
           </ReceiptContent>
         </ReceiptWrapper>

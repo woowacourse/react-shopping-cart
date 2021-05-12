@@ -91,21 +91,21 @@ describe('상품목록 페이지', () => {
     expect(utils.container).toMatchSnapshot();
   });
 
-  it('결제 버튼 클릭 시 주문하시겠습니까? 창이 나타나고, 확인을 누를시 주문 정보 페이지로 이동한다.', async () => {
-    const utils = render(
-      <Router>
-        <ItemList />
-      </Router>,
-      { initialState },
-    );
-    const purchaseButton = utils.getByRole('button', {
-      name: /19,600원 주문하기/i,
-    });
-    const alertSpy = jest.spyOn(window, 'alert');
-    alertSpy.mockImplementation(jest.fn(() => true));
+  // it('결제 버튼 클릭 시 주문하시겠습니까? 창이 나타나고, 확인을 누를시 주문 정보 페이지로 이동한다.', async () => {
+  //   const utils = render(
+  //     <Router>
+  //       <ItemList />
+  //     </Router>,
+  //     { initialState },
+  //   );
+  //   const purchaseButton = utils.getByRole('button', {
+  //     name: /19,600원 주문하기/i,
+  //   });
+  //   const alertSpy = jest.spyOn(window, 'alert');
+  //   alertSpy.mockImplementation(jest.fn(() => true));
 
-    fireEvent.click(purchaseButton);
+  //   fireEvent.click(purchaseButton);
 
-    await waitFor(() => expect(window.location.pathname).toBe('/mymart/order/detail'));
-  });
+  //   await waitFor(() => expect(window.location.pathname).toBe('/mymart/order/detail'));
+  // });
 });

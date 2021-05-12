@@ -100,15 +100,11 @@ exports[`상품목록 페이지 store에 있는 products가 제대로 렌더링 
             </span>
           </div>
           <button
-            class="sc-bdvvaa jnIuRd"
+            class="sc-bdvvaa dmFACg"
             color="#FFFFFF"
-            font-size="1.5rem"
-            height="74px"
             type="button"
-            width="100%"
           >
-            19,600
-            원 주문하기
+            19,600원 주문하기
           </button>
         </div>
       </div>

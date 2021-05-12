@@ -1,15 +1,28 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR } from '../../../constants';
+
+export const SIZE = {
+  small: css`
+    height: 50px;
+    padding: 0 2rem;
+    font-size: 1rem;
+  `,
+  medium: css`
+    height: 74px;
+    padding: 0 3rem;
+    font-size: 1.5rem;
+  `,
+};
 
 export const Container = styled.button`
   width: ${({ width }) => width};
-  height: ${({ height }) => height};
   outline: 0;
   background-color: ${({ backgroundColor }) => backgroundColor};
-  border: ${({ borderColor }) => (borderColor ? `1px solid ${borderColor}` : 'none')};
+  border: ${({ borderColor }) => `1px solid ${borderColor}`};
   cursor: pointer;
   color: ${({ color }) => color};
-  font-size: ${({ fontSize }) => fontSize};
+
+  ${({ size }) => SIZE[size]};
 
   &:hover {
     filter: brightness(0.8);

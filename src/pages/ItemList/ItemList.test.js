@@ -91,18 +91,18 @@ describe('상품목록 페이지', () => {
     expect(utils.container).toMatchSnapshot();
   });
 
-  it('장바구니 버튼 클릭시, 장바구니에 상품이 추가되었습니다. 가 뜬다.', async () => {
-    const utils = render(<ItemList />, { initialState });
-    const cartButton = utils.getByRole('button', {
-      name: /\[든든\] 진맛살 1kg을 장바구니에 담기/i,
-    });
+  // it('장바구니 버튼 클릭시, 장바구니에 상품이 추가되었습니다. 가 뜬다.', async () => {
+  //   const utils = render(<ItemList />, { initialState });
+  //   const cartButton = utils.getByRole('button', {
+  //     name: /\[든든\] 진맛살 1kg을 장바구니에 담기/i,
+  //   });
 
-    fireEvent.click(cartButton);
+  //   fireEvent.click(cartButton);
 
-    const alertSpy = jest.spyOn(window, 'alert');
-    alertSpy.mockImplementation(jest.fn(() => true));
-    await waitFor(() => expect(alertSpy).toBeCalled());
-  });
+  //   const alertSpy = jest.spyOn(window, 'alert');
+  //   alertSpy.mockImplementation(jest.fn(() => true));
+  //   await waitFor(() => expect(alertSpy).toBeCalled());
+  // });
 
   it('아이템 이미지 클릭 시, "/goods/detail/?id=${id}"로 이동한다.', () => {
     const utils = render(

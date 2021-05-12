@@ -34,12 +34,9 @@ exports[`<Cart /> matches snapshot 1`] = `
             선택해제
           </label>
           <button
-            class="sc-bdvvaa VaouB"
+            class="sc-bdvvaa MselZ"
             color="#333333"
-            font-size="1rem"
-            height="50px"
             type="button"
-            width="118px"
           >
             상품 삭제
           </button>
@@ -154,8 +151,7 @@ exports[`<Cart /> matches snapshot 1`] = `
                   <div
                     aria-label="[든든] 유부 슬라이스 500g 합산 가격"
                   >
-                    19,600
-                     원
+                    19,600원
                   </div>
                 </div>
               </div>
@@ -256,8 +252,7 @@ exports[`<Cart /> matches snapshot 1`] = `
                   <div
                     aria-label="[든든] 진맛살 1kg 합산 가격"
                   >
-                    7,100
-                     원
+                    7,100원
                   </div>
                 </div>
               </div>
@@ -296,16 +291,11 @@ exports[`<Cart /> matches snapshot 1`] = `
             </span>
           </div>
           <button
-            class="sc-bdvvaa jnIuRd"
+            class="sc-bdvvaa dmFACg"
             color="#FFFFFF"
-            font-size="1.5rem"
-            height="74px"
             type="button"
-            width="100%"
           >
-            주문하기(
-            2
-            개)
+            주문하기(2개)
           </button>
         </div>
       </div>

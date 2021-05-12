@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './index';
+import { COLOR } from '../../../constants';
 
 export default {
   title: 'components/shared/Button',
@@ -8,19 +9,22 @@ export default {
 
 const Template = args => <Button {...args} />;
 
-export const Default = Template.bind({});
+export const deleteButton = Template.bind({});
+export const OrderButton = Template.bind({});
 
-Default.args = {
+deleteButton.args = {
   type: 'button',
-  color: 'white',
-  borderColor: 'grey',
-  disabled: false,
-  children: (
-    <span style={{ fontSize: '1.25rem' }}>
-      Button<span>3</span>
-    </span>
-  ),
-  width: '388px',
-  height: '74px',
+  size: 'small',
+  color: COLOR.BLACK,
+  backgroundColor: COLOR.WHITE,
+  borderColor: COLOR['GRAY-300'],
+  children: '상품 삭제',
+  onClick: () => {},
+};
+
+OrderButton.args = {
+  type: 'button',
+  size: 'medium',
+  children: '10,000원 주문하기',
   onClick: () => {},
 };

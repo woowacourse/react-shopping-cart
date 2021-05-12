@@ -75,16 +75,8 @@ const Order = () => {
                 {`${totalPrice.toLocaleString('ko-KR')} 원`}
               </HighlightText>
             </ReceiptRow>
-            <Button
-              type="button"
-              width="100%"
-              height="74px"
-              backgroundColor={COLOR.MINT}
-              color={COLOR.WHITE}
-              fontSize="1.5rem"
-              onClick={onPurchase}
-            >
-              {totalPrice.toLocaleString('ko-KR')}원 주문하기
+            <Button type="button" size="medium" onClick={onPurchase}>
+              {`${totalPrice.toLocaleString('ko-KR')}원 주문하기`}
             </Button>
           </ReceiptContent>
         </ReceiptWrapper>
