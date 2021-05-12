@@ -122,7 +122,7 @@ const ShoppingCartPage = () => {
     const newExpectedPrice = checkedProductList.reduce((acc, productId) => {
       const amount = productAmountDict[productId] || 0;
       const { price } = productList.find(product => product.id === productId);
-      console.log(amount, price);
+
       return acc + price * amount;
     }, 0);
 

@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, PageButtonContainer, PageIndex } from './ProductListPage.styles';
 import { useModal, usePaging } from '../../hooks';
@@ -8,10 +8,12 @@ import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
+import { ROUTE } from '../../constants';
 
 const ProductListPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
     myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
@@ -59,7 +61,11 @@ const ProductListPage = () => {
 
       <ModalPortal>
         <Modal>
-          <SuccessAddedModal productList={productList} openModal={openModal} />
+          <SuccessAddedModal
+            productList={productList}
+            openModal={openModal}
+            onClick={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
+          />
         </Modal>
       </ModalPortal>
       <PageButtonContainer>

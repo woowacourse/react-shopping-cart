@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import {
   Container,
@@ -17,6 +18,10 @@ import ScreenContainer from '../../shared/styles/ScreenContainer';
 const OrderCheckoutPage = () => {
   const history = useHistory();
   const location = useLocation();
+
+  const { productList } = useSelector(state => ({
+    productList: state.productListReducer.productList,
+  }));
 
   const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
   const [expectedPrice, setExpectedPrice] = useState(0);
@@ -44,8 +49,8 @@ const OrderCheckoutPage = () => {
   };
 
   useEffect(() => {
-    const newExpectedPrice = checkedItemList.reduce((acc, item) => {
-      const { price, amount } = item;
+    const newExpectedPrice = checkedItemList.reduce((acc, { id, amount }) => {
+      const { price } = productList.find(product => product.id === id);
 
       return acc + price * amount;
     }, 0);
@@ -62,9 +67,11 @@ const OrderCheckoutPage = () => {
           <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList.map(({ id, img, name, amount }) => (
-              <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />
-            ))}
+            {checkedItemList.map(({ id, amount }) => {
+              const { img, name } = productList.find(product => product.id === id);
+
+              return <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />;
+            })}
           </CheckoutList>
         </CheckoutListContainer>
 
