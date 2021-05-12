@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '.';
-import { render, fireEvent } from '../../test-utils';
+import { render, fireEvent, waitFor } from '../../test-utils';
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -99,7 +99,9 @@ describe('상품목록 페이지', () => {
 
     fireEvent.click(cartButton);
 
-    //todo: alert 테스트
+    const alertSpy = jest.spyOn(window, 'alert');
+    alertSpy.mockImplementation(jest.fn(() => true));
+    await waitFor(() => expect(alertSpy).toBeCalled());
   });
 
   it('아이템 이미지 클릭 시, "/goods/detail/?id=${id}"로 이동한다.', () => {
