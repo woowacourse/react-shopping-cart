@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { PAGES, UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
-import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
 import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
@@ -28,9 +27,9 @@ const OrdersPage = () => {
                 justifyContent="space-between"
               >
                 <span>주문번호: {order.id}</span>
-                <Button type="button" backgroundColor="transparent">
+                {/* <Button type="button" backgroundColor="transparent">
                   {'상세보기 >'}
-                </Button>
+                </Button> */}
               </FlexContainer>
               <ProductList>
                 {order.products.map((product) => (
@@ -46,7 +45,7 @@ const OrdersPage = () => {
                       color: PALETTE.GRAY_000,
                     }}
                   >
-                    <Button
+                    {/* <Button
                       type="button"
                       backgroundColor={PALETTE.BAEMINT}
                       color={PALETTE.WHITE}
@@ -54,7 +53,7 @@ const OrdersPage = () => {
                       height="3rem"
                     >
                       장바구니
-                    </Button>
+                    </Button> */}
                   </ProductListItem>
                 ))}
               </ProductList>
