@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '../../../constants';
 import { Props } from './Button';
 
 type ButtonProps = Omit<Props, 'children'>;
@@ -21,11 +22,12 @@ const BUTTON_SIZE = {
   },
 };
 
-export const Button = styled.button<ButtonProps>(({ size, fontColor, backgroundColor }) => ({
+export const Button = styled.button<ButtonProps>(({ size, fontColor, backgroundColor, disabled }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   color: fontColor,
-  backgroundColor,
+  backgroundColor: disabled ? COLORS.GRAY_300 : backgroundColor,
+  cursor: disabled ? 'not-allowed' : 'pointer',
   ...BUTTON_SIZE[size],
 }));

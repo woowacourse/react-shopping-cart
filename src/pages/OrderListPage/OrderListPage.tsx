@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
@@ -11,6 +11,7 @@ import axios from 'axios';
 import { PATH, STATUS_CODE, URL } from '../../constants';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
+import { confirm } from '../../utils/confirm';
 import * as Styled from './OrderListPage.styles';
 
 const OrderListPage = () => {
@@ -18,17 +19,9 @@ const OrderListPage = () => {
   const { products } = useSelector((state: RootState) => state.product);
   const history = useHistory();
 
-  const onCartButtonClick = async (id: Product['id']) => {
-    try {
-      const product = products.find(product => product.id === id);
-      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('상품을 장바구니에 담지 못했습니다.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  if (products.length === 0) {
+    return <Redirect to={PATH.ROOT} />;
+  }
 
   if (loading) {
     return <Loading />;
@@ -37,6 +30,21 @@ const OrderListPage = () => {
   if (!loading && !responseOK) {
     return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
   }
+
+  const onCartButtonClick = async (id: Product['id']) => {
+    const product = products.find(product => product.id === id);
+    if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
+      return;
+    }
+    try {
+      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
+      if (response.status !== STATUS_CODE.POST_SUCCESS) {
+        throw new Error('상품을 장바구니에 담지 못했습니다.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const onOrderDetailLinkClick = (orderId: string) => {
     history.push(`${PATH.ORDER_DETAIL}/${orderId}`);

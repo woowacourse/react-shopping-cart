@@ -8,6 +8,7 @@ export interface Props {
   backgroundColor?: string;
   fontColor?: string;
   onClick?: (event: React.MouseEvent) => void;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -16,9 +17,16 @@ const Button = ({
   onClick,
   backgroundColor = COLORS.MINT_500,
   fontColor = COLORS.WHITE,
+  disabled = false,
 }: Props) => {
   return (
-    <Styled.Button onClick={onClick} size={size} backgroundColor={backgroundColor} fontColor={fontColor}>
+    <Styled.Button
+      disabled={disabled}
+      onClick={onClick}
+      size={size}
+      backgroundColor={backgroundColor}
+      fontColor={fontColor}
+    >
       {children}
     </Styled.Button>
   );

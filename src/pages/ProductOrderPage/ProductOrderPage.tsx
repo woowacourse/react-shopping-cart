@@ -6,6 +6,7 @@ import ProductListItem from '../../components/commons/ProductListItem/ProductLis
 import { PATH, URL, STATUS_CODE } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
+import { confirm } from '../../utils/confirm';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
@@ -32,6 +33,9 @@ const ProductOrderPage = () => {
   );
 
   const onOrderButtonClick = async () => {
+    if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
+      return;
+    }
     try {
       let response = await axios.post(URL.ORDERS, { orderItems });
       if (response.status !== STATUS_CODE.POST_SUCCESS) {

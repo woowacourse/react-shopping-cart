@@ -6,10 +6,11 @@ export interface Props {
   priceLabel: string;
   price: string;
   buttonText: string;
+  isButtonDisabled?: boolean;
   onButtonClick?: () => void;
 }
 
-const PaymentCheckout = ({ title, priceLabel, price, buttonText, onButtonClick }: Props) => {
+const PaymentCheckout = ({ title, priceLabel, price, buttonText, onButtonClick, isButtonDisabled = false }: Props) => {
   return (
     <Styled.PaymentCheckout>
       <Styled.Title>{title}</Styled.Title>
@@ -18,7 +19,7 @@ const PaymentCheckout = ({ title, priceLabel, price, buttonText, onButtonClick }
           <Styled.PriceLabel>{priceLabel}</Styled.PriceLabel>
           <Styled.Price>{price}</Styled.Price>
         </Styled.PriceWrapper>
-        <Button size="MD" onClick={onButtonClick}>
+        <Button size="MD" onClick={onButtonClick} disabled={isButtonDisabled}>
           {buttonText}
         </Button>
       </Styled.Container>

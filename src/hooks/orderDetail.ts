@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { STATUS_CODE, URL } from '../constants';
-import noImagePNG from '../assets/images/no-image.png';
 
 const useOrderDetail = () => {
   const [orderItems, setOrderItems] = useState<Order['orderItems']>([]);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
 import Loading from '../../components/commons/Loading/Loading';
@@ -11,11 +11,12 @@ import { URL, STATUS_CODE, PATH } from '../../constants';
 import useCart from '../../hooks/cart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
+import { confirm } from '../../utils/confirm';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
   const { cartItems, loading, responseOK, setCartItems } = useCart();
-  const [isTotalChecked, setTotalChecked] = useState<boolean>();
+  const [isTotalChecked, setTotalChecked] = useState<boolean>(true);
 
   if (loading) {
     return (
@@ -68,13 +69,18 @@ const ShoppingCartPage = () => {
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    if (!confirm(`${newCartItems[targetIndex].name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
+      return;
+    }
+
     try {
       const response = await axios.delete(`${URL.CART}/${id}`);
       if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
         throw new Error('장바구니 아이템 삭제에 실패하였습니다');
       }
-      const newCartItems = [...cartItems];
-      const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+
       newCartItems.splice(targetIndex, 1);
       setCartItems(newCartItems);
     } catch (error) {
@@ -83,6 +89,9 @@ const ShoppingCartPage = () => {
   };
 
   const onSelectedCartItemDelete = async () => {
+    if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
+      return;
+    }
     const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
     try {
       selectedCartItemIdList.forEach(async id => {
@@ -128,10 +137,15 @@ const ShoppingCartPage = () => {
   };
 
   const onOrderLinkButtonClick = () => {
+    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
+      return;
+    }
     const selectedItems = getSelectedItems();
     if (selectedItems.length === 0) return;
     history.push({ pathname: PATH.ORDER, state: { selectedItems } });
   };
+
+  const isOrderPossible = cartItems.length > 0;
 
   return (
     <Styled.ShoppingCartPage>
@@ -142,7 +156,7 @@ const ShoppingCartPage = () => {
         <Styled.Container>
           <Styled.CartContainer>
             <Styled.ControlWrapper>
-              <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} />
+              <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} isChecked={isTotalChecked} />
               <Styled.DeleteButton onClick={onSelectedCartItemDelete}>상품삭제</Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
@@ -158,6 +172,7 @@ const ShoppingCartPage = () => {
             price={getMoneyString(totalPrice)}
             buttonText={`주문하기(${getSelectedItems().length}개)`}
             onButtonClick={onOrderLinkButtonClick}
+            isButtonDisabled={!isOrderPossible}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>

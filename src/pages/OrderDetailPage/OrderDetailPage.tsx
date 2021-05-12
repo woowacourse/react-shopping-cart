@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import axios from 'axios';
 import { Redirect, useHistory } from 'react-router';
+import { confirm } from '../../utils/confirm';
 import { getMoneyString } from '../../utils/format';
 
 const OrderDetailPage = () => {
@@ -34,8 +35,12 @@ const OrderDetailPage = () => {
   }
 
   const onCartButtonClick = async (id: Product['id']) => {
+    const product = products.find(product => product.id === id);
+
+    if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
+      return;
+    }
     try {
-      const product = products.find(product => product.id === id);
       const response = await axios.post(URL.CART, { ...product, quantity: '1' });
       if (response.status !== STATUS_CODE.POST_SUCCESS) {
         throw new Error('상품을 장바구니에 담지 못했습니다.');
