@@ -1,13 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import Button from '../../components/shared/Button';
-import HighlightText from '../../components/shared/HighlightText';
-import Product from '../../components/shared/Product';
-import { COLOR, PATH } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
 import { addOrderDetail } from '../../store';
 import { deleteCartItems } from '../../store/cartReducer';
 import { API } from '../../utils';
+import { Button, HighlightText, Product } from '../../components/shared';
+import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
   Container,
   Header,
@@ -25,24 +23,29 @@ import {
 
 const Order = () => {
   const list = useSelector(state => state.cartReducer.cart.filter(item => item.checked));
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const totalPrice = list.reduce((total, item) => {
     const { price, quantity } = item;
     return total + price * quantity;
   }, 0);
 
-  const history = useHistory();
-  const dispatch = useDispatch();
-
   const onPurchase = async () => {
-    const orderItemIdList = list.map(item => item.id);
-    const orderDetail = await API.purchase({ products: [list] });
+    try {
+      const orderItemIdList = list.map(item => item.id);
+      const orderDetail = await API.purchase({ products: [list] });
 
-    await Promise.all(orderItemIdList.map(id => API.deleteCartItem({ id })));
+      await Promise.all(orderItemIdList.map(id => API.deleteCartItem({ id })));
 
-    alert('주문이 완료되었습니다.');
-    dispatch(deleteCartItems(orderItemIdList));
-    dispatch(addOrderDetail(orderDetail));
-    history.push(`${PATH.MYMART_ORDER_DETAIL}?id=${orderDetail.id}`);
+      alert(MESSAGE.SUCCESS_PURCHASE);
+      dispatch(deleteCartItems(orderItemIdList));
+      dispatch(addOrderDetail(orderDetail));
+      history.push(`${PATH.MYMART_ORDER_DETAIL}?id=${orderDetail.id}`);
+    } catch (error) {
+      console.error(error);
+      alert(MESSAGE.FAIL_PURCHASE);
+    }
   };
 
   return (
