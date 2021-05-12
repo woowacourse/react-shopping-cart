@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.span`
   position: relative;
@@ -23,5 +24,11 @@ const TextHighlight = ({ children, height, backgroundColor }) => (
     {children}
   </Container>
 );
+
+TextHighlight.propTypes = {
+  children: PropTypes.string,
+  height: PropTypes.string,
+  backgroundColor: PropTypes.string,
+};
 
 export default TextHighlight;
