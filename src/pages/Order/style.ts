@@ -10,13 +10,14 @@ const Container = styled.div`
 const OrderListTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
-  padding: 2.375rem 0 1.25rem;
   flex-basis: 100%;
+  margin-bottom: 1.25rem;
 `;
 
 const Main = styled(FlexBetween("div"))`
   width: 100%;
   flex-wrap: wrap;
+  padding: 1.5rem;
 `;
 
 const Section = styled.section`

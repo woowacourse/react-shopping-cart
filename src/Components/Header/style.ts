@@ -7,7 +7,6 @@ const Container = styled.header`
   background-color: ${COLOR.MAIN};
   height: 5rem;
   box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.2);
-  padding: 0 1rem;
 `;
 
 const Inner = styled.div`
@@ -16,6 +15,7 @@ const Inner = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 1320px;
+  padding: 0 1.5rem;
   margin: 0 auto;
 `;
 

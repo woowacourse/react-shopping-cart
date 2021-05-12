@@ -10,6 +10,7 @@ const Container = styled.div`
 const Main = styled(FlexBetween("div"))`
   width: 100%;
   flex-wrap: wrap;
+  padding: 1.5rem;
 `;
 
 const AllDealControlBox = styled(FlexBetween("div"))`
@@ -23,7 +24,6 @@ const AllDealSelect = styled(FlexBetween("div"))`
   position: relative;
   width: 6.5rem;
   height: 4.75rem;
-  margin-top: 1.5rem;
   align-items: center;
 `;
 
