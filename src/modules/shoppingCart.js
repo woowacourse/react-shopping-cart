@@ -1,3 +1,5 @@
+import { httpClient } from '../request/httpClient';
+
 // TODO: LIST -> ITEM_LIST
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
@@ -10,22 +12,18 @@ const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
 // TODO: payload or 우리가 원하는 키 주기
 export const insertShoppingCartItem = (shoppingCartItem) => async (dispatch) => {
-  await fetch('http://localhost:4000/shoppingCartList', {
-    method: 'POST',
-    body: JSON.stringify(shoppingCartItem),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
+  try {
+    await httpClient.post({ path: 'shoppingCartList', body: shoppingCartItem });
 
-  dispatch({ type: INSERT_SHOPPING_CART_ITEM, payload: shoppingCartItem });
+    dispatch({ type: INSERT_SHOPPING_CART_ITEM, payload: shoppingCartItem });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const deleteShoppingCartItem = (shoppingCartItemId) => async (dispatch) => {
   try {
-    await fetch(`http://localhost:4000/shoppingCartList/${shoppingCartItemId}`, {
-      method: 'DELETE',
-    });
+    await httpClient.delete({ path: `shoppingCartList/${shoppingCartItemId}` });
 
     dispatch({ type: DELETE_SHOPPING_CART_ITEM, payload: shoppingCartItemId });
   } catch (error) {
@@ -35,11 +33,7 @@ export const deleteShoppingCartItem = (shoppingCartItemId) => async (dispatch) =
 
 export const deleteCheckedShoppingCartList = (checkedShoppingCartList) => async (dispatch) => {
   try {
-    await Promise.all(
-      checkedShoppingCartList.map(({ id }) =>
-        fetch(`http://localhost:4000/shoppingCartList/${id}`, { method: 'DELETE' })
-      )
-    );
+    await Promise.all(checkedShoppingCartList.map(({ id }) => httpClient.delete({ path: `shoppingCartList/${id}` })));
 
     dispatch({ type: DELETE_CHECKED_SHOPPING_CART_LIST });
   } catch (error) {
@@ -49,8 +43,7 @@ export const deleteCheckedShoppingCartList = (checkedShoppingCartList) => async 
 
 export const fetchShoppingCartList = () => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:4000/shoppingCartList');
-    const shoppingCartList = await response.json();
+    const shoppingCartList = await httpClient.get({ path: 'shoppingCartList', returnType: 'json' });
 
     dispatch({ type: FETCH_SHOPPING_CART_LIST, payload: shoppingCartList });
   } catch (error) {

@@ -1,15 +1,15 @@
+import { httpClient } from '../request/httpClient';
+
 const INSERT_ORDER_ITEM_LIST = 'orderList/INSERT_ORDER_ITEM_LIST';
 
 export const insertOrderItemList = (orderItemList) => async (dispatch) => {
-  await fetch('http://localhost:4000/orderItemList', {
-    method: 'POST',
-    body: JSON.stringify(orderItemList),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  });
+  try {
+    await httpClient.post({ path: 'orderItemList', body: orderItemList });
 
-  dispatch({ type: INSERT_ORDER_ITEM_LIST, payload: orderItemList });
+    dispatch({ type: INSERT_ORDER_ITEM_LIST, payload: orderItemList });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const initialState = {
