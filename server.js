@@ -4,7 +4,7 @@ const router = jsonServer.router('./data.json');
 const middlewares = jsonServer.defaults({
   static: './build',
 });
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 4000;
 
 server.use(middlewares);
 server.use(
