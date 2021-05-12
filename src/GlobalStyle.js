@@ -23,11 +23,16 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
 
+  p {
+    margin: 0;
+  }
+
   button {
     padding: 0;
     color: inherit;
     font-size: inherit;
     font-family: inherit;
+    background-color: inherit;
   }
 `;
 

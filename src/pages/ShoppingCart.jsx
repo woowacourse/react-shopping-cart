@@ -12,6 +12,9 @@ import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../mod
 import emptyCart from '../assets/empty-cart.png';
 import { Link } from 'react-router-dom';
 import { PATH } from '../constants/path';
+import useDialog from '../hooks/useDialog';
+import DialogPortal from '../DialogPortal';
+import Dialog from '../components/dialog/Dialog';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -55,8 +58,9 @@ const getExpectedPaymentAmount = (checkedShoppingCartList) =>
   checkedShoppingCartList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
 const ShoppingCart = () => {
-  const history = useHistory();
+  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
   const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList);
@@ -68,11 +72,16 @@ const ShoppingCart = () => {
     dispatch(toggleAllShoppingCartItem());
   };
 
-  // TODO: custom confirm 다이얼로그 만들기
-  const handleCheckedShoppingCartListDelete = async () => {
-    if (!window.confirm(`${checkedShoppingCartList.length}개의 상품을 삭제하시겠습니까?`)) return;
+  const handleConfirm = () => {
+    clickConfirm(dispatch.bind(null, deleteCheckedShoppingCartList(checkedShoppingCartList)));
+  };
 
-    dispatch(deleteCheckedShoppingCartList(checkedShoppingCartList));
+  const handleCancel = () => {
+    clickCancel();
+  };
+
+  const handleCheckedShoppingCartListDelete = () => {
+    setIsDialogOpen(true);
   };
 
   const handleOrderPaymentPageRouter = () => {
@@ -130,6 +139,16 @@ const ShoppingCart = () => {
           </PaymentAmountWrapper>
         </div>
       </Content>
+
+      {isDialogOpen && (
+        <DialogPortal>
+          <Dialog onConfirm={handleConfirm} onCancel={handleCancel}>
+            <p>
+              선택한 {checkedShoppingCartList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
+            </p>
+          </Dialog>
+        </DialogPortal>
+      )}
     </>
   );
 };

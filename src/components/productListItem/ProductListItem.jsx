@@ -32,7 +32,7 @@ const Image = styled.img`
 const ProductListItem = ({ product }) => {
   const dispatch = useDispatch();
 
-  const handleShoppingCartImage = (product) => {
+  const handleShoppingCartImage = () => {
     const shoppingCartItem = { ...product, isChecked: true, count: 1 };
 
     dispatch(insertShoppingCartItem(shoppingCartItem));
@@ -47,7 +47,7 @@ const ProductListItem = ({ product }) => {
           <Price>{product.price.toLocaleString('ko-KR')} 원</Price>
         </li>
         <li>
-          <Image onClick={() => handleShoppingCartImage(product)} src={shoppingCartImg} alt="장바구니" />
+          <Image onClick={handleShoppingCartImage} src={shoppingCartImg} alt="장바구니" />
         </li>
       </Content>
     </div>
