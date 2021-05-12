@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Loading from '../../components/Loading';
 import ProductList from '../../components/ProductList';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import { NETWORK_ERROR } from '../../constants/error';
@@ -12,7 +13,7 @@ const ProductListPage = () => {
   return (
     <ReactShoppingCartTemplate>
       {productList.isLoading ? (
-        <div>로딩중...</div>
+        <Loading />
       ) : (
         <ProductList products={productList.data as Product[]} />
       )}

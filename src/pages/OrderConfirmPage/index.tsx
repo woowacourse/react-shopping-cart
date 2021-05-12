@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState, VFC } from 'react';
 import { RouteComponentProps } from 'react-router';
+import Loading from '../../components/Loading';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
@@ -57,7 +58,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
     <ReactShoppingCartTemplate title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
         {isLoading ? (
-          <div>로딩중</div>
+          <Loading />
         ) : (
           <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
         )}

@@ -1,4 +1,5 @@
 import { useEffect, VFC } from 'react';
+import Loading from '../../components/Loading';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import { NETWORK_ERROR } from '../../constants/error';
@@ -12,7 +13,7 @@ const OrderListPage: VFC = () => {
   return (
     <ReactShoppingCartTemplate title="주문 목록">
       {orders.isLoading ? (
-        <div>로딩중</div>
+        <Loading />
       ) : (
         <OrderItemListSections orders={[...(orders.data as Order[])].reverse()} />
       )}
