@@ -109,4 +109,20 @@ describe('<Cart />', () => {
     expect(checkOptionLabel).toHaveTextContent('선택해제');
     expect(checkOptionLabel).toBeChecked();
   });
+
+  it('선택 해제 라벨을 클릭 시, 라벨 이름 전체선택으로 변경, 모든 상품 checked 해제, 결제 예상금액 0원으로 변경된다.', () => {
+    const utils = render(<Cart />, { initialState });
+    const listOptionMenu = utils.getByLabelText('상품선택 옵션 메뉴');
+    const checkOptionLabel = within(listOptionMenu).getByRole('checkbox');
+    const totalPrice = utils.getByLabelText('결제예상금액');
+    const productList = utils.getByLabelText('장바구니 상품 목록');
+    const checkBoxes = within(productList).getAllByRole('checkbox');
+
+    fireEvent.click(checkOptionLabel);
+
+    expect(checkOptionLabel).toHaveTextContent('전체선택');
+    expect(checkOptionLabel).not.toBeChecked();
+    checkBoxes.forEach(checkbox => expect(checkbox).not.toBeChecked());
+    expect(totalPrice).toHaveTextContent('0원');
+  });
 });
