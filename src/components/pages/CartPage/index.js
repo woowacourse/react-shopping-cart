@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
@@ -34,44 +34,55 @@ export const CartPage = () => {
     <S.Page>
       <Header>장바구니</Header>
       <S.Main>
-        <S.OrderOptionsSection>
-          <S.OrderOptionsController>
-            <Checkbox
-              label={isAllSelected ? '선택해제' : '전체선택'}
-              isChecked={isAllSelected}
-              onChange={dispatchToggleAllProductSelection}
-            />
-            <S.DeleteButton onClick={dispatchRemoveSelectedProducts} disabled={isAllUnselected}>
-              상품삭제
-            </S.DeleteButton>
-          </S.OrderOptionsController>
-          <S.ListLabel>
-            선택상품 ({selectedProducts.length} / {cartProducts.length}개)
-          </S.ListLabel>
-          <S.CartProductList>
-            {cartProducts.map((product) => (
-              <CartProductItem
-                key={product.id}
-                product={product}
-                removeProduct={dispatchRemoveProduct}
-                toggleCheckbox={dispatchToggleProductSelection}
-                incrementQuantity={dispatchIncrementProductQuantity}
-                decrementQuantity={dispatchDecrementProductQuantity}
-                inputQuantity={dispatchInputProductQuantity}
+        {cartProducts.length === 0 ? (
+          <S.EmptyCartContainer>
+            <S.EmptyCartText>텅...</S.EmptyCartText>
+            <Link to={ROUTE.HOME}>
+              <S.ToProductListButton>쇼핑하러 가기</S.ToProductListButton>
+            </Link>
+          </S.EmptyCartContainer>
+        ) : (
+          <>
+            <S.OrderOptionsSection>
+              <S.OrderOptionsController>
+                <Checkbox
+                  label={isAllSelected ? '선택해제' : '전체선택'}
+                  isChecked={isAllSelected}
+                  onChange={dispatchToggleAllProductSelection}
+                />
+                <S.DeleteButton onClick={dispatchRemoveSelectedProducts} disabled={isAllUnselected}>
+                  상품삭제
+                </S.DeleteButton>
+              </S.OrderOptionsController>
+              <S.ListLabel>
+                선택상품 ({selectedProducts.length} / {cartProducts.length}개)
+              </S.ListLabel>
+              <S.CartProductList>
+                {cartProducts.map((product) => (
+                  <CartProductItem
+                    key={product.id}
+                    product={product}
+                    removeProduct={dispatchRemoveProduct}
+                    toggleCheckbox={dispatchToggleProductSelection}
+                    incrementQuantity={dispatchIncrementProductQuantity}
+                    decrementQuantity={dispatchDecrementProductQuantity}
+                    inputQuantity={dispatchInputProductQuantity}
+                  />
+                ))}
+              </S.CartProductList>
+            </S.OrderOptionsSection>
+            <S.CheckoutSection>
+              <S.StickyCheckoutBox
+                title="결제예상금액"
+                label="결제예상금액"
+                price={getFormattedAsKRW(totalPrice)}
+                buttonText={`주문하기(${selectedProducts.length}개)`}
+                buttonDisabled={isAllUnselected}
+                onClickButton={onClickCheckoutButton}
               />
-            ))}
-          </S.CartProductList>
-        </S.OrderOptionsSection>
-        <S.CheckoutSection>
-          <S.StickyCheckoutBox
-            title="결제예상금액"
-            label="결제예상금액"
-            price={getFormattedAsKRW(totalPrice)}
-            buttonText={`주문하기(${selectedProducts.length}개)`}
-            buttonDisabled={isAllUnselected}
-            onClickButton={onClickCheckoutButton}
-          />
-        </S.CheckoutSection>
+            </S.CheckoutSection>
+          </>
+        )}
       </S.Main>
     </S.Page>
   );
