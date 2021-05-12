@@ -37,7 +37,7 @@ const ShoppingCartPage = () => {
     checkedProductList: state.checkedProductReducer.checkedProductList,
   }));
 
-  const [isAllChecked, setAllChecked] = useState(true);
+  const [isAllChecked, setAllChecked] = useState(false);
   const [shoppingCartItemList, setShoppingCartItemList] = useState([]);
   const [expectedPrice, setExpectedPrice] = useState(0);
 

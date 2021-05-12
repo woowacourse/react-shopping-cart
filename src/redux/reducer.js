@@ -1,5 +1,7 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import {
   ACTIVATE_LOADING_SPINNER,
   DEACTIVATE_LOADING_SPINNER,
@@ -80,6 +82,11 @@ const productListReducer = (state = productListState, action) => {
   }
 };
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
 const rootReducer = combineReducers({
   myShoppingCartReducer,
   loadingReducer,
@@ -87,4 +94,6 @@ const rootReducer = combineReducers({
   checkedProductReducer,
 });
 
-export default rootReducer;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export default persistedReducer;

@@ -18,6 +18,8 @@ const deactivateLoading = () => ({
   type: DEACTIVATE_LOADING_SPINNER,
 });
 
+// const addProductAmount;
+
 const updateCheckedProductItems = productItems => ({
   type: UPDATE_CHECKED_PRODUCT_ITEMS,
   productItems,
