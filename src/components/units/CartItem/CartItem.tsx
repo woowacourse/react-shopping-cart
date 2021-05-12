@@ -13,10 +13,11 @@ type CartItemProps = {
   cartItem: T.CartItem;
   checked?: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
+  onDelete: (id: T.CartItem['id']) => void;
 };
 
 const CartItem = (props: CartItemProps) => {
-  const { cartItem, checked, onCheck } = props;
+  const { cartItem, checked, onCheck, onDelete } = props;
   const { id, product, quantity } = cartItem;
   const { name, image, price } = product;
 
@@ -57,13 +58,17 @@ const CartItem = (props: CartItemProps) => {
     onCheck(id, isChecked);
   };
 
+  const handleDelete = () => {
+    onDelete(id);
+  };
+
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
       <Styled.Image src={image || NoImageURL} alt="김말이" />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
-        <Styled.Delete>
+        <Styled.Delete onClick={handleDelete}>
           <DeleteIcon />
         </Styled.Delete>
         <Styled.QuantityInputWrapper>

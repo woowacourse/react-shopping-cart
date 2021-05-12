@@ -19,6 +19,14 @@ export const UPDATE_QUANTITY_FAILURE = 'cartItems/UPDATE_QUANTITY_FAILURE' as co
 export const CHECK_CART_ITEM = 'cartItems/CHECK_CART_ITEM' as const;
 export const CHECK_ALL_CART_ITEMS = 'cartItems/CHECK_ALL_CART_ITEMS' as const;
 
+export const DELETE_ITEM_REQUEST = 'cartItems/DELETE_ITEM_REQUEST' as const;
+export const DELETE_ITEM_SUCCESS = 'cartItems/DELETE_ITEM_SUCCESS' as const;
+export const DELETE_ITEM_FAILURE = 'cartItems/DELETE_ITEM_FAILURE' as const;
+
+export const DELETE_CHECKED_ITEMS_REQUEST = 'cartItems/DELETE_CHECKED_ITEMS_REQUEST' as const;
+export const DELETE_CHECKED_ITEMS_SUCCESS = 'cartItems/DELETE_CHECKED_ITEMS_SUCCESS' as const;
+export const DELETE_CHECKED_ITEMS_FAILURE = 'cartItems/DELETE_CHECKED_ITEMS_FAILURE' as const;
+
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
   product: T.Product;
@@ -64,6 +72,34 @@ interface UpdateQuantityFailureAction {
   error: AxiosError;
 }
 
+interface DeleteItemRequestAction {
+  type: typeof DELETE_ITEM_REQUEST;
+}
+
+interface DeleteItemSuccessAction {
+  type: typeof DELETE_ITEM_SUCCESS;
+  id: T.CartItem['id'];
+}
+
+interface DeleteItemFailureAction {
+  type: typeof DELETE_ITEM_FAILURE;
+  error: AxiosError;
+}
+
+interface DeleteCheckedItemsRequestAction {
+  type: typeof DELETE_CHECKED_ITEMS_REQUEST;
+}
+
+interface DeleteCheckedItemsSuccessAction {
+  type: typeof DELETE_CHECKED_ITEMS_SUCCESS;
+  ids: T.CartItem['id'][];
+}
+
+interface DeleteCheckedItemsFailureAction {
+  type: typeof DELETE_CHECKED_ITEMS_FAILURE;
+  error: AxiosError;
+}
+
 export type CheckCartItemAction = {
   type: typeof CHECK_CART_ITEM;
   payload: {
@@ -83,6 +119,11 @@ export type UpdateQuantityAction =
   | UpdateQuantityRequestAction
   | UpdateQuantitySuccessAction
   | UpdateQuantityFailureAction;
+export type DeleteItemAction = DeleteItemRequestAction | DeleteItemSuccessAction | DeleteItemFailureAction;
+export type DeleteCheckedItemsAction =
+  | DeleteCheckedItemsRequestAction
+  | DeleteCheckedItemsSuccessAction
+  | DeleteCheckedItemsFailureAction;
 
 export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
   dispatch({ type: ADD_CART_ITEM_REQUEST, product });
@@ -138,3 +179,31 @@ export const checkAllCartItems = (checked: boolean) => ({
   type: CHECK_ALL_CART_ITEMS,
   checked,
 });
+
+export const deleteItemActionRequest = (id: T.CartItem['id']) => async (dispatch: Dispatch<DeleteItemAction>) => {
+  dispatch({ type: DELETE_ITEM_REQUEST });
+
+  try {
+    await api.delete(`/cart/${id}`);
+
+    dispatch({ type: DELETE_ITEM_SUCCESS, id });
+  } catch (error) {
+    dispatch({ type: DELETE_ITEM_FAILURE, error });
+  }
+};
+
+export const deleteCheckedItemsActionRequest = (ids: T.CartItem['id'][]) => async (
+  dispatch: Dispatch<DeleteCheckedItemsAction>
+) => {
+  dispatch({ type: DELETE_CHECKED_ITEMS_REQUEST });
+
+  try {
+    ids.forEach(async (id) => {
+      await api.delete(`/cart/${id}`);
+    });
+
+    dispatch({ type: DELETE_CHECKED_ITEMS_SUCCESS, ids });
+  } catch (error) {
+    dispatch({ type: DELETE_CHECKED_ITEMS_FAILURE, error });
+  }
+};

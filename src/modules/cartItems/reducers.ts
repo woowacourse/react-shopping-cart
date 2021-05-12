@@ -9,13 +9,21 @@ import {
   UPDATE_QUANTITY_REQUEST,
   UPDATE_QUANTITY_SUCCESS,
   UPDATE_QUANTITY_FAILURE,
+  CHECK_CART_ITEM,
+  CHECK_ALL_CART_ITEMS,
+  DELETE_ITEM_REQUEST,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
+  DELETE_CHECKED_ITEMS_REQUEST,
+  DELETE_CHECKED_ITEMS_SUCCESS,
+  DELETE_CHECKED_ITEMS_FAILURE,
   AddCartItemAction,
   GetCartItemsAction,
   UpdateQuantityAction,
   CheckCartItemAction,
-  CHECK_CART_ITEM,
-  CHECK_ALL_CART_ITEMS,
   CheckAllCartItemsAction,
+  DeleteItemAction,
+  DeleteCheckedItemsAction,
 } from './actions';
 import * as T from '../../types';
 
@@ -37,7 +45,14 @@ const initialState: CartState = {
 
 export const cartReducer = (
   state: CartState = initialState,
-  action: AddCartItemAction | GetCartItemsAction | UpdateQuantityAction | CheckCartItemAction | CheckAllCartItemsAction
+  action:
+    | AddCartItemAction
+    | GetCartItemsAction
+    | UpdateQuantityAction
+    | CheckCartItemAction
+    | CheckAllCartItemsAction
+    | DeleteItemAction
+    | DeleteCheckedItemsAction
 ) => {
   switch (action.type) {
     case ADD_CART_ITEM_REQUEST:
@@ -88,12 +103,13 @@ export const cartReducer = (
       return produce(state, (draft: Draft<CartState>) => {
         const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
         if (target) target.quantity = action.payload.quantity;
+        draft.cartItems.success = true;
       });
 
     case UPDATE_QUANTITY_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.success = false;
-        draft.cartItems.error = null;
+        draft.cartItems.error = action.error;
       });
 
     case CHECK_CART_ITEM:
@@ -105,6 +121,45 @@ export const cartReducer = (
     case CHECK_ALL_CART_ITEMS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.data = [...draft.cartItems.data].map((item) => ({ ...item, checked: action.checked }));
+      });
+
+    case DELETE_ITEM_REQUEST:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.success = false;
+        draft.cartItems.error = null;
+      });
+
+    case DELETE_ITEM_SUCCESS:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.data = draft.cartItems.data.filter((item) => item.id !== action.id);
+        draft.cartItems.success = true;
+        draft.cartItems.error = null;
+      });
+
+    case DELETE_ITEM_FAILURE:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.success = false;
+        draft.cartItems.error = action.error;
+      });
+
+    case DELETE_CHECKED_ITEMS_REQUEST:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.success = false;
+        draft.cartItems.error = null;
+      });
+
+    case DELETE_CHECKED_ITEMS_SUCCESS:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.data = draft.cartItems.data.filter((item) => !action.ids.includes(item.id));
+
+        draft.cartItems.success = true;
+        draft.cartItems.error = null;
+      });
+
+    case DELETE_CHECKED_ITEMS_FAILURE:
+      return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.success = false;
+        draft.cartItems.error = action.error;
       });
 
     default:
