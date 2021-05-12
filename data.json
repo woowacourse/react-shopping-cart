@@ -31,7 +31,16 @@
       "price": 43400
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "2",
+      "image": "https://picsum.photos/200/200",
+      "name": "2PET보틀-정사각(420ml)",
+      "price": 43400,
+      "checked": false,
+      "quantity": 69
+    }
+  ],
   "orderConfirm": [],
   "order": [
     {

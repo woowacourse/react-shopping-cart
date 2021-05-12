@@ -57,12 +57,13 @@ const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infin
         max={max}
         onChange={onChangeInput}
         onBlur={onBlurInput}
+        data-testid="quantity-input"
       />
       <Container>
-        <IncreaseButton type="button" onClick={onClickIncreaseButton}>
+        <IncreaseButton type="button" data-testid="increase-button" onClick={onClickIncreaseButton}>
           <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </IncreaseButton>
-        <DecreaseButton type="button" onClick={onClickDecreaseButton}>
+        <DecreaseButton type="button" data-testid="decrease-button" onClick={onClickDecreaseButton}>
           <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </DecreaseButton>
       </Container>
