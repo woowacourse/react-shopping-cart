@@ -19,7 +19,9 @@ export const decorators = [
     <>
       <GlobalStyle />
       <Provider store={store}>
-        <Story />
+        <div style={{ height: '100vh' }}>
+          <Story />
+        </div>
       </Provider>
     </>
   ),

@@ -13,20 +13,20 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+  state: State = {
     hasError: false,
     error: null,
   };
 
-  public static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('ERROR_BOUNDARY: ', error, errorInfo);
   }
 
-  public errorComponentMap: { [key: string]: React.ElementType } = {
+  errorComponentMap: { [key: string]: React.ElementType } = {
     [NETWORK_ERROR]: NetworkError,
   };
 

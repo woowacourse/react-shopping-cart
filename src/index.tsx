@@ -13,7 +13,9 @@ ReactDOM.render(
       <GlobalStyle />
       <BrowserRouter>
         <Provider store={store}>
-          <App />
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
         </Provider>
       </BrowserRouter>
     </>
