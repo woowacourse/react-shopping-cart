@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { FlexBetween } from "../../SharedStyled/Flex";
-import { COLOR } from "../../constants/theme";
+import { FlexBetween } from "../../../SharedStyled/Flex"
+import { COLOR } from "../../../constants/theme";
 
 const Container = styled.div`
   display: flex;

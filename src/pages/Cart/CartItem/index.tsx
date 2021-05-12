@@ -1,6 +1,6 @@
 import React, { VFC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 
-import { ProductImage, CheckBox } from "../../Components";
+import { ProductImage, CheckBox } from "../../../Components";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
 
 interface ICartItemProps {
