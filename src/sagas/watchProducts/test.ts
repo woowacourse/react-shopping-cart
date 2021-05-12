@@ -1,16 +1,40 @@
-import { Task } from "@redux-saga/types";
-import { takeLatest } from "redux-saga/effects";
+import { call } from "redux-saga/effects";
+import { expectSaga } from "redux-saga-test-plan";
 
-import watchFetchProducts from ".";
+import watchProducts from ".";
 import actions from "../../actions";
+import api from "../../apis";
+import { throwError } from "redux-saga-test-plan/providers";
 
-// TODO: Redux Saga 테스트 목적이 이해가 안되는 상황
-// 학습 / 질문
+const products = {
+  products: {
+    "1": {
+      name: "[든든] 유부 슬라이스 500g",
+      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+      price: 4900,
+    },
+    "2": {
+      name: "[든든] 유부 슬라이스 500g",
+      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+      price: 4900,
+    },
+  },
+};
 
-// describe("productsSaga test", () => {
-//   it("should watchfetchProducts", () => {
-//     const fetchProductsIterator = watchFetchProducts().next().value;
+const errormessage = "getProducts failed";
 
-//     expect(fetchProductsIterator.toPromise()).toEqual(products);
-//   });
-// });
+it("should getProducts successed", () => {
+  return expectSaga(watchProducts)
+    .dispatch(actions.products.get.request())
+    .provide([[call(api.products.get), products]])
+    .put(actions.products.get.success(products))
+    .run();
+});
+
+it("should getProducts failed", () => {
+  return expectSaga(watchProducts)
+    .dispatch(actions.products.get.request())
+    .provide([[call(api.products.get), throwError(Error(errormessage))]])
+    .put(actions.products.get.failure({ requestErrorMessage: errormessage }))
+    .run();
+});

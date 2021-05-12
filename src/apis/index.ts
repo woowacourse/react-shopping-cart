@@ -1,42 +1,65 @@
+import firebase from "firebase";
+
 import db from "../firebase";
 
-import { CartItem, Id, Order, Product } from "../interface";
+import { CartItem, Id, Order, Product, ProductsObject } from "../interface";
 
-const products = db.collection("products");
-const cart = db.collection("cart");
-const orderList = db.collection("orderList");
+const collection = {
+  products: db.collection("products"),
+  cart: db.collection("cart"),
+  orderList: db.collection("orderList"),
+};
 
 const api = {
   products: {
-    get: () => {
-      return products.get();
+    get: async (): Promise<ProductsObject> => {
+      const response: firebase.firestore.QuerySnapshot<
+        firebase.firestore.DocumentData | (Id & Product)
+      > = await collection.products.get();
+
+      const products: ProductsObject = response.docs.reduce(
+        (acc: ProductsObject, product) => {
+          const productData: firebase.firestore.DocumentData | (Id & Product) = product.data();
+
+          acc.products[productData.id] = {
+            name: productData.name,
+            price: productData.price,
+            imageSrc: productData.imageSrc,
+          };
+
+          return acc;
+        },
+        { products: {} }
+      );
+
+      return products;
     },
     post: (product: Id & Product) => {
-      products.doc(product.id).set(product);
+      collection.products.doc(product.id).set(product);
     },
   },
   cart: {
     get: () => {
-      return cart.get();
+      return collection.cart.get();
     },
     post: (cartItem: CartItem) => {
-      cart.doc(cartItem.id).set(cartItem);
+      collection.cart.doc(cartItem.id).set(cartItem);
     },
     delete: (id: string) => {
-      cart.doc(id).delete();
+      collection.cart.doc(id).delete();
     },
   },
   order: {
     get: (id: string) => {
-      return orderList.doc(id).get();
+      return collection.orderList.doc(id).get();
     },
     post: (order: Order) => {
-      orderList.doc(order.id).set(order);
+      collection.orderList.doc(order.id).set(order);
     },
   },
   orderList: {
     get: () => {
-      return orderList.get();
+      return collection.orderList.get();
     },
   },
 };

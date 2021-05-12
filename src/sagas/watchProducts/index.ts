@@ -1,9 +1,8 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import firebase from "firebase";
 
 import actions from "../../actions";
 import api from "../../apis";
-import { Id, Product, ProductsObject } from "../../interface";
+import { ProductsObject } from "../../interface";
 
 function* watchProducts() {
   yield takeLatest(actions.products.get.request().type, getProducts);
@@ -11,26 +10,7 @@ function* watchProducts() {
 
 function* getProducts() {
   try {
-    const response: firebase.firestore.QuerySnapshot<Id & Product> = yield call(api.products.get);
-
-    const products: ProductsObject = response.docs.reduce(
-      (acc: ProductsObject, product) => {
-        const productData: (Id & Product) | undefined = product.data();
-
-        if (productData === undefined) {
-          return acc;
-        }
-
-        acc.products[productData.id] = {
-          name: productData.name,
-          price: productData.price,
-          imageSrc: productData.imageSrc,
-        };
-
-        return acc;
-      },
-      { products: {} }
-    );
+    const products: ProductsObject = yield call(api.products.get);
 
     yield put(actions.products.get.success(products));
   } catch (error) {
