@@ -1,5 +1,9 @@
-import React from 'react';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { RootState } from '../../modules';
+import { OrdersState } from '../../modules/orders/reducers';
+import { createOrderRequest, resetOrderState } from '../../modules/orders/actions';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -13,15 +17,28 @@ type LocationState = {
 };
 
 const OrderPage = () => {
+  const history = useHistory();
   const location = useLocation<LocationState>();
-
-  if (!location.state) return <Redirect to="/" />;
+  const orders: OrdersState['orders'] = useSelector((state: RootState) => state.ordersReducer.orders);
+  const dispatch = useDispatch();
 
   const { checkedItems } = location.state;
 
   const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: T.CartItem) => {
     return acc + curr.product.price * curr.quantity;
   }, 0);
+
+  const handlePurchaseCartItems = () => {
+    if (orders.isLoading) return;
+
+    dispatch(createOrderRequest(checkedItems));
+  };
+
+  if (orders.success) {
+    return <Redirect to="/order/complete" />;
+  }
+
+  if (!location.state) return <Redirect to="/" />;
 
   return (
     <Styled.Root>
@@ -47,9 +64,11 @@ const OrderPage = () => {
               <HighlightText text="총 결제금액" />
               <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
             </Styled.HighlightTextWrapper>
-            <Link to="/order/complete">
-              <Button text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`} size={T.ButtonSize.LARGE} />
-            </Link>
+            <Button
+              text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`}
+              size={T.ButtonSize.LARGE}
+              onClick={handlePurchaseCartItems}
+            />
           </PriceOverview>
         </Styled.PriceOverviewWrapper>
       </Styled.Order>

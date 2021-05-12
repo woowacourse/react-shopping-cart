@@ -16,3 +16,9 @@ export type CartItem = {
   quantity: number;
   checked: boolean;
 };
+
+export type Order = {
+  id: number;
+  cartItems: CartItem[];
+  // totalPrice: number;
+};
