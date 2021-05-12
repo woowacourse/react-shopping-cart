@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { COLOR } from '../../constants/color';
 
 export const DIALOG_TYPE = Object.freeze({
   ALERT: 'ALERT',
@@ -26,18 +27,18 @@ const Content = styled.div`
   box-shadow: 5px 5px 20px 0 rgb(0 0 0 / 50%);
   width: 304px;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${COLOR.WHITE};
   line-height: 1.33333;
   letter-spacing: -0.6px;
 
   & button {
     width: ${({ type }) => (type === DIALOG_TYPE.ALERT ? '100%' : '50%')};
     height: 60px;
-    border-top: 1px solid rgb(221, 221, 221);
+    border-top: 1px solid ${COLOR.GRAY_200};
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(246, 246, 246);
+      background-color: ${COLOR.GRAY_100};
     }
   }
 `;
@@ -48,7 +49,7 @@ const TextWrapper = styled.section`
 
 const CancelButton = styled.button`
   border: none;
-  border-right: 1px solid rgb(221, 221, 221);
+  border-right: 1px solid ${COLOR.GRAY_200};
 `;
 
 const ConfirmButton = styled.button`
@@ -84,7 +85,6 @@ Dialog.defaultProps = {
 };
 
 Dialog.propTypes = {
-  children: PropTypes.any.isRequired,
   type: PropTypes.string.isRequired,
   onConfirm: PropTypes.func,
   onCancel: PropTypes.func,

@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { PATH } from '../../constants/path';
+import { COLOR } from '../../constants/color';
 
 const Container = styled.div`
-  background-color: #2ac1bc;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.5);
+  background-color: ${COLOR.MINT_500};
+  box-shadow: 0 4px 4px 0 ${COLOR.BLACK_OPACITY_50};
 `;
 
 const Content = styled.nav`
@@ -29,7 +30,7 @@ const Menu = styled.ul`
   width: 280px;
   justify-content: space-between;
   align-items: center;
-  color: #ffffff;
+  color: ${COLOR.WHITE};
 `;
 
 const Navigation = () => (

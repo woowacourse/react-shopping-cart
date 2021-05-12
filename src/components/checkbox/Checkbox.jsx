@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { COLOR } from '../../constants/color';
 
 const Content = styled.div`
   display: inline-block;
@@ -18,9 +19,9 @@ const CheckboxShapeDiv = styled.div`
   width: 28px;
   height: 28px;
   border-radius: 3px;
-  border: 1px solid #22a6a2;
+  border: 1px solid ${COLOR.MINT_400};
 
-  background-color: ${({ isChecked }) => (isChecked ? '#22A6A2' : 'white')};
+  background-color: ${({ isChecked }) => (isChecked ? COLOR.MINT_400 : COLOR.WHITE)};
 
   ${CheckIcon} {
     visibility: ${({ isChecked }) => (isChecked ? 'visible' : 'hidden')};
@@ -39,10 +40,6 @@ const HiddenCheckboxInput = styled.input.attrs({ type: 'checkbox' })`
   width: 1px;
 `;
 
-const Text = styled.span`
-  margin-left: 12px;
-`;
-
 const Checkbox = ({ isChecked, children, onChange }) => (
   <label>
     <Content>
@@ -53,7 +50,7 @@ const Checkbox = ({ isChecked, children, onChange }) => (
         </CheckIcon>
       </CheckboxShapeDiv>
     </Content>
-    {children ? <Text>{children}</Text> : ''}
+    {children}
   </label>
 );
 
@@ -63,7 +60,6 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   isChecked: PropTypes.bool,
-  children: PropTypes.string,
   onChange: PropTypes.func,
 };
 

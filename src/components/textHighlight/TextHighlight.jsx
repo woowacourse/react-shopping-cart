@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { COLOR } from '../../constants/color';
 
 const Container = styled.span`
   position: relative;
@@ -15,7 +16,7 @@ const Container = styled.span`
     z-index: -1;
 
     height: ${({ height }) => height || '8px'};
-    background-color: ${({ backgroundColor }) => backgroundColor || 'rgba(42, 193, 188, 0.5)'};
+    background-color: ${({ backgroundColor }) => backgroundColor || COLOR.MINT_500_OPACITY_50};
   }
 `;
 
@@ -26,7 +27,6 @@ const TextHighlight = ({ children, height, backgroundColor }) => (
 );
 
 TextHighlight.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.array]),
   height: PropTypes.string,
   backgroundColor: PropTypes.string,
 };

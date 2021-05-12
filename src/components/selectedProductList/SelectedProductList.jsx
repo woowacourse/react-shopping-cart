@@ -39,7 +39,7 @@ const selectedProductStyle = {
       justifyContent: 'space-between',
       padding: '28px 36px',
       fontSize: '20px',
-      backgroundColor: `#F6F6F6`,
+      backgroundColor: `${COLOR.GRAY_100}`,
       borderBottom: `2px solid ${COLOR.GRAY_200}`,
     },
     ListItemWrapper: {

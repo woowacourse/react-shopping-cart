@@ -54,6 +54,10 @@ const PaymentAmountWrapper = styled.div`
   top: 50px;
 `;
 
+const Text = styled.span`
+  margin-left: 12px;
+`;
+
 const getExpectedPaymentAmount = (checkedShoppingCartList) =>
   checkedShoppingCartList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
@@ -116,7 +120,7 @@ const ShoppingCart = () => {
         <div>
           <ShoppingCartItemModification>
             <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
-              {isChecked ? '선택해제' : '전체선택'}
+              <Text>{isChecked ? '선택해제' : '전체선택'}</Text>
             </Checkbox>
             <Button
               onClick={handleCheckedShoppingCartListDelete}

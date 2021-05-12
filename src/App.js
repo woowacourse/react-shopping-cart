@@ -41,22 +41,22 @@ function App() {
           <Route exact path={PATH.HOME}>
             <Home />
           </Route>
-          <Route exact path={PATH.PRODUCT_LIST}>
+          <Route path={PATH.PRODUCT_LIST}>
             <ProductList />
           </Route>
-          <Route exact path={PATH.PRODUCT_DETAIL}>
+          <Route path={PATH.PRODUCT_DETAIL}>
             <ProductDetail />
           </Route>
-          <Route exact path={PATH.SHOPPING_CART}>
+          <Route path={PATH.SHOPPING_CART}>
             <ShoppingCart />
           </Route>
-          <Route exact path={PATH.ORDER_PAYMENT}>
+          <Route path={PATH.ORDER_PAYMENT}>
             <OrderPayment />
           </Route>
-          <Route exact path={PATH.ORDER_LIST}>
+          <Route path={PATH.ORDER_LIST}>
             <OrderList />
           </Route>
-          <Route exact path={PATH.ORDER_LIST_DETAIL}>
+          <Route path={PATH.ORDER_LIST_DETAIL}>
             <OrderListDetail />
           </Route>
         </Switch>
