@@ -79,6 +79,10 @@ const ShoppingCartPage = () => {
   };
 
   const onSelectedCartItemDelete = async () => {
+    if (cartItems.length === 0) {
+      return;
+    }
+
     if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
       return;
     }
