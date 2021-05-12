@@ -121,16 +121,8 @@
       "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
       "name": "[든든] 유부 슬라이스 500g",
       "price": 4900,
-      "checked": true,
-      "quantity": 1
-    },
-    {
-      "id": "2",
-      "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png",
-      "name": "[든든] 진맛살 1kg",
-      "price": 7100,
-      "checked": true,
-      "quantity": 1
+      "checked": false,
+      "quantity": 10
     }
   ],
   "orderConfirm": [],
@@ -362,6 +354,27 @@
           "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png",
           "name": "[든든] 신-키리모찌 1kg",
           "price": 1300,
+          "checked": true,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "0ZjpkIy-Qps6Zq28R3v-q",
+      "items": [
+        {
+          "id": "1",
+          "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+          "name": "[든든] 유부 슬라이스 500g",
+          "price": 4900,
+          "checked": true,
+          "quantity": 3
+        },
+        {
+          "id": "2",
+          "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png",
+          "name": "[든든] 진맛살 1kg",
+          "price": 7100,
           "checked": true,
           "quantity": 1
         }

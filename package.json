@@ -67,6 +67,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "8.1.0",
+    "chromatic": "^5.8.0",
     "msw": "^0.28.2",
     "redux-devtools-extension": "^2.13.9",
     "storybook-react-router": "^1.0.8"
