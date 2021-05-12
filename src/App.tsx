@@ -34,7 +34,7 @@ function App() {
           <Route exact path={PATH.ORDER_LIST}>
             <OrderListPage />
           </Route>
-          <Route exact path={PATH.ORDER_DETAIL}>
+          <Route path={PATH.ORDER_DETAIL}>
             <OrderDetailPage />
           </Route>
         </Switch>

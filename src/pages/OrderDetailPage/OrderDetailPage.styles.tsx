@@ -35,4 +35,5 @@ export const PageBottom = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding-bottom: 100px;
 `;
