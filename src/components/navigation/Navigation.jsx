@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
+import { PATH } from '../../constants/path';
 
 const Container = styled.div`
   background-color: #2ac1bc;
@@ -36,21 +37,20 @@ const Navigation = () => (
     <Content>
       <Logo>
         <li>
-          <Link to="/">
+          <Link to={PATH.HOME}>
             <img src={logo} width="80%" height="80%" alt="메인 로고" />
           </Link>
         </li>
       </Logo>
       <Menu>
-        {/* TODO: 상수화 */}
         <li>
-          <Link to="/productList">상품목록</Link>
+          <Link to={PATH.PRODUCT_LIST}>상품목록</Link>
         </li>
         <li>
-          <Link to="/shoppingCart">장바구니</Link>
+          <Link to={PATH.SHOPPING_CART}>장바구니</Link>
         </li>
         <li>
-          <Link to="/orderList">주문목록</Link>
+          <Link to={PATH.ORDER_LIST}>주문목록</Link>
         </li>
       </Menu>
     </Content>

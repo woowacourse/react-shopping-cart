@@ -6,6 +6,7 @@ import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem
 import PageTitle from '../components/pageTitle/PageTitle';
 import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
+import { PATH } from '../constants/path';
 import { insertOrderItemList } from '../modules/orderList';
 
 const Content = styled.section`
@@ -31,7 +32,7 @@ const OrderPayment = () => {
   const handleOrderListPageRouter = async () => {
     await dispatch(insertOrderItemList(orderItemList));
 
-    history.push('./orderList');
+    history.push(PATH.ORDER_LIST);
   };
 
   return (

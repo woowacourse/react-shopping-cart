@@ -11,6 +11,7 @@ import ShoppingCartItem from '../components/shoppingCartItem/ShoppingCartItem';
 import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
 import emptyCart from '../assets/empty-cart.png';
 import { Link } from 'react-router-dom';
+import { PATH } from '../constants/path';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ const ShoppingCart = () => {
   };
 
   const handleOrderPaymentPageRouter = () => {
-    history.push('./orderPayment', {
+    history.push(PATH.ORDER_PAYMENT, {
       orderPaymentList: checkedShoppingCartList,
       totalPrice,
     });
@@ -86,7 +87,7 @@ const ShoppingCart = () => {
       <ImageWrapper>
         <EmptyCartImage src={emptyCart} alt="빈 장바구니" />
         <EmptyCartText>장바구니에 담긴 상품이 없습니다.</EmptyCartText>
-        <Link to="./productList">
+        <Link to={PATH.PRODUCT_LIST}>
           <Button type={BUTTON_TYPE.MEDIUM} styles={{ fontWeight: 500, marginTop: '30px' }}>
             상품목록으로 가기
           </Button>

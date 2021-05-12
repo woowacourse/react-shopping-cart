@@ -1,3 +1,4 @@
+import { API_PATH, RETURN_TYPE } from '../constants/api';
 import { httpClient } from '../request/httpClient';
 
 const FETCH_ORDER_ITEM_LIST = 'orderList/FETCH_ORDER_ITEM_LIST';
@@ -7,7 +8,7 @@ export const insertOrderItemList = (orderItemList) => async (dispatch) => {
   try {
     const orderItemData = { orderNumber: new Date().getTime(), itemList: orderItemList };
 
-    await httpClient.post({ path: 'orderItemList', body: orderItemData });
+    await httpClient.post({ path: API_PATH.ORDER_ITEM_LIST, body: orderItemData });
 
     dispatch({ type: INSERT_ORDER_ITEM_LIST, payload: orderItemData });
   } catch (error) {
@@ -17,7 +18,7 @@ export const insertOrderItemList = (orderItemList) => async (dispatch) => {
 
 export const fetchOrderItemList = () => async (dispatch) => {
   try {
-    const orderItemList = await httpClient.get({ path: 'orderItemList', returnType: 'json' });
+    const orderItemList = await httpClient.get({ path: API_PATH.ORDER_ITEM_LIST, returnType: RETURN_TYPE.JSON });
 
     dispatch({ type: FETCH_ORDER_ITEM_LIST, payload: orderItemList });
   } catch (error) {
@@ -34,7 +35,7 @@ const orderList = (state = initialState, action) => {
     case FETCH_ORDER_ITEM_LIST:
       return {
         ...state,
-        orderItemList: action.payload,
+        orderItemList: action.payload.reverse(),
       };
     case INSERT_ORDER_ITEM_LIST:
       return {

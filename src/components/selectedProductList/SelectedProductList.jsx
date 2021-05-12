@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import PropTypes from 'prop-types';
+import { PATH } from '../../constants/path';
 
 export const SELECTED_PRODUCT_LIST_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
@@ -64,7 +65,7 @@ const getHeader = ({ type, count, orderNumber }) => {
     ORDER_LIST: (
       <Header type={type}>
         <div>주문번호 : {orderNumber}</div>
-        <Link to="./orderListDetail">상세보기 {'>'} </Link>
+        <Link to={PATH.ORDER_LIST_DETAIL}>상세보기 {'>'} </Link>
       </Header>
     ),
   };

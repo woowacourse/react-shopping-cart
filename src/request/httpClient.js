@@ -1,5 +1,7 @@
+import { API_END_POINT, API_METHOD } from '../constants/api';
+
 const request = async ({ path, body, method, returnType }) => {
-  const response = await fetch(`http://localhost:4000/${path}`, fetchOptions({ method, body }));
+  const response = await fetch(`${API_END_POINT}${path}`, fetchOptions({ method, body }));
 
   if (!response.ok) {
     throw new Error(await response.text());
@@ -17,7 +19,7 @@ const fetchOptions = ({ method, body }) => ({
 });
 
 export const httpClient = {
-  get: ({ path, returnType }) => request({ path, method: 'GET', returnType }),
-  post: ({ path, body, returnType }) => request({ path, body, method: 'POST', returnType }),
-  delete: ({ path, body, returnType }) => request({ path, body, method: 'DELETE', returnType }),
+  get: ({ path, returnType }) => request({ path, method: API_METHOD.GET, returnType }),
+  post: ({ path, body, returnType }) => request({ path, body, method: API_METHOD.POST, returnType }),
+  delete: ({ path, body, returnType }) => request({ path, body, method: API_METHOD.DELETE, returnType }),
 };

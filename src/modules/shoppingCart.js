@@ -1,3 +1,4 @@
+import { API_PATH, RETURN_TYPE } from '../constants/api';
 import { httpClient } from '../request/httpClient';
 
 // TODO: LIST -> ITEM_LIST 또는 페이지 이름을 변경
@@ -12,7 +13,7 @@ const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
 export const insertShoppingCartItem = (shoppingCartItem) => async (dispatch) => {
   try {
-    await httpClient.post({ path: 'shoppingCartList', body: shoppingCartItem });
+    await httpClient.post({ path: API_PATH.SHOPPING_CART_LIST, body: shoppingCartItem });
 
     dispatch({ type: INSERT_SHOPPING_CART_ITEM, payload: shoppingCartItem });
   } catch (error) {
@@ -22,7 +23,7 @@ export const insertShoppingCartItem = (shoppingCartItem) => async (dispatch) => 
 
 export const deleteShoppingCartItem = (shoppingCartItemId) => async (dispatch) => {
   try {
-    await httpClient.delete({ path: `shoppingCartList/${shoppingCartItemId}` });
+    await httpClient.delete({ path: `${API_PATH.SHOPPING_CART_LIST}/${shoppingCartItemId}` });
 
     dispatch({ type: DELETE_SHOPPING_CART_ITEM, payload: shoppingCartItemId });
   } catch (error) {
@@ -32,7 +33,9 @@ export const deleteShoppingCartItem = (shoppingCartItemId) => async (dispatch) =
 
 export const deleteCheckedShoppingCartList = (checkedShoppingCartList) => async (dispatch) => {
   try {
-    await Promise.all(checkedShoppingCartList.map(({ id }) => httpClient.delete({ path: `shoppingCartList/${id}` })));
+    await Promise.all(
+      checkedShoppingCartList.map(({ id }) => httpClient.delete({ path: `${API_PATH.SHOPPING_CART_LIST}/${id}` }))
+    );
 
     dispatch({ type: DELETE_CHECKED_SHOPPING_CART_LIST });
   } catch (error) {
@@ -42,7 +45,7 @@ export const deleteCheckedShoppingCartList = (checkedShoppingCartList) => async 
 
 export const fetchShoppingCartList = () => async (dispatch) => {
   try {
-    const shoppingCartList = await httpClient.get({ path: 'shoppingCartList', returnType: 'json' });
+    const shoppingCartList = await httpClient.get({ path: API_PATH.SHOPPING_CART_LIST, returnType: RETURN_TYPE.JSON });
 
     dispatch({ type: FETCH_SHOPPING_CART_LIST, payload: shoppingCartList });
   } catch (error) {

@@ -14,6 +14,7 @@ import { fetchShoppingCartList } from './modules/shoppingCart';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
 import { fetchOrderItemList } from './modules/orderList';
+import { PATH } from './constants/path';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -37,25 +38,25 @@ function App() {
       <Navigation />
       <StyledContents>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={PATH.HOME}>
             <Home />
           </Route>
-          <Route exact path="/productList">
+          <Route exact path={PATH.PRODUCT_LIST}>
             <ProductList />
           </Route>
-          <Route exact path="/productDetail">
+          <Route exact path={PATH.PRODUCT_DETAIL}>
             <ProductDetail />
           </Route>
-          <Route exact path="/shoppingCart">
+          <Route exact path={PATH.SHOPPING_CART}>
             <ShoppingCart />
           </Route>
-          <Route exact path="/orderPayment">
+          <Route exact path={PATH.ORDER_PAYMENT}>
             <OrderPayment />
           </Route>
-          <Route exact path="/orderList">
+          <Route exact path={PATH.ORDER_LIST}>
             <OrderList />
           </Route>
-          <Route exact path="/orderListDetail">
+          <Route exact path={PATH.ORDER_LIST_DETAIL}>
             <OrderListDetail />
           </Route>
         </Switch>
