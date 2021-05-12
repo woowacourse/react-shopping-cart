@@ -1,39 +1,41 @@
 import { useState, useEffect } from 'react';
 
 import { requestTable } from '../api/request';
+import { activateLoading, deactivateLoading } from '../redux/action';
+import { store } from '../redux/store';
 
-export default (defaultValue, schema, { activateLoading, deactivateLoading }) => {
+export default (defaultValue, schema) => {
   const [value, setValue] = useState(defaultValue);
 
   const getAllData = async () => {
     try {
-      activateLoading();
+      store.dispatch(activateLoading());
       const data = await requestTable.GET(schema);
       setValue(data);
     } catch (error) {
       console.error(error);
       setValue(defaultValue);
     } finally {
-      deactivateLoading();
+      store.dispatch(deactivateLoading());
     }
   };
 
   const getData = async targetId => {
     try {
-      activateLoading();
+      store.dispatch(activateLoading());
       const data = await requestTable.GET(schema, targetId);
 
       return data;
     } catch (error) {
       console.error(error);
     } finally {
-      deactivateLoading();
+      store.dispatch(deactivateLoading());
     }
   };
 
   const putData = async (targetId, content) => {
     try {
-      activateLoading();
+      store.dispatch(activateLoading());
       await requestTable.PUT(schema, targetId, content);
 
       setValue(prevState => {
@@ -48,13 +50,13 @@ export default (defaultValue, schema, { activateLoading, deactivateLoading }) =>
     } catch (error) {
       console.error(error);
     } finally {
-      deactivateLoading();
+      store.dispatch(deactivateLoading());
     }
   };
 
   const postData = async content => {
     try {
-      activateLoading();
+      store.dispatch(activateLoading());
       const newDataId = await requestTable.POST(schema, content);
 
       setValue(prevState => {
@@ -69,7 +71,7 @@ export default (defaultValue, schema, { activateLoading, deactivateLoading }) =>
     } catch (error) {
       console.error(error);
     } finally {
-      deactivateLoading();
+      store.dispatch(deactivateLoading());
     }
   };
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { activateLoading, deactivateLoading, updateShoppingCartItemsAsync } from '../../redux/action';
+import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, Header, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { OrderContainer, SuccessAddedModal } from '../../components/templates';
@@ -19,14 +19,8 @@ const OrderListPage = () => {
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT, {
-    activateLoading: () => dispatch(activateLoading()),
-    deactivateLoading: () => dispatch(deactivateLoading()),
-  });
-  const { value: orderList } = useServerAPI([], SCHEMA.ORDER, {
-    activateLoading: () => dispatch(activateLoading()),
-    deactivateLoading: () => dispatch(deactivateLoading()),
-  });
+  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
   const { Modal, open: openModal } = useModal(false);
 

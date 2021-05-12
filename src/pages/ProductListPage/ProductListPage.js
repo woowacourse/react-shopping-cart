@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from './ProductListPage.styles';
 import { SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { activateLoading, deactivateLoading, updateShoppingCartItemsAsync } from '../../redux/action';
+import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedModal } from '../../components/templates';
@@ -21,10 +20,7 @@ const ProductListPage = () => {
   }));
 
   const { open: openModal, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT, {
-    activateLoading: () => dispatch(activateLoading()),
-    deactivateLoading: () => dispatch(deactivateLoading()),
-  });
+  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
   const onClickShoppingCartIcon = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };

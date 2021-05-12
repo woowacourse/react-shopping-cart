@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+
 import {
   Container,
   CheckoutListContainer,
@@ -13,17 +13,12 @@ import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { activateLoading, deactivateLoading } from '../../redux/action';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
 
-  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER, {
-    activateLoading: () => dispatch(activateLoading()),
-    deactivateLoading: () => dispatch(deactivateLoading()),
-  });
+  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
   const [expectedPrice, setExpectedPrice] = useState(0);
 
   if (!location.state) {
