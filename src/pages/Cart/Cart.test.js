@@ -1,6 +1,6 @@
 import React from 'react';
 import Cart from './';
-import { render, fireEvent, waitFor } from '../../test-utils';
+import { render, fireEvent, waitFor, within } from '../../test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 const initialState = {
@@ -99,5 +99,14 @@ describe('<Cart />', () => {
     expect(confirmSpy).toBeCalled();
 
     await waitFor(() => expect(totalPrice).toHaveTextContent('7,100원'));
+  });
+
+  it('장바구니 상품에 있는 모든 상품의 checked 상태가 true일 때 선택 해제 라벨이 보여진다.', () => {
+    const utils = render(<Cart />, { initialState });
+    const listOptionMenu = utils.getByLabelText('상품선택 옵션 메뉴');
+    const checkOptionLabel = within(listOptionMenu).getByRole('checkbox');
+
+    expect(checkOptionLabel).toHaveTextContent('선택해제');
+    expect(checkOptionLabel).toBeChecked();
   });
 });

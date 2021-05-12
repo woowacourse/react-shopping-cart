@@ -17,10 +17,13 @@ exports[`<Cart /> matches snapshot 1`] = `
         class="sc-fFehDp ctsaqC"
       >
         <div
+          aria-label="상품선택 옵션 메뉴"
           class="sc-bkkfTU kAcZej"
         >
           <label
-            class="sc-kfPtPH bmIoel"
+            aria-checked="true"
+            class="sc-kfPtPH juLErD"
+            role="checkbox"
           >
             <input
               checked=""
@@ -42,6 +45,7 @@ exports[`<Cart /> matches snapshot 1`] = `
           </button>
         </div>
         <div
+          aria-label="장바구니 상품 목록"
           class="sc-ieebsP"
         >
           <h3
@@ -58,14 +62,18 @@ exports[`<Cart /> matches snapshot 1`] = `
               class="sc-dlVyqM dsYsil"
             >
               <label
-                class="sc-kfPtPH bmIoel"
+                class="sc-kfPtPH juLErD"
               >
                 <input
                   checked=""
                   hidden=""
                   type="checkbox"
                 />
-                <span />
+                <span
+                  aria-checked="true"
+                  aria-label="[든든] 유부 슬라이스 500g 선택"
+                  role="checkbox"
+                />
               </label>
               <div
                 class="sc-jrQzUz ffqCKT"
@@ -156,14 +164,18 @@ exports[`<Cart /> matches snapshot 1`] = `
               class="sc-dlVyqM dsYsil"
             >
               <label
-                class="sc-kfPtPH bmIoel"
+                class="sc-kfPtPH juLErD"
               >
                 <input
                   checked=""
                   hidden=""
                   type="checkbox"
                 />
-                <span />
+                <span
+                  aria-checked="true"
+                  aria-label="[든든] 진맛살 1kg 선택"
+                  role="checkbox"
+                />
               </label>
               <div
                 class="sc-jrQzUz ffqCKT"

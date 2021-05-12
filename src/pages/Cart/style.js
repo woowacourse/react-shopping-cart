@@ -54,6 +54,9 @@ export const CheckBox = styled.label`
   align-items: center;
   position: relative;
 
+  align-items: flex-start;
+  padding-top: 1rem;
+
   & input:checked ~ span {
     border-color: ${COLOR.MINT};
     background-color: ${COLOR.MINT};

@@ -79,9 +79,14 @@ const Cart = () => {
       <Header>장바구니</Header>
       <Contents>
         <ProductListContainer>
-          <ListOptionMenu>
-            <CheckBox>
-              <input type="checkbox" checked={isAllChecked} onChange={onCheckOptionChange} hidden />
+          <ListOptionMenu aria-label="상품선택 옵션 메뉴">
+            <CheckBox role="checkbox" aria-checked={isAllChecked}>
+              <input
+                type="checkbox"
+                checked={isAllChecked ? true : false}
+                onChange={onCheckOptionChange}
+                hidden
+              />
               <span></span>
               {checkOptionText}
             </CheckBox>
@@ -99,7 +104,7 @@ const Cart = () => {
               상품 삭제
             </Button>
           </ListOptionMenu>
-          <ProductListWrapper>
+          <ProductListWrapper aria-label="장바구니 상품 목록">
             <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
             <ProductList>
               {list.map(({ id, name, image, price, quantity, checked }) => (
@@ -111,7 +116,7 @@ const Cart = () => {
                       checked={checked}
                       hidden
                     />
-                    <span></span>
+                    <span role="checkbox" aria-label={`${name} 선택`} aria-checked={checked}></span>
                   </CheckBox>
                   <Product
                     onClick={() => {
