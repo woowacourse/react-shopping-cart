@@ -4,14 +4,14 @@ import * as Styled from './Tooltip.styles';
 export interface Props {
   children: React.ReactNode;
   button?: React.ReactNode;
-  setTooltipShown: React.Dispatch<React.SetStateAction<boolean>>;
+  setTooltipShown?: React.Dispatch<React.SetStateAction<boolean>>;
   timeOut: number;
 }
 
 const Tooltip = ({ children, button, setTooltipShown, timeOut }: Props) => {
   useEffect(() => {
     const id = setTimeout(() => {
-      setTooltipShown(false);
+      setTooltipShown && setTooltipShown(false);
     }, timeOut);
 
     return () => clearTimeout(id);
