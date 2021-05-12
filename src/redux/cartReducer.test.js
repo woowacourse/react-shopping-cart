@@ -9,7 +9,7 @@ import {
   DECREMENT_PRODUCT_QUANTITY,
   INPUT_PRODUCT_QUANTITY,
   CHECKOUT,
-  getAction,
+  cartAction,
   cartReducer,
 } from './cartReducer';
 
@@ -37,7 +37,7 @@ const getMockState = (options = {}) => {
 describe('cartReducer 테스트', () => {
   /* 상품 추가/삭제 */
   it('addProduct 함수는 ADD_PRODUCT 타입의 액션을 생성한다.', () => {
-    expect(getAction.addProduct(mockProduct)).toEqual({
+    expect(cartAction.addProduct(mockProduct)).toEqual({
       type: ADD_PRODUCT,
       payload: mockProduct,
     });
@@ -47,11 +47,11 @@ describe('cartReducer 테스트', () => {
     const prevState = INITIAL_STATE;
     const nextState = getMockState();
 
-    expect(cartReducer(prevState, getAction.addProduct(mockProduct))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.addProduct(mockProduct))).toEqual(nextState);
   });
 
   it('removeProduct 함수는 REMOVE_PRODUCT 타입의 액션을 생성한다.', () => {
-    expect(getAction.removeProduct(mockId)).toEqual({
+    expect(cartAction.removeProduct(mockId)).toEqual({
       type: REMOVE_PRODUCT,
       payload: mockId,
     });
@@ -61,11 +61,11 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState();
     const nextState = INITIAL_STATE;
 
-    expect(cartReducer(prevState, getAction.removeProduct(mockId))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.removeProduct(mockId))).toEqual(nextState);
   });
 
   it('removeSelectedProducts 함수는 REMOVE_PRODUCT 타입의 액션을 생성한다.', () => {
-    expect(getAction.removeSelectedProducts()).toEqual({
+    expect(cartAction.removeSelectedProducts()).toEqual({
       type: REMOVE_SELECTED_PRODUCTS,
     });
   });
@@ -74,12 +74,12 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState();
     const nextState = INITIAL_STATE;
 
-    expect(cartReducer(prevState, getAction.removeSelectedProducts())).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.removeSelectedProducts())).toEqual(nextState);
   });
 
   /* 상품 선택/해제 */
   it('toggleProductSelection 함수는 TOGGLE_PRODUCT_SELECTION 타입의 액션을 생성한다.', () => {
-    expect(getAction.toggleProductSelection(mockId)).toEqual({
+    expect(cartAction.toggleProductSelection(mockId)).toEqual({
       type: TOGGLE_PRODUCT_SELECTION,
       payload: mockId,
     });
@@ -89,11 +89,11 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState({ isSelected: true });
     const nextState = getMockState({ isSelected: false });
 
-    expect(cartReducer(prevState, getAction.toggleProductSelection(mockId))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.toggleProductSelection(mockId))).toEqual(nextState);
   });
 
   it('toggleAllProductsSelection 함수는 TOGGLE_ALL_PRODUCTS_SELECTION 타입의 액션을 생성한다.', () => {
-    expect(getAction.toggleAllProductsSelection(false)).toEqual({
+    expect(cartAction.toggleAllProductsSelection(false)).toEqual({
       type: TOGGLE_ALL_PRODUCTS_SELECTION,
       payload: false,
     });
@@ -103,13 +103,13 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState({ isSelected: true });
     const nextState = getMockState({ isSelected: false });
 
-    expect(cartReducer(prevState, getAction.toggleAllProductsSelection(false))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.toggleAllProductsSelection(false))).toEqual(nextState);
   });
 
   /* 상품 수량 조절 */
 
   it('incrementProductQuantity 함수는 INCREMENT_PRODUCT_QUANTITY 타입의 액션을 생성한다.', () => {
-    expect(getAction.incrementProductQuantity(mockId)).toEqual({
+    expect(cartAction.incrementProductQuantity(mockId)).toEqual({
       type: INCREMENT_PRODUCT_QUANTITY,
       payload: mockId,
     });
@@ -119,11 +119,11 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState({ quantity: 1 });
     const nextState = getMockState({ quantity: 2 });
 
-    expect(cartReducer(prevState, getAction.incrementProductQuantity(mockId))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.incrementProductQuantity(mockId))).toEqual(nextState);
   });
 
   it('decrementProductQuantity 함수는 DECREMENT_PRODUCT_QUANTITY 타입의 액션을 생성한다.', () => {
-    expect(getAction.decrementProductQuantity(mockId)).toEqual({
+    expect(cartAction.decrementProductQuantity(mockId)).toEqual({
       type: DECREMENT_PRODUCT_QUANTITY,
       payload: mockId,
     });
@@ -133,11 +133,11 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState({ quantity: 2 });
     const nextState = getMockState({ quantity: 1 });
 
-    expect(cartReducer(prevState, getAction.decrementProductQuantity(mockId))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.decrementProductQuantity(mockId))).toEqual(nextState);
   });
 
   it('inputProductQuantity 함수는 TOGGLE_ALL_PRODUCTS_SELECTION 타입의 액션을 생성한다.', () => {
-    expect(getAction.inputProductQuantity(mockId, 4)).toEqual({
+    expect(cartAction.inputProductQuantity(mockId, 4)).toEqual({
       type: INPUT_PRODUCT_QUANTITY,
       payload: { id: mockId, quantity: 4 },
     });
@@ -147,12 +147,12 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState({ quantity: 1 });
     const nextState = getMockState({ quantity: 4 });
 
-    expect(cartReducer(prevState, getAction.inputProductQuantity(mockId, 4))).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.inputProductQuantity(mockId, 4))).toEqual(nextState);
   });
 
   /* 주문 결제 */
   it('checkout 함수는 CHECKOUT 타입의 액션을 생성한다.', () => {
-    expect(getAction.checkout()).toEqual({
+    expect(cartAction.checkout()).toEqual({
       type: CHECKOUT,
     });
   });
@@ -161,6 +161,6 @@ describe('cartReducer 테스트', () => {
     const prevState = getMockState();
     const nextState = INITIAL_STATE;
 
-    expect(cartReducer(prevState, getAction.checkout())).toEqual(nextState);
+    expect(cartReducer(prevState, cartAction.checkout())).toEqual(nextState);
   });
 });

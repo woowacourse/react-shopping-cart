@@ -17,7 +17,7 @@ export const CHECKOUT = 'CHECKOUT';
 
 /* ACTION CREATOR */
 
-export const getAction = {
+export const cartAction = {
   addProduct: (product) => ({ type: ADD_PRODUCT, payload: product }),
   removeProduct: (id) => ({ type: REMOVE_PRODUCT, payload: id }),
   removeSelectedProducts: () => ({ type: REMOVE_SELECTED_PRODUCTS }),

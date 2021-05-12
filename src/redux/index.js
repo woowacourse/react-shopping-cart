@@ -8,7 +8,8 @@ export {
   DECREMENT_PRODUCT_QUANTITY,
   INPUT_PRODUCT_QUANTITY,
   CHECKOUT,
-  getAction,
+  cartAction,
   cartReducer,
 } from './cartReducer';
+export { OPEN_CONFIRM, CLOSE_CONFIRM, confirmAction, confirmReducer } from './confirmReducer';
 export { store } from './store';

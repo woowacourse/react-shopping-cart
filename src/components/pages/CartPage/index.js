@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import { getAction } from '../../../redux';
+import { cartAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
 import * as S from './style.js';
@@ -20,15 +20,17 @@ export const CartPage = () => {
   };
 
   const dispatch = useDispatch();
-  const dispatchRemoveProduct = (id) => dispatch(getAction.removeProduct(id));
-  const dispatchRemoveSelectedProducts = () => dispatch(getAction.removeSelectedProducts());
-  const dispatchToggleProductSelection = (id) => dispatch(getAction.toggleProductSelection(id));
+  const dispatchRemoveProduct = (id) => dispatch(cartAction.removeProduct(id));
+  const dispatchRemoveSelectedProducts = () => dispatch(cartAction.removeSelectedProducts());
+  const dispatchToggleProductSelection = (id) => dispatch(cartAction.toggleProductSelection(id));
   const dispatchToggleAllProductSelection = () =>
-    dispatch(getAction.toggleAllProductsSelection(!isAllSelected));
-  const dispatchIncrementProductQuantity = (id) => dispatch(getAction.incrementProductQuantity(id));
-  const dispatchDecrementProductQuantity = (id) => dispatch(getAction.decrementProductQuantity(id));
+    dispatch(cartAction.toggleAllProductsSelection(!isAllSelected));
+  const dispatchIncrementProductQuantity = (id) =>
+    dispatch(cartAction.incrementProductQuantity(id));
+  const dispatchDecrementProductQuantity = (id) =>
+    dispatch(cartAction.decrementProductQuantity(id));
   const dispatchInputProductQuantity = (id, quantity) =>
-    dispatch(getAction.inputProductQuantity(id, quantity));
+    dispatch(cartAction.inputProductQuantity(id, quantity));
 
   return (
     <S.Page>

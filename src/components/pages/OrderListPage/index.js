@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAction } from '../../../redux';
+import { cartAction } from '../../../redux';
 import { loadSortedData, ORDER_LIST, ORDER_ID, DESC } from '../../../firebase';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../commons';
@@ -9,7 +9,7 @@ import * as S from './style.js';
 export const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
-  const dispatchAddProduct = (product) => dispatch(getAction.addProduct(product));
+  const dispatchAddProduct = (product) => dispatch(cartAction.addProduct(product));
 
   useEffect(() => {
     loadSortedData({

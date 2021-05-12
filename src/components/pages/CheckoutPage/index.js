@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAction } from '../../../redux';
+import { cartAction } from '../../../redux';
 import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header } from '../../commons';
@@ -25,7 +25,7 @@ export const CheckoutPage = () => {
       key: orderId,
       value: { orderId, orderItems },
     });
-    dispatch(getAction.checkout());
+    dispatch(cartAction.checkout());
     history.push(ROUTE.ORDER_LIST);
   };
 
