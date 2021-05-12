@@ -2,6 +2,7 @@ import React from 'react';
 import Cart from './';
 import { render, fireEvent, waitFor, within } from '../../test-utils';
 import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const initialState = {
   cartReducer: {
@@ -234,5 +235,19 @@ describe('<Cart />', () => {
       expect(names[0]).toBe('배송상품 (1개)');
       expect(names.includes(targetProductName)).toBe(false);
     });
+  });
+
+  it('결제 버튼 클릭 시 주문/결제 페이지로 이동한다.', () => {
+    const utils = render(
+      <Router>
+        <Cart />
+      </Router>,
+      { initialState },
+    );
+    const purchaseButton = utils.getByRole('button', { name: /주문하기\(2개\)/i });
+
+    fireEvent.click(purchaseButton);
+
+    expect(window.location.href).toBe('http://localhost/order');
   });
 });
