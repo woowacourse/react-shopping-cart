@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <NavigationBar />
       <Switch>
-        <Route path="/" component={ProductListPage} />
+        <Route path="/" exact component={ProductListPage} />
         <Route path="/shoppingCart" component={ShoppingCartPage} />
         <Route path="/orderList" component={OrderListPage} />
         <Route path="/orderConfirm" component={OrderConfirmPage} />

@@ -2,12 +2,12 @@ import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartS
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetchCartRedux from '../../hooks/useFetchCartRedux';
-import { useAppSelector } from '../../states/store';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { RouteComponentProps } from 'react-router';
 import { NETWORK_ERROR } from '../../constants/error';
+import { KRCurrency } from '../../utils/format';
 
 const TITLE = '장바구니';
 

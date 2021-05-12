@@ -1,6 +1,7 @@
 import { VFC } from 'react';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import { Product } from '../../../types';
+import { KRCurrency } from '../../../utils/format';
 import {
   CartIconButton,
   ContentContainer,
@@ -24,7 +25,7 @@ const ProductCard: VFC<Product> = (product) => {
       <ContentContainer>
         <div>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>
-          <ProductText>{price} 원</ProductText>
+          <ProductText>{KRCurrency(price)}</ProductText>
         </div>
         <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>

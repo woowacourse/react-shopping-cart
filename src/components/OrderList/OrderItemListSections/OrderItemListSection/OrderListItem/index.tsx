@@ -3,6 +3,7 @@ import { OrderedItem } from '../../../../../types';
 import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderConfirmListItem/style';
 import Container from '../../../../shared/Container';
 import { AddCartButton, OrderListItemCard, StyledOrderItemListItem } from './styles';
+import { KRCurrency } from '../../../../../utils/format';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   item: OrderedItem;
@@ -14,7 +15,7 @@ const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity }, onC
       <Container>
         <ProductName>{name}</ProductName>
         <p>
-          {quantity * price}원 / 수량 : {quantity}개
+          {KRCurrency(quantity * price)} / 수량 : {quantity}개
         </p>
       </Container>
     </OrderListItemCard>

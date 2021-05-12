@@ -1,5 +1,6 @@
 import { VFC } from 'react';
 import { ItemInCart } from '../../../../../types';
+import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
 import IconButton from '../../../../shared/IconButton';
@@ -38,7 +39,7 @@ const ShoppingCartItem: VFC<Props> = ({
           onClick={() => deleteItem(id)}
         />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
-        <Text>{price * quantity} 원</Text>
+        <Text>{KRCurrency(price * quantity)}</Text>
       </Container>
     </ShoppingCartItemContainer>
   );
