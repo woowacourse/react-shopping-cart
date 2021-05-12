@@ -8,6 +8,7 @@ import { Button, Header, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { OrderContainer, SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
+import { ModalPortal } from '../../portals';
 
 const OrderListPage = () => {
   const location = useLocation();
@@ -62,9 +63,11 @@ const OrderListPage = () => {
         ))}
       </Container>
 
-      <Modal>
-        <SuccessAddedModal productList={productList} openModal={openModal} />
-      </Modal>
+      <ModalPortal>
+        <Modal>
+          <SuccessAddedModal productList={productList} openModal={openModal} />
+        </Modal>
+      </ModalPortal>
     </ScreenContainer>
   );
 };
