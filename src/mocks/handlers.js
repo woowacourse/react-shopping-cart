@@ -23,6 +23,10 @@ export const handlers = [
   rest.delete(API_BASE_URL + '/cart/:id', (req, res, ctx) => {
     const { id } = req.params;
 
+    if (cartItemList.every((item) => item.id !== id)) {
+      return res(ctx.status(404), ctx.text("there's no id in db!"));
+    }
+
     cartItemList = cartItemList.filter((item) => item.id !== id);
 
     return res(ctx.status(200));
