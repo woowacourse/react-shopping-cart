@@ -27,7 +27,6 @@ const Image = styled.img`
   ${({ type }) => productImageStyle[type] || productImageStyle[PRODUCT_IMAGE_TYPE.MEDIUM]}
 `;
 
-// defaultProps로 src가 들어오지 않았을 때 해당 상품이 없다는 이미지를 띄워주기
 const ProductImage = ({ type, src, alt }) => <Image type={type} src={src} alt={alt} />;
 
 ProductImage.propTypes = {

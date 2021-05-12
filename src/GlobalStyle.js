@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { COLOR } from './constants/color';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -7,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    color: #333333;
+    color: ${COLOR.GRAY_800};
     font-family: 'Noto Sans KR', sans-serif;
     height: 100%;
   }

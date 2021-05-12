@@ -23,7 +23,7 @@ const StyledContents = styled.div`
   margin-top: 40px;
 `;
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,6 +63,6 @@ function App() {
       </StyledContents>
     </>
   );
-}
+};
 
 export default App;

@@ -48,6 +48,9 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
+const MAX_COUNT = 99;
+const MIN_COUNT = 1;
+
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
 
@@ -71,7 +74,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleIncrement = () => {
-    if (count >= 99) {
+    if (count >= MAX_COUNT) {
       setIsDialogOpen(true);
       setType(DIALOG_TYPE.ALERT);
 
@@ -82,7 +85,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleDecrement = () => {
-    count > 1 && dispatch(decreaseCount(id));
+    count > MIN_COUNT && dispatch(decreaseCount(id));
   };
 
   return (
