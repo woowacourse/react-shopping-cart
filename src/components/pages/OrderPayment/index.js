@@ -1,46 +1,39 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PageHeader from '../../PageHeader';
 import PaymentSheet from '../../PaymentSheet';
-import { Main, OrderList, Page } from './index.styles';
-import PropTypes from 'prop-types';
 import OrderItem from '../../OrderItem';
+import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
+import { Main, OrderList, Page } from './index.styles';
 
-const OrderPayment = ({ products }) => (
-  <Page>
-    <PageHeader>주문/결제</PageHeader>
-    <Main>
-      <OrderList>
-        <div>주문상품(4건)</div>
-        <ul>
-          {products.map(({ id, ...product }) => (
-            <li>
-              <OrderItem {...product} />
-            </li>
-          ))}
-        </ul>
-      </OrderList>
-      <PaymentSheet
-        title="결제금액"
-        priceInfo="총 결제금액"
-        price={10000}
-        buttonText={`${10000}원 결제하기`}
-        isOrdered={false}
-      />
-    </Main>
-  </Page>
-);
+const OrderPayment = () => {
+  const products = Object.values(
+    useSelector(({ product }) => product.pickedProducts)
+  );
 
-OrderPayment.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      image: PropTypes.string,
-      imageAlt: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      quantity: PropTypes.number,
-    })
-  ),
+  return (
+    <Page>
+      <PageHeader>주문/결제</PageHeader>
+      <Main>
+        <OrderList>
+          <div>주문상품({getTotalQuantity(products)}개)</div>
+          <ul>
+            {products.map(({ id, ...product }) => (
+              <li key={id}>
+                <OrderItem {...product} isOrdered={false} />
+              </li>
+            ))}
+          </ul>
+        </OrderList>
+        <PaymentSheet
+          title="결제금액"
+          priceInfo="총 결제금액"
+          price={formatPrice(getTotalPrice(products))}
+          buttonText={`${formatPrice(getTotalPrice(products))}원 결제하기`}
+        />
+      </Main>
+    </Page>
+  );
 };
 
 export default OrderPayment;

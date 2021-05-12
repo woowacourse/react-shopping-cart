@@ -5,7 +5,13 @@ import { Content, Header, Payment, Sheet } from './index.styles';
 
 const BUTTON_COLOR = 'var(--color-mint)';
 
-const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
+const PaymentSheet = ({
+  title,
+  priceInfo,
+  price,
+  buttonText,
+  onButtonClick,
+}) => (
   <Sheet>
     <Header>{title}</Header>
     <Content>
@@ -19,7 +25,7 @@ const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
           <span></span>
         </div>
       </Payment>
-      <Button onClick={() => {}} backgroundColor={BUTTON_COLOR}>
+      <Button onClick={onButtonClick} backgroundColor={BUTTON_COLOR}>
         {buttonText}
       </Button>
     </Content>
@@ -29,7 +35,7 @@ const PaymentSheet = ({ title, priceInfo, price, buttonText }) => (
 PaymentSheet.propTypes = {
   title: PropTypes.string.isRequired,
   priceInfo: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
 };
 

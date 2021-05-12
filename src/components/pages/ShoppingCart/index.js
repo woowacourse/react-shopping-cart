@@ -14,7 +14,8 @@ import {
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { PRODUCTS } from '../../../constants';
-import { formatPrice } from '../../../utils';
+import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
+import { useHistory } from 'react-router-dom';
 
 const ShoppingCart = () => {
   const products = Object.values(
@@ -31,10 +32,18 @@ const ShoppingCart = () => {
     dispatch({ type: PRODUCTS.DECREASE_QUANTITY, id });
   };
 
-  const getTotalPrice = products => {
-    return products.reduce((totalPrice, { price, quantity }) => {
-      return (totalPrice += price * quantity);
-    }, 0);
+  const getButtonText = totalQuantity => {
+    if (totalQuantity === 0) {
+      return '상품 담기';
+    }
+
+    return `주문하기 (${totalQuantity}개)`;
+  };
+
+  const history = useHistory();
+
+  const handlePaymentSheetButtonClick = () => {
+    history.push('./order-payment');
   };
 
   return (
@@ -68,7 +77,8 @@ const ShoppingCart = () => {
           title="결제예상금액"
           priceInfo="결제예상금액"
           price={formatPrice(getTotalPrice(products))}
-          buttonText="주문하기"
+          buttonText={`${getButtonText(getTotalQuantity(products))}`}
+          onButtonClick={handlePaymentSheetButtonClick}
         />
       </Main>
     </Page>

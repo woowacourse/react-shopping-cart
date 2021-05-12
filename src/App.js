@@ -1,5 +1,11 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { NavBar, ShoppingCart, CompletedOrder, Products } from './components';
+import {
+  NavBar,
+  ShoppingCart,
+  CompletedOrder,
+  Products,
+  OrderPayment,
+} from './components';
 import GlobalStyle from './global.styles';
 import { products, totalOrders } from '../src/mockData';
 import { Provider } from 'react-redux';
@@ -25,6 +31,9 @@ function App() {
           </Route>
           <Route exact path="/cart">
             <ShoppingCart products={products} />
+          </Route>
+          <Route exact path="/order-payment">
+            <OrderPayment products={products} />
           </Route>
           <Route exact path="/completed-orders">
             <CompletedOrder orders={totalOrders} />
