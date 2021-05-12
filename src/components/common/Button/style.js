@@ -14,7 +14,8 @@ export const Button = styled.button`
   ${({ fontSize }) => fontSize && `font-size: ${fontSize};`}
   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor};`}
   border: ${({ borderColor }) => (borderColor ? `1px solid ${borderColor}` : 'none')};
-  cursor: pointer;
+  ${({ cursor }) => cursor && `cursor: ${cursor};`}
+  outline: none;
 
   &:hover {
     ${({ hoverAnimation }) => hoverAnimation && animation[hoverAnimation]}

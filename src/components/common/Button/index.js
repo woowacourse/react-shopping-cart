@@ -15,6 +15,7 @@ const Button = ({
   children,
   onClick,
   disabled,
+  cursor,
 }) => {
   return (
     <Styled.Button
@@ -29,6 +30,7 @@ const Button = ({
       borderColor={borderColor}
       disabled={disabled}
       onClick={onClick}
+      cursor={cursor}
     >
       {children}
     </Styled.Button>
@@ -45,13 +47,16 @@ Button.propTypes = {
   fontSize: PropTypes.string,
   backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.string,
+  cursor: PropTypes.oneOf(['default', 'pointer']),
   onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 Button.defaultProps = {
   children: '',
+  disabled: '',
+  cursor: 'pointer',
 };
 
 export default Button;

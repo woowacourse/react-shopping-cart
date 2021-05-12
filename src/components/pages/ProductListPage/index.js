@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
@@ -10,6 +10,7 @@ import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Modal from '../../common/Modal';
 import Main from '../../Main';
 import Product from '../../shared/Product';
+import Snackbar from '../../common/Snackbar';
 import * as Styled from './style';
 
 const ProductListPage = () => {
@@ -51,9 +52,13 @@ const ProductListPage = () => {
               direction="column"
               size="17.5rem"
             >
-              {!cart.some(({ id }) => product.id === id) && (
-                <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
+              {!cart.some(({ id }) => product.id === id) ? (
+                <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart}>
                   <ShoppingCart width="2rem" color={PALETTE.BLACK} />
+                </Button>
+              ) : (
+                <Button backgroundColor="transparent" disabled="disabled" cursor="default">
+                  <ShoppingCart width="2rem" color={PALETTE.WHITE} />
                 </Button>
               )}
             </Product>
