@@ -1,21 +1,34 @@
-import * as Styled from './ProductDetailPage.styles';
 import { useState } from 'react';
-import Button from '../../components/commons/Button/Button';
-import NumberInput from '../../components/commons/NumberInput/NumberInput';
-import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
+
 import axios from 'axios';
+import { useHistory } from 'react-router';
+
+import NumberInput from '../../components/commons/NumberInput/NumberInput';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import { getMoneyString } from '../../utils/format';
+import Button from '../../components/commons/Button/Button';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
-import { useHistory } from 'react-router';
+
 import useProductDetail from '../../hooks/productDetail';
+
+import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
+import { getMoneyString } from '../../utils/format';
+
+import * as Styled from './ProductDetailPage.styles';
 
 const ProductDetailPage = () => {
   const history = useHistory();
   const [productQuantity, setProductQuantity] = useState<string>('1');
   const [isToolTipShown, setToolTipShown] = useState<boolean>(false);
   const { product, loading, responseOK } = useProductDetail();
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!loading && !responseOK) {
+    return <NotFound message="상품을 찾을 수 없습니다." />;
+  }
 
   const onCartButtonClick = async () => {
     try {
@@ -32,22 +45,6 @@ const ProductDetailPage = () => {
   const onTooltipButtonClick = () => {
     history.push(PATH.CART);
   };
-
-  if (loading) {
-    return (
-      <Styled.ProductDetailPage>
-        <Loading />
-      </Styled.ProductDetailPage>
-    );
-  }
-
-  if (!loading && !responseOK) {
-    return (
-      <Styled.ProductDetailPage>
-        <NotFound message="상품을 찾을 수 없습니다." />
-      </Styled.ProductDetailPage>
-    );
-  }
 
   const productPrice = getMoneyString(Number(product.price) * Number(productQuantity));
 

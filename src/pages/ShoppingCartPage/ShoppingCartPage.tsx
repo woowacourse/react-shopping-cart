@@ -1,17 +1,22 @@
+import { useState } from 'react';
+
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
-import { URL, STATUS_CODE, PATH } from '../../constants';
+
 import useCart from '../../hooks/cart';
+
+import { URL, STATUS_CODE, PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import * as Styled from './ShoppingCartPage.styles';
 import { confirm } from '../../utils/confirm';
+
+import * as Styled from './ShoppingCartPage.styles';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -37,6 +42,7 @@ const ShoppingCartPage = () => {
   const patchItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
     try {
       const response = await axios.patch(`${URL.CART}/${id}`, { quantity });
+
       if (response.status !== STATUS_CODE.PUT_SUCCESS) {
         throw new Error('상품 수량 변경에 실패하였습니다');
       }
@@ -49,6 +55,7 @@ const ShoppingCartPage = () => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const newCartItem = { ...newCartItems[targetIndex], quantity };
+
     patchItemQuantity(id, quantity);
     newCartItems.splice(targetIndex, 1, newCartItem);
     setCartItems(newCartItems);
@@ -58,12 +65,14 @@ const ShoppingCartPage = () => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const newCartItem = { ...newCartItems[targetIndex], isSelected };
+
     newCartItems.splice(targetIndex, 1, newCartItem);
     setCartItems(newCartItems);
   };
 
   const onTotalCheckClick = () => {
     const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
+
     setTotalChecked(isTotalChecked => !isTotalChecked);
     setCartItems(newCartItems);
   };
@@ -71,12 +80,14 @@ const ShoppingCartPage = () => {
   const onCartItemDelete = async (id: CartItem['id']) => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+
     if (!confirm(`${newCartItems[targetIndex].name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
     }
 
     try {
       const response = await axios.delete(`${URL.CART}/${id}`);
+
       if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
         throw new Error('장바구니 아이템 삭제에 실패하였습니다');
       }
@@ -85,6 +96,7 @@ const ShoppingCartPage = () => {
       setCartItems(newCartItems);
     } catch (error) {
       console.error(error);
+      alert(error.message);
     }
   };
 
@@ -104,6 +116,7 @@ const ShoppingCartPage = () => {
       setCartItems(newCartItems);
     } catch (error) {
       console.error(error);
+      alert(error.message);
     }
   };
 
@@ -145,7 +158,7 @@ const ShoppingCartPage = () => {
     history.push({ pathname: PATH.ORDER, state: { selectedItems } });
   };
 
-  const isOrderPossible = cartItems.length > 0;
+  const isOrderPossible = getSelectedItems().length > 0;
 
   return (
     <Styled.ShoppingCartPage>

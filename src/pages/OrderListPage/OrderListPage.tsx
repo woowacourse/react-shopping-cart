@@ -1,23 +1,27 @@
+import axios from 'axios';
 import { useHistory, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 import Button from '../../components/commons/Button/Button';
-import useOrders from '../../hooks/orders';
-import { getMoneyString } from '../../utils/format';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
-import axios from 'axios';
-import { PATH, STATUS_CODE, URL } from '../../constants';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
+
+import useOrders from '../../hooks/orders';
+
+import { getMoneyString } from '../../utils/format';
+import { RootState } from '../../modules';
+import { PATH, STATUS_CODE, URL } from '../../constants';
 import { confirm } from '../../utils/confirm';
+
 import * as Styled from './OrderListPage.styles';
 
 const OrderListPage = () => {
+  const history = useHistory();
   const { orders, loading, responseOK } = useOrders();
   const { products } = useSelector((state: RootState) => state.product);
-  const history = useHistory();
 
   if (products.length === 0) {
     return <Redirect to={PATH.ROOT} />;

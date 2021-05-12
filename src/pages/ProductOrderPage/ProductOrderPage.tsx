@@ -1,16 +1,23 @@
 import axios from 'axios';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router-dom';
+
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
+
 import { PATH, URL, STATUS_CODE } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import * as Styled from './ProductOrderPage.styles';
 import { confirm } from '../../utils/confirm';
+
+import * as Styled from './ProductOrderPage.styles';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
-  const { selectedItems: orderItems } = history.location.state;
+  const orderItems = history.location.state?.selectedItems;
+
+  if (!orderItems) {
+    return <Redirect to={PATH.ROOT} />;
+  }
 
   const orderItemList = orderItems.map(orderItem => {
     return (

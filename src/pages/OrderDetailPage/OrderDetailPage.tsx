@@ -1,26 +1,30 @@
-import * as Styled from './OrderDetailPage.styles';
+import axios from 'axios';
+import { Redirect, useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 import Button from '../../components/commons/Button/Button';
 import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
-import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
 import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
-import useOrderDetail from '../../hooks/orderDetail';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import { useSelector } from 'react-redux';
+
+import useOrderDetail from '../../hooks/orderDetail';
+
+import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
 import { RootState } from '../../modules';
-import axios from 'axios';
-import { Redirect, useHistory } from 'react-router';
 import { confirm } from '../../utils/confirm';
 import { getMoneyString } from '../../utils/format';
 
+import * as Styled from './OrderDetailPage.styles';
+
 const OrderDetailPage = () => {
-  const orderId = window.location.hash.split('/').slice(-1);
   const history = useHistory();
   const { products } = useSelector((state: RootState) => state.product);
   const { orderItems, loading, responseOK } = useOrderDetail();
+  const orderId = window.location.hash.split('/').slice(-1);
 
   if (products.length === 0) {
     return <Redirect to={PATH.ROOT} />;
