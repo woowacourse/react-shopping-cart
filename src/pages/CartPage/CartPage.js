@@ -8,6 +8,9 @@ import Button from '../../components/utils/Button';
 import CartItem from './CartItem';
 
 import { toggleCheckbox, allCheck, allUnCheck, deleteItem } from '../../modules/cart';
+import { addPaymentItems } from '../../modules/payment';
+
+import { getTotalPrice } from '../../utils';
 
 import styled from 'styled-components';
 
@@ -50,9 +53,6 @@ const CartPage = () => {
     dispatch(toggleCheckbox(cartItemId));
   };
 
-  const getTotalPrice = () =>
-    cartItems.reduce((totalPrice, item) => (totalPrice += item.checked ? item.price * item.quantity : 0), 0);
-
   const getCheckboxMessage = () => {
     switch (checkedItemIds.length) {
       case cartItems.length:
@@ -72,10 +72,19 @@ const CartPage = () => {
     }
   };
 
-  const onDeleteCheckedItemsButtonClick = () => {
+  const getDeleteCheckedItems = () => {
     checkedItemIds.forEach((id) => {
       dispatch(deleteItem(id));
     });
+  };
+
+  const onDeleteCheckedItemsButtonClick = () => {
+    getDeleteCheckedItems();
+  };
+
+  const onPaymentButtonClick = () => {
+    dispatch(addPaymentItems(cartItems.filter((item) => item.checked)));
+    getDeleteCheckedItems();
   };
 
   return (
@@ -118,7 +127,13 @@ const CartPage = () => {
                 ))}
             </CartItemList>
           </CartItemSection>
-          <FloatingBox price={getTotalPrice()} selectedItems={checkedItemIds.length} />
+          <FloatingBox
+            price={getTotalPrice(cartItems)}
+            selectedItems={cartItems.length}
+            linkPath="/payment"
+            onClick={onPaymentButtonClick}
+            disabled={checkedItemIds.length === 0}
+          />
         </CartItemWrapper>
       ) : (
         '장바구니에 담은 상품이 없습니다.'

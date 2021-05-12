@@ -2,6 +2,7 @@ import React from 'react';
 import PriceText from './utils/PriceText';
 
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const FloatingBoxWrapper = styled.div`
   position: sticky;
@@ -67,7 +68,7 @@ const Button = styled.button`
   }
 `;
 
-function FloatingBox({ price, selectedItems }) {
+function FloatingBox({ price, selectedItems, linkPath, onClick, disabled }) {
   return (
     <FloatingBoxWrapper>
       <FloatingBoxTitleWrapper>
@@ -82,12 +83,20 @@ function FloatingBox({ price, selectedItems }) {
           </StyledPriceText>
         </FloatingBoxTextWrapper>
 
-        <Button type="button">
-          <PriceText color="#ffffff" fontSize="24px">
-            {price}
-          </PriceText>{' '}
-          결제하기 ({selectedItems}개)
-        </Button>
+        <Link to={linkPath}>
+          {selectedItems ? (
+            <Button type="button" onClick={onClick} disabled={disabled}>
+              주문하기 ({selectedItems}개)
+            </Button>
+          ) : (
+            <Button type="button" onClick={onClick} disabled={disabled}>
+              결제하기{' '}
+              <PriceText color="#ffffff" fontSize="24px">
+                {price}
+              </PriceText>
+            </Button>
+          )}
+        </Link>
       </FloatingBoxContentWrapper>
     </FloatingBoxWrapper>
   );

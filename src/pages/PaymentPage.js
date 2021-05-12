@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import PageTitle from '../components/PageTitle';
 import FloatingBox from '../components/FloatingBox';
 import Image from '../components/utils/Image';
 
-import { paymentItems } from '../data/mock';
+import { getTotalPrice } from '../utils';
 
 import styled from 'styled-components';
 
@@ -59,25 +60,25 @@ const StyledPaymentItemQuantity = styled.span`
   color: #333333;
 `;
 
-function PaymentPage() {
-  //TODO : 예외처리 (paymentsItems가 없을 때 처리를 어떻게 해줄 것인지?)
-  const getPaymentItem = (paymentsItems) =>
-    paymentsItems.map((paymentItem) => (
-      <StyledPaymentItem key={paymentItem.id}>
-        {/* <StyledPaymentItemImage src={paymentItem.image} alt={paymentItem.name} /> */}
-        <Image
-          width="120px"
-          height="120px"
-          src={paymentItem.image}
-          alt={paymentItem.name}
-          isBackgroundImageNeeded={true}
-        />
-        <StyledPaymentItemInfoWrapper>
-          <StyledPaymentItemName>{paymentItem.name}</StyledPaymentItemName>
-          <StyledPaymentItemQuantity>수량 : {paymentItem.quantity}</StyledPaymentItemQuantity>
-        </StyledPaymentItemInfoWrapper>
-      </StyledPaymentItem>
-    ));
+const getPaymentItem = (paymentsItems) =>
+  paymentsItems.map((paymentItem) => (
+    <StyledPaymentItem key={paymentItem.id}>
+      <Image
+        width="120px"
+        height="120px"
+        src={paymentItem.image}
+        alt={paymentItem.name}
+        isBackgroundImageNeeded={true}
+      />
+      <StyledPaymentItemInfoWrapper>
+        <StyledPaymentItemName>{paymentItem.name}</StyledPaymentItemName>
+        <StyledPaymentItemQuantity>수량 : {paymentItem.quantity}</StyledPaymentItemQuantity>
+      </StyledPaymentItemInfoWrapper>
+    </StyledPaymentItem>
+  ));
+
+const PaymentPage = () => {
+  const paymentItems = useSelector((state) => state.payment);
 
   return (
     <>
@@ -85,13 +86,13 @@ function PaymentPage() {
 
       <StyledPaymentItemWrapper>
         <StyledPaymentItemSection>
-          <StyledPaymentItemSectionTitle>주문 상품(4건)</StyledPaymentItemSectionTitle>
+          <StyledPaymentItemSectionTitle>주문 상품({paymentItems.length}건)</StyledPaymentItemSectionTitle>
           <StylePaymentList>{getPaymentItem(paymentItems)}</StylePaymentList>
         </StyledPaymentItemSection>
-        <FloatingBox />
+        <FloatingBox price={getTotalPrice(paymentItems)} />
       </StyledPaymentItemWrapper>
     </>
   );
-}
+};
 
 export default PaymentPage;
