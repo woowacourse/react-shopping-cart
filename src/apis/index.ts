@@ -3,6 +3,7 @@ import firebase from "firebase";
 import db from "../firebase";
 
 import { CartItem, Id, Order, Product, ProductsObject } from "../interface";
+import { isDefined } from "../util/typeGuard";
 
 const collection = {
   products: db.collection("products"),
@@ -19,7 +20,7 @@ const api = {
 
       const products: ProductsObject = response.docs.reduce(
         (acc: ProductsObject, product) => {
-          const productData: firebase.firestore.DocumentData | (Id & Product) = product.data();
+          const productData = product.data();
 
           acc.products[productData.id] = {
             name: productData.name,
@@ -39,8 +40,11 @@ const api = {
     },
   },
   cart: {
-    get: () => {
-      return collection.cart.get();
+    get: async () => {
+      const response: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData | CartItem> = await collection.cart.get();
+      const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
+
+      return cartItem;
     },
     post: (cartItem: CartItem) => {
       collection.cart.doc(cartItem.id).set(cartItem);

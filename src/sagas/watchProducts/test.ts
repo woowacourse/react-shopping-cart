@@ -23,7 +23,7 @@ const products = {
 
 const errormessage = "getProducts failed";
 
-it("should getProducts successed", () => {
+it("should getProducts success", () => {
   return expectSaga(watchProducts)
     .dispatch(actions.products.get.request())
     .provide([[call(api.products.get), products]])
@@ -31,7 +31,7 @@ it("should getProducts successed", () => {
     .run();
 });
 
-it("should getProducts failed", () => {
+it("should getProducts fail", () => {
   return expectSaga(watchProducts)
     .dispatch(actions.products.get.request())
     .provide([[call(api.products.get), throwError(Error(errormessage))]])

@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, fork, put, takeLatest } from "redux-saga/effects";
 import firebase from "firebase";
 
 import actions from "../../actions";
@@ -16,9 +16,7 @@ function* watchCart() {
 
 function* getCart() {
   try {
-    const response: firebase.firestore.QuerySnapshot<CartItem> = yield call(api.cart.get);
-
-    const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
+    const cartItem: CartItem[] = yield call(api.cart.get);
 
     yield put(actions.cart.get.success({ cart: cartItem }));
   } catch (error) {
@@ -28,7 +26,6 @@ function* getCart() {
 
 function* postCart(action: cartPostRequestActionType) {
   try {
-    console.log(action.payload);
     yield call(api.cart.post, action.payload);
 
     yield put(actions.cart.post.success());
