@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://shopping-cart-json-server-3210.herokuapp.com';
 
 export const URL = {
   PRODUCTS: `${BASE_URL}/products`,
