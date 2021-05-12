@@ -1,8 +1,7 @@
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, PageButtonContainer, PageIndex } from './ProductListPage.styles';
-import { SCHEMA } from '../../constants';
-import { useModal, usePaging, useServerAPI } from '../../hooks';
+import { useModal, usePaging } from '../../hooks';
 import { updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
@@ -19,8 +18,12 @@ const ProductListPage = () => {
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
+  const { productList } = useSelector(state => ({
+    productList: state.productListReducer.productList,
+  }));
+
   const { open: openModal, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+
   const {
     currentPageIndex: currentPage,
     maxPageIndex,
@@ -35,7 +38,7 @@ const ProductListPage = () => {
 
   const onClickShoppingCartIcon = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
-    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
+    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
 
     openModal();
   };

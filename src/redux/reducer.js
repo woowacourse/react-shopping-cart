@@ -5,6 +5,7 @@ import {
   DEACTIVATE_LOADING_SPINNER,
   GET_MY_SHOPPING_CART,
   UPDATE_MY_SHOPPING_CART_ITEMS,
+  UPDATE_PRODUCT_ITEMS,
 } from './actionType';
 
 const myShoppingCartState = {
@@ -13,6 +14,10 @@ const myShoppingCartState = {
 
 const loadingState = {
   loading: false,
+};
+
+const productListState = {
+  productList: [],
 };
 
 const myShoppingCartReducer = (state = myShoppingCartState, action) => {
@@ -45,6 +50,17 @@ const loadingReducer = (state = loadingState, action) => {
   }
 };
 
-const rootReducer = combineReducers({ myShoppingCartReducer, loadingReducer });
+const productListReducer = (state = productListState, action) => {
+  switch (action.type) {
+    case UPDATE_PRODUCT_ITEMS: {
+      return { ...state, productList: action.productItems };
+    }
+
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({ myShoppingCartReducer, loadingReducer, productListReducer });
 
 export default rootReducer;

@@ -19,14 +19,17 @@ const OrderListPage = () => {
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { productList } = useSelector(state => ({
+    productList: state.productListReducer.productList,
+  }));
+
   const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
   const { Modal, open: openModal } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
     const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
-    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
+    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
 
     openModal();
   };

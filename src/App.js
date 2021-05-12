@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ROUTE, SCHEMA } from './constants';
-import { getMyShoppingCartAsync } from './redux/action';
+import { ROUTE } from './constants';
+import { getMyShoppingCartAsync, updateProductItemsAsync } from './redux/action';
 import { OrderCheckoutPage, OrderListPage, ProductListPage, ShoppingCartPage } from './pages';
 import { GlobalNavbar } from './components/templates';
 import GlobalStyles from './GlobalStyles';
@@ -14,7 +14,8 @@ const App = () => {
   const loading = useSelector(state => state.loadingReducer.loading);
 
   useEffect(() => {
-    dispatch(getMyShoppingCartAsync(SCHEMA.SHOPPING_CART));
+    dispatch(updateProductItemsAsync());
+    dispatch(getMyShoppingCartAsync());
   }, []);
 
   return (
