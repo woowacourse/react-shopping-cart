@@ -12,7 +12,7 @@ import {
   ShoppingList,
 } from './index.styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { PRODUCTS } from '../../../constants';
+import { PRODUCTS, ROUTE } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
 import { useHistory } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const ShoppingCart = () => {
     const totalQuantity = getTotalQuantity(products);
 
     if (totalQuantity === 0) {
-      return '상품 담기';
+      return '상품 담으러 가기';
     }
 
     return `주문하기 (${totalQuantity}개)`;
@@ -44,7 +44,13 @@ const ShoppingCart = () => {
   const history = useHistory();
 
   const handlePaymentSheetButtonClick = () => {
-    history.push('/order-payment');
+    if (products.length > 0) {
+      history.push(ROUTE.ORDER_PAYMENT);
+
+      return;
+    }
+
+    history.push(ROUTE.PRODUCTS);
   };
 
   const handleCheckBoxClick = id => {

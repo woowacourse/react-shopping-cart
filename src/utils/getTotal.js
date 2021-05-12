@@ -5,7 +5,7 @@ export const getTotalPrice = products => {
 };
 
 export const getTotalQuantity = products => {
-  return products.reduce((totalQuantity, { quantity }) => {
-    return (totalQuantity += quantity);
+  return products.reduce((totalQuantity, { quantity, isChecked }) => {
+    return isChecked ? (totalQuantity += quantity) : totalQuantity;
   }, 0);
 };

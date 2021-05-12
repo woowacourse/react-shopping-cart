@@ -1,6 +1,9 @@
-const Router = {
-  SHOPPING_CART: '장바구니',
-  COMPLETED_ORDER_LIST: '주문목록',
+const ROUTE = {
+  HOME: '/',
+  PRODUCTS: '/products',
+  CART: '/cart',
+  ORDER_PAYMENT: '/order-payment',
+  COMPLETED_ORDER: '/completed-order',
 };
 
-export default Router;
+export default ROUTE;

@@ -11,6 +11,7 @@ import { products, totalOrders } from '../src/mockData';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import productReducer from './reducers/products';
+import { ROUTE } from './constants';
 
 const reducer = combineReducers({
   product: productReducer,
@@ -26,16 +27,16 @@ function App() {
           <GlobalStyle />
           <NavBar />
 
-          <Route exact path="/">
+          <Route exact path={[ROUTE.HOME, ROUTE.PRODUCTS]}>
             <Products products={products} />
           </Route>
-          <Route exact path="/cart">
+          <Route exact path={ROUTE.CART}>
             <ShoppingCart products={products} />
           </Route>
-          <Route exact path="/order-payment">
+          <Route exact path={ROUTE.ORDER_PAYMENT}>
             <OrderPayment products={products} />
           </Route>
-          <Route exact path="/completed-orders">
+          <Route exact path={ROUTE.COMPLETED_ORDER}>
             <CompletedOrder orders={totalOrders} />
           </Route>
         </div>
