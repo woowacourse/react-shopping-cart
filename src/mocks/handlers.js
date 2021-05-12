@@ -1,8 +1,15 @@
 import { rest } from 'msw';
 import { API_BASE_URL } from '../constants/API';
-import { CART_ITEM_LIST_MOCK, ORDER_LIST_MOCK, PRODUCT_LIST_MOCK } from './mockData';
+import {
+  CART_ITEM_LIST_MOCK,
+  ORDER_LIST_MOCK,
+  PRODUCT_LIST_MOCK,
+  ORDER_CONFIRM_ITEM_LIST_MOCK,
+} from './mockData';
 
 let cartItemList = CART_ITEM_LIST_MOCK;
+let orderList = ORDER_LIST_MOCK;
+let orderConfirmItemList = ORDER_CONFIRM_ITEM_LIST_MOCK;
 
 export const handlers = [
   rest.get(API_BASE_URL + '/productList', (req, res, ctx) => {
@@ -34,6 +41,10 @@ export const handlers = [
   }),
 
   rest.get(API_BASE_URL + '/order', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(ORDER_LIST_MOCK));
+    return res(ctx.status(200), ctx.json(orderList));
+  }),
+
+  rest.get(API_BASE_URL + '/orderConfirm', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(orderConfirmItemList));
   }),
 ];

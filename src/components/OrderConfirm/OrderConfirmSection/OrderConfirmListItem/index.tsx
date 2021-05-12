@@ -10,7 +10,7 @@ interface Props {
 const OrderConfirmListItem: VFC<Props> = ({ item: { image, name, quantity } }) => {
   return (
     <OrderItemCard type="horizontal" image={image}>
-      <Container>
+      <Container data-testid="order-confirm-list-item">
         <ProductName>{name}</ProductName>
         <p>수량: {quantity}</p>
       </Container>

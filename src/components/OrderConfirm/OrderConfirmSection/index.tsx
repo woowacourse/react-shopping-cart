@@ -17,7 +17,7 @@ const OrderConfirmSection: VFC<Props> = ({ title, items }) => {
       </InnerTitle>
       <List>
         {items.map((item) => (
-          <OrderConfirmListItem item={item} />
+          <OrderConfirmListItem key={item.id} item={item} />
         ))}
       </List>
     </OrderItemListContainer>

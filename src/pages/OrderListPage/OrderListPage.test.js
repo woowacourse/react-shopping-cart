@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import OrderListPage from '.';
+import { ORDER_LIST_MOCK } from '../../mocks/mockData';
 import store from '../../states/store';
 
 describe('OrderListPage', () => {
@@ -12,6 +13,6 @@ describe('OrderListPage', () => {
     );
 
     const $$orderListItems = await screen.findAllByTestId('order-section');
-    expect($$orderListItems).toHaveLength(1);
+    expect($$orderListItems).toHaveLength(ORDER_LIST_MOCK.length);
   });
 });
