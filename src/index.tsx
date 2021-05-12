@@ -7,8 +7,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
+import axios from 'axios';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
+axios.interceptors.response.use(
+  response => response,
+  error => error.response
+);
 
 ReactDOM.render(
   <React.StrictMode>
