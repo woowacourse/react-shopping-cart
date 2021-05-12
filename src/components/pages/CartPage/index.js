@@ -42,7 +42,7 @@ const CartPage = () => {
   };
 
   const onRemoveProduct = ({ target }) => {
-    const productId = Number(target.closest('div[data-product-id]').dataset.productId);
+    const productId = target.closest('div[data-product-id]').dataset.productId;
     dispatch(removeProduct(productId));
   };
 
