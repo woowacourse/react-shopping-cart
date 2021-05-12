@@ -11,6 +11,4 @@ const Template = (args: Props) => <Tooltip {...args}>상품을 장바구니에 �
 
 export const Default = Template.bind({});
 
-(Default as any).args = {
-  button: <Button size="SM">장바구니 가기</Button>,
-};
+(Default as any).args = {};

@@ -5,6 +5,7 @@
 .firebaserc
 firebase.json
 PR.md
+storybook-static/
 
 # dependencies
 /node_modules

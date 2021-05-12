@@ -3,26 +3,20 @@ import noImagePNG from '../../../assets/images/no-image.png';
 
 export interface Props {
   size: 'SM' | 'MD';
-  productThumbnail?: string;
-  productName: string;
-  productPrice: string;
-  productQuantity: string;
+  thumbnail?: string;
+  name: string;
+  price: string;
+  quantity: string;
 }
 
-const ProductListItem = ({
-  size = 'SM',
-  productThumbnail = noImagePNG,
-  productName,
-  productPrice,
-  productQuantity,
-}: Props) => {
+const ProductListItem = ({ size = 'SM', thumbnail = noImagePNG, name, price, quantity }: Props) => {
   return (
     <Styled.ProductListItem>
-      <Styled.ProductThumbnail size={size} src={productThumbnail} />
+      <Styled.ProductThumbnail size={size} src={thumbnail} />
       <Styled.InfoWrapper>
-        <Styled.ProductName size={size}>{productName}</Styled.ProductName>
+        <Styled.ProductName size={size}>{name}</Styled.ProductName>
         <Styled.ProductPrice size={size}>
-          {productPrice}원 / 수량 : {productQuantity}개
+          {price}원 / 수량 : {quantity}개
         </Styled.ProductPrice>
       </Styled.InfoWrapper>
     </Styled.ProductListItem>

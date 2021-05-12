@@ -19,10 +19,10 @@ const ProductOrderPage = () => {
       <Styled.OrderItemWrapper key={orderItem.id}>
         <ProductListItem
           size="SM"
-          productThumbnail={orderItem.thumbnail}
-          productName={orderItem.name}
-          productPrice={getMoneyString(orderItem.price)}
-          productQuantity={orderItem.quantity}
+          thumbnail={orderItem.thumbnail}
+          name={orderItem.name}
+          price={getMoneyString(orderItem.price)}
+          quantity={orderItem.quantity}
         />
       </Styled.OrderItemWrapper>
     );

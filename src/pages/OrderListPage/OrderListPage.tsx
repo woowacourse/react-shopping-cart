@@ -64,10 +64,10 @@ const OrderListPage = () => {
           <Styled.OrderWrapper key={item.id}>
             <ProductListItem
               size="MD"
-              productThumbnail={item.thumbnail}
-              productName={item.name}
-              productPrice={getMoneyString(item.price)}
-              productQuantity={item.quantity}
+              thumbnail={item.thumbnail}
+              name={item.name}
+              price={getMoneyString(item.price)}
+              quantity={item.quantity}
             />
             <Button size="SM" onClick={() => onCartButtonClick(item.id)}>
               장바구니 담기
