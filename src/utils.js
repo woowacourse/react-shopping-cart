@@ -8,3 +8,6 @@ export const printCommasToPrice = (price) => {
 
   return price;
 };
+
+export const getTotalPrice = (items) =>
+  items.reduce((totalPrice, item) => (totalPrice += item.checked ? item.price * item.quantity : 0), 0);
