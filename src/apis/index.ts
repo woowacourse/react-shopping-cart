@@ -55,14 +55,6 @@ const api = {
       collection.cart.doc(id).delete();
     },
   },
-  order: {
-    get: (id: string) => {
-      return collection.orderList.doc(id).get();
-    },
-    post: (order: Order) => {
-      collection.orderList.doc(order.id).set(order);
-    },
-  },
   orderList: {
     get: async () => {
       const response: firebase.firestore.QuerySnapshot<
@@ -73,6 +65,14 @@ const api = {
 
       const orderList = { orderList: orders };
       return orderList;
+    },
+    item: {
+      get: (id: string) => {
+        return collection.orderList.doc(id).get();
+      },
+      post: (order: Order) => {
+        collection.orderList.doc(order.id).set(order);
+      },
     },
   },
 };

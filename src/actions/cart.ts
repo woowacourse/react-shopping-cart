@@ -1,6 +1,24 @@
 import { ActionType, createAction } from "typesafe-actions";
 import { Cart, CartItem, RequestError } from "../interface";
 
+const cartActionType = {
+  get: {
+    request: "cart/get/request",
+    success: "cart/get/success",
+    failure: "cart/get/failure",
+  },
+  post: {
+    request: "cart/post/request",
+    success: "cart/post/success",
+    failure: "cart/post/failure",
+  },
+  delete: {
+    request: "cart/delete/request",
+    success: "cart/delete/success",
+    failure: "cart/delete/failure",
+  },
+} as const;
+
 const cart = {
   get: {
     request: createAction("cart/get/request")(),
@@ -11,26 +29,27 @@ const cart = {
     )<RequestError>(),
   },
   post: {
-    request: createAction("cart/post/request", (cartItem: CartItem) => cartItem)<CartItem>(),
-    success: createAction("cart/post/success")(),
+    request: createAction(cartActionType.post.request, (cartItem: CartItem) => cartItem)<CartItem>(),
+    success: createAction(cartActionType.post.success)(),
     failure: createAction(
-      "cart/post/failure",
+      cartActionType.post.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
   delete: {
-    request: createAction("cart/delete/request", (ids: string[]) => ids)<string[]>(),
-    success: createAction("cart/delete/success")(),
+    request: createAction(cartActionType.delete.request, (ids: string[]) => ids)<string[]>(),
+    success: createAction(cartActionType.delete.success)(),
     failure: createAction(
-      "cart/delete/failure",
+      cartActionType.delete.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
 };
 
-type cartActionType = ActionType<typeof cart.get | typeof cart.post | typeof cart.delete>;
-type cartPostRequestActionType = ActionType<typeof cart.post.request>;
-type cartDeleteRequestActionType = ActionType<typeof cart.delete.request>;
+type CartActionType = ActionType<typeof cart.get | typeof cart.post | typeof cart.delete>;
+type CartPostRequestActionType = ActionType<typeof cart.post.request>;
+type CartDeleteRequestActionType = ActionType<typeof cart.delete.request>;
 
 export default cart;
-export { cartActionType, cartPostRequestActionType, cartDeleteRequestActionType };
+export { cartActionType };
+export { CartActionType, CartPostRequestActionType, CartDeleteRequestActionType };

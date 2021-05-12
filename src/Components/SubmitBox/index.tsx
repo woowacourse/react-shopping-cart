@@ -2,8 +2,9 @@ import React, { MouseEventHandler, VFC } from "react";
 
 import { Button } from "..";
 import { COLOR } from "../../constants/theme";
+import { DivFlexBetween } from "../../SharedStyled/Flex";
 import TextWithHighlight from "../TextWithHighlight";
-import { Container, ContainerProps, Main, Title, Desc } from "./style";
+import { Container, ContainerProps, Main, Title } from "./style";
 
 interface SubmitBoxProps extends ContainerProps {
   title: string;
@@ -19,7 +20,7 @@ const SubmitBox: VFC<SubmitBoxProps> = ({ title, width, height, target, buttonNa
   <Container width={width} height={height}>
     <Title>{title}</Title>
     <Main>
-      <Desc>
+      <DivFlexBetween>
         <p>
           <TextWithHighlight
             highlightColor={COLOR.MAIN}
@@ -38,7 +39,7 @@ const SubmitBox: VFC<SubmitBoxProps> = ({ title, width, height, target, buttonNa
             fontWeight="700"
           />
         </p>
-      </Desc>
+      </DivFlexBetween>
       <Button
         width="100%"
         height="4.625rem"

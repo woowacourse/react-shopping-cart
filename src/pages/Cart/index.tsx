@@ -9,6 +9,7 @@ import SubmitBox from "../../Components/SubmitBox";
 import { COLOR } from "../../constants/theme";
 
 import CartItem from "../../Containers/CartItem";
+import { FlexCenter } from "../../SharedStyled/Flex";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 interface CheckedList {
@@ -86,7 +87,6 @@ const Cart: VFC = () => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
 
-      // TODO: 매직넘어
       if (prevCount >= 100) {
         return prev;
       }

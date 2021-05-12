@@ -1,12 +1,27 @@
 import { ActionType, createAction } from "typesafe-actions";
 import { Order, OrderList, RequestError } from "../interface";
 
+const orderListActionType = {
+  get: {
+    request: "orderList/item/post/request",
+    success: "orderList/item/post/success",
+    failure: "orderList/item/post/failure",
+  },
+  item: {
+    post: {
+      request: "orderList/get/request",
+      success: "orderList/get/success",
+      failure: "orderList/get/failure",
+    },
+  },
+} as const;
+
 const order = {
   post: {
-    request: createAction("orderList/item/post/request", (order: Order) => order)<Order>(),
-    success: createAction("orderList/item/post/success")(),
+    request: createAction(orderListActionType.item.post.request, (order: Order) => order)<Order>(),
+    success: createAction(orderListActionType.item.post.success)(),
     failure: createAction(
-      "orderList/item/post/failure",
+      orderListActionType.item.post.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
@@ -14,18 +29,19 @@ const order = {
 
 const orderList = {
   get: {
-    request: createAction("orderList/get/request")(),
-    success: createAction("orderList/get/success", (orderList: OrderList) => orderList)<OrderList>(),
+    request: createAction(orderListActionType.get.request)(),
+    success: createAction(orderListActionType.get.success, (orderList: OrderList) => orderList)<OrderList>(),
     failure: createAction(
-      "orderList/get/failure",
+      orderListActionType.get.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
   item: { ...order },
 };
 
-type orderListActionType = ActionType<typeof orderList.get | typeof order.post>;
-type orderListItemPostRequestActionType = ActionType<typeof orderList.item.post.request>;
+type OrderListActionType = ActionType<typeof orderList.get | typeof order.post>;
+type OrderListItemPostRequestActionType = ActionType<typeof orderList.item.post.request>;
 
 export default orderList;
-export { orderListActionType, orderListItemPostRequestActionType };
+export { orderListActionType };
+export { OrderListActionType, OrderListItemPostRequestActionType };

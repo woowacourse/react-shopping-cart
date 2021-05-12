@@ -25,6 +25,4 @@ const Price = styled.p`
   font-size: 1.25rem;
 `;
 
-const CartButton = styled.button``;
-
-export { Container, ItemInfoWrap, Desc, Name, Price, CartButton };
+export { Container, ItemInfoWrap, Desc, Name, Price };

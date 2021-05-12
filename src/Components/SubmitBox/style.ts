@@ -32,7 +32,4 @@ const Main = styled(FlexBetween("div"))`
   padding: 1.25rem 1.9rem;
 `;
 
-// TODO: 더 좋은 방법?
-const Desc = styled(FlexBetween("div"))``;
-
-export { Container, Title, Main, Desc, ContainerProps };
+export { Container, Title, Main, ContainerProps };

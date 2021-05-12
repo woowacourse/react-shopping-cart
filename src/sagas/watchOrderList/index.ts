@@ -1,13 +1,13 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 
 import actions from "../../actions";
-import { orderListItemPostRequestActionType } from "../../actions/orderList";
+import { OrderListItemPostRequestActionType, orderListActionType } from "../../actions/orderList";
 import api from "../../apis";
 import { OrderList } from "../../interface";
 
 function* watchOrderList() {
-  yield takeLatest("orderList/get/request", getOrderList);
-  yield takeLatest("orderList/item/post/request", postOrder);
+  yield takeLatest(orderListActionType.get.request, getOrderList);
+  yield takeLatest(orderListActionType.item.post.request, postOrder);
 }
 
 function* getOrderList() {
@@ -20,9 +20,9 @@ function* getOrderList() {
   }
 }
 
-function* postOrder(action: orderListItemPostRequestActionType) {
+function* postOrder(action: OrderListItemPostRequestActionType) {
   try {
-    yield call(api.order.post, action.payload);
+    yield call(api.orderList.item.post, action.payload);
 
     yield put(actions.orderList.item.post.success());
   } catch (error) {

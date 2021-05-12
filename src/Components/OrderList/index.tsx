@@ -1,6 +1,6 @@
 import React, { ReactElement, VFC } from "react";
 
-import { OrderProductItemProps } from "..";
+import { OrderProductItemProps } from "../OrderProductItem";
 import { Container, Header, ShowDetailLink } from "./style";
 
 interface OrderListProps {

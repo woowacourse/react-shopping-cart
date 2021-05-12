@@ -1,15 +1,14 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
 import actions from "../../actions";
-import { cartDeleteRequestActionType, cartPostRequestActionType } from "../../actions/cart";
+import { cartActionType, CartDeleteRequestActionType, CartPostRequestActionType } from "../../actions/cart";
 import api from "../../apis";
 import { CartItem } from "../../interface";
 
-// TODO: type 상수화 => 필히 고려
 function* watchCart() {
-  yield takeLatest(actions.cart.get.request().type, getCart);
-  yield takeLatest("cart/post/request", postCart);
-  yield takeLatest("cart/delete/request", deleteCart);
+  yield takeLatest(cartActionType.get.request, getCart);
+  yield takeLatest(cartActionType.post.request, postCart);
+  yield takeLatest(cartActionType.delete.request, deleteCart);
 }
 
 function* getCart() {
@@ -22,7 +21,7 @@ function* getCart() {
   }
 }
 
-function* postCart(action: cartPostRequestActionType) {
+function* postCart(action: CartPostRequestActionType) {
   try {
     yield call(api.cart.post, action.payload);
 
@@ -32,7 +31,7 @@ function* postCart(action: cartPostRequestActionType) {
   }
 }
 
-function* deleteCart(action: cartDeleteRequestActionType) {
+function* deleteCart(action: CartDeleteRequestActionType) {
   try {
     const ids = action.payload;
 

@@ -91,7 +91,7 @@ it("should getOrderList fail", () => {
 it("should postOrderList success", () => {
   return expectSaga(watchOrderList)
     .dispatch(actions.orderList.item.post.request(order))
-    .provide([[call(api.order.post, order), {}]])
+    .provide([[call(api.orderList.item.post, order), {}]])
     .put(actions.orderList.item.post.success())
     .run();
 });
@@ -99,7 +99,7 @@ it("should postOrderList success", () => {
 it("should postOrderList fail", () => {
   return expectSaga(watchOrderList)
     .dispatch(actions.orderList.item.post.request(order))
-    .provide([[call(api.order.post, order), throwError(Error(errormessage))]])
+    .provide([[call(api.orderList.item.post, order), throwError(Error(errormessage))]])
     .put(actions.orderList.item.post.failure({ requestErrorMessage: errormessage }))
     .run();
 });
