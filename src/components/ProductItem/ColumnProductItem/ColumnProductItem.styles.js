@@ -46,7 +46,7 @@ const Name = styled.div`
   text-overflow: ellipsis;
 `;
 const Price = styled.div`
-  font-size: 1.2rem;
+  font-size: 2rem;
 `;
 
 export { Container, ImageContainer, Image, DetailContainer, ProductDetail, Name, Price };

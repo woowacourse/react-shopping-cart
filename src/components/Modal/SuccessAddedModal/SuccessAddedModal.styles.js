@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Container as Button } from '../../Button/Button.styles';
 
 const ModalText = styled.span`
-  font-size: 1.6rem;
+  font-size: 2.5rem;
   margin-bottom: 40px;
 `;
 
@@ -18,7 +18,7 @@ const RecommendedContainer = styled.div`
 `;
 
 const RecommendedTitle = styled.span`
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-bottom: 30px;
 `;
 

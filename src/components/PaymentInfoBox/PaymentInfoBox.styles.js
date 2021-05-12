@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { Container as Button } from '../Button/Button.styles';
 
 const Container = styled.div`
-  width: 450px;
+  max-width: 450px;
+  width: 100%;
   height: 320px;
   border: 1px solid #dddddd;
 `;
@@ -33,11 +34,16 @@ const PaymentDetail = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 700;
 
   & > * {
     box-shadow: 0 -8px 1px -2px rgba(42, 193, 188, 0.5) inset;
+  }
+
+  @media screen and (max-width: 376px) {
+    flex-direction: column;
+    display: inline-grid;
   }
 `;
 

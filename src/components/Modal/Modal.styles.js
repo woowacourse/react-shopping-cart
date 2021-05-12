@@ -20,10 +20,8 @@ const Container = styled.div`
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: 500px;
-  height: 650px;
-
-  padding: 34px;
+  max-width: 500px;
+  padding: 3.2rem 2.8rem;
   box-sizing: border-box;
   z-index: 1;
   border: 1px solid #dddddd;
@@ -31,12 +29,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 `;
 
 const CloseButton = styled.div`

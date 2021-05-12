@@ -5,10 +5,13 @@ const GlobalStyles = () => (
     styles={css`
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
+      html {
+        font-size: 10px;
+      }
       body {
         margin: 0;
         padding: 0;
-
+        font-size: 1.6rem;
         min-height: 100vh;
         width: 100%;
       }

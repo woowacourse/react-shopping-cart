@@ -16,6 +16,12 @@ const ShoppingCartContainer = styled.div`
   width: 60%;
   margin-right: 5%;
   min-width: 500px;
+
+  @media screen and (max-width: 376px) {
+    width: 100%;
+    min-width: 240px;
+    margin-right: 0;
+  }
 `;
 
 const OptionContainer = styled.div`
@@ -30,6 +36,10 @@ const OptionContainer = styled.div`
   }
   & > button {
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 376px) {
+    padding: 20px;
   }
 `;
 
@@ -48,12 +58,11 @@ const ShoppingCartListTitle = styled.div`
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0.5px;
-  margin-bottom: 20px;
+  margin: 0 0 20px 20px;
 `;
 
 const ShoppingCartList = styled.div`
   border-top: 4px solid #aaaaaa;
-
   & > * {
     border-bottom: 1.5px solid #cccccc;
     padding: 20px;
@@ -63,9 +72,14 @@ const ShoppingCartList = styled.div`
 const ShoppingCartItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 376px) {
+    flex-direction: column;
+  }
 `;
 
 const PaymentInfoBoxContainer = styled.div`
+  width: 90%;
   margin-top: 54px;
 `;
 
@@ -81,6 +95,11 @@ const ShoppingCartItemOption = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media screen and (max-width: 376px) {
+    margin-top: 1.6rem;
+    flex-direction: row;
+  }
 `;
 
 export {

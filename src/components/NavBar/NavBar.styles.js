@@ -9,11 +9,12 @@ const Container = styled.nav`
   height: 80px;
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  position: relative;
+  position: fixed;
+  z-index: 2;
 `;
 
 const LogoContainer = styled(Link)`
-  font-size: 2rem;
+  font-size: 3.2rem;
   display: flex;
   align-items: center;
   color: white;
@@ -22,16 +23,23 @@ const LogoContainer = styled(Link)`
   & > *:not(:last-child) {
     margin-right: 10px;
   }
+
+  @media screen and (max-width: 376px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const ButtonContainer = styled.div`
   & > *:not(:last-child) {
-    margin-right: 40px;
+    margin-right: 3.2rem;
   }
 
   & > a {
     cursor: pointer;
     color: white;
+  }
+
+  @media screen and (max-width: 375px) {
   }
 `;
 

@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  height: 140px;
+  min-height: 140px;
   width: inherit;
   display: flex;
+
+  @media screen and (max-width: 376px) {
+    flex-direction: column;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -35,7 +39,12 @@ const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-left: 33px;
+  margin-left: 3.2rem;
+
+  @media screen and (max-width: 376px) {
+    margin-left: 0;
+    margin-top: 3.2rem;
+  }
 `;
 
 const Name = styled.div`
@@ -43,13 +52,13 @@ const Name = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 25px;
-  font-size: 1.2rem;
+  font-size: 2rem;
   color: #333333;
 `;
 
 const ProductDetail = styled.div`
   color: #888888;
-  font-size: 1rem;
+  font-size: 1.6rem;
 `;
 
 export { Container, ImageContainer, Image, ProductContainer, ProductDetail, Name };

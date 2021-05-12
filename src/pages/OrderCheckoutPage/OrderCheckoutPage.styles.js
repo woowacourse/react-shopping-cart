@@ -14,6 +14,12 @@ const CheckoutListContainer = styled.div`
   width: 60%;
   margin-right: 5%;
   min-width: 500px;
+
+  @media screen and (max-width: 376px) {
+    width: 100%;
+    min-width: 240px;
+    margin-right: 0;
+  }
 `;
 
 const CheckoutListTitle = styled.div`
@@ -21,7 +27,7 @@ const CheckoutListTitle = styled.div`
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  margin-bottom: 20px;
+  margin: 0 0 20px 20px;
 `;
 
 const CheckoutList = styled.div`
@@ -34,6 +40,7 @@ const CheckoutList = styled.div`
 `;
 
 const PaymentInfoBoxContainer = styled.div`
+  width: 90%;
   margin-top: 54px;
 `;
 
