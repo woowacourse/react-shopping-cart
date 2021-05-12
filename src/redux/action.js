@@ -1,11 +1,6 @@
 import { requestTable } from '../api/request';
 import { CUSTOMER_ID } from '../constants';
-import { ADD_ITEM, GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
-
-const addShoppingCartItem = id => ({
-  type: ADD_ITEM,
-  productId: id,
-});
+import { GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
 
 const updateShoppingCartItemsAsync = (schema, targetId, content) => async dispatch => {
   try {
@@ -33,4 +28,4 @@ const getMyShoppingCartAsync = schema => async dispatch => {
   }
 };
 
-export { addShoppingCartItem, updateShoppingCartItemsAsync, getMyShoppingCartAsync };
+export { updateShoppingCartItemsAsync, getMyShoppingCartAsync };

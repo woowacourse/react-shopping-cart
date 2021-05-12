@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import {
   Container,
@@ -15,16 +16,16 @@ import ScreenContainer from '../../shared/styles/ScreenContainer';
 const OrderCheckoutPage = () => {
   const history = useHistory();
   const location = useLocation();
+  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
+  const [expectedPrice, setExpectedPrice] = useState(0);
+
+  if (!location.state) {
+    history.replace({
+      pathname: ROUTE.HOME,
+    });
+  }
 
   const checkedItemList = location.state?.checkedItemList;
-
-  const expectedPrice = checkedItemList.reduce((acc, item) => {
-    const { price, amount } = item;
-
-    return acc + price * amount;
-  }, 0);
-
-  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.CHECKOUT)) return;
@@ -39,6 +40,16 @@ const OrderCheckoutPage = () => {
       pathname: ROUTE.ORDER_LIST,
     });
   };
+
+  useEffect(() => {
+    const newExpectedPrice = checkedItemList.reduce((acc, item) => {
+      const { price, amount } = item;
+
+      return acc + price * amount;
+    }, 0);
+
+    setExpectedPrice(newExpectedPrice);
+  }, [checkedItemList]);
 
   return (
     <ScreenContainer route={location.pathname}>

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { SCHEMA } from './constants';
-import db from './test/mockData.json';
+import mockData from './test/mockData.json';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAMOeYg3Z4rve_ayjWXifc7eGM_C7JUjjo',
@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
 const initFirebaseState = () => {
-  db.productList.forEach((product, index) => firestore.collection(SCHEMA.PRODUCT).doc(`${index}`).set(product));
+  mockData.productList.forEach((product, index) => firestore.collection(SCHEMA.PRODUCT).doc(`${index}`).set(product));
 };
 
 export { firestore, initFirebaseState };
