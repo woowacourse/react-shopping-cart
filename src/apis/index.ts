@@ -41,7 +41,9 @@ const api = {
   },
   cart: {
     get: async () => {
-      const response: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData | CartItem> = await collection.cart.get();
+      const response: firebase.firestore.QuerySnapshot<
+        firebase.firestore.DocumentData | CartItem
+      > = await collection.cart.get();
       const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
 
       return cartItem;
@@ -62,8 +64,15 @@ const api = {
     },
   },
   orderList: {
-    get: () => {
-      return collection.orderList.get();
+    get: async () => {
+      const response: firebase.firestore.QuerySnapshot<
+        firebase.firestore.DocumentData | Order
+      > = await collection.orderList.get();
+
+      const orders = response.docs.map((order) => order.data()).filter(isDefined);
+
+      const orderList = { orderList: orders };
+      return orderList;
     },
   },
 };

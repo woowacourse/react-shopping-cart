@@ -1,11 +1,9 @@
-import { all, call, fork, put, takeLatest } from "redux-saga/effects";
-import firebase from "firebase";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 
 import actions from "../../actions";
 import { cartDeleteRequestActionType, cartPostRequestActionType } from "../../actions/cart";
 import api from "../../apis";
 import { CartItem } from "../../interface";
-import { isDefined } from "../../util/typeGuard";
 
 // TODO: type 상수화 => 필히 고려
 function* watchCart() {

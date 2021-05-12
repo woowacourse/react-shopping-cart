@@ -1,11 +1,9 @@
-import firebase from "firebase";
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 
 import actions from "../../actions";
 import { orderListItemPostRequestActionType } from "../../actions/orderList";
 import api from "../../apis";
-import { Order, OrderList } from "../../interface";
-import { isDefined } from "../../util/typeGuard";
+import { OrderList } from "../../interface";
 
 function* watchOrderList() {
   yield takeLatest("orderList/get/request", getOrderList);
@@ -14,11 +12,7 @@ function* watchOrderList() {
 
 function* getOrderList() {
   try {
-    const response: firebase.firestore.QuerySnapshot<Order> = yield call(api.orderList.get);
-
-    const orders: Order[] = response.docs.map((order) => order.data()).filter(isDefined);
-
-    const orderList: OrderList = { orderList: orders };
+    const orderList: OrderList = yield call(api.orderList.get);
 
     yield put(actions.orderList.get.success(orderList));
   } catch (error) {

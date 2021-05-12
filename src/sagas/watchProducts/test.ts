@@ -1,10 +1,10 @@
 import { call } from "redux-saga/effects";
 import { expectSaga } from "redux-saga-test-plan";
+import { throwError } from "redux-saga-test-plan/providers";
 
 import watchProducts from ".";
 import actions from "../../actions";
 import api from "../../apis";
-import { throwError } from "redux-saga-test-plan/providers";
 
 const products = {
   products: {
