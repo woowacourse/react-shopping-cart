@@ -14,6 +14,7 @@ const Button = ({
   borderColor,
   children,
   onClick,
+  disabled,
 }) => {
   return (
     <Styled.Button
@@ -26,6 +27,7 @@ const Button = ({
       fontSize={fontSize}
       backgroundColor={backgroundColor}
       borderColor={borderColor}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}
@@ -43,6 +45,7 @@ Button.propTypes = {
   fontSize: PropTypes.string,
   backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };

@@ -4,8 +4,10 @@ import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import { addToCart } from '../../../redux/Cart/actions';
 import { getProducts, resetProducts } from '../../../redux/Products/actions';
+import { resetErrorMessage } from '../../../redux/Message/actions';
 import Button from '../../common/Button';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
+import Modal from '../../common/Modal';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
@@ -31,9 +33,12 @@ const ProductListPage = () => {
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
   };
 
+  const onCloseErrorMessageModal = () => {
+    dispatch(resetErrorMessage());
+  };
+
   return (
     <Main>
-      <h2>{errorMessage && 'error!!!!!'}</h2>
       <Styled.ProductList>
         {products.map((product) => (
           <li data-product-id={product.id} key={product.id}>
@@ -46,13 +51,16 @@ const ProductListPage = () => {
               direction="column"
               size="17.5rem"
             >
-              <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
-                <ShoppingCart width="2rem" color={PALETTE.BLACK} />
-              </Button>
+              {!cart.some(({ id }) => product.id === id) && (
+                <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
+                  <ShoppingCart width="2rem" color={PALETTE.BLACK} />
+                </Button>
+              )}
             </Product>
           </li>
         ))}
       </Styled.ProductList>
+      {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
     </Main>
   );
 };

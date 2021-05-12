@@ -36,7 +36,7 @@ Product.propTypes = {
   }),
   size: PropTypes.string.isRequired,
   direction: PropTypes.oneOf(['row', 'column']).isRequired,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
 };
 
 export default React.memo(Product);

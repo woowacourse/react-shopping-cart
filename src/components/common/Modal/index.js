@@ -14,7 +14,7 @@ const Modal = ({ children, type, onClose }) => {
   return (
     <Styled.ModalContainer onClick={onClickDimmed}>
       <Styled.ModalInner type={type}>
-        <Styled.CloseButton>
+        <Styled.CloseButton onClick={onClose}>
           <Close color={PALETTE.GRAY_000} />
         </Styled.CloseButton>
         {children}

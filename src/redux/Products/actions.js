@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../../constants/message';
+
 export const GET_PRODUCTS_SUCCESS = 'product_list/get_products/success';
 export const GET_PRODUCTS_ERROR = 'product_list/get_products/error';
 export const RESET_PRODUCTS = 'product_list/reset_products';
@@ -6,7 +8,7 @@ export const getProducts = () => (dispatch, getState) => {
   fetch('https://raw.githubusercontent.com/SunYoungKwon/react-shopping-cart/step1/src/mockData.json')
     .then((response) => {
       if (!response.ok) {
-        throw new Error('상품목록을 불러오는데 실패했어요ㅠㅠ');
+        throw new Error(ERROR_MESSAGE.FAILED_TO_FETCH_PRODUCTS);
       }
 
       return response.json();
