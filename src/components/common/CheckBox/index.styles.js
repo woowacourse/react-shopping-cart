@@ -19,9 +19,10 @@ export const StyledCheckBox = styled.label.attrs(({ onClick }) => ({
   width: 20px;
   height: 20px;
   text-align: center;
+  cursor: pointer;
   color: white;
   border: 1px solid var(--color-mint);
   border-radius: 4px;
-  background-color: ${({ checked }) =>
-    checked ? css`var(--color-mint)` : css`var(--color-white)`};
+  background-color: ${({ isChecked }) =>
+    isChecked ? css`var(--color-mint)` : css`var(--color-white)`};
 `;

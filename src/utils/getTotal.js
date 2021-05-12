@@ -1,6 +1,6 @@
 export const getTotalPrice = products => {
-  return products.reduce((totalPrice, { price, quantity }) => {
-    return (totalPrice += price * quantity);
+  return products.reduce((totalPrice, { price, quantity, isChecked }) => {
+    return isChecked ? (totalPrice += price * quantity) : totalPrice;
   }, 0);
 };
 

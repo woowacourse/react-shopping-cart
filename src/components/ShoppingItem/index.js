@@ -16,11 +16,11 @@ const ShoppingItem = ({
   isChecked = FALLBACK.PRODUCT.CHECKED,
   onIncreaseQuantity = () => {},
   onDecreaseQuantity = () => {},
-  // onClick = () => {},
+  onCheckBoxClick = () => {},
 }) => {
   return (
     <Product>
-      <CheckBox checked={isChecked} onClick={() => {}} />
+      <CheckBox isChecked={isChecked} onCheckBoxClick={onCheckBoxClick} />
       <Image src={imgUrl} alt={imgAlt} />
       <Name>{name}</Name>
       <Controller>
@@ -47,7 +47,9 @@ ShoppingItem.propTypes = {
   price: PropTypes.number,
   quantity: PropTypes.number,
   isChecked: PropTypes.bool,
-  onClick: PropTypes.func,
+  onIncreaseQuantity: PropTypes.func,
+  onDecreaseQuantity: PropTypes.func,
+  onCheckBoxClick: PropTypes.func,
 };
 
 export default ShoppingItem;

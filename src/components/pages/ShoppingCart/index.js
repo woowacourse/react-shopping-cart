@@ -11,7 +11,6 @@ import {
   CheckBoxWrapper,
   ShoppingList,
 } from './index.styles';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { PRODUCTS } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
@@ -32,7 +31,9 @@ const ShoppingCart = () => {
     dispatch({ type: PRODUCTS.DECREASE_QUANTITY, id });
   };
 
-  const getButtonText = totalQuantity => {
+  const getTotalQuantityText = products => {
+    const totalQuantity = getTotalQuantity(products);
+
     if (totalQuantity === 0) {
       return '상품 담기';
     }
@@ -43,7 +44,17 @@ const ShoppingCart = () => {
   const history = useHistory();
 
   const handlePaymentSheetButtonClick = () => {
-    history.push('./order-payment');
+    history.push('/order-payment');
+  };
+
+  const handleCheckBoxClick = id => {
+    dispatch({ type: PRODUCTS.TOGGLE_CHECKED, id });
+  };
+
+  const isCheckedAll = products.every(({ isChecked }) => isChecked);
+
+  const handleEntireCheckBoxClick = () => {
+    dispatch({ type: PRODUCTS.TOGGLE_ENTIRE_CHECKED, isChecked: isCheckedAll });
   };
 
   return (
@@ -53,8 +64,16 @@ const ShoppingCart = () => {
         <div>
           <Controller>
             <CheckBoxWrapper>
-              <CheckBox checked={false} onClick={() => {}} />
-              <span>선택해제</span>
+              <CheckBox
+                isChecked={isCheckedAll}
+                onCheckBoxClick={handleEntireCheckBoxClick}
+              />
+              <span>
+                전체선택{' '}
+                {`(${products.filter(({ isChecked }) => isChecked).length}/${
+                  products.length
+                })`}
+              </span>
             </CheckBoxWrapper>
             <Button>상품삭제</Button>
           </Controller>
@@ -67,6 +86,7 @@ const ShoppingCart = () => {
                     {...product}
                     onIncreaseQuantity={() => handleIncreaseQuantity(id)}
                     onDecreaseQuantity={() => handleDecreaseQuantity(id)}
+                    onCheckBoxClick={() => handleCheckBoxClick(id)}
                   />
                 </li>
               ))}
@@ -77,25 +97,12 @@ const ShoppingCart = () => {
           title="결제예상금액"
           priceInfo="결제예상금액"
           price={formatPrice(getTotalPrice(products))}
-          buttonText={`${getButtonText(getTotalQuantity(products))}`}
+          buttonText={`${getTotalQuantityText(products)}`}
           onButtonClick={handlePaymentSheetButtonClick}
         />
       </Main>
     </Page>
   );
-};
-
-ShoppingCart.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      image: PropTypes.string,
-      imageAlt: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      quantity: PropTypes.number,
-    })
-  ),
 };
 
 export default ShoppingCart;
