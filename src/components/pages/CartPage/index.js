@@ -9,7 +9,6 @@ import {
   removeProduct,
   toggleCartCheckbox,
 } from '../../../redux/Cart/actions';
-import { setOrder } from '../../../redux/Orders/actions';
 import AmountInput from '../../common/AmountInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
