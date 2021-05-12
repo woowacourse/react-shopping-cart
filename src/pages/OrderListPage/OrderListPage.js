@@ -10,6 +10,9 @@ import { OrderContainer, SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
 
+const getPriceText = (price, amount) => `${numberWithCommas(price * amount)} 원 / `;
+const getAmountText = amount => `수량: ${amount} 개`;
+
 const OrderListPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -50,8 +53,8 @@ const OrderListPage = () => {
                   <RowProductItem
                     imgSrc={img}
                     name={name}
-                    price={`${numberWithCommas(price * amount)} 원 / `}
-                    amount={`수량: ${amount} 개`}
+                    price={getPriceText(price, amount)}
+                    amount={getAmountText(amount)}
                   />
                   <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>
                 </OrderItemContainer>

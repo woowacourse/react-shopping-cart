@@ -2,7 +2,7 @@ import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, PageButtonContainer, PageIndex } from './ProductListPage.styles';
 import { useModal } from '../../hooks';
-import { updatePageIndex, updateShoppingCartItemsAsync } from '../../redux/action';
+import { increaseProductAmount, updatePageIndex, updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedModal } from '../../components/templates';
@@ -34,8 +34,12 @@ const ProductListPage = () => {
   const maxPageIndex = Math.ceil(productList.length / CONTENT_PER_PAGE) - 1;
 
   const onClickShoppingCartIcon = productId => {
-    const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
-    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+    if (myShoppingCartProductIds.includes(productId)) {
+      dispatch(increaseProductAmount(productId));
+    } else {
+      const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
+      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+    }
 
     openModal();
   };
