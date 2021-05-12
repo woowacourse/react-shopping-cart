@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import { addToCart } from '../../../redux/Cart/actions';
-import { getProducts, resetProducts } from '../../../redux/ProductList/actions';
+import { getProducts, resetProducts } from '../../../redux/Products/actions';
 import Button from '../../common/Button';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Main from '../../Main';
@@ -11,7 +11,7 @@ import Product from '../../shared/Product';
 import * as Styled from './style';
 
 const ProductListPage = () => {
-  const { products, cart } = useSelector((state) => state);
+  const { products, cart, errorMessage } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +33,7 @@ const ProductListPage = () => {
 
   return (
     <Main>
+      <h2>{errorMessage && 'error!!!!!'}</h2>
       <Styled.ProductList>
         {products.map((product) => (
           <li data-product-id={product.id} key={product.id}>

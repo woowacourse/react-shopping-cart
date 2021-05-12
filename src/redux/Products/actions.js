@@ -4,7 +4,13 @@ export const RESET_PRODUCTS = 'product_list/reset_products';
 
 export const getProducts = () => (dispatch, getState) => {
   fetch('https://raw.githubusercontent.com/SunYoungKwon/react-shopping-cart/step1/src/mockData.json')
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('상품목록을 불러오는데 실패했어요ㅠㅠ');
+      }
+
+      return response.json();
+    })
     .then((data) =>
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
@@ -14,7 +20,7 @@ export const getProducts = () => (dispatch, getState) => {
     .catch((e) =>
       dispatch({
         type: GET_PRODUCTS_ERROR,
-        error: e,
+        errorMessage: e.message,
       })
     );
 };
