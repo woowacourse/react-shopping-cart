@@ -1,4 +1,11 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  getByTestId,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { nextTick } from 'process';
 import { Provider } from 'react-redux';
 import ShoppingCartPage from '.';
@@ -59,5 +66,23 @@ describe('ShoppingCartPage', () => {
     fireEvent.focusOut($quantityInput);
 
     await waitFor(() => expect($quantityInput.valueAsNumber).toEqual(oldQuantity + 10));
+  });
+
+  test('상품을 삭제할 수 있다.', async () => {
+    render(
+      <Provider store={store}>
+        <ShoppingCartPage />
+      </Provider>
+    );
+
+    const [$cartItem] = await waitFor(() => screen.getAllByTestId('cart-item'));
+
+    const itemId = $cartItem.dataset.testItemId;
+
+    const $deleteButton = getByTestId($cartItem, 'delete-button');
+
+    fireEvent.click($deleteButton);
+
+    await waitForElementToBeRemoved(document.querySelector(`[data-test-item-id="${itemId}"]`));
   });
 });

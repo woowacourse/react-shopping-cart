@@ -26,7 +26,11 @@ const ShoppingCartItem: VFC<Props> = ({
   const { image, name, quantity, price, id, checked } = item;
 
   return (
-    <ShoppingCartItemContainer className={className}>
+    <ShoppingCartItemContainer
+      className={className}
+      data-testid="cart-item"
+      data-test-item-id={item.id}
+    >
       <Checkbox checked={checked} onChange={() => changeChecked(item)} />
       <ShoppingCartItemCard type="horizontal" image={image}>
         <ProductName>{name}</ProductName>
@@ -37,6 +41,7 @@ const ShoppingCartItem: VFC<Props> = ({
           width="1.5rem"
           height="1.5rem"
           onClick={() => deleteItem(id)}
+          data-testid="delete-button"
         />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
         <Text>{KRCurrency(price * quantity)}</Text>
