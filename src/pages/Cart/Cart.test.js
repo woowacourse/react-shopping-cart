@@ -190,4 +190,23 @@ describe('<Cart />', () => {
     expect(checkOptionLabel.textContent).toBe('1개 선택');
     expect(checkOptionLabel).not.toBeChecked();
   });
+
+  it('상품이 2개일 때, 1개가 선택되어있을 시 1개 선택 라벨을 누르면 모든 상품의 checked 상태가 true가 된다.', () => {
+    const utils = render(<Cart />, { initialState: initialStateWithNotChecked });
+    const listOptionMenu = utils.getByLabelText('상품선택 옵션 메뉴');
+    const checkOptionLabel = within(listOptionMenu).getByRole('checkbox');
+    const productList = utils.getByLabelText('장바구니 상품 목록');
+    const checkBoxes = within(productList).getAllByRole('checkbox');
+
+    fireEvent.click(checkBoxes[0]);
+
+    expect(checkOptionLabel.textContent).toBe('1개 선택');
+    expect(checkOptionLabel).not.toBeChecked();
+
+    fireEvent.click(checkOptionLabel);
+
+    expect(checkOptionLabel.textContent).toBe('선택해제');
+    expect(checkOptionLabel).toBeChecked();
+    checkBoxes.forEach(checkbox => expect(checkbox).toBeChecked());
+  });
 });
