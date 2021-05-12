@@ -29,6 +29,7 @@ import * as T from '../../types';
 
 export type CartState = {
   cartItems: {
+    isLoading: boolean;
     data: T.CartItem[];
     success: boolean;
     error: Error | null;
@@ -37,6 +38,7 @@ export type CartState = {
 
 const initialState: CartState = {
   cartItems: {
+    isLoading: false,
     data: [],
     success: false,
     error: null,
@@ -57,24 +59,28 @@ export const cartReducer = (
   switch (action.type) {
     case ADD_CART_ITEM_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = true;
         draft.cartItems.success = false;
         draft.cartItems.error = null;
       });
 
     case ADD_CART_ITEM_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = true;
         draft.cartItems.error = null;
       });
 
     case ADD_CART_ITEM_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = false;
         draft.cartItems.error = action.error;
       });
 
     case GET_CART_ITEMS_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = true;
         draft.cartItems.success = false;
         draft.cartItems.error = null;
       });
@@ -83,18 +89,21 @@ export const cartReducer = (
       return produce(state, (draft: Draft<CartState>) => {
         const newCartItems = action.cartItems.map((item) => ({ ...item, checked: true }));
         draft.cartItems.data = newCartItems;
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = true;
         draft.cartItems.error = null;
       });
 
     case GET_CART_ITEMS_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = false;
         draft.cartItems.error = action.error;
       });
 
     case UPDATE_QUANTITY_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = false;
         draft.cartItems.error = null;
       });
@@ -116,15 +125,18 @@ export const cartReducer = (
       return produce(state, (draft: Draft<CartState>) => {
         const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
         if (target) target.checked = action.payload.checked;
+        draft.cartItems.isLoading = false;
       });
 
     case CHECK_ALL_CART_ITEMS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.data = [...draft.cartItems.data].map((item) => ({ ...item, checked: action.checked }));
+        draft.cartItems.isLoading = false;
       });
 
     case DELETE_ITEM_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = false;
         draft.cartItems.error = null;
       });
@@ -144,6 +156,7 @@ export const cartReducer = (
 
     case DELETE_CHECKED_ITEMS_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
+        draft.cartItems.isLoading = false;
         draft.cartItems.success = false;
         draft.cartItems.error = null;
       });
@@ -151,7 +164,6 @@ export const cartReducer = (
     case DELETE_CHECKED_ITEMS_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.data = draft.cartItems.data.filter((item) => !action.ids.includes(item.id));
-
         draft.cartItems.success = true;
         draft.cartItems.error = null;
       });
