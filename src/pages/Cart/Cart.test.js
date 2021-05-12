@@ -177,4 +177,17 @@ describe('<Cart />', () => {
     expect(deleteButton).toBeDisabled();
     expect(purchaseButton).toBeDisabled();
   });
+
+  it('상품이 2개이상일 때 1개만 선택 되어 있으면 1개 선택 라벨이 보여진다.', () => {
+    const utils = render(<Cart />, { initialState: initialStateWithNotChecked });
+    const listOptionMenu = utils.getByLabelText('상품선택 옵션 메뉴');
+    const checkOptionLabel = within(listOptionMenu).getByRole('checkbox');
+    const productList = utils.getByLabelText('장바구니 상품 목록');
+    const checkBoxes = within(productList).getAllByRole('checkbox');
+
+    fireEvent.click(checkBoxes[0]);
+
+    expect(checkOptionLabel.textContent).toBe('1개 선택');
+    expect(checkOptionLabel).not.toBeChecked();
+  });
 });
