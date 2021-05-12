@@ -92,7 +92,6 @@ const ShoppingCartPage = () => {
         }
       });
       const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-      console.log(newCartItems);
       setCartItems(newCartItems);
     } catch (error) {
       console.error(error);

@@ -18,6 +18,6 @@ export const Header = styled.div`
 
 export const OrderNumber = styled.span``;
 
-export const DetailLink = styled.a``;
+export const DetailLinkButton = styled.button``;
 
 export const ItemContainer = styled.div``;

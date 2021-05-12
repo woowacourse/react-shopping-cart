@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:4000';
 export const URL = {
   PRODUCTS: `${BASE_URL}/products`,
   CART: `${BASE_URL}/cart`,
-  ORDER: `${BASE_URL}/order`,
+  ORDERS: `${BASE_URL}/orders`,
 };
 
 export const STATUS_CODE = {

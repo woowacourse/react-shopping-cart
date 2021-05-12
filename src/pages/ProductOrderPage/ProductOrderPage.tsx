@@ -13,7 +13,7 @@ const ProductOrderPage = () => {
 
   const orderItemList = orderItems.map(orderItem => {
     return (
-      <Styled.OrderItemWrapper>
+      <Styled.OrderItemWrapper key={orderItem.id}>
         <ProductListItem
           size="SM"
           productThumbnail={orderItem.thumbnail}
@@ -33,10 +33,18 @@ const ProductOrderPage = () => {
 
   const onOrderButtonClick = async () => {
     try {
-      const response = await axios.post(URL.ORDER, { orderItems });
+      let response = await axios.post(URL.ORDERS, { orderItems });
       if (response.status !== STATUS_CODE.POST_SUCCESS) {
         throw new Error('주문에 실패하였습니다.');
       }
+
+      orderItems.forEach(async item => {
+        response = await axios.delete(`${URL.CART}/${item.id}`);
+        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
+          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
+        }
+      });
+
       history.push(PATH.ORDER_LIST);
     } catch (error) {
       console.error(error);

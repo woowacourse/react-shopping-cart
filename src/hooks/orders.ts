@@ -11,7 +11,7 @@ const useOrders = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(URL.ORDER);
+        const response = await axios.get(URL.ORDERS);
         if (response.status !== STATUS_CODE.GET_SUCCESS) {
           throw new Error('주문 목록 조회 실패');
         }
