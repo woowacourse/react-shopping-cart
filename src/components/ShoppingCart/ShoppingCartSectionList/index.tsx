@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, VFC } from 'react';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
@@ -8,12 +8,13 @@ import {
   CartSelectContainer,
 } from './style';
 
-const ShoppingCartSectionList = () => {
+const ShoppingCartSectionList: VFC = () => {
   const [checked, setChecked] = useState(false);
   const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useFetchCartRedux();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;
+
     changeAllChecked(negatedChecked);
     setChecked(negatedChecked);
   };
@@ -22,12 +23,7 @@ const ShoppingCartSectionList = () => {
     <ShoppingCartItemListContainer>
       <CartSelectContainer>
         <Checkbox description="선택해제" checked={checked} onChange={onChangeCheckAll} />
-        <SelectedItemDeleteButton
-          type="button"
-          onClick={() => {
-            deleteCheckedItems(items);
-          }}
-        >
+        <SelectedItemDeleteButton type="button" onClick={() => deleteCheckedItems(items)}>
           상품삭제
         </SelectedItemDeleteButton>
       </CartSelectContainer>

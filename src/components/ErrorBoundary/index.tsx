@@ -8,18 +8,16 @@ interface Props {
 }
 
 interface State {
-  hasError: boolean;
   error: Error | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
   state: State = {
-    hasError: false,
     error: null,
   };
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+    return { error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -31,15 +29,16 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   render() {
-    const { hasError, error } = this.state;
+    const { error } = this.state;
+    const { children } = this.props;
 
-    if (hasError) {
+    if (error) {
       const ErrorComponent = this.errorComponentMap[(error as Error).message] || CommonError;
 
       return <ErrorComponent />;
     }
 
-    return this.props.children;
+    return children;
   }
 }
 

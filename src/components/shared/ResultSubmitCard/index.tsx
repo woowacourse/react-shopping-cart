@@ -22,19 +22,17 @@ const ResultSubmitCard: VFC<Props> = ({
   resultAmount,
   buttonText,
   className,
-}) => {
-  return (
-    <ResultSubmitCardContainer className={className}>
-      <ResultTitle>{title}</ResultTitle>
-      <ResultInnerContainer>
-        <ResultAmountContainer>
-          <Text>{resultDescription}</Text>
-          <Text>{resultAmount}</Text>
-        </ResultAmountContainer>
-        <ResultSubmitButton>{buttonText}</ResultSubmitButton>
-      </ResultInnerContainer>
-    </ResultSubmitCardContainer>
-  );
-};
+}) => (
+  <ResultSubmitCardContainer className={className}>
+    <ResultTitle>{title}</ResultTitle>
+    <ResultInnerContainer>
+      <ResultAmountContainer>
+        <Text>{resultDescription}</Text>
+        <Text>{resultAmount}</Text>
+      </ResultAmountContainer>
+      <ResultSubmitButton>{buttonText}</ResultSubmitButton>
+    </ResultInnerContainer>
+  </ResultSubmitCardContainer>
+);
 
 export default ResultSubmitCard;

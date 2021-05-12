@@ -29,7 +29,7 @@ const useFetch = <T>(callback: () => Promise<T>) => {
     throw new Error(NETWORK_ERROR);
   }, [hasError]);
 
-  return { data, doFetch: reFetch, hasError, isLoading };
+  return { data, fetchCartItemRedux: reFetch, hasError, isLoading };
 };
 
 export default useFetch;

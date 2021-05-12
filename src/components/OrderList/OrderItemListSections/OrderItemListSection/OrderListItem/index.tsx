@@ -4,6 +4,7 @@ import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderC
 import Container from '../../../../shared/Container';
 import { AddCartButton, OrderListItemCard, StyledOrderItemListItem } from './styles';
 import { KRCurrency } from '../../../../../utils/format';
+import Text from '../../../../shared/Text';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   item: OrderedItem;
@@ -14,9 +15,9 @@ const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity }, onC
     <OrderListItemCard type="horizontal" image={image}>
       <Container>
         <ProductName>{name}</ProductName>
-        <p>
+        <Text>
           {KRCurrency(quantity * price)} / 수량 : {quantity}개
-        </p>
+        </Text>
       </Container>
     </OrderListItemCard>
     <AddCartButton type="button" onClick={onClick} size="small">

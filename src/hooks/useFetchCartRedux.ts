@@ -28,7 +28,7 @@ const useFetchCartRedux = () => {
     throw new Error(NETWORK_ERROR);
   }, [hasError]);
 
-  const doFetch = () => {
+  const fetchCartItemRedux = () => {
     dispatch(thunkGetCartItems());
   };
 
@@ -70,7 +70,7 @@ const useFetchCartRedux = () => {
   };
 
   return {
-    doFetch,
+    fetchCartItemRedux,
     addItem,
     changeQuantity,
     deleteItem,

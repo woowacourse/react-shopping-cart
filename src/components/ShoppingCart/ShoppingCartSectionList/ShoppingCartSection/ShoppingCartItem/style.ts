@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Card from '../../../../shared/Card';
 import Container from '../../../../shared/Container';
+import IconButton from '../../../../shared/IconButton';
 
 export const ShoppingCartItemContainer = styled.li`
   display: flex;
@@ -23,3 +24,12 @@ ShoppingCartItemCard.defaultProps = {
 export const ProductName = styled.p`
   font-size: 1.25rem;
 `;
+
+export const DeleteButton = styled(IconButton)`
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
+DeleteButton.defaultProps = {
+  image: process.env.PUBLIC_URL + '/icons/trash-bin.svg',
+};

@@ -1,17 +1,23 @@
+import { ChangeEvent, InputHTMLAttributes, useEffect, useState, VFC } from 'react';
 import { NumberInputContainer, IncreaseButton, DecreaseButton } from './style';
 import Container from '../Container';
 import Input from '../Input';
-import { ChangeEvent, useEffect, useState, VFC } from 'react';
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
   setValue: (value: number) => void;
-  min?: number;
-  max?: number;
 }
 
 const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infinity }) => {
   const [num, setNum] = useState(value);
+
+  useEffect(() => {
+    if (!isValidInput(value)) {
+      throw Error('Invalid value: value should be within min and max range ');
+    }
+
+    setNum(value);
+  }, [value]);
 
   const isValidInput = (input: number) => input >= min && input <= max;
 
@@ -39,14 +45,6 @@ const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infin
 
     setValue(value - 1);
   };
-
-  useEffect(() => {
-    if (!isValidInput(value)) {
-      throw Error('Invalid value: value should be within min and max range ');
-    }
-
-    setNum(value);
-  }, [value]);
 
   return (
     <NumberInputContainer>

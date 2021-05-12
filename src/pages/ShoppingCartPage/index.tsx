@@ -5,19 +5,16 @@ import useFetchCartRedux from '../../hooks/useFetchCartRedux';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
-import { RouteComponentProps } from 'react-router';
-import { NETWORK_ERROR } from '../../constants/error';
-import { KRCurrency } from '../../utils/format';
+import { useHistory } from 'react-router';
 
 const TITLE = '장바구니';
 
-interface Props extends RouteComponentProps {}
-
-const ShoppingCartPage: VFC<Props> = ({ history }) => {
-  const { doFetch, itemsInCart: items } = useFetchCartRedux();
+const ShoppingCartPage: VFC = () => {
+  const { fetchCartItemRedux, itemsInCart: items } = useFetchCartRedux();
+  const history = useHistory();
 
   useEffect(() => {
-    doFetch();
+    fetchCartItemRedux();
   }, []);
 
   const totalPrice = items.reduce(
@@ -34,9 +31,9 @@ const ShoppingCartPage: VFC<Props> = ({ history }) => {
       throw error;
     }
 
-    if (history) {
-      history.push('/orderConfirm');
-    }
+    if (!history) return;
+
+    history.push('/orderConfirm');
   };
 
   return (

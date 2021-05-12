@@ -6,7 +6,12 @@ import Container from '../../../../shared/Container';
 import IconButton from '../../../../shared/IconButton';
 import NumberInput from '../../../../shared/NumberInput';
 import Text from '../../../../shared/Text';
-import { ProductName, ShoppingCartItemCard, ShoppingCartItemContainer } from './style';
+import {
+  DeleteButton,
+  ProductName,
+  ShoppingCartItemCard,
+  ShoppingCartItemContainer,
+} from './style';
 
 interface Props {
   item: ItemInCart;
@@ -42,13 +47,7 @@ const ShoppingCartItem: VFC<Props> = ({
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>
       <Container>
-        <IconButton
-          image={process.env.PUBLIC_URL + '/icons/trash-bin.svg'}
-          width="1.5rem"
-          height="1.5rem"
-          onClick={() => deleteItem(id)}
-          data-testid="delete-button"
-        />
+        <DeleteButton onClick={() => deleteItem(id)} data-testid="delete-button" />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
         <Text>{KRCurrency(price * quantity)}</Text>
       </Container>

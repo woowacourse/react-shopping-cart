@@ -14,8 +14,3 @@ const List = styled.ul`
 `;
 
 export default List;
-
-// export const InnerTitle = styled.h3`
-//   font-size: 1.125rem;
-//   margin-bottom: 1.25rem;
-// `;
