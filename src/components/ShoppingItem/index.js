@@ -5,6 +5,7 @@ import QuantityInput from '../common/QuantityInput';
 import { TrashCan } from '../../assets/svg';
 import { FALLBACK } from '../../constants';
 import { Controller, Image, Name, Product } from './index.styles';
+import { formatPrice } from '../../utils';
 
 const ShoppingItem = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
@@ -33,7 +34,7 @@ const ShoppingItem = ({
           onIncreaseQuantity={onIncreaseQuantity}
           onDecreaseQuantity={onDecreaseQuantity}
         />
-        <span>{price}원</span>
+        <span>{formatPrice(price * quantity)}원</span>
       </Controller>
     </Product>
   );

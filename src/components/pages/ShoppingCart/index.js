@@ -13,7 +13,8 @@ import {
 } from './index.styles';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { PRODUCTS } from '../../../constants/actionType';
+import { PRODUCTS } from '../../../constants';
+import { formatPrice } from '../../../utils';
 
 const ShoppingCart = () => {
   const products = Object.values(
@@ -28,6 +29,12 @@ const ShoppingCart = () => {
 
   const handleDecreaseQuantity = id => {
     dispatch({ type: PRODUCTS.DECREASE_QUANTITY, id });
+  };
+
+  const getTotalPrice = products => {
+    return products.reduce((totalPrice, { price, quantity }) => {
+      return (totalPrice += price * quantity);
+    }, 0);
   };
 
   return (
@@ -60,7 +67,7 @@ const ShoppingCart = () => {
         <PaymentSheet
           title="결제예상금액"
           priceInfo="결제예상금액"
-          price={10000}
+          price={formatPrice(getTotalPrice(products))}
           buttonText="주문하기"
         />
       </Main>

@@ -42,8 +42,8 @@ const productReducer = (state = initialState, action) => {
           [action.id]: {
             ...state.pickedProducts[action.id],
             quantity:
-              state.pickedProducts[action.id].quantity === 0
-                ? 0
+              state.pickedProducts[action.id].quantity === 1
+                ? 1
                 : state.pickedProducts[action.id].quantity - 1,
           },
         },
