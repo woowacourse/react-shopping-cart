@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
 import { addToCart } from '../../../redux/Cart/actions';
 import { getProducts, resetProducts } from '../../../redux/Products/actions';
+import { resetErrorMessage } from '../../../redux/Message/actions';
 import Button from '../../common/Button';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
+import Modal from '../../common/Modal';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
-import Snackbar from '../../common/Snackbar';
 
 const ProductListPage = () => {
   const { products, cart, errorMessage } = useSelector((state) => state);
@@ -30,6 +31,10 @@ const ProductListPage = () => {
 
     const selectedProduct = products.find((product) => product.id === selectedProductId);
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
+  };
+
+  const onCloseErrorMessageModal = () => {
+    dispatch(resetErrorMessage());
   };
 
   return (
@@ -55,6 +60,7 @@ const ProductListPage = () => {
           </li>
         ))}
       </Styled.ProductList>
+      {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
     </Main>
   );
 };
