@@ -8,12 +8,10 @@ import {
 
 const mockMessage = '하루심바의_쇼핑은_즐거워';
 const mockApprove = () => console.log('approve 실행');
-const mockCancel = () => console.log('cancel 실행');
 
 const mockOpenPayload = {
   message: mockMessage,
-  onApprove: mockApprove,
-  onCancel: mockCancel,
+  approve: mockApprove,
 };
 const mockOpenState = {
   isOpened: true,

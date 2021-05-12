@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import { cartAction } from '../../../redux';
+import { cartAction, confirmAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header } from '../../commons';
 import * as S from './style.js';
@@ -22,15 +22,31 @@ export const CartPage = () => {
   const dispatch = useDispatch();
   const dispatchRemoveProduct = (id) => dispatch(cartAction.removeProduct(id));
   const dispatchRemoveSelectedProducts = () => dispatch(cartAction.removeSelectedProducts());
+
   const dispatchToggleProductSelection = (id) => dispatch(cartAction.toggleProductSelection(id));
   const dispatchToggleAllProductSelection = () =>
     dispatch(cartAction.toggleAllProductsSelection(!isAllSelected));
+
   const dispatchIncrementProductQuantity = (id) =>
     dispatch(cartAction.incrementProductQuantity(id));
   const dispatchDecrementProductQuantity = (id) =>
     dispatch(cartAction.decrementProductQuantity(id));
   const dispatchInputProductQuantity = (id, quantity) =>
     dispatch(cartAction.inputProductQuantity(id, quantity));
+
+  const dispatchOpenConfirm = ({ message, approve }) =>
+    dispatch(confirmAction.openConfirm({ message, approve }));
+
+  const onClickDeleteButton = () =>
+    dispatchOpenConfirm({
+      message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
+      approve: dispatchRemoveSelectedProducts,
+    });
+  const onClickTrashIconButton = (id) =>
+    dispatchOpenConfirm({
+      message: `해당 상품을 삭제하시겠습니까?`,
+      approve: () => dispatchRemoveProduct(id),
+    });
 
   return (
     <S.Page>
@@ -52,7 +68,7 @@ export const CartPage = () => {
                   isChecked={isAllSelected}
                   onChange={dispatchToggleAllProductSelection}
                 />
-                <S.DeleteButton onClick={dispatchRemoveSelectedProducts} disabled={isAllUnselected}>
+                <S.DeleteButton onClick={onClickDeleteButton} disabled={isAllUnselected}>
                   상품삭제
                 </S.DeleteButton>
               </S.OrderOptionsController>
@@ -64,7 +80,7 @@ export const CartPage = () => {
                   <CartProductItem
                     key={product.id}
                     product={product}
-                    removeProduct={dispatchRemoveProduct}
+                    removeProduct={onClickTrashIconButton}
                     toggleCheckbox={dispatchToggleProductSelection}
                     incrementQuantity={dispatchIncrementProductQuantity}
                     decrementQuantity={dispatchDecrementProductQuantity}

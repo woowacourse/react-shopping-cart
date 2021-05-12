@@ -4,9 +4,9 @@ export const CLOSE_CONFIRM = 'CLOSE_CONFIRM';
 
 /* ACTION CREATOR */
 export const confirmAction = {
-  openConfirm: ({ message, onApprove, onCancel }) => ({
+  openConfirm: ({ message, approve }) => ({
     type: OPEN_CONFIRM,
-    payload: { message, onApprove, onCancel },
+    payload: { message, approve },
   }),
   closeConfirm: () => ({ type: CLOSE_CONFIRM }),
 };
@@ -16,21 +16,19 @@ export const confirmAction = {
 export const INITIAL_STATE = {
   isOpened: false,
   message: null,
-  onApprove: null,
-  onCancel: null,
+  approve: null,
 };
 
 export const confirmReducer = (state = INITIAL_STATE, action) => {
   const { type = '', payload = '' } = action;
 
   switch (type) {
-    /* payload: { message, onApprove, onCancel } */
+    /* payload: { message, approve } */
     case OPEN_CONFIRM:
       return {
         isOpened: true,
         message: payload.message,
-        onApprove: payload.onApprove,
-        onCancel: payload.onCancel,
+        approve: payload.approve,
       };
 
     case CLOSE_CONFIRM:

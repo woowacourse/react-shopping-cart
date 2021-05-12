@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ProductListPage, CartPage, CheckoutPage, OrderListPage } from './pages';
-import { NavBar } from './commons';
+import { Confirm, NavBar } from './commons';
 import { ROUTE } from '../constants';
 
 export const App = () => {
   return (
     <Router>
       <NavBar />
+      <Confirm />
       <Switch>
         <Route exact path={[ROUTE.HOME, ROUTE.PRODUCT_LIST]}>
           <ProductListPage />

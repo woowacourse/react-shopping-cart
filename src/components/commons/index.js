@@ -12,6 +12,7 @@ export { UpwardIcon } from './atoms/UpwardIcon';
 
 /* molecules */
 export { CheckoutBox } from './molecules/CheckoutBox';
+export { Confirm } from './molecules/Confirm';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
 export { QuantityStepper } from './molecules/QuantityStepper';

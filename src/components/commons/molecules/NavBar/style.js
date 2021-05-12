@@ -9,7 +9,7 @@ export const NavBar = styled.nav`
   height: 5rem;
   background-color: ${BAEMIN_CYAN};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  z-index: 999;
+  z-index: 10;
 `;
 
 export const Container = styled.div`
