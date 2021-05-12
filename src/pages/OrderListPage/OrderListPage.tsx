@@ -13,7 +13,7 @@ import useOrders from '../../hooks/orders';
 import { getMoneyString } from '../../utils/format';
 import { RootState } from '../../modules';
 import { PATH } from '../../constants';
-import { API } from '../../utils/api';
+import { API } from '../../services/api';
 
 import * as Styled from './OrderListPage.styles';
 

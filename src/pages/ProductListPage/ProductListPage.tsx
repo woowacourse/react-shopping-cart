@@ -8,7 +8,7 @@ import useProducts from '../../hooks/products';
 
 import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../utils/api';
+import { API } from '../../services/api';
 
 import * as Styled from './ProductListPage.styles';
 

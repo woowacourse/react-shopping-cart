@@ -15,7 +15,7 @@ import useOrderDetail from '../../hooks/orderDetail';
 import { COLORS, PATH } from '../../constants';
 import { RootState } from '../../modules';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../utils/api';
+import { API } from '../../services/api';
 
 import * as Styled from './OrderDetailPage.styles';
 

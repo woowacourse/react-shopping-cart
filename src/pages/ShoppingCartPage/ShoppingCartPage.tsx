@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import axios from 'axios';
 import { useHistory } from 'react-router';
 
 import Checkbox from '../../components/commons/Checkbox/Checkbox';
@@ -12,9 +11,10 @@ import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 
 import useCart from '../../hooks/cart';
 
-import { URL, STATUS_CODE, PATH } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
+import { API } from '../../services/api';
 
 import * as Styled from './ShoppingCartPage.styles';
 
@@ -39,24 +39,12 @@ const ShoppingCartPage = () => {
     );
   }
 
-  const patchItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    try {
-      const response = await axios.patch(`${URL.CART}/${id}`, { quantity });
-
-      if (response.status !== STATUS_CODE.PUT_SUCCESS) {
-        throw new Error('상품 수량 변경에 실패하였습니다');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const setCartItemQuantity = (id: CartItem['id'], quantity: CartItem['quantity']) => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const newCartItem = { ...newCartItems[targetIndex], quantity };
 
-    patchItemQuantity(id, quantity);
+    API.CHANGE_ITEM_QUANTITY(id, quantity);
     newCartItems.splice(targetIndex, 1, newCartItem);
     setCartItems(newCartItems);
   };
@@ -70,6 +58,10 @@ const ShoppingCartPage = () => {
     setCartItems(newCartItems);
   };
 
+  const getSelectedItems = () => {
+    return cartItems.filter(item => item.isSelected);
+  };
+
   const onTotalCheckClick = () => {
     const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
 
@@ -78,47 +70,56 @@ const ShoppingCartPage = () => {
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    const isDeleteSuccess = await API.DELETE_CART_ITEM(cartItems, id);
 
-    if (!confirm(`${newCartItems[targetIndex].name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
+    if (!isDeleteSuccess) {
+      alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
       return;
     }
 
-    try {
-      const response = await axios.delete(`${URL.CART}/${id}`);
-
-      if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-        throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-      }
-
-      newCartItems.splice(targetIndex, 1);
-      setCartItems(newCartItems);
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    newCartItems.splice(targetIndex, 1);
+    setCartItems(newCartItems);
   };
 
   const onSelectedCartItemDelete = async () => {
     if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
       return;
     }
+
     const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-    try {
-      selectedCartItemIdList.forEach(async id => {
-        const response = await axios.delete(`${URL.CART}/${id}`);
-        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-        }
-      });
-      const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-      setCartItems(newCartItems);
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
+    const isDeleteSuccess = await API.DELETE_SELECTED_CART_ITEMS(selectedCartItemIdList);
+
+    if (!isDeleteSuccess) {
+      alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
+      return;
     }
+
+    const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
+    setCartItems(newCartItems);
   };
+
+  const onOrderLinkButtonClick = () => {
+    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
+      return;
+    }
+    const selectedItems = getSelectedItems();
+    if (selectedItems.length === 0) return;
+    history.push({ pathname: PATH.ORDER, state: { selectedItems } });
+  };
+
+  const isOrderPossible = getSelectedItems().length > 0;
+
+  const totalPrice = String(
+    cartItems.reduce((acc, cartItem) => {
+      if (!cartItem.isSelected) {
+        return acc;
+      }
+
+      return acc + Number(cartItem.price) * Number(cartItem.quantity);
+    }, 0)
+  );
 
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
@@ -134,31 +135,6 @@ const ShoppingCartPage = () => {
       />
     </Styled.CartItemWrapper>
   ));
-
-  const totalPrice = String(
-    cartItems.reduce((acc, cartItem) => {
-      if (!cartItem.isSelected) {
-        return acc;
-      }
-
-      return acc + Number(cartItem.price) * Number(cartItem.quantity);
-    }, 0)
-  );
-
-  const getSelectedItems = () => {
-    return cartItems.filter(item => item.isSelected);
-  };
-
-  const onOrderLinkButtonClick = () => {
-    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
-      return;
-    }
-    const selectedItems = getSelectedItems();
-    if (selectedItems.length === 0) return;
-    history.push({ pathname: PATH.ORDER, state: { selectedItems } });
-  };
-
-  const isOrderPossible = getSelectedItems().length > 0;
 
   return (
     <Styled.ShoppingCartPage>

@@ -1,13 +1,13 @@
-import axios from 'axios';
 import { Redirect, useHistory } from 'react-router-dom';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 
-import { PATH, URL, STATUS_CODE } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
+import { API } from '../../services/api';
 
 import * as Styled from './ProductOrderPage.styles';
 
@@ -43,23 +43,17 @@ const ProductOrderPage = () => {
     if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
       return;
     }
-    try {
-      let response = await axios.post(URL.ORDERS, { orderItems });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('주문에 실패하였습니다.');
-      }
 
-      orderItems.forEach(async item => {
-        response = await axios.delete(`${URL.CART}/${item.id}`);
-        if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
-        }
-      });
+    const isOrderSuccess = await API.ORDER(orderItems);
 
-      history.push(PATH.ORDER_LIST);
-    } catch (error) {
-      console.error(error);
+    if (!isOrderSuccess) {
+      alert('주문에 실패하였습니다.');
+      return;
     }
+
+    await API.DELETE_ORDER_ITEMS_IN_CART(orderItems);
+
+    history.push(PATH.ORDER_LIST);
   };
 
   return (
