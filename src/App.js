@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { fetchShoppingCartList } from './modules/shoppingCart';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
+import { fetchOrderItemList } from './modules/orderList';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -27,6 +28,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProductList());
     dispatch(fetchShoppingCartList());
+    dispatch(fetchOrderItemList());
   }, [dispatch]);
 
   return (
