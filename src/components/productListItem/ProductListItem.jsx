@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
-import PropTypes from 'prop-types';
 import useDialog from '../../hooks/useDialog';
 import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
 import { Dialog, DIALOG_TYPE } from '../';
