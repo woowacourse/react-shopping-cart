@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
@@ -9,6 +9,7 @@ import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
+import Snackbar from '../../common/Snackbar';
 
 const ProductListPage = () => {
   const { products, cart, errorMessage } = useSelector((state) => state);
@@ -33,7 +34,6 @@ const ProductListPage = () => {
 
   return (
     <Main>
-      <h2>{errorMessage && 'error!!!!!'}</h2>
       <Styled.ProductList>
         {products.map((product) => (
           <li data-product-id={product.id} key={product.id}>
@@ -46,9 +46,11 @@ const ProductListPage = () => {
               direction="column"
               size="17.5rem"
             >
-              <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
-                <ShoppingCart width="2rem" color={PALETTE.BLACK} />
-              </Button>
+              {!cart.some(({ id }) => product.id === id) && (
+                <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
+                  <ShoppingCart width="2rem" color={PALETTE.BLACK} />
+                </Button>
+              )}
             </Product>
           </li>
         ))}
