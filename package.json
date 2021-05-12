@@ -1,5 +1,5 @@
 {
-  "name": "react-shopping-cart",
+  "name": "wooteco-lv2-react-cart",
   "version": "0.1.0",
   "dependencies": {
     "@types/node": "^12.0.0",
@@ -21,7 +21,8 @@
   },
   "scripts": {
     "json-server": "json-server ./data.json --port 7000",
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "react-start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
