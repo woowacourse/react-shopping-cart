@@ -9,8 +9,7 @@ const Container = styled.nav`
   height: 80px;
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  position: fixed;
-  z-index: 2;
+  position: relative;
 `;
 
 const LogoContainer = styled(Link)`
@@ -37,9 +36,6 @@ const ButtonContainer = styled.div`
   & > a {
     cursor: pointer;
     color: white;
-  }
-
-  @media screen and (max-width: 375px) {
   }
 `;
 
