@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Navigation from './components/navigation/Navigation';
 import ProductList from './pages/ProductList';
@@ -59,6 +59,7 @@ function App() {
           <Route exact path={PATH.ORDER_LIST_DETAIL}>
             <OrderListDetail />
           </Route>
+          <Redirect to={PATH.HOME} />
         </Switch>
       </StyledContents>
     </>
