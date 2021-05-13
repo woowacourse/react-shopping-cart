@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { ProductListItem } from '../components';
+import { ProductListItem, Loading } from '../components';
 
 const Container = styled.ul`
   display: grid;
@@ -11,7 +11,11 @@ const Container = styled.ul`
 `;
 
 const ProductList = () => {
-  const productList = useSelector((state) => state.product.productList.data);
+  const { loading, data: productList } = useSelector((state) => state.product.productList);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

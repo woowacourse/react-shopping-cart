@@ -11,6 +11,7 @@ import ProductListItem from './productListItem/ProductListItem';
 import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from './selectedProductList/SelectedProductList';
 import ShoppingCartItem from './shoppingCartItem/ShoppingCartItem';
 import TextHighlight from './textHighlight/TextHighlight';
+import Loading from './loading/Loading';
 
 export {
   Button,
@@ -26,6 +27,7 @@ export {
   SelectedProductList,
   ShoppingCartItem,
   TextHighlight,
+  Loading,
   BUTTON_TYPE,
   DIALOG_TYPE,
   ORDER_LIST_ITEM_TYPE,

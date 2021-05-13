@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../constants/color';
 import { useSelector } from 'react-redux';
-import { PageTitle } from '../components';
-import { OrderListItem } from '../components';
-import { SelectedProductList, SELECTED_PRODUCT_LIST_TYPE } from '../components';
+import { PageTitle, OrderListItem, SelectedProductList, Loading, SELECTED_PRODUCT_LIST_TYPE } from '../components';
 
 const OrderItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};
@@ -13,7 +11,11 @@ const OrderItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const orderItemList = useSelector((state) => state.orderList.orderItemList.data);
+  const { loading, data: orderItemList } = useSelector((state) => state.orderList.orderItemList);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { insertOrderItemList } from '../modules/orderList';
 import { deleteCheckedShoppingCartList } from '../modules/shoppingCart';
-import { OrderListItem } from '../components';
-import { PageTitle } from '../components';
-import { PaymentAmount, PAYMENT_AMOUNT_TYPE } from '../components';
-import { SelectedProductList, SELECTED_PRODUCT_LIST_TYPE } from '../components';
 import { PATH } from '../constants/path';
+import {
+  OrderListItem,
+  PageTitle,
+  PaymentAmount,
+  SelectedProductList,
+  Loading,
+  SELECTED_PRODUCT_LIST_TYPE,
+  PAYMENT_AMOUNT_TYPE,
+} from '../components';
 
 const Content = styled.section`
   position: relative;
@@ -25,6 +30,7 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
+  const loading = useSelector((state) => state.shoppingCart.shoppingCartList.loading);
   const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,6 +43,10 @@ const OrderPayment = () => {
 
     history.push(PATH.ORDER_LIST);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

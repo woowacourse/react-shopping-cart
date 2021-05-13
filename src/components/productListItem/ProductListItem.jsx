@@ -5,8 +5,7 @@ import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../../modules/shoppingCart';
 import useDialog from '../../hooks/useDialog';
-import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
-import { Dialog, DIALOG_TYPE } from '../';
+import { ProductImage, Dialog, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
 
 const Content = styled.ul`
   display: flex;

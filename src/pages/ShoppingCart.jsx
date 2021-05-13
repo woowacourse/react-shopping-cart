@@ -6,14 +6,21 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
 import useDialog from '../hooks/useDialog';
-import { Button, BUTTON_TYPE } from '../components';
-import { Checkbox } from '../components';
-import { PageTitle } from '../components';
-import { PaymentAmount, PAYMENT_AMOUNT_TYPE } from '../components';
-import { SelectedProductList, SELECTED_PRODUCT_LIST_TYPE } from '../components';
-import { ShoppingCartItem } from '../components';
-import { Dialog, DIALOG_TYPE } from '../components';
 import { PATH } from '../constants/path';
+import {
+  Button,
+  Checkbox,
+  PageTitle,
+  PaymentAmount,
+  SelectedProductList,
+  ShoppingCartItem,
+  Dialog,
+  Loading,
+  DIALOG_TYPE,
+  SELECTED_PRODUCT_LIST_TYPE,
+  PAYMENT_AMOUNT_TYPE,
+  BUTTON_TYPE,
+} from '../components';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -66,7 +73,7 @@ const ShoppingCart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList.data);
+  const { loading, data: shoppingCartList } = useSelector((state) => state.shoppingCart.shoppingCartList);
 
   const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartList.length;
@@ -110,6 +117,10 @@ const ShoppingCart = () => {
         </Link>
       </ImageWrapper>
     );
+  }
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (

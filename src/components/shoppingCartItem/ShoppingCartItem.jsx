@@ -10,10 +10,7 @@ import {
   toggleShoppingCartItem,
 } from '../../modules/shoppingCart';
 import useDialog from '../../hooks/useDialog';
-import { CountInput } from '../';
-import { Checkbox } from '../';
-import { Dialog, DIALOG_TYPE } from '../';
-import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
+import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
 
 const Container = styled.ul`
   display: flex;

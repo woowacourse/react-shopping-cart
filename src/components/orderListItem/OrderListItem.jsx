@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Button, BUTTON_TYPE } from '../';
-import { ProductImage, PRODUCT_IMAGE_TYPE } from '../';
 import { COLOR } from '../../constants/color';
+import { Button, ProductImage, BUTTON_TYPE, PRODUCT_IMAGE_TYPE } from '../';
 
 export const ORDER_LIST_ITEM_TYPE = Object.freeze({
   ORDER_PAYMENT: 'ORDER_PAYMENT',
