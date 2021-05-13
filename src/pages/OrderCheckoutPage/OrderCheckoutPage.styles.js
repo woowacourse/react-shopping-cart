@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
   @media screen and (max-width: 900px) {
     flex-direction: column;

@@ -32,20 +32,17 @@ const ShoppingCartPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
+  const {
+    myShoppingCartId,
+    myShoppingCartProductIds,
+    productList,
+    checkedProductList,
+    productAmountDict,
+  } = useSelector(state => ({
     myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
-  }));
-
-  const { productList } = useSelector(state => ({
     productList: state.productListReducer.productList,
-  }));
-
-  const { checkedProductList } = useSelector(state => ({
     checkedProductList: state.checkedProductReducer.checkedProductList,
-  }));
-
-  const { productAmountDict } = useSelector(state => ({
     productAmountDict: state.productAmountDictReducer.productAmountDict,
   }));
 

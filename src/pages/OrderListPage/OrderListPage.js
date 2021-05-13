@@ -18,12 +18,9 @@ const OrderListPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
+  const { myShoppingCartId, myShoppingCartProductIds, productList } = useSelector(state => ({
     myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
-  }));
-
-  const { productList } = useSelector(state => ({
     productList: state.productListReducer.productList,
   }));
 
