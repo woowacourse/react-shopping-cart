@@ -9,7 +9,7 @@ import OrdersList from "./components/OrdersList/OrdersList";
 
 const App = () => (
   <S.App>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Nav />
       <S.Main>
         <Switch>
