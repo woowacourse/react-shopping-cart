@@ -8,9 +8,10 @@ import CheckBox from '../../components/utils/CheckBox';
 import Image from '../../components/utils/Image';
 
 import bin from '../../asset/bin-icon.svg';
+
 import styled from 'styled-components';
 
-import { increaseQuantity, decreaseQuantity, deleteItem } from '../../modules/cart';
+import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
 
 const SingleCartItem = styled.li`
   display: flex;
@@ -59,7 +60,7 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
   };
 
   const onDeleteItemButtonClick = () => {
-    dispatch(deleteItem(cartItem.id));
+    dispatch(deleteItemFromCart(cartItem.id));
   };
 
   return (

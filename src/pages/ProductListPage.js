@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import GridColumnList from '../components/utils/GridColumnList';
 import Image from '../components/utils/Image';
 import IconButton from '../components/utils/IconButton';
 import PriceText from '../components/utils/PriceText';
 
-import { products } from '../data/mock';
 import cartImage from '../asset/cart.png';
 import { getProducts } from '../api/products';
+
+import { addItemToCart } from '../modules/cart';
 
 import styled from 'styled-components';
 
@@ -47,8 +49,9 @@ const StyledProductName = styled.span`
   white-space: nowrap;
 `;
 
-function ProductListPage() {
+const ProductListPage = () => {
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const setProductsByFetch = async () => {
@@ -57,6 +60,10 @@ function ProductListPage() {
 
     setProductsByFetch();
   }, []);
+
+  const onAddCartButtonClick = (item) => {
+    dispatch(addItemToCart(item));
+  };
 
   const getProductItem = () => {
     return products.map((product) => (
@@ -71,7 +78,7 @@ function ProductListPage() {
             </PriceText>
           </StyledProductInfoDiv>
 
-          <IconButton src={cartImage} alt="장바구니 아이콘" />
+          <IconButton src={cartImage} alt="장바구니 아이콘" onClick={() => onAddCartButtonClick(product)} />
         </StyledProductDescDiv>
       </StyledProduct>
     ));
@@ -84,6 +91,6 @@ function ProductListPage() {
       </GridColumnList>
     </>
   );
-}
+};
 
 export default ProductListPage;

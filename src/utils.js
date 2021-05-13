@@ -1,4 +1,4 @@
-import { deleteItem } from './modules/cart';
+import { deleteItemFromCart } from './modules/cart';
 
 export const printCommasToPrice = (price) => {
   price = price.toString();
@@ -18,6 +18,6 @@ export const getTotalPrice = (items) =>
 // dispatch 대신에 callback이름으로 넘겨보았다. 이거 아무튼 질문 필요
 export const deleteCheckedItems = (callback, itemIds) => {
   itemIds.forEach((id) => {
-    callback(deleteItem(id));
+    callback(deleteItemFromCart(id));
   });
 };
