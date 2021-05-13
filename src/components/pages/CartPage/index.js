@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { cartAction, confirmAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
-import { Checkbox, Header } from '../../commons';
+import { Checkbox, Header, RedirectNotice } from '../../commons';
 import * as S from './style.js';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
@@ -39,12 +39,12 @@ export const CartPage = () => {
       <Header>장바구니</Header>
       <S.Main>
         {cartProducts.length === 0 ? (
-          <S.EmptyCartContainer>
-            <S.EmptyCartText>텅...</S.EmptyCartText>
-            <Link to={ROUTE.HOME}>
-              <S.ToProductListButton>쇼핑하러 가기</S.ToProductListButton>
-            </Link>
-          </S.EmptyCartContainer>
+          <RedirectNotice
+            interjection="텅..."
+            notice={`상품 목록에서 원하는 상품을 추가해 볼까요...?`}
+            buttonText="쇼핑하러 가기"
+            redirectRoute={ROUTE.HOME}
+          />
         ) : (
           <>
             <S.OrderOptionsSection>

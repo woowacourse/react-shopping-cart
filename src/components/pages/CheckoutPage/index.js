@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartAction } from '../../../redux';
 import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
-import { Header } from '../../commons';
+import { Header, RedirectNotice } from '../../commons';
 import * as S from './style.js';
 import { getFormattedAsKRW, getDateInNumber } from '../../../utils';
 import { ROUTE } from '../../../constants';
 
 export const CheckoutPage = () => {
+  const [isCheckoutFailed, setIsCheckoutFailed] = useState(false);
+
   const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
   const checkoutProducts = cartProducts.filter((product) => product.isSelected);
   const totalPrice = checkoutProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
@@ -29,7 +32,7 @@ export const CheckoutPage = () => {
       dispatch(cartAction.checkout());
       history.push(ROUTE.ORDER_LIST);
     } catch (e) {
-      // TODO: 구매 실패 안내 페이지로 이동
+      setIsCheckoutFailed(() => true);
     }
   };
 
@@ -37,23 +40,34 @@ export const CheckoutPage = () => {
     <S.Page>
       <Header>주문/결제</Header>
       <S.Main>
-        <S.ListSection>
-          <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
-          <S.CheckoutProductList>
-            {checkoutProducts.map((product) => (
-              <CheckoutProductItem key={product.id} product={product} />
-            ))}
-          </S.CheckoutProductList>
-        </S.ListSection>
-        <S.CheckoutSection>
-          <S.StickyCheckoutBox
-            title="결제예상금액"
-            label="총 결제금액"
-            price={totalPriceAsKRW}
-            buttonText={`${totalPriceAsKRW} 결제하기`}
-            onClickButton={onClickCheckoutButton}
+        {isCheckoutFailed ? (
+          <RedirectNotice
+            interjection="앗..."
+            notice={`결제에 실패하였습니다... 문제가 지속되면 관리자에게 문의부탁드려요...`}
+            buttonText="장바구니로 돌아가기"
+            redirectRoute={ROUTE.CART}
           />
-        </S.CheckoutSection>
+        ) : (
+          <>
+            <S.ListSection>
+              <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
+              <S.CheckoutProductList>
+                {checkoutProducts.map((product) => (
+                  <CheckoutProductItem key={product.id} product={product} />
+                ))}
+              </S.CheckoutProductList>
+            </S.ListSection>
+            <S.CheckoutSection>
+              <S.StickyCheckoutBox
+                title="결제예상금액"
+                label="총 결제금액"
+                price={totalPriceAsKRW}
+                buttonText={`${totalPriceAsKRW} 결제하기`}
+                onClickButton={onClickCheckoutButton}
+              />
+            </S.CheckoutSection>
+          </>
+        )}
       </S.Main>
     </S.Page>
   );

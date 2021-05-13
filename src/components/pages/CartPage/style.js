@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { BAEMIN_CYAN } from '../../../constants';
 import { Button, CheckoutBox, List, Template } from '../../commons';
 
 export const Page = styled(Template)`
@@ -63,30 +62,4 @@ export const StickyCheckoutBox = styled(CheckoutBox)`
   top: 15%;
   margin-top: 4.875rem;
   width: 100%;
-`;
-
-export const EmptyCartContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const EmptyCartText = styled.h3`
-  margin: 6rem 0;
-  font-family: 'BMYEONSUNG';
-  font-weight: 200;
-  color: #bbbbbb;
-  font-size: 7rem;
-  letter-spacing: 0.7rem;
-  text-shadow: 0.75rem 0.75rem 1rem rgba(0, 0, 0, 0.15);
-`;
-
-export const ToProductListButton = styled(Button)`
-  font-size: 1.25rem;
-  background-color: ${BAEMIN_CYAN};
-  color: #ffffff;
-  width: 12rem;
-  height: 3rem;
 `;
