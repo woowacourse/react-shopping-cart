@@ -17,7 +17,7 @@ const SuccessAddedModal = ({ productList, openModal, onClick }) => (
     <ModalButton onClick={onClick}>{'장바구니 바로가기 >'}</ModalButton>
 
     <RecommendedContainer>
-      <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
+      <RecommendedTitle>❤️ 잠깐! 아래 상품들도 살펴보세요! ❤️</RecommendedTitle>
       <RecommendedList>
         {productList.slice(0, 3).map(({ id, img, name, price }) => (
           <ColumnProductItem

@@ -12,7 +12,7 @@ const AMOUNT_COUNTER_FLAG = {
   DOWN: 'down',
 };
 
-const CONTENT_PER_PAGE = 12;
+const CONTENT_PER_PAGE = 11;
 
 const CUSTOMER_ID = 0;
 

@@ -18,7 +18,7 @@ const SpinnerContainer = styled.div`
   &::before {
     content: '';
     display: block;
-    transform: scale(${props => props.size});
+    transform: scale(${props => props.scale});
 
     position: fixed;
     top: 0;

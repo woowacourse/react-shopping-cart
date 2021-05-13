@@ -21,7 +21,11 @@ const ProductDetail = styled.div`
   justify-content: space-between;
   padding: 12px;
 `;
-const Name = styled.div``;
+
+const Name = styled.div`
+  word-break: keep-all;
+`;
+
 const Price = styled.div`
   font-size: 1.2rem;
 `;

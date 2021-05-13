@@ -34,4 +34,11 @@ const PageIndex = styled.span`
   margin: auto 50px;
 `;
 
-export { Container, PageButtonContainer, PageIndex };
+const LikedProductFilter = styled.div`
+  word-break: keep-all;
+  max-height: 500px;
+  width: 280px;
+  text-align: center;
+`;
+
+export { Container, PageButtonContainer, PageIndex, LikedProductFilter };

@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     dispatch(updateProductItemsAsync());
     dispatch(getMyShoppingCartAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

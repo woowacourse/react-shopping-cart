@@ -7,6 +7,7 @@ import loadingReducer from './loading';
 import checkedProductReducer from './checkedProductList';
 import productAmountDictReducer from './productAmount';
 import pageIndexReducer from './page';
+import likedProductIdListReducer from './likeList';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   checkedProductReducer,
   productAmountDictReducer,
   pageIndexReducer,
+  likedProductIdListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

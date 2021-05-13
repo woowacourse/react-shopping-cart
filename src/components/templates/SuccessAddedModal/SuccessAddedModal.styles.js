@@ -20,6 +20,7 @@ const RecommendedContainer = styled.div`
 const RecommendedTitle = styled.span`
   font-size: 1.2rem;
   margin-bottom: 30px;
+  font-weight: bold;
 `;
 
 const RecommendedList = styled.div`

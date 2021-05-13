@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { ROUTE, SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { updateShoppingCartItemsAsync } from '../../redux/action';
+import { increaseProductAmount, updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, Header, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { OrderContainer, SuccessAddedModal } from '../../components/templates';
@@ -18,19 +18,28 @@ const OrderListPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { myShoppingCartId, myShoppingCartProductIds, productList } = useSelector(state => ({
+  const { myShoppingCartId, myShoppingCartProductIds, productList, likedProductIdList } = useSelector(state => ({
     myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
     productList: state.productListReducer.productList,
+    likedProductIdList: state.likedProductIdListReducer.likedProductIdList,
   }));
 
   const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
 
   const { Modal, open: openModal } = useModal(false);
 
+  const likedProductList = likedProductIdList.map(likedProductId =>
+    productList.find(product => likedProductId === product.id)
+  );
+
   const onClickShoppingCartButton = productId => {
-    const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
-    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+    if (myShoppingCartProductIds.includes(productId)) {
+      dispatch(increaseProductAmount(productId));
+    } else {
+      const newContent = { productIdList: [...new Set([...myShoppingCartProductIds, productId])] };
+      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
+    }
 
     openModal();
   };
@@ -64,7 +73,7 @@ const OrderListPage = () => {
       <ModalPortal>
         <Modal>
           <SuccessAddedModal
-            productList={productList}
+            productList={likedProductList.length >= 3 ? likedProductList : productList}
             openModal={openModal}
             onClick={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
           />

@@ -56,7 +56,7 @@ const OrderCheckoutPage = () => {
     }, 0);
 
     setExpectedPrice(newExpectedPrice);
-  }, [checkedItemList]);
+  }, [checkedItemList, productList]);
 
   return (
     <ScreenContainer route={location.pathname}>

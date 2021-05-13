@@ -6,6 +6,7 @@ import {
   DECREASE_PRODUCT_AMOUNT,
   GET_MY_SHOPPING_CART,
   INCREASE_PRODUCT_AMOUNT,
+  TOGGLE_LIKE_PRODUCT,
   UPDATE_CHECKED_PRODUCT_ITEMS,
   UPDATE_MY_SHOPPING_CART_ITEMS,
   UPDATE_PAGE_INDEX,
@@ -95,6 +96,11 @@ const updatePageIndex = pageIndex => ({
   pageIndex,
 });
 
+const toggleLikedProductList = productId => ({
+  type: TOGGLE_LIKE_PRODUCT,
+  productId,
+});
+
 export {
   activateLoading,
   deactivateLoading,
@@ -106,4 +112,5 @@ export {
   getMyShoppingCartAsync,
   updateProductItemsAsync,
   updatePageIndex,
+  toggleLikedProductList,
 };
