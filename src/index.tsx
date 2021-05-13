@@ -6,12 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './states/store';
 import ErrorBoundary from './components/ErrorBoundary';
+import { APP_BASE_URL } from './constants/app';
 
 ReactDOM.render(
   <React.StrictMode>
     <>
       <GlobalStyle />
-      <BrowserRouter>
+      <BrowserRouter basename={APP_BASE_URL}>
         <Provider store={store}>
           <ErrorBoundary>
             <App />
