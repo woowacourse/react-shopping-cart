@@ -42,7 +42,7 @@ const OrderPayment = () => {
     await dispatch(insertOrderItemList(orderItemData));
     await dispatch(deleteCheckedShoppingCartList(orderItemList));
 
-    history.push(PATH.ORDER_LIST);
+    history.replace(PATH.ORDER_LIST);
   };
 
   if (loading) {
