@@ -16,3 +16,4 @@ export { Confirm } from './molecules/Confirm';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
 export { QuantityStepper } from './molecules/QuantityStepper';
+export { RedirectNotice } from './molecules/RedirectNotice';
