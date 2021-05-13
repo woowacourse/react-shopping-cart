@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import logo from '../asset/logo.svg';
 
 import styled from 'styled-components';
+import Badge from './utils/Badge';
 
 const HeaderWrapper = styled.header`
   min-width: 1440px;
@@ -35,12 +37,15 @@ const NavUl = styled.ul`
 `;
 
 const NavItem = styled(NavLink)`
+  position: relative;
   text-decoration: none;
   color: #ffffff;
   font-size: 24px;
 `;
 
 function Header() {
+  const state = useSelector((state) => state.cart);
+
   return (
     <HeaderWrapper>
       <HeaderDiv>
@@ -53,7 +58,7 @@ function Header() {
         <nav>
           <NavUl>
             <li>
-              <NavItem to="/cart">장바구니</NavItem>
+              <NavItem to="/cart">장바구니 {state.length ? <Badge number={state.length} /> : ''}</NavItem>
             </li>
             <li>
               <NavItem to="/orders">주문목록</NavItem>
