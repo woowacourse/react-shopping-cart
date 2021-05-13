@@ -129,7 +129,7 @@ const CartPage = () => {
           </CartItemSection>
           <FloatingBox
             price={getTotalPrice(cartItems)}
-            selectedItems={cartItems.length}
+            selectedItemIds={checkedItemIds}
             linkPath="/payment"
             onClick={onPaymentButtonClick}
             disabled={checkedItemIds.length === 0}

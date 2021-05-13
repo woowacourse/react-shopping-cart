@@ -59,16 +59,25 @@ const Button = styled.button`
   width: 100%;
   height: 73px;
   font-size: 24px;
+  color: #ffffff;
   background-color: #2ac1bc;
   border: none;
-  color: #ffffff;
 
   &:hover {
+    font-weight: 700;
     cursor: pointer;
+  }
+
+  &:disabled {
+    color: #ffffff;
+    font-weight: inherit;
+    background-color: #707a7a;
+    border: none;
+    cursor: not-allowed;
   }
 `;
 
-function FloatingBox({ price, selectedItems, linkPath, onClick, disabled }) {
+function FloatingBox({ price, selectedItemIds, linkPath, onClick, disabled }) {
   return (
     <FloatingBoxWrapper>
       <FloatingBoxTitleWrapper>
@@ -84,12 +93,12 @@ function FloatingBox({ price, selectedItems, linkPath, onClick, disabled }) {
         </FloatingBoxTextWrapper>
 
         <Link to={linkPath}>
-          {selectedItems ? (
+          {selectedItemIds ? (
             <Button type="button" onClick={onClick} disabled={disabled}>
-              주문하기 ({selectedItems}개)
+              주문하기 ({selectedItemIds.length}개)
             </Button>
           ) : (
-            <Button type="button" onClick={onClick} disabled={disabled}>
+            <Button type="button" onClick={onClick} disabled={price === 0}>
               결제하기{' '}
               <PriceText color="#ffffff" fontSize="24px">
                 {price}
