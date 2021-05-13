@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import Styled from './ProductsPage.styles';
 import * as T from '../../types';
 import MESSAGE from '../../constants/messages';
@@ -14,6 +15,8 @@ const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
 
   const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<T.Product[]>([]);
@@ -36,7 +39,7 @@ const ProductsPage = () => {
     const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
 
     if (cartItemIds.includes(product.id)) {
-      alert(MESSAGE.EXIST_CART_ITEM);
+      enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
       return;
     }
 
@@ -44,10 +47,10 @@ const ProductsPage = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       .then(() => {
-        alert(MESSAGE.ADDED_CART_ITEM_SUCCESS);
+        enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
       .catch((error: Error) => {
-        alert(error.message);
+        enqueueSnackbar(error.message);
       });
   };
 
