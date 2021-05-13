@@ -38,7 +38,8 @@ const OrderPayment = () => {
   const { orderPaymentList: orderItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    await dispatch(insertOrderItemList(orderItemList));
+    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderItemList };
+    await dispatch(insertOrderItemList(orderItemData));
     await dispatch(deleteCheckedShoppingCartList(orderItemList));
 
     history.push(PATH.ORDER_LIST);

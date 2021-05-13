@@ -1,8 +1,7 @@
 import { API_PATH } from '../constants/api';
-import { httpClient } from '../request/httpClient';
 import { createAsyncThunk } from './utils/async';
 import { reducerUtils } from './utils/reducer';
-import { requestGetItemList } from './utils/request';
+import { requestGetItemList, requestInsertItem } from './utils/request';
 
 const GET_ORDER_ITEM_LIST = 'orderList/GET_ORDER_ITEM_LIST';
 const GET_ORDER_ITEM_LIST_SUCCESS = 'orderList/GET_ORDER_ITEM_LIST_SUCCESS';
@@ -17,19 +16,10 @@ export const getOrderItemList = createAsyncThunk(
   requestGetItemList.bind(null, API_PATH.ORDER_ITEM_LIST)
 );
 
-export const insertOrderItemList = (orderItemList) => async (dispatch) => {
-  dispatch({ type: INSERT_ORDER_ITEM_LIST });
-  try {
-    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderItemList };
-
-    await httpClient.post({ path: API_PATH.ORDER_ITEM_LIST, body: orderItemData });
-
-    dispatch({ type: INSERT_ORDER_ITEM_LIST_SUCCESS, payload: orderItemData });
-  } catch (error) {
-    console.error(error);
-    dispatch({ type: INSERT_ORDER_ITEM_LIST_FAILURE, payload: error });
-  }
-};
+export const insertOrderItemList = createAsyncThunk(
+  INSERT_ORDER_ITEM_LIST,
+  requestInsertItem.bind(null, API_PATH.ORDER_ITEM_LIST)
+);
 
 const initialState = {
   orderItemList: reducerUtils.initial([]),
