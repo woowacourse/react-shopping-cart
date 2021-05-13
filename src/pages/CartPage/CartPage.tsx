@@ -63,7 +63,7 @@ const CartPage = () => {
   return (
     <Styled.Root>
       <PageHeader title="장바구니" />
-      {cartItems.isLoading ? (
+      {cartItems.status === T.AsyncStatus.PENDING ? (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>

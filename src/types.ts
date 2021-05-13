@@ -21,3 +21,10 @@ export type Order = {
   id: number;
   items: CartItem[];
 };
+
+export enum AsyncStatus {
+  IDLE = 'IDLE',
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+}
