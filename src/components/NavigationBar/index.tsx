@@ -9,7 +9,7 @@ const NavigationBar: VFC = () => (
     <NavigationBarInnerContainer>
       <Link to="/">
         <Logo>
-          <img src={APP_BASE_URL + '/icons/shopping-cart.svg'} alt="쇼핑 카트" />
+          <img src={process.env.PUBLIC_URL + '/icons/shopping-cart.svg'} alt="쇼핑 카트" />
           <h1>WOOWA SHOP</h1>
         </Logo>
       </Link>

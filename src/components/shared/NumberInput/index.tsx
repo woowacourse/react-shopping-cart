@@ -2,7 +2,6 @@ import { ChangeEvent, InputHTMLAttributes, useEffect, useState, VFC } from 'reac
 import { NumberInputContainer, IncreaseButton, DecreaseButton } from './style';
 import Container from '../Container';
 import Input from '../Input';
-import { APP_BASE_URL } from '../../../constants/app';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
@@ -60,10 +59,10 @@ const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infin
       />
       <Container>
         <IncreaseButton type="button" data-testid="increase-button" onClick={onClickIncreaseButton}>
-          <img src={APP_BASE_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
+          <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </IncreaseButton>
         <DecreaseButton type="button" data-testid="decrease-button" onClick={onClickDecreaseButton}>
-          <img src={APP_BASE_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
+          <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
         </DecreaseButton>
       </Container>
     </NumberInputContainer>
