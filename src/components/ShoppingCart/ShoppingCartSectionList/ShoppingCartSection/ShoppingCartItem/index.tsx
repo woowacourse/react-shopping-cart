@@ -6,6 +6,7 @@ import Container from '../../../../shared/Container';
 import IconButton from '../../../../shared/IconButton';
 import NumberInput from '../../../../shared/NumberInput';
 import Text from '../../../../shared/Text';
+import { CONFIRM } from '../../../../../constants/message';
 import {
   DeleteButton,
   ProductName,
@@ -30,6 +31,12 @@ const ShoppingCartItem: VFC<Props> = ({
 }) => {
   const { image, name, quantity, price, id, checked } = item;
 
+  const onItemDelete = () => {
+    if (!window.confirm(CONFIRM.DELETE_CART_ITEM)) return;
+
+    deleteItem(id);
+  };
+
   return (
     <ShoppingCartItemContainer
       className={className}
@@ -47,7 +54,7 @@ const ShoppingCartItem: VFC<Props> = ({
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>
       <Container>
-        <DeleteButton onClick={() => deleteItem(id)} data-testid="delete-button" />
+        <DeleteButton onClick={onItemDelete} data-testid="delete-button" />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
         <Text>{KRCurrency(price * quantity)}</Text>
       </Container>

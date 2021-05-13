@@ -1,4 +1,5 @@
 import { useState, VFC } from 'react';
+import { CONFIRM } from '../../../constants/message';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
@@ -19,11 +20,17 @@ const ShoppingCartSectionList: VFC = () => {
     setChecked(negatedChecked);
   };
 
+  const onCheckedItemsDelete = () => {
+    if (!window.confirm(CONFIRM.DELETE_ALL_CART_ITEMS)) return;
+
+    deleteCheckedItems(items);
+  };
+
   return (
     <ShoppingCartItemListContainer>
       <CartSelectContainer>
         <Checkbox description="선택해제" checked={checked} onChange={onChangeCheckAll} />
-        <SelectedItemDeleteButton type="button" onClick={() => deleteCheckedItems(items)}>
+        <SelectedItemDeleteButton type="button" onClick={onCheckedItemsDelete}>
           상품삭제
         </SelectedItemDeleteButton>
       </CartSelectContainer>
