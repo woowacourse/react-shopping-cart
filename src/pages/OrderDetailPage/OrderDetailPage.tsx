@@ -12,7 +12,7 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useOrderDetail from '../../hooks/orderDetail';
 
-import { COLORS, PATH } from '../../constants';
+import { COLORS, PATH, RESPONSE_MESSAGE } from '../../constants';
 import { RootState } from '../../modules';
 import { getMoneyString } from '../../utils/format';
 import { API } from '../../services/api';
@@ -41,6 +41,26 @@ const OrderDetailPage = () => {
     history.push(PATH.ORDER_LIST);
   };
 
+  const onCartButtonClick = async (id: Product['id']) => {
+    const product = products.find(product => product.id === id);
+
+    if (!product) return;
+
+    const responseMessage = await API.ADD_ONE_ITEM_IN_CART(product, id);
+
+    if (responseMessage === RESPONSE_MESSAGE.ALREADY_EXIST) {
+      alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+      return;
+    }
+
+    if (responseMessage === RESPONSE_MESSAGE.FAILURE) {
+      alert('상품을 장바구니에 담지 못했습니다.');
+      return;
+    }
+
+    alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+  };
+
   const orderItemList = orderItems.map(orderItem => (
     <Styled.OrderWrapper key={orderItem.id}>
       <ProductListItem
@@ -50,7 +70,7 @@ const OrderDetailPage = () => {
         productQuantity={orderItem.quantity}
         productThumbnail={orderItem.thumbnail}
       />
-      <Button size="SM" onClick={() => API.ADD_ONE_ITEM_IN_CART(products, orderItem.id)}>
+      <Button size="SM" onClick={() => onCartButtonClick(orderItem.id)}>
         장바구니 담기
       </Button>
     </Styled.OrderWrapper>

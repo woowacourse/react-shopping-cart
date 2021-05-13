@@ -12,7 +12,7 @@ import useOrders from '../../hooks/orders';
 
 import { getMoneyString } from '../../utils/format';
 import { RootState } from '../../modules';
-import { PATH } from '../../constants';
+import { PATH, RESPONSE_MESSAGE } from '../../constants';
 import { API } from '../../services/api';
 
 import * as Styled from './OrderListPage.styles';
@@ -38,6 +38,26 @@ const OrderListPage = () => {
     history.push(`${PATH.ORDER_DETAIL}/${orderId}`);
   };
 
+  const onCartButtonClick = async (id: Product['id']) => {
+    const product = products.find(product => product.id === id);
+
+    if (!product) return;
+
+    const responseMessage = await API.ADD_ONE_ITEM_IN_CART(product, id);
+
+    if (responseMessage === RESPONSE_MESSAGE.ALREADY_EXIST) {
+      alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+      return;
+    }
+
+    if (responseMessage === RESPONSE_MESSAGE.FAILURE) {
+      alert('상품을 장바구니에 담지 못했습니다.');
+      return;
+    }
+
+    alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+  };
+
   const orderList = orders.map(order => (
     <Styled.ItemGroupWrapper key={order.id}>
       <ItemGroup
@@ -54,7 +74,7 @@ const OrderListPage = () => {
               productPrice={getMoneyString(item.price)}
               productQuantity={item.quantity}
             />
-            <Button size="SM" onClick={() => API.ADD_ONE_ITEM_IN_CART(products, item.id)}>
+            <Button size="SM" onClick={() => onCartButtonClick(item.id)}>
               장바구니 담기
             </Button>
           </Styled.OrderWrapper>
