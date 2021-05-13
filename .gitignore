@@ -2,7 +2,7 @@ node_modules
 
 dist
 
-src/firebase
+src/firebase/apiKey.ts
 src/mock.ts
 
 storybook-static
