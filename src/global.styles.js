@@ -42,7 +42,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    // TODO: height: 100vh로 바꾸어 보기 
     height: 100%;
     cursor: default;
     margin:0;

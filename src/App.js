@@ -3,13 +3,7 @@ import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import {
-  NavBar,
-  ShoppingCart,
-  CompletedOrder,
-  Products,
-  OrderPayment,
-} from './components';
+import { NavBar, ShoppingCart, Products, OrderPayment } from './components';
 import productReducer from './reducers/products';
 import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
@@ -22,24 +16,21 @@ const store = createStore(reducer);
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [totalOrders, setTotalOrders] = useState([]);
 
-  //TODO: 비동기 작업 진행중
   useEffect(() => {
+    // TODO: 미들 웨어 적용
     async function fetchProducts() {
-      const response = await axios.get('/products');
+      try {
+        const response = await axios.get('/products');
 
-      setProducts(response.data);
-    }
-
-    async function fetchTotalOrders() {
-      const response = await axios.get('/totalOrders');
-
-      setTotalOrders(response.data);
+        setProducts(response.data);
+      } catch (error) {
+        //TODO: 상품을 못 받아 왔을 때, 안내 화면 띄우기
+        console.error(error.message);
+      }
     }
 
     fetchProducts();
-    fetchTotalOrders();
   }, []);
 
   return (
@@ -55,9 +46,6 @@ function App() {
         </Route>
         <Route exact path={ROUTE.ORDER_PAYMENT}>
           <OrderPayment products={products} />
-        </Route>
-        <Route exact path={ROUTE.COMPLETED_ORDER}>
-          <CompletedOrder orders={totalOrders} />
         </Route>
       </Router>
     </Provider>

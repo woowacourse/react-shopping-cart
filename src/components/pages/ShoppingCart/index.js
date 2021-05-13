@@ -12,7 +12,7 @@ import {
   ShoppingList,
 } from './index.styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { PRODUCTS, ROUTE } from '../../../constants';
+import { ACTION_TYPE, ROUTE } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
 import { useHistory } from 'react-router-dom';
 
@@ -53,13 +53,15 @@ const ShoppingCart = () => {
     history.push(ROUTE.PRODUCTS);
   };
 
-  const handleCheckBoxClick = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
-  };
-
   const isCheckedAll = products.every(({ isChecked }) => isChecked);
 
-  const handleEntireCheckBoxClick = () => {
+  const handleCheckBoxClick = id => {
+    if (id) {
+      dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
+
+      return;
+    }
+
     dispatch({
       type: ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED,
       isChecked: isCheckedAll,
@@ -67,10 +69,12 @@ const ShoppingCart = () => {
   };
 
   const handleDeleteButtonClick = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE, id });
-  };
+    if (id) {
+      dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE, id });
 
-  const handleCheckedDeleteButton = () => {
+      return;
+    }
+
     dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE_CHECKED });
   };
 
@@ -83,7 +87,7 @@ const ShoppingCart = () => {
             <CheckBoxWrapper>
               <CheckBox
                 isChecked={isCheckedAll}
-                onCheckBoxClick={handleEntireCheckBoxClick}
+                onCheckBoxClick={() => handleCheckBoxClick()}
               />
               <span>
                 전체선택{' '}
@@ -92,7 +96,7 @@ const ShoppingCart = () => {
                 })`}
               </span>
             </CheckBoxWrapper>
-            <Button onClick={handleCheckedDeleteButton}>상품삭제</Button>
+            <Button onClick={() => handleDeleteButtonClick()}>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>

@@ -60,10 +60,10 @@ const toggleChecked = (state, id) => {
 };
 
 const toggleCheckedAll = (state, isChecked) => {
-  const { products } = state;
+  const { pickedProducts } = state;
   const newProducts = {};
 
-  Object.values(products).forEach(product => {
+  Object.values(pickedProducts).forEach(product => {
     newProducts[product.id] = {
       ...product,
       isChecked: !isChecked,

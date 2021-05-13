@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ProductPage = styled.main`
-  max-width: 960px; //TODO: 상수화
+  max-width: 960px;
   margin: 7rem auto;
 `;
 
