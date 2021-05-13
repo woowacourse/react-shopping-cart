@@ -4,21 +4,20 @@ import Styled from './CartItem.styles';
 import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
 import Checkbox from '../../shared/Checkbox/Checkbox';
 import QuantityInput from '../../shared/QuantityInput/QuantityInput';
-import NoImageURL from '../../../assets/images/no_image.jpg';
+import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
 import { updateQuantityRequest } from '../../../modules/cartItems/actions';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
 
 type CartItemProps = {
   cartItem: T.CartItem;
-  checked?: boolean;
   onCheck: (id: number, isChecked: boolean) => void;
   onDelete: (id: T.CartItem['id']) => void;
 };
 
 const CartItem = (props: CartItemProps) => {
-  const { cartItem, checked, onCheck, onDelete } = props;
-  const { id, product, quantity } = cartItem;
+  const { cartItem, onCheck, onDelete } = props;
+  const { id, product, quantity, checked } = cartItem;
   const { name, image, price } = product;
 
   const dispatch = useDispatch();
@@ -65,7 +64,7 @@ const CartItem = (props: CartItemProps) => {
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={image || NoImageURL} alt="김말이" />
+      <Styled.Image src={image || noImageURL} alt="김말이" />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
         <Styled.Delete onClick={handleDelete}>
@@ -85,10 +84,6 @@ const CartItem = (props: CartItemProps) => {
       </Styled.Option>
     </Styled.Root>
   );
-};
-
-CartItem.defaultProps = {
-  checked: false,
 };
 
 export default CartItem;

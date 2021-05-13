@@ -4,6 +4,7 @@ import Checkbox from './Checkbox';
 export default {
   title: 'shared/Checkbox',
   component: Checkbox,
+  parameters: { actions: { argTypesRegex: '^on.*' } },
 };
 
 const Template = (args) => <Checkbox {...args} />;

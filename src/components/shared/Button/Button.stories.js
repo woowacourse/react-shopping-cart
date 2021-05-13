@@ -5,6 +5,7 @@ import * as T from '../../../types';
 export default {
   title: 'shared/Button',
   component: Button,
+  parameters: { actions: { argTypesRegex: '^on.*' } },
   argTypes: {
     size: {
       type: 'radio',

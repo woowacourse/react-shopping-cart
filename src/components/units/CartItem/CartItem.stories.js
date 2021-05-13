@@ -5,21 +5,36 @@ import defaultImageUrl from '../../../assets/images/default_product_item.png';
 export default {
   title: 'units/CartItem',
   component: CartItem,
+  parameters: { actions: { argTypesRegex: '^on.*' } },
 };
 
 const Template = (args) => <CartItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  title: '맛있는 아쌈 밀크티',
-  price: 10000,
-  imageUrl: defaultImageUrl,
-  checked: true,
+  cartItem: {
+    id: 1231234,
+    product: {
+      id: 123123,
+      name: '맛있는 아쌈 밀크티',
+      price: 10000,
+      image: defaultImageUrl,
+    },
+    quantity: 3,
+    checked: true,
+  },
 };
 
 export const NoImage = Template.bind({});
 NoImage.args = {
-  title: '이미지가 없는 상품',
-  price: 35000,
-  checked: true,
+  cartItem: {
+    id: 1231234,
+    product: {
+      id: 123123,
+      name: '맛있는 아쌈 밀크티',
+      price: 10000,
+    },
+    quantity: 3,
+    checked: true,
+  },
 };

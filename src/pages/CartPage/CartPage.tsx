@@ -77,13 +77,7 @@ const CartPage = () => {
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
             <Styled.CartItemList>
               {cartItems.data.map((cartItem) => (
-                <CartItem
-                  key={cartItem.id}
-                  cartItem={cartItem}
-                  checked={cartItem.checked}
-                  onCheck={handleCheckItem}
-                  onDelete={handleDeleteItem}
-                />
+                <CartItem key={cartItem.id} cartItem={cartItem} onCheck={handleCheckItem} onDelete={handleDeleteItem} />
               ))}
             </Styled.CartItemList>
           </Styled.CartListContainer>

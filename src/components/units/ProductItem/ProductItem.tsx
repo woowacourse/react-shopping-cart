@@ -2,6 +2,7 @@ import React from 'react';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
+import noImageURL from '../../../assets/images/no_image.jpg';
 
 type ProductItemProps = {
   product: T.Product;
@@ -19,7 +20,7 @@ const ProductItem = (props: ProductItemProps) => {
   return (
     <Styled.Root>
       <Styled.ImageWrapper>
-        <Styled.Image src={image} alt={name} />
+        <Styled.Image src={image || noImageURL} alt={name} />
       </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>
