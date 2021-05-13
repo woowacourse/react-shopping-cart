@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { RootState } from '../../modules';
-import { OrdersState } from '../../modules/orders/reducers';
-import { createOrderRequest, resetOrderState } from '../../modules/orders/actions';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -11,6 +7,7 @@ import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
+import api from '../../api';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -19,8 +16,7 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const orders: OrdersState['orders'] = useSelector((state: RootState) => state.ordersReducer.orders);
-  const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const { checkedItems } = location.state;
 
@@ -28,15 +24,21 @@ const OrderPage = () => {
     return acc + curr.product.price * curr.quantity;
   }, 0);
 
-  const handlePurchaseCartItems = () => {
-    if (orders.isLoading) return;
+  const handlePurchaseCartItems = async () => {
+    if (isLoading) return;
 
-    dispatch(createOrderRequest(checkedItems));
+    setLoading(true);
+
+    try {
+      await api.post('/orders', { checkedItems });
+      history.replace('/order/complete');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error.message);
+    }
+
+    setLoading(false);
   };
-
-  if (orders.success) {
-    return <Redirect to="/order/complete" />;
-  }
 
   if (!location.state) return <Redirect to="/" />;
 

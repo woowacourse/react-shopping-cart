@@ -2,7 +2,6 @@ import { Dispatch } from 'redux';
 import { AxiosError } from 'axios';
 import api from '../../api';
 import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
 
 export const ADD_CART_ITEM_REQUEST = 'cartItems/ADD_CART_ITEM_REQUEST' as const;
 export const ADD_CART_ITEM_SUCCESS = 'cartItems/ADD_CART_ITEM_SUCCESS' as const;
@@ -36,6 +35,7 @@ interface AddCartItemRequestAction {
 
 interface AddCartItemSuccessAction {
   type: typeof ADD_CART_ITEM_SUCCESS;
+  cartItem: T.CartItem;
 }
 
 interface AddCartItemFailureAction {
@@ -127,24 +127,6 @@ export type DeleteCheckedItemsAction =
   | DeleteCheckedItemsSuccessAction
   | DeleteCheckedItemsFailureAction;
 
-export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
-  dispatch({ type: ADD_CART_ITEM_REQUEST, product });
-
-  try {
-    const cartItem = await api.get(`/cart?product.id=${product.id}`);
-
-    if (cartItem.data.length) {
-      throw Error(MESSAGE.EXIST_CART_ITEM);
-    }
-
-    await api.post('/cart', { product, quantity: 1 });
-
-    dispatch({ type: ADD_CART_ITEM_SUCCESS });
-  } catch (error) {
-    dispatch({ type: ADD_CART_ITEM_FAILURE, error });
-  }
-};
-
 export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsAction>) => {
   dispatch({ type: GET_CART_ITEMS_REQUEST });
 
@@ -155,6 +137,19 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
     dispatch({ type: GET_CART_ITEMS_SUCCESS, cartItems });
   } catch (error) {
     dispatch({ type: GET_CART_ITEMS_FAILURE, error });
+  }
+};
+
+export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
+  dispatch({ type: ADD_CART_ITEM_REQUEST, product });
+
+  try {
+    const response = await api.post('/cart', { product, quantity: 1 });
+
+    dispatch({ type: ADD_CART_ITEM_SUCCESS, cartItem: response.data });
+  } catch (error) {
+    dispatch({ type: ADD_CART_ITEM_FAILURE, error });
+    throw error;
   }
 };
 

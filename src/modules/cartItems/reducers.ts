@@ -69,6 +69,7 @@ export const cartReducer = (
         draft.cartItems.isLoading = false;
         draft.cartItems.success = true;
         draft.cartItems.error = null;
+        draft.cartItems.data.push(action.cartItem);
       });
 
     case ADD_CART_ITEM_FAILURE:
