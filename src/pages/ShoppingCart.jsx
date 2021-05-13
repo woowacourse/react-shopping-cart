@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { PATH } from '../constants/path';
 import Dialog, { DIALOG_TYPE } from '../components/dialog/Dialog';
 import useDialog from '../hooks/useDialog';
-import DialogPortal from '../DialogPortal';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -141,13 +140,11 @@ const ShoppingCart = () => {
       </Content>
 
       {isDialogOpen && (
-        <DialogPortal>
-          <Dialog type={DIALOG_TYPE.CONFIRM} onConfirm={handleConfirm} onCancel={handleCancel}>
-            <p>
-              선택한 {checkedShoppingCartList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
-            </p>
-          </Dialog>
-        </DialogPortal>
+        <Dialog type={DIALOG_TYPE.CONFIRM} onConfirm={handleConfirm} onCancel={handleCancel}>
+          <p>
+            선택한 {checkedShoppingCartList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
+          </p>
+        </Dialog>
       )}
     </>
   );
