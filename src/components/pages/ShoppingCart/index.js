@@ -24,11 +24,11 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
 
   const handleIncreaseQuantity = id => {
-    dispatch({ type: PRODUCTS.INCREASE_QUANTITY, id });
+    dispatch({ type: ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY, id });
   };
 
   const handleDecreaseQuantity = id => {
-    dispatch({ type: PRODUCTS.DECREASE_QUANTITY, id });
+    dispatch({ type: ACTION_TYPE.PRODUCTS.DECREASE_QUANTITY, id });
   };
 
   const getTotalQuantityText = products => {
@@ -54,21 +54,24 @@ const ShoppingCart = () => {
   };
 
   const handleCheckBoxClick = id => {
-    dispatch({ type: PRODUCTS.TOGGLE_CHECKED, id });
+    dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
   };
 
   const isCheckedAll = products.every(({ isChecked }) => isChecked);
 
   const handleEntireCheckBoxClick = () => {
-    dispatch({ type: PRODUCTS.TOGGLE_ENTIRE_CHECKED, isChecked: isCheckedAll });
+    dispatch({
+      type: ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED,
+      isChecked: isCheckedAll,
+    });
   };
 
   const handleDeleteButtonClick = id => {
-    dispatch({ type: PRODUCTS.DELETE, id });
+    dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE, id });
   };
 
   const handleCheckedDeleteButton = () => {
-    dispatch({ type: PRODUCTS.DELETE_CHECKED });
+    dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE_CHECKED });
   };
 
   return (

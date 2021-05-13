@@ -1,10 +1,66 @@
-import { PRODUCTS } from '../constants/actionType';
+import { ACTION_TYPE, PRODUCT } from '../constants';
 
 const initialState = {
   pickedProducts: {},
 };
 
-const toggleCheckedAll = (products, isChecked) => {
+const addToCart = (state, product) => {
+  const { pickedProducts } = state;
+  const { id } = product;
+  const newQuantity =
+    id in pickedProducts ? pickedProducts[id].quantity + 1 : 1;
+
+  return {
+    ...state,
+    pickedProducts: {
+      ...pickedProducts,
+      [id]: {
+        ...product,
+        quantity: newQuantity,
+        isChecked: true,
+      },
+    },
+  };
+};
+
+const changeQuantity = (state, id, operand) => {
+  const { pickedProducts } = state;
+
+  const prevQuantity = pickedProducts[id].quantity;
+  const newQuantity =
+    prevQuantity < PRODUCT.QUANTITY.MIN || prevQuantity > PRODUCT.QUANTITY.MAX
+      ? prevQuantity
+      : prevQuantity + operand;
+
+  return {
+    ...state,
+    pickedProducts: {
+      ...pickedProducts,
+      [id]: {
+        ...pickedProducts[id],
+        quantity: newQuantity,
+      },
+    },
+  };
+};
+
+const toggleChecked = (state, id) => {
+  const { pickedProducts } = state;
+
+  return {
+    ...state,
+    pickedProducts: {
+      ...pickedProducts,
+      [id]: {
+        ...pickedProducts[id],
+        isChecked: !pickedProducts[id].isChecked,
+      },
+    },
+  };
+};
+
+const toggleCheckedAll = (state, isChecked) => {
+  const { products } = state;
   const newProducts = {};
 
   Object.values(products).forEach(product => {
@@ -14,13 +70,17 @@ const toggleCheckedAll = (products, isChecked) => {
     };
   });
 
-  return newProducts;
+  return {
+    ...state,
+    pickedProducts: newProducts,
+  };
 };
 
-const deleteCheckedProducts = products => {
+const deleteCheckedProducts = state => {
+  const { pickedProducts } = state;
   const newProducts = {};
 
-  Object.values(products).forEach(product => {
+  Object.values(pickedProducts).forEach(product => {
     if (!product.isChecked) {
       newProducts[product.id] = {
         ...product,
@@ -28,93 +88,46 @@ const deleteCheckedProducts = products => {
     }
   });
 
-  return newProducts;
+  return {
+    ...state,
+    pickedProducts: newProducts,
+  };
 };
 
-const deleteProduct = (products, id) => {
-  const newProducts = { ...products };
+const deleteProduct = (state, id) => {
+  const { pickedProducts } = state;
+  const newProducts = { ...pickedProducts };
+
   delete newProducts[id];
 
-  return newProducts;
+  return {
+    ...state,
+    pickedProducts: newProducts,
+  };
 };
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PRODUCTS.ADD_TO_CART:
-      return {
-        ...state,
-        pickedProducts: {
-          ...state.pickedProducts,
-          [action.product.id]: {
-            ...action.product,
-            quantity:
-              action.product.id in state.pickedProducts
-                ? state.pickedProducts[action.product.id].quantity + 1
-                : 1, //TODO: refactoring
-            isChecked: true,
-          },
-        },
-      };
+    case ACTION_TYPE.PRODUCTS.ADD_TO_CART:
+      return addToCart(state, action.product);
 
-    case PRODUCTS.INCREASE_QUANTITY:
-      return {
-        ...state,
-        pickedProducts: {
-          ...state.pickedProducts,
-          [action.id]: {
-            ...state.pickedProducts[action.id],
-            quantity: state.pickedProducts[action.id].quantity + 1,
-          },
-        },
-      };
+    case ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY:
+      return changeQuantity(state, action.id, 1);
 
-    case PRODUCTS.DECREASE_QUANTITY:
-      return {
-        ...state,
-        pickedProducts: {
-          ...state.pickedProducts,
-          [action.id]: {
-            ...state.pickedProducts[action.id],
-            quantity:
-              state.pickedProducts[action.id].quantity === 1
-                ? 1
-                : state.pickedProducts[action.id].quantity - 1,
-          },
-        },
-      };
+    case ACTION_TYPE.PRODUCTS.DECREASE_QUANTITY:
+      return changeQuantity(state, action.id, -1);
 
-    case PRODUCTS.TOGGLE_CHECKED:
-      return {
-        ...state,
-        pickedProducts: {
-          ...state.pickedProducts,
-          [action.id]: {
-            ...state.pickedProducts[action.id],
-            isChecked: !state.pickedProducts[action.id].isChecked,
-          },
-        },
-      };
+    case ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED:
+      return toggleChecked(state, action.id);
 
-    case PRODUCTS.TOGGLE_ENTIRE_CHECKED:
-      return {
-        ...state,
-        pickedProducts: toggleCheckedAll(
-          state.pickedProducts,
-          action.isChecked
-        ),
-      };
+    case ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED:
+      return toggleCheckedAll(state, action.isChecked);
 
-    case PRODUCTS.DELETE_CHECKED:
-      return {
-        ...state,
-        pickedProducts: deleteCheckedProducts(state.pickedProducts),
-      };
+    case ACTION_TYPE.PRODUCTS.DELETE_CHECKED:
+      return deleteCheckedProducts(state);
 
-    case PRODUCTS.DELETE:
-      return {
-        ...state,
-        pickedProducts: deleteProduct(state.pickedProducts, action.id),
-      };
+    case ACTION_TYPE.PRODUCTS.DELETE:
+      return deleteProduct(state, action.id);
 
     default:
       return state;
