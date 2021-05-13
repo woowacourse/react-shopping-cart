@@ -32,6 +32,7 @@ const ProductItem = ({
 };
 
 ProductItem.propTypes = {
+  id: PropTypes.string,
   imgUrl: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,

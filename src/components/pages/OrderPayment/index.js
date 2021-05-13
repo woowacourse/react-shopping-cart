@@ -18,8 +18,8 @@ const OrderPayment = () => {
         <OrderList>
           <div>주문상품({getTotalQuantity(products)}개)</div>
           <ul>
-            {products.map(({ id, ...product }) => (
-              <li key={id}>
+            {products.map(product => (
+              <li key={product.id}>
                 <OrderItem {...product} isOrdered={false} />
               </li>
             ))}

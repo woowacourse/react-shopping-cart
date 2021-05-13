@@ -10,7 +10,7 @@ const PaymentSheet = ({
   priceInfo,
   price,
   buttonText,
-  onButtonClick,
+  onButtonClick = () => {},
 }) => (
   <Sheet>
     <Header>{title}</Header>
@@ -37,6 +37,7 @@ PaymentSheet.propTypes = {
   priceInfo: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
+  onButtonClick: PropTypes.func,
 };
 
 export default PaymentSheet;

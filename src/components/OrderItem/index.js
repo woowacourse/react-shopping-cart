@@ -15,34 +15,36 @@ import Button from '../common/Button';
 const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
+  id,
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
-  price,
-  quantity = 0,
+  price = FALLBACK.PRODUCT.PRICE,
+  quantity = FALLBACK.PRODUCT.QUANTITY,
   isCartButtonVisible,
 }) => (
   <Order>
     <ImageWrapper>
-      <Image src={imgUrl} alt={imgAlt} />
+      <Image src={imgUrl} alt={name} />
     </ImageWrapper>
     <OrderDetail>
       <Name>{name}</Name>
       <PriceAndQuantity price={price}>
-        {price && `${price}원 /`} 수량: {quantity}
+        {price >= 0 && `${price}원 /`} 수량: {quantity}
       </PriceAndQuantity>
     </OrderDetail>
     <ButtonWrapper>
       {isCartButtonVisible && (
-        <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
+        <Button onClick={() => {}} backgroundColor={BUTTON_COLOR}>
+          장바구니
+        </Button>
       )}
     </ButtonWrapper>
   </Order>
 );
 
 OrderItem.propTypes = {
+  id: PropTypes.string,
   imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,

@@ -13,11 +13,11 @@ const CompletedOrderList = ({ order }) => {
         <span>상세보기 ᐳ </span>
       </Header>
       <ul>
-        {products.map(({ id, image, imageAlt, name, price, quantity }) => (
+        {/* TODO: Backend API에 맞게 Key 수정 */}
+        {products.map(({ id, imgUrl, name, price, quantity }) => (
           <li key={id}>
             <OrderItem
-              imgUrl={image}
-              imgAlt={imageAlt}
+              imgUrl={imgUrl}
               name={name}
               price={price}
               quantity={quantity}
@@ -32,12 +32,11 @@ const CompletedOrderList = ({ order }) => {
 
 CompletedOrderList.propTypes = {
   order: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     products: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
-        image: PropTypes.string,
-        imageAlt: PropTypes.string,
+        id: PropTypes.string,
+        imgUrl: PropTypes.string,
         name: PropTypes.string,
         price: PropTypes.number,
         quantity: PropTypes.number,
