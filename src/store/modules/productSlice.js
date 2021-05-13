@@ -1,15 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { MESSAGE } from "../../constants/constants";
 
-export const getProducts = createAsyncThunk("product/load", async () => {
-  try {
-    const res = await fetch(`${process.env.PUBLIC_URL}/data/data.json`);
-    return res.json();
-  } catch {
-    // eslint-disable-next-line no-undef
-    return rejectWithValue(MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST);
+export const getProducts = createAsyncThunk(
+  "product/load",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`${process.env.PUBLIC_URL}/data/data.json`);
+      return res.json();
+    } catch (error) {
+      return Object.assign(rejectWithValue(error), {
+        message: MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST,
+      });
+    }
   }
-});
+);
 
 const productSlice = createSlice({
   name: "product",
@@ -27,8 +31,7 @@ const productSlice = createSlice({
     },
 
     [getProducts.rejected]: (state, action) => {
-      // rejectWithValue 반환타입 : error: { message: string; name, stack }
-      state.errorMessage = action.payload.message;
+      state.errorMessage = action.error.message;
       state.loading = false;
     },
   },
