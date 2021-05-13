@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
+import { APP_MESSAGE } from '../../../constants/message';
 import { removeCheckedProducts } from '../../../redux/Cart/actions';
 import { setOrder } from '../../../redux/Orders/actions';
 import FlexContainer from '../../common/FlexContainer';
@@ -28,7 +29,7 @@ const CheckoutPage = () => {
 
     dispatch(setOrder(order));
 
-    alert('주문 성공!');
+    alert(APP_MESSAGE.ORDER_SUCCESS);
     dispatch(removeCheckedProducts());
   };
 

@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const Snackbar = ({ text, time, backgroundColor }) => {
+const Snackbar = ({ text, time, setMessage, backgroundColor }) => {
+  const [isShowing, setIsShowing] = useState(true);
+  const timer = setTimeout(() => setIsShowing(false), time);
+
+  useEffect(() => {
+    return () => {
+      setMessage('');
+      clearTimeout(timer);
+    };
+  }, [isShowing]);
+
   return (
-    <Styled.SnackbarContainer backgroundColor={backgroundColor} time={time}>
+    <Styled.SnackbarContainer backgroundColor={backgroundColor} time={`${time / 1000}s`}>
       {text}
     </Styled.SnackbarContainer>
   );
@@ -12,7 +22,8 @@ const Snackbar = ({ text, time, backgroundColor }) => {
 
 Snackbar.propTypes = {
   text: PropTypes.string.isRequired,
-  time: PropTypes.string,
+  time: PropTypes.number,
+  setMessage: PropTypes.func,
   backgroundColor: PropTypes.string,
 };
 
