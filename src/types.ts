@@ -19,6 +19,5 @@ export type CartItem = {
 
 export type Order = {
   id: number;
-  cartItems: CartItem[];
-  // totalPrice: number;
+  items: CartItem[];
 };

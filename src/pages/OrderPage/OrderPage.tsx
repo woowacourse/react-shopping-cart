@@ -35,7 +35,7 @@ const OrderPage = () => {
     setLoading(true);
 
     try {
-      await api.post('/orders', { checkedItems });
+      await api.post('/orders', { items: checkedItems });
 
       const ids = checkedItems.map((cartItem) => cartItem.id);
       dispatch(deleteCheckedItemsActionRequest(ids));

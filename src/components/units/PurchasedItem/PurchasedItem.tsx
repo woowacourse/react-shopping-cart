@@ -5,33 +5,35 @@ import Button from '../../shared/Button/Button';
 import * as T from '../../../types';
 
 type PurchasedItemProps = {
-  title: string;
-  price: number;
-  quantity: number;
-  imageUrl?: string;
+  item: T.CartItem;
+  onClick: (product: T.Product) => void;
 };
 
 const PurchasedItem = (props: PurchasedItemProps) => {
-  const { title, quantity, price, imageUrl } = props;
+  const { item, onClick } = props;
+  const { quantity, product } = item;
+  const { name, price, image } = product;
+
+  const totalPrice = price * quantity;
+
+  const handleClick = () => {
+    onClick(product);
+  };
 
   return (
     <Styled.Root>
-      <Styled.Image src={imageUrl} alt="김말이" />
+      <Styled.Image src={image ?? defaultImageURL} alt="김말이" />
       <Styled.Info>
-        <Styled.Title>{title}</Styled.Title>
+        <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>
-          {price.toLocaleString('ko-KR')}원 / 수량 : {quantity}개
+          {totalPrice.toLocaleString('ko-KR')}원 / 수량 : {quantity}개
         </Styled.Detail>
       </Styled.Info>
       <Styled.ButtonWrapper>
-        <Button size={T.ButtonSize.REGULAR} text="장바구니" />
+        <Button size={T.ButtonSize.REGULAR} text="장바구니" onClick={handleClick} />
       </Styled.ButtonWrapper>
     </Styled.Root>
   );
-};
-
-PurchasedItem.defaultProps = {
-  imageUrl: defaultImageURL,
 };
 
 export default PurchasedItem;
