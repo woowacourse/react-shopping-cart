@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 
 import Header from '../src/components/Header';
-import ProductListPage from '../src/pages/ProductListPage';
+import ProductListPage from './pages/ProductListPage/ProductListPage';
 import OrderListPage from '../src/pages/OrderListPage';
 import CartPage from './pages/CartPage/CartPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
