@@ -35,7 +35,7 @@ export const deleteShoppingCartItem = createAsyncThunk(DELETE_SHOPPING_CART_ITEM
   requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)
 );
 
-export const fetchShoppingCartList = createAsyncThunk(GET_SHOPPING_CART_ITEM_LIST, () =>
+export const getShoppingCartList = createAsyncThunk(GET_SHOPPING_CART_ITEM_LIST, () =>
   requestGetItemList(API_PATH.SHOPPING_CART_LIST)
 );
 

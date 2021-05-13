@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import emptyCart from '../assets/empty-cart.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-  deleteCheckedShoppingCartList,
-  fetchShoppingCartList,
-  toggleAllShoppingCartItem,
-} from '../modules/shoppingCart';
+import { deleteCheckedShoppingCartList, getShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
 import {
@@ -73,11 +69,14 @@ const getExpectedPaymentAmount = (checkedShoppingCartList) =>
 
 const ShoppingCart = () => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
+  const [isInitLoading, setInitLoading] = useState(true);
 
   const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const { isLoading, data: shoppingCartList } = useSelector((state) => state.shoppingCart.shoppingCartList);
+  const { isLoading: isDataLoading, data: shoppingCartList } = useSelector(
+    (state) => state.shoppingCart.shoppingCartList
+  );
 
   const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartList.length;
@@ -85,7 +84,10 @@ const ShoppingCart = () => {
   const totalPrice = getExpectedPaymentAmount(checkedShoppingCartList);
 
   useEffect(() => {
-    dispatch(fetchShoppingCartList());
+    (async () => {
+      await dispatch(getShoppingCartList());
+      setInitLoading(false);
+    })();
   }, [dispatch]);
 
   const handleAllShoppingCartItemToggle = () => {
@@ -113,7 +115,7 @@ const ShoppingCart = () => {
     });
   };
 
-  if (isLoading) {
+  if (isDataLoading || isInitLoading) {
     return <Loading />;
   }
 
