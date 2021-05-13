@@ -27,14 +27,14 @@ const ProductsPage = () => {
       const response = await api.get('/products');
       setProducts(response.data);
     } catch (error) {
-      alert(MESSAGE.GET_PRODUCTS_FAILURE);
+      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
     }
 
     setLoading(false);
-  }, []);
+  }, [enqueueSnackbar]);
 
   const handleClickCart = (product: T.Product) => {
-    if (isLoading) return;
+    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
     const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
 
