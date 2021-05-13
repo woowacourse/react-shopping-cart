@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -8,6 +9,7 @@ import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
 import api from '../../api';
+import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -16,7 +18,10 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState<boolean>(false);
+
+  if (!location.state) return <Redirect to="/" />;
 
   const { checkedItems } = location.state;
 
@@ -31,7 +36,12 @@ const OrderPage = () => {
 
     try {
       await api.post('/orders', { checkedItems });
+
+      const ids = checkedItems.map((cartItem) => cartItem.id);
+      dispatch(deleteCheckedItemsActionRequest(ids));
+
       history.replace('/order/complete');
+      return;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error.message);
@@ -39,8 +49,6 @@ const OrderPage = () => {
 
     setLoading(false);
   };
-
-  if (!location.state) return <Redirect to="/" />;
 
   return (
     <Styled.Root>
