@@ -52,7 +52,9 @@ const PaymentPage = () => {
           <PaymentItemSectionTitle>주문 상품({paymentItems.length}건)</PaymentItemSectionTitle>
           <PaymentList>
             {paymentItems &&
-              paymentItems.map((paymentItem) => <PaymentItem key={paymentItem.id} paymentItem={paymentItem} />)}
+              paymentItems
+                .map((paymentItem) => <PaymentItem key={paymentItem.id} paymentItem={paymentItem} />)
+                .reverse()}
           </PaymentList>
         </PaymentItemSection>
         <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} onClick={onOrderButtonClick} />

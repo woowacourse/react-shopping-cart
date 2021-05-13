@@ -110,14 +110,16 @@ const CartPage = () => {
 
             <CartItemList>
               {cartItems &&
-                cartItems.map((cartItem) => (
-                  <CartItem
-                    key={cartItem.id}
-                    cartItem={cartItem}
-                    checked={checkedItemIds.includes(cartItem.id)}
-                    onCheckboxClick={onCheckboxClick}
-                  />
-                ))}
+                cartItems
+                  .map((cartItem) => (
+                    <CartItem
+                      key={cartItem.id}
+                      cartItem={cartItem}
+                      checked={checkedItemIds.includes(cartItem.id)}
+                      onCheckboxClick={onCheckboxClick}
+                    />
+                  ))
+                  .reverse()}
             </CartItemList>
           </CartItemSection>
           <FloatingBox
