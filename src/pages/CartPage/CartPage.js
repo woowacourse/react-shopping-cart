@@ -7,10 +7,10 @@ import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import CartItem from './CartItem';
 
-import { toggleCheckbox, allCheck, allUnCheck, deleteItem } from '../../modules/cart';
+import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cart';
 import { addPaymentItems } from '../../modules/payment';
 
-import { getTotalPrice } from '../../utils';
+import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
 import styled from 'styled-components';
 
@@ -72,19 +72,12 @@ const CartPage = () => {
     }
   };
 
-  const getDeleteCheckedItems = () => {
-    checkedItemIds.forEach((id) => {
-      dispatch(deleteItem(id));
-    });
-  };
-
   const onDeleteCheckedItemsButtonClick = () => {
-    getDeleteCheckedItems();
+    deleteCheckedItems(dispatch, checkedItemIds);
   };
 
   const onPaymentButtonClick = () => {
     dispatch(addPaymentItems(cartItems.filter((item) => item.checked)));
-    getDeleteCheckedItems();
   };
 
   return (

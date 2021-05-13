@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import PaymentItem from './PaymentItem';
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
 
-import { getTotalPrice } from '../../utils';
+import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
 import styled from 'styled-components';
 
@@ -34,6 +34,14 @@ const PaymentList = styled.ul`
 
 const PaymentPage = () => {
   const paymentItems = useSelector((state) => state.payment);
+  const dispatch = useDispatch();
+
+  const onOrderButtonClick = () => {
+    deleteCheckedItems(
+      dispatch,
+      paymentItems.map((item) => item.id),
+    );
+  };
 
   return (
     <>
@@ -47,7 +55,7 @@ const PaymentPage = () => {
               paymentItems.map((paymentItem) => <PaymentItem key={paymentItem.id} paymentItem={paymentItem} />)}
           </PaymentList>
         </PaymentItemSection>
-        <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} />
+        <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} onClick={onOrderButtonClick} />
       </PaymentItemWrapper>
     </>
   );
