@@ -96,7 +96,6 @@ export const cartReducer = (
 
     case UPDATE_QUANTITY_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.status = T.AsyncStatus.PENDING;
         draft.cartItems.error = null;
       });
 
@@ -104,12 +103,10 @@ export const cartReducer = (
       return produce(state, (draft: Draft<CartState>) => {
         const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
         if (target) target.quantity = action.payload.quantity;
-        draft.cartItems.status = T.AsyncStatus.SUCCESS;
       });
 
     case UPDATE_QUANTITY_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.status = T.AsyncStatus.FAILURE;
         draft.cartItems.error = action.error;
       });
 
