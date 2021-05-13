@@ -11,9 +11,9 @@ const HomeImage = styled.img`
 
 const Home = () => {
   return (
-    <div>
+    <>
       <HomeImage src={homePageLogo} height="200px" weight="200px" alt="main-logo" />
-    </div>
+    </>
   );
 };
 
