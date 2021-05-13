@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import trashCan from '../../assets/trashCan.svg';
@@ -135,4 +135,4 @@ ShoppingCartItem.propTypes = {
   count: PropTypes.number.isRequired,
 };
 
-export default ShoppingCartItem;
+export default memo(ShoppingCartItem);
