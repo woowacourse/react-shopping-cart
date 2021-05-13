@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { API_PATH } from '../constants/api';
-import { ProductListItem, Loading } from '../components';
 import useFetch from '../hooks/useFetch';
-import { requestGetItemList } from '../modules/utils/request';
+import { requestGetItemList } from '../request/request';
+import { ProductListItem, Loading } from '../components';
 
 const Container = styled.ul`
   display: grid;

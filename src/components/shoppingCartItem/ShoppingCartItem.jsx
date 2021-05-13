@@ -62,7 +62,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch.bind(null, deleteShoppingCartItem(id))) : clickConfirm();
+    type === DIALOG_TYPE.CONFIRM ? clickConfirm(() => dispatch(deleteShoppingCartItem(id))) : clickConfirm();
   };
 
   const handleCancel = () => {

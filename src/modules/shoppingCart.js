@@ -1,7 +1,7 @@
 import { API_PATH } from '../constants/api';
+import { requestDeleteItem, requestGetItemList, requestInsertItem } from '../request/request';
 import { createAsyncThunk } from './utils/async';
 import { reducerUtils } from './utils/reducer';
-import { requestDeleteItem, requestGetItemList, requestInsertItem } from './utils/request';
 
 const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
 const INSERT_SHOPPING_CART_ITEM_SUCCESS = 'shoppingCart/INSERT_SHOPPING_CART_ITEM_SUCCESS';
@@ -27,19 +27,16 @@ const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 const requestDeleteCheckedItemList = (checkedItemList) =>
   Promise.all(checkedItemList.map(({ id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)));
 
-export const insertShoppingCartItem = createAsyncThunk(
-  INSERT_SHOPPING_CART_ITEM,
-  requestInsertItem.bind(null, API_PATH.SHOPPING_CART_LIST)
+export const insertShoppingCartItem = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, (item) =>
+  requestInsertItem(API_PATH.SHOPPING_CART_LIST, item)
 );
 
-export const deleteShoppingCartItem = createAsyncThunk(
-  DELETE_SHOPPING_CART_ITEM,
-  requestDeleteItem.bind(null, API_PATH.SHOPPING_CART_LIST)
+export const deleteShoppingCartItem = createAsyncThunk(DELETE_SHOPPING_CART_ITEM, (id) =>
+  requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)
 );
 
-export const fetchShoppingCartList = createAsyncThunk(
-  GET_SHOPPING_CART_ITEM_LIST,
-  requestGetItemList.bind(null, API_PATH.SHOPPING_CART_LIST)
+export const fetchShoppingCartList = createAsyncThunk(GET_SHOPPING_CART_ITEM_LIST, () =>
+  requestGetItemList(API_PATH.SHOPPING_CART_LIST)
 );
 
 export const deleteCheckedShoppingCartList = createAsyncThunk(

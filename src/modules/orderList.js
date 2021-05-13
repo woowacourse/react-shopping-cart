@@ -1,7 +1,7 @@
 import { API_PATH } from '../constants/api';
+import { requestGetItemList, requestInsertItem } from '../request/request';
 import { createAsyncThunk } from './utils/async';
 import { reducerUtils } from './utils/reducer';
-import { requestGetItemList, requestInsertItem } from './utils/request';
 
 const GET_ORDER_ITEM_LIST = 'orderList/GET_ORDER_ITEM_LIST';
 const GET_ORDER_ITEM_LIST_SUCCESS = 'orderList/GET_ORDER_ITEM_LIST_SUCCESS';
@@ -11,14 +11,12 @@ const INSERT_ORDER_ITEM_LIST = 'orderList/INSERT_ORDER_ITEM_LIST';
 const INSERT_ORDER_ITEM_LIST_SUCCESS = 'orderList/INSERT_ORDER_ITEM_LIST_SUCCESS';
 const INSERT_ORDER_ITEM_LIST_FAILURE = 'orderList/INSERT_ORDER_ITEM_LIST_FAILURE';
 
-export const getOrderItemList = createAsyncThunk(
-  GET_ORDER_ITEM_LIST,
-  requestGetItemList.bind(null, API_PATH.ORDER_ITEM_LIST)
+export const getOrderItemList = createAsyncThunk(GET_ORDER_ITEM_LIST, () =>
+  requestGetItemList(API_PATH.ORDER_ITEM_LIST)
 );
 
-export const insertOrderItemList = createAsyncThunk(
-  INSERT_ORDER_ITEM_LIST,
-  requestInsertItem.bind(null, API_PATH.ORDER_ITEM_LIST)
+export const insertOrderItemList = createAsyncThunk(INSERT_ORDER_ITEM_LIST, (item) =>
+  requestInsertItem(API_PATH.ORDER_ITEM_LIST, item)
 );
 
 const initialState = {

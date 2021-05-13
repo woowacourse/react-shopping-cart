@@ -1,24 +1,24 @@
 export const reducerUtils = {
   initial: (initialData = null) => ({
-    loading: false,
+    isLoading: false,
     data: initialData,
     error: null,
   }),
 
   loading: (prevState = null) => ({
-    loading: true,
+    isLoading: true,
     data: prevState,
     error: null,
   }),
 
   success: (data) => ({
-    loading: false,
+    isLoading: false,
     data,
     error: null,
   }),
 
   failure: (prevState = null, error) => ({
-    loading: false,
+    isLoading: false,
     data: prevState,
     error,
   }),

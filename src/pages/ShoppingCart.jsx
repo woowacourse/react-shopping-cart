@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import emptyCart from '../assets/empty-cart.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { deleteCheckedShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
+import {
+  deleteCheckedShoppingCartList,
+  fetchShoppingCartList,
+  toggleAllShoppingCartItem,
+} from '../modules/shoppingCart';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
 import {
@@ -73,19 +77,23 @@ const ShoppingCart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const { loading, data: shoppingCartList } = useSelector((state) => state.shoppingCart.shoppingCartList);
+  const { isLoading, data: shoppingCartList } = useSelector((state) => state.shoppingCart.shoppingCartList);
 
   const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartList.length;
 
   const totalPrice = getExpectedPaymentAmount(checkedShoppingCartList);
 
+  useEffect(() => {
+    dispatch(fetchShoppingCartList());
+  }, [dispatch]);
+
   const handleAllShoppingCartItemToggle = () => {
     dispatch(toggleAllShoppingCartItem());
   };
 
   const handleConfirm = () => {
-    clickConfirm(dispatch.bind(null, deleteCheckedShoppingCartList(checkedShoppingCartList)));
+    clickConfirm(() => dispatch(deleteCheckedShoppingCartList(checkedShoppingCartList)));
   };
 
   const handleCancel = () => {
@@ -105,6 +113,10 @@ const ShoppingCart = () => {
     });
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   if (!shoppingCartList.length) {
     return (
       <ImageWrapper>
@@ -117,10 +129,6 @@ const ShoppingCart = () => {
         </Link>
       </ImageWrapper>
     );
-  }
-
-  if (loading) {
-    return <Loading />;
   }
 
   return (

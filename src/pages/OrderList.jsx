@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
-import { requestGetItemList } from '../modules/utils/request';
+import { requestGetItemList } from '../request/request';
 import useFetch from '../hooks/useFetch';
 import { PageTitle, OrderListItem, SelectedProductList, Loading, SELECTED_PRODUCT_LIST_TYPE } from '../components';
 
