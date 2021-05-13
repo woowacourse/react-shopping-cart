@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { APP_BASE_URL } from '../../../constants/app';
 import Card from '../../shared/Card';
 import Container from '../../shared/Container';
 import IconButton from '../../shared/IconButton';
@@ -33,7 +34,7 @@ export const CartIconButton = styled(IconButton)`
 `;
 
 CartIconButton.defaultProps = {
-  image: '/icons/shopping-cart-black.svg',
+  image: APP_BASE_URL + '/icons/shopping-cart-black.svg',
 };
 
 export const StyledProductCard = styled(Card)`

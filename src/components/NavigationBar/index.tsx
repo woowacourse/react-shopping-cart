@@ -1,5 +1,6 @@
 import { VFC } from 'react';
 import { Link } from 'react-router-dom';
+import { APP_BASE_URL } from '../../constants/app';
 import Container from '../shared/Container';
 import { Logo, NavigationBarContainer, NavigationBarInnerContainer, StyledLink } from './styles';
 
@@ -8,7 +9,7 @@ const NavigationBar: VFC = () => (
     <NavigationBarInnerContainer>
       <Link to="/">
         <Logo>
-          <img src="/icons/shopping-cart.svg" alt="쇼핑 카트" />
+          <img src={APP_BASE_URL + '/icons/shopping-cart.svg'} alt="쇼핑 카트" />
           <h1>WOOWA SHOP</h1>
         </Logo>
       </Link>
