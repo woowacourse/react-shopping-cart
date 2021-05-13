@@ -4,7 +4,7 @@ import Header from '../src/components/Header';
 import ProductListPage from '../src/pages/ProductListPage';
 import OrderListPage from '../src/pages/OrderListPage';
 import CartPage from './pages/CartPage/CartPage';
-import PaymentPage from '../src/pages/PaymentPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';
 
 import styled from 'styled-components';
