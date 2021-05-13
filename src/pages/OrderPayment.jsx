@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { insertOrderItemList } from '../modules/orderList';
 import { deleteCheckedShoppingCartList } from '../modules/shoppingCart';
 import { PATH } from '../constants/path';
+import useFetch from '../hooks/useFetch';
+import { requestInsertItem } from '../request/request';
+import { API_PATH } from '../constants/api';
 import {
   OrderListItem,
   PageTitle,
@@ -30,7 +32,10 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const loading = useSelector((state) => state.shoppingCart.shoppingCartList.loading);
+  const { startFetching } = useFetch({
+    fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
+  });
+  const isLoading = useSelector((state) => state.shoppingCart.shoppingCartList.isLoading);
   const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -39,13 +44,13 @@ const OrderPayment = () => {
 
   const handleOrderListPageRouter = async () => {
     const orderItemData = { orderNumber: new Date().getTime(), itemList: orderItemList };
-    await dispatch(insertOrderItemList(orderItemData));
+    await startFetching(orderItemData);
     await dispatch(deleteCheckedShoppingCartList(orderItemList));
 
     history.replace(PATH.ORDER_LIST);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 

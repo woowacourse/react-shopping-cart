@@ -15,7 +15,7 @@ const Container = styled.ul`
 const ProductList = () => {
   const { isLoading, data: productItemList } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST),
-    isSetData: true,
+    isInitSetting: true,
   });
 
   if (isLoading) {

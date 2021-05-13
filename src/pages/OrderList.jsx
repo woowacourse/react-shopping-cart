@@ -15,7 +15,7 @@ const OrderItemListWrapper = styled.li`
 const OrderList = () => {
   const { isLoading, data: orderItemList } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
-    isSetData: true,
+    isInitSetting: true,
   });
 
   if (isLoading) {

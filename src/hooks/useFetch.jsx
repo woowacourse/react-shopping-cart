@@ -1,30 +1,40 @@
 import { useEffect, useState } from 'react';
 
-const useFetch = ({ fetchFunc, isSetData }) => {
-  const [isLoading, setLoading] = useState(true);
+const useFetch = ({ fetchFunc, isInitSetting }) => {
+  const [isLoading, setLoading] = useState(isInitSetting);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    const initSetting = async () => {
       try {
-        if (isSetData) {
-          setData(await fetchFunc());
-          setLoading(false);
-
-          return;
-        }
-
-        await fetchFunc();
+        setData(await fetchFunc());
         setLoading(false);
+
+        return;
       } catch (error) {
         console.error(error);
         setError(error);
       }
-    })();
+    };
+
+    isInitSetting && initSetting();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { isLoading, data, error };
+  const startFetching = async (param) => {
+    setLoading(true);
+
+    try {
+      await fetchFunc(param);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setError(error);
+    }
+  };
+
+  return { isLoading, data, error, startFetching };
 };
 
 export default useFetch;
