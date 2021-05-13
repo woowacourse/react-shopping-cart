@@ -11,6 +11,7 @@ const Products = ({ products }) => {
   const handleCartButtonClick = product => {
     dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
   };
+  console.log(products);
 
   return (
     <ProductPage>
