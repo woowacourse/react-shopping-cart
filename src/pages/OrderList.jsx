@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../constants/color';
-import { useSelector } from 'react-redux';
+import { API_PATH } from '../constants/api';
+import { requestGetItemList } from '../modules/utils/request';
+import useFetch from '../hooks/useFetch';
 import { PageTitle, OrderListItem, SelectedProductList, Loading, SELECTED_PRODUCT_LIST_TYPE } from '../components';
 
 const OrderItemListWrapper = styled.li`
@@ -11,9 +13,12 @@ const OrderItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { loading, data: orderItemList } = useSelector((state) => state.orderList.orderItemList);
+  const { isLoading, data: orderItemList } = useFetch({
+    fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
+    isSetData: true,
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 

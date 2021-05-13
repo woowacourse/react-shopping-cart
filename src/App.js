@@ -10,9 +10,7 @@ import OrderList from './pages/OrderList';
 import OrderPayment from './pages/OrderPayment';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { fetchProductList } from './modules/product';
 import { fetchShoppingCartList } from './modules/shoppingCart';
-import { getOrderItemList } from './modules/orderList';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
 
@@ -27,9 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductList());
     dispatch(fetchShoppingCartList());
-    dispatch(getOrderItemList());
   }, [dispatch]);
 
   return (

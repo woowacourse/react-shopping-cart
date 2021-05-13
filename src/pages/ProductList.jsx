@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { API_PATH } from '../constants/api';
 import { ProductListItem, Loading } from '../components';
+import useFetch from '../hooks/useFetch';
+import { requestGetItemList } from '../modules/utils/request';
 
 const Container = styled.ul`
   display: grid;
@@ -11,15 +13,18 @@ const Container = styled.ul`
 `;
 
 const ProductList = () => {
-  const { loading, data: productList } = useSelector((state) => state.product.productList);
+  const { isLoading, data: productItemList } = useFetch({
+    fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST),
+    isSetData: true,
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
     <Container>
-      {productList.map((product) => (
+      {productItemList.map((product) => (
         <li key={product.id}>
           <ProductListItem product={product} />
         </li>
