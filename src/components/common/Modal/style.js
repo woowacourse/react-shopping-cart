@@ -28,7 +28,7 @@ export const ModalContainer = styled.div`
 export const ModalInner = styled.div`
   position: relative;
   background: white;
-  padding: 4rem 3rem;
+  padding: ${({ isShowCloseButton }) => (isShowCloseButton ? '4rem 3rem' : '3rem')};
   ${({ type }) => modalStyles[type]};
 `;
 

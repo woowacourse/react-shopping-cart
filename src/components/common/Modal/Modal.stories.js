@@ -14,3 +14,8 @@ export const FullType = Template.bind({});
 FullType.args = {
   type: 'full',
 };
+
+export const WithoutCloseButton = Template.bind({});
+WithoutCloseButton.args = {
+  isShowCloseButton: false,
+};
