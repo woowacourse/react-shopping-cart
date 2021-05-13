@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { INTERVAL_TIME } from '../constants';
 import { RootState } from '../modules';
 import { getProducts } from '../modules/product';
 
@@ -10,7 +12,19 @@ const useProducts = () => {
   useEffect(() => {
     if (products.length !== 0) return;
     dispatch(getProducts());
-  }, [dispatch, products]);
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      dispatch(getProducts());
+    }, INTERVAL_TIME.UPDATE_NEWEST_PRODUCTS);
+
+    return () => {
+      clearInterval(id);
+    };
+    // eslint-disable-next-line
+  }, []);
 
   return { products, loading, error };
 };
