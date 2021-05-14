@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/modules/cartSlice";
 import { formatPrice } from "../../../utils/utils";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Product.styled";
-
-import noImage from "./no_image.png";
+import { useThumbnail } from "./hooks";
 
 const Product = ({ product }) => {
   const { product_id: productId, image_url: imageURL, name, price } = product;
@@ -16,11 +15,7 @@ const Product = ({ product }) => {
   );
   const dispatch = useDispatch();
 
-  const [thumbnail, setThumbnail] = useState(imageURL);
-
-  const handleThumbnailError = () => {
-    setThumbnail(noImage);
-  };
+  const { src, onLoad, onError, isLoading } = useThumbnail(imageURL);
 
   const handleAddCartClick = () => {
     dispatch(addToCart({ product }));
@@ -29,7 +24,7 @@ const Product = ({ product }) => {
   return (
     <S.Product>
       <S.Preview>
-        <S.Img src={thumbnail} alt={name} onError={handleThumbnailError} />
+        <S.Img alt={name} {...{ src, onLoad, onError, isLoading }} />
         <S.LinkToDetail to={`/product/${productId}`} />
         <S.ImgOverlay>
           <S.AddCartButton onClick={handleAddCartClick}>
