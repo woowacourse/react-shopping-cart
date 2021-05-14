@@ -64,7 +64,7 @@ const CartItem = (props: CartItemProps) => {
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={image || noImageURL} alt="김말이" />
+      <Styled.Image src={image || noImageURL} alt={name} />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
         <Styled.Delete onClick={handleDelete}>
