@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
-import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(rootReducer, composeWithDevTools());
 

@@ -25,7 +25,6 @@ const changeCount = (state, id, mode) => {
 
   if (mode === 'decrease') {
     if (cartItem.quantity <= 1) {
-      //TODO : custom Alert 할수있으면 해보자
       alert('수량은 1개 이상이어야 합니다.');
       return state;
     }
