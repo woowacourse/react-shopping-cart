@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
-export const FlexBox = styled.div`
+const FlexBox = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection};
-  flex-flow: ${(props) => props.flexFlow};
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
   flex-wrap: ${(props) => props.flexWrap};
@@ -17,8 +18,19 @@ export const FlexBox = styled.div`
   }
 `;
 
-function Flex({ children, ...props }) {
+const Flex = ({ children, ...props }) => {
   return <FlexBox {...props}>{children}</FlexBox>;
-}
+};
+
+Flex.propTypes = {
+  flexDirection: PropTypes.string,
+  justifyContentContent: PropTypes.string,
+  alignItems: PropTypes.string,
+  flexWrap: PropTypes.string,
+  flexBasis: PropTypes.string,
+  flexGrow: PropTypes.string,
+  flexShrink: PropTypes.string,
+  css: PropTypes.array,
+};
 
 export default Flex;

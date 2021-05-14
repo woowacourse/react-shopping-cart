@@ -1,17 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
-const StyledProductList = styled.ul`
+const ProductList = styled.ul`
   display: grid;
   grid-template-columns: ${(props) => `repeat(${props.gridColumnRepeatCount}, ${props.gridColumnWidth})`};
   grid-column-gap: ${(props) => props.gridColumnGap};
   grid-row-gap: ${(props) => props.gridRowGap};
 `;
 
-function GridColumnList(props) {
-  const { children } = props;
+const GridColumnList = ({ children, ...props }) => {
+  return <ProductList {...props}>{children}</ProductList>;
+};
 
-  return <StyledProductList {...props}>{children}</StyledProductList>;
-}
+GridColumnList.propTypes = {
+  gridColumnRepeatCount: PropTypes.number,
+  gridColumnWidth: PropTypes.string,
+  gridColumnGap: PropTypes.string,
+  gridRowGap: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
 
 export default GridColumnList;

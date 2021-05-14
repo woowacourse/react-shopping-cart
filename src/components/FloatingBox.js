@@ -1,8 +1,12 @@
 import React from 'react';
-import PriceText from './utils/PriceText';
-
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import Button from './utils/Button';
+import PriceText from './utils/PriceText';
+import Flex from './utils/Flex';
+
+import styled, { css } from 'styled-components';
 
 const FloatingBoxWrapper = styled.div`
   position: sticky;
@@ -16,7 +20,7 @@ const FloatingBoxWrapper = styled.div`
   background-color: inherit;
 `;
 
-const FloatingBoxTitleWrapper = styled.div`
+const FloatingBoxHeader = styled.div`
   text-align: left;
   width: 100%;
   border-bottom: 3px solid #dddddd;
@@ -28,20 +32,6 @@ const FloatingBoxTitle = styled.h3`
   margin: 28px 0 25px;
 `;
 
-const FloatingBoxContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 166px;
-  margin: 35px 0;
-`;
-
-const FloatingBoxTextWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const FloatingBoxText = styled.span`
   font-size: 20px;
   font-weight: 700;
@@ -49,66 +39,80 @@ const FloatingBoxText = styled.span`
   background: linear-gradient(to top, rgba(42, 193, 188, 0.5) 30%, transparent 50%);
 `;
 
-const StyledPriceText = styled(PriceText)`
+const PriceTextStyle = css`
+  background: linear-gradient(to top, rgba(42, 193, 188, 0.5) 30%, transparent 50%);
+`;
+
+const StyledButton = styled(Button)`
   && {
-    background: linear-gradient(to top, rgba(42, 193, 188, 0.5) 30%, transparent 50%);
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 73px;
-  font-size: 24px;
-  color: #ffffff;
-  background-color: #2ac1bc;
-  border: none;
-
-  &:hover {
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  &:disabled {
+    width: 100%;
+    height: 73px;
+    font-size: 24px;
     color: #ffffff;
-    font-weight: inherit;
-    background-color: #707a7a;
+    background-color: #2ac1bc;
     border: none;
-    cursor: not-allowed;
+
+    &:hover {
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      color: #ffffff;
+      font-weight: inherit;
+      background-color: #707a7a;
+      border: none;
+      cursor: not-allowed;
+    }
   }
 `;
 
-function FloatingBox({ price, selectedItemIds, linkPath, onClick, disabled }) {
+const FloatingBoxContentWrapperStyle = css`
+  width: 100%;
+  height: 166px;
+  margin: 35px 0;
+`;
+
+const FloatingBox = ({ price, selectedItemIds, linkPath, onClick, disabled }) => {
   return (
     <FloatingBoxWrapper>
-      <FloatingBoxTitleWrapper>
+      <FloatingBoxHeader>
         <FloatingBoxTitle>결제금액</FloatingBoxTitle>
-      </FloatingBoxTitleWrapper>
+      </FloatingBoxHeader>
 
-      <FloatingBoxContentWrapper>
-        <FloatingBoxTextWrapper>
+      <Flex flexDirection="column" justifyContent="space-between" css={FloatingBoxContentWrapperStyle}>
+        <Flex justifyContent="space-between">
           <FloatingBoxText>총 결제금액</FloatingBoxText>
-          <StyledPriceText fontSize="20px" fontWeight="700">
+          <PriceText fontSize="20px" fontWeight={700} css={PriceTextStyle}>
             {price}
-          </StyledPriceText>
-        </FloatingBoxTextWrapper>
+          </PriceText>
+        </Flex>
 
         <Link to={linkPath}>
           {selectedItemIds ? (
-            <Button type="button" onClick={onClick} disabled={disabled}>
+            <StyledButton onClick={onClick} disabled={disabled}>
               주문하기 ({selectedItemIds.length}개)
-            </Button>
+            </StyledButton>
           ) : (
-            <Button type="button" onClick={onClick} disabled={price === 0}>
+            <StyledButton onClick={onClick} disabled={price === 0}>
               결제하기{' '}
-              <PriceText color="#ffffff" fontSize="24px">
+              <PriceText color="#ffffff" fontSize="24px" css={PriceTextStyle}>
                 {price}
               </PriceText>
-            </Button>
+            </StyledButton>
           )}
         </Link>
-      </FloatingBoxContentWrapper>
+      </Flex>
     </FloatingBoxWrapper>
   );
-}
+};
+
+FloatingBox.propTypes = {
+  price: PropTypes.number,
+  selectedItemIds: PropTypes.array,
+  linkPath: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+};
 
 export default FloatingBox;

@@ -9,12 +9,7 @@ import notFoundImg from '../asset/not-found.jpeg';
 
 import styled, { css } from 'styled-components';
 
-const FlexStyle = css`
-  width: 100%;
-  height: 80vh;
-`;
-
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.section`
   margin: 25px;
   text-align: center;
 `;
@@ -36,7 +31,12 @@ const LinkStyle = styled(NavLink)`
   }
 `;
 
-const StyledButton = styled(Button)`
+const FlexStyle = css`
+  width: 100%;
+  height: 80vh;
+`;
+
+const ButtonStyle = css`
   border-radius: 10px;
   margin: 10px;
 `;
@@ -48,16 +48,17 @@ function NotFoundPage() {
       <ContentWrapper>
         <ContentText>죄송합니다. 페이지가 없거나 오류가 발생하였습니다.</ContentText>
         <ContentText>현재 페이지가 존재하지 않거나, 현재 이용할 수 없는 페이지 입니다.</ContentText>
-        <StyledButton
-          width="130px"
-          height="40px"
+        <Button
+          width="117px"
+          height="50px"
           color="#ffffff"
           border="none"
           backgroundColor="#2ac1bc"
           fontSize="18px"
+          css={ButtonStyle}
         >
           <LinkStyle to="/">쇼핑하러 가기</LinkStyle>
-        </StyledButton>
+        </Button>
       </ContentWrapper>
     </Flex>
   );

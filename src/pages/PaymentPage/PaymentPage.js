@@ -1,19 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Flex from '../../components/utils/Flex';
 import PaymentItem from './PaymentItem';
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
-import styled from 'styled-components';
-
-const PaymentItemWrapper = styled.div`
-  display: flex;
-  width: 1320px;
-  justify-content: space-between;
-`;
+import styled, { css } from 'styled-components';
 
 const PaymentItemSection = styled.section`
   width: 763px;
@@ -32,6 +27,10 @@ const PaymentList = styled.ul`
   border-top: 4px solid #aaaaaa;
 `;
 
+const PaymentPageWrapperStyle = css`
+  width: 1320px;
+`;
+
 const PaymentPage = () => {
   const paymentItems = useSelector((state) => state.payment);
   const dispatch = useDispatch();
@@ -47,7 +46,7 @@ const PaymentPage = () => {
     <>
       <PageTitle pageTitle="주문/결제" />
 
-      <PaymentItemWrapper>
+      <Flex justifyContent="space-between" css={PaymentPageWrapperStyle}>
         <PaymentItemSection>
           <PaymentItemSectionTitle>주문 상품({paymentItems.length}건)</PaymentItemSectionTitle>
           <PaymentList>
@@ -57,8 +56,9 @@ const PaymentPage = () => {
                 .reverse()}
           </PaymentList>
         </PaymentItemSection>
+
         <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} onClick={onOrderButtonClick} />
-      </PaymentItemWrapper>
+      </Flex>
     </>
   );
 };

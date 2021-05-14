@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
 const TitleWrapper = styled.div`
@@ -14,12 +16,16 @@ const Title = styled.h2`
   line-height: 37.3px;
 `;
 
-function PageTitle({ pageTitle }) {
+const PageTitle = ({ pageTitle }) => {
   return (
     <TitleWrapper>
       <Title>{pageTitle}</Title>
     </TitleWrapper>
   );
-}
+};
+
+PageTitle.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
+};
 
 export default PageTitle;
