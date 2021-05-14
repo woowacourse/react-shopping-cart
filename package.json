@@ -31,9 +31,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "NODE_DEBUG=gh-pages gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy": "NODE_DEBUG=gh-pages gh-pages -d build",
+    "lint": "eslint --cache --fix .",
+    "format": "prettier --write .",
     "prepare": "husky install"
   },
   "eslintConfig": {
