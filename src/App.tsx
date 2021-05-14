@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
