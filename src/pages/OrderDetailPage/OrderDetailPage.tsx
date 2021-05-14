@@ -12,7 +12,7 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useOrderDetail from '../../hooks/orderDetail';
 
-import { COLORS, PATH, RESPONSE_MESSAGE } from '../../constants';
+import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
 import { RootState } from '../../modules';
 import { getMoneyString } from '../../utils/format';
 import { API } from '../../services/api';
@@ -46,14 +46,14 @@ const OrderDetailPage = () => {
 
     if (!product) return;
 
-    const responseMessage = await API.ADD_ONE_ITEM_IN_CART(product, id);
+    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
-    if (responseMessage === RESPONSE_MESSAGE.ALREADY_EXIST) {
+    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
       alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
       return;
     }
 
-    if (responseMessage === RESPONSE_MESSAGE.FAILURE) {
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
       alert('상품을 장바구니에 담지 못했습니다.');
       return;
     }

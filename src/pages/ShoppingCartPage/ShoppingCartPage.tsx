@@ -11,7 +11,7 @@ import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 
 import useCart from '../../hooks/cart';
 
-import { PATH } from '../../constants';
+import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
 import { API } from '../../services/api';
@@ -70,15 +70,19 @@ const ShoppingCartPage = () => {
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
-    const isDeleteSuccess = await API.DELETE_CART_ITEM(cartItems, id);
+    const targetIndex = cartItems.findIndex(cartItem => cartItem.id === id);
+    if (!confirm(`'${cartItems[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
+      return;
+    }
 
-    if (!isDeleteSuccess) {
+    const responseResult = await API.DELETE_CART_ITEM(id);
+
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
       alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
       return;
     }
 
     const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     newCartItems.splice(targetIndex, 1);
     setCartItems(newCartItems);
   };
@@ -89,9 +93,9 @@ const ShoppingCartPage = () => {
     }
 
     const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-    const isDeleteSuccess = await API.DELETE_SELECTED_CART_ITEMS(selectedCartItemIdList);
+    const responseResult = await API.DELETE_SELECTED_CART_ITEMS(selectedCartItemIdList);
 
-    if (!isDeleteSuccess) {
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
       alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
       return;
     }
@@ -104,6 +108,7 @@ const ShoppingCartPage = () => {
     if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
       return;
     }
+
     const selectedItems = getSelectedItems();
     if (selectedItems.length === 0) return;
     history.push({ pathname: PATH.ORDER, state: { selectedItems } });

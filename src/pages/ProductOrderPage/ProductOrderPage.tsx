@@ -4,7 +4,7 @@ import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 
-import { PATH } from '../../constants';
+import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
 import { API } from '../../services/api';
@@ -44,9 +44,9 @@ const ProductOrderPage = () => {
       return;
     }
 
-    const isOrderSuccess = await API.ORDER(orderItems);
+    const responseResult = await API.ORDER(orderItems);
 
-    if (!isOrderSuccess) {
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
       alert('주문에 실패하였습니다.');
       return;
     }

@@ -12,7 +12,7 @@ import useOrders from '../../hooks/orders';
 
 import { getMoneyString } from '../../utils/format';
 import { RootState } from '../../modules';
-import { PATH, RESPONSE_MESSAGE } from '../../constants';
+import { PATH, RESPONSE_RESULT } from '../../constants';
 import { API } from '../../services/api';
 
 import * as Styled from './OrderListPage.styles';
@@ -43,14 +43,14 @@ const OrderListPage = () => {
 
     if (!product) return;
 
-    const responseMessage = await API.ADD_ONE_ITEM_IN_CART(product, id);
+    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
-    if (responseMessage === RESPONSE_MESSAGE.ALREADY_EXIST) {
+    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
       alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
       return;
     }
 
-    if (responseMessage === RESPONSE_MESSAGE.FAILURE) {
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
       alert('상품을 장바구니에 담지 못했습니다.');
       return;
     }

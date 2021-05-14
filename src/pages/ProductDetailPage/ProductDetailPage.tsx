@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import axios from 'axios';
 import { useHistory } from 'react-router';
 
 import NumberInput from '../../components/commons/NumberInput/NumberInput';
@@ -11,8 +10,9 @@ import Tooltip from '../../components/commons/Tooltip/Tooltip';
 
 import useProductDetail from '../../hooks/productDetail';
 
-import { COLORS, PATH, STATUS_CODE, URL } from '../../constants';
+import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
+import { API } from '../../services/api';
 
 import * as Styled from './ProductDetailPage.styles';
 
@@ -31,15 +31,14 @@ const ProductDetailPage = () => {
   }
 
   const onCartButtonClick = async () => {
-    try {
-      const response = await axios.post(URL.CART, { ...product, quantity: Number(productQuantity) });
-      if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('상품을 장바구니에 담지 못했습니다.');
-      }
-      setToolTipShown(true);
-    } catch (error) {
-      console.error(error);
+    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product, productQuantity);
+
+    if (responseResult === RESPONSE_RESULT.FAILURE) {
+      alert('상품을 장바구니에 담지 못했습니다.');
+      return;
     }
+
+    setToolTipShown(true);
   };
 
   const onTooltipButtonClick = () => {

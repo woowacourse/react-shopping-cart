@@ -1,24 +1,23 @@
 import axios from 'axios';
-import { STATUS_CODE, URL } from '../constants';
-import { RESPONSE_MESSAGE } from '../constants/request';
-import { confirm } from '../utils/confirm';
+import { STATUS_CODE, URL, RESPONSE_RESULT } from '../constants';
 
 export const API = {
-  ADD_ONE_ITEM_IN_CART: async (product: Product, id: Product['id']) => {
+  ADD_ONE_ITEM_IN_CART: async (product: Product, qunatity?: CartItem['quantity']) => {
     try {
-      const response = await axios.post(URL.CART, { ...product, quantity: '1' });
+      const response = await axios.post(URL.CART, { ...product, quantity: qunatity ? qunatity : '1' });
 
       if (response.status === STATUS_CODE.ALREADY_EXIST) {
-        return RESPONSE_MESSAGE.ALREADY_EXIST;
+        return RESPONSE_RESULT.ALREADY_EXIST;
       }
 
       if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        return RESPONSE_MESSAGE.FAILURE;
+        return RESPONSE_RESULT.FAILURE;
       }
 
-      return RESPONSE_MESSAGE.SUCCESS;
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
+      return RESPONSE_RESULT.FAILURE;
     }
   },
   CHANGE_ITEM_QUANTITY: async (id: CartItem['id'], quantity: CartItem['quantity']) => {
@@ -26,34 +25,27 @@ export const API = {
       const response = await axios.patch(`${URL.CART}/${id}`, { quantity });
 
       if (response.status !== STATUS_CODE.PUT_SUCCESS) {
-        throw new Error('상품 수량 변경에 실패하였습니다');
+        return RESPONSE_RESULT.FAILURE;
       }
+
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
+      return RESPONSE_RESULT.FAILURE;
     }
   },
-  DELETE_CART_ITEM: async (cartItems: CartItem[], id: CartItem['id']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-
-    if (!confirm(`${newCartItems[targetIndex].name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
-      return;
-    }
-
+  DELETE_CART_ITEM: async (id: CartItem['id']) => {
     try {
       const response = await axios.delete(`${URL.CART}/${id}`);
 
       if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-        throw new Error('장바구니 아이템 삭제에 실패하였습니다');
+        return RESPONSE_RESULT.FAILURE;
       }
 
-      newCartItems.splice(targetIndex, 1);
-
-      return true;
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
-
-      return false;
+      return RESPONSE_RESULT.FAILURE;
     }
   },
   DELETE_SELECTED_CART_ITEMS: async (selectedCartItemIdList: String[]) => {
@@ -62,15 +54,14 @@ export const API = {
         const response = await axios.delete(`${URL.CART}/${id}`);
 
         if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-          throw new Error('장바구니 아이템 삭제에 실패하였습니다');
+          throw new Error('상품을 장바구니에서 삭제하는데 실패하였습니다.');
         }
       });
 
-      return true;
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
-
-      return false;
+      return RESPONSE_RESULT.FAILURE;
     }
   },
   ORDER: async (orderItems: CartItem[]) => {
@@ -78,14 +69,13 @@ export const API = {
       const response = await axios.post(URL.ORDERS, { orderItems });
 
       if (response.status !== STATUS_CODE.POST_SUCCESS) {
-        throw new Error('주문에 실패하였습니다.');
+        return RESPONSE_RESULT.FAILURE;
       }
 
-      return true;
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
-
-      return false;
+      return RESPONSE_RESULT.FAILURE;
     }
   },
   DELETE_ORDER_ITEMS_IN_CART: async (orderItems: CartItem[]) => {
@@ -98,11 +88,10 @@ export const API = {
         }
       });
 
-      return true;
+      return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
       console.error(error);
-
-      return false;
+      return RESPONSE_RESULT.FAILURE;
     }
   },
 };

@@ -14,7 +14,7 @@ export const STATUS_CODE = {
   ALREADY_EXIST: 500,
 };
 
-export const RESPONSE_MESSAGE = {
+export const RESPONSE_RESULT = {
   SUCCESS: 'SUCCESS',
   ALREADY_EXIST: 'ALREADY_EXIST',
   FAILURE: 'FAILURE',
