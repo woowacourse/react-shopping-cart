@@ -1,7 +1,6 @@
-import { useState } from 'react';
-
 import { useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import useSnackBar from '../../hooks/useSnackBar';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
@@ -9,9 +8,8 @@ import ProductListItem from '../../components/commons/ProductListItem/ProductLis
 import Button from '../../components/commons/Button/Button';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
-import useOrders from '../../hooks/orders';
+import useOrders from '../../hooks/useOrders';
 
 import { getMoneyString } from '../../utils/format';
 import { RootState } from '../../modules';
@@ -23,7 +21,7 @@ import * as Styled from './OrderListPage.styles';
 const OrderListPage = () => {
   const history = useHistory();
   const { orders, loading, responseOK } = useOrders();
-  const [snackBarMessage, setSnackBarMessage] = useState('');
+  const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
   const { products } = useSelector((state: RootState) => state.product);
 
   if (products.length === 0) {
@@ -95,7 +93,7 @@ const OrderListPage = () => {
         </Styled.PageTitleWrapper>
         {orderList.reverse()}
       </Styled.PageWrapper>
-      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
+      <SnackBar key={Math.random()} message={snackBarMessage} setMessage={setSnackBarMessage} />
     </Styled.OrderListPage>
   );
 };

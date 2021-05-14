@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Redirect, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
@@ -11,9 +9,9 @@ import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
 import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
-import useOrderDetail from '../../hooks/orderDetail';
+import useOrderDetail from '../../hooks/useOrderDetail';
+import useSnackBar from '../../hooks/useSnackBar';
 
 import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
 import { RootState } from '../../modules';
@@ -26,7 +24,7 @@ const OrderDetailPage = () => {
   const history = useHistory();
   const { products } = useSelector((state: RootState) => state.product);
   const { orderItems, loading, responseOK } = useOrderDetail();
-  const [snackBarMessage, setSnackBarMessage] = useState('');
+  const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
   const orderId = window.location.hash.split('/').slice(-1);
 
   if (products.length === 0) {
@@ -101,7 +99,7 @@ const OrderDetailPage = () => {
           <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={totalPrice} />
         </Styled.PageBottom>
       </Styled.PageWrapper>
-      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
+      <SnackBar key={Math.random()} message={snackBarMessage} setMessage={setSnackBarMessage} />
     </Styled.OrderListPage>
   );
 };

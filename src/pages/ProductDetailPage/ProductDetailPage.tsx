@@ -9,7 +9,8 @@ import Button from '../../components/commons/Button/Button';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
 import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
-import useProductDetail from '../../hooks/productDetail';
+import useProductDetail from '../../hooks/useProductDetail';
+import useForceUpdate from '../../hooks/useForceUpdate';
 
 import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
@@ -22,6 +23,7 @@ const ProductDetailPage = () => {
   const [productQuantity, setProductQuantity] = useState<string>('1');
   const [isToolTipShown, setToolTipShown] = useState<boolean>(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
+  const forceUpdate = useForceUpdate();
   const { product, loading, responseOK } = useProductDetail();
 
   if (loading) {
@@ -37,11 +39,13 @@ const ProductDetailPage = () => {
 
     if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
       setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
+      forceUpdate();
       return;
     }
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
       setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
+      forceUpdate();
       return;
     }
 
@@ -87,7 +91,7 @@ const ProductDetailPage = () => {
           </Button>
         </Styled.ButtonWrapper>
       </Styled.ProductWrapper>
-      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
+      {snackBarMessage && <SnackBar key={Math.random()} message={snackBarMessage} setMessage={setSnackBarMessage} />}
     </Styled.ProductDetailPage>
   );
 };

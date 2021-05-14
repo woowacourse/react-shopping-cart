@@ -9,7 +9,7 @@ import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 
-import useCart from '../../hooks/cart';
+import useCart from '../../hooks/useCart';
 
 import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';

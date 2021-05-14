@@ -1,13 +1,11 @@
-import { useState } from 'react';
-
 import { useHistory } from 'react-router-dom';
 
 import ProductGridItem from '../../components/ProductListPage/ProductGridItem/ProductGridItem';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
-import useProducts from '../../hooks/products';
+import useProducts from '../../hooks/useProducts';
+import useSnackBar from '../../hooks/useSnackBar';
 
 import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
@@ -18,7 +16,7 @@ import * as Styled from './ProductListPage.styles';
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error } = useProducts();
-  const [snackBarMessage, setSnackBarMessage] = useState('');
+  const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
 
   if (loading) {
     return <Loading />;
@@ -40,7 +38,7 @@ const ProductListPage = () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
     if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
+      setSnackBarMessage('상품이 이미 장바구니에 담겨있습니다.');
       return;
     }
 
@@ -66,7 +64,7 @@ const ProductListPage = () => {
   return (
     <Styled.ProductListPage>
       {productGridItemList}
-      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
+      <SnackBar key={Math.random()} message={snackBarMessage} setMessage={setSnackBarMessage} />
     </Styled.ProductListPage>
   );
 };
