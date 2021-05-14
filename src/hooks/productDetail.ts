@@ -8,7 +8,6 @@ const defaultProduct: Product = {
   name: '상품 정보 없음',
   price: '0',
   thumbnail: noImagePNG,
-  stock: 0,
 };
 
 const useProductDetail = () => {

@@ -3,7 +3,6 @@ declare interface Product {
   name: string;
   thumbnail: string;
   price: string;
-  stock: number;
 }
 
 declare interface CartItem {
@@ -15,7 +14,8 @@ declare interface CartItem {
   isSelected: boolean;
 }
 
-type Cart = CartItem[];
+declare type Cart = CartItem[];
+
 declare interface Order {
   id: number;
   orderItems: CartItem[];
