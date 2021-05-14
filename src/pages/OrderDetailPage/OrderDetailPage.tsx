@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Redirect, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +11,7 @@ import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
 import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
+import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
 import useOrderDetail from '../../hooks/orderDetail';
 
@@ -23,6 +26,7 @@ const OrderDetailPage = () => {
   const history = useHistory();
   const { products } = useSelector((state: RootState) => state.product);
   const { orderItems, loading, responseOK } = useOrderDetail();
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   const orderId = window.location.hash.split('/').slice(-1);
 
   if (products.length === 0) {
@@ -49,16 +53,16 @@ const OrderDetailPage = () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
     if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
       return;
     }
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
       return;
     }
 
-    alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
   const orderItemList = orderItems.map(orderItem => (
@@ -97,6 +101,7 @@ const OrderDetailPage = () => {
           <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={totalPrice} />
         </Styled.PageBottom>
       </Styled.PageWrapper>
+      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
     </Styled.OrderListPage>
   );
 };

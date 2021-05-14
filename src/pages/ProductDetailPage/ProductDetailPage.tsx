@@ -7,6 +7,7 @@ import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import Button from '../../components/commons/Button/Button';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
+import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
 import useProductDetail from '../../hooks/productDetail';
 
@@ -20,6 +21,7 @@ const ProductDetailPage = () => {
   const history = useHistory();
   const [productQuantity, setProductQuantity] = useState<string>('1');
   const [isToolTipShown, setToolTipShown] = useState<boolean>(false);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   const { product, loading, responseOK } = useProductDetail();
 
   if (loading) {
@@ -33,8 +35,13 @@ const ProductDetailPage = () => {
   const onAddItemInCart = async () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product, productQuantity);
 
+    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
+      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
+      return;
+    }
+
     if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
       return;
     }
 
@@ -80,6 +87,7 @@ const ProductDetailPage = () => {
           </Button>
         </Styled.ButtonWrapper>
       </Styled.ProductWrapper>
+      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
     </Styled.ProductDetailPage>
   );
 };

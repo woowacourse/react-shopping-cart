@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -7,6 +9,7 @@ import ProductListItem from '../../components/commons/ProductListItem/ProductLis
 import Button from '../../components/commons/Button/Button';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
+import SnackBar from '../../components/commons/SnackBar/SnackBar';
 
 import useOrders from '../../hooks/orders';
 
@@ -20,6 +23,7 @@ import * as Styled from './OrderListPage.styles';
 const OrderListPage = () => {
   const history = useHistory();
   const { orders, loading, responseOK } = useOrders();
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   const { products } = useSelector((state: RootState) => state.product);
 
   if (products.length === 0) {
@@ -46,16 +50,16 @@ const OrderListPage = () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
     if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
       return;
     }
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
       return;
     }
 
-    alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
   const orderList = orders.map(order => (
@@ -91,6 +95,7 @@ const OrderListPage = () => {
         </Styled.PageTitleWrapper>
         {orderList.reverse()}
       </Styled.PageWrapper>
+      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
     </Styled.OrderListPage>
   );
 };
