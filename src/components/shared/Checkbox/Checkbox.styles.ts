@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { InputHTMLAttributes } from 'react';
 
 const CheckMark = styled.span`
   position: relative;
@@ -25,19 +26,6 @@ const CheckMark = styled.span`
   }
 `;
 
-const Label = styled.label`
-  display: flex;
-  position: relative;
-  cursor: pointer;
-  font-size: 16px;
-  user-select: none;
-  align-items: center;
-
-  &:hover ${CheckMark} {
-    background-color: #e1f5f4;
-  }
-`;
-
 const Text = styled.span`
   padding-left: 7px;
 `;
@@ -57,6 +45,34 @@ const Checkbox = styled.input`
     & ~ ${CheckMark}:after {
       display: block;
     }
+  }
+
+  &:disabled {
+    & ~ ${CheckMark} {
+      background-color: ${(props) => props.theme.bgColor.lightGrey};
+      border-color: ${(props) => props.theme.borderColor.defaultGrey};
+    }
+  }
+`;
+
+type LabelProps = {
+  disabled: InputHTMLAttributes<HTMLInputElement>['disabled'];
+};
+
+const Label = styled.label<LabelProps>`
+  display: flex;
+  position: relative;
+  font-size: 16px;
+  user-select: none;
+  align-items: center;
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+
+  &:hover ${CheckMark} {
+    background-color: #e1f5f4;
+  }
+
+  &:hover ${Checkbox}:disabled ~ ${CheckMark} {
+    background-color: ${(props) => props.theme.bgColor.lightGrey};
   }
 `;
 
