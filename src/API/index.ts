@@ -28,11 +28,11 @@ const APIClient = {
   },
 
   delete(path: string) {
-    fetch(API_BASE_URL + path, fetchOption('DELETE'));
+    return fetch(API_BASE_URL + path, fetchOption('DELETE'));
   },
 
   patch<T>(path: string, data: Partial<T>) {
-    fetch(API_BASE_URL + path, fetchOption('PATCH', data as Partial<T>));
+    return fetch(API_BASE_URL + path, fetchOption('PATCH', data as Partial<T>));
   },
 };
 
