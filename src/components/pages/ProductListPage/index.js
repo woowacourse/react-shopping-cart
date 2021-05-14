@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UNIT } from '../../../constants/appInfo';
+import { UNIT, TIME } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
+import useSnackbar from '../../../hooks/useSnackbar';
 import { addToCart } from '../../../redux/Cart/actions';
 import { resetErrorMessage } from '../../../redux/Message/actions';
 import { getProducts, resetProducts } from '../../../redux/Products/actions';
@@ -15,9 +16,9 @@ import Product from '../../shared/Product';
 import * as Styled from './style';
 
 const ProductListPage = () => {
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar(TIME.SNACKBAR_DURATION);
   const { products, cart, errorMessage } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
     dispatch(getProducts());
@@ -70,9 +71,7 @@ const ProductListPage = () => {
         ))}
       </Styled.ProductList>
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
-      {snackbarMessage && (
-        <Snackbar text={snackbarMessage} time={3000} setMessage={setSnackbarMessage} backgroundColor="#555" />
-      )}
+      {snackbarMessage && <Snackbar message={snackbarMessage} ms={TIME.SNACKBAR_DURATION} backgroundColor="#555" />}
     </Main>
   );
 };

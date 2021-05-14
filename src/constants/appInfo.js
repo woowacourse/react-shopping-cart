@@ -26,3 +26,7 @@ export const UNIT = {
   MONEY: '원',
   AMOUNT: '개',
 };
+
+export const TIME = {
+  SNACKBAR_DURATION: 3000,
+};
