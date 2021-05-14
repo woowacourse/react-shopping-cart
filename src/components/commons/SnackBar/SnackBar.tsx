@@ -19,7 +19,7 @@ const SnackBar = ({ message, setMessage }: Props) => {
       setMessage('');
       clearTimeout(id);
     };
-  }, []);
+  }, [setMessage]);
 
   if (!$snackBar) return null;
   return ReactDOM.createPortal(<Styled.SnackBar>{message}</Styled.SnackBar>, $snackBar);
