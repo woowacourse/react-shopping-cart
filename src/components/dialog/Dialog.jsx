@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import DialogPortal from '../../DialogPortal';
+import DialogPortal from '../../portals/DialogPortal';
 import { COLOR } from '../../constants/color';
 
 export const DIALOG_TYPE = Object.freeze({

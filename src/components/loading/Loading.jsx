@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import LoadingPortal from '../../portals/LoadingPortal';
 import { COLOR } from '../../constants/color';
-import LoadingPortal from '../../LoadingPortal';
 
 const bounce = keyframes`
   0% {
