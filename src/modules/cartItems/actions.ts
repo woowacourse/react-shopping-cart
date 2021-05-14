@@ -195,9 +195,7 @@ export const deleteCheckedItemsActionRequest = (ids: T.CartItem['id'][]) => asyn
   dispatch({ type: DELETE_CHECKED_ITEMS_REQUEST });
 
   try {
-    ids.forEach(async (id) => {
-      await api.delete(`/cart/${id}`);
-    });
+    await Promise.all(ids.map((id) => api.delete(`/cart/${id}`)));
 
     dispatch({ type: DELETE_CHECKED_ITEMS_SUCCESS, ids });
   } catch (error) {
