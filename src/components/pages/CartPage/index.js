@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
+import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
 import {
   changeAllCheckboxesInCart,
@@ -48,6 +49,11 @@ const CartPage = () => {
 
   const onChangeAmount = (productId) => (amount) => {
     dispatch(changeAmount(productId, amount));
+  };
+
+  const onCheckout = () => {
+    if (!confirm(APP_MESSAGE.ORDER_CONFIRMATION)) return;
+    window.location.hash = `#${PAGES.CHECKOUT.ADDRESS}`;
   };
 
   useEffect(() => {
@@ -110,10 +116,8 @@ const CartPage = () => {
           margin="6rem 1.5rem 0 auto"
           title="결제예상금액"
           priceInfo={{ name: '결제예상금액', price: totalPrice }}
-          submitInfo={{
-            text: '주문하기',
-            address: PAGES.CHECKOUT.ADDRESS,
-          }}
+          buttonText={'주문하기'}
+          onClick={onCheckout}
         />
       </FlexContainer>
     </Main>

@@ -20,6 +20,8 @@ const CheckoutPage = () => {
   const totalPrice = checkedProducts.reduce((prev, product) => prev + Number(product.price) * product.amount, 0);
 
   const onOrder = () => {
+    if (!confirm(APP_MESSAGE.PAYMENT_CONFIRMATION)) return;
+
     const order = checkedProducts.map((product) => {
       const productCopy = { ...product };
       delete productCopy.isChecked;
@@ -28,9 +30,9 @@ const CheckoutPage = () => {
     });
 
     dispatch(setOrder(order));
-
-    alert(APP_MESSAGE.ORDER_SUCCESS);
     dispatch(removeCheckedProducts());
+
+    window.location.hash = `#${PAGES.ORDERS.ADDRESS}`;
   };
 
   return (
@@ -57,8 +59,8 @@ const CheckoutPage = () => {
           margin="6rem 1.5rem 0 auto"
           title="결제금액"
           priceInfo={{ name: '총 결제금액', price: totalPrice }}
-          submitInfo={{ text: `${totalPrice.toLocaleString()}원 결제하기`, address: PAGES.ORDERS.ADDRESS }}
-          onOrder={onOrder}
+          buttonText={`${totalPrice.toLocaleString()}원 결제하기`}
+          onClick={onOrder}
         />
       </FlexContainer>
     </Main>

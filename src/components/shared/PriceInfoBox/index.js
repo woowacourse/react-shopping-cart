@@ -7,23 +7,18 @@ import HighlightText from '../../common/HighlightText';
 import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
 
-const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) => {
-  const onClick = () => {
-    onOrder && onOrder();
-    window.location.hash = `#${submitInfo.address}`;
-  };
-
+const PriceInfoBox = ({ width, margin, title, priceInfo, buttonText, onClick }) => {
   return (
     <FlexContainer width={width} margin={margin} direction="column" border={`1px solid ${PALETTE.GRAY_004}`}>
       <Styled.PriceInfoTitle>{title}</Styled.PriceInfoTitle>
       <FlexContainer direction="column" padding="1.8rem 1.4rem">
-        <FlexContainer justifyContent="space-between" margin={submitInfo && '0 0 3rem 0'}>
+        <FlexContainer justifyContent="space-between" margin={buttonText && '0 0 3rem 0'}>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{priceInfo.name}</HighlightText>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{`${priceInfo.price.toLocaleString()} ${
             UNIT.MONEY
           }`}</HighlightText>
         </FlexContainer>
-        {submitInfo && (
+        {buttonText && (
           <Button
             type="button"
             width="100%"
@@ -33,7 +28,7 @@ const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) 
             fontSize="1.3rem"
             onClick={onClick}
           >
-            {submitInfo.text}
+            {buttonText}
           </Button>
         )}
       </FlexContainer>
@@ -45,15 +40,13 @@ PriceInfoBox.propTypes = {
   width: PropTypes.string,
   margin: PropTypes.string,
   title: PropTypes.string,
+  confirmMessage: PropTypes.string,
   priceInfo: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
   }),
-  submitInfo: PropTypes.shape({
-    text: PropTypes.string,
-    address: PropTypes.string,
-  }),
-  onOrder: PropTypes.func,
+  buttonText: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default PriceInfoBox;
