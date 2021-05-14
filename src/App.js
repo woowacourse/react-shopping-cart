@@ -8,7 +8,7 @@ import { PATH } from './constants';
 import { Cart, ItemList, Order } from './pages';
 import { setItemList, store } from './store';
 import { setCartItemList } from './store/cartReducer';
-import { API } from './utils';
+import { API } from '../src/services';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
 
 function App() {

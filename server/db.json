@@ -182,29 +182,5 @@
     }
   ],
   "cart": [],
-  "orders": [
-    {
-      "products": [
-        [
-          {
-            "id": 20,
-            "name": "[든든] 면사랑 조랭이떡 1kg",
-            "image": "https://cdn-mart.baemin.com/sellergoods/main/92fc2d92-e960-4f61-950a-da07ab022d78.jpg",
-            "price": 5000,
-            "quantity": 3,
-            "checked": true
-          },
-          {
-            "id": 19,
-            "name": "[든든] 면사랑 쌀떡국 1kg",
-            "image": "https://cdn-mart.baemin.com/sellergoods/main/b27857c3-60d7-406a-8dff-10089152d515.jpg",
-            "price": 5000,
-            "quantity": 4,
-            "checked": true
-          }
-        ]
-      ],
-      "id": 1
-    }
-  ]
+  "orders": []
 }

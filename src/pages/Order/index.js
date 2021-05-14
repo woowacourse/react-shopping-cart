@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrderDetail } from '../../store';
 import { deleteCartItems } from '../../store/cartReducer';
-import { API } from '../../utils';
+import { API } from '../../services'
 import { Button, HighlightText, Product } from '../../components/shared';
 import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
