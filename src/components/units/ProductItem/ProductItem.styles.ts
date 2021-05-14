@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 const Root = styled.div`
   width: 282px;
-  label: product-item-root;
 `;
 
 const ImageWrapper = styled.div`
