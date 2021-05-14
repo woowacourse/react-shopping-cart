@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import checkbox from '../../asset/checkbox.svg';
+
+import styled from 'styled-components';
 
 const CheckboxWrapper = styled.div`
   position: relative;

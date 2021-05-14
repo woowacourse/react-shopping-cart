@@ -5,6 +5,8 @@ import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
 import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
+import Flex from '../../components/utils/Flex';
+
 import CartItem from './CartItem';
 
 import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cart';
@@ -12,17 +14,10 @@ import { addPaymentItems } from '../../modules/payment';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const CartItemWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+const CartItemWrapperStyle = css`
   width: 1320px;
-`;
-
-const CartItemHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const CartItemSection = styled.section`
@@ -45,8 +40,9 @@ const CartItemList = styled.ul`
 `;
 
 const CartPage = () => {
-  const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart);
   const checkedItemIds = cartItems.filter((item) => item.checked).map((item) => item.id);
 
   const onCheckboxClick = (cartItemId) => {
@@ -84,9 +80,9 @@ const CartPage = () => {
     <>
       <PageTitle pageTitle="장바구니" />
       {cartItems.length ? (
-        <CartItemWrapper>
+        <Flex justifyContent="space-between" css={CartItemWrapperStyle}>
           <CartItemSection>
-            <CartItemHeader>
+            <Flex justifyContent="space-between">
               <CheckBox
                 labelName={getCheckboxMessage()}
                 id="cartItemCheckBox"
@@ -100,14 +96,20 @@ const CartPage = () => {
                 border="1px solid #bbbbbb"
                 color="#333333"
                 fontSize="16px"
+                hoverColor="#ffffff"
+                hoverBackgroundColor="#2ac1bc"
+                hoverBorder="1px solid #2ac1bc"
+                disabledBackgroundColor="inherit"
+                disabledColor="#333333"
+                disabledBorder="1px solid #bbbbbb"
                 onClick={onDeleteCheckedItemsButtonClick}
                 disabled={checkedItemIds.length === 0}
               >
                 상품삭제
               </Button>
-            </CartItemHeader>
-            <CartItemSectionTitle>든든배송 상품 ({cartItems.length}개)</CartItemSectionTitle>
+            </Flex>
 
+            <CartItemSectionTitle>든든배송 상품 ({cartItems.length}개)</CartItemSectionTitle>
             <CartItemList>
               {cartItems &&
                 cartItems
@@ -122,6 +124,7 @@ const CartPage = () => {
                   .reverse()}
             </CartItemList>
           </CartItemSection>
+
           <FloatingBox
             price={getTotalPrice(cartItems)}
             selectedItemIds={checkedItemIds}
@@ -129,7 +132,7 @@ const CartPage = () => {
             onClick={onPaymentButtonClick}
             disabled={checkedItemIds.length === 0}
           />
-        </CartItemWrapper>
+        </Flex>
       ) : (
         '장바구니에 담은 상품이 없습니다.'
       )}

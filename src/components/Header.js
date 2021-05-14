@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import logo from '../asset/logo.svg';
-
-import styled from 'styled-components';
 import Badge from './utils/Badge';
+import Flex from './utils/Flex';
+
+import styled, { css } from 'styled-components';
 
 const HeaderWrapper = styled.header`
   min-width: 1440px;
@@ -14,17 +15,13 @@ const HeaderWrapper = styled.header`
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
-const HeaderDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const HeaderDivStyle = css`
   max-width: 1440px;
   height: 100%;
   padding: 0 60px;
   margin: 0 auto;
 `;
 
-// TODO : h1 태그에 글자가 없어서 접근성 요소 넣어야함
 const LogoImage = styled.img`
   width: 360px;
   height: 44px;
@@ -48,7 +45,7 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <HeaderDiv>
+      <Flex justifyContent="space-between" alignItems="center" css={HeaderDivStyle}>
         <h1>
           <NavLink to="/">
             <LogoImage src={logo} alt="신세티케의 장바구니 로고" />
@@ -65,7 +62,7 @@ function Header() {
             </li>
           </NavUl>
         </nav>
-      </HeaderDiv>
+      </Flex>
     </HeaderWrapper>
   );
 }

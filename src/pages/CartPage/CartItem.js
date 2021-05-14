@@ -6,10 +6,11 @@ import IconButton from '../../components/utils/IconButton';
 import PriceText from '../../components/utils/PriceText';
 import CheckBox from '../../components/utils/CheckBox';
 import Image from '../../components/utils/Image';
+import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
 
@@ -24,20 +25,13 @@ const SingleCartItem = styled.li`
   border-bottom: 1px solid #cccccc;
 `;
 
-const ItemContents = styled.div`
-  display: flex;
-`;
-
 const CartItemName = styled.span`
   font-size: 20px;
   margin: 4px 21px 20px;
   color: #333333;
 `;
 
-const ManageCartItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+const ManageCartItemStyle = css`
   width: 146px;
   margin-left: auto;
 `;
@@ -66,12 +60,12 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
   return (
     <SingleCartItem>
       <CheckBox id={cartItem.id} checked={checked} onChange={onCheckboxClick} />
-      <ItemContents>
+      <Flex>
         <Image width="144px" height="144px" src={cartItem.image} alt={cartItem.name} isBackgroundImageNeeded={true} />
         <CartItemName>{cartItem.name}</CartItemName>
-      </ItemContents>
+      </Flex>
 
-      <ManageCartItem>
+      <Flex flexDirection="column" alignItems="flex-end" css={ManageCartItemStyle}>
         <IconButton
           src={bin}
           alt="해당 상품을 장바구니에서 삭제"
@@ -88,7 +82,7 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
         <CartItemPrice>
           <PriceText>{cartItem.quantity * cartItem.price}</PriceText>
         </CartItemPrice>
-      </ManageCartItem>
+      </Flex>
     </SingleCartItem>
   );
 };

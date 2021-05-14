@@ -1,32 +1,23 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import upperIcon from '../asset/up-icon.png';
 import downIcon from '../asset/down-icon.png';
+
+import Flex from './utils/Flex';
 import IconButton from './utils/IconButton';
 
-const CounterButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
+import { css } from 'styled-components';
+
+const CounterButtonWrapperStyle = css`
   width: 114px;
   height: 60px;
   margin: 25px 0;
 `;
 
-const CounterScreen = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const CounterScreenStyle = css`
   width: 71px;
   height: 58px;
   border: 1px solid #dddddd;
   font-size: 24px;
-`;
-
-const IconButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const IconButtonStyle = css`
@@ -39,10 +30,12 @@ const IconButtonStyle = css`
 
 const CounterButton = ({ count = '1', onIncreaseButtonClick, onDecreaseButtonClick }) => {
   return (
-    <CounterButtonWrapper>
-      <CounterScreen>{count}</CounterScreen>
+    <Flex alignItems="center" css={CounterButtonWrapperStyle}>
+      <Flex justifyContent="center" alignItems="center" css={CounterScreenStyle}>
+        {count}
+      </Flex>
 
-      <IconButtonWrapper>
+      <Flex justifyContent="center" alignItems="center" flexDirection="column">
         <IconButton
           src={upperIcon}
           alt="카운터 증가 버튼"
@@ -59,8 +52,8 @@ const CounterButton = ({ count = '1', onIncreaseButtonClick, onDecreaseButtonCli
           css={IconButtonStyle}
           onClick={onDecreaseButtonClick}
         />
-      </IconButtonWrapper>
-    </CounterButtonWrapper>
+      </Flex>
+    </Flex>
   );
 };
 

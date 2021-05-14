@@ -1,14 +1,13 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import Flex from './Flex';
 
-const BadgeWrapper = styled.div`
+import { css } from 'styled-components';
+
+const BadgeWrapperStyle = css`
   position: absolute;
   top: -10px;
   right: -20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 24px;
   height: 24px;
   color: #ffffff;
@@ -20,7 +19,11 @@ const BadgeWrapper = styled.div`
 `;
 
 const Badge = ({ number }) => {
-  return <BadgeWrapper>{number}</BadgeWrapper>;
+  return (
+    <Flex justifyContent="center" alignItems="center" css={BadgeWrapperStyle}>
+      {number}
+    </Flex>
+  );
 };
 
 export default Badge;

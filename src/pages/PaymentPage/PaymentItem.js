@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Image from '../../components/utils/Image';
+import Flex from '../../components/utils/Flex';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const SinglePaymentItem = styled.li`
   display: flex;
@@ -14,10 +15,8 @@ const SinglePaymentItem = styled.li`
   border-bottom: 1px solid #cccccc;
 `;
 
-const PaymentItemInfoWrapper = styled.div`
+const PaymentItemInfoWrapperStyle = css`
   align-self: flex-start;
-  display: flex;
-  flex-direction: column;
   margin-left: 20px;
 `;
 
@@ -42,10 +41,10 @@ const PaymentItem = ({ paymentItem }) => {
         alt={paymentItem.name}
         isBackgroundImageNeeded={true}
       />
-      <PaymentItemInfoWrapper>
+      <Flex flexDirection="column" css={PaymentItemInfoWrapperStyle}>
         <PaymentItemName>{paymentItem.name}</PaymentItemName>
         <PaymentItemQuantity>수량 : {paymentItem.quantity}</PaymentItemQuantity>
-      </PaymentItemInfoWrapper>
+      </Flex>
     </SinglePaymentItem>
   );
 };
