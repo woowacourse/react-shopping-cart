@@ -1,4 +1,6 @@
-import { API_BASE_URL, HTTPMethod } from '../constants/API';
+import { API_BASE_URL } from '../constants/API';
+
+type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 const fetchOption = (method: HTTPMethod, data?: unknown) => ({
   method,
