@@ -16,13 +16,13 @@ const APIClient = {
   },
 
   async post<T>(path: string, data: T) {
-    const response = await fetch(API_BASE_URL + path, fetchOption('POST', data as T));
+    const response = await fetch(API_BASE_URL + path, fetchOption('POST', data));
 
     return response.json();
   },
 
   async put<T>(path: string, data: T) {
-    const response = await fetch(API_BASE_URL + path, fetchOption('PUT', data as T));
+    const response = await fetch(API_BASE_URL + path, fetchOption('PUT', data));
 
     return response.json();
   },
@@ -32,7 +32,7 @@ const APIClient = {
   },
 
   patch<T>(path: string, data: Partial<T>) {
-    return fetch(API_BASE_URL + path, fetchOption('PATCH', data as Partial<T>));
+    return fetch(API_BASE_URL + path, fetchOption('PATCH', data));
   },
 };
 
