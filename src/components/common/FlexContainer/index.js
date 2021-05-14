@@ -44,4 +44,4 @@ FlexContainer.propTypes = {
   children: PropTypes.any,
 };
 
-export default FlexContainer;
+export default React.memo(FlexContainer);
