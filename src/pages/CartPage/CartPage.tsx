@@ -71,15 +71,29 @@ const CartPage = () => {
         <Styled.Cart>
           <Styled.CartListContainer>
             <Styled.CartListOption>
-              <Checkbox labelText="전체 선택" checked={isAllChecked} onChange={handleCheckAllItem} />
+              <Checkbox
+                labelText="전체 선택"
+                checked={isAllChecked}
+                onChange={handleCheckAllItem}
+                disabled={cartItems.data.length <= 0}
+              />
               <Styled.DeleteButton onClick={handleDeleteCheckedItem}>선택 삭제</Styled.DeleteButton>
             </Styled.CartListOption>
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
-            <Styled.CartItemList>
-              {cartItems.data?.map?.((cartItem) => (
-                <CartItem key={cartItem.id} cartItem={cartItem} onCheck={handleCheckItem} onDelete={handleDeleteItem} />
-              ))}
-            </Styled.CartItemList>
+            {cartItems.data.length <= 0 ? (
+              <Styled.NoResultMessage>🛒 장바구니가 비어있어요!</Styled.NoResultMessage>
+            ) : (
+              <Styled.CartItemList>
+                {cartItems.data?.map?.((cartItem) => (
+                  <CartItem
+                    key={cartItem.id}
+                    cartItem={cartItem}
+                    onCheck={handleCheckItem}
+                    onDelete={handleDeleteItem}
+                  />
+                ))}
+              </Styled.CartItemList>
+            )}
           </Styled.CartListContainer>
           <Styled.PriceOverviewWrapper>
             <PriceOverview headerText="결제예상금액">

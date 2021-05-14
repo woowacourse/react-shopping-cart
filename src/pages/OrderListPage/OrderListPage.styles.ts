@@ -54,6 +54,12 @@ const SpinnerWrapper = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const NoResultMessage = styled.div`
+  text-align: center;
+  font-size: 24px;
+  margin: 2em 0;
+`;
+
 export default {
   Root,
   OrderList,
@@ -64,4 +70,5 @@ export default {
   PurchasedList,
   Product,
   SpinnerWrapper,
+  NoResultMessage,
 };

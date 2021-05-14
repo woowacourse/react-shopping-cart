@@ -70,10 +70,14 @@ const OrderListPage = () => {
   return (
     <Styled.Root>
       <PageHeader title="주문 목록" />
-      {isLoading ? (
+      {isLoading && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
+      )}
+
+      {!isLoading && orders.length <= 0 ? (
+        <Styled.NoResultMessage>📋 주문한 내역이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.OrderList>
           {orders?.map?.((order) => (
