@@ -38,7 +38,7 @@ const OrderListPage = () => {
   const handleClickCart = (product: T.Product) => {
     if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
+    const cartItemIds = cartItems.data?.map?.((cartItem) => cartItem.product.id);
 
     if (cartItemIds.includes(product.id)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
@@ -76,14 +76,14 @@ const OrderListPage = () => {
         </Styled.SpinnerWrapper>
       ) : (
         <Styled.OrderList>
-          {orders.map((order) => (
+          {orders?.map?.((order) => (
             <Styled.Order key={order.id}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
                 <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
-                {order.items.map((item) => (
+                {order.items?.map?.((item) => (
                   <PurchasedItem key={item.id} item={item} onClick={handleClickCart} />
                 ))}
               </Styled.PurchasedList>

@@ -25,11 +25,11 @@ const CartPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
   const dispatch = useDispatch();
 
-  const isAllChecked = cartItems.data.every((item) => item.checked);
+  const isAllChecked = cartItems.data?.every?.((item) => item.checked);
 
-  const checkedItems = cartItems.data.filter((item) => item.checked);
+  const checkedItems = cartItems.data?.filter?.((item) => item.checked);
 
-  const checkedItemsTotalPrice = cartItems.data.reduce((acc: number, curr: T.CartItem) => {
+  const checkedItemsTotalPrice = cartItems.data?.reduce((acc: number, curr: T.CartItem) => {
     if (!curr.checked) return acc;
     return acc + curr.product.price * curr.quantity;
   }, 0);
@@ -51,7 +51,7 @@ const CartPage = () => {
   const handleDeleteCheckedItem = () => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CHECKED_CART_ITEMS)) return;
 
-    const ids = checkedItems.map((item) => item.id);
+    const ids = checkedItems?.map((item) => item.id);
 
     dispatch(deleteCheckedItemsActionRequest(ids));
   };
@@ -76,7 +76,7 @@ const CartPage = () => {
             </Styled.CartListOption>
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
             <Styled.CartItemList>
-              {cartItems.data.map((cartItem) => (
+              {cartItems.data?.map?.((cartItem) => (
                 <CartItem key={cartItem.id} cartItem={cartItem} onCheck={handleCheckItem} onDelete={handleDeleteItem} />
               ))}
             </Styled.CartItemList>

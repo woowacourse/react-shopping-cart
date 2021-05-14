@@ -73,7 +73,7 @@ const ProductsPage = () => {
         </Styled.SpinnerWrapper>
       ) : (
         <Styled.ProductList>
-          {products?.map((product: T.Product) => (
+          {products?.map?.((product: T.Product) => (
             <li key={product.id}>
               <ProductItem product={product} onClickCart={handleClickCart} />
             </li>

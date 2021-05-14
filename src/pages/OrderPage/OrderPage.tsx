@@ -25,7 +25,7 @@ const OrderPage = () => {
 
   const { checkedItems } = location.state;
 
-  const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: T.CartItem) => {
+  const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {
     return acc + curr.product.price * curr.quantity;
   }, 0);
 
@@ -37,7 +37,7 @@ const OrderPage = () => {
     try {
       await api.post('/orders', { items: checkedItems });
 
-      const ids = checkedItems.map((cartItem) => cartItem.id);
+      const ids = checkedItems?.map?.((cartItem) => cartItem.id);
       dispatch(deleteCheckedItemsActionRequest(ids));
 
       history.replace('/order/complete');
@@ -57,7 +57,7 @@ const OrderPage = () => {
         <Styled.OrderListContainer>
           <Styled.OrderListHeader>주문 상품({checkedItems.length}건)</Styled.OrderListHeader>
           <Styled.OrderItemList>
-            {checkedItems?.map((item) => (
+            {checkedItems?.map?.((item) => (
               <OrderItem
                 key={item.id}
                 title={item.product.name}
