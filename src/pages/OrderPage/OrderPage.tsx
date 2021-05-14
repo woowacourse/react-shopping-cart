@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -12,6 +14,7 @@ import * as T from '../../types';
 import api from '../../api';
 import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
+import { RootState } from '../../modules';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -20,7 +23,7 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
 
