@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import Styled from './Button.styles';
 import * as T from '../../../types';
 
@@ -8,14 +8,13 @@ type ButtonProps = {
   text: string;
   textColor?: string;
   onClick?: () => void;
-  disabled?: boolean;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = (props: ButtonProps) => {
-  const { size, bgColor, text, textColor, onClick, disabled } = props;
+  const { size, bgColor, text, textColor, onClick } = props;
 
   return (
-    <Styled.Root size={size} bgColor={bgColor} textColor={textColor} onClick={onClick} disabled={disabled}>
+    <Styled.Root size={size} bgColor={bgColor} textColor={textColor} onClick={onClick} {...props}>
       {text}
     </Styled.Root>
   );
@@ -26,7 +25,6 @@ Button.defaultProps = {
   bgColor: '',
   textColor: '',
   onClick: () => {},
-  disabled: false,
 };
 
 export default Button;
