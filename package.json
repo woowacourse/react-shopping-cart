@@ -42,13 +42,14 @@
       "react-app/jest",
       "plugin:jsx-a11y/recommended",
       "plugin:import/recommended",
+      "plugin:react-hooks/recommended",
       "airbnb",
       "airbnb/hooks",
       "prettier"
     ],
     "plugins": [
-      "jsx-a11y",
-      "import"
+      "import",
+      "react-hooks"
     ],
     "overrides": [
       {
@@ -96,7 +97,11 @@
         }
       }
     ],
-    "ignorePatterns": "node_modules"
+    "ignorePatterns": [
+      "node_modules",
+      "public",
+      "build"
+    ]
   },
   "browserslist": {
     "production": [
