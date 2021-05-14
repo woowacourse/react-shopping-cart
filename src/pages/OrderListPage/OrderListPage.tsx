@@ -34,11 +34,11 @@ const OrderListPage = () => {
     return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
   }
 
-  const onOrderDetailLinkClick = (orderId: string) => {
+  const onMoveToOrderDetailPage = (orderId: string) => {
     history.push(`${PATH.ORDER_DETAIL}/${orderId}`);
   };
 
-  const onCartButtonClick = async (id: Product['id']) => {
+  const onAddItemInCart = async (id: Product['id']) => {
     const product = products.find(product => product.id === id);
 
     if (!product) return;
@@ -63,7 +63,7 @@ const OrderListPage = () => {
       <ItemGroup
         detailLinkButtonText="상세보기 >"
         orderNumber={String(order.id)}
-        onDetailLinkClick={() => onOrderDetailLinkClick(String(order.id))}
+        onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.id))}
       >
         {order.orderItems.map(item => (
           <Styled.OrderWrapper key={item.id}>
@@ -74,7 +74,7 @@ const OrderListPage = () => {
               productPrice={getMoneyString(item.price)}
               productQuantity={item.quantity}
             />
-            <Button size="SM" onClick={() => onCartButtonClick(item.id)}>
+            <Button size="SM" onClick={() => onAddItemInCart(item.id)}>
               장바구니 담기
             </Button>
           </Styled.OrderWrapper>

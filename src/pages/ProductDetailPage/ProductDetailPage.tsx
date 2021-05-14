@@ -30,7 +30,7 @@ const ProductDetailPage = () => {
     return <NotFound message="상품을 찾을 수 없습니다." />;
   }
 
-  const onCartButtonClick = async () => {
+  const onAddItemInCart = async () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product, productQuantity);
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
@@ -41,7 +41,7 @@ const ProductDetailPage = () => {
     setToolTipShown(true);
   };
 
-  const onTooltipButtonClick = () => {
+  const onMoveToCartPage = () => {
     history.push(PATH.CART);
   };
 
@@ -66,7 +66,7 @@ const ProductDetailPage = () => {
                 setTooltipShown={setToolTipShown}
                 timeOut={3000}
                 button={
-                  <Button size="SM" onClick={onTooltipButtonClick}>
+                  <Button size="SM" onClick={onMoveToCartPage}>
                     장바구니 가기
                   </Button>
                 }
@@ -75,7 +75,7 @@ const ProductDetailPage = () => {
               </Tooltip>
             </Styled.TooltipWrapper>
           )}
-          <Button onClick={onCartButtonClick} size="LG" backgroundColor={COLORS.BROWN_500}>
+          <Button onClick={onAddItemInCart} size="LG" backgroundColor={COLORS.BROWN_500}>
             장바구니 담기
           </Button>
         </Styled.ButtonWrapper>

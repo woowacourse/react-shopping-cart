@@ -28,11 +28,11 @@ const ProductListPage = () => {
     return <NotFound message="상품 정보를 불러올 수 없습니다." />;
   }
 
-  const onProductItemClick = (productId: string) => {
+  const onMoveToProductDetailPage = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
   };
 
-  const onCartButtonClick = async (id: Product['id']) => {
+  const onAddItemInCart = async (id: Product['id']) => {
     const product = products.find(product => product.id === id);
 
     if (!product) return;
@@ -54,8 +54,8 @@ const ProductListPage = () => {
 
   const productGridItemList = products.map((product: Product) => (
     <ProductGridItem
-      onClick={() => onProductItemClick(product.id)}
-      onCartButtonClick={() => onCartButtonClick(product.id)}
+      onClick={() => onMoveToProductDetailPage(product.id)}
+      onCartButtonClick={() => onAddItemInCart(product.id)}
       key={product.id}
       name={product.name}
       price={getMoneyString(product.price)}

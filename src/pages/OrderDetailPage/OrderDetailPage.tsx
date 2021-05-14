@@ -37,11 +37,11 @@ const OrderDetailPage = () => {
     return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
   }
 
-  const onOrderListLinkButtonClick = () => {
+  const onMoveToOrderListPage = () => {
     history.push(PATH.ORDER_LIST);
   };
 
-  const onCartButtonClick = async (id: Product['id']) => {
+  const onAddItemInCart = async (id: Product['id']) => {
     const product = products.find(product => product.id === id);
 
     if (!product) return;
@@ -70,7 +70,7 @@ const OrderDetailPage = () => {
         productQuantity={orderItem.quantity}
         productThumbnail={orderItem.thumbnail}
       />
-      <Button size="SM" onClick={() => onCartButtonClick(orderItem.id)}>
+      <Button size="SM" onClick={() => onAddItemInCart(orderItem.id)}>
         장바구니 담기
       </Button>
     </Styled.OrderWrapper>
@@ -90,7 +90,7 @@ const OrderDetailPage = () => {
           <ItemGroup orderNumber={String(orderId)}>{orderItemList}</ItemGroup>
         </Styled.ItemGroupWrapper>
         <Styled.PageBottom>
-          <Button size="MD" backgroundColor={COLORS.BROWN_500} onClick={onOrderListLinkButtonClick}>
+          <Button size="MD" backgroundColor={COLORS.BROWN_500} onClick={onMoveToOrderListPage}>
             <img src={leftArrowSVG} alt="주문목록 돌아가기" />
             &nbsp;&nbsp;주문목록 돌아가기
           </Button>

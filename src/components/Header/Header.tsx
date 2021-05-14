@@ -10,27 +10,19 @@ export interface Props {
 const Header = ({ styles }: Props) => {
   const history = useHistory();
 
-  const onHeaderTitleClick = () => {
-    history.push(PATH.ROOT);
-  };
-
-  const onCartLinkButtonClick = () => {
-    history.push(PATH.CART);
-  };
-
-  const onOrderListLinkButtonClick = () => {
-    history.push(PATH.ORDER_LIST);
+  const moveToPath = (path: string) => {
+    history.push(path);
   };
 
   return (
     <Styled.Header styles={styles}>
-      <Styled.HeaderTitle onClick={onHeaderTitleClick}>
+      <Styled.HeaderTitle onClick={() => moveToPath(PATH.ROOT)}>
         <Styled.Logo src={shoppingCartSVG} />
         WOOWA SHOP
       </Styled.HeaderTitle>
       <div>
-        <Styled.LinkButton onClick={onCartLinkButtonClick}>장바구니</Styled.LinkButton>
-        <Styled.LinkButton onClick={onOrderListLinkButtonClick}>주문목록</Styled.LinkButton>
+        <Styled.LinkButton onClick={() => moveToPath(PATH.CART)}>장바구니</Styled.LinkButton>
+        <Styled.LinkButton onClick={() => moveToPath(PATH.ORDER_LIST)}>주문목록</Styled.LinkButton>
       </div>
     </Styled.Header>
   );

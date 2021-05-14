@@ -39,7 +39,7 @@ const ProductOrderPage = () => {
     }, 0)
   );
 
-  const onOrderButtonClick = async () => {
+  const onOrderItems = async () => {
     if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
       return;
     }
@@ -76,7 +76,7 @@ const ProductOrderPage = () => {
             priceLabel="결제예상금액"
             price={totalPrice}
             buttonText={`${totalPrice}원 결제하기`}
-            onButtonClick={onOrderButtonClick}
+            onButtonClick={onOrderItems}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
