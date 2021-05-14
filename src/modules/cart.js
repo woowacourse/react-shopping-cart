@@ -68,7 +68,6 @@ const addItem = (state, newItem) => {
 };
 
 const cartReducer = (state = initialState, action) => {
-  console.log(state);
   switch (action.type) {
     case INCREASE_QUANTITY:
       return changeCount(state, action.payload, 'increase');
