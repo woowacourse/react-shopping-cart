@@ -9,9 +9,9 @@ import SubmitBox from "../../Components/SubmitBox";
 import { COLOR } from "../../constants/theme";
 
 import CartItem from "./CartItem";
-import { FlexCenter } from "../../SharedStyled/Flex";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+
 interface CheckedList {
   [key: string]: boolean;
 }
@@ -78,7 +78,7 @@ const Cart: VFC = () => {
     setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const onClickDeleteSelectedButton = () => {
+  const deleteSelectedCartItems = () => {
     const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
     dispatch(actions.cart.delete.request(selectedIds));
   };
@@ -146,7 +146,7 @@ const Cart: VFC = () => {
               fontSize="1rem"
               backgroundColor="none"
               border={`1px solid ${COLOR.GRAY_200}`}
-              onClick={onClickDeleteSelectedButton}
+              onClick={deleteSelectedCartItems}
             >
               상품삭제
             </Button>
@@ -167,9 +167,6 @@ const Cart: VFC = () => {
                   onIncrementOrderCount={() => onIncrementOrderCount(id)}
                   onDecrementOrderCount={() => onDecrementOrderCount(id)}
                   onChangeChecked={() => onChangeChecked(id)}
-                  onClickDeleteButton={() => {
-                    dispatch(actions.cart.delete.request([id]));
-                  }}
                 />
               </li>
             ))}
