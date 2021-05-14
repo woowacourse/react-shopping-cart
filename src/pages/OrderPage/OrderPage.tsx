@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -10,6 +11,7 @@ import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
 import api from '../../api';
 import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
+import MESSAGE from '../../constants/messages';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -20,6 +22,7 @@ const OrderPage = () => {
   const location = useLocation<LocationState>();
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   if (!location.state) return <Redirect to="/" />;
 
@@ -45,6 +48,7 @@ const OrderPage = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error.message);
+      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
     }
 
     setLoading(false);
