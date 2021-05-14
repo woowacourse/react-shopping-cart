@@ -66,5 +66,5 @@
   "resolutions": {
     "babel-loader": "8.1.0"
   },
-  "proxy": "http://mk27.pythonanywhere.com"
+  "proxy": "https://mk27.pythonanywhere.com"
 }
