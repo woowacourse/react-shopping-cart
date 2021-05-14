@@ -18,7 +18,7 @@ import * as Styled from './ProductListPage.styles';
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error } = useProducts();
-  const [isSnackBarShown, setSnackBarShown] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
 
   if (loading) {
     return <Loading />;
@@ -40,16 +40,16 @@ const ProductListPage = () => {
     const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
 
     if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      alert(`'${product?.name}'이(가) 이미 장바구니에 존재합니다.`);
+      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
       return;
     }
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
       return;
     }
 
-    alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
   const productGridItemList = products.map((product: Product) => (
@@ -66,7 +66,7 @@ const ProductListPage = () => {
   return (
     <Styled.ProductListPage>
       {productGridItemList}
-      <SnackBar message="이미 추가된 상품입니다." />
+      {snackBarMessage && <SnackBar message={snackBarMessage} setMessage={setSnackBarMessage} />}
     </Styled.ProductListPage>
   );
 };
