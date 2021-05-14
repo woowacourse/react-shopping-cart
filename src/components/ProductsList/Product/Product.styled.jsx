@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { COLOR } from "../../../constants/style";
 
 export const Product = styled.div`
@@ -12,9 +13,20 @@ export const Preview = styled.div`
 
 export const Img = styled.img`
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 `;
 
-export const ImgDetail = styled.div`
+export const LinkToDetail = styled(Link)`
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+`;
+
+export const ImgOverlay = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -54,21 +66,21 @@ export const AddCartButton = styled.button`
   &:focus {
     outline: none;
   }
+`;
 
-  .product-amount {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${COLOR.CYAN.PRIMARY};
-    color: white;
+export const Amount = styled.span`
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${COLOR.CYAN.PRIMARY};
+  color: white;
 
-    &:hover {
-      background-color: ${COLOR.CYAN.DARK};
-    }
+  &:hover {
+    background-color: ${COLOR.CYAN.DARK};
   }
 `;
 
@@ -77,22 +89,22 @@ export const Detail = styled.div`
   flex-direction: column;
   padding: 0.75rem;
   padding-bottom: 0;
+`;
 
-  .product-name {
-    height: 1.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+export const Name = styled.span`
+  height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
 
-  .product-price {
-    height: 2rem;
-    font-size: 1.25rem;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-  }
+export const Price = styled.span`
+  height: 2rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
 `;
