@@ -28,15 +28,13 @@ const ProductListPage = () => {
     };
   }, []);
 
-  const onAddToCart = ({ target }) => {
-    const selectedProductId = target.closest('li[data-product-id]').dataset.productId;
+  const onAddToCart = (productId) => (productName) => () => {
+    if (cart.findIndex((product) => product.id === productId) >= 0) return;
 
-    if (cart.findIndex((product) => product.id === selectedProductId) >= 0) return;
-
-    const selectedProduct = products.find((product) => product.id === selectedProductId);
+    const selectedProduct = products.find((product) => product.id === productId);
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
 
-    setSnackbarMessage(APP_MESSAGE.PRODUCT_ADDED_TO_CART);
+    setSnackbarMessage(`${productName} ${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
   };
 
   const onCloseErrorMessageModal = () => {
@@ -47,7 +45,7 @@ const ProductListPage = () => {
     <Main>
       <Styled.ProductList>
         {products.map((product) => (
-          <li data-product-id={product.id} key={product.id}>
+          <li key={product.id}>
             <Product
               product={product}
               productDetail={{
@@ -58,7 +56,11 @@ const ProductListPage = () => {
               size="17.5rem"
             >
               {!cart.some(({ id }) => product.id === id) ? (
-                <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart}>
+                <Button
+                  hoverAnimation="scale"
+                  backgroundColor="transparent"
+                  onClick={onAddToCart(product.id)(product.name)}
+                >
                   <ShoppingCart width="2rem" color={PALETTE.BLACK} />
                 </Button>
               ) : (
@@ -71,7 +73,9 @@ const ProductListPage = () => {
         ))}
       </Styled.ProductList>
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
-      {snackbarMessage && <Snackbar message={snackbarMessage} ms={TIME.SNACKBAR_DURATION} backgroundColor="#555" />}
+      {snackbarMessage && (
+        <Snackbar key={Math.random()} message={snackbarMessage} ms={TIME.SNACKBAR_DURATION} backgroundColor="#555" />
+      )}
     </Main>
   );
 };
