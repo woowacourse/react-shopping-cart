@@ -25,7 +25,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "serve": "serve -p 3000 -s build",
     "heroku-postbuild": "cross-env NODE_PATH=src npm run build"
   },
   "eslintConfig": {
