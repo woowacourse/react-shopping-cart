@@ -9,7 +9,7 @@ import Button from './utils/Button';
 import styled, { css } from 'styled-components';
 
 const ContentWrapper = styled.section`
-  margin: 25px;
+  margin: 0 20px 20px;
   text-align: center;
 `;
 
@@ -32,7 +32,7 @@ const LinkStyle = styled(NavLink)`
 
 const FlexStyle = css`
   width: 100%;
-  height: 60vh;
+  height: 70vh;
 `;
 
 const ButtonStyle = css`
