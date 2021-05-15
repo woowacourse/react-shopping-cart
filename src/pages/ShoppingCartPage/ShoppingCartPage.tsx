@@ -145,7 +145,7 @@ const ShoppingCartPage = () => {
         <Styled.Container>
           <Styled.CartContainer>
             <Styled.ControlWrapper>
-              <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} isChecked={isTotalChecked} />
+              <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onTotalCheckClick} checked={isTotalChecked} />
               <Styled.DeleteButton onClick={onSelectedCartItemDelete}>상품삭제</Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>

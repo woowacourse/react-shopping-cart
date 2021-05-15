@@ -28,7 +28,7 @@ const CartListItem = ({
 }: Props) => {
   return (
     <Styled.CartListItem>
-      <Checkbox isChecked={isSelected} onCheck={setSelected} />
+      <Checkbox checked={isSelected} onCheck={setSelected} />
       <Styled.Thumbnail src={thumbnail} alt="cart item thumbnail" />
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>
