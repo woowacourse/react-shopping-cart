@@ -8,7 +8,7 @@ export interface Props extends Pick<React.InputHTMLAttributes<HTMLInputElement>,
 const Checkbox = ({ labelText, checked, onCheck }: Props) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
-    onCheck && onCheck(isChecked);
+    onCheck?.(isChecked);
   };
   return (
     <Styled.Checkbox>

@@ -11,7 +11,7 @@ export interface Props {
 const Tooltip = ({ children, button, setTooltipShown, timeOut }: Props) => {
   useEffect(() => {
     const id = setTimeout(() => {
-      setTooltipShown && setTooltipShown(false);
+      setTooltipShown?.(false);
     }, timeOut);
 
     return () => clearTimeout(id);

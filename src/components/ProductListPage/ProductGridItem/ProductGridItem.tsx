@@ -12,7 +12,7 @@ export interface Props {
 const ProductGridItem = ({ name, price, thumbnail, onClick, onCartButtonClick }: Props) => {
   const onCartIconClick = (event: React.MouseEvent<HTMLImageElement>) => {
     event.stopPropagation();
-    onCartButtonClick && onCartButtonClick();
+    onCartButtonClick?.();
   };
 
   return (
