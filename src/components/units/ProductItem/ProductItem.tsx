@@ -14,7 +14,9 @@ const ProductItem = (props: ProductItemProps) => {
   const { product, onClickCart, onClickItem } = props;
   const { name, image, price } = product;
 
-  const handleClickCart = () => {
+  const handleClickCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     onClickCart(product);
   };
 

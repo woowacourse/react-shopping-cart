@@ -1,24 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
 import * as T from 'types';
 import MESSAGE from 'constants/messages';
 import Spinner from 'components/shared/Spinner/Spinner';
 import ProductItem from 'components/units/ProductItem/ProductItem';
-import { RootState } from 'modules';
-import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
-import { CartState } from 'modules/cartItems/reducers';
+import useAddCartItem from 'hooks/useAddCartItem';
 import api from 'api';
 import Styled from './ProductsPage.styles';
 
 const ProductsPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
-
   const history = useHistory();
-  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
+  const addCartItem = useAddCartItem();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -46,27 +39,8 @@ const ProductsPage = () => {
   };
 
   const handleClickCart = (product: T.Product) => {
-    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
-
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
-
-    if (cartItemIds.includes(product.id)) {
-      enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
-      return;
-    }
-
-    dispatch(addCartItemRequest(product))
-      .then(() => {
-        enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-      })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
-      });
+    addCartItem(product, isLoading);
   };
-
-  useEffect(() => {
-    dispatch(getCartItemsRequest());
-  }, [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
