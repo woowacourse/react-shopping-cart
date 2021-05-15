@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PurchasedItem from '../../components/units/PurchasedItem/PurchasedItem';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
-import api from '../../api';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
+import Spinner from 'components/shared/Spinner/Spinner';
+import * as T from 'types';
+import MESSAGE from 'constants/messages';
+import api from 'api';
+import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
+import { RootState } from 'modules';
 import Styled from './OrderListPage.styles';
-import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
 import { CartState } from '../../modules/cartItems/reducers';
-import { RootState } from '../../modules';
 
 const OrderListPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);

@@ -1,4 +1,5 @@
 import produce, { Draft } from 'immer';
+import * as T from 'types';
 import {
   ADD_CART_ITEM_REQUEST,
   ADD_CART_ITEM_SUCCESS,
@@ -25,7 +26,6 @@ import {
   DeleteItemAction,
   DeleteCheckedItemsAction,
 } from './actions';
-import * as T from '../../types';
 
 export type CartState = {
   cartItems: {

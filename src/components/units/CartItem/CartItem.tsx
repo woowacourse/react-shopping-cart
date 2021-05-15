@@ -2,15 +2,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import Styled from './CartItem.styles';
-import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
-import Checkbox from '../../shared/Checkbox/Checkbox';
+import { ReactComponent as DeleteIcon } from 'assets/images/delete.svg';
+import noImageURL from 'assets/images/no_image.jpg';
+import * as T from 'types';
+import { updateQuantityRequest } from 'modules/cartItems/actions';
+import CART_ITEM_QUANTITY from 'constants/cart';
+import { RootState } from 'modules';
 import QuantityInput from '../../shared/QuantityInput/QuantityInput';
-import noImageURL from '../../../assets/images/no_image.jpg';
-import * as T from '../../../types';
-import { updateQuantityRequest } from '../../../modules/cartItems/actions';
-import CART_ITEM_QUANTITY from '../../../constants/cart';
-import { RootState } from '../../../modules';
+import Checkbox from '../../shared/Checkbox/Checkbox';
+import Styled from './CartItem.styles';
 
 type CartItemProps = {
   cartItem: T.CartItem;

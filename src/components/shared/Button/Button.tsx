@@ -1,6 +1,6 @@
 import React from 'react';
+import * as T from 'types';
 import Styled from './Button.styles';
-import * as T from '../../../types';
 
 type ButtonProps = {
   size?: T.ButtonSize;

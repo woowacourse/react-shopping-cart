@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import Styled from './CartPage.styles';
-import Checkbox from '../../components/shared/Checkbox/Checkbox';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
-import CartItem from '../../components/units/CartItem/CartItem';
-import HighlightText from '../../components/shared/HighlightText/HighlightText';
-import Button from '../../components/shared/Button/Button';
-import * as T from '../../types';
-import { CartState } from '../../modules/cartItems/reducers';
-import { RootState } from '../../modules';
+import Checkbox from 'components/shared/Checkbox/Checkbox';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PriceOverview from 'components/units/PriceOverview/PriceOverview';
+import CartItem from 'components/units/CartItem/CartItem';
+import HighlightText from 'components/shared/HighlightText/HighlightText';
+import Button from 'components/shared/Button/Button';
+import * as T from 'types';
+import { CartState } from 'modules/cartItems/reducers';
+import { RootState } from 'modules';
 import {
   getCartItemsRequest,
   checkCartItem,
   checkAllCartItems,
   deleteItemActionRequest,
   deleteCheckedItemsActionRequest,
-} from '../../modules/cartItems/actions';
-import MESSAGE from '../../constants/messages';
-import Spinner from '../../components/shared/Spinner/Spinner';
+} from 'modules/cartItems/actions';
+import MESSAGE from 'constants/messages';
+import Spinner from 'components/shared/Spinner/Spinner';
+import Styled from './CartPage.styles';
 
 const CartPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);

@@ -6,14 +6,14 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { SnackbarProvider } from 'notistack';
+import BaseLayout from 'components/layout/BaseLayout/BaseLayout';
+import ProductsPage from 'pages/ProductsPage/ProductsPage';
+import CartPage from 'pages/CartPage/CartPage';
+import OrderPage from 'pages/OrderPage/OrderPage';
+import OrderCompletePage from 'pages/OrderCompletePage/OrderCompletePage';
+import OrderListPage from 'pages/OrderListPage/OrderListPage';
+import rootReducer from 'modules';
 import Styled, { globalStyle, theme } from './App.styles';
-import BaseLayout from './components/layout/BaseLayout/BaseLayout';
-import ProductsPage from './pages/ProductsPage/ProductsPage';
-import CartPage from './pages/CartPage/CartPage';
-import OrderPage from './pages/OrderPage/OrderPage';
-import OrderCompletePage from './pages/OrderCompletePage/OrderCompletePage';
-import OrderListPage from './pages/OrderListPage/OrderListPage';
-import rootReducer from './modules';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 

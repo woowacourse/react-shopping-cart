@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { AxiosError } from 'axios';
-import api from '../../api';
-import * as T from '../../types';
+import api from 'api';
+import * as T from 'types';
 
 export const ADD_CART_ITEM_REQUEST = 'cartItems/ADD_CART_ITEM_REQUEST' as const;
 export const ADD_CART_ITEM_SUCCESS = 'cartItems/ADD_CART_ITEM_SUCCESS' as const;

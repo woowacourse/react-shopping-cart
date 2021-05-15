@@ -1,8 +1,8 @@
 import React from 'react';
+import defaultImageURL from 'assets/images/brave.png';
+import * as T from 'types';
 import Styled from './PurchasedItem.styles';
-import defaultImageURL from '../../../assets/images/brave.png';
 import Button from '../../shared/Button/Button';
-import * as T from '../../../types';
 
 type PurchasedItemProps = {
   item: T.CartItem;
