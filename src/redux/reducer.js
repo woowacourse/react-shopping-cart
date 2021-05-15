@@ -1,8 +1,11 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
-// import { requestTable } from '../api/request';
-// import { SCHEMA } from '../constants';
-import { GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
+import {
+  ADD_SHOPPING_CART_ITEM,
+  DELETE_SHOPPING_CART_ITEM,
+  DELETE_SHOPPING_CART_ITEMS,
+  GET_MY_SHOPPING_CART,
+} from './actionType';
 
 const initialState = {
   myShoppingCart: { id: null, productIdList: [] },
@@ -10,9 +13,23 @@ const initialState = {
 
 const myShoppingCartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_MY_SHOPPING_CART_ITEMS: {
+    case ADD_SHOPPING_CART_ITEM: {
       return produce(state, draft => {
-        draft.myShoppingCart.productIdList = action.productIdList;
+        draft.myShoppingCart.productIdList = [...new Set([...draft.myShoppingCart.productIdList, action.newProductId])];
+      });
+    }
+    case DELETE_SHOPPING_CART_ITEM: {
+      return produce(state, draft => {
+        draft.myShoppingCart.productIdList = draft.myShoppingCart.productIdList.filter(
+          productId => productId !== action.targetId
+        );
+      });
+    }
+    case DELETE_SHOPPING_CART_ITEMS: {
+      return produce(state, draft => {
+        draft.myShoppingCart.productIdList = draft.myShoppingCart.productIdList.filter(
+          productId => !action.checkedIdList.includes(productId)
+        );
       });
     }
     case GET_MY_SHOPPING_CART: {

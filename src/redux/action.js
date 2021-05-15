@@ -1,28 +1,67 @@
 import { requestTable } from '../api/request';
-import { CUSTOMER_ID } from '../constants';
-import { ADD_ITEM, GET_MY_SHOPPING_CART, UPDATE_MY_SHOPPING_CART_ITEMS } from './actionType';
+import { CUSTOMER_ID, SCHEMA } from '../constants';
+import {
+  ADD_SHOPPING_CART_ITEM,
+  DELETE_SHOPPING_CART_ITEM,
+  DELETE_SHOPPING_CART_ITEMS,
+  GET_MY_SHOPPING_CART,
+} from './actionType';
 
-const addShoppingCartItem = id => ({
-  type: ADD_ITEM,
-  productId: id,
-});
+const addShoppingCartItemAsync = newProductId => async (dispatch, getState) => {
+  const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
 
-const updateShoppingCartItemsAsync = (schema, targetId, content) => async dispatch => {
   try {
-    await requestTable.PUT(schema, targetId, content);
+    const newContent = { productIdList: [...new Set([...productIdList, newProductId])] };
+
+    await requestTable.PUT(SCHEMA.SHOPPING_CART, id, newContent);
 
     dispatch({
-      type: UPDATE_MY_SHOPPING_CART_ITEMS,
-      productIdList: content.productIdList,
+      type: ADD_SHOPPING_CART_ITEM,
+      newProductId,
     });
   } catch (error) {
     console.error(error);
   }
 };
 
-const getMyShoppingCartAsync = schema => async dispatch => {
+const deleteShoppingCartItemAsync = targetId => async (dispatch, getState) => {
+  const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
+
   try {
-    const shoppingCartList = await requestTable.GET(schema);
+    const newContent = { productIdList: productIdList.filter(productId => productId !== targetId) };
+
+    await requestTable.PUT(SCHEMA.SHOPPING_CART, id, newContent);
+
+    dispatch({
+      type: DELETE_SHOPPING_CART_ITEM,
+      targetId,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteAllShoppingCartItemAsync = checkedIdList => async (dispatch, getState) => {
+  const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
+
+  try {
+    const newContent = {
+      productIdList: productIdList.filter(productId => !checkedIdList.includes(productId)),
+    };
+    await requestTable.PUT(SCHEMA.SHOPPING_CART, id, newContent);
+
+    dispatch({
+      type: DELETE_SHOPPING_CART_ITEMS,
+      checkedIdList,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getMyShoppingCartAsync = () => async dispatch => {
+  try {
+    const shoppingCartList = await requestTable.GET(SCHEMA.SHOPPING_CART);
 
     dispatch({
       type: GET_MY_SHOPPING_CART,
@@ -33,4 +72,9 @@ const getMyShoppingCartAsync = schema => async dispatch => {
   }
 };
 
-export { addShoppingCartItem, updateShoppingCartItemsAsync, getMyShoppingCartAsync };
+export {
+  addShoppingCartItemAsync,
+  deleteShoppingCartItemAsync,
+  deleteAllShoppingCartItemAsync,
+  getMyShoppingCartAsync,
+};

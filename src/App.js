@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import GlobalStyles from './GlobalStyles';
 import NavBar from './components/NavBar/NavBar';
-import { ROUTE, SCHEMA } from './constants';
+import { ROUTE } from './constants';
 import { getMyShoppingCartAsync } from './redux/action';
 import { OrderCheckoutPage, OrderListPage, ProductListPage, ShoppingCartPage } from './pages';
 
@@ -11,7 +11,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMyShoppingCartAsync(SCHEMA.SHOPPING_CART));
+    dispatch(getMyShoppingCartAsync());
   }, []);
 
   return (

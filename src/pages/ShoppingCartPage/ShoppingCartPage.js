@@ -16,14 +16,13 @@ import {
   ShoppingCartItemNotFoundImg,
 } from './ShoppingCartPage.styles';
 import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import { updateShoppingCartItemsAsync } from '../../redux/action';
+import { deleteAllShoppingCartItemAsync, deleteShoppingCartItemAsync } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import useServerAPI from '../../hooks/useServerAPI';
 import shoppingCartItemNotFoundImg from '../../shared/assets/img/tung.png';
 
-// TODO: 컴포넌트 분리
 const TrashCanIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
     <path
@@ -41,8 +40,7 @@ const ShoppingCartPage = () => {
 
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
-  const { myShoppingCartId, myShoppingCartProductIds } = useSelector(state => ({
-    myShoppingCartId: state.myShoppingCartReducer.myShoppingCart.id,
+  const { myShoppingCartProductIds } = useSelector(state => ({
     myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
   }));
 
@@ -65,18 +63,16 @@ const ShoppingCartPage = () => {
     }
   };
 
-  const onClickDeleteButton = targetId => {
+  const deleteAllShoppingCartItem = () => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    if (targetId) {
-      const newContent = { productIdList: myShoppingCartProductIds.filter(productId => productId !== targetId) };
-      dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
-    } else {
-      const newContent = {
-        productIdList: myShoppingCartProductIds.filter(productId => !checkedIdList.includes(productId)),
-      };
-      dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
-    }
+    dispatch(deleteAllShoppingCartItemAsync(checkedIdList));
+  };
+
+  const deleteShoppingCartItem = targetId => {
+    if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
+
+    dispatch(deleteShoppingCartItemAsync(targetId));
   };
 
   const onClickPaymentButton = () => {
@@ -138,7 +134,7 @@ const ShoppingCartPage = () => {
           <OptionContainer>
             <CheckBox id="all-check" onClick={onClickAllCheckBox} isChecked={isAllChecked} />
             <span>모두선택</span>
-            <DeleteButton onClick={() => onClickDeleteButton()} disabled={!checkedIdList.length}>
+            <DeleteButton onClick={deleteAllShoppingCartItem} disabled={!checkedIdList.length}>
               상품삭제
             </DeleteButton>
           </OptionContainer>
@@ -158,7 +154,7 @@ const ShoppingCartPage = () => {
                     </ShoppingCartItem>
 
                     <ShoppingCartItemOption>
-                      <button type="button" onClick={() => onClickDeleteButton(id)}>
+                      <button type="button" onClick={() => deleteShoppingCartItem(id)}>
                         {TrashCanIcon}
                       </button>
                       <AmountCounter
