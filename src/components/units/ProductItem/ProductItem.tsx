@@ -6,19 +6,24 @@ import Styled from './ProductItem.styles';
 
 type ProductItemProps = {
   product: T.Product;
+  onClickItem: (product: T.Product) => void;
   onClickCart: (product: T.Product) => void;
 };
 
 const ProductItem = (props: ProductItemProps) => {
-  const { product, onClickCart } = props;
+  const { product, onClickCart, onClickItem } = props;
   const { name, image, price } = product;
 
   const handleClickCart = () => {
     onClickCart(product);
   };
 
+  const handleClickItem = () => {
+    onClickItem(product);
+  };
+
   return (
-    <Styled.Root>
+    <Styled.Root onClick={handleClickItem}>
       <Styled.ImageWrapper>
         <Styled.Image src={image || noImageURL} alt={name} />
       </Styled.ImageWrapper>

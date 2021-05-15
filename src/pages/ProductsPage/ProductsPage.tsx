@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { useHistory } from 'react-router-dom';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import * as T from 'types';
@@ -16,12 +17,14 @@ import Styled from './ProductsPage.styles';
 const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
 
+  const history = useHistory();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<T.Product[]>([]);
+
   const getProducts = useCallback(async () => {
     setLoading(true);
 
@@ -34,6 +37,13 @@ const ProductsPage = () => {
 
     setLoading(false);
   }, [enqueueSnackbar]);
+
+  const handleClickItem = (product: T.Product) => {
+    history.push({
+      pathname: '/products/detail',
+      state: { product },
+    });
+  };
 
   const handleClickCart = (product: T.Product) => {
     if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
@@ -75,7 +85,7 @@ const ProductsPage = () => {
         <Styled.ProductList>
           {products?.map((product: T.Product) => (
             <li key={product.id}>
-              <ProductItem product={product} onClickCart={handleClickCart} />
+              <ProductItem product={product} onClickItem={handleClickItem} onClickCart={handleClickCart} />
             </li>
           ))}
         </Styled.ProductList>

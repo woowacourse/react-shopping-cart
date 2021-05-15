@@ -10,6 +10,7 @@ import BaseLayout from 'components/layout/BaseLayout/BaseLayout';
 import ProductsPage from 'pages/ProductsPage/ProductsPage';
 import CartPage from 'pages/CartPage/CartPage';
 import OrderPage from 'pages/OrderPage/OrderPage';
+import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 import OrderCompletePage from 'pages/OrderCompletePage/OrderCompletePage';
 import OrderListPage from 'pages/OrderListPage/OrderListPage';
 import rootReducer from 'modules';
@@ -36,8 +37,11 @@ const App = () => {
                   <Route exact path="/">
                     <ProductsPage />
                   </Route>
-                  <Route path="/products">
+                  <Route exact path="/products">
                     <ProductsPage />
+                  </Route>
+                  <Route path="/products/detail">
+                    <ProductDetailPage />
                   </Route>
                   <Route path="/cart">
                     <CartPage />
