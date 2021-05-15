@@ -6,6 +6,7 @@ import FloatingBox from '../../components/FloatingBox';
 import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import Flex from '../../components/utils/Flex';
+import PageMessage from '../../components/PageMessage';
 
 import CartItem from './CartItem';
 
@@ -14,6 +15,7 @@ import { addPaymentItems } from '../../modules/payment';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
+import emptyCartImage from '../../asset/empty-cart.png';
 import styled, { css } from 'styled-components';
 
 const CartItemWrapperStyle = css`
@@ -129,7 +131,7 @@ const CartPage = () => {
           />
         </Flex>
       ) : (
-        '장바구니에 담은 상품이 없습니다.'
+        <PageMessage image={emptyCartImage} alt="장바구니가 비어있음" message="현재 장바구니가 비어있습니다" />
       )}
     </>
   );
