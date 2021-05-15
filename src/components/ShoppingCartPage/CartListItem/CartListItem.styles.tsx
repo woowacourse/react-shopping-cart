@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartListItem = styled.div`
+export const CartListItem = styled.li`
   display: inline-flex;
   align-items: flex-start;
   width: 735px;

@@ -33,7 +33,7 @@ const PRICE_COLOR = {
   },
 };
 
-export const ProductListItem = styled.div`
+export const ProductListItem = styled.li`
   display: inline-flex;
 `;
 
