@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Flex from './Flex';
 
@@ -18,12 +19,16 @@ const BadgeWrapperStyle = css`
   background-color: #ff4d4f;
 `;
 
-const Badge = ({ number }) => {
+const Badge = ({ children }) => {
   return (
     <Flex justifyContent="center" alignItems="center" css={BadgeWrapperStyle}>
-      {number}
+      {children}
     </Flex>
   );
+};
+
+Badge.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]),
 };
 
 export default Badge;
