@@ -2,8 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import useUpdateEffect from './useUpdateEffect';
 
 const useSnackbar = (ms) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({ text: '' });
   const timer = useRef(null);
+
+  const setSnackbarMessage = (text) => {
+    setMessage({ text });
+  };
 
   useUpdateEffect(() => {
     if (timer.current) clearTimeout(timer.current);
@@ -19,7 +23,7 @@ const useSnackbar = (ms) => {
     };
   }, []);
 
-  return [message, setMessage];
+  return [message.text, setSnackbarMessage];
 };
 
 export default useSnackbar;

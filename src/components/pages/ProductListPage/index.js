@@ -34,7 +34,7 @@ const ProductListPage = () => {
     const selectedProduct = products.find((product) => product.id === productId);
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
 
-    setSnackbarMessage(`${productName} ${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
+    setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
   };
 
   const onCloseErrorMessageModal = () => {
