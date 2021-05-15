@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import Styled from './CartPage.styles';
 import Checkbox from '../../components/shared/Checkbox/Checkbox';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
@@ -23,7 +25,7 @@ import Spinner from '../../components/shared/Spinner/Spinner';
 
 const CartPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const isAllChecked = cartItems.data.every((item) => item.checked);
 

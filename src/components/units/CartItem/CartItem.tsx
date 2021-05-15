@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import Styled from './CartItem.styles';
 import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
 import Checkbox from '../../shared/Checkbox/Checkbox';
@@ -8,6 +10,7 @@ import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
 import { updateQuantityRequest } from '../../../modules/cartItems/actions';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
+import { RootState } from '../../../modules';
 
 type CartItemProps = {
   cartItem: T.CartItem;
@@ -20,7 +23,7 @@ const CartItem = (props: CartItemProps) => {
   const { id, product, quantity, checked } = cartItem;
   const { name, image, price } = product;
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = event.target.valueAsNumber;

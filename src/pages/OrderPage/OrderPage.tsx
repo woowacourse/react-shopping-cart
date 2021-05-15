@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -10,6 +12,7 @@ import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
 import api from '../../api';
 import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
+import { RootState } from '../../modules';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -18,7 +21,7 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   if (!location.state) return <Redirect to="/" />;
