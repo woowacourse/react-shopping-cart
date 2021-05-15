@@ -6,10 +6,10 @@ import { isPositiveNumber } from '../../../utils/validation';
 export interface Props {
   value?: string;
   setValue?: React.Dispatch<React.SetStateAction<string>> | ((value: string) => void);
-  maxLength?: number;
+  maxNumber?: number;
 }
 
-const NumberInput = ({ maxLength = 2, value = '1', setValue }: Props) => {
+const NumberInput = ({ maxNumber = 99, value = '1', setValue }: Props) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!setValue) {
       return;
@@ -21,7 +21,7 @@ const NumberInput = ({ maxLength = 2, value = '1', setValue }: Props) => {
       return;
     }
 
-    if (!isPositiveNumber(value)) {
+    if (!isPositiveNumber(value) || Number(value) > maxNumber) {
       return;
     }
 
@@ -39,7 +39,7 @@ const NumberInput = ({ maxLength = 2, value = '1', setValue }: Props) => {
 
   return (
     <Styled.NumberInput>
-      <Styled.Input maxLength={maxLength} value={value} onChange={onChange} />
+      <Styled.Input type="number" value={value} onChange={onChange} />
       <Styled.TriangleButtonWrapper>
         <Styled.TriangleButton onClick={onNumberIncrease}>
           <img src={triangleUpSVG} alt="수량 증가 버튼" />
