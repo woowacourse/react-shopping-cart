@@ -160,7 +160,7 @@ const Cart: VFC = () => {
                 <CartItem
                   id={id}
                   name={name}
-                  price={price}
+                  price={price * orderCountList[id]}
                   imageSrc={imageSrc}
                   isChecked={checkedList[id]}
                   quantity={orderCountList[id]}
