@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Flex from '../../components/utils/Flex';
-import PaymentItem from './PaymentItem';
-import PageTitle from '../../components/PageTitle';
-import FloatingBox from '../../components/FloatingBox';
+import Flex from '../components/utils/Flex';
+import PaymentItem from '../components/PaymentItem';
+import PageTitle from '../components/PageTitle';
+import FloatingBox from '../components/FloatingBox';
 
-import { deleteCheckedItems, getTotalPrice } from '../../utils';
+import { deleteCheckedItems, getTotalPrice } from '../utils';
 
 import styled, { css } from 'styled-components';
 

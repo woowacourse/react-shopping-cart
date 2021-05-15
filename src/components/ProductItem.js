@@ -2,14 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Flex from '../../components/utils/Flex';
-import Image from '../../components/utils/Image';
-import PriceText from '../../components/utils/PriceText';
-import IconButton from '../../components/utils/IconButton';
+import Flex from './utils/Flex';
+import Image from './utils/Image';
+import PriceText from './utils/PriceText';
+import IconButton from './utils/IconButton';
 
-import { addItemToCart } from '../../modules/cart';
+import { addItemToCart } from '../modules/cart';
 
-import cartImage from '../../asset/cart.png';
+import cartImage from '../asset/cart.png';
 import styled, { css } from 'styled-components';
 
 const SingleProduct = styled.li`

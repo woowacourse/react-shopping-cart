@@ -2,18 +2,18 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import CounterButton from '../../components/CounterButton';
-import IconButton from '../../components/utils/IconButton';
-import PriceText from '../../components/utils/PriceText';
-import CheckBox from '../../components/utils/CheckBox';
-import Image from '../../components/utils/Image';
-import Flex from '../../components/utils/Flex';
+import CounterButton from './CounterButton';
+import IconButton from './utils/IconButton';
+import PriceText from './utils/PriceText';
+import CheckBox from './utils/CheckBox';
+import Image from './utils/Image';
+import Flex from './utils/Flex';
 
-import bin from '../../asset/bin-icon.svg';
+import bin from '../asset/bin-icon.svg';
 
 import styled, { css } from 'styled-components';
 
-import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
+import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../modules/cart';
 
 const SingleCartItem = styled.li`
   display: flex;

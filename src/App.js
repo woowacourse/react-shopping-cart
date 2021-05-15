@@ -1,10 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
 
 import Header from '../src/components/Header';
-import ProductListPage from './pages/ProductListPage/ProductListPage';
+import ProductListPage from './pages/ProductListPage';
 import OrderListPage from '../src/pages/OrderListPage';
-import CartPage from './pages/CartPage/CartPage';
-import PaymentPage from './pages/PaymentPage/PaymentPage';
+import CartPage from './pages/CartPage';
+import PaymentPage from './pages/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';
 
 import styled from 'styled-components';

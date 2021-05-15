@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Image from '../../components/utils/Image';
-import Flex from '../../components/utils/Flex';
+import Image from './utils/Image';
+import Flex from './utils/Flex';
 
 import styled, { css } from 'styled-components';
 

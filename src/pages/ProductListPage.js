@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import ProductItem from './ProductItem';
-import GridColumnList from '../../components/utils/GridColumnList';
+import ProductItem from '../components/ProductItem';
+import GridColumnList from '../components/utils/GridColumnList';
 
-import { getProducts } from '../../api/products';
+import { getProducts } from '../api/products';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
