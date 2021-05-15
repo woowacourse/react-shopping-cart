@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Flex from './Flex';
 
@@ -24,6 +25,10 @@ const Badge = ({ number }) => {
       {number}
     </Flex>
   );
+};
+
+Badge.propTypes = {
+  number: PropTypes.number.isRequired,
 };
 
 export default Badge;

@@ -114,12 +114,7 @@ const CartPage = () => {
               {cartItems &&
                 cartItems
                   .map((cartItem) => (
-                    <CartItem
-                      key={cartItem.id}
-                      cartItem={cartItem}
-                      checked={checkedItemIds.includes(cartItem.id)}
-                      onCheckboxClick={onCheckboxClick}
-                    />
+                    <CartItem key={cartItem.id} cartItem={cartItem} onCheckboxClick={onCheckboxClick} />
                   ))
                   .reverse()}
             </CartItemList>

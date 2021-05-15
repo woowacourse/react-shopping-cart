@@ -40,7 +40,7 @@ const NavItem = styled(NavLink)`
   font-size: 24px;
 `;
 
-function Header() {
+const Header = () => {
   const state = useSelector((state) => state.cart);
 
   return (
@@ -65,6 +65,6 @@ function Header() {
       </Flex>
     </HeaderWrapper>
   );
-}
+};
 
 export default Header;

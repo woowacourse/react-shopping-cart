@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CounterButton from '../../components/CounterButton';
 import IconButton from '../../components/utils/IconButton';
@@ -42,7 +43,7 @@ const CartItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
+const CartItem = ({ cartItem, onCheckboxClick }) => {
   const dispatch = useDispatch();
 
   const onIncreaseButtonClick = () => {
@@ -59,7 +60,7 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
 
   return (
     <SingleCartItem>
-      <CheckBox id={cartItem.id} checked={checked} onChange={onCheckboxClick} />
+      <CheckBox id={cartItem.id} checked={cartItem.checked} onChange={onCheckboxClick} />
       <Flex>
         <Image width="144px" height="144px" src={cartItem.image} alt={cartItem.name} isBackgroundImageNeeded={true} />
         <CartItemName>{cartItem.name}</CartItemName>
@@ -85,6 +86,17 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
       </Flex>
     </SingleCartItem>
   );
+};
+
+CartItem.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    checked: PropTypes.bool.isRequired,
+  }),
+  onCheckboxClick: PropTypes.func,
 };
 
 export default CartItem;

@@ -1,9 +1,11 @@
 import React from 'react';
-import upperIcon from '../asset/up-icon.png';
-import downIcon from '../asset/down-icon.png';
+import PropTypes from 'prop-types';
 
 import Flex from './utils/Flex';
 import IconButton from './utils/IconButton';
+
+import upperIcon from '../asset/up-icon.png';
+import downIcon from '../asset/down-icon.png';
 
 import { css } from 'styled-components';
 
@@ -55,6 +57,16 @@ const CounterButton = ({ count = '1', onIncreaseButtonClick, onDecreaseButtonCli
       </Flex>
     </Flex>
   );
+};
+
+CounterButton.propTypes = {
+  count: PropTypes.number.isRequired,
+  onIncreaseButtonClick: PropTypes.func,
+  onDecreaseButtonClick: PropTypes.func,
+};
+
+CounterButton.defaultProps = {
+  count: 1,
 };
 
 export default CounterButton;

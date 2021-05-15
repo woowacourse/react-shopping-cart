@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import checkbox from '../../asset/checkbox.svg';
 
 import styled from 'styled-components';
@@ -61,5 +63,12 @@ function CheckBox({ labelName, id, checked, onChange }) {
     </CheckboxWrapper>
   );
 }
+
+CheckBox.propTypes = {
+  labelName: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+};
 
 export default CheckBox;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
@@ -47,6 +48,16 @@ const PaymentItem = ({ paymentItem }) => {
       </Flex>
     </SinglePaymentItem>
   );
+};
+
+PaymentItem.propTypes = {
+  paymentItem: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    checked: PropTypes.bool.isRequired,
+  }),
 };
 
 export default PaymentItem;
