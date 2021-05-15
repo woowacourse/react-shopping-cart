@@ -41,7 +41,7 @@ const deleteShoppingCartItemAsync = targetId => async (dispatch, getState) => {
   }
 };
 
-const deleteAllShoppingCartItemAsync = checkedIdList => async (dispatch, getState) => {
+const deleteCheckedShoppingCartItemAsync = checkedIdList => async (dispatch, getState) => {
   const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
 
   try {
@@ -75,6 +75,6 @@ const getMyShoppingCartAsync = () => async dispatch => {
 export {
   addShoppingCartItemAsync,
   deleteShoppingCartItemAsync,
-  deleteAllShoppingCartItemAsync,
+  deleteCheckedShoppingCartItemAsync,
   getMyShoppingCartAsync,
 };

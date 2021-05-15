@@ -12,7 +12,7 @@ import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { deleteAllShoppingCartItemAsync } from '../../redux/action';
+import { deleteCheckedShoppingCartItemAsync } from '../../redux/action';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -32,7 +32,7 @@ const OrderCheckoutPage = () => {
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
-    dispatch(deleteAllShoppingCartItemAsync(checkedIdList));
+    dispatch(deleteCheckedShoppingCartItemAsync(checkedIdList));
 
     const content = {
       orderedProductList: checkedItemList.map(({ id, amount }) => ({ id, amount })),
