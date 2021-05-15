@@ -9,10 +9,10 @@ import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
+import { MESSAGE, NUMBER } from '../../constant';
+import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
 
 import styled, { css } from 'styled-components';
-
-import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
 
 const SingleCartItem = styled.li`
   display: flex;
@@ -50,6 +50,11 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
   };
 
   const onDecreaseButtonClick = () => {
+    if (cartItem.quantity <= NUMBER.ITEM_MINIMUM_COUNT) {
+      alert(MESSAGE.UNDER_MINIMUM_COUNT_LIMIT);
+      return;
+    }
+
     dispatch(decreaseQuantity(cartItem.id));
   };
 
