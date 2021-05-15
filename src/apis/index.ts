@@ -36,7 +36,7 @@ const api = {
       return products;
     },
     post: (product: Id & Product) => {
-      collection.products.doc(product.id).set(product);
+      return collection.products.doc(product.id).set(product);
     },
   },
   cart: {
@@ -49,10 +49,10 @@ const api = {
       return cartItem;
     },
     post: (cartItem: CartItem) => {
-      collection.cart.doc(cartItem.id).set(cartItem);
+      return collection.cart.doc(cartItem.id).set(cartItem);
     },
     delete: (id: string) => {
-      collection.cart.doc(id).delete();
+      return collection.cart.doc(id).delete();
     },
   },
   orderList: {
@@ -71,7 +71,7 @@ const api = {
         return collection.orderList.doc(id).get();
       },
       post: (order: Order) => {
-        collection.orderList.doc(order.id).set(order);
+        return collection.orderList.doc(order.id).set(order);
       },
     },
   },
