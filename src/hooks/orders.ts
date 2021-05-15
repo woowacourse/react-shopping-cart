@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { requestGetOrders } from '../apis/order';
+import { Order } from '../type';
 import { parseOrderDataList } from '../utils/parseData';
 
 const useOrders = () => {

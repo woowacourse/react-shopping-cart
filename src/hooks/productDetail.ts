@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import noImagePNG from '../assets/images/no-image.png';
 import { parseProductData } from '../utils/parseData';
 import { requestGetProduct } from '../apis/products';
+import { Product } from '../type';
 
 const defaultProduct: Product = {
   id: '0',

@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { Dispatch } from 'redux';
 import { requestGetProducts } from '../apis/products';
+import { Product } from '../type';
 import { parseProductData } from '../utils/parseData';
 
 const GET_PRODUCTS_REQUEST = 'product/GET_PRODUCT_REQUEST';

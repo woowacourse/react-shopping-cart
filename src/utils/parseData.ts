@@ -1,3 +1,5 @@
+import { CartItem, CartItemData, Order, OrderData, Product, ProductData } from '../type';
+
 export const parseProductData = (productData: ProductData): Product => {
   return {
     id: String(productData.product_id),

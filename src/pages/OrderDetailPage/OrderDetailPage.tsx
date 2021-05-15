@@ -15,6 +15,7 @@ import { Redirect, useHistory } from 'react-router';
 import { confirm } from '../../utils/confirm';
 import { getMoneyString } from '../../utils/format';
 import { requestAddProductToCart } from '../../apis';
+import { Product } from '../../type';
 
 const OrderDetailPage = () => {
   const [orderId] = window.location.hash.split('/').slice(-1);

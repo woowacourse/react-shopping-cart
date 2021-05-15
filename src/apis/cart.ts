@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { STATUS_CODE, URL } from '../constants';
+import { CartItemData } from '../type';
 
 export const requestDeleteCartItem = async (id: string) => {
   const response = await axios.delete(`${URL.CART}/${id}`);

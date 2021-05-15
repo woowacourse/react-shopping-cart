@@ -1,12 +1,12 @@
-import CartItem, { Props } from './CartItem';
+import CartListItem, { Props } from './CartListItem';
 
 export default {
   title: 'Components/ShoppingCartPage/CartItem',
-  component: CartItem,
+  component: CartListItem,
   argTypes: {},
 };
 
-const Template = (args: Props) => <CartItem {...args} />;
+const Template = (args: Props) => <CartListItem {...args} />;
 
 export const Default = Template.bind({});
 

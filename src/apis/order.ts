@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { STATUS_CODE, URL } from '../constants';
+import { CartItem, OrderData } from '../type';
 
 interface addOrderRequestInfo {
   cart_id: number;

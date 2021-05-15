@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { requestGetCartItems } from '../apis/cart';
+import { CartItem } from '../type';
 import { parseCartItemData } from '../utils/parseData';
 
 const useCart = () => {

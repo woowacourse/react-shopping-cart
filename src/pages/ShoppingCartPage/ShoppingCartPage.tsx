@@ -5,7 +5,7 @@ import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
-import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
+import CartListItem from '../../components/ShoppingCartPage/CartListItem/CartListItem';
 import { STATUS_CODE, PATH } from '../../constants';
 import useCart from '../../hooks/cart';
 import { getMoneyString } from '../../utils/format';
@@ -14,6 +14,7 @@ import { confirm } from '../../utils/confirm';
 import { requestDeleteCartItem } from '../../apis';
 import { alert } from '../../utils/alert';
 import { requestDeleteCartItems } from '../../apis/cart';
+import { CartItem } from '../../type';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -97,14 +98,14 @@ const ShoppingCartPage = () => {
 
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
-      <CartItem
+      <CartListItem
         thumbnail={cartItem.thumbnail}
         name={cartItem.name}
         price={getMoneyString(Number(cartItem.price) * Number(cartItem.quantity))}
         quantity={cartItem.quantity}
-        setQuantity={quantity => setCartItemQuantity(cartItem.id, quantity)}
+        setQuantity={(quantity: CartItem['quantity']) => setCartItemQuantity(cartItem.id, quantity)}
         isSelected={cartItem.isSelected}
-        setSelected={isSelected => setCartItemSelected(cartItem.id, isSelected)}
+        setSelected={(isSelected: boolean) => setCartItemSelected(cartItem.id, isSelected)}
         onCartItemDelete={() => onCartItemDelete(cartItem.id)}
       />
     </Styled.CartItemWrapper>

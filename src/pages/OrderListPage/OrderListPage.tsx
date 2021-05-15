@@ -14,6 +14,7 @@ import { confirm } from '../../utils/confirm';
 import * as Styled from './OrderListPage.styles';
 import { requestAddProductToCart } from '../../apis';
 import { alert } from '../../utils/alert';
+import { Product } from '../../type';
 
 const OrderListPage = () => {
   const { orders, loading, responseOK } = useOrders();

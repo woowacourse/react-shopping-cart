@@ -8,6 +8,7 @@ import * as Styled from './ProductOrderPage.styles';
 import { confirm } from '../../utils/confirm';
 import { requestAddOrder } from '../../apis';
 import { alert } from '../../utils/alert';
+import { CartItem } from '../../type';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedCartItems: CartItem[] }>();

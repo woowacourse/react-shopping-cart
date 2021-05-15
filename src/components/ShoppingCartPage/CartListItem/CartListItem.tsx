@@ -1,8 +1,9 @@
-import * as Styled from './CartItem.styles';
+import * as Styled from './CartListItem.styles';
 import Checkbox from '../../commons/Checkbox/Checkbox';
 import NumberInput from '../../commons/NumberInput/NumberInput';
 import trashCanSVG from '../../../assets/svgs/trash-can.svg';
 import noImagePNG from '../../../assets/images/no-image.png';
+import { CartItem } from '../../../type';
 
 export interface Props {
   name: string;
@@ -15,7 +16,7 @@ export interface Props {
   onCartItemDelete: () => void;
 }
 
-const CartItem = ({
+const CartListItem = ({
   name,
   price,
   thumbnail = noImagePNG,
@@ -26,7 +27,7 @@ const CartItem = ({
   onCartItemDelete,
 }: Props) => {
   return (
-    <Styled.CartItem>
+    <Styled.CartListItem>
       <Checkbox isChecked={isSelected} onCheck={setSelected} />
       <Styled.Thumbnail src={thumbnail} alt="cart item thumbnail" />
       <Styled.ItemContentWrapper>
@@ -39,8 +40,8 @@ const CartItem = ({
           <Styled.Price>{price}원</Styled.Price>
         </Styled.ItemContentBottom>
       </Styled.ItemContentWrapper>
-    </Styled.CartItem>
+    </Styled.CartListItem>
   );
 };
 
-export default CartItem;
+export default CartListItem;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { STATUS_CODE, URL } from '../constants';
+import { ProductData } from '../type';
 
 export const requestAddProductToCart = async (productId: string) => {
   const response = await axios.post(URL.CART, {

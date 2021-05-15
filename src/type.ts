@@ -1,30 +1,30 @@
-declare interface ProductData {
+export interface ProductData {
   product_id: number;
   price: number;
   name: string;
   image_url: string;
 }
 
-declare interface CartItemData {
+export interface CartItemData {
   cart_id: number;
   price: number;
   name: string;
   image_url: string;
 }
 
-declare interface OrderData {
+export interface OrderData {
   order_id: number;
   order_details: Array<ProductData & { quantity: number }>;
 }
 
-declare interface Product {
+export interface Product {
   id: string;
   name: string;
   thumbnail: string;
   price: string;
 }
 
-declare interface CartItem {
+export interface CartItem {
   id: string;
   name: string;
   thumbnail: string;
@@ -33,7 +33,7 @@ declare interface CartItem {
   isSelected: boolean;
 }
 
-declare interface Order {
+export interface Order {
   id: string;
   orderItems: CartItem[];
 }

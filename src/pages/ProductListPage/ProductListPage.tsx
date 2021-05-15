@@ -11,6 +11,7 @@ import { getMoneyString } from '../../utils/format';
 
 import * as Styled from './ProductListPage.styles';
 import { requestAddProductToCart } from '../../apis';
+import { Product } from '../../type';
 
 const ProductListPage = () => {
   const history = useHistory();
