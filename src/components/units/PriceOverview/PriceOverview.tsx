@@ -4,13 +4,14 @@ import Styled from './PriceOverview.styles';
 type PriceOverviewProps = {
   headerText: string;
   children: React.ReactNode;
+  border?: boolean;
 };
 
 const PriceOverview = (props: PriceOverviewProps) => {
-  const { headerText, children } = props;
+  const { headerText, children, border } = props;
 
   return (
-    <Styled.Root>
+    <Styled.Root border={border}>
       <Styled.TotalPriceHeader>{headerText}</Styled.TotalPriceHeader>
       <Styled.Divider />
       <Styled.TotalPriceContent>{children}</Styled.TotalPriceContent>
@@ -18,6 +19,8 @@ const PriceOverview = (props: PriceOverviewProps) => {
   );
 };
 
-PriceOverview.defaultProps = {};
+PriceOverview.defaultProps = {
+  border: true,
+};
 
 export default PriceOverview;

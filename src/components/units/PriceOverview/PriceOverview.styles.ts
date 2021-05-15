@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
 
-const Root = styled.div`
+type RootProps = {
+  border?: boolean;
+};
+
+const Root = styled.div<RootProps>`
   width: 448px;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${(props) => props.theme.borderColor.lightGrey};
+  border: ${(props) => (props.border ? `1px solid  ${props.theme.borderColor.lightGrey}` : 'none')};
 `;
 
 const TotalPriceHeader = styled.div`

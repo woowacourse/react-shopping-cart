@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
@@ -15,6 +16,7 @@ import api from 'api';
 import Styled from './OrderListPage.styles';
 
 const OrderListPage = () => {
+  const history = useHistory();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -40,6 +42,16 @@ const OrderListPage = () => {
     addCartItem(product);
   };
 
+  const handleClickDetail = useCallback(
+    (order: T.Order) => {
+      history.push({
+        pathname: '/order/detail',
+        state: { order },
+      });
+    },
+    [history]
+  );
+
   useEffect(() => {
     dispatch(getCartItemsRequest());
   }, [dispatch]);
@@ -64,7 +76,7 @@ const OrderListPage = () => {
             <Styled.Order key={order.id}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
-                <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
+                <Styled.DetailButton onClick={() => handleClickDetail(order)}>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
                 {order.items.map((item) => (

@@ -13,6 +13,7 @@ import OrderPage from 'pages/OrderPage/OrderPage';
 import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
 import OrderCompletePage from 'pages/OrderCompletePage/OrderCompletePage';
 import OrderListPage from 'pages/OrderListPage/OrderListPage';
+import OrderDetailPage from 'pages/OrderDetailPage/OrderDetailPage';
 import rootReducer from 'modules';
 import Styled, { globalStyle, theme } from './App.styles';
 
@@ -52,8 +53,11 @@ const App = () => {
                   <Route path="/order/complete">
                     <OrderCompletePage />
                   </Route>
-                  <Route path="/order-list">
+                  <Route path="/order/list">
                     <OrderListPage />
+                  </Route>
+                  <Route path="/order/detail">
+                    <OrderDetailPage />
                   </Route>
                 </Switch>
               </Styled.Page>

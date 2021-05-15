@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Action } from 'redux';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { useSnackbar } from 'notistack';
-import { RootState } from 'modules';
-import { addCartItemRequest } from 'modules/cartItems/actions';
-import { CartState } from 'modules/cartItems/reducers';
 import useAddCartItem from 'hooks/useAddCartItem';
 import * as T from 'types';
-import MESSAGE from 'constants/messages';
 import Styled from './ProductDetailPage.styles';
 
 type LocationState = {

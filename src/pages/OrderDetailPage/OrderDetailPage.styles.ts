@@ -4,16 +4,10 @@ const Root = styled.section`
   padding: 60px 0;
 `;
 
-const OrderList = styled.ul`
-  margin: 55px 0;
-  padding: 0;
-  list-style: none;
-`;
-
-const Order = styled.li`
+const Order = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor.lightGrey};
   border-bottom: none;
-  margin-bottom: 74px;
+  margin-top: 55px;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -37,7 +31,6 @@ const OrderNumber = styled.span`
 const DetailButton = styled.span`
   font-size: 20px;
   letter-spacing: 0.5px;
-  cursor: pointer;
 `;
 
 const PurchasedList = styled.ul`
@@ -46,23 +39,25 @@ const PurchasedList = styled.ul`
   list-style: none;
 `;
 
-const Product = styled.li``;
+const PriceOverViewWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+`;
 
-const SpinnerWrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+const HighlightTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
 `;
 
 export default {
   Root,
-  OrderList,
   Order,
   OrderHeader,
   OrderNumber,
   DetailButton,
   PurchasedList,
-  Product,
-  SpinnerWrapper,
+  PriceOverViewWrapper,
+  HighlightTextWrapper,
 };

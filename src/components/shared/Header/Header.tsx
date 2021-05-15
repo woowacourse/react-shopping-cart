@@ -16,7 +16,7 @@ const Header = () => {
           <Link to="/cart">
             <Styled.NavItem>장바구니</Styled.NavItem>
           </Link>
-          <Link to="/order-list">
+          <Link to="/order/list">
             <Styled.NavItem>주문목록</Styled.NavItem>
           </Link>
         </Styled.Nav>
