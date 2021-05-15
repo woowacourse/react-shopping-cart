@@ -2,18 +2,18 @@ import * as Styled from './ItemGroup.styles';
 
 export interface Props {
   children: React.ReactNode;
-  orderNumber: string;
-  detailLinkButtonText?: string;
-  onDetailLinkClick?: () => void;
+  headerText: string;
+  headerLinkButtonText?: string;
+  onHeaderLinkClick?: () => void;
 }
 
-const ItemGroup = ({ children, orderNumber, onDetailLinkClick, detailLinkButtonText }: Props) => {
+const ItemGroup = ({ children, headerText, onHeaderLinkClick, headerLinkButtonText }: Props) => {
   return (
     <Styled.ItemGroup>
       <Styled.Header>
-        <Styled.OrderNumber>주문번호 : {orderNumber}</Styled.OrderNumber>
-        {detailLinkButtonText && (
-          <Styled.DetailLinkButton onClick={onDetailLinkClick}>{detailLinkButtonText}</Styled.DetailLinkButton>
+        <Styled.HeaderText>주문번호 : {headerText}</Styled.HeaderText>
+        {headerLinkButtonText && (
+          <Styled.HeaderLink onClick={onHeaderLinkClick}>{headerLinkButtonText}</Styled.HeaderLink>
         )}
       </Styled.Header>
       <Styled.ItemContainer>{children}</Styled.ItemContainer>

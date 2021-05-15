@@ -82,7 +82,7 @@ const OrderDetailPage = () => {
           <PageTitle>주문내역상세</PageTitle>
         </Styled.PageTitleWrapper>
         <Styled.ItemGroupWrapper>
-          <ItemGroup orderNumber={String(orderId)}>{orderItemList}</ItemGroup>
+          <ItemGroup headerText={`주문번호 : ${orderId}`}>{orderItemList}</ItemGroup>
         </Styled.ItemGroupWrapper>
         <Styled.PageBottom>
           <Button size="MD" backgroundColor={COLORS.BROWN_500} onClick={onOrderListLinkButtonClick}>

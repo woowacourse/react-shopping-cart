@@ -16,8 +16,8 @@ export const Header = styled.div`
   line-height: 24px;
 `;
 
-export const OrderNumber = styled.span``;
+export const HeaderText = styled.span``;
 
-export const DetailLinkButton = styled.button``;
+export const HeaderLink = styled.button``;
 
 export const ItemContainer = styled.div``;
