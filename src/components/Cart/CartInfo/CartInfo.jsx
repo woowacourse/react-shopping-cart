@@ -45,11 +45,9 @@ const CartInfo = ({ cart }) => {
   return (
     <S.CartInfo>
       <S.Menu>
-        <S.CheckAllLabel htmlFor="checkAll">
+        <S.CheckAllLabel>
           <CheckBox
-            id="checkAll"
             name="checkAll"
-            label={checkAllLabel}
             checked={checkAll}
             onChange={handleCheckBoxChange}
           />

@@ -10,6 +10,7 @@ import { formatPrice } from "../../../../utils/utils";
 import CheckBox from "../../../@shared/CheckBox/CheckBox";
 import NumberInput from "../../../@shared/NumberInput/NumberInput";
 import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
+import Label from "../../../@shared/Label/Label";
 import * as S from "./CartItem.styled";
 
 const CartItem = ({
@@ -34,13 +35,17 @@ const CartItem = ({
     dispatch(removeFromCart({ id }));
   };
 
+  const checkBoxId = `${id}_${name}`;
+
   return (
     <S.CartItem>
       <S.Detail>
+        <Label srOnly htmlFor={checkBoxId}>
+          {name}
+        </Label>
         <CheckBox
-          id={`${id}_${name}`}
+          id={checkBoxId}
           name={name}
-          label={name}
           checked={checked}
           onChange={handleCheckBoxChange}
         />
