@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { STATUS_CODE, URL } from '../constants';
+import { requestGetOrder } from '../apis/order';
+import { parseOrderData } from '../utils/parseData';
 
-const useOrderDetail = () => {
+const useOrderDetail = (orderId: Order['id']) => {
   const [orderItems, setOrderItems] = useState<Order['orderItems']>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [responseOK, setResponseOK] = useState<boolean>(true);
@@ -11,13 +11,9 @@ const useOrderDetail = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const orderId = window.location.hash.split('/').slice(-1);
-        const response = await axios.get(`${URL.ORDERS}/${orderId}`);
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          throw new Error('상품 상세 정보 조회 실패');
-        }
+        const response = await requestGetOrder(orderId);
         const order = response.data;
-        setOrderItems(order.orderItems);
+        setOrderItems(parseOrderData(order).orderItems);
         setResponseOK(true);
       } catch (error) {
         console.error(error);
@@ -27,7 +23,7 @@ const useOrderDetail = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [orderId]);
 
   return { orderItems, loading, responseOK };
 };

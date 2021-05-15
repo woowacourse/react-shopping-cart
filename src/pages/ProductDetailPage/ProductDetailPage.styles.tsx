@@ -17,6 +17,8 @@ export const ProductWrapper = styled.div`
 export const ProductImage = styled.img`
   width: 570px;
   height: 570px;
+  margin-bottom: 15px;
+  object-fit: cover;
 `;
 
 export const ProductNameWrapper = styled.div`
@@ -29,9 +31,8 @@ export const ProductNameWrapper = styled.div`
   font-size: 32px;
   line-height: 36px;
   letter-spacing: 0.5px;
-
   border-bottom: 4px solid ${({ theme }) => theme.GRAY_400};
-  padding: 15px 35px 19px;
+  padding: 15px 35px 25px;
   margin-bottom: 34px;
 `;
 

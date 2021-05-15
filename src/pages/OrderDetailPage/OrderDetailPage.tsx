@@ -17,10 +17,10 @@ import { getMoneyString } from '../../utils/format';
 import { requestAddProductToCart } from '../../apis';
 
 const OrderDetailPage = () => {
-  const orderId = window.location.hash.split('/').slice(-1);
+  const [orderId] = window.location.hash.split('/').slice(-1);
   const history = useHistory();
   const { products } = useSelector((state: RootState) => state.product);
-  const { orderItems, loading, responseOK } = useOrderDetail();
+  const { orderItems, loading, responseOK } = useOrderDetail(orderId);
 
   if (products.length === 0) {
     return <Redirect to={PATH.ROOT} />;
@@ -45,7 +45,7 @@ const OrderDetailPage = () => {
     }
 
     try {
-      await requestAddProductToCart(product);
+      await requestAddProductToCart(product.id);
     } catch (error) {
       alert('상품을 장바구니에 담지 못했습니다.');
     }

@@ -6,50 +6,38 @@ import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
 import { confirm } from '../../utils/confirm';
-import { requestOrderAdd } from '../../apis';
+import { requestAddOrder } from '../../apis';
 import { alert } from '../../utils/alert';
-import { requestCartItemsDelete } from '../../apis/cart';
 
 const ProductOrderPage = () => {
-  const history = useHistory<{ selectedItems: CartItem[] }>();
-  const { selectedItems: orderItems } = history.location.state;
+  const history = useHistory<{ selectedCartItems: CartItem[] }>();
+  const { selectedCartItems } = history.location.state;
 
-  const orderItemList = orderItems.map(orderItem => {
+  const orderItemList = selectedCartItems.map(cartItem => {
     return (
-      <Styled.OrderItemWrapper key={orderItem.id}>
+      <Styled.OrderItemWrapper key={cartItem.id}>
         <ProductListItem
           size="SM"
-          thumbnail={orderItem.thumbnail}
-          name={orderItem.name}
-          price={getMoneyString(orderItem.price)}
-          quantity={orderItem.quantity}
+          thumbnail={cartItem.thumbnail}
+          name={cartItem.name}
+          price={getMoneyString(cartItem.price)}
+          quantity={cartItem.quantity}
         />
       </Styled.OrderItemWrapper>
     );
   });
 
   const totalPrice = getMoneyString(
-    orderItems.reduce((acc, orderItem) => {
-      return acc + Number(orderItem.price) * Number(orderItem.quantity);
+    selectedCartItems.reduce((acc, cartItem) => {
+      return acc + Number(cartItem.price) * Number(cartItem.quantity);
     }, 0)
   );
 
-  const tryAddOrder = async (orderItems: CartItem[]) => {
+  const tryAddOrder = async (cartItems: CartItem[]) => {
     try {
-      await requestOrderAdd(orderItems);
+      await requestAddOrder(cartItems);
     } catch (error) {
       alert('주문 요청에 실패하였습니다.');
-      return false;
-    }
-
-    return true;
-  };
-
-  const tryDeleteOrderedCartItems = async (idList: Array<CartItem['id']>) => {
-    try {
-      await requestCartItemsDelete(idList);
-    } catch (error) {
-      alert('기존의 장바구니 상품들을 삭제하는데 실패하였습니다.');
       return false;
     }
 
@@ -60,13 +48,8 @@ const ProductOrderPage = () => {
     if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
       return;
     }
-    const isOrderSucceed = await tryAddOrder(orderItems);
+    const isOrderSucceed = await tryAddOrder(selectedCartItems);
     if (!isOrderSucceed) {
-      return;
-    }
-    const orderItemIdList = orderItems.map(orderItem => orderItem.id);
-    const isOrderedCarItemDeleted = await tryDeleteOrderedCartItems(orderItemIdList);
-    if (!isOrderedCarItemDeleted) {
       return;
     }
     history.push(PATH.ORDER_LIST);
@@ -81,7 +64,7 @@ const ProductOrderPage = () => {
         <Styled.Container>
           <Styled.OrderContainer>
             <Styled.OrderHeaderWrapper>
-              <Styled.OrderHeader>배송상품 ({orderItems.length}개)</Styled.OrderHeader>
+              <Styled.OrderHeader>배송상품 ({selectedCartItems.length}개)</Styled.OrderHeader>
             </Styled.OrderHeaderWrapper>
             <Styled.OrderItemList>{orderItemList}</Styled.OrderItemList>
           </Styled.OrderContainer>

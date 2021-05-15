@@ -1,6 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { Dispatch } from 'redux';
-import { URL, STATUS_CODE } from '../constants';
+import { requestGetProducts } from '../apis/products';
+import { parseProductData } from '../utils/parseData';
 
 const GET_PRODUCTS_REQUEST = 'product/GET_PRODUCT_REQUEST';
 const GET_PRODUCTS_SUCCESS = 'product/GET_PRODUCT_SUCCESS';
@@ -31,13 +32,9 @@ export interface productState {
 export const getProducts = () => async (dispatch: Dispatch<ProductAction>) => {
   dispatch({ type: GET_PRODUCTS_REQUEST });
   try {
-    const response = await axios.get(URL.PRODUCTS);
-
-    if (response.status !== STATUS_CODE.GET_SUCCESS) {
-      throw new Error('');
-    }
-
-    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: response.data });
+    const response = await requestGetProducts();
+    const products = response.data.map(parseProductData);
+    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_PRODUCTS_FAILURE, error });

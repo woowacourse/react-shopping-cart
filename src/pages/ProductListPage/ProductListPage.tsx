@@ -27,7 +27,7 @@ const ProductListPage = () => {
     }
 
     try {
-      await requestAddProductToCart(product);
+      await requestAddProductToCart(product.id);
       alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
       if (error.status === STATUS_CODE.POST_FAILURE) {

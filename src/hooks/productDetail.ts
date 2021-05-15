@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { STATUS_CODE, URL } from '../constants';
 import noImagePNG from '../assets/images/no-image.png';
+import { parseProductData } from '../utils/parseData';
+import { requestGetProduct } from '../apis/products';
 
 const defaultProduct: Product = {
   id: '0',
@@ -19,12 +19,9 @@ const useProductDetail = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const productId = window.location.hash.split('/').slice(-1);
-        const response = await axios.get(`${URL.PRODUCTS}/${productId}`);
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          throw new Error('상품 상세 정보 조회 실패');
-        }
-        setProduct(response.data);
+        const [productId] = window.location.hash.split('/').slice(-1);
+        const response = await requestGetProduct(productId);
+        setProduct(parseProductData(response.data));
         setResponseOK(true);
       } catch (error) {
         console.error(error);

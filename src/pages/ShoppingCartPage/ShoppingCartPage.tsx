@@ -11,9 +11,9 @@ import useCart from '../../hooks/cart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { confirm } from '../../utils/confirm';
-import { requestCartItemDelete, requestCartItemQuantityPatch } from '../../apis';
+import { requestDeleteCartItem } from '../../apis';
 import { alert } from '../../utils/alert';
-import { requestCartItemsDelete } from '../../apis/cart';
+import { requestDeleteCartItems } from '../../apis/cart';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -40,9 +40,6 @@ const ShoppingCartPage = () => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const newCartItem = { ...newCartItems[targetIndex], quantity };
-    try {
-      requestCartItemQuantityPatch(id, quantity);
-    } catch (error) {}
     newCartItems.splice(targetIndex, 1, newCartItem);
     setCartItems(newCartItems);
   };
@@ -70,7 +67,7 @@ const ShoppingCartPage = () => {
     }
 
     try {
-      await requestCartItemDelete(id);
+      await requestDeleteCartItem(id);
       newCartItems.splice(targetIndex, 1);
       setCartItems(newCartItems);
     } catch (error) {
@@ -89,7 +86,7 @@ const ShoppingCartPage = () => {
 
     try {
       const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-      await requestCartItemsDelete(selectedCartItemIdList);
+      await requestDeleteCartItems(selectedCartItemIdList);
       const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
       setCartItems(newCartItems);
     } catch (error) {
@@ -123,7 +120,7 @@ const ShoppingCartPage = () => {
     }, 0)
   );
 
-  const getSelectedItems = () => {
+  const getSelectedCartItems = () => {
     return cartItems.filter(item => item.isSelected);
   };
 
@@ -131,9 +128,9 @@ const ShoppingCartPage = () => {
     if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
       return;
     }
-    const selectedItems = getSelectedItems();
-    if (selectedItems.length === 0) return;
-    history.push({ pathname: PATH.ORDER, state: { selectedItems } });
+    const selectedCartItems = getSelectedCartItems();
+    if (selectedCartItems.length === 0) return;
+    history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
   };
 
   const isOrderPossible = cartItems.length > 0;
@@ -161,7 +158,7 @@ const ShoppingCartPage = () => {
             title="결제예상금액"
             priceLabel="결제예상금액"
             price={getMoneyString(totalPrice)}
-            buttonText={`주문하기(${getSelectedItems().length}개)`}
+            buttonText={`주문하기(${getSelectedCartItems().length}개)`}
             onButtonClick={onOrderLinkButtonClick}
             isButtonDisabled={!isOrderPossible}
           />

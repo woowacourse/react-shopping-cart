@@ -1,3 +1,22 @@
+declare interface ProductData {
+  product_id: number;
+  price: number;
+  name: string;
+  image_url: string;
+}
+
+declare interface CartItemData {
+  cart_id: number;
+  price: number;
+  name: string;
+  image_url: string;
+}
+
+declare interface OrderData {
+  order_id: number;
+  order_details: Array<ProductData & { quantity: number }>;
+}
+
 declare interface Product {
   id: string;
   name: string;
@@ -14,9 +33,7 @@ declare interface CartItem {
   isSelected: boolean;
 }
 
-declare type Cart = CartItem[];
-
 declare interface Order {
-  id: number;
+  id: string;
   orderItems: CartItem[];
 }

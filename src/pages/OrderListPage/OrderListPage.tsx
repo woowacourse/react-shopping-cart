@@ -43,7 +43,7 @@ const OrderListPage = () => {
     }
 
     try {
-      await requestAddProductToCart(product);
+      await requestAddProductToCart(product.id);
     } catch (error) {
       alert('상품을 장바구니에 담지 못했습니다.');
     }

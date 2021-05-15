@@ -1,5 +1,5 @@
 export { requestAddProductToCart } from './products';
 
-export { requestCartItemDelete, requestCartItemQuantityPatch } from './cart';
+export { requestDeleteCartItem } from './cart';
 
-export { requestOrderAdd } from './order';
+export { requestAddOrder } from './order';
