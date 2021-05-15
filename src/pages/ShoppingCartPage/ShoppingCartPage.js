@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ import {
   ShoppingCartItem,
   ShoppingCartItemOption,
   DeleteButton,
+  ShoppingCartItemNotFoundImg,
 } from './ShoppingCartPage.styles';
 import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
 import { updateShoppingCartItemsAsync } from '../../redux/action';
@@ -19,6 +21,7 @@ import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import useServerAPI from '../../hooks/useServerAPI';
+import shoppingCartItemNotFoundImg from '../../shared/assets/img/tung.png';
 
 // TODO: 컴포넌트 분리
 const TrashCanIcon = (
@@ -77,12 +80,7 @@ const ShoppingCartPage = () => {
   };
 
   const onClickPaymentButton = () => {
-    if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
-
-    const newContent = {
-      productIdList: myShoppingCartProductIds.filter(productId => !checkedIdList.includes(productId)),
-    };
-    dispatch(updateShoppingCartItemsAsync(SCHEMA.SHOPPING_CART, myShoppingCartId, newContent));
+    if (!window.confirm(CONFIRM_MESSAGE.CHECKOUT)) return;
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
@@ -147,32 +145,36 @@ const ShoppingCartPage = () => {
 
           <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
 
-          <ShoppingCartList>
-            {shoppingCartItemList.map(({ id, img, name, price, amount }) => {
-              const isChecked = checkedIdList.includes(id);
+          {myShoppingCartProductIds.length ? (
+            <ShoppingCartList>
+              {shoppingCartItemList.map(({ id, img, name, price, amount }) => {
+                const isChecked = checkedIdList.includes(id);
 
-              return (
-                <ShoppingCartItemContainer key={id}>
-                  <ShoppingCartItem>
-                    <CheckBox id={id} onClick={onClickCheckBox} isChecked={isChecked} />
-                    <RowProductItem imgSrc={img} name={name} />
-                  </ShoppingCartItem>
+                return (
+                  <ShoppingCartItemContainer key={id}>
+                    <ShoppingCartItem>
+                      <CheckBox id={id} onClick={onClickCheckBox} isChecked={isChecked} />
+                      <RowProductItem imgSrc={img} name={name} />
+                    </ShoppingCartItem>
 
-                  <ShoppingCartItemOption>
-                    <button type="button" onClick={() => onClickDeleteButton(id)}>
-                      {TrashCanIcon}
-                    </button>
-                    <AmountCounter
-                      value={amount}
-                      onClickUp={() => onClickAmountCounter(id, 'up')}
-                      onClickDown={() => onClickAmountCounter(id, 'down')}
-                    />
-                    <span>{`${numberWithCommas(price * amount)}원`}</span>
-                  </ShoppingCartItemOption>
-                </ShoppingCartItemContainer>
-              );
-            })}
-          </ShoppingCartList>
+                    <ShoppingCartItemOption>
+                      <button type="button" onClick={() => onClickDeleteButton(id)}>
+                        {TrashCanIcon}
+                      </button>
+                      <AmountCounter
+                        value={amount}
+                        onClickUp={() => onClickAmountCounter(id, 'up')}
+                        onClickDown={() => onClickAmountCounter(id, 'down')}
+                      />
+                      <span>{`${numberWithCommas(price * amount)}원`}</span>
+                    </ShoppingCartItemOption>
+                  </ShoppingCartItemContainer>
+                );
+              })}
+            </ShoppingCartList>
+          ) : (
+            <ShoppingCartItemNotFoundImg alt="shopping-cart-item-not-found" src={shoppingCartItemNotFoundImg} />
+          )}
         </ShoppingCartContainer>
 
         <PaymentInfoBoxContainer>
