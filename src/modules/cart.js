@@ -16,23 +16,30 @@ export const allUnCheck = () => ({ type: ALL_UNCHECK });
 
 const initialState = [];
 
-const changeCount = (state, id, mode) => {
+const increaseCount = (state, id) => {
   const targetIndex = state.findIndex((value) => value.id === id);
   if (targetIndex === -1) {
     return state;
   }
   const cartItem = state[targetIndex];
 
-  if (mode === 'decrease') {
-    if (cartItem.quantity <= 1) {
-      alert('수량은 1개 이상이어야 합니다.');
-      return state;
-    }
+  return [
+    ...state.slice(0, targetIndex),
+    { ...cartItem, quantity: Number(cartItem.quantity) + 1 },
+    ...state.slice(targetIndex + 1),
+  ];
+};
+
+const decreaseCount = (state, id) => {
+  const targetIndex = state.findIndex((value) => value.id === id);
+  if (targetIndex === -1) {
+    return state;
   }
+  const cartItem = state[targetIndex];
 
   return [
     ...state.slice(0, targetIndex),
-    { ...cartItem, quantity: `${mode === 'increase' ? Number(cartItem.quantity) + 1 : cartItem.quantity - 1}` },
+    { ...cartItem, quantity: Number(cartItem.quantity) - 1 },
     ...state.slice(targetIndex + 1),
   ];
 };
@@ -69,9 +76,9 @@ const addItem = (state, newItem) => {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREASE_QUANTITY:
-      return changeCount(state, action.payload, 'increase');
+      return increaseCount(state, action.payload);
     case DECREASE_QUANTITY:
-      return changeCount(state, action.payload, 'decrease');
+      return decreaseCount(state, action.payload);
     case ADD_ITEM_TO_CART:
       return addItem(state, action.payload);
     case DELETE_ITEM_FROM_CART:
