@@ -55,7 +55,7 @@ function Header() {
         <nav>
           <NavUl>
             <li>
-              <NavItem to="/cart">장바구니 {state.length ? <Badge number={state.length} /> : ''}</NavItem>
+              <NavItem to="/cart">장바구니 {state.length ? <Badge children={state.length} /> : ''}</NavItem>
             </li>
             <li>
               <NavItem to="/orders">주문목록</NavItem>
