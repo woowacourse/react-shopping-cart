@@ -1,9 +1,9 @@
 import * as Styled from './CartListItem.styles';
 import Checkbox from '../../commons/Checkbox/Checkbox';
-import NumberInput from '../../commons/NumberInput/NumberInput';
 import trashCanSVG from '../../../assets/svgs/trash-can.svg';
 import noImagePNG from '../../../assets/images/no-image.png';
 import { CartItem } from '../../../type';
+import ProductQuantityInput from '../ProductQuantityInput/ProductQuantityInput';
 
 export interface Props {
   name: string;
@@ -36,7 +36,7 @@ const CartListItem = ({
           <Styled.DeleteIcon src={trashCanSVG} alt="cart item delete button" onClick={onCartItemDelete} />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
-          <NumberInput value={quantity} setValue={setQuantity} />
+          <ProductQuantityInput quantity={quantity} setQuantity={setQuantity} maxNumber={99} />
           <Styled.Price>{price}원</Styled.Price>
         </Styled.ItemContentBottom>
       </Styled.ItemContentWrapper>
