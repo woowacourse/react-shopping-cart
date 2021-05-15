@@ -1,14 +1,7 @@
 import { deleteItemFromCart } from './modules/cart';
 
 export const printCommasToPrice = (price) => {
-  price = price.toString();
-  const pattern = /(-?\d+)(\d{3})/;
-
-  while (pattern.test(price)) {
-    price = price.replace(pattern, '$1,$2');
-  }
-
-  return price;
+  return Number(price).toLocaleString('en-US');
 };
 
 export const getTotalPrice = (items) =>
