@@ -1,5 +1,5 @@
 import { ActionType, createAction } from "typesafe-actions";
-import { Order, OrderList, RequestError } from "../interface";
+import { Order, OrderList, RequestError } from "../types";
 
 const orderListActionType = {
   get: {

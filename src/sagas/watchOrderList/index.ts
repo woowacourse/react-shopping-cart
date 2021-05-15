@@ -3,7 +3,7 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import actions from "../../actions";
 import { OrderListItemPostRequestActionType, orderListActionType } from "../../actions/orderList";
 import api from "../../apis";
-import { OrderList } from "../../interface";
+import { OrderList } from "../../types";
 
 function* watchOrderList() {
   yield takeLatest(orderListActionType.get.request, getOrderList);

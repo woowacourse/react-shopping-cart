@@ -4,7 +4,7 @@ import { OrderProductItem, ProductImage } from "../../Components";
 
 import PageTitle from "../../Components/PageTitle";
 import SubmitBox from "../../Components/SubmitBox";
-import { CartItem } from "../../interface";
+import { CartItem } from "../../types";
 import { Container, OrderListTitle, Section, Main } from "./style";
 
 interface LocationState {

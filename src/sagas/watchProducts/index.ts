@@ -3,7 +3,7 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import actions from "../../actions";
 import { productsActionType } from "../../actions/products";
 import api from "../../apis";
-import { ProductsObject } from "../../interface";
+import { ProductsObject } from "../../types";
 
 function* watchProducts() {
   yield takeLatest(productsActionType.get.request, getProducts);

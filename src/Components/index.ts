@@ -6,5 +6,6 @@ import { default as CheckBox } from "./CheckBox";
 import { default as Button } from "./Button";
 import { default as OrderList } from "./OrderList";
 import { default as OrderProductItem } from "./OrderProductItem";
+import { default as Animation } from "./Animation";
 
-export { Header, Icon, Product, ProductImage, CheckBox, Button, OrderList, OrderProductItem };
+export { Header, Icon, Product, ProductImage, CheckBox, Button, OrderList, OrderProductItem, Animation };

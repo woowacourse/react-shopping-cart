@@ -24,7 +24,7 @@ const Product: VFC<ProductProps> = ({ id, Image, name, price, onClickCart }) => 
           <Price>{price}원</Price>
         </Desc>
       </Link>
-      <button type="button" data-product-id={id} onClick={onClickCart}>
+      <button type="button" onClick={onClickCart}>
         <Icon.Cart size={SIZE.ICON.CART.SM} color={COLOR.GRAY_600} />
       </button>
     </ItemInfoWrap>

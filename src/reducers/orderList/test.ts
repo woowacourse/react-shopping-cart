@@ -1,6 +1,6 @@
 import orderListReducer, { initialState } from ".";
 import actions from "../../actions";
-import { OrderList } from "../../interface";
+import { OrderList } from "../../types";
 
 describe("orderListReducer test", () => {
   it("should handle orderList/get/success", () => {

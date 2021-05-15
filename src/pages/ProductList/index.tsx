@@ -1,9 +1,9 @@
-import React, { useEffect, VFC, MouseEvent } from "react";
+import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { Product, ProductImage } from "../../Components";
-import { CartItem } from "../../interface";
+import { Animation, Product, ProductImage } from "../../Components";
+import { CartItem } from "../../types";
 import { RootState } from "../../store";
 
 import { Container } from "./styles";
@@ -11,24 +11,21 @@ import { Container } from "./styles";
 const ProductList: VFC = () => {
   const dispatch = useDispatch();
 
-  const { products, requestErrorMessage } = useSelector(
-    ({ products: { products, requestErrorMessage } }: RootState) => ({
+  const { products, loading, requestErrorMessage } = useSelector(
+    ({ products: { products, loading, requestErrorMessage } }: RootState) => ({
       products,
+      loading,
       requestErrorMessage,
     })
   );
+
+  const { animation } = useSelector(({ cart: { animation } }: RootState) => ({ animation }));
 
   useEffect(() => {
     dispatch(actions.products.get.request());
   }, []);
 
-  const onClickCart = ({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
-    if (currentTarget.dataset.productId === undefined) {
-      return;
-    }
-
-    const id = currentTarget.dataset.productId;
-
+  const onClickCart = (id: string) => {
     const cartItem: CartItem = {
       id,
       name: products[id].name,
@@ -49,9 +46,12 @@ const ProductList: VFC = () => {
           Image={<ProductImage size="282px" src={imageSrc} />}
           name={name}
           price={price}
-          onClickCart={onClickCart}
+          onClickCart={() => {
+            onClickCart(id);
+          }}
         />
       ))}
+      {animation.isShow && <Animation.Cart />}
     </Container>
   );
 };

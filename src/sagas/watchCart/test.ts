@@ -5,7 +5,7 @@ import { throwError } from "redux-saga-test-plan/providers";
 import watchCart from ".";
 import actions from "../../actions";
 import api from "../../apis";
-import { CartItem } from "../../interface";
+import { CartItem } from "../../types";
 
 const cartItem: CartItem[] = [
   {

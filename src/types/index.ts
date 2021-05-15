@@ -38,4 +38,14 @@ interface RequestError {
   requestErrorMessage: string | null;
 }
 
-export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError };
+interface Loading {
+  loading: boolean;
+}
+
+interface Animation {
+  animation: {
+    isShow: boolean;
+  };
+}
+
+export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError, Loading, Animation };

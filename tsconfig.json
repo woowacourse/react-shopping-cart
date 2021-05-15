@@ -9,5 +9,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Recommended"
+  "display": "Recommended",
+  "exclude": ["node_modules", "**/*.test.ts"],
+  "include": ["src", "index.d.ts"]
 }

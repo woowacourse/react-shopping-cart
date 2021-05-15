@@ -1,5 +1,5 @@
 import productsReducer, { initialState } from ".";
-import { ProductsObject } from "../../interface";
+import { ProductsObject } from "../../types";
 import actions from "../../actions";
 
 // TODO: 로딩에 대한 처리

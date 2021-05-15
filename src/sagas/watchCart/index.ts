@@ -1,9 +1,9 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, delay, put, takeLatest } from "redux-saga/effects";
 
 import actions from "../../actions";
 import { cartActionType, CartDeleteRequestActionType, CartPostRequestActionType } from "../../actions/cart";
 import api from "../../apis";
-import { CartItem } from "../../interface";
+import { CartItem } from "../../types";
 
 function* watchCart() {
   yield takeLatest(cartActionType.get.request, getCart);
@@ -26,9 +26,13 @@ function* postCart(action: CartPostRequestActionType) {
     yield call(api.cart.post, action.payload);
 
     yield put(actions.cart.post.success());
+    yield put(actions.cart.animation.show());
   } catch (error) {
     yield put(actions.cart.post.failure({ requestErrorMessage: error.message }));
   }
+
+  yield delay(1000);
+  yield put(actions.cart.animation.hide());
 }
 
 function* deleteCart(action: CartDeleteRequestActionType) {

@@ -1,5 +1,5 @@
 import { ActionType, createAction } from "typesafe-actions";
-import { Cart, CartItem, RequestError } from "../interface";
+import { Cart, CartItem, RequestError } from "../types";
 
 const cartActionType = {
   get: {
@@ -17,14 +17,18 @@ const cartActionType = {
     success: "cart/delete/success",
     failure: "cart/delete/failure",
   },
+  animation: {
+    show: "cart/animation/show",
+    hide: "cart/animation/hide",
+  },
 } as const;
 
 const cart = {
   get: {
-    request: createAction("cart/get/request")(),
-    success: createAction("cart/get/success", (cart: Cart) => cart)<Cart>(),
+    request: createAction(cartActionType.get.request)(),
+    success: createAction(cartActionType.get.success, (cart: Cart) => cart)<Cart>(),
     failure: createAction(
-      "cart/get/failure",
+      cartActionType.get.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
@@ -44,9 +48,13 @@ const cart = {
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
+  animation: {
+    show: createAction(cartActionType.animation.show)(),
+    hide: createAction(cartActionType.animation.hide)(),
+  },
 };
 
-type CartActionType = ActionType<typeof cart.get | typeof cart.post | typeof cart.delete>;
+type CartActionType = ActionType<typeof cart.get | typeof cart.post | typeof cart.delete | typeof cart.animation>;
 type CartPostRequestActionType = ActionType<typeof cart.post.request>;
 type CartDeleteRequestActionType = ActionType<typeof cart.delete.request>;
 

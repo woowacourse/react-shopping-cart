@@ -19,7 +19,17 @@ const config: Configuration = {
     extensions: [".ts", ".tsx", ".js"],
   },
   module: {
-    rules: [{ test: /\.tsx?$/, loader: "babel-loader" }],
+    rules: [
+      { test: /\.tsx?$/, loader: "babel-loader" },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
+    ],
   },
   devServer: {
     port: 3000,

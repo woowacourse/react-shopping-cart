@@ -5,7 +5,7 @@ import { throwError } from "redux-saga-test-plan/providers";
 import actions from "../../actions";
 import api from "../../apis";
 import watchOrderList from ".";
-import { Order, OrderList } from "../../interface";
+import { Order, OrderList } from "../../types";
 
 const orderList: OrderList = {
   orderList: [

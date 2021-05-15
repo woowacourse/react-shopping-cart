@@ -2,7 +2,7 @@ import firebase from "firebase";
 
 import db from "../firebase";
 
-import { CartItem, Id, Order, Product, ProductsObject } from "../interface";
+import { CartItem, Id, Order, Product, ProductsObject } from "../types";
 import { isDefined } from "../util/typeGuard";
 
 const collection = {
