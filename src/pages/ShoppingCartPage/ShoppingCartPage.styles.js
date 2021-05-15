@@ -58,11 +58,11 @@ const ShoppingCartListTitle = styled.div`
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0.5px;
-  margin: 0 0 20px 20px;
+  padding: 0 0 20px 20px;
+  border-bottom: 4px solid #aaaaaa;
 `;
 
 const ShoppingCartList = styled.div`
-  border-top: 4px solid #aaaaaa;
   & > * {
     border-bottom: 1.5px solid #cccccc;
     padding: 20px;
@@ -102,6 +102,12 @@ const ShoppingCartItemOption = styled.div`
   }
 `;
 
+const ShoppingCartItemNotFoundImg = styled.img`
+  width: 50%;
+  display: flex;
+  margin: 50px auto;
+`;
+
 export {
   Container,
   OptionContainer,
@@ -113,4 +119,5 @@ export {
   ShoppingCartItem,
   ShoppingCartItemOption,
   DeleteButton,
+  ShoppingCartItemNotFoundImg,
 };
