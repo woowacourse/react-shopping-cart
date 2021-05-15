@@ -1,3 +1,4 @@
+import { COLORS } from '../../../constants';
 import * as Styled from './Button.styles';
 
 export interface Props
@@ -8,7 +9,15 @@ export interface Props
   fontColor?: string;
 }
 
-const Button = ({ disabled, onClick, size, backgroundColor, fontColor, children, type = 'button' }: Props) => {
+const Button = ({
+  disabled,
+  onClick,
+  size,
+  backgroundColor,
+  fontColor = COLORS.WHITE,
+  children,
+  type = 'button',
+}: Props) => {
   return (
     <Styled.Button
       type={type}
