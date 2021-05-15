@@ -3,6 +3,8 @@ import React from 'react';
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
+import { COLOR } from '../../constant';
+
 import styled, { css } from 'styled-components';
 
 const SinglePaymentItem = styled.li`
@@ -12,7 +14,7 @@ const SinglePaymentItem = styled.li`
   width: 100%;
   height: 156px;
   padding: 18px 24px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid ${COLOR.GRAY[400]};
 `;
 
 const PaymentItemInfoWrapperStyle = css`
@@ -23,12 +25,12 @@ const PaymentItemInfoWrapperStyle = css`
 const PaymentItemName = styled.span`
   font-size: 20px;
   margin: 4px 0 20px;
-  color: #333333;
+  color: ${COLOR.GRAY[800]};
 `;
 
 const PaymentItemQuantity = styled.span`
   font-size: 16px;
-  color: #333333;
+  color: ${COLOR.GRAY[800]};
 `;
 
 const PaymentItem = ({ paymentItem }) => {

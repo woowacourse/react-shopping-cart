@@ -14,6 +14,8 @@ import { addPaymentItems } from '../../modules/payment';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
+import { COLOR } from '../../constant';
+
 import styled, { css } from 'styled-components';
 
 const CartItemWrapperStyle = css`
@@ -30,13 +32,13 @@ const CartItemSectionTitle = styled.h3`
   font-size: 20px;
   font-weight: 400;
   line-height: 33px;
-  color: #333333;
+  color: ${COLOR.GRAY[800]};
   margin: 27px 8px 8px;
 `;
 
 const CartItemList = styled.ul`
   margin-top: 10px;
-  border-top: 4px solid #aaaaaa;
+  border-top: 4px solid ${COLOR.GRAY[600]};
 `;
 
 const CartPage = () => {
@@ -93,15 +95,15 @@ const CartPage = () => {
                 width="117px"
                 height="50px"
                 backgroundColor="inherit"
-                border="1px solid #bbbbbb"
-                color="#333333"
+                border={`1px solid ${COLOR.GRAY[500]}`}
+                color={COLOR.GRAY[800]}
                 fontSize="16px"
-                hoverColor="#ffffff"
-                hoverBackgroundColor="#2ac1bc"
-                hoverBorder="1px solid #2ac1bc"
+                hoverColor={COLOR.WHITE[400]}
+                hoverBackgroundColor={COLOR.CYAN[400]}
+                hoverBorder={`1px solid ${COLOR.CYAN[400]}`}
                 disabledBackgroundColor="inherit"
-                disabledColor="#333333"
-                disabledBorder="1px solid #bbbbbb"
+                disabledColor={COLOR.GRAY[800]}
+                disabledBorder={`1px solid ${COLOR.GRAY[500]}`}
                 onClick={onDeleteCheckedItemsButtonClick}
                 disabled={checkedItemIds.length === 0}
               >

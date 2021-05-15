@@ -6,12 +6,14 @@ import logo from '../asset/logo.svg';
 import Badge from './utils/Badge';
 import Flex from './utils/Flex';
 
+import { COLOR } from '../constant';
+
 import styled, { css } from 'styled-components';
 
 const HeaderWrapper = styled.header`
   min-width: 1440px;
   height: 80px;
-  background-color: #2ac1bc;
+  background-color: ${COLOR.CYAN[400]};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
@@ -36,7 +38,7 @@ const NavUl = styled.ul`
 const NavItem = styled(NavLink)`
   position: relative;
   text-decoration: none;
-  color: #ffffff;
+  color: ${COLOR.WHITE[400]};
   font-size: 24px;
 `;
 
