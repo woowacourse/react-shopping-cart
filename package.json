@@ -80,12 +80,16 @@
         "files": "**/*.jsx",
         "rules": {
           "jsx-a11y/label-has-associated-control": [
-            2,
+            "error",
             {
+              "labelComponents": [
+                "Label",
+                "S.*Label"
+              ],
               "controlComponents": [
                 "CheckBox"
               ],
-              "assert": "both",
+              "assert": "either",
               "depth": 3
             }
           ]
