@@ -8,6 +8,8 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
+  position: sticky;
+  top: 4px;
   ${({ width, height }) => `
     width: ${width};
     height: ${height};
