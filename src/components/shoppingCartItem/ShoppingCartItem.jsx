@@ -1,3 +1,4 @@
+import { animated } from '@react-spring/web';
 import React from 'react';
 import Checkbox from '../checkbox/Checkbox';
 import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
@@ -15,6 +16,7 @@ import PropTypes from 'prop-types';
 import DialogPortal from '../../DialogPortal';
 import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
+import useNumberAnimation from '../../hooks/useNumberAnimation';
 
 const Container = styled.ul`
   display: flex;
@@ -36,6 +38,11 @@ const RightContent = styled.li`
   align-items: flex-end;
   justify-content: space-between;
   padding-bottom: 5px;
+`;
+
+const PriceWrapper = styled.div`
+  display: flex;
+  font-weight: 700;
 `;
 
 const Name = styled.div`
@@ -96,7 +103,14 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
         <RightContent>
           <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
           <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
-          <div>{(count * price).toLocaleString('ko-KR')} 원</div>
+          <PriceWrapper>
+            <animated.div>
+              {useNumberAnimation(count * price).to((n) =>
+                n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+              )}
+            </animated.div>
+            <div>원</div>
+          </PriceWrapper>
         </RightContent>
       </Container>
 

@@ -17,10 +17,12 @@ const Container = styled.span`
     height: ${({ height }) => height || '8px'};
     background-color: ${({ backgroundColor }) => backgroundColor || 'rgba(42, 193, 188, 0.5)'};
   }
+
+  ${({ styles }) => styles};
 `;
 
-const TextHighlight = ({ children, height, backgroundColor }) => (
-  <Container height={height} backgroundColor={backgroundColor}>
+const TextHighlight = ({ children, styles, height, backgroundColor }) => (
+  <Container styles={styles} height={height} backgroundColor={backgroundColor}>
     {children}
   </Container>
 );

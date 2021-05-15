@@ -1,9 +1,11 @@
+import { animated } from '@react-spring/web';
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/color';
 import Button, { BUTTON_TYPE } from '../button/Button';
 import PropTypes from 'prop-types';
 import TextHighlight from '../textHighlight/TextHighlight';
+import useNumberAnimation from '../../hooks/useNumberAnimation';
 
 export const PAYMENT_AMOUNT_TYPE = Object.freeze({
   SHOPPING_CART: 'SHOPPING_CART',
@@ -38,10 +40,11 @@ const Title = styled.span`
 const TextWrapper = styled.div`
   display: flex;
   font-weight: bold;
-  justify-content: space-between;
   padding: 32px 30px 64px 30px;
   font-size: 20px;
 `;
+
+const AnimatedTextHighlight = animated(TextHighlight);
 
 const getButtonText = ({ type, count, price }) => {
   const buttonTextType = {
@@ -52,20 +55,27 @@ const getButtonText = ({ type, count, price }) => {
   return buttonTextType[type];
 };
 
-const PaymentAmount = ({ type, price, count, onClick }) => (
-  <Container>
-    <Title>{paymentAmountText[type].title}</Title>
-    <div>
-      <TextWrapper>
-        <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
-        <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
-      </TextWrapper>
-      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
-        {getButtonText({ type, price, count })}
-      </Button>
-    </div>
-  </Container>
-);
+const PaymentAmount = ({ type, price, count, onClick }) => {
+  const number = useNumberAnimation(price);
+
+  return (
+    <Container>
+      <Title>{paymentAmountText[type].title}</Title>
+      <div>
+        <TextWrapper>
+          <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
+          <AnimatedTextHighlight styles={{ marginLeft: 'auto' }}>
+            {number.to((n) => n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }))}
+          </AnimatedTextHighlight>
+          <TextHighlight>원</TextHighlight>
+        </TextWrapper>
+        <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
+          {getButtonText({ type, price, count })}
+        </Button>
+      </div>
+    </Container>
+  );
+};
 
 PaymentAmount.propTypes = {
   type: PropTypes.string.isRequired,
