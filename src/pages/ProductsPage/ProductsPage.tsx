@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import * as T from 'types';
 import MESSAGE from 'constants/messages';
 import Spinner from 'components/shared/Spinner/Spinner';
@@ -14,7 +16,7 @@ import Styled from './ProductsPage.styles';
 const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -44,8 +46,6 @@ const ProductsPage = () => {
     }
 
     dispatch(addCartItemRequest(product))
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       .then(() => {
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })

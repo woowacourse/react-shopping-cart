@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import { useSnackbar } from 'notistack';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
@@ -15,7 +17,7 @@ import Styled from './OrderListPage.styles';
 const OrderListPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -46,8 +48,6 @@ const OrderListPage = () => {
     }
 
     dispatch(addCartItemRequest(product))
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       .then(() => {
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
