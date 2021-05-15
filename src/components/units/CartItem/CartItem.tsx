@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { ReactComponent as DeleteIcon } from 'assets/images/delete.svg';
+import Checkbox from 'components/shared/Checkbox/Checkbox';
+import QuantityInput from 'components/shared/QuantityInput/QuantityInput';
+import noImageURL from 'assets/images/no_image.jpg';
+import * as T from 'types';
+import { updateQuantityRequest } from 'modules/cartItems/actions';
+import CART_ITEM_QUANTITY from 'constants/cart';
 import Styled from './CartItem.styles';
-import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
-import Checkbox from '../../shared/Checkbox/Checkbox';
-import QuantityInput from '../../shared/QuantityInput/QuantityInput';
-import noImageURL from '../../../assets/images/no_image.jpg';
-import * as T from '../../../types';
-import { updateQuantityRequest } from '../../../modules/cartItems/actions';
-import CART_ITEM_QUANTITY from '../../../constants/cart';
 
 type CartItemProps = {
   cartItem: T.CartItem;

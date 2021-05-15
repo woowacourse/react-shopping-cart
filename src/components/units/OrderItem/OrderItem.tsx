@@ -1,6 +1,6 @@
 import React from 'react';
+import OrderItemImageURL from 'assets/images/brave.png';
 import Styled from './OrderItem.styles';
-import OrderItemImageURL from '../../../assets/images/brave.png';
 
 type OrderItemProps = {
   title: string;

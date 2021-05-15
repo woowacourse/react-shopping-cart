@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Header from '../../shared/Header/Header';
+import Header from 'components/shared/Header/Header';
 import Styled from './BaseLayout.styles';
 
 type BaseLayoutProps = {

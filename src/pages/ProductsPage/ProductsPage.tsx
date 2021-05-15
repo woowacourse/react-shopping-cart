@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import * as T from 'types';
+import MESSAGE from 'constants/messages';
+import Spinner from 'components/shared/Spinner/Spinner';
+import ProductItem from 'components/units/ProductItem/ProductItem';
+import { RootState } from 'modules';
+import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
+import { CartState } from 'modules/cartItems/reducers';
+import api from 'api';
 import Styled from './ProductsPage.styles';
-import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import ProductItem from '../../components/units/ProductItem/ProductItem';
-import { RootState } from '../../modules';
-import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
-import { CartState } from '../../modules/cartItems/reducers';
-import api from '../../api';
 
 const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);

@@ -1,8 +1,8 @@
 import React from 'react';
+import { ReactComponent as CartIcon } from 'assets/images/cart.svg';
+import * as T from 'types';
+import noImageURL from 'assets/images/no_image.jpg';
 import Styled from './ProductItem.styles';
-import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
-import * as T from '../../../types';
-import noImageURL from '../../../assets/images/no_image.jpg';
 
 type ProductItemProps = {
   product: T.Product;

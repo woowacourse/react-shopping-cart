@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'components/shared/Button/Button';
+import NoImageURL from 'assets/images/no_image.jpg';
+import * as T from 'types';
 import Styled from './OrderCompletePage.styles';
-import Button from '../../components/shared/Button/Button';
-import NoImageURL from '../../assets/images/no_image.jpg';
-import * as T from '../../types';
 
 const OrderCompletePage = () => {
   return (

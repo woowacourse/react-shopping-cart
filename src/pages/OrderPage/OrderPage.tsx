@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PriceOverview from 'components/units/PriceOverview/PriceOverview';
+import HighlightText from 'components/shared/HighlightText/HighlightText';
+import Button from 'components/shared/Button/Button';
+import OrderItem from 'components/units/OrderItem/OrderItem';
+import * as T from 'types';
+import api from 'api';
+import { deleteCheckedItemsActionRequest } from 'modules/cartItems/actions';
 import Styled from './OrderPage.styles';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
-import HighlightText from '../../components/shared/HighlightText/HighlightText';
-import Button from '../../components/shared/Button/Button';
-import OrderItem from '../../components/units/OrderItem/OrderItem';
-import * as T from '../../types';
-import api from '../../api';
-import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 
 type LocationState = {
   checkedItems: T.CartItem[];
