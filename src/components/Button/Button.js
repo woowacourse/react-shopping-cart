@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Container } from './Button.styles';
 
-const Button = ({ children, onClick }) => <Container onClick={onClick}>{children}</Container>;
+const Button = props => <Container {...props} />;
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
