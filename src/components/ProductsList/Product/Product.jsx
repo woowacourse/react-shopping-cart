@@ -1,37 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../store/modules/cartSlice";
+import {
+  addToCart,
+  selectCartItemByProductId,
+} from "../../../store/modules/cartSlice";
 import { formatPrice } from "../../../utils/utils";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
+import Image from "../../@shared/Image/Image";
 import * as S from "./Product.styled";
-import { useThumbnail } from "./hooks";
 
 const Product = ({ product }) => {
-  const { product_id: productId, image_url: imageURL, name, price } = product;
+  const { productId, imageURL, name, price } = product;
 
-  const cartAmount = useSelector(
-    (state) => state.cart.list[productId]?.amount ?? 0
-  );
   const dispatch = useDispatch();
 
-  const { src, onLoad, onError, isLoading } = useThumbnail(imageURL);
+  const cartItem = useSelector((state) =>
+    selectCartItemByProductId(state, productId)
+  );
 
   const handleAddCartClick = () => {
-    dispatch(addToCart({ product }));
+    dispatch(addToCart(product));
   };
 
   return (
     <S.Product>
       <S.Preview>
-        <S.Img alt={name} {...{ src, onLoad, onError, isLoading }} />
+        <Image src={imageURL} alt={name} />
         <S.LinkToDetail to={`/product/${productId}`} />
         <S.ImgOverlay>
           <S.AddCartButton onClick={handleAddCartClick}>
-            {cartAmount === 0 ? (
-              <CartIcon type="product" />
+            {cartItem ? (
+              <S.Amount>{cartItem.quantity}</S.Amount>
             ) : (
-              <S.Amount>{cartAmount}</S.Amount>
+              <CartIcon type="product" />
             )}
           </S.AddCartButton>
         </S.ImgOverlay>
@@ -46,10 +48,10 @@ const Product = ({ product }) => {
 
 Product.propTypes = {
   product: PropTypes.shape({
-    product_id: PropTypes.number.isRequired,
+    productId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    image_url: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
   }).isRequired,
 };
 

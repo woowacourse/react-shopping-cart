@@ -1,7 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { usePayment } from "../ProvidePayment/ProvidePayment";
+import {
+  fetchCart,
+  selectCartStatus,
+  selectAllCartItems,
+  selectCheckedCartItems,
+} from "../../store/modules/cartSlice";
+import STATUS from "../../constants/status";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
@@ -11,12 +18,20 @@ import * as S from "./Cart.styled";
 const Cart = () => {
   const history = useHistory();
   const payment = usePayment();
+  const dispatch = useDispatch();
+  const cart = useSelector(selectAllCartItems);
+  const checkCartItems = useSelector(selectCheckedCartItems);
+  const status = useSelector(selectCartStatus);
 
-  const cart = useSelector((state) => state.cart);
-  const checkedItems = Object.values(cart).filter((item) => item.checked);
-  const hasCheckedItems = checkedItems.length > 0;
-  const totalPrice = checkedItems.reduce(
-    (acc, { amount, price }) => acc + amount * price,
+  useEffect(() => {
+    if (status === STATUS.IDLE) {
+      dispatch(fetchCart());
+    }
+  }, [dispatch, status]);
+
+  const hasCheckedItems = checkCartItems.length > 0;
+  const totalPrice = checkCartItems.reduce(
+    (acc, { quantity, price }) => acc + quantity * price,
     0
   );
 
@@ -28,7 +43,7 @@ const Cart = () => {
   return (
     <S.Cart>
       <PageTitle>장바구니</PageTitle>
-      {Object.keys(cart).length === 0 ? (
+      {cart.length === 0 ? (
         <NoCartItem />
       ) : (
         <S.CartMain>
@@ -38,7 +53,7 @@ const Cart = () => {
             text="결제예상금액"
             price={totalPrice}
             buttonContent={`주문하기${
-              hasCheckedItems ? `(${checkedItems.length}개)` : ""
+              hasCheckedItems ? `(${checkCartItems.length}개)` : ""
             }`}
             disabled={!hasCheckedItems}
             onButtonClick={handleButtonClick}

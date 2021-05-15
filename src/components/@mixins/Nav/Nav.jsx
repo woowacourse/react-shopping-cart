@@ -1,15 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectAllCartItems } from "../../../store/modules/cartSlice";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const cart = useSelector((state) => state.cart);
-  const cartAmount = Object.values(cart).reduce(
-    (acc, cur) => acc + cur.amount,
-    0
-  );
+  const cart = useSelector(selectAllCartItems);
+  const cartTotalQuantity = cart.reduce((acc, cur) => acc + cur.quantity, 0);
 
   return (
     <S.Nav>
@@ -22,8 +20,8 @@ const Nav = () => {
           <li>
             <Link to="/cart" className="cart-link" aria-label="cart-link">
               <span>장바구니</span>
-              {cartAmount > 0 && (
-                <span className="cart-amount">{cartAmount}</span>
+              {cartTotalQuantity > 0 && (
+                <span className="cart-amount">{cartTotalQuantity}</span>
               )}
             </Link>
           </li>

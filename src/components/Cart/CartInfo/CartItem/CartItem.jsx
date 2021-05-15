@@ -3,39 +3,45 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import {
   toggleChecked,
-  changeAmount,
-  removeFromCart,
+  changeQuantity,
+  deleteItemByCartId,
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import CheckBox from "../../../@shared/CheckBox/CheckBox";
 import NumberInput from "../../../@shared/NumberInput/NumberInput";
 import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
 import Label from "../../../@shared/Label/Label";
+import Image from "../../../@shared/Image/Image";
 import * as S from "./CartItem.styled";
 
-const CartItem = ({
-  item: { id, name, thumbnail, amount, price, checked },
-}) => {
+const CartItem = ({ item }) => {
+  const { cartId, productId, name, imageURL, quantity, price, checked } = item;
+
   const dispatch = useDispatch();
 
-  const handleCheckBoxChange = () => {
-    dispatch(toggleChecked({ id }));
+  const handleCheckBoxChange = (event) => {
+    dispatch(toggleChecked({ productId, checked: event.target.checked }));
   };
 
-  const handleAmountChange = (event) => {
-    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 0 }));
+  const handleQuantityChange = (event) => {
+    dispatch(
+      changeQuantity({ productId, quantity: event.target.valueAsNumber || 0 })
+    );
   };
 
-  const handleAmountBlur = (event) => {
-    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 1 }));
+  const handleQuantityBlur = (event) => {
+    dispatch(
+      changeQuantity({ productId, quantity: event.target.valueAsNumber || 1 })
+    );
   };
 
   const handleItemDelete = () => {
     if (!window.confirm(`'${name}' 를 장바구니에서 제거하시겠습니까?`)) return;
-    dispatch(removeFromCart({ id }));
+
+    dispatch(deleteItemByCartId(cartId));
   };
 
-  const checkBoxId = `${id}_${name}`;
+  const checkBoxId = `${cartId}_${name}`;
 
   return (
     <S.CartItem>
@@ -49,17 +55,19 @@ const CartItem = ({
           checked={checked}
           onChange={handleCheckBoxChange}
         />
-        <S.Img src={thumbnail} alt={name} />
+        <S.ImageContainer>
+          <Image src={imageURL} alt={name} />
+        </S.ImageContainer>
         <S.Name>{name}</S.Name>
       </S.Detail>
       <S.Control>
         <TrashIcon onClick={handleItemDelete} />
         <NumberInput
-          value={amount}
-          onChange={handleAmountChange}
-          onBlur={handleAmountBlur}
+          value={quantity}
+          onChange={handleQuantityChange}
+          onBlur={handleQuantityBlur}
         />
-        <span>{formatPrice(amount * price)}원</span>
+        <span>{formatPrice(quantity * price)}원</span>
       </S.Control>
     </S.CartItem>
   );
@@ -67,10 +75,11 @@ const CartItem = ({
 
 CartItem.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    productId: PropTypes.number.isRequired,
+    cartId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
+    imageURL: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
   }).isRequired,

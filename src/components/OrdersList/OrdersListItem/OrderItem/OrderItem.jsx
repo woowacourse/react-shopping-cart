@@ -1,28 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../store/modules/cartSlice";
-import Button from "../../../@shared/Button/Button";
-import CartItem from "../../../Cart/CartInfo/CartItem/CartItem";
-import * as S from "./OrderItem.styled";
 import { formatPrice } from "../../../../utils/utils";
+import Button from "../../../@shared/Button/Button";
+import * as S from "./OrderItem.styled";
 
 const OrderItem = ({ item }) => {
-  const { thumbnail, name, price, amount } = item;
+  const { imageURL, name, price, quantity } = item;
 
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
-    dispatch(addToCart({ product: item }));
+    dispatch(addToCart(item));
   };
 
   return (
     <S.OrderItem>
       <S.Info>
-        <S.Img src={thumbnail} alt={name} />
+        <S.Img src={imageURL} alt={name} />
         <S.Detail>
           <S.Name>{name}</S.Name>
           <S.PriceAmount>
-            {formatPrice(price)}원 / 수량: {amount}개
+            {formatPrice(price)}원 / 수량: {quantity}개
           </S.PriceAmount>
         </S.Detail>
       </S.Info>
@@ -34,7 +34,13 @@ const OrderItem = ({ item }) => {
 };
 
 OrderItem.propTypes = {
-  ...CartItem.propTypes,
+  item: PropTypes.shape({
+    productId: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default OrderItem;

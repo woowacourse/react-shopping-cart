@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CartItem from "../../Cart/CartInfo/CartItem/CartItem";
 import OrderItem from "./OrderItem/OrderItem";
 import * as S from "./OrderListItem.styled";
 
@@ -11,14 +10,14 @@ const OrdersListItem = ({ id, items }) => (
       <span>상세보기 {">"}</span>
     </S.Title>
     {items.map((item) => (
-      <OrderItem key={item.id} item={item} />
+      <OrderItem key={item.productId} item={item} />
     ))}
   </S.OrdersListItem>
 );
 
 OrdersListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(CartItem.propTypes.item).isRequired,
+  id: PropTypes.number.isRequired,
+  items: PropTypes.arrayOf(OrderItem.propTypes.item).isRequired,
 };
 
 export default OrdersListItem;

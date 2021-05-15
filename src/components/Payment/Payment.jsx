@@ -1,12 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { usePayment } from "../ProvidePayment/ProvidePayment";
-
-import { removeChecked } from "../../store/modules/cartSlice";
-import { addToOrdersList } from "../../store/modules/orderSlice";
+import { selectCheckedCartItems } from "../../store/modules/cartSlice";
+import { orderCartItems } from "../../store/modules/orderSlice";
 import { formatPrice } from "../../utils/utils";
-
+import { usePayment } from "../ProvidePayment/ProvidePayment";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
@@ -18,17 +16,15 @@ const Payment = () => {
   const dispatch = useDispatch();
   const payment = usePayment();
 
-  const cart = useSelector((state) => state.cart);
-  const checkedItems = Object.values(cart).filter((item) => item.checked);
+  const checkedItems = useSelector(selectCheckedCartItems);
+
   const totalPrice = checkedItems.reduce(
-    (acc, { amount, price }) => acc + amount * price,
+    (acc, { quantity, price }) => acc + quantity * price,
     0
   );
 
   const handleButtonClick = () => {
-    dispatch(addToOrdersList({ items: checkedItems }));
-    dispatch(removeChecked());
-    payment.done();
+    dispatch(orderCartItems(checkedItems));
     history.push("/orders-list");
   };
 

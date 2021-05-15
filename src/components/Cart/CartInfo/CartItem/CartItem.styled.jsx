@@ -15,7 +15,7 @@ export const Detail = styled.div`
   column-gap: 1rem;
 `;
 
-export const Img = styled.img`
+export const ImageContainer = styled.div`
   width: 9rem;
   height: 9rem;
 `;

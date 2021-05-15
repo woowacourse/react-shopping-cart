@@ -15,15 +15,11 @@ export const ImgContainer = styled.div`
   }
 `;
 
-export const Img = styled.img`
-  width: 100%;
-  aspect-ratio: 1 / 1;
-`;
-
 export const Name = styled.h1`
   font-size: 2rem;
   line-height: 3rem;
   font-weight: 700;
+  height: 3rem;
 `;
 
 export const PriceContainer = styled.div`
