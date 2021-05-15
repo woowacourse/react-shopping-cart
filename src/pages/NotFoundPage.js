@@ -7,6 +7,8 @@ import Button from '../components/utils/Button';
 
 import notFoundImg from '../asset/not-found.jpeg';
 
+import { COLOR } from '../constant';
+
 import styled, { css } from 'styled-components';
 
 const ContentWrapper = styled.section`
@@ -17,7 +19,7 @@ const ContentWrapper = styled.section`
 const ContentText = styled.p`
   font-size: 24px;
   line-height: 36px;
-  color: #1c827f;
+  color: ${COLOR.CYAN[600]};
   margin: 0;
   padding: 0;
 `;
@@ -26,7 +28,7 @@ const LinkStyle = styled(NavLink)`
   text-decoration: none;
 
   &:visited {
-    color: #ffffff;
+    color: ${COLOR.WHITE[400]};
     font-weight: 700;
   }
 `;
@@ -51,9 +53,9 @@ function NotFoundPage() {
         <Button
           width="117px"
           height="50px"
-          color="#ffffff"
+          color={COLOR.WHITE[400]}
           border="none"
-          backgroundColor="#2ac1bc"
+          backgroundColor={COLOR.CYAN[400]}
           fontSize="18px"
           css={ButtonStyle}
         >

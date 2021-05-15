@@ -9,7 +9,7 @@ import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
-import { MESSAGE, NUMBER } from '../../constant';
+import { MESSAGE, NUMBER, COLOR } from '../../constant';
 import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
 
 import styled, { css } from 'styled-components';
@@ -22,13 +22,13 @@ const SingleCartItem = styled.li`
   width: 100%;
   height: 205px;
   padding: 25px 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid ${COLOR.GRAY[400]};
 `;
 
 const CartItemName = styled.span`
   font-size: 20px;
   margin: 4px 21px 20px;
-  color: #333333;
+  color: ${COLOR.GRAY[800]};
 `;
 
 const ManageCartItemStyle = css`

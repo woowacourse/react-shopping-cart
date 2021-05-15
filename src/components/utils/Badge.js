@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Flex from './Flex';
 
+import { COLOR } from '../../constant';
+
 import { css } from 'styled-components';
 
 const BadgeWrapperStyle = css`
@@ -11,12 +13,12 @@ const BadgeWrapperStyle = css`
   right: -20px;
   width: 24px;
   height: 24px;
-  color: #ffffff;
+  color: ${COLOR.WHITE[400]};
   font-size: 14px;
   line-height: 24px;
   border: none;
   border-radius: 50%;
-  background-color: #ff4d4f;
+  background-color: ${COLOR.RED[300]};
 `;
 
 const Badge = ({ children }) => {

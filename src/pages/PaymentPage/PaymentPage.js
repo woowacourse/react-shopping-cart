@@ -8,6 +8,8 @@ import FloatingBox from '../../components/FloatingBox';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
+import { COLOR } from '../../constant';
+
 import styled, { css } from 'styled-components';
 
 const PaymentItemSection = styled.section`
@@ -24,7 +26,7 @@ const PaymentItemSectionTitle = styled.h3`
 
 const PaymentList = styled.ul`
   margin-top: 32px;
-  border-top: 4px solid #aaaaaa;
+  border-top: 4px solid ${COLOR.GRAY[600]};
 `;
 
 const PaymentPageWrapperStyle = css`
