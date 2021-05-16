@@ -10,7 +10,7 @@ import OrderList from './pages/OrderList';
 import OrderPayment from './pages/OrderPayment';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { getShoppingCartList } from './modules/shoppingCart';
+import { getShoppingCartList } from './redux/actions/shoppingCartActions';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
 

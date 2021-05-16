@@ -8,7 +8,7 @@ import {
   deleteShoppingCartItem,
   increaseCount,
   toggleShoppingCartItem,
-} from '../../modules/shoppingCart';
+} from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
 import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
 

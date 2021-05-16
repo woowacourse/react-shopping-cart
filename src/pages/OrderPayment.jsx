@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { deleteCheckedShoppingCartList } from '../modules/shoppingCart';
+import { deleteCheckedShoppingCartList } from '../redux/actions/shoppingCartActions';
 import { PATH } from '../constants/path';
 import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';

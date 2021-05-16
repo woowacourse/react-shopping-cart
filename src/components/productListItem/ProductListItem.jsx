@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { insertShoppingCartItem } from '../../modules/shoppingCart';
+import { insertShoppingCartItem } from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
 import { ProductImage, Dialog, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
 

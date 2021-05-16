@@ -1,74 +1,29 @@
-import { API_PATH } from '../constants/api';
-import { requestDeleteItem, requestGetItemList, requestInsertItem } from '../request/request';
-import { createAsyncThunk } from './utils/async';
-import { reducerUtils } from './utils/reducer';
-
-const INSERT_SHOPPING_CART_ITEM = 'shoppingCart/INSERT_SHOPPING_CART_ITEM';
-const INSERT_SHOPPING_CART_ITEM_SUCCESS = 'shoppingCart/INSERT_SHOPPING_CART_ITEM_SUCCESS';
-const INSERT_SHOPPING_CART_ITEM_FAILURE = 'shoppingCart/INSERT_SHOPPING_CART_ITEM_FAILURE';
-
-const DELETE_SHOPPING_CART_ITEM = 'shoppingCart/DELETE_SHOPPING_CART_ITEM';
-const DELETE_SHOPPING_CART_ITEM_SUCCESS = 'shoppingCart/DELETE_SHOPPING_CART_ITEM_SUCCESS';
-const DELETE_SHOPPING_CART_ITEM_FAILURE = 'shoppingCart/DELETE_SHOPPING_CART_ITEM_FAILURE';
-
-const DELETE_CHECKED_SHOPPING_CART_ITEM_LIST = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_ITEM_LIST';
-const DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_SUCCESS = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_SUCCESS';
-const DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_FAILURE = 'shoppingCart/DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_FAILURE';
-
-const GET_SHOPPING_CART_ITEM_LIST = 'shoppingCart/GET_SHOPPING_CART_ITEM_LIST';
-const GET_SHOPPING_CART_ITEM_LIST_SUCCESS = 'shoppingCart/GET_SHOPPING_CART_ITEM_LIST_SUCCESS';
-const GET_SHOPPING_CART_ITEM_LIST_FAILURE = 'shoppingCart/GET_SHOPPING_CART_ITEM_LIST_FAILURE';
-
-const TOGGLE_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_SHOPPING_CART_ITEM';
-const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_CART_ITEM';
-const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
-const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
-
-const requestDeleteCheckedItemList = (checkedItemList) =>
-  Promise.all(checkedItemList.map(({ id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)));
-
-export const insertShoppingCartItem = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, (item) =>
-  requestInsertItem(API_PATH.SHOPPING_CART_LIST, item)
-);
-
-export const deleteShoppingCartItem = createAsyncThunk(DELETE_SHOPPING_CART_ITEM, (id) =>
-  requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)
-);
-
-export const getShoppingCartList = createAsyncThunk(GET_SHOPPING_CART_ITEM_LIST, () =>
-  requestGetItemList(API_PATH.SHOPPING_CART_LIST)
-);
-
-export const deleteCheckedShoppingCartList = createAsyncThunk(
+import {
+  DECREASE_COUNT,
   DELETE_CHECKED_SHOPPING_CART_ITEM_LIST,
-  requestDeleteCheckedItemList
-);
-
-export const toggleShoppingCartItem = (shoppingCartItemId) => ({
-  type: TOGGLE_SHOPPING_CART_ITEM,
-  payload: shoppingCartItemId,
-});
-
-export const toggleAllShoppingCartItem = () => ({
-  type: TOGGLE_ALL_SHOPPING_CART_ITEM,
-});
-
-export const increaseCount = (shoppingCartItemId) => ({
-  type: INCREASE_COUNT,
-  payload: shoppingCartItemId,
-});
-
-export const decreaseCount = (shoppingCartItemId) => ({
-  type: DECREASE_COUNT,
-  payload: shoppingCartItemId,
-});
+  DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_FAILURE,
+  DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_SUCCESS,
+  DELETE_SHOPPING_CART_ITEM,
+  DELETE_SHOPPING_CART_ITEM_FAILURE,
+  DELETE_SHOPPING_CART_ITEM_SUCCESS,
+  GET_SHOPPING_CART_ITEM_LIST,
+  GET_SHOPPING_CART_ITEM_LIST_FAILURE,
+  GET_SHOPPING_CART_ITEM_LIST_SUCCESS,
+  INCREASE_COUNT,
+  INSERT_SHOPPING_CART_ITEM,
+  INSERT_SHOPPING_CART_ITEM_FAILURE,
+  INSERT_SHOPPING_CART_ITEM_SUCCESS,
+  TOGGLE_ALL_SHOPPING_CART_ITEM,
+  TOGGLE_SHOPPING_CART_ITEM,
+} from '../actions/shoppingCartActions';
+import { reducerUtils } from '../utils/reducer';
 
 const initialState = {
   shoppingCartList: reducerUtils.initial([]),
   isAllShoppingCartItemChecked: true,
 };
 
-const shoppingCart = (state = initialState, action) => {
+const shoppingCartReducers = (state = initialState, action) => {
   switch (action.type) {
     case INSERT_SHOPPING_CART_ITEM:
       return {
@@ -215,4 +170,4 @@ const shoppingCart = (state = initialState, action) => {
   }
 };
 
-export default shoppingCart;
+export default shoppingCartReducers;

@@ -4,7 +4,11 @@ import emptyCart from '../assets/empty-cart.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { deleteCheckedShoppingCartList, getShoppingCartList, toggleAllShoppingCartItem } from '../modules/shoppingCart';
+import {
+  deleteCheckedShoppingCartList,
+  getShoppingCartList,
+  toggleAllShoppingCartItem,
+} from '../redux/actions/shoppingCartActions';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
 import {
