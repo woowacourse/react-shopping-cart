@@ -23,14 +23,14 @@ const GlobalNavbar = () => {
     </LogoContainer>
   );
 
-  const Buttons = (
+  const Links = (
     <>
       <Link to={ROUTE.SHOPPING_CART}>장바구니</Link>
       <Link to={ROUTE.ORDER_LIST}>주문목록</Link>
     </>
   );
 
-  return <NavBar Logo={Logo} Buttons={Buttons} />;
+  return <NavBar Logo={Logo} Links={Links} />;
 };
 
 export default GlobalNavbar;

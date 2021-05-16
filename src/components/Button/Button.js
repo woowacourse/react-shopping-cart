@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Container } from './Button.styles';
 
-const Button = ({ children, onClick, disabled }) => (
-  <Container disabled={disabled} onClick={onClick}>
+const Button = ({ children, onClick, disabled, ...props }) => (
+  <Container disabled={disabled} onClick={onClick} {...props}>
     {children}
   </Container>
 );

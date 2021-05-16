@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Container as Button } from '../../Button/Button.styles';
+import Button from '../../Button/Button';
 
 const ModalText = styled.span`
   font-size: 1.6rem;
