@@ -1,6 +1,7 @@
 import OrderCheckoutPage from './OrderCheckoutPage/OrderCheckoutPage';
 import OrderListPage from './OrderListPage/OrderListPage';
 import ProductListPage from './ProductListPage/ProductListPage';
+import ProductDetailPage from './ProductDetailPage/ProductDetailPage';
 import ShoppingCartPage from './ShoppingCartPage/ShoppingCartPage';
 
-export { OrderCheckoutPage, ProductListPage, ShoppingCartPage, OrderListPage };
+export { OrderCheckoutPage, ProductListPage, ProductDetailPage, ShoppingCartPage, OrderListPage };

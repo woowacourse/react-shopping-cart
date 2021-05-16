@@ -14,6 +14,14 @@ import {
 const SuccessAddedModal = ({ productList, setModalOpen }) => {
   const history = useHistory();
 
+  const goProductDetail = productId => {
+    history.push({
+      pathname: `${ROUTE.PRODUCT_DETAIL}/${productId}`,
+    });
+
+    setModalOpen(false);
+  };
+
   return (
     <>
       <ModalText>상품이 장바구니에 담겼습니다.</ModalText>
@@ -30,6 +38,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
               price={`${price}`}
               onClick={() => setModalOpen(true)}
               isVisibleIcon={false}
+              onClickImage={() => goProductDetail(id)}
             />
           ))}
         </RecommendedList>

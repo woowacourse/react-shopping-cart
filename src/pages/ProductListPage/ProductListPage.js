@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { Container } from './ProductListPage.styles';
-import { SCHEMA } from '../../constants';
+import { ROUTE, SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/action';
 import { ColumnProductItem, SuccessAddedModal } from '../../components';
@@ -10,6 +10,7 @@ import ScreenContainer from '../../shared/styles/ScreenContainer';
 
 const ProductListPage = () => {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const { setModalOpen, Modal } = useModal(false);
@@ -19,6 +20,12 @@ const ProductListPage = () => {
     dispatch(addShoppingCartItemAsync(productId));
 
     setModalOpen(true);
+  };
+
+  const goProductDetail = productId => {
+    history.push({
+      pathname: `${ROUTE.PRODUCT_DETAIL}/${productId}`,
+    });
   };
 
   return (
@@ -31,6 +38,7 @@ const ProductListPage = () => {
             name={name}
             price={`${price}`}
             onClickShoppingCartIcon={() => onClickShoppingCartIcon(id)}
+            onClickImage={() => goProductDetail(id)}
           />
         ))}
       </Container>

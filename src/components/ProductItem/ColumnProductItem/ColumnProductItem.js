@@ -12,9 +12,9 @@ import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
 import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
 import { numberWithCommas } from '../../../shared/utils';
 
-const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon }) => (
+const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon, onClickImage }) => (
   <Container>
-    <ImageContainer>
+    <ImageContainer onClick={onClickImage}>
       <Image src={imgSrc} loading="lazy" />
     </ImageContainer>
     <DetailContainer>
@@ -37,6 +37,7 @@ ColumnProductItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   onClickShoppingCartIcon: PropTypes.func,
+  onClickImage: PropTypes.func.isRequired,
   isVisibleIcon: PropTypes.bool,
 };
 
