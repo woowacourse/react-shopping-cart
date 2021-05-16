@@ -53,9 +53,7 @@ const PaymentPage = () => {
           <PaymentItemSectionTitle>주문 상품({paymentItems.length}건)</PaymentItemSectionTitle>
           <PaymentList>
             {paymentItems &&
-              paymentItems
-                .map((paymentItem) => <PaymentItem key={paymentItem.id} paymentItem={paymentItem} />)
-                .reverse()}
+              paymentItems.map((paymentItem) => <PaymentItem key={paymentItem.id} {...paymentItem} />).reverse()}
           </PaymentList>
         </PaymentItemSection>
 
