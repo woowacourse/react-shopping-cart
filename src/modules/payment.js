@@ -4,10 +4,16 @@ export const addPaymentItems = (paymentItems) => ({ type: ADD_PAYMENT_ITEMS, pay
 
 const initialState = [];
 
+const addItem = (state, items) => {
+  const filteredItems = items.filter((item) => item.checked);
+
+  return state.concat(filteredItems);
+};
+
 const paymentReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PAYMENT_ITEMS:
-      return action.payload;
+      return addItem(state, action.payload);
     default:
       return state;
   }

@@ -75,7 +75,7 @@ const CartPage = () => {
   };
 
   const onPaymentButtonClick = () => {
-    dispatch(addPaymentItems(cartItems.filter((item) => item.checked)));
+    dispatch(addPaymentItems(cartItems));
   };
 
   return (
