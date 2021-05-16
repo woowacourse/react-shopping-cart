@@ -82,16 +82,24 @@ const ShoppingCartPage = () => {
 
     if (targetId) {
       const newContent = { productIdList: myShoppingCartProductIds.filter(productId => productId !== targetId) };
-      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
-      dispatch(updateProductAmount(targetId));
-      dispatch(updateCheckedProductItems(checkedProductList.filter(checkedProductId => checkedProductId !== targetId)));
+      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
+        Promise.all([
+          dispatch(updateProductAmount(targetId)),
+          dispatch(
+            updateCheckedProductItems(checkedProductList.filter(checkedProductId => checkedProductId !== targetId))
+          ),
+        ]);
+      });
     } else {
       const newContent = {
         productIdList: myShoppingCartProductIds.filter(productId => !checkedProductList.includes(productId)),
       };
-      Promise.all(myShoppingCartProductIds.map(productId => dispatch(updateProductAmount(productId))));
-      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
-      dispatch(updateCheckedProductItems([]));
+      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
+        Promise.all([
+          ...myShoppingCartProductIds.map(productId => dispatch(updateProductAmount(productId))),
+          dispatch(updateCheckedProductItems([])),
+        ]);
+      });
     }
   };
 
@@ -103,9 +111,12 @@ const ShoppingCartPage = () => {
     };
     const checkedItemList = [...checkedProductList].map(id => ({ id, amount: productAmountDict[id] }));
 
-    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent));
-    Promise.all(checkedProductList.map(productId => dispatch(updateProductAmount(productId))));
-    dispatch(updateCheckedProductItems([]));
+    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
+      Promise.all([
+        ...checkedProductList.map(productId => dispatch(updateProductAmount(productId))),
+        dispatch(updateCheckedProductItems([])),
+      ]);
+    });
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
