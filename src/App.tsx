@@ -6,6 +6,8 @@ import Header from "./Components/Header";
 import ProductList from "./Pages/ProductList";
 import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
+import { PATH } from "./constants/path";
+
 
 const App: VFC = () => {
   return (
@@ -13,13 +15,13 @@ const App: VFC = () => {
       <GlobalStyles />
       <Header />
       <Switch>
-        <Route exact path="/">
+        <Route exact path={PATH.HOME}>
           <ProductList />
         </Route>
-        <Route exact path="/cart">
+        <Route exact path={PATH.CART}>
           <Cart />
         </Route>
-        <Route exact path="/order">
+        <Route exact path={PATH.ORDER}>
           <Order />
         </Route>
       </Switch>

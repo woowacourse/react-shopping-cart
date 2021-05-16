@@ -8,6 +8,7 @@ import { CartItem } from "../../Components";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 import { COLOR } from "../../constants/theme";
+import { ORDER_COUNT } from "../../constants/standard";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -84,7 +85,7 @@ const Cart: VFC = () => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
 
-      if (prevCount >= 100) {
+      if (prevCount >= ORDER_COUNT.MAX) {
         return prev;
       }
 
@@ -99,7 +100,7 @@ const Cart: VFC = () => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
 
-      if (prevCount <= 1) {
+      if (prevCount <= ORDER_COUNT.MIN) {
         return prev;
       }
 
