@@ -6,21 +6,17 @@ import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
 import { ROUTE } from "../../constants/constant";
+import { useCart } from "../../utils/useCart";
 
 const Cart = () => {
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
+  const { checkedItems, hasCheckedItems, totalPrice } = useCart(cart);
 
   const handleButtonClick = () => {
     history.push({ pathname: ROUTE.PAYMENT, state: { isAllowed: true } });
   };
 
-  const checkedItems = Object.values(cart).filter((item) => item.checked);
-  const hasCheckedItems = checkedItems.length > 0;
-  const totalPrice = checkedItems.reduce(
-    (acc, { amount, price }) => acc + amount * price,
-    0
-  );
   return (
     <S.Cart>
       <PageTitle>장바구니</PageTitle>

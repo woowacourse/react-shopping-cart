@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import * as S from "./CartInfo.styled";
@@ -14,21 +14,7 @@ import {
 import { MESSAGE } from "../../../constants/constant";
 import { useConfirm } from "../../../utils/useConfirm";
 import Empty from "../../@mixins/Empty/Empty";
-
-const checkAllIdentifier = (cart) => {
-  const checkedSet = new Set(Object.values(cart).map(({ checked }) => checked));
-
-  switch (checkedSet.size) {
-    case 0:
-      return false;
-
-    case 1:
-      return [...checkedSet].pop();
-
-    default:
-      return null;
-  }
-};
+import { useCart } from "../../../utils/useCart";
 
 const CartInfo = ({ cart }) => {
   const dispatch = useDispatch();
@@ -38,14 +24,10 @@ const CartInfo = ({ cart }) => {
       dispatch(removeChecked());
     }
   );
-  const [checkAll, setCheckAll] = useState(false);
-
-  useEffect(() => {
-    const isCheckAll = checkAllIdentifier(cart);
-    if (isCheckAll !== null) {
-      setCheckAll(isCheckAll);
-    }
-  }, [cart]);
+  const { isCheckAll } = useCart(cart);
+  const [checkAll, setCheckAll] = useState(
+    isCheckAll !== null ? isCheckAll : false
+  );
 
   const handleCheckBoxChange = () => {
     dispatch(toggleAllChecked({ checked: !checkAll }));
