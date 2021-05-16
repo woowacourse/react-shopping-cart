@@ -51,7 +51,7 @@ const ShoppingCartListTitle = styled.div`
   margin-bottom: 20px;
 `;
 
-const ShoppingCartList = styled.div`
+const ShoppingCartList = styled.ul`
   border-top: 4px solid #aaaaaa;
 
   & > * {
@@ -60,27 +60,8 @@ const ShoppingCartList = styled.div`
   }
 `;
 
-const ShoppingCartItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const PaymentInfoBoxContainer = styled.div`
   margin-top: 54px;
-`;
-
-const ShoppingCartItem = styled.div`
-  display: flex;
-  & > *:not(:last-child) {
-    margin-right: 15px;
-  }
-`;
-
-const ShoppingCartItemOption = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
 `;
 
 const EmptyPageImage = styled.img`
@@ -91,12 +72,9 @@ export {
   Container,
   OptionContainer,
   ShoppingCartContainer,
-  ShoppingCartItemContainer,
   ShoppingCartListTitle,
   ShoppingCartList,
   PaymentInfoBoxContainer,
-  ShoppingCartItem,
-  ShoppingCartItemOption,
   DeleteButton,
   EmptyPageImage,
 };

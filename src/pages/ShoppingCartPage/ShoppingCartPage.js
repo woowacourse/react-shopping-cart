@@ -8,9 +8,6 @@ import {
   ShoppingCartListTitle,
   ShoppingCartList,
   PaymentInfoBoxContainer,
-  ShoppingCartItemContainer,
-  ShoppingCartItem,
-  ShoppingCartItemOption,
   DeleteButton,
   EmptyPageImage,
 } from './ShoppingCartPage.styles';
@@ -23,10 +20,11 @@ import {
   updateProductAmount,
 } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
-import { AmountCounter, CheckBox, PaymentInfoBox, RowProductItem, TrashCanIcon } from '../../components';
+import { CheckBox, PaymentInfoBox } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import emptyImage from '../../assets/img/empty_page.png';
 import PageHeader from '../../shared/styles/PageHeader';
+import { ShoppingCartItem } from '../../components/templates';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -155,32 +153,25 @@ const ShoppingCartPage = () => {
 
               <ShoppingCartList>
                 {myShoppingCartProductIds.map(productId => {
-                  const isChecked = checkedProductList.includes(productId);
                   const { img, name, price } = productList.find(({ id }) => id === productId);
-                  const amount = productAmountDict[productId] || 1;
+
                   if (!productAmountDict[productId]) {
                     dispatch(updateProductAmount(productId));
                   }
 
                   return (
-                    <ShoppingCartItemContainer key={productId}>
-                      <ShoppingCartItem>
-                        <CheckBox id={productId} onClick={onClickCheckBox} isChecked={isChecked} />
-                        <RowProductItem imgSrc={img} name={name} />
-                      </ShoppingCartItem>
-
-                      <ShoppingCartItemOption>
-                        <button type="button" onClick={() => onClickDeleteButton(productId)}>
-                          <TrashCanIcon />
-                        </button>
-                        <AmountCounter
-                          value={amount}
-                          onClickUp={() => onClickAmountCounter(productId, 'up')}
-                          onClickDown={() => onClickAmountCounter(productId, 'down')}
-                        />
-                        <span>{`${numberWithCommas(price * amount)}원`}</span>
-                      </ShoppingCartItemOption>
-                    </ShoppingCartItemContainer>
+                    <ShoppingCartItem
+                      key={productId}
+                      productId={productId}
+                      onClickCheckBox={onClickCheckBox}
+                      onClickDeleteButton={onClickDeleteButton}
+                      onClickAmountCounter={onClickAmountCounter}
+                      img={img}
+                      name={name}
+                      price={price}
+                      amount={productAmountDict[productId] || 1}
+                      isChecked={checkedProductList.includes(productId)}
+                    />
                   );
                 })}
               </ShoppingCartList>
