@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
+import { COLOR } from "../../../constants/style";
 
 const STYLE = {
   product: css`
-    fill: black;
+    fill: ${COLOR.BLACK};
     border-radius: 100%;
     width: 65%;
     padding: 1px 2px 0 0;
@@ -10,6 +11,6 @@ const STYLE = {
 };
 
 export const CartIcon = styled.svg`
-  fill: white;
+  fill: ${COLOR.WHITE};
   ${({ type }) => STYLE[type]}
 `;

@@ -6,7 +6,7 @@ import * as S from "./Product.styled";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 
 import { addToCart } from "../../../store/modules/cartSlice";
-import { CART } from "../../../constants/constants";
+import { CART } from "../../../constants/constant";
 
 const Product = ({ product }) => {
   const { id, thumbnail, name, price } = product;

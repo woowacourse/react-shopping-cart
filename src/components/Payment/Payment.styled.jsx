@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BREAK_POINT } from "../../constants/style";
+import { MEDIA_QUERY } from "../../constants/style";
 
 export const Payment = styled.section``;
 
@@ -8,7 +8,7 @@ export const Main = styled.div`
   justify-content: space-between;
   padding: 3rem 1.5rem;
 
-  @media (max-width: ${BREAK_POINT.DESKTOP}) {
+  @media (max-width: ${MEDIA_QUERY.DESKTOP}) {
     flex-direction: column;
   }
 `;

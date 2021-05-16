@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { BREAK_POINT, COLOR } from "../../../../constants/style";
+import { MEDIA_QUERY, COLOR } from "../../../../constants/style";
 
 export const OrderItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem 1.5rem;
-  border: 1px solid ${COLOR.GRAY[400]};
+  border: 1px solid ${COLOR.GRAY_400};
   border-top: 0;
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     flex-direction: column;
   }
 `;
@@ -17,7 +17,7 @@ export const OrderItem = styled.div`
 export const Info = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     margin-bottom: 1rem;
     width: 100%;
   }
@@ -35,7 +35,7 @@ export const Detail = styled.div`
   flex-direction: column;
   letter-spacing: 0.5px;
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     width: 100%;
   }
 `;
@@ -52,7 +52,7 @@ export const Name = styled.span`
 `;
 
 export const PriceAmount = styled.span`
-  color: ${COLOR.GRAY[700]};
+  color: ${COLOR.GRAY_700};
 `;
 
 export const Button = styled.div`
@@ -64,7 +64,7 @@ export const Button = styled.div`
     border-radius: 2px;
   }
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     width: 100%;
   }
 `;

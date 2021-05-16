@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { ROUTE } from "../../../constants/constants";
+import { ROUTE } from "../../../constants/constant";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 

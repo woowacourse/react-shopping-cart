@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MESSAGE } from "../../constants/constants";
+import { MESSAGE } from "../../constants/constant";
 
 export const getProducts = createAsyncThunk(
   "product/load",

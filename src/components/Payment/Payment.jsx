@@ -10,7 +10,7 @@ import PaymentInfo from "./PaymentInfo/PaymentInfo";
 import { formatPrice } from "../../utils/utils";
 import { removeChecked } from "../../store/modules/cartSlice";
 import { addToOrdersList } from "../../store/modules/orderSlice";
-import { MESSAGE, ROUTE } from "../../constants/constants";
+import { MESSAGE, ROUTE } from "../../constants/constant";
 
 const Payment = () => {
   const location = useLocation();

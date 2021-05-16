@@ -14,7 +14,7 @@ import {
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import { useConfirm } from "../../../../utils/useConfirm";
-import { CART } from "../../../../constants/constants";
+import { CART } from "../../../../constants/constant";
 
 const CartItem = ({
   item: { id, name, thumbnail, amount, price, checked },

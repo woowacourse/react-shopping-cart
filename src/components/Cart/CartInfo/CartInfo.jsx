@@ -11,7 +11,7 @@ import {
   removeChecked,
   toggleAllChecked,
 } from "../../../store/modules/cartSlice";
-import { MESSAGE } from "../../../constants/constants";
+import { MESSAGE } from "../../../constants/constant";
 import { useConfirm } from "../../../utils/useConfirm";
 import Empty from "../../@mixins/Empty/Empty";
 

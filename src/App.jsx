@@ -7,7 +7,7 @@ import ProductsList from "./components/ProductsList/ProductsList";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import OrdersList from "./components/OrdersList/OrdersList";
-import { ROUTE } from "./constants/constants";
+import { ROUTE } from "./constants/constant";
 
 const App = () => (
   <S.App>

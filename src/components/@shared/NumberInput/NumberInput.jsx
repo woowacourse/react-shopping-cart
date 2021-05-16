@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as S from "./NumberInput.styled";
 import Button from "../Button/Button";
-import { CART } from "../../../constants/constants";
+import { CART } from "../../../constants/constant";
 
 const NumberInput = ({ value, onChange, onBlur, min, max }) => {
   const change = (diff) => {

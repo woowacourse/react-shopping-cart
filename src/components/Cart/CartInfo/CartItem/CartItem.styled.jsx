@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { BREAK_POINT, COLOR } from "../../../../constants/style";
+import { MEDIA_QUERY, COLOR } from "../../../../constants/style";
 
 export const CartItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem 0;
-  border-bottom: 1.5px solid ${COLOR.GRAY[400]};
+  border-bottom: 1.5px solid ${COLOR.GRAY_400};
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     height: 15rem;
   }
 `;
@@ -22,7 +22,7 @@ export const Img = styled.img`
   width: 9rem;
   height: 9rem;
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
     width: 4.5rem;
     height: 4.5rem;
   }
@@ -41,7 +41,7 @@ export const Name = styled.span`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 
-  @media (max-width: ${BREAK_POINT.DESKTOP}) {
+  @media (max-width: ${MEDIA_QUERY.DESKTOP}) {
     max-width: 100%;
   }
 `;
@@ -53,7 +53,7 @@ export const Control = styled.div`
   align-items: flex-end;
   height: 9rem;
 
-  @media (max-width: ${BREAK_POINT.MOBILE}) {
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
   }
 `;
 

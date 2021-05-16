@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-size: 16px;
-    color: ${COLOR.GRAY[800]};
+    color: ${COLOR.GRAY_800};
   }
 
   a {

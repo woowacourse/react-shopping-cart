@@ -5,7 +5,7 @@ import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
-import { ROUTE } from "../../constants/constants";
+import { ROUTE } from "../../constants/constant";
 
 const Cart = () => {
   const history = useHistory();
