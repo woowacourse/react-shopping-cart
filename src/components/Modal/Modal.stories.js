@@ -17,5 +17,5 @@ Basic.args = {
       <button type="button">{'장바구니 바로가기 >'}</button>
     </>
   ),
-  onClickClose: () => alert('모달 닫기'),
+  onClose: () => alert('모달 닫기'),
 };

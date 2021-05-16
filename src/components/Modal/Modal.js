@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import CloseIcon from '../svg/CloseIcon/CloseIcon';
 import { Dimmer, Container, Button } from './Modal.styles';
 
-const Modal = ({ children, onClickClose }) => (
-  <Dimmer onClick={onClickClose}>
+const Modal = ({ children, onClose }) => (
+  <Dimmer onClick={onClose}>
     <Container>
-      <Button onClick={onClickClose}>
+      <Button onClick={onClose}>
         <CloseIcon />
       </Button>
       {children}
@@ -15,7 +15,7 @@ const Modal = ({ children, onClickClose }) => (
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
-  onClickClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

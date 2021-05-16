@@ -5,7 +5,7 @@ import ModalComponent from '../components/Modal/Modal';
 export default defaultValue => {
   const [isModalOpen, setModalState] = useState(defaultValue);
 
-  const onClickClose = event => {
+  const onClose = event => {
     if (event.target !== event.currentTarget) return;
 
     setModalState(false);
@@ -23,12 +23,11 @@ export default defaultValue => {
     setModalState(state => !state);
   };
 
-  const Modal = ({ children }) =>
-    isModalOpen && <ModalComponent onClickClose={onClickClose}>{children}</ModalComponent>;
+  const Modal = ({ children }) => isModalOpen && <ModalComponent onClose={onClose}>{children}</ModalComponent>;
 
   Modal.propTypes = {
     children: PropTypes.node.isRequired,
   };
 
-  return { isModalOpen, setModalState, onClickClose, Modal, open, close, toggle };
+  return { isModalOpen, setModalState, onClose, Modal, open, close, toggle };
 };
