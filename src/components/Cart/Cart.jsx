@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
+import NoCartItem from "./NoCartItem/NoCartItem";
 import * as S from "./Cart.styled";
 
 const Cart = () => {
@@ -23,19 +24,23 @@ const Cart = () => {
   return (
     <S.Cart>
       <PageTitle>장바구니</PageTitle>
-      <S.CartMain>
-        <CartInfo />
-        <ResultBox
-          title="결제예상금액"
-          text="결제예상금액"
-          price={totalPrice}
-          buttonContent={`주문하기${
-            hasCheckedItems ? `(${checkedItems.length}개)` : ""
-          }`}
-          disabled={!hasCheckedItems}
-          onButtonClick={handleButtonClick}
-        />
-      </S.CartMain>
+      {Object.keys(cart).length === 0 ? (
+        <NoCartItem />
+      ) : (
+        <S.CartMain>
+          <CartInfo />
+          <ResultBox
+            title="결제예상금액"
+            text="결제예상금액"
+            price={totalPrice}
+            buttonContent={`주문하기${
+              hasCheckedItems ? `(${checkedItems.length}개)` : ""
+            }`}
+            disabled={!hasCheckedItems}
+            onButtonClick={handleButtonClick}
+          />
+        </S.CartMain>
+      )}
     </S.Cart>
   );
 };
