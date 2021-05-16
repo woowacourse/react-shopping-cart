@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 import Flex from '../../components/utils/Flex';
 import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
-
 import { addItemToCart } from '../../modules/cart';
 
 import cartImage from '../../asset/cart.png';
@@ -52,8 +53,9 @@ const ProductItem = ({ product }) => {
 
   return (
     <SingleProduct>
-      <Image src={product.image} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
-
+      <Link to={`/products/${product.product_id}`}>
+        <Image src={product.image_url} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
+      </Link>
       <Flex spaceBetween="space-between" alignItems="center" css={ProductBottomStyle}>
         <Flex flexDirection="column" css={ProductInfoStyle}>
           <ProductName>{product.name}</ProductName>

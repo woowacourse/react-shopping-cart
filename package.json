@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "node server",
-    "start:dev": "react-scripts build",
+    "start:dev": "react-scripts start",
+    "json-server": "json-server --watch server/productDB.json --port 5000",
     "build": "cross-env NODE_PATH=src react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

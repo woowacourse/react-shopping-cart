@@ -6,6 +6,7 @@ import OrderListPage from '../src/pages/OrderListPage';
 import CartPage from './pages/CartPage/CartPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 import styled from 'styled-components';
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route exact path="/orders" component={OrderListPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route exact path="/payment" component={PaymentPage} />
+          <Route exact path="/products/:productId" component={ProductDetailPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </PageWrapper>
