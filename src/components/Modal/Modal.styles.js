@@ -39,8 +39,8 @@ const Container = styled.div`
   position: relative;
 `;
 
-const CloseButton = styled.div`
-  margin: 5px;
+const Button = styled.button`
+  margin: 10px 5px;
   width: 30px;
   position: absolute;
   right: 3px;
@@ -48,6 +48,10 @@ const CloseButton = styled.div`
   cursor: pointer;
   background: none;
   border: none;
+
+  &:hover {
+    background: none;
+  }
 
   svg {
     display: block;
@@ -63,4 +67,4 @@ const CloseButton = styled.div`
   }
 `;
 
-export { Dimmer, Container, CloseButton };
+export { Dimmer, Container, Button };
