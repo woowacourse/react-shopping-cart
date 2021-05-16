@@ -1,4 +1,3 @@
-// import { default as Icon } from "./Icon";
 import { default as Animation } from "./Animation";
 import { default as Button } from "./Button";
 import { default as CheckBox } from "./CheckBox";
