@@ -23,9 +23,10 @@ import {
   updateProductAmount,
 } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
-import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem, TrashCanIcon } from '../../components';
+import { AmountCounter, CheckBox, PaymentInfoBox, RowProductItem, TrashCanIcon } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import emptyImage from '../../assets/img/empty_page.png';
+import PageHeader from '../../shared/styles/PageHeader';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -130,7 +131,7 @@ const ShoppingCartPage = () => {
 
   return (
     <ScreenContainer route={location.pathname}>
-      <Header>장바구니</Header>
+      <PageHeader>장바구니</PageHeader>
       <Container>
         {myShoppingCartProductIds.length === 0 ? (
           <EmptyPageImage src={emptyImage} alt="empty page" />

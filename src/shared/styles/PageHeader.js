@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const Container = styled.h2`
+const PageHeader = styled.h2`
   width: 100%;
   border-bottom: 4px solid #333333;
   color: #333333;
@@ -12,4 +12,4 @@ const Container = styled.h2`
   margin-bottom: 50px;
 `;
 
-export { Container };
+export default PageHeader;

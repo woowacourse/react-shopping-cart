@@ -4,11 +4,12 @@ import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { ROUTE, SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { increaseProductAmount, updateShoppingCartItemsAsync } from '../../redux/action';
-import { Button, Header, RowProductItem } from '../../components';
+import { Button, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { OrderContainer, SuccessAddedModal } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
+import PageHeader from '../../shared/styles/PageHeader';
 
 const getPriceText = (price, amount) => `${numberWithCommas(price * amount)} 원 / `;
 const getAmountText = amount => `수량: ${amount} 개`;
@@ -46,7 +47,7 @@ const OrderListPage = () => {
 
   return (
     <ScreenContainer route={location.pathname}>
-      <Header>주문 목록</Header>
+      <PageHeader>주문 목록</PageHeader>
 
       <Container>
         {orderList.map(order => (

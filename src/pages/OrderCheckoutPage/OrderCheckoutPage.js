@@ -12,8 +12,9 @@ import {
 import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
 import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
-import { Header, PaymentInfoBox, RowProductItem } from '../../components';
+import { PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import PageHeader from '../../shared/styles/PageHeader';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -60,7 +61,7 @@ const OrderCheckoutPage = () => {
 
   return (
     <ScreenContainer route={location.pathname}>
-      <Header>주문/결제</Header>
+      <PageHeader>주문/결제</PageHeader>
 
       <Container>
         <CheckoutListContainer>
