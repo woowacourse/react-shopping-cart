@@ -15,7 +15,7 @@ Empty.propTypes = {
 };
 
 Empty.defaultProps = {
-  children: "",
+  children: undefined,
 };
 
 export default Empty;
