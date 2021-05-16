@@ -15,5 +15,5 @@ Basic.args = {
   detailText: '결제예상금액',
   price: '21,700',
   buttonText: '주문하기(2개)',
-  onClick: () => alert('주문하기 버튼 클릭'),
+  onClickPaymentButton: () => alert('주문하기 버튼 클릭'),
 };

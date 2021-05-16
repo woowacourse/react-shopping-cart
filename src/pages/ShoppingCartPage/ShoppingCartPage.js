@@ -187,8 +187,8 @@ const ShoppingCartPage = () => {
                 detailText="결제예상금액"
                 price={`${numberWithCommas(expectedPrice)} 원`}
                 buttonText={`주문하기(${checkedProductList.length}개)`}
-                onClick={onClickPaymentButton}
-                isDisable={!checkedProductList.length}
+                onClickPaymentButton={onClickPaymentButton}
+                isPaymentButtonDisable={!checkedProductList.length}
               />
             </PaymentInfoBoxContainer>
           </>

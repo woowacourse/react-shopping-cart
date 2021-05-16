@@ -82,7 +82,7 @@ const OrderCheckoutPage = () => {
             detailText="총 결제금액"
             price={`${numberWithCommas(expectedPrice)} 원`}
             buttonText={`${numberWithCommas(expectedPrice)}원 결제하기`}
-            onClick={onClickPaymentButton}
+            onClickPaymentButton={onClickPaymentButton}
           />
         </PaymentInfoBoxContainer>
       </Container>
