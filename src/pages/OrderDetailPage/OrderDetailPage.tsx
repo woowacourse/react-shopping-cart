@@ -1,7 +1,7 @@
 import * as Styled from './OrderDetailPage.styles';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
-import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
+import ListItem from '../../components/commons/ListItem/ListItem';
 import Button from '../../components/commons/Button/Button';
 import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
 import { COLORS, PATH } from '../../constants';
@@ -58,7 +58,7 @@ const OrderDetailPage = () => {
 
   const orderItemList = orderItems.map(orderItem => (
     <Styled.OrderWrapper key={orderItem.id}>
-      <ProductListItem
+      <ListItem
         size="MD"
         name={orderItem.name}
         price={orderItem.price}

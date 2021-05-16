@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ItemGroup, { Props } from './ItemGroup';
-import ProductListItem from '../ProductListItem/ProductListItem';
+import ListItem from '../ListItem/ListItem';
 
 export default {
   title: 'Components/Commons/ItemGroup',
@@ -15,7 +15,7 @@ const ItemWrapper = styled.div`
 const Template = (args: Props) => (
   <ItemGroup {...args}>
     <ItemWrapper>
-      <ProductListItem
+      <ListItem
         thumbnail={
           'https://images.unsplash.com/photo-1589365278144-c9e705f843ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
         }

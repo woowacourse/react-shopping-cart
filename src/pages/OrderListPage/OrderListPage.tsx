@@ -1,7 +1,7 @@
 import { useHistory, Redirect } from 'react-router-dom';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
-import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
+import ListItem from '../../components/commons/ListItem/ListItem';
 import Button from '../../components/commons/Button/Button';
 import useOrders from '../../hooks/orders';
 import { getMoneyString } from '../../utils/format';
@@ -63,7 +63,7 @@ const OrderListPage = () => {
       >
         {order.orderItems.map(item => (
           <Styled.OrderWrapper key={item.id}>
-            <ProductListItem
+            <ListItem
               size="MD"
               thumbnail={item.thumbnail}
               name={item.name}

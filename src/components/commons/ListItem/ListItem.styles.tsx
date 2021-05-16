@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Props } from './ProductListItem';
+import { Props } from './ListItem';
 import { COLORS } from '../../../constants/colors';
 
 type ItemProps = Pick<Props, 'size'>;
@@ -33,11 +33,11 @@ const PRICE_COLOR = {
   },
 };
 
-export const ProductListItem = styled.li`
+export const ListItem = styled.li`
   display: inline-flex;
 `;
 
-export const ProductThumbnail = styled.img<{ size: ItemProps['size'] }>(({ size }) => ({
+export const Thumbnail = styled.img<{ size: ItemProps['size'] }>(({ size }) => ({
   objectFit: 'cover',
   objectPosition: 'center',
   marginRight: '18px',
@@ -49,14 +49,14 @@ export const InfoWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const ProductName = styled.span<{ size: ItemProps['size']; theme: Object }>(({ size, theme }) => ({
+export const Name = styled.span<{ size: ItemProps['size']; theme: Object }>(({ size, theme }) => ({
   fontSize: '20px',
   color: theme.TEXT_COLOR,
   letterSpacing: '0.5px',
   ...PRICE_SIZE[size],
 }));
 
-export const ProductPrice = styled.span<{ size: ItemProps['size']; theme: Object }>(({ size, theme }) => ({
+export const Price = styled.span<{ size: ItemProps['size']; theme: Object }>(({ size, theme }) => ({
   letterSpacing: '0.5px',
   ...PRICE_COLOR[size],
 }));

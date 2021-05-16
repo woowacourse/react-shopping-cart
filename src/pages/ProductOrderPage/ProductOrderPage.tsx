@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
-import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
+import ListItem from '../../components/commons/ListItem/ListItem';
 import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
@@ -17,7 +17,7 @@ const ProductOrderPage = () => {
   const orderItemList = selectedCartItems.map(cartItem => {
     return (
       <Styled.OrderItemWrapper key={cartItem.id}>
-        <ProductListItem
+        <ListItem
           size="SM"
           thumbnail={cartItem.thumbnail}
           name={cartItem.name}

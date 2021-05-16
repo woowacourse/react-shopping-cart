@@ -1,12 +1,12 @@
-import ProductListItem, { Props } from './ProductListItem';
+import ListItem, { Props } from './ListItem';
 
 export default {
-  title: 'Components/Commons/ProductListItem',
-  component: ProductListItem,
+  title: 'Components/Commons/ListItem',
+  component: ListItem,
   argTypes: {},
 };
 
-const Template = (args: Props) => <ProductListItem {...args} />;
+const Template = (args: Props) => <ListItem {...args} />;
 
 export const Default = Template.bind({});
 
