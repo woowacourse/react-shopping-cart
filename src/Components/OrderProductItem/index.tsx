@@ -1,22 +1,32 @@
 import React, { ReactElement, VFC } from "react";
 
 import { Link } from "react-router-dom";
-import { ProductImageProps } from "../ProductImage";
-import { ButtonProps } from "../@shared/Button";
+import { ProductImage } from "..";
 import { Container, Desc, NameLink, OptionPricePart } from "./style";
 
 interface OrderProductItemProps {
   id: string;
-  Image: ReactElement<ProductImageProps>;
+  imageSrc: string;
+  imageSize?: string;
   Button?: ReactElement;
   name: string;
   price?: number;
   quantity: number;
 }
 
-const OrderProductItem: VFC<OrderProductItemProps> = ({ id, Image, Button, name, price, quantity }) => (
+const OrderProductItem: VFC<OrderProductItemProps> = ({
+  id,
+  imageSrc,
+  imageSize = "7.5rem",
+  Button,
+  name,
+  price,
+  quantity,
+}) => (
   <Container>
-    <Link to={`/cart/${id}`}>{Image}</Link>
+    <Link to={`/cart/${id}`}>
+      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />
+    </Link>
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
       <OptionPricePart>

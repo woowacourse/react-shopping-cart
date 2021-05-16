@@ -1,22 +1,25 @@
 import React, { MouseEventHandler, ReactElement, VFC } from "react";
 import { Link } from "react-router-dom";
 
-import { ProductImageProps } from "../ProductImage";
+import ProductImage, { ProductImageProps } from "../ProductImage";
 import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
 
 interface ProductProps {
   id: string;
-  Image: ReactElement<ProductImageProps>;
+  imageSrc: string;
+  imageSize: string;
   name: string;
   price: number;
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Product: VFC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
+const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, price, onClickCart }) => (
   <Container>
-    <Link to={`/products/${id}`}>{Image}</Link>
+    <Link to={`/products/${id}`}>
+      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />,
+    </Link>
     <ItemInfoWrap>
       <Link to={`/products/${id}`}>
         <Desc>

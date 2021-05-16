@@ -2,7 +2,7 @@ import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { Animation, CartAnimation, Product, ProductImage } from "../../Components";
+import { CartAnimation, Product, ProductImage } from "../../Components";
 import { CartItem } from "../../types";
 import { RootState } from "../../store";
 
@@ -43,7 +43,8 @@ const ProductList: VFC = () => {
         <Product
           key={id}
           id={id}
-          Image={<ProductImage size="282px" src={imageSrc} />}
+          imageSrc={imageSrc}
+          imageSize="282px"
           name={name}
           price={price}
           onClickCart={() => {

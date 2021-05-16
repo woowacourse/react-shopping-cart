@@ -22,12 +22,7 @@ const Order = () => {
         <Section>
           <ul>
             {order.map(({ id, name, quantity, imageSrc }) => (
-              <OrderProductItem
-                id={id}
-                Image={<ProductImage size="7.5rem" src={imageSrc} alt={`${name}이미지`} />}
-                name={name}
-                quantity={quantity}
-              />
+              <OrderProductItem id={id} imageSrc={imageSrc} name={name} quantity={quantity} />
             ))}
           </ul>
         </Section>

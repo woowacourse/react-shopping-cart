@@ -16,7 +16,8 @@ const Template: Story<OrderListProps> = (args) => <OrderList {...args} />;
 const children = [...Array(4)].map((_, index) => (
   <OrderProductItem
     key={index}
-    Image={<ProductImage size="141px" alt="dummy" src="http://via.placeholder.com/282x282" />}
+    imageSrc="http://via.placeholder.com/282x282"
+    // Image={<ProductImage size="141px" alt="dummy" src="http://via.placeholder.com/282x282" />}
     Button={
       <Button
         style={{

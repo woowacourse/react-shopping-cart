@@ -13,7 +13,8 @@ const Template: Story<ProductProps> = (args) => <Product {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
-  Image: <ProductImage size="282px" alt="dummy" src="http://via.placeholder.com/282x282" />,
+  imageSrc: "http://via.placeholder.com/282x282",
+  imageSize: "282px",
   name: "브랜브랜 철봉",
   price: 1000000,
   id: "1",
