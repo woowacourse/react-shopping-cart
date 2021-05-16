@@ -11,10 +11,10 @@ import {
   RecommendedList,
 } from './SuccessAddedModal.styles';
 
-const SuccessAddedModal = ({ productList, openModal, onClick }) => (
+const SuccessAddedModal = ({ productList, openModal, onClickMoveCartPageButton }) => (
   <>
     <ModalText>상품이 장바구니에 담겼습니다.</ModalText>
-    <ModalButton onClick={onClick}>{'장바구니 바로가기 >'}</ModalButton>
+    <ModalButton onClick={onClickMoveCartPageButton}>{'장바구니 바로가기 >'}</ModalButton>
 
     <RecommendedContainer>
       <RecommendedTitle>❤️ 잠깐! 아래 상품들도 살펴보세요! ❤️</RecommendedTitle>
@@ -37,7 +37,7 @@ const SuccessAddedModal = ({ productList, openModal, onClick }) => (
 SuccessAddedModal.propTypes = {
   productList: PropTypes.arrayOf(PropTypes.object).isRequired,
   openModal: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClickMoveCartPageButton: PropTypes.func.isRequired,
 };
 
 export default SuccessAddedModal;

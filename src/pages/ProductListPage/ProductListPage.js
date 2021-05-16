@@ -104,7 +104,7 @@ const ProductListPage = () => {
           <SuccessAddedModal
             productList={likedProductList.length >= 3 ? likedProductList : productList}
             openModal={openModal}
-            onClick={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
+            onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
           />
         </Modal>
       </ModalPortal>
