@@ -8,7 +8,6 @@ import { Button, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { OrderContainer, SuccessAddedContent } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
-import { ModalPortal } from '../../portals';
 import PageHeader from '../../shared/styles/PageHeader';
 
 const getPriceText = (price, amount) => `${numberWithCommas(price * amount)} 원 / `;
@@ -71,15 +70,13 @@ const OrderListPage = () => {
         ))}
       </Container>
 
-      <ModalPortal>
-        <Modal>
-          <SuccessAddedContent
-            productList={likedProductList.length >= 3 ? likedProductList : productList}
-            openModal={openModal}
-            onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
-          />
-        </Modal>
-      </ModalPortal>
+      <Modal>
+        <SuccessAddedContent
+          productList={likedProductList.length >= 3 ? likedProductList : productList}
+          openModal={openModal}
+          onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
+        />
+      </Modal>
     </ScreenContainer>
   );
 };

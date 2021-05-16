@@ -7,7 +7,6 @@ import { OrderCheckoutPage, OrderListPage, ProductListPage, ShoppingCartPage } f
 import { GlobalNavbar } from './components/templates';
 import GlobalStyles from './GlobalStyles';
 import { Spinner } from './components';
-import { ModalPortal } from './portals';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,11 +31,7 @@ const App = () => {
           <Route component={() => <Redirect to={ROUTE.HOME} />} />
         </Switch>
       </Router>
-      {loading && (
-        <ModalPortal>
-          <Spinner />
-        </ModalPortal>
-      )}
+      {loading && <Spinner />}
     </>
   );
 };

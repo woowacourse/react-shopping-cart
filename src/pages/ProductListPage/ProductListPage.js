@@ -13,7 +13,6 @@ import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedContent } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
-import { ModalPortal } from '../../portals';
 import { CONTENT_PER_PAGE, ROUTE } from '../../constants';
 
 const ProductListPage = () => {
@@ -99,15 +98,14 @@ const ProductListPage = () => {
             ))}
       </Container>
 
-      <ModalPortal>
-        <Modal>
-          <SuccessAddedContent
-            productList={likedProductList.length >= 3 ? likedProductList : productList}
-            openModal={openModal}
-            onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
-          />
-        </Modal>
-      </ModalPortal>
+      <Modal>
+        <SuccessAddedContent
+          productList={likedProductList.length >= 3 ? likedProductList : productList}
+          openModal={openModal}
+          onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
+        />
+      </Modal>
+
       <PageButtonContainer>
         <Button onClick={onClickPrevPage} disabled={pageIndex === 0}>
           이전
