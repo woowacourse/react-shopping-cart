@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Container, Image, DetailContainer, ProductDetail, Name, Price } from './ColumnProductItem.styles';
-import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
+import productNotFoundImg from '../../../assets/img/product_not_found.jpg';
 import ShoppingCartIcon from '../../svg/ShoppingCartIcon/ShoppingCartIcon';
 
 const whiteHeart = '\u2661';

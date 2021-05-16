@@ -5,10 +5,10 @@ import { ROUTE, SCHEMA } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { increaseProductAmount, updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, RowProductItem } from '../../components';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
+import ScreenContainer from '../../styles/ScreenContainer';
 import { OrderContainer, SuccessAddedContent } from '../../components/templates';
-import { numberWithCommas } from '../../shared/utils';
-import PageHeader from '../../shared/styles/PageHeader';
+import { numberWithCommas } from '../../utils';
+import PageHeader from '../../styles/PageHeader';
 
 const getPriceText = (price, amount) => `${numberWithCommas(price * amount)} 원 / `;
 const getAmountText = amount => `수량: ${amount} 개`;

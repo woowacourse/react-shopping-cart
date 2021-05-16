@@ -19,12 +19,13 @@ import {
   decreaseProductAmount,
   updateProductAmount,
 } from '../../redux/action';
-import { numberWithCommas } from '../../shared/utils';
+import { numberWithCommas } from '../../utils';
 import { CheckBox, PaymentInfoBox } from '../../components';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
+
 import emptyImage from '../../assets/img/empty_page.png';
-import PageHeader from '../../shared/styles/PageHeader';
+import PageHeader from '../../styles/PageHeader';
 import { ShoppingCartItem } from '../../components/templates';
+import ScreenContainer from '../../styles/ScreenContainer';
 
 const ShoppingCartPage = () => {
   const history = useHistory();

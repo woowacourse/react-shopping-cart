@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { numberWithCommas } from '../../../shared/utils';
 import { ColumnProductItem } from '../..';
 import {
   ModalText,
@@ -10,6 +9,7 @@ import {
   RecommendedTitle,
   RecommendedList,
 } from './SuccessAddedContent.styles';
+import { numberWithCommas } from '../../../utils';
 
 const SuccessAddedContent = ({ productList, openModal, onClickMoveCartPageButton }) => (
   <>

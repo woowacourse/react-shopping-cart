@@ -10,9 +10,9 @@ import {
   updateShoppingCartItemsAsync,
 } from '../../redux/action';
 import { ColumnProductItem, PageIndexNav } from '../../components';
-import ScreenContainer from '../../shared/styles/ScreenContainer';
+import ScreenContainer from '../../styles/ScreenContainer';
 import { SuccessAddedContent } from '../../components/templates';
-import { numberWithCommas } from '../../shared/utils';
+import { numberWithCommas } from '../../utils';
 import { CONTENT_PER_PAGE, ROUTE } from '../../constants';
 
 const ProductListPage = () => {

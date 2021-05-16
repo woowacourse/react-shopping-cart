@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { AmountCounter, CheckBox, RowProductItem, TrashCanIcon } from '../..';
+import { numberWithCommas } from '../../../utils';
 import { AMOUNT_COUNTER_FLAG } from '../../../constants';
-import { numberWithCommas } from '../../../shared/utils';
 import { ShoppingCartItemContainer, ShoppingCartItemRow, ShoppingCartItemOption } from './ShoppingCartItem.styles';
 
 const ShoppingCartItem = ({
