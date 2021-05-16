@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import { Container, Header, ProductList } from './OrderContainer.styles';
 
-// TODO: 컴포넌트안에 string 고정된 것 확인
-const OrderContainer = ({ orderId, children }) => (
+const OrderContainer = ({ orderId, children, onClickDetail, showDetailButton }) => (
   <Container>
     <Header>
       <span>{`주문번호: ${orderId}`}</span>
-      <span>상세보기</span>
+      {showDetailButton && (
+        <button type="button" onClick={onClickDetail}>
+          {'상세보기 >'}
+        </button>
+      )}
     </Header>
     <ProductList>{children}</ProductList>
   </Container>
@@ -15,6 +18,12 @@ const OrderContainer = ({ orderId, children }) => (
 OrderContainer.propTypes = {
   orderId: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  onClickDetail: PropTypes.func,
+  showDetailButton: PropTypes.bool,
 };
 
+OrderContainer.defaultProps = {
+  onClickDetail: () => {},
+  showDetailButton: true,
+};
 export default OrderContainer;

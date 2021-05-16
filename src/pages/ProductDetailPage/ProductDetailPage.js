@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 import { Container, ImageContainer, Image, Name, PriceContainer, ShoppingCartButton } from './ProductDetailPage.styles';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { numberWithCommas } from '../../shared/utils';
@@ -8,8 +9,10 @@ import { SuccessAddedModal } from '../../components';
 import { SCHEMA } from '../../constants';
 
 const ProductDetailPage = () => {
-  const { setModalOpen, Modal } = useModal(false);
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  const { setModalOpen, Modal } = useModal(false);
 
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
 
@@ -25,8 +28,9 @@ const ProductDetailPage = () => {
 
     setModalOpen(true);
   };
+
   return (
-    <ScreenContainer>
+    <ScreenContainer route={location.pathname}>
       <Container>
         <ImageContainer>
           <Image src={product.image_url} alt={`product-${product.product_id}-img`} />
