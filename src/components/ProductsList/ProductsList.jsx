@@ -22,14 +22,15 @@ const ProductsList = () => {
     }
   }, [errorMessage]);
 
-  return loading ? (
-    <Loading>상품목록을 불러오는 중입니다</Loading>
-  ) : (
-    <S.ProductsList>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
-    </S.ProductsList>
+  return (
+    <>
+      {loading && <Loading>상품목록을 불러오는 중입니다</Loading>}
+      <S.ProductsList>
+        {products.map((product) => (
+          <Product key={product.id} product={product} />
+        ))}
+      </S.ProductsList>
+    </>
   );
 };
 

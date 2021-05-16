@@ -26,6 +26,8 @@ const productSlice = createSlice({
     },
 
     [getProducts.fulfilled]: (state, action) => {
+      if (state.products === action.payload.data) return;
+
       state.products = action.payload.data;
       state.loading = false;
     },
