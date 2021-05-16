@@ -30,9 +30,11 @@ const Cart = () => {
           title="결제예상금액"
           text="결제예상금액"
           price={totalPrice}
-          buttonContent={`주문하기${
-            hasCheckedItems ? `(${checkedItems.length}개)` : ""
-          }`}
+          buttonContent={
+            hasCheckedItems
+              ? `주문하기${checkedItems.length}개)`
+              : "장바구니에 상품이 없습니다"
+          }
           disabled={!hasCheckedItems}
           onButtonClick={handleButtonClick}
         />
