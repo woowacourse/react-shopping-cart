@@ -6,7 +6,7 @@ import { useModal, useServerAPI } from '../../hooks';
 import { increaseProductAmount, updateShoppingCartItemsAsync } from '../../redux/action';
 import { Button, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { OrderContainer, SuccessAddedModal } from '../../components/templates';
+import { OrderContainer, SuccessAddedContent } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
 import PageHeader from '../../shared/styles/PageHeader';
@@ -30,9 +30,9 @@ const OrderListPage = () => {
 
   const { Modal, open: openModal } = useModal(false);
 
-  const likedProductList = likedProductIdList.map(likedProductId =>
-    productList.find(product => likedProductId === product.id)
-  );
+  const likedProductList = likedProductIdList
+    .map(likedProductId => productList.find(product => likedProductId === product.id))
+    .filter(product => product);
 
   const onClickShoppingCartButton = productId => {
     if (myShoppingCartProductIds.includes(productId)) {
@@ -73,7 +73,7 @@ const OrderListPage = () => {
 
       <ModalPortal>
         <Modal>
-          <SuccessAddedModal
+          <SuccessAddedContent
             productList={likedProductList.length >= 3 ? likedProductList : productList}
             openModal={openModal}
             onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}

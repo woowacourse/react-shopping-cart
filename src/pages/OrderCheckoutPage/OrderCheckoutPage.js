@@ -65,10 +65,10 @@ const OrderCheckoutPage = () => {
 
       <Container>
         <CheckoutListContainer>
-          <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length}건 )`}</CheckoutListTitle>
+          <CheckoutListTitle>{`주문 상품 ( ${checkedItemList?.length || 0}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList.map(({ id, amount }) => {
+            {checkedItemList?.map(({ id, amount }) => {
               const { img, name } = productList.find(product => product.id === id);
 
               return <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />;

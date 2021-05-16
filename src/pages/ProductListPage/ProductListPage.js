@@ -11,7 +11,7 @@ import {
 } from '../../redux/action';
 import { Button, ColumnProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { SuccessAddedModal } from '../../components/templates';
+import { SuccessAddedContent } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
 import { ModalPortal } from '../../portals';
 import { CONTENT_PER_PAGE, ROUTE } from '../../constants';
@@ -35,9 +35,9 @@ const ProductListPage = () => {
 
   const { open: openModal, Modal } = useModal(false);
 
-  const likedProductList = likedProductIdList.map(likedProductId =>
-    productList.find(product => likedProductId === product.id)
-  );
+  const likedProductList = likedProductIdList
+    .map(likedProductId => productList.find(product => likedProductId === product.id))
+    .filter(product => product);
 
   const maxPageIndex = Math.ceil((showLikedProduct ? likedProductList : productList).length / CONTENT_PER_PAGE) - 1;
 
@@ -101,7 +101,7 @@ const ProductListPage = () => {
 
       <ModalPortal>
         <Modal>
-          <SuccessAddedModal
+          <SuccessAddedContent
             productList={likedProductList.length >= 3 ? likedProductList : productList}
             openModal={openModal}
             onClickMoveCartPageButton={() => history.push({ pathname: ROUTE.SHOPPING_CART })}
