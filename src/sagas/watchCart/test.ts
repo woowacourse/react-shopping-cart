@@ -1,4 +1,4 @@
-import { call } from "redux-saga/effects";
+import { all, call } from "redux-saga/effects";
 import { expectSaga } from "redux-saga-test-plan";
 import { throwError } from "redux-saga-test-plan/providers";
 
@@ -58,27 +58,32 @@ it("should postCart fail", () => {
     .run();
 });
 
-// it("should deleteCart success", () => {
-//   const ids = ["1","2"];
+it("should deleteCart success", () => {
+  const ids = ["1", "2", "3"];
 
-//   return expectSaga(watchCart)
-//     .dispatch(actions.cart.delete.request(ids))
-//     .provide([[call(api.cart.delete, ids[0]), {}]])
-//     .put(actions.cart.delete.success())
-//     .dispatch(actions.cart.get.request())
-//     .provide([[call(api.cart.get), cartItem]])
-//     .put(actions.cart.get.success({cart: cartItem}))
-//     .run();
-// });
+  return expectSaga(watchCart)
+    .dispatch(actions.cart.delete.request(ids))
+    .provide([
+      [call(api.cart.delete, "1"), {}],
+      [call(api.cart.delete, "2"), {}],
+      [call(api.cart.delete, "3"), {}],
+      [call(api.cart.get), cartItem],
+    ])
+    .put(actions.cart.delete.success())
+    .put(actions.cart.get.success({ cart: cartItem }))
+    .run();
+});
 
-// it("should deleteCart fail", () => {
-//   const ids = ["1"];
+it("should deleteCart fail", () => {
+  const ids = ["1", "2", "3"];
 
-//   return expectSaga(watchCart)
-//     .dispatch(actions.cart.delete.request(ids))
-//     .provide([
-//       [call(api.cart.delete, "1"), throwError(Error(errormessage))],
-//     ])
-//     .put(actions.cart.delete.failure({requestErrorMessage: errormessage }))
-//     .run();
-// });
+  return expectSaga(watchCart)
+    .dispatch(actions.cart.delete.request(ids))
+    .provide([
+      [call(api.cart.delete, "1"), throwError(Error(errormessage))],
+      [call(api.cart.delete, "2"), {}],
+      [call(api.cart.delete, "3"), {}],
+    ])
+    .put(actions.cart.delete.failure({ requestErrorMessage: errormessage }))
+    .run();
+});
