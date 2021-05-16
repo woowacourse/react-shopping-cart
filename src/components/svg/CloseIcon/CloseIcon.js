@@ -1,9 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
-
-const SVG = styled.svg`
-  transform: scale(${props => props.scale});
-`;
+import { SVG } from './CloseIcon.styles';
 
 const CloseIcon = ({ scale }) => (
   <SVG viewBox="0 0 40 40" scale={scale}>
