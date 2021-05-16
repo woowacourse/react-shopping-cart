@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemToCart } from '../../store/cartReducer';
-import { API } from '../../services'
+import { API } from '../../services';
 import { MESSAGE, PATH } from '../../constants';
 import { Grid, Card, IconButton } from '../../components/shared';
 import { Description, Price } from './style';

@@ -18,28 +18,26 @@ function App() {
       try {
         const result = await API.getItemList();
         store.dispatch(setItemList(result));
-        
-      } catch(error) {
-        console.error(error)
-        alert(MESSAGE.FAIL_FETCH_DATA)
+      } catch (error) {
+        console.error(error);
+        alert(MESSAGE.FAIL_FETCH_DATA);
         store.dispatch(setItemList([]));
       }
     };
-    
+
     const getCartItemListRequest = async () => {
       try {
         const result = await API.getCartItemList();
         store.dispatch(setCartItemList(result));
-        
-      } catch(error) {
-        console.error(error)
-        alert(MESSAGE.FAIL_FETCH_DATA)
+      } catch (error) {
+        console.error(error);
+        alert(MESSAGE.FAIL_FETCH_DATA);
         store.dispatch(setCartItemList([]));
       }
     };
 
-      getItemListRequest();
-      getCartItemListRequest();
+    getItemListRequest();
+    getCartItemListRequest();
   }, []);
 
   return (
