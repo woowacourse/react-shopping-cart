@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -49,7 +49,12 @@ const ShoppingCartPage = () => {
 
   const [isAllChecked, setAllChecked] = useState(false);
 
-  const [expectedPrice, setExpectedPrice] = useState(0);
+  const expectedPrice = checkedProductList.reduce((acc, productId) => {
+    const amount = productAmountDict[productId] || 0;
+    const { price } = productList.find(product => product.id === productId);
+
+    return acc + price * amount;
+  }, 0);
 
   const onClickAllCheckBox = () => {
     const newAllCheckedState = !isAllChecked;
@@ -117,17 +122,6 @@ const ShoppingCartPage = () => {
       dispatch(decreaseProductAmount(productId));
     }
   };
-
-  useEffect(() => {
-    const newExpectedPrice = checkedProductList.reduce((acc, productId) => {
-      const amount = productAmountDict[productId] || 0;
-      const { price } = productList.find(product => product.id === productId);
-
-      return acc + price * amount;
-    }, 0);
-
-    setExpectedPrice(newExpectedPrice);
-  }, [checkedProductList, myShoppingCartProductIds, productAmountDict, productList]);
 
   return (
     <ScreenContainer route={location.pathname}>

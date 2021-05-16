@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
 
@@ -25,7 +24,6 @@ const OrderCheckoutPage = () => {
   }));
 
   const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
-  const [expectedPrice, setExpectedPrice] = useState(0);
 
   if (!location.state) {
     history.replace({
@@ -33,7 +31,14 @@ const OrderCheckoutPage = () => {
     });
   }
 
-  const checkedItemList = location.state?.checkedItemList;
+  const checkedItemList = location.state?.checkedItemList || [];
+
+  const expectedPrice =
+    checkedItemList.reduce((acc, { id, amount }) => {
+      const { price } = productList.find(product => product.id === id);
+
+      return acc + price * amount;
+    }, 0) || 0;
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.CHECKOUT)) return;
@@ -49,26 +54,16 @@ const OrderCheckoutPage = () => {
     });
   };
 
-  useEffect(() => {
-    const newExpectedPrice = checkedItemList.reduce((acc, { id, amount }) => {
-      const { price } = productList.find(product => product.id === id);
-
-      return acc + price * amount;
-    }, 0);
-
-    setExpectedPrice(newExpectedPrice);
-  }, [checkedItemList, productList]);
-
   return (
     <ScreenContainer route={location.pathname}>
       <PageHeader>주문/결제</PageHeader>
 
       <Container>
         <CheckoutListContainer>
-          <CheckoutListTitle>{`주문 상품 ( ${checkedItemList?.length || 0}건 )`}</CheckoutListTitle>
+          <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length || 0}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList?.map(({ id, amount }) => {
+            {checkedItemList.map(({ id, amount }) => {
               const { img, name } = productList.find(product => product.id === id);
 
               return <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />;
