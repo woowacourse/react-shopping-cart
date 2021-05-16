@@ -52,9 +52,6 @@ export const Control = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   height: 9rem;
-
-  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
-  }
 `;
 
 export const Price = styled.span``;
