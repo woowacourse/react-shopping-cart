@@ -8,7 +8,9 @@ import Flex from '../../components/utils/Flex';
 import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
+
 import { addItemToCart } from '../../modules/cart';
+import { addItemToCartRequest } from '../../api/products';
 
 import cartImage from '../../asset/cart.png';
 import styled, { css } from 'styled-components';
@@ -47,14 +49,22 @@ const ProductInfoStyle = css`
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
 
-  const onAddCartButtonClick = (item) => {
-    dispatch(addItemToCart(item));
+  const onAddCartButtonClick = (product) => {
+    addItemToCartRequest(product.product_id);
+    dispatch(addItemToCart(product));
   };
 
   return (
     <SingleProduct>
       <Link to={`/products/${product.product_id}`}>
-        <Image src={product.image_url} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
+        <Image
+          width="282px"
+          height="285px"
+          src={product.image_url}
+          alt={product.name}
+          className="product-image"
+          isBackgroundImageNeeded={true}
+        />
       </Link>
       <Flex spaceBetween="space-between" alignItems="center" css={ProductBottomStyle}>
         <Flex flexDirection="column" css={ProductInfoStyle}>

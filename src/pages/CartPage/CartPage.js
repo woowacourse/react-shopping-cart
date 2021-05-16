@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
@@ -17,6 +17,7 @@ import { deleteCheckedItems, getTotalPrice } from '../../utils';
 import { COLOR } from '../../constant';
 
 import styled, { css } from 'styled-components';
+import { getCartItemsRequest } from '../../api/products';
 
 const CartItemWrapperStyle = css`
   width: 1320px;
@@ -43,8 +44,16 @@ const CartItemList = styled.ul`
 
 const CartPage = () => {
   const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([]);
 
-  const cartItems = useSelector((state) => state.cart);
+  useEffect(() => {
+    const setCartItemsByFetch = async () => {
+      setCartItems(await getCartItemsRequest());
+    };
+
+    setCartItemsByFetch();
+  }, [cartItems]);
+
   const checkedItemIds = cartItems.filter((item) => item.checked).map((item) => item.id);
 
   const onCheckboxClick = (cartItemId) => {
@@ -117,9 +126,9 @@ const CartPage = () => {
                 cartItems
                   .map((cartItem) => (
                     <CartItem
-                      key={cartItem.id}
+                      key={cartItem.product_id}
                       cartItem={cartItem}
-                      checked={checkedItemIds.includes(cartItem.id)}
+                      checked={checkedItemIds.includes(cartItem.product_id)}
                       onCheckboxClick={onCheckboxClick}
                     />
                   ))

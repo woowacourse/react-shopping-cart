@@ -8,9 +8,10 @@ import Button from '../components/utils/Button';
 import PriceText from '../components/utils/PriceText';
 
 import { addItemToCart } from '../modules/cart';
+import { addItemToCartRequest } from '../api/products';
 
 import styled, { css } from 'styled-components';
-import { getSingleProduct } from '../api/products';
+import { getSingleProductRequest } from '../api/products';
 
 const ProductDetailWrapperStyle = css`
   width: 1320px;
@@ -53,13 +54,14 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const setProductsByFetch = async () => {
-      setProduct(await getSingleProduct(productId));
+      setProduct(await getSingleProductRequest(productId));
     };
 
     setProductsByFetch();
   }, [productId]);
 
   const onAddCartButtonClick = (item) => {
+    addItemToCartRequest(item.product_id);
     dispatch(addItemToCart(item));
   };
 

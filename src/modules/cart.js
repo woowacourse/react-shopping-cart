@@ -17,7 +17,7 @@ export const allUnCheck = () => ({ type: ALL_UNCHECK });
 const initialState = [];
 
 const increaseCount = (state, id) => {
-  const targetIndex = state.findIndex((value) => value.id === id);
+  const targetIndex = state.findIndex((value) => value.product_id === id);
   if (targetIndex === -1) {
     return state;
   }
@@ -31,7 +31,7 @@ const increaseCount = (state, id) => {
 };
 
 const decreaseCount = (state, id) => {
-  const targetIndex = state.findIndex((value) => value.id === id);
+  const targetIndex = state.findIndex((value) => value.product_id === id);
   if (targetIndex === -1) {
     return state;
   }
@@ -45,7 +45,7 @@ const decreaseCount = (state, id) => {
 };
 
 const toggleCheck = (state, id) => {
-  const targetIndex = state.findIndex((value) => value.id === id);
+  const targetIndex = state.findIndex((value) => value.product_id === id);
   if (targetIndex === -1) {
     return state;
   }
@@ -59,7 +59,7 @@ const toggleCheck = (state, id) => {
 };
 
 const addItem = (state, newItem) => {
-  const targetIndex = state.findIndex((value) => value.id === newItem.id);
+  const targetIndex = state.findIndex((value) => value.product_id === newItem.product_id);
   if (targetIndex === -1) {
     return [...state, { ...newItem, quantity: 1, checked: true }];
   }
@@ -82,7 +82,7 @@ const cartReducer = (state = initialState, action) => {
     case ADD_ITEM_TO_CART:
       return addItem(state, action.payload);
     case DELETE_ITEM_FROM_CART:
-      return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item.product_id !== action.payload);
     case TOGGLE_CHECKBOX:
       return toggleCheck(state, action.payload);
     case ALL_CHECK:

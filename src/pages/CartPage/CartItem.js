@@ -11,7 +11,7 @@ import Flex from '../../components/utils/Flex';
 import bin from '../../asset/bin-icon.svg';
 import { MESSAGE, NUMBER, COLOR } from '../../constant';
 import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
-
+import { deleteItemFromCartRequest } from '../../api/products';
 import styled, { css } from 'styled-components';
 
 const SingleCartItem = styled.li`
@@ -46,7 +46,7 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
   const dispatch = useDispatch();
 
   const onIncreaseButtonClick = () => {
-    dispatch(increaseQuantity(cartItem.id));
+    dispatch(increaseQuantity(cartItem.product_id));
   };
 
   const onDecreaseButtonClick = () => {
@@ -55,18 +55,26 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
       return;
     }
 
-    dispatch(decreaseQuantity(cartItem.id));
+    dispatch(decreaseQuantity(cartItem.product_id));
   };
 
   const onDeleteItemButtonClick = () => {
-    dispatch(deleteItemFromCart(cartItem.id));
+    deleteItemFromCartRequest(cartItem.product_id);
+
+    dispatch(deleteItemFromCart(cartItem.product_id));
   };
 
   return (
     <SingleCartItem>
-      <CheckBox id={cartItem.id} checked={checked} onChange={onCheckboxClick} />
+      <CheckBox id={cartItem.product_id} checked={checked} onChange={onCheckboxClick} />
       <Flex>
-        <Image width="144px" height="144px" src={cartItem.image} alt={cartItem.name} isBackgroundImageNeeded={true} />
+        <Image
+          width="144px"
+          height="144px"
+          src={cartItem.image_url}
+          alt={cartItem.name}
+          isBackgroundImageNeeded={true}
+        />
         <CartItemName>{cartItem.name}</CartItemName>
       </Flex>
 
@@ -79,7 +87,7 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
           onClick={onDeleteItemButtonClick}
         />
         <CounterButton
-          id={cartItem.id}
+          id={cartItem.product_id}
           count={cartItem.quantity}
           onIncreaseButtonClick={onIncreaseButtonClick}
           onDecreaseButtonClick={onDecreaseButtonClick}

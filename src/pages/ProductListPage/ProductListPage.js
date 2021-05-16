@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import ProductItem from './ProductItem';
 import GridColumnList from '../../components/utils/GridColumnList';
 
-import { getProducts } from '../../api/products';
+import { getProductsRequest } from '../../api/products';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const setProductsByFetch = async () => {
-      setProducts(await getProducts());
+      setProducts(await getProductsRequest());
     };
 
     setProductsByFetch();
