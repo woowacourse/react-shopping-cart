@@ -9,7 +9,7 @@ import { Description, Price } from './style';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 
 const ItemList = () => {
-  const list = useSelector(state => state.reducer.itemList);
+  const list = useSelector(state => state.itemListReducer.itemList);
   const dispatch = useDispatch();
   const history = useHistory();
 

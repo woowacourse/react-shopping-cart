@@ -4,9 +4,10 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
-import { PATH } from './constants';
+import { MESSAGE, PATH } from './constants';
 import { Cart, ItemList, Order } from './pages';
-import { setItemList, store } from './store';
+import { store } from './store';
+import { setItemList } from './store/itemListReducer';
 import { setCartItemList } from './store/cartReducer';
 import { API } from '../src/services';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
@@ -14,16 +15,31 @@ import { ReactComponent as Logo } from './assets/icons/logo.svg';
 function App() {
   useEffect(() => {
     const getItemListRequest = async () => {
-      const result = await API.getItemList();
-      store.dispatch(setItemList(result));
+      try {
+        const result = await API.getItemList();
+        store.dispatch(setItemList(result));
+        
+      } catch(error) {
+        console.error(error)
+        alert(MESSAGE.FAIL_FETCH_DATA)
+        store.dispatch(setItemList([]));
+      }
+    };
+    
+    const getCartItemListRequest = async () => {
+      try {
+        const result = await API.getCartItemList();
+        store.dispatch(setCartItemList(result));
+        
+      } catch(error) {
+        console.error(error)
+        alert(MESSAGE.FAIL_FETCH_DATA)
+        store.dispatch(setCartItemList([]));
+      }
     };
 
-    const getCartItemListRequest = async () => {
-      const result = await API.getCartItemList();
-      store.dispatch(setCartItemList(result));
-    };
-    getItemListRequest();
-    getCartItemListRequest();
+      getItemListRequest();
+      getCartItemListRequest();
   }, []);
 
   return (
