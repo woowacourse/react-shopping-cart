@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../constants';
-import ShoppingCartIcon from '../ShoppingCartIcon/ShoppingCartIcon';
+import ShoppingCartIcon from '../svg/ShoppingCartIcon/ShoppingCartIcon';
+
 import NavBar from './NavBar';
 
 export default {

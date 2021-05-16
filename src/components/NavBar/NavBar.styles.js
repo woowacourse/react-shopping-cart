@@ -11,7 +11,7 @@ const Container = styled.nav`
   position: relative;
 `;
 
-const ButtonContainer = styled.div`
+const LinkContainer = styled.div`
   & > *:not(:last-child) {
     margin-right: 40px;
   }
@@ -22,4 +22,4 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export { Container, ButtonContainer };
+export { Container, LinkContainer };

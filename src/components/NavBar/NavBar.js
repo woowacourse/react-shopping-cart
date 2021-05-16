@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import { Container, ButtonContainer } from './NavBar.styles';
+import { Container, LinkContainer } from './NavBar.styles';
 
-const NavBar = ({ Logo, Buttons }) => (
+const NavBar = ({ Logo, Links }) => (
   <Container>
     {Logo}
-    <ButtonContainer>{Buttons}</ButtonContainer>
+    <LinkContainer>{Links}</LinkContainer>
   </Container>
 );
 
 NavBar.propTypes = {
   Logo: PropTypes.node.isRequired,
-  Buttons: PropTypes.node.isRequired,
+  Links: PropTypes.node.isRequired,
 };
 
 export default NavBar;
