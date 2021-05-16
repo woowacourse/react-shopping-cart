@@ -96,6 +96,9 @@ const ShoppingCartPage = () => {
     }
   };
 
+  // 어라 이거 프로덕트 아이디가 똑같아서 생기는 문제 같은데
+  // 업데이트 되는건 문제가 있네
+
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
       <CartListItem

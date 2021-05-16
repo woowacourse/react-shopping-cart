@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { requestGetOrders } from '../apis/order';
 import { Order } from '../type';
 import { parseOrderDataList } from '../utils/parseData';
+import useRequest from './request';
 
 const useOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await requestGetOrders();
-        setOrders(parseOrderDataList(response.data));
-        setResponseOK(true);
-      } catch (error) {
-        console.error(error);
-        setResponseOK(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { loading, responseOK } = useRequest(async () => {
+    const response = await requestGetOrders();
+    setOrders(parseOrderDataList(response.data));
+  });
 
   return { orders, loading, responseOK };
 };

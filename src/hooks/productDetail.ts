@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import noImagePNG from '../assets/images/no-image.png';
 import { parseProductData } from '../utils/parseData';
 import { requestGetProduct } from '../apis/products';
 import { Product } from '../type';
+import useRequest from './request';
 
 const defaultProduct: Product = {
   id: '0',
@@ -13,26 +14,12 @@ const defaultProduct: Product = {
 
 const useProductDetail = () => {
   const [product, setProduct] = useState<Product>(defaultProduct);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const [productId] = window.location.hash.split('/').slice(-1);
-        const response = await requestGetProduct(productId);
-        setProduct(parseProductData(response.data));
-        setResponseOK(true);
-      } catch (error) {
-        console.error(error);
-        setResponseOK(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { loading, responseOK } = useRequest(async () => {
+    const [productId] = window.location.hash.split('/').slice(-1);
+    const response = await requestGetProduct(productId);
+    setProduct(parseProductData(response.data));
+  });
 
   return { product, loading, responseOK };
 };

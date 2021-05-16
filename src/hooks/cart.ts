@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { requestGetCartItems } from '../apis/cart';
 import { CartItem } from '../type';
 import { parseCartItemData } from '../utils/parseData';
 
+import useRequest from './request';
+
 const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      setLoading(true);
-      try {
-        const response = await requestGetCartItems();
-        const cartItems = response.data.map(parseCartItemData);
-        setCartItems(cartItems);
-      } catch (error) {
-        setResponseOK(false);
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCartItems();
-  }, [setCartItems]);
+  const { loading, responseOK } = useRequest(async () => {
+    const response = await requestGetCartItems();
+    const cartItems = response.data.map(parseCartItemData);
+    setCartItems(cartItems);
+  });
 
   return { cartItems, loading, responseOK, setCartItems };
 };
