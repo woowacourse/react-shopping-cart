@@ -13,7 +13,7 @@ const Button = ({
   disabled,
   onClick,
   size,
-  backgroundColor,
+  backgroundColor = COLORS.MINT_500,
   fontColor = COLORS.WHITE,
   children,
   type = 'button',
