@@ -21,19 +21,6 @@ const Container = styled.div`
   }
 `;
 
-const PageButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  font-size: 2em;
-`;
-
-const PageIndex = styled.span`
-  margin: auto 50px;
-`;
-
 const LikedProductFilter = styled.div`
   word-break: keep-all;
   max-height: 500px;
@@ -41,4 +28,4 @@ const LikedProductFilter = styled.div`
   text-align: center;
 `;
 
-export { Container, PageButtonContainer, PageIndex, LikedProductFilter };
+export { Container, LikedProductFilter };

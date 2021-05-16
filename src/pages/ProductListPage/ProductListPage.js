@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, PageButtonContainer, PageIndex, LikedProductFilter } from './ProductListPage.styles';
+import { Container, LikedProductFilter } from './ProductListPage.styles';
 import { useModal } from '../../hooks';
 import {
   increaseProductAmount,
@@ -9,7 +9,7 @@ import {
   updatePageIndex,
   updateShoppingCartItemsAsync,
 } from '../../redux/action';
-import { Button, ColumnProductItem } from '../../components';
+import { ColumnProductItem, PageIndexNav } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { SuccessAddedContent } from '../../components/templates';
 import { numberWithCommas } from '../../shared/utils';
@@ -106,15 +106,12 @@ const ProductListPage = () => {
         />
       </Modal>
 
-      <PageButtonContainer>
-        <Button onClick={onClickPrevPage} disabled={pageIndex === 0}>
-          이전
-        </Button>
-        <PageIndex>{pageIndex + 1}</PageIndex>
-        <Button onClick={onClickNextPage} disabled={pageIndex === maxPageIndex}>
-          다음
-        </Button>
-      </PageButtonContainer>
+      <PageIndexNav
+        onClickPrevPage={onClickPrevPage}
+        onClickNextPage={onClickNextPage}
+        pageIndex={pageIndex}
+        maxPageIndex={maxPageIndex}
+      />
     </ScreenContainer>
   );
 };
