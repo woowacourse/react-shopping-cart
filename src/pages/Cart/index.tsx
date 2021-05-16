@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import actions from "../../actions";
-import { Button, CheckBox } from "../../Components";
-import PageTitle from "../../Components/PageTitle";
-import SubmitBox from "../../Components/SubmitBox";
-import { COLOR } from "../../constants/theme";
-
-import CartItem from "./CartItem";
+import { Button, CheckBox, PageTitle, SubmitBox } from "../../Components/@shared";
+import { CartItem } from "../../Components";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+import { COLOR } from "../../constants/theme";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -140,12 +137,14 @@ const Cart: VFC = () => {
           </AllDealSelect>
           <AllDealDelete>
             <Button
-              width="7.2rem"
-              height="3.1rem"
-              color={COLOR.GRAY_600}
-              fontSize="1rem"
-              backgroundColor="none"
-              border={`1px solid ${COLOR.GRAY_200}`}
+              style={{
+                width: "7.2rem",
+                height: "3.1rem",
+                color: COLOR.GRAY_600,
+                fontSize: "1rem",
+                backgroundColor: "none",
+                border: `1px solid ${COLOR.GRAY_200}`,
+              }}
               onClick={deleteSelectedCartItems}
             >
               상품삭제

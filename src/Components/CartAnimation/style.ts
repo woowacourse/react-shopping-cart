@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-import add_cart from "../../../../public/assets/add_cart.png";
+import add_cart from "../../../public/assets/add_cart.png";
 
 const cartAnimation = keyframes`
   from {
@@ -130,7 +130,7 @@ const cartAnimation = keyframes`
   }
 `;
 
-const CartAnimation = styled.div`
+const Contents = styled.div`
   background: url(${add_cart}) no-repeat;
   background-position: 0px, 0px;
 
@@ -138,4 +138,4 @@ const CartAnimation = styled.div`
   animation-timing-function: steps(1);
 `;
 
-export { CartAnimation };
+export { Contents };

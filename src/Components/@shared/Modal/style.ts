@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FlexCenter } from "./../../SharedStyled/Flex";
+import { FlexCenter } from "../../../SharedStyled/Flex";
 
 interface ContainerProps {
   opacity: number;

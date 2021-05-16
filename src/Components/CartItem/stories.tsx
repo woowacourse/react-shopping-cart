@@ -4,7 +4,7 @@ import { Story, Meta } from "@storybook/react";
 import CartItem, { CartItemProps } from ".";
 
 export default {
-  title: "Containers/CartItem",
+  title: "CartItem",
   component: CartItem,
 } as Meta;
 
@@ -16,5 +16,7 @@ Basic.args = {
   id: "1",
   name: "브랜브랜의 철봉",
   price: 1000000,
-  onClickDeleteButton: () => {},
+  quantity: 11,
+  imageSrc: "http://via.placeholder.com/400x400",
+  isChecked: false,
 };

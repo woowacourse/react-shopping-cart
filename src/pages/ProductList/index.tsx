@@ -2,7 +2,7 @@ import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { Animation, Product, ProductImage } from "../../Components";
+import { Animation, CartAnimation, Product, ProductImage } from "../../Components";
 import { CartItem } from "../../types";
 import { RootState } from "../../store";
 
@@ -51,7 +51,7 @@ const ProductList: VFC = () => {
           }}
         />
       ))}
-      {animation.isShow && <Animation.Cart />}
+      {animation.isShow && <CartAnimation />}
     </Container>
   );
 };

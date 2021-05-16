@@ -1,9 +1,7 @@
 import React, { VFC } from "react";
 import { useLocation } from "react-router-dom";
-import { OrderProductItem, ProductImage } from "../../Components";
 
-import PageTitle from "../../Components/PageTitle";
-import SubmitBox from "../../Components/SubmitBox";
+import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../Components";
 import { CartItem } from "../../types";
 import { Container, OrderListTitle, Section, Main } from "./style";
 

@@ -17,11 +17,13 @@ Basic.args = {
   Image: <ProductImage size="141px" alt="dummy" src="http://via.placeholder.com/282x282" />,
   Button: (
     <Button
-      width="8.625rem"
-      height="3rem"
-      color={COLOR.WHITE}
-      backgroundColor={COLOR.MAIN}
-      fontSize="1.25rem"
+      style={{
+        width: "8.625rem",
+        height: "3rem",
+        color: COLOR.WHITE,
+        backgroundColor: COLOR.MAIN,
+        fontSize: "1.25rem",
+      }}
       onClick={() => {}}
     >
       장바구니

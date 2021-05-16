@@ -1,10 +1,8 @@
 import React, { VFC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 import { useDispatch } from "react-redux";
-import actions from "../../../actions";
+import actions from "../../actions";
 
-import { ProductImage, CheckBox } from "../../../Components";
-import Confirm from "../../../Components/Confirm";
-import Portal from "../../../Components/Portal";
+import { Confirm, CheckBox, ProductImage, Portal } from "..";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
 
 interface CartItemProps {

@@ -1,4 +1,4 @@
-import React, { VFC, MouseEventHandler, useState, useEffect } from "react";
+import React, { VFC, MouseEventHandler } from "react";
 import Modal from "../Modal";
 
 import { Inner, Title, ButtonControls } from "./style";

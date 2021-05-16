@@ -1,8 +1,8 @@
 import React, { MouseEventHandler, VFC } from "react";
 
-import { Button } from "..";
-import { COLOR } from "../../constants/theme";
-import { DivFlexBetween } from "../../SharedStyled/Flex";
+import { Button } from "../..";
+import { COLOR } from "../../../constants/theme";
+import { DivFlexBetween } from "../../../SharedStyled/Flex";
 import TextWithHighlight from "../TextWithHighlight";
 import { Container, ContainerProps, Main, Title } from "./style";
 
@@ -41,11 +41,13 @@ const SubmitBox: VFC<SubmitBoxProps> = ({ title, width, height, target, buttonNa
         </p>
       </DivFlexBetween>
       <Button
-        width="100%"
-        height="4.625rem"
-        color={COLOR.WHITE}
-        fontSize="1.5rem"
-        backgroundColor={COLOR.MAIN}
+        style={{
+          width: "100%",
+          height: "4.625rem",
+          color: COLOR.WHITE,
+          fontSize: "1.5rem",
+          backgroundColor: COLOR.MAIN,
+        }}
         onClick={onClickSubmitButton}
       >
         {buttonName}

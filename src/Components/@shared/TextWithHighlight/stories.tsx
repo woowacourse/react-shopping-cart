@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import TextWithHighlight, { TextWithhighlightProps } from ".";
-import { COLOR } from "../../constants/theme";
+import { COLOR } from "../../../constants/theme";
 
 export default {
   title: "TextWithHighlight",

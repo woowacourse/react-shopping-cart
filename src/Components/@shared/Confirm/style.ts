@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FlexBetween, FlexCenter } from "./../../SharedStyled/Flex";
+import { FlexBetween, FlexCenter } from "../../../SharedStyled/Flex";
 
 const Inner = styled(FlexCenter("div"))`
   width: 300px;
