@@ -46,7 +46,7 @@ describe("Cart", () => {
     render(<Cart />, { initialState: { cart } });
 
     const checkbox = screen.getByRole("checkbox", {
-      name: /선택해제/,
+      name: /전체선택/,
     });
     fireEvent.click(checkbox);
 

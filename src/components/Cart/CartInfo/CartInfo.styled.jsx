@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
-import * as S from "../../@shared/CheckBox/CheckBox.styled";
+import { Button } from "../../@shared/Button/Button.styled";
 
 export const CartInfo = styled.div`
   width: 100%;
@@ -14,13 +14,13 @@ export const Menu = styled.div`
 `;
 
 export const CheckAllLabel = styled.label`
-  ${S.CheckBox} {
-    margin-right: 0.75rem;
-  }
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
 `;
 
 export const RemoveChecked = styled.div`
-  button {
+  ${Button} {
     padding: 1rem 1.75rem;
     font-weight: bold;
 

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeChecked,
   toggleAllChecked,
@@ -10,27 +9,23 @@ import CheckBox from "../../@shared/CheckBox/CheckBox";
 import CartItem from "./CartItem/CartItem";
 import * as S from "./CartInfo.styled";
 
-const CartInfo = ({ cart }) => {
+const isAllItemChecked = (cart) => {
+  const cartItemList = Object.values(cart);
+
+  if (cartItemList.length === 0) return false;
+
+  const unchecked = cartItemList.find(({ checked }) => !checked);
+
+  return !unchecked;
+};
+
+const CartInfo = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
-  const [checkAll, setCheckAll] = useState(false);
-
-  useEffect(() => {
-    const checkedSet = new Set(
-      Object.values(cart).map(({ checked }) => checked)
-    );
-
-    if (checkedSet.size === 0) {
-      setCheckAll(false);
-    }
-    if (checkedSet.size === 1) {
-      setCheckAll([...checkedSet].pop());
-    }
-  }, [cart]);
-
-  const handleCheckBoxChange = () => {
-    dispatch(toggleAllChecked({ checked: !checkAll }));
-    setCheckAll(!checkAll);
+  const handleCheckBoxChange = (event) => {
+    const { checked } = event.target;
+    dispatch(toggleAllChecked({ checked }));
   };
 
   const handleRemoveCheckedClick = () => {
@@ -40,18 +35,16 @@ const CartInfo = ({ cart }) => {
     dispatch(removeChecked());
   };
 
-  const checkAllLabel = checkAll ? "선택해제" : "전체선택";
-
   return (
     <S.CartInfo>
       <S.Menu>
         <S.CheckAllLabel>
           <CheckBox
-            name="checkAll"
-            checked={checkAll}
+            name="check-all"
+            checked={isAllItemChecked(cart)}
             onChange={handleCheckBoxChange}
           />
-          {checkAllLabel}
+          전체선택
         </S.CheckAllLabel>
         <S.RemoveChecked>
           <Button type="secondary" onClick={handleRemoveCheckedClick}>
@@ -67,11 +60,6 @@ const CartInfo = ({ cart }) => {
       </S.List>
     </S.CartInfo>
   );
-};
-
-CartInfo.propTypes = {
-  cart: PropTypes.shape({ id: PropTypes.shape(CartItem.propTypes.item) })
-    .isRequired,
 };
 
 export default CartInfo;

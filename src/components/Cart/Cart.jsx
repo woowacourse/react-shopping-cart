@@ -24,7 +24,7 @@ const Cart = () => {
     <S.Cart>
       <PageTitle>장바구니</PageTitle>
       <S.CartMain>
-        <CartInfo cart={cart} />
+        <CartInfo />
         <ResultBox
           title="결제예상금액"
           text="결제예상금액"
