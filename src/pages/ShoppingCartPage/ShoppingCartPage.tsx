@@ -19,7 +19,7 @@ import { CartItem } from '../../type';
 const ShoppingCartPage = () => {
   const history = useHistory();
   const { cartItems, loading, responseOK, setCartItems } = useCart();
-  const [isTotalChecked, setTotalChecked] = useState<boolean>(true);
+  const [isTotalChecked, setTotalChecked] = useState(true);
 
   if (loading) {
     return (

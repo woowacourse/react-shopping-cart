@@ -13,7 +13,7 @@ import { alert } from '../../utils/alert';
 
 const ProductDetailPage = () => {
   const history = useHistory();
-  const [isToolTipShown, setToolTipShown] = useState<boolean>(false);
+  const [isToolTipShown, setToolTipShown] = useState(false);
   const { product, loading, responseOK } = useProductDetail();
 
   const onCartButtonClick = async () => {

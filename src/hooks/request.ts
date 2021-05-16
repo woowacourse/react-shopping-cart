@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const useRequest = (requestData: Function) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
+  const [responseOK, setResponseOK] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
