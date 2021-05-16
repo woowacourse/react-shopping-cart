@@ -43,8 +43,8 @@ const ShoppingCartPayment = ({ price, count, onClick }) => (
 
 ShoppingCartPayment.propTypes = {
   price: PropTypes.number.isRequired,
-  count: PropTypes.number,
-  onClick: PropTypes.func,
+  count: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ShoppingCartPayment;

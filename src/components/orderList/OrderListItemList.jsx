@@ -37,7 +37,7 @@ const OrderListItemList = ({ orderNumber, orderListItemList }) => (
 );
 
 OrderListItemList.propTypes = {
-  orderNumber: PropTypes.number,
+  orderNumber: PropTypes.number.isRequired,
   orderListItemList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

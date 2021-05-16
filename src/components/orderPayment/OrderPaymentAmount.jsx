@@ -26,7 +26,7 @@ const TextWrapper = styled.div`
   font-size: 20px;
 `;
 
-const PaymentAmount = ({ price, count, onClick }) => (
+const OrderPaymentAmount = ({ price, onClick }) => (
   <Container>
     <Title>결제금액</Title>
     <div>
@@ -34,17 +34,16 @@ const PaymentAmount = ({ price, count, onClick }) => (
         <TextHighlight>총 결제금액</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick} disabled={count === 0}>
+      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
         {price.toLocaleString('ko-KR')}원 결제하기
       </Button>
     </div>
   </Container>
 );
 
-PaymentAmount.propTypes = {
+OrderPaymentAmount.propTypes = {
   price: PropTypes.number.isRequired,
-  count: PropTypes.number,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
-export default PaymentAmount;
+export default OrderPaymentAmount;
