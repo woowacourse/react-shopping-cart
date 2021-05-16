@@ -2,23 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { COLOR } from '../../constants/color';
-import { Button, TextHighlight, BUTTON_TYPE } from '../';
-
-export const PAYMENT_AMOUNT_TYPE = Object.freeze({
-  SHOPPING_CART: 'SHOPPING_CART',
-  ORDER_PAYMENT: 'ORDER_PAYMENT',
-});
-
-const paymentAmountText = {
-  [PAYMENT_AMOUNT_TYPE.SHOPPING_CART]: {
-    title: '결제예상금액',
-    content: '결제예상금액',
-  },
-  [PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT]: {
-    title: '결제금액',
-    content: '총 결제금액',
-  },
-};
+import { Button, TextHighlight, BUTTON_TYPE } from '..';
 
 const Container = styled.div`
   width: 448px;
@@ -42,34 +26,25 @@ const TextWrapper = styled.div`
   font-size: 20px;
 `;
 
-const getButtonText = ({ type, count, price }) => {
-  const buttonTextType = {
-    SHOPPING_CART: count ? `주문하기(${count}개)` : '주문하기',
-    ORDER_PAYMENT: `${price.toLocaleString('ko-KR')}원 결제하기`,
-  };
-
-  return buttonTextType[type];
-};
-
-const PaymentAmount = ({ type, price, count, onClick }) => (
+const PaymentAmount = ({ price, count, onClick }) => (
   <Container>
-    <Title>{paymentAmountText[type].title}</Title>
+    <Title>결제금액</Title>
     <div>
       <TextWrapper>
-        <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
+        <TextHighlight>총 결제금액</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
       <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick} disabled={count === 0}>
-        {getButtonText({ type, price, count })}
+        {price.toLocaleString('ko-KR')}원 결제하기
       </Button>
     </div>
   </Container>
 );
 
 PaymentAmount.propTypes = {
-  type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   count: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 export default PaymentAmount;

@@ -5,7 +5,7 @@ import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
-import { ProductImage, Dialog, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
+import { ProductImage, Dialog, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '..';
 
 const Content = styled.ul`
   display: flex;
@@ -33,12 +33,12 @@ const Image = styled.img`
 const ADD_SUCCESS = 'ADD_SUCCESS';
 const ADD_FAILURE = 'ADD_FAILURE';
 
-const ProductListItem = ({ product }) => {
+const ProductListItem = ({ id, name, src, alt, price }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
-  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartList.data);
+  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartItemList.data);
   const dispatch = useDispatch();
 
-  const isExistedInShoppingCart = () => shoppingCartList.some((shoppingCartItem) => shoppingCartItem.id === product.id);
+  const isExistedInShoppingCart = () => shoppingCartList.some((shoppingCartItem) => shoppingCartItem.id === id);
 
   const handleShoppingCartImage = () => {
     if (isExistedInShoppingCart()) {
@@ -50,7 +50,7 @@ const ProductListItem = ({ product }) => {
 
     setType(ADD_SUCCESS);
     setIsDialogOpen(true);
-    dispatch(insertShoppingCartItem({ ...product, isChecked: true, count: 1 }));
+    dispatch(insertShoppingCartItem({ id, name, src, alt, price, isChecked: true, count: 1 }));
   };
 
   const handleConfirm = () => {
@@ -60,11 +60,11 @@ const ProductListItem = ({ product }) => {
   return (
     <>
       <div>
-        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.src} alt={product.alt} />
+        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={alt} />
         <Content>
           <li>
-            <Name>{product.name}</Name>
-            <Price>{product.price.toLocaleString('ko-KR')} 원</Price>
+            <Name>{name}</Name>
+            <Price>{price.toLocaleString('ko-KR')} 원</Price>
           </li>
           <li>
             <Image onClick={handleShoppingCartImage} src={shoppingCartImg} alt="장바구니" />
@@ -82,12 +82,11 @@ const ProductListItem = ({ product }) => {
 };
 
 ProductListItem.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default ProductListItem;

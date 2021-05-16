@@ -19,7 +19,7 @@ import {
 import { reducerUtils } from '../utils/reducer';
 
 const initialState = {
-  shoppingCartList: reducerUtils.initial([]),
+  shoppingCartItemList: reducerUtils.initial([]),
   isAllShoppingCartItemChecked: true,
 };
 
@@ -28,76 +28,76 @@ const shoppingCartReducers = (state = initialState, action) => {
     case INSERT_SHOPPING_CART_ITEM:
       return {
         ...state,
-        shoppingCartList: reducerUtils.loading(state.shoppingCartList.data),
+        shoppingCartItemList: reducerUtils.loading(state.shoppingCartItemList.data),
       };
     case INSERT_SHOPPING_CART_ITEM_SUCCESS:
       return {
         ...state,
-        shoppingCartList: reducerUtils.success([...state.shoppingCartList.data, action.payload]),
+        shoppingCartItemList: reducerUtils.success([...state.shoppingCartItemList.data, action.payload]),
       };
     case INSERT_SHOPPING_CART_ITEM_FAILURE:
       return {
         ...state,
-        shoppingCartList: reducerUtils.failure(state.shoppingCartList.data, action.payload),
+        shoppingCartItemList: reducerUtils.failure(state.shoppingCartItemList.data, action.payload),
       };
 
     case DELETE_SHOPPING_CART_ITEM:
       return {
         ...state,
-        shoppingCartList: reducerUtils.loading(state.shoppingCartList.data),
+        shoppingCartItemList: reducerUtils.loading(state.shoppingCartItemList.data),
       };
     case DELETE_SHOPPING_CART_ITEM_SUCCESS:
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(
-          state.shoppingCartList.data.filter((shoppingCartItem) => shoppingCartItem.id !== action.payload)
+        shoppingCartItemList: reducerUtils.success(
+          state.shoppingCartItemList.data.filter((shoppingCartItem) => shoppingCartItem.id !== action.payload)
         ),
       };
     case DELETE_SHOPPING_CART_ITEM_FAILURE:
       return {
         ...state,
-        shoppingCartList: reducerUtils.failure(state.shoppingCartList.data, action.payload),
+        shoppingCartItemList: reducerUtils.failure(state.shoppingCartItemList.data, action.payload),
       };
 
     case DELETE_CHECKED_SHOPPING_CART_ITEM_LIST:
       return {
         ...state,
-        shoppingCartList: reducerUtils.loading(state.shoppingCartList.data),
+        shoppingCartItemList: reducerUtils.loading(state.shoppingCartItemList.data),
       };
     case DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_SUCCESS:
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(
-          state.shoppingCartList.data.filter((shoppingCartItem) => !shoppingCartItem.isChecked)
+        shoppingCartItemList: reducerUtils.success(
+          state.shoppingCartItemList.data.filter((shoppingCartItem) => !shoppingCartItem.isChecked)
         ),
       };
     case DELETE_CHECKED_SHOPPING_CART_ITEM_LIST_FAILURE:
       return {
         ...state,
-        shoppingCartList: reducerUtils.failure(state.shoppingCartList.data, action.payload),
+        shoppingCartItemList: reducerUtils.failure(state.shoppingCartItemList.data, action.payload),
       };
 
     case GET_SHOPPING_CART_ITEM_LIST: {
       return {
         ...state,
-        shoppingCartList: reducerUtils.loading([]),
+        shoppingCartItemList: reducerUtils.loading([]),
       };
     }
     case GET_SHOPPING_CART_ITEM_LIST_SUCCESS: {
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(action.payload),
+        shoppingCartItemList: reducerUtils.success(action.payload),
       };
     }
     case GET_SHOPPING_CART_ITEM_LIST_FAILURE: {
       return {
         ...state,
-        shoppingCartList: reducerUtils.failure([], action.payload),
+        shoppingCartItemList: reducerUtils.failure([], action.payload),
       };
     }
 
     case TOGGLE_SHOPPING_CART_ITEM: {
-      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
+      const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
         if (shoppingCartItem.id === action.payload) {
           return {
             ...shoppingCartItem,
@@ -109,31 +109,31 @@ const shoppingCartReducers = (state = initialState, action) => {
       });
 
       const isAllShoppingCartItemChecked =
-        changedShoppingCartList.length ===
-        changedShoppingCartList.filter((shoppingCartItem) => shoppingCartItem.isChecked).length;
+        changedShoppingCartItemList.length ===
+        changedShoppingCartItemList.filter((shoppingCartItem) => shoppingCartItem.isChecked).length;
 
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(changedShoppingCartList),
+        shoppingCartItemList: reducerUtils.success(changedShoppingCartItemList),
         isAllShoppingCartItemChecked,
       };
     }
 
     case TOGGLE_ALL_SHOPPING_CART_ITEM: {
-      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => ({
+      const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => ({
         ...shoppingCartItem,
         isChecked: !state.isAllShoppingCartItemChecked,
       }));
 
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(changedShoppingCartList),
+        shoppingCartItemList: reducerUtils.success(changedShoppingCartItemList),
         isAllShoppingCartItemChecked: !state.isAllShoppingCartItemChecked,
       };
     }
 
     case INCREASE_COUNT: {
-      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
+      const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
         if (shoppingCartItem.id === action.payload) {
           return {
             ...shoppingCartItem,
@@ -145,12 +145,12 @@ const shoppingCartReducers = (state = initialState, action) => {
 
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(changedShoppingCartList),
+        shoppingCartItemList: reducerUtils.success(changedShoppingCartItemList),
       };
     }
 
     case DECREASE_COUNT: {
-      const changedShoppingCartList = state.shoppingCartList.data.map((shoppingCartItem) => {
+      const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
         if (shoppingCartItem.id === action.payload) {
           return {
             ...shoppingCartItem,
@@ -162,7 +162,7 @@ const shoppingCartReducers = (state = initialState, action) => {
 
       return {
         ...state,
-        shoppingCartList: reducerUtils.success(changedShoppingCartList),
+        shoppingCartItemList: reducerUtils.success(changedShoppingCartItemList),
       };
     }
     default:

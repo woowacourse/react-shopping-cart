@@ -24,9 +24,9 @@ const ProductList = () => {
 
   return (
     <Container>
-      {productItemList.map((product) => (
-        <li key={product.id}>
-          <ProductListItem product={product} />
+      {productItemList.map(({ id, name, src, alt, price }) => (
+        <li key={id}>
+          <ProductListItem id={id} name={name} src={src} alt={alt} price={price} />
         </li>
       ))}
     </Container>

@@ -4,16 +4,16 @@ import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
 import { requestGetItemList } from '../request/request';
 import useFetch from '../hooks/useFetch';
-import { PageTitle, OrderListItem, SelectedProductList, Loading, SELECTED_PRODUCT_LIST_TYPE } from '../components';
+import { PageTitle, Loading, OrderListItemList } from '../components';
 
-const OrderItemListWrapper = styled.li`
+const ItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};
   margin-bottom: 76px;
   border-bottom: none;
 `;
 
 const OrderList = () => {
-  const { isLoading, data: orderItemList } = useFetch({
+  const { isLoading, data: orderListItemList } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
     isInitSetting: true,
   });
@@ -26,15 +26,10 @@ const OrderList = () => {
     <>
       <PageTitle>주문목록</PageTitle>
       <ul>
-        {orderItemList.reverse().map((orderItem) => (
-          <OrderItemListWrapper key={orderItem.orderNumber}>
-            <SelectedProductList
-              type={SELECTED_PRODUCT_LIST_TYPE.ORDER_LIST}
-              productList={orderItem.itemList}
-              orderNumber={orderItem.orderNumber}
-              ListItem={OrderListItem}
-            />
-          </OrderItemListWrapper>
+        {orderListItemList.reverse().map((orderItem) => (
+          <ItemListWrapper key={orderItem.orderNumber}>
+            <OrderListItemList orderListItemList={orderItem.itemList} orderNumber={orderItem.orderNumber} />
+          </ItemListWrapper>
         ))}
       </ul>
     </>

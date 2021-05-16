@@ -10,7 +10,7 @@ import OrderList from './pages/OrderList';
 import OrderPayment from './pages/OrderPayment';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { getShoppingCartList } from './redux/actions/shoppingCartActions';
+import { getShoppingCartItemList } from './redux/actions/shoppingCartActions';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
 
@@ -25,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getShoppingCartList());
+    dispatch(getShoppingCartItemList());
   }, [dispatch]);
 
   return (

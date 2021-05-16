@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import {
   deleteCheckedShoppingCartList,
-  getShoppingCartList,
+  getShoppingCartItemList,
   toggleAllShoppingCartItem,
 } from '../redux/actions/shoppingCartActions';
 import useDialog from '../hooks/useDialog';
@@ -15,15 +15,12 @@ import {
   Button,
   Checkbox,
   PageTitle,
-  PaymentAmount,
-  SelectedProductList,
-  ShoppingCartItem,
   Dialog,
   Loading,
   DIALOG_TYPE,
-  SELECTED_PRODUCT_LIST_TYPE,
-  PAYMENT_AMOUNT_TYPE,
   BUTTON_TYPE,
+  ShoppingCartPayment,
+  ShoppingCartItemList,
 } from '../components';
 
 const ImageWrapper = styled.div`
@@ -58,7 +55,7 @@ const ShoppingCartItemModification = styled.div`
   margin-bottom: 26px;
 `;
 
-const PaymentAmountWrapper = styled.div`
+const PaymentWrapper = styled.div`
   position: sticky;
   margin-top: 50px;
   top: 50px;
@@ -68,8 +65,8 @@ const Text = styled.span`
   margin-left: 12px;
 `;
 
-const getExpectedPaymentAmount = (checkedShoppingCartList) =>
-  checkedShoppingCartList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
+const getExpectedPaymentAmount = (checkedShoppingCartItemList) =>
+  checkedShoppingCartItemList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
 const ShoppingCart = () => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
@@ -78,18 +75,18 @@ const ShoppingCart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const { isLoading: isDataLoading, data: shoppingCartList } = useSelector(
-    (state) => state.shoppingCart.shoppingCartList
+  const { isLoading: isDataLoading, data: shoppingCartItemList } = useSelector(
+    (state) => state.shoppingCart.shoppingCartItemList
   );
 
-  const checkedShoppingCartList = shoppingCartList.filter((item) => item.isChecked);
-  const checkedCount = checkedShoppingCartList.length;
+  const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
+  const checkedCount = checkedShoppingCartItemList.length;
 
-  const totalPrice = getExpectedPaymentAmount(checkedShoppingCartList);
+  const totalPrice = getExpectedPaymentAmount(checkedShoppingCartItemList);
 
   useEffect(() => {
     (async () => {
-      await dispatch(getShoppingCartList());
+      await dispatch(getShoppingCartItemList());
       setInitLoading(false);
     })();
   }, [dispatch]);
@@ -99,7 +96,7 @@ const ShoppingCart = () => {
   };
 
   const handleConfirm = () => {
-    clickConfirm(() => dispatch(deleteCheckedShoppingCartList(checkedShoppingCartList)));
+    clickConfirm(() => dispatch(deleteCheckedShoppingCartList(checkedShoppingCartItemList)));
   };
 
   const handleCancel = () => {
@@ -114,7 +111,7 @@ const ShoppingCart = () => {
     if (!checkedCount) return;
 
     history.push(PATH.ORDER_PAYMENT, {
-      orderPaymentList: checkedShoppingCartList,
+      orderPaymentItemList: checkedShoppingCartItemList,
       totalPrice,
     });
   };
@@ -123,7 +120,7 @@ const ShoppingCart = () => {
     return <Loading />;
   }
 
-  if (!shoppingCartList.length) {
+  if (!shoppingCartItemList.length) {
     return (
       <ImageWrapper>
         <EmptyCartImage src={emptyCart} alt="빈 장바구니" />
@@ -154,28 +151,19 @@ const ShoppingCart = () => {
               상품삭제
             </Button>
           </ShoppingCartItemModification>
-          <SelectedProductList
-            type={SELECTED_PRODUCT_LIST_TYPE.SHOPPING_CART}
-            productList={shoppingCartList}
-            ListItem={ShoppingCartItem}
-          />
+          <ShoppingCartItemList shoppingCartItemList={shoppingCartItemList} />
         </div>
         <div>
-          <PaymentAmountWrapper>
-            <PaymentAmount
-              type={PAYMENT_AMOUNT_TYPE.SHOPPING_CART}
-              price={totalPrice}
-              count={checkedCount}
-              onClick={handleOrderPaymentPageRouter}
-            />
-          </PaymentAmountWrapper>
+          <PaymentWrapper>
+            <ShoppingCartPayment price={totalPrice} count={checkedCount} onClick={handleOrderPaymentPageRouter} />
+          </PaymentWrapper>
         </div>
       </Content>
 
       {isDialogOpen && (
         <Dialog type={DIALOG_TYPE.CONFIRM} onConfirm={handleConfirm} onCancel={handleCancel}>
           <p>
-            선택한 {checkedShoppingCartList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
+            선택한 {checkedShoppingCartItemList.length}개의 상품을 <br /> 모두 삭제하시겠습니까?
           </p>
         </Dialog>
       )}

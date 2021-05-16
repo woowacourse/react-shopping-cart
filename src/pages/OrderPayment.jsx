@@ -7,15 +7,7 @@ import { PATH } from '../constants/path';
 import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
-import {
-  OrderListItem,
-  PageTitle,
-  PaymentAmount,
-  SelectedProductList,
-  Loading,
-  SELECTED_PRODUCT_LIST_TYPE,
-  PAYMENT_AMOUNT_TYPE,
-} from '../components';
+import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
 
 const Content = styled.section`
   position: relative;
@@ -35,17 +27,17 @@ const OrderPayment = () => {
   const { startFetching } = useFetch({
     fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
   });
-  const isLoading = useSelector((state) => state.shoppingCart.shoppingCartList.isLoading);
+  const isLoading = useSelector((state) => state.shoppingCart.shoppingCartItemList.isLoading);
   const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { orderPaymentList: orderItemList, totalPrice } = state;
+  const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderItemList };
+    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderPaymentItemList };
     await startFetching(orderItemData);
-    await dispatch(deleteCheckedShoppingCartList(orderItemList));
+    await dispatch(deleteCheckedShoppingCartList(orderPaymentItemList));
 
     history.replace(PATH.ORDER_LIST);
   };
@@ -59,19 +51,11 @@ const OrderPayment = () => {
       <PageTitle>주문/결제</PageTitle>
       <Content>
         <div>
-          <SelectedProductList
-            type={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
-            productList={orderItemList}
-            ListItem={OrderListItem}
-          />
+          <OrderPaymentItemList orderPaymentItemList={orderPaymentItemList} />
         </div>
         <div>
           <OrderPaymentAmountWrapper>
-            <PaymentAmount
-              type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT}
-              price={totalPrice}
-              onClick={handleOrderListPageRouter}
-            />
+            <OrderPaymentAmount price={totalPrice} onClick={handleOrderListPageRouter} />
           </OrderPaymentAmountWrapper>
         </div>
       </Content>

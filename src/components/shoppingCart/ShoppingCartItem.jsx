@@ -10,7 +10,7 @@ import {
   toggleShoppingCartItem,
 } from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
-import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '../';
+import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '..';
 
 const Container = styled.ul`
   display: flex;
