@@ -72,11 +72,11 @@ const ProductItem = ({ product }) => {
 
 ProductItem.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    checked: PropTypes.bool.isRequired,
+    product_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    image_url: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    // quantity: PropTypes.number.isRequired,
+    // checked: PropTypes.bool.isRequired,
   }),
 };
 

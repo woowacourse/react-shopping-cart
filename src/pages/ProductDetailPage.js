@@ -52,11 +52,11 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    const setProductByFetch = async () => {
+    const setProductsByFetch = async () => {
       setProduct(await getSingleProduct(productId));
     };
 
-    setProductByFetch();
+    setProductsByFetch();
   }, [productId]);
 
   const onAddCartButtonClick = (item) => {
@@ -65,7 +65,7 @@ const ProductDetailPage = () => {
 
   return (
     <Flex flexDirection="column" alignItems="center" justifyContent="center" css={ProductDetailWrapperStyle}>
-      <Image width="570px" height="570px" src={product.image} alt={product.name} />
+      <Image width="570px" height="570px" src={product.image_url} alt={product.name} />
       <ProductTitleWrapper>
         <ProductTitle>{product.name}</ProductTitle>
       </ProductTitleWrapper>

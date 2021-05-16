@@ -19,7 +19,7 @@ const ProductListPage = () => {
   return (
     <>
       <GridColumnList gridColumnGap="48px" gridRowGap="28px" gridColumnRepeatCount={4} gridColumnWidth="282px">
-        {products && products.map((product) => <ProductItem product={product} key={product.id} />)}
+        {products && products.map((product) => <ProductItem product={product} key={product.product_id} />)}
       </GridColumnList>
     </>
   );
