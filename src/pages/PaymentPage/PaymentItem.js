@@ -33,7 +33,7 @@ const PaymentItemQuantity = styled.span`
   color: ${COLOR.GRAY[800]};
 `;
 
-const PaymentItem = ({ paymentItem }) => {
+const PaymentItem = (paymentItem) => {
   return (
     <SinglePaymentItem>
       <Image
