@@ -1,14 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import Cart, { CartProps } from ".";
+import CartIcon, { CartIconProps } from ".";
 
 export default {
-  title: "Icon/Cart",
-  component: Cart,
+  title: "CartIcon",
+  component: CartIcon,
 } as Meta;
 
-const Template: Story<CartProps> = (args) => <Cart {...args} />;
+const Template: Story<CartIconProps> = (args) => <CartIcon {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {

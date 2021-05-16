@@ -1,7 +1,7 @@
 import React, { VFC } from "react";
 import { Link } from "react-router-dom";
 
-import { Icon } from "..";
+import { CartIcon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, Inner, Flex, H1, NavigationItem } from "./style";
 
@@ -10,7 +10,7 @@ const Header: VFC = () => (
     <Inner>
       <Link to="/">
         <Flex>
-          <Icon.Cart size={SIZE.ICON.CART.LG} color={COLOR.WHITE} />
+          <CartIcon size={SIZE.ICON.CART.LG} color={COLOR.WHITE} />
           <H1>WOOWA SHOP</H1>
         </Flex>
       </Link>

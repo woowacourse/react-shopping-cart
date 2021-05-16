@@ -2,7 +2,7 @@ import React, { MouseEventHandler, ReactElement, VFC } from "react";
 import { Link } from "react-router-dom";
 
 import ProductImage, { ProductImageProps } from "../ProductImage";
-import { Icon } from "..";
+import { CartIcon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
 
@@ -28,7 +28,7 @@ const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, p
         </Desc>
       </Link>
       <button type="button" onClick={onClickCart}>
-        <Icon.Cart size={SIZE.ICON.CART.SM} color={COLOR.GRAY_600} />
+        <CartIcon size={SIZE.ICON.CART.SM} color={COLOR.GRAY_600} />
       </button>
     </ItemInfoWrap>
   </Container>

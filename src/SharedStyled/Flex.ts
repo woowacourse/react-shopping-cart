@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 type Tag = "div" | "section";
+// type Tag = keyof JSX.IntrinsicElements
 
 const FlexCenter = (tagName: Tag) => styled[tagName]`
   display: flex;
