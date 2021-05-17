@@ -6,12 +6,14 @@ const Root = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  min-height: 282px;
+  height: 282px;
+  width: 282px;
 `;
 
 const Image = styled.img`
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Content = styled.div`

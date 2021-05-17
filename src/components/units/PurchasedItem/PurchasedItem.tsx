@@ -5,19 +5,18 @@ import Button from 'components/shared/Button/Button';
 import Styled from './PurchasedItem.styles';
 
 type PurchasedItemProps = {
-  item: T.CartItem;
-  onClick: (product: T.Product) => void;
+  item: T.OrderItem;
+  onClick: (orderItem: T.OrderItem) => void;
 };
 
 const PurchasedItem = (props: PurchasedItemProps) => {
   const { item, onClick } = props;
-  const { quantity, product } = item;
-  const { name, price, image } = product;
+  const { name, price, image_url: image, quantity } = item;
 
   const totalPrice = price * quantity;
 
   const handleClick = () => {
-    onClick(product);
+    onClick(item);
   };
 
   return (

@@ -11,7 +11,7 @@ type LocationState = {
 const ProductDetailPage = () => {
   const location = useLocation<LocationState>();
   const { product } = location.state;
-  const { image, name, price } = product;
+  const { image_url: image, name, price } = product;
 
   const addCartItem = useAddCartItem();
 

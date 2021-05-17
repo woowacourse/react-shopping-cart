@@ -29,7 +29,7 @@ const OrderListPage = () => {
     setLoading(true);
 
     try {
-      const response = await api.get('/orders');
+      const response = await api.get('customers/zigsong/orders');
       setOrders(response.data);
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
@@ -38,7 +38,8 @@ const OrderListPage = () => {
     setLoading(false);
   }, [enqueueSnackbar]);
 
-  const handleClickCart = (product: T.Product) => {
+  const handleClickCart = (orderItem: T.OrderItem) => {
+    const product: T.Product = { ...orderItem };
     addCartItem(product);
   };
 
@@ -73,14 +74,14 @@ const OrderListPage = () => {
       ) : (
         <Styled.OrderList>
           {orders.map((order) => (
-            <Styled.Order key={order.id}>
+            <Styled.Order key={order.order_id}>
               <Styled.OrderHeader>
-                <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
+                <Styled.OrderNumber>주문번호 : {order.order_id}</Styled.OrderNumber>
                 <Styled.DetailButton onClick={() => handleClickDetail(order)}>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
-                {order.items.map((item) => (
-                  <PurchasedItem key={item.id} item={item} onClick={handleClickCart} />
+                {order.order_details.map((item) => (
+                  <PurchasedItem key={item.product_id} item={item} onClick={handleClickCart} />
                 ))}
               </Styled.PurchasedList>
             </Styled.Order>

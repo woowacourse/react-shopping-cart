@@ -18,24 +18,25 @@ const OrderDetailPage = () => {
 
   const addCartItem = useAddCartItem();
 
-  const handleClickCart = (product: T.Product) => {
+  const handleClickCart = (orderItem: T.OrderItem) => {
+    const product: T.Product = { ...orderItem };
     addCartItem(product);
   };
 
-  const totalPrice = order.items.reduce((acc: number, curr: T.CartItem) => {
-    return acc + curr.product.price * curr.quantity;
+  const totalPrice = order.order_details.reduce((acc: number, curr: T.OrderItem) => {
+    return acc + curr.price * curr.quantity;
   }, 0);
 
   return (
     <Styled.Root>
       <PageHeader title="주문내역상세" />
-      <Styled.Order key={order.id}>
+      <Styled.Order key={order.order_id}>
         <Styled.OrderHeader>
-          <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
+          <Styled.OrderNumber>주문번호 : {order.order_id}</Styled.OrderNumber>
         </Styled.OrderHeader>
         <Styled.PurchasedList>
-          {order.items.map((item) => (
-            <PurchasedItem key={item.id} item={item} onClick={handleClickCart} />
+          {order.order_details.map((item) => (
+            <PurchasedItem key={item.product_id} item={item} onClick={handleClickCart} />
           ))}
         </Styled.PurchasedList>
       </Styled.Order>

@@ -22,7 +22,7 @@ const Image = styled.img`
 const Title = styled.div`
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 32px;
+  margin: 20px 0 32px 0;
 `;
 
 const Divider = styled.hr`

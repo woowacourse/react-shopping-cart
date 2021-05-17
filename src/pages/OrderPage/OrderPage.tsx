@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PriceOverview from 'components/units/PriceOverview/PriceOverview';
 import HighlightText from 'components/shared/HighlightText/HighlightText';
@@ -8,7 +7,6 @@ import Button from 'components/shared/Button/Button';
 import OrderItem from 'components/units/OrderItem/OrderItem';
 import * as T from 'types';
 import api from 'api';
-import { deleteCheckedItemsActionRequest } from 'modules/cartItems/actions';
 import Styled from './OrderPage.styles';
 
 type LocationState = {
@@ -18,7 +16,6 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   if (!location.state) return <Redirect to="/" />;
@@ -26,19 +23,20 @@ const OrderPage = () => {
   const { checkedItems } = location.state;
 
   const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: T.CartItem) => {
-    return acc + curr.product.price * curr.quantity;
+    return acc + curr.price * curr.quantity;
   }, 0);
 
   const handlePurchaseCartItems = async () => {
     if (isLoading) return;
 
     setLoading(true);
+    const orderBody = checkedItems.map((item) => ({
+      cart_id: item.cart_id,
+      quantity: item.quantity,
+    }));
 
     try {
-      await api.post('/orders', { items: checkedItems });
-
-      const ids = checkedItems.map((cartItem) => cartItem.id);
-      dispatch(deleteCheckedItemsActionRequest(ids));
+      await api.post('customers/zigsong/orders', orderBody);
 
       history.replace('/order/complete');
       return;
@@ -58,12 +56,7 @@ const OrderPage = () => {
           <Styled.OrderListHeader>주문 상품({checkedItems.length}건)</Styled.OrderListHeader>
           <Styled.OrderItemList>
             {checkedItems?.map((item) => (
-              <OrderItem
-                key={item.id}
-                title={item.product.name}
-                imageUrl={item.product.image}
-                quantity={item.quantity}
-              />
+              <OrderItem key={item.cart_id} title={item.name} imageUrl={item.image_url} quantity={item.quantity} />
             ))}
           </Styled.OrderItemList>
         </Styled.OrderListContainer>

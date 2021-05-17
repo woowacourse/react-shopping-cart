@@ -31,7 +31,7 @@ const CartPage = () => {
 
   const checkedItemsTotalPrice = cartItems.data.reduce((acc: number, curr: T.CartItem) => {
     if (!curr.checked) return acc;
-    return acc + curr.product.price * curr.quantity;
+    return acc + curr.price * curr.quantity;
   }, 0);
 
   const handleCheckItem = (id: number, isChecked: boolean) => {
@@ -42,7 +42,7 @@ const CartPage = () => {
     dispatch(checkAllCartItems(!isAllChecked));
   };
 
-  const handleDeleteItem = (id: T.CartItem['id']) => {
+  const handleDeleteItem = (id: T.CartItem['cart_id']) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
     dispatch(deleteItemActionRequest(id));
@@ -51,7 +51,7 @@ const CartPage = () => {
   const handleDeleteCheckedItem = () => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CHECKED_CART_ITEMS)) return;
 
-    const ids = checkedItems.map((item) => item.id);
+    const ids = checkedItems.map((item) => item.cart_id);
 
     dispatch(deleteCheckedItemsActionRequest(ids));
   };
@@ -77,7 +77,12 @@ const CartPage = () => {
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
             <Styled.CartItemList>
               {cartItems.data.map((cartItem) => (
-                <CartItem key={cartItem.id} cartItem={cartItem} onCheck={handleCheckItem} onDelete={handleDeleteItem} />
+                <CartItem
+                  key={cartItem.cart_id}
+                  cartItem={cartItem}
+                  onCheck={handleCheckItem}
+                  onDelete={handleDeleteItem}
+                />
               ))}
             </Styled.CartItemList>
           </Styled.CartListContainer>

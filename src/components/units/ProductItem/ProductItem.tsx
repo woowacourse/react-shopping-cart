@@ -12,7 +12,7 @@ type ProductItemProps = {
 
 const ProductItem = (props: ProductItemProps) => {
   const { product, onClickCart, onClickItem } = props;
-  const { name, image, price } = product;
+  const { name, image_url: image, price } = product;
 
   const handleClickCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

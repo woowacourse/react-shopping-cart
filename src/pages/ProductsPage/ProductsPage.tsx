@@ -58,7 +58,7 @@ const ProductsPage = () => {
       ) : (
         <Styled.ProductList>
           {products?.map((product: T.Product) => (
-            <li key={product.id}>
+            <li key={product.product_id}>
               <ProductItem product={product} onClickItem={handleClickItem} onClickCart={handleClickCart} />
             </li>
           ))}

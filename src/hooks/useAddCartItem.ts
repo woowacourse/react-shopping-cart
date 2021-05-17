@@ -21,9 +21,9 @@ const useAddCartItem = () => {
   const addCartItem = (product: T.Product, isLoading?: boolean) => {
     if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
+    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product_id);
 
-    if (cartItemIds.includes(product.id)) {
+    if (cartItemIds.includes(product.product_id)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
       return;
     }
