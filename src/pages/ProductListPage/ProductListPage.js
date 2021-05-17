@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from './ProductItem';
 import GridColumnList from '../../components/utils/GridColumnList';
 
-import { getProductsRequest } from '../../api/products';
+import { getProductsRequest } from '../../modules/productSlice';
 
 const ProductListPage = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const { products, errorMessage } = useSelector((state) => state.productSlice);
 
   useEffect(() => {
-    const setProductsByFetch = async () => {
-      setProducts(await getProductsRequest());
-    };
+    dispatch(getProductsRequest());
+  }, [dispatch]);
 
-    setProductsByFetch();
-  }, []);
+  useEffect(() => {
+    if (errorMessage) {
+      window.alert(errorMessage);
+    }
+  }, [errorMessage]);
 
   return (
     <>
