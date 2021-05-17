@@ -19,7 +19,7 @@ const Pagination = ({
   return (
     <FlexContainer height="5rem" width="100%" margin="3rem 0 0 0" align="center" justifyContent="center">
       <Styled.PreviousButton onClick={onPagePrevious} disabled={!isPreviousPageAvailable}>
-        <RightArrow />
+        <RightArrow color={isPreviousPageAvailable ? PALETTE.BAEMINT : PALETTE.GRAY_003} />
       </Styled.PreviousButton>
       <Styled.NumbersContainer>
         {Array(Math.ceil(pages / PRODUCTS_PER_PAGE))
@@ -35,7 +35,7 @@ const Pagination = ({
           ))}
       </Styled.NumbersContainer>
       <Styled.NextButton onClick={onPageNext} disabled={!isNextPageAvailable}>
-        <RightArrow />
+        <RightArrow color={isNextPageAvailable ? PALETTE.BAEMINT : PALETTE.GRAY_003} />
       </Styled.NextButton>
     </FlexContainer>
   );
