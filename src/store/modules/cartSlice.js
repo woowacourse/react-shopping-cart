@@ -97,11 +97,12 @@ const cartSlice = createSlice({
         } = item;
 
         if (state.items[productId]) {
+          state.items[productId].order_id.push(cartId);
           state.items[productId].amount += 1;
         } else {
           state.items[productId] = {
             id: productId,
-            order_id: cartId,
+            order_id: [cartId],
             price,
             name,
             thumbnail: imageUrl,
