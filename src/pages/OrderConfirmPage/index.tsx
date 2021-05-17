@@ -32,13 +32,9 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   }, [items]);
 
   const order = async () => {
-    try {
-      await requestOrderItems(items as ItemInCart[]);
-      await requestClearOrderConfirmItems();
-      clearCart();
-    } catch (error) {
-      throw error;
-    }
+    await requestOrderItems(items as ItemInCart[]);
+    await requestClearOrderConfirmItems();
+    clearCart();
   };
 
   const onSubmitOrderConfirm = async (event: FormEvent<HTMLFormElement>) => {
