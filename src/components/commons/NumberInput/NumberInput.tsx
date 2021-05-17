@@ -29,12 +29,12 @@ const NumberInput = ({ maxLength = 2, value = '1', setValue }: Props) => {
   };
 
   const onNumberIncrease = () => {
-    setValue && setValue(String(Number(value) + 1));
+    setValue?.(String(Number(value) + 1));
   };
 
   const onNumberDecrease = () => {
     const newValue = isPositiveNumber(Number(value) - 1) ? String(Number(value) - 1) : value;
-    setValue && setValue(newValue);
+    setValue?.(newValue);
   };
 
   return (
