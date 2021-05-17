@@ -14,11 +14,11 @@ import useOrderDetail from '../../hooks/useOrderDetail';
 import useSnackBar from '../../hooks/useSnackBar';
 
 import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
-import { RootState } from '../../modules';
 import { getMoneyString } from '../../utils/format';
 import { API } from '../../services/api';
 
 import * as Styled from './OrderDetailPage.styles';
+import { RootState } from '../../states';
 
 const OrderDetailPage = () => {
   const history = useHistory();

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { INTERVAL_TIME } from '../constants';
-import { RootState } from '../modules';
-import { getProducts } from '../modules/product';
+import { RootState } from '../states';
+import { getProducts } from '../states/actions/products';
 
 const useProducts = () => {
   const dispatch = useDispatch();
@@ -12,8 +12,7 @@ const useProducts = () => {
   useEffect(() => {
     if (products.length !== 0) return;
     dispatch(getProducts());
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch, products]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -23,8 +22,7 @@ const useProducts = () => {
     return () => {
       clearInterval(id);
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   return { products, loading, error };
 };

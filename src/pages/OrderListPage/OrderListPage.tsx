@@ -12,11 +12,11 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import useOrders from '../../hooks/useOrders';
 
 import { getMoneyString } from '../../utils/format';
-import { RootState } from '../../modules';
 import { PATH, RESPONSE_RESULT } from '../../constants';
 import { API } from '../../services/api';
 
 import * as Styled from './OrderListPage.styles';
+import { RootState } from '../../states';
 
 const OrderListPage = () => {
   const history = useHistory();

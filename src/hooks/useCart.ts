@@ -26,7 +26,7 @@ const useCart = () => {
       }
     };
     fetchCartItems();
-  }, [setCartItems]);
+  }, [setCartItems, setLoading, setResponseOK]);
 
   return { cartItems, loading, responseOK, setCartItems };
 };

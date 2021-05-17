@@ -35,7 +35,7 @@ const useProductDetail = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [setLoading, setResponseOK]);
 
   return { product, loading, responseOK };
 };

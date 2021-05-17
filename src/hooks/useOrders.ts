@@ -25,7 +25,7 @@ const useOrders = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [setLoading, setResponseOK]);
 
   return { orders, loading, responseOK };
 };
