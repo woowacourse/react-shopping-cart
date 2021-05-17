@@ -48,6 +48,10 @@ const CartButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export default { Root, ImageWrapper, Image, Content, Detail, Title, Price, CartButton };
