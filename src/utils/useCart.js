@@ -3,7 +3,7 @@ export const useCart = (cart) => {
   const checkedItems = Object.values(cart).filter((item) => item.checked);
   const hasCheckedItems = checkedItems.length > 0;
   const totalPrice = checkedItems.reduce(
-    (acc, { amount, price }) => acc + amount * price,
+    (acc, { order_id: orderId, price }) => acc + orderId.length * price,
     0
   );
 

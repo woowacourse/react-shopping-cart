@@ -17,6 +17,8 @@ export const MESSAGE = {
       "장바구니를 불러오는데 실패했습니다...! \n오류가 지속되면 관리자에게 문의하세요",
     FAILED_ADD_TO_CART:
       "상품을 장바구니에 추가하는데 실패했습니다...! \n오류가 지속되면 관리자에게 문의하세요",
+    FAILED_DELETE_FROM_CART:
+      "상품을 장바구니에서 제거하는데 실패했습니다...! \n오류가 지속되면 관리자에게 문의하세요",
   },
 };
 
@@ -36,6 +38,5 @@ const USER_NAME = "hchayan";
 
 export const API = {
   GET_PRODUCTS: `${BACKEND_URL}/api/products`,
-  GET_CARTS: `${BACKEND_URL}/api/customers/${USER_NAME}/carts`,
-  ADD_TO_CART: `${BACKEND_URL}/api/customers/${USER_NAME}/carts`,
+  CARTS: `${BACKEND_URL}/api/customers/${USER_NAME}/carts`,
 };

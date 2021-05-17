@@ -8,7 +8,7 @@ import * as S from "./Nav.styled";
 const Nav = () => {
   const cart = useSelector((state) => state.cart.items);
   const cartAmount = Object.values(cart).reduce(
-    (acc, cur) => acc + cur.amount,
+    (acc, cur) => acc + cur.order_id.length,
     0
   );
 

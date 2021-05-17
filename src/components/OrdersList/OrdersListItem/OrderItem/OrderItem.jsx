@@ -7,7 +7,8 @@ import * as S from "./OrderItem.styled";
 import { formatPrice } from "../../../../utils/utils";
 
 const OrderItem = ({ item }) => {
-  const { thumbnail, name, price, amount } = item;
+  const { thumbnail, name, price, order_id: orderId } = item;
+  const amount = orderId.length;
 
   const dispatch = useDispatch();
 

@@ -5,8 +5,13 @@ export const getCarts = createAsyncThunk(
   "cart/load",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await fetch(API.GET_CARTS);
-      return res.json();
+      const res = await fetch(API.CARTS);
+
+      if (res.ok) {
+        return res.json();
+      }
+
+      throw Error;
     } catch (error) {
       return Object.assign(rejectWithValue(error), {
         message: MESSAGE.ALERT.FAILED_GET_CARTS,
@@ -19,7 +24,7 @@ export const addToCart = createAsyncThunk(
   "cart/add",
   async (product, { rejectWithValue }) => {
     try {
-      const res = await fetch(`${API.ADD_TO_CART}`, {
+      const res = await fetch(`${API.CARTS}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -30,13 +35,39 @@ export const addToCart = createAsyncThunk(
       });
 
       if (res.ok) {
-        return { product };
+        return { product, location: res.headers.get("location") };
       }
 
       throw Error;
     } catch (error) {
       return Object.assign(rejectWithValue(error), {
         message: MESSAGE.ALERT.FAILED_ADD_TO_CART,
+      });
+    }
+  }
+);
+
+export const removeFromCart = createAsyncThunk(
+  "cart/remove",
+  async (product, { rejectWithValue }) => {
+    try {
+      const cartId = product.order_id[product.order_id.length - 1];
+
+      const res = await fetch(`${API.CARTS}/${cartId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+      });
+
+      if (res.ok) {
+        return { productId: product.id, cartId };
+      }
+
+      throw Error;
+    } catch (error) {
+      return Object.assign(rejectWithValue(error), {
+        message: MESSAGE.ALERT.FAILED_DELETE_FROM_CART,
       });
     }
   }
@@ -51,14 +82,6 @@ const cartSlice = createSlice({
     originItems: [],
   },
   reducers: {
-    removeFromCart: (state, action) => {
-      const { id } = action.payload;
-      delete state.items[id];
-    },
-    changeAmount: (state, action) => {
-      const { id, amount } = action.payload;
-      state.items[id].amount = amount;
-    },
     toggleChecked: (state, action) => {
       const { id } = action.payload;
       state.items[id].checked = !state.items[id].checked;
@@ -67,13 +90,6 @@ const cartSlice = createSlice({
       const { checked } = action.payload;
       Object.keys(state.items).forEach((id) => {
         state.items[id].checked = checked;
-      });
-    },
-    removeChecked: (state) => {
-      Object.entries(state.items).forEach(([id, item]) => {
-        if (item.checked) {
-          delete state.items[id];
-        }
       });
     },
   },
@@ -85,7 +101,9 @@ const cartSlice = createSlice({
     },
 
     [getCarts.fulfilled]: (state, action) => {
+      // TODO: 아래꺼 작동 안함
       if (state.originItems === action.payload) return;
+      state.items = {};
 
       action.payload.forEach((item) => {
         const {
@@ -98,7 +116,6 @@ const cartSlice = createSlice({
 
         if (state.items[productId]) {
           state.items[productId].order_id.push(cartId);
-          state.items[productId].amount += 1;
         } else {
           state.items[productId] = {
             id: productId,
@@ -106,7 +123,6 @@ const cartSlice = createSlice({
             price,
             name,
             thumbnail: imageUrl,
-            amount: 1,
             checked: true,
           };
         }
@@ -119,6 +135,7 @@ const cartSlice = createSlice({
       state.errorMessage = action.error.message;
       state.loading = false;
     },
+
     [addToCart.pending]: (state) => {
       state.errorMessage = "";
       state.loading = true;
@@ -126,13 +143,16 @@ const cartSlice = createSlice({
 
     [addToCart.fulfilled]: (state, action) => {
       const { id, ...product } = action.payload.product;
+      const location = action.payload.location.split("/");
+      const orderId = location[location.length - 1];
       if (state.items[id]) {
-        state.items[id].amount += 1;
+        state.items[id].order_id.push(orderId);
       } else {
         state.items[id] = {
           id,
           ...product,
-          amount: 1,
+          order_id: [orderId],
+
           addedDate: Date.now(),
           checked: true,
         };
@@ -143,12 +163,29 @@ const cartSlice = createSlice({
       state.errorMessage = action.error.message;
       state.loading = false;
     },
+
+    [removeFromCart.pending]: (state) => {
+      state.errorMessage = "";
+      state.loading = true;
+    },
+
+    [removeFromCart.fulfilled]: (state, action) => {
+      const { productId } = action.payload;
+      if (state.items[productId].order_id.length > 1) {
+        state.items[productId].order_id.pop();
+      } else {
+        delete state.items[productId];
+      }
+    },
+
+    [removeFromCart.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
   },
 });
 
 export const {
-  removeFromCart,
-  changeAmount,
   toggleChecked,
   toggleAllChecked,
   removeChecked,

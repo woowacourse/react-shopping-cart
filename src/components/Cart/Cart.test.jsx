@@ -12,7 +12,7 @@ const cart = {
   1: {
     id: 1,
     name: "탕용기(소)",
-    amount: 2,
+    order_id: [1, 2],
     price: 57000,
     thumbnail: "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
     checked: true,

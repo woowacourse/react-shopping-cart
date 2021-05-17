@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCarts } from "../../store/modules/cartSlice";
 import { getProducts } from "../../store/modules/productSlice";
 import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
@@ -13,6 +14,7 @@ const ProductsList = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCarts());
   }, [dispatch]);
 
   useEffect(() => {

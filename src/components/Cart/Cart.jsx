@@ -34,7 +34,7 @@ const Cart = () => {
           price={totalPrice}
           buttonContent={
             hasCheckedItems
-              ? `주문하기${checkedItems.length}개)`
+              ? `주문하기(${checkedItems.length}개)`
               : "장바구니에 상품이 없습니다"
           }
           disabled={!hasCheckedItems}

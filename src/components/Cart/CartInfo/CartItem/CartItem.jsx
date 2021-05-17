@@ -9,16 +9,18 @@ import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
 
 import {
   toggleChecked,
-  changeAmount,
+  addToCart,
   removeFromCart,
 } from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import { useConfirm } from "../../../../utils/useConfirm";
 import { CART } from "../../../../constants/constant";
 
-const CartItem = ({
-  item: { id, name, thumbnail, amount, price, checked },
-}) => {
+const CartItem = ({ item }) => {
+  const { id, name, thumbnail, order_id: orderId, price, checked } = item;
+  const amount = orderId.length;
+  console.log(name, amount);
+
   const dispatch = useDispatch();
   const confirmDelete = useConfirm(
     `'${name}' 를 장바구니에서 제거하시겠습니까?`,
@@ -31,8 +33,8 @@ const CartItem = ({
     dispatch(toggleChecked({ id }));
   };
 
-  const handleAmountChange = ({ target: { valueAsNumber } }) => {
-    if (valueAsNumber < CART.MIN_AMOUNT || valueAsNumber > CART.MAX_AMOUNT) {
+  const changeAmount = (diff) => {
+    if (amount + diff < CART.MIN_AMOUNT || amount + diff > CART.MAX_AMOUNT) {
       // eslint-disable-next-line no-alert
       window.alert(
         `품목당 한번에 최소 ${CART.MIN_AMOUNT}개 이상, 최대 ${CART.MAX_AMOUNT}개 이하만 주문할 수 있습니다.`
@@ -40,11 +42,11 @@ const CartItem = ({
       return;
     }
 
-    dispatch(changeAmount({ id, amount: valueAsNumber || 0 }));
-  };
-
-  const handleAmountBlur = (event) => {
-    dispatch(changeAmount({ id, amount: event.target.valueAsNumber || 1 }));
+    if (diff > 0) {
+      dispatch(addToCart(item));
+    } else {
+      dispatch(removeFromCart(item));
+    }
   };
 
   return (
@@ -64,8 +66,7 @@ const CartItem = ({
         <TrashIcon onClick={confirmDelete} />
         <NumberInput
           value={amount}
-          onChange={handleAmountChange}
-          onBlur={handleAmountBlur}
+          changeAmount={changeAmount}
           min={CART.MIN_AMOUNT}
           max={CART.MAX_AMOUNT}
         />
@@ -80,7 +81,7 @@ CartItem.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
+    order_id: PropTypes.arrayOf(PropTypes.number).isRequired,
     price: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
   }).isRequired,

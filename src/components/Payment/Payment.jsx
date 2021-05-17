@@ -11,6 +11,7 @@ import { formatPrice } from "../../utils/utils";
 import { removeChecked } from "../../store/modules/cartSlice";
 import { addToOrdersList } from "../../store/modules/orderSlice";
 import { MESSAGE, ROUTE } from "../../constants/constant";
+import { useCart } from "../../utils/useCart";
 
 const Payment = () => {
   const location = useLocation();
@@ -18,11 +19,7 @@ const Payment = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart.items);
-  const checkedItems = Object.values(cart).filter((item) => item.checked);
-  const totalPrice = checkedItems.reduce(
-    (acc, { amount, price }) => acc + amount * price,
-    0
-  );
+  const { checkedItems, totalPrice } = useCart(cart);
 
   if (!location.state?.isAllowed) {
     // eslint-disable-next-line no-alert

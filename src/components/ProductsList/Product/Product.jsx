@@ -11,7 +11,10 @@ import { CART } from "../../../constants/constant";
 const Product = ({ product }) => {
   const { id, thumbnail, name, price } = product;
 
-  const cartAmount = useSelector((state) => state.cart.items[id]?.amount ?? 0);
+  const cartAmount = useSelector(
+    // eslint-disable-next-line camelcase
+    (state) => state.cart.items[id]?.order_id.length ?? 0
+  );
   const dispatch = useDispatch();
 
   const handleAddCartClick = () => {
