@@ -9,3 +9,7 @@ export const Main = styled.main`
     margin-bottom: 2rem;
   }
 `;
+
+export const Empty = styled.p`
+  text-align: center;
+`;

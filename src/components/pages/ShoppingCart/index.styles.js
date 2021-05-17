@@ -51,3 +51,8 @@ export const ShoppingList = styled.div`
     padding: 1rem 0;
   }
 `;
+
+export const Empty = styled.p`
+  text-align: center;
+  margin-top: 5rem;
+`;

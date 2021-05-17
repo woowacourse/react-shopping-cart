@@ -10,6 +10,7 @@ import {
   Controller,
   CheckBoxWrapper,
   ShoppingList,
+  Empty,
 } from './index.styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { ACTION_TYPE, ROUTE } from '../../../constants';
@@ -100,19 +101,23 @@ const ShoppingCart = () => {
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
-            <ul>
-              {products.map(({ id, ...product }) => (
-                <li key={id}>
-                  <ShoppingItem
-                    {...product}
-                    onIncreaseQuantity={() => handleIncreaseQuantity(id)}
-                    onDecreaseQuantity={() => handleDecreaseQuantity(id)}
-                    onCheckBoxClick={() => handleCheckBoxClick(id)}
-                    onDeleteButtonClick={() => handleDeleteButtonClick(id)}
-                  />
-                </li>
-              ))}
-            </ul>
+            {products.length > 0 ? (
+              <ul>
+                {products.map(({ id, ...product }) => (
+                  <li key={id}>
+                    <ShoppingItem
+                      {...product}
+                      onIncreaseQuantity={() => handleIncreaseQuantity(id)}
+                      onDecreaseQuantity={() => handleDecreaseQuantity(id)}
+                      onCheckBoxClick={() => handleCheckBoxClick(id)}
+                      onDeleteButtonClick={() => handleDeleteButtonClick(id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <Empty>장바구니에 상품이 존재하지 않습니다.</Empty>
+            )}
           </ShoppingList>
         </div>
         <PaymentSheet
