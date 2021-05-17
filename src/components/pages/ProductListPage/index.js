@@ -94,7 +94,12 @@ const ProductListPage = () => {
       />
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
       {snackbarMessage && (
-        <Snackbar key={Math.random()} message={snackbarMessage} ms={SNACKBAR_DURATION} backgroundColor="#555" />
+        <Snackbar
+          key={Math.random()}
+          message={snackbarMessage}
+          ms={SNACKBAR_DURATION}
+          backgroundColor={PALETTE.GRAY_008}
+        />
       )}
     </Main>
   );
