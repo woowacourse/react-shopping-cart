@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Flex from '../components/utils/Flex';
 import Image from '../components/utils/Image';
@@ -11,7 +11,7 @@ import { addItemToCart } from '../modules/cartSlice';
 import { addItemToCartRequest } from '../api/products';
 
 import styled, { css } from 'styled-components';
-import { getSingleProductRequest } from '../api/products';
+import { getSingleProductRequest } from '../modules/productSlice';
 
 const ProductDetailWrapperStyle = css`
   width: 1320px;
@@ -49,16 +49,11 @@ const PriceTextStyle = css`
 const ProductDetailPage = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
-
-  const [product, setProduct] = useState({});
+  const { singleProduct } = useSelector((state) => state.productSlice);
 
   useEffect(() => {
-    const setProductsByFetch = async () => {
-      setProduct(await getSingleProductRequest(productId));
-    };
-
-    setProductsByFetch();
-  }, [productId]);
+    dispatch(getSingleProductRequest(productId));
+  }, [dispatch, productId]);
 
   const onAddCartButtonClick = (item) => {
     addItemToCartRequest(item.product_id);
@@ -67,15 +62,15 @@ const ProductDetailPage = () => {
 
   return (
     <Flex flexDirection="column" alignItems="center" justifyContent="center" css={ProductDetailWrapperStyle}>
-      <Image width="570px" height="570px" src={product.image_url} alt={product.name} />
+      <Image width="570px" height="570px" src={singleProduct.image_url} alt={singleProduct.name} />
       <ProductTitleWrapper>
-        <ProductTitle>{product.name}</ProductTitle>
+        <ProductTitle>{singleProduct.name}</ProductTitle>
       </ProductTitleWrapper>
       <Flex flexDirection="row" alignItems="center" justifyContent="space-between" css={priceWrapperStyle}>
         <Price>금액</Price>
-        {product.price && (
+        {singleProduct.price && (
           <PriceText width="137px" fontSize="32px" lineHeight="26.7px" hoverFontWeight={700} css={PriceTextStyle}>
-            {product.price}
+            {singleProduct.price}
           </PriceText>
         )}
       </Flex>
@@ -86,7 +81,7 @@ const ProductDetailPage = () => {
         fontSize="32px"
         color="#FFFFFF"
         hoverFontWeight="700"
-        onClick={() => onAddCartButtonClick(product)}
+        onClick={() => onAddCartButtonClick(singleProduct)}
       >
         장바구니
       </Button>

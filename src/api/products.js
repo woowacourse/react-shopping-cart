@@ -3,12 +3,6 @@ import axios from 'axios';
 const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 const customer_name = 'shinsehantan';
 
-export const getSingleProductRequest = async (productId) => {
-  const response = await axios.get(`${BASE_URL}/products/${productId}`);
-
-  return response.data;
-};
-
 export const getCartItemsRequest = async () => {
   const response = await axios.get(`${BASE_URL}/customers/${customer_name}/carts`);
 

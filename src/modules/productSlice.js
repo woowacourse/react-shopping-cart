@@ -15,9 +15,21 @@ export const getProductsRequest = createAsyncThunk('products/get', async (thunkA
   }
 });
 
+export const getSingleProductRequest = createAsyncThunk('singleProduct/get', async (productId, thunkAPI) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/products/${productId}`);
+
+    return res.data;
+  } catch (error) {
+    return Object.assign(thunkAPI.rejectWithValue(error), {
+      message: '상품 정보를 불러오는 데 실패했습니다.',
+    });
+  }
+});
+
 const productSlice = createSlice({
   name: 'product',
-  initialState: { products: [], errorMessage: '' },
+  initialState: { products: [], singleProduct: {}, errorMessage: '' },
   reducers: {},
   extraReducers: {
     [getProductsRequest.pending]: (state) => {
@@ -29,6 +41,18 @@ const productSlice = createSlice({
     },
 
     [getProductsRequest.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+    },
+
+    [getSingleProductRequest.pending]: (state) => {
+      state.errorMessage = '';
+    },
+
+    [getSingleProductRequest.fulfilled]: (state, action) => {
+      state.singleProduct = action.payload;
+    },
+
+    [getSingleProductRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
     },
   },
