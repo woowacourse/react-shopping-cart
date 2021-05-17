@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
@@ -7,15 +7,21 @@ import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
 import { ROUTE } from "../../constants/constant";
 import { useCart } from "../../utils/useCart";
+import { getCarts } from "../../store/modules/cartSlice";
 
 const Cart = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
   const { checkedItems, hasCheckedItems, totalPrice } = useCart(cart);
 
   const handleButtonClick = () => {
     history.push({ pathname: ROUTE.PAYMENT, state: { isAllowed: true } });
   };
+
+  useEffect(() => {
+    dispatch(getCarts());
+  }, [dispatch]);
 
   return (
     <S.Cart>

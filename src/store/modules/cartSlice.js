@@ -1,6 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API, MESSAGE } from "../../constants/constant";
 
+export const getCarts = createAsyncThunk(
+  "cart/load",
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await fetch(API.GET_CARTS);
+      return res.json();
+    } catch (error) {
+      return Object.assign(rejectWithValue(error), {
+        message: MESSAGE.ALERT.FAILED_GET_CARTS,
+      });
+    }
+  }
+);
+
 export const addToCart = createAsyncThunk(
   "cart/add",
   async (product, { rejectWithValue }) => {
@@ -30,7 +44,12 @@ export const addToCart = createAsyncThunk(
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { items: {}, loading: false, errorMessage: "" },
+  initialState: {
+    items: {},
+    loading: false,
+    errorMessage: "",
+    originItems: [],
+  },
   reducers: {
     removeFromCart: (state, action) => {
       const { id } = action.payload;
@@ -60,6 +79,45 @@ const cartSlice = createSlice({
   },
 
   extraReducers: {
+    [getCarts.pending]: (state) => {
+      state.errorMessage = "";
+      state.loading = true;
+    },
+
+    [getCarts.fulfilled]: (state, action) => {
+      if (state.originItems === action.payload) return;
+
+      action.payload.forEach((item) => {
+        const {
+          cart_id: cartId,
+          product_id: productId,
+          price,
+          name,
+          image_url: imageUrl,
+        } = item;
+
+        if (state.items[productId]) {
+          state.items[productId].amount += 1;
+        } else {
+          state.items[productId] = {
+            id: productId,
+            order_id: cartId,
+            price,
+            name,
+            thumbnail: imageUrl,
+            amount: 1,
+            checked: true,
+          };
+        }
+      });
+
+      state.originItems = action.payload;
+    },
+
+    [getCarts.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
     [addToCart.pending]: (state) => {
       state.errorMessage = "";
       state.loading = true;
