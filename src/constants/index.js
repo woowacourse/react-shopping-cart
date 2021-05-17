@@ -46,4 +46,7 @@ export const MESSAGE = {
     ADD_TO_CART_CONFIRM: '해당 상품을 장바구니에 추가하시겠습니까?',
     ADD_TO_CART_ALERT: '장바구니에 추가되었습니다.',
   },
+  CART: {
+    CHECK_PRODUCT_REQUEST: '주문할 상품을 선택해 주세요.',
+  },
 };
