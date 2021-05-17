@@ -25,12 +25,8 @@ const addToCart = (state, product) => {
 
 const changeQuantity = (state, id, operand) => {
   const { pickedProducts } = state;
-
   const prevQuantity = pickedProducts[id].quantity;
-  const newQuantity =
-    prevQuantity < PRODUCT.QUANTITY.MIN || prevQuantity > PRODUCT.QUANTITY.MAX
-      ? prevQuantity
-      : prevQuantity + operand;
+  const newQuantity = prevQuantity + operand;
 
   return {
     ...state,
@@ -38,7 +34,11 @@ const changeQuantity = (state, id, operand) => {
       ...pickedProducts,
       [id]: {
         ...pickedProducts[id],
-        quantity: newQuantity,
+        quantity:
+          newQuantity < PRODUCT.QUANTITY.MIN ||
+          newQuantity > PRODUCT.QUANTITY.MAX
+            ? prevQuantity
+            : newQuantity,
       },
     },
   };
