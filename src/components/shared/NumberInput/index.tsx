@@ -12,14 +12,6 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const NumberInput: FC<Props> = ({ value, setValue, min = -Infinity, max = Infinity }) => {
   const [num, setNum] = useState(value);
 
-  useEffect(() => {
-    if (!isValidInput(value)) {
-      throw Error('Invalid value: value should be within min and max range ');
-    }
-
-    setNum(value);
-  }, [value]);
-
   const isValidInput = (input: number) => input >= min && input <= max;
 
   const onChangeInput = ({ target: { valueAsNumber } }: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +38,15 @@ const NumberInput: FC<Props> = ({ value, setValue, min = -Infinity, max = Infini
 
     setValue(value - 1);
   };
+
+  useEffect(() => {
+    if (!isValidInput(value)) {
+      setValue(CART_ITEM_MIN_QUANTITY);
+      throw Error('Invalid value: value should be within min and max range ');
+    }
+
+    setNum(value);
+  }, [value]);
 
   return (
     <NumberInputContainer>
