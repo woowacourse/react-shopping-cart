@@ -1,22 +1,17 @@
-const ADD_PAYMENT_ITEMS = 'counter/ADD_PAYMENT_ITEMS';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const addPaymentItems = (paymentItems) => ({ type: ADD_PAYMENT_ITEMS, payload: paymentItems });
+const paymentReducer = createSlice({
+  name: 'paymentReducer',
+  initialState: [],
+  reducers: {
+    addPaymentItems: (state, { payload: items }) => {
+      const filteredItems = items.filter((item) => item.checked);
 
-const initialState = [];
+      return state.concat(filteredItems);
+    },
+  },
+});
 
-const addItem = (state, items) => {
-  const filteredItems = items.filter((item) => item.checked);
+export const { addPaymentItems } = paymentReducer.actions;
 
-  return state.concat(filteredItems);
-};
-
-const paymentReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_PAYMENT_ITEMS:
-      return addItem(state, action.payload);
-    default:
-      return state;
-  }
-};
-
-export default paymentReducer;
+export default paymentReducer.reducer;
