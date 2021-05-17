@@ -83,15 +83,17 @@ const ProductListPage = () => {
           </li>
         ))}
       </Styled.ProductList>
-      <Pagination
-        pages={products.length}
-        onPagePrevious={onPagePrevious}
-        onPageNext={onPageNext}
-        onPageSelected={onPageSelected}
-        isPreviousPageAvailable={isPreviousPageAvailable}
-        isNextPageAvailable={isNextPageAvailable}
-        currentPage={currentPage}
-      />
+      {!!products.length && (
+        <Pagination
+          pages={products.length}
+          onPagePrevious={onPagePrevious}
+          onPageNext={onPageNext}
+          onPageSelected={onPageSelected}
+          isPreviousPageAvailable={isPreviousPageAvailable}
+          isNextPageAvailable={isNextPageAvailable}
+          currentPage={currentPage}
+        />
+      )}
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
       {snackbarMessage && (
         <Snackbar
