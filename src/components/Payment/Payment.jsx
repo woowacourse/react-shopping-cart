@@ -1,19 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import { usePayment } from "../ProvidePayment/ProvidePayment";
 
-import * as S from "./Payment.styled";
+import { removeChecked } from "../../store/modules/cartSlice";
+import { addToOrdersList } from "../../store/modules/orderSlice";
+import { formatPrice } from "../../utils/utils";
+
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
-import { formatPrice } from "../../utils/utils";
-import { removeChecked } from "../../store/modules/cartSlice";
-import { addToOrdersList } from "../../store/modules/orderSlice";
+
+import * as S from "./Payment.styled";
 
 const Payment = () => {
-  const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
+  const payment = usePayment();
 
   const cart = useSelector((state) => state.cart);
   const checkedItems = Object.values(cart).filter((item) => item.checked);
@@ -22,18 +25,16 @@ const Payment = () => {
     0
   );
 
-  if (!location.state?.isAllowed) {
-    window.alert("비정상적인 접근입니다");
-    return <Redirect to="/cart" />;
-  }
-
   const handleButtonClick = () => {
     dispatch(addToOrdersList({ items: checkedItems }));
     dispatch(removeChecked());
+    payment.done();
     history.push("/orders-list");
   };
 
-  return (
+  return !payment.isReady ? (
+    <Redirect to="/cart" />
+  ) : (
     <S.Payment>
       <PageTitle>주문/결제</PageTitle>
       <S.Main>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { usePayment } from "../ProvidePayment/ProvidePayment";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
@@ -9,6 +10,8 @@ import * as S from "./Cart.styled";
 
 const Cart = () => {
   const history = useHistory();
+  const payment = usePayment();
+
   const cart = useSelector((state) => state.cart);
   const checkedItems = Object.values(cart).filter((item) => item.checked);
   const hasCheckedItems = checkedItems.length > 0;
@@ -18,7 +21,8 @@ const Cart = () => {
   );
 
   const handleButtonClick = () => {
-    history.push({ pathname: "/payment", state: { isAllowed: true } });
+    payment.getReady();
+    history.push("/payment");
   };
 
   return (
