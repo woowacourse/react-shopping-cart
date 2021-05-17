@@ -40,21 +40,13 @@ const ShoppingCartPage = () => {
   }
 
   const setCartItemQuantity = (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], quantity };
-
     API.CHANGE_ITEM_QUANTITY(id, quantity);
-    newCartItems.splice(targetIndex, 1, newCartItem);
+    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, quantity } : item));
     setCartItems(newCartItems);
   };
 
   const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], isSelected };
-
-    newCartItems.splice(targetIndex, 1, newCartItem);
+    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, isSelected } : item));
     setCartItems(newCartItems);
   };
 
@@ -116,15 +108,9 @@ const ShoppingCartPage = () => {
 
   const isOrderPossible = getSelectedItems().length > 0;
 
-  const totalPrice = String(
-    cartItems.reduce((acc, cartItem) => {
-      if (!cartItem.isSelected) {
-        return acc;
-      }
-
-      return acc + Number(cartItem.price) * Number(cartItem.quantity);
-    }, 0)
-  );
+  const totalPrice = cartItems
+    .filter(item => item.isSelected)
+    .reduce((acc, cartItem) => acc + Number(cartItem.price) * Number(cartItem.quantity), 0);
 
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>

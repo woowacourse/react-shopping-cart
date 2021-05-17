@@ -78,9 +78,7 @@ const OrderDetailPage = () => {
     </Styled.OrderWrapper>
   ));
 
-  const totalPrice = getMoneyString(
-    orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
-  );
+  const totalPrice = orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
 
   return (
     <Styled.OrderListPage>
@@ -96,7 +94,7 @@ const OrderDetailPage = () => {
             <img src={leftArrowSVG} alt="주문목록 돌아가기" />
             &nbsp;&nbsp;주문목록 돌아가기
           </Button>
-          <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={totalPrice} />
+          <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={getMoneyString(totalPrice)} />
         </Styled.PageBottom>
       </Styled.PageWrapper>
       <SnackBar key={Math.random()} message={snackBarMessage} setMessage={setSnackBarMessage} />

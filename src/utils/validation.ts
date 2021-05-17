@@ -1,18 +1,7 @@
 export const isNumber = (number: string | number) => {
-  if (isNaN(Number(number))) {
-    return false;
-  }
-
-  return true;
+  return !isNaN(Number(number));
 };
 
 export const isPositiveNumber = (number: string | number) => {
-  if (isNaN(Number(number))) {
-    return false;
-  }
-  if (Number(number) <= 0) {
-    return false;
-  }
-
-  return true;
+  return isNumber(number) && Number(number) > 0;
 };
