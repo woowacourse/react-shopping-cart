@@ -15,13 +15,15 @@ const SnackBar = (() => {
 
   return ({ message, setMessage }: Props) => {
     useEffect(() => {
+      const prevTimer = timer;
       return () => {
-        if (timer) {
-          clearTimeout(timer);
-          timer = null;
+        if (prevTimer) {
+          clearTimeout(prevTimer);
         }
       };
     }, []);
+
+    if (!$snackBar || !message) return null;
 
     if (timer) {
       clearTimeout(timer);
@@ -32,7 +34,6 @@ const SnackBar = (() => {
       setMessage('');
     }, 3000);
 
-    if (!$snackBar || !message) return null;
     return ReactDOM.createPortal(<Styled.SnackBar>{message}</Styled.SnackBar>, $snackBar);
   };
 })();
