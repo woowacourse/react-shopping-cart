@@ -25,7 +25,7 @@ const fadeout = keyframes`
 
 export const SnackbarContainer = styled.div`
   min-width: 10rem;
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#333')};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   color: #fff;
   text-align: center;
   border-radius: 0.5rem;
@@ -35,6 +35,6 @@ export const SnackbarContainer = styled.div`
   left: 50%;
   transform: translateX(-50%);
   bottom: 10px;
-  -webkit-animation: ${fadein} 0.5s, ${fadeout} 0.5s ${({ time }) => (time ? time : '3s')};
-  animation: ${fadein} 0.5s, ${fadeout} 0.5s ${({ time }) => (time ? time : '3s')};
+  -webkit-animation: ${fadein} 0.5s, ${fadeout} 0.5s ${({ duration }) => duration / 1000 + 's'};
+  animation: ${fadein} 0.5s, ${fadeout} 0.5s ${({ duration }) => duration / 1000 + 's'};
 `;

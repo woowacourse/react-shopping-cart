@@ -11,10 +11,15 @@ import Modal from '../../common/Modal';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
+import useSnackbar from '../../../hooks/useSnackbar';
+import Snackbar from '../../common/Snackbar';
+
+const SNACKBAR_DURATION = 4000;
 
 const ProductListPage = () => {
   const { products, cart, errorMessage } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -31,6 +36,8 @@ const ProductListPage = () => {
 
     const selectedProduct = products.find((product) => product.id === selectedProductId);
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
+
+    setSnackbarMessage('장바구니에 상품을 추가했습니다');
   };
 
   const onCloseErrorMessageModal = () => {
@@ -61,6 +68,7 @@ const ProductListPage = () => {
         ))}
       </Styled.ProductList>
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
+      {snackbarMessage && <Snackbar key={Date.now()} message={snackbarMessage} duration={SNACKBAR_DURATION} />}
     </Main>
   );
 };
