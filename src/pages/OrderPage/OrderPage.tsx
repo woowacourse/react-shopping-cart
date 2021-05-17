@@ -83,7 +83,7 @@ const OrderPage = () => {
             </Styled.HighlightTextWrapper>
             <Button
               text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`}
-              size={T.ButtonSize.LARGE}
+              size={T.ButtonSize.REGULAR}
               onClick={handlePurchaseCartItems}
             />
           </PriceOverview>

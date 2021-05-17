@@ -8,15 +8,21 @@ type RootProps = {
 };
 
 const sizeTable = {
-  [T.ButtonSize.REGULAR]: {
+  [T.ButtonSize.SMALL]: {
     width: '138px',
     height: '47px',
     fontSize: '20px',
   },
-  [T.ButtonSize.LARGE]: {
+  [T.ButtonSize.REGULAR]: {
     width: '388px',
     height: '73px',
     fontSize: '24px',
+  },
+  [T.ButtonSize.LARGE]: {
+    width: '638px',
+    height: '98px',
+    fontSize: '32px',
+    fontWeight: 'bold',
   },
 };
 
@@ -27,6 +33,7 @@ const Root = styled.button<RootProps>`
   color: ${({ textColor, theme }) => textColor || theme.textColor.defaultWhite};
   font-family: inherit;
   font-size: ${({ size }) => sizeTable[size || T.ButtonSize.REGULAR].fontSize};
+  font-weight: ${({ size }) => (size === T.ButtonSize.LARGE ? '700' : '400')};
   border: none;
   border-radius: 2px;
   cursor: pointer;

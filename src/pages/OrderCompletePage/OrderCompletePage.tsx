@@ -12,9 +12,9 @@ const OrderCompletePage = () => {
       <Styled.OrderCompleteText>🐋 주문이 완료되었지롱 🐬</Styled.OrderCompleteText>
       <Styled.ButtonWrapper>
         <Link to="/">
-          <Button text="홈으로" size={T.ButtonSize.LARGE} />
+          <Button text="홈으로" size={T.ButtonSize.REGULAR} />
         </Link>
-        <Button text="주문상세" size={T.ButtonSize.LARGE} />
+        <Button text="주문상세" size={T.ButtonSize.REGULAR} />
       </Styled.ButtonWrapper>
     </Styled.Root>
   );

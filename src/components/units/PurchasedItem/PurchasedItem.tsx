@@ -30,7 +30,7 @@ const PurchasedItem = (props: PurchasedItemProps) => {
         </Styled.Detail>
       </Styled.Info>
       <Styled.ButtonWrapper>
-        <Button size={T.ButtonSize.REGULAR} text="장바구니" onClick={handleClick} />
+        <Button size={T.ButtonSize.SMALL} text="장바구니" onClick={handleClick} />
       </Styled.ButtonWrapper>
     </Styled.Root>
   );

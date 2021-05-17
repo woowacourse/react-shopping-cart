@@ -108,7 +108,7 @@ const CartPage = () => {
               <Link to={{ pathname: '/order', state: { checkedItems } }}>
                 <Button
                   text={`주문하기 (${checkedItems.length}개)`}
-                  size={T.ButtonSize.LARGE}
+                  size={T.ButtonSize.REGULAR}
                   disabled={checkedItems.length <= 0}
                 />
               </Link>

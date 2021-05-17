@@ -1,6 +1,7 @@
 export enum ButtonSize {
-  LARGE = 'LARGE',
+  SMALL = 'SMALL',
   REGULAR = 'REGULAR',
+  LARGE = 'LARGE',
 }
 
 export type Product = {

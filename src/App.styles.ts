@@ -22,6 +22,7 @@ export const theme: Theme = {
     primary: '#2AC1BC',
     secondary: '#f6f6f6',
     lightGrey: '#e5e5e5',
+    darkBrown: '#73675C',
   },
   color: {
     defaultBlack: '#333333',
