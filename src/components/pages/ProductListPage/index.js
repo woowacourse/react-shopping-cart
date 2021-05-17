@@ -47,7 +47,7 @@ const ProductListPage = () => {
     if (cart.findIndex((product) => product.id === productId) >= 0) return;
 
     const selectedProduct = products.find((product) => product.id === productId);
-    dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
+    dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: true }));
 
     setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
   };
