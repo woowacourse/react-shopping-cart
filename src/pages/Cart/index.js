@@ -50,7 +50,7 @@ const Cart = () => {
     }, 0);
   const isPurchasable = totalPrice > 0;
 
-  const onCheckBoxChange = ({ id }) => {
+  const onCheckBoxChange = id => () => {
     dispatch(toggleCartItemCheckbox(id));
   };
 
@@ -62,7 +62,7 @@ const Cart = () => {
     dispatch(setCartItemQuantity({ id, quantity }));
   };
 
-  const onDelete = async idList => {
+  const onDelete = idList => async () => {
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
       try {
         await Promise.all(idList.map(id => API.deleteCartItem({ id })));
@@ -96,7 +96,7 @@ const Cart = () => {
               color={COLOR.BLACK}
               backgroundColor={COLOR.WHITE}
               borderColor={COLOR['GRAY-300']}
-              onClick={() => onDelete(checkedItemIdList)}
+              onClick={onDelete(checkedItemIdList)}
               disabled={checkedCount === 0}
             >
               상품 삭제
@@ -110,7 +110,7 @@ const Cart = () => {
                   <CheckBox>
                     <input
                       type="checkbox"
-                      onChange={() => onCheckBoxChange({ id })}
+                      onChange={onCheckBoxChange(id)}
                       checked={checked}
                       hidden
                     />
@@ -127,7 +127,7 @@ const Cart = () => {
                         <IconButton
                           type="button"
                           size="small"
-                          onClick={() => onDelete([id])}
+                          onClick={onDelete([id])}
                           ariaLabel={`${name} 삭제`}
                         >
                           <TrashBin />
