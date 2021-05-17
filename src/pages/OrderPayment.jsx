@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import { deleteCheckedShoppingCartList } from '../redux/actions/shoppingCartActions';
 import { PATH } from '../constants/path';
 import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';
@@ -30,14 +29,11 @@ const OrderPayment = () => {
   const isLoading = useSelector((state) => state.shoppingCart.shoppingCartItemList.isLoading);
   const { state } = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderPaymentItemList };
-    await startFetching(orderItemData);
-    await dispatch(deleteCheckedShoppingCartList(orderPaymentItemList));
+    await startFetching(orderPaymentItemList.map(({ cart_id, quantity }) => ({ cart_id, quantity })));
 
     history.replace(PATH.ORDER_LIST);
   };

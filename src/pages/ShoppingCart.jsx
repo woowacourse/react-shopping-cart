@@ -66,7 +66,7 @@ const Text = styled.span`
 `;
 
 const getExpectedPaymentAmount = (checkedShoppingCartItemList) =>
-  checkedShoppingCartItemList.reduce((acc, cur) => acc + cur.price * cur.count, 0);
+  checkedShoppingCartItemList.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
 
 const ShoppingCart = () => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
@@ -155,7 +155,7 @@ const ShoppingCart = () => {
         </div>
         <div>
           <PaymentWrapper>
-            <ShoppingCartPayment price={totalPrice} count={checkedCount} onClick={handleOrderPaymentPageRouter} />
+            <ShoppingCartPayment price={totalPrice} quantity={checkedCount} onClick={handleOrderPaymentPageRouter} />
           </PaymentWrapper>
         </div>
       </Content>

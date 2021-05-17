@@ -47,7 +47,7 @@ const TrashCanImage = styled.img`
 const MAX_COUNT = 99;
 const MIN_COUNT = 1;
 
-const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
+const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
 
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleIncrement = () => {
-    if (count >= MAX_COUNT) {
+    if (quantity >= MAX_COUNT) {
       setIsDialogOpen(true);
       setType(DIALOG_TYPE.ALERT);
 
@@ -81,7 +81,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleDecrement = () => {
-    count > MIN_COUNT && dispatch(decreaseCount(id));
+    quantity > MIN_COUNT && dispatch(decreaseCount(id));
   };
 
   return (
@@ -94,8 +94,8 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
         </LeftContent>
         <RightContent>
           <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
-          <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
-          <div>{(count * price).toLocaleString('ko-KR')} 원</div>
+          <CountInput value={quantity} onIncrease={handleIncrement} onDecrease={handleDecrement} />
+          <div>{(quantity * price).toLocaleString('ko-KR')} 원</div>
         </RightContent>
       </Container>
 
@@ -129,7 +129,7 @@ ShoppingCartItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   isChecked: PropTypes.bool.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default memo(ShoppingCartItem);

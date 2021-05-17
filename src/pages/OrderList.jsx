@@ -26,9 +26,9 @@ const OrderList = () => {
     <>
       <PageTitle>주문목록</PageTitle>
       <ul>
-        {orderListItemList.reverse().map((orderItem) => (
-          <ItemListWrapper key={orderItem.orderNumber}>
-            <OrderListItemList orderListItemList={orderItem.itemList} orderNumber={orderItem.orderNumber} />
+        {orderListItemList.reverse().map(({ order_id, order_details }) => (
+          <ItemListWrapper key={order_id}>
+            <OrderListItemList orderListItemList={order_details} orderId={order_id} />
           </ItemListWrapper>
         ))}
       </ul>

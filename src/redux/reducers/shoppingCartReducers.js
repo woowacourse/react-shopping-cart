@@ -87,7 +87,7 @@ const shoppingCartReducers = (state = initialState, action) => {
       return {
         ...state,
         shoppingCartItemList: reducerUtils.success(
-          action.payload.map((item) => ({ ...item, count: 1, isChecked: true }))
+          action.payload.map((item) => ({ ...item, quantity: 1, isChecked: true }))
         ),
       };
     }
@@ -139,7 +139,7 @@ const shoppingCartReducers = (state = initialState, action) => {
         if (shoppingCartItem.cart_id === action.payload) {
           return {
             ...shoppingCartItem,
-            count: shoppingCartItem.count + 1,
+            quantity: shoppingCartItem.quantity + 1,
           };
         }
         return shoppingCartItem;
@@ -156,7 +156,7 @@ const shoppingCartReducers = (state = initialState, action) => {
         if (shoppingCartItem.cart_id === action.payload) {
           return {
             ...shoppingCartItem,
-            count: shoppingCartItem.count - 1,
+            quantity: shoppingCartItem.quantity - 1,
           };
         }
         return shoppingCartItem;

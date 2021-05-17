@@ -19,7 +19,7 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
   <>
     <Header>든든배송 상품 ({shoppingCartItemList.length}개)</Header>
     <ul>
-      {shoppingCartItemList.map(({ image_url, cart_id, name, price, count, isChecked }) => (
+      {shoppingCartItemList.map(({ image_url, cart_id, name, price, quantity, isChecked }) => (
         <ShoppingCartItemWrapper key={cart_id}>
           <ShoppingCartItem
             id={cart_id}
@@ -27,7 +27,7 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
             alt={name}
             name={name}
             price={price}
-            count={count}
+            quantity={quantity}
             isChecked={isChecked}
           />
         </ShoppingCartItemWrapper>
@@ -43,7 +43,7 @@ ShoppingCartItemList.propTypes = {
       image_url: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
       isChecked: PropTypes.bool.isRequired,
     }).isRequired
   ).isRequired,

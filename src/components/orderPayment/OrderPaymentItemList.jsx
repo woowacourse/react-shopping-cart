@@ -20,9 +20,9 @@ const OrderPaymentItemList = ({ orderPaymentItemList }) => (
   <>
     <Header>주문 상품({orderPaymentItemList.length}건)</Header>
     <ul>
-      {orderPaymentItemList.map(({ cart_id, image_url, name, count }) => (
+      {orderPaymentItemList.map(({ cart_id, image_url, name, quantity }) => (
         <OrderPaymentItemWrapper key={cart_id}>
-          <OrderPaymentItem id={cart_id} src={image_url} alt={name} name={name} count={count} />
+          <OrderPaymentItem id={cart_id} src={image_url} alt={name} name={name} quantity={quantity} />
         </OrderPaymentItemWrapper>
       ))}
     </ul>
@@ -35,7 +35,7 @@ OrderPaymentItemList.propTypes = {
       cart_id: PropTypes.number.isRequired,
       image_url: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
 };

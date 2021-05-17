@@ -22,13 +22,13 @@ const Info = styled.div`
   color: ${COLOR.GRAY_600};
 `;
 
-const OrderListItem = ({ src, alt, name, count, price }) => (
+const OrderListItem = ({ src, alt, name, quantity, price }) => (
   <Container>
     <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
     <TextWrapper>
       <Name>{name}</Name>
       <Info>
-        {price.toLocaleString('ko-KR')}원 / 수량: {count}개
+        {price.toLocaleString('ko-KR')}원 / 수량: {quantity}개
       </Info>
     </TextWrapper>
     <div style={{ marginLeft: 'auto' }}>
@@ -41,7 +41,7 @@ OrderListItem.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
 };
 

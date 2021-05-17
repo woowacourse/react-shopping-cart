@@ -20,16 +20,16 @@ const OrderListItemWrapper = styled.li`
   padding: 38px 0;
 `;
 
-const OrderListItemList = ({ orderNumber, orderListItemList }) => (
+const OrderListItemList = ({ orderId, orderListItemList }) => (
   <>
     <Header>
-      <div>주문번호 : {orderNumber}</div>
+      <div>주문번호 : {orderId}</div>
       <Link to={PATH.ORDER_LIST_DETAIL}>상세보기 {'>'} </Link>
     </Header>
     <ul>
-      {orderListItemList.map(({ src, id, alt, name, price, count }) => (
-        <OrderListItemWrapper key={id}>
-          <OrderListItem id={id} src={src} alt={alt} name={name} price={price} count={count} />
+      {orderListItemList.map(({ product_id, image_url, name, price, quantity }) => (
+        <OrderListItemWrapper key={product_id}>
+          <OrderListItem id={product_id} src={image_url} alt={name} name={name} price={price} quantity={quantity} />
         </OrderListItemWrapper>
       ))}
     </ul>
@@ -37,15 +37,14 @@ const OrderListItemList = ({ orderNumber, orderListItemList }) => (
 );
 
 OrderListItemList.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
+  orderId: PropTypes.number.isRequired,
   orderListItemList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      src: PropTypes.string.isRequired,
+      product_id: PropTypes.number.isRequired,
+      image_url: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-      alt: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
 };
