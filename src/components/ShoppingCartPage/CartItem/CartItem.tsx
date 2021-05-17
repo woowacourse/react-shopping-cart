@@ -12,7 +12,7 @@ export interface Props {
   setQuantity: (quantity: CartItem['quantity']) => void;
   isSelected: boolean;
   setSelected: (isSelected: CartItem['isSelected']) => void;
-  onCartItemDelete: () => void;
+  onDeleteCartItem: () => void;
 }
 
 const CartItem = ({
@@ -23,7 +23,7 @@ const CartItem = ({
   setQuantity,
   isSelected,
   setSelected,
-  onCartItemDelete,
+  onDeleteCartItem,
 }: Props) => {
   return (
     <Styled.CartItem>
@@ -32,7 +32,7 @@ const CartItem = ({
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>
           <Styled.ItemName>{name}</Styled.ItemName>
-          <Styled.DeleteIcon src={trashCanSVG} alt="cart item delete button" onClick={onCartItemDelete} />
+          <Styled.DeleteIcon src={trashCanSVG} alt="cart item delete button" onClick={onDeleteCartItem} />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
           <NumberInput value={quantity} setValue={setQuantity} />

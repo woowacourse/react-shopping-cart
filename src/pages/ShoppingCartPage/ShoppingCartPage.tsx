@@ -69,7 +69,7 @@ const ShoppingCartPage = () => {
     setCartItems(newCartItems);
   };
 
-  const onCartItemDelete = async (id: CartItem['id']) => {
+  const onDeleteCartItem = async (id: CartItem['id']) => {
     const targetIndex = cartItems.findIndex(cartItem => cartItem.id === id);
     if (!confirm(`'${cartItems[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
@@ -136,7 +136,7 @@ const ShoppingCartPage = () => {
         setQuantity={quantity => setCartItemQuantity(cartItem.id, quantity)}
         isSelected={cartItem.isSelected}
         setSelected={isSelected => setCartItemSelected(cartItem.id, isSelected)}
-        onCartItemDelete={() => onCartItemDelete(cartItem.id)}
+        onDeleteCartItem={() => onDeleteCartItem(cartItem.id)}
       />
     </Styled.CartItemWrapper>
   ));

@@ -6,13 +6,13 @@ export interface Props {
   price: string;
   thumbnail: string;
   onClick?: () => void;
-  onCartButtonClick?: () => void;
+  onClickCartButton?: () => void;
 }
 
-const ProductGridItem = ({ name, price, thumbnail, onClick, onCartButtonClick }: Props) => {
+const ProductGridItem = ({ name, price, thumbnail, onClick, onClickCartButton }: Props) => {
   const onCartIconClick = (event: React.MouseEvent<HTMLImageElement>) => {
     event.stopPropagation();
-    onCartButtonClick && onCartButtonClick();
+    onClickCartButton && onClickCartButton();
   };
 
   return (

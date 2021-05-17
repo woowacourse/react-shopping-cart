@@ -53,7 +53,7 @@ const ProductListPage = () => {
   const productGridItemList = products.map((product: Product) => (
     <ProductGridItem
       onClick={() => onMoveToProductDetailPage(product.id)}
-      onCartButtonClick={() => onAddItemInCart(product.id)}
+      onClickCartButton={() => onAddItemInCart(product.id)}
       key={product.id}
       name={product.name}
       price={getMoneyString(product.price)}
