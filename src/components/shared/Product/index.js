@@ -25,7 +25,7 @@ Product.propTypes = {
   thumbnail: PropTypes.shape({
     image: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'x-large']),
   }),
 
   information: PropTypes.shape({

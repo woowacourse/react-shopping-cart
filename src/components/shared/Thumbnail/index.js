@@ -23,7 +23,7 @@ const Thumbnail = ({ image, alt, size = 'middle', onClick }) => {
 Thumbnail.propTypes = {
   image: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'x-large']),
   onClick: PropTypes.func,
 };
 
