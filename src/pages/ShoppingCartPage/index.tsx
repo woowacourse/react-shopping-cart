@@ -2,14 +2,14 @@ import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartS
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetchCartRedux from '../../hooks/useFetchCartRedux';
-import { FormEvent, useEffect, VFC } from 'react';
+import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
 
 const TITLE = '장바구니';
 
-const ShoppingCartPage: VFC = () => {
+const ShoppingCartPage: FC = () => {
   const { fetchCartItemRedux, itemsInCart: items } = useFetchCartRedux();
   const history = useHistory();
 

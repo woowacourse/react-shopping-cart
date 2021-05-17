@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, VFC } from 'react';
+import { InputHTMLAttributes, FC } from 'react';
 import { CheckboxLabel } from './style';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -6,7 +6,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   labelTextHidden?: boolean;
 }
 
-const Checkbox: VFC<Props> = ({ labelTextHidden, className, description, checked, onChange }) => (
+const Checkbox: FC<Props> = ({ labelTextHidden, className, description, checked, onChange }) => (
   <CheckboxLabel className={className}>
     <input type="checkbox" checked={checked} onChange={onChange} />
     <span hidden={labelTextHidden}>{description}</span>

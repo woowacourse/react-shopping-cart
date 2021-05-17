@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
@@ -10,7 +10,7 @@ import {
   StyledProductCard,
 } from './style';
 
-const ProductCard: VFC<Product> = (product) => {
+const ProductCard: FC<Product> = (product) => {
   const { name, price, image } = product;
   const { addItem } = useFetchCartRedux();
 

@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { CONFIRM } from '../../../../constants/message';
 import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
 import { ItemInCart, Order, OrderedItem } from '../../../../types';
@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) => {
+const OrderItemListSection: FC<Props> = ({ order: { id, items }, className }) => {
   const { addItem } = useFetchCartRedux();
 
   const onClickAddCart = (item: OrderedItem) => {

@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState, VFC } from 'react';
+import { FormEvent, useEffect, useState, FC } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Loading from '../../components/Loading';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
@@ -18,7 +18,7 @@ const TITLE = '주문/결제';
 
 interface Props extends RouteComponentProps {}
 
-const OrderConfirmPage: VFC<Props> = ({ history }) => {
+const OrderConfirmPage: FC<Props> = ({ history }) => {
   const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
   const [totalPrice, setTotalPrice] = useState(0);
   const { clearCart } = useFetchCartRedux();

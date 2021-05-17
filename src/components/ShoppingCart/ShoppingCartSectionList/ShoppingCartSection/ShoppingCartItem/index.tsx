@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { ItemInCart } from '../../../../../types';
 import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
@@ -22,7 +22,7 @@ interface Props {
   className?: string;
 }
 
-const ShoppingCartItem: VFC<Props> = ({
+const ShoppingCartItem: FC<Props> = ({
   item,
   changeQuantity,
   deleteItem,
@@ -36,6 +36,8 @@ const ShoppingCartItem: VFC<Props> = ({
 
     deleteItem(id);
   };
+
+  const setItemQuantity = (value: number) => changeQuantity(item, value);
 
   return (
     <ShoppingCartItemContainer
@@ -55,7 +57,7 @@ const ShoppingCartItem: VFC<Props> = ({
       </ShoppingCartItemCard>
       <Container>
         <DeleteButton onClick={onItemDelete} data-testid="delete-button" />
-        <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />
+        <NumberInput value={quantity} setValue={setItemQuantity} min={1} />
         <Text>{KRCurrency(price * quantity)}</Text>
       </Container>
     </ShoppingCartItemContainer>

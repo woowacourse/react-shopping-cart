@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, VFC } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 import { OrderedItem } from '../../../../../types';
 import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderConfirmListItem/style';
 import Container from '../../../../shared/Container';
@@ -10,7 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   item: OrderedItem;
 }
 
-const OrderListItem: VFC<Props> = ({ item: { image, name, price, quantity }, onClick }) => (
+const OrderListItem: FC<Props> = ({ item: { image, name, price, quantity }, onClick }) => (
   <StyledOrderItemListItem>
     <OrderListItemCard type="horizontal" image={image}>
       <Container>

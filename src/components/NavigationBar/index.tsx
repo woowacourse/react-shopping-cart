@@ -1,10 +1,10 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_BASE_URL } from '../../constants/app';
 import Container from '../shared/Container';
 import { Logo, NavigationBarContainer, NavigationBarInnerContainer, StyledLink } from './styles';
 
-const NavigationBar: VFC = () => (
+const NavigationBar: FC = () => (
   <NavigationBarContainer>
     <NavigationBarInnerContainer>
       <Link to="/">

@@ -1,4 +1,4 @@
-import { useState, VFC } from 'react';
+import { useState, FC } from 'react';
 import { CONFIRM } from '../../../constants/message';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import Checkbox from '../../shared/Checkbox';
@@ -9,7 +9,7 @@ import {
   CartSelectContainer,
 } from './style';
 
-const ShoppingCartSectionList: VFC = () => {
+const ShoppingCartSectionList: FC = () => {
   const [checked, setChecked] = useState(false);
   const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useFetchCartRedux();
 

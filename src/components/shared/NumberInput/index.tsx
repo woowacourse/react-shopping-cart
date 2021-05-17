@@ -1,14 +1,15 @@
-import { ChangeEvent, InputHTMLAttributes, useEffect, useState, VFC } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useEffect, useState, FC } from 'react';
 import { NumberInputContainer, IncreaseButton, DecreaseButton } from './style';
 import Container from '../Container';
 import Input from '../Input';
+import { CART_ITEM_MIN_QUANTITY } from '../../../constants/cart';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
   setValue: (value: number) => void;
 }
 
-const NumberInput: VFC<Props> = ({ value, setValue, min = -Infinity, max = Infinity }) => {
+const NumberInput: FC<Props> = ({ value, setValue, min = -Infinity, max = Infinity }) => {
   const [num, setNum] = useState(value);
 
   useEffect(() => {

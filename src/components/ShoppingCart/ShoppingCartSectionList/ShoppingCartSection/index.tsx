@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { ItemInCart } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
@@ -10,7 +10,7 @@ interface Props {
   items: ItemInCart[];
 }
 
-const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
+const ShoppingCartSection: FC<Props> = ({ title, items }) => {
   const { changeQuantity, deleteItem, changeChecked } = useFetchCartRedux();
 
   return (

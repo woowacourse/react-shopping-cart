@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { AnimationContainer, LoadingContainer, LoadingText } from './styles';
 
-const Loading: VFC = () => (
+const Loading: FC = () => (
   <LoadingContainer>
     <AnimationContainer>
       <div></div>

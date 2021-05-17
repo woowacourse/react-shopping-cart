@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { ItemInCart } from '../../../types';
 import List from '../../shared/List';
 import OrderConfirmListItem from './OrderConfirmListItem';
@@ -9,7 +9,7 @@ interface Props {
   items: ItemInCart[];
 }
 
-const OrderConfirmSection: VFC<Props> = ({ title, items }) => {
+const OrderConfirmSection: FC<Props> = ({ title, items }) => {
   return (
     <OrderItemListContainer>
       <InnerTitle>

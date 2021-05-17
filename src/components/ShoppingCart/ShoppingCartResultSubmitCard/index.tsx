@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { KRCurrency } from '../../../utils/format';
 import { StyledShoppingCartResultSubmitCard } from './styles';
 
@@ -7,7 +7,7 @@ interface Props {
   totalPrice: number;
 }
 
-const ShoppingCartResultSubmitCard: VFC<Props> = ({ totalQuantity, totalPrice }) => (
+const ShoppingCartResultSubmitCard: FC<Props> = ({ totalQuantity, totalPrice }) => (
   <StyledShoppingCartResultSubmitCard
     title="결제예상금액"
     resultAmount={KRCurrency(totalPrice)}

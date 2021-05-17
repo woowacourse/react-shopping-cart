@@ -1,7 +1,7 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { BaeDaleeImage, ErrorText, HomeButton, NetworkErrorContainer } from './styles';
 
-const NetworkError: VFC = () => (
+const NetworkError: FC = () => (
   <NetworkErrorContainer>
     <ErrorText>네트워크 오류가 발생하였습니다.</ErrorText>
     <ErrorText>잠시후 다시 시도해주세요.</ErrorText>

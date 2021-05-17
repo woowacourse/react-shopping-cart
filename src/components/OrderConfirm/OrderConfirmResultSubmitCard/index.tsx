@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import { KRCurrency } from '../../../utils/format';
 import { StyledOrderConfirmResultSubmitCard } from './styles';
 
@@ -6,7 +6,7 @@ interface Props {
   totalPrice: number;
 }
 
-const OrderConfirmResultSubmitCard: VFC<Props> = ({ totalPrice }) => (
+const OrderConfirmResultSubmitCard: FC<Props> = ({ totalPrice }) => (
   <StyledOrderConfirmResultSubmitCard
     title="결제 금액"
     resultDescription="총 결제금액"

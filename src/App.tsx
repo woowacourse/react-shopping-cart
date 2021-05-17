@@ -1,4 +1,4 @@
-import { useEffect, VFC } from 'react';
+import { FC, useEffect } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
 import useFetchCartRedux from './hooks/useFetchCartRedux';
@@ -7,7 +7,7 @@ import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
-const App: VFC = () => {
+const App: FC = () => {
   const { fetchCartItemRedux } = useFetchCartRedux();
 
   useEffect(() => {

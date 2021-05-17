@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { FC } from 'react';
 import Text from '../Text';
 import {
   ResultSubmitButton,
@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-const ResultSubmitCard: VFC<Props> = ({
+const ResultSubmitCard: FC<Props> = ({
   title,
   resultDescription,
   resultAmount,
