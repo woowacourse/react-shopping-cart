@@ -3,7 +3,6 @@ import { ItemInCart } from '../../../../../types';
 import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
-import IconButton from '../../../../shared/IconButton';
 import NumberInput from '../../../../shared/NumberInput';
 import Text from '../../../../shared/Text';
 import { CONFIRM } from '../../../../../constants/message';
@@ -13,6 +12,7 @@ import {
   ShoppingCartItemCard,
   ShoppingCartItemContainer,
 } from './style';
+import { CART_ITEM_MIN_QUANTITY } from '../../../../../constants/cart';
 
 interface Props {
   item: ItemInCart;
@@ -37,7 +37,11 @@ const ShoppingCartItem: FC<Props> = ({
     deleteItem(id);
   };
 
-  const setItemQuantity = (value: number) => changeQuantity(item, value);
+  const setItemQuantity = (quantity: number) => {
+    if (quantity < CART_ITEM_MIN_QUANTITY) return;
+
+    changeQuantity(item, quantity);
+  };
 
   return (
     <ShoppingCartItemContainer

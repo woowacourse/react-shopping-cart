@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
 import {
   thunkAddItemToCart,
@@ -43,10 +42,7 @@ const useFetchCartRedux = () => {
     dispatch(thunkAddItemToCart(item));
   };
 
-  //TODO: 검증된. 이라는 의미를 추가하기
   const changeQuantity = (item: ItemInCart, quantity: number) => {
-    if (quantity < CART_ITEM_MIN_QUANTITY) return;
-
     dispatch(thunkChangeItemQuantity(item, quantity));
   };
 
