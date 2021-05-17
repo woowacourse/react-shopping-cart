@@ -40,6 +40,9 @@ export const DeleteButton = styled.button`
   padding: 12px 22px;
   border: 1px solid ${({ theme }) => theme.GRAY_200};
   color: ${({ theme }) => theme.TEXT_COLOR};
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const CartHeaderWrapper = styled.div`

@@ -27,7 +27,11 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   color: ${({ fontColor }: ButtonProps) => fontColor};
-  background-color: ${({ backgroundColor, disabled }: ButtonProps) => (disabled ? COLORS.GRAY_300 : backgroundColor)};
-  cursor: ${({ disabled }: ButtonProps) => (disabled ? 'not-allowed' : 'pointer')};
+  background-color: ${({ backgroundColor }: ButtonProps) => backgroundColor};
+  cursor: pointer;
   ${({ size }: ButtonProps) => BUTTON_SIZE[size]}
+  &:disabled {
+    background-color: ${() => COLORS.GRAY_300};
+    cursor: not-allowed;
+  }
 `;

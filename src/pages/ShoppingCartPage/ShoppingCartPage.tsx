@@ -106,7 +106,7 @@ const ShoppingCartPage = () => {
     history.push({ pathname: PATH.ORDER, state: { selectedItems } });
   };
 
-  const isOrderPossible = getSelectedItems().length > 0;
+  const hasSelectedItems = getSelectedItems().length > 0;
 
   const totalPrice = cartItems
     .filter(item => item.isSelected)
@@ -137,7 +137,9 @@ const ShoppingCartPage = () => {
           <Styled.CartContainer>
             <Styled.ControlWrapper>
               <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onToggleTotalCheck} isChecked={isTotalChecked} />
-              <Styled.DeleteButton onClick={onSelectedCartItemDelete}>상품삭제</Styled.DeleteButton>
+              <Styled.DeleteButton onClick={onSelectedCartItemDelete} disabled={!hasSelectedItems}>
+                상품삭제
+              </Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
               <Styled.CartHeader>배송상품 ({cartItems.length}개)</Styled.CartHeader>
@@ -152,7 +154,7 @@ const ShoppingCartPage = () => {
             price={getMoneyString(totalPrice)}
             buttonText={`주문하기(${getSelectedItems().length}개)`}
             onPayButtonClick={onOrderLinkButtonClick}
-            isPayButtonDisabled={!isOrderPossible}
+            isPayButtonDisabled={!hasSelectedItems}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
