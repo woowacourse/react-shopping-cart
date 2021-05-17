@@ -10,7 +10,7 @@ export interface ProductsRequestAction {
 
 export interface ProductSuccessAction {
   type: typeof GET_PRODUCTS_SUCCESS;
-  payload: Product[];
+  payload: Product[] | any;
 }
 
 export interface ProductFailureAction {

@@ -1,4 +1,4 @@
-const BASE_URL = 'https://yungo1846-shopping-cart.herokuapp.com/api';
+const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 
 export const URL = {
   PRODUCTS: `${BASE_URL}/products`,
