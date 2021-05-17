@@ -10,6 +10,27 @@
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
+    <script type="text/javascript">
+      (() => {
+        "use strict";
+        const { search, pathname, hash } = window.location;
+
+        if (search[1] !== "/") return;
+
+        const decoded = search
+          .slice(1)
+          .split("&")
+          .map((s) => s.replace(/~and~/g, "&"))
+          .join("?");
+
+        window.history.replaceState(
+          null,
+          null,
+          pathname.slice(0, -1) + decoded + hash
+        );
+      })();
+    </script>
+
     <title>인치동동의 배민상회</title>
   </head>
   <body>
