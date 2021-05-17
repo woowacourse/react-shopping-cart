@@ -6,11 +6,12 @@ import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
+import InitialLoading from '../../components/shared/InitialLoading';
 
 const TITLE = '장바구니';
 
 const ShoppingCartPage: FC = () => {
-  const { fetchCartItemRedux, itemsInCart: items } = useFetchCartRedux();
+  const { fetchCartItemRedux, itemsInCart: items, isLoading } = useFetchCartRedux();
   const history = useHistory();
 
   useEffect(() => {
@@ -38,13 +39,15 @@ const ShoppingCartPage: FC = () => {
 
   return (
     <ReactShoppingCartTemplate title={TITLE}>
-      <ShoppingCartForm onSubmit={onSubmitCartItems}>
-        <ShoppingCartSectionList />
-        <ShoppingCartResultSubmitCard
-          totalPrice={totalPrice}
-          totalQuantity={items.filter((item) => item.checked).length}
-        />
-      </ShoppingCartForm>
+      <InitialLoading isLoading={isLoading}>
+        <ShoppingCartForm onSubmit={onSubmitCartItems}>
+          <ShoppingCartSectionList />
+          <ShoppingCartResultSubmitCard
+            totalPrice={totalPrice}
+            totalQuantity={items.filter((item) => item.checked).length}
+          />
+        </ShoppingCartForm>
+      </InitialLoading>
     </ReactShoppingCartTemplate>
   );
 };
