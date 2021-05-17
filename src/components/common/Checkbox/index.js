@@ -5,7 +5,7 @@ import * as Styled from './style';
 const Checkbox = ({ isChecked, onChange, align, children }) => {
   return (
     <Styled.CheckboxContainer align={align}>
-      <Styled.Checkbox type="checkbox" checked={isChecked ? 'checked' : null} onChange={onChange} />
+      <Styled.Checkbox type="checkbox" checked={isChecked} onChange={onChange} />
       {children}
     </Styled.CheckboxContainer>
   );
