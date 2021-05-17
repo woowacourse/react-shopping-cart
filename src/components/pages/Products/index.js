@@ -3,13 +3,16 @@ import ProductItem from '../../ProductItem';
 import { ProductList, ProductPage } from './index.styles';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { ACTION_TYPE } from '../../../constants';
+import { ACTION_TYPE, MESSAGE } from '../../../constants';
 
 const Products = ({ products }) => {
   const dispatch = useDispatch();
 
   const handleCartButtonClick = product => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
+    if (window.confirm(MESSAGE.PRODUCTS.ADD_TO_CART_CONFIRM)) {
+      dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
+      alert(MESSAGE.PRODUCTS.ADD_TO_CART_ALERT);
+    }
   };
 
   return (
