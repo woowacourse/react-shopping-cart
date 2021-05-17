@@ -10,7 +10,6 @@ import Flex from '../components/utils/Flex';
 import PageMessage from '../components/PageMessage';
 
 import { toggleCheckbox, allCheck, allUnCheck } from '../modules/cart';
-import { addPaymentItems } from '../modules/payment';
 
 import { deleteCheckedItems, getTotalPrice } from '../utils';
 
@@ -73,10 +72,6 @@ const CartPage = () => {
     deleteCheckedItems(dispatch, checkedItemIds);
   };
 
-  const onPaymentButtonClick = () => {
-    dispatch(addPaymentItems(cartItems.filter((item) => item.checked)));
-  };
-
   return (
     <>
       <PageTitle pageTitle="장바구니" />
@@ -125,7 +120,7 @@ const CartPage = () => {
             price={getTotalPrice(cartItems)}
             selectedItemIds={checkedItemIds}
             linkPath="/payment"
-            onClick={onPaymentButtonClick}
+            state={cartItems.filter((item) => item.checked)}
             disabled={checkedItemIds.length === 0}
           />
         </Flex>

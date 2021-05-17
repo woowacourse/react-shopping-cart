@@ -1,10 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Redirect, useLocation, useHistory } from 'react-router-dom';
 
 import Flex from '../components/utils/Flex';
 import PaymentItem from '../components/PaymentItem';
 import PageTitle from '../components/PageTitle';
 import FloatingBox from '../components/FloatingBox';
+
+import { addPaymentItems } from '../modules/payment';
 
 import { deleteCheckedItems, getTotalPrice } from '../utils';
 
@@ -32,14 +35,22 @@ const PaymentPageWrapperStyle = css`
 `;
 
 const PaymentPage = () => {
-  const paymentItems = useSelector((state) => state.payment);
+  const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
+  const cartItemsToPayment = location.state;
+
+  if (!cartItemsToPayment) return <Redirect to="/" />;
 
   const onOrderButtonClick = () => {
+    dispatch(addPaymentItems(cartItemsToPayment));
+
     deleteCheckedItems(
       dispatch,
-      paymentItems.map((item) => item.id),
+      cartItemsToPayment.map((item) => item.id),
     );
+
+    history.replace('/cart');
   };
 
   return (
@@ -48,16 +59,16 @@ const PaymentPage = () => {
 
       <Flex justifyContent="space-between" css={PaymentPageWrapperStyle}>
         <PaymentItemSection>
-          <PaymentItemSectionTitle>주문 상품({paymentItems.length}건)</PaymentItemSectionTitle>
+          <PaymentItemSectionTitle>주문 상품({location.state.length}건)</PaymentItemSectionTitle>
           <PaymentList>
-            {paymentItems &&
-              paymentItems
+            {location.state &&
+              location.state
                 .map((paymentItem) => <PaymentItem key={paymentItem.id} paymentItem={paymentItem} />)
                 .reverse()}
           </PaymentList>
         </PaymentItemSection>
 
-        <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} onClick={onOrderButtonClick} />
+        <FloatingBox price={getTotalPrice(location.state)} linkPath={'/orders'} onClick={onOrderButtonClick} />
       </Flex>
     </>
   );

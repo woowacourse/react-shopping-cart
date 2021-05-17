@@ -45,17 +45,19 @@ const PageMessage = ({ image, alt, message }) => {
       <Image src={image} alt={alt} />
       <ContentWrapper>
         <ContentText>{message}</ContentText>
-        <Button
-          width="117px"
-          height="50px"
-          color="#ffffff"
-          border="none"
-          backgroundColor="#2ac1bc"
-          fontSize="18px"
-          css={ButtonStyle}
-        >
-          <LinkStyle to="/">쇼핑하러 가기</LinkStyle>
-        </Button>
+        <LinkStyle to="/">
+          <Button
+            width="117px"
+            height="50px"
+            color="#ffffff"
+            border="none"
+            backgroundColor="#2ac1bc"
+            fontSize="18px"
+            css={ButtonStyle}
+          >
+            쇼핑하러 가기
+          </Button>
+        </LinkStyle>
       </ContentWrapper>
     </Flex>
   );

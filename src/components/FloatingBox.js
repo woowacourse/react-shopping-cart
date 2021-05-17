@@ -73,7 +73,7 @@ const FloatingBoxContentWrapperStyle = css`
   margin: 35px 0;
 `;
 
-const FloatingBox = ({ price, selectedItemIds, linkPath, onClick, disabled }) => {
+const FloatingBox = ({ price, selectedItemIds, linkPath, onClick, disabled, state }) => {
   return (
     <FloatingBoxWrapper>
       <FloatingBoxHeader>
@@ -88,7 +88,7 @@ const FloatingBox = ({ price, selectedItemIds, linkPath, onClick, disabled }) =>
           </PriceText>
         </Flex>
 
-        <Link to={linkPath}>
+        <Link to={{ pathname: linkPath, state: state }}>
           {selectedItemIds ? (
             <StyledButton onClick={onClick} disabled={disabled}>
               주문하기 ({selectedItemIds.length}개)
