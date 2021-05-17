@@ -1,6 +1,6 @@
 import {
   ADD_TO_CART_SUCCESS,
-  CHANGE_ALL_CHECKBOXES_IN_CART,
+  TOGGLE_ALL_CHECKBOXES_IN_CART,
   REMOVE_PRODUCT_SUCCESS,
   REMOVE_CHECKED_PRODUCTS_SUCCESS,
   TOGGLE_CART_CHECKBOX,
@@ -17,7 +17,7 @@ const cartReducer = (state = [], action) => {
         product.id === action.productId ? { ...product, isChecked: !product.isChecked } : product
       );
 
-    case CHANGE_ALL_CHECKBOXES_IN_CART:
+    case TOGGLE_ALL_CHECKBOXES_IN_CART:
       return state.map((product) => ({ ...product, isChecked: action.toCheck }));
 
     case REMOVE_CHECKED_PRODUCTS_SUCCESS:

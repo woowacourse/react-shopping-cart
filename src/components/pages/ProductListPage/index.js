@@ -39,15 +39,11 @@ const ProductListPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(pageStartIndex);
-  }, [pageStartIndex]);
-
   const onAddToCart = (productId) => () => {
     if (cart.findIndex((product) => product.id === productId) >= 0) return;
 
     const selectedProduct = products.find((product) => product.id === productId);
-    dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: true }));
+    dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
 
     setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
   };

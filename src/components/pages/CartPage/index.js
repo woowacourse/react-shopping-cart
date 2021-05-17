@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
+import useUpdateEffect from '../../../hooks/useUpdateEffect';
 import {
-  changeAllCheckboxesInCart,
+  toggleAllCheckboxesInCart,
   changeAmount,
   removeCheckedProducts,
   removeProduct,
@@ -34,8 +35,8 @@ const CartPage = () => {
   };
 
   const onChangeAllCheckbox = () => {
+    dispatch(toggleAllCheckboxesInCart(!isAllChecked));
     setIsAllChecked(!isAllChecked);
-    dispatch(changeAllCheckboxesInCart(!isAllChecked));
   };
 
   const onRemoveCheckedProducts = () => {
@@ -53,18 +54,36 @@ const CartPage = () => {
 
   const onCheckout = () => {
     if (!confirm(APP_MESSAGE.ORDER_CONFIRMATION)) return;
+
+    const isCheckoutAvailable = cart.length && cart.some((product) => product.isChecked);
+    if (!isCheckoutAvailable) {
+      alert(APP_MESSAGE.NO_PRODUCTS_TO_ORDER);
+      return;
+    }
+
     window.location.hash = `#${PAGES.CHECKOUT.ADDRESS}`;
   };
 
   useEffect(() => {
-    if (cart.length === 0) return;
+    const isProductExists = !!cart.length;
+    dispatch(toggleAllCheckboxesInCart(isProductExists));
+    setIsAllChecked(isProductExists);
+  }, []);
 
-    if (isAllChecked && cart.some((product) => product.isChecked === false)) {
+  useUpdateEffect(() => {
+    if (!cart.length) {
       setIsAllChecked(false);
+      return;
     }
 
-    if (!isAllChecked && cart.every((product) => product.isChecked === true)) {
+    if (isAllChecked && cart.some((product) => !product.isChecked)) {
+      setIsAllChecked(false);
+      return;
+    }
+
+    if (!isAllChecked && cart.every((product) => product.isChecked)) {
       setIsAllChecked(true);
+      return;
     }
   }, [cart]);
 
