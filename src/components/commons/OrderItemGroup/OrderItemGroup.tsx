@@ -1,4 +1,4 @@
-import * as Styled from './ItemGroup.styles';
+import * as Styled from './OrderItemGroup.styles';
 
 export interface Props {
   children: React.ReactNode;
@@ -7,9 +7,9 @@ export interface Props {
   onDetailLinkClick?: () => void;
 }
 
-const ItemGroup = ({ children, orderNumber, onDetailLinkClick, detailLinkButtonText }: Props) => {
+const OrderItemGroup = ({ children, orderNumber, onDetailLinkClick, detailLinkButtonText }: Props) => {
   return (
-    <Styled.ItemGroup>
+    <Styled.OrderItemGroup>
       <Styled.Header>
         <Styled.OrderNumber>주문번호 : {orderNumber}</Styled.OrderNumber>
         {detailLinkButtonText && (
@@ -17,8 +17,8 @@ const ItemGroup = ({ children, orderNumber, onDetailLinkClick, detailLinkButtonT
         )}
       </Styled.Header>
       <Styled.ItemContainer>{children}</Styled.ItemContainer>
-    </Styled.ItemGroup>
+    </Styled.OrderItemGroup>
   );
 };
 
-export default ItemGroup;
+export default OrderItemGroup;

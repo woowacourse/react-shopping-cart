@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ItemGroup = styled.div`
+export const OrderItemGroup = styled.div`
   border: 1px solid ${({ theme }) => theme.GRAY_400};
 `;
 

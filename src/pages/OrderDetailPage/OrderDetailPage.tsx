@@ -2,7 +2,7 @@ import { Redirect, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
-import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
+import OrderItemGroup from '../../components/commons/OrderItemGroup/OrderItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 import Button from '../../components/commons/Button/Button';
 import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
@@ -89,7 +89,7 @@ const OrderDetailPage = () => {
           <PageTitle>주문내역상세</PageTitle>
         </Styled.PageTitleWrapper>
         <Styled.ItemGroupWrapper>
-          <ItemGroup orderNumber={String(orderId)}>{orderItemList}</ItemGroup>
+          <OrderItemGroup orderNumber={String(orderId)}>{orderItemList}</OrderItemGroup>
         </Styled.ItemGroupWrapper>
         <Styled.PageBottom>
           <Button size="MD" backgroundColor={COLORS.BROWN_500} onClick={onMoveToOrderListPage}>

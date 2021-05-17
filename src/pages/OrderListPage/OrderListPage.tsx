@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import useSnackBar from '../../hooks/useSnackBar';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
-import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
+import OrderItemGroup from '../../components/commons/OrderItemGroup/OrderItemGroup';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 import Button from '../../components/commons/Button/Button';
 import Loading from '../../components/commons/Loading/Loading';
@@ -62,7 +62,7 @@ const OrderListPage = () => {
 
   const orderList = orders.map(order => (
     <Styled.ItemGroupWrapper key={order.id}>
-      <ItemGroup
+      <OrderItemGroup
         detailLinkButtonText="상세보기 >"
         orderNumber={String(order.id)}
         onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.id))}
@@ -81,7 +81,7 @@ const OrderListPage = () => {
             </Button>
           </Styled.OrderWrapper>
         ))}
-      </ItemGroup>
+      </OrderItemGroup>
     </Styled.ItemGroupWrapper>
   ));
 

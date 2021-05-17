@@ -1,14 +1,14 @@
-import ItemGroup, { Props } from './ItemGroup';
+import OrderItemGroup, { Props } from './OrderItemGroup';
 import ProductListItem from '../ProductListItem/ProductListItem';
 
 export default {
-  title: 'Components/Commons/ItemGroup',
-  component: ItemGroup,
+  title: 'Components/Commons/OrderItemGroup',
+  component: OrderItemGroup,
   argTypes: {},
 };
 
 const Template = (args: Props) => (
-  <ItemGroup {...args}>
+  <OrderItemGroup {...args}>
     <ProductListItem
       productThumbnail={
         'https://images.unsplash.com/photo-1589365278144-c9e705f843ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
@@ -18,7 +18,7 @@ const Template = (args: Props) => (
       productQuantity={'3'}
       size={'SM'}
     />
-  </ItemGroup>
+  </OrderItemGroup>
 );
 
 export const Default = Template.bind({});
