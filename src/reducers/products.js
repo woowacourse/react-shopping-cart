@@ -1,6 +1,7 @@
 import { ACTION_TYPE, PRODUCT } from '../constants';
 
 const initialState = {
+  fetchedProducts: [],
   pickedProducts: {},
 };
 
@@ -108,6 +109,9 @@ const deleteProduct = (state, id) => {
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ACTION_TYPE.PRODUCTS.FETCH_PRODUCTS:
+      return { ...state, fetchedProducts: action.products };
+
     case ACTION_TYPE.PRODUCTS.ADD_TO_CART:
       return addToCart(state, action.product);
 

@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductItem from '../../ProductItem';
 import { ProductList, ProductPage } from './index.styles';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ACTION_TYPE, MESSAGE } from '../../../constants';
+import axios from 'axios';
 
-const Products = ({ products }) => {
+const Products = () => {
+  const products = useSelector(({ product }) => product.fetchedProducts);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // TODO: 미들 웨어 적용
+    async function fetchProducts() {
+      try {
+        const response = await axios.get('/products');
+
+        dispatch({
+          type: ACTION_TYPE.PRODUCTS.FETCH_PRODUCTS,
+          products: response.data,
+        });
+      } catch (error) {
+        //TODO: 상품을 못 받아 왔을 때, 안내 화면 띄우기
+        console.error(error.message);
+      }
+    }
+
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleCartButtonClick = product => {
     if (window.confirm(MESSAGE.PRODUCTS.ADD_TO_CART_CONFIRM)) {

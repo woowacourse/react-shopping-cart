@@ -2,6 +2,7 @@ import noImage from '../assets/image/noImage.jpeg';
 
 export const ACTION_TYPE = {
   PRODUCTS: {
+    FETCH_PRODUCTS: 'products/patchProducts',
     ADD_TO_CART: 'products/addToCart',
     INCREASE_QUANTITY: 'products/increaseQuantity',
     DECREASE_QUANTITY: 'products/decreaseQuantity',
