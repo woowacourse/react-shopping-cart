@@ -70,10 +70,7 @@ const CartPage = () => {
   }, []);
 
   useUpdateEffect(() => {
-    if (!cart.length) {
-      setIsAllChecked(false);
-      return;
-    }
+    if (!cart.length) return;
 
     if (isAllChecked && cart.some((product) => !product.isChecked)) {
       setIsAllChecked(false);
@@ -116,13 +113,15 @@ const CartPage = () => {
                 imageSize="9rem"
                 product={product}
               >
-                <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
-                  <Button type="button" onClick={onRemoveProduct(product.id)} backgroundColor="transparent">
-                    <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
-                  </Button>
-                  <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.id)} />
-                  <p>{Number(product.price).toLocaleString()} 원</p>
-                </FlexContainer>
+                <div>
+                  <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
+                    <Button type="button" onClick={onRemoveProduct(product.id)} backgroundColor="transparent">
+                      <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
+                    </Button>
+                    <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.id)} />
+                    <p>{Number(product.price).toLocaleString()} 원</p>
+                  </FlexContainer>
+                </div>
               </ProductListItem>
             ))}
           </ProductList>
