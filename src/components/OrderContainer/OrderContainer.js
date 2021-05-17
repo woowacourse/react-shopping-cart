@@ -16,7 +16,7 @@ const OrderContainer = ({ orderId, children, onClickDetail, showDetailButton }) 
 );
 
 OrderContainer.propTypes = {
-  orderId: PropTypes.string.isRequired,
+  orderId: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
   onClickDetail: PropTypes.func,
   showDetailButton: PropTypes.bool,

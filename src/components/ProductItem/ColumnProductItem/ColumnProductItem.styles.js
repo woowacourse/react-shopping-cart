@@ -5,17 +5,18 @@ const Container = styled.div`
   width: 280px;
   margin-bottom: 50px;
 `;
+
 const ImageContainer = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 28rem;
+  height: 28rem;
   overflow: hidden;
   cursor: pointer;
 
   &:after {
     content: '';
-    width: 100%;
-    height: 100%;
+    width: 28rem;
+    height: 28rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -23,9 +24,11 @@ const ImageContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.03);
   }
 `;
+
 const Image = styled.img`
-  width: 100%;
-  object-fit: cover;
+  width: 28rem;
+  height: 28rem;
+  object-fit: contain;
 `;
 
 const DetailContainer = styled.div`

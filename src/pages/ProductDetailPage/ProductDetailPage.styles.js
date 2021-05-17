@@ -11,14 +11,14 @@ const Container = styled.div`
 const ImageContainer = styled.div`
   position: relative;
   max-width: 57rem;
-  height: auto;
+  height: 57rem;
   display: flex;
   margin: 0 3.5rem;
 
   &:after {
     content: '';
-    width: 100%;
-    height: 100%;
+    width: 57rem;
+    height: 57rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -29,7 +29,9 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   margin: auto;
-  width: 100%;
+  width: 57rem;
+  height: 57rem;
+  object-fit: contain;
 `;
 
 const Name = styled.div`

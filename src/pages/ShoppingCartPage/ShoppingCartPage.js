@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';

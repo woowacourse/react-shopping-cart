@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { Container, ImageContainer, Image, Name, PriceContainer, ShoppingCartButton } from './ProductDetailPage.styles';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { numberWithCommas } from '../../shared/utils';
@@ -11,23 +12,24 @@ import { SCHEMA } from '../../constants';
 const ProductDetailPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const { setModalOpen, Modal } = useModal(false);
 
   const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { getData: getProductDetail } = useServerAPI([], 'products');
 
-  const product = {
-    product_id: 'xYmzN8N6FqFhtL73w61z',
-    price: 10000,
-    name: '치킨',
-    image_url: 'https://cdn-mart.baemin.com/sellergoods/bulk/20201119-141118/16215-main-01.jpg',
-  };
+  const [product, setProduct] = useState({});
 
   const putProductInShoppingCart = productId => {
     dispatch(addShoppingCartItemAsync(productId));
 
     setModalOpen(true);
   };
+
+  useEffect(() => {
+    getProductDetail(id).then(data => setProduct(data));
+  }, []);
 
   return (
     <ScreenContainer route={location.pathname}>
@@ -38,7 +40,7 @@ const ProductDetailPage = () => {
         <Name>{product.name}</Name>
         <PriceContainer>
           <span>금액</span>
-          <span>{`${numberWithCommas(product.price)}원`}</span>
+          <span>{`${numberWithCommas(product.price || 0)}원`}</span>
         </PriceContainer>
         <ShoppingCartButton onClick={() => putProductInShoppingCart(product.product_id)}>장바구니</ShoppingCartButton>
       </Container>

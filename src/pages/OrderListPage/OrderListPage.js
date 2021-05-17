@@ -1,7 +1,7 @@
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
-import { ROUTE, SCHEMA } from '../../constants';
+import { ROUTE } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/action';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
@@ -12,8 +12,8 @@ const OrderListPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
-  const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
+  const { value: productList } = useServerAPI([], 'products');
+  const { value: orderList } = useServerAPI([], 'orders');
 
   const { Modal, setModalOpen } = useModal(false);
 
@@ -34,18 +34,14 @@ const OrderListPage = () => {
       <Header>주문 목록</Header>
 
       <Container>
-        {orderList.map(order => (
-          <OrderContainer key={order.id} orderId={order.id} onClickDetail={() => goOrderDetail(order.id)}>
-            {order.orderedProductList?.map(({ id, amount }) => {
-              const { img, name, price } = productList.find(product => product.id === id);
-
-              return (
-                <OrderItemContainer key={id}>
-                  <RowProductItem imgSrc={img} name={name} price={price * amount} amount={amount} />
-                  <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>
-                </OrderItemContainer>
-              );
-            })}
+        {orderList.map(({ order_id: orderId, order_details: orderDetails }) => (
+          <OrderContainer key={orderId} orderId={orderId} onClickDetail={() => goOrderDetail(orderId)}>
+            {orderDetails?.map(({ product_id: productId, quantity, image_url: imageUrl, name, price }) => (
+              <OrderItemContainer key={productId}>
+                <RowProductItem imgSrc={imageUrl} name={name} price={price * quantity} amount={quantity} />
+                <Button onClick={() => onClickShoppingCartButton(productId)}>장바구니</Button>
+              </OrderItemContainer>
+            ))}
           </OrderContainer>
         ))}
       </Container>

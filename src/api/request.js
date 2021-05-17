@@ -6,13 +6,31 @@ const collection = {
   [SCHEMA.ORDER]: firestore.collection(SCHEMA.ORDER),
   [SCHEMA.SHOPPING_CART]: firestore.collection(SCHEMA.SHOPPING_CART),
 };
+const BASE_URL = 'https://shopping-cart.techcourse.co.kr';
+
+const fetchUrl = {
+  products: `${BASE_URL}/api/products`,
+  orders: `${BASE_URL}/api/customers/hyuuunjukim/orders`,
+  carts: `${BASE_URL}/api/customers/hyuuunjukim/carts`,
+};
 
 const requestTable = {
-  GET: async (ref, targetId) => {
-    if (targetId) {
-      return (await collection[ref].doc(targetId).get()).data();
+  GET: async (type, targetId) => {
+    try {
+      const requestOption = {
+        method: 'GET',
+      };
+
+      const response = await fetch(`${fetchUrl[type]}${targetId ? '/' + targetId : ''}`, requestOption);
+
+      if (!response.ok) {
+        throw response;
+      }
+
+      return await response.json();
+    } catch (response) {
+      console.error(await response);
     }
-    return (await collection[ref].get()).docs.map(doc => ({ id: doc.id, ...doc.data() }));
   },
   POST: async (ref, content) => collection[ref].add(content),
   PUT: async (ref, targetId, content) => collection[ref].doc(targetId).update(content),

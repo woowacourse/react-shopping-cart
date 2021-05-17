@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container } from './ProductListPage.styles';
-import { ROUTE, SCHEMA } from '../../constants';
+import { ROUTE } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/action';
 import { ColumnProductItem, SuccessAddedModal } from '../../components';
@@ -14,7 +13,7 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
 
   const { setModalOpen, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: productList } = useServerAPI([], 'products');
 
   const onClickShoppingCartIcon = productId => {
     dispatch(addShoppingCartItemAsync(productId));
@@ -31,14 +30,14 @@ const ProductListPage = () => {
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
-        {productList.map(({ id, img, name, price }) => (
+        {productList.map(({ product_id: productId, image_url: imageUrl, name, price }) => (
           <ColumnProductItem
-            key={id}
-            imgSrc={img}
+            key={productId}
+            imgSrc={imageUrl}
             name={name}
             price={`${price}`}
-            onClickShoppingCartIcon={() => onClickShoppingCartIcon(id)}
-            onClickImage={() => goProductDetail(id)}
+            onClickShoppingCartIcon={() => onClickShoppingCartIcon(productId)}
+            onClickImage={() => goProductDetail(productId)}
           />
         ))}
       </Container>
