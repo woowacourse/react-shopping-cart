@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { STATUS_CODE, URL } from '../constants';
+import useFetchingStatus from './useFetchingStatus';
 
 const useCart = () => {
   const [cartItems, setCartItems] = useState<Cart>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
+  const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
 
   useEffect(() => {
     const fetchCartItems = async () => {

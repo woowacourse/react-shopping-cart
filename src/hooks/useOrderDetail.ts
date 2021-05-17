@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { STATUS_CODE, URL } from '../constants';
+import useFetchingStatus from './useFetchingStatus';
 
 const useOrderDetail = () => {
   const [orderItems, setOrderItems] = useState<Order['orderItems']>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
+  const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
 
   useEffect(() => {
     const fetchData = async () => {

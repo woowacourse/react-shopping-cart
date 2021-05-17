@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { STATUS_CODE, URL } from '../constants';
 import noImagePNG from '../assets/images/no-image.png';
+import useFetchingStatus from './useFetchingStatus';
 
 const defaultProduct: Product = {
   id: '0',
@@ -13,8 +14,7 @@ const defaultProduct: Product = {
 
 const useProductDetail = () => {
   const [product, setProduct] = useState<Product>(defaultProduct);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseOK, setResponseOK] = useState<boolean>(true);
+  const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
 
   useEffect(() => {
     const fetchData = async () => {
