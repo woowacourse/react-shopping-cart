@@ -50,7 +50,7 @@ const shoppingCartReducers = (state = initialState, action) => {
       return {
         ...state,
         shoppingCartItemList: reducerUtils.success(
-          state.shoppingCartItemList.data.filter((shoppingCartItem) => shoppingCartItem.id !== action.payload)
+          state.shoppingCartItemList.data.filter((shoppingCartItem) => shoppingCartItem.cart_id !== action.payload)
         ),
       };
     case DELETE_SHOPPING_CART_ITEM_FAILURE:
@@ -86,7 +86,9 @@ const shoppingCartReducers = (state = initialState, action) => {
     case GET_SHOPPING_CART_ITEM_LIST_SUCCESS: {
       return {
         ...state,
-        shoppingCartItemList: reducerUtils.success(action.payload),
+        shoppingCartItemList: reducerUtils.success(
+          action.payload.map((item) => ({ ...item, count: 1, isChecked: true }))
+        ),
       };
     }
     case GET_SHOPPING_CART_ITEM_LIST_FAILURE: {
@@ -98,7 +100,7 @@ const shoppingCartReducers = (state = initialState, action) => {
 
     case TOGGLE_SHOPPING_CART_ITEM: {
       const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
-        if (shoppingCartItem.id === action.payload) {
+        if (shoppingCartItem.cart_id === action.payload) {
           return {
             ...shoppingCartItem,
             isChecked: !shoppingCartItem.isChecked,
@@ -134,7 +136,7 @@ const shoppingCartReducers = (state = initialState, action) => {
 
     case INCREASE_COUNT: {
       const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
-        if (shoppingCartItem.id === action.payload) {
+        if (shoppingCartItem.cart_id === action.payload) {
           return {
             ...shoppingCartItem,
             count: shoppingCartItem.count + 1,
@@ -151,7 +153,7 @@ const shoppingCartReducers = (state = initialState, action) => {
 
     case DECREASE_COUNT: {
       const changedShoppingCartItemList = state.shoppingCartItemList.data.map((shoppingCartItem) => {
-        if (shoppingCartItem.id === action.payload) {
+        if (shoppingCartItem.cart_id === action.payload) {
           return {
             ...shoppingCartItem,
             count: shoppingCartItem.count - 1,

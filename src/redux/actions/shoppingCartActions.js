@@ -38,7 +38,7 @@ export const getShoppingCartItemList = createAsyncThunk(GET_SHOPPING_CART_ITEM_L
 );
 
 const requestDeleteCheckedItemList = (checkedItemList) =>
-  Promise.all(checkedItemList.map(({ id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id)));
+  Promise.all(checkedItemList.map(({ cart_id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, cart_id)));
 
 export const deleteCheckedShoppingCartList = createAsyncThunk(
   DELETE_CHECKED_SHOPPING_CART_ITEM_LIST,
