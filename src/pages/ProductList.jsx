@@ -24,9 +24,9 @@ const ProductList = () => {
 
   return (
     <Container>
-      {productItemList.map(({ id, name, src, alt, price }) => (
-        <li key={id}>
-          <ProductListItem id={id} name={name} src={src} alt={alt} price={price} />
+      {productItemList.map(({ product_id, name, image_url, price }) => (
+        <li key={product_id}>
+          <ProductListItem id={product_id} name={name} src={image_url} price={price} />
         </li>
       ))}
     </Container>

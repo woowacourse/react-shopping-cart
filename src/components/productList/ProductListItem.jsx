@@ -33,12 +33,13 @@ const Image = styled.img`
 const ADD_SUCCESS = 'ADD_SUCCESS';
 const ADD_FAILURE = 'ADD_FAILURE';
 
-const ProductListItem = ({ id, name, src, alt, price }) => {
+const ProductListItem = ({ id, name, src, price }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
-  const shoppingCartList = useSelector((state) => state.shoppingCart.shoppingCartItemList.data);
+  const shoppingCartItemList = useSelector((state) => state.shoppingCart.shoppingCartItemList.data);
   const dispatch = useDispatch();
 
-  const isExistedInShoppingCart = () => shoppingCartList.some((shoppingCartItem) => shoppingCartItem.id === id);
+  const isExistedInShoppingCart = () =>
+    shoppingCartItemList.some((shoppingCartItem) => shoppingCartItem.product_id === id);
 
   const handleShoppingCartImage = () => {
     if (isExistedInShoppingCart()) {
@@ -50,7 +51,7 @@ const ProductListItem = ({ id, name, src, alt, price }) => {
 
     setType(ADD_SUCCESS);
     setIsDialogOpen(true);
-    dispatch(insertShoppingCartItem({ id, name, src, alt, price, isChecked: true, count: 1 }));
+    dispatch(insertShoppingCartItem({ product_id: id }));
   };
 
   const handleConfirm = () => {
@@ -60,7 +61,7 @@ const ProductListItem = ({ id, name, src, alt, price }) => {
   return (
     <>
       <div>
-        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={alt} />
+        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={name} />
         <Content>
           <li>
             <Name>{name}</Name>
@@ -85,7 +86,6 @@ ProductListItem.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };
 
