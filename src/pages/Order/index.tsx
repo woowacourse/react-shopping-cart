@@ -6,7 +6,9 @@ import { CartItem } from "../../types";
 import { Container, OrderListTitle, Section, Main } from "./style";
 
 interface LocationState {
-  order: CartItem[];
+  order: (CartItem & {
+    quantity: number;
+  })[];
   totalPrice: number;
 }
 
@@ -21,8 +23,8 @@ const Order = () => {
         <OrderListTitle>{`주문 상품(${order.length}건)`}</OrderListTitle>
         <Section>
           <ul>
-            {order.map(({ id, name, quantity, imageSrc }) => (
-              <OrderProductItem id={id} imageSrc={imageSrc} name={name} quantity={quantity} />
+            {order.map(({ cart_id, name, quantity, image_url }) => (
+              <OrderProductItem id={cart_id} imageSrc={image_url} name={name} quantity={quantity} />
             ))}
           </ul>
         </Section>

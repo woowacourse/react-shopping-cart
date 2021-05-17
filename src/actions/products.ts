@@ -1,4 +1,4 @@
-import { ProductsObject, RequestError } from "../types";
+import { Product, RequestError } from "../types";
 import { createAction, ActionType } from "typesafe-actions";
 
 const productsActionType = {
@@ -11,8 +11,8 @@ const productsActionType = {
 
 const products = {
   get: {
-    request: createAction(productsActionType.get.request)(),
-    success: createAction(productsActionType.get.success, (products: ProductsObject) => products)<ProductsObject>(),
+    request: createAction(productsActionType.get.request, (product_id: string = "") => product_id)<string>(),
+    success: createAction(productsActionType.get.success, (products: Product[]) => products)<Product[]>(),
     failure: createAction(
       productsActionType.get.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage

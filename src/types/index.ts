@@ -1,38 +1,29 @@
 interface Product {
+  product_id: string;
   name: string;
   price: number;
-  imageSrc: string;
+  image_url: string;
 }
 
-interface ProductsObject {
-  products: {
-    [key: string]: Product;
-  };
+interface CartItem {
+  cart_id: string;
+  name: string;
+  price: number;
+  image_url: string;
 }
 
-interface Id {
-  id: string;
-}
-
-interface CartItem extends Product, Id {
+interface Order {
+  cart_id: string;
   quantity: number;
 }
 
-interface Cart {
-  cart: CartItem[];
-}
-
-interface OrderItem extends Product, Id {
-  quantity: number;
-}
-
-interface Order extends Id {
-  itemList: OrderItem[];
-}
-
-interface OrderList {
-  orderList: Order[];
-}
+type OrderList = {
+  order_id: string;
+  order_details: Product &
+    {
+      quantity: number;
+    }[];
+}[];
 
 interface RequestError {
   requestErrorMessage: string | null;
@@ -48,4 +39,4 @@ interface Animation {
   };
 }
 
-export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError, Loading, Animation };
+export { Product, CartItem, Order, OrderList, RequestError, Loading, Animation };

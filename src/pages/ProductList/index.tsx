@@ -2,8 +2,7 @@ import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { CartAnimation, Product, ProductImage } from "../../Components";
-import { CartItem } from "../../types";
+import { CartAnimation, Product } from "../../Components";
 import { RootState } from "../../store";
 
 import { Container } from "./styles";
@@ -25,30 +24,22 @@ const ProductList: VFC = () => {
     dispatch(actions.products.get.request());
   }, []);
 
-  const onClickCart = (id: string) => {
-    const cartItem: CartItem = {
-      id,
-      name: products[id].name,
-      price: products[id].price,
-      imageSrc: products[id].imageSrc,
-      quantity: 1,
-    };
-
-    dispatch(actions.cart.post.request(cartItem));
+  const onClickCart = (product_id: string) => {
+    dispatch(actions.cart.post.request(product_id));
   };
 
   return (
     <Container>
-      {Object.entries(products).map(([id, { imageSrc, name, price }]) => (
+      {products.map(({ product_id, image_url, name, price }) => (
         <Product
-          key={id}
-          id={id}
-          imageSrc={imageSrc}
+          key={product_id}
+          id={product_id}
+          imageSrc={image_url}
           imageSize="282px"
           name={name}
           price={price}
           onClickCart={() => {
-            onClickCart(id);
+            onClickCart(product_id);
           }}
         />
       ))}

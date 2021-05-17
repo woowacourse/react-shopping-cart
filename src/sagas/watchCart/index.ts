@@ -15,7 +15,7 @@ function* getCart() {
   try {
     const cartItem: CartItem[] = yield call(api.cart.get);
 
-    yield put(actions.cart.get.success({ cart: cartItem }));
+    yield put(actions.cart.get.success(cartItem));
   } catch (error) {
     yield put(actions.cart.get.failure({ requestErrorMessage: error.message }));
   }

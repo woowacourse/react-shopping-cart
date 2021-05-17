@@ -1,7 +1,11 @@
-import { Cart, Loading, Animation, RequestError } from "../../types";
+import { Loading, Animation, RequestError, CartItem } from "../../types";
 import { CartActionType, cartActionType } from "../../actions/cart";
 
-const initialState: Cart & Loading & Animation & RequestError = {
+interface InitialState extends Loading, Animation, RequestError {
+  cart: CartItem[];
+}
+
+const initialState: InitialState = {
   cart: [],
   loading: false,
   animation: {
@@ -10,7 +14,7 @@ const initialState: Cart & Loading & Animation & RequestError = {
   requestErrorMessage: null,
 };
 
-const cartReducer = (state: Cart & Loading & Animation & RequestError = initialState, action: CartActionType) => {
+const cartReducer = (state: InitialState = initialState, action: CartActionType) => {
   switch (action.type) {
     case cartActionType.get.request:
       return {
@@ -19,9 +23,10 @@ const cartReducer = (state: Cart & Loading & Animation & RequestError = initialS
       };
 
     case cartActionType.get.success:
+      console.log(action);
       return {
         ...state,
-        cart: [...action.payload.cart],
+        cart: [...action.payload],
         loading: false,
         requestErrorMessage: null,
       };

@@ -30,14 +30,15 @@ const Cart: VFC = () => {
     requestErrorMessage,
   }));
 
-  const totalPrice = cart.reduce((acc, { id, price }) => {
-    return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
+  console.log(checkedList, orderCountList, cart);
+  const totalPrice = cart.reduce((acc, { cart_id, price }) => {
+    return checkedList[cart_id] ? acc + price * orderCountList[cart_id] : acc;
   }, 0);
 
   const setCheckedListAll = (checked: boolean) => {
     setCheckedList(
-      cart.reduce((acc: CheckedList, { id }) => {
-        acc[id] = checked;
+      cart.reduce((acc: CheckedList, { cart_id }) => {
+        acc[cart_id] = checked;
 
         return acc;
       }, {})
@@ -46,8 +47,8 @@ const Cart: VFC = () => {
 
   const resetOrderCountList = () => {
     setOrderCountList(
-      cart.reduce((acc: OrderCountList, { id }) => {
-        acc[id] = 1;
+      cart.reduce((acc: OrderCountList, { cart_id }) => {
+        acc[cart_id] = 1;
 
         return acc;
       }, {})
@@ -72,18 +73,18 @@ const Cart: VFC = () => {
     setCheckedListAll(checkedCount !== cart.length);
   };
 
-  const onChangeChecked = (id: string) => {
-    setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
+  const onChangeChecked = (cart_id: string) => {
+    setCheckedList((prev) => ({ ...prev, [cart_id]: !prev[cart_id] }));
   };
 
   const deleteSelectedCartItems = () => {
-    const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
+    const selectedIds = Object.keys(checkedList).filter((cart_id) => checkedList[cart_id]);
     dispatch(actions.cart.delete.request(selectedIds));
   };
 
-  const onIncrementOrderCount = (id: string) => {
+  const onIncrementOrderCount = (cart_id: string) => {
     setOrderCountList((prev) => {
-      const prevCount = prev[id];
+      const prevCount = prev[cart_id];
 
       if (prevCount >= ORDER_COUNT.MAX) {
         return prev;
@@ -91,14 +92,14 @@ const Cart: VFC = () => {
 
       return {
         ...prev,
-        [id]: prev[id] + 1,
+        [cart_id]: prev[cart_id] + 1,
       };
     });
   };
 
-  const onDecrementOrderCount = (id: string) => {
+  const onDecrementOrderCount = (cart_id: string) => {
     setOrderCountList((prev) => {
-      const prevCount = prev[id];
+      const prevCount = prev[cart_id];
 
       if (prevCount <= ORDER_COUNT.MIN) {
         return prev;
@@ -106,14 +107,16 @@ const Cart: VFC = () => {
 
       return {
         ...prev,
-        [id]: prev[id] - 1,
+        [cart_id]: prev[cart_id] - 1,
       };
     });
   };
 
   const onClickSubmitButton = () => {
     history.push("/order", {
-      order: cart.filter(({ id }) => checkedList[id]).map((item) => ({ ...item, quantity: orderCountList[item.id] })),
+      order: cart
+        .filter(({ cart_id }) => checkedList[cart_id])
+        .map((item) => ({ ...item, quantity: orderCountList[item.cart_id] })),
       totalPrice,
     });
   };
@@ -155,24 +158,23 @@ const Cart: VFC = () => {
         <Section>
           <CartListTitle>든든상품 ({cart.length} 개)</CartListTitle>
           <ul>
-            {cart.map(({ id, name, price, imageSrc }) => (
-              <li key={id}>
+            {cart.map(({ cart_id, name, price, image_url }) => (
+              <li key={cart_id}>
                 <CartItem
-                  id={id}
+                  id={cart_id}
                   name={name}
-                  price={price * orderCountList[id]}
-                  imageSrc={imageSrc}
-                  isChecked={checkedList[id]}
-                  quantity={orderCountList[id]}
-                  onIncrementOrderCount={() => onIncrementOrderCount(id)}
-                  onDecrementOrderCount={() => onDecrementOrderCount(id)}
-                  onChangeChecked={() => onChangeChecked(id)}
+                  price={price * orderCountList[cart_id]}
+                  imageSrc={image_url}
+                  isChecked={checkedList[cart_id]}
+                  quantity={orderCountList[cart_id]}
+                  onIncrementOrderCount={() => onIncrementOrderCount(cart_id)}
+                  onDecrementOrderCount={() => onDecrementOrderCount(cart_id)}
+                  onChangeChecked={() => onChangeChecked(cart_id)}
                 />
               </li>
             ))}
           </ul>
         </Section>
-        {/* TODO Position: relative <-> fixed */}
         <SubmitBox
           title="결제예상금액"
           width="448px"

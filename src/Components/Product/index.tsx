@@ -18,7 +18,7 @@ interface ProductProps {
 const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, price, onClickCart }) => (
   <Container>
     <Link to={`/products/${id}`}>
-      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />,
+      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />
     </Link>
     <ItemInfoWrap>
       <Link to={`/products/${id}`}>

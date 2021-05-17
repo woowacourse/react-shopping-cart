@@ -1,13 +1,17 @@
-import { ProductsObject, Loading, RequestError } from "../../types";
+import { Loading, RequestError, Product } from "../../types";
 import { ProductsActionType, productsActionType } from "../../actions/products";
 
-const initialState: ProductsObject & Loading & RequestError = {
-  products: {},
+interface InitialState extends Loading, RequestError {
+  products: Product[];
+}
+
+const initialState: InitialState = {
+  products: [],
   loading: false,
   requestErrorMessage: null,
 };
 
-const productsReducer = (state: ProductsObject & Loading & RequestError = initialState, action: ProductsActionType) => {
+const productsReducer = (state: InitialState = initialState, action: ProductsActionType) => {
   switch (action.type) {
     case productsActionType.get.request:
       return {
@@ -18,7 +22,7 @@ const productsReducer = (state: ProductsObject & Loading & RequestError = initia
     case productsActionType.get.success:
       return {
         ...state,
-        products: { ...action.payload.products },
+        products: [...action.payload],
         loading: false,
         requestErrorMessage: null,
       };
