@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
 
-const CompletedOrderList = ({ order }) => {
-  const { id, products } = order;
-
+const CompletedOrderList = ({ orderId, products }) => {
   return (
     <OrderList>
       <Header>
-        <span>주문번호 : {id}</span>
+        <span>주문번호 : {orderId}</span>
         <span>상세보기 ᐳ </span>
       </Header>
       <ul>
@@ -31,18 +29,16 @@ const CompletedOrderList = ({ order }) => {
 };
 
 CompletedOrderList.propTypes = {
-  order: PropTypes.shape({
-    id: PropTypes.string,
-    products: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        imgUrl: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        quantity: PropTypes.number,
-      })
-    ),
-  }),
+  orderId: PropTypes.string,
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      imgUrl: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      quantity: PropTypes.number,
+    })
+  ),
 };
 
 export default CompletedOrderList;

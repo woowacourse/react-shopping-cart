@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
-import { combineReducers, createStore } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import { NavBar, ShoppingCart, Products, OrderPayment } from './components';
-import productReducer from './reducers/products';
+import {
+  NavBar,
+  ShoppingCart,
+  Products,
+  OrderPayment,
+  CompletedOrder,
+} from './components';
 import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
+import rootReducer from './reducers';
 
-const reducer = combineReducers({
-  product: productReducer,
-});
-
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -42,10 +44,13 @@ function App() {
           <Products products={products} />
         </Route>
         <Route exact path={ROUTE.CART}>
-          <ShoppingCart products={products} />
+          <ShoppingCart />
         </Route>
         <Route exact path={ROUTE.ORDER_PAYMENT}>
-          <OrderPayment products={products} />
+          <OrderPayment />
+        </Route>
+        <Route exact path={ROUTE.COMPLETED_ORDER}>
+          <CompletedOrder />
         </Route>
       </Router>
     </Provider>

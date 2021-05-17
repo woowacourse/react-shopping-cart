@@ -10,6 +10,9 @@ export const ACTION_TYPE = {
     DELETE_CHECKED: 'products/deleteCheckedProducts',
     DELETE: 'products/deleteProduct',
   },
+  ORDER: {
+    ADD_TO_ORDER_LIST: 'orders/addToOrderList',
+  },
 };
 
 export const FALLBACK = {

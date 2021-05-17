@@ -12,3 +12,11 @@ export const getTotalQuantity = products => {
 
 export const formatPrice = price =>
   new Intl.NumberFormat('ko-KR').format(price);
+
+const idMaker = () => {
+  let id = 0;
+
+  return () => ++id;
+};
+
+export const getId = idMaker();
