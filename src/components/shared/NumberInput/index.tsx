@@ -61,10 +61,13 @@ const NumberInput: FC<Props> = ({ value, setValue, min = -Infinity, max = Infini
       />
       <Container>
         <IncreaseButton type="button" data-testid="increase-button" onClick={onClickIncreaseButton}>
-          <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
+          <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="upward-arrow" />
         </IncreaseButton>
         <DecreaseButton type="button" data-testid="decrease-button" onClick={onClickDecreaseButton}>
-          <img src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'} alt="arrow" />
+          <img
+            src={process.env.PUBLIC_URL + '/icons/number-input-arrow.svg'}
+            alt="downward-arrow"
+          />
         </DecreaseButton>
       </Container>
     </NumberInputContainer>
