@@ -10,6 +10,7 @@ const OrderPayment = () => {
   const products = Object.values(
     useSelector(({ product }) => product.pickedProducts)
   );
+  const checkedProducts = products.filter(({ isChecked }) => isChecked);
 
   return (
     <Page>
@@ -18,7 +19,7 @@ const OrderPayment = () => {
         <OrderList>
           <div>주문상품({getTotalQuantity(products)}개)</div>
           <ul>
-            {products.map(product => (
+            {checkedProducts.map(product => (
               <li key={product.id}>
                 <OrderItem {...product} isOrdered={false} />
               </li>

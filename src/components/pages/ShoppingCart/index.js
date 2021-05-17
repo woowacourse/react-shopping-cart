@@ -44,7 +44,7 @@ const ShoppingCart = () => {
   const history = useHistory();
 
   const handlePaymentSheetButtonClick = () => {
-    if (products.length > 0) {
+    if (products.some(({ isChecked }) => isChecked)) {
       history.push(ROUTE.ORDER_PAYMENT);
 
       return;
