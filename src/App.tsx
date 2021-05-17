@@ -8,12 +8,6 @@ import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
 const App: FC = () => {
-  const { fetchCartItemRedux } = useFetchCartRedux();
-
-  useEffect(() => {
-    fetchCartItemRedux();
-  }, []);
-
   return (
     <div className="App">
       <NavigationBar />
