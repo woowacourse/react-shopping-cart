@@ -8,7 +8,7 @@ const HighlightText = ({ highlightColor, children }) => {
 
 HighlightText.propTypes = {
   highlightColor: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element, PropTypes.string]),
+  children: PropTypes.node,
 };
 
 HighlightText.defaultProps = {};
