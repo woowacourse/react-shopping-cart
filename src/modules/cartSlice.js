@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const cartReducer = createSlice({
-  name: 'cartReducer',
+const cartSlice = createSlice({
+  name: 'cart',
   initialState: [],
   reducers: {
     increaseQuantity: (state, { payload: id }) => {
@@ -77,6 +77,6 @@ export const {
   toggleCheckbox,
   allCheck,
   allUnCheck,
-} = cartReducer.actions;
+} = cartSlice.actions;
 
-export default cartReducer.reducer;
+export default cartSlice.reducer;

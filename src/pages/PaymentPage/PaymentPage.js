@@ -34,7 +34,7 @@ const PaymentPageWrapperStyle = css`
 `;
 
 const PaymentPage = () => {
-  const paymentItems = useSelector((state) => state.payment);
+  const paymentItems = useSelector((state) => state.paymentSlice);
   const dispatch = useDispatch();
 
   const onOrderButtonClick = () => {

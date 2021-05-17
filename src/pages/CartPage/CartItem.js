@@ -10,7 +10,7 @@ import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
 import { MESSAGE, NUMBER, COLOR } from '../../constant';
-import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cart';
+import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cartSlice';
 import { deleteItemFromCartRequest } from '../../api/products';
 import styled, { css } from 'styled-components';
 

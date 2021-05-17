@@ -9,7 +9,7 @@ import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
 
-import { addItemToCart } from '../../modules/cart';
+import { addItemToCart } from '../../modules/cartSlice';
 import { addItemToCartRequest } from '../../api/products';
 
 import cartImage from '../../asset/cart.png';

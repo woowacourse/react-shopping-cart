@@ -1,4 +1,4 @@
-import { deleteItemFromCart } from './modules/cart';
+import { deleteItemFromCart } from './modules/cartSlice';
 
 export const printCommasToPrice = (price) => {
   return Number(price).toLocaleString('en-US');

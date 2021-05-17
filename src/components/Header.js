@@ -43,7 +43,7 @@ const NavItem = styled(NavLink)`
 `;
 
 function Header() {
-  const state = useSelector((state) => state.cart);
+  const state = useSelector((state) => state.cartSlice);
 
   return (
     <HeaderWrapper>

@@ -9,8 +9,8 @@ import Flex from '../../components/utils/Flex';
 
 import CartItem from './CartItem';
 
-import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cart';
-import { addPaymentItems } from '../../modules/payment';
+import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cartSlice';
+import { addPaymentItems } from '../../modules/paymentSlice';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 

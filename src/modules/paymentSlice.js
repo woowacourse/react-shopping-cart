@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const paymentReducer = createSlice({
-  name: 'paymentReducer',
+const paymentSlice = createSlice({
+  name: 'payment',
   initialState: [],
   reducers: {
     addPaymentItems: (state, { payload: items }) => {
@@ -12,6 +12,6 @@ const paymentReducer = createSlice({
   },
 });
 
-export const { addPaymentItems } = paymentReducer.actions;
+export const { addPaymentItems } = paymentSlice.actions;
 
-export default paymentReducer.reducer;
+export default paymentSlice.reducer;
