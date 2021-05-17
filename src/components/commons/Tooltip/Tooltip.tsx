@@ -5,17 +5,17 @@ export interface Props {
   children: React.ReactNode;
   button?: React.ReactNode;
   setTooltipShown: React.Dispatch<React.SetStateAction<boolean>>;
-  timeOut: number;
+  timeout: number;
 }
 
-const Tooltip = ({ children, button, setTooltipShown, timeOut }: Props) => {
+const Tooltip = ({ children, button, setTooltipShown, timeout }: Props) => {
   useEffect(() => {
     const id = setTimeout(() => {
       setTooltipShown(false);
-    }, timeOut);
+    }, timeout);
 
     return () => clearTimeout(id);
-  }, [setTooltipShown, timeOut]);
+  }, [setTooltipShown, timeout]);
 
   return (
     <Styled.Tooltip>

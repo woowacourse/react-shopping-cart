@@ -76,7 +76,7 @@ const ProductOrderPage = () => {
             priceLabel="결제예상금액"
             price={totalPrice}
             buttonText={`${totalPrice}원 결제하기`}
-            onButtonClick={onOrderItems}
+            onPayButtonClick={onOrderItems}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>

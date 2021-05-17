@@ -165,8 +165,8 @@ const ShoppingCartPage = () => {
             priceLabel="결제예상금액"
             price={getMoneyString(totalPrice)}
             buttonText={`주문하기(${getSelectedItems().length}개)`}
-            onButtonClick={onOrderLinkButtonClick}
-            isButtonDisabled={!isOrderPossible}
+            onPayButtonClick={onOrderLinkButtonClick}
+            isPayButtonDisabled={!isOrderPossible}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>

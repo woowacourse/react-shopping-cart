@@ -75,7 +75,7 @@ const ProductDetailPage = () => {
             <Styled.TooltipWrapper>
               <Tooltip
                 setTooltipShown={setToolTipShown}
-                timeOut={3000}
+                timeout={3000}
                 button={
                   <Button size="SM" onClick={onMoveToCartPage}>
                     장바구니 가기
