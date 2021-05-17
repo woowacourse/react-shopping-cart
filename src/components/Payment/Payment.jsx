@@ -17,7 +17,7 @@ const Payment = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
   const checkedItems = Object.values(cart).filter((item) => item.checked);
   const totalPrice = checkedItems.reduce(
     (acc, { amount, price }) => acc + amount * price,

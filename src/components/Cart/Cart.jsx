@@ -10,7 +10,7 @@ import { useCart } from "../../utils/useCart";
 
 const Cart = () => {
   const history = useHistory();
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
   const { checkedItems, hasCheckedItems, totalPrice } = useCart(cart);
 
   const handleButtonClick = () => {

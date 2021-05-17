@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MESSAGE } from "../../constants/constant";
+import { API, MESSAGE } from "../../constants/constant";
 
 export const getProducts = createAsyncThunk(
   "product/load",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await fetch(`${process.env.PUBLIC_URL}/data/data.json`);
+      const res = await fetch(API.GET_PRODUCTS);
       return res.json();
     } catch (error) {
       return Object.assign(rejectWithValue(error), {
@@ -26,9 +26,24 @@ const productSlice = createSlice({
     },
 
     [getProducts.fulfilled]: (state, action) => {
-      if (state.products === action.payload.data) return;
+      action.payload.forEach((product) => {
+        const {
+          product_id: productId,
+          price,
+          name,
+          image_url: imageUrl,
+        } = product;
 
-      state.products = action.payload.data;
+        if (productId in state.products) return;
+
+        state.products[productId] = {
+          id: productId,
+          price,
+          name,
+          thumbnail: imageUrl,
+        };
+      });
+
       state.loading = false;
     },
 

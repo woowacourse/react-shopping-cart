@@ -11,7 +11,7 @@ import { CART } from "../../../constants/constant";
 const Product = ({ product }) => {
   const { id, thumbnail, name, price } = product;
 
-  const cartAmount = useSelector((state) => state.cart[id]?.amount ?? 0);
+  const cartAmount = useSelector((state) => state.cart.items[id]?.amount ?? 0);
   const dispatch = useDispatch();
 
   const handleAddCartClick = () => {
@@ -23,7 +23,7 @@ const Product = ({ product }) => {
       return;
     }
 
-    dispatch(addToCart({ product }));
+    dispatch(addToCart(product));
   };
 
   return (

@@ -6,7 +6,7 @@ import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
   const cartAmount = Object.values(cart).reduce(
     (acc, cur) => acc + cur.amount,
     0

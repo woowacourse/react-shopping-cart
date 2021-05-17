@@ -12,7 +12,7 @@ const OrderItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
-    dispatch(addToCart({ product: item }));
+    dispatch(addToCart(item));
   };
 
   return (
