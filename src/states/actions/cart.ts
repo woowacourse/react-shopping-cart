@@ -1,13 +1,12 @@
 import { Dispatch } from 'redux';
 import { Action, ActionWithPayload, AppThunk } from '.';
 import {
-  requestAddShoppingCartItem,
-  requestChangeAllShoppingCartItemChecked,
-  requestChangeShoppingCartItem,
-  requestChangeShoppingCartItemChecked,
-  requestClearShoppingCartItems,
-  requestDeleteShoppingCartItem,
-  requestDeleteShoppingCartItems,
+  requestShoppingCartItemToAdd,
+  requestAllShoppingCartItemToBeChecked,
+  requestShoppingCartItemToChange,
+  requestShoppingCartItemsToClear,
+  requestShoppingCartItemToDelete,
+  requestShoppingCartItemsToDelete,
   requestShoppingCartItemList,
 } from '../../service/request/cart';
 import { ItemInCart, Product } from '../../types';
@@ -69,7 +68,7 @@ export const thunkAddItemToCart = (item: Product): AppThunk => async (dispatch: 
   try {
     const newCartItem = createItemInCart(item);
 
-    await requestAddShoppingCartItem(newCartItem);
+    await requestShoppingCartItemToAdd(newCartItem);
     dispatch({ type: ADD_CART_ITEM_SUCCESS, payload: newCartItem });
   } catch (error) {
     dispatch({ type: ADD_CART_ITEM_ERROR, payload: error });
@@ -84,7 +83,7 @@ export const thunkChangeItemQuantity = (item: ItemInCart, quantity: number): App
   const changedItem = { ...item, quantity };
 
   try {
-    await requestChangeShoppingCartItem(changedItem);
+    await requestShoppingCartItemToChange(changedItem);
     dispatch({ type: CHANGE_ITEM_QUANTITY_SUCCESS, payload: changedItem });
   } catch (error) {
     dispatch({ type: CHANGE_ITEM_QUANTITY_ERROR, payload: error });
@@ -95,7 +94,7 @@ export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch
   dispatch({ type: DELETE_CART_ITEM });
 
   try {
-    await requestDeleteShoppingCartItem(itemId);
+    await requestShoppingCartItemToDelete(itemId);
     dispatch({ type: DELETE_CART_ITEM_SUCCESS, payload: itemId });
   } catch (error) {
     dispatch({ type: DELETE_CART_ITEM_ERROR, payload: error });
@@ -110,7 +109,7 @@ export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
   const changedItem = { ...item, checked: !item.checked };
 
   try {
-    await requestChangeShoppingCartItemChecked(changedItem);
+    await requestShoppingCartItemToChange(changedItem);
     dispatch({ type: CHANGE_CART_ITEM_CHECKED_SUCCESS, payload: changedItem });
   } catch (error) {
     dispatch({ type: CHANGE_CART_ITEM_CHECKED_ERROR, payload: error });
@@ -124,7 +123,7 @@ export const thunkChangeAllItemChecked = (
   dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED });
 
   try {
-    await requestChangeAllShoppingCartItemChecked(items, checked);
+    await requestAllShoppingCartItemToBeChecked(items, checked);
     dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, payload: checked });
   } catch (error) {
     dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_ERROR, payload: error });
@@ -139,7 +138,7 @@ export const thunkDeleteCheckedCartItem = (items: ItemInCart[]): AppThunk => asy
   try {
     const checkedItems = items.filter((item) => item.checked);
 
-    await requestDeleteShoppingCartItems(checkedItems);
+    await requestShoppingCartItemsToDelete(checkedItems);
     dispatch({ type: DELETE_CHECKED_CART_ITEM_SUCCESS });
   } catch (error) {
     dispatch({ type: DELETE_CHECKED_CART_ITEM_ERROR, payload: error });
@@ -150,7 +149,7 @@ export const thunkClearCart = (): AppThunk => async (dispatch: Dispatch) => {
   dispatch({ type: CLEAR_CART });
 
   try {
-    await requestClearShoppingCartItems();
+    await requestShoppingCartItemsToClear();
     dispatch({ type: CLEAR_CART_SUCCESS });
   } catch (error) {
     dispatch({ type: CLEAR_CART_ERROR, payload: error });
