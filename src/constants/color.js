@@ -1,0 +1,10 @@
+export const COLOR = {
+  MINT_500: '#2AC1BC',
+  BROWN_500: '#73675C',
+  WHITE: '#FFFFFF',
+  GRAY_200: '#DDDDDD',
+  GRAY_300: '#BBBBBB',
+  GRAY_400: '#AAAAAA',
+  GRAY_600: '#888888',
+  GRAY_800: '#333333',
+};
