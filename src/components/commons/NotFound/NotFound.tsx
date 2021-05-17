@@ -9,7 +9,7 @@ const NotFound = ({ message }: Props) => {
   return (
     <Styled.NotFound>
       <Styled.Wrapper>
-        <Styled.Image src={notFoundPNG} alt="not found image" />
+        <Styled.Image src={notFoundPNG} alt="이미지가 없습니다." />
         <Styled.Message>{message}</Styled.Message>
       </Styled.Wrapper>
     </Styled.NotFound>

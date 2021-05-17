@@ -28,11 +28,11 @@ const CartItem = ({
   return (
     <Styled.CartItem>
       <Checkbox isChecked={isSelected} onCheck={setSelected} />
-      <Styled.Thumbnail src={thumbnail} alt="cart item thumbnail" />
+      <Styled.Thumbnail src={thumbnail} alt="카트 아이템 이미지" />
       <Styled.ItemContentWrapper>
         <Styled.ItemContentTop>
           <Styled.ItemName>{name}</Styled.ItemName>
-          <Styled.DeleteIcon src={trashCanSVG} alt="cart item delete button" onClick={onDeleteCartItem} />
+          <Styled.DeleteIcon src={trashCanSVG} alt="카트 아이템 삭제 버튼" onClick={onDeleteCartItem} />
         </Styled.ItemContentTop>
         <Styled.ItemContentBottom>
           <NumberInput value={quantity} setValue={setQuantity} />
