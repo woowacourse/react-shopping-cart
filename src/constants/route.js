@@ -1,7 +1,9 @@
+const REPO_NAME = '/react-shopping-cart';
+
 export const ROUTE = {
-  HOME: '/',
-  PRODUCT_LIST: '/product-list',
-  CART: '/cart',
-  CHECKOUT: '/checkout',
-  ORDER_LIST: '/order-list',
+  HOME: `${REPO_NAME}/`,
+  PRODUCT_LIST: `${REPO_NAME}/product-list`,
+  CART: `${REPO_NAME}/cart`,
+  CHECKOUT: `${REPO_NAME}/checkout`,
+  ORDER_LIST: `${REPO_NAME}/order-list`,
 };
