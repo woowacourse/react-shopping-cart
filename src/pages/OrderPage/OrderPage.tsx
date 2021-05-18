@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -12,6 +12,7 @@ import * as T from 'types';
 import api from 'api';
 import { deleteCheckedItemsActionRequest } from 'modules/cartItems/actions';
 import { RootState } from 'modules';
+import useFetch from 'hooks/useFetch';
 import Styled from './OrderPage.styles';
 
 type LocationState = {
@@ -22,7 +23,7 @@ const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const { callUseFetch: orderCartItems } = useFetch(() => api.post('/orders', { items: location.state.checkedItems }));
 
   if (!location.state) return <Redirect to="/" />;
 
@@ -33,12 +34,8 @@ const OrderPage = () => {
   }, 0);
 
   const handlePurchaseCartItems = async () => {
-    if (isLoading) return;
-
-    setLoading(true);
-
     try {
-      await api.post('/orders', { items: checkedItems });
+      orderCartItems();
 
       const ids = checkedItems.map((cartItem) => cartItem.id);
       dispatch(deleteCheckedItemsActionRequest(ids));
@@ -46,11 +43,8 @@ const OrderPage = () => {
       history.replace('/order/complete');
       return;
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
+      alert(error.message);
     }
-
-    setLoading(false);
   };
 
   return (
