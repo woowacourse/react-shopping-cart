@@ -4,6 +4,19 @@ import axios from 'axios';
 const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 const customer_name = 'shinsehantan';
 
+export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thunkAPI) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/customers/${customer_name}/carts`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    return Object.assign(thunkAPI.rejectWithValue(error), {
+      message: '장바구니 아이템 목록을 불러오는 데 실패했습니다.',
+    });
+  }
+});
+
 export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (productId, thunkAPI) => {
   try {
     const res = await axios.post(`${BASE_URL}/customers/${customer_name}/carts`, {
@@ -18,8 +31,6 @@ export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (prod
     });
   }
 });
-{
-}
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -98,6 +109,17 @@ const cartSlice = createSlice({
     },
 
     [addItemToCartRequest.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+    },
+    [getCartItemsRequest.pending]: (state) => {
+      state.errorMessage = '';
+    },
+
+    [getCartItemsRequest.fulfilled]: (state, action) => {
+      state.createSlice.push(action.payload);
+    },
+
+    [getCartItemsRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
     },
   },
