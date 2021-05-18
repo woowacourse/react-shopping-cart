@@ -34,27 +34,13 @@ const App = () => {
       <Navigation />
       <StyledContents>
         <Switch>
-          <Route exact path={PATH.HOME}>
-            <Home />
-          </Route>
-          <Route path={PATH.PRODUCT_LIST}>
-            <ProductList />
-          </Route>
-          <Route path={PATH.PRODUCT_DETAIL}>
-            <ProductDetail />
-          </Route>
-          <Route path={PATH.SHOPPING_CART}>
-            <ShoppingCart />
-          </Route>
-          <Route path={PATH.ORDER_PAYMENT}>
-            <OrderPayment />
-          </Route>
-          <Route path={PATH.ORDER_LIST}>
-            <OrderList />
-          </Route>
-          <Route path={PATH.ORDER_LIST_DETAIL}>
-            <OrderListDetail />
-          </Route>
+          <Route exact path={PATH.HOME} component={Home} />
+          <Route path={PATH.PRODUCT_LIST} component={ProductList} />
+          <Route path={PATH.PRODUCT_DETAIL} component={ProductDetail} />
+          <Route path={PATH.SHOPPING_CART} component={ShoppingCart} />
+          <Route path={PATH.ORDER_PAYMENT} component={OrderPayment} />
+          <Route path={PATH.ORDER_LIST} component={OrderList} />
+          <Route path={PATH.ORDER_LIST_DETAIL} component={OrderListDetail} />
         </Switch>
       </StyledContents>
     </>
