@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import TextWithHighlight, { TextWithhighlightProps } from ".";
+import TextWithHighlight, { TextWithHighlightProps } from ".";
 import { COLOR } from "../../constants/theme";
 
 export default {
@@ -9,12 +9,12 @@ export default {
   component: TextWithHighlight,
 } as Meta;
 
-const Template: Story<TextWithhighlightProps> = (args) => <TextWithHighlight {...args} />;
+const Template: Story<TextWithHighlightProps> = (args) => <TextWithHighlight {...args} />;
 
 export const Basic = Template.bind({});
 
 Basic.args = {
-  text: "텍스트 입니다.",
+  children: "텍스트 입니다.",
   fontSize: "1.5rem",
   color: COLOR.BLACK,
   fontWeight: "700",

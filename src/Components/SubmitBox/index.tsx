@@ -24,20 +24,22 @@ const SubmitBox: FC<SubmitBoxProps> = ({ title, width, height, target, buttonNam
         <p>
           <TextWithHighlight
             highlightColor={COLOR.MAIN}
-            text={target.name}
             fontSize="1.25rem"
             color={COLOR.GRAY_600}
             fontWeight="700"
-          />
+          >
+            {target.name}
+          </TextWithHighlight>
         </p>
         <p>
           <TextWithHighlight
             highlightColor={COLOR.MAIN}
-            text={target.value}
             fontSize="1.25rem"
             color={COLOR.GRAY_600}
             fontWeight="700"
-          />
+          >
+            {target.value}
+          </TextWithHighlight>
         </p>
       </DivFlexBetween>
       <Button
