@@ -1,7 +1,6 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
-import useFetchCartRedux from './hooks/useFetchCartRedux';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';

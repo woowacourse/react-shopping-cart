@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { Provider } from 'react-redux';
 import InitialLoading from '.';
 import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
 import ShoppingCartPage from '../../../pages/ShoppingCartPage';
-import store from '../../../states/store';
 
 export default {
   component: InitialLoading,

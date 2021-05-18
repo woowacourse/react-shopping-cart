@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NETWORK_ERROR } from '../constants/error';
+import { NETWORK_ERROR } from '../../constants/error';
 
 const useFetch = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
@@ -29,7 +29,7 @@ const useFetch = <T>(callback: () => Promise<T>) => {
     throw new Error(NETWORK_ERROR);
   }, [hasError]);
 
-  return { data, fetchCartItemRedux: reFetch, hasError, isLoading };
+  return { data, reFetch, hasError, isLoading };
 };
 
 export default useFetch;
