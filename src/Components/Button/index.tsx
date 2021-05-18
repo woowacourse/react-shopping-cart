@@ -1,10 +1,9 @@
-import React, { ReactNode, FC, MouseEventHandler } from "react";
+import React, { ReactNode, FC, ButtonHTMLAttributes } from "react";
 
 import { Container, ContainerProps } from "./style";
 
-interface ButtonProps extends ContainerProps {
+interface ButtonProps extends ContainerProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
   children: ReactNode;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button: FC<ButtonProps> = ({ children, ...props }) => <Container {...props}>{children}</Container>;

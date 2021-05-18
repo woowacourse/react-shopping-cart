@@ -12,6 +12,7 @@ import CartItem from "./CartItem";
 import { FlexCenter } from "../../SharedStyled/Flex";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+
 interface CheckedList {
   [key: string]: boolean;
 }
