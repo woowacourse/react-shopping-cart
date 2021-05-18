@@ -1,23 +1,14 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { confirmAction } from '../redux';
 import { ProductListPage } from './ProductListPage';
 import { CartPage } from './CartPage';
 import { CheckoutPage } from './CheckoutPage';
 import { OrderListPage } from './OrderListPage';
 import { Confirm, NavBar } from '../components';
 import { ROUTE } from '../constants';
+import { useConfirm } from '../hooks';
 
 export const App = () => {
-  const { isOpen, message, approve } = useSelector(({ confirmReducer }) => confirmReducer);
-
-  const dispatch = useDispatch();
-  const close = () => dispatch(confirmAction.closeConfirm());
-  const onCancel = () => close();
-  const onApprove = () => {
-    approve();
-    close();
-  };
+  const { isOpen, message, onCancel, onApprove } = useConfirm();
 
   return (
     <Router>
