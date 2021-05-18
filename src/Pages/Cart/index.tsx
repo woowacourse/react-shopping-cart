@@ -9,7 +9,6 @@ import SubmitBox from "../../Components/SubmitBox";
 import { COLOR } from "../../constants/theme";
 
 import CartItem from "./CartItem";
-import { FlexCenter } from "../../SharedStyled/Flex";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 
