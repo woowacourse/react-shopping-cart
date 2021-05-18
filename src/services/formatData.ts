@@ -22,6 +22,11 @@ export const FORMAT_DATA = {
         ['image_url', 'thumbnail'],
       ])
     ),
+  PRODUCT: (data: productsData) =>
+    renameObjKeys(data, [
+      ['product_id', 'id'],
+      ['image_url', 'thumbnail'],
+    ]),
   CART: (dataList: cartData[]) =>
     dataList.map(data =>
       renameObjKeys(data, [
