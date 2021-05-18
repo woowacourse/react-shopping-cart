@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { COLOR } from '../../../constants';
 
 export const IconCart = (props) => {
   const { width, color, ...rest } = props;
@@ -20,5 +21,5 @@ IconCart.propTypes = {
 
 IconCart.defaultProps = {
   width: 50,
-  color: '#000000',
+  color: COLOR.BLACK,
 };

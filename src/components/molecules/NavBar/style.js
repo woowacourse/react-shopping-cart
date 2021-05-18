@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BAEMIN_CYAN } from '../../../constants';
+import { COLOR } from '../../../constants';
 import '../../../fonts/BMYEONSUNG.css';
 
 export const NavBar = styled.nav`
@@ -7,8 +7,8 @@ export const NavBar = styled.nav`
   top: 0;
   width: 100vw;
   height: 5rem;
-  background-color: ${BAEMIN_CYAN};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  background-color: ${COLOR.CYAN_500};
+  box-shadow: 0px 4px 4px rgba(${COLOR.BLACK}, 0.3);
   z-index: 10;
 `;
 
@@ -28,7 +28,7 @@ export const NavTitle = styled.div`
 
 export const Title = styled.h1`
   font-family: 'BMYEONSUNG';
-  color: #ffffff;
+  color: ${COLOR.WHITE};
   margin: 0 1rem;
   padding-top: 0.3rem;
   font-size: 2.5rem;
@@ -43,7 +43,7 @@ export const NavItems = styled.ul`
 
 export const Item = styled.li`
   position: relative;
-  color: #ffffff;
+  color: ${COLOR.WHITE};
   font-size: 1.5rem;
   text-align: center;
   align-items: center;
@@ -56,14 +56,14 @@ export const Item = styled.li`
     position: absolute;
     top: -0.25rem;
     right: -0.75rem;
-    color: #ffffff;
+    color: ${COLOR.WHITE};
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.4rem;
     width: 1.2rem;
     height: 1.2rem;
     border-radius: 25%;
-    background-color: #6660ff;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+    background-color: ${COLOR.VIOLET_500};
+    box-shadow: 3px 3px 3px rgba(${COLOR.BLACK}, 0.25);
   }
 `;

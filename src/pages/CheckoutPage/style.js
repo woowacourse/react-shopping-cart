@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { CheckoutBox, List, Template } from '../../components';
+import { COLOR } from '../../constants';
 
 export const Page = styled(Template)`
-  background-color: #ffffff;
+  background-color: ${COLOR.WHITE};
 `;
 
 export const Main = styled.main`
@@ -23,14 +24,14 @@ export const ListLabel = styled.h3`
 `;
 
 export const CheckoutProductList = styled(List)`
-  border-top: 0.0625rem solid #aaaaaa;
+  border-top: 0.0625rem solid ${COLOR.GRAY_500};
 
   & > li {
-    border-top: 0.0625rem solid #aaaaaa;
+    border-top: 0.0625rem solid ${COLOR.GRAY_500};
   }
 
   & > li:last-child {
-    border-bottom: 0.0625rem solid #aaaaaa;
+    border-bottom: 0.0625rem solid ${COLOR.GRAY_500};
   }
 `;
 

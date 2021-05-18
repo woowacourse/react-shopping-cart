@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { LAYOUT } from '../../../constants';
 
 export const Container = styled.div`
-  padding-top: 5rem;
+  padding-top: ${LAYOUT.NAVBAR_HEIGHT};
   width: 100vw;
-  min-height: calc(100vh - 5rem);
+  min-height: calc(100vh - ${LAYOUT.NAVBAR_HEIGHT});
   display: flex;
   justify-content: center;
 `;
 
 export const Viewport = styled.div`
-  width: 66.666%;
+  width: ${LAYOUT.MAIN_WIDTH};
 `;

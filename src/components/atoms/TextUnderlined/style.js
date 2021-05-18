@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLOR } from '../../../constants';
 
 export const Container = styled.span`
   position: relative;
@@ -9,7 +10,7 @@ export const Container = styled.span`
 export const Text = styled.span`
   font-size: 1.25rem;
   font-weight: 700;
-  color: #333333;
+  color: ${COLOR.GRAY_800};
   z-index: 1;
 `;
 
@@ -19,5 +20,5 @@ export const UnderLine = styled.span`
   left: -5%;
   width: 110%;
   height: 0.5rem;
-  background-color: rgba(42, 194, 188, 0.5);
+  background-color: rgba(${COLOR.CYAN_500}, 0.5);
 `;

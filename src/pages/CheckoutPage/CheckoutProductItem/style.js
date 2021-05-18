@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PATTERN_FILE_NAME } from '../../../constants';
+import { PATTERN_FILE_NAME, COLOR } from '../../../constants';
 
 export const Container = styled.li`
   display: flex;
@@ -22,11 +22,11 @@ export const Content = styled.div`
 
 export const Name = styled.span`
   font-size: 1.25rem;
-  color: #333333;
+  color: ${COLOR.GRAY_800};
 `;
 
 export const Quantity = styled.span`
   font-size: 1rem;
   padding-top: 1.5rem;
-  color: #333333;
+  color: ${COLOR.GRAY_800};
 `;

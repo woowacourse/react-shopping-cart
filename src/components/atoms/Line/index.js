@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as S from './style.js';
+import { COLOR } from '../../../constants';
 
 export const Line = (props) => {
   const { length, thickness, color, ...rest } = props;
@@ -15,5 +16,5 @@ Line.propTypes = {
 
 Line.defaultProps = {
   thickness: '0.25rem',
-  color: '#000000',
+  color: COLOR.BLACK,
 };

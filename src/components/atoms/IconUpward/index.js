@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { COLOR } from '../../../constants';
 
 export const IconUpward = (props) => {
   const { width, color, ...rest } = props;
@@ -17,5 +18,5 @@ IconUpward.propTypes = {
 
 IconUpward.defaultProps = {
   width: 10,
-  color: '#333333',
+  color: COLOR.GRAY_800,
 };

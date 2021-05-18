@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { COLOR } from '../../../constants';
 
 export const IconTrashCan = (props) => {
   const { width, color, ...rest } = props;
@@ -21,5 +22,5 @@ IconTrashCan.propTypes = {
 
 IconTrashCan.defaultProps = {
   width: 22,
-  color: '#BBBBBB',
+  color: COLOR.GRAY_400,
 };

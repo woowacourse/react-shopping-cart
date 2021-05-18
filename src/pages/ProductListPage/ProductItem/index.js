@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Button, IconCart } from '../../../components';
 import { getFormattedAsKRW } from '../../../utils';
+import { COLOR } from '../../../constants';
 import * as S from './style.js';
 
 export const ProductItem = (props) => {
@@ -16,7 +17,7 @@ export const ProductItem = (props) => {
           <S.Price>{getFormattedAsKRW(price)}</S.Price>
         </S.Label>
         <Button onClick={() => addProduct(product)}>
-          <IconCart width="30" color="#333333" />
+          <IconCart width="30" color={COLOR.GRAY_800} />
         </Button>
       </S.Footer>
     </S.Container>

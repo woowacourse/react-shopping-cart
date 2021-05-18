@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { Line } from '../..';
 import * as S from './style.js';
+import { COLOR } from '../../../constants';
 
 export const Header = (props) => {
   const { children, ...rest } = props;
@@ -8,7 +9,7 @@ export const Header = (props) => {
   return (
     <S.Container {...rest}>
       <S.Title>{children}</S.Title>
-      <Line color="#333333" />
+      <Line color={COLOR.GRAY_800} />
     </S.Container>
   );
 };

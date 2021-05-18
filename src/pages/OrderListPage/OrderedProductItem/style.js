@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '../../../components';
-import { PATTERN_FILE_NAME, BAEMIN_CYAN } from '../../../constants';
+import { PATTERN_FILE_NAME, COLOR } from '../../../constants';
 
 export const Container = styled.li`
   display: flex;
@@ -24,19 +24,19 @@ export const Content = styled.div`
 
 export const Name = styled.span`
   font-size: 1.25rem;
-  color: #333333;
+  color: ${COLOR.GRAY_800};
 `;
 
 export const OrderSummary = styled.span`
   font-size: 1rem;
   padding-top: 1.5rem;
-  color: #888888;
+  color: ${COLOR.GRAY_600};
 `;
 
 export const AddToCartButton = styled(Button)`
   font-size: 1.25rem;
-  background-color: ${BAEMIN_CYAN};
-  color: #ffffff;
+  background-color: ${COLOR.CYAN_500};
+  color: ${COLOR.WHITE};
   width: 8.625rem;
   height: 3rem;
 `;

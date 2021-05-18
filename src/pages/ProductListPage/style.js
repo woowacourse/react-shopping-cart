@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Template } from '../../components';
+import { BREAKPOINTS, COLOR } from '../../constants';
 
 export const Page = styled(Template)`
-  background-color: #ffffff;
+  background-color: ${COLOR.WHITE};
 `;
 
 export const Main = styled.main;
@@ -13,23 +14,23 @@ export const ProductList = styled.ul`
   grid-template-columns: repeat(1, 1fr);
   padding: 0;
 
-  @media (min-width: 520px) {
+  @media (min-width: ${BREAKPOINTS.MOBILE}) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 700px) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: ${BREAKPOINTS.DESKTOP}) {
     grid-template-columns: repeat(6, 1fr);
   }
 `;
