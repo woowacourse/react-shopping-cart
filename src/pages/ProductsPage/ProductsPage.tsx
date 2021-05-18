@@ -15,7 +15,6 @@ import Styled from './ProductsPage.styles';
 
 const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
-
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
