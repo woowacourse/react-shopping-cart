@@ -5,14 +5,14 @@ import { Container, Header, ShowDetailLink } from "./style";
 
 interface OrderListProps {
   id: string;
-  isVisibleShowDetailLink: boolean;
+  showDetailLinkHref: string;
   children: ReactElement<OrderProductItemProps>[];
 }
-const OrderList: FC<OrderListProps> = ({ id, isVisibleShowDetailLink, children }) => (
+const OrderList: FC<OrderListProps> = ({ id, showDetailLinkHref, children }) => (
   <Container>
     <Header>
       <span>주문번호:{id}</span>
-      {isVisibleShowDetailLink && <ShowDetailLink to={`/order/${id}`}>{"상세보기 >"}</ShowDetailLink>}
+      {showDetailLinkHref && <ShowDetailLink to={showDetailLinkHref}>{"상세보기 >"}</ShowDetailLink>}
     </Header>
     <ul>{children}</ul>
   </Container>

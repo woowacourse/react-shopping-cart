@@ -39,13 +39,13 @@ const children = [...Array(4)].map((_, index) => (
 export const Basic = Template.bind({});
 Basic.args = {
   id: "1",
-  isVisibleShowDetailLink: false,
+  showDetailLinkHref: "",
   children,
 };
 
 export const WithDetailButton = Template.bind({});
 WithDetailButton.args = {
   id: "1",
-  isVisibleShowDetailLink: true,
+  showDetailLinkHref: "/order/1",
   children,
 };
