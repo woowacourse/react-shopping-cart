@@ -22,7 +22,7 @@ import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
 const CartPage = () => {
-  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [isAllChecked, setIsAllChecked] = useState(true);
   const { cart } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -49,6 +49,10 @@ const CartPage = () => {
   const onChangeAmount = (productId) => (amount) => {
     dispatch(changeAmount(productId, amount));
   };
+
+  useEffect(() => {
+    dispatch(changeAllCheckboxesInCart(true));
+  }, []);
 
   useEffect(() => {
     if (cart.length === 0) return;
