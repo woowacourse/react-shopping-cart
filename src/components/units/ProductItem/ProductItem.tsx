@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
@@ -12,15 +12,20 @@ type ProductItemProps = {
 const ProductItem = (props: ProductItemProps) => {
   const { product, onClickCart } = props;
   const { productId, name, imageUrl, price } = product;
+  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
 
   const handleClickCart = () => {
     onClickCart(productId);
   };
 
+  const handleImageLoadError = () => {
+    setCurrentImageUrl(noImageURL);
+  };
+
   return (
     <Styled.Root>
       <Styled.ImageWrapper>
-        <Styled.Image src={imageUrl || noImageURL} alt={name} />
+        <Styled.Image src={currentImageUrl || noImageURL} alt={name} onError={handleImageLoadError} />
       </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>
