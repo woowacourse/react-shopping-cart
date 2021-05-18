@@ -1,25 +1,32 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SNACKBAR_DURATION, UNIT, PRODUCTS_PER_PAGE } from '../../../constants/appInfo';
+import { PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
-import useSnackbar from '../../../hooks/useSnackbar';
 import usePagination from '../../../hooks/usePagination';
+import useSnackbar from '../../../hooks/useSnackbar';
 import { addToCart } from '../../../redux/Cart/actions';
 import { resetErrorMessage } from '../../../redux/Message/actions';
 import { getProducts, resetProducts } from '../../../redux/Products/actions';
 import Button from '../../common/Button';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
+import Spinner from '../../common/Icon/Spinner';
+import Loader from '../../common/Loader';
 import Modal from '../../common/Modal';
+import Pagination from '../../common/Pagination';
 import Snackbar from '../../common/Snackbar';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
-import Pagination from '../../common/Pagination';
 
 const ProductListPage = () => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
-  const { products, cart, errorMessage } = useSelector((state) => state);
+  const {
+    products,
+    cart,
+    errorMessage,
+    loading: { productsLoading },
+  } = useSelector((state) => state);
   const {
     pageStartIndex,
     onPagePrevious,
@@ -54,6 +61,9 @@ const ProductListPage = () => {
 
   return (
     <Main>
+      <Loader animationType={'spin'} isLoading={productsLoading}>
+        <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
+      </Loader>
       <Styled.ProductList>
         {products.slice(pageStartIndex, pageStartIndex + PRODUCTS_PER_PAGE).map((product) => (
           <li key={product.id}>
