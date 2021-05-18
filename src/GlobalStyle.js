@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${COLOR.GRAY_800};
     font-family: 'Noto Sans KR', sans-serif;
     height: 100%;
+    background-color:${({ backgroundColor }) => backgroundColor}
   }
 
   ul {

@@ -4,6 +4,7 @@ export const COLOR = {
   BROWN_500: '#73675C',
   WHITE: '#FFFFFF',
   GRAY_100: '#F6F6F6',
+  GRAY_150: '#E5E5E5',
   GRAY_200: '#DDDDDD',
   GRAY_300: '#BBBBBB',
   GRAY_400: '#AAAAAA',

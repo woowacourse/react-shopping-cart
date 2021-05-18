@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
@@ -13,16 +13,19 @@ import ProductDetail from './pages/ProductDetail';
 import { getShoppingCartItemList } from './redux/actions/shoppingCartActions';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
+import { COLOR } from './constants/color';
 
 const StyledContents = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 60px;
-  margin-top: 40px;
+  padding: 40px 60px 0 60px;
 `;
 
 const App = () => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
+  const isOrderPage = pathname.includes(PATH.ORDER_LIST);
 
   useEffect(() => {
     dispatch(getShoppingCartItemList());
@@ -30,7 +33,7 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle backgroundColor={isOrderPage ? COLOR.GRAY_150 : COLOR.WHITE} />
       <Navigation />
       <StyledContents>
         <Switch>

@@ -17,6 +17,7 @@ const Header = styled.div`
 
 const OrderListItemWrapper = styled.li`
   border-bottom: 2px solid ${COLOR.GRAY_200};
+  background-color: ${COLOR.WHITE};
   padding: 38px 0;
 `;
 

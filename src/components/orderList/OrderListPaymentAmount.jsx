@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Title = styled.span`
   display: block;
-  border-bottom: 3px solid ${COLOR.GRAY_200};
+  border-bottom: 3px solid ${COLOR.GRAY_300};
   padding-bottom: 19px;
   font-size: 24px;
   font-weight: bold;
