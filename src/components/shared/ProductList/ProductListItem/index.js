@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './style';
-import Product from '../../Product';
+import React from 'react';
 import Checkbox from '../../../common/Checkbox';
+import Product from '../../Product';
+import * as Styled from './style';
 
 const ProductListItem = ({ product, listStyle, onChange, productDetail, isCheckbox, imageSize, children }) => {
   const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction="row" />;

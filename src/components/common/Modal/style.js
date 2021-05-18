@@ -3,7 +3,7 @@ import PALETTE from '../../../constants/palette';
 
 const modalStyles = {
   default: css`
-    min-width: 40%;
+    min-width: 30%;
     max-width: 80%;
     max-height: 80vh;
     margin: auto;
@@ -29,6 +29,7 @@ export const ModalInner = styled.div`
   position: relative;
   background: white;
   padding: 4rem 3rem;
+  font-size: 1.2rem;
   ${({ type }) => modalStyles[type]};
 `;
 

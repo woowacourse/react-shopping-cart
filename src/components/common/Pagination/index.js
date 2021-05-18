@@ -1,11 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import FlexContainer from '../FlexContainer';
-import * as Styled from './style';
+import React from 'react';
 import { PRODUCTS_PER_PAGE } from '../../../constants/appInfo';
-import HighlightText from '../HighlightText';
 import PALETTE from '../../../constants/palette';
+import FlexContainer from '../FlexContainer';
+import HighlightText from '../HighlightText';
 import RightArrow from '../Icon/RightArrow';
+import * as Styled from './style';
 
 const Pagination = ({
   pages,

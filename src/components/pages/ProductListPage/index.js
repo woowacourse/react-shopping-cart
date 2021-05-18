@@ -12,7 +12,7 @@ import Button from '../../common/Button';
 import ShoppingCart from '../../common/Icon/ShoppingCart';
 import Spinner from '../../common/Icon/Spinner';
 import Loader from '../../common/Loader';
-import Modal from '../../common/Modal';
+import ErrorModal from '../../common/Modal/ErrorModal';
 import Pagination from '../../common/Pagination';
 import Snackbar from '../../common/Snackbar';
 import Main from '../../Main';
@@ -99,7 +99,7 @@ const ProductListPage = () => {
           currentPage={currentPage}
         />
       )}
-      {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
+      {errorMessage && <ErrorModal onClose={onCloseErrorMessageModal} textContent={errorMessage} />}
       {snackbarMessage && (
         <Snackbar
           key={Math.random()}

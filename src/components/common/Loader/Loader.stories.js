@@ -1,6 +1,7 @@
 import React from 'react';
+import Loader from '.';
 import PALETTE from '../../../constants/palette';
-import * as Styled from './style';
+import Spinner from '../Icon/Spinner';
 
 export default {
   title: 'Common/Loader',
@@ -11,4 +12,8 @@ export default {
 const Template = (args) => <Loader {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  isLoading: true,
+  animationType: 'spin',
+  children: <Spinner width={'8rem'} color={PALETTE.BAEMINT} />,
+};

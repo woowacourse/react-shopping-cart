@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './style';
+import React from 'react';
 import FlexContainer from '../../common/FlexContainer';
+import * as Styled from './style';
 
 const Product = ({ product, productDetail, size, direction, children }) => {
   return (
