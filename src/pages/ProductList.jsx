@@ -10,6 +10,7 @@ const Container = styled.ul`
   grid-template-columns: repeat(4, 282px);
   column-gap: 60px;
   row-gap: 28px;
+  margin-bottom: 40px;
 `;
 
 const ProductList = () => {

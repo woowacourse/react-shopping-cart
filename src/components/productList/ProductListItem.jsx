@@ -46,7 +46,7 @@ const ProductListItem = ({ id, name, src, price }) => {
 
   return (
     <>
-      <div>
+      <>
         <ProductImageWrapper onClick={handleRoutingProductDetail}>
           <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={name} />
         </ProductImageWrapper>
@@ -59,7 +59,7 @@ const ProductListItem = ({ id, name, src, price }) => {
             <Image onClick={insertShoppingCart} src={shoppingCartImg} alt="장바구니" />
           </li>
         </Content>
-      </div>
+      </>
 
       {isDialogOpen && <Dialog />}
     </>
