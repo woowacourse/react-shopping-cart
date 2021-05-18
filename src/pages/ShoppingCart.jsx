@@ -11,6 +11,7 @@ import {
 } from '../redux/actions/shoppingCartActions';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
+import { getTotalPrice } from '../utils/totalPrice';
 import {
   Button,
   Checkbox,
@@ -65,9 +66,6 @@ const Text = styled.span`
   margin-left: 12px;
 `;
 
-const getExpectedPaymentAmount = (checkedShoppingCartItemList) =>
-  checkedShoppingCartItemList.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
-
 const ShoppingCart = () => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
   const [isInitLoading, setInitLoading] = useState(true);
@@ -82,7 +80,7 @@ const ShoppingCart = () => {
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;
 
-  const totalPrice = getExpectedPaymentAmount(checkedShoppingCartItemList);
+  const totalPrice = getTotalPrice(checkedShoppingCartItemList);
 
   useEffect(() => {
     (async () => {

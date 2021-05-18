@@ -20,11 +20,13 @@ const OrderListItemWrapper = styled.li`
   padding: 38px 0;
 `;
 
-const OrderListItemList = ({ orderId, orderListItemList }) => (
+const OrderListItemList = ({ orderId, orderListItemList, hasDetailLink }) => (
   <>
     <Header>
       <div>주문번호 : {orderId}</div>
-      <Link to={PATH.ORDER_LIST_DETAIL}>상세보기 {'>'} </Link>
+      {hasDetailLink && (
+        <Link to={{ pathname: `${PATH.ORDER_LIST}/${orderId}`, state: { id: orderId } }}>상세보기 {'>'} </Link>
+      )}
     </Header>
     <ul>
       {orderListItemList.map(({ product_id, image_url, name, price, quantity }) => (
@@ -35,6 +37,10 @@ const OrderListItemList = ({ orderId, orderListItemList }) => (
     </ul>
   </>
 );
+
+OrderListItemList.defaultProps = {
+  hasDetailLink: true,
+};
 
 OrderListItemList.propTypes = {
   orderId: PropTypes.number.isRequired,
@@ -47,6 +53,7 @@ OrderListItemList.propTypes = {
       quantity: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
+  hasDetailLink: PropTypes.bool,
 };
 
 export default OrderListItemList;

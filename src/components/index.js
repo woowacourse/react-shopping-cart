@@ -16,6 +16,7 @@ import ShoppingCartItem from './shoppingCart/ShoppingCartItem';
 import ShoppingCartItemList from './shoppingCart/ShoppingCartItemList';
 import TextHighlight from './textHighlight/TextHighlight';
 import Loading from './loading/Loading';
+import OrderListPaymentAmount from './orderList/OrderListPaymentAmount';
 
 export {
   Button,
@@ -25,6 +26,7 @@ export {
   Navigation,
   OrderListItem,
   OrderListItemList,
+  OrderListPaymentAmount,
   PageTitle,
   OrderPaymentAmount,
   OrderPaymentItem,

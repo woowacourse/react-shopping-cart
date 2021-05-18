@@ -40,7 +40,7 @@ const App = () => {
           <Route exact path={PATH.SHOPPING_CART} component={ShoppingCart} />
           <Route exact path={PATH.ORDER_PAYMENT} component={OrderPayment} />
           <Route exact path={PATH.ORDER_LIST} component={OrderList} />
-          <Route exact path={PATH.ORDER_LIST_DETAIL} component={OrderListDetail} />
+          <Route exact path={`${PATH.ORDER_LIST}/:id`} component={OrderListDetail} />
         </Switch>
       </StyledContents>
     </>
