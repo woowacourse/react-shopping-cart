@@ -5,7 +5,7 @@ import Checkbox from 'components/shared/Checkbox/Checkbox';
 import QuantityInput from 'components/shared/QuantityInput/QuantityInput';
 import noImageURL from 'assets/images/no_image.jpg';
 import * as T from 'types';
-import { updateQuantity } from 'modules/cartItems/actions';
+import { updateQuantity } from 'modules/cartSlice';
 import CART_ITEM_QUANTITY from 'constants/cart';
 import Styled from './CartItem.styles';
 
@@ -24,24 +24,24 @@ const CartItem = (props: CartItemProps) => {
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = event.target.valueAsNumber;
     if (newQuantity <= CART_ITEM_QUANTITY.MIN || Number.isNaN(newQuantity)) {
-      dispatch(updateQuantity(cartId, CART_ITEM_QUANTITY.MIN));
+      dispatch(updateQuantity({ id: cartId, quantity: CART_ITEM_QUANTITY.MIN }));
       return;
     }
     if (newQuantity >= CART_ITEM_QUANTITY.MAX) {
-      dispatch(updateQuantity(cartId, CART_ITEM_QUANTITY.MAX));
+      dispatch(updateQuantity({ id: cartId, quantity: CART_ITEM_QUANTITY.MAX }));
       return;
     }
-    dispatch(updateQuantity(cartId, newQuantity));
+    dispatch(updateQuantity({ id: cartId, quantity: newQuantity }));
   };
 
   const handleIncrement = () => {
     if (quantity >= CART_ITEM_QUANTITY.MAX) return;
-    dispatch(updateQuantity(cartId, quantity + 1));
+    dispatch(updateQuantity({ id: cartId, quantity: quantity + 1 }));
   };
 
   const handleDecrement = () => {
     if (quantity <= CART_ITEM_QUANTITY.MIN) return;
-    dispatch(updateQuantity(cartId, quantity - 1));
+    dispatch(updateQuantity({ id: cartId, quantity: quantity - 1 }));
   };
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {

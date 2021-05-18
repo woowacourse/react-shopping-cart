@@ -8,8 +8,8 @@ import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
 import Spinner from 'components/shared/Spinner/Spinner';
 import MESSAGE from 'constants/messages';
-import { RootState } from 'modules';
-import { getCartItemsRequest } from 'modules/cartItems/actions';
+import { RootState } from 'modules/store';
+import { getCartItems } from 'modules/cartSlice';
 import useAddCartItem from 'hooks/useAddCartItem';
 import snakeToCamel from 'utils/snakeToCamel';
 import * as T from 'types';
@@ -55,7 +55,7 @@ const OrderListPage = () => {
   );
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   useEffect(() => {

@@ -1,28 +1,22 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import * as T from 'types';
+import { useAppSelector } from 'modules/hooks';
+import { CartState, getCartItems, checkCartItem, checkAllCartItems, deleteCartItems } from 'modules/cartSlice';
 import Checkbox from 'components/shared/Checkbox/Checkbox';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PriceOverview from 'components/units/PriceOverview/PriceOverview';
 import CartItem from 'components/units/CartItem/CartItem';
 import HighlightText from 'components/shared/HighlightText/HighlightText';
 import Button from 'components/shared/Button/Button';
-import * as T from 'types';
-import { CartState } from 'modules/cartItems/reducers';
-import { RootState } from 'modules';
-import {
-  getCartItemsRequest,
-  checkCartItem,
-  checkAllCartItems,
-  deleteItemActionRequest,
-  deleteCheckedItemsActionRequest,
-} from 'modules/cartItems/actions';
-import MESSAGE from 'constants/messages';
 import Spinner from 'components/shared/Spinner/Spinner';
+import MESSAGE from 'constants/messages';
 import Styled from './CartPage.styles';
 
 const CartPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+  const cartItems: CartState['cartItems'] = useAppSelector((state) => state.cartSlice.cartItems);
+
   const dispatch = useDispatch();
 
   const isAllChecked = cartItems.data.every((item) => item.checked);
@@ -34,17 +28,17 @@ const CartPage = () => {
     .reduce((acc: number, curr: T.CartItem) => acc + curr.price * curr.quantity, 0);
 
   const handleCheckItem = (id: number, isChecked: boolean) => {
-    dispatch(checkCartItem(id, isChecked));
+    dispatch(checkCartItem({ id, checked: isChecked }));
   };
 
   const handleCheckAllItem = () => {
-    dispatch(checkAllCartItems(!isAllChecked));
+    dispatch(checkAllCartItems({ checked: !isAllChecked }));
   };
 
   const handleDeleteItem = (id: T.CartItem['cartId']) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
-    dispatch(deleteItemActionRequest(id));
+    dispatch(deleteCartItems([id]));
   };
 
   const handleDeleteCheckedItem = () => {
@@ -52,11 +46,11 @@ const CartPage = () => {
 
     const ids = checkedItems.map((item) => item.cartId);
 
-    dispatch(deleteCheckedItemsActionRequest(ids));
+    dispatch(deleteCartItems(ids));
   };
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   if (cartItems.status === T.AsyncStatus.PENDING) {
