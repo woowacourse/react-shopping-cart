@@ -15,6 +15,7 @@ import OrderCompletePage from './pages/OrderCompletePage/OrderCompletePage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
 import rootReducer from './modules';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
+import ROUTES from './constants/routes';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -34,28 +35,25 @@ const App = () => {
               <Global styles={globalStyle} />
               <Styled.Page>
                 <Switch>
-                  <Route exact path="/">
+                  <Route exact path={[ROUTES.ROOT, ROUTES.PRODUCTS]}>
                     <ProductsPage />
                   </Route>
-                  <Route path="/products">
-                    <ProductsPage />
-                  </Route>
-                  <Route path="/product/:id">
+                  <Route path={`${ROUTES.PRODUCT}/:id`}>
                     <ProductDetailPage />
                   </Route>
-                  <Route path="/cart">
+                  <Route path={ROUTES.CART}>
                     <CartPage />
                   </Route>
-                  <Route exact path="/order">
+                  <Route exact path={ROUTES.ORDER}>
                     <OrderPage />
                   </Route>
-                  <Route path="/order/complete">
+                  <Route path={ROUTES.ORDER_COMPLETE}>
                     <OrderCompletePage />
                   </Route>
-                  <Route path="/order-list">
+                  <Route path={ROUTES.ORDER_LIST}>
                     <OrderListPage />
                   </Route>
-                  <Redirect to="/" path="*" />
+                  <Redirect to={ROUTES.ROOT} path="*" />
                 </Switch>
               </Styled.Page>
             </BaseLayout>

@@ -22,6 +22,7 @@ import {
 } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
+import ROUTES from '../../constants/routes';
 
 const CartPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -105,7 +106,7 @@ const CartPage = () => {
                 <HighlightText text="결제예상금액" />
                 <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
               </Styled.HighlightTextWrapper>
-              <Link to={{ pathname: '/order', state: { checkedItems } }}>
+              <Link to={{ pathname: ROUTES.ORDER, state: { checkedItems } }}>
                 <Button
                   text={`주문하기 (${checkedItems.length}개)`}
                   size={T.ButtonSize.REGULAR}

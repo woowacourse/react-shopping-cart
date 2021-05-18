@@ -11,6 +11,7 @@ import * as T from '../../types';
 import api from '../../api';
 import MESSAGE from '../../constants/messages';
 import API from '../../constants/api';
+import ROUTES from '../../constants/routes';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -40,7 +41,7 @@ const OrderPage = () => {
     try {
       await api.post(API.ORDERS, orderingItem);
 
-      history.replace('/order/complete');
+      history.replace(ROUTES.ORDER_COMPLETE);
       return;
     } catch (error) {
       // eslint-disable-next-line no-console
