@@ -18,7 +18,7 @@ export const Name = styled.span`
   flex-grow: 1;
   padding-left: 1.25rem;
   font-size: 1.25rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 `;
 
 export const Controller = styled.div`
@@ -30,6 +30,6 @@ export const Controller = styled.div`
 
 export const Price = styled.span`
   font-size: 1rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
   text-align: right;
 `;

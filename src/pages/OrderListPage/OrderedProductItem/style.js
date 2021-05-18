@@ -24,19 +24,19 @@ export const Content = styled.div`
 
 export const Name = styled.span`
   font-size: 1.25rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 `;
 
 export const OrderSummary = styled.span`
   font-size: 1rem;
   padding-top: 1.5rem;
-  color: ${COLOR.GRAY_600};
+  color: ${COLOR.HEX.GRAY_600};
 `;
 
 export const AddToCartButton = styled(Button)`
   font-size: 1.25rem;
-  background-color: ${COLOR.CYAN_500};
-  color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.CYAN_500};
+  color: ${COLOR.HEX.WHITE};
   width: 8.625rem;
   height: 3rem;
 `;

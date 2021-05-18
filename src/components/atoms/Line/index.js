@@ -16,5 +16,5 @@ Line.propTypes = {
 
 Line.defaultProps = {
   thickness: '0.25rem',
-  color: COLOR.BLACK,
+  color: COLOR.HEX.BLACK,
 };

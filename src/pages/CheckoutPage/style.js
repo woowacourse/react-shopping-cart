@@ -3,7 +3,7 @@ import { CheckoutBox, List, Template } from '../../components';
 import { COLOR } from '../../constants';
 
 export const Page = styled(Template)`
-  background-color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.WHITE};
 `;
 
 export const Main = styled.main`
@@ -24,14 +24,14 @@ export const ListLabel = styled.h3`
 `;
 
 export const CheckoutProductList = styled(List)`
-  border-top: 0.0625rem solid ${COLOR.GRAY_500};
+  border-top: 0.0625rem solid ${COLOR.HEX.GRAY_500};
 
   & > li {
-    border-top: 0.0625rem solid ${COLOR.GRAY_500};
+    border-top: 0.0625rem solid ${COLOR.HEX.GRAY_500};
   }
 
   & > li:last-child {
-    border-bottom: 0.0625rem solid ${COLOR.GRAY_500};
+    border-bottom: 0.0625rem solid ${COLOR.HEX.GRAY_500};
   }
 `;
 

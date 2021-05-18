@@ -22,11 +22,11 @@ export const Content = styled.div`
 
 export const Name = styled.span`
   font-size: 1.25rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 `;
 
 export const Quantity = styled.span`
   font-size: 1rem;
   padding-top: 1.5rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 `;

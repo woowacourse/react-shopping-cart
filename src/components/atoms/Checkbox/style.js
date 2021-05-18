@@ -14,7 +14,7 @@ export const Container = styled.label`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 `;
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
@@ -32,14 +32,14 @@ export const CheckMark = styled.span`
   height: 1.75rem;
   width: 1.75rem;
   border-radius: 0.125rem;
-  background-color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.WHITE};
 
   &:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 0.0625rem solid ${COLOR.CYAN_700};
+    border: 0.0625rem solid ${COLOR.HEX.CYAN_700};
     box-sizing: border-box;
     border-radius: 0.125rem;
   }
@@ -52,7 +52,7 @@ export const CheckMark = styled.span`
     left: 0.6rem;
     width: 0.375rem;
     height: 1rem;
-    border: solid ${COLOR.WHITE};
+    border: solid ${COLOR.HEX.WHITE};
     border-width: 0 0.2rem 0.2rem 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
@@ -60,7 +60,7 @@ export const CheckMark = styled.span`
   }
 
   ${Checkbox}:checked + & {
-    background-color: ${COLOR.CYAN_700};
+    background-color: ${COLOR.HEX.CYAN_700};
 
     &:after {
       display: block;

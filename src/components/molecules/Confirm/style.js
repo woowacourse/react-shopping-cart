@@ -19,7 +19,7 @@ export const Container = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(${COLOR.BLACK}, 0.3);
+  background: rgba(${COLOR.RGB.BLACK}, 0.3);
   transition: opacity 0.25s ease;
   z-index: 20;
 `;
@@ -29,15 +29,15 @@ export const Inner = styled.div`
   width: 400px;
   left: calc(50% - 220px);
   bottom: 50%;
-  background-color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.WHITE};
   border-radius: 10px;
-  border: 3px solid ${COLOR.GRAY_300};
+  border: 3px solid ${COLOR.HEX.GRAY_300};
   animation: ${fade} 0.6s ease 1 forwards;
-  box-shadow: 5px 5px 10px rgba(${COLOR.BLACK}, 0.2);
+  box-shadow: 5px 5px 10px rgba(${COLOR.RGB.BLACK}, 0.2);
 `;
 
 export const Message = styled.h3`
-  color: ${COLOR.GRAY_500};
+  color: ${COLOR.HEX.GRAY_500};
   text-align: center;
   font-size: 1.2rem;
   margin: 1.5rem 2rem 5rem;
@@ -45,7 +45,7 @@ export const Message = styled.h3`
 
 export const Button = styled.button`
   background: transparent;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
   height: 3rem;
   font-size: 1rem;
   width: 50%;
@@ -54,18 +54,18 @@ export const Button = styled.button`
   cursor: pointer;
 
   border-style: solid;
-  border-color: ${COLOR.GRAY_100};
+  border-color: ${COLOR.HEX.GRAY_100};
 
   &:focus,
   &:hover {
     font-weight: bold;
-    background-color: ${COLOR.CYAN_500};
-    color: ${COLOR.WHITE};
+    background-color: ${COLOR.HEX.CYAN_500};
+    color: ${COLOR.HEX.WHITE};
     outline: none;
   }
 
   &:active {
-    background-color: ${COLOR.GRAY_200};
+    background-color: ${COLOR.HEX.GRAY_200};
     outline-color: transparent;
   }
 `;

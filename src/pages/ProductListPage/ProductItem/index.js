@@ -17,7 +17,7 @@ export const ProductItem = (props) => {
           <S.Price>{getFormattedAsKRW(price)}</S.Price>
         </S.Label>
         <Button onClick={() => addProduct(product)}>
-          <IconCart width="30" color={COLOR.GRAY_800} />
+          <IconCart width="30" color={COLOR.HEX.GRAY_800} />
         </Button>
       </S.Footer>
     </S.Container>

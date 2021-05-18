@@ -25,5 +25,5 @@ IconDownward.propTypes = {
 
 IconDownward.defaultProps = {
   width: 10,
-  color: COLOR.GRAY_800,
+  color: COLOR.HEX.GRAY_800,
 };

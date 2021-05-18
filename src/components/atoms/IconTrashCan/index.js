@@ -22,5 +22,5 @@ IconTrashCan.propTypes = {
 
 IconTrashCan.defaultProps = {
   width: 22,
-  color: COLOR.GRAY_400,
+  color: COLOR.HEX.GRAY_400,
 };

@@ -21,5 +21,5 @@ IconCart.propTypes = {
 
 IconCart.defaultProps = {
   width: 50,
-  color: COLOR.BLACK,
+  color: COLOR.HEX.BLACK,
 };

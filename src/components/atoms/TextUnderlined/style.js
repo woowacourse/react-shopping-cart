@@ -10,7 +10,7 @@ export const Container = styled.span`
 export const Text = styled.span`
   font-size: 1.25rem;
   font-weight: 700;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
   z-index: 1;
 `;
 
@@ -20,5 +20,5 @@ export const UnderLine = styled.span`
   left: -5%;
   width: 110%;
   height: 0.5rem;
-  background-color: rgba(${COLOR.CYAN_500}, 0.5);
+  background-color: rgba(${COLOR.RGB.CYAN_500}, 0.5);
 `;

@@ -9,7 +9,7 @@ export const Header = (props) => {
   return (
     <S.Container {...rest}>
       <S.Title>{children}</S.Title>
-      <Line color={COLOR.GRAY_800} />
+      <Line color={COLOR.HEX.GRAY_800} />
     </S.Container>
   );
 };

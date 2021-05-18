@@ -10,12 +10,12 @@ export const Container = styled.div`
 
 export const Input = styled.input`
   width: 64%;
-  border-color: ${COLOR.GRAY_200};
+  border-color: ${COLOR.HEX.GRAY_200};
   border-width: 0.125rem 0 0.125rem 0.125rem;
   border-style: solid;
   text-align: center;
   font-size: 1.5rem;
-  color: ${COLOR.GRAY_800};
+  color: ${COLOR.HEX.GRAY_800};
 
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,
@@ -32,7 +32,7 @@ export const Controller = styled.div`
 export const StepperButton = styled(Button)`
   width: 100%;
   height: 50%;
-  border-color: ${COLOR.GRAY_200};
+  border-color: ${COLOR.HEX.GRAY_200};
   border-width: ${(props) => (props.isUpward ? '0.125rem 0.125rem 0 0.125rem' : '0.125rem')};
   border-style: solid;
 `;

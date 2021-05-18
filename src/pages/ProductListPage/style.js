@@ -3,7 +3,7 @@ import { Template } from '../../components';
 import { BREAKPOINTS, COLOR } from '../../constants';
 
 export const Page = styled(Template)`
-  background-color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.WHITE};
 `;
 
 export const Main = styled.main;

@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 0.125rem solid ${COLOR.GRAY_200};
+  border: 0.125rem solid ${COLOR.HEX.GRAY_200};
 `;
 
 export const Title = styled.h3`
@@ -17,8 +17,8 @@ export const Title = styled.h3`
   width: 100%;
   font-size: 1.5rem;
   font-weight: 400;
-  color: ${COLOR.GRAY_800};
-  border-bottom: 0.125rem solid ${COLOR.GRAY_200};
+  color: ${COLOR.HEX.GRAY_800};
+  border-bottom: 0.125rem solid ${COLOR.HEX.GRAY_200};
   box-sizing: border-box;
 `;
 
@@ -39,14 +39,14 @@ export const Bill = styled.p`
 
 export const CheckoutButton = styled(Button)`
   font-size: 1.5rem;
-  background-color: ${COLOR.CYAN_500};
-  color: ${COLOR.WHITE};
+  background-color: ${COLOR.HEX.CYAN_500};
+  color: ${COLOR.HEX.WHITE};
   width: 100%;
   height: 4.5rem;
 
   &:disabled {
-    color: ${COLOR.GRAY_400};
-    background-color: ${COLOR.GRAY_100};
+    color: ${COLOR.HEX.GRAY_400};
+    background-color: ${COLOR.HEX.GRAY_100};
     cursor: default;
   }
 `;
