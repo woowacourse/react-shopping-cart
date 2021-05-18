@@ -29,19 +29,22 @@ export const getSingleProductRequest = createAsyncThunk('singleProduct/get', asy
 
 const productSlice = createSlice({
   name: 'product',
-  initialState: { products: [], singleProduct: {}, errorMessage: '' },
+  initialState: { products: [], singleProduct: {}, loading: false, errorMessage: '' },
   reducers: {},
   extraReducers: {
     [getProductsRequest.pending]: (state) => {
       state.errorMessage = '';
+      state.loading = true;
     },
 
     [getProductsRequest.fulfilled]: (state, action) => {
       state.products = action.payload;
+      state.loading = false;
     },
 
     [getProductsRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
+      state.loading = false;
     },
 
     [getSingleProductRequest.pending]: (state) => {
