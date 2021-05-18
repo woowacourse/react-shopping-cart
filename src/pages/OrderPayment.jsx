@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { PATH } from '../constants/path';
 import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
+import { DELETE_SHOPPING_CART_ITEM_SUCCESS } from '../redux/actions/shoppingCartActions';
 import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
 
 const Content = styled.section`
@@ -29,11 +30,16 @@ const OrderPayment = () => {
   const isLoading = useSelector((state) => state.shoppingCart.shoppingCartItemList.isLoading);
   const { state } = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
     await startFetching(orderPaymentItemList.map(({ cart_id, quantity }) => ({ cart_id, quantity })));
+
+    orderPaymentItemList.forEach((item) => {
+      dispatch({ type: DELETE_SHOPPING_CART_ITEM_SUCCESS, payload: item.cart_id });
+    });
 
     history.replace(PATH.ORDER_LIST);
   };
