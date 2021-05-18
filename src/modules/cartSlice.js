@@ -1,4 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
+const customer_name = 'shinsehantan';
+
+export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (productId, thunkAPI) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/customers/${customer_name}/carts`, {
+      product_id: productId,
+    });
+    const location = res.headers.location;
+
+    return location;
+  } catch (error) {
+    return Object.assign(thunkAPI.rejectWithValue(error), {
+      message: '장바구니에 상품을 추가하는 데 실패했습니다.',
+    });
+  }
+});
+{
+}
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -65,6 +86,19 @@ const cartSlice = createSlice({
     },
     allUnCheck: (state) => {
       state.map((item) => ({ ...item, checked: false }));
+    },
+  },
+  extraReducers: {
+    [addItemToCartRequest.pending]: (state) => {
+      state.errorMessage = '';
+    },
+
+    [addItemToCartRequest.fulfilled]: (state, action) => {
+      state.createSlice.push(action.payload);
+    },
+
+    [addItemToCartRequest.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
     },
   },
 });

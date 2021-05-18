@@ -7,8 +7,7 @@ import Image from '../components/utils/Image';
 import Button from '../components/utils/Button';
 import PriceText from '../components/utils/PriceText';
 
-import { addItemToCart } from '../modules/cartSlice';
-import { addItemToCartRequest } from '../api/products';
+import { addItemToCartRequest } from '../modules/cartSlice';
 
 import styled, { css } from 'styled-components';
 import { getSingleProductRequest } from '../modules/productSlice';
@@ -48,16 +47,15 @@ const PriceTextStyle = css`
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
-  const dispatch = useDispatch();
   const { singleProduct } = useSelector((state) => state.productSlice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getSingleProductRequest(productId));
   }, [dispatch, productId]);
 
   const onAddCartButtonClick = (item) => {
-    addItemToCartRequest(item.product_id);
-    dispatch(addItemToCart(item));
+    dispatch(addItemToCartRequest(item.product_id));
   };
 
   return (

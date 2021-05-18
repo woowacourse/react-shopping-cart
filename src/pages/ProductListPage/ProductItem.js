@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -9,8 +9,7 @@ import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
 
-import { addItemToCart } from '../../modules/cartSlice';
-import { addItemToCartRequest } from '../../api/products';
+import { addItemToCart, addItemToCartRequest } from '../../modules/cartSlice';
 
 import cartImage from '../../asset/cart.png';
 import styled, { css } from 'styled-components';
@@ -48,10 +47,18 @@ const ProductInfoStyle = css`
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cartSlice);
 
   const onAddCartButtonClick = (product) => {
-    addItemToCartRequest(product.product_id);
+    const targetItem = cartItems.find((item) => item.product_id === product.product_id);
+
+    if (targetItem && targetItem.quantity >= 1) {
+      dispatch(addItemToCart(product));
+      return;
+    }
+
     dispatch(addItemToCart(product));
+    addItemToCartRequest(product.product_id);
   };
 
   return (
@@ -74,7 +81,7 @@ const ProductItem = ({ product }) => {
           </PriceText>
         </Flex>
 
-        <IconButton src={cartImage} alt="장바구니 아이콘" onClick={() => onAddCartButtonClick(product)} />
+        <IconButton src={cartImage} alt="장바구니 아이콘" onClick={() => onAddCartButtonClick(product, cartItems)} />
       </Flex>
     </SingleProduct>
   );
