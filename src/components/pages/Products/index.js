@@ -14,7 +14,9 @@ const Products = () => {
     // TODO: 미들 웨어 적용
     async function fetchProducts() {
       try {
-        const response = await axios.get('/products');
+        const response = await axios.get(
+          process.env.REACT_APP_API_URL + '/baskets'
+        );
 
         dispatch({
           type: ACTION_TYPE.PRODUCTS.FETCH_PRODUCTS,
