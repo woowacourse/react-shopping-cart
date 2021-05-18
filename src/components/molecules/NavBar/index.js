@@ -5,10 +5,11 @@ import * as S from './style.js';
 import { ROUTE } from '../../../constants';
 
 export const NavBar = (props) => {
+  const { ...rest } = props;
   const cartLength = useSelector(({ cartReducer }) => Object.keys(cartReducer).length);
 
   return (
-    <S.NavBar {...props}>
+    <S.NavBar {...rest}>
       <S.Container>
         <Link to={ROUTE.HOME}>
           <S.NavTitle>

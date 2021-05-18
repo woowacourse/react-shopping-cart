@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 import * as S from './style.js';
 
 export const Button = (props) => {
-  return <S.Button {...props}></S.Button>;
+  const { onClick, ...rest } = props;
+
+  return <S.Button onClick={onClick} {...rest}></S.Button>;
 };
 
 Button.propTypes = {
-  style: PropTypes.object,
   onClick: PropTypes.func,
 };

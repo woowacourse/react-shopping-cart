@@ -14,7 +14,6 @@ Line.propTypes = {
 };
 
 Line.defaultProps = {
-  width: '100%',
   thickness: '0.25rem',
   color: '#000000',
 };

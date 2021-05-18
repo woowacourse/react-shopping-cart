@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { Line } from '../..';
 import * as S from './style.js';
 
@@ -10,4 +11,8 @@ export const Header = (props) => {
       <Line color="#333333" />
     </S.Container>
   );
+};
+
+Header.propTypes = {
+  children: PropTypes.node.isRequired,
 };

@@ -13,5 +13,5 @@ export const UnderlinedText = (props) => {
 };
 
 UnderlinedText.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
