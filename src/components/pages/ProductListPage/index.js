@@ -68,7 +68,7 @@ const ProductListPage = () => {
         ))}
       </Styled.ProductList>
       {errorMessage && <Modal onClose={onCloseErrorMessageModal}>{errorMessage}</Modal>}
-      {snackbarMessage && <Snackbar key={Date.now()} message={snackbarMessage} duration={SNACKBAR_DURATION} />}
+      {snackbarMessage && <Snackbar message={snackbarMessage} duration={SNACKBAR_DURATION} />}
     </Main>
   );
 };

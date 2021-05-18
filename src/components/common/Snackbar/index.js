@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import * as Styled from './style';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import PALETTE from '../../../constants/palette';
+import * as Styled from './style';
 
 const snackbarRoot = document.getElementById('snackbar-root');
 
 const Snackbar = ({ message, duration, backgroundColor }) => {
   return ReactDOM.createPortal(
-    <Styled.SnackbarContainer backgroundColor={backgroundColor} duration={duration}>
+    <Styled.SnackbarContainer key={Date.now()} backgroundColor={backgroundColor} duration={duration}>
       {message}
     </Styled.SnackbarContainer>,
     snackbarRoot
