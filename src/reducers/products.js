@@ -1,3 +1,4 @@
+import produce from 'immer';
 import { ACTION_TYPE, PRODUCT } from '../constants';
 
 const initialState = {
@@ -10,17 +11,15 @@ const addToCart = (state, product) => {
   const newQuantity =
     id in pickedProducts ? pickedProducts[id].quantity + 1 : 1;
 
-  return {
-    ...state,
-    pickedProducts: {
-      ...pickedProducts,
-      [id]: {
-        ...product,
-        quantity: newQuantity,
-        isChecked: true,
-      },
-    },
-  };
+  const updater = produce(draft => {
+    draft.pickedProducts[id] = {
+      ...product,
+      quantity: newQuantity,
+      isChecked: true,
+    };
+  });
+
+  return updater(state);
 };
 
 const changeQuantity = (state, id, operand) => {
@@ -32,31 +31,27 @@ const changeQuantity = (state, id, operand) => {
       ? prevQuantity
       : prevQuantity + operand;
 
-  return {
-    ...state,
-    pickedProducts: {
-      ...pickedProducts,
-      [id]: {
-        ...pickedProducts[id],
-        quantity: newQuantity,
-      },
-    },
-  };
+  const updater = produce(draft => {
+    draft.pickedProducts[id] = {
+      ...pickedProducts[id],
+      quantity: newQuantity,
+    };
+  });
+
+  return updater(state);
 };
 
 const toggleChecked = (state, id) => {
   const { pickedProducts } = state;
 
-  return {
-    ...state,
-    pickedProducts: {
-      ...pickedProducts,
-      [id]: {
-        ...pickedProducts[id],
-        isChecked: !pickedProducts[id].isChecked,
-      },
-    },
-  };
+  const updater = produce(draft => {
+    draft.pickedProducts[id] = {
+      ...pickedProducts[id],
+      isChecked: !pickedProducts[id].isChecked,
+    };
+  });
+
+  return updater(state);
 };
 
 const toggleCheckedAll = (state, isChecked) => {
@@ -88,10 +83,11 @@ const deleteCheckedProducts = state => {
     }
   });
 
-  return {
-    ...state,
-    pickedProducts: newProducts,
-  };
+  const updater = produce(draft => {
+    draft.pickedProducts = newProducts;
+  });
+
+  return updater(state);
 };
 
 const deleteProduct = (state, id) => {
@@ -100,10 +96,11 @@ const deleteProduct = (state, id) => {
 
   delete newProducts[id];
 
-  return {
-    ...state,
-    pickedProducts: newProducts,
-  };
+  const updater = produce(draft => {
+    draft.pickedProducts = newProducts;
+  });
+
+  return updater(state);
 };
 
 const productReducer = (state = initialState, action) => {
