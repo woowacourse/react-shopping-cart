@@ -6,7 +6,7 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   checked: boolean;
 }
 
-const CheckBox: FC<CheckBoxProps> = ({ ...props }) => (
+const CheckBox: FC<CheckBoxProps> = props => (
   <Container>
     <Input type="checkbox" {...props} />
     <CheckMark>
