@@ -22,10 +22,9 @@ import * as Styled from './style';
 const ProductListPage = () => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
-    products,
+    products: { productList, isLoading },
     cart,
     errorMessage,
-    loading: { productsLoading },
   } = useSelector((state) => state);
   const {
     pageStartIndex,
@@ -35,7 +34,7 @@ const ProductListPage = () => {
     isPreviousPageAvailable,
     isNextPageAvailable,
     currentPage,
-  } = usePagination(0, products.length);
+  } = usePagination(0, productList.length);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const ProductListPage = () => {
   const onAddToCart = (productId) => () => {
     if (cart.findIndex((product) => product.id === productId) >= 0) return;
 
-    const selectedProduct = products.find((product) => product.id === productId);
+    const selectedProduct = productList.find((product) => product.id === productId);
     dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
 
     setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
@@ -61,11 +60,11 @@ const ProductListPage = () => {
 
   return (
     <Main>
-      <Loader animationType={'spin'} isLoading={productsLoading}>
+      <Loader animationType={'spin'} isLoading={isLoading}>
         <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
       </Loader>
       <Styled.ProductList>
-        {products.slice(pageStartIndex, pageStartIndex + PRODUCTS_PER_PAGE).map((product) => (
+        {productList.slice(pageStartIndex, pageStartIndex + PRODUCTS_PER_PAGE).map((product) => (
           <li key={product.id}>
             <Product
               product={product}
@@ -89,9 +88,9 @@ const ProductListPage = () => {
           </li>
         ))}
       </Styled.ProductList>
-      {!!products.length && (
+      {!!productList.length && (
         <Pagination
-          pages={products.length}
+          pages={productList.length}
           onPagePrevious={onPagePrevious}
           onPageNext={onPageNext}
           onPageSelected={onPageSelected}
