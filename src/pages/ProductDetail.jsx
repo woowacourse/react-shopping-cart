@@ -5,9 +5,8 @@ import { useLocation } from 'react-router';
 import { requestGetItemList } from '../request/request';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
-import useDialog from '../hooks/useDialog';
-import { Button, BUTTON_TYPE, Dialog, DIALOG_TYPE, Loading, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
-import useInsertingShoppingCart from '../hooks/useInsertingShoppingCart';
+import { Button, BUTTON_TYPE, Loading, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
+import useInsertingItemToShoppingCart from '../hooks/useInsertingItemToShoppingCart';
 
 const Container = styled.div`
   width: 640px;
@@ -39,12 +38,9 @@ const Description = styled.div`
 `;
 
 const ProductDetail = () => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
   const { state } = useLocation();
-  const { insertShoppingCart, ADD_FAILURE } = useInsertingShoppingCart({
+  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({
     product_id: state.id,
-    setIsDialogOpen,
-    setType,
   });
 
   const { isLoading, data } = useFetch({
@@ -72,11 +68,7 @@ const ProductDetail = () => {
         </Button>
       </Container>
 
-      {isDialogOpen && (
-        <Dialog type={DIALOG_TYPE.ALERT} onConfirm={clickConfirm} onClose={clickCancel}>
-          {type === ADD_FAILURE ? '이미 장바구니에 추가되어 있습니다.' : '장바구니에 추가되었습니다.'}
-        </Dialog>
-      )}
+      {isDialogOpen && <Dialog />}
     </>
   );
 };

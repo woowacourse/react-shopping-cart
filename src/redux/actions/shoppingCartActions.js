@@ -25,7 +25,7 @@ export const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_C
 export const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
 export const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
-export const insertShoppingCartItem = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, (data) =>
+export const insertItemToShoppingCart = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, (data) =>
   requestInsertItem(API_PATH.SHOPPING_CART_LIST, { product_id: data.product_id })
 );
 
