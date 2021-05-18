@@ -41,7 +41,7 @@ const ProductListItem = ({ id, name, src, price }) => {
   });
 
   const handleRoutingProductDetail = () => {
-    history.push(PATH.PRODUCT_DETAIL, { id });
+    history.push(`${PATH.PRODUCT_LIST}/${id}`, { id });
   };
 
   return (

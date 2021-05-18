@@ -35,12 +35,12 @@ const App = () => {
       <StyledContents>
         <Switch>
           <Route exact path={PATH.HOME} component={Home} />
-          <Route path={PATH.PRODUCT_LIST} component={ProductList} />
-          <Route path={PATH.PRODUCT_DETAIL} component={ProductDetail} />
-          <Route path={PATH.SHOPPING_CART} component={ShoppingCart} />
-          <Route path={PATH.ORDER_PAYMENT} component={OrderPayment} />
-          <Route path={PATH.ORDER_LIST} component={OrderList} />
-          <Route path={PATH.ORDER_LIST_DETAIL} component={OrderListDetail} />
+          <Route exact path={PATH.PRODUCT_LIST} component={ProductList} />
+          <Route exact path={`${PATH.PRODUCT_LIST}/:id`} component={ProductDetail} />
+          <Route exact path={PATH.SHOPPING_CART} component={ShoppingCart} />
+          <Route exact path={PATH.ORDER_PAYMENT} component={OrderPayment} />
+          <Route exact path={PATH.ORDER_LIST} component={OrderList} />
+          <Route exact path={PATH.ORDER_LIST_DETAIL} component={OrderListDetail} />
         </Switch>
       </StyledContents>
     </>
