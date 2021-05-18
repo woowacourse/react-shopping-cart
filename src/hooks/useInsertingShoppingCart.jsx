@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertShoppingCartItem } from '../redux/actions/shoppingCartActions';
 
@@ -25,6 +26,12 @@ const useInsertingShoppingCart = ({ product_id, setIsDialogOpen, setType }) => {
   };
 
   return { insertShoppingCart, ADD_SUCCESS, ADD_FAILURE };
+};
+
+useInsertingShoppingCart.propTypes = {
+  product_id: PropTypes.number.isRequired,
+  setIsDialogOpen: PropTypes.func.isRequired,
+  setType: PropTypes.func.isRequired,
 };
 
 export default useInsertingShoppingCart;

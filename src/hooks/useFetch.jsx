@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const useFetch = ({ fetchFunc, isInitSetting }) => {
+const useFetch = ({ fetchFunc, isInitSetting = false }) => {
   const [isLoading, setLoading] = useState(isInitSetting);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -35,6 +36,11 @@ const useFetch = ({ fetchFunc, isInitSetting }) => {
   };
 
   return { isLoading, data, error, startFetching };
+};
+
+useFetch.propTypes = {
+  fetchFunc: PropTypes.func.isRequired,
+  isInitSetting: PropTypes.bool,
 };
 
 export default useFetch;
