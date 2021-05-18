@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const CartIcon = (props) => {
+export const IconCart = (props) => {
   const { width, color, ...rest } = props;
 
   return (
@@ -13,12 +13,12 @@ export const CartIcon = (props) => {
   );
 };
 
-CartIcon.propTypes = {
+IconCart.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
 };
 
-CartIcon.defaultProps = {
+IconCart.defaultProps = {
   width: 50,
   color: '#000000',
 };

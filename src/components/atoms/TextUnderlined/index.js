@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as S from './style.js';
 
-export const UnderlinedText = (props) => {
+export const TextUnderlined = (props) => {
   const { children, ...rest } = props;
 
   return (
@@ -12,6 +12,6 @@ export const UnderlinedText = (props) => {
   );
 };
 
-UnderlinedText.propTypes = {
+TextUnderlined.propTypes = {
   children: PropTypes.node.isRequired,
 };

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const TrashCanIcon = (props) => {
+export const IconTrashCan = (props) => {
   const { width, color, ...rest } = props;
 
   return (
@@ -14,12 +14,12 @@ export const TrashCanIcon = (props) => {
   );
 };
 
-TrashCanIcon.propTypes = {
+IconTrashCan.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
 };
 
-TrashCanIcon.defaultProps = {
+IconTrashCan.defaultProps = {
   width: 22,
   color: '#BBBBBB',
 };

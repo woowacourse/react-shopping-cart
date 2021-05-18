@@ -1,14 +1,14 @@
 /* atoms */
 export { Button } from './atoms/Button';
-export { CartIcon } from './atoms/CartIcon';
+export { IconCart } from './atoms/IconCart';
 export { Checkbox } from './atoms/Checkbox';
-export { DownwardIcon } from './atoms/DownwardIcon';
+export { IconDownward } from './atoms/IconDownward';
 export { Line } from './atoms/Line';
 export { List } from './atoms/List';
 export { Template } from './atoms/Template';
-export { TrashCanIcon } from './atoms/TrashCanIcon';
-export { UnderlinedText } from './atoms/UnderlinedText';
-export { UpwardIcon } from './atoms/UpwardIcon';
+export { IconTrashCan } from './atoms/IconTrashCan';
+export { TextUnderlined } from './atoms/TextUnderlined';
+export { IconUpward } from './atoms/IconUpward';
 
 /* molecules */
 export { CheckoutBox } from './molecules/CheckoutBox';

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { UpwardIcon, DownwardIcon } from '../../';
+import { IconUpward, IconDownward } from '../../';
 import * as S from './style.js';
 
 export const QuantityStepper = (props) => {
@@ -9,8 +9,8 @@ export const QuantityStepper = (props) => {
     <S.Container {...rest}>
       <S.Input value={quantity} onChange={onInput} />
       <S.Controller>
-        <S.StepperButton onClick={onIncrement} children={<UpwardIcon />} isUpward />
-        <S.StepperButton onClick={onDecrement} children={<DownwardIcon />} />
+        <S.StepperButton onClick={onIncrement} children={<IconUpward />} isUpward />
+        <S.StepperButton onClick={onDecrement} children={<IconDownward />} />
       </S.Controller>
     </S.Container>
   );

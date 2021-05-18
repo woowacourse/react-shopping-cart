@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { CartIcon } from '../../';
+import { IconCart } from '../../';
 import * as S from './style.js';
 import { ROUTE } from '../../../constants';
 
@@ -13,7 +13,7 @@ export const NavBar = (props) => {
       <S.Container>
         <Link to={ROUTE.HOME}>
           <S.NavTitle>
-            <CartIcon width="50" color="#FFFFFF" />
+            <IconCart width="50" color="#FFFFFF" />
             <S.Title>심바하루의 쇼핑은 즐거워</S.Title>
           </S.NavTitle>
         </Link>

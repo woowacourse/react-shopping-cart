@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as S from './style.js';
 import { PATTERN_ONLY_NUMBER } from '../../../constants';
-import { Button, Checkbox, TrashCanIcon, QuantityStepper } from '../../../components';
+import { Button, Checkbox, IconTrashCan, QuantityStepper } from '../../../components';
 import { getFormattedAsKRW } from '../../../utils';
 
 const MIN_PRODUCT_QUANTITY = 1;
@@ -51,7 +51,7 @@ export const CartProductItem = (props) => {
       <S.Image src={img} />
       <S.Name>{name}</S.Name>
       <S.Controller>
-        <Button children={<TrashCanIcon />} onClick={() => removeProduct(id)} />
+        <Button children={<IconTrashCan />} onClick={() => removeProduct(id)} />
         <QuantityStepper
           quantity={quantity}
           onIncrement={onIncrementQuantity}

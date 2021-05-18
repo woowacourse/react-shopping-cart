@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const UpwardIcon = (props) => {
+export const IconUpward = (props) => {
   const { width, color, ...rest } = props;
 
   return (
@@ -10,12 +10,12 @@ export const UpwardIcon = (props) => {
   );
 };
 
-UpwardIcon.propTypes = {
+IconUpward.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
 };
 
-UpwardIcon.defaultProps = {
+IconUpward.defaultProps = {
   width: 10,
   color: '#333333',
 };

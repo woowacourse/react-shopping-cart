@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const DownwardIcon = (props) => {
+export const IconDownward = (props) => {
   const { width, color, ...rest } = props;
 
   return (
@@ -17,12 +17,12 @@ export const DownwardIcon = (props) => {
   );
 };
 
-DownwardIcon.propTypes = {
+IconDownward.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.string,
 };
 
-DownwardIcon.defaultProps = {
+IconDownward.defaultProps = {
   width: 10,
   color: '#333333',
 };

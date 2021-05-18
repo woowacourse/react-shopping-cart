@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { UnderlinedText } from '../../';
+import { TextUnderlined } from '../../';
 import * as S from './style.js';
 
 export const CheckoutBox = (props) => {
@@ -10,8 +10,8 @@ export const CheckoutBox = (props) => {
       <S.Title>{title}</S.Title>
       <S.Content>
         <S.Bill>
-          <UnderlinedText>{label}</UnderlinedText>
-          <UnderlinedText>{price}</UnderlinedText>
+          <TextUnderlined>{label}</TextUnderlined>
+          <TextUnderlined>{price}</TextUnderlined>
         </S.Bill>
         <S.CheckoutButton disabled={buttonDisabled} onClick={onClickButton}>
           {buttonText}
