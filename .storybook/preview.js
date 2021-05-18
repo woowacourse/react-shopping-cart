@@ -1,17 +1,11 @@
+import * as React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
-
-import * as React from 'react';
 import { ThemeProvider } from 'emotion-theming';
-
-import { globalStyle, theme } from '../src/App.styles';
 import { Global } from '@emotion/react';
-
-import rootReducer from '../src/modules';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { globalStyle, theme } from '../src/App.styles';
+import { store } from '../src/modules/store';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -22,8 +16,6 @@ export const parameters = {
     },
   },
 };
-
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 addDecorator((children) => <Provider store={store}>{children()}</Provider>);
 

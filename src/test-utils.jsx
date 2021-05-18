@@ -1,15 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { Global, ThemeProvider } from '@emotion/react';
 import { SnackbarProvider } from 'notistack';
 import { render } from '@testing-library/react';
-import rootReducer from './modules';
+import { store } from './modules/store';
 import { globalStyle, theme } from './App.styles';
-
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 // eslint-disable-next-line react/prop-types
 const AllTheProviders = ({ children }) => {
