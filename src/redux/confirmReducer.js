@@ -12,11 +12,10 @@ export const confirmAction = {
 };
 
 /* REDUCER */
-
 export const INITIAL_STATE = {
-  isOpened: false,
-  message: null,
-  approve: null,
+  isOpen: false,
+  message: '',
+  approve: () => {},
 };
 
 export const confirmReducer = (state = INITIAL_STATE, action) => {
@@ -26,7 +25,7 @@ export const confirmReducer = (state = INITIAL_STATE, action) => {
     /* payload: { message, approve } */
     case OPEN_CONFIRM:
       return {
-        isOpened: true,
+        isOpen: true,
         message: payload.message,
         approve: payload.approve,
       };

@@ -1,24 +1,23 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { confirmAction } from '../../../redux';
+import { PropTypes } from 'prop-types';
 import * as S from './style.js';
 
-export const Confirm = () => {
-  const { isOpened, message, approve } = useSelector(({ confirmReducer }) => confirmReducer);
-
-  const dispatch = useDispatch();
-  const dispatchCloseConfirm = () => dispatch(confirmAction.closeConfirm());
-  const onApprove = () => {
-    approve();
-    dispatchCloseConfirm();
-  };
+export const Confirm = (props) => {
+  const { isOpen, message, onApprove, onCancel } = props;
 
   return (
-    <S.Container isOpened={isOpened}>
+    <S.Container isVisible={isOpen}>
       <S.Inner>
         <S.Message>{message}</S.Message>
-        <S.CancelButton onClick={dispatchCloseConfirm}>취소</S.CancelButton>
+        <S.CancelButton onClick={onCancel}>취소</S.CancelButton>
         <S.ApproveButton onClick={onApprove}>확인</S.ApproveButton>
       </S.Inner>
     </S.Container>
   );
+};
+
+Confirm.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  message: PropTypes.node.isRequired,
+  onApprove: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };

@@ -13,7 +13,7 @@ const fade = keyframes`
 `;
 
 export const Container = styled.div`
-  visibility: ${(props) => (props.isOpened ? 'visible' : 'hidden')};
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   position: fixed;
   top: 0;
   right: 0;
