@@ -13,6 +13,8 @@ import Styled from './OrderListPage.styles';
 import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
 import { CartState } from '../../modules/cartItems/reducers';
 import { RootState } from '../../modules';
+import API from '../../constants/api';
+import { toCamelCaseKeyObjectArray } from '../../utils';
 
 const OrderListPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -27,8 +29,15 @@ const OrderListPage = () => {
     setLoading(true);
 
     try {
-      const response = await api.get('/orders');
-      setOrders(response.data);
+      const response = await api.get(API.ORDERS);
+
+      const fetchedOrders = toCamelCaseKeyObjectArray(response.data);
+      const serializedOrders = fetchedOrders.map((order: T.Order) => ({
+        ...order,
+        orderDetails: toCamelCaseKeyObjectArray(order.orderDetails),
+      }));
+
+      setOrders(serializedOrders);
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
     }
@@ -36,17 +45,17 @@ const OrderListPage = () => {
     setLoading(false);
   }, [enqueueSnackbar]);
 
-  const handleClickCart = (product: T.Product) => {
+  const handleClickCart = (productId: T.Product['productId']) => {
     if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
-    const cartItemIds = cartItems.data?.map?.((cartItem) => cartItem.product.id);
+    const cartItemIds = cartItems.data?.map?.((cartItem) => cartItem.productId);
 
-    if (cartItemIds.includes(product.id)) {
+    if (cartItemIds.includes(productId)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
       return;
     }
 
-    dispatch(addCartItemRequest(product))
+    dispatch(addCartItemRequest(productId))
       .then(() => {
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
@@ -80,14 +89,14 @@ const OrderListPage = () => {
       ) : (
         <Styled.OrderList>
           {orders?.map?.((order) => (
-            <Styled.Order key={order.id}>
+            <Styled.Order key={order.orderId}>
               <Styled.OrderHeader>
-                <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
+                <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
                 <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
-                {order.items?.map?.((item) => (
-                  <PurchasedItem key={item.id} item={item} onClick={handleClickCart} />
+                {order.orderDetails?.map?.((item) => (
+                  <PurchasedItem key={`${order.orderId}-${item.productId}`} item={item} onClick={handleClickCart} />
                 ))}
               </Styled.PurchasedList>
             </Styled.Order>

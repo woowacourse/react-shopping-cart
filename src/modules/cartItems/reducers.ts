@@ -6,9 +6,6 @@ import {
   GET_CART_ITEMS_REQUEST,
   GET_CART_ITEMS_SUCCESS,
   GET_CART_ITEMS_FAILURE,
-  UPDATE_QUANTITY_REQUEST,
-  UPDATE_QUANTITY_SUCCESS,
-  UPDATE_QUANTITY_FAILURE,
   CHECK_CART_ITEM,
   CHECK_ALL_CART_ITEMS,
   DELETE_ITEM_REQUEST,
@@ -24,6 +21,7 @@ import {
   CheckAllCartItemsAction,
   DeleteItemAction,
   DeleteCheckedItemsAction,
+  UPDATE_QUANTITY,
 } from './actions';
 import * as T from '../../types';
 
@@ -94,25 +92,15 @@ export const cartReducer = (
         draft.cartItems.error = action.error;
       });
 
-    case UPDATE_QUANTITY_REQUEST:
+    case UPDATE_QUANTITY:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.error = null;
-      });
-
-    case UPDATE_QUANTITY_SUCCESS:
-      return produce(state, (draft: Draft<CartState>) => {
-        const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
+        const target = draft.cartItems.data.find((item) => item.cartId === action.payload.id);
         if (target) target.quantity = action.payload.quantity;
-      });
-
-    case UPDATE_QUANTITY_FAILURE:
-      return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.error = action.error;
       });
 
     case CHECK_CART_ITEM:
       return produce(state, (draft: Draft<CartState>) => {
-        const target = draft.cartItems.data.find((item) => item.id === action.payload.id);
+        const target = draft.cartItems.data.find((item) => item.cartId === action.payload.id);
         if (target) target.checked = action.payload.checked;
         draft.cartItems.status = T.AsyncStatus.IDLE;
       });
@@ -131,7 +119,7 @@ export const cartReducer = (
 
     case DELETE_ITEM_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.data = draft.cartItems.data.filter((item) => item.id !== action.id);
+        draft.cartItems.data = draft.cartItems.data.filter((item) => item.cartId !== action.id);
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
         draft.cartItems.error = null;
       });
@@ -150,7 +138,7 @@ export const cartReducer = (
 
     case DELETE_CHECKED_ITEMS_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
-        draft.cartItems.data = draft.cartItems.data.filter((item) => !action.ids.includes(item.id));
+        draft.cartItems.data = draft.cartItems.data.filter((item) => !action.ids.includes(item.cartId));
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
         draft.cartItems.error = null;
       });

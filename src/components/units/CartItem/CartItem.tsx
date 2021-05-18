@@ -6,19 +6,18 @@ import Checkbox from '../../shared/Checkbox/Checkbox';
 import QuantityInput from '../../shared/QuantityInput/QuantityInput';
 import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
-import { updateQuantityRequest } from '../../../modules/cartItems/actions';
+import { updateQuantity } from '../../../modules/cartItems/actions';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
 
 type CartItemProps = {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
-  onDelete: (id: T.CartItem['id']) => void;
+  onDelete: (id: T.CartItem['cartId']) => void;
 };
 
 const CartItem = (props: CartItemProps) => {
   const { cartItem, onCheck, onDelete } = props;
-  const { id, product, quantity, checked } = cartItem;
-  const { name, image, price } = product;
+  const { cartId, name, imageUrl, price, checked, quantity } = cartItem;
 
   const dispatch = useDispatch();
 
@@ -26,45 +25,45 @@ const CartItem = (props: CartItemProps) => {
     const newQuantity = event.target.valueAsNumber;
 
     if (newQuantity <= CART_ITEM_QUANTITY.MIN || Number.isNaN(newQuantity)) {
-      dispatch(updateQuantityRequest(id, CART_ITEM_QUANTITY.MIN));
+      dispatch(updateQuantity(cartId, CART_ITEM_QUANTITY.MIN));
       return;
     }
 
     if (newQuantity >= CART_ITEM_QUANTITY.MAX) {
-      dispatch(updateQuantityRequest(id, CART_ITEM_QUANTITY.MAX));
+      dispatch(updateQuantity(cartId, CART_ITEM_QUANTITY.MAX));
       return;
     }
 
-    dispatch(updateQuantityRequest(id, newQuantity));
+    dispatch(updateQuantity(cartId, newQuantity));
   };
 
   const handleIncrement = () => {
     if (quantity >= CART_ITEM_QUANTITY.MAX) return;
 
-    dispatch(updateQuantityRequest(id, quantity + 1));
+    dispatch(updateQuantity(cartId, quantity + 1));
   };
 
   const handleDecrement = () => {
     if (quantity <= CART_ITEM_QUANTITY.MIN) return;
 
-    dispatch(updateQuantityRequest(id, quantity - 1));
+    dispatch(updateQuantity(cartId, quantity - 1));
   };
 
   const totalPrice = price * quantity;
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
-    onCheck(id, isChecked);
+    onCheck(cartId, isChecked);
   };
 
   const handleDelete = () => {
-    onDelete(id);
+    onDelete(cartId);
   };
 
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={image || noImageURL} alt={name} />
+      <Styled.Image src={imageUrl || noImageURL} alt={name} />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
         <Styled.Delete onClick={handleDelete}>
@@ -73,8 +72,8 @@ const CartItem = (props: CartItemProps) => {
         <Styled.QuantityInputWrapper>
           <QuantityInput
             value={quantity}
-            min={1}
-            max={99}
+            min={CART_ITEM_QUANTITY.MIN}
+            max={CART_ITEM_QUANTITY.MAX}
             onChangeInput={handleChangeInput}
             onIncrease={handleIncrement}
             onDecrease={handleDecrement}

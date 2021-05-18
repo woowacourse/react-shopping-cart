@@ -5,22 +5,25 @@ export enum ButtonSize {
 }
 
 export type Product = {
-  id: number;
+  productId: number;
   name: string;
-  image: string;
+  imageUrl: string;
   price: number;
 };
 
 export type CartItem = {
-  id: number;
-  product: Product;
+  cartId: number;
   quantity: number;
   checked: boolean;
-};
+} & Product;
+
+export type OrderItem = {
+  quantity: CartItem['quantity'];
+} & Product;
 
 export type Order = {
-  id: number;
-  items: CartItem[];
+  orderId: number;
+  orderDetails: OrderItem[];
 };
 
 export enum AsyncStatus {

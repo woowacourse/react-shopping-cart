@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { ThunkDispatch } from 'redux-thunk';
-import { Action } from 'redux';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -12,9 +9,8 @@ import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
 import api from '../../api';
-import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
-import { RootState } from '../../modules';
+import API from '../../constants/api';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -23,7 +19,6 @@ type LocationState = {
 const OrderPage = () => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
   const [isLoading, setLoading] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -32,7 +27,7 @@ const OrderPage = () => {
   const { checkedItems } = location.state;
 
   const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {
-    return acc + curr.product.price * curr.quantity;
+    return acc + curr.price * curr.quantity;
   }, 0);
 
   const handlePurchaseCartItems = async () => {
@@ -40,11 +35,10 @@ const OrderPage = () => {
 
     setLoading(true);
 
-    try {
-      await api.post('/orders', { items: checkedItems });
+    const orderingItem = checkedItems.map(({ cartId, quantity }) => ({ cartId, quantity }));
 
-      const ids = checkedItems?.map?.((cartItem) => cartItem.id);
-      dispatch(deleteCheckedItemsActionRequest(ids));
+    try {
+      await api.post(API.ORDERS, orderingItem);
 
       history.replace('/order/complete');
       return;
@@ -65,12 +59,7 @@ const OrderPage = () => {
           <Styled.OrderListHeader>주문 상품({checkedItems.length}건)</Styled.OrderListHeader>
           <Styled.OrderItemList>
             {checkedItems?.map?.((item) => (
-              <OrderItem
-                key={item.id}
-                title={item.product.name}
-                imageUrl={item.product.image}
-                quantity={item.quantity}
-              />
+              <OrderItem key={item.cartId} title={item.name} imageUrl={item.imageUrl} quantity={item.quantity} />
             ))}
           </Styled.OrderItemList>
         </Styled.OrderListContainer>

@@ -6,21 +6,21 @@ import noImageURL from '../../../assets/images/no_image.jpg';
 
 type ProductItemProps = {
   product: T.Product;
-  onClickCart: (product: T.Product) => void;
+  onClickCart: (productId: T.Product['productId']) => void;
 };
 
 const ProductItem = (props: ProductItemProps) => {
   const { product, onClickCart } = props;
-  const { name, image, price } = product;
+  const { productId, name, imageUrl, price } = product;
 
   const handleClickCart = () => {
-    onClickCart(product);
+    onClickCart(productId);
   };
 
   return (
     <Styled.Root>
       <Styled.ImageWrapper>
-        <Styled.Image src={image || noImageURL} alt={name} />
+        <Styled.Image src={imageUrl || noImageURL} alt={name} />
       </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>

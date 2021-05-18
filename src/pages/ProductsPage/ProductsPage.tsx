@@ -12,6 +12,8 @@ import { RootState } from '../../modules';
 import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
 import { CartState } from '../../modules/cartItems/reducers';
 import api from '../../api';
+import API from '../../constants/api';
+import { toCamelCaseKeyObjectArray } from '../../utils';
 
 const ProductsPage = () => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -22,12 +24,15 @@ const ProductsPage = () => {
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<T.Product[]>([]);
+
   const getProducts = useCallback(async () => {
     setLoading(true);
 
     try {
-      const response = await api.get('/products');
-      setProducts(response.data);
+      const response = await api.get(API.PRODUCTS);
+      const serializedProducts = toCamelCaseKeyObjectArray(response.data);
+
+      setProducts(serializedProducts);
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
     }
@@ -35,17 +40,17 @@ const ProductsPage = () => {
     setLoading(false);
   }, [enqueueSnackbar]);
 
-  const handleClickCart = (product: T.Product) => {
+  const handleClickCart = (productId: T.Product['productId']) => {
     if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
+    const cartItemIds = cartItems.data.map((cartItem) => cartItem.productId);
 
-    if (cartItemIds.includes(product.id)) {
+    if (cartItemIds.includes(productId)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
       return;
     }
 
-    dispatch(addCartItemRequest(product))
+    dispatch(addCartItemRequest(productId))
       .then(() => {
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
@@ -77,7 +82,7 @@ const ProductsPage = () => {
       ) : (
         <Styled.ProductList>
           {products?.map?.((product: T.Product) => (
-            <li key={product.id}>
+            <li key={product.productId}>
               <ProductItem product={product} onClickCart={handleClickCart} />
             </li>
           ))}

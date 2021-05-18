@@ -1,7 +1,8 @@
 import axios from 'axios';
+import API from './constants/api';
 
 const api = axios.create({
-  baseURL: 'https://react-shopping-cart-cheffe.herokuapp.com',
+  baseURL: API.BASE_URL,
 });
 
 export default api;

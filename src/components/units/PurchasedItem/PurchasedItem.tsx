@@ -1,28 +1,27 @@
 import React from 'react';
 import Styled from './PurchasedItem.styles';
-import defaultImageURL from '../../../assets/images/brave.png';
+import defaultImageURL from '../../../assets/images/no_image.jpg';
 import Button from '../../shared/Button/Button';
 import * as T from '../../../types';
 
 type PurchasedItemProps = {
-  item: T.CartItem;
-  onClick: (product: T.Product) => void;
+  item: T.OrderItem;
+  onClick: (productId: T.Product['productId']) => void;
 };
 
 const PurchasedItem = (props: PurchasedItemProps) => {
   const { item, onClick } = props;
-  const { quantity, product } = item;
-  const { name, price, image } = product;
+  const { quantity, name, price, productId, imageUrl } = item;
 
   const totalPrice = price * quantity;
 
   const handleClick = () => {
-    onClick(product);
+    onClick(productId);
   };
 
   return (
     <Styled.Root>
-      <Styled.Image src={image ?? defaultImageURL} alt={name} />
+      <Styled.Image src={imageUrl ?? defaultImageURL} alt={name} />
       <Styled.Info>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>
