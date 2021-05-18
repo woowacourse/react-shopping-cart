@@ -6,7 +6,7 @@ import { FALLBACK } from '../../constants';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetail = ({
+const ProductDetailCard = ({
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
@@ -28,7 +28,7 @@ const ProductDetail = ({
   </Product>
 );
 
-ProductDetail.propTypes = {
+ProductDetailCard.propTypes = {
   imgUrl: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
@@ -36,4 +36,4 @@ ProductDetail.propTypes = {
   // onClick: PropTypes.func,
 };
 
-export default ProductDetail;
+export default ProductDetailCard;

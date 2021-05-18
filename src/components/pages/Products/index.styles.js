@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductPage = styled.main`
+export const Page = styled.main`
   max-width: 960px;
   margin: 7rem auto;
 `;

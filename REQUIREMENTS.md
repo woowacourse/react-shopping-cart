@@ -57,7 +57,7 @@
     - page
       - Products
         - [] ProductList
-        - [] ProductDetail
+        - [] ProductDetailCard
 
       - Shopping
         - [] 장바구니
@@ -71,7 +71,7 @@
     - [x] NavBar
     - [x] PageHeader
     - [x] ProductItem
-    - [x] ProductDetail
+    - [x] ProductDetailCard
 
     - [x] ShoppingItem
     - [x] OrderItem

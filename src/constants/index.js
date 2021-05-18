@@ -29,6 +29,7 @@ export const FALLBACK = {
 export const ROUTE = {
   HOME: '/',
   PRODUCTS: '/products',
+  PRODUCT_DETAIL: '/product-detail',
   CART: '/cart',
   ORDER_PAYMENT: '/order-payment',
   COMPLETED_ORDER: '/completed-order',

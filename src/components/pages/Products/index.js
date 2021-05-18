@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import ProductItem from '../../ProductItem';
-import { ProductList, ProductPage } from './index.styles';
+import { ProductList, Page } from './index.styles';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_TYPE, MESSAGE } from '../../../constants';
+import { ACTION_TYPE, MESSAGE, ROUTE } from '../../../constants';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const Products = () => {
   const products = useSelector(({ product }) => product.fetchedProducts);
@@ -32,26 +33,37 @@ const Products = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCartButtonClick = product => {
+  const handleCartButtonClick = (event, product) => {
+    event.stopPropagation();
     if (window.confirm(MESSAGE.PRODUCTS.ADD_TO_CART_CONFIRM)) {
       dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
       alert(MESSAGE.PRODUCTS.ADD_TO_CART_ALERT);
     }
   };
 
+  const history = useHistory();
+
+  const handleProductClick = product => {
+    history.push({
+      pathname: ROUTE.PRODUCT_DETAIL,
+      state: { product },
+    });
+  };
+
   return (
-    <ProductPage>
+    <Page>
       <ProductList>
         {products.map(product => (
           <li key={product.id}>
             <ProductItem
               {...product}
-              onCartButtonClick={handleCartButtonClick}
+              onProductClick={() => handleProductClick(product)}
+              onCartButtonClick={event => handleCartButtonClick(event, product)}
             />
           </li>
         ))}
       </ProductList>
-    </ProductPage>
+    </Page>
   );
 };
 

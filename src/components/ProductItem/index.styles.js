@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Product = styled.div`
+export const Product = styled.div.attrs(({ onClick }) => ({ onClick }))`
   width: 12rem;
   height: 100%;
   display: flex;
