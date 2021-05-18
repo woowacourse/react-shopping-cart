@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { FC } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
@@ -7,7 +7,7 @@ import ProductList from "./Pages/ProductList";
 import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 
-const App: VFC = () => {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <GlobalStyles />

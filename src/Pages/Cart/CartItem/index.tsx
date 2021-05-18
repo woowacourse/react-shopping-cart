@@ -1,4 +1,4 @@
-import React, { VFC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
+import React, { FC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 
 import { ProductImage, CheckBox } from "../../../Components";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
@@ -16,7 +16,7 @@ interface CartItemProps {
   onClickDeleteButton: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CartItem: VFC<CartItemProps> = ({
+const CartItem: FC<CartItemProps> = ({
   id,
   name,
   price,

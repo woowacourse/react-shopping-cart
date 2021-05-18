@@ -1,4 +1,4 @@
-import React, { ReactElement, VFC } from "react";
+import React, { ReactElement, FC } from "react";
 
 import { Link } from "react-router-dom";
 import { ProductImageProps } from "../ProductImage";
@@ -14,7 +14,7 @@ interface OrderProductItemProps {
   quantity: number;
 }
 
-const OrderProductItem: VFC<OrderProductItemProps> = ({ id, Image, Button, name, price, quantity }) => (
+const OrderProductItem: FC<OrderProductItemProps> = ({ id, Image, Button, name, price, quantity }) => (
   <Container>
     <Link to={`/cart/${id}`}>{Image}</Link>
     <Desc>

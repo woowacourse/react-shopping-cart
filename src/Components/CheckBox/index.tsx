@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, VFC } from "react";
+import React, { HTMLAttributes, FC } from "react";
 
 import { Container, CheckMark, Input, Svg, Path } from "./style";
 
@@ -6,7 +6,7 @@ interface CheckBoxProps extends HTMLAttributes<HTMLInputElement> {
   checked: boolean;
 }
 
-const CheckBox: VFC<CheckBoxProps> = ({ ...props }) => (
+const CheckBox: FC<CheckBoxProps> = ({ ...props }) => (
   <Container>
     <Input type="checkbox" {...props} />
     <CheckMark>

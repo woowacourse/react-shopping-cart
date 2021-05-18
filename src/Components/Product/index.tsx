@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement, VFC } from "react";
+import React, { MouseEventHandler, ReactElement, FC } from "react";
 import { Link } from "react-router-dom";
 
 import { ProductImageProps } from "../ProductImage";
@@ -14,7 +14,7 @@ interface ProductProps {
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Product: VFC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
+const Product: FC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
   <Container>
     <Link to={`/products/${id}`}>{Image}</Link>
     <ItemInfoWrap>

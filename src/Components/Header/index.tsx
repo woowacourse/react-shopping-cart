@@ -1,11 +1,11 @@
-import React, { VFC } from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
 import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, Inner, Flex, H1, NavigationItem } from "./style";
 
-const Header: VFC = () => (
+const Header: FC = () => (
   <Container>
     <Inner>
       <Link to="/">

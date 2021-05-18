@@ -1,4 +1,4 @@
-import React, { ReactElement, VFC } from "react";
+import React, { ReactElement, FC } from "react";
 
 import { OrderProductItemProps } from "../OrderProductItem";
 import { Container, Header, ShowDetailLink } from "./style";
@@ -8,7 +8,7 @@ interface OrderListProps {
   isVisibleShowDetailLink: boolean;
   children: ReactElement<OrderProductItemProps>[];
 }
-const OrderList: VFC<OrderListProps> = ({ id, isVisibleShowDetailLink, children }) => (
+const OrderList: FC<OrderListProps> = ({ id, isVisibleShowDetailLink, children }) => (
   <Container>
     <Header>
       <span>주문번호:{id}</span>

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, VFC } from "react";
+import React, { MouseEventHandler, FC } from "react";
 
 import { Button } from "..";
 import { COLOR } from "../../constants/theme";
@@ -16,7 +16,7 @@ interface SubmitBoxProps extends ContainerProps {
   onClickSubmitButton: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SubmitBox: VFC<SubmitBoxProps> = ({ title, width, height, target, buttonName, onClickSubmitButton }) => (
+const SubmitBox: FC<SubmitBoxProps> = ({ title, width, height, target, buttonName, onClickSubmitButton }) => (
   <Container width={width} height={height}>
     <Title>{title}</Title>
     <Main>

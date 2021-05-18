@@ -1,4 +1,4 @@
-import React, { useEffect, useState, VFC } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -21,7 +21,7 @@ interface OrderCountList {
   [key: string]: number;
 }
 
-const Cart: VFC = () => {
+const Cart: FC = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
   const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
 

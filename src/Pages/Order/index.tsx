@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { OrderProductItem, ProductImage } from "../../Components";
 
