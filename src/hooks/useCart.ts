@@ -1,34 +1,28 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { STATUS_CODE, URL } from '../constants';
-import useFetchingStatus from './useFetchingStatus';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../states';
+import { getCart } from '../states/actions/cart';
+import { addCartItem as _addCartItem, deleteCartItem as _deleteCartItem } from './../states/actions/cart';
 
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<Cart>([]);
-  const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
+  const { cart, loading, error } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(URL.CART);
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          setResponseOK(false);
-          throw new Error('장바구니 정보를 불러오지 못했습니다');
-        }
+    if (cart.length !== 0) return;
 
-        const cartItems = response.data.map((item: CartItem) => ({ ...item, isSelected: true }));
-        setCartItems(cartItems);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCartItems();
-  }, [setCartItems, setLoading, setResponseOK]);
+    dispatch(getCart());
+  }, [dispatch]);
 
-  return { cartItems, loading, responseOK, setCartItems };
+  const addCartItem = (cartItem: CartItem) => {
+    dispatch(_addCartItem(cartItem));
+  };
+
+  const deleteCartItem = (cartItem: CartItem) => {
+    dispatch(_deleteCartItem(cartItem));
+  };
+
+  return { cart, addCartItem, deleteCartItem, loading, error };
 };
 
 export default useCart;

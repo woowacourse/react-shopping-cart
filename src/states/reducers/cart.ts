@@ -1,19 +1,19 @@
 import { AxiosError } from 'axios';
-import { REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, ProductsAction } from '../actionTypes/products';
+import { REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, CartAction } from '../actionTypes/cart';
 
-export interface productState {
+export interface cartState {
   loading: boolean;
   error: AxiosError | null;
-  products: Product[];
+  cart: CartItem[];
 }
 
-const initialState: productState = {
+const initialState: cartState = {
   loading: false,
   error: null,
-  products: [],
+  cart: [],
 };
 
-export const productReducer = (state: productState = initialState, action: ProductsAction): productState => {
+export const cartReducer = (state: cartState = initialState, action: CartAction): cartState => {
   switch (action.type) {
     case REQUEST:
       return {
@@ -25,7 +25,7 @@ export const productReducer = (state: productState = initialState, action: Produ
       return {
         ...state,
         loading: false,
-        products: action.payload,
+        cart: action.payload,
       };
     case REQUEST_FAILURE:
       return {

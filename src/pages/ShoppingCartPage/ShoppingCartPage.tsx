@@ -20,7 +20,7 @@ import * as Styled from './ShoppingCartPage.styles';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
-  const { cartItems, loading, responseOK, setCartItems } = useCart();
+  const { cart, addCartItem, deleteCartItem, loading, error } = useCart();
   const [isTotalChecked, setTotalChecked] = useState<boolean>(true);
 
   if (loading) {
@@ -31,7 +31,7 @@ const ShoppingCartPage = () => {
     );
   }
 
-  if (!loading && !responseOK) {
+  if (!loading && !error) {
     return (
       <Styled.ShoppingCartPage>
         <NotFound message="상품을 찾을 수 없습니다." />
@@ -41,29 +41,29 @@ const ShoppingCartPage = () => {
 
   const setCartItemQuantity = (id: CartItem['id'], quantity: CartItem['quantity']) => {
     API.CHANGE_ITEM_QUANTITY(id, quantity);
-    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, quantity } : item));
-    setCartItems(newCartItems);
+    const newCartItems = cart.map(item => (item.id === id ? { ...item, quantity } : item));
+    //setCartItems(newCartItems);
   };
 
   const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
-    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, isSelected } : item));
-    setCartItems(newCartItems);
+    const newCartItems = cart.map(item => (item.id === id ? { ...item, isSelected } : item));
+    //setCartItems(newCartItems);
   };
 
   const getSelectedItems = () => {
-    return cartItems.filter(item => item.isSelected);
+    return cart.filter(item => item.isSelected);
   };
 
   const onToggleTotalCheck = () => {
-    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
+    const newCartItems = cart.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
 
     setTotalChecked(isTotalChecked => !isTotalChecked);
-    setCartItems(newCartItems);
+    //setCartItems(newCartItems);
   };
 
   const onDeleteCartItem = async (id: CartItem['id']) => {
-    const targetIndex = cartItems.findIndex(cartItem => cartItem.id === id);
-    if (!confirm(`'${cartItems[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
+    const targetIndex = cart.findIndex(cartItem => cartItem.id === id);
+    if (!confirm(`'${cart[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
     }
 
@@ -74,9 +74,9 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    const newCartItems = [...cartItems];
+    const newCartItems = [...cart];
     newCartItems.splice(targetIndex, 1);
-    setCartItems(newCartItems);
+    //setCartItems(newCartItems);
   };
 
   const onSelectedCartItemDelete = async () => {
@@ -84,7 +84,7 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
+    const selectedCartItemIdList = cart.filter(item => item.isSelected).map(item => item.id);
     const responseResult = await API.DELETE_SELECTED_CART_ITEMS(selectedCartItemIdList);
 
     if (responseResult === RESPONSE_RESULT.FAILURE) {
@@ -92,8 +92,8 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-    setCartItems(newCartItems);
+    const newCartItems = cart.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
+    //setCartItems(newCartItems);
   };
 
   const onOrderLinkButtonClick = () => {
@@ -108,11 +108,11 @@ const ShoppingCartPage = () => {
 
   const hasSelectedItems = getSelectedItems().length > 0;
 
-  const totalPrice = cartItems
+  const totalPrice = cart
     .filter(item => item.isSelected)
     .reduce((acc, cartItem) => acc + Number(cartItem.price) * Number(cartItem.quantity), 0);
 
-  const cartItemList = cartItems.map(cartItem => (
+  const cartItemList = cart.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
       <CartItem
         thumbnail={cartItem.thumbnail}
@@ -142,7 +142,7 @@ const ShoppingCartPage = () => {
               </Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
-              <Styled.CartHeader>배송상품 ({cartItems.length}개)</Styled.CartHeader>
+              <Styled.CartHeader>배송상품 ({cart.length}개)</Styled.CartHeader>
             </Styled.CartHeaderWrapper>
             <Styled.CartItemList>{cartItemList}</Styled.CartItemList>
           </Styled.CartContainer>
