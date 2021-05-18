@@ -20,7 +20,7 @@ const OrderProductItem: FC<OrderProductItemProps> = ({ id, Image, Button, name, 
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
       <OptionPricePart>
-        {price && <span>{price} 원 / </span>}
+        {price && <span>{price.toLocaleString("ko-KR")} 원 / </span>}
         <span>수량 : {quantity}개</span>
       </OptionPricePart>
     </Desc>

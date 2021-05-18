@@ -21,7 +21,7 @@ const Product: FC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
       <Link to={`/products/${id}`}>
         <Desc>
           <Name>{name}</Name>
-          <Price>{price}원</Price>
+          <Price>{price.toLocaleString("ko-KR")}원</Price>
         </Desc>
       </Link>
       <button type="button" data-product-id={id} onClick={onClickCart}>

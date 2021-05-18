@@ -61,7 +61,7 @@ const CartItem: FC<CartItemProps> = ({
           </button>
         </div>
       </Counter>
-      <div>{price}원</div>
+      <div>{price.toLocaleString("ko-KR")}원</div>
     </ControlBox>
   </Container>
 );
