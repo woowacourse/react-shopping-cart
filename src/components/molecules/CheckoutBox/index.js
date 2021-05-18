@@ -7,7 +7,7 @@ export const CheckoutBox = (props) => {
 
   return (
     <S.Container {...rest}>
-      <S.Title>{title}</S.Title>
+      {title && <S.Title>{title}</S.Title>}
       <S.Content>
         <S.Bill>
           <TextUnderlined>{label}</TextUnderlined>
@@ -23,8 +23,8 @@ export const CheckoutBox = (props) => {
 
 CheckoutBox.propTypes = {
   title: PropTypes.string,
-  label: PropTypes.string,
-  price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  label: PropTypes.string.isRequired,
+  price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   buttonText: PropTypes.string,
   buttonDisabled: PropTypes.bool,
   onClickButton: PropTypes.func,
