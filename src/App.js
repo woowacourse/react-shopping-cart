@@ -21,7 +21,7 @@ function App() {
     // TODO: 미들 웨어 적용
     async function fetchProducts() {
       try {
-        const response = await axios.get('/baskets');
+        const response = await axios.get('/api/products');
 
         setProducts(response.data);
       } catch (error) {

@@ -8,8 +8,7 @@ import { Controller, Image, Name, Product } from './index.styles';
 import { formatPrice } from '../../utils';
 
 const ShoppingItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
+  image_url = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
@@ -22,7 +21,7 @@ const ShoppingItem = ({
   return (
     <Product>
       <CheckBox isChecked={isChecked} onCheckBoxClick={onCheckBoxClick} />
-      <Image src={imgUrl} alt={imgAlt} />
+      <Image src={image_url} alt={name} />
       <Name>{name}</Name>
       <Controller>
         <button type="button" onClick={onDeleteButtonClick}>
@@ -42,7 +41,7 @@ const ShoppingItem = ({
 };
 
 ShoppingItem.propTypes = {
-  imgUrl: PropTypes.string,
+  image_url: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,

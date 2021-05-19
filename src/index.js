@@ -6,7 +6,7 @@ import App from './App';
 axios.defaults.baseURL =
   process.env.NODE_ENV === 'development'
     ? '/'
-    : 'https://mk27.pythonanywhere.com';
+    : 'https://shopping-cart.techcourse.co.kr';
 
 ReactDOM.render(
   <React.StrictMode>

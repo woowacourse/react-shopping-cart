@@ -15,8 +15,7 @@ import Button from '../common/Button';
 const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
-  id,
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
+  image_url = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
@@ -24,7 +23,7 @@ const OrderItem = ({
 }) => (
   <Order>
     <ImageWrapper>
-      <Image src={imgUrl} alt={name} />
+      <Image src={image_url} alt={name} />
     </ImageWrapper>
     <OrderDetail>
       <Name>{name}</Name>
@@ -43,8 +42,7 @@ const OrderItem = ({
 );
 
 OrderItem.propTypes = {
-  id: PropTypes.string,
-  imgUrl: PropTypes.string,
+  image_url: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
   quantity: PropTypes.number,

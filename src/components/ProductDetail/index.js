@@ -7,15 +7,14 @@ import { FALLBACK } from '../../constants';
 const BUTTON_COLOR = 'var(--color-brown)';
 
 const ProductDetail = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
+  image_url = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   // onClick = () => {},
 }) => (
   <Product>
     <Detail>
-      <Image src={imgUrl} alt={imgAlt} />
+      <Image src={image_url} alt={name} />
       <Name>{name}</Name>
       <PriceWrapper>
         <span>금액</span>
@@ -29,8 +28,7 @@ const ProductDetail = ({
 );
 
 ProductDetail.propTypes = {
-  imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
+  image_url: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
   // onClick: PropTypes.func,

@@ -7,12 +7,12 @@ const initialState = {
 
 const addToCart = (state, product) => {
   const { pickedProducts } = state;
-  const { id } = product;
+  const { product_id } = product;
   const newQuantity =
-    id in pickedProducts ? pickedProducts[id].quantity + 1 : 1;
+    product_id in pickedProducts ? pickedProducts[product_id].quantity + 1 : 1;
 
   const updater = produce(draft => {
-    draft.pickedProducts[id] = {
+    draft.pickedProducts[product_id] = {
       ...product,
       quantity: newQuantity,
       isChecked: true,

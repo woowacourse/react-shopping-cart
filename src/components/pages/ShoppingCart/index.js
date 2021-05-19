@@ -100,14 +100,20 @@ const ShoppingCart = () => {
           <ShoppingList>
             <div>배송 상품</div>
             <ul>
-              {products.map(({ id, ...product }) => (
-                <li key={id}>
+              {products.map(({ product_id, ...product }) => (
+                <li key={product_id}>
                   <ShoppingItem
                     {...product}
-                    onIncreaseQuantity={() => handleIncreaseQuantity(id)}
-                    onDecreaseQuantity={() => handleDecreaseQuantity(id)}
-                    onCheckBoxClick={() => handleCheckBoxClick(id)}
-                    onDeleteButtonClick={() => handleDeleteButtonClick(id)}
+                    onIncreaseQuantity={() =>
+                      handleIncreaseQuantity(product_id)
+                    }
+                    onDecreaseQuantity={() =>
+                      handleDecreaseQuantity(product_id)
+                    }
+                    onCheckBoxClick={() => handleCheckBoxClick(product_id)}
+                    onDeleteButtonClick={() =>
+                      handleDeleteButtonClick(product_id)
+                    }
                   />
                 </li>
               ))}

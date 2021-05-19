@@ -19,7 +19,7 @@ const OrderPayment = () => {
           <div>주문상품({getTotalQuantity(products)}개)</div>
           <ul>
             {products.map(product => (
-              <li key={product.id}>
+              <li key={product.product_id}>
                 <OrderItem {...product} isOrdered={false} />
               </li>
             ))}

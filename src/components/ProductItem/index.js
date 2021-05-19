@@ -5,15 +5,14 @@ import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
+  image_url = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   onCartButtonClick = () => {},
 }) => {
   return (
     <Product>
-      <Image src={imgUrl} alt={imgAlt} />
+      <Image src={image_url} alt={name} />
       <Description>
         <div>
           <Name>{name}</Name>
@@ -28,9 +27,7 @@ const ProductItem = ({
 };
 
 ProductItem.propTypes = {
-  id: PropTypes.string,
-  imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
+  image_url: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
   onCartButtonClick: PropTypes.func,

@@ -16,7 +16,7 @@ const Products = ({ products }) => {
     <ProductPage>
       <ProductList>
         {products.map(product => (
-          <li key={product.id}>
+          <li key={product.product_id}>
             <ProductItem
               {...product}
               onCartButtonClick={() => handleCartButtonClick({ ...product })}
@@ -31,8 +31,8 @@ const Products = ({ products }) => {
 Products.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      image: PropTypes.string,
+      product_id: PropTypes.number,
+      image_url: PropTypes.string,
       name: PropTypes.string,
       price: PropTypes.number,
     })
