@@ -117,10 +117,17 @@ const Cart = () => {
                     <span role="checkbox" aria-label={`${name} 선택`} aria-checked={checked}></span>
                   </CheckBox>
                   <Product
-                    onClick={() => {
-                      history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
+                    onTitleClick={() => {
+                      history.push(`${PATH.GOODS_DETAIL}/${id}`);
                     }}
-                    thumbnail={{ image: image, alt: name, size: 'small' }}
+                    thumbnail={{
+                      image: image,
+                      alt: name,
+                      size: 'small',
+                      onClick: () => {
+                        history.push(`${PATH.GOODS_DETAIL}/${id}`);
+                      },
+                    }}
                     information={{ title: name }}
                     extra={
                       <>

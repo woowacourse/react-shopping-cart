@@ -45,7 +45,7 @@ function App() {
         <MainContainer>
           <Switch>
             <Route exact path={[PATH.MAIN, PATH.GOODS]} component={ProductList} />
-            <Route exact path={PATH.GOODS_DETAIL}>
+            <Route exact path={`${PATH.GOODS_DETAIL}/:id`}>
               GOODS_DETAIL
             </Route>
             <Route exact path={PATH.CART} component={Cart} />

@@ -14,7 +14,7 @@ const ProductList = () => {
   const history = useHistory();
 
   const goDetailPage = id => () => {
-    history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
+    history.push(`${PATH.GOODS_DETAIL}/${id}`);
   };
 
   const addCart = data => async () => {
