@@ -28,11 +28,19 @@ const OrderDetailPage = () => {
   const orderId = window.location.hash.split('/').slice(-1);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <Styled.OrderListPage>
+        <Loading />
+      </Styled.OrderListPage>
+    );
   }
 
   if (!loading && !responseOK) {
-    return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
+    return (
+      <Styled.OrderListPage>
+        <NotFound message="주문 목록 정보를 불러올 수 없습니다." />
+      </Styled.OrderListPage>
+    );
   }
 
   const onMoveToOrderListPage = () => {
