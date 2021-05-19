@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import { ItemInCart } from '../../../../../types';
+import { CartItem } from '../../../../../types';
 import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
@@ -13,10 +13,10 @@ import {
 } from './style';
 
 interface Props {
-  item: ItemInCart;
-  changeQuantity: (item: ItemInCart, value: number) => void;
+  item: CartItem;
+  changeQuantity: (item: CartItem, value: number) => void;
   deleteItem: (itemId: string) => void;
-  changeChecked: (item: ItemInCart) => void;
+  changeChecked: (item: CartItem) => void;
   className?: string;
 }
 

@@ -1,6 +1,6 @@
-import { ItemInCart, Product } from '../types';
+import { CartItem, Product } from '../types';
 
-export const createItemInCart = (product: Product): ItemInCart => ({
+export const createCartItem = (product: Product): CartItem => ({
   ...product,
   checked: true,
   quantity: 1,

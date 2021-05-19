@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import { ItemInCart } from '../../../../types';
+import { CartItem } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
@@ -7,7 +7,7 @@ import useCart from '../../../../hooks/useCart';
 
 interface Props {
   title: string;
-  items: ItemInCart[];
+  items: CartItem[];
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {

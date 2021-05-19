@@ -12,12 +12,12 @@ import {
   thunkClearCart,
 } from '../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../states/store';
-import { ItemInCart, Product } from '../types';
+import { CartItem, Product } from '../types';
 
 const useCart = () => {
   const dispatch = useAppDispatch();
   const [
-    itemsInCart,
+    CartItems,
     hasError,
     isLoading,
   ] = useAppSelector(({ cart: { items, error, isLoading } }) => [items, error, isLoading]);
@@ -33,35 +33,32 @@ const useCart = () => {
   };
 
   const addItem = (item: Product) => {
-    const itemInCart = itemsInCart.find((itemInCart) => itemInCart.id === item.id);
+    const CartItem = CartItems.find((CartItem) => CartItem.id === item.id);
 
-    if (itemInCart) {
-      dispatch(thunkChangeItemQuantity(itemInCart, itemInCart.quantity + 1));
-      return;
-    }
-
-    dispatch(thunkAddItemToCart(item));
+    CartItem
+      ? dispatch(thunkChangeItemQuantity(CartItem, CartItem.quantity + 1))
+      : dispatch(thunkAddItemToCart(item));
   };
 
-  const changeQuantity = (item: ItemInCart, quantity: number) => {
+  const changeQuantity = (item: CartItem, quantity: number) => {
     if (quantity < CART_ITEM_MIN_QUANTITY) return;
 
     dispatch(thunkChangeItemQuantity(item, quantity));
   };
 
-  const changeChecked = (item: ItemInCart) => {
+  const changeChecked = (item: CartItem) => {
     dispatch(thunkChangeItemChecked(item));
   };
 
   const changeAllChecked = (checked: boolean) => {
-    dispatch(thunkChangeAllItemChecked(itemsInCart, checked));
+    dispatch(thunkChangeAllItemChecked(CartItems, checked));
   };
 
   const deleteItem = (itemId: string) => {
     dispatch(thunkDeleteCartItem(itemId));
   };
 
-  const deleteCheckedItems = (items: ItemInCart[]) => {
+  const deleteCheckedItems = (items: CartItem[]) => {
     dispatch(thunkDeleteCheckedCartItem(items));
   };
 
@@ -78,7 +75,7 @@ const useCart = () => {
     changeChecked,
     changeAllChecked,
     clearCart,
-    itemsInCart,
+    CartItems,
     isLoading,
   };
 };

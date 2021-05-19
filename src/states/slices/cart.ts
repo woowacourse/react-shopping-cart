@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ItemInCart, Product } from '../../types';
-import { createItemInCart } from '../../utils/cart';
+import { CartItem, Product } from '../../types';
+import { createCartItem } from '../../utils/cart';
 
 interface CartState {
-  items: ItemInCart[];
+  items: CartItem[];
   isLoading: boolean;
   error: Error | null;
 }
@@ -19,7 +19,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, { payload }: PayloadAction<Product>) => {
-      state.items.push(createItemInCart(payload));
+      state.items.push(createCartItem(payload));
     },
   },
   extraReducers: {},

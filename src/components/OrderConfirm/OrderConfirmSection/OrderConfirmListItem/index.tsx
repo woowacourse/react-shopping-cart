@@ -1,10 +1,10 @@
 import { VFC } from 'react';
-import { ItemInCart } from '../../../../types';
+import { CartItem } from '../../../../types';
 import Container from '../../../shared/Container';
 import { OrderItemCard, ProductName } from './style';
 
 interface Props {
-  item: ItemInCart;
+  item: CartItem;
 }
 
 const OrderConfirmListItem: VFC<Props> = ({ item: { image, name, quantity } }) => (

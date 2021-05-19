@@ -12,7 +12,7 @@ import {
   requestClearOrderConfirmItems,
   requestOrderConfirmItems,
 } from '../../service/request/orderConfirm';
-import { ItemInCart } from '../../types';
+import { CartItem } from '../../types';
 
 const TITLE = '주문/결제';
 
@@ -33,7 +33,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
 
   const order = async () => {
     try {
-      await requestOrderItems(items as ItemInCart[]);
+      await requestOrderItems(items as CartItem[]);
       await requestClearOrderConfirmItems();
       clearCart();
     } catch (error) {
@@ -60,7 +60,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
+          <OrderConfirmSection title="주문 상품" items={items as CartItem[]} />
         )}
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>

@@ -10,8 +10,8 @@ import {
   requestDeleteShoppingCartItems,
   requestShoppingCartItemList,
 } from '../../service/request/cart';
-import { ItemInCart, Product } from '../../types';
-import { createItemInCart } from '../../utils/cart';
+import { CartItem, Product } from '../../types';
+import { createCartItem } from '../../utils/cart';
 
 export const LOADING = 'cart/LOADING';
 export const ERROR = 'cart/ERROR';
@@ -47,7 +47,7 @@ export const thunkAddItemToCart = (item: Product): AppThunk => async (dispatch: 
   dispatch({ type: LOADING });
 
   try {
-    const newCartItem = createItemInCart(item);
+    const newCartItem = createCartItem(item);
 
     await requestAddShoppingCartItem(newCartItem);
     dispatch({ type: ADD_CART_ITEM_SUCCESS, payload: newCartItem });
@@ -56,7 +56,7 @@ export const thunkAddItemToCart = (item: Product): AppThunk => async (dispatch: 
   }
 };
 
-export const thunkChangeItemQuantity = (item: ItemInCart, quantity: number): AppThunk => async (
+export const thunkChangeItemQuantity = (item: CartItem, quantity: number): AppThunk => async (
   dispatch: Dispatch
 ) => {
   dispatch({ type: LOADING });
@@ -82,9 +82,7 @@ export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch
   }
 };
 
-export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
-  dispatch: Dispatch
-) => {
+export const thunkChangeItemChecked = (item: CartItem): AppThunk => async (dispatch: Dispatch) => {
   dispatch({ type: LOADING });
 
   const changedItem = { ...item, checked: !item.checked };
@@ -97,10 +95,9 @@ export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
   }
 };
 
-export const thunkChangeAllItemChecked = (
-  items: ItemInCart[],
-  checked: boolean
-): AppThunk => async (dispatch: Dispatch) => {
+export const thunkChangeAllItemChecked = (items: CartItem[], checked: boolean): AppThunk => async (
+  dispatch: Dispatch
+) => {
   dispatch({ type: LOADING });
 
   try {
@@ -111,7 +108,7 @@ export const thunkChangeAllItemChecked = (
   }
 };
 
-export const thunkDeleteCheckedCartItem = (items: ItemInCart[]): AppThunk => async (
+export const thunkDeleteCheckedCartItem = (items: CartItem[]): AppThunk => async (
   dispatch: Dispatch
 ) => {
   dispatch({ type: LOADING });
@@ -141,11 +138,11 @@ export type CartAction =
   | Action<typeof LOADING>
   | ActionWithPayload<typeof ERROR, Error>
   | ActionWithPayload<typeof ADD_ITEM, Product>
-  | ActionWithPayload<typeof GET_CART_ITEMS_SUCCESS, ItemInCart[]>
-  | ActionWithPayload<typeof ADD_CART_ITEM_SUCCESS, ItemInCart>
+  | ActionWithPayload<typeof GET_CART_ITEMS_SUCCESS, CartItem[]>
+  | ActionWithPayload<typeof ADD_CART_ITEM_SUCCESS, CartItem>
   | ActionWithPayload<typeof DELETE_CART_ITEM_SUCCESS, string>
   | Action<typeof DELETE_CHECKED_CART_ITEM_SUCCESS>
-  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
+  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, CartItem>
   | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, boolean>
-  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, ItemInCart>
+  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, CartItem>
   | Action<typeof CLEAR_CART_SUCCESS>;

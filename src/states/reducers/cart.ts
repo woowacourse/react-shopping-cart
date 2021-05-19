@@ -1,5 +1,5 @@
-import { ItemInCart } from '../../types';
-import { createItemInCart } from '../../utils/cart';
+import { CartItem } from '../../types';
+import { createCartItem } from '../../utils/cart';
 import {
   ADD_ITEM,
   CartAction,
@@ -16,7 +16,7 @@ import {
 } from '../actions/cart';
 
 interface CartState {
-  items: ItemInCart[];
+  items: CartItem[];
   isLoading: boolean;
   error: Error | null;
 }
@@ -44,7 +44,7 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
     case ADD_ITEM:
       return {
         ...state,
-        items: [...state.items, createItemInCart(action.payload)],
+        items: [...state.items, createCartItem(action.payload)],
       };
 
     case GET_CART_ITEMS_SUCCESS:

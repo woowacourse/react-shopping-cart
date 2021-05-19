@@ -5,7 +5,7 @@ export interface Product {
   image: string;
 }
 
-export interface ItemInCart extends Product {
+export interface CartItem extends Product {
   quantity: number;
   checked: boolean;
 }

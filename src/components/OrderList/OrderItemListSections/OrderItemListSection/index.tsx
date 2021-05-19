@@ -1,7 +1,7 @@
 import { VFC } from 'react';
 import { CONFIRM } from '../../../../constants/message';
 import useCart from '../../../../hooks/useCart';
-import { ItemInCart, Order, OrderedItem } from '../../../../types';
+import { CartItem, Order, OrderedItem } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
 
@@ -16,7 +16,7 @@ const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) =
   const onClickAddCart = (item: OrderedItem) => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;
 
-    const newItem: ItemInCart = { ...item, checked: true };
+    const newItem: CartItem = { ...item, checked: true };
 
     addItem(newItem);
   };

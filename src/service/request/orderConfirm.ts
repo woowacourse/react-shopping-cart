@@ -1,7 +1,7 @@
 import APIClient from '../../API';
-import { ItemInCart } from '../../types';
+import { CartItem } from '../../types';
 
-export const requestOrderConfirmItems = (): Promise<ItemInCart[]> => APIClient.get('/orderConfirm');
+export const requestOrderConfirmItems = (): Promise<CartItem[]> => APIClient.get('/orderConfirm');
 
 export const requestClearOrderConfirmItems = async () => {
   const items = await requestOrderConfirmItems();
@@ -9,7 +9,7 @@ export const requestClearOrderConfirmItems = async () => {
   return Promise.all(items.map((item) => APIClient.delete(`/orderConfirm/${item.id}`)));
 };
 
-export const requestRegisterOrderConfirmItems = async (items: ItemInCart[]) => {
+export const requestRegisterOrderConfirmItems = async (items: CartItem[]) => {
   await requestClearOrderConfirmItems();
-  return Promise.all(items.map((item) => APIClient.post<ItemInCart>('/orderConfirm', item)));
+  return Promise.all(items.map((item) => APIClient.post<CartItem>('/orderConfirm', item)));
 };
