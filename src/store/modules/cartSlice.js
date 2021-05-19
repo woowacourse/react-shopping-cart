@@ -78,6 +78,40 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+export const removeChecked = createAsyncThunk(
+  "cart/remove-checked",
+  // eslint-disable-next-line consistent-return
+  async (carts, { rejectWithValue }) => {
+    try {
+      const checkedProducts = Object.values(carts).filter(
+        (product) => product.checked
+      );
+      const cartIds = checkedProducts.map((product) => product.order_id).flat();
+
+      const responses = await Promise.all(
+        cartIds.map((id) =>
+          fetch(`${API.CARTS}/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+          })
+        )
+      );
+
+      if (responses.every((res) => res.ok)) {
+        return { products: checkedProducts };
+      }
+
+      throw Error;
+    } catch (error) {
+      return Object.assign(rejectWithValue(error), {
+        message: MESSAGE.ALERT.FAILED_DELETE_FROM_CART,
+      });
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -190,13 +224,27 @@ const cartSlice = createSlice({
       state.errorMessage = action.error.message;
       state.loading = false;
     },
+
+    [removeChecked.pending]: (state) => {
+      state.errorMessage = "";
+      state.loading = true;
+    },
+
+    [removeChecked.fulfilled]: (state, action) => {
+      const { products } = action.payload;
+
+      products.forEach((product) => {
+        delete state.items[product.id];
+      });
+    },
+
+    [removeChecked.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
   },
 });
 
-export const {
-  toggleChecked,
-  toggleAllChecked,
-  removeChecked,
-} = cartSlice.actions;
+export const { toggleChecked, toggleAllChecked } = cartSlice.actions;
 
 export default cartSlice.reducer;

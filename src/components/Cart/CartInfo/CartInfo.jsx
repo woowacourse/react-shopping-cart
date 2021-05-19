@@ -21,7 +21,7 @@ const CartInfo = ({ cart }) => {
   const confirmDelete = useConfirm(
     MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART,
     () => {
-      dispatch(removeChecked());
+      dispatch(removeChecked(cart));
     }
   );
   const { isCheckAll } = useCart(cart);
