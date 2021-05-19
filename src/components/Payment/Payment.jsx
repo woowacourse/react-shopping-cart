@@ -9,9 +9,10 @@ import PaymentInfo from "./PaymentInfo/PaymentInfo";
 
 import { formatPrice } from "../../utils/utils";
 import { removeChecked } from "../../store/modules/cartSlice";
-import { addToOrdersList } from "../../store/modules/orderSlice";
+
 import { MESSAGE, ROUTE } from "../../constants/constant";
 import { useCart } from "../../utils/useCart";
+import { addOrder } from "../../store/modules/orderSlice";
 
 const Payment = () => {
   const location = useLocation();
@@ -28,8 +29,9 @@ const Payment = () => {
   }
 
   const handleButtonClick = () => {
-    dispatch(addToOrdersList({ items: checkedItems }));
-    dispatch(removeChecked());
+    dispatch(addOrder({ cart: checkedItems }));
+    console.log(checkedItems);
+    dispatch(removeChecked(cart));
     history.push(ROUTE.ORDERS_LIST);
   };
 

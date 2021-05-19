@@ -81,13 +81,14 @@ export const removeFromCart = createAsyncThunk(
 export const removeChecked = createAsyncThunk(
   "cart/remove-checked",
   // eslint-disable-next-line consistent-return
-  async (carts, { rejectWithValue }) => {
+  async (cart, { rejectWithValue }) => {
     try {
-      const checkedProducts = Object.values(carts).filter(
+      const checkedProducts = Object.values(cart).filter(
         (product) => product.checked
       );
-      const cartIds = checkedProducts.map((product) => product.order_id).flat();
 
+      const cartIds = checkedProducts.map((product) => product.order_id).flat();
+      console.log(cartIds);
       const responses = await Promise.all(
         cartIds.map((id) =>
           fetch(`${API.CARTS}/${id}`, {
@@ -182,6 +183,7 @@ const cartSlice = createSlice({
 
     [addToCart.fulfilled]: (state, action) => {
       const { id, ...product } = action.payload.product;
+      // TODO : 개선하기 - order에도 있음
       const location = action.payload.location.split("/");
       const orderId = Number(location[location.length - 1]);
       if (state.items[id]) {

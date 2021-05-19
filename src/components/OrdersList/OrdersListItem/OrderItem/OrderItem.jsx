@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../store/modules/cartSlice";
 import Button from "../../../@shared/Button/Button";
-import CartItem from "../../../Cart/CartInfo/CartItem/CartItem";
+
 import * as S from "./OrderItem.styled";
 import { formatPrice } from "../../../../utils/utils";
 
@@ -34,7 +35,12 @@ const OrderItem = ({ item }) => {
 };
 
 OrderItem.propTypes = {
-  ...CartItem.propTypes,
+  item: PropTypes.shape({
+    image_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default OrderItem;

@@ -15,17 +15,43 @@ export const getOrders = createAsyncThunk(
   }
 );
 
+export const addOrder = createAsyncThunk(
+  "order/add",
+  async ({ cart }, { rejectWithValue }) => {
+    try {
+      console.log(cart);
+      const order = cart.map((item) => ({
+        cart_id: item.order_id[0],
+        quantity: item.order_id.length,
+      }));
+      console.log(order);
+      const res = await fetch(`${API.ORDERS}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (res.ok) {
+        console.log(res.headers.get("location"));
+        return { order, location: res.headers.get("location") };
+      }
+
+      throw Error;
+    } catch (error) {
+      console.log(error.message);
+      return Object.assign(rejectWithValue(error), {
+        message: MESSAGE.ALERT.FAILED_ADD_TO_ORDER,
+      });
+    }
+  }
+);
+
 const orderSlice = createSlice({
   name: "order",
-  initialState: { items: [], loading: false, errorMessage: "" },
-  reducers: {
-    addToOrdersList: (state, action) => {
-      const { items } = action.payload;
-      const id = Object.keys(state).length + 1;
-
-      state[id] = { items, addedDate: Date.now() };
-    },
-  },
+  initialState: { items: {}, loading: false, errorMessage: "" },
+  reducers: {},
   extraReducers: {
     [getOrders.pending]: (state) => {
       state.errorMessage = "";
@@ -44,9 +70,25 @@ const orderSlice = createSlice({
       state.errorMessage = action.error.message;
       state.loading = false;
     },
+
+    [addOrder.pending]: (state) => {
+      state.errorMessage = "";
+      state.loading = true;
+    },
+
+    [addOrder.fulfilled]: (state, action) => {
+      const { order } = action.payload;
+      const location = action.payload.location.split("/");
+      const orderId = Number(location[location.length - 1]);
+      console.log(orderId, order);
+      state.items[orderId] = order;
+    },
+
+    [addOrder.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
   },
 });
-
-export const { addToOrdersList } = orderSlice.actions;
 
 export default orderSlice.reducer;
