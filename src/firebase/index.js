@@ -22,19 +22,19 @@ firebase.initializeApp(config);
 
 const db = firebase.firestore();
 
-export const loadData = async ({ table, handler }) => {
+export const loadData = async ({ table }) => {
   try {
     const response = await db.collection(table).get();
-    handler(response.docs.map((doc) => doc.data()));
+    return response.docs.map((doc) => doc.data());
   } catch (e) {
     console.error(e);
   }
 };
 
-export const loadSortedData = async ({ table, handler, sortField = '', sortDirection = ASC }) => {
+export const loadSortedData = async ({ table, sortField = '', sortDirection = ASC }) => {
   try {
     const response = await db.collection(table).orderBy(sortField, sortDirection).get();
-    handler(response.docs.map((doc) => doc.data()));
+    return response.docs.map((doc) => doc.data());
   } catch (e) {
     console.error(e);
   }

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadData, PRODUCT_LIST } from '../../../firebase';
 import { cartAction } from '../../../redux';
 import * as S from './style.js';
 import { ProductItem } from './ProductItem';
+import { request } from '../../../request';
 
 export const ProductListPage = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    loadData({ table: PRODUCT_LIST, handler: setProducts });
+    (async () => {
+      const response = await request.get.productList();
+      setProducts(response);
+    })();
   }, []);
 
   return (

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartAction } from '../../../redux';
-import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header, RedirectNotice } from '../../commons';
 import * as S from './style.js';
 import { getFormattedAsKRW } from '../../../utils';
 import { format } from 'date-fns';
 import { ROUTE } from '../../../constants';
+import { request } from '../../../request';
 
 export const CheckoutPage = () => {
   const [isCheckoutFailed, setIsCheckoutFailed] = useState(false);
@@ -25,11 +25,7 @@ export const CheckoutPage = () => {
     const orderItems = checkoutProducts;
 
     try {
-      addData({
-        table: ORDER_LIST,
-        key: orderId,
-        value: { orderId, orderItems },
-      });
+      request.post.order(orderId, orderItems);
       dispatch(cartAction.checkout());
       history.push(ROUTE.ORDER_LIST);
     } catch (e) {

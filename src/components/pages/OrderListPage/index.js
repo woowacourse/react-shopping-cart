@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../../redux';
-import { loadSortedData, ORDER_LIST, ORDER_ID, DESC } from '../../../firebase';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../commons';
+import { request } from '../../../request';
 import * as S from './style.js';
 
 export const OrderListPage = () => {
@@ -11,12 +11,10 @@ export const OrderListPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    loadSortedData({
-      table: ORDER_LIST,
-      handler: setOrders,
-      sortField: ORDER_ID,
-      sortDirection: DESC,
-    });
+    (async () => {
+      const response = await request.get.orderList();
+      setOrders(response);
+    })();
   }, []);
 
   return (
