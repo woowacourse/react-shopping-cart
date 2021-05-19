@@ -2,6 +2,7 @@
   "name": "wooteco-lv2-react-cart",
   "version": "0.1.0",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.0",
