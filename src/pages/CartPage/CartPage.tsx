@@ -11,21 +11,15 @@ import CartItem from '../../components/units/CartItem/CartItem';
 import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import * as T from '../../types';
-import { CartState } from '../../modules/cartItems/reducers';
-import { RootState } from '../../modules';
-import {
-  getCartItemsRequest,
-  checkCartItem,
-  checkAllCartItems,
-  deleteItemActionRequest,
-  deleteCheckedItemsActionRequest,
-} from '../../modules/cartItems/actions';
+import { RootState } from '../../store';
+import cartItemsSlice, { getCartItems, deleteItem, deleteCheckedItems } from '../../slices/cartSlice';
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import ROUTES from '../../constants/routes';
 
 const CartPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+  const cartItems = useSelector((state: RootState) => state.cart);
+  const { checkCartItem, checkAllCartItems } = cartItemsSlice.actions;
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const isAllChecked = cartItems.data?.every?.((item) => item.checked);
@@ -37,18 +31,18 @@ const CartPage = () => {
     return acc + curr.price * curr.quantity;
   }, 0);
 
-  const handleCheckItem = (id: number, isChecked: boolean) => {
-    dispatch(checkCartItem(id, isChecked));
+  const handleCheckItem = (cartId: number, checked: boolean) => {
+    dispatch(checkCartItem({ cartId, checked }));
   };
 
   const handleCheckAllItem = () => {
-    dispatch(checkAllCartItems(!isAllChecked));
+    dispatch(checkAllCartItems({ checked: !isAllChecked }));
   };
 
   const handleDeleteItem = (id: T.CartItem['cartId']) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
-    dispatch(deleteItemActionRequest(id));
+    dispatch(deleteItem(id));
   };
 
   const handleDeleteCheckedItem = () => {
@@ -56,11 +50,11 @@ const CartPage = () => {
 
     const ids = checkedItems?.map((item) => item.cartId);
 
-    dispatch(deleteCheckedItemsActionRequest(ids));
+    dispatch(deleteCheckedItems(ids));
   };
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   return (

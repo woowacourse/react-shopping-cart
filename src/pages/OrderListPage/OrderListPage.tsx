@@ -10,14 +10,13 @@ import * as T from '../../types';
 import MESSAGE from '../../constants/messages';
 import api from '../../api';
 import Styled from './OrderListPage.styles';
-import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
-import { CartState } from '../../modules/cartItems/reducers';
-import { RootState } from '../../modules';
+import { addCartItem, getCartItems } from '../../slices/cartSlice';
+import { RootState } from '../../store';
 import API from '../../constants/api';
 import { toCamelCaseKeyObjectArray } from '../../utils';
 
 const OrderListPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+  const cartItems = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -46,7 +45,7 @@ const OrderListPage = () => {
   }, [enqueueSnackbar]);
 
   const handleClickCart = (productId: T.Product['productId']) => {
-    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
+    if (isLoading || cartItems.status === T.AsyncStatus.PENDING) return;
 
     const cartItemIds = cartItems.data?.map?.((cartItem) => cartItem.productId);
 
@@ -55,8 +54,9 @@ const OrderListPage = () => {
       return;
     }
 
-    dispatch(addCartItemRequest(productId))
+    dispatch(addCartItem(productId))
       .then(() => {
+        dispatch(getCartItems());
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
       .catch((error: Error) => {
@@ -65,7 +65,7 @@ const OrderListPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   useEffect(() => {
