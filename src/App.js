@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import CartPage from './components/pages/CartPage';
 import CheckoutPage from './components/pages/CheckoutPage';
 import OrdersPage from './components/pages/OrdersPage';
+import ProductDetailPage from './components/pages/ProductDetailPage';
 import ProductListPage from './components/pages/ProductListPage';
 import { HEADER, PAGES } from './constants/appInfo';
 
@@ -21,6 +22,9 @@ const App = () => {
         </Route>
         <Route path={PAGES.PRODUCT.ADDRESS}>
           <ProductListPage />
+        </Route>
+        <Route path={PAGES.PRODUCT_DETAIL.ADDRESS}>
+          <ProductDetailPage />
         </Route>
         <Route path={PAGES.CART.ADDRESS}>
           <CartPage />
