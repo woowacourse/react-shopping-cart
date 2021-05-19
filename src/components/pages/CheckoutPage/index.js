@@ -6,7 +6,8 @@ import { addData, ORDER_LIST } from '../../../firebase';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header, RedirectNotice } from '../../commons';
 import * as S from './style.js';
-import { getFormattedAsKRW, getDateInNumber } from '../../../utils';
+import { getFormattedAsKRW } from '../../../utils';
+import { format } from 'date-fns';
 import { ROUTE } from '../../../constants';
 
 export const CheckoutPage = () => {
@@ -20,7 +21,7 @@ export const CheckoutPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onClickCheckoutButton = () => {
-    const orderId = getDateInNumber();
+    const orderId = format(new Date(), 'yyyy-MM-dd-hhmmss');
     const orderItems = checkoutProducts;
 
     try {
