@@ -16,14 +16,7 @@ describe('useCartChangeCheckState', () => {
 
     await waitForNextUpdate();
 
-    const targetItem = {
-      id: '1',
-      image: 'https://picsum.photos/200/200',
-      name: 'test cart item name',
-      price: 43400,
-      checked: true,
-      quantity: 3,
-    };
+    const targetItem = CART_ITEM_LIST_MOCK[0];
     const beforeCheckState = targetItem.checked;
 
     act(() => {
@@ -33,8 +26,6 @@ describe('useCartChangeCheckState', () => {
     await waitForNextUpdate();
 
     const updatedTargetItem = result.current.itemsInCart.find((item) => item.id === targetItem.id);
-
-    console.log(updatedTargetItem);
 
     expect(updatedTargetItem.checked).toBe(!beforeCheckState);
   });
