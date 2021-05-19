@@ -1,8 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import useCartSelector from "../../hooks/useCartSelector";
 import { usePayment } from "../ProvidePayment/ProvidePayment";
-import { selectCheckedCartItems } from "../../store/modules/cartSlice";
+import {
+  selectCartStatus,
+  selectCheckedCartItems,
+} from "../../store/modules/cartSlice";
+import STATUS from "../../constants/status";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
@@ -13,7 +18,8 @@ const Cart = () => {
   const history = useHistory();
   const payment = usePayment();
   const cart = useCartSelector();
-  const checkCartItems = useCartSelector(selectCheckedCartItems);
+  const checkCartItems = useSelector(selectCheckedCartItems);
+  const status = useSelector(selectCartStatus);
 
   const hasCheckedItems = checkCartItems.length > 0;
   const totalPrice = checkCartItems.reduce(
@@ -29,7 +35,7 @@ const Cart = () => {
   return (
     <S.Cart>
       <PageTitle>장바구니</PageTitle>
-      {cart.length === 0 ? (
+      {status === STATUS.SUCCEEDED && cart.length === 0 ? (
         <NoCartItem />
       ) : (
         <S.CartMain>
