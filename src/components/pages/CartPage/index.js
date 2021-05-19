@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { cartAction, confirmAction } from '../../../redux';
+import { cartAction } from '../../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header, RedirectNotice } from '../../commons';
 import * as S from './style.js';
+import { useConfirm } from '../../../hooks';
 import { getFormattedAsKRW } from '../../../utils';
 import { ROUTE } from '../../../constants';
 
@@ -19,17 +20,16 @@ export const CartPage = () => {
     history.push(ROUTE.CHECKOUT);
   };
 
+  const { openConfirmWith } = useConfirm();
   const dispatch = useDispatch();
-  const dispatchOpenConfirm = ({ message, approve }) =>
-    dispatch(confirmAction.openConfirm({ message, approve }));
 
   const onClickDeleteButton = () =>
-    dispatchOpenConfirm({
+    openConfirmWith({
       message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
       approve: () => dispatch(cartAction.removeSelectedProducts()),
     });
   const onClickTrashIconButton = (id) =>
-    dispatchOpenConfirm({
+    openConfirmWith({
       message: `해당 상품을 삭제하시겠습니까?`,
       approve: () => dispatch(cartAction.removeProduct(id)),
     });
