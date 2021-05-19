@@ -38,14 +38,14 @@ const OrderDetailPage = () => {
           ))}
         </Styled.PurchasedList>
       </Styled.Order>
-      <Styled.PriceOverViewWrapper>
+      <Styled.PriceOverviewWrapper>
         <PriceOverview headerText="결제금액 정보" border={false}>
           <Styled.HighlightTextWrapper>
             <HighlightText text="총 결제금액" />
             <HighlightText text={`${totalPrice.toLocaleString('ko-KR')}원`} />
           </Styled.HighlightTextWrapper>
         </PriceOverview>
-      </Styled.PriceOverViewWrapper>
+      </Styled.PriceOverviewWrapper>
     </Styled.Root>
   );
 };

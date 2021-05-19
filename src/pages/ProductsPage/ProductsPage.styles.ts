@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { SpinnerWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
   margin: 60px 0;
@@ -13,13 +14,6 @@ const ProductList = styled.ul`
   column-gap: 40px;
   row-gap: 24px;
   justify-content: center;
-`;
-
-const SpinnerWrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export default {

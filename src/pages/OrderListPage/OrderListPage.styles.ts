@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { SpinnerWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
   padding: 60px 0;
@@ -47,13 +48,6 @@ const PurchasedList = styled.ul`
 `;
 
 const Product = styled.li``;
-
-const SpinnerWrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
 
 export default {
   Root,

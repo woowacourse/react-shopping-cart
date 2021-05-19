@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { HighlightTextWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
   padding: 60px 0;
@@ -39,18 +40,11 @@ const PurchasedList = styled.ul`
   list-style: none;
 `;
 
-const PriceOverViewWrapper = styled.div`
+const PriceOverviewWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
 `;
-
-const HighlightTextWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 70px;
-`;
-
 export default {
   Root,
   Order,
@@ -58,6 +52,6 @@ export default {
   OrderNumber,
   DetailButton,
   PurchasedList,
-  PriceOverViewWrapper,
+  PriceOverviewWrapper,
   HighlightTextWrapper,
 };

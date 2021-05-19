@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { HighlightTextWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
   margin: 60px 0;
@@ -24,12 +25,6 @@ const OrderListHeader = styled.div`
 
 const PriceOverviewWrapper = styled.div`
   margin-top: 4px;
-`;
-
-const HighlightTextWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 70px;
 `;
 
 const OrderItemList = styled.ul`
