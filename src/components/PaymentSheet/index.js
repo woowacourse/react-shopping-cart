@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
+import TextWithLine from '../common/TextWithLine';
 import { Content, Header, Payment, Sheet, Line } from './index.styles';
 
 const BUTTON_COLOR = 'var(--color-mint)';
@@ -16,14 +17,8 @@ const PaymentSheet = ({
     <Header>{title}</Header>
     <Content>
       <Payment>
-        <div>
-          <span>{priceInfo}</span>
-          <Line />
-        </div>
-        <div>
-          <span>{price}원</span>
-          <Line />
-        </div>
+        <TextWithLine>{priceInfo}</TextWithLine>
+        <TextWithLine>{price}원</TextWithLine>
       </Payment>
       <Button
         onClick={onButtonClick}
