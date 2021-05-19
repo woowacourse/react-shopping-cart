@@ -7,6 +7,7 @@ import { requestRegisterOrderConfirmItems } from '../../service/request/orderCon
 import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
+import { ALERT } from '../../constants/message';
 
 const TITLE = '장바구니';
 
@@ -26,8 +27,15 @@ const ShoppingCartPage: FC = () => {
   const onSubmitCartItems = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const checkedItem = items.filter(({ checked }) => checked);
+
+    if (checkedItem.length === 0) {
+      alert(ALERT.NONE_OF_SELECTED_ITEMS);
+      return;
+    }
+
     try {
-      await requestRegisterOrderConfirmItems(items.filter(({ checked }) => checked));
+      await requestRegisterOrderConfirmItems(checkedItem);
     } catch (error) {
       throw error;
     }
