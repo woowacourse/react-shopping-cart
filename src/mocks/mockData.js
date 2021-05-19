@@ -61,7 +61,7 @@ export const CART_ITEM_LIST_MOCK = [
     image: 'https://picsum.photos/200/200',
     name: 'PET보틀-정사각(420ml)',
     price: 43400,
-    checked: true,
+    checked: false,
     quantity: 2,
   },
   {

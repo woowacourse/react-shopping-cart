@@ -69,6 +69,7 @@
     "@storybook/react": "^6.2.9",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^5.1.2",
+    "@types/jest": "^26.0.23",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "babel-loader": "8.1.0",

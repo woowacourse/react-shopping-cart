@@ -40,6 +40,21 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(req.body));
   }),
 
+  rest.post(API_BASE_URL + '/cart', (req, res, ctx) => {
+    const newItem = {
+      id: '100',
+      checked: true,
+      image: 'http://test.com',
+      name: '테스트 상품',
+      price: 500000,
+      quantity: 1,
+    };
+
+    cartItemList.push(newItem);
+
+    return res(ctx.status(200), ctx.json(cartItemList));
+  }),
+
   rest.get(API_BASE_URL + '/order', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(orderList));
   }),
