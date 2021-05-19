@@ -7,7 +7,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ol, ul {
-	list-style: none;
+    padding: 0;
+    margin: 0;
+  	list-style: none;
   }
 
   * {

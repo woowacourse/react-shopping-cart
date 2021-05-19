@@ -7,14 +7,10 @@ import API from '../../request/api';
 import { Button, HighlightText, Product } from '../../components/shared';
 import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
-  Container,
   Header,
   Contents,
   ProductListContainer,
-  ProductListWrapper,
   ProductListHeader,
-  ProductList,
-  ProductWrapper,
   ReceiptWrapper,
   ReceiptHeader,
   ReceiptContent,
@@ -49,23 +45,21 @@ const Order = () => {
   };
 
   return (
-    <Container>
+    <>
       <Header>주문/결제</Header>
       <Contents>
         <ProductListContainer>
-          <ProductListWrapper>
-            <ProductListHeader>주문 상품({list.length}건)</ProductListHeader>
-            <ProductList>
-              {list.map(({ id, name, image, quantity }) => (
-                <ProductWrapper key={id}>
-                  <Product
-                    thumbnail={{ image: image, alt: name, size: 'medium' }}
-                    information={{ title: name, description: `수량: ${quantity}` }}
-                  />
-                </ProductWrapper>
-              ))}
-            </ProductList>
-          </ProductListWrapper>
+          <ProductListHeader>주문 상품({list.length}건)</ProductListHeader>
+          <ul aria-label="주문 상품 목록">
+            {list.map(({ id, name, image, quantity }) => (
+              <li key={id} style={{ display: 'flex' }}>
+                <Product
+                  thumbnail={{ image: image, alt: name, size: 'medium' }}
+                  information={{ title: name, description: `수량: ${quantity}` }}
+                />
+              </li>
+            ))}
+          </ul>
         </ProductListContainer>
         <ReceiptWrapper>
           <ReceiptHeader>결제금액</ReceiptHeader>
@@ -84,7 +78,7 @@ const Order = () => {
           </ReceiptContent>
         </ReceiptWrapper>
       </Contents>
-    </Container>
+    </>
   );
 };
 

@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { COLOR } from '../../constants';
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Header = styled.h2`
   color: ${COLOR.BLACK};
   font-size: 2rem;
@@ -25,21 +20,18 @@ export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 750px;
-`;
 
-export const ProductListWrapper = styled.div``;
+  & li {
+    display: flex;
+    border-bottom: 2px solid ${COLOR['GRAY-300']};
+  }
+`;
 
 export const ProductListHeader = styled.h3`
   font-size: 1.25rem;
   color: ${COLOR.BLACK};
   border-bottom: 4px solid ${COLOR['GRAY-500']};
   padding-bottom: 24px;
-`;
-
-export const ProductList = styled.div``;
-
-export const ProductWrapper = styled.div`
-  display: flex;
 `;
 
 export const ReceiptWrapper = styled.div`
