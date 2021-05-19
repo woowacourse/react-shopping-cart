@@ -15,7 +15,7 @@ const ShoppingCartSectionList: FC = () => {
   const [checked, setChecked] = useState(false);
   const { itemsInCart: items } = useCartItems();
   const { changeAllChecked } = useCartChangeCheckState();
-  const { deleteCheckedItems } = useCartDeleteItem();
+  const { deleteItems } = useCartDeleteItem();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;
@@ -27,7 +27,7 @@ const ShoppingCartSectionList: FC = () => {
   const onCheckedItemsDelete = () => {
     if (!window.confirm(CONFIRM.DELETE_ALL_CART_ITEMS)) return;
 
-    deleteCheckedItems(items);
+    deleteItems(items.filter((item) => item.checked));
   };
 
   return (

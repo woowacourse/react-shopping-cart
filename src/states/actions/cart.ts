@@ -30,6 +30,10 @@ export const DELETE_CART_ITEM = 'cart/DELETE_ITEM';
 export const DELETE_CART_ITEM_SUCCESS = 'cart/DELETE_ITEM_SUCCESS';
 export const DELETE_CART_ITEM_ERROR = 'cart/DELETE_ITEM_ERROR';
 
+export const DELETE_CART_ITEMS = 'cart/DELETE_ITEMS';
+export const DELETE_CART_ITEMS_SUCCESS = 'cart/DELETE_ITEMS_SUCCESS';
+export const DELETE_CART_ITEMS_ERROR = 'cart/DELETE_ITEMS_ERROR';
+
 export const CHANGE_CART_ITEM_CHECKED = 'cart/CHANGE_ITEM_CHECKED';
 export const CHANGE_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ITEM_CHECKED_SUCCESS';
 export const CHANGE_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ITEM_CHECKED_ERROR';
@@ -37,10 +41,6 @@ export const CHANGE_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ITEM_CHECKED_ERROR';
 export const CHANGE_ALL_CART_ITEM_CHECKED = 'cart/CHANGE_ALL_ITEM_CHECKED';
 export const CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ALL_ITEM_CHECKED_SUCCESS';
 export const CHANGE_ALL_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ALL_ITEM_CHECKED_ERROR';
-
-export const DELETE_CHECKED_CART_ITEM = 'cart/DELETE_CHECKED_ITEM';
-export const DELETE_CHECKED_CART_ITEM_SUCCESS = 'cart/DELETE_CHECKED_ITEM_SUCCESS';
-export const DELETE_CHECKED_CART_ITEM_ERROR = 'cart/DELETE_CHECKED_ITEM_ERROR';
 
 export const CLEAR_CART = 'cart/CLEAR_CART';
 export const CLEAR_CART_SUCCESS = 'cart/CLEAR_CART_SUCCESS';
@@ -130,18 +130,16 @@ export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch
   }
 };
 
-export const thunkDeleteCheckedCartItem = (items: ItemInCart[]): AppThunk => async (
+export const thunkDeleteCartItems = (items: ItemInCart[]): AppThunk => async (
   dispatch: Dispatch
 ) => {
-  dispatch({ type: DELETE_CHECKED_CART_ITEM });
+  dispatch({ type: DELETE_CART_ITEMS });
 
   try {
-    const checkedItems = items.filter((item) => item.checked);
-
-    await requestShoppingCartItemsToDelete(checkedItems);
-    dispatch({ type: DELETE_CHECKED_CART_ITEM_SUCCESS });
+    await requestShoppingCartItemsToDelete(items);
+    dispatch({ type: DELETE_CART_ITEMS_SUCCESS });
   } catch (error) {
-    dispatch({ type: DELETE_CHECKED_CART_ITEM_ERROR, payload: error });
+    dispatch({ type: DELETE_CART_ITEMS_ERROR, payload: error });
   }
 };
 
@@ -167,9 +165,9 @@ export type CartAction =
   | Action<typeof DELETE_CART_ITEM>
   | ActionWithPayload<typeof DELETE_CART_ITEM_SUCCESS, string>
   | ActionWithPayload<typeof DELETE_CART_ITEM_ERROR, Error>
-  | Action<typeof DELETE_CHECKED_CART_ITEM>
-  | Action<typeof DELETE_CHECKED_CART_ITEM_SUCCESS>
-  | ActionWithPayload<typeof DELETE_CHECKED_CART_ITEM_ERROR, Error>
+  | Action<typeof DELETE_CART_ITEMS>
+  | Action<typeof DELETE_CART_ITEMS_SUCCESS>
+  | ActionWithPayload<typeof DELETE_CART_ITEMS_ERROR, Error>
   | Action<typeof CHANGE_CART_ITEM_CHECKED>
   | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
   | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_ERROR, Error>

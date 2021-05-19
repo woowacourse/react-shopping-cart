@@ -21,9 +21,9 @@ import {
   CHANGE_ALL_CART_ITEM_CHECKED,
   CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS,
   CHANGE_ALL_CART_ITEM_CHECKED_ERROR,
-  DELETE_CHECKED_CART_ITEM,
-  DELETE_CHECKED_CART_ITEM_SUCCESS,
-  DELETE_CHECKED_CART_ITEM_ERROR,
+  DELETE_CART_ITEMS,
+  DELETE_CART_ITEMS_SUCCESS,
+  DELETE_CART_ITEMS_ERROR,
   CLEAR_CART,
   CLEAR_CART_SUCCESS,
   CLEAR_CART_ERROR,
@@ -150,19 +150,19 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         ...state,
         error: action.payload,
       };
-    case DELETE_CHECKED_CART_ITEM:
+    case DELETE_CART_ITEMS:
       return {
         ...state,
         isLoading: true,
         error: null,
       };
-    case DELETE_CHECKED_CART_ITEM_SUCCESS:
+    case DELETE_CART_ITEMS_SUCCESS:
       return {
         ...state,
         items: state.items.filter((item) => !item.checked),
         isLoading: false,
       };
-    case DELETE_CHECKED_CART_ITEM_ERROR:
+    case DELETE_CART_ITEMS_ERROR:
       return {
         ...state,
         error: action.payload,

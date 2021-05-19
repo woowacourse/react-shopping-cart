@@ -1,7 +1,7 @@
 import {
   thunkClearCart,
   thunkDeleteCartItem,
-  thunkDeleteCheckedCartItem,
+  thunkDeleteCartItems,
 } from '../../../states/actions/cart';
 import { useAppDispatch } from '../../../states/store';
 import { ItemInCart } from '../../../types';
@@ -13,16 +13,15 @@ const useCartDeleteItem = () => {
     dispatch(thunkDeleteCartItem(itemId));
   };
 
-  //TODO: checked 라는 상태를 알아서는 안됨
-  const deleteCheckedItems = (items: ItemInCart[]) => {
-    dispatch(thunkDeleteCheckedCartItem(items));
+  const deleteItems = (items: ItemInCart[]) => {
+    dispatch(thunkDeleteCartItems(items));
   };
 
   const clearCart = () => {
     dispatch(thunkClearCart());
   };
 
-  return { deleteItem, deleteCheckedItems, clearCart };
+  return { deleteItem, deleteItems, clearCart };
 };
 
 export default useCartDeleteItem;
