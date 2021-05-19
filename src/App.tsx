@@ -8,10 +8,10 @@ import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
 const App: VFC = () => {
-  const { fetchCartItemRedux } = useFetchCartRedux();
+  const { fetchCartItems } = useFetchCartRedux();
 
   useEffect(() => {
-    fetchCartItemRedux();
+    fetchCartItems();
   }, []);
 
   return (

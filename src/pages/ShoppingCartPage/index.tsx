@@ -10,11 +10,11 @@ import { useHistory } from 'react-router';
 const TITLE = '장바구니';
 
 const ShoppingCartPage: VFC = () => {
-  const { fetchCartItemRedux, itemsInCart: items } = useFetchCartRedux();
+  const { fetchCartItems, itemsInCart: items } = useFetchCartRedux();
   const history = useHistory();
 
   useEffect(() => {
-    fetchCartItemRedux();
+    fetchCartItems();
   }, []);
 
   const totalPrice = items.reduce(

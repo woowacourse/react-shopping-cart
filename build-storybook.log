@@ -1,6 +1,6 @@
 warning package.json: No license field
 info @storybook/react v6.2.9
-info 
+info
 info => Cleaning outputDir: /tmp/chromatic--5727-ctjLx7PmaTBU
 info => Copying static files: ./public => ./
 info => Loading presets
@@ -14,9 +14,9 @@ info => Removing existing JavaScript and TypeScript rules.
 info => Modifying Create React App rules.
 info => Using default Webpack4 setup
 <s> [webpack.Progress] 0% compiling
-<s> [webpack.Progress] 10% building 0/0 modules 0 active 
+<s> [webpack.Progress] 10% building 0/0 modules 0 active
 <s> [webpack.Progress] 10% building 0/1 modules 1 active multi /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-server/dist/cjs/globals/polyfills.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-server/dist/cjs/globals/globals.js /home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/storybook-init-framework-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-docs/dist/esm/frameworks/common/config.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-docs/dist/esm/frameworks/react/config.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-links/dist/esm/preset/addDecorator.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-actions/dist/esm/preset/addDecorator.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-actions/dist/esm/preset/addArgs.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addDecorator.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-backgrounds/dist/esm/preset/addParameter.js-generated-other-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/preview.js-generated-config-entry.js /home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/generated-stories-entry.js
-<s> [webpack.Progress] 10% building 1/1 modules 0 active 
+<s> [webpack.Progress] 10% building 1/1 modules 0 active
 <s> [webpack.Progress] 10% building 1/2 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/storybook-init-framework-entry.js
 <s> [webpack.Progress] 10% building 1/3 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/preview.js-generated-config-entry.js
 <s> [webpack.Progress] 10% building 1/4 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/.storybook/generated-stories-entry.js
@@ -60,7 +60,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 12% building 21/22 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/src sync /^\.(?:(?:^|\/|(?:(?:(?!(?:^|\/)\.).)*?)\/)stories\.(js|jsx|ts|tsx))$/
 <s> [webpack.Progress] 12% building 21/23 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/builder-webpack4/node_modules/webpack/buildin/module.js
 <s> [webpack.Progress] 12% building 22/23 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/builder-webpack4/node_modules/webpack/buildin/module.js
-<s> [webpack.Progress] 12% building 23/23 modules 0 active 
+<s> [webpack.Progress] 12% building 23/23 modules 0 active
 <s> [webpack.Progress] 12% building 23/24 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-actions/dist/esm/index.js
 <s> [webpack.Progress] 12% building 23/25 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-links/dist/esm/index.js
 <s> [webpack.Progress] 12% building 23/26 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/addon-actions/dist/esm/preset/addArgsHelpers.js
@@ -2386,7 +2386,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1183/1186 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/react-popper/lib/esm/utils.js
 <s> [webpack.Progress] 69% building 1184/1186 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/react-popper/lib/esm/utils.js
 <s> [webpack.Progress] 69% building 1185/1186 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/react-popper/lib/esm/utils.js
-<s> [webpack.Progress] 70% building 1186/1186 modules 0 active 
+<s> [webpack.Progress] 70% building 1186/1186 modules 0 active
 <s> [webpack.Progress] 69% building 1186/1187 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/source-loader/dist/cjs/types.js
 <s> [webpack.Progress] 69% building 1186/1188 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/property-information/lib/util/info.js
 <s> [webpack.Progress] 69% building 1186/1189 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/property-information/lib/util/defined-info.js
@@ -2586,7 +2586,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1283/1286 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/utils/rectToClientRect.js
 <s> [webpack.Progress] 69% building 1284/1286 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/utils/rectToClientRect.js
 <s> [webpack.Progress] 69% building 1285/1286 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/utils/rectToClientRect.js
-<s> [webpack.Progress] 70% building 1286/1286 modules 0 active 
+<s> [webpack.Progress] 70% building 1286/1286 modules 0 active
 <s> [webpack.Progress] 69% building 1286/1287 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getWindowScroll.js
 <s> [webpack.Progress] 69% building 1286/1288 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getHTMLElementScroll.js
 <s> [webpack.Progress] 69% building 1286/1289 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getViewportRect.js
@@ -2594,7 +2594,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1287/1290 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js
 <s> [webpack.Progress] 69% building 1288/1290 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js
 <s> [webpack.Progress] 69% building 1289/1290 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js
-<s> [webpack.Progress] 70% building 1290/1290 modules 0 active 
+<s> [webpack.Progress] 70% building 1290/1290 modules 0 active
 <s> [webpack.Progress] 69% building 1290/1291 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn/dist/acorn.mjs
 <s> [webpack.Progress] 69% building 1290/1292 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-walk/dist/walk.mjs
 <s> [webpack.Progress] 69% building 1290/1293 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-client/dist/esm/preview/url.js
@@ -2606,29 +2606,29 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1293/1296 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-jsx/index.js
 <s> [webpack.Progress] 69% building 1294/1296 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-jsx/index.js
 <s> [webpack.Progress] 69% building 1295/1296 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-jsx/index.js
-<s> [webpack.Progress] 70% building 1296/1296 modules 0 active 
+<s> [webpack.Progress] 70% building 1296/1296 modules 0 active
 <s> [webpack.Progress] 69% building 1296/1297 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-client/dist/esm/preview/parseArgsParam.js
 <s> [webpack.Progress] 69% building 1296/1298 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-client/dist/esm/preview/NoDocs.js
 <s> [webpack.Progress] 69% building 1297/1298 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/core-client/dist/esm/preview/NoDocs.js
 <s> [webpack.Progress] 69% building 1297/1299 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-jsx/xhtml.js
 <s> [webpack.Progress] 69% building 1298/1299 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/acorn-jsx/xhtml.js
-<s> [webpack.Progress] 70% building 1299/1299 modules 0 active 
+<s> [webpack.Progress] 70% building 1299/1299 modules 0 active
 <s> [webpack.Progress] 69% building 1299/1300 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/@storybook/channel-postmessage/dist/esm/index.js
-<s> [webpack.Progress] 70% building 1300/1300 modules 0 active 
+<s> [webpack.Progress] 70% building 1300/1300 modules 0 active
 <s> [webpack.Progress] 69% building 1300/1301 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/core-js/modules/es.number.is-integer.js
-<s> [webpack.Progress] 70% building 1301/1301 modules 0 active 
+<s> [webpack.Progress] 70% building 1301/1301 modules 0 active
 <s> [webpack.Progress] 69% building 1301/1302 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/ansi-to-html/lib/ansi_to_html.js
-<s> [webpack.Progress] 70% building 1302/1302 modules 0 active 
+<s> [webpack.Progress] 70% building 1302/1302 modules 0 active
 <s> [webpack.Progress] 69% building 1302/1303 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/core-js/internals/is-integer.js
-<s> [webpack.Progress] 70% building 1303/1303 modules 0 active 
+<s> [webpack.Progress] 70% building 1303/1303 modules 0 active
 <s> [webpack.Progress] 69% building 1303/1304 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/telejson/dist/index.js
-<s> [webpack.Progress] 70% building 1304/1304 modules 0 active 
+<s> [webpack.Progress] 70% building 1304/1304 modules 0 active
 <s> [webpack.Progress] 69% building 1304/1305 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/index.js
-<s> [webpack.Progress] 70% building 1305/1305 modules 0 active 
+<s> [webpack.Progress] 70% building 1305/1305 modules 0 active
 <s> [webpack.Progress] 69% building 1305/1306 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/lib/encode.js
 <s> [webpack.Progress] 69% building 1305/1307 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/lib/decode.js
 <s> [webpack.Progress] 69% building 1306/1307 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/lib/decode.js
-<s> [webpack.Progress] 70% building 1307/1307 modules 0 active 
+<s> [webpack.Progress] 70% building 1307/1307 modules 0 active
 <s> [webpack.Progress] 69% building 1307/1308 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/lib/decode_codepoint.js
 <s> [webpack.Progress] 69% building 1307/1309 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/xml.json
 <s> [webpack.Progress] 69% building 1307/1310 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/entities.json
@@ -2636,14 +2636,14 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1308/1311 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/legacy.json
 <s> [webpack.Progress] 69% building 1309/1311 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/legacy.json
 <s> [webpack.Progress] 69% building 1310/1311 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/legacy.json
-<s> [webpack.Progress] 70% building 1311/1311 modules 0 active 
+<s> [webpack.Progress] 70% building 1311/1311 modules 0 active
 <s> [webpack.Progress] 69% building 1311/1312 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/entities/maps/decode.json
 <s> [webpack.Progress] 69% building 1311/1313 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/is-function/index.js
 <s> [webpack.Progress] 69% building 1311/1314 modules 3 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/telejson/node_modules/isobject/index.js
 <s> [webpack.Progress] 69% building 1312/1314 modules 2 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/telejson/node_modules/isobject/index.js
 <s> [webpack.Progress] 69% building 1313/1314 modules 1 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/telejson/node_modules/isobject/index.js
-<s> [webpack.Progress] 70% building 1314/1314 modules 0 active 
-<s> [webpack.Progress] 70% building 1314/1314 modules 0 active 
+<s> [webpack.Progress] 70% building 1314/1314 modules 0 active
+<s> [webpack.Progress] 70% building 1314/1314 modules 0 active
 <s> [webpack.Progress] 70% finish module graph
 <s> [webpack.Progress] 70% finish module graph ESLintWebpackPlugin_1
 <s> [webpack.Progress] 70% finish module graph FlagDependencyExportsPlugin
@@ -2742,103 +2742,103 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 95% emitting ManifestPlugin
 <s> [webpack.Progress] 98% after emitting
 <s> [webpack.Progress] 98% after emitting SizeLimitsPlugin
-<s> [webpack.Progress] 100% 
+<s> [webpack.Progress] 100%
 
 info => Preview built (22 s)
-WARN 
+WARN
 WARN src/components/ErrorBoundary/CommonError/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ErrorBoundary/NetworkError/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/Loading/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/NavigationBar/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/OrderConfirm/OrderConfirmSection/OrderConfirmListItem/stories.js
 WARN   Line 2:27:  'PRODUCT_LIST_MOCK' is defined but never used                   no-unused-vars
 WARN   Line 4:1:   Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/OrderConfirm/OrderConfirmSection/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/OrderList/OrderItemListSections/OrderItemListSection/OrderListItem/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/OrderList/OrderItemListSections/OrderItemListSection/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ProductList/ProductCard/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ProductList/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ShoppingCart/ShoppingCartSectionList/ShoppingCartSection/ShoppingCartItem/index.tsx
 WARN   Line 6:8:  'IconButton' is defined but never used  @typescript-eslint/no-unused-vars
-WARN 
+WARN
 WARN src/components/ShoppingCart/ShoppingCartSectionList/ShoppingCartSection/ShoppingCartItem/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ShoppingCart/ShoppingCartSectionList/ShoppingCartSection/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/ShoppingCart/ShoppingCartSectionList/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/Button/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/Card/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/Checkbox/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/IconButton/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/List/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/NumberInput/index.tsx
 WARN   Line 20:6:  React Hook useEffect has a missing dependency: 'isValidInput'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-WARN 
+WARN
 WARN src/components/shared/NumberInput/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/ReactShoppingCartTemplate/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/components/shared/ResultSubmitCard/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/hooks/useFetch.ts
 WARN   Line 24:6:  React Hook useEffect has a missing dependency: 'reFetch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-WARN 
+WARN
 WARN src/pages/OrderConfirmPage/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/pages/OrderListPage/stories.js
 WARN   Line 2:10:  'ORDERS_MOCK' is defined but never used                         no-unused-vars
 WARN   Line 4:1:   Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/pages/ProductListPage/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
+WARN
 WARN src/pages/ShoppingCartPage/index.tsx
-WARN   Line 18:6:  React Hook useEffect has a missing dependency: 'fetchCartItemRedux'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
-WARN 
+WARN   Line 18:6:  React Hook useEffect has a missing dependency: 'fetchCartItems'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+WARN
 WARN src/pages/ShoppingCartPage/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
-WARN 
-WARN 
+WARN
+WARN
 WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
 WARN This can impact web performance.
-WARN Assets: 
+WARN Assets:
 WARN   vendors~main.3bfa31f0.iframe.bundle.js (1.81 MiB)
 WARN entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
 WARN Entrypoints:
@@ -2846,5 +2846,5 @@ WARN   main (1.93 MiB)
 WARN       runtime~main.537fd22f.iframe.bundle.js
 WARN       vendors~main.3bfa31f0.iframe.bundle.js
 WARN       main.d0db9a59.iframe.bundle.js
-WARN 
+WARN
 info => Output directory: /tmp/chromatic--5727-ctjLx7PmaTBU
