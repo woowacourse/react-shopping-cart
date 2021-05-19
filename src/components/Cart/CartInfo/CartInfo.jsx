@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import * as S from "./CartInfo.styled";
@@ -25,14 +25,19 @@ const CartInfo = ({ cart }) => {
     }
   );
   const { isCheckAll } = useCart(cart);
-  const [checkAll, setCheckAll] = useState(
-    isCheckAll !== null ? isCheckAll : false
-  );
+
+  const [checkAll, setCheckAll] = useState(true);
 
   const handleCheckBoxChange = () => {
     dispatch(toggleAllChecked({ checked: !checkAll }));
     setCheckAll(!checkAll);
   };
+
+  useEffect(() => {
+    if (isCheckAll !== null) {
+      setCheckAll(isCheckAll);
+    }
+  }, [isCheckAll]);
 
   const checkAllLabel = checkAll ? "선택해제" : "전체선택";
   const cartLength = Object.keys(cart).length;

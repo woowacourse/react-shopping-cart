@@ -17,7 +17,6 @@ PaymentItem.propTypes = {
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     order_id: PropTypes.arrayOf(PropTypes.number).isRequired,
-    amount: PropTypes.number.isRequired,
   }).isRequired,
 };
 
