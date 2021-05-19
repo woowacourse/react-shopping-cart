@@ -39,7 +39,7 @@ describe('cartReducer 테스트', () => {
   it('addProduct 함수는 ADD_PRODUCT 타입의 액션을 생성한다.', () => {
     expect(cartAction.addProduct(mockProduct)).toEqual({
       type: ADD_PRODUCT,
-      payload: mockProduct,
+      payload: { product: mockProduct },
     });
   });
 
@@ -53,7 +53,7 @@ describe('cartReducer 테스트', () => {
   it('removeProduct 함수는 REMOVE_PRODUCT 타입의 액션을 생성한다.', () => {
     expect(cartAction.removeProduct(mockId)).toEqual({
       type: REMOVE_PRODUCT,
-      payload: mockId,
+      payload: { id: mockId },
     });
   });
 
@@ -81,7 +81,7 @@ describe('cartReducer 테스트', () => {
   it('toggleProductSelection 함수는 TOGGLE_PRODUCT_SELECTION 타입의 액션을 생성한다.', () => {
     expect(cartAction.toggleProductSelection(mockId)).toEqual({
       type: TOGGLE_PRODUCT_SELECTION,
-      payload: mockId,
+      payload: { id: mockId },
     });
   });
 
@@ -95,7 +95,7 @@ describe('cartReducer 테스트', () => {
   it('toggleAllProductsSelection 함수는 TOGGLE_ALL_PRODUCTS_SELECTION 타입의 액션을 생성한다.', () => {
     expect(cartAction.toggleAllProductsSelection(false)).toEqual({
       type: TOGGLE_ALL_PRODUCTS_SELECTION,
-      payload: false,
+      payload: { willBeSelected: false },
     });
   });
 
@@ -111,7 +111,7 @@ describe('cartReducer 테스트', () => {
   it('incrementProductQuantity 함수는 INCREMENT_PRODUCT_QUANTITY 타입의 액션을 생성한다.', () => {
     expect(cartAction.incrementProductQuantity(mockId)).toEqual({
       type: INCREMENT_PRODUCT_QUANTITY,
-      payload: mockId,
+      payload: { id: mockId },
     });
   });
 
@@ -125,7 +125,7 @@ describe('cartReducer 테스트', () => {
   it('decrementProductQuantity 함수는 DECREMENT_PRODUCT_QUANTITY 타입의 액션을 생성한다.', () => {
     expect(cartAction.decrementProductQuantity(mockId)).toEqual({
       type: DECREMENT_PRODUCT_QUANTITY,
-      payload: mockId,
+      payload: { id: mockId },
     });
   });
 
