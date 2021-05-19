@@ -15,7 +15,7 @@ interface Props {
 const ShoppingCartSection: FC<Props> = ({ title, items }) => {
   const { changeQuantity } = useCartChangeQuantity();
   const { deleteItem } = useCartDeleteItem();
-  const { changeChecked } = useCartChangeCheckState();
+  const { toggleChecked } = useCartChangeCheckState();
 
   return (
     <section>
@@ -28,7 +28,7 @@ const ShoppingCartSection: FC<Props> = ({ title, items }) => {
             key={item.id}
             item={item}
             changeQuantity={changeQuantity}
-            changeChecked={changeChecked}
+            toggleChecked={toggleChecked}
             deleteItem={deleteItem}
           />
         ))}

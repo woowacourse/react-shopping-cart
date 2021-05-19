@@ -8,7 +8,7 @@ import store from '../../../states/store';
 
 describe('useCartChangeCheckState', () => {
   const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
-  test('changeChecked', async () => {
+  test('toggleChecked', async () => {
     const { result: useCartItemsResult } = renderHook(() => useCartItems(), { wrapper });
     const { result, waitForNextUpdate } = renderHook(() => useCartChangeCheckState(), { wrapper });
 
@@ -27,7 +27,7 @@ describe('useCartChangeCheckState', () => {
     const beforeCheckState = targetItem.checked;
 
     act(() => {
-      result.current.changeChecked(targetItem);
+      result.current.toggleChecked(targetItem);
     });
 
     await waitForNextUpdate();

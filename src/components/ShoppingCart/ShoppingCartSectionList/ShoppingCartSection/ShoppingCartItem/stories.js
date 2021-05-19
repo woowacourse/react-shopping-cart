@@ -7,7 +7,7 @@ export default {
   argTypes: {
     changeQuantity: { action: 'changeQuantity' },
     deleteItem: { action: 'deleteItem' },
-    changeChecked: { action: 'changeChecked' },
+    toggleChecked: { action: 'toggleChecked' },
   },
 };
 

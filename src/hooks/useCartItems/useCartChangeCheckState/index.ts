@@ -1,4 +1,4 @@
-import { thunkChangeAllItemChecked, thunkChangeItemChecked } from '../../../states/actions/cart';
+import { thunkChangeAllItemChecked, thunkToggleItemChecked } from '../../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../../states/store';
 import { ItemInCart } from '../../../types';
 
@@ -10,15 +10,15 @@ const useCartChangeCheckState = () => {
     isLoading,
   ]);
 
-  const changeChecked = (item: ItemInCart) => {
-    dispatch(thunkChangeItemChecked(item));
+  const toggleChecked = (item: ItemInCart) => {
+    dispatch(thunkToggleItemChecked(item));
   };
 
   const changeAllChecked = (checked: boolean) => {
     dispatch(thunkChangeAllItemChecked(itemsInCart, checked));
   };
 
-  return { changeChecked, changeAllChecked, itemsInCart };
+  return { toggleChecked, changeAllChecked, itemsInCart };
 };
 
 export default useCartChangeCheckState;

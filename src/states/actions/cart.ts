@@ -34,9 +34,9 @@ export const DELETE_CART_ITEMS = 'cart/DELETE_ITEMS';
 export const DELETE_CART_ITEMS_SUCCESS = 'cart/DELETE_ITEMS_SUCCESS';
 export const DELETE_CART_ITEMS_ERROR = 'cart/DELETE_ITEMS_ERROR';
 
-export const CHANGE_CART_ITEM_CHECKED = 'cart/CHANGE_ITEM_CHECKED';
-export const CHANGE_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ITEM_CHECKED_SUCCESS';
-export const CHANGE_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ITEM_CHECKED_ERROR';
+export const TOGGLE_CART_ITEM_CHECKED = 'cart/TOGGLE_ITEM_CHECKED';
+export const TOGGLE_CART_ITEM_CHECKED_SUCCESS = 'cart/TOGGLE_ITEM_CHECKED_SUCCESS';
+export const TOGGLE_CART_ITEM_CHECKED_ERROR = 'cart/TOGGLE_ITEM_CHECKED_ERROR';
 
 export const CHANGE_ALL_CART_ITEM_CHECKED = 'cart/CHANGE_ALL_ITEM_CHECKED';
 export const CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ALL_ITEM_CHECKED_SUCCESS';
@@ -90,18 +90,18 @@ export const thunkChangeItemQuantity = (item: ItemInCart, quantity: number): App
   }
 };
 
-export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
+export const thunkToggleItemChecked = (item: ItemInCart): AppThunk => async (
   dispatch: Dispatch
 ) => {
-  dispatch({ type: CHANGE_CART_ITEM_CHECKED });
+  dispatch({ type: TOGGLE_CART_ITEM_CHECKED });
 
-  const changedItem = { ...item, checked: !item.checked };
+  const toggledItem = { ...item, checked: !item.checked };
 
   try {
-    await requestShoppingCartItemToChange(changedItem);
-    dispatch({ type: CHANGE_CART_ITEM_CHECKED_SUCCESS, payload: changedItem });
+    await requestShoppingCartItemToChange(toggledItem);
+    dispatch({ type: TOGGLE_CART_ITEM_CHECKED_SUCCESS, payload: toggledItem });
   } catch (error) {
-    dispatch({ type: CHANGE_CART_ITEM_CHECKED_ERROR, payload: error });
+    dispatch({ type: TOGGLE_CART_ITEM_CHECKED_ERROR, payload: error });
   }
 };
 
@@ -168,9 +168,9 @@ export type CartAction =
   | Action<typeof DELETE_CART_ITEMS>
   | Action<typeof DELETE_CART_ITEMS_SUCCESS>
   | ActionWithPayload<typeof DELETE_CART_ITEMS_ERROR, Error>
-  | Action<typeof CHANGE_CART_ITEM_CHECKED>
-  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
-  | ActionWithPayload<typeof CHANGE_CART_ITEM_CHECKED_ERROR, Error>
+  | Action<typeof TOGGLE_CART_ITEM_CHECKED>
+  | ActionWithPayload<typeof TOGGLE_CART_ITEM_CHECKED_SUCCESS, ItemInCart>
+  | ActionWithPayload<typeof TOGGLE_CART_ITEM_CHECKED_ERROR, Error>
   | Action<typeof CHANGE_ALL_CART_ITEM_CHECKED>
   | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, boolean>
   | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_ERROR, Error>

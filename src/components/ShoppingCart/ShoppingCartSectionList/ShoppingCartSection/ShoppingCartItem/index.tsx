@@ -18,7 +18,7 @@ interface Props {
   item: ItemInCart;
   changeQuantity: (item: ItemInCart, value: number) => void;
   deleteItem: (itemId: string) => void;
-  changeChecked: (item: ItemInCart) => void;
+  toggleChecked: (item: ItemInCart) => void;
   className?: string;
 }
 
@@ -26,7 +26,7 @@ const ShoppingCartItem: FC<Props> = ({
   item,
   changeQuantity,
   deleteItem,
-  changeChecked,
+  toggleChecked,
   className,
 }) => {
   const { image, name, quantity, price, id, checked } = item;
@@ -51,7 +51,7 @@ const ShoppingCartItem: FC<Props> = ({
     >
       <Checkbox
         checked={checked}
-        onChange={() => changeChecked(item)}
+        onChange={() => toggleChecked(item)}
         description="상품선택"
         labelTextHidden
         data-testid="select-checkbox"
