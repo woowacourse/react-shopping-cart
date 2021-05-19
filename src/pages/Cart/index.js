@@ -7,7 +7,7 @@ import {
   setCartItemQuantity,
   deleteCartItems,
 } from '../../store/cartReducer';
-import { API } from '../../utils';
+import API from '../../request/api';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
 import { COLOR, MESSAGE, PATH } from '../../constants';
 import {

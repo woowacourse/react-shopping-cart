@@ -9,7 +9,7 @@ import { Cart, ProductList, Order } from './pages';
 import { store } from './store';
 import { setCartItemList } from './store/cartReducer';
 import { setProductList } from './store/productReducer';
-import { API } from './utils';
+import API from './request/api';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
 
 function App() {
