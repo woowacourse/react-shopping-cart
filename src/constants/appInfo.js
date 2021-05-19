@@ -7,6 +7,10 @@ export const PAGES = {
     NAME: '상품목록',
     ADDRESS: '/products',
   },
+  PRODUCT_DETAIL: {
+    NAME: '상품상세',
+    ADDRESS: '/products_detail',
+  },
   CART: {
     NAME: '장바구니',
     ADDRESS: '/cart',
@@ -31,5 +35,5 @@ export const UNIT = {
   AMOUNT: '개',
 };
 
-export const SNACKBAR_DURATION = 3000;
+export const SNACKBAR_DURATION = 1000;
 export const PRODUCTS_PER_PAGE = 12;
