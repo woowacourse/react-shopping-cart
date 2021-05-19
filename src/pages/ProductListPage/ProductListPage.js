@@ -6,6 +6,7 @@ import GridColumnList from '../../components/utils/GridColumnList';
 import LoadingPage from '../../pages/LoadingPage';
 
 import { getProductsRequest } from '../../modules/productSlice';
+import { getCartItemsRequest } from '../../modules/cartSlice';
 
 const ProductListPage = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const ProductListPage = () => {
 
   useEffect(() => {
     dispatch(getProductsRequest());
+    dispatch(getCartItemsRequest());
   }, [dispatch]);
 
   useEffect(() => {

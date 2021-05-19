@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -47,11 +47,17 @@ const ProductInfoStyle = css`
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cartSlice.cartItems);
+  const { cartItemsInServer, errorMessage } = useSelector((state) => state.cartSlice);
+
+  useEffect(() => {
+    if (errorMessage) {
+      window.alert(errorMessage);
+    }
+  }, [errorMessage]);
 
   const onAddCartButtonClick = (product) => {
-    const isCartItemExist = cartItems && cartItems.length > 0;
-    const isAlreadyInCart = cartItems.findIndex((item) => item.product.product_id === product.product_id) !== -1;
+    const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
+    const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
 
     if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
     dispatch(addItemToCartRequest(product));
@@ -76,7 +82,11 @@ const ProductItem = ({ product }) => {
           </PriceText>
         </Flex>
 
-        <IconButton src={cartImage} alt="장바구니 아이콘" onClick={() => onAddCartButtonClick(product, cartItems)} />
+        <IconButton
+          src={cartImage}
+          alt="장바구니 아이콘"
+          onClick={() => onAddCartButtonClick(product, cartItemsInServer)}
+        />
       </Flex>
     </SingleProduct>
   );

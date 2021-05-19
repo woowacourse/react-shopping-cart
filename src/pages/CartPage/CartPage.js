@@ -67,7 +67,7 @@ const CartPage = () => {
     dispatch(getCartItemsRequest());
   }, [dispatch]);
 
-  const { cartItems, cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
+  const { cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
 
   useEffect(() => {
     if (errorMessage) {
@@ -81,7 +81,7 @@ const CartPage = () => {
 
   const getCheckboxMessage = () => {
     switch (checkedItemIds.length) {
-      case cartItems.length:
+      case cartItemsInServer.length:
         return '선택해제';
       case 0:
         return '전체선택';
@@ -91,7 +91,7 @@ const CartPage = () => {
   };
 
   const onAllCheckboxClick = () => {
-    if (checkedItemIds.length === cartItems.cartItemsInServer.length) {
+    if (checkedItemIds.length === cartItemsInServer.cartItemsInServer.length) {
       dispatch(allUnCheck());
     } else {
       dispatch(allCheck());
