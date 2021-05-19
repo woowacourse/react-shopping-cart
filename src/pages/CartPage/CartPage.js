@@ -6,6 +6,7 @@ import FloatingBox from '../../components/FloatingBox';
 import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import Flex from '../../components/utils/Flex';
+import LoadingPage from '../LoadingPage';
 
 import CartItem from './CartItem';
 
@@ -44,11 +45,11 @@ const CartItemList = styled.ul`
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartItems, errorMessage } = useSelector((state) => state.productSlice);
+  const { cartItems, loading, errorMessage } = useSelector((state) => state.cartSlice);
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
-  }, [dispatch]);
+    getCartItemsRequest();
+  }, []);
 
   useEffect(() => {
     if (errorMessage) {
@@ -56,7 +57,7 @@ const CartPage = () => {
     }
   }, [errorMessage]);
 
-  const checkedItemIds = cartItems.filter((item) => item.checked).map((item) => item.id);
+  const checkedItemIds = cartItems && cartItems.filter((item) => item.checked).map((item) => item.id);
 
   const onCheckboxClick = (cartItemId) => {
     dispatch(toggleCheckbox(cartItemId));
@@ -91,8 +92,9 @@ const CartPage = () => {
 
   return (
     <>
+      {loading && <LoadingPage>장바구니 아이템들을 불러오는 중입니다</LoadingPage>}
       <PageTitle pageTitle="장바구니" />
-      {cartItems.length ? (
+      {cartItems && cartItems.length ? (
         <Flex justifyContent="space-between" css={CartItemWrapperStyle}>
           <CartItemSection>
             <Flex justifyContent="space-between">

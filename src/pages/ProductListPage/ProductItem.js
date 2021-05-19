@@ -9,7 +9,7 @@ import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
 
-import { addItemToCart, addItemToCartRequest } from '../../modules/cartSlice';
+import { addItemToCartRequest } from '../../modules/cartSlice';
 
 import cartImage from '../../asset/cart.png';
 import styled, { css } from 'styled-components';
@@ -47,20 +47,15 @@ const ProductInfoStyle = css`
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cartSlice);
+  const cartItems = useSelector((state) => state.cartSlice.cartItems);
 
   const onAddCartButtonClick = (product) => {
-    const targetItem = cartItems.find((item) => item.product_id === product.product_id);
+    const isCartItemExist = cartItems && cartItems.length > 0;
+    const isAlreadyInCart = cartItems.findIndex((item) => item.product.product_id === product.product_id) !== -1;
 
-    if (targetItem && targetItem.quantity >= 1) {
-      dispatch(addItemToCart(product));
-      return;
-    }
-
-    dispatch(addItemToCart(product));
-    addItemToCartRequest(product.product_id);
+    if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
+    dispatch(addItemToCartRequest(product));
   };
-
   return (
     <SingleProduct>
       <Link to={`/products/${product.product_id}`}>
@@ -92,8 +87,6 @@ ProductItem.propTypes = {
     product_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     image_url: PropTypes.string.isRequired,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    // quantity: PropTypes.number.isRequired,
-    // checked: PropTypes.bool.isRequired,
   }),
 };
 

@@ -8,7 +8,6 @@ export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thun
   try {
     const res = await axios.get(`${BASE_URL}/customers/${customer_name}/carts`);
 
-    console.log(res.data);
     return res.data;
   } catch (error) {
     return Object.assign(thunkAPI.rejectWithValue(error), {
@@ -17,14 +16,14 @@ export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thun
   }
 });
 
-export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (productId, thunkAPI) => {
+export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (product, thunkAPI) => {
   try {
     const res = await axios.post(`${BASE_URL}/customers/${customer_name}/carts`, {
-      product_id: productId,
+      product_id: product.product_id,
     });
     const location = res.headers.location;
 
-    return location;
+    return { product, location };
   } catch (error) {
     return Object.assign(thunkAPI.rejectWithValue(error), {
       message: '장바구니에 상품을 추가하는 데 실패했습니다.',
@@ -34,93 +33,92 @@ export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (prod
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [],
+  initialState: { cartItems: [], loading: false, errorMessage: '' },
   reducers: {
     increaseQuantity: (state, { payload: id }) => {
-      const targetIndex = state.findIndex((value) => value.product_id === id);
+      const targetIndex = state.cartItems.findIndex((value) => value.product_id === id);
       if (targetIndex === -1) {
-        return state;
+        return state.cartItems;
       }
-      const cartItem = state[targetIndex];
+      const cartItem = state.cartItems[targetIndex];
 
       return [
-        ...state.slice(0, targetIndex),
+        ...state.cartItems.slice(0, targetIndex),
         { ...cartItem, quantity: Number(cartItem.quantity) + 1 },
-        ...state.slice(targetIndex + 1),
+        ...state.cartItems.slice(targetIndex + 1),
       ];
     },
     decreaseQuantity: (state, { payload: id }) => {
-      const targetIndex = state.findIndex((value) => value.product_id === id);
+      const targetIndex = state.cartItems.findIndex((value) => value.product_id === id);
       if (targetIndex === -1) {
-        return state;
+        return state.cartItems;
       }
-      const cartItem = state[targetIndex];
+      const cartItem = state.cartItems[targetIndex];
 
       return [
-        ...state.slice(0, targetIndex),
+        ...state.cartItems.slice(0, targetIndex),
         { ...cartItem, quantity: Number(cartItem.quantity) - 1 },
-        ...state.slice(targetIndex + 1),
+        ...state.cartItems.slice(targetIndex + 1),
       ];
     },
-    addItemToCart: (state, { payload: newItem }) => {
-      const targetIndex = state.findIndex((value) => value.product_id === newItem.product_id);
-      if (targetIndex === -1) {
-        return [...state, { ...newItem, quantity: 1, checked: true }];
-      }
+    // addItemToCart: (state, { payload: newItem }) => {
+    //   const targetItem = state.cartItems.find((item) => item.product_id === newItem.product_id);
 
-      const targetItem = state[targetIndex];
-
-      return [
-        ...state.slice(0, targetIndex),
-        { ...targetItem, quantity: targetItem.quantity + 1 },
-        ...state.slice(targetIndex + 1),
-      ];
-    },
+    //   if (targetItem) return;
+    //   state.cartItems.push(newItem);
+    // },
     deleteItemFromCart: (state, { payload }) => {
-      state.filter((item) => item.product_id !== payload);
+      state.cartItems.filter((item) => item.product_id !== payload);
     },
     toggleCheckbox: (state, { payload: id }) => {
-      const targetIndex = state.findIndex((value) => value.product_id === id);
+      const targetIndex = state.cartItems.findIndex((value) => value.product_id === id);
       if (targetIndex === -1) {
-        return state;
+        return state.cartItems;
       }
-      const targetItem = state[targetIndex];
+      const targetItem = state.cartItems[targetIndex];
 
       return [
-        ...state.slice(0, targetIndex),
+        ...state.cartItems.slice(0, targetIndex),
         { ...targetItem, checked: !targetItem.checked },
-        ...state.slice(targetIndex + 1),
+        ...state.cartItems.slice(targetIndex + 1),
       ];
     },
     allCheck: (state) => {
-      state.map((item) => ({ ...item, checked: true }));
+      state.cartItems.map((item) => ({ ...item, checked: true }));
     },
     allUnCheck: (state) => {
-      state.map((item) => ({ ...item, checked: false }));
+      state.cartItems.map((item) => ({ ...item, checked: false }));
     },
   },
   extraReducers: {
     [addItemToCartRequest.pending]: (state) => {
       state.errorMessage = '';
+      state.loading = false;
     },
 
     [addItemToCartRequest.fulfilled]: (state, action) => {
-      state.createSlice.push(action.payload);
+      state.cartItems.push(action.payload);
+      state.loading = false;
     },
 
     [addItemToCartRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
+      state.loading = false;
     },
+
     [getCartItemsRequest.pending]: (state) => {
       state.errorMessage = '';
+      state.loading = true;
     },
 
     [getCartItemsRequest.fulfilled]: (state, action) => {
-      state.createSlice.push(action.payload);
+      state.cartItems.push(action.payload);
+      state.loading = false;
     },
 
     [getCartItemsRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
+      state.loading = false;
     },
   },
 });
@@ -128,7 +126,7 @@ const cartSlice = createSlice({
 export const {
   increaseQuantity,
   decreaseQuantity,
-  addItemToCart,
+  // addItemToCart,
   deleteItemFromCart,
   toggleCheckbox,
   allCheck,
