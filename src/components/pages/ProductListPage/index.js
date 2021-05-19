@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../../constants/appInfo';
+import { PAGES, PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
 import usePagination from '../../../hooks/usePagination';
@@ -39,10 +39,6 @@ const ProductListPage = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-
-    return () => {
-      dispatch(resetProducts());
-    };
   }, []);
 
   const onAddToCart = (productId) => () => {
@@ -56,6 +52,14 @@ const ProductListPage = () => {
 
   const onCloseErrorMessageModal = () => {
     dispatch(resetErrorMessage());
+  };
+
+  const onProductDetail = (product) => () => {
+    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.id}`;
+  };
+
+  const isAddedToCart = (productId) => {
+    return cart.some(({ id }) => productId === id);
   };
 
   return (
@@ -74,13 +78,14 @@ const ProductListPage = () => {
               }}
               direction="column"
               size="17.5rem"
+              onClick={onProductDetail(product)}
             >
-              {!cart.some(({ id }) => product.id === id) ? (
+              {!isAddedToCart(product.id) ? (
                 <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart(product.id)}>
                   <ShoppingCart width="2rem" color={PALETTE.BLACK} />
                 </Button>
               ) : (
-                <Button backgroundColor="transparent" disabled="disabled" cursor="default">
+                <Button backgroundColor="transparent" disabled={true} cursor="default">
                   <ShoppingCart width="2rem" color={PALETTE.WHITE} />
                 </Button>
               )}
