@@ -12,9 +12,8 @@ import useSnackBar from '../../hooks/useSnackBar';
 import useCart from '../../hooks/useCart';
 import useProductDetail from '../../hooks/useProductDetail';
 
-import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
+import { COLORS, PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../services/api';
 
 import * as Styled from './ProductDetailPage.styles';
 

@@ -1,5 +1,4 @@
-import { useHistory, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import useSnackBar from '../../hooks/useSnackBar';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
@@ -13,11 +12,9 @@ import useOrders from '../../hooks/useOrders';
 import useCart from '../../hooks/useCart';
 
 import { getMoneyString } from '../../utils/format';
-import { PATH, RESPONSE_RESULT } from '../../constants';
-import { API } from '../../services/api';
+import { PATH } from '../../constants';
 
 import * as Styled from './OrderListPage.styles';
-import { RootState } from '../../states';
 import useProducts from '../../hooks/useProducts';
 
 const OrderListPage = () => {

@@ -1,5 +1,4 @@
-import { Redirect, useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import OrderItemGroup from '../../components/commons/OrderItemGroup/OrderItemGroup';
@@ -14,12 +13,10 @@ import useOrderDetail from '../../hooks/useOrderDetail';
 import useSnackBar from '../../hooks/useSnackBar';
 import useCart from '../../hooks/useCart';
 
-import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
+import { COLORS, PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../services/api';
 
 import * as Styled from './OrderDetailPage.styles';
-import { RootState } from '../../states';
 import useProducts from '../../hooks/useProducts';
 
 const OrderDetailPage = () => {

@@ -8,9 +8,8 @@ import useProducts from '../../hooks/useProducts';
 import useSnackBar from '../../hooks/useSnackBar';
 import useCart from '../../hooks/useCart';
 
-import { PATH, RESPONSE_RESULT } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../services/api';
 
 import * as Styled from './ProductListPage.styles';
 

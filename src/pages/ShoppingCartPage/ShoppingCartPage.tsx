@@ -11,10 +11,9 @@ import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 
 import useCart from '../../hooks/useCart';
 
-import { PATH, RESPONSE_RESULT } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
-import { API } from '../../services/api';
 
 import * as Styled from './ShoppingCartPage.styles';
 
