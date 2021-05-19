@@ -1,9 +1,11 @@
 import firebase from "firebase";
+import axios from "axios";
 
 import db from "../firebase";
 
 import { CartItem, Id, Order, Product, ProductsObject } from "../interface";
 import { isDefined } from "../util/typeGuard";
+import products from "./productsAPI";
 
 const collection = {
   products: db.collection("products"),
@@ -11,34 +13,10 @@ const collection = {
   orderList: db.collection("orderList"),
 };
 
+axios.defaults.baseURL = "https://shopping-cart.techcourse.co.kr";
+
 const api = {
-  products: {
-    get: async (): Promise<ProductsObject> => {
-      const response: firebase.firestore.QuerySnapshot<
-        firebase.firestore.DocumentData | (Id & Product)
-      > = await collection.products.get();
-
-      const products: ProductsObject = response.docs.reduce(
-        (acc: ProductsObject, product) => {
-          const productData = product.data();
-
-          acc.products[productData.id] = {
-            name: productData.name,
-            price: productData.price,
-            imageSrc: productData.imageSrc,
-          };
-
-          return acc;
-        },
-        { products: {} }
-      );
-
-      return products;
-    },
-    post: (product: Id & Product) => {
-      collection.products.doc(product.id).set(product);
-    },
-  },
+  products,
   cart: {
     get: async () => {
       const response: firebase.firestore.QuerySnapshot<

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
 import { Product, ProductImage } from "../../Components";
-import { CartItem } from "../../interface";
+import { CartItem, ProductsObject } from "../../interface";
 import { RootState } from "../../store";
 
 import { Container } from "./styles";
@@ -11,12 +11,7 @@ import { Container } from "./styles";
 const ProductList: FC = () => {
   const dispatch = useDispatch();
 
-  const { products, requestErrorMessage } = useSelector(
-    ({ products: { products, requestErrorMessage } }: RootState) => ({
-      products,
-      requestErrorMessage,
-    })
-  );
+  const products: ProductsObject = useSelector(({ products }: RootState) => products);
 
   useEffect(() => {
     dispatch(actions.products.get.request());

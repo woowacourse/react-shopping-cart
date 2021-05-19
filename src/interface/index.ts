@@ -4,10 +4,14 @@ interface Product {
   imageSrc: string;
 }
 
+// interface ProductsObject {
+//   products: {
+//     [key: string]: Product;
+//   };
+// }
+
 interface ProductsObject {
-  products: {
-    [key: string]: Product;
-  };
+  [key: string]: Product;
 }
 
 interface Id {
@@ -38,4 +42,10 @@ interface RequestError {
   requestErrorMessage: string | null;
 }
 
-export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError };
+interface APIReturnType<T> {
+  isSucceeded: boolean;
+  message: string;
+  result: T;
+}
+
+export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError, APIReturnType };
