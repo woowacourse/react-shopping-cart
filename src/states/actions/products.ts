@@ -15,7 +15,6 @@ export const getProducts = () => async (dispatch: Dispatch<ProductsAction>) => {
 
     dispatch({ type: LOADING_SUCCESS, payload: FORMAT_DATA.PRODUCTS(response.data) });
   } catch (error) {
-    console.error(error);
     dispatch({ type: LOADING_FAILURE, loadingError: error });
   }
 };

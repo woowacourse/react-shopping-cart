@@ -6,7 +6,7 @@ import useFetchingStatus from './useFetchingStatus';
 import { FORMAT_DATA } from '../services/formatData';
 
 const defaultProduct: Product = {
-  id: '0',
+  productId: '0',
   name: '상품 정보 없음',
   price: '0',
   thumbnail: noImagePNG,
@@ -31,7 +31,6 @@ const useProductDetail = () => {
         setProduct(FORMAT_DATA.PRODUCT(response.data));
         setResponseOK(true);
       } catch (error) {
-        console.error(error);
         setResponseOK(false);
       } finally {
         setLoading(false);

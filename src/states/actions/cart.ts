@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 import { RootState } from '..';
 import { STATUS_CODE, URL } from '../../constants';
 import { FORMAT_DATA } from '../../services/formatData';
-import { renameObjKeys } from '../../utils/renameObjKeys';
 import {
   LOADING,
   LOADING_SUCCESS,
@@ -25,7 +24,6 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
 
     dispatch({ type: LOADING_SUCCESS, payload: FORMAT_DATA.CART(response.data) });
   } catch (error) {
-    console.error(error);
     dispatch({ type: LOADING_FAILURE, loadingError: error });
   }
 };
@@ -33,11 +31,13 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
 export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
   try {
     const { cart: prevCart } = getState().cart;
-    if (prevCart.find(item => item.productId === product.id)) {
+    console.log(prevCart, product.productId);
+
+    if (prevCart.find(item => item.productId === product.productId)) {
       throw new Error('상품이 이미 장바구니에 담겨있습니다.');
     }
 
-    const response = await axios.post(`${URL.CART}`, { product_id: product.id });
+    const response = await axios.post(`${URL.CART}`, { product_id: product.productId });
 
     if (response.status !== STATUS_CODE.POST_SUCCESS) {
       throw new Error('장바구니에 상품을 담는데 실패하였습니다.');
@@ -46,13 +46,9 @@ export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartA
     const cartId = response.headers.location.split('/').slice(-1)[0];
     dispatch({
       type: REQUEST_SUCCESS,
-      payload: [
-        ...prevCart,
-        { ...renameObjKeys(product, [['id', 'productId']]), cartId, quantity: '1', isSelected: true },
-      ],
+      payload: [...prevCart, { ...product, cartId, quantity: '1', isSelected: true }],
     });
   } catch (error) {
-    console.error(error);
     dispatch({ type: REQUEST_FAILURE, error });
     throw error;
   }
@@ -72,7 +68,6 @@ export const deleteCartItem = (cartItem: CartItem) => async (
     const { cart: prevCart } = getState().cart;
     dispatch({ type: REQUEST_SUCCESS, payload: prevCart.filter(item => item.cartId !== cartItem.cartId) });
   } catch (error) {
-    console.error(error);
     dispatch({ type: REQUEST_FAILURE, error });
   }
 };

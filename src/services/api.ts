@@ -13,7 +13,6 @@ export const API = {
 
       return RESPONSE_RESULT.SUCCESS;
     } catch (error) {
-      console.error(error);
       return RESPONSE_RESULT.FAILURE;
     }
   },

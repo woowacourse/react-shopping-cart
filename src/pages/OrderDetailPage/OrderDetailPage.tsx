@@ -39,8 +39,8 @@ const OrderDetailPage = () => {
     history.push(PATH.ORDER_LIST);
   };
 
-  const onAddItemInCart = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
+  const onAddItemInCart = async (id: Product['productId']) => {
+    const product = products.find(product => product.productId === id);
 
     if (!product) return;
 

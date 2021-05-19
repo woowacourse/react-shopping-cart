@@ -19,7 +19,6 @@ const useOrders = () => {
         setOrders(FORMAT_DATA.ORDERS(response.data));
         setResponseOK(true);
       } catch (error) {
-        console.error(error);
         setResponseOK(false);
       } finally {
         setLoading(false);

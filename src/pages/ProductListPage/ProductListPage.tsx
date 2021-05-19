@@ -31,8 +31,8 @@ const ProductListPage = () => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
   };
 
-  const onAddItemInCart = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
+  const onAddItemInCart = async (id: Product['productId']) => {
+    const product = products.find(product => product.productId === id);
 
     if (!product) return;
 
@@ -46,9 +46,9 @@ const ProductListPage = () => {
 
   const productGridItemList = products.map((product: Product) => (
     <ProductGridItem
-      onClick={() => onMoveToProductDetailPage(product.id)}
-      onClickCartButton={() => onAddItemInCart(product.id)}
-      key={product.id}
+      onClick={() => onMoveToProductDetailPage(product.productId)}
+      onClickCartButton={() => onAddItemInCart(product.productId)}
+      key={product.productId}
       name={product.name}
       price={getMoneyString(product.price)}
       thumbnail={product.thumbnail}

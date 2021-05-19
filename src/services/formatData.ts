@@ -23,13 +23,13 @@ export const FORMAT_DATA = {
   PRODUCTS: (dataList: ProductsData[]): Product[] =>
     (dataList.map(data =>
       renameObjKeys(data, [
-        ['product_id', 'id'],
+        ['product_id', 'productId'],
         ['image_url', 'thumbnail'],
       ])
     ) as unknown) as Product[],
   PRODUCT: (data: ProductsData): Product =>
     (renameObjKeys(data, [
-      ['product_id', 'id'],
+      ['product_id', 'productId'],
       ['image_url', 'thumbnail'],
     ]) as unknown) as Product,
   CART: (dataList: CartData[]): CartItem[] =>
