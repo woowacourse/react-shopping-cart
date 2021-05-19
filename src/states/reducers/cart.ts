@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, CartAction } from '../actionTypes/cart';
+import { REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, CartAction, CHANGE_QUANTITY } from '../actionTypes/cart';
 
 export interface cartState {
   loading: boolean;
@@ -32,6 +32,11 @@ export const cartReducer = (state: cartState = initialState, action: CartAction)
         ...state,
         loading: false,
         error: action.error,
+      };
+    case CHANGE_QUANTITY:
+      return {
+        ...state,
+        cart: action.payload,
       };
 
     default:

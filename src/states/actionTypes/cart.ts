@@ -14,8 +14,14 @@ export interface cartFailureAction {
   error: AxiosError;
 }
 
-export type CartAction = cartRequestAction | cartSuccessAction | cartFailureAction;
+export interface cartChangeQuantity {
+  type: typeof CHANGE_QUANTITY;
+  payload?: CartItem[] | any;
+}
+
+export type CartAction = cartRequestAction | cartSuccessAction | cartFailureAction | cartChangeQuantity;
 
 export const REQUEST = 'cart/REQUEST';
 export const REQUEST_SUCCESS = 'cart/REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'cart/REQUEST_FAILURE';
+export const CHANGE_QUANTITY = 'cart/CHANGE_QUANTITY';

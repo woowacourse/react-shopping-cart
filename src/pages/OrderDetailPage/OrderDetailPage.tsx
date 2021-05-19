@@ -64,7 +64,7 @@ const OrderDetailPage = () => {
   };
 
   const orderItemList = orderItems.map(orderItem => (
-    <Styled.OrderWrapper key={orderItem.id}>
+    <Styled.OrderWrapper key={orderItem.productId}>
       <ProductListItem
         size="MD"
         productName={orderItem.name}
@@ -72,7 +72,7 @@ const OrderDetailPage = () => {
         productQuantity={orderItem.quantity}
         productThumbnail={orderItem.thumbnail}
       />
-      <Button size="SM" onClick={() => onAddItemInCart(orderItem.id)}>
+      <Button size="SM" onClick={() => onAddItemInCart(orderItem.productId)}>
         장바구니 담기
       </Button>
     </Styled.OrderWrapper>

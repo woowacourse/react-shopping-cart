@@ -28,10 +28,15 @@ export const FORMAT_DATA = {
       ['image_url', 'thumbnail'],
     ]),
   CART: (dataList: cartData[]) =>
-    dataList.map(data =>
-      renameObjKeys(data, [
-        ['cart_id', 'id'],
-        ['image_url', 'thumbnail'],
-      ])
-    ),
+    dataList.map(data => {
+      return {
+        ...renameObjKeys(data, [
+          ['cart_id', 'cartId'],
+          ['product_id', 'productId'],
+          ['image_url', 'thumbnail'],
+        ]),
+        quantity: '1',
+        isSelected: true,
+      };
+    }),
 };

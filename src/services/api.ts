@@ -20,7 +20,7 @@ export const API = {
       return RESPONSE_RESULT.FAILURE;
     }
   },
-  CHANGE_ITEM_QUANTITY: async (id: CartItem['id'], quantity: CartItem['quantity']) => {
+  CHANGE_ITEM_QUANTITY: async (id: CartItem['productId'], quantity: CartItem['quantity']) => {
     try {
       const response = await axios.patch(`${URL.CART}/${id}`, { quantity });
 
@@ -34,7 +34,7 @@ export const API = {
       return RESPONSE_RESULT.FAILURE;
     }
   },
-  DELETE_CART_ITEM: async (id: CartItem['id']) => {
+  DELETE_CART_ITEM: async (id: CartItem['productId']) => {
     try {
       const response = await axios.delete(`${URL.CART}/${id}`);
 
@@ -81,7 +81,7 @@ export const API = {
   DELETE_ORDER_ITEMS_IN_CART: async (orderItems: CartItem[]) => {
     try {
       orderItems.forEach(async item => {
-        const response = await axios.delete(`${URL.CART}/${item.id}`);
+        const response = await axios.delete(`${URL.CART}/${item.productId}`);
 
         if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
           throw new Error('장바구니 아이템 삭제에 실패하였습니다');

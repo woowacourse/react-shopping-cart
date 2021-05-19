@@ -7,7 +7,8 @@ declare interface Product {
 }
 
 declare interface CartItem {
-  id: string;
+  cartId: string;
+  productId: string;
   name: string;
   thumbnail: string;
   price: string;

@@ -21,7 +21,7 @@ const ProductOrderPage = () => {
 
   const orderItemList = orderItems.map(orderItem => {
     return (
-      <Styled.OrderItemWrapper key={orderItem.id}>
+      <Styled.OrderItemWrapper key={orderItem.productId}>
         <ProductListItem
           size="SM"
           productThumbnail={orderItem.thumbnail}
