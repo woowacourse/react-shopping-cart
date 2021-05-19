@@ -8,6 +8,7 @@ import store from '../../../states/store';
 
 describe('useCartChangeCheckState', () => {
   const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
+
   test('toggleChecked', async () => {
     const { result: useCartItemsResult, waitForNextUpdate } = renderHook(() => useCartItems(), {
       wrapper,
