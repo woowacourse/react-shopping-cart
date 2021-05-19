@@ -29,7 +29,6 @@ export type CartState = {
   cartItems: {
     data: T.CartItem[];
     status: T.AsyncStatus;
-    error: Error | null;
   };
 };
 
@@ -37,7 +36,6 @@ const initialState: CartState = {
   cartItems: {
     data: [],
     status: T.AsyncStatus.IDLE,
-    error: null,
   },
 };
 
@@ -56,7 +54,6 @@ export const cartReducer = (
     case GET_CART_ITEMS_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.PENDING;
-        draft.cartItems.error = null;
       });
 
     case GET_CART_ITEMS_SUCCESS:
@@ -64,25 +61,21 @@ export const cartReducer = (
         const newCartItems = action.cartItems.map((item) => ({ ...item, quantity: 1, checked: true }));
         draft.cartItems.data = newCartItems;
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
-        draft.cartItems.error = null;
       });
 
     case GET_CART_ITEMS_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.FAILURE;
-        draft.cartItems.error = action.error;
       });
 
     case ADD_CART_ITEM_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.PENDING;
-        draft.cartItems.error = null;
       });
 
     case ADD_CART_ITEM_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
-        draft.cartItems.error = null;
         draft.cartItems.data.push({
           cartId: action.payload.cartId,
           quantity: 1,
@@ -94,7 +87,6 @@ export const cartReducer = (
     case ADD_CART_ITEM_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.FAILURE;
-        draft.cartItems.error = action.error;
       });
     case UPDATE_QUANTITY:
       return produce(state, (draft: Draft<CartState>) => {
@@ -118,39 +110,33 @@ export const cartReducer = (
     case DELETE_ITEM_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.PENDING;
-        draft.cartItems.error = null;
       });
 
     case DELETE_ITEM_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.data = draft.cartItems.data.filter((item) => item.cartId !== action.id);
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
-        draft.cartItems.error = null;
       });
 
     case DELETE_ITEM_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.FAILURE;
-        draft.cartItems.error = action.error;
       });
 
     case DELETE_CHECKED_ITEMS_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.PENDING;
-        draft.cartItems.error = null;
       });
 
     case DELETE_CHECKED_ITEMS_SUCCESS:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.data = draft.cartItems.data.filter((item) => !action.ids.includes(item.cartId));
         draft.cartItems.status = T.AsyncStatus.SUCCESS;
-        draft.cartItems.error = null;
       });
 
     case DELETE_CHECKED_ITEMS_FAILURE:
       return produce(state, (draft: Draft<CartState>) => {
         draft.cartItems.status = T.AsyncStatus.FAILURE;
-        draft.cartItems.error = action.error;
       });
 
     default:
