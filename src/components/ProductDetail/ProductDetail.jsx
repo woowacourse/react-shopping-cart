@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useProductSelector from "../../hooks/useProductSelector";
+import { selectProductByProductId } from "../../store/modules/productSlice";
 import { addToCart } from "../../store/modules/cartSlice";
-import { productAPI } from "../../utils/api";
 import { formatPrice } from "../../utils/utils";
 import Button from "../@shared/Button/Button";
 import Image from "../@shared/Image/Image";
@@ -13,23 +14,11 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
 
-  const [product, setProduct] = useState({});
+  const product = useProductSelector((state) =>
+    selectProductByProductId(state, Number(productId))
+  );
 
-  useEffect(() => {
-    const getProductDetail = async (id) => {
-      try {
-        const productDetail = await productAPI.fetchByProductId(id);
-
-        setProduct(productDetail);
-      } catch (error) {
-        // TODO: error handling 추가
-      }
-    };
-
-    getProductDetail(productId);
-  }, [productId]);
-
-  const { name, price = 0, imageURL } = product;
+  const { name, price = 0, imageURL } = product ?? {};
 
   const handleButtonClick = () => {
     dispatch(addToCart(product));

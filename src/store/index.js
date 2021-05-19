@@ -1,18 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { loadState, saveState } from "../utils/localStorage";
-import { debounce } from "../utils/utils";
+import productReducer from "./modules/productSlice";
 import cartReducer from "./modules/cartSlice";
 import orderReducer from "./modules/orderSlice";
 
-const store = configureStore({
-  reducer: { cart: cartReducer, order: orderReducer },
-  preloadedState: loadState(),
+export default configureStore({
+  reducer: { product: productReducer, cart: cartReducer, order: orderReducer },
 });
-
-store.subscribe(
-  debounce(() => {
-    saveState(store.getState());
-  })
-);
-
-export default store;

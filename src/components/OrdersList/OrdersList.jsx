@@ -1,25 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchOrders,
-  selectOrdersList,
-  selectOrderStatus,
-} from "../../store/modules/orderSlice";
-import STATUS from "../../constants/status";
+import React from "react";
+import useOrderSelector from "../../hooks/useOrderSelector";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import OrdersListItem from "./OrdersListItem/OrdersListItem";
 import * as S from "./OrdersList.styled";
 
 const OrdersList = () => {
-  const dispatch = useDispatch();
-  const ordersList = useSelector(selectOrdersList);
-  const status = useSelector(selectOrderStatus);
-
-  useEffect(() => {
-    if (status === STATUS.IDLE) {
-      dispatch(fetchOrders());
-    }
-  }, [dispatch, status]);
+  const ordersList = useOrderSelector();
 
   return (
     <S.OrdersList>

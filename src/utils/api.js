@@ -1,114 +1,80 @@
-const BASE_URL = "https://shopping-cart.techcourse.co.kr";
+/* eslint-disable camelcase */
+import http from "./http";
 
 const CUSTOMER_NAME = "bigsaigon333";
 
 const productAPI = {
-  ENDPOINT: `${BASE_URL}/api/products`,
+  ENDPOINT: `/api/products`,
 
-  process(product) {
+  process({ product_id, price, name, image_url }) {
     return {
-      productId: Number(product.product_id),
-      price: Number(product.price),
-      name: String(product.name),
-      imageURL: String(product.image_url),
+      productId: Number(product_id),
+      price: Number(price),
+      name: String(name),
+      imageURL: String(image_url),
     };
   },
 
   async fetch() {
-    const response = await fetch(this.ENDPOINT);
-
-    if (response.status !== 200) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const list = await response.json();
+    const list = await http.get(this.ENDPOINT);
 
     return list.map(this.process);
   },
 
   async fetchByProductId(productId) {
-    const response = await fetch(`${this.ENDPOINT}/${productId}`);
-
-    if (response.status !== 200) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const product = await response.json();
+    const product = await http.get(`${this.ENDPOINT}/${productId}`);
 
     return this.process(product);
   },
 };
 
 const cartAPI = {
-  ENDPOINT: `${BASE_URL}/api/customers`,
+  ENDPOINT: `/api/customers/${CUSTOMER_NAME}/carts`,
 
   // convert array to object keyed by productId
   process(cart) {
-    const cartEntries = cart.map((item) => [
-      item.product_id,
-      {
-        cartId: Number(item.cart_id),
-        productId: Number(item.product_id),
-        price: Number(item.price),
-        name: String(item.name),
-        imageURL: String(item.image_url),
-        checked: true,
-        quantity: 1,
-      },
-    ]);
+    const cartEntries = cart.map(
+      ({ product_id, cart_id, price, name, image_url }) => [
+        product_id,
+        {
+          cartId: Number(cart_id),
+          productId: Number(product_id),
+          price: Number(price),
+          name: String(name),
+          imageURL: String(image_url),
+          checked: true,
+          quantity: 1,
+        },
+      ]
+    );
 
     return Object.fromEntries(cartEntries);
   },
 
   async fetch() {
-    const response = await fetch(`${this.ENDPOINT}/${CUSTOMER_NAME}/carts`);
-
-    if (response.status !== 200) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const cart = await response.json();
+    const cart = await http.get(this.ENDPOINT);
 
     return this.process(cart);
   },
 
   async addToCartByProductId(productId) {
-    const response = await fetch(`${this.ENDPOINT}/${CUSTOMER_NAME}/carts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ product_id: productId }),
+    return http.post(this.ENDPOINT, {
+      body: { product_id: productId },
     });
-
-    if (response.status !== 201) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const [, cartId] = response.headers.get("location").match(/\/([\d]+)$/);
-
-    return Number(cartId);
   },
 
   async deleteItemByCartId(cartId) {
-    const response = await fetch(
-      `${this.ENDPOINT}/${CUSTOMER_NAME}/carts/${cartId}`,
-      { method: "DELETE" }
-    );
-
-    if (response.status !== 204) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
+    http.delete(`${this.ENDPOINT}/${cartId}`);
   },
 };
 
 const orderAPI = {
-  ENDPOINT: `${BASE_URL}/api/customers`,
+  ENDPOINT: `/api/customers/${CUSTOMER_NAME}/orders`,
 
-  process({ order_id: orderId, order_details: orderDetails }) {
+  process({ order_id, order_details }) {
     return {
-      orderId,
-      orderDetails: orderDetails.map((product) => ({
+      orderId: order_id,
+      orderDetails: order_details.map((product) => ({
         productId: Number(product.product_id),
         price: Number(product.price),
         name: String(product.name),
@@ -119,49 +85,26 @@ const orderAPI = {
   },
 
   async fetch() {
-    const response = await fetch(`${this.ENDPOINT}/${CUSTOMER_NAME}/orders`);
-
-    if (response.status !== 200) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-    const orders = await response.json();
+    const orders = await http.get(this.ENDPOINT);
 
     return orders.map(this.process);
   },
 
   async fetchByOrderId(orderId) {
-    const response = await fetch(
-      `${this.ENDPOINT}/${CUSTOMER_NAME}/orders/${orderId}`
-    );
-
-    if (response.status !== 200) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const order = await response.json();
+    const order = await http.get(`${this.ENDPOINT}/${orderId}`);
 
     return this.process(order);
   },
 
   async orderCartItems(cart) {
     const order = cart.map(({ cartId, quantity }) => ({
-      cart_id: Number(cartId),
+      cart_id: cartId,
       quantity,
     }));
 
-    const response = await fetch(`${this.ENDPOINT}/${CUSTOMER_NAME}/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
+    const orderId = await http.post(this.ENDPOINT, {
+      body: order,
     });
-
-    if (response.status !== 201) {
-      throw new Error(`Invalid response status: ${response.status}`);
-    }
-
-    const [, orderId] = response.headers.get("location").match(/\/([\d]+)$/);
 
     return this.fetchByOrderId(orderId);
   },

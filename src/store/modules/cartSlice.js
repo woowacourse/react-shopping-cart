@@ -153,7 +153,6 @@ const cartSlice = createSlice({
 });
 
 export const {
-  removeChecked,
   toggleChecked,
   toggleAllChecked,
   changeQuantity,
