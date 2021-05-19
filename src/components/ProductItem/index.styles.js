@@ -7,14 +7,19 @@ export const Product = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 auto;
+
+  & > a {
+    width: 100%;
+    height: 12rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-grey-100);
+  }
 `;
 
 export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
   width: 100%;
-  height: 12rem;
-  margin-bottom: 0.5rem;
+  height: 100%;
   object-fit: contain;
-  border: 1px solid var(--color-grey-100);
 `;
 
 export const Description = styled.div`

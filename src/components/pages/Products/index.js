@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { ACTION_TYPE } from '../../../constants';
 
-const Products = ({ products }) => {
+const Products = ({ products, onImageError }) => {
   const dispatch = useDispatch();
 
   const handleCartButtonClick = product => {
@@ -19,6 +19,7 @@ const Products = ({ products }) => {
           <li key={product.product_id}>
             <ProductItem
               {...product}
+              onImageError={onImageError}
               onCartButtonClick={() => handleCartButtonClick({ ...product })}
             />
           </li>

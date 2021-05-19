@@ -15,13 +15,14 @@ export const Main = styled.main`
   padding: 1rem;
 
   & > div:first-child {
-    flex-basis: 70%;
+    flex-basis: 66.5%;
     padding-right: 4rem;
   }
 
   & > div:last-child {
-    flex-basis: 30%;
+    flex-basis: 33.5%;
     margin-top: 3rem;
+    min-width: 16rem;
   }
 `;
 

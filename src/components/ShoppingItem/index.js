@@ -4,7 +4,7 @@ import CheckBox from '../common/CheckBox';
 import QuantityInput from '../QuantityInput';
 import { TrashCan } from '../../assets/svg';
 import { FALLBACK } from '../../constants';
-import { Controller, Image, Name, Product } from './index.styles';
+import { Controller, Image, Name, Product, ImageWrapper } from './index.styles';
 import { formatPrice } from '../../utils';
 
 const ShoppingItem = ({
@@ -21,7 +21,9 @@ const ShoppingItem = ({
   return (
     <Product>
       <CheckBox isChecked={isChecked} onCheckBoxClick={onCheckBoxClick} />
-      <Image src={image_url} alt={name} />
+      <ImageWrapper>
+        <Image src={image_url} alt={name} />
+      </ImageWrapper>
       <Name>{name}</Name>
       <Controller>
         <button type="button" onClick={onDeleteButtonClick}>

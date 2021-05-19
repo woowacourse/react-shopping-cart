@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const Page = styled.div`
-  padding: 7rem 15rem;
+  padding: 7rem;
+  min-width: 55rem;
+  max-width: 65rem;
+  margin: 0 auto;
 `;
 
 export const Main = styled.main`
@@ -12,13 +15,14 @@ export const Main = styled.main`
   padding: 1rem;
 
   & > div:first-child {
-    flex-basis: 70%;
+    flex-basis: 66.5%;
     padding-right: 4rem;
   }
 
   & > div:last-child {
-    flex-basis: 30%;
+    flex-basis: 33.5%;
     margin-top: 3rem;
+    min-width: 16rem;
   }
 `;
 

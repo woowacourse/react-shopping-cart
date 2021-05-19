@@ -3,9 +3,15 @@ import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import { NavBar, ShoppingCart, Products, OrderPayment } from './components';
+import {
+  NavBar,
+  ShoppingCart,
+  Products,
+  OrderPayment,
+  Details,
+} from './components';
 import productReducer from './reducers/products';
-import { ROUTE } from './constants';
+import { FALLBACK, ROUTE } from './constants';
 import GlobalStyle from './global.styles';
 
 const reducer = combineReducers({
@@ -33,20 +39,45 @@ function App() {
     fetchProducts();
   }, []);
 
+  const onImageError = e => (e.target.src = FALLBACK.PRODUCT.IMG_URL);
+
   return (
     <Provider store={store}>
       <GlobalStyle />
       <Router>
         <NavBar />
-        <Route exact path={[ROUTE.HOME, ROUTE.PRODUCTS]}>
-          <Products products={products} />
-        </Route>
-        <Route exact path={ROUTE.CART}>
-          <ShoppingCart products={products} />
-        </Route>
-        <Route exact path={ROUTE.ORDER_PAYMENT}>
-          <OrderPayment products={products} />
-        </Route>
+        <Route
+          exact
+          path={[ROUTE.HOME, ROUTE.PRODUCTS]}
+          render={props => (
+            <Products
+              products={products}
+              onImageError={onImageError}
+              {...props}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={ROUTE.CART}
+          render={props => <ShoppingCart products={products} {...props} />}
+        />
+        <Route
+          exact
+          path={ROUTE.ORDER_PAYMENT}
+          render={props => <OrderPayment products={products} {...props} />}
+        />
+        <Route
+          exact
+          path={'/product/:product_id'}
+          render={props => (
+            <Details
+              products={products}
+              onImageError={onImageError}
+              {...props}
+            />
+          )}
+        />
       </Router>
     </Provider>
   );

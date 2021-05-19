@@ -8,22 +8,27 @@ export const Product = styled.div`
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-grey-150);
 `;
-
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
+export const ImageWrapper = styled.div`
   flex-basis: 20%;
   width: 20%;
-  object-fit: contain;
+  height: 6.5rem;
   border: 1px solid var(--color-grey-100);
+`;
+export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  object-fit: contain;
 `;
 
 export const Name = styled.span`
-  flex-basis: 45%;
+  flex-basis: 43%;
   font-size: var(--font-small);
   color: var(--color-grey-500);
 `;
 
 export const Controller = styled.div`
-  flex-basis: 25%;
+  flex-basis: 27%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
