@@ -1,7 +1,5 @@
 import { BASE_URL } from '../constants';
-
-const USER = 'sunhpark42';
-
+import { store } from '../store/';
 const request = async (url, option = {}) => {
   try {
     const res = await fetch(url, option);
@@ -18,7 +16,7 @@ const request = async (url, option = {}) => {
 
 const API = {
   getItemList: async () => {
-    return await request(`${BASE_URL}/api/products`);
+    return await (await request(`${BASE_URL}/api/products`)).json();
   },
   addItemToCart: async id => {
     const data = {
@@ -27,7 +25,7 @@ const API = {
     const dataJson = JSON.stringify(data);
     console.log(dataJson);
 
-    return await request(`${BASE_URL}/api/customers/${USER}/carts`, {
+    return await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,15 +34,20 @@ const API = {
     });
   },
   getCartItemList: async () => {
-    return await request(`${BASE_URL}/api/customers/${USER}/carts`);
+    return await (
+      await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts`)
+    ).json();
   },
   deleteCartItem: async ({ id }) => {
-    return await request(`${BASE_URL}/api/customers/${USER}/carts/${id}`, {
-      method: 'DELETE',
-    });
+    return await request(
+      `${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts/${id}`,
+      {
+        method: 'DELETE',
+      },
+    );
   },
   purchase: async data => {
-    return await request(`${BASE_URL}/api/customers/${USER}/orders`, {
+    return await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

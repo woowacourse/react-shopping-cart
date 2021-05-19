@@ -21,8 +21,10 @@ function App() {
 
     const getCartItemListRequest = async () => {
       const result = await API.getCartItemList();
-      store.dispatch(setCartItemList(result));
+      const cartItem = result.map(item => ({ ...item, quantity: 1, checked: true }));
+      store.dispatch(setCartItemList(cartItem));
     };
+
     getItemListRequest();
     getCartItemListRequest();
   }, []);

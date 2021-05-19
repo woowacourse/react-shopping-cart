@@ -29,7 +29,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const checkedItemIdList = list.filter(item => item.checked).map(({ id }) => id);
+  const checkedItemIdList = list.filter(item => item.checked).map(({ cart_id }) => cart_id);
   const checkedCount = checkedItemIdList.length;
   const isAllChecked = checkedCount && checkedCount === list.length;
   const checkOptionText = isAllChecked
@@ -46,16 +46,16 @@ const Cart = () => {
     }, 0);
   const isPurchasable = totalPrice > 0;
 
-  const onCheckBoxChange = ({ id }) => {
-    dispatch(toggleCartItemCheckbox(id));
+  const onCheckBoxChange = ({ cart_id }) => {
+    dispatch(toggleCartItemCheckbox(cart_id));
   };
 
   const onCheckOptionChange = () => {
     dispatch(setAllCartItemCheckbox(isAllChecked));
   };
 
-  const onItemQuantityChange = id => quantity => {
-    dispatch(setCartItemQuantity({ id, quantity }));
+  const onItemQuantityChange = cart_id => quantity => {
+    dispatch(setCartItemQuantity({ cart_id, quantity }));
   };
 
   const onDelete = async idList => {
@@ -100,12 +100,12 @@ const Cart = () => {
           </ListOptionMenu>
           <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
           <ul aria-label="장바구니 상품 목록">
-            {list.map(({ id, name, image, price, quantity, checked }) => (
-              <li key={id}>
+            {list.map(({ cart_id, name, image_url, price, quantity, checked }) => (
+              <li key={cart_id}>
                 <CheckBox>
                   <input
                     type="checkbox"
-                    onChange={() => onCheckBoxChange({ id })}
+                    onChange={() => onCheckBoxChange({ cart_id })}
                     checked={checked}
                     hidden
                   />
@@ -113,14 +113,14 @@ const Cart = () => {
                 </CheckBox>
                 <Product
                   onTitleClick={() => {
-                    history.push(`${PATH.GOODS_DETAIL}/${id}`);
+                    history.push(`${PATH.GOODS_DETAIL}/${cart_id}`);
                   }}
                   thumbnail={{
-                    image: image,
+                    image: image_url,
                     alt: name,
                     size: 'small',
                     onClick: () => {
-                      history.push(`${PATH.GOODS_DETAIL}/${id}`);
+                      history.push(`${PATH.GOODS_DETAIL}/${cart_id}`);
                     },
                   }}
                   information={{ title: name }}
@@ -129,7 +129,7 @@ const Cart = () => {
                       <IconButton
                         type="button"
                         size="small"
-                        onClick={() => onDelete([id])}
+                        onClick={() => onDelete([cart_id])}
                         ariaLabel={`${name} 삭제`}
                       >
                         <TrashBin />
@@ -138,7 +138,7 @@ const Cart = () => {
                         min={1}
                         max={99}
                         value={quantity}
-                        setValue={onItemQuantityChange(id)}
+                        setValue={onItemQuantityChange(cart_id)}
                         ariaLabel={`${name} 수량 변경`}
                       />
                       <div aria-label={`${name} 합산 가격`}>

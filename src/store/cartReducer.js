@@ -18,10 +18,10 @@ export const setCartItemList = data => {
   };
 };
 
-export const toggleCartItemCheckbox = id => {
+export const toggleCartItemCheckbox = cart_id => {
   return {
     type: ACTION_TYPE.TOGGLE_CART_ITEM_CHECKBOX,
-    payload: { id },
+    payload: { cart_id },
   };
 };
 
@@ -32,10 +32,10 @@ export const setAllCartItemCheckbox = isChecked => {
   };
 };
 
-export const setCartItemQuantity = ({ id, quantity }) => {
+export const setCartItemQuantity = ({ cart_id, quantity }) => {
   return {
     type: ACTION_TYPE.SET_CART_ITEM_QUANTITY,
-    payload: { id, quantity },
+    payload: { cart_id, quantity },
   };
 };
 
@@ -51,7 +51,10 @@ export const cartReducer = (state = initialState, action) => {
     case ACTION_TYPE.ADD_ITEM_TO_CART:
       return {
         ...state,
-        cart: [...state.cart.filter(({ id }) => id !== action.payload.id), action.payload],
+        cart: [
+          ...state.cart.filter(({ cart_id }) => cart_id !== action.payload.cart_id),
+          action.payload,
+        ],
       };
 
     case ACTION_TYPE.SET_CART_ITEM_LIST:
@@ -64,7 +67,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.map(item =>
-          item.id === action.payload.id
+          item.cart_id === action.payload.cart_id
             ? {
                 ...item,
                 checked: !item.checked,
@@ -86,7 +89,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.map(item =>
-          item.id === action.payload.id
+          item.cart_id === action.payload.cart_id
             ? {
                 ...item,
                 quantity: action.payload.quantity,
