@@ -1,5 +1,8 @@
 import { AxiosError } from 'axios';
 import {
+  LOADING,
+  LOADING_SUCCESS,
+  LOADING_FAILURE,
   REQUEST,
   REQUEST_SUCCESS,
   REQUEST_FAILURE,
@@ -10,18 +13,38 @@ import {
 
 export interface cartState {
   loading: boolean;
-  error: AxiosError | null;
+  loadingError: AxiosError | null;
+  error: Error | null;
   cart: CartItem[];
 }
 
 const initialState: cartState = {
   loading: false,
+  loadingError: null,
   error: null,
   cart: [],
 };
 
 export const cartReducer = (state: cartState = initialState, action: CartAction): cartState => {
   switch (action.type) {
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+        loadingError: null,
+      };
+    case LOADING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cart: action.payload,
+      };
+    case LOADING_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loadingError: action.loadingError,
+      };
     case REQUEST:
       return {
         ...state,
@@ -29,6 +52,11 @@ export const cartReducer = (state: cartState = initialState, action: CartAction)
         loading: true,
       };
     case REQUEST_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        cart: action.payload,
+      };
     case CHANGE_QUANTITY:
     case SELECT_CART_ITEM:
       return {
@@ -39,7 +67,6 @@ export const cartReducer = (state: cartState = initialState, action: CartAction)
     case REQUEST_FAILURE:
       return {
         ...state,
-        loading: false,
         error: action.error,
       };
     default:

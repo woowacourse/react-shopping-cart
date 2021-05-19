@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../states';
 import { getCart } from '../states/actions/cart';
+import { CartAction } from '../states/actionTypes/cart';
 import {
   addCartItem as _addCartItem,
   deleteCartItem as _deleteCartItem,
@@ -11,8 +13,8 @@ import {
 } from './../states/actions/cart';
 
 const useCart = () => {
-  const { cart, loading, error } = useSelector((state: RootState) => state.cart);
-  const dispatch = useDispatch();
+  const { cart, loading, loadingError, error: cartError } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, CartAction>>();
 
   useEffect(() => {
     if (cart.length !== 0) return;
@@ -20,12 +22,12 @@ const useCart = () => {
     dispatch(getCart());
   }, [dispatch]);
 
-  const addCartItem = (product: Product) => {
-    dispatch(_addCartItem(product));
+  const addCartItem = async (product: Product) => {
+    await dispatch(_addCartItem(product));
   };
 
-  const deleteCartItem = (cartItem: CartItem) => {
-    dispatch(_deleteCartItem(cartItem));
+  const deleteCartItem = async (cartItem: CartItem) => {
+    await dispatch(_deleteCartItem(cartItem));
   };
 
   const changeCartItemQuantity = (productId: CartItem['productId'], quantity: string) => {
@@ -48,7 +50,8 @@ const useCart = () => {
     selectCartItem,
     selectAllCartItems,
     loading,
-    error,
+    loadingError,
+    cartError,
   };
 };
 

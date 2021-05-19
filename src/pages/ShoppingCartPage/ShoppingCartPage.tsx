@@ -28,7 +28,7 @@ const ShoppingCartPage = () => {
     selectCartItem,
     selectAllCartItems,
     loading,
-    error,
+    loadingError,
   } = useCart();
   const [isTotalChecked, setTotalChecked] = useState<boolean>(true);
 
@@ -40,7 +40,7 @@ const ShoppingCartPage = () => {
     );
   }
 
-  if (!loading && error) {
+  if (!loading && loadingError) {
     return (
       <Styled.ShoppingCartPage>
         <NotFound message="상품을 찾을 수 없습니다." />

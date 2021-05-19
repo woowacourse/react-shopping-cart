@@ -1,21 +1,21 @@
 import { AxiosError } from 'axios';
 
 export interface ProductsRequestAction {
-  type: typeof REQUEST;
+  type: typeof LOADING;
 }
 
 export interface ProductsSuccessAction {
-  type: typeof REQUEST_SUCCESS;
+  type: typeof LOADING_SUCCESS;
   payload: Product[] | any;
 }
 
 export interface ProductsFailureAction {
-  type: typeof REQUEST_FAILURE;
-  error: AxiosError;
+  type: typeof LOADING_FAILURE;
+  loadingError: AxiosError;
 }
 
 export type ProductsAction = ProductsRequestAction | ProductsSuccessAction | ProductsFailureAction;
 
-export const REQUEST = 'products/REQUEST';
-export const REQUEST_SUCCESS = 'products/REQUEST_SUCCESS';
-export const REQUEST_FAILURE = 'products/REQUEST_FAILURE';
+export const LOADING = 'products/LOADING';
+export const LOADING_SUCCESS = 'products/LOADING_SUCCESS';
+export const LOADING_FAILURE = 'products/LOADING_FAILURE';

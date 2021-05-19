@@ -1,17 +1,31 @@
 import { AxiosError } from 'axios';
 
-export interface cartRequestAction {
+export interface cartLoading {
+  type: typeof LOADING;
+}
+
+export interface cartLoadingSuccess {
+  type: typeof LOADING_SUCCESS;
+  payload?: CartItem[] | any;
+}
+
+export interface cartLoadingFailure {
+  type: typeof LOADING_FAILURE;
+  loadingError: AxiosError;
+}
+
+export interface cartRequest {
   type: typeof REQUEST;
 }
 
-export interface cartSuccessAction {
+export interface cartRequestSuccess {
   type: typeof REQUEST_SUCCESS;
   payload?: CartItem[] | any;
 }
 
-export interface cartFailureAction {
+export interface cartRequestFailure {
   type: typeof REQUEST_FAILURE;
-  error: AxiosError;
+  error: Error;
 }
 
 export interface cartChangeQuantity {
@@ -24,12 +38,18 @@ export interface cartSelectItem {
 }
 
 export type CartAction =
-  | cartRequestAction
-  | cartSuccessAction
-  | cartFailureAction
+  | cartLoading
+  | cartLoadingSuccess
+  | cartLoadingFailure
+  | cartRequest
+  | cartRequestSuccess
+  | cartRequestFailure
   | cartChangeQuantity
   | cartSelectItem;
 
+export const LOADING = 'cart/LOADING';
+export const LOADING_SUCCESS = 'cart/LOADING_SUCCESS';
+export const LOADING_FAILURE = 'cart/LOADING_FAILURE';
 export const REQUEST = 'cart/REQUEST';
 export const REQUEST_SUCCESS = 'cart/REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'cart/REQUEST_FAILURE';

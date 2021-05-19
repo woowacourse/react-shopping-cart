@@ -35,9 +35,12 @@ const ProductDetailPage = () => {
   }
 
   const onAddItemInCart = async () => {
-    addCartItem(product);
-
-    setToolTipShown(true);
+    try {
+      await addCartItem(product);
+      setToolTipShown(true);
+    } catch (error) {
+      setSnackBarMessage(error.message);
+    }
   };
 
   const onMoveToCartPage = () => {

@@ -12,6 +12,7 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useOrderDetail from '../../hooks/useOrderDetail';
 import useSnackBar from '../../hooks/useSnackBar';
+import useCart from '../../hooks/useCart';
 
 import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
@@ -25,6 +26,7 @@ const OrderDetailPage = () => {
   const { products } = useSelector((state: RootState) => state.product);
   const { orderItems, loading, responseOK } = useOrderDetail();
   const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
+  const { addCartItem } = useCart();
   const orderId = window.location.hash.split('/').slice(-1);
 
   if (products.length === 0) {
@@ -48,19 +50,12 @@ const OrderDetailPage = () => {
 
     if (!product) return;
 
-    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
-
-    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
-      return;
+    try {
+      await addCartItem(product);
+      setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    } catch (error) {
+      setSnackBarMessage(error.message);
     }
-
-    if (responseResult === RESPONSE_RESULT.FAILURE) {
-      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
-      return;
-    }
-
-    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
   const orderItemList = orderItems.map(orderItem => (

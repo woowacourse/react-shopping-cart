@@ -3,7 +3,11 @@ import { Dispatch } from 'redux';
 import { RootState } from '..';
 import { STATUS_CODE, URL } from '../../constants';
 import { FORMAT_DATA } from '../../services/formatData';
+import { renameObjKeys } from '../../utils/renameObjKeys';
 import {
+  LOADING,
+  LOADING_SUCCESS,
+  LOADING_FAILURE,
   REQUEST,
   REQUEST_SUCCESS,
   REQUEST_FAILURE,
@@ -13,37 +17,45 @@ import {
 } from '../actionTypes/cart';
 
 export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
-  dispatch({ type: REQUEST });
+  dispatch({ type: LOADING });
   try {
     const response = await axios.get(URL.CART);
     if (response.status !== STATUS_CODE.GET_SUCCESS) {
       throw new Error('장바구니 정보를 불러오는데 실패하였습니다.');
     }
 
-    dispatch({ type: REQUEST_SUCCESS, payload: FORMAT_DATA.CART(response.data) });
+    dispatch({ type: LOADING_SUCCESS, payload: FORMAT_DATA.CART(response.data) });
   } catch (error) {
     console.error(error);
-    dispatch({ type: REQUEST_FAILURE, error });
+    dispatch({ type: LOADING_FAILURE, loadingError: error });
   }
 };
 
 export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
   try {
+    const { cart: prevCart } = getState().cart;
+    if (prevCart.find(item => item.productId === product.id)) {
+      throw new Error('상품이 이미 장바구니에 담겨있습니다.');
+    }
+
     const response = await axios.post(`${URL.CART}`, { product_id: product.id });
 
     if (response.status !== STATUS_CODE.POST_SUCCESS) {
       throw new Error('장바구니에 상품을 담는데 실패하였습니다.');
     }
 
-    const { cart: prevCart } = getState().cart;
     const cartId = response.headers.location.split('/').slice(-1)[0];
     dispatch({
       type: REQUEST_SUCCESS,
-      payload: [...prevCart, { ...product, cartId, quantity: '1', isSelected: true }],
+      payload: [
+        ...prevCart,
+        { ...renameObjKeys(product, [['id', 'productId']]), cartId, quantity: '1', isSelected: true },
+      ],
     });
   } catch (error) {
     console.error(error);
     dispatch({ type: REQUEST_FAILURE, error });
+    throw error;
   }
 };
 
