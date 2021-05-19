@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { API, MESSAGE } from "../../constants/constant";
 
 export const getCarts = createAsyncThunk(
   "cart/load",
-  async (data, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const res = await fetch(API.CARTS);
 
@@ -49,19 +50,23 @@ export const addToCart = createAsyncThunk(
 
 export const removeFromCart = createAsyncThunk(
   "cart/remove",
-  async (product, { rejectWithValue }) => {
+  async ({ product, amount }, { rejectWithValue }) => {
     try {
-      const cartId = product.order_id[product.order_id.length - 1];
+      const cartId = product.order_id.slice(0, amount);
 
-      const res = await fetch(`${API.CARTS}/${cartId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-      });
+      const responses = await Promise.all(
+        cartId.map((id) =>
+          fetch(`${API.CARTS}/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+          })
+        )
+      );
 
-      if (res.ok) {
-        return { productId: product.id, cartId };
+      if (responses.every((res) => res.ok)) {
+        return { productId: product.id, amount };
       }
 
       throw Error;
@@ -144,7 +149,7 @@ const cartSlice = createSlice({
     [addToCart.fulfilled]: (state, action) => {
       const { id, ...product } = action.payload.product;
       const location = action.payload.location.split("/");
-      const orderId = location[location.length - 1];
+      const orderId = Number(location[location.length - 1]);
       if (state.items[id]) {
         state.items[id].order_id.push(orderId);
       } else {
@@ -170,11 +175,14 @@ const cartSlice = createSlice({
     },
 
     [removeFromCart.fulfilled]: (state, action) => {
-      const { productId } = action.payload;
-      if (state.items[productId].order_id.length > 1) {
-        state.items[productId].order_id.pop();
-      } else {
+      const { productId, amount } = action.payload;
+
+      if (state.items[productId].order_id.length === amount) {
         delete state.items[productId];
+      } else {
+        state.items[productId].order_id = state.items[
+          productId
+        ].order_id.splice(amount);
       }
     },
 

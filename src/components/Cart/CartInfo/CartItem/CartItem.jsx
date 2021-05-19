@@ -19,13 +19,12 @@ import { CART } from "../../../../constants/constant";
 const CartItem = ({ item }) => {
   const { id, name, thumbnail, order_id: orderId, price, checked } = item;
   const amount = orderId.length;
-  console.log(name, amount);
 
   const dispatch = useDispatch();
   const confirmDelete = useConfirm(
     `'${name}' 를 장바구니에서 제거하시겠습니까?`,
     () => {
-      dispatch(removeFromCart({ id }));
+      dispatch(removeFromCart({ product: item, amount: orderId.length }));
     }
   );
 
@@ -45,7 +44,7 @@ const CartItem = ({ item }) => {
     if (diff > 0) {
       dispatch(addToCart(item));
     } else {
-      dispatch(removeFromCart(item));
+      dispatch(removeFromCart({ product: item, amount: 1 }));
     }
   };
 
