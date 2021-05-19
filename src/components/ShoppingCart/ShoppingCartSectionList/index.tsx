@@ -1,5 +1,5 @@
 import { useState, VFC } from 'react';
-import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
+import useCart from '../../../hooks/useCart';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {
@@ -10,7 +10,7 @@ import {
 
 const ShoppingCartSectionList: VFC = () => {
   const [checked, setChecked] = useState(false);
-  const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useFetchCartRedux();
+  const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useCart();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;

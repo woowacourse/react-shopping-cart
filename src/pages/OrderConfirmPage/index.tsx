@@ -6,7 +6,7 @@ import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderCon
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/useFetch';
-import useFetchCartRedux from '../../hooks/useFetchCartRedux';
+import useFetchCartRedux from '../../hooks/useCart';
 import { requestOrderItems } from '../../service/request/order';
 import {
   requestClearOrderConfirmItems,

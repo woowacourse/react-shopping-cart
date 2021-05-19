@@ -14,7 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../states/store';
 import { ItemInCart, Product } from '../types';
 
-const useFetchCartRedux = () => {
+const useCart = () => {
   const dispatch = useAppDispatch();
   const [
     itemsInCart,
@@ -83,4 +83,4 @@ const useFetchCartRedux = () => {
   };
 };
 
-export default useFetchCartRedux;
+export default useCart;

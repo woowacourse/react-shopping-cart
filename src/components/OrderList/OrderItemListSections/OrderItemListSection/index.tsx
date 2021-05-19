@@ -1,6 +1,6 @@
 import { VFC } from 'react';
 import { CONFIRM } from '../../../../constants/message';
-import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
+import useCart from '../../../../hooks/useCart';
 import { ItemInCart, Order, OrderedItem } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const OrderItemListSection: VFC<Props> = ({ order: { id, items }, className }) => {
-  const { addItem } = useFetchCartRedux();
+  const { addItem } = useCart();
 
   const onClickAddCart = (item: OrderedItem) => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;

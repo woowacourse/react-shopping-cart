@@ -1,7 +1,7 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetchCartRedux from '../../hooks/useFetchCartRedux';
+import useFetchCartRedux from '../../hooks/useCart';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';

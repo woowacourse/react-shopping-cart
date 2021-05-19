@@ -3,7 +3,7 @@ import { ItemInCart } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
-import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
+import useCart from '../../../../hooks/useCart';
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
-  const { changeQuantity, deleteItem, changeChecked } = useFetchCartRedux();
+  const { changeQuantity, deleteItem, changeChecked } = useCart();
 
   return (
     <section>

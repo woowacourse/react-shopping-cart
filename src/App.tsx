@@ -1,7 +1,7 @@
 import { useEffect, VFC } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
-import useFetchCartRedux from './hooks/useFetchCartRedux';
+import useFetchCartRedux from './hooks/useCart';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';

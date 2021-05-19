@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
+import useCart from '../../../hooks/useCart';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
 import {
@@ -13,7 +13,7 @@ import {
 
 const ProductCard: VFC<Product> = (product) => {
   const { name, price, image } = product;
-  const { addItem } = useFetchCartRedux();
+  const { addItem } = useCart();
 
   const onClickAddCart = () => {
     if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
