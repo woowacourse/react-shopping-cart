@@ -31,7 +31,7 @@ const OrderPage = () => {
 
     setLoading(true);
     const orderBody = checkedItems.map((item) => ({
-      cart_id: item.cart_id,
+      cart_id: item.cartId,
       quantity: item.quantity,
     }));
 
@@ -56,7 +56,7 @@ const OrderPage = () => {
           <Styled.OrderListHeader>주문 상품({checkedItems.length}건)</Styled.OrderListHeader>
           <Styled.OrderItemList>
             {checkedItems?.map((item) => (
-              <OrderItem key={item.cart_id} title={item.name} imageUrl={item.image_url} quantity={item.quantity} />
+              <OrderItem key={item.cartId} title={item.name} imageUrl={item.imageUrl} quantity={item.quantity} />
             ))}
           </Styled.OrderItemList>
         </Styled.OrderListContainer>

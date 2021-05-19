@@ -11,7 +11,7 @@ type LocationState = {
 const ProductDetailPage = () => {
   const location = useLocation<LocationState>();
   const { product } = location.state;
-  const { image_url: image, name, price } = product;
+  const { imageUrl, name, price } = product;
 
   const addCartItem = useAddCartItem();
 
@@ -22,7 +22,7 @@ const ProductDetailPage = () => {
   return (
     <Styled.Root>
       <Styled.ImageWrapper>
-        <Styled.Image src={image} alt="상품 이미지" />
+        <Styled.Image src={imageUrl} alt="상품 이미지" />
       </Styled.ImageWrapper>
       <Styled.Title>{name}</Styled.Title>
       <Styled.Divider />

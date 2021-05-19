@@ -11,6 +11,7 @@ import MESSAGE from 'constants/messages';
 import { RootState } from 'modules';
 import { getCartItemsRequest } from 'modules/cartItems/actions';
 import useAddCartItem from 'hooks/useAddCartItem';
+import snakeToCamel from 'utils/snakeToCamel';
 import * as T from 'types';
 import api from 'api';
 import Styled from './OrderListPage.styles';
@@ -30,7 +31,7 @@ const OrderListPage = () => {
 
     try {
       const response = await api.get('customers/zigsong/orders');
-      setOrders(response.data);
+      setOrders(snakeToCamel(response.data));
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
     }
@@ -45,10 +46,10 @@ const OrderListPage = () => {
 
   const handleClickDetail = useCallback(
     (order: T.Order) => {
-      history.push({
-        pathname: '/order/detail',
-        state: { order },
-      });
+    history.push({
+      pathname: '/order/detail',
+      state: { order },
+    });
     },
     [history]
   );
@@ -74,14 +75,14 @@ const OrderListPage = () => {
       ) : (
         <Styled.OrderList>
           {orders.map((order) => (
-            <Styled.Order key={order.order_id}>
+            <Styled.Order key={order.orderId}>
               <Styled.OrderHeader>
-                <Styled.OrderNumber>주문번호 : {order.order_id}</Styled.OrderNumber>
+                <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
                 <Styled.DetailButton onClick={() => handleClickDetail(order)}>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
-                {order.order_details.map((item) => (
-                  <PurchasedItem key={item.product_id} item={item} onClick={handleClickCart} />
+                {order.orderDetails.map((item) => (
+                  <PurchasedItem key={item.productId} item={item} onClick={handleClickCart} />
                 ))}
               </Styled.PurchasedList>
             </Styled.Order>

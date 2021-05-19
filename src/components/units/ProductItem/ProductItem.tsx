@@ -12,7 +12,7 @@ type ProductItemProps = {
 
 const ProductItem = (props: ProductItemProps) => {
   const { product, onClickCart, onClickItem } = props;
-  const { name, image_url: image, price } = product;
+  const { name, imageUrl, price } = product;
 
   const handleClickCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -27,7 +27,7 @@ const ProductItem = (props: ProductItemProps) => {
   return (
     <Styled.Root onClick={handleClickItem}>
       <Styled.ImageWrapper>
-        <Styled.Image src={image || noImageURL} alt={name} />
+        <Styled.Image src={imageUrl || noImageURL} alt={name} />
       </Styled.ImageWrapper>
       <Styled.Content>
         <Styled.Detail>

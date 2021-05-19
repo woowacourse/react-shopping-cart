@@ -42,7 +42,7 @@ const CartPage = () => {
     dispatch(checkAllCartItems(!isAllChecked));
   };
 
-  const handleDeleteItem = (id: T.CartItem['cart_id']) => {
+  const handleDeleteItem = (id: T.CartItem['cartId']) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
     dispatch(deleteItemActionRequest(id));
@@ -51,7 +51,7 @@ const CartPage = () => {
   const handleDeleteCheckedItem = () => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CHECKED_CART_ITEMS)) return;
 
-    const ids = checkedItems.map((item) => item.cart_id);
+    const ids = checkedItems.map((item) => item.cartId);
 
     dispatch(deleteCheckedItemsActionRequest(ids));
   };
@@ -78,7 +78,7 @@ const CartPage = () => {
             <Styled.CartItemList>
               {cartItems.data.map((cartItem) => (
                 <CartItem
-                  key={cartItem.cart_id}
+                  key={cartItem.cartId}
                   cartItem={cartItem}
                   onCheck={handleCheckItem}
                   onDelete={handleDeleteItem}

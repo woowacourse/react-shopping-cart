@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import { AxiosError } from 'axios';
+import snakeToCamel from 'utils/snakeToCamel';
 import api from '../../api';
 import * as T from '../../types';
 
@@ -28,13 +29,13 @@ export const RESET_CART_ITEMS_STATE = 'cartItems/RESET_CART_ITEMS_STATE' as cons
 
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
-  productId: T.Product['product_id'];
+  productId: T.Product['productId'];
 }
 
 interface AddCartItemSuccessAction {
   type: typeof ADD_CART_ITEM_SUCCESS;
   payload: {
-    cartId: T.CartItem['cart_id'];
+    cartId: T.CartItem['cartId'];
     product: T.Product;
   };
 }
@@ -63,7 +64,7 @@ interface DeleteItemRequestAction {
 
 interface DeleteItemSuccessAction {
   type: typeof DELETE_ITEM_SUCCESS;
-  id: T.CartItem['cart_id'];
+  id: T.CartItem['cartId'];
 }
 
 interface DeleteItemFailureAction {
@@ -77,7 +78,7 @@ interface DeleteCheckedItemsRequestAction {
 
 interface DeleteCheckedItemsSuccessAction {
   type: typeof DELETE_CHECKED_ITEMS_SUCCESS;
-  ids: T.CartItem['cart_id'][];
+  ids: T.CartItem['cartId'][];
 }
 
 interface DeleteCheckedItemsFailureAction {
@@ -88,7 +89,7 @@ interface DeleteCheckedItemsFailureAction {
 export type UpdateQuantityAction = {
   type: typeof UPDATE_QUANTITY;
   payload: {
-    id: T.CartItem['cart_id'];
+    id: T.CartItem['cartId'];
     quantity: number;
   };
 };
@@ -96,7 +97,7 @@ export type UpdateQuantityAction = {
 export type CheckCartItemAction = {
   type: typeof CHECK_CART_ITEM;
   payload: {
-    id: T.CartItem['cart_id'];
+    id: T.CartItem['cartId'];
     checked: T.CartItem['checked'];
   };
 };
@@ -119,7 +120,7 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
 
   try {
     const response = await api.get('customers/zigsong/carts');
-    const cartItems = response.data;
+    const cartItems = snakeToCamel(response.data);
 
     dispatch({ type: GET_CART_ITEMS_SUCCESS, cartItems });
   } catch (error) {
@@ -130,10 +131,10 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
 export const addCartItemRequest = (product: T.Product) => async (
   dispatch: Dispatch<AddCartItemAction | GetCartItemsAction>
 ) => {
-  dispatch({ type: ADD_CART_ITEM_REQUEST, productId: product.product_id });
+  dispatch({ type: ADD_CART_ITEM_REQUEST, productId: product.productId });
 
   try {
-    const response = await api.post('customers/zigsong/carts', { product_id: product.product_id });
+    const response = await api.post('customers/zigsong/carts', { product_id: product.productId });
     const { location } = response.headers;
     const cartId = location.substring(location.lastIndexOf('/') + 1);
 
@@ -144,12 +145,12 @@ export const addCartItemRequest = (product: T.Product) => async (
   }
 };
 
-export const updateQuantity = (id: T.CartItem['cart_id'], quantity: number) => ({
+export const updateQuantity = (id: T.CartItem['cartId'], quantity: number) => ({
   type: UPDATE_QUANTITY,
   payload: { id, quantity },
 });
 
-export const checkCartItem = (id: T.CartItem['cart_id'], checked: T.CartItem['checked']) => ({
+export const checkCartItem = (id: T.CartItem['cartId'], checked: T.CartItem['checked']) => ({
   type: CHECK_CART_ITEM,
   payload: { id, checked },
 });
@@ -159,7 +160,7 @@ export const checkAllCartItems = (checked: boolean) => ({
   checked,
 });
 
-export const deleteItemActionRequest = (id: T.CartItem['cart_id']) => async (dispatch: Dispatch<DeleteItemAction>) => {
+export const deleteItemActionRequest = (id: T.CartItem['cartId']) => async (dispatch: Dispatch<DeleteItemAction>) => {
   dispatch({ type: DELETE_ITEM_REQUEST });
 
   try {
@@ -171,7 +172,7 @@ export const deleteItemActionRequest = (id: T.CartItem['cart_id']) => async (dis
   }
 };
 
-export const deleteCheckedItemsActionRequest = (ids: T.CartItem['cart_id'][]) => async (
+export const deleteCheckedItemsActionRequest = (ids: T.CartItem['cartId'][]) => async (
   dispatch: Dispatch<DeleteCheckedItemsAction>
 ) => {
   dispatch({ type: DELETE_CHECKED_ITEMS_REQUEST });

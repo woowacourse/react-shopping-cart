@@ -11,7 +11,7 @@ type PurchasedItemProps = {
 
 const PurchasedItem = (props: PurchasedItemProps) => {
   const { item, onClick } = props;
-  const { name, price, image_url: image, quantity } = item;
+  const { name, price, imageUrl, quantity } = item;
 
   const totalPrice = price * quantity;
 
@@ -21,7 +21,7 @@ const PurchasedItem = (props: PurchasedItemProps) => {
 
   return (
     <Styled.Root>
-      <Styled.Image src={image ?? defaultImageURL} alt="김말이" />
+      <Styled.Image src={imageUrl ?? defaultImageURL} alt="김말이" />
       <Styled.Info>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>

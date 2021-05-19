@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
 import * as T from 'types';
+import snakeToCamel from 'utils/snakeToCamel';
 import MESSAGE from 'constants/messages';
 import Spinner from 'components/shared/Spinner/Spinner';
 import ProductItem from 'components/units/ProductItem/ProductItem';
@@ -23,7 +24,7 @@ const ProductsPage = () => {
 
     try {
       const response = await api.get('/products');
-      setProducts(response.data);
+      setProducts(snakeToCamel(response.data));
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
     }
@@ -58,7 +59,7 @@ const ProductsPage = () => {
       ) : (
         <Styled.ProductList>
           {products?.map((product: T.Product) => (
-            <li key={product.product_id}>
+            <li key={product.productId}>
               <ProductItem product={product} onClickItem={handleClickItem} onClickCart={handleClickCart} />
             </li>
           ))}

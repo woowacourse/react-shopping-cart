@@ -12,12 +12,12 @@ import Styled from './CartItem.styles';
 type CartItemProps = {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
-  onDelete: (id: T.CartItem['cart_id']) => void;
+  onDelete: (id: T.CartItem['cartId']) => void;
 };
 
 const CartItem = (props: CartItemProps) => {
   const { cartItem, onCheck, onDelete } = props;
-  const { cart_id: cartId, name, price, image_url: image, quantity, checked } = cartItem;
+  const { cartId, name, price, imageUrl, quantity, checked } = cartItem;
 
   const dispatch = useDispatch();
 
@@ -58,7 +58,7 @@ const CartItem = (props: CartItemProps) => {
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={image || noImageURL} alt="김말이" />
+      <Styled.Image src={imageUrl || noImageURL} alt="김말이" />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
         <Styled.Delete onClick={handleDelete}>
