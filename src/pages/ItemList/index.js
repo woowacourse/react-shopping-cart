@@ -17,9 +17,9 @@ const ItemList = () => {
     history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
   };
 
-  const addCart = data => async () => {
+  const addCart = id => async () => {
     try {
-      const newCartItem = await API.addItemToCart({ ...data, quantity: 1, checked: true });
+      const newCartItem = await API.addItemToCart(id);
 
       dispatch(addItemToCart(newCartItem));
       alert(MESSAGE.SUCCESS_ADD_ITEM_TO_CART);
@@ -31,26 +31,28 @@ const ItemList = () => {
 
   return (
     <Grid col="4">
-      {Object.values(list).map(({ id, name, image, price }) => (
-        <Card
-          key={id}
-          title={name}
-          thumbnail={{ image, alt: name }}
-          onClick={goDetailPage(id)}
-          description={
-            <Description>
-              <Price>{price.toLocaleString('ko-KR')} 원</Price>
-              <IconButton
-                size="medium"
-                ariaLabel={`${name}을 장바구니에 담기`}
-                onClick={addCart({ id, name, image, price })}
-              >
-                <CartIcon />
-              </IconButton>
-            </Description>
-          }
-        />
-      ))}
+      {Object.values(list).map(({ product_id: id, name, image_url, price }) => {
+        return (
+          <Card
+            key={id}
+            title={name}
+            thumbnail={{ image: image_url, alt: name }}
+            onClick={goDetailPage(id)}
+            description={
+              <Description>
+                <Price>{price.toLocaleString('ko-KR')} 원</Price>
+                <IconButton
+                  size="medium"
+                  ariaLabel={`${name}을 장바구니에 담기`}
+                  onClick={addCart(id)}
+                >
+                  <CartIcon />
+                </IconButton>
+              </Description>
+            }
+          />
+        );
+      })}
     </Grid>
   );
 };

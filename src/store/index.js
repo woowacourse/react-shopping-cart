@@ -4,6 +4,9 @@ import { ACTION_TYPE } from '../constants';
 import { cartReducer } from './cartReducer';
 
 const initialState = {
+  user: {
+    name: 'sunhpark42',
+  },
   itemList: [],
   orderList: [],
 };
