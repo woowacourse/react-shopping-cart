@@ -5,9 +5,10 @@ import GlobalStyle from './globalStyle';
 import Header from '../src/components/Header';
 import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
-import { Cart, ItemList, Order } from './pages';
-import { setItemList, store } from './store';
+import { Cart, ProductList, Order } from './pages';
+import { store } from './store';
 import { setCartItemList } from './store/cartReducer';
+import { setProductList } from './store/productReducer';
 import { API } from './utils';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
 
@@ -15,7 +16,7 @@ function App() {
   useEffect(() => {
     const getItemListRequest = async () => {
       const result = await API.getItemList();
-      store.dispatch(setItemList(result));
+      store.dispatch(setProductList(result));
     };
 
     const getCartItemListRequest = async () => {
@@ -43,7 +44,7 @@ function App() {
         </Header>
         <MainContainer>
           <Switch>
-            <Route exact path={[PATH.MAIN, PATH.GOODS]} component={ItemList} />
+            <Route exact path={[PATH.MAIN, PATH.GOODS]} component={ProductList} />
             <Route exact path={PATH.GOODS_DETAIL}>
               GOODS_DETAIL
             </Route>

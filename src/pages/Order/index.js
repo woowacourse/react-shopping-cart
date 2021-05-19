@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrderDetail } from '../../store';
+import { addOrderDetail } from '../../store/orderReducer';
 import { deleteCartItems } from '../../store/cartReducer';
 import { API } from '../../utils';
 import { Button, HighlightText, Product } from '../../components/shared';

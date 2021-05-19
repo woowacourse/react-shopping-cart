@@ -8,8 +8,8 @@ import { Grid, Card, IconButton } from '../../components/shared';
 import { Description, Price } from './style';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 
-const ItemList = () => {
-  const list = useSelector(state => state.reducer.itemList);
+const ProductList = () => {
+  const list = useSelector(state => state.productReducer.productList);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -55,4 +55,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default ProductList;
