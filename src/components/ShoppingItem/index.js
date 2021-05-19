@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CheckBox from '../common/CheckBox';
-import QuantityInput from '../common/QuantityInput';
+import QuantityInput from '../QuantityInput';
 import { TrashCan } from '../../assets/svg';
 import { FALLBACK } from '../../constants';
 import { Controller, Image, Name, Product } from './index.styles';

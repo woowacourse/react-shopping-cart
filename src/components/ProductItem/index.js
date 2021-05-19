@@ -5,7 +5,6 @@ import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
-  id,
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
@@ -20,10 +19,7 @@ const ProductItem = ({
           <Name>{name}</Name>
           <Price>{price} 원</Price>
         </div>
-        <button
-          type="button"
-          onClick={() => onCartButtonClick({ id, imgUrl, imgAlt, name, price })}
-        >
+        <button type="button" onClick={onCartButtonClick}>
           <Cart width="30" height="30" />
         </button>
       </Description>
