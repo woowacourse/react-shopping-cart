@@ -1,0 +1,40 @@
+{
+  "productList": [
+    {
+      "id": "1",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png",
+      "name": "도비",
+      "price": 30000
+    },
+    {
+      "id": "2",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11263-main-01.png",
+      "name": "브랜",
+      "price": 20000
+    },
+    {
+      "id": "3",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11277-main-01.png",
+      "name": "엘라",
+      "price": 40000
+    },
+    {
+      "id": "4",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11280-main-01.png",
+      "name": "파노",
+      "price": 50000
+    },
+    {
+      "id": "5",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11315-main-01.png",
+      "name": "포코",
+      "price": 99999
+    },
+    {
+      "id": "6",
+      "img": "https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png",
+      "name": "브랜4",
+      "price": 3000
+    }
+  ]
+}
