@@ -6,6 +6,8 @@ import {
   addCartItem as _addCartItem,
   deleteCartItem as _deleteCartItem,
   changeCartItemQuantity as _changeCartItemQuantity,
+  selectCartItem as _selectCartItem,
+  selectAllCartItems as _selectAllCartItems,
 } from './../states/actions/cart';
 
 const useCart = () => {
@@ -30,7 +32,24 @@ const useCart = () => {
     dispatch(_changeCartItemQuantity(productId, quantity));
   };
 
-  return { cart, addCartItem, deleteCartItem, changeCartItemQuantity, loading, error };
+  const selectCartItem = (productId: CartItem['productId']) => {
+    dispatch(_selectCartItem(productId));
+  };
+
+  const selectAllCartItems = (isSelectAll: boolean) => {
+    dispatch(_selectAllCartItems(isSelectAll));
+  };
+
+  return {
+    cart,
+    addCartItem,
+    deleteCartItem,
+    changeCartItemQuantity,
+    selectCartItem,
+    selectAllCartItems,
+    loading,
+    error,
+  };
 };
 
 export default useCart;

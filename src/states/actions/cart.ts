@@ -3,7 +3,14 @@ import { Dispatch } from 'redux';
 import { RootState } from '..';
 import { STATUS_CODE, URL } from '../../constants';
 import { FORMAT_DATA } from '../../services/formatData';
-import { REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, CHANGE_QUANTITY, CartAction } from '../actionTypes/cart';
+import {
+  REQUEST,
+  REQUEST_SUCCESS,
+  REQUEST_FAILURE,
+  CHANGE_QUANTITY,
+  CartAction,
+  SELECT_CART_ITEM,
+} from '../actionTypes/cart';
 
 export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
   dispatch({ type: REQUEST });
@@ -21,17 +28,19 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
 };
 
 export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
-  dispatch({ type: REQUEST });
   try {
     const response = await axios.post(`${URL.CART}`, { product_id: product.id });
-    console.log(response.headers.location.split('/').slice(-1)[0]);
 
     if (response.status !== STATUS_CODE.POST_SUCCESS) {
       throw new Error('장바구니에 상품을 담는데 실패하였습니다.');
     }
 
     const { cart: prevCart } = getState().cart;
-    dispatch({ type: REQUEST_SUCCESS, payload: [...prevCart, product] });
+    const cartId = response.headers.location.split('/').slice(-1)[0];
+    dispatch({
+      type: REQUEST_SUCCESS,
+      payload: [...prevCart, { ...product, cartId, quantity: '1', isSelected: true }],
+    });
   } catch (error) {
     console.error(error);
     dispatch({ type: REQUEST_FAILURE, error });
@@ -42,7 +51,6 @@ export const deleteCartItem = (cartItem: CartItem) => async (
   dispatch: Dispatch<CartAction>,
   getState: () => RootState
 ) => {
-  dispatch({ type: REQUEST });
   try {
     const response = await axios.delete(`${URL.CART}/${cartItem.cartId}`);
 
@@ -51,7 +59,7 @@ export const deleteCartItem = (cartItem: CartItem) => async (
     }
 
     const { cart: prevCart } = getState().cart;
-    dispatch({ type: REQUEST_SUCCESS, payload: prevCart.filter(item => item.productId !== cartItem.productId) });
+    dispatch({ type: REQUEST_SUCCESS, payload: prevCart.filter(item => item.cartId !== cartItem.cartId) });
   } catch (error) {
     console.error(error);
     dispatch({ type: REQUEST_FAILURE, error });
@@ -66,5 +74,27 @@ export const changeCartItemQuantity = (productId: CartItem['productId'], quantit
   dispatch({
     type: CHANGE_QUANTITY,
     payload: prevCart.map(item => (item.productId === productId ? { ...item, quantity } : item)),
+  });
+};
+
+export const selectCartItem = (productId: CartItem['productId']) => (
+  dispatch: Dispatch<CartAction>,
+  getState: () => RootState
+) => {
+  const { cart: prevCart } = getState().cart;
+  dispatch({
+    type: SELECT_CART_ITEM,
+    payload: prevCart.map(item => (item.productId === productId ? { ...item, isSelected: !item.isSelected } : item)),
+  });
+};
+
+export const selectAllCartItems = (isSelectAll: boolean) => (
+  dispatch: Dispatch<CartAction>,
+  getState: () => RootState
+) => {
+  const { cart: prevCart } = getState().cart;
+  dispatch({
+    type: SELECT_CART_ITEM,
+    payload: prevCart.map(item => ({ ...item, isSelected: isSelectAll })),
   });
 };
