@@ -261,33 +261,10 @@
             "price": 4900,
             "quantity": 1,
             "checked": true
-          },
-          {
-            "id": 3,
-            "name": "[든든] 신-키리모찌 1kg",
-            "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png",
-            "price": 12000,
-            "quantity": 1,
-            "checked": true
           }
         ]
       ],
       "id": 5
-    },
-    {
-      "products": [
-        [
-          {
-            "id": 1,
-            "name": "[든든] 유부 슬라이스 500g",
-            "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-            "price": 4900,
-            "quantity": 1,
-            "checked": true
-          }
-        ]
-      ],
-      "id": 6
     }
   ]
 }

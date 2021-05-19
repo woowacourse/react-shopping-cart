@@ -7,19 +7,15 @@ import {
   setCartItemQuantity,
   deleteCartItems,
 } from '../../store/cartReducer';
-import { API } from '../../utils';
+import API from '../../request/api';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
 import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
-  Container,
   Header,
   Contents,
   ListOptionMenu,
   ProductListContainer,
-  ProductListWrapper,
   ProductListHeader,
-  ProductList,
-  ProductWrapper,
   ReceiptWrapper,
   ReceiptHeader,
   ReceiptContent,
@@ -75,7 +71,7 @@ const Cart = () => {
   };
 
   return (
-    <Container>
+    <>
       <Header>장바구니</Header>
       <Contents>
         <ProductListContainer>
@@ -102,53 +98,58 @@ const Cart = () => {
               상품 삭제
             </Button>
           </ListOptionMenu>
-          <ProductListWrapper aria-label="장바구니 상품 목록">
-            <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
-            <ProductList>
-              {list.map(({ id, name, image, price, quantity, checked }) => (
-                <ProductWrapper key={id}>
-                  <CheckBox>
-                    <input
-                      type="checkbox"
-                      onChange={() => onCheckBoxChange({ id })}
-                      checked={checked}
-                      hidden
-                    />
-                    <span role="checkbox" aria-label={`${name} 선택`} aria-checked={checked}></span>
-                  </CheckBox>
-                  <Product
-                    onClick={() => {
-                      history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
-                    }}
-                    thumbnail={{ image: image, alt: name, size: 'small' }}
-                    information={{ title: name }}
-                    extra={
-                      <>
-                        <IconButton
-                          type="button"
-                          size="small"
-                          onClick={() => onDelete([id])}
-                          ariaLabel={`${name} 삭제`}
-                        >
-                          <TrashBin />
-                        </IconButton>
-                        <NumericInput
-                          min={1}
-                          max={99}
-                          value={quantity}
-                          setValue={onItemQuantityChange(id)}
-                          ariaLabel={`${name} 수량 변경`}
-                        />
-                        <div aria-label={`${name} 합산 가격`}>
-                          {`${(price * quantity).toLocaleString('ko-KR')}원`}
-                        </div>
-                      </>
-                    }
+          <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
+          <ul aria-label="장바구니 상품 목록">
+            {list.map(({ id, name, image, price, quantity, checked }) => (
+              <li key={id}>
+                <CheckBox>
+                  <input
+                    type="checkbox"
+                    onChange={() => onCheckBoxChange({ id })}
+                    checked={checked}
+                    hidden
                   />
-                </ProductWrapper>
-              ))}
-            </ProductList>
-          </ProductListWrapper>
+                  <span role="checkbox" aria-label={`${name} 선택`} aria-checked={checked}></span>
+                </CheckBox>
+                <Product
+                  onTitleClick={() => {
+                    history.push(`${PATH.GOODS_DETAIL}/${id}`);
+                  }}
+                  thumbnail={{
+                    image: image,
+                    alt: name,
+                    size: 'small',
+                    onClick: () => {
+                      history.push(`${PATH.GOODS_DETAIL}/${id}`);
+                    },
+                  }}
+                  information={{ title: name }}
+                  extra={
+                    <>
+                      <IconButton
+                        type="button"
+                        size="small"
+                        onClick={() => onDelete([id])}
+                        ariaLabel={`${name} 삭제`}
+                      >
+                        <TrashBin />
+                      </IconButton>
+                      <NumericInput
+                        min={1}
+                        max={99}
+                        value={quantity}
+                        setValue={onItemQuantityChange(id)}
+                        ariaLabel={`${name} 수량 변경`}
+                      />
+                      <div aria-label={`${name} 합산 가격`}>
+                        {`${(price * quantity).toLocaleString('ko-KR')}원`}
+                      </div>
+                    </>
+                  }
+                />
+              </li>
+            ))}
+          </ul>
         </ProductListContainer>
         <ReceiptWrapper>
           <ReceiptHeader>결제예상금액</ReceiptHeader>
@@ -179,7 +180,7 @@ const Cart = () => {
           </ReceiptContent>
         </ReceiptWrapper>
       </Contents>
-    </Container>
+    </>
   );
 };
 

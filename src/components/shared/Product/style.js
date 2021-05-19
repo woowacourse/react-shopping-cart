@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   padding: 2% 24px;
-  border-bottom: 1.5px solid ${COLOR['GRAY-300']};
 `;
 
 export const InformationWrapper = styled.div`

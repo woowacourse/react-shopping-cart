@@ -2,19 +2,19 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemToCart } from '../../store/cartReducer';
-import { API } from '../../utils';
+import API from '../../request/api';
 import { MESSAGE, PATH } from '../../constants';
 import { Grid, Card, IconButton } from '../../components/shared';
 import { Description, Price } from './style';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 
-const ItemList = () => {
-  const list = useSelector(state => state.reducer.itemList);
+const ProductList = () => {
+  const list = useSelector(state => state.productReducer.productList);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const goDetailPage = id => () => {
-    history.push(`${PATH.GOODS_DETAIL}?id=${id}`);
+    history.push(`${PATH.GOODS_DETAIL}/${id}`);
   };
 
   const addCart = id => async () => {
@@ -57,4 +57,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default ProductList;

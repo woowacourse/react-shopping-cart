@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import Thumbnail from '../Thumbnail';
 import { Container, InformationWrapper, Title, Description, ExtraWrapper } from './style';
 
-const Product = ({ thumbnail, information, extra, onClick }) => {
+const Product = ({ thumbnail, information, extra, onClick, onTitleClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Thumbnail
         image={thumbnail.image}
         alt={thumbnail.alt}
         size={thumbnail.size}
-        onClick={onClick}
+        onClick={thumbnail.onClick}
       />
       <InformationWrapper>
-        <Title onClick={onClick}>{information.title}</Title>
+        <Title onClick={onTitleClick}>{information.title}</Title>
         <Description>{information.description}</Description>
       </InformationWrapper>
       <ExtraWrapper>{extra}</ExtraWrapper>
@@ -26,6 +26,7 @@ Product.propTypes = {
     image: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     size: PropTypes.string,
+    onClick: PropTypes.func,
   }),
 
   information: PropTypes.shape({
