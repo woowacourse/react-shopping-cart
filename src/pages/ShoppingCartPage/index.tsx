@@ -1,21 +1,21 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetchCartRedux from '../../hooks/useFetchCartRedux';
 import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
+import useCartItems from '../../hooks/useCartItems';
 
 const TITLE = '장바구니';
 
 const ShoppingCartPage: FC = () => {
-  const { fetchCartItemRedux, itemsInCart: items, isLoading } = useFetchCartRedux();
+  const { loadCartItems, itemsInCart: items, isLoading } = useCartItems();
   const history = useHistory();
 
   useEffect(() => {
-    fetchCartItemRedux();
+    loadCartItems();
   }, []);
 
   const totalPrice = items.reduce(

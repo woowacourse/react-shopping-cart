@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import InitialLoading from '.';
-import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
+import useCartItems from '../../../hooks/useCartItems';
 import ShoppingCartPage from '../../../pages/ShoppingCartPage';
 
 export default {
@@ -9,10 +9,10 @@ export default {
 };
 
 const StoryTemplate = (args) => {
-  const { isLoading, fetchCartItemRedux } = useFetchCartRedux();
+  const { isLoading, loadCartItems } = useCartItems();
 
   useEffect(() => {
-    fetchCartItemRedux();
+    loadCartItems();
   }, []);
 
   return <InitialLoading {...args} isLoading={isLoading} />;

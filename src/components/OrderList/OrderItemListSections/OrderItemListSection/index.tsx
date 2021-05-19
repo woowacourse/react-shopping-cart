@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { CONFIRM } from '../../../../constants/message';
-import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
+import useCartAddItem from '../../../../hooks/useCartItems/useCartAddItem';
 import { ItemInCart, Order, OrderedItem } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const OrderItemListSection: FC<Props> = ({ order: { id, items }, className }) => {
-  const { addItem } = useFetchCartRedux();
+  const { addItem } = useCartAddItem();
 
   const onClickAddCart = (item: OrderedItem) => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;

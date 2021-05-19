@@ -5,8 +5,8 @@ import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerCon
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/useFetch';
-import useFetchCartRedux from '../../hooks/useFetchCartRedux';
+import useFetch from '../../hooks/shared/useFetch';
+import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
 import { requestOrderItems } from '../../service/request/order';
 import {
   requestClearOrderConfirmItems,
@@ -21,7 +21,7 @@ interface Props extends RouteComponentProps {}
 const OrderConfirmPage: FC<Props> = ({ history }) => {
   const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { clearCart } = useFetchCartRedux();
+  const { clearCart } = useCartDeleteItem();
 
   useEffect(() => {
     if (!items) return;
@@ -51,6 +51,7 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   };
 
   return (
+    //TODO: initialLoading으로 수정하기
     <ReactShoppingCartTemplate title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
         {isLoading ? (

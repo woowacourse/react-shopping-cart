@@ -3,7 +3,9 @@ import { ItemInCart } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
-import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
+import useCartDeleteItem from '../../../../hooks/useCartItems/useCartDeleteItem';
+import useCartChangeCheckState from '../../../../hooks/useCartItems/useCartChangeCheckState';
+import useCartChangeQuantity from '../../../../hooks/useCartItems/useCartChangeQuantity';
 
 interface Props {
   title: string;
@@ -11,7 +13,9 @@ interface Props {
 }
 
 const ShoppingCartSection: FC<Props> = ({ title, items }) => {
-  const { changeQuantity, deleteItem, changeChecked } = useFetchCartRedux();
+  const { changeQuantity } = useCartChangeQuantity();
+  const { deleteItem } = useCartDeleteItem();
+  const { changeChecked } = useCartChangeCheckState();
 
   return (
     <section>

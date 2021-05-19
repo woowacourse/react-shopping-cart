@@ -90,17 +90,6 @@ export const thunkChangeItemQuantity = (item: ItemInCart, quantity: number): App
   }
 };
 
-export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch: Dispatch) => {
-  dispatch({ type: DELETE_CART_ITEM });
-
-  try {
-    await requestShoppingCartItemToDelete(itemId);
-    dispatch({ type: DELETE_CART_ITEM_SUCCESS, payload: itemId });
-  } catch (error) {
-    dispatch({ type: DELETE_CART_ITEM_ERROR, payload: error });
-  }
-};
-
 export const thunkChangeItemChecked = (item: ItemInCart): AppThunk => async (
   dispatch: Dispatch
 ) => {
@@ -127,6 +116,17 @@ export const thunkChangeAllItemChecked = (
     dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS, payload: checked });
   } catch (error) {
     dispatch({ type: CHANGE_ALL_CART_ITEM_CHECKED_ERROR, payload: error });
+  }
+};
+
+export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch: Dispatch) => {
+  dispatch({ type: DELETE_CART_ITEM });
+
+  try {
+    await requestShoppingCartItemToDelete(itemId);
+    dispatch({ type: DELETE_CART_ITEM_SUCCESS, payload: itemId });
+  } catch (error) {
+    dispatch({ type: DELETE_CART_ITEM_ERROR, payload: error });
   }
 };
 

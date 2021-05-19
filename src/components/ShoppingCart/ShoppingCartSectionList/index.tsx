@@ -1,6 +1,8 @@
 import { useState, FC } from 'react';
 import { CONFIRM } from '../../../constants/message';
-import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
+import useCartItems from '../../../hooks/useCartItems';
+import useCartChangeCheckState from '../../../hooks/useCartItems/useCartChangeCheckState';
+import useCartDeleteItem from '../../../hooks/useCartItems/useCartDeleteItem';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {
@@ -11,7 +13,9 @@ import {
 
 const ShoppingCartSectionList: FC = () => {
   const [checked, setChecked] = useState(false);
-  const { changeAllChecked, deleteCheckedItems, itemsInCart: items } = useFetchCartRedux();
+  const { itemsInCart: items } = useCartItems();
+  const { changeAllChecked } = useCartChangeCheckState();
+  const { deleteCheckedItems } = useCartDeleteItem();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;
