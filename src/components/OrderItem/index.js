@@ -15,12 +15,12 @@ import Button from '../common/Button';
 const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
-  id,
   imgUrl = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
   isCartButtonVisible,
+  onCartButtonClick = () => {},
 }) => (
   <Order>
     <ImageWrapper>
@@ -34,7 +34,7 @@ const OrderItem = ({
     </OrderDetail>
     <ButtonWrapper>
       {isCartButtonVisible && (
-        <Button onClick={() => {}} backgroundColor={BUTTON_COLOR}>
+        <Button onClick={onCartButtonClick} backgroundColor={BUTTON_COLOR}>
           장바구니
         </Button>
       )}

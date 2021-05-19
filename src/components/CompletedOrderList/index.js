@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
 
-const CompletedOrderList = ({ orderId, products }) => {
+const CompletedOrderList = ({
+  orderId,
+  products,
+  onCartButtonClick = () => {},
+}) => {
   return (
     <OrderList>
       <Header>
@@ -12,14 +16,12 @@ const CompletedOrderList = ({ orderId, products }) => {
       </Header>
       <ul>
         {/* TODO: Backend API에 맞게 Key 수정 */}
-        {products.map(({ id, imgUrl, name, price, quantity }) => (
-          <li key={id}>
+        {products.map(product => (
+          <li key={product.id}>
             <OrderItem
-              imgUrl={imgUrl}
-              name={name}
-              price={price}
-              quantity={quantity}
+              {...product}
               isCartButtonVisible={true}
+              onCartButtonClick={event => onCartButtonClick(event, product)}
             />
           </li>
         ))}

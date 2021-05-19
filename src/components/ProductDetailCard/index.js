@@ -11,7 +11,7 @@ const ProductDetailCard = ({
   imgAlt = FALLBACK.PRODUCT.IMG_ALT,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
-  // onClick = () => {},
+  onCartButtonClick = () => {},
 }) => (
   <Product>
     <Detail>
@@ -22,7 +22,7 @@ const ProductDetailCard = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button backgroundColor={BUTTON_COLOR} onClick={() => {}}>
+    <Button backgroundColor={BUTTON_COLOR} onClick={onCartButtonClick}>
       장바구니
     </Button>
   </Product>

@@ -1,5 +1,4 @@
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   NavBar,
@@ -9,26 +8,45 @@ import {
   CompletedOrder,
   ProductDetail,
 } from './components';
-import { ROUTE } from './constants';
-import GlobalStyle from './global.styles';
-import rootReducer from './reducers';
+import { ACTION_TYPE, MESSAGE, ROUTE } from './constants';
 
-const store = createStore(rootReducer);
+const App = () => {
+  const dispatch = useDispatch();
 
-function App() {
+  const handleCartButtonClick = (event, product) => {
+    event.stopPropagation();
+    if (!window.confirm(MESSAGE.PRODUCTS.ADD_TO_CART_CONFIRM)) return;
+
+    dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
+    alert(MESSAGE.PRODUCTS.ADD_TO_CART_ALERT);
+  };
+
   return (
-    <Provider store={store}>
-      <GlobalStyle />
-      <Router>
-        <NavBar />
-        <Route exact path={[ROUTE.HOME, ROUTE.PRODUCTS]} component={Products} />
-        <Route exact path={ROUTE.PRODUCT_DETAIL} component={ProductDetail} />
-        <Route exact path={ROUTE.CART} component={ShoppingCart} />
-        <Route exact path={ROUTE.ORDER_PAYMENT} component={OrderPayment} />
-        <Route exact path={ROUTE.COMPLETED_ORDER} component={CompletedOrder} />
-      </Router>
-    </Provider>
+    <Router>
+      <NavBar />
+      <Route
+        exact
+        path={[ROUTE.HOME, ROUTE.PRODUCTS]}
+        component={() => <Products onCartButtonClick={handleCartButtonClick} />}
+      />
+      <Route
+        exact
+        path={ROUTE.PRODUCT_DETAIL}
+        component={() => (
+          <ProductDetail onCartButtonClick={handleCartButtonClick} />
+        )}
+      />
+      <Route exact path={ROUTE.CART} component={ShoppingCart} />
+      <Route exact path={ROUTE.ORDER_PAYMENT} component={OrderPayment} />
+      <Route
+        exact
+        path={ROUTE.COMPLETED_ORDER}
+        component={() => (
+          <CompletedOrder onCartButtonClick={handleCartButtonClick} />
+        )}
+      />
+    </Router>
   );
-}
+};
 
 export default App;

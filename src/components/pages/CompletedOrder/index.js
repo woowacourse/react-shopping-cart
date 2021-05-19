@@ -5,7 +5,7 @@ import PageHeader from '../../PageHeader';
 import { Empty, Main } from './index.styles';
 import { useSelector } from 'react-redux';
 
-const CompletedOrder = () => {
+const CompletedOrder = ({ onCartButtonClick = () => {} }) => {
   const totalOrders = Object.entries(
     useSelector(({ order }) => order.totalOrders)
   );
@@ -17,7 +17,11 @@ const CompletedOrder = () => {
         <ul>
           {totalOrders.map(([id, products]) => (
             <li key={id}>
-              <CompletedOrderList orderId={id} products={products} />
+              <CompletedOrderList
+                orderId={id}
+                products={products}
+                onCartButtonClick={onCartButtonClick}
+              />
             </li>
           ))}
         </ul>

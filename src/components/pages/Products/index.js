@@ -3,11 +3,11 @@ import ProductItem from '../../ProductItem';
 import { ProductList, Page } from './index.styles';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_TYPE, MESSAGE, ROUTE } from '../../../constants';
+import { ACTION_TYPE, ROUTE } from '../../../constants';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
-const Products = () => {
+const Products = ({ onCartButtonClick = () => {} }) => {
   const products = useSelector(({ product }) => product.fetchedProducts);
   const dispatch = useDispatch();
 
@@ -33,21 +33,10 @@ const Products = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCartButtonClick = (event, product) => {
-    event.stopPropagation();
-    if (window.confirm(MESSAGE.PRODUCTS.ADD_TO_CART_CONFIRM)) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
-      alert(MESSAGE.PRODUCTS.ADD_TO_CART_ALERT);
-    }
-  };
-
   const history = useHistory();
 
   const handleProductClick = product => {
-    history.push({
-      pathname: ROUTE.PRODUCT_DETAIL,
-      state: { product },
-    });
+    history.push(ROUTE.PRODUCT_DETAIL, { product });
   };
 
   return (
@@ -58,7 +47,7 @@ const Products = () => {
             <ProductItem
               {...product}
               onProductClick={() => handleProductClick(product)}
-              onCartButtonClick={event => handleCartButtonClick(event, product)}
+              onCartButtonClick={event => onCartButtonClick(event, product)}
             />
           </li>
         ))}
