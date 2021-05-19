@@ -1,7 +1,11 @@
 export const PAGES = {
+  HOME: {
+    NAME: '홈',
+    ADDRESS: '/',
+  },
   PRODUCT: {
     NAME: '상품목록',
-    ADDRESS: '/',
+    ADDRESS: '/products',
   },
   CART: {
     NAME: '장바구니',

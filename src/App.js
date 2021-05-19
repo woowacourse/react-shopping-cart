@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
@@ -16,7 +16,10 @@ const App = () => {
         <Navigation navList={HEADER.NAV_LIST} />
       </Header>
       <Switch>
-        <Route path={PAGES.PRODUCT.ADDRESS} exact>
+        <Route path={PAGES.HOME.ADDRESS} exact>
+          <Redirect to={{ pathname: PAGES.PRODUCT.ADDRESS, state: { from: PAGES.HOME.ADDRESS } }} />
+        </Route>
+        <Route path={PAGES.PRODUCT.ADDRESS}>
           <ProductListPage />
         </Route>
         <Route path={PAGES.CART.ADDRESS}>
