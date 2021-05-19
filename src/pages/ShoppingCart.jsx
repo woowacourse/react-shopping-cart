@@ -73,9 +73,11 @@ const ShoppingCart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const { isLoading: isDataLoading, data: shoppingCartItemList } = useSelector(
-    (state) => state.shoppingCart.shoppingCartItemList
-  );
+  const {
+    isLoading: isDataLoading,
+    data: shoppingCartItemList,
+    error,
+  } = useSelector((state) => state.shoppingCart.shoppingCartItemList);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;
@@ -116,6 +118,10 @@ const ShoppingCart = () => {
 
   if (isDataLoading || isInitLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   if (!shoppingCartItemList.length) {

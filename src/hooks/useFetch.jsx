@@ -11,11 +11,13 @@ const useFetch = ({ fetchFunc, isInitSetting = false }) => {
       try {
         setData(await fetchFunc());
         setLoading(false);
+        setError(null);
 
         return;
       } catch (error) {
-        console.error(error);
-        setError(error);
+        console.error(error.message);
+        setLoading(false);
+        setError(error.message);
       }
     };
 
@@ -29,9 +31,11 @@ const useFetch = ({ fetchFunc, isInitSetting = false }) => {
     try {
       await fetchFunc(param);
       setLoading(false);
+      setError(null);
     } catch (error) {
-      console.error(error);
-      setError(error);
+      console.error(error.message);
+      setLoading(false);
+      setError(error.message);
     }
   };
 

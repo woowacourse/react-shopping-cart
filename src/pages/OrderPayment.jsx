@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { PATH } from '../constants/path';
 import useFetch from '../hooks/useFetch';
@@ -24,10 +24,9 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { startFetching } = useFetch({
+  const { startFetching, isLoading, error } = useFetch({
     fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
   });
-  const isLoading = useSelector((state) => state.shoppingCart.shoppingCartItemList.isLoading);
   const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,6 +45,10 @@ const OrderPayment = () => {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   return (

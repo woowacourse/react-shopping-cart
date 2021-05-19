@@ -15,7 +15,7 @@ export const createAsyncThunk = (type, asyncFunc) => {
       dispatch({ type: SUCCESS, payload: param });
     } catch (error) {
       console.error(error);
-      dispatch({ type: FAILURE, payload: error });
+      dispatch({ type: FAILURE, payload: error.message });
     }
   };
 };

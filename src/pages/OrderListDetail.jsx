@@ -16,13 +16,17 @@ const OrderListItemWrapper = styled.div`
 
 const OrderListDetail = () => {
   const { state } = useLocation();
-  const { isLoading, data } = useFetch({
+  const { isLoading, data, error } = useFetch({
     fetchFunc: () => requestGetItemList(`${API_PATH.ORDER_ITEM_LIST}/${state.id}`),
     isInitSetting: true,
   });
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   return (

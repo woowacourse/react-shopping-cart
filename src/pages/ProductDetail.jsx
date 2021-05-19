@@ -43,13 +43,17 @@ const ProductDetail = () => {
     product_id: state.id,
   });
 
-  const { isLoading, data } = useFetch({
+  const { isLoading, data, error } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST + `/${state.id}`),
     isInitSetting: true,
   });
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   return (

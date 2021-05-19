@@ -14,13 +14,21 @@ const Container = styled.ul`
 `;
 
 const ProductList = () => {
-  const { isLoading, data: productItemList } = useFetch({
+  const {
+    isLoading,
+    data: productItemList,
+    error,
+  } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST),
     isInitSetting: true,
   });
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    throw new Error(error);
   }
 
   return (
