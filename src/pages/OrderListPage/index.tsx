@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import Loading from '../../components/Loading';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
+import InitialLoading from '../../components/shared/InitialLoading';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/shared/useFetch';
 import { requestOrders } from '../../service/request/order';
@@ -11,11 +11,9 @@ const OrderListPage: FC = () => {
 
   return (
     <ReactShoppingCartTemplate title="주문 목록">
-      {orders.isLoading ? (
-        <Loading />
-      ) : (
-        <OrderItemListSections orders={[...(orders.data as Order[])].reverse()} />
-      )}
+      <InitialLoading isLoading={orders.isLoading}>
+        <OrderItemListSections orders={orders.data as Order[]} />
+      </InitialLoading>
     </ReactShoppingCartTemplate>
   );
 };

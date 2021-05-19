@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import Loading from '../../components/Loading';
 import ProductList from '../../components/ProductList';
+import InitialLoading from '../../components/shared/InitialLoading';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/shared/useFetch';
 import { requestProductList } from '../../service/request/productList';
@@ -11,11 +11,9 @@ const ProductListPage: FC = () => {
 
   return (
     <ReactShoppingCartTemplate>
-      {productList.isLoading ? (
-        <Loading />
-      ) : (
+      <InitialLoading isLoading={productList.isLoading}>
         <ProductList products={productList.data as Product[]} />
-      )}
+      </InitialLoading>
     </ReactShoppingCartTemplate>
   );
 };

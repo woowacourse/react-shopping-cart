@@ -4,7 +4,7 @@ import { NETWORK_ERROR } from '../../../constants/error';
 const useFetch = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [hasError, setHasError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const reFetch = async () => {
     setHasError(null);

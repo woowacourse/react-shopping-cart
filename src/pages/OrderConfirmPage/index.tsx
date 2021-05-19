@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useState, FC } from 'react';
 import { RouteComponentProps } from 'react-router';
-import Loading from '../../components/Loading';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
+import InitialLoading from '../../components/shared/InitialLoading';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useFetch from '../../hooks/shared/useFetch';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
@@ -51,16 +51,13 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   };
 
   return (
-    //TODO: initialLoading으로 수정하기
     <ReactShoppingCartTemplate title={TITLE}>
-      <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
-        {isLoading ? (
-          <Loading />
-        ) : (
+      <InitialLoading isLoading={isLoading}>
+        <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
           <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
-        )}
-        <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
-      </OrderConfirmForm>
+          <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
+        </OrderConfirmForm>
+      </InitialLoading>
     </ReactShoppingCartTemplate>
   );
 };
