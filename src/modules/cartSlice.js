@@ -112,7 +112,7 @@ const cartSlice = createSlice({
     },
 
     [getCartItemsRequest.fulfilled]: (state, action) => {
-      state.cartItems.push(action.payload);
+      state.cartItemsInServer = action.payload;
       state.loading = false;
     },
 

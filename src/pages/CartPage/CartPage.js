@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
@@ -9,6 +10,7 @@ import Flex from '../../components/utils/Flex';
 import LoadingPage from '../LoadingPage';
 
 import CartItem from './CartItem';
+import tung from '../../asset/tung.png';
 
 import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cartSlice';
 import { addPaymentItems } from '../../modules/paymentSlice';
@@ -43,21 +45,35 @@ const CartItemList = styled.ul`
   border-top: 4px solid ${COLOR.GRAY[600]};
 `;
 
+const LinkStyle = styled(NavLink)`
+  text-decoration: none;
+
+  &:visited {
+    color: ${COLOR.WHITE[400]};
+    font-weight: 700;
+  }
+`;
+
+const ButtonStyle = css`
+  border-radius: 10px;
+  margin: 10px;
+`;
+
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartItems, loading, errorMessage } = useSelector((state) => state.cartSlice);
+  const [checkedItemIds, setCheckedItemIds] = useState([]);
 
   useEffect(() => {
-    getCartItemsRequest();
-  }, []);
+    dispatch(getCartItemsRequest());
+  }, [dispatch]);
+
+  const { cartItems, cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
 
   useEffect(() => {
     if (errorMessage) {
       window.alert(errorMessage);
     }
   }, [errorMessage]);
-
-  const checkedItemIds = cartItems && cartItems.filter((item) => item.checked).map((item) => item.id);
 
   const onCheckboxClick = (cartItemId) => {
     dispatch(toggleCheckbox(cartItemId));
@@ -75,7 +91,7 @@ const CartPage = () => {
   };
 
   const onAllCheckboxClick = () => {
-    if (checkedItemIds.length === cartItems.length) {
+    if (checkedItemIds.length === cartItems.cartItemsInServer.length) {
       dispatch(allUnCheck());
     } else {
       dispatch(allCheck());
@@ -87,21 +103,21 @@ const CartPage = () => {
   };
 
   const onPaymentButtonClick = () => {
-    dispatch(addPaymentItems(cartItems));
+    dispatch(addPaymentItems(cartItemsInServer));
   };
 
   return (
     <>
       {loading && <LoadingPage>장바구니 아이템들을 불러오는 중입니다</LoadingPage>}
       <PageTitle pageTitle="장바구니" />
-      {cartItems && cartItems.length ? (
+      {cartItemsInServer && cartItemsInServer.length ? (
         <Flex justifyContent="space-between" css={CartItemWrapperStyle}>
           <CartItemSection>
             <Flex justifyContent="space-between">
               <CheckBox
                 labelName={getCheckboxMessage()}
                 id="cartItemCheckBox"
-                checked={checkedItemIds.length === cartItems.length}
+                checked={checkedItemIds.length === cartItemsInServer.length}
                 onChange={onAllCheckboxClick}
               />
               <Button
@@ -124,15 +140,15 @@ const CartPage = () => {
               </Button>
             </Flex>
 
-            <CartItemSectionTitle>든든배송 상품 ({cartItems.length}개)</CartItemSectionTitle>
+            <CartItemSectionTitle>든든배송 상품 ({cartItemsInServer.length}개)</CartItemSectionTitle>
             <CartItemList>
-              {cartItems &&
-                cartItems
-                  .map((cartItem) => (
+              {cartItemsInServer &&
+                cartItemsInServer
+                  .map((singleItemInServer) => (
                     <CartItem
-                      key={cartItem.product_id}
-                      cartItem={cartItem}
-                      checked={checkedItemIds.includes(cartItem.product_id)}
+                      key={singleItemInServer.product_id}
+                      cartItemInServer={singleItemInServer}
+                      checked={checkedItemIds.includes(singleItemInServer.product_id)}
                       onCheckboxClick={onCheckboxClick}
                     />
                   ))
@@ -141,7 +157,7 @@ const CartPage = () => {
           </CartItemSection>
 
           <FloatingBox
-            price={getTotalPrice(cartItems)}
+            price={getTotalPrice(cartItemsInServer)}
             selectedItemIds={checkedItemIds}
             linkPath="/payment"
             onClick={onPaymentButtonClick}
@@ -149,7 +165,20 @@ const CartPage = () => {
           />
         </Flex>
       ) : (
-        '장바구니에 담은 상품이 없습니다.'
+        <Flex justifyContent="center" alignItems="center" flexDirection="column">
+          <img src={tung} alt="장바구니에 상품없음 이미지" />
+          <Button
+            width="117px"
+            height="50px"
+            color={COLOR.WHITE[400]}
+            border="none"
+            backgroundColor={COLOR.CYAN[400]}
+            fontSize="18px"
+            css={ButtonStyle}
+          >
+            <LinkStyle to="/">쇼핑하러 가기</LinkStyle>
+          </Button>
+        </Flex>
       )}
     </>
   );

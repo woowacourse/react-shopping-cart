@@ -42,40 +42,39 @@ const CartItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
+const onCheckboxClick = (check) => {
+  console.log(check);
+};
+
+const CartItem = (singleItemInServer, checked) => {
   const dispatch = useDispatch();
+  const { cartItemInServer } = singleItemInServer;
 
   const onIncreaseButtonClick = () => {
-    dispatch(increaseQuantity(cartItem.product_id));
+    dispatch(increaseQuantity(cartItemInServer.product_id));
   };
 
   const onDecreaseButtonClick = () => {
-    if (cartItem.quantity <= NUMBER.ITEM_MINIMUM_COUNT) {
+    if (cartItemInServer.quantity <= NUMBER.ITEM_MINIMUM_COUNT) {
       alert(MESSAGE.UNDER_MINIMUM_COUNT_LIMIT);
       return;
     }
 
-    dispatch(decreaseQuantity(cartItem.product_id));
+    dispatch(decreaseQuantity(cartItemInServer.product_id));
   };
 
   const onDeleteItemButtonClick = () => {
-    deleteItemFromCartRequest(cartItem.product_id);
+    deleteItemFromCartRequest(cartItemInServer.product_id);
 
-    dispatch(deleteItemFromCart(cartItem.product_id));
+    dispatch(deleteItemFromCart(cartItemInServer.product_id));
   };
 
   return (
     <SingleCartItem>
-      <CheckBox id={cartItem.product_id} checked={checked} onChange={onCheckboxClick} />
+      <CheckBox id={cartItemInServer.name} checked={checked} onChange={onCheckboxClick(checked)} />
       <Flex>
-        <Image
-          width="144px"
-          height="144px"
-          src={cartItem.image_url}
-          alt={cartItem.name}
-          isBackgroundImageNeeded={true}
-        />
-        <CartItemName>{cartItem.name}</CartItemName>
+        <Image width="144px" height="144px" src={cartItemInServer.image_url} alt={cartItemInServer.name} />
+        <CartItemName>{cartItemInServer.name}</CartItemName>
       </Flex>
 
       <Flex flexDirection="column" alignItems="flex-end" css={ManageCartItemStyle}>
@@ -87,13 +86,12 @@ const CartItem = ({ cartItem, checked, onCheckboxClick }) => {
           onClick={onDeleteItemButtonClick}
         />
         <CounterButton
-          id={cartItem.product_id}
-          count={cartItem.quantity}
+          id={cartItemInServer.name}
           onIncreaseButtonClick={onIncreaseButtonClick}
           onDecreaseButtonClick={onDecreaseButtonClick}
         />
         <CartItemPrice>
-          <PriceText>{cartItem.quantity * cartItem.price}</PriceText>
+          <PriceText>{cartItemInServer.price}</PriceText>
         </CartItemPrice>
       </Flex>
     </SingleCartItem>
