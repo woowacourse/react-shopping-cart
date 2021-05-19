@@ -24,17 +24,17 @@ export const Payment = styled.div`
 
   & > div {
     position: relative;
-
-    & :last-child {
-      display: inline-block;
-      width: 100%;
-      height: 5px;
-      opacity: 0.7;
-      background-color: var(--color-mint);
-      position: absolute;
-      top: 1rem;
-      left: 0;
-      z-index: -1;
-    }
   }
+`;
+
+export const Line = styled.span`
+  display: inline-block;
+  width: 100%;
+  height: 5px;
+  opacity: 0.7;
+  background-color: var(--color-mint);
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  z-index: -1;
 `;
