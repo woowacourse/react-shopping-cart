@@ -1,18 +1,29 @@
-export const snakeToCamel = (string: string): string => {
-  return string.replace(/(_[A-Za-z])+/g, (character) => character[1].toUpperCase());
+type NestedObject = Record<string, unknown>;
+type NestedType = NestedObject | NestedObject[];
+
+const toCamel = (s: string) => {
+  return s.replace(/([-_][a-z])/gi, ($1) => {
+    return $1.toUpperCase().replace('-', '').replace('_', '');
+  });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const toCamelCaseKeyObjectArray = (target: Record<string, unknown>[]): any => {
-  return target.map((item) => {
-    let newObject = {};
+const isArray = (array: unknown) => Array.isArray(array);
+const isObject = (obj: unknown) => obj === Object(obj) && !isArray(obj) && typeof obj !== 'function';
 
-    Object.entries(item).forEach(([key, value]) => {
-      const camelizedKey = snakeToCamel(key);
+export const keysToCamel = (obj: NestedType): unknown => {
+  if (isObject(obj)) {
+    const n: NestedObject = {};
 
-      newObject = { ...newObject, [camelizedKey]: value };
+    Object.keys(obj as NestedObject).forEach((key) => {
+      n[toCamel(key)] = keysToCamel((obj as NestedObject)[key] as NestedType);
     });
 
-    return newObject;
-  });
+    return n;
+  }
+
+  if (isArray(obj)) {
+    return (obj as NestedObject[]).map((i: unknown) => keysToCamel(i as NestedType));
+  }
+
+  return obj;
 };

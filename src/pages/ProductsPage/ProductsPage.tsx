@@ -12,7 +12,6 @@ import { RootState } from '../../store';
 import { addCartItem, getCartItems } from '../../slices/cartSlice';
 import api from '../../api';
 import API from '../../constants/api';
-import { toCamelCaseKeyObjectArray } from '../../utils';
 
 const ProductsPage = () => {
   const cartItems = useSelector((state: RootState) => state.cart);
@@ -29,9 +28,8 @@ const ProductsPage = () => {
 
     try {
       const response = await api.get(API.PRODUCTS);
-      const serializedProducts = toCamelCaseKeyObjectArray(response.data);
 
-      setProducts(serializedProducts);
+      setProducts(response.data);
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
     }

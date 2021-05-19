@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import api from '../api';
 import API from '../constants/api';
-import { toCamelCaseKeyObjectArray } from '../utils';
 import * as T from '../types';
 
 export const GET_CART_ITEMS = 'cartItems/GET_CART_ITEMS' as const;
@@ -26,8 +25,7 @@ const initialState: CartState = {
 
 export const getCartItems = createAsyncThunk(GET_CART_ITEMS, async () => {
   const response = await api.get(API.CARTS);
-  const cartItems = toCamelCaseKeyObjectArray(response.data);
-  const cartItemsWithQuantity = cartItems.map((item: T.CartItem) => ({ ...item, quantity: 1 }));
+  const cartItemsWithQuantity = response.data.map((item: T.CartItem) => ({ ...item, quantity: 1 }));
 
   return cartItemsWithQuantity as T.CartItem[];
 });

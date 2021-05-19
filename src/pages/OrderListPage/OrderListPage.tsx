@@ -13,7 +13,6 @@ import Styled from './OrderListPage.styles';
 import { addCartItem, getCartItems } from '../../slices/cartSlice';
 import { RootState } from '../../store';
 import API from '../../constants/api';
-import { toCamelCaseKeyObjectArray } from '../../utils';
 
 const OrderListPage = () => {
   const cartItems = useSelector((state: RootState) => state.cart);
@@ -29,14 +28,12 @@ const OrderListPage = () => {
 
     try {
       const response = await api.get(API.ORDERS);
+      // const serializedOrders = response.data.map((order: T.Order) => ({
+      //   ...order,
+      //   orderDetails: toCamelCaseKeyObjectArray(order.orderDetails),
+      // }));
 
-      const fetchedOrders = toCamelCaseKeyObjectArray(response.data);
-      const serializedOrders = fetchedOrders.map((order: T.Order) => ({
-        ...order,
-        orderDetails: toCamelCaseKeyObjectArray(order.orderDetails),
-      }));
-
-      setOrders(serializedOrders);
+      setOrders(response.data);
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
     }
