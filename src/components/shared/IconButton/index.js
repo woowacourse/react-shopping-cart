@@ -16,7 +16,7 @@ const IconButton = ({ children, size, type, onClick, ariaLabel }) => {
 };
 
 IconButton.propTypes = {
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium']),
   type: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
