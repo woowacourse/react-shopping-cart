@@ -27,7 +27,9 @@ const Pagination = ({
           .map((_, idx) => (
             <Styled.PageNumber key={idx} onClick={onPageSelected(idx)}>
               {currentPage === idx + 1 ? (
-                <HighlightText highlightColor={PALETTE.BAEMINT}>{idx + 1}</HighlightText>
+                <HighlightText highlightColor={PALETTE.BAEMINT} fontSize="1.3rem">
+                  {idx + 1}
+                </HighlightText>
               ) : (
                 <span>{idx + 1}</span>
               )}

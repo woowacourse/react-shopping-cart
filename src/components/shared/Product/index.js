@@ -3,10 +3,10 @@ import React from 'react';
 import FlexContainer from '../../common/FlexContainer';
 import * as Styled from './style';
 
-const Product = ({ product, productDetail, size, direction, children }) => {
+const Product = ({ product, productDetail, size, direction, onClick, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <img src={product.image} alt={product.name} loading="lazy" />
+      <Styled.ProductImage src={product.image} alt={product.name} loading="lazy" onClick={onClick} />
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
@@ -35,6 +35,7 @@ Product.propTypes = {
     color: PropTypes.string,
   }),
   size: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   direction: PropTypes.oneOf(['row', 'column']).isRequired,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
 };

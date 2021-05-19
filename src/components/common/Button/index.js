@@ -9,6 +9,7 @@ const Button = ({
   width,
   height,
   fontSize,
+  fontWeight,
   color,
   backgroundColor,
   borderColor,
@@ -26,6 +27,7 @@ const Button = ({
       height={height}
       color={color}
       fontSize={fontSize}
+      fontWeight={fontWeight}
       backgroundColor={backgroundColor}
       borderColor={borderColor}
       disabled={disabled}
@@ -45,9 +47,10 @@ Button.propTypes = {
   height: PropTypes.string,
   color: PropTypes.string,
   fontSize: PropTypes.string,
+  fontWeight: PropTypes.string,
   backgroundColor: PropTypes.string,
   borderColor: PropTypes.string,
-  disabled: PropTypes.string,
+  disabled: PropTypes.bool,
   cursor: PropTypes.oneOf(['default', 'pointer']),
   onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -55,7 +58,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   children: '',
-  disabled: '',
+  disabled: false,
   cursor: 'pointer',
 };
 
