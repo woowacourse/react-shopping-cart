@@ -35,7 +35,7 @@ const ProductDetailPage = () => {
 
   const onAddItemInCart = async () => {
     try {
-      await addCartItem(product);
+      await addCartItem(product, productQuantity);
       setToolTipShown(true);
     } catch (error) {
       setSnackBarMessage(error.message);

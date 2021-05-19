@@ -4,16 +4,18 @@ import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 
+import useCart from '../../hooks/useCart';
+
 import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
 import { API } from '../../services/api';
 
 import * as Styled from './ProductOrderPage.styles';
-import { deleteCartItem } from '../../states/actions/cart';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
+  const { deleteOrderedItems } = useCart();
   const orderItems = history.location.state?.selectedItems;
 
   if (!orderItems) {
@@ -52,9 +54,7 @@ const ProductOrderPage = () => {
       return;
     }
 
-    orderItems.forEach(item => {
-      deleteCartItem(item);
-    });
+    deleteOrderedItems(orderItems);
 
     history.push(PATH.ORDER_LIST);
   };

@@ -64,7 +64,7 @@ const ShoppingCartPage = () => {
     deleteCartItem(cart[targetIndex]);
   };
 
-  const onSelectedCartItemDelete = async () => {
+  const onDeleteSelectedCartItem = async () => {
     if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
       return;
     }
@@ -114,7 +114,7 @@ const ShoppingCartPage = () => {
           <Styled.CartContainer>
             <Styled.ControlWrapper>
               <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onToggleTotalCheck} isChecked={isTotalChecked} />
-              <Styled.DeleteButton onClick={onSelectedCartItemDelete} disabled={!hasSelectedItems}>
+              <Styled.DeleteButton onClick={onDeleteSelectedCartItem} disabled={!hasSelectedItems}>
                 상품삭제
               </Styled.DeleteButton>
             </Styled.ControlWrapper>

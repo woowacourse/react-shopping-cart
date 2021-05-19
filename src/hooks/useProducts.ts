@@ -12,7 +12,7 @@ const useProducts = () => {
   useEffect(() => {
     if (products.length !== 0) return;
     dispatch(getProducts());
-  }, [dispatch, products]);
+  }, [dispatch, products.length]);
 
   useEffect(() => {
     const id = setInterval(() => {

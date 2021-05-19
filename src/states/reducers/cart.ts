@@ -9,6 +9,7 @@ import {
   CartAction,
   CHANGE_QUANTITY,
   SELECT_CART_ITEM,
+  DELETE_ORDERED_ITEMS,
 } from '../actionTypes/cart';
 
 export interface cartState {
@@ -59,6 +60,7 @@ export const cartReducer = (state: cartState = initialState, action: CartAction)
       };
     case CHANGE_QUANTITY:
     case SELECT_CART_ITEM:
+    case DELETE_ORDERED_ITEMS:
       return {
         ...state,
         loading: false,

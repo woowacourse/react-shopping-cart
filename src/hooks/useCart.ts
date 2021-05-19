@@ -10,6 +10,7 @@ import {
   changeCartItemQuantity as _changeCartItemQuantity,
   selectCartItem as _selectCartItem,
   selectAllCartItems as _selectAllCartItems,
+  deleteOrderedItems as _deleteOrderedItems,
 } from './../states/actions/cart';
 
 const useCart = () => {
@@ -17,11 +18,13 @@ const useCart = () => {
   const dispatch = useDispatch<ThunkDispatch<RootState, null, CartAction>>();
 
   useEffect(() => {
-    dispatch(getCart());
-  }, [dispatch]);
+    if (cart.length !== 0) return;
 
-  const addCartItem = async (product: Product) => {
-    await dispatch(_addCartItem(product));
+    dispatch(getCart());
+  }, [dispatch, cart.length]);
+
+  const addCartItem = async (product: Product, quantity: string = '1') => {
+    await dispatch(_addCartItem(product, quantity));
   };
 
   const deleteCartItem = async (cartItem: CartItem) => {
@@ -40,6 +43,10 @@ const useCart = () => {
     dispatch(_selectAllCartItems(isSelectAll));
   };
 
+  const deleteOrderedItems = (orderedItems: CartItem[]) => {
+    dispatch(_deleteOrderedItems(orderedItems));
+  };
+
   return {
     cart,
     addCartItem,
@@ -47,6 +54,7 @@ const useCart = () => {
     changeCartItemQuantity,
     selectCartItem,
     selectAllCartItems,
+    deleteOrderedItems,
     loading,
     loadingError,
     cartError,

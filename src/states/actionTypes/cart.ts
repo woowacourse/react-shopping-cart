@@ -37,6 +37,11 @@ export interface cartSelectItem {
   payload?: CartItem[] | any;
 }
 
+export interface cartDeleteOrderedItems {
+  type: typeof DELETE_ORDERED_ITEMS;
+  payload?: CartItem[] | any;
+}
+
 export type CartAction =
   | cartLoading
   | cartLoadingSuccess
@@ -45,7 +50,8 @@ export type CartAction =
   | cartRequestSuccess
   | cartRequestFailure
   | cartChangeQuantity
-  | cartSelectItem;
+  | cartSelectItem
+  | cartDeleteOrderedItems;
 
 export const LOADING = 'cart/LOADING';
 export const LOADING_SUCCESS = 'cart/LOADING_SUCCESS';
@@ -56,3 +62,4 @@ export const REQUEST_FAILURE = 'cart/REQUEST_FAILURE';
 export const CHANGE_QUANTITY = 'cart/CHANGE_QUANTITY';
 export const SELECT_CART_ITEM = 'cart/SELECT_CART_ITEM';
 export const SELECT_ALL_CART_ITEMS = 'cart/SELECT_ALL_CART_ITEMS';
+export const DELETE_ORDERED_ITEMS = 'cart/DELETE_ORDERED_ITEMS';

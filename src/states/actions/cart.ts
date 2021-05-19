@@ -10,6 +10,7 @@ import {
   REQUEST_SUCCESS,
   REQUEST_FAILURE,
   CHANGE_QUANTITY,
+  DELETE_ORDERED_ITEMS,
   CartAction,
   SELECT_CART_ITEM,
 } from '../actionTypes/cart';
@@ -28,10 +29,12 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
   }
 };
 
-export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartAction>, getState: () => RootState) => {
+export const addCartItem = (product: Product, quantity: string = '1') => async (
+  dispatch: Dispatch<CartAction>,
+  getState: () => RootState
+) => {
   try {
     const { cart: prevCart } = getState().cart;
-    console.log(prevCart, product.productId);
 
     if (prevCart.find(item => item.productId === product.productId)) {
       throw new Error('상품이 이미 장바구니에 담겨있습니다.');
@@ -46,7 +49,7 @@ export const addCartItem = (product: Product) => async (dispatch: Dispatch<CartA
     const cartId = response.headers.location.split('/').slice(-1)[0];
     dispatch({
       type: REQUEST_SUCCESS,
-      payload: [...prevCart, { ...product, cartId, quantity: '1', isSelected: true }],
+      payload: [...prevCart, { ...product, cartId, quantity, isSelected: true }],
     });
   } catch (error) {
     dispatch({ type: REQUEST_FAILURE, error });
@@ -102,5 +105,16 @@ export const selectAllCartItems = (isSelectAll: boolean) => (
   dispatch({
     type: SELECT_CART_ITEM,
     payload: prevCart.map(item => ({ ...item, isSelected: isSelectAll })),
+  });
+};
+
+export const deleteOrderedItems = (orderedItems: CartItem[]) => (
+  dispatch: Dispatch<CartAction>,
+  getState: () => RootState
+) => {
+  const { cart: prevCart } = getState().cart;
+  dispatch({
+    type: DELETE_ORDERED_ITEMS,
+    payload: prevCart.filter(item => !orderedItems.find(orderedItem => orderedItem.cartId === item.cartId)),
   });
 };
