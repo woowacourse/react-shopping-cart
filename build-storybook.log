@@ -81,7 +81,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 12% building 23/41 modules 18 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/IconButton/stories.js
 <s> [webpack.Progress] 12% building 23/42 modules 19 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/List/stories.js
 <s> [webpack.Progress] 12% building 23/43 modules 20 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/NumberInput/stories.js
-<s> [webpack.Progress] 12% building 23/44 modules 21 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ReactShoppingCartTemplate/stories.js
+<s> [webpack.Progress] 12% building 23/44 modules 21 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/Template/stories.js
 <s> [webpack.Progress] 12% building 23/45 modules 22 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ResultSubmitCard/stories.js
 <s> [webpack.Progress] 12% building 23/46 modules 23 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/pages/OrderConfirmPage/stories.js
 <s> [webpack.Progress] 12% building 23/47 modules 24 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/pages/OrderListPage/stories.js
@@ -2198,10 +2198,10 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1085/1096 modules 11 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/pages/OrderListPage/index.tsx
 <s> [webpack.Progress] 69% building 1085/1097 modules 12 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/pages/OrderConfirmPage/index.tsx
 <s> [webpack.Progress] 69% building 1085/1098 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ResultSubmitCard/index.tsx
-<s> [webpack.Progress] 69% building 1085/1099 modules 14 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ReactShoppingCartTemplate/index.tsx
-<s> [webpack.Progress] 69% building 1086/1099 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ReactShoppingCartTemplate/index.tsx
+<s> [webpack.Progress] 69% building 1085/1099 modules 14 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/Template/index.tsx
+<s> [webpack.Progress] 69% building 1086/1099 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/Template/index.tsx
 <s> [webpack.Progress] 69% building 1086/1100 modules 14 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/escodegen/package.json
-<s> [webpack.Progress] 69% building 1087/1100 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ReactShoppingCartTemplate/index.tsx
+<s> [webpack.Progress] 69% building 1087/1100 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/Template/index.tsx
 <s> [webpack.Progress] 69% building 1087/1101 modules 14 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/es-array-method-boxes-properly/index.js
 <s> [webpack.Progress] 69% building 1088/1101 modules 13 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/es-array-method-boxes-properly/index.js
 <s> [webpack.Progress] 69% building 1088/1102 modules 14 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/html-tags/index.js
@@ -2294,7 +2294,7 @@ info => Using default Webpack4 setup
 <s> [webpack.Progress] 69% building 1131/1146 modules 15 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/hooks/useFetch.ts
 <s> [webpack.Progress] 69% building 1131/1147 modules 16 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/service/request/productList.ts
 <s> [webpack.Progress] 69% building 1131/1148 modules 17 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/service/request/order.ts
-<s> [webpack.Progress] 69% building 1131/1149 modules 18 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ReactShoppingCartTemplate/styles.ts
+<s> [webpack.Progress] 69% building 1131/1149 modules 18 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/Template/styles.ts
 <s> [webpack.Progress] 69% building 1131/1150 modules 19 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ResultSubmitCard/style.ts
 <s> [webpack.Progress] 69% building 1132/1150 modules 18 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ResultSubmitCard/style.ts
 <s> [webpack.Progress] 69% building 1133/1150 modules 17 active /home/jho2301/wooteco/lv2/react-shopping-cart/node_modules/babel-loader/lib/index.js??ref--9-oneOf-2!/home/jho2301/wooteco/lv2/react-shopping-cart/src/components/shared/ResultSubmitCard/style.ts
@@ -2810,7 +2810,7 @@ WARN
 WARN src/components/shared/NumberInput/stories.js
 WARN   Line 4:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
 WARN
-WARN src/components/shared/ReactShoppingCartTemplate/stories.js
+WARN src/components/shared/Template/stories.js
 WARN   Line 3:1:  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
 WARN
 WARN src/components/shared/ResultSubmitCard/stories.js

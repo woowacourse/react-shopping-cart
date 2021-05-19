@@ -1,6 +1,6 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import Template from '../../components/shared/Template';
 import useFetchCartRedux from '../../hooks/useCart';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
@@ -37,7 +37,7 @@ const ShoppingCartPage: VFC = () => {
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
+    <Template title={TITLE}>
       <ShoppingCartForm onSubmit={onSubmitCartItems}>
         <ShoppingCartSectionList />
         <ShoppingCartResultSubmitCard
@@ -45,7 +45,7 @@ const ShoppingCartPage: VFC = () => {
           totalQuantity={items.filter((item) => item.checked).length}
         />
       </ShoppingCartForm>
-    </ReactShoppingCartTemplate>
+    </Template>
   );
 };
 

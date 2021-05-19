@@ -7,7 +7,7 @@ interface Props {
   title?: string;
 }
 
-const ReactShoppingCartTemplate: FC<Props> = ({ children, backgroundColor, title }) => {
+const Template: FC<Props> = ({ children, backgroundColor, title }) => {
   return (
     <TemplateContainer backgroundColor={backgroundColor}>
       <InnerTemplateContainer>
@@ -18,4 +18,4 @@ const ReactShoppingCartTemplate: FC<Props> = ({ children, backgroundColor, title
   );
 };
 
-export default ReactShoppingCartTemplate;
+export default Template;

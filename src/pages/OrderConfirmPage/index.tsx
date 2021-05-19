@@ -4,7 +4,7 @@ import Loading from '../../components/Loading';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import Template from '../../components/shared/Template';
 import useFetch from '../../hooks/useFetch';
 import useFetchCartRedux from '../../hooks/useCart';
 import { requestOrderItems } from '../../service/request/order';
@@ -55,7 +55,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
+    <Template title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
         {isLoading ? (
           <Loading />
@@ -64,7 +64,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
         )}
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>
-    </ReactShoppingCartTemplate>
+    </Template>
   );
 };
 
