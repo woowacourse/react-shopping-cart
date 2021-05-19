@@ -81,24 +81,24 @@ const ShoppingCartPage = () => {
 
     if (targetId) {
       const newContent = { productIdList: myShoppingCartProductIds.filter(productId => productId !== targetId) };
-      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
-        Promise.all([
-          dispatch(updateProductAmount(targetId)),
-          dispatch(
-            updateCheckedProductItems(checkedProductList.filter(checkedProductId => checkedProductId !== targetId))
-          ),
-        ]);
-      });
+
+      Promise.all([
+        dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)),
+        dispatch(updateProductAmount(targetId)),
+      ]).then(() =>
+        dispatch(
+          updateCheckedProductItems(checkedProductList.filter(checkedProductId => checkedProductId !== targetId))
+        )
+      );
     } else {
       const newContent = {
         productIdList: myShoppingCartProductIds.filter(productId => !checkedProductList.includes(productId)),
       };
-      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
-        Promise.all([
-          ...myShoppingCartProductIds.map(productId => dispatch(updateProductAmount(productId))),
-          dispatch(updateCheckedProductItems([])),
-        ]);
-      });
+
+      Promise.all([
+        dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)),
+        ...myShoppingCartProductIds.map(productId => dispatch(updateProductAmount(productId))),
+      ]).then(() => dispatch(updateCheckedProductItems([])));
     }
   };
 
@@ -110,12 +110,10 @@ const ShoppingCartPage = () => {
     };
     const checkedItemList = [...checkedProductList].map(id => ({ id, amount: productAmountDict[id] }));
 
-    dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)).then(() => {
-      Promise.all([
-        ...checkedProductList.map(productId => dispatch(updateProductAmount(productId))),
-        dispatch(updateCheckedProductItems([])),
-      ]);
-    });
+    Promise.all([
+      dispatch(updateShoppingCartItemsAsync(myShoppingCartId, newContent)),
+      ...checkedProductList.map(productId => dispatch(updateProductAmount(productId))),
+    ]).then(() => dispatch(updateCheckedProductItems([])));
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,

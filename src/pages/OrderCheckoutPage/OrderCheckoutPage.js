@@ -1,7 +1,12 @@
 import { useHistory, useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
-
-import { Container, CheckoutList, CheckoutListTitle, PaymentInfoBoxContainer } from './OrderCheckoutPage.styles';
+import {
+  Container,
+  CheckoutList,
+  CheckoutListTitle,
+  PaymentInfoBoxContainer,
+  CheckoutListContainer,
+} from './OrderCheckoutPage.styles';
 import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
 import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../utils';
@@ -53,7 +58,7 @@ const OrderCheckoutPage = () => {
       <PageHeader>주문/결제</PageHeader>
 
       <Container>
-        <>
+        <CheckoutListContainer>
           <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length || 0}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
@@ -63,8 +68,8 @@ const OrderCheckoutPage = () => {
               return <RowProductItem key={id} imgSrc={img} name={name} amount={`수량: ${amount} 개`} />;
             })}
           </CheckoutList>
-        </>
-        CheckoutListContainer
+        </CheckoutListContainer>
+
         <PaymentInfoBoxContainer>
           <PaymentInfoBox
             title="결제금액"
