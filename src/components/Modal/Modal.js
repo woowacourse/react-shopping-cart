@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import { ModalPortal } from '../../portals';
+import CloseButton from '../CloseButton/CloseButton';
 import CloseIcon from '../svg/CloseIcon/CloseIcon';
-import { Dimmer, Container, Button } from './Modal.styles';
+import { Dimmer, Container } from './Modal.styles';
 
 const Modal = ({ Portal, children, onClose }) => (
   <Portal>
     <Dimmer onClick={onClose}>
       <Container>
-        <Button onClick={onClose}>
-          <CloseIcon />
-        </Button>
+        <CloseButton onClick={onClose} Icon={CloseIcon} />
         {children}
       </Container>
     </Dimmer>

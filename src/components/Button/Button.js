@@ -8,12 +8,13 @@ const Button = ({ children, onClick, disabled, ...props }) => (
 );
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
+  children: <></>,
   onClick: () => {},
   disabled: false,
 };
