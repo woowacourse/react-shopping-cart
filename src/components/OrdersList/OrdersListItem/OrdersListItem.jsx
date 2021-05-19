@@ -12,7 +12,7 @@ const OrdersListItem = ({ id, items }) => (
       <span>상세보기 {">"}</span>
     </S.Title>
     {items.map((item) => (
-      <OrderItem key={item.id} item={item} />
+      <OrderItem key={item.product_id} item={item} />
     ))}
   </S.OrdersListItem>
 );

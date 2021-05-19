@@ -7,8 +7,7 @@ import * as S from "./OrderItem.styled";
 import { formatPrice } from "../../../../utils/utils";
 
 const OrderItem = ({ item }) => {
-  const { thumbnail, name, price, order_id: orderId } = item;
-  const amount = orderId.length;
+  const { image_url: thumbnail, name, price, quantity } = item;
 
   const dispatch = useDispatch();
 
@@ -23,7 +22,7 @@ const OrderItem = ({ item }) => {
         <S.Detail>
           <S.Name>{name}</S.Name>
           <S.PriceAmount>
-            {formatPrice(price)}원 / 수량: {amount}개
+            {formatPrice(price)}원 / 수량: {quantity}개
           </S.PriceAmount>
         </S.Detail>
       </S.Info>

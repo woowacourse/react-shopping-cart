@@ -1,13 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as S from "./OrdersList.styled";
 
 import OrdersListItem from "./OrdersListItem/OrdersListItem";
 import PageTitle from "../@mixins/PageTitle/PageTitle";
 import Empty from "../@mixins/Empty/Empty";
+import { getOrders } from "../../store/modules/orderSlice";
 
 const OrdersList = () => {
-  const ordersList = useSelector((state) => state.order);
+  const ordersList = useSelector((state) => state.order.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
 
   return (
     <S.OrdersList>

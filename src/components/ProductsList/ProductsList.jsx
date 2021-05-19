@@ -12,6 +12,7 @@ const ProductsList = () => {
     (state) => state.product
   );
 
+  // TODO : getCarts를 nav나 app으로 빼두기
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCarts());
