@@ -17,8 +17,6 @@ const useCart = () => {
   const dispatch = useDispatch<ThunkDispatch<RootState, null, CartAction>>();
 
   useEffect(() => {
-    if (cart.length !== 0) return;
-
     dispatch(getCart());
   }, [dispatch]);
 

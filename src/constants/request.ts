@@ -6,7 +6,7 @@ const USER_ID = 'yungo1846';
 export const URL = {
   PRODUCTS: `${BASE_URL}/products`,
   CART: `${BASE_URL}/customers/${USER_ID}/carts`,
-  ORDERS: `${BASE_URL}/orders`,
+  ORDERS: `${BASE_URL}/customers/${USER_ID}/orders`,
 };
 
 export const RESPONSE_RESULT = {

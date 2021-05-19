@@ -24,7 +24,7 @@ import { RootState } from '../../states';
 const OrderDetailPage = () => {
   const history = useHistory();
   const { products } = useSelector((state: RootState) => state.product);
-  const { orderItems, loading, responseOK } = useOrderDetail();
+  const { order, loading, responseOK } = useOrderDetail();
   const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
   const { addCartItem } = useCart();
   const orderId = window.location.hash.split('/').slice(-1);
@@ -58,12 +58,12 @@ const OrderDetailPage = () => {
     }
   };
 
-  const orderItemList = orderItems.map(orderItem => (
+  const orderItemList = order?.orderDetails.map(orderItem => (
     <Styled.OrderWrapper key={orderItem.productId}>
       <ProductListItem
         size="MD"
         productName={orderItem.name}
-        productPrice={orderItem.price}
+        productPrice={getMoneyString(orderItem.price)}
         productQuantity={orderItem.quantity}
         productThumbnail={orderItem.thumbnail}
       />
@@ -73,7 +73,8 @@ const OrderDetailPage = () => {
     </Styled.OrderWrapper>
   ));
 
-  const totalPrice = orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
+  const totalPrice =
+    order?.orderDetails.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0) ?? 0;
 
   return (
     <Styled.OrderListPage>

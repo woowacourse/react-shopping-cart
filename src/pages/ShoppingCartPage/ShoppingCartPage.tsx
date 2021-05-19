@@ -22,7 +22,6 @@ const ShoppingCartPage = () => {
   const history = useHistory();
   const {
     cart,
-    addCartItem,
     deleteCartItem,
     changeCartItemQuantity,
     selectCartItem,

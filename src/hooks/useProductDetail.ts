@@ -28,7 +28,7 @@ const useProductDetail = () => {
           throw new Error('상품 상세 정보 조회 실패');
         }
 
-        setProduct((FORMAT_DATA.PRODUCT(response.data) as unknown) as Product);
+        setProduct(FORMAT_DATA.PRODUCT(response.data));
         setResponseOK(true);
       } catch (error) {
         console.error(error);

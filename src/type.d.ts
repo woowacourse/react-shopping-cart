@@ -16,7 +16,14 @@ declare interface CartItem {
   isSelected: boolean;
 }
 
-declare interface Order {
-  id: number;
-  orderItems: CartItem[];
+declare interface OrderItem {
+  cartId: string;
+  quantity: string;
 }
+
+interface Order {
+  orderId: number;
+  orderDetails: CartItem[];
+}
+
+declare type Orders = Order[];

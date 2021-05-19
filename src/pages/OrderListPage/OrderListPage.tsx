@@ -56,13 +56,13 @@ const OrderListPage = () => {
   };
 
   const orderList = orders.map(order => (
-    <Styled.ItemGroupWrapper key={order.id}>
+    <Styled.ItemGroupWrapper key={order.orderId}>
       <OrderItemGroup
         detailLinkButtonText="상세보기 >"
-        orderNumber={String(order.id)}
-        onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.id))}
+        orderNumber={String(order.orderId)}
+        onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.orderId))}
       >
-        {order.orderItems.map(item => (
+        {order.orderDetails.map(item => (
           <Styled.OrderWrapper key={item.productId}>
             <ProductListItem
               size="MD"

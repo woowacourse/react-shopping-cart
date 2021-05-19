@@ -10,6 +10,7 @@ import { confirm } from '../../utils/confirm';
 import { API } from '../../services/api';
 
 import * as Styled from './ProductOrderPage.styles';
+import { deleteCartItem } from '../../states/actions/cart';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
@@ -51,7 +52,9 @@ const ProductOrderPage = () => {
       return;
     }
 
-    await API.DELETE_ORDER_ITEMS_IN_CART(orderItems);
+    orderItems.forEach(item => {
+      deleteCartItem(item);
+    });
 
     history.push(PATH.ORDER_LIST);
   };

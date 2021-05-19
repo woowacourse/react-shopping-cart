@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { STATUS_CODE, URL } from '../constants';
+import { FORMAT_DATA } from '../services/formatData';
 import useFetchingStatus from './useFetchingStatus';
 
 const useOrderDetail = () => {
-  const [orderItems, setOrderItems] = useState<Order['orderItems']>([]);
+  const [order, setOrder] = useState<Order>();
   const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
 
   useEffect(() => {
@@ -16,8 +17,8 @@ const useOrderDetail = () => {
         if (response.status !== STATUS_CODE.GET_SUCCESS) {
           throw new Error('상품 상세 정보 조회 실패');
         }
-        const order = response.data;
-        setOrderItems(order.orderItems);
+
+        setOrder(FORMAT_DATA.ORDER(response.data));
         setResponseOK(true);
       } catch (error) {
         console.error(error);
@@ -29,7 +30,7 @@ const useOrderDetail = () => {
     fetchData();
   }, [setLoading, setResponseOK]);
 
-  return { orderItems, loading, responseOK };
+  return { order, loading, responseOK };
 };
 
 export default useOrderDetail;
