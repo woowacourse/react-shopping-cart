@@ -15,7 +15,9 @@ describe('useCartChangeCheckState', () => {
     });
     const { result } = renderHook(() => useCartChangeCheckState(), { wrapper });
 
-    useCartItemsResult.current.loadCartItems();
+    act(() => {
+      useCartItemsResult.current.loadCartItems();
+    });
 
     await waitForNextUpdate();
 
@@ -40,7 +42,9 @@ describe('useCartChangeCheckState', () => {
     const { result, waitForNextUpdate } = renderHook(() => useCartChangeCheckState(), { wrapper });
     const EXPECTED_CHECK_STATE = false;
 
-    useCartItemsResult.current.loadCartItems();
+    act(() => {
+      useCartItemsResult.current.loadCartItems();
+    });
 
     await waitForNextUpdate();
 

@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { Provider } from 'react-redux';
+import { act } from 'react-test-renderer';
 import useCartChangeQuantity from '.';
 import useCartItems from '..';
 import { CART_ITEM_LIST_MOCK } from '../../../mocks/mockData';
@@ -14,14 +15,18 @@ describe('useCartChangeQuantity', () => {
     });
     const { result } = renderHook(() => useCartChangeQuantity(), { wrapper });
 
-    useCartItemsResult.current.loadCartItems();
+    act(() => {
+      useCartItemsResult.current.loadCartItems();
+    });
 
     await waitForNextUpdate();
 
     const targetItem = CART_ITEM_LIST_MOCK[0];
     const EXPECTED_QUANTITY = 100;
 
-    result.current.changeQuantity(targetItem, EXPECTED_QUANTITY);
+    act(() => {
+      result.current.changeQuantity(targetItem, EXPECTED_QUANTITY);
+    });
 
     await waitForNextUpdate();
 
