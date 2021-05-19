@@ -21,7 +21,7 @@ const useCartAddItem = () => {
     dispatch(thunkAddItemToCart(item));
   };
 
-  return { addItem, itemsInCart };
+  return { addItem };
 };
 
 export default useCartAddItem;

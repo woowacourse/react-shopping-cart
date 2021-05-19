@@ -18,7 +18,7 @@ const useCartChangeCheckState = () => {
     dispatch(thunkChangeAllItemChecked(itemsInCart, checked));
   };
 
-  return { toggleChecked, changeAllChecked, itemsInCart };
+  return { toggleChecked, changeAllChecked };
 };
 
 export default useCartChangeCheckState;

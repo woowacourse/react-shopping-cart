@@ -9,8 +9,10 @@ import store from '../../../states/store';
 describe('useCartChangeCheckState', () => {
   const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
   test('toggleChecked', async () => {
-    const { result: useCartItemsResult } = renderHook(() => useCartItems(), { wrapper });
-    const { result, waitForNextUpdate } = renderHook(() => useCartChangeCheckState(), { wrapper });
+    const { result: useCartItemsResult, waitForNextUpdate } = renderHook(() => useCartItems(), {
+      wrapper,
+    });
+    const { result } = renderHook(() => useCartChangeCheckState(), { wrapper });
 
     useCartItemsResult.current.loadCartItems();
 
@@ -25,7 +27,9 @@ describe('useCartChangeCheckState', () => {
 
     await waitForNextUpdate();
 
-    const updatedTargetItem = result.current.itemsInCart.find((item) => item.id === targetItem.id);
+    const updatedTargetItem = useCartItemsResult.current.itemsInCart.find(
+      (item) => item.id === targetItem.id
+    );
 
     expect(updatedTargetItem.checked).toBe(!beforeCheckState);
   });
@@ -45,7 +49,7 @@ describe('useCartChangeCheckState', () => {
 
     await waitForNextUpdate();
 
-    const isAllCheckStateAsExpected = result.current.itemsInCart.every(
+    const isAllCheckStateAsExpected = useCartItemsResult.current.itemsInCart.every(
       (item) => item.checked === EXPECTED_CHECK_STATE
     );
 
