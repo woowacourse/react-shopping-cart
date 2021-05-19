@@ -35,14 +35,13 @@ const ShoppingCart = () => {
     const totalQuantity = getTotalQuantity(products);
 
     if (totalQuantity === 0) {
-      return '상품 담으러 가기';
+      return '상품을 담아주세요🤍';
     }
 
     return `주문하기 (${totalQuantity}개)`;
   };
 
   const history = useHistory();
-
   const handlePaymentSheetButtonClick = () => {
     if (products.length > 0) {
       history.push(ROUTE.ORDER_PAYMENT);

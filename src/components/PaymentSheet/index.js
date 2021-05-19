@@ -24,7 +24,12 @@ const PaymentSheet = ({
           <span>{price}원</span>
         </div>
       </Payment>
-      <Button onClick={onButtonClick} backgroundColor={BUTTON_COLOR}>
+
+      <Button
+        onClick={onButtonClick}
+        backgroundColor={BUTTON_COLOR}
+        disabled={price === '0'}
+      >
         {buttonText}
       </Button>
     </Content>

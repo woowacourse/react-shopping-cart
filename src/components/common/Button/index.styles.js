@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button.attrs(({ onClick }) => ({ onClick }))`
+export const StyledButton = styled.button.attrs(
+  ({ onClick, type, disabled }) => ({ onClick, type, disabled })
+)`
   width: 100%;
   font-size: var(--font-semi-large);
   font-weight: ${({ backgroundColor }) =>
@@ -11,4 +13,9 @@ export const StyledButton = styled.button.attrs(({ onClick }) => ({ onClick }))`
   color: ${({ backgroundColor }) =>
     backgroundColor ? 'var(--color-white)' : 'var(--color-grey-500)'};
   background-color: ${({ backgroundColor }) => backgroundColor};
+
+  &:disabled {
+    background: var(--color-grey-200);
+    cursor: default;
+  }
 `;
