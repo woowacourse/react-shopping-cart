@@ -46,10 +46,10 @@ const OrderListPage = () => {
 
   const handleClickDetail = useCallback(
     (order: T.Order) => {
-    history.push({
-      pathname: '/order/detail',
-      state: { order },
-    });
+      history.push({
+        pathname: '/order/detail',
+        state: { order },
+      });
     },
     [history]
   );

@@ -2,11 +2,11 @@
 import React from 'react';
 import Styled from './Checkbox.styles';
 
-type CheckboxProps = {
+interface CheckboxProps {
   labelText?: string;
   checked?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 const Checkbox = (props: CheckboxProps) => {
   const { labelText, checked, onChange } = props;

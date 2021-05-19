@@ -2,11 +2,11 @@ import React from 'react';
 import OrderItemImageURL from 'assets/images/brave.png';
 import Styled from './OrderItem.styles';
 
-type OrderItemProps = {
+interface OrderItemProps {
   title: string;
   quantity: number;
   imageUrl?: string;
-};
+}
 
 const OrderItem = (props: OrderItemProps) => {
   const { title, imageUrl, quantity } = props;

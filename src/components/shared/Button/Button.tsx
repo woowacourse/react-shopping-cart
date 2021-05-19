@@ -2,14 +2,14 @@ import React from 'react';
 import * as T from 'types';
 import Styled from './Button.styles';
 
-type ButtonProps = {
+interface ButtonProps {
   size?: T.ButtonSize;
   bgColor?: string;
   text: string;
   textColor?: string;
   onClick?: () => void;
   disabled?: boolean;
-};
+}
 
 const Button = (props: ButtonProps) => {
   const { size, bgColor, text, textColor, onClick, disabled } = props;

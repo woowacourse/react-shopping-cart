@@ -1,9 +1,9 @@
 import React from 'react';
 import Styled from './PageHeader.styles';
 
-type PageHeaderProps = {
+interface PageHeaderProps {
   title: string;
-};
+}
 
 const PageHeader = (props: PageHeaderProps) => {
   const { title } = props;

@@ -1,11 +1,11 @@
 import React from 'react';
 import Styled from './PriceOverview.styles';
 
-type PriceOverviewProps = {
+interface PriceOverviewProps {
   headerText: string;
   children: React.ReactNode;
   border?: boolean;
-};
+}
 
 const PriceOverview = (props: PriceOverviewProps) => {
   const { headerText, children, border } = props;

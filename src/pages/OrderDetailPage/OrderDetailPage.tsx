@@ -8,9 +8,9 @@ import useAddCartItem from 'hooks/useAddCartItem';
 import * as T from 'types';
 import Styled from './OrderDetailPage.styles';
 
-type LocationState = {
+interface LocationState {
   order: T.Order;
-};
+}
 
 const OrderDetailPage = () => {
   const location = useLocation<LocationState>();

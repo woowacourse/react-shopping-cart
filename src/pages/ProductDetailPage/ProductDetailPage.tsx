@@ -4,9 +4,9 @@ import useAddCartItem from 'hooks/useAddCartItem';
 import * as T from 'types';
 import Styled from './ProductDetailPage.styles';
 
-type LocationState = {
+interface LocationState {
   product: T.Product;
-};
+}
 
 const ProductDetailPage = () => {
   const location = useLocation<LocationState>();

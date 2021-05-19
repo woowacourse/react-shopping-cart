@@ -9,11 +9,11 @@ import { updateQuantity } from 'modules/cartItems/actions';
 import CART_ITEM_QUANTITY from 'constants/cart';
 import Styled from './CartItem.styles';
 
-type CartItemProps = {
+interface CartItemProps {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
   onDelete: (id: T.CartItem['cartId']) => void;
-};
+}
 
 const CartItem = (props: CartItemProps) => {
   const { cartItem, onCheck, onDelete } = props;

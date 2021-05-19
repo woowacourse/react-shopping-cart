@@ -1,9 +1,9 @@
 import React from 'react';
 import Styled from './HighlightText.styles';
 
-type HighlightTextProps = {
+interface HighlightTextProps {
   text: string;
-};
+}
 
 const HighlightText = (props: HighlightTextProps) => {
   const { text } = props;

@@ -4,10 +4,10 @@ import * as T from 'types';
 import Button from 'components/shared/Button/Button';
 import Styled from './PurchasedItem.styles';
 
-type PurchasedItemProps = {
+interface PurchasedItemProps {
   item: T.OrderItem;
   onClick: (orderItem: T.OrderItem) => void;
-};
+}
 
 const PurchasedItem = (props: PurchasedItemProps) => {
   const { item, onClick } = props;

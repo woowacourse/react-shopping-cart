@@ -9,9 +9,9 @@ import * as T from 'types';
 import api from 'api';
 import Styled from './OrderPage.styles';
 
-type LocationState = {
+interface LocationState {
   checkedItems: T.CartItem[];
-};
+}
 
 const OrderPage = () => {
   const history = useHistory();

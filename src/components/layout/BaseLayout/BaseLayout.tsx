@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react';
 import Header from 'components/shared/Header/Header';
 import Styled from './BaseLayout.styles';
 
-type BaseLayoutProps = {
+interface BaseLayoutProps {
   children: ReactNode;
-};
+}
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
