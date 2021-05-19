@@ -9,8 +9,12 @@ export const QuantityStepper = (props) => {
     <S.Container {...rest}>
       <S.Input value={quantity} onChange={onInput} />
       <S.Controller>
-        <S.StepperButton onClick={onIncrement} children={<UpwardIcon />} isUpward />
-        <S.StepperButton onClick={onDecrement} children={<DownwardIcon />} />
+        <S.StepperButton onClick={onIncrement} isUpward>
+          <UpwardIcon />
+        </S.StepperButton>
+        <S.StepperButton onClick={onDecrement}>
+          <DownwardIcon />
+        </S.StepperButton>
       </S.Controller>
     </S.Container>
   );

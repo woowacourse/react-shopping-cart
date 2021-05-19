@@ -51,7 +51,9 @@ export const CartProductItem = (props) => {
       <S.Image src={img} />
       <S.Name>{name}</S.Name>
       <S.Controller>
-        <Button children={<TrashCanIcon />} onClick={() => removeProduct(id)} />
+        <Button onClick={() => removeProduct(id)}>
+          <TrashCanIcon />
+        </Button>
         <QuantityStepper
           quantity={quantity}
           onIncrement={onIncrementQuantity}
