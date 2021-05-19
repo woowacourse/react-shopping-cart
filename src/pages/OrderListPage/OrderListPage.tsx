@@ -18,17 +18,14 @@ import { API } from '../../services/api';
 
 import * as Styled from './OrderListPage.styles';
 import { RootState } from '../../states';
+import useProducts from '../../hooks/useProducts';
 
 const OrderListPage = () => {
   const history = useHistory();
+  const { products } = useProducts();
   const { orders, loading, responseOK } = useOrders();
   const { addCartItem } = useCart();
   const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
-  const { products } = useSelector((state: RootState) => state.product);
-
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
 
   if (loading) {
     return <Loading />;
