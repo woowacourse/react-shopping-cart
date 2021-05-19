@@ -23,9 +23,7 @@ const OrderDetailPage = () => {
     addCartItem(product);
   };
 
-  const totalPrice = order.orderDetails.reduce((acc: number, curr: T.OrderItem) => {
-    return acc + curr.price * curr.quantity;
-  }, 0);
+  const totalPrice = order.orderDetails.reduce((acc: number, curr: T.OrderItem) => acc + curr.price * curr.quantity, 0);
 
   return (
     <Styled.Root>

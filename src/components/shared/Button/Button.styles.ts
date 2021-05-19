@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import * as T from '../../../types';
 
-type RootProps = {
+interface RootProps {
   size?: T.ButtonSize;
   bgColor?: string;
   textColor?: string;
-};
+}
 
 const sizeTable = {
   [T.ButtonSize.REGULAR]: {

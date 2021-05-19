@@ -44,8 +44,6 @@ const CartItem = (props: CartItemProps) => {
     dispatch(updateQuantity(cartId, quantity - 1));
   };
 
-  const totalPrice = price * quantity;
-
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     onCheck(cartId, isChecked);
@@ -55,15 +53,17 @@ const CartItem = (props: CartItemProps) => {
     onDelete(cartId);
   };
 
+  const totalPrice = price * quantity;
+
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={imageUrl || noImageURL} alt="김말이" />
+      <Styled.Image src={imageUrl || noImageURL} alt="item-image" />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
-        <Styled.Delete onClick={handleDelete}>
+        <Styled.DeleteButton onClick={handleDelete}>
           <DeleteIcon />
-        </Styled.Delete>
+        </Styled.DeleteButton>
         <Styled.QuantityInputWrapper>
           <QuantityInput
             value={quantity}

@@ -21,7 +21,7 @@ const Divider = styled.hr`
   width: 100%;
   height: 3px;
   margin: 0;
-  background-color: ${(props) => props.theme.borderColor.lightGrey};
+  background-color: ${({ theme }) => theme.borderColor.lightGrey};
   border: none;
   box-sizing: border-box;
 `;
@@ -32,8 +32,8 @@ const TotalPriceContent = styled.div`
 
 const OrderButton = styled.button`
   border: none;
-  background-color: ${(props) => props.theme.bgColor.primary};
-  color: ${(props) => props.theme.textColor.defaultWhite};
+  background-color: ${({ theme }) => theme.bgColor.primary};
+  color: ${({ theme }) => theme.textColor.defaultWhite};
 `;
 
 export default { Root, TotalPriceHeader, Divider, TotalPriceContent, OrderButton };

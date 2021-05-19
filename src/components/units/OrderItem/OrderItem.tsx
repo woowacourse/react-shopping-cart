@@ -13,7 +13,7 @@ const OrderItem = (props: OrderItemProps) => {
 
   return (
     <Styled.Root>
-      <Styled.Image src={imageUrl} alt="김말이" />
+      <Styled.Image src={imageUrl} alt="item-image" />
       <Styled.Info>
         <Styled.Title>{title}</Styled.Title>
         <Styled.Quantity>수량 : {quantity}개</Styled.Quantity>

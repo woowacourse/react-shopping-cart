@@ -8,7 +8,7 @@ import Styled from './OrderCompletePage.styles';
 const OrderCompletePage = () => {
   return (
     <Styled.Root>
-      <Styled.OrderCompleteImage src={NoImageURL} alt="김말이" />
+      <Styled.OrderCompleteImage src={NoImageURL} alt="item-image" />
       <Styled.OrderCompleteText>🐋 주문이 완료되었지롱 🐬</Styled.OrderCompleteText>
       <Styled.ButtonWrapper>
         <Link to="/">

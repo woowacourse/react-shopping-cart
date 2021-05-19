@@ -29,10 +29,9 @@ const CartPage = () => {
 
   const checkedItems = cartItems.data.filter((item) => item.checked);
 
-  const checkedItemsTotalPrice = cartItems.data.reduce((acc: number, curr: T.CartItem) => {
-    if (!curr.checked) return acc;
-    return acc + curr.price * curr.quantity;
-  }, 0);
+  const checkedItemsTotalPrice = cartItems.data
+    .filter((item) => item.checked)
+    .reduce((acc: number, curr: T.CartItem) => acc + curr.price * curr.quantity, 0);
 
   const handleCheckItem = (id: number, isChecked: boolean) => {
     dispatch(checkCartItem(id, isChecked));

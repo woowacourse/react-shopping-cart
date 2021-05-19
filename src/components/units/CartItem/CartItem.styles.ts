@@ -31,7 +31,7 @@ const Option = styled.div`
   margin-left: 20px;
 `;
 
-const Delete = styled.button`
+const DeleteButton = styled.button`
   background: none;
   border: none;
   color: inherit;
@@ -52,7 +52,7 @@ export default {
   Image,
   Title,
   Option,
-  Delete,
+  DeleteButton,
   Price,
   QuantityInputWrapper,
 };

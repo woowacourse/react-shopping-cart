@@ -22,9 +22,10 @@ const OrderPage = () => {
 
   const { checkedItems } = location.state;
 
-  const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: T.CartItem) => {
-    return acc + curr.price * curr.quantity;
-  }, 0);
+  const checkedItemsTotalPrice = checkedItems.reduce(
+    (acc: number, curr: T.CartItem) => acc + curr.price * curr.quantity,
+    0
+  );
 
   const handlePurchaseCartItems = async () => {
     if (isLoading) return;
