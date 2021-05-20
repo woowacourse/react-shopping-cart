@@ -14,7 +14,7 @@ import ScreenContainer from '../../../style/ScreenContainer';
 import { CartProductDetailType } from '../../../type';
 import Header from '../../atom/Header/Header';
 import ShoppingCartLayout from '../../template/ShoppingCartLayout/ShoppingCartLayout';
-// TODO: re-export 하기
+
 const ShoppingCartPage = ({ history, location }: RouteComponentProps) => {
   const dispatch = useDispatch();
   const [isAllChecked, setAllChecked] = useState(false);

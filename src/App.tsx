@@ -38,12 +38,13 @@ const App = () => {
             component={ShoppingCartPage}
           />
           <Route exact path={ROUTE.ORDER_LIST} component={OrderListPage} />
-          <Route path={ROUTE.ORDER_DETAIL} component={OrderDetailPage} />
           <Route
             exact
             path={ROUTE.ORDER_CHECKOUT}
             component={OrderCheckoutPage}
           />
+          <Route path={ROUTE.ORDER_DETAIL} component={OrderDetailPage} />
+
           <Route component={() => <Redirect to={ROUTE.HOME} />} />
         </Switch>
       </Router>
