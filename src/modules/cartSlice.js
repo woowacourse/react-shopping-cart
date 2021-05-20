@@ -7,8 +7,9 @@ const customer_name = 'shinsehantan';
 export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thunkAPI) => {
   try {
     const res = await axios.get(`${BASE_URL}/customers/${customer_name}/carts`);
+    const tempItems = res.data.map((item) => ({ ...item, quantity: 1, checked: true }));
 
-    return res.data;
+    return tempItems;
   } catch (error) {
     return Object.assign(thunkAPI.rejectWithValue(error), {
       message: '장바구니 아이템 목록을 불러오는 데 실패했습니다.',

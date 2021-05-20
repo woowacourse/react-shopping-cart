@@ -61,13 +61,14 @@ const ButtonStyle = css`
 
 const CartPage = () => {
   const dispatch = useDispatch();
+
+  const { cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
   const [checkedItemIds, setCheckedItemIds] = useState([]);
 
   useEffect(() => {
     dispatch(getCartItemsRequest());
+    setCheckedItemIds(cartItemsInServer.filter((item) => item.checked));
   }, [dispatch]);
-
-  const { cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
 
   useEffect(() => {
     if (errorMessage) {
@@ -91,7 +92,7 @@ const CartPage = () => {
   };
 
   const onAllCheckboxClick = () => {
-    if (checkedItemIds.length === cartItemsInServer.cartItemsInServer.length) {
+    if (checkedItemIds.length === cartItemsInServer.length) {
       dispatch(allUnCheck());
     } else {
       dispatch(allCheck());
