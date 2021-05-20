@@ -1,0 +1,47 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["react-app", "react-app/jest", "prettier", "airbnb"],
+  "plugins": ["prettier"],
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {}
+    }
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/no-anonymous-default-export": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/react-in-jsx-scope": 0,
+    "comma-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "arrow-parens": "off",
+    "import/prefer-default-export": "off",
+    "object-curly-newline": "off",
+    "max-len": "off",
+    "operator-linebreak": "off",
+    "consistent-return": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-alert": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "react/jsx-indent": "off",
+    "indent": "off"
+  }
+}
