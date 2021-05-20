@@ -59,49 +59,51 @@ const CartPage = () => {
     dispatch(getCartItemsRequest());
   }, [dispatch]);
 
+  if (cartItems.status === T.AsyncStatus.PENDING) {
+    return (
+      <Styled.SpinnerWrapper>
+        <Spinner />
+      </Styled.SpinnerWrapper>
+    );
+  }
+
   return (
     <Styled.Root>
       <PageHeader title="장바구니" />
-      {cartItems.status === T.AsyncStatus.PENDING ? (
-        <Styled.SpinnerWrapper>
-          <Spinner />
-        </Styled.SpinnerWrapper>
-      ) : (
-        <Styled.Cart>
-          <Styled.CartListContainer>
-            <Styled.CartListOption>
-              <Checkbox labelText="전체 선택" checked={isAllChecked} onChange={handleCheckAllItem} />
-              <Styled.DeleteButton onClick={handleDeleteCheckedItem}>선택 삭제</Styled.DeleteButton>
-            </Styled.CartListOption>
-            <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
-            <Styled.CartItemList>
-              {cartItems.data.map((cartItem) => (
-                <CartItem
-                  key={cartItem.cartId}
-                  cartItem={cartItem}
-                  onCheck={handleCheckItem}
-                  onDelete={handleDeleteItem}
-                />
-              ))}
-            </Styled.CartItemList>
-          </Styled.CartListContainer>
-          <Styled.PriceOverviewWrapper>
-            <PriceOverview headerText="결제예상금액">
-              <Styled.HighlightTextWrapper>
-                <HighlightText text="결제예상금액" />
-                <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
-              </Styled.HighlightTextWrapper>
-              <Link to={{ pathname: '/order', state: { checkedItems } }}>
-                <Button
-                  text={`주문하기 (${checkedItems.length}개)`}
-                  size={T.ButtonSize.LARGE}
-                  disabled={checkedItems.length <= 0}
-                />
-              </Link>
-            </PriceOverview>
-          </Styled.PriceOverviewWrapper>
-        </Styled.Cart>
-      )}
+      <Styled.Cart>
+        <Styled.CartListContainer>
+          <Styled.CartListOption>
+            <Checkbox labelText="전체 선택" checked={isAllChecked} onChange={handleCheckAllItem} />
+            <Styled.DeleteButton onClick={handleDeleteCheckedItem}>선택 삭제</Styled.DeleteButton>
+          </Styled.CartListOption>
+          <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
+          <Styled.CartItemList>
+            {cartItems.data.map((cartItem) => (
+              <CartItem
+                key={cartItem.cartId}
+                cartItem={cartItem}
+                onCheck={handleCheckItem}
+                onDelete={handleDeleteItem}
+              />
+            ))}
+          </Styled.CartItemList>
+        </Styled.CartListContainer>
+        <Styled.PriceOverviewWrapper>
+          <PriceOverview headerText="결제예상금액">
+            <Styled.HighlightTextWrapper>
+              <HighlightText text="결제예상금액" />
+              <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
+            </Styled.HighlightTextWrapper>
+            <Link to={{ pathname: '/order', state: { checkedItems } }}>
+              <Button
+                text={`주문하기 (${checkedItems.length}개)`}
+                size={T.ButtonSize.LARGE}
+                disabled={checkedItems.length <= 0}
+              />
+            </Link>
+          </PriceOverview>
+        </Styled.PriceOverviewWrapper>
+      </Styled.Cart>
     </Styled.Root>
   );
 };

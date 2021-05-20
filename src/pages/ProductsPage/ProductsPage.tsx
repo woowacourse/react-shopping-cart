@@ -50,21 +50,23 @@ const ProductsPage = () => {
     fetchData();
   }, [getProducts]);
 
+  if (isLoading) {
+    return (
+      <Styled.SpinnerWrapper>
+        <Spinner />
+      </Styled.SpinnerWrapper>
+    );
+  }
+
   return (
     <Styled.Root>
-      {isLoading ? (
-        <Styled.SpinnerWrapper>
-          <Spinner />
-        </Styled.SpinnerWrapper>
-      ) : (
-        <Styled.ProductList>
-          {products?.map((product: T.Product) => (
-            <li key={product.productId}>
-              <ProductItem product={product} onClickItem={handleClickItem} onClickCart={handleClickCart} />
-            </li>
-          ))}
-        </Styled.ProductList>
-      )}
+      <Styled.ProductList>
+        {products?.map((product: T.Product) => (
+          <li key={product.productId}>
+            <ProductItem product={product} onClickItem={handleClickItem} onClickCart={handleClickCart} />
+          </li>
+        ))}
+      </Styled.ProductList>
     </Styled.Root>
   );
 };

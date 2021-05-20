@@ -65,30 +65,32 @@ const OrderListPage = () => {
     fetchData();
   }, [getOrders]);
 
+  if (isLoading) {
+    return (
+      <Styled.SpinnerWrapper>
+        <Spinner />
+      </Styled.SpinnerWrapper>
+    );
+  }
+
   return (
     <Styled.Root>
       <PageHeader title="주문 목록" />
-      {isLoading ? (
-        <Styled.SpinnerWrapper>
-          <Spinner />
-        </Styled.SpinnerWrapper>
-      ) : (
-        <Styled.OrderList>
-          {orders.map((order) => (
-            <Styled.Order key={order.orderId}>
-              <Styled.OrderHeader>
-                <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
-                <Styled.DetailButton onClick={() => handleClickDetail(order)}>{'상세보기 >'}</Styled.DetailButton>
-              </Styled.OrderHeader>
-              <Styled.PurchasedList>
-                {order.orderDetails.map((item) => (
-                  <PurchasedItem key={item.productId} item={item} onClick={handleClickCart} />
-                ))}
-              </Styled.PurchasedList>
-            </Styled.Order>
-          ))}
-        </Styled.OrderList>
-      )}
+      <Styled.OrderList>
+        {orders.map((order) => (
+          <Styled.Order key={order.orderId}>
+            <Styled.OrderHeader>
+              <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
+              <Styled.DetailButton onClick={() => handleClickDetail(order)}>{'상세보기 >'}</Styled.DetailButton>
+            </Styled.OrderHeader>
+            <Styled.PurchasedList>
+              {order.orderDetails.map((item) => (
+                <PurchasedItem key={item.productId} item={item} onClick={handleClickCart} />
+              ))}
+            </Styled.PurchasedList>
+          </Styled.Order>
+        ))}
+      </Styled.OrderList>
     </Styled.Root>
   );
 };
