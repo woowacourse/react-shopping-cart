@@ -40,7 +40,7 @@ const Description = styled.div`
 const ProductDetail = () => {
   const { state } = useLocation();
   const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({
-    product_id: state.id,
+    productId: state.id,
   });
 
   const { isLoading, data, error } = useFetch({

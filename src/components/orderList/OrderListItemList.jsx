@@ -30,9 +30,9 @@ const OrderListItemList = ({ orderId, orderListItemList, hasDetailLink }) => (
       )}
     </Header>
     <ul>
-      {orderListItemList.map(({ product_id, image_url, name, price, quantity }) => (
-        <OrderListItemWrapper key={product_id}>
-          <OrderListItem id={product_id} src={image_url} alt={name} name={name} price={price} quantity={quantity} />
+      {orderListItemList.map(({ productId, imageUrl, name, price, quantity }) => (
+        <OrderListItemWrapper key={productId}>
+          <OrderListItem id={productId} src={imageUrl} alt={name} name={name} price={price} quantity={quantity} />
         </OrderListItemWrapper>
       ))}
     </ul>
@@ -47,8 +47,8 @@ OrderListItemList.propTypes = {
   orderId: PropTypes.number.isRequired,
   orderListItemList: PropTypes.arrayOf(
     PropTypes.shape({
-      product_id: PropTypes.number.isRequired,
-      image_url: PropTypes.string.isRequired,
+      productId: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       quantity: PropTypes.number.isRequired,

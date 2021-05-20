@@ -7,9 +7,9 @@ export const API_PATH = {
 };
 
 export const API_METHOD = {
-  GET: 'GET',
-  POST: 'POST',
-  DELETE: 'DELETE',
+  GET: 'get',
+  POST: 'post',
+  DELETE: 'delete',
 };
 
 export const RETURN_TYPE = {

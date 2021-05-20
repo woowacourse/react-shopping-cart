@@ -34,10 +34,10 @@ const OrderPayment = () => {
   const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    await startFetching(orderPaymentItemList.map(({ cart_id, quantity }) => ({ cart_id, quantity })));
+    await startFetching(orderPaymentItemList.map(({ cartId, quantity }) => ({ cartId, quantity })));
 
     orderPaymentItemList.forEach((item) => {
-      dispatch({ type: DELETE_SHOPPING_CART_ITEM_SUCCESS, payload: item.cart_id });
+      dispatch({ type: DELETE_SHOPPING_CART_ITEM_SUCCESS, payload: item.cartId });
     });
 
     history.replace(PATH.ORDER_LIST);

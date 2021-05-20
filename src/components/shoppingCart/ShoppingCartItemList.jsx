@@ -19,11 +19,11 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
   <>
     <Header>든든배송 상품 ({shoppingCartItemList.length}개)</Header>
     <ul>
-      {shoppingCartItemList.map(({ image_url, cart_id, name, price, quantity, isChecked }) => (
-        <ShoppingCartItemWrapper key={cart_id}>
+      {shoppingCartItemList.map(({ imageUrl, cartId, name, price, quantity, isChecked }) => (
+        <ShoppingCartItemWrapper key={cartId}>
           <ShoppingCartItem
-            id={cart_id}
-            src={image_url}
+            id={cartId}
+            src={imageUrl}
             alt={name}
             name={name}
             price={price}
@@ -39,8 +39,8 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
 ShoppingCartItemList.propTypes = {
   shoppingCartItemList: PropTypes.arrayOf(
     PropTypes.shape({
-      cart_id: PropTypes.number.isRequired,
-      image_url: PropTypes.string.isRequired,
+      cartId: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       quantity: PropTypes.number.isRequired,

@@ -25,8 +25,8 @@ export const TOGGLE_ALL_SHOPPING_CART_ITEM = 'shoppingCart/TOGGLE_ALL_SHOPPING_C
 export const INCREASE_COUNT = 'shoppingCart/INCREASE_COUNT';
 export const DECREASE_COUNT = 'shoppingCart/DECREASE_COUNT';
 
-export const insertItemToShoppingCart = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, (data) =>
-  requestInsertItem(API_PATH.SHOPPING_CART_LIST, { product_id: data.product_id })
+export const insertItemToShoppingCart = createAsyncThunk(INSERT_SHOPPING_CART_ITEM, ({ productId }) =>
+  requestInsertItem(API_PATH.SHOPPING_CART_LIST, { productId })
 );
 
 export const deleteShoppingCartItem = createAsyncThunk(DELETE_SHOPPING_CART_ITEM, (id) =>
@@ -38,7 +38,7 @@ export const getShoppingCartItemList = createAsyncThunk(GET_SHOPPING_CART_ITEM_L
 );
 
 const requestDeleteCheckedItemList = (checkedItemList) =>
-  Promise.all(checkedItemList.map(({ cart_id }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, cart_id)));
+  Promise.all(checkedItemList.map(({ cartId }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, cartId)));
 
 export const deleteCheckedShoppingCartList = createAsyncThunk(
   DELETE_CHECKED_SHOPPING_CART_ITEM_LIST,

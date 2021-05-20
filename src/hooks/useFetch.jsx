@@ -10,14 +10,14 @@ const useFetch = ({ fetchFunc, isInitSetting = false }) => {
     const initSetting = async () => {
       try {
         setData(await fetchFunc());
-        setLoading(false);
         setError(null);
+        setLoading(false);
 
         return;
       } catch (error) {
         console.error(error.message);
-        setLoading(false);
         setError(error.message);
+        setLoading(false);
       }
     };
 
@@ -30,12 +30,12 @@ const useFetch = ({ fetchFunc, isInitSetting = false }) => {
 
     try {
       await fetchFunc(param);
-      setLoading(false);
       setError(null);
+      setLoading(false);
     } catch (error) {
       console.error(error.message);
-      setLoading(false);
       setError(error.message);
+      setLoading(false);
     }
   };
 

@@ -37,7 +37,7 @@ const Image = styled.img`
 const ProductListItem = ({ id, name, src, price }) => {
   const history = useHistory();
   const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({
-    product_id: id,
+    productId: id,
   });
 
   const handleRoutingProductDetail = () => {

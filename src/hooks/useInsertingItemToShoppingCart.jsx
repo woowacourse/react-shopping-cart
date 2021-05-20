@@ -7,13 +7,13 @@ import useDialog from './useDialog';
 const ADD_SUCCESS = 'ADD_SUCCESS';
 const ADD_FAILURE = 'ADD_FAILURE';
 
-const useInsertingItemToShoppingCart = ({ product_id }) => {
+const useInsertingItemToShoppingCart = ({ productId }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
   const shoppingCartItemList = useSelector((state) => state.shoppingCart.shoppingCartItemList.data);
   const dispatch = useDispatch();
 
   const isExistedInShoppingCart = () =>
-    shoppingCartItemList.some((shoppingCartItem) => shoppingCartItem.product_id === product_id);
+    shoppingCartItemList.some((shoppingCartItem) => shoppingCartItem.productId === productId);
 
   const insertShoppingCart = () => {
     if (isExistedInShoppingCart()) {
@@ -25,7 +25,7 @@ const useInsertingItemToShoppingCart = ({ product_id }) => {
 
     setType(ADD_SUCCESS);
     setIsDialogOpen(true);
-    dispatch(insertItemToShoppingCart({ product_id }));
+    dispatch(insertItemToShoppingCart({ productId }));
   };
 
   const Dialog = () => (
@@ -38,7 +38,7 @@ const useInsertingItemToShoppingCart = ({ product_id }) => {
 };
 
 useInsertingItemToShoppingCart.propTypes = {
-  product_id: PropTypes.number.isRequired,
+  productId: PropTypes.number.isRequired,
 };
 
 export default useInsertingItemToShoppingCart;

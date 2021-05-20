@@ -24,7 +24,7 @@ const Info = styled.div`
 `;
 
 const OrderListItem = ({ id, src, alt, name, quantity, price }) => {
-  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({ product_id: id });
+  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({ productId: id });
 
   return (
     <>
