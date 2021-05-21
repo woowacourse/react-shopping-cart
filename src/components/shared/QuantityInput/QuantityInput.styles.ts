@@ -34,20 +34,17 @@ const ArrowWrapper = styled.button`
   border: 1px solid ${(props) => props.theme.borderColor.lightGrey};
   background: none;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    height: 20px;
+  }
 
   &:first-of-type {
     border-bottom: 0;
   }
 `;
 
-const ArrowUpImage = styled.img`
-  width: 9px;
-  height: 7px;
-  user-select: none;
-`;
-
-const ArrowDownImage = styled(ArrowUpImage)`
-  transform: rotate(180deg);
-`;
-
-export default { Root, Input, Control, ArrowWrapper, ArrowUpImage, ArrowDownImage };
+export default { Root, Input, Control, ArrowWrapper };
