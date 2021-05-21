@@ -2,13 +2,13 @@
 import React, { InputHTMLAttributes, ReactElement } from 'react';
 import Styled from './Checkbox.styles';
 
-type CheckboxProps = {
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
   checked?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-} & InputHTMLAttributes<HTMLInputElement>;
+}
 
-const Checkbox = (props: CheckboxProps): ReactElement => {
+const Checkbox = (props: IProps): ReactElement => {
   const { labelText = '', checked = false, onChange = () => {}, disabled } = props;
 
   return (

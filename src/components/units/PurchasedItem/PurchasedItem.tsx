@@ -4,12 +4,12 @@ import defaultImageURL from '../../../assets/images/brave.png';
 import Button from '../../shared/Button/Button';
 import * as T from '../../../types';
 
-type PurchasedItemProps = {
+interface IProps {
   item: T.CartItem;
   onClick: (product: T.Product) => void;
-};
+}
 
-const PurchasedItem = (props: PurchasedItemProps): ReactElement => {
+const PurchasedItem = (props: IProps): ReactElement => {
   const { item, onClick } = props;
   const { quantity, product } = item;
   const { name, price, image } = product;

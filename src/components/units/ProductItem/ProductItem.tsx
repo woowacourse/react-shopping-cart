@@ -4,12 +4,12 @@ import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
 import noImageURL from '../../../assets/images/no_image.jpg';
 
-type ProductItemProps = {
+interface IProps {
   product: T.Product;
   onClickCart: (product: T.Product) => void;
-};
+}
 
-const ProductItem = (props: ProductItemProps): ReactElement => {
+const ProductItem = (props: IProps): ReactElement => {
   const { product, onClickCart } = props;
   const { name, image, price } = product;
 

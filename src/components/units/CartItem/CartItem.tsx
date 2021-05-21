@@ -9,13 +9,13 @@ import * as T from '../../../types';
 import { updateQuantityRequest } from '../../../modules/cartItems/actions';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
 
-type CartItemProps = {
+interface IProps {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
   onDelete: (id: T.CartItem['id']) => void;
-};
+}
 
-const CartItem = (props: CartItemProps): ReactElement => {
+const CartItem = (props: IProps): ReactElement => {
   const { cartItem, onCheck, onDelete } = props;
   const { id, product, quantity, checked } = cartItem;
   const { name, image, price } = product;
