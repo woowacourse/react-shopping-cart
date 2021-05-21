@@ -28,9 +28,9 @@ const useRecommendProduct = (
     );
 
     setRecommendedProductList(recommendProducts);
-  }, []);
+  }, [likedProducts]);
 
-  return { likedProducts, recommendedProductList };
+  return { recommendedProductList };
 };
 
 export default useRecommendProduct;

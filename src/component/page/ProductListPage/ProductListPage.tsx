@@ -43,6 +43,7 @@ const ProductListPage = ({ location, history }: RouteComponentProps) => {
   } = useSuccessAddedModal(shoppingCartProducts, products);
 
   const { likedProducts, onClickLikeButton } = useLikedProducts(products);
+
   const { recommendedProductList } = useRecommendProduct(
     products,
     likedProducts
@@ -72,7 +73,7 @@ const ProductListPage = ({ location, history }: RouteComponentProps) => {
   };
 
   useEffect(() => {
-    dispatch(updateProductListAsync());
+    dispatch(updateProductListAsync(products));
   }, [dispatch]);
 
   return (

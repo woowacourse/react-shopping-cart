@@ -6,19 +6,19 @@ import { ProductDetailType } from '../type';
 
 const useLikedProducts = (products: { [key: string]: ProductDetailType }) => {
   const dispatch = useDispatch();
-  const [likedProducts, setLikedProductList] = useState<{
+  const [likedProducts, setLikedProducts] = useState<{
     [key: string]: ProductDetailType;
   }>({});
 
   const onClickLikeButton = (productId: string) => {
     if (products[productId].liked) {
-      setLikedProductList(
+      setLikedProducts(
         produce(likedProducts, (draft) => {
           delete draft[productId];
         })
       );
     } else {
-      setLikedProductList(
+      setLikedProducts(
         produce(likedProducts, (draft) => {
           draft[productId] = products[productId];
         })
@@ -32,11 +32,11 @@ const useLikedProducts = (products: { [key: string]: ProductDetailType }) => {
     } = {};
     Object.values(products).forEach((product) => {
       if (product.liked) {
-        likedProducts[product.product_id] = product;
+        result[product.product_id] = product;
       }
     });
 
-    setLikedProductList(result);
+    setLikedProducts(result);
   }, []);
 
   return { likedProducts, onClickLikeButton };

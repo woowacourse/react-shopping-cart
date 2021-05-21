@@ -96,28 +96,30 @@ const removeShoppingCartItemAsync =
   };
 
 const updateProductList = createAction(UPDATE_PRODUCT_LIST);
-const updateProductListAsync = () => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(activateLoading());
+const updateProductListAsync =
+  (products: { [key: string]: ProductDetailType }) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(activateLoading());
 
-    const productList = await requestTable.GET(PRODUCT_QUERY);
-    await Promise.all(
-      productList.map((product: ProductType) => {
-        const newProduct: ProductDetailType = {
-          ...product,
-          liked: false,
-        };
+      const productList = await requestTable.GET(PRODUCT_QUERY);
+      await Promise.all(
+        productList.map((product: ProductType) => {
+          const newProduct: ProductDetailType = {
+            ...product,
+            liked: !!products[product.product_id]?.liked,
+          };
 
-        return dispatch(updateProductList(newProduct));
-      })
-    );
-  } catch (error) {
-    console.log(error);
-    persistedStore.purge();
-  } finally {
-    dispatch(deactivateLoading());
-  }
-};
+          return dispatch(updateProductList(newProduct));
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      persistedStore.purge();
+    } finally {
+      dispatch(deactivateLoading());
+    }
+  };
 
 export {
   addShoppingCartItemAsync,
