@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import * as T from '../../../types';
 
-type RootProps = {
+interface RootIProps {
   size: T.ButtonSize;
   bgColor: string;
   textColor: string;
   fullWidth: boolean;
-};
+}
 
 const sizeTable = {
   [T.ButtonSize.REGULAR]: {
@@ -19,7 +19,7 @@ const sizeTable = {
   },
 };
 
-const Root = styled.button<RootProps>`
+const Root = styled.button<RootIProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   height: ${({ size }) => sizeTable[size || T.ButtonSize.REGULAR].height};
   padding: 0 2em;

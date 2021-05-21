@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react';
 import Styled from './OrderItem.styles';
 import OrderItemImageURL from '../../../assets/images/brave.png';
 
-type IProps = {
+interface IProps {
   title: string;
   quantity: number;
   imageUrl?: string;
-};
+}
 
 const OrderItem = (props: IProps): ReactElement => {
   const { title, imageUrl = OrderItemImageURL, quantity } = props;

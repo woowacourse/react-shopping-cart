@@ -2,11 +2,11 @@ import React, { ReactElement, ReactNode } from 'react';
 import Header from '../../shared/Header/Header';
 import Styled from './BaseLayout.styles';
 
-type BaseLayoutProps = {
+interface IProps {
   children: ReactNode;
-};
+}
 
-const BaseLayout = ({ children }: BaseLayoutProps): ReactElement => {
+const BaseLayout = ({ children }: IProps): ReactElement => {
   return (
     <Styled.Root>
       <Header />
