@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
@@ -11,11 +11,11 @@ import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
-import api from '../../api';
 import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
 import { RootState } from '../../modules';
 import { toPriceFormat } from '../../utils';
+import useAxios from '../../hooks/useAxios';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -25,38 +25,37 @@ const OrderPage = (): ReactElement => {
   const history = useHistory();
   const location = useLocation<LocationState>();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
-  const [isLoading, setLoading] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [{ status, error }, fetchOrder] = useAxios('/orders', { method: T.ApiMethod.POST });
 
-  if (!location.state) return <Redirect to="/" />;
+  const checkedItems = location?.state?.checkedItems;
 
-  const { checkedItems } = location.state;
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
+    }
+  }, [enqueueSnackbar, error]);
 
-  const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {
-    return acc + curr.product.price * curr.quantity;
-  }, 0);
-
-  const handlePurchaseCartItems = async () => {
-    if (isLoading) return;
-
-    setLoading(true);
-
-    try {
-      await api.post('/orders', { items: checkedItems });
-
+  useEffect(() => {
+    if (status === T.AsyncStatus.SUCCESS) {
       const ids = checkedItems?.map?.((cartItem) => cartItem.id);
       dispatch(deleteCheckedItemsActionRequest(ids));
 
       history.replace('/order/complete');
-      return;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
     }
+  }, [checkedItems, dispatch, enqueueSnackbar, error, history, status]);
 
-    setLoading(false);
+  if (!location.state) return <Redirect to="/" />;
+
+  const handlePurchaseCartItems = async () => {
+    if (status === T.AsyncStatus.PENDING) return;
+
+    await fetchOrder({ items: checkedItems });
   };
+
+  const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {
+    return acc + curr.product.price * curr.quantity;
+  }, 0);
 
   return (
     <Styled.Root>
@@ -83,6 +82,7 @@ const OrderPage = (): ReactElement => {
               <HighlightText text={`${toPriceFormat(checkedItemsTotalPrice)}원`} />
             </Styled.HighlightTextWrapper>
             <Button
+              fullWidth
               text={`${toPriceFormat(checkedItemsTotalPrice)}원 결제하기`}
               size={T.ButtonSize.LARGE}
               onClick={handlePurchaseCartItems}

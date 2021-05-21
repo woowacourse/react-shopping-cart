@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
@@ -11,7 +11,7 @@ import ProductItem from '../../components/units/ProductItem/ProductItem';
 import { RootState } from '../../modules';
 import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
 import { CartState } from '../../modules/cartItems/reducers';
-import api from '../../api';
+import useAxios from '../../hooks/useAxios';
 
 const ProductsPage = (): ReactElement => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -20,23 +20,10 @@ const ProductsPage = (): ReactElement => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [products, setProducts] = useState<T.Product[]>([]);
-  const getProducts = useCallback(async () => {
-    setLoading(true);
-
-    try {
-      const response = await api.get('/products');
-      setProducts(response.data);
-    } catch (error) {
-      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
-    }
-
-    setLoading(false);
-  }, [enqueueSnackbar]);
+  const [{ data: products, status, error }, fetchProducts] = useAxios('/products');
 
   const handleClickCart = (product: T.Product) => {
-    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
+    if (status !== T.AsyncStatus.SUCCESS || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
     const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
 
@@ -49,8 +36,8 @@ const ProductsPage = (): ReactElement => {
       .then(() => {
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
+      .catch((err: Error) => {
+        enqueueSnackbar(err.message);
       });
   };
 
@@ -59,20 +46,26 @@ const ProductsPage = (): ReactElement => {
   }, [dispatch]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getProducts();
+    const getProducts = async () => {
+      await fetchProducts();
     };
-    fetchData();
-  }, [getProducts]);
+    getProducts();
+  }, [fetchProducts]);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
+    }
+  }, [enqueueSnackbar, error]);
 
   return (
     <Styled.Root>
-      {isLoading && (
+      {status === T.AsyncStatus.PENDING && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
-      {!isLoading && products.length === 0 ? (
+      {status === T.AsyncStatus.SUCCESS && products?.length === 0 ? (
         <Styled.NoResultMessage>😢 지금은 구입할 수 있는 상품이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.ProductList>
