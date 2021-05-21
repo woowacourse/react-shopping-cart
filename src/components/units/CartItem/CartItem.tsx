@@ -50,8 +50,6 @@ const CartItem = (props: IProps): ReactElement => {
     dispatch(updateQuantityRequest(id, quantity - 1));
   };
 
-  const totalPrice = price * quantity;
-
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     onCheck(id, isChecked);
@@ -60,6 +58,8 @@ const CartItem = (props: IProps): ReactElement => {
   const handleDelete = () => {
     onDelete(id);
   };
+
+  const totalPrice = price * quantity;
 
   return (
     <Styled.Root>

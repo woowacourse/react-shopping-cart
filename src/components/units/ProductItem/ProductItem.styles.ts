@@ -38,7 +38,8 @@ const Price = styled.div`
   line-height: 27px;
 
   &::after {
-    content: ' 원';
+    content: '원';
+    margin-left: 0.2em;
   }
 `;
 

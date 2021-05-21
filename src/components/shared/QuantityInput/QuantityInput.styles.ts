@@ -14,14 +14,13 @@ const Input = styled.input`
   font-size: 24px;
   font-family: inherit;
   color: inherit;
+  outline: none;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-
-  outline: none;
 `;
 
 const Control = styled.div`
