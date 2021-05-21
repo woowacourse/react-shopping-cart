@@ -22,7 +22,7 @@ import {
   UNCHECK_PRODUCT,
   UPDATE_PRODUCT_LIST,
 } from './actionType';
-import { AppDispatch } from './store';
+import { AppDispatch, persistedStore } from './store';
 
 const activateLoading = createAction(ACTIVATE_LOADING_SPINNER);
 const deactivateLoading = createAction(DEACTIVATE_LOADING_SPINNER);
@@ -68,6 +68,7 @@ const addShoppingCartItemAsync =
       dispatch(addShoppingCartItem(newProduct));
     } catch (error) {
       console.log(error);
+      persistedStore.purge();
     } finally {
       dispatch(deactivateLoading());
     }
@@ -88,6 +89,7 @@ const removeShoppingCartItemAsync =
       dispatch(removeShoppingCartItem(product));
     } catch (error) {
       console.log(error);
+      persistedStore.purge();
     } finally {
       dispatch(deactivateLoading());
     }
@@ -111,6 +113,7 @@ const updateProductListAsync = () => async (dispatch: AppDispatch) => {
     );
   } catch (error) {
     console.log(error);
+    persistedStore.purge();
   } finally {
     dispatch(deactivateLoading());
   }

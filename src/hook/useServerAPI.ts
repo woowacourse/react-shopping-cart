@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { requestTable } from '../api/request';
 import { activateLoading, deactivateLoading } from '../redux/action';
+import { persistedStore } from '../redux/store';
 
 const useServerAPI = (getQuery: string) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const useServerAPI = (getQuery: string) => {
     } catch (error) {
       console.error(error);
       setValue([]);
+      persistedStore.purge();
     } finally {
       dispatch(deactivateLoading());
     }
@@ -30,6 +32,7 @@ const useServerAPI = (getQuery: string) => {
       return data;
     } catch (error) {
       console.error(error);
+      persistedStore.purge();
     } finally {
       dispatch(deactivateLoading());
     }
@@ -53,6 +56,7 @@ const useServerAPI = (getQuery: string) => {
       });
     } catch (error) {
       console.error(error);
+      persistedStore.purge();
     } finally {
       dispatch(deactivateLoading());
     }
