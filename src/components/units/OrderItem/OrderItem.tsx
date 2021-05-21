@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './OrderItem.styles';
 import OrderItemImageURL from '../../../assets/images/brave.png';
 
@@ -8,7 +8,7 @@ type OrderItemProps = {
   imageUrl?: string;
 };
 
-const OrderItem = (props: OrderItemProps) => {
+const OrderItem = (props: OrderItemProps): ReactElement => {
   const { title, imageUrl, quantity } = props;
 
   return (

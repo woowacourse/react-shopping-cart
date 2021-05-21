@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './PriceOverview.styles';
 
 type PriceOverviewProps = {
@@ -6,7 +6,7 @@ type PriceOverviewProps = {
   children: React.ReactNode;
 };
 
-const PriceOverview = (props: PriceOverviewProps) => {
+const PriceOverview = (props: PriceOverviewProps): ReactElement => {
   const { headerText, children } = props;
 
   return (

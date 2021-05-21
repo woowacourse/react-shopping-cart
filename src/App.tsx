@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
@@ -17,7 +17,7 @@ import rootReducer from './modules';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-const App = () => {
+const App = (): ReactElement => {
   return (
     <Provider store={store}>
       <SnackbarProvider

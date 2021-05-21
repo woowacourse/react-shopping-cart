@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
@@ -13,7 +13,7 @@ import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems
 import { CartState } from '../../modules/cartItems/reducers';
 import api from '../../api';
 
-const ProductsPage = () => {
+const ProductsPage = (): ReactElement => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
 
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();

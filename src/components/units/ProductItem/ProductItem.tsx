@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
@@ -9,7 +9,7 @@ type ProductItemProps = {
   onClickCart: (product: T.Product) => void;
 };
 
-const ProductItem = (props: ProductItemProps) => {
+const ProductItem = (props: ProductItemProps): ReactElement => {
   const { product, onClickCart } = props;
   const { name, image, price } = product;
 

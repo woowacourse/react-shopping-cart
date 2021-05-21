@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import Styled from './CartItem.styles';
 import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
@@ -15,7 +15,7 @@ type CartItemProps = {
   onDelete: (id: T.CartItem['id']) => void;
 };
 
-const CartItem = (props: CartItemProps) => {
+const CartItem = (props: CartItemProps): ReactElement => {
   const { cartItem, onCheck, onDelete } = props;
   const { id, product, quantity, checked } = cartItem;
   const { name, image, price } = product;

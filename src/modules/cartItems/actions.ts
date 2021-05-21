@@ -127,7 +127,7 @@ export type DeleteCheckedItemsAction =
   | DeleteCheckedItemsSuccessAction
   | DeleteCheckedItemsFailureAction;
 
-export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsAction>) => {
+export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsAction>): Promise<void> => {
   dispatch({ type: GET_CART_ITEMS_REQUEST });
 
   try {
@@ -140,7 +140,9 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
   }
 };
 
-export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
+export const addCartItemRequest = (product: T.Product) => async (
+  dispatch: Dispatch<AddCartItemAction>
+): Promise<void> => {
   dispatch({ type: ADD_CART_ITEM_REQUEST, product });
 
   try {
@@ -155,7 +157,7 @@ export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispa
 
 export const updateQuantityRequest = (id: number, quantity: number) => async (
   dispatch: Dispatch<UpdateQuantityAction>
-) => {
+): Promise<void> => {
   dispatch({ type: UPDATE_QUANTITY_REQUEST });
 
   try {
@@ -167,17 +169,19 @@ export const updateQuantityRequest = (id: number, quantity: number) => async (
   }
 };
 
-export const checkCartItem = (id: T.CartItem['id'], checked: T.CartItem['checked']) => ({
+export const checkCartItem = (id: T.CartItem['id'], checked: T.CartItem['checked']): CheckCartItemAction => ({
   type: CHECK_CART_ITEM,
   payload: { id, checked },
 });
 
-export const checkAllCartItems = (checked: boolean) => ({
+export const checkAllCartItems = (checked: boolean): CheckAllCartItemsAction => ({
   type: CHECK_ALL_CART_ITEMS,
   checked,
 });
 
-export const deleteItemActionRequest = (id: T.CartItem['id']) => async (dispatch: Dispatch<DeleteItemAction>) => {
+export const deleteItemActionRequest = (id: T.CartItem['id']) => async (
+  dispatch: Dispatch<DeleteItemAction>
+): Promise<void> => {
   dispatch({ type: DELETE_ITEM_REQUEST });
 
   try {
@@ -191,7 +195,7 @@ export const deleteItemActionRequest = (id: T.CartItem['id']) => async (dispatch
 
 export const deleteCheckedItemsActionRequest = (ids: T.CartItem['id'][]) => async (
   dispatch: Dispatch<DeleteCheckedItemsAction>
-) => {
+): Promise<void> => {
   dispatch({ type: DELETE_CHECKED_ITEMS_REQUEST });
 
   try {

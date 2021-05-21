@@ -8,7 +8,6 @@ module.exports = {
   ],
   plugins: ['react', '@typescript-eslint', 'jest'],
   rules: {
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/jsx-filename-extension': [
       1,
       {

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, ReactElement } from 'react';
 import Styled from './Checkbox.styles';
 
 type CheckboxProps = {
@@ -8,7 +8,7 @@ type CheckboxProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const Checkbox = (props: CheckboxProps) => {
+const Checkbox = (props: CheckboxProps): ReactElement => {
   const { labelText, checked, onChange, disabled } = props;
 
   return (

@@ -53,7 +53,7 @@ export const cartReducer = (
     | CheckAllCartItemsAction
     | DeleteItemAction
     | DeleteCheckedItemsAction
-) => {
+): CartState => {
   switch (action.type) {
     case ADD_CART_ITEM_REQUEST:
       return produce(state, (draft: Draft<CartState>) => {

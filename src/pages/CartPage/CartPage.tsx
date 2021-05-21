@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -23,7 +23,7 @@ import {
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
 
-const CartPage = () => {
+const CartPage = (): ReactElement => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 

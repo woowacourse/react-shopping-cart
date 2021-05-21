@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './PurchasedItem.styles';
 import defaultImageURL from '../../../assets/images/brave.png';
 import Button from '../../shared/Button/Button';
@@ -9,7 +9,7 @@ type PurchasedItemProps = {
   onClick: (product: T.Product) => void;
 };
 
-const PurchasedItem = (props: PurchasedItemProps) => {
+const PurchasedItem = (props: PurchasedItemProps): ReactElement => {
   const { item, onClick } = props;
   const { quantity, product } = item;
   const { name, price, image } = product;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
@@ -20,7 +20,7 @@ type LocationState = {
   checkedItems: T.CartItem[];
 };
 
-const OrderPage = () => {
+const OrderPage = (): ReactElement => {
   const history = useHistory();
   const location = useLocation<LocationState>();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();

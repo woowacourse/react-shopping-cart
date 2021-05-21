@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, ReactElement } from 'react';
 import Styled from './Button.styles';
 import * as T from '../../../types';
 
@@ -10,7 +10,7 @@ type ButtonProps = {
   onClick?: () => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = (props: ButtonProps) => {
+const Button = (props: ButtonProps): ReactElement => {
   const { size, bgColor, text, textColor, onClick } = props;
 
   return (
