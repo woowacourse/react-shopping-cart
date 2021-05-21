@@ -1,5 +1,6 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+import COLOR from './constants/color';
 
 const Styled = {
   Page: styled.div`
@@ -19,21 +20,21 @@ export const globalStyle = css`
 
 export const theme: Theme = {
   bgColor: {
-    primary: '#2AC1BC',
-    secondary: '#f6f6f6',
-    lightGrey: '#e5e5e5',
+    primary: COLOR.BAEMIN,
+    secondary: COLOR.GRAY[900],
+    lightGrey: COLOR.GRAY[800],
   },
   color: {
-    defaultBlack: '#333333',
+    defaultBlack: COLOR.BLACK[300],
   },
   textColor: {
-    defaultWhite: '#FFFFFF',
-    defaultGrey: '#888888',
+    defaultWhite: COLOR.WHITE,
+    defaultGrey: COLOR.GRAY[400],
   },
   borderColor: {
-    darkGrey: '#aaaaaa',
-    defaultGrey: '#cccccc',
-    lightGrey: '#dddddd',
+    darkGrey: COLOR.GRAY[500],
+    defaultGrey: COLOR.GRAY[600],
+    lightGrey: COLOR.GRAY[700],
   },
 };
 
