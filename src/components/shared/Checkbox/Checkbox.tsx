@@ -9,7 +9,7 @@ type CheckboxProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const Checkbox = (props: CheckboxProps): ReactElement => {
-  const { labelText, checked, onChange, disabled } = props;
+  const { labelText = '', checked = false, onChange = () => {}, disabled } = props;
 
   return (
     <Styled.Label disabled={disabled}>
@@ -18,12 +18,6 @@ const Checkbox = (props: CheckboxProps): ReactElement => {
       <Styled.Text>{labelText}</Styled.Text>
     </Styled.Label>
   );
-};
-
-Checkbox.defaultProps = {
-  labelText: '',
-  checked: false,
-  onChange: () => {},
 };
 
 export default Checkbox;

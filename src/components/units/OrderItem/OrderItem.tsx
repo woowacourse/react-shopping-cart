@@ -9,7 +9,7 @@ type OrderItemProps = {
 };
 
 const OrderItem = (props: OrderItemProps): ReactElement => {
-  const { title, imageUrl, quantity } = props;
+  const { title, imageUrl = OrderItemImageURL, quantity } = props;
 
   return (
     <Styled.Root>
@@ -20,10 +20,6 @@ const OrderItem = (props: OrderItemProps): ReactElement => {
       </Styled.Info>
     </Styled.Root>
   );
-};
-
-OrderItem.defaultProps = {
-  imageUrl: OrderItemImageURL,
 };
 
 export default OrderItem;

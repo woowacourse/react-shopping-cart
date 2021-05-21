@@ -18,6 +18,4 @@ const PriceOverview = (props: PriceOverviewProps): ReactElement => {
   );
 };
 
-PriceOverview.defaultProps = {};
-
 export default PriceOverview;

@@ -18,6 +18,7 @@ module.exports = {
     'react/no-unescaped-entities': 0,
     'no-param-reassign': 0,
     'no-alert': 0,
+    'react/require-default-props': 0,
   },
   env: {
     browser: true,

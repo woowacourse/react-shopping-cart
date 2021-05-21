@@ -11,20 +11,13 @@ type ButtonProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = (props: ButtonProps): ReactElement => {
-  const { size, bgColor, text, textColor, onClick } = props;
+  const { size = T.ButtonSize.REGULAR, bgColor = '', text, textColor = '', onClick = () => {} } = props;
 
   return (
     <Styled.Root size={size} bgColor={bgColor} textColor={textColor} onClick={onClick} {...props}>
       {text}
     </Styled.Root>
   );
-};
-
-Button.defaultProps = {
-  size: T.ButtonSize.REGULAR,
-  bgColor: '',
-  textColor: '',
-  onClick: () => {},
 };
 
 export default Button;
