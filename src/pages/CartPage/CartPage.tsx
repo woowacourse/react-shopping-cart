@@ -107,6 +107,7 @@ const CartPage = (): ReactElement => {
               </Styled.HighlightTextWrapper>
               <Link to={{ pathname: '/order', state: { checkedItems } }}>
                 <Button
+                  fullWidth
                   text={`주문하기 (${checkedItems.length}개)`}
                   size={T.ButtonSize.LARGE}
                   disabled={checkedItems.length <= 0}

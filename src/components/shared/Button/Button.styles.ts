@@ -2,27 +2,27 @@ import styled from '@emotion/styled';
 import * as T from '../../../types';
 
 type RootProps = {
-  size?: T.ButtonSize;
-  bgColor?: string;
-  textColor?: string;
+  size: T.ButtonSize;
+  bgColor: string;
+  textColor: string;
+  fullWidth: boolean;
 };
 
 const sizeTable = {
   [T.ButtonSize.REGULAR]: {
-    width: '138px',
     height: '47px',
     fontSize: '20px',
   },
   [T.ButtonSize.LARGE]: {
-    width: '388px',
     height: '73px',
     fontSize: '24px',
   },
 };
 
 const Root = styled.button<RootProps>`
-  width: ${({ size }) => sizeTable[size || T.ButtonSize.REGULAR].width};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   height: ${({ size }) => sizeTable[size || T.ButtonSize.REGULAR].height};
+  padding: 0 2em;
   background-color: ${({ bgColor, theme }) => bgColor || theme.bgColor.primary};
   color: ${({ textColor, theme }) => textColor || theme.textColor.defaultWhite};
   font-family: inherit;
