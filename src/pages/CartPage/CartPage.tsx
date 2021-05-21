@@ -22,6 +22,7 @@ import {
 } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
+import { toPriceFormat } from '../../utils';
 
 const CartPage = (): ReactElement => {
   const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
@@ -103,7 +104,7 @@ const CartPage = (): ReactElement => {
             <PriceOverview headerText="결제예상금액">
               <Styled.HighlightTextWrapper>
                 <HighlightText text="결제예상금액" />
-                <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
+                <HighlightText text={`${toPriceFormat(checkedItemsTotalPrice)}원`} />
               </Styled.HighlightTextWrapper>
               <Link to={{ pathname: '/order', state: { checkedItems } }}>
                 <Button

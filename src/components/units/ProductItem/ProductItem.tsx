@@ -3,6 +3,7 @@ import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
 import noImageURL from '../../../assets/images/no_image.jpg';
+import { toPriceFormat } from '../../../utils';
 
 interface IProps {
   product: T.Product;
@@ -25,7 +26,7 @@ const ProductItem = (props: IProps): ReactElement => {
       <Styled.Content>
         <Styled.Detail>
           <Styled.Title>{name}</Styled.Title>
-          <Styled.Price>{price.toLocaleString('ko-KR')}</Styled.Price>
+          <Styled.Price>{toPriceFormat(price)}</Styled.Price>
         </Styled.Detail>
         <Styled.CartButton onClick={handleClickCart}>
           <CartIcon />

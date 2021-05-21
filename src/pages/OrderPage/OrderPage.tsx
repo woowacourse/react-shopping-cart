@@ -15,6 +15,7 @@ import api from '../../api';
 import { deleteCheckedItemsActionRequest } from '../../modules/cartItems/actions';
 import MESSAGE from '../../constants/messages';
 import { RootState } from '../../modules';
+import { toPriceFormat } from '../../utils';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -79,10 +80,10 @@ const OrderPage = (): ReactElement => {
           <PriceOverview headerText="결제금액">
             <Styled.HighlightTextWrapper>
               <HighlightText text="총 결제금액" />
-              <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
+              <HighlightText text={`${toPriceFormat(checkedItemsTotalPrice)}원`} />
             </Styled.HighlightTextWrapper>
             <Button
-              text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`}
+              text={`${toPriceFormat(checkedItemsTotalPrice)}원 결제하기`}
               size={T.ButtonSize.LARGE}
               onClick={handlePurchaseCartItems}
             />

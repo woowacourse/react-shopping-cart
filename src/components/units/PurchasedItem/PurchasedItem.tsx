@@ -3,6 +3,7 @@ import Styled from './PurchasedItem.styles';
 import defaultImageURL from '../../../assets/images/brave.png';
 import Button from '../../shared/Button/Button';
 import * as T from '../../../types';
+import { toPriceFormat } from '../../../utils';
 
 interface IProps {
   item: T.CartItem;
@@ -26,7 +27,7 @@ const PurchasedItem = (props: IProps): ReactElement => {
       <Styled.Info>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>
-          {totalPrice.toLocaleString('ko-KR')}원 / 수량 : {quantity}개
+          {toPriceFormat(totalPrice)}원 / 수량 : {quantity}개
         </Styled.Detail>
       </Styled.Info>
       <Styled.ButtonWrapper>

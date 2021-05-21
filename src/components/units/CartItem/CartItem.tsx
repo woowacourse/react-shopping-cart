@@ -8,6 +8,7 @@ import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
 import { updateQuantityRequest } from '../../../modules/cartItems/actions';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
+import { toPriceFormat } from '../../../utils';
 
 interface IProps {
   cartItem: T.CartItem;
@@ -80,7 +81,7 @@ const CartItem = (props: IProps): ReactElement => {
             onDecrease={handleDecrement}
           />
         </Styled.QuantityInputWrapper>
-        <Styled.Price>{totalPrice.toLocaleString('ko-KR')} 원</Styled.Price>
+        <Styled.Price>{toPriceFormat(totalPrice)} 원</Styled.Price>
       </Styled.Option>
     </Styled.Root>
   );
