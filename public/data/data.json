@@ -1,0 +1,196 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "탕용기(소)",
+      "price": 57000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg"
+    },
+    {
+      "id": 2,
+      "name": "냉면용기(대/CN/흑색)",
+      "price": 57500,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/498642e7-bcba-42cc-966e-6447e5287dc8.jpg"
+    },
+    {
+      "id": 3,
+      "name": "죽용기(소)",
+      "price": 86500,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/68/1552450854658m0.jpg"
+    },
+    {
+      "id": 4,
+      "name": "소스컵-105파이(대)",
+      "price": 58000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/33/15338860714m0.jpg"
+    },
+    {
+      "id": 5,
+      "name": "도시락용기-2호",
+      "price": 42500,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/12/1551257226350m0.jpg"
+    },
+    {
+      "id": 6,
+      "name": "올인원 세트-물티수저",
+      "price": 55600,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/13/D6-PB-20277_%EC%98%AC%EC%9D%B8%EC%9B%90-%EC%84%B8%ED%8A%B8_%EB%AC%BC%ED%8B%B0%EC%88%98%EC%A0%80_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg"
+    },
+    {
+      "id": 7,
+      "name": "스티커-고객님을 위한 써비스",
+      "price": 14500,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/39/1556008484207m0.jpg"
+    },
+    {
+      "id": 8,
+      "name": "스티커-봉인해제",
+      "price": 20700,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/94/150867934812m0.jpg"
+    },
+    {
+      "id": 9,
+      "name": "보냉보온팩(20x25)",
+      "price": 42500,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/89/1527170882281m0.jpg"
+    },
+    {
+      "id": 10,
+      "name": "보냉보온백(45x50)",
+      "price": 120000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/94/1527170813946m0.jpg"
+    },
+    {
+      "id": 11,
+      "name": "아이스팩-얼음",
+      "price": 24100,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/list/ba820f13-2106-4337-929e-ab81547b523c.jpg"
+    },
+    {
+      "id": 12,
+      "name": "음료용기(350ml)-드링쿨",
+      "price": 56800,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/79/1555635777543m0.jpg"
+    },
+    {
+      "id": 13,
+      "name": "아이스컵 98파이 24온스",
+      "price": 61400,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/c15d1594-a9dc-49e0-8106-b521ea378789.jpg"
+    },
+    {
+      "id": 14,
+      "name": "98파이 돔형 뚜껑(HI)",
+      "price": 19800,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/def413d3-aadf-4bef-9d99-28a89c91eee9.jpg"
+    },
+    {
+      "id": 15,
+      "name": "도시락용기(SL-M2/흑색)",
+      "price": 112900,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/e711212b-74ee-4a66-b36b-1b898baadef5.jpg"
+    },
+    {
+      "id": 16,
+      "name": "도시락용기(AJ/6칸)",
+      "price": 43800,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/df42e3b2-da6d-48e7-9912-b4454aa1afa3.jpg"
+    },
+    {
+      "id": 17,
+      "name": "냉면용기(대/FP)",
+      "price": 69500,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/0a33eb6a-090f-49ea-ac72-3c2432b2df26.jpg"
+    },
+    {
+      "id": 18,
+      "name": "[든든] 도드람 한돈 냉장 삼겹살",
+      "price": 337560,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/list/aa067ea1-ab0d-4f48-aae3-2ff623899e61.jpg"
+    },
+    {
+      "id": 19,
+      "name": "[든든] 도드람 한돈 냉장 암퇘지 삼겹살",
+      "price": 388500,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/list/4688791d-fd7a-4d6e-b81f-cea1992dc323.jpg"
+    },
+    {
+      "id": 20,
+      "name": "[든든] High Mountain 오스트리아산 돈삼겹",
+      "price": 206177,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/list/113e290b-de9c-4374-8776-7864bde58f5a.jpg"
+    },
+    {
+      "id": 21,
+      "name": "든든] COEXCA 칠레산 돈삼겹",
+      "price": 211995,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/list/17c10f91-533f-4c46-8229-ff5e888e690b.jpg"
+    },
+    {
+      "id": 22,
+      "name": "[든든] 사세 순살치킨 가라아게 1kg 10개",
+      "price": 89000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/45/1554345040673m0.jpg"
+    },
+    {
+      "id": 23,
+      "name": "[든든] 페르디가오 브라질 닭정육 (냉동) 2kg 6개",
+      "price": 39000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/27/1554117970000_m.jpg"
+    },
+    {
+      "id": 24,
+      "name": "[든든] 뚜레반 회초장(초고추장) 13kg",
+      "price": 25860,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/a332f4bd-0ba6-4976-8fec-3cdc8491e2b9.jpg"
+    },
+    {
+      "id": 25,
+      "name": "[든든] 냉동 멘보샤 600g 3개",
+      "price": 33300,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/79/%EB%83%89%EB%8F%99-%EB%A9%98%EB%B3%B4%EC%83%A4-600g-3%EA%B0%9C_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg"
+    },
+    {
+      "id": 26,
+      "name": "[든든] 백설 하얀설탕 15kg",
+      "price": 16900,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/51/1555394414438m0.jpg"
+    },
+    {
+      "id": 27,
+      "name": "[든든] 생칵테일새우 두절탈각 31/40 IQF 900g 2개",
+      "price": 25400,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/0b52c015-d514-4acf-afde-6387cbd0cb26.jpg"
+    },
+    {
+      "id": 28,
+      "name": "[든든] 펩시 콜라 500ml 20펫",
+      "price": 13000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/93/500.jpg"
+    },
+    {
+      "id": 29,
+      "name": "[든든] 쫄깃 치즈볼 (25g*30입) 5개",
+      "price": 46200,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/85/200615_%EC%AB%84%EA%B9%83_%EC%B9%98%EC%A6%88%EB%B3%BC(25gx30%EC%9E%85)5%EA%B0%9C_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg"
+    },
+    {
+      "id": 30,
+      "name": "[든든] 사세 버팔로윙1kg 3개",
+      "price": 37000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/65/1550549497596m0.jpg"
+    },
+    {
+      "id": 31,
+      "name": "[든든] 사세 후라이드근위 닭똥집 1kg 10개",
+      "price": 73000,
+      "thumbnail": "https://cdn-mart.baemin.com/goods/31/1561528304113m0.jpg"
+    },
+    {
+      "id": 32,
+      "name": "[든든] 노르웨이 생연어필렛 trim E 1.9~2.1kg",
+      "price": 52800,
+      "thumbnail": "https://cdn-mart.baemin.com/sellergoods/main/ebb817ec-e6dc-452f-b062-4472bcaaa1ea.jpg"
+    }
+  ]
+}
