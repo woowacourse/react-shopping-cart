@@ -77,14 +77,14 @@ const CartPage = (): ReactElement => {
                 labelText="전체 선택"
                 checked={isAllChecked}
                 onChange={handleCheckAllItem}
-                disabled={cartItems.data.length <= 0}
+                disabled={cartItems.data.length === 0}
               />
-              <Styled.DeleteButton onClick={handleDeleteCheckedItem} disabled={checkedItems.length <= 0}>
+              <Styled.DeleteButton onClick={handleDeleteCheckedItem} disabled={checkedItems.length === 0}>
                 선택 삭제
               </Styled.DeleteButton>
             </Styled.CartListOption>
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
-            {cartItems.data.length <= 0 ? (
+            {cartItems.data.length === 0 ? (
               <Styled.NoResultMessage>🛒 장바구니가 비어있어요!</Styled.NoResultMessage>
             ) : (
               <Styled.CartItemList>
@@ -110,7 +110,7 @@ const CartPage = (): ReactElement => {
                   fullWidth
                   text={`주문하기 (${checkedItems.length}개)`}
                   size={T.ButtonSize.LARGE}
-                  disabled={checkedItems.length <= 0}
+                  disabled={checkedItems.length === 0}
                 />
               </Link>
             </PriceOverview>

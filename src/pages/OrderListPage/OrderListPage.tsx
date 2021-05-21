@@ -75,7 +75,7 @@ const OrderListPage = (): ReactElement => {
         </Styled.SpinnerWrapper>
       )}
 
-      {!isLoading && orders.length <= 0 ? (
+      {!isLoading && orders.length === 0 ? (
         <Styled.NoResultMessage>📋 주문한 내역이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.OrderList>

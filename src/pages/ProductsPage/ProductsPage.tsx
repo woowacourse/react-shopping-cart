@@ -72,7 +72,7 @@ const ProductsPage = (): ReactElement => {
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
-      {!isLoading && products.length <= 0 ? (
+      {!isLoading && products.length === 0 ? (
         <Styled.NoResultMessage>😢 지금은 구입할 수 있는 상품이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.ProductList>
