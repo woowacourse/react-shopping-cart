@@ -10,7 +10,7 @@ import {
 
 const ShoppingCartSectionList: VFC = () => {
   const [checked, setChecked] = useState(false);
-  const { changeAllChecked, deleteCheckedItems, CartItems: items } = useCart();
+  const { changeAllChecked, deleteCheckedItems, cartItems: items } = useCart();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;

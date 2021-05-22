@@ -15,21 +15,12 @@ const TITLE = '주문/결제';
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: VFC<Props> = ({ history }) => {
-  const [totalPrice, setTotalPrice] = useState(0);
-  const { CartItems: items, isLoading } = useCart();
+  const { cartItems, isLoading, totalPrice } = useCart();
   const { userName } = useLogin();
-
-  useEffect(() => {
-    if (!items) return;
-
-    const calculatedPrice = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
-
-    setTotalPrice(calculatedPrice);
-  }, [items]);
 
   const order = async () => {
     try {
-      await requestOrderItems(userName, items as CartItem[]);
+      await requestOrderItems(userName, cartItems as CartItem[]);
     } catch (error) {
       throw error;
     }
@@ -54,7 +45,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <OrderConfirmSection title="주문 상품" items={items as CartItem[]} />
+          <OrderConfirmSection title="주문 상품" items={cartItems as CartItem[]} />
         )}
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
 import { cartAction } from '../states/slices/cart/slice';
@@ -14,7 +14,7 @@ import { CartId, CartItem, Product } from '../types';
 const useCart = () => {
   const dispatch = useAppDispatch();
   const [
-    CartItems,
+    cartItems,
     hasError,
     isLoading,
     userName,
@@ -68,6 +68,13 @@ const useCart = () => {
     dispatch(thunkDeleteCartItems({ userName: userName, items }));
   };
 
+  const totalPrice = cartItems.reduce(
+    (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
+    0
+  );
+
+  const checkedCartItems = cartItems.filter((item) => item.checked);
+
   return {
     fetchCartItems,
     addItem,
@@ -76,7 +83,9 @@ const useCart = () => {
     deleteCheckedItems,
     changeChecked,
     changeAllChecked,
-    CartItems,
+    cartItems,
+    checkedCartItems,
+    totalPrice,
     isLoading,
   };
 };

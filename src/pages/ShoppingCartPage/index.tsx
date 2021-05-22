@@ -9,23 +9,17 @@ import { useHistory } from 'react-router';
 const TITLE = '장바구니';
 
 const ShoppingCartPage: VFC = () => {
-  const { fetchCartItems, CartItems: items } = useCart();
+  const { fetchCartItems, totalPrice, checkedCartItems } = useCart();
   const history = useHistory();
 
   useEffect(() => {
     fetchCartItems();
   }, []);
 
-  const totalPrice = items.reduce(
-    (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
-    0
-  );
-
   const onSubmitCartItems = async (event: FormEvent<HTMLFormElement>) => {
-    const checkedItems = items.filter((item) => item.checked).length;
     event.preventDefault();
 
-    if (!checkedItems) return;
+    if (!checkedCartItems.length) return;
 
     history.push('/orderConfirm');
   };
@@ -36,7 +30,7 @@ const ShoppingCartPage: VFC = () => {
         <ShoppingCartSectionList />
         <ShoppingCartResultSubmitCard
           totalPrice={totalPrice}
-          totalQuantity={items.filter((item) => item.checked).length}
+          totalQuantity={checkedCartItems.length}
         />
       </ShoppingCartForm>
     </Template>
