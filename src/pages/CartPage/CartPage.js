@@ -67,8 +67,11 @@ const CartPage = () => {
 
   useEffect(() => {
     dispatch(getCartItemsRequest());
-    setCheckedItemIds(cartItemsInServer.filter((item) => item.checked));
   }, [dispatch]);
+
+  useEffect(() => {
+    setCheckedItemIds(cartItemsInServer.filter((item) => item.checked));
+  }, [cartItemsInServer]);
 
   useEffect(() => {
     if (errorMessage) {
