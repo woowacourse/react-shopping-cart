@@ -78,11 +78,12 @@ const extraReducers = (builder: ActionReducerMapBuilder<CartState>) => {
   builder.addCase(
     thunkFetchCartItems.fulfilled,
     (state, { payload }: PayloadAction<CartItemOnServer[]>) => {
-      state.items = payload.map((cartItemOnServer) => ({
-        ...cartItemOnServer,
-        quantity: 1,
-        checked: true,
-      }));
+      payload.forEach((cartItemOnServer) => {
+        if (state.items.find((item) => item.cart_id === cartItemOnServer.cart_id)) return;
+
+        state.items.push({ ...cartItemOnServer, quantity: 1, checked: true });
+      });
+
       state.isLoading = false;
     }
   );

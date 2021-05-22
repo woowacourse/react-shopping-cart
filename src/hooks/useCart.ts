@@ -43,14 +43,11 @@ const useCart = () => {
   };
 
   const addItem = (product: Product) => {
-    // TODO: 이미 카드에 담긴 거 처리하는 로직
+    const cartItem = cartItems.find((CartItem) => CartItem.name === product.name);
 
-    // const CartItem = CartItems.find((CartItem) => CartItem.cart_id === item.product_id);
-
-    // CartItem
-    //   // ? dispatch(thunkChangeItemQuantity(CartItem, CartItem.quantity + 1))
-    //   :
-    dispatch(thunkAddItemToCart({ userName: userName, product }));
+    cartItem
+      ? dispatch(cartAction.changeItemQuantity({ cartItem, quantity: cartItem.quantity + 1 }))
+      : dispatch(thunkAddItemToCart({ userName: userName, product }));
   };
 
   const deleteItem = (cartId: CartId) => {
