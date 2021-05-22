@@ -2,21 +2,21 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   max-height: 360px;
-  width: 280px;
+  width: 28rem;
   margin-bottom: 50px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
-  width: 28rem;
-  height: 28rem;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   cursor: pointer;
 
   &:after {
     content: '';
-    width: 28rem;
-    height: 28rem;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 28rem;
+  width: 100%;
   height: 28rem;
   object-fit: contain;
 `;

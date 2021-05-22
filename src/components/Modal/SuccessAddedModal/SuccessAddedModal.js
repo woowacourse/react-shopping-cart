@@ -30,7 +30,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
       <RecommendedContainer>
         <RecommendedTitle>이달의 상품 TOP 3</RecommendedTitle>
         <RecommendedList>
-          {productList.slice(0, 3).map(({ id, img, name, price }) => (
+          {productList.slice(0, 3).map(({ product_id: id, image_url: img, name, price }) => (
             <ColumnProductItem
               key={id}
               imgSrc={img}

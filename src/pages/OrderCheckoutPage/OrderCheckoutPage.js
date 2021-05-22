@@ -7,7 +7,7 @@ import {
   CheckoutListTitle,
   PaymentInfoBoxContainer,
 } from './OrderCheckoutPage.styles';
-import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
+import { CONFIRM_MESSAGE, ROUTE } from '../../constants';
 import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
@@ -20,23 +20,21 @@ const OrderCheckoutPage = () => {
   const dispatch = useDispatch();
 
   const checkedItemList = location.state?.checkedItemList;
-  const checkedIdList = checkedItemList.map(item => item.id);
+  const checkedIdList = checkedItemList.map(item => item.product_id);
   const expectedPrice = checkedItemList.reduce((acc, item) => {
     const { price, amount } = item;
 
     return acc + price * amount;
   }, 0);
 
-  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
+  const { postData: createOrder } = useServerAPI([], 'orders');
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
     dispatch(deleteCheckedShoppingCartItemAsync(checkedIdList));
 
-    const content = {
-      orderedProductList: checkedItemList.map(({ id, amount }) => ({ id, amount })),
-    };
+    const content = checkedItemList.map(item => ({ cart_id: item.cart_id, quantity: item.amount }));
 
     createOrder(content);
 
@@ -54,7 +52,7 @@ const OrderCheckoutPage = () => {
           <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList.map(({ id, img, name, amount }) => (
+            {checkedItemList.map(({ product_id: id, image_url: img, name, amount }) => (
               <RowProductItem key={id} imgSrc={img} name={name} amount={amount} />
             ))}
           </CheckoutList>

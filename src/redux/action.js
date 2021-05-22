@@ -1,40 +1,39 @@
 import { requestTable } from '../api/request';
-import { CUSTOMER_ID, SCHEMA } from '../constants';
+import { SCHEMA } from '../constants';
 import {
   ADD_SHOPPING_CART_ITEM,
   DELETE_SHOPPING_CART_ITEM,
   DELETE_SHOPPING_CART_ITEMS,
   GET_MY_SHOPPING_CART,
+  INCREASE_AMOUNT,
+  DECREASE_AMOUNT,
 } from './actionType';
 
-const addShoppingCartItemAsync = newProductId => async (dispatch, getState) => {
-  const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
-
+const addShoppingCartItemAsync = newContent => async (dispatch, getState) => {
   try {
-    const newContent = { productIdList: [...new Set([...productIdList, newProductId])] };
+    const currentProductIds = getState().myShoppingCartReducer.myShoppingCart.map(item => item.product_id);
 
-    await requestTable.PUT(SCHEMA.SHOPPING_CART, id, newContent);
+    if (currentProductIds.includes(newContent.product_id)) return;
+
+    const newCartId = await requestTable.POST('carts', newContent);
+    const newItem = await requestTable.GET('products', newContent.product_id);
 
     dispatch({
       type: ADD_SHOPPING_CART_ITEM,
-      newProductId,
+      newItem: { cart_id: newCartId, ...newItem },
     });
   } catch (error) {
     console.error(error);
   }
 };
 
-const deleteShoppingCartItemAsync = targetId => async (dispatch, getState) => {
-  const { id, productIdList } = getState().myShoppingCartReducer.myShoppingCart;
-
+const deleteShoppingCartItemAsync = targetCartId => async dispatch => {
   try {
-    const newContent = { productIdList: productIdList.filter(productId => productId !== targetId) };
-
-    await requestTable.PUT(SCHEMA.SHOPPING_CART, id, newContent);
+    await requestTable.DELETE('carts', targetCartId);
 
     dispatch({
       type: DELETE_SHOPPING_CART_ITEM,
-      targetId,
+      targetCartId,
     });
   } catch (error) {
     console.error(error);
@@ -61,15 +60,29 @@ const deleteCheckedShoppingCartItemAsync = checkedIdList => async (dispatch, get
 
 const getMyShoppingCartAsync = () => async dispatch => {
   try {
-    const shoppingCartList = await requestTable.GET(SCHEMA.SHOPPING_CART);
+    const shoppingCartList = await requestTable.GET('carts');
 
     dispatch({
       type: GET_MY_SHOPPING_CART,
-      myShoppingCart: shoppingCartList[CUSTOMER_ID],
+      myShoppingCart: shoppingCartList,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
+};
+
+const increaseAmount = targetId => dispatch => {
+  dispatch({
+    type: INCREASE_AMOUNT,
+    targetId,
+  });
+};
+
+const decreaseAmount = targetId => dispatch => {
+  dispatch({
+    type: DECREASE_AMOUNT,
+    targetId,
+  });
 };
 
 export {
@@ -77,4 +90,6 @@ export {
   deleteShoppingCartItemAsync,
   deleteCheckedShoppingCartItemAsync,
   getMyShoppingCartAsync,
+  increaseAmount,
+  decreaseAmount,
 };

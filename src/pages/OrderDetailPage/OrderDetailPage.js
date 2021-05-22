@@ -6,14 +6,13 @@ import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } fro
 import { OrderItemContainer } from '../OrderListPage/OrderListPage.styles';
 import { addShoppingCartItemAsync } from '../../redux/action';
 import { useModal, useServerAPI } from '../../hooks';
-import { SCHEMA } from '../../constants';
 
 const OrderDetailPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { id: orderId } = useParams();
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: productList } = useServerAPI([], 'products');
   const { getData: getOrderDetail } = useServerAPI([], 'orders');
 
   const { setModalOpen, Modal } = useModal(false);
@@ -21,7 +20,7 @@ const OrderDetailPage = () => {
   const [order, setOrder] = useState({});
 
   const putProductInShoppingCart = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };

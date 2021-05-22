@@ -19,6 +19,9 @@ const requestTable = {
     try {
       const requestOption = {
         method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
       };
 
       const response = await fetch(`${fetchUrl[type]}${targetId ? '/' + targetId : ''}`, requestOption);
@@ -32,9 +35,46 @@ const requestTable = {
       console.error(await response);
     }
   },
-  POST: async (ref, content) => collection[ref].add(content),
-  PUT: async (ref, targetId, content) => collection[ref].doc(targetId).update(content),
-  DELETE: async (ref, targetId) => collection[ref].doc(targetId).delete(),
+  POST: async (type, content) => {
+    try {
+      const requestOption = {
+        method: 'POST',
+        body: JSON.stringify(content),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      };
+
+      const response = await fetch(`${fetchUrl[type]}`, requestOption);
+
+      if (!response.ok) {
+        throw response;
+      }
+
+      return Number(response.headers.get('Location').split('/')[7]);
+    } catch (response) {
+      console.error(await response);
+    }
+  },
+  PUT: async (ref, content, targetId) => {
+    collection[ref].doc(targetId).update(content);
+  },
+  DELETE: async (type, targetId) => {
+    try {
+      const requestOption = {
+        method: 'DELETE',
+      };
+
+      const response = await fetch(`${fetchUrl[type]}${targetId ? '/' + targetId : ''}`, requestOption);
+
+      if (!response.ok) {
+        throw response;
+      }
+      console.log(response);
+    } catch (response) {
+      console.error(await response);
+    }
+  },
 };
 
 export { requestTable };

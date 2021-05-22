@@ -17,7 +17,7 @@ export default (defaultValue, type) => {
   const getData = async targetId => {
     try {
       const data = await requestTable.GET(type, targetId);
-      console.log('a', data);
+
       return data;
     } catch (error) {
       console.error(error);
@@ -44,17 +44,7 @@ export default (defaultValue, type) => {
 
   const postData = async content => {
     try {
-      const newDataId = await requestTable.POST(type, content);
-
-      setValue(prevState => {
-        const newState = [...prevState];
-        newState.push({
-          id: newDataId,
-          ...content,
-        });
-
-        return newState;
-      });
+      await requestTable.POST(type, content);
     } catch (error) {
       console.error(error);
     }

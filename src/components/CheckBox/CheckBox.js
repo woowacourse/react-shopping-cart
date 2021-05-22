@@ -10,7 +10,7 @@ const CheckBox = ({ id, size, onClick, onChange, isChecked }) => (
 );
 
 CheckBox.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   size: PropTypes.string,
   onClick: PropTypes.func,
   onChange: PropTypes.func,

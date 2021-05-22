@@ -18,7 +18,7 @@ const OrderListPage = () => {
   const { Modal, setModalOpen } = useModal(false);
 
   const onClickShoppingCartButton = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };

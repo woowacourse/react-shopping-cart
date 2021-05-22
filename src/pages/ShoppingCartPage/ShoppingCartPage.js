@@ -14,45 +14,32 @@ import {
   DeleteButton,
   ShoppingCartItemNotFoundImg,
 } from './ShoppingCartPage.styles';
-import { ROUTE, AMOUNT_COUNT, SCHEMA, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import { deleteCheckedShoppingCartItemAsync, deleteShoppingCartItemAsync } from '../../redux/action';
+import { ROUTE, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
+import { deleteShoppingCartItemAsync, increaseAmount, decreaseAmount } from '../../redux/action';
 import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import useServerAPI from '../../hooks/useServerAPI';
 import shoppingCartItemNotFoundImg from '../../shared/assets/img/tung.png';
-
-const TrashCanIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-    <path
-      d="M8.4 10L8.4 17M13.4 10V17M4.88636 4V2.68775C4.88636 2.24685 5.0589 1.82345 5.36706 1.50813C5.68461 1.18318 6.11977 1 6.57412 1H14.9259C15.3802 1 15.8154 1.18318 16.1329 1.50813C16.4411 1.82345 16.6136 2.24685 16.6136 2.68775V4M21.5 4.9H0M2.5 7V18.5451C2.5 19.1593 2.73024 19.7512 3.14527 20.2039C3.61025 20.7112 4.26679 21 4.95493 21H16.5451C17.2332 21 17.8897 20.7112 18.3547 20.2039C18.7698 19.7512 19 19.1593 19 18.5451V7"
-      stroke="#BBBBBB"
-      strokeWidth="1.8"
-    />
-  </svg>
-);
+import TrashCanIcon from '../../shared/assets/img/trash_can_icon.svg';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
-
-  const { myShoppingCartProductIds } = useSelector(state => ({
-    myShoppingCartProductIds: state.myShoppingCartReducer.myShoppingCart.productIdList,
+  const { shoppingCartItemList } = useSelector(state => ({
+    shoppingCartItemList: state.myShoppingCartReducer.myShoppingCart,
   }));
 
-  const [checkedIdList, setCheckedIdList] = useState(myShoppingCartProductIds);
+  const [checkedItemList, setCheckedItemList] = useState([]);
   const [isAllChecked, setAllChecked] = useState(true);
-  const [shoppingCartItemList, setShoppingCartItemList] = useState([]);
   const [expectedPrice, setExpectedPrice] = useState(0);
 
   const onClickAllCheckBox = () => {
     if (isAllChecked) {
-      setCheckedIdList([]);
+      setCheckedItemList([]);
     } else {
-      setCheckedIdList(myShoppingCartProductIds);
+      setCheckedItemList(shoppingCartItemList);
     }
 
     setAllChecked(!isAllChecked);
@@ -60,70 +47,72 @@ const ShoppingCartPage = () => {
 
   const onClickCheckBox = event => {
     const { target } = event;
+    const targetItem = shoppingCartItemList.find(({ product_id: productId }) => productId === Number(target.id));
 
     if (target.checked) {
-      setCheckedIdList(prevState => [...prevState, target.id]);
+      setCheckedItemList(prevState => [...prevState, targetItem]);
     } else {
-      setCheckedIdList(prevState => prevState.filter(productId => productId !== target.id));
+      setCheckedItemList(prevState => prevState.filter(item => item !== targetItem));
     }
   };
 
   const deleteCheckedShoppingCartItem = () => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    dispatch(deleteCheckedShoppingCartItemAsync(checkedIdList));
+    checkedItemList.forEach(({ cart_id: targetCartId }) => dispatch(deleteShoppingCartItemAsync(targetCartId)));
   };
 
-  const deleteShoppingCartItem = targetId => {
+  const deleteShoppingCartItem = targetCartId => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    dispatch(deleteShoppingCartItemAsync(targetId));
+    dispatch(deleteShoppingCartItemAsync(targetCartId));
   };
 
-  const onClickPaymentButton = () => {
+  const createCheckoutList = () => {
     if (!window.confirm(CONFIRM_MESSAGE.CHECKOUT)) return;
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
       state: {
-        checkedItemList: shoppingCartItemList.filter(({ id }) => checkedIdList.includes(id)),
+        // checkedItemList: shoppingCartItemList.filter(({ product_id: id }) => checkedItemList.includes(id)),
+        checkedItemList,
       },
     });
   };
 
   const onClickAmountCounter = (productId, flag) => {
-    const newState = [...shoppingCartItemList];
-    const targetProduct = newState.find(({ id }) => id === productId);
-
     if (flag === AMOUNT_COUNTER_FLAG.UP) {
-      targetProduct.amount += targetProduct.amount < AMOUNT_COUNT.MAX ? 1 : 0;
-    } else if (flag === AMOUNT_COUNTER_FLAG.DOWN) {
-      targetProduct.amount -= targetProduct.amount > AMOUNT_COUNT.MIN ? 1 : 0;
+      dispatch(increaseAmount(productId));
+      return;
     }
-
-    setShoppingCartItemList(newState);
+    if (flag === AMOUNT_COUNTER_FLAG.DOWN) {
+      dispatch(decreaseAmount(productId));
+    }
   };
 
   useEffect(() => {
-    setShoppingCartItemList(
-      productList.filter(({ id }) => myShoppingCartProductIds.includes(id)).map(product => ({ ...product, amount: 1 }))
-    );
-    setCheckedIdList(myShoppingCartProductIds);
-  }, [productList, myShoppingCartProductIds]);
+    setCheckedItemList(shoppingCartItemList);
+  }, [shoppingCartItemList]);
 
   useEffect(() => {
     if (!shoppingCartItemList.length) return;
 
-    setAllChecked(checkedIdList.length === myShoppingCartProductIds.length);
+    setAllChecked(checkedItemList.length === shoppingCartItemList.length);
 
-    const newExpectedPrice = checkedIdList.reduce((acc, checkedId) => {
-      const { price, amount } = shoppingCartItemList.find(({ id }) => id === checkedId);
+    const newExpectedPrice = checkedItemList.reduce((acc, checkedItem) => {
+      const item = shoppingCartItemList.find(({ product_id: id }) => id === checkedItem.product_id);
 
-      return acc + price * amount;
+      if (item) {
+        const { price, amount } = item;
+
+        return acc + price * amount;
+      }
+
+      return acc;
     }, 0);
 
     setExpectedPrice(newExpectedPrice);
-  }, [checkedIdList, shoppingCartItemList]);
+  }, [checkedItemList, shoppingCartItemList]);
 
   return (
     <ScreenContainer route={location.pathname}>
@@ -134,17 +123,18 @@ const ShoppingCartPage = () => {
           <OptionContainer>
             <CheckBox id="all-check" onClick={onClickAllCheckBox} isChecked={isAllChecked} />
             <span>모두선택</span>
-            <DeleteButton onClick={deleteCheckedShoppingCartItem} disabled={!checkedIdList.length}>
+            <DeleteButton onClick={deleteCheckedShoppingCartItem} disabled={!checkedItemList.length}>
               상품삭제
             </DeleteButton>
           </OptionContainer>
 
           <ShoppingCartListTitle>{`장바구니 상품 (${shoppingCartItemList.length}개)`}</ShoppingCartListTitle>
 
-          {myShoppingCartProductIds.length ? (
+          {shoppingCartItemList.length ? (
             <ShoppingCartList>
-              {shoppingCartItemList.map(({ id, img, name, price, amount }) => {
-                const isChecked = checkedIdList.includes(id);
+              {shoppingCartItemList.map(shoppingCartItem => {
+                const isChecked = checkedItemList.includes(shoppingCartItem);
+                const { cart_id: cartId, product_id: id, image_url: img, name, price, amount } = shoppingCartItem;
 
                 return (
                   <ShoppingCartItemContainer key={id}>
@@ -154,8 +144,8 @@ const ShoppingCartPage = () => {
                     </ShoppingCartItem>
 
                     <ShoppingCartItemOption>
-                      <button type="button" onClick={() => deleteShoppingCartItem(id)}>
-                        {TrashCanIcon}
+                      <button type="button" onClick={() => deleteShoppingCartItem(cartId)}>
+                        <img src={TrashCanIcon} alt="trash-can-icon" />
                       </button>
                       <AmountCounter
                         value={amount}
@@ -178,9 +168,9 @@ const ShoppingCartPage = () => {
             title="결제예상금액"
             detailText="결제예상금액"
             price={expectedPrice}
-            buttonText={`주문하기(${checkedIdList.length}개)`}
-            onClick={onClickPaymentButton}
-            isDisable={!checkedIdList.length}
+            buttonText={`주문하기(${checkedItemList.length}개)`}
+            onClick={createCheckoutList}
+            isDisable={!checkedItemList.length}
           />
         </PaymentInfoBoxContainer>
       </Container>

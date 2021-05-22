@@ -15,8 +15,8 @@ const ProductListPage = () => {
   const { setModalOpen, Modal } = useModal(false);
   const { value: productList } = useServerAPI([], 'products');
 
-  const onClickShoppingCartIcon = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+  const addShoppingCartItem = productId => {
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };
@@ -36,7 +36,7 @@ const ProductListPage = () => {
             imgSrc={imageUrl}
             name={name}
             price={`${price}`}
-            onClickShoppingCartIcon={() => onClickShoppingCartIcon(productId)}
+            onClickShoppingCartIcon={() => addShoppingCartItem(productId)}
             onClickImage={() => goProductDetail(productId)}
           />
         ))}

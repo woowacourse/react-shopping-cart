@@ -7,7 +7,6 @@ import { numberWithCommas } from '../../shared/utils';
 import { useModal, useServerAPI } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/action';
 import { SuccessAddedModal } from '../../components';
-import { SCHEMA } from '../../constants';
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -16,13 +15,13 @@ const ProductDetailPage = () => {
 
   const { setModalOpen, Modal } = useModal(false);
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const { value: productList } = useServerAPI([], 'products');
   const { getData: getProductDetail } = useServerAPI([], 'products');
 
   const [product, setProduct] = useState({});
 
   const putProductInShoppingCart = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };
