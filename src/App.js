@@ -37,13 +37,27 @@ const App = () => {
       <Navigation />
       <StyledContents>
         <Switch>
-          <Route exact path={PATH.HOME} component={Home} />
-          <Route exact path={PATH.PRODUCT_LIST} component={ProductList} />
-          <Route exact path={`${PATH.PRODUCT_LIST}/:id`} component={ProductDetail} />
-          <Route exact path={PATH.SHOPPING_CART} component={ShoppingCart} />
-          <Route exact path={PATH.ORDER_PAYMENT} component={OrderPayment} />
-          <Route exact path={PATH.ORDER_LIST} component={OrderList} />
-          <Route exact path={`${PATH.ORDER_LIST}/:id`} component={OrderListDetail} />
+          <Route exact path={PATH.HOME}>
+            <Home />
+          </Route>
+          <Route exact path={PATH.PRODUCT_LIST}>
+            <ProductList />
+          </Route>
+          <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
+            <ProductDetail />
+          </Route>
+          <Route exact path={PATH.SHOPPING_CART}>
+            <ShoppingCart />
+          </Route>
+          <Route exact path={PATH.ORDER_PAYMENT}>
+            <OrderPayment />
+          </Route>
+          <Route exact path={PATH.ORDER_LIST}>
+            <OrderList />
+          </Route>
+          <Route exact path={`${PATH.ORDER_LIST}/:id`}>
+            <OrderListDetail />
+          </Route>
         </Switch>
       </StyledContents>
     </>
