@@ -12,7 +12,7 @@ import {
 } from './style';
 
 const ProductCard: VFC<Product> = (product) => {
-  const { name, price, image } = product;
+  const { name, price, image_url } = product;
   const { addItem } = useCart();
 
   const onClickAddCart = () => {
@@ -22,7 +22,7 @@ const ProductCard: VFC<Product> = (product) => {
   };
 
   return (
-    <StyledProductCard type="vertical" image={image}>
+    <StyledProductCard type="vertical" image={image_url}>
       <ContentContainer>
         <ProductTextContainer>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>

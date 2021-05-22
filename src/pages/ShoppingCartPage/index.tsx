@@ -1,16 +1,15 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import Template from '../../components/shared/Template';
-import useFetchCartRedux from '../../hooks/useCart';
+import useCart from '../../hooks/useCart';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
-import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
 
 const TITLE = '장바구니';
 
 const ShoppingCartPage: VFC = () => {
-  const { fetchCartItems, CartItems: items } = useFetchCartRedux();
+  const { fetchCartItems, CartItems: items } = useCart();
   const history = useHistory();
 
   useEffect(() => {
@@ -23,15 +22,10 @@ const ShoppingCartPage: VFC = () => {
   );
 
   const onSubmitCartItems = async (event: FormEvent<HTMLFormElement>) => {
+    const checkedItems = items.filter((item) => item.checked).length;
     event.preventDefault();
 
-    try {
-      await requestRegisterOrderConfirmItems(items.filter(({ checked }) => checked));
-    } catch (error) {
-      throw error;
-    }
-
-    if (!history) return;
+    if (!checkedItems) return;
 
     history.push('/orderConfirm');
   };

@@ -42,7 +42,7 @@
 ### General
 
 - [ ] React Testing Library TDD
-- [ ] 제공 받은 API로 endpoint와 schema 변경
+- [x] 제공 받은 API로 endpoint와 schema 변경
 
 ### 상품 목록
 

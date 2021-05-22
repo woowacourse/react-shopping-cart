@@ -9,7 +9,7 @@ interface Props {
 const OrderItemListSections: VFC<Props> = ({ orders }) => (
   <>
     {orders.map((order) => (
-      <OrderItemListSection key={order.id} order={order} />
+      <OrderItemListSection key={order.order_id} order={order} />
     ))}
   </>
 );

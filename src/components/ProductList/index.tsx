@@ -11,7 +11,7 @@ const ProductList: VFC<Props> = ({ products }) => {
   return (
     <ProductListContainer>
       {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.product_id} {...product} />
       ))}
     </ProductListContainer>
   );

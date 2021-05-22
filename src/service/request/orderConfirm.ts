@@ -6,7 +6,7 @@ export const requestOrderConfirmItems = (): Promise<CartItem[]> => APIClient.get
 export const requestClearOrderConfirmItems = async () => {
   const items = await requestOrderConfirmItems();
 
-  return Promise.all(items.map((item) => APIClient.delete(`/orderConfirm/${item.id}`)));
+  // return Promise.all(items.map((item) => APIClient.delete(`/orderConfirm/${item.product_id}`)));
 };
 
 export const requestRegisterOrderConfirmItems = async (items: CartItem[]) => {

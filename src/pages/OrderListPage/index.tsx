@@ -7,7 +7,7 @@ import { requestOrders } from '../../service/request/order';
 import { Order } from '../../types';
 
 const OrderListPage: VFC = () => {
-  const orders = useFetch(requestOrders);
+  const orders = useFetch(() => requestOrders('jho2301'));
 
   return (
     <Template title="주문 목록">

@@ -9,13 +9,14 @@ interface CardContainerProps {
 
 const verticalTypeStyle = css<CardContainerProps>`
   flex-direction: column;
-  width: ${({ width }) => width};
-  height: ${({ height }) => height};
 
   & > img {
     width: 100%;
-    height: ${({ width }) => width};
+    height: 100%;
     margin-bottom: 1.25rem;
+    max-width: 100%;
+    object-fit: contain;
+    overflow: hidden;
   }
 `;
 
@@ -27,6 +28,7 @@ const horizontalTypeStyle = css<CardContainerProps>`
   & > img {
     height: 100%;
     width: ${({ height }) => height};
+    max-height: ${({ height }) => height};
     margin-right: 1.25rem;
   }
 `;

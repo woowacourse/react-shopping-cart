@@ -1,15 +1,15 @@
-import { CartItem } from '../../types';
-import { createCartItem } from '../../utils/cart';
+import { Reducer } from 'react';
+import { CartItem, CartItemOnServer } from '../../types';
 import {
   ADD_ITEM,
   CartAction,
   GET_CART_ITEMS_SUCCESS,
   ADD_CART_ITEM_SUCCESS,
-  CHANGE_ITEM_QUANTITY_SUCCESS,
+  CHANGE_ITEM_QUANTITY,
   DELETE_CART_ITEM_SUCCESS,
-  CHANGE_CART_ITEM_CHECKED_SUCCESS,
-  CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS,
-  DELETE_CHECKED_CART_ITEM_SUCCESS,
+  CHANGE_ITEM_CHECKED,
+  CHANGE_ALL_ITEM_CHECKED,
+  DELETE_CHECKED_ITEMS_SUCCESS,
   CLEAR_CART_SUCCESS,
   LOADING,
   ERROR,
@@ -27,7 +27,7 @@ const initialState: CartState = {
   error: null,
 };
 
-const cartReducer = (state: CartState = initialState, action: CartAction) => {
+const cartReducer = (state: CartState = initialState, action: CartAction): CartState => {
   switch (action.type) {
     case LOADING:
       return {
@@ -44,13 +44,19 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
     case ADD_ITEM:
       return {
         ...state,
-        items: [...state.items, createCartItem(action.payload)],
+        // items: [...state.items, createCartItem(action.payload)],
       };
 
     case GET_CART_ITEMS_SUCCESS:
       return {
         ...state,
-        items: [...action.payload],
+        items: [
+          ...action.payload.map((item: CartItemOnServer) => ({
+            ...item,
+            quantity: 1,
+            checked: true,
+          })),
+        ],
         isLoading: false,
       };
 
@@ -61,21 +67,23 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
         isLoading: false,
       };
 
-    case CHANGE_ITEM_QUANTITY_SUCCESS:
+    case CHANGE_ITEM_QUANTITY:
       return {
         ...state,
-        items: state.items.map((item) => (item.id === action.payload.id ? action.payload : item)),
-        isLoading: false,
+        items: state.items.map((item) =>
+          item.cart_id === action.payload.cart_id ? action.payload : item
+        ),
       };
 
-    case CHANGE_CART_ITEM_CHECKED_SUCCESS:
+    case CHANGE_ITEM_CHECKED:
       return {
         ...state,
-        items: state.items.map((item) => (item.id === action.payload.id ? action.payload : item)),
-        isLoading: false,
+        items: state.items.map((item) =>
+          item.cart_id === action.payload ? { ...item, checked: !item.checked } : item
+        ),
       };
 
-    case CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS:
+    case CHANGE_ALL_ITEM_CHECKED:
       return {
         ...state,
         items: state.items.map((item) => ({ ...item, checked: action.payload })),
@@ -85,11 +93,11 @@ const cartReducer = (state: CartState = initialState, action: CartAction) => {
     case DELETE_CART_ITEM_SUCCESS:
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
+        items: state.items.filter((item) => item.cart_id !== action.payload),
         isLoading: false,
       };
 
-    case DELETE_CHECKED_CART_ITEM_SUCCESS:
+    case DELETE_CHECKED_ITEMS_SUCCESS:
       return {
         ...state,
         items: state.items.filter((item) => !item.checked),

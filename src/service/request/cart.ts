@@ -1,32 +1,23 @@
 import APIClient from '../../API';
-import { CartItem } from '../../types';
+import { CartId, CartItem, CartItemOnServer, ProductId } from '../../types';
 
-export const requestShoppingCartItemList = (): Promise<CartItem[]> => APIClient.get('/cart');
+export const requestCartItemList = (userName: string): Promise<CartItemOnServer[]> =>
+  APIClient.get(`/customers/${userName}/carts`);
 
-export const requestAddShoppingCartItem = (item: CartItem) =>
-  APIClient.post<CartItem>('/cart', item);
+export const requestAddCartItem = (userName: string, productId: ProductId) =>
+  APIClient.post(`/customers/${userName}/carts`, { product_id: productId });
 
-export const requestChangeShoppingCartItem = (item: CartItem) =>
-  APIClient.put<CartItem>(`/cart/${item.id}`, item);
+export const requestDeleteCartItem = (userName: string, cartId: CartId) =>
+  APIClient.delete(`/customers/${userName}/carts/${cartId.toString()}`);
 
-export const requestDeleteShoppingCartItem = (itemId: string) =>
-  APIClient.delete(`/cart/${itemId}`);
+export const requestDeleteCartItems = (userName: string, cartIds: CartId[]) =>
+  Promise.all(cartIds.map((cartId) => requestDeleteCartItem(userName, cartId)));
 
-export const requestChangeShoppingCartItemChecked = (item: CartItem) =>
-  APIClient.put<CartItem>(`/cart/${item.id}`, item);
-
-export const requestChangeAllShoppingCartItemChecked = (items: CartItem[], checked: boolean) => {
-  Promise.all(
-    items.map((item) => APIClient.put<CartItem>(`/cart/${item.id}`, { ...item, checked }))
-  );
-};
-
-export const requestDeleteShoppingCartItems = (items: CartItem[]) => {
-  Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
-};
+export const requestChangeCartItem = (item: CartItem) =>
+  APIClient.put<CartItem>(`/cart/${item.cart_id}`, item);
 
 export const requestClearShoppingCartItems = async () => {
-  const items = await requestShoppingCartItemList();
+  const items = await requestCartItemList('fano');
 
-  return Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
+  return Promise.all(items.map((item) => APIClient.delete(`/cart/${item.cart_id}`)));
 };

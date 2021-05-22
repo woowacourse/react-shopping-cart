@@ -17,10 +17,8 @@ const APIClient = {
     return response.json();
   },
 
-  async post<T>(path: string, data: T) {
-    const response = await fetch(API_BASE_URL + path, fetchOption('POST', data));
-
-    return response.json();
+  post<T>(path: string, data: T) {
+    return fetch(API_BASE_URL + path, fetchOption('POST', data));
   },
 
   async put<T>(path: string, data: T) {

@@ -5,8 +5,7 @@ import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerCon
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import Template from '../../components/shared/Template';
-import useFetch from '../../hooks/useFetch';
-import useFetchCartRedux from '../../hooks/useCart';
+import useCart from '../../hooks/useCart';
 import { requestOrderItems } from '../../service/request/order';
 import {
   requestClearOrderConfirmItems,
@@ -19,9 +18,8 @@ const TITLE = '주문/결제';
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: VFC<Props> = ({ history }) => {
-  const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { clearCart } = useFetchCartRedux();
+  const { CartItems: items, isLoading } = useCart();
 
   useEffect(() => {
     if (!items) return;
@@ -33,9 +31,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
 
   const order = async () => {
     try {
-      await requestOrderItems(items as CartItem[]);
-      await requestClearOrderConfirmItems();
-      clearCart();
+      await requestOrderItems('jho2301', items as CartItem[]);
     } catch (error) {
       throw error;
     }

@@ -7,13 +7,15 @@ interface Props {
   item: CartItem;
 }
 
-const OrderConfirmListItem: VFC<Props> = ({ item: { image, name, quantity } }) => (
-  <OrderItemCard type="horizontal" image={image}>
-    <Container data-testid="order-confirm-list-item">
-      <ProductName>{name}</ProductName>
-      <p>수량: {quantity}</p>
-    </Container>
-  </OrderItemCard>
-);
+const OrderConfirmListItem: VFC<Props> = ({ item: { image_url, name, quantity } }) => {
+  return (
+    <OrderItemCard type="horizontal" image={image_url}>
+      <Container data-testid="order-confirm-list-item">
+        <ProductName>{name}</ProductName>
+        <p>수량: {quantity}</p>
+      </Container>
+    </OrderItemCard>
+  );
+};
 
 export default OrderConfirmListItem;
