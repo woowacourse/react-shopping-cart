@@ -2,15 +2,17 @@ import { useEffect } from 'react';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
 import {
-  thunkAddItemToCart,
-  thunkGetCartItems,
-  thunkDeleteCartItem,
-  changeItemChecked,
   changeAllItemChecked,
-  thunkDeleteCheckedItems,
-  thunkClearCart,
-  changeCartItemQuantity,
-} from '../states/actions/cart';
+  changeItemChecked,
+  changeItemQuantity,
+} from '../states/slices/cart/slice';
+
+import {
+  thunkFetchCartItems,
+  thunkAddItemToCart,
+  thunkDeleteCartItem,
+  thunkDeleteCartItems,
+} from '../states/slices/cart/thunk';
 import { useAppDispatch, useAppSelector } from '../states/store';
 import { CartId, CartItem, Product } from '../types';
 
@@ -29,30 +31,28 @@ const useCart = () => {
   }, [hasError]);
 
   const fetchCartItems = () => {
-    try {
-      dispatch(thunkGetCartItems('jho2301'));
-    } catch (error) {
-      throw new Error(NETWORK_ERROR);
-    }
+    dispatch(thunkFetchCartItems('jho2301'));
   };
 
-  const addItem = (item: Product) => {
+  const addItem = (product: Product) => {
+    // TODO: 이미 카드에 담긴 거 처리하는 로직
+
     // const CartItem = CartItems.find((CartItem) => CartItem.cart_id === item.product_id);
 
     // CartItem
     //   // ? dispatch(thunkChangeItemQuantity(CartItem, CartItem.quantity + 1))
     //   :
-    dispatch(thunkAddItemToCart('jho2301', item));
+    dispatch(thunkAddItemToCart({ userName: 'jho2301', product }));
   };
 
   const deleteItem = (cartId: CartId) => {
-    dispatch(thunkDeleteCartItem('jho2301', cartId));
+    dispatch(thunkDeleteCartItem({ userName: 'jho2301', cartId }));
   };
 
-  const changeQuantity = (item: CartItem, quantity: number) => {
+  const changeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity < CART_ITEM_MIN_QUANTITY) return;
 
-    dispatch(changeCartItemQuantity(item, quantity));
+    dispatch(changeItemQuantity({ cartItem, quantity }));
   };
 
   const changeChecked = (cartId: CartId) => {
@@ -64,11 +64,7 @@ const useCart = () => {
   };
 
   const deleteCheckedItems = (items: CartItem[]) => {
-    dispatch(thunkDeleteCheckedItems('jho2301', items));
-  };
-
-  const clearCart = () => {
-    dispatch(thunkClearCart());
+    dispatch(thunkDeleteCartItems({ userName: 'jho2301', items }));
   };
 
   return {
@@ -79,7 +75,6 @@ const useCart = () => {
     deleteCheckedItems,
     changeChecked,
     changeAllChecked,
-    clearCart,
     CartItems,
     isLoading,
   };

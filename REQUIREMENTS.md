@@ -41,8 +41,9 @@
 
 ### General
 
-- [ ] React Testing Library TDD
+- React Testing Library TDD
 - [x] 제공 받은 API로 endpoint와 schema 변경
+- [ ] Redux Toolkit 적용
 
 ### 상품 목록
 
@@ -57,6 +58,7 @@
 ### 장바구니
 
 - [ ] 상품을 클릭하면 해당 상품의 상세페이지로 이동한다.
+- [ ] 상품 삭제시, confirm을 받는다.
 
 ### 주문/결제
 
