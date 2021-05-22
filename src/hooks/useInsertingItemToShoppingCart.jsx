@@ -9,8 +9,12 @@ const ADD_FAILURE = 'ADD_FAILURE';
 
 const useInsertingItemToShoppingCart = ({ productId }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
-  const shoppingCartItemList = useSelector((state) => state.shoppingCart.shoppingCartItemList.data);
+  const { data: shoppingCartItemList, error } = useSelector((state) => state.shoppingCart.shoppingCartItemList);
   const dispatch = useDispatch();
+
+  if (error) {
+    throw new Error(error);
+  }
 
   const isExistedInShoppingCart = () =>
     shoppingCartItemList.some((shoppingCartItem) => shoppingCartItem.productId === productId);

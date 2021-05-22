@@ -13,21 +13,13 @@ const ItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const {
-    isLoading,
-    data: orderListItemList,
-    error,
-  } = useFetch({
+  const { isLoading, data: orderListItemList } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
     isInitSetting: true,
   });
 
   if (isLoading) {
     return <Loading />;
-  }
-
-  if (error) {
-    throw new Error(error);
   }
 
   return (

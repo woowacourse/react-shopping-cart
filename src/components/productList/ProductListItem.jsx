@@ -46,20 +46,18 @@ const ProductListItem = ({ id, name, src, price }) => {
 
   return (
     <>
-      <>
-        <ProductImageWrapper onClick={handleRoutingProductDetail}>
-          <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={name} />
-        </ProductImageWrapper>
-        <Content>
-          <li>
-            <Name>{name}</Name>
-            <Price>{price.toLocaleString('ko-KR')} 원</Price>
-          </li>
-          <li>
-            <Image onClick={insertShoppingCart} src={shoppingCartImg} alt="장바구니" />
-          </li>
-        </Content>
-      </>
+      <ProductImageWrapper onClick={handleRoutingProductDetail}>
+        <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={src} alt={name} />
+      </ProductImageWrapper>
+      <Content>
+        <li>
+          <Name>{name}</Name>
+          <Price>{price.toLocaleString('ko-KR')} 원</Price>
+        </li>
+        <li>
+          <Image onClick={insertShoppingCart} src={shoppingCartImg} alt="장바구니" />
+        </li>
+      </Content>
 
       {isDialogOpen && <Dialog />}
     </>

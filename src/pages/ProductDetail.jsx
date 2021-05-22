@@ -43,7 +43,7 @@ const ProductDetail = () => {
     productId: state.id,
   });
 
-  const { isLoading, data, error } = useFetch({
+  const { isLoading, data } = useFetch({
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST + `/${state.id}`),
     isInitSetting: true,
   });
@@ -52,15 +52,11 @@ const ProductDetail = () => {
     return <Loading />;
   }
 
-  if (error) {
-    throw new Error(error);
-  }
-
   return (
     <>
       <Container>
         <TopContent>
-          <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={data.image_url} alt={data.name} />
+          <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={data.imageUrl} alt={data.name} />
           <Title>{data.name}</Title>
         </TopContent>
         <Description>

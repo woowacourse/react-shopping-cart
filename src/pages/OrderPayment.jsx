@@ -24,7 +24,7 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { startFetching, isLoading, error } = useFetch({
+  const { startFetching, isLoading } = useFetch({
     fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
   });
   const { state } = useLocation();
@@ -45,10 +45,6 @@ const OrderPayment = () => {
 
   if (isLoading) {
     return <Loading />;
-  }
-
-  if (error) {
-    throw new Error(error);
   }
 
   return (

@@ -25,6 +25,10 @@ const useFetch = ({ fetchFunc, isInitSetting = false }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (error) {
+    throw new Error(error);
+  }
+
   const startFetching = async (param) => {
     setLoading(true);
 
