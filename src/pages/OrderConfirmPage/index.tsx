@@ -6,11 +6,8 @@ import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderCon
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import Template from '../../components/shared/Template';
 import useCart from '../../hooks/useCart';
+import useLogin from '../../hooks/useLogin';
 import { requestOrderItems } from '../../service/request/order';
-import {
-  requestClearOrderConfirmItems,
-  requestOrderConfirmItems,
-} from '../../service/request/orderConfirm';
 import { CartItem } from '../../types';
 
 const TITLE = '주문/결제';
@@ -20,6 +17,7 @@ interface Props extends RouteComponentProps {}
 const OrderConfirmPage: VFC<Props> = ({ history }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const { CartItems: items, isLoading } = useCart();
+  const { userName } = useLogin();
 
   useEffect(() => {
     if (!items) return;
@@ -31,7 +29,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
 
   const order = async () => {
     try {
-      await requestOrderItems('jho2301', items as CartItem[]);
+      await requestOrderItems(userName, items as CartItem[]);
     } catch (error) {
       throw error;
     }

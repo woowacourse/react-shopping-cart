@@ -43,7 +43,7 @@
 
 - React Testing Library TDD
 - [x] 제공 받은 API로 endpoint와 schema 변경
-- [ ] Redux Toolkit 적용
+- [x] Redux Toolkit 적용
 
 ### 상품 목록
 

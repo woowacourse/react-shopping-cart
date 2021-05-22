@@ -39,6 +39,6 @@ export const cartSlice = createSlice({
   extraReducers,
 });
 
-export const { changeAllItemChecked, changeItemChecked, changeItemQuantity } = cartSlice.actions;
+export const { actions: cartAction } = cartSlice;
 
 export default cartSlice.reducer;

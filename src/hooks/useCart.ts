@@ -1,12 +1,7 @@
 import { useEffect } from 'react';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
-import {
-  changeAllItemChecked,
-  changeItemChecked,
-  changeItemQuantity,
-} from '../states/slices/cart/slice';
-
+import { cartAction } from '../states/slices/cart/slice';
 import {
   thunkFetchCartItems,
   thunkAddItemToCart,
@@ -22,7 +17,13 @@ const useCart = () => {
     CartItems,
     hasError,
     isLoading,
-  ] = useAppSelector(({ cart: { items, error, isLoading } }) => [items, error, isLoading]);
+    userName,
+  ] = useAppSelector(({ cart: { items, error, isLoading }, login: { userName } }) => [
+    items,
+    error,
+    isLoading,
+    userName,
+  ]);
 
   useEffect(() => {
     if (!hasError) return;
@@ -31,7 +32,7 @@ const useCart = () => {
   }, [hasError]);
 
   const fetchCartItems = () => {
-    dispatch(thunkFetchCartItems('jho2301'));
+    dispatch(thunkFetchCartItems(userName));
   };
 
   const addItem = (product: Product) => {
@@ -42,29 +43,29 @@ const useCart = () => {
     // CartItem
     //   // ? dispatch(thunkChangeItemQuantity(CartItem, CartItem.quantity + 1))
     //   :
-    dispatch(thunkAddItemToCart({ userName: 'jho2301', product }));
+    dispatch(thunkAddItemToCart({ userName: userName, product }));
   };
 
   const deleteItem = (cartId: CartId) => {
-    dispatch(thunkDeleteCartItem({ userName: 'jho2301', cartId }));
+    dispatch(thunkDeleteCartItem({ userName: userName, cartId }));
   };
 
   const changeQuantity = (cartItem: CartItem, quantity: number) => {
     if (quantity < CART_ITEM_MIN_QUANTITY) return;
 
-    dispatch(changeItemQuantity({ cartItem, quantity }));
+    dispatch(cartAction.changeItemQuantity({ cartItem, quantity }));
   };
 
   const changeChecked = (cartId: CartId) => {
-    dispatch(changeItemChecked(cartId));
+    dispatch(cartAction.changeItemChecked(cartId));
   };
 
   const changeAllChecked = (checked: boolean) => {
-    dispatch(changeAllItemChecked(checked));
+    dispatch(cartAction.changeAllItemChecked(checked));
   };
 
   const deleteCheckedItems = (items: CartItem[]) => {
-    dispatch(thunkDeleteCartItems({ userName: 'jho2301', items }));
+    dispatch(thunkDeleteCartItems({ userName: userName, items }));
   };
 
   return {
