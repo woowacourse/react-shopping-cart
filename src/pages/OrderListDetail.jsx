@@ -4,9 +4,10 @@ import { useLocation } from 'react-router';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
 import useFetch from '../hooks/useFetch';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { requestGetItemList } from '../request/request';
-import { Loading, OrderListItemList, OrderListPaymentAmount, PageTitle } from '../components';
 import { getTotalPrice } from '../utils/totalPrice';
+import { Loading, OrderListItemList, OrderListPaymentAmount, PageTitle } from '../components';
 
 const OrderListItemWrapper = styled.div`
   border: 2px solid ${COLOR.GRAY_200};
@@ -20,6 +21,8 @@ const OrderListDetail = () => {
     fetchFunc: () => requestGetItemList(`${API_PATH.ORDER_ITEM_LIST}/${state.id}`),
     isInitSetting: true,
   });
+
+  useScrollPosition(!isLoading);
 
   if (isLoading) {
     return <Loading />;

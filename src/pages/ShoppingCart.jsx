@@ -23,6 +23,7 @@ import {
   ShoppingCartPayment,
   ShoppingCartItemList,
 } from '../components';
+import useScrollPosition from '../hooks/useScrollPosition';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -76,6 +77,8 @@ const ShoppingCart = () => {
   const { isLoading: isDataLoading, data: shoppingCartItemList } = useSelector(
     (state) => state.shoppingCart.shoppingCartItemList
   );
+
+  useScrollPosition(!isInitLoading);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { API_PATH } from '../constants/api';
 import useFetch from '../hooks/useFetch';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { requestGetItemList } from '../request/request';
 import { ProductListItem, Loading } from '../components';
 
@@ -18,6 +19,8 @@ const ProductList = () => {
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST),
     isInitSetting: true,
   });
+
+  useScrollPosition(!isLoading);
 
   if (isLoading) {
     return <Loading />;

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import useFetch from '../hooks/useFetch';
+import useInsertingItemToShoppingCart from '../hooks/useInsertingItemToShoppingCart';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { useLocation } from 'react-router';
 import { requestGetItemList } from '../request/request';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
 import { Button, BUTTON_TYPE, Loading, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
-import useInsertingItemToShoppingCart from '../hooks/useInsertingItemToShoppingCart';
 
 const Container = styled.div`
   width: 640px;
@@ -47,6 +48,8 @@ const ProductDetail = () => {
     fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST + `/${state.id}`),
     isInitSetting: true,
   });
+
+  useScrollPosition(!isLoading);
 
   if (isLoading) {
     return <Loading />;

@@ -8,6 +8,7 @@ import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
 import { DELETE_SHOPPING_CART_ITEM_SUCCESS } from '../redux/actions/shoppingCartActions';
 import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
+import useScrollPosition from '../hooks/useScrollPosition';
 
 const Content = styled.section`
   position: relative;
@@ -30,6 +31,8 @@ const OrderPayment = () => {
   const { state } = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useScrollPosition(!isLoading);
 
   const { orderPaymentItemList, totalPrice } = state;
 
