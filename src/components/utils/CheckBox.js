@@ -56,7 +56,7 @@ const Label = styled.label`
 function CheckBox({ labelName, id, checked, onChange }) {
   return (
     <CheckboxWrapper>
-      <Input type="checkbox" id={id} checked={checked} onChange={(e) => onChange(e.target.id)} />
+      <Input type="checkbox" id={id} checked={checked} onChange={() => onChange(id)} />
       <Label htmlFor={id}>{labelName}</Label>
     </CheckboxWrapper>
   );

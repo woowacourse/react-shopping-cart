@@ -10,8 +10,9 @@ import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
 import { MESSAGE, NUMBER, COLOR } from '../../constant';
-import { increaseQuantity, decreaseQuantity, deleteItemFromCart } from '../../modules/cartSlice';
+import { increaseQuantity, decreaseQuantity, deleteItemFromCart, toggleCheckbox } from '../../modules/cartSlice';
 import { deleteItemFromCartRequest } from '../../api/products';
+
 import styled, { css } from 'styled-components';
 
 const SingleCartItem = styled.li`
@@ -42,39 +43,38 @@ const CartItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const onCheckboxClick = (check) => {
-  console.log(check);
-};
-
-const CartItem = (singleItemInServer, checked) => {
+const CartItem = (props) => {
+  const { singleItemInServer, checked } = props;
   const dispatch = useDispatch();
-  const { cartItemInServer } = singleItemInServer;
 
   const onIncreaseButtonClick = () => {
-    dispatch(increaseQuantity(cartItemInServer.product_id));
+    dispatch(increaseQuantity(singleItemInServer.product_id));
   };
 
   const onDecreaseButtonClick = () => {
-    if (cartItemInServer.quantity <= NUMBER.ITEM_MINIMUM_COUNT) {
+    if (singleItemInServer.quantity <= NUMBER.ITEM_MINIMUM_COUNT) {
       alert(MESSAGE.UNDER_MINIMUM_COUNT_LIMIT);
+
       return;
     }
-
-    dispatch(decreaseQuantity(cartItemInServer.product_id));
+    dispatch(decreaseQuantity(singleItemInServer.product_id));
   };
 
   const onDeleteItemButtonClick = () => {
-    deleteItemFromCartRequest(cartItemInServer.product_id);
+    deleteItemFromCartRequest(singleItemInServer.product_id);
+    dispatch(deleteItemFromCart(singleItemInServer.product_id));
+  };
 
-    dispatch(deleteItemFromCart(cartItemInServer.product_id));
+  const onCheckboxClick = (cartItemId) => {
+    dispatch(toggleCheckbox(cartItemId));
   };
 
   return (
     <SingleCartItem>
-      <CheckBox id={cartItemInServer.name} checked={checked} onChange={onCheckboxClick(checked)} />
+      <CheckBox id={singleItemInServer.product_id} checked={checked} onChange={onCheckboxClick} />
       <Flex>
-        <Image width="144px" height="144px" src={cartItemInServer.image_url} alt={cartItemInServer.name} />
-        <CartItemName>{cartItemInServer.name}</CartItemName>
+        <Image width="144px" height="144px" src={singleItemInServer.image_url} alt={singleItemInServer.name} />
+        <CartItemName>{singleItemInServer.name}</CartItemName>
       </Flex>
 
       <Flex flexDirection="column" alignItems="flex-end" css={ManageCartItemStyle}>
@@ -86,12 +86,12 @@ const CartItem = (singleItemInServer, checked) => {
           onClick={onDeleteItemButtonClick}
         />
         <CounterButton
-          id={cartItemInServer.name}
+          id={singleItemInServer.name}
           onIncreaseButtonClick={onIncreaseButtonClick}
           onDecreaseButtonClick={onDecreaseButtonClick}
         />
         <CartItemPrice>
-          <PriceText>{cartItemInServer.price}</PriceText>
+          <PriceText>{singleItemInServer.price}</PriceText>
         </CartItemPrice>
       </Flex>
     </SingleCartItem>

@@ -68,23 +68,18 @@ const cartSlice = createSlice({
       state.cartItemsInServer.filter((item) => item.product_id !== payload);
     },
     toggleCheckbox: (state, { payload: id }) => {
-      const targetIndex = state.cartItemsInServer.findIndex((value) => value.product_id === id);
-      if (targetIndex === -1) {
-        return state.cartItemsInServer;
-      }
-      const targetItem = state.cartItemsInServer[targetIndex];
-
-      return [
-        ...state.cartItemsInServer.slice(0, targetIndex),
-        { ...targetItem, checked: !targetItem.checked },
-        ...state.cartItemsInServer.slice(targetIndex + 1),
-      ];
+      state.cartItemsInServer = state.cartItemsInServer.map((item) => {
+        if (item.product_id === id) {
+          return { ...item, checked: !item.checked };
+        }
+        return { ...item };
+      });
     },
     allCheck: (state) => {
-      state.cartItemsInServer.map((item) => ({ ...item, checked: true }));
+      state.cartItemsInServer = state.cartItemsInServer.map((item) => ({ ...item, checked: true }));
     },
     allUnCheck: (state) => {
-      state.cartItemsInServer.map((item) => ({ ...item, checked: false }));
+      state.cartItemsInServer = state.cartItemsInServer.map((item) => ({ ...item, checked: false }));
     },
   },
   extraReducers: {

@@ -12,7 +12,7 @@ import LoadingPage from '../LoadingPage';
 import CartItem from './CartItem';
 import tung from '../../asset/tung.png';
 
-import { toggleCheckbox, allCheck, allUnCheck } from '../../modules/cartSlice';
+import { allCheck, allUnCheck } from '../../modules/cartSlice';
 import { addPaymentItems } from '../../modules/paymentSlice';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
@@ -78,10 +78,6 @@ const CartPage = () => {
       window.alert(errorMessage);
     }
   }, [errorMessage]);
-
-  const onCheckboxClick = (cartItemId) => {
-    dispatch(toggleCheckbox(cartItemId));
-  };
 
   const getCheckboxMessage = () => {
     switch (checkedItemIds.length) {
@@ -151,9 +147,8 @@ const CartPage = () => {
                   .map((singleItemInServer) => (
                     <CartItem
                       key={singleItemInServer.product_id}
-                      cartItemInServer={singleItemInServer}
-                      checked={checkedItemIds.includes(singleItemInServer.product_id)}
-                      onCheckboxClick={onCheckboxClick}
+                      singleItemInServer={singleItemInServer}
+                      checked={singleItemInServer.checked}
                     />
                   ))
                   .reverse()}
