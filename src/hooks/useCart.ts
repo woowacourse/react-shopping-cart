@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
 import { cartAction } from '../states/slices/cart/slice';
@@ -30,6 +30,13 @@ const useCart = () => {
 
     throw new Error(NETWORK_ERROR);
   }, [hasError]);
+
+  const checkedCartItems = cartItems.filter((item) => item.checked);
+
+  const totalPrice = cartItems.reduce(
+    (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
+    0
+  );
 
   const fetchCartItems = () => {
     dispatch(thunkFetchCartItems(userName));
@@ -67,13 +74,6 @@ const useCart = () => {
   const deleteCheckedItems = (items: CartItem[]) => {
     dispatch(thunkDeleteCartItems({ userName: userName, items }));
   };
-
-  const totalPrice = cartItems.reduce(
-    (acc, { price, quantity, checked }) => (checked ? acc + price * quantity : acc),
-    0
-  );
-
-  const checkedCartItems = cartItems.filter((item) => item.checked);
 
   return {
     fetchCartItems,

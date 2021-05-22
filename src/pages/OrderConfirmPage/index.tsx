@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState, VFC } from 'react';
+import { FormEvent, VFC } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Loading from '../../components/Loading';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
@@ -15,12 +15,12 @@ const TITLE = '주문/결제';
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: VFC<Props> = ({ history }) => {
-  const { cartItems, isLoading, totalPrice } = useCart();
+  const { checkedCartItems, isLoading, totalPrice } = useCart();
   const { userName } = useLogin();
 
   const order = async () => {
     try {
-      await requestOrderItems(userName, cartItems as CartItem[]);
+      await requestOrderItems(userName, checkedCartItems as CartItem[]);
     } catch (error) {
       throw error;
     }
@@ -45,7 +45,7 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
         {isLoading ? (
           <Loading />
         ) : (
-          <OrderConfirmSection title="주문 상품" items={cartItems as CartItem[]} />
+          <OrderConfirmSection title="주문 상품" items={checkedCartItems as CartItem[]} />
         )}
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>

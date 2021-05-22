@@ -10,7 +10,7 @@ import {
 
 const ShoppingCartSectionList: VFC = () => {
   const [checked, setChecked] = useState(false);
-  const { changeAllChecked, deleteCheckedItems, cartItems: items } = useCart();
+  const { changeAllChecked, deleteCheckedItems, cartItems } = useCart();
 
   const onChangeCheckAll = () => {
     const negatedChecked = !checked;
@@ -27,11 +27,11 @@ const ShoppingCartSectionList: VFC = () => {
           checked={checked}
           onChange={onChangeCheckAll}
         />
-        <SelectedItemDeleteButton type="button" onClick={() => deleteCheckedItems(items)}>
+        <SelectedItemDeleteButton type="button" onClick={() => deleteCheckedItems(cartItems)}>
           상품삭제
         </SelectedItemDeleteButton>
       </CartSelectContainer>
-      <ShoppingCartSection title="든든배송" items={items} />
+      <ShoppingCartSection title="든든배송" items={cartItems} />
     </ShoppingCartItemListContainer>
   );
 };
