@@ -11,11 +11,11 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(PRODUCT_LIST_MOCK));
   }),
 
-  rest.get(API_BASE_URL + '/:userId/carts', (req, res, ctx) => {
+  rest.get(API_BASE_URL + '/customers/:userId/carts', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cartItemList));
   }),
 
-  rest.delete(API_BASE_URL + '/:userId/carts/:id', (req, res, ctx) => {
+  rest.delete(API_BASE_URL + '/customers/:userId/carts/:id', (req, res, ctx) => {
     const { id } = req.params;
 
     if (cartItemList.every((item) => item.cart_id !== id)) {
@@ -27,7 +27,7 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.put(API_BASE_URL + '/cart/:id?', (req, res, ctx) => {
+  rest.put(API_BASE_URL + '/customers/:userId/carts/:id?', (req, res, ctx) => {
     const { id } = req.params;
 
     if (cartItemList.every((item) => item.cart_id !== id)) {
@@ -41,7 +41,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(req.body));
   }),
 
-  rest.get(API_BASE_URL + '/order', (req, res, ctx) => {
+  rest.get(API_BASE_URL + '/customers/:userId/orders', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(orderList));
   }),
 ];

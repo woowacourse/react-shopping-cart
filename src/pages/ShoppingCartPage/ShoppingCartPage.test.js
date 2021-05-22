@@ -44,9 +44,9 @@ describe('ShoppingCartPage', () => {
       </Provider>
     );
 
-    const [$quantityInput] = await waitFor(() => screen.getAllByTestId('quantity-input'));
+    const [$quantityInput] = await screen.findAllByTestId('quantity-input');
     const oldQuantity = $quantityInput.valueAsNumber;
-    const [$decreaseButton] = await waitFor(() => screen.getAllByTestId('decrease-button'));
+    const [$decreaseButton] = await screen.findAllByTestId('decrease-button');
     fireEvent.click($decreaseButton);
 
     await waitFor(() => expect($quantityInput.valueAsNumber).toEqual(oldQuantity - 1));
@@ -93,7 +93,7 @@ describe('ShoppingCartPage', () => {
       </Provider>
     );
 
-    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('선택해제'));
+    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('전체선택'));
     fireEvent.click($selectAllCheckbox);
 
     await waitFor(() =>
@@ -110,7 +110,7 @@ describe('ShoppingCartPage', () => {
       </Provider>
     );
 
-    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('선택해제'));
+    const $selectAllCheckbox = await waitFor(() => screen.getByLabelText('전체선택'));
     fireEvent.click($selectAllCheckbox);
 
     const $deleteSelectedItemButton = screen.getByText('상품삭제');
