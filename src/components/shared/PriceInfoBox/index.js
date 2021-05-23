@@ -10,7 +10,7 @@ import * as Styled from './style';
 const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) => {
   const onClick = () => {
     onOrder && onOrder();
-    window.location.hash = `#${submitInfo.address}`;
+    locatePage(submitInfo.address);
   };
 
   return (
