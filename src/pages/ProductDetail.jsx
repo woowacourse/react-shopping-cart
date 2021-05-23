@@ -13,6 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: space-between;
   margin: 0 auto;
+  padding-top: 40px;
   margin-bottom: 34px;
 `;
 

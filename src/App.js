@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import ShoppingCart from './pages/ShoppingCart';
@@ -11,51 +10,38 @@ import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
-import { COLOR } from './constants/color';
 import useScrollPosition from './hooks/useScrollPosition';
 
-const StyledContents = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 40px 60px 0 60px;
-`;
-
 const App = () => {
-  const { pathname } = useLocation();
-
-  const isOrderPage = pathname.includes(PATH.ORDER_LIST);
-
   useScrollPosition();
 
   return (
     <>
-      <GlobalStyle backgroundColor={isOrderPage ? COLOR.GRAY_150 : COLOR.WHITE} />
+      <GlobalStyle />
       <Navigation />
-      <StyledContents>
-        <Switch>
-          <Route exact path={PATH.HOME}>
-            <Home />
-          </Route>
-          <Route exact path={PATH.PRODUCT_LIST}>
-            <ProductList />
-          </Route>
-          <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
-            <ProductDetail />
-          </Route>
-          <Route exact path={PATH.SHOPPING_CART}>
-            <ShoppingCart />
-          </Route>
-          <Route exact path={PATH.ORDER_PAYMENT}>
-            <OrderPayment />
-          </Route>
-          <Route exact path={PATH.ORDER_LIST}>
-            <OrderList />
-          </Route>
-          <Route exact path={`${PATH.ORDER_LIST}/:id`}>
-            <OrderListDetail />
-          </Route>
-        </Switch>
-      </StyledContents>
+      <Switch>
+        <Route exact path={PATH.HOME}>
+          <Home />
+        </Route>
+        <Route exact path={PATH.PRODUCT_LIST}>
+          <ProductList />
+        </Route>
+        <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
+          <ProductDetail />
+        </Route>
+        <Route exact path={PATH.SHOPPING_CART}>
+          <ShoppingCart />
+        </Route>
+        <Route exact path={PATH.ORDER_PAYMENT}>
+          <OrderPayment />
+        </Route>
+        <Route exact path={PATH.ORDER_LIST}>
+          <OrderList />
+        </Route>
+        <Route exact path={`${PATH.ORDER_LIST}/:id`}>
+          <OrderListDetail />
+        </Route>
+      </Switch>
     </>
   );
 };

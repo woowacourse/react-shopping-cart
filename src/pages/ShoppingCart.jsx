@@ -18,6 +18,10 @@ import {
 } from '../components';
 import useShoppingCart from '../hooks/useShoppingCart';
 
+const Container = styled.div`
+  ${({ theme }) => theme.content.default}
+`;
+
 const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -116,7 +120,7 @@ const ShoppingCart = () => {
   }
 
   return (
-    <>
+    <Container>
       <PageTitle>장바구니</PageTitle>
       <Content>
         <div>
@@ -148,7 +152,7 @@ const ShoppingCart = () => {
           </p>
         </Dialog>
       )}
-    </>
+    </Container>
   );
 };
 

@@ -4,7 +4,11 @@ import { API_PATH } from '../constants/api';
 import { ProductListItem } from '../components';
 import useGettingData from '../hooks/useGettingData';
 
-const Container = styled.ul`
+const Container = styled.div`
+  ${({ theme }) => theme.content.default}
+`;
+
+const Content = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 282px);
   column-gap: 60px;
@@ -17,11 +21,13 @@ const ProductList = () => {
 
   return (
     <Container>
-      {productItemList.map(({ productId, name, imageUrl, price }) => (
-        <li key={productId}>
-          <ProductListItem id={productId} name={name} src={imageUrl} price={price} />
-        </li>
-      ))}
+      <Content>
+        {productItemList.map(({ productId, name, imageUrl, price }) => (
+          <li key={productId}>
+            <ProductListItem id={productId} name={name} src={imageUrl} price={price} />
+          </li>
+        ))}
+      </Content>
     </Container>
   );
 };

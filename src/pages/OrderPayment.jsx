@@ -7,6 +7,10 @@ import { API_PATH } from '../constants/api';
 import { PageTitle, OrderPaymentAmount, OrderPaymentItemList } from '../components';
 import useGettingData from '../hooks/useGettingData';
 
+const Container = styled.div`
+  ${({ theme }) => theme.content.default}
+`;
+
 const Content = styled.section`
   position: relative;
   display: flex;
@@ -41,7 +45,7 @@ const OrderPayment = () => {
   };
 
   return (
-    <>
+    <Container>
       <PageTitle>주문/결제</PageTitle>
       <Content>
         <div>
@@ -53,7 +57,7 @@ const OrderPayment = () => {
           </OrderPaymentAmountWrapper>
         </div>
       </Content>
-    </>
+    </Container>
   );
 };
 
