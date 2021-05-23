@@ -4,8 +4,7 @@ import { useHistory, useLocation } from 'react-router';
 import { PATH } from '../constants/path';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
-import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
-import useScrollPosition from '../hooks/useScrollPosition';
+import { PageTitle, OrderPaymentAmount, OrderPaymentItemList } from '../components';
 import useGettingData from '../hooks/useGettingData';
 
 const Content = styled.section`
@@ -23,12 +22,10 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { mutate, isLoading } = useGettingData(API_PATH.ORDER_ITEM_LIST);
+  const { mutate } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
   const { state } = useLocation();
   const history = useHistory();
-
-  useScrollPosition(!isLoading);
 
   const { orderPaymentItemList, totalPrice } = state;
 
@@ -42,10 +39,6 @@ const OrderPayment = () => {
 
     history.replace(PATH.ORDER_LIST);
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>

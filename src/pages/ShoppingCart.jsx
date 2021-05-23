@@ -16,7 +16,6 @@ import {
   ShoppingCartPayment,
   ShoppingCartItemList,
 } from '../components';
-import useScrollPosition from '../hooks/useScrollPosition';
 import useShoppingCart from '../hooks/useShoppingCart';
 
 const ImageWrapper = styled.div`
@@ -68,12 +67,9 @@ const ShoppingCart = () => {
     isAllShoppingCartItemChecked,
     toggleAllShoppingCartItem,
     deleteCheckedShoppingCartItem,
-    isLoading,
   } = useShoppingCart();
 
   const history = useHistory();
-
-  useScrollPosition(!isLoading);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;

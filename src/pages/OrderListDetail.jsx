@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
-import useScrollPosition from '../hooks/useScrollPosition';
 import { getTotalPrice } from '../utils/totalPrice';
 import { OrderListItemList, OrderListPaymentAmount, PageTitle } from '../components';
 import useGettingData from '../hooks/useGettingData';
@@ -16,9 +15,7 @@ const OrderListItemWrapper = styled.div`
 
 const OrderListDetail = () => {
   const { state } = useLocation();
-  const { isLoading, data: orderDetailItemList } = useGettingData(`${API_PATH.ORDER_ITEM_LIST}/${state.id}`);
-
-  useScrollPosition(!isLoading);
+  const { data: orderDetailItemList } = useGettingData(`${API_PATH.ORDER_ITEM_LIST}/${state.id}`);
 
   return (
     <>

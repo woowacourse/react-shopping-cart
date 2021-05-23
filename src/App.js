@@ -12,6 +12,7 @@ import ProductDetail from './pages/ProductDetail';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
 import { COLOR } from './constants/color';
+import useScrollPosition from './hooks/useScrollPosition';
 
 const StyledContents = styled.div`
   max-width: 1440px;
@@ -23,6 +24,8 @@ const App = () => {
   const { pathname } = useLocation();
 
   const isOrderPage = pathname.includes(PATH.ORDER_LIST);
+
+  useScrollPosition();
 
   return (
     <>

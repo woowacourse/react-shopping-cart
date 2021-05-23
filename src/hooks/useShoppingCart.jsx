@@ -3,6 +3,7 @@ import { requestDeleteItem, requestGetItemList, requestInsertItem } from '../req
 import useDialog from './useDialog';
 import useSWR from 'swr';
 import { ADD_FAILURE, ADD_SUCCESS } from '../components';
+import { useState } from 'react';
 
 const getShoppingCartItemList = async () => {
   const shoppingCartItemList = await requestGetItemList(API_PATH.SHOPPING_CART_LIST);
@@ -16,10 +17,15 @@ const useShoppingCart = () => {
     data: shoppingCartItemList,
     isLoading,
     mutate,
-  } = useSWR(API_PATH.SHOPPING_CART_LIST, () => getShoppingCartItemList(), {
+  } = useSWR(API_PATH.SHOPPING_CART_LIST, getShoppingCartItemList, {
     suspense: true,
     revalidateOnFocus: false,
   });
+  const [serverError, setServerError] = useState(null);
+
+  if (serverError) {
+    throw new Error(serverError.message);
+  }
 
   const isAllShoppingCartItemChecked =
     shoppingCartItemList.length === shoppingCartItemList.filter((item) => item.isChecked).length;
@@ -44,6 +50,7 @@ const useShoppingCart = () => {
       mutate();
     } catch (error) {
       console.error(error);
+      setServerError(error);
     }
   };
 
@@ -53,6 +60,7 @@ const useShoppingCart = () => {
       mutate();
     } catch (error) {
       console.error(error);
+      setServerError(error);
     }
   };
 
@@ -62,6 +70,7 @@ const useShoppingCart = () => {
       mutate();
     } catch (error) {
       console.error(error);
+      setServerError(error);
     }
   };
 

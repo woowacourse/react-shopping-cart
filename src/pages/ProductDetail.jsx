@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import useScrollPosition from '../hooks/useScrollPosition';
 import { useLocation } from 'react-router';
 import { COLOR } from '../constants/color';
 import { Button, BUTTON_TYPE, CartInsertingItemDialog, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
@@ -39,10 +38,8 @@ const Description = styled.div`
 
 const ProductDetail = () => {
   const { state } = useLocation();
-  const { data: product, isLoading } = useGettingData(`${API_PATH.PRODUCT_LIST}/${state.id}`);
+  const { data: product } = useGettingData(`${API_PATH.PRODUCT_LIST}/${state.id}`);
   const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
-
-  useScrollPosition(!isLoading);
 
   return (
     <>

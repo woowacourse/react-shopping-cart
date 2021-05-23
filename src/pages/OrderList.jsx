@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import useScrollPosition from '../hooks/useScrollPosition';
 import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
 import { PageTitle, OrderListItemList } from '../components';
@@ -13,9 +12,7 @@ const ItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { isLoading, data: orderListItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
-
-  useScrollPosition(!isLoading);
+  const { data: orderListItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
   return (
     <>
