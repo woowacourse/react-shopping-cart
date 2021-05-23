@@ -17,7 +17,7 @@ const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) 
     <FlexContainer width={width} margin={margin} direction="column" border={`1px solid ${PALETTE.GRAY_004}`}>
       <Styled.PriceInfoTitle>{title}</Styled.PriceInfoTitle>
       <FlexContainer direction="column" padding="1.8rem 1.4rem">
-        <FlexContainer justifyContent="space-between" margin={submitInfo && '0 0 3rem 0'}>
+        <FlexContainer justifyContent="space-between" margin={submitInfo && '0 0 3rem'}>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{priceInfo.name}</HighlightText>
           <HighlightText highlightColor={PALETTE.BAEMINT_TRANSPARENT_001}>{`${priceInfo.price.toLocaleString()} ${
             UNIT.MONEY

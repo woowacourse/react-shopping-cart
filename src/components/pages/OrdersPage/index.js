@@ -19,7 +19,7 @@ const OrdersPage = () => {
         <PageTitle>{PAGES.ORDERS.NAME}</PageTitle>
         <FlexContainer direction="column">
           {orders.reverse().map((order) => (
-            <FlexContainer key={order.id} margin="3rem 0 1rem 0" direction="column">
+            <FlexContainer key={order.id} margin="3rem 0 1rem" direction="column">
               <FlexContainer
                 padding="1.5rem 1.5rem 1.5rem 2.5rem"
                 border={`1px solid ${PALETTE.GRAY_001}`}

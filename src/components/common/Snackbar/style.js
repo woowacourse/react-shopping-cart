@@ -29,7 +29,7 @@ export const SnackbarContainer = styled.div`
   color: #fff;
   text-align: center;
   border-radius: 0.5rem;
-  padding: 16px 30px 16px 30px;
+  padding: 16px 30px;
   position: fixed;
   z-index: 1;
   left: 50%;
