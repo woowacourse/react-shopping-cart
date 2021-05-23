@@ -5,7 +5,7 @@ import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from './error/ErrorBoundary';
+import { ErrorFallback } from './errorBoundary/ErrorBoundary';
 
 ReactDOM.render(
   <React.StrictMode>
