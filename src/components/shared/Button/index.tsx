@@ -1,4 +1,5 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 type Size = 'small' | 'medium' | 'large';
 
@@ -40,6 +41,10 @@ const Button = styled.button<Props>`
   overflow: hidden;
 
   ${({ size }) => (size ? sizeMap[size] : mediumStyle)}
+
+  &:disabled {
+    background-color: ${PALETTE.GRAY[600]};
+  }
 
   &::after {
     content: '';
