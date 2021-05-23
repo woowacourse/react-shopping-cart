@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import { useHistory } from 'react-router';
-import { ProductImage, PRODUCT_IMAGE_TYPE } from '..';
+import { CartInsertingItemDialog, ProductImage, PRODUCT_IMAGE_TYPE } from '..';
 import { PATH } from '../../constants/path';
-import useInsertingItemToShoppingCart from '../../hooks/useInsertingItemToShoppingCart';
+import useShoppingCart from '../../hooks/useShoppingCart';
 
 const Content = styled.ul`
   display: flex;
@@ -36,9 +36,7 @@ const Image = styled.img`
 
 const ProductListItem = ({ id, name, src, price }) => {
   const history = useHistory();
-  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({
-    productId: id,
-  });
+  const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
 
   const handleRoutingProductDetail = () => {
     history.push(`${PATH.PRODUCT_LIST}/${id}`, { id });
@@ -55,11 +53,11 @@ const ProductListItem = ({ id, name, src, price }) => {
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </li>
         <li>
-          <Image onClick={insertShoppingCart} src={shoppingCartImg} alt="장바구니" />
+          <Image onClick={() => insertShoppingCartItem(id)} src={shoppingCartImg} alt="장바구니" />
         </li>
       </Content>
 
-      {isDialogOpen && <Dialog />}
+      {isDialogOpen && <CartInsertingItemDialog onConfirm={onConfirm} onCancel={onCancel} type={dialogType} />}
     </>
   );
 };

@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { PATH } from '../constants/path';
-import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
-import { DELETE_SHOPPING_CART_ITEM_SUCCESS } from '../redux/actions/shoppingCartActions';
 import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
 import useScrollPosition from '../hooks/useScrollPosition';
+import useGettingData from '../hooks/useGettingData';
 
 const Content = styled.section`
   position: relative;
@@ -25,23 +23,22 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { startFetching, isLoading } = useFetch({
-    fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
-  });
+  const { mutate, isLoading } = useGettingData(API_PATH.ORDER_ITEM_LIST);
+
   const { state } = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   useScrollPosition(!isLoading);
 
   const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    await startFetching(orderPaymentItemList.map(({ cartId, quantity }) => ({ cartId, quantity })));
+    await requestInsertItem(
+      API_PATH.ORDER_ITEM_LIST,
+      orderPaymentItemList.map(({ cartId, quantity }) => ({ cartId, quantity }))
+    );
 
-    orderPaymentItemList.forEach((item) => {
-      dispatch({ type: DELETE_SHOPPING_CART_ITEM_SUCCESS, payload: item.cartId });
-    });
+    mutate();
 
     history.replace(PATH.ORDER_LIST);
   };

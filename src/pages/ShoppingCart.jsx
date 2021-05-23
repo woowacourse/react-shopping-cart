@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import emptyCart from '../assets/empty-cart.png';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-  deleteCheckedShoppingCartList,
-  getShoppingCartItemList,
-  toggleAllShoppingCartItem,
-} from '../redux/actions/shoppingCartActions';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
 import { getTotalPrice } from '../utils/totalPrice';
@@ -17,13 +11,13 @@ import {
   Checkbox,
   PageTitle,
   Dialog,
-  Loading,
   DIALOG_TYPE,
   BUTTON_TYPE,
   ShoppingCartPayment,
   ShoppingCartItemList,
 } from '../components';
 import useScrollPosition from '../hooks/useScrollPosition';
+import useShoppingCart from '../hooks/useShoppingCart';
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -68,40 +62,34 @@ const Text = styled.span`
 `;
 
 const ShoppingCart = () => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel } = useDialog();
-  const [isInitLoading, setInitLoading] = useState(true);
+  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel } = useDialog();
+  const {
+    shoppingCartItemList,
+    isAllShoppingCartItemChecked,
+    toggleAllShoppingCartItem,
+    deleteCheckedShoppingCartItem,
+    isLoading,
+  } = useShoppingCart();
 
   const history = useHistory();
-  const dispatch = useDispatch();
-  const isChecked = useSelector((state) => state.shoppingCart.isAllShoppingCartItemChecked);
-  const { isLoading: isDataLoading, data: shoppingCartItemList } = useSelector(
-    (state) => state.shoppingCart.shoppingCartItemList
-  );
 
-  useScrollPosition(!isInitLoading);
+  useScrollPosition(!isLoading);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;
 
   const totalPrice = getTotalPrice(checkedShoppingCartItemList);
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(getShoppingCartItemList());
-      setInitLoading(false);
-    })();
-  }, [dispatch]);
-
   const handleAllShoppingCartItemToggle = () => {
-    dispatch(toggleAllShoppingCartItem());
+    toggleAllShoppingCartItem();
   };
 
   const handleConfirm = () => {
-    clickConfirm(() => dispatch(deleteCheckedShoppingCartList(checkedShoppingCartItemList)));
+    onConfirm(() => deleteCheckedShoppingCartItem(checkedShoppingCartItemList));
   };
 
   const handleCancel = () => {
-    clickCancel();
+    onCancel();
   };
 
   const handleCheckedShoppingCartListDelete = () => {
@@ -116,10 +104,6 @@ const ShoppingCart = () => {
       totalPrice,
     });
   };
-
-  if (isDataLoading || isInitLoading) {
-    return <Loading />;
-  }
 
   if (!shoppingCartItemList.length) {
     return (
@@ -141,8 +125,8 @@ const ShoppingCart = () => {
       <Content>
         <div>
           <ShoppingCartItemModification>
-            <Checkbox isChecked={isChecked} onChange={handleAllShoppingCartItemToggle}>
-              <Text>{isChecked ? '선택해제' : '전체선택'}</Text>
+            <Checkbox isChecked={isAllShoppingCartItemChecked} onChange={handleAllShoppingCartItemToggle}>
+              <Text>{isAllShoppingCartItemChecked ? '선택해제' : '전체선택'}</Text>
             </Checkbox>
             <Button
               onClick={handleCheckedShoppingCartListDelete}

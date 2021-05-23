@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { API_PATH } from '../constants/api';
-import useFetch from '../hooks/useFetch';
 import useScrollPosition from '../hooks/useScrollPosition';
-import { requestGetItemList } from '../request/request';
-import { ProductListItem, Loading } from '../components';
+import { ProductListItem } from '../components';
+import useGettingData from '../hooks/useGettingData';
 
 const Container = styled.ul`
   display: grid;
@@ -15,16 +14,9 @@ const Container = styled.ul`
 `;
 
 const ProductList = () => {
-  const { isLoading, data: productItemList } = useFetch({
-    fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST),
-    isInitSetting: true,
-  });
+  const { data: productItemList, isLoading } = useGettingData(API_PATH.PRODUCT_LIST);
 
   useScrollPosition(!isLoading);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <Container>

@@ -2,15 +2,9 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import trashCan from '../../assets/trashCan.svg';
-import { useDispatch } from 'react-redux';
-import {
-  decreaseCount,
-  deleteShoppingCartItem,
-  increaseCount,
-  toggleShoppingCartItem,
-} from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
 import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '..';
+import useShoppingCart from '../../hooks/useShoppingCart';
 
 const Container = styled.ul`
   display: flex;
@@ -48,12 +42,11 @@ const MAX_COUNT = 99;
 const MIN_COUNT = 1;
 
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
-
-  const dispatch = useDispatch();
+  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel, type, setType } = useDialog();
+  const { deleteShoppingCartItem, toggleShoppingCartItem, increaseQuantity, decreaseQuantity } = useShoppingCart();
 
   const handleShoppingCartItemToggle = () => {
-    dispatch(toggleShoppingCartItem(id));
+    toggleShoppingCartItem(id);
   };
 
   const handleShoppingCartItemDelete = () => {
@@ -62,11 +55,11 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? clickConfirm(() => dispatch(deleteShoppingCartItem(id))) : clickConfirm();
+    type === DIALOG_TYPE.CONFIRM ? onConfirm(() => deleteShoppingCartItem(id)) : onConfirm();
   };
 
   const handleCancel = () => {
-    clickCancel();
+    onCancel();
   };
 
   const handleIncrement = () => {
@@ -77,11 +70,11 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
       return;
     }
 
-    dispatch(increaseCount(id));
+    increaseQuantity(id);
   };
 
   const handleDecrement = () => {
-    quantity > MIN_COUNT && dispatch(decreaseCount(id));
+    quantity > MIN_COUNT && decreaseQuantity(id);
   };
 
   return (

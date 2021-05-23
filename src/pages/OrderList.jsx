@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import useFetch from '../hooks/useFetch';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
-import { requestGetItemList } from '../request/request';
-import { PageTitle, Loading, OrderListItemList } from '../components';
+import { PageTitle, OrderListItemList } from '../components';
+import useGettingData from '../hooks/useGettingData';
 
 const ItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};
@@ -14,16 +13,9 @@ const ItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { isLoading, data: orderListItemList } = useFetch({
-    fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
-    isInitSetting: true,
-  });
+  const { isLoading, data: orderListItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
   useScrollPosition(!isLoading);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>

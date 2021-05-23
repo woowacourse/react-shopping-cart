@@ -2,6 +2,7 @@ import Button, { BUTTON_TYPE } from './button/Button';
 import Checkbox from './checkbox/Checkbox';
 import CountInput from './countInput/CountInput';
 import Dialog, { DIALOG_TYPE } from './dialog/Dialog';
+import CartInsertingItemDialog, { ADD_SUCCESS, ADD_FAILURE } from './dialog/CartInsertingItemDialog.jsx';
 import Navigation from './navigation/Navigation';
 import OrderListItem from './orderList/OrderListItem';
 import OrderListItemList from './orderList/OrderListItemList';
@@ -23,6 +24,9 @@ export {
   Checkbox,
   CountInput,
   Dialog,
+  CartInsertingItemDialog,
+  ADD_SUCCESS,
+  ADD_FAILURE,
   Navigation,
   OrderListItem,
   OrderListItemList,

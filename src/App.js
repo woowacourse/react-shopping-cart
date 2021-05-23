@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import ShoppingCart from './pages/ShoppingCart';
@@ -10,7 +9,6 @@ import OrderList from './pages/OrderList';
 import OrderPayment from './pages/OrderPayment';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { getShoppingCartItemList } from './redux/actions/shoppingCartActions';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
 import { COLOR } from './constants/color';
@@ -22,14 +20,9 @@ const StyledContents = styled.div`
 `;
 
 const App = () => {
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const isOrderPage = pathname.includes(PATH.ORDER_LIST);
-
-  useEffect(() => {
-    dispatch(getShoppingCartItemList());
-  }, [dispatch]);
 
   return (
     <>

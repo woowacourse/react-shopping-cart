@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './errorBoundary/ErrorBoundary';
+import { Loading } from './components';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Provider store={store}>
+        <Suspense fallback={<Loading />}>
           <App />
-        </Provider>
+        </Suspense>
       </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>,

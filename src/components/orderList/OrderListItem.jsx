@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { COLOR } from '../../constants/color';
-import { Button, ProductImage, BUTTON_TYPE, PRODUCT_IMAGE_TYPE } from '..';
-import useInsertingItemToShoppingCart from '../../hooks/useInsertingItemToShoppingCart';
+import { Button, ProductImage, BUTTON_TYPE, PRODUCT_IMAGE_TYPE, CartInsertingItemDialog } from '..';
+import useShoppingCart from '../../hooks/useShoppingCart';
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const Info = styled.div`
 `;
 
 const OrderListItem = ({ id, src, alt, name, quantity, price }) => {
-  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({ productId: id });
+  const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
 
   return (
     <>
@@ -37,13 +37,13 @@ const OrderListItem = ({ id, src, alt, name, quantity, price }) => {
           </Info>
         </TextWrapper>
         <div style={{ marginLeft: 'auto' }}>
-          <Button onClick={insertShoppingCart} type={BUTTON_TYPE.SMALL}>
+          <Button onClick={() => insertShoppingCartItem(id)} type={BUTTON_TYPE.SMALL}>
             장바구니
           </Button>
         </div>
       </Container>
 
-      {isDialogOpen && <Dialog />}
+      {isDialogOpen && <CartInsertingItemDialog onConfirm={onConfirm} onCancel={onCancel} type={dialogType} />}
     </>
   );
 };

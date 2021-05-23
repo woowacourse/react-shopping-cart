@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import useFetch from '../hooks/useFetch';
-import useInsertingItemToShoppingCart from '../hooks/useInsertingItemToShoppingCart';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { useLocation } from 'react-router';
-import { requestGetItemList } from '../request/request';
-import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
-import { Button, BUTTON_TYPE, Loading, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
+import { Button, BUTTON_TYPE, CartInsertingItemDialog, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
+import useShoppingCart from '../hooks/useShoppingCart';
+import useGettingData from '../hooks/useGettingData';
+import { API_PATH } from '../constants/api';
 
 const Container = styled.div`
   width: 640px;
@@ -40,38 +39,28 @@ const Description = styled.div`
 
 const ProductDetail = () => {
   const { state } = useLocation();
-  const { insertShoppingCart, isDialogOpen, Dialog } = useInsertingItemToShoppingCart({
-    productId: state.id,
-  });
-
-  const { isLoading, data } = useFetch({
-    fetchFunc: () => requestGetItemList(API_PATH.PRODUCT_LIST + `/${state.id}`),
-    isInitSetting: true,
-  });
+  const { data: product, isLoading } = useGettingData(`${API_PATH.PRODUCT_LIST}/${state.id}`);
+  const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
 
   useScrollPosition(!isLoading);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>
       <Container>
         <TopContent>
-          <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={data.imageUrl} alt={data.name} />
-          <Title>{data.name}</Title>
+          <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={product.imageUrl} alt={product.name} />
+          <Title>{product.name}</Title>
         </TopContent>
         <Description>
           <span>금액</span>
-          <span>{data.price.toLocaleString('ko-KR')}원</span>
+          <span>{product.price.toLocaleString('ko-KR')}원</span>
         </Description>
-        <Button onClick={insertShoppingCart} type={BUTTON_TYPE.LARGE}>
+        <Button onClick={() => insertShoppingCartItem(state.id)} type={BUTTON_TYPE.LARGE}>
           장바구니
         </Button>
       </Container>
 
-      {isDialogOpen && <Dialog />}
+      {isDialogOpen && <CartInsertingItemDialog onConfirm={onConfirm} onCancel={onCancel} type={dialogType} />}
     </>
   );
 };
