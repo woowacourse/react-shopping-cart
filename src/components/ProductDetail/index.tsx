@@ -1,6 +1,8 @@
-import React from 'react';
-import Button from '../shared/Button';
-import Container from '../shared/Container';
+import { VFC } from 'react';
+import { useHistory } from 'react-router';
+import useCart from '../../hooks/useCart';
+import { Product } from '../../types';
+import { KRCurrency } from '../../utils/format';
 import {
   AddCartButton,
   PriceContainer,
@@ -9,16 +11,33 @@ import {
   StyledProductDetailSection,
 } from './styles';
 
-const ProductDetailSection = () => {
+interface Props {
+  product: Product;
+}
+
+const ProductDetailSection: VFC<Props> = ({ product }) => {
+  const { image_url, name, price } = product;
+  const { addItem } = useCart();
+  const history = useHistory();
+
+  const addItemToCart = () => {
+    if (!window.confirm('상품을 장바구니에 추가하시겠습니까?')) return;
+
+    addItem(product);
+    history.push('/shoppingCart');
+  };
+
   return (
     <StyledProductDetailSection>
-      <ProductImg src="https://picsum.photos/300/300" alt="제품이미지" />
-      <ProductName>[든든] 스위트콘</ProductName>
+      <ProductImg src={image_url} alt="제품이미지" />
+      <ProductName>{name}</ProductName>
       <PriceContainer>
         <span>금액</span>
-        <span>99,800원</span>
+        <span>{KRCurrency(price)}</span>
       </PriceContainer>
-      <AddCartButton>장바구니</AddCartButton>
+      <AddCartButton type="button" onClick={addItemToCart}>
+        장바구니
+      </AddCartButton>
     </StyledProductDetailSection>
   );
 };

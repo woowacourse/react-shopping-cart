@@ -6,6 +6,7 @@ import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 const App: VFC = () => {
   const { fetchCartItems } = useFetchCartRedux();
@@ -22,6 +23,7 @@ const App: VFC = () => {
         <Route path="/shoppingCart" component={ShoppingCartPage} />
         <Route path="/orderList" component={OrderListPage} />
         <Route path="/orderConfirm" component={OrderConfirmPage} />
+        <Route path="/product/:productId" component={ProductDetailPage} />
       </Switch>
     </div>
   );

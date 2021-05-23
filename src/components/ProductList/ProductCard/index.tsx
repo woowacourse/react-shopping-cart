@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { MouseEvent, VFC } from 'react';
 import useCart from '../../../hooks/useCart';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
@@ -11,24 +11,29 @@ import {
   StyledProductCard,
 } from './style';
 
-const ProductCard: VFC<Product> = (product) => {
+interface Props extends Product {
+  onClick: () => void;
+}
+
+const ProductCard: VFC<Props> = ({ onClick, ...product }) => {
   const { name, price, image_url } = product;
   const { addItem } = useCart();
 
-  const onClickAddCart = () => {
+  const onClickAddCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
 
     addItem(product);
   };
 
   return (
-    <StyledProductCard type="vertical" image={image_url}>
+    <StyledProductCard onClick={onClick} type="vertical" image={image_url}>
       <ContentContainer>
         <ProductTextContainer>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>
           <PriceText>{KRCurrency(price)}</PriceText>
         </ProductTextContainer>
-        <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
+        <CartIconButton type="button" onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>
     </StyledProductCard>
   );

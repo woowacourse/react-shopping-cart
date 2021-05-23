@@ -19,6 +19,7 @@ export const InnerTemplateContainer = styled.div<InnerTemplateContainerProps>`
   padding-top: 4rem;
   width: ${INNER_TEMPLATE_WIDTH};
   min-width: ${INNER_TEMPLATE_WIDTH};
+  padding-bottom: 5rem;
 `;
 
 export const Title = styled.h2`

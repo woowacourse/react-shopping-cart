@@ -11,11 +11,18 @@ interface Props {
   width?: string;
   height?: string;
   alt?: string;
+  onClick?: () => void;
 }
 
-const Card: FC<Props> = ({ children, image, alt, type, width, height, className }) => {
+const Card: FC<Props> = ({ children, image, alt, type, width, height, className, onClick }) => {
   return (
-    <CardContainer className={className} type={type} width={width} height={height}>
+    <CardContainer
+      className={className}
+      type={type}
+      width={width}
+      height={height}
+      onClick={onClick}
+    >
       <img src={image} alt={alt} />
       {children}
     </CardContainer>
