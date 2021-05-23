@@ -18,14 +18,6 @@ interface Props {
 const ProductDetailSection: VFC<Props> = ({ product }) => {
   const { image_url, name, price } = product;
   const { addItem } = useCart();
-  const history = useHistory();
-
-  const addItemToCart = () => {
-    if (!window.confirm('상품을 장바구니에 추가하시겠습니까?')) return;
-
-    addItem(product);
-    history.push('/shoppingCart');
-  };
 
   return (
     <StyledProductDetailSection>
@@ -35,7 +27,7 @@ const ProductDetailSection: VFC<Props> = ({ product }) => {
         <span>금액</span>
         <span>{KRCurrency(price)}</span>
       </PriceContainer>
-      <AddCartButton type="button" onClick={addItemToCart}>
+      <AddCartButton type="button" onClick={() => addItem(product)}>
         장바구니
       </AddCartButton>
     </StyledProductDetailSection>

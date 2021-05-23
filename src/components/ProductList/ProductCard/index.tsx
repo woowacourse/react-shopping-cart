@@ -21,7 +21,6 @@ const ProductCard: VFC<Props> = ({ onClick, ...product }) => {
 
   const onClickAddCart = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
 
     addItem(product);
   };

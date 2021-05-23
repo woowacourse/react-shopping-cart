@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
 import { NETWORK_ERROR } from '../constants/error';
 import { cartAction } from '../states/slices/cart/slice';
@@ -24,6 +25,7 @@ const useCart = () => {
     isLoading,
     userName,
   ]);
+  const history = useHistory();
 
   useEffect(() => {
     if (!hasError) return;
@@ -48,6 +50,9 @@ const useCart = () => {
     cartItem
       ? dispatch(cartAction.changeItemQuantity({ cartItem, quantity: cartItem.quantity + 1 }))
       : dispatch(thunkAddItemToCart({ userName: userName, product }));
+
+    if (!window.confirm('상품이 담겼습니다. 장바구니로 이동하시겠습니까?')) return;
+    history.push('/shoppingCart');
   };
 
   const deleteItem = (cartId: CartId) => {

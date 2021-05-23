@@ -14,8 +14,6 @@ const OrderItemListSection: VFC<Props> = ({ order: { order_id, order_details }, 
   const { addItem } = useCart();
 
   const onClickAddCart = (item: OrderedItem) => {
-    if (!window.confirm(CONFIRM.ADD_CART)) return;
-
     const itemInfo: Product = {
       product_id: item.product_id,
       name: item.name,
