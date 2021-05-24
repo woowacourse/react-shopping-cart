@@ -7,10 +7,10 @@ import {
   PaymentInfoBoxContainer,
 } from './OrderCheckoutPage.styles';
 import { CONFIRM_MESSAGE, ROUTE } from '../../constants';
-import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { requestCreateOrder } from '../../service/order';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -23,18 +23,20 @@ const OrderCheckoutPage = () => {
     return acc + price * amount;
   }, 0);
 
-  const { postData: createOrder } = useServerAPI([], 'orders');
-
-  const onClickPaymentButton = () => {
+  const onClickPaymentButton = async () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
     const content = checkedItemList.map(item => ({ cart_id: item.cart_id, quantity: item.amount }));
 
-    createOrder(content);
+    try {
+      await requestCreateOrder(content);
 
-    history.push({
-      pathname: ROUTE.ORDER_LIST,
-    });
+      history.push({
+        pathname: ROUTE.ORDER_LIST,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

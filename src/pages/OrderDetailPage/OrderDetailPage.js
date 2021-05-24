@@ -1,33 +1,29 @@
-import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import { OrderItemContainer } from '../OrderListPage/OrderListPage.styles';
 import { addShoppingCartItemAsync } from '../../redux/slice';
-import { useModal, useServerAPI } from '../../hooks';
+import { useModal, useFetch } from '../../hooks';
+import { requestProductList } from '../../service/product';
+import { requestOrder } from '../../service/order';
 
 const OrderDetailPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { id: orderId } = useParams();
 
-  const { value: productList } = useServerAPI([], 'products');
-  const { getData: getOrderDetail } = useServerAPI([], 'orders');
+  // 여긴 왜 콜백이지
+  const { data: order } = useFetch({}, () => requestOrder(orderId));
+  const { data: productList } = useFetch([], requestProductList);
 
   const { setModalOpen, Modal } = useModal(false);
-
-  const [order, setOrder] = useState({});
 
   const putProductInShoppingCart = productId => {
     dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };
-
-  useEffect(() => {
-    getOrderDetail(orderId).then(data => setOrder(data));
-  }, []);
 
   return (
     <ScreenContainer route={location.pathname}>

@@ -2,18 +2,20 @@ import { useHistory, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { ROUTE } from '../../constants';
-import { useModal, useServerAPI } from '../../hooks';
+import { useModal, useFetch } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/slice';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { requestOrderList } from '../../service/order';
+import { requestProductList } from '../../service/product';
 
 const OrderListPage = () => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { value: productList } = useServerAPI([], 'products');
-  const { value: orderList } = useServerAPI([], 'orders');
+  const { data: productList } = useFetch([], requestProductList);
+  const { data: orderList } = useFetch([], requestOrderList);
 
   const { Modal, setModalOpen } = useModal(false);
 
