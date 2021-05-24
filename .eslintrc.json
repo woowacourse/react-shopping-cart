@@ -40,6 +40,7 @@
     "function-paren-newline": "off",
     "no-alert": "off",
     "no-param-reassign": "off",
-    "prefer-template": "off"
+    "prefer-template": "off",
+    "no-return-await": "off"
   }
 }

@@ -1,6 +1,6 @@
-const BASE_URL = 'https://shopping-cart.techcourse.co.kr';
+import { requestTable } from '../api/request';
 
-const requestProductList = () => fetch(`${BASE_URL}/api/products`);
-const requestProduct = productId => fetch(`${BASE_URL}/api/products/${productId}`);
+const requestProductList = async () => await requestTable.GET('/api/products');
+const requestProduct = async productId => await requestTable.GET(`/api/products/${productId}`);
 
 export { requestProductList, requestProduct };

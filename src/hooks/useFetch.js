@@ -12,8 +12,8 @@ const useFetch = (defaultValue, request) => {
       if (!response.ok) {
         throw response;
       }
-      const s = await response.json();
-      setData(s);
+
+      setData(await response.json());
     } catch (response) {
       setIsError(await response.status);
     }

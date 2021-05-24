@@ -1,4 +1,4 @@
-const BASE_URL = 'https://shopping-cart.techcourse.co.kr';
+import { requestTable } from '../api/request';
 
 const requestCreateOrder = async content => {
   const requestOption = {
@@ -9,10 +9,10 @@ const requestCreateOrder = async content => {
     },
   };
 
-  await fetch(`${BASE_URL}/api/customers/hyuuunjukim/orders`, requestOption);
+  return await requestTable.POST('/api/customers/hyuuunjukim/orders', requestOption);
 };
 
-const requestOrderList = () => fetch(`${BASE_URL}/api/customers/hyuuunjukim/orders`);
-const requestOrder = orderId => fetch(`${BASE_URL}/api/customers/hyuuunjukim/orders/${orderId}`);
+const requestOrderList = async () => await requestTable.GET('/api/customers/hyuuunjukim/orders');
+const requestOrder = async orderId => await requestTable.GET(`/api/customers/hyuuunjukim/orders/${orderId}`);
 
 export { requestCreateOrder, requestOrderList, requestOrder };
