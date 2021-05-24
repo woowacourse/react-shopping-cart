@@ -44,15 +44,12 @@ const OrderListPage = () => {
     addCartItem(product);
   };
 
-  const handleClickDetail = useCallback(
-    (order: T.Order) => {
-      history.push({
-        pathname: '/order/detail',
-        state: { order },
-      });
-    },
-    [history]
-  );
+  const handleClickDetail = (order: T.Order) => {
+    history.push({
+      pathname: '/order/detail',
+      state: { order },
+    });
+  };
 
   useEffect(() => {
     dispatch(getCartItems());

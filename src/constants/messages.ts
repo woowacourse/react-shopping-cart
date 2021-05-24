@@ -6,6 +6,7 @@ const MESSAGE = {
   CONFIRM_DELETE_CART_ITEM: '상품을 삭제하시겠습니까?',
   CONFIRM_DELETE_CHECKED_CART_ITEMS: '선택하신 상품을 삭제하시겠습니까?',
   GET_ORDERS_FAILURE: '주문목록을 불러오는 데 문제가 발생했어요요! 잠시 후 다시 시도해주세요!',
+  GET_ORDER_DETAIL_FAILURE: '주문상세정보를 가져오는 데 문제가 발생했습니다.',
 };
 
 export default MESSAGE;
