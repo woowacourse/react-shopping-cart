@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import { OrderItemContainer } from '../OrderListPage/OrderListPage.styles';
-import { addShoppingCartItemAsync } from '../../redux/action';
+import { addShoppingCartItemAsync } from '../../redux/slice';
 import { useModal, useServerAPI } from '../../hooks';
 
 const OrderDetailPage = () => {

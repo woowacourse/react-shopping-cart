@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Container } from './ProductListPage.styles';
 import { ROUTE } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItemAsync } from '../../redux/action';
 import { ColumnProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { addShoppingCartItemAsync } from '../../redux/slice';
 
 const ProductListPage = () => {
   const location = useLocation();

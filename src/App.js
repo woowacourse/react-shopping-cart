@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import GlobalStyles from './GlobalStyles';
 import NavBar from './components/NavBar/NavBar';
 import { ROUTE } from './constants';
-import { getMyShoppingCartAsync } from './redux/action';
 import {
   OrderCheckoutPage,
   OrderDetailPage,
@@ -13,6 +12,7 @@ import {
   ProductListPage,
   ShoppingCartPage,
 } from './pages';
+import { getMyShoppingCartAsync } from './redux/slice';
 
 const App = () => {
   const dispatch = useDispatch();

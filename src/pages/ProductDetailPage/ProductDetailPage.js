@@ -5,7 +5,7 @@ import { Container, ImageContainer, Image, Name, PriceContainer, ShoppingCartBut
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { numberWithCommas } from '../../shared/utils';
 import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItemAsync } from '../../redux/action';
+import { addShoppingCartItemAsync } from '../../redux/slice';
 import { SuccessAddedModal } from '../../components';
 
 const ProductDetailPage = () => {

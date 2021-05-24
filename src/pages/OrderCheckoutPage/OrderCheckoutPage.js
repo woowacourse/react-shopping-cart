@@ -1,5 +1,4 @@
 import { useHistory, useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
 import {
   Container,
   CheckoutListContainer,
@@ -12,15 +11,12 @@ import { useServerAPI } from '../../hooks';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { deleteCheckedShoppingCartItemAsync } from '../../redux/action';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const checkedItemList = location.state?.checkedItemList;
-  const checkedIdList = checkedItemList.map(item => item.product_id);
   const expectedPrice = checkedItemList.reduce((acc, item) => {
     const { price, amount } = item;
 
@@ -31,8 +27,6 @@ const OrderCheckoutPage = () => {
 
   const onClickPaymentButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
-
-    dispatch(deleteCheckedShoppingCartItemAsync(checkedIdList));
 
     const content = checkedItemList.map(item => ({ cart_id: item.cart_id, quantity: item.amount }));
 

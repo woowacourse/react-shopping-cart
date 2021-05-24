@@ -15,7 +15,7 @@ import {
   ShoppingCartItemNotFoundImg,
 } from './ShoppingCartPage.styles';
 import { ROUTE, CONFIRM_MESSAGE, AMOUNT_COUNTER_FLAG } from '../../constants';
-import { deleteShoppingCartItemAsync, increaseAmount, decreaseAmount } from '../../redux/action';
+import { deleteShoppingCartItemAsync, shoppingCartItemSlice } from '../../redux/slice';
 import { numberWithCommas } from '../../shared/utils';
 import { AmountCounter, CheckBox, Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
@@ -73,20 +73,17 @@ const ShoppingCartPage = () => {
 
     history.push({
       pathname: ROUTE.ORDER_CHECKOUT,
-      state: {
-        // checkedItemList: shoppingCartItemList.filter(({ product_id: id }) => checkedItemList.includes(id)),
-        checkedItemList,
-      },
+      state: { checkedItemList },
     });
   };
 
   const onClickAmountCounter = (productId, flag) => {
     if (flag === AMOUNT_COUNTER_FLAG.UP) {
-      dispatch(increaseAmount(productId));
+      dispatch(shoppingCartItemSlice.actions.increaseAmount(productId));
       return;
     }
     if (flag === AMOUNT_COUNTER_FLAG.DOWN) {
-      dispatch(decreaseAmount(productId));
+      dispatch(shoppingCartItemSlice.actions.decreaseAmount(productId));
     }
   };
 

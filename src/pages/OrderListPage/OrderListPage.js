@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
 import { ROUTE } from '../../constants';
 import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItemAsync } from '../../redux/action';
+import { addShoppingCartItemAsync } from '../../redux/slice';
 import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 
@@ -17,7 +17,7 @@ const OrderListPage = () => {
 
   const { Modal, setModalOpen } = useModal(false);
 
-  const onClickShoppingCartButton = productId => {
+  const putProductInShoppingCart = productId => {
     dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
@@ -39,7 +39,7 @@ const OrderListPage = () => {
             {orderDetails?.map(({ product_id: productId, quantity, image_url: imageUrl, name, price }) => (
               <OrderItemContainer key={productId}>
                 <RowProductItem imgSrc={imageUrl} name={name} price={price * quantity} amount={quantity} />
-                <Button onClick={() => onClickShoppingCartButton(productId)}>장바구니</Button>
+                <Button onClick={() => putProductInShoppingCart(productId)}>장바구니</Button>
               </OrderItemContainer>
             ))}
           </OrderContainer>
