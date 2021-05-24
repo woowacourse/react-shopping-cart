@@ -30,8 +30,8 @@ const OrderListItemList = ({ orderId, orderListItemList, hasDetailLink }) => (
       )}
     </Header>
     <ul>
-      {orderListItemList.map(({ productId, imageUrl, name, price, quantity }) => (
-        <OrderListItemWrapper key={`${orderId}/${productId}`}>
+      {orderListItemList.map(({ productId, imageUrl, name, price, quantity }, index) => (
+        <OrderListItemWrapper key={`${orderId}/${productId}/${index}`}>
           <OrderListItem id={productId} src={imageUrl} alt={name} name={name} price={price} quantity={quantity} />
         </OrderListItemWrapper>
       ))}
