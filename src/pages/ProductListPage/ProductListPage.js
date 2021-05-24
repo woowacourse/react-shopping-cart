@@ -1,11 +1,13 @@
+import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container } from './ProductListPage.styles';
 import { ROUTE } from '../../constants';
-import { useModal, useServerAPI } from '../../hooks';
+import { useModal, useFetch } from '../../hooks';
 import { ColumnProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { addShoppingCartItemAsync } from '../../redux/slice';
+import { requestProductList } from '../../service/product';
 
 const ProductListPage = () => {
   const location = useLocation();
@@ -13,7 +15,13 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
 
   const { setModalOpen, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], 'products');
+  const { data: productList, isError } = useFetch([], requestProductList);
+
+  useEffect(() => {
+    if (!isError) return;
+
+    alert(`${isError} Error`);
+  }, [isError]);
 
   const addShoppingCartItem = productId => {
     dispatch(addShoppingCartItemAsync({ product_id: productId }));

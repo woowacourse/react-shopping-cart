@@ -53,5 +53,5 @@ const shoppingCartItemSlice = createSlice({
     },
   },
 });
-console.log(shoppingCartItemSlice.action);
+
 export { shoppingCartItemSlice, addShoppingCartItemAsync, getMyShoppingCartAsync, deleteShoppingCartItemAsync };
