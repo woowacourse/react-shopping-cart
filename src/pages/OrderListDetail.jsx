@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import useGettingData from '../hooks/useGettingData';
 import { useLocation } from 'react-router';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
 import { getTotalPrice } from '../utils/totalPrice';
 import { OrderListItemList, OrderListPaymentAmount, PageTitle } from '../components';
-import useGettingData from '../hooks/useGettingData';
 
 const Container = styled.div`
   min-height: inherit;

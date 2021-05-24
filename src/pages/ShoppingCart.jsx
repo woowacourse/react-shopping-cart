@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import emptyCart from '../assets/empty-cart.png';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import useShoppingCart from '../hooks/useShoppingCart';
+import useScrollPosition from '../hooks/useScrollPosition';
 import useDialog from '../hooks/useDialog';
 import { PATH } from '../constants/path';
 import { getTotalPrice } from '../utils/totalPrice';
@@ -16,7 +18,6 @@ import {
   ShoppingCartPayment,
   ShoppingCartItemList,
 } from '../components';
-import useShoppingCart from '../hooks/useShoppingCart';
 
 const Container = styled.div`
   ${({ theme }) => theme.content.default}
@@ -74,6 +75,8 @@ const ShoppingCart = () => {
   } = useShoppingCart();
 
   const history = useHistory();
+
+  useScrollPosition(PATH.SHOPPING_CART);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
   const checkedCount = checkedShoppingCartItemList.length;

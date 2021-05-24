@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import useGettingData from '../hooks/useGettingData';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { useHistory, useLocation } from 'react-router';
 import { PATH } from '../constants/path';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
 import { PageTitle, OrderPaymentAmount, OrderPaymentItemList } from '../components';
-import useGettingData from '../hooks/useGettingData';
 
 const Container = styled.div`
   ${({ theme }) => theme.content.default}
@@ -30,6 +31,8 @@ const OrderPayment = () => {
 
   const { state } = useLocation();
   const history = useHistory();
+
+  useScrollPosition(PATH.ORDER_PAYMENT);
 
   const { orderPaymentItemList, totalPrice } = state;
 

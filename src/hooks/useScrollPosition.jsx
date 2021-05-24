@@ -1,16 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useLocalStorage from './useLocalStorage';
 import { debounce } from '../utils/debounce';
 
-const useScrollPosition = () => {
-  const path = window.location.pathname;
+const useScrollPosition = (path) => {
   const [scrollY, setScrollY] = useLocalStorage('scrollY', { [path]: 0 });
+  const scrollRef = useRef(scrollY);
 
   useEffect(() => {
+    window.scrollTo({ top: scrollY[path], left: 0, behavior: 'smooth' });
+
     const handleScroll = debounce(() => {
-      const newScrollY = { ...scrollY, [path]: window.scrollY };
+      if (window.location.pathname !== path) return;
+
+      const newScrollY = { ...scrollRef.current, [path]: window.scrollY };
       setScrollY(newScrollY);
-    }, 150);
+
+      scrollRef.current = newScrollY;
+    }, 100);
 
     const resetScrollY = () => {
       setScrollY('');
@@ -18,14 +24,14 @@ const useScrollPosition = () => {
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('unload', resetScrollY);
-    window.scrollTo({ top: scrollY[path], left: 0, behavior: 'smooth' });
 
     return () => {
+      setScrollY(scrollRef.current);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('unload', resetScrollY);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path]);
+  }, []);
 };
 
 export default useScrollPosition;
