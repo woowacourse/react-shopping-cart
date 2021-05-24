@@ -26,12 +26,15 @@ const OrderListPage = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [orders, setOrders] = useState<T.Order[]>([]);
 
+  const sortOrderById = (a: T.Order, b: T.Order) => b.orderId - a.orderId;
+
   const getOrders = useCallback(async () => {
     setLoading(true);
 
     try {
       const response = await api.get('customers/zigsong/orders');
-      setOrders(snakeToCamel(response.data));
+
+      setOrders(snakeToCamel(response.data).sort(sortOrderById));
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
     }

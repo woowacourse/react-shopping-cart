@@ -5,7 +5,7 @@ import ProductItem from './ProductItem';
 describe('ProductItem 테스트', () => {
   test('matches snapshot', () => {
     const product = {
-      product_id: 1,
+      productId: 1,
       name: '재밌는 상품',
       price: 50000,
     };
