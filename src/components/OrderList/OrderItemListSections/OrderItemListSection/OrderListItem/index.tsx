@@ -6,13 +6,19 @@ import { AddCartButton, OrderListItemCard, StyledOrderItemListItem } from './sty
 import { KRCurrency } from '../../../../../utils/format';
 import Text from '../../../../shared/Text';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props {
   item: OrderedItem;
+  handleLinkToProductDetail: () => void;
+  handleAddCart: () => void;
 }
 
-const OrderListItem: VFC<Props> = ({ item: { image_url, name, price, quantity }, onClick }) => (
+const OrderListItem: VFC<Props> = ({
+  item: { image_url, name, price, quantity },
+  handleAddCart,
+  handleLinkToProductDetail,
+}) => (
   <StyledOrderItemListItem>
-    <OrderListItemCard type="horizontal" image={image_url}>
+    <OrderListItemCard type="horizontal" image={image_url} onClick={handleLinkToProductDetail}>
       <Container>
         <ProductName>{name}</ProductName>
         <Text>
@@ -20,7 +26,7 @@ const OrderListItem: VFC<Props> = ({ item: { image_url, name, price, quantity },
         </Text>
       </Container>
     </OrderListItemCard>
-    <AddCartButton type="button" onClick={onClick} size="small">
+    <AddCartButton type="button" onClick={handleAddCart} size="small">
       장바구니
     </AddCartButton>
   </StyledOrderItemListItem>

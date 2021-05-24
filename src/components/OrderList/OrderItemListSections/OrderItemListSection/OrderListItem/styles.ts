@@ -8,7 +8,12 @@ export const StyledOrderItemListItem = styled.li`
   padding: 1.5rem 1.625rem;
 `;
 
-export const OrderListItemCard = styled(Card)``;
+export const OrderListItemCard = styled(Card)`
+  img,
+  p {
+    cursor: pointer;
+  }
+`;
 
 OrderListItemCard.defaultProps = {
   height: '9.125rem',

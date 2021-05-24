@@ -1,4 +1,5 @@
 import { VFC } from 'react';
+import { useHistory } from 'react-router';
 import { CONFIRM } from '../../../../constants/message';
 import useCart from '../../../../hooks/useCart';
 import { OrderedItem, Product, Order } from '../../../../types';
@@ -12,14 +13,10 @@ interface Props {
 
 const OrderItemListSection: VFC<Props> = ({ order: { order_id, order_details }, className }) => {
   const { addItem } = useCart();
+  const history = useHistory();
 
-  const onClickAddCart = (item: OrderedItem) => {
-    const itemInfo: Product = {
-      product_id: item.product_id,
-      name: item.name,
-      price: item.price,
-      image_url: item.image_url,
-    };
+  const handlekAddCart = (item: OrderedItem) => {
+    const { quantity, ...itemInfo } = item;
 
     addItem(itemInfo);
   };
@@ -28,14 +25,14 @@ const OrderItemListSection: VFC<Props> = ({ order: { order_id, order_details }, 
     <StyledOrderItemListSection data-testid="order-section" className={className}>
       <OrderItemListHeader>
         <span>주문번호 : {order_id}</span>
-        <a href="/">{'상세보기 >'}</a>
       </OrderItemListHeader>
       <OrderList>
         {order_details.map((order_detail) => (
           <OrderListItem
             key={order_detail.product_id}
             item={order_detail}
-            onClick={() => onClickAddCart(order_detail)}
+            handleAddCart={() => handlekAddCart(order_detail)}
+            handleLinkToProductDetail={() => history.push(`/product/${order_detail.product_id}`)}
           />
         ))}
       </OrderList>
