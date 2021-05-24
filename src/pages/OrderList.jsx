@@ -31,7 +31,7 @@ const OrderList = () => {
       <Content>
         <PageTitle>주문목록</PageTitle>
         <ul>
-          {orderListItemList.reverse().map(({ orderId, orderDetails }) => (
+          {orderListItemList.map(({ orderId, orderDetails }) => (
             <ItemListWrapper key={orderId}>
               <OrderListItemList orderListItemList={orderDetails} orderId={orderId} />
             </ItemListWrapper>
