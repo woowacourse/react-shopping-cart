@@ -69,8 +69,7 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    const selectedCartItemList = cart.filter(item => item.isSelected);
-    selectedCartItemList.forEach(item => deleteCartItem(item));
+    cart.filter(item => item.isSelected).forEach(item => deleteCartItem(item));
   };
 
   const onOrderLinkButtonClick = () => {
