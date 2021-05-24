@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import api from 'api';
+import snakeToCamel from 'utils/snakeToCamel';
 import * as T from '../types';
 
 export interface CartState {
@@ -23,7 +24,7 @@ export const getCartItems = createAsyncThunk('cartItems/get', async () => {
   try {
     const response = await api.get('customers/zigsong/carts');
 
-    return { cartItems: response.data };
+    return { cartItems: snakeToCamel(response.data) };
   } catch (error) {
     return error;
   }
@@ -31,7 +32,7 @@ export const getCartItems = createAsyncThunk('cartItems/get', async () => {
 
 export const addCartItem = createAsyncThunk('cartItems/add', async (product: T.Product) => {
   try {
-    const response = await api.post('customers/zigsong/carts', { product_id: product.product_id });
+    const response = await api.post('customers/zigsong/carts', { product_id: product.productId });
     const { location } = response.headers;
     const cartId = location.substring(location.lastIndexOf('/') + 1);
 
@@ -41,7 +42,7 @@ export const addCartItem = createAsyncThunk('cartItems/add', async (product: T.P
   }
 });
 
-export const deleteCartItems = createAsyncThunk('cartItems/delete', async (ids: T.CartItem['cart_id'][]) => {
+export const deleteCartItems = createAsyncThunk('cartItems/delete', async (ids: T.CartItem['cartId'][]) => {
   try {
     await Promise.all(ids.map((id) => api.delete(`customers/zigsong/carts/${id}`)));
 
@@ -55,12 +56,12 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    updateQuantity: ({ cartItems }, action: PayloadAction<{ id: T.CartItem['cart_id']; quantity: number }>) => {
-      const target = cartItems.data.find((item) => item.cart_id === action.payload.id);
+    updateQuantity: ({ cartItems }, action: PayloadAction<{ id: T.CartItem['cartId']; quantity: number }>) => {
+      const target = cartItems.data.find((item) => item.cartId === action.payload.id);
       if (target) target.quantity = action.payload.quantity;
     },
-    checkCartItem: ({ cartItems }, action: PayloadAction<{ id: T.CartItem['cart_id']; checked: boolean }>) => {
-      const target = cartItems.data.find((item) => item.cart_id === action.payload.id);
+    checkCartItem: ({ cartItems }, action: PayloadAction<{ id: T.CartItem['cartId']; checked: boolean }>) => {
+      const target = cartItems.data.find((item) => item.cartId === action.payload.id);
       if (target) target.checked = action.payload.checked;
       cartItems.status = T.AsyncStatus.IDLE;
     },
@@ -96,12 +97,12 @@ export const cartSlice = createSlice({
     },
     [addCartItem.fulfilled.type]: (
       { cartItems },
-      action: PayloadAction<{ cartId: T.CartItem['cart_id']; product: T.Product }>
+      action: PayloadAction<{ cartId: T.CartItem['cartId']; product: T.Product }>
     ) => {
       cartItems.status = T.AsyncStatus.SUCCESS;
       cartItems.error = null;
       cartItems.data.push({
-        cart_id: action.payload.cartId,
+        cartId: action.payload.cartId,
         quantity: 1,
         checked: true,
         ...action.payload.product,
@@ -116,8 +117,8 @@ export const cartSlice = createSlice({
       cartItems.status = T.AsyncStatus.PENDING;
       cartItems.error = null;
     },
-    [deleteCartItems.fulfilled.type]: ({ cartItems }, action: PayloadAction<{ ids: T.CartItem['cart_id'][] }>) => {
-      cartItems.data = cartItems.data.filter((item) => !action.payload.ids.includes(item.cart_id));
+    [deleteCartItems.fulfilled.type]: ({ cartItems }, action: PayloadAction<{ ids: T.CartItem['cartId'][] }>) => {
+      cartItems.data = cartItems.data.filter((item) => !action.payload.ids.includes(item.cartId));
       cartItems.status = T.AsyncStatus.SUCCESS;
       cartItems.error = null;
     },
