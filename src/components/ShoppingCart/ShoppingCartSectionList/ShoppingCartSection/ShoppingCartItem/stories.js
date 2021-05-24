@@ -20,5 +20,12 @@ const Template = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  item: CART_ITEM_LIST_MOCK[0],
+  item: {
+    cart_id: 1,
+    image_url: 'https://picsum.photos/200/200',
+    name: 'test cart item name',
+    price: 43400,
+    quantity: 2,
+    checked: true,
+  },
 };

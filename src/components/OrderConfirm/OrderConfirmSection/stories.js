@@ -12,5 +12,5 @@ export const Default = StoryTemplate.bind({});
 
 Default.args = {
   title: '주문 상품',
-  items: ORDER_LIST_MOCK[0].items,
+  items: ORDER_LIST_MOCK[0].order_details,
 };
