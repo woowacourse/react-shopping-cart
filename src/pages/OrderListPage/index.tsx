@@ -13,11 +13,9 @@ const OrderListPage: VFC = () => {
 
   return (
     <Template title="주문 목록">
-      {orders.isLoading ? (
-        <Loading />
-      ) : (
-        <OrderItemListSections orders={[...(orders.data as Order[])].reverse()} />
-      )}
+      <Loading isLoading={orders.isLoading}>
+        <OrderItemListSections orders={[...(orders.data ?? [])].reverse()} />
+      </Loading>
     </Template>
   );
 };

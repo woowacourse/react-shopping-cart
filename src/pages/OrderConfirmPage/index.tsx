@@ -42,11 +42,10 @@ const OrderConfirmPage: VFC<Props> = ({ history }) => {
   return (
     <Template title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
-        {isLoading ? (
-          <Loading />
-        ) : (
+        <Loading isLoading={isLoading}>
           <OrderConfirmSection title="주문 상품" items={checkedCartItems as CartItem[]} />
-        )}
+        </Loading>
+
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>
     </Template>

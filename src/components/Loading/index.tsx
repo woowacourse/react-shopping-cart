@@ -1,16 +1,16 @@
-import { VFC } from 'react';
-import { AnimationContainer, LoadingContainer, LoadingText } from './styles';
+import { FC } from 'react';
+import DefaultFallback from './DefaultFallback';
 
-const Loading: VFC = () => (
-  <LoadingContainer>
-    <AnimationContainer>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </AnimationContainer>
-    <LoadingText>불러오는 중입니다...</LoadingText>
-  </LoadingContainer>
-);
+interface Props {
+  children: React.ReactNode;
+  isLoading: boolean;
+  fallback?: React.ElementType;
+}
+
+const Loading: FC<Props> = ({ isLoading, children, fallback }) => {
+  const Fallback: React.ElementType = fallback ?? DefaultFallback;
+
+  return <>{isLoading ? <Fallback /> : children}</>;
+};
 
 export default Loading;

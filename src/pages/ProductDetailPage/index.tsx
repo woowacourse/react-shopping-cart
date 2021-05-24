@@ -12,13 +12,15 @@ interface MatchParams {
 }
 
 const ProductDetailPage: VFC<RouteComponentProps<MatchParams>> = ({ match }) => {
-  const productId = Number(match.params.productId);
+  const productId = Number(match?.params?.productId);
 
   const product = useFetch(() => requestProduct(productId));
 
   return (
     <Template>
-      {product.isLoading ? <Loading /> : <ProductDetailSection product={product.data as Product} />}
+      <Loading isLoading={product.isLoading}>
+        <ProductDetailSection product={product.data as Product} />
+      </Loading>
     </Template>
   );
 };

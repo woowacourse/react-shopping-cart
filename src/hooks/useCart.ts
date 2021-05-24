@@ -56,7 +56,14 @@ const useCart = () => {
   };
 
   const deleteItem = (cartId: CartId) => {
+    if (!window.confirm('장바구니에서 상품을 삭제하시겠습니까?')) return;
     dispatch(thunkDeleteCartItem({ userName: userName, cartId }));
+  };
+
+  const deleteCheckedItems = (items: CartItem[]) => {
+    if (!window.confirm('장바구니에서 상품을 삭제하시겠습니까?')) return;
+
+    dispatch(thunkDeleteCartItems({ userName: userName, items }));
   };
 
   const changeQuantity = (cartItem: CartItem, quantity: number) => {
@@ -71,10 +78,6 @@ const useCart = () => {
 
   const changeAllChecked = (checked: boolean) => {
     dispatch(cartAction.changeAllItemChecked(checked));
-  };
-
-  const deleteCheckedItems = (items: CartItem[]) => {
-    dispatch(thunkDeleteCartItems({ userName: userName, items }));
   };
 
   return {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import PALETTE from '../../constants/palette';
-import Container from '../shared/Container';
-import Text from '../shared/Text';
+import PALETTE from '../../../constants/palette';
+import Container from '../../shared/Container';
+import Text from '../../shared/Text';
 
 export const LoadingContainer = styled(Container)`
   position: fixed;
