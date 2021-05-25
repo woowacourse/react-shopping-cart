@@ -8,7 +8,7 @@ import {
 } from '../../../redux/action';
 import { RootState } from '../../../redux/store';
 import ScreenContainer from '../../../style/ScreenContainer';
-import { ProductDetailType, ProductType } from '../../../type';
+import { ProductDetailObjectType, ProductType } from '../../../type';
 import SuccessAddedModal from '../../organism/SuccessAddedModal/SuccessAddedModal';
 import ProductDetailLayout from '../../template/ProductDetailLayout/ProductDetailLayout';
 
@@ -40,9 +40,7 @@ const ProductDetailPage = ({
     return <></>;
   }
 
-  const likedProducts: {
-    [key: string]: ProductDetailType;
-  } = {};
+  const likedProducts: ProductDetailObjectType = {};
   Object.values(products).forEach((product) => {
     if (product.liked) {
       likedProducts[product.product_id] = product;

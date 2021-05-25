@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ProductDetailType, ProductType } from '../type';
+import { ProductDetailObjectType, ProductType } from '../type';
 
 const useRecommendProduct = (
-  products: {
-    [key: string]: ProductDetailType;
-  },
-  likedProducts: {
-    [key: string]: ProductDetailType;
-  }
+  products: ProductDetailObjectType,
+  likedProducts: ProductDetailObjectType
 ) => {
   const [recommendedProductList, setRecommendedProductList] = useState<
     Array<ProductType>

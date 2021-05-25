@@ -4,6 +4,7 @@ import { CART_QUERY, FAIL_MESSAGE, PRODUCT_QUERY } from '../constant';
 import {
   CartProductDetailType,
   CartProductType,
+  ProductDetailObjectType,
   ProductDetailType,
   ProductType,
 } from '../type';
@@ -97,8 +98,7 @@ const removeShoppingCartItemAsync =
 
 const updateProductList = createAction(UPDATE_PRODUCT_LIST);
 const updateProductListAsync =
-  (products: { [key: string]: ProductDetailType }) =>
-  async (dispatch: AppDispatch) => {
+  (products: ProductDetailObjectType) => async (dispatch: AppDispatch) => {
     try {
       dispatch(activateLoading());
 

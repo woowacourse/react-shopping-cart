@@ -3,16 +3,12 @@ import {
   addShoppingCartItemAsync,
   increaseProductAmount,
 } from '../redux/action';
-import { CartProductDetailType, ProductDetailType } from '../type';
+import { CartProductDetailObjectType, ProductDetailObjectType } from '../type';
 import useModal from './useModal';
 
 const useSuccessAddedModal = (
-  shoppingCartProducts: {
-    [key: string]: CartProductDetailType;
-  },
-  products: {
-    [key: string]: ProductDetailType;
-  }
+  shoppingCartProducts: CartProductDetailObjectType,
+  products: ProductDetailObjectType
 ) => {
   const {
     isModalOpen,

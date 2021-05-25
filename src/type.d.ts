@@ -12,12 +12,20 @@ interface ProductDetailType extends ProductType {
   liked: boolean;
 }
 
+interface ProductDetailObjectType {
+  [key: string]: ProductDetailType;
+}
+
 interface CartProductType extends ProductType {
   cart_id: string;
 }
 interface CartProductDetailType extends CartProductType {
   checked: boolean;
   quantity: number;
+}
+
+interface CartProductDetailObjectType {
+  [key: string]: CartProductDetailType;
 }
 
 interface OrderDetailType extends ItemType {
@@ -37,4 +45,6 @@ export type {
   OrderDetailType,
   ProductDetailType,
   CartProductDetailType,
+  ProductDetailObjectType,
+  CartProductDetailObjectType,
 };

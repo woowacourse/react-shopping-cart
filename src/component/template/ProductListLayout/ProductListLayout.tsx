@@ -1,4 +1,4 @@
-import { ProductDetailType, ProductType } from '../../../type';
+import { ProductDetailObjectType, ProductType } from '../../../type';
 import ColumnProductItem from '../../molecule/ColumnProductItem/ColumnProductItem';
 import PageIndexNav from '../../molecule/PageIndexNav/PageIndexNav';
 import { Container, LikedProductFilter } from './ProductListLayout.styles';
@@ -7,9 +7,7 @@ interface ProductListPageProps {
   showLikedProduct: boolean;
   maxPageIndex: number;
   pageIndex: number;
-  likedProducts: {
-    [key: string]: ProductDetailType;
-  };
+  likedProducts: ProductDetailObjectType;
   displayProductList: Array<ProductType>;
   onClickShoppingCartButton: (id: string) => void;
   onClickLikeButton: (id: string) => void;

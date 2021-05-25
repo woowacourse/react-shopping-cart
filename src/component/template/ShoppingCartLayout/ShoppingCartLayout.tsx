@@ -1,5 +1,8 @@
 import emptyImage from '../../../asset/img/empty_page.png';
-import { CartProductDetailType } from '../../../type';
+import {
+  CartProductDetailObjectType,
+  CartProductDetailType,
+} from '../../../type';
 import { numberWithCommas } from '../../../util';
 import CheckBox from '../../molecule/CheckBox/CheckBox';
 import PaymentInfoBox from '../../molecule/PaymentInfoBox/PaymentInfoBox';
@@ -15,7 +18,7 @@ import {
 } from './ShoppingCartLayout.styles';
 
 interface ShoppingCartLayoutProps {
-  shoppingCartProducts: { [key: number]: CartProductDetailType };
+  shoppingCartProducts: CartProductDetailObjectType;
   checkedProductList: Array<CartProductDetailType>;
   onClickCheckBox: React.MouseEventHandler<HTMLDivElement>;
   onClickAmountCounter: (id: string, type: string) => void;

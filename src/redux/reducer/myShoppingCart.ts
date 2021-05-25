@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { CartProductDetailType } from '../../type';
+import { CartProductDetailObjectType, CartProductDetailType } from '../../type';
 import {
   ADD_SHOPPING_CART_ITEMS,
   CHECK_PRODUCT,
@@ -10,9 +10,7 @@ import {
 } from '../actionType';
 
 interface StateProps {
-  products: {
-    [key: string]: CartProductDetailType;
-  };
+  products: CartProductDetailObjectType;
 }
 
 const initState: StateProps = {

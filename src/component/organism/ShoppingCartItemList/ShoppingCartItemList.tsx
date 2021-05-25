@@ -1,5 +1,8 @@
 import { AMOUNT_COUNTER_FLAG } from '../../../constant';
-import { CartProductDetailType } from '../../../type';
+import {
+  CartProductDetailType,
+  CartProductDetailObjectType,
+} from '../../../type';
 import { numberWithCommas } from '../../../util';
 import TrashCanIcon from '../../atom/TrashIcon/TrashIcon';
 import AmountCounter from '../../molecule/AmountCounter/AmountCounter';
@@ -13,7 +16,7 @@ import {
 } from './ShoppingCartItemList.styles';
 
 interface ShoppingCartItemListProps {
-  shoppingCartProducts: { [key: number]: CartProductDetailType };
+  shoppingCartProducts: CartProductDetailObjectType;
   checkedProductList: Array<CartProductDetailType>;
   onClickCheckBox: React.MouseEventHandler<HTMLInputElement>;
   onClickDeleteButton: (id: string) => void;

@@ -1,4 +1,4 @@
-import { OrderType, ProductDetailType } from '../../../type';
+import { OrderType, ProductDetailObjectType } from '../../../type';
 import Button from '../../atom/Button/Button';
 import OrderContainer from '../../molecule/OrderContainer/OrderContainer';
 import RowProductItem from '../../molecule/RowProductItem/RowProductItem';
@@ -6,9 +6,7 @@ import { Container, OrderItemContainer } from './OrderListLayout.styles';
 
 interface OrderListLayoutProps {
   orderList: Array<OrderType>;
-  products: {
-    [key: string]: ProductDetailType;
-  };
+  products: ProductDetailObjectType;
   onClickShoppingCartButton: (id: string) => void;
 }
 

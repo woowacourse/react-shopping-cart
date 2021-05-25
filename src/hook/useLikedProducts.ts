@@ -2,13 +2,13 @@ import produce from 'immer';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleLikeProduct } from '../redux/action';
-import { ProductDetailType } from '../type';
+import { ProductDetailObjectType, ProductDetailType } from '../type';
 
 const useLikedProducts = (products: { [key: string]: ProductDetailType }) => {
   const dispatch = useDispatch();
-  const [likedProducts, setLikedProducts] = useState<{
-    [key: string]: ProductDetailType;
-  }>({});
+  const [likedProducts, setLikedProducts] = useState<ProductDetailObjectType>(
+    {}
+  );
 
   const onClickLikeButton = (productId: string) => {
     setLikedProducts(
@@ -24,9 +24,7 @@ const useLikedProducts = (products: { [key: string]: ProductDetailType }) => {
     dispatch(toggleLikeProduct(products[productId]));
   };
   useEffect(() => {
-    const result: {
-      [key: string]: ProductDetailType;
-    } = {};
+    const result: ProductDetailObjectType = {};
     Object.values(products).forEach((product) => {
       if (product.liked) {
         result[product.product_id] = product;

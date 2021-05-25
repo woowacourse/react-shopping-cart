@@ -1,11 +1,9 @@
 import produce from 'immer';
-import { ProductDetailType } from '../../type';
+import { ProductDetailObjectType, ProductDetailType } from '../../type';
 import { TOGGLE_LIKE_PRODUCT, UPDATE_PRODUCT_LIST } from '../actionType';
 
 interface StateProps {
-  products: {
-    [key: string]: ProductDetailType;
-  };
+  products: ProductDetailObjectType;
 }
 
 const initState: StateProps = {
