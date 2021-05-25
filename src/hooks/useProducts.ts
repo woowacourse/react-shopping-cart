@@ -7,12 +7,12 @@ import { getProducts } from '../states/actions/products';
 
 const useProducts = () => {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state: RootState) => state.product);
+  const { products, loading, loadingError } = useSelector((state: RootState) => state.product);
 
   useEffect(() => {
     if (products.length !== 0) return;
     dispatch(getProducts());
-  }, [dispatch, products]);
+  }, [dispatch, products.length]);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -24,7 +24,7 @@ const useProducts = () => {
     };
   }, [dispatch]);
 
-  return { products, loading, error };
+  return { products, loading, loadingError };
 };
 
 export default useProducts;

@@ -1,34 +1,64 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { STATUS_CODE, URL } from '../constants';
-import useFetchingStatus from './useFetchingStatus';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../states';
+import { getCart } from '../states/actions/cart';
+import { CartAction } from '../states/actionTypes/cart';
+import {
+  addCartItem as _addCartItem,
+  deleteCartItem as _deleteCartItem,
+  changeCartItemQuantity as _changeCartItemQuantity,
+  selectCartItem as _selectCartItem,
+  selectAllCartItems as _selectAllCartItems,
+  deleteOrderedItems as _deleteOrderedItems,
+} from './../states/actions/cart';
 
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<Cart>([]);
-  const { loading, setLoading, responseOK, setResponseOK } = useFetchingStatus();
+  const { cart, loading, loadingError, error: cartError } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, CartAction>>();
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(URL.CART);
-        if (response.status !== STATUS_CODE.GET_SUCCESS) {
-          setResponseOK(false);
-          throw new Error('장바구니 정보를 불러오지 못했습니다');
-        }
+    if (cart.length !== 0) return;
 
-        const cartItems = response.data.map((item: CartItem) => ({ ...item, isSelected: true }));
-        setCartItems(cartItems);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCartItems();
-  }, [setCartItems, setLoading, setResponseOK]);
+    dispatch(getCart());
+  }, [dispatch, cart.length]);
 
-  return { cartItems, loading, responseOK, setCartItems };
+  const addCartItem = async (product: Product, quantity: string = '1') => {
+    await dispatch(_addCartItem(product, quantity));
+  };
+
+  const deleteCartItem = async (cartItem: CartItem) => {
+    await dispatch(_deleteCartItem(cartItem));
+  };
+
+  const changeCartItemQuantity = (productId: CartItem['productId'], quantity: string) => {
+    dispatch(_changeCartItemQuantity(productId, quantity));
+  };
+
+  const selectCartItem = (productId: CartItem['productId']) => {
+    dispatch(_selectCartItem(productId));
+  };
+
+  const selectAllCartItems = (isSelectAll: boolean) => {
+    dispatch(_selectAllCartItems(isSelectAll));
+  };
+
+  const deleteOrderedItems = (orderedItems: CartItem[]) => {
+    dispatch(_deleteOrderedItems(orderedItems));
+  };
+
+  return {
+    cart,
+    addCartItem,
+    deleteCartItem,
+    changeCartItemQuantity,
+    selectCartItem,
+    selectAllCartItems,
+    deleteOrderedItems,
+    loading,
+    loadingError,
+    cartError,
+  };
 };
 
 export default useCart;

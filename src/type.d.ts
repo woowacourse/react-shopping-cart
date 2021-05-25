@@ -1,5 +1,5 @@
 declare interface Product {
-  id: string;
+  productId: string;
   name: string;
   thumbnail: string;
   price: string;
@@ -7,7 +7,8 @@ declare interface Product {
 }
 
 declare interface CartItem {
-  id: string;
+  cartId: string;
+  productId: string;
   name: string;
   thumbnail: string;
   price: string;
@@ -15,8 +16,14 @@ declare interface CartItem {
   isSelected: boolean;
 }
 
-type Cart = CartItem[];
-declare interface Order {
-  id: number;
-  orderItems: CartItem[];
+declare interface OrderItem {
+  cartId: string;
+  quantity: string;
 }
+
+interface Order {
+  orderId: number;
+  orderDetails: CartItem[];
+}
+
+declare type Orders = Order[];

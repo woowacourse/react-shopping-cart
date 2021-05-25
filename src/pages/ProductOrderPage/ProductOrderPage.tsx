@@ -4,6 +4,8 @@ import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ProductListItem from '../../components/commons/ProductListItem/ProductListItem';
 
+import useCart from '../../hooks/useCart';
+
 import { PATH, RESPONSE_RESULT } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
@@ -13,6 +15,7 @@ import * as Styled from './ProductOrderPage.styles';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedItems: CartItem[] }>();
+  const { deleteOrderedItems } = useCart();
   const orderItems = history.location.state?.selectedItems;
 
   if (!orderItems) {
@@ -21,7 +24,7 @@ const ProductOrderPage = () => {
 
   const orderItemList = orderItems.map(orderItem => {
     return (
-      <Styled.OrderItemWrapper key={orderItem.id}>
+      <Styled.OrderItemWrapper key={orderItem.productId}>
         <ProductListItem
           size="SM"
           productThumbnail={orderItem.thumbnail}
@@ -51,7 +54,7 @@ const ProductOrderPage = () => {
       return;
     }
 
-    await API.DELETE_ORDER_ITEMS_IN_CART(orderItems);
+    deleteOrderedItems(orderItems);
 
     history.push(PATH.ORDER_LIST);
   };

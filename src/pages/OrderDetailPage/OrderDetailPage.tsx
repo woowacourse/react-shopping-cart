@@ -1,5 +1,4 @@
-import { Redirect, useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import OrderItemGroup from '../../components/commons/OrderItemGroup/OrderItemGroup';
@@ -12,73 +11,72 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useOrderDetail from '../../hooks/useOrderDetail';
 import useSnackBar from '../../hooks/useSnackBar';
+import useCart from '../../hooks/useCart';
 
-import { COLORS, PATH, RESPONSE_RESULT } from '../../constants';
+import { COLORS, PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
-import { API } from '../../services/api';
 
 import * as Styled from './OrderDetailPage.styles';
-import { RootState } from '../../states';
+import useProducts from '../../hooks/useProducts';
 
 const OrderDetailPage = () => {
   const history = useHistory();
-  const { products } = useSelector((state: RootState) => state.product);
-  const { orderItems, loading, responseOK } = useOrderDetail();
+  const { products } = useProducts();
+  const { order, loading, responseOK } = useOrderDetail();
   const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
+  const { addCartItem } = useCart();
   const orderId = window.location.hash.split('/').slice(-1);
 
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
-
   if (loading) {
-    return <Loading />;
+    return (
+      <Styled.OrderListPage>
+        <Loading />
+      </Styled.OrderListPage>
+    );
   }
 
   if (!loading && !responseOK) {
-    return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
+    return (
+      <Styled.OrderListPage>
+        <NotFound message="주문 목록 정보를 불러올 수 없습니다." />
+      </Styled.OrderListPage>
+    );
   }
 
   const onMoveToOrderListPage = () => {
     history.push(PATH.ORDER_LIST);
   };
 
-  const onAddItemInCart = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
+  const onAddItemInCart = async (id: Product['productId']) => {
+    const product = products.find(product => product.productId === id);
 
     if (!product) return;
 
-    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
-
-    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
-      return;
+    try {
+      await addCartItem(product);
+      setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    } catch (error) {
+      setSnackBarMessage(error.message);
     }
-
-    if (responseResult === RESPONSE_RESULT.FAILURE) {
-      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
-      return;
-    }
-
-    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
-  const orderItemList = orderItems.map(orderItem => (
-    <Styled.OrderWrapper key={orderItem.id}>
+  const orderItemList = order?.orderDetails.map(orderItem => (
+    <Styled.OrderWrapper key={orderItem.productId}>
       <ProductListItem
         size="MD"
         productName={orderItem.name}
-        productPrice={orderItem.price}
+        productPrice={getMoneyString(orderItem.price)}
         productQuantity={orderItem.quantity}
         productThumbnail={orderItem.thumbnail}
       />
-      <Button size="SM" onClick={() => onAddItemInCart(orderItem.id)}>
+      <Button size="SM" onClick={() => onAddItemInCart(orderItem.productId)}>
         장바구니 담기
       </Button>
     </Styled.OrderWrapper>
   ));
 
-  const totalPrice = orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
+  const totalPrice =
+    order?.orderDetails.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0) ?? 0;
 
   return (
     <Styled.OrderListPage>

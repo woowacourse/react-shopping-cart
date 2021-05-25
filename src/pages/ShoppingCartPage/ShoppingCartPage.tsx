@@ -11,16 +11,23 @@ import CartItem from '../../components/ShoppingCartPage/CartItem/CartItem';
 
 import useCart from '../../hooks/useCart';
 
-import { PATH, RESPONSE_RESULT } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import { confirm } from '../../utils/confirm';
-import { API } from '../../services/api';
 
 import * as Styled from './ShoppingCartPage.styles';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
-  const { cartItems, loading, responseOK, setCartItems } = useCart();
+  const {
+    cart,
+    deleteCartItem,
+    changeCartItemQuantity,
+    selectCartItem,
+    selectAllCartItems,
+    loading,
+    loadingError,
+  } = useCart();
   const [isTotalChecked, setTotalChecked] = useState<boolean>(true);
 
   if (loading) {
@@ -31,7 +38,7 @@ const ShoppingCartPage = () => {
     );
   }
 
-  if (!loading && !responseOK) {
+  if (!loading && loadingError) {
     return (
       <Styled.ShoppingCartPage>
         <NotFound message="상품을 찾을 수 없습니다." />
@@ -39,61 +46,30 @@ const ShoppingCartPage = () => {
     );
   }
 
-  const setCartItemQuantity = (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    API.CHANGE_ITEM_QUANTITY(id, quantity);
-    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, quantity } : item));
-    setCartItems(newCartItems);
-  };
-
-  const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
-    const newCartItems = cartItems.map(item => (item.id === id ? { ...item, isSelected } : item));
-    setCartItems(newCartItems);
-  };
-
   const getSelectedItems = () => {
-    return cartItems.filter(item => item.isSelected);
+    return cart.filter(item => item.isSelected);
   };
 
   const onToggleTotalCheck = () => {
-    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
-
+    selectAllCartItems(!isTotalChecked);
     setTotalChecked(isTotalChecked => !isTotalChecked);
-    setCartItems(newCartItems);
   };
 
-  const onDeleteCartItem = async (id: CartItem['id']) => {
-    const targetIndex = cartItems.findIndex(cartItem => cartItem.id === id);
-    if (!confirm(`'${cartItems[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
+  const onDeleteCartItem = async (id: CartItem['productId']) => {
+    const targetIndex = cart.findIndex(cartItem => cartItem.productId === id);
+    if (!confirm(`'${cart[targetIndex].name}'을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
     }
 
-    const responseResult = await API.DELETE_CART_ITEM(id);
-
-    if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
-      return;
-    }
-
-    const newCartItems = [...cartItems];
-    newCartItems.splice(targetIndex, 1);
-    setCartItems(newCartItems);
+    deleteCartItem(cart[targetIndex]);
   };
 
-  const onSelectedCartItemDelete = async () => {
+  const onDeleteSelectedCartItem = async () => {
     if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
       return;
     }
 
-    const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-    const responseResult = await API.DELETE_SELECTED_CART_ITEMS(selectedCartItemIdList);
-
-    if (responseResult === RESPONSE_RESULT.FAILURE) {
-      alert('상품을 장바구니에서 삭제하는데 실패하였습니다.');
-      return;
-    }
-
-    const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-    setCartItems(newCartItems);
+    cart.filter(item => item.isSelected).forEach(item => deleteCartItem(item));
   };
 
   const onOrderLinkButtonClick = () => {
@@ -108,21 +84,21 @@ const ShoppingCartPage = () => {
 
   const hasSelectedItems = getSelectedItems().length > 0;
 
-  const totalPrice = cartItems
+  const totalPrice = cart
     .filter(item => item.isSelected)
     .reduce((acc, cartItem) => acc + Number(cartItem.price) * Number(cartItem.quantity), 0);
 
-  const cartItemList = cartItems.map(cartItem => (
-    <Styled.CartItemWrapper key={cartItem.id}>
+  const cartItemList = cart.map(cartItem => (
+    <Styled.CartItemWrapper key={cartItem.productId}>
       <CartItem
         thumbnail={cartItem.thumbnail}
         name={cartItem.name}
         price={getMoneyString(Number(cartItem.price) * Number(cartItem.quantity))}
         quantity={cartItem.quantity}
-        setQuantity={quantity => setCartItemQuantity(cartItem.id, quantity)}
+        setQuantity={quantity => changeCartItemQuantity(cartItem.productId, quantity)}
         isSelected={cartItem.isSelected}
-        setSelected={isSelected => setCartItemSelected(cartItem.id, isSelected)}
-        onDeleteCartItem={() => onDeleteCartItem(cartItem.id)}
+        setSelected={() => selectCartItem(cartItem.productId)}
+        onDeleteCartItem={() => onDeleteCartItem(cartItem.productId)}
       />
     </Styled.CartItemWrapper>
   ));
@@ -137,12 +113,12 @@ const ShoppingCartPage = () => {
           <Styled.CartContainer>
             <Styled.ControlWrapper>
               <Checkbox labelText="전체 선택 / 선택 해제" onCheck={onToggleTotalCheck} isChecked={isTotalChecked} />
-              <Styled.DeleteButton onClick={onSelectedCartItemDelete} disabled={!hasSelectedItems}>
+              <Styled.DeleteButton onClick={onDeleteSelectedCartItem} disabled={!hasSelectedItems}>
                 상품삭제
               </Styled.DeleteButton>
             </Styled.ControlWrapper>
             <Styled.CartHeaderWrapper>
-              <Styled.CartHeader>배송상품 ({cartItems.length}개)</Styled.CartHeader>
+              <Styled.CartHeader>배송상품 ({cart.length}개)</Styled.CartHeader>
             </Styled.CartHeaderWrapper>
             <Styled.CartItemList>{cartItemList}</Styled.CartItemList>
           </Styled.CartContainer>

@@ -1,5 +1,4 @@
-import { useHistory, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import useSnackBar from '../../hooks/useSnackBar';
 
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
@@ -10,65 +9,63 @@ import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useOrders from '../../hooks/useOrders';
+import useCart from '../../hooks/useCart';
 
 import { getMoneyString } from '../../utils/format';
-import { PATH, RESPONSE_RESULT } from '../../constants';
-import { API } from '../../services/api';
+import { PATH } from '../../constants';
 
 import * as Styled from './OrderListPage.styles';
-import { RootState } from '../../states';
+import useProducts from '../../hooks/useProducts';
 
 const OrderListPage = () => {
   const history = useHistory();
+  const { products } = useProducts();
   const { orders, loading, responseOK } = useOrders();
+  const { addCartItem } = useCart();
   const { SnackBar, snackBarMessage, setSnackBarMessage } = useSnackBar();
-  const { products } = useSelector((state: RootState) => state.product);
-
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
 
   if (loading) {
-    return <Loading />;
+    return (
+      <Styled.OrderListPage>
+        <Loading />
+      </Styled.OrderListPage>
+    );
   }
 
   if (!loading && !responseOK) {
-    return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
+    return (
+      <Styled.OrderListPage>
+        <NotFound message="주문 목록 정보를 불러올 수 없습니다." />
+      </Styled.OrderListPage>
+    );
   }
 
   const onMoveToOrderDetailPage = (orderId: string) => {
     history.push(`${PATH.ORDER_DETAIL}/${orderId}`);
   };
 
-  const onAddItemInCart = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
+  const onAddItemInCart = async (id: Product['productId']) => {
+    const product = products.find(product => product.productId === id);
 
     if (!product) return;
 
-    const responseResult = await API.ADD_ONE_ITEM_IN_CART(product);
-
-    if (responseResult === RESPONSE_RESULT.ALREADY_EXIST) {
-      setSnackBarMessage(`장바구니에 담겨있는 상품입니다.`);
-      return;
+    try {
+      await addCartItem(product);
+      setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+    } catch (error) {
+      setSnackBarMessage(error.message);
     }
-
-    if (responseResult === RESPONSE_RESULT.FAILURE) {
-      setSnackBarMessage('상품을 장바구니에 담지 못했습니다.');
-      return;
-    }
-
-    setSnackBarMessage(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
   };
 
   const orderList = orders.map(order => (
-    <Styled.ItemGroupWrapper key={order.id}>
+    <Styled.ItemGroupWrapper key={order.orderId}>
       <OrderItemGroup
         detailLinkButtonText="상세보기 >"
-        orderNumber={String(order.id)}
-        onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.id))}
+        orderNumber={String(order.orderId)}
+        onDetailLinkClick={() => onMoveToOrderDetailPage(String(order.orderId))}
       >
-        {order.orderItems.map(item => (
-          <Styled.OrderWrapper key={item.id}>
+        {order.orderDetails.map(item => (
+          <Styled.OrderWrapper key={item.productId}>
             <ProductListItem
               size="MD"
               productThumbnail={item.thumbnail}
@@ -76,7 +73,7 @@ const OrderListPage = () => {
               productPrice={getMoneyString(item.price)}
               productQuantity={item.quantity}
             />
-            <Button size="SM" onClick={() => onAddItemInCart(item.id)}>
+            <Button size="SM" onClick={() => onAddItemInCart(item.productId)}>
               장바구니 담기
             </Button>
           </Styled.OrderWrapper>

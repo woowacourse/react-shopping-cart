@@ -8,5 +8,4 @@ export const ProductListPage = styled.div`
   justify-content: center;
   column-gap: 46px;
   row-gap: 28px;
-  padding-top: ${({ theme }) => theme.HEADER_HEIGHT};
 `;

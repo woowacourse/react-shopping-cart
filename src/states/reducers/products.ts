@@ -1,44 +1,38 @@
 import { AxiosError } from 'axios';
-import {
-  GET_PRODUCTS_FAILURE,
-  GET_PRODUCTS_REQUEST,
-  GET_PRODUCTS_SUCCESS,
-  ProductsAction,
-} from '../constants/actionTypes';
+import { LOADING, LOADING_SUCCESS, LOADING_FAILURE, ProductsAction } from '../actionTypes/products';
 
 export interface productState {
   loading: boolean;
-  error: AxiosError | null;
+  loadingError: AxiosError | null;
   products: Product[];
 }
 
 const initialState: productState = {
   loading: false,
-  error: null,
+  loadingError: null,
   products: [],
 };
 
 export const productReducer = (state: productState = initialState, action: ProductsAction): productState => {
   switch (action.type) {
-    case GET_PRODUCTS_REQUEST:
+    case LOADING:
       return {
         ...state,
-        error: null,
         loading: true,
+        loadingError: null,
       };
-    case GET_PRODUCTS_SUCCESS:
+    case LOADING_SUCCESS:
       return {
         ...state,
         loading: false,
         products: action.payload,
       };
-    case GET_PRODUCTS_FAILURE:
+    case LOADING_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.error,
+        loadingError: action.loadingError,
       };
-
     default:
       return state;
   }
