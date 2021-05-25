@@ -40,14 +40,12 @@ const OrderCheckoutPage = ({ history, location }: RouteComponentProps) => {
     }));
 
     createOrder(ORDER_QUERY, newOrder).then(() => {
-      Promise.all(
-        checkedProductList.map((product) =>
-          dispatch(removeShoppingCartItem(product))
-        )
-      ).then(() => {
-        history.push({
-          pathname: ROUTE.ORDER_LIST,
-        });
+      checkedProductList.map((product) =>
+        dispatch(removeShoppingCartItem(product))
+      );
+
+      history.push({
+        pathname: ROUTE.ORDER_LIST,
       });
     });
   };

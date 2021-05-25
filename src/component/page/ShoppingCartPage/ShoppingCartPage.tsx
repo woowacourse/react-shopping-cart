@@ -40,15 +40,13 @@ const ShoppingCartPage = ({ history, location }: RouteComponentProps) => {
   const onClickAllCheckBox = () => {
     const newAllChecked = !isAllChecked;
 
-    Promise.all(
-      Object.values(shoppingCartProducts).map((product) =>
-        newAllChecked
-          ? dispatch(checkProduct(product))
-          : dispatch(unCheckProduct(product))
-      )
-    ).then(() => {
-      setAllChecked(newAllChecked);
-    });
+    Object.values(shoppingCartProducts).map((product) =>
+      newAllChecked
+        ? dispatch(checkProduct(product))
+        : dispatch(unCheckProduct(product))
+    );
+
+    setAllChecked(newAllChecked);
   };
 
   const onClickCheckBox = (event: MouseEvent<HTMLDivElement>) => {
@@ -75,11 +73,9 @@ const ShoppingCartPage = ({ history, location }: RouteComponentProps) => {
   const onClickDeleteAllButton = () => {
     if (!window.confirm(CONFIRM_MESSAGE.DELETE)) return;
 
-    return Promise.all(
-      Object.values(shoppingCartProducts).map(
-        (product: CartProductDetailType) =>
-          dispatch(removeShoppingCartItemAsync(product))
-      )
+    return Object.values(shoppingCartProducts).map(
+      (product: CartProductDetailType) =>
+        dispatch(removeShoppingCartItemAsync(product))
     );
   };
 

@@ -103,16 +103,15 @@ const updateProductListAsync =
       dispatch(activateLoading());
 
       const productList = await requestTable.GET(PRODUCT_QUERY);
-      await Promise.all(
-        productList.map((product: ProductType) => {
-          const newProduct: ProductDetailType = {
-            ...product,
-            liked: !!products[product.product_id]?.liked,
-          };
 
-          return dispatch(updateProductList(newProduct));
-        })
-      );
+      productList.map((product: ProductType) => {
+        const newProduct: ProductDetailType = {
+          ...product,
+          liked: !!products[product.product_id]?.liked,
+        };
+
+        return dispatch(updateProductList(newProduct));
+      });
     } catch (error) {
       console.log(error);
       persistedStore.purge();
