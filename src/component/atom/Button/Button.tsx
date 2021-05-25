@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container } from './Button.styles';
 
 type ButtonType = 'default' | 'simple';

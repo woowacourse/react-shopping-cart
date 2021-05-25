@@ -26,6 +26,7 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
+
       <Router>
         <GlobalNavbar />
 
@@ -48,6 +49,7 @@ const App = () => {
           <Route component={() => <Redirect to={ROUTE.HOME} />} />
         </Switch>
       </Router>
+
       {loading && (
         <ModalPortal>
           <Spinner />
