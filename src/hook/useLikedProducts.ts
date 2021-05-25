@@ -11,19 +11,16 @@ const useLikedProducts = (products: { [key: string]: ProductDetailType }) => {
   }>({});
 
   const onClickLikeButton = (productId: string) => {
-    if (products[productId].liked) {
-      setLikedProducts(
-        produce(likedProducts, (draft) => {
+    setLikedProducts(
+      produce(likedProducts, (draft) => {
+        if (products[productId].liked) {
           delete draft[productId];
-        })
-      );
-    } else {
-      setLikedProducts(
-        produce(likedProducts, (draft) => {
+        } else {
           draft[productId] = products[productId];
-        })
-      );
-    }
+        }
+      })
+    );
+
     dispatch(toggleLikeProduct(products[productId]));
   };
   useEffect(() => {
