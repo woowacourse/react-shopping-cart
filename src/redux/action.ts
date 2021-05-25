@@ -45,8 +45,10 @@ const addShoppingCartItemAsync =
   (product: ProductDetailType) => async (dispatch: AppDispatch) => {
     try {
       dispatch(activateLoading());
-      const { product_id }: ProductType = product;
-      const response = await requestTable.POST(CART_QUERY, { product_id });
+      const response = await requestTable.POST<ProductType>(
+        CART_QUERY,
+        product
+      );
 
       if (response.status !== 201) throw new Error(await response.text());
 

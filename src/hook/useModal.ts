@@ -21,7 +21,7 @@ const useModal = (defaultValue: boolean) => {
   };
 
   const toggle = () => {
-    setModalState((state: any) => !state);
+    setModalState((state: boolean) => !state);
   };
 
   useEffect(() => () => setModalState(false), []);

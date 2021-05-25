@@ -15,8 +15,7 @@ import SuccessAddedModal from '../../organism/SuccessAddedModal/SuccessAddedModa
 import OrderListLayout from '../../template/OrderListLayout/OrderListLayout';
 
 const OrderListPage = ({ history, location }: RouteComponentProps) => {
-  const { value: orderList }: { value: Array<OrderType> } =
-    useServerAPI(ORDER_QUERY);
+  const { value: orderList } = useServerAPI<OrderType>(ORDER_QUERY);
 
   const { products, shoppingCartProducts } = useSelector(
     ({ productListReducer, myShoppingCartReducer }: RootState) => ({

@@ -5,9 +5,9 @@ import { requestTable } from '../api/request';
 import { activateLoading, deactivateLoading } from '../redux/action';
 import { persistedStore } from '../redux/store';
 
-const useServerAPI = (getQuery: string) => {
+const useServerAPI = <T>(getQuery: string) => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState<Array<any>>([]);
+  const [value, setValue] = useState<Array<T>>([]);
 
   const getAllData = async (query: string) => {
     try {
@@ -38,11 +38,11 @@ const useServerAPI = (getQuery: string) => {
     }
   };
 
-  const postData = async (query: string, payload: any) => {
+  const postData = async <I extends T>(query: string, payload: I) => {
     try {
       dispatch(activateLoading());
 
-      const response = await requestTable.POST(query, payload);
+      const response = await requestTable.POST<I>(query, payload);
 
       if (!response.ok) throw new Error(await response.text());
 

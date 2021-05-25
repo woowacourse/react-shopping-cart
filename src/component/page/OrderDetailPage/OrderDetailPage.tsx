@@ -26,8 +26,7 @@ const OrderDetailPage = ({
   history,
 }: RouteComponentProps<MatchParams>) => {
   const { id: orderId } = match.params;
-  const { value: orderList }: { value: Array<OrderType> } =
-    useServerAPI(ORDER_QUERY);
+  const { value: orderList } = useServerAPI<OrderType>(ORDER_QUERY);
 
   const targetOrder = orderList.find(
     (order) => Number(order.order_id) === Number(orderId)
