@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
@@ -10,35 +10,20 @@ import Spinner from '../../components/shared/Spinner/Spinner';
 import ProductItem from '../../components/units/ProductItem/ProductItem';
 import { RootState } from '../../store';
 import { addCartItem, getCartItems } from '../../slices/cartSlice';
-import api from '../../api';
+import useAxios from '../../hooks/useAxios';
 import API from '../../constants/api';
 
-const ProductsPage = () => {
+const ProductsPage = (): ReactElement => {
   const cartItems = useSelector((state: RootState) => state.cart);
 
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [products, setProducts] = useState<T.Product[]>([]);
-
-  const getProducts = useCallback(async () => {
-    setLoading(true);
-
-    try {
-      const response = await api.get(API.PRODUCTS);
-
-      setProducts(response.data);
-    } catch (error) {
-      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
-    }
-
-    setLoading(false);
-  }, [enqueueSnackbar]);
+  const [{ data: products, status, error }, fetchProducts] = useAxios(API.PRODUCTS);
 
   const handleClickCart = (productId: T.Product['productId']) => {
-    if (isLoading || cartItems.status === T.AsyncStatus.PENDING) return;
+    if (status !== T.AsyncStatus.SUCCESS || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
     const cartItemIds = cartItems.data.map((cartItem) => cartItem.productId);
 
@@ -52,8 +37,8 @@ const ProductsPage = () => {
         dispatch(getCartItems());
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
+      .catch((err: Error) => {
+        enqueueSnackbar(err.message);
       });
   };
 
@@ -62,20 +47,26 @@ const ProductsPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getProducts();
+    const getProducts = async () => {
+      await fetchProducts();
     };
-    fetchData();
-  }, [getProducts]);
+    getProducts();
+  }, [fetchProducts]);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
+    }
+  }, [enqueueSnackbar, error]);
 
   return (
     <Styled.Root>
-      {isLoading && (
+      {status === T.AsyncStatus.PENDING && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
-      {!isLoading && products.length <= 0 ? (
+      {status === T.AsyncStatus.SUCCESS && products?.length === 0 ? (
         <Styled.NoResultMessage>😢 지금은 구입할 수 있는 상품이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.ProductList>

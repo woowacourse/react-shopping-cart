@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './QuantityInput.styles';
+import { ReactComponent as ArrowUpIcon } from '../../../assets/images/arrow-up.svg';
+import { ReactComponent as ArrowDownIcon } from '../../../assets/images/arrow-down.svg';
 
-type QuantityInputProps = {
+interface IProps {
   value: number;
   min: number;
   max: number;
   onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onIncrease: () => void;
   onDecrease: () => void;
-};
+}
 
-const ARROW_IMAGE_SRC =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAASUExURf///zMzM0RERO/v73d3d7u7u2XEkIgAAAA8SURBVAjXY2DABlgDoAwjZSjDUQQqIygIkTMSFITIOQoKikBlIHJGIIYyRAYsB5YByRlBGMoQGag+VAAAlV0GYY4qHg4AAAAASUVORK5CYII=';
-
-const QuantityInput = (props: QuantityInputProps) => {
+const QuantityInput = (props: IProps): ReactElement => {
   const { value, min, max, onChangeInput, onIncrease, onDecrease } = props;
 
   return (
@@ -21,10 +20,10 @@ const QuantityInput = (props: QuantityInputProps) => {
       <Styled.Input type="number" value={value} min={min} max={max} onChange={onChangeInput} />
       <Styled.Control>
         <Styled.ArrowWrapper onClick={onIncrease}>
-          <Styled.ArrowUpImage src={ARROW_IMAGE_SRC} alt="arrow-up" />
+          <ArrowUpIcon />
         </Styled.ArrowWrapper>
         <Styled.ArrowWrapper onClick={onDecrease}>
-          <Styled.ArrowDownImage src={ARROW_IMAGE_SRC} alt="arrow-down" />
+          <ArrowDownIcon />
         </Styled.ArrowWrapper>
       </Styled.Control>
     </Styled.Root>

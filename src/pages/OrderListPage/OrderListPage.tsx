@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
@@ -8,43 +8,24 @@ import PurchasedItem from '../../components/units/PurchasedItem/PurchasedItem';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import * as T from '../../types';
 import MESSAGE from '../../constants/messages';
-import api from '../../api';
 import Styled from './OrderListPage.styles';
 import { addCartItem, getCartItems } from '../../slices/cartSlice';
 import { RootState } from '../../store';
+import useAxios from '../../hooks/useAxios';
 import API from '../../constants/api';
 
-const OrderListPage = () => {
+const OrderListPage = (): ReactElement => {
   const cartItems = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [orders, setOrders] = useState<T.Order[]>([]);
-
-  const getOrders = useCallback(async () => {
-    setLoading(true);
-
-    try {
-      const response = await api.get(API.ORDERS);
-      // const serializedOrders = response.data.map((order: T.Order) => ({
-      //   ...order,
-      //   orderDetails: toCamelCaseKeyObjectArray(order.orderDetails),
-      // }));
-
-      setOrders(response.data);
-    } catch (error) {
-      enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
-    }
-
-    setLoading(false);
-  }, [enqueueSnackbar]);
+  const [{ data: orders, status }, fetchOrders] = useAxios(API.ORDERS);
 
   const handleClickCart = (productId: T.Product['productId']) => {
-    if (isLoading || cartItems.status === T.AsyncStatus.PENDING) return;
+    if (status !== T.AsyncStatus.SUCCESS || cartItems.status !== T.AsyncStatus.SUCCESS) return;
 
-    const cartItemIds = cartItems.data?.map?.((cartItem) => cartItem.productId);
+    const cartItemIds = cartItems.data.map((cartItem) => cartItem.productId);
 
     if (cartItemIds.includes(productId)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
@@ -56,8 +37,8 @@ const OrderListPage = () => {
         dispatch(getCartItems());
         enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
       })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
+      .catch((err: Error) => {
+        enqueueSnackbar(err.message);
       });
   };
 
@@ -67,32 +48,32 @@ const OrderListPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getOrders();
+      await fetchOrders();
     };
     fetchData();
-  }, [getOrders]);
+  }, [fetchOrders]);
 
   return (
     <Styled.Root>
       <PageHeader title="주문 목록" />
-      {isLoading && (
+      {status === T.AsyncStatus.PENDING && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
 
-      {!isLoading && orders.length <= 0 ? (
+      {status !== T.AsyncStatus.PENDING && orders?.length === 0 ? (
         <Styled.NoResultMessage>📋 주문한 내역이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.OrderList>
-          {orders?.map?.((order) => (
+          {orders?.map?.((order: T.Order) => (
             <Styled.Order key={order.orderId}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
                 <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
-                {order.orderDetails?.map?.((item) => (
+                {order.orderDetails?.map?.((item: T.OrderItem) => (
                   <PurchasedItem key={`${order.orderId}-${item.productId}`} item={item} onClick={handleClickCart} />
                 ))}
               </Styled.PurchasedList>

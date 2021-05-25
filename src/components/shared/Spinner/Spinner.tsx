@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './Spinner.styles';
 import spinnerImageUrl from '../../../assets/images/spinner.gif';
 
-const Spinner = () => {
+const Spinner = (): ReactElement => {
   return <Styled.Root src={spinnerImageUrl} alt="loading" />;
 };
 

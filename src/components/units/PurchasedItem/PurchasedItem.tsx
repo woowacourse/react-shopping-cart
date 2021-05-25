@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './PurchasedItem.styles';
 import defaultImageURL from '../../../assets/images/no_image.jpg';
 import Button from '../../shared/Button/Button';
 import * as T from '../../../types';
+import { toPriceFormat } from '../../../utils';
 
-type PurchasedItemProps = {
+interface IProps {
   item: T.OrderItem;
   onClick: (productId: T.Product['productId']) => void;
-};
+}
 
-const PurchasedItem = (props: PurchasedItemProps) => {
+const PurchasedItem = (props: IProps): ReactElement => {
   const { item, onClick } = props;
   const { quantity, name, price, productId, imageUrl } = item;
 
@@ -25,7 +26,7 @@ const PurchasedItem = (props: PurchasedItemProps) => {
       <Styled.Info>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>
-          {totalPrice.toLocaleString('ko-KR')}원 / 수량 : {quantity}개
+          {toPriceFormat(totalPrice)}원 / 수량 : {quantity}개
         </Styled.Detail>
       </Styled.Info>
       <Styled.ButtonWrapper>

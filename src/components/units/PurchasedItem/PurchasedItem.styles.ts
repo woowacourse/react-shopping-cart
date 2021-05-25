@@ -6,7 +6,7 @@ const Root = styled.li`
   align-items: flex-start;
   width: 100%;
   padding: 20px 0;
-  border-bottom: 1.5px solid #cccccc;
+  border-bottom: 1.5px solid ${(props) => props.theme.borderColor.defaultGrey};
 `;
 
 const Image = styled.img`

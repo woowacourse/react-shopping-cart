@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -16,8 +16,9 @@ import cartItemsSlice, { getCartItems, deleteItem, deleteCheckedItems } from '..
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import ROUTES from '../../constants/routes';
+import { toPriceFormat } from '../../utils';
 
-const CartPage = () => {
+const CartPage = (): ReactElement => {
   const cartItems = useSelector((state: RootState) => state.cart);
   const { checkCartItem, checkAllCartItems } = cartItemsSlice.actions;
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
@@ -72,14 +73,14 @@ const CartPage = () => {
                 labelText="전체 선택"
                 checked={isAllChecked}
                 onChange={handleCheckAllItem}
-                disabled={cartItems.data.length <= 0}
+                disabled={cartItems.data.length === 0}
               />
-              <Styled.DeleteButton onClick={handleDeleteCheckedItem} disabled={checkedItems.length <= 0}>
+              <Styled.DeleteButton onClick={handleDeleteCheckedItem} disabled={checkedItems.length === 0}>
                 선택 삭제
               </Styled.DeleteButton>
             </Styled.CartListOption>
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
-            {cartItems.data.length <= 0 ? (
+            {cartItems.data.length === 0 ? (
               <Styled.NoResultMessage>🛒 장바구니가 비어있어요!</Styled.NoResultMessage>
             ) : (
               <Styled.CartItemList>
@@ -98,13 +99,14 @@ const CartPage = () => {
             <PriceOverview headerText="결제예상금액">
               <Styled.HighlightTextWrapper>
                 <HighlightText text="결제예상금액" />
-                <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
+                <HighlightText text={`${toPriceFormat(checkedItemsTotalPrice)}원`} />
               </Styled.HighlightTextWrapper>
               <Link to={{ pathname: ROUTES.ORDER, state: { checkedItems } }}>
                 <Button
+                  fullWidth
                   text={`주문하기 (${checkedItems.length}개)`}
                   size={T.ButtonSize.REGULAR}
-                  disabled={checkedItems.length <= 0}
+                  disabled={checkedItems.length === 0}
                 />
               </Link>
             </PriceOverview>

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './PriceOverview.styles';
 
-type PriceOverviewProps = {
+interface IProps {
   headerText: string;
   children: React.ReactNode;
-};
+}
 
-const PriceOverview = (props: PriceOverviewProps) => {
+const PriceOverview = (props: IProps): ReactElement => {
   const { headerText, children } = props;
 
   return (
@@ -17,7 +17,5 @@ const PriceOverview = (props: PriceOverviewProps) => {
     </Styled.Root>
   );
 };
-
-PriceOverview.defaultProps = {};
 
 export default PriceOverview;

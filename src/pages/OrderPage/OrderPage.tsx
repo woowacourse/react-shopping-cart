@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
@@ -8,8 +10,11 @@ import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
-import api from '../../api';
 import MESSAGE from '../../constants/messages';
+import { toPriceFormat } from '../../utils';
+import useAxios from '../../hooks/useAxios';
+import { RootState } from '../../store';
+import { deleteCheckedItems } from '../../slices/cartSlice';
 import API from '../../constants/api';
 import ROUTES from '../../constants/routes';
 
@@ -17,40 +22,41 @@ type LocationState = {
   checkedItems: T.CartItem[];
 };
 
-const OrderPage = () => {
+const OrderPage = (): ReactElement => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
   const { enqueueSnackbar } = useSnackbar();
+  const [{ status, error }, fetchOrder] = useAxios(API.ORDERS, { method: T.ApiMethod.POST });
 
-  if (!location.state) return <Redirect to="/" />;
+  const checkedItems = location?.state?.checkedItems;
 
-  const { checkedItems } = location.state;
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
+    }
+  }, [enqueueSnackbar, error]);
+
+  useEffect(() => {
+    if (status === T.AsyncStatus.SUCCESS) {
+      const ids = checkedItems?.map?.((cartItem) => cartItem.cartId);
+      dispatch(deleteCheckedItems(ids));
+
+      history.replace(ROUTES.ORDER_COMPLETE);
+    }
+  }, [checkedItems, dispatch, enqueueSnackbar, error, history, status]);
+
+  if (!location.state) return <Redirect to={ROUTES.ROOT} />;
+
+  const handlePurchaseCartItems = async () => {
+    if (status === T.AsyncStatus.PENDING) return;
+
+    await fetchOrder(checkedItems);
+  };
 
   const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {
     return acc + curr.price * curr.quantity;
   }, 0);
-
-  const handlePurchaseCartItems = async () => {
-    if (isLoading) return;
-
-    setLoading(true);
-
-    const orderingItem = checkedItems.map(({ cartId, quantity }) => ({ cartId, quantity }));
-
-    try {
-      await api.post(API.ORDERS, orderingItem);
-
-      history.replace(ROUTES.ORDER_COMPLETE);
-      return;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
-    }
-
-    setLoading(false);
-  };
 
   return (
     <Styled.Root>
@@ -69,10 +75,11 @@ const OrderPage = () => {
           <PriceOverview headerText="결제금액">
             <Styled.HighlightTextWrapper>
               <HighlightText text="총 결제금액" />
-              <HighlightText text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원`} />
+              <HighlightText text={`${toPriceFormat(checkedItemsTotalPrice)}원`} />
             </Styled.HighlightTextWrapper>
             <Button
-              text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`}
+              fullWidth
+              text={`${toPriceFormat(checkedItemsTotalPrice)}원 결제하기`}
               size={T.ButtonSize.REGULAR}
               onClick={handlePurchaseCartItems}
             />

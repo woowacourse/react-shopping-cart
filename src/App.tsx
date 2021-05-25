@@ -1,20 +1,14 @@
-import React from 'react';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { Global, ThemeProvider } from '@emotion/react';
+import React, { ReactElement } from 'react';
+import { HashRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
-import Styled, { globalStyle, theme } from './App.styles';
-import BaseLayout from './components/layout/BaseLayout/BaseLayout';
-import ProductsPage from './pages/ProductsPage/ProductsPage';
-import CartPage from './pages/CartPage/CartPage';
-import OrderPage from './pages/OrderPage/OrderPage';
-import OrderCompletePage from './pages/OrderCompletePage/OrderCompletePage';
-import OrderListPage from './pages/OrderListPage/OrderListPage';
-import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
-import ROUTES from './constants/routes';
+import Styled, { theme } from './App.styles';
 import { store } from './store';
+import Routes from './Routes';
+import BaseLayout from './components/layout/BaseLayout/BaseLayout';
 
-const App = () => {
+const App = (): ReactElement => {
   return (
     <Provider store={store}>
       <SnackbarProvider
@@ -27,29 +21,8 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Router>
             <BaseLayout>
-              <Global styles={globalStyle} />
               <Styled.Page>
-                <Switch>
-                  <Route exact path={[ROUTES.ROOT, ROUTES.PRODUCTS]}>
-                    <ProductsPage />
-                  </Route>
-                  <Route path={`${ROUTES.PRODUCT}/:id`}>
-                    <ProductDetailPage />
-                  </Route>
-                  <Route path={ROUTES.CART}>
-                    <CartPage />
-                  </Route>
-                  <Route exact path={ROUTES.ORDER}>
-                    <OrderPage />
-                  </Route>
-                  <Route path={ROUTES.ORDER_COMPLETE}>
-                    <OrderCompletePage />
-                  </Route>
-                  <Route path={ROUTES.ORDER_LIST}>
-                    <OrderListPage />
-                  </Route>
-                  <Redirect to={ROUTES.ROOT} path="*" />
-                </Switch>
+                <Routes />
               </Styled.Page>
             </BaseLayout>
           </Router>

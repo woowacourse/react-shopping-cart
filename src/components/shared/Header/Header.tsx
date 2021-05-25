@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from './Header.styles';
 import { ReactComponent as Logo } from '../../../assets/images/logo.svg';
 
-const Header = () => {
+const Header = (): ReactElement => {
   return (
     <Styled.Root>
       <Styled.Container>

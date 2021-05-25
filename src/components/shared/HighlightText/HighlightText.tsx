@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Styled from './HighlightText.styles';
 
-type HighlightTextProps = {
+interface IProps {
   text: string;
-};
+}
 
-const HighlightText = (props: HighlightTextProps) => {
+const HighlightText = (props: IProps): ReactElement => {
   const { text } = props;
 
   return <Styled.Root>{text}</Styled.Root>;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import Styled from './CartItem.styles';
 import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
@@ -8,14 +8,15 @@ import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
 import cartItemsSlice from '../../../slices/cartSlice';
+import { toPriceFormat } from '../../../utils';
 
-type CartItemProps = {
+interface IProps {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
   onDelete: (id: T.CartItem['cartId']) => void;
-};
+}
 
-const CartItem = (props: CartItemProps) => {
+const CartItem = (props: IProps): ReactElement => {
   const { updateQuantity } = cartItemsSlice.actions;
 
   const { cartItem, onCheck, onDelete } = props;
@@ -51,8 +52,6 @@ const CartItem = (props: CartItemProps) => {
     dispatch(updateQuantity({ cartId, quantity: quantity - 1 }));
   };
 
-  const totalPrice = price * quantity;
-
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     onCheck(cartId, isChecked);
@@ -61,6 +60,8 @@ const CartItem = (props: CartItemProps) => {
   const handleDelete = () => {
     onDelete(cartId);
   };
+
+  const totalPrice = price * quantity;
 
   return (
     <Styled.Root>
@@ -81,7 +82,7 @@ const CartItem = (props: CartItemProps) => {
             onDecrease={handleDecrement}
           />
         </Styled.QuantityInputWrapper>
-        <Styled.Price>{totalPrice.toLocaleString('ko-KR')} 원</Styled.Price>
+        <Styled.Price>{toPriceFormat(totalPrice)} 원</Styled.Price>
       </Styled.Option>
     </Styled.Root>
   );

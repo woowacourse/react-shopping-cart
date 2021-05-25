@@ -27,3 +27,5 @@ export const keysToCamel = (obj: NestedType): unknown => {
 
   return obj;
 };
+
+export const toPriceFormat = (price: number): string => price.toLocaleString('ko-KR');

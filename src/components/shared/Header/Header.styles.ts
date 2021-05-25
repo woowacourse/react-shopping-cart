@@ -7,14 +7,14 @@ const Root = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
   z-index: 10;
 `;
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1320px;
   min-width: 768px;
+  max-width: 1320px;
   height: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -23,6 +23,7 @@ const Container = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
 `;
+
 const Title = styled.h1`
   margin: 0;
   font-weight: 900;

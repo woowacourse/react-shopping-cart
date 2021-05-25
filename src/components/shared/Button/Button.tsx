@@ -1,30 +1,31 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, ReactElement } from 'react';
 import Styled from './Button.styles';
 import * as T from '../../../types';
 
-type ButtonProps = {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: T.ButtonSize;
   bgColor?: string;
   text: string;
   textColor?: string;
+  fullWidth?: boolean;
   onClick?: () => void;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+}
 
-const Button = (props: ButtonProps) => {
-  const { size, bgColor, text, textColor, onClick } = props;
+const Button = (props: IProps): ReactElement => {
+  const {
+    size = T.ButtonSize.REGULAR,
+    bgColor = '',
+    text,
+    textColor = '',
+    fullWidth = false,
+    onClick = () => {},
+  } = props;
 
   return (
-    <Styled.Root size={size} bgColor={bgColor} textColor={textColor} onClick={onClick} {...props}>
+    <Styled.Root size={size} bgColor={bgColor} textColor={textColor} fullWidth={fullWidth} onClick={onClick} {...props}>
       {text}
     </Styled.Root>
   );
-};
-
-Button.defaultProps = {
-  size: T.ButtonSize.REGULAR,
-  bgColor: '',
-  textColor: '',
-  onClick: () => {},
 };
 
 export default Button;
