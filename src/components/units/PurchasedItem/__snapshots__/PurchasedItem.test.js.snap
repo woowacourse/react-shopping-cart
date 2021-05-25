@@ -6,7 +6,7 @@ exports[`PurchasedItem 테스트 matches snapshot 1`] = `
     class="css-mmzmx8-Root e1ycuyj35"
   >
     <img
-      alt="김말이"
+      alt="item-image"
       class="css-lbmuvq-Image e1ycuyj34"
       src="brave.png"
     />

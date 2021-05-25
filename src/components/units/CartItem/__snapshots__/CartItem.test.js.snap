@@ -21,7 +21,7 @@ exports[`CartItem 테스트 matches snapshot 1`] = `
       />
     </label>
     <img
-      alt="김말이"
+      alt="item-image"
       class="css-q92kmb-Image ezkszs75"
       src="no_image.jpg"
     />
@@ -32,7 +32,7 @@ exports[`CartItem 테스트 matches snapshot 1`] = `
       class="css-1nr2lfb-Option ezkszs73"
     >
       <button
-        class="css-1elft63-Delete ezkszs72"
+        class="css-obmvoo-DeleteButton ezkszs72"
       >
         <svg>
           delete.svg
