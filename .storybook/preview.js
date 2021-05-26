@@ -1,7 +1,7 @@
 import { configure, addDecorator } from '@storybook/react';
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import GlobalStyles from '../src/GlobalStyles';
+import GlobalStyles from '../src/style/GlobalStyles';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,7 +13,7 @@ export const parameters = {
   },
 };
 
-addDecorator(style => (
+addDecorator((style) => (
   <>
     <GlobalStyles />
     <Router>{style()}</Router>

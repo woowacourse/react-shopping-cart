@@ -1,0 +1,37 @@
+{
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ],
+  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": ["airbnb-typescript", "react-app", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "comma-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "arrow-parens": "off",
+    "import/prefer-default-export": "off",
+    "object-curly-newline": "off",
+    "max-len": "off",
+    "operator-linebreak": "off",
+    "consistent-return": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-alert": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "react/jsx-indent": "off",
+    "indent": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/require-default-props": "off",
+    "@typescript-eslint/naming-convention": "off"
+  }
+}
