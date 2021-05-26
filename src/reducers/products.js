@@ -1,20 +1,52 @@
 import produce from 'immer';
-import { ACTION_TYPE, PRODUCT } from '../constants';
+import { ACTION_TYPE, FALLBACK, PRODUCT } from '../constants';
+import { combineReducers } from 'redux';
 
 const initialState = {
-  pickedProducts: {},
+  fetchedProducts: [],
+  cartItems: [],
+  productDetail: {},
+};
+
+// const setCartsWithQuantity = (state, newProduct) => {
+//   const updater = produce(draft => {
+//     draft.cartItems = newProduct;
+//   });
+
+//   return updater(state);
+// };
+
+const addInitialProductToCart = (state, { product, cartId }) => {
+  const { cartItems } = state;
+  const { product_id } = product;
+  const index = cartItems.findIndex(item => item.product_id === product_id);
+  const newIndex = index === -1 ? cartItems.length : index;
+
+  const updater = produce(draft => {
+    draft.cartItems[newIndex] = {
+      cart_id: cartId,
+      ...product,
+      quantity: 1,
+      isChecked: true,
+    };
+  });
+
+  return updater(state);
 };
 
 const addToCart = (state, product) => {
-  const { pickedProducts } = state;
+  const { cartItems } = state;
   const { product_id } = product;
-  const newQuantity =
-    product_id in pickedProducts ? pickedProducts[product_id].quantity + 1 : 1;
+  const cartItem = cartItems.find(item => item.product_id === product_id);
+
+  const index = cartItems.findIndex(item => item.product_id === product_id);
+  const newIndex = index === -1 ? cartItems.length : index;
 
   const updater = produce(draft => {
-    draft.pickedProducts[product_id] = {
+    draft.cartItems[newIndex] = {
+      cart_id: cartItem.cart_id,
       ...product,
-      quantity: newQuantity,
+      quantity: cartItems[index].quantity + 1,
       isChecked: true,
     };
   });
@@ -23,81 +55,130 @@ const addToCart = (state, product) => {
 };
 
 const changeQuantity = (state, id, operand) => {
-  const { pickedProducts } = state;
+  const { cartItems } = state;
+  const product = cartItems.find(item => item.product_id === id);
+  const index = cartItems.findIndex(item => item.product_id === id);
 
-  const prevQuantity = pickedProducts[id].quantity;
+  const prevQuantity = product.quantity;
+
   const newQuantity =
     prevQuantity < PRODUCT.QUANTITY.MIN || prevQuantity > PRODUCT.QUANTITY.MAX
       ? prevQuantity
       : prevQuantity + operand;
 
+  const newProduct = {
+    ...product,
+    quantity: newQuantity,
+    isChecked: true,
+  };
+
   const updater = produce(draft => {
-    draft.pickedProducts[id] = {
-      ...pickedProducts[id],
-      quantity: newQuantity,
-    };
+    draft.cartItems[index] = newProduct;
   });
 
   return updater(state);
 };
 
 const toggleChecked = (state, id) => {
-  const { pickedProducts } = state;
+  const { cartItems } = state;
+  const product = cartItems.find(product => product.product_id === id);
+  const index = cartItems.findIndex(product => product.product_id === id);
+
+  const newProduct = {
+    ...product,
+    isChecked: !product.isChecked,
+  };
 
   const updater = produce(draft => {
-    draft.pickedProducts[id] = {
-      ...pickedProducts[id],
-      isChecked: !pickedProducts[id].isChecked,
-    };
+    draft.cartItems[index] = newProduct;
   });
 
   return updater(state);
 };
 
 const toggleCheckedAll = (state, isChecked) => {
-  const { pickedProducts } = state;
-  const newProducts = {};
+  const { cartItems } = state;
+  const newProducts = [];
 
-  Object.values(pickedProducts).forEach(product => {
-    newProducts[product.id] = {
+  Object.values(cartItems).forEach(product => {
+    newProducts.push({
       ...product,
       isChecked: !isChecked,
-    };
+    });
   });
 
   return {
     ...state,
-    pickedProducts: newProducts,
+    cartItems: newProducts,
   };
 };
 
-const deleteCheckedProducts = state => {
-  const { pickedProducts } = state;
-  const newProducts = {};
+const deleteProduct = (state, id) => {
+  // debugger;
+  const { cartItems } = state;
+  const newProducts = [...cartItems];
 
-  Object.values(pickedProducts).forEach(product => {
-    if (!product.isChecked) {
-      newProducts[product.id] = {
-        ...product,
-      };
-    }
-  });
+  newProducts.splice(id, 1);
 
   const updater = produce(draft => {
-    draft.pickedProducts = newProducts;
+    draft.cartItems = newProducts;
   });
 
   return updater(state);
 };
 
-const deleteProduct = (state, id) => {
-  const { pickedProducts } = state;
-  const newProducts = { ...pickedProducts };
+const deleteProductChecked = state => {
+  const { cartItems } = state;
+  const newProducts = [];
 
-  delete newProducts[id];
+  Object.values(cartItems).forEach(product => {
+    if (!product.isChecked) {
+      newProducts.push({
+        ...product,
+        isChecked: true,
+      });
+    }
+  });
 
   const updater = produce(draft => {
-    draft.pickedProducts = newProducts;
+    draft.cartItems = newProducts;
+  });
+
+  return updater(state);
+};
+
+const setProducts = (state, products) => {
+  const updater = produce(draft => {
+    draft.fetchedProducts = products;
+  });
+
+  return updater(state);
+};
+
+const setCarts = (state, cartItems) => {
+  const newCartItems = cartItems.map(item => {
+    return { ...item, isChecked: true, quantity: 1 };
+  });
+  console.log(newCartItems);
+
+  const updater = produce(draft => {
+    draft.cartItems = newCartItems;
+  });
+
+  return updater(state);
+};
+
+const getProductDetail = (state, productDetail) => {
+  const updater = produce(draft => {
+    draft.productDetail = productDetail;
+  });
+
+  return updater(state);
+};
+
+const resetProductDetail = state => {
+  const updater = produce(draft => {
+    draft.productDetail = { ...state, image_url: FALLBACK.PRODUCT.LOADING };
   });
 
   return updater(state);
@@ -106,7 +187,7 @@ const deleteProduct = (state, id) => {
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.PRODUCTS.ADD_TO_CART:
-      return addToCart(state, action.product);
+      return addToCart(state, action.payload);
 
     case ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY:
       return changeQuantity(state, action.id, 1);
@@ -120,15 +201,32 @@ const productReducer = (state = initialState, action) => {
     case ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED:
       return toggleCheckedAll(state, action.isChecked);
 
-    case ACTION_TYPE.PRODUCTS.DELETE_CHECKED:
-      return deleteCheckedProducts(state);
-
     case ACTION_TYPE.PRODUCTS.DELETE:
-      return deleteProduct(state, action.id);
+      return deleteProduct(state, action.index);
 
+    case ACTION_TYPE.PRODUCTS.DELETE_CHECKED:
+      return deleteProductChecked(state);
+
+    case ACTION_TYPE.PRODUCTS.SET_PRODUCTS:
+      return setProducts(state, action.fetchedProducts);
+
+    case ACTION_TYPE.PRODUCTS.GET_PRODUCT_DETAIL:
+      return getProductDetail(state, action.productDetail);
+
+    case ACTION_TYPE.PRODUCTS.RESET_PRODUCT_DETAIL:
+      return resetProductDetail(state);
+
+    case ACTION_TYPE.PRODUCTS.SET_CARTS:
+      return setCarts(state, action.cartItems);
+
+    // case 'SET_CARTS_WITH_QUANTITY':
+    //   return setCartsWithQuantity(state, action.payload);
+
+    case 'ADD_INITIAL_PRODUCT_TO_CART':
+      return addInitialProductToCart(state, action.payload);
     default:
       return state;
   }
 };
 
-export default productReducer;
+export default combineReducers({ product: productReducer });

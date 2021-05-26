@@ -39,6 +39,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     margin:0;
     padding:0;
+    border: 0;
+    outline: 0;
   }
 
   html, body {
@@ -46,7 +48,14 @@ const GlobalStyle = createGlobalStyle`
     cursor: default;
     margin:0;
     padding:0;
+
+    &::-webkit-scrollbar {
+      display: none;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
+
 
   #root {
     height: 100%;

@@ -12,13 +12,13 @@ export const Order = styled.div`
 
 export const ImageWrapper = styled.div`
   flex-basis: 20%;
-`;
 
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
-  width: 7rem;
-  height: 7rem;
-  object-fit: contain;
-  border: 1px solid var(--color-grey-100);
+  & > img {
+    width: 7rem;
+    height: 7rem;
+    object-fit: contain;
+    border: 1px solid var(--color-grey-100);
+  }
 `;
 
 export const OrderDetail = styled.div`

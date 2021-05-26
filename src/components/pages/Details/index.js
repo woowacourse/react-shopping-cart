@@ -1,19 +1,37 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ACTION_TYPE } from '../../../constants';
 import ProductDetail from '../../ProductDetail';
+import { handleCartButtonClick } from '../Products/index.actions';
 import { Page, Main } from './index.styles';
 
-const Details = ({ products, onImageError, match }) => {
-  const product = products.find(
-    ({ product_id }) => product_id === Number(match.params.product_id)
-  );
-
+const Details = ({ onImageError, match }) => {
   const dispatch = useDispatch();
+  const product = useSelector(state => state.product.product.productDetail);
+  const product_id = match.params.product_id;
 
-  const handleCartButtonClick = product => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
-  };
+  async function fetchProductDetail() {
+    try {
+      const response = await axios.get(
+        `/api/products/${match.params.product_id}`
+      );
+      dispatch({
+        type: ACTION_TYPE.PRODUCTS.GET_PRODUCT_DETAIL,
+        productDetail: response.data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchProductDetail();
+
+    return () => {
+      dispatch({ type: ACTION_TYPE.PRODUCTS.RESET_PRODUCT_DETAIL });
+    };
+  }, []);
 
   return (
     <Page>

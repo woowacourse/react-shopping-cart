@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import ProductItem from '../../ProductItem';
 import { ProductList, ProductPage } from './index.styles';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { ACTION_TYPE } from '../../../constants';
+import { fetchProducts, handleCartButtonClick } from './index.actions';
+import { fetchCarts } from '../ShoppingCart/index.actions';
 
-const Products = ({ products, onImageError }) => {
+const Products = () => {
   const dispatch = useDispatch();
+  const products = useSelector(state => state.product.product.fetchedProducts);
+  const cartItems = useSelector(state => state.product.product.cartItems);
 
-  const handleCartButtonClick = product => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
-  };
+  useEffect(() => {
+    fetchProducts()(dispatch);
+
+    if (cartItems.length === 0) {
+      fetchCarts()(dispatch);
+    }
+  }, []);
 
   return (
     <ProductPage>
       <ProductList>
-        {products.map(product => (
-          <li key={product.product_id}>
-            <ProductItem
-              {...product}
-              onImageError={onImageError}
-              onCartButtonClick={() => handleCartButtonClick({ ...product })}
-            />
-          </li>
-        ))}
+        {products &&
+          Object.values(products).map(product => {
+            return (
+              <li key={product.product_id}>
+                <ProductItem
+                  {...product}
+                  onCartButtonClick={() =>
+                    handleCartButtonClick({ ...product }, cartItems, dispatch)
+                  }
+                />
+              </li>
+            );
+          })}
       </ProductList>
     </ProductPage>
   );

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { formatPrice } from '../../utils';
 import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
-import { Product, Image, Description, Name, Price } from './index.styles';
+import { Product, Description, Name, Price } from './index.styles';
 import { Link } from 'react-router-dom';
+import { Image } from '../common/Image/index.styles';
 
 const ProductItem = ({
   product_id,
@@ -12,12 +13,11 @@ const ProductItem = ({
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   onCartButtonClick = () => {},
-  onImageError = () => {},
 }) => {
   return (
     <Product>
       <Link to={`/product/${product_id}`}>
-        <Image src={image_url} alt={name} onError={onImageError} />
+        <Image src={image_url} alt={name} />
       </Link>
       <Description>
         <div>

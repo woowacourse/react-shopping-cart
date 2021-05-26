@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
-import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
+import { Detail, Name, PriceWrapper, Product } from './index.styles';
+import { Image } from '../common/Image/index.styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetail = ({ product, onImageError, handleCartButtonClick }) => {
-  // const handleSave = () => match.history.push('/products');
-  // TODO: 새로고침시 오류
-
+const ProductDetail = ({ product, handleCartButtonClick }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.product.product.cartItems);
   const { name, price, image_url } = product;
 
   return (
     <Product>
       <Detail>
-        <Image src={image_url} alt={name} onError={onImageError} />
+        <Image src={image_url} alt={name} />
         <Name>{name}</Name>
         <PriceWrapper>
           <span>금액</span>
@@ -23,7 +24,9 @@ const ProductDetail = ({ product, onImageError, handleCartButtonClick }) => {
       </Detail>
       <Button
         backgroundColor={BUTTON_COLOR}
-        onClick={() => handleCartButtonClick({ ...product })}
+        onClick={() =>
+          handleCartButtonClick({ ...product }, cartItems, dispatch)
+        }
       >
         장바구니
       </Button>
@@ -35,7 +38,7 @@ ProductDetail.propTypes = {
   image_url: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
-  // onClick: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default ProductDetail;

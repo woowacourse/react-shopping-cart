@@ -3,28 +3,30 @@ import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
 
-const CompletedOrderList = ({ order }) => {
-  const { id, products } = order;
+const CompletedOrderList = ({ order, onImageError }) => {
+  const { order_id, order_details } = order;
 
   return (
     <OrderList>
       <Header>
-        <span>주문번호 : {id}</span>
+        <span>주문번호 : {order_id}</span>
         <span>상세보기 ᐳ </span>
       </Header>
       <ul>
         {/* TODO: Backend API에 맞게 Key 수정 */}
-        {products.map(({ id, imgUrl, name, price, quantity }) => (
-          <li key={id}>
-            <OrderItem
-              imgUrl={imgUrl}
-              name={name}
-              price={price}
-              quantity={quantity}
-              isCartButtonVisible={true}
-            />
-          </li>
-        ))}
+        {order_details.map(
+          ({ product_id, image_url, name, price, quantity }) => (
+            <li key={product_id}>
+              <OrderItem
+                imgUrl={image_url}
+                name={name}
+                price={price}
+                quantity={quantity}
+                isCartButtonVisible={true}
+              />
+            </li>
+          )
+        )}
       </ul>
     </OrderList>
   );

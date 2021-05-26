@@ -13,13 +13,13 @@ export const Product = styled.div`
     height: 12rem;
     margin-bottom: 0.5rem;
     border: 1px solid var(--color-grey-100);
-  }
-`;
 
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
 `;
 
 export const Description = styled.div`

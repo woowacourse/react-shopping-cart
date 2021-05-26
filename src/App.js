@@ -1,45 +1,29 @@
 import { useEffect, useState } from 'react';
-import { combineReducers, createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
 import {
   NavBar,
   ShoppingCart,
   Products,
   OrderPayment,
   Details,
+  CompletedOrder,
 } from './components';
-import productReducer from './reducers/products';
-import { FALLBACK, ROUTE } from './constants';
+import product from './reducers/products';
+import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
+import thunk from 'redux-thunk';
 
 const reducer = combineReducers({
-  product: productReducer,
+  product,
 });
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 function App() {
   const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    // TODO: 미들 웨어 적용
-    async function fetchProducts() {
-      try {
-        const response = await axios.get('/api/products');
-
-        setProducts(response.data);
-      } catch (error) {
-        //TODO: 상품을 못 받아 왔을 때, 안내 화면 띄우기
-        console.error(error.message);
-      }
-    }
-
-    fetchProducts();
-  }, []);
-
-  const onImageError = e => (e.target.src = FALLBACK.PRODUCT.IMG_URL);
+  const [orders, setOrders] = useState([]);
 
   return (
     <Provider store={store}>
@@ -49,34 +33,27 @@ function App() {
         <Route
           exact
           path={[ROUTE.HOME, ROUTE.PRODUCTS]}
-          render={props => (
-            <Products
-              products={products}
-              onImageError={onImageError}
-              {...props}
-            />
-          )}
+          render={props => <Products {...props} />}
         />
         <Route
           exact
           path={ROUTE.CART}
-          render={props => <ShoppingCart products={products} {...props} />}
+          render={props => <ShoppingCart {...props} />}
         />
         <Route
           exact
           path={ROUTE.ORDER_PAYMENT}
-          render={props => <OrderPayment products={products} {...props} />}
+          render={props => <OrderPayment {...props} />}
         />
         <Route
           exact
           path={'/product/:product_id'}
-          render={props => (
-            <Details
-              products={products}
-              onImageError={onImageError}
-              {...props}
-            />
-          )}
+          render={props => <Details {...props} />}
+        />
+        <Route
+          exact
+          path={'/completed-order'}
+          render={props => <CompletedOrder orders={orders} {...props} />}
         />
       </Router>
     </Provider>

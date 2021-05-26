@@ -10,13 +10,14 @@ export const Product = styled.div`
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
-`;
 
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
-  width: 90%;
-  margin-bottom: 0.5rem;
-  border: 1px solid var(--color-grey-100);
-  margin: 0 auto;
+  & > img {
+    width: 25rem;
+    height: 25rem;
+    margin-bottom: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--color-grey-100);
+  }
 `;
 
 export const Name = styled.span`

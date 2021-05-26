@@ -7,9 +7,7 @@ import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
 import { Main, OrderList, Page } from './index.styles';
 
 const OrderPayment = () => {
-  const products = Object.values(
-    useSelector(({ product }) => product.pickedProducts)
-  );
+  const products = useSelector(state => state.product.product.cartItems);
 
   return (
     <Page>

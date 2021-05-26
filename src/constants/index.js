@@ -1,4 +1,5 @@
 import noImage from '../assets/image/noImage.jpeg';
+import loading from '../assets/image/loading.gif';
 
 export const ACTION_TYPE = {
   PRODUCTS: {
@@ -9,6 +10,10 @@ export const ACTION_TYPE = {
     TOGGLE_ENTIRE_CHECKED: 'products/toggleEntireChecked',
     DELETE_CHECKED: 'products/deleteCheckedProducts',
     DELETE: 'products/deleteProduct',
+    SET_PRODUCTS: 'products/setProducts',
+    GET_PRODUCT_DETAIL: 'products/getProductDetail',
+    RESET_PRODUCT_DETAIL: 'products/resetProductDetail',
+    SET_CARTS: 'products/setCarts',
   },
 };
 
@@ -19,6 +24,7 @@ export const FALLBACK = {
     PRICE: -1,
     QUANTITY: 1,
     CHECKED: true,
+    LOADING: loading,
   },
 };
 

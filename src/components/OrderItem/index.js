@@ -4,13 +4,13 @@ import { FALLBACK } from '../../constants';
 import {
   Order,
   OrderDetail,
-  Image,
   Name,
   PriceAndQuantity,
   ImageWrapper,
   ButtonWrapper,
 } from './index.styles';
 import Button from '../common/Button';
+import { Image } from '../common/Image/index.styles';
 
 const BUTTON_COLOR = 'var(--color-mint)';
 
