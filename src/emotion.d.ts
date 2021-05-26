@@ -23,5 +23,11 @@ declare module '@emotion/react' {
       defaultGrey: string;
       lightGrey: string;
     };
+
+    device: {
+      mobile: string;
+      tablet: string;
+      laptop: string;
+    };
   }
 }

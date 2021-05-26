@@ -17,6 +17,18 @@ export const globalStyle = css`
   }
 `;
 
+const deviceSizes = {
+  mobile: '480px',
+  tablet: '768px',
+  laptop: '1024px',
+};
+
+const device = {
+  mobile: `screen and (max-width: ${deviceSizes.mobile})`,
+  tablet: `screen and (max-width: ${deviceSizes.tablet})`,
+  laptop: `screen and (max-width: ${deviceSizes.laptop})`,
+};
+
 export const theme: Theme = {
   bgColor: {
     primary: '#2AC1BC',
@@ -36,6 +48,8 @@ export const theme: Theme = {
     defaultGrey: '#cccccc',
     lightGrey: '#dddddd',
   },
+
+  device,
 };
 
 export default Styled;
