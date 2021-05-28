@@ -9,6 +9,10 @@ export const parseProductData = (productData: ProductData): Product => {
   };
 };
 
+export const praseProductDataList = (productData: ProductData[]): Product[] => {
+  return productData.map(parseProductData);
+};
+
 export const parseCartItemData = (cartItemData: CartItemData): CartItem => {
   return {
     id: String(cartItemData.cart_id),
