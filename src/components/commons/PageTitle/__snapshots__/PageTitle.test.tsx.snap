@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageTitle Component PageTitle Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvaa guGwOB"
+  >
+    <div
+      class="sc-gsDJrp cLkgbs"
+    >
+      TEST
+    </div>
+  </div>
+</DocumentFragment>
+`;

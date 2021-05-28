@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberInput Component NumberInput Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvaa dfUfZg"
+  >
+    <input
+      class="sc-gsDJrp bUalKf"
+      type="number"
+      value="1"
+    />
+    <div
+      class="sc-dkPtyc cJFzIl"
+    >
+      <button
+        class="sc-hKwCoD dRYWVj"
+      >
+        <img
+          alt="수량 증가 버튼"
+          src="triangle-up.svg"
+        />
+      </button>
+      <button
+        class="sc-hKwCoD dRYWVj"
+      >
+        <img
+          alt="수량 감소 버튼"
+          src="triangle-down.svg"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

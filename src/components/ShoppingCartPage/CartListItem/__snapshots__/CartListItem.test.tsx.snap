@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CartListItem Component CartListItem Snapshot 1`] = `
+<DocumentFragment>
+  <li
+    class="sc-bdvvaa hBafqH"
+  >
+    <div
+      class="sc-furvIG haXEwx"
+    >
+      <input
+        checked=""
+        class="sc-pVTma ejcax"
+        type="checkbox"
+      />
+    </div>
+    <img
+      alt="cart item thumbnail"
+      class="sc-gsDJrp kDJhwx"
+      src="no-image.png"
+    />
+    <div
+      class="sc-dkPtyc eUFjw"
+    >
+      <div
+        class="sc-hKwCoD isHNnm"
+      >
+        <span
+          class="sc-jRQAMF jKDpyP"
+        >
+          이름
+        </span>
+        <img
+          alt="cart item delete button"
+          class="sc-gKckTs ldQxvY"
+          src="trash-can.svg"
+        />
+      </div>
+      <div
+        class="sc-eCImvq cJiCUx"
+      >
+        <div
+          class="sc-kDThTU guPzNQ"
+        >
+          <input
+            class="sc-iqsfdx dmOsdq"
+            type="number"
+            value="2"
+          />
+          <div
+            class="sc-crHlIS gThUof"
+          >
+            <button
+              class="sc-egiSv kWYJHJ"
+            >
+              <img
+                alt="수량 증가 버튼"
+                src="triangle-up.svg"
+              />
+            </button>
+            <button
+              class="sc-egiSv kWYJHJ"
+            >
+              <img
+                alt="수량 감소 버튼"
+                src="triangle-down.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <span
+          class="sc-iCfLBT iEZWhA"
+        >
+          2000원
+        </span>
+      </div>
+    </div>
+  </li>
+</DocumentFragment>
+`;
