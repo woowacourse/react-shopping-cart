@@ -20,7 +20,7 @@ import { Product } from '../../type';
 const OrderDetailPage = () => {
   const [orderId] = window.location.hash.split('/').slice(-1);
   const history = useHistory();
-  const { products } = useSelector((state: RootState) => state.product);
+  const { products } = useSelector((state: RootState) => state.products);
   const { orderItems, loading, responseOK } = useOrderDetail(orderId);
 
   if (products.length === 0) {

@@ -18,7 +18,7 @@ import { Product } from '../../type';
 
 const OrderListPage = () => {
   const { orders, loading, responseOK } = useOrders();
-  const { products } = useSelector((state: RootState) => state.product);
+  const { products } = useSelector((state: RootState) => state.products);
   const history = useHistory();
 
   if (products.length === 0) {
