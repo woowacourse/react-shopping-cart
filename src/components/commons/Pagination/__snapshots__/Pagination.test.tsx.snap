@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination Component Pagination Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvaa bYwOME"
+  >
+    <button
+      class="sc-hKwCoD jFpMmS"
+    >
+      &lt;
+    </button>
+    <div
+      class="sc-gsDJrp"
+    >
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        1
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        2
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        3
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        4
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        5
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        6
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        7
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        8
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        9
+      </button>
+      <button
+        class="sc-dkPtyc fYKpJs"
+      >
+        10
+      </button>
+    </div>
+    <button
+      class="sc-eCImvq bRJVsM"
+    >
+      &gt;
+    </button>
+  </div>
+</DocumentFragment>
+`;
