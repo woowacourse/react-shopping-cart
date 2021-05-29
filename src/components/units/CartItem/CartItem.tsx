@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { ReactComponent as DeleteIcon } from 'assets/images/delete.svg';
 import Checkbox from 'components/shared/Checkbox/Checkbox';
 import QuantityInput from 'components/shared/QuantityInput/QuantityInput';
 import noImageURL from 'assets/images/no_image.jpg';
+import { ReactComponent as DeleteIcon } from 'assets/images/delete.svg';
 import * as T from 'types';
 import { updateQuantity } from 'modules/cartSlice';
+import { useAppDispatch } from 'modules/hooks';
 import CART_ITEM_QUANTITY from 'constants/cart';
 import Styled from './CartItem.styles';
 
@@ -19,7 +19,7 @@ const CartItem = (props: CartItemProps) => {
   const { cartItem, onCheck, onDelete } = props;
   const { cartId, name, price, imageUrl, quantity, checked } = cartItem;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = event.target.valueAsNumber;

@@ -20,37 +20,58 @@ const initialState: CartState = {
   },
 };
 
-export const getCartItems = createAsyncThunk('cartItems/get', async () => {
-  try {
-    const response = await api.get('customers/zigsong/carts');
+export const getCartItems = createAsyncThunk<{ cartItems: T.CartItem[] }>(
+  'cartItems/get',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get('customers/zigsong/carts');
 
-    return { cartItems: snakeToCamel(response.data) };
-  } catch (error) {
-    return error;
+      return { cartItems: snakeToCamel(response.data) };
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
-export const addCartItem = createAsyncThunk('cartItems/add', async (product: T.Product) => {
-  try {
-    const response = await api.post('customers/zigsong/carts', { product_id: product.productId });
-    const { location } = response.headers;
-    const cartId = location.substring(location.lastIndexOf('/') + 1);
+export const addCartItem = createAsyncThunk<{ cartId: T.CartItem['cartId']; product: T.Product }, T.Product>(
+  'cartItems/add',
+  async (product, { rejectWithValue }) => {
+    try {
+      const response = await api.post('customers/zigsong/carts', { product_id: product.productId });
+      const { location } = response.headers;
+      const cartId = location.substring(location.lastIndexOf('/') + 1);
 
-    return { cartId, product };
-  } catch (error) {
-    return { error };
+      return { cartId, product };
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
-export const deleteCartItems = createAsyncThunk('cartItems/delete', async (ids: T.CartItem['cartId'][]) => {
-  try {
-    await Promise.all(ids.map((id) => api.delete(`customers/zigsong/carts/${id}`)));
+export const deleteCartItems = createAsyncThunk<{ ids: T.CartItem['cartId'][] }, T.CartItem['cartId'][]>(
+  'cartItems/delete',
+  async (ids, { rejectWithValue }) => {
+    try {
+      await Promise.all(ids.map((id) => api.delete(`customers/zigsong/carts/${id}`)));
 
-    return { ids };
-  } catch (error) {
-    return error;
+      return { ids };
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
