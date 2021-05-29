@@ -9,11 +9,24 @@ const moveUp = keyframes`
   }
 `;
 
-const moveUpAnimation = css`
-  animation: ${moveUp} 0.7s forwards;
+const moveDown = keyframes`
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(100px);
+  }
 `;
 
-export const Snackbar = styled.div`
+const moveUpAnimation = (duration: number) => css`
+  animation: ${moveUp} ${duration / 1000}s forwards;
+`;
+
+const moveDownAnimation = (duration: number) => css`
+  animation: ${moveDown} ${duration / 1000}s forwards;
+`;
+
+export const Snackbar = styled.div<{ isShown: boolean; duration: number }>`
   display: inline-block;
   position: fixed;
   font-size: 20px;
@@ -26,5 +39,5 @@ export const Snackbar = styled.div`
   padding: 25px 20px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.BLACK_500};
-  ${moveUpAnimation}
+  ${({ isShown, duration }) => (isShown ? moveUpAnimation(duration) : moveDownAnimation(duration))};
 `;

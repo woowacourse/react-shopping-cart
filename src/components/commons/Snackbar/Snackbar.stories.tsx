@@ -10,4 +10,6 @@ const Template = (args: Props) => <Snackbar {...args}>test</Snackbar>;
 
 export const Default = Template.bind({});
 
-(Default as any).args = {};
+(Default as any).args = {
+  duration: 700,
+};
