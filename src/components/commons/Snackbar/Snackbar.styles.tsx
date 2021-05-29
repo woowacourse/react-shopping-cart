@@ -28,14 +28,14 @@ const moveDownAnimation = (duration: number) => css`
 
 export const Snackbar = styled.div<{ isShown: boolean; duration: number }>`
   display: inline-block;
-  position: fixed;
+  position: absolute;
+  text-align: center;
+  left: 30%;
+  right: 30%;
   font-size: 20px;
   line-height: 24px;
   color: ${({ theme }) => theme.WHITE};
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 270px;
   padding: 25px 20px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.BLACK_500};
