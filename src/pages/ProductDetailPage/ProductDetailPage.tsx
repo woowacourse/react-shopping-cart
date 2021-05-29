@@ -7,7 +7,7 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import { getMoneyString } from '../../utils/format';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
 import { useHistory } from 'react-router';
-import useProductDetail from '../../hooks/productDetail';
+import useProductDetail from '../../hooks/useProductDetail';
 import { requestAddProductToCart } from '../../apis';
 import { alert } from '../../utils/alert';
 

@@ -3,7 +3,7 @@ import { requestGetCartItems } from '../apis/cart';
 import { CartItem } from '../type';
 import { parseCartItemData } from '../utils/parseData';
 
-import useRequest from './request';
+import useRequest from './useRequest';
 
 const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);

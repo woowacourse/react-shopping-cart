@@ -7,7 +7,7 @@ import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartListItem from '../../components/ShoppingCartPage/CartListItem/CartListItem';
 import { STATUS_CODE, PATH } from '../../constants';
-import useCart from '../../hooks/cart';
+import useCart from '../../hooks/useCart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { confirm } from '../../utils/confirm';

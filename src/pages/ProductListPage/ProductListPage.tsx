@@ -4,7 +4,7 @@ import ProductGridItem from '../../components/ProductListPage/ProductGridItem/Pr
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 
-import useProducts from '../../hooks/products';
+import useProducts from '../../hooks/useProducts';
 
 import { PATH, STATUS_CODE } from '../../constants';
 import { getMoneyString } from '../../utils/format';

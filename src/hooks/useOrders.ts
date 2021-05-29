@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { requestGetOrders } from '../apis/order';
 import { Order } from '../type';
 import { parseOrderDataList } from '../utils/parseData';
-import useRequest from './request';
+import useRequest from './useRequest';
 
 const useOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);

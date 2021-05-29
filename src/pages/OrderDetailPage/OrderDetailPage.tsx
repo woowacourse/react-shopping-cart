@@ -6,7 +6,7 @@ import Button from '../../components/commons/Button/Button';
 import leftArrowSVG from '../../assets/svgs/left-arrow.svg';
 import { COLORS, PATH } from '../../constants';
 import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
-import useOrderDetail from '../../hooks/orderDetail';
+import useOrderDetail from '../../hooks/useOrderDetail';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 import { useSelector } from 'react-redux';

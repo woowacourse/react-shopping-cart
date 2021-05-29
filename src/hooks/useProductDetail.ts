@@ -3,7 +3,7 @@ import noImagePNG from '../assets/images/no-image.png';
 import { parseProductData } from '../utils/parseData';
 import { requestGetProduct } from '../apis/products';
 import { Product } from '../type';
-import useRequest from './request';
+import useRequest from './useRequest';
 
 const defaultProduct: Product = {
   id: '0',

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { requestGetOrder } from '../apis/order';
 import { Order } from '../type';
 import { parseOrderData } from '../utils/parseData';
-import useRequest from './request';
+import useRequest from './useRequest';
 
 const useOrderDetail = (orderId: Order['id']) => {
   const [orderItems, setOrderItems] = useState<Order['orderItems']>([]);
