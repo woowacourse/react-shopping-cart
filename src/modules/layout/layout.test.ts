@@ -7,6 +7,7 @@ describe('layout reducer', () => {
     let layoutState: LayoutState = {
       isConfirmModalShown: false,
       isSnackbarShown: false,
+      snackbarMessage: '',
     };
 
     it(SHOW_SNACKBAR, () => {
@@ -14,6 +15,7 @@ describe('layout reducer', () => {
       expect(layoutState).toEqual<LayoutState>({
         isConfirmModalShown: false,
         isSnackbarShown: true,
+        snackbarMessage: '',
       });
     });
 
@@ -22,6 +24,7 @@ describe('layout reducer', () => {
       expect(layoutState).toEqual<LayoutState>({
         isConfirmModalShown: false,
         isSnackbarShown: false,
+        snackbarMessage: '',
       });
     });
   });
@@ -30,6 +33,7 @@ describe('layout reducer', () => {
     let layoutState: LayoutState = {
       isConfirmModalShown: false,
       isSnackbarShown: false,
+      snackbarMessage: '',
     };
 
     it(SHOW_CONFIRM_MODAL, () => {
@@ -37,6 +41,7 @@ describe('layout reducer', () => {
       expect(layoutState).toEqual<LayoutState>({
         isConfirmModalShown: true,
         isSnackbarShown: false,
+        snackbarMessage: '',
       });
     });
     it(HIDE_CONFIRM_MODAL, () => {
@@ -44,6 +49,7 @@ describe('layout reducer', () => {
       expect(layoutState).toEqual<LayoutState>({
         isConfirmModalShown: false,
         isSnackbarShown: false,
+        snackbarMessage: '',
       });
     });
   });

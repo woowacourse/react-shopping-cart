@@ -4,6 +4,7 @@ import { LayoutAction, LayoutState } from './type';
 const initialState: LayoutState = {
   isConfirmModalShown: false,
   isSnackbarShown: false,
+  snackbarMessage: '',
 };
 
 export const layoutReducer = (state: LayoutState = initialState, action: LayoutAction): LayoutState => {
@@ -12,6 +13,7 @@ export const layoutReducer = (state: LayoutState = initialState, action: LayoutA
       return {
         ...state,
         isSnackbarShown: true,
+        snackbarMessage: action.payload,
       };
     case HIDE_SNACKBAR:
       return {

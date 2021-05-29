@@ -1,7 +1,8 @@
 import { HIDE_CONFIRM_MODAL, HIDE_SNACKBAR, SHOW_CONFIRM_MODAL, SHOW_SNACKBAR } from './actions';
 
-export interface ShowSnackbartAction {
+export interface ShowSnackbarAction {
   type: typeof SHOW_SNACKBAR;
+  payload: string;
 }
 
 export interface HideSnackbartAction {
@@ -16,9 +17,10 @@ export interface HideConfirmModalAction {
   type: typeof HIDE_CONFIRM_MODAL;
 }
 
-export type LayoutAction = ShowSnackbartAction | HideSnackbartAction | ShowConfirmModalAction | HideConfirmModalAction;
+export type LayoutAction = ShowSnackbarAction | HideSnackbartAction | ShowConfirmModalAction | HideConfirmModalAction;
 
 export interface LayoutState {
   isSnackbarShown: boolean;
   isConfirmModalShown: boolean;
+  snackbarMessage: string;
 }

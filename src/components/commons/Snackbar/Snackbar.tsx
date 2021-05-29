@@ -5,12 +5,12 @@ export interface Props {
   children: React.ReactNode;
   isShown: boolean;
   /** 밀리 초 단위로 입력해주십시오 */
-  duration: number;
+  animationDuration: number;
 }
 
-const Snackbar = ({ children, isShown, duration }: Props) => {
+const Snackbar = ({ children, isShown, animationDuration }: Props) => {
   return (
-    <Styled.Snackbar isShown={isShown} duration={duration}>
+    <Styled.Snackbar isShown={isShown} animationDuration={animationDuration}>
       {children}
     </Styled.Snackbar>
   );

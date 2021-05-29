@@ -12,10 +12,12 @@ import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductListPage.styles';
 import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
+import useSnackbar from '../../hooks/layout/useSnackbar';
 
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error } = useProducts();
+  const { showSnackbar } = useSnackbar();
 
   const onProductItemClick = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
@@ -29,10 +31,10 @@ const ProductListPage = () => {
 
     try {
       await requestAddProductToCart(product.id);
-      alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+      showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
       if (error.status === STATUS_CODE.POST_FAILURE) {
-        alert(`'${product?.name}'는 이미 장바구니에 담긴 상품입니다.`);
+        showSnackbar(`상품을 장바구니에 담지 못했습니다.`);
         return;
       }
       console.error(error);

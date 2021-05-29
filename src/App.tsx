@@ -11,8 +11,13 @@ import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
 import OrderDetailPage from './pages/OrderDetailPage/OrderDetailPage';
+import { Snackbar } from './components/commons/Snackbar/Snackbar.styles';
+import { SNACKBAR_ANIMATION_DURATION, SNACKBAR_DURATION } from './constants/layout';
+import useSnackbar from './hooks/layout/useSnackbar';
 
 function App() {
+  const { snackbarMessage, isSnackbarShown } = useSnackbar();
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -39,6 +44,9 @@ function App() {
           </Route>
         </Switch>
       </HashRouter>
+      <Snackbar isShown={isSnackbarShown} animationDuration={SNACKBAR_ANIMATION_DURATION}>
+        {snackbarMessage}
+      </Snackbar>
     </ThemeProvider>
   );
 }

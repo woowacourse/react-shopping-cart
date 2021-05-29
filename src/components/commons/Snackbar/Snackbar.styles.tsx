@@ -26,9 +26,9 @@ const moveDownAnimation = (duration: number) => css`
   animation: ${moveDown} ${duration / 1000}s forwards;
 `;
 
-export const Snackbar = styled.div<{ isShown: boolean; duration: number }>`
+export const Snackbar = styled.div<{ isShown: boolean; animationDuration: number }>`
   display: inline-block;
-  position: absolute;
+  position: fixed;
   text-align: center;
   left: 30%;
   right: 30%;
@@ -39,5 +39,6 @@ export const Snackbar = styled.div<{ isShown: boolean; duration: number }>`
   padding: 25px 20px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.BLACK_500};
-  ${({ isShown, duration }) => (isShown ? moveUpAnimation(duration) : moveDownAnimation(duration))};
+  ${({ isShown, animationDuration }) =>
+    isShown ? moveUpAnimation(animationDuration) : moveDownAnimation(animationDuration)};
 `;

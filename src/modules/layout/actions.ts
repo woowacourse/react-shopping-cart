@@ -1,4 +1,4 @@
-import { HideConfirmModalAction, HideSnackbartAction, ShowConfirmModalAction, ShowSnackbartAction } from './type';
+import { HideConfirmModalAction, HideSnackbartAction, ShowConfirmModalAction, ShowSnackbarAction } from './type';
 
 export const SHOW_CONFIRM_MODAL = 'layout/confirmModal/SHOW_CONFIRM_MODAL';
 export const HIDE_CONFIRM_MODAL = 'layout/confirmModal/HIDE_CONFIRM_MODAL';
@@ -6,18 +6,29 @@ export const HIDE_CONFIRM_MODAL = 'layout/confirmModal/HIDE_CONFIRM_MODAL';
 export const SHOW_SNACKBAR = 'layout/snackbar/SHOW_SNACKBAR';
 export const HIDE_SNACKBAR = 'layout/snackbar/HIDE_SNACKBAR';
 
-export const showConfirmModal = (): ShowConfirmModalAction => ({
+const showConfirmModal = (): ShowConfirmModalAction => ({
   type: SHOW_CONFIRM_MODAL,
 });
 
-export const hideConfirmModal = (): HideConfirmModalAction => ({
+const hideConfirmModal = (): HideConfirmModalAction => ({
   type: HIDE_CONFIRM_MODAL,
 });
 
-export const showSnackbar = (): ShowSnackbartAction => ({
+const showSnackbar = (message: string): ShowSnackbarAction => ({
   type: SHOW_SNACKBAR,
+  payload: message,
 });
 
-export const hideSnackbar = (): HideSnackbartAction => ({
+const hideSnackbar = (): HideSnackbartAction => ({
   type: HIDE_SNACKBAR,
 });
+
+export const snackbarAction = {
+  showSnackbar,
+  hideSnackbar,
+};
+
+export const confirmModalAction = {
+  showConfirmModal,
+  hideConfirmModal,
+};
