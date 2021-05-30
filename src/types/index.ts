@@ -12,17 +12,16 @@ interface CartItem {
   image_url: string;
 }
 
-interface Order {
+type Order = {
   cart_id: string;
   quantity: number;
-}
+}[];
 
 type OrderList = {
   order_id: string;
-  order_details: Product &
-    {
-      quantity: number;
-    }[];
+  order_details: (Product & {
+    quantity: number;
+  })[];
 }[];
 
 interface RequestError {

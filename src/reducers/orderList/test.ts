@@ -4,14 +4,18 @@ import { OrderList } from "../../types";
 
 describe("orderListReducer test", () => {
   it("should handle orderList/get/success", () => {
-    const orderList: OrderList = {
-      orderList: [{ id: "1", itemList: [{ id: "2", quantity: 5 }] }],
-    };
+    const orderList: OrderList = [
+      {
+        order_id: "1",
+        order_details: [
+          { product_id: "1", name: "강릉초당인절미순두부", price: 2500, image_url: "www.coupang.com", quantity: 5 },
+        ],
+      },
+    ];
 
     expect(orderListReducer(initialState, actions.orderList.get.success(orderList))).toEqual({
       ...initialState,
-      ...orderList,
-      requestErrorMessage: null,
+      orderList,
     });
   });
 
@@ -24,14 +28,13 @@ describe("orderListReducer test", () => {
     });
   });
 
-  it("should handle orderList/get/success", () => {
+  it("should handle orderList/item/post/success", () => {
     expect(orderListReducer(initialState, actions.orderList.item.post.success())).toEqual({
       ...initialState,
-      requestErrorMessage: null,
     });
   });
 
-  it("should handle orderList/get/failure", () => {
+  it("should handle orderList/item/post/failure", () => {
     const requestErrorMessage = { requestErrorMessage: "요청에 실패했습니다." };
 
     expect(orderListReducer(initialState, actions.orderList.item.post.failure(requestErrorMessage))).toEqual({

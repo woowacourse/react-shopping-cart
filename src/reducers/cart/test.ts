@@ -1,15 +1,14 @@
 import cartReducer, { initialState } from ".";
 import actions from "../../actions";
-import { Cart } from "../../types";
+import { CartItem } from "../../types";
 
 describe("cartReducer test", () => {
   it("should handle cart/get/success", () => {
-    const cart: Cart = { cart: [{ id: "1", quantity: 3, isSelected: true }] };
+    const cart: CartItem[] = [{ cart_id: "1", name: "강릉초당인절미순두부아이스크림", price: 2500, image_url: "" }];
 
     expect(cartReducer(initialState, actions.cart.get.success(cart))).toEqual({
       ...initialState,
-      ...cart,
-      requestErrorMessage: null,
+      cart,
     });
   });
 
@@ -25,7 +24,6 @@ describe("cartReducer test", () => {
   it("should handle cart/post/success", () => {
     expect(cartReducer(initialState, actions.cart.post.success())).toEqual({
       ...initialState,
-      requestErrorMessage: null,
     });
   });
 

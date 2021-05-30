@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { FlexCenter } from "../../SharedStyled/Flex";
 
 interface ImageProps {
   size: string;
 }
 
-const Container = styled.div<ImageProps>`
+const Container = styled(FlexCenter("div"))<ImageProps>`
   ${({ size }) => `width: ${size}; 
     height: ${size};
   `}

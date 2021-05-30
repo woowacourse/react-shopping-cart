@@ -7,68 +7,44 @@ import api from "../../apis";
 import watchOrderList from ".";
 import { Order, OrderList } from "../../types";
 
-const orderList: OrderList = {
-  orderList: [
-    {
-      id: "1",
-      itemList: [
-        {
-          id: "1",
-          name: "[든든] 유부 슬라이스 500g",
-          imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-          price: 4900,
-          quantity: 4,
-        },
-        {
-          id: "2",
-          name: "[든든] 유부 슬라이스 500g",
-          imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-          price: 4900,
-          quantity: 1,
-        },
-      ],
-    },
-    {
-      id: "2",
-      itemList: [
-        {
-          id: "1",
-          name: "[든든] 유부 슬라이스 500g",
-          imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-          price: 4900,
-          quantity: 4,
-        },
-        {
-          id: "2",
-          name: "[든든] 유부 슬라이스 500g",
-          imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-          price: 4900,
-          quantity: 1,
-        },
-      ],
-    },
-  ],
-};
+const orderList: OrderList = [
+  {
+    order_id: "1",
+    order_details: [
+      {
+        product_id: "2",
+        name: "[든든] 유부 슬라이스 500g",
+        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        price: 4900,
+        quantity: 1,
+      },
+    ],
+  },
+  {
+    order_id: "2",
+    order_details: [
+      {
+        product_id: "1",
+        name: "[든든] 유부 슬라이스 500g",
+        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        price: 4900,
+        quantity: 4,
+      },
+      {
+        product_id: "2",
+        name: "[든든] 유부 슬라이스 500g",
+        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        price: 4900,
+        quantity: 1,
+      },
+    ],
+  },
+];
 
-const order: Order = {
-  id: "2",
-  itemList: [
-    {
-      id: "1",
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-      quantity: 4,
-    },
-    {
-      id: "2",
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-      quantity: 1,
-    },
-  ],
-};
+const order: Order = [
+  { cart_id: "1", quantity: 10 },
+  { cart_id: "2", quantity: 5 },
+];
 
 const errormessage = "getOrderList failed";
 

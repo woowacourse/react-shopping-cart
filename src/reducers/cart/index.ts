@@ -23,10 +23,9 @@ const cartReducer = (state: InitialState = initialState, action: CartActionType)
       };
 
     case cartActionType.get.success:
-      console.log(action);
       return {
         ...state,
-        cart: [...action.payload],
+        cart: action.payload,
         loading: false,
         requestErrorMessage: null,
       };
