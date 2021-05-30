@@ -5,6 +5,7 @@ const initialState: LayoutState = {
   isConfirmModalShown: false,
   isSnackbarShown: false,
   snackbarMessage: '',
+  confirmModalMessage: '',
 };
 
 export const layoutReducer = (state: LayoutState = initialState, action: LayoutAction): LayoutState => {
@@ -24,6 +25,7 @@ export const layoutReducer = (state: LayoutState = initialState, action: LayoutA
       return {
         ...state,
         isConfirmModalShown: true,
+        confirmModalMessage: action.payload,
       };
     case HIDE_CONFIRM_MODAL:
       return {

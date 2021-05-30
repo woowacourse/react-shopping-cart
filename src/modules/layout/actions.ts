@@ -6,8 +6,9 @@ export const HIDE_CONFIRM_MODAL = 'layout/confirmModal/HIDE_CONFIRM_MODAL';
 export const SHOW_SNACKBAR = 'layout/snackbar/SHOW_SNACKBAR';
 export const HIDE_SNACKBAR = 'layout/snackbar/HIDE_SNACKBAR';
 
-const showConfirmModal = (): ShowConfirmModalAction => ({
+const showConfirmModal = (message: string): ShowConfirmModalAction => ({
   type: SHOW_CONFIRM_MODAL,
+  payload: message,
 });
 
 const hideConfirmModal = (): HideConfirmModalAction => ({

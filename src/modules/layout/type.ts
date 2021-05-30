@@ -11,6 +11,7 @@ export interface HideSnackbartAction {
 
 export interface ShowConfirmModalAction {
   type: typeof SHOW_CONFIRM_MODAL;
+  payload: string;
 }
 
 export interface HideConfirmModalAction {
@@ -23,4 +24,5 @@ export interface LayoutState {
   isSnackbarShown: boolean;
   isConfirmModalShown: boolean;
   snackbarMessage: string;
+  confirmModalMessage: string;
 }

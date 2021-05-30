@@ -46,7 +46,7 @@ describe('layout reducer', () => {
       expect(layoutState).toEqual<LayoutState>({
         ...layoutState,
         isConfirmModalShown: true,
-        snackbarMessage: confirmModalMessage,
+        confirmModalMessage: confirmModalMessage,
       });
     });
     it(HIDE_CONFIRM_MODAL, () => {
