@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
+import { requestAddProductToCart } from '../apis';
 import { RootState } from '../modules';
 import { getProducts } from '../modules/products/actions';
+import { asyncAction as cartAsyncAction } from '../modules/cart/actions';
+import { CartItem, Product } from '../type';
 
 const useProducts = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +15,12 @@ const useProducts = () => {
     dispatch(getProducts());
   }, [dispatch, products]);
 
-  return { products, loading, error };
+  const addProductToCart = async (id: Product['id']) => {
+    await requestAddProductToCart(id);
+    dispatch(cartAsyncAction.getCartItems());
+  };
+
+  return { products, loading, error, addProductToCart };
 };
 
 export default useProducts;

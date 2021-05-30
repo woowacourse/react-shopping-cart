@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
 import { requestDeleteCartItem } from '../apis';
 import { requestDeleteCartItems } from '../apis/cart';
 import { STATUS_CODE } from '../constants';
 import { action, asyncAction } from '../modules/cart/actions';
-import { CartItem } from '../type';
+import { CartItem, Product } from '../type';
 
 const useCart = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +45,11 @@ const useCart = () => {
     }
   };
 
-  return { cartItems, loading, error, setCartItems, deleteCartItem, deleteAllCartItems };
+  const isCartHasProduct = (name: Product['name']) => {
+    return cartItems.find(cartItem => cartItem.name === name);
+  };
+
+  return { cartItems, loading, error, setCartItems, deleteCartItem, deleteAllCartItems, isCartHasProduct };
 };
 
 export default useCart;

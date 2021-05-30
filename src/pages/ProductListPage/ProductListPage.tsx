@@ -13,10 +13,15 @@ import * as Styled from './ProductListPage.styles';
 import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
+import useCart from '../../hooks/useCart';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+
+// TODO : API 에서 error 메세지를 던져주도록 수정
 
 const ProductListPage = () => {
   const history = useHistory();
-  const { products, loading, error } = useProducts();
+  const { products, loading, error, addProductToCart } = useProducts();
+  const { isCartHasProduct } = useCart();
   const { showSnackbar } = useSnackbar();
 
   const onProductItemClick = (productId: string) => {
@@ -29,14 +34,16 @@ const ProductListPage = () => {
       return;
     }
 
+    if (isCartHasProduct(product.name)) {
+      showSnackbar(`'${product.name}'은(는) 이미 장바구니에 담긴 상품입니다`);
+      return;
+    }
+
     try {
-      await requestAddProductToCart(product.id);
+      await addProductToCart(product.id);
       showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
-      if (error.status === STATUS_CODE.POST_FAILURE) {
-        showSnackbar(`상품을 장바구니에 담지 못했습니다.`);
-        return;
-      }
+      showSnackbar(error.message);
       console.error(error);
     }
   };
