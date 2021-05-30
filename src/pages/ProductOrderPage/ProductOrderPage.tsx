@@ -5,35 +5,43 @@ import ListItem from '../../components/commons/ListItem/ListItem';
 import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
-import { confirm } from '../../utils/confirm';
 import { requestAddOrder } from '../../apis';
-import { alert } from '../../utils/alert';
 import { CartItem } from '../../type';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedCartItems: CartItem[] }>();
+
+  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+
+  const {
+    confirmModalMessage,
+    isConfirmModalShown,
+    changeConfirmAction,
+    confirmAction,
+    hideConfirmModal,
+    showConfirmModal,
+  } = useConfirmModal();
+
+  if (!history.location.state) {
+    return <Redirect to={PATH.ROOT} />;
+  }
+
   const { selectedCartItems } = history.location.state;
 
-  const tryAddOrder = async (cartItems: CartItem[]) => {
-    try {
-      await requestAddOrder(cartItems);
-    } catch (error) {
-      alert('주문 요청에 실패하였습니다.');
-      return false;
-    }
-
-    return true;
-  };
-
   const onOrderButtonClick = async () => {
-    if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
-      return;
-    }
-    const isOrderSucceed = await tryAddOrder(selectedCartItems);
-    if (!isOrderSucceed) {
-      return;
-    }
-    history.push(PATH.ORDER_LIST);
+    showConfirmModal(`총 ${totalPrice}원을 결제하시겠습니까?`);
+    changeConfirmAction(async () => {
+      try {
+        await requestAddOrder(selectedCartItems);
+        history.push(PATH.ORDER_LIST);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
+    });
   };
 
   const orderItemList = selectedCartItems.map(cartItem => {
@@ -55,10 +63,6 @@ const ProductOrderPage = () => {
       return acc + Number(cartItem.price) * Number(cartItem.quantity);
     }, 0)
   );
-
-  if (!selectedCartItems) {
-    return <Redirect to={PATH.ROOT} />;
-  }
 
   return (
     <Styled.ProductOrderPage>
@@ -84,6 +88,19 @@ const ProductOrderPage = () => {
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
+      {isConfirmModalShown && (
+        <ConfirmModal
+          cancelButtonText="취소"
+          confirmButtonText="확인"
+          heading={confirmModalMessage}
+          onCancel={hideConfirmModal}
+          onClose={hideConfirmModal}
+          onConfirm={confirmAction}
+        />
+      )}
+      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
+        {snackbarMessage}
+      </Snackbar>
     </Styled.ProductOrderPage>
   );
 };

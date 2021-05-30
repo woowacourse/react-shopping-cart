@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { requestGetOrders } from '../apis/order';
-import { Order } from '../type';
+import { CartItem, Order } from '../type';
 import { parseOrderDataList } from '../utils/parseData';
 import useRequest from './useRequest';
 
@@ -12,7 +12,14 @@ const useOrders = () => {
     setOrders(parseOrderDataList(response.data));
   });
 
-  return { orders, loading, responseOK };
+  const getOrderedProduct = (orderId: Order['id'], itemId: CartItem['id']) => {
+    const order = orders.find(order => order.id === orderId);
+    const product = order?.orderItems.find(orderItem => orderItem.id === itemId);
+
+    return product;
+  };
+
+  return { orders, loading, responseOK, getOrderedProduct };
 };
 
 export default useOrders;

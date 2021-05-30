@@ -1,41 +1,59 @@
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import ItemGroup from '../../components/commons/ItemGroup/ItemGroup';
 import ListItem from '../../components/commons/ListItem/ListItem';
 import Button from '../../components/commons/Button/Button';
 import useOrders from '../../hooks/useOrders';
 import { getMoneyString } from '../../utils/format';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
 import { PATH } from '../../constants';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import { confirm } from '../../utils/confirm';
 import * as Styled from './OrderListPage.styles';
 import { requestAddProductToCart } from '../../apis';
-import { alert } from '../../utils/alert';
-import { Product } from '../../type';
+import { CartItem, Order } from '../../type';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
+import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
+import useCart from '../../hooks/useCart';
 
 const OrderListPage = () => {
-  const { orders, loading, responseOK } = useOrders();
-  const { products } = useSelector((state: RootState) => state.products);
   const history = useHistory();
 
-  const onCartButtonClick = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
-    if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
-      return;
-    }
+  const { isCartHasProduct } = useCart();
+  const { orders, loading, responseOK, getOrderedProduct } = useOrders();
+  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+
+  const {
+    confirmModalMessage,
+    isConfirmModalShown,
+    changeConfirmAction,
+    confirmAction,
+    hideConfirmModal,
+    showConfirmModal,
+  } = useConfirmModal();
+
+  const onCartButtonClick = async (orderId: Order['id'], itemId: CartItem['id']) => {
+    const product = getOrderedProduct(orderId, itemId);
 
     if (!product) {
       return;
     }
 
-    try {
-      await requestAddProductToCart(product.id);
-    } catch (error) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+    if (isCartHasProduct(product.name)) {
+      showSnackbar(`'${product.name}'은(는) 이미 장바구니에 담긴 상품입니다`);
+      return;
     }
+
+    showConfirmModal(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`);
+    changeConfirmAction(async () => {
+      try {
+        await requestAddProductToCart(product.id);
+        showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다`);
+      } catch (error) {
+        showSnackbar('상품을 장바구니에 담지 못했습니다.');
+      }
+    });
   };
 
   const onOrderDetailLinkClick = (orderId: string) => {
@@ -58,7 +76,7 @@ const OrderListPage = () => {
               price={getMoneyString(item.price)}
               quantity={item.quantity}
             />
-            <Button size="SM" onClick={() => onCartButtonClick(item.id)}>
+            <Button size="SM" onClick={() => onCartButtonClick(order.id, item.id)}>
               장바구니 담기
             </Button>
           </Styled.OrderWrapper>
@@ -66,10 +84,6 @@ const OrderListPage = () => {
       </ItemGroup>
     </Styled.ItemGroupWrapper>
   ));
-
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
 
   if (loading) {
     return <Loading />;
@@ -87,6 +101,19 @@ const OrderListPage = () => {
         </Styled.PageTitleWrapper>
         {orderList.reverse()}
       </Styled.PageWrapper>
+      {isConfirmModalShown && (
+        <ConfirmModal
+          cancelButtonText="취소"
+          confirmButtonText="확인"
+          heading={confirmModalMessage}
+          onCancel={hideConfirmModal}
+          onClose={hideConfirmModal}
+          onConfirm={confirmAction}
+        />
+      )}
+      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
+        {snackbarMessage}
+      </Snackbar>
     </Styled.OrderListPage>
   );
 };

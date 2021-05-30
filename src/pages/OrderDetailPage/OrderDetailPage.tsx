@@ -9,35 +9,53 @@ import TotalPrice from '../../components/OrderDetailPage/TotalPrice/TotalPrice';
 import useOrderDetail from '../../hooks/useOrderDetail';
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../modules';
-import { Redirect, useHistory } from 'react-router';
-import { confirm } from '../../utils/confirm';
+import { useHistory } from 'react-router';
 import { getMoneyString } from '../../utils/format';
 import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
+import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
+import useCart from '../../hooks/useCart';
 
 const OrderDetailPage = () => {
   const [orderId] = window.location.hash.split('/').slice(-1);
   const history = useHistory();
-  const { products } = useSelector((state: RootState) => state.products);
-  const { orderItems, loading, responseOK } = useOrderDetail(orderId);
+
+  const { isCartHasProduct } = useCart();
+  const { orderItems, loading, responseOK, getOrderedProduct } = useOrderDetail(orderId);
+  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+
+  const {
+    confirmModalMessage,
+    isConfirmModalShown,
+    changeConfirmAction,
+    confirmAction,
+    hideConfirmModal,
+    showConfirmModal,
+  } = useConfirmModal();
 
   const onCartButtonClick = async (id: Product['id']) => {
-    const product = products.find(product => product.id === id);
-    if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
-      return;
-    }
-
+    const product = getOrderedProduct(id);
     if (!product) {
       return;
     }
 
-    try {
-      await requestAddProductToCart(product.id);
-    } catch (error) {
-      alert('상품을 장바구니에 담지 못했습니다.');
+    if (isCartHasProduct(product.name)) {
+      showSnackbar(`'${product.name}'은(는) 이미 장바구니에 담긴 상품입니다`);
+      return;
     }
+
+    showConfirmModal(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`);
+    changeConfirmAction(async () => {
+      try {
+        await requestAddProductToCart(product.id);
+        showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+      } catch (error) {
+        showSnackbar('상품을 장바구니에 담지 못했습니다.');
+      }
+    });
   };
 
   const onOrderListLinkButtonClick = () => {
@@ -62,10 +80,6 @@ const OrderDetailPage = () => {
   const totalPrice = getMoneyString(
     orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
   );
-
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
 
   if (loading) {
     return <Loading />;
@@ -92,6 +106,19 @@ const OrderDetailPage = () => {
           <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={totalPrice} />
         </Styled.PageBottom>
       </Styled.PageWrapper>
+      {isConfirmModalShown && (
+        <ConfirmModal
+          cancelButtonText="취소"
+          confirmButtonText="확인"
+          heading={confirmModalMessage}
+          onCancel={hideConfirmModal}
+          onClose={hideConfirmModal}
+          onConfirm={confirmAction}
+        />
+      )}
+      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
+        {snackbarMessage}
+      </Snackbar>
     </Styled.OrderListPage>
   );
 };
