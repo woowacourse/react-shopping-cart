@@ -25,10 +25,10 @@ const ConfirmModal = ({
       <Styled.ModalContentWrapper>
         <Styled.Text>{heading}</Styled.Text>
         <Styled.ButtonWrapper>
-          <Button size="MD" onClick={onCancel} backgroundColor={COLORS.GRAY_300}>
+          <Button size="SM" onClick={onCancel} backgroundColor={COLORS.GRAY_300}>
             {cancelButtonText}
           </Button>
-          <Button size="MD" onClick={onConfirm}>
+          <Button size="SM" onClick={onConfirm}>
             {confirmButtonText}
           </Button>
         </Styled.ButtonWrapper>

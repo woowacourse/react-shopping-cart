@@ -9,11 +9,11 @@ export const ModalContentWrapper = styled.div`
 `;
 
 export const Text = styled.span`
-  font-size: 35px;
-  line-height: 51px;
+  font-size: 21px;
+  line-height: 24px;
   text-align: center;
   letter-spacing: 0.7px;
-  margin-bottom: 92px;
+  margin-bottom: 50px;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -22,6 +22,6 @@ export const ButtonWrapper = styled.div`
   justify-content: center;
 
   & > button:not(:last-child) {
-    margin-right: 24px;
+    margin-right: 36px;
   }
 `;
