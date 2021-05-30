@@ -19,7 +19,7 @@ export const Modal = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 100;
-  animation: ${fadeIn} 1s forwards;
+  animation: ${fadeIn} 0.5s forwards;
 `;
 
 export const ModalContent = styled.div`
