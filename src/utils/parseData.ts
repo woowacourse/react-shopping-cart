@@ -24,6 +24,10 @@ export const parseCartItemData = (cartItemData: CartItemData): CartItem => {
   };
 };
 
+export const parseCartItemDataList = (cartItemDataList: CartItemData[]): CartItem[] => {
+  return cartItemDataList.map(parseCartItemData);
+};
+
 export const parseOrderData = (orderData: OrderData): Order => {
   const orderItems: Order['orderItems'] = orderData.order_details.map(orderDetail => ({
     id: String(orderDetail.product_id),

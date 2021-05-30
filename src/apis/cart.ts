@@ -16,8 +16,6 @@ export const requestDeleteCartItems = async (idList: Array<string>) => {
     })
   );
 
-  console.log('responseList', responseList);
-
   if (responseList.every(response => response.status !== STATUS_CODE.DELETE_SUCCESS)) {
     throw { statusList: responseList.map(response => response.status) };
   }

@@ -6,19 +6,18 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartListItem from '../../components/ShoppingCartPage/CartListItem/CartListItem';
-import { STATUS_CODE, PATH } from '../../constants';
+import { PATH } from '../../constants';
 import useCart from '../../hooks/useCart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { confirm } from '../../utils/confirm';
-import { requestDeleteCartItem } from '../../apis';
-import { alert } from '../../utils/alert';
-import { requestDeleteCartItems } from '../../apis/cart';
 import { CartItem } from '../../type';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
-  const { cartItems, loading, responseOK, setCartItems } = useCart();
+
+  const { cartItems, loading, error, setCartItems, deleteAllCartItems, deleteCartItem } = useCart();
+
   const [isTotalChecked, setTotalChecked] = useState(true);
 
   if (loading) {
@@ -29,7 +28,7 @@ const ShoppingCartPage = () => {
     );
   }
 
-  if (!loading && !responseOK) {
+  if (!loading && error) {
     return (
       <Styled.ShoppingCartPage>
         <NotFound message="상품을 찾을 수 없습니다." />
@@ -63,17 +62,12 @@ const ShoppingCartPage = () => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
     const targetCartItem = newCartItems[targetIndex];
+
     if (!confirm(`${targetCartItem.name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
     }
 
-    try {
-      await requestDeleteCartItem(id);
-      newCartItems.splice(targetIndex, 1);
-      setCartItems(newCartItems);
-    } catch (error) {
-      alert(`${targetCartItem.name}을(를) 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    deleteCartItem(id);
   };
 
   const onSelectedCartItemDelete = async () => {
@@ -85,19 +79,8 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    try {
-      const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-      await requestDeleteCartItems(selectedCartItemIdList);
-      const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-      setCartItems(newCartItems);
-    } catch (error) {
-      const failCount = error.statusList?.filter((status: number) => status !== STATUS_CODE.POST_SUCCESS);
-      alert(`${failCount}개의 상품들을 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    deleteAllCartItems();
   };
-
-  // 어라 이거 프로덕트 아이디가 똑같아서 생기는 문제 같은데
-  // 업데이트 되는건 문제가 있네
 
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>

@@ -1,9 +1,27 @@
-import { ProductData } from '../type';
+import { CartItemData, ProductData } from '../type';
 
 interface MockProductsResponse {
   status: number;
   data: ProductData[];
 }
+
+interface MockCartResponse {
+  status: number;
+  data: CartItemData[];
+}
+
+export const mockCartResponse: MockCartResponse = {
+  status: 200,
+  data: [
+    {
+      cart_id: 1,
+      image_url:
+        'https://user-images.githubusercontent.com/42544600/118082383-0e69ad00-b3f8-11eb-8edb-d1d8de8e0b79.jpg',
+      name: '파노의 강아지',
+      price: 1000000000,
+    },
+  ],
+};
 
 export const mockProductsResponse: MockProductsResponse = {
   status: 200,
