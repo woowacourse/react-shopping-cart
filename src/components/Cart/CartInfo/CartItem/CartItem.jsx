@@ -1,35 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
 import * as S from "./CartItem.styled";
 
 import CheckBox from "../../../@shared/CheckBox/CheckBox";
 import NumberInput from "../../../@shared/NumberInput/NumberInput";
 import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
 
-import {
-  toggleChecked,
-  addToCart,
-  removeFromCart,
-} from "../../../../store/modules/cartSlice";
 import { formatPrice } from "../../../../utils/utils";
 import { useConfirm } from "../../../../utils/useConfirm";
 import { CART } from "../../../../constants/constant";
+import { useCart } from "../../../../hooks/useCart";
 
 const CartItem = ({ item }) => {
-  const { id, name, thumbnail, order_id: orderId, price, checked } = item;
-  const amount = orderId.length;
+  const { id, name, thumbnail, amount, price, checked } = item;
+  const { addCart, removeCart, toggleCartChecked } = useCart();
 
-  const dispatch = useDispatch();
   const confirmDelete = useConfirm(
     `'${name}' 를 장바구니에서 제거하시겠습니까?`,
     () => {
-      dispatch(removeFromCart({ product: item, amount: orderId.length }));
+      removeCart({ product: item, amount });
     }
   );
 
   const handleCheckBoxChange = () => {
-    dispatch(toggleChecked({ id }));
+    toggleCartChecked({ id });
   };
 
   const changeAmount = (diff) => {
@@ -42,9 +36,9 @@ const CartItem = ({ item }) => {
     }
 
     if (diff > 0) {
-      dispatch(addToCart(item));
+      addCart(item);
     } else {
-      dispatch(removeFromCart({ product: item, amount: 1 }));
+      removeCart({ product: item, amount: 1 });
     }
   };
 
@@ -80,7 +74,7 @@ CartItem.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    order_id: PropTypes.arrayOf(PropTypes.number).isRequired,
+    amount: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
   }).isRequired,

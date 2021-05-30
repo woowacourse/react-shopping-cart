@@ -11,7 +11,7 @@ import { formatPrice } from "../../utils/utils";
 import { removeChecked } from "../../store/modules/cartSlice";
 
 import { MESSAGE, ROUTE } from "../../constants/constant";
-import { useCart } from "../../utils/useCart";
+import { useCart } from "../../hooks/useCart";
 import { addOrder } from "../../store/modules/orderSlice";
 
 const Payment = () => {

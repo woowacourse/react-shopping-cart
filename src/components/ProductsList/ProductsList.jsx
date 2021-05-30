@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarts } from "../../store/modules/cartSlice";
+
 import { getProducts } from "../../store/modules/productSlice";
 import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
@@ -15,7 +15,6 @@ const ProductsList = () => {
   // TODO : getCarts를 nav나 app으로 빼두기
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getCarts());
   }, [dispatch]);
 
   useEffect(() => {

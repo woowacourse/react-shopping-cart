@@ -19,12 +19,12 @@ export const addOrder = createAsyncThunk(
   "order/add",
   async ({ cart }, { rejectWithValue }) => {
     try {
-      console.log(cart);
       const order = cart.map((item) => ({
-        cart_id: item.order_id[0],
-        quantity: item.order_id.length,
+        cart_id: item.order_id,
+        quantity: item.amount,
       }));
-      console.log(order);
+      console.log("order,", order);
+
       const res = await fetch(`${API.ORDERS}`, {
         method: "POST",
         headers: {
@@ -34,13 +34,11 @@ export const addOrder = createAsyncThunk(
       });
 
       if (res.ok) {
-        console.log(res.headers.get("location"));
         return { order, location: res.headers.get("location") };
       }
 
       throw Error;
     } catch (error) {
-      console.log(error.message);
       return Object.assign(rejectWithValue(error), {
         message: MESSAGE.ALERT.FAILED_ADD_TO_ORDER,
       });
@@ -80,7 +78,6 @@ const orderSlice = createSlice({
       const { order } = action.payload;
       const location = action.payload.location.split("/");
       const orderId = Number(location[location.length - 1]);
-      console.log(orderId, order);
       state.items[orderId] = order;
     },
 

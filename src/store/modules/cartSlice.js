@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import { API, MESSAGE } from "../../constants/constant";
 
@@ -23,8 +23,14 @@ export const getCarts = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
   "cart/add",
-  async (product, { rejectWithValue }) => {
+  async (product, { getState, rejectWithValue }) => {
+    const carts = getState().cart.items;
     try {
+      const cartItems = Object.values(carts).map(({ id }) => id);
+
+      if (cartItems.includes(product.id)) {
+        return { product };
+      }
       const res = await fetch(`${API.CARTS}`, {
         method: "POST",
         headers: {
@@ -50,22 +56,25 @@ export const addToCart = createAsyncThunk(
 
 export const removeFromCart = createAsyncThunk(
   "cart/remove",
-  async ({ product, amount }, { rejectWithValue }) => {
+  async ({ product, amount }, { getState, rejectWithValue }) => {
     try {
-      const cartId = product.order_id.slice(0, amount);
+      const carts = getState().cart.items;
 
-      const responses = await Promise.all(
-        cartId.map((id) =>
-          fetch(`${API.CARTS}/${id}`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
-            },
-          })
-        )
+      if (carts[product.id].amount > amount) {
+        return { productId: product.id, amount };
+      }
+
+      const responses = await fetch(
+        `${API.CARTS}/${carts[product.id].order_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
       );
 
-      if (responses.every((res) => res.ok)) {
+      if (responses.ok) {
         return { productId: product.id, amount };
       }
 
@@ -88,7 +97,7 @@ export const removeChecked = createAsyncThunk(
       );
 
       const cartIds = checkedProducts.map((product) => product.order_id).flat();
-      console.log(cartIds);
+
       const responses = await Promise.all(
         cartIds.map((id) =>
           fetch(`${API.CARTS}/${id}`, {
@@ -141,8 +150,12 @@ const cartSlice = createSlice({
     },
 
     [getCarts.fulfilled]: (state, action) => {
-      // TODO: 아래꺼 작동 안함
-      if (state.originItems === action.payload) return;
+      if (
+        JSON.stringify(current(state).originItems) ===
+        JSON.stringify(action.payload)
+      )
+        return;
+
       state.items = {};
 
       action.payload.forEach((item) => {
@@ -155,13 +168,15 @@ const cartSlice = createSlice({
         } = item;
 
         if (state.items[productId]) {
-          state.items[productId].order_id.push(cartId);
+          // 현재는 불필요
+          state.items[productId].amount += 1;
         } else {
           state.items[productId] = {
             id: productId,
-            order_id: [cartId],
+            order_id: cartId,
             price,
             name,
+            amount: 1,
             thumbnail: imageUrl,
             checked: true,
           };
@@ -183,17 +198,18 @@ const cartSlice = createSlice({
 
     [addToCart.fulfilled]: (state, action) => {
       const { id, ...product } = action.payload.product;
-      // TODO : 개선하기 - order에도 있음
-      const location = action.payload.location.split("/");
-      const orderId = Number(location[location.length - 1]);
+
       if (state.items[id]) {
-        state.items[id].order_id.push(orderId);
+        state.items[id].amount += 1;
       } else {
+        const location = action.payload.location.split("/");
+        const orderId = Number(location[location.length - 1]);
+
         state.items[id] = {
           id,
           ...product,
-          order_id: [orderId],
-
+          order_id: orderId,
+          amount: 1,
           addedDate: Date.now(),
           checked: true,
         };
@@ -212,13 +228,11 @@ const cartSlice = createSlice({
 
     [removeFromCart.fulfilled]: (state, action) => {
       const { productId, amount } = action.payload;
-
-      if (state.items[productId].order_id.length === amount) {
+      console.log(state.items[productId].amount, amount);
+      if (state.items[productId].amount <= amount) {
         delete state.items[productId];
       } else {
-        state.items[productId].order_id = state.items[
-          productId
-        ].order_id.splice(amount);
+        state.items[productId].amount -= amount;
       }
     },
 
