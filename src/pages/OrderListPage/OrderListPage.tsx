@@ -21,18 +21,6 @@ const OrderListPage = () => {
   const { products } = useSelector((state: RootState) => state.products);
   const history = useHistory();
 
-  if (products.length === 0) {
-    return <Redirect to={PATH.ROOT} />;
-  }
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (!loading && !responseOK) {
-    return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
-  }
-
   const onCartButtonClick = async (id: Product['id']) => {
     const product = products.find(product => product.id === id);
     if (!confirm(`'${product?.name}'을(를) 장바구니에 담으시겠습니까?`)) {
@@ -78,6 +66,18 @@ const OrderListPage = () => {
       </ItemGroup>
     </Styled.ItemGroupWrapper>
   ));
+
+  if (products.length === 0) {
+    return <Redirect to={PATH.ROOT} />;
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!loading && !responseOK) {
+    return <NotFound message="주문 목록 정보를 불러올 수 없습니다." />;
+  }
 
   return (
     <Styled.OrderListPage>

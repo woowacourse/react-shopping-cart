@@ -32,22 +32,6 @@ const ShoppingCartPage = () => {
 
   const [isTotalChecked, setTotalChecked] = useState(true);
 
-  if (loading) {
-    return (
-      <Styled.ShoppingCartPage>
-        <Loading />
-      </Styled.ShoppingCartPage>
-    );
-  }
-
-  if (!loading && error) {
-    return (
-      <Styled.ShoppingCartPage>
-        <NotFound message="장바구니 정보를 조회하는데 실패했습니다" />
-      </Styled.ShoppingCartPage>
-    );
-  }
-
   const onTotalCheckClick = () => {
     setAllCartItemSelected(isTotalChecked);
     setTotalChecked(isTotalChecked => !isTotalChecked);
@@ -104,6 +88,22 @@ const ShoppingCartPage = () => {
       />
     </Styled.CartItemWrapper>
   ));
+
+  if (loading) {
+    return (
+      <Styled.ShoppingCartPage>
+        <Loading />
+      </Styled.ShoppingCartPage>
+    );
+  }
+
+  if (!loading && error) {
+    return (
+      <Styled.ShoppingCartPage>
+        <NotFound message="장바구니 정보를 조회하는데 실패했습니다" />
+      </Styled.ShoppingCartPage>
+    );
+  }
 
   return (
     <Styled.ShoppingCartPage>

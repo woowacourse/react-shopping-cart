@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ListItem from '../../components/commons/ListItem/ListItem';
@@ -13,26 +13,6 @@ import { CartItem } from '../../type';
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedCartItems: CartItem[] }>();
   const { selectedCartItems } = history.location.state;
-
-  const orderItemList = selectedCartItems.map(cartItem => {
-    return (
-      <Styled.OrderItemWrapper key={cartItem.id}>
-        <ListItem
-          size="SM"
-          thumbnail={cartItem.thumbnail}
-          name={cartItem.name}
-          price={getMoneyString(cartItem.price)}
-          quantity={cartItem.quantity}
-        />
-      </Styled.OrderItemWrapper>
-    );
-  });
-
-  const totalPrice = getMoneyString(
-    selectedCartItems.reduce((acc, cartItem) => {
-      return acc + Number(cartItem.price) * Number(cartItem.quantity);
-    }, 0)
-  );
 
   const tryAddOrder = async (cartItems: CartItem[]) => {
     try {
@@ -55,6 +35,30 @@ const ProductOrderPage = () => {
     }
     history.push(PATH.ORDER_LIST);
   };
+
+  const orderItemList = selectedCartItems.map(cartItem => {
+    return (
+      <Styled.OrderItemWrapper key={cartItem.id}>
+        <ListItem
+          size="SM"
+          thumbnail={cartItem.thumbnail}
+          name={cartItem.name}
+          price={getMoneyString(cartItem.price)}
+          quantity={cartItem.quantity}
+        />
+      </Styled.OrderItemWrapper>
+    );
+  });
+
+  const totalPrice = getMoneyString(
+    selectedCartItems.reduce((acc, cartItem) => {
+      return acc + Number(cartItem.price) * Number(cartItem.quantity);
+    }, 0)
+  );
+
+  if (!selectedCartItems) {
+    return <Redirect to={PATH.ROOT} />;
+  }
 
   return (
     <Styled.ProductOrderPage>

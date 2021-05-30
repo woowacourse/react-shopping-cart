@@ -6,17 +6,13 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 
 import useProducts from '../../hooks/useProducts';
 
-import { PATH, STATUS_CODE } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 
 import * as Styled from './ProductListPage.styles';
-import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useCart from '../../hooks/useCart';
-import useConfirmModal from '../../hooks/layout/useConfirmModal';
-
-// TODO : API 에서 error 메세지를 던져주도록 수정
 
 const ProductListPage = () => {
   const history = useHistory();
