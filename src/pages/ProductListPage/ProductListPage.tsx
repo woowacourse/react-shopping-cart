@@ -13,12 +13,13 @@ import * as Styled from './ProductListPage.styles';
 import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useCart from '../../hooks/useCart';
+import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error, addProductToCart } = useProducts();
   const { isCartHasProduct } = useCart();
-  const { showSnackbar } = useSnackbar();
+  const { snackbarMessage, isSnackbarShown, showSnackbar } = useSnackbar();
 
   const onProductItemClick = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
@@ -63,7 +64,14 @@ const ProductListPage = () => {
     return <NotFound message="상품 정보를 불러올 수 없습니다." />;
   }
 
-  return <Styled.ProductListPage>{productGridItemList}</Styled.ProductListPage>;
+  return (
+    <Styled.ProductListPage>
+      {productGridItemList}
+      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
+        {snackbarMessage}
+      </Snackbar>
+    </Styled.ProductListPage>
+  );
 };
 
 export default ProductListPage;

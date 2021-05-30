@@ -10,8 +10,9 @@ import { PATH } from '../../constants';
 import useCart from '../../hooks/useCart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
-import { confirm } from '../../utils/confirm';
 import { CartItem } from '../../type';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -30,6 +31,15 @@ const ShoppingCartPage = () => {
     getSelectedCartItems,
   } = useCart();
 
+  const {
+    confirmModalMessage,
+    isConfirmModalShown,
+    confirmAction,
+    showConfirmModal,
+    hideConfirmModal,
+    changeConfirmAction,
+  } = useConfirmModal();
+
   const [isTotalChecked, setTotalChecked] = useState(true);
 
   const onTotalCheckClick = () => {
@@ -38,13 +48,10 @@ const ShoppingCartPage = () => {
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
-    const targetCartItem = getCartItem(id);
-
-    if (!confirm(`${targetCartItem.name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
-      return;
-    }
-
-    deleteCartItem(id);
+    showConfirmModal(`'${getCartItem(id).name}'을(를) 장바구니에서 삭제하시겠습니까?`);
+    changeConfirmAction(() => {
+      deleteCartItem(id);
+    });
   };
 
   const onSelectedCartItemDelete = async () => {
@@ -52,24 +59,24 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
-      return;
-    }
-
-    deleteAllCartItems();
+    showConfirmModal('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?');
+    changeConfirmAction(() => {
+      deleteAllCartItems();
+    });
   };
 
-  const onOrderLinkButtonClick = () => {
-    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
-      return;
-    }
+  const onOrderItems = () => {
+    showConfirmModal('선택하신 상품들을 주문하시겠습니까?');
+    changeConfirmAction(() => {
+      hideConfirmModal();
 
-    const selectedCartItems = getSelectedCartItems();
-    if (selectedCartItems.length === 0) {
-      return;
-    }
+      const selectedCartItems = getSelectedCartItems();
+      if (selectedCartItems.length === 0) {
+        return;
+      }
 
-    history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
+      history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
+    });
   };
 
   const isOrderPossible = cartItems.length > 0;
@@ -129,11 +136,21 @@ const ShoppingCartPage = () => {
             priceLabel="결제예상금액"
             price={getMoneyString(totalCartItemPrice)}
             buttonText={`주문하기(${getSelectedCartItems().length}개)`}
-            onButtonClick={onOrderLinkButtonClick}
+            onButtonClick={onOrderItems}
             isButtonDisabled={!isOrderPossible}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
+      {isConfirmModalShown && (
+        <ConfirmModal
+          cancelButtonText="취소"
+          confirmButtonText="확인"
+          heading={confirmModalMessage}
+          onCancel={hideConfirmModal}
+          onClose={hideConfirmModal}
+          onConfirm={confirmAction}
+        />
+      )}
     </Styled.ShoppingCartPage>
   );
 };

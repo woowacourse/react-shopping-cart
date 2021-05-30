@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import * as Styled from './Snackbar.styles';
 
 export interface Props {
@@ -8,8 +9,15 @@ export interface Props {
   animationDuration: number;
 }
 
+const SnackbarPortal = (children: React.ReactNode) => {
+  const $snackbar = document.getElementById('snackbar');
+  if (!$snackbar) throw Error('cannot find snackbar');
+
+  return createPortal(children, $snackbar);
+};
+
 const Snackbar = ({ children, isShown, animationDuration }: Props) => {
-  return (
+  return SnackbarPortal(
     <Styled.Snackbar isShown={isShown} animationDuration={animationDuration}>
       {children}
     </Styled.Snackbar>

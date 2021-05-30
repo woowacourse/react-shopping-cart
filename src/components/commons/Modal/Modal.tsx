@@ -7,11 +7,11 @@ export interface Props {
   onBackDropClick?: () => void;
 }
 
-const ModalPortal = (child: React.ReactNode) => {
+const ModalPortal = (children: React.ReactNode) => {
   const $modal = document.getElementById('modal');
   if (!$modal) throw Error('cannot find modal');
 
-  return createPortal(child, $modal);
+  return createPortal(children, $modal);
 };
 
 const Modal = ({ children, onBackDropClick }: Props) => {
