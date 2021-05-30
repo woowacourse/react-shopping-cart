@@ -15,6 +15,13 @@ const useCart = () => {
     dispatch(asyncAction.getCartItems());
   }, []);
 
+  const getCartItem = (id: CartItem['id']) => {
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+
+    return newCartItems[targetIndex];
+  };
+
   const setCartItems = (items: CartItem[]) => {
     dispatch(action.setCartItems(items));
   };
@@ -45,11 +52,60 @@ const useCart = () => {
     }
   };
 
+  const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    const newCartItem = { ...newCartItems[targetIndex], isSelected };
+    newCartItems.splice(targetIndex, 1, newCartItem);
+    setCartItems(newCartItems);
+  };
+
+  const setAllCartItemSelected = (isChecked: boolean) => {
+    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isChecked }));
+    setCartItems(newCartItems);
+  };
+
+  const setCartItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
+    const newCartItems = [...cartItems];
+    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
+    const newCartItem = { ...newCartItems[targetIndex], quantity };
+    newCartItems.splice(targetIndex, 1, newCartItem);
+    setCartItems(newCartItems);
+  };
+
+  const getSelectedCartItems = () => {
+    return cartItems.filter(item => item.isSelected);
+  };
+
+  const totalCartItemPrice = String(
+    cartItems.reduce((acc, cartItem) => {
+      if (!cartItem.isSelected) {
+        return acc;
+      }
+
+      return acc + Number(cartItem.price) * Number(cartItem.quantity);
+    }, 0)
+  );
+
   const isCartHasProduct = (name: Product['name']) => {
     return cartItems.find(cartItem => cartItem.name === name);
   };
 
-  return { cartItems, loading, error, setCartItems, deleteCartItem, deleteAllCartItems, isCartHasProduct };
+  return {
+    cartItems,
+    loading,
+    error,
+    totalCartItemPrice,
+    getCartItem,
+    setCartItems,
+    deleteCartItem,
+    deleteAllCartItems,
+    isCartHasProduct,
+    setCartItemSelected,
+    setAllCartItemSelected,
+    setCartItemQuantity,
+    getSelectedCartItems,
+  };
 };
 
 export default useCart;

@@ -16,7 +16,19 @@ import { CartItem } from '../../type';
 const ShoppingCartPage = () => {
   const history = useHistory();
 
-  const { cartItems, loading, error, setCartItems, deleteAllCartItems, deleteCartItem } = useCart();
+  const {
+    cartItems,
+    loading,
+    error,
+    totalCartItemPrice,
+    getCartItem,
+    deleteAllCartItems,
+    deleteCartItem,
+    setAllCartItemSelected,
+    setCartItemQuantity,
+    setCartItemSelected,
+    getSelectedCartItems,
+  } = useCart();
 
   const [isTotalChecked, setTotalChecked] = useState(true);
 
@@ -31,37 +43,18 @@ const ShoppingCartPage = () => {
   if (!loading && error) {
     return (
       <Styled.ShoppingCartPage>
-        <NotFound message="상품을 찾을 수 없습니다." />
+        <NotFound message="장바구니 정보를 조회하는데 실패했습니다" />
       </Styled.ShoppingCartPage>
     );
   }
 
-  const setCartItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], quantity };
-    newCartItems.splice(targetIndex, 1, newCartItem);
-    setCartItems(newCartItems);
-  };
-
-  const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], isSelected };
-    newCartItems.splice(targetIndex, 1, newCartItem);
-    setCartItems(newCartItems);
-  };
-
   const onTotalCheckClick = () => {
-    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
+    setAllCartItemSelected(isTotalChecked);
     setTotalChecked(isTotalChecked => !isTotalChecked);
-    setCartItems(newCartItems);
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const targetCartItem = newCartItems[targetIndex];
+    const targetCartItem = getCartItem(id);
 
     if (!confirm(`${targetCartItem.name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
       return;
@@ -82,6 +75,21 @@ const ShoppingCartPage = () => {
     deleteAllCartItems();
   };
 
+  const onOrderLinkButtonClick = () => {
+    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
+      return;
+    }
+
+    const selectedCartItems = getSelectedCartItems();
+    if (selectedCartItems.length === 0) {
+      return;
+    }
+
+    history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
+  };
+
+  const isOrderPossible = cartItems.length > 0;
+
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
       <CartListItem
@@ -96,31 +104,6 @@ const ShoppingCartPage = () => {
       />
     </Styled.CartItemWrapper>
   ));
-
-  const totalPrice = String(
-    cartItems.reduce((acc, cartItem) => {
-      if (!cartItem.isSelected) {
-        return acc;
-      }
-
-      return acc + Number(cartItem.price) * Number(cartItem.quantity);
-    }, 0)
-  );
-
-  const getSelectedCartItems = () => {
-    return cartItems.filter(item => item.isSelected);
-  };
-
-  const onOrderLinkButtonClick = () => {
-    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
-      return;
-    }
-    const selectedCartItems = getSelectedCartItems();
-    if (selectedCartItems.length === 0) return;
-    history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
-  };
-
-  const isOrderPossible = cartItems.length > 0;
 
   return (
     <Styled.ShoppingCartPage>
@@ -144,7 +127,7 @@ const ShoppingCartPage = () => {
           <PaymentCheckout
             title="결제예상금액"
             priceLabel="결제예상금액"
-            price={getMoneyString(totalPrice)}
+            price={getMoneyString(totalCartItemPrice)}
             buttonText={`주문하기(${getSelectedCartItems().length}개)`}
             onButtonClick={onOrderLinkButtonClick}
             isButtonDisabled={!isOrderPossible}
