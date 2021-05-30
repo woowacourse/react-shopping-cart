@@ -14,6 +14,7 @@ import OrderDetailPage from './pages/OrderDetailPage/OrderDetailPage';
 import { Snackbar } from './components/commons/Snackbar/Snackbar.styles';
 import { SNACKBAR_ANIMATION_DURATION, SNACKBAR_DURATION } from './constants/layout';
 import useSnackbar from './hooks/layout/useSnackbar';
+import useConfirmModal from './hooks/layout/useConfirmModal';
 
 function App() {
   const { snackbarMessage, isSnackbarShown } = useSnackbar();
