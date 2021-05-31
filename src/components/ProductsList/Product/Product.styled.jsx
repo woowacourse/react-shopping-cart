@@ -4,6 +4,13 @@ import { COLOR } from "../../../constants/style";
 export const Product = styled.article`
   width: 100%;
   min-width: 15.5rem;
+  border: 1px solid ${COLOR.GRAY_300};
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-0.3rem);
+  }
 `;
 
 export const Preview = styled.div`
