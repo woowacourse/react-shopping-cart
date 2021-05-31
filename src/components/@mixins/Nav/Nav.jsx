@@ -1,16 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../../constants/constant";
+import { useCart } from "../../../hooks/useCart";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const cart = useSelector((state) => state.cart.items);
-  const cartAmount = Object.values(cart).reduce(
-    (acc, cur) => acc + cur.amount,
-    0
-  );
+  const { cartAmount } = useCart();
 
   return (
     <S.Nav>

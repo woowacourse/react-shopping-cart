@@ -23,7 +23,6 @@ export const addOrder = createAsyncThunk(
         cart_id: item.order_id,
         quantity: item.amount,
       }));
-      console.log("order,", order);
 
       const res = await fetch(`${API.ORDERS}`, {
         method: "POST",

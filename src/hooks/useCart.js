@@ -36,6 +36,7 @@ export const useCart = () => {
 
   const getCartAmount = (id) => items[id]?.amount ?? 0;
 
+  const cartAmount = carts.reduce((acc, cur) => acc + cur.amount, 0);
   const checkedItems = carts.filter((item) => item.checked);
   const hasCheckedItems = checkedItems.length > 0;
   const totalPrice = checkedItems.reduce(
@@ -62,7 +63,7 @@ export const useCart = () => {
     removeCheckedCart,
     toggleCartChecked,
     getCartAmount,
-
+    cartAmount,
     checkedItems,
     hasCheckedItems,
     isCheckAll,

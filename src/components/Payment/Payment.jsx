@@ -30,7 +30,7 @@ const Payment = () => {
 
   const handleButtonClick = () => {
     dispatch(addOrder({ cart: checkedItems }));
-    console.log(checkedItems);
+
     dispatch(removeChecked(cart));
     history.push(ROUTE.ORDERS_LIST);
   };

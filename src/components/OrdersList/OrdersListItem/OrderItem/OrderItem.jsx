@@ -9,7 +9,6 @@ import { formatPrice } from "../../../../utils/utils";
 
 const OrderItem = ({ item }) => {
   const { image_url: thumbnail, name, price, quantity } = item;
-  console.log(thumbnail, name, price, quantity);
 
   const dispatch = useDispatch();
 

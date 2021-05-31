@@ -26,7 +26,7 @@ const ProductsList = () => {
             key={product.id}
             product={product}
             amount={getCartAmount(product.id)}
-            addToCart={addCart(product)}
+            addToCart={() => addCart(product)}
           />
         ))}
       </S.ProductsList>

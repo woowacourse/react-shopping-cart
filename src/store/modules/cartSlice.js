@@ -228,7 +228,7 @@ const cartSlice = createSlice({
 
     [removeFromCart.fulfilled]: (state, action) => {
       const { productId, amount } = action.payload;
-      console.log(state.items[productId].amount, amount);
+
       if (state.items[productId].amount <= amount) {
         delete state.items[productId];
       } else {

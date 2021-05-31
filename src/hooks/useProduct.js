@@ -14,5 +14,7 @@ export const useProduct = () => {
     dispatch(getProducts());
   }, [dispatch, products.length]);
 
-  return { products, loading, errorMessage };
+  const getProduct = (id) => products[id];
+
+  return { products, getProduct, loading, errorMessage };
 };

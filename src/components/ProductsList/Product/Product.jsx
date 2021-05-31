@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 import { formatPrice } from "../../../utils/utils";
 import * as S from "./Product.styled";
@@ -8,9 +9,15 @@ import CartIcon from "../../@shared/CartIcon/CartIcon";
 import { CART } from "../../../constants/constant";
 
 const Product = ({ product, amount, addToCart }) => {
+  const history = useHistory();
   const { thumbnail, name, price } = product;
 
-  const handleAddCartClick = () => {
+  const handleProductClick = () => {
+    history.push(`/product/${product.id}`);
+  };
+
+  const handleAddCartClick = (e) => {
+    e.stopPropagation();
     if (amount >= CART.MAX_AMOUNT) {
       // eslint-disable-next-line no-alert
       window.alert(
@@ -23,7 +30,7 @@ const Product = ({ product, amount, addToCart }) => {
   };
 
   return (
-    <S.Product>
+    <S.Product onClick={handleProductClick}>
       <S.Preview>
         <S.Thumbnail>
           <S.Img src={thumbnail} alt={name} />
@@ -46,6 +53,7 @@ const Product = ({ product, amount, addToCart }) => {
 
 Product.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,

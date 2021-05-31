@@ -8,6 +8,7 @@ import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import OrdersList from "./components/OrdersList/OrdersList";
 import { ROUTE } from "./constants/constant";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 
 const App = () => (
   <S.App>
@@ -16,14 +17,15 @@ const App = () => (
       <S.Main>
         <Switch>
           <Route exact path={ROUTE.HOME} component={ProductsList} />
+          <Route exact path={ROUTE.PRODUCT_DETAIL} component={ProductDetail} />
           <Route exact path={ROUTE.CART} component={Cart} />
           <Route exact path={ROUTE.PAYMENT} component={Payment} />
           <Route exact path={ROUTE.ORDERS_LIST} component={OrdersList} />
+
           <Redirect path="*" to="/" />
         </Switch>
       </S.Main>
     </BrowserRouter>
   </S.App>
 );
-
 export default App;

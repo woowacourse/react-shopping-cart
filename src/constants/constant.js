@@ -3,6 +3,7 @@ export const ROUTE = {
   CART: "/cart",
   PAYMENT: "/payment",
   ORDERS_LIST: "/orders-list",
+  PRODUCT_DETAIL: "/product/:id",
 };
 
 export const MESSAGE = {
