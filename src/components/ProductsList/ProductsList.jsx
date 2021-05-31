@@ -1,21 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useProduct } from "../../hooks/useProduct";
+import { useCart } from "../../hooks/useCart";
 
-import { getProducts } from "../../store/modules/productSlice";
 import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
 const ProductsList = () => {
-  const dispatch = useDispatch();
-  const { products, loading, errorMessage } = useSelector(
-    (state) => state.product
-  );
-
-  // TODO : getCarts를 nav나 app으로 빼두기
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+  const { products, loading, errorMessage } = useProduct();
+  const { addCart, getCartAmount } = useCart();
 
   useEffect(() => {
     if (errorMessage) {
@@ -29,7 +22,12 @@ const ProductsList = () => {
       {loading && <Loading>상품목록을 불러오는 중입니다</Loading>}
       <S.ProductsList>
         {products.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product
+            key={product.id}
+            product={product}
+            amount={getCartAmount(product.id)}
+            addToCart={addCart(product)}
+          />
         ))}
       </S.ProductsList>
     </>
