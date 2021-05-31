@@ -20,7 +20,7 @@ const usePagination = (itemLength: number, sliceUnit: number) => {
   };
 
   const onNextButtonClick = () => {
-    if (paginationIndex + 1 > paginationLength) {
+    if (paginationIndex + 1 >= paginationLength) {
       return;
     }
 
