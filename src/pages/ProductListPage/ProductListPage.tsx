@@ -14,12 +14,15 @@ import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useCart from '../../hooks/useCart';
 import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
+import usePagination from '../../hooks/layout/usePagination';
+import { ITEM_SLICE_UNIT } from '../../constants/layout';
 
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error, addProductToCart } = useProducts();
   const { isCartHasProduct } = useCart();
   const { snackbarMessage, isSnackbarShown, showSnackbar } = useSnackbar();
+  const { sliceItems, PaginationContainer } = usePagination(products.length, ITEM_SLICE_UNIT);
 
   const onProductItemClick = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
@@ -45,7 +48,7 @@ const ProductListPage = () => {
     }
   };
 
-  const productGridItemList = products.map((product: Product) => (
+  const productGridItems = products.map((product: Product) => (
     <ProductGridItem
       onClick={() => onProductItemClick(product.id)}
       onCartButtonClick={() => onCartButtonClick(product.id)}
@@ -66,7 +69,10 @@ const ProductListPage = () => {
 
   return (
     <Styled.ProductListPage>
-      {productGridItemList}
+      <Styled.ProductItemsGrid>{sliceItems(productGridItems)}</Styled.ProductItemsGrid>
+      <Styled.PaginationWrapper>
+        <PaginationContainer />
+      </Styled.PaginationWrapper>
       <Snackbar isShown={isSnackbarShown} animationDuration={300}>
         {snackbarMessage}
       </Snackbar>

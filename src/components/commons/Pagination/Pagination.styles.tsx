@@ -8,7 +8,7 @@ export const Pagination = styled.div`
 
 export const PaginationButtonWrapper = styled.div``;
 
-export const PaginationButton = styled.button`
+export const PaginationButton = styled.button<{ isActive: boolean }>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,8 @@ export const PaginationButton = styled.button`
   font-size: 18px;
   line-height: 21px;
   border-radius: 4px;
-  color: ${({ theme }) => theme.TEXT_COLOR};
+  ${({ theme, isActive }) => isActive && `background-color: ${theme.PRIMARY_COLOR}`};
+  color: ${({ theme, isActive }) => (isActive ? theme.WHITE : theme.TEXT_COLOR)};
   transition: color 0.5s, background-color 0.5s;
 
   &:not(:last-child) {
