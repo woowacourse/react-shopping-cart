@@ -20,26 +20,29 @@ const OrderItem = ({
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
   isCartButtonVisible,
-}) => (
-  <Order>
-    <ImageWrapper>
-      <Image src={image_url} alt={name} />
-    </ImageWrapper>
-    <OrderDetail>
-      <Name>{name}</Name>
-      <PriceAndQuantity price={price}>
-        {price >= 0 && `${price}원 /`} 수량: {quantity}
-      </PriceAndQuantity>
-    </OrderDetail>
-    <ButtonWrapper>
-      {isCartButtonVisible && (
-        <Button onClick={() => {}} backgroundColor={BUTTON_COLOR}>
-          장바구니
-        </Button>
-      )}
-    </ButtonWrapper>
-  </Order>
-);
+  addToCart,
+}) => {
+  return (
+    <Order>
+      <ImageWrapper>
+        <Image src={image_url} alt={name} />
+      </ImageWrapper>
+      <OrderDetail>
+        <Name>{name}</Name>
+        <PriceAndQuantity price={price}>
+          {price >= 0 && `${price}원 /`} 수량: {quantity}
+        </PriceAndQuantity>
+      </OrderDetail>
+      <ButtonWrapper>
+        {isCartButtonVisible && (
+          <Button onClick={addToCart} backgroundColor={BUTTON_COLOR}>
+            장바구니
+          </Button>
+        )}
+      </ButtonWrapper>
+    </Order>
+  );
+};
 
 OrderItem.propTypes = {
   image_url: PropTypes.string,

@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CompletedOrderList from '../../CompletedOrderList';
 import PageHeader from '../../PageHeader';
 import { Main } from './index.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCompletedOrder } from './index.actions';
 
-const CompletedOrder = ({ orders }) => {
+const CompletedOrder = () => {
+  const dispatch = useDispatch();
+  const orders = useSelector(state => state.product.product.orderedItems);
+
+  useEffect(() => {
+    dispatch(fetchCompletedOrder());
+  }, []);
+
   return (
     <Main>
       <PageHeader>주문목록</PageHeader>
       <ul>
-        {orders.map(order => (
-          <li key={order.order_id}>
-            <CompletedOrderList order={order} />
-          </li>
-        ))}
+        {orders.length > 0 &&
+          orders.map(order => (
+            <li key={order.order_id}>
+              <CompletedOrderList order={order} />
+            </li>
+          ))}
       </ul>
     </Main>
   );

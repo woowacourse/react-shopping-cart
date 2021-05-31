@@ -13,30 +13,10 @@ export const fetchCarts = () => async dispatch => {
   }
 };
 
-export const handleIncreaseQuantity = (products, id) => async dispatch => {
-  // const product = products.find(product => product.product_id === id);
-  // const newQuantity = product.quantity + 1;
-  // console.log(product, product.cart_id);
-  // axios.post(`/api/customers/ddongule/orders`, [
-  //   {
-  //     cart_id: product.cart_id,
-  //     quantity: newQuantity,
-  //   },
-  // ]);
-
+export const handleIncreaseQuantity = id => async dispatch => {
   dispatch({ type: ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY, id });
 };
 
-export const handleDecreaseQuantity = (products, id) => async dispatch => {
-  // const product = products.find(product => product.product_id === id);
-  // const newQuantity = product.quantity - 1;
-
-  // axios.post(`/api/customers/ddongule/orders`, [
-  //   {
-  //     cart_id: product.cart_id,
-  //     quantity: newQuantity,
-  //   },
-  // ]);
-
+export const handleDecreaseQuantity = id => async dispatch => {
   dispatch({ type: ACTION_TYPE.PRODUCTS.DECREASE_QUANTITY, id });
 };

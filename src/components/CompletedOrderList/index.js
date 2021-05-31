@@ -1,32 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
+import { handleCartButtonClick } from '../pages/Products/index.actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CompletedOrderList = ({ order, onImageError }) => {
   const { order_id, order_details } = order;
+  const cartItems = useSelector(({ product }) => product.cartItems) ?? [];
+
+  const dispatch = useDispatch();
+
+  const addToCart = product => {
+    handleCartButtonClick(product, cartItems, dispatch);
+  };
 
   return (
     <OrderList>
       <Header>
         <span>주문번호 : {order_id}</span>
-        <span>상세보기 ᐳ </span>
+        <button onClick={() => {}}>
+          <span>상세보기 ᐳ</span>
+        </button>
       </Header>
       <ul>
-        {/* TODO: Backend API에 맞게 Key 수정 */}
-        {order_details.map(
-          ({ product_id, image_url, name, price, quantity }) => (
-            <li key={product_id}>
-              <OrderItem
-                imgUrl={image_url}
-                name={name}
-                price={price}
-                quantity={quantity}
-                isCartButtonVisible={true}
-              />
-            </li>
-          )
-        )}
+        {order_details.map(product => (
+          <li key={product.product_id}>
+            <OrderItem
+              image_url={product.image_url}
+              name={product.name}
+              price={product.price}
+              quantity={product.quantity}
+              isCartButtonVisible={true}
+              addToCart={() => addToCart(product)}
+            />
+          </li>
+        ))}
       </ul>
     </OrderList>
   );

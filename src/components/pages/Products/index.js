@@ -12,10 +12,12 @@ const Products = () => {
   const cartItems = useSelector(state => state.product.product.cartItems);
 
   useEffect(() => {
-    fetchProducts()(dispatch);
+    dispatch(fetchProducts());
+
+    dispatch({ type: 'RESTRICT_DIRECT_ACCESS', payload: '/' });
 
     if (cartItems.length === 0) {
-      fetchCarts()(dispatch);
+      dispatch(fetchCarts());
     }
   }, []);
 

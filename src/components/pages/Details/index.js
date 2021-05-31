@@ -9,7 +9,6 @@ import { Page, Main } from './index.styles';
 const Details = ({ onImageError, match }) => {
   const dispatch = useDispatch();
   const product = useSelector(state => state.product.product.productDetail);
-  const product_id = match.params.product_id;
 
   async function fetchProductDetail() {
     try {
@@ -27,6 +26,8 @@ const Details = ({ onImageError, match }) => {
 
   useEffect(() => {
     fetchProductDetail();
+
+    dispatch({ type: 'RESTRICT_DIRECT_ACCESS', payload: '/product-details' });
 
     return () => {
       dispatch({ type: ACTION_TYPE.PRODUCTS.RESET_PRODUCT_DETAIL });

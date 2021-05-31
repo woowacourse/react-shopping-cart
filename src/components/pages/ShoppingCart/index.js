@@ -25,9 +25,12 @@ import {
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.product.product.cartItems);
+
   useEffect(() => {
+    dispatch({ type: 'RESTRICT_DIRECT_ACCESS', payload: '/cart' });
+
     if (cartItems.length === 0) {
-      fetchCarts()(dispatch);
+      dispatch(fetchCarts());
     }
   }, []);
   const getTotalQuantityText = () => {
@@ -124,10 +127,10 @@ const ShoppingCart = () => {
                   <ShoppingItem
                     {...product}
                     onIncreaseQuantity={() =>
-                      handleIncreaseQuantity(cartItems, product_id)(dispatch)
+                      handleIncreaseQuantity(product_id)(dispatch)
                     }
                     onDecreaseQuantity={() =>
-                      handleDecreaseQuantity(cartItems, product_id)(dispatch)
+                      handleDecreaseQuantity(product_id)(dispatch)
                     }
                     onCheckBoxClick={() => handleCheckBoxClick(product_id)}
                     onDeleteButtonClick={() =>

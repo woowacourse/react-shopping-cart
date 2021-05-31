@@ -6,15 +6,8 @@ const initialState = {
   fetchedProducts: [],
   cartItems: [],
   productDetail: {},
+  orderedItems: [],
 };
-
-// const setCartsWithQuantity = (state, newProduct) => {
-//   const updater = produce(draft => {
-//     draft.cartItems = newProduct;
-//   });
-
-//   return updater(state);
-// };
 
 const addInitialProductToCart = (state, { product, cartId }) => {
   const { cartItems } = state;
@@ -184,6 +177,22 @@ const resetProductDetail = state => {
   return updater(state);
 };
 
+const setCompletedOrder = (state, payload) => {
+  const updater = produce(draft => {
+    draft.orderedItems = payload.sort((a, b) => b.order_id - a.order_id);
+  });
+
+  return updater(state);
+};
+
+const resetCarts = state => {
+  const updater = produce(draft => {
+    draft.cartItems = [];
+  });
+
+  return updater(state);
+};
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.PRODUCTS.ADD_TO_CART:
@@ -219,11 +228,15 @@ const productReducer = (state = initialState, action) => {
     case ACTION_TYPE.PRODUCTS.SET_CARTS:
       return setCarts(state, action.cartItems);
 
-    // case 'SET_CARTS_WITH_QUANTITY':
-    //   return setCartsWithQuantity(state, action.payload);
+    case 'RESET_CARTS':
+      return resetCarts(state);
+
+    case 'SET_COMPLETED_ORDERS':
+      return setCompletedOrder(state, action.payload);
 
     case 'ADD_INITIAL_PRODUCT_TO_CART':
       return addInitialProductToCart(state, action.payload);
+
     default:
       return state;
   }
