@@ -4,7 +4,7 @@ import { requestAddProductToCart } from '../apis';
 import { RootState } from '../modules';
 import { getProducts } from '../modules/products/actions';
 import { asyncAction as cartAsyncAction } from '../modules/cart/actions';
-import { CartItem, Product } from '../type';
+import { Product } from '../type';
 
 const useProducts = () => {
   const dispatch = useAppDispatch();

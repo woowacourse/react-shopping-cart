@@ -15,8 +15,6 @@ import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
-import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
-import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
 import useCart from '../../hooks/useCart';
 
 const OrderDetailPage = () => {
@@ -25,16 +23,9 @@ const OrderDetailPage = () => {
 
   const { isCartHasProduct } = useCart();
   const { orderItems, loading, responseOK, getOrderedProduct } = useOrderDetail(orderId);
-  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
 
-  const {
-    confirmModalMessage,
-    isConfirmModalShown,
-    changeConfirmAction,
-    confirmAction,
-    hideConfirmModal,
-    showConfirmModal,
-  } = useConfirmModal();
+  const { changeConfirmAction, showConfirmModal, ConfirmModalContainer } = useConfirmModal();
 
   const onCartButtonClick = async (id: Product['id']) => {
     const product = getOrderedProduct(id);
@@ -106,19 +97,8 @@ const OrderDetailPage = () => {
           <TotalPrice title="결제금액 정보" priceLabel="총 결제금액" price={totalPrice} />
         </Styled.PageBottom>
       </Styled.PageWrapper>
-      {isConfirmModalShown && (
-        <ConfirmModal
-          cancelButtonText="취소"
-          confirmButtonText="확인"
-          heading={confirmModalMessage}
-          onCancel={hideConfirmModal}
-          onClose={hideConfirmModal}
-          onConfirm={confirmAction}
-        />
-      )}
-      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
-        {snackbarMessage}
-      </Snackbar>
+      <SnackbarContainer />
+      <ConfirmModalContainer />
     </Styled.OrderListPage>
   );
 };

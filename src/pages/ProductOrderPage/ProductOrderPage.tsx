@@ -8,23 +8,14 @@ import * as Styled from './ProductOrderPage.styles';
 import { requestAddOrder } from '../../apis';
 import { CartItem } from '../../type';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
-import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
 import useSnackbar from '../../hooks/layout/useSnackbar';
-import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedCartItems: CartItem[] }>();
 
-  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
 
-  const {
-    confirmModalMessage,
-    isConfirmModalShown,
-    changeConfirmAction,
-    confirmAction,
-    hideConfirmModal,
-    showConfirmModal,
-  } = useConfirmModal();
+  const { changeConfirmAction, showConfirmModal, ConfirmModalContainer } = useConfirmModal();
 
   if (!history.location.state) {
     return <Redirect to={PATH.ROOT} />;
@@ -88,19 +79,8 @@ const ProductOrderPage = () => {
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
-      {isConfirmModalShown && (
-        <ConfirmModal
-          cancelButtonText="취소"
-          confirmButtonText="확인"
-          heading={confirmModalMessage}
-          onCancel={hideConfirmModal}
-          onClose={hideConfirmModal}
-          onConfirm={confirmAction}
-        />
-      )}
-      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
-        {snackbarMessage}
-      </Snackbar>
+      <ConfirmModalContainer />
+      <SnackbarContainer />
     </Styled.ProductOrderPage>
   );
 };

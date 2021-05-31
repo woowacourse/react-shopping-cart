@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
+import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 import { SNACKBAR_ANIMATION_DURATION, SNACKBAR_DURATION } from '../../constants/layout';
 
-const useSnackbar = () => {
+const useSnackbar = (duration: number | undefined = 300) => {
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
@@ -20,7 +21,6 @@ const useSnackbar = () => {
     }
 
     timer.current && clearTimeout(timer.current);
-
     setIsSnackbarShown(false);
 
     timer.current = setTimeout(() => {
@@ -33,7 +33,13 @@ const useSnackbar = () => {
     }, SNACKBAR_DURATION);
   };
 
-  return { snackbarMessage, isSnackbarShown, showSnackbar };
+  const SnackbarContainer = () => (
+    <Snackbar isShown={isSnackbarShown} animationDuration={duration}>
+      {snackbarMessage}
+    </Snackbar>
+  );
+
+  return { snackbarMessage, isSnackbarShown, showSnackbar, SnackbarContainer };
 };
 
 export default useSnackbar;

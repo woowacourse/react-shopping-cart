@@ -9,10 +9,8 @@ import Tooltip from '../../components/commons/Tooltip/Tooltip';
 import { useHistory } from 'react-router';
 import useProductDetail from '../../hooks/useProductDetail';
 import { requestAddProductToCart } from '../../apis';
-import { alert } from '../../utils/alert';
 import useCart from '../../hooks/useCart';
 import useSnackbar from '../../hooks/layout/useSnackbar';
-import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 
 const ProductDetailPage = () => {
   const history = useHistory();
@@ -20,7 +18,7 @@ const ProductDetailPage = () => {
   const { product, loading, responseOK } = useProductDetail();
   const { isCartHasProduct } = useCart();
 
-  const { isSnackbarShown, snackbarMessage, showSnackbar } = useSnackbar();
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
 
   const onAddProductToCart = async () => {
     if (isCartHasProduct(product.name)) {
@@ -89,9 +87,7 @@ const ProductDetailPage = () => {
           </Button>
         </Styled.ButtonWrapper>
       </Styled.ProductWrapper>
-      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
-        {snackbarMessage}
-      </Snackbar>
+      <SnackbarContainer />
     </Styled.ProductDetailPage>
   );
 };

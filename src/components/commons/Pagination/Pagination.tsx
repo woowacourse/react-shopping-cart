@@ -1,4 +1,3 @@
-import { COLORS } from '../../../constants';
 import * as Styled from './Pagination.styles';
 
 export interface Props {

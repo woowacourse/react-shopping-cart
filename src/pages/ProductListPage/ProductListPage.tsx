@@ -13,7 +13,6 @@ import * as Styled from './ProductListPage.styles';
 import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useCart from '../../hooks/useCart';
-import { Snackbar } from '../../components/commons/Snackbar/Snackbar.styles';
 import usePagination from '../../hooks/layout/usePagination';
 import { ITEM_SLICE_UNIT } from '../../constants/layout';
 
@@ -21,7 +20,7 @@ const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, error, addProductToCart } = useProducts();
   const { isCartHasProduct } = useCart();
-  const { snackbarMessage, isSnackbarShown, showSnackbar } = useSnackbar();
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
   const { sliceItems, PaginationContainer } = usePagination(products.length, ITEM_SLICE_UNIT);
 
   const onProductItemClick = (productId: string) => {
@@ -73,9 +72,7 @@ const ProductListPage = () => {
       <Styled.PaginationWrapper>
         <PaginationContainer />
       </Styled.PaginationWrapper>
-      <Snackbar isShown={isSnackbarShown} animationDuration={300}>
-        {snackbarMessage}
-      </Snackbar>
+      <SnackbarContainer />
     </Styled.ProductListPage>
   );
 };

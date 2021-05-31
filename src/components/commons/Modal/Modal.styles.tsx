@@ -1,5 +1,4 @@
-import styled, { keyframes, css } from 'styled-components';
-import { Props } from './Modal';
+import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
   from {

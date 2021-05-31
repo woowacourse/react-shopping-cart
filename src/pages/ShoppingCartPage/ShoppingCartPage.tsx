@@ -12,7 +12,6 @@ import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { CartItem } from '../../type';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
-import ConfirmModal from '../../components/commons/Modal/ConfirmModal/ConfirmModal';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -31,14 +30,7 @@ const ShoppingCartPage = () => {
     getSelectedCartItems,
   } = useCart();
 
-  const {
-    confirmModalMessage,
-    isConfirmModalShown,
-    confirmAction,
-    showConfirmModal,
-    hideConfirmModal,
-    changeConfirmAction,
-  } = useConfirmModal();
+  const { showConfirmModal, hideConfirmModal, changeConfirmAction, ConfirmModalContainer } = useConfirmModal();
 
   const [isTotalChecked, setTotalChecked] = useState(true);
 
@@ -141,16 +133,7 @@ const ShoppingCartPage = () => {
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
-      {isConfirmModalShown && (
-        <ConfirmModal
-          cancelButtonText="취소"
-          confirmButtonText="확인"
-          heading={confirmModalMessage}
-          onCancel={hideConfirmModal}
-          onClose={hideConfirmModal}
-          onConfirm={confirmAction}
-        />
-      )}
+      <ConfirmModalContainer />
     </Styled.ShoppingCartPage>
   );
 };

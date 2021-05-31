@@ -11,8 +11,6 @@ import ProductOrderPage from './pages/ProductOrderPage/ProductOrderPage';
 import ShoppingCartPage from './pages/ShoppingCartPage/ShoppingCartPage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
 import OrderDetailPage from './pages/OrderDetailPage/OrderDetailPage';
-import { Snackbar } from './components/commons/Snackbar/Snackbar.styles';
-import { SNACKBAR_ANIMATION_DURATION } from './constants/layout';
 
 function App() {
   return (
