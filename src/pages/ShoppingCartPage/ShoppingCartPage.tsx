@@ -12,14 +12,17 @@ import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
 import { CartItem } from '../../type';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import useSnackbar from '../../hooks/layout/useSnackbar';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
 
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
+
   const {
     cartItems,
     loading,
-    error,
+    responseOK,
     totalCartItemPrice,
     getCartItem,
     deleteAllCartItems,
@@ -30,7 +33,7 @@ const ShoppingCartPage = () => {
     getSelectedCartItems,
   } = useCart();
 
-  const { showConfirmModal, hideConfirmModal, changeConfirmAction, ConfirmModalContainer } = useConfirmModal();
+  const { showConfirmModal, changeConfirmAction, ConfirmModalContainer } = useConfirmModal();
 
   const [isTotalChecked, setTotalChecked] = useState(true);
 
@@ -41,8 +44,13 @@ const ShoppingCartPage = () => {
 
   const onCartItemDelete = async (id: CartItem['id']) => {
     showConfirmModal(`'${getCartItem(id).name}'을(를) 장바구니에서 삭제하시겠습니까?`);
-    changeConfirmAction(() => {
-      deleteCartItem(id);
+    changeConfirmAction(async () => {
+      try {
+        await deleteCartItem(id);
+        showSnackbar(`'${getCartItem(id).name}'이(가) 장바구니에서 삭제되었습니다.`);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
     });
   };
 
@@ -52,16 +60,19 @@ const ShoppingCartPage = () => {
     }
 
     showConfirmModal('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?');
-    changeConfirmAction(() => {
-      deleteAllCartItems();
+    changeConfirmAction(async () => {
+      try {
+        await deleteAllCartItems();
+        showSnackbar(`모든 상품들이 장바구니에서 삭제되었습니다.`);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
     });
   };
 
   const onOrderItems = () => {
     showConfirmModal('선택하신 상품들을 주문하시겠습니까?');
     changeConfirmAction(() => {
-      hideConfirmModal();
-
       const selectedCartItems = getSelectedCartItems();
       if (selectedCartItems.length === 0) {
         return;
@@ -96,7 +107,7 @@ const ShoppingCartPage = () => {
     );
   }
 
-  if (!loading && error) {
+  if (!loading && !responseOK) {
     return (
       <Styled.ShoppingCartPage>
         <NotFound message="장바구니 정보를 조회하는데 실패했습니다" />
@@ -134,6 +145,7 @@ const ShoppingCartPage = () => {
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
       <ConfirmModalContainer />
+      <SnackbarContainer />
     </Styled.ShoppingCartPage>
   );
 };

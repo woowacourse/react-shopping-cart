@@ -9,7 +9,7 @@ export const parseProductData = (productData: ProductData): Product => {
   };
 };
 
-export const praseProductDataList = (productData: ProductData[]): Product[] => {
+export const parseProductDataList = (productData: ProductData[]): Product[] => {
   return productData.map(parseProductData);
 };
 

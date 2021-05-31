@@ -8,8 +8,6 @@ const usePagination = (itemLength: number, sliceUnit: number) => {
   const [paginationIndex, setPaginationIndex] = useState(0);
 
   const sliceItems = (items: Array<React.ReactNode>) => {
-    console.log('items', items);
-    console.log('sliced', items.slice(paginationIndex * sliceUnit, sliceUnit));
     return items.slice(paginationIndex * sliceUnit, (paginationIndex + 1) * sliceUnit);
   };
 

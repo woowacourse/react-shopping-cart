@@ -1,26 +1,23 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '.';
+import { useState } from 'react';
 import { requestAddProductToCart } from '../apis';
-import { RootState } from '../modules';
-import { getProducts } from '../modules/products/actions';
-import { asyncAction as cartAsyncAction } from '../modules/cart/actions';
 import { Product } from '../type';
+import useRequest from './useRequest';
+import { requestGetProducts } from '../apis/products';
+import { parseProductDataList } from '../utils/parseData';
 
 const useProducts = () => {
-  const dispatch = useAppDispatch();
-  const { products, loading, error } = useAppSelector((state: RootState) => state.products);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    if (products.length !== 0) return;
-    dispatch(getProducts());
-  }, [dispatch, products]);
+  const { loading, responseOK } = useRequest(async () => {
+    const response = await requestGetProducts();
+    setProducts(parseProductDataList(response.data));
+  });
 
   const addProductToCart = async (id: Product['id']) => {
     await requestAddProductToCart(id);
-    dispatch(cartAsyncAction.getCartItems());
   };
 
-  return { products, loading, error, addProductToCart };
+  return { products, loading, responseOK, addProductToCart };
 };
 
 export default useProducts;

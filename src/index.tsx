@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Provider } from 'react-redux';
 import axios from 'axios';
-import store from './modules';
 
 axios.interceptors.response.use(
   response => response,
@@ -13,9 +11,7 @@ axios.interceptors.response.use(
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

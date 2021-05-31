@@ -18,7 +18,7 @@ import { ITEM_SLICE_UNIT } from '../../constants/layout';
 
 const ProductListPage = () => {
   const history = useHistory();
-  const { products, loading, error, addProductToCart } = useProducts();
+  const { products, loading, responseOK, addProductToCart } = useProducts();
   const { isCartHasProduct } = useCart();
   const { showSnackbar, SnackbarContainer } = useSnackbar();
   const { sliceItems, PaginationContainer } = usePagination(products.length, ITEM_SLICE_UNIT);
@@ -62,7 +62,7 @@ const ProductListPage = () => {
     return <Loading />;
   }
 
-  if (!loading && error) {
+  if (!loading && !responseOK) {
     return <NotFound message="상품 정보를 불러올 수 없습니다." />;
   }
 

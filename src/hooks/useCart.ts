@@ -1,19 +1,17 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '.';
+import { useState } from 'react';
 import { requestDeleteCartItem } from '../apis';
-import { requestDeleteCartItems } from '../apis/cart';
-import { STATUS_CODE } from '../constants';
-import { action, asyncAction } from '../modules/cart/actions';
+import { requestDeleteCartItems, requestGetCartItems } from '../apis/cart';
 import { CartItem, Product } from '../type';
+import { parseCartItemDataList } from '../utils/parseData';
+import useRequest from './useRequest';
 
 const useCart = () => {
-  const dispatch = useAppDispatch();
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const { cartItems, loading, error } = useAppSelector(state => state.cart);
-
-  useEffect(() => {
-    dispatch(asyncAction.getCartItems());
-  }, []);
+  const { loading, responseOK } = useRequest(async () => {
+    const response = await requestGetCartItems();
+    setCartItems(parseCartItemDataList(response.data));
+  });
 
   const getCartItem = (id: CartItem['id']) => {
     const newCartItems = [...cartItems];
@@ -22,34 +20,20 @@ const useCart = () => {
     return newCartItems[targetIndex];
   };
 
-  const setCartItems = (items: CartItem[]) => {
-    dispatch(action.setCartItems(items));
-  };
-
   const deleteCartItem = async (id: CartItem['id']) => {
     const newCartItems = [...cartItems];
     const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const targetCartItem = newCartItems[targetIndex];
 
-    try {
-      await requestDeleteCartItem(id);
-      newCartItems.splice(targetIndex, 1);
-      setCartItems(newCartItems);
-    } catch (error) {
-      alert(`${targetCartItem.name}을(를) 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    await requestDeleteCartItem(id);
+    newCartItems.splice(targetIndex, 1);
+    setCartItems(newCartItems);
   };
 
   const deleteAllCartItems = async () => {
-    try {
-      const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-      await requestDeleteCartItems(selectedCartItemIdList);
-      const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-      setCartItems(newCartItems);
-    } catch (error) {
-      const failCount = error.statusList?.filter((status: number) => status !== STATUS_CODE.POST_SUCCESS);
-      alert(`${failCount}개의 상품들을 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
+    await requestDeleteCartItems(selectedCartItemIdList);
+    const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
+    setCartItems(newCartItems);
   };
 
   const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
@@ -94,7 +78,7 @@ const useCart = () => {
   return {
     cartItems,
     loading,
-    error,
+    responseOK,
     totalCartItemPrice,
     getCartItem,
     setCartItems,
