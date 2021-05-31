@@ -4,11 +4,14 @@ import { SNACKBAR_ANIMATION_DURATION, SNACKBAR_DURATION } from '../../constants/
 
 const useSnackbar = (duration: number | undefined = 300) => {
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
   let timer = useRef<NodeJS.Timeout | null>(null);
 
   const showSnackbar = (message: string) => {
+    setIsInitialRender(false);
+
     if (!isSnackbarShown) {
       console.log('show!');
       setIsSnackbarShown(true);
@@ -34,9 +37,13 @@ const useSnackbar = (duration: number | undefined = 300) => {
   };
 
   const SnackbarContainer = () => (
-    <Snackbar isShown={isSnackbarShown} animationDuration={duration}>
-      {snackbarMessage}
-    </Snackbar>
+    <>
+      {!isInitialRender && (
+        <Snackbar isShown={isSnackbarShown} animationDuration={duration}>
+          {snackbarMessage}
+        </Snackbar>
+      )}
+    </>
   );
 
   return { snackbarMessage, isSnackbarShown, showSnackbar, SnackbarContainer };
