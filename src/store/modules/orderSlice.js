@@ -33,7 +33,7 @@ export const addOrder = createAsyncThunk(
       });
 
       if (res.ok) {
-        return { order, location: res.headers.get("location") };
+        return { cart, location: res.headers.get("location") };
       }
 
       throw Error;
@@ -74,10 +74,10 @@ const orderSlice = createSlice({
     },
 
     [addOrder.fulfilled]: (state, action) => {
-      const { order } = action.payload;
+      const { cart } = action.payload;
       const location = action.payload.location.split("/");
       const orderId = Number(location[location.length - 1]);
-      state.items[orderId] = order;
+      state.items[orderId] = cart;
     },
 
     [addOrder.rejected]: (state, action) => {
