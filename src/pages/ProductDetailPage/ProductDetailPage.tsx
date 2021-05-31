@@ -11,6 +11,7 @@ import useProductDetail from '../../hooks/useProductDetail';
 import { requestAddProductToCart } from '../../apis';
 import useCart from '../../hooks/useCart';
 import useSnackbar from '../../hooks/layout/useSnackbar';
+import { TEST_ID } from '../../constants/test';
 
 const ProductDetailPage = () => {
   const history = useHistory();
@@ -56,7 +57,7 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <Styled.ProductDetailPage>
+    <Styled.ProductDetailPage data-testid={TEST_ID.PRODUCT_DETAIL_PAGE}>
       <Styled.ProductWrapper>
         <Styled.ProductImage src={product.thumbnail} />
         <Styled.ProductNameWrapper>

@@ -8,10 +8,12 @@ import useRequest from './useRequest';
 const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const { loading, responseOK } = useRequest(async () => {
+  const fetchCartItems = async () => {
     const response = await requestGetCartItems();
     setCartItems(parseCartItemDataList(response.data));
-  });
+  };
+
+  const { loading, responseOK } = useRequest(fetchCartItems);
 
   const getCartItem = (id: CartItem['id']) => {
     const newCartItems = [...cartItems];
@@ -82,6 +84,7 @@ const useCart = () => {
     totalCartItemPrice,
     getCartItem,
     setCartItems,
+    fetchCartItems,
     deleteCartItem,
     deleteAllCartItems,
     isCartHasProduct,

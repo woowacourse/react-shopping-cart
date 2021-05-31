@@ -15,11 +15,12 @@ import useSnackbar from '../../hooks/layout/useSnackbar';
 import useCart from '../../hooks/useCart';
 import usePagination from '../../hooks/layout/usePagination';
 import { ITEM_SLICE_UNIT } from '../../constants/layout';
+import { TEST_ID } from '../../constants/test';
 
 const ProductListPage = () => {
   const history = useHistory();
   const { products, loading, responseOK, addProductToCart } = useProducts();
-  const { isCartHasProduct } = useCart();
+  const { fetchCartItems, isCartHasProduct } = useCart();
   const { showSnackbar, SnackbarContainer } = useSnackbar();
   const { sliceItems, PaginationContainer } = usePagination(products.length, ITEM_SLICE_UNIT);
 
@@ -40,6 +41,7 @@ const ProductListPage = () => {
 
     try {
       await addProductToCart(product.id);
+      await fetchCartItems();
       showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
       showSnackbar(error.message);
@@ -67,7 +69,7 @@ const ProductListPage = () => {
   }
 
   return (
-    <Styled.ProductListPage>
+    <Styled.ProductListPage data-testid={TEST_ID.PRODUCT_LIST_PAGE}>
       <Styled.ProductItemsGrid>{sliceItems(productGridItems)}</Styled.ProductItemsGrid>
       <Styled.PaginationWrapper>
         <PaginationContainer />

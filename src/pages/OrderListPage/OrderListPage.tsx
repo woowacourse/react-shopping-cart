@@ -14,6 +14,7 @@ import { CartItem, Order } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
 import useCart from '../../hooks/useCart';
+import { TEST_ID } from '../../constants/test';
 
 const OrderListPage = () => {
   const history = useHistory();
@@ -85,7 +86,7 @@ const OrderListPage = () => {
   }
 
   return (
-    <Styled.OrderListPage>
+    <Styled.OrderListPage data-testid={TEST_ID.ORDER_LIST_PAGE}>
       <Styled.PageWrapper>
         <Styled.PageTitleWrapper>
           <PageTitle>주문목록</PageTitle>

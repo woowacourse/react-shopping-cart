@@ -16,6 +16,7 @@ import { Product } from '../../type';
 import useSnackbar from '../../hooks/layout/useSnackbar';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
 import useCart from '../../hooks/useCart';
+import { TEST_ID } from '../../constants/test';
 
 const OrderDetailPage = () => {
   const [orderId] = window.location.hash.split('/').slice(-1);
@@ -81,7 +82,7 @@ const OrderDetailPage = () => {
   }
 
   return (
-    <Styled.OrderListPage>
+    <Styled.OrderListPage data-testid={TEST_ID.ORDER_DETAIL_PAGE}>
       <Styled.PageWrapper>
         <Styled.PageTitleWrapper>
           <PageTitle>주문내역상세</PageTitle>

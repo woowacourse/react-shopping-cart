@@ -13,6 +13,7 @@ import * as Styled from './ShoppingCartPage.styles';
 import { CartItem } from '../../type';
 import useConfirmModal from '../../hooks/layout/useConfirmModal';
 import useSnackbar from '../../hooks/layout/useSnackbar';
+import { TEST_ID } from '../../constants/test';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
@@ -116,7 +117,7 @@ const ShoppingCartPage = () => {
   }
 
   return (
-    <Styled.ShoppingCartPage>
+    <Styled.ShoppingCartPage data-testid={TEST_ID.SHOPPING_CART_PAGE}>
       <Styled.Header>
         <PageTitle>장바구니</PageTitle>
       </Styled.Header>

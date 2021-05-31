@@ -8,16 +8,18 @@ import { parseProductDataList } from '../utils/parseData';
 const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const { loading, responseOK } = useRequest(async () => {
+  const fetchProducts = async () => {
     const response = await requestGetProducts();
     setProducts(parseProductDataList(response.data));
-  });
+  };
+
+  const { loading, responseOK } = useRequest(fetchProducts);
 
   const addProductToCart = async (id: Product['id']) => {
     await requestAddProductToCart(id);
   };
 
-  return { products, loading, responseOK, addProductToCart };
+  return { products, loading, responseOK, addProductToCart, fetchProducts };
 };
 
 export default useProducts;
