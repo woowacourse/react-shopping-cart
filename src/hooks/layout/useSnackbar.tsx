@@ -13,7 +13,6 @@ const useSnackbar = (duration: number | undefined = 300) => {
     setIsInitialRender(false);
 
     if (!isSnackbarShown) {
-      console.log('show!');
       setIsSnackbarShown(true);
       setSnackbarMessage(message);
 

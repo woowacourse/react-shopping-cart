@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Pagination from '../../components/commons/Pagination/Pagination';
 import { getPageIndex } from '../../utils/format';
 
@@ -7,8 +7,10 @@ const usePagination = (itemLength: number, sliceUnit: number) => {
 
   const [paginationIndex, setPaginationIndex] = useState(0);
 
-  const sliceItems = (items: Array<unknown>) => {
-    return items.slice(paginationIndex, sliceUnit);
+  const sliceItems = (items: Array<React.ReactNode>) => {
+    console.log('items', items);
+    console.log('sliced', items.slice(paginationIndex * sliceUnit, sliceUnit));
+    return items.slice(paginationIndex * sliceUnit, (paginationIndex + 1) * sliceUnit);
   };
 
   const onPrevButtonClick = () => {
