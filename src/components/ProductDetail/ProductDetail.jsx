@@ -34,7 +34,7 @@ const ProductDetail = ({ match }) => {
           <S.Price>{`${formatPrice(product.price)}원`}</S.Price>
           <S.Cart>
             <Button onClick={addToCart}>
-              장바구니에 담기(현재 {cart[product.id].amount}개)
+              장바구니에 담기(현재 {cart[product.id]?.amount ?? 0}개)
             </Button>
           </S.Cart>
         </>
