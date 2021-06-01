@@ -9,7 +9,6 @@ const useGettingData = (path) => {
   return {
     mutate,
     data,
-    isLoading: !error && !data,
     isError: error,
   };
 };

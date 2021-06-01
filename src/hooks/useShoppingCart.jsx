@@ -15,11 +15,7 @@ const getShoppingCartItemList = async () => {
 };
 
 const useShoppingCart = () => {
-  const {
-    data: shoppingCartItemList,
-    isLoading,
-    mutate,
-  } = useSWR(API_PATH.SHOPPING_CART_LIST, getShoppingCartItemList, {
+  const { data: shoppingCartItemList, mutate } = useSWR(API_PATH.SHOPPING_CART_LIST, getShoppingCartItemList, {
     suspense: true,
     revalidateOnFocus: false,
   });
@@ -149,7 +145,6 @@ const useShoppingCart = () => {
     toggleAllShoppingCartItem,
     increaseQuantity,
     decreaseQuantity,
-    isLoading,
   };
 };
 
