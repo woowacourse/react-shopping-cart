@@ -16,10 +16,7 @@ import {
   BUTTON_TYPE,
   ShoppingCartPayment,
   ShoppingCartItemList,
-  SNACKBAR_TYPE,
 } from '../components';
-import useSnackbar from '../hooks/useSnackbar';
-import { MESSAGE } from '../constants/message';
 
 const Container = styled.div`
   ${({ theme }) => theme.content.default}
@@ -78,8 +75,6 @@ const ShoppingCart = () => {
 
   const history = useHistory();
 
-  const { addSnackbar } = useSnackbar();
-
   useScrollPosition(PATH.SHOPPING_CART);
 
   const checkedShoppingCartItemList = shoppingCartItemList.filter((item) => item.isChecked);
@@ -93,7 +88,6 @@ const ShoppingCart = () => {
 
   const handleConfirm = () => {
     onConfirm(() => deleteCheckedShoppingCartItem(checkedShoppingCartItemList));
-    addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_ALL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
   };
 
   const handleCancel = () => {

@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import trashCan from '../../assets/trashCan.svg';
 import useDialog from '../../hooks/useDialog';
 import useShoppingCart from '../../hooks/useShoppingCart';
-import useSnackbar from '../../hooks/useSnackbar';
-import { MESSAGE } from '../../constants/message';
-import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, SNACKBAR_TYPE } from '..';
+import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE } from '..';
 
 const Container = styled.ul`
   display: flex;
@@ -40,14 +38,9 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
-const MAX_COUNT = 99;
-const MIN_COUNT = 1;
-
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) => {
   const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel } = useDialog();
   const { deleteShoppingCartItem, toggleShoppingCartItem, increaseQuantity, decreaseQuantity } = useShoppingCart();
-
-  const { addSnackbar } = useSnackbar();
 
   const handleShoppingCartItemToggle = () => {
     toggleShoppingCartItem(id);
@@ -59,7 +52,6 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
 
   const handleConfirm = () => {
     onConfirm(() => deleteShoppingCartItem(id));
-    addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
   };
 
   const handleCancel = () => {
@@ -67,17 +59,11 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
   };
 
   const handleIncrement = () => {
-    if (quantity >= MAX_COUNT) {
-      addSnackbar({ message: MESSAGE.FAILURE.FULL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
-
-      return;
-    }
-
-    increaseQuantity(id);
+    increaseQuantity(id, quantity);
   };
 
   const handleDecrement = () => {
-    quantity > MIN_COUNT && decreaseQuantity(id);
+    decreaseQuantity(id, quantity);
   };
 
   return (

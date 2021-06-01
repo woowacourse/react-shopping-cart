@@ -8,5 +8,6 @@ export const MESSAGE = {
   FAILURE: {
     ADD_SHOPPING_CART_ITEM: '이미 장바구니에 상품이 추가되어 있습니다.',
     FULL_SHOPPING_CART_ITEM: '상품은 최대 99개까지 구매가 가능합니다.',
+    LACK_SHOPPING_CART_ITEM: '상품은 1개 이하로 구매할 수 없습니다.',
   },
 };

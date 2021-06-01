@@ -5,6 +5,9 @@ import { MESSAGE } from '../constants/message';
 import useSnackbar from './useSnackbar';
 import { SNACKBAR_TYPE } from '../components';
 
+const MAX_QUANTITY = 99;
+const MIN_QUANTITY = 1;
+
 const getShoppingCartItemList = async () => {
   const shoppingCartItemList = await requestGetItemList(API_PATH.SHOPPING_CART_LIST);
 
@@ -52,6 +55,8 @@ const useShoppingCart = () => {
     try {
       await requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id);
       mutate();
+
+      addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
     } catch (error) {
       console.error(error);
       addSnackbar({ message: error.message });
@@ -62,6 +67,8 @@ const useShoppingCart = () => {
     try {
       await Promise.all(checkedItemList.map(({ cartId }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, cartId)));
       mutate();
+
+      addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_ALL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
     } catch (error) {
       console.error(error);
       addSnackbar({ message: error.message });
@@ -92,7 +99,13 @@ const useShoppingCart = () => {
     mutate(changedShoppingCartItemList, false);
   };
 
-  const increaseQuantity = (id) => {
+  const increaseQuantity = (id, quantity) => {
+    if (quantity >= MAX_QUANTITY) {
+      addSnackbar({ message: MESSAGE.FAILURE.FULL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
+
+      return;
+    }
+
     const changedShoppingCartItemList = shoppingCartItemList.map((shoppingCartItem) => {
       if (shoppingCartItem.cartId === id) {
         return {
@@ -106,7 +119,13 @@ const useShoppingCart = () => {
     mutate(changedShoppingCartItemList, false);
   };
 
-  const decreaseQuantity = (id) => {
+  const decreaseQuantity = (id, quantity) => {
+    if (quantity <= MIN_QUANTITY) {
+      addSnackbar({ message: MESSAGE.FAILURE.LACK_SHOPPING_CART_ITEM });
+
+      return;
+    }
+
     const changedShoppingCartItemList = shoppingCartItemList.map((shoppingCartItem) => {
       if (shoppingCartItem.cartId === id) {
         return {
