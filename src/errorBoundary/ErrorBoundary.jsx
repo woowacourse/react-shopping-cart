@@ -21,7 +21,7 @@ export const ErrorFallback = ({ error, resetErrorBoundary }) => {
   return (
     <Container role="alert">
       <ErrorMessage>
-        <p>{error.message}</p>
+        <p>오류가 발생했습니다.</p>
         <p>문제가 지속되면 관리자에게 문의해주세요.</p>
       </ErrorMessage>
       <Link to={PATH.HOME}>
