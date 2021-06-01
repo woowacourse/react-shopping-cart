@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { cartAction } from '../../redux';
+import { useCartDispatch, useRequest } from '../../hooks';
 import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../components';
-import { request } from '../../request';
 import * as S from './style.js';
 
 export const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
-  const dispatch = useDispatch();
+  const { addProduct } = useCartDispatch();
+  const { getOrderList } = useRequest();
 
   useEffect(() => {
     (async () => {
-      const response = await request.get.orderList();
+      const response = await getOrderList();
+
       setOrders(response);
     })();
-  }, []);
+  }, [getOrderList]);
 
   return (
     <S.Page>
@@ -30,11 +30,7 @@ export const OrderListPage = () => {
               </S.OrderLabel>
               <S.OrderedProductList>
                 {orderItems.map((product) => (
-                  <OrderedProductItem
-                    key={product.id}
-                    product={product}
-                    addProduct={(product) => dispatch(cartAction.addProduct(product))}
-                  />
+                  <OrderedProductItem key={product.id} product={product} addProduct={addProduct} />
                 ))}
               </S.OrderedProductList>
             </S.OrderItem>

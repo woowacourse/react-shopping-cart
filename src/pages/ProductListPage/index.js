@@ -1,30 +1,26 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { cartAction } from '../../redux';
 import * as S from './style.js';
 import { ProductItem } from './ProductItem';
-import { request } from '../../request';
+import { useCartDispatch, useRequest } from '../../hooks';
 
 export const ProductListPage = () => {
   const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
+  const { addProduct } = useCartDispatch();
+  const { getProductList } = useRequest();
 
   useEffect(() => {
     (async () => {
-      const response = await request.get.productList();
+      const response = await getProductList();
+
       setProducts(response);
     })();
-  }, []);
+  }, [getProductList]);
 
   return (
     <S.Page>
       <S.ProductList>
         {products.map((product) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            addProduct={(product) => dispatch(cartAction.addProduct(product))}
-          />
+          <ProductItem key={product.id} product={product} addProduct={addProduct} />
         ))}
       </S.ProductList>
     </S.Page>

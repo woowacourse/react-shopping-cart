@@ -1,19 +1,29 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { cartAction } from '../../redux';
 import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header, RedirectNotice } from '../../components';
 import * as S from './style.js';
-import { useConfirm } from '../../hooks';
+import { useCartDispatch, useCartProduct, useConfirm } from '../../hooks';
 import { getFormattedAsKRW } from '../../utils';
 import { ROUTE } from '../../constants';
 
 export const CartPage = () => {
-  const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
-  const selectedProducts = cartProducts.filter(({ isSelected }) => isSelected);
-  const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
-  const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
-  const isAllUnselected = !cartProducts.some(({ isSelected }) => isSelected);
+  const {
+    cartProducts,
+    selectedProducts,
+    totalPrice,
+    isAllSelected,
+    isAllUnselected,
+  } = useCartProduct();
+
+  const {
+    removeProduct,
+    removeSelectedProducts,
+    toggleProductSelection,
+    toggleAllProductsSelection,
+    incrementProductQuantity,
+    decrementProductQuantity,
+    inputProductQuantity,
+  } = useCartDispatch();
 
   const history = useHistory();
   const onClickCheckoutButton = () => {
@@ -21,17 +31,16 @@ export const CartPage = () => {
   };
 
   const { openConfirmWith } = useConfirm();
-  const dispatch = useDispatch();
 
   const onClickDeleteButton = () =>
     openConfirmWith({
       message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
-      approve: () => dispatch(cartAction.removeSelectedProducts()),
+      approve: () => removeSelectedProducts(),
     });
   const onClickTrashIconButton = (id) =>
     openConfirmWith({
       message: `해당 상품을 삭제하시겠습니까?`,
-      approve: () => dispatch(cartAction.removeProduct(id)),
+      approve: () => removeProduct(id),
     });
 
   return (
@@ -52,7 +61,7 @@ export const CartPage = () => {
                 <Checkbox
                   label={isAllSelected ? '선택해제' : '전체선택'}
                   isChecked={isAllSelected}
-                  onChange={() => dispatch(cartAction.toggleAllProductsSelection(!isAllSelected))}
+                  onChange={toggleAllProductsSelection}
                 />
                 <S.DeleteButton onClick={onClickDeleteButton} disabled={isAllUnselected}>
                   상품삭제
@@ -66,13 +75,11 @@ export const CartPage = () => {
                   <CartProductItem
                     key={product.id}
                     product={product}
-                    removeProduct={(id) => onClickTrashIconButton(id)}
-                    toggleCheckbox={(id) => dispatch(cartAction.toggleProductSelection(id))}
-                    incrementQuantity={(id) => dispatch(cartAction.incrementProductQuantity(id))}
-                    decrementQuantity={(id) => dispatch(cartAction.decrementProductQuantity(id))}
-                    inputQuantity={(id, quantity) =>
-                      dispatch(cartAction.inputProductQuantity(id, quantity))
-                    }
+                    removeProduct={onClickTrashIconButton}
+                    toggleCheckbox={toggleProductSelection}
+                    incrementQuantity={incrementProductQuantity}
+                    decrementQuantity={decrementProductQuantity}
+                    inputQuantity={inputProductQuantity}
                   />
                 ))}
               </S.CartProductList>

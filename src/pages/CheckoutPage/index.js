@@ -1,32 +1,27 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { cartAction } from '../../redux';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header, RedirectNotice } from '../../components';
 import * as S from './style.js';
-import { getFormattedAsKRW } from '../../utils';
 import { format } from 'date-fns';
 import { ROUTE } from '../../constants';
 import { request } from '../../request';
+import { useCartProduct, useCartDispatch } from '../../hooks';
 
 export const CheckoutPage = () => {
   const [isCheckoutFailed, setIsCheckoutFailed] = useState(false);
+  const { selectedProducts, totalPriceAsKRW } = useCartProduct();
+  const { checkout } = useCartDispatch();
 
-  const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
-  const checkoutProducts = cartProducts.filter((product) => product.isSelected);
-  const totalPrice = checkoutProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
-  const totalPriceAsKRW = getFormattedAsKRW(totalPrice);
-
-  const dispatch = useDispatch();
   const history = useHistory();
+
   const onClickCheckoutButton = () => {
     const orderId = format(new Date(), 'yyyy-MM-dd-hhmmss');
-    const orderItems = checkoutProducts;
+    const orderItems = selectedProducts;
 
     try {
       request.post.order(orderId, orderItems);
-      dispatch(cartAction.checkout());
+      checkout();
       history.push(ROUTE.ORDER_LIST);
     } catch (e) {
       setIsCheckoutFailed(() => true);
@@ -47,9 +42,9 @@ export const CheckoutPage = () => {
         ) : (
           <>
             <S.ListSection>
-              <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
+              <S.ListLabel>주문 상품 ({selectedProducts.length}건)</S.ListLabel>
               <S.CheckoutProductList>
-                {checkoutProducts.map((product) => (
+                {selectedProducts.map((product) => (
                   <CheckoutProductItem key={product.id} product={product} />
                 ))}
               </S.CheckoutProductList>
