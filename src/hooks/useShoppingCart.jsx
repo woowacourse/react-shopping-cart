@@ -32,7 +32,7 @@ const useShoppingCart = () => {
     );
 
     if (isExistedInShoppingCart) {
-      addSnackbar({ message: MESSAGE.FAILURE.ADD_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
+      addSnackbar({ message: MESSAGE.FAILURE.ADD_SHOPPING_CART_ITEM });
 
       return;
     }
