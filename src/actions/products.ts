@@ -1,4 +1,4 @@
-import { ProductsObject, RequestError } from "../interface";
+import { ProductsObject } from "../interface";
 import { createAction, ActionType } from "typesafe-actions";
 
 const productsActionType = {

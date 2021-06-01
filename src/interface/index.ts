@@ -4,12 +4,6 @@ interface Product {
   imageSrc: string;
 }
 
-// interface ProductsObject {
-//   products: {
-//     [key: string]: Product;
-//   };
-// }
-
 interface ProductsObject {
   [key: string]: Product;
 }
