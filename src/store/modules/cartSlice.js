@@ -46,7 +46,9 @@ export const selectCartTotalQuantity = createSelector(
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
   const cart = await http.get(CART_API_ENDPOINT);
 
-  const entries = format.cart(cart).map((value) => [value.productId, value]);
+  const entries = cart
+    .map(format.cart)
+    .map((value) => [value.productId, value]);
 
   return Object.fromEntries(entries);
 });
