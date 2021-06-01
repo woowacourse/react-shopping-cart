@@ -59,6 +59,6 @@
 ### 3. etc
 
 - [x] 반응형 레이아웃 적용
-- [ ] 디렉토리명 변경 (도메인명 > list > listItem)
+- [x] 디렉토리명 변경 (도메인명 > list > listItem)
 - [ ] 각 listItem이 store를 구독하도록 변경(리렌더링 최소화)
 - [ ] Custom Alert, Confirm, Modal 구현

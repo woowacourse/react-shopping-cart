@@ -18,6 +18,11 @@ export const orderCartItems = createAsyncThunk(
 const orderSlice = createSlice({
   name: "order",
   initialState: { list: [], status: STATUS.IDLE, error: null },
+  reducers: {
+    resetStatus: (state) => {
+      state.status = STATUS.IDLE;
+    },
+  },
   extraReducers: {
     [fetchOrders.pending]: (state) => {
       state.status = STATUS.LOADING;
@@ -44,5 +49,7 @@ const orderSlice = createSlice({
     },
   },
 });
+
+export const { resetStatus } = orderSlice.actions;
 
 export default orderSlice.reducer;
