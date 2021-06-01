@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { COLOR } from "../../../constants/style";
 
 export const Product = styled.div`
@@ -12,15 +11,6 @@ export const Preview = styled.div`
   position: relative;
 `;
 
-export const LinkToDetail = styled(Link)`
-  width: 100%;
-  height: 80%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
-`;
-
 export const ImgOverlay = styled.div`
   width: 100%;
   height: 100%;
@@ -29,6 +19,7 @@ export const ImgOverlay = styled.div`
   left: 0;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 `;
 
 export const AddCartButton = styled.button`

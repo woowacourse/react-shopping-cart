@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
@@ -14,6 +15,7 @@ const Product = ({ product }) => {
   const { productId, imageURL, name, price } = product;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const cartItem = useSelector((state) =>
     selectCartItemByProductId(state, productId)
@@ -23,12 +25,17 @@ const Product = ({ product }) => {
     dispatch(addToCart(product));
   };
 
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      history.push(`/product/${productId}`);
+    }
+  };
+
   return (
     <S.Product>
       <S.Preview>
         <Image src={imageURL} alt={name} />
-        <S.LinkToDetail to={`/product/${productId}`} />
-        <S.ImgOverlay>
+        <S.ImgOverlay onClick={handleOverlayClick}>
           <S.AddCartButton onClick={handleAddCartClick}>
             {cartItem ? (
               <S.Amount>{cartItem.quantity}</S.Amount>
