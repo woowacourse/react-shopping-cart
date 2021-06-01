@@ -10,34 +10,37 @@ import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
 import { Navigation } from './components';
 import { PATH } from './constants/path';
+import Snackbar from './components/snackbar/Snackbar';
 
 const App = () => (
   <>
     <GlobalStyle />
     <Navigation />
-    <Switch>
-      <Route exact path={PATH.HOME}>
-        <Home />
-      </Route>
-      <Route exact path={PATH.PRODUCT_LIST}>
-        <ProductList />
-      </Route>
-      <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
-        <ProductDetail />
-      </Route>
-      <Route exact path={PATH.SHOPPING_CART}>
-        <ShoppingCart />
-      </Route>
-      <Route exact path={PATH.ORDER_PAYMENT}>
-        <OrderPayment />
-      </Route>
-      <Route exact path={PATH.ORDER_LIST}>
-        <OrderList />
-      </Route>
-      <Route exact path={`${PATH.ORDER_LIST}/:id`}>
-        <OrderListDetail />
-      </Route>
-    </Switch>
+    <Snackbar>
+      <Switch>
+        <Route exact path={PATH.HOME}>
+          <Home />
+        </Route>
+        <Route exact path={PATH.PRODUCT_LIST}>
+          <ProductList />
+        </Route>
+        <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
+          <ProductDetail />
+        </Route>
+        <Route exact path={PATH.SHOPPING_CART}>
+          <ShoppingCart />
+        </Route>
+        <Route exact path={PATH.ORDER_PAYMENT}>
+          <OrderPayment />
+        </Route>
+        <Route exact path={PATH.ORDER_LIST}>
+          <OrderList />
+        </Route>
+        <Route exact path={`${PATH.ORDER_LIST}/:id`}>
+          <OrderListDetail />
+        </Route>
+      </Switch>
+    </Snackbar>
   </>
 );
 

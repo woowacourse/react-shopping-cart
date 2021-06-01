@@ -7,6 +7,8 @@ import { PATH } from '../constants/path';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
 import { PageTitle, OrderPaymentAmount, OrderPaymentItemList } from '../components';
+import useSnackbar from '../hooks/useSnackbar';
+import { MESSAGE } from '../constants/message';
 
 const Container = styled.div`
   ${({ theme }) => theme.content.default}
@@ -29,6 +31,8 @@ const OrderPaymentAmountWrapper = styled.div`
 const OrderPayment = () => {
   const { mutate } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
+  const { addSnackbar } = useSnackbar();
+
   const { state } = useLocation();
   const history = useHistory();
 
@@ -43,6 +47,8 @@ const OrderPayment = () => {
     );
 
     mutate();
+
+    addSnackbar({ message: MESSAGE.SUCCESS.ORDER_SHOPPING_CART_ITEM });
 
     history.replace(PATH.ORDER_LIST);
   };

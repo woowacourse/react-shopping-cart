@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import trashCan from '../../assets/trashCan.svg';
 import useDialog from '../../hooks/useDialog';
-import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '..';
 import useShoppingCart from '../../hooks/useShoppingCart';
+import useSnackbar from '../../hooks/useSnackbar';
+import { MESSAGE } from '../../constants/message';
+import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, SNACKBAR_TYPE } from '..';
 
 const Container = styled.ul`
   display: flex;
@@ -42,8 +44,10 @@ const MAX_COUNT = 99;
 const MIN_COUNT = 1;
 
 const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) => {
-  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel, type, setType } = useDialog();
+  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel } = useDialog();
   const { deleteShoppingCartItem, toggleShoppingCartItem, increaseQuantity, decreaseQuantity } = useShoppingCart();
+
+  const { addSnackbar } = useSnackbar();
 
   const handleShoppingCartItemToggle = () => {
     toggleShoppingCartItem(id);
@@ -51,11 +55,11 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
 
   const handleShoppingCartItemDelete = () => {
     setIsDialogOpen(true);
-    setType(DIALOG_TYPE.CONFIRM);
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? onConfirm(() => deleteShoppingCartItem(id)) : onConfirm();
+    onConfirm(() => deleteShoppingCartItem(id));
+    addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
   };
 
   const handleCancel = () => {
@@ -64,8 +68,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
 
   const handleIncrement = () => {
     if (quantity >= MAX_COUNT) {
-      setIsDialogOpen(true);
-      setType(DIALOG_TYPE.ALERT);
+      addSnackbar({ message: MESSAGE.FAILURE.FULL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
 
       return;
     }
@@ -93,23 +96,11 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) =>
       </Container>
 
       {isDialogOpen && (
-        <>
-          {type === DIALOG_TYPE.CONFIRM && (
-            <Dialog type={type} onConfirm={handleConfirm} onCancel={handleCancel}>
-              <p>
-                해당 상품을 <br /> 삭제하시겠습니까?
-              </p>
-            </Dialog>
-          )}
-
-          {type === DIALOG_TYPE.ALERT && (
-            <Dialog type={type} onConfirm={handleConfirm} onClose={handleCancel}>
-              <p>
-                구매 수량 안내 <br /> 최대 99개까지 구매가 가능합니다.
-              </p>
-            </Dialog>
-          )}
-        </>
+        <Dialog onConfirm={handleConfirm} onCancel={handleCancel}>
+          <p>
+            해당 상품을 <br /> 삭제하시겠습니까?
+          </p>
+        </Dialog>
       )}
     </>
   );

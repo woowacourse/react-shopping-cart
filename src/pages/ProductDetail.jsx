@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router';
 import { COLOR } from '../constants/color';
-import { Button, BUTTON_TYPE, CartInsertingItemDialog, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
+import { Button, BUTTON_TYPE, ProductImage, PRODUCT_IMAGE_TYPE } from '../components';
 import useShoppingCart from '../hooks/useShoppingCart';
 import useGettingData from '../hooks/useGettingData';
 import { API_PATH } from '../constants/api';
@@ -40,26 +40,22 @@ const Description = styled.div`
 const ProductDetail = () => {
   const { state } = useLocation();
   const { data: product } = useGettingData(`${API_PATH.PRODUCT_LIST}/${state.id}`);
-  const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
+  const { insertShoppingCartItem } = useShoppingCart();
 
   return (
-    <>
-      <Container>
-        <TopContent>
-          <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={product.imageUrl} alt={product.name} />
-          <Title>{product.name}</Title>
-        </TopContent>
-        <Description>
-          <span>금액</span>
-          <span>{product.price.toLocaleString('ko-KR')}원</span>
-        </Description>
-        <Button onClick={() => insertShoppingCartItem(state.id)} type={BUTTON_TYPE.LARGE}>
-          장바구니
-        </Button>
-      </Container>
-
-      {isDialogOpen && <CartInsertingItemDialog onConfirm={onConfirm} onCancel={onCancel} type={dialogType} />}
-    </>
+    <Container>
+      <TopContent>
+        <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={product.imageUrl} alt={product.name} />
+        <Title>{product.name}</Title>
+      </TopContent>
+      <Description>
+        <span>금액</span>
+        <span>{product.price.toLocaleString('ko-KR')}원</span>
+      </Description>
+      <Button onClick={() => insertShoppingCartItem(state.id)} type={BUTTON_TYPE.LARGE}>
+        장바구니
+      </Button>
+    </Container>
   );
 };
 

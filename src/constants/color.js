@@ -12,4 +12,7 @@ export const COLOR = {
   GRAY_800: '#333333',
   MINT_500_OPACITY_50: 'rgba(42, 193, 188, 0.5)',
   BLACK_OPACITY_50: 'rgba(0, 0, 0, 0.5)',
+  BLACK_OPACITY_70: 'rgba(0, 0, 0, 0.7)',
+  GREEN_500: '#43a047',
+  RED_500: '#D32F2F',
 };

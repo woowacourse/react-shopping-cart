@@ -1,9 +1,9 @@
 import { API_PATH } from '../constants/api';
 import { requestDeleteItem, requestGetItemList, requestInsertItem } from '../request/request';
-import useDialog from './useDialog';
 import useSWR from 'swr';
-import { ADD_FAILURE, ADD_SUCCESS } from '../components';
-import { useState } from 'react';
+import { MESSAGE } from '../constants/message';
+import useSnackbar from './useSnackbar';
+import { SNACKBAR_TYPE } from '../components';
 
 const getShoppingCartItemList = async () => {
   const shoppingCartItemList = await requestGetItemList(API_PATH.SHOPPING_CART_LIST);
@@ -12,7 +12,6 @@ const getShoppingCartItemList = async () => {
 };
 
 const useShoppingCart = () => {
-  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel, type, setType } = useDialog();
   const {
     data: shoppingCartItemList,
     isLoading,
@@ -21,11 +20,8 @@ const useShoppingCart = () => {
     suspense: true,
     revalidateOnFocus: false,
   });
-  const [serverError, setServerError] = useState(null);
 
-  if (serverError) {
-    throw new Error(serverError.message);
-  }
+  const { addSnackbar } = useSnackbar();
 
   const isAllShoppingCartItemChecked =
     shoppingCartItemList.length === shoppingCartItemList.filter((item) => item.isChecked).length;
@@ -36,21 +32,19 @@ const useShoppingCart = () => {
     );
 
     if (isExistedInShoppingCart) {
-      setType(ADD_FAILURE);
-      setIsDialogOpen(true);
+      addSnackbar({ message: MESSAGE.FAILURE.ADD_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
 
       return;
     }
 
-    setType(ADD_SUCCESS);
-    setIsDialogOpen(true);
+    addSnackbar({ message: MESSAGE.SUCCESS.ADD_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
 
     try {
       await requestInsertItem(API_PATH.SHOPPING_CART_LIST, { productId });
       mutate();
     } catch (error) {
       console.error(error);
-      setServerError(error);
+      addSnackbar({ message: error.message });
     }
   };
 
@@ -60,7 +54,7 @@ const useShoppingCart = () => {
       mutate();
     } catch (error) {
       console.error(error);
-      setServerError(error);
+      addSnackbar({ message: error.message });
     }
   };
 
@@ -70,7 +64,7 @@ const useShoppingCart = () => {
       mutate();
     } catch (error) {
       console.error(error);
-      setServerError(error);
+      addSnackbar({ message: error.message });
     }
   };
 
@@ -137,10 +131,6 @@ const useShoppingCart = () => {
     increaseQuantity,
     decreaseQuantity,
     isLoading,
-    isDialogOpen,
-    onConfirm,
-    onCancel,
-    dialogType: type,
   };
 };
 

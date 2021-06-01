@@ -18,6 +18,7 @@ import ShoppingCartItemList from './shoppingCart/ShoppingCartItemList';
 import TextHighlight from './textHighlight/TextHighlight';
 import Loading from './loading/Loading';
 import OrderListPaymentAmount from './orderList/OrderListPaymentAmount';
+import { SNACKBAR_TYPE } from './snackbar/Snackbar';
 
 export {
   Button,
@@ -45,4 +46,5 @@ export {
   BUTTON_TYPE,
   DIALOG_TYPE,
   PRODUCT_IMAGE_TYPE,
+  SNACKBAR_TYPE,
 };
