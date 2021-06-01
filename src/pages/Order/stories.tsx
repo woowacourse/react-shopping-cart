@@ -1,7 +1,8 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
-import Order from ".";
 import { MemoryRouter } from "react-router-dom";
+
+import Order from ".";
+import { Story, Meta } from "@storybook/react";
 
 const order = [
   {

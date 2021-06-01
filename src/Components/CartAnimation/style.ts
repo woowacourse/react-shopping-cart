@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-import add_cart from "../../../public/assets/add_cart.png";
+import add_cart from "../../assets/add_cart.png";
 
 const cartAnimation = keyframes`
   from {

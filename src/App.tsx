@@ -7,6 +7,7 @@ import ProductList from "./Pages/ProductList";
 import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 import { PATH } from "./constants/path";
+import ProductDetail from "./Pages/ProductDetail";
 
 const NAVIGATION = [
   { path: PATH.CART, name: "장바구니" },
@@ -21,6 +22,9 @@ const App: VFC = () => {
       <Switch>
         <Route exact path={PATH.HOME}>
           <ProductList />
+        </Route>
+        <Route path={`${PATH.HOME}/:id`}>
+          <ProductDetail />
         </Route>
         <Route exact path={PATH.CART}>
           <Cart />
