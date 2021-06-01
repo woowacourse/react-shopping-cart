@@ -20,6 +20,7 @@ export const ImgOverlay = styled.div`
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
+  border-radius: 0.25rem;
 `;
 
 export const AddCartButton = styled.button`
@@ -93,4 +94,5 @@ export const Price = styled.span`
   font-weight: 400;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 `;

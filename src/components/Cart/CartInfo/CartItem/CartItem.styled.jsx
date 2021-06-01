@@ -1,27 +1,43 @@
 import styled from "styled-components";
 import { COLOR } from "../../../../constants/style";
+import SCREENS from "../../../../constants/screens";
 
 export const CartItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.75rem 0;
-
   border-bottom: 1.5px solid ${COLOR.GRAY.LIGHT_200};
+
+  padding: 0.75rem 0;
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+    padding: 1.75rem 0;
+  }
 `;
 
 export const Detail = styled.div`
   display: flex;
-  column-gap: 1rem;
 `;
 
 export const ImageContainer = styled.div`
-  width: 9rem;
-  height: 9rem;
+  width: 7rem;
+  margin-left: 0.5rem;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+    width: 9rem;
+  }
 `;
 
 export const Name = styled.span`
-  font-size: 1.25rem;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+    font-size: 1.25rem;
+  }
 `;
 
 export const Control = styled.div`
@@ -29,5 +45,17 @@ export const Control = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  height: 9rem;
+
+  & > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const Price = styled.span`
+  white-space: nowrap;
 `;

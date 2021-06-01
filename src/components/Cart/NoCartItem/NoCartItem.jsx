@@ -6,7 +6,9 @@ import noCartItem from "./no_cart_item.png";
 
 const NoCartItem = () => (
   <S.NoCartItem>
-    <S.Image src={noCartItem} alt="presentation" />
+    <S.ImageWrapper>
+      <S.Image src={noCartItem} alt="presentation" />
+    </S.ImageWrapper>
     <S.Text>상품을 담으러 가볼까요?</S.Text>
     <S.Link to="/" alt="상품목록으로 가기">
       <Button>상품목록으로 가기</Button>

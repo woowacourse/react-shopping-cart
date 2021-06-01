@@ -4,7 +4,6 @@ import { Button } from "../../@shared/Button/Button.styled";
 
 export const CartInfo = styled.div`
   width: 100%;
-  margin-right: 5rem;
 `;
 
 export const Menu = styled.div`

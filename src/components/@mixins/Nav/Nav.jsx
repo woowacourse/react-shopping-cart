@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectAllCartItems } from "../../../store/modules/cartSlice";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
+import { ReactComponent as ShoppingCart } from "../../../assets/shopping-cart.svg";
+import { ReactComponent as Receipt } from "../../../assets/receipt.svg";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
@@ -12,24 +14,29 @@ const Nav = () => {
   return (
     <S.Nav>
       <S.NavWrapper>
-        <Link to="/" className="nav-title">
+        <S.TitleLink to="/">
           <CartIcon />
-          <h1>WOOWA SHOP</h1>
-        </Link>
+          <S.Title>WOOWA SHOP</S.Title>
+        </S.TitleLink>
         <S.NavMenu>
-          <li>
-            <Link to="/cart" className="cart-link" aria-label="cart-link">
-              <span>장바구니</span>
+          <S.ListItem>
+            <S.CartLink to="/cart" aria-label="cart-link">
+              <S.SmallLinkName as={ShoppingCart} />
+              <S.LinkName>장바구니</S.LinkName>
+
               {cartTotalQuantity > 0 && (
-                <span className="cart-amount">{cartTotalQuantity}</span>
+                <S.CartQuantity className="cart-amount">
+                  {cartTotalQuantity}
+                </S.CartQuantity>
               )}
-            </Link>
-          </li>
-          <li>
+            </S.CartLink>
+          </S.ListItem>
+          <S.ListItem>
             <Link to="/orders-list">
-              <span>주문목록</span>
+              <S.SmallLinkName as={Receipt} />
+              <S.LinkName>주문목록</S.LinkName>
             </Link>
-          </li>
+          </S.ListItem>
         </S.NavMenu>
       </S.NavWrapper>
     </S.Nav>

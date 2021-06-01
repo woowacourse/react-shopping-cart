@@ -8,9 +8,12 @@ export const PaymentItem = styled.div`
   border-bottom: 1.5px solid ${COLOR.GRAY.LIGHT_200};
 `;
 
-export const Img = styled.img`
+export const ImageWrapper = styled.div`
   width: 7.5rem;
   height: 7.5rem;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
 `;
 
 export const Detail = styled.div`

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
+import SCREENS from "../../../constants/screens";
 
 export const ResultBox = styled.aside`
-  width: 28rem;
+  width: 100%;
   height: fit-content;
 
   flex-shrink: 0;
@@ -11,6 +12,14 @@ export const ResultBox = styled.aside`
   position: sticky;
   top: 8rem;
   right: 0;
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+    width: 28rem;
+  }
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.LARGE}) {
+    width: 24rem;
+  }
 `;
 
 export const Title = styled.div`

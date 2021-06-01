@@ -67,7 +67,7 @@ const CartItem = ({ item }) => {
           onChange={handleQuantityChange}
           onBlur={handleQuantityBlur}
         />
-        <span>{formatPrice(quantity * price)}원</span>
+        <S.Price>{formatPrice(quantity * price)}원</S.Price>
       </S.Control>
     </S.CartItem>
   );

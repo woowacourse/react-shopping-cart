@@ -3,7 +3,7 @@ import { COLOR } from "../../constants/style";
 
 export const ProductDetail = styled.section`
   margin: 0 auto;
-  width: 40rem;
+  max-width: 35rem;
 `;
 
 export const ImgContainer = styled.div`
@@ -19,7 +19,7 @@ export const Name = styled.h1`
   font-size: 2rem;
   line-height: 3rem;
   font-weight: 700;
-  height: 3rem;
+  min-height: 3rem;
 `;
 
 export const PriceContainer = styled.div`

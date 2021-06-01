@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import * as reactRouterDom from "react-router-dom";
+import SCREENS from "../../../constants/screens";
 
 export const NoCartItem = styled.article`
-  width: 30rem;
+  max-width: 30rem;
   margin: 2rem auto;
 
   & > *:not(:last-child) {
@@ -10,10 +11,22 @@ export const NoCartItem = styled.article`
   }
 `;
 
-export const Image = styled.img`
+export const ImageWrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Image = styled.img`
+  width: 16rem;
+  height: 16rem;
   aspect-ratio: 1 / 1;
   object-fit: contain;
+
+  @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const Text = styled.h2`
