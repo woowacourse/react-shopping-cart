@@ -34,6 +34,7 @@ export const ROUTE = {
   CART: '/cart',
   ORDER_PAYMENT: '/order-payment',
   COMPLETED_ORDER: '/completed-order',
+  ORDER_DETAILS: '/order-details',
 };
 
 export const PRODUCT = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatPrice } from '../../utils';
 import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
-import { Product, Description, Name, Price } from './index.styles';
+import { Product, Description, Name, Price, CartButton } from './index.styles';
 import { Link } from 'react-router-dom';
 import { Image } from '../common/Image/index.styles';
 
@@ -24,9 +24,9 @@ const ProductItem = ({
           <Name>{name}</Name>
           <Price>{formatPrice(price)} 원</Price>
         </div>
-        <button type="button" onClick={onCartButtonClick}>
+        <CartButton type="button" onClick={onCartButtonClick}>
           <Cart width="30" height="30" />
-        </button>
+        </CartButton>
       </Description>
     </Product>
   );

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CompletedOrderList from '../../CompletedOrderList';
-import PageHeader from '../../PageHeader';
-import { Main } from './index.styles';
+import PageHeader from '../../common/PageHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCompletedOrder } from './index.actions';
+import PageWrapper from '../../common/PageWrapper';
 
 const CompletedOrder = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const CompletedOrder = () => {
   }, []);
 
   return (
-    <Main>
+    <PageWrapper bg="grey">
       <PageHeader>주문목록</PageHeader>
       <ul>
         {orders.length > 0 &&
@@ -25,7 +25,7 @@ const CompletedOrder = () => {
             </li>
           ))}
       </ul>
-    </Main>
+    </PageWrapper>
   );
 };
 

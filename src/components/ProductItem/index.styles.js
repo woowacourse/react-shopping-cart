@@ -43,3 +43,11 @@ export const Name = styled.span`
 export const Price = styled.span`
   font-size: var(--font-small);
 `;
+
+export const CartButton = styled.button`
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.125);
+  }
+`;

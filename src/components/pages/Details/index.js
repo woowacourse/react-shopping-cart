@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ACTION_TYPE } from '../../../constants';
+import PageWrapper from '../../common/PageWrapper';
 import ProductDetail from '../../ProductDetail';
 import { handleCartButtonClick } from '../Products/index.actions';
-import { Page, Main } from './index.styles';
 
 const Details = ({ onImageError, match }) => {
   const dispatch = useDispatch();
@@ -35,15 +35,13 @@ const Details = ({ onImageError, match }) => {
   }, []);
 
   return (
-    <Page>
-      <Main>
-        <ProductDetail
-          product={product}
-          onImageError={onImageError}
-          handleCartButtonClick={handleCartButtonClick}
-        />
-      </Main>
-    </Page>
+    <PageWrapper>
+      <ProductDetail
+        product={product}
+        onImageError={onImageError}
+        handleCartButtonClick={handleCartButtonClick}
+      />
+    </PageWrapper>
   );
 };
 

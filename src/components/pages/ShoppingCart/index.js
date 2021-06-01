@@ -1,13 +1,12 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import PageHeader from '../../PageHeader';
+import PageHeader from '../../common/PageHeader';
 import PaymentSheet from '../../PaymentSheet';
 import ShoppingItem from '../../ShoppingItem';
 import CheckBox from '../../common/CheckBox';
 import Button from '../../common/Button';
 import {
   Main,
-  Page,
   Controller,
   CheckBoxWrapper,
   ShoppingList,
@@ -21,6 +20,7 @@ import {
   handleDecreaseQuantity,
   fetchCarts,
 } from './index.actions';
+import PageWrapper from '../../common/PageWrapper';
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -100,7 +100,7 @@ const ShoppingCart = () => {
   };
 
   return (
-    <Page>
+    <PageWrapper>
       <PageHeader>장바구니</PageHeader>
       <Main>
         <div>
@@ -150,7 +150,7 @@ const ShoppingCart = () => {
           onButtonClick={handlePaymentSheetButtonClick}
         />
       </Main>
-    </Page>
+    </PageWrapper>
   );
   // );
 };

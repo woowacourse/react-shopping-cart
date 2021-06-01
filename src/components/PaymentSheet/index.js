@@ -11,6 +11,7 @@ const PaymentSheet = ({
   priceInfo,
   price,
   buttonText,
+  isButtonVisible = true,
   onButtonClick = () => {},
 }) => (
   <Sheet>
@@ -20,13 +21,15 @@ const PaymentSheet = ({
         <TextWithLine>{priceInfo}</TextWithLine>
         <TextWithLine>{price}원</TextWithLine>
       </Payment>
-      <Button
-        onClick={onButtonClick}
-        backgroundColor={BUTTON_COLOR}
-        disabled={price === '0'}
-      >
-        {buttonText}
-      </Button>
+      {isButtonVisible && (
+        <Button
+          onClick={onButtonClick}
+          backgroundColor={BUTTON_COLOR}
+          disabled={price === '0'}
+        >
+          {buttonText}
+        </Button>
+      )}
     </Content>
   </Sheet>
 );

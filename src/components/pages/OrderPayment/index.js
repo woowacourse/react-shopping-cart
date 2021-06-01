@@ -1,13 +1,14 @@
 import React, { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PageHeader from '../../PageHeader';
+import PageHeader from '../../common/PageHeader';
 import PaymentSheet from '../../PaymentSheet';
 import OrderItem from '../../OrderItem';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
-import { Main, OrderList, Page } from './index.styles';
+import { Main, OrderList } from './index.styles';
 import { ROUTE } from '../../../constants';
 import { useHistory } from 'react-router';
 import { postOrders } from './index.actions';
+import PageWrapper from '../../common/PageWrapper';
 
 const OrderPayment = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const OrderPayment = () => {
   }, []);
 
   return (
-    <Page>
+    <PageWrapper>
       <PageHeader>주문/결제</PageHeader>
       <Main>
         <OrderList>
@@ -67,7 +68,7 @@ const OrderPayment = () => {
           onButtonClick={makeOrder}
         />
       </Main>
-    </Page>
+    </PageWrapper>
   );
 };
 

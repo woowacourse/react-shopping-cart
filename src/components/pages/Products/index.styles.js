@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ProductPage = styled.main`
   max-width: 57rem;
   margin: 7rem auto;
+  user-select: none;
 `;
 
 export const ProductList = styled.ul`

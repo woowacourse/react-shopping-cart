@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const OrderList = styled.div`
   border: 1px solid var(--color-grey-200);
+  margin-bottom: 1rem;
 `;
 
 export const Header = styled.div`

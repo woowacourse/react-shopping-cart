@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   NavBar,
   ShoppingCart,
@@ -52,7 +51,7 @@ function App() {
           render={props => <CompletedOrder {...props} />}
         />
         <Route
-          path={'/order-details'}
+          path={'/order-details/:order_id'}
           render={props => <OrderDetails {...props} />}
         />
       </Router>

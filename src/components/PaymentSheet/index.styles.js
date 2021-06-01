@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
 export const Sheet = styled.div`
+  min-width: 16rem;
   max-width: 20rem;
   border: 1px solid var(--color-grey-50);
+  user-select: none;
 `;
 
 export const Header = styled.div`
