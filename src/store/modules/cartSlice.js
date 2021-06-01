@@ -38,6 +38,11 @@ export const selectCheckedTotalPrice = createSelector(
     )
 );
 
+export const selectCartTotalQuantity = createSelector(
+  selectAllCartItems,
+  (cart) => cart.reduce((acc, cur) => acc + cur.quantity, 0)
+);
+
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
   const cart = await http.get(CART_API_ENDPOINT);
 

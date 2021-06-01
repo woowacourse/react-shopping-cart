@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectAllCartItems } from "../../../store/modules/cartSlice";
+import { selectCartTotalQuantity } from "../../../store/modules/cartSlice";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 import { ReactComponent as ShoppingCart } from "../../../assets/shopping-cart.svg";
 import { ReactComponent as Receipt } from "../../../assets/receipt.svg";
@@ -9,8 +9,7 @@ import * as S from "./Nav.styled";
 import PATH from "../../../constants/path";
 
 const Nav = () => {
-  const cart = useSelector(selectAllCartItems);
-  const cartTotalQuantity = cart.reduce((acc, cur) => acc + cur.quantity, 0);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
   return (
     <S.Nav>
