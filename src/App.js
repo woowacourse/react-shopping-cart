@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
 import {
   NavBar,
   ShoppingCart,
@@ -11,20 +11,20 @@ import {
   CompletedOrder,
 } from './components';
 import product from './reducers/products';
+import history from './reducers';
 import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
 import thunk from 'redux-thunk';
+import OrderDetails from './components/pages/OrderDetails';
 
 const reducer = combineReducers({
   product,
+  history,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]);
-
   return (
     <Provider store={store}>
       <GlobalStyle />
@@ -36,24 +36,24 @@ function App() {
           render={props => <Products {...props} />}
         />
         <Route
-          exact
           path={ROUTE.CART}
           render={props => <ShoppingCart {...props} />}
         />
         <Route
-          exact
           path={ROUTE.ORDER_PAYMENT}
           render={props => <OrderPayment {...props} />}
         />
         <Route
-          exact
           path={'/product/:product_id'}
           render={props => <Details {...props} />}
         />
         <Route
-          exact
           path={'/completed-order'}
-          render={props => <CompletedOrder orders={orders} {...props} />}
+          render={props => <CompletedOrder {...props} />}
+        />
+        <Route
+          path={'/order-details'}
+          render={props => <OrderDetails {...props} />}
         />
       </Router>
     </Provider>
