@@ -17,10 +17,10 @@ const snackbarStyle = {
     backgroundColor: COLOR.BLACK_OPACITY_70,
   },
   [SNACKBAR_TYPE.SUCCESS]: {
-    backgroundColor: COLOR.GREEN_500,
+    backgroundColor: COLOR.GREEN_OPACITY_80,
   },
   [SNACKBAR_TYPE.FAILURE]: {
-    backgroundColor: COLOR.RED_500,
+    backgroundColor: COLOR.RED_OPACITY_80,
   },
 };
 

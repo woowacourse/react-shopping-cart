@@ -13,6 +13,6 @@ export const COLOR = {
   MINT_500_OPACITY_50: 'rgba(42, 193, 188, 0.5)',
   BLACK_OPACITY_50: 'rgba(0, 0, 0, 0.5)',
   BLACK_OPACITY_70: 'rgba(0, 0, 0, 0.7)',
-  GREEN_500: '#43a047',
-  RED_500: '#D32F2F',
+  GREEN_OPACITY_80: 'rgba(67, 160, 71, 0.8)',
+  RED_OPACITY_80: 'rgba(211, 47, 47, 0.8)',
 };
