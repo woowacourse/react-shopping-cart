@@ -75,7 +75,7 @@ const snackbarIcon = {
 
 const snackbarSetting = { message: null, isShowing: false, type: SNACKBAR_TYPE.IDLE };
 
-const Snackbar = ({ children }) => {
+const SnackbarProvider = ({ children }) => {
   const [snackbars, setSnackbars] = useState([...Array(3)].map(() => snackbarSetting));
 
   const addSnackbar = ({ message, type = SNACKBAR_TYPE.IDLE }) => {
@@ -122,8 +122,8 @@ const Snackbar = ({ children }) => {
   );
 };
 
-Snackbar.propTypes = {
+SnackbarProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Snackbar;
+export default SnackbarProvider;

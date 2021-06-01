@@ -8,15 +8,14 @@ import OrderList from './pages/OrderList';
 import OrderPayment from './pages/OrderPayment';
 import OrderListDetail from './pages/OrderListDetail';
 import ProductDetail from './pages/ProductDetail';
-import { Navigation } from './components';
+import { Navigation, SnackbarProvider } from './components';
 import { PATH } from './constants/path';
-import Snackbar from './components/snackbar/Snackbar';
 
 const App = () => (
   <>
     <GlobalStyle />
     <Navigation />
-    <Snackbar>
+    <SnackbarProvider>
       <Switch>
         <Route exact path={PATH.HOME}>
           <Home />
@@ -40,7 +39,7 @@ const App = () => (
           <OrderListDetail />
         </Route>
       </Switch>
-    </Snackbar>
+    </SnackbarProvider>
   </>
 );
 
