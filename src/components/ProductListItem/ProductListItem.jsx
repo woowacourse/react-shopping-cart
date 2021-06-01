@@ -7,12 +7,13 @@ import {
   selectCartItemByProductId,
 } from "../../store/modules/cartSlice";
 import { formatPrice } from "../../utils/utils";
+import PATH from "../../constants/path";
 import CartIcon from "../@shared/CartIcon/CartIcon";
 import Image from "../@shared/Image/Image";
 import * as S from "./ProductListItem.styled";
 
-const ProductListItem = ({ product }) => {
-  const { productId, imageURL, name, price } = product;
+const ProductListItem = ({ item }) => {
+  const { productId, imageURL, name, price } = item;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,12 +23,12 @@ const ProductListItem = ({ product }) => {
   );
 
   const handleAddCartClick = () => {
-    dispatch(addToCart(product));
+    dispatch(addToCart(item));
   };
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
-      history.push(`/product/${productId}`);
+      history.push(`${PATH.PRODUCT}/${productId}`);
     }
   };
 
@@ -54,7 +55,7 @@ const ProductListItem = ({ product }) => {
 };
 
 ProductListItem.propTypes = {
-  product: PropTypes.shape({
+  item: PropTypes.shape({
     productId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

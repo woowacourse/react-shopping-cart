@@ -1,10 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { selectCheckedCartItems } from "../../store/modules/cartSlice";
+import {
+  selectCheckedCartItems,
+  selectCheckedTotalPrice,
+} from "../../store/modules/cartSlice";
 import { orderCartItems } from "../../store/modules/orderSlice";
-import { formatPrice } from "../../utils/utils";
 import { usePayment } from "../../components/ProvidePayment/ProvidePayment";
+import { formatPrice } from "../../utils/utils";
 import PATH from "../../constants/path";
 import PageTitle from "../../components/@mixins/PageTitle/PageTitle";
 import ResultBox from "../../components/@mixins/ResultBox/ResultBox";
@@ -19,10 +22,7 @@ const Payment = () => {
 
   const checkedItems = useSelector(selectCheckedCartItems);
 
-  const totalPrice = checkedItems.reduce(
-    (acc, { quantity, price }) => acc + quantity * price,
-    0
-  );
+  const totalPrice = useSelector(selectCheckedTotalPrice);
 
   const handleButtonClick = () => {
     dispatch(orderCartItems(checkedItems));

@@ -4,6 +4,9 @@ import STATUS from "../../constants/status";
 
 export const selectAllProducts = (state) => state.product.list;
 
+export const selectProductIds = (state) =>
+  state.product.list.map(({ productId }) => productId);
+
 export const selectProductByProductId = (state, productId) =>
   state.product.list.find((item) => item.productId === productId);
 

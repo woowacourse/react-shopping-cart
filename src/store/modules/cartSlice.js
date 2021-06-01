@@ -1,6 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
 import STATUS from "../../constants/status";
 import { cartAPI } from "../../utils/api";
+
+export const selectCartIds = (state) =>
+  Object.values(state.cart.list).map(({ cartId }) => cartId);
+
+export const selectCheckedCartIds = (state) =>
+  Object.values(state.cart.list)
+    .filter(({ checked }) => checked)
+    .map(({ cartId }) => cartId);
 
 export const selectCartStatus = (state) => state.cart.status;
 
@@ -14,6 +26,15 @@ export const selectAllCartItems = (state) => Object.values(state.cart.list);
 
 export const selectCheckedCartItems = (state) =>
   Object.values(state.cart.list).filter((item) => item.checked);
+
+export const selectCheckedTotalPrice = createSelector(
+  selectCheckedCartItems,
+  (checkCartItems) =>
+    checkCartItems.reduce(
+      (acc, { quantity, price }) => acc + quantity * price,
+      0
+    )
+);
 
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () =>
   cartAPI.fetch()

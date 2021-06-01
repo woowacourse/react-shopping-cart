@@ -1,17 +1,16 @@
 import React from "react";
-import useCartSelector from "../../hooks/useCartSelector";
-import useProductSelector from "../../hooks/useProductSelector";
-import ProductsListItem from "../ProductListItem/ProductListItem";
+import { useSelector } from "react-redux";
+import { selectAllProducts } from "../../store/modules/productSlice";
+import ProductListItem from "../ProductListItem/ProductListItem";
 import * as S from "./ProductList.styled";
 
 const ProductList = () => {
-  const productsList = useProductSelector();
-  useCartSelector();
+  const productList = useSelector(selectAllProducts);
 
   return (
     <S.ProductList>
-      {productsList.map((product) => (
-        <ProductsListItem key={product.productId} product={product} />
+      {productList.map((product) => (
+        <ProductListItem key={product.productId} item={product} />
       ))}
     </S.ProductList>
   );

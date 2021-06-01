@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   deleteCheckedItems,
-  selectAllCartItems,
-  selectCheckedCartItems,
+  selectCheckedCartIds,
   toggleAllChecked,
 } from "../../store/modules/cartSlice";
 import Button from "../@shared/Button/Button";
@@ -11,15 +11,15 @@ import CheckBox from "../@shared/CheckBox/CheckBox";
 import CartListItem from "../CartListItem/CartListItem";
 import * as S from "./CartList.styled";
 
-const CartList = () => {
+const CartList = ({ cartIds }) => {
   const dispatch = useDispatch();
 
-  const cart = useSelector(selectAllCartItems);
-  const checkedItems = useSelector(selectCheckedCartItems);
+  const checkedCartIds = useSelector(selectCheckedCartIds, shallowEqual);
 
-  const handleCheckBoxChange = (event) => {
-    const { checked } = event.target;
-    dispatch(toggleAllChecked({ checked }));
+  const isCheckedAll = cartIds.length === checkedCartIds.length;
+
+  const handleCheckBoxChange = () => {
+    dispatch(toggleAllChecked({ checked: !isCheckedAll }));
   };
 
   const handleRemoveCheckedClick = () => {
@@ -35,7 +35,7 @@ const CartList = () => {
         <S.CheckAllLabel>
           <CheckBox
             name="check-all"
-            checked={checkedItems.length === cart.length}
+            checked={isCheckedAll}
             onChange={handleCheckBoxChange}
           />
           전체선택
@@ -46,10 +46,10 @@ const CartList = () => {
           </Button>
         </S.RemoveChecked>
       </S.Menu>
-      <S.Title>든든배송 상품 ({cart.length}개)</S.Title>
+      <S.Title>든든배송 상품 ({cartIds.length}개)</S.Title>
       <S.List aria-label="cart-item-list">
-        {cart.map((item) => (
-          <CartListItem key={item.cartId} item={item} />
+        {cartIds.map((cartId) => (
+          <CartListItem key={cartId} cartId={cartId} />
         ))}
       </S.List>
     </S.CartList>

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PaymentListItem from "../PaymentListItem/PaymentListItem";
-import CartListItem from "../CartListItem/CartListItem";
 import * as S from "./PaymentList.styled";
 
 const PaymentList = ({ checkedItems }) => (
@@ -16,7 +15,7 @@ const PaymentList = ({ checkedItems }) => (
 );
 
 PaymentList.propTypes = {
-  checkedItems: PropTypes.arrayOf(CartListItem.propTypes.item).isRequired,
+  checkedItems: PropTypes.arrayOf(PaymentListItem.propTypes.item).isRequired,
 };
 
 export default PaymentList;

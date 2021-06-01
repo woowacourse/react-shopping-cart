@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import useProductSelector from "../../hooks/useProductSelector";
+import { useDispatch, useSelector } from "react-redux";
 import { selectProductByProductId } from "../../store/modules/productSlice";
 import { addToCart } from "../../store/modules/cartSlice";
 import { formatPrice } from "../../utils/utils";
@@ -14,7 +13,7 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
 
-  const product = useProductSelector((state) =>
+  const product = useSelector((state) =>
     selectProductByProductId(state, Number(productId))
   );
 

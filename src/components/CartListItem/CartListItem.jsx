@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   toggleChecked,
   changeQuantity,
   deleteItemByCartId,
+  selectCartItemByCartId,
 } from "../../store/modules/cartSlice";
 import { formatPrice } from "../../utils/utils";
 import CheckBox from "../@shared/CheckBox/CheckBox";
@@ -14,13 +15,20 @@ import Label from "../@shared/Label/Label";
 import Image from "../@shared/Image/Image";
 import * as S from "./CartListItem.styled";
 
-const CartListItem = ({ item }) => {
-  const { cartId, productId, name, imageURL, quantity, price, checked } = item;
+const CartListItem = ({ cartId }) => {
+  const {
+    productId,
+    name,
+    imageURL,
+    quantity,
+    price,
+    checked,
+  } = useSelector((state) => selectCartItemByCartId(state, cartId));
 
   const dispatch = useDispatch();
 
-  const handleCheckBoxChange = (event) => {
-    dispatch(toggleChecked({ productId, checked: event.target.checked }));
+  const handleCheckBoxChange = () => {
+    dispatch(toggleChecked({ productId, checked: !checked }));
   };
 
   const handleQuantityChange = (event) => {
@@ -40,7 +48,6 @@ const CartListItem = ({ item }) => {
 
     dispatch(deleteItemByCartId(cartId));
   };
-
   const checkBoxId = `${cartId}_${name}`;
 
   return (
@@ -74,15 +81,7 @@ const CartListItem = ({ item }) => {
 };
 
 CartListItem.propTypes = {
-  item: PropTypes.shape({
-    productId: PropTypes.number.isRequired,
-    cartId: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    imageURL: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    checked: PropTypes.bool.isRequired,
-  }).isRequired,
+  cartId: PropTypes.number.isRequired,
 };
 
 export default CartListItem;

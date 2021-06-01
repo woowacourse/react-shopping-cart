@@ -18,8 +18,9 @@ const OrderList = ({ orderList }) => (
 OrderList.propTypes = {
   orderList: PropTypes.arrayOf(
     PropTypes.shape({
-      orderId: PropTypes.string.isRequired,
-      orderDetails: PropTypes.arrayOf(OrderListItem.propTypes).isRequired,
+      orderId: PropTypes.number.isRequired,
+      orderDetails: PropTypes.arrayOf(PropTypes.shape(OrderListItem.propTypes))
+        .isRequired,
     })
   ).isRequired,
 };
