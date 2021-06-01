@@ -35,7 +35,7 @@ export const CartPage = () => {
   const onClickDeleteButton = () =>
     openConfirmWith({
       message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
-      approve: () => removeSelectedProducts(),
+      approve: () => removeSelectedProducts(selectedProducts),
     });
   const onClickTrashIconButton = (id) =>
     openConfirmWith({

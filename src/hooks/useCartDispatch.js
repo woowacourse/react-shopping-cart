@@ -4,9 +4,11 @@ import { cartAction } from '../redux';
 export const useCartDispatch = () => {
   const dispatch = useDispatch();
 
+  const getProducts = () => dispatch(cartAction.getProducts());
   const addProduct = (product) => dispatch(cartAction.addProduct(product));
   const removeProduct = (id) => dispatch(cartAction.removeProduct(id));
-  const removeSelectedProducts = () => dispatch(cartAction.removeSelectedProducts());
+  const removeSelectedProducts = (selectedProducts) =>
+    dispatch(cartAction.removeSelectedProducts(selectedProducts));
   const toggleProductSelection = (id) => dispatch(cartAction.toggleProductSelection(id));
   const toggleAllProductsSelection = ({ target: { checked } }) => {
     dispatch(cartAction.toggleAllProductsSelection(checked));
@@ -15,9 +17,9 @@ export const useCartDispatch = () => {
   const decrementProductQuantity = (id) => dispatch(cartAction.decrementProductQuantity(id));
   const inputProductQuantity = (id, quantity) =>
     dispatch(cartAction.inputProductQuantity(id, quantity));
-  const checkout = () => dispatch(cartAction.checkout());
 
   return {
+    getProducts,
     addProduct,
     removeProduct,
     removeSelectedProducts,
@@ -26,6 +28,5 @@ export const useCartDispatch = () => {
     incrementProductQuantity,
     decrementProductQuantity,
     inputProductQuantity,
-    checkout,
   };
 };

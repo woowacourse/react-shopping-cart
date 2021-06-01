@@ -149,18 +149,4 @@ describe('cartReducer 테스트', () => {
 
     expect(cartReducer(prevState, cartAction.inputProductQuantity(mockId, 4))).toEqual(nextState);
   });
-
-  /* 주문 결제 */
-  it('checkout 함수는 CHECKOUT 타입의 액션을 생성한다.', () => {
-    expect(cartAction.checkout()).toEqual({
-      type: CHECKOUT,
-    });
-  });
-
-  it('CHECKOUT 액션을 받을 경우, cartReducer는 주문한 상품을 제외한 state를 반환한다.', () => {
-    const prevState = getMockState();
-    const nextState = INITIAL_STATE;
-
-    expect(cartReducer(prevState, cartAction.checkout())).toEqual(nextState);
-  });
 });

@@ -32,5 +32,12 @@ export const useRequest = () => {
     });
   };
 
-  return { getProductList, getOrderList };
+  const orderProducts = async (selectedProducts) => {
+    const body = selectedProducts.map(({ id, quantity }) => ({ cart_id: id, quantity }));
+    const params = getFetchParams({ path: PATH.ORDER, body });
+
+    await request.post(params);
+  };
+
+  return { getProductList, getOrderList, orderProducts };
 };

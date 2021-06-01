@@ -3,7 +3,7 @@ export const BASE_URL = 'https://shopping-cart.techcourse.co.kr';
 export const PATH = {
   PRODUCT: '/api/products',
   CART: '/api/customers/0imbean0/carts',
-  ORDER: '/api/customers/HyuuunjuKim/orders',
+  ORDER: '/api/customers/0imbean0/orders',
 };
 
 export const request = {

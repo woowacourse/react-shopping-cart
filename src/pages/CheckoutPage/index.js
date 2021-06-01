@@ -1,27 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header, RedirectNotice } from '../../components';
 import * as S from './style.js';
-import { format } from 'date-fns';
 import { ROUTE } from '../../constants';
-import { request } from '../../request';
-import { useCartProduct, useCartDispatch } from '../../hooks';
+import { useCartProduct, useCartDispatch, useRequest } from '../../hooks';
 
 export const CheckoutPage = () => {
   const [isCheckoutFailed, setIsCheckoutFailed] = useState(false);
   const { selectedProducts, totalPriceAsKRW } = useCartProduct();
-  const { checkout } = useCartDispatch();
-
+  const { getProducts } = useCartDispatch();
+  const { orderProducts } = useRequest();
   const history = useHistory();
 
-  const onClickCheckoutButton = () => {
-    const orderId = format(new Date(), 'yyyy-MM-dd-hhmmss');
-    const orderItems = selectedProducts;
+  useEffect(() => {
+    getProducts();
+  }, []);
 
+  const onClickCheckoutButton = async () => {
     try {
-      request.post.order(orderId, orderItems);
-      checkout();
+      await orderProducts(selectedProducts);
+      getProducts();
       history.push(ROUTE.ORDER_LIST);
     } catch (e) {
       setIsCheckoutFailed(() => true);
