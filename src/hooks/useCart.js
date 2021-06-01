@@ -11,7 +11,7 @@ import {
 // eslint-disable-next-line import/prefer-default-export
 export const useCart = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.cart);
+  const { items, loading } = useSelector((state) => state.cart);
   const carts = Object.values(items);
 
   useEffect(() => {
@@ -58,6 +58,7 @@ export const useCart = () => {
 
   return {
     items,
+    loading,
     addCart,
     removeCart,
     removeCheckedCart,

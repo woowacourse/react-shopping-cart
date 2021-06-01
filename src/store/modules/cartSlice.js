@@ -153,8 +153,10 @@ const cartSlice = createSlice({
       if (
         JSON.stringify(current(state).originItems) ===
         JSON.stringify(action.payload)
-      )
+      ) {
+        state.loading = false;
         return;
+      }
 
       state.items = {};
 
