@@ -23,7 +23,7 @@ const Info = styled.div`
   color: ${COLOR.GRAY_600};
 `;
 
-const OrderListItem = ({ id, src, alt, name, quantity, price }) => {
+const OrderItem = ({ id, src, alt, name, quantity, price }) => {
   const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
 
   return (
@@ -48,7 +48,7 @@ const OrderListItem = ({ id, src, alt, name, quantity, price }) => {
   );
 };
 
-OrderListItem.propTypes = {
+OrderItem.propTypes = {
   id: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ OrderListItem.propTypes = {
   price: PropTypes.number.isRequired,
 };
 
-export default OrderListItem;
+export default OrderItem;

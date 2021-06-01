@@ -4,7 +4,7 @@ import { API_PATH } from '../constants/api';
 import { PATH } from '../constants/path';
 import useGettingData from '../hooks/useGettingData';
 import useScrollPosition from '../hooks/useScrollPosition';
-import { ProductListItem } from '../components';
+import { ProductItem } from '../components';
 
 const Container = styled.div`
   ${({ theme }) => theme.content.default}
@@ -28,7 +28,7 @@ const ProductList = () => {
       <Content>
         {productItemList.map(({ productId, name, imageUrl, price }) => (
           <li key={productId}>
-            <ProductListItem id={productId} name={name} src={imageUrl} price={price} />
+            <ProductItem id={productId} name={name} src={imageUrl} price={price} />
           </li>
         ))}
       </Content>

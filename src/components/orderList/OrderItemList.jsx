@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { COLOR } from '../../constants/color';
 import { PATH } from '../../constants/path';
-import { OrderListItem } from '..';
+import { OrderItem } from '..';
 
 const Header = styled.div`
   display: flex;
@@ -15,13 +15,13 @@ const Header = styled.div`
   border-bottom: 2px solid ${COLOR.GRAY_200};
 `;
 
-const OrderListItemWrapper = styled.li`
+const OrderItemWrapper = styled.li`
   border-bottom: 2px solid ${COLOR.GRAY_200};
   background-color: ${COLOR.WHITE};
   padding: 38px 0;
 `;
 
-const OrderListItemList = ({ orderId, orderListItemList, hasDetailLink }) => (
+const OrderItemList = ({ orderId, orderItemList, hasDetailLink }) => (
   <>
     <Header>
       <div>주문번호 : {orderId}</div>
@@ -30,22 +30,22 @@ const OrderListItemList = ({ orderId, orderListItemList, hasDetailLink }) => (
       )}
     </Header>
     <ul>
-      {orderListItemList.map(({ productId, imageUrl, name, price, quantity }, index) => (
-        <OrderListItemWrapper key={`${orderId}/${productId}/${index}`}>
-          <OrderListItem id={productId} src={imageUrl} alt={name} name={name} price={price} quantity={quantity} />
-        </OrderListItemWrapper>
+      {orderItemList.map(({ productId, imageUrl, name, price, quantity }, index) => (
+        <OrderItemWrapper key={`${orderId}/${productId}/${index}`}>
+          <OrderItem id={productId} src={imageUrl} alt={name} name={name} price={price} quantity={quantity} />
+        </OrderItemWrapper>
       ))}
     </ul>
   </>
 );
 
-OrderListItemList.defaultProps = {
+OrderItemList.defaultProps = {
   hasDetailLink: true,
 };
 
-OrderListItemList.propTypes = {
+OrderItemList.propTypes = {
   orderId: PropTypes.number.isRequired,
-  orderListItemList: PropTypes.arrayOf(
+  orderItemList: PropTypes.arrayOf(
     PropTypes.shape({
       productId: PropTypes.number.isRequired,
       imageUrl: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ OrderListItemList.propTypes = {
   hasDetailLink: PropTypes.bool,
 };
 
-export default OrderListItemList;
+export default OrderItemList;

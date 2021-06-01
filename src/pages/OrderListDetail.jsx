@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import { API_PATH } from '../constants/api';
 import { COLOR } from '../constants/color';
 import { getTotalPrice } from '../utils/totalPrice';
-import { OrderListItemList, OrderListPaymentAmount, PageTitle } from '../components';
+import { OrderItemList, OrderListPaymentAmount, PageTitle } from '../components';
 
 const Container = styled.div`
   min-height: inherit;
@@ -16,7 +16,7 @@ const Content = styled.div`
   ${({ theme }) => theme.content.default}
 `;
 
-const OrderListItemWrapper = styled.div`
+const OrderItemListWrapper = styled.div`
   border: 2px solid ${COLOR.GRAY_200};
   margin-bottom: 24px;
   border-bottom: none;
@@ -30,13 +30,13 @@ const OrderListDetail = () => {
     <Container>
       <Content>
         <PageTitle>주문내역상세</PageTitle>
-        <OrderListItemWrapper>
-          <OrderListItemList
+        <OrderItemListWrapper>
+          <OrderItemList
             orderId={orderDetailItemList.orderId}
-            orderListItemList={orderDetailItemList.orderDetails}
+            orderItemList={orderDetailItemList.orderDetails}
             hasDetailLink={false}
           />
-        </OrderListItemWrapper>
+        </OrderItemListWrapper>
         <OrderListPaymentAmount price={getTotalPrice(orderDetailItemList.orderDetails)} />
       </Content>
     </Container>

@@ -4,20 +4,20 @@ import CountInput from './countInput/CountInput';
 import Dialog, { DIALOG_TYPE } from './dialog/Dialog';
 import CartInsertingItemDialog, { ADD_SUCCESS, ADD_FAILURE } from './dialog/CartInsertingItemDialog.jsx';
 import Navigation from './navigation/Navigation';
-import OrderListItem from './orderList/OrderListItem';
-import OrderListItemList from './orderList/OrderListItemList';
+import OrderItem from './orderList/OrderItem';
+import OrderItemList from './orderList/OrderItemList';
 import PageTitle from './pageTitle/PageTitle';
 import ShoppingCartPayment from './shoppingCart/ShoppingCartPayment';
 import OrderPaymentAmount from './orderPayment/OrderPaymentAmount';
 import OrderPaymentItem from './orderPayment/OrderPaymentItem';
 import OrderPaymentItemList from './orderPayment/OrderPaymentItemList';
 import ProductImage, { PRODUCT_IMAGE_TYPE } from './productImage/ProductImage';
-import ProductListItem from './productList/ProductListItem';
+import ProductItem from './productList/ProductItem';
 import ShoppingCartItem from './shoppingCart/ShoppingCartItem';
 import ShoppingCartItemList from './shoppingCart/ShoppingCartItemList';
 import TextHighlight from './textHighlight/TextHighlight';
 import Loading from './loading/Loading';
-import OrderListPaymentAmount from './orderList/OrderListPaymentAmount';
+import OrderListPaymentAmount from './orderList/OrderListPayment';
 import { SNACKBAR_TYPE } from './snackbar/Snackbar';
 
 export {
@@ -29,15 +29,15 @@ export {
   ADD_SUCCESS,
   ADD_FAILURE,
   Navigation,
-  OrderListItem,
-  OrderListItemList,
+  OrderItem,
+  OrderItemList,
   OrderListPaymentAmount,
   PageTitle,
   OrderPaymentAmount,
   OrderPaymentItem,
   OrderPaymentItemList,
   ProductImage,
-  ProductListItem,
+  ProductItem,
   ShoppingCartPayment,
   ShoppingCartItem,
   ShoppingCartItemList,

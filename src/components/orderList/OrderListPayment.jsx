@@ -28,7 +28,7 @@ const TextWrapper = styled.div`
   font-size: 20px;
 `;
 
-const OrderListPaymentAmount = ({ price }) => (
+const OrderListPayment = ({ price }) => (
   <Container>
     <Title>결제금액 정보</Title>
     <div>
@@ -40,8 +40,8 @@ const OrderListPaymentAmount = ({ price }) => (
   </Container>
 );
 
-OrderListPaymentAmount.propTypes = {
+OrderListPayment.propTypes = {
   price: PropTypes.number.isRequired,
 };
 
-export default OrderListPaymentAmount;
+export default OrderListPayment;

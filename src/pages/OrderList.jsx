@@ -5,7 +5,7 @@ import useScrollPosition from '../hooks/useScrollPosition';
 import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
 import { PATH } from '../constants/path';
-import { PageTitle, OrderListItemList } from '../components';
+import { PageTitle, OrderItemList } from '../components';
 
 const Container = styled.div`
   background-color: ${COLOR.GRAY_150};
@@ -22,7 +22,7 @@ const ItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { data: orderListItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
+  const { data: orderItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
   useScrollPosition(PATH.ORDER_LIST);
 
@@ -31,9 +31,9 @@ const OrderList = () => {
       <Content>
         <PageTitle>주문목록</PageTitle>
         <ul>
-          {orderListItemList.map(({ orderId, orderDetails }) => (
+          {orderItemList.map(({ orderId, orderDetails }) => (
             <ItemListWrapper key={orderId}>
-              <OrderListItemList orderListItemList={orderDetails} orderId={orderId} />
+              <OrderItemList orderItemList={orderDetails} orderId={orderId} />
             </ItemListWrapper>
           ))}
         </ul>

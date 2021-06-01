@@ -34,7 +34,7 @@ const Image = styled.img`
   cursor: pointer;
 `;
 
-const ProductListItem = ({ id, name, src, price }) => {
+const ProductItem = ({ id, name, src, price }) => {
   const history = useHistory();
   const { insertShoppingCartItem, isDialogOpen, onConfirm, onCancel, dialogType } = useShoppingCart();
 
@@ -62,11 +62,11 @@ const ProductListItem = ({ id, name, src, price }) => {
   );
 };
 
-ProductListItem.propTypes = {
+ProductItem.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };
 
-export default ProductListItem;
+export default ProductItem;
