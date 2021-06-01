@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { productAPI } from "../../utils/api";
 import STATUS from "../../constants/status";
+import { PRODUCT_API_ENDPOINT } from "../../constants/endpoint";
+import http from "../../utils/http";
+import format from "../../utils/format";
 
 export const selectAllProducts = (state) => state.product.list;
 
@@ -14,7 +16,11 @@ export const selectProductStatus = (state) => state.product.status;
 
 export const fetchAllProducts = createAsyncThunk(
   "product/fetchAllProducts",
-  async () => productAPI.fetch()
+  async () => {
+    const products = await http.get(PRODUCT_API_ENDPOINT);
+
+    return products.map(format.product);
+  }
 );
 
 const productSlice = createSlice({

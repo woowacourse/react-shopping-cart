@@ -3,8 +3,10 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
+import { CART_API_ENDPOINT } from "../../constants/endpoint";
 import STATUS from "../../constants/status";
-import { cartAPI } from "../../utils/api";
+import format from "../../utils/format";
+import http from "../../utils/http";
 
 export const selectCartIds = (state) =>
   Object.values(state.cart.list).map(({ cartId }) => cartId);
@@ -36,9 +38,13 @@ export const selectCheckedTotalPrice = createSelector(
     )
 );
 
-export const fetchCart = createAsyncThunk("cart/fetchCart", async () =>
-  cartAPI.fetch()
-);
+export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
+  const cart = await http.get(CART_API_ENDPOINT);
+
+  const entries = format.cart(cart).map((value) => [value.productId, value]);
+
+  return Object.fromEntries(entries);
+});
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
@@ -51,7 +57,9 @@ export const addToCart = createAsyncThunk(
       return { productId };
     }
 
-    const cartId = await cartAPI.addToCartByProductId(productId);
+    const cartId = await http.post(CART_API_ENDPOINT, {
+      body: { product_id: productId },
+    });
 
     return { cartId, ...product, checked: true, quantity: 1 };
   }
@@ -60,7 +68,7 @@ export const addToCart = createAsyncThunk(
 export const deleteItemByCartId = createAsyncThunk(
   "cart/deleteItemByCartId",
   async (cartId, thunkAPI) => {
-    await cartAPI.deleteItemByCartId(cartId);
+    await http.delete(`${CART_API_ENDPOINT}/${cartId}`);
 
     const deletedItem = selectCartItemByCartId(thunkAPI.getState(), cartId);
 
@@ -74,7 +82,7 @@ export const deleteCheckedItems = createAsyncThunk(
     const checkedItems = selectCheckedCartItems(thunkAPI.getState());
 
     const requests = checkedItems.map(({ cartId }) =>
-      cartAPI.deleteItemByCartId(cartId)
+      http.delete(`${CART_API_ENDPOINT}/${cartId}`)
     );
 
     Promise.all(requests);

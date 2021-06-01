@@ -1,7 +1,7 @@
 const BASE_URL = "https://shopping-cart.techcourse.co.kr";
 
-const http = {
-  async get(url, { method, ...args } = {}) {
+const createHttp = () => {
+  const get = async (url, { method, ...args } = {}) => {
     const endpoint = `${BASE_URL}/${url}`;
 
     const response = await fetch(endpoint, {
@@ -14,8 +14,9 @@ const http = {
     }
 
     return response.json();
-  },
-  async post(url, { method, headers, body, ...args } = {}) {
+  };
+
+  const post = async (url, { method, headers, body, ...args } = {}) => {
     const endpoint = `${BASE_URL}/${url}`;
 
     const response = await fetch(endpoint, {
@@ -35,8 +36,9 @@ const http = {
     const [, id] = response.headers.get("location").match(/\/([\d]+)$/);
 
     return Number(id);
-  },
-  async delete(url, { method, ...args } = {}) {
+  };
+
+  const del = async (url, { method, ...args } = {}) => {
     const endpoint = `${BASE_URL}/${url}`;
 
     const response = await fetch(endpoint, {
@@ -47,7 +49,11 @@ const http = {
     if (response.status !== 204) {
       throw new Error(`Invalid response status: ${response.status}`);
     }
-  },
+  };
+
+  return { get, post, delete: del };
 };
+
+const http = createHttp();
 
 export default http;

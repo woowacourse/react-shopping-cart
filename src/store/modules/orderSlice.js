@@ -1,18 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import STATUS from "../../constants/status";
-import { orderAPI } from "../../utils/api";
+import { ORDER_API_ENDPOINT } from "../../constants/endpoint";
+import format from "../../utils/format";
+import http from "../../utils/http";
 
 export const selectOrdersList = (state) => state.order.list;
 
 export const selectOrderStatus = (state) => state.order.status;
 
-export const fetchOrders = createAsyncThunk("order/fetchOrders", async () =>
-  orderAPI.fetch()
-);
+export const fetchOrders = createAsyncThunk("order/fetchOrders", async () => {
+  const orders = await http.get(ORDER_API_ENDPOINT);
+
+  return orders.map(format.order);
+});
 
 export const orderCartItems = createAsyncThunk(
   "order/orderCartItems",
-  async (cart) => orderAPI.orderCartItems(cart)
+  async (cart) => {
+    const order = cart.map(({ cartId, quantity }) => ({
+      cart_id: cartId,
+      quantity,
+    }));
+
+    const orderId = await http.post(ORDER_API_ENDPOINT, { body: order });
+
+    const newOrder = await http.get(`${ORDER_API_ENDPOINT}/${orderId}`);
+
+    return format.order(newOrder);
+  }
 );
 
 const orderSlice = createSlice({
