@@ -5,6 +5,7 @@ import OrderList, { OrderListProps } from ".";
 import OrderProductItem from "../OrderProductItem";
 import { Button, ProductImage } from "..";
 import { COLOR } from "../../constants/theme";
+import { toNumberWithComma } from "../../utils/format";
 
 export default {
   title: "OrderList",
@@ -32,7 +33,7 @@ const children = [...Array(4)].map((_, index) => (
       </Button>
     }
     name="브랜브랜 철봉"
-    price={1000000}
+    price={10000000}
     quantity={5}
     id="1"
   />

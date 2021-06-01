@@ -1,9 +1,11 @@
-import React, { VFC } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../Components";
-import { CartItem } from "../../types";
 import { Container, OrderListTitle, Section, Main } from "./style";
+
+import { CartItem } from "../../types";
+import { toNumberWithComma } from "../../utils/format";
 
 interface LocationState {
   order: (CartItem & {
@@ -32,7 +34,7 @@ const Order = () => {
           title="결제금액"
           width="448px"
           height="318px"
-          target={{ name: "총 결제금액", value: `${totalPrice}원` }}
+          target={{ name: "총 결제금액", value: `${toNumberWithComma(totalPrice)}원` }}
           buttonName={`${totalPrice}원 결제하기`}
           onClickSubmitButton={() => {}}
         />

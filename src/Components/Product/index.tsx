@@ -1,12 +1,14 @@
-import React, { MouseEventHandler, ReactElement, VFC } from "react";
+import React, { MouseEventHandler, VFC } from "react";
 import { Link } from "react-router-dom";
 
 import ProductImage from "../ProductImage";
 import { CartIcon } from "..";
-
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
+
 import { COLOR, SIZE } from "../../constants/theme";
 import { PATH } from "../../constants/path";
+
+import { toNumberWithComma } from "../../utils/format";
 
 interface ProductProps {
   id: string;
@@ -31,7 +33,7 @@ const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, p
       <Link to={`${PATH.PRODUCT}/${id}`}>
         <Desc>
           <Name>{name}</Name>
-          <Price>{price}원</Price>
+          <Price>{toNumberWithComma(price)}원</Price>
         </Desc>
       </Link>
       <button type="button" onClick={onClickCart}>

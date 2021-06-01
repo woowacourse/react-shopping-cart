@@ -1,8 +1,10 @@
 import React, { ReactElement, VFC } from "react";
-
 import { Link } from "react-router-dom";
+
 import { ProductImage } from "..";
 import { Container, Desc, NameLink, OptionPricePart } from "./style";
+
+import { toNumberWithComma } from "../../utils/format";
 
 interface OrderProductItemProps {
   id: string;
@@ -30,7 +32,7 @@ const OrderProductItem: VFC<OrderProductItemProps> = ({
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
       <OptionPricePart>
-        {price && <span>{price} 원 / </span>}
+        {price && <span>{toNumberWithComma(price)} 원 / </span>}
         <span>수량 : {quantity}개</span>
       </OptionPricePart>
     </Desc>

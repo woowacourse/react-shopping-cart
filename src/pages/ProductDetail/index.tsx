@@ -3,14 +3,15 @@ import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
+import { RootState } from "../../store";
 
 import { Button, CartAnimation, ProductImage } from "../../Components";
 import { DivFlexBetween } from "../../SharedStyled/Flex";
 import { Container } from "./styles";
 
 import { COLOR } from "../../constants/theme";
-import { RootState } from "../../store";
 import { Product } from "../../types";
+import { toNumberWithComma } from "../../utils/format";
 
 const ProductDetail = () => {
   const {
@@ -36,7 +37,7 @@ const ProductDetail = () => {
         <div style={{ padding: "1.875rem" }}>
           <DivFlexBetween style={{ width: "100%" }}>
             <span>금액</span>
-            <span>{price}</span>
+            <span>{toNumberWithComma(price)}</span>
           </DivFlexBetween>
         </div>
         <Button

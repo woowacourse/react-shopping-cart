@@ -4,6 +4,7 @@ import actions from "../../actions";
 
 import { Confirm, CheckBox, ProductImage, Portal } from "..";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
+import { toNumberWithComma } from "../../utils/format";
 
 interface CartItemProps {
   id: string;
@@ -71,7 +72,7 @@ const CartItem: VFC<CartItemProps> = ({
             </button>
           </div>
         </Counter>
-        <div>{price}원</div>
+        <div>{toNumberWithComma(price)}원</div>
       </ControlBox>
       {isDeleteConfirmOpened && (
         <Portal>

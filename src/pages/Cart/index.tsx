@@ -12,6 +12,7 @@ import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDele
 import { COLOR } from "../../constants/theme";
 import { ORDER_COUNT } from "../../constants/standard";
 import { PATH } from "../../constants/path";
+import { toNumberWithComma } from "../../utils/format";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -194,7 +195,7 @@ const Cart: VFC = () => {
           title="결제예상금액"
           width="448px"
           height="318px"
-          target={{ name: "결제예상금액", value: `${totalPrice}원` }}
+          target={{ name: "결제예상금액", value: `${toNumberWithComma(totalPrice)}원` }}
           buttonName={`주문하기(${getCheckedCount()}개)`}
           onClickSubmitButton={onClickSubmitButton}
         />
