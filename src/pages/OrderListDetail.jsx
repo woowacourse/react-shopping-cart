@@ -26,18 +26,16 @@ const OrderListDetail = () => {
   const { state } = useLocation();
   const { data: orderDetailItemList } = useGettingData(`${API_PATH.ORDER_ITEM_LIST}/${state.id}`);
 
+  const { orderId, orderDetails: orderItemList } = orderDetailItemList;
+
   return (
     <Container>
       <Content>
         <PageTitle>주문내역상세</PageTitle>
         <OrderItemListWrapper>
-          <OrderItemList
-            orderId={orderDetailItemList.orderId}
-            orderItemList={orderDetailItemList.orderDetails}
-            hasDetailLink={false}
-          />
+          <OrderItemList orderId={orderId} orderItemList={orderItemList} hasDetailLink={false} />
         </OrderItemListWrapper>
-        <OrderListPaymentAmount price={getTotalPrice(orderDetailItemList.orderDetails)} />
+        <OrderListPaymentAmount price={getTotalPrice(orderItemList)} />
       </Content>
     </Container>
   );
