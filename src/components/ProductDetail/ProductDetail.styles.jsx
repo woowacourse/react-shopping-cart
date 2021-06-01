@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { COLOR } from "../../constants/style";
+import { COLOR, MEDIA_QUERY } from "../../constants/style";
 
 export const ProductDetail = styled.div`
   max-width: 30rem;
   min-width: 20rem;
   margin: 0 auto;
   text-align: center;
+
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
+    width: 100%;
+  }
 `;
 
 export const ImgWrapper = styled.div`
@@ -14,6 +18,12 @@ export const ImgWrapper = styled.div`
   position: relative;
   margin-bottom: 2rem;
   border-bottom: 1px solid ${COLOR.GRAY_300};
+  overflow: hidden;
+
+  @media (max-width: ${MEDIA_QUERY.MOBILE}) {
+    height: 90vw;
+    min-height: 20rem;
+  }
 `;
 
 export const Img = styled.img`

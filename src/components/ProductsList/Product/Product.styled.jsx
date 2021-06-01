@@ -39,7 +39,6 @@ export const Thumbnail = styled.div`
   }
 
   &:hover img {
-    border: 3px solid red;
     transform: scale(1.1);
   }
 `;
