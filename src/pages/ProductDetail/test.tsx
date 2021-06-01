@@ -3,6 +3,10 @@ import { MemoryRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
+import { Provider } from "react-redux";
+
+import store from "../../store";
+
 import ProductDetail from ".";
 import { Product } from "../../types";
 
@@ -16,9 +20,11 @@ const product: Product = {
 describe("상품 상세 페이지 테스트", () => {
   it("상품 id에 해당하는 상품명, 상품 가격이 화면에 나타난다.", () => {
     const { container } = render(
-      <MemoryRouter initialEntries={[{ state: { product } }]}>
-        <ProductDetail />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[{ state: { product } }]}>
+          <ProductDetail />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(container).toHaveTextContent(product.name);

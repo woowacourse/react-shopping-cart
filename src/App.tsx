@@ -23,7 +23,7 @@ const App: VFC = () => {
         <Route exact path={PATH.HOME}>
           <ProductList />
         </Route>
-        <Route path={`${PATH.HOME}/:id`}>
+        <Route path={`${PATH.PRODUCT}/:id`}>
           <ProductDetail />
         </Route>
         <Route exact path={PATH.CART}>

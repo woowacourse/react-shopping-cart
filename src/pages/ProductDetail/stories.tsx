@@ -1,9 +1,11 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 
 import ProductDetail from ".";
 import { Product } from "../../types";
+import store from "../../store";
 
 const product: Product = {
   product_id: "1",
@@ -17,9 +19,11 @@ export default {
   component: ProductDetail,
   decorators: [
     (Story) => (
-      <MemoryRouter initialEntries={[{ state: { product } }]}>
-        <Story />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[{ state: { product } }]}>
+          <Story />
+        </MemoryRouter>
+      </Provider>
     ),
   ],
 } as Meta;

@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 
 import ProductImage from "../ProductImage";
 import { CartIcon } from "..";
-import { COLOR, SIZE } from "../../constants/theme";
+
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
+import { COLOR, SIZE } from "../../constants/theme";
 import { PATH } from "../../constants/path";
 
 interface ProductProps {
@@ -18,7 +19,12 @@ interface ProductProps {
 
 const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, price, onClickCart }) => (
   <Container>
-    <Link to={`${PATH.PRODUCT}/${id}`}>
+    <Link
+      to={{
+        pathname: `${PATH.PRODUCT}/${id}`,
+        state: { product: { product_id: id, name, price, image_url: imageSrc } },
+      }}
+    >
       <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />
     </Link>
     <ItemInfoWrap>
