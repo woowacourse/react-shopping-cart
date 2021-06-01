@@ -184,6 +184,7 @@ const cartSlice = createSlice({
       });
 
       state.originItems = action.payload;
+      state.loading = false;
     },
 
     [getCarts.rejected]: (state, action) => {
@@ -214,6 +215,8 @@ const cartSlice = createSlice({
           checked: true,
         };
       }
+
+      state.loading = false;
     },
 
     [addToCart.rejected]: (state, action) => {
@@ -234,6 +237,8 @@ const cartSlice = createSlice({
       } else {
         state.items[productId].amount -= amount;
       }
+
+      state.loading = false;
     },
 
     [removeFromCart.rejected]: (state, action) => {
@@ -252,6 +257,8 @@ const cartSlice = createSlice({
       products.forEach((product) => {
         delete state.items[product.id];
       });
+
+      state.loading = false;
     },
 
     [removeChecked.rejected]: (state, action) => {

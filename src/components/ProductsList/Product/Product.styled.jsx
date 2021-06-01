@@ -6,11 +6,6 @@ export const Product = styled.article`
   min-width: 15.5rem;
   border: 1px solid ${COLOR.GRAY_300};
   cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    transform: translateY(-0.3rem);
-  }
 `;
 
 export const Preview = styled.div`
@@ -95,6 +90,15 @@ export const Button = styled.button`
     &:hover {
       background-color: ${COLOR.CYAN_700};
     }
+  }
+`;
+
+export const LoadingButton = styled(Button)`
+  background-color: ${COLOR.GRAY_300};
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: ${COLOR.GRAY_300};
   }
 `;
 

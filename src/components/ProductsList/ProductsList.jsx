@@ -8,7 +8,7 @@ import * as S from "./ProductsList.styled";
 
 const ProductsList = () => {
   const { products, loading, errorMessage } = useProduct();
-  const { addCart, getCartAmount } = useCart();
+  const { addCart, getCartAmount, loading: cartLoading } = useCart();
 
   useEffect(() => {
     if (errorMessage) {
@@ -27,6 +27,7 @@ const ProductsList = () => {
             product={product}
             amount={getCartAmount(product.id)}
             addToCart={() => addCart(product)}
+            loading={cartLoading}
           />
         ))}
       </S.ProductsList>

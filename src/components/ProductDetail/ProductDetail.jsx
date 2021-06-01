@@ -5,19 +5,29 @@ import * as S from "./ProductDetail.styles";
 import { formatPrice } from "../../utils/utils";
 import Button from "../@shared/Button/Button";
 import { useCart } from "../../hooks/useCart";
+import { CART } from "../../constants/constant";
 
 const ProductDetail = ({ match }) => {
   const { products, loading } = useProduct();
-  const { items: cart, addCart } = useCart();
+  const { items: cart, addCart, loading: cartLoading } = useCart();
   const product = products[match.params.id] ?? {
     name: "",
     thumbnail: "",
     price: 0,
   };
+  const amount = cart[product.id]?.amount ?? 0;
 
   useEffect(() => {}, [products]);
 
   const addToCart = () => {
+    if (amount >= CART.MAX_AMOUNT) {
+      // eslint-disable-next-line no-alert
+      window.alert(
+        `한 품목당 최대 ${CART.MAX_AMOUNT}개 이하만 장바구니에 담을 수 있습니다.`
+      );
+      return;
+    }
+
     addCart(product);
   };
 
@@ -33,9 +43,13 @@ const ProductDetail = ({ match }) => {
           <S.Name>{product.name}</S.Name>
           <S.Price>{`${formatPrice(product.price)}원`}</S.Price>
           <S.Cart>
-            <Button onClick={addToCart}>
-              장바구니에 담기(현재 {cart[product.id]?.amount ?? 0}개)
-            </Button>
+            {cartLoading ? (
+              <Button disabled>장바구니에 상품 추가중입니다</Button>
+            ) : (
+              <Button onClick={addToCart}>
+                장바구니에 담기(현재 {amount}개)
+              </Button>
+            )}
           </S.Cart>
         </>
       )}

@@ -8,7 +8,7 @@ import CartIcon from "../../@shared/CartIcon/CartIcon";
 
 import { CART } from "../../../constants/constant";
 
-const Product = ({ product, amount, addToCart }) => {
+const Product = ({ product, amount, addToCart, loading }) => {
   const history = useHistory();
   const { thumbnail, name, price } = product;
 
@@ -35,13 +35,17 @@ const Product = ({ product, amount, addToCart }) => {
         <S.Thumbnail>
           <S.Img src={thumbnail} alt={name} />
         </S.Thumbnail>
-        <S.Button onClick={handleAddCartClick}>
-          {amount === 0 ? (
-            <CartIcon type="product" />
-          ) : (
-            <span className="product-amount">{amount}</span>
-          )}
-        </S.Button>
+        {loading ? (
+          <S.LoadingButton />
+        ) : (
+          <S.Button onClick={handleAddCartClick}>
+            {amount === 0 ? (
+              <CartIcon type="product" />
+            ) : (
+              <span className="product-amount">{amount}</span>
+            )}
+          </S.Button>
+        )}
       </S.Preview>
       <S.Detail>
         <span className="product-name">{name}</span>
@@ -60,6 +64,7 @@ Product.propTypes = {
   }).isRequired,
   amount: PropTypes.number.isRequired,
   addToCart: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default Product;

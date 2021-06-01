@@ -61,6 +61,7 @@ const orderSlice = createSlice({
 
         state.items[orderId] = orderDetails;
       });
+      state.loading = false;
     },
 
     [getOrders.rejected]: (state, action) => {
@@ -78,6 +79,7 @@ const orderSlice = createSlice({
       const location = action.payload.location.split("/");
       const orderId = Number(location[location.length - 1]);
       state.items[orderId] = cart;
+      state.loading = false;
     },
 
     [addOrder.rejected]: (state, action) => {

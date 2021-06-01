@@ -8,7 +8,6 @@ import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
 
 import { formatPrice } from "../../utils/utils";
-import { removeChecked } from "../../store/modules/cartSlice";
 
 import { MESSAGE, ROUTE } from "../../constants/constant";
 import { useCart } from "../../hooks/useCart";
@@ -31,7 +30,6 @@ const Payment = () => {
   const handleButtonClick = () => {
     dispatch(addOrder({ cart: checkedItems }));
 
-    dispatch(removeChecked(cart));
     history.push(ROUTE.ORDERS_LIST);
   };
 
