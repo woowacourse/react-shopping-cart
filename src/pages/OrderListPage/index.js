@@ -15,7 +15,7 @@ export const OrderListPage = () => {
 
       setOrders(response);
     })();
-  }, []);
+  }, [getOrderList]);
 
   return (
     <S.Page>

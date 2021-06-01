@@ -14,7 +14,7 @@ export const ProductListPage = () => {
 
       setProducts(response);
     })();
-  }, []);
+  }, [getProductList]);
 
   return (
     <S.Page>

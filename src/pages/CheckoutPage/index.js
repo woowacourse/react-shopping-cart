@@ -15,7 +15,7 @@ export const CheckoutPage = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   const onClickCheckoutButton = async () => {
     try {

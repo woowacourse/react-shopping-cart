@@ -1,10 +1,11 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../redux';
 
 export const useCartDispatch = () => {
   const dispatch = useDispatch();
 
-  const getProducts = () => dispatch(cartAction.getProducts());
+  const getProducts = useCallback(() => dispatch(cartAction.getProducts()), [dispatch]);
   const addProduct = (product) => dispatch(cartAction.addProduct(product));
   const removeProduct = (id) => dispatch(cartAction.removeProduct(id));
   const removeSelectedProducts = (selectedProducts) =>
