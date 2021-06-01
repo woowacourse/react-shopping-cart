@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import actions from "../../actions";
-import { Button, CheckBox, PageTitle, SubmitBox } from "../../Components/@shared";
-import { CartItem } from "../../Components";
 import { RootState } from "../../store";
+
+import { Button, CheckBox, Confirm, PageTitle, SubmitBox } from "../../Components/@shared";
+import { CartItem, Portal } from "../../Components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+
 import { COLOR } from "../../constants/theme";
 import { ORDER_COUNT } from "../../constants/standard";
+import { PATH } from "../../constants/path";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -22,6 +25,8 @@ const Cart: VFC = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
   const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
 
+  const [isDeleteConfirmOpened, setDeleteConfirmStatus] = useState<boolean>(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   // TODO: 에러 어떻게 처리?
@@ -30,7 +35,6 @@ const Cart: VFC = () => {
     requestErrorMessage,
   }));
 
-  console.log(checkedList, orderCountList, cart);
   const totalPrice = cart.reduce((acc, { cart_id, price }) => {
     return checkedList[cart_id] ? acc + price * orderCountList[cart_id] : acc;
   }, 0);
@@ -77,11 +81,6 @@ const Cart: VFC = () => {
     setCheckedList((prev) => ({ ...prev, [cart_id]: !prev[cart_id] }));
   };
 
-  const deleteSelectedCartItems = () => {
-    const selectedIds = Object.keys(checkedList).filter((cart_id) => checkedList[cart_id]);
-    dispatch(actions.cart.delete.request(selectedIds));
-  };
-
   const onIncrementOrderCount = (cart_id: string) => {
     setOrderCountList((prev) => {
       const prevCount = prev[cart_id];
@@ -113,7 +112,7 @@ const Cart: VFC = () => {
   };
 
   const onClickSubmitButton = () => {
-    history.push("/order", {
+    history.push(PATH.ORDER, {
       order: cart
         .filter(({ cart_id }) => checkedList[cart_id])
         .map((item) => ({ ...item, quantity: orderCountList[item.cart_id] })),
@@ -149,10 +148,26 @@ const Cart: VFC = () => {
                 backgroundColor: "none",
                 border: `1px solid ${COLOR.GRAY_200}`,
               }}
-              onClick={deleteSelectedCartItems}
+              onClick={() => {
+                setDeleteConfirmStatus(true);
+              }}
             >
               상품삭제
             </Button>
+            {isDeleteConfirmOpened && (
+              <Portal>
+                <Confirm
+                  title="선택하신 상품을 삭제하시겠습니까?"
+                  onConfirm={() => {
+                    const selectedIds = Object.keys(checkedList).filter((cart_id) => checkedList[cart_id]);
+                    dispatch(actions.cart.delete.request(selectedIds));
+                  }}
+                  onReject={() => {
+                    setDeleteConfirmStatus(false);
+                  }}
+                />
+              </Portal>
+            )}
           </AllDealDelete>
         </AllDealControlBox>
         <Section>
