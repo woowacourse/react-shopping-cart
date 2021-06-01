@@ -20,7 +20,7 @@ const useShoppingCart = () => {
     revalidateOnFocus: false,
   });
 
-  const { addSnackbar } = useSnackbar();
+  const { showSnackbar } = useSnackbar();
 
   const isAllShoppingCartItemChecked =
     shoppingCartItemList.length === shoppingCartItemList.filter((item) => item.isChecked).length;
@@ -31,19 +31,19 @@ const useShoppingCart = () => {
     );
 
     if (isExistedInShoppingCart) {
-      addSnackbar({ message: MESSAGE.FAILURE.ADD_SHOPPING_CART_ITEM });
+      showSnackbar({ message: MESSAGE.FAILURE.ADD_SHOPPING_CART_ITEM });
 
       return;
     }
 
-    addSnackbar({ message: MESSAGE.SUCCESS.ADD_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
+    showSnackbar({ message: MESSAGE.SUCCESS.ADD_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
 
     try {
       await requestInsertItem(API_PATH.SHOPPING_CART_LIST, { productId });
       mutate();
     } catch (error) {
       console.error(error);
-      addSnackbar({ message: error.message });
+      showSnackbar({ message: error.message });
     }
   };
 
@@ -52,10 +52,10 @@ const useShoppingCart = () => {
       await requestDeleteItem(API_PATH.SHOPPING_CART_LIST, id);
       mutate();
 
-      addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
+      showSnackbar({ message: MESSAGE.SUCCESS.REMOVE_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
     } catch (error) {
       console.error(error);
-      addSnackbar({ message: error.message });
+      showSnackbar({ message: error.message });
     }
   };
 
@@ -64,10 +64,10 @@ const useShoppingCart = () => {
       await Promise.all(checkedItemList.map(({ cartId }) => requestDeleteItem(API_PATH.SHOPPING_CART_LIST, cartId)));
       mutate();
 
-      addSnackbar({ message: MESSAGE.SUCCESS.REMOVE_ALL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
+      showSnackbar({ message: MESSAGE.SUCCESS.REMOVE_ALL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.SUCCESS });
     } catch (error) {
       console.error(error);
-      addSnackbar({ message: error.message });
+      showSnackbar({ message: error.message });
     }
   };
 
@@ -97,7 +97,7 @@ const useShoppingCart = () => {
 
   const increaseQuantity = (id, quantity) => {
     if (quantity >= MAX_QUANTITY) {
-      addSnackbar({ message: MESSAGE.FAILURE.FULL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
+      showSnackbar({ message: MESSAGE.FAILURE.FULL_SHOPPING_CART_ITEM, type: SNACKBAR_TYPE.FAILURE });
 
       return;
     }
@@ -117,7 +117,7 @@ const useShoppingCart = () => {
 
   const decreaseQuantity = (id, quantity) => {
     if (quantity <= MIN_QUANTITY) {
-      addSnackbar({ message: MESSAGE.FAILURE.LACK_SHOPPING_CART_ITEM });
+      showSnackbar({ message: MESSAGE.FAILURE.LACK_SHOPPING_CART_ITEM });
 
       return;
     }

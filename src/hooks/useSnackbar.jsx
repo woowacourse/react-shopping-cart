@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import SnackbarContext from '../context/SnackbarContext';
 
 const useSnackbar = () => {
-  const { addSnackbar } = useContext(SnackbarContext);
+  const { showSnackbar } = useContext(SnackbarContext);
 
-  return { addSnackbar };
+  return { showSnackbar };
 };
 
 export default useSnackbar;

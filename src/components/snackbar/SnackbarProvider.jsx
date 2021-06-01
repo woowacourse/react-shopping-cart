@@ -78,7 +78,7 @@ const snackbarSetting = { message: null, isShowing: false, type: SNACKBAR_TYPE.I
 const SnackbarProvider = ({ children }) => {
   const [snackbars, setSnackbars] = useState([...Array(3)].map(() => snackbarSetting));
 
-  const addSnackbar = ({ message, type = SNACKBAR_TYPE.IDLE }) => {
+  const showSnackbar = ({ message, type = SNACKBAR_TYPE.IDLE }) => {
     if (snackbars.filter((snackbar) => snackbar.isShowing).length >= 3) return;
 
     setSnackbars((prevSnackbar) => {
@@ -100,7 +100,7 @@ const SnackbarProvider = ({ children }) => {
   };
 
   return (
-    <SnackbarContext.Provider value={{ addSnackbar }}>
+    <SnackbarContext.Provider value={{ showSnackbar }}>
       {children}
       <Container>
         {snackbars.map(
