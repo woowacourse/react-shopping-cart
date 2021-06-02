@@ -12,12 +12,14 @@ const Product = ({ product, amount, addToCart, loading }) => {
   const history = useHistory();
   const { thumbnail, name, price } = product;
 
-  const handleProductClick = () => {
+  const handleProductClick = (e) => {
+    if (e.target !== e.currentTarget) return;
     history.push(`/product/${product.id}`);
   };
 
   const handleAddCartClick = (e) => {
     e.stopPropagation();
+    if (loading) return;
     if (amount >= CART.MAX_AMOUNT) {
       // eslint-disable-next-line no-alert
       window.alert(
@@ -35,17 +37,13 @@ const Product = ({ product, amount, addToCart, loading }) => {
         <S.Thumbnail>
           <S.Img src={thumbnail} alt={name} />
         </S.Thumbnail>
-        {loading ? (
-          <S.LoadingButton />
-        ) : (
-          <S.Button onClick={handleAddCartClick}>
-            {amount === 0 ? (
-              <CartIcon type="product" />
-            ) : (
-              <span className="product-amount">{amount}</span>
-            )}
-          </S.Button>
-        )}
+        <S.Button onClick={handleAddCartClick}>
+          {amount === 0 ? (
+            <CartIcon type="product" />
+          ) : (
+            <span className="product-amount">{amount}</span>
+          )}
+        </S.Button>
       </S.Preview>
       <S.Detail>
         <span className="product-name">{name}</span>

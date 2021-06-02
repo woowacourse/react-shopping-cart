@@ -92,15 +92,6 @@ export const Button = styled.button`
   }
 `;
 
-export const LoadingButton = styled(Button)`
-  background-color: ${COLOR.GRAY_300};
-  cursor: not-allowed;
-
-  &:hover {
-    background-color: ${COLOR.GRAY_300};
-  }
-`;
-
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;

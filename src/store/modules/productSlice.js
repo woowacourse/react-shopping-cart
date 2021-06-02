@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { API, MESSAGE } from "../../constants/constant";
 
 export const getProducts = createAsyncThunk(
@@ -34,7 +34,7 @@ const productSlice = createSlice({
           image_url: imageUrl,
         } = product;
 
-        if (productId in state.products) return;
+        if (productId in current(state).products) return;
 
         state.products[productId] = {
           id: productId,
