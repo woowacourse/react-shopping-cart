@@ -19,4 +19,9 @@ export const Button = styled.button`
   &:hover {
     ${({ hoverAnimation }) => hoverAnimation && animation[hoverAnimation]}
   }
+
+  &:disabled {
+    cursor: default;
+    background-color: ${PALETTE.GRAY_005};
+  }
 `;

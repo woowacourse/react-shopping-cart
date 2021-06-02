@@ -6,10 +6,16 @@ import FlexContainer from '../../common/FlexContainer';
 import HighlightText from '../../common/HighlightText';
 import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
+import { ERROR_MESSAGE } from '../../../constants/message';
 
 const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) => {
   const onClick = () => {
-    onOrder && onOrder();
+    if (priceInfo.price <= 0) {
+      alert(ERROR_MESSAGE.NO_PRODUCTS_TO_ORDER);
+      return;
+    }
+
+    onOrder();
     locatePage(submitInfo.address);
   };
 
@@ -31,6 +37,7 @@ const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) 
             backgroundColor={PALETTE.BAEMINT}
             color={PALETTE.WHITE}
             fontSize="1.3rem"
+            disabled={!(priceInfo.price && priceInfo.price > 0)}
             onClick={onClick}
           >
             {submitInfo.text}
