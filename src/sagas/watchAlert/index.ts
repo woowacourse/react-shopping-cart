@@ -1,4 +1,4 @@
-import { delay, put, takeLatest } from "redux-saga/effects";
+import { delay, put, takeEvery } from "redux-saga/effects";
 
 import actions from "../../actions";
 import { AlertActionType, alertActionType } from "../../actions/alert";
@@ -6,7 +6,7 @@ import { ALERT_MESSAGE_DURATION } from "../../constants/message";
 import { isPayloadActionType } from "../../util/typeGuard";
 
 function* watchAlert() {
-  yield takeLatest(alertActionType.request, addAlertMessage);
+  yield takeEvery(alertActionType.request, addAlertMessage);
 }
 
 function* addAlertMessage(action: AlertActionType) {
