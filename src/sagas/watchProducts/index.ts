@@ -13,6 +13,8 @@ function* getProducts() {
 
   if (isSucceeded) {
     yield put(actions.products.get.success(result));
+
+    return;
   }
 
   yield put(actions.alert.request(message));

@@ -3,9 +3,11 @@ import axios from "axios";
 
 import db from "../firebase";
 
-import { CartItem, Id, Order, Product, ProductsObject } from "../interface";
-import { isDefined } from "../util/typeGuard";
 import products from "./productsAPI";
+import cart from "./cartAPI";
+
+import { CartItem, Order } from "../interface";
+import { isDefined } from "../util/typeGuard";
 
 const collection = {
   products: db.collection("products"),
@@ -17,22 +19,7 @@ axios.defaults.baseURL = "https://shopping-cart.techcourse.co.kr";
 
 const api = {
   products,
-  cart: {
-    get: async () => {
-      const response: firebase.firestore.QuerySnapshot<
-        firebase.firestore.DocumentData | CartItem
-      > = await collection.cart.get();
-      const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
-
-      return cartItem;
-    },
-    post: (cartItem: CartItem) => {
-      collection.cart.doc(cartItem.id).set(cartItem);
-    },
-    delete: (id: string) => {
-      collection.cart.doc(id).delete();
-    },
-  },
+  cart,
   orderList: {
     get: async () => {
       const response: firebase.firestore.QuerySnapshot<

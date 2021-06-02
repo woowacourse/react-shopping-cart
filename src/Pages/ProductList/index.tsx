@@ -10,30 +10,11 @@ import { Container } from "./styles";
 
 const ProductList: FC = () => {
   const dispatch = useDispatch();
-
   const products: ProductsObject = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
     dispatch(actions.products.get.request());
   }, []);
-
-  const onClickCart = ({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
-    if (currentTarget.dataset.productId === undefined) {
-      return;
-    }
-
-    const id = currentTarget.dataset.productId;
-
-    const cartItem: CartItem = {
-      id,
-      name: products[id].name,
-      price: products[id].price,
-      imageSrc: products[id].imageSrc,
-      quantity: 1,
-    };
-
-    dispatch(actions.cart.post.request(cartItem));
-  };
 
   return (
     <Container>
@@ -44,7 +25,7 @@ const ProductList: FC = () => {
           Image={<ProductImage size="282px" src={imageSrc} />}
           name={name}
           price={price}
-          onClickCart={onClickCart}
+          onClickCart={() => dispatch(actions.cart.post.request(id))}
         />
       ))}
     </Container>

@@ -3,7 +3,8 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import actions from "../../actions";
 import { cartActionType, CartDeleteRequestActionType, CartPostRequestActionType } from "../../actions/cart";
 import api from "../../apis";
-import { CartItem } from "../../interface";
+import { ERROR_MESSAGE } from "../../constants/message";
+import { APIReturnType, CartItem } from "../../interface";
 
 function* watchCart() {
   yield takeLatest(cartActionType.get.request, getCart);
@@ -12,37 +13,33 @@ function* watchCart() {
 }
 
 function* getCart() {
-  try {
-    const cartItem: CartItem[] = yield call(api.cart.get);
+  const { isSucceeded, message, result } = yield call(api.cart.get);
 
-    yield put(actions.cart.get.success({ cart: cartItem }));
-  } catch (error) {
-    yield put(actions.cart.get.failure({ requestErrorMessage: error.message }));
+  if (isSucceeded) {
+    yield put(actions.cart.get.success(result));
+
+    return;
   }
+
+  yield put(actions.alert.request(message));
 }
 
 function* postCart(action: CartPostRequestActionType) {
-  try {
-    yield call(api.cart.post, action.payload);
+  const { message } = yield call(api.cart.post, action.payload);
 
-    yield put(actions.cart.post.success());
-  } catch (error) {
-    yield put(actions.cart.post.failure({ requestErrorMessage: error.message }));
-  }
+  yield put(actions.alert.request(message));
 }
 
 function* deleteCart(action: CartDeleteRequestActionType) {
-  try {
-    const ids = action.payload;
+  const ids = action.payload;
+  const res: APIReturnType<null>[] = yield all(ids.map((id) => call(api.cart.delete, id)));
 
-    yield all(ids.map((id) => call(api.cart.delete, id)));
+  const message = res.length && res.every(({ isSucceeded }) => isSucceeded) 
+    ? res[0].message 
+    : ERROR_MESSAGE.BAD_RESPONSE
 
-    yield put(actions.cart.delete.success());
-
-    yield call(getCart);
-  } catch (error) {
-    yield put(actions.cart.delete.failure({ requestErrorMessage: error.message }));
-  }
+  yield put(actions.alert.request(message));
+  yield call(getCart);
 }
 
 export default watchCart;

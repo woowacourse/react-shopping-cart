@@ -8,9 +8,11 @@ import PageTitle from "../../Components/PageTitle";
 import SubmitBox from "../../Components/SubmitBox";
 import { COLOR } from "../../constants/theme";
 
-import CartItem from "./CartItem";
+import CartItemBox from "./CartItemBox";
 import { RootState } from "../../store";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+import { CartItem } from "../../interface";
+import { CONFIRM_MESSAGE } from "../../constants/message";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -26,11 +28,8 @@ const Cart: FC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // TODO: 에러 어떻게 처리?
-  const { cart, requestErrorMessage } = useSelector(({ cart: { cart, requestErrorMessage } }: RootState) => ({
-    cart,
-    requestErrorMessage,
-  }));
+  const cart: CartItem[] = useSelector((state: RootState) => state.cart);
+
 
   const totalPrice = cart.reduce((acc, { id, price }) => {
     return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
@@ -78,9 +77,18 @@ const Cart: FC = () => {
     setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const onClickDeleteButton = (id: string) => {
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      dispatch(actions.cart.delete.request([id]));
+    }
+  }
+
   const onClickDeleteSelectedButton = () => {
-    const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
-    dispatch(actions.cart.delete.request(selectedIds));
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id])
+      
+      dispatch(actions.cart.delete.request(selectedIds));
+    }
   };
 
   const onIncrementOrderCount = (id: string) => {
@@ -157,7 +165,7 @@ const Cart: FC = () => {
           <ul>
             {cart.map(({ id, name, price, imageSrc }) => (
               <li key={id}>
-                <CartItem
+                <CartItemBox
                   id={id}
                   name={name}
                   price={price}
@@ -167,15 +175,12 @@ const Cart: FC = () => {
                   onIncrementOrderCount={() => onIncrementOrderCount(id)}
                   onDecrementOrderCount={() => onDecrementOrderCount(id)}
                   onChangeChecked={() => onChangeChecked(id)}
-                  onClickDeleteButton={() => {
-                    dispatch(actions.cart.delete.request([id]));
-                  }}
+                  onClickDeleteButton={() => onClickDeleteButton(id)}
                 />
               </li>
             ))}
           </ul>
         </Section>
-        {/* TODO Position: relative <-> fixed */}
         <SubmitBox
           title="결제예상금액"
           width="448px"

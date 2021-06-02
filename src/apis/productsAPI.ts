@@ -1,6 +1,8 @@
 import axios from "axios"
 
 import { ERROR_MESSAGE } from "../constants/message";
+import PATH from "../constants/path";
+import STATUS_CODE from "../constants/statusCode";
 import { APIReturnType, ProductsObject } from "../interface";
 
 interface ProductsResponseData {
@@ -13,13 +15,13 @@ interface ProductsResponseData {
 const productsAPI = {
   get: async (): Promise<APIReturnType<ProductsObject | null>> => {
     try {
-      const response = await axios.get("/api/products");
+      const response = await axios.get(PATH.PRODUCTS);
 
-      if (response.status !== 200) {
+      if (response.status !== STATUS_CODE.OK) {
         throw new Error(ERROR_MESSAGE.API_CALL);
       }
 
-      const products: ProductsObject = response.data.reduce(
+      const result: ProductsObject = response.data.reduce(
         (acc: ProductsObject, product: ProductsResponseData) => {
           acc[product.product_id] = {
             name: product.name,
@@ -33,7 +35,7 @@ const productsAPI = {
       return {
         isSucceeded: true,
         message: "",
-        result: products,
+        result,
       }
     } catch (error) {
       console.error(error);
