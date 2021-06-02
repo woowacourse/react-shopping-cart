@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import * as S from "./CartInfo.styled";
 
@@ -7,15 +6,13 @@ import CartItem from "./CartItem/CartItem";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
 
-import { toggleAllChecked } from "../../../store/modules/cartSlice";
 import { MESSAGE } from "../../../constants/constant";
 import { useConfirm } from "../../../utils/useConfirm";
 import Empty from "../../@mixins/Empty/Empty";
 import { useCart } from "../../../hooks/useCart";
 
 const CartInfo = ({ cart }) => {
-  const dispatch = useDispatch();
-  const { isCheckAll, removeCheckedCart } = useCart();
+  const { isCheckAll, removeCheckedCart, toggleAllChecked } = useCart();
   const confirmDelete = useConfirm(
     MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART,
     () => {
@@ -26,7 +23,7 @@ const CartInfo = ({ cart }) => {
   const [checkAll, setCheckAll] = useState(true);
 
   const handleCheckBoxChange = () => {
-    dispatch(toggleAllChecked({ checked: !checkAll }));
+    toggleAllChecked({ checked: !checkAll });
     setCheckAll(!checkAll);
   };
 

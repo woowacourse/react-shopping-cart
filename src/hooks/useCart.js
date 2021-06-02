@@ -5,6 +5,7 @@ import {
   removeChecked,
   removeFromCart,
   toggleChecked,
+  toggleAllChecked as _toggleAllChecked,
 } from "../store/modules/cartSlice";
 
 // eslint-disable-next-line import/prefer-default-export
@@ -30,6 +31,10 @@ export const useCart = () => {
 
   const toggleCartChecked = (id) => {
     dispatch(toggleChecked(id));
+  };
+
+  const toggleAllChecked = () => {
+    dispatch(_toggleAllChecked());
   };
 
   const getCartAmount = (id) => items[id]?.amount ?? 0;
@@ -62,6 +67,7 @@ export const useCart = () => {
     removeCart,
     removeCheckedCart,
     toggleCartChecked,
+    toggleAllChecked,
     getCartAmount,
     cartAmount,
     checkedItems,

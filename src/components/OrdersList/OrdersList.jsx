@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import * as S from "./OrdersList.styled";
 
 import OrdersListItem from "./OrdersListItem/OrdersListItem";
 
 import Empty from "../@mixins/Empty/Empty";
-import { getOrders } from "../../store/modules/orderSlice";
+
+import { useOrder } from "../../hooks/useOrder";
 
 const OrdersList = () => {
-  const ordersListItems = useSelector((state) => state.order.items);
-  const ordersList = Object.values(ordersListItems).sort(
+  const { orders, getOrders } = useOrder();
+  const ordersList = Object.values(orders).sort(
     (a, b) => b.order_id - a.order_id
   );
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getOrders());
-  }, [dispatch]);
+    getOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <S.OrdersList>

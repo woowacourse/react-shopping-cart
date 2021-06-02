@@ -1,19 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../store/modules/cartSlice";
 import Button from "../../../@shared/Button/Button";
 
 import * as S from "./OrderItem.styled";
 import { formatPrice } from "../../../../utils/utils";
+import { useCart } from "../../../../hooks/useCart";
 
 const OrderItem = ({ item }) => {
   const { image_url: thumbnail, name, price, quantity } = item;
-
-  const dispatch = useDispatch();
+  const { addToCart } = useCart();
 
   const handleButtonClick = () => {
-    dispatch(addToCart(item));
+    addToCart(item);
   };
 
   return (

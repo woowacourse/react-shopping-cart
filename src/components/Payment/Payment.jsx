@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as S from "./Payment.styled";
 
@@ -10,13 +9,13 @@ import { formatPrice } from "../../utils/utils";
 
 import { MESSAGE, ROUTE } from "../../constants/constant";
 import { useCart } from "../../hooks/useCart";
-import { addOrder } from "../../store/modules/orderSlice";
+import { useOrder } from "../../hooks/useOrder";
 
 const Payment = () => {
   const location = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
 
+  const { addOrder } = useOrder();
   const { checkedItems, totalPrice } = useCart();
 
   if (!location.state?.isAllowed) {
@@ -26,7 +25,7 @@ const Payment = () => {
   }
 
   const handleButtonClick = () => {
-    dispatch(addOrder({ cart: checkedItems }));
+    addOrder({ cart: checkedItems });
 
     history.push(ROUTE.ORDERS_LIST);
   };
