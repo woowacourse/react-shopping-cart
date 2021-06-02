@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import actions from "../../actions";
 import { RootState } from "../../store";
 
-import { Button, CheckBox, Confirm, PageTitle, SubmitBox } from "../../Components/@shared";
+import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../Components/@shared";
 import { CartItem, Portal } from "../../Components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 
@@ -31,10 +31,13 @@ const Cart: VFC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // TODO: 에러 어떻게 처리?
-  const { cart, requestErrorMessage } = useSelector(({ cart: { cart, requestErrorMessage } }: RootState) => ({
-    cart,
-    requestErrorMessage,
-  }));
+  const { cart, loading, requestErrorMessage } = useSelector(
+    ({ cart: { cart, loading, requestErrorMessage } }: RootState) => ({
+      cart,
+      loading,
+      requestErrorMessage,
+    })
+  );
 
   const totalPrice = cart.reduce((acc, { cart_id, price }) => {
     return checkedList[cart_id] ? acc + price * orderCountList[cart_id] : acc;
@@ -129,6 +132,14 @@ const Cart: VFC = () => {
     setCheckedListAll(true);
     resetOrderCountList();
   }, [cart]);
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+  }
 
   return (
     <Container>

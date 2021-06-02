@@ -2,10 +2,11 @@ import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { CartAnimation, Product } from "../../Components";
 import { RootState } from "../../store";
 
-import { Container } from "./styles";
+import { CartAnimation, Product } from "../../Components";
+import { Loading } from "../../Components/@shared";
+import { Container, Inner } from "./styles";
 
 const ProductList: VFC = () => {
   const dispatch = useDispatch();
@@ -28,21 +29,31 @@ const ProductList: VFC = () => {
     dispatch(actions.cart.post.request(product_id));
   };
 
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      {products.map(({ product_id, image_url, name, price }) => (
-        <Product
-          key={product_id}
-          id={product_id}
-          imageSrc={image_url}
-          imageSize="282px"
-          name={name}
-          price={price}
-          onClickCart={() => {
-            onClickCart(product_id);
-          }}
-        />
-      ))}
+      <Inner>
+        {products.map(({ product_id, image_url, name, price }) => (
+          <Product
+            key={product_id}
+            id={product_id}
+            imageSrc={image_url}
+            imageSize="282px"
+            name={name}
+            price={price}
+            onClickCart={() => {
+              onClickCart(product_id);
+            }}
+          />
+        ))}
+      </Inner>
       {animation.isShow && <CartAnimation />}
     </Container>
   );

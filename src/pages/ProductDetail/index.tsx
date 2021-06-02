@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { RootState } from "../../store";
 
-import { Button, CartAnimation, ProductImage } from "../../Components";
 import { DivFlexBetween } from "../../SharedStyled/Flex";
+import { Button, CartAnimation, ProductImage } from "../../Components";
+import { Loading } from "../../Components/@shared";
 import { Container } from "./styles";
 
 import { COLOR } from "../../constants/theme";
@@ -20,12 +21,20 @@ const ProductDetail = () => {
     },
   } = useLocation<{ product: Product }>();
 
-  const { animation } = useSelector(({ cart: { animation } }: RootState) => ({ animation }));
+  const { animation, loading } = useSelector(({ cart: { animation, loading } }: RootState) => ({ animation, loading }));
   const dispatch = useDispatch();
 
   const onClickCart = (product_id: string) => {
     dispatch(actions.cart.post.request(product_id));
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+  }
 
   return (
     <Container>

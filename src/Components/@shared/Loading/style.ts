@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { COLOR } from "../../../constants/theme";
+import { FlexCenter } from "../../../SharedStyled/Flex";
 
 const loadingAnimation = keyframes`
   from {
@@ -14,16 +14,16 @@ const loadingAnimation = keyframes`
 `;
 
 interface ContainerProps {
-  bgColor?: string;
+  bgColor: string;
 }
 
-const Container = styled.div<ContainerProps>`
-  display: flex;
+const Container = styled(FlexCenter("div"))<ContainerProps>`
+  width: 100%;
 
   div {
     width: 10px;
     height: 40px;
-    background-color: ${({ bgColor = COLOR.MAIN }) => `${bgColor};`};
+    background-color: ${({ bgColor }) => `${bgColor};`};
   }
 
   div:not(:last-child) {
@@ -46,4 +46,3 @@ const Right = styled.div`
 `;
 
 export { Container, Left, Center, Right };
-export { ContainerProps };

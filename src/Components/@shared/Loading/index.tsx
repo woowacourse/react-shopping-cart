@@ -1,11 +1,14 @@
 import React from "react";
 
 import { Container, Left, Center, Right } from "./style";
-import { ContainerProps } from "./style";
 
-type LoadingProps = ContainerProps;
+import { COLOR } from "../../../constants/theme";
 
-const Loading = ({ bgColor }: LoadingProps) => (
+interface LoadingProps {
+  bgColor?: string;
+}
+
+const Loading = ({ bgColor = COLOR.MAIN }: LoadingProps) => (
   <Container bgColor={bgColor}>
     <Left />
     <Center />
