@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading Component Loading Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvaa gmpVqK"
+  >
+    <img
+      alt="로딩 중"
+      class="sc-gsDJrp dVraHg"
+      src="loading.svg"
+    />
+  </div>
+</DocumentFragment>
+`;

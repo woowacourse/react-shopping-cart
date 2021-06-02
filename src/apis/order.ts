@@ -16,14 +16,14 @@ export const requestAddOrder = async (cartItems: CartItem[]) => {
   const response = await axios.post(URL.ORDERS, requestBody);
 
   if (response.status !== STATUS_CODE.POST_SUCCESS) {
-    throw { status: response.status };
+    throw Error('상품 주문에 실패하였습니다.');
   }
 };
 
 export const requestGetOrders = async () => {
   const response = await axios.get<OrderData[]>(URL.ORDERS);
   if (response.status !== STATUS_CODE.GET_SUCCESS) {
-    throw { status: response.status };
+    throw Error('주문 목록들을 조회하는데 실패하였습니다.');
   }
 
   return response;
@@ -32,7 +32,7 @@ export const requestGetOrders = async () => {
 export const requestGetOrder = async (orderId: string) => {
   const response = await axios.get<OrderData>(`${URL.ORDERS}/${orderId}`);
   if (response.status !== STATUS_CODE.GET_SUCCESS) {
-    throw { status: response.status };
+    throw Error('주문 정보를 조회하는데 실패하였습니다.');
   }
 
   return response;

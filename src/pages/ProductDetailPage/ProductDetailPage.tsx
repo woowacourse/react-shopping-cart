@@ -7,26 +7,36 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import { getMoneyString } from '../../utils/format';
 import Tooltip from '../../components/commons/Tooltip/Tooltip';
 import { useHistory } from 'react-router';
-import useProductDetail from '../../hooks/productDetail';
+import useProductDetail from '../../hooks/useProductDetail';
 import { requestAddProductToCart } from '../../apis';
-import { alert } from '../../utils/alert';
+import useCart from '../../hooks/useCart';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import { TEST_ID } from '../../constants/test';
 
 const ProductDetailPage = () => {
   const history = useHistory();
   const [isToolTipShown, setToolTipShown] = useState(false);
   const { product, loading, responseOK } = useProductDetail();
+  const { isCartHasProduct } = useCart();
 
-  const onCartButtonClick = async () => {
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
+
+  const onAddProductToCart = async () => {
+    if (isCartHasProduct(product.name)) {
+      showSnackbar(`'${product.name}'은(는) 이미 장바구니에 담긴 상품입니다`);
+      return;
+    }
+
     try {
       await requestAddProductToCart(product.id);
       setToolTipShown(true);
     } catch (error) {
-      alert('상품을 장바구니에 담지 못했습니다');
+      showSnackbar('상품을 장바구니에 담지 못했습니다');
       console.error(error);
     }
   };
 
-  const onTooltipButtonClick = () => {
+  const onMoveToCartPage = () => {
     history.push(PATH.CART);
   };
 
@@ -47,7 +57,7 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <Styled.ProductDetailPage>
+    <Styled.ProductDetailPage data-testid={TEST_ID.PRODUCT_DETAIL_PAGE}>
       <Styled.ProductWrapper>
         <Styled.ProductImage src={product.thumbnail} />
         <Styled.ProductNameWrapper>
@@ -64,7 +74,7 @@ const ProductDetailPage = () => {
                 setTooltipShown={setToolTipShown}
                 timeOut={3000}
                 button={
-                  <Button size="SM" onClick={onTooltipButtonClick}>
+                  <Button size="SM" onClick={onMoveToCartPage}>
                     장바구니 가기
                   </Button>
                 }
@@ -73,11 +83,12 @@ const ProductDetailPage = () => {
               </Tooltip>
             </Styled.TooltipWrapper>
           )}
-          <Button onClick={onCartButtonClick} size="LG" backgroundColor={COLORS.BROWN_500}>
+          <Button onClick={onAddProductToCart} size="LG" backgroundColor={COLORS.BROWN_500}>
             장바구니 담기
           </Button>
         </Styled.ButtonWrapper>
       </Styled.ProductWrapper>
+      <SnackbarContainer />
     </Styled.ProductDetailPage>
   );
 };

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentCheckout Component PaymentCheckout Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-gsDJrp gCAlHF"
+  >
+    <div
+      class="sc-dkPtyc gtzEzS"
+    >
+      title
+    </div>
+    <div
+      class="sc-hKwCoD jcydiL"
+    >
+      <div
+        class="sc-eCImvq bnNPYq"
+      >
+        <span
+          class="sc-jRQAMF FLdNx"
+        >
+          priceLabel
+        </span>
+        <span
+          class="sc-gKckTs iDFVdh"
+        >
+          2000
+        </span>
+      </div>
+      <button
+        class="sc-bdvvaa jvAQYl"
+        type="button"
+      >
+        buttonText
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

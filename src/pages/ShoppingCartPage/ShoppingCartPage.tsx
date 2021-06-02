@@ -6,74 +6,53 @@ import NotFound from '../../components/commons/NotFound/NotFound';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import CartListItem from '../../components/ShoppingCartPage/CartListItem/CartListItem';
-import { STATUS_CODE, PATH } from '../../constants';
-import useCart from '../../hooks/cart';
+import { PATH } from '../../constants';
+import useCart from '../../hooks/useCart';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ShoppingCartPage.styles';
-import { confirm } from '../../utils/confirm';
-import { requestDeleteCartItem } from '../../apis';
-import { alert } from '../../utils/alert';
-import { requestDeleteCartItems } from '../../apis/cart';
 import { CartItem } from '../../type';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import { TEST_ID } from '../../constants/test';
 
 const ShoppingCartPage = () => {
   const history = useHistory();
-  const { cartItems, loading, responseOK, setCartItems } = useCart();
+
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
+
+  const {
+    cartItems,
+    loading,
+    responseOK,
+    totalCartItemPrice,
+    getCartItem,
+    deleteAllCartItems,
+    deleteCartItem,
+    setAllCartItemSelected,
+    setCartItemQuantity,
+    setCartItemSelected,
+    getSelectedCartItems,
+  } = useCart();
+
+  const { showConfirmModal, changeConfirmAction, ConfirmModalContainer } = useConfirmModal();
+
   const [isTotalChecked, setTotalChecked] = useState(true);
 
-  if (loading) {
-    return (
-      <Styled.ShoppingCartPage>
-        <Loading />
-      </Styled.ShoppingCartPage>
-    );
-  }
-
-  if (!loading && !responseOK) {
-    return (
-      <Styled.ShoppingCartPage>
-        <NotFound message="상품을 찾을 수 없습니다." />
-      </Styled.ShoppingCartPage>
-    );
-  }
-
-  const setCartItemQuantity = async (id: CartItem['id'], quantity: CartItem['quantity']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], quantity };
-    newCartItems.splice(targetIndex, 1, newCartItem);
-    setCartItems(newCartItems);
-  };
-
-  const setCartItemSelected = (id: CartItem['id'], isSelected: CartItem['isSelected']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const newCartItem = { ...newCartItems[targetIndex], isSelected };
-    newCartItems.splice(targetIndex, 1, newCartItem);
-    setCartItems(newCartItems);
-  };
-
   const onTotalCheckClick = () => {
-    const newCartItems = cartItems.map(cartItem => ({ ...cartItem, isSelected: !isTotalChecked }));
+    setAllCartItemSelected(isTotalChecked);
     setTotalChecked(isTotalChecked => !isTotalChecked);
-    setCartItems(newCartItems);
   };
 
   const onCartItemDelete = async (id: CartItem['id']) => {
-    const newCartItems = [...cartItems];
-    const targetIndex = newCartItems.findIndex(cartItem => cartItem.id === id);
-    const targetCartItem = newCartItems[targetIndex];
-    if (!confirm(`${targetCartItem.name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
-      return;
-    }
-
-    try {
-      await requestDeleteCartItem(id);
-      newCartItems.splice(targetIndex, 1);
-      setCartItems(newCartItems);
-    } catch (error) {
-      alert(`${targetCartItem.name}을(를) 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    showConfirmModal(`'${getCartItem(id).name}'을(를) 장바구니에서 삭제하시겠습니까?`);
+    changeConfirmAction(async () => {
+      try {
+        await deleteCartItem(id);
+        showSnackbar(`'${getCartItem(id).name}'이(가) 장바구니에서 삭제되었습니다.`);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
+    });
   };
 
   const onSelectedCartItemDelete = async () => {
@@ -81,23 +60,30 @@ const ShoppingCartPage = () => {
       return;
     }
 
-    if (!confirm('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?')) {
-      return;
-    }
-
-    try {
-      const selectedCartItemIdList = cartItems.filter(item => item.isSelected).map(item => item.id);
-      await requestDeleteCartItems(selectedCartItemIdList);
-      const newCartItems = cartItems.filter(cartItem => !selectedCartItemIdList.includes(cartItem.id));
-      setCartItems(newCartItems);
-    } catch (error) {
-      const failCount = error.statusList?.filter((status: number) => status !== STATUS_CODE.POST_SUCCESS);
-      alert(`${failCount}개의 상품들을 장바구니에서 삭제하는데 실패했습니다!`);
-    }
+    showConfirmModal('선택된 모든 상품들을 장바구니에서 삭제하시겠습니까?');
+    changeConfirmAction(async () => {
+      try {
+        await deleteAllCartItems();
+        showSnackbar(`모든 상품들이 장바구니에서 삭제되었습니다.`);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
+    });
   };
 
-  // 어라 이거 프로덕트 아이디가 똑같아서 생기는 문제 같은데
-  // 업데이트 되는건 문제가 있네
+  const onOrderItems = () => {
+    showConfirmModal('선택하신 상품들을 주문하시겠습니까?');
+    changeConfirmAction(() => {
+      const selectedCartItems = getSelectedCartItems();
+      if (selectedCartItems.length === 0) {
+        return;
+      }
+
+      history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
+    });
+  };
+
+  const isOrderPossible = cartItems.length > 0;
 
   const cartItemList = cartItems.map(cartItem => (
     <Styled.CartItemWrapper key={cartItem.id}>
@@ -114,33 +100,24 @@ const ShoppingCartPage = () => {
     </Styled.CartItemWrapper>
   ));
 
-  const totalPrice = String(
-    cartItems.reduce((acc, cartItem) => {
-      if (!cartItem.isSelected) {
-        return acc;
-      }
+  if (loading) {
+    return (
+      <Styled.ShoppingCartPage>
+        <Loading />
+      </Styled.ShoppingCartPage>
+    );
+  }
 
-      return acc + Number(cartItem.price) * Number(cartItem.quantity);
-    }, 0)
-  );
-
-  const getSelectedCartItems = () => {
-    return cartItems.filter(item => item.isSelected);
-  };
-
-  const onOrderLinkButtonClick = () => {
-    if (!confirm('선택하신 상품들을 주문하시겠습니까?')) {
-      return;
-    }
-    const selectedCartItems = getSelectedCartItems();
-    if (selectedCartItems.length === 0) return;
-    history.push({ pathname: PATH.ORDER, state: { selectedCartItems } });
-  };
-
-  const isOrderPossible = cartItems.length > 0;
+  if (!loading && !responseOK) {
+    return (
+      <Styled.ShoppingCartPage>
+        <NotFound message="장바구니 정보를 조회하는데 실패했습니다" />
+      </Styled.ShoppingCartPage>
+    );
+  }
 
   return (
-    <Styled.ShoppingCartPage>
+    <Styled.ShoppingCartPage data-testid={TEST_ID.SHOPPING_CART_PAGE}>
       <Styled.Header>
         <PageTitle>장바구니</PageTitle>
       </Styled.Header>
@@ -161,13 +138,15 @@ const ShoppingCartPage = () => {
           <PaymentCheckout
             title="결제예상금액"
             priceLabel="결제예상금액"
-            price={getMoneyString(totalPrice)}
+            price={getMoneyString(totalCartItemPrice)}
             buttonText={`주문하기(${getSelectedCartItems().length}개)`}
-            onButtonClick={onOrderLinkButtonClick}
+            onButtonClick={onOrderItems}
             isButtonDisabled={!isOrderPossible}
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
+      <ConfirmModalContainer />
+      <SnackbarContainer />
     </Styled.ShoppingCartPage>
   );
 };

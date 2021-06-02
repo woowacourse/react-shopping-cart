@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component Button Snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="sc-bdvvaa ifncFn"
+    type="button"
+  >
+    버튼 텍스트
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Component Button Snapshot 2`] = `
+<DocumentFragment>
+  <button
+    class="sc-bdvvaa jvAQYl"
+    type="button"
+  >
+    버튼 텍스트
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Component Button Snapshot 3`] = `
+<DocumentFragment>
+  <button
+    class="sc-bdvvaa dKrpuF"
+    type="button"
+  >
+    버튼 텍스트
+  </button>
+</DocumentFragment>
+`;

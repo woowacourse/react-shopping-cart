@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snackbar Component Snackbar Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvaa kUMFhO"
+  >
+    TEST
+  </div>
+</DocumentFragment>
+`;

@@ -9,6 +9,10 @@ export const parseProductData = (productData: ProductData): Product => {
   };
 };
 
+export const parseProductDataList = (productData: ProductData[]): Product[] => {
+  return productData.map(parseProductData);
+};
+
 export const parseCartItemData = (cartItemData: CartItemData): CartItem => {
   return {
     id: String(cartItemData.cart_id),
@@ -18,6 +22,10 @@ export const parseCartItemData = (cartItemData: CartItemData): CartItem => {
     isSelected: true,
     quantity: '1',
   };
+};
+
+export const parseCartItemDataList = (cartItemDataList: CartItemData[]): CartItem[] => {
+  return cartItemDataList.map(parseCartItemData);
 };
 
 export const parseOrderData = (orderData: OrderData): Order => {

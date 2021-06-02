@@ -1,18 +1,39 @@
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import PageTitle from '../../components/commons/PageTitle/PageTitle';
 import PaymentCheckout from '../../components/commons/PaymentCheckout/PaymentCheckout';
 import ListItem from '../../components/commons/ListItem/ListItem';
 import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 import * as Styled from './ProductOrderPage.styles';
-import { confirm } from '../../utils/confirm';
 import { requestAddOrder } from '../../apis';
-import { alert } from '../../utils/alert';
 import { CartItem } from '../../type';
+import useConfirmModal from '../../hooks/layout/useConfirmModal';
+import useSnackbar from '../../hooks/layout/useSnackbar';
 
 const ProductOrderPage = () => {
   const history = useHistory<{ selectedCartItems: CartItem[] }>();
+
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
+
+  const { changeConfirmAction, showConfirmModal, ConfirmModalContainer } = useConfirmModal();
+
+  if (!history.location.state) {
+    return <Redirect to={PATH.ROOT} />;
+  }
+
   const { selectedCartItems } = history.location.state;
+
+  const onOrderButtonClick = async () => {
+    showConfirmModal(`총 ${totalPrice}원을 결제하시겠습니까?`);
+    changeConfirmAction(async () => {
+      try {
+        await requestAddOrder(selectedCartItems);
+        history.push(PATH.ORDER_LIST);
+      } catch (error) {
+        showSnackbar(error.message);
+      }
+    });
+  };
 
   const orderItemList = selectedCartItems.map(cartItem => {
     return (
@@ -33,28 +54,6 @@ const ProductOrderPage = () => {
       return acc + Number(cartItem.price) * Number(cartItem.quantity);
     }, 0)
   );
-
-  const tryAddOrder = async (cartItems: CartItem[]) => {
-    try {
-      await requestAddOrder(cartItems);
-    } catch (error) {
-      alert('주문 요청에 실패하였습니다.');
-      return false;
-    }
-
-    return true;
-  };
-
-  const onOrderButtonClick = async () => {
-    if (!confirm(`총 ${totalPrice}원을 결제하시겠습니까?`)) {
-      return;
-    }
-    const isOrderSucceed = await tryAddOrder(selectedCartItems);
-    if (!isOrderSucceed) {
-      return;
-    }
-    history.push(PATH.ORDER_LIST);
-  };
 
   return (
     <Styled.ProductOrderPage>
@@ -80,6 +79,8 @@ const ProductOrderPage = () => {
           />
         </Styled.PaymentCheckoutWrapper>
       </Styled.PageWrapper>
+      <ConfirmModalContainer />
+      <SnackbarContainer />
     </Styled.ProductOrderPage>
   );
 };

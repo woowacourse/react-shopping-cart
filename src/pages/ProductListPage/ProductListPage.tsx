@@ -4,18 +4,25 @@ import ProductGridItem from '../../components/ProductListPage/ProductGridItem/Pr
 import Loading from '../../components/commons/Loading/Loading';
 import NotFound from '../../components/commons/NotFound/NotFound';
 
-import useProducts from '../../hooks/products';
+import useProducts from '../../hooks/useProducts';
 
-import { PATH, STATUS_CODE } from '../../constants';
+import { PATH } from '../../constants';
 import { getMoneyString } from '../../utils/format';
 
 import * as Styled from './ProductListPage.styles';
-import { requestAddProductToCart } from '../../apis';
 import { Product } from '../../type';
+import useSnackbar from '../../hooks/layout/useSnackbar';
+import useCart from '../../hooks/useCart';
+import usePagination from '../../hooks/layout/usePagination';
+import { ITEM_SLICE_UNIT } from '../../constants/layout';
+import { TEST_ID } from '../../constants/test';
 
 const ProductListPage = () => {
   const history = useHistory();
-  const { products, loading, error } = useProducts();
+  const { products, loading, responseOK, addProductToCart } = useProducts();
+  const { fetchCartItems, isCartHasProduct } = useCart();
+  const { showSnackbar, SnackbarContainer } = useSnackbar();
+  const { sliceItems, PaginationContainer } = usePagination(products.length, ITEM_SLICE_UNIT);
 
   const onProductItemClick = (productId: string) => {
     history.push({ pathname: `${PATH.PRODUCT_DETAIL}/${productId}`, state: { productId } });
@@ -27,19 +34,22 @@ const ProductListPage = () => {
       return;
     }
 
+    if (isCartHasProduct(product.name)) {
+      showSnackbar(`'${product.name}'은(는) 이미 장바구니에 담긴 상품입니다`);
+      return;
+    }
+
     try {
-      await requestAddProductToCart(product.id);
-      alert(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
+      await addProductToCart(product.id);
+      await fetchCartItems();
+      showSnackbar(`'${product?.name}'을(를) 장바구니에 담았습니다.`);
     } catch (error) {
-      if (error.status === STATUS_CODE.POST_FAILURE) {
-        alert(`'${product?.name}'는 이미 장바구니에 담긴 상품입니다.`);
-        return;
-      }
+      showSnackbar(error.message);
       console.error(error);
     }
   };
 
-  const productGridItemList = products.map((product: Product) => (
+  const productGridItems = products.map((product: Product) => (
     <ProductGridItem
       onClick={() => onProductItemClick(product.id)}
       onCartButtonClick={() => onCartButtonClick(product.id)}
@@ -54,11 +64,19 @@ const ProductListPage = () => {
     return <Loading />;
   }
 
-  if (!loading && error) {
+  if (!loading && !responseOK) {
     return <NotFound message="상품 정보를 불러올 수 없습니다." />;
   }
 
-  return <Styled.ProductListPage>{productGridItemList}</Styled.ProductListPage>;
+  return (
+    <Styled.ProductListPage data-testid={TEST_ID.PRODUCT_LIST_PAGE}>
+      <Styled.ProductItemsGrid>{sliceItems(productGridItems)}</Styled.ProductItemsGrid>
+      <Styled.PaginationWrapper>
+        <PaginationContainer />
+      </Styled.PaginationWrapper>
+      <SnackbarContainer />
+    </Styled.ProductListPage>
+  );
 };
 
 export default ProductListPage;

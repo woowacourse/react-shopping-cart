@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmModal Component ConfirmModal Snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-hKwCoD hpQaIv"
+  >
+    <div
+      class="sc-jRQAMF ifTFhu"
+    />
+    <div
+      class="sc-eCImvq gbwWIx"
+    >
+      <div
+        class="sc-bdvvaa bGeHZK"
+      >
+        <span
+          class="sc-gsDJrp fRcINU"
+        >
+          테스트 헤딩
+        </span>
+        <div
+          class="sc-dkPtyc gdurRt"
+        >
+          <button
+            class="sc-gKckTs fAvngU"
+            type="button"
+          >
+            취소
+          </button>
+          <button
+            class="sc-gKckTs jMTFfc"
+            type="button"
+          >
+            확인
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -5,7 +5,7 @@ import { CartItemData } from '../type';
 export const requestDeleteCartItem = async (id: string) => {
   const response = await axios.delete(`${URL.CART}/${id}`);
   if (response.status !== STATUS_CODE.DELETE_SUCCESS) {
-    throw { status: response.status };
+    throw Error('상품을 장바구니에서 삭제하지 못했습니다.');
   }
 };
 
@@ -16,17 +16,15 @@ export const requestDeleteCartItems = async (idList: Array<string>) => {
     })
   );
 
-  console.log('responseList', responseList);
-
   if (responseList.every(response => response.status !== STATUS_CODE.DELETE_SUCCESS)) {
-    throw { statusList: responseList.map(response => response.status) };
+    throw Error('모든 상품을 장바구니에서 삭제하지 못했습니다.');
   }
 };
 
 export const requestGetCartItems = async () => {
   const response = await axios.get<CartItemData[]>(URL.CART);
   if (response.status !== STATUS_CODE.GET_SUCCESS) {
-    throw { status: response.status };
+    throw Error('장바구니 정보를 불러오지 못했습니다.');
   }
 
   return response;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItem Component ListItem Snapshot 1`] = `
+<DocumentFragment>
+  <li
+    class="sc-bdvvaa hGgTo"
+  >
+    <img
+      class="sc-gsDJrp iBUonM"
+      src="no-image.png"
+    />
+    <div
+      class="sc-dkPtyc cJFzIl"
+    >
+      <span
+        class="sc-hKwCoD dFBKqs"
+      >
+        이름
+      </span>
+      <span
+        class="sc-eCImvq jrtxqM"
+      >
+        2000원 / 수량 : 2개
+      </span>
+    </div>
+  </li>
+</DocumentFragment>
+`;
