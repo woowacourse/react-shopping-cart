@@ -10,17 +10,8 @@ export default {
 
 const Template: Story<SnackBarProps> = (args) => <SnackBar {...args} />;
 
-export const Order1 = Template.bind({});
-export const Order2 = Template.bind({});
+export const Default = Template.bind({});
 
-Order1.args = {
-  children: '스낵바입니다.',
-  duration: 3000,
-  order: 1,
-};
-
-Order2.args = {
-  children: '스낵바입니다.',
-  duration: 3000,
-  order: 2,
+Default.args = {
+  messages: ['스낵바입니다1', '스낵바입니다2'],
 };

@@ -14,6 +14,8 @@ function* getProducts() {
   if (isSucceeded) {
     yield put(actions.products.get.success(result));
   }
+
+  yield put(actions.alert.request(message));
 }
 
 export default watchProducts;

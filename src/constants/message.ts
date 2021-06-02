@@ -3,6 +3,7 @@ const ALERT_MESSAGE_DURATION = 3000;
 
 const ERROR_MESSAGE = {
   API_CALL: "Api Call Error",
+  BAD_RESPONSE: "요청하신 동작을 수행할 수 없습니다.",
 }
 
 export { ALERT_MESSAGE_MAX_NUM, ALERT_MESSAGE_DURATION, ERROR_MESSAGE };

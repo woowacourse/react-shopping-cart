@@ -40,7 +40,7 @@ const productsAPI = {
 
       return {
         isSucceeded: false,
-        message: "",
+        message: ERROR_MESSAGE.BAD_RESPONSE,
         result: null,
       };
     }

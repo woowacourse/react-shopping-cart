@@ -15,7 +15,8 @@ function* addAlertMessage(action: AlertActionType) {
   }
 
   yield put(actions.alert.add(action.payload));
-
-  delay(ALERT_MESSAGE_DURATION);
+  yield delay(ALERT_MESSAGE_DURATION);
   yield put(actions.alert.remove());
 }
+
+export default watchAlert;

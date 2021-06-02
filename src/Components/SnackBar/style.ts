@@ -13,7 +13,7 @@ const appearFromBottom = keyframes`
   }
 `;
 
-const Container = styled.div<Properties>`
+const Bar = styled.div<Properties>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,4 +37,4 @@ const Container = styled.div<Properties>`
     `};
 `;
 
-export { Container };
+export { Bar };

@@ -11,7 +11,7 @@ import { Container } from "./styles";
 const ProductList: FC = () => {
   const dispatch = useDispatch();
 
-  const products: ProductsObject = useSelector(({ products }: RootState) => products);
+  const products: ProductsObject = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
     dispatch(actions.products.get.request());
