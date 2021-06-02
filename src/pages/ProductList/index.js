@@ -1,17 +1,22 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../store/cartReducer';
 import API from '../../request/api';
-import { MESSAGE, PATH } from '../../constants';
+import { FETCH_URL, MESSAGE, PATH } from '../../constants';
 import { Grid, Card, IconButton } from '../../components/shared';
 import { Description, Price } from './style';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
+import useFetch from '../../request/useFetch';
 
 const ProductList = () => {
-  const list = useSelector(state => state.productReducer.productList);
-  const dispatch = useDispatch();
+  const [list, productListError] = useFetch(FETCH_URL.GET_PRODUCTS);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  if (productListError) {
+    return <>앗 상품을 불러올 수 없어요</>;
+  }
 
   const goDetailPage = id => () => {
     history.push(`${PATH.GOODS_DETAIL}/${id}`);

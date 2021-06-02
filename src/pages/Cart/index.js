@@ -1,15 +1,16 @@
-import React from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setAllCartItemCheckbox,
   toggleCartItemCheckbox,
   setCartItemQuantity,
   deleteCartItems,
+  setCartItemList,
 } from '../../store/cartReducer';
 import API from '../../request/api';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
-import { COLOR, MESSAGE, PATH } from '../../constants';
+import { COLOR, FETCH_URL, MESSAGE, PATH } from '../../constants';
 import {
   Header,
   Contents,
@@ -23,11 +24,27 @@ import {
   CheckBox,
 } from './style';
 import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
+import useFetch from '../../request/useFetch';
 
 const Cart = () => {
-  const list = useSelector(state => state.cartReducer.cart);
+  const userName = useSelector(state => state.userReducer.name);
+  const [cartList, getListError] = useFetch(FETCH_URL.GET_CART_ITEMS(userName));
+  const [list, setList] = useState([]);
+
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    setList(cartList.map(item => ({ ...item, quantity: 1, checked: true })));
+  }, [cartList]);
+
+  if (getListError) {
+    if (!userName) {
+      alert('로그인이 필요한 서비스입니다.');
+      return <Redirect to={PATH.MAIN} />;
+    }
+    return <>장바구니를 불러오는데 실패했습니다.</>;
+  }
 
   const checkedItemIdList = list.filter(item => item.checked).map(({ cart_id }) => cart_id);
   const checkedCount = checkedItemIdList.length;
@@ -55,7 +72,16 @@ const Cart = () => {
   };
 
   const onItemQuantityChange = cart_id => quantity => {
-    dispatch(setCartItemQuantity({ cart_id, quantity }));
+    setList(
+      list.map(item => {
+        if (item.cart_id === cart_id) {
+          item.quantity = quantity;
+        }
+        return item;
+      }),
+    );
+    dispatch(setCartItemList(list));
+    // dispatch(setCartItemQuantity({ cart_id, quantity }));
   };
 
   const onDelete = async idList => {
