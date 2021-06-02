@@ -32,14 +32,20 @@ const OrderPage = () => {
 
     setLoading(true);
     const orderBody = checkedItems.map((item) => ({
-      cart_id: item.cartId,
+      cartId: item.cartId,
       quantity: item.quantity,
     }));
 
     try {
-      await api.post('customers/zigsong/orders', orderBody);
+      const response = await api.post('customers/zigsong/orders', orderBody);
+      const { location: apiLocation } = response.headers;
+      const orderId = apiLocation.substring(apiLocation.lastIndexOf('/') + 1);
 
-      history.replace('/order/complete');
+      history.replace({
+        pathname: '/order/complete',
+        state: { orderId },
+      });
+
       return;
     } catch (error) {
       // eslint-disable-next-line no-console

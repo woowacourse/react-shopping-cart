@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderItem 테스트 matches snapshot 1`] = `
+<div>
+  <li
+    class="css-c6rm5t-Root e1j29uye4"
+  >
+    <img
+      alt="item-image"
+      class="css-lbmuvq-Image e1j29uye3"
+      src="brave.png"
+    />
+    <div
+      class="css-1vf5l7v-Info e1j29uye2"
+    >
+      <div
+        class="css-1nsby4x-Title e1j29uye1"
+      >
+        지그의 다쿠아즈
+      </div>
+      <div
+        class="css-1pci65m-Quantity e1j29uye0"
+      >
+        수량 : 
+        5
+        개
+      </div>
+    </div>
+  </li>
+</div>
+`;

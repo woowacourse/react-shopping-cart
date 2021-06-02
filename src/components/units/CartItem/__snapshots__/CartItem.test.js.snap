@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CartItem 테스트 matches snapshot 1`] = `
+<div>
+  <li
+    class="css-4h9l9a-Root ezkszs76"
+  >
+    <label
+      class="css-93sgxi-Label e1euqmb72"
+    >
+      <input
+        checked=""
+        class="css-1igejdc-Checkbox e1euqmb70"
+        type="checkbox"
+      />
+      <span
+        class="css-yz3jig-CheckMark e1euqmb73"
+      />
+      <span
+        class="css-14nxd82-Text e1euqmb71"
+      />
+    </label>
+    <img
+      alt="item-image"
+      class="css-q92kmb-Image ezkszs75"
+      src="no_image.jpg"
+    />
+    <div
+      class="css-dyy27e-Title ezkszs74"
+    />
+    <div
+      class="css-1nr2lfb-Option ezkszs73"
+    >
+      <button
+        class="css-obmvoo-DeleteButton ezkszs72"
+      >
+        <svg>
+          delete.svg
+        </svg>
+      </button>
+      <div
+        class="css-gv3xyc-QuantityInputWrapper ezkszs70"
+      >
+        <div
+          class="css-1sxgpgf-Root e1crnf635"
+        >
+          <input
+            class="css-1l4nyb3-Input e1crnf634"
+            max="99"
+            min="1"
+            type="number"
+            value="3"
+          />
+          <div
+            class="css-ajeb31-Control e1crnf633"
+          >
+            <button
+              class="css-fv4lij-ArrowWrapper e1crnf632"
+            >
+              <img
+                alt="arrow-up"
+                class="css-le1t2-ArrowUpImage e1crnf631"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAASUExURf///zMzM0RERO/v73d3d7u7u2XEkIgAAAA8SURBVAjXY2DABlgDoAwjZSjDUQQqIygIkTMSFITIOQoKikBlIHJGIIYyRAYsB5YByRlBGMoQGag+VAAAlV0GYY4qHg4AAAAASUVORK5CYII="
+              />
+            </button>
+            <button
+              class="css-fv4lij-ArrowWrapper e1crnf632"
+            >
+              <img
+                alt="arrow-down"
+                class="css-ygv2m9-ArrowUpImage-ArrowDownImage e1crnf630"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAASUExURf///zMzM0RERO/v73d3d7u7u2XEkIgAAAA8SURBVAjXY2DABlgDoAwjZSjDUQQqIygIkTMSFITIOQoKikBlIHJGIIYyRAYsB5YByRlBGMoQGag+VAAAlV0GYY4qHg4AAAAASUVORK5CYII="
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="css-1b6jikt-Price ezkszs71"
+      >
+        NaN
+         원
+      </div>
+    </div>
+  </li>
+</div>
+`;

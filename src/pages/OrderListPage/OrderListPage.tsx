@@ -8,8 +8,8 @@ import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
 import Spinner from 'components/shared/Spinner/Spinner';
 import MESSAGE from 'constants/messages';
-import { RootState } from 'modules';
-import { getCartItemsRequest } from 'modules/cartItems/actions';
+import { RootState } from 'modules/store';
+import { getCartItems } from 'modules/cartSlice';
 import useAddCartItem from 'hooks/useAddCartItem';
 import snakeToCamel from 'utils/snakeToCamel';
 import * as T from 'types';
@@ -26,12 +26,15 @@ const OrderListPage = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [orders, setOrders] = useState<T.Order[]>([]);
 
+  const sortOrderById = (a: T.Order, b: T.Order) => b.orderId - a.orderId;
+
   const getOrders = useCallback(async () => {
     setLoading(true);
 
     try {
       const response = await api.get('customers/zigsong/orders');
-      setOrders(snakeToCamel(response.data));
+
+      setOrders(snakeToCamel(response.data).sort(sortOrderById));
     } catch (error) {
       enqueueSnackbar(MESSAGE.GET_ORDERS_FAILURE);
     }
@@ -44,18 +47,15 @@ const OrderListPage = () => {
     addCartItem(product);
   };
 
-  const handleClickDetail = useCallback(
-    (order: T.Order) => {
-      history.push({
-        pathname: '/order/detail',
-        state: { order },
-      });
-    },
-    [history]
-  );
+  const handleClickDetail = (order: T.Order) => {
+    history.push({
+      pathname: '/order/detail',
+      state: { order },
+    });
+  };
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   useEffect(() => {

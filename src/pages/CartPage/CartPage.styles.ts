@@ -2,13 +2,18 @@ import styled from '@emotion/styled';
 import { HighlightTextWrapper, SpinnerWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
-  margin: 60px 0;
+  margin: 60px 20px;
 `;
 
 const Cart = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin: 50px 0;
   gap: 80px;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CartListContainer = styled.div`

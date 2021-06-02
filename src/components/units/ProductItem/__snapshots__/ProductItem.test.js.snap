@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductItem 테스트 matches snapshot 1`] = `
+<div>
+  <div
+    class="css-1bqhmv4-Root etbhnjg7"
+  >
+    <div
+      class="css-1iguuw0-ImageWrapper etbhnjg6"
+    >
+      <img
+        alt="재밌는 상품"
+        class="css-1azfbgt-Image etbhnjg5"
+        src="no_image.jpg"
+      />
+    </div>
+    <div
+      class="css-2ln5zs-Content etbhnjg4"
+    >
+      <div
+        class="css-wvtzlg-Detail etbhnjg3"
+      >
+        <div
+          class="css-1wvdw29-Title etbhnjg2"
+        >
+          재밌는 상품
+        </div>
+        <div
+          class="css-rhh1hx-Price etbhnjg1"
+        >
+          50,000
+        </div>
+      </div>
+      <button
+        class="css-qs5v00-CartButton etbhnjg0"
+      >
+        <svg>
+          cart.svg
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;

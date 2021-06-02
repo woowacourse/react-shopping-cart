@@ -7,12 +7,20 @@ const Root = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 376px;
+  }
 `;
 
 const ImageWrapper = styled.div`
   width: 570px;
   display: flex;
   justify-content: center;
+
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 332px;
+  }
 `;
 
 const Image = styled.img`
@@ -62,6 +70,12 @@ const CartButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
+
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 340px;
+    height: 58px;
+    font-size: 24px;
+  }
 `;
 
 export default {

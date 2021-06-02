@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { HighlightTextWrapper } from 'components/shared/commonStyles';
 
 const Root = styled.section`
-  padding: 60px 0;
+  padding: 60px 20px;
 `;
 
 const Order = styled.div`

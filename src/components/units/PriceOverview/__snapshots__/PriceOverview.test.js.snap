@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PriceOverview 테스트 matches snapshot 1`] = `
+<div>
+  <div
+    class="css-2zmbk8-Root ebu2xg54"
+  >
+    <div
+      class="css-ggfh6p-TotalPriceHeader ebu2xg53"
+    >
+      장바구니 목록
+    </div>
+    <hr
+      class="css-1nhg6ge-Divider ebu2xg52"
+    />
+    <div
+      class="css-91dqby-TotalPriceContent ebu2xg51"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PurchasedItem 테스트 matches snapshot 1`] = `
+<div>
+  <li
+    class="css-mmzmx8-Root e1ycuyj35"
+  >
+    <img
+      alt="item-image"
+      class="css-lbmuvq-Image e1ycuyj34"
+      src="brave.png"
+    />
+    <div
+      class="css-ecoywl-Info e1ycuyj33"
+    >
+      <div
+        class="css-1nsby4x-Title e1ycuyj32"
+      >
+        재밌는 상품
+      </div>
+      <div
+        class="css-13fe54v-Detail e1ycuyj31"
+      >
+        250,000
+        원 / 수량 : 
+        5
+        개
+      </div>
+    </div>
+    <div
+      class="css-4uuqdl-ButtonWrapper e1ycuyj30"
+    >
+      <button
+        class="css-fsw4cv-Root e6rpj8n0"
+      >
+        장바구니
+      </button>
+    </div>
+  </li>
+</div>
+`;

@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { useSnackbar } from 'notistack';
-import { RootState } from 'modules';
-import { CartState } from 'modules/cartItems/reducers';
-import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
-import * as T from 'types';
+import { RootState } from 'modules/store';
+import { useAppSelector } from 'modules/hooks';
+import { CartState, getCartItems, addCartItem as addCartItemRequest } from 'modules/cartSlice';
 import MESSAGE from 'constants/messages';
+import * as T from 'types';
 
 const useAddCartItem = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+  const cartItems: CartState['cartItems'] = useAppSelector((state) => state.cartSlice.cartItems);
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    dispatch(getCartItemsRequest());
+    dispatch(getCartItems());
   }, [dispatch]);
 
   const addCartItem = (product: T.Product, isLoading?: boolean) => {
