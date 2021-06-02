@@ -12,6 +12,7 @@ export const Image = styled.img.attrs((props) => ({
   alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
   width: 9rem;
+  height: 9rem;
 `;
 
 export const Name = styled.span`

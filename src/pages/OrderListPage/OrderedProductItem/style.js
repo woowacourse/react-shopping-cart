@@ -13,6 +13,7 @@ export const Image = styled.img.attrs((props) => ({
   alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
   width: 8.75rem;
+  height: 8.75rem;
 `;
 
 export const Content = styled.div`

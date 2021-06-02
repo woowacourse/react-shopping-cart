@@ -4,12 +4,12 @@ import { getFormattedAsKRW } from '../../../utils';
 import * as S from './style.js';
 
 export const ProductItem = (props) => {
-  const { product, addProduct, ...rest } = props;
-  const { name, price, img } = product;
+  const { product, addProduct, goToDetail, ...rest } = props;
+  const { id, name, price, img } = product;
 
   return (
     <S.Container {...rest}>
-      <S.Image src={img} />
+      <S.Image src={img} onClick={() => goToDetail(id)} />
       <S.Footer>
         <S.Label>
           <S.Name>{name}</S.Name>

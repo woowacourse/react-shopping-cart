@@ -15,6 +15,14 @@ export const useRequest = () => {
     }));
   }, []);
 
+  const getProduct = useCallback(async (id) => {
+    const params = getFetchParams({ path: `${PATH.PRODUCT}/${id}` });
+    const response = await request.get(params);
+    const { product_id, price, name, image_url } = await response.json();
+
+    return { id: product_id, price, name, img: image_url };
+  }, []);
+
   const getOrderList = useCallback(async () => {
     const params = getFetchParams({ path: PATH.ORDER });
     const response = await request.get(params);
@@ -40,5 +48,5 @@ export const useRequest = () => {
     await request.post(params);
   };
 
-  return { getProductList, getOrderList, orderProducts };
+  return { getProductList, getProduct, getOrderList, orderProducts };
 };

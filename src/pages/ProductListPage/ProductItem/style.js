@@ -13,11 +13,12 @@ export const Image = styled.img.attrs((props) => ({
   src: props.src,
   alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
-  width: 100%;
+  width: 10rem;
+  height: 10rem;
 `;
 
 export const Footer = styled.div`
-  width: 95%;
+  min-width: 75%;
   display: flex;
   justify-content: space-between;
   align-items: center;

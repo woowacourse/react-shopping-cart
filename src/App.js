@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ProductListPage, CartPage, CheckoutPage, OrderListPage } from './pages';
+import { ProductListPage, ProductDetailPage, CartPage, CheckoutPage, OrderListPage } from './pages';
 import { Confirm, NavBar } from './components';
 import { useConfirm } from './hooks';
 import { ROUTE } from './constants';
@@ -14,6 +14,9 @@ export const App = () => {
       <Switch>
         <Route exact path={[ROUTE.HOME, ROUTE.PRODUCT_LIST]}>
           <ProductListPage />
+        </Route>
+        <Route path={`${ROUTE.PRODUCT_DETAIL}/:id`}>
+          <ProductDetailPage />
         </Route>
         <Route path={ROUTE.CART}>
           <CartPage />
