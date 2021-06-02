@@ -5,8 +5,8 @@ const modalStyles = {
   default: css`
     min-width: 30%;
     max-width: 80%;
-    min-height: 80vh;
-    max-height: 95vh;
+    min-height: 50vh;
+    max-height: 80vh;
     margin: auto;
     border-radius: 1rem;
   `,

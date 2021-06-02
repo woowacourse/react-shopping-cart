@@ -8,7 +8,7 @@ const ProductListItem = ({ product, listStyle, onChange, productDetail, isCheckb
   const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction="row" />;
 
   const onChangeCheckbox = () => {
-    onChange(product.id);
+    onChange(product.product_id);
   };
 
   return (
@@ -29,9 +29,9 @@ ProductListItem.propTypes = {
   listStyle: PropTypes.string,
   onChange: PropTypes.func,
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    product_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     image: PropTypes.string,
     amount: PropTypes.number,
     isChecked: PropTypes.bool,

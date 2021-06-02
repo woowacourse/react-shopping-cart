@@ -6,7 +6,7 @@ import * as Styled from './style';
 const Product = ({ product, productDetail, size, direction, onClick, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <Styled.ProductImage src={product.image} alt={product.name} loading="lazy" onClick={onClick} />
+      <Styled.ProductImage src={product.image_url} alt={product.name} loading="lazy" onClick={onClick} />
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
@@ -24,10 +24,10 @@ const Product = ({ product, productDetail, size, direction, onClick, children })
 
 Product.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    product_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    image: PropTypes.string,
+    price: PropTypes.number.isRequired,
+    image_url: PropTypes.string,
   }),
   productDetail: PropTypes.shape({
     text: PropTypes.string,

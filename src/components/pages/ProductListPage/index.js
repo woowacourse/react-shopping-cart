@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGES, PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
 import usePagination from '../../../hooks/usePagination';
 import useSnackbar from '../../../hooks/useSnackbar';
-import { addToCart } from '../../../redux/Cart/actions';
+import { addToCart, getCart, resetCart } from '../../../redux/Cart/actions';
 import { resetErrorMessage } from '../../../redux/Message/actions';
 import { getProducts, resetProducts } from '../../../redux/Products/actions';
 import Button from '../../common/Button';
@@ -23,7 +23,6 @@ const ProductListPage = () => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
     products: { productList, isLoading },
-    cart,
     errorMessage,
   } = useSelector((state) => state);
   const {
@@ -39,15 +38,15 @@ const ProductListPage = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+
+    return () => {
+      dispatch(resetProducts());
+    };
   }, []);
 
   const onAddToCart = (productId) => () => {
-    if (cart.findIndex((product) => product.id === productId) >= 0) return;
-
-    const selectedProduct = productList.find((product) => product.id === productId);
-    dispatch(addToCart({ ...selectedProduct, amount: 1, isChecked: false }));
-
-    setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`);
+    dispatch(addToCart(productId));
+    setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`); // TODO: 장바구니 추가에 성공하면 띄우기
   };
 
   const onCloseErrorMessageModal = () => {
@@ -55,11 +54,7 @@ const ProductListPage = () => {
   };
 
   const onProductDetail = (product) => () => {
-    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.id}`;
-  };
-
-  const isAddedToCart = (productId) => {
-    return cart.some(({ id }) => productId === id);
+    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.product_id}`;
   };
 
   return (
@@ -69,26 +64,20 @@ const ProductListPage = () => {
       </Loader>
       <Styled.ProductList>
         {productList.slice(pageStartIndex, pageStartIndex + PRODUCTS_PER_PAGE).map((product) => (
-          <li key={product.id}>
+          <li key={product.product_id}>
             <Product
               product={product}
               productDetail={{
-                text: `${Number(product.price).toLocaleString()} ${UNIT.MONEY}`,
+                text: `${product.price.toLocaleString()} ${UNIT.MONEY}`,
                 fontSize: '1.5rem',
               }}
               direction="column"
               size="17.5rem"
               onClick={onProductDetail(product)}
             >
-              {!isAddedToCart(product.id) ? (
-                <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart(product.id)}>
-                  <ShoppingCart width="2rem" color={PALETTE.BLACK} />
-                </Button>
-              ) : (
-                <Button backgroundColor="transparent" disabled={true} cursor="default">
-                  <ShoppingCart width="2rem" color={PALETTE.WHITE} />
-                </Button>
-              )}
+              <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart(product.product_id)}>
+                <ShoppingCart width="2rem" color={PALETTE.BLACK} />
+              </Button>
             </Product>
           </li>
         ))}

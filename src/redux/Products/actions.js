@@ -1,13 +1,14 @@
 import { ERROR_MESSAGE } from '../../constants/message';
+import { API_URL } from '../../constants/api';
 
 export const GET_PRODUCTS_SUCCESS = 'product_list/get_products/success';
 export const GET_PRODUCTS_PENDING = 'product_list/get_products/pending';
 export const GET_PRODUCTS_ERROR = 'product_list/get_products/error';
 export const RESET_PRODUCTS = 'product_list/reset_products';
 
-export const getProducts = () => async (dispatch, getState) => {
+export const getProducts = () => (dispatch, getState) => {
   dispatch({ type: GET_PRODUCTS_PENDING });
-  fetch('https://raw.githubusercontent.com/SunYoungKwon/react-shopping-cart/step1/src/mockData.json')
+  fetch(API_URL.PRODUCTS)
     .then((response) => {
       if (!response.ok) {
         throw new Error(ERROR_MESSAGE.FAILED_TO_FETCH_PRODUCTS);
@@ -15,12 +16,12 @@ export const getProducts = () => async (dispatch, getState) => {
 
       return response.json();
     })
-    .then((data) =>
+    .then((data) => {
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
         payload: data,
-      })
-    )
+      });
+    })
     .catch((e) =>
       dispatch({
         type: GET_PRODUCTS_ERROR,

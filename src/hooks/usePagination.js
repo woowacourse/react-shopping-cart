@@ -18,7 +18,7 @@ const usePagination = (startIndex, endIndex) => {
     setPageStartIndex(idx * PRODUCTS_PER_PAGE);
   };
 
-  const isNextPageAvailable = pageStartIndex + PRODUCTS_PER_PAGE <= endIndex;
+  const isNextPageAvailable = pageStartIndex + PRODUCTS_PER_PAGE < endIndex;
   const isPreviousPageAvailable = pageStartIndex - PRODUCTS_PER_PAGE >= startIndex;
   const currentPage = Math.floor(pageStartIndex / PRODUCTS_PER_PAGE) + 1;
 
