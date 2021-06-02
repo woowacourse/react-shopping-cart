@@ -9,10 +9,12 @@ import Payment from "./components/Payment/Payment";
 import OrdersList from "./components/OrdersList/OrdersList";
 import { ROUTE } from "./constants/constant";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
+import { SnackBar } from "./components/MessageSnackBar/SnackBar";
 
 const App = () => (
   <S.App>
     <BrowserRouter>
+      <SnackBar />
       <Nav />
       <S.Main>
         <Switch>

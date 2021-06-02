@@ -7,7 +7,7 @@ import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
 const ProductsList = () => {
-  const { products, getProducts, loading, errorMessage } = useProduct();
+  const { products, getProducts, loading } = useProduct();
   const { addCart, getCartAmount, loading: cartLoading } = useCart();
 
   useEffect(() => {
@@ -15,16 +15,10 @@ const ProductsList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (errorMessage) {
-      // eslint-disable-next-line no-alert
-      window.alert(errorMessage);
-    }
-  }, [errorMessage]);
-
   return (
     <>
       {loading && <Loading>상품목록을 불러오는 중입니다</Loading>}
+
       <S.ProductsList>
         {products.map((product) => (
           <Product

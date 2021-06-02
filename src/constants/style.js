@@ -3,6 +3,7 @@ export const COLOR = {
   CYAN_400: "#2ac1bc",
   CYAN_700: "#1a9b96",
 
+  RED_300: "#F04337",
   RED_400: "#e63434",
 
   GRAY_200: "#F6F6F6",

@@ -5,8 +5,9 @@ export const getProducts = createAsyncThunk(
   "product/load",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch(API.GET_PRODUCTS);
-      return res.json();
+      await fetch(API.GET_PRODUCTS);
+      throw Error();
+      // return res.json();
     } catch (error) {
       return Object.assign(rejectWithValue(error), {
         message: MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST,
@@ -18,7 +19,11 @@ export const getProducts = createAsyncThunk(
 const productSlice = createSlice({
   name: "product",
   initialState: { products: [], loading: false, errorMessage: "" },
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.errorMessage = "";
+    },
+  },
   extraReducers: {
     [getProducts.pending]: (state) => {
       state.errorMessage = "";
@@ -53,5 +58,7 @@ const productSlice = createSlice({
     },
   },
 });
+
+export const { resetError } = productSlice.actions;
 
 export default productSlice.reducer;

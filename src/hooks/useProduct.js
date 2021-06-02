@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts as _getProducts } from "../store/modules/productSlice";
+import {
+  getProducts as _getProducts,
+  resetError,
+} from "../store/modules/productSlice";
 
 // eslint-disable-next-line import/prefer-default-export
 export const useProduct = () => {
@@ -14,5 +17,16 @@ export const useProduct = () => {
 
   const getProduct = (id) => products[id];
 
-  return { products, getProducts, getProduct, loading, errorMessage };
+  const resetProductError = () => {
+    dispatch(resetError());
+  };
+
+  return {
+    products,
+    getProducts,
+    getProduct,
+    loading,
+    errorMessage,
+    resetProductError,
+  };
 };
