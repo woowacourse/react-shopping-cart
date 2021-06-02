@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useHistory } from "react-router-dom";
-import PageTitle from "../@mixins/PageTitle/PageTitle";
+
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
@@ -18,7 +18,7 @@ const Cart = () => {
 
   return (
     <S.Cart>
-      <PageTitle>장바구니</PageTitle>
+      <S.PageTitle>장바구니</S.PageTitle>
       <S.CartMain>
         <CartInfo cart={cart} />
         <ResultBox

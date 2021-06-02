@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as S from "./OrdersList.styled";
 
 import OrdersListItem from "./OrdersListItem/OrdersListItem";
-import PageTitle from "../@mixins/PageTitle/PageTitle";
+
 import Empty from "../@mixins/Empty/Empty";
 import { getOrders } from "../../store/modules/orderSlice";
 
@@ -21,7 +21,7 @@ const OrdersList = () => {
 
   return (
     <S.OrdersList>
-      <PageTitle>주문목록</PageTitle>
+      <S.PageTitle>주문목록</S.PageTitle>
       {Object.keys(ordersList).length === 0 ? (
         <Empty>주문목록이 텅 비었어요</Empty>
       ) : (

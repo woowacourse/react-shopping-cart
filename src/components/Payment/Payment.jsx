@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as S from "./Payment.styled";
 
-import PageTitle from "../@mixins/PageTitle/PageTitle";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
 
@@ -35,7 +34,7 @@ const Payment = () => {
 
   return (
     <S.Payment>
-      <PageTitle>주문/결제</PageTitle>
+      <S.PageTitle>주문/결제</S.PageTitle>
       <S.Main>
         <PaymentInfo checkedItems={checkedItems} />
         <ResultBox
