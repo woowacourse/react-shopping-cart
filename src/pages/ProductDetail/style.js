@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Component = styled.div`
+export const Container = styled.div`
   width: 36rem;
   margin: 0 auto;
   display: flex;
@@ -15,7 +15,8 @@ export const ProductSummary = styled.div`
 
   h2 {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1.5;
     border-bottom: 0.3rem solid #e5e5e5;
   }
 
