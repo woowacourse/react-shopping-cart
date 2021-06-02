@@ -17,7 +17,7 @@ const OrdersListItem = ({ id, items }) => (
 );
 
 OrdersListItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

@@ -57,9 +57,7 @@ const orderSlice = createSlice({
 
     [getOrders.fulfilled]: (state, action) => {
       action.payload.forEach((order) => {
-        const { order_id: orderId, order_details: orderDetails } = order;
-
-        state.items[orderId] = orderDetails;
+        state.items[order.order_id] = order;
       });
       state.loading = false;
     },

@@ -8,7 +8,10 @@ import Empty from "../@mixins/Empty/Empty";
 import { getOrders } from "../../store/modules/orderSlice";
 
 const OrdersList = () => {
-  const ordersList = useSelector((state) => state.order.items);
+  const ordersListItems = useSelector((state) => state.order.items);
+  const ordersList = Object.values(ordersListItems).sort(
+    (a, b) => b.order_id - a.order_id
+  );
 
   const dispatch = useDispatch();
 
@@ -23,8 +26,12 @@ const OrdersList = () => {
         <Empty>주문목록이 텅 비었어요</Empty>
       ) : (
         <S.List aria-label="orders-list">
-          {Object.entries(ordersList).map(([id, value]) => (
-            <OrdersListItem key={id} id={id} items={value} />
+          {ordersList.map((order) => (
+            <OrdersListItem
+              key={order.order_id}
+              id={order.order_id}
+              items={order.order_details}
+            />
           ))}
         </S.List>
       )}
