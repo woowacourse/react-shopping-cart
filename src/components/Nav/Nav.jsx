@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { ROUTE } from "../../../constants/constant";
-import { useCart } from "../../../hooks/useCart";
-import CartIcon from "../../@shared/CartIcon/CartIcon";
+import { ROUTE } from "../../constants/constant";
+import { useCart } from "../../hooks/useCart";
+import CartIcon from "../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {

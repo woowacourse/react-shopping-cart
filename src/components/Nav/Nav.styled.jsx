@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MEDIA_QUERY, COLOR } from "../../../constants/style";
+import { MEDIA_QUERY, COLOR } from "../../constants/style";
 
 export const Nav = styled.nav`
   padding: 0 1rem;

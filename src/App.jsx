@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import * as S from "./App.styled";
 
-import Nav from "./components/@mixins/Nav/Nav";
+import Nav from "./components/Nav/Nav";
 import ProductsList from "./components/ProductsList/ProductsList";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
