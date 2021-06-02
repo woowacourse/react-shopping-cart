@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
-  getCarts,
+  getCarts as _getCarts,
   removeChecked,
   removeFromCart,
   toggleChecked,
@@ -14,10 +13,9 @@ export const useCart = () => {
   const { items, loading } = useSelector((state) => state.cart);
   const carts = Object.values(items);
 
-  useEffect(() => {
-    if (carts.length !== 0) return;
-    dispatch(getCarts());
-  }, [dispatch, carts.length]);
+  const getCarts = () => {
+    dispatch(_getCarts());
+  };
 
   const addCart = (item) => {
     dispatch(addToCart(item));
@@ -59,6 +57,7 @@ export const useCart = () => {
   return {
     items,
     loading,
+    getCarts,
     addCart,
     removeCart,
     removeCheckedCart,

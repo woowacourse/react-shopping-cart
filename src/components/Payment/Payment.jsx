@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as S from "./Payment.styled";
 
@@ -17,8 +17,7 @@ const Payment = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart.items);
-  const { checkedItems, totalPrice } = useCart(cart);
+  const { checkedItems, totalPrice } = useCart();
 
   if (!location.state?.isAllowed) {
     // eslint-disable-next-line no-alert

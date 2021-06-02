@@ -72,11 +72,7 @@ const orderSlice = createSlice({
       state.loading = true;
     },
 
-    [addOrder.fulfilled]: (state, action) => {
-      const { cart } = action.payload;
-      const location = action.payload.location.split("/");
-      const orderId = Number(location[location.length - 1]);
-      state.items[orderId] = cart;
+    [addOrder.fulfilled]: (state) => {
       state.loading = false;
     },
 

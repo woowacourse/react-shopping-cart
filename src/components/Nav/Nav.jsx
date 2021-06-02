@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../constants/constant";
@@ -7,7 +7,12 @@ import CartIcon from "../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const { cartAmount } = useCart();
+  const { cartAmount, getCarts } = useCart();
+
+  useEffect(() => {
+    getCarts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <S.Nav>

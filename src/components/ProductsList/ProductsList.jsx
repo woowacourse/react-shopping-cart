@@ -7,8 +7,13 @@ import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
 const ProductsList = () => {
-  const { products, loading, errorMessage } = useProduct();
+  const { products, getProducts, loading, errorMessage } = useProduct();
   const { addCart, getCartAmount, loading: cartLoading } = useCart();
+
+  useEffect(() => {
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (errorMessage) {
