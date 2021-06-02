@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { API, MESSAGE } from "../../constants/constant";
 
@@ -150,13 +150,13 @@ const cartSlice = createSlice({
     },
 
     [getCarts.fulfilled]: (state, action) => {
-      if (
-        JSON.stringify(current(state).originItems) ===
-        JSON.stringify(action.payload)
-      ) {
-        state.loading = false;
-        return;
-      }
+      // if (
+      //   JSON.stringify(current(state).originItems) ===
+      //   JSON.stringify(action.payload)
+      // ) {
+      //   state.loading = false;
+      //   return;
+      // }
 
       state.items = {};
 
