@@ -8,7 +8,8 @@ const ERROR_MESSAGE = {
 
 const SUCCESS_MESSAGE = {
   POST_CART: "상품을 장바구니에 담았습니다.",
-  DELETE_CART: "상품을 장바구니에서 제거했습니다."
+  DELETE_CART: "상품을 장바구니에서 제거했습니다.",
+  POST_ORDER: "주문을 완료했습니다.",
 };
 
 const CONFIRM_MESSAGE = {

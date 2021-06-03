@@ -3,7 +3,7 @@ import { call, put, takeLatest } from "@redux-saga/core/effects";
 import actions from "../../actions";
 import { OrderListItemPostRequestActionType, orderListActionType } from "../../actions/orderList";
 import api from "../../apis";
-import { OrderList } from "../../interface";
+import { Order } from "../../interface";
 
 function* watchOrderList() {
   yield takeLatest(orderListActionType.get.request, getOrderList);
@@ -11,27 +11,19 @@ function* watchOrderList() {
 }
 
 function* getOrderList() {
-  try {
-    const orderList: OrderList = yield call(api.orderList.get);
+  const { isSucceeded, message, result } = yield call(api.orderList.get);
 
-    yield put(actions.orderList.get.success(orderList));
-  } catch (error) {
-    yield put(actions.orderList.get.failure({ requestErrorMessage: error.message }));
-  }
+  if (isSucceeded) {
+    yield put(actions.orderList.get.success(result));
+  }  
+
+  yield put(actions.alert.request(message));
 }
 
 function* postOrder(action: OrderListItemPostRequestActionType) {
-  try {
-    yield call(api.orderList.item.post, action.payload);
+  const { message } = yield call(api.orderList.post, action.payload.id, action.payload.quantity);
 
-    yield put(actions.orderList.item.post.success());
-  } catch (error) {
-    yield put(
-      actions.orderList.item.post.failure({
-        requestErrorMessage: error.message,
-      })
-    );
-  }
+  yield put(actions.alert.request(message));
 }
 
 export default watchOrderList;
