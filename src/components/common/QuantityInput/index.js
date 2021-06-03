@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FALLBACK } from '../../../constants';
 import { InputWrapper, Input, ControlButtons } from './index.styles';
 
 const QuantityInput = ({
-  quantity = FALLBACK.PRODUCT.QUANTITY,
+  quantity,
   onIncreaseQuantity,
   onDecreaseQuantity,
 }) => {
@@ -21,9 +20,9 @@ const QuantityInput = ({
 };
 
 QuantityInput.propTypes = {
-  quantity: PropTypes.number,
-  onIncreaseQuantity: PropTypes.func,
-  onDecreaseQuantity: PropTypes.func,
+  quantity: PropTypes.number.isRequired,
+  onIncreaseQuantity: PropTypes.func.isRequired,
+  onDecreaseQuantity: PropTypes.func.isRequired,
 };
 
 export default QuantityInput;

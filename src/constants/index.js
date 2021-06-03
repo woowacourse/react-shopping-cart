@@ -1,5 +1,3 @@
-import noImage from '../assets/image/noImage.jpeg';
-
 export const ACTION_TYPE = {
   PRODUCTS: {
     FETCH_PRODUCTS: 'products/patchProducts',
@@ -13,16 +11,6 @@ export const ACTION_TYPE = {
   },
   ORDER: {
     ADD_TO_ORDER_LIST: 'orders/addToOrderList',
-  },
-};
-
-export const FALLBACK = {
-  PRODUCT: {
-    IMG_URL: noImage,
-    NAME: '상품명 없음',
-    PRICE: -1,
-    QUANTITY: 1,
-    CHECKED: true,
   },
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FALLBACK } from '../../constants';
 import {
   Order,
   OrderDetail,
@@ -15,10 +14,10 @@ import Button from '../common/Button';
 const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  name = FALLBACK.PRODUCT.NAME,
-  price = FALLBACK.PRODUCT.PRICE,
-  quantity = FALLBACK.PRODUCT.QUANTITY,
+  imgUrl,
+  name,
+  price,
+  quantity,
   isCartButtonVisible,
   onCartButtonClick = () => {},
 }) => (
@@ -43,12 +42,12 @@ const OrderItem = ({
 );
 
 OrderItem.propTypes = {
-  id: PropTypes.string,
-  imgUrl: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  isCartButtonVisible: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  isCartButtonVisible: PropTypes.bool.isRequired,
 };
 
 export default OrderItem;

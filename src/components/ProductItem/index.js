@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Product, Image, Description, Name, Price } from './index.styles';
-import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
-  name = FALLBACK.PRODUCT.NAME,
-  price = FALLBACK.PRODUCT.PRICE,
-  onProductClick = () => {},
-  onCartButtonClick = () => {},
+  imgUrl,
+  imgAlt,
+  name,
+  price,
+  onProductClick,
+  onCartButtonClick,
 }) => {
   return (
     <Product onClick={onProductClick}>
@@ -29,12 +28,12 @@ const ProductItem = ({
 };
 
 ProductItem.propTypes = {
-  id: PropTypes.string,
-  imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  onCartButtonClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string.isRequired,
+  imgAlt: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  onCartButtonClick: PropTypes.func.isRequired,
 };
 
 export default ProductItem;

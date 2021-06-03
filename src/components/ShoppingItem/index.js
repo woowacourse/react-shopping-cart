@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import CheckBox from '../common/CheckBox';
 import QuantityInput from '../common/QuantityInput';
 import { TrashCan } from '../../assets/svg';
-import { FALLBACK } from '../../constants';
 import { Controller, Image, Name, Product } from './index.styles';
 import { formatPrice } from '../../utils';
 
 const ShoppingItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
-  name = FALLBACK.PRODUCT.NAME,
-  price = FALLBACK.PRODUCT.PRICE,
-  quantity = FALLBACK.PRODUCT.QUANTITY,
-  isChecked = FALLBACK.PRODUCT.CHECKED,
-  onIncreaseQuantity = () => {},
-  onDecreaseQuantity = () => {},
-  onCheckBoxClick = () => {},
-  onDeleteButtonClick = () => {},
+  imgUrl,
+  imgAlt,
+  name,
+  price,
+  quantity,
+  isChecked,
+  onIncreaseQuantity,
+  onDecreaseQuantity,
+  onCheckBoxClick,
+  onDeleteButtonClick,
 }) => {
   return (
     <Product>
@@ -28,7 +27,6 @@ const ShoppingItem = ({
         <button type="button" onClick={onDeleteButtonClick}>
           <TrashCan width="20" height="20" />
         </button>
-
         <QuantityInput
           type="number"
           quantity={quantity}
@@ -48,10 +46,10 @@ ShoppingItem.propTypes = {
   price: PropTypes.number,
   quantity: PropTypes.number,
   isChecked: PropTypes.bool,
-  onDeleteButtonClick: PropTypes.func,
-  onIncreaseQuantity: PropTypes.func,
-  onDecreaseQuantity: PropTypes.func,
-  onCheckBoxClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func.isRequired,
+  onIncreaseQuantity: PropTypes.func.isRequired,
+  onDecreaseQuantity: PropTypes.func.isRequired,
+  onCheckBoxClick: PropTypes.func.isRequired,
 };
 
 export default ShoppingItem;
