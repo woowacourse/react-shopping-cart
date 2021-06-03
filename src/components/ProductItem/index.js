@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Product, Image, Description, Name, Price } from './index.styles';
 import { Cart } from '../../assets/svg';
 
-const ProductItem = ({ imgUrl, imgAlt, name, price, onProductClick }) => {
+const ProductItem = ({ image_url, name, price }) => {
   return (
-    <Product onClick={onProductClick}>
-      <Image src={imgUrl} alt={imgAlt} />
+    <Product>
+      <Image src={image_url} alt={name} />
       <Description>
         <div>
           <Name>{name}</Name>
@@ -21,9 +21,7 @@ const ProductItem = ({ imgUrl, imgAlt, name, price, onProductClick }) => {
 };
 
 ProductItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  imgUrl: PropTypes.string.isRequired,
-  imgAlt: PropTypes.string.isRequired,
+  image_url: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };

@@ -1,3 +1,5 @@
+export { default as request } from './request';
+
 export const getTotalPrice = products => {
   return products.reduce((totalPrice, { price, quantity, isChecked }) => {
     return isChecked ? (totalPrice += price * quantity) : totalPrice;

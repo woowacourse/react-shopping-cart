@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Product = styled.div.attrs(({ onClick }) => ({ onClick }))`
+export const Product = styled.li`
   width: 12rem;
   height: 100%;
   display: flex;
@@ -9,7 +9,7 @@ export const Product = styled.div.attrs(({ onClick }) => ({ onClick }))`
   margin: 0 auto;
 `;
 
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
+export const Image = styled.img`
   width: 100%;
   height: 12rem;
   margin-bottom: 0.5rem;

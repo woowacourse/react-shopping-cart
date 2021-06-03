@@ -39,3 +39,7 @@ export const MESSAGE = {
     CHECK_PRODUCT_REQUEST: '주문할 상품을 선택해 주세요.',
   },
 };
+
+export const ERROR = {
+  UNKNOWN: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+};
