@@ -21,7 +21,9 @@ const Header: VFC<HeaderProps> = ({ navigation }) => (
       {navigation && (
         <nav>
           {navigation.map(({ path, name }) => (
-            <NavigationItem to={path}>{name}</NavigationItem>
+            <NavigationItem key={path} to={path}>
+              {name}
+            </NavigationItem>
           ))}
         </nav>
       )}

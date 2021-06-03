@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, InputHTMLAttributes, VFC } from "react";
+import React, { InputHTMLAttributes, VFC } from "react";
 
 import { Container, CheckMark, Input, Svg, Path } from "./style";
 

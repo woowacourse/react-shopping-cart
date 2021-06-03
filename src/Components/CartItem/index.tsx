@@ -58,7 +58,7 @@ const CartItem: VFC<CartItemProps> = ({
           </svg>
         </button>
         <Counter>
-          <input type="number" value={quantity} min="1" max="100" />
+          <input type="number" value={quantity} min="1" max="100" readOnly />
           <div>
             <button type="button" onClick={onIncrementOrderCount}>
               <Svg viewBox="0 0 10 10">
