@@ -7,11 +7,11 @@ import { formatPrice } from "../../../../utils/util";
 import { useCart } from "../../../../hooks/useCart";
 
 const OrderItem = ({ item }) => {
-  const { image_url: thumbnail, name, price, quantity } = item;
-  const { addToCart } = useCart();
+  const { product_id: id, image_url: thumbnail, name, price, quantity } = item;
+  const { addCart } = useCart();
 
   const handleButtonClick = () => {
-    addToCart(item);
+    addCart({ id, price, name, thumbnail });
   };
 
   return (
@@ -34,6 +34,7 @@ const OrderItem = ({ item }) => {
 
 OrderItem.propTypes = {
   item: PropTypes.shape({
+    product_id: PropTypes.number.isRequired,
     image_url: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
