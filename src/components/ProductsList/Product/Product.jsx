@@ -19,6 +19,7 @@ const Product = ({ product, amount, addToCart, loading }) => {
 
   const handleAddCartClick = (e) => {
     e.stopPropagation();
+
     if (loading) return;
     if (amount >= CART.MAX_AMOUNT) {
       // eslint-disable-next-line no-alert
