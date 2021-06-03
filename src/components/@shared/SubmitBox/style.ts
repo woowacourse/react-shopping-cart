@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/theme";
-import { FlexBetween } from "../../../SharedStyled/Flex";
+import { FlexBetween } from "../../../sharedStyled/Flex";
 
 interface ContainerProps {
   width: string;

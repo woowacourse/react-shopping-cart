@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FlexBetween } from "../../SharedStyled/Flex";
+import { FlexBetween } from "../../sharedStyled/Flex";
 import { COLOR } from "../../constants/theme";
 
 const Container = styled.div`

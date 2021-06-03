@@ -2,12 +2,12 @@ import React, { VFC } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
-import { Header } from "./Components";
-import ProductList from "./Pages/ProductList";
-import Cart from "./Pages/Cart";
-import Order from "./Pages/Order";
+import { Header } from "./components";
+import ProductList from "./pages/ProductList";
+import Cart from "./pages/Cart";
+import Order from "./pages/Order";
 import { PATH } from "./constants/path";
-import ProductDetail from "./Pages/ProductDetail";
+import ProductDetail from "./pages/ProductDetail";
 
 const NAVIGATION = [{ path: PATH.CART, name: "장바구니" }];
 

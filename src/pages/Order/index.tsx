@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../Components";
+import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../components";
 import { Container, OrderListTitle, Section, Main } from "./style";
 
 import { CartItem } from "../../types";

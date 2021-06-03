@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { FlexCenter } from "../../../SharedStyled/Flex";
+import { FlexCenter } from "../../../sharedStyled/Flex";
 
 const loadingAnimation = keyframes`
   from {

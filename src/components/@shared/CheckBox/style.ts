@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { COLOR } from "../../../constants/theme";
-import { FlexCenter } from "../../../SharedStyled/Flex";
+import { FlexCenter } from "../../../sharedStyled/Flex";
 
 const Container = styled.label`
   display: flex;

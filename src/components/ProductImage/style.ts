@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexCenter } from "../../SharedStyled/Flex";
+import { FlexCenter } from "../../sharedStyled/Flex";
 
 interface ImageProps {
   size: string;

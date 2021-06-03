@@ -2,7 +2,7 @@ import React, { MouseEventHandler, VFC } from "react";
 
 import { Button } from "../..";
 import { COLOR } from "../../../constants/theme";
-import { DivFlexBetween } from "../../../SharedStyled/Flex";
+import { DivFlexBetween } from "../../../sharedStyled/Flex";
 import TextWithHighlight from "../TextWithHighlight";
 import { Container, ContainerProps, Main, Title } from "./style";
 

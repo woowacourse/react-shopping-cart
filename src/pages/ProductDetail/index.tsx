@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { RootState } from "../../store";
 
-import { DivFlexBetween } from "../../SharedStyled/Flex";
-import { Button, CartAnimation, ProductImage } from "../../Components";
-import { Loading } from "../../Components/@shared";
+import { DivFlexBetween } from "../../sharedStyled/Flex";
+import { Button, CartAnimation, ProductImage } from "../../components";
+import { Loading } from "../../components/@shared";
 import { Container } from "./styles";
 
 import { COLOR } from "../../constants/theme";

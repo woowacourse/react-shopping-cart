@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { FlexCenter, FlexBetween } from "../../SharedStyled/Flex";
+import { FlexCenter, FlexBetween } from "../../sharedStyled/Flex";
 
 const Container = styled(FlexCenter("div"))`
   flex-direction: column;

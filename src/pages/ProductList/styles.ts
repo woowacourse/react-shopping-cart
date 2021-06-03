@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { FlexCenter } from "../../SharedStyled/Flex";
-import { Grid } from "../../SharedStyled/Grid";
+import { FlexCenter } from "../../sharedStyled/Flex";
+import { Grid } from "../../sharedStyled/Grid";
 
 const Container = styled(FlexCenter("div"))`
   max-width: 1320px;

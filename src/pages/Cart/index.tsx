@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 
 import actions from "../../actions";
 
-import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../Components/@shared";
-import { CartItem, Portal } from "../../Components";
+import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../components/@shared";
+import { CartItem, Portal } from "../../components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 
 import { COLOR } from "../../constants/theme";

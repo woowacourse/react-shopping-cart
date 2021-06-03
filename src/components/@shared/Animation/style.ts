@@ -1,6 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-import { FlexCenter } from "../../../SharedStyled/Flex";
+import { FlexCenter } from "../../../sharedStyled/Flex";
 import { COLOR } from "../../../constants/theme";
 
 interface ContainerProps {

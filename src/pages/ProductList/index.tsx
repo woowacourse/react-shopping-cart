@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../actions";
 import { RootState } from "../../store";
 
-import { CartAnimation, Product } from "../../Components";
-import { Loading } from "../../Components/@shared";
+import { CartAnimation, Product } from "../../components";
+import { Loading } from "../../components/@shared";
 import { Container, Inner } from "./styles";
 
 const ProductList: VFC = () => {
