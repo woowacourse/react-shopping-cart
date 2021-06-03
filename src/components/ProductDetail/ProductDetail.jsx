@@ -21,7 +21,6 @@ const ProductDetail = ({ match }) => {
 
   const addToCart = () => {
     if (amount >= CART.MAX_AMOUNT) {
-      // eslint-disable-next-line no-alert
       window.alert(
         `한 품목당 최대 ${CART.MAX_AMOUNT}개 이하만 장바구니에 담을 수 있습니다.`
       );

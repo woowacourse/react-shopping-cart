@@ -28,7 +28,6 @@ const CartItem = ({ item }) => {
 
   const changeAmount = (diff) => {
     if (amount + diff < CART.MIN_AMOUNT || amount + diff > CART.MAX_AMOUNT) {
-      // eslint-disable-next-line no-alert
       window.alert(
         `품목당 한번에 최소 ${CART.MIN_AMOUNT}개 이상, 최대 ${CART.MAX_AMOUNT}개 이하만 주문할 수 있습니다.`
       );

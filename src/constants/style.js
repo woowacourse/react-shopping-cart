@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const COLOR = {
   CYAN_400: "#2ac1bc",
   CYAN_700: "#1a9b96",

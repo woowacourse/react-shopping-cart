@@ -19,7 +19,6 @@ const Payment = () => {
   const { checkedItems, totalPrice } = useCart();
 
   if (!location.state?.isAllowed) {
-    // eslint-disable-next-line no-alert
     window.alert(MESSAGE.ALERT.INVALID_APPROACH);
     return <Redirect to={ROUTE.CART} />;
   }

@@ -33,8 +33,6 @@ const SnackBar = () => {
 
     // eslint-disable-next-line consistent-return
     return () => clearTimeout(timer);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productErrorMessage, cartErrorMessage, orderErrorMessage]);
 
   return (

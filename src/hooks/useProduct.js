@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProducts as _getProducts,
-  resetError,
-} from "../store/modules/productSlice";
+import { resetError } from "../store/modules/product/productSlice";
+import { getProductsAsync } from "../store/modules/product/productThunk";
 
-// eslint-disable-next-line import/prefer-default-export
 export const useProduct = () => {
   const dispatch = useDispatch();
   const { products, loading, errorMessage } = useSelector(
@@ -12,7 +9,7 @@ export const useProduct = () => {
   );
 
   const getProducts = () => {
-    dispatch(_getProducts());
+    dispatch(getProductsAsync());
   };
 
   const getProduct = (id) => products[id];
@@ -23,10 +20,10 @@ export const useProduct = () => {
 
   return {
     products,
-    getProducts,
-    getProduct,
     loading,
     errorMessage,
+    getProducts,
+    getProduct,
     resetProductError,
   };
 };

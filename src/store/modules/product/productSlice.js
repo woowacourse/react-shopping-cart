@@ -1,22 +1,5 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { API, MESSAGE } from "../../constants/constant";
-
-export const getProducts = createAsyncThunk(
-  "product/load",
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await fetch(API.GET_PRODUCTS);
-      if (res.ok) {
-        return res.json();
-      }
-      throw Error;
-    } catch (error) {
-      return Object.assign(rejectWithValue(error), {
-        message: MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST,
-      });
-    }
-  }
-);
+import { createSlice, current } from "@reduxjs/toolkit";
+import { getProductsAsync } from "./productThunk";
 
 const productSlice = createSlice({
   name: "product",
@@ -27,12 +10,12 @@ const productSlice = createSlice({
     },
   },
   extraReducers: {
-    [getProducts.pending]: (state) => {
+    [getProductsAsync.pending]: (state) => {
       state.errorMessage = "";
       state.loading = true;
     },
 
-    [getProducts.fulfilled]: (state, action) => {
+    [getProductsAsync.fulfilled]: (state, action) => {
       action.payload.forEach((product) => {
         const {
           product_id: productId,
@@ -54,7 +37,7 @@ const productSlice = createSlice({
       state.loading = false;
     },
 
-    [getProducts.rejected]: (state, action) => {
+    [getProductsAsync.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
       state.loading = false;
     },

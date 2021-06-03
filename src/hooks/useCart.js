@@ -11,7 +11,6 @@ import {
   resetError,
 } from "../store/modules/cart/cartSlice";
 
-// eslint-disable-next-line import/prefer-default-export
 export const useCart = () => {
   const dispatch = useDispatch();
   const { items, loading, errorMessage } = useSelector((state) => state.cart);

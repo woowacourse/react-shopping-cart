@@ -32,7 +32,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// TODO : 아래 전역으로 만들기
 // eslint-disable-next-line import/prefer-default-export
 export const SnackBar = styled.div`
   position: fixed;

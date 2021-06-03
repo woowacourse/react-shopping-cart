@@ -1,25 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
+import { resetError } from "../store/modules/order/orderSlice";
 import {
-  getOrders as _getOrders,
-  addOrder as _addOrder,
-  resetError,
-} from "../store/modules/orderSlice";
+  addOrderAsync,
+  getOrdersAsync,
+} from "../store/modules/order/orderThunk";
 
-// eslint-disable-next-line import/prefer-default-export
 export const useOrder = () => {
   const dispatch = useDispatch();
   const { items: orders, loading, errorMessage } = useSelector(
     (state) => state.order
   );
 
-  // TODO : async 메서드 메서드명 변경
-
   const getOrders = () => {
-    dispatch(_getOrders());
+    dispatch(getOrdersAsync());
   };
 
   const addOrder = (cart) => {
-    dispatch(_addOrder(cart));
+    dispatch(addOrderAsync(cart));
   };
 
   const resetOrderError = () => {
