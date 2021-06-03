@@ -7,7 +7,7 @@ import { ACTION_TYPE, ROUTE } from '../../../constants';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
-const Products = ({ onCartButtonClick = () => {} }) => {
+const Products = () => {
   const products = useSelector(({ product }) => product.fetchedProducts);
   const dispatch = useDispatch();
 
@@ -47,7 +47,6 @@ const Products = ({ onCartButtonClick = () => {} }) => {
             <ProductItem
               {...product}
               onProductClick={() => handleProductClick(product)}
-              onCartButtonClick={event => onCartButtonClick(event, product)}
             />
           </li>
         ))}

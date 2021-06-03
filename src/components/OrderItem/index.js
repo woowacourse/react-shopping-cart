@@ -13,14 +13,7 @@ import Button from '../common/Button';
 
 const BUTTON_COLOR = 'var(--color-mint)';
 
-const OrderItem = ({
-  imgUrl,
-  name,
-  price,
-  quantity,
-  isCartButtonVisible,
-  onCartButtonClick = () => {},
-}) => (
+const OrderItem = ({ imgUrl, name, price, quantity, isCartButtonVisible }) => (
   <Order>
     <ImageWrapper>
       <Image src={imgUrl} alt={name} />
@@ -33,9 +26,7 @@ const OrderItem = ({
     </OrderDetail>
     <ButtonWrapper>
       {isCartButtonVisible && (
-        <Button onClick={onCartButtonClick} backgroundColor={BUTTON_COLOR}>
-          장바구니
-        </Button>
+        <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
       )}
     </ButtonWrapper>
   </Order>

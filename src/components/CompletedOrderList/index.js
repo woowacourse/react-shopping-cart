@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
 
-const CompletedOrderList = ({
-  orderId,
-  products,
-  onCartButtonClick = () => {},
-}) => {
+const CompletedOrderList = ({ orderId, products }) => {
   return (
     <OrderList>
       <Header>
@@ -18,11 +14,7 @@ const CompletedOrderList = ({
         {/* TODO: Backend API에 맞게 Key 수정 */}
         {products.map(product => (
           <li key={product.id}>
-            <OrderItem
-              {...product}
-              isCartButtonVisible={true}
-              onCartButtonClick={event => onCartButtonClick(event, product)}
-            />
+            <OrderItem {...product} isCartButtonVisible={true} />
           </li>
         ))}
       </ul>

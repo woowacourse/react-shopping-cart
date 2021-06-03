@@ -2,17 +2,14 @@ import { useLocation } from 'react-router';
 import ProductDetailCard from '../../ProductDetailCard';
 import { Main, Page } from './index.styles';
 
-const ProductDetail = ({ onCartButtonClick = () => {} }) => {
+const ProductDetail = () => {
   const location = useLocation();
   const { product } = location.state;
 
   return (
     <Page>
       <Main>
-        <ProductDetailCard
-          {...product}
-          onCartButtonClick={event => onCartButtonClick(event, product)}
-        />
+        <ProductDetailCard {...product} />
       </Main>
     </Page>
   );

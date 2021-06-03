@@ -5,13 +5,7 @@ import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetailCard = ({
-  imgUrl,
-  imgAlt,
-  name,
-  price,
-  onCartButtonClick,
-}) => (
+const ProductDetailCard = ({ imgUrl, imgAlt, name, price }) => (
   <Product>
     <Detail>
       <Image src={imgUrl} alt={imgAlt} />
@@ -21,9 +15,7 @@ const ProductDetailCard = ({
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button backgroundColor={BUTTON_COLOR} onClick={onCartButtonClick}>
-      장바구니
-    </Button>
+    <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
   </Product>
 );
 
