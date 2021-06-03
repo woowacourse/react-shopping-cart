@@ -120,6 +120,9 @@ const cartSlice = createSlice({
       const { productId, quantity } = action.payload;
       state.list[productId].quantity = quantity;
     },
+    clearCart: (state) => {
+      state.list = {};
+    },
   },
   extraReducers: {
     [fetchCart.pending]: (state) => {
@@ -192,6 +195,7 @@ export const {
   toggleChecked,
   toggleAllChecked,
   changeQuantity,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

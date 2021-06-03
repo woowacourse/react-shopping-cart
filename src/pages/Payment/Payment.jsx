@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
+import { unwrapResult } from "@reduxjs/toolkit";
 import {
   selectCheckedCartItems,
   selectCheckedTotalPrice,
+  clearCart,
 } from "../../store/modules/cartSlice";
 import { orderCartItems } from "../../store/modules/orderSlice";
 import { usePayment } from "../../components/ProvidePayment/ProvidePayment";
@@ -24,9 +26,20 @@ const Payment = () => {
 
   const totalPrice = useSelector(selectCheckedTotalPrice);
 
-  const handleButtonClick = () => {
-    dispatch(orderCartItems(checkedItems));
-    history.push(PATH.ORDER);
+  const handleButtonClick = async () => {
+    try {
+      const orderResult = await dispatch(orderCartItems(checkedItems));
+
+      await unwrapResult(orderResult);
+
+      dispatch(clearCart());
+
+      history.push(PATH.ORDER);
+    } catch (error) {
+      console.error(error.message);
+
+      window.alert("주문을 실패하였습니다. 잠시 후 다시 시도해주세요.");
+    }
   };
 
   return !payment.isReady ? (
