@@ -35,7 +35,7 @@ const Order = () => {
           width="448px"
           height="318px"
           target={{ name: "총 결제금액", value: `${toNumberWithComma(totalPrice)}원` }}
-          buttonName={`${totalPrice}원 결제하기`}
+          buttonName={`${toNumberWithComma(totalPrice)}원 결제하기`}
           onClickSubmitButton={() => {}}
         />
       </Main>
