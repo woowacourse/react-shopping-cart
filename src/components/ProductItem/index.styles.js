@@ -7,6 +7,7 @@ export const Product = styled.li`
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 auto;
+  cursor: pointer;
 `;
 
 export const Image = styled.img`

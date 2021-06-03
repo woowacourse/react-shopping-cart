@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Product, Image, Description, Name, Price } from './index.styles';
 import { Cart } from '../../assets/svg';
 
-const ProductItem = ({ image_url, name, price }) => {
+const ProductItem = ({ image_url, name, price, onProductClick }) => {
   return (
-    <Product>
+    <Product onClick={onProductClick}>
       <Image src={image_url} alt={name} />
       <Description>
         <div>
