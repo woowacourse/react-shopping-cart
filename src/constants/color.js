@@ -4,6 +4,7 @@ export const COLOR = {
   BROWN_500: '#73675C',
   WHITE: '#FFFFFF',
   GRAY_100: '#F6F6F6',
+  GRAY_150: '#E5E5E5',
   GRAY_200: '#DDDDDD',
   GRAY_300: '#BBBBBB',
   GRAY_400: '#AAAAAA',
@@ -11,4 +12,7 @@ export const COLOR = {
   GRAY_800: '#333333',
   MINT_500_OPACITY_50: 'rgba(42, 193, 188, 0.5)',
   BLACK_OPACITY_50: 'rgba(0, 0, 0, 0.5)',
+  BLACK_OPACITY_70: 'rgba(0, 0, 0, 0.7)',
+  GREEN_OPACITY_80: 'rgba(67, 160, 71, 0.8)',
+  RED_OPACITY_80: 'rgba(211, 47, 47, 0.8)',
 };

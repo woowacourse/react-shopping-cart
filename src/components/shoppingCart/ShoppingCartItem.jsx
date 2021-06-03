@@ -2,15 +2,9 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import trashCan from '../../assets/trashCan.svg';
-import { useDispatch } from 'react-redux';
-import {
-  decreaseCount,
-  deleteShoppingCartItem,
-  increaseCount,
-  toggleShoppingCartItem,
-} from '../../redux/actions/shoppingCartActions';
 import useDialog from '../../hooks/useDialog';
-import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE, DIALOG_TYPE } from '..';
+import useShoppingCart from '../../hooks/useShoppingCart';
+import { CountInput, Checkbox, Dialog, ProductImage, PRODUCT_IMAGE_TYPE } from '..';
 
 const Container = styled.ul`
   display: flex;
@@ -44,44 +38,32 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
-const MAX_COUNT = 99;
-const MIN_COUNT = 1;
-
-const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
-  const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
-
-  const dispatch = useDispatch();
+const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, quantity }) => {
+  const { isDialogOpen, setIsDialogOpen, onConfirm, onCancel } = useDialog();
+  const { deleteShoppingCartItem, toggleShoppingCartItem, increaseQuantity, decreaseQuantity } = useShoppingCart();
 
   const handleShoppingCartItemToggle = () => {
-    dispatch(toggleShoppingCartItem(id));
+    toggleShoppingCartItem(id);
   };
 
   const handleShoppingCartItemDelete = () => {
     setIsDialogOpen(true);
-    setType(DIALOG_TYPE.CONFIRM);
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? clickConfirm(() => dispatch(deleteShoppingCartItem(id))) : clickConfirm();
+    onConfirm(() => deleteShoppingCartItem(id));
   };
 
   const handleCancel = () => {
-    clickCancel();
+    onCancel();
   };
 
   const handleIncrement = () => {
-    if (count >= MAX_COUNT) {
-      setIsDialogOpen(true);
-      setType(DIALOG_TYPE.ALERT);
-
-      return;
-    }
-
-    dispatch(increaseCount(id));
+    increaseQuantity(id, quantity);
   };
 
   const handleDecrement = () => {
-    count > MIN_COUNT && dispatch(decreaseCount(id));
+    decreaseQuantity(id, quantity);
   };
 
   return (
@@ -94,29 +76,17 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
         </LeftContent>
         <RightContent>
           <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
-          <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
-          <div>{(count * price).toLocaleString('ko-KR')} 원</div>
+          <CountInput value={quantity} onIncrease={handleIncrement} onDecrease={handleDecrement} />
+          <div>{(quantity * price).toLocaleString('ko-KR')} 원</div>
         </RightContent>
       </Container>
 
       {isDialogOpen && (
-        <>
-          {type === DIALOG_TYPE.CONFIRM && (
-            <Dialog type={type} onConfirm={handleConfirm} onCancel={handleCancel}>
-              <p>
-                해당 상품을 <br /> 삭제하시겠습니까?
-              </p>
-            </Dialog>
-          )}
-
-          {type === DIALOG_TYPE.ALERT && (
-            <Dialog type={type} onConfirm={handleConfirm} onClose={handleCancel}>
-              <p>
-                구매 수량 안내 <br /> 최대 99개까지 구매가 가능합니다.
-              </p>
-            </Dialog>
-          )}
-        </>
+        <Dialog onConfirm={handleConfirm} onCancel={handleCancel}>
+          <p>
+            해당 상품을 <br /> 삭제하시겠습니까?
+          </p>
+        </Dialog>
       )}
     </>
   );
@@ -129,7 +99,7 @@ ShoppingCartItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   isChecked: PropTypes.bool.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default memo(ShoppingCartItem);

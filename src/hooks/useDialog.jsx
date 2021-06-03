@@ -4,18 +4,18 @@ const useDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [type, setType] = useState(null);
 
-  const clickConfirm = (callback) => {
+  const onConfirm = (callback) => {
     setIsDialogOpen(false);
     setType(null);
     callback && callback();
   };
 
-  const clickCancel = () => {
+  const onCancel = () => {
     setIsDialogOpen(false);
     setType(null);
   };
 
-  return { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType };
+  return { isDialogOpen, setIsDialogOpen, onConfirm, onCancel, type, setType };
 };
 
 export default useDialog;

@@ -6,11 +6,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  #root {
+    min-height: inherit;
+  }
+
   body {
     margin: 0;
     color: ${COLOR.GRAY_800};
     font-family: 'Noto Sans KR', sans-serif;
-    height: 100%;
+    min-height: 100vh;
   }
 
   ul {

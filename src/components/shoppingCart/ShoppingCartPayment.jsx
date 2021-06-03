@@ -26,7 +26,7 @@ const TextWrapper = styled.div`
   font-size: 20px;
 `;
 
-const ShoppingCartPayment = ({ price, count, onClick }) => (
+const ShoppingCartPayment = ({ price, quantity, onClick }) => (
   <Container>
     <Title>결제예상금액</Title>
     <div>
@@ -34,8 +34,8 @@ const ShoppingCartPayment = ({ price, count, onClick }) => (
         <TextHighlight>결제예상금액</TextHighlight>
         <TextHighlight>{price.toLocaleString('ko-KR')}원</TextHighlight>
       </TextWrapper>
-      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick} disabled={count === 0}>
-        {count ? `주문하기(${count}개)` : '주문하기'}
+      <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick} disabled={quantity === 0}>
+        {quantity ? `주문하기(${quantity}개)` : '주문하기'}
       </Button>
     </div>
   </Container>
@@ -43,7 +43,7 @@ const ShoppingCartPayment = ({ price, count, onClick }) => (
 
 ShoppingCartPayment.propTypes = {
   price: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

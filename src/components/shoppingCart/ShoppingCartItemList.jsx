@@ -19,9 +19,17 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
   <>
     <Header>든든배송 상품 ({shoppingCartItemList.length}개)</Header>
     <ul>
-      {shoppingCartItemList.map(({ src, id, alt, name, price, count, isChecked }) => (
-        <ShoppingCartItemWrapper key={id}>
-          <ShoppingCartItem id={id} src={src} alt={alt} name={name} price={price} count={count} isChecked={isChecked} />
+      {shoppingCartItemList.map(({ imageUrl, cartId, name, price, quantity, isChecked }) => (
+        <ShoppingCartItemWrapper key={cartId}>
+          <ShoppingCartItem
+            id={cartId}
+            src={imageUrl}
+            alt={name}
+            name={name}
+            price={price}
+            quantity={quantity}
+            isChecked={isChecked}
+          />
         </ShoppingCartItemWrapper>
       ))}
     </ul>
@@ -31,12 +39,11 @@ const ShoppingCartItemList = ({ shoppingCartItemList }) => (
 ShoppingCartItemList.propTypes = {
   shoppingCartItemList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      src: PropTypes.string.isRequired,
+      cartId: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-      alt: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
       isChecked: PropTypes.bool.isRequired,
     }).isRequired
   ).isRequired,

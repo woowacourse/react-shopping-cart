@@ -1,10 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import useGettingData from '../hooks/useGettingData';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { COLOR } from '../constants/color';
 import { API_PATH } from '../constants/api';
-import { requestGetItemList } from '../request/request';
-import useFetch from '../hooks/useFetch';
-import { PageTitle, Loading, OrderListItemList } from '../components';
+import { PATH } from '../constants/path';
+import { PageTitle, OrderItemList } from '../components';
+
+const Container = styled.div`
+  background-color: ${COLOR.GRAY_150};
+`;
+
+const Content = styled.div`
+  ${({ theme }) => theme.content.default}
+`;
 
 const ItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};
@@ -13,26 +22,23 @@ const ItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { isLoading, data: orderListItemList } = useFetch({
-    fetchFunc: () => requestGetItemList(API_PATH.ORDER_ITEM_LIST),
-    isInitSetting: true,
-  });
+  const { data: orderItemList } = useGettingData(API_PATH.ORDER_ITEM_LIST);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  useScrollPosition(PATH.ORDER_LIST);
 
   return (
-    <>
-      <PageTitle>주문목록</PageTitle>
-      <ul>
-        {orderListItemList.reverse().map((orderItem) => (
-          <ItemListWrapper key={orderItem.orderNumber}>
-            <OrderListItemList orderListItemList={orderItem.itemList} orderNumber={orderItem.orderNumber} />
-          </ItemListWrapper>
-        ))}
-      </ul>
-    </>
+    <Container>
+      <Content>
+        <PageTitle>주문목록</PageTitle>
+        <ul>
+          {orderItemList.map(({ orderId, orderDetails }) => (
+            <ItemListWrapper key={orderId}>
+              <OrderItemList orderItemList={orderDetails} orderId={orderId} />
+            </ItemListWrapper>
+          ))}
+        </ul>
+      </Content>
+    </Container>
   );
 };
 

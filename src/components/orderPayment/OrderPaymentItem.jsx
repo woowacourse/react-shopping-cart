@@ -18,12 +18,12 @@ const Name = styled.div`
   margin-bottom: 15px;
 `;
 
-const OrderPaymentItem = ({ src, alt, name, count }) => (
+const OrderPaymentItem = ({ src, alt, name, quantity }) => (
   <Container>
     <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
     <TextWrapper>
       <Name>{name}</Name>
-      <div>수량: {count}</div>
+      <div>수량: {quantity}</div>
     </TextWrapper>
   </Container>
 );
@@ -32,7 +32,7 @@ OrderPaymentItem.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default OrderPaymentItem;

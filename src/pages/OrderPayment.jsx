@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import useGettingData from '../hooks/useGettingData';
+import useScrollPosition from '../hooks/useScrollPosition';
 import { useHistory, useLocation } from 'react-router';
-import { deleteCheckedShoppingCartList } from '../redux/actions/shoppingCartActions';
 import { PATH } from '../constants/path';
-import useFetch from '../hooks/useFetch';
 import { requestInsertItem } from '../request/request';
 import { API_PATH } from '../constants/api';
-import { PageTitle, OrderPaymentAmount, Loading, OrderPaymentItemList } from '../components';
+import { PageTitle, OrderPaymentAmount, OrderPaymentItemList } from '../components';
+import useSnackbar from '../hooks/useSnackbar';
+import { MESSAGE } from '../constants/message';
+
+const Container = styled.div`
+  ${({ theme }) => theme.content.default}
+`;
 
 const Content = styled.section`
   position: relative;
@@ -24,30 +29,32 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { startFetching } = useFetch({
-    fetchFunc: (item) => requestInsertItem(API_PATH.ORDER_ITEM_LIST, item),
-  });
-  const isLoading = useSelector((state) => state.shoppingCart.shoppingCartItemList.isLoading);
+  const { mutate } = useGettingData(API_PATH.ORDER_ITEM_LIST);
+
+  const { showSnackbar } = useSnackbar();
+
   const { state } = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
+
+  useScrollPosition(PATH.ORDER_PAYMENT);
 
   const { orderPaymentItemList, totalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    const orderItemData = { orderNumber: new Date().getTime(), itemList: orderPaymentItemList };
-    await startFetching(orderItemData);
-    await dispatch(deleteCheckedShoppingCartList(orderPaymentItemList));
+    await requestInsertItem(
+      API_PATH.ORDER_ITEM_LIST,
+      orderPaymentItemList.map(({ cartId, quantity }) => ({ cartId, quantity }))
+    );
+
+    mutate();
+
+    showSnackbar({ message: MESSAGE.SUCCESS.ORDER_SHOPPING_CART_ITEM });
 
     history.replace(PATH.ORDER_LIST);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
-    <>
+    <Container>
       <PageTitle>주문/결제</PageTitle>
       <Content>
         <div>
@@ -59,7 +66,7 @@ const OrderPayment = () => {
           </OrderPaymentAmountWrapper>
         </div>
       </Content>
-    </>
+    </Container>
   );
 };
 
