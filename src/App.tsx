@@ -9,10 +9,7 @@ import Order from "./Pages/Order";
 import { PATH } from "./constants/path";
 import ProductDetail from "./Pages/ProductDetail";
 
-const NAVIGATION = [
-  { path: PATH.CART, name: "장바구니" },
-  { path: PATH.ORDER_LIST, name: "주문목록" },
-];
+const NAVIGATION = [{ path: PATH.CART, name: "장바구니" }];
 
 const App: VFC = () => {
   return (
