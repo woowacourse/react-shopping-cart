@@ -73,8 +73,17 @@
         }
       },
       {
+        "files": "**/*.js",
+        "rules": {
+          "import/prefer-default-export": "off",
+          "no-alert": "off"
+        }
+      },
+      {
         "files": "**/*.jsx",
         "rules": {
+          "no-alert": "off",
+          "react-hooks/exhaustive-deps": "off",
           "jsx-a11y/label-has-associated-control": [
             2,
             {
