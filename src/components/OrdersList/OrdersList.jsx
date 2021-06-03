@@ -9,12 +9,14 @@ import { useOrder } from "../../hooks/useOrder";
 
 const OrdersList = () => {
   const { orders, getOrders } = useOrder();
+
   const ordersList = Object.values(orders).sort(
     (a, b) => b.order_id - a.order_id
   );
 
   useEffect(() => {
     getOrders();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

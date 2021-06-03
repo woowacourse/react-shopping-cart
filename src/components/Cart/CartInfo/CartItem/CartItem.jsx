@@ -6,8 +6,8 @@ import CheckBox from "../../../@shared/CheckBox/CheckBox";
 import NumberInput from "../../../@shared/NumberInput/NumberInput";
 import TrashIcon from "../../../@shared/TrashIcon/TrashIcon";
 
-import { formatPrice } from "../../../../utils/utils";
-import { useConfirm } from "../../../../utils/useConfirm";
+import { formatPrice } from "../../../../utils/util";
+import { useConfirm } from "../../../../hooks/useConfirm";
 import { CART } from "../../../../constants/constant";
 import { useCart } from "../../../../hooks/useCart";
 

@@ -4,10 +4,8 @@ import { useProduct } from "../../hooks/useProduct";
 import { useCart } from "../../hooks/useCart";
 import { useOrder } from "../../hooks/useOrder";
 
-// eslint-disable-next-line import/prefer-default-export
-export const SnackBar = () => {
+const SnackBar = () => {
   const { errorMessage: productErrorMessage, resetProductError } = useProduct();
-  // TODO: 나머지 에러들도받아서 하나로 처리
   const { errorMessage: cartErrorMessage, resetCartError } = useCart();
   const { errorMessage: orderErrorMessage, resetOrderError } = useOrder();
 
@@ -49,3 +47,5 @@ export const SnackBar = () => {
     </>
   );
 };
+
+export default SnackBar;

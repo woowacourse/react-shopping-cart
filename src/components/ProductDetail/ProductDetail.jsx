@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { PropTypes } from "prop-types";
 import { useProduct } from "../../hooks/useProduct";
 import * as S from "./ProductDetail.styles";
-import { formatPrice } from "../../utils/utils";
+import { formatPrice } from "../../utils/util";
 import Button from "../@shared/Button/Button";
 import { useCart } from "../../hooks/useCart";
 import { CART } from "../../constants/constant";
 
 const ProductDetail = ({ match }) => {
   const { products, loading } = useProduct();
+
   const { items: cart, addCart, loading: cartLoading } = useCart();
+
   const product = products[match.params.id] ?? {
     name: "",
     thumbnail: "",
     price: 0,
   };
-  const amount = cart[product.id]?.amount ?? 0;
-
-  useEffect(() => {}, [products]);
+  const amount = cart[product?.id]?.amount ?? 0;
 
   const addToCart = () => {
     if (amount >= CART.MAX_AMOUNT) {
@@ -44,7 +44,9 @@ const ProductDetail = ({ match }) => {
           <S.Price>{`${formatPrice(product.price)}원`}</S.Price>
           <S.Cart>
             {cartLoading ? (
-              <Button disabled>장바구니에 상품 추가중입니다</Button>
+              <Button onClick={() => {}} disabled>
+                장바구니에 상품 추가중입니다
+              </Button>
             ) : (
               <Button onClick={addToCart}>
                 장바구니에 담기(현재 {amount}개)

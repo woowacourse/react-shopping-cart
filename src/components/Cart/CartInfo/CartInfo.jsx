@@ -7,7 +7,7 @@ import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
 
 import { MESSAGE } from "../../../constants/constant";
-import { useConfirm } from "../../../utils/useConfirm";
+import { useConfirm } from "../../../hooks/useConfirm";
 import Empty from "../../@mixins/Empty/Empty";
 import { useCart } from "../../../hooks/useCart";
 

@@ -3,13 +3,15 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import * as S from "./App.styled";
 
 import Nav from "./components/Nav/Nav";
+import SnackBar from "./components/MessageSnackBar/SnackBar";
+
 import ProductsList from "./components/ProductsList/ProductsList";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import Payment from "./components/Payment/Payment";
 import OrdersList from "./components/OrdersList/OrdersList";
+
 import { ROUTE } from "./constants/constant";
-import ProductDetail from "./components/ProductDetail/ProductDetail";
-import { SnackBar } from "./components/MessageSnackBar/SnackBar";
 
 const App = () => (
   <S.App>

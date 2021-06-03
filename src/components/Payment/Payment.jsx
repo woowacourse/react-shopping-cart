@@ -5,7 +5,7 @@ import * as S from "./Payment.styled";
 import ResultBox from "../@mixins/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
 
-import { formatPrice } from "../../utils/utils";
+import { formatPrice } from "../../utils/util";
 
 import { MESSAGE, ROUTE } from "../../constants/constant";
 import { useCart } from "../../hooks/useCart";
@@ -26,7 +26,6 @@ const Payment = () => {
 
   const handleButtonClick = () => {
     addOrder({ cart: checkedItems });
-
     history.push(ROUTE.ORDERS_LIST);
   };
 

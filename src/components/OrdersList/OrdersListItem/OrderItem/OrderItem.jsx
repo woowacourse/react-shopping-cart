@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Button from "../../../@shared/Button/Button";
 
 import * as S from "./OrderItem.styled";
-import { formatPrice } from "../../../../utils/utils";
+import { formatPrice } from "../../../../utils/util";
 import { useCart } from "../../../../hooks/useCart";
 
 const OrderItem = ({ item }) => {

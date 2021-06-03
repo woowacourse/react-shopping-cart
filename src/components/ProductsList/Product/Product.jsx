@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-import { formatPrice } from "../../../utils/utils";
+import { formatPrice } from "../../../utils/util";
 import * as S from "./Product.styled";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
 
@@ -12,8 +12,7 @@ const Product = ({ product, amount, addToCart, loading }) => {
   const history = useHistory();
   const { thumbnail, name, price } = product;
 
-  const handleProductClick = (e) => {
-    if (e.target !== e.currentTarget) return;
+  const handleProductClick = () => {
     history.push(`/product/${product.id}`);
   };
 
