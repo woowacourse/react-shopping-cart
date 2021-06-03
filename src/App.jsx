@@ -7,7 +7,6 @@ import PATH from "./constants/path";
 import { PUBLIC_URL } from "./constants/env";
 import { fetchAllProducts } from "./store/modules/productSlice";
 import { fetchCart } from "./store/modules/cartSlice";
-import { fetchOrders } from "./store/modules/orderSlice";
 import Product from "./pages/Product/Product";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Cart from "./pages/Cart/Cart";
@@ -21,7 +20,6 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchAllProducts());
     dispatch(fetchCart());
-    dispatch(fetchOrders());
   }, [dispatch]);
 
   return (
