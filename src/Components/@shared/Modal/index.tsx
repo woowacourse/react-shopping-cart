@@ -12,10 +12,6 @@ const Modal: FC<ModalProps> = ({ closeModal: dimmedClick, children }) => {
 
   useEffect(() => {
     setOpacity(1);
-
-    return () => {
-      setOpacity(0);
-    };
   }, []);
 
   return (

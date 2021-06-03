@@ -12,10 +12,6 @@ const Animation: FC<AnimationProps> = ({ Contents, title }) => {
 
   useEffect(() => {
     setOpacity(1);
-
-    return () => {
-      setOpacity(0);
-    };
   }, []);
 
   return (
