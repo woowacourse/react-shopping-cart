@@ -6,12 +6,13 @@ import {
   removeFromCart,
   toggleChecked,
   toggleAllChecked as _toggleAllChecked,
+  resetError,
 } from "../store/modules/cartSlice";
 
 // eslint-disable-next-line import/prefer-default-export
 export const useCart = () => {
   const dispatch = useDispatch();
-  const { items, loading } = useSelector((state) => state.cart);
+  const { items, loading, errorMessage } = useSelector((state) => state.cart);
   const carts = Object.values(items);
 
   const getCarts = () => {
@@ -35,6 +36,10 @@ export const useCart = () => {
 
   const toggleAllChecked = () => {
     dispatch(_toggleAllChecked());
+  };
+
+  const resetCartError = () => {
+    dispatch(resetError());
   };
 
   const getCartAmount = (id) => items[id]?.amount ?? 0;
@@ -62,6 +67,8 @@ export const useCart = () => {
   return {
     items,
     loading,
+    errorMessage,
+    resetCartError,
     getCarts,
     addCart,
     removeCart,

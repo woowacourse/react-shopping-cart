@@ -5,9 +5,11 @@ export const getProducts = createAsyncThunk(
   "product/load",
   async (_, { rejectWithValue }) => {
     try {
-      await fetch(API.GET_PRODUCTS);
-      throw Error();
-      // return res.json();
+      const res = await fetch(API.GET_PRODUCTS);
+      if (res.ok) {
+        return res.json();
+      }
+      throw Error;
     } catch (error) {
       return Object.assign(rejectWithValue(error), {
         message: MESSAGE.ALERT.FAILED_GET_PRODUCT_LIST,

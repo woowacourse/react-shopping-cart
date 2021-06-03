@@ -50,4 +50,5 @@ export const SnackBar = styled.div`
   padding: 1.5rem;
   font-size: 0.8rem;
   animation: ${fadeIn} 5s ease-in-out;
+  z-index: 200;
 `;

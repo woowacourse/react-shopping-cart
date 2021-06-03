@@ -48,7 +48,11 @@ export const addOrder = createAsyncThunk(
 const orderSlice = createSlice({
   name: "order",
   initialState: { items: {}, loading: false, errorMessage: "" },
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.errorMessage = "";
+    },
+  },
   extraReducers: {
     [getOrders.pending]: (state) => {
       state.errorMessage = "";
@@ -83,4 +87,5 @@ const orderSlice = createSlice({
   },
 });
 
+export const { resetError } = orderSlice.actions;
 export default orderSlice.reducer;

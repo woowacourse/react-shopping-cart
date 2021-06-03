@@ -141,6 +141,10 @@ const cartSlice = createSlice({
         state.items[id].checked = checked;
       });
     },
+
+    resetError: (state) => {
+      state.errorMessage = "";
+    },
   },
 
   extraReducers: {
@@ -270,6 +274,10 @@ const cartSlice = createSlice({
   },
 });
 
-export const { toggleChecked, toggleAllChecked } = cartSlice.actions;
+export const {
+  toggleChecked,
+  toggleAllChecked,
+  resetError,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
