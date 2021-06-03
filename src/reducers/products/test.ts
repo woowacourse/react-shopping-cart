@@ -7,10 +7,10 @@ describe("productReducer test", () => {
   it("should handle product/get/success", () => {
     const products: Product[] = [
       {
-        product_id: "1",
+        productId: "1",
         name: "브랜브랜 철봉",
         price: 1000000,
-        image_url: "www.naver.com",
+        imageUrl: "www.naver.com",
       },
     ];
 

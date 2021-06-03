@@ -8,10 +8,10 @@ import { Product } from "../../types";
 import store from "../../store";
 
 const product: Product = {
-  product_id: "1",
+  productId: "1",
   name: "강릉초당순두부인절미아이스크림",
   price: 2500,
-  image_url: "http://via.placeholder.com/570x570",
+  imageUrl: "http://via.placeholder.com/570x570",
 };
 
 export default {

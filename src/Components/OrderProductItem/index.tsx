@@ -8,7 +8,7 @@ import { toNumberWithComma } from "../../utils/format";
 
 interface OrderProductItemProps {
   id: string;
-  imageSrc: string;
+  imageUrl: string;
   imageSize?: string;
   Button?: ReactElement;
   name: string;
@@ -18,7 +18,7 @@ interface OrderProductItemProps {
 
 const OrderProductItem: VFC<OrderProductItemProps> = ({
   id,
-  imageSrc,
+  imageUrl,
   imageSize = "7.5rem",
   Button,
   name,
@@ -27,7 +27,7 @@ const OrderProductItem: VFC<OrderProductItemProps> = ({
 }) => (
   <Container>
     <Link to={`/cart/${id}`}>
-      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />
+      <ProductImage size={imageSize} src={imageUrl} alt={`${name}이미지`} />
     </Link>
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>

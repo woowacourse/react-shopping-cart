@@ -11,7 +11,7 @@ const productsActionType = {
 
 const products = {
   get: {
-    request: createAction(productsActionType.get.request, (product_id: string = "") => product_id)<string>(),
+    request: createAction(productsActionType.get.request, (productId: string = "") => productId)<string>(),
     success: createAction(productsActionType.get.success, (products: Product[]) => products)<Product[]>(),
     failure: createAction(
       productsActionType.get.failure,

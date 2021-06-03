@@ -23,7 +23,7 @@
         [key: string]: {
           name: string
           price: number;
-          imageSrc: string
+          imageUrl: string
         }
       }
     }
@@ -38,7 +38,7 @@
     id: string;
     name: string;
     price: number;
-    imageSrc: string;
+    imageUrl: string;
     quantity: number;
   }
 }
@@ -54,7 +54,7 @@
       id: string;
       name: string;
       price: number;
-      imageSrc: string;
+      imageUrl: string;
     }
   }
 }

@@ -9,15 +9,15 @@ import { Product } from "../../types";
 
 const products: Product[] = [
   {
-    product_id: "1",
+    productId: "1",
     name: "[든든] 유부 슬라이스 500g",
-    image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+    imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
     price: 4900,
   },
   {
-    product_id: "2",
+    productId: "2",
     name: "[든든] 유부 슬라이스 500g",
-    image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+    imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
     price: 4900,
   },
 ];

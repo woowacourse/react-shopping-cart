@@ -4,7 +4,7 @@ import { CartItem } from "../../types";
 
 describe("cartReducer test", () => {
   it("should handle cart/get/success", () => {
-    const cart: CartItem[] = [{ cart_id: "1", name: "강릉초당인절미순두부아이스크림", price: 2500, image_url: "" }];
+    const cart: CartItem[] = [{ cartId: "1", name: "강릉초당인절미순두부아이스크림", price: 2500, imageUrl: "" }];
 
     expect(cartReducer(initialState, actions.cart.get.success(cart))).toEqual({
       ...initialState,

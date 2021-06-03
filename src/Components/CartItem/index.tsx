@@ -11,7 +11,7 @@ interface CartItemProps {
   name: string;
   price: number;
   quantity: number;
-  imageSrc: string;
+  imageUrl: string;
   isChecked: boolean;
   onIncrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onDecrementOrderCount: MouseEventHandler<HTMLButtonElement>;
@@ -23,7 +23,7 @@ const CartItem: VFC<CartItemProps> = ({
   name,
   price,
   quantity,
-  imageSrc,
+  imageUrl,
   isChecked,
   onIncrementOrderCount,
   onDecrementOrderCount,
@@ -37,7 +37,7 @@ const CartItem: VFC<CartItemProps> = ({
     <Container>
       <CheckBox checked={isChecked} onChange={onChangeChecked} />
       <ProductImageLink to={`/cart/${id}`}>
-        <ProductImage size="7.75rem" src={imageSrc} alt={`${name}이미지`} />
+        <ProductImage size="7.75rem" src={imageUrl} alt={`${name}이미지`} />
       </ProductImageLink>
       <Desc>
         <NameLink to={`/cart/${id}`}>{name}</NameLink>

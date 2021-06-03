@@ -25,8 +25,8 @@ const Order = () => {
         <OrderListTitle>{`주문 상품(${order.length}건)`}</OrderListTitle>
         <Section>
           <ul>
-            {order.map(({ cart_id, name, quantity, image_url }) => (
-              <OrderProductItem id={cart_id} imageSrc={image_url} name={name} quantity={quantity} />
+            {order.map(({ cartId, name, quantity, imageUrl }) => (
+              <OrderProductItem id={cartId} imageUrl={imageUrl} name={name} quantity={quantity} />
             ))}
           </ul>
         </Section>

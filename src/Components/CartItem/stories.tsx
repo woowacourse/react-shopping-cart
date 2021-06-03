@@ -17,6 +17,6 @@ Basic.args = {
   name: "브랜브랜의 철봉",
   price: 1000000,
   quantity: 11,
-  imageSrc: "http://via.placeholder.com/400x400",
+  imageUrl: "http://via.placeholder.com/400x400",
   isChecked: false,
 };

@@ -6,9 +6,9 @@ describe("orderListReducer test", () => {
   it("should handle orderList/get/success", () => {
     const orderList: OrderList = [
       {
-        order_id: "1",
+        orderId: "1",
         order_details: [
-          { product_id: "1", name: "강릉초당인절미순두부", price: 2500, image_url: "www.coupang.com", quantity: 5 },
+          { productId: "1", name: "강릉초당인절미순두부", price: 2500, imageUrl: "www.coupang.com", quantity: 5 },
         ],
       },
     ];

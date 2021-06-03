@@ -17,15 +17,15 @@ import { toNumberWithComma } from "../../utils/format";
 const ProductDetail = () => {
   const {
     state: {
-      product: { product_id, name, price, image_url },
+      product: { productId, name, price, imageUrl },
     },
   } = useLocation<{ product: Product }>();
 
   const { animation, loading } = useSelector(({ cart: { animation, loading } }: RootState) => ({ animation, loading }));
   const dispatch = useDispatch();
 
-  const onClickCart = (product_id: string) => {
-    dispatch(actions.cart.post.request(product_id));
+  const onClickCart = (productId: string) => {
+    dispatch(actions.cart.post.request(productId));
   };
 
   if (loading) {
@@ -40,7 +40,7 @@ const ProductDetail = () => {
     <Container>
       <div>
         <div style={{ padding: "1.875rem", borderBottom: `2px solid ${COLOR.GRAY_150}` }}>
-          <ProductImage size="35.625rem" src={image_url} />
+          <ProductImage size="35.625rem" src={imageUrl} />
           <p>{name}</p>
         </div>
         <div style={{ padding: "1.875rem" }}>
@@ -60,7 +60,7 @@ const ProductDetail = () => {
             color: COLOR.WHITE,
           }}
           onClick={() => {
-            onClickCart(product_id);
+            onClickCart(productId);
           }}
         >
           장바구니

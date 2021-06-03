@@ -33,7 +33,7 @@ const cart = {
     )<RequestError>(),
   },
   post: {
-    request: createAction(cartActionType.post.request, (product_id: string) => product_id)<string>(),
+    request: createAction(cartActionType.post.request, (productId: string) => productId)<string>(),
     success: createAction(cartActionType.post.success)(),
     failure: createAction(
       cartActionType.post.failure,

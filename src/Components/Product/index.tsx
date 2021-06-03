@@ -12,22 +12,22 @@ import { toNumberWithComma } from "../../utils/format";
 
 interface ProductProps {
   id: string;
-  imageSrc: string;
+  imageUrl: string;
   imageSize: string;
   name: string;
   price: number;
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Product: VFC<ProductProps> = ({ id, imageSrc, imageSize = "282px", name, price, onClickCart }) => (
+const Product: VFC<ProductProps> = ({ id, imageUrl, imageSize = "282px", name, price, onClickCart }) => (
   <Container>
     <Link
       to={{
         pathname: `${PATH.PRODUCT}/${id}`,
-        state: { product: { product_id: id, name, price, image_url: imageSrc } },
+        state: { product: { productId: id, name, price, imageUrl: imageUrl } },
       }}
     >
-      <ProductImage size={imageSize} src={imageSrc} alt={`${name}이미지`} />
+      <ProductImage size={imageSize} src={imageUrl} alt={`${name}이미지`} />
     </Link>
     <ItemInfoWrap>
       <Link to={`${PATH.PRODUCT}/${id}`}>

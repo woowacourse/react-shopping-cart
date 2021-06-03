@@ -1,24 +1,24 @@
 interface Product {
-  product_id: string;
+  productId: string;
   name: string;
   price: number;
-  image_url: string;
+  imageUrl: string;
 }
 
 interface CartItem {
-  cart_id: string;
+  cartId: string;
   name: string;
   price: number;
-  image_url: string;
+  imageUrl: string;
 }
 
 type Order = {
-  cart_id: string;
+  cartId: string;
   quantity: number;
 }[];
 
 type OrderList = {
-  order_id: string;
+  orderId: string;
   order_details: (Product & {
     quantity: number;
   })[];

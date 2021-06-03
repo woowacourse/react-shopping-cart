@@ -25,8 +25,8 @@ const ProductList: VFC = () => {
     dispatch(actions.products.get.request());
   }, []);
 
-  const onClickCart = (product_id: string) => {
-    dispatch(actions.cart.post.request(product_id));
+  const onClickCart = (productId: string) => {
+    dispatch(actions.cart.post.request(productId));
   };
 
   if (loading) {
@@ -40,16 +40,16 @@ const ProductList: VFC = () => {
   return (
     <Container>
       <Inner>
-        {products.map(({ product_id, image_url, name, price }) => (
+        {products.map(({ productId, imageUrl, name, price }) => (
           <Product
-            key={product_id}
-            id={product_id}
-            imageSrc={image_url}
+            key={productId}
+            id={productId}
+            imageUrl={imageUrl}
             imageSize="282px"
             name={name}
             price={price}
             onClickCart={() => {
-              onClickCart(product_id);
+              onClickCart(productId);
             }}
           />
         ))}

@@ -9,31 +9,31 @@ import { Order, OrderList } from "../../types";
 
 const orderList: OrderList = [
   {
-    order_id: "1",
+    orderId: "1",
     order_details: [
       {
-        product_id: "2",
+        productId: "2",
         name: "[든든] 유부 슬라이스 500g",
-        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
         price: 4900,
         quantity: 1,
       },
     ],
   },
   {
-    order_id: "2",
+    orderId: "2",
     order_details: [
       {
-        product_id: "1",
+        productId: "1",
         name: "[든든] 유부 슬라이스 500g",
-        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
         price: 4900,
         quantity: 4,
       },
       {
-        product_id: "2",
+        productId: "2",
         name: "[든든] 유부 슬라이스 500g",
-        image_url: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+        imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
         price: 4900,
         quantity: 1,
       },
@@ -42,8 +42,8 @@ const orderList: OrderList = [
 ];
 
 const order: Order = [
-  { cart_id: "1", quantity: 10 },
-  { cart_id: "2", quantity: 5 },
+  { cartId: "1", quantity: 10 },
+  { cartId: "2", quantity: 5 },
 ];
 
 const errormessage = "getOrderList failed";
