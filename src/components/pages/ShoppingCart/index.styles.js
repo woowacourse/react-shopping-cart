@@ -13,16 +13,18 @@ export const Main = styled.main`
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
+  min-width: 40rem;
 
   & > div:first-child {
-    flex-basis: 66.5%;
+    flex: 1.825;
     padding-right: 4rem;
+    min-width: 30rem;
   }
 
   & > div:last-child {
-    flex-basis: 33.5%;
+    flex: 1;
     margin-top: 3rem;
-    min-width: 16rem;
+    min-width: 15rem;
   }
 `;
 

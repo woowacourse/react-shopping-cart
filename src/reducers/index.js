@@ -1,12 +1,12 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
+import { ACTION_TYPE, ROUTE } from '../constants';
 
 const initialLocation = {
-  currentPage: '/',
+  currentPage: ROUTE.HOME,
 };
 
 const redirectToHome = (state, action) => {
-  console.log(action);
   const updater = produce(draft => {
     draft.currentPage = action.payload;
   });
@@ -15,8 +15,9 @@ const redirectToHome = (state, action) => {
 
 const historyReducer = (state = initialLocation, action) => {
   switch (action.type) {
-    case 'RESTRICT_DIRECT_ACCESS':
+    case ACTION_TYPE.URL.GET_URL:
       return redirectToHome(state, action);
+
     default:
       return state;
   }

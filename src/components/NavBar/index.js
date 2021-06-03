@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   InnerNav,
   LogoWrapper,
@@ -11,17 +10,19 @@ import {
 import { ROUTE } from '../../constants';
 import { Cart } from '../../assets/svg';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import useCarts from '../../hooks/useCarts';
 
 const NavBar = () => {
-  const cartLength = useSelector(state => state.product.product.cartItems)
-    .length;
+  const { cartItems, getTotalQuantity } = useCarts();
+
+  const totalCartLength = getTotalQuantity(cartItems);
+
   return (
     <Nav>
       <InnerNav>
         <LogoWrapper>
           <span>
-            <Cart width="30" height="30" color="white" />
+            <Cart width="25" height="25" color="white" />
           </span>
           <Link to={ROUTE.HOME}>WOOWA SHOP</Link>
         </LogoWrapper>
@@ -29,7 +30,7 @@ const NavBar = () => {
           <AlertNavItem>
             <Link to={ROUTE.CART}>
               장바구니
-              {cartLength ? <Alert>{cartLength}</Alert> : ''}
+              {totalCartLength ? <Alert>{totalCartLength}</Alert> : ''}
             </Link>
           </AlertNavItem>
           <NavItem>

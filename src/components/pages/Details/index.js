@@ -1,36 +1,23 @@
-import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_TYPE } from '../../../constants';
-import PageWrapper from '../../common/PageWrapper';
+import { useEffect } from 'react';
+import { addItemToCart } from '../../../service/products';
+import useProducts from '../../../hooks/useProducts';
+import PageWrapper from '../../@common/PageWrapper';
 import ProductDetail from '../../ProductDetail';
-import { handleCartButtonClick } from '../Products/index.actions';
 
 const Details = ({ onImageError, match }) => {
-  const dispatch = useDispatch();
-  const product = useSelector(state => state.product.product.productDetail);
-
-  async function fetchProductDetail() {
-    try {
-      const response = await axios.get(
-        `/api/products/${match.params.product_id}`
-      );
-      dispatch({
-        type: ACTION_TYPE.PRODUCTS.GET_PRODUCT_DETAIL,
-        productDetail: response.data,
-      });
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
+  const {
+    product,
+    updateProductDetailURL,
+    updateProductDetail,
+    resetProductDetail,
+  } = useProducts();
 
   useEffect(() => {
-    fetchProductDetail();
-
-    dispatch({ type: 'RESTRICT_DIRECT_ACCESS', payload: '/product-details' });
+    updateProductDetail(match);
+    updateProductDetailURL();
 
     return () => {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.RESET_PRODUCT_DETAIL });
+      resetProductDetail();
     };
   }, []);
 
@@ -39,7 +26,7 @@ const Details = ({ onImageError, match }) => {
       <ProductDetail
         product={product}
         onImageError={onImageError}
-        handleCartButtonClick={handleCartButtonClick}
+        addItemToCart={addItemToCart}
       />
     </PageWrapper>
   );

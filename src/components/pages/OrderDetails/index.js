@@ -1,23 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-
-import PageHeader from '../../common/PageHeader';
-import PageWrapper from '../../common/PageWrapper';
-import { Header } from '../../CompletedOrderList/index.styles';
+import PageHeader from '../../@common/PageHeader';
+import PageWrapper from '../../@common/PageWrapper';
 import OrderItem from '../../OrderItem';
 import PaymentSheet from '../../PaymentSheet';
+import useOrder from '../../../hooks/useOrder';
+import useProducts from '../../../hooks/useProducts';
 import { OrderDetailWrapper, PaymentSheetWrapper } from './index.styles';
+import { Header } from '../../CompletedOrderList/index.styles';
 
 const OrderDetails = () => {
   const location = useLocation();
-  const orderItem = useSelector(state =>
-    state.product.product.orderedItems.find(
-      ({ order_id }) => order_id === location.state.id
-    )
-  );
-  const { order_id, order_details } = orderItem;
-  const totalPrice = order_details.reduce(
+
+  const { orderedItemDetail } = useOrder();
+  const { addToCart } = useProducts();
+
+  const itemId = location.state.id;
+  const itemDetail = orderedItemDetail(itemId);
+  const { order_id, order_details } = itemDetail;
+
+  const totalPricePerOrder = order_details.reduce(
     (acc, item) => (acc += item.price),
     0
   );
@@ -31,16 +32,17 @@ const OrderDetails = () => {
         </Header>
         <ul>
           <li key={order_id}>
-            {order_details.map(item => (
-              <OrderItem
-                image_url={item.image_url}
-                name={item.name}
-                price={item.price}
-                quantity={item.quantity}
-                isCartButtonVisible={true}
-                addToCart={() => {}}
-              />
-            ))}
+            {order_details &&
+              order_details.map(item => (
+                <OrderItem
+                  image_url={item.image_url}
+                  name={item.name}
+                  price={item.price}
+                  quantity={item.quantity}
+                  isCartButtonVisible={true}
+                  addToCart={() => addToCart(item)}
+                />
+              ))}
           </li>
         </ul>
       </OrderDetailWrapper>
@@ -48,7 +50,7 @@ const OrderDetails = () => {
         <PaymentSheet
           title="결제금액 정보"
           priceInfo="총 결제 금액"
-          price={totalPrice}
+          price={totalPricePerOrder}
           isButtonVisible={false}
         />
       </PaymentSheetWrapper>

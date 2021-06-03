@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/Button';
+import Button from '../@common/Button';
 import { Detail, Name, PriceWrapper, Product } from './index.styles';
-import { Image } from '../common/Image/index.styles';
-import { useDispatch, useSelector } from 'react-redux';
+import Image from '../@common/Image';
+import useProducts from '../../hooks/useProducts';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetail = ({ product, handleCartButtonClick }) => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector(state => state.product.product.cartItems);
+const ProductDetail = ({ product }) => {
+  const { addToCart } = useProducts();
   const { name, price, image_url } = product;
 
   return (
@@ -22,12 +21,7 @@ const ProductDetail = ({ product, handleCartButtonClick }) => {
           <span>{price}원</span>
         </PriceWrapper>
       </Detail>
-      <Button
-        backgroundColor={BUTTON_COLOR}
-        onClick={() =>
-          handleCartButtonClick({ ...product }, cartItems, dispatch)
-        }
-      >
+      <Button backgroundColor={BUTTON_COLOR} onClick={() => addToCart(product)}>
         장바구니
       </Button>
     </Product>

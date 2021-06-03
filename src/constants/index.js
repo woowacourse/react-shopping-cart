@@ -3,6 +3,7 @@ import loading from '../assets/image/loading.gif';
 
 export const ACTION_TYPE = {
   PRODUCTS: {
+    ADD_INITIAL_PRODUCT: 'product/addInitialProductToCart',
     ADD_TO_CART: 'products/addToCart',
     INCREASE_QUANTITY: 'products/increaseQuantity',
     DECREASE_QUANTITY: 'products/decreaseQuantity',
@@ -14,6 +15,15 @@ export const ACTION_TYPE = {
     GET_PRODUCT_DETAIL: 'products/getProductDetail',
     RESET_PRODUCT_DETAIL: 'products/resetProductDetail',
     SET_CARTS: 'products/setCarts',
+    RESET_CARTS: 'products/resetCarts',
+  },
+
+  URL: {
+    GET_URL: 'url/restrictDirectAccess',
+  },
+
+  ORDERS: {
+    SET_COMPLETED_ORDERS: 'orders/completed',
   },
 };
 
@@ -35,6 +45,7 @@ export const ROUTE = {
   ORDER_PAYMENT: '/order-payment',
   COMPLETED_ORDER: '/completed-order',
   ORDER_DETAILS: '/order-details',
+  PRODUCT_DETAILS: '/product-details',
 };
 
 export const PRODUCT = {

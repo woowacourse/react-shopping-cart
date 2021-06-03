@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FALLBACK } from '../../constants';
 import { InputWrapper, Input } from './index.styles';
-import RightAddon from '../common/RightAddon';
+import RightAddon from '../@common/RightAddon';
 
 const QuantityInput = ({
   quantity = FALLBACK.PRODUCT.QUANTITY,

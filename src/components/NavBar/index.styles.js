@@ -27,7 +27,7 @@ export const LogoWrapper = styled.div`
   font-weight: var(--weight-bold);
 
   & :first-child {
-    margin-right: 0.3rem;
+    margin: 0.125rem 0.3rem 0 0;
   }
 `;
 

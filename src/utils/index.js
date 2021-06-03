@@ -1,14 +1,15 @@
-export const getTotalPrice = products => {
-  return products.reduce((totalPrice, { price, quantity, isChecked }) => {
-    return isChecked ? (totalPrice += price * quantity) : totalPrice;
-  }, 0);
-};
-
-export const getTotalQuantity = products => {
-  return products.reduce((totalQuantity, { quantity, isChecked }) => {
-    return isChecked ? (totalQuantity += quantity) : totalQuantity;
-  }, 0);
-};
-
 export const formatPrice = price =>
   new Intl.NumberFormat('ko-KR').format(price);
+
+export const chunckedArray = (data, chunkCount) => {
+  const pageLength = Math.ceil(data.length / chunkCount);
+  const pages = [...Array(pageLength).keys()];
+
+  const chunk = [];
+
+  pages.forEach(page => {
+    chunk.push(data.slice(page * chunkCount, (page + 1) * chunkCount));
+  });
+
+  return chunk;
+};

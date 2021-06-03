@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
   --color-background: #E5E5E5;
 
   --color-mint: #2AC1BC;
+  --color-mint-500: #00847f;
   --color-brown: #73675C;
   --color-white: #ffffff;
   --color-light-grey: #F6F6F6;
@@ -32,7 +33,6 @@ const GlobalStyle = createGlobalStyle`
   --weight-regular: 400;
   --weight-small: 300;
 }
-
   /* Universal tags */
   * {
     box-sizing: border-box;
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
     outline: 0;
   }
 
-  html, body {
+  html, body, #root, .App {
     height: 100%;
     cursor: default;
     margin:0;
@@ -54,11 +54,6 @@ const GlobalStyle = createGlobalStyle`
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-  }
-
-
-  #root {
-    height: 100%;
   }
 
   a {

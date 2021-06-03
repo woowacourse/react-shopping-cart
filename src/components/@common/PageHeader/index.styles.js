@@ -7,4 +7,5 @@ export const Header = styled.header`
   padding: 1rem 0;
   border-bottom: 2px solid var(--color-grey-500);
   margin-bottom: 2.3rem;
+  user-select: none;
 `;

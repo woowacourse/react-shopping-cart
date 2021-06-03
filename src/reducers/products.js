@@ -152,7 +152,6 @@ const setCarts = (state, cartItems) => {
   const newCartItems = cartItems.map(item => {
     return { ...item, isChecked: true, quantity: 1 };
   });
-  console.log(newCartItems);
 
   const updater = produce(draft => {
     draft.cartItems = newCartItems;
@@ -228,13 +227,13 @@ const productReducer = (state = initialState, action) => {
     case ACTION_TYPE.PRODUCTS.SET_CARTS:
       return setCarts(state, action.cartItems);
 
-    case 'RESET_CARTS':
+    case ACTION_TYPE.PRODUCTS.RESET_CARTS:
       return resetCarts(state);
 
-    case 'SET_COMPLETED_ORDERS':
+    case ACTION_TYPE.ORDERS.SET_COMPLETED_ORDERS:
       return setCompletedOrder(state, action.payload);
 
-    case 'ADD_INITIAL_PRODUCT_TO_CART':
+    case ACTION_TYPE.PRODUCTS.ADD_INITIAL_PRODUCT:
       return addInitialProductToCart(state, action.payload);
 
     default:

@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
-import { handleCartButtonClick } from '../pages/Products/index.actions';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useProducts from '../../hooks/useProducts';
 
-const CompletedOrderList = ({ order, onImageError }) => {
+const CompletedOrderList = ({ order }) => {
   const { order_id, order_details } = order;
-  const cartItems = useSelector(({ product }) => product.cartItems) ?? [];
-  const dispatch = useDispatch();
-
-  const addToCart = product => {
-    handleCartButtonClick(product, cartItems, dispatch);
-  };
+  const { addToCart } = useProducts();
 
   return (
     <OrderList>

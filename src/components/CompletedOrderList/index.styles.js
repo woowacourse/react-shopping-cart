@@ -14,4 +14,8 @@ export const Header = styled.div`
   span {
     margin: 1rem 2rem;
   }
+
+  :hover {
+    border-bottom: 1px solid var(--color-grey-500);
+  }
 `;

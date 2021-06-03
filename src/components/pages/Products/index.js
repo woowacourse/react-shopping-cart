@@ -1,27 +1,29 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProductItem from '../../ProductItem';
 import { ProductList, ProductPage } from './index.styles';
-import { fetchProducts, handleCartButtonClick } from './index.actions';
-import { fetchCarts } from '../ShoppingCart/index.actions';
+import useProducts from '../../../hooks/useProducts';
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const products = useSelector(state => state.product.product.fetchedProducts);
-  const cartItems = useSelector(state => state.product.product.cartItems);
+  const {
+    products,
+    cartItems,
+    updateProductState,
+    updateCartState,
+    updateProductURL,
+    addToCart,
+  } = useProducts();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    updateProductURL();
+    updateProductState();
 
-    dispatch({ type: 'RESTRICT_DIRECT_ACCESS', payload: '/' });
-
-    if (cartItems.length === 0) {
-      dispatch(fetchCarts());
-    }
+    if (cartItems.length !== 0) return;
+    updateCartState();
   }, []);
 
   return (
+    // TODO: pageWrapper 알아보기
     <ProductPage>
       <ProductList>
         {products &&
@@ -30,9 +32,7 @@ const Products = () => {
               <li key={product.product_id}>
                 <ProductItem
                   {...product}
-                  onCartButtonClick={() =>
-                    handleCartButtonClick({ ...product }, cartItems, dispatch)
-                  }
+                  onCartButtonClick={() => addToCart(product)}
                 />
               </li>
             );

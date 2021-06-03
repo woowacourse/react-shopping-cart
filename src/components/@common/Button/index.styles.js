@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button.attrs(
-  ({ onClick, type, disabled }) => ({ onClick, type, disabled })
-)`
+export const StyledButton = styled.button`
   width: 100%;
   font-size: var(--font-semi-large);
   font-weight: ${({ backgroundColor }) =>
@@ -17,5 +15,9 @@ export const StyledButton = styled.button.attrs(
   &:disabled {
     background: var(--color-grey-200);
     cursor: default;
+  }
+
+  &:not(:disabled):hover {
+    border: 1px solid var(--color-mint-500);
   }
 `;

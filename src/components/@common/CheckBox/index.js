@@ -5,10 +5,14 @@ import { Check } from '../../../assets/svg';
 
 const CheckBox = ({ onCheckBoxClick, isChecked }) => (
   <>
-    <StyledCheckBox onClick={onCheckBoxClick} isChecked={isChecked}>
+    <StyledCheckBox
+      onClick={onCheckBoxClick}
+      isChecked={isChecked}
+      htmlFor="checkbox"
+    >
       <Check />
     </StyledCheckBox>
-    <HiddenCheckBox />
+    <HiddenCheckBox type="checkbox" name="checkbox" />
   </>
 );
 

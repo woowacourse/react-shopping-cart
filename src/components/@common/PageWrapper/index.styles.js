@@ -6,7 +6,7 @@ export const Page = styled.div`
       ? 'background-color: var(--color-background);'
       : 'background-color: var(--color-white);'}
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 `;
 
 export const Container = styled.div`

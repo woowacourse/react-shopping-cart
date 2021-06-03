@@ -5,7 +5,7 @@ import { FALLBACK } from '../../constants';
 import { Cart } from '../../assets/svg';
 import { Product, Description, Name, Price, CartButton } from './index.styles';
 import { Link } from 'react-router-dom';
-import { Image } from '../common/Image/index.styles';
+import Image from '../@common/Image';
 
 const ProductItem = ({
   product_id,

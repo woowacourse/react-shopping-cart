@@ -1,8 +1,6 @@
 import axios from 'axios';
+import { ACTION_TYPE } from '../constants';
 
-import { ACTION_TYPE } from '../../../constants';
-
-// actions
 export const fetchProducts = () => async dispatch => {
   try {
     const response = await axios.get('/api/products');
@@ -16,7 +14,22 @@ export const fetchProducts = () => async dispatch => {
   }
 };
 
-export const handleCartButtonClick = async (product, cartItems, dispatch) => {
+export const fetchProductDetail = match => async dispatch => {
+  try {
+    const response = await axios.get(
+      `/api/products/${match.params.product_id}`
+    );
+    dispatch({
+      type: ACTION_TYPE.PRODUCTS.GET_PRODUCT_DETAIL,
+      productDetail: response.data,
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const addItemToCart = async (product, cartItems, dispatch) => {
+  console.log(product, dispatch);
   if (window.confirm('장바구니에 담으시겠습니까?')) {
     try {
       const sameItem = cartItems.find(
@@ -33,7 +46,7 @@ export const handleCartButtonClick = async (product, cartItems, dispatch) => {
             const cart_id = location[location.length - 1];
 
             dispatch({
-              type: 'ADD_INITIAL_PRODUCT_TO_CART',
+              type: ACTION_TYPE.PRODUCTS.ADD_INITIAL_PRODUCT,
               payload: { product, cartId: cart_id },
             });
           });

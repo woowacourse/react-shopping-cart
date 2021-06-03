@@ -9,8 +9,8 @@ import {
   ImageWrapper,
   ButtonWrapper,
 } from './index.styles';
-import Button from '../common/Button';
-import { Image } from '../common/Image/index.styles';
+import Button from '../@common/Button';
+import Image from '../@common/Image';
 
 const BUTTON_COLOR = 'var(--color-mint)';
 
