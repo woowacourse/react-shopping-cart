@@ -17,17 +17,14 @@
 - 상품 목록
 
 ```ts
-  {
-    ProductsObject {
-      products: {
-        [key: string]: {
-          name: string
-          price: number;
-          imageUrl: string
-        }
-      }
-    }
-  }
+{
+  products: {
+    productId: string;
+    name: string;
+    price: number;
+    imageUrl: string;
+  }[]
+}
 ```
 
 - 장바 구니
@@ -35,12 +32,11 @@
 ```ts
 {
   cart: {
-    id: string;
+    cartId: string;
     name: string;
     price: number;
     imageUrl: string;
-    quantity: number;
-  }
+  }[]
 }
 ```
 
@@ -49,14 +45,11 @@
 ```ts
 {
   orderList: {
-    id: number;
-    itemList: {
-      id: string;
-      name: string;
-      price: number;
-      imageUrl: string;
-    }
-  }
+    orderId: string;
+    order_details: (Product & {
+      quantity: number;
+    })[];
+  }[]
 }
 ```
 
