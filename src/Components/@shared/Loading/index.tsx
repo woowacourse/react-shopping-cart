@@ -1,12 +1,11 @@
 import React from "react";
 
 import { Container, Left, Center, Right } from "./style";
+import { ContainerProps } from "./style";
 
 import { COLOR } from "../../../constants/theme";
 
-interface LoadingProps {
-  bgColor?: string;
-}
+type LoadingProps = Partial<ContainerProps>;
 
 const Loading = ({ bgColor = COLOR.MAIN }: LoadingProps) => (
   <Container bgColor={bgColor}>

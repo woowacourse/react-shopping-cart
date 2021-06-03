@@ -12,7 +12,6 @@ const loadingAnimation = keyframes`
     transform:scale(1,1)
   }
 `;
-
 interface ContainerProps {
   bgColor: string;
 }
@@ -46,3 +45,4 @@ const Right = styled.div`
 `;
 
 export { Container, Left, Center, Right };
+export { ContainerProps };
