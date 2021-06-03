@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import ProvidePayment from "./components/ProvidePayment/ProvidePayment";
 import Nav from "./components/@mixins/Nav/Nav";
 import PATH from "./constants/path";
+import { PUBLIC_URL } from "./constants/env";
 import { fetchAllProducts } from "./store/modules/productSlice";
 import { fetchCart } from "./store/modules/cartSlice";
 import { fetchOrders } from "./store/modules/orderSlice";
@@ -25,7 +26,7 @@ const App = () => {
 
   return (
     <S.App>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={PUBLIC_URL}>
         <Nav />
         <S.Main>
           <Switch>
