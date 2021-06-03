@@ -1,10 +1,10 @@
 import React from "react";
-
 import { useHistory } from "react-router-dom";
-
-import ResultBox from "../@mixins/ResultBox/ResultBox";
 import CartInfo from "./CartInfo/CartInfo";
 import * as S from "./Cart.styled";
+
+import ResultBox from "../@shared/ResultBox/ResultBox";
+
 import { ROUTE } from "../../constants/constant";
 import { useCart } from "../../hooks/useCart";
 

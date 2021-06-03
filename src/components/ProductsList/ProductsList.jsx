@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { useProduct } from "../../hooks/useProduct";
-import { useCart } from "../../hooks/useCart";
-
-import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
+import { useProduct } from "../../hooks/useProduct";
+import { useCart } from "../../hooks/useCart";
+import Loading from "../@shared/Loading/Loading";
+
 const ProductsList = () => {
-  const { products, getProducts, loading } = useProduct();
+  const { products, getProducts, loading: productLoading } = useProduct();
   const { addCart, getCartAmount, loading: cartLoading } = useCart();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const ProductsList = () => {
 
   return (
     <>
-      {loading && <Loading>상품목록을 불러오는 중입니다</Loading>}
+      {productLoading && <Loading>상품목록을 불러오는 중입니다</Loading>}
 
       <S.ProductsList>
         {products.map((product) => (

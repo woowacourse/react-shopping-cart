@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { formatPrice } from "../../../utils/util";
-import Button from "../../@shared/Button/Button";
+import Button from "../Button/Button";
 import * as S from "./ResultBox.styled";
 
 const ResultBox = ({

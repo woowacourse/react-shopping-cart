@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import * as S from "./OrderListItem.styled";
+import * as S from "./OrdersListItem.styled";
 
 import OrderItem from "./OrderItem/OrderItem";
 

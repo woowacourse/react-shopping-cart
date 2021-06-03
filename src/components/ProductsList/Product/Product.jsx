@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-
-import { formatPrice } from "../../../utils/util";
 import * as S from "./Product.styled";
-import CartIcon from "../../@shared/CartIcon/CartIcon";
 
+import CartIcon from "../../@shared/CartIcon/CartIcon";
+import { formatPrice } from "../../../utils/util";
 import { CART } from "../../../constants/constant";
 
 const Product = ({ product, amount, addToCart, loading }) => {
-  const history = useHistory();
   const { thumbnail, name, price } = product;
+  const history = useHistory();
 
   const handleProductClick = () => {
     history.push(`/product/${product.id}`);

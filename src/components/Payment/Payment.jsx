@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as S from "./Payment.styled";
 
-import ResultBox from "../@mixins/ResultBox/ResultBox";
+import ResultBox from "../@shared/ResultBox/ResultBox";
 import PaymentInfo from "./PaymentInfo/PaymentInfo";
 
 import { formatPrice } from "../../utils/util";

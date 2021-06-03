@@ -5,10 +5,10 @@ import * as S from "./CartInfo.styled";
 import CartItem from "./CartItem/CartItem";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
+import Empty from "../../@shared/Empty/Empty";
 
 import { MESSAGE } from "../../../constants/constant";
 import { useConfirm } from "../../../hooks/useConfirm";
-import Empty from "../../@mixins/Empty/Empty";
 import { useCart } from "../../../hooks/useCart";
 
 const CartInfo = ({ cart }) => {

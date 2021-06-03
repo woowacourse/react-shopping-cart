@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
+import OrdersListItem from "./OrdersListItem/OrdersListItem";
 import * as S from "./OrdersList.styled";
 
-import OrdersListItem from "./OrdersListItem/OrdersListItem";
-
-import Empty from "../@mixins/Empty/Empty";
-
+import Empty from "../@shared/Empty/Empty";
 import { useOrder } from "../../hooks/useOrder";
 
 const OrdersList = () => {
   const { orders, getOrders } = useOrder();
-
   const ordersList = Object.values(orders).sort(
     (a, b) => b.order_id - a.order_id
   );
