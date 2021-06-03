@@ -21,7 +21,15 @@ const ProductDetail = () => {
     },
   } = useLocation<{ product: Product }>();
 
-  const { animation, loading } = useSelector(({ cart: { animation, loading } }: RootState) => ({ animation, loading }));
+  const {
+    animation,
+    loading,
+    requestErrorMessage,
+  } = useSelector(({ cart: { animation, loading, requestErrorMessage } }: RootState) => ({
+    animation,
+    loading,
+    requestErrorMessage,
+  }));
   const dispatch = useDispatch();
 
   const onClickCart = (productId: string) => {
@@ -32,6 +40,14 @@ const ProductDetail = () => {
     return (
       <Container>
         <Loading />
+      </Container>
+    );
+  }
+
+  if (requestErrorMessage) {
+    return (
+      <Container>
+        <p>requestErrorMessage</p>
       </Container>
     );
   }

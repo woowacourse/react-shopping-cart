@@ -37,6 +37,14 @@ const ProductList: VFC = () => {
     );
   }
 
+  if (requestErrorMessage) {
+    return (
+      <Container>
+        <p>requestErrorMessage</p>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <Inner>

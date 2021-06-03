@@ -30,7 +30,7 @@ const Cart: VFC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // TODO: 에러 어떻게 처리?
+
   const { cart, loading, requestErrorMessage } = useSelector(
     ({ cart: { cart, loading, requestErrorMessage } }: RootState) => ({
       cart,
@@ -137,6 +137,14 @@ const Cart: VFC = () => {
     return (
       <Container>
         <Loading />
+      </Container>
+    );
+  }
+
+  if (requestErrorMessage) {
+    return (
+      <Container>
+        <p>requestErrorMessage</p>
       </Container>
     );
   }
