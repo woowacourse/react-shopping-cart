@@ -1,137 +1,40 @@
 import React, { useEffect, useState, VFC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import actions from "../../actions";
-import { RootState } from "../../store";
 
 import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../Components/@shared";
 import { CartItem, Portal } from "../../Components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 
 import { COLOR } from "../../constants/theme";
-import { ORDER_COUNT } from "../../constants/standard";
-import { PATH } from "../../constants/path";
 import { toNumberWithComma } from "../../utils/format";
-
-interface CheckedList {
-  [key: string]: boolean;
-}
-
-interface OrderCountList {
-  [key: string]: number;
-}
+import useCart from "../../hooks/useCart";
 
 const Cart: VFC = () => {
-  const [checkedList, setCheckedList] = useState<CheckedList>({});
-  const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
+  const {
+    cart,
+    loading,
+    requestErrorMessage,
+    getCheckedCount,
+    onChangeTotalChecked,
+    getTotalCheckedIndicator,
+    checkedList,
+    orderCountList,
+    onIncrementOrderCount,
+    onDecrementOrderCount,
+    onChangeChecked,
+    totalPrice,
+    onClickSubmitButton,
+  } = useCart();
 
   const [isDeleteConfirmOpened, setDeleteConfirmStatus] = useState<boolean>(false);
 
-  const history = useHistory();
   const dispatch = useDispatch();
-
-  const { cart, loading, requestErrorMessage } = useSelector(
-    ({ cart: { cart, loading, requestErrorMessage } }: RootState) => ({
-      cart,
-      loading,
-      requestErrorMessage,
-    })
-  );
-
-  const totalPrice = cart.reduce((acc, { cartId, price }) => {
-    return checkedList[cartId] ? acc + price * orderCountList[cartId] : acc;
-  }, 0);
-
-  const setCheckedListAll = (checked: boolean) => {
-    setCheckedList(
-      cart.reduce((acc: CheckedList, { cartId }) => {
-        acc[cartId] = checked;
-
-        return acc;
-      }, {})
-    );
-  };
-
-  const resetOrderCountList = () => {
-    setOrderCountList(
-      cart.reduce((acc: OrderCountList, { cartId }) => {
-        acc[cartId] = 1;
-
-        return acc;
-      }, {})
-    );
-  };
-
-  const getCheckedCount = () => {
-    return Object.values(checkedList).filter(Boolean).length;
-  };
-
-  const getTotalCheckedIndicator = () => {
-    const checkedCount = getCheckedCount();
-
-    if (checkedCount === cart.length) return "선택 해제";
-    if (checkedCount === 0) return "전체 선택";
-    return `${checkedCount}개 선택`;
-  };
-
-  const onChangeTotalChecked = () => {
-    const checkedCount = getCheckedCount();
-
-    setCheckedListAll(checkedCount !== cart.length);
-  };
-
-  const onChangeChecked = (cartId: string) => {
-    setCheckedList((prev) => ({ ...prev, [cartId]: !prev[cartId] }));
-  };
-
-  const onIncrementOrderCount = (cartId: string) => {
-    setOrderCountList((prev) => {
-      const prevCount = prev[cartId];
-
-      if (prevCount >= ORDER_COUNT.MAX) {
-        return prev;
-      }
-
-      return {
-        ...prev,
-        [cartId]: prev[cartId] + 1,
-      };
-    });
-  };
-
-  const onDecrementOrderCount = (cartId: string) => {
-    setOrderCountList((prev) => {
-      const prevCount = prev[cartId];
-
-      if (prevCount <= ORDER_COUNT.MIN) {
-        return prev;
-      }
-
-      return {
-        ...prev,
-        [cartId]: prev[cartId] - 1,
-      };
-    });
-  };
-
-  const onClickSubmitButton = () => {
-    history.push(PATH.ORDER, {
-      order: cart
-        .filter(({ cartId }) => checkedList[cartId])
-        .map((item) => ({ ...item, quantity: orderCountList[item.cartId] })),
-      totalPrice,
-    });
-  };
 
   useEffect(() => {
     dispatch(actions.cart.get.request());
   }, []);
-
-  useEffect(() => {
-    setCheckedListAll(true);
-    resetOrderCountList();
-  }, [cart]);
 
   if (loading) {
     return (
