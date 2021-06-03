@@ -4,10 +4,13 @@ import actions from "../../actions";
 
 import { Confirm, CheckBox, ProductImage, Portal } from "..";
 import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
+
 import { toNumberWithComma } from "../../utils/format";
+import { PATH } from "../../constants/path";
 
 interface CartItemProps {
   id: string;
+  productId: string;
   name: string;
   price: number;
   quantity: number;
@@ -20,6 +23,7 @@ interface CartItemProps {
 
 const CartItem: VFC<CartItemProps> = ({
   id,
+  productId,
   name,
   price,
   quantity,
@@ -36,11 +40,27 @@ const CartItem: VFC<CartItemProps> = ({
   return (
     <Container>
       <CheckBox checked={isChecked} onChange={onChangeChecked} />
-      <ProductImageLink to={`/cart/${id}`}>
+      <ProductImageLink
+        to={{
+          pathname: `${PATH.PRODUCT}/${productId}`,
+          state: {
+            product: { productId, name, price, imageUrl },
+          },
+        }}
+      >
         <ProductImage size="7.75rem" src={imageUrl} alt={`${name}이미지`} />
       </ProductImageLink>
       <Desc>
-        <NameLink to={`/cart/${id}`}>{name}</NameLink>
+        <NameLink
+          to={{
+            pathname: `${PATH.PRODUCT}/${productId}`,
+            state: {
+              product: { productId, name, price, imageUrl },
+            },
+          }}
+        >
+          {name}
+        </NameLink>
       </Desc>
       <ControlBox>
         <button

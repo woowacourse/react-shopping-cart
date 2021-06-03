@@ -96,10 +96,11 @@ const Cart: VFC = () => {
         <Section>
           <CartListTitle>든든상품 ({cart.length} 개)</CartListTitle>
           <ul>
-            {cart.map(({ cartId, name, price, imageUrl }) => (
+            {cart.map(({ cartId, productId, name, price, imageUrl }) => (
               <li key={cartId}>
                 <CartItem
                   id={cartId}
+                  productId={productId}
                   name={name}
                   price={price * orderCountList[cartId]}
                   imageUrl={imageUrl}
