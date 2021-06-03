@@ -21,15 +21,13 @@ const ProductDetail = () => {
     },
   } = useLocation<{ product: Product }>();
 
-  const {
-    animation,
-    loading,
-    requestErrorMessage,
-  } = useSelector(({ cart: { animation, loading, requestErrorMessage } }: RootState) => ({
-    animation,
-    loading,
-    requestErrorMessage,
-  }));
+  const { animation, loading, requestErrorMessage } = useSelector(
+    ({ cart: { animation, loading, requestErrorMessage } }: RootState) => ({
+      animation,
+      loading,
+      requestErrorMessage,
+    })
+  );
   const dispatch = useDispatch();
 
   const onClickCart = (productId: string) => {
@@ -62,7 +60,7 @@ const ProductDetail = () => {
         <div style={{ padding: "1.875rem" }}>
           <DivFlexBetween style={{ width: "100%" }}>
             <span>금액</span>
-            <span>{toNumberWithComma(price)}</span>
+            <span>{`${toNumberWithComma(price)}원`}</span>
           </DivFlexBetween>
         </div>
         <Button
