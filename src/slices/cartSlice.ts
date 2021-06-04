@@ -30,9 +30,17 @@ export const getCartItems = createAsyncThunk(GET_CART_ITEMS, async () => {
   return cartItemsWithQuantity as T.CartItem[];
 });
 
-export const addCartItem = createAsyncThunk(ADD_CARD_ITEM, async (productId: T.Product['productId']) => {
-  await api.post(API.CARTS, { product_id: productId });
-});
+export const addCartItem = createAsyncThunk(
+  ADD_CARD_ITEM,
+  async (productId: T.Product['productId'], { rejectWithValue }) => {
+    try {
+      const response = await api.post(API.CARTS, { product_id: productId });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const deleteItem = createAsyncThunk(DELETE_ITEM, async (cartId: T.CartItem['cartId']) => {
   await api.delete(`${API.CARTS}/${cartId}`);

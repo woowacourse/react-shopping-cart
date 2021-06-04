@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use((response) => {
-  if (response.data instanceof Array) {
+  if (response.data instanceof Array || response.data instanceof Object) {
     const newResponse = { ...response, data: keysToCamel(response.data) };
 
     return newResponse;

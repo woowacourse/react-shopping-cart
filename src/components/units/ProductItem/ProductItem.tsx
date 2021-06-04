@@ -1,4 +1,5 @@
 import React, { useState, ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
@@ -25,9 +26,11 @@ const ProductItem = (props: IProps): ReactElement => {
 
   return (
     <Styled.Root>
-      <Styled.ImageWrapper>
-        <Styled.Image src={currentImageUrl || noImageURL} alt={name} onError={handleImageLoadError} />
-      </Styled.ImageWrapper>
+      <Link to={`/product/${product.productId}`}>
+        <Styled.ImageWrapper>
+          <Styled.Image src={currentImageUrl || noImageURL} alt={name} onError={handleImageLoadError} />
+        </Styled.ImageWrapper>
+      </Link>
       <Styled.Content>
         <Styled.Detail>
           <Styled.Title>{name}</Styled.Title>
