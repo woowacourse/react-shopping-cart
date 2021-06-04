@@ -27,7 +27,7 @@ const OrderDetails = () => {
     <PageWrapper bg="grey">
       <PageHeader>주문내역상세</PageHeader>
       <OrderDetailWrapper>
-        <Header>
+        <Header hover={false}>
           <span>주문번호 : {order_id}</span>
         </Header>
         <ul>

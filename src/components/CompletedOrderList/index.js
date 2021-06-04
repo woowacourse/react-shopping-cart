@@ -17,7 +17,7 @@ const CompletedOrderList = ({ order }) => {
           state: { id: order_id },
         }}
       >
-        <Header>
+        <Header hover={true}>
           <span>주문번호 : {order_id}</span>
           <span>상세보기 ᐳ</span>
         </Header>
