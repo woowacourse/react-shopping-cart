@@ -1,7 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
@@ -13,10 +11,10 @@ import * as T from '../../types';
 import MESSAGE from '../../constants/messages';
 import { toPriceFormat } from '../../utils';
 import useAxios from '../../hooks/useAxios';
-import { RootState } from '../../store';
 import { deleteCheckedItems } from '../../slices/cartSlice';
 import API from '../../constants/api';
 import ROUTES from '../../constants/routes';
+import { useAppDispatch } from '../../hooks/useStore';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -25,7 +23,7 @@ type LocationState = {
 const OrderPage = (): ReactElement => {
   const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
+  const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [{ status, error }, fetchOrder] = useAxios(API.ORDERS, { method: T.ApiMethod.POST });
 

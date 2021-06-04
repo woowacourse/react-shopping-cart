@@ -11,12 +11,12 @@ import useCart from '../../hooks/useCart';
 
 const ProductDetailPage = (): ReactElement => {
   const { id }: { id?: string } = useParams();
-  const { add } = useCart();
+  const { onAdd } = useCart();
 
   const [{ data: product }, fetchProducts] = useAxios(`${API.PRODUCTS}/${id}`);
 
   const handleAddCartItem = () => {
-    add(Number(id));
+    onAdd(Number(id));
   };
 
   useEffect(() => {
