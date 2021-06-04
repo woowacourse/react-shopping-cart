@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 const Root = styled.section`
@@ -34,9 +35,11 @@ const OrderNumber = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const DetailButton = styled.span`
+const DetailButton = styled(Link)`
   font-size: 20px;
   letter-spacing: 0.5px;
+  text-decoration: none;
+  color: black;
 `;
 
 const PurchasedList = styled.ul`

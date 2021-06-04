@@ -1,8 +1,11 @@
+import HighlightText from 'components/shared/HighlightText/HighlightText';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PriceOverview from 'components/units/PriceOverview/PriceOverview';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
+import useAddCart from 'hooks/useAddCart';
 import React from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { Order } from 'types';
+import { CartItem, Order, Product } from 'types';
 import Styled from './OrderDetailPage.styles';
 
 type LocationState = {
@@ -11,10 +14,17 @@ type LocationState = {
 
 const OrderDetailPage = () => {
   const location = useLocation<LocationState>();
+  const addCart = useAddCart();
 
   if (!location.state) return <Redirect to="/order-list" />;
 
   const { order } = location.state;
+
+  const totalPrice = order.items.reduce((acc: number, curr: CartItem) => acc + curr.product.price * curr.quantity, 0);
+
+  const handleClickCart = (product: Product) => {
+    addCart(product);
+  };
 
   return (
     <Styled.Root>
@@ -22,15 +32,23 @@ const OrderDetailPage = () => {
       <Styled.OrderList>
         <Styled.Order>
           <Styled.OrderHeader>
-            <Styled.OrderNumber>주문번호 :</Styled.OrderNumber>
+            <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
           </Styled.OrderHeader>
           <Styled.PurchasedList>
-            {/* {order.items.map((item) => (
-              <PurchasedItem key={item.id} item={item} onClick={handleClickCart} />
-            ))} */}
+            {order.items.map((item) => (
+              <PurchasedItem key={item.id} item={item} onClick={() => handleClickCart(item.product)} />
+            ))}
           </Styled.PurchasedList>
         </Styled.Order>
       </Styled.OrderList>
+      <Styled.PriceOverviewWrapper>
+        <PriceOverview headerText="결제금액 정보">
+          <Styled.HighlightTextWrapper>
+            <HighlightText text="총 결제금액" />
+            <HighlightText text={`${totalPrice.toLocaleString('ko-KR')}원`} />
+          </Styled.HighlightTextWrapper>
+        </PriceOverview>
+      </Styled.PriceOverviewWrapper>
     </Styled.Root>
   );
 };

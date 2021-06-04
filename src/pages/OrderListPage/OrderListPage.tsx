@@ -64,7 +64,9 @@ const OrderListPage = () => {
             <Styled.Order key={order.id}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
-                <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
+                <Styled.DetailButton to={{ pathname: '/order/detail', state: { order } }}>
+                  {'상세보기 >'}
+                </Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
                 {order.items.map((item) => (

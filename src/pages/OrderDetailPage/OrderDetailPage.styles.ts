@@ -47,11 +47,16 @@ const PurchasedList = styled.ul`
 
 const Product = styled.li``;
 
-const SpinnerWrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+const PriceOverviewWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+`;
+
+const HighlightTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
 `;
 
 export default {
@@ -63,5 +68,6 @@ export default {
   DetailButton,
   PurchasedList,
   Product,
-  SpinnerWrapper,
+  PriceOverviewWrapper,
+  HighlightTextWrapper,
 };
