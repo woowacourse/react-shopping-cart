@@ -5,3 +5,4 @@ export { default as HighlightText } from './HighlightText';
 export { default as NumericInput } from './NumericInput';
 export { default as Product } from './Product';
 export { default as IconButton } from './IconButton';
+export { default as Thumbnail } from './Thumbnail';

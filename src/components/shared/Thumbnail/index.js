@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Wrapper, Image } from './style';
+import { Container, Image } from './style';
 import noImage from '../../../assets/images/no_image.svg';
 
 const Thumbnail = ({ image = noImage, alt, size, onClick }) => {
@@ -9,11 +9,11 @@ const Thumbnail = ({ image = noImage, alt, size, onClick }) => {
   };
 
   return (
-    <Container onClick={onClick}>
-      <Wrapper size={size}>
-        <Image src={image} alt={alt} onError={setErrorImage} />
-      </Wrapper>
-    </Container>
+    <div>
+      <Container size={size}>
+        <Image src={image} alt={alt} onClick={onClick} onError={setErrorImage} />
+      </Container>
+    </div>
   );
 };
 
