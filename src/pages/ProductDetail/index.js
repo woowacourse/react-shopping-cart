@@ -1,10 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 
 import API from '../../request/api';
 import useFetch from '../../hooks/useFetch';
-import { addItemToCart } from '../../store/cartReducer';
 
 import { COLOR, FETCH_URL, MESSAGE, PATH } from '../../constants';
 import { Button, Thumbnail } from '../../components/shared';
@@ -16,7 +14,6 @@ const ProductDetail = () => {
   const [item, itemFetchError] = useFetch(FETCH_URL.GET_PRODUCT_DETAIL(id));
 
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const goMain = () => {
     history.push(PATH.MAIN);
@@ -38,9 +35,8 @@ const ProductDetail = () => {
 
   const addCart = id => async () => {
     try {
-      const newCartItem = await API.addItemToCart(id);
+      await API.addItemToCart(id);
 
-      dispatch(addItemToCart(newCartItem));
       alert(MESSAGE.SUCCESS_ADD_ITEM_TO_CART);
     } catch (error) {
       console.error(error.message);

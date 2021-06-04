@@ -1,10 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import useFetch from '../../hooks/useFetch';
 import API from '../../request/api';
-import { addItemToCart } from '../../store/cartReducer';
 import { FETCH_URL, MESSAGE, PATH } from '../../constants';
 import { Grid, Card, IconButton } from '../../components/shared';
 
@@ -14,7 +12,6 @@ import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
 const ProductList = () => {
   const [list, productListError] = useFetch(FETCH_URL.GET_PRODUCTS);
   const history = useHistory();
-  const dispatch = useDispatch();
 
   if (productListError) {
     return <>상품을 불러올 수 없습니다. 다시 시도해주세요😭</>;
@@ -26,9 +23,8 @@ const ProductList = () => {
 
   const addCart = id => async () => {
     try {
-      const newCartItem = await API.addItemToCart(id);
+      await API.addItemToCart(id);
 
-      dispatch(addItemToCart(newCartItem));
       alert(MESSAGE.SUCCESS_ADD_ITEM_TO_CART);
     } catch (error) {
       console.error(error.message);
