@@ -22,16 +22,9 @@ const ShoppingCart = () => {
     isCheckedAll,
     toggleChecked,
     toggleCheckedAll,
+    deleteFromCart,
+    deleteCheckedFromCart,
   } = useCart();
-  // const handlePaymentSheetButtonClick = () => {
-  //   if (products.some(({ isChecked }) => isChecked)) {
-  //     history.push(ROUTE.ORDER_PAYMENT);
-
-  //     return;
-  //   }
-
-  //   alert(MESSAGE.CART.CHECK_PRODUCT_REQUEST);
-  // };
 
   return (
     <Page>
@@ -48,7 +41,7 @@ const ShoppingCart = () => {
                 전체선택 {`(${checkedProducts.length}/${products.length})`}
               </span>
             </CheckBoxWrapper>
-            <Button>상품삭제</Button>
+            <Button onClick={deleteCheckedFromCart}>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
@@ -60,6 +53,9 @@ const ShoppingCart = () => {
                     {...product}
                     onCheckBoxClick={() =>
                       toggleChecked(product.product_id, product.isChecked)
+                    }
+                    onDeleteButtonClick={() =>
+                      deleteFromCart(product.product_id)
                     }
                   />
                 ))}

@@ -13,13 +13,14 @@ const ShoppingItem = ({
   quantity,
   isChecked,
   onCheckBoxClick,
+  onDeleteButtonClick,
 }) => (
   <Product>
     <CheckBox onCheckBoxClick={onCheckBoxClick} isChecked={isChecked} />
     <Image src={image_url} alt={name} />
     <Name>{name}</Name>
     <Controller>
-      <button type="button">
+      <button onClick={onDeleteButtonClick} type="button">
         <TrashCan width="20" height="20" />
       </button>
       <QuantityInput type="number" quantity={quantity} />

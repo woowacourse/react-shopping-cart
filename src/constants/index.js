@@ -21,6 +21,7 @@ export const MESSAGE = {
   },
   CART: {
     CHECK_PRODUCT_REQUEST: '주문할 상품을 선택해 주세요.',
+    DELETE_FROM_CART_CONFIRM: '선택하신 상품을 장바구니에서 삭제하시겠습니까?',
   },
 };
 

@@ -12,4 +12,10 @@ const store = configureStore({
 export default store;
 
 export { getProductsThunk } from './productSlice';
-export { addProduct, setChecked, setCheckedAll } from './cartSlice';
+export {
+  addProduct,
+  deleteProduct,
+  deleteCheckedProduct,
+  setChecked,
+  setCheckedAll,
+} from './cartSlice';
