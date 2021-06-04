@@ -18,9 +18,7 @@ import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
 import { useHistory } from 'react-router-dom';
 
 const ShoppingCart = () => {
-  const products = Object.values(
-    useSelector(({ product }) => product.pickedProducts)
-  );
+  const products = useSelector(({ cart }) => cart);
 
   const dispatch = useDispatch();
 
@@ -93,16 +91,8 @@ const ShoppingCart = () => {
             <div>배송 상품</div>
             {products.length > 0 ? (
               <ul>
-                {products.map(({ id, ...product }) => (
-                  <li key={id}>
-                    <ShoppingItem
-                      {...product}
-                      onIncreaseQuantity={() => handleIncreaseQuantity(id)}
-                      onDecreaseQuantity={() => handleDecreaseQuantity(id)}
-                      onCheckBoxClick={() => handleCheckBoxClick(id)}
-                      onDeleteButtonClick={() => handleDeleteButtonClick(id)}
-                    />
-                  </li>
+                {products.map(product => (
+                  <ShoppingItem key={product.product_id} {...product} />
                 ))}
               </ul>
             ) : (

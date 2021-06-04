@@ -2,13 +2,10 @@ import React from 'react';
 import ProductItem from '../../ProductItem';
 import { ProductList, Page } from './index.styles';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { ROUTE } from '../../../constants';
+import { useProduct } from '../../../hooks';
 
 const Products = () => {
-  const { products } = useSelector(({ product }) => product);
-  const history = useHistory();
+  const { products, addToCart, viewProductDetail } = useProduct();
 
   return (
     <Page>
@@ -17,9 +14,8 @@ const Products = () => {
           <ProductItem
             key={product.product_id}
             {...product}
-            onProductClick={() =>
-              history.push(ROUTE.PRODUCT_DETAIL, { product })
-            }
+            onCartButtonClick={() => addToCart(product)}
+            onProductClick={() => viewProductDetail(product)}
           />
         ))}
       </ProductList>

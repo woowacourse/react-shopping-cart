@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 
-export const Product = styled.li`
+export const Container = styled.li`
+  position: relative;
+
+  & > button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+`;
+
+export const Product = styled.div`
   width: 12rem;
   height: 100%;
   display: flex;

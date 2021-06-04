@@ -1,7 +1,7 @@
 export const ACTION_TYPE = {
   PRODUCTS: {
     FETCH_PRODUCTS: 'products/patchProducts',
-    ADD_TO_CART: 'products/addToCart',
+    ADD_TO_CART: 'products/addProduct',
     INCREASE_QUANTITY: 'products/increaseQuantity',
     DECREASE_QUANTITY: 'products/decreaseQuantity',
     TOGGLE_CHECKED: 'products/toggleChecked',
