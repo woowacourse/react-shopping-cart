@@ -1,13 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../store/cartReducer';
+
+import useFetch from '../../hooks/useFetch';
 import API from '../../request/api';
+import { addItemToCart } from '../../store/cartReducer';
 import { FETCH_URL, MESSAGE, PATH } from '../../constants';
 import { Grid, Card, IconButton } from '../../components/shared';
+
 import { Description, Price } from './style';
 import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
-import useFetch from '../../request/useFetch';
 
 const ProductList = () => {
   const [list, productListError] = useFetch(FETCH_URL.GET_PRODUCTS);
@@ -15,7 +17,7 @@ const ProductList = () => {
   const dispatch = useDispatch();
 
   if (productListError) {
-    return <>앗 상품을 불러올 수 없어요</>;
+    return <>상품을 불러올 수 없습니다. 다시 시도해주세요😭</>;
   }
 
   const goDetailPage = id => () => {
@@ -36,12 +38,12 @@ const ProductList = () => {
 
   return (
     <Grid col="4">
-      {Object.values(list).map(({ product_id: id, name, image_url, price }) => {
+      {Object.values(list).map(({ product_id: id, name, image_url: image, price }) => {
         return (
           <Card
             key={id}
             title={name}
-            thumbnail={{ image: image_url, alt: name }}
+            thumbnail={{ image: image, alt: name }}
             onClick={goDetailPage(id)}
             description={
               <Description>

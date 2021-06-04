@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCartItemList } from '../../store/cartReducer';
+
+import useFetch from '../../hooks/useFetch';
 import API from '../../request/api';
+import { setCartItemList } from '../../store/cartReducer';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
 import { COLOR, FETCH_URL, MESSAGE, PATH } from '../../constants';
 import {
@@ -18,7 +20,6 @@ import {
   CheckBox,
 } from './style';
 import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
-import useFetch from '../../request/useFetch';
 
 const Cart = () => {
   const userName = useSelector(state => state.userReducer.name);
@@ -37,7 +38,7 @@ const Cart = () => {
       alert('로그인이 필요한 서비스입니다.');
       return <Redirect to={PATH.MAIN} />;
     }
-    return <>장바구니를 불러오는데 실패했습니다.</>;
+    return <>장바구니 불러오기를 실패했습니다.</>;
   }
 
   const checkedItemIdList = list.filter(item => item.checked).map(({ cart_id }) => cart_id);
@@ -95,6 +96,7 @@ const Cart = () => {
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
       try {
         await Promise.all(idList.map(id => API.deleteCartItem({ id })));
+
         setList(list.filter(({ cart_id }) => idList.includes(cart_id) === false));
       } catch (error) {
         console.error(error);
@@ -138,12 +140,12 @@ const Cart = () => {
           </ListOptionMenu>
           <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
           <ul aria-label="장바구니 상품 목록">
-            {list.map(({ cart_id, name, image_url, price, quantity, checked }) => (
-              <li key={cart_id}>
+            {list.map(({ cart_id: id, name, image_url: image, price, quantity, checked }) => (
+              <li key={id}>
                 <CheckBox>
                   <input
                     type="checkbox"
-                    onChange={() => onCheckBoxChange({ cart_id })}
+                    onChange={() => onCheckBoxChange({ id })}
                     checked={checked}
                     hidden
                   />
@@ -151,14 +153,14 @@ const Cart = () => {
                 </CheckBox>
                 <Product
                   onTitleClick={() => {
-                    history.push(`${PATH.GOODS_DETAIL}/${cart_id}`);
+                    history.push(`${PATH.GOODS_DETAIL}/${id}`);
                   }}
                   thumbnail={{
-                    image: image_url,
+                    image,
                     alt: name,
                     size: 'small',
                     onClick: () => {
-                      history.push(`${PATH.GOODS_DETAIL}/${cart_id}`);
+                      history.push(`${PATH.GOODS_DETAIL}/${id}`);
                     },
                   }}
                   information={{ title: name }}
@@ -167,7 +169,7 @@ const Cart = () => {
                       <IconButton
                         type="button"
                         size="small"
-                        onClick={() => onDelete([cart_id])}
+                        onClick={() => onDelete([id])}
                         ariaLabel={`${name} 삭제`}
                       >
                         <TrashBin />
@@ -176,7 +178,7 @@ const Cart = () => {
                         min={1}
                         max={99}
                         value={quantity}
-                        setValue={onItemQuantityChange(cart_id)}
+                        setValue={onItemQuantityChange(id)}
                         ariaLabel={`${name} 수량 변경`}
                       />
                       <div aria-label={`${name} 합산 가격`}>
