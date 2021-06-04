@@ -9,14 +9,13 @@ import Spinner from 'components/shared/Spinner/Spinner';
 import * as T from 'types';
 import MESSAGE from 'constants/messages';
 import api from 'api';
-import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
+import { getCartItemsRequest } from 'modules/cartItems/actions';
 import { RootState } from 'modules';
+import useAddCart from 'hooks/useAddCart';
 import Styled from './OrderListPage.styles';
-import { CartState } from '../../modules/cartItems/reducers';
 
 const OrderListPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
-
+  const addCart = useAddCart();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -38,22 +37,7 @@ const OrderListPage = () => {
   }, [enqueueSnackbar]);
 
   const handleClickCart = (product: T.Product) => {
-    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
-
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
-
-    if (cartItemIds.includes(product.id)) {
-      enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
-      return;
-    }
-
-    dispatch(addCartItemRequest(product))
-      .then(() => {
-        enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-      })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
-      });
+    addCart(product);
   };
 
   useEffect(() => {

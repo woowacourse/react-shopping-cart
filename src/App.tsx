@@ -14,6 +14,7 @@ import OrderCompletePage from 'pages/OrderCompletePage/OrderCompletePage';
 import OrderListPage from 'pages/OrderListPage/OrderListPage';
 import rootReducer from 'modules';
 import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
+import OrderDetailPage from 'pages/OrderDetailPage/OrderDetailPage';
 import Styled, { globalStyle, theme } from './App.styles';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
@@ -48,6 +49,9 @@ const App = () => {
                   </Route>
                   <Route exact path="/order">
                     <OrderPage />
+                  </Route>
+                  <Route path="/order/detail">
+                    <OrderDetailPage />
                   </Route>
                   <Route path="/order/complete">
                     <OrderCompletePage />
