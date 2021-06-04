@@ -12,13 +12,11 @@ const Template = (args) => <PurchasedItem {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   item: {
-    id: 1,
-    product: {
-      id: 3,
-      name: '블랙핑크와 카디비',
-      image: defaultImageURL,
-      price: 30000000,
-    },
+    cartId: 1,
+    productId: 3,
+    name: '블랙핑크와 카디비',
+    image: defaultImageURL,
+    price: 30000000,
     quantity: 1,
     checked: false,
   },
