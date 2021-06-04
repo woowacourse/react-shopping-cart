@@ -5,7 +5,7 @@ import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetailCard = ({ image_url, name, price }) => (
+const ProductDetailCard = ({ image_url, name, price, onCartButtonClick }) => (
   <Product>
     <Detail>
       <Image src={image_url} alt={name} />
@@ -15,7 +15,9 @@ const ProductDetailCard = ({ image_url, name, price }) => (
         <span>{price}원</span>
       </PriceWrapper>
     </Detail>
-    <Button backgroundColor={BUTTON_COLOR}>장바구니</Button>
+    <Button backgroundColor={BUTTON_COLOR} onClick={onCartButtonClick}>
+      장바구니
+    </Button>
   </Product>
 );
 
@@ -23,6 +25,7 @@ ProductDetailCard.propTypes = {
   image_url: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  onCartButtonClick: PropTypes.func.isRequired,
 };
 
 export default ProductDetailCard;

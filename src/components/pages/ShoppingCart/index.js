@@ -13,23 +13,12 @@ import {
   Empty,
 } from './index.styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { ACTION_TYPE, MESSAGE, ROUTE } from '../../../constants';
+import { MESSAGE, ROUTE } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
 import { useHistory } from 'react-router-dom';
 
 const ShoppingCart = () => {
   const products = useSelector(({ cart }) => cart);
-
-  const dispatch = useDispatch();
-
-  const handleIncreaseQuantity = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY, id });
-  };
-
-  const handleDecreaseQuantity = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.DECREASE_QUANTITY, id });
-  };
-
   const history = useHistory();
 
   const handlePaymentSheetButtonClick = () => {
@@ -42,31 +31,6 @@ const ShoppingCart = () => {
     alert(MESSAGE.CART.CHECK_PRODUCT_REQUEST);
   };
 
-  const isCheckedAll = products.every(({ isChecked }) => isChecked);
-
-  const handleCheckBoxClick = id => {
-    if (id) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
-
-      return;
-    }
-
-    dispatch({
-      type: ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED,
-      isChecked: isCheckedAll,
-    });
-  };
-
-  const handleDeleteButtonClick = id => {
-    if (id) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE, id });
-
-      return;
-    }
-
-    dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE_CHECKED });
-  };
-
   return (
     <Page>
       <PageHeader>장바구니</PageHeader>
@@ -74,10 +38,7 @@ const ShoppingCart = () => {
         <div>
           <Controller>
             <CheckBoxWrapper>
-              <CheckBox
-                isChecked={isCheckedAll}
-                onCheckBoxClick={() => handleCheckBoxClick()}
-              />
+              <CheckBox />
               <span>
                 전체선택{' '}
                 {`(${products.filter(({ isChecked }) => isChecked).length}/${
@@ -85,7 +46,7 @@ const ShoppingCart = () => {
                 })`}
               </span>
             </CheckBoxWrapper>
-            <Button onClick={() => handleDeleteButtonClick()}>상품삭제</Button>
+            <Button>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>

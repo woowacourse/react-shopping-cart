@@ -1,19 +1,3 @@
-export const ACTION_TYPE = {
-  PRODUCTS: {
-    FETCH_PRODUCTS: 'products/patchProducts',
-    ADD_TO_CART: 'products/addProduct',
-    INCREASE_QUANTITY: 'products/increaseQuantity',
-    DECREASE_QUANTITY: 'products/decreaseQuantity',
-    TOGGLE_CHECKED: 'products/toggleChecked',
-    TOGGLE_ENTIRE_CHECKED: 'products/toggleEntireChecked',
-    DELETE_CHECKED: 'products/deleteCheckedProducts',
-    DELETE: 'products/deleteProduct',
-  },
-  ORDER: {
-    ADD_TO_ORDER_LIST: 'orders/addToOrderList',
-  },
-};
-
 export const ROUTE = {
   HOME: '/',
   PRODUCTS: '/products',

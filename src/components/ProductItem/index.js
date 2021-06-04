@@ -16,24 +16,22 @@ const ProductItem = ({
   price,
   onProductClick,
   onCartButtonClick,
-}) => {
-  return (
-    <Container>
-      <Product onClick={onProductClick}>
-        <Image src={image_url} alt={name} />
-        <Description>
-          <div>
-            <Name>{name}</Name>
-            <Price>{price} 원</Price>
-          </div>
-        </Description>
-      </Product>
-      <button type="button" onClick={onCartButtonClick}>
-        <Cart width="30" height="30" />
-      </button>
-    </Container>
-  );
-};
+}) => (
+  <Container>
+    <Product onClick={onProductClick}>
+      <Image src={image_url} alt={name} />
+      <Description>
+        <div>
+          <Name>{name}</Name>
+          <Price>{price} 원</Price>
+        </div>
+      </Description>
+    </Product>
+    <button type="button" onClick={onCartButtonClick}>
+      <Cart width="30" height="30" />
+    </button>
+  </Container>
+);
 
 ProductItem.propTypes = {
   image_url: PropTypes.string.isRequired,
