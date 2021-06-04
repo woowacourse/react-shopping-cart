@@ -13,7 +13,6 @@ const ImageWrapper = styled.div`
   width: 570px;
   height: 570px;
   display: flex;
-  background-color: gray;
   justify-content: center;
 `;
 
@@ -59,7 +58,7 @@ const Button = styled.button`
   font-weight: 700;
   font-size: 32px;
   color: ${({ theme }) => theme.textColor.defaultWhite};
-  background: #73675c;
+  background: ${({ theme }) => theme.bgColor.brown};
   text-align: center;
   border: none;
   cursor: pointer;

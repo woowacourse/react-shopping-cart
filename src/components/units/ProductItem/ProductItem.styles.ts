@@ -7,6 +7,7 @@ const Root = styled.div`
 
 const ImageWrapper = styled.div`
   min-height: 282px;
+  cursor: pointer;
 `;
 
 const Image = styled.img`

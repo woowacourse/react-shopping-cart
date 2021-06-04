@@ -2,6 +2,7 @@ import React from 'react';
 import { ReactComponent as CartIcon } from 'assets/images/cart.svg';
 import * as T from 'types';
 import noImageURL from 'assets/images/no_image.jpg';
+import { Link } from 'react-router-dom';
 import Styled from './ProductItem.styles';
 
 type ProductItemProps = {
@@ -19,9 +20,11 @@ const ProductItem = (props: ProductItemProps) => {
 
   return (
     <Styled.Root>
-      <Styled.ImageWrapper>
-        <Styled.Image src={image || noImageURL} alt={name} />
-      </Styled.ImageWrapper>
+      <Link to={{ pathname: '/products/detail', state: { product } }}>
+        <Styled.ImageWrapper>
+          <Styled.Image src={image || noImageURL} alt={name} />
+        </Styled.ImageWrapper>
+      </Link>
       <Styled.Content>
         <Styled.Detail>
           <Styled.Title>{name}</Styled.Title>
