@@ -12,6 +12,10 @@ import {
 } from './index.styles';
 import PageWrapper from '../../@common/PageWrapper';
 import useCarts from '../../../hooks/useCarts';
+import noCartItem from '../../../assets/image/tung.png';
+import Image from '../../@common/Image';
+import { Link } from 'react-router-dom';
+import { ROUTE } from '../../../constants';
 
 const ShoppingCart = () => {
   const {
@@ -55,6 +59,14 @@ const ShoppingCart = () => {
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
+            {cartItems.length === 0 && (
+              <>
+                <Image src={noCartItem} alt="cart_item_none" />
+                <Link to={ROUTE.HOME}>
+                  <Button type="button"> 장바구니 담으러가기</Button>
+                </Link>
+              </>
+            )}
             <ul>
               {Object.values(cartItems).map(({ product_id, ...product }) => (
                 <li key={product_id}>
