@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Button from 'components/shared/Button/Button';
 import NoImageURL from 'assets/images/no_image.jpg';
 import api from 'api';
-import { ButtonSize, Order } from 'types';
+import { ButtonSize } from 'types';
 import Styled from './OrderCompletePage.styles';
 
 const OrderCompletePage = () => {

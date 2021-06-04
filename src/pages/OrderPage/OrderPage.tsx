@@ -8,15 +8,15 @@ import PriceOverview from 'components/units/PriceOverview/PriceOverview';
 import HighlightText from 'components/shared/HighlightText/HighlightText';
 import Button from 'components/shared/Button/Button';
 import OrderItem from 'components/units/OrderItem/OrderItem';
-import * as T from 'types';
 import api from 'api';
 import { deleteCheckedItemsActionRequest } from 'modules/cartItems/actions';
 import { RootState } from 'modules';
 import useFetch from 'hooks/useFetch';
+import { ButtonSize, CartItem } from 'types';
 import Styled from './OrderPage.styles';
 
 type LocationState = {
-  checkedItems: T.CartItem[];
+  checkedItems: CartItem[];
 };
 
 const OrderPage = () => {
@@ -29,7 +29,7 @@ const OrderPage = () => {
 
   const { checkedItems } = location.state;
 
-  const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: T.CartItem) => {
+  const checkedItemsTotalPrice = checkedItems.reduce((acc: number, curr: CartItem) => {
     return acc + curr.product.price * curr.quantity;
   }, 0);
 
@@ -73,7 +73,7 @@ const OrderPage = () => {
             </Styled.HighlightTextWrapper>
             <Button
               text={`${checkedItemsTotalPrice.toLocaleString('ko-KR')}원 결제하기`}
-              size={T.ButtonSize.LARGE}
+              size={ButtonSize.LARGE}
               onClick={handlePurchaseCartItems}
             />
           </PriceOverview>

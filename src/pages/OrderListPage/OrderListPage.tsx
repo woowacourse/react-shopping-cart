@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
 import Spinner from 'components/shared/Spinner/Spinner';
-import * as T from 'types';
 import MESSAGE from 'constants/messages';
 import api from 'api';
 import { getCartItemsRequest } from 'modules/cartItems/actions';
 import { RootState } from 'modules';
 import useAddCart from 'hooks/useAddCart';
+import { Order, Product } from 'types';
 import Styled from './OrderListPage.styles';
 
 const OrderListPage = () => {
@@ -21,7 +21,7 @@ const OrderListPage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [orders, setOrders] = useState<T.Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const getOrders = useCallback(async () => {
     setLoading(true);
@@ -36,7 +36,7 @@ const OrderListPage = () => {
     setLoading(false);
   }, [enqueueSnackbar]);
 
-  const handleClickCart = (product: T.Product) => {
+  const handleClickCart = (product: Product) => {
     addCart(product);
   };
 
