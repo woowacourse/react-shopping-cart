@@ -24,6 +24,7 @@ export const PageButton = styled.button`
 `;
 
 export const PageButtonWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,7 +34,7 @@ export const PageButtonWrapper = styled.div`
 export const PageButtonDimmer = styled.div`
   transition: all 0.2s ease;
   position: relative;
-  max-width: 12.325rem;
+  width: 100%;
   overflow-x: hidden;
   margin: 0 auto;
 `;

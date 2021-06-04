@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProductItem from '../../ProductItem';
-import { ProductList, ProductPage } from './index.styles';
+import characterPng from '../../../assets/image/baemini.png';
+import {
+  ProductList,
+  ProductPage,
+  Loading,
+  ImageWrapper,
+  CharacterImage,
+} from './index.styles';
 import useProducts from '../../../hooks/useProducts';
+import useLoading from '../../../hooks/useLoading';
 
 const Products = () => {
+  const { loading, timer } = useLoading();
   const {
     products,
     cartItems,
@@ -22,9 +31,23 @@ const Products = () => {
     updateCartState();
   }, []);
 
+  useEffect(() => {
+    if (loading === false) return;
+    timer();
+
+    return clearTimeout(timer());
+  }, [loading]);
+
   return (
     // TODO: pageWrapper 알아보기
     <ProductPage>
+      {loading && (
+        <Loading>
+          <ImageWrapper>
+            <CharacterImage src={characterPng} alt="character" />
+          </ImageWrapper>
+        </Loading>
+      )}
       <ProductList>
         {products &&
           Object.values(products).map(product => {

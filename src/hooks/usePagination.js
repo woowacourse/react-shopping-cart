@@ -7,7 +7,7 @@ const usePagination = () => {
   const [page, setPage] = useState(1);
   const [right, setRight] = useState(false);
   const [left, setLeft] = useState(false);
-  const [translate, setTranslate] = useState(40);
+  const [translate, setTranslate] = useState(0);
 
   const pageLength = Math.ceil(orderedItems.length / 10);
   const pages = Object.keys([...Array(pageLength)]).map(

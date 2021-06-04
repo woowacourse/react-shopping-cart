@@ -4,6 +4,7 @@ import Button from '../@common/Button';
 import { Detail, Name, PriceWrapper, Product } from './index.styles';
 import Image from '../@common/Image';
 import useProducts from '../../hooks/useProducts';
+import { formatPrice } from '../../utils';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
@@ -18,7 +19,7 @@ const ProductDetail = ({ product }) => {
         <Name>{name}</Name>
         <PriceWrapper>
           <span>금액</span>
-          <span>{price}원</span>
+          <span>{formatPrice(price)}원</span>
         </PriceWrapper>
       </Detail>
       <Button backgroundColor={BUTTON_COLOR} onClick={() => addToCart(product)}>

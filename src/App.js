@@ -11,6 +11,7 @@ import {
 } from './components';
 import product from './reducers/products';
 import history from './reducers';
+import loading from './reducers/loading';
 import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
 import thunk from 'redux-thunk';
@@ -19,6 +20,7 @@ import OrderDetails from './components/pages/OrderDetails';
 const reducer = combineReducers({
   product,
   history,
+  loading,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));
