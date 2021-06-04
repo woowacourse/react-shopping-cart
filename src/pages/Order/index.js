@@ -26,11 +26,18 @@ const Order = () => {
 
   const onPurchase = async () => {
     try {
-      const orderList = list.map(({ cart_id, quantity }) => ({
-        cart_id,
-        quantity,
-      }));
+      const orderList = list.map(({ cartIdList, quantity }) => {
+        const [firstCartId] = cartIdList;
+
+        return { cart_id: firstCartId, quantity };
+      });
+
       await API.purchase(orderList);
+
+      // API 상 주문시 cart_id를 이용한 후, 해당 아이템을 삭제하므로, 다른 cart_id에 해당하는 정보를 직접 삭제해줌
+      await Promise.all(
+        list.map(({ cartIdList }) => cartIdList.slice(1).map(id => API.deleteCartItem({ id }))),
+      );
 
       alert(MESSAGE.SUCCESS_PURCHASE);
       history.push(`${PATH.MYMART_ORDER}`);
@@ -47,10 +54,10 @@ const Order = () => {
         <ProductListContainer>
           <ProductListHeader>주문 상품({list.length}건)</ProductListHeader>
           <ul aria-label="주문 상품 목록">
-            {list.map(({ id, name, image_url, quantity }) => (
+            {list.map(({ id, name, image, quantity }) => (
               <li key={id} style={{ display: 'flex' }}>
                 <Product
-                  thumbnail={{ image: image_url, alt: name, size: 'medium' }}
+                  thumbnail={{ image, alt: name, size: 'medium' }}
                   information={{ title: name, description: `수량: ${quantity}` }}
                 />
               </li>

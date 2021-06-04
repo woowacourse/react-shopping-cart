@@ -30,7 +30,26 @@ const Cart = () => {
   const history = useHistory();
 
   useEffect(() => {
-    setList(cartList.map(item => ({ ...item, quantity: 1, checked: true })));
+    if (cartList) {
+      const productIdList = new Set(cartList.map(item => item.product_id));
+      const processedList = [...productIdList].map(id => {
+        const targetCartItemList = cartList.filter(({ product_id }) => product_id === id);
+        const [{ image_url: image, name, price }] = targetCartItemList;
+        const targetCartIdList = targetCartItemList.map(({ cart_id }) => cart_id);
+
+        return {
+          productId: id,
+          image,
+          name,
+          price,
+          cartIdList: targetCartIdList,
+          quantity: targetCartIdList.length,
+          checked: true,
+        };
+      });
+
+      setList(processedList);
+    }
   }, [cartList]);
 
   if (getListError) {
@@ -41,7 +60,7 @@ const Cart = () => {
     return <>장바구니 불러오기를 실패했습니다.</>;
   }
 
-  const checkedItemIdList = list.filter(item => item.checked).map(({ cart_id }) => cart_id);
+  const checkedItemIdList = list.filter(item => item.checked).map(({ productId }) => productId);
   const checkedCount = checkedItemIdList.length;
   const isAllChecked = checkedCount && checkedCount === list.length;
   const checkOptionText = isAllChecked
@@ -58,10 +77,10 @@ const Cart = () => {
     }, 0);
   const isPurchasable = totalPrice > 0;
 
-  const onCheckBoxChange = ({ cart_id }) => {
+  const onCheckBoxChange = ({ productId }) => {
     setList(
       list.map(item => {
-        if (cart_id === item.cart_id) {
+        if (productId === item.productId) {
           return {
             ...item,
             checked: !item.checked,
@@ -81,10 +100,10 @@ const Cart = () => {
     );
   };
 
-  const onItemQuantityChange = cart_id => quantity => {
+  const onItemQuantityChange = productId => quantity => {
     setList(
       list.map(item => {
-        if (item.cart_id === cart_id) {
+        if (item.productId === productId) {
           item.quantity = quantity;
         }
         return item;
@@ -92,12 +111,17 @@ const Cart = () => {
     );
   };
 
-  const onDelete = async idList => {
+  const onDelete = async targetIdList => {
+    const targetCartIdList = list
+      .filter(({ productId }) => targetIdList.includes(productId))
+      .map(({ cartIdList }) => cartIdList)
+      .flat();
+
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
       try {
-        await Promise.all(idList.map(id => API.deleteCartItem({ id })));
+        await Promise.all(targetCartIdList.map(id => API.deleteCartItem({ id })));
 
-        setList(list.filter(({ cart_id }) => idList.includes(cart_id) === false));
+        setList(list.filter(({ productId }) => !targetIdList.includes(productId)));
       } catch (error) {
         console.error(error);
         alert(MESSAGE.FAIL_DELETE_ITEM);
@@ -140,22 +164,28 @@ const Cart = () => {
           </ListOptionMenu>
           <ProductListHeader>배송상품 ({list.length}개)</ProductListHeader>
           <ul aria-label="장바구니 상품 목록">
-            {list.map(({ cart_id: id, name, image_url: image, price, quantity, checked }) => (
-              <li key={id}>
+            {list.map(({ productId, name, image, price, quantity, checked }) => (
+              <li key={productId}>
                 <CheckBox>
                   <input
                     type="checkbox"
-                    onChange={() => onCheckBoxChange({ id })}
+                    onChange={() => onCheckBoxChange({ productId })}
                     checked={checked}
                     hidden
                   />
                   <span role="checkbox" aria-label={`${name} 선택`} aria-checked={checked}></span>
                 </CheckBox>
                 <Product
+                  onTitleClick={() => {
+                    history.push(`${PATH.GOODS_DETAIL}/${productId}`);
+                  }}
                   thumbnail={{
                     image,
                     alt: name,
                     size: 'small',
+                    onClick: () => {
+                      history.push(`${PATH.GOODS_DETAIL}/${productId}`);
+                    },
                   }}
                   information={{ title: name }}
                   extra={
@@ -163,7 +193,7 @@ const Cart = () => {
                       <IconButton
                         type="button"
                         size="small"
-                        onClick={() => onDelete([id])}
+                        onClick={() => onDelete([productId])}
                         ariaLabel={`${name} 삭제`}
                       >
                         <TrashBin />
@@ -172,7 +202,7 @@ const Cart = () => {
                         min={1}
                         max={99}
                         value={quantity}
-                        setValue={onItemQuantityChange(id)}
+                        setValue={onItemQuantityChange(productId)}
                         ariaLabel={`${name} 수량 변경`}
                       />
                       <div aria-label={`${name} 합산 가격`}>
