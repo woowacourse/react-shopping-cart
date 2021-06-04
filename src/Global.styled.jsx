@@ -10,8 +10,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-size: 16px;
+    font-size: 1rem;
     color: ${COLOR.GRAY.DARK};
+    overflow-y: scroll;
   }
 
   a {

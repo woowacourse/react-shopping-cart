@@ -1,37 +1,42 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectCartTotalQuantity } from "../../../store/modules/cartSlice";
 import CartIcon from "../../@shared/CartIcon/CartIcon";
+import { ReactComponent as ShoppingCart } from "../../../assets/shopping-cart.svg";
+import { ReactComponent as Receipt } from "../../../assets/receipt.svg";
 import * as S from "./Nav.styled";
+import PATH from "../../../constants/path";
 
 const Nav = () => {
-  const cart = useSelector((state) => state.cart);
-  const cartAmount = Object.values(cart).reduce(
-    (acc, cur) => acc + cur.amount,
-    0
-  );
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
   return (
     <S.Nav>
       <S.NavWrapper>
-        <Link to="/" className="nav-title">
+        <S.TitleLink to={PATH.HOME}>
           <CartIcon />
-          <h1>WOOWA SHOP</h1>
-        </Link>
+          <S.Title>WOOWA SHOP</S.Title>
+        </S.TitleLink>
         <S.NavMenu>
-          <li>
-            <Link to="/cart" className="cart-link" aria-label="cart-link">
-              <span>장바구니</span>
-              {cartAmount > 0 && (
-                <span className="cart-amount">{cartAmount}</span>
+          <S.ListItem>
+            <S.CartLink to={PATH.CART} aria-label="cart-link">
+              <S.SmallLinkName as={ShoppingCart} />
+              <S.LinkName>장바구니</S.LinkName>
+
+              {cartTotalQuantity > 0 && (
+                <S.CartQuantity className="cart-amount">
+                  {cartTotalQuantity}
+                </S.CartQuantity>
               )}
+            </S.CartLink>
+          </S.ListItem>
+          <S.ListItem>
+            <Link to={PATH.ORDER}>
+              <S.SmallLinkName as={Receipt} />
+              <S.LinkName>주문목록</S.LinkName>
             </Link>
-          </li>
-          <li>
-            <Link to="/orders-list">
-              <span>주문목록</span>
-            </Link>
-          </li>
+          </S.ListItem>
         </S.NavMenu>
       </S.NavWrapper>
     </S.Nav>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { COLOR } from "../../../constants/style";
+import SCREENS from "../../../constants/screens";
 
 export const CheckBox = styled.input`
   appearance: none;
@@ -21,10 +22,14 @@ export const CheckBox = styled.input`
     content: "✔";
     width: 100%;
     height: 100%;
-    font-size: 1.25rem;
+    font-size: 0.75rem;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (min-width: ${SCREENS.BREAKPOINTS.SMALL}) {
+      font-size: 1.25rem;
+    }
   }
 `;
