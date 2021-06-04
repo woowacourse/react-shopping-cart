@@ -18,24 +18,19 @@ const CompletedOrder = () => {
   const { orderedItems, getCompletedOrder } = useOrder();
   const {
     page,
-    pages,
-    sortedItems,
-    right,
-    left,
-    translate,
+    sortItemsByDate,
+    totalPages,
     onChangePage,
     goNextPage,
     goPreviousPage,
-    setRight,
-    setLeft,
   } = usePagination();
 
+  const pages = totalPages(orderedItems);
   const lastPage = pages.length + 1;
+  const sortedItems = sortItemsByDate(orderedItems);
 
   useEffect(() => {
     getCompletedOrder();
-    setRight(false);
-    setLeft(false);
   }, []);
 
   return (
@@ -52,23 +47,45 @@ const CompletedOrder = () => {
       <PaginationWrapper>
         <LeftButton onClick={goPreviousPage}> ＜ </LeftButton>
         <PageButtonDimmer>
-          <PageButtonWrapper
-            right={right}
-            left={left}
-            translate={translate}
-            page={page}
-            lastPage={lastPage}
-          >
-            {pages.map((currentPage, id) => (
-              <PageButton
-                key={id}
-                currentPage={currentPage}
-                page={page}
-                onClick={onChangePage}
-              >
-                {currentPage}
-              </PageButton>
-            ))}
+          <PageButtonWrapper page={page}>
+            {pages.map((currentPage, id) => {
+              if (page <= 2 && currentPage <= 5) {
+                return (
+                  <PageButton
+                    key={id}
+                    currentPage={currentPage}
+                    page={page}
+                    onClick={onChangePage}
+                  >
+                    {currentPage}
+                  </PageButton>
+                );
+              } else if (page >= currentPage - 2 && page <= currentPage + 2) {
+                return (
+                  <PageButton
+                    key={id}
+                    currentPage={currentPage}
+                    page={page}
+                    onClick={onChangePage}
+                  >
+                    {currentPage}
+                  </PageButton>
+                );
+              } else if (page >= lastPage - 2 && currentPage >= lastPage - 5) {
+                return (
+                  <PageButton
+                    key={id}
+                    currentPage={currentPage}
+                    page={page}
+                    onClick={onChangePage}
+                  >
+                    {currentPage}
+                  </PageButton>
+                );
+              } else {
+                return <></>;
+              }
+            })}
           </PageButtonWrapper>
         </PageButtonDimmer>
         <RightButton onClick={goNextPage}> ＞ </RightButton>

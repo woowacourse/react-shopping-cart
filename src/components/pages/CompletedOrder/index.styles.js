@@ -24,18 +24,16 @@ export const PageButton = styled.button`
 `;
 
 export const PageButtonWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(${({ translate }) => `${translate}%`});
+  overflow-x: hidden;
 `;
 
 export const PageButtonDimmer = styled.div`
   transition: all 0.2s ease;
   position: relative;
   width: 100%;
-  overflow-x: hidden;
   margin: 0 auto;
 `;
 
@@ -47,6 +45,7 @@ export const PaginationWrapper = styled.div`
 const ArrowButton = styled.button`
   position: absolute;
   top: 0.95rem;
+  z-index: 1;
 
   :hover {
     color: var(--color-mint);
@@ -54,9 +53,9 @@ const ArrowButton = styled.button`
 `;
 
 export const LeftButton = styled(ArrowButton)`
-  left: 12rem;
+  left: 17rem;
 `;
 
 export const RightButton = styled(ArrowButton)`
-  right: 12rem;
+  right: 17rem;
 `;
