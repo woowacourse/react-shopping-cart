@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProductItem from '../../ProductItem';
-import characterPng from '../../../assets/image/baemini.png';
-import {
-  ProductList,
-  ProductPage,
-  Loading,
-  ImageWrapper,
-  CharacterImage,
-} from './index.styles';
+import { ProductList, ProductPage } from './index.styles';
 import useProducts from '../../../hooks/useProducts';
 import useLoading from '../../../hooks/useLoading';
+import Loading from '../../@common/Loading';
 
 const Products = () => {
   const { loading, timer } = useLoading();
@@ -41,13 +35,7 @@ const Products = () => {
   return (
     // TODO: pageWrapper 알아보기
     <ProductPage>
-      {loading && (
-        <Loading>
-          <ImageWrapper>
-            <CharacterImage src={characterPng} alt="character" />
-          </ImageWrapper>
-        </Loading>
-      )}
+      {loading && <Loading />}
       <ProductList>
         {products &&
           Object.values(products).map(product => {
