@@ -12,24 +12,26 @@ import {
   ShoppingList,
   Empty,
 } from './index.styles';
-import { useSelector, useDispatch } from 'react-redux';
-import { MESSAGE, ROUTE } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
-import { useHistory } from 'react-router-dom';
+import { useCart } from '../../../hooks';
 
 const ShoppingCart = () => {
-  const products = useSelector(({ cart }) => cart);
-  const history = useHistory();
+  const {
+    products,
+    checkedProducts,
+    isCheckedAll,
+    toggleChecked,
+    toggleCheckedAll,
+  } = useCart();
+  // const handlePaymentSheetButtonClick = () => {
+  //   if (products.some(({ isChecked }) => isChecked)) {
+  //     history.push(ROUTE.ORDER_PAYMENT);
 
-  const handlePaymentSheetButtonClick = () => {
-    if (products.some(({ isChecked }) => isChecked)) {
-      history.push(ROUTE.ORDER_PAYMENT);
+  //     return;
+  //   }
 
-      return;
-    }
-
-    alert(MESSAGE.CART.CHECK_PRODUCT_REQUEST);
-  };
+  //   alert(MESSAGE.CART.CHECK_PRODUCT_REQUEST);
+  // };
 
   return (
     <Page>
@@ -38,12 +40,12 @@ const ShoppingCart = () => {
         <div>
           <Controller>
             <CheckBoxWrapper>
-              <CheckBox />
+              <CheckBox
+                onCheckBoxClick={toggleCheckedAll}
+                isChecked={isCheckedAll}
+              />
               <span>
-                전체선택{' '}
-                {`(${products.filter(({ isChecked }) => isChecked).length}/${
-                  products.length
-                })`}
+                전체선택 {`(${checkedProducts.length}/${products.length})`}
               </span>
             </CheckBoxWrapper>
             <Button>상품삭제</Button>
@@ -53,7 +55,13 @@ const ShoppingCart = () => {
             {products.length > 0 ? (
               <ul>
                 {products.map(product => (
-                  <ShoppingItem key={product.product_id} {...product} />
+                  <ShoppingItem
+                    key={product.product_id}
+                    {...product}
+                    onCheckBoxClick={() =>
+                      toggleChecked(product.product_id, product.isChecked)
+                    }
+                  />
                 ))}
               </ul>
             ) : (
@@ -66,7 +74,6 @@ const ShoppingCart = () => {
           priceInfo="결제예상금액"
           price={formatPrice(getTotalPrice(products))}
           buttonText={`주문하기 (${getTotalQuantity(products)}개)`}
-          onButtonClick={handlePaymentSheetButtonClick}
         />
       </Main>
     </Page>

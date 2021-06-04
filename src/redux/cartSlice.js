@@ -17,6 +17,18 @@ const cartSlice = createSlice({
 
       state.push({ ...product, quantity: 1, isChecked: true });
     },
+    setChecked: (state, { payload: { product_id, isChecked } }) => {
+      state.forEach(product => {
+        if (product.product_id === product_id) {
+          product.isChecked = isChecked;
+        }
+      });
+    },
+    setCheckedAll: (state, { payload: { isChecked } }) => {
+      state.forEach(product => {
+        product.isChecked = isChecked;
+      });
+    },
   },
 });
 
@@ -24,4 +36,4 @@ export const cartReducer = cartSlice.reducer;
 
 export default cartSlice;
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, setChecked, setCheckedAll } = cartSlice.actions;

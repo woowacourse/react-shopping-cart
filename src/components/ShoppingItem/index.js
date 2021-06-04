@@ -6,9 +6,16 @@ import { TrashCan } from '../../assets/svg';
 import { Controller, Image, Name, Product } from './index.styles';
 import { formatPrice } from '../../utils';
 
-const ShoppingItem = ({ image_url, name, price, quantity, isChecked }) => (
+const ShoppingItem = ({
+  image_url,
+  name,
+  price,
+  quantity,
+  isChecked,
+  onCheckBoxClick,
+}) => (
   <Product>
-    <CheckBox isChecked={isChecked} />
+    <CheckBox onCheckBoxClick={onCheckBoxClick} isChecked={isChecked} />
     <Image src={image_url} alt={name} />
     <Name>{name}</Name>
     <Controller>
@@ -28,6 +35,7 @@ ShoppingItem.propTypes = {
   price: PropTypes.number,
   quantity: PropTypes.number,
   isChecked: PropTypes.bool,
+  onCheckBoxClick: PropTypes.func,
 };
 
 export default ShoppingItem;
