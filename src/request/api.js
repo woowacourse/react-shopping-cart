@@ -51,52 +51,9 @@ const API = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: [],
+      body: JSON.stringify(data),
     });
   },
 };
 
 export default API;
-
-// const fetchInfo = {
-//   getItemList: {
-//     URL: '/api/products',
-//   },
-//   addItemToCart: {
-//     URL: userName => `/api/customers/${userName}/carts`,
-//     fetchConfig: {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     },
-//   },
-//   getCartItemList: {
-//     URL: userName => `/api/customers/${userName}/carts`,
-//   },
-//   deleteCartItem: {
-//     URL: (userName, cart_id) => `/api/customers/${userName}/carts/${cart_id}`,
-//     fetchConfig: {
-//       method: 'DELETE',
-//     },
-//   },
-//   purchase: {
-//     URL: userName => `/api/customers/${userName}/orders`,
-//     fetchConfig: {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: [],
-//     },
-//   },
-// };
-
-// const API = {
-//   GetItemList: () => {
-//     return useFetch('/api/products');
-//   },
-//   GetCartItem: userName => {
-//     return useFetch(`/api/customers/${userName}/carts`);
-//   },
-// };

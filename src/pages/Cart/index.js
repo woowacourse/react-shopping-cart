@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setAllCartItemCheckbox,
-  toggleCartItemCheckbox,
-  setCartItemQuantity,
-  deleteCartItems,
-  setCartItemList,
-} from '../../store/cartReducer';
+import { setCartItemList } from '../../store/cartReducer';
 import API from '../../request/api';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
 import { COLOR, FETCH_URL, MESSAGE, PATH } from '../../constants';
@@ -64,11 +58,26 @@ const Cart = () => {
   const isPurchasable = totalPrice > 0;
 
   const onCheckBoxChange = ({ cart_id }) => {
-    dispatch(toggleCartItemCheckbox(cart_id));
+    setList(
+      list.map(item => {
+        if (cart_id === item.cart_id) {
+          return {
+            ...item,
+            checked: !item.checked,
+          };
+        }
+        return item;
+      }),
+    );
   };
 
   const onCheckOptionChange = () => {
-    dispatch(setAllCartItemCheckbox(isAllChecked));
+    setList(
+      list.map(item => ({
+        ...item,
+        checked: isAllChecked ? false : true,
+      })),
+    );
   };
 
   const onItemQuantityChange = cart_id => quantity => {
@@ -80,20 +89,23 @@ const Cart = () => {
         return item;
       }),
     );
-    dispatch(setCartItemList(list));
-    // dispatch(setCartItemQuantity({ cart_id, quantity }));
   };
 
   const onDelete = async idList => {
     if (window.confirm(MESSAGE.CONFIRM_DELETE_ITEM)) {
       try {
         await Promise.all(idList.map(id => API.deleteCartItem({ id })));
-        dispatch(deleteCartItems(idList));
+        setList(list.filter(({ cart_id }) => idList.includes(cart_id) === false));
       } catch (error) {
         console.error(error);
         alert(MESSAGE.FAIL_DELETE_ITEM);
       }
     }
+  };
+
+  const onOrder = () => {
+    dispatch(setCartItemList(list));
+    history.push(PATH.ORDER);
   };
 
   return (
@@ -193,14 +205,7 @@ const Cart = () => {
               </HighlightText>
             </ReceiptRow>
 
-            <Button
-              type="button"
-              size="medium"
-              disabled={!isPurchasable}
-              onClick={() => {
-                history.push(PATH.ORDER);
-              }}
-            >
+            <Button type="button" size="medium" disabled={!isPurchasable} onClick={onOrder}>
               {`주문하기(${checkedCount}개)`}
             </Button>
           </ReceiptContent>
