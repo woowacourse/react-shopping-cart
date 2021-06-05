@@ -48,6 +48,7 @@ const useCart = () => {
   };
 
   const order = () => {
+    if (checkedProducts.length === 0) return alert('주문할 상품이 없습니다.');
     history.push(ROUTE.ORDER_PAYMENT);
   };
 
