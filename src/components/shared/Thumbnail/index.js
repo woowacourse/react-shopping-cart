@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, Image } from './style';
 import noImage from '../../../assets/images/no_image.svg';
 
-const Thumbnail = ({ image = noImage, alt, size, onClick }) => {
+const Thumbnail = ({ image = noImage, alt, size, ...props }) => {
   const setErrorImage = event => {
     event.currentTarget.src = noImage;
   };
@@ -11,7 +11,7 @@ const Thumbnail = ({ image = noImage, alt, size, onClick }) => {
   return (
     <div>
       <Container size={size}>
-        <Image src={image} alt={alt} onClick={onClick} onError={setErrorImage} />
+        <Image src={image} alt={alt} onError={setErrorImage} {...props} />
       </Container>
     </div>
   );
