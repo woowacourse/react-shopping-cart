@@ -1,27 +1,29 @@
 import { useEffect } from 'react';
 import { addItemToCart } from '../../../service/products';
 import useProducts from '../../../hooks/useProducts';
-import PageWrapper from '../../@common/PageWrapper';
 import ProductDetail from '../../ProductDetail';
+import Page from '../../@common/PageWrapper';
 import {
-  DetailWrapper,
   RecommendedItems,
   Container,
   RandomProduct,
   LeftButton,
   RightButton,
   Wrapper,
+  Header,
 } from './index.styles';
 import useLoading from '../../../hooks/useLoading';
 import useRandom from '../../../hooks/useRandom';
 import Loading from '../../@common/Loading';
 import ProductItem from '../../ProductItem';
 import usePagination from '../../../hooks/usePagination';
+import { SORT_RANDOM_ITEMS } from '../../../constants';
+import { useLocation } from 'react-router';
 
 const Details = ({ onImageError, match }) => {
   const { loading, timer } = useLoading();
   const { randomItems, setRandomItems } = useRandom();
-  const { page, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
+  const { index, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
 
   const {
     products,
@@ -32,15 +34,15 @@ const Details = ({ onImageError, match }) => {
     randomProducts,
   } = useProducts();
 
-  const sortedItems = sortItemsBy(randomItems, 'id');
-  console.log(sortedItems);
+  const sortedItems = sortItemsBy(randomItems, SORT_RANDOM_ITEMS.STANDARD);
+  const location = useLocation();
 
   useEffect(() => {
     updateProductDetail(match);
     updateProductDetailURL();
 
     return () => resetProductDetail();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     setRandomItems(randomProducts(products, 10));
@@ -53,24 +55,23 @@ const Details = ({ onImageError, match }) => {
 
   return (
     <>
-      <PageWrapper noPadding={true}>
-        <DetailWrapper>
-          {loading && <Loading />}
-          <ProductDetail
-            product={product}
-            sd
-            onImageError={onImageError}
-            addItemToCart={addItemToCart}
-          />
-        </DetailWrapper>
-      </PageWrapper>
+      <Page noPadding={true}>
+        {loading && <Loading />}
+        <ProductDetail
+          product={product}
+          onImageError={onImageError}
+          addItemToCart={addItemToCart}
+        />
+      </Page>
       <Container>
-        <h3>이런 상품은 어떠신가요?</h3>
+        <Header>
+          <h3>이런 상품은 어떠신가요?</h3>
+        </Header>
         <RecommendedItems>
           <LeftButton onClick={goPreviousPage} />
           <RandomProduct>
-            {sortedItems[page - 1] &&
-              sortedItems[page - 1].map((item, id) => (
+            {sortedItems[index] &&
+              sortedItems[index].map((item, id) => (
                 <Wrapper key={id}>
                   <ProductItem {...item} showButton={false} smallImage />
                 </Wrapper>

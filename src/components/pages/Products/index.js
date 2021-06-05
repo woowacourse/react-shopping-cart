@@ -34,7 +34,6 @@ const Products = () => {
   }, [loading]);
 
   return (
-    // TODO: pageWrapper 알아보기
     <Page>
       {loading && <Loading />}
       <ProductList>

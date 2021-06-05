@@ -19,12 +19,12 @@ import { useEffect } from 'react';
 
 const OrderDetails = () => {
   const location = useLocation();
+
   const { loading, timer } = useLoading();
   const { orderedItemDetail } = useOrder();
   const { addToCart } = useProducts();
 
-  const itemId = location.state.id;
-  const itemDetail = orderedItemDetail(itemId);
+  const itemDetail = orderedItemDetail(location.state.id);
   const { order_id, order_details } = itemDetail;
 
   const totalPricePerOrder = order_details.reduce(

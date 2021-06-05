@@ -54,3 +54,11 @@ export const PRODUCT = {
     MAX: 100,
   },
 };
+
+export const SORT_RANDOM_ITEMS = {
+  STANDARD: 'id',
+};
+
+export const PALETTE = {
+  BROWN: 'var(--color-brown)',
+};

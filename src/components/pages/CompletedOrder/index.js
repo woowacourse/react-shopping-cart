@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import CompletedOrderList from '../../CompletedOrderList';
 import { Page } from '../../@common/PageWrapper/index.styles';
 import PageHeader from '../../@common/PageHeader';
+import Loading from '../../@common/Loading';
 import useOrder from '../../../hooks/useOrder';
 import usePagination from '../../../hooks/usePagination';
+import useLoading from '../../../hooks/useLoading';
 import {
   PageButton,
   PageButtonWrapper,
   PageButtonDimmer,
   PaginationWrapper,
-  LeftButton,
-  RightButton,
+  ArrowButton,
 } from './index.styles';
-import useLoading from '../../../hooks/useLoading';
-import Loading from '../../@common/Loading';
 
 const CompletedOrder = () => {
   const { loading, timer } = useLoading();
   const { orderedItems, getCompletedOrder } = useOrder();
   const {
+    index,
     page,
     sortItemsBy,
     totalPages,
@@ -48,8 +48,8 @@ const CompletedOrder = () => {
       {loading && <Loading />}
       <PageHeader>주문목록</PageHeader>
       <ul>
-        {sortedItems[page - 1]?.length > 0 &&
-          sortedItems[page - 1].map(order => (
+        {sortedItems[index]?.length > 0 &&
+          sortedItems[index].map(order => (
             <li key={order.order_id}>
               <CompletedOrderList order={order} />
             </li>
@@ -58,7 +58,7 @@ const CompletedOrder = () => {
       <PaginationWrapper>
         <PageButtonDimmer>
           <PageButtonWrapper page={page}>
-            <LeftButton onClick={goPreviousPage}> ＜ </LeftButton>
+            <ArrowButton onClick={goPreviousPage}> ＜ </ArrowButton>
             {pages.map((currentPage, id) => {
               if (page <= 2 && currentPage <= 5) {
                 return (
@@ -97,7 +97,7 @@ const CompletedOrder = () => {
                 return <></>;
               }
             })}
-            <RightButton onClick={goNextPage}> ＞ </RightButton>
+            <ArrowButton onClick={goNextPage}> ＞ </ArrowButton>
           </PageButtonWrapper>
         </PageButtonDimmer>
       </PaginationWrapper>

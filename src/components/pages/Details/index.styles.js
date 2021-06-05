@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-export const DetailWrapper = styled.div`
-  h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
+export const Header = styled.div`
+  text-align: center;
+  margin-bottom: 1rem;
 `;
 
 export const Container = styled.div`

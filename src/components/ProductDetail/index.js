@@ -5,8 +5,7 @@ import { Detail, Name, PriceWrapper, Product } from './index.styles';
 import Image from '../@common/Image';
 import useProducts from '../../hooks/useProducts';
 import { formatPrice } from '../../utils';
-
-const BUTTON_COLOR = 'var(--color-brown)';
+import { PALETTE } from '../../constants';
 
 const ProductDetail = ({ product }) => {
   const { addToCart } = useProducts();
@@ -22,7 +21,10 @@ const ProductDetail = ({ product }) => {
           <span>{formatPrice(price)}원</span>
         </PriceWrapper>
       </Detail>
-      <Button backgroundColor={BUTTON_COLOR} onClick={() => addToCart(product)}>
+      <Button
+        backgroundColor={PALETTE.BROWN}
+        onClick={() => addToCart(product)}
+      >
         장바구니
       </Button>
     </Product>

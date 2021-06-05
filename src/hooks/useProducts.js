@@ -6,7 +6,7 @@ import {
   fetchProductDetail,
   addItemToCart,
 } from '../service/products';
-import { randomProducts, randomNumber, randomNumbers } from '../utils';
+import { randomNumber } from '../utils';
 import useCarts from './useCarts';
 import useLoading from './useLoading';
 
@@ -14,6 +14,7 @@ const useProducts = () => {
   const dispatch = useDispatch();
   const { show } = useLoading();
   const { cartItems } = useCarts();
+
   const products = useSelector(state => state.product.product.fetchedProducts);
   const product = useSelector(state => state.product.product.productDetail);
 
@@ -42,8 +43,6 @@ const useProducts = () => {
     while (uniqueItems.size < length) {
       const randomNum = randomNumber(1, data.length);
       let item = data.find(({ product_id }) => product_id === randomNum);
-      console.log(data, '데이터');
-      console.log(item, '찾은것');
 
       if (item !== undefined) {
         uniqueItems.add(item);

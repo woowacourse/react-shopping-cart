@@ -31,7 +31,10 @@ const usePagination = () => {
     setPage(page + 1);
   };
 
+  const index = page - 1;
+
   return {
+    index,
     page,
     totalPages,
     itemsPerPage,

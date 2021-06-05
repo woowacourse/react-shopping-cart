@@ -40,15 +40,8 @@ export const PaginationWrapper = styled.div`
   position: relative;
 `;
 
-const ArrowButton = styled.button`
-  /* top: 0.95rem;
-  z-index: 1;
-
+export const ArrowButton = styled.button`
   :hover {
     color: var(--color-mint);
-  } */
+  }
 `;
-
-export const LeftButton = styled(ArrowButton)``;
-
-export const RightButton = styled(ArrowButton)``;
