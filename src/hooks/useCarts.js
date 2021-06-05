@@ -13,8 +13,8 @@ const useCarts = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const cartItems = useSelector(state => state.product.product.cartItems);
-
+  const cartItems = useSelector(state => state.cart.cart.cartItems);
+  console.log(cartItems);
   const isCheckedAll = cartItems.every(({ isChecked }) => isChecked);
 
   const checkedItems = cartItems.filter(({ isChecked }) => isChecked);

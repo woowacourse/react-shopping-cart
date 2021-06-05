@@ -15,7 +15,7 @@ const useOrder = () => {
 
   const getCompletedOrder = () => dispatch(fetchCompletedOrder());
 
-  const orderedItems = useSelector(state => state.product.product.orderedItems);
+  const orderedItems = useSelector(state => state.order.order.orderedItems);
 
   const orderItems = cartItems.reduce((acc, item) => {
     const { cart_id, quantity } = item;

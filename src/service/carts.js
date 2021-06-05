@@ -38,6 +38,7 @@ export const deleteCartItem = (id, cartItems, dispatch) => async () => {
   }
 
   const deleteProducts = cartItems.filter(item => item.isChecked);
+
   deleteProducts.forEach(product => {
     try {
       axios.delete(`/api/customers/ddongule/carts/${product.cart_id}`);
