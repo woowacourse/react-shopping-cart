@@ -8,6 +8,7 @@ import {
   PriceAndQuantity,
   ImageWrapper,
   ButtonWrapper,
+  Container,
 } from './index.styles';
 import Button from '../@common/Button';
 import Image from '../@common/Image';
@@ -24,15 +25,17 @@ const OrderItem = ({
 }) => {
   return (
     <Order>
-      <ImageWrapper>
-        <Image src={image_url} alt={name} />
-      </ImageWrapper>
-      <OrderDetail>
-        <Name>{name}</Name>
-        <PriceAndQuantity price={price}>
-          {price >= 0 && `${price}원 /`} 수량: {quantity}
-        </PriceAndQuantity>
-      </OrderDetail>
+      <Container>
+        <ImageWrapper>
+          <Image src={image_url} alt={name} />
+        </ImageWrapper>
+        <OrderDetail>
+          <Name>{name}</Name>
+          <PriceAndQuantity price={price}>
+            {price >= 0 && `${price}원 /`} 수량: {quantity}
+          </PriceAndQuantity>
+        </OrderDetail>
+      </Container>
       <ButtonWrapper>
         {isCartButtonVisible && (
           <Button onClick={addToCart} backgroundColor={BUTTON_COLOR}>

@@ -44,6 +44,7 @@ const useProducts = () => {
       let item = data.find(({ product_id }) => product_id === randomNum);
       console.log(data, '데이터');
       console.log(item, '찾은것');
+
       if (item !== undefined) {
         uniqueItems.add(item);
       }

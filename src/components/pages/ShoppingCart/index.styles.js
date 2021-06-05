@@ -1,30 +1,32 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
-  padding: 7rem;
-  min-width: 55rem;
-  max-width: 65rem;
-  margin: 0 auto;
-`;
-
 export const Main = styled.main`
   width: 100%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
-  min-width: 40rem;
 
   & > div:first-child {
     flex: 1.825;
     padding-right: 4rem;
     min-width: 30rem;
+
+    @media (max-width: 960px) {
+      padding: 0;
+    }
   }
 
   & > div:last-child {
     flex: 1;
     margin-top: 3rem;
     min-width: 15rem;
+
+    @media (max-width: 960px) {
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+    }
   }
 `;
 

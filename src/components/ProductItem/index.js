@@ -14,9 +14,10 @@ const ProductItem = ({
   price = FALLBACK.PRODUCT.PRICE,
   onCartButtonClick = () => {},
   showButton = true,
+  smallImage = false,
 }) => {
   return (
-    <Product>
+    <Product smallImage={smallImage}>
       <Link to={`/product/${product_id}`}>
         <Image src={image_url} alt={name} />
       </Link>

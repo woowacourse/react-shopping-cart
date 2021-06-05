@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-export const ProductPage = styled.main`
-  max-width: 57rem;
-  margin: 7rem auto;
-`;
-
 export const ProductList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);

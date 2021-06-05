@@ -11,9 +11,9 @@ const usePagination = () => {
 
   const itemsPerPage = data => chunckedArray(data, 5);
 
-  const sortItemsByDate = data =>
+  const sortItemsBy = (data, standard) =>
     itemsPerPage(data).map(items =>
-      items.sort((a, b) => b.order_id - a.order_id)
+      items.sort((a, b) => b[standard] - a[standard])
     );
 
   const onChangePage = ({ target }) => {
@@ -26,8 +26,8 @@ const usePagination = () => {
     setPage(page - 1);
   };
 
-  const goNextPage = () => {
-    if (page === pageLength) return;
+  const goNextPage = data => {
+    if (page === pageLength(data)) return;
     setPage(page + 1);
   };
 
@@ -35,7 +35,7 @@ const usePagination = () => {
     page,
     totalPages,
     itemsPerPage,
-    sortItemsByDate,
+    sortItemsBy,
     onChangePage,
     goNextPage,
     goPreviousPage,

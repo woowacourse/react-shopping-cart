@@ -16,7 +16,7 @@ export const InnerNav = styled.div`
   height: 100%;
   display: flex;
   margin: 0 auto;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 

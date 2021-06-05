@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+`;
+
 export const Order = styled.div`
   width: 100%;
   display: flex;
@@ -7,26 +11,27 @@ export const Order = styled.div`
   padding: 1rem;
   border-bottom: 1px solid var(--color-grey-150);
   justify-content: space-between;
+  min-width: 26rem;
   background-color: var(--color-white);
 `;
 
 export const ImageWrapper = styled.div`
-  flex-basis: 20%;
-  min-width: 6.375rem;
-  min-height: 6.375rem;
+  width: 7rem;
+  height: 7rem;
 
   & > img {
-    width: 7rem;
-    height: 7rem;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     border: 1px solid var(--color-grey-100);
   }
 `;
 
 export const OrderDetail = styled.div`
-  flex-basis: 60%;
   display: flex;
   flex-direction: column;
+  min-width: 12rem;
+  margin-left: 1rem;
 `;
 
 export const Name = styled.span`
@@ -42,5 +47,5 @@ export const PriceAndQuantity = styled.span`
 `;
 
 export const ButtonWrapper = styled.div`
-  flex-basis: 20%;
+  min-width: 7rem;
 `;

@@ -10,12 +10,12 @@ import {
   CheckBoxWrapper,
   ShoppingList,
 } from './index.styles';
-import PageWrapper from '../../@common/PageWrapper';
 import useCarts from '../../../hooks/useCarts';
 import noCartItem from '../../../assets/image/tung.png';
 import Image from '../../@common/Image';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../constants';
+import { Page } from '../../@common/PageWrapper/index.styles';
 
 const ShoppingCart = () => {
   const {
@@ -40,7 +40,7 @@ const ShoppingCart = () => {
   }, []);
 
   return (
-    <PageWrapper>
+    <Page>
       <PageHeader>장바구니</PageHeader>
       <Main>
         <div>
@@ -99,7 +99,7 @@ const ShoppingCart = () => {
           onButtonClick={routeToOrderPayment}
         />
       </Main>
-    </PageWrapper>
+    </Page>
   );
 };
 

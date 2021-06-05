@@ -10,15 +10,14 @@ export const Product = styled.div`
 
   & > a {
     width: 100%;
-    height: 12rem;
+    height: ${({ smallImage }) => (smallImage ? '8rem;' : '12rem;')}
     margin-bottom: 0.5rem;
     border: 1px solid var(--color-grey-100);
 
     & > img {
       width: 100%;
-      height: 100%;
       min-width: 6.375rem;
-      min-height: 6.375rem;
+      background-color: var(--color-white);
       object-fit: contain;
     }
   }

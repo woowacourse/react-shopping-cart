@@ -5,6 +5,7 @@ import PageWrapper from '../../@common/PageWrapper';
 import ProductDetail from '../../ProductDetail';
 import {
   DetailWrapper,
+  RecommendedItems,
   Container,
   RandomProduct,
   LeftButton,
@@ -15,9 +16,12 @@ import useLoading from '../../../hooks/useLoading';
 import useRandom from '../../../hooks/useRandom';
 import Loading from '../../@common/Loading';
 import ProductItem from '../../ProductItem';
+import usePagination from '../../../hooks/usePagination';
 
 const Details = ({ onImageError, match }) => {
   const { loading, timer } = useLoading();
+  const { randomItems, setRandomItems } = useRandom();
+  const { page, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
 
   const {
     products,
@@ -28,6 +32,9 @@ const Details = ({ onImageError, match }) => {
     randomProducts,
   } = useProducts();
 
+  const sortedItems = sortItemsBy(randomItems, 'id');
+  console.log(sortedItems);
+
   useEffect(() => {
     updateProductDetail(match);
     updateProductDetailURL();
@@ -35,12 +42,9 @@ const Details = ({ onImageError, match }) => {
     return () => resetProductDetail();
   }, []);
 
-  const { randomItems, setRandomItems } = useRandom();
   useEffect(() => {
-    setRandomItems(randomProducts(products, 5));
-  }, [loading]);
+    setRandomItems(randomProducts(products, 10));
 
-  useEffect(() => {
     if (loading === false) return;
     timer();
 
@@ -48,28 +52,34 @@ const Details = ({ onImageError, match }) => {
   }, [loading]);
 
   return (
-    <DetailWrapper>
-      {loading && <Loading />}
+    <>
       <PageWrapper noPadding={true}>
-        <ProductDetail
-          product={product}
-          sd
-          onImageError={onImageError}
-          addItemToCart={addItemToCart}
-        />
+        <DetailWrapper>
+          {loading && <Loading />}
+          <ProductDetail
+            product={product}
+            sd
+            onImageError={onImageError}
+            addItemToCart={addItemToCart}
+          />
+        </DetailWrapper>
       </PageWrapper>
       <Container>
-        <RandomProduct>
-          <LeftButton onClick={() => {}} />
-          {randomItems.map((item, id) => (
-            <Wrapper>
-              <ProductItem key={id} {...item} showButton={false} />
-            </Wrapper>
-          ))}
-          <RightButton onClick={() => {}} />
-        </RandomProduct>
+        <h3>이런 상품은 어떠신가요?</h3>
+        <RecommendedItems>
+          <LeftButton onClick={goPreviousPage} />
+          <RandomProduct>
+            {sortedItems[page - 1] &&
+              sortedItems[page - 1].map((item, id) => (
+                <Wrapper key={id}>
+                  <ProductItem {...item} showButton={false} smallImage />
+                </Wrapper>
+              ))}
+          </RandomProduct>
+          <RightButton onClick={() => goNextPage(randomItems)} />
+        </RecommendedItems>
       </Container>
-    </DetailWrapper>
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import { Page } from '../../@common/PageWrapper/index.styles';
 
-export const Main = styled(Page)`
+export const Main = styled.div`
   & > ul > li {
     margin-bottom: 2rem;
   }
@@ -31,7 +30,6 @@ export const PageButtonWrapper = styled.div`
 `;
 
 export const PageButtonDimmer = styled.div`
-  transition: all 0.2s ease;
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -43,19 +41,14 @@ export const PaginationWrapper = styled.div`
 `;
 
 const ArrowButton = styled.button`
-  position: absolute;
-  top: 0.95rem;
+  /* top: 0.95rem;
   z-index: 1;
 
   :hover {
     color: var(--color-mint);
-  }
+  } */
 `;
 
-export const LeftButton = styled(ArrowButton)`
-  left: 17rem;
-`;
+export const LeftButton = styled(ArrowButton)``;
 
-export const RightButton = styled(ArrowButton)`
-  right: 17rem;
-`;
+export const RightButton = styled(ArrowButton)``;

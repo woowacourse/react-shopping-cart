@@ -1,11 +1,11 @@
 import { useLayoutEffect } from 'react';
 import PageHeader from '../../@common/PageHeader';
-import PageWrapper from '../../@common/PageWrapper';
 import PaymentSheet from '../../PaymentSheet';
 import OrderItem from '../../OrderItem';
 import { Main, OrderList } from './index.styles';
 import useCarts from '../../../hooks/useCarts';
 import useOrder from '../../../hooks/useOrder';
+import { Page } from '../../@common/PageWrapper/index.styles';
 
 const OrderPayment = () => {
   const { totalPrice, totalQuantity, makeOrder, isValidRoute } = useOrder();
@@ -16,11 +16,13 @@ const OrderPayment = () => {
   }, []);
 
   return (
-    <PageWrapper>
+    <Page>
       <PageHeader>주문/결제</PageHeader>
       <Main>
         <OrderList>
-          <div>주문상품(${totalQuantity}개)</div>
+          <div>
+            주문상품: 총 <b>{totalQuantity}</b>개
+          </div>
           <ul>
             {cartItems.map(product => (
               <li key={product.product_id}>
@@ -37,7 +39,7 @@ const OrderPayment = () => {
           onButtonClick={makeOrder}
         />
       </Main>
-    </PageWrapper>
+    </Page>
   );
 };
 

@@ -1,16 +1,25 @@
 import { useLocation } from 'react-router';
-import PageHeader from '../../@common/PageHeader';
-import PageWrapper from '../../@common/PageWrapper';
 import OrderItem from '../../OrderItem';
 import PaymentSheet from '../../PaymentSheet';
 import useOrder from '../../../hooks/useOrder';
 import useProducts from '../../../hooks/useProducts';
-import { OrderDetailWrapper, PaymentSheetWrapper } from './index.styles';
+import {
+  OrderDetailWrapper,
+  PaymentSheetWrapper,
+  PageWrapper,
+} from './index.styles';
+
 import { Header } from '../../CompletedOrderList/index.styles';
+import { formatPrice } from '../../../utils';
+import PageHeader from '../../@common/PageHeader';
+import { Page } from '../../@common/PageWrapper/index.styles';
+import Loading from '../../@common/Loading';
+import useLoading from '../../../hooks/useLoading';
+import { useEffect } from 'react';
 
 const OrderDetails = () => {
   const location = useLocation();
-
+  const { loading, timer } = useLoading();
   const { orderedItemDetail } = useOrder();
   const { addToCart } = useProducts();
 
@@ -23,8 +32,16 @@ const OrderDetails = () => {
     0
   );
 
+  useEffect(() => {
+    if (loading === false) return;
+    timer();
+
+    return clearTimeout(timer());
+  }, [loading]);
+
   return (
-    <PageWrapper bg="grey">
+    <Page bg="grey">
+      {loading && <Loading />}
       <PageHeader>주문내역상세</PageHeader>
       <OrderDetailWrapper>
         <Header hover={false}>
@@ -50,11 +67,11 @@ const OrderDetails = () => {
         <PaymentSheet
           title="결제금액 정보"
           priceInfo="총 결제 금액"
-          price={totalPricePerOrder}
+          price={formatPrice(totalPricePerOrder)}
           isButtonVisible={false}
         />
       </PaymentSheetWrapper>
-    </PageWrapper>
+    </Page>
   );
 };
 

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProductItem from '../../ProductItem';
-import { ProductList, ProductPage } from './index.styles';
+import { ProductList } from './index.styles';
 import useProducts from '../../../hooks/useProducts';
 import useLoading from '../../../hooks/useLoading';
 import Loading from '../../@common/Loading';
+import { Page } from '../../@common/PageWrapper/index.styles';
 
 const Products = () => {
   const { loading, timer } = useLoading();
@@ -34,7 +35,7 @@ const Products = () => {
 
   return (
     // TODO: pageWrapper 알아보기
-    <ProductPage>
+    <Page>
       {loading && <Loading />}
       <ProductList>
         {products &&
@@ -49,7 +50,7 @@ const Products = () => {
             );
           })}
       </ProductList>
-    </ProductPage>
+    </Page>
   );
 };
 
