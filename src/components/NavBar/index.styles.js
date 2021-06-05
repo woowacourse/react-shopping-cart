@@ -16,8 +16,12 @@ export const InnerNav = styled.div`
   height: 100%;
   display: flex;
   margin: 0 auto;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 960px) {
+    justify-content: space-around;
+  }
 `;
 
 export const LogoWrapper = styled.div`
