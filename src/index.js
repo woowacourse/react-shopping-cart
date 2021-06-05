@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import App from './App';
 import GlobalStyle from './global.styles';
-import rootReducer from './reducers';
+import store, { getProductsThunk } from './redux';
 
-const store = createStore(rootReducer);
+store.dispatch(getProductsThunk());
 
 ReactDOM.render(
   <React.StrictMode>

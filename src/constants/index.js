@@ -1,31 +1,3 @@
-import noImage from '../assets/image/noImage.jpeg';
-
-export const ACTION_TYPE = {
-  PRODUCTS: {
-    FETCH_PRODUCTS: 'products/patchProducts',
-    ADD_TO_CART: 'products/addToCart',
-    INCREASE_QUANTITY: 'products/increaseQuantity',
-    DECREASE_QUANTITY: 'products/decreaseQuantity',
-    TOGGLE_CHECKED: 'products/toggleChecked',
-    TOGGLE_ENTIRE_CHECKED: 'products/toggleEntireChecked',
-    DELETE_CHECKED: 'products/deleteCheckedProducts',
-    DELETE: 'products/deleteProduct',
-  },
-  ORDER: {
-    ADD_TO_ORDER_LIST: 'orders/addToOrderList',
-  },
-};
-
-export const FALLBACK = {
-  PRODUCT: {
-    IMG_URL: noImage,
-    NAME: '상품명 없음',
-    PRICE: -1,
-    QUANTITY: 1,
-    CHECKED: true,
-  },
-};
-
 export const ROUTE = {
   HOME: '/',
   PRODUCTS: '/products',
@@ -49,5 +21,10 @@ export const MESSAGE = {
   },
   CART: {
     CHECK_PRODUCT_REQUEST: '주문할 상품을 선택해 주세요.',
+    DELETE_FROM_CART_CONFIRM: '선택하신 상품을 장바구니에서 삭제하시겠습니까?',
   },
+};
+
+export const ERROR = {
+  UNKNOWN: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
 };

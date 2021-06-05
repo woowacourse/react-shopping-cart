@@ -1,57 +1,32 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ProductItem from '../../ProductItem';
 import { ProductList, Page } from './index.styles';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_TYPE, ROUTE } from '../../../constants';
-import axios from 'axios';
-import { useHistory } from 'react-router';
+import { useProduct } from '../../../hooks';
 
-const Products = ({ onCartButtonClick = () => {} }) => {
-  const products = useSelector(({ product }) => product.fetchedProducts);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // TODO: 미들 웨어 적용
-    async function fetchProducts() {
-      try {
-        const response = await axios.get(
-          process.env.REACT_APP_API_URL + '/baskets'
-        );
-
-        dispatch({
-          type: ACTION_TYPE.PRODUCTS.FETCH_PRODUCTS,
-          products: response.data,
-        });
-      } catch (error) {
-        //TODO: 상품을 못 받아 왔을 때, 안내 화면 띄우기
-        console.error(error.message);
-      }
-    }
-
-    fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const history = useHistory();
-
-  const handleProductClick = product => {
-    history.push(ROUTE.PRODUCT_DETAIL, { product });
-  };
+const Products = () => {
+  const { products, error, addToCart, viewProductDetail } = useProduct();
 
   return (
     <Page>
-      <ProductList>
-        {products.map(product => (
-          <li key={product.id}>
+      {error ? (
+        <div>
+          알 수 없는 문제가 발생했습니다. 만약 문제가 계속 발생한다면 관리자에게
+          문의 주세요.
+        </div>
+      ) : (
+        <ProductList>
+          {products.map(product => (
             <ProductItem
               {...product}
-              onProductClick={() => handleProductClick(product)}
-              onCartButtonClick={event => onCartButtonClick(event, product)}
+              key={product.product_id}
+              imageUrl={product.image_url}
+              onCartButtonClick={() => addToCart(product)}
+              onProductClick={() => viewProductDetail(product)}
             />
-          </li>
-        ))}
-      </ProductList>
+          ))}
+        </ProductList>
+      )}
     </Page>
   );
 };

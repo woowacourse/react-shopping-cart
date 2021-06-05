@@ -2,20 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
 import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
-import { FALLBACK } from '../../constants';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetailCard = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
-  name = FALLBACK.PRODUCT.NAME,
-  price = FALLBACK.PRODUCT.PRICE,
-  onCartButtonClick = () => {},
-}) => (
+const ProductDetailCard = ({ imageUrl, name, price, onCartButtonClick }) => (
   <Product>
     <Detail>
-      <Image src={imgUrl} alt={imgAlt} />
+      <Image src={imageUrl} alt={name} />
       <Name>{name}</Name>
       <PriceWrapper>
         <span>금액</span>
@@ -29,11 +22,10 @@ const ProductDetailCard = ({
 );
 
 ProductDetailCard.propTypes = {
-  imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  // onClick: PropTypes.func,
+  imageUrl: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  onCartButtonClick: PropTypes.func.isRequired,
 };
 
 export default ProductDetailCard;

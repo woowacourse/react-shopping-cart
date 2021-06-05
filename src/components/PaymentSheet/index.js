@@ -36,7 +36,6 @@ PaymentSheet.propTypes = {
   title: PropTypes.string.isRequired,
   priceInfo: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
   onButtonClick: PropTypes.func,
 };
 

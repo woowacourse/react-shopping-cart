@@ -12,62 +12,22 @@ import {
   ShoppingList,
   Empty,
 } from './index.styles';
-import { useSelector, useDispatch } from 'react-redux';
-import { ACTION_TYPE, MESSAGE, ROUTE } from '../../../constants';
 import { formatPrice, getTotalPrice, getTotalQuantity } from '../../../utils';
-import { useHistory } from 'react-router-dom';
+import { useCart } from '../../../hooks';
 
 const ShoppingCart = () => {
-  const products = Object.values(
-    useSelector(({ product }) => product.pickedProducts)
-  );
-
-  const dispatch = useDispatch();
-
-  const handleIncreaseQuantity = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.INCREASE_QUANTITY, id });
-  };
-
-  const handleDecreaseQuantity = id => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.DECREASE_QUANTITY, id });
-  };
-
-  const history = useHistory();
-
-  const handlePaymentSheetButtonClick = () => {
-    if (products.some(({ isChecked }) => isChecked)) {
-      history.push(ROUTE.ORDER_PAYMENT);
-
-      return;
-    }
-
-    alert(MESSAGE.CART.CHECK_PRODUCT_REQUEST);
-  };
-
-  const isCheckedAll = products.every(({ isChecked }) => isChecked);
-
-  const handleCheckBoxClick = id => {
-    if (id) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
-
-      return;
-    }
-
-    dispatch({
-      type: ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED,
-      isChecked: isCheckedAll,
-    });
-  };
-
-  const handleDeleteButtonClick = id => {
-    if (id) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE, id });
-
-      return;
-    }
-
-    dispatch({ type: ACTION_TYPE.PRODUCTS.DELETE_CHECKED });
-  };
+  const {
+    products,
+    checkedProducts,
+    isCheckedAll,
+    toggleChecked,
+    toggleCheckedAll,
+    handleDeleteClick,
+    handleDeleteCheckedClick,
+    increaseQuantity,
+    decreaseQuantity,
+    order,
+  } = useCart();
 
   return (
     <Page>
@@ -77,32 +37,37 @@ const ShoppingCart = () => {
           <Controller>
             <CheckBoxWrapper>
               <CheckBox
+                onCheckBoxClick={toggleCheckedAll}
                 isChecked={isCheckedAll}
-                onCheckBoxClick={() => handleCheckBoxClick()}
               />
               <span>
-                전체선택{' '}
-                {`(${products.filter(({ isChecked }) => isChecked).length}/${
-                  products.length
-                })`}
+                전체선택 {`(${checkedProducts.length}/${products.length})`}
               </span>
             </CheckBoxWrapper>
-            <Button onClick={() => handleDeleteButtonClick()}>상품삭제</Button>
+            <Button onClick={handleDeleteCheckedClick}>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
             {products.length > 0 ? (
               <ul>
-                {products.map(({ id, ...product }) => (
-                  <li key={id}>
-                    <ShoppingItem
-                      {...product}
-                      onIncreaseQuantity={() => handleIncreaseQuantity(id)}
-                      onDecreaseQuantity={() => handleDecreaseQuantity(id)}
-                      onCheckBoxClick={() => handleCheckBoxClick(id)}
-                      onDeleteButtonClick={() => handleDeleteButtonClick(id)}
-                    />
-                  </li>
+                {products.map(product => (
+                  <ShoppingItem
+                    {...product}
+                    key={product.product_id}
+                    imageUrl={product.image_url}
+                    onCheckBoxClick={() =>
+                      toggleChecked(product.product_id, product.isChecked)
+                    }
+                    onDeleteButtonClick={() =>
+                      handleDeleteClick(product.product_id)
+                    }
+                    increaseQuantity={() =>
+                      increaseQuantity(product.product_id)
+                    }
+                    decreaseQuantity={() =>
+                      decreaseQuantity(product.product_id)
+                    }
+                  />
                 ))}
               </ul>
             ) : (
@@ -115,7 +80,7 @@ const ShoppingCart = () => {
           priceInfo="결제예상금액"
           price={formatPrice(getTotalPrice(products))}
           buttonText={`주문하기 (${getTotalQuantity(products)}개)`}
-          onButtonClick={handlePaymentSheetButtonClick}
+          onButtonClick={order}
         />
       </Main>
     </Page>
