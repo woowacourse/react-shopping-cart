@@ -14,7 +14,6 @@ const useCarts = () => {
   const history = useHistory();
 
   const cartItems = useSelector(state => state.cart.cart.cartItems);
-  console.log(cartItems);
   const isCheckedAll = cartItems.every(({ isChecked }) => isChecked);
 
   const checkedItems = cartItems.filter(({ isChecked }) => isChecked);

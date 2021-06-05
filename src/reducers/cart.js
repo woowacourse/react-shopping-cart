@@ -11,8 +11,7 @@ const addInitialProductToCart = (state, { product, cartId }) => {
   const { product_id } = product;
   const index = cartItems.findIndex(item => item.product_id === product_id);
   const newIndex = index === -1 ? cartItems.length : index;
-  console.log(state);
-  console.log(cartItems);
+
   const updater = produce(draft => {
     draft.cartItems[newIndex] = {
       cart_id: Number(cartId),
@@ -22,7 +21,6 @@ const addInitialProductToCart = (state, { product, cartId }) => {
     };
   });
 
-  console.log(updater(state));
   return updater(state);
 };
 
