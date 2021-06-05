@@ -20,7 +20,9 @@ const OrderDetailPage = () => {
 
   const { order } = location.state;
 
-  const totalPrice = order.items.reduce((acc: number, curr: CartItem) => acc + curr.product.price * curr.quantity, 0);
+  const totalPrice = order.items
+    .map((item) => item.product.price * item.quantity) //
+    .reduce((acc, price) => acc + price);
 
   const handleClickCart = (product: Product) => {
     addCart(product);
