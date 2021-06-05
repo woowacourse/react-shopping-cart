@@ -13,6 +13,10 @@ export const Order = styled.div`
   justify-content: space-between;
   min-width: 26rem;
   background-color: var(--color-white);
+
+  @media (max-width: 960px) {
+    min-width: 18rem;
+  }
 `;
 
 export const ImageWrapper = styled.div`
@@ -48,4 +52,9 @@ export const PriceAndQuantity = styled.span`
 
 export const ButtonWrapper = styled.div`
   min-width: 7rem;
+
+  @media (max-width: 568px) {
+    margin-top: 1rem;
+    width: 100%;
+  }
 `;

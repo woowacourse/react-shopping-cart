@@ -41,7 +41,8 @@ export const Menu = styled.ul`
 `;
 
 export const NavItem = styled.li`
-  margin-left: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
 
   &:hover *,
   & *:hover {

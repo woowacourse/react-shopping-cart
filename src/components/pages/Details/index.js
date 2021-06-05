@@ -11,6 +11,8 @@ import {
   RightButton,
   Wrapper,
   Header,
+  DetailContainer,
+  PageWrapper,
 } from './index.styles';
 import useLoading from '../../../hooks/useLoading';
 import useRandom from '../../../hooks/useRandom';
@@ -55,30 +57,34 @@ const Details = ({ onImageError, match }) => {
   return (
     <>
       <Page noPadding={true}>
-        {loading && <Loading />}
-        <ProductDetail
-          product={product}
-          onImageError={onImageError}
-          addItemToCart={addItemToCart}
-        />
+        <PageWrapper>
+          {loading && <Loading />}
+          <DetailContainer>
+            <ProductDetail
+              product={product}
+              onImageError={onImageError}
+              addItemToCart={addItemToCart}
+            />
+          </DetailContainer>
+          <Container>
+            <Header>
+              <h3>이런 상품은 어떠신가요?</h3>
+            </Header>
+            <RecommendedItems>
+              <LeftButton onClick={goPreviousPage} />
+              <RandomProduct>
+                {sortedItems[index] &&
+                  sortedItems[index].map((item, id) => (
+                    <Wrapper key={id}>
+                      <ProductItem {...item} showButton={false} smallImage />
+                    </Wrapper>
+                  ))}
+              </RandomProduct>
+              <RightButton onClick={() => goNextPage(randomItems)} />
+            </RecommendedItems>
+          </Container>
+        </PageWrapper>
       </Page>
-      <Container>
-        <Header>
-          <h3>이런 상품은 어떠신가요?</h3>
-        </Header>
-        <RecommendedItems>
-          <LeftButton onClick={goPreviousPage} />
-          <RandomProduct>
-            {sortedItems[index] &&
-              sortedItems[index].map((item, id) => (
-                <Wrapper key={id}>
-                  <ProductItem {...item} showButton={false} smallImage />
-                </Wrapper>
-              ))}
-          </RandomProduct>
-          <RightButton onClick={() => goNextPage(randomItems)} />
-        </RecommendedItems>
-      </Container>
     </>
   );
 };

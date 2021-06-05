@@ -7,6 +7,10 @@ export const Main = styled.main`
   flex-wrap: wrap;
   padding: 1rem;
 
+  @media (max-width: 960px) {
+    padding: 0;
+  }
+
   & > div:first-child {
     flex: 1.825;
     padding-right: 4rem;
@@ -14,6 +18,7 @@ export const Main = styled.main`
 
     @media (max-width: 960px) {
       padding: 0;
+      min-width: 18rem;
     }
   }
 

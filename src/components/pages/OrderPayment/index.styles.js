@@ -9,6 +9,7 @@ export const Main = styled.main`
   padding: 1rem;
 
   @media (max-width: 960px) {
+    padding: 0;
     display: block;
   }
 

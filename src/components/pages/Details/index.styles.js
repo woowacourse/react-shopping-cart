@@ -5,6 +5,14 @@ export const Header = styled.div`
   margin-bottom: 1rem;
 `;
 
+export const PageWrapper = styled.div`
+  padding: 7rem 0 0 0;
+`;
+
+export const DetailContainer = styled.div`
+  padding: 0 1rem;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

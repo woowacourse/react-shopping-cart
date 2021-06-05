@@ -5,6 +5,10 @@ export const Product = styled.div`
   flex-direction: column;
   width: 25rem;
   margin: 0 auto;
+
+  @media (max-width: 568px) {
+    width: 100%;
+  }
 `;
 
 export const Detail = styled.div`
@@ -17,6 +21,10 @@ export const Detail = styled.div`
     margin-bottom: 0.5rem;
     background: transparent;
     border: 1px solid var(--color-grey-100);
+
+    @media (max-width: 568px) {
+      width: 100%;
+    }
   }
 `;
 

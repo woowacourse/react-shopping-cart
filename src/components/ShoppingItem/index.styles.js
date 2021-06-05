@@ -27,6 +27,10 @@ export const Name = styled.span`
   flex-basis: 43%;
   font-size: var(--font-small);
   color: var(--color-grey-500);
+
+  @media (max-width: 960px) {
+    flex-basis: 35%;
+  }
 `;
 
 export const Controller = styled.div`
