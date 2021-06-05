@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cartReducer } from './cartSlice';
+import { orderReducer } from './orderSlice';
 import { productReducer } from './productSlice';
 
 const store = configureStore({
   reducer: {
     product: productReducer,
     cart: cartReducer,
+    order: orderReducer,
   },
 });
 
@@ -18,6 +20,8 @@ export {
   deleteCheckedProduct,
   setChecked,
   setCheckedAll,
+  clearChecked,
   increaseProduct,
   decreaseProduct,
 } from './cartSlice';
+export { addOrderedProduct } from './orderSlice';

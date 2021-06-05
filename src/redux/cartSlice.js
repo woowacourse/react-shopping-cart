@@ -39,6 +39,9 @@ const cartSlice = createSlice({
         product.isChecked = isChecked;
       });
     },
+    clearChecked: state => {
+      state.products = state.products.filter(product => !product.isChecked);
+    },
     increaseProduct: (state, { payload: { product_id } }) => {
       state.products = state.products.map(product => {
         if (product.product_id !== product_id) return product;
@@ -70,6 +73,7 @@ export const {
   deleteCheckedProduct,
   setChecked,
   setCheckedAll,
+  clearChecked,
   increaseProduct,
   decreaseProduct,
 } = cartSlice.actions;

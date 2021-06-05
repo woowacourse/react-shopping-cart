@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { MESSAGE } from '../constants';
+import { useHistory } from 'react-router';
+import { MESSAGE, ROUTE } from '../constants';
 import {
   deleteProduct,
   deleteCheckedProduct,
@@ -7,6 +8,8 @@ import {
   setCheckedAll,
   increaseProduct,
   decreaseProduct,
+  clearChecked,
+  addOrderedProduct,
 } from '../redux';
 
 const useCart = () => {
@@ -15,6 +18,7 @@ const useCart = () => {
   const isCheckedAll =
     products.length > 0 ? checkedProducts.length === products.length : false;
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const deleteFromCart = product_id => {
     if (!window.confirm(MESSAGE.CART.DELETE_FROM_CART_CONFIRM)) return;
@@ -43,6 +47,16 @@ const useCart = () => {
     dispatch(decreaseProduct({ product_id }));
   };
 
+  const order = () => {
+    history.push(ROUTE.ORDER_PAYMENT);
+  };
+
+  const pay = products => {
+    dispatch(addOrderedProduct({ products }));
+    dispatch(clearChecked());
+    history.push(ROUTE.COMPLETED_ORDER);
+  };
+
   return {
     products,
     checkedProducts,
@@ -53,6 +67,8 @@ const useCart = () => {
     toggleCheckedAll,
     increaseQuantity,
     decreaseQuantity,
+    order,
+    pay,
   };
 };
 

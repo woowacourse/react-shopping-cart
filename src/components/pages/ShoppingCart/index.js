@@ -26,6 +26,7 @@ const ShoppingCart = () => {
     deleteCheckedFromCart,
     increaseQuantity,
     decreaseQuantity,
+    order,
   } = useCart();
 
   return (
@@ -78,6 +79,7 @@ const ShoppingCart = () => {
           priceInfo="결제예상금액"
           price={formatPrice(getTotalPrice(products))}
           buttonText={`주문하기 (${getTotalQuantity(products)}개)`}
+          onButtonClick={order}
         />
       </Main>
     </Page>

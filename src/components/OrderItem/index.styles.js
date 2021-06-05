@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Order = styled.div`
+export const Order = styled.li`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
