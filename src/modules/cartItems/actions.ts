@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { AxiosError } from 'axios';
 import api from 'api';
-import * as T from 'types';
+import { CartItem, Product } from 'types';
 
 export const ADD_CART_ITEM_REQUEST = 'cartItems/ADD_CART_ITEM_REQUEST' as const;
 export const ADD_CART_ITEM_SUCCESS = 'cartItems/ADD_CART_ITEM_SUCCESS' as const;
@@ -30,12 +30,12 @@ export const RESET_CART_ITEMS_STATE = 'cartItems/RESET_CART_ITEMS_STATE' as cons
 
 interface AddCartItemRequestAction {
   type: typeof ADD_CART_ITEM_REQUEST;
-  product: T.Product;
+  product: Product;
 }
 
 interface AddCartItemSuccessAction {
   type: typeof ADD_CART_ITEM_SUCCESS;
-  cartItem: T.CartItem;
+  cartItem: CartItem;
 }
 
 interface AddCartItemFailureAction {
@@ -49,7 +49,7 @@ interface GetCartItemRequestAction {
 
 interface GetCartItemSuccessAction {
   type: typeof GET_CART_ITEMS_SUCCESS;
-  cartItems: T.CartItem[];
+  cartItems: CartItem[];
 }
 
 interface GetCartItemFailureAction {
@@ -80,7 +80,7 @@ interface DeleteItemRequestAction {
 
 interface DeleteItemSuccessAction {
   type: typeof DELETE_ITEM_SUCCESS;
-  id: T.CartItem['id'];
+  id: CartItem['id'];
 }
 
 interface DeleteItemFailureAction {
@@ -94,7 +94,7 @@ interface DeleteCheckedItemsRequestAction {
 
 interface DeleteCheckedItemsSuccessAction {
   type: typeof DELETE_CHECKED_ITEMS_SUCCESS;
-  ids: T.CartItem['id'][];
+  ids: CartItem['id'][];
 }
 
 interface DeleteCheckedItemsFailureAction {
@@ -105,8 +105,8 @@ interface DeleteCheckedItemsFailureAction {
 export type CheckCartItemAction = {
   type: typeof CHECK_CART_ITEM;
   payload: {
-    id: T.CartItem['id'];
-    checked: T.CartItem['checked'];
+    id: CartItem['id'];
+    checked: CartItem['checked'];
   };
 };
 
@@ -140,7 +140,7 @@ export const getCartItemsRequest = () => async (dispatch: Dispatch<GetCartItemsA
   }
 };
 
-export const addCartItemRequest = (product: T.Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
+export const addCartItemRequest = (product: Product) => async (dispatch: Dispatch<AddCartItemAction>) => {
   dispatch({ type: ADD_CART_ITEM_REQUEST, product });
 
   try {
@@ -167,7 +167,7 @@ export const updateQuantityRequest = (id: number, quantity: number) => async (
   }
 };
 
-export const checkCartItem = (id: T.CartItem['id'], checked: T.CartItem['checked']) => ({
+export const checkCartItem = (id: CartItem['id'], checked: CartItem['checked']) => ({
   type: CHECK_CART_ITEM,
   payload: { id, checked },
 });
@@ -177,7 +177,7 @@ export const checkAllCartItems = (checked: boolean) => ({
   checked,
 });
 
-export const deleteItemActionRequest = (id: T.CartItem['id']) => async (dispatch: Dispatch<DeleteItemAction>) => {
+export const deleteItemActionRequest = (id: CartItem['id']) => async (dispatch: Dispatch<DeleteItemAction>) => {
   dispatch({ type: DELETE_ITEM_REQUEST });
 
   try {
@@ -189,7 +189,7 @@ export const deleteItemActionRequest = (id: T.CartItem['id']) => async (dispatch
   }
 };
 
-export const deleteCheckedItemsActionRequest = (ids: T.CartItem['id'][]) => async (
+export const deleteCheckedItemsActionRequest = (ids: CartItem['id'][]) => async (
   dispatch: Dispatch<DeleteCheckedItemsAction>
 ) => {
   dispatch({ type: DELETE_CHECKED_ITEMS_REQUEST });

@@ -1,28 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import PageHeader from 'components/shared/PageHeader/PageHeader';
 import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
 import Spinner from 'components/shared/Spinner/Spinner';
-import * as T from 'types';
 import MESSAGE from 'constants/messages';
 import api from 'api';
-import { addCartItemRequest, getCartItemsRequest } from 'modules/cartItems/actions';
+import { getCartItemsRequest } from 'modules/cartItems/actions';
 import { RootState } from 'modules';
+import useAddCart from 'hooks/useAddCart';
+import { Order, Product } from 'types';
 import Styled from './OrderListPage.styles';
-import { CartState } from '../../modules/cartItems/reducers';
 
 const OrderListPage = () => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
-
+  const addCart = useAddCart();
   const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [orders, setOrders] = useState<T.Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const getOrders = useCallback(async () => {
     setLoading(true);
@@ -37,23 +36,8 @@ const OrderListPage = () => {
     setLoading(false);
   }, [enqueueSnackbar]);
 
-  const handleClickCart = (product: T.Product) => {
-    if (isLoading || cartItems.status !== T.AsyncStatus.SUCCESS) return;
-
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
-
-    if (cartItemIds.includes(product.id)) {
-      enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
-      return;
-    }
-
-    dispatch(addCartItemRequest(product))
-      .then(() => {
-        enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-      })
-      .catch((error: Error) => {
-        enqueueSnackbar(error.message);
-      });
+  const handleClickCart = (product: Product) => {
+    addCart(product);
   };
 
   useEffect(() => {
@@ -80,7 +64,9 @@ const OrderListPage = () => {
             <Styled.Order key={order.id}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.id}</Styled.OrderNumber>
-                <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
+                <Styled.DetailButton to={{ pathname: '/order/detail', state: { order } }}>
+                  {'상세보기 >'}
+                </Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
                 {order.items.map((item) => (

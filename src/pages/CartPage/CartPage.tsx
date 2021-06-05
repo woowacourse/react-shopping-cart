@@ -74,7 +74,9 @@ const CartPage = () => {
           <Styled.CartListContainer>
             <Styled.CartListOption>
               <Checkbox labelText="전체 선택" checked={isAllChecked} onChange={handleCheckAllItem} />
-              <Styled.DeleteButton onClick={handleDeleteCheckedItem}>선택 삭제</Styled.DeleteButton>
+              <Styled.DeleteButton disabled={!checkedItems.length} onClick={handleDeleteCheckedItem}>
+                선택 삭제
+              </Styled.DeleteButton>
             </Styled.CartListOption>
             <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
             <Styled.CartItemList>
