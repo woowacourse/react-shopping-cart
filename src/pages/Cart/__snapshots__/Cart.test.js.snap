@@ -1,0 +1,305 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Cart /> matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-ieebsP cLKEWA"
+  >
+    <h2
+      class="sc-dJjZJu fqvgKC"
+    >
+      장바구니
+    </h2>
+    <div
+      class="sc-hGPAah jgGCxB"
+    >
+      <div
+        class="sc-dlVyqM bLAYPQ"
+      >
+        <div
+          aria-label="상품선택 옵션 메뉴"
+          class="sc-kfPtPH lasNxH"
+        >
+          <label
+            aria-checked="true"
+            class="sc-llYToB jSdIpu"
+            role="checkbox"
+          >
+            <input
+              checked=""
+              hidden=""
+              type="checkbox"
+            />
+            <span />
+            선택해제
+          </label>
+          <button
+            class="sc-furvIG fCAsIi"
+            color="#333333"
+            type="button"
+          >
+            상품 삭제
+          </button>
+        </div>
+        <div
+          aria-label="장바구니 상품 목록"
+          class="sc-fKVsgm"
+        >
+          <h3
+            class="sc-bBHwJV jWujwF"
+          >
+            배송상품 (
+            2
+            개)
+          </h3>
+          <div
+            class="sc-iwjezw"
+          >
+            <div
+              class="sc-cxpRKc krDmGH"
+            >
+              <label
+                class="sc-llYToB jSdIpu"
+              >
+                <input
+                  checked=""
+                  hidden=""
+                  type="checkbox"
+                />
+                <span
+                  aria-checked="true"
+                  aria-label="[든든] 유부 슬라이스 500g 선택"
+                  role="checkbox"
+                />
+              </label>
+              <div
+                class="sc-bqiQRQ eEanMH"
+              >
+                <div
+                  class="sc-gsDJrp"
+                >
+                  <div
+                    class="sc-dkPtyc jnrmNB"
+                  >
+                    <img
+                      alt="[든든] 유부 슬라이스 500g"
+                      class="sc-hKwCoD doJTuW"
+                      src="https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sc-ksdxAp jfWVEg"
+                >
+                  <h4
+                    class="sc-hBURRC dxyBOS"
+                  >
+                    [든든] 유부 슬라이스 500g
+                  </h4>
+                  <div
+                    class="sc-fotPbf jqZEHt"
+                  />
+                </div>
+                <div
+                  class="sc-fFehDp bItAXM"
+                >
+                  <button
+                    aria-label="[든든] 유부 슬라이스 500g 삭제"
+                    class="sc-bkkfTU ixEQNr"
+                    type="button"
+                  >
+                    <svg>
+                      trash-bin.svg
+                    </svg>
+                  </button>
+                  <div
+                    class="sc-jrQzUz fkRfCi"
+                  >
+                    <input
+                      aria-label="[든든] 유부 슬라이스 500g 수량 변경 입력"
+                      class="sc-kDThTU eoA-Dnz"
+                      max="99"
+                      min="1"
+                      type="number"
+                      value="4"
+                    />
+                    <div
+                      class="sc-iqsfdx fEQBmJ"
+                    >
+                      <button
+                        aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 증가"
+                        class="sc-crHlIS kvGdlv"
+                      >
+                        <img
+                          alt="증가"
+                          class="sc-egiSv jRJOfA"
+                          src="arrow-up.svg"
+                        />
+                      </button>
+                      <button
+                        class="sc-crHlIS kvGdlv"
+                      >
+                        <img
+                          alt="감소"
+                          aria-label="[든든] 유부 슬라이스 500g 수량 변경 1개 감소"
+                          class="sc-egiSv jRJOfA"
+                          src="arrow-down.svg"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="[든든] 유부 슬라이스 500g 합산 가격"
+                  >
+                    19,600원
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="sc-cxpRKc krDmGH"
+            >
+              <label
+                class="sc-llYToB jSdIpu"
+              >
+                <input
+                  checked=""
+                  hidden=""
+                  type="checkbox"
+                />
+                <span
+                  aria-checked="true"
+                  aria-label="[든든] 진맛살 1kg 선택"
+                  role="checkbox"
+                />
+              </label>
+              <div
+                class="sc-bqiQRQ eEanMH"
+              >
+                <div
+                  class="sc-gsDJrp"
+                >
+                  <div
+                    class="sc-dkPtyc jnrmNB"
+                  >
+                    <img
+                      alt="[든든] 진맛살 1kg"
+                      class="sc-hKwCoD doJTuW"
+                      src="https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sc-ksdxAp jfWVEg"
+                >
+                  <h4
+                    class="sc-hBURRC dxyBOS"
+                  >
+                    [든든] 진맛살 1kg
+                  </h4>
+                  <div
+                    class="sc-fotPbf jqZEHt"
+                  />
+                </div>
+                <div
+                  class="sc-fFehDp bItAXM"
+                >
+                  <button
+                    aria-label="[든든] 진맛살 1kg 삭제"
+                    class="sc-bkkfTU ixEQNr"
+                    type="button"
+                  >
+                    <svg>
+                      trash-bin.svg
+                    </svg>
+                  </button>
+                  <div
+                    class="sc-jrQzUz fkRfCi"
+                  >
+                    <input
+                      aria-label="[든든] 진맛살 1kg 수량 변경 입력"
+                      class="sc-kDThTU eoA-Dnz"
+                      max="99"
+                      min="1"
+                      type="number"
+                      value="1"
+                    />
+                    <div
+                      class="sc-iqsfdx fEQBmJ"
+                    >
+                      <button
+                        aria-label="[든든] 진맛살 1kg 수량 변경 1개 증가"
+                        class="sc-crHlIS kvGdlv"
+                      >
+                        <img
+                          alt="증가"
+                          class="sc-egiSv jRJOfA"
+                          src="arrow-up.svg"
+                        />
+                      </button>
+                      <button
+                        class="sc-crHlIS kvGdlv"
+                      >
+                        <img
+                          alt="감소"
+                          aria-label="[든든] 진맛살 1kg 수량 변경 1개 감소"
+                          class="sc-egiSv jRJOfA"
+                          src="arrow-down.svg"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="[든든] 진맛살 1kg 합산 가격"
+                  >
+                    7,100원
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sc-iJKOzS cRmxz"
+      >
+        <h3
+          class="sc-giYgFv kelwgJ"
+        >
+          결제예상금액
+        </h3>
+        <div
+          class="sc-ezbkgU pdkco"
+        >
+          <div
+            class="sc-bYoCmx imTysK"
+          >
+            <span
+              class="sc-pVTma ixgaok"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              결제예상금액
+            </span>
+            <span
+              aria-label="결제예상금액"
+              class="sc-pVTma ixgaok"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              26,700원
+            </span>
+          </div>
+          <button
+            class="sc-furvIG fkHJhn"
+            color="#FFFFFF"
+            type="button"
+          >
+            주문하기(2개)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

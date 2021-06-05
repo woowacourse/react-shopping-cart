@@ -203,7 +203,6 @@ describe('장바구니 페이지 테스트', () => {
 
     expect(checkOptionLabel.textContent).toBe('선택해제');
     expect(checkOptionLabel).toBeChecked();
-
     checkBoxes.forEach(checkbox => expect(checkbox).toBeChecked());
   });
 
@@ -216,12 +215,10 @@ describe('장바구니 페이지 테스트', () => {
       .map(heading => heading.textContent);
     const [productListHeading, targetProductName] = productNames;
     const confirmSpy = jest.spyOn(window, 'confirm');
-
     confirmSpy.mockImplementation(jest.fn(() => true));
 
     fireEvent.click(targetItemCheckbox);
     fireEvent.click(deleteButton);
-
     expect(confirmSpy).toBeCalled();
 
     await waitFor(() => {

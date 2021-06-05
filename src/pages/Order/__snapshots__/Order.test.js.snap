@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`상품목록 페이지 store에 있는 products가 제대로 렌더링 되는지 확인한다. 1`] = `
+<div>
+  <div
+    class="sc-ieebsP cLKEWA"
+  >
+    <h2
+      class="sc-dJjZJu fqvgKC"
+    >
+      주문/결제
+    </h2>
+    <div
+      class="sc-hGPAah jgGCxB"
+    >
+      <div
+        class="sc-dlVyqM bLAYPQ"
+      >
+        <div
+          class="sc-kfPtPH"
+        >
+          <h3
+            class="sc-fKVsgm jzfvKM"
+          >
+            주문 상품(
+            1
+            건)
+          </h3>
+          <div
+            class="sc-bBHwJV"
+          >
+            <div
+              class="sc-iwjezw gHlSBW"
+            >
+              <div
+                class="sc-bqiQRQ eEanMH"
+              >
+                <div
+                  class="sc-gsDJrp"
+                >
+                  <div
+                    class="sc-dkPtyc fPszsp"
+                  >
+                    <img
+                      alt="[든든] 유부 슬라이스 500g"
+                      class="sc-hKwCoD doJTuW"
+                      src="https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sc-ksdxAp jfWVEg"
+                >
+                  <h4
+                    class="sc-hBURRC hWUoEx"
+                  >
+                    [든든] 유부 슬라이스 500g
+                  </h4>
+                  <div
+                    class="sc-fotPbf jqZEHt"
+                  >
+                    수량: 4
+                  </div>
+                </div>
+                <div
+                  class="sc-fFehDp bItAXM"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sc-cxpRKc ecubRC"
+      >
+        <h3
+          class="sc-llYToB cyPWaB"
+        >
+          결제금액
+        </h3>
+        <div
+          class="sc-iJKOzS kAsGyE"
+        >
+          <div
+            class="sc-giYgFv GpuDQ"
+          >
+            <span
+              class="sc-pVTma ixgaok"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              총 결제금액
+            </span>
+            <span
+              class="sc-pVTma ixgaok"
+              color="#94E0DD"
+              font-size="1.25rem"
+            >
+              19,600 원
+            </span>
+          </div>
+          <button
+            class="sc-furvIG fkHJhn"
+            color="#FFFFFF"
+            type="button"
+          >
+            19,600원 주문하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
