@@ -23,6 +23,5 @@ export const Page = styled.div`
 
 export const Container = styled.div`
   ${({ noPadding }) => (noPadding ? '' : 'padding: 7rem;')}
-  max-width: 65rem;
   margin: 0 auto;
 `;
