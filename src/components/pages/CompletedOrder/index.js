@@ -29,8 +29,10 @@ const CompletedOrder = () => {
   } = usePagination();
 
   const pages = totalPages(orderedItems);
-  const lastPage = pages.length + 1;
+  const lastPage = pages.length;
   const sortedItems = sortItemsBy(orderedItems, 'order_id');
+  const isFirstPage = page === 1;
+  const isLastPage = page === lastPage;
 
   useEffect(() => {
     getCompletedOrder();
@@ -58,7 +60,9 @@ const CompletedOrder = () => {
       <PaginationWrapper>
         <PageButtonDimmer>
           <PageButtonWrapper page={page}>
-            <ArrowButton onClick={goPreviousPage}> ＜ </ArrowButton>
+            <ArrowButton disabled={isFirstPage} onClick={goPreviousPage}>
+              ＜
+            </ArrowButton>
             {pages.map((currentPage, id) => {
               if (page <= 2 && currentPage <= 5) {
                 return (
@@ -97,7 +101,10 @@ const CompletedOrder = () => {
                 return <></>;
               }
             })}
-            <ArrowButton onClick={goNextPage}> ＞ </ArrowButton>
+            <ArrowButton disabled={isLastPage} onClick={goNextPage}>
+              {' '}
+              ＞{' '}
+            </ArrowButton>
           </PageButtonWrapper>
         </PageButtonDimmer>
       </PaginationWrapper>
