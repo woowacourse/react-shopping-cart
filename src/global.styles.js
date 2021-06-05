@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
   /* Universal tags */
   * {
     box-sizing: border-box;
+    user-select: none;
     font-family: 'Noto Sans KR', sans-serif;
     margin:0;
     padding:0;

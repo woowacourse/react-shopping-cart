@@ -12,6 +12,8 @@ export const ImageWrapper = styled.div`
   flex-basis: 20%;
   width: 20%;
   height: 6.5rem;
+  min-width: 6.375rem;
+  min-height: 6.375rem;
   border: 1px solid var(--color-grey-100);
 `;
 export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`

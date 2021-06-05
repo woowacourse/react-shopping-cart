@@ -1,10 +1,10 @@
 import React from 'react';
 import { Page, Container } from './index.styles';
 
-const PageWrapper = ({ children, bg }) => {
+const PageWrapper = ({ children, bg, noPadding = false }) => {
   return (
     <Page bg={bg}>
-      <Container>{children}</Container>
+      <Container noPadding={noPadding}>{children}</Container>
     </Page>
   );
 };

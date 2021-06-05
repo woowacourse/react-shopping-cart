@@ -55,7 +55,12 @@ const ShoppingCart = () => {
                 {`(${checkedItems.length}/${cartItems.length})`}
               </span>
             </CheckBoxWrapper>
-            <Button onClick={() => deleteItem()}>상품삭제</Button>
+            <Button
+              onClick={() => deleteItem()}
+              disabled={cartItems.length === 0}
+            >
+              상품삭제
+            </Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>

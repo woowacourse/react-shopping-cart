@@ -34,6 +34,7 @@ const usePagination = () => {
   return {
     page,
     totalPages,
+    itemsPerPage,
     sortItemsByDate,
     onChangePage,
     goNextPage,

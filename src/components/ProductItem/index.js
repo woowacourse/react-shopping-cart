@@ -13,6 +13,7 @@ const ProductItem = ({
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   onCartButtonClick = () => {},
+  showButton = true,
 }) => {
   return (
     <Product>
@@ -24,9 +25,11 @@ const ProductItem = ({
           <Name>{name}</Name>
           <Price>{formatPrice(price)} 원</Price>
         </div>
-        <CartButton type="button" onClick={onCartButtonClick}>
-          <Cart width="30" height="30" />
-        </CartButton>
+        {showButton && (
+          <CartButton type="button" onClick={onCartButtonClick}>
+            <Cart width="30" height="30" />
+          </CartButton>
+        )}
       </Description>
     </Product>
   );

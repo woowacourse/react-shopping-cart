@@ -9,7 +9,6 @@ export const ImageWrapper = styled.div`
   left: calc(50% - 7rem);
   background: var(--color-white);
   animation: gelatine 1s infinite;
-  user-select: none;
 `;
 
 export const CharacterImage = styled.img`
@@ -20,7 +19,6 @@ export const CharacterImage = styled.img`
   position: absolute;
   padding: 1rem;
   top: 1.5rem;
-  user-select: none;
 `;
 
 export const LoadingDimmer = styled.div`
@@ -32,5 +30,4 @@ export const LoadingDimmer = styled.div`
   background: #00000094;
   z-index: 99;
   backdrop-filter: blur(3px);
-  user-select: none;
 `;

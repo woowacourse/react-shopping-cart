@@ -17,6 +17,8 @@ export const Product = styled.div`
     & > img {
       width: 100%;
       height: 100%;
+      min-width: 6.375rem;
+      min-height: 6.375rem;
       object-fit: contain;
     }
   }

@@ -12,6 +12,8 @@ export const Order = styled.div`
 
 export const ImageWrapper = styled.div`
   flex-basis: 20%;
+  min-width: 6.375rem;
+  min-height: 6.375rem;
 
   & > img {
     width: 7rem;
