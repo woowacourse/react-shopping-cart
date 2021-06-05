@@ -14,6 +14,8 @@ const ShoppingItem = ({
   isChecked,
   onCheckBoxClick,
   onDeleteButtonClick,
+  increaseQuantity,
+  decreaseQuantity,
 }) => (
   <Product>
     <CheckBox onCheckBoxClick={onCheckBoxClick} isChecked={isChecked} />
@@ -23,7 +25,12 @@ const ShoppingItem = ({
       <button onClick={onDeleteButtonClick} type="button">
         <TrashCan width="20" height="20" />
       </button>
-      <QuantityInput type="number" quantity={quantity} />
+      <QuantityInput
+        type="number"
+        quantity={quantity}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+      />
       <span>{formatPrice(price * quantity)}원</span>
     </Controller>
   </Product>

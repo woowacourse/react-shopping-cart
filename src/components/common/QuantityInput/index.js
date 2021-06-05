@@ -2,18 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InputWrapper, Input, ControlButtons } from './index.styles';
 
-const QuantityInput = ({
-  quantity,
-  onIncreaseQuantity,
-  onDecreaseQuantity,
-}) => {
+const QuantityInput = ({ quantity, increaseQuantity, decreaseQuantity }) => {
   return (
     <InputWrapper>
       <label htmlFor="quantity-input"></label>
       <Input quantity={quantity} />
       <ControlButtons>
-        <button onClick={onIncreaseQuantity}> ▲ </button>
-        <button onClick={onDecreaseQuantity}> ▼ </button>
+        <button onClick={increaseQuantity}> ▲ </button>
+        <button onClick={decreaseQuantity}> ▼ </button>
       </ControlButtons>
     </InputWrapper>
   );
@@ -21,8 +17,8 @@ const QuantityInput = ({
 
 QuantityInput.propTypes = {
   quantity: PropTypes.number.isRequired,
-  onIncreaseQuantity: PropTypes.func.isRequired,
-  onDecreaseQuantity: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
 };
 
 export default QuantityInput;

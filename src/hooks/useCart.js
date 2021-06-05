@@ -5,6 +5,8 @@ import {
   deleteCheckedProduct,
   setChecked,
   setCheckedAll,
+  increaseProduct,
+  decreaseProduct,
 } from '../redux';
 
 const useCart = () => {
@@ -33,6 +35,14 @@ const useCart = () => {
     dispatch(setCheckedAll({ isChecked: !isCheckedAll }));
   };
 
+  const increaseQuantity = product_id => {
+    dispatch(increaseProduct({ product_id }));
+  };
+
+  const decreaseQuantity = product_id => {
+    dispatch(decreaseProduct({ product_id }));
+  };
+
   return {
     products,
     checkedProducts,
@@ -41,6 +51,8 @@ const useCart = () => {
     deleteCheckedFromCart,
     toggleChecked,
     toggleCheckedAll,
+    increaseQuantity,
+    decreaseQuantity,
   };
 };
 

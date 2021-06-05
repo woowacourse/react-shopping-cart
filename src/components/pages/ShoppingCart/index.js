@@ -24,6 +24,8 @@ const ShoppingCart = () => {
     toggleCheckedAll,
     deleteFromCart,
     deleteCheckedFromCart,
+    increaseQuantity,
+    decreaseQuantity,
   } = useCart();
 
   return (
@@ -56,6 +58,12 @@ const ShoppingCart = () => {
                     }
                     onDeleteButtonClick={() =>
                       deleteFromCart(product.product_id)
+                    }
+                    increaseQuantity={() =>
+                      increaseQuantity(product.product_id)
+                    }
+                    decreaseQuantity={() =>
+                      decreaseQuantity(product.product_id)
                     }
                   />
                 ))}

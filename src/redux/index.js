@@ -18,4 +18,6 @@ export {
   deleteCheckedProduct,
   setChecked,
   setCheckedAll,
+  increaseProduct,
+  decreaseProduct,
 } from './cartSlice';

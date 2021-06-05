@@ -67,5 +67,5 @@
   "resolutions": {
     "babel-loader": "8.1.0"
   },
-  "proxy": "https://mk27.pythonanywhere.com"
+  "proxy": "https://shopping-cart.techcourse.co.kr"
 }

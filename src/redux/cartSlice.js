@@ -39,6 +39,24 @@ const cartSlice = createSlice({
         product.isChecked = isChecked;
       });
     },
+    increaseProduct: (state, { payload: { product_id } }) => {
+      state.products = state.products.map(product => {
+        if (product.product_id !== product_id) return product;
+
+        return { ...product, quantity: product.quantity + 1 };
+      });
+    },
+    decreaseProduct: (state, { payload: { product_id } }) => {
+      state.products = state.products.map(product => {
+        if (product.product_id !== product_id) return product;
+        const newQuantity = product.quantity - 1;
+
+        return {
+          ...product,
+          quantity: newQuantity >= 1 ? newQuantity : product.quantity,
+        };
+      });
+    },
   },
 });
 
@@ -52,4 +70,6 @@ export const {
   deleteCheckedProduct,
   setChecked,
   setCheckedAll,
+  increaseProduct,
+  decreaseProduct,
 } = cartSlice.actions;
