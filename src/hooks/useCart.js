@@ -20,12 +20,12 @@ const useCart = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const deleteFromCart = product_id => {
+  const handleDeleteClick = product_id => {
     if (!window.confirm(MESSAGE.CART.DELETE_FROM_CART_CONFIRM)) return;
     dispatch(deleteProduct({ product_id }));
   };
 
-  const deleteCheckedFromCart = () => {
+  const handleDeleteCheckedClick = () => {
     if (products.length === 0) return alert('삭제할 상품이 없습니다.');
     if (!window.confirm(MESSAGE.CART.DELETE_FROM_CART_CONFIRM)) return;
     dispatch(deleteCheckedProduct());
@@ -62,8 +62,8 @@ const useCart = () => {
     products,
     checkedProducts,
     isCheckedAll,
-    deleteFromCart,
-    deleteCheckedFromCart,
+    handleDeleteClick,
+    handleDeleteCheckedClick,
     toggleChecked,
     toggleCheckedAll,
     increaseQuantity,

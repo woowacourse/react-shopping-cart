@@ -11,7 +11,7 @@ import {
 import { Cart } from '../../assets/svg';
 
 const ProductItem = ({
-  image_url,
+  imageUrl,
   name,
   price,
   onProductClick,
@@ -19,7 +19,7 @@ const ProductItem = ({
 }) => (
   <Container>
     <Product onClick={onProductClick}>
-      <Image src={image_url} alt={name} />
+      <Image src={imageUrl} alt={name} />
       <Description>
         <div>
           <Name>{name}</Name>
@@ -34,7 +34,7 @@ const ProductItem = ({
 );
 
 ProductItem.propTypes = {
-  image_url: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };

@@ -22,8 +22,8 @@ const ShoppingCart = () => {
     isCheckedAll,
     toggleChecked,
     toggleCheckedAll,
-    deleteFromCart,
-    deleteCheckedFromCart,
+    handleDeleteClick,
+    handleDeleteCheckedClick,
     increaseQuantity,
     decreaseQuantity,
     order,
@@ -44,7 +44,7 @@ const ShoppingCart = () => {
                 전체선택 {`(${checkedProducts.length}/${products.length})`}
               </span>
             </CheckBoxWrapper>
-            <Button onClick={deleteCheckedFromCart}>상품삭제</Button>
+            <Button onClick={handleDeleteCheckedClick}>상품삭제</Button>
           </Controller>
           <ShoppingList>
             <div>배송 상품</div>
@@ -52,13 +52,14 @@ const ShoppingCart = () => {
               <ul>
                 {products.map(product => (
                   <ShoppingItem
-                    key={product.product_id}
                     {...product}
+                    key={product.product_id}
+                    imageUrl={product.image_url}
                     onCheckBoxClick={() =>
                       toggleChecked(product.product_id, product.isChecked)
                     }
                     onDeleteButtonClick={() =>
-                      deleteFromCart(product.product_id)
+                      handleDeleteClick(product.product_id)
                     }
                     increaseQuantity={() =>
                       increaseQuantity(product.product_id)

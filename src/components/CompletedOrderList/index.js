@@ -11,13 +11,13 @@ const CompletedOrderList = ({ orderId, products }) => {
     <OrderList>
       <Header>
         <span>주문번호 : {orderId}</span>
-        <span>상세보기 ᐳ </span>
       </Header>
       <ul>
         {products.map(product => (
           <OrderItem
-            key={product.product_id}
             {...product}
+            key={product.product_id}
+            imageUrl={product.image_url}
             isOrdered={true}
             onCartButtonClick={() => addToCart(product)}
           />

@@ -7,7 +7,7 @@ import { Controller, Image, Name, Product } from './index.styles';
 import { formatPrice } from '../../utils';
 
 const ShoppingItem = ({
-  image_url,
+  imageUrl,
   name,
   price,
   quantity,
@@ -19,7 +19,7 @@ const ShoppingItem = ({
 }) => (
   <Product>
     <CheckBox onCheckBoxClick={onCheckBoxClick} isChecked={isChecked} />
-    <Image src={image_url} alt={name} />
+    <Image src={imageUrl} alt={name} />
     <Name>{name}</Name>
     <Controller>
       <button onClick={onDeleteButtonClick} type="button">
@@ -37,7 +37,7 @@ const ShoppingItem = ({
 );
 
 ShoppingItem.propTypes = {
-  image_url: PropTypes.string,
+  imageUrl: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,

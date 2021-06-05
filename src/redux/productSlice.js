@@ -4,13 +4,15 @@ import { handleRejected } from './util';
 
 export const getProductsThunk = createAsyncThunk(
   'product/getProductThunk',
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await request.get('/api/products');
 
       return { products: response.data };
     } catch (error) {
       console.error(error);
+
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -19,6 +21,7 @@ const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
+    error: null,
   },
   reducers: {},
   extraReducers: {

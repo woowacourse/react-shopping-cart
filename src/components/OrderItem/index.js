@@ -14,7 +14,7 @@ import Button from '../common/Button';
 const BUTTON_COLOR = 'var(--color-mint)';
 
 const OrderItem = ({
-  image_url,
+  imageUrl,
   name,
   price,
   quantity,
@@ -24,7 +24,7 @@ const OrderItem = ({
   return (
     <Order>
       <ImageWrapper>
-        <Image src={image_url} alt={name} />
+        <Image src={imageUrl} alt={name} />
       </ImageWrapper>
       <OrderDetail>
         <Name>{name}</Name>
@@ -44,7 +44,7 @@ const OrderItem = ({
 };
 
 OrderItem.propTypes = {
-  image_url: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,

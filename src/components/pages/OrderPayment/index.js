@@ -18,8 +18,9 @@ const OrderPayment = () => {
           <ul>
             {checkedProducts.map(product => (
               <OrderItem
-                key={product.product_id}
                 {...product}
+                key={product.product_id}
+                imageUrl={product.image_url}
                 isOrdered={false}
               />
             ))}

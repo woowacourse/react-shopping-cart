@@ -13,6 +13,7 @@ const ProductDetail = () => {
       <Main>
         <ProductDetailCard
           {...product}
+          imageUrl={product.image_url}
           onCartButtonClick={() => addToCart(product)}
         />
       </Main>

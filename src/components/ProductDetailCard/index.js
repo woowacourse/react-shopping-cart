@@ -5,10 +5,10 @@ import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
 
 const BUTTON_COLOR = 'var(--color-brown)';
 
-const ProductDetailCard = ({ image_url, name, price, onCartButtonClick }) => (
+const ProductDetailCard = ({ imageUrl, name, price, onCartButtonClick }) => (
   <Product>
     <Detail>
-      <Image src={image_url} alt={name} />
+      <Image src={imageUrl} alt={name} />
       <Name>{name}</Name>
       <PriceWrapper>
         <span>금액</span>
@@ -22,7 +22,7 @@ const ProductDetailCard = ({ image_url, name, price, onCartButtonClick }) => (
 );
 
 ProductDetailCard.propTypes = {
-  image_url: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   onCartButtonClick: PropTypes.func.isRequired,

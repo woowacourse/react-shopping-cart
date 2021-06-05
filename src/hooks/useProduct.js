@@ -4,7 +4,7 @@ import { MESSAGE, ROUTE } from '../constants';
 import { addProduct } from '../redux/cartSlice';
 
 const useProduct = () => {
-  const { products } = useSelector(({ product }) => product);
+  const { products, error } = useSelector(({ product }) => product);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,7 +17,7 @@ const useProduct = () => {
   const viewProductDetail = product =>
     history.push(ROUTE.PRODUCT_DETAIL, { product });
 
-  return { products, addToCart, viewProductDetail };
+  return { products, error, addToCart, viewProductDetail };
 };
 
 export default useProduct;
