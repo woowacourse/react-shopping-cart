@@ -7,6 +7,7 @@ import {
   OrderPayment,
   Details,
   CompletedOrder,
+  ErrorBoundary,
 } from './components';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ROUTE } from './constants';
@@ -21,33 +22,35 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GlobalStyle />
         <Router>
-          <NavBar />
+          <ErrorBoundary>
+            <NavBar />
 
-          <Route
-            exact
-            path={[ROUTE.HOME, ROUTE.PRODUCTS]}
-            render={props => <Products {...props} />}
-          />
-          <Route
-            path={ROUTE.CART}
-            render={props => <ShoppingCart {...props} />}
-          />
-          <Route
-            path={ROUTE.ORDER_PAYMENT}
-            render={props => <OrderPayment {...props} />}
-          />
-          <Route
-            path={'/product/:product_id'}
-            render={props => <Details {...props} />}
-          />
-          <Route
-            path={'/completed-order'}
-            render={props => <CompletedOrder {...props} />}
-          />
-          <Route
-            path={'/order-details/:order_id'}
-            render={props => <OrderDetails {...props} />}
-          />
+            <Route
+              exact
+              path={[ROUTE.HOME, ROUTE.PRODUCTS]}
+              render={props => <Products {...props} />}
+            />
+            <Route
+              path={ROUTE.CART}
+              render={props => <ShoppingCart {...props} />}
+            />
+            <Route
+              path={ROUTE.ORDER_PAYMENT}
+              render={props => <OrderPayment {...props} />}
+            />
+            <Route
+              path={'/product/:product_id'}
+              render={props => <Details {...props} />}
+            />
+            <Route
+              path={'/completed-order'}
+              render={props => <CompletedOrder {...props} />}
+            />
+            <Route
+              path={'/order-details/:order_id'}
+              render={props => <OrderDetails {...props} />}
+            />
+          </ErrorBoundary>
         </Router>
       </PersistGate>
     </Provider>

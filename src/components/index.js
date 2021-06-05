@@ -4,3 +4,4 @@ export { default as ShoppingCart } from './pages/ShoppingCart';
 export { default as CompletedOrder } from './pages/CompletedOrder';
 export { default as OrderPayment } from './pages/OrderPayment';
 export { default as Details } from './pages/Details';
+export { default as ErrorBoundary } from './ErrorBoundary';
