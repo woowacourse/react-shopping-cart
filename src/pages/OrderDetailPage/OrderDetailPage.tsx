@@ -5,7 +5,7 @@ import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
 import useAddCart from 'hooks/useAddCart';
 import React from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { CartItem, Order, Product } from 'types';
+import { Order, Product } from 'types';
 import Styled from './OrderDetailPage.styles';
 
 type LocationState = {

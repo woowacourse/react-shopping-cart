@@ -31,6 +31,11 @@ const DeleteButton = styled.button`
   cursor: pointer;
   width: 117px;
   height: 50px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 `;
 
 const CartListHeader = styled.div`
