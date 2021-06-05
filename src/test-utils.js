@@ -4,11 +4,10 @@ import { render as rtlRender } from '@testing-library/react';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 // Import your own reducer
-
-import { reducer } from './store';
+import { userReducer } from './store/userReducer';
 import { cartReducer } from './store/cartReducer';
 
-const rootReducer = combineReducers({ cartReducer, reducer });
+const rootReducer = combineReducers({ cartReducer, userReducer });
 
 function render(
   ui,
