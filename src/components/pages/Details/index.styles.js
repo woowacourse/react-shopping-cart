@@ -27,10 +27,14 @@ export const RandomProduct = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const Wrapper = styled.div`
-  max-width: 8rem;
+  max-width: 9rem;
 `;
 
 const Button = styled.button`

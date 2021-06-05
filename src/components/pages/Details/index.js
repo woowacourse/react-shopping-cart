@@ -21,8 +21,9 @@ import { SORT_RANDOM_ITEMS } from '../../../constants';
 import { useLocation } from 'react-router';
 
 const Details = ({ onImageError, match }) => {
+  const location = useLocation();
   const { loading, timer } = useLoading();
-  const { randomItems, setRandomItems } = useRandom();
+  const { randomItems, setRandomItems, randomProducts } = useRandom();
   const { index, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
 
   const {
@@ -31,11 +32,9 @@ const Details = ({ onImageError, match }) => {
     updateProductDetailURL,
     updateProductDetail,
     resetProductDetail,
-    randomProducts,
   } = useProducts();
 
   const sortedItems = sortItemsBy(randomItems, SORT_RANDOM_ITEMS.STANDARD);
-  const location = useLocation();
 
   useEffect(() => {
     updateProductDetail(match);

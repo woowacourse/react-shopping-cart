@@ -6,7 +6,6 @@ import {
   fetchProductDetail,
   addItemToCart,
 } from '../service/products';
-import { randomNumber } from '../utils';
 import useCarts from './useCarts';
 import useLoading from './useLoading';
 
@@ -37,21 +36,6 @@ const useProducts = () => {
     show();
   };
 
-  const randomProducts = (data, length) => {
-    const uniqueItems = new Set();
-
-    while (uniqueItems.size < length) {
-      const randomNum = randomNumber(1, data.length);
-      let item = data.find(({ product_id }) => product_id === randomNum);
-
-      if (item !== undefined) {
-        uniqueItems.add(item);
-      }
-    }
-
-    return [...uniqueItems];
-  };
-
   return {
     product,
     products,
@@ -63,7 +47,6 @@ const useProducts = () => {
     updateProductURL,
     updateProductDetailURL,
     addToCart,
-    randomProducts,
   };
 };
 
