@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import { useAppDispatch } from './useStore';
 import * as T from '../types';
 import cartItemsSlice, { deleteCheckedItems, deleteItem } from '../slices/cartSlice';
@@ -7,6 +8,7 @@ import useCart from './useCart';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const useCartPage = () => {
   const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { data: cartItems, status, onAdd } = useCart();
   const { checkCartItem, checkAllCartItems } = cartItemsSlice.actions;
@@ -22,17 +24,30 @@ const useCartPage = () => {
     return acc + curr.price * curr.quantity;
   }, 0);
 
-  const onDeleteItem = (id: T.CartItem['cartId']) => {
+  const onDeleteItem = async (id: T.CartItem['cartId']) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
-    dispatch(deleteItem(id));
+    const resultAction = await dispatch(deleteItem(id));
+    if (deleteItem.rejected.match(resultAction)) {
+      enqueueSnackbar(MESSAGE.DELETE_CART_ITEM_FAILURE);
+      return;
+    }
+
+    enqueueSnackbar(MESSAGE.DELETE_CART_ITEM_SUCCESS);
   };
 
-  const onDeleteCheckedItem = () => {
+  const onDeleteCheckedItem = async () => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CHECKED_CART_ITEMS)) return;
 
     const ids = checkedItems?.map((item) => item.cartId);
-    dispatch(deleteCheckedItems(ids));
+
+    const resultAction = await dispatch(deleteCheckedItems(ids));
+    if (deleteCheckedItems.rejected.match(resultAction)) {
+      enqueueSnackbar(MESSAGE.DELETE_CART_ITEM_FAILURE);
+      return;
+    }
+
+    enqueueSnackbar(MESSAGE.DELETE_CHECKED_CART_ITEMS_SUCCESS);
   };
 
   const onCheck = (cartId: number, checked: boolean) => {
