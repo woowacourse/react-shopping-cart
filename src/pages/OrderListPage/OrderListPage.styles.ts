@@ -34,11 +34,6 @@ const OrderNumber = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const DetailButton = styled.span`
-  font-size: 20px;
-  letter-spacing: 0.5px;
-`;
-
 const PurchasedList = styled.ul`
   margin: 0;
   padding: 0;
@@ -66,7 +61,6 @@ export default {
   Order,
   OrderHeader,
   OrderNumber,
-  DetailButton,
   PurchasedList,
   Product,
   SpinnerWrapper,

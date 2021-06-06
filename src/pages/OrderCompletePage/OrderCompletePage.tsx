@@ -15,7 +15,6 @@ const OrderCompletePage = (): ReactElement => {
         <Link to={ROUTES.ROOT}>
           <Button text="홈으로" size={T.ButtonSize.REGULAR} />
         </Link>
-        <Button text="주문상세" size={T.ButtonSize.REGULAR} />
       </Styled.ButtonWrapper>
     </Styled.Root>
   );

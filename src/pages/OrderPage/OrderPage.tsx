@@ -1,6 +1,5 @@
-import React, { ReactElement, useEffect } from 'react';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import React, { ReactElement } from 'react';
+import { Redirect, useLocation } from 'react-router-dom';
 import Styled from './OrderPage.styles';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
@@ -8,48 +7,40 @@ import HighlightText from '../../components/shared/HighlightText/HighlightText';
 import Button from '../../components/shared/Button/Button';
 import OrderItem from '../../components/units/OrderItem/OrderItem';
 import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
 import { toPriceFormat } from '../../utils';
-import useAxios from '../../hooks/useAxios';
-import { deleteCheckedItems } from '../../slices/cartSlice';
-import API from '../../constants/api';
 import ROUTES from '../../constants/routes';
-import { useAppDispatch } from '../../hooks/useStore';
+import useOrder from '../../hooks/useOrder';
 
 type LocationState = {
   checkedItems: T.CartItem[];
 };
 
 const OrderPage = (): ReactElement => {
-  const history = useHistory();
   const location = useLocation<LocationState>();
-  const dispatch = useAppDispatch();
-  const { enqueueSnackbar } = useSnackbar();
-  const [{ status, error }, fetchOrder] = useAxios(API.ORDERS, { method: T.ApiMethod.POST });
+
+  const { status, onAdd } = useOrder();
+  // const [{ status, error }, fetchOrder] = useAxios(API.ORDERS, { method: T.ApiMethod.POST });
 
   const checkedItems = location?.state?.checkedItems;
 
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
-    }
-  }, [enqueueSnackbar, error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
+  //   }
+  // }, [enqueueSnackbar, error]);
 
-  useEffect(() => {
-    if (status === T.AsyncStatus.SUCCESS) {
-      const ids = checkedItems?.map?.((cartItem) => cartItem.cartId);
-      dispatch(deleteCheckedItems(ids));
-
-      history.replace(ROUTES.ORDER_COMPLETE);
-    }
-  }, [checkedItems, dispatch, enqueueSnackbar, error, history, status]);
+  // useEffect(() => {
+  //   if (status === T.AsyncStatus.SUCCESS) {
+  //     history.replace(ROUTES.ORDER_COMPLETE);
+  //   }
+  // }, [checkedItems, dispatch, enqueueSnackbar, error, history, status]);
 
   if (!location.state) return <Redirect to={ROUTES.ROOT} />;
 
   const handlePurchaseCartItems = async () => {
     if (status === T.AsyncStatus.PENDING) return;
 
-    await fetchOrder(checkedItems);
+    await onAdd(checkedItems);
   };
 
   const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {

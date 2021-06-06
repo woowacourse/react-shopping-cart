@@ -1,35 +1,29 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import PageHeader from '../../components/shared/PageHeader/PageHeader';
 import PurchasedItem from '../../components/units/PurchasedItem/PurchasedItem';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import * as T from '../../types';
 import Styled from './OrderListPage.styles';
-import useAxios from '../../hooks/useAxios';
-import API from '../../constants/api';
 import useCart from '../../hooks/useCart';
+import useOrder from '../../hooks/useOrder';
 
 const OrderListPage = (): ReactElement => {
   const { onAdd } = useCart();
+  const { data: orders, status } = useOrder();
 
-  const [{ data: orders, status }, fetchOrders] = useAxios(API.ORDERS);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchOrders();
-    };
-    fetchData();
-  }, [fetchOrders]);
+  const isInitialLoading = status === T.AsyncStatus.PENDING && orders?.length === 0;
+  const isEmptyData = status === T.AsyncStatus.SUCCESS && orders?.length === 0;
 
   return (
     <Styled.Root>
       <PageHeader title="주문 목록" />
-      {status === T.AsyncStatus.PENDING && (
+      {isInitialLoading && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
 
-      {status !== T.AsyncStatus.PENDING && orders?.length === 0 ? (
+      {isEmptyData ? (
         <Styled.NoResultMessage>📋 주문한 내역이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.OrderList>
@@ -37,7 +31,6 @@ const OrderListPage = (): ReactElement => {
             <Styled.Order key={order.orderId}>
               <Styled.OrderHeader>
                 <Styled.OrderNumber>주문번호 : {order.orderId}</Styled.OrderNumber>
-                <Styled.DetailButton>{'상세보기 >'}</Styled.DetailButton>
               </Styled.OrderHeader>
               <Styled.PurchasedList>
                 {order.orderDetails?.map?.((item: T.OrderItem) => (

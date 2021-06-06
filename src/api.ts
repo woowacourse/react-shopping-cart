@@ -4,6 +4,9 @@ import { keysToCamel } from './utils';
 
 const api = axios.create({
   baseURL: API.BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 api.interceptors.response.use((response) => {
