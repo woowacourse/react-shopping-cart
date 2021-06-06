@@ -11,21 +11,25 @@ import * as T from '../../types';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import ROUTES from '../../constants/routes';
 import { toPriceFormat } from '../../utils';
-import useCart from '../../hooks/useCart';
+import useCartPage from '../../hooks/useCartPage';
 
 const CartPage = (): ReactElement => {
-  const { cartItems, checkedItems, isAllChecked, onDeleteItem, onDeleteCheckedItem, onCheck, onCheckAll } = useCart();
-
-  const checkedItemsTotalPrice = cartItems.data?.reduce((acc: number, curr: T.CartItem) => {
-    if (!curr.checked) return acc;
-
-    return acc + curr.price * curr.quantity;
-  }, 0);
+  const {
+    cartItems,
+    checkedItems,
+    isInitialLoading,
+    isAllChecked,
+    checkedItemsTotalPrice,
+    onDeleteItem,
+    onDeleteCheckedItem,
+    onCheck,
+    onCheckAll,
+  } = useCartPage();
 
   return (
     <Styled.Root>
       <PageHeader title="장바구니" />
-      {cartItems.status === T.AsyncStatus.PENDING ? (
+      {isInitialLoading ? (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
@@ -37,18 +41,18 @@ const CartPage = (): ReactElement => {
                 labelText="전체 선택"
                 checked={isAllChecked}
                 onChange={onCheckAll}
-                disabled={cartItems.data.length === 0}
+                disabled={cartItems.length === 0}
               />
               <Styled.DeleteButton onClick={onDeleteCheckedItem} disabled={checkedItems.length === 0}>
                 선택 삭제
               </Styled.DeleteButton>
             </Styled.CartListOption>
-            <Styled.CartListHeader>든든배송 상품 ({cartItems.data.length}개)</Styled.CartListHeader>
-            {cartItems.data.length === 0 ? (
+            <Styled.CartListHeader>든든배송 상품 ({cartItems.length}개)</Styled.CartListHeader>
+            {cartItems.length === 0 ? (
               <Styled.NoResultMessage>🛒 장바구니가 비어있어요!</Styled.NoResultMessage>
             ) : (
               <Styled.CartItemList>
-                {cartItems.data?.map?.((cartItem) => (
+                {cartItems?.map?.((cartItem) => (
                   <CartItem key={cartItem.cartId} cartItem={cartItem} onCheck={onCheck} onDelete={onDeleteItem} />
                 ))}
               </Styled.CartItemList>

@@ -1,25 +1,26 @@
+import { useCallback, useEffect } from 'react';
+import { SerializedError, unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-import { useEffect } from 'react';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import MESSAGE from '../constants/messages';
+import { addCartItem, getCartItems } from '../slices/cartSlice';
 import { useAppDispatch, useAppSelector } from './useStore';
 import * as T from '../types';
-import cartSlice, { addCartItem, deleteCheckedItems, deleteItem, getCartItems } from '../slices/cartSlice';
-import MESSAGE from '../constants/messages';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const useCart = () => {
-  const cartItems = useAppSelector((state: RootState) => state.cart);
+const useCart = (): {
+  data: T.CartItem[];
+  status: T.AsyncStatus;
+  error: SerializedError | null;
+  onAdd: (productId: T.Product['productId']) => void;
+} => {
+  const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-  const { checkCartItem, checkAllCartItems } = cartSlice.actions;
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const isAllChecked = cartItems.data?.every?.((item) => item.checked);
-  const checkedItems = cartItems.data?.filter?.((item) => item.checked);
+  const { data, status, error } = cartItems;
 
   const onAdd = async (productId: T.Product['productId']) => {
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.productId);
+    const cartItemIds = data.map((cartItem) => cartItem.productId);
 
     if (cartItemIds.includes(productId)) {
       enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
@@ -32,37 +33,24 @@ const useCart = () => {
 
       dispatch(getCartItems());
       enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-    } catch (error) {
-      enqueueSnackbar(error);
+    } catch (err) {
+      enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_FAILURE);
     }
   };
 
-  const onDeleteItem = (id: T.CartItem['cartId']) => {
-    if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
+  const onGet = useCallback(async () => {
+    const resultAction = await dispatch(getCartItems());
 
-    dispatch(deleteItem(id));
-  };
-
-  const onDeleteCheckedItem = () => {
-    if (!window.confirm(MESSAGE.CONFIRM_DELETE_CHECKED_CART_ITEMS)) return;
-
-    const ids = checkedItems?.map((item) => item.cartId);
-    dispatch(deleteCheckedItems(ids));
-  };
-
-  const onCheck = (cartId: number, checked: boolean) => {
-    dispatch(checkCartItem({ cartId, checked }));
-  };
-
-  const onCheckAll = () => {
-    dispatch(checkAllCartItems({ checked: !isAllChecked }));
-  };
+    if (getCartItems.rejected.match(resultAction)) {
+      enqueueSnackbar(MESSAGE.GET_CART_ITEMS_FAILURE);
+    }
+  }, [dispatch, enqueueSnackbar]);
 
   useEffect(() => {
-    dispatch(getCartItems());
-  }, [dispatch]);
+    onGet();
+  }, [onGet]);
 
-  return { cartItems, checkedItems, isAllChecked, onAdd, onDeleteItem, onDeleteCheckedItem, onCheck, onCheckAll };
+  return { data, status, error, onAdd };
 };
 
 export default useCart;

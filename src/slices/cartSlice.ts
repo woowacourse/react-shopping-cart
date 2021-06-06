@@ -25,9 +25,9 @@ const initialState: CartState = {
 
 export const getCartItems = createAsyncThunk(GET_CART_ITEMS, async () => {
   const response = await api.get(API.CARTS);
-  const cartItemsWithQuantity = response.data.map((item: T.CartItem) => ({ ...item, quantity: 1 }));
+  const cartItemsWithQuantity: T.CartItem[] = response.data.map((item: T.CartItem) => ({ ...item, quantity: 1 }));
 
-  return cartItemsWithQuantity as T.CartItem[];
+  return cartItemsWithQuantity;
 });
 
 export const addCartItem = createAsyncThunk(

@@ -1,25 +1,17 @@
-import React, { ReactElement, useEffect } from 'react';
-import { useSnackbar } from 'notistack';
+import React, { ReactElement } from 'react';
 import Styled from './ProductsPage.styles';
 import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import ProductItem from '../../components/units/ProductItem/ProductItem';
 import useCart from '../../hooks/useCart';
 import useProduct from '../../hooks/useProduct';
 
 const ProductsPage = (): ReactElement => {
-  const { enqueueSnackbar } = useSnackbar();
-
-  const { data: products, status, error } = useProduct();
+  const { data: products, status } = useProduct();
   const { onAdd } = useCart();
 
   const isInitialLoading = status === T.AsyncStatus.PENDING && products.length === 0;
   const isEmptyData = status === T.AsyncStatus.SUCCESS && products?.length === 0;
-
-  useEffect(() => {
-    if (error) enqueueSnackbar(error?.message || MESSAGE.GET_PRODUCTS_FAILURE);
-  }, [enqueueSnackbar, error]);
 
   return (
     <Styled.Root>

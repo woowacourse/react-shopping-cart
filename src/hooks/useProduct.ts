@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useSnackbar } from 'notistack';
+import { useCallback, useEffect } from 'react';
+import MESSAGE from '../constants/messages';
 import { getProducts, ProductState } from '../slices/productSlice';
 import { useAppDispatch, useAppSelector } from './useStore';
 
@@ -6,11 +8,21 @@ const useProduct = (): ProductState => {
   const products = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const { data, status, error } = products;
 
+  const onGet = useCallback(async () => {
+    const resultAction = await dispatch(getProducts());
+
+    if (getProducts.rejected.match(resultAction)) {
+      enqueueSnackbar(resultAction?.payload?.message || MESSAGE.GET_PRODUCTS_FAILURE);
+    }
+  }, [dispatch, enqueueSnackbar]);
+
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    onGet();
+  }, [onGet]);
 
   return { data, status, error };
 };

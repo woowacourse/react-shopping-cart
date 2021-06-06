@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, SerializedError } from '@reduxjs/toolkit';
 import api from '../api';
 import API from '../constants/api';
+import MESSAGE from '../constants/messages';
 import * as T from '../types';
 
 export const GET_PRODUCTS = 'product/GET_PRODUCTS' as const;
@@ -17,25 +18,27 @@ const initialState: ProductState = {
   error: null,
 };
 
-export const getProducts = createAsyncThunk(GET_PRODUCTS, async (_, { rejectWithValue }) => {
+export const getProducts = createAsyncThunk<
+  ProductState['data'],
+  void,
+  {
+    rejectValue: SerializedError;
+  }
+>(GET_PRODUCTS, async (_, { rejectWithValue }) => {
   try {
     const response = await api.get<T.Product[]>(API.PRODUCTS);
     const products = response.data;
 
     return products;
   } catch (error) {
-    return rejectWithValue(error.response.data);
+    return rejectWithValue({ message: MESSAGE.GET_PRODUCTS_FAILURE, stack: error.stack });
   }
 });
 
 const productSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
       state.status = T.AsyncStatus.PENDING;
@@ -43,11 +46,15 @@ const productSlice = createSlice({
     });
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.status = T.AsyncStatus.SUCCESS;
-      state.data = [...action.payload];
+      state.data = action.payload;
     });
     builder.addCase(getProducts.rejected, (state, action) => {
       state.status = T.AsyncStatus.FAILURE;
-      state.error = action.error;
+      if (action.payload) {
+        state.error = action.payload;
+      } else {
+        state.error = action.error;
+      }
     });
     builder.addDefaultCase(() => {});
   },
