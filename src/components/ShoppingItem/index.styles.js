@@ -31,6 +31,10 @@ export const Name = styled.span`
   @media (max-width: 960px) {
     flex-basis: 35%;
   }
+
+  @media (max-width: 568px) {
+    flex-basis: 28%;
+  }
 `;
 
 export const Controller = styled.div`

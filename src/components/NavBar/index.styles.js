@@ -55,6 +55,10 @@ export const AlertNavItem = styled(NavItem)`
   position: relative;
   cursor: pointer;
   padding: 0.5rem 0 0.5rem 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 export const Alert = styled.span`

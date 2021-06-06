@@ -17,8 +17,8 @@ export const Main = styled.main`
     min-width: 30rem;
 
     @media (max-width: 960px) {
-      padding: 0;
       min-width: 18rem;
+      padding: 0;
     }
   }
 
