@@ -1,15 +1,14 @@
 import { BASE_URL } from '../constants';
-
+import { store } from '../store/';
 const request = async (url, option = {}) => {
   try {
     const res = await fetch(url, option);
-    const body = await res.json();
 
     if (!res.ok) {
       throw new Error(`http request Error : ${res.status}`);
     }
 
-    return body;
+    return res;
   } catch (error) {
     throw new Error(`http request Error : ${error}`);
   }
@@ -17,27 +16,37 @@ const request = async (url, option = {}) => {
 
 const API = {
   getItemList: async () => {
-    return await request(`${BASE_URL}/products`);
+    return await (await request(`${BASE_URL}/api/products`)).json();
   },
-  addItemToCart: async data => {
-    return await request(`${BASE_URL}/cart`, {
+  addItemToCart: async id => {
+    const data = {
+      product_id: id,
+    };
+    const dataJson = JSON.stringify(data);
+
+    return await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: dataJson,
     });
   },
   getCartItemList: async () => {
-    return await request(`${BASE_URL}/cart`);
+    return await (
+      await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts`)
+    ).json();
   },
-  deleteCartItem: async data => {
-    return await request(`${BASE_URL}/cart/${data.id}`, {
-      method: 'DELETE',
-    });
+  deleteCartItem: async ({ id }) => {
+    return await request(
+      `${BASE_URL}/api/customers/${store.getState().userReducer.name}/carts/${id}`,
+      {
+        method: 'DELETE',
+      },
+    );
   },
   purchase: async data => {
-    return await request(`${BASE_URL}/orders`, {
+    return await request(`${BASE_URL}/api/customers/${store.getState().userReducer.name}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

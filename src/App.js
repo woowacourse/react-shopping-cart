@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import GlobalStyle from './globalStyle';
@@ -7,26 +7,10 @@ import MainContainer from '../src/components/shared/MainContainer';
 import { PATH } from './constants';
 import { Cart, ProductList, Order } from './pages';
 import { store } from './store';
-import { setCartItemList } from './store/cartReducer';
-import { setProductList } from './store/productReducer';
-import API from './request/api';
 import { ReactComponent as Logo } from './assets/icons/logo.svg';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
-  useEffect(() => {
-    const getItemListRequest = async () => {
-      const result = await API.getItemList();
-      store.dispatch(setProductList(result));
-    };
-
-    const getCartItemListRequest = async () => {
-      const result = await API.getCartItemList();
-      store.dispatch(setCartItemList(result));
-    };
-    getItemListRequest();
-    getCartItemListRequest();
-  }, []);
-
   return (
     <>
       <Provider store={store}>
@@ -45,9 +29,7 @@ function App() {
         <MainContainer>
           <Switch>
             <Route exact path={[PATH.MAIN, PATH.GOODS]} component={ProductList} />
-            <Route exact path={`${PATH.GOODS_DETAIL}/:id`}>
-              GOODS_DETAIL
-            </Route>
+            <Route exact path={`${PATH.GOODS_DETAIL}/:id`} component={ProductDetail} />
             <Route exact path={PATH.CART} component={Cart} />
             <Route exact path={PATH.ORDER} component={Order} />
             <Route exact path={PATH.MYMART_ORDER}>

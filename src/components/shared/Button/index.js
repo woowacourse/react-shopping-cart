@@ -11,8 +11,8 @@ const Button = ({
   borderColor,
   color,
   disabled,
-  onClick,
   children,
+  ...props
 }) => {
   return (
     <Container
@@ -23,7 +23,7 @@ const Button = ({
       disabled={disabled || false}
       width={width}
       color={color || COLOR.WHITE}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </Container>
