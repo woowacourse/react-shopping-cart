@@ -5,39 +5,30 @@ import * as T from '../../types';
 import MESSAGE from '../../constants/messages';
 import Spinner from '../../components/shared/Spinner/Spinner';
 import ProductItem from '../../components/units/ProductItem/ProductItem';
-
-import useAxios from '../../hooks/useAxios';
-import API from '../../constants/api';
 import useCart from '../../hooks/useCart';
+import useProduct from '../../hooks/useProduct';
 
 const ProductsPage = (): ReactElement => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const { data: products, status, error } = useProduct();
   const { onAdd } = useCart();
 
-  const [{ data: products, status, error }, fetchProducts] = useAxios(API.PRODUCTS);
+  const isInitialLoading = status === T.AsyncStatus.PENDING && products.length === 0;
+  const isEmptyData = status === T.AsyncStatus.SUCCESS && products?.length === 0;
 
   useEffect(() => {
-    const getProducts = async () => {
-      await fetchProducts();
-    };
-    getProducts();
-  }, [fetchProducts]);
-
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
-    }
+    if (error) enqueueSnackbar(error?.message || MESSAGE.GET_PRODUCTS_FAILURE);
   }, [enqueueSnackbar, error]);
 
   return (
     <Styled.Root>
-      {status === T.AsyncStatus.PENDING && (
+      {isInitialLoading && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
-      {status === T.AsyncStatus.SUCCESS && products?.length === 0 ? (
+      {isEmptyData ? (
         <Styled.NoResultMessage>😢 지금은 구입할 수 있는 상품이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.ProductList>
