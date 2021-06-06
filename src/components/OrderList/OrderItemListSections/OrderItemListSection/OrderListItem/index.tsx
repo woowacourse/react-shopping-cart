@@ -10,9 +10,9 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   item: OrderedItem;
 }
 
-const OrderListItem: FC<Props> = ({ item: { image, name, price, quantity }, onClick }) => (
+const OrderListItem: FC<Props> = ({ item: { image_url, name, price, quantity }, onClick }) => (
   <StyledOrderItemListItem>
-    <OrderListItemCard type="horizontal" image={image}>
+    <OrderListItemCard type="horizontal" image={image_url}>
       <Container>
         <ProductName>{name}</ProductName>
         <Text>

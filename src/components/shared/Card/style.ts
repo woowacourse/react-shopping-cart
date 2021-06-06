@@ -7,6 +7,12 @@ interface CardContainerProps {
   height?: string;
 }
 
+export const CardContainer = styled.div<CardContainerProps>`
+  display: flex;
+  box-sizing: border-box;
+  ${({ type }) => (type === 'vertical' ? verticalTypeStyle : horizontalTypeStyle)}
+`;
+
 const verticalTypeStyle = css<CardContainerProps>`
   flex-direction: column;
   width: ${({ width }) => width};
@@ -29,10 +35,4 @@ const horizontalTypeStyle = css<CardContainerProps>`
     width: ${({ height }) => height};
     margin-right: 1.25rem;
   }
-`;
-
-export const CardContainer = styled.div<CardContainerProps>`
-  display: flex;
-  box-sizing: border-box;
-  ${({ type }) => (type === 'vertical' ? verticalTypeStyle : horizontalTypeStyle)}
 `;

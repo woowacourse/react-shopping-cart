@@ -35,8 +35,3 @@ export const CartIconButton = styled(IconButton)`
 CartIconButton.defaultProps = {
   image: process.env.PUBLIC_URL + '/icons/shopping-cart-black.svg',
 };
-
-export const StyledProductCard = styled(Card)`
-  width: 17.625rem;
-  height: 22rem;
-`;

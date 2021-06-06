@@ -2,16 +2,11 @@ import { FC } from 'react';
 import useCartAddItem from '../../../hooks/useCartItems/useCartAddItem';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
-import {
-  CartIconButton,
-  ContentContainer,
-  ProductNameText,
-  ProductText,
-  StyledProductCard,
-} from './style';
+import Card from '../../shared/Card';
+import { CartIconButton, ContentContainer, ProductNameText, ProductText } from './style';
 
 const ProductCard: FC<Product> = (product) => {
-  const { name, price, image } = product;
+  const { name, price, image_url: image } = product;
   const { addItem } = useCartAddItem();
 
   const onClickAddCart = () => {
@@ -21,7 +16,7 @@ const ProductCard: FC<Product> = (product) => {
   };
 
   return (
-    <StyledProductCard type="vertical" image={image}>
+    <Card type="vertical" image={image} width="17.625rem" height="22rem">
       <ContentContainer>
         <div>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>
@@ -29,7 +24,7 @@ const ProductCard: FC<Product> = (product) => {
         </div>
         <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>
-    </StyledProductCard>
+    </Card>
   );
 };
 
