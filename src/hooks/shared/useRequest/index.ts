@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NETWORK_ERROR } from '../../../constants/error';
 
-const useFetch = <T>(callback: () => Promise<T>) => {
+//TODO: 이 훅 필요할까....?
+const useRequest = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [hasError, setHasError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -10,8 +11,8 @@ const useFetch = <T>(callback: () => Promise<T>) => {
     setHasError(null);
     setIsLoading(true);
     try {
-      const value = await callback();
-      setData(value);
+      const response = await callback();
+      setData(response);
     } catch (error) {
       setHasError(error);
     }
@@ -32,4 +33,4 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   return { data, reFetch, hasError, isLoading };
 };
 
-export default useFetch;
+export default useRequest;

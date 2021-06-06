@@ -2,12 +2,12 @@ import { FC } from 'react';
 import ProductList from '../../components/ProductList';
 import InitialLoading from '../../components/shared/InitialLoading';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/shared/useFetch';
+import useRequest from '../../hooks/shared/useRequest';
 import { requestProductList } from '../../service/request/productList';
 import { Product } from '../../types';
 
 const ProductListPage: FC = () => {
-  const productList = useFetch(requestProductList);
+  const productList = useRequest(requestProductList);
 
   return (
     <ReactShoppingCartTemplate>

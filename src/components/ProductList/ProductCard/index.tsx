@@ -6,7 +6,7 @@ import Card from '../../shared/Card';
 import { CartIconButton, ContentContainer, ProductNameText, ProductText } from './style';
 
 const ProductCard: FC<Product> = (product) => {
-  const { name, price, image_url: image } = product;
+  const { name, price, image } = product;
   const { addItem } = useCartAddItem();
 
   const onClickAddCart = () => {

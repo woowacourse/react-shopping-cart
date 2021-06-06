@@ -29,7 +29,7 @@ const ShoppingCartItem: FC<Props> = ({
   toggleChecked,
   className,
 }) => {
-  const { image_url, name, quantity, price, id, checked } = item;
+  const { image, name, quantity, price, id, checked } = item;
 
   const onItemDelete = () => {
     if (!window.confirm(CONFIRM.DELETE_CART_ITEM)) return;
@@ -56,7 +56,7 @@ const ShoppingCartItem: FC<Props> = ({
         labelTextHidden
         data-testid="select-checkbox"
       />
-      <ShoppingCartItemCard type="horizontal" image={image_url}>
+      <ShoppingCartItemCard type="horizontal" image={image}>
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>
       <Container>

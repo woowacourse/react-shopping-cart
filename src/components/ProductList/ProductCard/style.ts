@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Card from '../../shared/Card';
 import Container from '../../shared/Container';
 import IconButton from '../../shared/IconButton';
 import Text from '../../shared/Text';

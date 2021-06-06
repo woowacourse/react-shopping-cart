@@ -3,15 +3,10 @@ import { RouteComponentProps } from 'react-router';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
-import InitialLoading from '../../components/shared/InitialLoading';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/shared/useFetch';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
-import { requestOrderItems } from '../../service/request/order';
-import {
-  requestClearOrderConfirmItems,
-  requestOrderConfirmItems,
-} from '../../service/request/orderConfirm';
+import { getOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
+import { requestOrderItemListToRegister } from '../../service/request/order';
 import { ItemInCart } from '../../types';
 
 const TITLE = '주문/결제';
@@ -19,7 +14,7 @@ const TITLE = '주문/결제';
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: FC<Props> = ({ history }) => {
-  const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
+  const items = getOrderConfirmItemsInLocalStorage();
   const [totalPrice, setTotalPrice] = useState(0);
   const { clearCart } = useCartDeleteItem();
 
@@ -32,8 +27,7 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   }, [items]);
 
   const order = async () => {
-    await requestOrderItems(items as ItemInCart[]);
-    await requestClearOrderConfirmItems();
+    await requestOrderItemListToRegister(items as ItemInCart[]);
     clearCart();
   };
 
@@ -52,12 +46,10 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
 
   return (
     <ReactShoppingCartTemplate title={TITLE}>
-      <InitialLoading isLoading={isLoading}>
-        <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
-          <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
-          <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
-        </OrderConfirmForm>
-      </InitialLoading>
+      <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
+        <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
+        <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
+      </OrderConfirmForm>
     </ReactShoppingCartTemplate>
   );
 };

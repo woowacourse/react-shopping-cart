@@ -1,11 +1,11 @@
-import useFetch from '.';
+import useRequest from '.';
 import { renderHook } from '@testing-library/react-hooks';
 import { requestProductList } from '../../service/request/productList';
 import { NETWORK_ERROR } from '../../constants/error';
 
-describe('useFetch', () => {
+describe('useRequest', () => {
   test('loading', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(() => requestProductList()));
+    const { result, waitForNextUpdate } = renderHook(() => useRequest(() => requestProductList()));
 
     expect(result.current.isLoading).toBe(true);
 
@@ -16,7 +16,7 @@ describe('useFetch', () => {
 
   test('error', async () => {
     const { result } = renderHook(() =>
-      useFetch(() => {
+      useRequest(() => {
         throw new Error('에러났어용');
       })
     );
@@ -25,7 +25,7 @@ describe('useFetch', () => {
   });
 
   test('data fetch', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(() => requestProductList()));
+    const { result, waitForNextUpdate } = renderHook(() => useRequest(() => requestProductList()));
 
     await waitForNextUpdate();
 

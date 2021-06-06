@@ -3,11 +3,11 @@ import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/Shopping
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
-import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
+import { setOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
 
 const TITLE = '장바구니';
 
@@ -35,7 +35,7 @@ const ShoppingCartPage: FC = () => {
     }
 
     try {
-      await requestRegisterOrderConfirmItems(checkedItem);
+      await setOrderConfirmItemsInLocalStorage(checkedItem);
     } catch (error) {
       throw error;
     }
