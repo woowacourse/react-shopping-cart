@@ -20,7 +20,7 @@ const CompletedOrder = () => {
   const { loading } = useLoading();
   const { orderedItems, getCompletedOrder } = useOrder();
   const {
-    index,
+    pageIndex,
     firstPage,
     setFirstPage,
     sortItemsBy,
@@ -51,8 +51,8 @@ const CompletedOrder = () => {
       {loading && <Loading />}
       <PageHeader>주문목록</PageHeader>
       <SortedItems>
-        {sortedItems[index]?.length > 0 &&
-          sortedItems[index].map(order => (
+        {sortedItems[pageIndex]?.length > 0 &&
+          sortedItems[pageIndex].map(order => (
             <li key={order.order_id}>
               <CompletedOrderList order={order} />
             </li>

@@ -34,10 +34,10 @@ const usePagination = () => {
     setFirstPage(firstPage + 1);
   };
 
-  const index = firstPage - 1;
+  const pageIndex = firstPage - 1;
 
   return {
-    index,
+    pageIndex,
     firstPage,
     setFirstPage,
     getPageLength,
