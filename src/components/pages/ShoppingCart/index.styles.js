@@ -6,6 +6,8 @@ export const Main = styled.main`
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
+  max-width: 50rem;
+  margin: 1rem auto;
 
   @media (max-width: 960px) {
     padding: 0;

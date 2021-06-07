@@ -7,7 +7,7 @@ export const Page = styled.div`
       : 'background-color: var(--color-white);'}
   min-height: 100%;
   width: 100%;
-  ${({ noPadding }) => (noPadding ? '' : 'padding: 7rem;')}
+  ${({ noPadding }) => (noPadding ? '' : 'padding: 7rem 10rem;')}
   margin: 0 auto;
 
   @media (max-width: 960px) {
@@ -20,7 +20,7 @@ export const Page = styled.div`
     min-width: 25rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 568px) {
     ${({ noPadding }) => (noPadding ? '' : 'padding: 7rem 1rem;')}
     min-width: 18rem;
   }

@@ -13,6 +13,7 @@ import {
   PageButtonDimmer,
   PaginationWrapper,
   ArrowButton,
+  SortedItems,
 } from './index.styles';
 
 const CompletedOrder = () => {
@@ -49,14 +50,14 @@ const CompletedOrder = () => {
     <Page bg="grey">
       {loading && <Loading />}
       <PageHeader>주문목록</PageHeader>
-      <ul>
+      <SortedItems>
         {sortedItems[index]?.length > 0 &&
           sortedItems[index].map(order => (
             <li key={order.order_id}>
               <CompletedOrderList order={order} />
             </li>
           ))}
-      </ul>
+      </SortedItems>
       <PaginationWrapper>
         <PageButtonDimmer>
           <PageButtonWrapper page={page}>

@@ -3,11 +3,7 @@ import OrderItem from '../../OrderItem';
 import PaymentSheet from '../../PaymentSheet';
 import useOrder from '../../../hooks/useOrder';
 import useProducts from '../../../hooks/useProducts';
-import {
-  OrderDetailWrapper,
-  PaymentSheetWrapper,
-  PageWrapper,
-} from './index.styles';
+import { OrderDetailWrapper, PaymentSheetWrapper } from './index.styles';
 
 import { Header } from '../../CompletedOrderList/index.styles';
 import { formatPrice } from '../../../utils';

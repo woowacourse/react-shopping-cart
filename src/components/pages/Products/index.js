@@ -34,7 +34,7 @@ const Products = () => {
   }, [loading]);
 
   return (
-    <Page>
+    <Page noPadding={true}>
       {loading && <Loading />}
       <ProductList>
         {products &&

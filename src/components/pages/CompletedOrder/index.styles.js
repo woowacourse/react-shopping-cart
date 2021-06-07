@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
 
+export const SortedItems = styled.ul`
+  max-width: 50rem;
+  margin: 1rem auto;
+`;
+
 export const Main = styled.div`
   & > ul > li {
     margin-bottom: 2rem;
