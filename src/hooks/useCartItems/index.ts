@@ -2,26 +2,27 @@ import { useEffect } from 'react';
 import { ERROR } from '../../constants/error';
 import { thunkGetCartItems } from '../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../states/store';
+import CustomError from '../../utils/CustomError';
 
 const useCartItems = () => {
   const dispatch = useAppDispatch();
-  const [
-    cartItems,
-    hasError,
+  const [cartItems, error, isLoading] = useAppSelector(({ cart: { items, error, isLoading } }) => [
+    items,
+    error,
     isLoading,
-  ] = useAppSelector(({ cart: { items, error, isLoading } }) => [items, error, isLoading]);
+  ]);
 
   useEffect(() => {
-    if (!hasError) return;
+    if (!error) return;
 
-    throw new Error(ERROR.NETWORK);
-  }, [hasError]);
+    throw new CustomError(ERROR.NETWORK, error.message);
+  }, [error]);
 
   const loadCartItems = () => {
     dispatch(thunkGetCartItems());
   };
 
-  return { cartItems, hasError, isLoading, loadCartItems };
+  return { cartItems, error, isLoading, loadCartItems };
 };
 
 export default useCartItems;

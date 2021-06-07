@@ -41,6 +41,7 @@ export const requestShoppingCartItemToAdd = async (productId: string): Promise<s
 };
 
 //delete request
+//TODO: 링크 일부러 오류냄
 export const requestShoppingCartItemToDelete = (cartItemId: string) =>
   customAxios.delete(`/api/customers/${CUSTOMER_NAME}/carts/${cartItemId}`);
 

@@ -2,6 +2,7 @@ import useRequest from '.';
 import { renderHook } from '@testing-library/react-hooks';
 import { requestProductList } from '../../service/request/productList';
 import { ERROR } from '../../constants/error';
+import CustomError from '../../../utils/CustomError';
 
 describe('useRequest', () => {
   test('loading', async () => {
@@ -17,7 +18,7 @@ describe('useRequest', () => {
   test('error', async () => {
     const { result } = renderHook(() =>
       useRequest(() => {
-        throw new Error('에러났어용');
+        throw new CustomError(ERROR.NETWORK, '에러났어용');
       })
     );
 

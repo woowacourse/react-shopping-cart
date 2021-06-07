@@ -5,10 +5,13 @@ import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderCon
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import RootTemplate from '../../components/shared/RootTemplate';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
-import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localStorage/cart';
 import { getOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
 import { requestOrderItemListToRegister } from '../../service/request/order';
 import { CartItem } from '../../types';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { ERROR } from '../../constants/error';
+import { ALERT } from '../../constants/message';
+import CustomError from '../../utils/CustomError';
 
 const TITLE = '주문/결제';
 
@@ -18,6 +21,15 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   const items = getOrderConfirmItemsInLocalStorage();
   const [totalPrice, setTotalPrice] = useState(0);
   const { clearCart } = useCartDeleteItem();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!errorMessage) {
+      return;
+    }
+
+    throw new CustomError(ERROR.NETWORK, errorMessage);
+  }, [errorMessage]);
 
   useEffect(() => {
     if (!items) return;
@@ -32,12 +44,12 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
 
     try {
       await requestOrderItemListToRegister(items as CartItem[]);
-      //TODO: 여기서 에러처리 고민하기 - clearCart에서 오류날 경우 여기서 catch되지 않음
-      clearCart();
+      const resultAction: any = await clearCart();
+      unwrapResult(resultAction);
 
-      alert('주문이 성공했습니다!');
+      alert(ALERT.SUCCESS_ORDER);
     } catch (error) {
-      console.error(error);
+      setErrorMessage(error.message);
     }
 
     history.replace('/');

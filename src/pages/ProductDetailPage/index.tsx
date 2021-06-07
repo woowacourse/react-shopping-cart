@@ -7,6 +7,7 @@ import { CONFIRM } from '../../constants/message';
 import useRequest from '../../hooks/shared/useRequest';
 import useCartAddItem from '../../hooks/useCartItems/useCartAddItem';
 import { requestProductList } from '../../service/request/productList';
+import CustomError from '../../utils/CustomError';
 import { KRCurrency } from '../../utils/format';
 import {
   ProductDetailButton,
@@ -27,7 +28,7 @@ const ProductDetailPage = () => {
     const target = productList.find(({ id }) => id === productId);
 
     if (!target) {
-      throw new Error(ERROR.NOT_FOUND);
+      throw new CustomError(ERROR.NOT_FOUND, '');
     }
 
     return target;

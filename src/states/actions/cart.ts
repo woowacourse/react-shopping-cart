@@ -14,7 +14,6 @@ import {
   requestShoppingCartItemList,
 } from '../../service/request/cart';
 import { CartItem, Product } from '../../types';
-import { createItemInCart } from '../../utils/cart';
 
 export const GET_CART_ITEMS = 'cart/GET_CART_ITEMS';
 export const GET_CART_ITEMS_SUCCESS = 'cart/GET_CART_ITEMS_SUCCESS';
@@ -121,7 +120,6 @@ export const thunkToggleItemChecked = (item: CartItem): AppThunk => async (dispa
 
   const toggledItem = { ...item, checked: !item.checked };
 
-  //TODO: try catch 필요할까?
   try {
     const { id, quantity, checked } = toggledItem;
 

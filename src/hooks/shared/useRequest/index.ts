@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { ERROR } from '../../../constants/error';
+import CustomError from '../../../utils/CustomError';
 
-//TODO: 이 훅 필요할까....?
 const useRequest = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
-  const [hasError, setHasError] = useState<Error | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const reFetch = async () => {
-    setHasError(null);
+    setErrorMessage(null);
     setIsLoading(true);
     try {
       const response = await callback();
       setData(response);
     } catch (error) {
-      setHasError(error);
+      setErrorMessage(error.message);
     }
 
     setIsLoading(false);
@@ -25,12 +25,12 @@ const useRequest = <T>(callback: () => Promise<T>) => {
   }, []);
 
   useEffect(() => {
-    if (!hasError) return;
+    if (!errorMessage) return;
 
-    throw new Error(ERROR.NETWORK);
-  }, [hasError]);
+    throw new CustomError(ERROR.NETWORK, errorMessage);
+  }, [errorMessage]);
 
-  return { data, reFetch, hasError, isLoading };
+  return { data, reFetch, errorMessage, isLoading };
 };
 
 export default useRequest;

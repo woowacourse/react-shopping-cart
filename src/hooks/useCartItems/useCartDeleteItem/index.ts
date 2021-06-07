@@ -10,15 +10,15 @@ const useCartDeleteItem = () => {
   const dispatch = useAppDispatch();
 
   const deleteItem = (itemId: string) => {
-    dispatch(thunkDeleteCartItem(itemId));
+    return dispatch(thunkDeleteCartItem(itemId));
   };
 
   const deleteItems = (items: CartItem[]) => {
-    dispatch(thunkDeleteCartItems(items));
+    return dispatch(thunkDeleteCartItems(items));
   };
 
   const clearCart = () => {
-    dispatch(thunkClearCart());
+    return dispatch(thunkClearCart());
   };
 
   return { deleteItem, deleteItems, clearCart };

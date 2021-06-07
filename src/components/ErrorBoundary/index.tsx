@@ -1,5 +1,6 @@
-import React, { Component, ErrorInfo } from 'react';
+import React, { Component } from 'react';
 import { ERROR } from '../../constants/error';
+import CustomError from '../../utils/CustomError';
 import CommonError from './CommonError';
 import NetworkError from './NetworkError';
 import NotFoundError from './NotFoundError';
@@ -9,7 +10,7 @@ interface Props {
 }
 
 interface State {
-  error: Error | null;
+  error: CustomError | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
@@ -17,12 +18,12 @@ class ErrorBoundary extends Component<Props, State> {
     error: null,
   };
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: CustomError): State {
     return { error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ERROR_BOUNDARY: ', error, errorInfo);
+  componentDidCatch(error: CustomError) {
+    console.error(`ERROR_BOUNDARY - 에러타입 : ${error.type}, 에러메세지 : ${error.message}`);
   }
 
   errorComponentMap: { [key: string]: React.ElementType } = {
@@ -35,7 +36,7 @@ class ErrorBoundary extends Component<Props, State> {
     const { children } = this.props;
 
     if (error) {
-      const ErrorComponent = this.errorComponentMap[(error as Error).message] || CommonError;
+      const ErrorComponent = this.errorComponentMap[(error as CustomError).type] || CommonError;
 
       return <ErrorComponent />;
     }
