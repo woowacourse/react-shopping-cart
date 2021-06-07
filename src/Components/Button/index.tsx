@@ -1,12 +1,27 @@
-import React, { ReactNode, FC, ButtonHTMLAttributes } from "react";
+import styled from "styled-components";
+import { COLOR } from "../../constants/theme";
 
-import { Container, ContainerProps } from "./style";
-
-interface ButtonProps extends ContainerProps, Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
-  children: ReactNode;
+interface ButtonProps {
+  width?: string;
+  height?: string;
+  color?: string;
+  fontSize?: string;
+  backgroundColor?: string;
+  border?: string;
 }
 
-const Button: FC<ButtonProps> = ({ children, ...props }) => <Container {...props}>{children}</Container>;
+// Todo: csstype 고려하기
+const Button = styled.button<ButtonProps>`
+  ${({ width, height, color, fontSize, backgroundColor, border }) => `
+      width: ${width ?? "100%"}; 
+      height: ${height ?? "fit-content"}; 
+      color: ${color ?? COLOR.BLACK};
+      font-size:${fontSize ?? "1rem"};
+      background-color: ${backgroundColor ?? "transparent"};
+      border: ${border ? border : "none"};
+    `}
+  font-weight:700;
+`;
 
 export default Button;
 export { ButtonProps };

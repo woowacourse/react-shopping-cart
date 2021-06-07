@@ -16,9 +16,9 @@ interface ProductProps {
 
 const Product: FC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
   <Container>
-    <Link to={`/products/${id}`}>{Image}</Link>
+    <Link to={`/products?productId=${id}`}>{Image}</Link>
     <ItemInfoWrap>
-      <Link to={`/products/${id}`}>
+      <Link to={`/products?productId=${id}`}>
         <Desc>
           <Name>{name}</Name>
           <Price>{price.toLocaleString("ko-KR")}원</Price>

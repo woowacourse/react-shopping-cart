@@ -31,7 +31,7 @@ const CartItemBox: FC<CartItemBoxProps> = ({
   <Container>
     <CheckBox checked={isChecked} onChange={onChangeChecked} />
     <ProductImageLink to={`/cart/${id}`}>
-      <ProductImage size="7.75rem" src={imageSrc} alt={`${name}이미지`} />
+      <ProductImage size="7.75rem" src={imageSrc} aria-label={`${name}이미지`} />
     </ProductImageLink>
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
