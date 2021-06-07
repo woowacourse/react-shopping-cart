@@ -15,6 +15,10 @@ const PALETTE = {
     500: '#BBBBBB' as const,
     600: '#AAAAAA' as const,
   },
+
+  MAROON: {
+    400: '#73675C' as const,
+  },
 };
 
 export const PALE = {};

@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import RootTemplate from '../../components/shared/RootTemplate';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
 import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localstorage/cart';
 import { getOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
@@ -44,12 +44,12 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
+    <RootTemplate title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
         <OrderConfirmSection title="주문 상품" items={items as CartItem[]} />
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>
-    </ReactShoppingCartTemplate>
+    </RootTemplate>
   );
 };
 

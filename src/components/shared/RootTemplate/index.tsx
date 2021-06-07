@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TemplateContainer, InnerTemplateContainer, Title } from './styles';
+import { TemplateContainer, InnerTemplateContainer, InnerTemplateTitle } from './styles';
 
 interface Props {
   children: React.ReactNode;
@@ -7,15 +7,15 @@ interface Props {
   title?: string;
 }
 
-const ReactShoppingCartTemplate: FC<Props> = ({ children, backgroundColor, title }) => {
+const RootTemplate: FC<Props> = ({ children, backgroundColor, title }) => {
   return (
     <TemplateContainer backgroundColor={backgroundColor}>
       <InnerTemplateContainer>
-        {title && <Title>{title}</Title>}
+        {title && <InnerTemplateTitle>{title}</InnerTemplateTitle>}
         <div>{children}</div>
       </InnerTemplateContainer>
     </TemplateContainer>
   );
 };
 
-export default ReactShoppingCartTemplate;
+export default RootTemplate;

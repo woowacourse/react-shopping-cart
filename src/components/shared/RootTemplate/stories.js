@@ -2,7 +2,7 @@ import Template from '.';
 
 export default {
   component: Template,
-  title: 'components/shared/Template',
+  title: 'components/shared/RootTemplate',
 };
 
 const StoryTemplate = (args) => (

@@ -1,6 +1,6 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import RootTemplate from '../../components/shared/RootTemplate';
 import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { useHistory } from 'react-router';
@@ -42,7 +42,7 @@ const ShoppingCartPage: FC = () => {
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
+    <RootTemplate title={TITLE}>
       <InitialLoading isLoading={isLoading}>
         <ShoppingCartForm onSubmit={onSubmitCartItems}>
           <ShoppingCartSectionList />
@@ -52,7 +52,7 @@ const ShoppingCartPage: FC = () => {
           />
         </ShoppingCartForm>
       </InitialLoading>
-    </ReactShoppingCartTemplate>
+    </RootTemplate>
   );
 };
 

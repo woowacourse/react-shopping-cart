@@ -4,10 +4,10 @@ import { CardContainer } from './style';
 export type CardType = 'horizontal' | 'vertical';
 
 interface Props {
-  className?: string;
   children: React.ReactNode;
   image: string;
   type: CardType;
+  className?: string;
   width?: string;
   height?: string;
   alt?: string;
