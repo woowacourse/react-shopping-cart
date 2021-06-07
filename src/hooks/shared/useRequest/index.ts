@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NETWORK_ERROR } from '../../../constants/error';
+import { ERROR } from '../../../constants/error';
 
 //TODO: 이 훅 필요할까....?
 const useRequest = <T>(callback: () => Promise<T>) => {
@@ -27,7 +27,7 @@ const useRequest = <T>(callback: () => Promise<T>) => {
   useEffect(() => {
     if (!hasError) return;
 
-    throw new Error(NETWORK_ERROR);
+    throw new Error(ERROR.NETWORK);
   }, [hasError]);
 
   return { data, reFetch, hasError, isLoading };

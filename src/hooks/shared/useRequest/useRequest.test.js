@@ -1,7 +1,7 @@
 import useRequest from '.';
 import { renderHook } from '@testing-library/react-hooks';
 import { requestProductList } from '../../service/request/productList';
-import { NETWORK_ERROR } from '../../constants/error';
+import { ERROR } from '../../constants/error';
 
 describe('useRequest', () => {
   test('loading', async () => {
@@ -21,7 +21,7 @@ describe('useRequest', () => {
       })
     );
 
-    expect(result.error).toEqual(Error(NETWORK_ERROR));
+    expect(result.error).toEqual(Error(ERROR.NETWORK));
   });
 
   test('data fetch', async () => {

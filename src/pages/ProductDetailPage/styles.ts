@@ -5,7 +5,6 @@ import Container from '../../components/shared/Container';
 import PALETTE from '../../constants/palette';
 
 export const ProductDetailCard = styled(Card)`
-  width: 50%;
   margin: 0 auto;
 
   & img {

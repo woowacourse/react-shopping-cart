@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { NETWORK_ERROR } from '../../constants/error';
+import { ERROR } from '../../constants/error';
 import { thunkGetCartItems } from '../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../states/store';
 
@@ -14,7 +14,7 @@ const useCartItems = () => {
   useEffect(() => {
     if (!hasError) return;
 
-    throw new Error(NETWORK_ERROR);
+    throw new Error(ERROR.NETWORK);
   }, [hasError]);
 
   const loadCartItems = () => {

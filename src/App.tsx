@@ -14,7 +14,7 @@ const App: FC = () => {
       <NavigationBar />
       <Switch>
         <Route path="/" exact component={ProductListPage} />
-        <Route path="/productDetail" component={ProductDetailPage} />
+        <Route path="/productDetail/:productId" component={ProductDetailPage} />
         <Route path="/shoppingCart" component={ShoppingCartPage} />
         <Route path="/orderList" component={OrderListPage} />
         <Route path="/orderConfirm" component={OrderConfirmPage} />
