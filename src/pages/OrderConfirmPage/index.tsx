@@ -9,7 +9,7 @@ import { getOrderConfirmItemsInLocalStorage } from '../../service/localStorage/o
 import { requestOrderItemListToRegister } from '../../service/request/order';
 import { CartItem } from '../../types';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { ERROR } from '../../constants/error';
+import { ERROR_TYPE } from '../../constants/error';
 import { ALERT } from '../../constants/message';
 import CustomError from '../../utils/CustomError';
 
@@ -28,7 +28,7 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
       return;
     }
 
-    throw new CustomError(ERROR.NETWORK, errorMessage);
+    throw new CustomError(ERROR_TYPE.NETWORK, errorMessage);
   }, [errorMessage]);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ERROR } from '../../constants/error';
+import { ERROR_TYPE } from '../../constants/error';
 import CustomError from '../../utils/CustomError';
 import CommonError from './CommonError';
 import NetworkError from './NetworkError';
@@ -27,8 +27,8 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   errorComponentMap: { [key: string]: React.ElementType } = {
-    [ERROR.NETWORK]: NetworkError,
-    [ERROR.NOT_FOUND]: NotFoundError,
+    [ERROR_TYPE.NETWORK]: NetworkError,
+    [ERROR_TYPE.NOT_FOUND]: NotFoundError,
   };
 
   render() {

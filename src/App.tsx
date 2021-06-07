@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { FC } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';

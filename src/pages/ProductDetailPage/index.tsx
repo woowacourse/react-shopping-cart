@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import RootTemplate from '../../components/shared/RootTemplate';
-import { ERROR, ERROR_FOR_DEVELOPER } from '../../constants/error';
+import { ERROR_TYPE, ERROR_FOR_DEVELOPER } from '../../constants/error';
 import { CONFIRM } from '../../constants/message';
 import useRequest from '../../hooks/shared/useRequest';
 import useCartAddItem from '../../hooks/useCartItems/useCartAddItem';
@@ -28,7 +28,7 @@ const ProductDetailPage = () => {
     const target = productList.find(({ id }) => id === productId);
 
     if (!target) {
-      throw new CustomError(ERROR.NOT_FOUND, '');
+      throw new CustomError(ERROR_TYPE.NOT_FOUND, '');
     }
 
     return target;

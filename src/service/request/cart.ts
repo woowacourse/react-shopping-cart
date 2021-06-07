@@ -1,4 +1,5 @@
 import { CUSTOMER_NAME } from '../../appConfig';
+import { ERROR_MESSAGE } from '../../constants/error';
 import { CartItem, CartItemResponse } from '../../types';
 import customAxios from '../../utils/API';
 
@@ -15,36 +16,45 @@ export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[
     `/api/customers/${CUSTOMER_NAME}/carts`
   );
 
-  const processedCartItemList: IncompleteCartItem[] = cartItemList.map((item) => {
-    return {
-      id: String(item.cart_id),
-      price: item.price,
-      name: item.name,
-      image: item.image_url,
-    };
-  });
+  const appSchema = (cartItemList: CartItemResponse[]) =>
+    cartItemList.map((item) => {
+      return {
+        id: String(item.cart_id),
+        price: item.price,
+        name: item.name,
+        image: item.image_url,
+      };
+    });
 
-  return Promise.resolve(processedCartItemList);
+  return Promise.resolve(appSchema(cartItemList));
 };
 
 //post request
 export const requestShoppingCartItemToAdd = async (productId: string): Promise<string> => {
-  const {
-    headers: { location },
-  } = await customAxios.post(`/api/customers/${CUSTOMER_NAME}/carts`, {
+  const APISchema = (productId: string) => ({
     product_id: Number(productId),
   });
 
-  const cartId = location.match(/[0-9]+$/)[0];
+  const {
+    headers: { location },
+  } = await customAxios.post(`/api/customers/${CUSTOMER_NAME}/carts`, APISchema(productId));
+
+  const appSchema = (location: string) => location.match(/[0-9]+$/)?.[0] || null;
+
+  const cartId = appSchema(location);
+
+  if (!cartId) {
+    throw new Error(ERROR_MESSAGE.INVALID_CART_ID_FROM_SERVER);
+  }
 
   return Promise.resolve(cartId);
 };
 
 //delete request
-//TODO: 링크 일부러 오류냄
 export const requestShoppingCartItemToDelete = (cartItemId: string) =>
   customAxios.delete(`/api/customers/${CUSTOMER_NAME}/carts/${cartItemId}`);
 
+//request util
 export const requestShoppingCartItemsToDelete = (items: CartItem[]) => {
   Promise.all(items.map((item) => requestShoppingCartItemToDelete(item.id)));
 };

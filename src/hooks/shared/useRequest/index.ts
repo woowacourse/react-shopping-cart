@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ERROR } from '../../../constants/error';
+import { ERROR_TYPE } from '../../../constants/error';
 import CustomError from '../../../utils/CustomError';
 
 const useRequest = <T>(callback: () => Promise<T>) => {
@@ -27,7 +27,7 @@ const useRequest = <T>(callback: () => Promise<T>) => {
   useEffect(() => {
     if (!errorMessage) return;
 
-    throw new CustomError(ERROR.NETWORK, errorMessage);
+    throw new CustomError(ERROR_TYPE.NETWORK, errorMessage);
   }, [errorMessage]);
 
   return { data, reFetch, errorMessage, isLoading };

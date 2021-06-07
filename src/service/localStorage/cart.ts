@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { LOCAL_STORAGE_KEY } from '../../constants/localStorage';
 
 interface CartItemAdditionalData {
@@ -8,7 +7,6 @@ interface CartItemAdditionalData {
 }
 
 export const getCartItemAdditionalDataInLocalStorage = (itemId: string): CartItemAdditionalData => {
-  //TODO: 제이슨 stringify, parse를 한번 공통 유틸로 묶기( getItem, setItem으로)
   const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST);
   const defaultReturnValue: CartItemAdditionalData = {
     id: itemId,

@@ -10,7 +10,6 @@ const useCartAddItem = () => {
     isLoading,
   ]);
 
-  //TODO: id를 서버가 요구하는 타입으로 바꿀것인가 말것인가 고민해보기
   const addItem = (product: Product) => {
     const cartItem = cartItems.find((cartItem) => cartItem.name === product.name);
 

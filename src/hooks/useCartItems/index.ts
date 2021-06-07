@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ERROR } from '../../constants/error';
+import { ERROR_TYPE } from '../../constants/error';
 import { thunkGetCartItems } from '../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../states/store';
 import CustomError from '../../utils/CustomError';
@@ -15,7 +15,7 @@ const useCartItems = () => {
   useEffect(() => {
     if (!error) return;
 
-    throw new CustomError(ERROR.NETWORK, error.message);
+    throw new CustomError(ERROR_TYPE.NETWORK, error.message);
   }, [error]);
 
   const loadCartItems = () => {
