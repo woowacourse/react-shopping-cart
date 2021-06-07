@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import ProductListPage from './pages/ProductListPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 
@@ -13,6 +14,7 @@ const App: FC = () => {
       <NavigationBar />
       <Switch>
         <Route path="/" exact component={ProductListPage} />
+        <Route path="/productDetail" component={ProductDetailPage} />
         <Route path="/shoppingCart" component={ShoppingCartPage} />
         <Route path="/orderList" component={OrderListPage} />
         <Route path="/orderConfirm" component={OrderConfirmPage} />

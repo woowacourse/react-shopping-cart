@@ -1,4 +1,3 @@
-import React from 'react';
 import RootTemplate from '../../components/shared/RootTemplate';
 import {
   ProductDetailButton,
