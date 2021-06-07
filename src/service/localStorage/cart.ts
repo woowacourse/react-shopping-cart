@@ -56,7 +56,6 @@ export const setCartItemAdditionalDataInLocalStorage = (
   localStorage.setItem('cartItemList', JSON.stringify(cartItems));
 };
 
-//TODO: localstorage 폴더이름 -> localStorage
 export const deleteCartItemAdditionalDataInLocalStorage = (cartId: string) => {
   const jsonData = localStorage.getItem('cartItemList');
 

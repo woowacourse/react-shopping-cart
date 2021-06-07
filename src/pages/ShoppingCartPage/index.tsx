@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
-import { setOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
+import { setOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
 
 const TITLE = '장바구니';
 

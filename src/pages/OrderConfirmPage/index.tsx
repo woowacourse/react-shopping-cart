@@ -5,8 +5,8 @@ import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderCon
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import RootTemplate from '../../components/shared/RootTemplate';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
-import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localstorage/cart';
-import { getOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
+import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localStorage/cart';
+import { getOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
 import { requestOrderItemListToRegister } from '../../service/request/order';
 import { CartItem } from '../../types';
 

@@ -5,7 +5,7 @@ import {
   deleteCartItemAdditionalDataInLocalStorage,
   getCartItemAdditionalDataInLocalStorage,
   setCartItemAdditionalDataInLocalStorage,
-} from '../../service/localstorage/cart';
+} from '../../service/localStorage/cart';
 import {
   requestShoppingCartItemToAdd,
   requestShoppingCartItemsToClear,
