@@ -7,11 +7,9 @@ import {
   addItemToCart,
 } from '../service/products';
 import useCarts from './useCarts';
-import useLoading from './useLoading';
 
 const useProducts = () => {
   const dispatch = useDispatch();
-  const { show } = useLoading();
   const { cartItems } = useCarts();
 
   const products = useSelector(state => state.product.product.fetchedProducts);
@@ -31,10 +29,8 @@ const useProducts = () => {
     dispatch({ type: ACTION_TYPE.URL.GET_URL, payload: ROUTE.PRODUCT_DETAILS });
   };
 
-  const addToCart = product => {
-    addItemToCart(product, cartItems, dispatch);
-    show();
-  };
+  const addToCart = (product, show) =>
+    dispatch(addItemToCart(product, cartItems, show));
 
   return {
     product,

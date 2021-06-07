@@ -4,9 +4,11 @@ import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
 import { Link } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
+import useLoading from '../../hooks/useLoading';
 
 const CompletedOrderList = ({ order }) => {
   const { order_id, order_details } = order;
+  const { show } = useLoading();
   const { addToCart } = useProducts();
 
   return (
@@ -31,7 +33,7 @@ const CompletedOrderList = ({ order }) => {
               price={product.price}
               quantity={product.quantity}
               isCartButtonVisible={true}
-              addToCart={() => addToCart(product)}
+              addToCart={() => addToCart(product, show)}
             />
           </li>
         ))}

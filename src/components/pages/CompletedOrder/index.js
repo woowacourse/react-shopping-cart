@@ -17,7 +17,7 @@ import {
 } from './index.styles';
 
 const CompletedOrder = () => {
-  const { loading, timer } = useLoading();
+  const { loading } = useLoading();
   const { orderedItems, getCompletedOrder } = useOrder();
   const {
     index,
@@ -38,13 +38,6 @@ const CompletedOrder = () => {
   useEffect(() => {
     getCompletedOrder();
   }, []);
-
-  useEffect(() => {
-    if (loading === false) return;
-    timer();
-
-    return clearTimeout(timer());
-  }, [loading]);
 
   return (
     <Page bg="grey">

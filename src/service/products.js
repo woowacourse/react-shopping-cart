@@ -28,7 +28,7 @@ export const fetchProductDetail = match => async dispatch => {
   }
 };
 
-export const addItemToCart = async (product, cartItems, dispatch) => {
+export const addItemToCart = (product, cartItems, show) => async dispatch => {
   try {
     const sameItem = cartItems.find(
       ({ product_id }) => product_id === product.product_id
@@ -48,10 +48,12 @@ export const addItemToCart = async (product, cartItems, dispatch) => {
             payload: { product, cartId: cart_id },
           });
         });
+      show();
       return;
     }
 
     dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, payload: product });
+    show();
   } catch (error) {
     console.error(error.message);
   }

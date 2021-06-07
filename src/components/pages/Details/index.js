@@ -24,12 +24,11 @@ import { useLocation } from 'react-router';
 
 const Details = ({ onImageError, match }) => {
   const location = useLocation();
-  const { loading, timer } = useLoading();
-  const { randomItems, setRandomItems, randomProducts } = useRandom();
+  const { loading } = useLoading();
+  const { randomItems } = useRandom();
   const { index, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
 
   const {
-    products,
     product,
     updateProductDetailURL,
     updateProductDetail,
@@ -44,15 +43,6 @@ const Details = ({ onImageError, match }) => {
 
     return () => resetProductDetail();
   }, [location]);
-
-  useEffect(() => {
-    setRandomItems(randomProducts(products, 10));
-
-    if (loading === false) return;
-    timer();
-
-    return clearTimeout(timer());
-  }, [loading]);
 
   return (
     <>

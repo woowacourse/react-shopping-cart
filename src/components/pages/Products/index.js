@@ -8,7 +8,7 @@ import Loading from '../../@common/Loading';
 import { Page } from '../../@common/PageWrapper/index.styles';
 
 const Products = () => {
-  const { loading, timer } = useLoading();
+  const { loading, show } = useLoading();
   const {
     products,
     cartItems,
@@ -26,13 +26,6 @@ const Products = () => {
     updateCartState();
   }, []);
 
-  useEffect(() => {
-    if (loading === false) return;
-    timer();
-
-    return clearTimeout(timer());
-  }, [loading]);
-
   return (
     <Page noPadding={true}>
       {loading && <Loading />}
@@ -43,7 +36,7 @@ const Products = () => {
               <li key={product.product_id}>
                 <ProductItem
                   {...product}
-                  onCartButtonClick={() => addToCart(product)}
+                  onCartButtonClick={() => addToCart(product, show)}
                 />
               </li>
             );

@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../@common/Button';
-import { Detail, Name, PriceWrapper, Product } from './index.styles';
 import Image from '../@common/Image';
 import useProducts from '../../hooks/useProducts';
+import useLoading from '../../hooks/useLoading';
 import { formatPrice } from '../../utils';
 import { PALETTE } from '../../constants';
+import { Detail, Name, PriceWrapper, Product } from './index.styles';
 
 const ProductDetail = ({ product }) => {
+  const { show } = useLoading();
   const { addToCart } = useProducts();
   const { name, price, image_url } = product;
 
@@ -23,7 +25,7 @@ const ProductDetail = ({ product }) => {
       </Detail>
       <Button
         backgroundColor={PALETTE.BROWN}
-        onClick={() => addToCart(product)}
+        onClick={() => addToCart(product, show)}
       >
         장바구니
       </Button>

@@ -11,12 +11,11 @@ import PageHeader from '../../@common/PageHeader';
 import { Page } from '../../@common/PageWrapper/index.styles';
 import Loading from '../../@common/Loading';
 import useLoading from '../../../hooks/useLoading';
-import { useEffect } from 'react';
 
 const OrderDetails = () => {
   const location = useLocation();
 
-  const { loading, timer } = useLoading();
+  const { loading, show } = useLoading();
   const { orderedItemDetail } = useOrder();
   const { addToCart } = useProducts();
 
@@ -27,13 +26,6 @@ const OrderDetails = () => {
     (acc, item) => (acc += item.price),
     0
   );
-
-  useEffect(() => {
-    if (loading === false) return;
-    timer();
-
-    return clearTimeout(timer());
-  }, [loading]);
 
   return (
     <Page bg="grey">
@@ -53,7 +45,7 @@ const OrderDetails = () => {
                   price={item.price}
                   quantity={item.quantity}
                   isCartButtonVisible={true}
-                  addToCart={() => addToCart(item)}
+                  addToCart={() => addToCart(item, show)}
                 />
               ))}
           </li>
