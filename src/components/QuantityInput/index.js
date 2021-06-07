@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FALLBACK } from '../../constants';
 import { InputWrapper, Input } from './index.styles';
-import RightAddon from '../@common/RightAddon';
+import ChangeQuantityAddon from '../@common/ChangeQuantityAddon';
 
 const QuantityInput = ({
   quantity = FALLBACK.PRODUCT.QUANTITY,
@@ -13,7 +13,7 @@ const QuantityInput = ({
     <InputWrapper>
       <label htmlFor="quantity-input"></label>
       <Input quantity={quantity} />
-      <RightAddon
+      <ChangeQuantityAddon
         onIncreaseQuantity={onIncreaseQuantity}
         onDecreaseQuantity={onDecreaseQuantity}
       />
