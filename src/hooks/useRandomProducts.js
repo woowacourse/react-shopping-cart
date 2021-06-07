@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { randomNumber } from '../utils';
 
-const useRandom = () => {
+const useRandomProducts = () => {
   const [randomItems, setRandomItems] = useState([]);
 
   const randomProducts = (data, length) => {
@@ -21,4 +21,4 @@ const useRandom = () => {
   return { randomItems, setRandomItems, randomProducts };
 };
 
-export default useRandom;
+export default useRandomProducts;

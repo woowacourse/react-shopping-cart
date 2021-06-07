@@ -15,7 +15,7 @@ import {
   PageWrapper,
 } from './index.styles';
 import useLoading from '../../../hooks/useLoading';
-import useRandom from '../../../hooks/useRandom';
+import useRandomProducts from '../../../hooks/useRandomProducts';
 import Loading from '../../@common/Loading';
 import ProductItem from '../../ProductItem';
 import usePagination from '../../../hooks/usePagination';
@@ -25,7 +25,7 @@ import { useLocation } from 'react-router';
 const Details = ({ onImageError, match }) => {
   const location = useLocation();
   const { loading } = useLoading();
-  const { randomItems } = useRandom();
+  const { randomItems } = useRandomProducts();
   const { index, goPreviousPage, goNextPage, sortItemsBy } = usePagination();
 
   const {
