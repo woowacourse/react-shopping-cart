@@ -30,7 +30,7 @@ describe('useCartChangeCheckState', () => {
 
     await waitForNextUpdate();
 
-    const updatedTargetItem = useCartItemsResult.current.itemsInCart.find(
+    const updatedTargetItem = useCartItemsResult.current.cartItems.find(
       (item) => item.id === targetItem.id
     );
 
@@ -54,7 +54,7 @@ describe('useCartChangeCheckState', () => {
 
     await waitForNextUpdate();
 
-    const isAllCheckStateAsExpected = useCartItemsResult.current.itemsInCart.every(
+    const isAllCheckStateAsExpected = useCartItemsResult.current.cartItems.every(
       (item) => item.checked === EXPECTED_CHECK_STATE
     );
 

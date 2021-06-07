@@ -1,4 +1,4 @@
-import { CUSTOMER_NAME } from '../../constants/API';
+import { CUSTOMER_NAME } from '../../appConfig';
 import { CartItem, Order, OrderItemRequest, OrderResponse } from '../../types';
 import customAxios from '../../utils/API';
 

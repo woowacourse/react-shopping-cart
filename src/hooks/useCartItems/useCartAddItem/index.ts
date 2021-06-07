@@ -4,8 +4,7 @@ import { Product } from '../../../types';
 
 const useCartAddItem = () => {
   const dispatch = useAppDispatch();
-  //TODO: cartItems로 바꾸기
-  const [itemsInCart] = useAppSelector(({ cart: { items, error, isLoading } }) => [
+  const [cartItems] = useAppSelector(({ cart: { items, error, isLoading } }) => [
     items,
     error,
     isLoading,
@@ -13,10 +12,10 @@ const useCartAddItem = () => {
 
   //TODO: id를 서버가 요구하는 타입으로 바꿀것인가 말것인가 고민해보기
   const addItem = (product: Product) => {
-    const itemInCart = itemsInCart.find((itemInCart) => itemInCart.name === product.name);
+    const cartItem = cartItems.find((cartItem) => cartItem.name === product.name);
 
-    if (itemInCart) {
-      dispatch(thunkChangeItemQuantity(itemInCart, itemInCart.quantity + 1));
+    if (cartItem) {
+      dispatch(thunkChangeItemQuantity(cartItem, cartItem.quantity + 1));
       return;
     }
 

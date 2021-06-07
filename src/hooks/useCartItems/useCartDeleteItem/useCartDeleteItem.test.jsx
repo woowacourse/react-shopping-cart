@@ -30,7 +30,7 @@ describe('useCartDeleteItem', () => {
     await waitForNextUpdate();
 
     const isTargetItemExist =
-      useCartItemsResult.current.itemsInCart.find((item) => item.id === targetItemId) || false;
+      useCartItemsResult.current.cartItems.find((item) => item.id === targetItemId) || false;
 
     expect(isTargetItemExist).toBe(false);
   });
@@ -55,7 +55,7 @@ describe('useCartDeleteItem', () => {
 
     await waitForNextUpdate();
 
-    const isTargetItemExist = useCartItemsResult.current.itemsInCart.every(
+    const isTargetItemExist = useCartItemsResult.current.cartItems.every(
       (item) => item.id !== targetItems[0].id && item.id !== targetItems[1].id
     );
 
@@ -80,6 +80,6 @@ describe('useCartDeleteItem', () => {
 
     await waitForNextUpdate();
 
-    expect(useCartItemsResult.current.itemsInCart.length).toBe(0);
+    expect(useCartItemsResult.current.cartItems.length).toBe(0);
   });
 });

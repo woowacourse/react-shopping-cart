@@ -1,4 +1,4 @@
-import { API_BASE_URL, CUSTOMER_NAME } from '../../constants/API';
+import { CUSTOMER_NAME } from '../../appConfig';
 import { CartItem, CartItemResponse } from '../../types';
 import customAxios from '../../utils/API';
 
@@ -28,7 +28,6 @@ export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[
 };
 
 //post request
-//TODO: Id -> ID
 export const requestShoppingCartItemToAdd = async (productId: string): Promise<string> => {
   const {
     headers: { location },

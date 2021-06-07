@@ -16,7 +16,7 @@ describe('useCartAddItem', () => {
       wrapper,
     });
 
-    const beforeCartItems = useCartItemsResult.current.itemsInCart;
+    const beforeCartItems = useCartItemsResult.current.cartItems;
 
     const newCartItem = {
       id: '100',
@@ -31,6 +31,6 @@ describe('useCartAddItem', () => {
 
     await waitForNextUpdate();
 
-    expect(beforeCartItems.length + 1).toBe(useCartItemsResult.current.itemsInCart.length);
+    expect(beforeCartItems.length + 1).toBe(useCartItemsResult.current.cartItems.length);
   });
 });

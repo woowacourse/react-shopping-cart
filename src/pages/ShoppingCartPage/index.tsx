@@ -12,7 +12,7 @@ import { setOrderConfirmItemsInLocalStorage } from '../../service/localStorage/o
 const TITLE = '장바구니';
 
 const ShoppingCartPage: FC = () => {
-  const { loadCartItems, itemsInCart: items, isLoading } = useCartItems();
+  const { loadCartItems, cartItems: items, isLoading } = useCartItems();
   const history = useHistory();
 
   useEffect(() => {

@@ -50,4 +50,3 @@ export interface Order {
   id: string;
   items: OrderItem[];
 }
-//TODO: s -> list로 모두 바꾸기

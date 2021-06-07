@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../states/store';
 const useCartItems = () => {
   const dispatch = useAppDispatch();
   const [
-    itemsInCart,
+    cartItems,
     hasError,
     isLoading,
   ] = useAppSelector(({ cart: { items, error, isLoading } }) => [items, error, isLoading]);
@@ -21,7 +21,7 @@ const useCartItems = () => {
     dispatch(thunkGetCartItems());
   };
 
-  return { itemsInCart, hasError, isLoading, loadCartItems };
+  return { cartItems, hasError, isLoading, loadCartItems };
 };
 
 export default useCartItems;
