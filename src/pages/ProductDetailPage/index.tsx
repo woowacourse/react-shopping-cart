@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import RootTemplate from '../../components/shared/RootTemplate';
-import { ERROR } from '../../constants/error';
+import { ERROR, ERROR_FOR_DEVELOPER } from '../../constants/error';
 import { CONFIRM } from '../../constants/message';
 import useRequest from '../../hooks/shared/useRequest';
 import useCartAddItem from '../../hooks/useCartItems/useCartAddItem';
@@ -37,8 +37,7 @@ const ProductDetailPage = () => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;
 
     if (!targetProduct) {
-      //TODO: 상수화
-      console.error('카트에 추가할 상품 정보가 아직 없습니다.');
+      console.error(ERROR_FOR_DEVELOPER.NONE_OF_PRODUCT_DATA);
       return;
     }
 

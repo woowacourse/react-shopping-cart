@@ -1,8 +1,8 @@
+import { LOCAL_STORAGE_KEY } from '../../constants/localStorage';
 import { CartItem } from '../../types';
 
-//TODO: key 상수화
 export const getOrderConfirmItemsInLocalStorage = (): CartItem[] => {
-  const jsonItems = localStorage.getItem('orderConfirm');
+  const jsonItems = localStorage.getItem(LOCAL_STORAGE_KEY.ORDER_CONFIRM);
 
   if (!jsonItems) {
     return [];
@@ -14,5 +14,5 @@ export const getOrderConfirmItemsInLocalStorage = (): CartItem[] => {
 export const setOrderConfirmItemsInLocalStorage = (items: CartItem[]) => {
   const jsonItems = JSON.stringify(items);
 
-  localStorage.setItem('orderConfirm', jsonItems);
+  localStorage.setItem(LOCAL_STORAGE_KEY.ORDER_CONFIRM, jsonItems);
 };

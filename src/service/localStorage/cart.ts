@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { LOCAL_STORAGE_KEY } from '../../constants/localStorage';
 
 interface CartItemAdditionalData {
   id: string;
@@ -6,10 +7,9 @@ interface CartItemAdditionalData {
   checked: boolean;
 }
 
-//TODO: 키값 상수화
 export const getCartItemAdditionalDataInLocalStorage = (itemId: string): CartItemAdditionalData => {
   //TODO: 제이슨 stringify, parse를 한번 공통 유틸로 묶기( getItem, setItem으로)
-  const jsonData = localStorage.getItem('cartItemList');
+  const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST);
   const defaultReturnValue: CartItemAdditionalData = {
     id: itemId,
     quantity: 1,
@@ -33,10 +33,13 @@ export const getCartItemAdditionalDataInLocalStorage = (itemId: string): CartIte
 export const setCartItemAdditionalDataInLocalStorage = (
   CartItemAdditionalData: CartItemAdditionalData
 ) => {
-  const jsonData = localStorage.getItem('cartItemList');
+  const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST);
 
   if (!jsonData) {
-    localStorage.setItem('cartItemList', JSON.stringify([{ ...CartItemAdditionalData }]));
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY.CART_ITEM_LIST,
+      JSON.stringify([{ ...CartItemAdditionalData }])
+    );
     return;
   }
 
@@ -45,7 +48,7 @@ export const setCartItemAdditionalDataInLocalStorage = (
 
   if (targetCartItemIndex === -1) {
     localStorage.setItem(
-      'cartItemList',
+      LOCAL_STORAGE_KEY.CART_ITEM_LIST,
       JSON.stringify([...cartItems, { ...CartItemAdditionalData }])
     );
     return;
@@ -53,11 +56,11 @@ export const setCartItemAdditionalDataInLocalStorage = (
 
   cartItems[targetCartItemIndex] = { ...CartItemAdditionalData };
 
-  localStorage.setItem('cartItemList', JSON.stringify(cartItems));
+  localStorage.setItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST, JSON.stringify(cartItems));
 };
 
 export const deleteCartItemAdditionalDataInLocalStorage = (cartId: string) => {
-  const jsonData = localStorage.getItem('cartItemList');
+  const jsonData = localStorage.getItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST);
 
   if (!jsonData) {
     return;
@@ -66,9 +69,9 @@ export const deleteCartItemAdditionalDataInLocalStorage = (cartId: string) => {
   const cartItems: CartItemAdditionalData[] = JSON.parse(jsonData);
   const modifiedCartItems = cartItems.filter((item) => item.id !== cartId);
 
-  localStorage.setItem('cartItemList', JSON.stringify(modifiedCartItems));
+  localStorage.setItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST, JSON.stringify(modifiedCartItems));
 };
 
 export const clearCartItemAdditionalDataInLocalStorage = () => {
-  localStorage.setItem('cartItemList', JSON.stringify([]));
+  localStorage.setItem(LOCAL_STORAGE_KEY.CART_ITEM_LIST, JSON.stringify([]));
 };
