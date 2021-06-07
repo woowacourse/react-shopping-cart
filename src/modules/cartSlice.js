@@ -34,6 +34,18 @@ export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (prod
   }
 });
 
+export const deleteItemFromCartRequest = createAsyncThunk('cartItem/delete', async (cart_id, thunkAPI) => {
+  try {
+    await axios.delete(`${BASE_URL}/customers/${customer_name}/carts/${cart_id}`);
+
+    return cart_id;
+  } catch (error) {
+    return Object.assign(thunkAPI.rejectWithValue(error), {
+      message: '장바구니에서 상품을 삭제하는 데 실패했습니다.',
+    });
+  }
+});
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { cartItemsInServer: [], loading: false, errorMessage: '' },
@@ -65,7 +77,7 @@ const cartSlice = createSlice({
       ];
     },
     deleteItemFromCart: (state, { payload }) => {
-      state.cartItemsInServer.filter((item) => item.product_id !== payload);
+      state.cartItemsInServer.filter((item) => item.cart_id !== Number(payload));
     },
     toggleCheckbox: (state, { payload: id }) => {
       state.cartItemsInServer = state.cartItemsInServer.map((item) => {
@@ -85,7 +97,7 @@ const cartSlice = createSlice({
   extraReducers: {
     [addItemToCartRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = false;
+      state.loading = true;
     },
 
     [addItemToCartRequest.fulfilled]: (state, action) => {
@@ -109,6 +121,23 @@ const cartSlice = createSlice({
     },
 
     [getCartItemsRequest.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
+
+    [deleteItemFromCartRequest.pending]: (state) => {
+      state.errorMessage = '';
+      state.loading = true;
+    },
+
+    [deleteItemFromCartRequest.fulfilled]: (state, action) => {
+      console.log('a', action);
+      state.errorMessage = '';
+      state.loading = false;
+      state.cartItemsInServer = state.cartItemsInServer.filter((item) => item.cart_id !== Number(action.payload));
+    },
+
+    [deleteItemFromCartRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
       state.loading = false;
     },

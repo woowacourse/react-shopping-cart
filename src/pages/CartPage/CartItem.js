@@ -10,8 +10,7 @@ import Flex from '../../components/utils/Flex';
 
 import bin from '../../asset/bin-icon.svg';
 import { MESSAGE, NUMBER, COLOR } from '../../constant';
-import { increaseQuantity, decreaseQuantity, deleteItemFromCart, toggleCheckbox } from '../../modules/cartSlice';
-import { deleteItemFromCartRequest } from '../../api/products';
+import { increaseQuantity, decreaseQuantity, toggleCheckbox } from '../../modules/cartSlice';
 
 import styled, { css } from 'styled-components';
 
@@ -44,7 +43,7 @@ const CartItemPrice = styled.span`
 `;
 
 const CartItem = (props) => {
-  const { singleItemInServer, checked } = props;
+  const { singleItemInServer, checked, onClick } = props;
   const dispatch = useDispatch();
 
   const onIncreaseButtonClick = () => {
@@ -60,11 +59,6 @@ const CartItem = (props) => {
     dispatch(decreaseQuantity(singleItemInServer.product_id));
   };
 
-  const onDeleteItemButtonClick = () => {
-    deleteItemFromCartRequest(singleItemInServer.product_id);
-    dispatch(deleteItemFromCart(singleItemInServer.product_id));
-  };
-
   const onCheckboxClick = (cartItemId) => {
     dispatch(toggleCheckbox(cartItemId));
   };
@@ -78,13 +72,7 @@ const CartItem = (props) => {
       </Flex>
 
       <Flex flexDirection="column" alignItems="flex-end" css={ManageCartItemStyle}>
-        <IconButton
-          src={bin}
-          alt="해당 상품을 장바구니에서 삭제"
-          width="24px"
-          height="24px"
-          onClick={onDeleteItemButtonClick}
-        />
+        <IconButton src={bin} alt="해당 상품을 장바구니에서 삭제" width="24px" height="24px" onClick={onClick} />
         <CounterButton
           id={singleItemInServer.name}
           onIncreaseButtonClick={onIncreaseButtonClick}

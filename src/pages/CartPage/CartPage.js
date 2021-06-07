@@ -12,7 +12,7 @@ import LoadingPage from '../LoadingPage';
 import CartItem from './CartItem';
 import tung from '../../asset/tung.png';
 
-import { allCheck, allUnCheck } from '../../modules/cartSlice';
+import { allCheck, allUnCheck, deleteItemFromCartRequest } from '../../modules/cartSlice';
 import { addPaymentItems } from '../../modules/paymentSlice';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
@@ -102,6 +102,10 @@ const CartPage = () => {
     deleteCheckedItems(dispatch, checkedItemIds);
   };
 
+  const onDeleteItemButtonClick = (cart_id) => {
+    dispatch(deleteItemFromCartRequest(cart_id));
+  };
+
   const onPaymentButtonClick = () => {
     dispatch(addPaymentItems(cartItemsInServer));
   };
@@ -149,6 +153,7 @@ const CartPage = () => {
                       key={singleItemInServer.product_id}
                       singleItemInServer={singleItemInServer}
                       checked={singleItemInServer.checked}
+                      onClick={() => onDeleteItemButtonClick(singleItemInServer.cart_id)}
                     />
                   ))
                   .reverse()}
