@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { CUSTOMER_NAME } from '../../constants/API';
 import { CartItem, Order, OrderItemRequest, OrderResponse } from '../../types';
+import customAxios from '../../utils/API';
 
 export const requestOrderItemListToRegister = (items: CartItem[]) => {
   // const newOrder: Order = { id: nanoid(), items };
@@ -9,11 +9,11 @@ export const requestOrderItemListToRegister = (items: CartItem[]) => {
     quantity: item.quantity,
   }));
 
-  axios.post(`/api/customers/${CUSTOMER_NAME}/orders`, newOrders);
+  customAxios.post(`/api/customers/${CUSTOMER_NAME}/orders`, newOrders);
 };
 
 export const requestOrderItemList = async (): Promise<Order[]> => {
-  const { data: orders } = await axios.get<OrderResponse[]>(
+  const { data: orders } = await customAxios.get<OrderResponse[]>(
     `/api/customers/${CUSTOMER_NAME}/orders`
   );
 

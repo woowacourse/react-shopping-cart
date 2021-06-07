@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { CUSTOMER_NAME } from '../../constants/API';
 import { CartItem, CartItemResponse } from '../../types';
+import customAxios from '../../utils/API';
 
 interface IncompleteCartItem {
   id: string;
@@ -10,7 +10,7 @@ interface IncompleteCartItem {
 }
 
 export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[]> => {
-  const { data: cartItemList } = await axios.get<CartItemResponse[]>(
+  const { data: cartItemList } = await customAxios.get<CartItemResponse[]>(
     `/api/customers/${CUSTOMER_NAME}/carts`
   );
 
@@ -30,7 +30,7 @@ export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[
 export const requestShoppingCartItemToAdd = async (productId: string): Promise<string> => {
   const {
     headers: { location },
-  } = await axios.post(`/api/customers/${CUSTOMER_NAME}/carts`, {
+  } = await customAxios.post(`/api/customers/${CUSTOMER_NAME}/carts`, {
     product_id: productId,
   });
 
@@ -40,12 +40,12 @@ export const requestShoppingCartItemToAdd = async (productId: string): Promise<s
 };
 
 export const requestShoppingCartItemToDelete = (cartItemId: string) =>
-  axios.delete(`/api/customers/${CUSTOMER_NAME}/carts/${cartItemId}`);
+  customAxios.delete(`/api/customers/${CUSTOMER_NAME}/carts/${cartItemId}`);
 
 //TODO: 이거 localstorage로 처리하기
 export const requestAllShoppingCartItemToBeChecked = (items: CartItem[], checked: boolean) => {
   Promise.all(
-    items.map((item) => axios.put<CartItem>(`/cart/${item.id}`, { ...item, checked }))
+    items.map((item) => customAxios.put<CartItem>(`/cart/${item.id}`, { ...item, checked }))
   );
 };
 

@@ -8,7 +8,6 @@ import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
 import { setOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
-import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localstorage/cart';
 
 const TITLE = '장바구니';
 
