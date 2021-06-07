@@ -21,7 +21,8 @@ const CompletedOrder = () => {
   const { orderedItems, getCompletedOrder } = useOrder();
   const {
     index,
-    page,
+    firstPage,
+    setFirstPage,
     sortItemsBy,
     getTotalPages,
     onChangePage,
@@ -29,14 +30,19 @@ const CompletedOrder = () => {
     goPreviousPage,
   } = usePagination();
 
+  const customFirstPage = 1;
   const pageCutStandard = 5;
+
+  const setCustomFirstPage = () => setFirstPage(customFirstPage);
   const pages = getTotalPages(orderedItems, pageCutStandard);
   const lastPage = pages.length;
   const sortedItems = sortItemsBy(orderedItems, 'order_id');
-  const isFirstPage = page === 1;
-  const isLastPage = page === lastPage;
+  const isFirstPage = firstPage === customFirstPage;
+  const isLastPage = firstPage === lastPage;
 
   useEffect(() => {
+    setCustomFirstPage();
+
     getCompletedOrder();
   }, []);
 
@@ -54,39 +60,45 @@ const CompletedOrder = () => {
       </SortedItems>
       <PaginationWrapper>
         <PageButtonDimmer>
-          <PageButtonWrapper page={page}>
+          <PageButtonWrapper page={firstPage}>
             <ArrowButton disabled={isFirstPage} onClick={goPreviousPage}>
               ＜
             </ArrowButton>
             {pages.map((currentPage, id) => {
-              if (page <= 2 && currentPage <= 5) {
+              if (firstPage <= 2 && currentPage <= 5) {
                 return (
                   <PageButton
                     key={id}
                     currentPage={currentPage}
-                    page={page}
+                    page={firstPage}
                     onClick={onChangePage}
                   >
                     {currentPage}
                   </PageButton>
                 );
-              } else if (page >= currentPage - 2 && page <= currentPage + 2) {
+              } else if (
+                firstPage >= currentPage - 2 &&
+                firstPage <= currentPage + 2
+              ) {
                 return (
                   <PageButton
                     key={id}
                     currentPage={currentPage}
-                    page={page}
+                    page={firstPage}
                     onClick={onChangePage}
                   >
                     {currentPage}
                   </PageButton>
                 );
-              } else if (page >= lastPage - 2 && currentPage >= lastPage - 5) {
+              } else if (
+                firstPage >= lastPage - 2 &&
+                currentPage >= lastPage - 5
+              ) {
                 return (
                   <PageButton
                     key={id}
                     currentPage={currentPage}
-                    page={page}
+                    page={firstPage}
                     onClick={onChangePage}
                   >
                     {currentPage}

@@ -2,7 +2,7 @@ import { chunckedArray } from '../utils';
 import { useState } from 'react';
 
 const usePagination = () => {
-  const [page, setPage] = useState(1);
+  const [firstPage, setFirstPage] = useState(1);
 
   const getPageLength = (data, pageCuttingStandard) =>
     Math.ceil(data.length / pageCuttingStandard);
@@ -21,24 +21,25 @@ const usePagination = () => {
 
   const onChangePage = ({ target }) => {
     const newPage = Number(target.innerText);
-    setPage(newPage);
+    setFirstPage(newPage);
   };
 
   const goPreviousPage = () => {
-    if (page === 1) return;
-    setPage(page - 1);
+    if (firstPage === 1) return;
+    setFirstPage(firstPage - 1);
   };
 
   const goNextPage = (data, pageCuttingStandard) => {
-    if (page === getPageLength(data, pageCuttingStandard)) return;
-    setPage(page + 1);
+    if (firstPage === getPageLength(data, pageCuttingStandard)) return;
+    setFirstPage(firstPage + 1);
   };
 
-  const index = page - 1;
+  const index = firstPage - 1;
 
   return {
     index,
-    page,
+    firstPage,
+    setFirstPage,
     getPageLength,
     getTotalPages,
     itemsPerPage,
