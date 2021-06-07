@@ -1,4 +1,4 @@
-import { CUSTOMER_NAME } from '../../constants/API';
+import { API_BASE_URL, CUSTOMER_NAME } from '../../constants/API';
 import { CartItem, CartItemResponse } from '../../types';
 import customAxios from '../../utils/API';
 
@@ -9,6 +9,7 @@ interface IncompleteCartItem {
   image: string;
 }
 
+//get request
 export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[]> => {
   const { data: cartItemList } = await customAxios.get<CartItemResponse[]>(
     `/api/customers/${CUSTOMER_NAME}/carts`
@@ -26,12 +27,13 @@ export const requestShoppingCartItemList = async (): Promise<IncompleteCartItem[
   return Promise.resolve(processedCartItemList);
 };
 
+//post request
 //TODO: Id -> ID
 export const requestShoppingCartItemToAdd = async (productId: string): Promise<string> => {
   const {
     headers: { location },
   } = await customAxios.post(`/api/customers/${CUSTOMER_NAME}/carts`, {
-    product_id: productId,
+    product_id: Number(productId),
   });
 
   const cartId = location.match(/[0-9]+$/)[0];
@@ -39,15 +41,9 @@ export const requestShoppingCartItemToAdd = async (productId: string): Promise<s
   return Promise.resolve(cartId);
 };
 
+//delete request
 export const requestShoppingCartItemToDelete = (cartItemId: string) =>
   customAxios.delete(`/api/customers/${CUSTOMER_NAME}/carts/${cartItemId}`);
-
-//TODO: 이거 localstorage로 처리하기
-export const requestAllShoppingCartItemToBeChecked = (items: CartItem[], checked: boolean) => {
-  Promise.all(
-    items.map((item) => customAxios.put<CartItem>(`/cart/${item.id}`, { ...item, checked }))
-  );
-};
 
 export const requestShoppingCartItemsToDelete = (items: CartItem[]) => {
   Promise.all(items.map((item) => requestShoppingCartItemToDelete(item.id)));
@@ -55,8 +51,6 @@ export const requestShoppingCartItemsToDelete = (items: CartItem[]) => {
 
 export const requestShoppingCartItemsToClear = async () => {
   const cartItems = await requestShoppingCartItemList();
-
-  console.log('흠');
 
   return Promise.all(cartItems.map((cartItem) => requestShoppingCartItemToDelete(cartItem.id)));
 };

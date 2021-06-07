@@ -19,7 +19,7 @@ export const ProductCardLink = styled(Link)`
 `;
 
 export const ContentContainer = styled(Container)`
-  padding: 0 0.875rem;
+  padding: 0 3.5rem 1rem 0.875rem;
 `;
 
 ContentContainer.defaultProps = {
@@ -41,7 +41,7 @@ export const CartIconButton = styled(IconButton)`
   width: 1.875rem;
   height: 1.875rem;
   right: 1.25rem;
-  bottom: 1rem;
+  top: 19rem;
 `;
 
 CartIconButton.defaultProps = {

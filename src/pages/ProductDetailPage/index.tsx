@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import RootTemplate from '../../components/shared/RootTemplate';
 import { ERROR } from '../../constants/error';
+import { CONFIRM } from '../../constants/message';
 import useRequest from '../../hooks/shared/useRequest';
+import useCartAddItem from '../../hooks/useCartItems/useCartAddItem';
 import { requestProductList } from '../../service/request/productList';
 import { KRCurrency } from '../../utils/format';
 import {
@@ -14,6 +16,7 @@ import {
 } from './styles';
 
 const ProductDetailPage = () => {
+  const { addItem } = useCartAddItem();
   const { productId } = useParams<{ productId: string }>();
   const { data: productList, isLoading } = useRequest(requestProductList);
   const targetProduct = useMemo(() => {
@@ -30,6 +33,18 @@ const ProductDetailPage = () => {
     return target;
   }, [productList]);
 
+  const onClickAddCart = () => {
+    if (!window.confirm(CONFIRM.ADD_CART)) return;
+
+    if (!targetProduct) {
+      //TODO: 상수화
+      console.error('카트에 추가할 상품 정보가 아직 없습니다.');
+      return;
+    }
+
+    addItem(targetProduct);
+  };
+
   return (
     <RootTemplate>
       <InitialLoading isLoading={isLoading}>
@@ -40,7 +55,9 @@ const ProductDetailPage = () => {
               <span>금액</span>
               <span>{KRCurrency(targetProduct.price)}</span>
             </ProductDetailPrice>
-            <ProductDetailButton>장바구니</ProductDetailButton>
+            <ProductDetailButton type="button" onClick={onClickAddCart}>
+              장바구니
+            </ProductDetailButton>
           </ProductDetailCard>
         )}
       </InitialLoading>
