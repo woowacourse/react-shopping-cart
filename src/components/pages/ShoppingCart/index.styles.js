@@ -9,27 +9,32 @@ export const Main = styled.main`
   max-width: 50rem;
   margin: 1rem auto;
 
-  @media (max-width: 960px) {
+  @media (max-width: 1090px) {
     padding: 0;
+    display: block;
   }
 
   & > div:first-child {
     flex: 1.825;
-    padding-right: 4rem;
+    padding-right: 2rem;
     min-width: 30rem;
 
+    @media (max-width: 1090px) {
+      padding-right: 0;
+    }
+
     @media (max-width: 960px) {
+      padding-right: 0;
       min-width: 18rem;
-      padding: 0;
     }
   }
 
   & > div:last-child {
     flex: 1;
     margin-top: 3rem;
-    min-width: 15rem;
+    min-width: 16rem;
 
-    @media (max-width: 960px) {
+    @media (max-width: 1090px) {
       width: 100%;
       max-width: 100%;
       border: 0;

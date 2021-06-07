@@ -46,7 +46,7 @@ export const PaginationWrapper = styled.div`
 `;
 
 export const ArrowButton = styled.button`
-  :hover {
+  :hover::not(:disabled) {
     color: var(--color-mint);
   }
 `;

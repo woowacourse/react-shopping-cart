@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ErrorImage from '../../assets/image/error.png';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -18,8 +18,11 @@ class ErrorBoundary extends React.Component {
   render() {
     const { children } = this.props;
     const { hasError } = this.state;
+
     if (hasError) {
-      return <h1>에러가 발생했습니다.</h1>;
+      return (
+        <img src={ErrorImage} alt="error occurred" style={{ width: '100%;' }} />
+      );
     }
 
     return children;

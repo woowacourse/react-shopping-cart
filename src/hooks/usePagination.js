@@ -4,10 +4,13 @@ import { useState } from 'react';
 const usePagination = () => {
   const [page, setPage] = useState(1);
 
-  const pageLength = data => Math.ceil(data.length / 5);
+  const getPageLength = (data, pageCuttingStandard) =>
+    Math.ceil(data.length / pageCuttingStandard);
 
-  const totalPages = data =>
-    Object.keys([...Array(pageLength(data))]).map(page => Number(page) + 1);
+  const getTotalPages = (data, pageCuttingStandard) =>
+    Object.keys([...Array(getPageLength(data, pageCuttingStandard))]).map(
+      page => Number(page) + 1
+    );
 
   const itemsPerPage = data => chunckedArray(data, 5);
 
@@ -26,8 +29,8 @@ const usePagination = () => {
     setPage(page - 1);
   };
 
-  const goNextPage = data => {
-    if (page === pageLength(data)) return;
+  const goNextPage = (data, pageCuttingStandard) => {
+    if (page === getPageLength(data, pageCuttingStandard)) return;
     setPage(page + 1);
   };
 
@@ -36,7 +39,8 @@ const usePagination = () => {
   return {
     index,
     page,
-    totalPages,
+    getPageLength,
+    getTotalPages,
     itemsPerPage,
     sortItemsBy,
     onChangePage,

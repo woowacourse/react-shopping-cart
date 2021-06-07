@@ -23,13 +23,14 @@ const CompletedOrder = () => {
     index,
     page,
     sortItemsBy,
-    totalPages,
+    getTotalPages,
     onChangePage,
     goNextPage,
     goPreviousPage,
   } = usePagination();
 
-  const pages = totalPages(orderedItems);
+  const pageCutStandard = 5;
+  const pages = getTotalPages(orderedItems, pageCutStandard);
   const lastPage = pages.length;
   const sortedItems = sortItemsBy(orderedItems, 'order_id');
   const isFirstPage = page === 1;
@@ -95,9 +96,11 @@ const CompletedOrder = () => {
                 return <></>;
               }
             })}
-            <ArrowButton disabled={isLastPage} onClick={goNextPage}>
-              {' '}
-              ＞{' '}
+            <ArrowButton
+              disabled={isLastPage}
+              onClick={() => goNextPage(orderedItems, pageCutStandard)}
+            >
+              ＞
             </ArrowButton>
           </PageButtonWrapper>
         </PageButtonDimmer>

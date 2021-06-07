@@ -37,6 +37,8 @@ const Details = ({ onImageError, match }) => {
 
   const sortedItems = sortItemsBy(randomItems, SORT_RANDOM_ITEMS.STANDARD);
 
+  console.log(randomItems, sortedItems);
+
   useEffect(() => {
     updateProductDetail(match);
     updateProductDetailURL();
