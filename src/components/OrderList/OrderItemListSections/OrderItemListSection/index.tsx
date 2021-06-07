@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { CONFIRM } from '../../../../constants/message';
 import useCartAddItem from '../../../../hooks/useCartItems/useCartAddItem';
-import { ItemInCart, Order, OrderItem } from '../../../../types';
+import { CartItem, Order, OrderItem } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
 
@@ -16,7 +16,7 @@ const OrderItemListSection: FC<Props> = ({ order: { id, items }, className }) =>
   const onClickAddCart = (item: OrderItem) => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;
 
-    const newItem: ItemInCart = { ...item, checked: true };
+    const newItem: CartItem = { ...item, checked: true };
 
     addItem(newItem);
   };

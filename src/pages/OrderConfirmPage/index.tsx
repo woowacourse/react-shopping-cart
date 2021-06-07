@@ -5,9 +5,10 @@ import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderCon
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
 import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
+import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localstorage/cart';
 import { getOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
 import { requestOrderItemListToRegister } from '../../service/request/order';
-import { ItemInCart } from '../../types';
+import { CartItem } from '../../types';
 
 const TITLE = '주문/결제';
 
@@ -26,16 +27,14 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
     setTotalPrice(calculatedPrice);
   }, [items]);
 
-  const order = async () => {
-    await requestOrderItemListToRegister(items as ItemInCart[]);
-    clearCart();
-  };
-
   const onSubmitOrderConfirm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      await order();
+      await requestOrderItemListToRegister(items as CartItem[]);
+      //TODO: 여기서 에러처리 고민하기 - clearCart에서 오류날 경우 여기서 catch되지 않음
+      clearCart();
+
       alert('주문이 성공했습니다!');
     } catch (error) {
       console.error(error);
@@ -47,7 +46,7 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
   return (
     <ReactShoppingCartTemplate title={TITLE}>
       <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
-        <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
+        <OrderConfirmSection title="주문 상품" items={items as CartItem[]} />
         <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
       </OrderConfirmForm>
     </ReactShoppingCartTemplate>

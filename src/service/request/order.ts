@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { CUSTOMER_NAME } from '../../constants/API';
-import { ItemInCart, Order, OrderItemRequest, OrderResponse } from '../../types';
+import { CartItem, Order, OrderItemRequest, OrderResponse } from '../../types';
 
-export const requestOrderItemListToRegister = (items: ItemInCart[]) => {
+export const requestOrderItemListToRegister = (items: CartItem[]) => {
   // const newOrder: Order = { id: nanoid(), items };
   const newOrders: OrderItemRequest[] = items.map((item) => ({
     cart_id: item.id,

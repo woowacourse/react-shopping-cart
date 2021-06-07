@@ -4,7 +4,7 @@ import {
   thunkDeleteCartItems,
 } from '../../../states/actions/cart';
 import { useAppDispatch } from '../../../states/store';
-import { ItemInCart } from '../../../types';
+import { CartItem } from '../../../types';
 
 const useCartDeleteItem = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ const useCartDeleteItem = () => {
     dispatch(thunkDeleteCartItem(itemId));
   };
 
-  const deleteItems = (items: ItemInCart[]) => {
+  const deleteItems = (items: CartItem[]) => {
     dispatch(thunkDeleteCartItems(items));
   };
 

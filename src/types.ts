@@ -16,7 +16,7 @@ export interface ProductResponse {
   image_url: string;
 }
 
-export interface ItemInCartResponse extends Pick<ProductResponse, 'price' | 'name' | 'image_url'> {
+export interface CartItemResponse extends Pick<ProductResponse, 'price' | 'name' | 'image_url'> {
   cart_id: string;
 }
 
@@ -37,7 +37,7 @@ export interface Product {
   image: string;
 }
 
-export interface ItemInCart extends Product {
+export interface CartItem extends Product {
   quantity: number;
   checked: boolean;
 }

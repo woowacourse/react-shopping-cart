@@ -1,7 +1,7 @@
-import { ItemInCart } from '../../types';
+import { CartItem } from '../../types';
 
 //TODO: key 상수화
-export const getOrderConfirmItemsInLocalStorage = (): ItemInCart[] => {
+export const getOrderConfirmItemsInLocalStorage = (): CartItem[] => {
   const jsonItems = localStorage.getItem('orderConfirm');
 
   if (!jsonItems) {
@@ -11,7 +11,7 @@ export const getOrderConfirmItemsInLocalStorage = (): ItemInCart[] => {
   return JSON.parse(jsonItems);
 };
 
-export const setOrderConfirmItemsInLocalStorage = (items: ItemInCart[]) => {
+export const setOrderConfirmItemsInLocalStorage = (items: CartItem[]) => {
   const jsonItems = JSON.stringify(items);
 
   localStorage.setItem('orderConfirm', jsonItems);

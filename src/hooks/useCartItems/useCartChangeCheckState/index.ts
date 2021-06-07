@@ -1,6 +1,6 @@
 import { thunkChangeAllItemChecked, thunkToggleItemChecked } from '../../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../../states/store';
-import { ItemInCart } from '../../../types';
+import { CartItem } from '../../../types';
 
 const useCartChangeCheckState = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ const useCartChangeCheckState = () => {
     isLoading,
   ]);
 
-  const toggleChecked = (item: ItemInCart) => {
+  const toggleChecked = (item: CartItem) => {
     dispatch(thunkToggleItemChecked(item));
   };
 

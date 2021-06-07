@@ -1,24 +1,25 @@
-import { thunkAddItemToCart, thunkChangeItemQuantity } from '../../../states/actions/cart';
+import { thunkAddNewItemToCart, thunkChangeItemQuantity } from '../../../states/actions/cart';
 import { useAppDispatch, useAppSelector } from '../../../states/store';
 import { Product } from '../../../types';
 
 const useCartAddItem = () => {
   const dispatch = useAppDispatch();
+  //TODO: cartItems로 바꾸기
   const [itemsInCart] = useAppSelector(({ cart: { items, error, isLoading } }) => [
     items,
     error,
     isLoading,
   ]);
 
-  const addItem = (item: Product) => {
-    const itemInCart = itemsInCart.find((itemInCart) => itemInCart.id === item.id);
+  const addItem = (product: Product) => {
+    const itemInCart = itemsInCart.find((itemInCart) => itemInCart.name === product.name);
 
     if (itemInCart) {
       dispatch(thunkChangeItemQuantity(itemInCart, itemInCart.quantity + 1));
       return;
     }
 
-    dispatch(thunkAddItemToCart(item));
+    dispatch(thunkAddNewItemToCart(product));
   };
 
   return { addItem };

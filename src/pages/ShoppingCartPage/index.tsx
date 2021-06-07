@@ -8,6 +8,7 @@ import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
 import { setOrderConfirmItemsInLocalStorage } from '../../service/localstorage/orderConfirm';
+import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localstorage/cart';
 
 const TITLE = '장바구니';
 
@@ -34,11 +35,7 @@ const ShoppingCartPage: FC = () => {
       return;
     }
 
-    try {
-      await setOrderConfirmItemsInLocalStorage(checkedItem);
-    } catch (error) {
-      throw error;
-    }
+    setOrderConfirmItemsInLocalStorage(checkedItem);
 
     if (!history) return;
 
