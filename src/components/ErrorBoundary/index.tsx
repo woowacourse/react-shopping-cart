@@ -1,7 +1,8 @@
 import React, { Component, ErrorInfo } from 'react';
-import { NETWORK_ERROR } from '../../constants/error';
+import { ERROR } from '../../constants/error';
 import CommonError from './CommonError';
 import NetworkError from './NetworkError';
+import NotFoundError from './NotFoundError';
 
 interface Props {
   children: React.ReactNode;
@@ -25,7 +26,8 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   errorComponentMap: { [key: string]: React.ElementType } = {
-    [NETWORK_ERROR]: NetworkError,
+    [ERROR.NETWORK]: NetworkError,
+    [ERROR.NOT_FOUND]: NotFoundError,
   };
 
   render() {
