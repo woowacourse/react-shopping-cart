@@ -34,7 +34,6 @@ const ShoppingCartItem: FC<Props> = ({
   const onItemDelete = () => {
     if (!window.confirm(CONFIRM.DELETE_CART_ITEM)) return;
 
-    console.log(item, typeof id);
     deleteItem(id);
   };
 

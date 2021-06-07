@@ -65,20 +65,9 @@ export const deleteCartItemAdditionalDataInLocalStorage = (cartId: string) => {
   }
 
   const cartItems: CartItemAdditionalData[] = JSON.parse(jsonData);
-  const modifiedCartItems = cartItems.filter((item) => {
-    console.log(item.id === cartId, '요고', item.id, typeof cartId);
-
-    return item.id !== cartId;
-  });
-
-  console.log(cartId, modifiedCartItems);
+  const modifiedCartItems = cartItems.filter((item) => item.id !== cartId);
 
   localStorage.setItem('cartItemList', JSON.stringify(modifiedCartItems));
-};
-
-//TODO: 이거 아무래도 동적 타이핑이 안되는듯. 한번 알아보기
-deleteCartItemAdditionalDataInLocalStorage.propTypes = {
-  cartId: PropTypes.string.isRequired,
 };
 
 export const clearCartItemAdditionalDataInLocalStorage = () => {

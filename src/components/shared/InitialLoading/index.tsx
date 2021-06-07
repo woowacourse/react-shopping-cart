@@ -17,7 +17,6 @@ const InitialLoading: FC<Props> = ({ isLoading, children }) => {
   const [InitialLoadingState, setInitialLoadingState] = useState(LOADING_STATE.INITIAL);
 
   useEffect(() => {
-    console.log(InitialLoadingState);
     if (InitialLoadingState !== LOADING_STATE.COMPLETE) {
       setInitialLoadingState((prevState) => prevState + 1);
     }
