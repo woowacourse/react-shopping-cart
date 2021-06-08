@@ -18,6 +18,9 @@ export const NavBar = (props) => {
           </S.NavTitle>
         </Link>
         <S.NavItems>
+          <Link to={ROUTE.PRODUCT_LIST}>
+            <S.Item>상품목록</S.Item>
+          </Link>
           <Link to={ROUTE.CART}>
             <S.Item noticeLength={cartLength}>장바구니</S.Item>
           </Link>

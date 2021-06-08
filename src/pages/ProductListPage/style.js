@@ -28,11 +28,11 @@ export const ProductList = styled.ul`
   }
 
   @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @media (min-width: ${BREAKPOINTS.DESKTOP}) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 `;
 
@@ -70,8 +70,35 @@ export const Price = styled.span`
 `;
 
 export const Image = styled.img.attrs((props) => ({
-  src: props.src,
   alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
-  width: 100%;
+  width: 4.5rem;
+  height: 6rem;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+
+  @media (min-width: ${BREAKPOINTS.MOBILE}) {
+    width: 4.5rem;
+    height: 6rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
+    width: 6rem;
+    height: 8rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
+    width: 7.5rem;
+    height: 10rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
+    width: 9rem;
+    height: 12rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.DESKTOP}) {
+    width: 10.5rem;
+    height: 14rem;
+  }
 `;

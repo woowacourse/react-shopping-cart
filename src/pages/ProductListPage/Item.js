@@ -7,11 +7,11 @@ import { COLOR } from '../../constants';
 
 export const Item = (props) => {
   const { product, addProduct, ...rest } = props;
-  const { name, price, img } = product;
+  const { name, price, imageUrl } = product;
 
   return (
     <S.Container {...rest}>
-      <S.Image src={img} />
+      <S.Image src={imageUrl} />
       <S.Footer>
         <S.Label>
           <S.Name>{name}</S.Name>
