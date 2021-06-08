@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { PAGES, UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
@@ -12,13 +12,14 @@ import * as Styled from './style';
 
 const OrdersPage = () => {
   const { orders } = useSelector((state) => state);
+  const reversedOrders = useMemo(() => orders.reverse(), [orders]);
 
   return (
     <Styled.OrdersPageContainer>
       <Main>
         <PageTitle>{PAGES.ORDERS.name}</PageTitle>
         <FlexContainer direction="column">
-          {orders.reverse().map((order) => (
+          {reversedOrders.map((order) => (
             <FlexContainer key={order.id} margin="3rem 0 1rem" direction="column">
               <FlexContainer
                 padding="1.5rem 1.5rem 1.5rem 2.5rem"
