@@ -116,7 +116,7 @@ const CartPage = () => {
           priceInfo={{ name: '결제예상금액', price: totalPrice }}
           submitInfo={{
             text: '주문하기',
-            address: PAGES.CHECKOUT.ADDRESS,
+            address: PAGES.CHECKOUT.address,
           }}
         />
       </FlexContainer>

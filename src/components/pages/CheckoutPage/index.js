@@ -56,7 +56,7 @@ const CheckoutPage = () => {
           margin="6rem 1.5rem 0 auto"
           title="결제금액"
           priceInfo={{ name: '총 결제금액', price: totalPrice }}
-          submitInfo={{ text: `${totalPrice.toLocaleString()}원 결제하기`, address: PAGES.ORDERS.ADDRESS }}
+          submitInfo={{ text: `${totalPrice.toLocaleString()}원 결제하기`, address: PAGES.ORDERS.address }}
           onOrder={onOrder}
         />
       </FlexContainer>
