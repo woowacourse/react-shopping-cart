@@ -25,7 +25,7 @@ Header.propTypes = {
   logo: PropTypes.element,
   title: PropTypes.string,
   homeAddress: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.node,
 };
 
 Header.defaultProps = {
