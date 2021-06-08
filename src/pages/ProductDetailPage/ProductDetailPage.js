@@ -7,6 +7,7 @@ import { useModal, useFetch } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/slice';
 import { SuccessAddedModal } from '../../components';
 import { requestProduct, requestProductList } from '../../service/product';
+import productNotFoundImg from '../../shared/assets/img/product_not_found.jpeg';
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -15,8 +16,8 @@ const ProductDetailPage = () => {
 
   const { setModalOpen, Modal } = useModal(false);
 
-  const { data: productList } = useFetch([], requestProductList);
-  const { data: product } = useFetch({}, () => requestProduct(productId));
+  const [productList] = useFetch([], requestProductList);
+  const [product] = useFetch({}, () => requestProduct(productId));
 
   const putProductInShoppingCart = id => {
     dispatch(addShoppingCartItemAsync({ product_id: id }));
@@ -24,11 +25,20 @@ const ProductDetailPage = () => {
     setModalOpen(true);
   };
 
+  const onShowErrorImage = event => {
+    event.target.src = productNotFoundImg;
+  };
+
   return (
     <ScreenContainer route={location.pathname}>
       <Container>
         <ImageContainer>
-          <Image src={product.image_url} alt={`product-${product.product_id}-img`} />
+          <Image
+            src={product.image_url}
+            alt={`product-${product.product_id}-img`}
+            onError={onShowErrorImage}
+            loading="eager"
+          />
         </ImageContainer>
         <Name>{product.name}</Name>
         <PriceContainer>

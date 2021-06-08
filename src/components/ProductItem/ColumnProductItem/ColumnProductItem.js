@@ -9,28 +9,34 @@ import {
   Price,
 } from './ColumnProductItem.styles';
 import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
-import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpg';
+import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpeg';
 import { numberWithCommas } from '../../../shared/utils';
 
-const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon, onClickImage }) => (
-  <Container>
-    <ImageContainer onClick={onClickImage}>
-      <Image src={imgSrc} loading="lazy" />
-    </ImageContainer>
-    <DetailContainer>
-      <ProductDetail>
-        <Name>{name}</Name>
-        <Price>{`${numberWithCommas(price)} 원`}</Price>
-      </ProductDetail>
+const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon, onClickImage }) => {
+  const onShowErrorImage = event => {
+    event.target.src = productNotFoundImg;
+  };
 
-      {isVisibleIcon && (
-        <button data-testid="shopping-cart-icon" type="button" onClick={onClickShoppingCartIcon}>
-          <ShoppingCartIcon scale="0.6" />
-        </button>
-      )}
-    </DetailContainer>
-  </Container>
-);
+  return (
+    <Container>
+      <ImageContainer onClick={onClickImage}>
+        <Image src={imgSrc} onError={onShowErrorImage} loading="lazy" />
+      </ImageContainer>
+      <DetailContainer>
+        <ProductDetail>
+          <Name>{name}</Name>
+          <Price>{`${numberWithCommas(price)} 원`}</Price>
+        </ProductDetail>
+
+        {isVisibleIcon && (
+          <button data-testid="shopping-cart-icon" type="button" onClick={onClickShoppingCartIcon}>
+            <ShoppingCartIcon scale="0.6" />
+          </button>
+        )}
+      </DetailContainer>
+    </Container>
+  );
+};
 
 ColumnProductItem.propTypes = {
   imgSrc: PropTypes.string,

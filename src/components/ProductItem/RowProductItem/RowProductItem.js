@@ -1,21 +1,28 @@
 import PropTypes from 'prop-types';
 import { numberWithCommas } from '../../../shared/utils';
 import { Container, ImageContainer, Image, ProductContainer, ProductDetail, Name } from './RowProductItem.styles';
+import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpeg';
 
-const RowProductItem = ({ imgSrc, name, price, amount }) => (
-  <Container>
-    <ImageContainer>
-      <Image src={imgSrc} />
-    </ImageContainer>
-    <ProductContainer>
-      <Name>{name}</Name>
-      <ProductDetail>
-        {price && <span>{`${numberWithCommas(price)} 원 / `}</span>}
-        {amount && <span>{`수량: ${amount} 개`}</span>}
-      </ProductDetail>
-    </ProductContainer>
-  </Container>
-);
+const RowProductItem = ({ imgSrc, name, price, amount }) => {
+  const onShowErrorImage = event => {
+    event.target.src = productNotFoundImg;
+  };
+
+  return (
+    <Container>
+      <ImageContainer>
+        <Image src={imgSrc} onError={onShowErrorImage} />
+      </ImageContainer>
+      <ProductContainer>
+        <Name>{name}</Name>
+        <ProductDetail>
+          {price && <span>{`${numberWithCommas(price)} 원 / `}</span>}
+          {amount && <span>{`수량: ${amount} 개`}</span>}
+        </ProductDetail>
+      </ProductContainer>
+    </Container>
+  );
+};
 
 RowProductItem.propTypes = {
   imgSrc: PropTypes.string,
