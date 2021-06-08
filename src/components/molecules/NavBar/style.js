@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '../../../constants';
+import { BREAKPOINTS, COLOR } from '../../../constants';
 import '../../../fonts/BMYEONSUNG.css';
 
 export const NavBar = styled.nav`
@@ -24,6 +24,10 @@ export const NavTitle = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+
+  @media screen and (max-width: ${BREAKPOINTS.LAPTOP_S}) {
+    display: none;
+  }
 `;
 
 export const Title = styled.h1`
@@ -31,7 +35,7 @@ export const Title = styled.h1`
   color: ${COLOR.HEX.WHITE};
   margin: 0 1rem;
   padding-top: 0.3rem;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
 `;
 
@@ -44,7 +48,7 @@ export const NavItems = styled.ul`
 export const Item = styled.li`
   position: relative;
   color: ${COLOR.HEX.WHITE};
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   text-align: center;
   align-items: center;
   min-width: 6.5rem;
