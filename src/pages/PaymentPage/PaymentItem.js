@@ -39,7 +39,7 @@ const PaymentItem = (paymentItem) => {
       <Image
         width="120px"
         height="120px"
-        src={paymentItem.image}
+        src={paymentItem.image_url}
         alt={paymentItem.name}
         isBackgroundImageNeeded={true}
       />

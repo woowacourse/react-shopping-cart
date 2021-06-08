@@ -26,3 +26,10 @@ export const COLOR = {
     300: '#ff4d4f',
   },
 };
+
+export const STATUS = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCEED: 'succeed',
+  FAILED: 'failed',
+};

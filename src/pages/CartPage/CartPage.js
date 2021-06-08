@@ -13,7 +13,7 @@ import CartItem from './CartItem';
 import tung from '../../asset/tung.png';
 
 import { allCheck, allUnCheck, deleteItemFromCartRequest } from '../../modules/cartSlice';
-import { addPaymentItems } from '../../modules/paymentSlice';
+import { addItemsToOrderList } from '../../modules/paymentSlice';
 
 import { deleteCheckedItems, getTotalPrice } from '../../utils';
 
@@ -106,8 +106,8 @@ const CartPage = () => {
     dispatch(deleteItemFromCartRequest(cart_id));
   };
 
-  const onPaymentButtonClick = () => {
-    dispatch(addPaymentItems(cartItemsInServer));
+  const handleOrderButtonClick = () => {
+    dispatch(addItemsToOrderList(cartItemsInServer));
   };
 
   return (
@@ -164,7 +164,7 @@ const CartPage = () => {
             price={getTotalPrice(cartItemsInServer)}
             selectedItemIds={checkedItemIds}
             linkPath="/payment"
-            onClick={onPaymentButtonClick}
+            onClick={handleOrderButtonClick}
             disabled={checkedItemIds.length === 0}
           />
         </Flex>
