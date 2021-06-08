@@ -8,10 +8,12 @@ const Header = ({ logo, title, children }) => {
     <Styled.Header>
       <Styled.HeaderInner>
         <Link to="/">
-          <Styled.HeaderTitle>
-            <span>{logo}</span>
-            <h1>{title}</h1>
-          </Styled.HeaderTitle>
+          {logo && title !== '' && (
+            <Styled.HeaderTitle>
+              {logo && <span>{logo}</span>}
+              {title && <h1>{title}</h1>}
+            </Styled.HeaderTitle>
+          )}
         </Link>
         {children}
       </Styled.HeaderInner>
