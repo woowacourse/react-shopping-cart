@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
+
+import { Button, Checkbox, IconTrashCan, QuantityStepper } from '../../components';
 import * as S from './style.js';
-import { PATTERN_ONLY_NUMBER } from '../../../constants';
-import { Button, Checkbox, IconTrashCan, QuantityStepper } from '../../../components';
-import { getFormattedAsKRW } from '../../../utils';
+import { getFormattedAsKRW } from '../../utils';
+import { PATTERN_ONLY_NUMBER } from '../../constants';
 
 const MIN_PRODUCT_QUANTITY = 1;
 const MAX_PRODUCT_QUANTITY = 99;
 
-export const CartProductItem = (props) => {
+export const Item = (props) => {
   const {
     product,
     removeProduct,
@@ -64,7 +65,7 @@ export const CartProductItem = (props) => {
   );
 };
 
-CartProductItem.propTypes = {
+Item.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,

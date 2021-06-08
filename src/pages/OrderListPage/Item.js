@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { getFormattedAsKRW } from '../../../utils';
+
+import { getFormattedAsKRW } from '../../utils';
 import * as S from './style.js';
 
-export const OrderedProductItem = (props) => {
+export const Item = (props) => {
   const { product, addProduct, ...rest } = props;
   const { name, price, img, quantity } = product;
   const totalPriceAsKRW = getFormattedAsKRW(price * quantity);
@@ -21,7 +22,7 @@ export const OrderedProductItem = (props) => {
   );
 };
 
-OrderedProductItem.propTypes = {
+Item.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

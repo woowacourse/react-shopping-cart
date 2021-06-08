@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadData, PRODUCT_LIST } from '../../firebase';
+
 import { cartAction } from '../../redux';
-import * as S from './style.js';
-import { ProductItem } from './ProductItem';
+import { loadData, PRODUCT_LIST } from '../../firebase';
+import { Item } from './Item';
+import * as S from './style';
 
 export const ProductListPage = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ export const ProductListPage = () => {
     <S.Page>
       <S.ProductList>
         {products.map((product) => (
-          <ProductItem
+          <Item
             key={product.id}
             product={product}
             addProduct={(product) => dispatch(cartAction.addProduct(product))}

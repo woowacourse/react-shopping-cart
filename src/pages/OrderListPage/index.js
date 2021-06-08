@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { cartAction } from '../../redux';
 import { loadSortedData, ORDER_LIST, ORDER_ID, DESC } from '../../firebase';
-import { OrderedProductItem } from './OrderedProductItem';
 import { Header } from '../../components';
+import { Item } from './Item';
 import * as S from './style.js';
 
 export const OrderListPage = () => {
@@ -32,7 +33,7 @@ export const OrderListPage = () => {
               </S.OrderLabel>
               <S.OrderedProductList>
                 {orderItems.map((product) => (
-                  <OrderedProductItem
+                  <Item
                     key={product.id}
                     product={product}
                     addProduct={(product) => dispatch(cartAction.addProduct(product))}

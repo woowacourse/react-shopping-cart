@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+
 import { Button, CheckoutBox, List, Template } from '../../components';
-import { COLOR } from '../../constants';
+import { COLOR, PATTERN_FILE_NAME } from '../../constants';
 
 export const Page = styled(Template)`
   background-color: ${COLOR.HEX.WHITE};
@@ -63,4 +64,39 @@ export const StickyCheckoutBox = styled(CheckoutBox)`
   top: 15%;
   margin-top: 4.875rem;
   width: 100%;
+`;
+
+/* Item */
+
+export const Container = styled.li`
+  padding: 1.5rem 0.25rem;
+  box-sizing: border-box;
+  display: flex;
+`;
+
+export const Name = styled.span`
+  flex-grow: 1;
+  padding-left: 1.25rem;
+  font-size: 1.25rem;
+  color: ${COLOR.HEX.GRAY_800};
+`;
+
+export const Controller = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+export const Price = styled.span`
+  font-size: 1rem;
+  color: ${COLOR.HEX.GRAY_800};
+  text-align: right;
+`;
+
+export const Image = styled.img.attrs((props) => ({
+  src: props.src,
+  alt: props.src.match(PATTERN_FILE_NAME)[0],
+}))`
+  width: 9rem;
 `;

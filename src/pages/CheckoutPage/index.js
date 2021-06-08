@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { cartAction } from '../../redux';
 import { addData, ORDER_LIST } from '../../firebase';
-import { CheckoutProductItem } from './CheckoutProductItem';
 import { Header, RedirectNotice } from '../../components';
+import { Item } from './Item';
 import * as S from './style.js';
 import { getFormattedAsKRW, getDateInNumber } from '../../utils';
 import { ROUTE } from '../../constants';
@@ -53,7 +54,7 @@ export const CheckoutPage = () => {
               <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
               <S.CheckoutProductList>
                 {checkoutProducts.map((product) => (
-                  <CheckoutProductItem key={product.id} product={product} />
+                  <Item key={product.id} product={product} />
                 ))}
               </S.CheckoutProductList>
             </S.ListSection>

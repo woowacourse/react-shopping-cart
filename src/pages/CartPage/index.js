@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import { cartAction } from '../../redux';
 import { useConfirm } from '../../hooks';
-import { CartProductItem } from './CartProductItem';
 import { Checkbox, Header, RedirectNotice } from '../../components';
+import { Item } from './Item';
 import * as S from './style.js';
 import { getFormattedAsKRW } from '../../utils';
 import { ROUTE } from '../../constants';
@@ -65,7 +66,7 @@ export const CartPage = () => {
               </S.ListLabel>
               <S.CartProductList>
                 {cartProducts.map((product) => (
-                  <CartProductItem
+                  <Item
                     key={product.id}
                     product={product}
                     removeProduct={(id) => onClickTrashIconButton(id)}

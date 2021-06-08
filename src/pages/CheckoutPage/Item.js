@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+
 import * as S from './style.js';
 
-export const CheckoutProductItem = (props) => {
+export const Item = (props) => {
   const { product, ...rest } = props;
   const { name, img, quantity } = product;
 
@@ -16,7 +17,7 @@ export const CheckoutProductItem = (props) => {
   );
 };
 
-CheckoutProductItem.propTypes = {
+Item.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     img: PropTypes.string,

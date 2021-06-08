@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { Button, IconCart } from '../../../components';
-import { getFormattedAsKRW } from '../../../utils';
-import { COLOR } from '../../../constants';
-import * as S from './style.js';
 
-export const ProductItem = (props) => {
+import { Button, IconCart } from '../../components';
+import * as S from './style.js';
+import { getFormattedAsKRW } from '../../utils';
+import { COLOR } from '../../constants';
+
+export const Item = (props) => {
   const { product, addProduct, ...rest } = props;
   const { name, price, img } = product;
 
@@ -24,7 +25,7 @@ export const ProductItem = (props) => {
   );
 };
 
-ProductItem.propTypes = {
+Item.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
