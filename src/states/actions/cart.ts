@@ -1,14 +1,12 @@
 import { Dispatch } from 'redux';
 import { Action, ActionWithPayload, AppThunk } from '.';
 import {
-  clearCartItemAdditionalDataInLocalStorage,
   deleteCartItemAdditionalDataInLocalStorage,
   getCartItemAdditionalDataInLocalStorage,
   setCartItemAdditionalDataInLocalStorage,
 } from '../../service/localStorage/cart';
 import {
   requestShoppingCartItemToAdd,
-  requestShoppingCartItemsToClear,
   requestShoppingCartItemToDelete,
   requestShoppingCartItemsToDelete,
   requestShoppingCartItemList,
@@ -42,10 +40,6 @@ export const TOGGLE_CART_ITEM_CHECKED_ERROR = 'cart/TOGGLE_ITEM_CHECKED_ERROR';
 export const CHANGE_ALL_CART_ITEM_CHECKED = 'cart/CHANGE_ALL_ITEM_CHECKED';
 export const CHANGE_ALL_CART_ITEM_CHECKED_SUCCESS = 'cart/CHANGE_ALL_ITEM_CHECKED_SUCCESS';
 export const CHANGE_ALL_CART_ITEM_CHECKED_ERROR = 'cart/CHANGE_ALL_ITEM_CHECKED_ERROR';
-
-export const CLEAR_CART = 'cart/CLEAR_CART';
-export const CLEAR_CART_SUCCESS = 'cart/CLEAR_CART_SUCCESS';
-export const CLEAR_CART_ERROR = 'cart/CLEAR_CART_ERROR';
 
 export const thunkGetCartItems = (): AppThunk => async (dispatch: Dispatch) => {
   dispatch({ type: GET_CART_ITEMS });
@@ -184,19 +178,6 @@ export const thunkDeleteCartItems = (items: CartItem[]): AppThunk => async (disp
   }
 };
 
-export const thunkClearCart = (): AppThunk => async (dispatch: Dispatch) => {
-  dispatch({ type: CLEAR_CART });
-
-  try {
-    clearCartItemAdditionalDataInLocalStorage();
-    await requestShoppingCartItemsToClear();
-
-    dispatch({ type: CLEAR_CART_SUCCESS });
-  } catch (error) {
-    dispatch({ type: CLEAR_CART_ERROR, payload: error });
-  }
-};
-
 export type CartAction =
   | Action<typeof GET_CART_ITEMS>
   | ActionWithPayload<typeof GET_CART_ITEMS_SUCCESS, CartItem[]>
@@ -218,7 +199,4 @@ export type CartAction =
   | ActionWithPayload<typeof CHANGE_ALL_CART_ITEM_CHECKED_ERROR, Error>
   | Action<typeof CHANGE_ITEM_QUANTITY>
   | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_SUCCESS, CartItem>
-  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>
-  | Action<typeof CLEAR_CART>
-  | Action<typeof CLEAR_CART_SUCCESS>
-  | ActionWithPayload<typeof CLEAR_CART_ERROR, Error>;
+  | ActionWithPayload<typeof CHANGE_ITEM_QUANTITY_ERROR, Error>;

@@ -1,8 +1,4 @@
-import {
-  thunkClearCart,
-  thunkDeleteCartItem,
-  thunkDeleteCartItems,
-} from '../../../states/actions/cart';
+import { thunkDeleteCartItem, thunkDeleteCartItems } from '../../../states/actions/cart';
 import { useAppDispatch } from '../../../states/store';
 import { CartItem } from '../../../types';
 
@@ -17,11 +13,7 @@ const useCartDeleteItem = () => {
     return dispatch(thunkDeleteCartItems(items));
   };
 
-  const clearCart = () => {
-    return dispatch(thunkClearCart());
-  };
-
-  return { deleteItem, deleteItems, clearCart };
+  return { deleteItem, deleteItems };
 };
 
 export default useCartDeleteItem;

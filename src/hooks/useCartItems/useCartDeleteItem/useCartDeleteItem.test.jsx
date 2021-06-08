@@ -61,25 +61,4 @@ describe('useCartDeleteItem', () => {
 
     expect(isTargetItemExist).toBe(false);
   });
-
-  test('clearCart', async () => {
-    const { result: useCartItemsResult, waitForNextUpdate } = renderHook(() => useCartItems(), {
-      wrapper,
-    });
-    const { result } = renderHook(() => useCartDeleteItem(), { wrapper });
-
-    act(() => {
-      useCartItemsResult.current.loadCartItems();
-    });
-
-    await waitForNextUpdate();
-
-    act(() => {
-      result.current.clearCart();
-    });
-
-    await waitForNextUpdate();
-
-    expect(useCartItemsResult.current.cartItems.length).toBe(0);
-  });
 });

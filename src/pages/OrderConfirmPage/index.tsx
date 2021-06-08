@@ -8,10 +8,10 @@ import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
 import { getOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
 import { requestOrderItemListToRegister } from '../../service/request/order';
 import { CartItem } from '../../types';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { ERROR_TYPE } from '../../constants/error';
 import { ALERT } from '../../constants/message';
 import CustomError from '../../utils/CustomError';
+import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localStorage/cart';
 
 const TITLE = '주문/결제';
 
@@ -20,7 +20,6 @@ interface Props extends RouteComponentProps {}
 const OrderConfirmPage: FC<Props> = ({ history }) => {
   const items = getOrderConfirmItemsInLocalStorage();
   const [totalPrice, setTotalPrice] = useState(0);
-  const { clearCart } = useCartDeleteItem();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,8 +43,7 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
 
     try {
       await requestOrderItemListToRegister(items as CartItem[]);
-      const resultAction: any = await clearCart();
-      unwrapResult(resultAction);
+      clearCartItemAdditionalDataInLocalStorage();
 
       alert(ALERT.SUCCESS_ORDER);
     } catch (error) {

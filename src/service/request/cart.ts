@@ -58,9 +58,3 @@ export const requestShoppingCartItemToDelete = (cartItemId: string) =>
 export const requestShoppingCartItemsToDelete = (items: CartItem[]) => {
   Promise.all(items.map((item) => requestShoppingCartItemToDelete(item.id)));
 };
-
-export const requestShoppingCartItemsToClear = async () => {
-  const cartItems = await requestShoppingCartItemList();
-
-  return Promise.all(cartItems.map((cartItem) => requestShoppingCartItemToDelete(cartItem.id)));
-};

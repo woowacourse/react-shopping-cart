@@ -5,7 +5,7 @@ import customAxios from '../../utils/API';
 export const requestOrderItemListToRegister = (items: CartItem[]) => {
   const APISchema = (items: CartItem[]) =>
     items.map((item) => ({
-      cart_id: item.id,
+      cart_id: Number(item.id),
       quantity: item.quantity,
     }));
 
@@ -21,7 +21,7 @@ export const requestOrderItemList = async (): Promise<Order[]> => {
     orders.map(({ order_id, order_details }) => ({
       id: order_id,
       items: order_details.map((item) => ({
-        id: item.product_id,
+        id: String(item.product_id),
         name: item.name,
         image: item.image_url,
         price: item.price,
