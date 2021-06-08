@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { PC_WIDTH } from '../../constants/appInfo';
 import PALETTE from '../../constants/palette';
 
 export const Header = styled.header`
@@ -15,7 +16,7 @@ export const Header = styled.header`
 export const HeaderInner = styled.div`
   display: flex;
   margin: 0 auto;
-  max-width: 1300px;
+  max-width: ${PC_WIDTH};
   height: 100%;
   align-items: center;
   justify-content: space-between;

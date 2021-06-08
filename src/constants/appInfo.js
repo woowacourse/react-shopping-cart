@@ -26,3 +26,5 @@ export const UNIT = {
   MONEY: '원',
   AMOUNT: '개',
 };
+
+export const PC_WIDTH = '1300px';
