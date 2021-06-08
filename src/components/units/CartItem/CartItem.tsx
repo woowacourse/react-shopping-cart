@@ -4,11 +4,11 @@ import Styled from './CartItem.styles';
 import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
 import Checkbox from '../../shared/Checkbox/Checkbox';
 import QuantityInput from '../../shared/QuantityInput/QuantityInput';
-import noImageURL from '../../../assets/images/no_image.jpg';
 import * as T from '../../../types';
 import CART_ITEM_QUANTITY from '../../../constants/cart';
 import cartItemsSlice from '../../../slices/cartSlice';
 import { toPriceFormat } from '../../../utils';
+import useImageFallback from '../../../hooks/useImageFallback';
 
 interface IProps {
   cartItem: T.CartItem;
@@ -23,6 +23,8 @@ const CartItem = (props: IProps): ReactElement => {
   const { cartId, name, imageUrl, price, checked, quantity } = cartItem;
 
   const dispatch = useDispatch();
+
+  const { imageUrl: currentImageUrl, onImageLoadError } = useImageFallback(imageUrl);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = event.target.valueAsNumber;
@@ -66,7 +68,7 @@ const CartItem = (props: IProps): ReactElement => {
   return (
     <Styled.Root>
       <Checkbox checked={checked} onChange={handleCheck} />
-      <Styled.Image src={imageUrl || noImageURL} alt={name} />
+      <Styled.Image src={currentImageUrl} alt={name} onError={onImageLoadError} />
       <Styled.Title>{name}</Styled.Title>
       <Styled.Option>
         <Styled.Delete onClick={handleDelete}>

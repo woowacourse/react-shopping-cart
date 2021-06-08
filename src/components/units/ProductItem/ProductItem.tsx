@@ -1,10 +1,10 @@
-import React, { useState, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from './ProductItem.styles';
 import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
 import * as T from '../../../types';
-import noImageURL from '../../../assets/images/no_image.jpg';
 import { toPriceFormat } from '../../../utils';
+import useImageFallback from '../../../hooks/useImageFallback';
 
 interface IProps {
   product: T.Product;
@@ -14,21 +14,18 @@ interface IProps {
 const ProductItem = (props: IProps): ReactElement => {
   const { product, onClickCart } = props;
   const { productId, name, imageUrl, price } = product;
-  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
+
+  const { imageUrl: currentImageUrl, onImageLoadError } = useImageFallback(imageUrl);
 
   const handleClickCart = () => {
     onClickCart(productId);
   };
 
-  const handleImageLoadError = () => {
-    setCurrentImageUrl(noImageURL);
-  };
-
   return (
     <Styled.Root>
-      <Link to={`/product/${product.productId}`}>
+      <Link to={{ pathname: `/product/${product.productId}`, state: { product } }}>
         <Styled.ImageWrapper>
-          <Styled.Image src={currentImageUrl || noImageURL} alt={name} onError={handleImageLoadError} />
+          <Styled.Image src={currentImageUrl} alt={name} onError={onImageLoadError} />
         </Styled.ImageWrapper>
       </Link>
       <Styled.Content>
