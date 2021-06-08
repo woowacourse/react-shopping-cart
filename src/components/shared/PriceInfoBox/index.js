@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { UNIT } from '../../../constants/appInfo';
+import { ERROR_MESSAGE } from '../../../constants/message';
 import PALETTE from '../../../constants/palette';
+import { locatePage } from '../../../util';
 import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
 import HighlightText from '../../common/HighlightText';
-import { UNIT } from '../../../constants/appInfo';
 import * as Styled from './style';
-import { ERROR_MESSAGE } from '../../../constants/message';
 
 const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) => {
   const onClick = () => {
@@ -15,7 +16,10 @@ const PriceInfoBox = ({ width, margin, title, priceInfo, submitInfo, onOrder }) 
       return;
     }
 
-    onOrder();
+    if (onOrder) {
+      onOrder();
+    }
+
     locatePage(submitInfo.address);
   };
 
