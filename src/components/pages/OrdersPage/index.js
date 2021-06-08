@@ -27,9 +27,6 @@ const OrdersPage = () => {
                 justifyContent="space-between"
               >
                 <span>주문번호: {order.id}</span>
-                {/* <Button type="button" backgroundColor="transparent">
-                  {'상세보기 >'}
-                </Button> */}
               </FlexContainer>
               <ProductList>
                 {order.products.map((product) => (
@@ -44,17 +41,7 @@ const OrdersPage = () => {
                       }`,
                       color: PALETTE.GRAY_000,
                     }}
-                  >
-                    {/* <Button
-                      type="button"
-                      backgroundColor={PALETTE.BAEMINT}
-                      color={PALETTE.WHITE}
-                      width="8.5rem"
-                      height="3rem"
-                    >
-                      장바구니
-                    </Button> */}
-                  </ProductListItem>
+                  />
                 ))}
               </ProductList>
             </FlexContainer>
