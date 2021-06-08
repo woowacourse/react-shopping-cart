@@ -52,17 +52,23 @@ const cartSlice = createSlice({
   reducers: {
     increaseQuantity: (state, { payload: id }) => {
       const targetIndex = state.cartItemsInServer.findIndex((value) => value.product_id === id);
+
       if (targetIndex === -1) {
         return state.cartItemsInServer;
       }
+
       const cartItem = state.cartItemsInServer[targetIndex];
 
-      return [
-        ...state.cartItemsInServer.slice(0, targetIndex),
-        { ...cartItem, quantity: Number(cartItem.quantity) + 1 },
-        ...state.cartItemsInServer.slice(targetIndex + 1),
-      ];
+      return {
+        ...state,
+        cartItemsInServer: [
+          ...state.cartItemsInServer.slice(0, targetIndex),
+          { ...cartItem, quantity: Number(cartItem.quantity) + 1 },
+          ...state.cartItemsInServer.slice(targetIndex + 1),
+        ],
+      };
     },
+
     decreaseQuantity: (state, { payload: id }) => {
       const targetIndex = state.cartItemsInServer.findIndex((value) => value.product_id === id);
       if (targetIndex === -1) {
@@ -70,11 +76,14 @@ const cartSlice = createSlice({
       }
       const cartItem = state.cartItemsInServer[targetIndex];
 
-      return [
-        ...state.cartItemsInServer.slice(0, targetIndex),
-        { ...cartItem, quantity: Number(cartItem.quantity) - 1 },
-        ...state.cartItemsInServer.slice(targetIndex + 1),
-      ];
+      return {
+        ...state,
+        cartItemsInServer: [
+          ...state.cartItemsInServer.slice(0, targetIndex),
+          { ...cartItem, quantity: Number(cartItem.quantity) - 1 },
+          ...state.cartItemsInServer.slice(targetIndex + 1),
+        ],
+      };
     },
     deleteItemFromCart: (state, { payload }) => {
       state.cartItemsInServer.filter((item) => item.cart_id !== Number(payload));

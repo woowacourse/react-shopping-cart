@@ -28,7 +28,7 @@ const IconButtonStyle = css`
   border-left: none;
 `;
 
-const CounterButton = ({ count = '1', onIncreaseButtonClick, onDecreaseButtonClick }) => {
+const CounterButton = ({ count, onIncreaseButtonClick, onDecreaseButtonClick }) => {
   return (
     <Flex alignItems="center" css={CounterButtonWrapperStyle}>
       <Flex justifyContent="center" alignItems="center" css={CounterScreenStyle}>

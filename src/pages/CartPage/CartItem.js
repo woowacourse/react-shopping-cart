@@ -75,6 +75,7 @@ const CartItem = (props) => {
         <IconButton src={bin} alt="해당 상품을 장바구니에서 삭제" width="24px" height="24px" onClick={onClick} />
         <CounterButton
           id={singleItemInServer.name}
+          count={singleItemInServer.quantity}
           onIncreaseButtonClick={onIncreaseButtonClick}
           onDecreaseButtonClick={onDecreaseButtonClick}
         />
