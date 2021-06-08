@@ -7,9 +7,9 @@ const Navigation = ({ navList }) => {
   return (
     <nav>
       <Styled.NavList>
-        {navList.map((navItem, index) => (
+        {navList.map(({ name, address }, index) => (
           <li key={index}>
-            <Link to={`${navItem.ADDRESS}`}>{navItem.NAME}</Link>
+            <Link to={`${address}`}>{name}</Link>
           </li>
         ))}
       </Styled.NavList>
@@ -20,8 +20,8 @@ const Navigation = ({ navList }) => {
 Navigation.propTypes = {
   navList: PropTypes.arrayOf(
     PropTypes.shape({
-      NAME: PropTypes.string.isRequired,
-      ADDRESS: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
     })
   ),
 };

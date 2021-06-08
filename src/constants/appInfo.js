@@ -1,19 +1,19 @@
 export const PAGES = {
   PRODUCT: {
-    NAME: '상품목록',
-    ADDRESS: '/',
+    name: '상품목록',
+    address: '/',
   },
   CART: {
-    NAME: '장바구니',
-    ADDRESS: '/cart',
+    name: '장바구니',
+    address: '/cart',
   },
   CHECKOUT: {
-    NAME: '주문/결제',
-    ADDRESS: '/checkout',
+    name: '주문/결제',
+    address: '/checkout',
   },
   ORDERS: {
-    NAME: '주문목록',
-    ADDRESS: '/orders',
+    name: '주문목록',
+    address: '/orders',
   },
 };
 

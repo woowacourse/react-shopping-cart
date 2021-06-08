@@ -16,16 +16,16 @@ const App = () => {
         <Navigation navList={HEADER.NAV_LIST} />
       </Header>
       <Switch>
-        <Route path={PAGES.PRODUCT.ADDRESS} exact>
+        <Route path={PAGES.PRODUCT.address} exact>
           <ProductListPage />
         </Route>
-        <Route path={PAGES.CART.ADDRESS}>
+        <Route path={PAGES.CART.address}>
           <CartPage />
         </Route>
-        <Route path={PAGES.CHECKOUT.ADDRESS}>
+        <Route path={PAGES.CHECKOUT.address}>
           <CheckoutPage />
         </Route>
-        <Route path={PAGES.ORDERS.ADDRESS}>
+        <Route path={PAGES.ORDERS.address}>
           <OrdersPage />
         </Route>
       </Switch>

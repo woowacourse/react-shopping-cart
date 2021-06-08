@@ -57,18 +57,18 @@ const CartPage = () => {
   useEffect(() => {
     if (cart.length === 0) return;
 
-    if (isAllChecked && cart.some((product) => product.isChecked === false)) {
+    if (isAllChecked && cart.some((product) => !product.isChecked)) {
       setIsAllChecked(false);
     }
 
-    if (!isAllChecked && cart.every((product) => product.isChecked === true)) {
+    if (!isAllChecked && cart.some((product) => product.isChecked)) {
       setIsAllChecked(true);
     }
   }, [cart]);
 
   return (
     <Main>
-      <PageTitle>{PAGES.CART.NAME}</PageTitle>
+      <PageTitle>{PAGES.CART.name}</PageTitle>
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <FlexContainer justifyContent="space-between" align="flex-start">

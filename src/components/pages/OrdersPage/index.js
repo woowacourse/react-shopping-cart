@@ -16,7 +16,7 @@ const OrdersPage = () => {
   return (
     <Styled.OrdersPageContainer>
       <Main>
-        <PageTitle>{PAGES.ORDERS.NAME}</PageTitle>
+        <PageTitle>{PAGES.ORDERS.name}</PageTitle>
         <FlexContainer direction="column">
           {orders.reverse().map((order) => (
             <FlexContainer key={order.id} margin="3rem 0 1rem" direction="column">

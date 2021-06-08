@@ -34,7 +34,7 @@ const CheckoutPage = () => {
 
   return (
     <Main>
-      <PageTitle>{PAGES.CHECKOUT.NAME}</PageTitle>
+      <PageTitle>{PAGES.CHECKOUT.name}</PageTitle>
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <Styled.ProductListTitle>{`주문 상품(${checkedProducts.length}건)`}</Styled.ProductListTitle>
