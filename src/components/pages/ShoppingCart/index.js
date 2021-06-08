@@ -29,7 +29,8 @@ const ShoppingCart = () => {
     updateCartURL,
     updateCarts,
     routeToOrderPayment,
-    toggleCheckBox,
+    toggleOneCheckBox,
+    toggleAllCheckBox,
     deleteItem,
   } = useCarts();
 
@@ -48,7 +49,7 @@ const ShoppingCart = () => {
             <CheckBoxWrapper>
               <CheckBox
                 isChecked={isCheckedAll}
-                onCheckBoxClick={() => toggleCheckBox()}
+                onCheckBoxClick={toggleAllCheckBox}
               />
               <span>
                 전체선택
@@ -83,7 +84,7 @@ const ShoppingCart = () => {
                     onDecreaseQuantity={() =>
                       updateDecreaseQuantity(product_id)
                     }
-                    onCheckBoxClick={() => toggleCheckBox(product_id)}
+                    onCheckBoxClick={() => toggleOneCheckBox(product_id)}
                     onDeleteButtonClick={() => deleteItem(product_id)}
                   />
                 </li>

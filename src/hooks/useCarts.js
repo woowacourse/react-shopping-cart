@@ -52,12 +52,11 @@ const useCarts = () => {
   const updateCartURL = () =>
     dispatch({ type: ACTION_TYPE.URL.GET_URL, payload: ROUTE.CART });
 
-  const toggleCheckBox = id => {
-    if (!!id) {
-      dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
-      return;
-    }
+  const toggleOneCheckBox = id => {
+    dispatch({ type: ACTION_TYPE.PRODUCTS.TOGGLE_CHECKED, id });
+  };
 
+  const toggleAllCheckBox = () => {
     dispatch({
       type: ACTION_TYPE.PRODUCTS.TOGGLE_ENTIRE_CHECKED,
       isChecked: isCheckedAll,
@@ -81,7 +80,8 @@ const useCarts = () => {
     updateCartURL,
     updateCarts,
     routeToOrderPayment,
-    toggleCheckBox,
+    toggleOneCheckBox,
+    toggleAllCheckBox,
     deleteItem,
     getTotalQuantity,
     getTotalPrice,
