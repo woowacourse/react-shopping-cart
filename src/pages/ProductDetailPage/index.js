@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../../common/Button';
-import FlexContainer from '../../common/FlexContainer';
-import Spinner from '../../common/Icon/Spinner';
-import Loader from '../../common/Loader';
-import Main from '../../Main';
+import Button from '../../components/common/Button';
+import FlexContainer from '../../components/common/FlexContainer';
+import Spinner from '../../components/common/Icon/Spinner';
+import Loader from '../../components/common/Loader';
+import Main from '../../components/Main';
 
-import { SNACKBAR_DURATION } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
+import { SNACKBAR_DURATION } from '../../constants/appInfo';
+import { APP_MESSAGE } from '../../constants/message';
+import PALETTE from '../../constants/palette';
 
-import useSnackbar from '../../../hooks/useSnackbar';
-import { addToCart, getCart, resetCart } from '../../../redux/Cart/actions';
-import { getProduct, resetProduct } from '../../../redux/ProductDetail/actions';
+import useSnackbar from '../../hooks/useSnackbar';
+import { addToCart, getCart, resetCart } from '../../redux/Cart/actions';
+import { getProduct, resetProduct } from '../../redux/ProductDetail/actions';
 
 import * as Styled from './style';
 

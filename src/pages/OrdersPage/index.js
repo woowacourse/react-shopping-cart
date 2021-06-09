@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../../common/Button';
-import FlexContainer from '../../common/FlexContainer';
-import Spinner from '../../common/Icon/Spinner';
-import Loader from '../../common/Loader';
-import Main from '../../Main';
-import PageTitle from '../../shared/PageTitle';
-import ProductList from '../../shared/ProductList';
-import ProductListItem from '../../shared/ProductList/ProductListItem';
+import Button from '../../components/common/Button';
+import FlexContainer from '../../components/common/FlexContainer';
+import Spinner from '../../components/common/Icon/Spinner';
+import Loader from '../../components/common/Loader';
+import Main from '../../components/Main';
+import PageTitle from '../../components/shared/PageTitle';
+import ProductList from '../../components/shared/ProductList';
+import ProductListItem from '../../components/shared/ProductList/ProductListItem';
 
-import { PAGES, UNIT } from '../../../constants/appInfo';
-import PALETTE from '../../../constants/palette';
+import { PAGES, UNIT } from '../../constants/appInfo';
+import PALETTE from '../../constants/palette';
 
-import { getOrders, resetOrders } from '../../../redux/Orders/actions';
+import { getOrders, resetOrders } from '../../redux/Orders/actions';
 
 import * as Styled from './style';
 

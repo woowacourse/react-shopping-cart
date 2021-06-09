@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../../common/Button';
-import ShoppingCart from '../../common/Icon/ShoppingCart';
-import Spinner from '../../common/Icon/Spinner';
-import Loader from '../../common/Loader';
-import ErrorModal from '../../common/Modal/ErrorModal';
-import Pagination from '../../common/Pagination';
-import Snackbar from '../../common/Snackbar';
-import Main from '../../Main';
-import Product from '../../shared/Product';
+import Button from '../../components/common/Button';
+import ShoppingCart from '../../components/common/Icon/ShoppingCart';
+import Spinner from '../../components/common/Icon/Spinner';
+import Loader from '../../components/common/Loader';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
+import Pagination from '../../components/common/Pagination';
+import Snackbar from '../../components/common/Snackbar';
+import Main from '../../components/Main';
+import Product from '../../components/shared/Product';
 
-import { PAGES, PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
+import { PAGES, PRODUCTS_PER_PAGE, SNACKBAR_DURATION, UNIT } from '../../constants/appInfo';
+import { APP_MESSAGE } from '../../constants/message';
+import PALETTE from '../../constants/palette';
 
-import usePagination from '../../../hooks/usePagination';
-import useSnackbar from '../../../hooks/useSnackbar';
-import { addToCart, getCart, resetCart } from '../../../redux/Cart/actions';
-import { resetErrorMessage } from '../../../redux/Message/actions';
-import { getProducts, resetProducts } from '../../../redux/Products/actions';
+import usePagination from '../../hooks/usePagination';
+import useSnackbar from '../../hooks/useSnackbar';
+import { addToCart, getCart, resetCart } from '../../redux/Cart/actions';
+import { resetErrorMessage } from '../../redux/Message/actions';
+import { getProducts, resetProducts } from '../../redux/Products/actions';
 
 import * as Styled from './style';
 

@@ -1,21 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import FlexContainer from '../../common/FlexContainer';
-import Spinner from '../../common/Icon/Spinner';
-import Loader from '../../common/Loader';
-import Main from '../../Main';
-import PageTitle from '../../shared/PageTitle';
-import PriceInfoBox from '../../shared/PriceInfoBox';
-import ProductList from '../../shared/ProductList';
-import ProductListItem from '../../shared/ProductList/ProductListItem';
+import FlexContainer from '../../components/common/FlexContainer';
+import Spinner from '../../components/common/Icon/Spinner';
+import Loader from '../../components/common/Loader';
+import Main from '../../components/Main';
+import PageTitle from '../../components/shared/PageTitle';
+import PriceInfoBox from '../../components/shared/PriceInfoBox';
+import ProductList from '../../components/shared/ProductList';
+import ProductListItem from '../../components/shared/ProductList/ProductListItem';
 
-import { PAGES } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
+import { PAGES } from '../../constants/appInfo';
+import { APP_MESSAGE } from '../../constants/message';
+import PALETTE from '../../constants/palette';
 
-import { removeCheckedProducts } from '../../../redux/Cart/actions';
-import { setOrder } from '../../../redux/Orders/actions';
+import { removeCheckedProducts } from '../../redux/Cart/actions';
+import { setOrder } from '../../redux/Orders/actions';
 
 import * as Styled from './style';
 

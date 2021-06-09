@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import QuantityInput from '../../common/QuantityInput';
-import Button from '../../common/Button';
-import Checkbox from '../../common/Checkbox';
-import FlexContainer from '../../common/FlexContainer';
-import TrashBin from '../../common/Icon/TrashBin';
-import Main from '../../Main';
-import PageTitle from '../../shared/PageTitle';
-import PriceInfoBox from '../../shared/PriceInfoBox';
-import ProductList from '../../shared/ProductList';
-import ProductListItem from '../../shared/ProductList/ProductListItem';
+import QuantityInput from '../../components/common/QuantityInput';
+import Button from '../../components/common/Button';
+import Checkbox from '../../components/common/Checkbox';
+import FlexContainer from '../../components/common/FlexContainer';
+import TrashBin from '../../components/common/Icon/TrashBin';
+import Loader from '../../components/common/Loader';
+import Spinner from '../../components/common/Icon/Spinner';
+import Main from '../../components/Main';
+import PageTitle from '../../components/shared/PageTitle';
+import PriceInfoBox from '../../components/shared/PriceInfoBox';
+import ProductList from '../../components/shared/ProductList';
+import ProductListItem from '../../components/shared/ProductList/ProductListItem';
 
-import { PAGES } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
+import { PAGES } from '../../constants/appInfo';
+import { APP_MESSAGE } from '../../constants/message';
+import PALETTE from '../../constants/palette';
 
-import useUpdateEffect from '../../../hooks/useUpdateEffect';
+import useUpdateEffect from '../../hooks/useUpdateEffect';
 import {
   toggleAllCheckboxesInCart,
   changeQuantity,
@@ -24,8 +26,7 @@ import {
   removeProduct,
   toggleCartCheckbox,
   getCart,
-  resetCart,
-} from '../../../redux/Cart/actions';
+} from '../../redux/Cart/actions';
 
 import * as Styled from './style';
 
@@ -102,6 +103,9 @@ const CartPage = () => {
   return (
     <Main>
       <PageTitle>{PAGES.CART.NAME}</PageTitle>
+      <Loader animationType={'spin'} isLoading={isLoading}>
+        <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
+      </Loader>
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <FlexContainer justifyContent="space-between" align="flex-start">
