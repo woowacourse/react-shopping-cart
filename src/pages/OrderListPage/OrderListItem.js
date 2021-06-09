@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
+import Button from '../../components/utils/Button';
+import { COLOR } from '../../constant';
 
+import { addItemToCartRequest } from '../../modules/cartSlice';
 import styled, { css } from 'styled-components';
 
 const OrderListItem = ({ order }) => {
+  const dispatch = useDispatch();
+  const { cartItemsInServer, errorMessage } = useSelector((state) => state.cartSlice);
+
+  useEffect(() => {
+    if (errorMessage) {
+      window.alert(errorMessage);
+    }
+  }, [errorMessage]);
+
   const OrderList = styled.li`
     width: 100%;
     margin-bottom: 74px;
@@ -13,6 +26,7 @@ const OrderListItem = ({ order }) => {
   `;
 
   const SingleOrderList = styled.ul`
+    position: relative;
     height: 220px;
     background-color: #ffffff;
     border-top: 1px solid #aaaaaa;
@@ -65,6 +79,38 @@ const OrderListItem = ({ order }) => {
     margin-left: 35px;
   `;
 
+  const StyledButton = styled(Button)`
+    && {
+      position: absolute;
+      right: 25px;
+      top: 40px;
+      width: 140px;
+      height: 47px;
+      border-radius: 4px;
+      font-size: 20px;
+      color: ${COLOR.WHITE[400]};
+      background-color: ${COLOR.CYAN[400]};
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+        font-weight: 500px;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  `;
+
+  const onAddCartButtonClick = (product) => {
+    const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
+    const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
+
+    if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
+    dispatch(addItemToCartRequest(product));
+  };
+
   return (
     <OrderList>
       <OrderListHeader>
@@ -85,6 +131,9 @@ const OrderListItem = ({ order }) => {
               <ProductName>{orderDetail.name}</ProductName>
               <ProductDetail>{`${orderDetail.price}원 / 수량: ${orderDetail.quantity}개`}</ProductDetail>
             </Flex>
+            <StyledButton disabled={false} onClick={() => onAddCartButtonClick(orderDetail)}>
+              장바구니
+            </StyledButton>
           </SingleProduct>
         </SingleOrderList>
       ))}

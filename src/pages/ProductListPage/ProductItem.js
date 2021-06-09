@@ -62,6 +62,7 @@ const ProductItem = ({ product }) => {
     if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
     dispatch(addItemToCartRequest(product));
   };
+
   return (
     <SingleProduct>
       <Link to={`/products/${product.product_id}`}>
