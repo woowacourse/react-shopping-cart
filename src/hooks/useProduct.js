@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
 import { requestGet, deepCamelize } from '../utils';
-import { BASE_URL, PATH } from '../constants';
+import { BASE_URL } from '../constants';
 
 const fetcher = async (url) => {
   const response = await requestGet({ url });
@@ -14,7 +14,7 @@ const fetcher = async (url) => {
 };
 
 export const useProduct = () => {
-  const { data, error, mutate } = useSWR(`${BASE_URL}${PATH.PRODUCT_LIST}`, fetcher);
+  const { data, error, mutate } = useSWR(`${BASE_URL}/products`, fetcher);
 
   return {
     products: data,
