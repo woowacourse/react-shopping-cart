@@ -2,6 +2,7 @@
 export { Button } from './atoms/Button';
 export { IconCart } from './atoms/IconCart';
 export { Checkbox } from './atoms/Checkbox';
+export { BlueScreen } from './atoms/BlueScreen';
 export { IconDownward } from './atoms/IconDownward';
 export { Line } from './atoms/Line';
 export { List } from './atoms/List';
@@ -14,6 +15,7 @@ export { SkeletonLine, SkeletonRound, SkeletonResponsiveBox } from './atoms/Skel
 /* molecules */
 export { CheckoutBox } from './molecules/CheckoutBox';
 export { Confirm } from './molecules/Confirm';
+export { ErrorBoundary } from './molecules/ErrorBoundary';
 export { Header } from './molecules/Header';
 export { NavBar } from './molecules/NavBar';
 export { QuantityStepper } from './molecules/QuantityStepper';
