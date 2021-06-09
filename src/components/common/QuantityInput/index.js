@@ -33,8 +33,8 @@ const QuantityInput = ({ min, max, step, quantity, setQuantity }) => {
         value={quantity}
       />
       <Styled.ButtonContainer>
-        <button type="button" onClick={onIncrease}></button>
-        <button type="button" onClick={onDecrease}></button>
+        <button type="button" onClick={onIncrease} />
+        <button type="button" onClick={onDecrease} />
       </Styled.ButtonContainer>
     </Styled.QuantityInputContainer>
   );

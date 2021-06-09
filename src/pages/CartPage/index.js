@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import QuantityInput from '../../components/common/QuantityInput';
@@ -19,20 +19,19 @@ import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
 import useSnackbar from '../../hooks/useSnackbar';
-import useUpdateEffect from '../../hooks/useUpdateEffect';
 import {
   toggleAllCheckboxesInCart,
   changeQuantity,
   removeCheckedProducts,
   removeProduct,
-  toggleCartCheckbox,
   getCart,
 } from '../../redux/Cart/actions';
 
 import * as Styled from './style';
+import useCartCheckbox from '../../hooks/useCartCheckbox';
 
 const CartPage = () => {
-  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [isAllChecked, setIsAllChecked, changeCheckbox, changeAllCheckbox] = useCartCheckbox();
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
     cart: { cartList, isLoading },
@@ -43,15 +42,6 @@ const CartPage = () => {
     (sum, product) => (sum += product.isChecked ? product.price * product.quantity : 0),
     0
   );
-
-  const onChangeCheckbox = (cartId) => () => {
-    dispatch(toggleCartCheckbox(cartId));
-  };
-
-  const onChangeAllCheckbox = () => {
-    dispatch(toggleAllCheckboxesInCart(!isAllChecked));
-    setIsAllChecked(!isAllChecked);
-  };
 
   const onRemoveCheckedProducts = () => {
     const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cart_id);
@@ -89,23 +79,6 @@ const CartPage = () => {
     setIsAllChecked(isProductExists);
   }, []);
 
-  useUpdateEffect(() => {
-    if (!cartList?.length) {
-      setIsAllChecked(false);
-      return;
-    }
-
-    if (isAllChecked && cartList.some((product) => !product.isChecked)) {
-      setIsAllChecked(false);
-      return;
-    }
-
-    if (!isAllChecked && cartList.every((product) => product.isChecked)) {
-      setIsAllChecked(true);
-      return;
-    }
-  }, [cartList]);
-
   return (
     <Main>
       <PageTitle>{PAGES.CART.NAME}</PageTitle>
@@ -115,7 +88,7 @@ const CartPage = () => {
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <FlexContainer justifyContent="space-between" align="flex-start">
-            <Checkbox onChange={onChangeAllCheckbox} isChecked={isAllChecked}>
+            <Checkbox onChange={changeAllCheckbox} isChecked={isAllChecked}>
               {isAllChecked ? '선택해제' : '전체선택'}
             </Checkbox>
             <Button
@@ -135,7 +108,7 @@ const CartPage = () => {
                 key={product.product_id}
                 listStyle="lineStyle"
                 isCheckbox={true}
-                onChange={onChangeCheckbox(product.cart_id)}
+                onChange={changeCheckbox(product.cart_id)}
                 imageSize="9rem"
                 product={product}
               >
