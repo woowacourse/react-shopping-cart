@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 import { Template } from '../../components';
-import { BREAKPOINTS, COLOR, PATTERN_FILE_NAME } from '../../constants';
+import { BREAKPOINTS, COLOR } from '../../constants';
 
 export const Page = styled(Template)`
   background-color: ${COLOR.HEX.WHITE};
 `;
 
-export const Main = styled.main;
+export const Main = styled.main`
+  margin-top: 5rem;
+`;
 
 export const ProductList = styled.ul`
   list-style: none;
@@ -57,6 +59,7 @@ export const Footer = styled.div`
 export const Label = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Name = styled.span`
@@ -69,9 +72,7 @@ export const Price = styled.span`
   margin: 0.2rem 0;
 `;
 
-export const Image = styled.img.attrs((props) => ({
-  alt: props.src.match(PATTERN_FILE_NAME)[0],
-}))`
+export const Image = styled.img`
   width: 4.5rem;
   height: 6rem;
   background-image: url(${(props) => props.src});
@@ -83,22 +84,22 @@ export const Image = styled.img.attrs((props) => ({
   }
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
-    width: 6rem;
-    height: 8rem;
-  }
-
-  @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
     width: 7.5rem;
     height: 10rem;
   }
 
-  @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
+  @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
     width: 9rem;
     height: 12rem;
   }
 
-  @media (min-width: ${BREAKPOINTS.DESKTOP}) {
+  @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
     width: 10.5rem;
     height: 14rem;
+  }
+
+  @media (min-width: ${BREAKPOINTS.DESKTOP}) {
+    width: 12rem;
+    height: 16rem;
   }
 `;

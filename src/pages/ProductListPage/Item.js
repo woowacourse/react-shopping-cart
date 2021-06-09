@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Button, IconCart } from '../../components';
+import { Button, IconCart, SkeletonResponsiveBox, SkeletonLine } from '../../components';
 import * as S from './style.js';
 import { getFormattedAsKRW } from '../../utils';
 import { COLOR } from '../../constants';
@@ -8,10 +8,13 @@ import { COLOR } from '../../constants';
 export const Item = (props) => {
   const { product, addProduct, ...rest } = props;
   const { name, price, imageUrl } = product;
+  const handleImageError = (e) => {
+    // TODO: 이미지 로딩 실패 시 에러 처리
+  };
 
   return (
     <S.Container {...rest}>
-      <S.Image src={imageUrl} />
+      <S.Image src={imageUrl} onError={handleImageError} />
       <S.Footer>
         <S.Label>
           <S.Name>{name}</S.Name>
@@ -33,4 +36,19 @@ Item.propTypes = {
     img: PropTypes.string,
   }).isRequired,
   addProduct: PropTypes.func.isRequired,
+};
+
+export const ItemSkeleton = () => {
+  return (
+    <S.Container>
+      <SkeletonResponsiveBox />
+      <SkeletonLine />
+      <S.Footer>
+        <S.Label>
+          <SkeletonLine style={{ width: '60%' }} />
+          <SkeletonLine style={{ width: '60%' }} />
+        </S.Label>
+      </S.Footer>
+    </S.Container>
+  );
 };
