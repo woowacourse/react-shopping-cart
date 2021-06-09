@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { requestGet, deepCamelize } from '../utils';
 import { BASE_URL } from '../constants';
 
-const fetcher = async (url) => {
+const getProducts = async (url) => {
   const response = await requestGet({ url });
 
   if (response.status !== 200) {
@@ -14,7 +14,7 @@ const fetcher = async (url) => {
 };
 
 export const useProduct = () => {
-  const { data, error, mutate } = useSWR(`${BASE_URL}/products`, fetcher);
+  const { data, error, mutate } = useSWR(`${BASE_URL}/products`, getProducts);
 
   return {
     products: data,

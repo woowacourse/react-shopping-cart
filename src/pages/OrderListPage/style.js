@@ -14,7 +14,7 @@ export const Main = styled.main`
   width: 95%;
 `;
 
-export const OrderList = styled(List)``;
+export const OrderList = styled(List);
 
 export const OrderItem = styled.li``;
 
