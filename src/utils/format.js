@@ -21,6 +21,7 @@ export const snakeToCamel = (strInSnakeCase) => {
 
   for (let i = 0; i < strInSnakeCase.length; i++) {
     const char = strInSnakeCase[i];
+
     if (char === '_') {
       const nextChar = strInSnakeCase[i + 1];
 
@@ -43,6 +44,36 @@ export const deepCamelize = (obj) => {
       return [snakeToCamel(key), deepCamelize(value)];
     }
     return [snakeToCamel(key), value];
+  });
+
+  return Object.fromEntries(entries);
+};
+
+export const camelToSnake = (strInCamelCase) => {
+  let strInSnakeCase = '';
+
+  for (let i = 0; i < strInCamelCase.length; i++) {
+    const char = strInCamelCase[i];
+
+    if (char.toUpperCase() === char) {
+      strInSnakeCase += '_' + char.toLowerCase();
+      continue;
+    }
+    strInSnakeCase += char;
+  }
+  return strInSnakeCase;
+};
+
+export const deepDecamelize = (obj) => {
+  if (Array.isArray(obj)) {
+    return obj.map((entity) => deepDecamelize(entity));
+  }
+
+  const entries = Object.entries(obj).map(([key, value]) => {
+    if (typeof value === 'object') {
+      return [camelToSnake(key), deepDecamelize(value)];
+    }
+    return [camelToSnake(key), value];
   });
 
   return Object.fromEntries(entries);
