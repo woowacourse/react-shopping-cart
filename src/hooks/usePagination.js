@@ -1,27 +1,25 @@
 import { useState } from 'react';
 
-import { PRODUCTS_PER_PAGE } from '../constants/appInfo';
-
-const usePagination = (startIndex, endIndex) => {
+const usePagination = (startIndex, endIndex, itemsPerPage) => {
   const [pageStartIndex, setPageStartIndex] = useState(0);
 
   const onPageNext = () => {
-    if (pageStartIndex + PRODUCTS_PER_PAGE > endIndex) return;
-    setPageStartIndex(pageStartIndex + PRODUCTS_PER_PAGE);
+    if (pageStartIndex + itemsPerPage > endIndex) return;
+    setPageStartIndex(pageStartIndex + itemsPerPage);
   };
 
   const onPagePrevious = () => {
-    if (pageStartIndex - PRODUCTS_PER_PAGE < startIndex) return;
-    setPageStartIndex(pageStartIndex - PRODUCTS_PER_PAGE);
+    if (pageStartIndex - itemsPerPage < startIndex) return;
+    setPageStartIndex(pageStartIndex - itemsPerPage);
   };
 
   const onPageSelected = (idx) => () => {
-    setPageStartIndex(idx * PRODUCTS_PER_PAGE);
+    setPageStartIndex(idx * itemsPerPage);
   };
 
-  const isNextPageAvailable = pageStartIndex + PRODUCTS_PER_PAGE < endIndex;
-  const isPreviousPageAvailable = pageStartIndex - PRODUCTS_PER_PAGE >= startIndex;
-  const currentPage = Math.floor(pageStartIndex / PRODUCTS_PER_PAGE) + 1;
+  const isNextPageAvailable = pageStartIndex + itemsPerPage < endIndex;
+  const isPreviousPageAvailable = pageStartIndex - itemsPerPage >= startIndex;
+  const currentPage = Math.floor(pageStartIndex / itemsPerPage) + 1;
 
   return {
     pageStartIndex,

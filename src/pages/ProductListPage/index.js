@@ -34,7 +34,7 @@ const ProductListPage = () => {
     isPreviousPageAvailable,
     isNextPageAvailable,
     currentPage,
-  } = usePagination(0, productList.length);
+  } = usePagination(0, productList.length, PRODUCTS_PER_PAGE);
   const dispatch = useDispatch();
 
   useEffect(() => {
