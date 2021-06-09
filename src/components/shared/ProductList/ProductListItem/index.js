@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Checkbox from '../../../common/Checkbox';
+import PropTypes from 'prop-types';
+
 import Product from '../../Product';
+import Checkbox from '../../../common/Checkbox';
+
 import * as Styled from './style';
 
 const ProductListItem = ({ product, listStyle, onChange, productDetail, isCheckbox, imageSize, children }) => {

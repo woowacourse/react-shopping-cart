@@ -5,6 +5,7 @@ import { cartConverter } from '../../utils/converter';
 export const GET_CART_PENDING = 'cart/get_cart/pending';
 export const GET_CART_SUCCESS = 'cart/get_cart/success';
 export const GET_CART_ERROR = 'cart/get_cart/error';
+
 export const RESET_CART = 'cart/reset_cart';
 
 export const ADD_TO_CART_PENDING = 'cart/add_to_cart/pending';
@@ -13,6 +14,7 @@ export const ADD_TO_CART_ERROR = 'cart/add_to_cart/error';
 
 export const TOGGLE_CART_CHECKBOX = 'cart/toggle_cart_checkbox';
 export const TOGGLE_ALL_CHECKBOXES_IN_CART = 'cart/toggle_all_checkboxes_in_cart';
+
 export const CHANGE_QUANTITY = 'cart/change_quantity';
 
 export const REMOVE_CHECKED_PRODUCTS_PENDING = 'cart/remove_checked_products/pending';

@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PAGES, UNIT } from '../../../constants/appInfo';
-import PALETTE from '../../../constants/palette';
-import { getOrders, resetOrders } from '../../../redux/Orders/actions';
+
 import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
 import Spinner from '../../common/Icon/Spinner';
@@ -11,6 +9,12 @@ import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
 import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
+
+import { PAGES, UNIT } from '../../../constants/appInfo';
+import PALETTE from '../../../constants/palette';
+
+import { getOrders, resetOrders } from '../../../redux/Orders/actions';
+
 import * as Styled from './style';
 
 const OrdersPage = () => {

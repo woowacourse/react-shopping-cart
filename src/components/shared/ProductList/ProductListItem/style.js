@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import PALETTE from '../../../../constants/palette';
 
 const LIST_STYLE = {

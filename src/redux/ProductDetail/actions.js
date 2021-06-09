@@ -4,6 +4,7 @@ import { API_URL } from '../../constants/api';
 export const GET_PRODUCT_SUCCESS = 'product_detail/get_product/success';
 export const GET_PRODUCT_PENDING = 'product_detail/get_product/pending';
 export const GET_PRODUCT_ERROR = 'product_detail/get_product/error';
+
 export const RESET_PRODUCT = 'product_detail/reset_product';
 
 export const getProduct = (productId) => (dispatch, getState) => {

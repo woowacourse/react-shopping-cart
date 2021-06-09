@@ -1,11 +1,13 @@
 import React from 'react';
+
 import ProductListItem from '.';
-import PALETTE from '../../../../constants/palette';
-import { mockData } from '../../../../mockData';
 import QuantityInput from '../../../common/QuantityInput';
 import Button from '../../../common/Button';
 import FlexContainer from '../../../common/FlexContainer';
 import TrashBin from '../../../common/Icon/TrashBin';
+
+import PALETTE from '../../../../constants/palette';
+import { mockData } from '../../../../mockData';
 
 export default {
   title: 'Shared/ProductListItem',

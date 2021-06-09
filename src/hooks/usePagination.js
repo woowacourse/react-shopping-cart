@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { PRODUCTS_PER_PAGE } from '../constants/appInfo';
 
 const usePagination = (startIndex, endIndex) => {

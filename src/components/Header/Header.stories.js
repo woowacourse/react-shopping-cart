@@ -1,9 +1,11 @@
 import React from 'react';
 import { HashRouter as Router } from 'react-router-dom';
+
 import Header from '.';
-import { HEADER } from '../../constants/appInfo';
 import ShoppingCart from '../common/Icon/ShoppingCart';
 import Navigation from '../Navigation';
+
+import { HEADER } from '../../constants/appInfo';
 
 export default {
   title: 'Header',

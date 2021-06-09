@@ -1,10 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PAGES } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
-import { getCart, removeCheckedProducts, resetCart } from '../../../redux/Cart/actions';
-import { setOrder } from '../../../redux/Orders/actions';
+
 import FlexContainer from '../../common/FlexContainer';
 import Spinner from '../../common/Icon/Spinner';
 import Loader from '../../common/Loader';
@@ -13,6 +9,14 @@ import PageTitle from '../../shared/PageTitle';
 import PriceInfoBox from '../../shared/PriceInfoBox';
 import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
+
+import { PAGES } from '../../../constants/appInfo';
+import { APP_MESSAGE } from '../../../constants/message';
+import PALETTE from '../../../constants/palette';
+
+import { removeCheckedProducts } from '../../../redux/Cart/actions';
+import { setOrder } from '../../../redux/Orders/actions';
+
 import * as Styled from './style';
 
 const CheckoutPage = () => {

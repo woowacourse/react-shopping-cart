@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Product from '.';
+
 import PALETTE from '../../../constants/palette';
 import { mockData } from '../../../mockData';
 

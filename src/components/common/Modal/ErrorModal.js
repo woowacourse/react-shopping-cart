@@ -1,10 +1,13 @@
 import React from 'react';
-import Modal from '.';
 import PropTypes from 'prop-types';
-import ErrorImage from '../../../assets/error.png';
-import * as Styled from './ErrorModal.style';
+
+import Modal from '.';
 import HighlightText from '../HighlightText';
+
 import PALETTE from '../../../constants/palette';
+import ErrorImage from '../../../assets/error.png';
+
+import * as Styled from './ErrorModal.style';
 
 const ErrorModal = ({ textContent, onClose }) => {
   return (

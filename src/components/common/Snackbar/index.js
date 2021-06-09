@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+
 import * as Styled from './style';
 
 const Snackbar = ({ message, ms, backgroundColor }) => {

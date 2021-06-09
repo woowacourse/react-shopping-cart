@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import ShoppingCart from './components/common/Icon/ShoppingCart';
+
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import CartPage from './components/pages/CartPage';
@@ -8,6 +8,8 @@ import CheckoutPage from './components/pages/CheckoutPage';
 import OrdersPage from './components/pages/OrdersPage';
 import ProductDetailPage from './components/pages/ProductDetailPage';
 import ProductListPage from './components/pages/ProductListPage';
+import ShoppingCart from './components/common/Icon/ShoppingCart';
+
 import { HEADER, PAGES } from './constants/appInfo';
 
 const App = () => {

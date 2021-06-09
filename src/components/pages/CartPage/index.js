@@ -1,18 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PAGES } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
-import useUpdateEffect from '../../../hooks/useUpdateEffect';
-import {
-  toggleAllCheckboxesInCart,
-  changeQuantity,
-  removeCheckedProducts,
-  removeProduct,
-  toggleCartCheckbox,
-  getCart,
-  resetCart,
-} from '../../../redux/Cart/actions';
+
 import QuantityInput from '../../common/QuantityInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
@@ -23,6 +11,22 @@ import PageTitle from '../../shared/PageTitle';
 import PriceInfoBox from '../../shared/PriceInfoBox';
 import ProductList from '../../shared/ProductList';
 import ProductListItem from '../../shared/ProductList/ProductListItem';
+
+import { PAGES } from '../../../constants/appInfo';
+import { APP_MESSAGE } from '../../../constants/message';
+import PALETTE from '../../../constants/palette';
+
+import useUpdateEffect from '../../../hooks/useUpdateEffect';
+import {
+  toggleAllCheckboxesInCart,
+  changeQuantity,
+  removeCheckedProducts,
+  removeProduct,
+  toggleCartCheckbox,
+  getCart,
+  resetCart,
+} from '../../../redux/Cart/actions';
+
 import * as Styled from './style';
 
 const CartPage = () => {

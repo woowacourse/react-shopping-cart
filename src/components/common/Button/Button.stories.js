@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Button from '.';
+
 import PALETTE from '../../../constants/palette';
 
 export default {

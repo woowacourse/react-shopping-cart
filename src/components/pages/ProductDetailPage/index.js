@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SNACKBAR_DURATION } from '../../../constants/appInfo';
-import { APP_MESSAGE } from '../../../constants/message';
-import PALETTE from '../../../constants/palette';
-import useSnackbar from '../../../hooks/useSnackbar';
-import { addToCart, getCart, resetCart } from '../../../redux/Cart/actions';
-import { getProduct, resetProduct } from '../../../redux/ProductDetail/actions';
+
 import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
 import Spinner from '../../common/Icon/Spinner';
 import Loader from '../../common/Loader';
-import Snackbar from '../../common/Snackbar';
 import Main from '../../Main';
+
+import { SNACKBAR_DURATION } from '../../../constants/appInfo';
+import { APP_MESSAGE } from '../../../constants/message';
+import PALETTE from '../../../constants/palette';
+
+import useSnackbar from '../../../hooks/useSnackbar';
+import { addToCart, getCart, resetCart } from '../../../redux/Cart/actions';
+import { getProduct, resetProduct } from '../../../redux/ProductDetail/actions';
+
 import * as Styled from './style';
 
 const ProductDetailPage = () => {

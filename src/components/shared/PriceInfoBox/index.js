@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import PALETTE from '../../../constants/palette';
+
 import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
 import HighlightText from '../../common/HighlightText';
+
+import PALETTE from '../../../constants/palette';
 import { UNIT } from '../../../constants/appInfo';
+
 import * as Styled from './style';
 
 const PriceInfoBox = ({ width, margin, title, priceInfo, buttonText, onClick }) => {

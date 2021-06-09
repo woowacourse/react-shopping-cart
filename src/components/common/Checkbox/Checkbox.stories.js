@@ -1,7 +1,9 @@
 import React from 'react';
-import Checkbox from '.';
-import { mockData } from '../../../mockData';
+
 import Product from '../../shared/Product';
+import Checkbox from '.';
+
+import { mockData } from '../../../mockData';
 
 export default {
   title: 'Common/Checkbox',
