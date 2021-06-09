@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
 
 import CounterButton from '../../components/CounterButton';
 import IconButton from '../../components/utils/IconButton';
@@ -8,11 +9,10 @@ import CheckBox from '../../components/utils/CheckBox';
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
-import bin from '../../asset/bin-icon.svg';
-import { MESSAGE, NUMBER, COLOR } from '../../constant';
 import { increaseQuantity, decreaseQuantity, toggleCheckbox } from '../../modules/cartSlice';
 
-import styled, { css } from 'styled-components';
+import bin from '../../asset/bin-icon.svg';
+import { MESSAGE, NUMBER, COLOR } from '../../constant';
 
 const SingleCartItem = styled.li`
   display: flex;

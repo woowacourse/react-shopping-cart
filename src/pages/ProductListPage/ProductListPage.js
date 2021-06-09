@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ProductItem from './ProductItem';
 import GridColumnList from '../../components/utils/GridColumnList';
 import LoadingPage from '../../pages/LoadingPage';
+import ProductItem from './ProductItem';
 
 import { getProductsRequest } from '../../modules/productSlice';
 import { getCartItemsRequest } from '../../modules/cartSlice';

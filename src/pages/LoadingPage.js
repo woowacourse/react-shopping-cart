@@ -1,10 +1,9 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 
 import Flex from '../components/utils/Flex';
 
 import { COLOR } from '../constant';
-
-import styled, { css } from 'styled-components';
 
 const ContentWrapper = styled.section`
   margin: 25px;

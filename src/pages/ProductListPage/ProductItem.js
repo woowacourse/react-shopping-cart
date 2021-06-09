@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Flex from '../../components/utils/Flex';
 import Image from '../../components/utils/Image';
@@ -12,7 +12,6 @@ import IconButton from '../../components/utils/IconButton';
 import { addItemToCartRequest } from '../../modules/cartSlice';
 
 import cartImage from '../../asset/cart.png';
-import styled, { css } from 'styled-components';
 
 const SingleProduct = styled.li`
   box-sizing: border-box;

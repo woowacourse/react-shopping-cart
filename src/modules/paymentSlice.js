@@ -51,7 +51,6 @@ const paymentSlice = createSlice({
   reducers: {
     addItemsToOrderList: (state, { payload: items }) => {
       const filteredItems = items.filter((item) => item.checked);
-      console.log(filteredItems);
 
       return { ...state, orderList: filteredItems };
     },
@@ -80,7 +79,6 @@ const paymentSlice = createSlice({
     },
 
     [orderItemsRequest.fulfilled]: (state, action) => {
-      console.log(action);
       state.loading = false;
       state.status = STATUS.SUCCEED;
     },

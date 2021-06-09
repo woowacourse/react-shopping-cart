@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Header from '../src/components/Header';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
@@ -7,8 +8,6 @@ import CartPage from './pages/CartPage/CartPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';
 import ProductDetailPage from './pages/ProductDetailPage';
-
-import styled from 'styled-components';
 
 const PageWrapper = styled.div`
   display: flex;

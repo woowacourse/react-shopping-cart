@@ -1,11 +1,10 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
 import { COLOR } from '../../constant';
-
-import styled, { css } from 'styled-components';
 
 const SinglePaymentItem = styled.li`
   display: flex;

@@ -140,7 +140,6 @@ const cartSlice = createSlice({
     },
 
     [deleteItemFromCartRequest.fulfilled]: (state, action) => {
-      console.log('a', action);
       state.errorMessage = '';
       state.loading = false;
       state.cartItemsInServer = state.cartItemsInServer.filter((item) => item.cart_id !== Number(action.payload));

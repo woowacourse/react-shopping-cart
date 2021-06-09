@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
 
 import Flex from '../../components/utils/Flex';
-import PaymentItem from './PaymentItem';
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
+import PaymentItem from './PaymentItem';
+
+import { orderItemsRequest, reset } from '../../modules/paymentSlice';
 
 import { getTotalPrice } from '../../utils';
-import { orderItemsRequest, reset } from '../../modules/paymentSlice';
 import { COLOR, STATUS } from '../../constant';
-import styled, { css } from 'styled-components';
 
 const PaymentItemSection = styled.section`
   width: 763px;

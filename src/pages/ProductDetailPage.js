@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 import Flex from '../components/utils/Flex';
 import Image from '../components/utils/Image';
@@ -8,8 +9,6 @@ import Button from '../components/utils/Button';
 import PriceText from '../components/utils/PriceText';
 
 import { addItemToCartRequest } from '../modules/cartSlice';
-
-import styled, { css } from 'styled-components';
 import { getSingleProductRequest } from '../modules/productSlice';
 
 const ProductDetailWrapperStyle = css`

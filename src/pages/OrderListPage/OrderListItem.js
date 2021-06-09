@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled, { css } from 'styled-components';
 
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 import Button from '../../components/utils/Button';
-import { COLOR } from '../../constant';
 
 import { addItemToCartRequest } from '../../modules/cartSlice';
-import styled, { css } from 'styled-components';
+
+import { COLOR } from '../../constant';
 
 const OrderListItem = ({ order }) => {
   const dispatch = useDispatch();

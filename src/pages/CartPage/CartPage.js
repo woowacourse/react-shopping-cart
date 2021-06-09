@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
@@ -8,19 +9,14 @@ import CheckBox from '../../components/utils/CheckBox';
 import Button from '../../components/utils/Button';
 import Flex from '../../components/utils/Flex';
 import LoadingPage from '../LoadingPage';
-
 import CartItem from './CartItem';
-import tung from '../../asset/tung.png';
 
-import { allCheck, allUnCheck, deleteItemFromCartRequest } from '../../modules/cartSlice';
+import { allCheck, allUnCheck, deleteItemFromCartRequest, getCartItemsRequest } from '../../modules/cartSlice';
 import { addItemsToOrderList } from '../../modules/paymentSlice';
 
+import tung from '../../asset/tung.png';
 import { getTotalPrice } from '../../utils';
-
 import { COLOR } from '../../constant';
-
-import styled, { css } from 'styled-components';
-import { getCartItemsRequest } from '../../modules/cartSlice';
 
 const CartItemWrapperStyle = css`
   width: 1320px;

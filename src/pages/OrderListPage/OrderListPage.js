@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageTitle from '../../components/PageTitle';
-import Flex from '../../components/utils/Flex';
 import styled, { css } from 'styled-components';
 
+import PageTitle from '../../components/PageTitle';
+import Flex from '../../components/utils/Flex';
 import LoadingPage from '../LoadingPage';
-import { getOrderListRequest } from '../../modules/paymentSlice';
 import OrderListItem from './OrderListItem';
+
+import { getOrderListRequest } from '../../modules/paymentSlice';
 
 const OrderList = styled.ul`
   width: 1312px;

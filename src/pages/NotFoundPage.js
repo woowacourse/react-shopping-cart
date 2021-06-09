@@ -1,15 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 import Flex from '../components/utils/Flex';
 import Image from '../components/utils/Image';
 import Button from '../components/utils/Button';
 
 import notFoundImg from '../asset/not-found.jpeg';
-
 import { COLOR } from '../constant';
-
-import styled, { css } from 'styled-components';
 
 const ContentWrapper = styled.section`
   margin: 25px;
