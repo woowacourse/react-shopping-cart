@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { requestGet, deepCamelize, requestPost, requestDelete } from '../utils';
 import { BASE_URL } from '../constants';
-import { deepDecamelize } from '../utils';
+import { getFormattedAsKRW, deepDecamelize } from '../utils';
 
 const getProducts = async (url) => {
   const response = await requestGet({ url });
@@ -123,7 +123,7 @@ export const useCart = (customerName = '365kim') => {
     isError: error,
     mutate,
     selectedProducts,
-    totalPrice,
+    totalPrice: getFormattedAsKRW(totalPrice),
     increment,
     decrement,
     addProduct,

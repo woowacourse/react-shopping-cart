@@ -6,7 +6,6 @@ import { useCart, useConfirm } from '../../hooks';
 import { Checkbox, Header, RedirectNotice } from '../../components';
 import { Item } from './Item';
 import * as S from './style.js';
-import { getFormattedAsKRW } from '../../utils';
 import { ROUTE } from '../../constants';
 
 export const CartPage = () => {
@@ -90,7 +89,7 @@ export const CartPage = () => {
               <S.StickyCheckoutBox
                 title="결제예상금액"
                 label="결제예상금액"
-                price={getFormattedAsKRW(totalPrice)}
+                price={totalPrice}
                 buttonText={`주문하기(${selectedProducts?.length}개)`}
                 buttonDisabled={isAllUnselected}
                 onClickButton={onClickCheckoutButton}
