@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { cartAction } from '../../redux';
-import { useConfirm } from '../../hooks';
+import { useCart, useConfirm } from '../../hooks';
 import { Checkbox, Header, RedirectNotice } from '../../components';
 import { Item } from './Item';
 import * as S from './style.js';
@@ -10,38 +10,44 @@ import { getFormattedAsKRW } from '../../utils';
 import { ROUTE } from '../../constants';
 
 export const CartPage = () => {
-  const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
-  const selectedProducts = cartProducts.filter(({ isSelected }) => isSelected);
-  const totalPrice = selectedProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
-  const isAllSelected = cartProducts.every(({ isSelected }) => isSelected);
-  const isAllUnselected = !cartProducts.some(({ isSelected }) => isSelected);
-
-  const history = useHistory();
-  const onClickCheckoutButton = () => {
-    history.push(ROUTE.CHECKOUT);
-  };
-
   const dispatch = useDispatch();
+  const history = useHistory();
   const { openConfirm } = useConfirm();
+  const {
+    products,
+    selectedProducts,
+    totalPrice,
+    increment,
+    decrement,
+    removeProduct,
+    removeProducts,
+    toggleProduct,
+    toggleAll,
+  } = useCart();
+  const isAllSelected = products?.length === selectedProducts?.length;
+  const isAllUnselected = selectedProducts?.length === 0;
 
-  const onClickDeleteButton = () => {
+  const onClickRemoveButton = () => {
     openConfirm({
-      message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
-      approve: () => dispatch(cartAction.removeSelectedProducts()),
+      message: `선택한 ${selectedProducts?.length}개의 상품을 삭제하시겠습니까?`,
+      approve: () => removeProducts(),
     });
   };
-  const onClickTrashIconButton = (id) => {
+  const onClickTrashIconButton = (productId) => {
     openConfirm({
       message: `해당 상품을 삭제하시겠습니까?`,
-      approve: () => dispatch(cartAction.removeProduct(id)),
+      approve: () => removeProduct(productId),
     });
+  };
+  const onClickCheckoutButton = () => {
+    history.push(ROUTE.CHECKOUT);
   };
 
   return (
     <S.Page>
       <Header>장바구니</Header>
       <S.Main>
-        {cartProducts.length === 0 ? (
+        {!products || products?.length === 0 ? (
           <RedirectNotice
             interjection="텅..."
             notice={`상품 목록에서 원하는 상품을 추가해 볼까요...?`}
@@ -55,24 +61,24 @@ export const CartPage = () => {
                 <Checkbox
                   label={isAllSelected ? '선택해제' : '전체선택'}
                   isChecked={isAllSelected}
-                  onChange={() => dispatch(cartAction.toggleAllProductsSelection(!isAllSelected))}
+                  onChange={() => toggleAll(!isAllSelected)}
                 />
-                <S.DeleteButton onClick={onClickDeleteButton} disabled={isAllUnselected}>
+                <S.RemoveButton onClick={onClickRemoveButton} disabled={isAllUnselected}>
                   상품삭제
-                </S.DeleteButton>
+                </S.RemoveButton>
               </S.OrderOptionsController>
               <S.ListLabel>
-                선택상품 ({selectedProducts.length} / {cartProducts.length}개)
+                선택상품 ({selectedProducts?.length} / {products?.length}개)
               </S.ListLabel>
               <S.CartProductList>
-                {cartProducts.map((product) => (
+                {products?.map((product) => (
                   <Item
-                    key={product.id}
+                    key={product.cartId}
                     product={product}
                     removeProduct={(id) => onClickTrashIconButton(id)}
-                    toggleCheckbox={(id) => dispatch(cartAction.toggleProductSelection(id))}
-                    incrementQuantity={(id) => dispatch(cartAction.incrementProductQuantity(id))}
-                    decrementQuantity={(id) => dispatch(cartAction.decrementProductQuantity(id))}
+                    toggleCheckbox={(id) => toggleProduct(id)}
+                    incrementQuantity={(id) => increment(id)}
+                    decrementQuantity={(id) => decrement(id)}
                     inputQuantity={(id, quantity) =>
                       dispatch(cartAction.inputProductQuantity(id, quantity))
                     }
@@ -85,7 +91,7 @@ export const CartPage = () => {
                 title="결제예상금액"
                 label="결제예상금액"
                 price={getFormattedAsKRW(totalPrice)}
-                buttonText={`주문하기(${selectedProducts.length}개)`}
+                buttonText={`주문하기(${selectedProducts?.length}개)`}
                 buttonDisabled={isAllUnselected}
                 onClickButton={onClickCheckoutButton}
               />

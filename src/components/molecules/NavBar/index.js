@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
+import { useCart } from '../../../hooks';
 import { IconCart } from '../../';
 import * as S from './style.js';
 import { ROUTE, COLOR } from '../../../constants';
 
 export const NavBar = (props) => {
   const { ...rest } = props;
-  const cartLength = useSelector(({ cartReducer }) => Object.keys(cartReducer).length);
+  const { products } = useCart();
+  const cartLength = products?.length || 0;
 
   return (
     <S.NavBar {...rest}>

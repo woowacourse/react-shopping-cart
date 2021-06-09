@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Button, CheckoutBox, List, Template } from '../../components';
-import { COLOR, PATTERN_FILE_NAME } from '../../constants';
+import { COLOR } from '../../constants';
 
 export const Page = styled(Template)`
   background-color: ${COLOR.HEX.WHITE};
@@ -25,7 +25,7 @@ export const OrderOptionsController = styled.p`
   justify-content: space-between;
 `;
 
-export const DeleteButton = styled(Button)`
+export const RemoveButton = styled(Button)`
   width: 7.375rem;
   height: 3.125rem;
   font-size: 1rem;
@@ -94,9 +94,9 @@ export const Price = styled.span`
   text-align: right;
 `;
 
-export const Image = styled.img.attrs((props) => ({
-  src: props.src,
-  alt: props.src.match(PATTERN_FILE_NAME)[0],
-}))`
-  width: 9rem;
+export const Image = styled.img`
+  width: 6rem;
+  height: 8rem;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
 `;
