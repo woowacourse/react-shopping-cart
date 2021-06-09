@@ -15,7 +15,7 @@ import tung from '../../asset/tung.png';
 import { allCheck, allUnCheck, deleteItemFromCartRequest } from '../../modules/cartSlice';
 import { addItemsToOrderList } from '../../modules/paymentSlice';
 
-import { deleteCheckedItems, getTotalPrice } from '../../utils';
+import { getTotalPrice } from '../../utils';
 
 import { COLOR } from '../../constant';
 
@@ -99,14 +99,16 @@ const CartPage = () => {
   };
 
   const onDeleteCheckedItemsButtonClick = () => {
-    deleteCheckedItems(dispatch, checkedItemIds);
+    checkedItemIds.forEach((itemId) => {
+      dispatch(deleteItemFromCartRequest(itemId.cart_id));
+    });
   };
 
   const onDeleteItemButtonClick = (cart_id) => {
     dispatch(deleteItemFromCartRequest(cart_id));
   };
 
-  const handleOrderButtonClick = () => {
+  const onOrderButtonClick = () => {
     dispatch(addItemsToOrderList(cartItemsInServer));
   };
 
@@ -164,7 +166,7 @@ const CartPage = () => {
             price={getTotalPrice(cartItemsInServer)}
             selectedItemIds={checkedItemIds}
             linkPath="/payment"
-            onClick={handleOrderButtonClick}
+            onClick={onOrderButtonClick}
             disabled={checkedItemIds.length === 0}
           />
         </Flex>

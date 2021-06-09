@@ -47,7 +47,7 @@ const PaymentPage = () => {
     }
   }, [status, errorMessage, dispatch, orderList]);
 
-  const handlePaymentButtonClick = async (orderList) => {
+  const onPaymentButtonClick = async (orderList) => {
     await dispatch(orderItemsRequest(orderList));
   };
 
@@ -67,7 +67,7 @@ const PaymentPage = () => {
         <FloatingBox
           price={getTotalPrice(orderList)}
           linkPath={'/orders'}
-          onClick={() => handlePaymentButtonClick(orderList)}
+          onClick={() => onPaymentButtonClick(orderList)}
         />
       </Flex>
     </>
