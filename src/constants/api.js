@@ -1,4 +1,4 @@
-export const END_POINT = 'https://shopping-cart.techcourse.co.kr/api';
+export const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 
 export const PATH = {
   PRODUCT_LIST: '/products',
