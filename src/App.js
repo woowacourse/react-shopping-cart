@@ -1,6 +1,5 @@
 import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import Header from './components/Header';
 import Navigation from './components/Navigation';
@@ -10,23 +9,15 @@ import OrdersPage from './pages/OrdersPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProductListPage from './pages/ProductListPage';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
-import Snackbar from './components/common/Snackbar';
 import ErrorModal from './components/common/Modal/ErrorModal';
 
 import { HEADER, PAGES, SNACKBAR_DURATION } from './constants/appInfo';
 import PALETTE from './constants/palette';
 
 import useSnackbar from './hooks/useSnackbar';
-import { resetErrorMessage } from './redux/ErrorMessage/actions';
 
 const App = () => {
-  const { errorMessage } = useSelector((state) => state);
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
-  const dispatch = useDispatch();
-
-  const onCloseErrorMessageModal = () => {
-    dispatch(resetErrorMessage());
-  };
+  const [snackbarMessage, setSnackbarMessage, Snackbar] = useSnackbar(SNACKBAR_DURATION);
 
   return (
     <Router>
@@ -53,15 +44,8 @@ const App = () => {
           <OrdersPage />
         </Route>
       </Switch>
-      {errorMessage && <ErrorModal onClose={onCloseErrorMessageModal} textContent={errorMessage} />}
-      {snackbarMessage && (
-        <Snackbar
-          key={Math.random()}
-          message={snackbarMessage}
-          ms={SNACKBAR_DURATION}
-          backgroundColor={PALETTE.GRAY_008}
-        />
-      )}
+      <ErrorModal />
+      <Snackbar backgroundColor={PALETTE.GRAY_008} />
     </Router>
   );
 };

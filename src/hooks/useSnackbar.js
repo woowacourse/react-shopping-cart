@@ -1,9 +1,11 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { resetSnackbar, setSnackbar } from '../redux/Snackbar/actions';
+import Snackbar from '../components/common/Snackbar';
 
 import useUpdateEffect from './useUpdateEffect';
+import { resetSnackbar, setSnackbar } from '../redux/Snackbar/actions';
 
 const useSnackbar = (ms) => {
   const { message } = useSelector((state) => state.snackbar);
@@ -28,7 +30,14 @@ const useSnackbar = (ms) => {
     };
   }, []);
 
-  return [message.text, setSnackbarMessage];
+  const SnackbarComponent = ({ backgroundColor }) =>
+    message.text && <Snackbar key={Math.random()} message={message.text} ms={ms} backgroundColor={backgroundColor} />;
+
+  SnackbarComponent.propTypes = {
+    backgroundColor: PropTypes.string,
+  };
+
+  return [message.text, setSnackbarMessage, SnackbarComponent];
 };
 
 export default useSnackbar;
