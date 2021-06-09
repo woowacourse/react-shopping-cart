@@ -2,19 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledButton } from './index.styles';
 
-const Button = ({
-  children,
-  onClick,
-  backgroundColor = '',
-  disabled = false,
-  type = 'button',
-}) => (
-  <StyledButton
-    onClick={onClick}
-    backgroundColor={backgroundColor}
-    disabled={disabled}
-    type={type}
-  >
+const Button = ({ children, backgroundColor = '', onClick, ...attrs }) => (
+  <StyledButton onClick={onClick} backgroundColor={backgroundColor} {...attrs}>
     {children}
   </StyledButton>
 );

@@ -1,53 +1,58 @@
-import { useEffect, useState } from 'react';
-import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
-import { NavBar, ShoppingCart, Products, OrderPayment } from './components';
-import productReducer from './reducers/products';
+import {
+  NavBar,
+  ShoppingCart,
+  Products,
+  OrderPayment,
+  Details,
+  CompletedOrder,
+  ErrorBoundary,
+} from './components';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ROUTE } from './constants';
 import GlobalStyle from './global.styles';
+import OrderDetails from './components/pages/OrderDetails';
+import { configureStore } from './store';
 
-const reducer = combineReducers({
-  product: productReducer,
-});
-
-const store = createStore(reducer);
-
+const { store, persistor } = configureStore();
 function App() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    // TODO: 미들 웨어 적용
-    async function fetchProducts() {
-      try {
-        const response = await axios.get('/baskets');
-
-        setProducts(response.data);
-      } catch (error) {
-        //TODO: 상품을 못 받아 왔을 때, 안내 화면 띄우기
-        console.error(error.message);
-      }
-    }
-
-    fetchProducts();
-  }, []);
-
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <Router>
-        <NavBar />
-        <Route exact path={[ROUTE.HOME, ROUTE.PRODUCTS]}>
-          <Products products={products} />
-        </Route>
-        <Route exact path={ROUTE.CART}>
-          <ShoppingCart products={products} />
-        </Route>
-        <Route exact path={ROUTE.ORDER_PAYMENT}>
-          <OrderPayment products={products} />
-        </Route>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <GlobalStyle />
+        <Router>
+          <ErrorBoundary>
+            <NavBar />
+
+            <Route
+              exact
+              path={[ROUTE.HOME, ROUTE.PRODUCTS]}
+              render={props => <Products {...props} />}
+            />
+            <Route
+              path={ROUTE.CART}
+              render={props => <ShoppingCart {...props} />}
+            />
+            <Route
+              path={ROUTE.ORDER_PAYMENT}
+              render={props => <OrderPayment {...props} />}
+            />
+            <Route
+              path={'/product/:product_id'}
+              render={props => <Details {...props} />}
+            />
+            <Route
+              path={'/completed-order'}
+              render={props => <CompletedOrder {...props} />}
+            />
+            <Route
+              path={'/order-details/:order_id'}
+              render={props => <OrderDetails {...props} />}
+            />
+          </ErrorBoundary>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 }

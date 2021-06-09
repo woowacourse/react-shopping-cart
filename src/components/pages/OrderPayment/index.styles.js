@@ -1,24 +1,37 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
-  padding: 7rem 15rem;
-`;
-
 export const Main = styled.main`
   width: 100%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
+  max-width: 50rem;
+  margin: 1rem auto;
+
+  @media (max-width: 960px) {
+    padding: 0;
+    display: block;
+  }
 
   & > div:first-child {
-    flex-basis: 70%;
+    flex-basis: 66.5%;
     padding-right: 4rem;
+
+    @media (max-width: 960px) {
+      padding: 0;
+    }
   }
 
   & > div:last-child {
-    flex-basis: 30%;
+    flex-basis: 33.5%;
     margin-top: 3rem;
+    min-width: 16rem;
+
+    @media (max-width: 960px) {
+      max-width: 100%;
+      border: 0;
+    }
   }
 `;
 

@@ -2,26 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OrderItem from '../OrderItem';
 import { Header, OrderList } from './index.styles';
+import { Link } from 'react-router-dom';
+import useProducts from '../../hooks/useProducts';
+import useLoading from '../../hooks/useLoading';
 
 const CompletedOrderList = ({ order }) => {
-  const { id, products } = order;
+  const { order_id, order_details } = order;
+  const { show } = useLoading();
+  const { addToCart } = useProducts();
 
   return (
     <OrderList>
-      <Header>
-        <span>주문번호 : {id}</span>
-        <span>상세보기 ᐳ </span>
-      </Header>
+      <Link
+        to={{
+          pathname: `/order-details/${order_id}`,
+          state: { id: order_id },
+        }}
+      >
+        <Header hover={true}>
+          <span>주문번호 : {order_id}</span>
+          <span>상세보기 ᐳ</span>
+        </Header>
+      </Link>
       <ul>
-        {/* TODO: Backend API에 맞게 Key 수정 */}
-        {products.map(({ id, imgUrl, name, price, quantity }) => (
-          <li key={id}>
+        {order_details.map(product => (
+          <li key={product.product_id}>
             <OrderItem
-              imgUrl={imgUrl}
-              name={name}
-              price={price}
-              quantity={quantity}
+              image_url={product.image_url}
+              name={product.name}
+              price={product.price}
+              quantity={product.quantity}
               isCartButtonVisible={true}
+              addToCart={() => addToCart(product, show)}
             />
           </li>
         ))}

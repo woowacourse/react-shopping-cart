@@ -1,10 +1,52 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Main = styled.main`
-  background-color: var(--color-background);
-  padding: 7rem 15rem;
+export const SortedItems = styled.ul`
+  max-width: 50rem;
+  margin: 1rem auto;
+`;
 
+export const Main = styled.div`
   & > ul > li {
     margin-bottom: 2rem;
+  }
+`;
+
+const Checked = css`
+  color: var(--color-mint);
+  font-weight: 800;
+`;
+
+export const PageButton = styled.button`
+  padding: 1rem;
+  font-size: 0.825rem;
+
+  ${({ currentPage, page }) => currentPage === page && Checked}
+
+  :hover {
+    color: var(--color-mint);
+  }
+`;
+
+export const PageButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+`;
+
+export const PageButtonDimmer = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+`;
+
+export const PaginationWrapper = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+export const ArrowButton = styled.button`
+  :hover::not(:disabled) {
+    color: var(--color-mint);
   }
 `;

@@ -2,11 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-  :root {
+:root {
   /* Color */
   --color-background: #E5E5E5;
 
   --color-mint: #2AC1BC;
+  --color-mint-500: #00847f;
   --color-brown: #73675C;
   --color-white: #ffffff;
   --color-light-grey: #F6F6F6;
@@ -32,24 +33,28 @@ const GlobalStyle = createGlobalStyle`
   --weight-regular: 400;
   --weight-small: 300;
 }
-
   /* Universal tags */
   * {
     box-sizing: border-box;
+    user-select: none;
     font-family: 'Noto Sans KR', sans-serif;
     margin:0;
     padding:0;
+    border: 0;
+    outline: 0;
   }
 
-  html, body {
+  html, body, #root, .App {
     height: 100%;
     cursor: default;
     margin:0;
     padding:0;
-  }
 
-  #root {
-    height: 100%;
+    &::-webkit-scrollbar {
+      display: none;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
 
   a {
@@ -70,6 +75,13 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     background: transparent;
     border: 0;
+  }
+
+  @keyframes gelatine {
+    from, to { transform: scale(1, 1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
   }
 `;
 

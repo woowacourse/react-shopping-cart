@@ -1,27 +1,44 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
-  padding: 7rem;
-  min-width: 55rem;
-  max-width: 65rem;
-  margin: 0 auto;
-`;
-
 export const Main = styled.main`
   width: 100%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
+  max-width: 50rem;
+  margin: 1rem auto;
+
+  @media (max-width: 1090px) {
+    padding: 0;
+    display: block;
+  }
 
   & > div:first-child {
-    flex-basis: 70%;
-    padding-right: 4rem;
+    flex: 1.825;
+    padding-right: 2rem;
+    min-width: 30rem;
+
+    @media (max-width: 1090px) {
+      padding-right: 0;
+    }
+
+    @media (max-width: 960px) {
+      padding-right: 0;
+      min-width: 18rem;
+    }
   }
 
   & > div:last-child {
-    flex-basis: 30%;
+    flex: 1;
     margin-top: 3rem;
+    min-width: 16rem;
+
+    @media (max-width: 1090px) {
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+    }
   }
 `;
 

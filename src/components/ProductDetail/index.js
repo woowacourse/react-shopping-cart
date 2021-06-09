@@ -1,39 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../common/Button';
-import { Detail, Image, Name, PriceWrapper, Product } from './index.styles';
-import { FALLBACK } from '../../constants';
+import Button from '../@common/Button';
+import Image from '../@common/Image';
+import useProducts from '../../hooks/useProducts';
+import useLoading from '../../hooks/useLoading';
+import { formatPrice } from '../../utils';
+import { PALETTE } from '../../constants';
+import { Detail, Name, PriceWrapper, Product } from './index.styles';
 
-const BUTTON_COLOR = 'var(--color-brown)';
+const ProductDetail = ({ product }) => {
+  const { show } = useLoading();
+  const { addToCart } = useProducts();
+  const { name, price, image_url } = product;
 
-const ProductDetail = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
-  name = FALLBACK.PRODUCT.NAME,
-  price = FALLBACK.PRODUCT.PRICE,
-  // onClick = () => {},
-}) => (
-  <Product>
-    <Detail>
-      <Image src={imgUrl} alt={imgAlt} />
-      <Name>{name}</Name>
-      <PriceWrapper>
-        <span>금액</span>
-        <span>{price}원</span>
-      </PriceWrapper>
-    </Detail>
-    <Button backgroundColor={BUTTON_COLOR} onClick={() => {}}>
-      장바구니
-    </Button>
-  </Product>
-);
+  return (
+    <Product>
+      <Detail>
+        <Image src={image_url} alt={name} />
+        <Name>{name}</Name>
+        <PriceWrapper>
+          <span>금액</span>
+          <span>{formatPrice(price)}원</span>
+        </PriceWrapper>
+      </Detail>
+      <Button
+        backgroundColor={PALETTE.BROWN}
+        onClick={() => addToCart(product, show)}
+      >
+        장바구니
+      </Button>
+    </Product>
+  );
+};
 
 ProductDetail.propTypes = {
-  imgUrl: PropTypes.string,
-  imgAlt: PropTypes.string,
+  image_url: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
-  // onClick: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default ProductDetail;

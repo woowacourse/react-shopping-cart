@@ -1,20 +1,26 @@
 import styled from 'styled-components';
 
 export const Product = styled.div`
-  width: 12rem;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 0 auto;
-`;
 
-export const Image = styled.img.attrs(({ src, alt }) => ({ src, alt }))`
-  width: 100%;
-  height: 12rem;
-  margin-bottom: 0.5rem;
-  object-fit: contain;
-  border: 1px solid var(--color-grey-100);
+  & > a {
+    width: 100%;
+    height: ${({ smallImage }) => (smallImage ? '8rem;' : '12rem;')}
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-grey-100);
+
+    & > img {
+      width: 100%;
+      min-width: 6.375rem;
+      background-color: var(--color-white);
+      object-fit: contain;
+    }
+  }
 `;
 
 export const Description = styled.div`
@@ -37,4 +43,12 @@ export const Name = styled.span`
 
 export const Price = styled.span`
   font-size: var(--font-small);
+`;
+
+export const CartButton = styled.button`
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.125);
+  }
 `;

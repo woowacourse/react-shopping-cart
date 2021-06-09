@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CheckBox from '../common/CheckBox';
+import CheckBox from '../@common/CheckBox';
 import QuantityInput from '../QuantityInput';
 import { TrashCan } from '../../assets/svg';
 import { FALLBACK } from '../../constants';
-import { Controller, Image, Name, Product } from './index.styles';
+import { Controller, Name, Product, ImageWrapper } from './index.styles';
 import { formatPrice } from '../../utils';
+import Image from '../@common/Image';
 
 const ShoppingItem = ({
-  imgUrl = FALLBACK.PRODUCT.IMG_URL,
-  imgAlt = FALLBACK.PRODUCT.IMG_ALT,
+  image_url = FALLBACK.PRODUCT.IMG_URL,
   name = FALLBACK.PRODUCT.NAME,
   price = FALLBACK.PRODUCT.PRICE,
   quantity = FALLBACK.PRODUCT.QUANTITY,
@@ -22,7 +22,9 @@ const ShoppingItem = ({
   return (
     <Product>
       <CheckBox isChecked={isChecked} onCheckBoxClick={onCheckBoxClick} />
-      <Image src={imgUrl} alt={imgAlt} />
+      <ImageWrapper>
+        <Image src={image_url} alt={name} />
+      </ImageWrapper>
       <Name>{name}</Name>
       <Controller>
         <button type="button" onClick={onDeleteButtonClick}>
@@ -42,7 +44,7 @@ const ShoppingItem = ({
 };
 
 ShoppingItem.propTypes = {
-  imgUrl: PropTypes.string,
+  image_url: PropTypes.string,
   imgAlt: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,

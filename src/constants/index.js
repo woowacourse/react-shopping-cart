@@ -1,7 +1,9 @@
 import noImage from '../assets/image/noImage.jpeg';
+import loading from '../assets/image/loading.gif';
 
 export const ACTION_TYPE = {
   PRODUCTS: {
+    ADD_INITIAL_PRODUCT: 'product/addInitialProductToCart',
     ADD_TO_CART: 'products/addToCart',
     INCREASE_QUANTITY: 'products/increaseQuantity',
     DECREASE_QUANTITY: 'products/decreaseQuantity',
@@ -9,6 +11,19 @@ export const ACTION_TYPE = {
     TOGGLE_ENTIRE_CHECKED: 'products/toggleEntireChecked',
     DELETE_CHECKED: 'products/deleteCheckedProducts',
     DELETE: 'products/deleteProduct',
+    SET_PRODUCTS: 'products/setProducts',
+    GET_PRODUCT_DETAIL: 'products/getProductDetail',
+    RESET_PRODUCT_DETAIL: 'products/resetProductDetail',
+    SET_CARTS: 'products/setCarts',
+    RESET_CARTS: 'products/resetCarts',
+  },
+
+  URL: {
+    GET_URL: 'url/restrictDirectAccess',
+  },
+
+  ORDERS: {
+    SET_COMPLETED_ORDERS: 'orders/completed',
   },
 };
 
@@ -19,6 +34,7 @@ export const FALLBACK = {
     PRICE: -1,
     QUANTITY: 1,
     CHECKED: true,
+    LOADING: loading,
   },
 };
 
@@ -28,6 +44,8 @@ export const ROUTE = {
   CART: '/cart',
   ORDER_PAYMENT: '/order-payment',
   COMPLETED_ORDER: '/completed-order',
+  ORDER_DETAILS: '/order-details',
+  PRODUCT_DETAILS: '/product-details',
 };
 
 export const PRODUCT = {
@@ -35,4 +53,12 @@ export const PRODUCT = {
     MIN: 1,
     MAX: 100,
   },
+};
+
+export const SORT_RANDOM_ITEMS = {
+  STANDARD: 'id',
+};
+
+export const PALETTE = {
+  BROWN: 'var(--color-brown)',
 };

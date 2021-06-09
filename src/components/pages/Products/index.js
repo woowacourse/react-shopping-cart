@@ -1,38 +1,56 @@
-import React from 'react';
-import ProductItem from '../../ProductItem';
-import { ProductList, ProductPage } from './index.styles';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { ACTION_TYPE } from '../../../constants';
+import ProductItem from '../../ProductItem';
+import { ProductList } from './index.styles';
+import useProducts from '../../../hooks/useProducts';
+import useLoading from '../../../hooks/useLoading';
+import Loading from '../../@common/Loading';
+import { Page } from '../../@common/PageWrapper/index.styles';
 
-const Products = ({ products }) => {
-  const dispatch = useDispatch();
+const Products = () => {
+  const { loading, show } = useLoading();
+  const {
+    products,
+    cartItems,
+    updateProductState,
+    updateCartState,
+    updateProductURL,
+    addToCart,
+  } = useProducts();
 
-  const handleCartButtonClick = product => {
-    dispatch({ type: ACTION_TYPE.PRODUCTS.ADD_TO_CART, product });
-  };
+  useEffect(() => {
+    updateProductURL();
+    updateProductState();
+
+    if (cartItems.length !== 0) return;
+    updateCartState();
+  }, []);
 
   return (
-    <ProductPage>
+    <Page noPadding={true}>
+      {loading && <Loading />}
       <ProductList>
-        {products.map(product => (
-          <li key={product.id}>
-            <ProductItem
-              {...product}
-              onCartButtonClick={() => handleCartButtonClick({ ...product })}
-            />
-          </li>
-        ))}
+        {products &&
+          Object.values(products).map(product => {
+            return (
+              <li key={product.product_id}>
+                <ProductItem
+                  {...product}
+                  onCartButtonClick={() => addToCart(product, show)}
+                />
+              </li>
+            );
+          })}
       </ProductList>
-    </ProductPage>
+    </Page>
   );
 };
 
 Products.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      image: PropTypes.string,
+      product_id: PropTypes.number,
+      image_url: PropTypes.string,
       name: PropTypes.string,
       price: PropTypes.number,
     })
