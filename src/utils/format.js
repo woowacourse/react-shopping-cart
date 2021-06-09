@@ -1,7 +1,5 @@
 export const getFormattedAsKRW = (number) => {
-  const numberWithCommas = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  return `${numberWithCommas} 원`;
+  return Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(number);
 };
 
 export const getDateInNumber = () => {
