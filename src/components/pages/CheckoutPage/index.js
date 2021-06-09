@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGES } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
-import { removeCheckedProducts } from '../../../redux/Cart/actions';
+import PALETTE from '../../../constants/palette';
+import { getCart, removeCheckedProducts, resetCart } from '../../../redux/Cart/actions';
 import { setOrder } from '../../../redux/Orders/actions';
 import FlexContainer from '../../common/FlexContainer';
+import Spinner from '../../common/Icon/Spinner';
+import Loader from '../../common/Loader';
 import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
 import PriceInfoBox from '../../shared/PriceInfoBox';
@@ -13,43 +16,52 @@ import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
 const CheckoutPage = () => {
-  const { cart } = useSelector((state) => state);
+  const {
+    cart: { cartList },
+    isLoading,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const checkedProducts = cart.filter((product) => product.isChecked);
-  const totalPrice = checkedProducts.reduce((prev, product) => prev + Number(product.price) * product.amount, 0);
+  const checkedProducts = cartList.filter((product) => product.isChecked);
+  const totalPrice = checkedProducts.reduce((prev, product) => prev + Number(product.price) * product.quantity, 0);
 
   const onOrder = () => {
     if (!confirm(APP_MESSAGE.PAYMENT_CONFIRMATION)) return;
 
+    const cartIds = checkedProducts.map((product) => product.cart_id);
     const order = checkedProducts.map((product) => {
-      const productCopy = { ...product };
-      delete productCopy.isChecked;
+      const productOrderData = {
+        cart_id: product.cart_id,
+        quantity: product.quantity,
+      };
 
-      return productCopy;
+      return productOrderData;
     });
 
     dispatch(setOrder(order));
-    dispatch(removeCheckedProducts());
+    dispatch(removeCheckedProducts(cartIds));
 
     window.location.hash = `#${PAGES.ORDERS.ADDRESS}`;
   };
 
   return (
     <Main>
+      <Loader animationType={'spin'} isLoading={isLoading}>
+        <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
+      </Loader>
       <PageTitle>{PAGES.CHECKOUT.NAME}</PageTitle>
       <FlexContainer align="flex-start">
         <FlexContainer width="58%" margin="3rem auto 0 1.5rem" direction="column">
           <Styled.ProductListTitle>{`주문 상품(${checkedProducts.length}건)`}</Styled.ProductListTitle>
           <ProductList>
-            {checkedProducts.map((product) => (
+            {checkedProducts?.map((product) => (
               <ProductListItem
-                key={product.id}
+                key={product.product_id}
                 listStyle="lineStyle"
                 isCheckbox={false}
                 imageSize="7.5rem"
                 product={product}
-                productDetail={{ text: `수량: ${product.amount}` }}
+                productDetail={{ text: `수량: ${product.quantity}` }}
               />
             ))}
           </ProductList>

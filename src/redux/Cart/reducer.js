@@ -9,8 +9,8 @@ import {
   REMOVE_PRODUCT_SUCCESS,
   REMOVE_CHECKED_PRODUCTS_SUCCESS,
   TOGGLE_CART_CHECKBOX,
-  CHANGE_AMOUNT,
-  INCREASE_AMOUNT,
+  CHANGE_QUANTITY,
+  RESET_CART,
 } from './actions';
 
 const initState = {
@@ -60,7 +60,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product.product_id === action.productId ? { ...product, isChecked: !product.isChecked } : product
+          product.cart_id === action.cartId ? { ...product, isChecked: !product.isChecked } : product
         ),
       };
 
@@ -72,31 +72,26 @@ const cartReducer = (state = initState, action) => {
 
     case REMOVE_CHECKED_PRODUCTS_SUCCESS:
       return {
-        ...state,
         cartList: state.cartList.filter((product) => !product.isChecked),
+        isLoading: false,
       };
 
     case REMOVE_PRODUCT_SUCCESS:
       return {
-        ...state,
-        cartList: state.cartList.filter((product) => product.product_id !== action.productId),
+        cartList: state.cartList.filter((product) => product.cart_id !== action.cartId),
+        isLoading: false,
       };
 
-    case CHANGE_AMOUNT:
+    case CHANGE_QUANTITY:
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product.product_id === action.productId ? { ...product, amount: action.amount } : product
+          product.cart_id === action.cartId ? { ...product, quantity: action.quantity } : product
         ),
       };
 
-    case INCREASE_AMOUNT:
-      return {
-        ...state,
-        cartList: state.cartList.map((product) =>
-          product.product_id === action.productId ? { ...product, amount: product.amount + 1 } : product
-        ),
-      };
+    case RESET_CART:
+      return initState;
 
     default:
       return state;

@@ -32,7 +32,7 @@ export const HEADER = {
 
 export const UNIT = {
   MONEY: '원',
-  AMOUNT: '개',
+  QUANTITY: '개',
 };
 
 export const SNACKBAR_DURATION = 1000;

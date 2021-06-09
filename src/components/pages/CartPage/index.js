@@ -6,14 +6,14 @@ import PALETTE from '../../../constants/palette';
 import useUpdateEffect from '../../../hooks/useUpdateEffect';
 import {
   toggleAllCheckboxesInCart,
-  changeAmount,
+  changeQuantity,
   removeCheckedProducts,
   removeProduct,
   toggleCartCheckbox,
   getCart,
   resetCart,
 } from '../../../redux/Cart/actions';
-import AmountInput from '../../common/AmountInput';
+import QuantityInput from '../../common/QuantityInput';
 import Button from '../../common/Button';
 import Checkbox from '../../common/Checkbox';
 import FlexContainer from '../../common/FlexContainer';
@@ -33,12 +33,12 @@ const CartPage = () => {
   const dispatch = useDispatch();
 
   const totalPrice = cartList?.reduce(
-    (sum, product) => (sum += product.isChecked ? product.price * product.amount : 0),
+    (sum, product) => (sum += product.isChecked ? product.price * product.quantity : 0),
     0
   );
 
-  const onChangeCheckbox = (productId) => {
-    dispatch(toggleCartCheckbox(productId));
+  const onChangeCheckbox = (cartId) => {
+    dispatch(toggleCartCheckbox(cartId));
   };
 
   const onChangeAllCheckbox = () => {
@@ -51,12 +51,12 @@ const CartPage = () => {
     dispatch(removeCheckedProducts(checkedCartIds));
   };
 
-  const onRemoveProduct = (productId, cartId) => () => {
-    dispatch(removeProduct(productId, cartId));
+  const onRemoveProduct = (cartId) => () => {
+    dispatch(removeProduct(cartId));
   };
 
-  const onChangeAmount = (productId) => (amount) => {
-    dispatch(changeAmount(productId, amount));
+  const onChangeQuantity = (cartId) => (quantity) => {
+    dispatch(changeQuantity(cartId, quantity));
   };
 
   const onCheckout = () => {
@@ -76,10 +76,6 @@ const CartPage = () => {
     const isProductExists = !!cartList.length;
     dispatch(toggleAllCheckboxesInCart(isProductExists));
     setIsAllChecked(isProductExists);
-
-    return () => {
-      dispatch(resetCart());
-    };
   }, []);
 
   useUpdateEffect(() => {
@@ -131,14 +127,14 @@ const CartPage = () => {
               >
                 <div>
                   <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
-                    <Button
-                      type="button"
-                      onClick={onRemoveProduct(product.product_id, product.cart_id)}
-                      backgroundColor="transparent"
-                    >
+                    <Button type="button" onClick={onRemoveProduct(product.cart_id)} backgroundColor="transparent">
                       <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                     </Button>
-                    <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.product_id)} />
+                    <QuantityInput
+                      quantity={product.quantity}
+                      min={1}
+                      setQuantity={onChangeQuantity(product.cart_id)}
+                    />
                     <p>{Number(product.price).toLocaleString()} 원</p>
                   </FlexContainer>
                 </div>

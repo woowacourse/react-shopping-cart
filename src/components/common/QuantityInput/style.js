@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PALETTE from '../../../constants/palette';
 
-export const AmountInputContainer = styled.div`
+export const QuantityInputContainer = styled.div`
   border: 1px solid ${PALETTE.GRAY_004};
   width: 7.125rem;
   height: 3.75rem;

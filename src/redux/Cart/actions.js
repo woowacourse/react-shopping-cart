@@ -13,8 +13,7 @@ export const ADD_TO_CART_ERROR = 'cart/add_to_cart/error';
 
 export const TOGGLE_CART_CHECKBOX = 'cart/toggle_cart_checkbox';
 export const TOGGLE_ALL_CHECKBOXES_IN_CART = 'cart/toggle_all_checkboxes_in_cart';
-export const INCREASE_AMOUNT = 'cart/increase_amount';
-export const CHANGE_AMOUNT = 'cart/change_amount';
+export const CHANGE_QUANTITY = 'cart/change_quantity';
 
 export const REMOVE_CHECKED_PRODUCTS_PENDING = 'cart/remove_checked_products/pending';
 export const REMOVE_CHECKED_PRODUCTS_SUCCESS = 'cart/remove_checked_products/success';
@@ -67,14 +66,14 @@ export const addToCart = (product) => (dispatch, getState) => {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(ERROR_MESSAGE.FAILED_TO_GET_CART);
+        throw new Error(ERROR_MESSAGE.FAILED_TO_ADD_TO_CART);
       }
 
       if (response.status === 201) {
         const responseLocation = response.headers.get('location');
         const cartId = responseLocation.slice(responseLocation.lastIndexOf('/') + 1);
         const cartItem = {
-          amount: 1,
+          quantity: 1,
           cart_id: cartId,
           image_url: product.image_url,
           isChecked: true,
@@ -82,6 +81,7 @@ export const addToCart = (product) => (dispatch, getState) => {
           price: product.price,
           product_id: product.product_id,
         };
+
         dispatch({
           type: ADD_TO_CART_SUCCESS,
           cartItem,
@@ -96,10 +96,10 @@ export const addToCart = (product) => (dispatch, getState) => {
     );
 };
 
-export const toggleCartCheckbox = (productId) => {
+export const toggleCartCheckbox = (cartId) => {
   return {
     type: TOGGLE_CART_CHECKBOX,
-    productId,
+    cartId,
   };
 };
 
@@ -136,12 +136,12 @@ export const removeCheckedProducts = (cartIds) => async (dispatch, getState) => 
     )
   ).then((data) => {
     dispatch({
-      type: REMOVE_PRODUCT_SUCCESS,
+      type: REMOVE_CHECKED_PRODUCTS_SUCCESS,
     });
   });
 };
 
-export const removeProduct = (productId, cartId) => (dispatch, getState) => {
+export const removeProduct = (cartId) => (dispatch, getState) => {
   dispatch({ type: REMOVE_PRODUCT_PENDING });
   fetch(`${API_URL.CART}/${cartId}`, {
     method: 'DELETE',
@@ -154,12 +154,9 @@ export const removeProduct = (productId, cartId) => (dispatch, getState) => {
         throw new Error(ERROR_MESSAGE.FAILED_TO_REMOVE_FROM_CART);
       }
 
-      return response;
-    })
-    .then((response) => {
       dispatch({
         type: REMOVE_PRODUCT_SUCCESS,
-        productId,
+        cartId,
       });
     })
     .catch((e) =>
@@ -170,17 +167,10 @@ export const removeProduct = (productId, cartId) => (dispatch, getState) => {
     );
 };
 
-export const increaseAmount = (productId) => {
+export const changeQuantity = (cartId, quantity) => {
   return {
-    type: INCREASE_AMOUNT,
-    productId,
-  };
-};
-
-export const changeAmount = (productId, amount) => {
-  return {
-    type: CHANGE_AMOUNT,
-    productId,
-    amount,
+    type: CHANGE_QUANTITY,
+    cartId,
+    quantity,
   };
 };

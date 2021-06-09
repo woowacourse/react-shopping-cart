@@ -2,54 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './style';
 
-const AmountInput = ({ min, max, step, amount, setAmount }) => {
+const QuantityInput = ({ min, max, step, quantity, setQuantity }) => {
   const onIncrease = () => {
-    setAmount(amount + step);
+    setQuantity(quantity + step);
   };
 
   const onDecrease = () => {
-    if (amount <= min) return;
+    if (quantity <= min) return;
 
-    setAmount(amount - step);
+    setQuantity(quantity - step);
   };
 
-  const onChangeAmountInput = ({ target: { valueAsNumber } }) => {
+  const onChangeQuantityInput = ({ target: { valueAsNumber } }) => {
     if (isNaN(valueAsNumber) || valueAsNumber <= min) {
-      setAmount(min);
+      setQuantity(min);
     }
 
-    setAmount(valueAsNumber);
+    setQuantity(valueAsNumber);
   };
 
   return (
-    <Styled.AmountInputContainer>
+    <Styled.QuantityInputContainer>
       <Styled.NumberContainer
         type="number"
-        onChange={onChangeAmountInput}
+        onChange={onChangeQuantityInput}
         min={min}
         max={max}
         step={step}
-        value={amount}
+        value={quantity}
       />
       <Styled.ButtonContainer>
         <button type="button" onClick={onIncrease}></button>
         <button type="button" onClick={onDecrease}></button>
       </Styled.ButtonContainer>
-    </Styled.AmountInputContainer>
+    </Styled.QuantityInputContainer>
   );
 };
 
-AmountInput.propTypes = {
+QuantityInput.propTypes = {
   type: PropTypes.string,
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  amount: PropTypes.number.isRequired,
-  setAmount: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
+  setQuantity: PropTypes.func.isRequired,
 };
 
-AmountInput.defaultProps = {
+QuantityInput.defaultProps = {
   step: 1,
 };
 
-export default AmountInput;
+export default QuantityInput;

@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PAGES, UNIT } from '../../../constants/appInfo';
 import PALETTE from '../../../constants/palette';
+import { getOrders, resetOrders } from '../../../redux/Orders/actions';
 import Button from '../../common/Button';
 import FlexContainer from '../../common/FlexContainer';
+import Spinner from '../../common/Icon/Spinner';
+import Loader from '../../common/Loader';
 import Main from '../../Main';
 import PageTitle from '../../shared/PageTitle';
 import ProductList from '../../shared/ProductList';
@@ -12,36 +14,48 @@ import ProductListItem from '../../shared/ProductList/ProductListItem';
 import * as Styled from './style';
 
 const OrdersPage = () => {
-  const { orders } = useSelector((state) => state);
+  const { orderList, isLoading } = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+
+    return () => {
+      dispatch(resetOrders());
+    };
+  }, []);
 
   return (
     <Styled.OrdersPageContainer>
       <Main>
         <PageTitle>{PAGES.ORDERS.NAME}</PageTitle>
+        <Loader animationType={'spin'} isLoading={isLoading}>
+          <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
+        </Loader>
         <FlexContainer direction="column">
-          {orders.reverse().map((order) => (
-            <FlexContainer key={order.id} margin="3rem 0 1rem 0" direction="column">
+          {orderList?.reverse().map((order) => (
+            <FlexContainer key={order.order_id} margin="3rem 0 1rem 0" direction="column">
               <FlexContainer
                 padding="1.5rem 1.5rem 1.5rem 2.5rem"
                 border={`1px solid ${PALETTE.GRAY_001}`}
                 backgroundColor={PALETTE.GRAY_007}
                 justifyContent="space-between"
               >
-                <span>주문번호: {order.id}</span>
+                <span>주문번호: {order.order_id}</span>
                 <Button type="button" backgroundColor="transparent">
                   {'상세보기 >'}
                 </Button>
               </FlexContainer>
               <ProductList>
-                {order.products.map((product) => (
+                {order?.order_details.map((product) => (
                   <ProductListItem
-                    key={product.id}
+                    key={product.product_id}
                     product={product}
                     listStyle="tableStyle"
                     imageSize="9rem"
                     productDetail={{
-                      text: `${(Number(product.price) * product.amount).toLocaleString() + UNIT.MONEY} / 수량 : ${
-                        product.amount + UNIT.AMOUNT
+                      text: `${(Number(product.price) * product.quantity).toLocaleString() + UNIT.MONEY} / 수량 : ${
+                        product.quantity + UNIT.QUANTITY
                       }`,
                       color: PALETTE.GRAY_000,
                     }}
@@ -64,23 +78,6 @@ const OrdersPage = () => {
       </Main>
     </Styled.OrdersPageContainer>
   );
-};
-
-OrdersPage.propTypes = {
-  orders: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      products: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          price: PropTypes.string.isRequired,
-          image: PropTypes.string,
-          amount: PropTypes.number,
-        })
-      ),
-    })
-  ),
 };
 
 export default OrdersPage;

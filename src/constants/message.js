@@ -1,9 +1,11 @@
 export const ERROR_MESSAGE = {
-  FAILED_TO_FETCH_PRODUCTS: '상품목록을 불러오는데 실패했습니다.',
+  FAILED_TO_FETCH_PRODUCTS: '상품목록을 불러오지 못했습니다.',
   FAILED_TO_FETCH_PRODUCT: '상품을 조회하지 못했습니다.',
   FAILED_TO_ADD_TO_CART: '장바구니 추가에 실패했습니다.',
   FAILED_TO_REMOVE_FROM_CART: '장바구니에서 상품을 삭제하는 데에 실패했습니다.',
-  FAILED_TO_GET_CART: '장바구니를 가져오는 데에 실패했습니다.',
+  FAILED_TO_GET_CART: '장바구니를 조회하지 못했습니다.',
+  FAILED_TO_GET_ORDERS: '주문을 조회하지 못했습니다.',
+  FAILED_TO_SET_ORDER: '주문 추가에 실패했습니다.',
 };
 
 export const APP_MESSAGE = {
