@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Header from '../src/components/Header';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
-import OrderListPage from '../src/pages/OrderListPage';
+import OrderListPage from '../src/pages/OrderListPage/OrderListPage';
 import CartPage from './pages/CartPage/CartPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import NotFoundPage from '../src/pages/NotFoundPage';

@@ -5,6 +5,18 @@ import { STATUS } from '../constant';
 const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 const customer_name = 'shinsehantan';
 
+export const getOrderListRequest = createAsyncThunk('orderList/get', async (thunkAPI) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/customers/${customer_name}/orders`);
+
+    return res.data;
+  } catch (error) {
+    return Object.assign(thunkAPI.rejectWithValue(error), {
+      message: '주문 목록을 불러오는 데 실패했습니다.',
+    });
+  }
+});
+
 export const orderItemsRequest = createAsyncThunk('orderList/order', async (orderList, thunkAPI) => {
   try {
     orderList.map((item) => ({
@@ -30,6 +42,7 @@ const initialState = {
   errorMessage: '',
   loading: false,
   orderList: [],
+  orderedList: [],
 };
 
 const paymentSlice = createSlice({
@@ -45,6 +58,21 @@ const paymentSlice = createSlice({
     reset: (state) => ({ ...state, status: STATUS.IDLE }),
   },
   extraReducers: {
+    [getOrderListRequest.pending]: (state) => {
+      state.errorMessage = '';
+      state.loading = true;
+    },
+
+    [getOrderListRequest.fulfilled]: (state, action) => {
+      state.orderedList = action.payload;
+      state.loading = false;
+    },
+
+    [getOrderListRequest.rejected]: (state, action) => {
+      state.errorMessage = action.error.message;
+      state.loading = false;
+    },
+
     [orderItemsRequest.pending]: (state) => {
       state.errorMessage = '';
       state.loading = true;
