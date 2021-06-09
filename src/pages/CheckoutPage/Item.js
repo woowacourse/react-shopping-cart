@@ -4,11 +4,12 @@ import * as S from './style.js';
 
 export const Item = (props) => {
   const { product, ...rest } = props;
-  const { name, img, quantity } = product;
+  const { name, imageUrl, cartIds } = product;
+  const quantity = cartIds.length;
 
   return (
     <S.Container {...rest}>
-      <S.Image src={img} />
+      <S.Image src={imageUrl} />
       <S.Content>
         <S.Name>{name}</S.Name>
         <S.Quantity>수량 : {quantity}</S.Quantity>
@@ -20,7 +21,7 @@ export const Item = (props) => {
 Item.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
-    img: PropTypes.string,
+    imageUrl: PropTypes.string,
     quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
 };

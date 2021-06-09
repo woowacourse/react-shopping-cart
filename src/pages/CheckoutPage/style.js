@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { CheckoutBox, List, Template } from '../../components';
-import { COLOR, PATTERN_FILE_NAME } from '../../constants';
+import { COLOR } from '../../constants';
 
 export const Page = styled(Template)`
   background-color: ${COLOR.HEX.WHITE};
@@ -79,7 +79,7 @@ export const Quantity = styled.span`
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src,
-  alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
-  width: 7.5rem;
+  width: 6rem;
+  height: 8rem;
 `;

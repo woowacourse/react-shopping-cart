@@ -1,47 +1,28 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { cartAction } from '../../redux';
-import { addData, ORDER_LIST } from '../../firebase';
+import { useCart, useOrder } from '../../hooks';
 import { Header, RedirectNotice } from '../../components';
 import { Item } from './Item';
 import * as S from './style.js';
-import { getFormattedAsKRW, getDateInNumber } from '../../utils';
 import { ROUTE } from '../../constants';
 
+const API_OPTIONS = { quantity: 1 };
+
 export const CheckoutPage = () => {
-  const [isCheckoutFailed, setIsCheckoutFailed] = useState(false);
+  const { selectedProducts: productsToOrder, totalPrice } = useCart();
+  const { checkout, isError } = useOrder();
 
-  const cartProducts = useSelector(({ cartReducer }) => Object.values(cartReducer));
-  const checkoutProducts = cartProducts.filter((product) => product.isSelected);
-  const totalPrice = checkoutProducts.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0);
-  const totalPriceAsKRW = getFormattedAsKRW(totalPrice);
-
-  const dispatch = useDispatch();
-  const history = useHistory();
   const onClickCheckoutButton = () => {
-    const orderId = getDateInNumber();
-    const orderItems = checkoutProducts;
+    const orders = productsToOrder
+      .map((product) => product.cartIds.map((cartId) => ({ cartId, ...API_OPTIONS })))
+      .flat();
 
-    try {
-      addData({
-        table: ORDER_LIST,
-        key: orderId,
-        value: { orderId, orderItems },
-      });
-      dispatch(cartAction.checkout());
-      history.push(ROUTE.ORDER_LIST);
-    } catch (e) {
-      setIsCheckoutFailed(() => true);
-    }
+    checkout(orders);
   };
 
   return (
     <S.Page>
       <Header>주문/결제</Header>
       <S.Main>
-        {isCheckoutFailed ? (
+        {!productsToOrder || isError ? (
           <RedirectNotice
             interjection="앗..."
             notice={`결제에 실패하였습니다... 문제가 지속되면 관리자에게 문의부탁드려요...`}
@@ -51,10 +32,10 @@ export const CheckoutPage = () => {
         ) : (
           <>
             <S.ListSection>
-              <S.ListLabel>주문 상품 ({checkoutProducts.length}건)</S.ListLabel>
+              <S.ListLabel>주문 상품 ({productsToOrder.length}건)</S.ListLabel>
               <S.CheckoutProductList>
-                {checkoutProducts.map((product) => (
-                  <Item key={product.id} product={product} />
+                {productsToOrder.map((product) => (
+                  <Item key={product.productId} product={product} />
                 ))}
               </S.CheckoutProductList>
             </S.ListSection>
@@ -62,8 +43,8 @@ export const CheckoutPage = () => {
               <S.StickyCheckoutBox
                 title="결제예상금액"
                 label="총 결제금액"
-                price={totalPriceAsKRW}
-                buttonText={`${totalPriceAsKRW} 결제하기`}
+                price={totalPrice}
+                buttonText={`${totalPrice} 결제하기`}
                 onClickButton={onClickCheckoutButton}
               />
             </S.CheckoutSection>
