@@ -1,4 +1,4 @@
-import { setErrorMessage } from '../Message/actions';
+import { setErrorMessage } from '../ErrorMessage/actions';
 
 const errorMiddleware = (store) => (next) => (action) => {
   if (action.errorMessage) {

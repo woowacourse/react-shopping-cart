@@ -41,7 +41,7 @@ const ProductDetailPage = () => {
   const onAddToCart = () => {
     dispatch(addToCart(product));
 
-    setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`); // TODO: 장바구니 추가에 성공하면 띄우기(ContextAPI 고려)
+    setSnackbarMessage(APP_MESSAGE.PRODUCT_ADDED_TO_CART); // TODO: 장바구니 추가에 성공하면 띄우기(ContextAPI 고려)
   };
 
   return (
@@ -102,7 +102,6 @@ const ProductDetailPage = () => {
           )}
         </Styled.Container>
       </FlexContainer>
-      {}
     </Main>
   );
 };

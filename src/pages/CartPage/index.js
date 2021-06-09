@@ -14,10 +14,11 @@ import PriceInfoBox from '../../components/shared/PriceInfoBox';
 import ProductList from '../../components/shared/ProductList';
 import ProductListItem from '../../components/shared/ProductList/ProductListItem';
 
-import { PAGES } from '../../constants/appInfo';
+import { PAGES, SNACKBAR_DURATION } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
+import useSnackbar from '../../hooks/useSnackbar';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
 import {
   toggleAllCheckboxesInCart,
@@ -32,6 +33,7 @@ import * as Styled from './style';
 
 const CartPage = () => {
   const [isAllChecked, setIsAllChecked] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
     cart: { cartList, isLoading },
   } = useSelector((state) => state);
@@ -42,7 +44,7 @@ const CartPage = () => {
     0
   );
 
-  const onChangeCheckbox = (cartId) => {
+  const onChangeCheckbox = (cartId) => () => {
     dispatch(toggleCartCheckbox(cartId));
   };
 
@@ -54,10 +56,14 @@ const CartPage = () => {
   const onRemoveCheckedProducts = () => {
     const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cart_id);
     dispatch(removeCheckedProducts(checkedCartIds));
+
+    setSnackbarMessage(APP_MESSAGE.CART_PRODUCT_REMOVED);
   };
 
   const onRemoveProduct = (cartId) => () => {
     dispatch(removeProduct(cartId));
+
+    setSnackbarMessage(APP_MESSAGE.CART_PRODUCT_REMOVED);
   };
 
   const onChangeQuantity = (cartId) => (quantity) => {
@@ -129,7 +135,7 @@ const CartPage = () => {
                 key={product.product_id}
                 listStyle="lineStyle"
                 isCheckbox={true}
-                onChange={onChangeCheckbox}
+                onChange={onChangeCheckbox(product.cart_id)}
                 imageSize="9rem"
                 product={product}
               >

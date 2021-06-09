@@ -18,7 +18,9 @@ import { getOrders, resetOrders } from '../../redux/Orders/actions';
 import * as Styled from './style';
 
 const OrdersPage = () => {
-  const { orderList, isLoading } = useSelector((state) => state.orders);
+  const {
+    orders: { orderList, isLoading },
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {

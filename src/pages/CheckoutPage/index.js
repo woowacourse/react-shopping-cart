@@ -14,15 +14,13 @@ import { PAGES } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
-import { removeCheckedProducts } from '../../redux/Cart/actions';
 import { setOrder } from '../../redux/Orders/actions';
 
 import * as Styled from './style';
 
 const CheckoutPage = () => {
   const {
-    cart: { cartList },
-    isLoading,
+    cart: { cartList, isLoading },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -32,7 +30,6 @@ const CheckoutPage = () => {
   const onOrder = () => {
     if (!confirm(APP_MESSAGE.PAYMENT_CONFIRMATION)) return;
 
-    const cartIds = checkedProducts.map((product) => product.cart_id);
     const order = checkedProducts.map((product) => {
       const productOrderData = {
         cart_id: product.cart_id,
@@ -43,7 +40,6 @@ const CheckoutPage = () => {
     });
 
     dispatch(setOrder(order));
-    dispatch(removeCheckedProducts(cartIds));
 
     window.location.hash = `#${PAGES.ORDERS.ADDRESS}`;
   };

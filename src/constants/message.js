@@ -13,4 +13,5 @@ export const APP_MESSAGE = {
   ORDER_CONFIRMATION: '상품을 주문하시겠습니까?',
   NO_PRODUCTS_TO_ORDER: '주문할 상품이 존재하지 않습니다.',
   PAYMENT_CONFIRMATION: '상품을 결제하시겠습니까?',
+  CART_PRODUCT_REMOVED: '장바구니에서 상품을 삭제하였습니다.',
 };

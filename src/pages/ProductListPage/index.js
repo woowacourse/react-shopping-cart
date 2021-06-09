@@ -5,9 +5,7 @@ import Button from '../../components/common/Button';
 import ShoppingCart from '../../components/common/Icon/ShoppingCart';
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
-import ErrorModal from '../../components/common/Modal/ErrorModal';
 import Pagination from '../../components/common/Pagination';
-import Snackbar from '../../components/common/Snackbar';
 import Main from '../../components/Main';
 import Product from '../../components/shared/Product';
 
@@ -18,7 +16,6 @@ import PALETTE from '../../constants/palette';
 import usePagination from '../../hooks/usePagination';
 import useSnackbar from '../../hooks/useSnackbar';
 import { addToCart, getCart, resetCart } from '../../redux/Cart/actions';
-import { resetErrorMessage } from '../../redux/Message/actions';
 import { getProducts, resetProducts } from '../../redux/Products/actions';
 
 import * as Styled from './style';
@@ -28,7 +25,6 @@ const ProductListPage = () => {
   const {
     products: { productList, isLoading: isProductLoading },
     cart: { cartList, isLoading: isCartLoading },
-    errorMessage,
   } = useSelector((state) => state);
   const {
     pageStartIndex,
@@ -55,11 +51,7 @@ const ProductListPage = () => {
     const targetProduct = productList.find((product) => product.product_id === productId);
     dispatch(addToCart(targetProduct));
 
-    setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`); // TODO: 장바구니 추가에 성공하면 띄우기
-  };
-
-  const onCloseErrorMessageModal = () => {
-    dispatch(resetErrorMessage());
+    setSnackbarMessage(APP_MESSAGE.PRODUCT_ADDED_TO_CART); // TODO: 장바구니 추가에 성공하면 띄우기
   };
 
   const onProductDetail = (product) => () => {
@@ -106,15 +98,6 @@ const ProductListPage = () => {
           isPreviousPageAvailable={isPreviousPageAvailable}
           isNextPageAvailable={isNextPageAvailable}
           currentPage={currentPage}
-        />
-      )}
-      {errorMessage && <ErrorModal onClose={onCloseErrorMessageModal} textContent={errorMessage} />}
-      {snackbarMessage && (
-        <Snackbar
-          key={Math.random()}
-          message={snackbarMessage}
-          ms={SNACKBAR_DURATION}
-          backgroundColor={PALETTE.GRAY_008}
         />
       )}
     </Main>

@@ -1,26 +1,30 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { resetSnackbar, setSnackbar } from '../redux/Snackbar/actions';
 
 import useUpdateEffect from './useUpdateEffect';
 
 const useSnackbar = (ms) => {
-  const [message, setMessage] = useState({ text: '' });
+  const { message } = useSelector((state) => state.snackbar);
+  const dispatch = useDispatch();
   const timer = useRef(null);
 
   const setSnackbarMessage = (text) => {
-    setMessage({ text });
+    dispatch(setSnackbar(text));
   };
 
   useUpdateEffect(() => {
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      setMessage('');
+      dispatch(resetSnackbar());
     }, ms + 100); // add 100ms for fadeout animation
   }, [message]);
 
   useEffect(() => {
     return () => {
       clearTimeout(timer.current);
-      setMessage('');
+      dispatch(resetSnackbar());
     };
   }, []);
 
