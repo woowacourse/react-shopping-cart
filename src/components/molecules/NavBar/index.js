@@ -13,7 +13,7 @@ export const NavBar = (props) => {
       <S.Container>
         <Link to={ROUTE.HOME}>
           <S.NavTitle>
-            <IconCart width="50" color={COLOR.HEX.WHITE} />
+            <IconCart width="40" color={COLOR.HEX.WHITE} />
             <S.Title>심바하루의 쇼핑은 즐거워</S.Title>
           </S.NavTitle>
         </Link>

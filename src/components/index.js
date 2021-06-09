@@ -9,6 +9,7 @@ export { Template } from './atoms/Template';
 export { IconTrashCan } from './atoms/IconTrashCan';
 export { TextUnderlined } from './atoms/TextUnderlined';
 export { IconUpward } from './atoms/IconUpward';
+export { SkeletonLine, SkeletonRound, SkeletonResponsiveBox } from './atoms/Skeleton';
 
 /* molecules */
 export { CheckoutBox } from './molecules/CheckoutBox';
