@@ -43,7 +43,7 @@ const NavItem = styled(NavLink)`
 `;
 
 function Header() {
-  const state = useSelector((state) => state.cartSlice);
+  const { cartItemsInServer } = useSelector((state) => state.cartSlice);
 
   return (
     <HeaderWrapper>
@@ -57,7 +57,9 @@ function Header() {
         <nav>
           <NavUl>
             <li>
-              <NavItem to="/cart">장바구니 {state.length ? <Badge children={state.length} /> : ''}</NavItem>
+              <NavItem to="/cart">
+                장바구니 {cartItemsInServer.length ? <Badge children={cartItemsInServer.length} /> : ''}
+              </NavItem>
             </li>
             <li>
               <NavItem to="/orders">주문목록</NavItem>
