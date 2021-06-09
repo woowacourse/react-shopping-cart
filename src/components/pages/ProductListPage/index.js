@@ -22,7 +22,8 @@ import * as Styled from './style';
 const ProductListPage = () => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
-    products: { productList, isLoading },
+    products: { productList, isLoading: isProductLoading },
+    cart: { cartList, isLoading: isCartLoading },
     errorMessage,
   } = useSelector((state) => state);
   const {
@@ -38,14 +39,18 @@ const ProductListPage = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCart());
 
     return () => {
       dispatch(resetProducts());
+      dispatch(resetCart());
     };
   }, []);
 
   const onAddToCart = (productId) => () => {
-    dispatch(addToCart(productId));
+    const targetProduct = productList.find((product) => product.product_id === productId);
+    dispatch(addToCart(targetProduct));
+
     setSnackbarMessage(`${APP_MESSAGE.PRODUCT_ADDED_TO_CART}`); // TODO: 장바구니 추가에 성공하면 띄우기
   };
 
@@ -59,7 +64,7 @@ const ProductListPage = () => {
 
   return (
     <Main>
-      <Loader animationType={'spin'} isLoading={isLoading}>
+      <Loader animationType={'spin'} isLoading={isProductLoading && isCartLoading}>
         <Spinner width={'8rem'} color={PALETTE.BAEMINT} />
       </Loader>
       <Styled.ProductList>
@@ -75,9 +80,15 @@ const ProductListPage = () => {
               size="17.5rem"
               onClick={onProductDetail(product)}
             >
-              <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart(product.product_id)}>
-                <ShoppingCart width="2rem" color={PALETTE.BLACK} />
-              </Button>
+              {!cartList.some(({ product_id }) => product.product_id === product_id) ? (
+                <Button hoverAnimation="scale" backgroundColor="transparent" onClick={onAddToCart(product.product_id)}>
+                  <ShoppingCart width="2rem" color={PALETTE.BLACK} />
+                </Button>
+              ) : (
+                <Button backgroundColor="transparent" disabled={true} cursor="default">
+                  <ShoppingCart width="2rem" color={PALETTE.WHITE} />
+                </Button>
+              )}
             </Product>
           </li>
         ))}

@@ -10,6 +10,8 @@ import {
   removeCheckedProducts,
   removeProduct,
   toggleCartCheckbox,
+  getCart,
+  resetCart,
 } from '../../../redux/Cart/actions';
 import AmountInput from '../../common/AmountInput';
 import Button from '../../common/Button';
@@ -25,10 +27,15 @@ import * as Styled from './style';
 
 const CartPage = () => {
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const { cart } = useSelector((state) => state);
+  const {
+    cart: { cartList, isLoading },
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const totalPrice = cart.reduce((sum, product) => (sum += product.isChecked ? product.price * product.amount : 0), 0);
+  const totalPrice = cartList?.reduce(
+    (sum, product) => (sum += product.isChecked ? product.price * product.amount : 0),
+    0
+  );
 
   const onChangeCheckbox = (productId) => {
     dispatch(toggleCartCheckbox(productId));
@@ -40,11 +47,12 @@ const CartPage = () => {
   };
 
   const onRemoveCheckedProducts = () => {
-    dispatch(removeCheckedProducts());
+    const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cart_id);
+    dispatch(removeCheckedProducts(checkedCartIds));
   };
 
-  const onRemoveProduct = (productId) => () => {
-    dispatch(removeProduct(productId));
+  const onRemoveProduct = (productId, cartId) => () => {
+    dispatch(removeProduct(productId, cartId));
   };
 
   const onChangeAmount = (productId) => (amount) => {
@@ -54,7 +62,7 @@ const CartPage = () => {
   const onCheckout = () => {
     if (!confirm(APP_MESSAGE.ORDER_CONFIRMATION)) return;
 
-    const isCheckoutAvailable = cart.length && cart.some((product) => product.isChecked);
+    const isCheckoutAvailable = cartList.length && cartList.some((product) => product.isChecked);
     if (!isCheckoutAvailable) {
       alert(APP_MESSAGE.NO_PRODUCTS_TO_ORDER);
       return;
@@ -64,24 +72,32 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    const isProductExists = !!cart.length;
+    dispatch(getCart());
+    const isProductExists = !!cartList.length;
     dispatch(toggleAllCheckboxesInCart(isProductExists));
     setIsAllChecked(isProductExists);
+
+    return () => {
+      dispatch(resetCart());
+    };
   }, []);
 
   useUpdateEffect(() => {
-    if (!cart.length) return;
-
-    if (isAllChecked && cart.some((product) => !product.isChecked)) {
+    if (!cartList?.length) {
       setIsAllChecked(false);
       return;
     }
 
-    if (!isAllChecked && cart.every((product) => product.isChecked)) {
+    if (isAllChecked && cartList.some((product) => !product.isChecked)) {
+      setIsAllChecked(false);
+      return;
+    }
+
+    if (!isAllChecked && cartList.every((product) => product.isChecked)) {
       setIsAllChecked(true);
       return;
     }
-  }, [cart]);
+  }, [cartList]);
 
   return (
     <Main>
@@ -102,11 +118,11 @@ const CartPage = () => {
               상품삭제
             </Button>
           </FlexContainer>
-          <Styled.ProductListTitle>든든배송 상품 ({cart.length}개)</Styled.ProductListTitle>
+          <Styled.ProductListTitle>든든배송 상품 ({cartList?.length}개)</Styled.ProductListTitle>
           <ProductList width="100%">
-            {cart.map((product) => (
+            {cartList?.map((product) => (
               <ProductListItem
-                key={product.id}
+                key={product.product_id}
                 listStyle="lineStyle"
                 isCheckbox={true}
                 onChange={onChangeCheckbox}
@@ -115,10 +131,14 @@ const CartPage = () => {
               >
                 <div>
                   <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
-                    <Button type="button" onClick={onRemoveProduct(product.id)} backgroundColor="transparent">
+                    <Button
+                      type="button"
+                      onClick={onRemoveProduct(product.product_id, product.cart_id)}
+                      backgroundColor="transparent"
+                    >
                       <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                     </Button>
-                    <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.id)} />
+                    <AmountInput amount={product.amount} min={1} setAmount={onChangeAmount(product.product_id)} />
                     <p>{Number(product.price).toLocaleString()} 원</p>
                   </FlexContainer>
                 </div>

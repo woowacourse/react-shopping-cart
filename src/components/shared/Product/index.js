@@ -6,7 +6,15 @@ import * as Styled from './style';
 const Product = ({ product, productDetail, size, direction, onClick, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <Styled.ProductImage src={product.image_url} alt={product.name} loading="lazy" onClick={onClick} />
+      <Styled.ProductImageContainer direction={direction}>
+        <Styled.ProductImage
+          src={product.image_url}
+          alt={product.name}
+          loading="lazy"
+          onClick={onClick}
+          direction={direction}
+        />
+      </Styled.ProductImageContainer>
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>

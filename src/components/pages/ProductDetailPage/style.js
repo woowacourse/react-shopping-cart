@@ -15,6 +15,23 @@ export const Container = styled.div`
   }
 `;
 
+export const ImageContainer = styled.div`
+  position: relative;
+  width: 36rem;
+  padding-top: 100%;
+  overflow: hidden;
+  background-color: ${PALETTE.GRAY_007};
+
+  img {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+`;
+
 export const ProductName = styled.h2`
   display: flex;
   align-items: center;
