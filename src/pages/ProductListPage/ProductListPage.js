@@ -47,7 +47,7 @@ const ProductListPage = () => {
         </Container>
       )}
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

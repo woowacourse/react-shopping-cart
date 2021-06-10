@@ -1,22 +1,27 @@
 import styled from '@emotion/styled';
+import { IMAGE_SIZE } from '../../../constants';
+
+const IMAGE_SIZE_TABLE = {
+  [IMAGE_SIZE.SM]: '14rem',
+  [IMAGE_SIZE.MD]: '28rem',
+};
 
 const Container = styled.div`
   max-height: 360px;
-  width: 28rem;
+  width: ${({ imageSize }) => IMAGE_SIZE_TABLE[imageSize]};
   margin-bottom: 50px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
   overflow: hidden;
   cursor: pointer;
 
   &:after {
     content: '';
-    width: 100%;
-    height: 280px;
+    width: ${({ imageSize }) => IMAGE_SIZE_TABLE[imageSize]};
+    height: ${({ imageSize }) => IMAGE_SIZE_TABLE[imageSize]};
     position: absolute;
     top: 0;
     left: 0;
@@ -26,8 +31,8 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 28rem;
+  width: ${({ imageSize }) => IMAGE_SIZE_TABLE[imageSize]};
+  height: ${({ imageSize }) => IMAGE_SIZE_TABLE[imageSize]};
   object-fit: contain;
 `;
 

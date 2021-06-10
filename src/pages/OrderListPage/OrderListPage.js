@@ -7,14 +7,12 @@ import { addShoppingCartItemAsync } from '../../redux/slice';
 import { Button, ErrorMessage, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { requestOrderList } from '../../service/order';
-import { requestProductList } from '../../service/product';
 
 const OrderListPage = () => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [productList] = useFetch([], requestProductList);
   const [orderList, getOrderListError] = useFetch([], requestOrderList);
 
   const { Modal, setModalOpen } = useModal(false);
@@ -52,7 +50,7 @@ const OrderListPage = () => {
       )}
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

@@ -5,7 +5,6 @@ import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal, Erro
 import { OrderItemContainer } from '../OrderListPage/OrderListPage.styles';
 import { addShoppingCartItemAsync } from '../../redux/slice';
 import { useModal, useFetch } from '../../hooks';
-import { requestProductList } from '../../service/product';
 import { requestOrder } from '../../service/order';
 
 const OrderDetailPage = () => {
@@ -14,7 +13,6 @@ const OrderDetailPage = () => {
   const { id: orderId } = useParams();
 
   const [order, getOrderError] = useFetch({}, () => requestOrder(orderId));
-  const [productList] = useFetch([], requestProductList);
 
   const { setModalOpen, Modal } = useModal(false);
 
@@ -41,7 +39,7 @@ const OrderDetailPage = () => {
       )}
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

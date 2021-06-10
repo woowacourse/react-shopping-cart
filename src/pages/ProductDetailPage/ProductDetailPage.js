@@ -6,7 +6,7 @@ import { numberWithCommas } from '../../shared/utils';
 import { useModal, useFetch } from '../../hooks';
 import { addShoppingCartItemAsync } from '../../redux/slice';
 import { ErrorMessage, SuccessAddedModal } from '../../components';
-import { requestProduct, requestProductList } from '../../service/product';
+import { requestProduct } from '../../service/product';
 import productNotFoundImg from '../../shared/assets/img/product_not_found.jpeg';
 
 const ProductDetailPage = () => {
@@ -16,7 +16,6 @@ const ProductDetailPage = () => {
 
   const { setModalOpen, Modal } = useModal(false);
 
-  const [productList] = useFetch([], requestProductList);
   const [product, getProductError] = useFetch({}, () => requestProduct(productId));
 
   const putProductInShoppingCart = id => {
@@ -53,7 +52,7 @@ const ProductDetailPage = () => {
       )}
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

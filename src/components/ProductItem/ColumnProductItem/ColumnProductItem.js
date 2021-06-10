@@ -11,16 +11,25 @@ import {
 import ShoppingCartIcon from '../../ShoppingCartIcon/ShoppingCartIcon';
 import productNotFoundImg from '../../../shared/assets/img/product_not_found.jpeg';
 import { numberWithCommas } from '../../../shared/utils';
+import { IMAGE_SIZE } from '../../../constants';
 
-const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVisibleIcon, onClickImage }) => {
+const ColumnProductItem = ({
+  imgSrc,
+  name,
+  price,
+  onClickShoppingCartIcon,
+  isVisibleIcon,
+  onClickImage,
+  imageSize,
+}) => {
   const onShowErrorImage = event => {
     event.target.src = productNotFoundImg;
   };
 
   return (
-    <Container>
-      <ImageContainer onClick={onClickImage}>
-        <Image src={imgSrc} onError={onShowErrorImage} loading="lazy" />
+    <Container imageSize={imageSize}>
+      <ImageContainer imageSize={imageSize} onClick={onClickImage}>
+        <Image imageSize={imageSize} src={imgSrc} onError={onShowErrorImage} loading="lazy" />
       </ImageContainer>
       <DetailContainer>
         <ProductDetail>
@@ -45,12 +54,14 @@ ColumnProductItem.propTypes = {
   onClickShoppingCartIcon: PropTypes.func,
   onClickImage: PropTypes.func.isRequired,
   isVisibleIcon: PropTypes.bool,
+  imageSize: PropTypes.string,
 };
 
 ColumnProductItem.defaultProps = {
   imgSrc: productNotFoundImg,
-  onClickShoppingCartIcon: () => {},
   isVisibleIcon: true,
+  imageSize: IMAGE_SIZE.MD,
+  onClickShoppingCartIcon: () => {},
 };
 
 export default ColumnProductItem;
