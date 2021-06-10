@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL, CUSTOMER_NAME } from './constant';
 import { STATUS } from '../constant';
-
-const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
-const customer_name = 'shinsehantan';
 
 export const getOrderListRequest = createAsyncThunk('orderList/get', async (thunkAPI) => {
   try {
-    const res = await axios.get(`${BASE_URL}/customers/${customer_name}/orders`);
+    const res = await axios.get(`${BASE_URL}/customers/${CUSTOMER_NAME}/orders`);
 
     return res.data;
   } catch (error) {
@@ -24,7 +22,7 @@ export const orderItemsRequest = createAsyncThunk('orderList/order', async (orde
       quantity: item.quantity,
     }));
 
-    const res = await axios.post(`${BASE_URL}/customers/${customer_name}/orders`, orderList);
+    const res = await axios.post(`${BASE_URL}/customers/${CUSTOMER_NAME}/orders`, orderList);
     const location = res.headers.location;
 
     let tempCartItem = Object.assign({}, orderList);
@@ -77,7 +75,7 @@ const paymentSlice = createSlice({
       state.status = STATUS.LOADING;
     },
 
-    [orderItemsRequest.fulfilled]: (state, action) => {
+    [orderItemsRequest.fulfilled]: (state) => {
       state.loading = false;
       state.status = STATUS.SUCCEED;
     },

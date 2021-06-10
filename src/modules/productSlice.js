@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from './constant';
 import { STATUS } from '../constant';
-
-const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 
 export const getProductsRequest = createAsyncThunk('products/get', async (thunkAPI) => {
   try {

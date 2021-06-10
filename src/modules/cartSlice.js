@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL, CUSTOMER_NAME } from './constant';
 import { STATUS } from '../constant';
-
-const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
-const customer_name = 'shinsehantan';
 
 export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thunkAPI) => {
   try {
-    const res = await axios.get(`${BASE_URL}/customers/${customer_name}/carts`);
+    const res = await axios.get(`${BASE_URL}/customers/${CUSTOMER_NAME}/carts`);
     const tempItems = res.data.map((item) => ({ ...item, quantity: 1, checked: true }));
 
     return tempItems;
@@ -20,7 +18,7 @@ export const getCartItemsRequest = createAsyncThunk('cartItems/get', async (thun
 
 export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (product, thunkAPI) => {
   try {
-    const res = await axios.post(`${BASE_URL}/customers/${customer_name}/carts`, {
+    const res = await axios.post(`${BASE_URL}/customers/${CUSTOMER_NAME}/carts`, {
       product_id: product.product_id,
     });
     const location = res.headers.location;
@@ -37,7 +35,7 @@ export const addItemToCartRequest = createAsyncThunk('cartItem/add', async (prod
 
 export const deleteItemFromCartRequest = createAsyncThunk('cartItem/delete', async (cart_id, thunkAPI) => {
   try {
-    await axios.delete(`${BASE_URL}/customers/${customer_name}/carts/${cart_id}`);
+    await axios.delete(`${BASE_URL}/customers/${CUSTOMER_NAME}/carts/${cart_id}`);
 
     return cart_id;
   } catch (error) {
