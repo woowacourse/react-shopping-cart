@@ -8,8 +8,10 @@ export const Container = styled.div`
   height: 3.75rem;
 `;
 
+const STEPPER_WIDTH = '3rem';
+
 export const Input = styled.input`
-  width: 64%;
+  width: calc(100% - ${STEPPER_WIDTH});
   border-color: ${COLOR.HEX.GRAY_200};
   border-width: 0.125rem 0 0.125rem 0.125rem;
   border-style: solid;
@@ -26,7 +28,7 @@ export const Input = styled.input`
 `;
 
 export const Controller = styled.div`
-  width: 36%;
+  width: ${STEPPER_WIDTH};
 `;
 
 export const StepperButton = styled(Button)`
