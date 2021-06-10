@@ -16,7 +16,6 @@ import { ROUTE } from "./constants/constant";
 const App = () => (
   <S.App>
     <BrowserRouter>
-      <SnackBar />
       <Nav />
       <S.Main>
         <Switch>
@@ -30,6 +29,7 @@ const App = () => (
         </Switch>
       </S.Main>
     </BrowserRouter>
+    <SnackBar />
   </S.App>
 );
 export default App;
