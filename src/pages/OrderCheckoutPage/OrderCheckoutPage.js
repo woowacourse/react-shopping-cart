@@ -1,4 +1,5 @@
 import { useHistory, useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   Container,
   CheckoutListContainer,
@@ -11,10 +12,12 @@ import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
 import { requestCreateOrder } from '../../service/order';
+import { shoppingCartItemSlice } from '../../redux/slice';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const checkedItemList = location.state?.checkedItemList;
   const expectedPrice = checkedItemList.reduce((acc, item) => {
@@ -30,12 +33,13 @@ const OrderCheckoutPage = () => {
 
     try {
       await requestCreateOrder(content);
+      checkedItemList.forEach(item => dispatch(shoppingCartItemSlice.actions.deleteShoppingCartItem(item.product_id)));
 
       history.push({
         pathname: ROUTE.ORDER_LIST,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

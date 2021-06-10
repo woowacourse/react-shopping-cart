@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AMOUNT_COUNT } from '../constants';
 import { requestProduct } from '../service/product';
 import {
   requestAddShoppingCartItem,
@@ -44,22 +45,42 @@ const shoppingCartItemSlice = createSlice({
   reducers: {
     increaseAmount: (state, action) => {
       const targetItem = state.myShoppingCart.find(item => item.product_id === action.payload);
+
+      if (targetItem.amount >= AMOUNT_COUNT.MAX) return;
+
       targetItem.amount += 1;
     },
     decreaseAmount: (state, action) => {
       const targetItem = state.myShoppingCart.find(item => item.product_id === action.payload);
+
+      if (targetItem.amount <= AMOUNT_COUNT.MIN) return;
+
       targetItem.amount -= 1;
+    },
+    toggleCheckStatus: (state, action) => {
+      const targetItem = state.myShoppingCart.find(item => item.product_id === action.payload);
+
+      targetItem.isChecked = !targetItem.isChecked;
+    },
+    checkAllItem: state => {
+      state.myShoppingCart.forEach(item => (item.isChecked = true));
+    },
+    uncheckAllItem: state => {
+      state.myShoppingCart.forEach(item => (item.isChecked = false));
+    },
+    deleteShoppingCartItem: (state, action) => {
+      state.myShoppingCart = state.myShoppingCart.filter(item => item.product_id !== action.payload);
     },
   },
   extraReducers: {
     [getMyShoppingCartAsync.fulfilled]: (state, action) => {
-      state.myShoppingCart = action.payload.map(product => ({ ...product, amount: 1 }));
+      state.myShoppingCart = action.payload.map(product => ({ ...product, amount: 1, isChecked: true }));
     },
     [getMyShoppingCartAsync.rejected]: state => {
       state.myShoppingCart = [];
     },
     [addShoppingCartItemAsync.fulfilled]: (state, action) => {
-      state.myShoppingCart = [...state.myShoppingCart, { ...action.payload, amount: 1 }];
+      state.myShoppingCart = [...state.myShoppingCart, { ...action.payload, amount: 1, isChecked: true }];
     },
     [deleteShoppingCartItemAsync.fulfilled]: (state, action) => {
       state.myShoppingCart = state.myShoppingCart.filter(item => item.cart_id !== action.payload);
