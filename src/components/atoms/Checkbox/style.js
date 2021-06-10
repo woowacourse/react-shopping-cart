@@ -19,6 +19,8 @@ export const Container = styled.label`
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   position: absolute;
+  top: -9999px;
+  left: -9999px;
   opacity: 0;
   cursor: pointer;
   height: 0;
