@@ -1,7 +1,5 @@
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { cartAction } from '../../redux';
 import { useCart, useConfirm } from '../../hooks';
 import { Checkbox, Header, RedirectNotice } from '../../components';
 import { Item } from './Item';
@@ -9,7 +7,6 @@ import * as S from './style.js';
 import { ROUTE } from '../../constants';
 
 export const CartPage = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const { openConfirm } = useConfirm();
   const {
@@ -26,13 +23,13 @@ export const CartPage = () => {
   const isAllSelected = products?.length === selectedProducts?.length;
   const isAllUnselected = selectedProducts?.length === 0;
 
-  const onClickRemoveButton = () => {
+  const handleRemoveProducts = () => {
     openConfirm({
       message: `선택한 ${selectedProducts?.length}개의 상품을 삭제하시겠습니까?`,
       approve: () => removeProducts(),
     });
   };
-  const onClickTrashIconButton = (productId) => {
+  const handleRemoveProduct = (productId) => {
     openConfirm({
       message: `해당 상품을 삭제하시겠습니까?`,
       approve: () => removeProduct(productId),
@@ -62,7 +59,7 @@ export const CartPage = () => {
                   isChecked={isAllSelected}
                   onChange={() => toggleAll(!isAllSelected)}
                 />
-                <S.RemoveButton onClick={onClickRemoveButton} disabled={isAllUnselected}>
+                <S.RemoveButton onClick={handleRemoveProducts} disabled={isAllUnselected}>
                   상품삭제
                 </S.RemoveButton>
               </S.OrderOptionsController>
@@ -70,19 +67,20 @@ export const CartPage = () => {
                 선택상품 ({selectedProducts?.length} / {products?.length}개)
               </S.ListLabel>
               <S.CartProductList>
-                {products?.map((product) => (
-                  <Item
-                    key={product.cartId}
-                    product={product}
-                    removeProduct={(id) => onClickTrashIconButton(id)}
-                    toggleCheckbox={(id) => toggleProduct(id)}
-                    incrementQuantity={(id) => increment(id)}
-                    decrementQuantity={(id) => decrement(id)}
-                    inputQuantity={(id, quantity) =>
-                      dispatch(cartAction.inputProductQuantity(id, quantity))
-                    }
-                  />
-                ))}
+                {products?.map((product) => {
+                  const { cartId, productId } = product;
+
+                  return (
+                    <Item
+                      key={cartId}
+                      product={product}
+                      onClickTrashCanButton={() => handleRemoveProduct(productId)}
+                      toggleCheckbox={() => toggleProduct(productId)}
+                      incrementQuantity={() => increment(productId)}
+                      decrementQuantity={() => decrement(productId)}
+                    />
+                  );
+                })}
               </S.CartProductList>
             </S.OrderOptionsSection>
             <S.CheckoutSection>

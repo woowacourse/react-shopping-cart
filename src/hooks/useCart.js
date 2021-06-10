@@ -98,6 +98,22 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
     removeCartItem(targetCartId);
   };
 
+  const changeQuantity = (productId, nextQuantity) => {
+    const targetProduct = products.find((product) => product.productId === productId);
+    const prevQuantity = targetProduct.cartIds.length;
+    const diff = Math.abs(nextQuantity - prevQuantity);
+
+    if (diff === 0) {
+      return;
+    }
+
+    const func = nextQuantity > prevQuantity ? increment : decrement;
+
+    for (let i = 0; i < diff; i++) {
+      func(productId);
+    }
+  };
+
   const toggleProduct = (productId) => {
     setProducts((prevState) => {
       const nextState = [...prevState];
@@ -126,6 +142,7 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
     totalPrice: getFormattedAsKRW(totalPrice),
     increment,
     decrement,
+    changeQuantity,
     addProduct,
     removeProduct,
     removeProducts,

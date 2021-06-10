@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, Checkbox, IconTrashCan, QuantityStepper } from '../../components';
 import * as S from './style.js';
 import { getFormattedAsKRW } from '../../utils';
-import { PATTERN_ONLY_NUMBER } from '../../constants';
 
 const MIN_PRODUCT_QUANTITY = 1;
 const MAX_PRODUCT_QUANTITY = 99;
@@ -11,11 +10,10 @@ const MAX_PRODUCT_QUANTITY = 99;
 export const Item = (props) => {
   const {
     product,
-    removeProduct,
+    onClickTrashCanButton,
     toggleCheckbox,
     incrementQuantity,
     decrementQuantity,
-    inputQuantity,
     ...rest
   } = props;
   const { productId, name, price, imageUrl, cartIds, isSelected } = product;
@@ -25,26 +23,14 @@ export const Item = (props) => {
     if (quantity >= MAX_PRODUCT_QUANTITY) {
       return;
     }
-    incrementQuantity(productId);
+    incrementQuantity();
   };
+
   const onDecrementQuantity = () => {
     if (quantity <= MIN_PRODUCT_QUANTITY) {
       return;
     }
-    decrementQuantity(productId);
-  };
-  const onInputQuantity = ({ target }) => {
-    const inputValue = target.value.replace(PATTERN_ONLY_NUMBER, '');
-
-    /* 빈 문자열(falsy)을 숫자연산 하기 전에 처리 */
-    if (inputValue === '') {
-      inputQuantity(productId, inputValue);
-      return;
-    }
-    if (inputValue < MIN_PRODUCT_QUANTITY || inputValue > MAX_PRODUCT_QUANTITY) {
-      return;
-    }
-    inputQuantity(productId, inputValue);
+    decrementQuantity();
   };
 
   return (
@@ -53,12 +39,11 @@ export const Item = (props) => {
       <S.Image src={imageUrl} />
       <S.Name>{name}</S.Name>
       <S.Controller>
-        <Button children={<IconTrashCan />} onClick={() => removeProduct(productId)} />
+        <Button children={<IconTrashCan />} onClick={onClickTrashCanButton} />
         <QuantityStepper
           quantity={quantity}
           onIncrement={onIncrementQuantity}
           onDecrement={onDecrementQuantity}
-          onInput={onInputQuantity}
         />
         <S.Price>{getFormattedAsKRW(price)}</S.Price>
       </S.Controller>
@@ -79,5 +64,4 @@ Item.propTypes = {
   toggleCheckbox: PropTypes.func.isRequired,
   incrementQuantity: PropTypes.func.isRequired,
   decrementQuantity: PropTypes.func.isRequired,
-  inputQuantity: PropTypes.func.isRequired,
 };
