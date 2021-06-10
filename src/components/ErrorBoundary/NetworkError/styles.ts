@@ -55,5 +55,5 @@ export const BaeDaleeImage = styled.img`
 `;
 
 BaeDaleeImage.defaultProps = {
-  src: `${process.env.PUBLICUrl}/images/crying-baedalee.png`,
+  src: `${process.env.PUBLIC_URL}/images/crying-baedalee.png`,
 };
