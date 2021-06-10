@@ -35,11 +35,11 @@ const ProductDetail = ({ match }) => {
     addCart(product);
   };
 
+  const isLoading = productLoading || cartLoading;
+
   return (
     <S.ProductDetail>
-      {(productLoading || cartLoading) && (
-        <Loading>상품목록을 불러오는 중입니다</Loading>
-      )}
+      {isLoading && <Loading>상품목록을 불러오는 중입니다</Loading>}
       <S.ImgWrapper>
         <S.Img alt={product.name} src={product.thumbnail} />
       </S.ImgWrapper>

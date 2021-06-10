@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MEDIA_QUERY } from "../../constants/style";
+import { COLOR, MEDIA_QUERY } from "../../constants/style";
 
 export const Cart = styled.div``;
 
@@ -8,7 +8,7 @@ export const PageTitle = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-bottom: 4px solid #333333;
+  border-bottom: 4px solid ${COLOR.GRAY_800};
   padding: 1rem 0;
   font-size: 2rem;
   font-weight: 700;

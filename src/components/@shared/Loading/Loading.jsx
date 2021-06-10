@@ -278,11 +278,7 @@ const Loading = ({ children }) => (
 );
 
 Loading.propTypes = {
-  children: PropTypes.node,
-};
-
-Loading.defaultProps = {
-  children: undefined,
+  children: PropTypes.node.isRequired,
 };
 
 export default Loading;

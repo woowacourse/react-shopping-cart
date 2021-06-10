@@ -11,11 +11,7 @@ const Empty = ({ children }) => (
 );
 
 Empty.propTypes = {
-  children: PropTypes.node,
-};
-
-Empty.defaultProps = {
-  children: undefined,
+  children: PropTypes.node.isRequired,
 };
 
 export default Empty;
