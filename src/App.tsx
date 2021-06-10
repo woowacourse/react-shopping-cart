@@ -1,7 +1,7 @@
 import { useEffect, VFC } from 'react';
 import { Route, Switch } from 'react-router';
 import NavigationBar from './components/NavigationBar';
-import useFetchCartRedux from './hooks/useCart';
+import useCart from './service/hooks/useCart';
 import OrderConfirmPage from './pages/OrderConfirmPage';
 import OrderListPage from './pages/OrderListPage';
 import ProductListPage from './pages/ProductListPage';
@@ -9,7 +9,7 @@ import ShoppingCartPage from './pages/ShoppingCartPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 
 const App: VFC = () => {
-  const { fetchCartItems } = useFetchCartRedux();
+  const { fetchCartItems } = useCart();
 
   useEffect(() => {
     fetchCartItems();

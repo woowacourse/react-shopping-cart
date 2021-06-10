@@ -1,4 +1,4 @@
-import { useAppSelector } from '../states/store';
+import { useAppSelector } from '../../states/store';
 
 const useLogin = () => {
   const [userName] = useAppSelector(({ login: { userName } }) => [userName]);

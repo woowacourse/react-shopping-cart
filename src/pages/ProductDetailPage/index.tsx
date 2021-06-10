@@ -1,9 +1,9 @@
 import { VFC } from 'react';
-import { RouteComponentProps, useRouteMatch } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import Loading from '../../components/Loading';
 import ProductDetailSection from '../../components/ProductDetail';
 import Template from '../../components/shared/Template';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../service/hooks/useFetch';
 import { requestProduct } from '../../service/request/productList';
 import { Product } from '../../types';
 

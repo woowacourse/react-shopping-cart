@@ -5,8 +5,8 @@ import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerCon
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import Template from '../../components/shared/Template';
-import useCart from '../../hooks/useCart';
-import useLogin from '../../hooks/useLogin';
+import useCart from '../../service/hooks/useCart';
+import useLogin from '../../service/hooks/useLogin';
 import { requestOrderItems } from '../../service/request/order';
 import { CartItem } from '../../types';
 

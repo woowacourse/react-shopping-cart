@@ -1,6 +1,5 @@
 import { VFC } from 'react';
-import { useHistory } from 'react-router';
-import useCart from '../../hooks/useCart';
+import useCart from '../../service/hooks/useCart';
 import { Product } from '../../types';
 import { KRCurrency } from '../../utils/format';
 import {

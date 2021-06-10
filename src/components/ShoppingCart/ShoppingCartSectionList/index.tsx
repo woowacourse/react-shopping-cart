@@ -1,5 +1,5 @@
 import { useState, VFC } from 'react';
-import useCart from '../../../hooks/useCart';
+import useCart from '../../../service/hooks/useCart';
 import Checkbox from '../../shared/Checkbox';
 import ShoppingCartSection from './ShoppingCartSection';
 import {

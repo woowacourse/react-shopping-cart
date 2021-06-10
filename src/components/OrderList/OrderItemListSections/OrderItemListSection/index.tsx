@@ -1,8 +1,7 @@
 import { VFC } from 'react';
 import { useHistory } from 'react-router';
-import { CONFIRM } from '../../../../constants/message';
-import useCart from '../../../../hooks/useCart';
-import { OrderedItem, Product, Order } from '../../../../types';
+import useCart from '../../../../service/hooks/useCart';
+import { OrderedItem, Order } from '../../../../types';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
 

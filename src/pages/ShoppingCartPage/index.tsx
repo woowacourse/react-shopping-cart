@@ -1,7 +1,7 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
 import Template from '../../components/shared/Template';
-import useCart from '../../hooks/useCart';
+import useCart from '../../service/hooks/useCart';
 import { FormEvent, useEffect, VFC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
 import { useHistory } from 'react-router';

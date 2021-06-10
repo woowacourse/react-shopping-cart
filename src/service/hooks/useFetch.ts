@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NETWORK_ERROR } from '../constants/error';
+import { NETWORK_ERROR } from '../../constants/error';
 
 const useFetch = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);

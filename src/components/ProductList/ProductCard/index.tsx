@@ -1,5 +1,5 @@
 import { MouseEvent, VFC } from 'react';
-import useCart from '../../../hooks/useCart';
+import useCart from '../../../service/hooks/useCart';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
 import {

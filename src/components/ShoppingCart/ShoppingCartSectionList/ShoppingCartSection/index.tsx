@@ -3,7 +3,7 @@ import { CartItem } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
-import useCart from '../../../../hooks/useCart';
+import useCart from '../../../../service/hooks/useCart';
 
 interface Props {
   title: string;

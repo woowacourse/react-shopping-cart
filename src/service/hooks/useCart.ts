@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { CART_ITEM_MIN_QUANTITY } from '../constants/cart';
-import { NETWORK_ERROR } from '../constants/error';
-import { cartAction } from '../states/slices/cart/slice';
+import { CART_ITEM_MIN_QUANTITY } from '../../constants/cart';
+import { NETWORK_ERROR } from '../../constants/error';
+import { cartAction } from '../../states/slices/cart/slice';
 import {
   thunkFetchCartItems,
   thunkAddItemToCart,
   thunkDeleteCartItem,
   thunkDeleteCartItems,
-} from '../states/slices/cart/thunk';
-import { useAppDispatch, useAppSelector } from '../states/store';
-import { CartId, CartItem, Product } from '../types';
+} from '../../states/slices/cart/thunk';
+import { useAppDispatch, useAppSelector } from '../../states/store';
+import { CartId, CartItem, Product } from '../../types';
 
 const useCart = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const useCart = () => {
 
     cartItem
       ? dispatch(cartAction.changeItemQuantity({ cartItem, quantity: cartItem.quantity + 1 }))
-      : dispatch(thunkAddItemToCart({ userName: userName, product }));
+      : dispatch(thunkAddItemToCart({ userName, product }));
 
     if (!window.confirm('상품이 담겼습니다. 장바구니로 이동하시겠습니까?')) return;
     history.push('/shoppingCart');
@@ -57,13 +57,13 @@ const useCart = () => {
 
   const deleteItem = (cartId: CartId) => {
     if (!window.confirm('장바구니에서 상품을 삭제하시겠습니까?')) return;
-    dispatch(thunkDeleteCartItem({ userName: userName, cartId }));
+    dispatch(thunkDeleteCartItem({ userName, cartId }));
   };
 
   const deleteCheckedItems = (items: CartItem[]) => {
     if (!window.confirm('장바구니에서 상품을 삭제하시겠습니까?')) return;
 
-    dispatch(thunkDeleteCartItems({ userName: userName, items }));
+    dispatch(thunkDeleteCartItems({ userName, items }));
   };
 
   const changeQuantity = (cartItem: CartItem, quantity: number) => {

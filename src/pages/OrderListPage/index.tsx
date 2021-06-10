@@ -2,10 +2,9 @@ import { VFC } from 'react';
 import Loading from '../../components/Loading';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
 import Template from '../../components/shared/Template';
-import useFetch from '../../hooks/useFetch';
-import useLogin from '../../hooks/useLogin';
+import useFetch from '../../service/hooks/useFetch';
+import useLogin from '../../service/hooks/useLogin';
 import { requestOrders } from '../../service/request/order';
-import { Order } from '../../types';
 
 const OrderListPage: VFC = () => {
   const { userName } = useLogin();
