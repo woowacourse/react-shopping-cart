@@ -6,7 +6,7 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   const [hasError, setHasError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const doFetch = async () => {
+  const fetchData = async () => {
     setHasError(null);
     setIsLoading(true);
 
@@ -21,7 +21,7 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   };
 
   useEffect(() => {
-    doFetch();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const useFetch = <T>(callback: () => Promise<T>) => {
     throw new Error(NETWORK_ERROR);
   }, [hasError]);
 
-  return { data, reFetch: doFetch, hasError, isLoading };
+  return { data, hasError, isLoading };
 };
 
 export default useFetch;
