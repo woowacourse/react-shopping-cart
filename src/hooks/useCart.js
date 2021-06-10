@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 
 import { requestGet, deepCamelize, requestPost, requestDelete } from '../utils';
-import { BASE_URL } from '../constants';
+import { BASE_URL, DEFAULT_CUSTOMER_NAME } from '../constants';
 import { getFormattedAsKRW, deepDecamelize } from '../utils';
 
 const getProducts = async (url) => {
@@ -15,7 +15,7 @@ const getProducts = async (url) => {
   return deepCamelize(body);
 };
 
-export const useCart = (customerName = '365kim') => {
+export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
   const { data, error, mutate } = useSWR(
     `${BASE_URL}/customers/${customerName}/carts`,
     getProducts
@@ -91,9 +91,9 @@ export const useCart = (customerName = '365kim') => {
   };
 
   const decrement = (productId) => {
-    const targetItem = products.find((product) => product.productId === productId);
-    const targetCartIds = targetItem.cartIds;
-    const targetCartId = targetCartIds[targetCartIds.length - 1];
+    const targetCartId = products
+      .find((product) => product.productId === productId)
+      .cartIds.slice(-1)[0];
 
     removeCartItem(targetCartId);
   };

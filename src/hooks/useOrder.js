@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { useHistory } from 'react-router-dom';
 
 import { requestGet, requestPost, deepCamelize, deepDecamelize } from '../utils';
-import { BASE_URL, ROUTE } from '../constants';
+import { BASE_URL, DEFAULT_CUSTOMER_NAME, ROUTE } from '../constants';
 
 const getOrders = async (url) => {
   const response = await requestGet({ url });
@@ -14,7 +14,7 @@ const getOrders = async (url) => {
   return deepCamelize(body);
 };
 
-export const useOrder = (customerName = '365kim') => {
+export const useOrder = (customerName = DEFAULT_CUSTOMER_NAME) => {
   const history = useHistory();
   const { data, error, mutate } = useSWR(`${BASE_URL}/customers/${customerName}/orders`, getOrders);
 

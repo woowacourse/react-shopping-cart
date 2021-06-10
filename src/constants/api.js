@@ -1,3 +1,5 @@
+export const DEFAULT_CUSTOMER_NAME = '365kim';
+
 export const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 
 export const PATH = {
