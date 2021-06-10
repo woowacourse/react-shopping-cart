@@ -24,12 +24,12 @@ const PaymentItemInfoWrapperStyle = css`
 const PaymentItemName = styled.span`
   font-size: 20px;
   margin: 4px 0 20px;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
 `;
 
 const PaymentItemQuantity = styled.span`
   font-size: 16px;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
 `;
 
 const PaymentItem = (paymentItem) => {

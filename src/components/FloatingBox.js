@@ -37,7 +37,7 @@ const FloatingBoxTitle = styled.h3`
 const FloatingBoxText = styled.span`
   font-size: 20px;
   font-weight: 700;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
   background: linear-gradient(to top, ${COLOR.CYAN[400]} 30%, transparent 50%);
 `;
 
@@ -62,7 +62,7 @@ const StyledButton = styled(Button)`
     &:disabled {
       color: ${COLOR.WHITE[400]};
       font-weight: inherit;
-      background-color: ${COLOR.GRAY[700]};
+      background-color: ${COLOR.GRAY[800]};
       border: none;
       cursor: not-allowed;
     }

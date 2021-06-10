@@ -23,14 +23,14 @@ const OrderListItem = ({ order }) => {
   const OrderList = styled.li`
     width: 100%;
     margin-bottom: 74px;
-    border: 1px solid #aaaaaa;
+    border: 1px solid ${COLOR.GRAY[600]};
   `;
 
   const SingleOrderList = styled.ul`
     position: relative;
     height: 220px;
-    background-color: #ffffff;
-    border-top: 1px solid #aaaaaa;
+    background-color: ${COLOR.WHITE[400]};
+    border-top: 1px solid ${COLOR.GRAY[600]};
     display: flex;
     flex-direction: column;
     padding-left: 26px;
@@ -39,10 +39,10 @@ const OrderListItem = ({ order }) => {
   const OrderListHeader = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #f6f6f6;
+    background-color: ${COLOR.WHITE[300]};
     width: 100%;
     height: 92px;
-    border-bottom: 1px solid #aaaaaa;
+    border-bottom: 1px solid ${COLOR.GRAY[600]};
   `;
 
   const OrderNumber = styled.span`
@@ -73,7 +73,7 @@ const OrderListItem = ({ order }) => {
   `;
 
   const ProductDetail = styled.span`
-    color: #888888;
+    color: ${COLOR.GRAY[700]};
   `;
 
   const ProductInfoStyle = css`
@@ -108,7 +108,7 @@ const OrderListItem = ({ order }) => {
     const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
     const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
 
-    if (isCartItemExist && isAlreadyInCart) return alert(MESSAGE.ALREADY_IN_CART); // 상수처리
+    if (isCartItemExist && isAlreadyInCart) return alert(MESSAGE.ALREADY_IN_CART);
     dispatch(addItemToCartRequest(product));
   };
 

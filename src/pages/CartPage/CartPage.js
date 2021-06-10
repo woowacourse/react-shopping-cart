@@ -32,7 +32,7 @@ const CartItemSectionTitle = styled.h3`
   font-size: 20px;
   font-weight: 400;
   line-height: 33px;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
   margin: 27px 8px 8px;
 `;
 
@@ -127,13 +127,13 @@ const CartPage = () => {
                 height="50px"
                 backgroundColor="inherit"
                 border={`1px solid ${COLOR.GRAY[500]}`}
-                color={COLOR.GRAY[800]}
+                color={COLOR.GRAY[900]}
                 fontSize="16px"
                 hoverColor={COLOR.WHITE[400]}
                 hoverBackgroundColor={COLOR.CYAN[400]}
                 hoverBorder={`1px solid ${COLOR.CYAN[400]}`}
                 disabledBackgroundColor="inherit"
-                disabledColor={COLOR.GRAY[800]}
+                disabledColor={COLOR.GRAY[900]}
                 disabledBorder={`1px solid ${COLOR.GRAY[500]}`}
                 onClick={onDeleteCheckedItemsButtonClick}
                 disabled={checkedItemIds.length === 0}
