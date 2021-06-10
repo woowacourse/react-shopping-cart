@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BREAK_POINT, COLOR } from "../../../constants/style";
+import { MEDIA_QUERY, COLOR } from "../../../constants/style";
 
 export const ResultBox = styled.aside`
   width: 28rem;
@@ -7,18 +7,18 @@ export const ResultBox = styled.aside`
   height: fit-content;
 
   flex-shrink: 0;
-  border: 1px solid ${COLOR.GRAY[300]};
+  border: 1px solid ${COLOR.GRAY_300};
   position: sticky;
   top: 8rem;
 
-  @media (max-width: ${BREAK_POINT.DESKTOP}) {
+  @media (max-width: ${MEDIA_QUERY.DESKTOP}) {
     width: 100%;
   }
 `;
 
 export const Title = styled.div`
   padding: 2rem;
-  border-bottom: 3px solid ${COLOR.GRAY[300]};
+  border-bottom: 3px solid ${COLOR.GRAY_300};
   font-size: 1.5rem;
 `;
 
@@ -46,7 +46,7 @@ export const Info = styled.div`
       opacity: 0.5;
       width: 100%;
       height: 8px;
-      background-color: ${COLOR.CYAN[400]};
+      background-color: ${COLOR.CYAN_400};
     }
   }
 `;

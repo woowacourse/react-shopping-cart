@@ -1,56 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import * as S from "./CartInfo.styled";
 
 import CartItem from "./CartItem/CartItem";
 import Button from "../../@shared/Button/Button";
 import CheckBox from "../../@shared/CheckBox/CheckBox";
+import Empty from "../../@shared/Empty/Empty";
 
-import {
-  removeChecked,
-  toggleAllChecked,
-} from "../../../store/modules/cartSlice";
-import { MESSAGE } from "../../../constants/constants";
-import { useConfirm } from "../../../utils/useConfirm";
-import Empty from "../../@mixins/Empty/Empty";
-
-const checkAllIdentifier = (cart) => {
-  const checkedSet = new Set(Object.values(cart).map(({ checked }) => checked));
-
-  switch (checkedSet.size) {
-    case 0:
-      return false;
-
-    case 1:
-      return [...checkedSet].pop();
-
-    default:
-      return null;
-  }
-};
+import { MESSAGE } from "../../../constants/constant";
+import { useConfirm } from "../../../hooks/useConfirm";
+import { useCart } from "../../../hooks/useCart";
 
 const CartInfo = ({ cart }) => {
-  const dispatch = useDispatch();
+  const { isCheckAll, removeCheckedCart, toggleAllChecked } = useCart();
   const confirmDelete = useConfirm(
     MESSAGE.CONFIRM.DELETE_PRODUCTS_FROM_CART,
     () => {
-      dispatch(removeChecked());
+      removeCheckedCart(cart);
     }
   );
-  const [checkAll, setCheckAll] = useState(false);
+
+  const [checkAll, setCheckAll] = useState(true);
+
+  const handleCheckBoxChange = () => {
+    toggleAllChecked({ checked: !checkAll });
+    setCheckAll(!checkAll);
+  };
 
   useEffect(() => {
-    const isCheckAll = checkAllIdentifier(cart);
     if (isCheckAll !== null) {
       setCheckAll(isCheckAll);
     }
-  }, [cart]);
-
-  const handleCheckBoxChange = () => {
-    dispatch(toggleAllChecked({ checked: !checkAll }));
-    setCheckAll(!checkAll);
-  };
+  }, [isCheckAll]);
 
   const checkAllLabel = checkAll ? "선택해제" : "전체선택";
   const cartLength = Object.keys(cart).length;

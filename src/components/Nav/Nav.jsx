@@ -1,16 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+
 import { Link } from "react-router-dom";
-import { ROUTE } from "../../../constants/constants";
-import CartIcon from "../../@shared/CartIcon/CartIcon";
+import { ROUTE } from "../../constants/constant";
+import { useCart } from "../../hooks/useCart";
+import { useOrder } from "../../hooks/useOrder";
+import CartIcon from "../@shared/CartIcon/CartIcon";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const cart = useSelector((state) => state.cart);
-  const cartAmount = Object.values(cart).reduce(
-    (acc, cur) => acc + cur.amount,
-    0
-  );
+  const { cartAmount, getCarts } = useCart();
+  const { orders } = useOrder();
+  const ordersLength = Object.values(orders).length;
+
+  useEffect(() => {
+    getCarts();
+  }, [ordersLength]);
 
   return (
     <S.Nav>

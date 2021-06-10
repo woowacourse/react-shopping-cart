@@ -4,6 +4,8 @@ import { COLOR } from "../../../constants/style";
 export const Product = styled.article`
   width: 100%;
   min-width: 15.5rem;
+  border: 1px solid ${COLOR.GRAY_300};
+  cursor: pointer;
 `;
 
 export const Preview = styled.div`
@@ -37,7 +39,6 @@ export const Thumbnail = styled.div`
   }
 
   &:hover img {
-    border: 3px solid red;
     transform: scale(1.1);
   }
 `;
@@ -48,7 +49,7 @@ export const Button = styled.button`
   position: absolute;
   bottom: 5px;
   right: 5px;
-  background-color: white;
+  background-color: ${COLOR.WHITE};
   border: 0;
   border-radius: 100%;
   width: 2.75rem;
@@ -62,11 +63,11 @@ export const Button = styled.button`
   z-index: 11;
 
   &:hover {
-    background-color: ${COLOR.CYAN[400]};
-    color: white;
+    background-color: ${COLOR.CYAN_400};
+    color: ${COLOR.WHITE};
 
     svg {
-      fill: white;
+      fill: ${COLOR.WHITE};
     }
   }
 
@@ -82,11 +83,11 @@ export const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${COLOR.CYAN[400]};
-    color: white;
+    background-color: ${COLOR.CYAN_400};
+    color: ${COLOR.WHITE};
 
     &:hover {
-      background-color: ${COLOR.CYAN[700]};
+      background-color: ${COLOR.CYAN_700};
     }
   }
 `;

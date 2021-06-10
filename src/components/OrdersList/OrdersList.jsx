@@ -1,23 +1,33 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import OrdersListItem from "./OrdersListItem/OrdersListItem";
 import * as S from "./OrdersList.styled";
 
-import OrdersListItem from "./OrdersListItem/OrdersListItem";
-import PageTitle from "../@mixins/PageTitle/PageTitle";
-import Empty from "../@mixins/Empty/Empty";
+import Empty from "../@shared/Empty/Empty";
+import { useOrder } from "../../hooks/useOrder";
 
 const OrdersList = () => {
-  const ordersList = useSelector((state) => state.order);
+  const { orders, getOrders } = useOrder();
+  const ordersList = Object.values(orders).sort(
+    (a, b) => b.order_id - a.order_id
+  );
+
+  useEffect(() => {
+    getOrders();
+  }, []);
 
   return (
     <S.OrdersList>
-      <PageTitle>주문목록</PageTitle>
+      <S.PageTitle>주문목록</S.PageTitle>
       {Object.keys(ordersList).length === 0 ? (
         <Empty>주문목록이 텅 비었어요</Empty>
       ) : (
         <S.List aria-label="orders-list">
-          {Object.entries(ordersList).map(([id, value]) => (
-            <OrdersListItem key={id} id={id} items={value.items} />
+          {ordersList.map((order) => (
+            <OrdersListItem
+              key={order.order_id}
+              id={order.order_id}
+              items={order.order_details}
+            />
           ))}
         </S.List>
       )}

@@ -3,24 +3,24 @@ import { COLOR } from "../../../constants/style";
 
 const buttonStyle = {
   default: css`
-    background-color: ${COLOR.CYAN[400]};
+    background-color: ${COLOR.CYAN_400};
 
     &:hover {
-      background-color: ${COLOR.CYAN[700]};
+      background-color: ${COLOR.CYAN_700};
     }
   `,
   primary: css`
-    background-color: ${COLOR.BROWN[400]};
+    background-color: ${COLOR.BROWN_400};
 
     &:hover {
-      background-color: ${COLOR.BROWN[700]};
+      background-color: ${COLOR.BROWN_700};
     }
   `,
   secondary: css`
-    border: 1px solid ${COLOR.GRAY[500]};
-    background-color: white;
+    border: 1px solid ${COLOR.GRAY_500};
+    background-color: ${COLOR.WHITE};
 
-    color: ${COLOR.GRAY[800]};
+    color: ${COLOR.GRAY_800};
   `,
 };
 
@@ -33,7 +33,7 @@ export const Button = styled.button`
   padding: 1.5rem 0.5rem;
   border: 0;
   font-size: 100%;
-  color: white;
+  color: ${COLOR.WHITE};
   cursor: pointer;
 
   &:focus {
@@ -42,7 +42,7 @@ export const Button = styled.button`
 
   &:disabled,
   &:disabled:hover {
-    background-color: ${COLOR.GRAY[600]};
+    background-color: ${COLOR.GRAY_600};
     cursor: not-allowed;
   }
 

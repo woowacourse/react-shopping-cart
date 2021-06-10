@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as S from "./Empty.styled";
-import { IMAGE } from "../../../constants/constants";
+import { IMAGE } from "../../../constants/constant";
 
 const Empty = ({ children }) => (
   <S.Empty>
@@ -11,11 +11,7 @@ const Empty = ({ children }) => (
 );
 
 Empty.propTypes = {
-  children: PropTypes.node,
-};
-
-Empty.defaultProps = {
-  children: "",
+  children: PropTypes.node.isRequired,
 };
 
 export default Empty;

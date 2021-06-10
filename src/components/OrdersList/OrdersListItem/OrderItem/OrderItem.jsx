@@ -1,18 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../store/modules/cartSlice";
+import PropTypes from "prop-types";
 import Button from "../../../@shared/Button/Button";
-import CartItem from "../../../Cart/CartInfo/CartItem/CartItem";
+
 import * as S from "./OrderItem.styled";
-import { formatPrice } from "../../../../utils/utils";
+import { formatPrice } from "../../../../utils/util";
+import { useCart } from "../../../../hooks/useCart";
 
 const OrderItem = ({ item }) => {
-  const { thumbnail, name, price, amount } = item;
-
-  const dispatch = useDispatch();
+  const { product_id: id, image_url: thumbnail, name, price, quantity } = item;
+  const { addCart } = useCart();
 
   const handleButtonClick = () => {
-    dispatch(addToCart({ product: item }));
+    addCart({ id, price, name, thumbnail });
   };
 
   return (
@@ -22,7 +21,7 @@ const OrderItem = ({ item }) => {
         <S.Detail>
           <S.Name>{name}</S.Name>
           <S.PriceAmount>
-            {formatPrice(price)}원 / 수량: {amount}개
+            {formatPrice(price)}원 / 수량: {quantity}개
           </S.PriceAmount>
         </S.Detail>
       </S.Info>
@@ -34,7 +33,13 @@ const OrderItem = ({ item }) => {
 };
 
 OrderItem.propTypes = {
-  ...CartItem.propTypes,
+  item: PropTypes.shape({
+    product_id: PropTypes.number.isRequired,
+    image_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default OrderItem;

@@ -18,7 +18,7 @@ const order = {
       thumbnail:
         "https://cdn-mart.baemin.com/goods/13/D6-PB-20277_%EC%98%AC%EC%9D%B8%EC%9B%90-%EC%84%B8%ED%8A%B8_%EB%AC%BC%ED%8B%B0%EC%88%98%EC%A0%80_%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg",
       id: 6,
-      amount: 1,
+      order_id: [1, 2],
       addedDate: 1620715937937,
       checked: true,
     },

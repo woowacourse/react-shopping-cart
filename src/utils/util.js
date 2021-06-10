@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const formatPrice = (price) => {
   if (typeof price !== "number") {
     throw new TypeError(

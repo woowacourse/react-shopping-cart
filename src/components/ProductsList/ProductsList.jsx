@@ -1,35 +1,35 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../store/modules/productSlice";
-import Loading from "../@shared/Loading/Loading";
 import Product from "./Product/Product";
 import * as S from "./ProductsList.styled";
 
+import { useProduct } from "../../hooks/useProduct";
+import { useCart } from "../../hooks/useCart";
+import Loading from "../@shared/Loading/Loading";
+
 const ProductsList = () => {
-  const dispatch = useDispatch();
-  const { products, loading, errorMessage } = useSelector(
-    (state) => state.product
-  );
+  const { products, getProducts, loading: productLoading } = useProduct();
+  const { addCart, getCartAmount, loading: cartLoading } = useCart();
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    getProducts();
+  }, []);
 
-  useEffect(() => {
-    if (errorMessage) {
-      // eslint-disable-next-line no-alert
-      window.alert(errorMessage);
-    }
-  }, [errorMessage]);
+  return (
+    <>
+      {productLoading && <Loading>상품목록을 불러오는 중입니다</Loading>}
 
-  return loading ? (
-    <Loading>상품목록을 불러오는 중입니다</Loading>
-  ) : (
-    <S.ProductsList>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
-    </S.ProductsList>
+      <S.ProductsList>
+        {products.map((product) => (
+          <Product
+            key={product.id}
+            product={product}
+            amount={getCartAmount(product.id)}
+            addToCart={() => addCart(product)}
+            loading={cartLoading}
+          />
+        ))}
+      </S.ProductsList>
+    </>
   );
 };
 
