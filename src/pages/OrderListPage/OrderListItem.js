@@ -117,27 +117,29 @@ const OrderListItem = ({ order }) => {
       <OrderListHeader>
         <OrderNumber>{`주문번호: ${order.order_id}`}</OrderNumber>
       </OrderListHeader>
-      {order.order_details.map((orderDetail) => (
-        <SingleOrderList key={orderDetail.name}>
-          <SingleProduct>
-            <Image
-              width="144px"
-              height="144px"
-              src={orderDetail.image_url}
-              alt={orderDetail.name}
-              className="product-image"
-              isBackgroundImageNeeded={true}
-            />
-            <Flex flexDirection="column" css={ProductInfoStyle}>
-              <ProductName>{orderDetail.name}</ProductName>
-              <ProductDetail>{`${orderDetail.price}원 / 수량: ${orderDetail.quantity}개`}</ProductDetail>
-            </Flex>
-            <StyledButton disabled={false} onClick={() => onAddCartButtonClick(orderDetail)}>
-              장바구니
-            </StyledButton>
-          </SingleProduct>
-        </SingleOrderList>
-      ))}
+      {order.order_details
+        .map((orderDetail) => (
+          <SingleOrderList key={orderDetail.name}>
+            <SingleProduct>
+              <Image
+                width="144px"
+                height="144px"
+                src={orderDetail.image_url}
+                alt={orderDetail.name}
+                className="product-image"
+                isBackgroundImageNeeded={true}
+              />
+              <Flex flexDirection="column" css={ProductInfoStyle}>
+                <ProductName>{orderDetail.name}</ProductName>
+                <ProductDetail>{`${orderDetail.price}원 / 수량: ${orderDetail.quantity}개`}</ProductDetail>
+              </Flex>
+              <StyledButton disabled={false} onClick={() => onAddCartButtonClick(orderDetail)}>
+                장바구니
+              </StyledButton>
+            </SingleProduct>
+          </SingleOrderList>
+        ))
+        .reverse()}
     </OrderList>
   );
 };

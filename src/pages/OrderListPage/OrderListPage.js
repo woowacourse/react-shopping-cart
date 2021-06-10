@@ -38,7 +38,7 @@ function OrderListPage() {
       <PageTitle pageTitle="주문목록" />
       <Flex justifyContent="center" alignItems="center" flexDirection="column" css={FlexStyle}>
         <OrderList>
-          {orderedList && orderedList.map((order) => <OrderListItem order={order} key={order.order_id} />)}
+          {orderedList && orderedList.map((order) => <OrderListItem order={order} key={order.order_id} />).reverse()}
         </OrderList>
       </Flex>
     </>
