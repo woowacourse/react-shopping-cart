@@ -35,7 +35,7 @@ const SuccessAddedModal = ({ productList, setModalOpen }) => {
               key={id}
               imgSrc={img}
               name={name}
-              price={`${price}`}
+              price={price}
               onClick={() => setModalOpen(true)}
               isVisibleIcon={false}
               onClickImage={() => goProductDetail(id)}

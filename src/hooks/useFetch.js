@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useFetch = (defaultValue, request) => {
   const [data, setData] = useState(defaultValue);
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -14,7 +14,7 @@ const useFetch = (defaultValue, request) => {
 
       setData(await response.json());
     } catch (response) {
-      setIsError(await response.status);
+      setIsError(true);
     }
   };
 

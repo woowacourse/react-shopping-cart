@@ -41,7 +41,7 @@ const ColumnProductItem = ({ imgSrc, name, price, onClickShoppingCartIcon, isVis
 ColumnProductItem.propTypes = {
   imgSrc: PropTypes.string,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   onClickShoppingCartIcon: PropTypes.func,
   onClickImage: PropTypes.func.isRequired,
   isVisibleIcon: PropTypes.bool,
