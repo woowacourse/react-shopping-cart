@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BREAKPOINTS, COLOR } from '../../../constants';
-import '../../../fonts/BMYEONSUNG.css';
+import '../../../statics/fonts/BMYEONSUNG.css';
 
 export const NavBar = styled.nav`
   position: fixed;
