@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Button from './utils/Button';
 import PriceText from './utils/PriceText';
 import Flex from './utils/Flex';
 
 import { COLOR } from '../constant';
-
-import styled, { css } from 'styled-components';
 
 const FloatingBoxWrapper = styled.div`
   position: sticky;
@@ -37,7 +36,7 @@ const FloatingBoxTitle = styled.h3`
 const FloatingBoxText = styled.span`
   font-size: 20px;
   font-weight: 700;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
   background: linear-gradient(to top, ${COLOR.CYAN[400]} 30%, transparent 50%);
 `;
 
@@ -62,7 +61,7 @@ const StyledButton = styled(Button)`
     &:disabled {
       color: ${COLOR.WHITE[400]};
       font-weight: inherit;
-      background-color: ${COLOR.GRAY[700]};
+      background-color: ${COLOR.GRAY[800]};
       border: none;
       cursor: not-allowed;
     }

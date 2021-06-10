@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import cart from './cart';
-import payment from './payment';
+import cartSlice from './cartSlice';
+import paymentSlice from './paymentSlice';
+import productSlice from './productSlice';
 
 const rootReducer = combineReducers({
-  cart,
-  payment,
+  cartSlice,
+  paymentSlice,
+  productSlice,
 });
 
 export default rootReducer;

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'styled-components';
 
 import Flex from './Flex';
-
 import { COLOR } from '../../constant';
-
-import { css } from 'styled-components';
 
 const BadgeWrapperStyle = css`
   position: absolute;

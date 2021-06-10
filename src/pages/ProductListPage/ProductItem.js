@@ -1,16 +1,18 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Flex from '../../components/utils/Flex';
 import Image from '../../components/utils/Image';
 import PriceText from '../../components/utils/PriceText';
 import IconButton from '../../components/utils/IconButton';
 
-import { addItemToCart } from '../../modules/cart';
+import { addItemToCartRequest } from '../../modules/cartSlice';
 
 import cartImage from '../../asset/cart.png';
-import styled, { css } from 'styled-components';
+import { MESSAGE } from '../../constant';
 
 const SingleProduct = styled.li`
   box-sizing: border-box;
@@ -45,15 +47,34 @@ const ProductInfoStyle = css`
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
+  const { cartItemsInServer, errorMessage } = useSelector((state) => state.cartSlice);
 
-  const onAddCartButtonClick = (item) => {
-    dispatch(addItemToCart(item));
+  useEffect(() => {
+    if (errorMessage) {
+      window.alert(errorMessage);
+    }
+  }, [errorMessage]);
+
+  const onAddCartButtonClick = (product) => {
+    const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
+    const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
+
+    if (isCartItemExist && isAlreadyInCart) return alert(MESSAGE.ALREADY_IN_CART);
+    dispatch(addItemToCartRequest(product));
   };
 
   return (
     <SingleProduct>
-      <Image src={product.image} alt={product.name} className="product-image" isBackgroundImageNeeded={true} />
-
+      <Link to={`/products/${product.product_id}`}>
+        <Image
+          width="282px"
+          height="285px"
+          src={product.image_url}
+          alt={product.name}
+          className="product-image"
+          isBackgroundImageNeeded={true}
+        />
+      </Link>
       <Flex spaceBetween="space-between" alignItems="center" css={ProductBottomStyle}>
         <Flex flexDirection="column" css={ProductInfoStyle}>
           <ProductName>{product.name}</ProductName>
@@ -62,7 +83,11 @@ const ProductItem = ({ product }) => {
           </PriceText>
         </Flex>
 
-        <IconButton src={cartImage} alt="장바구니 아이콘" onClick={() => onAddCartButtonClick(product)} />
+        <IconButton
+          src={cartImage}
+          alt="장바구니 아이콘"
+          onClick={() => onAddCartButtonClick(product, cartItemsInServer)}
+        />
       </Flex>
     </SingleProduct>
   );
@@ -70,11 +95,9 @@ const ProductItem = ({ product }) => {
 
 ProductItem.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    checked: PropTypes.bool.isRequired,
+    product_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    image_url: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   }),
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import styled from 'styled-components';
 
 const ImageWrapper = styled.div`
@@ -27,11 +26,11 @@ const ImageBackground = styled.div`
 `;
 
 const Image = (props) => {
-  const { width, height, src, alt, isBackgroundImageNeeded, className } = props;
+  const { width, height, src, alt, isBackgroundImageNeeded, className, css } = props;
 
   return (
     <ImageWrapper width={width} height={height}>
-      <ImageContent src={src} alt={alt} className={className} />
+      <ImageContent src={src} alt={alt} className={className} css={css} />
       {isBackgroundImageNeeded && <ImageBackground />}
     </ImageWrapper>
   );
@@ -43,6 +42,7 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   className: PropTypes.string,
+  css: PropTypes.object,
   isBackgroundImageNeeded: PropTypes.bool,
 };
 

@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
 
 import Flex from '../../components/utils/Flex';
-import PaymentItem from './PaymentItem';
 import PageTitle from '../../components/PageTitle';
 import FloatingBox from '../../components/FloatingBox';
+import PaymentItem from './PaymentItem';
 
-import { deleteCheckedItems, getTotalPrice } from '../../utils';
+import { orderItemsRequest, reset } from '../../modules/paymentSlice';
 
-import { COLOR } from '../../constant';
-
-import styled, { css } from 'styled-components';
+import { getTotalPrice } from '../../utils';
+import { COLOR, PAGE_TITLE, STATUS } from '../../constant';
 
 const PaymentItemSection = styled.section`
   width: 763px;
@@ -34,30 +34,40 @@ const PaymentPageWrapperStyle = css`
 `;
 
 const PaymentPage = () => {
-  const paymentItems = useSelector((state) => state.payment);
+  const { orderList, status, errorMessage } = useSelector((state) => state.paymentSlice);
   const dispatch = useDispatch();
 
-  const onOrderButtonClick = () => {
-    deleteCheckedItems(
-      dispatch,
-      paymentItems.map((item) => item.id),
-    );
+  useEffect(() => {
+    if (status === STATUS.SUCCEED) {
+      dispatch(reset());
+    }
+
+    if (status === STATUS.FAILED) {
+      alert(errorMessage);
+      dispatch(reset());
+    }
+  }, [status, errorMessage, dispatch, orderList]);
+
+  const onPaymentButtonClick = async (orderList) => {
+    await dispatch(orderItemsRequest(orderList));
   };
 
   return (
     <>
-      <PageTitle pageTitle="주문/결제" />
-
+      <PageTitle pageTitle={PAGE_TITLE.PAYMENT} />
       <Flex justifyContent="space-between" css={PaymentPageWrapperStyle}>
         <PaymentItemSection>
-          <PaymentItemSectionTitle>주문 상품({paymentItems.length}건)</PaymentItemSectionTitle>
+          <PaymentItemSectionTitle>주문 상품({orderList.length}건)</PaymentItemSectionTitle>
           <PaymentList>
-            {paymentItems &&
-              paymentItems.map((paymentItem) => <PaymentItem key={paymentItem.id} {...paymentItem} />).reverse()}
+            {orderList &&
+              orderList.map((orderItem) => <PaymentItem key={orderItem.cart_id} {...orderItem} />).reverse()}
           </PaymentList>
         </PaymentItemSection>
-
-        <FloatingBox price={getTotalPrice(paymentItems)} linkPath={'/orders'} onClick={onOrderButtonClick} />
+        <FloatingBox
+          price={getTotalPrice(orderList)}
+          linkPath={'/orders'}
+          onClick={() => onPaymentButtonClick(orderList)}
+        />
       </Flex>
     </>
   );
