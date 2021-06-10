@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Button from './utils/Button';
 import PriceText from './utils/PriceText';
 import Flex from './utils/Flex';
 
 import { COLOR } from '../constant';
-
-import styled, { css } from 'styled-components';
 
 const FloatingBoxWrapper = styled.div`
   position: sticky;

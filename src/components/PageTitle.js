@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { COLOR } from '../constant';
-
-import styled from 'styled-components';
 
 const TitleWrapper = styled.div`
   width: 1320px;

@@ -1,11 +1,11 @@
 import React from 'react';
-import upperIcon from '../asset/up-icon.png';
-import downIcon from '../asset/down-icon.png';
+import { css } from 'styled-components';
 
 import Flex from './utils/Flex';
 import IconButton from './utils/IconButton';
 
-import { css } from 'styled-components';
+import upperIcon from '../asset/up-icon.png';
+import downIcon from '../asset/down-icon.png';
 
 const CounterButtonWrapperStyle = css`
   width: 114px;

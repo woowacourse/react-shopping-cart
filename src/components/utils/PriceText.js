@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { printCommasToPrice } from '../../utils';
-
-import styled from 'styled-components';
 
 const ProductPrice = styled.span`
   font-size: ${(props) => props.fontSize};
