@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="티케한탄의 장바구니입니다." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>티케한탄의 장바구니</title>
+    <script type="text/javascript">
+      function m(r) {
+        return i(r) || a(r) || t(r) || n();
+      }
+      function n() {
+        throw new TypeError(
+          'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.',
+        );
+      }
+      function t(r, n) {
+        if (!r) return;
+        if (typeof r === 'string') return e(r, n);
+        var t = Object.prototype.toString.call(r).slice(8, -1);
+        if (t === 'Object' && r.constructor) t = r.constructor.name;
+        if (t === 'Map' || t === 'Set') return Array.from(r);
+        if (t === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) return e(r, n);
+      }
+      function e(r, n) {
+        if (n == null || n > r.length) n = r.length;
+        for (var t = 0, e = new Array(n); t < n; t++) {
+          e[t] = r[t];
+        }
+        return e;
+      }
+      function a(r) {
+        if ((typeof Symbol !== 'undefined' && r[Symbol.iterator] != null) || r['@@iterator'] != null)
+          return Array.from(r);
+      }
+      function i(r) {
+        if (Array.isArray(r)) return r;
+      }
+      (function () {
+        'use strict';
+        var r = window.location,
+          n = r.protocol,
+          t = r.hostname,
+          e = r.port,
+          a = r.pathname,
+          i = r.search,
+          o = r.hash;
+        var u = a.split('/'),
+          f = m(u),
+          c = f[1],
+          l = f.slice(2);
+        var y = l.join('/').replace(/&/g, '~and~');
+        var d = e ? ':'.concat(e) : '';
+        var v = i ? '&'.concat(i.slice(1).replace(/&/g, '~and~')) : '';
+        var b = ''.concat(n, '//').concat(t).concat(d, '/').concat(c, '/?/').concat(y).concat(v).concat(o);
+        window.location.replace(b);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

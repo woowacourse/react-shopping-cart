@@ -22,12 +22,11 @@
   "scripts": {
     "start": "node server",
     "start:dev": "react-scripts start",
-    "json-server": "json-server --watch server/productDB.json --port 5000",
-    "build": "cross-env NODE_PATH=src react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "heroku-postbuild": "cross-env NODE_PATH=src npm run build"
+    "deploy": "NODE_DEBUG=gh-pages gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -54,10 +53,12 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "gh-pages": "^3.2.0",
     "husky": "^6.0.0",
     "json-server": "^0.16.3",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
     "serve": "^11.3.2"
-  }
+  },
+  "homepage": "https://shinsehantan.github.io/react-shopping-cart"
 }
