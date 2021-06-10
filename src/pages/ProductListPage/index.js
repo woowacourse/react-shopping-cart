@@ -18,8 +18,8 @@ export const ProductListPage = () => {
         {isError ? (
           <RedirectNotice
             interjection="앗..."
-            notice={`결제에 실패하였습니다... 문제가 지속되면 관리자에게 문의부탁드려요...`}
-            buttonText="장바구니로 돌아가기"
+            notice={`상품 목록을 불러오는데 실패했습니다... 문제가 지속되면 관리자에게 문의부탁드려요...`}
+            buttonText="다시 시도하기"
             redirectRoute={() => {
               history.go(0);
             }}
