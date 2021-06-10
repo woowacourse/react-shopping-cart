@@ -32,7 +32,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 140px;
   height: 140px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const ProductContainer = styled.div`

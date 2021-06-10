@@ -13,6 +13,7 @@ const requestCreateOrder = async content => {
 };
 
 const requestOrderList = async () => await requestTable.GET('/api/customers/hyuuunjukim/orders');
+
 const requestOrder = async orderId => await requestTable.GET(`/api/customers/hyuuunjukim/orders/${orderId}`);
 
 export { requestCreateOrder, requestOrderList, requestOrder };
