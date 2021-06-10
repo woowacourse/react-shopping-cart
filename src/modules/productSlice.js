@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { STATUS } from '../constant';
 
 const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 
@@ -29,34 +30,39 @@ export const getSingleProductRequest = createAsyncThunk('singleProduct/get', asy
 
 const productSlice = createSlice({
   name: 'product',
-  initialState: { products: [], singleProduct: {}, loading: false, errorMessage: '' },
-  reducers: {},
+  initialState: { products: [], singleProduct: {}, status: STATUS.IDLE, errorMessage: '' },
+  reducers: {
+    reset: (state) => ({ ...state, status: STATUS.IDLE }),
+  },
   extraReducers: {
     [getProductsRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = true;
+      state.status = STATUS.LOADING;
     },
 
     [getProductsRequest.fulfilled]: (state, action) => {
       state.products = action.payload;
-      state.loading = false;
+      state.status = STATUS.SUCCEED;
     },
 
     [getProductsRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
-      state.loading = false;
+      state.status = STATUS.FAILED;
     },
 
     [getSingleProductRequest.pending]: (state) => {
       state.errorMessage = '';
+      state.status = STATUS.LOADING;
     },
 
     [getSingleProductRequest.fulfilled]: (state, action) => {
       state.singleProduct = action.payload;
+      state.status = STATUS.SUCCEED;
     },
 
     [getSingleProductRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
+      state.status = STATUS.FAILED;
     },
   },
 });

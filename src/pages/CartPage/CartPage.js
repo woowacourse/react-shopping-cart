@@ -16,7 +16,7 @@ import { addItemsToOrderList } from '../../modules/paymentSlice';
 
 import tung from '../../asset/tung.png';
 import { getTotalPrice } from '../../utils';
-import { COLOR } from '../../constant';
+import { COLOR, STATUS, PAGE_TITLE, LOADING_MESSAGE } from '../../constant';
 
 const CartItemWrapperStyle = css`
   width: 1320px;
@@ -58,7 +58,7 @@ const ButtonStyle = css`
 const CartPage = () => {
   const dispatch = useDispatch();
 
-  const { cartItemsInServer, loading, errorMessage } = useSelector((state) => state.cartSlice);
+  const { status, cartItemsInServer, errorMessage } = useSelector((state) => state.cartSlice);
   const [checkedItemIds, setCheckedItemIds] = useState([]);
 
   useEffect(() => {
@@ -110,8 +110,8 @@ const CartPage = () => {
 
   return (
     <>
-      {loading && <LoadingPage>장바구니 아이템들을 불러오는 중입니다</LoadingPage>}
-      <PageTitle pageTitle="장바구니" />
+      {status === STATUS.LOADING && <LoadingPage>{LOADING_MESSAGE.GET_CART_ITEMS}</LoadingPage>}
+      <PageTitle pageTitle={PAGE_TITLE.CART} />
       {cartItemsInServer && cartItemsInServer.length ? (
         <Flex justifyContent="space-between" css={CartItemWrapperStyle}>
           <CartItemSection>

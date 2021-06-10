@@ -10,7 +10,7 @@ import PaymentItem from './PaymentItem';
 import { orderItemsRequest, reset } from '../../modules/paymentSlice';
 
 import { getTotalPrice } from '../../utils';
-import { COLOR, STATUS } from '../../constant';
+import { COLOR, PAGE_TITLE, STATUS } from '../../constant';
 
 const PaymentItemSection = styled.section`
   width: 763px;
@@ -54,8 +54,7 @@ const PaymentPage = () => {
 
   return (
     <>
-      <PageTitle pageTitle="주문/결제" />
-
+      <PageTitle pageTitle={PAGE_TITLE.PAYMENT} />
       <Flex justifyContent="space-between" css={PaymentPageWrapperStyle}>
         <PaymentItemSection>
           <PaymentItemSectionTitle>주문 상품({orderList.length}건)</PaymentItemSectionTitle>
@@ -64,7 +63,6 @@ const PaymentPage = () => {
               orderList.map((orderItem) => <PaymentItem key={orderItem.cart_id} {...orderItem} />).reverse()}
           </PaymentList>
         </PaymentItemSection>
-
         <FloatingBox
           price={getTotalPrice(orderList)}
           linkPath={'/orders'}

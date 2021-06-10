@@ -12,6 +12,7 @@ import IconButton from '../../components/utils/IconButton';
 import { addItemToCartRequest } from '../../modules/cartSlice';
 
 import cartImage from '../../asset/cart.png';
+import { MESSAGE } from '../../constant';
 
 const SingleProduct = styled.li`
   box-sizing: border-box;
@@ -58,7 +59,7 @@ const ProductItem = ({ product }) => {
     const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
     const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
 
-    if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
+    if (isCartItemExist && isAlreadyInCart) return alert(MESSAGE.ALREADY_IN_CART);
     dispatch(addItemToCartRequest(product));
   };
 

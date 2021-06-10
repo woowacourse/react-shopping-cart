@@ -40,7 +40,6 @@ export const orderItemsRequest = createAsyncThunk('orderList/order', async (orde
 const initialState = {
   status: STATUS.IDLE,
   errorMessage: '',
-  loading: false,
   orderList: [],
   orderedList: [],
 };
@@ -59,17 +58,17 @@ const paymentSlice = createSlice({
   extraReducers: {
     [getOrderListRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = true;
+      state.status = STATUS.LOADING;
     },
 
     [getOrderListRequest.fulfilled]: (state, action) => {
       state.orderedList = action.payload;
-      state.loading = false;
+      state.status = STATUS.SUCCEED;
     },
 
     [getOrderListRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
-      state.loading = false;
+      state.status = STATUS.FAILED;
     },
 
     [orderItemsRequest.pending]: (state) => {

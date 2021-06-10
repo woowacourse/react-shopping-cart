@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { STATUS } from '../constant';
 
 const BASE_URL = 'https://shopping-cart.techcourse.co.kr/api';
 const customer_name = 'shinsehantan';
@@ -48,7 +49,7 @@ export const deleteItemFromCartRequest = createAsyncThunk('cartItem/delete', asy
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: { cartItemsInServer: [], loading: false, errorMessage: '' },
+  initialState: { cartItemsInServer: [], status: STATUS.IDLE, errorMessage: '' },
   reducers: {
     increaseQuantity: (state, { payload: id }) => {
       const targetIndex = state.cartItemsInServer.findIndex((value) => value.product_id === id);
@@ -68,7 +69,6 @@ const cartSlice = createSlice({
         ],
       };
     },
-
     decreaseQuantity: (state, { payload: id }) => {
       const targetIndex = state.cartItemsInServer.findIndex((value) => value.product_id === id);
       if (targetIndex === -1) {
@@ -102,52 +102,53 @@ const cartSlice = createSlice({
     allUnCheck: (state) => {
       state.cartItemsInServer = state.cartItemsInServer.map((item) => ({ ...item, checked: false }));
     },
+    reset: (state) => ({ ...state, status: STATUS.IDLE }),
   },
   extraReducers: {
     [addItemToCartRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = true;
+      state.status = STATUS.LOADING;
     },
 
     [addItemToCartRequest.fulfilled]: (state, action) => {
       state.cartItemsInServer.push(action.payload.tempCartItem);
-      state.loading = false;
+      state.status = STATUS.SUCCEED;
     },
 
     [addItemToCartRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
-      state.loading = false;
+      state.status = STATUS.FAILED;
     },
 
     [getCartItemsRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = true;
+      state.status = STATUS.LOADING;
     },
 
     [getCartItemsRequest.fulfilled]: (state, action) => {
       state.cartItemsInServer = action.payload;
-      state.loading = false;
+      state.status = STATUS.SUCCEED;
     },
 
     [getCartItemsRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
-      state.loading = false;
+      state.status = STATUS.FAILED;
     },
 
     [deleteItemFromCartRequest.pending]: (state) => {
       state.errorMessage = '';
-      state.loading = true;
+      state.status = STATUS.LOADING;
     },
 
     [deleteItemFromCartRequest.fulfilled]: (state, action) => {
       state.errorMessage = '';
-      state.loading = false;
+      state.status = STATUS.SUCCEED;
       state.cartItemsInServer = state.cartItemsInServer.filter((item) => item.cart_id !== Number(action.payload));
     },
 
     [deleteItemFromCartRequest.rejected]: (state, action) => {
       state.errorMessage = action.error.message;
-      state.loading = false;
+      state.status = STATUS.FAILED;
     },
   },
 });

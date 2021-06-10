@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import Flex from '../components/utils/Flex';
 
-import { COLOR } from '../constant';
+import { COLOR, LOADING_MESSAGE } from '../constant';
 
 const ContentWrapper = styled.section`
   margin: 25px;
@@ -28,7 +28,7 @@ function NotFoundPage() {
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column" css={FlexStyle}>
       <ContentWrapper>
-        <ContentText>로딩중 . . . 🏃‍♂️ 🏃‍♂️ 🏃‍♂️</ContentText>
+        <ContentText>{LOADING_MESSAGE.LOADING}</ContentText>
       </ContentWrapper>
     </Flex>
   );

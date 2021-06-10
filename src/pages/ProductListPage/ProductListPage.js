@@ -8,9 +8,11 @@ import ProductItem from './ProductItem';
 import { getProductsRequest } from '../../modules/productSlice';
 import { getCartItemsRequest } from '../../modules/cartSlice';
 
+import { STATUS, LOADING_MESSAGE } from '../../constant';
+
 const ProductListPage = () => {
   const dispatch = useDispatch();
-  const { products, errorMessage, loading } = useSelector((state) => state.productSlice);
+  const { status, products, errorMessage } = useSelector((state) => state.productSlice);
 
   useEffect(() => {
     dispatch(getProductsRequest());
@@ -25,7 +27,7 @@ const ProductListPage = () => {
 
   return (
     <>
-      {loading && <LoadingPage>상품목록을 불러오는 중입니다</LoadingPage>}
+      {status === STATUS.LOADING && <LoadingPage>{LOADING_MESSAGE.PRODUCT_LIST}</LoadingPage>}
       <GridColumnList gridColumnGap="48px" gridRowGap="28px" gridColumnRepeatCount={4} gridColumnWidth="282px">
         {products.map((product) => (
           <ProductItem product={product} key={product.product_id} />

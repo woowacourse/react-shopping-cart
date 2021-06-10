@@ -8,7 +8,7 @@ import Button from '../../components/utils/Button';
 
 import { addItemToCartRequest } from '../../modules/cartSlice';
 
-import { COLOR } from '../../constant';
+import { COLOR, MESSAGE } from '../../constant';
 
 const OrderListItem = ({ order }) => {
   const dispatch = useDispatch();
@@ -108,7 +108,7 @@ const OrderListItem = ({ order }) => {
     const isCartItemExist = cartItemsInServer && cartItemsInServer.length > 0;
     const isAlreadyInCart = cartItemsInServer.findIndex((item) => item.product_id === product.product_id) !== -1;
 
-    if (isCartItemExist && isAlreadyInCart) return alert('이미 장바구니에 추가된 상품입니다.');
+    if (isCartItemExist && isAlreadyInCart) return alert(MESSAGE.ALREADY_IN_CART); // 상수처리
     dispatch(addItemToCartRequest(product));
   };
 
