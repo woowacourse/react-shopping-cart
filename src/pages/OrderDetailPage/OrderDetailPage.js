@@ -14,8 +14,8 @@ const OrderDetailPage = () => {
   const { id: orderId } = useParams();
 
   // 여긴 왜 콜백이지
-  const { data: order } = useFetch({}, () => requestOrder(orderId));
-  const { data: productList } = useFetch([], requestProductList);
+  const [order] = useFetch({}, () => requestOrder(orderId));
+  const [productList] = useFetch([], requestProductList);
 
   const { setModalOpen, Modal } = useModal(false);
 

@@ -14,8 +14,8 @@ const OrderListPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { data: productList } = useFetch([], requestProductList);
-  const { data: orderList } = useFetch([], requestOrderList);
+  const [productList] = useFetch([], requestProductList);
+  const [orderList] = useFetch([], requestOrderList);
 
   const { Modal, setModalOpen } = useModal(false);
 

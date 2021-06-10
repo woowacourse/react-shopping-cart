@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { requestTable } from '../api/request';
 
 const useFetch = (defaultValue, request) => {
   const [data, setData] = useState(defaultValue);
@@ -23,7 +22,7 @@ const useFetch = (defaultValue, request) => {
     fetchData();
   }, []);
 
-  return { data, isError };
+  return [data, isError];
 };
 
 export default useFetch;

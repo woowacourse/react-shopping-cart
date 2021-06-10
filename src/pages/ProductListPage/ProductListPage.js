@@ -15,13 +15,13 @@ const ProductListPage = () => {
   const dispatch = useDispatch();
 
   const { setModalOpen, Modal } = useModal(false);
-  const { data: productList, isError } = useFetch([], requestProductList);
+  const [productList, getProductListError] = useFetch([], requestProductList);
 
   useEffect(() => {
-    if (!isError) return;
+    if (!getProductListError) return;
 
-    alert(`${isError} Error`);
-  }, [isError]);
+    alert('상품 목록을 불러오는 데 실패했습니다.');
+  }, [getProductListError]);
 
   const addShoppingCartItem = productId => {
     dispatch(addShoppingCartItemAsync({ product_id: productId }));

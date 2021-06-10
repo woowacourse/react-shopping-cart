@@ -10,6 +10,7 @@ const addShoppingCartItemAsync = createAsyncThunk('addShoppingCartItem', async (
   const currentProductIds = getState().myShoppingCartReducer.myShoppingCart.map(item => item.product_id);
 
   if (currentProductIds.includes(newContent.product_id)) return;
+
   try {
     const addItemResponse = await requestAddShoppingCartItem(newContent);
     const getProductResponse = await requestProduct(newContent.product_id);
@@ -19,7 +20,7 @@ const addShoppingCartItemAsync = createAsyncThunk('addShoppingCartItem', async (
 
     return { cart_id: newCartId, ...newItem };
   } catch (error) {
-    console.log('몰라,,');
+    console.error(error);
   }
 });
 
