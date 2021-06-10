@@ -11,11 +11,12 @@ import {
   StyledProductCard,
 } from './style';
 
-interface Props extends Product {
+interface Props {
+  product: Product;
   onClick: () => void;
 }
 
-const ProductCard: VFC<Props> = ({ onClick, ...product }) => {
+const ProductCard: VFC<Props> = ({ onClick, product }) => {
   const { name, price, imageUrl } = product;
   const { addItem } = useCart();
 
