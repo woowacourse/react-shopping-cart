@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 import { RootState } from "../store";
 
-import { PATH } from "../constants/path";
 import { ORDER_COUNT } from "../constants/standard";
 
 interface CheckedList {
@@ -16,8 +14,6 @@ interface OrderCountList {
 }
 
 const useCart = () => {
-  const history = useHistory();
-
   const { cart, loading, requestErrorMessage } = useSelector(
     ({ cart: { cart, loading, requestErrorMessage } }: RootState) => ({
       cart,
@@ -105,15 +101,6 @@ const useCart = () => {
     });
   };
 
-  const onClickSubmitButton = () => {
-    history.push(PATH.ORDER, {
-      order: cart
-        .filter(({ cartId }) => checkedList[cartId])
-        .map((item) => ({ ...item, quantity: orderCountList[item.cartId] })),
-      totalPrice,
-    });
-  };
-
   useEffect(() => {
     setCheckedListAll(true);
     resetOrderCountList();
@@ -132,7 +119,6 @@ const useCart = () => {
     onDecrementOrderCount,
     onChangeChecked,
     totalPrice,
-    onClickSubmitButton,
   };
 };
 

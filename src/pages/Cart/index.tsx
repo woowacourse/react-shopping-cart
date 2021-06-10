@@ -1,5 +1,6 @@
 import React, { useEffect, useState, VFC } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 import actions from "../../actions";
 
@@ -7,9 +8,11 @@ import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../
 import { CartItem, Portal } from "../../components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
 
-import { COLOR } from "../../constants/theme";
-import { toNumberWithComma } from "../../utils/format";
 import useCart from "../../hooks/useCart";
+
+import { COLOR } from "../../constants/theme";
+import { PATH } from "../../constants/path";
+import { toNumberWithComma } from "../../utils/format";
 
 const Cart: VFC = () => {
   const {
@@ -25,7 +28,6 @@ const Cart: VFC = () => {
     onDecrementOrderCount,
     onChangeChecked,
     totalPrice,
-    onClickSubmitButton,
   } = useCart();
 
   const [isDeleteConfirmOpened, setDeleteConfirmStatus] = useState<boolean>(false);
@@ -35,6 +37,17 @@ const Cart: VFC = () => {
   useEffect(() => {
     dispatch(actions.cart.get.request());
   }, []);
+
+  const history = useHistory();
+
+  const onClickSubmitButton = () => {
+    history.push(PATH.ORDER, {
+      order: cart
+        .filter(({ cartId }) => checkedList[cartId])
+        .map((item) => ({ ...item, quantity: orderCountList[item.cartId] })),
+      totalPrice,
+    });
+  };
 
   if (loading) {
     return (
