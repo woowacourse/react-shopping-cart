@@ -37,9 +37,11 @@ const ManageCartItemStyle = css`
 `;
 
 const CartItemPrice = styled.span`
+  width: 160px;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
+  text-align: end;
 `;
 
 const CartItem = (props) => {

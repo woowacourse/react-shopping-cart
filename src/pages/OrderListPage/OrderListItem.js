@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 import Button from '../../components/utils/Button';
+import PriceText from '../../components/utils/PriceText';
 
 import { addItemToCartRequest } from '../../modules/cartSlice';
 
@@ -131,7 +132,10 @@ const OrderListItem = ({ order }) => {
               />
               <Flex flexDirection="column" css={ProductInfoStyle}>
                 <ProductName>{orderDetail.name}</ProductName>
-                <ProductDetail>{`${orderDetail.price}원 / 수량: ${orderDetail.quantity}개`}</ProductDetail>
+                <ProductDetail>
+                  <PriceText color={COLOR.GRAY[700]}>{orderDetail.price}</PriceText>{' '}
+                  <span>{`/ 수량: ${orderDetail.quantity}개`}</span>
+                </ProductDetail>
               </Flex>
               <StyledButton disabled={false} onClick={() => onAddCartButtonClick(orderDetail)}>
                 장바구니

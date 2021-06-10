@@ -40,10 +40,6 @@ const Price = styled.span`
   width: 50px;
 `;
 
-const PriceTextStyle = css`
-  width: 137px;
-`;
-
 const ProductDetailPage = () => {
   const { productId } = useParams();
   const { singleProduct } = useSelector((state) => state.productSlice);
@@ -66,7 +62,7 @@ const ProductDetailPage = () => {
       <Flex flexDirection="row" alignItems="center" justifyContent="space-between" css={priceWrapperStyle}>
         <Price>금액</Price>
         {singleProduct.price && (
-          <PriceText width="137px" fontSize="32px" lineHeight="26.7px" hoverFontWeight={700} css={PriceTextStyle}>
+          <PriceText fontSize="32px" lineHeight="26.7px" hoverFontWeight={700}>
             {singleProduct.price}
           </PriceText>
         )}
