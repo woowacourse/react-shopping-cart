@@ -6,7 +6,7 @@ import { getFormattedAsKRW } from '../../utils';
 import { COLOR } from '../../constants';
 
 export const Item = (props) => {
-  const { product, addProduct, ...rest } = props;
+  const { product, onClickCartIcon, onClickImage, ...rest } = props;
   const { name, price, imageUrl } = product;
   const handleImageError = (e) => {
     // TODO: 이미지 로딩 실패 시 에러 처리
@@ -14,13 +14,13 @@ export const Item = (props) => {
 
   return (
     <S.Container {...rest}>
-      <S.Image src={imageUrl} onError={handleImageError} />
+      <S.Image src={imageUrl} onClick={onClickImage} onError={handleImageError} />
       <S.Footer>
         <S.Label>
           <S.Name>{name}</S.Name>
           <S.Price>{getFormattedAsKRW(price)}</S.Price>
         </S.Label>
-        <Button onClick={() => addProduct(product)}>
+        <Button onClick={onClickCartIcon}>
           <IconCart width="30" color={COLOR.HEX.GRAY_800} />
         </Button>
       </S.Footer>
@@ -35,7 +35,8 @@ Item.propTypes = {
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     img: PropTypes.string,
   }).isRequired,
-  addProduct: PropTypes.func.isRequired,
+  onClickCartIcon: PropTypes.func.isRequired,
+  onClickImage: PropTypes.func.isRequired,
 };
 
 export const ItemSkeleton = () => {

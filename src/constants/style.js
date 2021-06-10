@@ -27,6 +27,7 @@ export const COLOR = {
     VIOLET_500: '#6660ff',
     WHITE: '#ffffff',
     BLACK: '#000000',
+    BROWN: '#73675C',
   },
   RGB: {
     CYAN_500: '42, 194, 188',

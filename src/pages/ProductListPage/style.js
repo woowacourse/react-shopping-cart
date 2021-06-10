@@ -77,6 +77,9 @@ export const Image = styled.img`
   height: 6rem;
   background-image: url(${(props) => props.src});
   background-size: cover;
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (min-width: ${BREAKPOINTS.MOBILE}) {
     width: 4.5rem;

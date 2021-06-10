@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { ProductListPage } from './ProductListPage';
+import { ProductDetailPage } from './ProductDetailPage';
 import { CartPage } from './CartPage';
 import { CheckoutPage } from './CheckoutPage';
 import { OrderListPage } from './OrderListPage';
@@ -18,6 +19,9 @@ export const App = () => {
       <Switch>
         <Route exact path={[ROUTE.HOME, ROUTE.PRODUCT_LIST]}>
           <ProductListPage />
+        </Route>
+        <Route path={`${ROUTE.PRODUCT_DETAIL}/:productId`}>
+          <ProductDetailPage />
         </Route>
         <Route path={ROUTE.CART}>
           <CartPage />

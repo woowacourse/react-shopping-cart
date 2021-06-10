@@ -4,8 +4,9 @@ import { useProducts, useCart } from '../../hooks';
 import { RedirectNotice } from '../../components';
 import { Item, ItemSkeleton } from './Item';
 import * as S from './style';
+import { ROUTE } from '../../constants';
 
-const SKELETON_PREVIEW_COUNT = 5;
+const SKELETON_PREVIEW_COUNT = 10;
 
 export const ProductListPage = () => {
   const history = useHistory();
@@ -37,7 +38,8 @@ export const ProductListPage = () => {
                     <Item
                       key={productId}
                       product={product}
-                      addProduct={() => addProduct(productId)}
+                      onClickCartIcon={() => addProduct(productId)}
+                      onClickImage={() => history.push(`${ROUTE.PRODUCT_DETAIL}/${productId}`)}
                     />
                   );
                 })}
