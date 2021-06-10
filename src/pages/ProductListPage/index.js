@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
-import { useProduct, useCart } from '../../hooks';
+import { useProducts, useCart } from '../../hooks';
 import { RedirectNotice } from '../../components';
 import { Item, ItemSkeleton } from './Item';
 import * as S from './style';
@@ -9,7 +9,7 @@ const SKELETON_PREVIEW_COUNT = 5;
 
 export const ProductListPage = () => {
   const history = useHistory();
-  const { products, isLoading, isError } = useProduct();
+  const { products, isLoading, isError } = useProducts();
   const { addProduct } = useCart();
 
   return (
