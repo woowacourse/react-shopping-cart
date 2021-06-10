@@ -21,7 +21,7 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
       <List>
         {items.map((item) => (
           <ShoppingCartItem
-            key={item.cart_id}
+            key={item.cartId}
             item={item}
             changeQuantity={changeQuantity}
             changeChecked={changeChecked}

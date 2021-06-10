@@ -2,8 +2,8 @@ import APIClient from '../../API';
 import { CartItem, Order } from '../../types';
 
 export const requestOrderItems = (userName: string, items: CartItem[]) => {
-  const orderItem = items.map(({ cart_id, quantity }) => ({
-    cart_id,
+  const orderItem = items.map(({ cartId, quantity }) => ({
+    cartId: cartId,
     quantity,
   }));
 
@@ -11,4 +11,4 @@ export const requestOrderItems = (userName: string, items: CartItem[]) => {
 };
 
 export const requestOrders = (userName: string) =>
-  APIClient.get<Order[]>(`/customers/${userName}/orders`);
+  APIClient.get(`/customers/${userName}/orders`) as Promise<Order[]>;

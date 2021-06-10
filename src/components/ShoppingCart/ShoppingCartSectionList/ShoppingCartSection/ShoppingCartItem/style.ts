@@ -31,5 +31,5 @@ export const DeleteButton = styled(IconButton)`
 `;
 
 DeleteButton.defaultProps = {
-  image: process.env.PUBLIC_URL + '/icons/trash-bin.svg',
+  image: process.env.PUBLICUrl + '/icons/trash-bin.svg',
 };

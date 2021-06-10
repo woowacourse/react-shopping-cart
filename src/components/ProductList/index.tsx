@@ -15,8 +15,8 @@ const ProductList: VFC<Props> = ({ products }) => {
     <ProductListContainer>
       {products.map((product) => (
         <ProductCard
-          key={product.product_id}
-          onClick={() => history.push(`/product/${product.product_id}`)}
+          key={product.productId}
+          onClick={() => history.push(`/product/${product.productId}`)}
           {...product}
         />
       ))}

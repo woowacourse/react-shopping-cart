@@ -17,7 +17,7 @@ export const cartSlice = createSlice({
       state,
       { payload }: PayloadAction<{ cartItem: CartItem; quantity: number }>
     ) => {
-      const target = state.items.find((item) => item.cart_id === payload.cartItem.cart_id);
+      const target = state.items.find((item) => item.cartId === payload.cartItem.cartId);
 
       if (!target) return;
 
@@ -25,7 +25,7 @@ export const cartSlice = createSlice({
     },
 
     changeItemChecked: (state, { payload }: PayloadAction<CartId>) => {
-      const target = state.items.find((item) => item.cart_id === payload);
+      const target = state.items.find((item) => item.cartId === payload);
 
       if (!target) return;
 

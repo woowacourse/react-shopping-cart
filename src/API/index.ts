@@ -1,20 +1,20 @@
+import { camelizeKeys } from 'humps';
 import { API_BASE_URL } from '../constants/API';
 
 type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 const fetchOption = (method: HTTPMethod, data?: unknown) => ({
   method,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(data),
 });
 
 const APIClient = {
-  async get<T>(path: string): Promise<T> {
+  async get(path: string) {
     const response = await fetch(API_BASE_URL + path);
+    const responseData = await response.json();
 
-    return response.json();
+    return camelizeKeys(responseData as Object);
   },
 
   post<T>(path: string, data: T) {
@@ -23,8 +23,9 @@ const APIClient = {
 
   async put<T>(path: string, data: T) {
     const response = await fetch(API_BASE_URL + path, fetchOption('PUT', data));
+    const responseData = await response.json();
 
-    return response.json();
+    return camelizeKeys(responseData);
   },
 
   delete(path: string) {

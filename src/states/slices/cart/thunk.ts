@@ -37,13 +37,13 @@ const getCartId = (response: Response) => {
 export const thunkAddItemToCart = createAsyncThunk(
   `${name}/addCartItem`,
   async ({ userName, product }: { userName: string; product: Product }, thunkAPI) => {
-    const { product_id, image_url, name, price } = product;
+    const { productId, imageUrl, name, price } = product;
 
     try {
-      const result = await requestAddCartItem(userName, product_id);
-      const cart_id = getCartId(result);
+      const result = await requestAddCartItem(userName, productId);
+      const cartId = getCartId(result);
 
-      return { cart_id, image_url, name, price, quantity: 1, checked: true } as CartItem;
+      return { cartId, imageUrl, name, price, quantity: 1, checked: true } as CartItem;
     } catch (error) {
       return thunkAPI.rejectWithValue(new Error(error));
     }
@@ -66,7 +66,7 @@ export const thunkDeleteCartItems = createAsyncThunk(
   `${name}/deleteCartItems`,
   async ({ userName, items }: { userName: string; items: CartItem[] }, thunkAPI) => {
     try {
-      const checkedItemIds = items.filter((item) => item.checked).map((item) => item.cart_id);
+      const checkedItemIds = items.filter((item) => item.checked).map((item) => item.cartId);
       return requestDeleteCartItems(userName, checkedItemIds);
     } catch (error) {
       return thunkAPI.rejectWithValue(new Error(error));
@@ -79,7 +79,7 @@ const extraReducers = (builder: ActionReducerMapBuilder<CartState>) => {
     thunkFetchCartItems.fulfilled,
     (state, { payload }: PayloadAction<CartItemOnServer[]>) => {
       payload.forEach((cartItemOnServer) => {
-        if (state.items.find((item) => item.cart_id === cartItemOnServer.cart_id)) return;
+        if (state.items.find((item) => item.cartId === cartItemOnServer.cartId)) return;
 
         state.items.push({ ...cartItemOnServer, quantity: 1, checked: true });
       });
@@ -94,7 +94,7 @@ const extraReducers = (builder: ActionReducerMapBuilder<CartState>) => {
   });
 
   builder.addCase(thunkDeleteCartItem.fulfilled, (state, { payload }: PayloadAction<CartId>) => {
-    state.items = state.items.filter((item) => item.cart_id !== payload);
+    state.items = state.items.filter((item) => item.cartId !== payload);
     state.isLoading = false;
   });
 

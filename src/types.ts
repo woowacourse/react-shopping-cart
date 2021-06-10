@@ -3,28 +3,29 @@ export type ProductId = number;
 export type CartId = number;
 
 export interface Product {
-  product_id: ProductId;
+  productId: ProductId;
   name: string;
   price: number;
-  image_url: string;
+  imageUrl: string;
 }
 
-export interface CartItem {
-  cart_id: number;
+export interface CartItemOnServer {
+  cartId: CartId;
   name: string;
   price: number;
-  image_url: string;
+  imageUrl: string;
+}
+
+export interface CartItem extends CartItemOnServer {
   quantity: number;
   checked: boolean;
 }
-
-export type CartItemOnServer = Omit<CartItem, 'quantity' | 'checked'>;
 
 export interface OrderedItem extends Product {
   quantity: number;
 }
 
 export interface Order {
-  order_id: number;
-  order_details: OrderedItem[];
+  orderId: number;
+  orderDetails: OrderedItem[];
 }

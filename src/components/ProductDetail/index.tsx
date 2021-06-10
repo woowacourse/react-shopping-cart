@@ -16,12 +16,12 @@ interface Props {
 }
 
 const ProductDetailSection: VFC<Props> = ({ product }) => {
-  const { image_url, name, price } = product;
+  const { imageUrl, name, price } = product;
   const { addItem } = useCart();
 
   return (
     <StyledProductDetailSection>
-      <ProductImg src={image_url} alt="제품이미지" />
+      <ProductImg src={imageUrl} alt="제품이미지" />
       <ProductName>{name}</ProductName>
       <PriceContainer>
         <span>금액</span>

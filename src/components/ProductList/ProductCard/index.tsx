@@ -16,7 +16,7 @@ interface Props extends Product {
 }
 
 const ProductCard: VFC<Props> = ({ onClick, ...product }) => {
-  const { name, price, image_url } = product;
+  const { name, price, imageUrl } = product;
   const { addItem } = useCart();
 
   const onClickAddCart = (event: MouseEvent<HTMLButtonElement>) => {
@@ -26,7 +26,7 @@ const ProductCard: VFC<Props> = ({ onClick, ...product }) => {
   };
 
   return (
-    <StyledProductCard onClick={onClick} type="vertical" image={image_url}>
+    <StyledProductCard onClick={onClick} type="vertical" image={imageUrl}>
       <ContentContainer>
         <ProductTextContainer>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>

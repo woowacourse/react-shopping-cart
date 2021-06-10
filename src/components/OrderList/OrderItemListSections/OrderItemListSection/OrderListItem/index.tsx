@@ -13,12 +13,12 @@ interface Props {
 }
 
 const OrderListItem: VFC<Props> = ({
-  item: { image_url, name, price, quantity },
+  item: { imageUrl, name, price, quantity },
   handleAddCart,
   handleLinkToProductDetail,
 }) => (
   <StyledOrderItemListItem>
-    <OrderListItemCard type="horizontal" image={image_url} onClick={handleLinkToProductDetail}>
+    <OrderListItemCard type="horizontal" image={imageUrl} onClick={handleLinkToProductDetail}>
       <Container>
         <ProductName>{name}</ProductName>
         <Text>

@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const OrderItemListSection: VFC<Props> = ({ order: { order_id, order_details }, className }) => {
+const OrderItemListSection: VFC<Props> = ({ order: { orderId, orderDetails }, className }) => {
   const { addItem } = useCart();
   const history = useHistory();
 
@@ -24,15 +24,15 @@ const OrderItemListSection: VFC<Props> = ({ order: { order_id, order_details }, 
   return (
     <StyledOrderItemListSection data-testid="order-section" className={className}>
       <OrderItemListHeader>
-        <span>주문번호 : {order_id}</span>
+        <span>주문번호 : {orderId}</span>
       </OrderItemListHeader>
       <OrderList>
-        {order_details.map((order_detail) => (
+        {orderDetails.map((order_detail) => (
           <OrderListItem
-            key={order_detail.product_id}
+            key={order_detail.productId}
             item={order_detail}
             handleAddCart={() => handlekAddCart(order_detail)}
-            handleLinkToProductDetail={() => history.push(`/product/${order_detail.product_id}`)}
+            handleLinkToProductDetail={() => history.push(`/product/${order_detail.productId}`)}
           />
         ))}
       </OrderList>

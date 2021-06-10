@@ -27,28 +27,28 @@ const ShoppingCartItem: VFC<Props> = ({
   changeChecked,
   className,
 }) => {
-  const { image_url, name, price, cart_id, checked, quantity } = item;
+  const { imageUrl, name, price, cartId, checked, quantity } = item;
 
   return (
     <ShoppingCartItemContainer
       className={className}
       data-testid="cart-item"
-      data-test-item-id={item.cart_id}
+      data-test-item-id={item.cartId}
     >
       <Checkbox
         checked={checked}
-        onChange={() => changeChecked(item.cart_id)}
+        onChange={() => changeChecked(item.cartId)}
         description="상품선택"
         labelTextHidden
         data-testid="select-checkbox"
       />
-      <ShoppingCartItemCard type="horizontal" image={image_url}>
+      <ShoppingCartItemCard type="horizontal" image={imageUrl}>
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>
       <Container>
         <DeleteButton
           type="button"
-          onClick={() => deleteItem(cart_id)}
+          onClick={() => deleteItem(cartId)}
           data-testid="delete-button"
         />
         <NumberInput value={quantity} min={1} setValue={(value) => changeQuantity(item, value)} />

@@ -7,9 +7,9 @@ interface Props {
   item: CartItem;
 }
 
-const OrderConfirmListItem: VFC<Props> = ({ item: { image_url, name, quantity } }) => {
+const OrderConfirmListItem: VFC<Props> = ({ item: { imageUrl, name, quantity } }) => {
   return (
-    <OrderItemCard type="horizontal" image={image_url}>
+    <OrderItemCard type="horizontal" image={imageUrl}>
       <Container data-testid="order-confirm-list-item">
         <ProductName>{name}</ProductName>
         <p>수량: {quantity}</p>
