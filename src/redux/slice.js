@@ -80,6 +80,8 @@ const shoppingCartItemSlice = createSlice({
       state.myShoppingCart = [];
     },
     [addShoppingCartItemAsync.fulfilled]: (state, action) => {
+      if (!action.payload) return;
+
       state.myShoppingCart = [...state.myShoppingCart, { ...action.payload, amount: 1, isChecked: true }];
     },
     [deleteShoppingCartItemAsync.fulfilled]: (state, action) => {

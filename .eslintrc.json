@@ -41,6 +41,7 @@
     "no-alert": "off",
     "no-param-reassign": "off",
     "prefer-template": "off",
-    "no-return-await": "off"
+    "no-return-await": "off",
+    "no-return-assign": "off"
   }
 }
