@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Button, List, Template } from '../../components';
-import { COLOR, PATTERN_FILE_NAME } from '../../constants';
+import { COLOR } from '../../constants';
 
 export const Page = styled(Template)`
   background-color: ${COLOR.HEX.GRAY_100};
@@ -14,7 +14,7 @@ export const Main = styled.main`
   width: 95%;
 `;
 
-export const OrderList = styled(List);
+export const OrderList = styled(List)``;
 
 export const OrderItem = styled.li``;
 
@@ -94,7 +94,7 @@ export const AddToCartButton = styled(Button)`
 
 export const Image = styled.img.attrs((props) => ({
   src: props.src,
-  alt: props.src.match(PATTERN_FILE_NAME)[0],
 }))`
-  width: 8.75rem;
+  width: 6rem;
+  height: 8rem;
 `;
