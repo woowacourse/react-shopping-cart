@@ -1,3 +1,4 @@
+import { CartItemOnServer } from './../types';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import { API_BASE_URL } from '../constants/API';
 
@@ -10,11 +11,11 @@ const fetchOption = (method: HTTPMethod, data?: any) => ({
 });
 
 const APIClient = {
-  async get(path: string) {
+  async get<T>(path: string) {
     const response = await fetch(API_BASE_URL + path);
     const responseData = await response.json();
 
-    return camelizeKeys(responseData as object);
+    return camelizeKeys(responseData as object) as T & object;
   },
 
   post<T>(path: string, data: T & object) {

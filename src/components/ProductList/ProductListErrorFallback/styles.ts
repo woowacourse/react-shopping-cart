@@ -4,7 +4,7 @@ import Container from '../../shared/Container';
 import Text from '../../shared/Text';
 import Button from '../../shared/Button';
 
-export const NetworkErrorContainer = styled(Container)`
+export const CommonErrorContainer = styled(Container)`
   position: fixed;
   top: 0;
   left: 0;
