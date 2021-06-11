@@ -1,6 +1,6 @@
 import { VFC } from 'react';
 import Text from '../../shared/Text';
-import { StyledModal, ModalInner, ResetButton, ModalHeader } from './styles';
+import { StyledPopup, PopupInner, ResetButton, PopupHeader } from './styles';
 
 interface Props {
   header: string;
@@ -11,15 +11,15 @@ interface Props {
 
 const ErrorFallbackPopup: VFC<Props> = ({ header, description, buttonText, onReset }) => {
   return (
-    <StyledModal>
-      <ModalInner>
-        <ModalHeader>{header}</ModalHeader>
+    <StyledPopup>
+      <PopupInner>
+        <PopupHeader>{header}</PopupHeader>
         <Text>{description}</Text>
         <ResetButton type="button" onClick={onReset}>
           {buttonText}
         </ResetButton>
-      </ModalInner>
-    </StyledModal>
+      </PopupInner>
+    </StyledPopup>
   );
 };
 

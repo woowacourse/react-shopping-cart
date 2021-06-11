@@ -3,7 +3,7 @@ import PALETTE from '../../../constants/palette';
 import { Z_INDEX } from '../../../constants/style';
 import Button from '../../shared/Button';
 
-export const StyledModal = styled.div`
+export const StyledPopup = styled.div`
   width: 100vw;
   height: 100vh;
 
@@ -17,7 +17,7 @@ export const StyledModal = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
 `;
 
-export const ModalInner = styled.div`
+export const PopupInner = styled.div`
   box-sizing: border-box;
   width: 24rem;
   height: 16rem;
@@ -33,7 +33,7 @@ export const ModalInner = styled.div`
   padding: 1.5rem;
 `;
 
-export const ModalHeader = styled.h2`
+export const PopupHeader = styled.h2`
   font-size: 1.5rem;
   font-weight: 600;
   margin: 1rem 0;
