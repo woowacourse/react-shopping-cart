@@ -5,25 +5,26 @@ import * as S from './style.js';
 import { useCartDispatch, useCartProduct, useConfirm } from '../../hooks';
 import { getFormattedAsKRW } from '../../utils';
 import { ROUTE } from '../../constants';
+import { useEffect } from 'react';
 
 export const CartPage = () => {
-  const {
-    cartProducts,
-    selectedProducts,
-    totalPrice,
-    isAllSelected,
-    isAllUnselected,
-  } = useCartProduct();
+  const { cartProducts, selectedProducts, totalPrice, isAllSelected, isAllUnselected } =
+    useCartProduct();
 
   const {
+    getProducts,
     removeProduct,
-    removeSelectedProducts,
+    removeProducts,
     toggleProductSelection,
     toggleAllProductsSelection,
     incrementProductQuantity,
     decrementProductQuantity,
     inputProductQuantity,
   } = useCartDispatch();
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   const history = useHistory();
   const onClickCheckoutButton = () => {
@@ -35,7 +36,7 @@ export const CartPage = () => {
   const onClickDeleteButton = () =>
     openConfirmWith({
       message: `선택한 ${selectedProducts.length}개의 상품을 삭제하시겠습니까?`,
-      approve: () => removeSelectedProducts(selectedProducts),
+      approve: () => removeProducts(selectedProducts.map(({ id }) => id)),
     });
   const onClickTrashIconButton = (id) =>
     openConfirmWith({

@@ -5,7 +5,7 @@ import * as S from './style.js';
 import { ROUTE } from '../../../constants';
 
 export const NavBar = (props) => {
-  const cartLength = useSelector(({ cartReducer }) => Object.keys(cartReducer).length);
+  const cartLength = useSelector(({ cartReducer }) => Object.keys(cartReducer.products).length);
 
   return (
     <S.NavBar {...props}>

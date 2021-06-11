@@ -11,9 +11,9 @@ export const ADD_PRODUCT_ERROR = 'ADD_PRODUCT_ERROR';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
 export const REMOVE_PRODUCT_ERROR = 'REMOVE_PRODUCT_ERROR';
-export const REMOVE_SELECTED_PRODUCTS = 'REMOVE_SELECTED_PRODUCTS';
-export const REMOVE_SELECTED_PRODUCTS_SUCCESS = 'REMOVE_SELECTED_PRODUCTS_SUCCESS';
-export const REMOVE_SELECTED_PRODUCTS_ERROR = 'REMOVE_SELECTED_PRODUCT_ERROR';
+export const REMOVE_PRODUCTS = 'REMOVE_PRODUCTS';
+export const REMOVE_PRODUCTS_SUCCESS = 'REMOVE_PRODUCTS_SUCCESS';
+export const REMOVE_PRODUCTS_ERROR = 'REMOVE_SELECTED_PRODUCT_ERROR';
 
 export const TOGGLE_PRODUCT_SELECTION = 'TOGGLE_PRODUCT_SELECTION';
 export const TOGGLE_ALL_PRODUCTS_SELECTION = 'TOGGLE_ALL_PRODUCTS_SELECTION';
@@ -21,6 +21,8 @@ export const TOGGLE_ALL_PRODUCTS_SELECTION = 'TOGGLE_ALL_PRODUCTS_SELECTION';
 export const INCREMENT_PRODUCT_QUANTITY = 'INCREMENT_PRODUCT_QUANTITY';
 export const DECREMENT_PRODUCT_QUANTITY = 'DECREMENT_PRODUCT_QUANTITY';
 export const INPUT_PRODUCT_QUANTITY = 'INPUT_PRODUCT_QUANTITY';
+
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 /* ACTION CREATOR */
 
@@ -30,9 +32,12 @@ export const cartAction = {
     try {
       const params = getFetchParams({ path: PATH.CART });
       const response = await request.get(params);
-      const cartList = await response.json();
 
-      dispatch({ type: GET_PRODUCTS_SUCCESS, payload: { cartList } });
+      if (response.ok) {
+        const cartList = await response.json();
+
+        dispatch({ type: GET_PRODUCTS_SUCCESS, payload: { cartList } });
+      }
     } catch (e) {
       console.error(e);
       dispatch({ type: GET_PRODUCTS_ERROR });
@@ -43,10 +48,11 @@ export const cartAction = {
     try {
       const body = { product_id: product.id };
       const params = getFetchParams({ path: PATH.CART, body });
+      const response = await request.post(params);
 
-      await request.post(params);
-
-      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: { product } });
+      if (response.ok) {
+        dispatch({ type: ADD_PRODUCT_SUCCESS, payload: { product } });
+      }
     } catch (e) {
       console.error(e);
       dispatch({ type: ADD_PRODUCT_ERROR });
@@ -56,29 +62,33 @@ export const cartAction = {
     dispatch({ type: REMOVE_PRODUCT });
     try {
       const params = getFetchParams({ path: `${PATH.CART}/${id}` });
+      const response = await request.delete(params);
 
-      await request.delete(params);
-
-      dispatch({ type: REMOVE_PRODUCT_SUCCESS, payload: { id } });
+      if (response.ok) {
+        dispatch({ type: REMOVE_PRODUCT_SUCCESS, payload: { id } });
+      }
     } catch (e) {
       console.error(e);
       dispatch({ type: REMOVE_PRODUCT_ERROR });
     }
   },
-  // removeSelectedProducts: () => ({ type: REMOVE_SELECTED_PRODUCTS }),
-  removeSelectedProducts: (selectedProducts) => async (dispatch) => {
-    dispatch({ type: REMOVE_SELECTED_PRODUCTS });
+  removeProducts: (ids) => async (dispatch) => {
+    dispatch({ type: REMOVE_PRODUCTS });
     try {
-      selectedProducts.forEach(async ({ id }) => {
-        const params = getFetchParams({ path: `${PATH.CART}/${id}` });
+      const response = await Promise.all(
+        ids.map((id) => {
+          const params = getFetchParams({ path: `${PATH.CART}/${id}` });
 
-        await request.delete(params);
-      });
+          return request.delete(params);
+        })
+      );
 
-      dispatch({ type: REMOVE_SELECTED_PRODUCTS_SUCCESS });
+      if (response.every(({ ok }) => ok)) {
+        dispatch({ type: REMOVE_PRODUCTS_SUCCESS, payload: { ids } });
+      }
     } catch (e) {
       console.error(e);
-      dispatch({ type: REMOVE_SELECTED_PRODUCTS_ERROR });
+      dispatch({ type: REMOVE_PRODUCTS_ERROR });
     }
   },
 
@@ -94,11 +104,17 @@ export const cartAction = {
     type: INPUT_PRODUCT_QUANTITY,
     payload: { id, quantity },
   }),
+
+  clearError: () => ({ type: CLEAR_ERROR }),
 };
 
 /* REDUCER */
 
-export const INITIAL_STATE = {};
+export const INITIAL_STATE = {
+  isLoading: false,
+  isError: false,
+  products: {},
+};
 
 export const INITIAL_CART_PRODUCT_PROPS = {
   quantity: 1,
@@ -111,73 +127,113 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
   switch (type) {
     /* payload: { cartListEntries } */
     case GET_PRODUCTS:
-      return { ...state };
+      return { ...state, isLoading: true };
     case GET_PRODUCTS_SUCCESS:
       const cartListEntries = payload.cartList.map(({ cart_id, price, name, image_url }) => [
         cart_id,
         { id: cart_id, price, name, img: image_url, ...INITIAL_CART_PRODUCT_PROPS },
       ]);
-      return Object.fromEntries(cartListEntries);
+      return {
+        ...state,
+        isLoading: false,
+        products: Object.fromEntries(cartListEntries),
+      };
     case GET_PRODUCTS_ERROR:
-      return { ...state };
+      return { ...state, isLoading: false, isError: true };
 
     /* payload: { product } */
     case ADD_PRODUCT:
-      return { ...state };
+      return { ...state, isLoading: true };
     case ADD_PRODUCT_SUCCESS:
       return {
         ...state,
-        [payload.product.id]: { ...payload.product, ...INITIAL_CART_PRODUCT_PROPS },
+        isLoading: false,
+        products: {
+          ...state.products,
+          [payload.product.id]: { ...payload.product, ...INITIAL_CART_PRODUCT_PROPS },
+        },
       };
     case ADD_PRODUCT_ERROR:
-      return { ...state };
+      return { ...state, isLoading: false, isError: true };
 
     /* payload: { id } */
     case REMOVE_PRODUCT:
-      return { ...state };
+      return { ...state, isLoading: true };
     case REMOVE_PRODUCT_SUCCESS:
-      return getPropertyRemoved({ ...state }, payload.id);
+      return {
+        ...state,
+        isLoading: false,
+        products: getPropertyRemoved({ ...state.products }, payload.id),
+      };
     case REMOVE_PRODUCT_ERROR:
-      return { ...state };
+      return { ...state, isLoading: false, isError: true };
 
-    case REMOVE_SELECTED_PRODUCTS:
-      return { ...state };
-    case REMOVE_SELECTED_PRODUCTS_SUCCESS:
-      const notRemovedProducts = Object.entries(state).filter(
-        ([_, product]) => !product.isSelected
-      );
-      return Object.fromEntries(notRemovedProducts);
-    case REMOVE_SELECTED_PRODUCTS_ERROR:
-      return { ...state };
+    case REMOVE_PRODUCTS:
+      return { ...state, isLoading: true };
+    case REMOVE_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        products: getPropertyRemoved({ ...state.products }, payload.ids),
+      };
+    case REMOVE_PRODUCTS_ERROR:
+      return { ...state, isLoading: false, isError: true };
 
     /* payload: { id } */
     case TOGGLE_PRODUCT_SELECTION:
-      const willBeSelected = !state[payload.id].isSelected;
-      return { ...state, [payload.id]: { ...state[payload.id], isSelected: willBeSelected } };
+      const willBeSelected = !state.products[payload.id].isSelected;
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [payload.id]: { ...state.products[payload.id], isSelected: willBeSelected },
+        },
+      };
 
     /* payload: { willBeSelected } */
     case TOGGLE_ALL_PRODUCTS_SELECTION:
-      return Object.entries(state).reduce(
-        (acc, [id]) => {
-          acc[id].isSelected = payload.willBeSelected;
-          return acc;
-        },
-        { ...state }
-      );
+      return {
+        ...state,
+        products: Object.entries(state.products).reduce(
+          (acc, [id]) => {
+            acc[id].isSelected = payload.willBeSelected;
+            return acc;
+          },
+          { ...state.products }
+        ),
+      };
 
     /* payload: { id } */
     case INCREMENT_PRODUCT_QUANTITY:
-      const incrementedQuantity = state[payload.id].quantity + 1;
-      return { ...state, [payload.id]: { ...state[payload.id], quantity: incrementedQuantity } };
+      const incrementedQuantity = state.products[payload.id].quantity + 1;
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [payload.id]: { ...state.products[payload.id], quantity: incrementedQuantity },
+        },
+      };
 
     /* payload: { id } */
     case DECREMENT_PRODUCT_QUANTITY:
-      const decrementedQuantity = state[payload.id].quantity - 1;
-      return { ...state, [payload.id]: { ...state[payload.id], quantity: decrementedQuantity } };
+      const decrementedQuantity = state.products[payload.id].quantity - 1;
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [payload.id]: { ...state.products[payload.id], quantity: decrementedQuantity },
+        },
+      };
 
     /* payload: { id, quantity } */
     case INPUT_PRODUCT_QUANTITY:
-      return { ...state, [payload.id]: { ...state[payload.id], quantity: payload.quantity } };
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [payload.id]: { ...state.products[payload.id], quantity: payload.quantity },
+        },
+      };
 
     default:
       return state;

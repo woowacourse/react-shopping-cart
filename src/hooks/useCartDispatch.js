@@ -8,8 +8,7 @@ export const useCartDispatch = () => {
   const getProducts = useCallback(() => dispatch(cartAction.getProducts()), [dispatch]);
   const addProduct = (product) => dispatch(cartAction.addProduct(product));
   const removeProduct = (id) => dispatch(cartAction.removeProduct(id));
-  const removeSelectedProducts = (selectedProducts) =>
-    dispatch(cartAction.removeSelectedProducts(selectedProducts));
+  const removeProducts = (ids) => dispatch(cartAction.removeProducts(ids));
   const toggleProductSelection = (id) => dispatch(cartAction.toggleProductSelection(id));
   const toggleAllProductsSelection = ({ target: { checked } }) => {
     dispatch(cartAction.toggleAllProductsSelection(checked));
@@ -23,7 +22,7 @@ export const useCartDispatch = () => {
     getProducts,
     addProduct,
     removeProduct,
-    removeSelectedProducts,
+    removeProducts,
     toggleProductSelection,
     toggleAllProductsSelection,
     incrementProductQuantity,
