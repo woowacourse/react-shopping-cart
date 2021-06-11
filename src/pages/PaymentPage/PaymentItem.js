@@ -1,11 +1,10 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 
 import Image from '../../components/utils/Image';
 import Flex from '../../components/utils/Flex';
 
 import { COLOR } from '../../constant';
-
-import styled, { css } from 'styled-components';
 
 const SinglePaymentItem = styled.li`
   display: flex;
@@ -25,12 +24,12 @@ const PaymentItemInfoWrapperStyle = css`
 const PaymentItemName = styled.span`
   font-size: 20px;
   margin: 4px 0 20px;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
 `;
 
 const PaymentItemQuantity = styled.span`
   font-size: 16px;
-  color: ${COLOR.GRAY[800]};
+  color: ${COLOR.GRAY[900]};
 `;
 
 const PaymentItem = (paymentItem) => {
@@ -39,7 +38,7 @@ const PaymentItem = (paymentItem) => {
       <Image
         width="120px"
         height="120px"
-        src={paymentItem.image}
+        src={paymentItem.image_url}
         alt={paymentItem.name}
         isBackgroundImageNeeded={true}
       />

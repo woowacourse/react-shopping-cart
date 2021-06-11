@@ -1,14 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-import logo from '../asset/logo.svg';
 import Badge from './utils/Badge';
 import Flex from './utils/Flex';
 
+import logo from '../asset/logo.svg';
 import { COLOR } from '../constant';
-
-import styled, { css } from 'styled-components';
 
 const HeaderWrapper = styled.header`
   min-width: 1440px;
@@ -43,7 +42,7 @@ const NavItem = styled(NavLink)`
 `;
 
 function Header() {
-  const state = useSelector((state) => state.cart);
+  const { cartItemsInServer } = useSelector((state) => state.cartSlice);
 
   return (
     <HeaderWrapper>
@@ -57,7 +56,9 @@ function Header() {
         <nav>
           <NavUl>
             <li>
-              <NavItem to="/cart">장바구니 {state.length ? <Badge children={state.length} /> : ''}</NavItem>
+              <NavItem to="/cart">
+                장바구니 {cartItemsInServer.length ? <Badge children={cartItemsInServer.length} /> : ''}
+              </NavItem>
             </li>
             <li>
               <NavItem to="/orders">주문목록</NavItem>

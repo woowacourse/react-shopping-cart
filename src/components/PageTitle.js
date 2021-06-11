@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { COLOR } from '../constant';
-
-import styled from 'styled-components';
 
 const TitleWrapper = styled.div`
   width: 1320px;
   height: 64px;
-  border-bottom: 4px solid ${COLOR.GRAY[800]};
+  border-bottom: 4px solid ${COLOR.GRAY[900]};
   text-align: center;
   padding-bottom: 22px;
 `;

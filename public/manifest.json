@@ -1,0 +1,8 @@
+{
+  "short_name": "장바구니",
+  "name": "티케한탄의 장바구니",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
