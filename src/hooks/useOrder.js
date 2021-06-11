@@ -5,13 +5,19 @@ import { requestGet, requestPost, deepCamelize, deepDecamelize } from '../utils'
 import { BASE_URL, DEFAULT_CUSTOMER_NAME, ROUTE } from '../constants';
 
 const getOrders = async (url) => {
-  const response = await requestGet({ url });
+  try {
+    const response = await requestGet({ url });
 
-  if (response.status !== 200) {
-    throw new Error(response);
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+
+    const body = await response.json();
+
+    return deepCamelize(body);
+  } catch (e) {
+    console.error(e);
   }
-  const body = await response.json();
-  return deepCamelize(body);
 };
 
 export const useOrder = (customerName = DEFAULT_CUSTOMER_NAME) => {
@@ -19,17 +25,20 @@ export const useOrder = (customerName = DEFAULT_CUSTOMER_NAME) => {
   const { data, error, mutate } = useSWR(`${BASE_URL}/customers/${customerName}/orders`, getOrders);
 
   const checkout = async (orders) => {
-    const response = await requestPost({
-      url: `${BASE_URL}/customers/${customerName}/orders`,
-      body: deepDecamelize(orders),
-    });
+    try {
+      const response = await requestPost({
+        url: `${BASE_URL}/customers/${customerName}/orders`,
+        body: deepDecamelize(orders),
+      });
 
-    if (response.status !== 201) {
-      throw new Error(response);
+      if (response.status !== 201) {
+        throw new Error(response);
+      }
+      mutate();
+      history.push(ROUTE.ORDER_LIST);
+    } catch (e) {
+      console.error(e);
     }
-    mutate();
-
-    history.push(ROUTE.ORDER_LIST);
   };
 
   return {

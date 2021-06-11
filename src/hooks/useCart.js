@@ -6,13 +6,17 @@ import { BASE_URL, DEFAULT_CUSTOMER_NAME } from '../constants';
 import { getFormattedAsKRW, deepDecamelize } from '../utils';
 
 const getProducts = async (url) => {
-  const response = await requestGet({ url });
+  try {
+    const response = await requestGet({ url });
 
-  if (response.status !== 200) {
-    throw new Error(response);
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+    const body = await response.json();
+    return deepCamelize(body);
+  } catch (e) {
+    console.error(e);
   }
-  const body = await response.json();
-  return deepCamelize(body);
 };
 
 export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
@@ -20,6 +24,7 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
     `${BASE_URL}/customers/${customerName}/carts`,
     getProducts
   );
+  const isLoading = !error && !data;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -48,33 +53,43 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
   }, 0);
 
   const addProduct = async (productId) => {
-    const response = await requestPost({
-      url: `${BASE_URL}/customers/${customerName}/carts`,
-      body: deepDecamelize({ productId }),
-    });
+    try {
+      const response = await requestPost({
+        url: `${BASE_URL}/customers/${customerName}/carts`,
+        body: deepDecamelize({ productId }),
+      });
 
-    if (response.status !== 201) {
-      throw new Error(response);
+      if (response.status !== 201) {
+        throw new Error(response);
+      }
+      mutate();
+    } catch (e) {
+      console.error(e);
     }
-    mutate();
   };
 
   const removeCartItem = async (cartId) => {
-    const response = await requestDelete({
-      url: `${BASE_URL}/customers/${customerName}/carts/${cartId}`,
-    });
+    while (isLoading) {}
 
-    if (response.status !== 204) {
-      throw new Error(response);
+    try {
+      const response = await requestDelete({
+        url: `${BASE_URL}/customers/${customerName}/carts/${cartId}`,
+      });
+
+      if (response.status !== 204) {
+        throw new Error(response);
+      }
+      mutate();
+    } catch (e) {
+      console.error(e);
     }
-    mutate();
   };
 
   const removeProduct = async (productId) => {
     const cartIds = products.find((product) => product.productId === productId).cartIds;
 
     for (const cartId of cartIds) {
-      removeCartItem(cartId);
+      await removeCartItem(cartId);
     }
   };
 
@@ -83,22 +98,24 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
       .filter((product) => product.isSelected)
       .map((product) => product.productId);
 
-    productIds.forEach((productId) => removeProduct(productId));
+    for (const productId of productIds) {
+      await removeProduct(productId);
+    }
   };
 
-  const increment = (productId) => {
-    addProduct(productId);
+  const increment = async (productId) => {
+    await addProduct(productId);
   };
 
-  const decrement = (productId) => {
+  const decrement = async (productId) => {
     const targetCartId = products
       .find((product) => product.productId === productId)
       .cartIds.slice(-1)[0];
 
-    removeCartItem(targetCartId);
+    await removeCartItem(targetCartId);
   };
 
-  const changeQuantity = (productId, nextQuantity) => {
+  const changeQuantity = async (productId, nextQuantity) => {
     const targetProduct = products.find((product) => product.productId === productId);
     const prevQuantity = targetProduct.cartIds.length;
     const diff = Math.abs(nextQuantity - prevQuantity);
@@ -110,7 +127,7 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
     const func = nextQuantity > prevQuantity ? increment : decrement;
 
     for (let i = 0; i < diff; i++) {
-      func(productId);
+      await func(productId);
     }
   };
 
@@ -135,7 +152,7 @@ export const useCart = (customerName = DEFAULT_CUSTOMER_NAME) => {
 
   return {
     products,
-    isLoading: !error && !products,
+    isLoading,
     isError: error,
     mutate,
     selectedProducts,
