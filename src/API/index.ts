@@ -10,31 +10,41 @@ const fetchOption = (method: HTTPMethod, data?: any) => ({
   body: JSON.stringify(data),
 });
 
+const request = async (path: string, option?: RequestInit) => {
+  const response = await fetch(API_BASE_URL + path, option);
+  const responseData = await response.json();
+
+  if (!response.ok) throw Error(responseData.error);
+
+  return responseData;
+};
+
 const APIClient = {
   async get<T>(path: string) {
-    const response = await fetch(API_BASE_URL + path);
-    const responseData = await response.json();
+    const responseData = await request(path);
 
     return camelizeKeys(responseData as object) as T & object;
   },
 
   post<T>(path: string, data: T & object) {
-    return fetch(API_BASE_URL + path, fetchOption('POST', decamelizeKeys(data)));
+    return request(API_BASE_URL + path, fetchOption('POST', decamelizeKeys(data)));
   },
 
   async put<T>(path: string, data: T & object) {
-    const response = await fetch(API_BASE_URL + path, fetchOption('PUT', decamelizeKeys(data)));
-    const responseData = await response.json();
+    const responseData = await request(
+      API_BASE_URL + path,
+      fetchOption('PUT', decamelizeKeys(data))
+    );
 
     return camelizeKeys(responseData);
   },
 
   delete(path: string) {
-    return fetch(API_BASE_URL + path, fetchOption('DELETE'));
+    return request(API_BASE_URL + path, fetchOption('DELETE'));
   },
 
   patch<T>(path: string, data: Partial<T>) {
-    return fetch(API_BASE_URL + path, fetchOption('PATCH', decamelizeKeys(data)));
+    return request(API_BASE_URL + path, fetchOption('PATCH', decamelizeKeys(data)));
   },
 };
 

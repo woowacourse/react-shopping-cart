@@ -16,7 +16,7 @@ const useCart = () => {
   const dispatch = useAppDispatch();
   const [
     cartItems,
-    hasError,
+    error,
     isLoading,
     userName,
   ] = useAppSelector(({ cart: { items, error, isLoading }, login: { userName } }) => [
@@ -28,10 +28,10 @@ const useCart = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!hasError) return;
+    if (!error) return;
 
-    throw new Error(NETWORK_ERROR);
-  }, [hasError]);
+    throw error;
+  }, [error]);
 
   const checkedCartItems = cartItems.filter((item) => item.checked);
 

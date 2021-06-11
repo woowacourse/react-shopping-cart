@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
-import { NETWORK_ERROR } from '../../constants/error';
 
 const useFetch = <T>(callback: () => Promise<T>) => {
   const [data, setData] = useState<T | null>(null);
-  const [hasError, setHasError] = useState<Error | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
-    setHasError(null);
+    setError(null);
     setIsLoading(true);
 
     try {
       const value = await callback();
       setData(value);
-    } catch (error) {
-      setHasError(error);
+    } catch (err) {
+      setError(err);
     }
 
     setIsLoading(false);
@@ -25,12 +24,10 @@ const useFetch = <T>(callback: () => Promise<T>) => {
   }, []);
 
   useEffect(() => {
-    if (!hasError) return;
+    if (error) throw error;
+  }, [error]);
 
-    throw new Error(NETWORK_ERROR);
-  }, [hasError]);
-
-  return { data, hasError, isLoading };
+  return { data, error, isLoading };
 };
 
 export default useFetch;
