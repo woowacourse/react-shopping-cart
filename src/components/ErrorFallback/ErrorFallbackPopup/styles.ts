@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PALETTE from '../../../constants/palette';
+import { Z_INDEX } from '../../../constants/style';
 import Button from '../../shared/Button';
 
 export const StyledModal = styled.div`
@@ -7,17 +8,19 @@ export const StyledModal = styled.div`
   height: 100vh;
 
   position: fixed;
+  top: 0;
+  z-index: ${Z_INDEX.FOREGROUND};
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
 `;
 
 export const ModalInner = styled.div`
   box-sizing: border-box;
-  width: 20rem;
-  height: 14rem;
+  width: 24rem;
+  height: 16rem;
 
   display: flex;
   flex-direction: column;
@@ -25,8 +28,9 @@ export const ModalInner = styled.div`
   align-items: center;
 
   background-color: white;
+  border: 1px solid ${PALETTE.GRAY[300]};
   border-radius: 1.25rem;
-  padding: 1rem;
+  padding: 1.5rem;
 `;
 
 export const ModalHeader = styled.h2`

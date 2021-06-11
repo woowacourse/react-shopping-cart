@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { useRouteMatch } from 'react-router';
 import Loading from '../../components/Loading';
 import ProductDetailSection from '../../components/ProductDetail';
 import Template from '../../components/shared/Template';
@@ -11,9 +11,9 @@ interface MatchParams {
   productId: string;
 }
 
-const ProductDetailPage: VFC<RouteComponentProps<MatchParams>> = ({ match }) => {
+const ProductDetailPage: VFC = () => {
+  const match = useRouteMatch<MatchParams>();
   const productId = Number(match?.params?.productId);
-
   const product = useFetch(() => requestProduct(productId));
 
   return (
