@@ -4,7 +4,8 @@ import { useCart, useConfirm } from '../../hooks';
 import { Checkbox, Header, RedirectNotice } from '../../components';
 import { Item } from './Item';
 import * as S from './style.js';
-import { ROUTE } from '../../constants';
+import { ROUTE, API_CALL_DELAY } from '../../constants';
+import { throttle } from '../../utils/throttle';
 
 export const CartPage = () => {
   const history = useHistory();
@@ -26,13 +27,13 @@ export const CartPage = () => {
   const handleRemoveProducts = () => {
     openConfirm({
       message: `선택한 ${selectedProducts?.length}개의 상품을 삭제하시겠습니까?`,
-      approve: () => removeProducts(),
+      approve: throttle(() => removeProducts(), API_CALL_DELAY),
     });
   };
   const handleRemoveProduct = (productId) => {
     openConfirm({
       message: `해당 상품을 삭제하시겠습니까?`,
-      approve: () => removeProduct(productId),
+      approve: throttle(() => removeProduct(productId), API_CALL_DELAY),
     });
   };
   const onClickCheckoutButton = () => {
@@ -76,8 +77,8 @@ export const CartPage = () => {
                       product={product}
                       onClickTrashCanButton={() => handleRemoveProduct(productId)}
                       toggleCheckbox={() => toggleProduct(productId)}
-                      incrementQuantity={() => increment(productId)}
-                      decrementQuantity={() => decrement(productId)}
+                      incrementQuantity={throttle(() => increment(productId), API_CALL_DELAY)}
+                      decrementQuantity={throttle(() => decrement(productId), API_CALL_DELAY)}
                     />
                   );
                 })}
