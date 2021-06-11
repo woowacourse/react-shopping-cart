@@ -2,7 +2,7 @@ import CommonError from '.';
 
 export default {
   component: CommonError,
-  title: 'components/ErrorBoundary/CommonError',
+  title: 'components/ErrorFallback/AppErrorFallback',
 };
 
 const Template = (args) => <CommonError {...args} />;
