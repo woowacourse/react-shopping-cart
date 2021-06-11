@@ -18,18 +18,18 @@ export const ProductDetail = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 1.5rem;
-  width: 16rem;
+  width: 12rem;
 
   @media (min-width: ${BREAKPOINTS.MOBILE}) {
-    width: 16rem;
+    width: 12rem;
   }
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
-    width: 18rem;
+    width: 16rem;
   }
 
   @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
-    width: 20rem;
+    width: 18rem;
   }
 
   @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
@@ -43,21 +43,21 @@ export const ProductDetail = styled.div`
 
 export const Image = styled.img`
   width: 100%;
-  height: 16rem;
+  height: 12rem;
 
   background-image: url(${(props) => props.src});
   background-size: cover;
 
   @media (min-width: ${BREAKPOINTS.MOBILE}) {
-    height: 16rem;
+    height: 12rem;
   }
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
-    height: 18rem;
+    height: 16rem;
   }
 
   @media (min-width: ${BREAKPOINTS.LAPTOP_S}) {
-    height: 20rem;
+    height: 18rem;
   }
 
   @media (min-width: ${BREAKPOINTS.LAPTOP_M}) {
