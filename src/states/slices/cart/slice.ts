@@ -35,6 +35,10 @@ export const cartSlice = createSlice({
     changeAllItemChecked: (state, { payload }: PayloadAction<boolean>) => {
       state.items.forEach((item) => (item.checked = payload));
     },
+
+    clearError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers,
 });

@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { useEffect, VFC } from 'react';
 import Loading from '../../components/Loading';
 import ProductList from '../../components/ProductList';
 import Template from '../../components/shared/Template';
@@ -7,6 +7,10 @@ import { requestProductList } from '../../service/request/productList';
 
 const ProductListPage: VFC = () => {
   const productList = useFetch(requestProductList);
+
+  useEffect(() => {
+    if (productList.error) throw productList.error;
+  }, [productList.error]);
 
   return (
     <Template>

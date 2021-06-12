@@ -1,5 +1,5 @@
+import { HTTPError, FetchError } from './../../../utils/error';
 import { ActionReducerMapBuilder, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { NETWORK_ERROR } from '../../../constants/error';
 import {
   requestAddCartItem,
   requestCartItemList,
@@ -10,13 +10,16 @@ import { CartId, CartItem, CartItemOnServer, Product } from '../../../types';
 import { CartState, name } from '.';
 import { isPendingAction, isRejectedAction } from '../.';
 
+let currentCalledRequest = '';
+
 export const thunkFetchCartItems = createAsyncThunk(
   `${name}/fetchCartItems`,
   (userName: string, thunkAPI) => {
     try {
+      currentCalledRequest = requestCartItemList.name;
       return requestCartItemList(userName);
     } catch (error) {
-      return thunkAPI.rejectWithValue(new Error(error));
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -25,11 +28,11 @@ const getCartId = (response: Response) => {
   const location = response.headers.get('Location');
   const splittedLocation = location?.split('/');
 
-  if (!splittedLocation) throw new Error(NETWORK_ERROR);
+  if (!splittedLocation) throw new Error('response error: no response header - location');
 
   const cartId = Number(splittedLocation[splittedLocation.length - 1]);
 
-  if (isNaN(cartId)) throw new Error(NETWORK_ERROR);
+  if (isNaN(cartId)) throw new Error("response error: location doesen't have any cart id");
 
   return cartId;
 };
@@ -40,12 +43,14 @@ export const thunkAddItemToCart = createAsyncThunk(
     const { productId, imageUrl, name, price } = product;
 
     try {
+      currentCalledRequest = requestAddCartItem.name;
+
       const result = await requestAddCartItem(userName, productId);
       const cartId = getCartId(result);
 
       return { cartId, imageUrl, name, price, quantity: 1, checked: true } as CartItem;
     } catch (error) {
-      return thunkAPI.rejectWithValue(new Error(error));
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -54,10 +59,12 @@ export const thunkDeleteCartItem = createAsyncThunk(
   `${name}/deleteCartItem`,
   async ({ userName, cartId }: { userName: string; cartId: CartId }, thunkAPI) => {
     try {
+      currentCalledRequest = requestDeleteCartItem.name;
+
       await requestDeleteCartItem(userName, cartId);
       return cartId;
     } catch (error) {
-      return thunkAPI.rejectWithValue(new Error(error));
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -67,9 +74,12 @@ export const thunkDeleteCartItems = createAsyncThunk(
   async ({ userName, items }: { userName: string; items: CartItem[] }, thunkAPI) => {
     try {
       const checkedItemIds = items.filter((item) => item.checked).map((item) => item.cartId);
+
+      currentCalledRequest = requestDeleteCartItems.name;
+
       return requestDeleteCartItems(userName, checkedItemIds);
     } catch (error) {
-      return thunkAPI.rejectWithValue(new Error(error));
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -110,7 +120,8 @@ const extraReducers = (builder: ActionReducerMapBuilder<CartState>) => {
 
   builder.addMatcher(isRejectedAction, (state, { payload }) => {
     state.isLoading = false;
-    state.error = payload as Error;
+    console.log(payload instanceof HTTPError);
+    state.error = new FetchError(currentCalledRequest, payload as HTTPError);
   });
 };
 

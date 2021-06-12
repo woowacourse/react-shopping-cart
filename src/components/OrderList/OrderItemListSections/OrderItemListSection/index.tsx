@@ -1,7 +1,8 @@
-import { VFC } from 'react';
+import { useEffect, useState, VFC } from 'react';
 import { useHistory } from 'react-router';
 import useCart from '../../../../service/hooks/useCart';
 import { OrderedItem, Order } from '../../../../types';
+import { FetchError } from '../../../../utils/error';
 import OrderListItem from './OrderListItem';
 import { OrderItemListHeader, OrderList, StyledOrderItemListSection } from './styles';
 
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const OrderItemListSection: VFC<Props> = ({ order: { orderId, orderDetails }, className }) => {
-  const { addItem } = useCart();
+  const { addItem, error } = useCart();
   const history = useHistory();
 
   const handlekAddCart = (item: OrderedItem) => {

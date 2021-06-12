@@ -12,6 +12,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import ProductListErrorFallback from './components/ProductList/ErrorFallback';
 import OrderListErrorFallback from './components/OrderList/ErrorFallback';
 import ProductDetailErrorFallback from './components/ProductDetail/ErrorFallback';
+import OrderConfirmErrorFallback from './components/OrderConfirm/ErrorFallback';
 
 const App: VFC = () => {
   const { fetchCartItems } = useCart();
@@ -37,7 +38,11 @@ const App: VFC = () => {
             <OrderListPage />
           </ErrorBoundary>
         </Route>
-        <Route path="/orderConfirm" component={OrderConfirmPage} />
+        <Route path="/orderConfirm">
+          <ErrorBoundary FallbackComponent={OrderConfirmErrorFallback}>
+            <OrderConfirmPage />
+          </ErrorBoundary>
+        </Route>
         <Route path="/product/:productId">
           <ErrorBoundary FallbackComponent={ProductDetailErrorFallback}>
             <ProductDetailPage />

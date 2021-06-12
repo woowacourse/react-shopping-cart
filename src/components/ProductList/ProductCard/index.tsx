@@ -1,6 +1,7 @@
-import { MouseEvent, VFC } from 'react';
+import { MouseEvent, useEffect, VFC } from 'react';
 import useCart from '../../../service/hooks/useCart';
 import { Product } from '../../../types';
+import { FetchError } from '../../../utils/error';
 import { KRCurrency } from '../../../utils/format';
 import {
   CartIconButton,

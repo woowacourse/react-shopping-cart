@@ -1,7 +1,7 @@
+import { HTTPError, FetchError } from './../../utils/error';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { CART_ITEM_MIN_QUANTITY } from '../../constants/cart';
-import { NETWORK_ERROR } from '../../constants/error';
 import { cartAction } from '../../states/slices/cart/slice';
 import {
   thunkFetchCartItems,
@@ -11,6 +11,7 @@ import {
 } from '../../states/slices/cart/thunk';
 import { useAppDispatch, useAppSelector } from '../../states/store';
 import { CartId, CartItem, Product } from '../../types';
+import { useSnackbar } from 'notistack';
 
 const useCart = () => {
   const dispatch = useAppDispatch();
@@ -26,12 +27,7 @@ const useCart = () => {
     userName,
   ]);
   const history = useHistory();
-
-  useEffect(() => {
-    if (!error) return;
-
-    throw error;
-  }, [error]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const checkedCartItems = cartItems.filter((item) => item.checked);
 
@@ -80,6 +76,30 @@ const useCart = () => {
     dispatch(cartAction.changeAllItemChecked(checked));
   };
 
+  const clearError = () => {
+    dispatch(cartAction.clearError());
+  };
+
+  useEffect(() => {
+    if (!error) return;
+
+    const { functionName } = error as FetchError;
+
+    if (functionName === 'requestAddCartItem') {
+      enqueueSnackbar('장바구니 담기에 실패했습니다.');
+    }
+
+    if (functionName === 'requestCartItemList') {
+      enqueueSnackbar('장바구니 불러오기에 실패했습니다.');
+    }
+
+    if (functionName === 'requestDeleteCartItem') {
+      enqueueSnackbar('상품 삭제에 실패했습니다.');
+    }
+
+    clearError();
+  }, [error]);
+
   return {
     fetchCartItems,
     addItem,
@@ -92,6 +112,8 @@ const useCart = () => {
     checkedCartItems,
     totalPrice,
     isLoading,
+    error,
+    clearError,
   };
 };
 
