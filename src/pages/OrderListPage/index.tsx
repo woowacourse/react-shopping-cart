@@ -1,5 +1,5 @@
-import { useEffect, VFC } from 'react';
-import { ErrorBoundary, useErrorHandler } from 'react-error-boundary';
+import { VFC } from 'react';
+import { useErrorHandler } from 'react-error-boundary';
 import Loading from '../../components/Loading';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
 import Template from '../../components/shared/Template';

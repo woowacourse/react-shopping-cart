@@ -1,4 +1,4 @@
-import { useEffect, VFC } from 'react';
+import { VFC } from 'react';
 import { useHistory } from 'react-router';
 import { Product } from '../../types';
 import ProductCard from './ProductCard';

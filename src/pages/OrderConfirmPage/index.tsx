@@ -21,7 +21,7 @@ const OrderConfirmPage: VFC<Props> = () => {
   const { checkedCartItems, isLoading, totalPrice } = useCart();
   const { userName } = useLogin();
 
-  const order = useFetch(() => requestOrderItems('userName hohohoho', checkedCartItems), {
+  const order = useFetch(() => requestOrderItems(userName, checkedCartItems), {
     isMutation: true,
   });
 

@@ -1,4 +1,4 @@
-import { HTTPError, FetchError } from './../../utils/error';
+import { FetchError } from './../../utils/error';
 import { useEffect, useState } from 'react';
 
 interface UseFetchOption {

@@ -1,4 +1,4 @@
-import { HTTPError, FetchError } from './../../utils/error';
+import { FetchError } from './../../utils/error';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { CART_ITEM_MIN_QUANTITY } from '../../constants/cart';

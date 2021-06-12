@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, VFC } from 'react';
+import { VFC } from 'react';
 import { OrderedItem } from '../../../../../types';
 import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderConfirmListItem/style';
 import Container from '../../../../shared/Container';
