@@ -17,7 +17,9 @@ const request = async (method: HTTPMethod, path: string, data?: object) => {
   const response = await fetch(API_BASE_URL + path, fetchOption(method, data));
 
   if (!response.ok) {
-    const responseMessage = isContentTypeJSON(response) ? 'json' : await response.text();
+    const responseMessage = isContentTypeJSON(response)
+      ? 'Content-Type is json'
+      : await response.text();
 
     throw new HTTPError(response.status, responseMessage);
   }

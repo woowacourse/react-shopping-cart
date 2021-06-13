@@ -38,9 +38,7 @@ const OrderConfirmPage: VFC<Props> = () => {
       alert('주문이 성공했습니다!');
       history.replace('/');
     }
-
-    if (order.error) throw order.error;
-  }, [order.isSuccess, order.error]);
+  }, [order.isSuccess]);
 
   return (
     <Template title={TITLE}>
