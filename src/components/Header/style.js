@@ -22,6 +22,9 @@ export const HeaderInner = styled.div`
   justify-content: space-between;
 `;
 
+export const HeaderLogoIcon = styled.span``;
+export const HeaderLogoText = styled.h1``;
+
 export const HeaderTitle = styled.span`
   display: flex;
   align-items: center;
@@ -30,14 +33,15 @@ export const HeaderTitle = styled.span`
   color: ${PALETTE.WHITE};
   cursor: pointer;
 
-  & > * {
+  ${HeaderLogoText},
+  ${HeaderLogo} {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 1.5rem;
   }
 
-  h1 {
+  ${HeaderLogoText} {
     font-size: 2.5rem;
     color: ${PALETTE.WHITE};
   }

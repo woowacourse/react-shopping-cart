@@ -10,8 +10,8 @@ const Header = ({ logo, title, children }) => {
         <Link to="/">
           {logo && title !== '' && (
             <Styled.HeaderTitle>
-              {logo && <span>{logo}</span>}
-              {title && <h1>{title}</h1>}
+              {logo && <Styled.HeaderLogo>{logo}</Styled.HeaderLogo>}
+              {title && <Styled.HeaderLogoText>{title}</Styled.HeaderLogoText>}
             </Styled.HeaderTitle>
           )}
         </Link>
