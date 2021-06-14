@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
-import { setOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
+import { setOrderConfirmItems } from '../../service/orderConfirm';
 
 const TITLE = '장바구니';
 
@@ -34,7 +34,7 @@ const ShoppingCartPage: FC = () => {
       return;
     }
 
-    setOrderConfirmItemsInLocalStorage(checkedItem);
+    setOrderConfirmItems(checkedItem);
 
     if (!history) return;
 

@@ -1,7 +1,7 @@
-import { Product, ProductResponse } from '../../types';
-import customAxios from '../../utils/API';
+import { Product, ProductResponse } from '../types';
+import customAxios from '../utils/API';
 
-export const requestProductList = async (): Promise<Product[] | undefined> => {
+export const getProductList = async (): Promise<Product[] | undefined> => {
   const { data: productList } = await customAxios.get<ProductResponse[]>('/api/products');
 
   const appSchema = (productList: ProductResponse[]) =>

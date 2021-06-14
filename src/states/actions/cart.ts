@@ -1,16 +1,14 @@
 import { Dispatch } from 'redux';
 import { Action, ActionWithPayload, AppThunk } from '.';
 import {
-  deleteCartItemAdditionalDataInLocalStorage,
-  getCartItemAdditionalDataInLocalStorage,
-  setCartItemAdditionalDataInLocalStorage,
-} from '../../service/localStorage/cart';
-import {
-  requestShoppingCartItemToAdd,
-  requestShoppingCartItemToDelete,
-  requestShoppingCartItemsToDelete,
-  requestShoppingCartItemList,
-} from '../../service/request/cart';
+  addCartItem,
+  deleteCartItem,
+  deleteCartItemAdditionalData,
+  deleteCartItems,
+  getCartItemAdditionalData,
+  getCartItemList,
+  setCartItemAdditionalData,
+} from '../../service/cart';
 import { CartItem, Product } from '../../types';
 
 export const GET_CART_ITEMS = 'cart/GET_CART_ITEMS';
@@ -45,10 +43,10 @@ export const thunkGetCartItems = (): AppThunk => async (dispatch: Dispatch) => {
   dispatch({ type: GET_CART_ITEMS });
 
   try {
-    const incompleteCartItemList = await requestShoppingCartItemList();
+    const incompleteCartItemList = await getCartItemList();
 
     const completeCartItemList = incompleteCartItemList.map((cartItem) => {
-      const { quantity, checked } = getCartItemAdditionalDataInLocalStorage(cartItem.id);
+      const { quantity, checked } = getCartItemAdditionalData(cartItem.id);
 
       return {
         ...cartItem,
@@ -67,7 +65,7 @@ export const thunkAddNewItemToCart = (product: Product): AppThunk => async (disp
   dispatch({ type: ADD_CART_ITEM });
 
   try {
-    const cartId = await requestShoppingCartItemToAdd(product.id);
+    const cartId = await addCartItem(product.id);
     const newCartItem: CartItem = {
       ...product,
       id: cartId,
@@ -75,7 +73,7 @@ export const thunkAddNewItemToCart = (product: Product): AppThunk => async (disp
       quantity: 1,
     };
 
-    setCartItemAdditionalDataInLocalStorage({
+    setCartItemAdditionalData({
       id: newCartItem.id,
       quantity: newCartItem.quantity,
       checked: newCartItem.checked,
@@ -97,7 +95,7 @@ export const thunkChangeItemQuantity = (item: CartItem, quantity: number): AppTh
   try {
     const { id, quantity, checked } = changedItem;
 
-    setCartItemAdditionalDataInLocalStorage({
+    setCartItemAdditionalData({
       id,
       quantity,
       checked,
@@ -117,7 +115,7 @@ export const thunkToggleItemChecked = (item: CartItem): AppThunk => async (dispa
   try {
     const { id, quantity, checked } = toggledItem;
 
-    setCartItemAdditionalDataInLocalStorage({
+    setCartItemAdditionalData({
       id,
       quantity,
       checked,
@@ -137,7 +135,7 @@ export const thunkChangeAllItemChecked = (items: CartItem[], checked: boolean): 
   try {
     items.forEach((item) => {
       const { id, quantity } = item;
-      setCartItemAdditionalDataInLocalStorage({
+      setCartItemAdditionalData({
         id,
         quantity,
         checked,
@@ -154,8 +152,8 @@ export const thunkDeleteCartItem = (itemId: string): AppThunk => async (dispatch
   dispatch({ type: DELETE_CART_ITEM });
 
   try {
-    await requestShoppingCartItemToDelete(itemId);
-    deleteCartItemAdditionalDataInLocalStorage(itemId);
+    await deleteCartItem(itemId);
+    deleteCartItemAdditionalData(itemId);
 
     dispatch({ type: DELETE_CART_ITEM_SUCCESS, payload: itemId });
   } catch (error) {
@@ -167,9 +165,9 @@ export const thunkDeleteCartItems = (items: CartItem[]): AppThunk => async (disp
   dispatch({ type: DELETE_CART_ITEMS });
 
   try {
-    await requestShoppingCartItemsToDelete(items);
+    await deleteCartItems(items);
     items.forEach((item) => {
-      deleteCartItemAdditionalDataInLocalStorage(item.id);
+      deleteCartItemAdditionalData(item.id);
     });
 
     dispatch({ type: DELETE_CART_ITEMS_SUCCESS });

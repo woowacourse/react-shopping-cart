@@ -6,7 +6,7 @@ import { ERROR_TYPE, ERROR_FOR_DEVELOPER } from '../../constants/error';
 import { CONFIRM } from '../../constants/message';
 import useRequest from '../../hooks/shared/useRequest';
 import useCartAddItem from '../../hooks/useCartItems/useCartAddItem';
-import { requestProductList } from '../../service/request/productList';
+import { getProductList } from '../../service/productList';
 import CustomError from '../../utils/CustomError';
 import { KRCurrency } from '../../utils/format';
 import {
@@ -19,7 +19,7 @@ import {
 const ProductDetailPage = () => {
   const { addItem } = useCartAddItem();
   const { productId } = useParams<{ productId: string }>();
-  const { data: productList, isLoading } = useRequest(requestProductList);
+  const { data: productList, isLoading } = useRequest(getProductList);
   const targetProduct = useMemo(() => {
     if (!productList) {
       return null;

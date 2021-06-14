@@ -1,24 +1,23 @@
-import { FormEvent, useEffect, useState, FC } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
 import RootTemplate from '../../components/shared/RootTemplate';
-import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
-import { getOrderConfirmItemsInLocalStorage } from '../../service/localStorage/orderConfirm';
-import { requestOrderItemListToRegister } from '../../service/request/order';
-import { CartItem } from '../../types';
 import { ERROR_TYPE } from '../../constants/error';
 import { ALERT } from '../../constants/message';
+import { clearCartItemAdditionalData } from '../../service/cart';
+import { registerOrderItemList } from '../../service/order';
+import { getOrderConfirmItems } from '../../service/orderConfirm';
+import { CartItem } from '../../types';
 import CustomError from '../../utils/CustomError';
-import { clearCartItemAdditionalDataInLocalStorage } from '../../service/localStorage/cart';
 
 const TITLE = '주문/결제';
 
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: FC<Props> = ({ history }) => {
-  const items = getOrderConfirmItemsInLocalStorage();
+  const items = getOrderConfirmItems();
   const [totalPrice, setTotalPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -42,8 +41,8 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
     event.preventDefault();
 
     try {
-      await requestOrderItemListToRegister(items as CartItem[]);
-      clearCartItemAdditionalDataInLocalStorage();
+      await registerOrderItemList(items as CartItem[]);
+      clearCartItemAdditionalData();
 
       alert(ALERT.SUCCESS_ORDER);
     } catch (error) {

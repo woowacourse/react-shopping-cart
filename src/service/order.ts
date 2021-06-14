@@ -1,8 +1,8 @@
-import { CUSTOMER_NAME } from '../../appConfig';
-import { CartItem, Order, OrderResponse } from '../../types';
-import customAxios from '../../utils/API';
+import { CUSTOMER_NAME } from '../appConfig';
+import { CartItem, Order, OrderResponse } from '../types';
+import customAxios from '../utils/API';
 
-export const requestOrderItemListToRegister = (items: CartItem[]) => {
+export const registerOrderItemList = (items: CartItem[]) => {
   const APISchema = (items: CartItem[]) =>
     items.map((item) => ({
       cart_id: Number(item.id),
@@ -12,7 +12,7 @@ export const requestOrderItemListToRegister = (items: CartItem[]) => {
   customAxios.post(`/api/customers/${CUSTOMER_NAME}/orders`, APISchema(items));
 };
 
-export const requestOrderItemList = async (): Promise<Order[]> => {
+export const getOrderItemList = async (): Promise<Order[]> => {
   const { data: orders } = await customAxios.get<OrderResponse[]>(
     `/api/customers/${CUSTOMER_NAME}/orders`
   );

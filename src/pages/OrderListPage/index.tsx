@@ -3,11 +3,11 @@ import OrderItemListSections from '../../components/OrderList/OrderItemListSecti
 import InitialLoading from '../../components/shared/InitialLoading';
 import RootTemplate from '../../components/shared/RootTemplate';
 import useRequest from '../../hooks/shared/useRequest';
-import { requestOrderItemList } from '../../service/request/order';
+import { getOrderItemList } from '../../service/order';
 import { Order } from '../../types';
 
 const OrderListPage: FC = () => {
-  const orders = useRequest(requestOrderItemList);
+  const orders = useRequest(getOrderItemList);
 
   return (
     <RootTemplate title="주문 목록">
