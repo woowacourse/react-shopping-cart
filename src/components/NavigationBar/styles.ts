@@ -10,6 +10,8 @@ export const NavigationBarContainer = styled.div`
   display: flex;
   justify-content: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 100;
 `;
 
 export const NavigationBarInnerContainer = styled.div`

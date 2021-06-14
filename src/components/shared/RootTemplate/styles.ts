@@ -9,6 +9,7 @@ export const TemplateContainer = styled.div<Props>`
   display: flex;
   justify-content: center;
   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
+  padding-top: 4rem;
 `;
 
 interface InnerTemplateContainerProps {
