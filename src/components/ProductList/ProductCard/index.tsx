@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { CONFIRM } from '../../../constants/message';
+import { ALERT, CONFIRM } from '../../../constants/message';
 import useCartAddItem from '../../../hooks/useCartItems/useCartAddItem';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
@@ -21,6 +21,7 @@ const ProductCard: FC<Product> = (product) => {
     if (!window.confirm(CONFIRM.ADD_CART)) return;
 
     addItem(product);
+    alert(ALERT.SUCCESS_ADD_CART);
   };
 
   return (
