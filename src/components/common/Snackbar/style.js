@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import PALETTE from '../../../constants/palette';
+import { Z_INDEX } from '../../../constants/style';
 
 const fadein = keyframes`
   from {
@@ -31,7 +32,7 @@ export const SnackbarContainer = styled.div`
   border-radius: 0.5rem;
   padding: 16px 30px;
   position: fixed;
-  z-index: 1;
+  z-index: ${Z_INDEX.snackbar};
   left: 50%;
   transform: translateX(-50%);
   bottom: 10px;

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { PC_WIDTH } from '../../constants/appInfo';
 import PALETTE from '../../constants/palette';
+import { Z_INDEX } from '../../constants/style';
 
 export const Header = styled.header`
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: ${Z_INDEX.header};
   width: 100%;
   height: 5rem;
   background-color: ${PALETTE.BAEMINT};
