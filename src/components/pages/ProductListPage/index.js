@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UNIT } from '../../../constants/appInfo';
-import PALETTE from '../../../constants/palette';
+import useSnackbar from '../../../hooks/useSnackbar';
 import { addToCart } from '../../../redux/Cart/actions';
-import { getProducts, resetProducts } from '../../../redux/Products/actions';
 import { resetErrorMessage } from '../../../redux/Message/actions';
-import Button from '../../common/Button';
-import ShoppingCart from '../../common/Icon/ShoppingCart';
+import { getProducts, resetProducts } from '../../../redux/Products/actions';
 import Modal from '../../common/Modal';
+import Snackbar from '../../common/Snackbar';
 import Main from '../../Main';
 import Product from '../../shared/Product';
 import * as Styled from './style';
-import useSnackbar from '../../../hooks/useSnackbar';
-import Snackbar from '../../common/Snackbar';
 
 const SNACKBAR_DURATION = 4000;
 
@@ -57,13 +54,8 @@ const ProductListPage = () => {
               }}
               direction="column"
               size="17.5rem"
-            >
-              {!cart.some(({ id }) => product.id === id) && (
-                <Button hoverAnimation={'scale'} backgroundColor="transparent" onClick={onAddToCart}>
-                  <ShoppingCart width="2rem" color={PALETTE.BLACK} />
-                </Button>
-              )}
-            </Product>
+            />
+            <Styled.ShoppingCartButton product={product} />
           </li>
         ))}
       </Styled.ProductList>

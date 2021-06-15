@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CartButton from '../../shared/CartButton';
 
 export const ProductList = styled.ul`
   list-style: none;
@@ -9,6 +10,7 @@ export const ProductList = styled.ul`
   li {
     min-width: 0;
     min-height: 0;
+    position: relative;
   }
 `;
 
@@ -25,4 +27,10 @@ export const ProductName = styled.p`
   flex-direction: column;
   justify-content: center;
   font-size: 1rem;
+`;
+
+export const ShoppingCartButton = styled(CartButton)`
+  position: absolute;
+  top: 11.5rem;
+  right: 1rem;
 `;

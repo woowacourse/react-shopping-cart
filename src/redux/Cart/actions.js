@@ -11,7 +11,7 @@ export const REMOVE_PRODUCT_ERROR = 'cart/remove_product/error';
 export const addToCart = (product) => {
   return {
     type: ADD_TO_CART_SUCCESS,
-    product,
+    product: { ...product, amount: 1 },
   };
 };
 
