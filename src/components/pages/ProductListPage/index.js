@@ -41,6 +41,15 @@ const ProductListPage = () => {
     dispatch(resetErrorMessage());
   };
 
+  const createProductImage = (product) => {
+    return (
+      <Styled.ProductImageContainer>
+        <img src={product.image} alt={product.name} loading="lazy" />
+        <Styled.ShoppingCartButton product={product} />
+      </Styled.ProductImageContainer>
+    );
+  };
+
   return (
     <Main>
       <Styled.ProductList>
@@ -48,6 +57,7 @@ const ProductListPage = () => {
           <li data-product-id={product.id} key={product.id}>
             <Product
               product={product}
+              productImage={createProductImage(product)}
               productDetail={{
                 text: `${Number(product.price).toLocaleString()} ${UNIT.MONEY}`,
                 fontSize: '1.5rem',
@@ -55,7 +65,6 @@ const ProductListPage = () => {
               direction="column"
               size="17.5rem"
             />
-            <Styled.ShoppingCartButton product={product} />
           </li>
         ))}
       </Styled.ProductList>

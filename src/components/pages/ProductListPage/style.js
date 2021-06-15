@@ -29,8 +29,17 @@ export const ProductName = styled.p`
   font-size: 1rem;
 `;
 
+export const ProductImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+`;
+
 export const ShoppingCartButton = styled(CartButton)`
   position: absolute;
-  top: 11.5rem;
-  right: 1rem;
+  bottom: 3rem;
+  right: 1.25rem;
 `;

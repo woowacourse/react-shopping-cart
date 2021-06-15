@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import * as Styled from './style';
 import FlexContainer from '../../common/FlexContainer';
 
-const Product = ({ product, productDetail, size, direction, children }) => {
+const Product = ({ product, productImage, productDetail, size, direction, children }) => {
   return (
     <Styled.ProductContainer size={size} direction={direction}>
-      <img src={product.image} alt={product.name} loading="lazy" />
+      {productImage ? productImage : <img src={product.image} alt={product.name} loading="lazy" />}
       <FlexContainer justifyContent="space-between" align="center" padding="0 1rem">
         <FlexContainer direction="column" align="flex-start" height="100%">
           <Styled.ProductName>{product.name}</Styled.ProductName>
@@ -29,6 +29,7 @@ Product.propTypes = {
     price: PropTypes.string.isRequired,
     image: PropTypes.string,
   }),
+  productImage: PropTypes.node,
   productDetail: PropTypes.shape({
     text: PropTypes.string,
     fontSize: PropTypes.string,
