@@ -3,7 +3,7 @@ import ProductImage, { PRODUCT_IMAGE_TYPE } from '../productImage/ProductImage';
 import shoppingCartImg from '../../assets/shoppingCart.svg';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { insertShoppingCartItem } from '../../modules/shoppingCart';
+import { insertShoppingCartItem } from '../../redux/shoppingCart';
 import PropTypes from 'prop-types';
 
 const Content = styled.ul`
@@ -33,14 +33,15 @@ const ProductListItem = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleShoppingCartImage = () => {
-    const shoppingCartItem = { ...product, isChecked: true, count: 1 };
+    const shoppingCartItem = { ...product, isChecked: true, quantity: 1 };
+    console.log(shoppingCartItem);
 
     dispatch(insertShoppingCartItem(shoppingCartItem));
   };
 
   return (
     <div>
-      <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.src} alt={product.alt} />
+      <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.image_url} alt={product.name} />
       <Content>
         <li>
           <Name>{product.name}</Name>
@@ -56,10 +57,10 @@ const ProductListItem = ({ product }) => {
 
 ProductListItem.propTypes = {
   product: PropTypes.shape({
+    product_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    image_url: PropTypes.string,
   }).isRequired,
 };
 

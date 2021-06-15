@@ -1,9 +1,11 @@
-export const API_END_POINT = 'https://react-shopping-cart-jum0.herokuapp.com';
+const CUSTOMER_NAME = 'jum0';
+
+export const API_END_POINT = 'https://shopping-cart.techcourse.co.kr/api';
 
 export const API_PATH = {
-  PRODUCT_LIST: '/productList',
-  SHOPPING_CART_LIST: '/shoppingCartList',
-  ORDER_ITEM_LIST: '/orderItemList',
+  PRODUCT_LIST: '/products',
+  SHOPPING_CART_LIST: `/customers/${CUSTOMER_NAME}/carts`,
+  ORDER_ITEM_LIST: `/customers/${CUSTOMER_NAME}/orders`,
 };
 
 export const API_METHOD = {

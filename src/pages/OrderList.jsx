@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PageTitle from '../components/pageTitle/PageTitle';
-import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
-import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
 import { COLOR } from '../constants/color';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchOrderItemList } from '../redux/orderList';
+import OrderItemList from '../components/orderList/OrderItemList';
+import useOrderList from '../hooks/useOrderList';
 
 const OrderItemListWrapper = styled.li`
   border: 2px solid ${COLOR.GRAY_200};
@@ -13,21 +14,20 @@ const OrderItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const orderItemList = useSelector((state) => state.orderList.orderItemList);
+  const { orderItemList } = useOrderList();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOrderItemList());
+  }, [dispatch]);
 
   return (
     <>
       <PageTitle>주문목록</PageTitle>
       <ul>
-        {orderItemList.map((orderItem) => (
-          <OrderItemListWrapper key={orderItem.orderNumber}>
-            <SelectedProductList
-              listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_LIST}
-              itemType={ORDER_LIST_ITEM_TYPE.ORDER_LIST}
-              productList={orderItem.itemList}
-              orderNumber={orderItem.orderNumber}
-              ListItem={OrderListItem}
-            />
+        {orderItemList.map(({ order_id, order_details }) => (
+          <OrderItemListWrapper key={order_id}>
+            <OrderItemList orderDetailItemList={order_details} order_id={order_id}></OrderItemList>
           </OrderItemListWrapper>
         ))}
       </ul>

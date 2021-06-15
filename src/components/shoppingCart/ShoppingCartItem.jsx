@@ -7,16 +7,19 @@ import styled from 'styled-components';
 import CountInput from '../countInput/CountInput';
 import { useDispatch } from 'react-redux';
 import {
-  decreaseCount,
+  decreaseQuantity,
   deleteShoppingCartItem,
-  increaseCount,
+  increaseQuantity,
   toggleShoppingCartItem,
-} from '../../modules/shoppingCart';
+} from '../../redux/shoppingCart';
 import PropTypes from 'prop-types';
 import DialogPortal from '../../DialogPortal';
 import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
 import useNumberAnimation from '../../hooks/useNumberAnimation';
+
+const MIN_QUANTITY = 1;
+const MAX_QUANTITY = 99;
 
 const Container = styled.ul`
   display: flex;
@@ -55,13 +58,13 @@ const TrashCanImage = styled.img`
   cursor: pointer;
 `;
 
-const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
+const ShoppingCartItem = ({ cart_id, image_url, alt, name, price, isChecked, quantity }) => {
   const { isDialogOpen, setIsDialogOpen, clickConfirm, clickCancel, type, setType } = useDialog();
 
   const dispatch = useDispatch();
 
   const handleShoppingCartItemToggle = () => {
-    dispatch(toggleShoppingCartItem(id));
+    dispatch(toggleShoppingCartItem(cart_id));
   };
 
   const handleShoppingCartItemDelete = () => {
@@ -70,7 +73,7 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch.bind(null, deleteShoppingCartItem(id))) : clickConfirm();
+    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch.bind(null, deleteShoppingCartItem(cart_id))) : clickConfirm();
   };
 
   const handleCancel = () => {
@@ -78,18 +81,18 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
   };
 
   const handleIncrement = () => {
-    if (count >= 99) {
-      setIsDialogOpen(true);
+    if (quantity >= MAX_QUANTITY) {
       setType(DIALOG_TYPE.ALERT);
+      setIsDialogOpen(true);
 
       return;
     }
 
-    dispatch(increaseCount(id));
+    dispatch(increaseQuantity(cart_id));
   };
 
   const handleDecrement = () => {
-    count > 1 && dispatch(decreaseCount(id));
+    quantity > MIN_QUANTITY && dispatch(decreaseQuantity(cart_id));
   };
 
   return (
@@ -97,15 +100,15 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
       <Container>
         <LeftContent>
           <Checkbox isChecked={isChecked} onChange={handleShoppingCartItemToggle} />
-          <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={src} alt={alt} />
+          <ProductImage type={PRODUCT_IMAGE_TYPE.SMALL} src={image_url} alt={alt} />
           <Name>{name}</Name>
         </LeftContent>
         <RightContent>
           <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
-          <CountInput value={count} onIncrease={handleIncrement} onDecrease={handleDecrement} />
+          <CountInput value={quantity} onIncrease={handleIncrement} onDecrease={handleDecrement} />
           <PriceWrapper>
             <animated.div>
-              {useNumberAnimation(count * price).to((n) =>
+              {useNumberAnimation(quantity * price).to((n) =>
                 n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
               )}
             </animated.div>
@@ -138,13 +141,13 @@ const ShoppingCartItem = ({ id, src, alt, name, price, isChecked, count }) => {
 };
 
 ShoppingCartItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  src: PropTypes.string.isRequired,
+  cart_id: PropTypes.number,
+  image_url: PropTypes.string,
   alt: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   isChecked: PropTypes.bool.isRequired,
-  count: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default ShoppingCartItem;

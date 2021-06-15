@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ProductListItem from '../components/productListItem/ProductListItem';
+import { fetchProductList } from '../redux/product';
 
 const Container = styled.ul`
   display: grid;
@@ -12,11 +13,16 @@ const Container = styled.ul`
 
 const ProductList = () => {
   const productList = useSelector((state) => state.product.productList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProductList());
+  }, [dispatch]);
 
   return (
     <Container>
       {productList.map((product) => (
-        <li key={product.id}>
+        <li key={product.product_id}>
           <ProductListItem product={product} />
         </li>
       ))}

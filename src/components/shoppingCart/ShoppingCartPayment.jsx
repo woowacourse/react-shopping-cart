@@ -7,22 +7,6 @@ import PropTypes from 'prop-types';
 import TextHighlight from '../textHighlight/TextHighlight';
 import useNumberAnimation from '../../hooks/useNumberAnimation';
 
-export const PAYMENT_AMOUNT_TYPE = Object.freeze({
-  SHOPPING_CART: 'SHOPPING_CART',
-  ORDER_PAYMENT: 'ORDER_PAYMENT',
-});
-
-const paymentAmountText = {
-  SHOPPING_CART: {
-    title: '결제예상금액',
-    content: '결제예상금액',
-  },
-  ORDER_PAYMENT: {
-    title: '결제금액',
-    content: '총 결제금액',
-  },
-};
-
 const Container = styled.div`
   width: 448px;
   height: 318px;
@@ -46,41 +30,31 @@ const TextWrapper = styled.div`
 
 const AnimatedTextHighlight = animated(TextHighlight);
 
-const getButtonText = ({ type, count, price }) => {
-  const buttonTextType = {
-    SHOPPING_CART: `주문하기(${count}개)`,
-    ORDER_PAYMENT: `${price.toLocaleString('ko-KR')}원 결제하기`,
-  };
-
-  return buttonTextType[type];
-};
-
-const PaymentAmount = ({ type, price, count, onClick }) => {
+const ShoppingCartPayment = ({ price, quantity, onClick }) => {
   const number = useNumberAnimation(price);
 
   return (
     <Container>
-      <Title>{paymentAmountText[type].title}</Title>
+      <Title>결제예상금액</Title>
       <div>
         <TextWrapper>
-          <TextHighlight>{paymentAmountText[type].content}</TextHighlight>
+          <TextHighlight>결제예상금액</TextHighlight>
           <AnimatedTextHighlight styles={{ marginLeft: 'auto' }}>
             {number.to((n) => n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }))}
           </AnimatedTextHighlight>
           <TextHighlight>원</TextHighlight>
         </TextWrapper>
         <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
-          {getButtonText({ type, price, count })}
+          {quantity ? `주문하기(${quantity}개)` : '주문하기'}
         </Button>
       </div>
     </Container>
   );
 };
 
-PaymentAmount.propTypes = {
-  type: PropTypes.string.isRequired,
+ShoppingCartPayment.propTypes = {
   price: PropTypes.number.isRequired,
-  count: PropTypes.number,
+  quantity: PropTypes.number,
 };
 
-export default PaymentAmount;
+export default ShoppingCartPayment;
