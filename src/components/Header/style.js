@@ -35,7 +35,7 @@ export const HeaderTitle = styled.span`
   cursor: pointer;
 
   ${HeaderLogoText},
-  ${HeaderLogo} {
+  ${HeaderLogoIcon} {
     display: flex;
     align-items: center;
     justify-content: center;
