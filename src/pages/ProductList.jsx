@@ -21,11 +21,12 @@ const ProductList = () => {
 
   return (
     <Container>
-      {productList.map((product) => (
-        <li key={product.product_id}>
-          <ProductListItem product={product} />
-        </li>
-      ))}
+      {productList &&
+        productList.map((product) => (
+          <li key={product.product_id}>
+            <ProductListItem product={product} />
+          </li>
+        ))}
     </Container>
   );
 };

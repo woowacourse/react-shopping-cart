@@ -28,9 +28,10 @@ const Image = styled.img`
   ${({ type }) => productImageStyle[type] || productImageStyle[PRODUCT_IMAGE_TYPE.MEDIUM]}
 `;
 
-const ProductImage = ({ type, src, alt }) => {
+const ProductImage = ({ type, src, alt, onClick }) => {
   return (
     <Image
+      onClick={onClick}
       type={type}
       src={src}
       alt={alt}
@@ -44,8 +45,8 @@ const ProductImage = ({ type, src, alt }) => {
 
 ProductImage.propTypes = {
   type: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  alt: PropTypes.string,
 };
 
 export default ProductImage;

@@ -30,7 +30,7 @@ function App() {
           <Route exact path={PATH.PRODUCT_LIST}>
             <ProductList />
           </Route>
-          <Route exact path={PATH.PRODUCT_DETAIL}>
+          <Route exact path={`${PATH.PRODUCT_LIST}/:id`}>
             <ProductDetail />
           </Route>
           <Route exact path={PATH.SHOPPING_CART}>
