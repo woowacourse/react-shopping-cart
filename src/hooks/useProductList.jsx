@@ -11,6 +11,7 @@ const useProductList = () => {
     if (!isDuplicatedItem) {
       dispatch(insertShoppingCartItem({ ...product, isChecked: true, quantity: 1 }));
     }
+    alert('장바구니에 추가되었습니다');
   };
 
   return {
