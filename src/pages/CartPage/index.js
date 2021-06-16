@@ -73,7 +73,7 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getCart());
+    // dispatch(getCart());
     const isProductExists = !!cartList.length;
     dispatch(toggleAllCheckboxesInCart(isProductExists));
     setIsAllChecked(isProductExists);

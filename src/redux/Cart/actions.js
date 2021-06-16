@@ -38,7 +38,7 @@ export const getCart = () => (dispatch, getState) => {
     .then((data) => {
       dispatch({
         type: GET_CART_SUCCESS,
-        payload: cartConverter(data),
+        payload: cartConverter(data, getState().cart.cartList),
       });
     })
     .catch((e) =>
@@ -76,7 +76,7 @@ export const addToCart = (product) => (dispatch, getState) => {
         const cartId = responseLocation.slice(responseLocation.lastIndexOf('/') + 1);
         const cartItem = {
           quantity: 1,
-          cart_id: cartId,
+          cart_id: Number(cartId),
           image_url: product.image_url,
           isChecked: true,
           name: product.name,
