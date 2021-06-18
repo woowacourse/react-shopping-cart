@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { store } from './redux';
-import { App } from './components/App';
-import * as S from './style.js';
+import { cartAction, store } from './redux';
+import { App } from './App.js';
+import * as S from './GlobalStyle.js';
+
+store.dispatch(cartAction.getProducts());
 
 ReactDOM.render(
   <React.StrictMode>
