@@ -1,50 +1,56 @@
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Container, OrderItemContainer } from './OrderListPage.styles';
-import { SCHEMA } from '../../constants';
-import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItemAsync } from '../../redux/action';
-import { Button, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
+import { ROUTE } from '../../constants';
+import { useModal, useFetch } from '../../hooks';
+import { addShoppingCartItemAsync } from '../../redux/slice';
+import { Button, ErrorMessage, Header, OrderContainer, RowProductItem, SuccessAddedModal } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { requestOrderList } from '../../service/order';
 
 const OrderListPage = () => {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
-  const { value: orderList } = useServerAPI([], SCHEMA.ORDER);
+  const [orderList, getOrderListError] = useFetch([], requestOrderList);
 
   const { Modal, setModalOpen } = useModal(false);
 
-  const onClickShoppingCartButton = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+  const putProductInShoppingCart = productId => {
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
+  };
+
+  const goOrderDetail = orderId => {
+    history.push({
+      pathname: `${ROUTE.ORDER_DETAIL}/${orderId}`,
+    });
   };
 
   return (
     <ScreenContainer route={location.pathname}>
       <Header>주문 목록</Header>
-
-      <Container>
-        {orderList.map(order => (
-          <OrderContainer key={order.id} orderId={order.id}>
-            {order.orderedProductList?.map(({ id, amount }) => {
-              const { img, name, price } = productList.find(product => product.id === id);
-
-              return (
-                <OrderItemContainer key={id}>
-                  <RowProductItem imgSrc={img} name={name} price={price * amount} amount={amount} />
-                  <Button onClick={() => onClickShoppingCartButton(id)}>장바구니</Button>
+      {getOrderListError ? (
+        <ErrorMessage>주문 목록을 불러올 수 없습니다 😣</ErrorMessage>
+      ) : (
+        <Container>
+          {orderList.map(({ order_id: orderId, order_details: orderDetails }) => (
+            <OrderContainer key={orderId} orderId={orderId} onClickDetail={() => goOrderDetail(orderId)}>
+              {orderDetails?.map(({ product_id: productId, quantity, image_url: imageUrl, name, price }) => (
+                <OrderItemContainer key={productId}>
+                  <RowProductItem imgSrc={imageUrl} name={name} price={price * quantity} amount={quantity} />
+                  <Button onClick={() => putProductInShoppingCart(productId)}>장바구니</Button>
                 </OrderItemContainer>
-              );
-            })}
-          </OrderContainer>
-        ))}
-      </Container>
+              ))}
+            </OrderContainer>
+          ))}
+        </Container>
+      )}
 
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

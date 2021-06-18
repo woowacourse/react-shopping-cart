@@ -1,4 +1,4 @@
-import useServerAPI from './useServerAPI';
+import useFetch from './useFetch';
 import useModal from './useModal';
 
-export { useServerAPI, useModal };
+export { useFetch, useModal };

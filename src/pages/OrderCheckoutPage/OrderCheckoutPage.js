@@ -7,12 +7,12 @@ import {
   CheckoutListTitle,
   PaymentInfoBoxContainer,
 } from './OrderCheckoutPage.styles';
-import { CONFIRM_MESSAGE, ROUTE, SCHEMA } from '../../constants';
-import { useServerAPI } from '../../hooks';
+import { CONFIRM_MESSAGE, ROUTE } from '../../constants';
 import { numberWithCommas } from '../../shared/utils';
 import { Header, PaymentInfoBox, RowProductItem } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
-import { deleteCheckedShoppingCartItemAsync } from '../../redux/action';
+import { requestCreateOrder } from '../../service/order';
+import { shoppingCartItemSlice } from '../../redux/slice';
 
 const OrderCheckoutPage = () => {
   const history = useHistory();
@@ -20,29 +20,27 @@ const OrderCheckoutPage = () => {
   const dispatch = useDispatch();
 
   const checkedItemList = location.state?.checkedItemList;
-  const checkedIdList = checkedItemList.map(item => item.id);
   const expectedPrice = checkedItemList.reduce((acc, item) => {
     const { price, amount } = item;
 
     return acc + price * amount;
   }, 0);
 
-  const { postData: createOrder } = useServerAPI([], SCHEMA.ORDER);
-
-  const onClickPaymentButton = () => {
+  const onClickPaymentButton = async () => {
     if (!window.confirm(CONFIRM_MESSAGE.PURCHASE)) return;
 
-    dispatch(deleteCheckedShoppingCartItemAsync(checkedIdList));
+    const content = checkedItemList.map(item => ({ cart_id: item.cart_id, quantity: item.amount }));
 
-    const content = {
-      orderedProductList: checkedItemList.map(({ id, amount }) => ({ id, amount })),
-    };
+    try {
+      await requestCreateOrder(content);
+      checkedItemList.forEach(item => dispatch(shoppingCartItemSlice.actions.deleteShoppingCartItem(item.product_id)));
 
-    createOrder(content);
-
-    history.push({
-      pathname: ROUTE.ORDER_LIST,
-    });
+      history.push({
+        pathname: ROUTE.ORDER_LIST,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -54,7 +52,7 @@ const OrderCheckoutPage = () => {
           <CheckoutListTitle>{`주문 상품 ( ${checkedItemList.length}건 )`}</CheckoutListTitle>
 
           <CheckoutList>
-            {checkedItemList.map(({ id, img, name, amount }) => (
+            {checkedItemList.map(({ product_id: id, image_url: img, name, amount }) => (
               <RowProductItem key={id} imgSrc={img} name={name} amount={amount} />
             ))}
           </CheckoutList>

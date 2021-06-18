@@ -1,42 +1,53 @@
-/* eslint-disable no-unused-vars */
-import { useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { Container } from './ProductListPage.styles';
-import { SCHEMA } from '../../constants';
-import { useModal, useServerAPI } from '../../hooks';
-import { addShoppingCartItemAsync } from '../../redux/action';
-import { ColumnProductItem, SuccessAddedModal } from '../../components';
+import { ROUTE } from '../../constants';
+import { useModal, useFetch } from '../../hooks';
+import { ColumnProductItem, SuccessAddedModal, ErrorMessage } from '../../components';
 import ScreenContainer from '../../shared/styles/ScreenContainer';
+import { addShoppingCartItemAsync } from '../../redux/slice';
+import { requestProductList } from '../../service/product';
 
 const ProductListPage = () => {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const { setModalOpen, Modal } = useModal(false);
-  const { value: productList } = useServerAPI([], SCHEMA.PRODUCT);
+  const [productList, getProductListError] = useFetch([], requestProductList);
 
-  const onClickShoppingCartIcon = productId => {
-    dispatch(addShoppingCartItemAsync(productId));
+  const addShoppingCartItem = productId => {
+    dispatch(addShoppingCartItemAsync({ product_id: productId }));
 
     setModalOpen(true);
   };
 
+  const goProductDetail = productId => {
+    history.push({
+      pathname: `${ROUTE.PRODUCT_DETAIL}/${productId}`,
+    });
+  };
+
   return (
     <ScreenContainer route={location.pathname}>
-      <Container>
-        {productList.map(({ id, img, name, price }) => (
-          <ColumnProductItem
-            key={id}
-            imgSrc={img}
-            name={name}
-            price={`${price}`}
-            onClickShoppingCartIcon={() => onClickShoppingCartIcon(id)}
-          />
-        ))}
-      </Container>
-
+      {getProductListError ? (
+        <ErrorMessage>상품 목록을 불러올 수 없습니다 😞</ErrorMessage>
+      ) : (
+        <Container>
+          {productList?.map(({ product_id: productId, image_url: imageUrl, name, price }) => (
+            <ColumnProductItem
+              key={productId}
+              imgSrc={imageUrl}
+              name={name}
+              price={price}
+              onClickShoppingCartIcon={() => addShoppingCartItem(productId)}
+              onClickImage={() => goProductDetail(productId)}
+            />
+          ))}
+        </Container>
+      )}
       <Modal>
-        <SuccessAddedModal productList={productList} setModalOpen={setModalOpen} />
+        <SuccessAddedModal setModalOpen={setModalOpen} />
       </Modal>
     </ScreenContainer>
   );

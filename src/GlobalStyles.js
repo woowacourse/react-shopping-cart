@@ -14,6 +14,11 @@ const GlobalStyles = () => (
         font-size: 1.6rem;
         min-height: 100vh;
         width: 100%;
+        color: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       #root {

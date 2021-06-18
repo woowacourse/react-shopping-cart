@@ -1,22 +1,9 @@
-import { SCHEMA } from '../constants';
-import { firestore } from '../firebase';
-
-const collection = {
-  [SCHEMA.PRODUCT]: firestore.collection(SCHEMA.PRODUCT),
-  [SCHEMA.ORDER]: firestore.collection(SCHEMA.ORDER),
-  [SCHEMA.SHOPPING_CART]: firestore.collection(SCHEMA.SHOPPING_CART),
-};
+const BASE_URL = 'https://shopping-cart.techcourse.co.kr';
 
 const requestTable = {
-  GET: async (ref, targetId) => {
-    if (targetId) {
-      return (await collection[ref].doc(targetId).get()).data();
-    }
-    return (await collection[ref].get()).docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  },
-  POST: async (ref, content) => collection[ref].add(content),
-  PUT: async (ref, targetId, content) => collection[ref].doc(targetId).update(content),
-  DELETE: async (ref, targetId) => collection[ref].doc(targetId).delete(),
+  GET: async url => await fetch(`${BASE_URL}${url}`),
+  POST: async (url, option) => await fetch(`${BASE_URL}${url}`, option),
+  DELETE: async (url, option) => await fetch(`${BASE_URL}${url}`, option),
 };
 
 export { requestTable };

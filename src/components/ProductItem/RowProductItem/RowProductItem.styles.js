@@ -32,7 +32,7 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 140px;
   height: 140px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const ProductContainer = styled.div`
@@ -48,9 +48,7 @@ const ProductContainer = styled.div`
 `;
 
 const Name = styled.div`
-  max-width: 400px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 150px;
   margin-bottom: 25px;
   font-size: 2rem;
   color: #333333;

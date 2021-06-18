@@ -10,6 +10,7 @@ import PaymentInfoBox from './PaymentInfoBox/PaymentInfoBox';
 import ColumnProductItem from './ProductItem/ColumnProductItem/ColumnProductItem';
 import RowProductItem from './ProductItem/RowProductItem/RowProductItem';
 import ShoppingCartIcon from './ShoppingCartIcon/ShoppingCartIcon';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   ColumnProductItem,
   ShoppingCartIcon,
   AmountCounter,
+  ErrorMessage,
 };

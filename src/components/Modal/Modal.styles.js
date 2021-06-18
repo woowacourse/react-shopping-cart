@@ -16,9 +16,9 @@ const Container = styled.div`
   background-color: #fdfdfd;
   border-radius: 5px;
   position: absolute;
-  top: 150px;
-  left: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: 0 auto;
   max-width: 500px;
   padding: 3.2rem 2.8rem;
