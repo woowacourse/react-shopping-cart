@@ -10,6 +10,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "fast-case": "^1.6.0",
     "json-server": "^0.16.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -17,16 +19,15 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "node server",
-    "start:dev": "cross-env NODE_PATH=src react-scripts start",
-    "build": "cross-env NODE_PATH=src react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "cross-env NODE_PATH=src npm run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

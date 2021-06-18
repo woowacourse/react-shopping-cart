@@ -10,11 +10,15 @@ Default: medium
 - x-large 570px * 570px
 */
 
-const Thumbnail = ({ image, alt, size = 'middle', onClick }) => {
+const Thumbnail = ({ image, alt, notFoundImage, size = 'middle', onClick }) => {
+  const replaceImage = e => {
+    e.target.src = notFoundImage;
+  };
+
   return (
     <Container onClick={onClick}>
       <Wrapper size={size}>
-        <Image src={image} alt={alt} />
+        <Image src={image} alt={alt} onError={replaceImage} />
       </Wrapper>
     </Container>
   );
@@ -22,6 +26,7 @@ const Thumbnail = ({ image, alt, size = 'middle', onClick }) => {
 
 Thumbnail.propTypes = {
   image: PropTypes.string.isRequired,
+  notFoundImage: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   size: PropTypes.oneOf(['small', 'medium', 'large', 'x-large']),
   onClick: PropTypes.func,
