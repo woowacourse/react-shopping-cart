@@ -1,4 +1,4 @@
-import { productAPI } from '../../api';
+import { productAPI } from '../../apis';
 import { GET_PRODUCTS_FAILURE, GET_PRODUCTS_LOADING, GET_PRODUCTS_SUCCESS } from './actions';
 
 export const getProductsThunk = () => async dispatch => {

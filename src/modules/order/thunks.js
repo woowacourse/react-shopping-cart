@@ -1,4 +1,4 @@
-import { orderAPI } from '../../api';
+import { orderAPI } from '../../apis';
 import {
   ADD_ORDER_FAILURE,
   ADD_ORDER_LOADING,

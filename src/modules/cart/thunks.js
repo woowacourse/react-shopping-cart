@@ -1,4 +1,4 @@
-import { cartAPI } from '../../api';
+import { cartAPI } from '../../apis';
 import {
   ADD_CART_ITEM_FAILURE,
   ADD_CART_ITEM_LOADING,

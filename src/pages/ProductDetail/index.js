@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { useCart } from '../../hooks/useCart';
 import { useFetch } from '../../hooks/useFetch';
 
-import { productAPI } from '../../api';
+import { productAPI } from '../../apis';
 import { COLOR } from '../../constants';
 import { SUCCESS } from '../../constants/status';
 import notFoundImage from '../../assets/images/not-found-product.png';
