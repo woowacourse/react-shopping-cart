@@ -1,11 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCartItems } from '../../store/cartReducer';
-import { addOrderDetail } from '../../store/orderListReducer';
-import { API } from '../../services';
 import { Button, HighlightText, Product } from '../../components/shared';
-import { COLOR, MESSAGE, PATH } from '../../constants';
+import { COLOR, PATH } from '../../constants';
 import {
   Container,
   Header,
@@ -20,32 +17,21 @@ import {
   ReceiptContent,
   ReceiptRow,
 } from './style';
+import { addOrderThunk } from '../../modules/order';
 
 const Order = () => {
-  const list = useSelector(state => state.cartReducer.cart.filter(item => item.checked));
+  const cartItems = useSelector(state => state.cart.items.data.filter(item => item.checked));
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const totalPrice = list.reduce((total, item) => {
+  const totalPrice = cartItems.reduce((total, item) => {
     const { price, quantity } = item;
     return total + price * quantity;
   }, 0);
 
-  const onPurchase = async () => {
-    try {
-      const orderItemIdList = list.map(item => item.id);
-      const orderDetail = await API.purchase({ products: [list] });
-
-      await Promise.all(orderItemIdList.map(id => API.deleteCartItem({ id })));
-
-      alert(MESSAGE.SUCCESS_PURCHASE);
-      dispatch(deleteCartItems(orderItemIdList));
-      dispatch(addOrderDetail(orderDetail));
-      history.push(`${PATH.MYMART_ORDER_DETAIL}?id=${orderDetail.id}`);
-    } catch (error) {
-      console.error(error);
-      alert(MESSAGE.FAIL_PURCHASE);
-    }
+  const onPurchase = async items => {
+    await dispatch(addOrderThunk(items));
+    history.push(`${PATH.MYMART_ORDER}`);
   };
 
   return (
@@ -54,12 +40,12 @@ const Order = () => {
       <Contents>
         <ProductListContainer>
           <ProductListWrapper>
-            <ProductListHeader>주문 상품({list.length}건)</ProductListHeader>
+            <ProductListHeader>주문 상품({cartItems.length}건)</ProductListHeader>
             <ProductList>
-              {list.map(({ id, name, image, quantity }) => (
-                <ProductWrapper key={id}>
+              {cartItems.map(({ cartId, name, imageUrl, quantity }) => (
+                <ProductWrapper key={cartId}>
                   <Product
-                    thumbnail={{ image: image, alt: name, size: 'medium' }}
+                    thumbnail={{ image: imageUrl, alt: name, size: 'medium' }}
                     information={{ title: name, description: `수량: ${quantity}` }}
                   />
                 </ProductWrapper>
@@ -78,7 +64,7 @@ const Order = () => {
                 {`${totalPrice.toLocaleString('ko-KR')} 원`}
               </HighlightText>
             </ReceiptRow>
-            <Button type="button" size="medium" onClick={onPurchase}>
+            <Button type="button" size="medium" onClick={() => onPurchase(cartItems)}>
               {`${totalPrice.toLocaleString('ko-KR')}원 주문하기`}
             </Button>
           </ReceiptContent>
