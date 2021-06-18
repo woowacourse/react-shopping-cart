@@ -1,5 +1,5 @@
-import { VFC } from 'react';
-import useFetchCartRedux from '../../../hooks/useFetchCartRedux';
+import { MouseEvent, VFC } from 'react';
+import useCart from '../../../service/hooks/useCart';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
 import {
@@ -11,24 +11,29 @@ import {
   StyledProductCard,
 } from './style';
 
-const ProductCard: VFC<Product> = (product) => {
-  const { name, price, image } = product;
-  const { addItem } = useFetchCartRedux();
+interface Props {
+  product: Product;
+  onClick: () => void;
+}
 
-  const onClickAddCart = () => {
-    if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
+const ProductCard: VFC<Props> = ({ onClick, product }) => {
+  const { name, price, imageUrl } = product;
+  const { addItem } = useCart();
+
+  const onClickAddCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
 
     addItem(product);
   };
 
   return (
-    <StyledProductCard type="vertical" image={image}>
+    <StyledProductCard onClick={onClick} type="vertical" image={imageUrl}>
       <ContentContainer>
         <ProductTextContainer>
           <ProductNameText data-testid="product-name">{name}</ProductNameText>
           <PriceText>{KRCurrency(price)}</PriceText>
         </ProductTextContainer>
-        <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
+        <CartIconButton type="button" onClick={onClickAddCart} data-testid="add-cart-button" />
       </ContentContainer>
     </StyledProductCard>
   );

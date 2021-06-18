@@ -1,22 +1,24 @@
 import { VFC } from 'react';
+import { useErrorHandler } from 'react-error-boundary';
 import Loading from '../../components/Loading';
 import OrderItemListSections from '../../components/OrderList/OrderItemListSections';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/useFetch';
+import Template from '../../components/shared/Template';
+import useFetch from '../../service/hooks/useFetch';
+import useLogin from '../../service/hooks/useLogin';
 import { requestOrders } from '../../service/request/order';
-import { Order } from '../../types';
 
 const OrderListPage: VFC = () => {
-  const orders = useFetch(requestOrders);
+  const { userName } = useLogin();
+  const orders = useFetch(() => requestOrders(userName));
+
+  useErrorHandler(orders.error);
 
   return (
-    <ReactShoppingCartTemplate title="주문 목록">
-      {orders.isLoading ? (
-        <Loading />
-      ) : (
-        <OrderItemListSections orders={[...(orders.data as Order[])].reverse()} />
-      )}
-    </ReactShoppingCartTemplate>
+    <Template title="주문 목록">
+      <Loading isLoading={orders.isLoading}>
+        <OrderItemListSections orders={[...(orders.data ?? [])].reverse()} />
+      </Loading>
+    </Template>
   );
 };
 

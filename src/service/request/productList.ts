@@ -1,4 +1,10 @@
 import APIClient from '../../API';
-import { Product } from '../../types';
+import { Product, ProductId } from '../../types';
 
-export const requestProductList = (): Promise<Product[]> => APIClient.get('/productList');
+export const requestProductList = async () => {
+  return APIClient.get('/products') as Promise<Product[]>;
+};
+
+export const requestProduct = (productId: ProductId) => {
+  return APIClient.get(`/products/${productId}`) as Promise<Product>;
+};

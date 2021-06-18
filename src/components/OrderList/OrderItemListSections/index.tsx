@@ -6,12 +6,14 @@ interface Props {
   orders: Order[];
 }
 
-const OrderItemListSections: VFC<Props> = ({ orders }) => (
-  <>
-    {orders.map((order) => (
-      <OrderItemListSection key={order.id} order={order} />
-    ))}
-  </>
-);
+const OrderItemListSections: VFC<Props> = ({ orders }) => {
+  return (
+    <>
+      {orders.map((order) => (
+        <OrderItemListSection key={order.orderId} order={order} />
+      ))}
+    </>
+  );
+};
 
 export default OrderItemListSections;

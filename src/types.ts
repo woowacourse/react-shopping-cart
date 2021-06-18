@@ -1,11 +1,22 @@
+export type ProductId = number;
+
+export type CartId = number;
+
 export interface Product {
-  id: string;
+  productId: ProductId;
   name: string;
   price: number;
-  image: string;
+  imageUrl: string;
 }
 
-export interface ItemInCart extends Product {
+export interface CartItemOnServer {
+  cartId: CartId;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+export interface CartItem extends CartItemOnServer {
   quantity: number;
   checked: boolean;
 }
@@ -15,6 +26,6 @@ export interface OrderedItem extends Product {
 }
 
 export interface Order {
-  id: string;
-  items: OrderedItem[];
+  orderId: number;
+  orderDetails: OrderedItem[];
 }

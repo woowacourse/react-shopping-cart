@@ -1,17 +1,17 @@
 import { VFC } from 'react';
-import { ItemInCart } from '../../../../types';
+import { CartItem } from '../../../../types';
 import ShoppingCartItem from './ShoppingCartItem';
 import List from '../../../shared/List';
 import { InnerTitle } from './style';
-import useFetchCartRedux from '../../../../hooks/useFetchCartRedux';
+import useCart from '../../../../service/hooks/useCart';
 
 interface Props {
   title: string;
-  items: ItemInCart[];
+  items: CartItem[];
 }
 
 const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
-  const { changeQuantity, deleteItem, changeChecked } = useFetchCartRedux();
+  const { changeQuantity, deleteItem, changeChecked } = useCart();
 
   return (
     <section>
@@ -21,7 +21,7 @@ const ShoppingCartSection: VFC<Props> = ({ title, items }) => {
       <List>
         {items.map((item) => (
           <ShoppingCartItem
-            key={item.id}
+            key={item.cartId}
             item={item}
             changeQuantity={changeQuantity}
             changeChecked={changeChecked}

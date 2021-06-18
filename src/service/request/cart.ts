@@ -1,32 +1,17 @@
 import APIClient from '../../API';
-import { ItemInCart } from '../../types';
+import { CartId, CartItem, CartItemOnServer, ProductId } from '../../types';
 
-export const requestShoppingCartItemList = (): Promise<ItemInCart[]> => APIClient.get('/cart');
+export const requestCartItemList = (userName: string) =>
+  APIClient.get(`/customers/${userName}/carts`) as Promise<CartItemOnServer[]>;
 
-export const requestAddShoppingCartItem = (item: ItemInCart) =>
-  APIClient.post<ItemInCart>('/cart', item);
+export const requestAddCartItem = (userName: string, productId: ProductId) =>
+  APIClient.post(`/customers/${userName}/carts`, { productId });
 
-export const requestChangeShoppingCartItem = (item: ItemInCart) =>
-  APIClient.put<ItemInCart>(`/cart/${item.id}`, item);
+export const requestDeleteCartItem = (userName: string, cartId: CartId) =>
+  APIClient.delete(`/customers/${userName}/carts/${cartId.toString()}`);
 
-export const requestDeleteShoppingCartItem = (itemId: string) =>
-  APIClient.delete(`/cart/${itemId}`);
+export const requestDeleteCartItems = (userName: string, cartIds: CartId[]) =>
+  Promise.all(cartIds.map((cartId) => requestDeleteCartItem(userName, cartId)));
 
-export const requestChangeShoppingCartItemChecked = (item: ItemInCart) =>
-  APIClient.put<ItemInCart>(`/cart/${item.id}`, item);
-
-export const requestChangeAllShoppingCartItemChecked = (items: ItemInCart[], checked: boolean) => {
-  Promise.all(
-    items.map((item) => APIClient.put<ItemInCart>(`/cart/${item.id}`, { ...item, checked }))
-  );
-};
-
-export const requestDeleteShoppingCartItems = (items: ItemInCart[]) => {
-  Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
-};
-
-export const requestClearShoppingCartItems = async () => {
-  const items = await requestShoppingCartItemList();
-
-  return Promise.all(items.map((item) => APIClient.delete(`/cart/${item.id}`)));
-};
+export const requestChangeCartItem = (item: CartItem) =>
+  APIClient.put<CartItem>(`/cart/${item.cartId}`, item);

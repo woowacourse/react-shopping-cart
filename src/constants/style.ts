@@ -1,1 +1,7 @@
 export const INNER_TEMPLATE_WIDTH = '82.5rem';
+
+export const Z_INDEX = {
+  FOREGROUND: 999999999,
+  MIDGROUND: 99999,
+  BACKGROUND: 0,
+};
