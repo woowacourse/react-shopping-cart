@@ -1,11 +1,9 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import { Button, Thumbnail } from '../../components/shared';
 import { Container, DetailWrapper, NameWrapper, PriceWrapper } from './style';
-
-import { useParams } from 'react-router';
 import { useCart } from '../../hooks/useCart';
 import { useFetch } from '../../hooks/useFetch';
-
 import { productAPI } from '../../apis';
 import { COLOR } from '../../constants';
 import { SUCCESS } from '../../constants/status';

@@ -1,12 +1,11 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Loader, Product } from '../../components/shared';
-import { MESSAGE } from '../../constants';
-import { FAILURE, LOADING, SUCCESS } from '../../constants/status';
+import { Container, Header, Contents, OrderWrapper, OrderHeader, ProductList } from './style';
 import { useCart } from '../../hooks/useCart';
 import { getOrdersThunk } from '../../modules/order';
-import { Container, Header, Contents, OrderWrapper, OrderHeader, ProductList } from './style';
+import { MESSAGE } from '../../constants';
+import { FAILURE, LOADING, SUCCESS } from '../../constants/status';
 
 const OrderList = () => {
   const { data: orderList, status } = useSelector(state => state.order.orders);

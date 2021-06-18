@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, HighlightText, Product } from '../../components/shared';
-import { COLOR, PATH } from '../../constants';
 import {
   Container,
   Header,
@@ -18,6 +17,7 @@ import {
   ReceiptRow,
 } from './style';
 import { addOrderThunk } from '../../modules/order';
+import { COLOR, PATH } from '../../constants';
 
 const Order = () => {
   const cartItems = useSelector(state => state.cart.items.data.filter(item => item.checked));

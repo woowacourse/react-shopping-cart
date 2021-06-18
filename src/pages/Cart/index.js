@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { Button, HighlightText, NumericInput, Product, IconButton } from '../../components/shared/';
-import { COLOR, MESSAGE, PATH } from '../../constants';
 import {
   Container,
   Header,
@@ -18,9 +17,10 @@ import {
   ReceiptRow,
   CheckBox,
 } from './style';
-import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
-import { FAILURE } from '../../constants/status';
 import { useCart } from '../../hooks/useCart';
+import { COLOR, MESSAGE, PATH } from '../../constants';
+import { FAILURE } from '../../constants/status';
+import { ReactComponent as TrashBin } from '../../assets/icons/trash-bin.svg';
 
 const Cart = () => {
   const {

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { MESSAGE, PATH } from '../../constants';
+import { useHistory } from 'react-router-dom';
 import { Grid, Card, IconButton, Loader } from '../../components/shared';
 import { Description, Price } from './style';
-import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
-import { FAILURE, LOADING, SUCCESS } from '../../constants/status';
-import notFoundImage from '../../assets/images/not-found-product.png';
 import { useCart } from '../../hooks/useCart';
 import { getProductsThunk } from '../../modules/product';
+import { MESSAGE, PATH } from '../../constants';
+import { FAILURE, LOADING, SUCCESS } from '../../constants/status';
+import { ReactComponent as CartIcon } from '../../assets/icons/cart.svg';
+import notFoundImage from '../../assets/images/not-found-product.png';
 
 const ProductList = () => {
   const { data: productList, status } = useSelector(state => state.product.products);
