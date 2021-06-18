@@ -1,7 +1,6 @@
 const PATH = {
   MAIN: '/',
-  GOODS: '/goods',
-  GOODS_DETAIL: '/goods/detail/',
+  PRODUCTS: '/products',
   CART: '/cart',
   ORDER: '/order',
   MYMART_ORDER: '/mymart/order',

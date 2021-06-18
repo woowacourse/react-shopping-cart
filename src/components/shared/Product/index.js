@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Thumbnail from '../Thumbnail';
 import { Container, InformationWrapper, Title, Description, ExtraWrapper } from './style';
+import notFoundImage from '../../../assets/images/not-found-product.png';
 
 const Product = ({ thumbnail, information, extra, onClick }) => {
   return (
     <Container>
       <Thumbnail
         image={thumbnail.image}
+        notFoundImage={notFoundImage}
         alt={thumbnail.alt}
         size={thumbnail.size}
         onClick={onClick}
