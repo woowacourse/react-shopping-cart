@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+
+  "extends": ["plugin:react/recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["node_modules/", "dist"],
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
