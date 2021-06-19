@@ -18,12 +18,11 @@ import { getOrders, resetOrders } from '../../redux/Orders/actions';
 import * as Styled from './style';
 
 const OrdersPage = () => {
-  const {
-    orders: { orderList, isLoading },
-  } = useSelector((state) => state);
+  const { orderList, isLoading } = useSelector((state) => state.orders);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (orderList.length) return;
     dispatch(getOrders());
 
     return () => {

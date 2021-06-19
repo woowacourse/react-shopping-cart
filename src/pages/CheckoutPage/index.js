@@ -30,16 +30,7 @@ const CheckoutPage = () => {
   const onOrder = () => {
     if (!confirm(APP_MESSAGE.PAYMENT_CONFIRMATION)) return;
 
-    const order = checkedProducts.map((product) => {
-      const productOrderData = {
-        cart_id: product.cart_id,
-        quantity: product.quantity,
-      };
-
-      return productOrderData;
-    });
-
-    dispatch(setOrder(order));
+    dispatch(setOrder(checkedProducts));
 
     window.location.hash = `#${PAGES.ORDERS.ADDRESS}`;
   };

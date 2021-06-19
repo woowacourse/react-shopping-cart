@@ -22,6 +22,7 @@ export const getOrders = () => (dispatch, getState) => {
       return response.json();
     })
     .then((data) => {
+      console.log(data);
       dispatch({
         type: GET_ORDERS_SUCCESS,
         order: data,
@@ -35,7 +36,16 @@ export const getOrders = () => (dispatch, getState) => {
     );
 };
 
-export const setOrder = (order) => (dispatch, getState) => {
+export const setOrder = (products) => (dispatch, getState) => {
+  const order = products.map((product) => {
+    const productOrderData = {
+      cart_id: product.cart_id,
+      quantity: product.quantity,
+    };
+
+    return productOrderData;
+  });
+
   dispatch({ type: SET_ORDER_PENDING });
   fetch(API_URL.ORDERS, {
     method: 'POST',
@@ -49,9 +59,24 @@ export const setOrder = (order) => (dispatch, getState) => {
         throw new Error(ERROR_MESSAGE.FAILED_TO_SET_ORDER);
       }
 
-      dispatch({
-        type: SET_ORDER_SUCCESS,
-      });
+      if (response.status === 201) {
+        const responseLocation = response.headers.get('location');
+        const orderId = responseLocation.slice(responseLocation.lastIndexOf('/') + 1);
+        const orderItem = {
+          order_id: Number(orderId),
+          order_details: products.map((product) => {
+            delete product.cart_id;
+            delete product.isChecked;
+
+            return product;
+          }),
+        };
+
+        dispatch({
+          type: SET_ORDER_SUCCESS,
+          orderItem,
+        });
+      }
     })
     .catch((e) =>
       dispatch({

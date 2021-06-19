@@ -41,7 +41,7 @@ const ordersReducer = (state = initState, action) => {
 
     case SET_ORDER_SUCCESS:
       return {
-        ...state,
+        orderList: [...state.orderList, action.orderItem],
         isLoading: false,
       };
 
