@@ -5,18 +5,7 @@ import {
   INITIAL_STATE,
   confirmReducer,
 } from './confirmReducer';
-
-const mockMessage = '하루심바의_쇼핑은_즐거워';
-const mockApprove = () => console.log('approve 실행');
-
-const mockOpenPayload = {
-  message: mockMessage,
-  approve: mockApprove,
-};
-const mockOpenState = {
-  isOpened: true,
-  ...mockOpenPayload,
-};
+import { mockOpenPayload, mockOpenState } from './confirmReducer.mock';
 
 describe('confirmReducer 테스트', () => {
   /* 컨펌창 열기 */
