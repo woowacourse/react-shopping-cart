@@ -1,6 +1,6 @@
 import { CUSTOMER_NAME } from '../appConfig';
 import { CartItem, Order, OrderResponse } from '../types';
-import customAxios from '../utils/API';
+import customAxios from '../database/API';
 
 export const registerOrderItemList = (items: CartItem[]) => {
   const APISchema = (items: CartItem[]) =>

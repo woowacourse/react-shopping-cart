@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { CartItem } from '../types';
-import { getLocalStorageItem, setLocalStorageItem } from '../utils/localStorage';
+import { getLocalStorageItem, setLocalStorageItem } from '../database/localStorage';
 
 export const getOrderConfirmItems = (): CartItem[] => {
   const orderConfirmItems = getLocalStorageItem<CartItem[]>(LOCAL_STORAGE_KEY.ORDER_CONFIRM);

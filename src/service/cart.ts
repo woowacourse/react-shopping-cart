@@ -2,8 +2,8 @@ import { CUSTOMER_NAME } from '../appConfig';
 import { ERROR_MESSAGE } from '../constants/error';
 import { LOCAL_STORAGE_KEY } from '../constants/localStorage';
 import { CartItem, CartItemResponse } from '../types';
-import customAxios from '../utils/API';
-import { getLocalStorageItem, setLocalStorageItem } from '../utils/localStorage';
+import customAxios from '../database/API';
+import { getLocalStorageItem, setLocalStorageItem } from '../database/localStorage';
 
 interface IncompleteCartItem {
   id: string;

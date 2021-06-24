@@ -1,5 +1,5 @@
 import { Product, ProductResponse } from '../types';
-import customAxios from '../utils/API';
+import customAxios from '../database/API';
 
 export const getProductList = async (): Promise<Product[] | undefined> => {
   const { data: productList } = await customAxios.get<ProductResponse[]>('/api/products');
