@@ -5,11 +5,11 @@ import { RootState } from "../store";
 
 import { ORDER_COUNT } from "../constants/standard";
 
-interface CheckedList {
+interface CheckedItems {
   [key: string]: boolean;
 }
 
-interface OrderCountList {
+interface OrderCountItems {
   [key: string]: number;
 }
 
@@ -22,16 +22,16 @@ const useCart = () => {
     })
   );
 
-  const [checkedList, setCheckedList] = useState<CheckedList>({});
-  const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
+  const [checkedItems, setCheckedItems] = useState<CheckedItems>({});
+  const [orderCountItems, setOrderCountItems] = useState<OrderCountItems>({});
 
   const totalPrice = cart.reduce((acc, { cartId, price }) => {
-    return checkedList[cartId] ? acc + price * orderCountList[cartId] : acc;
+    return checkedItems[cartId] ? acc + price * orderCountItems[cartId] : acc;
   }, 0);
 
-  const setCheckedListAll = (checked: boolean) => {
-    setCheckedList(
-      cart.reduce((acc: CheckedList, { cartId }) => {
+  const setCheckedItemsAll = (checked: boolean) => {
+    setCheckedItems(
+      cart.reduce((acc: CheckedItems, { cartId }) => {
         acc[cartId] = checked;
 
         return acc;
@@ -39,9 +39,9 @@ const useCart = () => {
     );
   };
 
-  const resetOrderCountList = () => {
-    setOrderCountList(
-      cart.reduce((acc: OrderCountList, { cartId }) => {
+  const resetOrderCountItems = () => {
+    setOrderCountItems(
+      cart.reduce((acc: OrderCountItems, { cartId }) => {
         acc[cartId] = 1;
 
         return acc;
@@ -50,7 +50,7 @@ const useCart = () => {
   };
 
   const getCheckedCount = () => {
-    return Object.values(checkedList).filter(Boolean).length;
+    return Object.values(checkedItems).filter(Boolean).length;
   };
 
   const getTotalCheckedIndicator = () => {
@@ -64,15 +64,15 @@ const useCart = () => {
   const onChangeTotalChecked = () => {
     const checkedCount = getCheckedCount();
 
-    setCheckedListAll(checkedCount !== cart.length);
+    setCheckedItemsAll(checkedCount !== cart.length);
   };
 
   const onChangeChecked = (cartId: string) => {
-    setCheckedList((prev) => ({ ...prev, [cartId]: !prev[cartId] }));
+    setCheckedItems((prev) => ({ ...prev, [cartId]: !prev[cartId] }));
   };
 
   const onIncrementOrderCount = (cartId: string) => {
-    setOrderCountList((prev) => {
+    setOrderCountItems((prev) => {
       const prevCount = prev[cartId];
 
       if (prevCount >= ORDER_COUNT.MAX) {
@@ -87,7 +87,7 @@ const useCart = () => {
   };
 
   const onDecrementOrderCount = (cartId: string) => {
-    setOrderCountList((prev) => {
+    setOrderCountItems((prev) => {
       const prevCount = prev[cartId];
 
       if (prevCount <= ORDER_COUNT.MIN) {
@@ -102,8 +102,8 @@ const useCart = () => {
   };
 
   useEffect(() => {
-    setCheckedListAll(true);
-    resetOrderCountList();
+    setCheckedItemsAll(true);
+    resetOrderCountItems();
   }, [cart]);
 
   return {
@@ -113,8 +113,8 @@ const useCart = () => {
     getCheckedCount,
     onChangeTotalChecked,
     getTotalCheckedIndicator,
-    checkedList,
-    orderCountList,
+    checkedItems,
+    orderCountItems,
     onIncrementOrderCount,
     onDecrementOrderCount,
     onChangeChecked,

@@ -22,8 +22,8 @@ const Cart: VFC = () => {
     getCheckedCount,
     onChangeTotalChecked,
     getTotalCheckedIndicator,
-    checkedList,
-    orderCountList,
+    checkedItems,
+    orderCountItems,
     onIncrementOrderCount,
     onDecrementOrderCount,
     onChangeChecked,
@@ -43,8 +43,8 @@ const Cart: VFC = () => {
   const onClickSubmitButton = () => {
     history.push(PATH.ORDER, {
       order: cart
-        .filter(({ cartId }) => checkedList[cartId])
-        .map((item) => ({ ...item, quantity: orderCountList[item.cartId] })),
+        .filter(({ cartId }) => checkedItems[cartId])
+        .map((item) => ({ ...item, quantity: orderCountItems[item.cartId] })),
       totalPrice,
     });
   };
@@ -95,7 +95,7 @@ const Cart: VFC = () => {
                 <Confirm
                   title="선택하신 상품을 삭제하시겠습니까?"
                   onConfirm={() => {
-                    const selectedIds = Object.keys(checkedList).filter((cartId) => checkedList[cartId]);
+                    const selectedIds = Object.keys(checkedItems).filter((cartId) => checkedItems[cartId]);
                     dispatch(actions.cart.delete.request(selectedIds));
                   }}
                   onReject={() => {
@@ -115,10 +115,10 @@ const Cart: VFC = () => {
                   id={cartId}
                   productId={productId}
                   name={name}
-                  price={price * orderCountList[cartId]}
+                  price={price * orderCountItems[cartId]}
                   imageUrl={imageUrl}
-                  isChecked={checkedList[cartId]}
-                  quantity={orderCountList[cartId]}
+                  isChecked={checkedItems[cartId]}
+                  quantity={orderCountItems[cartId]}
                   onIncrementOrderCount={() => onIncrementOrderCount(cartId)}
                   onDecrementOrderCount={() => onDecrementOrderCount(cartId)}
                   onChangeChecked={() => onChangeChecked(cartId)}
