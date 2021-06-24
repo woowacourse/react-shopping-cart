@@ -7,8 +7,9 @@ const Card = ({ thumbnail, title, description, onClick }) => {
   return (
     <Container>
       <Thumbnail
-        image={thumbnail.image}
+        image={thumbnail.imageUrl}
         alt={thumbnail.alt}
+        notFoundImage={thumbnail.notFoundImage}
         size={thumbnail.size ?? 'large'}
         onClick={onClick}
       />
@@ -22,7 +23,7 @@ const Card = ({ thumbnail, title, description, onClick }) => {
 
 Card.propTypes = {
   thumbnail: PropTypes.shape({
-    image: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     size: PropTypes.oneOf(['small', 'medium', 'large', 'x-large']),
   }),
