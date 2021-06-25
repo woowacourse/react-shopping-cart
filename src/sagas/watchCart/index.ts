@@ -15,7 +15,11 @@ function* getCart() {
   try {
     const cartItem: CartItem[] = yield call(api.cart.get);
 
-    yield put(actions.cart.get.success({ cart: cartItem }));
+    const productIds = cartItem.map(({ productId }) => productId);
+
+    const deduplicatedCartItem = cartItem.filter(({ productId }, index) => productIds.indexOf(productId) === index);
+
+    yield put(actions.cart.get.success(deduplicatedCartItem));
   } catch (error) {
     yield put(actions.cart.get.failure({ requestErrorMessage: error.message }));
   }

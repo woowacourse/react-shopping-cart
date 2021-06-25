@@ -1,13 +1,17 @@
 import { OrderList, Loading, RequestError } from "../../types";
 import { OrderListActionType, orderListActionType } from "../../actions/orderList";
 
-const initialState: OrderList & Loading & RequestError = {
+interface InitialState extends Loading, RequestError {
+  orderList: OrderList;
+}
+
+const initialState: InitialState = {
   orderList: [],
   loading: false,
   requestErrorMessage: null,
 };
 
-const orderListReducer = (state: OrderList & Loading & RequestError = initialState, action: OrderListActionType) => {
+const orderListReducer = (state: InitialState = initialState, action: OrderListActionType) => {
   switch (action.type) {
     case orderListActionType.get.request:
       return {
@@ -18,7 +22,7 @@ const orderListReducer = (state: OrderList & Loading & RequestError = initialSta
     case orderListActionType.get.success:
       return {
         ...state,
-        orderList: [...action.payload.orderList],
+        orderList: [...action.payload],
         loading: false,
         requestErrorMessage: null,
       };

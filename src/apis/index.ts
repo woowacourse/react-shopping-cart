@@ -1,77 +1,89 @@
-import firebase from "firebase";
+import camelcaseKeys from "camelcase-keys";
+import snakecaseKeys from "snakecase-keys";
 
-import db from "../firebase";
+import { Order } from "../types";
 
-import { CartItem, Id, Order, Product, ProductsObject } from "../types";
-import { isDefined } from "../util/typeGuard";
+const BASE_URL = "https://shopping-cart.techcourse.co.kr";
 
-const collection = {
-  products: db.collection("products"),
-  cart: db.collection("cart"),
-  orderList: db.collection("orderList"),
+const config = {
+  baseURL: BASE_URL,
 };
+
+type Fetch = typeof fetch;
+type FetchParams = Parameters<Fetch>;
+
+type Api = Fetch;
+type ApiParams = FetchParams;
+
+type Config = typeof config;
+
+const isJsonResponseData = (response: Response) => {
+  const contentType = response.headers.get("content-type") || "";
+
+  return contentType.includes("application/json");
+};
+
+const intercept = (api: Api, config?: Config) => async (input: ApiParams[0], init?: ApiParams[1]): ReturnType<Api> => {
+  if (init) {
+    if (typeof init.body === "string") {
+      init.body = JSON.stringify(snakecaseKeys(JSON.parse(init.body)));
+    }
+
+    init.headers = {
+      "Content-Type": "application/json",
+    };
+  }
+
+  const response = await api((config?.baseURL || "") + input, init);
+
+  if (!response.ok) {
+    throw Error((await response.json()).message);
+  }
+
+  if (isJsonResponseData(response)) {
+    return camelcaseKeys(await response.json());
+  }
+
+  return response;
+};
+
+const request = intercept(fetch, config);
 
 const api = {
   products: {
-    get: async (): Promise<ProductsObject> => {
-      const response: firebase.firestore.QuerySnapshot<
-        firebase.firestore.DocumentData | (Id & Product)
-      > = await collection.products.get();
-
-      const products: ProductsObject = response.docs.reduce(
-        (acc: ProductsObject, product) => {
-          const productData = product.data();
-
-          acc.products[productData.id] = {
-            name: productData.name,
-            price: productData.price,
-            imageSrc: productData.imageSrc,
-          };
-
-          return acc;
-        },
-        { products: {} }
-      );
-
-      return products;
-    },
-    post: (product: Id & Product) => {
-      return collection.products.doc(product.id).set(product);
+    get: (id: string = "") => {
+      return request(`/api/products/${id}`);
     },
   },
   cart: {
-    get: async () => {
-      const response: firebase.firestore.QuerySnapshot<
-        firebase.firestore.DocumentData | CartItem
-      > = await collection.cart.get();
-      const cartItem = response.docs.map((cartItem) => cartItem.data()).filter(isDefined);
-
-      return cartItem;
+    get: () => {
+      return request(`/api/customers/seojihwan/carts`);
     },
-    post: (cartItem: CartItem) => {
-      return collection.cart.doc(cartItem.id).set(cartItem);
+    post: (productId: string) => {
+      return request(`/api/customers/seojihwan/carts`, {
+        method: "POST",
+        body: JSON.stringify({ productId }),
+      });
     },
-    delete: (id: string) => {
-      return collection.cart.doc(id).delete();
+    delete: (cartId: string) => {
+      return request(`/api/customers/seojihwan/carts/${cartId}`, {
+        method: "DELETE",
+      });
     },
   },
   orderList: {
-    get: async () => {
-      const response: firebase.firestore.QuerySnapshot<
-        firebase.firestore.DocumentData | Order
-      > = await collection.orderList.get();
-
-      const orders = response.docs.map((order) => order.data()).filter(isDefined);
-
-      const orderList = { orderList: orders };
-      return orderList;
+    get: () => {
+      return request(`/api/customers/seojihwan/orders`);
     },
     item: {
-      get: (id: string) => {
-        return collection.orderList.doc(id).get();
+      get: (orderId: string = "") => {
+        return request(`/api/customers/seojihwan/orders/${orderId}`);
       },
       post: (order: Order) => {
-        return collection.orderList.doc(order.id).set(order);
+        return request(`/api/customers/seojihwan/orders`, {
+          method: "POST",
+          body: JSON.stringify(order),
+        });
       },
     },
   },

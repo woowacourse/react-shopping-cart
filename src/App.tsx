@@ -2,16 +2,14 @@ import React, { VFC } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import GlobalStyles from "./GlobalStyles";
-import { Header } from "./Components";
-import ProductList from "./Pages/ProductList";
-import Cart from "./Pages/Cart";
-import Order from "./Pages/Order";
+import { Header } from "./components";
+import ProductList from "./pages/ProductList";
+import Cart from "./pages/Cart";
+import Order from "./pages/Order";
 import { PATH } from "./constants/path";
+import ProductDetail from "./pages/ProductDetail";
 
-const NAVIGATION = [
-  { path: PATH.CART, name: "장바구니" },
-  { path: PATH.ORDER_LIST, name: "주문목록" },
-];
+const NAVIGATION = [{ path: PATH.CART, name: "장바구니" }];
 
 const App: VFC = () => {
   return (
@@ -21,6 +19,9 @@ const App: VFC = () => {
       <Switch>
         <Route exact path={PATH.HOME}>
           <ProductList />
+        </Route>
+        <Route path={`${PATH.PRODUCT}/:id`}>
+          <ProductDetail />
         </Route>
         <Route exact path={PATH.CART}>
           <Cart />

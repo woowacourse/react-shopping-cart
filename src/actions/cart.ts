@@ -1,5 +1,5 @@
 import { ActionType, createAction } from "typesafe-actions";
-import { Cart, CartItem, RequestError } from "../types";
+import { CartItem, RequestError } from "../types";
 
 const cartActionType = {
   get: {
@@ -26,14 +26,14 @@ const cartActionType = {
 const cart = {
   get: {
     request: createAction(cartActionType.get.request)(),
-    success: createAction(cartActionType.get.success, (cart: Cart) => cart)<Cart>(),
+    success: createAction(cartActionType.get.success, (cart: CartItem[]) => cart)<CartItem[]>(),
     failure: createAction(
       cartActionType.get.failure,
       (requestErrorMessage: RequestError) => requestErrorMessage
     )<RequestError>(),
   },
   post: {
-    request: createAction(cartActionType.post.request, (cartItem: CartItem) => cartItem)<CartItem>(),
+    request: createAction(cartActionType.post.request, (productId: string) => productId)<string>(),
     success: createAction(cartActionType.post.success)(),
     failure: createAction(
       cartActionType.post.failure,

@@ -1,131 +1,69 @@
 import React, { useEffect, useState, VFC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 import actions from "../../actions";
-import { Button, CheckBox, PageTitle, SubmitBox } from "../../Components/@shared";
-import { CartItem } from "../../Components";
-import { RootState } from "../../store";
+
+import { Button, CheckBox, Confirm, Loading, PageTitle, SubmitBox } from "../../components/@shared";
+import { CartItem, Portal } from "../../components";
 import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+
+import useCart from "../../hooks/useCart";
+
 import { COLOR } from "../../constants/theme";
-import { ORDER_COUNT } from "../../constants/standard";
-
-interface CheckedList {
-  [key: string]: boolean;
-}
-
-interface OrderCountList {
-  [key: string]: number;
-}
+import { PATH } from "../../constants/path";
+import { toNumberWithComma } from "../../utils/format";
 
 const Cart: VFC = () => {
-  const [checkedList, setCheckedList] = useState<CheckedList>({});
-  const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
-
-  const history = useHistory();
-  const dispatch = useDispatch();
-  // TODO: 에러 어떻게 처리?
-  const { cart, requestErrorMessage } = useSelector(({ cart: { cart, requestErrorMessage } }: RootState) => ({
+  const {
     cart,
+    loading,
     requestErrorMessage,
-  }));
+    getCheckedCount,
+    onChangeTotalChecked,
+    getTotalCheckedIndicator,
+    checkedItems,
+    orderCountItems,
+    onIncrementOrderCount,
+    onDecrementOrderCount,
+    onChangeChecked,
+    totalPrice,
+  } = useCart();
 
-  const totalPrice = cart.reduce((acc, { id, price }) => {
-    return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
-  }, 0);
+  const [isDeleteConfirmOpened, setDeleteConfirmStatus] = useState<boolean>(false);
 
-  const setCheckedListAll = (checked: boolean) => {
-    setCheckedList(
-      cart.reduce((acc: CheckedList, { id }) => {
-        acc[id] = checked;
-
-        return acc;
-      }, {})
-    );
-  };
-
-  const resetOrderCountList = () => {
-    setOrderCountList(
-      cart.reduce((acc: OrderCountList, { id }) => {
-        acc[id] = 1;
-
-        return acc;
-      }, {})
-    );
-  };
-
-  const getCheckedCount = () => {
-    return Object.values(checkedList).filter(Boolean).length;
-  };
-
-  const getTotalCheckedIndicator = () => {
-    const checkedCount = getCheckedCount();
-
-    if (checkedCount === cart.length) return "선택 해제";
-    if (checkedCount === 0) return "전체 선택";
-    return `${checkedCount}개 선택`;
-  };
-
-  const onChangeTotalChecked = () => {
-    const checkedCount = getCheckedCount();
-
-    setCheckedListAll(checkedCount !== cart.length);
-  };
-
-  const onChangeChecked = (id: string) => {
-    setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const deleteSelectedCartItems = () => {
-    const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
-    dispatch(actions.cart.delete.request(selectedIds));
-  };
-
-  const onIncrementOrderCount = (id: string) => {
-    setOrderCountList((prev) => {
-      const prevCount = prev[id];
-
-      if (prevCount >= ORDER_COUNT.MAX) {
-        return prev;
-      }
-
-      return {
-        ...prev,
-        [id]: prev[id] + 1,
-      };
-    });
-  };
-
-  const onDecrementOrderCount = (id: string) => {
-    setOrderCountList((prev) => {
-      const prevCount = prev[id];
-
-      if (prevCount <= ORDER_COUNT.MIN) {
-        return prev;
-      }
-
-      return {
-        ...prev,
-        [id]: prev[id] - 1,
-      };
-    });
-  };
-
-  const onClickSubmitButton = () => {
-    history.push("/order", {
-      order: cart.filter(({ id }) => checkedList[id]).map((item) => ({ ...item, quantity: orderCountList[item.id] })),
-      totalPrice,
-    });
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(actions.cart.get.request());
   }, []);
 
-  useEffect(() => {
-    setCheckedListAll(true);
-    resetOrderCountList();
-  }, [cart]);
+  const history = useHistory();
+
+  const onClickSubmitButton = () => {
+    history.push(PATH.ORDER, {
+      order: cart
+        .filter(({ cartId }) => checkedItems[cartId])
+        .map((item) => ({ ...item, quantity: orderCountItems[item.cartId] })),
+      totalPrice,
+    });
+  };
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+  }
+
+  if (requestErrorMessage) {
+    return (
+      <Container>
+        <p>requestErrorMessage</p>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -146,38 +84,54 @@ const Cart: VFC = () => {
                 backgroundColor: "none",
                 border: `1px solid ${COLOR.GRAY_200}`,
               }}
-              onClick={deleteSelectedCartItems}
+              onClick={() => {
+                setDeleteConfirmStatus(true);
+              }}
             >
               상품삭제
             </Button>
+            {isDeleteConfirmOpened && (
+              <Portal>
+                <Confirm
+                  title="선택하신 상품을 삭제하시겠습니까?"
+                  onConfirm={() => {
+                    const selectedIds = Object.keys(checkedItems).filter((cartId) => checkedItems[cartId]);
+                    dispatch(actions.cart.delete.request(selectedIds));
+                  }}
+                  onReject={() => {
+                    setDeleteConfirmStatus(false);
+                  }}
+                />
+              </Portal>
+            )}
           </AllDealDelete>
         </AllDealControlBox>
         <Section>
           <CartListTitle>든든상품 ({cart.length} 개)</CartListTitle>
           <ul>
-            {cart.map(({ id, name, price, imageSrc }) => (
-              <li key={id}>
+            {cart.map(({ cartId, productId, name, price, imageUrl }) => (
+              <li key={cartId}>
                 <CartItem
-                  id={id}
+                  id={cartId}
+                  productId={productId}
                   name={name}
-                  price={price * orderCountList[id]}
-                  imageSrc={imageSrc}
-                  isChecked={checkedList[id]}
-                  quantity={orderCountList[id]}
-                  onIncrementOrderCount={() => onIncrementOrderCount(id)}
-                  onDecrementOrderCount={() => onDecrementOrderCount(id)}
-                  onChangeChecked={() => onChangeChecked(id)}
+                  price={price * orderCountItems[cartId]}
+                  imageUrl={imageUrl}
+                  isChecked={checkedItems[cartId]}
+                  quantity={orderCountItems[cartId]}
+                  onIncrementOrderCount={() => onIncrementOrderCount(cartId)}
+                  onDecrementOrderCount={() => onDecrementOrderCount(cartId)}
+                  onChangeChecked={() => onChangeChecked(cartId)}
                 />
               </li>
             ))}
           </ul>
         </Section>
-        {/* TODO Position: relative <-> fixed */}
         <SubmitBox
           title="결제예상금액"
           width="448px"
           height="318px"
-          target={{ name: "결제예상금액", value: `${totalPrice}원` }}
+          target={{ name: "결제예상금액", value: `${toNumberWithComma(totalPrice)}원` }}
           buttonName={`주문하기(${getCheckedCount()}개)`}
           onClickSubmitButton={onClickSubmitButton}
         />

@@ -2,11 +2,11 @@ import React, { useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
-import { CartAnimation, Product, ProductImage } from "../../Components";
-import { CartItem } from "../../types";
 import { RootState } from "../../store";
 
-import { Container } from "./styles";
+import { CartAnimation, Product } from "../../components";
+import { Loading } from "../../components/@shared";
+import { Container, Inner } from "./styles";
 
 const ProductList: VFC = () => {
   const dispatch = useDispatch();
@@ -25,33 +25,43 @@ const ProductList: VFC = () => {
     dispatch(actions.products.get.request());
   }, []);
 
-  const onClickCart = (id: string) => {
-    const cartItem: CartItem = {
-      id,
-      name: products[id].name,
-      price: products[id].price,
-      imageSrc: products[id].imageSrc,
-      quantity: 1,
-    };
-
-    dispatch(actions.cart.post.request(cartItem));
+  const onClickCart = (productId: string) => {
+    dispatch(actions.cart.post.request(productId));
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+  }
+
+  if (requestErrorMessage) {
+    return (
+      <Container>
+        <p>requestErrorMessage</p>
+      </Container>
+    );
+  }
 
   return (
     <Container>
-      {Object.entries(products).map(([id, { imageSrc, name, price }]) => (
-        <Product
-          key={id}
-          id={id}
-          imageSrc={imageSrc}
-          imageSize="282px"
-          name={name}
-          price={price}
-          onClickCart={() => {
-            onClickCart(id);
-          }}
-        />
-      ))}
+      <Inner>
+        {products.map(({ productId, imageUrl, name, price }) => (
+          <Product
+            key={productId}
+            id={productId}
+            imageUrl={imageUrl}
+            imageSize="282px"
+            name={name}
+            price={price}
+            onClickCart={() => {
+              onClickCart(productId);
+            }}
+          />
+        ))}
+      </Inner>
       {animation.isShow && <CartAnimation />}
     </Container>
   );

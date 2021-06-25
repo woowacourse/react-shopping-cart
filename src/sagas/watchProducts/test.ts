@@ -5,21 +5,22 @@ import { throwError } from "redux-saga-test-plan/providers";
 import watchProducts from ".";
 import actions from "../../actions";
 import api from "../../apis";
+import { Product } from "../../types";
 
-const products = {
-  products: {
-    "1": {
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-    },
-    "2": {
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-    },
+const products: Product[] = [
+  {
+    productId: "1",
+    name: "[든든] 유부 슬라이스 500g",
+    imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+    price: 4900,
   },
-};
+  {
+    productId: "2",
+    name: "[든든] 유부 슬라이스 500g",
+    imageUrl: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
+    price: 4900,
+  },
+];
 
 const errormessage = "getProducts failed";
 

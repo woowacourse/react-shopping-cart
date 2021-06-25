@@ -1,12 +1,16 @@
-import React, { VFC } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../Components";
-import { CartItem } from "../../types";
+import { OrderProductItem, PageTitle, ProductImage, SubmitBox } from "../../components";
 import { Container, OrderListTitle, Section, Main } from "./style";
 
+import { CartItem } from "../../types";
+import { toNumberWithComma } from "../../utils/format";
+
 interface LocationState {
-  order: CartItem[];
+  order: (CartItem & {
+    quantity: number;
+  })[];
   totalPrice: number;
 }
 
@@ -21,8 +25,8 @@ const Order = () => {
         <OrderListTitle>{`주문 상품(${order.length}건)`}</OrderListTitle>
         <Section>
           <ul>
-            {order.map(({ id, name, quantity, imageSrc }) => (
-              <OrderProductItem id={id} imageSrc={imageSrc} name={name} quantity={quantity} />
+            {order.map(({ cartId, name, quantity, imageUrl }) => (
+              <OrderProductItem id={cartId} imageUrl={imageUrl} name={name} quantity={quantity} />
             ))}
           </ul>
         </Section>
@@ -30,9 +34,11 @@ const Order = () => {
           title="결제금액"
           width="448px"
           height="318px"
-          target={{ name: "총 결제금액", value: `${totalPrice}원` }}
-          buttonName={`${totalPrice}원 결제하기`}
-          onClickSubmitButton={() => {}}
+          target={{ name: "총 결제금액", value: `${toNumberWithComma(totalPrice)}원` }}
+          buttonName={`${toNumberWithComma(totalPrice)}원 결제하기`}
+          onClickSubmitButton={() => {
+            alert("결제기능 미구현입니다.");
+          }}
         />
       </Main>
     </Container>
