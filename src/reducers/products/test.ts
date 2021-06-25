@@ -2,7 +2,6 @@ import productsReducer, { initialState } from ".";
 import { ProductsObject } from "../../interface";
 import actions from "../../actions";
 
-// TODO: 로딩에 대한 처리
 describe("productReducer test", () => {
   it("should handle product/get/success", () => {
     const products: ProductsObject = {

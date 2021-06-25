@@ -1,5 +1,3 @@
-import { PayloadAction } from "typesafe-actions";
-
 import { AlertActionType, alertActionType } from "../../actions/alert";
 import { ALERT_MESSAGE_MAX_NUM } from "../../constants/message";
 import { isPayloadActionType } from "../../util/typeGuard";
@@ -13,15 +11,13 @@ const alertReducer = (state = initialState, action: AlertActionType) => {
         return state;
       }
 
-      return [
-        ...state,
-        action.payload,
-      ].slice(0, ALERT_MESSAGE_MAX_NUM);
+      return [...state, action.payload].slice(0, ALERT_MESSAGE_MAX_NUM);
     case alertActionType.remove:
       return state.slice(1);
-    default: 
+    default:
       return state;
   }
 };
 
 export default alertReducer;
+export { initialState };

@@ -7,7 +7,6 @@ const cartReducer = (state: CartItem[] = initialState, action: CartActionType) =
   switch (action.type) {
     case cartActionType.get.success:
       return action.payload;
-
     default:
       return state;
   }

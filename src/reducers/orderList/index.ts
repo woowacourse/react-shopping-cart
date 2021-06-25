@@ -7,7 +7,6 @@ const orderListReducer = (state: Order[] = initialState, action: OrderListAction
   switch (action.type) {
     case orderListActionType.get.success:
       return action.payload;
-
     default:
       return state;
   }
