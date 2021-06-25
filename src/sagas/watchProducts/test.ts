@@ -1,11 +1,11 @@
 import { call } from "redux-saga/effects";
 import { expectSaga } from "redux-saga-test-plan";
-import { throwError } from "redux-saga-test-plan/providers";
 
 import watchProducts from ".";
 import actions from "../../actions";
 import api from "../../apis";
 import { APIReturnType, ProductsObject } from "../../interface";
+import { ERROR_MESSAGE } from "../../constants/message";
 
 const products: ProductsObject = {
     "1": {
@@ -34,4 +34,17 @@ it("should getProducts success", () => {
     .run();
 });
 
-it("should getProducts fail", () => {});
+it("should getProducts fail", () => {
+  const message = ERROR_MESSAGE.BAD_RESPONSE;
+  const response: APIReturnType<null> = {
+    isSucceeded: false,
+    message,
+    result: null,
+  };
+
+  return expectSaga(watchProducts)
+    .dispatch(actions.products.get.request())
+    .provide([[call(api.products.get), response]])
+    .put(actions.alert.request(message))
+    .run();
+});

@@ -28,10 +28,6 @@ interface Order extends Id {
   itemList: OrderItem[];
 }
 
-interface OrderList {
-  orderList: Order[];
-}
-
 interface RequestError {
   requestErrorMessage: string | null;
 }
