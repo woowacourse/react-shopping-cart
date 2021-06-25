@@ -1,18 +1,18 @@
 import ShoppingCartSectionList from '../../components/ShoppingCart/ShoppingCartSectionList';
 import ShoppingCartResultSubmitCard from '../../components/ShoppingCart/ShoppingCartResultSubmitCard';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
+import RootTemplate from '../../components/shared/RootTemplate';
 import { FormEvent, useEffect, FC } from 'react';
 import ShoppingCartForm from '../../components/ShoppingCart/ShoppingCartForm';
-import { requestRegisterOrderConfirmItems } from '../../service/request/orderConfirm';
 import { useHistory } from 'react-router';
 import InitialLoading from '../../components/shared/InitialLoading';
 import useCartItems from '../../hooks/useCartItems';
 import { ALERT } from '../../constants/message';
+import { setOrderConfirmItems } from '../../service/orderConfirm';
 
 const TITLE = '장바구니';
 
 const ShoppingCartPage: FC = () => {
-  const { loadCartItems, itemsInCart: items, isLoading } = useCartItems();
+  const { loadCartItems, cartItems: items, isLoading } = useCartItems();
   const history = useHistory();
 
   useEffect(() => {
@@ -34,11 +34,7 @@ const ShoppingCartPage: FC = () => {
       return;
     }
 
-    try {
-      await requestRegisterOrderConfirmItems(checkedItem);
-    } catch (error) {
-      throw error;
-    }
+    setOrderConfirmItems(checkedItem);
 
     if (!history) return;
 
@@ -46,7 +42,7 @@ const ShoppingCartPage: FC = () => {
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
+    <RootTemplate title={TITLE}>
       <InitialLoading isLoading={isLoading}>
         <ShoppingCartForm onSubmit={onSubmitCartItems}>
           <ShoppingCartSectionList />
@@ -56,7 +52,7 @@ const ShoppingCartPage: FC = () => {
           />
         </ShoppingCartForm>
       </InitialLoading>
-    </ReactShoppingCartTemplate>
+    </RootTemplate>
   );
 };
 

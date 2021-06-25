@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import PALETTE from '../../../constants/palette';
-import Container from '../../shared/Container';
-import Text from '../../shared/Text';
-import Button from '../../shared/Button';
+import PALETTE from '../../constants/palette';
+import Button from '../shared/Button';
+import Container from '../shared/Container';
+import Text from '../shared/Text';
 
-export const NetworkErrorContainer = styled(Container)`
+export const ErrorContainer = styled(Container)`
   position: fixed;
   top: 0;
   left: 0;
@@ -21,7 +21,7 @@ export const ErrorText = styled(Text)`
   margin-bottom: 0.75rem;
 `;
 
-export const HomeButton = styled(Button)`
+export const RedirectButton = styled(Button)`
   background-color: ${PALETTE.BAE_MINT[500]};
   color: white;
   border-radius: 0.5rem;
@@ -31,7 +31,7 @@ export const HomeButton = styled(Button)`
   margin-top: 3.5rem;
 `;
 
-HomeButton.defaultProps = {
+RedirectButton.defaultProps = {
   size: 'small',
 };
 

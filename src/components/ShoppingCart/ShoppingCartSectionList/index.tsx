@@ -13,7 +13,7 @@ import {
 
 const ShoppingCartSectionList: FC = () => {
   const [checked, setChecked] = useState(false);
-  const { itemsInCart: items } = useCartItems();
+  const { cartItems: items } = useCartItems();
   const { changeAllChecked } = useCartChangeCheckState();
   const { deleteItems } = useCartDeleteItem();
 

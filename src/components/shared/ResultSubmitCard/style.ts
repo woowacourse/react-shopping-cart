@@ -53,4 +53,9 @@ export const ResultSubmitButton = styled(Button)`
   background-color: ${PALETTE.BAE_MINT[500]};
   color: white;
   font-size: 1.5rem;
+
+  &:disabled {
+    color: ${PALETTE.GRAY[300]};
+    cursor: not-allowed;
+  }
 `;

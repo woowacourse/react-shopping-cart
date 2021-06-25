@@ -9,6 +9,7 @@ export const TemplateContainer = styled.div<Props>`
   display: flex;
   justify-content: center;
   ${({ backgroundColor }) => backgroundColor && `background-color: ${backgroundColor}`};
+  padding-top: 4rem;
 `;
 
 interface InnerTemplateContainerProps {
@@ -21,7 +22,7 @@ export const InnerTemplateContainer = styled.div<InnerTemplateContainerProps>`
   min-width: ${INNER_TEMPLATE_WIDTH};
 `;
 
-export const Title = styled.h2`
+export const InnerTemplateTitle = styled.h2`
   display: block;
   border-bottom: 4px solid black;
   padding-bottom: 1.8rem;

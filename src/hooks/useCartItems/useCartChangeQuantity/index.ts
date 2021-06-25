@@ -1,11 +1,11 @@
 import { thunkChangeItemQuantity } from '../../../states/actions/cart';
 import { useAppDispatch } from '../../../states/store';
-import { ItemInCart } from '../../../types';
+import { CartItem } from '../../../types';
 
 const useCartChangeQuantity = () => {
   const dispatch = useAppDispatch();
 
-  const changeQuantity = (item: ItemInCart, quantity: number) => {
+  const changeQuantity = (item: CartItem, quantity: number) => {
     dispatch(thunkChangeItemQuantity(item, quantity));
   };
 

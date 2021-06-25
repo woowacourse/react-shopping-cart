@@ -1,11 +1,12 @@
-import useFetch from '.';
+import useRequest from '.';
 import { renderHook } from '@testing-library/react-hooks';
 import { requestProductList } from '../../service/request/productList';
-import { NETWORK_ERROR } from '../../constants/error';
+import { ERROR } from '../../constants/error';
+import CustomError from '../../../utils/CustomError';
 
-describe('useFetch', () => {
+describe('useRequest', () => {
   test('loading', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(() => requestProductList()));
+    const { result, waitForNextUpdate } = renderHook(() => useRequest(() => requestProductList()));
 
     expect(result.current.isLoading).toBe(true);
 
@@ -16,16 +17,16 @@ describe('useFetch', () => {
 
   test('error', async () => {
     const { result } = renderHook(() =>
-      useFetch(() => {
-        throw new Error('에러났어용');
+      useRequest(() => {
+        throw new CustomError(ERROR.NETWORK, '에러났어용');
       })
     );
 
-    expect(result.error).toEqual(Error(NETWORK_ERROR));
+    expect(result.error).toEqual(Error(ERROR.NETWORK));
   });
 
   test('data fetch', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useFetch(() => requestProductList()));
+    const { result, waitForNextUpdate } = renderHook(() => useRequest(() => requestProductList()));
 
     await waitForNextUpdate();
 

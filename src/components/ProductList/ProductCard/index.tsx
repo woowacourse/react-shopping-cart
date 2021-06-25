@@ -1,13 +1,16 @@
 import { FC } from 'react';
+import { ALERT, CONFIRM } from '../../../constants/message';
 import useCartAddItem from '../../../hooks/useCartItems/useCartAddItem';
 import { Product } from '../../../types';
 import { KRCurrency } from '../../../utils/format';
+import Card from '../../shared/Card';
 import {
   CartIconButton,
   ContentContainer,
+  ProductCardLink,
+  ProductCartContainer,
   ProductNameText,
   ProductText,
-  StyledProductCard,
 } from './style';
 
 const ProductCard: FC<Product> = (product) => {
@@ -15,21 +18,26 @@ const ProductCard: FC<Product> = (product) => {
   const { addItem } = useCartAddItem();
 
   const onClickAddCart = () => {
-    if (!window.confirm('장바구니에 추가하시겠습니까?')) return;
+    if (!window.confirm(CONFIRM.ADD_CART)) return;
 
     addItem(product);
+    alert(ALERT.SUCCESS_ADD_CART);
   };
 
   return (
-    <StyledProductCard type="vertical" image={image}>
-      <ContentContainer>
-        <div>
-          <ProductNameText data-testid="product-name">{name}</ProductNameText>
-          <ProductText>{KRCurrency(price)}</ProductText>
-        </div>
-        <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
-      </ContentContainer>
-    </StyledProductCard>
+    <ProductCartContainer>
+      <ProductCardLink to={`/productDetail/${product.id}`}>
+        <Card type="vertical" image={image} width="17.625rem">
+          <ContentContainer>
+            <div>
+              <ProductNameText data-testid="product-name">{name}</ProductNameText>
+              <ProductText>{KRCurrency(price)}</ProductText>
+            </div>
+          </ContentContainer>
+        </Card>
+      </ProductCardLink>
+      <CartIconButton onClick={onClickAddCart} data-testid="add-cart-button" />
+    </ProductCartContainer>
   );
 };
 

@@ -1,20 +1,20 @@
 import { FC } from 'react';
 import ProductList from '../../components/ProductList';
 import InitialLoading from '../../components/shared/InitialLoading';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/shared/useFetch';
-import { requestProductList } from '../../service/request/productList';
+import RootTemplate from '../../components/shared/RootTemplate';
+import useRequest from '../../hooks/shared/useRequest';
+import { getProductList } from '../../service/productList';
 import { Product } from '../../types';
 
 const ProductListPage: FC = () => {
-  const productList = useFetch(requestProductList);
+  const productList = useRequest(getProductList);
 
   return (
-    <ReactShoppingCartTemplate>
+    <RootTemplate>
       <InitialLoading isLoading={productList.isLoading}>
         <ProductList products={productList.data as Product[]} />
       </InitialLoading>
-    </ReactShoppingCartTemplate>
+    </RootTemplate>
   );
 };
 

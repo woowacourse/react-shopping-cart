@@ -49,7 +49,7 @@ const Button = styled.button<Props>`
     height: 100%;
   }
 
-  &:hover::after {
+  &:enabled:hover::after {
     background-color: rgba(0, 0, 0, 0.1);
   }
 

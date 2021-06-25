@@ -1,27 +1,33 @@
-import { FormEvent, useEffect, useState, FC } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import OrderConfirmForm from '../../components/OrderConfirm/OrderConfirmInnerContainer';
 import OrderConfirmResultSubmitCard from '../../components/OrderConfirm/OrderConfirmResultSubmitCard';
 import OrderConfirmSection from '../../components/OrderConfirm/OrderConfirmSection';
-import InitialLoading from '../../components/shared/InitialLoading';
-import ReactShoppingCartTemplate from '../../components/shared/ReactShoppingCartTemplate';
-import useFetch from '../../hooks/shared/useFetch';
-import useCartDeleteItem from '../../hooks/useCartItems/useCartDeleteItem';
-import { requestOrderItems } from '../../service/request/order';
-import {
-  requestClearOrderConfirmItems,
-  requestOrderConfirmItems,
-} from '../../service/request/orderConfirm';
-import { ItemInCart } from '../../types';
+import RootTemplate from '../../components/shared/RootTemplate';
+import { ERROR_TYPE } from '../../constants/error';
+import { ALERT } from '../../constants/message';
+import { clearCartItemAdditionalData } from '../../service/cart';
+import { registerOrderItemList } from '../../service/order';
+import { getOrderConfirmItems } from '../../service/orderConfirm';
+import { CartItem } from '../../types';
+import CustomError from '../../utils/CustomError';
 
 const TITLE = '주문/결제';
 
 interface Props extends RouteComponentProps {}
 
 const OrderConfirmPage: FC<Props> = ({ history }) => {
-  const { data: items, isLoading } = useFetch(requestOrderConfirmItems);
+  const items = getOrderConfirmItems();
   const [totalPrice, setTotalPrice] = useState(0);
-  const { clearCart } = useCartDeleteItem();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!errorMessage) {
+      return;
+    }
+
+    throw new CustomError(ERROR_TYPE.NETWORK, errorMessage);
+  }, [errorMessage]);
 
   useEffect(() => {
     if (!items) return;
@@ -31,34 +37,28 @@ const OrderConfirmPage: FC<Props> = ({ history }) => {
     setTotalPrice(calculatedPrice);
   }, [items]);
 
-  const order = async () => {
-    await requestOrderItems(items as ItemInCart[]);
-    await requestClearOrderConfirmItems();
-    clearCart();
-  };
-
   const onSubmitOrderConfirm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      await order();
-      alert('주문이 성공했습니다!');
+      await registerOrderItemList(items as CartItem[]);
+      clearCartItemAdditionalData();
+
+      alert(ALERT.SUCCESS_ORDER);
     } catch (error) {
-      console.error(error);
+      setErrorMessage(error.message);
     }
 
     history.replace('/');
   };
 
   return (
-    <ReactShoppingCartTemplate title={TITLE}>
-      <InitialLoading isLoading={isLoading}>
-        <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
-          <OrderConfirmSection title="주문 상품" items={items as ItemInCart[]} />
-          <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
-        </OrderConfirmForm>
-      </InitialLoading>
-    </ReactShoppingCartTemplate>
+    <RootTemplate title={TITLE}>
+      <OrderConfirmForm onSubmit={onSubmitOrderConfirm}>
+        <OrderConfirmSection title="주문 상품" items={items as CartItem[]} />
+        <OrderConfirmResultSubmitCard totalPrice={totalPrice} />
+      </OrderConfirmForm>
+    </RootTemplate>
   );
 };
 

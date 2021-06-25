@@ -6,4 +6,6 @@ export const CONFIRM = {
 
 export const ALERT = {
   NONE_OF_SELECTED_ITEMS: '선택된 아이템이 없습니다.',
+  SUCCESS_ORDER: '주문이 성공했습니다!',
+  SUCCESS_ADD_CART: '상품이 장바구니에 담겼습니다!',
 };

@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, FC } from 'react';
-import { OrderedItem } from '../../../../../types';
+import { OrderItem } from '../../../../../types';
 import { ProductName } from '../../../../OrderConfirm/OrderConfirmSection/OrderConfirmListItem/style';
 import Container from '../../../../shared/Container';
 import { AddCartButton, OrderListItemCard, StyledOrderItemListItem } from './styles';
@@ -7,7 +7,7 @@ import { KRCurrency } from '../../../../../utils/format';
 import Text from '../../../../shared/Text';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  item: OrderedItem;
+  item: OrderItem;
 }
 
 const OrderListItem: FC<Props> = ({ item: { image, name, price, quantity }, onClick }) => (

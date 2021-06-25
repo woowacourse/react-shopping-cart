@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ItemInCart } from '../../../../../types';
+import { CartItem } from '../../../../../types';
 import { KRCurrency } from '../../../../../utils/format';
 import Checkbox from '../../../../shared/Checkbox';
 import Container from '../../../../shared/Container';
@@ -15,10 +15,10 @@ import {
 import { CART_ITEM_MIN_QUANTITY } from '../../../../../constants/cart';
 
 interface Props {
-  item: ItemInCart;
-  changeQuantity: (item: ItemInCart, value: number) => void;
+  item: CartItem;
+  changeQuantity: (item: CartItem, value: number) => void;
   deleteItem: (itemId: string) => void;
-  toggleChecked: (item: ItemInCart) => void;
+  toggleChecked: (item: CartItem) => void;
   className?: string;
 }
 
@@ -60,7 +60,7 @@ const ShoppingCartItem: FC<Props> = ({
         <ProductName>{name}</ProductName>
       </ShoppingCartItemCard>
       <Container>
-        <DeleteButton onClick={onItemDelete} data-testid="delete-button" />
+        <DeleteButton type="button" onClick={onItemDelete} data-testid="delete-button" />
         <NumberInput value={quantity} setValue={setItemQuantity} min={1} />
         <Text>{KRCurrency(price * quantity)}</Text>
       </Container>

@@ -14,6 +14,7 @@ interface Props {
   resultAmount: string;
   buttonText: string;
   className?: string;
+  isSubmitDisabled?: boolean;
 }
 
 const ResultSubmitCard: FC<Props> = ({
@@ -22,6 +23,7 @@ const ResultSubmitCard: FC<Props> = ({
   resultAmount,
   buttonText,
   className,
+  isSubmitDisabled = false,
 }) => (
   <ResultSubmitCardContainer className={className}>
     <ResultTitle>{title}</ResultTitle>
@@ -30,7 +32,7 @@ const ResultSubmitCard: FC<Props> = ({
         <Text>{resultDescription}</Text>
         <Text>{resultAmount}</Text>
       </ResultAmountContainer>
-      <ResultSubmitButton>{buttonText}</ResultSubmitButton>
+      <ResultSubmitButton disabled={isSubmitDisabled}>{buttonText}</ResultSubmitButton>
     </ResultInnerContainer>
   </ResultSubmitCardContainer>
 );

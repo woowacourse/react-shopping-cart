@@ -30,7 +30,7 @@ describe('useCartChangeQuantity', () => {
 
     await waitForNextUpdate();
 
-    const updatedTargetItem = useCartItemsResult.current.itemsInCart.find(
+    const updatedTargetItem = useCartItemsResult.current.cartItems.find(
       (item) => item.id === targetItem.id
     );
 
