@@ -52,47 +52,49 @@ const orderList: Order[] = [
 const orderId = "1";
 const orderQuantity = 2;
 
-it("should getOrderList success", () => {
-  const result: Order[] = orderList;
-  const response: APIReturnType<Order[]> = {
-    isSucceeded: true,
-    message: "",
-    result,
-  };
+describe("orderList saga test", () => {
+  it("should getOrderList success", () => {
+    const result: Order[] = orderList;
+    const response: APIReturnType<Order[]> = {
+      isSucceeded: true,
+      message: "",
+      result,
+    };
 
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.get.request())
-    .provide([[call(api.orderList.get), response]])
-    .put(actions.orderList.get.success(result))
-    .run();
-});
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.get.request())
+      .provide([[call(api.orderList.get), response]])
+      .put(actions.orderList.get.success(result))
+      .run();
+  });
 
-it("should getOrderList fail", () => {
-  const message = ERROR_MESSAGE.BAD_RESPONSE;
-  const response: APIReturnType<null> = {
-    isSucceeded: false,
-    message,
-    result: null,
-  };
+  it("should getOrderList fail", () => {
+    const message = ERROR_MESSAGE.BAD_RESPONSE;
+    const response: APIReturnType<null> = {
+      isSucceeded: false,
+      message,
+      result: null,
+    };
 
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.get.request())
-    .provide([[call(api.orderList.get), response]])
-    .put(actions.alert.request(message))
-    .run();
-});
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.get.request())
+      .provide([[call(api.orderList.get), response]])
+      .put(actions.alert.request(message))
+      .run();
+  });
 
-it("should postOrderList", () => {
-  const message = SUCCESS_MESSAGE.POST_ORDER;
-  const response: APIReturnType<null> = {
-    isSucceeded: true,
-    message,
-    result: null
-  }
+  it("should postOrderList", () => {
+    const message = SUCCESS_MESSAGE.POST_ORDER;
+    const response: APIReturnType<null> = {
+      isSucceeded: true,
+      message,
+      result: null,,
+    };;
 
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.post.request(orderId, orderQuantity))
-    .provide([[call(api.orderList.post, orderId, orderQuantity), response]])
-    .put(actions.alert.request(message))
-    .run();
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.post.request(orderId, orderQuantity))
+      .provide([[call(api.orderList.post, orderId, orderQuantity), response]])
+      .put(actions.alert.request(message))
+      .run();
+  });
 });

@@ -49,41 +49,43 @@ const responseOfDelete: APIReturnType<null> = {
   result: null,
 }
 
-it("should getCart success", () => {
-  return expectSaga(watchCart)
-    .dispatch(actions.cart.get.request())
-    .provide([[call(api.cart.get), succeededResponseOfGet]])
-    .put(actions.cart.get.success(succeededResponseOfGet.result))
-    .run();
-});
+describe("cart saga test", () => {
+  it("should getCart success", () => {
+    return expectSaga(watchCart)
+      .dispatch(actions.cart.get.request())
+      .provide([[call(api.cart.get), succeededResponseOfGet]])
+      .put(actions.cart.get.success(succeededResponseOfGet.result))
+      .run();
+  });
 
-it("should getCart fail", () => {
-  return expectSaga(watchCart)
-    .dispatch(actions.cart.get.request())
-    .provide([[call(api.cart.get), faliedResponseOfGet]])
-    .put(actions.alert.request(faliedResponseOfGet.message))
-    .run();
-});
+  it("should getCart fail", () => {
+    return expectSaga(watchCart)
+      .dispatch(actions.cart.get.request())
+      .provide([[call(api.cart.get), faliedResponseOfGet]])
+      .put(actions.alert.request(faliedResponseOfGet.message))
+      .run();
+  });
 
-it("should postCart show message", () => {
-  return expectSaga(watchCart)
-    .dispatch(actions.cart.post.request(cartItems[0].id))
-    .provide([[call(api.cart.post, cartItems[0].id), responseOfPost]])
-    .put(actions.alert.request(responseOfPost.message))
-    .run();
-});
+  it("should postCart show message", () => {
+    return expectSaga(watchCart)
+      .dispatch(actions.cart.post.request(cartItems[0].id))
+      .provide([[call(api.cart.post, cartItems[0].id), responseOfPost]])
+      .put(actions.alert.request(responseOfPost.message))
+      .run();
+  });
 
-it("should deleteCart show message", () => {
-  const ids = ["1", "2"];
-  const mocks:[
-    CallEffect<APIReturnType<null>>,
-    APIReturnType<null>
-  ][] = ids.map(id => [call(api.cart.delete, id), responseOfDelete])
+  it("should deleteCart show message", () => {
+    const ids = ["1", "2"];
+    const mocks:[
+      CallEffect<APIReturnType<null>>,
+      APIReturnType<null>
+    ][] = ids.map(id => [call(api.cart.delete, id), responseOfDelete])
 
-  return expectSaga(watchCart)
-    .dispatch(actions.cart.delete.request(ids))
-    .provide(mocks)
-    .put(actions.alert.request(SUCCESS_MESSAGE.DELETE_CART))
-    .call(api.cart.get)
-    .run();
+    return expectSaga(watchCart)
+      .dispatch(actions.cart.delete.request(ids))
+      .provide(mocks)
+      .put(actions.alert.request(SUCCESS_MESSAGE.DELETE_CART))
+      .call(api.cart.get)
+      .run();
+  });
 });

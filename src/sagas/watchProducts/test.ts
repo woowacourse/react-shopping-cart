@@ -20,31 +20,33 @@ const products: ProductsObject = {
     },
 };
 
-it("should getProducts success", () => {
-  const response: APIReturnType<ProductsObject> = {
-    isSucceeded: true,
-    message: "",
-    result: products,
-  }
+describe("cart products test", () => {
+  it("should getProducts success", () => {
+    const response: APIReturnType<ProductsObject> = {
+      isSucceeded: true,
+      message: "",
+      result: products,
+    };;
 
-  return expectSaga(watchProducts)
-    .dispatch(actions.products.get.request())
-    .provide([[call(api.products.get), response]])
-    .put(actions.products.get.success(products))
-    .run();
-});
+    return expectSaga(watchProducts)
+      .dispatch(actions.products.get.request())
+      .provide([[call(api.products.get), response]])
+      .put(actions.products.get.success(products))
+      .run();
+  });
 
-it("should getProducts fail", () => {
-  const message = ERROR_MESSAGE.BAD_RESPONSE;
-  const response: APIReturnType<null> = {
-    isSucceeded: false,
-    message,
-    result: null,
-  };
+  it("should getProducts fail", () => {
+    const message = ERROR_MESSAGE.BAD_RESPONSE;
+    const response: APIReturnType<null> = {
+      isSucceeded: false,
+      message,
+      result: null,
+    };
 
-  return expectSaga(watchProducts)
-    .dispatch(actions.products.get.request())
-    .provide([[call(api.products.get), response]])
-    .put(actions.alert.request(message))
-    .run();
+    return expectSaga(watchProducts)
+      .dispatch(actions.products.get.request())
+      .provide([[call(api.products.get), response]])
+      .put(actions.alert.request(message))
+      .run();
+  });
 });
