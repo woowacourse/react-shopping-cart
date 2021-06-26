@@ -13,7 +13,7 @@ import PriceInfoBox from '../../components/shared/PriceInfoBox';
 import ProductList from '../../components/shared/ProductList';
 import ProductListItem from '../../components/shared/ProductList/ProductListItem';
 
-import { PAGES, SNACKBAR_DURATION } from '../../constants/appInfo';
+import { PAGES } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
@@ -34,7 +34,7 @@ const CartPage = () => {
     changeCartProductQuantity,
     calculateTotalPrice,
   } = useCart();
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar();
   const totalPrice = calculateTotalPrice();
 
   const onRemoveCheckedProducts = () => {

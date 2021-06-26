@@ -9,14 +9,13 @@ import SimpleTrashBin from '../../common/Icon/SimpleTrashBin';
 
 import { removeProduct, addToCart, changeQuantity } from '../../../redux/Cart/actions';
 import useSnackbar from '../../../hooks/useSnackbar';
-import { SNACKBAR_DURATION } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 
 import * as Styled from './style';
 import useCart from '../../../hooks/useCart';
 
 const CartButton = ({ className, product }) => {
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar();
   const [isOpen, setIsOpen] = useState(false);
 
   const { cartList } = useCart();

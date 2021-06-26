@@ -1,13 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import Snackbar from '../components/common/Snackbar';
+import { SNACKBAR_DURATION } from '../constants/appInfo';
 
 import useUpdateEffect from './useUpdateEffect';
 import { resetSnackbar, setSnackbar } from '../redux/Snackbar/actions';
 
-const useSnackbar = (ms) => {
+const useSnackbar = (ms = SNACKBAR_DURATION) => {
   const { message } = useSelector((state) => state.snackbar);
   const dispatch = useDispatch();
   const timer = useRef(null);
@@ -30,14 +29,7 @@ const useSnackbar = (ms) => {
     };
   }, []);
 
-  const SnackbarComponent = ({ backgroundColor }) =>
-    message.text && <Snackbar key={Math.random()} message={message.text} ms={ms} backgroundColor={backgroundColor} />;
-
-  SnackbarComponent.propTypes = {
-    backgroundColor: PropTypes.string,
-  };
-
-  return [message.text, setSnackbarMessage, SnackbarComponent];
+  return [message.text, setSnackbarMessage];
 };
 
 export default useSnackbar;
