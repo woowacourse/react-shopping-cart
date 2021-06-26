@@ -35,5 +35,4 @@ export const UNIT = {
   QUANTITY: '개',
 };
 
-export const SNACKBAR_DURATION = 1000;
 export const PRODUCTS_PER_PAGE = 12;

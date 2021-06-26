@@ -7,7 +7,6 @@ import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
 import Main from '../../components/Main';
 
-import { SNACKBAR_DURATION } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
@@ -19,7 +18,7 @@ import { getProduct, resetProduct } from '../../redux/ProductDetail/actions';
 import * as Styled from './style';
 
 const ProductDetailPage = () => {
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar();
   const {
     productDetail: { product, isLoading: isProductLoading },
   } = useSelector((state) => state);
