@@ -22,7 +22,6 @@ export const getOrders = () => (dispatch, getState) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       dispatch({
         type: GET_ORDERS_SUCCESS,
         order: data,

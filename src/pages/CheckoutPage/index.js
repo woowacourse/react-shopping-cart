@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import FlexContainer from '../../components/common/FlexContainer';
 import Spinner from '../../components/common/Icon/Spinner';
@@ -14,14 +14,13 @@ import { PAGES } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
+import useCart from '../../hooks/useCart';
 import { setOrder } from '../../redux/Orders/actions';
 
 import * as Styled from './style';
 
 const CheckoutPage = () => {
-  const {
-    cart: { cartList, isLoading },
-  } = useSelector((state) => state);
+  const { cartList, isLoading } = useCart();
   const dispatch = useDispatch();
 
   const checkedProducts = cartList.filter((product) => product.isChecked);

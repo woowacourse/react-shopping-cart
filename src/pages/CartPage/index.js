@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
 import QuantityInput from '../../components/common/QuantityInput';
 import Button from '../../components/common/Button';
@@ -18,46 +17,40 @@ import { PAGES, SNACKBAR_DURATION } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
+import useCart from '../../hooks/useCart';
 import useSnackbar from '../../hooks/useSnackbar';
-import {
-  toggleAllCheckboxesInCart,
-  changeQuantity,
-  removeCheckedProducts,
-  removeProduct,
-  getCart,
-} from '../../redux/Cart/actions';
 
 import * as Styled from './style';
-import useCartCheckbox from '../../hooks/useCartCheckbox';
 
 const CartPage = () => {
-  const [isAllChecked, setIsAllChecked, changeCheckbox, changeAllCheckbox] = useCartCheckbox();
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
-    cart: { cartList, isLoading },
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  const totalPrice = cartList?.reduce(
-    (sum, product) => (sum += product.isChecked ? product.price * product.quantity : 0),
-    0
-  );
+    cartList,
+    isLoading,
+    isAllChecked,
+    changeCheckbox,
+    changeAllCheckbox,
+    removeCheckedCartProducts,
+    removeCartProduct,
+    changeCartProductQuantity,
+    calculateTotalPrice,
+  } = useCart();
+  const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
+  const totalPrice = calculateTotalPrice();
 
   const onRemoveCheckedProducts = () => {
-    const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cart_id);
-    dispatch(removeCheckedProducts(checkedCartIds));
+    removeCheckedCartProducts();
 
     setSnackbarMessage(APP_MESSAGE.CART_PRODUCT_REMOVED);
   };
 
   const onRemoveProduct = (cartId) => () => {
-    dispatch(removeProduct(cartId));
+    removeCartProduct(cartId);
 
     setSnackbarMessage(APP_MESSAGE.CART_PRODUCT_REMOVED);
   };
 
   const onChangeQuantity = (cartId) => (quantity) => {
-    dispatch(changeQuantity(cartId, quantity));
+    changeCartProductQuantity(cartId, quantity);
   };
 
   const onCheckout = () => {
@@ -71,13 +64,6 @@ const CartPage = () => {
 
     window.location.hash = `#${PAGES.CHECKOUT.ADDRESS}`;
   };
-
-  useEffect(() => {
-    // dispatch(getCart());
-    const isProductExists = !!cartList.length;
-    dispatch(toggleAllCheckboxesInCart(isProductExists));
-    setIsAllChecked(isProductExists);
-  }, []);
 
   return (
     <Main>

@@ -13,12 +13,13 @@ import { SNACKBAR_DURATION } from '../../../constants/appInfo';
 import { APP_MESSAGE } from '../../../constants/message';
 
 import * as Styled from './style';
+import useCart from '../../../hooks/useCart';
 
 const CartButton = ({ className, product }) => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { cartList } = useSelector((state) => state.cart);
+  const { cartList } = useCart();
   const dispatch = useDispatch();
 
   const targetProduct = cartList.find((cartItem) => cartItem.product_id === product.product_id);

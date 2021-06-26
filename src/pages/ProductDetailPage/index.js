@@ -11,6 +11,7 @@ import { SNACKBAR_DURATION } from '../../constants/appInfo';
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
+import useCart from '../../hooks/useCart';
 import useSnackbar from '../../hooks/useSnackbar';
 import { addToCart, getCart, resetCart } from '../../redux/Cart/actions';
 import { getProduct, resetProduct } from '../../redux/ProductDetail/actions';
@@ -21,8 +22,8 @@ const ProductDetailPage = () => {
   const [snackbarMessage, setSnackbarMessage] = useSnackbar(SNACKBAR_DURATION);
   const {
     productDetail: { product, isLoading: isProductLoading },
-    cart: { cartList, isLoading: isCartLoading },
   } = useSelector((state) => state);
+  const { cartList, isLoading: isCartLoading } = useCart();
   const dispatch = useDispatch();
 
   useEffect(() => {
