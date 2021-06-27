@@ -1,6 +1,6 @@
 import { API_URL } from '../../constants/api';
 import { ERROR_MESSAGE } from '../../constants/message';
-import { cartConverter } from '../../utils/converter';
+import { cartConverter, snakeToCamelConverter } from '../../utils/converter';
 
 export const GET_CART_PENDING = 'cart/get_cart/pending';
 export const GET_CART_SUCCESS = 'cart/get_cart/success';
@@ -36,9 +36,17 @@ export const getCart = () => (dispatch, getState) => {
       return response.json();
     })
     .then((data) => {
+      const camelData = cartConverter(data, getState().cart.cartList).map((product) => {
+        return Object.entries(product).reduce((prev, cur) => {
+          const [key, value] = cur;
+          prev[snakeToCamelConverter(key)] = value;
+          return prev;
+        }, {});
+      });
+
       dispatch({
         type: GET_CART_SUCCESS,
-        payload: cartConverter(data, getState().cart.cartList),
+        payload: camelData,
       });
     })
     .catch((e) =>
@@ -63,7 +71,7 @@ export const addToCart = (product) => (dispatch, getState) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      product_id: product.product_id,
+      product_id: product.productId,
     }),
   })
     .then((response) => {
@@ -76,12 +84,12 @@ export const addToCart = (product) => (dispatch, getState) => {
         const cartId = responseLocation.slice(responseLocation.lastIndexOf('/') + 1);
         const cartItem = {
           quantity: 1,
-          cart_id: Number(cartId),
-          image_url: product.image_url,
+          cartId: Number(cartId),
+          imageUrl: product.imageUrl,
           isChecked: true,
           name: product.name,
           price: product.price,
-          product_id: product.product_id,
+          productId: product.productId,
         };
 
         dispatch({

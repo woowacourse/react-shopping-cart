@@ -21,7 +21,7 @@ const CartButton = ({ className, product }) => {
   const { cartList } = useCart();
   const dispatch = useDispatch();
 
-  const targetProduct = cartList.find((cartItem) => cartItem.product_id === product.product_id);
+  const targetProduct = cartList.find((cartItem) => cartItem.productId === product.productId);
 
   const onClickShoppingCart = () => {
     dispatch(addToCart(product));
@@ -39,15 +39,15 @@ const CartButton = ({ className, product }) => {
   };
 
   const onIncrease = () => {
-    dispatch(changeQuantity(targetProduct?.cart_id, targetProduct?.quantity + 1));
+    dispatch(changeQuantity(targetProduct?.cartId, targetProduct?.quantity + 1));
   };
 
   const onDecrease = () => {
-    dispatch(changeQuantity(targetProduct?.cart_id, targetProduct?.quantity - 1));
+    dispatch(changeQuantity(targetProduct?.cartId, targetProduct?.quantity - 1));
   };
 
   const onRemove = () => {
-    dispatch(removeProduct(targetProduct?.cart_id));
+    dispatch(removeProduct(targetProduct?.cartId));
     onClose();
   };
 
@@ -82,10 +82,10 @@ const CartButton = ({ className, product }) => {
 CartButton.propTypes = {
   className: PropTypes.string,
   product: PropTypes.shape({
-    product_id: PropTypes.number.isRequired,
+    productId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    image_url: PropTypes.string,
+    imageUrl: PropTypes.string,
   }).isRequired,
 };
 

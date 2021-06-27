@@ -39,22 +39,22 @@ const OrdersPage = () => {
         </Loader>
         <FlexContainer direction="column">
           {orderList?.reverse().map((order) => (
-            <FlexContainer key={order.order_id} margin="3rem 0 1rem 0" direction="column">
+            <FlexContainer key={order.orderId} margin="3rem 0 1rem 0" direction="column">
               <FlexContainer
                 padding="1.5rem 1.5rem 1.5rem 2.5rem"
                 border={`1px solid ${PALETTE.GRAY_001}`}
                 backgroundColor={PALETTE.GRAY_007}
                 justifyContent="space-between"
               >
-                <span>주문번호: {order.order_id}</span>
+                <span>주문번호: {order.orderId}</span>
                 <Button type="button" backgroundColor="transparent">
                   {'상세보기 >'}
                 </Button>
               </FlexContainer>
               <ProductList>
-                {order?.order_details.map((product) => (
+                {order?.orderDetails.map((product) => (
                   <ProductListItem
-                    key={product.product_id}
+                    key={product.productId}
                     product={product}
                     listStyle="tableStyle"
                     imageSize="9rem"

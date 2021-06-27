@@ -24,7 +24,7 @@ const useCart = () => {
   };
 
   const removeCheckedCartProducts = () => {
-    const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cart_id);
+    const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cartId);
     dispatch(removeCheckedProducts(checkedCartIds));
   };
 

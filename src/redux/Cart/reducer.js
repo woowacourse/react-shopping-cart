@@ -60,7 +60,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product.cart_id === action.cartId ? { ...product, isChecked: !product.isChecked } : product
+          product.cartId === action.cartId ? { ...product, isChecked: !product.isChecked } : product
         ),
       };
 
@@ -78,7 +78,7 @@ const cartReducer = (state = initState, action) => {
 
     case REMOVE_PRODUCT_SUCCESS:
       return {
-        cartList: state.cartList.filter((product) => product.cart_id !== action.cartId),
+        cartList: state.cartList.filter((product) => product.cartId !== action.cartId),
         isLoading: false,
       };
 
@@ -86,7 +86,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product.cart_id === action.cartId ? { ...product, quantity: action.quantity } : product
+          product.cartId === action.cartId ? { ...product, quantity: action.quantity } : product
         ),
       };
 

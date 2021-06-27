@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE } from '../../constants/message';
 import { API_URL } from '../../constants/api';
+import { snakeToCamelConverter } from '../../utils/converter';
 
 export const GET_PRODUCT_SUCCESS = 'product_detail/get_product/success';
 export const GET_PRODUCT_PENDING = 'product_detail/get_product/pending';
@@ -18,9 +19,16 @@ export const getProduct = (productId) => (dispatch, getState) => {
       return response.json();
     })
     .then((data) => {
+      const camelData = Object.entries(data).reduce((prev, cur) => {
+        const [key, value] = cur;
+        prev[snakeToCamelConverter(key)] = value;
+
+        return prev;
+      }, {});
+
       dispatch({
         type: GET_PRODUCT_SUCCESS,
-        payload: data,
+        payload: camelData,
       });
     })
     .catch((e) =>

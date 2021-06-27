@@ -41,7 +41,7 @@ const ProductListPage = () => {
   }, []);
 
   const onProductDetail = (product) => () => {
-    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.product_id}`;
+    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.productId}`;
   };
 
   return (
@@ -51,7 +51,7 @@ const ProductListPage = () => {
       </Loader>
       <Styled.ProductList>
         {productList.slice(pageStartIndex, pageStartIndex + PRODUCTS_PER_PAGE).map((product) => (
-          <li key={product.product_id}>
+          <li key={product.productId}>
             <Product
               product={product}
               productDetail={{

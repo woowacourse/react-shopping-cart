@@ -14,4 +14,8 @@ const cartConverter = (newCartList, currentCartList) => {
   }, []);
 };
 
-export { cartConverter };
+const snakeToCamelConverter = (string) => {
+  return string.toLowerCase().replace(/([_][a-z|A-Z])/g, (letters) => letters.toUpperCase().replace('_', ''));
+};
+
+export { cartConverter, snakeToCamelConverter };

@@ -10,7 +10,7 @@ const Product = ({ product, productDetail, size, direction, onClick, children })
     <Styled.ProductContainer size={size} direction={direction}>
       <Styled.ProductImageContainer direction={direction}>
         <Styled.ProductImage
-          src={product.image_url}
+          src={product.imageUrl}
           alt={product.name}
           loading="lazy"
           onClick={onClick}
@@ -34,10 +34,10 @@ const Product = ({ product, productDetail, size, direction, onClick, children })
 
 Product.propTypes = {
   product: PropTypes.shape({
-    product_id: PropTypes.number.isRequired,
+    productId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    image_url: PropTypes.string,
+    imageUrl: PropTypes.string,
   }),
   productDetail: PropTypes.shape({
     text: PropTypes.string,

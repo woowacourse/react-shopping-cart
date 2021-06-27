@@ -91,23 +91,19 @@ const CartPage = () => {
           <ProductList width="100%">
             {cartList?.map((product) => (
               <ProductListItem
-                key={product.product_id}
+                key={product.productId}
                 listStyle="lineStyle"
                 isCheckbox={true}
-                onChange={changeCheckbox(product.cart_id)}
+                onChange={changeCheckbox(product.cartId)}
                 imageSize="9rem"
                 product={product}
               >
                 <div>
                   <FlexContainer height="100%" direction="column" justifyContent="space-between" align="flex-end">
-                    <Button type="button" onClick={onRemoveProduct(product.cart_id)} backgroundColor="transparent">
+                    <Button type="button" onClick={onRemoveProduct(product.cartId)} backgroundColor="transparent">
                       <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
                     </Button>
-                    <QuantityInput
-                      quantity={product.quantity}
-                      min={1}
-                      setQuantity={onChangeQuantity(product.cart_id)}
-                    />
+                    <QuantityInput quantity={product.quantity} min={1} setQuantity={onChangeQuantity(product.cartId)} />
                     <p>{Number(product.price).toLocaleString()} 원</p>
                   </FlexContainer>
                 </div>

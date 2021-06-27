@@ -1,5 +1,6 @@
 import { API_URL } from '../../constants/api';
 import { ERROR_MESSAGE } from '../../constants/message';
+import { snakeToCamelConverter } from '../../utils/converter';
 
 export const GET_ORDERS_PENDING = 'orders/get_order/pending';
 export const GET_ORDERS_SUCCESS = 'orders/get_order/success';
@@ -22,9 +23,31 @@ export const getOrders = () => (dispatch, getState) => {
       return response.json();
     })
     .then((data) => {
+      const camelData = data.map((order) =>
+        Object.entries(order).reduce((prev, cur) => {
+          const [key, value] = cur;
+          const convertedKey = snakeToCamelConverter(key);
+
+          if (key === 'order_details') {
+            prev[convertedKey] = value.map((product) =>
+              Object.entries(product).reduce((pre, cur) => {
+                const [innerKey, innerValue] = cur;
+                pre[snakeToCamelConverter(innerKey)] = innerValue;
+
+                return pre;
+              }, {})
+            );
+          } else {
+            prev[convertedKey] = value;
+          }
+
+          return prev;
+        }, {})
+      );
+
       dispatch({
         type: GET_ORDERS_SUCCESS,
-        order: data,
+        order: camelData,
       });
     })
     .catch((e) =>
@@ -38,7 +61,7 @@ export const getOrders = () => (dispatch, getState) => {
 export const setOrder = (products) => (dispatch, getState) => {
   const order = products.map((product) => {
     const productOrderData = {
-      cart_id: product.cart_id,
+      cart_id: product.cartId,
       quantity: product.quantity,
     };
 
@@ -62,9 +85,9 @@ export const setOrder = (products) => (dispatch, getState) => {
         const responseLocation = response.headers.get('location');
         const orderId = responseLocation.slice(responseLocation.lastIndexOf('/') + 1);
         const orderItem = {
-          order_id: Number(orderId),
-          order_details: products.map((product) => {
-            delete product.cart_id;
+          orderId: Number(orderId),
+          orderDetails: products.map((product) => {
+            delete product.cartId;
             delete product.isChecked;
 
             return product;

@@ -46,7 +46,7 @@ const CheckoutPage = () => {
           <ProductList>
             {checkedProducts?.map((product) => (
               <ProductListItem
-                key={product.product_id}
+                key={product.productId}
                 listStyle="lineStyle"
                 isCheckbox={false}
                 imageSize="7.5rem"

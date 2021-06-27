@@ -54,7 +54,7 @@ const ProductDetailPage = () => {
           {product && (
             <>
               <Styled.ImageContainer>
-                <img src={product.image_url} alt={`${product.name} image`} />
+                <img src={product.imageUrl} alt={`${product.name} image`} />
               </Styled.ImageContainer>
               <FlexContainer direction="column" justifyContent="center" width="100%">
                 <FlexContainer direction="column" justifyContent="center" align="center" width="100%">
@@ -70,7 +70,7 @@ const ProductDetailPage = () => {
                     <Styled.ProductPrice>{`${product.price.toLocaleString()} 원`}</Styled.ProductPrice>
                   </FlexContainer>
                 </FlexContainer>
-                {cartList.find((cartItem) => cartItem.product_id === product.product_id) ? (
+                {cartList.find((cartItem) => cartItem.productId === product.productId) ? (
                   <Button
                     width="100%"
                     height="5rem"
