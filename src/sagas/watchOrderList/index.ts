@@ -11,17 +11,20 @@ function* watchOrderList() {
 
 function* getOrderList() {
   const { isSucceeded, message, result } = yield call(api.orderList.get);
-
+  
   if (isSucceeded) {
     yield put(actions.orderList.get.success(result));
+
+    return;
   }  
 
   yield put(actions.alert.request(message));
 }
 
 function* postOrder(action: OrderListItemPostRequestActionType) {
-  const { message } = yield call(api.orderList.post, action.payload.id, action.payload.quantity);
+  const { message } = yield call(api.orderList.post, action.payload);
 
+  yield put(actions.orderList.get.request());
   yield put(actions.alert.request(message));
 }
 

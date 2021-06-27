@@ -10,7 +10,6 @@ interface ButtonProps {
   border?: string;
 }
 
-// Todo: csstype 고려하기
 const Button = styled.button<ButtonProps>`
   ${({ width, height, color, fontSize, backgroundColor, border }) => `
       width: ${width ?? "100%"}; 

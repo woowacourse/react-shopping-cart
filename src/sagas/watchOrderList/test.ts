@@ -10,7 +10,7 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../constants/message";
 
 const orderList: Order[] = [
     {
-      id: "1",
+      id: 1,
       itemList: [
         {
           id: "1",
@@ -29,17 +29,17 @@ const orderList: Order[] = [
       ],
     },
     {
-      id: "2",
+      id: 2,
       itemList: [
         {
-          id: "1",
+          id: 1,
           name: "[든든] 유부 슬라이스 500g",
           imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
           price: 4900,
           quantity: 4,
         },
         {
-          id: "2",
+          id: 2,
           name: "[든든] 유부 슬라이스 500g",
           imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
           price: 4900,
@@ -49,8 +49,12 @@ const orderList: Order[] = [
     },
   ];
 
-const orderId = "1";
-const orderQuantity = 2;
+const orderRequests = [
+  {
+    cart_id: 1,
+    quantity: 4,
+  },
+];
 
 describe("orderList saga test", () => {
   it("should getOrderList success", () => {
@@ -88,12 +92,13 @@ describe("orderList saga test", () => {
     const response: APIReturnType<null> = {
       isSucceeded: true,
       message,
-      result: null,,
+      result: null,
     };;
 
     return expectSaga(watchOrderList)
-      .dispatch(actions.orderList.post.request(orderId, orderQuantity))
-      .provide([[call(api.orderList.post, orderId, orderQuantity), response]])
+      .dispatch(actions.orderList.post.request(orderRequests))
+      .provide([[call(api.orderList.post, orderRequests), response]])
+      .put(actions.orderList.get.request())
       .put(actions.alert.request(message))
       .run();
   });

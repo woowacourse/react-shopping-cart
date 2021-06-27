@@ -3,7 +3,7 @@ import axios from "axios";
 import PATH from "../constants/path";
 import STATUS_CODE from "../constants/statusCode";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/message";
-import { APIReturnType, Order } from "../interface";
+import { APIReturnType, Order, OrderRequest } from "../interface";
 
 interface OrderDetailResponseData {
   product_id: number;
@@ -20,14 +20,14 @@ interface OrderListResponseData {
 
 const orderListAPI = {
   get: async (): Promise<APIReturnType<Order[] | null>> => {
-    try { 
+    try {
       const response = await axios.get(PATH.ORDER_LIST);
 
       if (response.status !== STATUS_CODE.OK) {
         throw new Error(ERROR_MESSAGE.API_CALL);
       }
 
-      const result: Order[] = response.data.map((order:OrderListResponseData) => ({
+      const result: Order[] = response.data.map((order: OrderListResponseData) => ({
         id: order.order_id,
         itemList: order.order_details.map((item) => ({
           id: item.product_id,
@@ -35,7 +35,7 @@ const orderListAPI = {
           price: item.price,
           imageSrc: item.image_url,
           quantity: item.quantity,
-        }))
+        })),
       }));
 
       return {
@@ -54,7 +54,7 @@ const orderListAPI = {
     }
   },
 
-  getById: async (id: string) => {
+  getById: async (id: number) => {
     try {
       const response = await axios.get(`${PATH.ORDER_LIST}/${id}`);
 
@@ -70,8 +70,8 @@ const orderListAPI = {
           price: item.price,
           imageSrc: item.image_url,
           quantity: item.quantity,
-        }))
-      }
+        })),
+      };
 
       return {
         isSucceeded: true,
@@ -79,16 +79,13 @@ const orderListAPI = {
         result,
       };
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
 
-  post: async (id: string, quantity: number): Promise<APIReturnType<null>> => {
+  post: async (orderRequests: OrderRequest[]): Promise<APIReturnType<null>> => {
     try {
-      const response = await axios.post(PATH.ORDER_LIST, {
-        cart_id: id,
-        quantity,
-      });
+      const response = await axios.post(PATH.ORDER_LIST, orderRequests);
 
       if (response.status !== STATUS_CODE.CREATED) {
         throw new Error(ERROR_MESSAGE.API_CALL);
@@ -97,8 +94,8 @@ const orderListAPI = {
       return {
         isSucceeded: true,
         message: SUCCESS_MESSAGE.POST_ORDER,
-        result: null
-      }
+        result: null,
+      };
     } catch (error) {
       console.error(error);
 

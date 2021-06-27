@@ -3,7 +3,7 @@ import React, { FC, ReactText } from "react";
 import { Text, HighLight, TextProps, HighlightProps } from "./style";
 
 interface TextWithHighlightProps extends TextProps, HighlightProps {
-  children: ReactText,
+  children: ReactText | undefined;
 }
 
 const TextWithHighlight: FC<TextWithHighlightProps> = ({ children, highlightColor, ...props }) => (

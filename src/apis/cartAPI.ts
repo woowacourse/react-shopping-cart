@@ -33,7 +33,7 @@ const cartAPI = {
         isSucceeded: true,
         message: "",
         result,
-      }
+      };;
     } catch (error) {
       console.error(error);
 
@@ -45,7 +45,7 @@ const cartAPI = {
     }
   },
 
-  post: async (id: string): Promise<APIReturnType<null>> => {
+  post: async (id: number): Promise<APIReturnType<null>> => {
     try {
       const response = await axios.post(PATH.CART, {
         product_id: id,
@@ -58,8 +58,8 @@ const cartAPI = {
       return {
         isSucceeded: true,
         message: SUCCESS_MESSAGE.POST_CART,
-        result: null
-      }
+        result: null,
+      };;
     } catch (error) {
       console.error(error);
 
@@ -71,7 +71,7 @@ const cartAPI = {
     }
   },
 
-  delete: async (id: string) => {
+  delete: async (id: number) => {
     try {
       const response = await axios.delete(`${PATH.CART}/${id}`);
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { COLOR } from "../../constants/theme";
 
-const Container = styled.div`
+const Li = styled.li`
   display: flex;
   width: 100%;
   padding: 2.5% 2.2%;
@@ -12,7 +12,8 @@ const Container = styled.div`
 `;
 
 const Desc = styled.div`
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  width: 100%;
   margin-left: 2%;
 `;
 
@@ -33,4 +34,4 @@ const OptionPricePart = styled.p`
   color: ${COLOR.GRAY_350};
 `;
 
-export { Container, Desc, NameLink, OptionPricePart };
+export { Li, Desc, NameLink, OptionPricePart };

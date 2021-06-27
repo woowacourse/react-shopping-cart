@@ -11,6 +11,8 @@ import ProductList from "./Pages/ProductList";
 import Cart from "./Pages/Cart";
 import Order from "./Pages/Order";
 import ProductDetail from "./Pages/ProductDetail";
+import OrderLog from "./Pages/OrderLog";
+import OrderLogDetail from "./Pages/OrderLogDetail";
 
 const App: FC = () => {
   const alertMessages = useSelector((state: RootState) => state.alert);
@@ -25,7 +27,9 @@ const App: FC = () => {
           <Route exact path="/products" component={ProductDetail} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/order" component={Order} />
-          {/* <Redirect to="/" /> */}
+          <Route exact path="/orderlog" component={OrderLog} />
+          <Route exact path="/order-detail" component={OrderLogDetail} />
+          <Redirect to="/" />
         </Switch>
       </BrowserRouter>
       <SnackBar messages={alertMessages} />

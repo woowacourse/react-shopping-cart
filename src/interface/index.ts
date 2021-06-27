@@ -9,27 +9,27 @@ interface ProductsObject {
 }
 
 interface Id {
-  id: string;
+  id: number;
 }
 
-interface CartItem extends Product, Id {
+interface Quantity {
   quantity: number;
 }
+
+interface CartItem extends Product, Id, Quantity {}
 
 interface Cart {
   cart: CartItem[];
 }
 
-interface OrderItem extends Product, Id {
-  quantity: number;
+interface OrderItem extends CartItem {}
+
+interface OrderRequest extends Quantity {
+  cart_id: number;
 }
 
 interface Order extends Id {
   itemList: OrderItem[];
-}
-
-interface RequestError {
-  requestErrorMessage: string | null;
 }
 
 interface APIReturnType<T> {
@@ -38,4 +38,4 @@ interface APIReturnType<T> {
   result: T;
 }
 
-export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError, APIReturnType };
+export { Product, ProductsObject, Id, CartItem, Cart, OrderRequest, Order, APIReturnType };

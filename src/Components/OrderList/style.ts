@@ -6,6 +6,7 @@ import { COLOR } from "../../constants/theme";
 
 const Container = styled.div`
   border: 1px solid ${COLOR.GRAY_250};
+  margin: 4rem 0;
 `;
 
 const Header = styled(FlexBetween("div"))`

@@ -16,7 +16,7 @@ const Header: FC = () => (
       </Link>
       <nav>
         <NavigationItem to="/cart">장바구니</NavigationItem>
-        <NavigationItem to="/order-list">주문목록</NavigationItem>
+        <NavigationItem to="/orderlog">주문목록</NavigationItem>
       </nav>
     </Inner>
   </Container>

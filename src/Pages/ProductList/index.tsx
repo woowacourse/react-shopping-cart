@@ -21,11 +21,11 @@ const ProductList: FC = () => {
       {Object.entries(products).map(([id, { imageSrc, name, price }]) => (
         <Product
           key={id}
-          id={id}
+          id={Number(id)}
           Image={<ProductImage size="282px" src={imageSrc} />}
           name={name}
           price={price}
-          onClickCart={() => dispatch(actions.cart.post.request(id))}
+          onClickCart={() => dispatch(actions.cart.post.request(Number(id)))}
         />
       ))}
     </Container>

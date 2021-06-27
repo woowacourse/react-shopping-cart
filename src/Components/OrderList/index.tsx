@@ -4,9 +4,9 @@ import { OrderProductItemProps } from "../OrderProductItem";
 import { Container, Header, ShowDetailLink } from "./style";
 
 interface OrderListProps {
-  id: string;
-  showDetailLinkHref: string;
-  children: ReactElement<OrderProductItemProps>[];
+  id: number;
+  showDetailLinkHref?: string;
+  children?: ReactElement<OrderProductItemProps>[] | undefined;
 }
 const OrderList: FC<OrderListProps> = ({ id, showDetailLinkHref, children }) => (
   <Container>

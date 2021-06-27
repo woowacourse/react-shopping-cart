@@ -7,7 +7,7 @@ import { COLOR, SIZE } from "../../constants/theme";
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
 
 interface ProductProps {
-  id: string;
+  id: number;
   Image: ReactElement<ProductImageProps>;
   name: string;
   price: number;

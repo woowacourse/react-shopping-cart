@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 
 import { Button, ProductImage } from "../../Components";
 import actions from "../../actions";
@@ -9,41 +9,40 @@ import { Container, ImageDesc, ImageTitle, ImageMain, Price } from "./styles";
 import { COLOR } from "../../constants/theme";
 
 const ProductDetail = ({ location }: RouteComponentProps) => {
-  const products = useSelector((state: RootState) => state.products);
+  const { products } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-
-  const productId = location.search.slice(1).split("=")[1];
-  const currentProduct = products[productId];
+  const productId = new URLSearchParams(location.search).get("productId");
+  const currentProduct = productId ? products[productId] : null;
 
   useEffect(() => {
-    const isProductsEmpty = !Object.keys(products).length;
-
-    if (isProductsEmpty) {
+    if (currentProduct === undefined) {
       dispatch(actions.products.get.request());
     }
-  }, [products]);
+  }, [currentProduct]);
 
   return (
-    <Container>
-      <ImageMain>
-        <ProductImage size="100%" src={currentProduct?.imageSrc} aria-label={`${currentProduct?.name} 이미지`} />
-        <ImageTitle>{currentProduct?.name ?? ""}</ImageTitle>
-      </ImageMain>
-      <ImageDesc>
-        <p>금액</p>
-        <Price>{currentProduct?.price ?? ""}</Price>
-      </ImageDesc>
-      <Button
-        width="100%"
-        height="5rem"
-        color={COLOR.WHITE}
-        fontSize="2rem"
-        backgroundColor={COLOR.BROWN}
-        onClick={() => dispatch(actions.cart.post.request(productId))}
-      >
-        장바구니
-      </Button>
-    </Container>
+      currentProduct !== null
+      ? <Container>
+          <ImageMain>
+            <ProductImage size="100%" src={currentProduct?.imageSrc} aria-label={`${currentProduct?.name} 이미지`} />
+            <ImageTitle>{currentProduct?.name ?? ""}</ImageTitle>
+          </ImageMain>
+          <ImageDesc>
+            <p>금액</p>
+            <Price>{currentProduct?.price ?? ""}</Price>
+          </ImageDesc>
+          <Button
+            width="100%"
+            height="5rem"
+            color={COLOR.WHITE}
+            fontSize="2rem"
+            backgroundColor={COLOR.BROWN}
+            onClick={() => dispatch(actions.cart.post.request(Number(productId)))}
+          >
+            장바구니
+          </Button>
+        </Container>
+      : <Redirect to="/" />
   );
 };
 

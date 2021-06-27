@@ -20,10 +20,10 @@ const cart = {
     success: createAction("cart/get/success", (cart: CartItem[]) => cart)<CartItem[]>(),
   },
   post: {
-    request: createAction(cartActionType.post.request, (id: string) => id)<string>(),
+    request: createAction(cartActionType.post.request, (id: number) => id)<number>(),
   },
   delete: {
-    request: createAction(cartActionType.delete.request, (ids: string[]) => ids)<string[]>(),
+    request: createAction(cartActionType.delete.request, (ids: number[]) => ids)<number[]>(),
   },
 };
 
