@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
@@ -14,7 +14,7 @@ import ProductDetail from "./Pages/ProductDetail";
 import OrderLog from "./Pages/OrderLog";
 import OrderLogDetail from "./Pages/OrderLogDetail";
 
-const App: FC = () => {
+const App = () => {
   const alertMessages = useSelector((state: RootState) => state.alert);
 
   return (

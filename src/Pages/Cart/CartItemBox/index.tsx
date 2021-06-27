@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
+import React, { useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 
 import { ProductImage, CheckBox } from "../../../Components";
 import { CART_ITEM_MAX_COUNT, CART_ITEM_MIN_COUNT } from "../../../constants/attrValues";
@@ -18,7 +18,7 @@ interface CartItemBoxProps {
   onClickDeleteButton: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CartItemBox: FC<CartItemBoxProps> = ({
+const CartItemBox = ({
   id,
   name,
   price,
@@ -30,7 +30,7 @@ const CartItemBox: FC<CartItemBoxProps> = ({
   onDecrementOrderCount,
   onChangeChecked,
   onClickDeleteButton,
-}) => (
+}: CartItemBoxProps) => (
   <Li>
     <CheckBox checked={isChecked} onChange={onChangeChecked} />
     <ProductImageLink to={`/cart/${id}`}>

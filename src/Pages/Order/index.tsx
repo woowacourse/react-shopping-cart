@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import actions from "../../actions";

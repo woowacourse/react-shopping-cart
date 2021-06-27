@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC, ChangeEvent } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -10,7 +10,16 @@ import { COLOR } from "../../constants/theme";
 
 import CartItemBox from "./CartItemBox";
 import { RootState } from "../../store";
-import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle, FloatingArea } from "./styles";
+import {
+  Container,
+  Main,
+  AllDealControlBox,
+  Section,
+  AllDealSelect,
+  AllDealDelete,
+  CartListTitle,
+  FloatingArea,
+} from "./styles";
 import { CartItem } from "../../interface";
 import { CONFIRM_MESSAGE } from "../../constants/message";
 import { CART_ITEM_MAX_COUNT, CART_ITEM_MIN_COUNT } from "../../constants/attrValues";
@@ -23,7 +32,7 @@ interface OrderCountList {
   [key: string]: number;
 }
 
-const Cart: FC = () => {
+const Cart = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
   const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
 

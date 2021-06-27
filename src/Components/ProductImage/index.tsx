@@ -1,10 +1,10 @@
-import React, { FC, HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 
 import { Container, ImageProps, Background } from "./style";
 
 interface ProductImageProps extends HTMLAttributes<HTMLElement>, ImageProps {}
 
-const ProductImage: FC<ProductImageProps> = ({ size, src, ...props }) => (
+const ProductImage = ({ size, src, ...props }: ProductImageProps) => (
   <Container size={size} src={src} {...props}>
     <Background />
   </Container>

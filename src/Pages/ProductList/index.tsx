@@ -1,4 +1,4 @@
-import React, { useEffect, FC, MouseEvent } from "react";
+import React, { useEffect, MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actions from "../../actions";
@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 
 import { Container } from "./styles";
 
-const ProductList: FC = () => {
+const ProductList = () => {
   const dispatch = useDispatch();
   const products: ProductsObject = useSelector((state: RootState) => state.products);
 

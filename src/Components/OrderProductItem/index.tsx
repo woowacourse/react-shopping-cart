@@ -1,4 +1,4 @@
-import React, { ReactElement, FC } from "react";
+import React, { ReactElement } from "react";
 import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
@@ -16,13 +16,13 @@ interface OrderProductItemProps {
   quantity: number;
 }
 
-const OrderProductItem: FC<OrderProductItemProps> = ({ 
+const OrderProductItem = ({ 
     id, 
     Image, 
     name,
     price, 
     quantity 
-  }) => {
+  }: OrderProductItemProps) => {
     const dispatch = useDispatch();
 
     return (
