@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
@@ -29,6 +30,7 @@ const ProductListPage = () => {
     isNextPageAvailable,
     currentPage,
   } = usePagination(0, productList.length, PRODUCTS_PER_PAGE);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const ProductListPage = () => {
   }, []);
 
   const onProductDetail = (product) => () => {
-    window.location.hash = `#${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.productId}`;
+    history.push(`${PAGES.PRODUCT_DETAIL.ADDRESS}/${product.productId}`);
   };
 
   return (

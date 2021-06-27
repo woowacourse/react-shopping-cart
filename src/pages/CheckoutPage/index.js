@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import FlexContainer from '../../components/common/FlexContainer';
 import Spinner from '../../components/common/Icon/Spinner';
@@ -22,6 +23,7 @@ import * as Styled from './style';
 const CheckoutPage = () => {
   const { cartList, isLoading } = useCart();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const checkedProducts = cartList.filter((product) => product.isChecked);
   const totalPrice = checkedProducts.reduce((prev, product) => prev + Number(product.price) * product.quantity, 0);
@@ -31,7 +33,7 @@ const CheckoutPage = () => {
 
     dispatch(setOrder(checkedProducts));
 
-    window.location.hash = `#${PAGES.ORDERS.ADDRESS}`;
+    history.push(`${PAGES.ORDERS.ADDRESS}`);
   };
 
   return (

@@ -21,6 +21,7 @@ import useCart from '../../hooks/useCart';
 import useSnackbar from '../../hooks/useSnackbar';
 
 import * as Styled from './style';
+import { useHistory } from 'react-router-dom';
 
 const CartPage = () => {
   const {
@@ -35,6 +36,7 @@ const CartPage = () => {
     calculateTotalPrice,
   } = useCart();
   const [snackbarMessage, setSnackbarMessage] = useSnackbar();
+  const history = useHistory();
   const totalPrice = calculateTotalPrice();
 
   const onRemoveCheckedProducts = () => {
@@ -62,7 +64,7 @@ const CartPage = () => {
       return;
     }
 
-    window.location.hash = `#${PAGES.CHECKOUT.ADDRESS}`;
+    history.push(`${PAGES.CHECKOUT.ADDRESS}`);
   };
 
   return (

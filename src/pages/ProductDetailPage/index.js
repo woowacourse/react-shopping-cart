@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import Button from '../../components/common/Button';
 import FlexContainer from '../../components/common/FlexContainer';
@@ -23,10 +24,11 @@ const ProductDetailPage = () => {
     productDetail: { product, isLoading: isProductLoading },
   } = useSelector((state) => state);
   const { cartList, isLoading: isCartLoading } = useCart();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const hashData = window.location.hash.split('/');
+    const hashData = location.pathname.split('/');
     const productId = Number(hashData[hashData.length - 1]);
 
     dispatch(getProduct(productId));
