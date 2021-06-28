@@ -5,6 +5,7 @@ import Button from '../../components/common/Button';
 import FlexContainer from '../../components/common/FlexContainer';
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
 import Main from '../../components/Main';
 import PageTitle from '../../components/shared/PageTitle';
 import ProductList from '../../components/shared/ProductList';
@@ -20,10 +21,13 @@ import * as Styled from './style';
 const OrdersPage = () => {
   const { orderList, isLoading } = useSelector((state) => state.orders);
   const dispatch = useDispatch();
+  const { errorMessage, openModal, closeModal } = useErrorModal();
 
   useEffect(() => {
     if (orderList.length) return;
-    dispatch(getOrders());
+    dispatch(getOrders()).catch((error) => {
+      openModal(error.message);
+    });
 
     return () => {
       dispatch(resetOrders());
@@ -80,6 +84,7 @@ const OrdersPage = () => {
             </FlexContainer>
           ))}
         </FlexContainer>
+        <ErrorModal errorMessage={errorMessage} closeModal={closeModal} />
       </Main>
     </Styled.OrdersPageContainer>
   );

@@ -27,7 +27,7 @@ export const REMOVE_PRODUCT_ERROR = 'cart/remove_product/error';
 
 export const getCart = () => (dispatch, getState) => {
   dispatch({ type: GET_CART_PENDING });
-  fetch(API_URL.CART)
+  return fetch(API_URL.CART)
     .then((response) => {
       if (!response.ok) {
         throw new Error(ERROR_MESSAGE.FAILED_TO_GET_CART);
@@ -49,12 +49,9 @@ export const getCart = () => (dispatch, getState) => {
         payload: camelData,
       });
     })
-    .catch((e) =>
-      dispatch({
-        type: GET_CART_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const resetCart = () => {
@@ -65,7 +62,7 @@ export const resetCart = () => {
 
 export const addToCart = (product) => (dispatch, getState) => {
   dispatch({ type: ADD_TO_CART_PENDING });
-  fetch(API_URL.CART, {
+  return fetch(API_URL.CART, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -98,12 +95,9 @@ export const addToCart = (product) => (dispatch, getState) => {
         });
       }
     })
-    .catch((e) =>
-      dispatch({
-        type: ADD_TO_CART_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const toggleCartCheckbox = (cartId) => {
@@ -122,7 +116,7 @@ export const toggleAllCheckboxesInCart = (toCheck) => {
 
 export const removeCheckedProducts = (cartIds) => async (dispatch, getState) => {
   dispatch({ type: REMOVE_PRODUCT_PENDING });
-  await Promise.all(
+  return await Promise.all(
     cartIds.map((cartId) =>
       fetch(`${API_URL.CART}/${cartId}`, {
         method: 'DELETE',
@@ -137,12 +131,9 @@ export const removeCheckedProducts = (cartIds) => async (dispatch, getState) => 
 
           return response;
         })
-        .catch((e) =>
-          dispatch({
-            type: REMOVE_PRODUCT_ERROR,
-            errorMessage: e.message,
-          })
-        )
+        .catch((e) => {
+          throw e;
+        })
     )
   ).then((data) => {
     dispatch({
@@ -153,7 +144,7 @@ export const removeCheckedProducts = (cartIds) => async (dispatch, getState) => 
 
 export const removeProduct = (cartId) => (dispatch, getState) => {
   dispatch({ type: REMOVE_PRODUCT_PENDING });
-  fetch(`${API_URL.CART}/${cartId}`, {
+  return fetch(`${API_URL.CART}/${cartId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -169,12 +160,9 @@ export const removeProduct = (cartId) => (dispatch, getState) => {
         cartId,
       });
     })
-    .catch((e) =>
-      dispatch({
-        type: REMOVE_PRODUCT_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const changeQuantity = (cartId, quantity) => {

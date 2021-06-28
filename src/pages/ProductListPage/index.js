@@ -4,14 +4,16 @@ import { useHistory } from 'react-router-dom';
 
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
 import Pagination from '../../components/common/Pagination';
 import Main from '../../components/Main';
 import Product from '../../components/shared/Product';
 
 import { PAGES, PRODUCTS_PER_PAGE, UNIT } from '../../constants/appInfo';
 import PALETTE from '../../constants/palette';
-
+import useErrorModal from '../../hooks/useErrorModal';
 import usePagination from '../../hooks/usePagination';
+
 import { getCart } from '../../redux/Cart/actions';
 import { getProducts, resetProducts } from '../../redux/Products/actions';
 
@@ -30,12 +32,14 @@ const ProductListPage = () => {
     isNextPageAvailable,
     currentPage,
   } = usePagination(0, productList.length, PRODUCTS_PER_PAGE);
+  const { errorMessage, openModal, closeModal } = useErrorModal();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getCart());
+    Promise.all([dispatch(getProducts()), dispatch(getCart())]).catch((error) => {
+      openModal(error.message);
+    });
 
     return () => {
       dispatch(resetProducts());
@@ -79,6 +83,7 @@ const ProductListPage = () => {
           currentPage={currentPage}
         />
       )}
+      <ErrorModal errorMessage={errorMessage} closeModal={closeModal} />
     </Main>
   );
 };

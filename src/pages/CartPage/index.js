@@ -22,6 +22,7 @@ import useSnackbar from '../../hooks/useSnackbar';
 
 import * as Styled from './style';
 import { useHistory } from 'react-router-dom';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
 
 const CartPage = () => {
   const {
@@ -34,6 +35,8 @@ const CartPage = () => {
     removeCartProduct,
     changeCartProductQuantity,
     calculateTotalPrice,
+    cartError,
+    closeCartErrorModal,
   } = useCart();
   const [snackbarMessage, setSnackbarMessage] = useSnackbar();
   const history = useHistory();
@@ -122,6 +125,7 @@ const CartPage = () => {
           onClick={onCheckout}
         />
       </FlexContainer>
+      <ErrorModal errorMessage={cartError} closeModal={closeCartErrorModal} />
     </Main>
   );
 };

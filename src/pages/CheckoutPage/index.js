@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import FlexContainer from '../../components/common/FlexContainer';
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
 import Main from '../../components/Main';
 import PageTitle from '../../components/shared/PageTitle';
 import PriceInfoBox from '../../components/shared/PriceInfoBox';
@@ -16,6 +17,7 @@ import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
 import useCart from '../../hooks/useCart';
+import useErrorModal from '../../hooks/useErrorModal';
 import { setOrder } from '../../redux/Orders/actions';
 
 import * as Styled from './style';
@@ -23,6 +25,7 @@ import * as Styled from './style';
 const CheckoutPage = () => {
   const { cartList, isLoading } = useCart();
   const dispatch = useDispatch();
+  const { errorMessage, openModal, closeModal } = useErrorModal();
   const history = useHistory();
 
   const checkedProducts = cartList.filter((product) => product.isChecked);
@@ -31,7 +34,9 @@ const CheckoutPage = () => {
   const onOrder = () => {
     if (!confirm(APP_MESSAGE.PAYMENT_CONFIRMATION)) return;
 
-    dispatch(setOrder(checkedProducts));
+    dispatch(setOrder(checkedProducts)).catch((error) => {
+      openModal(error.message);
+    });
 
     history.push(`${PAGES.ORDERS.ADDRESS}`);
   };
@@ -67,6 +72,7 @@ const CheckoutPage = () => {
           onClick={onOrder}
         />
       </FlexContainer>
+      <ErrorModal errorMessage={errorMessage} closeModal={closeModal} />
     </Main>
   );
 };

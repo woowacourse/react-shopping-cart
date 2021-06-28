@@ -9,7 +9,6 @@ import ProductListPage from './pages/ProductListPage';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import ShoppingCart from './components/common/Icon/ShoppingCart';
-import ErrorModal from './components/common/Modal/ErrorModal';
 import Snackbar from './components/common/Snackbar';
 
 import { HEADER, PAGES } from './constants/appInfo';
@@ -39,7 +38,6 @@ const App = () => (
         <OrdersPage />
       </Route>
     </Switch>
-    <ErrorModal />
     <Snackbar />
   </Router>
 );

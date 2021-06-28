@@ -7,11 +7,13 @@ import {
   toggleAllCheckboxesInCart,
   toggleCartCheckbox,
 } from '../redux/Cart/actions';
+import useErrorModal from './useErrorModal';
 import useUpdateEffect from './useUpdateEffect';
 
 const useCart = () => {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const { cartList, isLoading } = useSelector((state) => state.cart);
+  const { errorMessage: cartError, openModal, closeModal: closeCartErrorModal } = useErrorModal();
   const dispatch = useDispatch();
 
   const changeCheckbox = (cartId) => () => {
@@ -25,11 +27,15 @@ const useCart = () => {
 
   const removeCheckedCartProducts = () => {
     const checkedCartIds = cartList.filter((product) => product.isChecked).map((product) => product.cartId);
-    dispatch(removeCheckedProducts(checkedCartIds));
+    dispatch(removeCheckedProducts(checkedCartIds)).catch((error) => {
+      openModal(error.message);
+    });
   };
 
   const removeCartProduct = (cartId) => {
-    dispatch(removeProduct(cartId));
+    dispatch(removeProduct(cartId)).catch((error) => {
+      openModal(error.message);
+    });
   };
 
   const changeCartProductQuantity = (cartId, quantity) => {
@@ -73,6 +79,8 @@ const useCart = () => {
     removeCartProduct,
     changeCartProductQuantity,
     calculateTotalPrice,
+    cartError,
+    closeCartErrorModal,
   };
 };
 

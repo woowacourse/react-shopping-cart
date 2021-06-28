@@ -10,7 +10,7 @@ export const RESET_PRODUCT = 'product_detail/reset_product';
 
 export const getProduct = (productId) => (dispatch, getState) => {
   dispatch({ type: GET_PRODUCT_PENDING });
-  fetch(`${API_URL.PRODUCTS}/${productId}`)
+  return fetch(`${API_URL.PRODUCTS}/${productId}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(ERROR_MESSAGE.FAILED_TO_FETCH_PRODUCT);
@@ -31,12 +31,9 @@ export const getProduct = (productId) => (dispatch, getState) => {
         payload: camelData,
       });
     })
-    .catch((e) =>
-      dispatch({
-        type: GET_PRODUCT_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const resetProduct = () => {

@@ -6,12 +6,14 @@ import Button from '../../components/common/Button';
 import FlexContainer from '../../components/common/FlexContainer';
 import Spinner from '../../components/common/Icon/Spinner';
 import Loader from '../../components/common/Loader';
+import ErrorModal from '../../components/common/Modal/ErrorModal';
 import Main from '../../components/Main';
 
 import { APP_MESSAGE } from '../../constants/message';
 import PALETTE from '../../constants/palette';
 
 import useCart from '../../hooks/useCart';
+import useErrorModal from '../../hooks/useErrorModal';
 import useSnackbar from '../../hooks/useSnackbar';
 import { addToCart, getCart, resetCart } from '../../redux/Cart/actions';
 import { getProduct, resetProduct } from '../../redux/ProductDetail/actions';
@@ -24,6 +26,7 @@ const ProductDetailPage = () => {
     productDetail: { product, isLoading: isProductLoading },
   } = useSelector((state) => state);
   const { cartList, isLoading: isCartLoading } = useCart();
+  const { errorMessage, openModal, closeModal } = useErrorModal();
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -31,8 +34,9 @@ const ProductDetailPage = () => {
     const hashData = location.pathname.split('/');
     const productId = Number(hashData[hashData.length - 1]);
 
-    dispatch(getProduct(productId));
-    dispatch(getCart());
+    Promise.all([dispatch(getProduct(productId)), dispatch(getCart())]).catch((error) => {
+      openModal(error.message);
+    });
 
     return () => {
       dispatch(resetProduct());
@@ -41,7 +45,9 @@ const ProductDetailPage = () => {
   }, []);
 
   const onAddToCart = () => {
-    dispatch(addToCart(product));
+    dispatch(addToCart(product)).catch((error) => {
+      openModal(error.message);
+    });
 
     setSnackbarMessage(APP_MESSAGE.PRODUCT_ADDED_TO_CART); // TODO: 장바구니 추가에 성공하면 띄우기(ContextAPI 고려)
   };
@@ -104,6 +110,7 @@ const ProductDetailPage = () => {
           )}
         </Styled.Container>
       </FlexContainer>
+      <ErrorModal errorMessage={errorMessage} closeModal={closeModal} />
     </Main>
   );
 };

@@ -14,7 +14,7 @@ export const RESET_ORDERS = 'orders/reset_orders';
 
 export const getOrders = () => (dispatch, getState) => {
   dispatch({ type: GET_ORDERS_PENDING });
-  fetch(API_URL.ORDERS)
+  return fetch(API_URL.ORDERS)
     .then((response) => {
       if (!response.ok) {
         throw new Error(ERROR_MESSAGE.FAILED_TO_GET_ORDERS);
@@ -50,12 +50,9 @@ export const getOrders = () => (dispatch, getState) => {
         order: camelData,
       });
     })
-    .catch((e) =>
-      dispatch({
-        type: GET_ORDERS_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const setOrder = (products) => (dispatch, getState) => {
@@ -69,7 +66,7 @@ export const setOrder = (products) => (dispatch, getState) => {
   });
 
   dispatch({ type: SET_ORDER_PENDING });
-  fetch(API_URL.ORDERS, {
+  return fetch(API_URL.ORDERS, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -100,12 +97,9 @@ export const setOrder = (products) => (dispatch, getState) => {
         });
       }
     })
-    .catch((e) =>
-      dispatch({
-        type: SET_ORDER_ERROR,
-        errorMessage: e.message,
-      })
-    );
+    .catch((e) => {
+      throw e;
+    });
 };
 
 export const resetOrders = () => {
