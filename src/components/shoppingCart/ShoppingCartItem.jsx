@@ -74,11 +74,7 @@ const ShoppingCartItem = ({ cart_id, image_url, alt, name, price, isChecked, qua
   };
 
   const handleConfirm = () => {
-    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch.bind(null, deleteShoppingCartItem(cart_id))) : clickConfirm();
-  };
-
-  const handleCancel = () => {
-    clickCancel();
+    type === DIALOG_TYPE.CONFIRM ? clickConfirm(dispatch(deleteShoppingCartItem(cart_id))) : clickConfirm();
   };
 
   const handleIncrement = () => {
@@ -117,7 +113,7 @@ const ShoppingCartItem = ({ cart_id, image_url, alt, name, price, isChecked, qua
       {isDialogOpen && (
         <DialogPortal>
           {type === DIALOG_TYPE.CONFIRM && (
-            <Dialog type={type} onConfirm={handleConfirm} onCancel={handleCancel}>
+            <Dialog type={type} onConfirm={handleConfirm} onCancel={clickCancel}>
               <p>
                 해당 상품을 <br /> 삭제하시겠습니까?
               </p>
