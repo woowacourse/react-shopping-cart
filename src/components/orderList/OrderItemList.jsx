@@ -18,12 +18,12 @@ const OrderItemWrapper = styled.li`
   padding: 38px 0;
 `;
 
+// TODO: 주문 상품 상세 페이지 제작용
+// jsx - <Link to={PATH.ORDER_LIST_DETAIL}>상세보기 {'>'} </Link>
 const OrderItemList = ({ orderDetailItemList, order_id }) => (
   <>
     <Header>
       <div>주문번호 : {order_id}</div>
-      {/* TODO: 주문 상품 상세 페이지 제작용 */}
-      {/* <Link to={PATH.ORDER_LIST_DETAIL}>상세보기 {'>'} </Link> */}
     </Header>
     <ul>
       {orderDetailItemList.map(({ product_id, image_url, name, price, quantity }) => {
