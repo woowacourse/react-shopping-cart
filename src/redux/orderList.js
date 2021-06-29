@@ -3,16 +3,6 @@ import { httpClient } from '../request/httpClient';
 
 const FETCH_ORDER_ITEM_LIST = 'orderList/FETCH_ORDER_ITEM_LIST';
 
-export const insertOrderItemList = (orderItemList) => async () => {
-  try {
-    const orderItemData = orderItemList.map(({ cart_id, quantity }) => ({ cart_id, quantity }));
-
-    await httpClient.post({ path: API_PATH.ORDER_ITEM_LIST, body: orderItemData });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const fetchOrderItemList = () => async (dispatch) => {
   try {
     const orderItemList = await httpClient.get({ path: API_PATH.ORDER_ITEM_LIST, returnType: RETURN_TYPE.JSON });
