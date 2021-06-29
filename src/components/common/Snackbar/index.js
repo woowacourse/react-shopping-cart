@@ -7,9 +7,9 @@ import PALETTE from '../../../constants/palette';
 import useSnackbar from '../../../hooks/useSnackbar';
 
 const Snackbar = ({ duration = 1000, backgroundColor = PALETTE.GRAY_008 }) => {
-  const [snackbarMessage, setSnackbarMessage] = useSnackbar();
+  const [snackbarMessage, setSnackbarMessage, isContentExists] = useSnackbar();
 
-  const content = snackbarMessage && (
+  const content = isContentExists && (
     <Styled.SnackbarContainer key={Math.random()} backgroundColor={backgroundColor} time={`${duration / 1000}s`}>
       {snackbarMessage}
     </Styled.SnackbarContainer>

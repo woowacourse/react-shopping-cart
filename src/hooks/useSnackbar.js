@@ -13,6 +13,8 @@ const useSnackbar = (duration = 1000) => {
     dispatch(setSnackbar(text));
   };
 
+  const isContentExists = Boolean(message.text);
+
   useUpdateEffect(() => {
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => {
@@ -27,7 +29,7 @@ const useSnackbar = (duration = 1000) => {
     };
   }, []);
 
-  return [message.text, setSnackbarMessage];
+  return [message.text, setSnackbarMessage, isContentExists];
 };
 
 export default useSnackbar;
