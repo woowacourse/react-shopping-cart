@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import PageTitle from '../components/pageTitle/PageTitle';
 import OrderPaymentItemList from '../components/orderPayment/OrderPaymentItemList';
 import { PATH } from '../constants/path';
 import { insertOrderItemList } from '../redux/orderList';
-import useOrderPayment from '../hooks/useOrderPayment';
 import OrderPaymentAmount from '../components/orderPayment/OrderPaymentAmount';
 
 const Content = styled.section`
@@ -26,7 +25,8 @@ const OrderPaymentAmountWrapper = styled.div`
 const OrderPayment = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { orderPaymentItemList, orderPaymentTotalPrice } = useOrderPayment();
+  const { state } = useLocation();
+  const { orderPaymentItemList, orderPaymentTotalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
     await dispatch(insertOrderItemList(orderPaymentItemList));
