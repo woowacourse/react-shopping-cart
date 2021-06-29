@@ -14,7 +14,7 @@ const OrderItemListWrapper = styled.li`
 `;
 
 const OrderList = () => {
-  const { orderItemList } = useOrderList();
+  const orderItemList = useOrderList();
   const dispatch = useDispatch();
 
   useEffect(() => {
