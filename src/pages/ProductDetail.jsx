@@ -62,7 +62,7 @@ const ProductDetail = () => {
         <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={product.image_url} alt={product.name} />
         <Title>{product.name}</Title>
       </TopContent>
-      <Description>{!!Object.keys(product).length && <span>{currencyUnit(product.price)}원</span>}</Description>
+      <Description>{<span>{currencyUnit(product.price)}원</span>}</Description>
       <Button onClick={handleProductItemAddToCart} type={BUTTON_TYPE.LARGE}>
         장바구니
       </Button>
