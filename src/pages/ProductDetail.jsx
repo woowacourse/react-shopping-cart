@@ -45,7 +45,7 @@ const ProductDetail = () => {
   const { product_id } = state;
   const product = useSelector((state) => state.product.productItem);
 
-  const handleShoppingCart = () => {
+  const handleProductItemAddToCart = () => {
     const shoppingCartItem = { ...product, isChecked: true, quantity: 1 };
 
     dispatch(insertShoppingCartItem(shoppingCartItem));
@@ -63,7 +63,7 @@ const ProductDetail = () => {
         <Title>{product.name}</Title>
       </TopContent>
       <Description>{!!Object.keys(product).length && <span>{currencyUnit(product.price)}원</span>}</Description>
-      <Button onClick={handleShoppingCart} type={BUTTON_TYPE.LARGE}>
+      <Button onClick={handleProductItemAddToCart} type={BUTTON_TYPE.LARGE}>
         장바구니
       </Button>
     </Container>

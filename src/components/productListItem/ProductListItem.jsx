@@ -40,11 +40,11 @@ const ProductListItem = ({ product }) => {
 
   const { insertProductItem } = useProductList();
 
-  const handleShoppingCart = () => {
+  const handleProductItemAddToCart = () => {
     insertProductItem(product);
   };
 
-  const handleProductImageWrapper = () => {
+  const handleRoutingProductDetail = () => {
     history.push(`${PATH.PRODUCT_LIST}/${product.product_id}`, {
       product_id: product.product_id,
     });
@@ -52,7 +52,7 @@ const ProductListItem = ({ product }) => {
 
   return (
     <div>
-      <ProductImageWrapper onClick={handleProductImageWrapper}>
+      <ProductImageWrapper onClick={handleRoutingProductDetail}>
         <ProductImage type={PRODUCT_IMAGE_TYPE.MEDIUM} src={product.image_url} alt={product.name} />
       </ProductImageWrapper>
       <Content>
@@ -61,7 +61,7 @@ const ProductListItem = ({ product }) => {
           <Price>{currencyUnit(product.price)} 원</Price>
         </li>
         <li>
-          <Image onClick={handleShoppingCart} src={shoppingCartImg} alt="장바구니" />
+          <Image onClick={handleProductItemAddToCart} src={shoppingCartImg} alt="장바구니" />
         </li>
       </Content>
     </div>
