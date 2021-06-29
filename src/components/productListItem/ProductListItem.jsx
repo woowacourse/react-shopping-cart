@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { PATH } from '../../constants/path';
 import useProductList from '../../hooks/useProductList';
+import { currencyUnit } from '../../utils/currencyUnit';
 
 const Content = styled.ul`
   display: flex;
@@ -57,7 +58,7 @@ const ProductListItem = ({ product }) => {
       <Content>
         <li>
           <Name>{product.name}</Name>
-          <Price>{product.price.toLocaleString('ko-KR')} 원</Price>
+          <Price>{currencyUnit(product.price)} 원</Price>
         </li>
         <li>
           <Image onClick={handleShoppingCart} src={shoppingCartImg} alt="장바구니" />

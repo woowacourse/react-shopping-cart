@@ -6,6 +6,7 @@ import Button, { BUTTON_TYPE } from '../button/Button';
 import PropTypes from 'prop-types';
 import TextHighlight from '../textHighlight/TextHighlight';
 import useNumberAnimation from '../../hooks/useNumberAnimation';
+import { currencyUnit } from '../../utils/currencyUnit';
 
 const Container = styled.div`
   width: 448px;
@@ -40,12 +41,12 @@ const OrderPaymentAmount = ({ price, onClick }) => {
         <TextWrapper>
           <TextHighlight>총 결제금액</TextHighlight>
           <AnimatedTextHighlight styles={{ marginLeft: 'auto' }}>
-            {number.to((n) => n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }))}
+            {number.to((number) => currencyUnit(number))}
           </AnimatedTextHighlight>
           <TextHighlight>원</TextHighlight>
         </TextWrapper>
         <Button styles={{ marginLeft: '30px' }} type={BUTTON_TYPE.MEDIUM} onClick={onClick}>
-          {`${price.toLocaleString('ko-KR')}원 결제하기`}
+          {`${currencyUnit(price)}원 결제하기`}
         </Button>
       </div>
     </Container>

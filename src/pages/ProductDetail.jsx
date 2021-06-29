@@ -7,6 +7,7 @@ import { COLOR } from '../constants/color';
 import ProductImage, { PRODUCT_IMAGE_TYPE } from '../components/productImage/ProductImage';
 import Button, { BUTTON_TYPE } from '../components/button/Button';
 import { insertShoppingCartItem } from '../redux/shoppingCart';
+import { currencyUnit } from '../utils/currencyUnit';
 
 const Container = styled.div`
   width: 640px;
@@ -61,9 +62,7 @@ const ProductDetail = () => {
         <ProductImage type={PRODUCT_IMAGE_TYPE.LARGE} src={product.image_url} alt={product.name} />
         <Title>{product.name}</Title>
       </TopContent>
-      <Description>
-        {!!Object.keys(product).length && <span>{product.price.toLocaleString('ko-KR')}원</span>}
-      </Description>
+      <Description>{!!Object.keys(product).length && <span>{currencyUnit(product.price)}원</span>}</Description>
       <Button onClick={handleShoppingCart} type={BUTTON_TYPE.LARGE}>
         장바구니
       </Button>

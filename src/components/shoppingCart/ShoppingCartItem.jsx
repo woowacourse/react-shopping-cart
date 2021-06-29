@@ -17,6 +17,7 @@ import DialogPortal from '../../DialogPortal';
 import Dialog, { DIALOG_TYPE } from '../dialog/Dialog';
 import useDialog from '../../hooks/useDialog';
 import useNumberAnimation from '../../hooks/useNumberAnimation';
+import { currencyUnit } from '../../utils/currencyUnit';
 
 const MIN_QUANTITY = 1;
 const MAX_QUANTITY = 99;
@@ -107,11 +108,7 @@ const ShoppingCartItem = ({ cart_id, image_url, alt, name, price, isChecked, qua
           <TrashCanImage onClick={handleShoppingCartItemDelete} src={trashCan} alt="쓰레기통" />
           <CountInput value={quantity} onIncrease={handleIncrement} onDecrease={handleDecrement} />
           <PriceWrapper>
-            <animated.div>
-              {useNumberAnimation(quantity * price).to((n) =>
-                n.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
-              )}
-            </animated.div>
+            <animated.div>{useNumberAnimation(quantity * price).to((number) => currencyUnit(number))}</animated.div>
             <div>원</div>
           </PriceWrapper>
         </RightContent>

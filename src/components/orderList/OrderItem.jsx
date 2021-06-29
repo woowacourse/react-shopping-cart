@@ -6,6 +6,7 @@ import { COLOR } from '../../constants/color';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { insertShoppingCartItem } from '../../redux/shoppingCart';
+import { currencyUnit } from '../../utils/currencyUnit';
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const OrderItem = ({ product_id, image_url, name, price, quantity }) => {
       <TextWrapper>
         <Name>{name}</Name>
         <Info>
-          {price.toLocaleString('ko-KR')}원 / 수량: {quantity}개
+          {currencyUnit(price)}원 / 수량: {quantity}개
         </Info>
       </TextWrapper>
       <div style={{ marginLeft: 'auto' }}>
