@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import noProductImg from '../../assets/empty-product.png';
 
 export const PRODUCT_IMAGE_TYPE = Object.freeze({
   LARGE: 'LARGE',
@@ -27,13 +28,25 @@ const Image = styled.img`
   ${({ type }) => productImageStyle[type] || productImageStyle[PRODUCT_IMAGE_TYPE.MEDIUM]}
 `;
 
-// defaultProps로 src가 들어오지 않았을 때 해당 상품이 없다는 이미지를 띄워주기
-const ProductImage = ({ type, src, alt }) => <Image type={type} src={src} alt={alt} />;
+const ProductImage = ({ type, src, alt, onClick }) => {
+  return (
+    <Image
+      onClick={onClick}
+      type={type}
+      src={src}
+      alt={alt}
+      onError={({ target }) => {
+        target.src = noProductImg;
+        target.alt = '이미지를 불러올 수 없습니다.';
+      }}
+    />
+  );
+};
 
 ProductImage.propTypes = {
   type: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  alt: PropTypes.string,
 };
 
 export default ProductImage;

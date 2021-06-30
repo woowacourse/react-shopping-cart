@@ -1,13 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
-import OrderListItem, { ORDER_LIST_ITEM_TYPE } from '../components/orderListItem/OrderListItem';
 import PageTitle from '../components/pageTitle/PageTitle';
-import PaymentAmount, { PAYMENT_AMOUNT_TYPE } from '../components/paymentAmount/PaymentAmount';
-import SelectedProductList, { SELECTED_PRODUCT_LIST_TYPE } from '../components/selectedProductList/SelectedProductList';
+import OrderPaymentItemList from '../components/orderPayment/OrderPaymentItemList';
 import { PATH } from '../constants/path';
-import { insertOrderItemList } from '../modules/orderList';
+import OrderPaymentAmount from '../components/orderPayment/OrderPaymentAmount';
+import useOrderPayment from '../hooks/useOrderPayment';
 
 const Content = styled.section`
   position: relative;
@@ -24,14 +22,13 @@ const OrderPaymentAmountWrapper = styled.div`
 `;
 
 const OrderPayment = () => {
-  const { state } = useLocation();
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const { orderPaymentList: orderItemList, totalPrice } = state;
+  const { state } = useLocation();
+  const { insertOrderItemList } = useOrderPayment();
+  const { orderPaymentItemList, orderPaymentTotalPrice } = state;
 
   const handleOrderListPageRouter = async () => {
-    await dispatch(insertOrderItemList(orderItemList));
+    await insertOrderItemList(orderPaymentItemList);
 
     history.push(PATH.ORDER_LIST);
   };
@@ -41,20 +38,11 @@ const OrderPayment = () => {
       <PageTitle>주문/결제</PageTitle>
       <Content>
         <div>
-          <SelectedProductList
-            listType={SELECTED_PRODUCT_LIST_TYPE.ORDER_PAYMENT}
-            itemType={ORDER_LIST_ITEM_TYPE.ORDER_PAYMENT}
-            productList={orderItemList}
-            ListItem={OrderListItem}
-          />
+          <OrderPaymentItemList orderPaymentItemList={orderPaymentItemList} />
         </div>
         <div>
           <OrderPaymentAmountWrapper>
-            <PaymentAmount
-              type={PAYMENT_AMOUNT_TYPE.ORDER_PAYMENT}
-              price={totalPrice}
-              onClick={handleOrderListPageRouter}
-            />
+            <OrderPaymentAmount price={orderPaymentTotalPrice} onClick={handleOrderListPageRouter} />
           </OrderPaymentAmountWrapper>
         </div>
       </Content>

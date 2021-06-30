@@ -1,4 +1,4 @@
-import { config, useSpring } from '@react-spring/core';
+import { useSpring } from '@react-spring/core';
 import { useEffect, useRef } from 'react';
 
 const useNumberAnimation = (num) => {
@@ -7,7 +7,7 @@ const useNumberAnimation = (num) => {
   const { resNum } = useSpring({
     from: { resNum: startNum },
     resNum: num,
-    config: config.stiff,
+    config: { mass: 1, tension: 680, friction: 60 },
   });
 
   useEffect(() => {
