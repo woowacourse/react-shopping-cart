@@ -1,14 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Checkbox from '../../../common/Checkbox';
+import PropTypes from 'prop-types';
+
 import Product from '../../Product';
+import Checkbox from '../../../common/Checkbox';
+
 import * as Styled from './style';
 
 const ProductListItem = ({ product, listStyle, onChange, productDetail, isCheckbox, imageSize, children }) => {
   const productElement = <Product product={product} productDetail={productDetail} size={imageSize} direction="row" />;
 
   const onChangeCheckbox = () => {
-    onChange(product.id);
+    onChange(product.productId);
   };
 
   return (
@@ -29,11 +31,11 @@ ProductListItem.propTypes = {
   listStyle: PropTypes.string,
   onChange: PropTypes.func,
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    productId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     image: PropTypes.string,
-    amount: PropTypes.number,
+    quantity: PropTypes.number,
     isChecked: PropTypes.bool,
   }).isRequired,
   productDetail: PropTypes.shape({

@@ -1,11 +1,13 @@
 import React from 'react';
+
 import ProductListItem from '.';
-import PALETTE from '../../../../constants/palette';
-import { mockData } from '../../../../mockData';
-import AmountInput from '../../../common/AmountInput';
+import QuantityInput from '../../../common/QuantityInput';
 import Button from '../../../common/Button';
 import FlexContainer from '../../../common/FlexContainer';
 import TrashBin from '../../../common/Icon/TrashBin';
+
+import PALETTE from '../../../../constants/palette';
+import { mockData } from '../../../../mockData';
 
 export default {
   title: 'Shared/ProductListItem',
@@ -41,7 +43,7 @@ WithChildren.args = {
       <Button backgroundColor="transparent">
         <TrashBin width="1.5rem" color={PALETTE.GRAY_002} />
       </Button>
-      <AmountInput amount={1} setAmount={() => {}} />
+      <QuantityInput quantity={1} setQuantity={() => {}} />
       <p>30,000 원</p>
     </FlexContainer>
   ),

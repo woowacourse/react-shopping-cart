@@ -30,7 +30,7 @@ export const SnackbarContainer = styled.div`
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 30;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
   -webkit-animation: ${fadein} 0.2s, ${fadeout} 0.2s ${({ time }) => time || '2s'};
   animation: ${fadein} 0.2s, ${fadeout} 0.2s ${({ time }) => time || '2s'};

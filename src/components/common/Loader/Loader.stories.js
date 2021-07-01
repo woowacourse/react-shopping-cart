@@ -1,7 +1,9 @@
 import React from 'react';
+
 import Loader from '.';
-import PALETTE from '../../../constants/palette';
 import Spinner from '../Icon/Spinner';
+
+import PALETTE from '../../../constants/palette';
 
 export default {
   title: 'Common/Loader',

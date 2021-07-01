@@ -1,5 +1,4 @@
-import { setErrorMessage } from '../Message/actions';
-
+// handle error with middleware(not used)
 const errorMiddleware = (store) => (next) => (action) => {
   if (action.errorMessage) {
     return next(setErrorMessage(action.errorMessage));

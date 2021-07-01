@@ -1,7 +1,15 @@
 export const PAGES = {
+  HOME: {
+    NAME: '홈',
+    ADDRESS: '/',
+  },
   PRODUCT: {
     NAME: '상품목록',
-    ADDRESS: '/',
+    ADDRESS: '/products',
+  },
+  PRODUCT_DETAIL: {
+    NAME: '상품상세',
+    ADDRESS: '/products_detail',
   },
   CART: {
     NAME: '장바구니',
@@ -24,8 +32,7 @@ export const HEADER = {
 
 export const UNIT = {
   MONEY: '원',
-  AMOUNT: '개',
+  QUANTITY: '개',
 };
 
-export const SNACKBAR_DURATION = 3000;
 export const PRODUCTS_PER_PAGE = 12;

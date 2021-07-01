@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PriceInfoBox from '.';
 
 export default {

@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import { PRODUCTS_PER_PAGE } from '../../../constants/appInfo';
-import PALETTE from '../../../constants/palette';
+import PropTypes from 'prop-types';
+
 import FlexContainer from '../FlexContainer';
 import HighlightText from '../HighlightText';
 import RightArrow from '../Icon/RightArrow';
+
+import { PRODUCTS_PER_PAGE } from '../../../constants/appInfo';
+import PALETTE from '../../../constants/palette';
+
 import * as Styled from './style';
 
 const Pagination = ({
@@ -27,7 +30,9 @@ const Pagination = ({
           .map((_, idx) => (
             <Styled.PageNumber key={idx} onClick={onPageSelected(idx)}>
               {currentPage === idx + 1 ? (
-                <HighlightText highlightColor={PALETTE.BAEMINT}>{idx + 1}</HighlightText>
+                <HighlightText highlightColor={PALETTE.BAEMINT} fontSize="1.3rem">
+                  {idx + 1}
+                </HighlightText>
               ) : (
                 <span>{idx + 1}</span>
               )}

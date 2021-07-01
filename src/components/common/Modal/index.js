@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './style';
+
 import Close from '../Icon/Close';
+
 import PALETTE from '../../../constants/palette';
+
+import * as Styled from './style';
 
 const Modal = ({ children, type, onClose }) => {
   const onClickDimmed = ({ target, currentTarget }) => {

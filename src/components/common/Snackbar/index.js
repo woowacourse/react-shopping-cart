@@ -1,20 +1,24 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import * as Styled from './style';
 
-const Snackbar = ({ message, ms, backgroundColor }) => {
-  const content = (
-    <Styled.SnackbarContainer backgroundColor={backgroundColor} time={`${ms / 1000}s`}>
-      {message}
+import * as Styled from './style';
+import PALETTE from '../../../constants/palette';
+import useSnackbar from '../../../hooks/useSnackbar';
+
+const Snackbar = ({ duration = 1000, backgroundColor = PALETTE.GRAY_008 }) => {
+  const [snackbarMessage, setSnackbarMessage, isContentExists] = useSnackbar();
+
+  const content = isContentExists && (
+    <Styled.SnackbarContainer key={Math.random()} backgroundColor={backgroundColor} time={`${duration / 1000}s`}>
+      {snackbarMessage}
     </Styled.SnackbarContainer>
   );
   return ReactDOM.createPortal(content, document.querySelector('#snackbar'));
 };
 
 Snackbar.propTypes = {
-  message: PropTypes.string.isRequired,
-  ms: PropTypes.number,
+  duration: PropTypes.number,
   backgroundColor: PropTypes.string,
 };
 

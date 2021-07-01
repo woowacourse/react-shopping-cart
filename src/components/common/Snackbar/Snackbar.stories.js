@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import PALETTE from '../../../constants/palette';
+
 import * as Styled from './style';
 
 const Snackbar = ({ message, ms, backgroundColor }) => {
