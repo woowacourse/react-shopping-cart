@@ -8,6 +8,7 @@ import { toPriceFormat } from 'utils';
 import useCart from 'hooks/useCart';
 import useImageFallback from 'hooks/useImageFallback';
 import { theme } from 'App.styles';
+import { useSnackbar } from 'notistack';
 import Styled from './ProductDetailPage.styles';
 
 interface LocationState {
@@ -22,13 +23,14 @@ const ProductDetailPage = (): ReactElement => {
   const location = useLocation<LocationState>();
   const { id } = useParams<Params>();
   const { addItem } = useCart();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [product, setProduct] = useState<T.Product>(location.state?.product);
   const { imageUrl: currentImageUrl, setImageUrl, onImageLoadError } = useImageFallback(
     location.state?.product?.imageUrl
   );
 
-  const [{ data }, fetch] = useAxios(`${API.PRODUCTS}/${id}`);
+  const [{ data, error }, fetch] = useAxios<T.Product>(`${API.PRODUCTS}/${id}`);
 
   const handleAddCartItem = () => {
     addItem(Number(id));
@@ -44,6 +46,12 @@ const ProductDetailPage = (): ReactElement => {
       setImageUrl(data.imageUrl);
     }
   }, [data, fetch, setImageUrl]);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(data);
+    }
+  }, [data, enqueueSnackbar, error]);
 
   useEffect(() => {
     fetchProduct();
