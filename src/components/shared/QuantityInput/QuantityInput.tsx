@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
+import { ReactComponent as ArrowUpIcon } from 'assets/images/arrow-up.svg';
+import { ReactComponent as ArrowDownIcon } from 'assets/images/arrow-down.svg';
 import Styled from './QuantityInput.styles';
-import { ReactComponent as ArrowUpIcon } from '../../../assets/images/arrow-up.svg';
-import { ReactComponent as ArrowDownIcon } from '../../../assets/images/arrow-down.svg';
 
-interface IProps {
+interface Props {
   value: number;
   min: number;
   max: number;
@@ -12,7 +12,7 @@ interface IProps {
   onDecrease: () => void;
 }
 
-const QuantityInput = (props: IProps): ReactElement => {
+const QuantityInput = (props: Props): ReactElement => {
   const { value, min, max, onChangeInput, onIncrease, onDecrease } = props;
 
   return (

@@ -21,21 +21,21 @@ export const globalStyle = css`
 export const theme: Theme = {
   bgColor: {
     primary: COLOR.BAEMIN,
-    secondary: COLOR.GRAY[900],
-    lightGrey: COLOR.GRAY[800],
-    darkBrown: COLOR.BROWN[300],
+    secondary: COLOR.GRAY_900,
+    lightGrey: COLOR.GRAY_800,
+    darkBrown: COLOR.BROWN_300,
   },
   color: {
-    defaultBlack: COLOR.BLACK[300],
+    defaultBlack: COLOR.BLACK_300,
   },
   textColor: {
     defaultWhite: COLOR.WHITE,
-    defaultGrey: COLOR.GRAY[400],
+    defaultGrey: COLOR.GRAY_400,
   },
   borderColor: {
-    darkGrey: COLOR.GRAY[500],
-    defaultGrey: COLOR.GRAY[600],
-    lightGrey: COLOR.GRAY[700],
+    darkGrey: COLOR.GRAY_500,
+    defaultGrey: COLOR.GRAY_600,
+    lightGrey: COLOR.GRAY_700,
   },
 };
 

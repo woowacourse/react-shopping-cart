@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as CartIcon } from 'assets/images/cart.svg';
+import * as T from 'types';
+import { toPriceFormat } from 'utils';
+import useImageFallback from 'hooks/useImageFallback';
 import Styled from './ProductItem.styles';
-import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
-import * as T from '../../../types';
-import { toPriceFormat } from '../../../utils';
-import useImageFallback from '../../../hooks/useImageFallback';
 
-interface IProps {
+interface Props {
   product: T.Product;
   onClickCart: (productId: T.Product['productId']) => void;
 }
 
-const ProductItem = (props: IProps): ReactElement => {
+const ProductItem = (props: Props): ReactElement => {
   const { product, onClickCart } = props;
   const { productId, name, imageUrl, price } = product;
 

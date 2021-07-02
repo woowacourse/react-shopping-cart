@@ -1,15 +1,15 @@
 import React, { ReactElement } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PriceOverview from 'components/units/PriceOverview/PriceOverview';
+import HighlightText from 'components/shared/HighlightText/HighlightText';
+import Button from 'components/shared/Button/Button';
+import OrderItem from 'components/units/OrderItem/OrderItem';
+import * as T from 'types';
+import { toPriceFormat } from 'utils';
+import ROUTES from 'constants/routes';
+import useOrder from 'hooks/useOrder';
 import Styled from './OrderPage.styles';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
-import HighlightText from '../../components/shared/HighlightText/HighlightText';
-import Button from '../../components/shared/Button/Button';
-import OrderItem from '../../components/units/OrderItem/OrderItem';
-import * as T from '../../types';
-import { toPriceFormat } from '../../utils';
-import ROUTES from '../../constants/routes';
-import useOrder from '../../hooks/useOrder';
 
 type LocationState = {
   checkedItems: T.CartItem[];
@@ -19,21 +19,8 @@ const OrderPage = (): ReactElement => {
   const location = useLocation<LocationState>();
 
   const { status, onAdd } = useOrder();
-  // const [{ status, error }, fetchOrder] = useAxios(API.ORDERS, { method: T.ApiMethod.POST });
 
   const checkedItems = location?.state?.checkedItems;
-
-  // useEffect(() => {
-  //   if (error) {
-  //     enqueueSnackbar(MESSAGE.PURCHASE_CART_ITEMS_FAILURE);
-  //   }
-  // }, [enqueueSnackbar, error]);
-
-  // useEffect(() => {
-  //   if (status === T.AsyncStatus.SUCCESS) {
-  //     history.replace(ROUTES.ORDER_COMPLETE);
-  //   }
-  // }, [checkedItems, dispatch, enqueueSnackbar, error, history, status]);
 
   if (!location.state) return <Redirect to={ROUTES.ROOT} />;
 

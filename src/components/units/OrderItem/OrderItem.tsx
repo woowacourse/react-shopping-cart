@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
-import useImageFallback from '../../../hooks/useImageFallback';
+import useImageFallback from 'hooks/useImageFallback';
 import Styled from './OrderItem.styles';
 
-interface IProps {
+interface Props {
   title: string;
   quantity: number;
   imageUrl?: string;
 }
 
-const OrderItem = (props: IProps): ReactElement => {
+const OrderItem = (props: Props): ReactElement => {
   const { title, imageUrl, quantity } = props;
   const { imageUrl: currentImageUrl, onImageLoadError } = useImageFallback(imageUrl);
 

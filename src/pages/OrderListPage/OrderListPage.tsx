@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PurchasedItem from '../../components/units/PurchasedItem/PurchasedItem';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import * as T from '../../types';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PurchasedItem from 'components/units/PurchasedItem/PurchasedItem';
+import Spinner from 'components/shared/Spinner/Spinner';
+import * as T from 'types';
+import useCart from 'hooks/useCart';
+import useOrder from 'hooks/useOrder';
 import Styled from './OrderListPage.styles';
-import useCart from '../../hooks/useCart';
-import useOrder from '../../hooks/useOrder';
 
 const OrderListPage = (): ReactElement => {
   const { onAdd } = useCart();

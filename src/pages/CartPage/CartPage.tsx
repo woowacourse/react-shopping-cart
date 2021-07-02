@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import Checkbox from 'components/shared/Checkbox/Checkbox';
+import PageHeader from 'components/shared/PageHeader/PageHeader';
+import PriceOverview from 'components/units/PriceOverview/PriceOverview';
+import CartItem from 'components/units/CartItem/CartItem';
+import HighlightText from 'components/shared/HighlightText/HighlightText';
+import Button from 'components/shared/Button/Button';
+import * as T from 'types';
+import Spinner from 'components/shared/Spinner/Spinner';
+import ROUTES from 'constants/routes';
+import { toPriceFormat } from 'utils';
+import useCartPage from 'hooks/useCartPage';
 import Styled from './CartPage.styles';
-import Checkbox from '../../components/shared/Checkbox/Checkbox';
-import PageHeader from '../../components/shared/PageHeader/PageHeader';
-import PriceOverview from '../../components/units/PriceOverview/PriceOverview';
-import CartItem from '../../components/units/CartItem/CartItem';
-import HighlightText from '../../components/shared/HighlightText/HighlightText';
-import Button from '../../components/shared/Button/Button';
-import * as T from '../../types';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import ROUTES from '../../constants/routes';
-import { toPriceFormat } from '../../utils';
-import useCartPage from '../../hooks/useCartPage';
 
 const CartPage = (): ReactElement => {
   const {

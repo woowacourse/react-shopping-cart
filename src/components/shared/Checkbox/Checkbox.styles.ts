@@ -55,11 +55,11 @@ const Checkbox = styled.input`
   }
 `;
 
-interface LabelIProps {
+interface LabelProps {
   disabled: InputHTMLAttributes<HTMLInputElement>['disabled'];
 }
 
-const Label = styled.label<LabelIProps>`
+const Label = styled.label<LabelProps>`
   display: flex;
   position: relative;
   font-size: 16px;

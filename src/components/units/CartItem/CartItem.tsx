@@ -1,22 +1,22 @@
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
+import Checkbox from 'components/shared/Checkbox/Checkbox';
+import QuantityInput from 'components/shared/QuantityInput/QuantityInput';
+import { ReactComponent as DeleteIcon } from 'assets/images/delete.svg';
+import CART_ITEM_QUANTITY from 'constants/cart';
+import cartItemsSlice from 'slices/cartSlice';
+import { toPriceFormat } from 'utils';
+import useImageFallback from 'hooks/useImageFallback';
+import * as T from 'types';
 import Styled from './CartItem.styles';
-import { ReactComponent as DeleteIcon } from '../../../assets/images/delete.svg';
-import Checkbox from '../../shared/Checkbox/Checkbox';
-import QuantityInput from '../../shared/QuantityInput/QuantityInput';
-import * as T from '../../../types';
-import CART_ITEM_QUANTITY from '../../../constants/cart';
-import cartItemsSlice from '../../../slices/cartSlice';
-import { toPriceFormat } from '../../../utils';
-import useImageFallback from '../../../hooks/useImageFallback';
 
-interface IProps {
+interface Props {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
   onDelete: (id: T.CartItem['cartId']) => void;
 }
 
-const CartItem = (props: IProps): ReactElement => {
+const CartItem = (props: Props): ReactElement => {
   const { updateQuantity } = cartItemsSlice.actions;
 
   const { cartItem, onCheck, onDelete } = props;

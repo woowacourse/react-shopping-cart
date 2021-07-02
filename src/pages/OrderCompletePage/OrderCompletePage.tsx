@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'components/shared/Button/Button';
+import baedalyeeImageURL from 'assets/images/no_image.jpg';
+import * as T from 'types';
+import ROUTES from 'constants/routes';
 import Styled from './OrderCompletePage.styles';
-import Button from '../../components/shared/Button/Button';
-import baedalyeeImageURL from '../../assets/images/no_image.jpg';
-import * as T from '../../types';
-import ROUTES from '../../constants/routes';
 
 const OrderCompletePage = (): ReactElement => {
   return (

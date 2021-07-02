@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
+import * as T from 'types';
+import Spinner from 'components/shared/Spinner/Spinner';
+import ProductItem from 'components/units/ProductItem/ProductItem';
+import useCart from 'hooks/useCart';
+import useProduct from 'hooks/useProduct';
 import Styled from './ProductsPage.styles';
-import * as T from '../../types';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import ProductItem from '../../components/units/ProductItem/ProductItem';
-import useCart from '../../hooks/useCart';
-import useProduct from '../../hooks/useProduct';
 
 const ProductsPage = (): ReactElement => {
   const { data: products, status } = useProduct();

@@ -1,22 +1,26 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import * as T from '../../types';
-import { theme } from '../../App.styles';
+import * as T from 'types';
+import Button from 'components/shared/Button/Button';
+import useAxios from 'hooks/useAxios';
+import API from 'constants/api';
+import { toPriceFormat } from 'utils';
+import useCart from 'hooks/useCart';
+import useImageFallback from 'hooks/useImageFallback';
+import { theme } from 'App.styles';
 import Styled from './ProductDetailPage.styles';
-import Button from '../../components/shared/Button/Button';
-import useAxios from '../../hooks/useAxios';
-import API from '../../constants/api';
-import { toPriceFormat } from '../../utils';
-import useCart from '../../hooks/useCart';
-import useImageFallback from '../../hooks/useImageFallback';
 
 interface LocationState {
   product: T.Product;
 }
 
+interface Params {
+  id: string;
+}
+
 const ProductDetailPage = (): ReactElement => {
   const location = useLocation<LocationState>();
-  const { id }: { id?: string } = useParams();
+  const { id } = useParams<Params>();
   const { onAdd } = useCart();
 
   const [product, setProduct] = useState<T.Product>(location.state?.product);

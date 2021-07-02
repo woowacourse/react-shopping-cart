@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react';
+import Button from 'components/shared/Button/Button';
+import * as T from 'types';
+import { toPriceFormat } from 'utils';
+import useImageFallback from 'hooks/useImageFallback';
 import Styled from './PurchasedItem.styles';
-import Button from '../../shared/Button/Button';
-import * as T from '../../../types';
-import { toPriceFormat } from '../../../utils';
-import useImageFallback from '../../../hooks/useImageFallback';
 
-interface IProps {
+interface Props {
   item: T.OrderItem;
   onClick: (productId: T.Product['productId']) => void;
 }
 
-const PurchasedItem = (props: IProps): ReactElement => {
+const PurchasedItem = (props: Props): ReactElement => {
   const { item, onClick } = props;
   const { quantity, name, price, productId, imageUrl } = item;
 

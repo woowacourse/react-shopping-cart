@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react';
 import Styled from './PriceOverview.styles';
 
-interface IProps {
+interface Props {
   headerText: string;
   children: React.ReactNode;
 }
 
-const PriceOverview = (props: IProps): ReactElement => {
+const PriceOverview = (props: Props): ReactElement => {
   const { headerText, children } = props;
 
   return (
