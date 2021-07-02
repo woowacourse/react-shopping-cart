@@ -3,11 +3,11 @@ import * as T from 'types';
 import Spinner from 'components/shared/Spinner/Spinner';
 import ProductItem from 'components/units/ProductItem/ProductItem';
 import useCart from 'hooks/useCart';
-import useProduct from 'hooks/useProduct';
+import useProductList from 'hooks/useProductList';
 import Styled from './ProductsPage.styles';
 
 const ProductsPage = (): ReactElement => {
-  const { data: products, status } = useProduct();
+  const { data: products, status } = useProductList();
   const { addItem } = useCart();
 
   const isInitialLoading = status === T.AsyncStatus.PENDING && products.length === 0;

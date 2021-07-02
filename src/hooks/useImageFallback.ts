@@ -2,7 +2,7 @@ import { useState } from 'react';
 import noImageUrl from '../assets/images/no_image.jpg';
 
 const useImageFallback = (
-  defaultImageUrl = noImageUrl
+  defaultImageUrl = ''
 ): {
   imageUrl: string;
   setImageUrl: React.Dispatch<React.SetStateAction<string>>;

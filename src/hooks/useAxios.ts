@@ -7,6 +7,7 @@ interface ApiResponse<T> {
   data: T | null;
   status: AsyncStatus;
   error?: Error;
+  errorMessage?: string;
 }
 
 export default <T>(
@@ -39,7 +40,12 @@ export default <T>(
 
         setState({ data: response.data, status: AsyncStatus.SUCCESS });
       } catch (error) {
-        setState({ data: error.response.data, status: AsyncStatus.FAILURE, error });
+        setState((prevState) => ({
+          ...prevState,
+          errorMessage: error.response.data,
+          status: AsyncStatus.FAILURE,
+          error,
+        }));
       }
     },
     [method, url]

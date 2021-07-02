@@ -1,30 +1,27 @@
-import { useSnackbar } from 'notistack';
-import { useCallback, useEffect } from 'react';
-import MESSAGE from '../constants/messages';
-import { getProducts, ProductState } from '../slices/productSlice';
-import { useAppDispatch, useAppSelector } from './useStore';
+import { useCallback, useEffect, useState } from 'react';
+import * as T from 'types';
+import API from 'constants/api';
+import useAxios from './useAxios';
 
-const useProduct = (): ProductState => {
-  const products = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch();
+const useProduct = (initialState: T.Product, id: T.ProductId) => {
+  const [product, setProduct] = useState(initialState);
+  const [{ data, errorMessage }, fetch] = useAxios<T.Product>(`${API.PRODUCTS}/${id}`);
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const { data, status, error } = products;
-
-  const getItem = useCallback(async () => {
-    const resultAction = await dispatch(getProducts());
-
-    if (getProducts.rejected.match(resultAction)) {
-      enqueueSnackbar(resultAction?.payload?.message || MESSAGE.GET_PRODUCTS_FAILURE);
+  const fetchProduct = useCallback(async () => {
+    if (!data) {
+      await fetch();
     }
-  }, [dispatch, enqueueSnackbar]);
+
+    if (data) {
+      setProduct(data);
+    }
+  }, [data, fetch]);
 
   useEffect(() => {
-    getItem();
-  }, [getItem]);
+    fetchProduct();
+  }, [fetchProduct]);
 
-  return { data, status, error };
+  return [{ product, errorMessage }];
 };
 
 export default useProduct;

@@ -1,14 +1,13 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import * as T from 'types';
 import Button from 'components/shared/Button/Button';
-import useAxios from 'hooks/useAxios';
-import API from 'constants/api';
 import { toPriceFormat } from 'utils';
 import useCart from 'hooks/useCart';
 import useImageFallback from 'hooks/useImageFallback';
 import { theme } from 'App.styles';
 import { useSnackbar } from 'notistack';
+import useProduct from 'hooks/useProduct';
 import Styled from './ProductDetailPage.styles';
 
 interface LocationState {
@@ -25,37 +24,26 @@ const ProductDetailPage = (): ReactElement => {
   const { addItem } = useCart();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [product, setProduct] = useState<T.Product>(location.state?.product);
+  const [{ product, errorMessage }] = useProduct(location.state?.product, Number(id));
   const { imageUrl: currentImageUrl, setImageUrl, onImageLoadError } = useImageFallback(
     location.state?.product?.imageUrl
   );
-
-  const [{ data, error }, fetch] = useAxios<T.Product>(`${API.PRODUCTS}/${id}`);
 
   const handleAddCartItem = () => {
     addItem(Number(id));
   };
 
-  const fetchProduct = useCallback(async () => {
-    if (!data) {
-      await fetch();
+  useEffect(() => {
+    if (product) {
+      setImageUrl(product.imageUrl);
     }
-
-    if (data) {
-      setProduct(data);
-      setImageUrl(data.imageUrl);
-    }
-  }, [data, fetch, setImageUrl]);
+  }, [product, setImageUrl]);
 
   useEffect(() => {
-    if (error) {
-      enqueueSnackbar(data);
+    if (errorMessage) {
+      enqueueSnackbar(errorMessage);
     }
-  }, [data, enqueueSnackbar, error]);
-
-  useEffect(() => {
-    fetchProduct();
-  }, [fetchProduct]);
+  }, [errorMessage, enqueueSnackbar]);
 
   return (
     <Styled.Root>
