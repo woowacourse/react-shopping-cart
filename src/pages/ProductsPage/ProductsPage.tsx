@@ -8,7 +8,7 @@ import Styled from './ProductsPage.styles';
 
 const ProductsPage = (): ReactElement => {
   const { data: products, status } = useProduct();
-  const { onAdd } = useCart();
+  const { addItem } = useCart();
 
   const isInitialLoading = status === T.AsyncStatus.PENDING && products.length === 0;
   const isEmptyData = status === T.AsyncStatus.SUCCESS && products?.length === 0;
@@ -26,7 +26,7 @@ const ProductsPage = (): ReactElement => {
         <Styled.ProductList>
           {products?.map?.((product: T.Product) => (
             <li key={product.productId}>
-              <ProductItem product={product} onClickCart={onAdd} />
+              <ProductItem product={product} onClickCart={addItem} />
             </li>
           ))}
         </Styled.ProductList>

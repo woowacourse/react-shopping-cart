@@ -8,7 +8,7 @@ import useOrder from 'hooks/useOrder';
 import Styled from './OrderListPage.styles';
 
 const OrderListPage = (): ReactElement => {
-  const { onAdd } = useCart();
+  const { addItem } = useCart();
   const { data: orders, status } = useOrder();
 
   const isInitialLoading = status === T.AsyncStatus.PENDING && orders?.length === 0;
@@ -34,7 +34,7 @@ const OrderListPage = (): ReactElement => {
               </Styled.OrderHeader>
               <Styled.PurchasedList>
                 {order.orderDetails?.map?.((item: T.OrderItem) => (
-                  <PurchasedItem key={`${order.orderId}-${item.productId}`} item={item} onClick={onAdd} />
+                  <PurchasedItem key={`${order.orderId}-${item.productId}`} item={item} onClick={addItem} />
                 ))}
               </Styled.PurchasedList>
             </Styled.Order>

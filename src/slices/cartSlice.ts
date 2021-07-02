@@ -30,25 +30,22 @@ export const getCartItems = createAsyncThunk(GET_CART_ITEMS, async () => {
   return cartItemsWithQuantity;
 });
 
-export const addCartItem = createAsyncThunk(
-  ADD_CARD_ITEM,
-  async (productId: T.Product['productId'], { rejectWithValue }) => {
-    try {
-      const response = await api.post(API.CARTS, { product_id: productId });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
+export const addCartItem = createAsyncThunk(ADD_CARD_ITEM, async (productId: T.ProductId, { rejectWithValue }) => {
+  try {
+    const response = await api.post(API.CARTS, { product_id: productId });
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
-export const deleteItem = createAsyncThunk(DELETE_ITEM, async (cartId: T.CartItem['cartId']) => {
+export const deleteItem = createAsyncThunk(DELETE_ITEM, async (cartId: T.CartId) => {
   await api.delete(`${API.CARTS}/${cartId}`);
 
   return cartId;
 });
 
-export const deleteCheckedItems = createAsyncThunk(DELETE_CHECKED_ITEMS, async (cartIds: T.CartItem['cartId'][]) => {
+export const deleteCheckedItems = createAsyncThunk(DELETE_CHECKED_ITEMS, async (cartIds: T.CartId[]) => {
   await Promise.all(cartIds.map((id) => api.delete(`${API.CARTS}/${id}`)));
 
   return cartIds;
@@ -59,16 +56,13 @@ const cartItemsSlice = createSlice({
   initialState,
 
   reducers: {
-    updateQuantity: (
-      state,
-      action: PayloadAction<{ cartId: T.CartItem['cartId']; quantity: T.CartItem['quantity'] }>
-    ) => {
+    updateQuantity: (state, action: PayloadAction<{ cartId: T.CartId; quantity: T.CartItem['quantity'] }>) => {
       const target = state.data.find((item) => item.cartId === action.payload.cartId);
       if (target) target.quantity = action.payload.quantity;
       state.status = T.AsyncStatus.IDLE;
     },
 
-    checkCartItem: (state, action: PayloadAction<{ cartId: T.CartItem['cartId']; checked: T.CartItem['checked'] }>) => {
+    checkCartItem: (state, action: PayloadAction<{ cartId: T.CartId; checked: T.CartItem['checked'] }>) => {
       const target = state.data.find((item) => item.cartId === action.payload.cartId);
       if (target) target.checked = action.payload.checked;
       state.status = T.AsyncStatus.IDLE;

@@ -18,7 +18,7 @@ type LocationState = {
 const OrderPage = (): ReactElement => {
   const location = useLocation<LocationState>();
 
-  const { status, onAdd } = useOrder();
+  const { status, addItem } = useOrder();
 
   const checkedItems = location?.state?.checkedItems;
 
@@ -27,7 +27,7 @@ const OrderPage = (): ReactElement => {
   const handlePurchaseCartItems = async () => {
     if (status === T.AsyncStatus.PENDING) return;
 
-    await onAdd(checkedItems);
+    await addItem(checkedItems);
   };
 
   const checkedItemsTotalPrice = checkedItems?.reduce?.((acc: number, curr: T.CartItem) => {

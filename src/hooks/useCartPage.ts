@@ -10,7 +10,7 @@ const useCartPage = () => {
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data: cartItems, status, onAdd } = useCart();
+  const { data: cartItems, status, addItem } = useCart();
   const { checkCartItem, checkAllCartItems } = cartItemsSlice.actions;
 
   const isInitialLoading = status === T.AsyncStatus.PENDING && cartItems.length === 0;
@@ -24,7 +24,7 @@ const useCartPage = () => {
     return acc + curr.price * curr.quantity;
   }, 0);
 
-  const onDeleteItem = async (id: T.CartItem['cartId']) => {
+  const onDeleteItem = async (id: T.CartId) => {
     if (!window.confirm(MESSAGE.CONFIRM_DELETE_CART_ITEM)) return;
 
     const resultAction = await dispatch(deleteItem(id));
@@ -64,7 +64,7 @@ const useCartPage = () => {
     isInitialLoading,
     isAllChecked,
     checkedItemsTotalPrice,
-    onAdd,
+    addItem,
     onDeleteItem,
     onDeleteCheckedItem,
     onCheck,

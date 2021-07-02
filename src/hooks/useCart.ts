@@ -10,7 +10,7 @@ const useCart = (): {
   data: T.CartItem[];
   status: T.AsyncStatus;
   error: SerializedError | null;
-  onAdd: (productId: T.Product['productId']) => void;
+  addItem: (productId: T.ProductId) => void;
 } => {
   const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const useCart = (): {
 
   const { data, status, error } = cartItems;
 
-  const onAdd = async (productId: T.Product['productId']) => {
+  const addItem = async (productId: T.ProductId) => {
     const cartItemIds = data.map((cartItem) => cartItem.productId);
 
     if (cartItemIds.includes(productId)) {
@@ -38,7 +38,7 @@ const useCart = (): {
     }
   };
 
-  const onGet = useCallback(async () => {
+  const getItem = useCallback(async () => {
     const resultAction = await dispatch(getCartItems());
 
     if (getCartItems.rejected.match(resultAction)) {
@@ -47,10 +47,10 @@ const useCart = (): {
   }, [dispatch, enqueueSnackbar]);
 
   useEffect(() => {
-    onGet();
-  }, [onGet]);
+    getItem();
+  }, [getItem]);
 
-  return { data, status, error, onAdd };
+  return { data, status, error, addItem };
 };
 
 export default useCart;

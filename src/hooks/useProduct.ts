@@ -12,7 +12,7 @@ const useProduct = (): ProductState => {
 
   const { data, status, error } = products;
 
-  const onGet = useCallback(async () => {
+  const getItem = useCallback(async () => {
     const resultAction = await dispatch(getProducts());
 
     if (getProducts.rejected.match(resultAction)) {
@@ -21,8 +21,8 @@ const useProduct = (): ProductState => {
   }, [dispatch, enqueueSnackbar]);
 
   useEffect(() => {
-    onGet();
-  }, [onGet]);
+    getItem();
+  }, [getItem]);
 
   return { data, status, error };
 };

@@ -21,7 +21,7 @@ interface Params {
 const ProductDetailPage = (): ReactElement => {
   const location = useLocation<LocationState>();
   const { id } = useParams<Params>();
-  const { onAdd } = useCart();
+  const { addItem } = useCart();
 
   const [product, setProduct] = useState<T.Product>(location.state?.product);
   const { imageUrl: currentImageUrl, setImageUrl, onImageLoadError } = useImageFallback(
@@ -31,7 +31,7 @@ const ProductDetailPage = (): ReactElement => {
   const [{ data }, fetch] = useAxios(`${API.PRODUCTS}/${id}`);
 
   const handleAddCartItem = () => {
-    onAdd(Number(id));
+    addItem(Number(id));
   };
 
   const fetchProduct = useCallback(async () => {

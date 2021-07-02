@@ -13,7 +13,7 @@ import Styled from './CartItem.styles';
 interface Props {
   cartItem: T.CartItem;
   onCheck: (id: number, isChecked: boolean) => void;
-  onDelete: (id: T.CartItem['cartId']) => void;
+  onDelete: (id: T.CartId) => void;
 }
 
 const CartItem = (props: Props): ReactElement => {

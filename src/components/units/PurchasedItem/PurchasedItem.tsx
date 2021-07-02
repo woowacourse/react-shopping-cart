@@ -7,7 +7,7 @@ import Styled from './PurchasedItem.styles';
 
 interface Props {
   item: T.OrderItem;
-  onClick: (productId: T.Product['productId']) => void;
+  onClick: (productId: T.ProductId) => void;
 }
 
 const PurchasedItem = (props: Props): ReactElement => {

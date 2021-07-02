@@ -12,7 +12,7 @@ const useOrder = (): {
   data: T.Order[];
   status: T.AsyncStatus;
   error: SerializedError | null;
-  onAdd: (checkedItems: T.CartItem[]) => Promise<void>;
+  addItem: (checkedItems: T.CartItem[]) => Promise<void>;
 } => {
   const orders = useAppSelector((state) => state.order);
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const useOrder = (): {
 
   const { data, status, error } = orders;
 
-  const onGet = useCallback(async () => {
+  const getItem = useCallback(async () => {
     const resultAction = await dispatch(getOrders());
 
     if (getOrders.rejected.match(resultAction)) {
@@ -30,7 +30,7 @@ const useOrder = (): {
     }
   }, [dispatch, enqueueSnackbar]);
 
-  const onAdd = async (checkedItems: T.CartItem[]) => {
+  const addItem = async (checkedItems: T.CartItem[]) => {
     const cartItems: OrderAttribute[] = checkedItems.map((item) => ({
       cart_id: item.cartId,
       quantity: item.quantity,
@@ -49,10 +49,10 @@ const useOrder = (): {
   };
 
   useEffect(() => {
-    onGet();
-  }, [onGet]);
+    getItem();
+  }, [getItem]);
 
-  return { data, status, error, onAdd };
+  return { data, status, error, addItem };
 };
 
 export default useOrder;

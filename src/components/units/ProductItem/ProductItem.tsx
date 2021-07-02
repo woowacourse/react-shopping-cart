@@ -8,7 +8,7 @@ import Styled from './ProductItem.styles';
 
 interface Props {
   product: T.Product;
-  onClickCart: (productId: T.Product['productId']) => void;
+  onClickCart: (productId: T.ProductId) => void;
 }
 
 const ProductItem = (props: Props): ReactElement => {

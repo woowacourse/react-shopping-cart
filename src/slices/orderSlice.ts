@@ -14,7 +14,7 @@ export type OrderState = {
 };
 
 export type OrderAttribute = {
-  cart_id: T.CartItem['cartId'];
+  cart_id: T.CartId;
   quantity: T.CartItem['quantity'];
 };
 

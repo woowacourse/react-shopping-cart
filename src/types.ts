@@ -4,15 +4,19 @@ export enum ButtonSize {
   LARGE = 'LARGE',
 }
 
+export type ProductId = number;
+
 export type Product = {
-  productId: number;
+  productId: ProductId;
   name: string;
   imageUrl: string;
   price: number;
 };
 
+export type CartId = number;
+
 export type CartItem = {
-  cartId: number;
+  cartId: CartId;
   quantity: number;
   checked: boolean;
 } & Product;
