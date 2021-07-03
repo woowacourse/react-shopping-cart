@@ -1,28 +1,33 @@
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
+import { ReactComponent as CartIcon } from 'assets/images/cart.svg';
+import * as T from 'types';
+import { toPriceFormat } from 'utils';
+import useImageFallback from 'hooks/useImageFallback';
 import Styled from './ProductItem.styles';
-import { ReactComponent as CartIcon } from '../../../assets/images/cart.svg';
-import * as T from '../../../types';
-import noImageURL from '../../../assets/images/no_image.jpg';
-import { toPriceFormat } from '../../../utils';
 
-interface IProps {
+interface Props {
   product: T.Product;
-  onClickCart: (product: T.Product) => void;
+  onClickCart: (productId: T.ProductId) => void;
 }
 
-const ProductItem = (props: IProps): ReactElement => {
+const ProductItem = (props: Props): ReactElement => {
   const { product, onClickCart } = props;
-  const { name, image, price } = product;
+  const { productId, name, imageUrl, price } = product;
+
+  const { imageUrl: currentImageUrl, onImageLoadError } = useImageFallback(imageUrl);
 
   const handleClickCart = () => {
-    onClickCart(product);
+    onClickCart(productId);
   };
 
   return (
     <Styled.Root>
-      <Styled.ImageWrapper>
-        <Styled.Image src={image || noImageURL} alt={name} />
-      </Styled.ImageWrapper>
+      <Link to={{ pathname: `/product/${product.productId}`, state: { product } }}>
+        <Styled.ImageWrapper>
+          <Styled.Image src={currentImageUrl} alt={name} onError={onImageLoadError} />
+        </Styled.ImageWrapper>
+      </Link>
       <Styled.Content>
         <Styled.Detail>
           <Styled.Title>{name}</Styled.Title>

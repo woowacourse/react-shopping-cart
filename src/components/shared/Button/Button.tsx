@@ -1,8 +1,8 @@
 import React, { ButtonHTMLAttributes, ReactElement } from 'react';
+import * as T from 'types';
 import Styled from './Button.styles';
-import * as T from '../../../types';
 
-interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: T.ButtonSize;
   bgColor?: string;
   text: string;
@@ -11,7 +11,7 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
 }
 
-const Button = (props: IProps): ReactElement => {
+const Button = (props: Props): ReactElement => {
   const {
     size = T.ButtonSize.REGULAR,
     bgColor = '',

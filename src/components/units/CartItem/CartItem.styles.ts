@@ -11,7 +11,7 @@ const Root = styled.li`
 const Image = styled.img`
   width: 144px;
   height: 144px;
-  object-fit: contain;
+  object-fit: cover;
   margin-left: 15px;
   box-sizing: border-box;
   border-radius: 2px;

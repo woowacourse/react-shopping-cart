@@ -3,18 +3,18 @@ import { useCallback, useState } from 'react';
 import api from '../api';
 import { ApiMethod, AsyncStatus } from '../types';
 
-interface IState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any[] | null;
+interface ApiResponse<T> {
+  data: T | null;
   status: AsyncStatus;
   error?: Error;
+  errorMessage?: string;
 }
 
-export default (
+export default <T>(
   url: string,
   { method = ApiMethod.GET } = {}
-): [IState, (data?: Record<string, unknown>) => Promise<void>] => {
-  const [state, setState] = useState<IState>({
+): [ApiResponse<T>, (data?: Record<string, unknown> | Array<unknown>) => Promise<void>] => {
+  const [state, setState] = useState<ApiResponse<T>>({
     data: null,
     status: AsyncStatus.IDLE,
   });
@@ -40,10 +40,12 @@ export default (
 
         setState({ data: response.data, status: AsyncStatus.SUCCESS });
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-
-        setState({ data: null, status: AsyncStatus.FAILURE, error });
+        setState((prevState) => ({
+          ...prevState,
+          errorMessage: error.response.data,
+          status: AsyncStatus.FAILURE,
+          error,
+        }));
       }
     },
     [method, url]

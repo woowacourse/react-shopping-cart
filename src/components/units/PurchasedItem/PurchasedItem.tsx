@@ -1,29 +1,30 @@
 import React, { ReactElement } from 'react';
+import Button from 'components/shared/Button/Button';
+import * as T from 'types';
+import { toPriceFormat } from 'utils';
+import useImageFallback from 'hooks/useImageFallback';
 import Styled from './PurchasedItem.styles';
-import defaultImageURL from '../../../assets/images/brave.png';
-import Button from '../../shared/Button/Button';
-import * as T from '../../../types';
-import { toPriceFormat } from '../../../utils';
 
-interface IProps {
-  item: T.CartItem;
-  onClick: (product: T.Product) => void;
+interface Props {
+  item: T.OrderItem;
+  onClick: (productId: T.ProductId) => void;
 }
 
-const PurchasedItem = (props: IProps): ReactElement => {
+const PurchasedItem = (props: Props): ReactElement => {
   const { item, onClick } = props;
-  const { quantity, product } = item;
-  const { name, price, image } = product;
+  const { quantity, name, price, productId, imageUrl } = item;
 
   const totalPrice = price * quantity;
 
+  const { imageUrl: currentImageUrl, onImageLoadError } = useImageFallback(imageUrl);
+
   const handleClick = () => {
-    onClick(product);
+    onClick(productId);
   };
 
   return (
     <Styled.Root>
-      <Styled.Image src={image ?? defaultImageURL} alt={name} />
+      <Styled.Image src={currentImageUrl} alt={name} onError={onImageLoadError} />
       <Styled.Info>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Detail>
@@ -31,7 +32,7 @@ const PurchasedItem = (props: IProps): ReactElement => {
         </Styled.Detail>
       </Styled.Info>
       <Styled.ButtonWrapper>
-        <Button size={T.ButtonSize.REGULAR} text="장바구니" onClick={handleClick} />
+        <Button size={T.ButtonSize.SMALL} text="장바구니" onClick={handleClick} />
       </Styled.ButtonWrapper>
     </Styled.Root>
   );

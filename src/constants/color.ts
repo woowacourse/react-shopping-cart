@@ -1,17 +1,14 @@
 const COLOR = {
   BAEMIN: '#2AC1BC',
-  GRAY: {
-    400: '#888888',
-    500: '#aaaaaa',
-    600: '#cccccc',
-    700: '#dddddd',
-    800: '#e5e5e5',
-    900: '#f6f6f6',
-  },
-  BLACK: {
-    100: '#000000',
-    300: '#333333',
-  },
+  BROWN_300: '#73675C',
+  GRAY_400: '#888888',
+  GRAY_500: '#aaaaaa',
+  GRAY_600: '#cccccc',
+  GRAY_700: '#dddddd',
+  GRAY_800: '#e5e5e5',
+  GRAY_900: '#f6f6f6',
+  BLACK_100: '#000000',
+  BLACK_300: '#333333',
   WHITE: '#ffffff',
 };
 

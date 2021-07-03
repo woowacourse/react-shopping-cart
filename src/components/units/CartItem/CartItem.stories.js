@@ -13,13 +13,11 @@ const Template = (args) => <CartItem {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   cartItem: {
-    id: 1231234,
-    product: {
-      id: 123123,
-      name: '맛있는 아쌈 밀크티',
-      price: 10000,
-      image: defaultImageUrl,
-    },
+    cartId: 1,
+    productId: 2,
+    name: '맛있는 아쌈 밀크티',
+    price: 10000,
+    image: defaultImageUrl,
     quantity: 3,
     checked: true,
   },
@@ -28,12 +26,10 @@ Default.args = {
 export const NoImage = Template.bind({});
 NoImage.args = {
   cartItem: {
-    id: 1231234,
-    product: {
-      id: 123123,
-      name: '맛있는 아쌈 밀크티',
-      price: 10000,
-    },
+    cartId: 1231234,
+    productId: 123123,
+    name: '맛있는 아쌈 밀크티',
+    price: 10000,
     quantity: 3,
     checked: true,
   },

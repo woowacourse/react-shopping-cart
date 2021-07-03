@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import Styled from './PageHeader.styles';
 
-interface IProps {
+interface Props {
   title: string;
 }
 
-const PageHeader = (props: IProps): ReactElement => {
+const PageHeader = (props: Props): ReactElement => {
   const { title } = props;
 
   return (

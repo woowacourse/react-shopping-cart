@@ -1,77 +1,32 @@
-import React, { ReactElement, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useSnackbar } from 'notistack';
-import { ThunkDispatch } from 'redux-thunk';
-import { Action } from 'redux';
+import React, { ReactElement } from 'react';
+import * as T from 'types';
+import Spinner from 'components/shared/Spinner/Spinner';
+import ProductItem from 'components/units/ProductItem/ProductItem';
+import useCart from 'hooks/useCart';
+import useProductList from 'hooks/useProductList';
 import Styled from './ProductsPage.styles';
-import * as T from '../../types';
-import MESSAGE from '../../constants/messages';
-import Spinner from '../../components/shared/Spinner/Spinner';
-import ProductItem from '../../components/units/ProductItem/ProductItem';
-import { RootState } from '../../modules';
-import { addCartItemRequest, getCartItemsRequest } from '../../modules/cartItems/actions';
-import { CartState } from '../../modules/cartItems/reducers';
-import useAxios from '../../hooks/useAxios';
 
 const ProductsPage = (): ReactElement => {
-  const cartItems: CartState['cartItems'] = useSelector((state: RootState) => state.cartReducer.cartItems);
+  const { data: products, status } = useProductList();
+  const { addItem } = useCart();
 
-  const dispatch = useDispatch<ThunkDispatch<RootState, null, Action>>();
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  const [{ data: products, status, error }, fetchProducts] = useAxios('/products');
-
-  const handleClickCart = (product: T.Product) => {
-    if (status !== T.AsyncStatus.SUCCESS || cartItems.status !== T.AsyncStatus.SUCCESS) return;
-
-    const cartItemIds = cartItems.data.map((cartItem) => cartItem.product.id);
-
-    if (cartItemIds.includes(product.id)) {
-      enqueueSnackbar(MESSAGE.EXIST_CART_ITEM);
-      return;
-    }
-
-    dispatch(addCartItemRequest(product))
-      .then(() => {
-        enqueueSnackbar(MESSAGE.ADDED_CART_ITEM_SUCCESS);
-      })
-      .catch((err: Error) => {
-        enqueueSnackbar(err.message);
-      });
-  };
-
-  useEffect(() => {
-    dispatch(getCartItemsRequest());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      await fetchProducts();
-    };
-    getProducts();
-  }, [fetchProducts]);
-
-  useEffect(() => {
-    if (error) {
-      enqueueSnackbar(MESSAGE.GET_PRODUCTS_FAILURE);
-    }
-  }, [enqueueSnackbar, error]);
+  const isInitialLoading = status === T.AsyncStatus.PENDING && products.length === 0;
+  const isEmptyData = status === T.AsyncStatus.SUCCESS && products?.length === 0;
 
   return (
     <Styled.Root>
-      {status === T.AsyncStatus.PENDING && (
+      {isInitialLoading && (
         <Styled.SpinnerWrapper>
           <Spinner />
         </Styled.SpinnerWrapper>
       )}
-      {status === T.AsyncStatus.SUCCESS && products?.length === 0 ? (
+      {isEmptyData ? (
         <Styled.NoResultMessage>😢 지금은 구입할 수 있는 상품이 없어요!</Styled.NoResultMessage>
       ) : (
         <Styled.ProductList>
           {products?.map?.((product: T.Product) => (
-            <li key={product.id}>
-              <ProductItem product={product} onClickCart={handleClickCart} />
+            <li key={product.productId}>
+              <ProductItem product={product} onClickCart={addItem} />
             </li>
           ))}
         </Styled.ProductList>

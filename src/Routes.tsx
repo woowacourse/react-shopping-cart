@@ -5,6 +5,7 @@ import CartPage from './pages/CartPage/CartPage';
 import OrderPage from './pages/OrderPage/OrderPage';
 import OrderCompletePage from './pages/OrderCompletePage/OrderCompletePage';
 import OrderListPage from './pages/OrderListPage/OrderListPage';
+import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 
 const Routes = (): ReactElement => {
   return (
@@ -12,8 +13,11 @@ const Routes = (): ReactElement => {
       <Route exact path="/">
         <ProductsPage />
       </Route>
-      <Route path="/products">
+      <Route exact path="/products">
         <ProductsPage />
+      </Route>
+      <Route path="/product/:id">
+        <ProductDetailPage />
       </Route>
       <Route path="/cart">
         <CartPage />
