@@ -1,46 +1,32 @@
 import { ActionType, createAction } from "typesafe-actions";
-import { Order, OrderList, RequestError } from "../interface";
+import { Order, OrderRequest } from "../interface";
 
 const orderListActionType = {
   get: {
-    request: "orderList/item/post/request",
-    success: "orderList/item/post/success",
-    failure: "orderList/item/post/failure",
+    request: "orderList/get/request",
+    success: "orderList/get/success",
   },
   item: {
     post: {
-      request: "orderList/get/request",
-      success: "orderList/get/success",
-      failure: "orderList/get/failure",
+      request: "orderList/post/request",
     },
   },
 } as const;
 
-const order = {
-  post: {
-    request: createAction(orderListActionType.item.post.request, (order: Order) => order)<Order>(),
-    success: createAction(orderListActionType.item.post.success)(),
-    failure: createAction(
-      orderListActionType.item.post.failure,
-      (requestErrorMessage: RequestError) => requestErrorMessage
-    )<RequestError>(),
-  },
-};
-
 const orderList = {
   get: {
     request: createAction(orderListActionType.get.request)(),
-    success: createAction(orderListActionType.get.success, (orderList: OrderList) => orderList)<OrderList>(),
-    failure: createAction(
-      orderListActionType.get.failure,
-      (requestErrorMessage: RequestError) => requestErrorMessage
-    )<RequestError>(),
+    success: createAction(orderListActionType.get.success, (orderList: Order[]) => orderList)<Order[]>(),
   },
-  item: { ...order },
+  post: {
+    request: createAction(orderListActionType.item.post.request, (orderRequests: OrderRequest[]) => orderRequests)<
+      OrderRequest[]
+    >(),
+  },
 };
 
-type OrderListActionType = ActionType<typeof orderList.get | typeof order.post>;
-type OrderListItemPostRequestActionType = ActionType<typeof orderList.item.post.request>;
+type OrderListActionType = ActionType<typeof orderList.get | typeof orderList.post>;
+type OrderListItemPostRequestActionType = ActionType<typeof orderList.post.request>;
 
 export default orderList;
 export { orderListActionType };

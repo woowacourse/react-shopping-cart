@@ -1,50 +1,12 @@
-import { Cart, RequestError } from "../../interface";
+import { CartItem } from "../../interface";
 import { CartActionType, cartActionType } from "../../actions/cart";
 
-const initialState: Cart & RequestError = {
-  cart: [],
-  requestErrorMessage: null,
-};
+const initialState: CartItem[] = [];
 
-const cartReducer = (state: Cart & RequestError = initialState, action: CartActionType) => {
+const cartReducer = (state: CartItem[] = initialState, action: CartActionType) => {
   switch (action.type) {
     case cartActionType.get.success:
-      return {
-        ...state,
-        cart: [...action.payload.cart],
-        requestErrorMessage: null,
-      };
-
-    case cartActionType.get.failure:
-      return {
-        ...state,
-        requestErrorMessage: action.payload.requestErrorMessage,
-      };
-
-    case cartActionType.post.success:
-      return {
-        ...state,
-        requestErrorMessage: null,
-      };
-
-    case cartActionType.post.failure:
-      return {
-        ...state,
-        requestErrorMessage: action.payload.requestErrorMessage,
-      };
-
-    case cartActionType.delete.success:
-      return {
-        ...state,
-        requestErrorMessage: null,
-      };
-
-    case cartActionType.delete.failure:
-      return {
-        ...state,
-        requestErrorMessage: action.payload.requestErrorMessage,
-      };
-
+      return action.payload;
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SIZE } from "../../constants/theme";
 import { FlexBetween } from "../../SharedStyled/Flex";
 
 const Container = styled.div`
@@ -36,10 +37,26 @@ const AllDealDelete = styled.div`
 
 const Section = styled.section`
   width: 60%;
+
+  @media (max-width: ${SIZE.VIEW.MEDIUM}) {
+    width: 100%;
+  }
 `;
 
 const CartListTitle = styled.h2`
   padding: 1.625rem 0 1rem;
 `;
 
-export { Container, Main, AllDealControlBox, AllDealSelect, AllDealDelete, Section, CartListTitle };
+const FloatingArea = styled.div`
+  width: fit-content;
+
+  > div {
+    float: right;
+  }
+
+  @media (max-width: ${SIZE.VIEW.MEDIUM}) {
+    width: 100%;
+  }
+`;
+
+export { Container, Main, AllDealControlBox, AllDealSelect, AllDealDelete, Section, CartListTitle, FloatingArea };

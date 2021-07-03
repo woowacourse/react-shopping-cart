@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
-const FlexCenter = (tagName: keyof JSX.IntrinsicElements) => styled[tagName]`
+// keyof JSX.IntrinsicElements
+
+const FlexCenter = (tagName: "div") => styled[tagName]`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const FlexBetween = (tagName: keyof JSX.IntrinsicElements) => styled[tagName]`
+const FlexBetween = (tagName: "div") => styled[tagName]`
   display: flex;
   justify-content: space-between;
 `;

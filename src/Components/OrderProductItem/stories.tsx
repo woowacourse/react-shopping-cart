@@ -14,7 +14,7 @@ const Template: Story<OrderProductItemProps> = (args) => <OrderProductItem {...a
 
 export const Basic = Template.bind({});
 Basic.args = {
-  Image: <ProductImage size="141px" alt="dummy" src="http://via.placeholder.com/282x282" />,
+  Image: <ProductImage size="141px" src="http://via.placeholder.com/282x282" />,
   Button: (
     <Button
       width="8.625rem"

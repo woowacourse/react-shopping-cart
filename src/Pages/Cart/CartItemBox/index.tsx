@@ -1,37 +1,40 @@
-import React, { FC, useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
+import React, { useState, ChangeEventHandler, ChangeEvent, MouseEvent, MouseEventHandler } from "react";
 
 import { ProductImage, CheckBox } from "../../../Components";
-import { Container, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
+import { CART_ITEM_MAX_COUNT, CART_ITEM_MIN_COUNT } from "../../../constants/attrValues";
+import { Li, ProductImageLink, Desc, NameLink, ControlBox, Counter, Svg } from "./style";
 
-interface CartItemProps {
-  id: string;
+interface CartItemBoxProps {
+  id: number;
   name: string;
   price: number;
   quantity: number;
   imageSrc: string;
   isChecked: boolean;
+  onChangeQuantity: ChangeEventHandler<HTMLInputElement>;
   onIncrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onDecrementOrderCount: MouseEventHandler<HTMLButtonElement>;
   onChangeChecked: ChangeEventHandler<HTMLInputElement>;
   onClickDeleteButton: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CartItem: FC<CartItemProps> = ({
+const CartItemBox = ({
   id,
   name,
   price,
   quantity,
   imageSrc,
   isChecked,
+  onChangeQuantity,
   onIncrementOrderCount,
   onDecrementOrderCount,
   onChangeChecked,
   onClickDeleteButton,
-}) => (
-  <Container>
+}: CartItemBoxProps) => (
+  <Li>
     <CheckBox checked={isChecked} onChange={onChangeChecked} />
     <ProductImageLink to={`/cart/${id}`}>
-      <ProductImage size="7.75rem" src={imageSrc} alt={`${name}이미지`} />
+      <ProductImage size="7.75rem" src={imageSrc} aria-label={`${name}이미지`} />
     </ProductImageLink>
     <Desc>
       <NameLink to={`/cart/${id}`}>{name}</NameLink>
@@ -47,7 +50,13 @@ const CartItem: FC<CartItemProps> = ({
         </svg>
       </button>
       <Counter>
-        <input type="number" value={quantity} min="1" max="100" />
+        <input 
+          type="number" 
+          value={quantity} 
+          onChange={onChangeQuantity} 
+          min={CART_ITEM_MIN_COUNT} 
+          max={CART_ITEM_MAX_COUNT} 
+        />
         <div>
           <button type="button" onClick={onIncrementOrderCount}>
             <Svg viewBox="0 0 10 10">
@@ -63,8 +72,8 @@ const CartItem: FC<CartItemProps> = ({
       </Counter>
       <div>{price.toLocaleString("ko-KR")}원</div>
     </ControlBox>
-  </Container>
+  </Li>
 );
 
-export default CartItem;
-export { CartItemProps };
+export default CartItemBox;
+export { CartItemBoxProps };

@@ -5,37 +5,37 @@ interface Product {
 }
 
 interface ProductsObject {
-  products: {
-    [key: string]: Product;
-  };
+  [key: string]: Product;
 }
 
 interface Id {
-  id: string;
+  id: number;
 }
 
-interface CartItem extends Product, Id {
+interface Quantity {
   quantity: number;
 }
+
+interface CartItem extends Product, Id, Quantity {}
 
 interface Cart {
   cart: CartItem[];
 }
 
-interface OrderItem extends Product, Id {
-  quantity: number;
+interface OrderItem extends CartItem {}
+
+interface OrderRequest extends Quantity {
+  cart_id: number;
 }
 
 interface Order extends Id {
   itemList: OrderItem[];
 }
 
-interface OrderList {
-  orderList: Order[];
+interface APIReturnType<T> {
+  isSucceeded: boolean;
+  message: string;
+  result: T;
 }
 
-interface RequestError {
-  requestErrorMessage: string | null;
-}
-
-export { Product, ProductsObject, Id, CartItem, Cart, Order, OrderList, RequestError };
+export { Product, ProductsObject, Id, CartItem, Cart, OrderRequest, Order, APIReturnType };

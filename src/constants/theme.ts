@@ -23,6 +23,9 @@ const SIZE = {
   BUTTON: {
     PRODUCT_DETAIL: { WIDTH: "40rem", HEIGHT: "6rem", FONT: "2rem" },
   },
+  VIEW: {
+    MEDIUM: "80rem",
+  },
 };
 
 export { COLOR, SIZE };

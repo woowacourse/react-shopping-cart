@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement, FC } from "react";
+import React, { MouseEventHandler, ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import { ProductImageProps } from "../ProductImage";
@@ -7,24 +7,24 @@ import { COLOR, SIZE } from "../../constants/theme";
 import { Container, ItemInfoWrap, Desc, Name, Price } from "./style";
 
 interface ProductProps {
-  id: string;
+  id: number;
   Image: ReactElement<ProductImageProps>;
   name: string;
   price: number;
   onClickCart: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Product: FC<ProductProps> = ({ id, Image, name, price, onClickCart }) => (
+const Product = ({ id, Image, name, price, onClickCart }: ProductProps) => (
   <Container>
-    <Link to={`/products/${id}`}>{Image}</Link>
+    <Link to={`/products?productId=${id}`}>{Image}</Link>
     <ItemInfoWrap>
-      <Link to={`/products/${id}`}>
+      <Link to={`/products?productId=${id}`}>
         <Desc>
           <Name>{name}</Name>
           <Price>{price.toLocaleString("ko-KR")}원</Price>
         </Desc>
       </Link>
-      <button type="button" data-product-id={id} onClick={onClickCart}>
+      <button type="button" onClick={onClickCart}>
         <Icon.Cart size={SIZE.ICON.CART.SM} color={COLOR.GRAY_600} />
       </button>
     </ItemInfoWrap>

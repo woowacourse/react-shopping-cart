@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -8,9 +8,21 @@ import PageTitle from "../../Components/PageTitle";
 import SubmitBox from "../../Components/SubmitBox";
 import { COLOR } from "../../constants/theme";
 
-import CartItem from "./CartItem";
+import CartItemBox from "./CartItemBox";
 import { RootState } from "../../store";
-import { Container, Main, AllDealControlBox, Section, AllDealSelect, AllDealDelete, CartListTitle } from "./styles";
+import {
+  Container,
+  Main,
+  AllDealControlBox,
+  Section,
+  AllDealSelect,
+  AllDealDelete,
+  CartListTitle,
+  FloatingArea,
+} from "./styles";
+import { CartItem } from "../../interface";
+import { CONFIRM_MESSAGE } from "../../constants/message";
+import { CART_ITEM_MAX_COUNT, CART_ITEM_MIN_COUNT } from "../../constants/attrValues";
 
 interface CheckedList {
   [key: string]: boolean;
@@ -20,17 +32,13 @@ interface OrderCountList {
   [key: string]: number;
 }
 
-const Cart: FC = () => {
+const Cart = () => {
   const [checkedList, setCheckedList] = useState<CheckedList>({});
   const [orderCountList, setOrderCountList] = useState<OrderCountList>({});
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // TODO: 에러 어떻게 처리?
-  const { cart, requestErrorMessage } = useSelector(({ cart: { cart, requestErrorMessage } }: RootState) => ({
-    cart,
-    requestErrorMessage,
-  }));
+  const cart: CartItem[] = useSelector((state: RootState) => state.cart);
 
   const totalPrice = cart.reduce((acc, { id, price }) => {
     return checkedList[id] ? (acc + price) * orderCountList[id] : acc;
@@ -74,16 +82,27 @@ const Cart: FC = () => {
     setCheckedListAll(checkedCount !== cart.length);
   };
 
-  const onChangeChecked = (id: string) => {
+  const onChangeChecked = (id: number) => {
     setCheckedList((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const onClickDeleteSelectedButton = () => {
-    const selectedIds = Object.keys(checkedList).filter((id) => checkedList[id]);
-    dispatch(actions.cart.delete.request(selectedIds));
+  const onClickDeleteButton = (id: number) => {
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      dispatch(actions.cart.delete.request([id]));
+    }
   };
 
-  const onIncrementOrderCount = (id: string) => {
+  const onClickDeleteSelectedButton = () => {
+    if (window.confirm(CONFIRM_MESSAGE.DELETE)) {
+      const selectedIds = Object.keys(checkedList)
+        .filter((id) => checkedList[id])
+        .map((id) => Number(id));
+
+      dispatch(actions.cart.delete.request(selectedIds));
+    }
+  };
+
+  const onIncrementOrderCount = (id: number) => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
 
@@ -98,7 +117,7 @@ const Cart: FC = () => {
     });
   };
 
-  const onDecrementOrderCount = (id: string) => {
+  const onDecrementOrderCount = (id: number) => {
     setOrderCountList((prev) => {
       const prevCount = prev[id];
 
@@ -113,9 +132,22 @@ const Cart: FC = () => {
     });
   };
 
+  const onChangeQuantity = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+
+    if (value < CART_ITEM_MIN_COUNT || value > CART_ITEM_MAX_COUNT) {
+      return;
+    }
+
+    setOrderCountList((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
   const onClickSubmitButton = () => {
     history.push("/order", {
-      order: cart.filter(({ id }) => checkedList[id]).map((item) => ({ ...item, quantity: orderCountList[item.id] })),
+      orders: cart.filter(({ id }) => checkedList[id]).map((item) => ({ ...item, quantity: orderCountList[item.id] })),
       totalPrice,
     });
   };
@@ -156,34 +188,33 @@ const Cart: FC = () => {
           <CartListTitle>든든상품 ({cart.length} 개)</CartListTitle>
           <ul>
             {cart.map(({ id, name, price, imageSrc }) => (
-              <li key={id}>
-                <CartItem
-                  id={id}
-                  name={name}
-                  price={price}
-                  imageSrc={imageSrc}
-                  isChecked={checkedList[id]}
-                  quantity={orderCountList[id]}
-                  onIncrementOrderCount={() => onIncrementOrderCount(id)}
-                  onDecrementOrderCount={() => onDecrementOrderCount(id)}
-                  onChangeChecked={() => onChangeChecked(id)}
-                  onClickDeleteButton={() => {
-                    dispatch(actions.cart.delete.request([id]));
-                  }}
-                />
-              </li>
+              <CartItemBox
+                key={id}
+                id={id}
+                name={name}
+                price={price}
+                imageSrc={imageSrc}
+                isChecked={checkedList[id]}
+                quantity={orderCountList[id]}
+                onChangeQuantity={onChangeQuantity(id)}
+                onIncrementOrderCount={() => onIncrementOrderCount(id)}
+                onDecrementOrderCount={() => onDecrementOrderCount(id)}
+                onChangeChecked={() => onChangeChecked(id)}
+                onClickDeleteButton={() => onClickDeleteButton(id)}
+              />
             ))}
           </ul>
         </Section>
-        {/* TODO Position: relative <-> fixed */}
-        <SubmitBox
-          title="결제예상금액"
-          width="448px"
-          height="318px"
-          target={{ name: "결제예상금액", value: `${totalPrice}원` }}
-          buttonName={`주문하기(${getCheckedCount()}개)`}
-          onClickSubmitButton={onClickSubmitButton}
-        />
+        <FloatingArea>
+          <SubmitBox
+            title="결제예상금액"
+            width="448px"
+            height="318px"
+            target={{ name: "결제예상금액", value: `${totalPrice.toLocaleString("ko-KR")}원` }}
+            buttonName={`주문하기(${getCheckedCount()}개)`}
+            onClickSubmitButton={onClickSubmitButton}
+          />
+        </FloatingArea>
       </Main>
     </Container>
   );

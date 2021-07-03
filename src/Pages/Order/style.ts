@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SIZE } from "../../constants/theme";
 import { FlexBetween } from "../../SharedStyled/Flex";
 
 const Container = styled.div`
@@ -22,6 +23,22 @@ const Main = styled(FlexBetween("div"))`
 
 const Section = styled.section`
   width: 60%;
+
+  @media (max-width: ${SIZE.VIEW.MEDIUM}) {
+    width: 100%;
+  }
 `;
 
-export { Container, OrderListTitle, Section, Main };
+const FloatingArea = styled.div`
+  width: fit-content;
+
+  > div {
+    float: right;
+  }
+
+  @media (max-width: ${SIZE.VIEW.MEDIUM}) {
+    width: 100%;
+  }
+`;
+
+export { Container, OrderListTitle, Section, Main, FloatingArea };

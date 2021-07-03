@@ -2,18 +2,24 @@ import styled from "styled-components";
 
 interface ImageProps {
   size: string;
+  src: string;
 }
 
 const Container = styled.div<ImageProps>`
-  ${({ size }) => `width: ${size}; 
-    height: ${size};
-  `}
+  ${({ size }) => `width: ${size}; `}
+  padding-top: 100%;
   position: relative;
-  overflow: hidden;
-`;
 
-const Img = styled.img<ImageProps>`
-  ${({ size }) => `width: ${size};`}
+  :after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: center / cover no-repeat url("${({ src }) => src ?? "" }");
+  }
 `;
 
 const Background = styled.div`
@@ -25,4 +31,4 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
 `;
 
-export { Container, Img, ImageProps, Background };
+export { Container, ImageProps, Background };

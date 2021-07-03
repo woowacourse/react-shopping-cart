@@ -32,7 +32,7 @@
 ```ts
   {
     cart: {
-      id: string;
+      id: number;
       name: string;
       price: number;
       imageSrc: string;
@@ -46,7 +46,7 @@
     orderList: {
       id: number
       itemList: {
-        id: string;
+        id: number;
         name: string;
         price: number;
         imageSrc: string;

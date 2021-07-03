@@ -5,12 +5,12 @@ import { throwError } from "redux-saga-test-plan/providers";
 import actions from "../../actions";
 import api from "../../apis";
 import watchOrderList from ".";
-import { Order, OrderList } from "../../interface";
+import { APIReturnType, Order } from "../../interface";
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../constants/message";
 
-const orderList: OrderList = {
-  orderList: [
+const orderList: Order[] = [
     {
-      id: "1",
+      id: 1,
       itemList: [
         {
           id: "1",
@@ -29,17 +29,17 @@ const orderList: OrderList = {
       ],
     },
     {
-      id: "2",
+      id: 2,
       itemList: [
         {
-          id: "1",
+          id: 1,
           name: "[든든] 유부 슬라이스 500g",
           imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
           price: 4900,
           quantity: 4,
         },
         {
-          id: "2",
+          id: 2,
           name: "[든든] 유부 슬라이스 500g",
           imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
           price: 4900,
@@ -47,59 +47,59 @@ const orderList: OrderList = {
         },
       ],
     },
-  ],
-};
+  ];
 
-const order: Order = {
-  id: "2",
-  itemList: [
-    {
-      id: "1",
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-      quantity: 4,
-    },
-    {
-      id: "2",
-      name: "[든든] 유부 슬라이스 500g",
-      imageSrc: "https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png",
-      price: 4900,
-      quantity: 1,
-    },
-  ],
-};
+const orderRequests = [
+  {
+    cart_id: 1,
+    quantity: 4,
+  },
+];
 
-const errormessage = "getOrderList failed";
+describe("orderList saga test", () => {
+  it("should getOrderList success", () => {
+    const result: Order[] = orderList;
+    const response: APIReturnType<Order[]> = {
+      isSucceeded: true,
+      message: "",
+      result,
+    };
 
-it("should getOrderList success", () => {
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.get.request())
-    .provide([[call(api.orderList.get), orderList]])
-    .put(actions.orderList.get.success(orderList))
-    .run();
-});
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.get.request())
+      .provide([[call(api.orderList.get), response]])
+      .put(actions.orderList.get.success(result))
+      .run();
+  });
 
-it("should getOrderList fail", () => {
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.get.request())
-    .provide([[call(api.orderList.get), throwError(Error(errormessage))]])
-    .put(actions.orderList.get.failure({ requestErrorMessage: errormessage }))
-    .run();
-});
+  it("should getOrderList fail", () => {
+    const message = ERROR_MESSAGE.BAD_RESPONSE;
+    const response: APIReturnType<null> = {
+      isSucceeded: false,
+      message,
+      result: null,
+    };
 
-it("should postOrderList success", () => {
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.item.post.request(order))
-    .provide([[call(api.orderList.item.post, order), {}]])
-    .put(actions.orderList.item.post.success())
-    .run();
-});
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.get.request())
+      .provide([[call(api.orderList.get), response]])
+      .put(actions.alert.request(message))
+      .run();
+  });
 
-it("should postOrderList fail", () => {
-  return expectSaga(watchOrderList)
-    .dispatch(actions.orderList.item.post.request(order))
-    .provide([[call(api.orderList.item.post, order), throwError(Error(errormessage))]])
-    .put(actions.orderList.item.post.failure({ requestErrorMessage: errormessage }))
-    .run();
+  it("should postOrderList", () => {
+    const message = SUCCESS_MESSAGE.POST_ORDER;
+    const response: APIReturnType<null> = {
+      isSucceeded: true,
+      message,
+      result: null,
+    };;
+
+    return expectSaga(watchOrderList)
+      .dispatch(actions.orderList.post.request(orderRequests))
+      .provide([[call(api.orderList.post, orderRequests), response]])
+      .put(actions.orderList.get.request())
+      .put(actions.alert.request(message))
+      .run();
+  });
 });

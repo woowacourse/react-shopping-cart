@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { Icon } from "..";
 import { COLOR, SIZE } from "../../constants/theme";
 import { Container, Inner, Flex, H1, NavigationItem } from "./style";
 
-const Header: FC = () => (
+const Header = () => (
   <Container>
     <Inner>
       <Link to="/">
@@ -16,7 +16,7 @@ const Header: FC = () => (
       </Link>
       <nav>
         <NavigationItem to="/cart">장바구니</NavigationItem>
-        <NavigationItem to="/order-list">주문목록</NavigationItem>
+        <NavigationItem to="/orderlog">주문목록</NavigationItem>
       </nav>
     </Inner>
   </Container>
