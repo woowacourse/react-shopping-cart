@@ -17,11 +17,19 @@ const GlobalStyles = () => (
         box-sizing: border-box;
         font-family: NotoSansKR;
       }
+      p {
+        cursor: default;
+      }
 
       a {
+        cursor: pointer;
         color: #fff;
         text-decoration: none;
         outline: none;
+      }
+
+      button {
+        cursor: pointer;
       }
     `}
   />

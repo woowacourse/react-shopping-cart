@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import * as S from "./index.styles";
+import { ReactComponent as Logo } from "../../assets/image/cart.svg";
 
 const Header = () => {
   return (
     <S.Header>
       <Link to="/">
         <div>
-          <S.Image
-            src={process.env.PUBLIC_URL + "/assets/images/cart.svg"}
-            alt={"로고이미지"}
-          />
+          <S.LogoContainer>
+            <Logo width="50px" fill="white" />
+          </S.LogoContainer>
           <S.HomeTitle>WOOWA SHOP</S.HomeTitle>
         </div>
       </Link>

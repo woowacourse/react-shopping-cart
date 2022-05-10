@@ -10,15 +10,9 @@ export const Header = styled.header`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
-export const Image = styled.img`
-  margin-right: 6px;
-  width: 50px;
+export const LogoContainer = styled.div`
+  display: inline-block;
   transform: translateY(5px);
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 12px;
-  text-align: center;
 `;
 
 export const HomeTitle = styled.h1`
@@ -29,9 +23,15 @@ export const HomeTitle = styled.h1`
   letter-spacing: 0em;
   margin: 0;
   padding: 0;
+  margin-left: 6px;
 `;
 
 export const NavContainer = styled.nav`
   display: flex;
   gap: 43px;
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 12px;
+  text-align: center;
 `;
