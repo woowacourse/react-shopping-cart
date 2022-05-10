@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './App.css';
 import './store/index';
 import { actionTypes } from './store/actionTypes';
@@ -9,8 +9,6 @@ import Header from './components/Header';
 
 function App() {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
-  console.log('productList', productList);
 
   useEffect(() => {
     dispatch({
