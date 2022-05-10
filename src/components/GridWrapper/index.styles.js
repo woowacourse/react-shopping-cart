@@ -6,4 +6,5 @@ export const GridWrapper = styled.div`
   grid-gap: 25px 45px;
   width: 100%;
   height: 100%;
+  justify-items: center;
 `;

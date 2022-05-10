@@ -9,7 +9,7 @@ export const ItemContainer = styled.div`
   &:hover {
     transition: 0.3s;
     background-color: #f2efef;
-    p:first-child {
+    p:first-of-type {
       text-decoration: underline;
       text-decoration-color: #666;
     }
@@ -26,6 +26,7 @@ export const ItemImage = styled.img`
 
 export const ItemInfoWrapper = styled.div`
   width: 100%;
+  max-width: 280px;
   height: 80px;
   display: flex;
   justify-content: space-between;

@@ -8,7 +8,7 @@ const Header = () => {
       <Link to="/">
         <div>
           <S.LogoContainer>
-            <Logo width="50px" fill="white" />
+            <Logo width="50px" height="50px" fill="white" />
           </S.LogoContainer>
           <S.HomeTitle>WOOWA SHOP</S.HomeTitle>
         </div>

@@ -7,7 +7,11 @@ export const Header = styled.header`
   background-color: #2ac1bc;
   color: #fff;
   padding: 10px 15%;
+  margin-bottom: 60px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 export const LogoContainer = styled.div`

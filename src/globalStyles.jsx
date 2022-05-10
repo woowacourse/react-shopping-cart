@@ -16,7 +16,10 @@ const GlobalStyles = () => (
       * {
         box-sizing: border-box;
         font-family: NotoSansKR;
+        margin: 0;
+        padding: 0;
       }
+
       p {
         cursor: default;
       }
@@ -30,6 +33,9 @@ const GlobalStyles = () => (
 
       button {
         cursor: pointer;
+      }
+      .App {
+        padding: 0 15%;
       }
     `}
   />
