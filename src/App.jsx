@@ -1,7 +1,8 @@
 import React from 'react';
 import reset from 'styled-reset';
-import {createGlobalStyle} from 'styled-components';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import Header from 'component/common/Header';
+import theme from 'theme/theme';
 
 export const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -18,10 +19,13 @@ export const GlobalStyles = createGlobalStyle`
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyles />
-      <Header />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <GlobalStyles />
+        <Header />
+        <div>한글</div>
+      </div>
+    </ThemeProvider>
   );
 }
 
