@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
-import './index.css';
 import App from './App';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
