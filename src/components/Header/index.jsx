@@ -17,6 +17,7 @@ const HeaderContainer = styled.header`
   height: 80px;
   padding: 0 20px;
   background-color: ${({ theme }) => theme.point};
+  box-shadow: 0 4px 10px 2px #bbb;
 `;
 
 const NavButtonWrapper = styled.nav`
