@@ -10,7 +10,7 @@ const StyledCart = styled(Cart)`
     fill: black;
   }
 
-  &:hover {
+  :hover {
     & path {
       fill: ${({ theme }) => theme.colors.cyon};
     }
@@ -22,7 +22,7 @@ const ProductCardInfoBox = styled.div`
   flex-direction: column;
   gap: 5px;
 
-  &:hover {
+  :hover {
     text-decoration: underline;
   }
 `;
@@ -32,6 +32,7 @@ const ProductCardInfoContainer = styled.div`
   cursor: pointer;
   justify-content: space-between;
   align-items: center;
+  width: 188px;
 `;
 
 function ProductCardInfo({ name, price }) {
