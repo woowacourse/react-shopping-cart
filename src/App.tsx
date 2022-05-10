@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ItemDetail from './pages/ItemDetail';
-import ItemList from './pages/ItemList';
-import NotFound from './pages/NotFound';
+import ItemDetail from 'pages/ItemDetail';
+import ItemList from 'pages/ItemList';
+import NotFound from 'pages/NotFound';
 import styled from 'styled-components';
-import Header from './components/common/Header';
+import Header from 'components/common/Header';
 
 function App() {
   return (

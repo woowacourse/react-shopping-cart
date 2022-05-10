@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import cartIcon from '../../assets/cartIcon.svg';
-import CroppedImage from '../common/CroppedImage';
+import CroppedImage from 'components/common/CroppedImage';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import theme from 'styles/theme';
 

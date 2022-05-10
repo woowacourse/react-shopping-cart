@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getItemList } from '../redux/action-creators/itemListThunk';
-import { RootState } from '../redux/reducers';
-import ItemContainer from '../components/ItemList/ItemContainer';
+import { getItemList } from 'redux/action-creators/itemListThunk';
+import { RootState } from 'redux/reducers';
+import ItemContainer from 'components/ItemList/ItemContainer';
 import styled from 'styled-components';
 
 const ItemList = () => {
