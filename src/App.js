@@ -7,7 +7,6 @@ import Header from 'components/header/Header';
 import ShoppingCartIcon from 'components/shared/icon/ShoppingCartIcon';
 
 const StyledRoutes = styled.div`
-  height: 100%;
   display: flex;
   justify-content: center;
   background-color: gray;
