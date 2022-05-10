@@ -35,7 +35,8 @@ const StyledRoot = styled.div`
   width: 1300px;
   display: flex;
   flex-wrap: wrap;
-  gap: 2.7rem 4.7rem;
+  margin: auto;
+  gap: 2.7rem 5.73rem;
 `;
 
 export default ItemList;
