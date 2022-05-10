@@ -1,3 +1,3 @@
-const Footer = () => <div>사장 : 콤세지</div>;
+const Footer = () => <footer>사장 : 콤세지</footer>;
 
 export default Footer;
