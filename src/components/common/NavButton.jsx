@@ -6,13 +6,13 @@ const StyledNavButton = styled.button`
 
   background-color: transparent;
   border: none;
-  color: #fff;
+  color: ${(props) => props.theme.main};
   font-size: 1.5rem;
   text-align: center;
   cursor: pointer;
 
   :hover {
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid ${(props) => props.theme.main};
   }
 `;
 
