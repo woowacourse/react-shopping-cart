@@ -1,12 +1,13 @@
 import { ThemeProvider } from "styled-components";
-import NavButton from "./components/common/NavButton";
 import { theme } from "./style";
+
+import Header from "./components/Header";
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <NavButton />
+        <Header />
       </ThemeProvider>
     </div>
   );

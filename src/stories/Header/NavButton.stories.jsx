@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "../components/Header";
+import NavButton from "../../components/Header/NavButton";
 
 export default {
-  title: "Component/Header",
-  component: Header,
+  title: "Component/NavButton",
+  component: NavButton,
   argTypes: {
     children: { controls: "text" },
   },
 };
 
-const Template = (args) => <Header {...args} />;
+const Template = (args) => <NavButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
