@@ -26,3 +26,25 @@
   - [ ] 스크롤 후 상품 목록이 불러와 지는 동안 스켈레톤 UI를 사용자에게 보여준다.
   - [ ] 사용자가 스크롤 했을 시 상품 목록은 12개가 불러와진다.
   - [ ] 불러올 상품이 없을 때 `없음` 이미지를 보여준다.
+
+<br>
+
+## 구조
+
+#### App
+
+- Header
+- Routes
+
+### 디렉토리 구조
+
+#### page
+
+- ProductListPage
+
+#### components
+
+- shared
+  - Button
+  - Header
+- ProductItem
