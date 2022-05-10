@@ -1,23 +1,30 @@
 import styled from 'styled-components';
+import PropType from 'prop-types';
 import ProductImage from './ProductImage';
 import CartIcon from '../common/styles/CartIcon';
 import { CART_ICON_SIZE } from '../../constants';
 
-// props로 id를 받고, api call을 통해 상품 데이터를 가져올 예정
-function Product() {
+function Product({ id, src, price, title }) {
   return (
     <div>
-      <ProductImage src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[72]_20210415140949967.jpg" />
+      <ProductImage src={src} />
       <Styled.ProductInfoContainer>
         <Styled.ProductInfoWrapper>
-          <Styled.ProductName>PET보틀-정사각(420ml)</Styled.ProductName>
-          <span className="product-info__price">43,000원</span>
+          <Styled.ProductName>{title}</Styled.ProductName>
+          <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
         </Styled.ProductInfoWrapper>
-        <CartIcon size={CART_ICON_SIZE.SMALL} color="black" />
+        <CartIcon size={CART_ICON_SIZE.SMALL} color="black" isButton />
       </Styled.ProductInfoContainer>
     </div>
   );
 }
+
+Product.propTypes = {
+  id: PropType.string.isRequired,
+  src: PropType.string.isRequired,
+  title: PropType.string.isRequired,
+  price: PropType.string.isRequired,
+};
 
 export default Product;
 
@@ -27,12 +34,20 @@ const Styled = {
     justify-content: space-between;
     width: 280px;
     padding: 5px;
+    align-items: center;
   `,
   ProductInfoWrapper: styled.div`
     display: flex;
     flex-direction: column;
   `,
   ProductName: styled.span`
-    font-size: 12px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  `,
+  ProductPrice: styled.span`
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
   `,
 };

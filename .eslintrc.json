@@ -13,7 +13,11 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/react-in-jsx-scope": "warn",
+    "react/jsx-props-no-spreading": "warn",
+    "object-curly-newline": "warn",
+    "indent": "warn",
+    "no-confusing-arrow": "warn",
+    "no-unused-vars": "warn"
   }
 }
