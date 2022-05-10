@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from '../common/Button/Button';
+import Button from 'component/common/Button/Button';
 
 const StyledNavBar = styled.div`
   width: 100%;
