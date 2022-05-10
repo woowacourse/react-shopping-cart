@@ -11,7 +11,6 @@
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "prettier/prettier": "error",
     "import/no-anonymous-default-export": 0,
     "no-multiple-empty-lines": ["error", { "max": 1 }],
     "eol-last": ["error", "always"],
@@ -31,7 +30,8 @@
     "@typescript-eslint/no-empty-function": ["off"],
     "react/prop-types": "off",
     "quotes": ["error", "single"],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }]
   },
   "settings": {
     "import/resolver": {
