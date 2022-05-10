@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import MenuItem from 'components/MenuItem/MenuItem';
-import shoppingCartLogo from '../../../assets/svg/shoppingCartLogo.svg';
+import bigCart from '../../../assets/svg/bigCart.svg';
 
 const Header = () => {
   return (
     <Styled.Wrapper>
       <Styled.Logo>
-        <Styled.LogoImage src={shoppingCartLogo} alt="로고" />
+        <Styled.LogoImage src={bigCart} alt="로고" />
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>

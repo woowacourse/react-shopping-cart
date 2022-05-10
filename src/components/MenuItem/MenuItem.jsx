@@ -9,8 +9,6 @@ MenuItem.propTypes = {
   children: PropTypes.string,
 };
 
-export default MenuItem;
-
 const Styled = {
   Wrapper: styled.div`
     display: flex;
@@ -22,3 +20,5 @@ const Styled = {
     cursor: pointer;
   `,
 };
+
+export default MenuItem;
