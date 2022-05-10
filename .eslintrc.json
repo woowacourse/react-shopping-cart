@@ -7,5 +7,13 @@
         "namedComponents": "function-declaration"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
 }
