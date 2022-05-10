@@ -3,6 +3,10 @@ const colors = {
   font: '#333333',
 };
 
-const theme = { colors };
+const size = {
+  fullContentWidth: '1320px',
+};
+
+const theme = { colors, size };
 
 export default theme;

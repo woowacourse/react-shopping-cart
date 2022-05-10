@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import cartIcon from '../../assets/cartIcon.svg';
-import CroppedImage from '../elements/CroppedImage';
+import CroppedImage from '../common/CroppedImage';
+import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
+import theme from 'styles/theme';
 
 interface ItemContainerProps {
   thumbnailUrl: string;
@@ -17,7 +19,7 @@ const ItemContainer = ({ thumbnailUrl, title, price }: ItemContainerProps) => {
           <StyledTitle>{title}</StyledTitle>
           <StyledPrice>{price}</StyledPrice>
         </StyledDescription>
-        <StyledCartButton src={cartIcon}></StyledCartButton>
+        <CartIcon width='31px' fill={theme.colors.font} />
       </StyledBottom>
     </StyledRoot>
   );
@@ -37,6 +39,7 @@ const StyledBottom = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
+  align-items: center;
 `;
 
 const StyledDescription = styled.div``;
@@ -47,8 +50,4 @@ const StyledTitle = styled.p`
 
 const StyledPrice = styled.p`
   font-size: 2rem;
-`;
-
-const StyledCartButton = styled.img`
-  width: 31px;
 `;
