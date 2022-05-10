@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { ReactComponent as HeaderLogo } from 'assets/HeaderLogo.svg';
+import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 const Styled = {
   Wrapper: styled.header`
@@ -13,11 +13,18 @@ const Styled = {
     height: 80px;
     color: #fff;
   `,
-
   LogoBox: styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+
+    svg {
+      width: 50px;
+      height: 40px;
+      & path {
+        fill: white;
+      }
+    }
   `,
   Title: styled.h1`
     font-weight: 900;
@@ -37,7 +44,7 @@ const Header = () => {
   return (
     <Styled.Wrapper>
       <Styled.LogoBox>
-        <HeaderLogo />
+        <CartIcon />
         <Styled.Title>WOOWA SHOP</Styled.Title>
       </Styled.LogoBox>
       <Styled.MenuBox>

@@ -17,7 +17,7 @@
 
 - [x] Button 컴포넌트
 - [x] Header 컴포넌트
-- [ ] Product 컴포넌트
+- [x] Product 컴포넌트
 - [ ] HomePage 컴포넌트
 
 <br>

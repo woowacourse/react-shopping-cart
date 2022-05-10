@@ -10,8 +10,20 @@ const Styled = {
   `,
 };
 
-const Button = () => {
-  return <Styled.Button>test</Styled.Button>;
+export const CartButton = styled(Styled.Button)`
+  &:hover {
+    svg path {
+      fill: #2ac1bc;
+    }
+  }
+`;
+
+const Button = ({ children }) => {
+  return <Styled.Button>{children}</Styled.Button>;
+};
+
+Button.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export default Button;
