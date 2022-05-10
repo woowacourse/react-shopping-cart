@@ -11,7 +11,7 @@ export default function Button({children, type = 'button', onClick, ...rest}) {
 }
 
 Button.propTypes = {
-  children: PropTypes.oneOf(['string', 'svg']),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   type: PropTypes.string,
   onClick: PropTypes.func,
 };
