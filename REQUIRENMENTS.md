@@ -1,9 +1,10 @@
 # 장바구니
 
-- [ ] CDD - 컴포넌트 개발
-  - [ ] 헤더 컴포넌트 만들기
-  - [ ] 메뉴 컴포넌트 만들기
-  - [ ] Search Product 컴포넌트 만들기
+- [x] CDD - 컴포넌트 개발
+  - [x] Header 컴포넌트 만들기
+  - [x] MenuItem 컴포넌트 만들기
+  - [x] ProductItem 컴포넌트 만들기
+  - [x] ProductsContainer 컴포넌트 만들기
 - [ ] Mock Data 만들기
 
 - [ ] 라우팅
