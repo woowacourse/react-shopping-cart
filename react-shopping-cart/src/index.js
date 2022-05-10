@@ -7,13 +7,16 @@ import GlobalStyle from "./styles/GlobalStyle";
 import theme from "./styles/theme";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import ErrorBoundary from "./component/@shared/ErrorBoundary/ErrorBoundary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <GlobalStyle />
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <ErrorBoundary fallback={<div>에러입니다.</div>}>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </ErrorBoundary>
   </Provider>
 );

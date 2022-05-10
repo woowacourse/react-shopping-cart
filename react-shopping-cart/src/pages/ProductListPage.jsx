@@ -28,6 +28,12 @@ function ProductListPage() {
     dispatch(fetchProductsStart());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (error) {
+      throw new Error(error);
+    }
+  }, [error]);
+
   return (
     <WithSpinner loading={loading}>
       <GridContainer>
