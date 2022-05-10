@@ -5,7 +5,8 @@
   - [x] MenuItem 컴포넌트 만들기
   - [x] ProductItem 컴포넌트 만들기
   - [x] ProductsContainer 컴포넌트 만들기
-- [ ] Mock Data 만들기
+  - [x] ProductList Page 컴포넌트 만들기
+- [x] Mock Data 만들기
 
 - [ ] 라우팅
   - 장바구니 페이지

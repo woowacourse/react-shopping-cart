@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import MenuItem from 'components/MenuItem/MenuItem';
-import bigCart from '../../../assets/svg/bigCart.svg';
+import bigCart from 'assets/svg/bigCart.svg';
 
 const Header = () => {
   return (

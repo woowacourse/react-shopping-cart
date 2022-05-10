@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import smallCart from '../../../assets/svg/smallCart.svg';
+import smallCart from 'assets/svg/smallCart.svg';
 
 const ProductItem = ({ name, price, imgUrl }) => {
   return (
@@ -26,7 +26,9 @@ ProductItem.propTypes = {
 };
 
 const Styled = {
-  Wrapper: styled.div``,
+  Wrapper: styled.div`
+    width: 200px;
+  `,
 
   ProductImage: styled.img`
     max-width: 100%;
@@ -36,7 +38,7 @@ const Styled = {
     display: flex;
     justify-content: space-between;
     padding: 5px;
-    width: 280px;
+    width: 100%;
   `,
 
   ProductInfo: styled.div`
@@ -45,11 +47,16 @@ const Styled = {
   `,
 
   ProductName: styled.span`
-    font-size: 16px;
+    font-size: 14px;
+    width: 147px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   `,
 
   ProductPrice: styled.span`
-    font-size: 20px;
+    font-size: 18px;
   `,
 
   CartButton: styled.button`
