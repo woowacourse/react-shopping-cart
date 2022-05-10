@@ -3,10 +3,16 @@ import styled from "@emotion/styled";
 export const ItemContainer = styled.div`
   width: 280px;
   height: 360px;
+  border-radius: 5px;
+  padding: 10px 3px 0 3px;
+  cursor: pointer;
   &:hover {
-    transition: 1s;
-    transform: translateY(-5px);
-    opacity: 0.9;
+    transition: 0.3s;
+    background-color: #f2efef;
+    p:first-child {
+      text-decoration: underline;
+      text-decoration-color: #666;
+    }
   }
 `;
 
