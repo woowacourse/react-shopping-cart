@@ -15,7 +15,7 @@
 
 ### 컴포넌트 구성
 
-- [ ] Button 컴포넌트
+- [x] Button 컴포넌트
 - [ ] Header 컴포넌트
 - [ ] Product 컴포넌트
 - [ ] HomePage 컴포넌트
