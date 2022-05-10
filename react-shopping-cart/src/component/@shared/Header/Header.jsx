@@ -8,6 +8,7 @@ const Header = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.cyon};
   justify-content: space-between;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
 export default Header;
