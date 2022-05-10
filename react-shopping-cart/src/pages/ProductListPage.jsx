@@ -8,6 +8,7 @@ import {
 } from "../redux/products/products.selector";
 import { useEffect } from "react";
 import { fetchProductsStart } from "../redux/products/products.action";
+import WithSpinner from "../component/@shared/WithSpinner/WithSpinner";
 
 const GridContainer = styled.div`
   display: grid;
@@ -28,15 +29,13 @@ function ProductListPage() {
   }, [dispatch]);
 
   return (
-    <GridContainer>
-      {loading ? (
-        <div>로딩중입니다</div>
-      ) : (
-        products.map(({ id, name, image, price }) => (
+    <WithSpinner loading={loading}>
+      <GridContainer>
+        {products.map(({ id, name, image, price }) => (
           <ProductCard key={id} name={name} thumbnail={image} price={price} />
-        ))
-      )}
-    </GridContainer>
+        ))}
+      </GridContainer>
+    </WithSpinner>
   );
 }
 

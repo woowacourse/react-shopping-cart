@@ -5,6 +5,7 @@ export const RowFlexWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: ${({ width }) => width};
+  height: ${({ height }) => height};
   gap: ${({ gap }) => gap};
   margin-top: ${({ mt }) => mt};
   margin-bottom: ${({ mb }) => mb};
@@ -19,6 +20,7 @@ export const ColumnFlexWrapper = styled.div`
   align-items: center;
   gap: ${({ gap }) => gap};
   width: ${({ width }) => width};
+  height: ${({ height }) => height};
   margin-top: ${({ mt }) => mt};
   margin-bottom: ${({ mb }) => mb};
   margin-left: ${({ ml }) => ml};
