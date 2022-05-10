@@ -1,0 +1,9 @@
+{
+  "short_name": "Shopping Cart",
+  "name": "Shopping Cart",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
