@@ -4,6 +4,7 @@ import { ReactComponent as Cart } from "./assets/cart.svg";
 import { RowFlexWrapper } from "./styles/Wrapper";
 import NavigateButton from "./component/@shared/NavigateButton/NavigateButton";
 import ProductListPage from "./pages/ProductListPage";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -18,9 +19,17 @@ function App() {
           <NavigateButton>주문목록</NavigateButton>
         </RowFlexWrapper>
       </Header>
-      <RowFlexWrapper>
-        <ProductListPage />
-      </RowFlexWrapper>
+      <Routes>
+        <Route
+          element={
+            <RowFlexWrapper>
+              <ProductListPage />
+            </RowFlexWrapper>
+          }
+          path="/"
+        />
+        <Route path="/:id" />
+      </Routes>
     </>
   );
 }
