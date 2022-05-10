@@ -40,7 +40,7 @@ function ProductCardInfo({ name, price }) {
     <ProductCardInfoContainer>
       <ProductCardInfoBox>
         <ProductName type="card">{name}</ProductName>
-        <ProductPrice type="card">{price}</ProductPrice>
+        <ProductPrice type="card">{price}원</ProductPrice>
       </ProductCardInfoBox>
       <StyledCart />
     </ProductCardInfoContainer>
