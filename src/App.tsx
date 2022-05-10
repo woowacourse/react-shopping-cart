@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ItemDetail from './components/pages/ItemDetail';
-import ItemList from './components/pages/ItemList';
-import NotFound from './components/pages/NotFound';
+import ItemDetail from './pages/ItemDetail';
+import ItemList from './pages/ItemList';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
