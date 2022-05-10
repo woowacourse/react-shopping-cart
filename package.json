@@ -1,0 +1,34 @@
+{
+  "name": "starcraft-shop",
+  "version": "1.0.0",
+  "description": "스타크래프트 쇼핑몰",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airman5573/react-shopping-cart.git"
+  },
+  "keywords": [
+    "starcraft"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/airman5573/react-shopping-cart/issues"
+  },
+  "homepage": "https://github.com/airman5573/react-shopping-cart#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.4",
+    "commitizen": "^4.2.4",
+    "cz-customizable": "^6.3.0",
+    "husky": "^7.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  }
+}
