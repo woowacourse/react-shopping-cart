@@ -4,7 +4,12 @@ module.exports = {
     node: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'plugin:storybook/recommended',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
