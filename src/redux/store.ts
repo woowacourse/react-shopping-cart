@@ -2,7 +2,12 @@ import { createStore, combineReducers } from "redux";
 
 import cartReducer from "./modules/cart";
 
-const rootReducer = combineReducers({ cartReducer });
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+
+const rootReducer = combineReducers({
+  cart: cartReducer,
+});
 
 const store = createStore(rootReducer);
 

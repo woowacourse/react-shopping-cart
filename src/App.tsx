@@ -11,11 +11,12 @@ function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
+        <Route path="/" element={<ProductList />} />
         <Route path="/product-list" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order-list" element={<OrderList />} />
-        <Route path="/*" element={<OrderList />} />
+        <Route path="/*" element={<ProductList />} />
       </Routes>
     </Router>
   );

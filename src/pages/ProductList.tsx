@@ -1,5 +1,11 @@
+import Header from "../components/Header";
+
 function ProductList() {
-  return <div>ProductList</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
 
 export default ProductList;

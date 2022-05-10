@@ -1,3 +1,5 @@
+import { RootState } from "../store";
+
 type Item = { name: string; price: number; img: string; id: number; amount: number };
 type InitialState = { items: Item[] };
 type Action =
@@ -93,6 +95,8 @@ const cartReducer = (state = initialState, action: Action) => {
       return state;
   }
 };
+
+export const selectCartList = (state: RootState) => state.cart.items;
 
 export { addItem, deleteItem, increment, decrement, incrementByNumber };
 
