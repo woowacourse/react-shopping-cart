@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import ProductListPage from './page/ProductListPage';
-import Button from './components/shared/Button/Button';
-import HeaderButton from './components/Header/HeaderButton';
-import Header from './components/Header/Header';
-import { ReactComponent as ShoppingCartIcon } from './assets/shopping_cart_icon.svg';
+import ProductListPage from 'page/ProductListPage';
+import Button from 'components/shared/button/Button';
+import HeaderButton from 'components/header/HeaderButton';
+import Header from 'components/header/Header';
+import ShoppingCartIcon from 'components/shared/icon/ShoppingCartIcon';
 
 const StyledRoutes = styled.div`
   height: 100%;
@@ -20,7 +20,7 @@ function App() {
         left={
           <div>
             <Button>
-              <ShoppingCartIcon />
+              <ShoppingCartIcon theme="header" />
             </Button>
             <HeaderButton bold>WOOWA SHOP</HeaderButton>
           </div>

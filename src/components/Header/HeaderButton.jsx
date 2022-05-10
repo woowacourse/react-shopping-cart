@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Button from '../shared/Button/Button';
+import Button from 'components/shared/button/Button';
 
 const StyledButton = styled(Button)`
   font-style: normal;

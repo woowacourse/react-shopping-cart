@@ -1,5 +1,5 @@
-@import './reset.css';
-@import './color.css';
+@import 'css/reset.css';
+@import 'css/color.css';
 
 html,
 body,
@@ -7,4 +7,5 @@ body,
   width: 100%;
   height: 100%;
   margin: 0;
+  font-family: 'Noto Sans KR';
 }
