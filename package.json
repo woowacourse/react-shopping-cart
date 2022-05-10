@@ -57,6 +57,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "prettier": "2.6.2",
+    "styled-components": "^5.3.5",
     "webpack": "^5.72.0"
   }
 }
