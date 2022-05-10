@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HeaderContainer = styled.div`
+const HeaderWrapper = styled.div`
   width: 100%;
   height: 80px;
   background: #2ac1bc;
@@ -47,4 +47,4 @@ const HeaderMenu = styled.div`
   }
 `;
 
-export { HeaderContainer, HeaderTitle, HeaderMenu };
+export { HeaderWrapper, HeaderTitle, HeaderMenu };
