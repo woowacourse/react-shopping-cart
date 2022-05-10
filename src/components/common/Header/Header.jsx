@@ -1,6 +1,6 @@
 import { ROUTE } from '../../../route';
+import Icon from '../Icon';
 import * as Styled from './Header.style';
-import tentLogo from './tent.png';
 
 export default function Header() {
   return (
@@ -8,7 +8,7 @@ export default function Header() {
       <Styled.Inner>
         <Styled.NavLink to={ROUTE.home.route}>
           <Styled.Logo>
-            <img src={tentLogo} alt="logo" width="50px" /> WOOWA SHOP
+            <Icon iconName="tent" /> WOOWA SHOP
           </Styled.Logo>
         </Styled.NavLink>
 
