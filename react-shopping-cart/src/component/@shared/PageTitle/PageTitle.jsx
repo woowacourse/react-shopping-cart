@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ShoppingCartTitle = styled.h1`
+const PageTitle = styled.h1`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
   font-weight: 900;
@@ -22,4 +22,4 @@ const ShoppingCartTitle = styled.h1`
   }
 `;
 
-export default ShoppingCartTitle;
+export default PageTitle;

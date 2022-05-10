@@ -1,9 +1,9 @@
-import ShoppingCartTitle from "./ShoppingCartTitle";
-import { ReactComponent as Cart } from "../../assets/cart.svg";
+import PageTitle from "./PageTitle";
+import { ReactComponent as Cart } from "../../../assets/cart.svg";
 
 export default {
-  title: "ShoppingCartTitle",
-  component: ShoppingCartTitle,
+  title: "PageTitle",
+  component: PageTitle,
   decorators: [
     (Story) => (
       <div
@@ -22,7 +22,7 @@ export default {
 };
 
 export const DefaultShoppingCartTitle = (args) => (
-  <ShoppingCartTitle {...args}></ShoppingCartTitle>
+  <PageTitle {...args}></PageTitle>
 );
 DefaultShoppingCartTitle.args = {
   children: [<Cart />, <div>WOOWA SHOP</div>],
