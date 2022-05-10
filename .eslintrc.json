@@ -41,7 +41,7 @@
       "node": {
         "extensions": [".js", ".jsx"],
         "moduleDirectory": ["node_modules"]
-      },
+      }
     },
     "import/parsers": {
       "import/parser": ["babel-eslint"]
