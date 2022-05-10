@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import CartIcon from '../common/styles/CartIcon';
 
 function Header() {
   return (
     <header>
       <Styled.Nav>
         <Styled.NavTitleWrapper>
+          <CartIcon />
           <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
         </Styled.NavTitleWrapper>
         <Styled.NavButtonWrapper>
@@ -37,6 +39,7 @@ const Styled = {
     font-weight: 900;
 
     color: #ffffff;
+    margin-left: 15px;
   `,
   NavButtonWrapper: styled.div`
     display: flex;
