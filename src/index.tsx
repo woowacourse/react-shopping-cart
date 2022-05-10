@@ -8,13 +8,22 @@ import theme from './styles/theme';
 import './index.css';
 import App from './App';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers';
+import { Provider } from 'react-redux';
+
+const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <React.StrictMode>
-      <GlobalStyle />
-      <App />
-    </React.StrictMode>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <React.StrictMode>
+        <GlobalStyle />
+        <App />
+      </React.StrictMode>
+    </ThemeProvider>
+  </Provider>
 );
