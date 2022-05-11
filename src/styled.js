@@ -14,10 +14,16 @@ export const noneStyles = {
       margin: 0;
     }
   `,
+  button: css`
+    background-color: initial;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  `,
 };
 
 export const colors = {
   black: ["#000"],
   red: ["#7f0001"],
-  greenLight: ["#00cc00", "#ddff99"],
+  greenLight: ["#00cc00", "#ddff99", "#ddff66"],
 };

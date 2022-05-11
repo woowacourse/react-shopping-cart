@@ -5,13 +5,10 @@ function Menu() {
     <S.Menu>
       <ul>
         <li>
-          <a href="http://naver.com">Naver</a>
+          <a href="/">장바구니</a>
         </li>
         <li>
-          <a href="http://naver.com">Daum</a>
-        </li>
-        <li>
-          <a href="http://naver.com">Yahoo</a>
+          <a href="/">주문목록</a>
         </li>
       </ul>
     </S.Menu>

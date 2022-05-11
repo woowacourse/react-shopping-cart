@@ -4,6 +4,7 @@ import { colors } from "../../styled";
 const StyledHeader = styled.div`
   background-color: ${colors.black[0]};
   border-bottom: 1px solid ${colors.red[0]};
+  margin-bottom: 50px;
 
   .logo-link {
     padding: 10px 0;
