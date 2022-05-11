@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
+import { Link } from 'react-router-dom';
 
 const Styled = {
   Wrapper: styled.header`
@@ -13,7 +14,7 @@ const Styled = {
     height: 80px;
     color: #fff;
   `,
-  LogoBox: styled.div`
+  LogoBox: styled(Link)`
     display: flex;
     align-items: center;
     gap: 20px;
@@ -35,7 +36,7 @@ const Styled = {
     display: flex;
     gap: 45px;
   `,
-  Menu: styled.a`
+  Menu: styled(Link)`
     font-weight: 500;
   `,
 };
@@ -43,13 +44,13 @@ const Styled = {
 const Header = () => {
   return (
     <Styled.Wrapper>
-      <Styled.LogoBox>
+      <Styled.LogoBox to="/">
         <CartIcon />
         <Styled.Title>WOOWA SHOP</Styled.Title>
       </Styled.LogoBox>
       <Styled.MenuBox>
-        <Styled.Menu href="/">장바구니</Styled.Menu>
-        <Styled.Menu href="/">주문목록</Styled.Menu>
+        <Styled.Menu to="/cart">장바구니</Styled.Menu>
+        <Styled.Menu to="/orderList">주문목록</Styled.Menu>
       </Styled.MenuBox>
     </Styled.Wrapper>
   );
