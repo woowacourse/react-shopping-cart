@@ -20,8 +20,12 @@ export default function Home() {
 
   return (
     <PageTemplate>
-      {productList && <ProductList productList={productList} />}
-      <Pagination />
+      {productList && (
+        <>
+          <ProductList productList={productList} />
+          <Pagination />
+        </>
+      )}
     </PageTemplate>
   );
 }
