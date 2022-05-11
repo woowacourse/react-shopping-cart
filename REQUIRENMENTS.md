@@ -8,7 +8,9 @@
   - [x] ProductList Page 컴포넌트 만들기
 - [x] Mock Data 만들기
 
-- [ ] 리덕스 적용
+- [x] redux 적용
+  - [x] redux-thunk 적용
+  - [x] axios 적용
 - [ ] 장바구니 버튼을 눌렀을 때, ID를 alert로 보여준다.
 - [ ] 라우팅
 

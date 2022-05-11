@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
 import { Provider } from 'react-redux';
-
 import store from 'store';
 
 export const GlobalStyle = createGlobalStyle`
