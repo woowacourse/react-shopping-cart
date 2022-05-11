@@ -11,15 +11,7 @@ type Action =
 
 // initialState
 const initialState: CartState = {
-  items: [
-    {
-      name: "콜라",
-      price: 1000,
-      img: "",
-      id: 1,
-      amount: 0,
-    },
-  ],
+  items: [],
 };
 
 // 액션

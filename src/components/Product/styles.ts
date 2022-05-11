@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 const ProductWrapper = styled.div`
-  width: 280px;
-  height: 360px;
+  width: 220px;
+  height: 288px;
 
   display: flex;
   flex-direction: column;
 
   & img {
     width: 100%;
-    height: 280px;
+    height: 220px;
     cursor: pointer;
   }
 `;
@@ -22,8 +22,8 @@ const ProductInfoWrapper = styled.div`
   height: 100%;
 
   & img {
-    width: 30px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
   }
 `;
@@ -43,7 +43,7 @@ const ProductInfo = styled.div`
 
   & span + span {
     margin-top: 5px;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
   }
 `;
