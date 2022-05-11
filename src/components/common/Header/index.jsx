@@ -30,7 +30,7 @@ const Styled = {
   Title: styled.h1`
     font-weight: 900;
     font-size: 40px;
-    padding-top: 14px;
+    padding-top: 3px;
   `,
   MenuBox: styled.nav`
     display: flex;
