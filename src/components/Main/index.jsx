@@ -7,6 +7,7 @@ import ProductListPage from "./ProductListPage";
 import ProductDetailPage from "./ProductDetailPage";
 import ProductCartPage from "./ShoppingCartPage";
 import Spinner from "../common/Spinner";
+import OrderListPage from "./OrderListPage";
 
 const Container = styled.main`
   display: flex;
@@ -61,6 +62,7 @@ function Main() {
             element={<ProductDetailPage />}
           />
           <Route exact path="/product-cart" element={<ProductCartPage />} />
+          <Route exact path="/order-list" element={<OrderListPage />} />
           <Route path="*" element={<div>잘못된 접근입니다.</div>} />
         </Routes>
       )}

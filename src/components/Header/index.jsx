@@ -40,7 +40,7 @@ function Header() {
         <Link to="/product-cart">
           <NavButton>장바구니</NavButton>
         </Link>
-        <Link to="/">
+        <Link to="/order-list">
           <NavButton>주문목록</NavButton>
         </Link>
       </NavButtonWrapper>
