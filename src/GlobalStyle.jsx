@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     margin: auto 0;
   }
+
+  a {
+    text-decoration:none;
+  }
 `;
 
 export default GlobalStyle;

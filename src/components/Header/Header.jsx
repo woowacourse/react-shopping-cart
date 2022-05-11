@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { CART_SIZE, COLOR } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
@@ -8,16 +9,22 @@ function Header() {
     <header>
       <Styled.Nav>
         <Styled.NavTitleWrapper>
-          <CartIcon
-            width={CART_SIZE.LARGE.WIDTH}
-            height={CART_SIZE.LARGE.HEIGHT}
-            fill={COLOR.WHITE}
-          />
-          <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
+          <Link to="/">
+            <CartIcon
+              width={CART_SIZE.LARGE.WIDTH}
+              height={CART_SIZE.LARGE.HEIGHT}
+              fill={COLOR.WHITE}
+            />
+            <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
+          </Link>
         </Styled.NavTitleWrapper>
         <Styled.NavButtonWrapper>
-          <Styled.NavButton type="button">장바구니</Styled.NavButton>
-          <Styled.NavButton type="button">주문목록</Styled.NavButton>
+          <Link to="/cart">
+            <Styled.NavButton type="button">장바구니</Styled.NavButton>
+          </Link>
+          <Link to="/orderlist">
+            <Styled.NavButton type="button">주문목록</Styled.NavButton>
+          </Link>
         </Styled.NavButtonWrapper>
       </Styled.Nav>
     </header>
@@ -41,6 +48,7 @@ const Styled = {
     align-items: center;
   `,
   NavTitle: styled.h1`
+    display: inline;
     font-size: 40px;
     font-weight: 900;
 
@@ -50,6 +58,7 @@ const Styled = {
 
   NavButtonWrapper: styled.div`
     display: flex;
+    align-items: center;
     gap: 15px;
   `,
   NavButton: styled(UnstyledButton)`
