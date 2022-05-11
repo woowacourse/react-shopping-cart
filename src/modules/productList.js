@@ -1,9 +1,4 @@
 const SET_PRODUCT_LIST = 'productList/SET_PRODUCT_LIST';
-const GET_PRODUCT_LIST = 'productList/GET_PRODUCT_LIST';
-
-export const getProductList = () => ({
-  type: GET_PRODUCT_LIST,
-});
 
 export const setProductList = (productList) => ({
   type: SET_PRODUCT_LIST,
@@ -21,7 +16,6 @@ const productListReducer = (state = initialState, action) => {
       productList: action.payload.productList,
     };
   }
-
   return state;
 };
 

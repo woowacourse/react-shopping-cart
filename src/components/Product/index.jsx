@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CartButton } from 'components/common/Button';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
+import { Link } from 'react-router-dom';
 
 const Styled = {
-  Wrapper: styled.div`
+  Wrapper: styled(Link)`
     width: 282px;
     height: 358px;
     display: flex;
@@ -50,7 +51,7 @@ const Styled = {
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper to={`/product/${id}`}>
       <Styled.ThumbnailBox>
         <img src={thumbnail} alt="thumbnail" />
       </Styled.ThumbnailBox>

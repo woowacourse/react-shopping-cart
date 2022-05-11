@@ -4,6 +4,7 @@ import ProductList from 'components/ProductList';
 import Layout from 'components/common/Layout';
 import NotFound from 'components/NotFound';
 import { Route, Routes } from 'react-router-dom';
+import ProductDetail from 'components/ProductDetail';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<ProductList />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </Layout>
     </div>
