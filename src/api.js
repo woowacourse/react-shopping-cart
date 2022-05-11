@@ -11,3 +11,7 @@ export const getProducts = async () => {
 export const getProductsByPage = async (page) => {
   return axios.get(`/products?_page=${page}&_limit=10`);
 };
+
+export const getProductById = async (id) => {
+  return axios.get(`/products/${id}`);
+};
