@@ -1,7 +1,7 @@
-const size = {
-  mobile: '480px',
-  tablet: '800px',
-  desktop: '1024px',
+export const size = {
+  mobile: 480,
+  tablet: 800,
+  desktop: 1024,
 };
 
 export default {
@@ -11,9 +11,9 @@ export default {
   textColorWhite: '#ffffff',
 
   // responsive
-  mobile: `@media (max-width: ${size.mobile})`,
-  tablet: `@media (max-width: ${size.tablet})`,
-  desktop: `@media (min-width: ${size.desktop})`,
+  mobile: `@media (max-width: ${size.mobile}px)`,
+  tablet: `@media (max-width: ${size.tablet}px)`,
+  desktop: `@media (min-width: ${size.desktop}px)`,
 
   innerWidth: '1100px',
   minWidth: '300px',
