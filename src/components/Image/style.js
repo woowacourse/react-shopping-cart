@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const ImageStyled = styled.img(
-  ({ size }) => `
-  width: ${size};
-  height: ${size};
+  ({ width, height }) => `
+  width: ${width}px;
+  height: ${height}px;
 `,
 );
 

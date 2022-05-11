@@ -1,7 +1,8 @@
+import React from 'react';
 import ImageStyled from './style';
 
-function Image({ src, size }) {
-  return <ImageStyled src={src} size={size} />;
+function Image({ src, width, height }) {
+  return <ImageStyled src={src} width={width} height={height} />;
 }
 
 export default Image;
