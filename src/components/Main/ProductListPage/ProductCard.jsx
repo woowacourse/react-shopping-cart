@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import AddToCartButton from "./AddToCartButton";
 
@@ -58,20 +59,22 @@ const ProductPrice = styled.p`
   color: ${({ theme }) => theme.textDefault};
 `;
 
-function ProductCard({ productInfo: { thumbnail, name, price } }) {
+function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
   return (
-    <Container>
-      <ImageWrapper>
-        <ProductThumbnail src={thumbnail ?? ""} />
-      </ImageWrapper>
-      <CardBottom>
-        <InfoWrapper>
-          <ProductName>{name ?? "%Error%"}</ProductName>
-          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
-        </InfoWrapper>
-        <AddToCartButton />
-      </CardBottom>
-    </Container>
+    <Link to={`/product-detail/${id}`}>
+      <Container>
+        <ImageWrapper>
+          <ProductThumbnail src={thumbnailUrl ?? ""} />
+        </ImageWrapper>
+        <CardBottom>
+          <InfoWrapper>
+            <ProductName>{name ?? "%Error%"}</ProductName>
+            <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
+          </InfoWrapper>
+          <AddToCartButton />
+        </CardBottom>
+      </Container>
+    </Link>
   );
 }
 

@@ -22,6 +22,11 @@ code {
     monospace;
 }
 
+a {
+  &:link { color: inherit; text-decoration: none;}
+  &:visited { color: inherit; text-decoration: none;}
+  &:hover { color: inherit; text-decoration: none;}
+}
 
 `;
 

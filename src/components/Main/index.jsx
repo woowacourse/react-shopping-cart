@@ -19,7 +19,11 @@ function Main() {
       <Routes>
         <Route exact path="/" element={<ProductListPage />} />
         <Route exact path="/product-list" element={<ProductListPage />} />
-        <Route exact path="/product-detail" element={<ProductDetailPage />} />
+        <Route
+          exact
+          path="/product-detail/:id"
+          element={<ProductDetailPage />}
+        />
         <Route exact path="/product-cart" element={<ProductCartPage />} />
         <Route path="*" element={<div>잘못된 접근입니다.</div>} />
       </Routes>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Logo from "./Logo";
@@ -32,10 +33,16 @@ const NavButtonWrapper = styled.nav`
 function Header() {
   return (
     <HeaderContainer>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
       <NavButtonWrapper>
-        <NavButton>장바구니</NavButton>
-        <NavButton>주문목록</NavButton>
+        <Link to="/product-cart">
+          <NavButton>장바구니</NavButton>
+        </Link>
+        <Link to="/">
+          <NavButton>주문목록</NavButton>
+        </Link>
       </NavButtonWrapper>
     </HeaderContainer>
   );
