@@ -14,7 +14,10 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case DELETE_CART: {
-      return {};
+      const id = action.payload;
+      const newState = state.cart.filter((item) => item.id !== id);
+
+      return {...state, cart: newState};
     }
     case EDIT_CART: {
       const {id, count} = action.payload;
@@ -23,6 +26,7 @@ export default function cartReducer(state = initialState, action) {
         if (item.id === id) {
           return {...item, count: count};
         }
+
         return item;
       });
 
