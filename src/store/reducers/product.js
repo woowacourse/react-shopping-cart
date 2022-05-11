@@ -1,3 +1,5 @@
+import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
+
 const initialState = {
   productList: [],
   totalProductCount: null,
@@ -20,7 +22,7 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productList,
-        totalProductCount,
+        pageCount: Math.ceil(totalProductCount / PRODUCT_LIST_PAGE_LIMIT),
         isLoading: false,
       };
     }
