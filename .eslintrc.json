@@ -13,6 +13,7 @@
   },
   "plugins": ["react", "react-hooks", "storybook"],
   "rules": {
+    "no-unused-vars": 1,
     "react/self-closing-comp": [
       "error",
       {

@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { getProductList } from '../../api/api';
+import React, { useEffect } from 'react';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 import ProductList from '../../components/product/ProductList/ProductList';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductListAsync } from '../../store/actions/product';
 
 export default function Home() {
-  const [productList, setProductList] = useState(null);
+  const dispatch = useDispatch();
+  const productList = useSelector(state => state.productList);
+
   useEffect(() => {
-    const fetch = async () => {
-      let data;
-      try {
-        data = await getProductList();
-        setProductList(data);
-      } catch ({ message }) {
-        console.log(message);
-        return;
-      }
-    };
-
-    fetch();
+    dispatch(fetchProductListAsync());
   }, []);
-
   return <PageTemplate>{productList && <ProductList productList={productList} />}</PageTemplate>;
 }
