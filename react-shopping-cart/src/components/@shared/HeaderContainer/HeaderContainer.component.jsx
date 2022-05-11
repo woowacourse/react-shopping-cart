@@ -12,8 +12,8 @@ const HeaderContainer = styled.div`
   min-width: 1350px;
   height: 80px;
   padding: 0 300px;
-  background-color: ${({ theme }) => theme.colors.main};
-  box-shadow: 0 4px 4px ${({ theme }) => theme.colors.shadow};
+  background-color: ${({ theme }) => theme.usingColor.headerBackground};
+  box-shadow: 0 4px 4px ${({ theme }) => theme.usingColor.shadow};
   z-index: ${LAYER.FOREGROUND};
 `;
 

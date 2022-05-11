@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 const HeaderLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.headerFont};
+  color: ${({ theme }) => theme.usingColor.headerFont};
   cursor: pointer;
   text-decoration: none;
   ${({ type }) => {
