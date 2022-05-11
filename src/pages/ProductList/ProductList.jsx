@@ -5,15 +5,20 @@ import ProductItem from 'components/ProductItem/ProductItem';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getProductsAsync } from 'store';
+import { getProductsAsync } from 'reducers/products/products.thunks';
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.products);
+  const { isLoading, data, isError } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProductsAsync); // {type} 대신에 thunk로 만든 함수를 호출한다.
   }, []);
+
+  useEffect(() => {
+    console.log('loading', isLoading);
+    console.log('error', isError);
+  }, [isError, isLoading]);
 
   return (
     <>
