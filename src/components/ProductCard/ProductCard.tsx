@@ -1,14 +1,9 @@
 import PlainLink from '../../styles/PlainLink';
 import styled from 'styled-components';
+import { Product } from '../../types';
 
 type Props = {
-  product: {
-    id: string;
-    name: string;
-    price: number;
-    description: string;
-    image: string;
-  };
+  product: Partial<Product>;
 };
 
 const SHOPPING_CART_ICON = (

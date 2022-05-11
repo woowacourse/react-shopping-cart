@@ -4,7 +4,6 @@ import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
 import Header from './components/Layout/Header/Header';
-import Logo from './components/Logo/Logo';
 
 function App(): JSX.Element {
   return (
@@ -12,9 +11,7 @@ function App(): JSX.Element {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <div className="App">
-          <Header>
-            <Logo></Logo>
-          </Header>
+          <Header />
         </div>
       </ThemeProvider>
     </>
