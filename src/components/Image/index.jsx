@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ImageStyled from './style';
 
 function Image({ src, width, height }) {

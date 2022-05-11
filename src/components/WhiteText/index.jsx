@@ -1,3 +1,5 @@
+import React from 'react';
+
 import WhiteTextStyled from './style';
 
 const WhiteText = ({ fontSize, fontWeight, children }) => {

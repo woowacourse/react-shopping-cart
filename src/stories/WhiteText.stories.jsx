@@ -1,4 +1,6 @@
-import WhiteText from '../components/WhiteText';
+import React from 'react';
+
+import WhiteText from 'components/WhiteText';
 
 export default {
   title: 'Component/WhiteText',

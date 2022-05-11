@@ -1,4 +1,5 @@
 import React from 'react';
+
 import MarginRightWrapperStyled from './style';
 
 function MarginRightWrapper({ marginRight, children }) {

@@ -1,7 +1,8 @@
 import React from 'react';
-import Image from '../../components/Image';
-import WhiteText from '../../components/WhiteText';
-import MarginRightWrapper from '../../components/MarginRightWrapper';
+
+import Image from 'components/Image';
+import WhiteText from 'components/WhiteText';
+import MarginRightWrapper from 'components/MarginRightWrapper';
 
 function HomeButton() {
   return (
