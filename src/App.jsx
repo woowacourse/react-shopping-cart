@@ -7,6 +7,7 @@ import Header from 'component/common/Header';
 import theme from 'theme/theme';
 import ProductListPage from 'page/ProductListPage';
 import ProductDetailPage from 'page/ProductDetailPage';
+import ProductCartPage from 'page/ProductCartPage';
 
 export const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -31,6 +32,7 @@ export default function App() {
           <Routes>
             <Route exact path="/" element={<ProductListPage />}></Route>
             <Route exact path="/detail/:id" element={<ProductDetailPage />}></Route>
+            <Route exact path="/cart" element={<ProductCartPage />}></Route>
           </Routes>
         </div>
       </ThemeProvider>
