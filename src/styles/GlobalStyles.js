@@ -7,6 +7,10 @@ const GlobalStyles = css`
     font-size: 16px;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     background-color: #f6f6f6;
   }

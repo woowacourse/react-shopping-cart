@@ -7,7 +7,9 @@ import * as Styled from './styles';
 
 const ProductItem = ({ id, image, name, price }) => (
   <Styled.Container>
-    <img src={image} alt="product thumbnail" />
+    <div className="image-wrapper">
+      <img src={image} alt="product thumbnail" />
+    </div>
     <div className="description">
       <div className="info">
         <p className="title">{name}</p>
@@ -19,7 +21,7 @@ const ProductItem = ({ id, image, name, price }) => (
 );
 
 ProductItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
