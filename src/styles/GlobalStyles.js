@@ -5,6 +5,7 @@ import 'styles/utils/ResetCss.css';
 const GlobalStyles = css`
   :root {
     font-size: 16px;
+    min-width: 960px;
   }
 
   * {
