@@ -35,7 +35,7 @@ const GlobalStyles = () => (
         cursor: pointer;
       }
       .App {
-        padding: 0 15%;
+        padding: 0 10%;
       }
     `}
   />

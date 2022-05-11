@@ -7,3 +7,7 @@ axios.defaults.baseURL = BASE_URL;
 export const getProducts = async () => {
   return axios.get("/products");
 };
+
+export const getProductsByPage = async (page) => {
+  return axios.get(`/products?_page=${page}&_limit=10`);
+};

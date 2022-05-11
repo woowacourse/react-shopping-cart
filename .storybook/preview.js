@@ -4,6 +4,7 @@ import { applyMiddleware, createStore } from "redux";
 import GlobalStyles from "../src/globalStyles";
 import createThunkMiddleware from "../src/lib/thunk";
 import reducer from "../src/modules/products";
+import ThemeProvider from "../src/ThemeProvider";
 
 const store = createStore(reducer, applyMiddleware(createThunkMiddleware()));
 
@@ -20,8 +21,10 @@ export const decorators = [
   (Story) => (
     <BrowserRouter>
       <Provider store={store}>
-        <GlobalStyles />
-        <Story />
+        <ThemeProvider>
+          <GlobalStyles />
+          <Story />
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   ),

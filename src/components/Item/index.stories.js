@@ -14,4 +14,5 @@ ItemTemplate.args = {
   price: 3000000,
   onClick: () => {},
   go: () => {},
+  isInShoppingCart: true,
 };

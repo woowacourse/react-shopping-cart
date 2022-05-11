@@ -8,6 +8,7 @@ import reducer from "./modules/products";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import createThunkMiddleware from "./lib/thunk";
+import ThemeProvider from "./ThemeProvider";
 
 const store = createStore(
   reducer,
@@ -19,8 +20,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <GlobalStyles />
-        <App />
+        <ThemeProvider>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
