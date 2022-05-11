@@ -4,7 +4,6 @@ import { flexCenter } from 'styles/mixin';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 
 const Header = () => {
-  // Navigate - SEO가 필요없는 경우
   return (
     <StyledRoot>
       <div>
