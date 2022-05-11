@@ -6,9 +6,8 @@ import { LOCAL_BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { getCartList, putCartItem as putCartItem } from 'redux/action-creators/cartListThunk';
+import { getCartList, putCartItem } from 'redux/action-creators/cartListThunk';
+import useCartList from 'hooks/useCartList';
 
 const emptyItem: Item = {
   id: 0,
@@ -22,8 +21,7 @@ const ItemDetail = () => {
   const { thumbnailUrl, title, price } = item;
   const params = useParams();
   const id = Number(params.id);
-  const dispatch = useDispatch();
-  const { data: cartList, error, loading } = useAppSelector(state => state.cartListReducer);
+  const { updateCartItemQuantity } = useCartList();
 
   useEffect(() => {
     (async () => {
@@ -33,16 +31,6 @@ const ItemDetail = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    dispatch(getCartList());
-  }, []);
-
-  const onClick = () => {
-    const targetItem = cartList.find(cartItem => cartItem.id === id);
-
-    dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + 1 }));
-  };
-
   return (
     <StyledRoot>
       <CroppedImage src={thumbnailUrl} width='570px' height='570px' alt='상품' />
@@ -51,7 +39,7 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price}</StyledPriceValue>
       </StyldPrice>
-      <Button size='large' backgroundColor='brown' onClick={onClick}>
+      <Button size='large' backgroundColor='brown' onClick={() => updateCartItemQuantity(id)}>
         장바구니
       </Button>
     </StyledRoot>
