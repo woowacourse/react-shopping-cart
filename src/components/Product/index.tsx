@@ -3,10 +3,20 @@ import * as Styled from "./styles";
 import product from "../../assets/product.png";
 import cart from "../../assets/cart.svg";
 
-function Product() {
+export type ProductType = {
+  name: string;
+  price: number;
+  img: string;
+  id: number;
+};
+interface ProductProps {
+  productInfo: ProductType;
+}
+
+function Product({ productInfo }: ProductProps) {
+  const { name, price, img, id } = productInfo;
   const navigate = useNavigate();
 
-  const id = 1;
   return (
     <Styled.ProductWrapper>
       <div
@@ -14,7 +24,7 @@ function Product() {
           navigate(`/product/${id}`);
         }}
       >
-        <img src={product} alt="PET보틀-정사각(420ml)" />
+        <img src={`${img}${id}`} alt="PET보틀-정사각(420ml)" />
       </div>
       <Styled.ProductInfoWrapper>
         <Styled.ProductInfo
@@ -22,8 +32,8 @@ function Product() {
             navigate(`/product/${id}`);
           }}
         >
-          <span>PET보틀-정사각(420ml)</span>
-          <span>43,000원</span>
+          <span>{name}</span>
+          <span>{price}원</span>
         </Styled.ProductInfo>
         <img src={cart} alt="장바구니" />
       </Styled.ProductInfoWrapper>

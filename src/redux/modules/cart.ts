@@ -1,7 +1,7 @@
 import { RootState } from "../store";
 
 type Item = { name: string; price: number; img: string; id: number; amount: number };
-type InitialState = { items: Item[] };
+type CartState = { items: Item[] };
 type Action =
   | ReturnType<typeof addItem>
   | ReturnType<typeof deleteItem>
@@ -10,7 +10,7 @@ type Action =
   | ReturnType<typeof incrementByNumber>;
 
 // initialState
-const initialState: InitialState = {
+const initialState: CartState = {
   items: [
     {
       name: "콜라",
@@ -23,11 +23,11 @@ const initialState: InitialState = {
 };
 
 // 액션
-const ADD = "cart/add" as const;
-const DELETE = "cart/delete" as const;
-const INCREMENT = "cart/increment" as const;
-const DECREMENT = "cart/decrement" as const;
-const INCREMENT_BY_NUMBER = "cart/incrementByNumber" as const;
+const ADD = "cart/ADD" as const;
+const DELETE = "cart/DELETE" as const;
+const INCREMENT = "cart/INCREMENT" as const;
+const DECREMENT = "cart/DECREMENT" as const;
+const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
 
 // 액션 크리에터
 const addItem = (item: Item) => ({
