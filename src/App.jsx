@@ -4,11 +4,13 @@ import './App.css';
 import './store/index';
 import { actionTypes } from './store/actionTypes';
 import { products } from './mock/productList';
-import ProductListPage from './pages/ProductListPage';
 import Header from './components/Header';
+import { useRoutes } from 'react-router-dom';
+import routes from './Routes';
 
 function App() {
   const dispatch = useDispatch();
+  const content = useRoutes(routes);
 
   useEffect(() => {
     dispatch({
@@ -20,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <ProductListPage />
+      {content}
     </div>
   );
 }
