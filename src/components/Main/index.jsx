@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
@@ -14,6 +15,32 @@ const Container = styled.main`
 `;
 
 function Main() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch("https://react-shoppingcart-server.herokuapp.com/products")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`fetch error`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) {
+          throw new Error(`No Data`);
+        }
+        dispatch({
+          type: "INIT",
+          payload: { products: data },
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.error(error);
+        return {};
+      });
+  }, [dispatch]);
+
   return (
     <Container>
       <Routes>

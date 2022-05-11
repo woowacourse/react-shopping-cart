@@ -1,12 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import GridList from "./GridList";
 import ProductCard from "./ProductCard";
 
-import dummyData from "../../../data.json";
-
-const { products: productInfoList } = dummyData;
-
 function ProductListPage() {
+  const productInfoList = useSelector((state) => state);
+
   return (
     <GridList>
       {productInfoList.map((productInfo) => (
