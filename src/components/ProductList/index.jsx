@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Product from 'components/Product';
+import { useSelector } from 'react-redux';
 
 const Styled = {
   ProductBox: styled.div`
@@ -12,20 +13,14 @@ const Styled = {
 };
 
 const ProductList = () => {
+  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+
   return (
     <Styled.ProductBox>
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+      {productList &&
+        productList.map(({ id, name, price, thumbnail }) => (
+          <Product key={id} id={id} name={name} price={Number(price)} thumbnail={thumbnail} />
+        ))}
     </Styled.ProductBox>
   );
 };
