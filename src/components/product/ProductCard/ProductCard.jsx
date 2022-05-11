@@ -1,7 +1,7 @@
 import Image from '../../common/Image/Image';
 import * as Styled from './ProductCard.style';
 import Icon from '../../common/Icon';
-import { API_URL } from '../../../api/api';
+import { API_URL } from '../../../api/constants';
 function ProductCard({ product: { imageURL, name, price } }) {
   return (
     <Styled.Container>

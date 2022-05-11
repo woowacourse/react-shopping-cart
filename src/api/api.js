@@ -1,18 +1,18 @@
 import axios from 'axios';
-
-// eslint-disable-next-line no-undef
-export const API_URL = process.env.REACT_APP_API_URL;
+import { API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
 
 const productAPI = axios.create({
   baseURL: API_URL,
 });
 
-export const getProductList = async () => {
-  const response = await productAPI.get('/products');
+export const getProductList = async page => {
+  const response = await productAPI.get(
+    `/products?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`,
+  );
 
   if (response.statusText !== 'OK') {
     throw Error('서버 오류!');
   }
 
-  return response.data;
+  return { productList: response.data, totalProductCount: response.headers['x-total-count'] };
 };
