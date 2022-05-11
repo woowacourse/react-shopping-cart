@@ -5,7 +5,10 @@
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.1",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
@@ -23,7 +26,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-storybook": "^0.5.11",
     "prettier": "^2.6.2",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +42,14 @@
       "react-app/jest"
     ],
     "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
       {
         "files": [
           "**/*.stories.*"

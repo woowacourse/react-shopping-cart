@@ -21,7 +21,7 @@
 - [x] Product 컴포넌트
 - [x] ProductList 컴포넌트
 - [x] Layout 컴포넌트
-- [ ] NotFound 컴포넌트
+- [x] NotFound 컴포넌트
 
 <br>
 
