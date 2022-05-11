@@ -5,6 +5,7 @@ import axios from 'axios';
 import { LOCAL_BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
+import Button from 'components/common/Button';
 
 const emptyItem: Item = {
   id: 0,
@@ -35,6 +36,9 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price}</StyledPriceValue>
       </StyldPrice>
+      <Button size='large' backgroundColor='brown'>
+        장바구니
+      </Button>
     </StyledRoot>
   );
 };
@@ -65,6 +69,7 @@ const StyldPrice = styled.div`
   width: 100%;
   padding: 0 3.5rem;
   padding-top: 3.3rem;
+  margin-bottom: 5.7rem;
 `;
 
 const StyledPriceDescription = styled.span`

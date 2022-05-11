@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import theme from 'styles/theme';
 import styled from 'styled-components';
 
@@ -7,12 +7,13 @@ type Size = 'large' | 'medium' | 'small';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: Size;
   backgroundColor: keyof typeof theme.colors;
+  children: ReactNode;
 }
 
-const Button = ({ size, backgroundColor, ...props }: ButtonProps) => {
+const Button = ({ size, backgroundColor, children, ...props }: ButtonProps) => {
   return (
     <StyledButton size={size} backgroundColor={backgroundColor} {...props}>
-      Button
+      {children}
     </StyledButton>
   );
 };
