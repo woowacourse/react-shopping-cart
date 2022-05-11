@@ -9,8 +9,9 @@ const Styled = {
     height: 100vh;
   `,
   Content: styled.div`
-    margin: 60px auto;
     max-width: 1260px;
+    margin: 0 auto;
+    padding: 60px 0 100px;
   `,
 };
 

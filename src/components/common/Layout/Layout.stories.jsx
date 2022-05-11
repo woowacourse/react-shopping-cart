@@ -1,8 +1,8 @@
 import React from 'react';
-import Layout from 'pages/Layout/index';
+import Layout from 'components/common/Layout/index';
 
 export default {
-  title: 'pages/Layout',
+  title: 'components/Layout',
   component: Layout,
 };
 

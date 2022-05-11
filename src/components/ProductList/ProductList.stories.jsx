@@ -1,8 +1,8 @@
 import React from 'react';
-import ProductList from 'pages/ProductList/index';
+import ProductList from 'components/ProductList/index';
 
 export default {
-  title: 'pages/ProductList',
+  title: 'components/ProductList',
   component: ProductList,
 };
 
