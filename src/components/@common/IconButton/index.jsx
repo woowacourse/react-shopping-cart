@@ -3,9 +3,9 @@ import { ICON_CODE } from 'constants/';
 
 import Container from './styles';
 
-function IconButton({ className, icon, onClick }) {
-  return <Container className={className} icon={icon} onClick={onClick} />;
-}
+const IconButton = ({ className, icon, onClick }) => (
+  <Container className={className} icon={icon} onClick={onClick} />
+);
 
 IconButton.propTypes = {
   className: PropTypes.string,

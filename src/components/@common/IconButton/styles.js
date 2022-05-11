@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 const Container = styled.button`
   border: none;
   background-color: transparent;
+  cursor: pointer;
 
   &::before {
     content: '\\${({ icon }) => icon}';
