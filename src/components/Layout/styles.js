@@ -9,11 +9,6 @@ const Container = styled.div`
   & > main {
     padding: 0;
   }
-
-  & > footer {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-  }
 `;
 
 export { Container };
