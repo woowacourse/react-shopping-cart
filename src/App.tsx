@@ -13,7 +13,7 @@ function App() {
         <StyledMain>
           <Routes>
             <Route path='/' element={<ItemList />} />
-            <Route path='/items/*' element={<ItemDetail />} />
+            <Route path='/item_detail/:id' element={<ItemDetail />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </StyledMain>
