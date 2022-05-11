@@ -1,3 +1,4 @@
+import PlainLink from '../../../styles/PlainLink';
 import Header from './Header';
 import Logo from '../../Logo/Logo';
 
@@ -6,11 +7,8 @@ export default {
   component: Header,
 };
 
-function Template({ children, ...args }) {
-  return <Header {...args}>{children}</Header>;
+function Template(args) {
+  return <Header {...args} />;
 }
 
 export const Default = Template.bind({});
-Default.args = {
-  children: <Logo />,
-};

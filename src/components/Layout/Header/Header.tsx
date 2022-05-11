@@ -1,18 +1,28 @@
 import styled from 'styled-components';
+import PlainLink from '../../../styles/PlainLink';
+import Logo from '../../Logo/Logo';
+import RightMenu from './RightMenu';
 
-type Props = {
-  children: React.ReactNode;
-  className?: string;
-};
-
-function Header({ children, ...props }: Props) {
-  return <StyledHeader {...props}>{children}</StyledHeader>;
+function Header() {
+  return (
+    <StyledHeader>
+      <PlainLink to="/">
+        <Logo />
+      </PlainLink>
+      <RightMenu>
+        <PlainLink to="/orders">장바구니</PlainLink>
+        <PlainLink to="/orders">주문목록</PlainLink>
+      </RightMenu>
+    </StyledHeader>
+  );
 }
 
 const StyledHeader = styled.div`
+  padding: 0 13%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   height: 80px;
   background: ${({
