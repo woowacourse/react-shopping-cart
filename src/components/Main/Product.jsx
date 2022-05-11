@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import ProductImage from './ProductImage';
-import CartIcon from '../common/styles/CartIcon';
-import { CART_ICON_SIZE } from '../../constants';
+import { CART_SIZE, COLOR } from '../../constants';
+import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 
 function Product({ id, src, price, title }) {
   return (
@@ -13,7 +13,13 @@ function Product({ id, src, price, title }) {
           <Styled.ProductName>{title}</Styled.ProductName>
           <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
         </Styled.ProductInfoWrapper>
-        <CartIcon size={CART_ICON_SIZE.SMALL} color="black" isButton />
+        <Styled.CartButtonWrapper>
+          <CartIcon
+            width={CART_SIZE.SMALL.WIDTH}
+            height={CART_SIZE.SMALL.HEIGHT}
+            fill={COLOR.BLACK}
+          />
+        </Styled.CartButtonWrapper>
       </Styled.ProductInfoContainer>
     </div>
   );
@@ -49,5 +55,11 @@ const Styled = {
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
+  `,
+  CartButtonWrapper: styled.div`
+    cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
   `,
 };

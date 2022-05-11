@@ -1,12 +1,17 @@
 import styled from 'styled-components';
-import CartIcon from '../common/styles/CartIcon';
+import { CART_SIZE, COLOR } from '../../constants';
+import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 
 function Header() {
   return (
     <header>
       <Styled.Nav>
         <Styled.NavTitleWrapper>
-          <CartIcon />
+          <CartIcon
+            width={CART_SIZE.LARGE.WIDTH}
+            height={CART_SIZE.LARGE.HEIGHT}
+            fill={COLOR.WHITE}
+          />
           <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
         </Styled.NavTitleWrapper>
         <Styled.NavButtonWrapper>
@@ -41,6 +46,7 @@ const Styled = {
     color: #ffffff;
     margin-left: 15px;
   `,
+
   NavButtonWrapper: styled.div`
     display: flex;
     gap: 15px;

@@ -1,11 +1,16 @@
-// eslint-disable-next-line import/prefer-default-export
-export const CART_ICON_SIZE = {
+export const CART_SIZE = {
   SMALL: {
-    width: 30,
-    height: 26,
+    WIDTH: '30',
+    HEIGHT: '26',
   },
-  DEFAULT: {
-    width: 51,
-    height: 44,
+  LARGE: {
+    WIDTH: '51',
+    HEIGHT: '44',
   },
+};
+
+export const COLOR = {
+  WHITE: 'white',
+  BLACK: 'black',
+  PRIMARY: '#2AC1BC',
 };
