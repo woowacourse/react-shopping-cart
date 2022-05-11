@@ -8,7 +8,7 @@ import FlexAlignCenter from 'components/FlexWrapper/FlexAlignCenter';
 function HomeButton() {
   return (
     <FlexAlignCenter>
-      <MarginRightWrapper marginRight="14">
+      <MarginRightWrapper marginRight="14px">
         <Image src="/img/shopping-cart-white.png" width="50" height="44" />
       </MarginRightWrapper>
       <WhiteButton fontSize="40" fontWeight="700">

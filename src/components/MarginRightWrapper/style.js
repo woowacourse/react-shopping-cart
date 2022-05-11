@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MarginRightWrapperStyled = styled.div(
   ({ marginRight }) => `
-  margin-right: ${marginRight}px;
+  margin-right: ${marginRight};
 `,
 );
 
