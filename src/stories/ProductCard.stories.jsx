@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/Main/ProductListPage/ProductCard";
 
 export default {
   title: "Component/ProductCard",
