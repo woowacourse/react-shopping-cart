@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import CroppedImage from 'components/common/CroppedImage';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import theme from 'styles/theme';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
+import { flexCenter } from 'styles/mixin';
 
 interface ItemContainerProps {
   id: number;
@@ -21,7 +22,7 @@ const ItemContainer = ({
 }: ItemContainerProps) => {
   return (
     <StyledRoot>
-      <CroppedImage src={thumbnailUrl} width='282px' height='282px' alt='상품' />
+      <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
       <StyledBottom>
         <StyledDescription>
           <StyledTitle>{title}</StyledTitle>
@@ -40,17 +41,22 @@ const ItemContainer = ({
 export default memo(ItemContainer);
 
 const StyledRoot = styled.div`
-  display: flex;
+  ${flexCenter}
   flex-direction: column;
   width: 28.2rem;
   height: 35.8rem;
-  gap: 18px;
+  gap: 1.8rem;
+  transition: box-shadow 0.1s ease;
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
 `;
 
 const StyledBottom = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 0 2rem;
   align-items: center;
 `;
 
