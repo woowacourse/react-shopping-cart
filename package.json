@@ -28,6 +28,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
     "webpack": "^5.72.0"
   },
   "scripts": {
