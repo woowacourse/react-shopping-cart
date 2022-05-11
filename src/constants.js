@@ -14,3 +14,5 @@ export const COLOR = {
   BLACK: 'black',
   PRIMARY: '#2AC1BC',
 };
+
+export const SERVER_URL = 'http://localhost:4000';
