@@ -1,20 +1,35 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ProductName from "../@shared/ProductName/ProductName";
 import ProductPrice from "../@shared/ProductPrice/ProductPrice";
 import { ReactComponent as Cart } from "../../assets/cart.svg";
+import useClickCartButton from "../../hooks/useClickCartButton";
 
 const StyledCart = styled(Cart)`
   width: 20px;
   height: 20px;
-  & path {
-    fill: black;
-  }
 
-  :hover {
-    & path {
-      fill: ${({ theme }) => theme.colors.cyon};
-    }
-  }
+  ${({ $isincart }) =>
+    $isincart
+      ? css`
+      & path {
+        fill: ${({ theme }) => theme.colors["red_03"]}
+      }
+      :hover {
+        & path {
+          fill: ${({ theme }) => theme.colors.cyon};
+        }
+    `
+      : css`
+          & path {
+            fill: black;
+          }
+
+          :hover {
+            & path {
+              fill: ${({ theme }) => theme.colors.cyon};
+            }
+          }
+        `}
 `;
 
 const ProductCardInfoBox = styled.div`
@@ -35,14 +50,25 @@ const ProductCardInfoContainer = styled.div`
   width: 188px;
 `;
 
-function ProductCardInfo({ name, price }) {
+function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
+  const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
+
   return (
     <ProductCardInfoContainer>
       <ProductCardInfoBox>
         <ProductName type="card">{name}</ProductName>
         <ProductPrice type="card">{price}원</ProductPrice>
       </ProductCardInfoBox>
-      <StyledCart />
+
+      <div
+        onClick={
+          $isincart
+            ? (e) => handleDeleteProduct(e, id)
+            : (e) => handleAddProduct(e, { name, price, id, thumbnail })
+        }
+      >
+        <StyledCart $isincart={$isincart} />
+      </div>
     </ProductCardInfoContainer>
   );
 }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import NavigateButton from "../NavigateButton/NavigateButton";
 
-const PageTitle = styled.h1`
+const PageTitle = styled(NavigateButton)`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};
   font-weight: 900;

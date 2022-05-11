@@ -7,6 +7,10 @@ const NavigateButton = styled.button`
   background-color: transparent;
   border: none;
   color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+  :hover {
+    filter: brightness(90%);
+  }
 `;
 
 export default NavigateButton;
