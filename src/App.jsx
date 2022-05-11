@@ -1,14 +1,19 @@
-import ProductList from 'pages/ProductList';
 import React from 'react';
 import GlobalStyles from 'styles/globalStyles';
-import Layout from 'component/common/Layout';
+import ProductList from 'components/ProductList';
+import Layout from 'components/common/Layout';
+import NotFound from 'components/NotFound';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
     <div>
       <GlobalStyles />
       <Layout>
-        <ProductList />
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Layout>
     </div>
   );

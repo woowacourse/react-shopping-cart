@@ -2,7 +2,8 @@
 
 ### 공통
 
-- [ ] baseURL을 설정한다.
+- [x] baseURL을 설정한다.
+- [x] 라우터를 연결한다.
 
 <br>
 
@@ -20,6 +21,7 @@
 - [x] Product 컴포넌트
 - [x] ProductList 컴포넌트
 - [x] Layout 컴포넌트
+- [ ] NotFound 컴포넌트
 
 <br>
 
