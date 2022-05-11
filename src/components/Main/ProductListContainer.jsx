@@ -1,19 +1,21 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import Product from './Product';
-import { SERVER_URL } from '../../constants';
-import useAxios from '../../hooks/useAxios';
 
 function ProductListContainer() {
-  const [products, error, loading] = useAxios({
-    url: `${SERVER_URL}/products`,
-  });
+  const { products, carts } = useSelector((state) => state.productsReducer);
 
   return (
     <Styled.ProductListContainer>
-      {loading && <h1>Loading...</h1>}
-      {error && <h1>{error.message}</h1>}
       {products?.map(({ id, src, title, price }) => (
-        <Product key={id} id={id} src={src} title={title} price={price} />
+        <Product
+          key={id}
+          id={id}
+          src={src}
+          title={title}
+          price={price}
+          isStored={carts.some((cart) => cart.id === id)}
+        />
       ))}
     </Styled.ProductListContainer>
   );
