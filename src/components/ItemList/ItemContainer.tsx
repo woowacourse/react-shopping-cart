@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import CroppedImage from 'components/common/CroppedImage';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import theme from 'styles/theme';
-import { memo } from 'react';
+import { memo, MouseEvent } from 'react';
 import { flexCenter } from 'styles/mixin';
+import { Link } from 'react-router-dom';
 
 interface ItemContainerProps {
   id: number;
@@ -20,21 +21,29 @@ const ItemContainer = ({
   price,
   updateCartItemQuantity,
 }: ItemContainerProps) => {
+  const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
+    if (e.target instanceof SVGElement) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <StyledRoot>
-      <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
-      <StyledBottom>
-        <StyledDescription>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledPrice>{price}</StyledPrice>
-        </StyledDescription>
-        <StyledCartIcon
-          width='31px'
-          fill={theme.colors.font}
-          onClick={() => updateCartItemQuantity?.(id)}
-        />
-      </StyledBottom>
-    </StyledRoot>
+    <Link to={`item_detail/${id}`} onClick={handleClickItemContainer}>
+      <StyledRoot>
+        <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
+        <StyledBottom>
+          <StyledDescription>
+            <StyledTitle>{title}</StyledTitle>
+            <StyledPrice>{price}</StyledPrice>
+          </StyledDescription>
+          <StyledCartIcon
+            width='31px'
+            fill={theme.colors.font}
+            onClick={() => updateCartItemQuantity?.(id)}
+          />
+        </StyledBottom>
+      </StyledRoot>
+    </Link>
   );
 };
 
@@ -46,9 +55,16 @@ const StyledRoot = styled.div`
   width: 28.2rem;
   height: 35.8rem;
   gap: 1.8rem;
+  cursor: pointer;
   transition: box-shadow 0.1s ease;
   &:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    img {
+      transform: scale(1.2);
+    }
+  }
+  img {
+    transition: transform 0.5s ease;
   }
 `;
 

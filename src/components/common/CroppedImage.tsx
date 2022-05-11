@@ -21,6 +21,7 @@ const StyledImageWrapper = styled.div<{ width: string; height: string }>`
   position: relative;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  overflow: hidden;
 `;
 
 const StyledImage = styled.img`
