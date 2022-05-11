@@ -5,7 +5,17 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 10px;
 
-  /* width: 280px; */
+  cursor: pointer;
+
+  &:hover {
+    h1 {
+      text-decoration: underline;
+    }
+
+    img {
+      transform: scale(1.07);
+    }
+  }
 `;
 
 export const Content = styled.div`

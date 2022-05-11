@@ -4,7 +4,7 @@ import Icon from '../../common/Icon';
 function ProductCard({ product: { imageURL, name, price } }) {
   return (
     <Styled.Container>
-      <Image src={imageURL} alt="베이컨이 들어간 프라이팬" />
+      <Image src={imageURL} alt={name} />
       <Styled.Content>
         <Styled.Description>
           <Styled.Name>{name}</Styled.Name>
