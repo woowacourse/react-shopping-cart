@@ -20,6 +20,7 @@ const IconButton = styled.button`
 function AddToCartButton() {
   return (
     <IconButton
+      title="장바구니 담기"
       onClick={(e) => {
         e.stopPropagation();
         alert("🛒아직입니다~~^^🛒");

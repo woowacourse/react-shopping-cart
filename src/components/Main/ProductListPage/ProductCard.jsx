@@ -16,14 +16,12 @@ const Container = styled.li`
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 282px;
 
   overflow: hidden;
 `;
 
 const ProductThumbnail = styled.img`
   width: 100%;
-  height: 282px;
   transition: transform 0.3s;
   object-fit: cover;
 
