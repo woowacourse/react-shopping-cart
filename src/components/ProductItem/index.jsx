@@ -25,7 +25,9 @@ const ProductItem = ({ id, image, name, price }) => {
           <p className="title">{name}</p>
           <p className="price">{price.toLocaleString('ko-KR')}원</p>
         </div>
-        <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+        <div className="button-wrapper">
+          <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+        </div>
       </div>
     </Styled.Container>
   );

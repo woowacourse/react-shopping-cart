@@ -28,8 +28,11 @@ const Container = styled.div`
   }
 
   .image-wrapper {
+    cursor: pointer;
+
     position: relative;
     width: 100%;
+    overflow: hidden;
 
     &::after {
       content: '';
@@ -45,10 +48,17 @@ const Container = styled.div`
       left: 0px;
       top: 0px;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover > img {
+      transform: scale(110%);
     }
   }
 
-  & > .info {
+  .button-wrapper {
+    display: flex;
+    align-items: center;
   }
 `;
 
