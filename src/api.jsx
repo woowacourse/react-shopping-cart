@@ -6,4 +6,10 @@ const getProductList = async () => {
   return productList;
 };
 
-export { getProductList };
+const getProductItem = async (id) => {
+  const response = await axios.get(`http://localhost:4000/products/${id}`);
+  const productItem = response.data;
+  return productItem;
+};
+
+export { getProductList, getProductItem };

@@ -1,13 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getProductListAsync } from '../store/actions';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
+import { StyledImageBox, StyledImg } from '../components/common';
 
 function ProductListPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productList = useSelector((state) => state.productList);
+
+  const handleClickItem = async (id) => {
+    navigate('/product-detail-page', { state: { id } });
+  };
 
   useEffect(() => {
     dispatch(getProductListAsync());
@@ -19,9 +26,9 @@ function ProductListPage() {
         {productList.map((product) => {
           const { id, name, price, imageUrl } = product;
           return (
-            <StyledItem key={id}>
-              <StyledImageBox>
-                <StyledImg src={imageUrl} />
+            <StyledItem key={id} onClick={() => handleClickItem(id)}>
+              <StyledImageBox width={'middle'} height={'middle'}>
+                <StyledImg width={'middle'} src={imageUrl} />
               </StyledImageBox>
               <StyledItemInfoBox>
                 <StyledItemInfo>
@@ -58,18 +65,7 @@ const StyledGridContainer = styled.div`
 const StyledItem = styled.div`
   width: 250px;
   height: 330px;
-`;
-
-const StyledImageBox = styled.div`
-  width: 250px;
-  height: 250px;
-`;
-
-const StyledImg = styled.img`
-  width: 250px;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
+  cursor: pointer;
 `;
 
 const StyledItemInfoBox = styled.div`
