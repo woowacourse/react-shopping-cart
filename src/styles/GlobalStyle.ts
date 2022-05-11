@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
       border: none;
       cursor: pointer;
+      background-color: inherit;
   }
   
   a{

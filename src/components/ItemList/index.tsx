@@ -1,23 +1,28 @@
-import { getItemList } from 'redux/action-creators/itemListThunk';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import styled from 'styled-components';
-import { ItemListAction } from 'redux/actions/itemList';
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import useCartList from 'hooks/useCartList';
-import { useAppSelector } from 'hooks/useAppSelector';
 import useSnackBar from 'hooks/useSnackBar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { LOCAL_BASE_URL } from 'apis';
+import { Item } from 'types/domain';
+import axios from 'axios';
 
 const ItemList = () => {
-  const { data: itemList, error, loading } = useAppSelector(state => state.itemListReducer);
-  const dispatch = useAppDispatch<ItemListAction>();
-
+  const [itemList, setItemList] = useState<Item[]>([]);
   const { cartList, updateCartItemQuantity } = useCartList();
   const { openSnackbar } = useSnackBar();
 
+  const params = useParams();
+  const id = Number(params.id);
+
   useEffect(() => {
-    dispatch(getItemList());
-  }, []);
+    (async () => {
+      const res = await axios.get(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=12`);
+
+      setItemList(res.data);
+    })();
+  }, [id]);
 
   return (
     <StyledRoot>

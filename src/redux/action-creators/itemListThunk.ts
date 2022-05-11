@@ -1,7 +1,6 @@
-import { ItemListActionType } from '../actions/itemList';
+import { ItemListActionType, ItemListAction } from '../actions/itemList';
 import axios from 'axios';
 import { LOCAL_BASE_URL } from 'apis';
-import { ItemListAction } from '../actions/itemList';
 import type { Dispatch } from 'redux';
 
 export const getItemList = () => async (dispatch: Dispatch<ItemListAction>) => {

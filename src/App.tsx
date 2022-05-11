@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import ItemDetail from 'pages/ItemDetail';
-import ItemList from 'pages/ItemList';
 import NotFound from 'pages/NotFound';
+import Main from 'pages/Main';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import Snackbar from 'components/common/Snackbar';
@@ -16,7 +16,8 @@ function App() {
         <Header />
         <StyledMain>
           <Routes>
-            <Route path='/' element={<ItemList />} />
+            <Route path='/' element={<Navigate replace to='/main/1' />} />
+            <Route path='/main/:id' element={<Main />} />
             <Route path='/item_detail/:id' element={<ItemDetail />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
