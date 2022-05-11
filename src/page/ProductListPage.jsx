@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-import ProductItem from 'components/ProductItem';
+import axios from 'axios';
 import store from 'app/store';
-import { SERVER_URL } from 'constants';
+import ProductItem from 'components/ProductItem';
 import { INITIALIZE } from 'modules/reducer';
+import { SERVER_URL } from 'constants';
 
 const StyledProductListPage = styled.main`
   width: 1269px;

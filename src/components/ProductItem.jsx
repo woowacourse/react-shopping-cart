@@ -1,11 +1,16 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Image from 'components/shared/image/Image';
 import ShoppingCartIcon from 'components/shared/icon/ShoppingCartIcon';
 import Modal from 'components/shared/modal/Modal';
-import store from 'app/store';
 import { PUT } from 'modules/reducer';
-import { useSelector } from 'react-redux';
+import store from 'app/store';
+import Button from 'components/shared/button/Button';
+
+import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
+import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
+import Text from './shared/text/Text';
 
 const StyledProductItem = styled.div`
   width: 282px;
@@ -44,7 +49,7 @@ const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { products } = useSelector(state => state.reducer);
   const { name, price, image } = products.find(product => product.id === id);
-  const [quantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const handleClick = () => {
     if (isOpen) {
@@ -70,7 +75,25 @@ const ProductItem = ({ id }) => {
           <ShoppingCartIcon onClick={handleClick} />
         </div>
       </StyledProductContainer>
-      {isOpen && <Modal>modal</Modal>}
+      {isOpen && (
+        <Modal>
+          <Button
+            onClick={() => {
+              setQuantity(prev => (prev > 1 ? prev - 1 : prev));
+            }}
+          >
+            <MinusIcon />
+          </Button>
+          <Text modal="true">{quantity}</Text>
+          <Button
+            onClick={() => {
+              setQuantity(prev => prev + 1);
+            }}
+          >
+            <PlusIcon />
+          </Button>
+        </Modal>
+      )}
     </StyledProductItem>
   );
 };
