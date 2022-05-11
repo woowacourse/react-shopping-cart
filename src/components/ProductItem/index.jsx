@@ -1,24 +1,35 @@
 import PropTypes from 'prop-types';
-import IconButton from 'components/@common/IconButton';
+import { useDispatch } from 'react-redux';
 
+import { addCartList } from 'actions/cart';
+
+import IconButton from 'components/@common/IconButton';
 import { ICON_CODE } from 'constants/';
 
 import * as Styled from './styles';
 
-const ProductItem = ({ id, image, name, price }) => (
-  <Styled.Container>
-    <div className="image-wrapper">
-      <img src={image} alt="product thumbnail" />
-    </div>
-    <div className="description">
-      <div className="info">
-        <p className="title">{name}</p>
-        <p className="price">{price.toLocaleString('ko-KR')}원</p>
+const ProductItem = ({ id, image, name, price }) => {
+  const dispatch = useDispatch();
+
+  const onClickAddCartButton = () => {
+    dispatch(addCartList({ id, image, name, price }));
+  };
+
+  return (
+    <Styled.Container>
+      <div className="image-wrapper">
+        <img src={image} alt="product thumbnail" />
       </div>
-      <IconButton className="cart" icon={ICON_CODE.CART} />
-    </div>
-  </Styled.Container>
-);
+      <div className="description">
+        <div className="info">
+          <p className="title">{name}</p>
+          <p className="price">{price.toLocaleString('ko-KR')}원</p>
+        </div>
+        <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+      </div>
+    </Styled.Container>
+  );
+};
 
 ProductItem.propTypes = {
   id: PropTypes.number.isRequired,

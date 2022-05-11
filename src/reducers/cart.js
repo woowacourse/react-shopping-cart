@@ -1,13 +1,15 @@
+import { CARTS_ACTIONS } from 'actions/types';
+
 const initialState = {
-  carts: [],
+  items: [],
 };
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'UPDATE_CART_LIST':
-      return { ...state, carts: [...state.carts, ...payload] };
+    case CARTS_ACTIONS.ADD_CART_LIST:
+      return { ...state, items: [...state.items, payload] };
 
     default:
       return state;
