@@ -36,6 +36,7 @@ const GlobalStyles = () => (
       }
       .App {
         padding: 0 10%;
+        margin: 140px 0;
       }
     `}
   />
