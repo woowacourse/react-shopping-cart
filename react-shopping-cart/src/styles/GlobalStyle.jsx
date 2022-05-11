@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
 	  vertical-align: baseline;
     box-sizing: border-box;
   }
+
+	button {
+		background-color: #fff;
+	}
 `;
 
 export default GlobalStyle;
