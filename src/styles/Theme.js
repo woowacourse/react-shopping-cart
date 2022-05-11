@@ -1,6 +1,6 @@
 const size = {
   mobile: '480px',
-  tablet: '600px',
+  tablet: '800px',
   desktop: '1024px',
 };
 
@@ -12,8 +12,9 @@ export default {
 
   // responsive
   mobile: `@media (max-width: ${size.mobile})`,
-  tablet: `@media (min-width: ${size.tablet})`,
+  tablet: `@media (max-width: ${size.tablet})`,
   desktop: `@media (min-width: ${size.desktop})`,
 
   innerWidth: '1100px',
+  minWidth: '300px',
 };

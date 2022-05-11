@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  min-width: ${({ theme }) => theme.minWidth};
+`;
 
 export const Inner = styled.div`
   max-width: 500px;
