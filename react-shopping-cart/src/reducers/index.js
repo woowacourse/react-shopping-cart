@@ -1,23 +1,15 @@
-import { ADD_ITEM, DELETE_ITEM } from 'actions';
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import shoppingCart from './shoppingCart';
 
-const initialState = [];
+const rootReducer = combineReducers({
+  shoppingCart,
+});
 
-function shoppingCart(state = initialState, action) {
-  switch (action.type) {
-    case ADD_ITEM:
-      return [
-        ...state,
-        {
-          ...action.payload,
-          quantity: 1,
-        },
-      ];
-    case DELETE_ITEM:
-      return state.filter(product => product.id !== action.payload.id);
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
-    default:
-      return state;
-  }
-}
-
-export default shoppingCart;
+export default persistReducer(persistConfig, rootReducer);

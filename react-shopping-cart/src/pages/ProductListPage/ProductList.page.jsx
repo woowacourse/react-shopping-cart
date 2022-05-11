@@ -14,11 +14,9 @@ const ProductListBox = styled.div`
 
 function ProductList() {
   const dispatch = useDispatch();
-  const shoppingCart = useSelector(state => state);
+  const shoppingCart = useSelector(state => state.shoppingCart);
 
   const { data, isLoading, error } = useFetch('http://localhost:3001/product');
-
-  console.log(shoppingCart);
 
   const handleToggleShoppingCart = (id, isContained) => {
     dispatch(isContained ? deleteItem(id) : addItem(id));
