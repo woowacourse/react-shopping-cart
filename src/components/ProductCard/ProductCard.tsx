@@ -20,18 +20,26 @@ const SHOPPING_CART_ICON = (
   </svg>
 );
 
-function ProductCard({
-  product: { id, name, price, description, image },
-}: Props) {
+function ProductCard({ product }: Props) {
+  const { id, name, price, stock, description, image } = {
+    ...product,
+    stock: Number(product.stock),
+    price: Number(product.price),
+  };
+
   return (
     <PlainLink to={`/products/${id}`}>
       <StyledProductCard>
         <CardImageContainer>
+          <CardImageOverlay>
+            <p>{description}</p>
+            <div>구매하기</div>
+          </CardImageOverlay>
           <img src={image} alt={name} />
         </CardImageContainer>
         <CardDescriptionContainer>
           <h3>{name}</h3>
-          <p>{price} 원</p>
+          <p>{price?.toLocaleString('ko-KR')} 원</p>
         </CardDescriptionContainer>
         <CardButtonContainer>
           <button>{SHOPPING_CART_ICON}</button>
@@ -41,11 +49,47 @@ function ProductCard({
   );
 }
 
+const CardImageOverlay = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
+
+  background: rgba(0, 0, 0, 0.3);
+
+  p {
+    margin: 30px;
+    color: white;
+    position: absolute;
+
+    line-height: 1.4rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+  }
+
+  div {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 24px;
+    color: white;
+    padding: 10px;
+    background: ${({ theme: { colors } }) => colors.black};
+  }
+`;
+
 const CardImageContainer = styled.div`
   grid-column: 1 / 5;
   grid-row: 1 / 5;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+  position: relative;
 
   img {
     width: 100%;
@@ -99,10 +143,31 @@ const StyledProductCard = styled.div`
   width: 282px;
   color: ${({ theme: { colors } }) => colors.black};
 
+  :not(:hover) {
+    ${CardImageContainer} {
+      ${CardImageOverlay} {
+        opacity: 0;
+        transition-duration: 0.3s;
+      }
+
+      img {
+        transform: scale(1, 1);
+        transition-duration: 0.3s;
+      }
+    }
+  }
+
   :hover {
-    ${CardImageContainer} > img {
-      transform: scale(1.05, 1.05);
-      transition-duration: 0.3s;
+    ${CardImageContainer} {
+      ${CardImageOverlay} {
+        opacity: 1;
+        transition-duration: 0.3s;
+      }
+
+      img {
+        transform: scale(1.05, 1.05);
+        transition-duration: 0.3s;
+      }
     }
 
     ${CardDescriptionContainer} > h3 {

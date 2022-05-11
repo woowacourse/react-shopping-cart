@@ -18,23 +18,19 @@ function Header() {
 }
 
 const StyledHeader = styled.div`
-  padding: 0 13%;
+  padding: 0 10%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   height: 80px;
-  color: ${({
-    theme: {
-      colors: { white },
-    },
-  }) => white};
-  background: ${({
-    theme: {
-      colors: { emerald },
-    },
-  }) => emerald};
+  position: sticky;
+  top: 0px;
+
+  z-index: ${({ theme: { zPriorities } }) => zPriorities.overEverything};
+
+  color: ${({ theme: { colors } }) => colors.white};
+  background: ${({ theme: { colors } }) => colors.emerald};
 `;
 
 export default Header;
