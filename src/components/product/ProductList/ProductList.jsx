@@ -12,4 +12,14 @@ function ProductList({ productList }) {
   );
 }
 
+ProductList.skeleton = () => {
+  return (
+    <Styled.Container>
+      {Array.from({ length: 12 }).map((_, index) => (
+        <ProductCard.skeleton key={index} />
+      ))}
+    </Styled.Container>
+  );
+};
+
 export default ProductList;

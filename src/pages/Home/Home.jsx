@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const productList = useSelector(state => state.productList);
+  const { productList, isLoading } = useSelector(state => state);
 
   const [searchParams] = useSearchParams();
 
@@ -20,7 +20,9 @@ export default function Home() {
 
   return (
     <PageTemplate>
-      {productList && (
+      {isLoading ? (
+        <ProductList.skeleton />
+      ) : (
         <>
           <ProductList productList={productList} />
           <Pagination />

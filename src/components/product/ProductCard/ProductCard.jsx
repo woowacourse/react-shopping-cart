@@ -18,4 +18,15 @@ function ProductCard({ product: { imageURL, name, price } }) {
   );
 }
 
+ProductCard.skeleton = () => {
+  return (
+    <Styled.Container skeleton={true}>
+      <Styled.Placeholder shape="square" />
+      <Styled.Content>
+        <Styled.Placeholder shape="line" />
+      </Styled.Content>
+    </Styled.Container>
+  );
+};
+
 export default ProductCard;
