@@ -5,7 +5,7 @@ export const size = {
 };
 
 export default {
-  mainColor: '#2AC1BC',
+  mainColor: '#141852',
   buttonDefault: '#73675C',
 
   textColorWhite: '#ffffff',

@@ -12,7 +12,7 @@ export default function Header() {
         <Styled.NavLink to={ROUTE.home.route}>
           <Styled.Logo>
             <Icon iconName="tent" size={isTablet ? '50' : '30'} />
-            WOOWA SHOP
+            BLZZI&apos;S CAMPING
           </Styled.Logo>
         </Styled.NavLink>
 
