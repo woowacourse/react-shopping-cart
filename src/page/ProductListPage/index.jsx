@@ -1,35 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import DetailItem from 'component/Item';
 import PropTypes from 'prop-types';
 
 import {ProductListPageWrapper} from 'page/ProductListPage/style';
-
+import {getProductList} from 'store/modules/productList';
 export default function ProductListPage() {
-  const instance = axios.create({
-    baseURL: 'https://shopping-cart-dory-nine.herokuapp.com/',
-  });
-
-  const [itemList, setItemList] = useState([]);
-
   useEffect(() => {
-    async function fetchData() {
-      instance.get('products').then(({data}) => setItemList(data));
-    }
-    fetchData();
+    fetchProductList();
   }, []);
+
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productListReducer.productList);
+
+  const fetchProductList = () => {
+    dispatch(getProductList());
+  };
 
   return (
     <ProductListPageWrapper>
-      {itemList.map(({id, image, name, price}) => (
-        <DetailItem
-          itemImgURL={image}
-          itemName={name}
-          itemPrice={price.toString()}
-          id={id}
-          key={id}
-        />
+      {productList.map(({id, image, name, price}) => (
+        <DetailItem itemImgURL={image} itemName={name} itemPrice={price} id={id} key={id} />
       ))}
     </ProductListPageWrapper>
   );

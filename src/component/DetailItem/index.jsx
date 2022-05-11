@@ -24,5 +24,5 @@ export default function Item({itemImgURL, itemName, itemPrice}) {
 Item.propTypes = {
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
-  itemPrice: PropTypes.string,
+  itemPrice: PropTypes.number,
 };

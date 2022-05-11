@@ -11,6 +11,7 @@ export default function Header() {
   const navigation = useNavigate();
 
   const handleLogoClick = () => navigation('/');
+  const handleCartButtonClick = () => navigation('/cart');
 
   return (
     <HeaderWrapper>
@@ -18,7 +19,7 @@ export default function Header() {
         <LogoIcon />
       </Button>
       <HeaderButtonWrapper>
-        <Button>장바구니</Button>
+        <Button onClick={handleCartButtonClick}>장바구니</Button>
         <Button>주문목록</Button>
       </HeaderButtonWrapper>
     </HeaderWrapper>

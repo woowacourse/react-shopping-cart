@@ -9,7 +9,7 @@ import {
   PriceInfoWrapper,
 } from 'component/AmountBox/style';
 
-function AmountBox({type, totalQuantity, totalPrice}) {
+function AmountBox({type, totalCount, totalPrice}) {
   return (
     <AmountBoxWrapper>
       <AmountBoxHeaderWrapper>
@@ -20,7 +20,7 @@ function AmountBox({type, totalQuantity, totalPrice}) {
         <p>{totalPrice}원</p>
       </PriceInfoWrapper>
       <Button backgroundColor="#2AC1BC" width="100%" height="73px">
-        {type === 'expect' ? `주문하기(${totalQuantity}개)` : `${totalPrice}원 결제하기`}
+        {type === 'expect' ? `주문하기(${totalCount}개)` : `${totalPrice}원 결제하기`}
       </Button>
     </AmountBoxWrapper>
   );
@@ -28,8 +28,8 @@ function AmountBox({type, totalQuantity, totalPrice}) {
 
 AmountBox.propTypes = {
   type: PropTypes.string,
-  totalQuantity: PropTypes.string,
-  totalPrice: PropTypes.string,
+  totalCount: PropTypes.number,
+  totalPrice: PropTypes.number,
 };
 
 export default AmountBox;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -18,28 +19,19 @@ import Button from 'component/common/Button';
 
 import CartItem from 'component/CartItem';
 
-const mockData = [
-  {
-    id: 29,
-    name: '[든든] 주부유부왕 500g',
-    image: 'https://cdn-mart.baemin.com/sellergoods/main/ad846ff8-c698-44ac-8953-2624627b0f63.jpg',
-    price: 4800,
-  },
-  {
-    id: 30,
-    name: '[든든] 주부유부왕 300g',
-    image: 'https://cdn-mart.baemin.com/sellergoods/main/a314c955-fb59-4bc7-955c-9fcaa155dd72.jpg',
-    price: 3300,
-  },
-  {
-    id: 31,
-    name: '[든든] 유부 슬라이스 500g',
-    image: 'https://cdn-mart.baemin.com/goods/custom/20200525/11153-main-01.png',
-    price: 4900,
-  },
-];
-
 export default function ProductCartPage() {
+  const cartItem = useSelector((state) => state.cartReducer.cart);
+
+  const {totalCount, totalPrice} = cartItem.reduce(
+    (prev, cur) => {
+      return {
+        totalCount: cur.count + prev.totalCount,
+        totalPrice: cur.itemPrice * cur.count + prev.totalPrice,
+      };
+    },
+    {totalCount: 0, totalPrice: 0},
+  );
+
   return (
     <ProductCartPageWrapper>
       <HeaderWrapper>장바구니</HeaderWrapper>
@@ -55,21 +47,22 @@ export default function ProductCartPage() {
 
           <ListHeaderWrapper>든든배송 상품 (개)</ListHeaderWrapper>
           <CartListWrapper>
-            {mockData.map(({image: itemImgURL, name: itemName, price: itemPrice, id}) => (
-              <>
+            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
+              <React.Fragment key={id}>
                 <CartItem
                   itemImgURL={itemImgURL}
                   itemName={itemName}
                   itemPrice={itemPrice}
-                  key={id}
+                  count={count}
+                  id={id}
                 />
                 <hr />
-              </>
+              </React.Fragment>
             ))}
           </CartListWrapper>
         </SelectCartWrapper>
 
-        <AmountBox />
+        <AmountBox type="expect" totalCount={totalCount} totalPrice={totalPrice} />
       </CartInfoWrapper>
     </ProductCartPageWrapper>
   );
