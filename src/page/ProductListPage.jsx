@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import ProductItem from 'components/ProductItem';
-import dummy from 'assets/dummy_img.png';
 
 const StyledProductListPage = styled.main`
   width: 1269px;
@@ -23,11 +24,18 @@ const StyledProductList = styled.div`
 `;
 
 const ProductListPage = () => {
+  const { products, shoppingCart } = useSelector(state => state.reducer);
+
+  useEffect(() => {
+    console.log(products);
+    console.log(shoppingCart);
+  }, [products, shoppingCart]);
+
   return (
     <StyledProductListPage>
       <StyledProductList>
-        {Array.from({ length: 30 }).map((value, index) => (
-          <ProductItem src={dummy} name="PET보틀-정사각(420ml)" price="43,400" key={index} />
+        {products.map(({ id }) => (
+          <ProductItem key={id} id={id} />
         ))}
       </StyledProductList>
     </StyledProductListPage>
