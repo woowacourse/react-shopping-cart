@@ -85,11 +85,7 @@ const ProductItem = ({ id }) => {
             <MinusIcon />
           </Button>
           <Text modal="true">{quantity}</Text>
-          <Button
-            onClick={() => {
-              setQuantity(prev => prev + 1);
-            }}
-          >
+          <Button onClick={() => setQuantity(prev => prev + 1)}>
             <PlusIcon />
           </Button>
         </Modal>

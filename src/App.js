@@ -32,7 +32,7 @@ function App() {
       />
       <StyledRoutes>
         <Routes>
-          <Route path="/" element={<ProductListPage />} />
+          <Route path="/react-shopping-cart/" element={<ProductListPage />} />
         </Routes>
       </StyledRoutes>
     </BrowserRouter>
