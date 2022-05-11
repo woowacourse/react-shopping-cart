@@ -6,7 +6,9 @@ const path = require('path')
 
 const router = jsonServer.router(path.join(__dirname,'db.json'))
 
-const middlewares = jsonServer.defaults()
+const middlewares = jsonServer.defaults({
+  static: "./build",
+})
 
 const port = process.env.PORT || 4000;
 
