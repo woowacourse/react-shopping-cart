@@ -10,7 +10,7 @@ function useClickCartButton() {
 
   const handleDeleteProduct = (e, id) => {
     e.stopPropagation();
-    dispatch(deleteProductToCartStart(`${CURRENT_USER}${id}`));
+    dispatch(deleteProductToCartStart(id));
   };
 
   const handleAddProduct = (e, { name, price, id, thumbnail }) => {

@@ -17,6 +17,7 @@ function ShoppingCartItemsContainer() {
           return (
             <ShoppingCartItem
               key={id}
+              id={id}
               name={name}
               thumbnail={image}
               price={price}

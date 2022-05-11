@@ -5,6 +5,7 @@ import ProductThumbnail from "../@shared/ProductThumbnail/ProductThumbnail";
 import { ReactComponent as Trash } from "../../assets/trash.svg";
 import ItemCounter from "../ItemCounter/ItemCounter";
 import ProductPrice from "../@shared/ProductPrice/ProductPrice";
+import useClickCartButton from "../../hooks/useClickCartButton";
 
 const CartContainer = styled.div`
   display: flex;
@@ -31,7 +32,9 @@ const TrashContainer = styled.div`
   cursor: pointer;
 `;
 
-function ShoppingCartItem({ name, thumbnail, price }) {
+function ShoppingCartItem({ id, name, thumbnail, price }) {
+  const { handleDeleteProduct } = useClickCartButton();
+
   return (
     <CartContainer>
       <LeftContainer>
@@ -40,7 +43,7 @@ function ShoppingCartItem({ name, thumbnail, price }) {
         <ProductName type="shoppingCart">{name}</ProductName>
       </LeftContainer>
       <RightContainer>
-        <TrashContainer>
+        <TrashContainer onClick={(e) => handleDeleteProduct(e, id)}>
           <Trash />
         </TrashContainer>
         <ItemCounter />

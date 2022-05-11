@@ -3,6 +3,7 @@ import ProductName from "../@shared/ProductName/ProductName";
 import ProductPrice from "../@shared/ProductPrice/ProductPrice";
 import { ReactComponent as Cart } from "../../assets/cart.svg";
 import useClickCartButton from "../../hooks/useClickCartButton";
+import { CURRENT_USER } from "../../constants";
 
 const StyledCart = styled(Cart)`
   width: 20px;
@@ -63,7 +64,7 @@ function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
       <div
         onClick={
           $isincart
-            ? (e) => handleDeleteProduct(e, id)
+            ? (e) => handleDeleteProduct(e, `${CURRENT_USER}${id}`)
             : (e) => handleAddProduct(e, { name, price, id, thumbnail })
         }
       >
