@@ -1,7 +1,7 @@
 import HeaderLink from './HeaderLink.component';
 
 export default {
-  title: 'HeaderLink',
+  title: 'Shared/HeaderLink',
   component: HeaderLink,
   decorators: [
     Story => (

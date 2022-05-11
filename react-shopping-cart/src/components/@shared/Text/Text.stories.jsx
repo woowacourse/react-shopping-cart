@@ -1,7 +1,7 @@
 import Text from './Text.component';
 
 export default {
-  title: 'Text',
+  title: 'Shared/Text',
   component: Text,
   argTypes: {
     fontSize: { control: 'select', options: ['small', 'medium', 'large', 'extraLarge'] },

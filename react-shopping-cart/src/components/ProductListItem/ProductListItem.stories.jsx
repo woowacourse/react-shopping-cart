@@ -2,7 +2,7 @@ import ProductListItem from './ProductListItem.component';
 import DefaultImage from 'assets/images/baeminImage.png';
 
 export default {
-  title: 'ProductListItem',
+  title: 'Components/ProductListItem',
   component: ProductListItem,
 };
 

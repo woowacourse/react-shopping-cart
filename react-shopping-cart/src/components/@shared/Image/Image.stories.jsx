@@ -2,7 +2,7 @@ import Image from './Image.component';
 import DefaultImage from 'assets/images/baeminImage.png';
 
 export default {
-  title: 'Image',
+  title: 'Shared/Image',
   component: Image,
   argTypes: {
     type: { control: 'select', options: ['small', 'medium', 'large'] },

@@ -1,7 +1,7 @@
 import HeaderContainer from './HeaderContainer.component';
 
 export default {
-  title: 'HeaderContainer',
+  title: 'Shared/HeaderContainer',
   component: HeaderContainer,
 };
 
