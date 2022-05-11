@@ -26,12 +26,10 @@ function Product() {
       <FlexCenter>
         <div>
           <MarginBottomWrapper marginBottom="6px">
-            <ProductTitle fontSize="1rem" fontWeight="400">
-              모모
-            </ProductTitle>
+            <ProductTitle>모모</ProductTitle>
           </MarginBottomWrapper>
-          <BlackText fontSize="20px" fontWeight="400">
-            0000000원
+          <BlackText fontSize="1.25rem" fontWeight="400">
+            00000원
           </BlackText>
         </div>
         <CartButton />

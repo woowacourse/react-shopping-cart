@@ -11,7 +11,7 @@ function HomeButton() {
       <MarginRightWrapper marginRight="14px">
         <Image src="/img/shopping-cart-white.png" width="50" height="44" />
       </MarginRightWrapper>
-      <WhiteButton fontSize="40" fontWeight="700">
+      <WhiteButton fontSize="2.5rem" fontWeight="700">
         WOOWA SHOP
       </WhiteButton>
     </FlexAlignCenter>

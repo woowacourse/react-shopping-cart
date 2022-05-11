@@ -6,7 +6,7 @@ import WhiteButton from 'components/WhiteButton';
 function CartPageButton() {
   return (
     <MarginRightWrapper>
-      <WhiteButton>장바구니</WhiteButton>
+      <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
     </MarginRightWrapper>
   );
 }

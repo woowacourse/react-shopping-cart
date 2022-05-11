@@ -2,9 +2,9 @@ import React from 'react';
 
 import BlackText from 'components/BlackText';
 
-function ProductTitle({ fontSize, fontWeight, children }) {
+function ProductTitle({ children }) {
   return (
-    <BlackText fontSize={fontSize} fontWeight={fontWeight}>
+    <BlackText fontSize="1rem" fontWeight="400">
       {children}
     </BlackText>
   );

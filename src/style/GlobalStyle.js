@@ -11,6 +11,12 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  @media (max-width: 800px) {
+    html {
+      font-size: 13px;
+    } 
+  }
 `;
 
 export default GlobalStyle;
