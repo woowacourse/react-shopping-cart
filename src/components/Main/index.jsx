@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,6 +7,9 @@ import ProductDetailPage from "./ProductDetailPage";
 import ProductCartPage from "./ShoppingCartPage";
 import Spinner from "../common/Spinner";
 import OrderListPage from "./OrderListPage";
+
+import { useFetch } from "../../hooks/useFetch";
+import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../../constants";
 
 const Container = styled.main`
   display: flex;
@@ -21,32 +23,11 @@ const Container = styled.main`
 `;
 
 function Main() {
-  const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch("https://react-shoppingcart-server.herokuapp.com/products")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`fetch error`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!data) {
-          throw new Error(`No Data`);
-        }
-        dispatch({
-          type: "INIT",
-          payload: { products: data },
-        });
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        return {};
-      });
-  }, [dispatch]);
+  const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
+  const isLoading = useFetch(productListURL, {
+    type: "INIT",
+    key: "products",
+  });
 
   return (
     <Container>
