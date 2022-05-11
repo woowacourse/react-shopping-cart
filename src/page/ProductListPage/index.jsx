@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import DetailItem from 'component/Item';
+import Item from 'component/Item';
 import PropTypes from 'prop-types';
 
 import {ProductListPageWrapper} from 'page/ProductListPage/style';
@@ -13,6 +13,7 @@ export default function ProductListPage() {
 
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productListReducer.productList);
+  const cart = useSelector((state) => state.cartReducer.cart);
 
   const fetchProductList = () => {
     dispatch(getProductList());
@@ -21,7 +22,14 @@ export default function ProductListPage() {
   return (
     <ProductListPageWrapper>
       {productList.map(({id, image, name, price}) => (
-        <DetailItem itemImgURL={image} itemName={name} itemPrice={price} id={id} key={id} />
+        <Item
+          itemImgURL={image}
+          itemName={name}
+          itemPrice={price}
+          id={id}
+          key={id}
+          disabled={cart.some((obj) => obj.id === id)}
+        />
       ))}
     </ProductListPageWrapper>
   );

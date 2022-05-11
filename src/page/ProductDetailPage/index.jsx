@@ -7,12 +7,18 @@ import {DetailItemPageWrapper} from 'page/ProductDetailPage/style';
 
 export default function ProductDetailPage() {
   const {
-    state: {itemImgURL, itemName, itemPrice},
+    state: {itemImgURL, itemName, itemPrice, id, disable},
   } = useLocation();
 
   return (
     <DetailItemPageWrapper>
-      <DetailItem itemImgURL={itemImgURL} itemName={itemName} itemPrice={itemPrice} />
+      <DetailItem
+        itemImgURL={itemImgURL}
+        itemName={itemName}
+        itemPrice={itemPrice}
+        id={id}
+        disabled={disable}
+      />
     </DetailItemPageWrapper>
   );
 }

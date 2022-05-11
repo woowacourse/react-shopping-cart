@@ -9,10 +9,11 @@ const ButtonWrapper = styled.button`
   background-color: ${(props) => props.backgroundColor || 'transparent'};
 
   width: ${(props) => props?.width};
-
   height: ${(props) => props?.height};
 
-  cursor: pointer;
+  cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
+
+  opacity: ${(props) => props.disable && 0.2};
 `;
 
 export {ButtonWrapper};

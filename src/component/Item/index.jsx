@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
@@ -16,17 +16,20 @@ import {
   ItemPriceWrapper,
 } from 'component/Item/style';
 
-export default function Item({itemImgURL, itemName, itemPrice, id}) {
+export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
+  const [disable, setDisable] = useState(disabled);
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
   const handleImageClick = () => {
     navigation(`detail/${id}`, {
-      state: {itemImgURL, itemName, itemPrice},
+      state: {itemImgURL, itemName, itemPrice, id, disable},
     });
   };
 
   const handleCartIconClick = (id) => {
+    setDisable(true);
     dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
   };
 
@@ -41,12 +44,16 @@ export default function Item({itemImgURL, itemName, itemPrice, id}) {
       />
       <InfoWrapper>
         <NamePriceWrapper>
-          <ItemNameWrapper to={`detail/${id}`} state={{itemImgURL, itemName, itemPrice}}>
+          <ItemNameWrapper to={`detail/${id}`} state={{itemImgURL, itemName, itemPrice, id}}>
             {itemName}
           </ItemNameWrapper>
           <ItemPriceWrapper>{itemPrice} 원</ItemPriceWrapper>
         </NamePriceWrapper>
-        <Button onClick={() => handleCartIconClick(id, itemImgURL, itemName, itemPrice)}>
+        <Button
+          disabled={disable}
+          disable={disable}
+          onClick={() => handleCartIconClick(id, itemImgURL, itemName, itemPrice)}
+        >
           <BlackCartIcon />
         </Button>
       </InfoWrapper>
@@ -59,4 +66,5 @@ Item.propTypes = {
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
+  disabled: PropTypes.bool,
 };
