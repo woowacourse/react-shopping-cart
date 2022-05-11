@@ -1,9 +1,10 @@
 import { ItemListActionType } from '../actions/itemList';
 import axios from 'axios';
 import { LOCAL_BASE_URL } from 'apis';
+import { ItemListAction } from '../actions/itemList';
+import type { Dispatch } from 'redux';
 
-// @TODO : remove any
-export const getItemList: any = () => async dispatch => {
+export const getItemList = () => async (dispatch: Dispatch<ItemListAction>) => {
   dispatch({ type: ItemListActionType.GET_ITEM_LIST_START });
   try {
     const response = await axios.get(`${LOCAL_BASE_URL}/itemList`);

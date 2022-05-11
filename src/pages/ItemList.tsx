@@ -1,17 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getItemList } from 'redux/action-creators/itemListThunk';
-import { RootState } from 'redux/reducers';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import styled from 'styled-components';
+import { ItemListAction } from 'redux/actions/itemList';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 const ItemList = () => {
-  const {
-    data: itemList,
-    error,
-    loading,
-  } = useSelector((state: RootState) => state.itemListReducer);
-  const dispatch = useDispatch();
+  const { data: itemList, error, loading } = useAppSelector(state => state.itemListReducer);
+  const dispatch = useAppDispatch<ItemListAction>();
 
   useEffect(() => {
     dispatch(getItemList());
