@@ -1,12 +1,14 @@
-import Header from 'components/@common/Header';
-import Footer from 'components/@common/Footer';
+import Header from './Header';
+import Footer from './Footer';
+
+import * as Styled from './styles';
 
 const Layout = ({ children }) => (
-  <>
+  <Styled.Container>
     <Header />
-    <div className="container">{children}</div>
+    <main className="container">{children}</main>
     <Footer />
-  </>
+  </Styled.Container>
 );
 
 export default Layout;
