@@ -6,6 +6,7 @@ import ProductItem from 'components/ProductItem/ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getProductsAsync } from 'reducers/products/products.thunks';
+import Skeleton from 'components/Skeleton/Skeleton';
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const ProductList = () => {
     <>
       <Header />
       <ProductContainer>
+        {isLoading &&
+          Array.from({ length: 8 }).map((_, index) => <Skeleton key={index} />)}
         {data.map(({ name, price, imgUrl, id }) => (
           <ProductItem name={name} price={price} imgUrl={imgUrl} key={id} />
         ))}
