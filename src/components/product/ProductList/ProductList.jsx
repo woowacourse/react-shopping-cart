@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
@@ -6,7 +7,9 @@ function ProductList({ productList }) {
   return (
     <Styled.Container>
       {productList.map(product => (
-        <ProductCard key={product.id} product={product} />
+        <Link key={product.id} to={`/products/${product.id}`}>
+          <ProductCard product={product} />
+        </Link>
       ))}
     </Styled.Container>
   );
