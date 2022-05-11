@@ -6,10 +6,12 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import OrderList from "./pages/OrderList";
 import ProductList from "./pages/ProductList";
+import Header from "./components/Header";
 
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
+      <Header />
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/product-list" element={<ProductList />} />

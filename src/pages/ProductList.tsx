@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import Header from "../components/Header";
 import Product from "../components/Product";
 
 function ProductList() {
   return (
     <div>
-      <Header />
       <Wrapper>
         <Product />
         <Product />

@@ -1,5 +1,5 @@
 function OrderList() {
-  return <div>OrderList</div>;
+  return <>ProductDetail</>;
 }
 
 export default OrderList;
