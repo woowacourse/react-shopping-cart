@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
-const WhiteTextStyled = styled.p(
+const WhiteButtonStyled = styled.p(
   ({ fontSize, fontWeight }) => `
-  margin: 0; 
+  cursor: pointer;
   font-size: ${fontSize || 24}px;
   font-weight: ${fontWeight || 500};
   color: #FFFFFF;
+  border: none;
 `,
 );
 
-export default WhiteTextStyled;
+export default WhiteButtonStyled;

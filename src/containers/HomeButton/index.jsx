@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Image from 'components/Image';
-import WhiteText from 'components/WhiteText';
+import WhiteButton from 'components/WhiteButton';
 import MarginRightWrapper from 'components/MarginRightWrapper';
 import FlexAlignCenter from 'components/FlexWrapper/FlexAlignCenter';
 
@@ -11,9 +11,9 @@ function HomeButton() {
       <MarginRightWrapper marginRight="14">
         <Image src="/img/shopping-cart-white.png" width="50" height="44" />
       </MarginRightWrapper>
-      <WhiteText fontSize="40" fontWeight="700">
+      <WhiteButton fontSize="40" fontWeight="700">
         WOOWA SHOP
-      </WhiteText>
+      </WhiteButton>
     </FlexAlignCenter>
   );
 }

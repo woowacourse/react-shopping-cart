@@ -1,10 +1,10 @@
 import React from 'react';
 
-import WhiteText from 'components/WhiteText';
+import WhiteButton from 'components/WhiteButton';
 
 export default {
-  title: 'Component/WhiteText',
-  component: WhiteText,
+  title: 'Component/WhiteButton',
+  component: WhiteButton,
   argTypes: {
     fontSize: { controls: 'number' },
     fontWeight: { controls: 'number' },
@@ -12,7 +12,7 @@ export default {
   },
 };
 
-const Template = (args) => <WhiteText {...args} />;
+const Template = (args) => <WhiteButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
