@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { Route, Routes } from "react-router-dom";
 
 import ProductListPage from "./ProductListPage";
 import ProductDetailPage from "./ProductDetailPage";
-import ShoppingCartPage from "./ShoppingCartPage";
+import ProductCartPage from "./ShoppingCartPage";
 
 const Container = styled.main`
   max-width: 1320px;
@@ -15,9 +16,13 @@ const Container = styled.main`
 function Main() {
   return (
     <Container>
-      <ProductListPage />
-      <ProductDetailPage />
-      <ShoppingCartPage />
+      <Routes>
+        <Route exact path="/" element={<ProductListPage />} />
+        <Route exact path="/product-list" element={<ProductListPage />} />
+        <Route exact path="/product-detail" element={<ProductDetailPage />} />
+        <Route exact path="/product-cart" element={<ProductCartPage />} />
+        <Route path="*" element={<div>잘못된 접근입니다.</div>} />
+      </Routes>
     </Container>
   );
 }
