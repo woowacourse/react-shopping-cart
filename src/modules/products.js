@@ -8,12 +8,19 @@ const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
 
 const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
+const GET_PROUDCTS_END = "products/GET_PRODUCTS_END";
 
-export const getProduct = () => async (dispatch) => {
+export const getProduct = () => async (dispatch, getState) => {
   dispatch({ type: GET_PRODUCTS });
 
   try {
-    const products = await productAPI.getProducts();
+    const products = await productAPI.getProductsByPage(
+      getState().products.page
+    );
+
+    if (products.data.length < 10) {
+      return dispatch({ type: GET_PROUDCTS_END, products: products.data });
+    }
     dispatch({ type: GET_PRODUCTS_SUCCESS, products: products.data });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR, error });
@@ -41,6 +48,8 @@ const initialState = {
     loading: false,
     data: [],
     error: null,
+    isEnd: false,
+    page: 1,
   },
 };
 
@@ -50,8 +59,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         products: {
+          ...state.products,
           loading: true,
-          data: null,
           error: null,
         },
       };
@@ -60,8 +69,10 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         products: {
           loading: false,
-          data: action.products,
+          data: state.products.data.concat(action.products),
           error: null,
+          isEnd: false,
+          page: state.products.page + 1,
         },
       };
     case GET_PRODUCTS_ERROR:
@@ -71,6 +82,16 @@ export default function reducer(state = initialState, action = {}) {
           loading: false,
           data: null,
           error: action.error,
+        },
+      };
+    case GET_PROUDCTS_END:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          data: state.products.data.concat(action.products),
+          loading: false,
+          isEnd: true,
         },
       };
     case GET_PRODUCT:
