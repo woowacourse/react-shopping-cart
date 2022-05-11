@@ -1,5 +1,5 @@
 import { requestGetProductList } from 'api';
-import { PRODUCTS_ACTIONS } from './actions';
+import { PRODUCTS_ACTIONS } from './types';
 
 const getProductList = () => async (dispatch) => {
   const products = await requestGetProductList();
