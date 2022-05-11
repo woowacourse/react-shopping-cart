@@ -1,10 +1,16 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 
-const ProductItem = ({ name, price, imgUrl }) => {
+const ProductItem = ({ id, name, price, imgUrl }) => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper onClick={onClick}>
       <Styled.ProductImage src={imgUrl} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
@@ -20,6 +26,7 @@ const ProductItem = ({ name, price, imgUrl }) => {
 };
 
 ProductItem.propTypes = {
+  id: PropTypes.number,
   name: PropTypes.string,
   price: PropTypes.string,
   imgUrl: PropTypes.string,
@@ -28,6 +35,7 @@ ProductItem.propTypes = {
 const Styled = {
   Wrapper: styled.div`
     width: 200px;
+    cursor: pointer;
   `,
 
   ProductImage: styled.img`
@@ -62,7 +70,6 @@ const Styled = {
   CartButton: styled.button`
     background-color: transparent;
     border: none;
-    cursor: pointer;
   `,
 
   CartSvg: styled.img`

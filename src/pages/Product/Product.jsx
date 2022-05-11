@@ -21,7 +21,7 @@ const Product = () => {
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
       {isError && <ErrorApi />}
-      {data && (
+      {!isLoading && data && (
         <ProductDetail
           imgUrl={data.imgUrl}
           name={data.name}

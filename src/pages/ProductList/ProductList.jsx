@@ -35,7 +35,13 @@ const ProductList = () => {
         <ProductContainer>
           {isLoading && getLoadingStatus()}
           {data.map(({ name, price, imgUrl, id }) => (
-            <ProductItem name={name} price={price} imgUrl={imgUrl} key={id} />
+            <ProductItem
+              id={id}
+              name={name}
+              price={price}
+              imgUrl={imgUrl}
+              key={id}
+            />
           ))}
         </ProductContainer>
       )}
