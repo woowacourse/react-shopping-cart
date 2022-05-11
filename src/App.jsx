@@ -3,6 +3,7 @@ import reset from 'styled-reset';
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import Header from 'component/common/Header';
 import theme from 'theme/theme';
+import ProductListPage from 'page/ProductListPage';
 
 export const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -15,18 +16,16 @@ export const GlobalStyles = createGlobalStyle`
     border: none;
     outline: none;
   }
-`;
+  `;
 
-function App() {
+export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <GlobalStyles />
         <Header />
-        <div>한글</div>
+        <ProductListPage />
       </div>
     </ThemeProvider>
   );
 }
-
-export default App;
