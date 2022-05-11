@@ -11,6 +11,8 @@ export const RowFlexWrapper = styled.div`
   margin-bottom: ${({ mb }) => mb};
   margin-left: ${({ ml }) => ml};
   margin-right: ${({ mr }) => mr};
+  border: ${({ border }) => border};
+  border-color: ${({ bColor, theme }) => theme.colors[bColor]};
   border-top: ${({ bt, theme, bColor }) =>
     `${bt} solid ${theme.colors[bColor]}`};
   border-bottom: ${({ bb, theme, bColor }) =>
