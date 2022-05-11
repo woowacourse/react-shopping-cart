@@ -25,6 +25,11 @@ const StyledHeader = styled.div`
   align-items: center;
 
   height: 80px;
+  color: ${({
+    theme: {
+      colors: { white },
+    },
+  }) => white};
   background: ${({
     theme: {
       colors: { emerald },

@@ -3,11 +3,7 @@ import styled from 'styled-components';
 
 const PlainLink = styled(Link)`
   text-decoration: none;
-  color: ${({
-    theme: {
-      colors: { white },
-    },
-  }) => white};
+  color: inherit;
 `;
 
 export default PlainLink;
