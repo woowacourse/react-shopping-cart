@@ -5,14 +5,22 @@ import ProductPrice from "../../component/@shared/ProductPrice/ProductPrice";
 import ProductThumbnail from "../../component/@shared/ProductThumbnail/ProductThumbnail";
 import { selectCurrentProducts } from "../../redux/products/products.selector";
 import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
-import Button from "../../component/@shared/Button/Button";
+import { selectCurrentCarts } from "../../redux/carts/carts.selector";
+import { isInCart } from "../../util/check";
+import useClickCartButton from "../../hooks/useClickCartButton";
+import ShoppingCartButton from "../../component/ShoppingCartButton/ShoppingCartButton";
 
 function ProductDetailPage() {
   const { idx } = useParams();
   const products = useSelector(selectCurrentProducts);
+  const carts = useSelector(selectCurrentCarts);
+  const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
+
   const { name, image, price } = products.find(
     (product) => product.id === Number(idx)
   );
+
+  const isCartItem = isInCart(idx, carts);
 
   return (
     <ColumnFlexWrapper gap="20px" width="425px" ml="auto" mr="auto">
@@ -28,7 +36,17 @@ function ProductDetailPage() {
         <div>금액</div>
         <ProductPrice type="detail">{price}원</ProductPrice>
       </RowFlexWrapper>
-      <Button>장바구니</Button>
+      <ShoppingCartButton
+        $isincart={isCartItem}
+        onClick={
+          isCartItem
+            ? (e) => handleDeleteProduct(e, idx)
+            : (e) =>
+                handleAddProduct(e, { name, price, id: idx, thumbnail: image })
+        }
+      >
+        {isCartItem ? "장바구니에서 제거" : "장바구니에 추가"}
+      </ShoppingCartButton>
     </ColumnFlexWrapper>
   );
 }

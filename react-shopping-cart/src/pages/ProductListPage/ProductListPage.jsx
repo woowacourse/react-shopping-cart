@@ -9,6 +9,9 @@ import {
 import { useEffect } from "react";
 import { fetchProductsStart } from "../../redux/products/products.action";
 import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
+import { fetchCartsStart } from "../../redux/carts/carts.action";
+import { selectCurrentCarts } from "../../redux/carts/carts.selector";
+import { isInCart } from "../../util/check";
 
 const GridContainer = styled.div`
   display: grid;
@@ -22,10 +25,12 @@ function ProductListPage() {
   const dispatch = useDispatch();
   const loading = useSelector(selectProductsLoading);
   const products = useSelector(selectCurrentProducts);
+  const carts = useSelector(selectCurrentCarts);
   const error = useSelector(selectProductsError);
 
   useEffect(() => {
     dispatch(fetchProductsStart());
+    dispatch(fetchCartsStart());
   }, [dispatch]);
 
   useEffect(() => {
@@ -37,15 +42,18 @@ function ProductListPage() {
   return (
     <WithSpinner loading={loading}>
       <GridContainer>
-        {products.map(({ id, name, image, price }) => (
-          <ProductCard
-            key={id}
-            id={id}
-            name={name}
-            thumbnail={image}
-            price={price}
-          />
-        ))}
+        {products.map(({ id, name, image, price }) => {
+          return (
+            <ProductCard
+              key={id}
+              id={id}
+              name={name}
+              thumbnail={image}
+              price={price}
+              $isincart={isInCart(id, carts)}
+            />
+          );
+        })}
       </GridContainer>
     </WithSpinner>
   );
