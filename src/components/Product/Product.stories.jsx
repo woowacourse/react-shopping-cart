@@ -2,7 +2,7 @@ import React from 'react';
 import Product from 'components/Product/index';
 
 export default {
-  title: 'Product',
+  title: 'components/Product',
   component: Product,
 };
 
