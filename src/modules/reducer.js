@@ -1,16 +1,19 @@
-import { dummyProductList } from 'dummy_data';
-
 export const PUT = 'cart/PUT';
-export const INCREMENT = 'cart/INCREMENT';
-export const DECREMENT = 'cart/DECREMENT';
+export const INITIALIZE = 'productList/INITIALIZE';
 
 const initState = {
-  products: [...dummyProductList],
+  products: [],
   shoppingCart: [],
 };
 
 function reducer(state = initState, action) {
   switch (action.type) {
+    case INITIALIZE:
+      return {
+        ...state,
+        products: [...action.products],
+      };
+
     case PUT:
       const isExist = state.shoppingCart.find(product => product.id === action.id);
 
@@ -25,6 +28,7 @@ function reducer(state = initState, action) {
             )
           : state.shoppingCart.concat({ id: action.id, quantity: action.quantity }),
       };
+
     default:
       return state;
   }

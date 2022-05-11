@@ -1,7 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import ProductItem from 'components/ProductItem';
+import store from 'app/store';
+import { SERVER_URL } from 'constants';
+import { INITIALIZE } from 'modules/reducer';
 
 const StyledProductListPage = styled.main`
   width: 1269px;
@@ -25,6 +29,16 @@ const StyledProductList = styled.div`
 
 const ProductListPage = () => {
   const { products, shoppingCart } = useSelector(state => state.reducer);
+
+  const getProducts = async () => {
+    const response = await axios.get(SERVER_URL + 'products');
+
+    store.dispatch({ type: INITIALIZE, products: response.data });
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   useEffect(() => {
     console.log(products);
