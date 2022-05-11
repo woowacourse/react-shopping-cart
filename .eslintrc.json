@@ -32,6 +32,9 @@
     "no-restricted-globals": "off",
     "react/function-component-definition": "off",
     "react/jsx-one-expression-per-line": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off",
+    "consistent-return": "off",
+    "default-param-last": "off"
   }
 }
