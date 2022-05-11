@@ -7,12 +7,12 @@ const Loadable = (Component) => (props) =>
     </Suspense>
   );
 
-const CardAddPage = Loadable(lazy(() => import('./pages/ProductListPage')));
+const ProductListPage = Loadable(lazy(() => import('./pages/ProductListPage')));
 
 const routes = [
   {
     path: '/',
-    element: <CardAddPage />,
+    element: <ProductListPage />,
   },
 ];
 
