@@ -14,7 +14,7 @@ export const Inner = styled.div`
 `;
 
 export const Button = styled.div`
-  padding: 10px;
+  padding: 20px;
 
   border: none;
   border-radius: 4px;

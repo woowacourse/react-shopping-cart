@@ -6,6 +6,7 @@ import { fetchProductListAsync } from '../../store/actions/product';
 import Pagination from '../../components/common/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+import * as Styled from './Home.style';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,16 +22,18 @@ export default function Home() {
 
   return (
     <PageTemplate>
-      {currentPage > pageCount && <ErrorMessage>😱 존재하지 상품 페이지입니다. 😱</ErrorMessage>}
+      <Styled.Container>
+        {currentPage > pageCount && <ErrorMessage>😱 존재하지 상품 페이지입니다. 😱</ErrorMessage>}
 
-      {isLoading ? (
-        <ProductList.skeleton />
-      ) : (
-        <>
-          <ProductList productList={productList} />
-          <Pagination />
-        </>
-      )}
+        {isLoading ? (
+          <ProductList.skeleton />
+        ) : (
+          <>
+            <ProductList productList={productList} />
+            <Pagination />
+          </>
+        )}
+      </Styled.Container>
     </PageTemplate>
   );
 }
