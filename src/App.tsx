@@ -4,8 +4,12 @@ import ItemList from 'pages/ItemList';
 import NotFound from 'pages/NotFound';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
+import Snackbar from 'components/common/Snackbar';
+import { useAppSelector } from 'hooks/useAppSelector';
 
 function App() {
+  const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);
+
   return (
     <BrowserRouter>
       <StyledRoot>
@@ -18,6 +22,7 @@ function App() {
           </Routes>
         </StyledMain>
       </StyledRoot>
+      {isSnackbarOpen && <Snackbar />}
     </BrowserRouter>
   );
 }

@@ -12,6 +12,7 @@ interface ItemContainerProps {
   title: string;
   price: number;
   updateCartItemQuantity?: (id: number) => void;
+  openSnackbar: () => void;
 }
 
 const ItemContainer = ({
@@ -20,11 +21,17 @@ const ItemContainer = ({
   title,
   price,
   updateCartItemQuantity,
+  openSnackbar,
 }: ItemContainerProps) => {
   const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     if (e.target instanceof SVGElement) {
       e.preventDefault();
     }
+  };
+
+  const handleClickCartIcon = () => {
+    updateCartItemQuantity?.(id);
+    openSnackbar();
   };
 
   return (
@@ -36,11 +43,7 @@ const ItemContainer = ({
             <StyledTitle>{title}</StyledTitle>
             <StyledPrice>{price}</StyledPrice>
           </StyledDescription>
-          <StyledCartIcon
-            width='31px'
-            fill={theme.colors.font}
-            onClick={() => updateCartItemQuantity?.(id)}
-          />
+          <StyledCartIcon width='31px' fill={theme.colors.font} onClick={handleClickCartIcon} />
         </StyledBottom>
       </StyledRoot>
     </Link>
