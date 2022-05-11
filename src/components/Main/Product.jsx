@@ -1,13 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
+import axios from 'axios';
 import ProductImage from './ProductImage';
-import { CART_SIZE, COLOR } from '../../constants';
+import { CART_SIZE, COLOR, SERVER_URL } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
 
-function Product({ id, src, price, title }) {
-  const [isClicked, setIsClicked] = useState(false);
+function Product({ id, src, price, title, isStored }) {
+  const [isClicked, setIsClicked] = useState(isStored);
+
+  const handleCartClick = async () => {
+    try {
+      await axios({
+        url: isClicked ? `${SERVER_URL}/carts/${id}` : `${SERVER_URL}/carts`,
+        data: isClicked ? null : { id, quantity: 1 },
+        method: isClicked ? 'DELETE' : 'POST',
+      });
+    } catch (error) {
+      alert(error);
+    }
+    setIsClicked((prev) => !prev);
+  };
+
+  useEffect(() => {
+    setIsClicked(isStored);
+  }, [isStored]);
 
   return (
     <div>
@@ -17,7 +35,7 @@ function Product({ id, src, price, title }) {
           <Styled.ProductName>{title}</Styled.ProductName>
           <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
         </Styled.ProductInfoWrapper>
-        <Styled.CartButton onClick={() => setIsClicked((prev) => !prev)}>
+        <Styled.CartButton onClick={handleCartClick}>
           <CartIcon
             width={CART_SIZE.SMALL.WIDTH}
             height={CART_SIZE.SMALL.HEIGHT}
@@ -34,6 +52,7 @@ Product.propTypes = {
   src: PropType.string.isRequired,
   title: PropType.string.isRequired,
   price: PropType.string.isRequired,
+  isStored: PropType.bool.isRequired,
 };
 
 export default Product;
