@@ -1,0 +1,70 @@
+{
+  "productList": [
+    {
+      "id": 1,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 2,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 3,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 4,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 5,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 6,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 7,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 8,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 9,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 10,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    },
+    {
+      "id": 11,
+      "thumbnail": "https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true",
+      "name": "LINE 샐리 인형",
+      "price": "15000"
+    }
+  ]
+}
