@@ -2,11 +2,10 @@ import styled from 'styled-components';
 import Button from 'component/common/Button/Button';
 
 const StyledNavBar = styled.div`
-  width: 100%;
   height: 80px;
   display: flex;
-  justify-content: space-between;
-  padding: 12px 300px;
+  justify-content: center;
+  gap: 712px;
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
@@ -18,7 +17,7 @@ const LogoText = styled.span`
   color: #ffffff;
 `;
 
-const MenuContainer = styled.div`
+const MenuBox = styled.div`
   display: flex;
   gap: 44px;
 `;
@@ -39,14 +38,14 @@ function NavBar() {
       <Button>
         <LogoText>🛒 WOOWA SHOP</LogoText>
       </Button>
-      <MenuContainer>
+      <MenuBox>
         <Button>
           <MenuText>장바구니</MenuText>
         </Button>
         <Button>
           <MenuText>주문목록</MenuText>
         </Button>
-      </MenuContainer>
+      </MenuBox>
     </StyledNavBar>
   );
 }

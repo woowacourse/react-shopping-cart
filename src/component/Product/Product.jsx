@@ -1,7 +1,7 @@
 import Button from 'component/common/Button/Button';
 import styled from 'styled-components';
 
-const ProductContainer = styled.div`
+const ProductBox = styled.div`
   width: 282px;
   height: 358px;
   display: flex;
@@ -15,7 +15,7 @@ const Image = styled.div`
   background-color: pink;
 `;
 
-const DescriptionContainer = styled.div`
+const DescriptionBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 12px;
@@ -39,9 +39,9 @@ const Price = styled.p`
 
 function Product() {
   return (
-    <ProductContainer>
+    <ProductBox>
       <Image />
-      <DescriptionContainer>
+      <DescriptionBox>
         <div>
           <Name>PET보틀-정사각(420ml)</Name>
           <Price>43,400 원</Price>
@@ -49,8 +49,8 @@ function Product() {
         <Button>
           <span style={{ fontSize: '25px' }}>🛒</span>
         </Button>
-      </DescriptionContainer>
-    </ProductContainer>
+      </DescriptionBox>
+    </ProductBox>
   );
 }
 
