@@ -1,17 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import GridWrapper from "../../components/GridWrapper";
 import Item from "../../components/Item";
+import { getProduct } from "../../modules/products";
 import * as S from "./index.styles";
 
 const ItemList = () => {
-  const products = useSelector((state) => state.products);
+  const product = useSelector((state) => state.products);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <S.ItemListContainer>
       <GridWrapper>
-        {products.map((product) => (
-          <Item key={product.id} {...product} />
-        ))}
+        {product.loading ||
+          product.data.map((product) => <Item key={product.id} {...product} />)}
       </GridWrapper>
     </S.ItemListContainer>
   );

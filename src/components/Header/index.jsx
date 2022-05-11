@@ -10,7 +10,7 @@ const Header = () => {
           <S.LogoContainer>
             <Logo width="50px" height="50px" fill="white" />
           </S.LogoContainer>
-          <S.HomeTitle>WOOWA SHOP</S.HomeTitle>
+          <S.HomeTitle>LOKBA MARKET</S.HomeTitle>
         </div>
       </Link>
       <S.NavContainer>
