@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import GlobalStyles from "../src/globalStyles";
 import createThunkMiddleware from "../src/lib/thunk";
@@ -19,13 +19,13 @@ export const parameters = {
 };
 export const decorators = [
   (Story) => (
-    <BrowserRouter>
+    <MemoryRouter initialEntries={["/product/1"]}>
       <Provider store={store}>
         <ThemeProvider>
           <GlobalStyles />
           <Story />
         </ThemeProvider>
       </Provider>
-    </BrowserRouter>
+    </MemoryRouter>
   ),
 ];
