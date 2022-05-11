@@ -5,10 +5,13 @@ import styled from 'styled-components';
 import { ItemListAction } from 'redux/actions/itemList';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
+import useCartList from 'hooks/useCartList';
 
 const ItemList = () => {
   const { data: itemList, error, loading } = useAppSelector(state => state.itemListReducer);
   const dispatch = useAppDispatch<ItemListAction>();
+  // @TODO: 에러 처리
+  const { updateCartItemQuantity } = useCartList();
 
   useEffect(() => {
     dispatch(getItemList());
@@ -19,9 +22,11 @@ const ItemList = () => {
       {itemList.map(item => (
         <ItemContainer
           key={item.id}
+          id={item.id}
           thumbnailUrl={item.thumbnailUrl}
           price={item.price}
           title={item.title}
+          updateCartItemQuantity={updateCartItemQuantity}
         />
       ))}
     </StyledRoot>

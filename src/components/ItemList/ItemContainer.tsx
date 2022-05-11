@@ -4,12 +4,20 @@ import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import theme from 'styles/theme';
 
 interface ItemContainerProps {
+  id: number;
   thumbnailUrl: string;
   title: string;
   price: number;
+  updateCartItemQuantity: (id: number) => void;
 }
 
-const ItemContainer = ({ thumbnailUrl, title, price }: ItemContainerProps) => {
+const ItemContainer = ({
+  id,
+  thumbnailUrl,
+  title,
+  price,
+  updateCartItemQuantity,
+}: ItemContainerProps) => {
   return (
     <StyledRoot>
       <CroppedImage src={thumbnailUrl} width='282px' height='282px' alt='상품' />
@@ -18,7 +26,11 @@ const ItemContainer = ({ thumbnailUrl, title, price }: ItemContainerProps) => {
           <StyledTitle>{title}</StyledTitle>
           <StyledPrice>{price}</StyledPrice>
         </StyledDescription>
-        <CartIcon width='31px' fill={theme.colors.font} />
+        <StyledCartIcon
+          width='31px'
+          fill={theme.colors.font}
+          onClick={() => updateCartItemQuantity(id)}
+        />
       </StyledBottom>
     </StyledRoot>
   );
@@ -49,4 +61,8 @@ const StyledTitle = styled.p`
 
 const StyledPrice = styled.p`
   font-size: 2rem;
+`;
+
+const StyledCartIcon = styled(CartIcon)`
+  cursor: pointer;
 `;
