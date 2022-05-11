@@ -16,3 +16,10 @@ export const COLOR = {
 };
 
 export const SERVER_URL = 'http://localhost:4000';
+
+export const PATH = {
+  ROOT: '/',
+  PRODUCTS: '/products',
+  CARTS: '/carts',
+  ORDERLIST: '/orderlist',
+};

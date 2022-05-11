@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import TYPE from './types';
 
 const initialState = {
   products: [],
@@ -8,9 +9,9 @@ const initialState = {
 // eslint-disable-next-line default-param-last
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOAD_PRODUCTS':
+    case TYPE.PRODUCTS_LOAD:
       return { ...state, products: action.payload };
-    case 'LOAD_CARTS':
+    case TYPE.CARTS_LOAD:
       return { ...state, carts: action.payload };
     default:
       return { ...state };

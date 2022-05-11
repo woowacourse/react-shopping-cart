@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CART_SIZE, COLOR } from '../../constants';
+import { CART_SIZE, COLOR, PATH } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
 
@@ -9,7 +9,7 @@ function Header() {
     <header>
       <Styled.Nav>
         <Styled.NavTitleWrapper>
-          <Link to="/">
+          <Link to={PATH.ROOT}>
             <CartIcon
               width={CART_SIZE.LARGE.WIDTH}
               height={CART_SIZE.LARGE.HEIGHT}
@@ -19,10 +19,10 @@ function Header() {
           </Link>
         </Styled.NavTitleWrapper>
         <Styled.NavButtonWrapper>
-          <Link to="/cart">
+          <Link to={PATH.CARTS}>
             <Styled.NavButton type="button">장바구니</Styled.NavButton>
           </Link>
-          <Link to="/orderlist">
+          <Link to={PATH.ORDERLIST}>
             <Styled.NavButton type="button">주문목록</Styled.NavButton>
           </Link>
         </Styled.NavButtonWrapper>

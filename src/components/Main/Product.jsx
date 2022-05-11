@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropType from 'prop-types';
 import axios from 'axios';
 import ProductImage from './ProductImage';
-import { CART_SIZE, COLOR, SERVER_URL } from '../../constants';
+import { CART_SIZE, COLOR, SERVER_URL, PATH } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
 
@@ -13,7 +13,9 @@ function Product({ id, src, price, title, isStored }) {
   const handleCartClick = async () => {
     try {
       await axios({
-        url: isClicked ? `${SERVER_URL}/carts/${id}` : `${SERVER_URL}/carts`,
+        url: isClicked
+          ? `${SERVER_URL}${PATH.CARTS}/${id}`
+          : `${SERVER_URL}${PATH.CARTS}`,
         data: isClicked ? null : { id, quantity: 1 },
         method: isClicked ? 'DELETE' : 'POST',
       });
