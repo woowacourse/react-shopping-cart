@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AddToCartButton from "./AddToCartButton";
 
-const Container = styled.div`
+const Container = styled.li`
   display: flex;
   flex-direction: column;
   width: 280px;
   height: 360px;
   border: 1px solid #ddd;
+
+  cursor: pointer;
 `;
 
 const ImageWrapper = styled.div`
@@ -60,21 +62,25 @@ const ProductPrice = styled.p`
 `;
 
 function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(`/product-detail/${id}`);
+  };
+
   return (
-    <Link to={`/product-detail/${id}`}>
-      <Container>
-        <ImageWrapper>
-          <ProductThumbnail src={thumbnailUrl ?? ""} />
-        </ImageWrapper>
-        <CardBottom>
-          <InfoWrapper>
-            <ProductName>{name ?? "%Error%"}</ProductName>
-            <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
-          </InfoWrapper>
-          <AddToCartButton />
-        </CardBottom>
-      </Container>
-    </Link>
+    <Container onClick={onClick}>
+      <ImageWrapper>
+        <ProductThumbnail src={thumbnailUrl ?? ""} />
+      </ImageWrapper>
+      <CardBottom>
+        <InfoWrapper>
+          <ProductName>{name ?? "%Error%"}</ProductName>
+          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
+        </InfoWrapper>
+        <AddToCartButton />
+      </CardBottom>
+    </Container>
   );
 }
 

@@ -19,7 +19,12 @@ const IconButton = styled.button`
 
 function AddToCartButton() {
   return (
-    <IconButton>
+    <IconButton
+      onClick={(e) => {
+        e.stopPropagation();
+        alert("🛒아직입니다~~^^🛒");
+      }}
+    >
       <img src={shoppingCartIconBlack} alt="장바구니 담기" />
     </IconButton>
   );
