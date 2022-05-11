@@ -24,6 +24,6 @@ export const noneStyles = {
 
 export const colors = {
   black: ["#000"],
-  red: ["#7f0001"],
+  red: ["#7f0001", "#dd202280"],
   greenLight: ["#00cc00", "#ddff99", "#ddff66"],
 };

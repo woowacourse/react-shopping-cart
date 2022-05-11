@@ -26,12 +26,17 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
-        test: /\.(svg|png)$/,
+        test: /\.(png)$/,
         use: [
           {
             loader: "file-loader",
           },
         ],
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ["@svgr/webpack"],
       },
     ],
   },

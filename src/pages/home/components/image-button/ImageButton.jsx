@@ -1,16 +1,15 @@
-import { css } from "@emotion/react";
+import S from "../../styled";
 
-function ImageButton({ src }) {
+function ImageButton({ children, onClick, included }) {
   return (
-    <button className="add-cart-btn" type="button">
-      <img
-        css={css`
-          width: 100%;
-        `}
-        src={src}
-        alt=""
-      />
-    </button>
+    <S.ImageButton
+      className="add-cart-btn"
+      type="button"
+      onClick={onClick}
+      {...(included ? { disabled: true } : {})}
+    >
+      {children}
+    </S.ImageButton>
   );
 }
 
