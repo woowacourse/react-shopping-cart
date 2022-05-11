@@ -15,9 +15,9 @@ const productsReducer = (state = INITIAL_STATE, action) => {
       };
     case productActionType.fetchProductsSuccess:
       return {
-        ...state,
         loading: false,
         products: action.payload,
+        error: null,
       };
     case productActionType.fetchProductsError:
       return {
