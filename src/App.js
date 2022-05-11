@@ -9,7 +9,6 @@ import ShoppingCartIcon from 'components/shared/icon/ShoppingCartIcon';
 const StyledRoutes = styled.div`
   display: flex;
   justify-content: center;
-  background-color: gray;
 `;
 
 function App() {
