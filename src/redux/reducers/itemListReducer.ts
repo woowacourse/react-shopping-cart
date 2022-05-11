@@ -1,4 +1,5 @@
-import { Item, ItemListAction, ItemListActionType } from '../actions/itemList';
+import { Item } from 'types/domain';
+import { ItemListAction, ItemListActionType } from '../actions/itemList';
 
 interface ItemListState {
   loading: boolean;
@@ -14,13 +15,13 @@ const initialState: ItemListState = {
 
 export const itemListReducer = (state = initialState, action: ItemListAction) => {
   switch (action.type) {
-    case ItemListActionType.GET_ITEMLIST_START:
+    case ItemListActionType.GET_ITEM_LIST_START:
       return { loading: true, error: null, data: [] };
-    case ItemListActionType.GET_ITEMLIST_SUCCESS:
+    case ItemListActionType.GET_ITEM_LIST_SUCCESS:
       return { loading: false, error: null, data: action.payload };
-    case ItemListActionType.GET_ITEMLIST_FAILURE:
+    case ItemListActionType.GET_ITEM_LIST_FAILURE:
       return { loading: false, error: action.payload, data: [] };
     default:
-      return initialState;
+      return state;
   }
 };

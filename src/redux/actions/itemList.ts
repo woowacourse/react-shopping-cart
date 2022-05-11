@@ -1,27 +1,22 @@
-export enum ItemListActionType {
-  GET_ITEMLIST_START = 'items/GET_ITEMLIST_START',
-  GET_ITEMLIST_SUCCESS = 'items/GET_ITEMLIST_SUCCESS',
-  GET_ITEMLIST_FAILURE = 'items/GET_ITEMLIST_FAILURE',
-}
+import { Item } from 'types/domain';
 
-export interface Item {
-  id: number;
-  thumbnailUrl: string;
-  title: string;
-  price: number;
+export enum ItemListActionType {
+  GET_ITEM_LIST_START = 'items/GET_ITEMLIST_START',
+  GET_ITEM_LIST_SUCCESS = 'items/GET_ITEMLIST_SUCCESS',
+  GET_ITEM_LIST_FAILURE = 'items/GET_ITEMLIST_FAILURE',
 }
 
 interface GetItemListActionStart {
-  type: ItemListActionType.GET_ITEMLIST_START;
+  type: ItemListActionType.GET_ITEM_LIST_START;
 }
 
 interface GetItemListActionSuccess {
-  type: ItemListActionType.GET_ITEMLIST_SUCCESS;
+  type: ItemListActionType.GET_ITEM_LIST_SUCCESS;
   payload: Item[];
 }
 
 interface GetItemListActionFailure {
-  type: ItemListActionType.GET_ITEMLIST_FAILURE;
+  type: ItemListActionType.GET_ITEM_LIST_FAILURE;
   payload: string;
 }
 
