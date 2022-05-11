@@ -1,7 +1,7 @@
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { actionTypes } from './actionTypes';
 import ReduxThunk from 'redux-thunk';
+import { actionTypes } from './actionTypes';
 
 const initialState = {
   productList: [],

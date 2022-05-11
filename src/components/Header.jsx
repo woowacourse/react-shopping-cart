@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
 
-function Header(props) {
+function Header() {
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
@@ -27,8 +27,6 @@ const StyledHeader = styled.header`
   top: 0;
   background: ${COLORS.PRIMARY};
   box-shadow: 0px 4px 4px ${COLORS.BOX_SHADOW};
-  font-family: 'Noto Sans KR';
-  font-style: normal;
 `;
 
 const StyledHeaderWrapper = styled.div`
@@ -61,7 +59,6 @@ const StyledNavButton = styled.button`
   font-weight: 500;
   font-size: 18px;
   color: ${COLORS.WHITE};
-  cursor: pointer;
 `;
 
 export default Header;

@@ -1,9 +1,9 @@
 import './App.css';
 import './store/index';
 
-import Header from './components/Header';
 import { useRoutes } from 'react-router-dom';
 import routes from './Routes';
+import Header from './components/Header';
 
 function App() {
   const content = useRoutes(routes);

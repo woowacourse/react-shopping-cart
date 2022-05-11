@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GiShoppingCart } from 'react-icons/gi';
+import { getProductListAsync } from '../store/actions';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
-import { getProductListAsync } from '../store/actions';
+import { GiShoppingCart } from 'react-icons/gi';
 
-function ProductListPage(props) {
+function ProductListPage() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
 
@@ -18,7 +18,6 @@ function ProductListPage(props) {
       <StyledGridContainer>
         {productList.map((product) => {
           const { id, name, price, imageUrl } = product;
-
           return (
             <StyledItem key={id}>
               <StyledImageBox>
@@ -100,7 +99,6 @@ const StyledItemPrice = styled.span`
 const StyledIconButton = styled.button`
   border: none;
   background: none;
-  cursor: pointer;
   &:hover {
     transform: scale(1.1);
     color: ${COLORS.PRIMARY};
