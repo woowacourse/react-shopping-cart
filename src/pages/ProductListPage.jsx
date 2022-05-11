@@ -1,11 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { GiShoppingCart } from 'react-icons/gi';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
+import { getProductListAsync } from '../store/actions';
 
 function ProductListPage(props) {
+  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
+
+  useEffect(() => {
+    dispatch(getProductListAsync());
+  }, [dispatch]);
 
   return (
     <StyledContent>
