@@ -6,6 +6,7 @@ import NavigateButton from "./component/@shared/NavigateButton/NavigateButton";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 
 function App() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function App() {
           path="/"
         />
         <Route path="/:idx" element={<ProductDetailPage />} />
-        <Route path="/shopping-cart" element={<div>장바구니</div>} />
+        <Route path="/shopping-cart" element={<ShoppingCartPage />} />
       </Routes>
     </>
   );

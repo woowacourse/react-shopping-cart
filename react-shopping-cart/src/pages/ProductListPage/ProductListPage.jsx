@@ -12,6 +12,7 @@ import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
 import { fetchCartsStart } from "../../redux/carts/carts.action";
 import { selectCurrentCarts } from "../../redux/carts/carts.selector";
 import { isInCart } from "../../util/check";
+import CartLeftSection from "../../component/CartLeftSection/CartLeftSection";
 
 const GridContainer = styled.div`
   display: grid;

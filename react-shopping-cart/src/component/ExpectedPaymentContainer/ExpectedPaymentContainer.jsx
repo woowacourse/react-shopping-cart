@@ -6,6 +6,7 @@ import OrderButton from "../OrderButton/OrderButton";
 
 const ExpectedPaymentWrapper = styled.div`
   border: 1px solid;
+  margin-bottom: 
   border-color: ${({ theme }) => theme.colors["gray_04"]};
 `;
 
