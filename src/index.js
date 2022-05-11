@@ -18,7 +18,13 @@ const loadProductList = () => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        return;
+      }
+
+      return response.json();
+    })
     .then((res) => store.dispatch(setProductList(res)));
 };
 
