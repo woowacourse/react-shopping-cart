@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { getItemList } from 'redux/action-creators/itemListThunk';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import styled from 'styled-components';
@@ -14,7 +14,7 @@ const ItemList = () => {
   const dispatch = useAppDispatch<ItemListAction>();
   // @TODO: 에러 처리
   const { cartList, updateCartItemQuantity } = useCartList();
-  const { isSnackbarOpen, timer } = useAppSelector(state => state.snackbarReducer);
+  const timerRef = useRef(null);
   const snackbarDispatch = useDispatch();
 
   useEffect(() => {
@@ -22,15 +22,14 @@ const ItemList = () => {
   }, []);
 
   const openSnackbar = useCallback(() => {
-    if (isSnackbarOpen) {
-      clearTimeout(timer);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
     snackbarDispatch({ type: SnackbarActionType.OPEN_SNACKBAR, payload: 'cart' });
-    const timeout = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       snackbarDispatch({ type: SnackbarActionType.CLOSE_SNACKBAR });
     }, 3000);
-
-    snackbarDispatch({ type: SnackbarActionType.REGISTER_TIMER, payload: timeout });
   }, []);
 
   return (
