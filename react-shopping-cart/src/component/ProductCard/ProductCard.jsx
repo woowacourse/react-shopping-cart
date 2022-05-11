@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import ProductThumbnail from "../@shared/ProductThumbnail/ProductThumbnail";
 import ProductCardInfo from "../ProductCardInfo/ProductCardInfo";
 import { ColumnFlexWrapper } from "../../styles/Wrapper";
+import { useNavigate } from "react-router-dom";
 
 const scaleAnimation = keyframes`
   0%{
@@ -24,9 +25,10 @@ const ProductCardBox = styled(ColumnFlexWrapper)`
   }
 `;
 
-function ProductCard({ name, price, thumbnail }) {
+function ProductCard({ id, name, price, thumbnail }) {
+  const navigate = useNavigate();
   return (
-    <ProductCardBox>
+    <ProductCardBox onClick={() => navigate(`${id}`)}>
       <ProductThumbnail src={thumbnail} type="card" />
       <ProductCardInfo name={name} price={price} />
     </ProductCardBox>

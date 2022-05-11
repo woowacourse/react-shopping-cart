@@ -3,8 +3,9 @@ import PageTitle from "./component/@shared/PageTitle/PageTitle";
 import { ReactComponent as Cart } from "./assets/cart.svg";
 import { RowFlexWrapper } from "./styles/Wrapper";
 import NavigateButton from "./component/@shared/NavigateButton/NavigateButton";
-import ProductListPage from "./pages/ProductListPage";
+import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import { Routes, Route } from "react-router-dom";
+import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           }
           path="/"
         />
-        <Route path="/:id" />
+        <Route path="/:idx" element={<ProductDetailPage />} />
       </Routes>
     </>
   );

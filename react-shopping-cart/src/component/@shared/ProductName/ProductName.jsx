@@ -9,6 +9,7 @@ const ProductName = styled.div`
         `;
       case "detail":
         return css`
+          margin-right: auto;
           font-size: 21px;
           font-weight: 700;
         `;

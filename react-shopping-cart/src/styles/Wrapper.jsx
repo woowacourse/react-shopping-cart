@@ -11,6 +11,15 @@ export const RowFlexWrapper = styled.div`
   margin-bottom: ${({ mb }) => mb};
   margin-left: ${({ ml }) => ml};
   margin-right: ${({ mr }) => mr};
+  border-top: ${({ bt, theme, bColor }) =>
+    `${bt} solid ${theme.colors[bColor]}`};
+  border-bottom: ${({ bb, theme, bColor }) =>
+    `${bb} solid ${theme.colors[bColor]}`};
+  border-left: ${({ bl, theme, bColor }) =>
+    `${bl} solid ${theme.colors[bColor]}`};
+  border-right: ${({ br, theme, bColor }) =>
+    `${br} solid ${theme.colors[bColor]}`};
+  padding: ${({ padding }) => padding};
 `;
 
 export const ColumnFlexWrapper = styled.div`
@@ -25,4 +34,13 @@ export const ColumnFlexWrapper = styled.div`
   margin-bottom: ${({ mb }) => mb};
   margin-left: ${({ ml }) => ml};
   margin-right: ${({ mr }) => mr};
+  border-top: ${({ bt, theme, bColor }) =>
+    `${bt} solid ${theme.colors[bColor]}`};
+  border-bottom: ${({ bb, theme, bColor }) =>
+    `${bb} solid ${theme.colors[bColor]}`};
+  border-left: ${({ bl, theme, bColor }) =>
+    `${bl} solid ${theme.colors[bColor]}`};
+  border-right: ${({ br, theme, bColor }) =>
+    `${br} solid ${theme.colors[bColor]}`};
+  padding: ${({ padding }) => padding};
 `;

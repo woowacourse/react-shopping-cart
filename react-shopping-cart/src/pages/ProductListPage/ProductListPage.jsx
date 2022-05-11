@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import ProductCard from "../component/ProductCard/ProductCard";
+import ProductCard from "../../component/ProductCard/ProductCard";
 import {
   selectCurrentProducts,
   selectProductsError,
   selectProductsLoading,
-} from "../redux/products/products.selector";
+} from "../../redux/products/products.selector";
 import { useEffect } from "react";
-import { fetchProductsStart } from "../redux/products/products.action";
-import WithSpinner from "../component/@shared/WithSpinner/WithSpinner";
+import { fetchProductsStart } from "../../redux/products/products.action";
+import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
 
 const GridContainer = styled.div`
   display: grid;
@@ -38,7 +38,13 @@ function ProductListPage() {
     <WithSpinner loading={loading}>
       <GridContainer>
         {products.map(({ id, name, image, price }) => (
-          <ProductCard key={id} name={name} thumbnail={image} price={price} />
+          <ProductCard
+            key={id}
+            id={id}
+            name={name}
+            thumbnail={image}
+            price={price}
+          />
         ))}
       </GridContainer>
     </WithSpinner>
