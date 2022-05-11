@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import ProductImage from './ProductImage';
 import { CART_SIZE, COLOR } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
+import { UnstyledButton } from '../shared/styles';
 
 function Product({ id, src, price, title }) {
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
     <div>
       <ProductImage src={src} />
@@ -13,13 +17,13 @@ function Product({ id, src, price, title }) {
           <Styled.ProductName>{title}</Styled.ProductName>
           <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
         </Styled.ProductInfoWrapper>
-        <Styled.CartButtonWrapper>
+        <Styled.CartButton onClick={() => setIsClicked((prev) => !prev)}>
           <CartIcon
             width={CART_SIZE.SMALL.WIDTH}
             height={CART_SIZE.SMALL.HEIGHT}
-            fill={COLOR.BLACK}
+            fill={isClicked ? COLOR.PRIMARY : COLOR.BLACK}
           />
-        </Styled.CartButtonWrapper>
+        </Styled.CartButton>
       </Styled.ProductInfoContainer>
     </div>
   );
@@ -56,8 +60,7 @@ const Styled = {
     font-size: 16px;
     line-height: 22px;
   `,
-  CartButtonWrapper: styled.div`
-    cursor: pointer;
+  CartButton: styled(UnstyledButton)`
     &:hover {
       opacity: 0.6;
     }

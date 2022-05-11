@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CART_SIZE, COLOR } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
+import { UnstyledButton } from '../shared/styles';
 
 function Header() {
   return (
@@ -51,11 +52,9 @@ const Styled = {
     display: flex;
     gap: 15px;
   `,
-  NavButton: styled.button`
-    background-color: transparent;
+  NavButton: styled(UnstyledButton)`
     font-weight: 500;
     font-size: 24px;
-    border: none;
 
     color: #ffffff;
   `,
