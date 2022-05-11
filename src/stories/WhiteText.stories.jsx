@@ -12,10 +12,10 @@ export default {
   },
 };
 
-const DefaultWhiteTextTemplate = (args) => <WhiteText {...args} />;
+const Template = (args) => <WhiteText {...args} />;
 
-export const DefaultWhiteText = DefaultWhiteTextTemplate.bind({});
-DefaultWhiteText.args = {
+export const Primary = Template.bind({});
+Primary.args = {
   fontSize: 15,
   fontWeight: 500,
   children: '안녕',
