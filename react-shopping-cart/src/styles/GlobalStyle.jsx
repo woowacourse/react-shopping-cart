@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+	#root {
+		position: relative;
+	}
+
 	button {
 		background-color: #fff;
 	}

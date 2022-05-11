@@ -18,7 +18,7 @@ function Header() {
     <HeaderContainer>
       <HeaderLink to="/" type="title">
         <HeaderTitleBox>
-          <ShoppingCart fill="#fff" width={50} height={44} lineHeight={44} />
+          <ShoppingCart fill="#fff" width={50} height={44} />
           {' WOOWA SHOP'}
         </HeaderTitleBox>
       </HeaderLink>

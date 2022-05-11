@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import App from './App';
+import ProductList from 'pages/ProductListPage/ProductList.page';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
@@ -12,7 +12,9 @@ root.render(
     <GlobalStyle />
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <App />
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+        </Routes>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

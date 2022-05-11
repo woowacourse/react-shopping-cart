@@ -3,11 +3,13 @@ import { LAYER } from 'constants';
 import theme from 'styles/theme';
 
 const HeaderContainer = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 1350px;
   height: 80px;
   padding: 0 300px;
   background-color: ${({ theme }) => theme.colors.main};
