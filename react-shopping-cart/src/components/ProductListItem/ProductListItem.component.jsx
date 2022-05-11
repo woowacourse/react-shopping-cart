@@ -30,11 +30,16 @@ const ItemContainer = styled.div`
     place-self: center end;
     margin-right: 11px;
   }
+
+  path {
+    fill: ${({ theme, isContained }) =>
+      isContained ? theme.usingColor.selectedShoppingCartIcon : theme.usingColor.shoppingCartIcon};
+  }
 `;
 
-function ProductListItem({ thumbnail, name, price }) {
+function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
   return (
-    <ItemContainer>
+    <ItemContainer isContained={isContained}>
       <Image type="medium" src={thumbnail} />
       <Text className="product-name" fontSize="small">
         {name}
@@ -42,7 +47,7 @@ function ProductListItem({ thumbnail, name, price }) {
       <Text className="product-price" fontSize="medium">
         {price}원
       </Text>
-      <ShoppingCart />
+      <ShoppingCart onClick={() => handleToggleShoppingCart(id, isContained)} />
     </ItemContainer>
   );
 }
