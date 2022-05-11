@@ -8,11 +8,17 @@ function ProductListPage() {
   const productInfoList = useSelector((state) => state);
 
   return (
-    <GridList>
-      {productInfoList.map((productInfo) => (
-        <ProductCard key={productInfo.id} productInfo={productInfo} />
-      ))}
-    </GridList>
+    <>
+      {productInfoList.length === 0 ? (
+        <h2>😱 텅 비었어요~~ 😱</h2>
+      ) : (
+        <GridList>
+          {productInfoList.map((productInfo) => (
+            <ProductCard key={productInfo.id} productInfo={productInfo} />
+          ))}
+        </GridList>
+      )}
+    </>
   );
 }
 
