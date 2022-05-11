@@ -3,19 +3,19 @@ import IconButton from 'components/@common/IconButton';
 
 import { ICON_CODE } from 'constants/';
 
-import Container from './styles';
+import * as Styled from './styles';
 
 const ProductItem = ({ id, image, name, price }) => (
-  <Container>
+  <Styled.Container>
     <img src={image} alt="product thumbnail" />
-    <div>
+    <div className="description">
       <div className="info">
         <p className="title">{name}</p>
         <p className="price">{price.toLocaleString('ko-KR')}원</p>
       </div>
       <IconButton className="cart" icon={ICON_CODE.CART} />
     </div>
-  </Container>
+  </Styled.Container>
 );
 
 ProductItem.propTypes = {
