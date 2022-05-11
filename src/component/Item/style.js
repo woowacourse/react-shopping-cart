@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const ItemWrapper = styled.div`
   width: 282px;
   display: flex;
   flex-direction: column;
   gap: 18px;
+
+  & img {
+    cursor: pointer;
+  }
 `;
 
 const NamePriceWrapper = styled.div`
@@ -12,7 +17,7 @@ const NamePriceWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ItemNameWrapper = styled.span`
+const ItemNameWrapper = styled(Link)`
   font-size: 16px;
 `;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import Button from 'component/common/Button';
 
@@ -7,9 +8,13 @@ import {ReactComponent as LogoIcon} from 'assets/logoIcon.svg';
 import {HeaderWrapper, HeaderButtonWrapper} from 'component/common/Header/style';
 
 export default function Header() {
+  const navigation = useNavigate();
+
+  const handleLogoClick = () => navigation('/');
+
   return (
     <HeaderWrapper>
-      <Button>
+      <Button onClick={handleLogoClick}>
         <LogoIcon />
       </Button>
       <HeaderButtonWrapper>

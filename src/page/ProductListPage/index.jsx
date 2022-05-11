@@ -23,7 +23,13 @@ export default function ProductListPage() {
   return (
     <ProductListPageWrapper>
       {itemList.map(({id, image, name, price}) => (
-        <DetailItem itemImgURL={image} itemName={name} itemPrice={price.toString()} key={id} />
+        <DetailItem
+          itemImgURL={image}
+          itemName={name}
+          itemPrice={price.toString()}
+          id={id}
+          key={id}
+        />
       ))}
     </ProductListPageWrapper>
   );
