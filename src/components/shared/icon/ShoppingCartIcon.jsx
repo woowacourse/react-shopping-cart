@@ -7,6 +7,7 @@ const StyledShoppingCartIcon = styled(ShoppingCart)`
   }
   width: 30px;
   height: 26px;
+  cursor: pointer;
 
   ${props =>
     props.theme === 'header' &&
