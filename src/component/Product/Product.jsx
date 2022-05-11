@@ -9,10 +9,9 @@ const ProductBox = styled.div`
   gap: 18px;
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   width: 282px;
   height: 282px;
-  background-color: pink;
 `;
 
 const DescriptionBox = styled.div`
@@ -37,14 +36,14 @@ const Price = styled.p`
   color: #333333;
 `;
 
-function Product() {
+function Product({ image, name, price }) {
   return (
     <ProductBox>
-      <Image />
+      <Image src={image} />
       <DescriptionBox>
         <div>
-          <Name>PET보틀-정사각(420ml)</Name>
-          <Price>43,400 원</Price>
+          <Name>{name}</Name>
+          <Price>{price} 원</Price>
         </div>
         <Button>
           <span style={{ fontSize: '25px' }}>🛒</span>
