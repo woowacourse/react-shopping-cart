@@ -5,7 +5,7 @@ import Icon from '../../common/Icon';
 function ProductCard() {
   return (
     <Styled.Container>
-      <Image src={imageURL} alt="베이컨이 들어간 프라이팬" width="280px" height="280px" />
+      <Image src={imageURL} alt="베이컨이 들어간 프라이팬" />
       <Styled.Content>
         <Styled.Description>
           <Styled.Name>무쇠 프라이팬</Styled.Name>
