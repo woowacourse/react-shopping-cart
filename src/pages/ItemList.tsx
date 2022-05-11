@@ -11,7 +11,7 @@ const ItemList = () => {
   const { data: itemList, error, loading } = useAppSelector(state => state.itemListReducer);
   const dispatch = useAppDispatch<ItemListAction>();
   // @TODO: 에러 처리
-  const { updateCartItemQuantity } = useCartList();
+  const { cartList, updateCartItemQuantity } = useCartList();
 
   useEffect(() => {
     dispatch(getItemList());
@@ -19,14 +19,14 @@ const ItemList = () => {
 
   return (
     <StyledRoot>
-      {itemList.map(item => (
+      {itemList.map((item, index) => (
         <ItemContainer
           key={item.id}
           id={item.id}
           thumbnailUrl={item.thumbnailUrl}
           price={item.price}
           title={item.title}
-          updateCartItemQuantity={updateCartItemQuantity}
+          updateCartItemQuantity={cartList[index] && updateCartItemQuantity}
         />
       ))}
     </StyledRoot>

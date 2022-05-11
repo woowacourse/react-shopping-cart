@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import CroppedImage from 'components/common/CroppedImage';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import theme from 'styles/theme';
+import { memo, useMemo } from 'react';
 
 interface ItemContainerProps {
   id: number;
   thumbnailUrl: string;
   title: string;
   price: number;
-  updateCartItemQuantity: (id: number) => void;
+  updateCartItemQuantity?: (id: number) => void;
 }
 
 const ItemContainer = ({
@@ -29,14 +30,14 @@ const ItemContainer = ({
         <StyledCartIcon
           width='31px'
           fill={theme.colors.font}
-          onClick={() => updateCartItemQuantity(id)}
+          onClick={() => updateCartItemQuantity?.(id)}
         />
       </StyledBottom>
     </StyledRoot>
   );
 };
 
-export default ItemContainer;
+export default memo(ItemContainer);
 
 const StyledRoot = styled.div`
   display: flex;
