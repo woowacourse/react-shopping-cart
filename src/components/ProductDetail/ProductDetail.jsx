@@ -4,7 +4,7 @@ import Button from 'components/Button/Button';
 
 const ProductDetail = ({ imgUrl, name, price, id }) => {
   return (
-    <Styled.Wrapper>
+    <>
       <Styled.ProductImg src={imgUrl} alt="상품 이미지" />
       <Styled.ProductInfo>
         <Styled.ProductName>{name}</Styled.ProductName>
@@ -17,7 +17,7 @@ const ProductDetail = ({ imgUrl, name, price, id }) => {
           장바구니 {id}
         </Button>
       </Styled.ProductInfo>
-    </Styled.Wrapper>
+    </>
   );
 };
 
@@ -29,12 +29,6 @@ ProductDetail.propTypes = {
 };
 
 const Styled = {
-  Wrapper: styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  `,
   ProductImg: styled.img`
     width: 350px;
     height: 350px;

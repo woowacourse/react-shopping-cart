@@ -7,4 +7,12 @@ export default {
 
 const Template = (args) => <Skeleton {...args} />;
 
-export const Example = Template.bind({});
+export const Large = Template.bind({});
+Large.args = {
+  sizeType: 'large',
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  sizeType: 'small',
+};

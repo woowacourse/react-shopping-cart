@@ -1,4 +1,3 @@
-import Header from 'components/Header/Header';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
 import ProductContainer from 'components/ProductContainer/ProductContainer';
@@ -20,20 +19,14 @@ const ProductList = () => {
     dispatch(getProductsAsync); // {type} 대신에 thunk로 만든 함수를 호출한다.
   }, []);
 
-  useEffect(() => {
-    console.log('loading', isLoading);
-    console.log('error', isError);
-  }, [isError, isLoading]);
-
   const getLoadingStatus = () => {
     return Array.from({ length: 8 }).map((_, index) => (
-      <Skeleton key={index} />
+      <Skeleton key={index} sizeType="small" />
     ));
   };
 
   return (
     <>
-      <Header />
       {isError ? (
         <ImgWrapper src={errorApiImg} />
       ) : isEmpty ? (

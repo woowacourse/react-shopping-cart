@@ -1,7 +1,7 @@
 import errorApiImg from 'assets/png/errorApiImg.png';
 import styled from 'styled-components';
 
-const  = () => {
+const ErrorApi = () => {
   return (
     <Styled.Wrapper>
       <Styled.ErrorImg src={errorApiImg} alt="에러이미지" />

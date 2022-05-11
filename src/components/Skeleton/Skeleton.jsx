@@ -1,7 +1,20 @@
 import styled from 'styled-components';
-const Skeleton = () => {
+import PropTypes from 'prop-types';
+
+const skeletonSize = {
+  large: `
+    width: 380px;
+    height: 350px;
+  `,
+  small: `
+    width: 200px;
+    height: 200px;
+  `,
+};
+
+const Skeleton = ({ sizeType }) => {
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper sizeType={sizeType}>
       <Styled.ProductImage />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
@@ -32,14 +45,21 @@ const skeletonStyle = `
   }
 `;
 
+Skeleton.propTypes = {
+  sizeType: PropTypes.oneOf(Object.keys(skeletonSize)),
+};
+
 const Styled = {
   Wrapper: styled.div`
-    width: 200px;
+    ${({ sizeType }) => `
+      ${skeletonSize[sizeType]}
+    `}
+    margin-bottom: 30px;
   `,
 
   ProductImage: styled.div`
     max-width: 100%;
-    height: 150px;
+    height: 100%;
     ${skeletonStyle}
   `,
 
