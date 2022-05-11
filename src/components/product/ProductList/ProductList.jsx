@@ -2,18 +2,13 @@ import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
-function ProductList() {
+function ProductList({ productList }) {
+  console.log(productList);
   return (
     <Styled.Container>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      {productList.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </Styled.Container>
   );
 }
