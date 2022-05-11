@@ -11,7 +11,7 @@ function App() {
   const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.public_url}>
       <StyledRoot>
         <Header />
         <StyledMain>

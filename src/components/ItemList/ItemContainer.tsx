@@ -35,7 +35,7 @@ const ItemContainer = ({
   };
 
   return (
-    <Link to={`item_detail/${id}`} onClick={handleClickItemContainer}>
+    <Link to={`/item_detail/${id}`} onClick={handleClickItemContainer} replace>
       <StyledRoot>
         <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
         <StyledBottom>
