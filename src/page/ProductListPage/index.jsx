@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import Item from 'component/Item';
+import DetailItem from 'component/Item';
 import PropTypes from 'prop-types';
 
-import {ItemListWrapper} from 'page/ProductListPage/style';
+import {ProductListPageWrapper} from 'page/ProductListPage/style';
 
 export default function ProductListPage() {
   const instance = axios.create({
@@ -21,11 +21,11 @@ export default function ProductListPage() {
   }, []);
 
   return (
-    <ItemListWrapper>
+    <ProductListPageWrapper>
       {itemList.map(({id, image, name, price}) => (
-        <Item itemImgURL={image} itemName={name} itemPrice={price.toString()} key={id} />
+        <DetailItem itemImgURL={image} itemName={name} itemPrice={price.toString()} key={id} />
       ))}
-    </ItemListWrapper>
+    </ProductListPageWrapper>
   );
 }
 

@@ -6,16 +6,11 @@ const ButtonWrapper = styled.button`
   font-weight: 500;
   line-height: 12px;
 
-  background-color: ${(props) => {
-    props.backgroundColor || 'transparent';
-  }};
+  background-color: ${(props) => props.backgroundColor || 'transparent'};
 
-  width: ${(props) => {
-    props.width || '100%';
-  }};
-  height: ${(props) => {
-    props.height || '100%';
-  }};
+  width: ${(props) => props?.width};
+
+  height: ${(props) => props?.height};
 
   cursor: pointer;
 `;

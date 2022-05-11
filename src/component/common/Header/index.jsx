@@ -4,7 +4,7 @@ import Button from 'component/common/Button';
 
 import {ReactComponent as LogoIcon} from 'assets/logoIcon.svg';
 
-import {HeaderWrapper} from 'component/common/Header/style';
+import {HeaderWrapper, HeaderButtonWrapper} from 'component/common/Header/style';
 
 export default function Header() {
   return (
@@ -12,10 +12,10 @@ export default function Header() {
       <Button>
         <LogoIcon />
       </Button>
-      <div>
+      <HeaderButtonWrapper>
         <Button>장바구니</Button>
         <Button>주문목록</Button>
-      </div>
+      </HeaderButtonWrapper>
     </HeaderWrapper>
   );
 }
