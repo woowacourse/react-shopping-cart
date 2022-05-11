@@ -8,11 +8,11 @@ const Header = () => (
       </button>
     </div>
 
-    <div className="logo">로고</div>
+    <div className="logo" />
 
     <ul className="right-menu">
       <li className="cart">장바구니</li>
-      <li className="order-list">주문목록</li>
+      <li className="order-list">주문 목록</li>
     </ul>
   </Styled.Container>
 );

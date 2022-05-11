@@ -1,11 +1,11 @@
+import logo from 'assets/logo.png';
 import styled from '@emotion/styled';
 
 const Container = styled.header`
   display: grid;
-  height: 4rem;
   grid-template-columns: repeat(3, 1fr);
   background-color: #fff;
-  padding: 1rem;
+  padding: 1.7rem 1.2rem;
   border-bottom: 1px solid #ddd;
 
   & > .left-menu {
@@ -34,6 +34,10 @@ const Container = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url(${logo});
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   & > .right-menu {
@@ -45,6 +49,7 @@ const Container = styled.header`
     > li {
       font-size: 0.9rem;
       padding: 1rem;
+      color: #555;
 
       &::before {
         font-family: 'Font Awesome 6 Free';
