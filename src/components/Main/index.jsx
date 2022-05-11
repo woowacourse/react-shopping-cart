@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
 import ProductListPage from "./ProductListPage";
 import ProductDetailPage from "./ProductDetailPage";
 import ProductCartPage from "./ShoppingCartPage";
+import Spinner from "../common/Spinner";
 
 const Container = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   max-width: 1320px;
   margin: 140px auto 60px;
 
@@ -15,6 +20,7 @@ const Container = styled.main`
 `;
 
 function Main() {
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +39,7 @@ function Main() {
           type: "INIT",
           payload: { products: data },
         });
-        return data;
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -43,17 +49,21 @@ function Main() {
 
   return (
     <Container>
-      <Routes>
-        <Route exact path="/" element={<ProductListPage />} />
-        <Route exact path="/product-list" element={<ProductListPage />} />
-        <Route
-          exact
-          path="/product-detail/:id"
-          element={<ProductDetailPage />}
-        />
-        <Route exact path="/product-cart" element={<ProductCartPage />} />
-        <Route path="*" element={<div>잘못된 접근입니다.</div>} />
-      </Routes>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Routes>
+          <Route exact path="/" element={<ProductListPage />} />
+          <Route exact path="/product-list" element={<ProductListPage />} />
+          <Route
+            exact
+            path="/product-detail/:id"
+            element={<ProductDetailPage />}
+          />
+          <Route exact path="/product-cart" element={<ProductCartPage />} />
+          <Route path="*" element={<div>잘못된 접근입니다.</div>} />
+        </Routes>
+      )}
     </Container>
   );
 }

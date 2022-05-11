@@ -1,7 +1,10 @@
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "../src/GlobalStyle";
 import { theme } from "../src/style";
+import { productInfoListStore } from "../src/productInfoListStore";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -17,10 +20,14 @@ export const decorators = [
   (Story, context) => {
     return (
       <>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <Story {...context} />
-        </ThemeProvider>
+        <BrowserRouter>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <Provider store={productInfoListStore}>
+              <Story {...context} />
+            </Provider>
+          </ThemeProvider>
+        </BrowserRouter>
       </>
     );
   },
