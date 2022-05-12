@@ -12,6 +12,9 @@ export const Header = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  @media screen and (max-width: 850px) {
+    padding: 10px 5%;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -28,6 +31,12 @@ export const HomeTitle = styled.h1`
   margin: 0;
   padding: 0;
   margin-left: 6px;
+  @media screen and (max-width: 850px) {
+    font-size: 30px;
+  }
+  @media screen and (max-width: 470px) {
+    display: none;
+  }
 `;
 
 export const NavContainer = styled.nav`
@@ -38,4 +47,8 @@ export const NavContainer = styled.nav`
   font-weight: 500;
   line-height: 12px;
   text-align: center;
+  @media screen and (max-width: 850px) {
+    font-size: 16px;
+    gap: 10px;
+  }
 `;
