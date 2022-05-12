@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <StyledRoot>
       <div>
-        <Link to='/'>
+        <Link to='/main/1'>
           <StyledLogo>
             <CartIcon fill='white' />
             <StyledBrandName>RoyStin Shop</StyledBrandName>
