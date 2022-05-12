@@ -1,35 +1,26 @@
 import { useParams } from 'react-router-dom';
 import type { Item } from 'types/domain';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { LOCAL_BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import useCartList from 'hooks/useCartList';
-
-const emptyItem: Item = {
-  id: 0,
-  thumbnailUrl: '',
-  title: '',
-  price: 0,
-};
+import { useFetch } from 'hooks/useFetch';
+import RequestFail from 'components/common/RequestFail';
+import Loading from 'components/common/Loading';
 
 const ItemDetail = () => {
-  const [item, setItem] = useState<Item>(emptyItem);
-  const { thumbnailUrl, title, price } = item;
   const params = useParams();
 
   const id = Number(params.id);
   const { updateCartItemQuantity } = useCartList();
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(`${LOCAL_BASE_URL}/itemList/${id}`);
+  const { data: item, loading, error } = useFetch<Item>(`${LOCAL_BASE_URL}/itemList/${id}`);
 
-      setItem(data);
-    })();
-  }, []);
+  if (loading) return <Loading />;
+  if (error) return <RequestFail />;
+
+  const { thumbnailUrl, title, price } = item;
 
   return (
     <StyledRoot>

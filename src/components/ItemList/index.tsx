@@ -8,9 +8,12 @@ import { LOCAL_BASE_URL } from 'apis';
 import { Item } from 'types/domain';
 import axios from 'axios';
 
+import Loading from 'components/common/Loading';
+import RequestFail from 'components/common/RequestFail';
+
 const ItemList = () => {
   const [itemList, setItemList] = useState<Item[]>([]);
-  const { cartList, updateCartItemQuantity } = useCartList();
+  const { updateCartItemQuantity, error, loading } = useCartList();
   const { openSnackbar } = useSnackBar();
 
   const params = useParams();
@@ -24,9 +27,11 @@ const ItemList = () => {
     })();
   }, [id]);
 
+  if (error) return <RequestFail />;
+
   return (
     <StyledRoot>
-      {itemList.map((item, index) => (
+      {itemList.map(item => (
         <ItemContainer
           key={item.id}
           id={item.id}
