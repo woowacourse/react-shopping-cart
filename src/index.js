@@ -10,12 +10,12 @@ import App from './App';
 import productListReducer from 'store/modules/productList';
 import cartReducer from 'store/modules/cart';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   productListReducer,
   cartReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(reduxThunk));
+export const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
