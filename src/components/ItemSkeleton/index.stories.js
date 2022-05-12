@@ -1,7 +1,7 @@
 import ItemSkeleton from ".";
 
 export default {
-  title: "Component",
+  title: "Presentional",
   component: ItemSkeleton,
 };
 

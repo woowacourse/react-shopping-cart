@@ -2,7 +2,7 @@ import GridWrapper from ".";
 import Item from "../Item";
 
 export default {
-  title: "presentional",
+  title: "Presentional",
   component: GridWrapper,
 };
 

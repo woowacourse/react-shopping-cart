@@ -10,6 +10,10 @@ export const ItemImage = styled.img`
   height: 570px;
   object-fit: contain;
   margin: auto;
+  @media screen and (max-width: 850px) {
+    width: 350px;
+    height: 350px;
+  }
 `;
 
 export const ItemTitle = styled.h3`
@@ -20,6 +24,10 @@ export const ItemTitle = styled.h3`
   text-align: left;
   border-bottom: 4px solid #aaaaaa;
   padding: 1.5em;
+  @media screen and (max-width: 850px) {
+    font-size: 1.5rem;
+    padding: 1em;
+  }
 `;
 
 export const PriceContainer = styled.div`
@@ -30,6 +38,12 @@ export const PriceContainer = styled.div`
     font-size: 2rem;
     color: #333;
     padding: 1.5em;
+  }
+  @media screen and (max-width: 850px) {
+    p {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
   }
 `;
 
@@ -43,5 +57,9 @@ export const ShoppingCartButton = styled.button`
   font-size: 2rem;
   &:hover {
     opacity: 0.9;
+  }
+  @media screen and (max-width: 850px) {
+    font-size: 1rem;
+    height: 40px;
   }
 `;

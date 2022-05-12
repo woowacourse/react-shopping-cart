@@ -8,4 +8,7 @@ export const DetailPageContainer = styled.section`
 
 export const DetailContainer = styled.div`
   min-width: 700px;
+  @media screen and (max-width: 850px) {
+    min-width: 300px;
+  }
 `;
