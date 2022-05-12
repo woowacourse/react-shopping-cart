@@ -18,11 +18,13 @@ import {
   StyledProductText,
 } from 'components/productItem/style';
 
+import { PRODUCT, MODAL } from 'constants';
+
 const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { products } = useSelector(state => state.reducer);
   const { name, price, image, isInCart } = products.find(product => product.id === id);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
 
   const [debounce, setDebounce] = useState(null);
   const [autoDebounce, setAutoDebounce] = useState(null);
@@ -59,7 +61,7 @@ const ProductItem = ({ id }) => {
       setDebounce(
         setTimeout(() => {
           putCart();
-        }, 1500),
+        }, MODAL.CLOSE_TIME),
       );
     }
   };
@@ -70,7 +72,7 @@ const ProductItem = ({ id }) => {
     setAutoDebounce(
       setTimeout(() => {
         putCart();
-      }, 1500),
+      }, MODAL.CLOSE_TIME),
     );
   };
 
@@ -110,7 +112,7 @@ const ProductItem = ({ id }) => {
         <Modal onClick={handleModal}>
           <Button
             onClick={() => {
-              setQuantity(prev => (prev > 1 ? prev - 1 : prev));
+              setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev));
             }}
           >
             <MinusIcon />
