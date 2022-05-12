@@ -29,6 +29,7 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "chromatic": "^6.5.4",
     "commitizen": "^4.2.4",
     "commitlint-config-gitmoji": "^2.2.5",
     "cz-customizable": "^6.3.0",
@@ -50,7 +51,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=bd8d60bf465c"
   },
   "eslintConfig": {
     "extends": [
