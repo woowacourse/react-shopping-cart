@@ -1,3 +1,5 @@
-import { ReactComponent as ShoppingCart } from "../../assets/cart.svg";
+import { ReactComponent as ShoppingCart } from "../../assets/image/cart.svg";
 
-export default <ShoppingCart />;
+const ShoppingCartIcon = ({ ...props }) => <ShoppingCart {...props} />;
+
+export default ShoppingCartIcon;

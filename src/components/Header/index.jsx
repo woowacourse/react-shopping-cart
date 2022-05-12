@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import * as S from "./index.styles";
-import { ReactComponent as Logo } from "../../assets/image/cart.svg";
+import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
       <Link to="/">
         <div>
           <S.LogoContainer>
-            <Logo width="50px" height="50px" fill="white" />
+            <ShoppingCartIcon width="50px" height="50px" fill="white" />
           </S.LogoContainer>
           <S.HomeTitle>LOKBA MARKET</S.HomeTitle>
         </div>

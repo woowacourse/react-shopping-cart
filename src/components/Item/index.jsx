@@ -1,6 +1,6 @@
 import * as S from "./index.styles";
-import { ReactComponent as ShoppingCart } from "../../assets/image/cart.svg";
 import { useTheme } from "@emotion/react";
+import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
   const {
@@ -17,7 +17,11 @@ const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
           <S.ItemInfo>{price}원</S.ItemInfo>
         </div>
         <S.ShoppingCartButton onClick={go}>
-          <ShoppingCart width="30px" height="30px" fill={shoppingCartColor} />
+          <ShoppingCartIcon
+            width="30px"
+            height="30px"
+            fill={shoppingCartColor}
+          />
         </S.ShoppingCartButton>
       </S.ItemInfoWrapper>
     </S.ItemContainer>
