@@ -1,10 +1,13 @@
 import axios from 'axios';
-import { SERVER_URL } from '../constants';
+import { SERVER_URL, PATH } from '../constants';
+import TYPE from './types';
 
 const loadActionGenerator = (type, payload) => ({ type, payload });
 
-// eslint-disable-next-line import/prefer-default-export
-export const load = (path, type) => async (dispatch) => {
-  const { data } = await axios.get(`${SERVER_URL}/${path}`);
+const loadGenerator = (path, type) => () => async (dispatch) => {
+  const { data } = await axios.get(`${SERVER_URL}${path}`);
   dispatch(loadActionGenerator(type, data));
 };
+
+export const loadProducts = loadGenerator(PATH.PRODUCTS, TYPE.PRODUCTS_LOAD);
+export const loadCarts = loadGenerator(PATH.CARTS, TYPE.CARTS_LOAD);
