@@ -1,20 +1,14 @@
 import actionTypes from 'reducers/products/products.actionTypes';
 
-const getProducts = () => ({
+export const getProducts = () => ({
   type: actionTypes.GET_PRODUCTS,
 });
 
-const getProductsSuccess = (data) => ({
+export const getProductsSuccess = (data) => ({
   type: actionTypes.GET_PRODUCTS_SUCCESS,
   data,
 });
 
-const getProductsError = () => ({
+export const getProductsError = () => ({
   type: actionTypes.GET_PRODUCTS_ERROR,
 });
-
-export default {
-  getProducts,
-  getProductsSuccess,
-  getProductsError,
-};

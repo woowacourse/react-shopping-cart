@@ -1,9 +1,24 @@
-import actionTypes from 'reducers/product/product.actionTypes';
+import actionTypes from 'reducers/cart/cart.actionTypes';
 
 const initialState = {
   data: [],
   isLoading: false,
   isError: false,
+};
+
+const addCart = (cartList, newCartItem) => {
+  const isExisted =
+    cartList.findIndex(({ id }) => id === newCartItem.id) !== -1;
+
+  if (isExisted) {
+    return cartList.map((item) => {
+      if (item.id === newCartItem.id) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+  }
+  return [...cartList, newCartItem];
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -27,6 +42,12 @@ const cartReducer = (state = initialState, action) => {
     };
   }
 
+  if (action.type === actionTypes.ADD_CART_ITEM) {
+    return {
+      ...state,
+      data: addCart(state.data, action.item),
+    };
+  }
   return state;
 };
 

@@ -1,20 +1,19 @@
 import actionTypes from 'reducers/cart/cart.actionTypes';
 
-const getCart = () => ({
+export const getCart = () => ({
   type: actionTypes.GET_CART,
 });
 
-const getCartSuccess = (data) => ({
+export const getCartSuccess = (data) => ({
   type: actionTypes.GET_CART_SUCCESS,
   data,
 });
 
-const getCartError = () => ({
+export const getCartError = () => ({
   type: actionTypes.GET_CART_ERROR,
 });
 
-export default {
-  getCart,
-  getCartSuccess,
-  getCartError,
-};
+export const addCartItem = (item) => ({
+  type: actionTypes.ADD_CART_ITEM,
+  item,
+});

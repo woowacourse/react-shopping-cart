@@ -1,4 +1,4 @@
-import actions from 'reducers/product/product.actions';
+import * as actions from 'reducers/product/product.actions';
 import apiClient from 'utils/apiClient';
 
 export const getProductAsync = (id) => async (dispatch) => {

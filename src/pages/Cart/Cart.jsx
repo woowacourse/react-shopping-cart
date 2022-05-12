@@ -1,25 +1,20 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCartAsync } from 'reducers/cart/cart.thunks';
+import { useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { isLoading, data, isError } = useSelector((state) => state.cart);
-  // id는 'crew1' 대신에 추후에 매개변수로 받아온다.
-  useEffect(() => {
-    dispatch(getCartAsync('crew1'));
-  });
-
-  useEffect(() => {
-    console.log('@@@', data);
-  }, [data]);
+  const { data } = useSelector((state) => state.cart);
 
   return (
     <Styled.Wrapper>
-      <div>isLoading: {isLoading}</div>
-      <div>isError: {isError}</div>
-      <div>data: {data}</div>
+      {data.map(({ name, quantity, price, id }) => (
+        <div key={id}>
+          상품명 : {name} /
+          <span>
+            {quantity}개 {price}원
+          </span>
+        </div>
+      ))}
     </Styled.Wrapper>
   );
 };

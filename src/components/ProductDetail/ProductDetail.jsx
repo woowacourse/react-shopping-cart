@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 
-const ProductDetail = ({ imgUrl, name, price, id }) => {
+const ProductDetail = ({ imgUrl, name, price, onClick }) => {
   return (
     <>
       <Styled.ProductImg src={imgUrl} alt="상품 이미지" />
@@ -13,8 +13,8 @@ const ProductDetail = ({ imgUrl, name, price, id }) => {
           <p>금액</p>
           <p>{price}원</p>
         </Styled.ProductPrice>
-        <Button colorType="secondary" sizeType="large">
-          장바구니 {id}
+        <Button colorType="secondary" sizeType="large" onClick={onClick}>
+          장바구니
         </Button>
       </Styled.ProductInfo>
     </>
@@ -26,6 +26,7 @@ ProductDetail.propTypes = {
   imgUrl: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 const Styled = {

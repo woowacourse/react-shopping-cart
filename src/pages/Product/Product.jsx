@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ProductDetail from 'components/ProductDetail/ProductDetail';
@@ -8,14 +8,21 @@ import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import useReduxState from 'hooks/useReduxState';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import { addCartItem } from 'reducers/cart/cart.actions';
 
 const Product = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getProductAsync(id));
   }, [id]);
+
+  const onClickCartButton = () => {
+    dispatch(addCartItem({ ...data, quantity: 1 }));
+    navigate('/cart');
+  };
 
   return (
     <Styled.Wrapper>
@@ -27,6 +34,7 @@ const Product = () => {
           name={data.name}
           price={data.price}
           id={data.id}
+          onClick={onClickCartButton}
         />
       )}
     </Styled.Wrapper>
