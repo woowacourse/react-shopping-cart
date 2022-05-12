@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GridWrapper from "../../components/GridWrapper";
@@ -7,6 +7,7 @@ import ItemSkeleton from "../../components/ItemSkeleton";
 import { getProductsByPage } from "../../modules/products";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
+import useInfityScroll from "../../hooks/useInfinityScroll";
 
 const ItemList = () => {
   const products = useSelector((state) => state.products);
@@ -15,30 +16,7 @@ const ItemList = () => {
   const sectionRef = useRef(null);
 
   const delayGetProduct = throttle(500, () => dispatch(getProductsByPage()));
-
-  useEffect(() => {
-    let observer;
-
-    if (products.isEnd) {
-      return observer && observer.disconnect();
-    }
-
-    const onIntersect = ([entry], observer) => {
-      if (entry.isIntersecting) {
-        observer.unobserve(entry.target);
-        delayGetProduct();
-      }
-    };
-
-    if (sectionRef) {
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.9,
-      });
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer && observer.disconnect();
-  }, [dispatch, products.isEnd, products.loading, sectionRef, delayGetProduct]);
+  useInfityScroll(sectionRef, delayGetProduct, products.isEnd);
 
   const handleItemClick = (id) => {
     navigate(`/product/${id}`);
