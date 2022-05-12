@@ -9,10 +9,10 @@ const ShoppingCartItemBox = styled(ColumnFlexWrapper)``;
 
 function ShoppingCartItemsContainer() {
   const carts = useSelector(selectCurrentCarts);
-
+  console.log(carts);
   return (
     <ShoppingCartItemBox>
-      {carts.map(({ id, name, image, price, user }) => {
+      {carts.map(({ id, name, image, price, user, checked }) => {
         if (user === CURRENT_USER) {
           return (
             <ShoppingCartItem
@@ -21,6 +21,7 @@ function ShoppingCartItemsContainer() {
               name={name}
               thumbnail={image}
               price={price}
+              checked={checked}
             />
           );
         }

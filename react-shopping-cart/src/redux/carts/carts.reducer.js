@@ -1,9 +1,11 @@
+import { CURRENT_USER } from "../../constants";
 import cartsActionTypes from "./carts.types";
 
 const INITIAL_STATE = {
   loading: false,
   carts: [],
   error: false,
+  allChecked: false,
 };
 
 const cartsReducer = (state = INITIAL_STATE, action) => {
@@ -60,11 +62,25 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
     case cartsActionTypes.toggleIsChecked: {
-      const currentCartProduct = state.carts.find(
+      const newCarts = [...state.carts];
+      const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
       currentCartProduct["checked"] = !currentCartProduct["checked"];
-      return { ...state };
+
+      return { ...state, carts: newCarts };
+    }
+    case cartsActionTypes.allToggleIsChecked: {
+      const newCarts = state.carts.map((cart) => {
+        if (
+          cart.user === CURRENT_USER &&
+          state.allChecked === !!cart["checked"]
+        ) {
+          cart["checked"] = !cart["checked"];
+        }
+        return cart;
+      });
+      return { ...state, carts: newCarts, allChecked: !state.allChecked };
     }
     case cartsActionTypes.increaseProductQuantity: {
       const currentCartProduct = state.carts.find(

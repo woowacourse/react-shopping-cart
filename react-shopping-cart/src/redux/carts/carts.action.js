@@ -49,6 +49,10 @@ export const toggleIsChecked = (id) => ({
   payload: id,
 });
 
+export const allToggleIsChecked = () => ({
+  type: cartsActionTypes.allToggleIsChecked,
+});
+
 export const increaseProductQuantity = (id) => ({
   type: cartsActionTypes.increaseProductQuantity,
   payload: id,

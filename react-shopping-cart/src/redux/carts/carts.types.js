@@ -9,6 +9,7 @@ const cartsActionTypes = {
   deleteProductToCartSuccess: "deleteProductToCartSuccess",
   deleteProductToCartError: "deleteProductToCartError",
   toggleIsChecked: "toggleIsChecked",
+  allToggleIsChecked: "allToggleIsChecked",
   increaseProductQuantity: "increaseProductQuantity",
   decreaseProductQuantity: "decreaseProductQuantity",
 };

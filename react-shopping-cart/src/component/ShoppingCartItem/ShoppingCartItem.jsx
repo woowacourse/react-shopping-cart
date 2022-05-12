@@ -6,6 +6,8 @@ import { ReactComponent as Trash } from "../../assets/trash.svg";
 import ItemCounter from "../ItemCounter/ItemCounter";
 import ProductPrice from "../@shared/ProductPrice/ProductPrice";
 import useClickCartButton from "../../hooks/useClickCartButton";
+import { useDispatch } from "react-redux";
+import { toggleIsChecked } from "../../redux/carts/carts.action";
 
 const CartContainer = styled.div`
   display: flex;
@@ -32,13 +34,22 @@ const TrashContainer = styled.div`
   cursor: pointer;
 `;
 
-function ShoppingCartItem({ id, name, thumbnail, price }) {
+function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
   const { handleDeleteProduct } = useClickCartButton();
+  const dispatch = useDispatch();
+
+  const handleToggleCheckBox = () => {
+    dispatch(toggleIsChecked(id));
+  };
 
   return (
     <CartContainer>
       <LeftContainer>
-        <CheckBox type="checkbox" />
+        <CheckBox
+          type="checkbox"
+          onChange={handleToggleCheckBox}
+          checked={checked || false}
+        />
         <ProductThumbnail type="shoppingCart" src={thumbnail} />
         <ProductName type="shoppingCart">{name}</ProductName>
       </LeftContainer>
