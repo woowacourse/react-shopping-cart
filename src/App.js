@@ -2,11 +2,13 @@ import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ProductList, Product, Cart, NotFound } from 'pages';
 import Layout from 'components/Layout/Layout';
+import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import spinner from 'assets/svg/spinner.svg';
 
 function App() {
   return (
     <>
-      <Suspense fallback={<h1>로딩중</h1>}>
+      <Suspense fallback={<ImgWrapper src={spinner} />}>
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
