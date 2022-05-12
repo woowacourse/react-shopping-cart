@@ -81,7 +81,11 @@ function Product({ productInfo }: ProductProps) {
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </Styled.ProductInfo>
-        <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
+        <Styled.CartImageWrapper>
+          {cartItem?.amount && <Styled.CartImageBadge />}
+
+          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
+        </Styled.CartImageWrapper>
         <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
           <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
           <span>{cartItem?.amount ?? 0}</span>
