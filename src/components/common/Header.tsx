@@ -12,7 +12,7 @@ const Header = () => {
         <Link to='/main/1'>
           <StyledLogo>
             <CartIcon fill='white' />
-            <StyledBrandName>RoyStin Shop</StyledBrandName>
+            <StyledBrandName>Woowa Shop</StyledBrandName>
           </StyledLogo>
         </Link>
         <StyledNav>
