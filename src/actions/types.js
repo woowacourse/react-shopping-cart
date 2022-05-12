@@ -1,5 +1,8 @@
 const PRODUCTS_ACTIONS = {
-  UPDATE_PRODUCT_LIST: Symbol('상품 목록을 불러옵니다.'),
+  UPDATE_PRODUCT_LIST_SUCCESS: Symbol('상품 목록을 성공적으로 불러와 업데이트합니다.'),
+  UPDATE_PRODUCT_LIST_FAILURE: Symbol(
+    '상품 목록을 불러오는데 실패하여 오류 상태를 업데이트합니다.',
+  ),
 };
 
 const CARTS_ACTIONS = {
