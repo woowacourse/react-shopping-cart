@@ -4,7 +4,7 @@ import axios from 'axios';
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string>(null);
 
   const requestData = async () => {
     setLoading(true);

@@ -1,32 +1,36 @@
 import ItemContainer from 'components/ItemList/ItemContainer';
 import styled from 'styled-components';
-import useCartList from 'hooks/useCartList';
+import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import useSnackBar from 'hooks/useSnackBar';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { LOCAL_BASE_URL } from 'apis';
 import { Item } from 'types/domain';
-import axios from 'axios';
-
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
+import { useFetch } from 'hooks/useFetch';
+import useThunkFetch from 'hooks/useThunkFetch';
+import { CartListAction } from 'redux/actions/cartList';
+import { getCartList } from 'redux/action-creators/cartListThunk';
 
 const ItemList = () => {
-  const [itemList, setItemList] = useState<Item[]>([]);
-  const { updateCartItemQuantity, error, loading } = useCartList();
-  const { openSnackbar } = useSnackBar();
-
   const params = useParams();
   const id = Number(params.id);
 
-  useEffect(() => {
-    (async () => {
-      const res = await axios.get(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=12`);
+  const {
+    data: itemList,
+    error,
+    loading,
+  } = useFetch<Item[]>(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=12`);
 
-      setItemList(res.data);
-    })();
-  }, [id]);
+  const { data: cartList } = useThunkFetch<CartListAction>(
+    state => state.cartListReducer,
+    getCartList
+  );
+  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
+  const { openSnackbar } = useSnackBar();
+
+  if (loading) return <Loading />;
   if (error) return <RequestFail />;
 
   return (

@@ -1,16 +1,10 @@
-import { useAppSelector } from 'hooks/useAppSelector';
-import { useEffect } from 'react';
-import { postCartItem, putCartItem, getCartList } from 'redux/action-creators/cartListThunk';
+import { postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
 import { useAppDispatch } from './useAppDispatch';
+import { CartItem } from 'types/domain';
 import { CartListAction } from 'redux/actions/cartList';
 
-const useCartList = () => {
+const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
-  const { data: cartList, error, loading } = useAppSelector(state => state.cartListReducer);
-
-  useEffect(() => {
-    dispatch(getCartList());
-  }, []);
 
   const updateCartItemQuantity = (id: number) => {
     const targetItem = cartList.find(cartItem => cartItem.id === id);
@@ -23,7 +17,7 @@ const useCartList = () => {
     dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + 1 }));
   };
 
-  return { cartList, error, loading, updateCartItemQuantity };
+  return { updateCartItemQuantity };
 };
 
-export default useCartList;
+export default useUpdateCartItem;

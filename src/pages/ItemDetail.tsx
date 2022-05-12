@@ -4,18 +4,23 @@ import { LOCAL_BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import useCartList from 'hooks/useCartList';
+import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useFetch } from 'hooks/useFetch';
 import RequestFail from 'components/common/RequestFail';
 import Loading from 'components/common/Loading';
+import useThunkFetch from 'hooks/useThunkFetch';
+import { CartListAction } from 'redux/actions/cartList';
+import { getCartList } from 'redux/action-creators/cartListThunk';
 
 const ItemDetail = () => {
   const params = useParams();
-
   const id = Number(params.id);
-  const { updateCartItemQuantity } = useCartList();
-
   const { data: item, loading, error } = useFetch<Item>(`${LOCAL_BASE_URL}/itemList/${id}`);
+  const { data: cartList } = useThunkFetch<CartListAction>(
+    state => state.cartListReducer,
+    getCartList
+  );
+  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
   if (loading) return <Loading />;
   if (error) return <RequestFail />;

@@ -1,11 +1,15 @@
-import { useAppSelector } from 'hooks/useAppSelector';
 import React from 'react';
 import { CartItem } from 'types/domain';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
-
+import useThunkFetch from 'hooks/useThunkFetch';
+import { getCartList } from 'redux/action-creators/cartListThunk';
 const CartList = () => {
-  const { data: cartList, error, loading } = useAppSelector(state => state.cartListReducer);
+  const {
+    data: cartList,
+    error,
+    loading,
+  } = useThunkFetch(state => state.cartListReducer, getCartList);
 
   if (loading) return <Loading />;
   if (error) return <RequestFail />;
