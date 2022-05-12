@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
+import Loading from 'components/Loading/Loading.component';
 import useFetch from 'hooks/useFetch';
 import { addItem, deleteItem } from 'actions';
 
@@ -30,22 +31,22 @@ function ProductList() {
     <>
       <Header />
       <PageContainer>
-        <ProductListBox>
-          {isLoading ? (
-            <p>로딩중 입니다..</p>
-          ) : error ? (
-            <p>{error}</p>
-          ) : (
-            data.map(itemInfo => (
+        {isLoading ? (
+          <Loading />
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <ProductListBox>
+            {data.map(itemInfo => (
               <ProductListItem
                 key={itemInfo.id}
                 {...itemInfo}
                 isContained={checkContainedProduct(itemInfo.id)}
                 handleToggleShoppingCart={handleToggleShoppingCart}
               />
-            ))
-          )}
-        </ProductListBox>
+            ))}
+          </ProductListBox>
+        )}
       </PageContainer>
     </>
   );

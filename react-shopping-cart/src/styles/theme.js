@@ -12,6 +12,7 @@ const usingColor = {
   shadow: colors.GRAY_001,
   shoppingCartIcon: colors.BLACK_001,
   selectedShoppingCartIcon: colors.MINT_001,
+  loadingSpinner: colors.MINT_001,
 };
 
 const theme = { usingColor };
