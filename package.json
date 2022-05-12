@@ -1,6 +1,7 @@
 {
   "name": "react-shopping-cart",
   "version": "0.1.0",
+  "homepage": "http://euijinkk.github.io/react-shopping-cart",
   "private": true,
   "dependencies": {
     "@types/node": "^16.11.33",
@@ -28,7 +29,9 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "server": "json-server db.json --watch --port 4000"
+    "server": "json-server db.json --watch --port 4000",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -79,6 +82,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
   }
