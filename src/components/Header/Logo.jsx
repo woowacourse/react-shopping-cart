@@ -26,7 +26,7 @@ function Logo() {
   return (
     <LogoContainer>
       <IconImg src={shoppingCartIconWhite} alt="장바구니 아이콘" />
-      <Title>WOOWA SHOP</Title>
+      <Title>TAEPHIA SHOP</Title>
     </LogoContainer>
   );
 }

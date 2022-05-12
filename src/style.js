@@ -1,5 +1,5 @@
 export const theme = {
-  point: "#2ac1bc",
+  point: "#E7A0A0",
   main: "#ffffff",
   textDefault: "#333333",
 };

@@ -16,12 +16,18 @@ const Container = styled.li`
 
 const ImageWrapper = styled.div`
   width: 100%;
+  height: 278px;
 
   overflow: hidden;
 `;
 
-const ProductThumbnail = styled.img`
+const ProductThumbnail = styled.div`
   width: 100%;
+  height: 100%;
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url(${({ bgImage }) => bgImage});
   transition: transform 0.3s;
   object-fit: cover;
 
@@ -69,7 +75,7 @@ function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
   return (
     <Container onClick={onClick}>
       <ImageWrapper>
-        <ProductThumbnail src={thumbnailUrl ?? ""} />
+        <ProductThumbnail bgImage={thumbnailUrl ?? ""} />
       </ImageWrapper>
       <CardBottom>
         <InfoWrapper>
