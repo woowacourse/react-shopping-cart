@@ -19,7 +19,7 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <Header />
-          <Routes>
+          <Routes basename="/react-shopping-cart">
             <Route exact path={PATH.HOME} element={<ProductListPage />}></Route>
             <Route exact path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
             <Route exact path={PATH.CART} element={<ProductCartPage />}></Route>
