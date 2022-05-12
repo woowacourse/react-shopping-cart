@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import type { Item } from 'types/domain';
-import { LOCAL_BASE_URL } from 'apis';
+import { BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
@@ -15,7 +15,7 @@ import { getCartList } from 'redux/action-creators/cartListThunk';
 const ItemDetail = () => {
   const params = useParams();
   const id = Number(params.id);
-  const { data: item, loading, error } = useFetch<Item>(`${LOCAL_BASE_URL}/itemList/${id}`);
+  const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
   const { data: cartList } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
     getCartList
