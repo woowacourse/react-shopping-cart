@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { Link } from 'react-router-dom';
 
 const Styled = {
   Wrapper: styled.header`

@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { CardDetailButton } from 'components/common/Button';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { CardDetailButton } from 'components/common/Button';
 
 const Styled = {
   Wrapper: styled.div`

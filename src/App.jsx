@@ -1,10 +1,11 @@
 import React from 'react';
-import GlobalStyles from 'styles/globalStyles';
-import ProductList from 'components/ProductList';
-import Layout from 'components/common/Layout';
-import NotFound from 'components/NotFound';
 import { Route, Routes } from 'react-router-dom';
+import GlobalStyles from 'styles/globalStyles';
+
+import Layout from 'components/common/Layout';
+import ProductList from 'components/ProductList';
 import ProductDetail from 'components/ProductDetail';
+import NotFound from 'components/NotFound';
 
 const App = () => {
   return (
@@ -13,8 +14,8 @@ const App = () => {
       <Layout>
         <Routes>
           <Route path="/react-shopping-cart" element={<ProductList />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/react-shopping-cart/product/:id" element={<ProductDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </div>

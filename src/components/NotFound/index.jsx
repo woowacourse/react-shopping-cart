@@ -1,9 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
-import { Link } from 'react-router-dom';
 
 const Styled = {
   Wrapper: styled.div`

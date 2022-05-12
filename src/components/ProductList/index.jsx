@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Product from 'components/Product';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import Product from 'components/Product';
 
 const Styled = {
   ProductBox: styled.div`
