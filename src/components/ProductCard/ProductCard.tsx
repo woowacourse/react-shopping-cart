@@ -59,7 +59,7 @@ const CardImageOverlay = styled.div`
   background: rgba(0, 0, 0, 0.3);
 
   p {
-    margin: 30px;
+    inset: 30px 30px 60px;
     color: white;
     position: absolute;
 
