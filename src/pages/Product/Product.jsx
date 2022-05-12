@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import { getProductAsync } from 'reducers/product/product.thunks';
 import Skeleton from 'components/Skeleton/Skeleton';
-import ErrorApi from 'components/ErrorApi/ErrorApi';
+import errorApiImg from 'assets/png/errorApiImg.png';
 import useReduxState from 'hooks/useReduxState';
+import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 
 const Product = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
@@ -19,7 +20,7 @@ const Product = () => {
   return (
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ErrorApi />}
+      {isError && <ImgWrapper src={errorApiImg} />}
       {!isLoading && data && (
         <ProductDetail
           imgUrl={data.imgUrl}

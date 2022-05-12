@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import MenuItem from 'components/MenuItem/MenuItem';
 import bigCart from 'assets/svg/bigCart.svg';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Styled.Wrapper>
-      <Styled.Logo>
+      <Styled.Logo to="/">
         <Styled.LogoImage src={bigCart} alt="로고" />
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
@@ -27,11 +28,12 @@ const Styled = {
     justify-content: space-around;
   `,
 
-  Logo: styled.div`
+  Logo: styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
+    text-decoration-line: none;
   `,
 
   LogoImage: styled.img`
