@@ -47,7 +47,10 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
       <Text className="product-price" fontSize="medium">
         {price}원
       </Text>
-      <ShoppingCart onClick={() => handleToggleShoppingCart(id, isContained)} />
+      <ShoppingCart
+        style={{ cursor: 'pointer' }}
+        onClick={() => handleToggleShoppingCart(id, isContained)}
+      />
     </ItemContainer>
   );
 }
