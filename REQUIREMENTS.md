@@ -22,16 +22,16 @@
 - JSON Server
 - 상품 스키마
   ```json
-  {
+  product {
     id,
     name,
     price,
-    thumbnail: {
-      sm,
-      md,
-      lg
-    },
+    image,
     description,
+    stock,
+    brandId,
+    categoryId,
+    createdAt
   }
   ```
 
