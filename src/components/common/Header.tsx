@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { flexCenter } from 'styles/mixin';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <StyledRoot>
       <div>
@@ -14,7 +16,7 @@ const Header = () => {
           </StyledLogo>
         </Link>
         <StyledNav>
-          <button>장바구니</button>
+          <button onClick={() => navigate('/cart')}>장바구니</button>
           <button>주문목록</button>
         </StyledNav>
       </div>
