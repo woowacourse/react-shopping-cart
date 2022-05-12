@@ -6,6 +6,8 @@ import Header from 'components/header/Header';
 import Button from 'components/shared/button/Button';
 import CartIcon from 'components/shared/cartIcon/CartIcon';
 
+import { BASE_URL } from 'constants';
+
 const StyledRoutes = styled.div`
   display: flex;
   justify-content: center;
@@ -32,7 +34,7 @@ function App() {
       />
       <StyledRoutes>
         <Routes>
-          <Route path="/react-shopping-cart/" element={<ProductListPage />} />
+          <Route path={BASE_URL} element={<ProductListPage />} />
         </Routes>
       </StyledRoutes>
     </BrowserRouter>
