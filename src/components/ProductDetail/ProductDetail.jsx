@@ -22,10 +22,10 @@ const ProductDetail = ({ imgUrl, name, price, onClick }) => {
 };
 
 ProductDetail.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   imgUrl: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.number,
+  price: PropTypes.string,
   onClick: PropTypes.func,
 };
 
