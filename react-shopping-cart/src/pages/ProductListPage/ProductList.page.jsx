@@ -4,6 +4,7 @@ import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import Loading from 'components/Loading/Loading.component';
+import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
 import { addItem, deleteItem } from 'actions';
 
@@ -34,7 +35,7 @@ function ProductList() {
         {isLoading ? (
           <Loading />
         ) : error ? (
-          <p>{error}</p>
+          <Error>서버에 연결할 수 없습니다.</Error>
         ) : (
           <ProductListBox>
             {data.map(itemInfo => (
