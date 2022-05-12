@@ -27,3 +27,7 @@ export const colors = {
   red: ["#7f0001", "#dd202280"],
   greenLight: ["#00cc00", "#ddff99", "#ddff66"],
 };
+
+export const breakpoints = [576, 768, 992, 1320];
+
+export const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);

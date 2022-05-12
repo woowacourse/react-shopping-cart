@@ -5,6 +5,7 @@ import Thumbnail from "../thumbnail/Thumbnail";
 import ImageButton from "../image-button/ImageButton";
 import createAction from "../../../../redux/createAction";
 import { ADD_PRODUCT_TO_CART } from "../../../../redux/actions";
+import { BASE_URL } from "../../../../constants";
 
 function ProductItem({ id, name, price, stock, thumbnail_url }) {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
 
   return (
     <S.ProductItem>
-      <Thumbnail src={thumbnail_url} />
+      <Thumbnail src={`${BASE_URL}/${thumbnail_url}`} />
       <div className="content">
         <div className="product-detail">
           <div className="l-left">
