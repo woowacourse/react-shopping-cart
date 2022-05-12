@@ -2,7 +2,7 @@
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://lah1203.github.io/react-shopping-cart/",
+  "homepage": "https://woojeongmin.com/react-shopping-cart",
   "dependencies": {
     "axios": "^0.27.2",
     "react": "^18.1.0",
