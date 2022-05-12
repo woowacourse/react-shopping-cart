@@ -70,6 +70,7 @@ const Styled = {
   CartButton: styled.button`
     background-color: transparent;
     border: none;
+    cursor: pointer;
   `,
 
   CartSvg: styled.img`
