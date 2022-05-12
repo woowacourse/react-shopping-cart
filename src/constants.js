@@ -1,0 +1,3 @@
+const fruits = ['🍅', '🍑', '🥝', '🥥'];
+
+export { fruits };

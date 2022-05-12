@@ -12,6 +12,7 @@ const ProductBox = styled.div`
 const Image = styled.img`
   width: 282px;
   height: 282px;
+  object-fit: cover;
 `;
 
 const DescriptionBox = styled.div`
