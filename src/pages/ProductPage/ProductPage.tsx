@@ -1,24 +1,9 @@
-import { useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { actions } from '../../actions/actions';
 import Spinner from '../../components/Spinner/Spinner';
-import { StoreState } from '../../types';
+import useProductPage from './useProductPage';
 
 function ProductPage() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { productDetail, isLoading } = useSelector((state: StoreState) => ({
-    isLoading: state.isLoading,
-    productDetail: state.productDetail,
-  }));
-
-  useLayoutEffect(() => {
-    if (id) {
-      dispatch(actions.getProductDetail(id));
-    }
-  }, [id, dispatch]);
+  const { isLoading, productDetail } = useProductPage();
 
   if (isLoading) return <Spinner />;
 
