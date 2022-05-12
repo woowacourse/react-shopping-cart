@@ -11,7 +11,7 @@ function MainPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.loadProducts());
+    dispatch(actions.getProductList());
   }, [dispatch]);
 
   return (

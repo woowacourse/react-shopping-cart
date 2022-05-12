@@ -14,10 +14,10 @@ export type Product = {
 
 export type Action = {
   type: typeof types[keyof typeof types];
-  // type: string;
   payload: any;
 };
 
 export type StoreState = {
   productList: Array<Product>;
+  productDetail: Product | null;
 };

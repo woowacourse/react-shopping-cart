@@ -28,7 +28,7 @@ function ProductCard({ product }: Props) {
   };
 
   return (
-    <PlainLink to={`/products/${id}`}>
+    <PlainLink to={`/product/${id}`}>
       <StyledProductCard>
         <CardImageContainer>
           <CardImageOverlay>

@@ -6,6 +6,7 @@ import theme from './styles/theme';
 
 import Header from './components/Layout/Header/Header';
 import MainPage from './pages/MainPage/MainPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App(): JSX.Element {
@@ -16,6 +17,7 @@ function App(): JSX.Element {
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ThemeProvider>
