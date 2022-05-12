@@ -20,7 +20,7 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GlobalStyle />
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <ThemeProvider theme={theme}>
             <Routes>
               <Route path="/" element={<ProductList />} />

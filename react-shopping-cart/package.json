@@ -23,7 +23,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build:storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -72,7 +74,9 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.5.11",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
-  }
+  },
+  "homepage": "https://woose28.github.io/react-shopping-cart"
 }
