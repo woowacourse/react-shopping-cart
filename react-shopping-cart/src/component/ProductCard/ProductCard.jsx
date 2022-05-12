@@ -26,6 +26,7 @@ const ProductCardBox = styled(ColumnFlexWrapper)`
 function ProductCard(props) {
   const { id, thumbnail } = props;
   const navigate = useNavigate();
+
   return (
     <ProductCardBox onClick={() => navigate(`${id}`)}>
       <ProductThumbnail src={thumbnail} type="card" />

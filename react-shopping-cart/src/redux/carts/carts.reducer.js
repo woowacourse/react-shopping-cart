@@ -10,7 +10,10 @@ const INITIAL_STATE = {
 
 const cartsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case cartsActionTypes.addProductToCartStart:
     case cartsActionTypes.fetchCartsStart:
+    case cartsActionTypes.deleteProductToCartStart:
+    case cartsActionTypes.deleteCheckedProductsStart:
       return {
         ...state,
         loading: true,
@@ -22,16 +25,14 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         loading: false,
         carts: action.payload,
       };
+    case cartsActionTypes.deleteProductToCartError:
+    case cartsActionTypes.addProductToCartError:
     case cartsActionTypes.fetchCartsError:
+    case cartsActionTypes.deleteCheckedProductsError:
       return {
         ...state,
         loading: false,
         error: action.payload,
-      };
-    case cartsActionTypes.addProductToCartStart:
-      return {
-        ...state,
-        loading: true,
       };
     case cartsActionTypes.addProductToCartSuccess:
       return {
@@ -39,29 +40,19 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         loading: false,
         carts: state.carts.concat(action.payload),
       };
-    case cartsActionTypes.addProductToCartError:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    case cartsActionTypes.deleteProductToCartStart:
-      return {
-        ...state,
-        loading: true,
-      };
     case cartsActionTypes.deleteProductToCartSuccess:
       return {
         ...state,
         loading: false,
         carts: state.carts.filter((cart) => cart.id !== action.payload),
       };
-    case cartsActionTypes.deleteProductToCartError:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+    case cartsActionTypes.deleteCheckedProductsSuccess: {
+      const checkedIdList = action.payload;
+      const newCarts = state.carts.filter(
+        (cart) => !checkedIdList.includes(cart.id)
+      );
+      return { ...state, loading: false, carts: newCarts, allChecked: false };
+    }
     case cartsActionTypes.toggleIsChecked: {
       const newCarts = [...state.carts];
       const currentCartProduct = newCarts.find(

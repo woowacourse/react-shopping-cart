@@ -4,6 +4,8 @@ import { addProductToCart, deleteProductFromCart, fetchCarts } from "../../api";
 import {
   addProductToCartError,
   addProductToCartSuccess,
+  deleteCheckedProductsError,
+  deleteCheckedProductsSuccess,
   deleteProductToCartError,
   deleteProductToCartSuccess,
   fetchCartsError,
@@ -37,6 +39,15 @@ export function* deleteProduct({ payload: id }) {
   }
 }
 
+export function* deleteCheckedProducts({ payload: checkedIdList }) {
+  try {
+    yield all(checkedIdList.map((id) => call(deleteProductFromCart, id)));
+    yield put(deleteCheckedProductsSuccess(checkedIdList));
+  } catch (err) {
+    yield put(deleteCheckedProductsError(err));
+  }
+}
+
 export function* handleDeleteProduct() {
   yield takeLatest(cartsActionTypes.deleteProductToCartStart, deleteProduct);
 }
@@ -49,10 +60,18 @@ export function* handleFetchCarts() {
   yield takeLatest(cartsActionTypes.fetchCartsStart, getCarts);
 }
 
+export function* handleDeleteCheckedProducts() {
+  yield takeLatest(
+    cartsActionTypes.deleteCheckedProductsStart,
+    deleteCheckedProducts
+  );
+}
+
 export function* cartsSaga() {
   yield all([
     call(handleFetchCarts),
     call(handleAddProduct),
     call(handleDeleteProduct),
+    call(handleDeleteCheckedProducts),
   ]);
 }

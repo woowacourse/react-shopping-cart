@@ -44,6 +44,21 @@ export const deleteProductToCartError = (error) => ({
   payload: error,
 });
 
+export const deleteCheckedProductsStart = (checkedIdList) => ({
+  type: cartsActionTypes.deleteCheckedProductsStart,
+  payload: checkedIdList,
+});
+
+export const deleteCheckedProductsSuccess = (checkedIdList) => ({
+  type: cartsActionTypes.deleteCheckedProductsSuccess,
+  payload: checkedIdList,
+});
+
+export const deleteCheckedProductsError = (err) => ({
+  type: cartsActionTypes.deleteCheckedProductsError,
+  payload: err,
+});
+
 export const toggleIsChecked = (id) => ({
   type: cartsActionTypes.toggleIsChecked,
   payload: id,
