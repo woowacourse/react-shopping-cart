@@ -5,7 +5,7 @@
 <p align="middle">React & Redux 데스크탑 장바구니 애플리케이션</p>
 </p>
 
-## [🛒 장바구니 데모 페이지](https://soyi47.github.io/react-shopping-cart/)
+## [🛒 장바구니 데모 페이지](https://nan-noo.github.io/react-shopping-cart/)
 
 ## [📙 장바구니 스토리북 데모 페이지](https://627cc0fecc754f004a31ede8-xwbaufuocg.chromatic.com/)
 
