@@ -34,6 +34,12 @@ const StyledLogo = styled.div`
   font-size: 40px;
   font-weight: 900;
   color: inherit;
+
+  ${({ theme: { media } }) => media.sm`
+    h1 {
+      display: none;
+    }
+  `};
 `;
 
 export default Logo;

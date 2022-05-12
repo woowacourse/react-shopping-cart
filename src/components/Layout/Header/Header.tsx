@@ -31,6 +31,10 @@ const StyledHeader = styled.div`
 
   color: ${({ theme: { colors } }) => colors.white};
   background: ${({ theme: { colors } }) => colors.emerald};
+
+  ${({ theme: { media } }) => media.sm`
+    padding: 0 20px;
+  `};
 `;
 
 export default Header;
