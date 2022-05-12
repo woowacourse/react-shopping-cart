@@ -13,6 +13,7 @@ const ProductItem = ({ id, image, name, price }) => {
 
   const onClickAddCartButton = () => {
     dispatch(addCartList({ id, image, name, price }));
+    alert(`${name}가 장바구니에 추가되었습니다 🧺`);
   };
 
   return (
