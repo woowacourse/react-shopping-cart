@@ -3,7 +3,7 @@ import { ROUTE } from '../../../route';
 import Icon from '../Icon/Icon';
 import * as Styled from './Header.style';
 
-export default function Header() {
+function Header() {
   const isTablet = useResponsive();
 
   return (
@@ -24,3 +24,5 @@ export default function Header() {
     </Styled.Container>
   );
 }
+
+export default Header;

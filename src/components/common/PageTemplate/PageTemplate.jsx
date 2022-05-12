@@ -1,7 +1,7 @@
 import * as Styled from './PageTemplate.style';
 import Header from '../Header/Header';
 
-export default function PageTemplate({ children }) {
+function PageTemplate({ children }) {
   return (
     <>
       <Header />
@@ -9,3 +9,5 @@ export default function PageTemplate({ children }) {
     </>
   );
 }
+
+export default PageTemplate;

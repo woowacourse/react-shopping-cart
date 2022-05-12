@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import * as Styled from './Home.style';
 
-export default function Home() {
+function Home() {
   const dispatch = useDispatch();
 
   const { isLoading, pageCount } = useSelector(state => state);
@@ -38,3 +38,5 @@ export default function Home() {
     </PageTemplate>
   );
 }
+
+export default Home;
