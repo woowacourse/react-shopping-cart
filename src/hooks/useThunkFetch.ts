@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 type Selector = (state: RootState) => any;
 
+// @TODO : selector, data 타입 지정
 const useThunkFetch = <ActionType extends Action>(selector: Selector, thunkActionCreator) => {
   const dispatch = useAppDispatch<ActionType>();
   const { data, error, loading } = useSelector(selector);
