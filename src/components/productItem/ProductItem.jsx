@@ -1,18 +1,13 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import useClose from 'hooks/useClose';
 
-import Image from 'components/shared/image/Image';
-import CartIcon from 'components/shared/cartIcon/CartIcon';
-import Modal from 'components/shared/modal/Modal';
-import Button from 'components/shared/button/Button';
-import Text from 'components/shared/text/Text';
+import { Image, CartIcon, Modal, Button, Text } from 'components/productItem/index';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
-import useClose from 'hooks/useClose';
-
 import store from 'store/store';
-import { PUT } from 'actions/action';
+import { doPutProductToCart } from 'actions/actionCreator';
 
 import {
   StyledProductItem,
@@ -35,7 +30,7 @@ const ProductItem = ({ id }) => {
 
   const putCart = () => {
     setIsOpen(false);
-    store.dispatch({ type: PUT, id, quantity: quantityRef.current });
+    store.dispatch(doPutProductToCart({ id, quantity: quantityRef.current }));
     clearTimer();
   };
 
