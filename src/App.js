@@ -8,6 +8,7 @@ import theme from './style/theme';
 import GlobalStyle from 'style/GlobalStyle';
 import ProductList from './pages/ProductList';
 import rootReducer from 'modules';
+import Header from 'templates/Header';
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
@@ -16,6 +17,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Header />
         <ProductList />
       </ThemeProvider>
     </Provider>
