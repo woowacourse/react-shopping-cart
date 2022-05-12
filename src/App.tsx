@@ -12,7 +12,7 @@ function App() {
   const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);
 
   return (
-    <BrowserRouter basename={process.env.public_url}>
+    <BrowserRouter basename='/react-shopping-cart'>
       <StyledRoot>
         <Header />
         <StyledMain>
