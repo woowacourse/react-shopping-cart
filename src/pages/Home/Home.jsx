@@ -25,14 +25,9 @@ function Home() {
       <Styled.Container>
         {currentPage > pageCount && <ErrorMessage>😱 존재하지 상품 페이지입니다. 😱</ErrorMessage>}
 
-        {isLoading ? (
-          <ProductList.skeleton />
-        ) : (
-          <>
-            <ProductList />
-            <Pagination />
-          </>
-        )}
+        {isLoading ? <ProductList.skeleton /> : <ProductList />}
+
+        <Pagination />
       </Styled.Container>
     </PageTemplate>
   );
