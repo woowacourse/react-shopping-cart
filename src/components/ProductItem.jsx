@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Image from 'components/shared/image/Image';
@@ -48,19 +48,57 @@ const StyledProductText = styled.p`
 const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { products } = useSelector(state => state.reducer);
-  const { name, price, image } = products.find(product => product.id === id);
+  const { name, price, image, isInCart } = products.find(product => product.id === id);
   const [quantity, setQuantity] = useState(1);
+
+  const [debounce, setDebounce] = useState(null);
+  const [autoDebounce, setAutoDebounce] = useState(null);
+
+  const quantityRef = useRef(quantity);
+  quantityRef.current = quantity;
+
+  const clearTimer = () => {
+    if (debounce) {
+      clearTimeout(debounce);
+    }
+
+    if (autoDebounce) {
+      clearTimeout(autoDebounce);
+    }
+  };
+
+  const putCart = () => {
+    setIsOpen(false);
+
+    store.dispatch({ type: PUT, id, quantity: quantityRef.current });
+    clearTimer();
+  };
 
   const handleClick = () => {
     if (isOpen) {
-      setIsOpen(false);
-      store.dispatch({ type: PUT, id, quantity });
+      putCart();
       return;
     }
 
     if (!isOpen) {
       setIsOpen(true);
+
+      setDebounce(
+        setTimeout(() => {
+          putCart();
+        }, 1500),
+      );
     }
+  };
+
+  const handleModal = () => {
+    clearTimer();
+
+    setAutoDebounce(
+      setTimeout(() => {
+        putCart();
+      }, 1500),
+    );
   };
 
   return (
@@ -72,11 +110,31 @@ const ProductItem = ({ id }) => {
           <StyledProductText price="true">{price}원</StyledProductText>
         </div>
         <div>
-          <ShoppingCartIcon onClick={handleClick} />
+          {isInCart ? (
+            <Button>
+              <div
+                style={{
+                  backgroundColor: '#2AC1BC',
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '20px',
+                }}
+                onClick={handleClick}
+              >
+                {quantity}
+              </div>
+            </Button>
+          ) : (
+            <ShoppingCartIcon onClick={handleClick} />
+          )}
         </div>
       </StyledProductContainer>
       {isOpen && (
-        <Modal>
+        <Modal onClick={handleModal}>
           <Button
             onClick={() => {
               setQuantity(prev => (prev > 1 ? prev - 1 : prev));
