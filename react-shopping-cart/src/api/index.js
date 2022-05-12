@@ -1,7 +1,7 @@
+import { API_URL } from "../constants";
+
 export const fetchProducts = async (id) => {
-  const res = await fetch(
-    `https://jungmin-shopping-cart-server.herokuapp.com/products?_page=${id}&_limit=12`
-  );
+  const res = await fetch(`${API_URL}/products?_page=${id}&_limit=12`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
   }
@@ -9,9 +9,7 @@ export const fetchProducts = async (id) => {
 };
 
 export const fetchDetailProduct = async (id) => {
-  const res = await fetch(
-    `https://jungmin-shopping-cart-server.herokuapp.com/products/${id}`
-  );
+  const res = await fetch(`${API_URL}/products/${id}`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다!");
   }
@@ -19,9 +17,7 @@ export const fetchDetailProduct = async (id) => {
 };
 
 export const fetchCarts = async () => {
-  const res = await fetch(
-    "https://jungmin-shopping-cart-server.herokuapp.com/carts"
-  );
+  const res = await fetch(`${API_URL}/carts`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
   }
@@ -29,16 +25,13 @@ export const fetchCarts = async () => {
 };
 
 export const addProductToCart = async (product) => {
-  const res = await fetch(
-    "https://jungmin-shopping-cart-server.herokuapp.com/carts",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    }
-  );
+  const res = await fetch(`${API_URL}/carts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
   if (!res.ok) {
     throw new Error("등록에 실패했습니다");
   }
@@ -46,15 +39,12 @@ export const addProductToCart = async (product) => {
 };
 
 export const deleteProductFromCart = async (id) => {
-  const res = await fetch(
-    `https://jungmin-shopping-cart-server.herokuapp.com/carts/${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const res = await fetch(`${API_URL}/carts/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   if (!res.ok) {
     throw new Error("삭제에 실패했습니다");
   }
