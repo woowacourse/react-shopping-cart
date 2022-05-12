@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <GlobalStyle />
         <Header />
         <Routes>
