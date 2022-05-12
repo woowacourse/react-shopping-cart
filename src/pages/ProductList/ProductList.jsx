@@ -13,8 +13,9 @@ const ProductList = () => {
   const isEmpty = !isLoading && data.length === 0;
 
   useEffect(() => {
-    dispatch(getProductsAsync); // {type} 대신에 thunk로 만든 함수를 호출한다.
-  }, []);
+    if (data.length > 0) return;
+    dispatch(getProductsAsync);
+  }, [data]);
 
   const getLoadingStatus = () => {
     return Array.from({ length: 8 }).map((_, index) => (
