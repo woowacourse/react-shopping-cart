@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const ProductListStyled = styled.div(
+import FlexCenterStyled from 'components/FlexWrapper/FlexCenter/style';
+
+export const ProductListStyled = styled.div(
   ({ theme }) => `
   height: calc(100% - ${theme.headerHeight});
   display: grid;
@@ -13,7 +15,9 @@ const ProductListStyled = styled.div(
 `,
 );
 
-// display: flex;
-// flex-wrap: wrap;
-
-export default ProductListStyled;
+export const LoadingWrapperStyled = styled(FlexCenterStyled)(
+  ({ theme }) => `
+  width: 100%;
+  height: calc(100% - ${theme.headerHeight});
+`,
+);

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Header from 'templates/Header';
+import { ProductListStyled, LoadingWrapperStyled } from './style';
+
 import Product from 'templates/Product';
-
-import ProductListStyled from './style';
-
 import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
+import BlackText from 'components/BlackText';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
+  const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(requestProducts());
@@ -25,13 +25,22 @@ function ProductList() {
     });
   }, []);
 
+  if (requestProductLoading) {
+    return (
+      <LoadingWrapperStyled>
+        <BlackText fontSize="30px" fontWeight="800">
+          로딩중...
+        </BlackText>
+      </LoadingWrapperStyled>
+    );
+  }
+
   return (
-    <>
-      <Header />
-      <ProductListStyled>
-        {products && products.map((product) => <Product key={product.id} {...product} />)}
-      </ProductListStyled>
-    </>
+    <ProductListStyled>
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
+    </ProductListStyled>
   );
 }
 
