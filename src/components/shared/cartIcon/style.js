@@ -9,8 +9,8 @@ const StyledCartIcon = styled(ShoppingCart)`
   height: 26px;
   cursor: pointer;
 
-  ${props =>
-    props.theme === 'header' &&
+  ${({ theme }) =>
+    theme === 'header' &&
     css`
       path {
         fill: white;

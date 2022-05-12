@@ -34,15 +34,15 @@ const StyledProductText = styled.div`
   margin-top: 13px;
   animation: ${refresh} 2s infinite ease-out;
 
-  ${props =>
-    props.name &&
+  ${({ name }) =>
+    name &&
     css`
       width: 100%;
       height: 22px;
     `}
 
-  ${props =>
-    props.price &&
+  ${({ price }) =>
+    price &&
     css`
       width: 80%;
       height: 27px;

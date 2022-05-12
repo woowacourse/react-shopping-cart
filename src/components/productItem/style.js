@@ -18,15 +18,15 @@ const StyledProductText = styled.p`
   letter-spacing: 0.5px;
   color: var(--product-text-color);
 
-  ${props =>
-    props.name &&
+  ${({ name }) =>
+    name &&
     css`
       font-size: 16px;
       line-height: 22px;
     `}
 
-  ${props =>
-    props.price &&
+  ${({ price }) =>
+    price &&
     css`
       font-size: 20px;
       line-height: 27px;
