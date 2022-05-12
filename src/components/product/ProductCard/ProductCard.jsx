@@ -5,8 +5,11 @@ import Icon from '../../common/Icon/Icon';
 import Modal from '../../common/Modal/Modal';
 import { useModal } from '../../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
+import CartAdd from '../CartAdd/CartAdd';
 
-function ProductCard({ product: { id, imageURL, name, price } }) {
+function ProductCard({ product }) {
+  const { id, imageURL, name, price } = product;
+
   const [isShowModal, openModal, closeModal] = useModal();
   const navigate = useNavigate();
 
@@ -18,6 +21,7 @@ function ProductCard({ product: { id, imageURL, name, price } }) {
     e.stopPropagation();
     openModal();
   };
+
   return (
     <GlobalStyled.Position>
       <Styled.Container onClick={onClickCard}>
@@ -36,7 +40,11 @@ function ProductCard({ product: { id, imageURL, name, price } }) {
         </Styled.TransparentButton>
       </GlobalStyled.Position>
 
-      {isShowModal && <Modal closeModal={closeModal}>hihi</Modal>}
+      {isShowModal && (
+        <Modal closeModal={closeModal}>
+          <CartAdd product={product} closeModal={closeModal} />
+        </Modal>
+      )}
     </GlobalStyled.Position>
   );
 }
