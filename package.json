@@ -40,9 +40,9 @@
     "server": "json-server --watch db.json -p 8080",
     "storybook": "start-storybook -p 6006 -s public",
     "build:storybook": "build-storybook -s public",
-    "chromatic": "npx chromatic --project-token=f3027d60025b",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +50,14 @@
       "react-app/jest"
     ],
     "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
       {
         "files": [
           "**/*.stories.*"
