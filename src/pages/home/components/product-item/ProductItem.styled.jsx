@@ -53,16 +53,13 @@ const StyledProductItem = styled.div`
     background-size: 1px 2px, 100% 66px;
   }
   .content {
-    display: flex;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 2;
-    margin-top: 10px;
     .product-detail {
       display: flex;
-      width: 100%;
       padding: 10px 0px 10px 15px;
       .l-left {
         width: 100%;
