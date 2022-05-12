@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Button } from 'component/common';
 
 const ProductBox = styled.div`
@@ -53,5 +54,17 @@ function Product({ image, name, price }) {
     </ProductBox>
   );
 }
+
+Product.defaultProps = {
+  image: '',
+  name: '과일',
+  price: 0,
+};
+
+Product.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+};
 
 export default Product;
