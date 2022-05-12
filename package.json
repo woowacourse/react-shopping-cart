@@ -2,6 +2,7 @@
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://lah1203.github.io/react-shopping-cart/",
   "dependencies": {
     "axios": "^0.27.2",
     "react": "^18.1.0",
@@ -20,10 +21,15 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
       "not dead",
       "not op_mini all"
     ],
@@ -51,6 +57,7 @@
     "@types/styled-components": "^5.1.25",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.6.2",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1"
