@@ -6,8 +6,8 @@
 
 ✅ 요구 사항
 
-- [ ] Redux를 활용한 상태 관리
-- [ ] REQUIREMENTS.md에 요구 사항 도출
-- [ ] Mock Data 활용 (Schema 설계까지)
-  - [ ] Local JSON
-  - [ ] JSON Server
+- [x] Redux를 활용한 상태 관리
+- [x] REQUIREMENTS.md에 요구 사항 도출
+- [x] Mock Data 활용 (Schema 설계까지)
+  - [x] Local JSON
+  - [x] JSON Server

@@ -10,26 +10,21 @@ import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
 
-function Product() {
+function Product({ imgSrc, title, price }) {
   const handleProductIamgeClick = () => {};
 
   return (
     <ProductStyled>
       <MarginBottomWrapper marginBottom="18px">
-        <Image
-          onClick={handleProductIamgeClick}
-          src={'http://www.sporbiz.co.kr/news/photo/202001/406213_301373_4810.jpg'}
-          width="100%"
-          height="14.24vmax"
-        />
+        <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
       </MarginBottomWrapper>
       <FlexCenter>
         <div>
           <MarginBottomWrapper marginBottom="6px">
-            <ProductTitle>모모</ProductTitle>
+            <ProductTitle>{title}</ProductTitle>
           </MarginBottomWrapper>
           <BlackText fontSize="1.25rem" fontWeight="400">
-            00000원
+            {price.toLocaleString()}원
           </BlackText>
         </div>
         <CartButton />
