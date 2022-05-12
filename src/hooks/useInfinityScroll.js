@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useInfityScroll = (ref, cb, endPoint) => {
+const useInfinityScroll = (ref, cb, endPoint) => {
   useEffect(() => {
     let observer;
 
@@ -25,4 +25,4 @@ const useInfityScroll = (ref, cb, endPoint) => {
   }, [cb, endPoint, ref]);
 };
 
-export default useInfityScroll;
+export default useInfinityScroll;
