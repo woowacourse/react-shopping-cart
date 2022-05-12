@@ -10,8 +10,4 @@ const StyledText = styled.p`
     `}
 `;
 
-const Text = ({ children, ...rest }) => {
-  return <StyledText {...rest}>{children}</StyledText>;
-};
-
-export default Text;
+export default StyledText;

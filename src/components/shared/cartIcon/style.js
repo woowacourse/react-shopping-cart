@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { ReactComponent as ShoppingCart } from 'assets/shopping_cart_icon.svg';
 
-const StyledShoppingCartIcon = styled(ShoppingCart)`
+const StyledCartIcon = styled(ShoppingCart)`
   path {
     fill: black;
   }
@@ -20,8 +20,4 @@ const StyledShoppingCartIcon = styled(ShoppingCart)`
     `}
 `;
 
-const ShoppingCartIcon = ({ ...rest }) => {
-  return <StyledShoppingCartIcon {...rest} />;
-};
-
-export default ShoppingCartIcon;
+export default StyledCartIcon;

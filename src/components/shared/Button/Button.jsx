@@ -1,14 +1,4 @@
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  width: fit-content;
-  text-align: center;
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: white;
-`;
+import StyledButton from 'components/shared/button/style';
 
 const Button = ({ children, ...rest }) => {
   return <StyledButton {...rest}>{children}</StyledButton>;

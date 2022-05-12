@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
+
 import ProductListPage from 'page/ProductListPage';
-import Button from 'components/shared/button/Button';
-import HeaderButton from 'components/header/HeaderButton';
 import Header from 'components/header/Header';
-import ShoppingCartIcon from 'components/shared/icon/ShoppingCartIcon';
+import Button from 'components/shared/button/Button';
+import CartIcon from 'components/shared/cartIcon/CartIcon';
 
 const StyledRoutes = styled.div`
   display: flex;
@@ -18,15 +18,15 @@ function App() {
         left={
           <div>
             <Button>
-              <ShoppingCartIcon theme="header" />
+              <CartIcon theme="header" />
             </Button>
-            <HeaderButton bold>WOOWA SHOP</HeaderButton>
+            <Button boldText>WOOWA SHOP</Button>
           </div>
         }
         right={
           <div>
-            <HeaderButton>장바구니</HeaderButton>
-            <HeaderButton>주문목록</HeaderButton>
+            <Button normalText>장바구니</Button>
+            <Button normalText>주문목록</Button>
           </div>
         }
       />

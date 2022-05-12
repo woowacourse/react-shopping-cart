@@ -1,5 +1,5 @@
 import { legacy_createStore as createStore } from 'redux';
-import rootReducer from 'modules';
+import rootReducer from 'store/rootReducer';
 
 const store = createStore(rootReducer);
 store.subscribe(() => store.getState());

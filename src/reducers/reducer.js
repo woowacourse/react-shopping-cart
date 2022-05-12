@@ -1,5 +1,4 @@
-export const PUT = 'cart/PUT';
-export const INITIALIZE = 'productList/INITIALIZE';
+import { PUT, INITIALIZE } from 'actions/action';
 
 const initState = {
   products: [],
