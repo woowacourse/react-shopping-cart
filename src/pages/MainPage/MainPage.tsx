@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
-import ProductCardGrid from '../../components/ProductCardGrid/ProductCardGrid';
-import SERVER_URL from '../../configs/api';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { actions } from '../../actions/actions';
+import { StoreState } from '../../types';
+import ProductCardGrid from '../../components/ProductCardGrid/ProductCardGrid';
+
 function MainPage() {
-  const [productList, setProductList] = useState([]);
+  const productList = useSelector((state: StoreState) => state.productList);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`${SERVER_URL}/products`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((body) => {
-        setProductList(body);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    dispatch(actions.loadProducts());
+  }, [dispatch]);
 
   return (
     <StyledPage>

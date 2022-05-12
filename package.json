@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-promise-middleware": "^6.1.2",
+    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4"
   },
@@ -42,6 +47,7 @@
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
+    "@types/redux-promise": "^0.5.29",
     "@types/styled-components": "^5.1.25",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
