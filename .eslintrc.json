@@ -18,6 +18,7 @@
     "object-curly-newline": "warn",
     "indent": "warn",
     "no-confusing-arrow": "warn",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "default-param-last": "warn"
   }
 }

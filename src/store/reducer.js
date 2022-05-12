@@ -6,7 +6,6 @@ const initialState = {
   carts: [],
 };
 
-// eslint-disable-next-line default-param-last
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPE.PRODUCTS_LOAD:
