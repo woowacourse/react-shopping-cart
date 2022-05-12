@@ -7,21 +7,35 @@ import { CART_SIZE, COLOR, SERVER_URL, PATH } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
 
+const requestDeleteCart = async (id) => {
+  await axios({
+    url: `${SERVER_URL}${PATH.CARTS}/${id}`,
+    method: 'DELETE',
+  });
+};
+
+const requestAddCart = async (id) => {
+  await axios({
+    url: `${SERVER_URL}${PATH.CARTS}`,
+    data: { id, quantity: 1 },
+    method: 'POST',
+  });
+};
+
 function Product({ id, src, price, title, isStored }) {
   const [isClicked, setIsClicked] = useState(isStored);
 
   const handleCartClick = async () => {
     try {
-      await axios({
-        url: isClicked
-          ? `${SERVER_URL}${PATH.CARTS}/${id}`
-          : `${SERVER_URL}${PATH.CARTS}`,
-        data: isClicked ? null : { id, quantity: 1 },
-        method: isClicked ? 'DELETE' : 'POST',
-      });
+      if (isClicked) {
+        requestDeleteCart(id);
+      } else {
+        requestAddCart(id);
+      }
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
+
     setIsClicked((prev) => !prev);
   };
 
