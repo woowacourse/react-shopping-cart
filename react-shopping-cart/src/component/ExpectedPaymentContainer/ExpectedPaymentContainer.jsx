@@ -17,7 +17,11 @@ function ExpectedPaymentContainer() {
 
   const totalPaymentCost = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
-      return acc + Number(cart.price);
+      return (
+        acc +
+        Number(cart.price) *
+          Number(typeof cart.quantity === "undefined" ? 1 : cart.quantity)
+      );
     }
     return acc;
   }, 0);

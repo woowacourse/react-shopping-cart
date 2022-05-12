@@ -84,16 +84,19 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, carts: newCarts, allChecked: !state.allChecked };
     }
     case cartsActionTypes.increaseProductQuantity: {
-      const currentCartProduct = state.carts.find(
+      const newCarts = [...state.carts];
+
+      const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
       currentCartProduct["quantity"] = currentCartProduct["quantity"]
         ? currentCartProduct["quantity"] + 1
-        : 1;
-      return { ...state };
+        : 2;
+      return { ...state, carts: newCarts };
     }
     case cartsActionTypes.decreaseProductQuantity: {
-      const currentCartProduct = state.carts.find(
+      const newCarts = [...state.carts];
+      const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
       if (currentCartProduct["quantity"] === 0) {
@@ -102,7 +105,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       currentCartProduct["quantity"] = currentCartProduct["quantity"]
         ? currentCartProduct["quantity"] - 1
         : 1;
-      return { ...state };
+      return { ...state, carts: newCarts };
     }
     default:
       return { ...state };

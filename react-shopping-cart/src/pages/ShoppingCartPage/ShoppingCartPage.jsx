@@ -1,8 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
 import CartLeftSection from "../../component/CartLeftSection/CartLeftSection";
 import ExpectedPaymentContainer from "../../component/ExpectedPaymentContainer/ExpectedPaymentContainer";
-import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
+import { ColumnFlexWrapper } from "../../styles/Wrapper";
 
 const ShoppingCartPageHeader = styled.div`
   width: 880px;
@@ -22,8 +21,6 @@ const ShoppingCartPageContent = styled.div`
 `;
 
 function ShoppingCartPage() {
-  const [totalPaymentCost, setTotalPaymentCost] = useState(0);
-
   return (
     <ColumnFlexWrapper gap="30px">
       <ShoppingCartPageHeader>장바구니</ShoppingCartPageHeader>

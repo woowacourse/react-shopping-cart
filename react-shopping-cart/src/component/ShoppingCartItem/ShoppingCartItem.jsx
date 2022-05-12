@@ -57,7 +57,7 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
         <TrashContainer onClick={(e) => handleDeleteProduct(e, id)}>
           <Trash />
         </TrashContainer>
-        <ItemCounter />
+        <ItemCounter id={id} />
         <ProductPrice type="shoppingCart">{price}원</ProductPrice>
       </RightContainer>
     </CartContainer>

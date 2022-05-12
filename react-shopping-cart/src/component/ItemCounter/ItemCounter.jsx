@@ -2,6 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
 import { css } from "styled-components";
+import { useDispatch } from "react-redux";
+import {
+  decreaseProductQuantity,
+  increaseProductQuantity,
+} from "../../redux/carts/carts.action";
 
 const CountBox = styled.div`
   width: 48px;
@@ -22,15 +27,20 @@ const CounterButton = styled.button`
   border-color: ${({ theme }) => theme.colors["gray_04"]};
 `;
 
-function ItemCounter() {
+function ItemCounter({ id }) {
   const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
 
   const increaseCount = () => {
     setCount((prev) => prev + 1);
+    dispatch(increaseProductQuantity(id));
   };
 
   const decreaseCount = () => {
-    setCount((prev) => prev - 1);
+    if (count > 0) {
+      setCount((prev) => prev - 1);
+      dispatch(decreaseProductQuantity(id));
+    }
   };
 
   return (
