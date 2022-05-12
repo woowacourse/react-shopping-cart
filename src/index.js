@@ -17,7 +17,7 @@ const store = createStore(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
       <ThemeProvider>
         <GlobalStyles />
