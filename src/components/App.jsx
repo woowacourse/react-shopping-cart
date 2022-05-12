@@ -8,7 +8,7 @@ import { ROUTE } from '../route';
 
 function App() {
   return (
-    <BrowserRouter basename="/react-shopping-cart">
+    <BrowserRouter>
       <Routes>
         <Route path={ROUTE.home.route} element={<Home />} />
         <Route path={ROUTE.shoppingCart.route} element={<ShoppingCart />} />
