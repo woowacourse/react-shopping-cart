@@ -44,7 +44,6 @@ const ProductItem = ({ id }) => {
 
   const putCart = () => {
     setIsOpen(false);
-
     store.dispatch({ type: PUT, id, quantity: quantityRef.current });
     clearTimer();
   };
@@ -57,23 +56,13 @@ const ProductItem = ({ id }) => {
 
     if (!isOpen) {
       setIsOpen(true);
-
-      setDebounce(
-        setTimeout(() => {
-          putCart();
-        }, MODAL.CLOSE_TIME),
-      );
+      setDebounce(setTimeout(() => putCart(), MODAL.CLOSE_TIME));
     }
   };
 
   const handleModal = () => {
     clearTimer();
-
-    setAutoDebounce(
-      setTimeout(() => {
-        putCart();
-      }, MODAL.CLOSE_TIME),
-    );
+    setAutoDebounce(setTimeout(() => putCart(), MODAL.CLOSE_TIME));
   };
 
   return (
@@ -111,9 +100,7 @@ const ProductItem = ({ id }) => {
       {isOpen && (
         <Modal onClick={handleModal}>
           <Button
-            onClick={() => {
-              setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev));
-            }}
+            onClick={() => setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev))}
           >
             <MinusIcon />
           </Button>
