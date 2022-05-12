@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
-function ProductList({ productList }) {
+function ProductList({ openModal }) {
+  const productList = useSelector(state => state.productList);
+
   return (
     <Styled.Container>
       {productList.map(product => (
-        <Link key={product.id} to={`/products/${product.id}`}>
-          <ProductCard product={product} />
-        </Link>
+        <ProductCard key={product.id} product={product} openModal={openModal} />
       ))}
     </Styled.Container>
   );

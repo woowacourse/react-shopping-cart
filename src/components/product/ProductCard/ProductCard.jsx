@@ -1,21 +1,43 @@
 import Image from '../../common/Image/Image';
 import * as Styled from './ProductCard.style';
+import * as GlobalStyled from '../../../styles/GlobalStyles';
 import Icon from '../../common/Icon/Icon';
+import Modal from '../../common/Modal/Modal';
+import { useModal } from '../../../hooks/useModal';
+import { useNavigate } from 'react-router-dom';
 
-function ProductCard({ product: { imageURL, name, price } }) {
+function ProductCard({ product: { id, imageURL, name, price } }) {
+  const [isShowModal, openModal, closeModal] = useModal();
+  const navigate = useNavigate();
+
+  const onClickCard = () => {
+    navigate(`/products/${id}`);
+  };
+
+  const onClickCartButton = e => {
+    e.stopPropagation();
+    openModal();
+  };
   return (
-    <Styled.Container>
-      <Image src={imageURL} alt={name} />
-      <Styled.Content>
-        <Styled.Description>
-          <Styled.Name>{name}</Styled.Name>
-          <Styled.Price>{price}원</Styled.Price>
-        </Styled.Description>
-        <Styled.TransparentButton type="button">
+    <GlobalStyled.Position>
+      <Styled.Container onClick={onClickCard}>
+        <Image src={imageURL} alt={name} />
+        <Styled.Content>
+          <Styled.Description>
+            <Styled.Name>{name}</Styled.Name>
+            <Styled.Price>{price}원</Styled.Price>
+          </Styled.Description>
+        </Styled.Content>
+      </Styled.Container>
+
+      <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
+        <Styled.TransparentButton type="button" onClick={onClickCartButton}>
           <Icon iconName="cart" />
         </Styled.TransparentButton>
-      </Styled.Content>
-    </Styled.Container>
+      </GlobalStyled.Position>
+
+      {isShowModal && <Modal closeModal={closeModal}>hihi</Modal>}
+    </GlobalStyled.Position>
   );
 }
 

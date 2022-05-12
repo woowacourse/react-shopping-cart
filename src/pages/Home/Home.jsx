@@ -10,7 +10,8 @@ import * as Styled from './Home.style';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { productList, isLoading, pageCount } = useSelector(state => state);
+
+  const { isLoading, pageCount } = useSelector(state => state);
 
   const [searchParams] = useSearchParams();
 
@@ -29,7 +30,7 @@ export default function Home() {
           <ProductList.skeleton />
         ) : (
           <>
-            <ProductList productList={productList} />
+            <ProductList />
             <Pagination />
           </>
         )}
