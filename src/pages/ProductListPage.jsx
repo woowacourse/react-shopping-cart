@@ -16,6 +16,10 @@ function ProductListPage() {
     navigate('/product-detail-page', { state: { id } });
   };
 
+  const handleClickCart = () => {
+    alert('기능 추가중...');
+  };
+
   useEffect(() => {
     dispatch(getProductListAsync());
   }, [dispatch]);
@@ -26,16 +30,20 @@ function ProductListPage() {
         {productList.map((product) => {
           const { id, name, price, imageUrl } = product;
           return (
-            <StyledItem key={id} onClick={() => handleClickItem(id)}>
-              <StyledImageBox width={'middle'} height={'middle'}>
+            <StyledItem key={id}>
+              <StyledImageBox
+                width={'middle'}
+                height={'middle'}
+                onClick={() => handleClickItem(id)}
+              >
                 <StyledImg width={'middle'} src={imageUrl} />
               </StyledImageBox>
               <StyledItemInfoBox>
-                <StyledItemInfo>
+                <StyledItemInfo onClick={() => handleClickItem(id)}>
                   <StyledItemName>{name}</StyledItemName>
                   <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
                 </StyledItemInfo>
-                <StyledIconButton onClick={() => alert('기능 추가중...')}>
+                <StyledIconButton onClick={handleClickCart}>
                   <GiShoppingCart size={25} />
                 </StyledIconButton>
               </StyledItemInfoBox>

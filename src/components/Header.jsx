@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
+
+  const handleClickMoveHome = () => {
+    navigate('/');
+  };
+
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <StyledTitleWrapper>
+        <StyledTitleWrapper onClick={handleClickMoveHome}>
           <GiShoppingCart />
           <StyledTitle>WOOWA SHOP</StyledTitle>
         </StyledTitleWrapper>
@@ -42,6 +49,7 @@ const StyledTitleWrapper = styled.div`
   font-size: 40px;
   text-align: center;
   color: ${COLORS.WHITE};
+  cursor: pointer;
 `;
 
 const StyledTitle = styled.span`
