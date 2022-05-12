@@ -72,7 +72,8 @@ const ProductImageWrapper = styled.div`
   width: 220px;
   height: 220px;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 
   &:hover {
     ${ProductImage} {
@@ -87,19 +88,20 @@ const ProductInfoWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  height: 68px;
 `;
 
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 12px;
+  padding-right: 10px;
 
   &:hover {
     text-decoration: underline;
   }
 
   &:first-child {
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
   }
 

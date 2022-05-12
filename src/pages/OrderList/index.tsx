@@ -1,5 +1,7 @@
+import NotFound from "../../components/NotFound";
+
 function OrderList() {
-  return <>ProductDetail</>;
+  return <NotFound />;
 }
 
 export default OrderList;

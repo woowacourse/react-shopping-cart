@@ -1,5 +1,7 @@
+import NotFound from "../../components/NotFound";
+
 function Cart() {
-  return <>ProductDetail</>;
+  return <NotFound />;
 }
 
 export default Cart;

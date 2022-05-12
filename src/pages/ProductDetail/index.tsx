@@ -1,5 +1,7 @@
+import NotFound from "../../components/NotFound";
+
 function ProductDetail() {
-  return <>ProductDetail</>;
+  return <NotFound />;
 }
 
 export default ProductDetail;

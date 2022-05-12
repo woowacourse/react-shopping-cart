@@ -56,11 +56,7 @@ function Product({ productInfo }: ProductProps) {
   return (
     <Styled.ProductWrapper>
       <Styled.ProductImageWrapper>
-        <Styled.ProductImage
-          onClick={() => navigate(`/product/${id}`)}
-          src={`${img}${id}`}
-          alt={name}
-        />
+        <Styled.ProductImage onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
       </Styled.ProductImageWrapper>
       <Styled.ProductInfoWrapper>
         <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
