@@ -1,5 +1,3 @@
-import { RootState } from "../store";
-
 type Item = { name: string; price: number; img: string; id: number; amount: number };
 type CartState = { items: Item[] };
 type Action =

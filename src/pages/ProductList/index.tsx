@@ -20,11 +20,13 @@ function ProductList() {
   }, [error]);
 
   return (
-    <Styled.ProductsWrapper>
-      {loading
-        ? "로딩 중..."
-        : productList.map((product) => <Product key={product.id} productInfo={product} />)}
-    </Styled.ProductsWrapper>
+    <>
+      <Styled.ProductsWrapper>
+        {loading
+          ? "로딩 중..."
+          : productList.map((product) => <Product key={product.id} productInfo={product} />)}
+      </Styled.ProductsWrapper>
+    </>
   );
 }
 

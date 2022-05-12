@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Styled from "./styles";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
+import { generateSnackBar, show } from "../../redux/modules/snackBar";
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 
 export type ProductType = {
@@ -32,6 +33,7 @@ function Product({ productInfo }: ProductProps) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
+      dispatch(generateSnackBar("장바구니에 추가되었습니다. 😍"));
     }
   };
 
@@ -43,7 +45,7 @@ function Product({ productInfo }: ProductProps) {
     if (cartItem?.amount === 1) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
-      alert("상품이 장바구니에서 삭제되었습니다.");
+      dispatch(generateSnackBar("장바구니에서 삭제되었습니다. 🥲"));
       return;
     }
     dispatch(decrement(id));
