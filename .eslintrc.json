@@ -11,7 +11,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "storybook"],
+  "plugins": ["react", "react-hooks"],
   "rules": {
     "no-unused-vars": 1,
     "react/self-closing-comp": [
