@@ -1,5 +1,9 @@
 # 페이먼츠
 
+## 데모 페이지
+
+[데모 페이지로 이동하기 🏃🏻‍♀️](https://daaaayeah.github.io/react-shopping-cart/) / [스토리북 데모 페이지로 이동하기 🏃🏻‍♀️](https://627cc2af7fb9fb004a504c97-rfmzgphyuu.chromatic.com/)
+
 ## 기능 목록
 
 - 내비게이션 바
