@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Styled from "./styles";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
-import { generateSnackBar, show } from "../../redux/modules/snackBar";
+import { generateSnackBar } from "../../redux/modules/snackBar";
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 
 export type ProductType = {

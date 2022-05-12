@@ -4,6 +4,7 @@ import * as Styled from "./styles";
 
 import Product from "../../components/Product";
 import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
+import Loader from "../../components/@shared/Loader";
 
 function ProductList() {
   const { productList, loading, error }: ProductState = useSelector(selectProductState);
@@ -19,12 +20,16 @@ function ProductList() {
     }
   }, [error]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Styled.ProductsWrapper>
-        {loading
-          ? "로딩 중..."
-          : productList.map((product) => <Product key={product.id} productInfo={product} />)}
+        {productList.map((product) => (
+          <Product key={product.id} productInfo={product} />
+        ))}
       </Styled.ProductsWrapper>
     </>
   );
