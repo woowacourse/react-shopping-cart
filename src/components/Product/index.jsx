@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { CartButton } from 'components/common/Button';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { flexCenter, flexSpaceBetween } from 'components/common/Styled';
+import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styled';
 
 const Styled = {
   Wrapper: styled(Link)`
@@ -37,12 +36,8 @@ const Styled = {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-
-    margin: 0;
   `,
-  Price: styled.p`
-    margin: 0;
-  `,
+  Price: styled.p``,
 };
 
 const Product = ({ id, thumbnail, name, price }) => {

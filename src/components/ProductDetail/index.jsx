@@ -2,8 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { CardDetailButton } from 'components/common/Button';
-import { flexSpaceBetween } from 'components/common/Styled';
+import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
 
 const Styled = {
   Wrapper: styled.div`
