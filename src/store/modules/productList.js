@@ -1,11 +1,13 @@
 import axios from 'axios';
 
+import {API_URL} from 'constant';
+
 const GET_PRODUCT_LIST_PENDING = 'GET_PRODUCT_LIST_PENDING';
 const GET_PRODUCT_LIST_SUCCESS = 'GET_PRODUCT_LIST_SUCCESS';
 const GET_PRODUCT_LIST_FAILURE = 'GET_PRODUCT_LIST_FAILURE';
 
 function getAPI() {
-  return axios.get('https://shopping-cart-dory-nine.herokuapp.com/products');
+  return axios.get(API_URL);
 }
 
 export const getProductList = () => async (dispatch) => {
@@ -46,7 +48,7 @@ export default function productListReducer(state = initialState, action) {
       return {
         ...state,
         pending: false,
-        productList: productList,
+        productList,
       };
     }
     case GET_PRODUCT_LIST_FAILURE: {

@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
+
+import {getProductList} from 'store/modules/productList';
 
 import Item from 'component/Item';
 import Loader from 'component/Loader';
-import PropTypes from 'prop-types';
-import empty from 'assets/empty.png';
+
+import Empty from 'assets/empty.png';
 
 import {ProductListPageWrapper, ProductListWrapper} from 'page/ProductListPage/style';
-import {getProductList} from 'store/modules/productList';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -15,14 +17,10 @@ export default function ProductListPage() {
   const pending = useSelector((state) => state.productListReducer.pending);
 
   useEffect(() => {
-    fetchProductList();
+    dispatch(getProductList());
   }, []);
 
   const cart = useSelector((state) => state.cartReducer.cart);
-
-  const fetchProductList = () => {
-    dispatch(getProductList());
-  };
 
   return (
     <ProductListPageWrapper>
@@ -37,12 +35,12 @@ export default function ProductListPage() {
                 itemPrice={price}
                 id={id}
                 key={id}
-                disabled={cart.some((obj) => obj.id === id)}
+                disabled={cart.some((cartItem) => cartItem.id === id)}
               />
             ))}
           </ProductListWrapper>
         ) : (
-          <img src={empty} height="600px" />
+          <img src={Empty} height="600px" />
         ))}
     </ProductListPageWrapper>
   );

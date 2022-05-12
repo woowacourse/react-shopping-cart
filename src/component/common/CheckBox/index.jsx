@@ -1,13 +1,18 @@
-import {CheckBoxWrapper} from 'component/common/CheckBox/style';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import {CheckBoxWrapper} from 'component/common/CheckBox/style';
 
 function CheckBox() {
   return (
-    <CheckBoxWrapper>
+    <CheckBoxWrapper id="check">
       <input type="checkbox" id="check" />
-      <label htmlFor="check"></label>
+      <label htmlFor="check" />
     </CheckBoxWrapper>
   );
 }
+CheckBox.propTypes = {
+  id: PropTypes.string,
+};
 
 export default CheckBox;

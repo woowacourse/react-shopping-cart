@@ -16,10 +16,11 @@ function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
   const handleDeleteIconClick = (id) => {
     dispatch({type: DELETE_CART, payload: id});
   };
+
   return (
     <CartItemWrapper>
-      <CheckBox />
-      <img src={itemImgURL} alt="이미지" width="144px" height="144px" />
+      <CheckBox id={id} />
+      <img src={itemImgURL} alt="장바구니 이미지" width="144px" height="144px" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <EditQuantityWrapper>
         <Button

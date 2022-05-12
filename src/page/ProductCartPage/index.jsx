@@ -2,6 +2,11 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import CheckBox from 'component/common/CheckBox';
+import Button from 'component/common/Button';
+import AmountBox from 'component/AmountBox';
+import CartItem from 'component/CartItem';
+
 import {
   ProductCartPageWrapper,
   HeaderWrapper,
@@ -12,12 +17,6 @@ import {
   CartInfoWrapper,
   SelectCartWrapper,
 } from 'page/ProductCartPage/style';
-
-import CheckBox from 'component/common/CheckBox';
-import AmountBox from 'component/AmountBox';
-import Button from 'component/common/Button';
-
-import CartItem from 'component/CartItem';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
@@ -39,13 +38,13 @@ export default function ProductCartPage() {
         <SelectCartWrapper>
           <SelectDeleteWrapper>
             <CheckBoxWrapper>
-              <CheckBox />
+              <CheckBox id="check" />
               선택해제
             </CheckBoxWrapper>
             <Button>상품삭제</Button>
           </SelectDeleteWrapper>
 
-          <ListHeaderWrapper>든든배송 상품 (개)</ListHeaderWrapper>
+          <ListHeaderWrapper>장바구니 상품 (개)</ListHeaderWrapper>
           <CartListWrapper>
             {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
               <React.Fragment key={id}>

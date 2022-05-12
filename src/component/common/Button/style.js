@@ -11,9 +11,9 @@ const ButtonWrapper = styled.button`
   width: ${(props) => props?.width};
   height: ${(props) => props?.height};
 
-  cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 
-  opacity: ${(props) => props.disable && 0.2};
+  opacity: ${(props) => props.disabled && 0.2};
 `;
 
 export {ButtonWrapper};

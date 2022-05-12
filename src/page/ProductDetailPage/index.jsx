@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useLocation} from 'react-router-dom';
+
 import DetailItem from 'component/DetailItem';
 
 import {DetailItemPageWrapper} from 'page/ProductDetailPage/style';

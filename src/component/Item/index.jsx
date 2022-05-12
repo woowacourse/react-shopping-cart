@@ -3,10 +3,12 @@ import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
-import Button from 'component/common/Button';
 import {ADD_CART} from 'store/modules/cart';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
+import Button from 'component/common/Button';
+
+import {PATH} from 'constant';
 
 import {
   ItemWrapper,
@@ -22,13 +24,12 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  const handleImageClick = () => {
-    navigation(`detail/${id}`, {
+  const handleImageClick = () =>
+    navigation(`${PATH.DETAIL}/${id}`, {
       state: {itemImgURL, itemName, itemPrice, id, disable},
     });
-  };
 
-  const handleCartIconClick = (id) => {
+  const handleCartIconClick = () => {
     setDisable(true);
     dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
   };
@@ -44,16 +45,15 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
       />
       <InfoWrapper>
         <NamePriceWrapper>
-          <ItemNameWrapper to={`detail/${id}`} state={{itemImgURL, itemName, itemPrice, id}}>
+          <ItemNameWrapper
+            to={`${PATH.DETAIL}/${id}`}
+            state={{itemImgURL, itemName, itemPrice, id}}
+          >
             {itemName}
           </ItemNameWrapper>
           <ItemPriceWrapper>{itemPrice} 원</ItemPriceWrapper>
         </NamePriceWrapper>
-        <Button
-          disabled={disable}
-          disable={disable}
-          onClick={() => handleCartIconClick(id, itemImgURL, itemName, itemPrice)}
-        >
+        <Button disabled={disable} onClick={handleCartIconClick}>
           <BlackCartIcon />
         </Button>
       </InfoWrapper>

@@ -6,11 +6,12 @@ const LoaderWrapper = styled.div`
   left: calc(50% - 60px);
   top: calc(50% - 60px);
 
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: ${({theme}) => `16px solid ${theme.GRAY_500}`};
+  border-top: ${({theme}) => `16px solid ${theme.MINT}`};
   border-radius: 50%;
   width: 120px;
   height: 120px;
+
   animation: spin 2s linear infinite;
   @keyframes spin {
     0% {
