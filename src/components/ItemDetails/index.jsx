@@ -1,6 +1,6 @@
 import * as S from "./index.styles";
 
-const ItemDetails = ({ imgUrl, title, price, isInShoppingCart }) => {
+const ItemDetails = ({ imgUrl, title, price }) => {
   return (
     <S.ItemContainer>
       <S.ItemImage src={imgUrl} alt="상품상세이미지" />

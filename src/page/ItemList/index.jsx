@@ -9,13 +9,18 @@ import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
 import useInfityScroll from "../../hooks/useInfinityScroll";
 
+const LOAD_ITEM_AMOUNT = 10;
+const DELAY_TIME = 500;
+
 const ItemList = () => {
   const products = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
 
-  const delayGetProduct = throttle(500, () => dispatch(getProductsByPage()));
+  const delayGetProduct = throttle(DELAY_TIME, () =>
+    dispatch(getProductsByPage())
+  );
   useInfityScroll(sectionRef, delayGetProduct, products.isEnd);
 
   const handleItemClick = (id) => {
@@ -35,7 +40,9 @@ const ItemList = () => {
           />
         ))}
         {products.loading &&
-          Array.from({ length: 10 }).map(() => <ItemSkeleton key={uuidv4()} />)}
+          Array.from({ length: LOAD_ITEM_AMOUNT }).map(() => (
+            <ItemSkeleton key={uuidv4()} />
+          ))}
       </GridWrapper>
       <div ref={sectionRef}></div>
     </section>
