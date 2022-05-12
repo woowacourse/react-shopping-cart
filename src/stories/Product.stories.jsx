@@ -7,6 +7,6 @@ export default {
   component: Product,
 };
 
-const Template = () => <Product />;
+const Template = (args) => <Product {...args} />;
 
 export const Primary = Template.bind({});
