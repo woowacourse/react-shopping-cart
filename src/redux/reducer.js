@@ -1,4 +1,4 @@
-import { ADD_PRODUCT_TO_CART } from "./actions";
+import { ADD_PRODUCT_TO_CART, UPDATE_PRODUCT_LIST } from "./actions";
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
@@ -10,7 +10,12 @@ const reducer = (state, { type, payload }) => {
       } else {
         newState.cart[id] = 1;
       }
-      localStorage.setItem("cart", JSON.stringify(newState));
+      localStorage.setItem("cart", JSON.stringify(newState.cart));
+      return newState;
+    }
+    case UPDATE_PRODUCT_LIST: {
+      const newState = structuredClone(state);
+      newState.productList = payload;
       return newState;
     }
     default: {

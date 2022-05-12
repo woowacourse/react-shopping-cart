@@ -1,45 +1,32 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { API_URL } from "../../../../constants";
+import { UPDATE_PRODUCT_LIST } from "../../../../redux/actions";
+import createAction from "../../../../redux/createAction";
 import S from "../../styled";
 import ProductItem from "../product-item/ProductItem";
 
 function ProductList() {
-  const productList = [
-    {
-      id: "1",
-      name: "저글링",
-      price: 50,
-      stock: 4,
-    },
-    {
-      id: "2",
-      name: "질럿",
-      price: 1000,
-      stock: 5,
-    },
-    {
-      id: "3",
-      name: "배틀크루저",
-      price: 400,
-      stock: 2,
-    },
-    {
-      id: "4",
-      name: "임페스티드테란",
-      price: 100,
-      stock: 10,
-    },
-    {
-      id: "5",
-      name: "히드라",
-      price: 75,
-      stock: 50,
-    },
-    {
-      id: "6",
-      name: "다크템플러",
-      price: 125,
-      stock: 8,
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const productList = useSelector(({ productList }) => productList);
+  const dispatch = useDispatch();
+  const getProductList = () => {
+    return async (dispatch) => {
+      const fetchResult = await fetch(`${API_URL}/products`);
+      const productList = await fetchResult.json();
+      setLoading(false);
+      setError(null);
+      dispatch(createAction(UPDATE_PRODUCT_LIST, productList));
+    };
+  };
+
+  useEffect(() => {
+    dispatch(getProductList());
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
   return (
     <S.ProductList>
       {productList.map((item) => (

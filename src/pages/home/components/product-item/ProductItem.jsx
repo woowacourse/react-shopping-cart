@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import StarcraftLogo from "../../../../assets/images/gardiun.png";
 import Cart from "../../../../assets/images/cart.svg";
 import S from "../../styled";
 import Thumbnail from "../thumbnail/Thumbnail";
@@ -7,12 +6,12 @@ import ImageButton from "../image-button/ImageButton";
 import createAction from "../../../../redux/createAction";
 import { ADD_PRODUCT_TO_CART } from "../../../../redux/actions";
 
-function ProductItem({ id, name, price, stock }) {
+function ProductItem({ id, name, price, stock, thumbnail_url }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
   const existInCart = (cart, id) => {
-    const isInclude = Object.keys(cart).includes(id);
+    const isInclude = Object.keys(cart).includes(`${id}`);
     return isInclude;
   };
 
@@ -22,7 +21,7 @@ function ProductItem({ id, name, price, stock }) {
 
   return (
     <S.ProductItem>
-      <Thumbnail src={StarcraftLogo} />
+      <Thumbnail src={thumbnail_url} />
       <div className="content">
         <div className="product-detail">
           <div className="l-left">

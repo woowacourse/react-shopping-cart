@@ -22,6 +22,7 @@ const StyledProductItem = styled.div`
 
   .thumbnail {
     overflow: hidden;
+    height: 100%;
     img {
       transition: 0.3s ease;
     }
