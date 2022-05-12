@@ -9,6 +9,8 @@ import Text from 'components/shared/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
+import useClose from 'hooks/useClose';
+
 import store from 'store/store';
 import { PUT } from 'actions/action';
 
@@ -19,29 +21,17 @@ import {
   StyledQuantityContainer,
 } from 'components/productItem/style';
 
-import { PRODUCT, MODAL } from 'constants';
+import { PRODUCT } from 'constants';
 
 const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { products } = useSelector(state => state.reducer);
-  const { name, price, image, isInCart } = products.find(product => product.id === id);
   const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
-
-  const [debounce, setDebounce] = useState(null);
-  const [autoDebounce, setAutoDebounce] = useState(null);
+  const { products } = useSelector(state => state.reducer);
+  const [clearTimer, manualClose, autoClose] = useClose();
+  const { name, price, image, isInCart } = products.find(product => product.id === id);
 
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
-
-  const clearTimer = () => {
-    if (debounce) {
-      clearTimeout(debounce);
-    }
-
-    if (autoDebounce) {
-      clearTimeout(autoDebounce);
-    }
-  };
 
   const putCart = () => {
     setIsOpen(false);
@@ -49,7 +39,7 @@ const ProductItem = ({ id }) => {
     clearTimer();
   };
 
-  const handleClick = () => {
+  const handleCartClick = () => {
     if (isOpen) {
       putCart();
       return;
@@ -57,13 +47,13 @@ const ProductItem = ({ id }) => {
 
     if (!isOpen) {
       setIsOpen(true);
-      setDebounce(setTimeout(() => putCart(), MODAL.CLOSE_TIME));
+      manualClose(putCart);
     }
   };
 
-  const handleModal = () => {
+  const handleModalClick = () => {
     clearTimer();
-    setAutoDebounce(setTimeout(() => putCart(), MODAL.CLOSE_TIME));
+    autoClose(putCart);
   };
 
   return (
@@ -74,18 +64,18 @@ const ProductItem = ({ id }) => {
           <StyledProductText name="true">{name}</StyledProductText>
           <StyledProductText price="true">{price}원</StyledProductText>
         </div>
-        <div>
+        <div onClick={handleCartClick}>
           {isInCart ? (
-            <Button onClick={handleClick}>
+            <Button>
               <StyledQuantityContainer>{quantity}</StyledQuantityContainer>
             </Button>
           ) : (
-            <CartIcon onClick={handleClick} />
+            <CartIcon />
           )}
         </div>
       </StyledProductContainer>
       {isOpen && (
-        <Modal onClick={handleModal}>
+        <Modal onClick={handleModalClick}>
           <Button
             onClick={() => setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev))}
           >
