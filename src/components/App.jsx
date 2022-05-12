@@ -8,8 +8,7 @@ import { ROUTE } from '../route';
 
 function App() {
   return (
-    // eslint-disable-next-line no-undef
-    <BrowserRouter basename={process.env.REACT_APP_PUBLIC_URL}>
+    <BrowserRouter basename="/react-shopping-cart">
       <Routes>
         <Route path={ROUTE.home.route} element={<Home />} />
         <Route path={ROUTE.shoppingCart.route} element={<ShoppingCart />} />
