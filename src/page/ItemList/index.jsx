@@ -14,7 +14,7 @@ const ItemList = () => {
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
 
-  const delayGetProduct = throttle(1000, () => dispatch(getProductsByPage()));
+  const delayGetProduct = throttle(500, () => dispatch(getProductsByPage()));
 
   useEffect(() => {
     let observer;

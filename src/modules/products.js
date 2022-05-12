@@ -27,12 +27,16 @@ const initialState = {
 };
 
 export const getProductsByPage = () => async (dispatch, getState) => {
+  const {
+    products: { loading, page },
+  } = getState();
+
+  if (loading) return;
+
   dispatch({ type: GET_PRODUCTS });
 
   try {
-    const products = await productAPI.getProductsByPage(
-      getState().products.page
-    );
+    const products = await productAPI.getProductsByPage(page);
 
     if (products.data.length < 10) {
       return dispatch({ type: GET_PRODUCTS_END, products: products.data });
