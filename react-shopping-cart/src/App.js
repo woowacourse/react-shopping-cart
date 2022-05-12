@@ -1,7 +1,7 @@
 import Header from "./component/@shared/Header/Header";
 import PageTitle from "./component/@shared/PageTitle/PageTitle";
 import { ReactComponent as Cart } from "./assets/cart.svg";
-import { RowFlexWrapper } from "./styles/Wrapper";
+import { ColumnFlexWrapper, RowFlexWrapper } from "./styles/Wrapper";
 import NavigateButton from "./component/@shared/NavigateButton/NavigateButton";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -42,7 +42,15 @@ function App() {
           }
           path="/"
         />
-        <Route path="/:idx" element={<ProductDetailPage />} />
+        <Route
+          element={
+            <ColumnFlexWrapper gap="60px">
+              <ProductListPage />
+            </ColumnFlexWrapper>
+          }
+          path="/:idx"
+        />
+        <Route path="/detail/:idx" element={<ProductDetailPage />} />
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
       </Routes>
     </>

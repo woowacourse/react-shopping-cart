@@ -10,7 +10,11 @@ import {
 } from "../../redux/carts/carts.selector";
 import { CURRENT_USER } from "../../constants";
 import WithSpinner from "../@shared/WithSpinner/WithSpinner";
-import { deleteCheckedProductsStart } from "../../redux/carts/carts.action";
+import {
+  deleteCheckedProductsStart,
+  fetchCartsStart,
+} from "../../redux/carts/carts.action";
+import { useEffect } from "react";
 
 const CartLeftSectionHeader = styled.div`
   display: flex;
@@ -38,6 +42,10 @@ function CartLeftSection() {
   const handleDeleteCheckedProducts = () => {
     dispatch(deleteCheckedProductsStart(checkedIdList));
   };
+
+  useEffect(() => {
+    dispatch(fetchCartsStart());
+  }, [dispatch]);
 
   return (
     <ColumnFlexWrapper width="490px">

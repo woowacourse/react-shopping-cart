@@ -1,9 +1,19 @@
-export const fetchProducts = async () => {
+export const fetchProducts = async (id) => {
   const res = await fetch(
-    "https://jungmin-shopping-cart-server.herokuapp.com/products"
+    `https://jungmin-shopping-cart-server.herokuapp.com/products?_page=${id}&_limit=12`
   );
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
+  }
+  return await res.json();
+};
+
+export const fetchDetailProduct = async (id) => {
+  const res = await fetch(
+    `https://jungmin-shopping-cart-server.herokuapp.com/products/${id}`
+  );
+  if (!res.ok) {
+    throw new Error("로드에 실패했습니다!");
   }
   return await res.json();
 };

@@ -28,7 +28,7 @@ function ProductCard(props) {
   const navigate = useNavigate();
 
   return (
-    <ProductCardBox onClick={() => navigate(`${id}`)}>
+    <ProductCardBox onClick={() => navigate(`/detail/${id}`)}>
       <ProductThumbnail src={thumbnail} type="card" />
       <ProductCardInfo {...props} />
     </ProductCardBox>

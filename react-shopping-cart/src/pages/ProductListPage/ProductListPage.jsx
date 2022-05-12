@@ -12,6 +12,9 @@ import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
 import { fetchCartsStart } from "../../redux/carts/carts.action";
 import { selectCurrentCarts } from "../../redux/carts/carts.selector";
 import { isInCart } from "../../util/check";
+import Pagination from "../../component/@shared/Pagination/Pagination";
+import PaginationButton from "../../component/@shared/PaginationButton/PaginationButton";
+import { useNavigate, useParams } from "react-router-dom";
 
 const GridContainer = styled.div`
   display: grid;
@@ -27,17 +30,29 @@ function ProductListPage() {
   const products = useSelector(selectCurrentProducts);
   const carts = useSelector(selectCurrentCarts);
   const error = useSelector(selectProductsError);
+  const navigate = useNavigate();
+  const { idx } = useParams();
 
   useEffect(() => {
-    dispatch(fetchProductsStart());
+    dispatch(fetchProductsStart(idx));
     dispatch(fetchCartsStart());
-  }, [dispatch]);
+  }, [dispatch, idx]);
 
   useEffect(() => {
     if (error) {
       throw new Error(error);
     }
   }, [error]);
+
+  useEffect(() => {
+    if (typeof idx === "undefined") {
+      navigate("/1");
+    }
+  }, [idx, navigate]);
+
+  const handleNavigatePage = (pageIdx) => {
+    navigate(`/${pageIdx}`);
+  };
 
   return (
     <WithSpinner loading={loading}>
@@ -55,6 +70,13 @@ function ProductListPage() {
           );
         })}
       </GridContainer>
+      <Pagination>
+        {new Array(5).fill("").map((_, i) => (
+          <PaginationButton key={i} onClick={(_) => handleNavigatePage(i + 1)}>
+            {i + 1}
+          </PaginationButton>
+        ))}
+      </Pagination>
     </WithSpinner>
   );
 }

@@ -1,7 +1,8 @@
 import productActionType from "./products.types";
 
-export const fetchProductsStart = () => ({
+export const fetchProductsStart = (id) => ({
   type: productActionType.fetchProductsStart,
+  payload: id,
 });
 
 export const fetchProductsSuccess = (products) => ({
@@ -12,4 +13,19 @@ export const fetchProductsSuccess = (products) => ({
 export const fetchProductsError = (error) => ({
   type: productActionType.fetchProductsError,
   payload: error,
+});
+
+export const fetchProductDetailStart = (id) => ({
+  type: productActionType.fetchProductDetailStart,
+  payload: id,
+});
+
+export const fetchProductDetailSucccess = (product) => ({
+  type: productActionType.fetchProductDetailSuccess,
+  payload: product,
+});
+
+export const fetchProductDetailError = (err) => ({
+  type: productActionType.fetchProductDetailError,
+  payload: err,
 });
