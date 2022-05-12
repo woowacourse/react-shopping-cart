@@ -34,9 +34,9 @@
     },
     {
       "id": "product5",
-      "name": "아이스컵 92파이 14온스(국산형)",
-      "price": "39500",
-      "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6506f1ca-0a13-48e9-bf7f-3e5e9d86e83b.jpg",
+      "name": "캔시머 페트캔(500ml) 큐브",
+      "price": "30500",
+      "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6488a856-f3cd-4d52-b0e0-59cfa2533cd8.jpg",
       "category": "beverage",
       "amount": 5
     },
@@ -66,9 +66,9 @@
     },
     {
       "id": "product9",
-      "name": "캔시머 페트캔(500ml) 큐브",
-      "price": "30500",
-      "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6488a856-f3cd-4d52-b0e0-59cfa2533cd8.jpg",
+      "name": "아이스컵 92파이 14온스(국산형)",
+      "price": "39500",
+      "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/6506f1ca-0a13-48e9-bf7f-3e5e9d86e83b.jpg",
       "category": "beverage",
       "amount": 5
     }

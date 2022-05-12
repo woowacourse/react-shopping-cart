@@ -1,7 +1,7 @@
 import { getProductList } from '../api';
 import { actionTypes } from './actionTypes';
 
-export const getProductListAsync = () => async (dispatch) => {
+const getProductListAsync = () => async (dispatch) => {
   try {
     dispatch({
       type: actionTypes.SET_PRODUCT_LIST,
@@ -11,3 +11,5 @@ export const getProductListAsync = () => async (dispatch) => {
     console.log('err', err);
   }
 };
+
+export { getProductListAsync };

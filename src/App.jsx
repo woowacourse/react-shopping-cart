@@ -1,8 +1,6 @@
-import './App.css';
-import './store/index';
-
 import { useRoutes } from 'react-router-dom';
 import routes from './Routes';
+import './store/index';
 import Header from './components/Header';
 
 function App() {

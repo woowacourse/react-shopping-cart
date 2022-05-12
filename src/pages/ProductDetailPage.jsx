@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
 import { StyledImageBox, StyledImg } from '../components/common';
-
+import { COLORS } from '../styles/theme';
 function ProductDetailPage(props) {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
@@ -24,6 +24,7 @@ function ProductDetailPage(props) {
   if (!loading) return null;
 
   const { imageUrl, name, price } = item;
+
   return (
     <StyledProductDetailContainer>
       <StyledImageBox width={'large'} height={'large'}>
@@ -78,14 +79,14 @@ const StyledShopButton = styled.button`
   height: 60px;
   left: 641px;
   bottom: 60px;
-  background: #73675c;
-  color: #fff;
+  background: ${COLORS.BROWN};
+  color: ${COLORS.WHITE};
   font-size: 24px;
   font-weight: 700;
   border-radius: 4px;
   border: none;
   &:hover {
-    background-color: #73675c30;
+    background-color: ${COLORS.LIGHT_BROWN};
   }
 `;
 
