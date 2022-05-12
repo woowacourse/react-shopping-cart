@@ -24,13 +24,11 @@ const hide = () => ({
 // thunk
 const generateSnackBar =
   (message: string): any =>
-  (dispatch: AppDispatch, getState: () => RootState) => {
-    if (!getState().snackBar.isShowSnackBar) {
-      dispatch(show(message));
-      setTimeout(() => {
-        dispatch(hide());
-      }, 2500);
-    }
+  (dispatch: AppDispatch) => {
+    dispatch(show(message));
+    setTimeout(() => {
+      dispatch(hide());
+    }, 2500);
   };
 
 // 리듀서
