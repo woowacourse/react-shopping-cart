@@ -1,5 +1,6 @@
 {
   "name": "react-shopping-cart",
+  "homepage": "https://soyi47.github.io/react-shopping-cart",
   "description": "<우아한테크코스 4기 프론트엔드> level 2 - 장바구니",
   "version": "0.1.0",
   "private": true,
@@ -23,7 +24,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +67,8 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "chromatic": "^6.5.4",
+    "gh-pages": "^4.0.0",
     "webpack": "^5.72.0"
   }
 }
