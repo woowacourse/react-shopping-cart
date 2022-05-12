@@ -48,9 +48,23 @@ const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
 const CartImage = styled.img`
   width: 25px;
   height: 25px;
-  cursor: pointer;
+`;
 
-  &:hover {
+const CartImageBadge = styled.div`
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: tomato;
+  top: 0;
+  left: 18px;
+  z-index: 1;
+`;
+
+const CartImageWrapper = styled.div`
+  cursor: pointer;
+  position: relative;
+  &:hover ${CartImage} {
     animation: ${CartShake} 2s infinite linear alternate;
   }
 `;
@@ -74,7 +88,6 @@ const ProductImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-
   &:hover {
     ${ProductImage} {
       transform: scale(1.1);
@@ -95,16 +108,13 @@ const ProductInfo = styled.div`
   flex-direction: column;
   margin-top: 12px;
   padding-right: 10px;
-
   &:hover {
     text-decoration: underline;
   }
-
   &:first-child {
     font-size: 14px;
     cursor: pointer;
   }
-
   & span + span {
     margin-top: 5px;
     font-size: 18px;
@@ -133,4 +143,6 @@ export {
   CartImage,
   CartCounter,
   CartCounterButton,
+  CartImageWrapper,
+  CartImageBadge,
 };
