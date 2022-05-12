@@ -266,17 +266,17 @@
       "user": "sming"
     },
     {
-      "name": "[든든] 진맛살 1kg",
-      "price": 7100,
-      "id": "albur2",
-      "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png",
-      "user": "albur"
-    },
-    {
       "name": "[든든] 신-키리모찌 1kg",
       "price": 12000,
       "id": "albur3",
       "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11161-main-01.png",
+      "user": "albur"
+    },
+    {
+      "name": "[든든] 진맛살 1kg",
+      "price": 7100,
+      "id": "albur2",
+      "image": "https://cdn-mart.baemin.com/goods/custom/20200525/11157-main-01.png",
       "user": "albur"
     }
   ]
