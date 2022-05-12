@@ -8,7 +8,6 @@ type Props = {
 };
 
 function PlainLink({ to, disabled = false, children }: Props) {
-  console.log(disabled);
   return (
     <StyledLink to={to} className={disabled ? 'disabled' : ''}>
       {children}

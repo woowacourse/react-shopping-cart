@@ -9,7 +9,7 @@ import MainPage from './pages/MainPage/MainPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
-function App(): JSX.Element {
+function App() {
   return (
     <>
       <GlobalStyle />

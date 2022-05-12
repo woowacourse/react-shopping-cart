@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ function MainPage() {
   const productList = useSelector((state: StoreState) => state.productList);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(actions.getProductList());
   }, [dispatch]);
 
