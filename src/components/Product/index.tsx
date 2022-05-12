@@ -1,11 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import * as Styled from "./styles";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
-import { useState } from "react";
-
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 
 export type ProductType = {
@@ -25,6 +24,7 @@ function Product({ productInfo }: ProductProps) {
   const dispatch = useDispatch();
   const cartItems = useCartListSelector();
   const cartItem = useCartItemSelector(id);
+  const timeout = useRef<NodeJS.Timeout>();
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
@@ -36,6 +36,10 @@ function Product({ productInfo }: ProductProps) {
   };
 
   const onClickDecreaseCounter = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
     if (cartItem?.amount === 1) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
@@ -46,12 +50,24 @@ function Product({ productInfo }: ProductProps) {
   };
 
   const conClickIncreaseCounter = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
     if (cartItem) {
       dispatch(increment(id));
       return;
     }
     dispatch(addItem({ name, price, img, id, amount: 1 }));
   };
+
+  useEffect(() => {
+    if (isShowCartCounter) {
+      timeout.current = setTimeout(() => {
+        setIsShowCartCounter(false);
+      }, 3000);
+    }
+  }, [isShowCartCounter, cartItem?.amount]);
 
   return (
     <Styled.ProductWrapper>

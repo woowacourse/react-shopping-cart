@@ -1,4 +1,4 @@
-import NotFound from "../../components/NotFound";
+import NotFound from "../../components/@shared/NotFound";
 
 function OrderList() {
   return <NotFound />;

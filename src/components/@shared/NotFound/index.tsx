@@ -1,4 +1,4 @@
-import emptyPage from "../../assets/emptyPage.jpeg";
+import emptyPage from "../../../assets/emptyPage.jpeg";
 import * as Styled from "./styles";
 
 function NotFound() {
