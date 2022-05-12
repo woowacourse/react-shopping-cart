@@ -33,7 +33,7 @@ const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
   top: -20px;
   right: 10px;
   width: 120px;
-  border: 3px solid #2ac1bc;
+  border: 2px solid #2ac1bc;
   border-radius: 25px;
   height: 28px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);

@@ -26,62 +26,52 @@ function Product({ productInfo }: ProductProps) {
   const cartItems = useCartListSelector();
   const cartItem = useCartItemSelector(id);
 
+  const onClickCartImage = () => {
+    setIsShowCartCounter((prev) => !prev);
+    if (!cartItems.some((items) => items.id === id)) {
+      const newItem = { name, price, img, id, amount: 1 };
+
+      dispatch(addItem(newItem));
+    }
+  };
+
+  const onClickDecreaseCounter = () => {
+    if (cartItem?.amount === 1) {
+      dispatch(deleteItem(id));
+      setIsShowCartCounter(false);
+      alert("상품이 장바구니에서 삭제되었습니다.");
+      return;
+    }
+    dispatch(decrement(id));
+  };
+
+  const conClickIncreaseCounter = () => {
+    if (cartItem) {
+      dispatch(increment(id));
+      return;
+    }
+    dispatch(addItem({ name, price, img, id, amount: 1 }));
+  };
+
   return (
     <Styled.ProductWrapper>
       <Styled.ProductImageWrapper>
         <Styled.ProductImage
-          onClick={() => {
-            navigate(`/product/${id}`);
-          }}
+          onClick={() => navigate(`/product/${id}`)}
           src={`${img}${id}`}
           alt={name}
         />
       </Styled.ProductImageWrapper>
       <Styled.ProductInfoWrapper>
-        <Styled.ProductInfo
-          onClick={() => {
-            navigate(`/product/${id}`);
-          }}
-        >
+        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </Styled.ProductInfo>
-        <Styled.CartImage
-          onClick={() => {
-            setIsShowCartCounter((prev) => !prev);
-            if (!cartItems.some((items) => items.id === id)) {
-              dispatch(addItem({ name, price, img, id, amount: 1 }));
-            }
-          }}
-          src={cart}
-          alt="장바구니"
-        />
+        <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
         <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
-          <Styled.CartCounterButton
-            onClick={() => {
-              if (cartItem?.amount === 1) {
-                dispatch(deleteItem(id));
-                setIsShowCartCounter(false);
-                alert("상품이 장바구니에서 삭제되었습니다.");
-                return;
-              }
-              dispatch(decrement(id));
-            }}
-          >
-            -
-          </Styled.CartCounterButton>
+          <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
           <span>{cartItem?.amount ?? 0}</span>
-          <Styled.CartCounterButton
-            onClick={() => {
-              if (cartItem) {
-                dispatch(increment(id));
-              } else {
-                dispatch(addItem({ name, price, img, id, amount: 1 }));
-              }
-            }}
-          >
-            +
-          </Styled.CartCounterButton>
+          <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>
         </Styled.CartCounter>
       </Styled.ProductInfoWrapper>
     </Styled.ProductWrapper>
