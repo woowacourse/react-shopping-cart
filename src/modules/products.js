@@ -53,65 +53,51 @@ export const getProductById = (id) => async (dispatch) => {
   }
 };
 
-function getProducts(productsState) {
-  return {
-    ...productsState,
-    loading: true,
-    error: null,
-  };
-}
+const getProducts = (productsState) => ({
+  ...productsState,
+  loading: true,
+  error: null,
+});
 
-function getProductsSuccess(productsState, action) {
-  return {
-    loading: false,
-    data: productsState.data.concat(action.products),
-    error: null,
-    isEnd: false,
-    page: productsState.page + 1,
-  };
-}
+const getProductsSuccess = (productsState, action) => ({
+  loading: false,
+  data: productsState.data.concat(action.products),
+  error: null,
+  isEnd: false,
+  page: productsState.page + 1,
+});
 
-function getProductsError(productsState, action) {
-  return {
-    ...productsState,
-    loading: false,
-    data: null,
-    error: action.error,
-  };
-}
+const getProductsError = (productsState, action) => ({
+  ...productsState,
+  loading: false,
+  data: null,
+  error: action.error,
+});
 
-function getProductsEnd(productsState, action) {
-  return {
-    ...productsState,
-    data: productsState.data.concat(action.products),
-    loading: false,
-    isEnd: true,
-  };
-}
+const getProductsEnd = (productsState, action) => ({
+  ...productsState,
+  data: productsState.data.concat(action.products),
+  loading: false,
+  isEnd: true,
+});
 
-function getProduct() {
-  return {
-    loading: true,
-    data: {},
-    error: null,
-  };
-}
+const getProduct = () => ({
+  loading: true,
+  data: {},
+  error: null,
+});
 
-function getProductSuccess(_, action) {
-  return {
-    loading: false,
-    data: action.product,
-    error: null,
-  };
-}
+const getProductSuccess = (_, action) => ({
+  loading: false,
+  data: action.product,
+  error: null,
+});
 
-function getProductError() {
-  return {
-    loading: false,
-    data: {},
-    error: null,
-  };
-}
+const getProductError = () => ({
+  loading: false,
+  data: {},
+  error: null,
+});
 
 const productsReducer = createReducer(
   {},
