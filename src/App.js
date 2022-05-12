@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -18,7 +19,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />
-        <ProductList />
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+        </Routes>
       </ThemeProvider>
     </Provider>
   );
