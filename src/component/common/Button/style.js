@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
-  color: #ffffff;
+  color: ${({theme}) => theme.WHITE};
   font-size: 24px;
   font-weight: 500;
   line-height: 12px;

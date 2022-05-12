@@ -4,18 +4,19 @@ import {useSelector, useDispatch} from 'react-redux';
 import Item from 'component/Item';
 import Loader from 'component/Loader';
 import PropTypes from 'prop-types';
+import empty from 'assets/empty.png';
 
-import {ProductListPageWrapper} from 'page/ProductListPage/style';
+import {ProductListPageWrapper, ProductListWrapper} from 'page/ProductListPage/style';
 import {getProductList} from 'store/modules/productList';
 
 export default function ProductListPage() {
-  useEffect(() => {
-    fetchProductList();
-  }, []);
-
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productListReducer.productList);
   const pending = useSelector((state) => state.productListReducer.pending);
+
+  useEffect(() => {
+    fetchProductList();
+  }, []);
 
   const cart = useSelector((state) => state.cartReducer.cart);
 
@@ -26,17 +27,23 @@ export default function ProductListPage() {
   return (
     <ProductListPageWrapper>
       {pending && <Loader />}
-      {!pending && !productList.length && <div>상품이 없어요.</div>}
-      {productList.map(({id, image, name, price}) => (
-        <Item
-          itemImgURL={image}
-          itemName={name}
-          itemPrice={price}
-          id={id}
-          key={id}
-          disabled={cart.some((obj) => obj.id === id)}
-        />
-      ))}
+      {!pending &&
+        (productList.length ? (
+          <ProductListWrapper>
+            {productList.map(({id, image, name, price}) => (
+              <Item
+                itemImgURL={image}
+                itemName={name}
+                itemPrice={price}
+                id={id}
+                key={id}
+                disabled={cart.some((obj) => obj.id === id)}
+              />
+            ))}
+          </ProductListWrapper>
+        ) : (
+          <img src={empty} height="600px" />
+        ))}
     </ProductListPageWrapper>
   );
 }
