@@ -33,4 +33,15 @@ const StyledProductText = styled.p`
     `}
 `;
 
-export { StyledProductItem, StyledProductContainer, StyledProductText };
+const StyledQuantityContainer = styled.div`
+  background-color: var(--primary-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+`;
+
+export { StyledProductItem, StyledProductContainer, StyledProductText, StyledQuantityContainer };

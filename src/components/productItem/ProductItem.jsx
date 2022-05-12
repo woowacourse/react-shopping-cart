@@ -16,6 +16,7 @@ import {
   StyledProductItem,
   StyledProductContainer,
   StyledProductText,
+  StyledQuantityContainer,
 } from 'components/productItem/style';
 
 import { PRODUCT, MODAL } from 'constants';
@@ -75,22 +76,8 @@ const ProductItem = ({ id }) => {
         </div>
         <div>
           {isInCart ? (
-            <Button>
-              <div
-                style={{
-                  backgroundColor: '#2AC1BC',
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '20px',
-                }}
-                onClick={handleClick}
-              >
-                {quantity}
-              </div>
+            <Button onClick={handleClick}>
+              <StyledQuantityContainer>{quantity}</StyledQuantityContainer>
             </Button>
           ) : (
             <CartIcon onClick={handleClick} />
