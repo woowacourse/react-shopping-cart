@@ -17,6 +17,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       };
     case cartsActionTypes.fetchCartsSuccess:
       return {
+        ...state,
         error: null,
         loading: false,
         carts: action.payload,

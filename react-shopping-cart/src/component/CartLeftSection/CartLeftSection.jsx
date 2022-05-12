@@ -3,6 +3,9 @@ import { ColumnFlexWrapper } from "../../styles/Wrapper";
 import AllSelectButton from "../AllSelectButton/AllSelectButton";
 import ProductDeleteButton from "../ProductDeleteButton/ProductDeleteButton";
 import ShoppingCartItemsContainer from "../ShoppingCartItemsContainer/ShoppingCartItemsContainer";
+import { useSelector } from "react-redux";
+import { selectCurrentCarts } from "../../redux/carts/carts.selector";
+import { CURRENT_USER } from "../../constants";
 
 const CartLeftSectionHeader = styled.div`
   display: flex;
@@ -19,6 +22,9 @@ const CartItemsContainerHeader = styled.div`
 `;
 
 function CartLeftSection() {
+  const carts = useSelector(selectCurrentCarts);
+  const myCarts = carts.filter((cart) => cart.user === CURRENT_USER);
+
   return (
     <ColumnFlexWrapper width="490px">
       <CartLeftSectionHeader>
@@ -26,8 +32,8 @@ function CartLeftSection() {
         <ProductDeleteButton>상품삭제</ProductDeleteButton>
       </CartLeftSectionHeader>
       <div style={{ width: "inherit" }}>
-        <CartItemsContainerHeader>든든배송 상품(3개)</CartItemsContainerHeader>
-        <ShoppingCartItemsContainer />
+        <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
+        <ShoppingCartItemsContainer carts={myCarts} />
       </div>
     </ColumnFlexWrapper>
   );

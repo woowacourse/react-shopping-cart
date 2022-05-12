@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import CartLeftSection from "../../component/CartLeftSection/CartLeftSection";
 import ExpectedPaymentContainer from "../../component/ExpectedPaymentContainer/ExpectedPaymentContainer";
@@ -21,6 +22,8 @@ const ShoppingCartPageContent = styled.div`
 `;
 
 function ShoppingCartPage() {
+  const [totalPaymentCost, setTotalPaymentCost] = useState(0);
+
   return (
     <ColumnFlexWrapper gap="30px">
       <ShoppingCartPageHeader>장바구니</ShoppingCartPageHeader>

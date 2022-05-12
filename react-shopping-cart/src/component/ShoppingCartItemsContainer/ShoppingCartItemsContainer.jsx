@@ -1,32 +1,22 @@
-import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectCurrentCarts } from "../../redux/carts/carts.selector";
 import { ColumnFlexWrapper } from "../../styles/Wrapper";
 import ShoppingCartItem from "../ShoppingCartItem/ShoppingCartItem";
-import { CURRENT_USER } from "../../constants/index";
 
 const ShoppingCartItemBox = styled(ColumnFlexWrapper)``;
 
-function ShoppingCartItemsContainer() {
-  const carts = useSelector(selectCurrentCarts);
-  console.log(carts);
+function ShoppingCartItemsContainer({ carts }) {
   return (
     <ShoppingCartItemBox>
-      {carts.map(({ id, name, image, price, user, checked }) => {
-        if (user === CURRENT_USER) {
-          return (
-            <ShoppingCartItem
-              key={id}
-              id={id}
-              name={name}
-              thumbnail={image}
-              price={price}
-              checked={checked}
-            />
-          );
-        }
-        return null;
-      })}
+      {carts.map(({ id, name, image, price, checked }) => (
+        <ShoppingCartItem
+          key={id}
+          id={id}
+          name={name}
+          thumbnail={image}
+          price={price}
+          checked={checked}
+        />
+      ))}
     </ShoppingCartItemBox>
   );
 }
