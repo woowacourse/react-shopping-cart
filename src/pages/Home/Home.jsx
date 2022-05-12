@@ -18,7 +18,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchProductListAsync(currentPage));
-  }, [currentPage]);
+  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PageTemplate>
