@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CartButton } from 'components/common/Button';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
+import { flexCenter, flexSpaceBetween } from 'components/common/Styled';
 
 const Styled = {
   Wrapper: styled(Link)`
@@ -14,11 +15,8 @@ const Styled = {
     gap: 14px;
     box-shadow: 3px 3px 5px 0px #00000040;
   `,
-  ThumbnailBox: styled.div`
+  ThumbnailBox: styled(flexCenter)`
     height: 282px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
 
     img {
@@ -26,9 +24,7 @@ const Styled = {
       height: 100%;
     }
   `,
-  Content: styled.div`
-    display: flex;
-    justify-content: space-between;
+  Content: styled(flexSpaceBetween)`
     padding: 0 10px;
     line-height: 22px;
     letter-spacing: 0.5px;

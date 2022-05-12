@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
+import { flexColumnCenter } from 'components/common/Styled';
 
 const Styled = {
-  Wrapper: styled.div`
+  Wrapper: styled(flexColumnCenter)`
     height: calc(100vh - 200px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 40px;
   `,
   TextBox: styled.div`

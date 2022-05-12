@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { CardDetailButton } from 'components/common/Button';
+import { flexSpaceBetween } from 'components/common/Styled';
 
 const Styled = {
   Wrapper: styled.div`
@@ -41,10 +42,8 @@ const Styled = {
       background: #aaaaaa;
     }
   `,
-  Price: styled.div`
+  Price: styled(flexSpaceBetween)`
     font-weight: 400;
-    display: flex;
-    justify-content: space-between;
     padding: 10px;
     margin-bottom: 20px;
   `,
