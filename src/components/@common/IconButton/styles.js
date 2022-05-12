@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { COLORS } from 'styles/theme';
+
 const Container = styled.button`
   cursor: pointer;
 
@@ -18,8 +20,8 @@ const Container = styled.button`
   }
 
   &:hover {
-    color: #06f;
-    background-color: #f3f3f3;
+    color: ${COLORS.BLUERIBBON};
+    background-color: ${COLORS.CONCRETE};
   }
 `;
 

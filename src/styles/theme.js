@@ -1,5 +1,12 @@
 const COLORS = {
   BLACK: '#000',
+  DORADO: '#555',
+  SILVERCHALICE: '#AAA',
+  ALTO: '#DDD',
+  WILDSAND: '#F6F6F6',
+  CONCRETE: '#F3F3F3',
+  WHITE: '#FFF',
+  BLUERIBBON: '#06F',
 };
 
 const BRAND_COLORS = {};

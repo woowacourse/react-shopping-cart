@@ -1,12 +1,14 @@
-import logo from 'assets/logo.png';
 import styled from '@emotion/styled';
+import { COLORS } from 'styles/theme';
+
+import logo from 'assets/logo.png';
 
 const Container = styled.header`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background-color: #fff;
+  background-color: ${COLORS.WHITE};
   padding: 1.7rem 1.2rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid ${COLORS.ALTO};
 
   & > .left-menu {
     display: flex;
@@ -49,7 +51,7 @@ const Container = styled.header`
     > li {
       font-size: 0.9rem;
       padding: 1rem;
-      color: #555;
+      color: ${COLORS.DORADO};
 
       &::before {
         font-family: 'Font Awesome 6 Free';
