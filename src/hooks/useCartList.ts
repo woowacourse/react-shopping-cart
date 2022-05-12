@@ -1,6 +1,6 @@
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useEffect } from 'react';
-import { getCartList, putCartItem } from 'redux/action-creators/cartListThunk';
+import { postCartItem, putCartItem, getCartList } from 'redux/action-creators/cartListThunk';
 import { useAppDispatch } from './useAppDispatch';
 import { CartListAction } from 'redux/actions/cartList';
 
@@ -15,6 +15,11 @@ const useCartList = () => {
   const updateCartItemQuantity = (id: number) => {
     const targetItem = cartList.find(cartItem => cartItem.id === id);
 
+    if (!targetItem) {
+      dispatch(postCartItem({ id, quantity: 1 }));
+
+      return;
+    }
     dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + 1 }));
   };
 

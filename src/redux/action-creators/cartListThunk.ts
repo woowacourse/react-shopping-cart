@@ -37,3 +37,20 @@ export const putCartItem = (cartItem: CartItem) => async (dispatch: Dispatch<Car
     });
   }
 };
+
+export const postCartItem = (cartItem: CartItem) => async (dispatch: Dispatch<CartListAction>) => {
+  dispatch({ type: CartListActionType.POST_CART_ITEM_START });
+  try {
+    const response = await axios.post(`${LOCAL_BASE_URL}/cartList`, cartItem);
+
+    dispatch({
+      type: CartListActionType.POST_CART_ITEM_SUCCESS,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: CartListActionType.POST_CART_ITEM_FAILURE,
+      payload: e.message,
+    });
+  }
+};

@@ -25,6 +25,7 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
 
     case CartListActionType.PUT_CART_ITEM_START:
       return { loading: true, error: null, data: state.data };
+
     case CartListActionType.PUT_CART_ITEM_SUCCESS: {
       const prevCartList = state.data;
       const targetItem = action.payload;

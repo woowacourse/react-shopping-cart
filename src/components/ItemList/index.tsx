@@ -33,7 +33,7 @@ const ItemList = () => {
           thumbnailUrl={item.thumbnailUrl}
           price={item.price}
           title={item.title}
-          updateCartItemQuantity={cartList[index] && updateCartItemQuantity}
+          updateCartItemQuantity={updateCartItemQuantity}
           openSnackbar={openSnackbar}
         />
       ))}

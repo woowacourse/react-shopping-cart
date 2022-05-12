@@ -6,7 +6,6 @@ import { LOCAL_BASE_URL } from 'apis';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import { getCartList, putCartItem } from 'redux/action-creators/cartListThunk';
 import useCartList from 'hooks/useCartList';
 
 const emptyItem: Item = {
@@ -20,6 +19,7 @@ const ItemDetail = () => {
   const [item, setItem] = useState<Item>(emptyItem);
   const { thumbnailUrl, title, price } = item;
   const params = useParams();
+
   const id = Number(params.id);
   const { updateCartItemQuantity } = useCartList();
 
