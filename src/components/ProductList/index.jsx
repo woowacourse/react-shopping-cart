@@ -20,6 +20,7 @@ const Styled = {
 
 const ProductList = () => {
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+
   return (
     <Styled.ProductBox>
       {productList.length ? (

@@ -12,9 +12,9 @@ const App = () => {
       <GlobalStyles />
       <Layout>
         <Routes>
-          <Route path="/" element={<ProductList />} />
+          <Route path="/react-shopping-cart" element={<ProductList />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/react-shopping-cart/product/:id" element={<ProductDetail />} />
         </Routes>
       </Layout>
     </div>

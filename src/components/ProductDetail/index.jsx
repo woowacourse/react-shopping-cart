@@ -55,13 +55,13 @@ const ProductDetail = () => {
   const { id: productId } = useParams();
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
 
-  if (!productList.length) {
-    return <div>loading</div>;
-  }
-
   const { name, price, thumbnail } = productList.find(
     (product) => product.id === Number(productId),
   );
+
+  if (!productList.length) {
+    return <div>loading</div>;
+  }
 
   return (
     <Styled.Wrapper>

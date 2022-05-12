@@ -12,7 +12,7 @@ import { setProductList } from 'modules/productList';
 const store = createStore(rootReducer, composeWithDevTools());
 
 const loadProductList = () => {
-  fetch('http://localhost:8080/productList', {
+  fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

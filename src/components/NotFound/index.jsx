@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import HomeButtonImg from 'assets/image/home_button.png';
-import NotFoundImg from 'assets/image/not_found.png';
+import HomeButtonImage from 'assets/image/home_button.png';
+import NotFoundImage from 'assets/image/not_found.png';
 import { Link } from 'react-router-dom';
 
 const Styled = {
@@ -25,13 +25,13 @@ const Styled = {
 const NotFound = () => {
   return (
     <Styled.Wrapper>
-      <img src={NotFoundImg} alt="결과 없음 이미지" />
+      <img src={NotFoundImage} alt="결과 없음 이미지" />
       <Styled.TextBox>
         이용에 불편을 드려 죄송합니다.
         <br /> 홈페이지로 이동하시어 서비스를 다시 이용해주세요.
       </Styled.TextBox>
-      <Link to="/">
-        <img src={HomeButtonImg} alt="홈으로 가는 이미지" />
+      <Link to="/react-shopping-cart">
+        <img src={HomeButtonImage} alt="홈으로 가는 이미지" />
       </Link>
     </Styled.Wrapper>
   );

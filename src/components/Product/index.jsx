@@ -21,7 +21,7 @@ const Styled = {
     align-items: center;
     cursor: pointer;
 
-    svg {
+    img {
       width: 100%;
       height: 100%;
     }
@@ -51,7 +51,7 @@ const Styled = {
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
-    <Styled.Wrapper to={`/product/${id}`}>
+    <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
       <Styled.ThumbnailBox>
         <img src={thumbnail} alt="thumbnail" />
       </Styled.ThumbnailBox>
