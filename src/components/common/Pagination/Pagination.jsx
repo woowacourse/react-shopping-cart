@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import * as Styled from './Pagination.style';
 
 function Pagination() {
-  const pageCount = useSelector(state => state.pageCount);
+  const pageCount = useSelector(({ product }) => product.pageCount);
 
   const [searchParams] = useSearchParams();
 

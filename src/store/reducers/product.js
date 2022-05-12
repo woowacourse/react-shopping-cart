@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false,
 };
 
-export const productReducer = (state = initialState, action) => {
+const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'PRODUCT_LIST_FETCH_START': {
       return {
@@ -45,3 +45,5 @@ export const productReducer = (state = initialState, action) => {
     }
   }
 };
+
+export default productReducer;

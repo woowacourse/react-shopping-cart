@@ -11,7 +11,7 @@ import * as Styled from './Home.style';
 function Home() {
   const dispatch = useDispatch();
 
-  const { isLoading, pageCount } = useSelector(state => state);
+  const { isLoading, pageCount } = useSelector(({ product }) => product);
 
   const [searchParams] = useSearchParams();
 
@@ -20,6 +20,8 @@ function Home() {
   useEffect(() => {
     dispatch(fetchProductListAsync(currentPage));
   }, [currentPage]);
+
+  // console.log(pageCount);
 
   return (
     <PageTemplate>

@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
 function ProductList({ openModal }) {
-  const productList = useSelector(state => state.productList);
+  const productList = useSelector(({ product }) => product.productList);
 
   return (
     <Styled.Container>
