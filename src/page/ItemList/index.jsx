@@ -13,9 +13,8 @@ const ItemList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
-  console.log(products);
 
-  const delayGetProduct = throttle(300, () => dispatch(getProductsByPage()));
+  const delayGetProduct = throttle(1000, () => dispatch(getProductsByPage()));
 
   useEffect(() => {
     let observer;

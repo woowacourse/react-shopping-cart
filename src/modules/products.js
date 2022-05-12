@@ -1,4 +1,5 @@
 import * as productAPI from "../api";
+import createReducer from "./createReducer";
 
 const GET_PRODUCTS = "products/GET_PRODUCTS";
 const GET_PRODUCT = "product/GET_PRODUCT";
@@ -9,6 +10,21 @@ const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
 const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
 const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
+
+const initialState = {
+  product: {
+    loading: false,
+    data: {},
+    error: null,
+  },
+  products: {
+    loading: false,
+    data: [],
+    error: null,
+    isEnd: false,
+    page: 1,
+  },
+};
 
 export const getProductsByPage = () => async (dispatch, getState) => {
   dispatch({ type: GET_PRODUCTS });
@@ -35,21 +51,6 @@ export const getProductById = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: GET_PRODUCT_ERROR, error });
   }
-};
-
-const initialState = {
-  product: {
-    loading: false,
-    data: {},
-    error: null,
-  },
-  products: {
-    loading: false,
-    data: [],
-    error: null,
-    isEnd: false,
-    page: 1,
-  },
 };
 
 function getProducts(productsState) {
@@ -96,7 +97,7 @@ function getProduct() {
   };
 }
 
-function getProductSuccess(action) {
+function getProductSuccess(_, action) {
   return {
     loading: false,
     data: action.product,
@@ -112,33 +113,24 @@ function getProductError() {
   };
 }
 
-function productsReducer(productsState = {}, action = {}) {
-  switch (action.type) {
-    case GET_PRODUCTS:
-      return getProducts(productsState);
-    case GET_PRODUCTS_SUCCESS:
-      return getProductsSuccess(productsState, action);
-    case GET_PRODUCTS_ERROR:
-      return getProductsError(productsState, action);
-    case GET_PRODUCTS_END:
-      return getProductsEnd(productsState, action);
-    default:
-      return productsState;
+const productsReducer = createReducer(
+  {},
+  {
+    [GET_PRODUCTS]: getProducts,
+    [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
+    [GET_PRODUCTS_ERROR]: getProductsError,
+    [GET_PRODUCTS_END]: getProductsEnd,
   }
-}
+);
 
-function productReducer(productState = {}, action = {}) {
-  switch (action.type) {
-    case GET_PRODUCT:
-      return getProduct();
-    case GET_PRODUCT_SUCCESS:
-      return getProductSuccess(action);
-    case GET_PRODUCT_ERROR:
-      return getProductError();
-    default:
-      return productState;
+const productReducer = createReducer(
+  {},
+  {
+    [GET_PRODUCT]: getProduct,
+    [GET_PRODUCT_SUCCESS]: getProductSuccess,
+    [GET_PRODUCT_ERROR]: getProductError,
   }
-}
+);
 
 export default function appReducer(state = initialState, action = {}) {
   return {
