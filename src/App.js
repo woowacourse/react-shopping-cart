@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ProductListPage from 'page/ProductListPage';
+import ProductListPage from 'page/productList/ProductListPage';
 import Header from 'components/header/Header';
 import Button from 'components/shared/button/Button';
 import CartIcon from 'components/shared/cartIcon/CartIcon';
