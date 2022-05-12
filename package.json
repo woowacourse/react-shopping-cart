@@ -14,13 +14,15 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5"
   },
+  "homepage": "https://dommorello.github.io/react-shopping-cart",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +71,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
