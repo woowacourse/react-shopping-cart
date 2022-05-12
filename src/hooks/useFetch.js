@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-export const useFetch = (url, { type, key }) => {
+export const useFetch = (url, initialData = {}) => {
+  const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     fetch(url)
@@ -18,20 +17,14 @@ export const useFetch = (url, { type, key }) => {
         if (!data) {
           throw new Error(`No Data`);
         }
-
-        dispatch({
-          type,
-          payload: {
-            [key]: data,
-          },
-        });
+        setData(data);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        setErrorMessage(error.message);
         return {};
       });
-  }, [dispatch]);
+  }, []);
 
-  return isLoading;
+  return { data, isLoading, errorMessage };
 };
