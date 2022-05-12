@@ -1,3 +1,0 @@
-const fruits = ['🍅', '🍑', '🥝', '🥥'];
-
-export { fruits };

@@ -10,7 +10,7 @@ import Spinner from 'component/common/Spinner/Spinner';
 import NavBar from 'component/NavBar/NavBar';
 import Product from 'component/Product/Product';
 
-import { fruits } from 'constants';
+import { FRUITS } from 'constant';
 
 const Body = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ function ProductList() {
           </GridLayout>
         ) : (
           <FruitBox>
-            {fruits.map(fruit => (
+            {FRUITS.map(fruit => (
               <Spinner key={fruit}>
                 <span style={{ fontSize: '50px' }}>{fruit}</span>
               </Spinner>

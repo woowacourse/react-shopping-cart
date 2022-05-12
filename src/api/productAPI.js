@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from 'constant/messages';
+
 const productAPI = {
   BASE_URL: 'https://tigers-react-shopping-cart.herokuapp.com',
   PATH: {
@@ -8,7 +10,7 @@ const productAPI = {
     const response = await fetch(`${this.BASE_URL}/${this.PATH.PRODUCTS}`);
 
     if (!response.ok) {
-      return new Error('상품 목록을 불러오는 데에 실패하였습니다!');
+      return new Error(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS);
     }
 
     const json = await response.json();

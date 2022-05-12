@@ -1,6 +1,6 @@
-import Spinner from 'component/common/Spinner/Spinner';
 import styled from 'styled-components';
-import { fruits } from 'constants';
+import Spinner from 'component/common/Spinner/Spinner';
+import { FRUITS } from 'constant';
 
 export default {
   title: 'Component/Spinner',
@@ -21,7 +21,7 @@ const FruitBox = styled.div`
 
 const Template = args => (
   <FruitBox>
-    {fruits.map(fruit => (
+    {FRUITS.map(fruit => (
       <Spinner key={fruit} {...args}>
         <span style={{ fontSize: '50px' }}>{fruit}</span>
       </Spinner>
