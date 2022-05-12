@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import { getProductAsync } from 'reducers/product/product.thunks';
 import Skeleton from 'components/Skeleton/Skeleton';
 import ErrorApi from 'components/ErrorApi/ErrorApi';
+import useReduxState from 'hooks/useReduxState';
 
 const Product = () => {
-  const dispatch = useDispatch();
-  const { isLoading, data, isError } = useSelector((state) => state.product);
+  const { dispatch, isLoading, data, isError } = useReduxState('product');
   const { id } = useParams();
 
   useEffect(() => {

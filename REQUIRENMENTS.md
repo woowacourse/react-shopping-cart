@@ -25,7 +25,7 @@
   - [x] product 리듀서 만들기
 
 - [x] 공통컴포넌트 레이아웃 Outlet으로 리팩토링
-- [ ] 커스텀 훅 (dispatch, useSelector) 만들기
+- [x] 커스텀 훅 (dispatch, useSelector) 만들기
 - [ ] 상품상세 페이지를 보고 뒤로가기하면 불필요하게 다시 API 요청하지 않도록 만들기
 - [ ] 스토리북 정상 작동하게 만들기(redux)
 
