@@ -8,7 +8,7 @@ function Header({ className = "header" }) {
   return (
     <S.Header className={className}>
       <S.Wrapper css={innerHeaderStyle}>
-        <LogoLink src={StarcraftLogo} href="http://naver.com" />
+        <LogoLink src={StarcraftLogo} href="/" />
         <Menu />
       </S.Wrapper>
     </S.Header>
