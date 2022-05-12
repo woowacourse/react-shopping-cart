@@ -9,4 +9,6 @@ const Template = args => <ProductList {...args} />;
 
 const DefaultProductList = Template.bind({});
 
+DefaultProductList.args = {};
+
 export { DefaultProductList };
