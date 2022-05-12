@@ -4,11 +4,10 @@ import * as Styled from "./styles";
 
 import Product from "../../components/Product";
 import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
-import { AppDispatch } from "../../redux/store";
 
 function ProductList() {
   const { productList, loading, error }: ProductState = useSelector(selectProductState);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadProductsAPI());

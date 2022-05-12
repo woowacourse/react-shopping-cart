@@ -88,8 +88,6 @@ const cartReducer = (state = initialState, action: Action) => {
   }
 };
 
-export const selectCartList = (state: RootState) => state.cart.items;
-
 export { addItem, deleteItem, increment, decrement, incrementByNumber };
 
 export default cartReducer;

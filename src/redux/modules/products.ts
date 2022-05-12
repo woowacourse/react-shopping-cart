@@ -15,7 +15,7 @@ export type ProductState = {
   productList: Product[];
 };
 
-type Action =
+export type Action =
   | ReturnType<typeof loadProducts>
   | ReturnType<typeof loadProductsSuccess>
   | ReturnType<typeof loadProductsFailed>;

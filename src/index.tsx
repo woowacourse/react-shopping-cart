@@ -7,9 +7,9 @@ import { createGlobalStyle } from "styled-components";
 import App from "./App";
 
 const GlobalStyle = createGlobalStyle`
-   body{
+  body{  
      margin: 0; 
-   }
+   }   
 `;
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
