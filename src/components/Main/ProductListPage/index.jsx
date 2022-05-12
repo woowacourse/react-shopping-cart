@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { initializeProductInfoList } from "./../../../stores/productInfoListStore";
 import { useFetch } from "../../../hooks/useFetch";
 
 import Spinner from "../../common/Spinner";
@@ -8,7 +9,6 @@ import GridList from "./GridList";
 import ProductCard from "./ProductCard";
 
 import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../../../constants";
-import { initializeProductInfoList } from "./../../../stores/productInfoListStore";
 
 const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
 

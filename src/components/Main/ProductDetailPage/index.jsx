@@ -1,56 +1,21 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 
 import { useFetch } from "../../../hooks/useFetch";
 
 import BoxButton from "../../common/BoxButton";
 import Spinner from "../../common/Spinner";
+import {
+  Bottom,
+  DetailContainer,
+  ProductImage,
+  ProductName,
+  ProductPrice,
+  Span,
+  Top,
+} from "./styled";
 
 import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../../../constants";
-
-const DetailContainer = styled.section`
-  width: 400px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  border-bottom: 1px solid #333;
-  padding: 16px;
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 16px 20px;
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  object-fit: cover;
-`;
-
-const ProductName = styled.p`
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.textDefault};
-  padding: 8px 0;
-`;
-
-const Span = styled.span`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.textDefault};
-  margin: auto 0;
-`;
-
-const ProductPrice = styled.p`
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.textDefault};
-`;
 
 function ProductDetailPage() {
   const { id: productId } = useParams();
