@@ -12,7 +12,7 @@ import { INITIALIZE } from 'actions/action';
 import { SERVER_URL } from 'constants';
 
 const ProductListPage = () => {
-  const { products, shoppingCart } = useSelector(state => state.reducer);
+  const { products } = useSelector(state => state.reducer);
 
   const getProducts = async () => {
     const response = await axios.get(SERVER_URL + 'products');
@@ -23,11 +23,6 @@ const ProductListPage = () => {
   useEffect(() => {
     getProducts();
   }, []);
-
-  useEffect(() => {
-    console.log(products);
-    console.log(shoppingCart);
-  }, [products, shoppingCart]);
 
   return (
     <StyledProductListPage>
