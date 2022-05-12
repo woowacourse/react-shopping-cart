@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
+import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
 
 const Styled = {
   Wrapper: styled.div`
@@ -52,13 +53,13 @@ const ProductDetail = () => {
   const { id: productId } = useParams();
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
 
+  if (!productList.length) {
+    return <LoadingSpinner />;
+  }
+
   const { name, price, thumbnail } = productList.find(
     (product) => product.id === Number(productId),
   );
-
-  if (!productList.length) {
-    return <div>loading</div>;
-  }
 
   return (
     <Styled.Wrapper>
