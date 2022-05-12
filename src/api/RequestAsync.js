@@ -1,4 +1,4 @@
-import { HOST_NAME, REQUEST_STATUS } from 'constants/';
+import { REQUEST_STATUS } from 'constants/';
 
 const errorReturn = (error) => ({
   status: REQUEST_STATUS.FAIL,
@@ -7,7 +7,7 @@ const errorReturn = (error) => ({
 
 class RequestAsync {
   constructor() {
-    this.HOST_NAME = HOST_NAME;
+    this.HOST_NAME = process.env.REACT_APP_API_URL;
     this.header = { 'Content-Type': 'application/json' };
   }
 
