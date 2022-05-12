@@ -17,8 +17,7 @@ function ProductCard({ product }) {
     navigate(`/products/${id}`);
   };
 
-  const onClickCartButton = e => {
-    e.stopPropagation();
+  const onClickCartButton = () => {
     openModal();
   };
 
