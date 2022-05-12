@@ -14,14 +14,11 @@ function Home() {
   const { isLoading, pageCount } = useSelector(({ product }) => product);
 
   const [searchParams] = useSearchParams();
-
   const currentPage = searchParams.get('page') ?? 1;
 
   useEffect(() => {
     dispatch(fetchProductListAsync(currentPage));
   }, [currentPage]);
-
-  // console.log(pageCount);
 
   return (
     <PageTemplate>

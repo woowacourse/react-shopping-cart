@@ -7,7 +7,6 @@ function Pagination() {
   const pageCount = useSelector(({ product }) => product.pageCount);
 
   const [searchParams] = useSearchParams();
-
   const currentPage = searchParams.get('page') ?? 1;
 
   return (
