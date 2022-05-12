@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { actions } from '../../actions/actions';
+import Spinner from '../../components/Spinner/Spinner';
 import { StoreState } from '../../types';
 
 function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const productDetail = useSelector((state: StoreState) => state.productDetail);
+  const { productDetail, isLoading } = useSelector((state: StoreState) => ({
+    isLoading: state.isLoading,
+    productDetail: state.productDetail,
+  }));
 
   useLayoutEffect(() => {
     if (id) {
@@ -16,28 +20,32 @@ function ProductPage() {
     }
   }, [id, dispatch]);
 
-  return productDetail ? (
+  if (isLoading) return <Spinner />;
+
+  return (
     <StyledPage>
-      <StyledImageContainer>
-        <img src={productDetail.image} alt={productDetail.name} />
-      </StyledImageContainer>
-      <h2>{productDetail.name}</h2>
-      <hr />
-      <dl>
-        <dt>가격</dt>
-        <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
-      </dl>
-      <dl>
-        <dt>제품 설명</dt>
-        <dd>{productDetail.description}</dd>
-      </dl>
-      <StyledAddToCartButton>장바구니</StyledAddToCartButton>
-    </StyledPage>
-  ) : (
-    <StyledPage>
-      <StyledImageContainer>
-        <EmptyProductImage>존재하지 않는 상품입니다.</EmptyProductImage>
-      </StyledImageContainer>
+      {productDetail ? (
+        <>
+          <StyledImageContainer>
+            <img src={productDetail.image} alt={productDetail.name} />
+          </StyledImageContainer>
+          <h2>{productDetail.name}</h2>
+          <hr />
+          <dl>
+            <dt>가격</dt>
+            <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
+          </dl>
+          <dl>
+            <dt>제품 설명</dt>
+            <dd>{productDetail.description}</dd>
+          </dl>
+          <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+        </>
+      ) : (
+        <StyledImageContainer>
+          <EmptyProductImage>존재하지 않는 상품입니다.</EmptyProductImage>
+        </StyledImageContainer>
+      )}
     </StyledPage>
   );
 }
@@ -47,7 +55,6 @@ const StyledPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px auto;
   gap: 20px;
 
   h2 {

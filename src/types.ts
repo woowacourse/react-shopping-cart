@@ -18,6 +18,8 @@ export type Action = {
 };
 
 export type StoreState = {
+  isLoading: boolean;
+  error: any;
   productList: Array<Product>;
   productDetail: Product | null;
 };

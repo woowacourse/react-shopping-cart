@@ -10,7 +10,7 @@ function Header() {
         <Logo />
       </PlainLink>
       <RightMenu>
-        <PlainLink to="/orders">장바구니</PlainLink>
+        <PlainLink to="/cart">장바구니</PlainLink>
         <PlainLink to="/orders">주문목록</PlainLink>
       </RightMenu>
     </StyledHeader>

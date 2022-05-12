@@ -1,15 +1,5 @@
-import styled from 'styled-components';
-
 function NotFoundPage() {
-  return <StyledPage>잘못된 접근입니다 ㅠ</StyledPage>;
+  return <img src="https://http.cat/404.jpg" alt="404 Not Found" />;
 }
-
-const StyledPage = styled.div`
-  margin: 60px 0;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default NotFoundPage;
