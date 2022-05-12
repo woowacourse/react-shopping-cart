@@ -89,9 +89,10 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["quantity"] = currentCartProduct["quantity"]
-        ? currentCartProduct["quantity"] + 1
-        : 2;
+      currentCartProduct["quantity"] =
+        typeof currentCartProduct["quantity"] !== "undefined"
+          ? currentCartProduct["quantity"] + 1
+          : 2;
       return { ...state, carts: newCarts };
     }
     case cartsActionTypes.decreaseProductQuantity: {
