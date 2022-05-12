@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/react-shopping-cart">
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ErrorBoundary fallback={<div>에러입니다.</div>}>

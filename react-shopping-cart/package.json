@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "chromatic": "^6.5.4",
+    "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -28,7 +30,10 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "json-server": "json-server --watch db.json --port 3002"
+    "json-server": "json-server --watch db.json --port 3002",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "chromatic": "npx chromatic --project-token=55899d89f33b"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +74,8 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "postcss": "^8.4.13",
+    "postcss-cli": "^9.1.0",
     "webpack": "^5.72.0"
   }
 }
