@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Spinner from 'component/common/Spinner/Spinner';
+import { Spinner } from 'component/common';
 import { FRUITS } from 'constant';
 
 export default {

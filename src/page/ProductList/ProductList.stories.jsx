@@ -1,4 +1,4 @@
-import ProductList from './ProductList';
+import ProductList from 'page/ProductList/ProductList';
 
 export default {
   title: 'Component/ProductList',

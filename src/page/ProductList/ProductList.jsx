@@ -4,11 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAsyncThunk } from 'store/action/productsActions';
 
-import GridLayout from 'component/common/GridLayout/GridLayout';
-import Spinner from 'component/common/Spinner/Spinner';
-
-import NavBar from 'component/NavBar/NavBar';
-import Product from 'component/Product/Product';
+import { GridLayout, Spinner } from 'component/common';
+import { NavBar, Product } from 'component';
 
 import { FRUITS } from 'constant';
 

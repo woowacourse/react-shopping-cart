@@ -1,5 +1,5 @@
 import GridLayout from 'component/common/GridLayout/GridLayout';
-import Product from 'component/Product/Product';
+import { Product } from 'component';
 
 export default {
   title: 'Component/GridLayout',

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from 'component/common/Button/Button';
+import { Button } from 'component/common';
 
 const StyledNavBar = styled.div`
   height: 80px;
