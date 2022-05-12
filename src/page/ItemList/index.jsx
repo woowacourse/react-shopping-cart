@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GridWrapper from "../../components/GridWrapper";
 import Item from "../../components/Item";
 import ItemSkeleton from "../../components/ItemSkeleton";
-import { getProduct } from "../../modules/products";
+import { getProductsByPage } from "../../modules/products";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
 
@@ -13,8 +13,9 @@ const ItemList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
+  console.log(products);
 
-  const delayGetProduct = throttle(300, () => dispatch(getProduct()));
+  const delayGetProduct = throttle(300, () => dispatch(getProductsByPage()));
 
   useEffect(() => {
     let observer;

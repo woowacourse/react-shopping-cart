@@ -8,9 +8,9 @@ const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
 
 const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
-const GET_PROUDCTS_END = "products/GET_PRODUCTS_END";
+const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
 
-export const getProduct = () => async (dispatch, getState) => {
+export const getProductsByPage = () => async (dispatch, getState) => {
   dispatch({ type: GET_PRODUCTS });
 
   try {
@@ -19,7 +19,7 @@ export const getProduct = () => async (dispatch, getState) => {
     );
 
     if (products.data.length < 10) {
-      return dispatch({ type: GET_PROUDCTS_END, products: products.data });
+      return dispatch({ type: GET_PRODUCTS_END, products: products.data });
     }
     dispatch({ type: GET_PRODUCTS_SUCCESS, products: products.data });
   } catch (error) {
@@ -29,7 +29,6 @@ export const getProduct = () => async (dispatch, getState) => {
 
 export const getProductById = (id) => async (dispatch) => {
   dispatch({ type: GET_PRODUCT });
-
   try {
     const product = await productAPI.getProductById(id);
     dispatch({ type: GET_PRODUCT_SUCCESS, product: product.data });
@@ -53,75 +52,97 @@ const initialState = {
   },
 };
 
-export default function reducer(state = initialState, action = {}) {
+function getProducts(productsState) {
+  return {
+    ...productsState,
+    loading: true,
+    error: null,
+  };
+}
+
+function getProductsSuccess(productsState, action) {
+  return {
+    loading: false,
+    data: productsState.data.concat(action.products),
+    error: null,
+    isEnd: false,
+    page: productsState.page + 1,
+  };
+}
+
+function getProductsError(productsState, action) {
+  return {
+    ...productsState,
+    loading: false,
+    data: null,
+    error: action.error,
+  };
+}
+
+function getProductsEnd(productsState, action) {
+  return {
+    ...productsState,
+    data: productsState.data.concat(action.products),
+    loading: false,
+    isEnd: true,
+  };
+}
+
+function getProduct() {
+  return {
+    loading: true,
+    data: {},
+    error: null,
+  };
+}
+
+function getProductSuccess(action) {
+  return {
+    loading: false,
+    data: action.product,
+    error: null,
+  };
+}
+
+function getProductError() {
+  return {
+    loading: false,
+    data: {},
+    error: null,
+  };
+}
+
+function productsReducer(productsState = {}, action = {}) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return {
-        ...state,
-        products: {
-          ...state.products,
-          loading: true,
-          error: null,
-        },
-      };
+      return getProducts(productsState);
     case GET_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        products: {
-          loading: false,
-          data: state.products.data.concat(action.products),
-          error: null,
-          isEnd: false,
-          page: state.products.page + 1,
-        },
-      };
+      return getProductsSuccess(productsState, action);
     case GET_PRODUCTS_ERROR:
-      return {
-        ...state,
-        products: {
-          loading: false,
-          data: null,
-          error: action.error,
-        },
-      };
-    case GET_PROUDCTS_END:
-      return {
-        ...state,
-        products: {
-          ...state.products,
-          data: state.products.data.concat(action.products),
-          loading: false,
-          isEnd: true,
-        },
-      };
-    case GET_PRODUCT:
-      return {
-        ...state,
-        product: {
-          loading: true,
-          data: {},
-          error: null,
-        },
-      };
-    case GET_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        product: {
-          loading: false,
-          data: action.product,
-          error: null,
-        },
-      };
-    case GET_PRODUCT_ERROR:
-      return {
-        ...state,
-        product: {
-          loading: false,
-          data: {},
-          error: null,
-        },
-      };
+      return getProductsError(productsState, action);
+    case GET_PRODUCTS_END:
+      return getProductsEnd(productsState, action);
     default:
-      return state;
+      return productsState;
   }
+}
+
+function productReducer(productState = {}, action = {}) {
+  switch (action.type) {
+    case GET_PRODUCT:
+      return getProduct();
+    case GET_PRODUCT_SUCCESS:
+      return getProductSuccess(action);
+    case GET_PRODUCT_ERROR:
+      return getProductError();
+    default:
+      return productState;
+  }
+}
+
+export default function appReducer(state = initialState, action = {}) {
+  return {
+    products: productsReducer(state.products, action),
+    product: productReducer(state.product, action),
+  };
 }
