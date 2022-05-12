@@ -1,4 +1,4 @@
-import PlainLink from '../../styles/PlainLink';
+import PlainLink from '../PlainLink/PlainLink';
 import styled from 'styled-components';
 import { Product } from '../../types';
 
@@ -28,13 +28,17 @@ function ProductCard({ product }: Props) {
   };
 
   return (
-    <PlainLink to={`/product/${id}`}>
+    <PlainLink to={`/product/${id}`} disabled={stock <= 0}>
       <StyledProductCard>
         <CardImageContainer>
-          <CardImageOverlay>
-            <p>{description}</p>
-            <div>구매하기</div>
-          </CardImageOverlay>
+          {stock > 0 ? (
+            <CardImageOverlay>
+              <p>{description}</p>
+              <div>구매하기</div>
+            </CardImageOverlay>
+          ) : (
+            <OutOfStockOverlay>품절</OutOfStockOverlay>
+          )}
           <img src={image} alt={name} />
         </CardImageContainer>
         <CardDescriptionContainer>
@@ -48,6 +52,21 @@ function ProductCard({ product }: Props) {
     </PlainLink>
   );
 }
+
+const OutOfStockOverlay = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({ theme: { colors } }) => colors.white};
+  font-size: 2rem;
+  font-weight: 700;
+`;
 
 const CardImageOverlay = styled.div`
   box-sizing: border-box;

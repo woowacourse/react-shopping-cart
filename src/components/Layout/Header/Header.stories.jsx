@@ -1,6 +1,4 @@
-import PlainLink from '../../../styles/PlainLink';
 import Header from './Header';
-import Logo from '../../Logo/Logo';
 
 export default {
   title: 'Layout/Header',
