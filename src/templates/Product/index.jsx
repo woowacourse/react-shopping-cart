@@ -2,7 +2,7 @@ import React from 'react';
 
 import BlackText from 'components/BlackText';
 import Image from 'components/Image';
-import FlexCenter from 'components/FlexWrapper/FlexCenter';
+import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
 import MarginBottomWrapper from 'components/MarginBottomWrapper';
 
 import CartButton from 'containers/CartButton';
@@ -18,7 +18,7 @@ function Product({ imgSrc, title, price }) {
       <MarginBottomWrapper marginBottom="18px">
         <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
       </MarginBottomWrapper>
-      <FlexCenter>
+      <FlexSpaceBetweenCenter>
         <div>
           <MarginBottomWrapper marginBottom="6px">
             <ProductTitle>{title}</ProductTitle>
@@ -28,7 +28,7 @@ function Product({ imgSrc, title, price }) {
           </BlackText>
         </div>
         <CartButton />
-      </FlexCenter>
+      </FlexSpaceBetweenCenter>
     </ProductStyled>
   );
 }
