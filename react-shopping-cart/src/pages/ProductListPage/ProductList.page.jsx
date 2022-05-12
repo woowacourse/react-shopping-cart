@@ -16,7 +16,7 @@ function ProductList() {
   const dispatch = useDispatch();
   const shoppingCart = useSelector(state => state.shoppingCart);
 
-  const { data, isLoading, error } = useFetch('http://localhost:3001/product');
+  const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
 
   const handleToggleShoppingCart = (id, isContained) => {
     dispatch(isContained ? deleteItem(id) : addItem(id));
