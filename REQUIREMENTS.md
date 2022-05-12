@@ -18,10 +18,11 @@
 
 - [x] Button 컴포넌트
 - [x] Header 컴포넌트
+- [x] Layout 컴포넌트
+- [x] Styled 컴포넌트
+- [x] NotFound 컴포넌트
 - [x] Product 컴포넌트
 - [x] ProductList 컴포넌트
-- [x] Layout 컴포넌트
-- [x] NotFound 컴포넌트
 - [x] ProductDetail 컴포넌트
 
 <br>
