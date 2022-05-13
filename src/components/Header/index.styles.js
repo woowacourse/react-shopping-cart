@@ -50,4 +50,7 @@ export const NavContainer = styled.nav`
     font-size: 16px;
     gap: 10px;
   }
+  .active {
+    text-decoration: white wavy underline;
+  }
 `;

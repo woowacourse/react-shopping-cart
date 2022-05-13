@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 import { useTheme } from "@emotion/react";
@@ -19,8 +19,12 @@ const Header = () => {
         </div>
       </Link>
       <S.NavContainer>
-        <Link to="/shopping-cart">장바구니</Link>
-        <Link to="/shopping-list">주문목록</Link>
+        <NavLink exact to="/shopping-cart">
+          장바구니
+        </NavLink>
+        <NavLink exact to="/shopping-list">
+          주문목록
+        </NavLink>
       </S.NavContainer>
     </S.Header>
   );
