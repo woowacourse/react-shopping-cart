@@ -1,7 +1,7 @@
 import Spinner from './Spinner';
 
 export default {
-  title: 'Layout/Spinner',
+  title: 'Component/Spinner',
   component: Spinner,
 };
 
