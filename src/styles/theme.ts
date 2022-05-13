@@ -8,29 +8,7 @@ const sizes = {
   lg: 1280,
 };
 
-const media = {
-  sm: (...args: Args) =>
-    css`
-      @media only screen and (max-width: ${sizes.md}px) {
-        ${args}
-      }
-    `,
-  md: (...args: Args) =>
-    css`
-      @media only screen and (min-width: ${sizes.md}px) and (max-width: ${sizes.lg}px) {
-        ${args}
-      }
-    `,
-  lg: (...args: Args) =>
-    css`
-      @media only screen and (min-width: ${sizes.lg}px) {
-        ${args}
-      }
-    `,
-};
-
 const theme = {
-  media,
   colors: {
     emerald: '#29C2BC',
     white: '#FFFFFF',
@@ -43,6 +21,26 @@ const theme = {
     front: 1,
     middle: 0,
     behind: -1,
+  },
+  media: {
+    sm: (...args: Args) =>
+      css`
+        @media only screen and (max-width: ${sizes.md}px) {
+          ${args}
+        }
+      `,
+    md: (...args: Args) =>
+      css`
+        @media only screen and (min-width: ${sizes.md}px) and (max-width: ${sizes.lg}px) {
+          ${args}
+        }
+      `,
+    lg: (...args: Args) =>
+      css`
+        @media only screen and (min-width: ${sizes.lg}px) {
+          ${args}
+        }
+      `,
   },
 } as const;
 
