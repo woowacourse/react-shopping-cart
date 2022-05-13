@@ -15,7 +15,7 @@ function ProductList() {
     dispatch(requestProducts());
     dispatch(async (storeDispatch) => {
       try {
-        const body = await fetch('http://localhost:4000/products');
+        const body = await fetch('https://winnnie-shopping-cart-server.herokuapp.com/products');
         const products = await body.json();
 
         storeDispatch(requestProductsDone(products));
