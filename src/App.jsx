@@ -4,7 +4,7 @@ import Detail from "./page/Detail";
 import ItemList from "./page/ItemList";
 import NotFound from "./page/NotFound";
 
-function App() {
+const App = () => {
   return (
     <>
       <Header />
@@ -17,6 +17,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;
