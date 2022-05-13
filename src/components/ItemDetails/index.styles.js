@@ -36,7 +36,7 @@ export const PriceContainer = styled.div`
   justify-content: space-between;
   p {
     font-size: 2rem;
-    color: #333;
+    color: ${(props) => props.color};
     padding: 1.5em;
   }
   @media screen and (max-width: 850px) {
@@ -51,8 +51,8 @@ export const ShoppingCartButton = styled.button`
   width: 100%;
   height: 100px;
   border: none;
-  background-color: #73675c;
-  color: #fff;
+  background-color: ${(props) => props.backgroundColor};
+  color: ${(props) => props.color};
   font-weight: bold;
   font-size: 2rem;
   &:hover {

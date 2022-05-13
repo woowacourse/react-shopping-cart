@@ -4,8 +4,8 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2ac1bc;
-  color: #fff;
+  background-color: ${(props) => props.backgroundColor};
+  color: ${(props) => props.color};
   padding: 10px 15%;
   margin-bottom: 60px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
@@ -42,7 +42,6 @@ export const HomeTitle = styled.h1`
 export const NavContainer = styled.nav`
   display: flex;
   gap: 43px;
-  font-family: Noto Sans KR;
   font-size: 24px;
   font-weight: 500;
   line-height: 12px;

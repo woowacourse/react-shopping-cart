@@ -8,10 +8,10 @@ export const ItemContainer = styled.div`
   cursor: pointer;
   &:hover {
     transition: 0.3s;
-    background-color: #f2efef;
+    background-color: ${(props) => props.backgroundColorOnHover};
     p:first-of-type {
       text-decoration: underline;
-      text-decoration-color: #666;
+      text-decoration-color: ${(props) => props.textColorOnHover};
     }
   }
 `;
@@ -35,15 +35,10 @@ export const ItemInfoWrapper = styled.div`
 `;
 
 export const ItemInfo = styled.p`
-  font-family: NotoSansKR;
   margin: 0;
   line-height: 22px;
   letter-spacing: 1px;
   cursor: pointer;
-`;
-
-export const ShoppingCartImage = styled.svg`
-  fill: green;
 `;
 
 export const ShoppingCartButton = styled.button`

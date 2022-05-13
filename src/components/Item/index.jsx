@@ -4,12 +4,22 @@ import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
   const {
-    color: { primary },
+    color: {
+      primary,
+      black,
+      item: {
+        hover: { backgroundColor, textColor },
+      },
+    },
   } = useTheme();
-  const shoppingCartColor = isInShoppingCart ? primary : "black";
+
+  const shoppingCartColor = isInShoppingCart ? primary : black;
 
   return (
-    <S.ItemContainer>
+    <S.ItemContainer
+      backgroundColorOnHover={backgroundColor}
+      textColorOnHover={textColor}
+    >
       <S.ItemImage onClick={onClick} src={imgUrl} alt="상품 썸네일 이미지" />
       <S.ItemInfoWrapper>
         <div onClick={onClick}>
