@@ -1,4 +1,5 @@
 import * as productAPI from "../api";
+import { LOAD_ITEM_AMOUNT } from "../constants";
 import createReducer from "./createReducer";
 
 const GET_PRODUCTS = "products/GET_PRODUCTS";
@@ -38,7 +39,7 @@ export const getProductsByPage = () => async (dispatch, getState) => {
   try {
     const products = await productAPI.getProductsByPage(page);
 
-    if (products.data.length < 10) {
+    if (products.data.length < LOAD_ITEM_AMOUNT) {
       return dispatch({ type: GET_PRODUCTS_END, products: products.data });
     }
     dispatch({ type: GET_PRODUCTS_SUCCESS, products: products.data });

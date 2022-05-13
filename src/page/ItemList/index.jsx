@@ -8,8 +8,8 @@ import { getProductsByPage } from "../../modules/products";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
+import { LOAD_ITEM_AMOUNT } from "../../constants";
 
-const LOAD_ITEM_AMOUNT = 10;
 const DELAY_TIME = 500;
 
 const ItemList = () => {
