@@ -1,6 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import ReduxThunk from "redux-thunk";
 import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import cartReducer from "./modules/cart";
 import productsReducer from "./modules/products";
@@ -15,6 +16,11 @@ const rootReducer = combineReducers({
   snackBar: snackBarReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger));
+const enhancer =
+  process.env.NODE_ENV === "production"
+    ? compose(applyMiddleware(ReduxThunk))
+    : composeWithDevTools(applyMiddleware(ReduxThunk, logger));
+
+const store = createStore(rootReducer, enhancer);
 
 export default store;

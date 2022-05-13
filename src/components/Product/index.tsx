@@ -83,7 +83,6 @@ function Product({ productInfo }: ProductProps) {
         </Styled.ProductInfo>
         <Styled.CartImageWrapper>
           {cartItem?.amount && <Styled.CartImageBadge />}
-
           <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
         </Styled.CartImageWrapper>
         <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
