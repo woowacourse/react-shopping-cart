@@ -1,28 +1,31 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 const useInfinityScroll = (ref, cb, endPoint) => {
-  useEffect(() => {
-    let observer;
+  const observer = useRef(null);
 
-    if (endPoint) {
-      return observer && observer.disconnect();
-    }
-
-    const onIntersect = ([entry]) => {
+  const onIntersect = useCallback(
+    ([entry]) => {
       if (entry.isIntersecting) {
         cb();
       }
-    };
+    },
+    [cb]
+  );
 
-    if (ref) {
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.9,
-      });
-      observer.observe(ref.current);
+  useEffect(() => {
+    if (endPoint) {
+      return observer.current && observer.current.disconnect();
     }
 
-    return () => observer && observer.disconnect();
-  }, [cb, endPoint, ref]);
+    if (ref.current) {
+      observer.current = new IntersectionObserver(onIntersect, {
+        threshold: 0.9,
+      });
+      observer.current.observe(ref.current);
+    }
+
+    return () => observer.current && observer.current.disconnect();
+  }, [endPoint, onIntersect, ref]);
 };
 
 export default useInfinityScroll;

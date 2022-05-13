@@ -21,6 +21,7 @@ const ItemList = () => {
   const delayGetProduct = throttle(DELAY_TIME, () =>
     dispatch(getProductsByPage())
   );
+
   useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
 
   const handleItemClick = (id) => {
