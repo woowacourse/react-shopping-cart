@@ -11,7 +11,7 @@ const initialState: StoreState = {
 const rootReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case `${types.GET_PRODUCT_LIST}_PENDING`: {
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, error: null };
     }
     case `${types.GET_PRODUCT_LIST}_FULFILLED`: {
       return { ...state, isLoading: false, productList: action.payload };
@@ -20,7 +20,7 @@ const rootReducer = (state = initialState, action: Action) => {
       return { ...state, isLoading: false, error: action.payload };
     }
     case `${types.GET_PRODUCT_DETAIL}_PENDING`: {
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, error: null };
     }
     case `${types.GET_PRODUCT_DETAIL}_FULFILLED`: {
       return { ...state, isLoading: false, productDetail: action.payload };
