@@ -1,5 +1,5 @@
-type Item = { name: string; price: number; img: string; id: number; amount: number };
-type CartState = { items: Item[] };
+type CartItem = { id: number; amount: number };
+type CartState = { cartItemList: CartItem[] };
 type Action =
   | ReturnType<typeof addItem>
   | ReturnType<typeof deleteItem>
@@ -9,7 +9,7 @@ type Action =
 
 // initialState
 const initialState: CartState = {
-  items: [],
+  cartItemList: [],
 };
 
 // 액션
@@ -20,9 +20,9 @@ const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
 
 // 액션 크리에터
-const addItem = (item: Item) => ({
+const addItem = (cartItem: CartItem) => ({
   type: ADD,
-  payload: { item },
+  payload: { cartItem },
 });
 const deleteItem = (id: number) => ({
   type: DELETE,
@@ -45,41 +45,41 @@ const incrementByNumber = (id: number, number: number) => ({
 const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ADD: {
-      const { item } = action.payload;
-      const newItems = [...state.items, item];
+      const { cartItem } = action.payload;
+      const newCartItemList = [...state.cartItemList, cartItem];
 
-      return { ...state, items: newItems };
+      return { ...state, cartItemList: newCartItemList };
     }
     case DELETE: {
       const { id } = action.payload;
-      const newItems = state.items.filter((item) => item.id !== id);
+      const newCartItemList = state.cartItemList.filter((cartItem) => cartItem.id !== id);
 
-      return { ...state, items: newItems };
+      return { ...state, cartItemList: newCartItemList };
     }
     case INCREMENT: {
       const { id } = action.payload;
-      const targetIndex = state.items.findIndex((item) => item.id === id);
-      const newItems = [...state.items];
-      newItems[targetIndex].amount++;
+      const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.id === id);
+      const newCartItemList = [...state.cartItemList];
+      newCartItemList[targetIndex].amount++;
 
-      return { ...state, items: newItems };
+      return { ...state, cartItemList: newCartItemList };
     }
     case DECREMENT: {
       const { id } = action.payload;
-      const targetIndex = state.items.findIndex((item) => item.id === id);
-      const newItems = [...state.items];
-      newItems[targetIndex].amount--;
+      const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.id === id);
+      const newCartItemList = [...state.cartItemList];
+      newCartItemList[targetIndex].amount--;
 
-      return { ...state, items: newItems };
+      return { ...state, cartItemList: newCartItemList };
     }
 
     case INCREMENT_BY_NUMBER: {
       const { id, number } = action.payload;
-      const targetIndex = state.items.findIndex((item) => item.id === id);
-      const newItems = [...state.items];
-      newItems[targetIndex].amount += number;
+      const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.id === id);
+      const newCartItemList = [...state.cartItemList];
+      newCartItemList[targetIndex].amount += number;
 
-      return { ...state, items: newItems };
+      return { ...state, cartItemList: newCartItemList };
     }
     default:
       return state;

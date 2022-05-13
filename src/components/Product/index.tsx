@@ -29,7 +29,7 @@ function Product({ productInfo }: ProductProps) {
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
-    if (!cartItems.some((items) => items.id === id)) {
+    if (!cartItems.some((cartItem) => cartItem.id === id)) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
@@ -60,7 +60,7 @@ function Product({ productInfo }: ProductProps) {
       dispatch(increment(id));
       return;
     }
-    dispatch(addItem({ name, price, img, id, amount: 1 }));
+    dispatch(addItem({ id, amount: 1 }));
   };
 
   useEffect(() => {
