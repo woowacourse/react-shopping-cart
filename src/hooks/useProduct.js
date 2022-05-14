@@ -1,14 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { getProductAsync } from 'reducers/product/product.thunks';
 import { useParams } from 'react-router-dom';
 import { addCartItem } from 'reducers/cart/cart.actions';
 import { useEffect } from 'react';
+import useReduxState from 'hooks/useReduxState';
 
 const useProduct = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
-
-  const { isLoading, isError, data } = useSelector((state) => state.product);
+  const { dispatch, isLoading, isError, data } = useReduxState('product');
 
   useEffect(() => {
     dispatch(getProductAsync(id));
@@ -18,7 +16,7 @@ const useProduct = () => {
     dispatch(addCartItem({ ...data, quantity: 1 }));
   };
 
-  return { isLoading, isError, data, handleAddCart };
+  return { isLoading, isError, product: data, handleAddCart };
 };
 
 export default useProduct;

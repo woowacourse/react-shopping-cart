@@ -7,7 +7,7 @@ import useProduct from 'hooks/useProduct';
 import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
-  const { isLoading, isError, data, handleAddCart } = useProduct();
+  const { isLoading, isError, product, handleAddCart } = useProduct();
   const navigate = useNavigate();
 
   const handleClickCartButton = () => {
@@ -19,12 +19,12 @@ const Product = () => {
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
       {isError && <ImgWrapper src={errorApiImg} />}
-      {!isLoading && data && (
+      {!isLoading && product && (
         <ProductDetail
-          imgUrl={data.imgUrl}
-          name={data.name}
-          price={data.price}
-          id={data.id}
+          imgUrl={product.imgUrl}
+          name={product.name}
+          price={product.price}
+          id={product.id}
           onClick={handleClickCartButton}
         />
       )}

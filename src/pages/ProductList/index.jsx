@@ -7,8 +7,8 @@ import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useProducts from 'hooks/useProducts';
 
 const ProductList = () => {
-  const { isLoading, isError, data } = useProducts();
-  const isEmpty = !isLoading && data.length === 0;
+  const { isLoading, isError, products } = useProducts();
+  const isEmpty = !isLoading && products.length === 0;
 
   const getLoadingStatus = () => {
     return Array.from({ length: 8 }).map((_, index) => (
@@ -25,7 +25,7 @@ const ProductList = () => {
       ) : (
         <ProductContainer>
           {isLoading && getLoadingStatus()}
-          {data.map(({ name, price, imgUrl, id }) => (
+          {products.map(({ name, price, imgUrl, id }) => (
             <ProductItem
               id={id}
               name={name}
