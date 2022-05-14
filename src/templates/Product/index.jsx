@@ -3,7 +3,7 @@ import React from 'react';
 import BlackText from 'components/BlackText';
 import Image from 'components/Image';
 import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
-import MarginBottomWrapper from 'components/MarginBottomWrapper';
+import MarginWrapper from 'components/MarginWrapper';
 
 import CartButton from 'containers/CartButton';
 import ProductTitle from 'containers/ProductTitle';
@@ -15,14 +15,14 @@ function Product({ imgSrc, title, price }) {
 
   return (
     <ProductStyled>
-      <MarginBottomWrapper marginBottom="18px">
+      <MarginWrapper marginBottom="18px">
         <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
-      </MarginBottomWrapper>
+      </MarginWrapper>
       <FlexSpaceBetweenCenter>
         <div>
-          <MarginBottomWrapper marginBottom="6px">
+          <MarginWrapper marginBottom="6px">
             <ProductTitle>{title}</ProductTitle>
-          </MarginBottomWrapper>
+          </MarginWrapper>
           <BlackText fontSize="1.25rem" fontWeight="400">
             {price.toLocaleString()}원
           </BlackText>
