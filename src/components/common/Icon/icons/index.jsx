@@ -1,5 +1,5 @@
-import { ReactComponent as Tent } from './assets/tent.svg';
-import { ReactComponent as Cart } from './assets/cart.svg';
+import Cart from './Cart';
+import Tent from './Tent';
 
 export default {
   tent: Tent,
