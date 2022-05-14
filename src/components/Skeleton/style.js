@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const skeletonSize = {
   large: css`
@@ -11,6 +11,12 @@ export const skeletonSize = {
   `,
 };
 
+const refresh = keyframes`
+0% { background-position: calc(-100px); }
+40%,
+100% { background-position: 280px; }
+`;
+
 const skeletonStyle = css`
   background-image: linear-gradient(
     90deg,
@@ -18,16 +24,7 @@ const skeletonStyle = css`
     #ededed 30px,
     #e0e0e0 60px
   );
-  animation: refresh 2s infinite ease-out;
-  @keyframes refresh {
-    0% {
-      background-position: calc(-100px);
-    }
-    40%,
-    100% {
-      background-position: 280px;
-    }
-  }
+  animation: ${refresh} 2s infinite ease-out;
 `;
 
 const Styled = {
