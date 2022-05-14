@@ -3,6 +3,13 @@ import ProductDetail from 'components/ProductDetail/ProductDetail';
 export default {
   title: 'components/ProductDetail',
   component: ProductDetail,
+  argTypes: {
+    id: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 const Template = (args) => <ProductDetail {...args} />;

@@ -1,8 +1,15 @@
 import Skeleton from 'components/Skeleton/Skeleton';
+import { skeletonSize } from './style';
 
 export default {
   title: 'components/Skeleton',
   component: Skeleton,
+  argTypes: {
+    sizeType: {
+      options: Object.keys(skeletonSize),
+      control: { type: 'radio' },
+    },
+  },
 };
 
 const Template = (args) => <Skeleton {...args} />;

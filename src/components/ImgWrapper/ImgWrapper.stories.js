@@ -5,6 +5,18 @@ import emptyImg from 'assets/png/emptyImg.png';
 export default {
   title: 'components/ImgWrapper',
   component: ImgWrapper,
+  argTypes: {
+    src: {
+      table: {
+        disable: true,
+      },
+    },
+    alt: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 const Template = (args) => <ImgWrapper {...args} />;

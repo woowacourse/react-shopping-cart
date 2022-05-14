@@ -3,6 +3,13 @@ import ProductItem from 'components/ProductItem/ProductItem';
 export default {
   title: 'components/ProductItem',
   component: ProductItem,
+  argTypes: {
+    id: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 const Template = (args) => <ProductItem {...args} />;
