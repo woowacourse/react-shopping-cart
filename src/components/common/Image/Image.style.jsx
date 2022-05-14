@@ -13,5 +13,5 @@ export const Image = styled.img`
   object-fit: cover;
   aspect-ratio: 1 / 1;
 
-  transition: all 0.5s;
+  transition: transform 0.5s;
 `;
