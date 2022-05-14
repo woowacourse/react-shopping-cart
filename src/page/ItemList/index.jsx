@@ -7,7 +7,7 @@ import ItemSkeleton from "../../components/ItemSkeleton";
 import { getProductsByPage } from "../../modules/products";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
-import useInfityScroll from "../../hooks/useInfinityScroll";
+import useInfinityScroll from "../../hooks/useInfinityScroll";
 
 const LOAD_ITEM_AMOUNT = 10;
 const DELAY_TIME = 500;
@@ -21,7 +21,7 @@ const ItemList = () => {
   const delayGetProduct = throttle(DELAY_TIME, () =>
     dispatch(getProductsByPage())
   );
-  useInfityScroll(sectionRef, delayGetProduct, products.isEnd);
+  useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
 
   const handleItemClick = (id) => {
     navigate(`/product/${id}`);

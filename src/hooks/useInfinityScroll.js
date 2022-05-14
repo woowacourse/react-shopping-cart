@@ -1,28 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-const useInfityScroll = (ref, cb, endPoint) => {
+const useInfinityScroll = (ref, cb, endPoint) => {
+  const observer = useRef(
+    new IntersectionObserver(onIntersect, {
+      threshold: 0.9,
+    })
+  ).current;
+
+  function onIntersect([entry]) {
+    if (entry.isIntersecting) {
+      cb();
+    }
+  }
+
   useEffect(() => {
-    let observer;
-
     if (endPoint) {
       return observer && observer.disconnect();
     }
 
-    const onIntersect = ([entry]) => {
-      if (entry.isIntersecting) {
-        cb();
-      }
-    };
-
     if (ref) {
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.9,
-      });
       observer.observe(ref.current);
     }
 
     return () => observer && observer.disconnect();
-  }, [cb, endPoint, ref]);
+  }, [cb, endPoint, observer, ref]);
 };
 
-export default useInfityScroll;
+export default useInfinityScroll;
