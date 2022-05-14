@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Button from 'components/Button/Button';
+import Button from 'components/Button';
 
 const ProductDetail = ({ imgUrl, name, price, onClickCart }) => {
   return (

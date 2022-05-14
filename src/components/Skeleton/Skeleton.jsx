@@ -26,6 +26,10 @@ const skeletonSize = {
   `,
 };
 
+Skeleton.propTypes = {
+  sizeType: PropTypes.oneOf(Object.keys(skeletonSize)),
+};
+
 const skeletonStyle = `
   background-image: linear-gradient(
     90deg,
@@ -45,10 +49,6 @@ const skeletonStyle = `
   }
 `;
 
-Skeleton.propTypes = {
-  sizeType: PropTypes.oneOf(Object.keys(skeletonSize)),
-};
-
 const Styled = {
   Wrapper: styled.div`
     ${({ sizeType }) => `
@@ -56,26 +56,22 @@ const Styled = {
     `}
     margin-bottom: 30px;
   `,
-
   ProductImage: styled.div`
     max-width: 100%;
     height: 100%;
     ${skeletonStyle}
   `,
-
   ProductDetail: styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-top: 8px;
   `,
-
   ProductInfo: styled.div`
     display: flex;
     flex-direction: column;
     gap: 7px;
   `,
-
   ProductName: styled.div`
     width: 180px;
     height: 18px;

@@ -17,10 +17,8 @@ const Styled = {
     font-weight: 500;
     color: #ffffff;
     cursor: pointer;
-
     ${({ theme }) => `
       font-weight: 900;
-
       @media ${theme.DEVICE.EXTRA_SMALL} {
         font-size: 14px;
       }

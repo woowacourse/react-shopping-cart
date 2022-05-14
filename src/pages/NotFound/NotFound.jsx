@@ -1,4 +1,4 @@
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/ImgWrapper';
 import notFoundImg from 'assets/png/notFoundImg.png';
 
 const NotFound = () => {

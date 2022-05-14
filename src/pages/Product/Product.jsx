@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import ProductDetail from 'components/ProductDetail/ProductDetail';
-import Skeleton from 'components/Skeleton/Skeleton';
+import ProductDetail from 'components/ProductDetail';
+import Skeleton from 'components/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/ImgWrapper';
 import { PATH } from 'constants/path';
 import useProduct from 'hooks/useProduct';
 

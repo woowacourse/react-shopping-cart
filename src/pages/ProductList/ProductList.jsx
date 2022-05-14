@@ -1,8 +1,8 @@
 import useProducts from 'hooks/useProducts';
-import ProductContainer from 'components/ProductContainer/ProductContainer';
-import ProductItem from 'components/ProductItem/ProductItem';
+import ProductContainer from 'components/ProductContainer';
+import ProductItem from 'components/ProductItem';
 import SkeletonList from 'components/SkeletonList';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
 

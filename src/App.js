@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ProductList, Product, Cart, NotFound } from 'pages';
-import Layout from 'components/Layout/Layout';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import { PATH } from 'constants/path';
+import Layout from 'components/Layout';
 
 function App() {
   return (

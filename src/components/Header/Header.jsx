@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import MenuItem from 'components/MenuItem/MenuItem';
+import MenuItem from 'components/MenuItem';
 import bigCart from 'assets/svg/bigCart.svg';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,6 @@ const Styled = {
     box-shadow: 0px 4px 4px rgb(0 0 0 / 30%);
     justify-content: space-around;
   `,
-
   Logo: styled(Link)`
     display: flex;
     justify-content: center;
@@ -35,7 +34,6 @@ const Styled = {
     color: #fff;
     text-decoration-line: none;
   `,
-
   LogoImage: styled.img`
     ${({ theme }) => `
       @media ${theme.DEVICE.EXTRA_SMALL} {
@@ -60,7 +58,6 @@ const Styled = {
   LogoText: styled.span`
     ${({ theme }) => `
       font-weight: 900;
-
       @media ${theme.DEVICE.EXTRA_SMALL} {
         padding: 5px 8px;
         font-size: 20px;
@@ -79,7 +76,6 @@ const Styled = {
       }
     `}
   `,
-
   MenuContainer: styled.div`
     display: flex;
     gap: 15px;

@@ -28,20 +28,16 @@ const Styled = {
     margin: 40px 0;
     display: grid;
     gap: 30px 36px;
-
     ${({ theme }) => `
       @media ${theme.DEVICE.EXTRA_SMALL} {
         grid-template-columns: repeat(1, 1fr);
       }
-
       @media ${theme.DEVICE.MOBILE} {
         grid-template-columns: repeat(2, 1fr);
       }
-
       @media ${theme.DEVICE.TABLET} {
         grid-template-columns: repeat(3, 1fr);
       }
-
       @media ${theme.DEVICE.LAPTOP} {
         grid-template-columns: repeat(4, 1fr);
       }

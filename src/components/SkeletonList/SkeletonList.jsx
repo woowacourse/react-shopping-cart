@@ -1,4 +1,4 @@
-import Skeleton from 'components/Skeleton/Skeleton';
+import Skeleton from 'components/Skeleton';
 
 const SkeletonList = ({ length }) => {
   return Array.from({ length }).map((_, index) => (
