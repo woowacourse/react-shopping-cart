@@ -1,4 +1,4 @@
-import actionTypes from 'reducers/products/products.actionTypes';
+import { actionTypes } from 'reducers/products/products.actions';
 
 const initialState = {
   data: [],
