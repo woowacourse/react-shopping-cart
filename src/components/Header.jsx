@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Header() {
-  const navigate = useNavigate();
-
-  const handleClickMoveHome = () => {
-    navigate('/');
-  };
-
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <StyledTitleWrapper onClick={handleClickMoveHome}>
-          <GiShoppingCart />
-          <StyledTitle>WOOWA SHOP</StyledTitle>
-        </StyledTitleWrapper>
+        <Link to="/">
+          <StyledTitleWrapper>
+            <GiShoppingCart />
+            <StyledTitle>WOOWA SHOP</StyledTitle>
+          </StyledTitleWrapper>
+        </Link>
         <StyledNavWrapper>
           <StyledNavButton>장바구니</StyledNavButton>
           <StyledNavButton>주문목록</StyledNavButton>
