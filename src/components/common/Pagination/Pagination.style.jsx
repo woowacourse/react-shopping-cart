@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Container = styled.div`
   min-width: ${({ theme }) => theme.minWidth};
@@ -24,11 +25,13 @@ export const Button = styled.div`
   border: none;
   border-radius: 4px;
 
-  background-color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.mainColor : 'transparent')};
-  color: ${({ theme, $isCurrent }) => $isCurrent && theme.textColorWhite};
+  ${({ theme, $isCurrent }) => css`
+    background-color: ${$isCurrent ? theme.mainColor : 'transparent'};
+    color: ${$isCurrent && theme.textColorWhite};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.mainColor};
-    color: ${({ theme }) => theme.textColorWhite};
-  }
+    &:hover {
+      background-color: ${theme.mainColor};
+      color: ${theme.textColorWhite};
+    }
+  `}
 `;
