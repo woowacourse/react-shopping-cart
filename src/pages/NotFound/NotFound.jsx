@@ -1,11 +1,11 @@
 import React from 'react';
-import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 
 function NotFound() {
   return (
     <PageTemplate>
-      <ErrorMessage>😱 존재하지 않는 페이지입니다. 😱</ErrorMessage>
+      <ErrorContainer>😱 존재하지 않는 페이지입니다. 😱</ErrorContainer>
     </PageTemplate>
   );
 }
