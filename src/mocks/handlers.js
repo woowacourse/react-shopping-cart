@@ -21,7 +21,7 @@ export const handlers = [
     const { imageFileName } = req.params;
     const imageName = imageFileName.split('.')[0];
 
-    const imageBuffer = await fetch(images[`${imageName}`]).then(res => res.arrayBuffer());
+    const imageBuffer = await fetch(images[`${imageName}`]).then((res) => res.arrayBuffer());
 
     return res(
       ctx.set('Content-Length', imageBuffer.byteLength.toString()),

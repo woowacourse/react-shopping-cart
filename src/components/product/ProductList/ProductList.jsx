@@ -18,7 +18,7 @@ function ProductList({ openModal }) {
       )}
       {isLoading
         ? Array.from({ length: 12 }).map((_, index) => <ProductCard.skeleton key={index} />)
-        : productList.map(product => (
+        : productList.map((product) => (
             <ProductCard key={product.id} product={product} openModal={openModal} />
           ))}
     </Styled.Container>

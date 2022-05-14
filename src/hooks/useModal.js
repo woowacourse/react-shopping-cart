@@ -12,7 +12,7 @@ export const useModal = () => {
   }, [setIsShowModal]);
 
   const toggleModal = useCallback(() => {
-    setIsShowModal(prev => !prev);
+    setIsShowModal((prev) => !prev);
   }, [setIsShowModal]);
 
   return [isShowModal, openModal, closeModal, toggleModal];

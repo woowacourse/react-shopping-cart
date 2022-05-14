@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as Styled from './Modal.style';
 
 function Modal({ children, closeModal }) {
-  const handleModalClose = e => {
+  const handleModalClose = (e) => {
     if (e.target === e.currentTarget) {
       closeModal();
     }

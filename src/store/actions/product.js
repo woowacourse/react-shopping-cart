@@ -1,7 +1,7 @@
 import { getProductList } from '../../api/api';
 import { fetchFailed, fetchStarted, fetchSucceeded } from './global';
 
-export const fetchProductListAsync = page => async dispatch => {
+export const fetchProductListAsync = (page) => async (dispatch) => {
   const stateName = 'PRODUCT_LIST';
   dispatch(fetchStarted(stateName));
   try {
