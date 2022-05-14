@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
-import { StyledImageBox, StyledImg } from '../components/common';
+import { StyledImageBox, StyledImg } from '../components/common/Styled';
 import { COLORS } from '../styles/theme';
-function ProductDetailPage(props) {
+
+function ProductDetailPage() {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
 

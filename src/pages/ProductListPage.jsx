@@ -5,7 +5,7 @@ import { getProductListAsync } from '../store/actions';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
-import { StyledImageBox, StyledImg } from '../components/common';
+import { StyledImageBox, StyledImg } from '../components/common/Styled';
 
 function ProductListPage() {
   const dispatch = useDispatch();
