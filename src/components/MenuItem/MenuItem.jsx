@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import Styled from './style';
 import PropTypes from 'prop-types';
 
 const MenuItem = ({ children }) => {
@@ -7,18 +7,6 @@ const MenuItem = ({ children }) => {
 
 MenuItem.propTypes = {
   children: PropTypes.string,
-};
-
-const Styled = {
-  Wrapper: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-size: 24px;
-    color: #ffffff;
-    cursor: pointer;
-  `,
 };
 
 export default MenuItem;

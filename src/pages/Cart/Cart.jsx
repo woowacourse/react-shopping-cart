@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-
-import styled from 'styled-components';
+import Styled from './style';
 
 const Cart = () => {
   const { data } = useSelector((state) => state.cart);
@@ -17,16 +16,6 @@ const Cart = () => {
       ))}
     </Styled.Wrapper>
   );
-};
-
-const Styled = {
-  Wrapper: styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 50px;
-  `,
 };
 
 export default Cart;

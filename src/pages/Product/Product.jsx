@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import Styled from './style';
 
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import { getProductAsync } from 'reducers/product/product.thunks';
@@ -39,16 +39,6 @@ const Product = () => {
       )}
     </Styled.Wrapper>
   );
-};
-
-const Styled = {
-  Wrapper: styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 50px;
-  `,
 };
 
 export default Product;
