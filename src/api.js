@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://shopping-cart-server2.herokuapp.com";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 axios.defaults.baseURL = BASE_URL;
 
