@@ -1,24 +1,19 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useProducts } from 'hooks';
 
 import { ProductListStyled, LoadingWrapperStyled } from './style';
 
 import Product from 'templates/Product';
-import { requestProducts } from 'modules/product';
 import BlackText from 'components/BlackText';
-import { getProductList } from 'apis/product';
 
 function ProductList() {
-  const products = useSelector((state) => state.product.products);
-  const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
-  const dispatch = useDispatch();
+  const { isProductLoading, products, requestProduct } = useProducts();
 
   useEffect(() => {
-    dispatch(requestProducts());
-    dispatch(getProductList());
+    requestProduct();
   }, []);
 
-  if (requestProductLoading) {
+  if (isProductLoading) {
     return (
       <LoadingWrapperStyled>
         <BlackText fontSize="30px" fontWeight="800">

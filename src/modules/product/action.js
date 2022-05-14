@@ -1,7 +1,7 @@
-export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
-export const REQUEST_PRODUCTS_DONE = 'REQUEST_PRODUCTS_DONE';
-export const REQUEST_PRODUCTS_ERROR = 'REQUEST_PRODUCTS_ERROR';
+export const GET_PRODUCT_LOADING = 'GET_PRODUCT_LOADING';
+export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS';
+export const GET_PRODUCT_FAIL = 'GET_PRODUCT_FAIL';
 
-export const requestProducts = () => ({ type: REQUEST_PRODUCTS });
-export const requestProductsDone = (products) => ({ type: REQUEST_PRODUCTS_DONE, products });
-export const requestProductsError = () => ({ type: REQUEST_PRODUCTS_ERROR });
+export const getProductLoading = () => ({ type: GET_PRODUCT_LOADING });
+export const getProductSuccess = (products) => ({ type: GET_PRODUCT_SUCCESS, products });
+export const getProductFail = () => ({ type: GET_PRODUCT_FAIL });

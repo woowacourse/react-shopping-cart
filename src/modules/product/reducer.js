@@ -1,35 +1,35 @@
-import { REQUEST_PRODUCTS, REQUEST_PRODUCTS_DONE, REQUEST_PRODUCTS_ERROR } from './action';
+import { GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAIL } from './action';
 
 const initialState = {
   products: [],
-  requestProductsLoading: false,
-  requestProductsDone: false,
-  requestProductsError: '',
+  getProductLoading: false,
+  getProductSuccess: false,
+  getProductFail: '',
 };
 
 function product(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_PRODUCTS:
+    case GET_PRODUCT_LOADING:
       return {
         ...state,
-        requestProductsLoading: true,
-        requestProductsDone: false,
-        requestProductsError: '',
+        getProductLoading: true,
+        getProductSuccess: false,
+        getProductFail: '',
       };
-    case REQUEST_PRODUCTS_DONE:
+    case GET_PRODUCT_SUCCESS:
       return {
         ...state,
-        requestProductsLoading: false,
-        requestProductsDone: true,
-        requestProductsError: '',
+        getProductLoading: false,
+        getProductSuccess: true,
+        getProductFail: '',
         products: [...state.products, ...action.products],
       };
-    case REQUEST_PRODUCTS_ERROR:
+    case GET_PRODUCT_FAIL:
       return {
         ...state,
-        requestProductsLoading: false,
-        requestProductsDone: false,
-        requestProductsError: 'Error',
+        getProductLoading: false,
+        getProductSuccess: false,
+        getProductFail: 'Error',
       };
     default:
       return state;
