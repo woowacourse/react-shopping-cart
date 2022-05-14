@@ -12,6 +12,9 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
 
   return (
     <Styled.Wrapper onClick={handleClick}>
+      <Styled.Overlay>
+        <Styled.ProductNamePreview>{name}</Styled.ProductNamePreview>
+      </Styled.Overlay>
       <Styled.ProductImage src={imgUrl} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>

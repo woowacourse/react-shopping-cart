@@ -6,8 +6,38 @@ const Styled = {
     cursor: pointer;
   `,
 
+  Overlay: styled.div`
+    opacity: 0;
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 1;
+    }
+  `,
+
+  ProductNamePreview: styled.span`
+    font-size: 18px;
+    font-weight: bold;
+    font-family: ${({ theme }) => theme.FONT.PRIMARY};
+    color: ${({ theme }) => theme.GREY_500};
+    text-align: center;
+  `,
+
   ProductImage: styled.img`
     max-width: 100%;
+    transition: all 0.5s ease;
+
+    &:hover {
+      transform: scale(1.025);
+    }
   `,
 
   ProductDetail: styled.div`
