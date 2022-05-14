@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { getProductItem } from '../store/api';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
 import { COLORS } from '../styles/theme';
+import Loading from '../components/Loading';
 
 function ProductDetailPage() {
   const [item, setItem] = useState();
@@ -19,7 +20,7 @@ function ProductDetailPage() {
     getProductItemInfo(id);
   }, [id]);
 
-  if (!loading) return null;
+  if (!loading) return <Loading />;
 
   const { imageUrl, name, price } = item;
 
