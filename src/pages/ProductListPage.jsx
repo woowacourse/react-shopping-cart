@@ -13,7 +13,7 @@ function ProductListPage() {
   const productList = useSelector((state) => state.productList);
 
   const handleClickItem = async (id) => {
-    navigate('/product-detail-page', { state: { id } });
+    navigate(`${id}`);
   };
 
   const handleClickCart = () => {
