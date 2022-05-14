@@ -21,6 +21,8 @@ export const Inner = styled.div`
 export const Logo = styled.h1`
   display: flex;
   align-items: center;
+
+  font-size: 1.5rem;
   ${({ theme }) => css`
     color: ${theme.textColorWhite};
 
