@@ -11,7 +11,7 @@ function Header() {
       <Styled.Inner>
         <Styled.NavLink to={ROUTE.home.path}>
           <Styled.Logo>
-            <Icon iconName="tent" size={currentDevice === 'desktop' ? '50' : '30'} />
+            <Icon iconName="tent" size={currentDevice === 'desktop' ? '50' : '30'} stroke="white" />
             BLZZI&apos;S CAMPING
           </Styled.Logo>
         </Styled.NavLink>
