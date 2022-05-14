@@ -1,6 +1,7 @@
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
+import Spinner from 'assets/svg/spinner.svg';
 
 export default {
   title: 'components/ImgWrapper',
@@ -29,4 +30,9 @@ ErrorApi.args = {
 export const Empty = Template.bind({});
 Empty.args = {
   src: emptyImg,
+};
+
+export const Loading = Template.bind({});
+Empty.args = {
+  src: Spinner,
 };

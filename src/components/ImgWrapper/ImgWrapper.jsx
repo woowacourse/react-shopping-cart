@@ -12,7 +12,7 @@ const ImgWrapper = ({ src, alt = '이미지', size }) => {
 ImgWrapper.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.number,
 };
 
 export default ImgWrapper;
