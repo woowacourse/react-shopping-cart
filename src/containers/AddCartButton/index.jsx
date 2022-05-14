@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from 'components/Image';
 
-function CartButton() {
+function AddCartButton() {
   const handleCartButtonClick = () => {};
 
   return (
@@ -15,4 +15,4 @@ function CartButton() {
   );
 }
 
-export default CartButton;
+export default AddCartButton;
