@@ -4,7 +4,7 @@ import ProductContainer from 'components/ProductContainer/ProductContainer';
 import ProductItem from 'components/ProductItem/ProductItem';
 import { useEffect } from 'react';
 import { getProductsAsync } from 'reducers/products/products.thunks';
-import Skeleton from 'components/Skeleton/Skeleton';
+import SkeletonList from 'components/SkeletonList';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useReduxState from 'hooks/useReduxState';
 
@@ -17,12 +17,6 @@ const ProductList = () => {
     dispatch(getProductsAsync);
   }, [data]);
 
-  const getLoadingStatus = () => {
-    return Array.from({ length: 8 }).map((_, index) => (
-      <Skeleton key={index} sizeType="small" />
-    ));
-  };
-
   return (
     <>
       {isError ? (
@@ -31,7 +25,7 @@ const ProductList = () => {
         <ImgWrapper src={emptyImg} />
       ) : (
         <ProductContainer>
-          {isLoading && getLoadingStatus()}
+          {isLoading && <SkeletonList length={8} />}
           {data.map(({ name, price, imgUrl, id }) => (
             <ProductItem
               id={id}

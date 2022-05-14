@@ -1,17 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const skeletonSize = {
-  large: `
-    width: 380px;
-    height: 350px;
-  `,
-  small: `
-    width: 200px;
-    height: 200px;
-  `,
-};
-
 const Skeleton = ({ sizeType }) => {
   return (
     <Styled.Wrapper sizeType={sizeType}>
@@ -24,6 +13,17 @@ const Skeleton = ({ sizeType }) => {
       </Styled.ProductDetail>
     </Styled.Wrapper>
   );
+};
+
+const skeletonSize = {
+  large: `
+    width: 380px;
+    height: 350px;
+  `,
+  small: `
+    width: 200px;
+    height: 200px;
+  `,
 };
 
 const skeletonStyle = `
@@ -87,4 +87,5 @@ const Styled = {
     ${skeletonStyle}
   `,
 };
+
 export default Skeleton;
