@@ -51,7 +51,7 @@ function ProductCard({ product }) {
 
 ProductCard.skeleton = () => {
   return (
-    <Styled.Container skeleton={true}>
+    <Styled.Container>
       <Placeholder aspectRatio="1/1" />
       <Styled.Content>
         <Placeholder height="30px" />
