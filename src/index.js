@@ -11,7 +11,7 @@ const store = configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ThemeProvider theme={ThemeStyle.darkTheme}>
+  <ThemeProvider theme={ThemeStyle.lightTheme}>
     <GlobalStyle />
     <Provider store={store}>
       <App />

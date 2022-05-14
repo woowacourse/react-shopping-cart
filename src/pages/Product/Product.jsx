@@ -11,7 +11,7 @@ const Product = () => {
   const { addCart, isLoading, product, isError } = useProduct();
   const navigate = useNavigate();
 
-  const handleClickCartButton = () => {
+  const handleClickCart = () => {
     addCart();
     navigate(PATH.CART);
   };
@@ -26,7 +26,7 @@ const Product = () => {
           name={product.name}
           price={product.price}
           id={product.id}
-          onClick={handleClickCartButton}
+          onClickCart={handleClickCart}
         />
       )}
     </Styled.Wrapper>

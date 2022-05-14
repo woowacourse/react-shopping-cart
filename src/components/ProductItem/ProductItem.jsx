@@ -6,12 +6,12 @@ import { PATH } from 'constants/path';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const onClick = () => {
+  const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
   };
 
   return (
-    <Styled.Wrapper onClick={onClick}>
+    <Styled.Wrapper onClick={handleClickProduct}>
       <Styled.ProductImage src={imgUrl} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
