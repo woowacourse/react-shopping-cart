@@ -29,21 +29,23 @@ const Styled = {
     display: grid;
     gap: 30px 36px;
 
-    @media (max-width: 600px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
+    ${({ theme }) => `
+      @media ${theme.DEVICE.EXTRA_SMALL} {
+        grid-template-columns: repeat(1, 1fr);
+      }
 
-    @media (min-width: 600px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+      @media ${theme.DEVICE.MOBILE} {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-    @media (min-width: 992px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+      @media ${theme.DEVICE.TABLET} {
+        grid-template-columns: repeat(3, 1fr);
+      }
 
-    @media (min-width: 1200px) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+      @media ${theme.DEVICE.LAPTOP} {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    `}
   `,
 };
 

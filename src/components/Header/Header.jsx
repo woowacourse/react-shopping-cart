@@ -37,14 +37,47 @@ const Styled = {
   `,
 
   LogoImage: styled.img`
-    width: 50px;
-    height: 44px;
+    ${({ theme }) => `
+      @media ${theme.DEVICE.EXTRA_SMALL} {
+        width: 25px;
+        height: 22px;
+      }
+      @media ${theme.DEVICE.MOBILE} {
+        width: 35px;
+        height: 31px;
+      }
+      @media ${theme.DEVICE.TABLET} {
+        width: 45px;
+        height: 40px;
+      }
+      @media ${theme.DEVICE.LAPTOP} {
+        width: 50px;
+        height: 44px;
+      }
+    `}
   `,
 
   LogoText: styled.span`
-    padding: 15px 20px 10px 20px;
-    font-size: 40px;
-    font-weight: 900;
+    ${({ theme }) => `
+      font-weight: 900;
+
+      @media ${theme.DEVICE.EXTRA_SMALL} {
+        padding: 5px 8px;
+        font-size: 20px;
+      }
+      @media ${theme.DEVICE.MOBILE} {
+        padding: 8px 12px;
+        font-size: 26px;
+      }
+      @media ${theme.DEVICE.TABLET} {
+        padding: 10px 15px;
+        font-size: 35px;
+      }
+      @media ${theme.DEVICE.LAPTOP} {
+        padding: 15px 20px;
+        font-size: 40px;
+      }
+    `}
   `,
 
   MenuContainer: styled.div`

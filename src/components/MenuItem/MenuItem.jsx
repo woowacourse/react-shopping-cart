@@ -15,9 +15,25 @@ const Styled = {
     justify-content: center;
     align-items: center;
     font-weight: 500;
-    font-size: 24px;
     color: #ffffff;
     cursor: pointer;
+
+    ${({ theme }) => `
+      font-weight: 900;
+
+      @media ${theme.DEVICE.EXTRA_SMALL} {
+        font-size: 14px;
+      }
+      @media ${theme.DEVICE.MOBILE} {
+        font-size: 20px;
+      }
+      @media ${theme.DEVICE.TABLET} {
+        font-size: 20px;
+      }
+      @media ${theme.DEVICE.LAPTOP} {
+        font-size: 24px;
+      }
+    `}
   `,
 };
 
