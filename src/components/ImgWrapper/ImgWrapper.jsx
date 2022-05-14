@@ -1,10 +1,10 @@
 import Styled from './style';
 import PropTypes from 'prop-types';
 
-const ImgWrapper = ({ src, alt = '이미지' }) => {
+const ImgWrapper = ({ src, alt = '이미지', size }) => {
   return (
     <Styled.Wrapper>
-      <Styled.Img src={src} alt={alt} />
+      <Styled.Img src={src} alt={alt} size={size} />
     </Styled.Wrapper>
   );
 };
@@ -12,6 +12,7 @@ const ImgWrapper = ({ src, alt = '이미지' }) => {
 ImgWrapper.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default ImgWrapper;
