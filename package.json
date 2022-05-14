@@ -49,8 +49,13 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.5.11",
+    "msw": "^0.39.2",
     "prettier": "^2.6.2",
     "redux-devtools-extension": "^2.13.9",
+    "url-loader": "^4.1.1",
     "webpack": "^5.72.1"
+  },
+  "msw": {
+    "workerDirectory": "./public"
   }
 }
