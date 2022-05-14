@@ -63,12 +63,14 @@ const Styled = {
 
     :after {
       content: '';
+      width: 100%;
+      height: 2px;
+
       position: absolute;
       left: 0px;
       bottom: -8px;
-      height: 3px;
-      width: 100%;
-      background: #aaaaaa;
+
+      background: ${({ theme }) => theme.colors.gray};
     }
   `,
   Price: styled(FlexSpaceBetween)`

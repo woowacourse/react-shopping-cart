@@ -10,6 +10,8 @@ import './index.css';
 
 import rootReducer from 'modules';
 import { setProductList } from 'modules/productList';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
@@ -36,9 +38,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

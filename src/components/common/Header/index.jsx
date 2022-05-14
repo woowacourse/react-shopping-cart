@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
+import { css } from 'styled-components';
 
 const Header = () => {
   return (
@@ -20,13 +21,17 @@ const Header = () => {
 
 const Styled = {
   Wrapper: styled.header`
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: #2ac1bc;
-    width: 100%;
-    height: 80px;
-    color: #fff;
+    ${({ theme }) => css`
+      width: 100%;
+      height: 80px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      background: ${theme.colors.mint};
+      color: ${theme.colors.white};
+    `}
   `,
   LogoBox: styled(Link)`
     display: flex;
@@ -37,7 +42,7 @@ const Styled = {
       width: 50px;
       height: 40px;
       & path {
-        fill: white;
+        fill: ${({ theme }) => theme.colors.white};
       }
     }
   `,

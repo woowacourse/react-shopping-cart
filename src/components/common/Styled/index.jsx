@@ -1,24 +1,29 @@
 import styled from 'styled-components';
 import { StyledButton } from 'components/common/Button';
+import { css } from 'styled-components';
 
 export const CartButton = styled(StyledButton)`
   :hover {
     svg path {
-      fill: #2ac1bc;
+      fill: ${({ theme }) => theme.colors.mint};
     }
   }
 `;
 
 export const CardDetailButton = styled(StyledButton)`
-  width: 100%;
-  height: 60px;
-  background: #73675c;
-  color: #fff;
-  font-weight: 700;
-  font-size: 20px;
-  :hover {
-    background: #2ac1bc;
-  }
+  ${({ theme }) => css`
+    width: 100%;
+    height: 60px;
+
+    font-size: 20px;
+    font-weight: 700;
+    background: ${theme.colors.gray};
+    color: ${theme.colors.white};
+
+    :hover {
+      background: ${theme.colors.mint};
+    }
+  `}
 `;
 
 export const FlexCenter = styled.div`

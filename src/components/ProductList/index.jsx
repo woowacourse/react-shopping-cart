@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from 'components/Product';
+import { css } from 'styled-components';
 
 const ProductList = () => {
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
@@ -26,8 +27,8 @@ const Styled = {
     gap: 40px;
   `,
   EmptyMessage: styled.div`
-    text-align: center;
     width: 100%;
+    text-align: center;
     font-size: 20px;
     font-weight: 600;
   `,
