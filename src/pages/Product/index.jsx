@@ -1,26 +1,17 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import Styled from './style';
-
 import ProductDetail from 'components/ProductDetail/ProductDetail';
-import { getProductAsync } from 'reducers/product/product.thunks';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import useReduxState from 'hooks/useReduxState';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import { addCartItem } from 'reducers/cart/cart.actions';
+import useProduct from 'hooks/useProduct';
+import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
-  const { dispatch, isLoading, data, isError } = useReduxState('product');
-  const { id } = useParams();
+  const { isLoading, isError, data, handleAddCart } = useProduct();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getProductAsync(id));
-  }, [id]);
-
   const handleClickCartButton = () => {
-    dispatch(addCartItem({ ...data, quantity: 1 }));
+    handleAddCart();
     navigate('/cart');
   };
 
