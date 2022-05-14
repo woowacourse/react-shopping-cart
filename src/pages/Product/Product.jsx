@@ -6,6 +6,7 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper';
 import { PATH } from 'constants/path';
 import useProduct from 'hooks/useProduct';
+import comma from 'utils/comma';
 
 const Product = () => {
   const { addCart, isLoading, product, isError } = useProduct();
@@ -24,7 +25,7 @@ const Product = () => {
         <ProductDetail
           imgUrl={product.imgUrl}
           name={product.name}
-          price={product.price}
+          price={comma(product.price)}
           id={product.id}
           onClickCart={handleClickCart}
         />

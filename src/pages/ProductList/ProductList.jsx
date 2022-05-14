@@ -5,6 +5,7 @@ import SkeletonList from 'components/SkeletonList';
 import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
+import comma from 'utils/comma';
 
 const ProductList = () => {
   const { products, isLoading, isError, isEmpty } = useProducts();
@@ -22,7 +23,7 @@ const ProductList = () => {
             <ProductItem
               id={id}
               name={name}
-              price={price}
+              price={comma(price)}
               imgUrl={imgUrl}
               key={id}
             />
