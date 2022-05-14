@@ -3,20 +3,6 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from 'components/Product';
 
-const Styled = {
-  ProductBox: styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-  `,
-  EmptyMessage: styled.div`
-    text-align: center;
-    width: 100%;
-    font-size: 20px;
-    font-weight: 600;
-  `,
-};
-
 const ProductList = () => {
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
 
@@ -31,6 +17,20 @@ const ProductList = () => {
       )}
     </Styled.ProductBox>
   );
+};
+
+const Styled = {
+  ProductBox: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  `,
+  EmptyMessage: styled.div`
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+  `,
 };
 
 export default ProductList;

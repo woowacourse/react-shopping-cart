@@ -3,42 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styled';
-
-const Styled = {
-  Wrapper: styled(Link)`
-    width: 282px;
-    height: 358px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    box-shadow: 3px 3px 5px 0px #00000040;
-  `,
-  ThumbnailBox: styled(flexCenter)`
-    height: 282px;
-    cursor: pointer;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  `,
-  Content: styled(flexSpaceBetween)`
-    padding: 0 10px;
-    line-height: 22px;
-    letter-spacing: 0.5px;
-  `,
-  Description: styled.div`
-    width: 200px;
-  `,
-  Name: styled.p`
-    width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  `,
-  Price: styled.p``,
-};
+import { CartButton, FlexCenter, FlexSpaceBetween } from 'components/common/Styled';
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
@@ -57,6 +22,41 @@ const Product = ({ id, thumbnail, name, price }) => {
       </Styled.Content>
     </Styled.Wrapper>
   );
+};
+
+const Styled = {
+  Wrapper: styled(Link)`
+    width: 282px;
+    height: 358px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 3px 3px 5px 0px #00000040;
+  `,
+  ThumbnailBox: styled(FlexCenter)`
+    height: 282px;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  `,
+  Content: styled(FlexSpaceBetween)`
+    padding: 0 10px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+  `,
+  Description: styled.div`
+    width: 200px;
+  `,
+  Name: styled.p`
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  `,
+  Price: styled.p``,
 };
 
 Product.propTypes = {

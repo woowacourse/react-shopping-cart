@@ -3,20 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
-import { flexColumnCenter } from 'components/common/Styled';
-
-const Styled = {
-  Wrapper: styled(flexColumnCenter)`
-    height: calc(100vh - 200px);
-    gap: 40px;
-  `,
-  TextBox: styled.div`
-    text-align: center;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 1.4;
-  `,
-};
+import { FlexColumnCenter } from 'components/common/Styled';
 
 const NotFound = () => {
   return (
@@ -31,6 +18,19 @@ const NotFound = () => {
       </Link>
     </Styled.Wrapper>
   );
+};
+
+const Styled = {
+  Wrapper: styled(FlexColumnCenter)`
+    height: calc(100vh - 200px);
+    gap: 40px;
+  `,
+  TextBox: styled.div`
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+  `,
 };
 
 export default NotFound;

@@ -2,8 +2,37 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
+import { CardDetailButton, FlexSpaceBetween } from 'components/common/Styled';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
+
+const ProductDetail = () => {
+  const { id: productId } = useParams();
+  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+
+  if (!productList.length) {
+    return <LoadingSpinner />;
+  }
+
+  const { name, price, thumbnail } = productList.find(
+    (product) => product.id === Number(productId),
+  );
+
+  return (
+    <Styled.Wrapper>
+      <Styled.ThumbnailBox>
+        <img src={thumbnail} alt="상품상세이미지" />
+      </Styled.ThumbnailBox>
+      <Styled.Content>
+        <Styled.Title>{name}</Styled.Title>
+        <Styled.Price>
+          <p>금액</p>
+          <p>{price}원</p>
+        </Styled.Price>
+      </Styled.Content>
+      <CardDetailButton>장바구니</CardDetailButton>
+    </Styled.Wrapper>
+  );
+};
 
 const Styled = {
   Wrapper: styled.div`
@@ -42,40 +71,11 @@ const Styled = {
       background: #aaaaaa;
     }
   `,
-  Price: styled(flexSpaceBetween)`
+  Price: styled(FlexSpaceBetween)`
     font-weight: 400;
     padding: 10px;
     margin-bottom: 20px;
   `,
-};
-
-const ProductDetail = () => {
-  const { id: productId } = useParams();
-  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
-
-  if (!productList.length) {
-    return <LoadingSpinner />;
-  }
-
-  const { name, price, thumbnail } = productList.find(
-    (product) => product.id === Number(productId),
-  );
-
-  return (
-    <Styled.Wrapper>
-      <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="상품상세이미지" />
-      </Styled.ThumbnailBox>
-      <Styled.Content>
-        <Styled.Title>{name}</Styled.Title>
-        <Styled.Price>
-          <p>금액</p>
-          <p>{price}원</p>
-        </Styled.Price>
-      </Styled.Content>
-      <CardDetailButton>장바구니</CardDetailButton>
-    </Styled.Wrapper>
-  );
 };
 
 export default ProductDetail;

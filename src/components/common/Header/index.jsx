@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
+const Header = () => {
+  return (
+    <Styled.Wrapper>
+      <Styled.LogoBox to="/react-shopping-cart">
+        <CartIcon />
+        <Styled.Title>WOOWA SHOP</Styled.Title>
+      </Styled.LogoBox>
+      <Styled.MenuBox>
+        <Styled.Menu to="/react-shopping-cart/cart">장바구니</Styled.Menu>
+        <Styled.Menu to="/react-shopping-cart/orderList">주문목록</Styled.Menu>
+      </Styled.MenuBox>
+    </Styled.Wrapper>
+  );
+};
+
 const Styled = {
   Wrapper: styled.header`
     display: flex;
@@ -38,21 +53,6 @@ const Styled = {
   Menu: styled(Link)`
     font-weight: 500;
   `,
-};
-
-const Header = () => {
-  return (
-    <Styled.Wrapper>
-      <Styled.LogoBox to="/react-shopping-cart">
-        <CartIcon />
-        <Styled.Title>WOOWA SHOP</Styled.Title>
-      </Styled.LogoBox>
-      <Styled.MenuBox>
-        <Styled.Menu to="/react-shopping-cart/cart">장바구니</Styled.Menu>
-        <Styled.Menu to="/react-shopping-cart/orderList">주문목록</Styled.Menu>
-      </Styled.MenuBox>
-    </Styled.Wrapper>
-  );
 };
 
 export default Header;

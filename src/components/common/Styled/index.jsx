@@ -21,17 +21,17 @@ export const CardDetailButton = styled(StyledButton)`
   }
 `;
 
-export const flexCenter = styled.div`
+export const FlexCenter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const flexSpaceBetween = styled.div`
+export const FlexSpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export const flexColumnCenter = styled(flexCenter)`
+export const FlexColumnCenter = styled(FlexCenter)`
   flex-direction: column;
 `;
