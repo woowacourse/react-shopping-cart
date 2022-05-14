@@ -7,10 +7,10 @@ function App() {
   const content = useRoutes(routes);
 
   return (
-    <div className="App">
+    <>
       <Header />
       {content}
-    </div>
+    </>
   );
 }
 
