@@ -5,6 +5,7 @@ import { getProductItem } from '../store/api';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
+import { SIZE } from '../constant';
 
 function ProductDetailPage() {
   const [item, setItem] = useState();
@@ -26,8 +27,8 @@ function ProductDetailPage() {
 
   return (
     <StyledProductDetailContainer>
-      <StyledImageBox width={'large'} height={'large'}>
-        <StyledImg width={'large'} src={imageUrl}></StyledImg>
+      <StyledImageBox width={SIZE.LARGE} height={SIZE.LARGE}>
+        <StyledImg width={SIZE.LARGE} src={imageUrl}></StyledImg>
       </StyledImageBox>
       <StyledProductDetailInfo>
         <StyledProductDetailTitle>{name}</StyledProductDetailTitle>

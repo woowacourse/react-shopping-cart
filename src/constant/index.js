@@ -4,4 +4,9 @@ const PATH = {
   DETAIL_LINK: '/product-detail/',
 };
 
-export { PATH };
+const SIZE = {
+  LARGE: 'large',
+  MIDDLE: 'middle',
+};
+
+export { PATH, SIZE };

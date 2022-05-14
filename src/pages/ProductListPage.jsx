@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
-import { PATH } from '../constant';
+import { PATH, SIZE } from '../constant';
 
 function ProductListPage() {
   const dispatch = useDispatch();
@@ -28,12 +28,12 @@ function ProductListPage() {
           return (
             <StyledItem key={id}>
               <Link to={`${PATH.DETAIL_LINK}${id}`}>
-                <StyledImageBox width={'middle'} height={'middle'}>
-                  <StyledImg width={'middle'} src={imageUrl} />
+                <StyledImageBox width={SIZE.MIDDLE} height={SIZE.MIDDLE}>
+                  <StyledImg width={SIZE.MIDDLE} src={imageUrl} />
                 </StyledImageBox>
               </Link>
               <StyledItemInfoBox>
-                <Link to={`product-detail/${id}`}>
+                <Link to={`${PATH.DETAIL_LINK}${id}`}>
                   <StyledItemInfo>
                     <StyledItemName>{name}</StyledItemName>
                     <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
