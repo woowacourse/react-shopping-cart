@@ -28,7 +28,7 @@ const Product = () => {
   return (
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ImgWrapper src={errorApiImg} />}
+      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
       {!isLoading && data && (
         <ProductDetail
           imgUrl={data.imgUrl}

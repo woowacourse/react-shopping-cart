@@ -8,7 +8,7 @@ import { PATH } from 'constants/path';
 
 function App() {
   return (
-    <Suspense fallback={<ImgWrapper src={spinner} />}>
+    <Suspense fallback={<ImgWrapper src={spinner} alt="로딩 스피너" />}>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>

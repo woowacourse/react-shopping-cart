@@ -20,9 +20,9 @@ const ProductList = () => {
   return (
     <>
       {isError ? (
-        <ImgWrapper src={errorApiImg} />
+        <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />
       ) : isEmpty ? (
-        <ImgWrapper src={emptyImg} />
+        <ImgWrapper src={emptyImg} alt="빈 화면 이미지" />
       ) : (
         <ProductContainer>
           {isLoading && <SkeletonList length={8} />}

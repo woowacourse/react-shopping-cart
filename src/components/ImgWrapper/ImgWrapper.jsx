@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const ImgWrapper = ({ src }) => {
+const ImgWrapper = ({ src, alt }) => {
   return (
     <Styled.Wrapper>
-      <Styled.Img src={src} alt="에러이미지" />
+      <Styled.Img src={src} alt={alt} />
     </Styled.Wrapper>
   );
 };
 
 ImgWrapper.propTypes = {
   src: PropTypes.string,
+  alt: PropTypes.string,
 };
 
 const Styled = {
