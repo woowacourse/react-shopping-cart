@@ -1,7 +1,7 @@
 # 데모페이지
 
-- [데모페이지](https://627cc26556caf938f1f42dfb--nimble-figolla-852c84.netlify.app/)
-- [스토리북 배포페이지](https://627cd06ea27170004a54a0ed-inwutzcblj.chromatic.com/)
+- [데모페이지](https://nimble-figolla-852c84.netlify.app/)
+- [스토리북 배포페이지](https://627cd06ea27170004a54a0ed-txsykezezl.chromatic.com/)
 
 # 로컬 구동 방법
 
