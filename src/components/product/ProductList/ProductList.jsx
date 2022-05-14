@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
-function ProductList({ openModal }) {
-  const productList = useSelector(({ product }) => product.productList);
-
+function ProductList({ productList, openModal }) {
   return (
     <Styled.Container>
       {productList.map(product => (

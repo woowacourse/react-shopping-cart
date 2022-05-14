@@ -11,7 +11,7 @@ import * as Styled from './Home.style';
 function Home() {
   const dispatch = useDispatch();
 
-  const { isLoading, pageCount } = useSelector(({ product }) => product);
+  const { isLoading, pageCount, productList } = useSelector(({ product }) => product);
 
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get('page') ?? 1;
@@ -25,7 +25,7 @@ function Home() {
       <Styled.Container>
         {currentPage > pageCount && <ErrorMessage>😱 존재하지 상품 페이지입니다. 😱</ErrorMessage>}
 
-        {isLoading ? <ProductList.skeleton /> : <ProductList />}
+        {isLoading ? <ProductList.skeleton /> : <ProductList productList={productList} />}
 
         <Pagination />
       </Styled.Container>
