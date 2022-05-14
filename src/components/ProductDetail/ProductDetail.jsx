@@ -1,6 +1,7 @@
 import Styled from './style';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
+import parsePrice from 'utils/parsePrice';
 
 const ProductDetail = ({ imgUrl, name, price, onClick }) => {
   return (
@@ -11,7 +12,7 @@ const ProductDetail = ({ imgUrl, name, price, onClick }) => {
         <Styled.Line />
         <Styled.ProductPrice>
           <p>금액</p>
-          <p>{price}원</p>
+          <p>{parsePrice(price)}원</p>
         </Styled.ProductPrice>
         <Button colorType="secondary" sizeType="large" onClick={onClick}>
           장바구니

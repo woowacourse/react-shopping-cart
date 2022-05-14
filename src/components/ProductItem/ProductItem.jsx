@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
+import parsePrice from 'utils/parsePrice';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
       <Styled.ProductDetail>
         <Styled.ProductInfo>
           <Styled.ProductName>{name}</Styled.ProductName>
-          <Styled.ProductPrice>{price}원</Styled.ProductPrice>
+          <Styled.ProductPrice>{parsePrice(price)}원</Styled.ProductPrice>
         </Styled.ProductInfo>
         <Styled.CartButton>
           <Styled.CartSvg src={smallCart} />
