@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductListAsync } from '../../store/actions/product';
 import Pagination from '../../components/common/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
-import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
+import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import * as Styled from './Home.style';
 
 function Home() {
@@ -23,7 +23,9 @@ function Home() {
   return (
     <PageTemplate>
       <Styled.Container>
-        {currentPage > pageCount && <ErrorMessage>😱 존재하지 상품 페이지입니다. 😱</ErrorMessage>}
+        {currentPage > pageCount && (
+          <ErrorContainer>😱 존재하지 상품 페이지입니다. 😱</ErrorContainer>
+        )}
 
         {isLoading ? <ProductList.skeleton /> : <ProductList />}
 
