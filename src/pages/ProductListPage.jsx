@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getProductListAsync } from '../store/actions';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
@@ -10,12 +10,7 @@ import { PATH } from '../constant';
 
 function ProductListPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const productList = useSelector((state) => state.productList);
-
-  const handleClickItem = async (id) => {
-    navigate(PATH.DETAIL, { state: { id } });
-  };
 
   const handleClickCart = () => {
     alert('기능 추가중...');
@@ -32,18 +27,18 @@ function ProductListPage() {
           const { id, name, price, imageUrl } = product;
           return (
             <StyledItem key={id}>
-              <StyledImageBox
-                width={'middle'}
-                height={'middle'}
-                onClick={() => handleClickItem(id)}
-              >
-                <StyledImg width={'middle'} src={imageUrl} />
-              </StyledImageBox>
+              <Link to={`${PATH.DETAIL_LINK}${id}`}>
+                <StyledImageBox width={'middle'} height={'middle'}>
+                  <StyledImg width={'middle'} src={imageUrl} />
+                </StyledImageBox>
+              </Link>
               <StyledItemInfoBox>
-                <StyledItemInfo onClick={() => handleClickItem(id)}>
-                  <StyledItemName>{name}</StyledItemName>
-                  <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
-                </StyledItemInfo>
+                <Link to={`product-detail/${id}`}>
+                  <StyledItemInfo>
+                    <StyledItemName>{name}</StyledItemName>
+                    <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
+                  </StyledItemInfo>
+                </Link>
                 <StyledIconButton onClick={handleClickCart}>
                   <GiShoppingCart size={25} />
                 </StyledIconButton>

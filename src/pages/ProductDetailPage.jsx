@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../store/api';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
@@ -8,10 +8,7 @@ import { COLORS } from '../styles/theme';
 function ProductDetailPage() {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
-
-  const {
-    state: { id },
-  } = useLocation();
+  const { id } = useParams();
 
   useEffect(() => {
     async function getProductItemInfo(id) {
