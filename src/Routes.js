@@ -8,7 +8,7 @@ import spinner from 'assets/svg/spinner.svg';
 
 const PageRoutes = () => {
   return (
-    <Suspense fallback={<ImgWrapper src={spinner} />}>
+    <Suspense fallback={<ImgWrapper src={spinner} size={100} />}>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
