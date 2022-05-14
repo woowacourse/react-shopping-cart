@@ -6,6 +6,7 @@ import Modal from '../../common/Modal/Modal';
 import { useModal } from '../../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import CartAdd from '../CartAdd/CartAdd';
+import Placeholder from '../../common/Placeholder/Placeholder';
 
 function ProductCard({ product }) {
   const { id, imageURL, name, price } = product;
@@ -51,9 +52,9 @@ function ProductCard({ product }) {
 ProductCard.skeleton = () => {
   return (
     <Styled.Container skeleton={true}>
-      <Styled.Placeholder shape="square" />
+      <Placeholder aspectRatio="1/1" />
       <Styled.Content>
-        <Styled.Placeholder shape="line" />
+        <Placeholder height="30px" />
       </Styled.Content>
     </Styled.Container>
   );
