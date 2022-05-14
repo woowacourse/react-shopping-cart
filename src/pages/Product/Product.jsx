@@ -1,27 +1,18 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
 import ProductDetail from 'components/ProductDetail/ProductDetail';
-import { getProductAsync } from 'reducers/product/product.thunks';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import useReduxState from 'hooks/useReduxState';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import { addCartItem } from 'reducers/cart/cart.actions';
 import { PATH } from 'constants/path';
+import useProduct from 'hooks/useProduct';
 
 const Product = () => {
-  const { dispatch, isLoading, data, isError } = useReduxState('product');
-  const { id } = useParams();
+  const { addCart, isLoading, product, isError } = useProduct();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getProductAsync(id));
-  }, [id]);
-
-  const onClickCartButton = () => {
-    dispatch(addCartItem({ ...data, quantity: 1 }));
+  const handleClickCartButton = () => {
+    addCart();
     navigate(PATH.CART);
   };
 
@@ -29,13 +20,13 @@ const Product = () => {
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
       {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
-      {!isLoading && data && (
+      {!isLoading && product && (
         <ProductDetail
-          imgUrl={data.imgUrl}
-          name={data.name}
-          price={data.price}
-          id={data.id}
-          onClick={onClickCartButton}
+          imgUrl={product.imgUrl}
+          name={product.name}
+          price={product.price}
+          id={product.id}
+          onClick={handleClickCartButton}
         />
       )}
     </Styled.Wrapper>
