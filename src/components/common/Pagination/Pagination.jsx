@@ -12,11 +12,15 @@ function Pagination() {
   return (
     <Styled.Container>
       <Styled.Inner>
-        {Array.from({ length: pageCount }).map((_, index) => (
-          <Link key={index} to={`./?page=${index + 1}`}>
-            <Styled.Button isCurrent={index + 1 === Number(currentPage)}>{index + 1}</Styled.Button>
-          </Link>
-        ))}
+        {Array.from({ length: pageCount }).map((_, index) => {
+          const page = index + 1;
+
+          return (
+            <Link key={index} to={`./?page=${page}`}>
+              <Styled.Button isCurrent={page === Number(currentPage)}>{page}</Styled.Button>
+            </Link>
+          );
+        })}
       </Styled.Inner>
     </Styled.Container>
   );
