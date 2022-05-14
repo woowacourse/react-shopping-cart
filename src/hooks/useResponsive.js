@@ -1,21 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
-import { size } from '../styles/Theme';
+import { deviceSizeStandard } from '../styles/Theme';
 
 export default function useResponsive() {
-  const [isTablet, setIsTablet] = useState(false);
+  const [currentDevice, setCurrentDevice] = useState();
 
-  const updateWindowWidth = useCallback(() => {
-    if (window.visualViewport.width >= size.tablet) {
-      setIsTablet(true);
+  const checkDisplayWidth = useCallback(({ target: { innerWidth } }) => {
+    const { mobile, tablet } = deviceSizeStandard;
+    if (innerWidth <= mobile) {
+      setCurrentDevice('mobile');
       return;
     }
-    setIsTablet(false);
+    if (innerWidth <= tablet) {
+      setCurrentDevice('tablet');
+      return;
+    }
+    setCurrentDevice('desktop');
   }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', updateWindowWidth);
-    return () => window.removeEventListener('resize', updateWindowWidth);
+    window.addEventListener('resize', checkDisplayWidth);
+    return () => window.removeEventListener('resize', checkDisplayWidth);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return isTablet;
+  return currentDevice;
 }

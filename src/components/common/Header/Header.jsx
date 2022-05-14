@@ -4,14 +4,14 @@ import Icon from '../Icon/Icon';
 import * as Styled from './Header.style';
 
 function Header() {
-  const isTablet = useResponsive();
+  const currentDevice = useResponsive();
 
   return (
     <Styled.Container>
       <Styled.Inner>
         <Styled.NavLink to={ROUTE.home.path}>
           <Styled.Logo>
-            <Icon iconName="tent" size={isTablet ? '50' : '30'} />
+            <Icon iconName="tent" size={currentDevice === 'desktop' ? '50' : '30'} />
             BLZZI&apos;S CAMPING
           </Styled.Logo>
         </Styled.NavLink>
