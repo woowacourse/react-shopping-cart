@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -11,6 +12,10 @@ export const Inner = styled.div`
   display: flex;
   justify-content: center;
   gap: 5px;
+`;
+
+export const CustomLink = styled(Link)`
+  ${({ isCurrent }) => isCurrent && 'pointer-events: none'}
 `;
 
 export const Button = styled.div`
