@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
 import { Link } from 'react-router-dom';
+import { PATH } from '../constant';
 
 function Header() {
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <Link to="/">
+        <Link to={PATH.HOME}>
           <StyledTitleWrapper>
             <GiShoppingCart />
             <StyledTitle>WOOWA SHOP</StyledTitle>

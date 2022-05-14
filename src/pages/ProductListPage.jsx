@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
+import { PATH } from '../constant';
 
 function ProductListPage() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function ProductListPage() {
   const productList = useSelector((state) => state.productList);
 
   const handleClickItem = async (id) => {
-    navigate('/product-detail-page', { state: { id } });
+    navigate(PATH.DETAIL, { state: { id } });
   };
 
   const handleClickCart = () => {
