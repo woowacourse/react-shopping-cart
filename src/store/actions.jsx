@@ -1,4 +1,4 @@
-import { getProductList } from '../api';
+import { getProductList } from './api';
 import { actionTypes } from './actionTypes';
 
 const getProductListAsync = () => async (dispatch) => {

@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import Loading from './components/common/Loading';
+import Loading from '../components/Loading';
 
 const Loadable = (Component) => (props) =>
   (
@@ -8,8 +8,8 @@ const Loadable = (Component) => (props) =>
     </Suspense>
   );
 
-const ProductListPage = Loadable(lazy(() => import('./pages/ProductListPage')));
-const ProductDetailPage = Loadable(lazy(() => import('./pages/ProductDetailPage')));
+const ProductListPage = Loadable(lazy(() => import('../pages/ProductListPage')));
+const ProductDetailPage = Loadable(lazy(() => import('../pages/ProductDetailPage')));
 
 const routes = [
   {

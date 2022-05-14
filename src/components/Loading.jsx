@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { COLORS } from '../../styles/theme';
+import { COLORS } from '../styles/theme';
 
 function Loading() {
   return (
