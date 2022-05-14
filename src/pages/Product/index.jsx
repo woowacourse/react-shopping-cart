@@ -5,6 +5,7 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useProduct from 'hooks/useProduct';
 import { useNavigate } from 'react-router-dom';
+import { PATH_NAME } from 'constants';
 
 const Product = () => {
   const { isLoading, isError, product, handleAddCart } = useProduct();
@@ -12,7 +13,7 @@ const Product = () => {
 
   const handleClickCartButton = () => {
     handleAddCart();
-    navigate('/cart');
+    navigate(PATH_NAME.CART);
   };
 
   return (
