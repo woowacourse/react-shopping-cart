@@ -8,17 +8,18 @@ const deviceSize = {
 };
 
 const theme = {
-  WHITE: '#ffffff',
-  BLACK: '#000000',
-  RED_300: '#fca5a5',
-  GREY_500: '#78716c',
+  COLOR: {
+    WHITE: '#ffffff',
+    BLACK: '#000000',
+    RED_300: '#fca5a5',
+    GREY_500: '#78716c',
+  },
   DEVICE: {
     EXTRA_SMALL: `screen and (max-width:${deviceSize.mobile})`,
     MOBILE: `screen and (min-width:${deviceSize.mobile})`,
     TABLET: `screen and (min-width:${deviceSize.tablet})`,
     LAPTOP: `screen and (min-width:${deviceSize.laptop})`,
   },
-
   FONT: {
     PRIMARY: 'Do Hyeon',
     SECONDARY: 'Yeon Sung',

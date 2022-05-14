@@ -27,7 +27,7 @@ const Styled = {
     font-size: 18px;
     font-weight: bold;
     font-family: ${({ theme }) => theme.FONT.PRIMARY};
-    color: ${({ theme }) => theme.GREY_500};
+    color: ${({ theme }) => theme.COLOR.GREY_500};
     text-align: center;
   `,
 

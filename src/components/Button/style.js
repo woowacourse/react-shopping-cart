@@ -20,16 +20,16 @@ export const buttonSize = {
 
 export const buttonColor = {
   primary: css`
-    background-color: ${(props) => props.theme.RED_300};
+    background-color: ${(props) => props.theme.COLOR.RED_300};
   `,
   secondary: css`
-    background-color: ${(props) => props.theme.GREY_500};
+    background-color: ${(props) => props.theme.COLOR.GREY_500};
   `,
 };
 
 const Styled = {
   Button: styled.button`
-    color: ${({ theme }) => theme.WHITE};
+    color: ${({ theme }) => theme.COLOR.WHITE};
     border: none;
     cursor: pointer;
     font-family: ${({ theme }) => theme.FONT.SECONDARY};

@@ -8,7 +8,7 @@ const Styled = {
     font-weight: 500;
     font-size: 24px;
     font-family: ${({ theme }) => theme.FONT.PRIMARY};
-    color: ${({ theme }) => theme.WHITE};
+    color: ${({ theme }) => theme.COLOR.WHITE};
     cursor: pointer;
   `,
 };
