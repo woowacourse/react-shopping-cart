@@ -33,11 +33,6 @@ const Styled = {
 
   ProductImage: styled.img`
     max-width: 100%;
-    transition: all 0.5s ease;
-
-    &:hover {
-      transform: scale(1.025);
-    }
   `,
 
   ProductDetail: styled.div`
