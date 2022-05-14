@@ -19,7 +19,7 @@ const Product = () => {
     dispatch(getProductAsync(id));
   }, [id]);
 
-  const onClickCartButton = () => {
+  const handleClickCartButton = () => {
     dispatch(addCartItem({ ...data, quantity: 1 }));
     navigate('/cart');
   };
@@ -34,7 +34,7 @@ const Product = () => {
           name={data.name}
           price={data.price}
           id={data.id}
-          onClick={onClickCartButton}
+          onClick={handleClickCartButton}
         />
       )}
     </Styled.Wrapper>

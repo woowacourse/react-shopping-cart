@@ -5,12 +5,12 @@ import smallCart from 'assets/svg/smallCart.svg';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const onClick = () => {
+  const handleClick = () => {
     navigate(`/product/${id}`);
   };
 
   return (
-    <Styled.Wrapper onClick={onClick}>
+    <Styled.Wrapper onClick={handleClick}>
       <Styled.ProductImage src={imgUrl} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
