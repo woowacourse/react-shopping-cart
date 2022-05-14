@@ -7,6 +7,7 @@ const Styled = {
   `,
   ProductInfo: styled.div`
     width: 380px;
+    font-family: ${({ theme }) => theme.FONT.SECONDARY};
   `,
   ProductName: styled.div`
     margin: 10px 0 10px 15px;

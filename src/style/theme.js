@@ -18,6 +18,11 @@ const theme = {
     TABLET: `screen and (min-width:${deviceSize.tablet})`,
     LAPTOP: `screen and (min-width:${deviceSize.laptop})`,
   },
+
+  FONT: {
+    PRIMARY: 'Do Hyeon',
+    SECONDARY: 'Yeon Sung',
+  },
 };
 
 const StyleTheme = ({ children }) => {

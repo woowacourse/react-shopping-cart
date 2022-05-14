@@ -32,6 +32,7 @@ const Styled = {
     color: ${({ theme }) => theme.WHITE};
     border: none;
     cursor: pointer;
+    font-family: ${({ theme }) => theme.FONT.SECONDARY};
     ${({ sizeType }) => buttonSize[sizeType]}
     ${({ colorType }) => buttonColor[colorType]}
   `,

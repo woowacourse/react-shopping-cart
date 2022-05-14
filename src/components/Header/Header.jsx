@@ -7,7 +7,7 @@ const Header = () => {
     <Styled.Wrapper>
       <Styled.Logo to="/">
         <Styled.LogoImage src={bigCart} alt="로고" />
-        <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
+        <Styled.LogoText>댕냥상회</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>
         <MenuItem>장바구니</MenuItem>

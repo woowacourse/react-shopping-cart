@@ -28,6 +28,7 @@ const Styled = {
     padding: 15px 20px 10px 20px;
     font-size: 40px;
     font-weight: 900;
+    font-family: ${({ theme }) => theme.FONT.PRIMARY};
   `,
 
   MenuContainer: styled.div`

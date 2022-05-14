@@ -20,6 +20,7 @@ const Styled = {
   ProductInfo: styled.div`
     display: flex;
     flex-direction: column;
+    font-family: ${({ theme }) => theme.FONT.SECONDARY};
   `,
 
   ProductName: styled.span`
