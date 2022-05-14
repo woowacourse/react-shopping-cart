@@ -9,7 +9,7 @@ function Header() {
   return (
     <Styled.Container>
       <Styled.Inner>
-        <Styled.NavLink to={ROUTE.home.route}>
+        <Styled.NavLink to={ROUTE.home.path}>
           <Styled.Logo>
             <Icon iconName="tent" size={isTablet ? '50' : '30'} />
             BLZZI&apos;S CAMPING
@@ -17,8 +17,8 @@ function Header() {
         </Styled.NavLink>
 
         <Styled.NavButton>
-          <Styled.NavLink to={ROUTE.shoppingCart.route}>장바구니</Styled.NavLink>
-          <Styled.NavLink to={ROUTE.orderList.route}>주문목록</Styled.NavLink>
+          <Styled.NavLink to={ROUTE.shoppingCart.path}>장바구니</Styled.NavLink>
+          <Styled.NavLink to={ROUTE.orderList.path}>주문목록</Styled.NavLink>
         </Styled.NavButton>
       </Styled.Inner>
     </Styled.Container>

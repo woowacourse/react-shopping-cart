@@ -10,10 +10,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTE.home.route} element={<Home />} />
-        <Route path={ROUTE.shoppingCart.route} element={<ShoppingCart />} />
-        <Route path={ROUTE.orderList.route} element={<OrderList />} />
-        <Route path={ROUTE.productDetail.route} element={<ProductDetail />} />
+        <Route path={ROUTE.home.path} element={<Home />} />
+        <Route path={ROUTE.shoppingCart.path} element={<ShoppingCart />} />
+        <Route path={ROUTE.orderList.path} element={<OrderList />} />
+        <Route path={ROUTE.productDetail.path} element={<ProductDetail />} />
         <Route path={'/*'} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
