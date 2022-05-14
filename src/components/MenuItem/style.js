@@ -7,7 +7,7 @@ const Styled = {
     align-items: center;
     font-weight: 500;
     font-size: 24px;
-    color: #ffffff;
+    color: ${({ theme }) => theme.WHITE};
     cursor: pointer;
   `,
 };
