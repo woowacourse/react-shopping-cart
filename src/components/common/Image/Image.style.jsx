@@ -12,6 +12,4 @@ export const Image = styled.img`
   height: 100%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
-
-  transition: all 0.5s;
 `;

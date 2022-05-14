@@ -14,6 +14,7 @@ export const Container = styled.div`
 
     img {
       transform: scale(1.07);
+      transition: transform 0.5s;
     }
   }
 `;
