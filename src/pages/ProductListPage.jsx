@@ -34,8 +34,7 @@ function ProductListPage() {
               <StyledImageBox
                 width={'middle'}
                 height={'middle'}
-                onClick={() => handleClickItem(id)}
-              >
+                onClick={() => handleClickItem(id)}>
                 <StyledImg width={'middle'} src={imageUrl} />
               </StyledImageBox>
               <StyledItemInfoBox>
