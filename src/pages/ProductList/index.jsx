@@ -2,20 +2,13 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
 import ProductContainer from 'components/ProductContainer/ProductContainer';
 import ProductItem from 'components/ProductItem/ProductItem';
-import { useEffect } from 'react';
-import { getProductsAsync } from 'reducers/products/products.thunks';
 import Skeleton from 'components/Skeleton/Skeleton';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useReduxState from 'hooks/useReduxState';
+import useProducts from 'hooks/useProducts';
 
 const ProductList = () => {
-  const { dispatch, isLoading, data, isError } = useReduxState('products');
+  const { isLoading, isError, data } = useProducts();
   const isEmpty = !isLoading && data.length === 0;
-
-  useEffect(() => {
-    if (data.length > 0) return;
-    dispatch(getProductsAsync);
-  }, [data]);
 
   const getLoadingStatus = () => {
     return Array.from({ length: 8 }).map((_, index) => (
