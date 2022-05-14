@@ -4,25 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ProductListStyled, LoadingWrapperStyled } from './style';
 
 import Product from 'templates/Product';
-import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
+import { requestProducts } from 'modules/product';
 import BlackText from 'components/BlackText';
+import { getProductList } from 'apis/product';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
   const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(requestProducts());
-    dispatch(async (storeDispatch) => {
-      try {
-        const body = await fetch('http://localhost:4000/products');
-        const products = await body.json();
-
-        storeDispatch(requestProductsDone(products));
-      } catch (error) {
-        storeDispatch(requestProductsError());
-      }
-    });
+    dispatch(getProductList());
   }, []);
 
   if (requestProductLoading) {
