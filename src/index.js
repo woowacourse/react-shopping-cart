@@ -20,7 +20,7 @@ async function main() {
         url: '/react-shopping-cart/mockServiceWorker.js',
       },
       onUnhandledRequest(req) {
-        if (!req.url.pathname.startsWith('/react-shopping-cart/static/media/')) {
+        if (!req.url.pathname.startsWith('/react-shopping-cart/')) {
           console.warn('Found an unhandled %s request to %s', req.method, req.url.href);
         }
       },
