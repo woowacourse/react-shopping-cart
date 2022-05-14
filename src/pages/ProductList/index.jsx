@@ -4,7 +4,7 @@ import { useProducts } from 'hooks';
 import { ProductListStyled, LoadingWrapperStyled } from './style';
 
 import Product from 'templates/Product';
-import BlackText from 'components/BlackText';
+import Text from 'components/Text';
 
 function ProductList() {
   const { isProductLoading, products, requestProduct } = useProducts();
@@ -16,9 +16,9 @@ function ProductList() {
   if (isProductLoading) {
     return (
       <LoadingWrapperStyled>
-        <BlackText fontSize="30px" fontWeight="800">
+        <Text color="#333333" fontSize="30px" fontWeight="800">
           로딩중...
-        </BlackText>
+        </Text>
       </LoadingWrapperStyled>
     );
   }

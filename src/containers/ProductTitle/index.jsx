@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BlackText from 'components/BlackText';
+import Text from 'components/Text';
 
 function ProductTitle({ children }) {
   return (
-    <BlackText fontSize="1rem" fontWeight="400">
+    <Text color="#333333" fontSize="1rem" fontWeight="400">
       {children}
-    </BlackText>
+    </Text>
   );
 }
 

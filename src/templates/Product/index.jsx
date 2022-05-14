@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BlackText from 'components/BlackText';
+import Text from 'components/Text';
 import Image from 'components/Image';
 import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
 import MarginWrapper from 'components/MarginWrapper';
@@ -23,9 +23,9 @@ function Product({ imgSrc, title, price }) {
           <MarginWrapper marginBottom="6px">
             <ProductTitle>{title}</ProductTitle>
           </MarginWrapper>
-          <BlackText fontSize="1.25rem" fontWeight="400">
+          <Text color="#333333" fontSize="1.25rem" fontWeight="400">
             {price.toLocaleString()}원
-          </BlackText>
+          </Text>
         </div>
         <AddCartButton />
       </FlexSpaceBetweenCenter>
