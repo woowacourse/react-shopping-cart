@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
 import { flexColumnCenter } from 'components/common/Styled';
+import { ROUTE } from 'constants';
 
 const Styled = {
   Wrapper: styled(flexColumnCenter)`
@@ -26,7 +27,7 @@ const NotFound = () => {
         이용에 불편을 드려 죄송합니다.
         <br /> 홈페이지로 이동하시어 서비스를 다시 이용해주세요.
       </Styled.TextBox>
-      <Link to="/react-shopping-cart">
+      <Link to={ROUTE.HOME}>
         <img src={HomeButtonImage} alt="홈으로 가는 이미지" />
       </Link>
     </Styled.Wrapper>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styled';
+import { ROUTE } from 'constants';
 
 const Styled = {
   Wrapper: styled(Link)`
@@ -42,7 +43,7 @@ const Styled = {
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
-    <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
+    <Styled.Wrapper to={`${ROUTE.PRODUCT}${id}`}>
       <Styled.ThumbnailBox>
         <img src={thumbnail} alt="thumbnail" />
       </Styled.ThumbnailBox>
