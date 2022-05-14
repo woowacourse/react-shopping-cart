@@ -15,10 +15,12 @@ const Detail = () => {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
+  if (product.loading) return;
+
   return (
     <S.DetailPageContainer>
       <S.DetailContainer>
-        {product.loading || <ItemDetails {...product.data} />}
+        <ItemDetails {...product.data} />
       </S.DetailContainer>
     </S.DetailPageContainer>
   );
