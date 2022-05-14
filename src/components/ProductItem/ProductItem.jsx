@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
+import { PATH } from 'constants/path';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate(`/product/${id}`);
+    navigate(`${PATH.PRODUCT}/${id}`);
   };
 
   return (

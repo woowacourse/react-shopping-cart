@@ -9,6 +9,7 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 import useReduxState from 'hooks/useReduxState';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import { addCartItem } from 'reducers/cart/cart.actions';
+import { PATH } from 'constants/path';
 
 const Product = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
@@ -21,7 +22,7 @@ const Product = () => {
 
   const onClickCartButton = () => {
     dispatch(addCartItem({ ...data, quantity: 1 }));
-    navigate('/cart');
+    navigate(PATH.CART);
   };
 
   return (

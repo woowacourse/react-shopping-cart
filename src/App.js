@@ -4,6 +4,7 @@ import { ProductList, Product, Cart, NotFound } from 'pages';
 import Layout from 'components/Layout/Layout';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
+import { PATH } from 'constants/path';
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" exact element={<ProductList />} />
-              <Route path="/product/:id" element={<Product />} />
-              <Route path="/cart" exact element={<Cart />} />
+              <Route path={`${PATH.PRODUCT}/:id`} element={<Product />} />
+              <Route path={PATH.CART} exact element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
