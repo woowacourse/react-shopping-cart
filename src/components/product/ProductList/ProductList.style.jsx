@@ -14,6 +14,7 @@ export const Container = styled.div`
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
+
     ${theme.mobile} {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;

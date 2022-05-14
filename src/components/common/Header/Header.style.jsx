@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
-  background-color: ${({ theme }) => theme.mainColor};
+  ${({ theme }) => css`
+    background-color: ${theme.mainColor};
+    min-width: ${theme.minWidth};
+  `}
   padding: 10px;
-
-  min-width: ${({ theme }) => theme.minWidth};
 `;
 
 export const Inner = styled.div`
@@ -18,13 +19,15 @@ export const Inner = styled.div`
 `;
 
 export const Logo = styled.h1`
-  color: ${({ theme }) => theme.textColorWhite};
   display: flex;
   align-items: center;
+  ${({ theme }) => css`
+    color: ${theme.textColorWhite};
 
-  ${({ theme }) => theme.tablet} {
-    font-size: 1rem;
-  }
+    ${theme.tablet} {
+      font-size: 1rem;
+    }
+  `}
 `;
 
 export const NavButton = styled.nav`
@@ -36,10 +39,13 @@ export const NavButton = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: ${({ theme }) => theme.textColorWhite};
   font-weight: bold;
 
-  ${({ theme }) => theme.tablet} {
-    font-size: 0.8rem;
-  }
+  ${({ theme }) => css`
+    color: ${theme.textColorWhite};
+
+    ${theme.tablet} {
+      font-size: 0.8rem;
+    }
+  `}
 `;
