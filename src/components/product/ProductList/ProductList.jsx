@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useProductList from '../../../hooks/useProductList';
 import ErrorContainer from '../../common/ErrorContainer/ErrorContainer';
 import ProductCard from '../ProductCard/ProductCard';
@@ -6,6 +6,10 @@ import * as Styled from './ProductList.style';
 
 function ProductList({ openModal }) {
   const { isLoading, productList, pageCount, currentPage } = useProductList();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [isLoading]);
 
   return (
     <Styled.Container>
