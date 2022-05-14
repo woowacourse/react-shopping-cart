@@ -17,8 +17,8 @@ function Pagination() {
           const isCurrent = pageNumber === Number(currentPage);
 
           return (
-            <Styled.CustomLink key={index} to={`./?page=${pageNumber}`} isCurrent={isCurrent}>
-              <Styled.Button isCurrent={isCurrent}>{pageNumber}</Styled.Button>
+            <Styled.CustomLink key={index} to={`./?page=${pageNumber}`} $isCurrent={isCurrent}>
+              <Styled.Button $isCurrent={isCurrent}>{pageNumber}</Styled.Button>
             </Styled.CustomLink>
           );
         })}

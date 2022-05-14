@@ -15,7 +15,7 @@ export const Inner = styled.div`
 `;
 
 export const CustomLink = styled(Link)`
-  ${({ isCurrent }) => isCurrent && 'pointer-events: none'}
+  ${({ $isCurrent }) => $isCurrent && 'pointer-events: none'}
 `;
 
 export const Button = styled.div`
@@ -24,8 +24,8 @@ export const Button = styled.div`
   border: none;
   border-radius: 4px;
 
-  background-color: ${({ theme, isCurrent }) => (isCurrent ? theme.mainColor : 'transparent')};
-  color: ${({ theme, isCurrent }) => isCurrent && theme.textColorWhite};
+  background-color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.mainColor : 'transparent')};
+  color: ${({ theme, $isCurrent }) => $isCurrent && theme.textColorWhite};
 
   &:hover {
     background-color: ${({ theme }) => theme.mainColor};
