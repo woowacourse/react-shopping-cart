@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 import ProductList from '../../components/product/ProductList/ProductList';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductListAsync } from '../../store/actions/product';
 import Pagination from '../../components/common/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
 import * as Styled from './Home.style';
+import { fetchProductListAsync } from '../../store/product/action';
 
 function Home() {
   const dispatch = useDispatch();

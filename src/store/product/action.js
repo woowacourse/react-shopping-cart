@@ -1,5 +1,5 @@
+import { fetchFailed, fetchStarted, fetchSucceeded } from '../global/action';
 import { getProductList } from '../../api/api';
-import { fetchFailed, fetchStarted, fetchSucceeded } from './global';
 
 export const fetchProductListAsync = page => async dispatch => {
   const stateName = 'PRODUCT_LIST';
