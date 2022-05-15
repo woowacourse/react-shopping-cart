@@ -7,15 +7,21 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-function Button({ onClick, children }) {
-  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+function Button({ type, onClick, children }) {
+  return (
+    <StyledButton type={type} onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 }
 
 Button.defaultProps = {
+  type: 'submit',
   onClick: () => {},
 };
 
 Button.propTypes = {
+  type: PropTypes.string,
   onClick: PropTypes.func,
 };
 
