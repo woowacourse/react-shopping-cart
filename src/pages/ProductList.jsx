@@ -9,7 +9,10 @@ import { getProductList } from 'actions/products';
 import * as Styled from './styles';
 
 export const ProductList = () => {
-  const { items: productList, errorMessage } = useSelector((state) => state.products);
+  const { content: productList, error: errorMessage } = useSelector(
+    (state) => state.products.products,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
