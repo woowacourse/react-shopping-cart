@@ -1,6 +1,7 @@
+import PATH from '../../constants';
 import PlainLink from '../PlainLink/PlainLink';
-import styled from 'styled-components';
 import { Product } from '../../types';
+import styled from 'styled-components';
 
 type Props = {
   product: Partial<Product>;
@@ -28,7 +29,7 @@ function ProductCard({ product }: Props) {
   };
 
   return (
-    <PlainLink to={`/product/${id}`} disabled={stock <= 0}>
+    <PlainLink to={`${PATH.PRODUCT}/${id}`} disabled={stock <= 0}>
       <StyledProductCard>
         <CardImageContainer>
           {stock > 0 ? (
