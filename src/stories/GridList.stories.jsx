@@ -1,6 +1,6 @@
 import React from "react";
-import GridList from "../components/Main/ProductListPage/GridList";
-import ProductCard from "../components/Main/ProductListPage/ProductCard";
+import GridList from "../pages/ProductListPage/GridList";
+import ProductCard from "../pages/ProductListPage/ProductCard";
 
 export default {
   title: "Component/GridList",
