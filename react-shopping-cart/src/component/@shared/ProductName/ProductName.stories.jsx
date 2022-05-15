@@ -1,4 +1,4 @@
-import ProductName from "./ProductName";
+import ProductName from "component/@shared/ProductName/ProductName";
 
 export default {
   title: "ProductName",

@@ -1,5 +1,5 @@
-import PageTitle from "./PageTitle";
-import { ReactComponent as Cart } from "../../../assets/cart.svg";
+import PageTitle from "component/@shared/PageTitle/PageTitle";
+import { ReactComponent as Cart } from "assets/cart.svg";
 
 export default {
   title: "PageTitle",

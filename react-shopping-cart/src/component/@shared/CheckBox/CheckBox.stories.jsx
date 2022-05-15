@@ -1,4 +1,4 @@
-import CheckBox from "./CheckBox";
+import CheckBox from "component/@shared/CheckBox/CheckBox";
 
 export default {
   title: "CheckBox",

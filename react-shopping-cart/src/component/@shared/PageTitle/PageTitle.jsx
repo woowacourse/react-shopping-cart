@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NavigateButton from "../NavigateButton/NavigateButton";
+import NavigateButton from "component/@shared/NavigateButton/NavigateButton";
 
 const PageTitle = styled(NavigateButton)`
   font-size: 28px;

@@ -1,4 +1,4 @@
-import productActionType from "./products.types";
+import productActionType from "redux/products/products.types";
 
 export const fetchProductsStart = (id) => ({
   type: productActionType.fetchProductsStart,

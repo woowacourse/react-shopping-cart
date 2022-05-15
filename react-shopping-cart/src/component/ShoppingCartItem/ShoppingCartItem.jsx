@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import CheckBox from "../@shared/CheckBox/CheckBox";
-import ProductName from "../@shared/ProductName/ProductName";
-import ProductThumbnail from "../@shared/ProductThumbnail/ProductThumbnail";
-import { ReactComponent as Trash } from "../../assets/trash.svg";
-import ItemCounter from "../ItemCounter/ItemCounter";
-import ProductPrice from "../@shared/ProductPrice/ProductPrice";
-import useClickCartButton from "../../hooks/useClickCartButton";
 import { useDispatch } from "react-redux";
-import { toggleIsChecked } from "../../redux/carts/carts.action";
+
+import CheckBox from "component/@shared/CheckBox/CheckBox";
+import ProductName from "component/@shared/ProductName/ProductName";
+import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnail";
+import ItemCounter from "component/ItemCounter/ItemCounter";
+import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
+
+import { ReactComponent as Trash } from "assets/trash.svg";
+import useClickCartButton from "hooks/useClickCartButton";
+import { toggleIsChecked } from "redux/carts/carts.action";
 
 const CartContainer = styled.div`
   display: flex;

@@ -1,24 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ProductName from "../../component/@shared/ProductName/ProductName";
-import ProductPrice from "../../component/@shared/ProductPrice/ProductPrice";
-import ProductThumbnail from "../../component/@shared/ProductThumbnail/ProductThumbnail";
+import { useEffect } from "react";
+
+import ProductName from "component/@shared/ProductName/ProductName";
+import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
+import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnail";
+import WithSpinner from "component/@shared/WithSpinner/WithSpinner";
+import ShoppingCartButton from "component/ShoppingCartButton/ShoppingCartButton";
+
 import {
   selectDetailProduct,
   selectProductsLoading,
-} from "../../redux/products/products.selector";
-import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
+} from "redux/products/products.selector";
+import { fetchProductDetailStart } from "redux/products/products.action";
 import {
   selectCartsLoading,
   selectCurrentCarts,
-} from "../../redux/carts/carts.selector";
-import { isInCart } from "../../util/check";
-import useClickCartButton from "../../hooks/useClickCartButton";
-import ShoppingCartButton from "../../component/ShoppingCartButton/ShoppingCartButton";
-import { CURRENT_USER } from "../../constants/index";
-import { useEffect } from "react";
-import { fetchProductDetailStart } from "../../redux/products/products.action";
-import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
+} from "redux/carts/carts.selector";
+
+import { ColumnFlexWrapper, RowFlexWrapper } from "styles/Wrapper";
+import { isInCart } from "util/check";
+import useClickCartButton from "hooks/useClickCartButton";
+import { CURRENT_USER } from "constants/index";
 
 function ProductDetailPage() {
   const { idx } = useParams();

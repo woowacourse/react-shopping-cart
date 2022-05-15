@@ -1,4 +1,4 @@
-import NavigateButton from "./NavigateButton";
+import NavigateButton from "component/@shared/NavigateButton/NavigateButton";
 
 export default {
   title: "NavigateButton",

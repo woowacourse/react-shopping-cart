@@ -1,4 +1,4 @@
-import AllSelectButton from "./AllSelectButton";
+import AllSelectButton from "component/AllSelectButton/AllSelectButton";
 
 export default {
   title: "AllSelectButton",

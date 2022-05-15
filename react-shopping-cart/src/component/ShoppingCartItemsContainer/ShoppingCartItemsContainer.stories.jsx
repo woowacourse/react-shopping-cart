@@ -1,4 +1,4 @@
-import ShoppingCartItemsContainer from "./ShoppingCartItemsContainer";
+import ShoppingCartItemsContainer from "component/ShoppingCartItemsContainer/ShoppingCartItemsContainer";
 
 export default {
   title: "ShoppingCartItemsContainer",

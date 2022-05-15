@@ -1,4 +1,4 @@
-import ProductThumbnail from "./ProductThumbnail";
+import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnail";
 
 export default {
   title: "ProductThumbnail",

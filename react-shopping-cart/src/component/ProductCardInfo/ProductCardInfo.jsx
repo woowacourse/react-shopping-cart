@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
-import ProductName from "../@shared/ProductName/ProductName";
-import ProductPrice from "../@shared/ProductPrice/ProductPrice";
-import { ReactComponent as Cart } from "../../assets/cart.svg";
-import useClickCartButton from "../../hooks/useClickCartButton";
-import { CURRENT_USER } from "../../constants";
+
+import ProductName from "component/@shared/ProductName/ProductName";
+import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
+
+import { ReactComponent as Cart } from "assets/cart.svg";
+import useClickCartButton from "hooks/useClickCartButton";
+import { CURRENT_USER } from "constants";
 
 const StyledCart = styled(Cart)`
   width: 20px;

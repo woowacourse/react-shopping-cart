@@ -1,8 +1,10 @@
 import styled, { keyframes } from "styled-components";
-import ProductThumbnail from "../@shared/ProductThumbnail/ProductThumbnail";
-import ProductCardInfo from "../ProductCardInfo/ProductCardInfo";
-import { ColumnFlexWrapper } from "../../styles/Wrapper";
 import { useNavigate } from "react-router-dom";
+
+import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnail";
+import ProductCardInfo from "component/ProductCardInfo/ProductCardInfo";
+
+import { ColumnFlexWrapper } from "styles/Wrapper";
 
 const scaleAnimation = keyframes`
   0%{}

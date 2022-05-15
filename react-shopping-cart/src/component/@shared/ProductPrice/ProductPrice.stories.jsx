@@ -1,4 +1,4 @@
-import ProductPrice from "./ProductPrice";
+import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
 
 export default {
   title: "ProductPrice",

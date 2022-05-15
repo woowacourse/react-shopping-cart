@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import ExpectedPaymentTopContainer from "../ExpectedPaymentTopContainer/ExpectedPaymentTopContainer";
-import ExpectedPaymentBottomContainer from "../ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer";
-import ExpectedPaymentBox from "../ExpectedPaymentBox/ExpectedPaymentBox";
-import OrderButton from "../OrderButton/OrderButton";
 import { useSelector } from "react-redux";
-import { selectCurrentCarts } from "../../redux/carts/carts.selector";
-import { CURRENT_USER } from "../../constants";
+
+import ExpectedPaymentTopContainer from "component/ExpectedPaymentTopContainer/ExpectedPaymentTopContainer";
+import ExpectedPaymentBottomContainer from "component/ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer";
+import ExpectedPaymentBox from "component/ExpectedPaymentBox/ExpectedPaymentBox";
+import OrderButton from "component/OrderButton/OrderButton";
+
+import { selectCurrentCarts } from "redux/carts/carts.selector";
+import { CURRENT_USER } from "constants";
 
 const ExpectedPaymentWrapper = styled.div`
   border: 1px solid;

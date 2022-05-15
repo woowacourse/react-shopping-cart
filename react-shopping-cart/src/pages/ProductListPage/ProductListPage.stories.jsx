@@ -1,4 +1,4 @@
-import ProductListPage from "./ProductListPage";
+import ProductListPage from "pages/ProductListPage/ProductListPage";
 
 export default {
   title: "ProductListPage",

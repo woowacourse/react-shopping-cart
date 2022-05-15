@@ -1,4 +1,4 @@
-import OrderButton from "./OrderButton";
+import OrderButton from "component/OrderButton/OrderButton";
 
 export default {
   title: "OrderButton",

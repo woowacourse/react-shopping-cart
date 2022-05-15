@@ -1,5 +1,5 @@
-import { CURRENT_USER } from "../../constants";
-import cartsActionTypes from "./carts.types";
+import { CURRENT_USER } from "constants";
+import cartsActionTypes from "redux/carts/carts.types";
 
 const INITIAL_STATE = {
   loading: false,

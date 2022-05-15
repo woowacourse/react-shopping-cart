@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
-import productsReducer from "./products/products.reducer";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import cartsReducer from "./carts/carts.reducer";
+
+import productsReducer from "redux/products/products.reducer";
+import cartsReducer from "redux/carts/carts.reducer";
 
 const persistConfig = {
   key: "root",

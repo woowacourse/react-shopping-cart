@@ -1,4 +1,4 @@
-import CartLeftSection from "./CartLeftSection";
+import CartLeftSection from "component/CartLeftSection/CartLeftSection";
 
 export default {
   title: "CartLeftSection",

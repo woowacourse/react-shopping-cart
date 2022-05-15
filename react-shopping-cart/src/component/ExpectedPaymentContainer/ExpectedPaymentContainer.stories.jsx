@@ -1,4 +1,4 @@
-import ExpectedPaymentContainer from "./ExpectedPaymentContainer";
+import ExpectedPaymentContainer from "component/ExpectedPaymentContainer/ExpectedPaymentContainer";
 
 export default {
   title: "ExpectedPaymentContainer",

@@ -1,4 +1,4 @@
-import ShoppingCartPage from "./ShoppingCartPage";
+import ShoppingCartPage from "pages/ShoppingCartPage/ShoppingCartPage";
 
 export default {
   title: "ShoppingCartPage",

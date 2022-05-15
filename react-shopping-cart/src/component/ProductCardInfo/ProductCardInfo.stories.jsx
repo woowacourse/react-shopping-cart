@@ -1,4 +1,4 @@
-import ProductCardInfo from "./ProductCardInfo";
+import ProductCardInfo from "component/ProductCardInfo/ProductCardInfo";
 
 export default {
   title: "ProductCardInfo",

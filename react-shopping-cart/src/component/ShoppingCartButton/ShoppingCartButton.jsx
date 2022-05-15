@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Button from "../@shared/Button/Button";
+
+import Button from "component/@shared/Button/Button";
 
 const ShoppingCartButton = styled(Button)`
   width: 425px;

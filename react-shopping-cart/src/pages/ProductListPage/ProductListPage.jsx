@@ -1,20 +1,23 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import ProductCard from "../../component/ProductCard/ProductCard";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import ProductCard from "component/ProductCard/ProductCard";
+import WithSpinner from "component/@shared/WithSpinner/WithSpinner";
+import Pagination from "component/@shared/Pagination/Pagination";
+import PaginationButton from "component/@shared/PaginationButton/PaginationButton";
+
+import { fetchProductsStart } from "redux/products/products.action";
+import { fetchCartsStart } from "redux/carts/carts.action";
 import {
   selectCurrentProducts,
   selectProductsError,
   selectProductsLoading,
-} from "../../redux/products/products.selector";
-import { useEffect } from "react";
-import { fetchProductsStart } from "../../redux/products/products.action";
-import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
-import { fetchCartsStart } from "../../redux/carts/carts.action";
-import { selectCurrentCarts } from "../../redux/carts/carts.selector";
-import { isInCart } from "../../util/check";
-import Pagination from "../../component/@shared/Pagination/Pagination";
-import PaginationButton from "../../component/@shared/PaginationButton/PaginationButton";
-import { useNavigate, useParams } from "react-router-dom";
+} from "redux/products/products.selector";
+import { selectCurrentCarts } from "redux/carts/carts.selector";
+
+import { isInCart } from "util/check";
 
 const GridContainer = styled.div`
   display: grid;

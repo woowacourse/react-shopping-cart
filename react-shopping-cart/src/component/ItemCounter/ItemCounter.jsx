@@ -1,12 +1,12 @@
 import { useState } from "react";
-import styled from "styled-components";
-import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
-import { css } from "styled-components";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
+import { ColumnFlexWrapper, RowFlexWrapper } from "styles/Wrapper";
 import {
   decreaseProductQuantity,
   increaseProductQuantity,
-} from "../../redux/carts/carts.action";
+} from "redux/carts/carts.action";
 
 const CountBox = styled.div`
   width: 48px;

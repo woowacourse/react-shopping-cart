@@ -1,4 +1,4 @@
-import ShoppingCartItem from "./ShoppingCartItem";
+import ShoppingCartItem from "component/ShoppingCartItem/ShoppingCartItem";
 
 export default {
   title: "ShoppingCartItem",

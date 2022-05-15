@@ -1,6 +1,6 @@
-import ExpectedPaymentBottomContainer from "./ExpectedPaymentBottomContainer";
-import ExpectedPaymentBox from "../ExpectedPaymentBox/ExpectedPaymentBox";
-import OrderButton from "../OrderButton/OrderButton";
+import ExpectedPaymentBottomContainer from "component/ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer";
+import ExpectedPaymentBox from "component/ExpectedPaymentBox/ExpectedPaymentBox";
+import OrderButton from "component/OrderButton/OrderButton";
 
 export default {
   title: "ExpectedPaymentBottomContainer",

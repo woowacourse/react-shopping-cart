@@ -1,4 +1,4 @@
-import cartsActionTypes from "./carts.types";
+import cartsActionTypes from "redux/carts/carts.types";
 
 export const fetchCartsStart = () => ({
   type: cartsActionTypes.fetchCartsStart,
