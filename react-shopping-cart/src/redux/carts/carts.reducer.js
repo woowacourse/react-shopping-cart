@@ -96,7 +96,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, carts: newCarts };
     }
     default:
-      return { ...state };
+      return state;
   }
 };
 

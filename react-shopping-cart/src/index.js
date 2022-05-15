@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter basename="/react-shopping-cart">
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <ErrorBoundary fallback={<div>에러입니다.</div>}>
           <GlobalStyle />
           <ThemeProvider theme={theme}>

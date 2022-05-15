@@ -37,7 +37,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
     default:
-      return { ...state };
+      return state;
   }
 };
 

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AllSelectButton from "component/ShoppingCart/AllSelectButton/AllSelectButton";
@@ -12,10 +11,7 @@ import {
   selectCartsLoading,
   selectCurrentCarts,
 } from "redux/carts/carts.selector";
-import {
-  deleteCheckedProductsStart,
-  fetchCartsStart,
-} from "redux/carts/carts.action";
+import { deleteCheckedProductsStart } from "redux/carts/carts.action";
 import { CURRENT_USER } from "constants";
 
 const CartLeftSectionHeader = styled.div`
@@ -44,10 +40,6 @@ function CartLeftSection() {
   const handleDeleteButtonClick = () => {
     dispatch(deleteCheckedProductsStart(checkedIdList));
   };
-
-  useEffect(() => {
-    dispatch(fetchCartsStart());
-  }, [dispatch]);
 
   return (
     <ColumnFlexWrapper width="490px">
