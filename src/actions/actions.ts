@@ -1,5 +1,6 @@
-import axios from 'axios';
+import PATH from '../constants';
 import SERVER_URL from '../configs/api';
+import axios from 'axios';
 
 const types = {
   GET_PRODUCT_LIST: 'GET_PRODUCT',
@@ -14,13 +15,15 @@ const types = {
 
 const actions = {
   getProductList: () => {
-    const request = axios.get(`${SERVER_URL}/products`).then((res) => res.data);
+    const request = axios
+      .get(`${SERVER_URL}${PATH.REQUEST_PRODUCT}`)
+      .then((res) => res.data);
 
     return { type: types.GET_PRODUCT_LIST, payload: request };
   },
   getProductDetail: (id: string) => {
     const request = axios
-      .get(`${SERVER_URL}/products/${id}`)
+      .get(`${SERVER_URL}${PATH.REQUEST_PRODUCT}/${id}`)
       .then((res) => res.data);
 
     return { type: types.GET_PRODUCT_DETAIL, payload: request };
