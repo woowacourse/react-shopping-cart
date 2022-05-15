@@ -15,23 +15,19 @@ import { ReactComponent as Cart } from 'assets/cart.svg';
 function App() {
   const navigate = useNavigate();
 
-  const handleNavigateHome = () => {
-    navigate('/');
-  };
-
-  const handleNavigateShoppingCart = () => {
-    navigate('/shopping-cart');
+  const handleNavigatePage = (path) => () => {
+    navigate(path);
   };
 
   return (
     <>
       <Header>
-        <PageTitle onClick={handleNavigateHome}>
+        <PageTitle onClick={handleNavigatePage('/')}>
           <Cart />
           <div>WOOWA SHOP</div>
         </PageTitle>
         <RowFlexWrapper gap="20px">
-          <NavigateButton onClick={handleNavigateShoppingCart}>
+          <NavigateButton onClick={handleNavigatePage('/shopping-cart')}>
             장바구니
           </NavigateButton>
           <NavigateButton>주문목록</NavigateButton>
@@ -40,21 +36,22 @@ function App() {
       <Routes>
         <Route
           element={
-            <RowFlexWrapper>
-              <ProductListPage />
-            </RowFlexWrapper>
-          }
-          path="/"
-        />
-        <Route
-          element={
             <ColumnFlexWrapper gap="60px">
               <ProductListPage />
             </ColumnFlexWrapper>
           }
-          path="/:idx"
-        />
-        <Route path="/detail/:idx" element={<ProductDetailPage />} />
+          path="/"
+        >
+          <Route
+            element={
+              <ColumnFlexWrapper gap="60px">
+                <ProductListPage />
+              </ColumnFlexWrapper>
+            }
+            path="/:idx"
+          />
+          <Route path="/detail/:idx" element={<ProductDetailPage />} />
+        </Route>
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
       </Routes>
     </>
