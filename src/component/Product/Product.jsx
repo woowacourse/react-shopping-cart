@@ -45,7 +45,7 @@ function Product({ image, name, price }) {
       <DescriptionBox>
         <div>
           <NameText>{name}</NameText>
-          <PriceText>{price} 원</PriceText>
+          <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
         <Button>
           <span style={{ fontSize: '25px' }}>🛒</span>
