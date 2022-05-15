@@ -8,7 +8,7 @@ import { getProductList } from 'actions/products';
 
 import * as Styled from './styles';
 
-export const ProductList = () => {
+export function ProductList() {
   const { content: productList, error: errorMessage } = useSelector(
     (state) => state.products.products,
   );
@@ -30,5 +30,5 @@ export const ProductList = () => {
       </Styled.ProductListWrapper>
     </Layout>
   );
-};
+}
 export default ProductList;

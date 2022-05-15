@@ -8,7 +8,7 @@ import { ICON_CODE } from 'constants/';
 
 import * as Styled from './styles';
 
-const ProductItem = ({ id, image, name, price }) => {
+function ProductItem({ id, image, name, price }) {
   const dispatch = useDispatch();
 
   const onClickAddCartButton = () => {
@@ -32,7 +32,7 @@ const ProductItem = ({ id, image, name, price }) => {
       </div>
     </Styled.Container>
   );
-};
+}
 
 ProductItem.propTypes = {
   id: PropTypes.number.isRequired,
