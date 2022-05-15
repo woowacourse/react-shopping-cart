@@ -3,11 +3,16 @@ import * as Styled from './CartAdd.style';
 import * as GlobalStyled from '../../../styles/GlobalStyles';
 import Counter from '../../common/Counter/Counter';
 import { useCount } from '../../../hooks/useCount';
-function CartAdd({ product: { name, price, quantity }, closeModal }) {
+import { useDispatch } from 'react-redux';
+import { addToCartAsync } from '../../../store/actions/cart';
+function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
   const [count, onIncrement, onDecrement] = useCount({ initialValue: 1, min: 1, max: quantity });
 
+  const dispatch = useDispatch();
+
   const onClickCartAdd = () => {
-    alert(`${count}개의 상품이 장바구니에 추가되었습니다. (추후 구현)`);
+    dispatch(addToCartAsync(id, count));
+    alert(`${name} 상품 ${count}개가 장바구니에 추가되었습니다.`);
     closeModal();
   };
 

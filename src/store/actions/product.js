@@ -1,13 +1,13 @@
 import { getProductList } from '../../api/api';
-import { fetchFailed, fetchStarted, fetchSucceeded } from './global';
+import { actionFailed, actionStarted, actionSucceeded } from './global';
 
 export const fetchProductListAsync = (page) => async (dispatch) => {
-  const stateName = 'PRODUCT_LIST';
-  dispatch(fetchStarted(stateName));
+  const actionName = 'PRODUCT_LIST_FETCH';
+  dispatch(actionStarted(actionName));
   try {
     const { productList, totalProductCount } = await getProductList(page);
-    dispatch(fetchSucceeded(stateName, { productList, totalProductCount }));
+    dispatch(actionSucceeded(actionName, { productList, totalProductCount }));
   } catch ({ message }) {
-    dispatch(fetchFailed(stateName, { message }));
+    dispatch(actionFailed(actionName, { message }));
   }
 };

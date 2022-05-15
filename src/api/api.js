@@ -16,3 +16,13 @@ export const getProductList = async (page) => {
 
   return { productList: response.data, totalProductCount: response.headers['x-total-count'] };
 };
+
+export const addToCart = async (productId, quantity) => {
+  const response = await productAPI.post('/shopping-cart', { productId, quantity });
+
+  if (response.statusText !== 'OK') {
+    throw Error('서버 오류');
+  }
+
+  return response.data;
+};

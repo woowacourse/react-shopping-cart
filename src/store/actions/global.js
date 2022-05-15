@@ -1,11 +1,11 @@
-export const fetchStarted = (stateName) => ({ type: `${stateName}_FETCH_START` });
+export const actionStarted = (stateName) => ({ type: `${stateName}_START` });
 
-export const fetchSucceeded = (stateName, payload) => ({
-  type: `${stateName}_FETCH_SUCCESS`,
+export const actionSucceeded = (stateName, payload) => ({
+  type: `${stateName}_SUCCESS`,
   payload,
 });
 
-export const fetchFailed = (stateName, payload) => ({
-  type: `${stateName}_FETCH_FAILURE`,
+export const actionFailed = (stateName, payload) => ({
+  type: `${stateName}_FAILURE`,
   payload,
 });
