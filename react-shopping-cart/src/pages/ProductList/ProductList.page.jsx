@@ -8,12 +8,6 @@ import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
 import { addItem, deleteItem } from 'actions';
 
-const ProductListBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 45px;
-`;
-
 function ProductList() {
   const dispatch = useDispatch();
   const shoppingCart = useSelector(state => state.shoppingCart);
