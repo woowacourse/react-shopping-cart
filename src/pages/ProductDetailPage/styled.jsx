@@ -28,17 +28,17 @@ export const ProductImage = styled.img`
 export const ProductName = styled.p`
   font-size: 1.25rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme }) => theme.color.darkGrey};
   padding: 8px 0;
 `;
 
 export const Span = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme }) => theme.color.darkGrey};
   margin: auto 0;
 `;
 
 export const ProductPrice = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme }) => theme.color.darkGrey};
 `;

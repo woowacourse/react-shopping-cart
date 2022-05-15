@@ -7,9 +7,9 @@ const StyledButton = styled.button`
 
   font-size: 1.25rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.main};
+  color: ${({ theme }) => theme.color.white};
   border: none;
-  background-color: ${({ theme, bgColor }) => bgColor || theme.point};
+  background-color: ${({ theme, bgColor }) => bgColor || theme.color.primary};
   cursor: pointer;
 
   :hover {

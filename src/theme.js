@@ -1,5 +1,8 @@
 export const theme = {
-  point: "#E7A0A0",
-  main: "#ffffff",
-  textDefault: "#333333",
+  color: {
+    primary: "#E7A0A0",
+    white: "#ffffff",
+    darkGrey: "#333333",
+    brown: "#73675C",
+  },
 };

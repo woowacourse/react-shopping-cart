@@ -11,7 +11,7 @@ const LogoContainer = styled.div`
   align-items: center;
 
   width: 380px;
-  color: ${({ theme }) => theme.main};
+  color: ${({ theme }) => theme.color.white};
   cursor: pointer;
 `;
 

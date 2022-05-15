@@ -7,13 +7,13 @@ const StyledButton = styled.button`
 
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.main};
+  color: ${({ theme }) => theme.color.white};
   font-size: 1.5rem;
   text-align: center;
   cursor: pointer;
 
   :hover {
-    border-bottom: 2px solid ${(props) => props.theme.main};
+    border-bottom: 2px solid ${({ theme }) => theme.color.white};
   }
 `;
 

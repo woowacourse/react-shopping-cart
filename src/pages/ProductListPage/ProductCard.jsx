@@ -54,7 +54,7 @@ const InfoWrapper = styled.div`
 
 const ProductName = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme }) => theme.color.darkGrey};
   padding: 2px 0;
 
   overflow: hidden;
@@ -64,7 +64,7 @@ const ProductName = styled.p`
 
 const ProductPrice = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme }) => theme.color.darkGrey};
 `;
 
 function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
