@@ -1,17 +1,15 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
 
 import DetailItem from 'component/DetailItem';
+import useReducerSelect from 'hooks/useReducerSelect';
 
 import {DetailItemPageWrapper} from 'page/ProductDetailPage/style';
 import {getProductItem} from 'store/modules/productItem';
 import Loading from 'component/Loader';
 export default function ProductDetailPage() {
-  const dispatch = useDispatch();
-  const productItem = useSelector((state) => state.productItemReducer.productItem);
-  const pending = useSelector((state) => state.productItemReducer.pending);
+  const {dispatch, pending, error, data: productItem} = useReducerSelect('productItemReducer');
 
   const {id} = useParams();
 

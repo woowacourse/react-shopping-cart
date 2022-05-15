@@ -25,7 +25,7 @@ export const getProductList = () => async (dispatch) => {
 const initialState = {
   pending: false,
   error: false,
-  productList: [],
+  data: [],
 };
 
 export default function productListReducer(state = initialState, action) {
@@ -42,7 +42,7 @@ export default function productListReducer(state = initialState, action) {
       return {
         ...state,
         pending: false,
-        productList,
+        data: productList,
       };
     }
     case GET_PRODUCT_LIST_FAILURE: {

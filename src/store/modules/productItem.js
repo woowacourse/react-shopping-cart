@@ -26,7 +26,7 @@ const getProductItem = (id) => async (dispatch) => {
 const initialState = {
   pending: false,
   error: false,
-  productItem: [],
+  data: [],
 };
 
 export default function productItemReducer(state = initialState, action) {
@@ -43,7 +43,7 @@ export default function productItemReducer(state = initialState, action) {
       return {
         ...state,
         pending: false,
-        productItem,
+        data: productItem,
       };
     }
     case GET_PRODUCT_ITEM_FAILURE: {

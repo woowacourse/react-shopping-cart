@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {getProductList} from 'store/modules/productList';
+import useReducerSelect from 'hooks/useReducerSelect';
 
 import Item from 'component/Item';
 import Loader from 'component/Loader';
@@ -12,9 +13,7 @@ import Empty from 'assets/empty.png';
 import {ProductListPageWrapper, ProductListWrapper} from 'page/ProductListPage/style';
 
 export default function ProductListPage() {
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productListReducer.productList);
-  const pending = useSelector((state) => state.productListReducer.pending);
+  const {dispatch, pending, error, data: productList} = useReducerSelect('productListReducer');
 
   useEffect(() => {
     dispatch(getProductList());
