@@ -15,21 +15,20 @@ import theme from 'styles/theme';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-const loadProductList = () => {
-  fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
+const loadProductList = async () => {
+  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        return;
-      }
+  });
 
-      return response.json();
-    })
-    .then((res) => store.dispatch(setProductList(res)));
+  if (!response.ok) {
+    return;
+  }
+
+  const result = await response.json();
+  store.dispatch(setProductList(result));
 };
 
 loadProductList();
