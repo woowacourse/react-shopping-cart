@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { COLORS } from 'styles/theme';
 
-const Container = styled.button`
+const IconButtonStyle = styled.button`
   cursor: pointer;
 
   border: none;
@@ -25,4 +25,4 @@ const Container = styled.button`
   }
 `;
 
-export default Container;
+export default IconButtonStyle;

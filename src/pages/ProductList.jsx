@@ -19,7 +19,7 @@ export const ProductList = () => {
 
   return (
     <Layout>
-      <Styled.ProductListWrapper>
+      <Styled.ProductListContainer>
         {errorMessage && <h1>{errorMessage}</h1>}
         {productList ? (
           productList.map(({ id, name, price, thumbnail }) => (
@@ -28,7 +28,7 @@ export const ProductList = () => {
         ) : (
           <EmptyProductItem />
         )}
-      </Styled.ProductListWrapper>
+      </Styled.ProductListContainer>
     </Layout>
   );
 };

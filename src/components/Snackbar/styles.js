@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { COLORS } from 'styles/theme';
 
-const Container = styled.div`
+const Wrapper = styled.div`
   position: fixed;
   left: 10px;
   bottom: 10px;
@@ -16,4 +16,4 @@ const Container = styled.div`
   font-size: 0.8rem;
 `;
 
-export { Container };
+export { Wrapper };
