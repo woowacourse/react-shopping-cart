@@ -15,7 +15,7 @@ const GlobalStyles = css`
   }
 
   body {
-    background-color: ${COLORS.WILDSAND};
+    background-color: ${COLORS.GRAY_001};
   }
 `;
 

@@ -8,7 +8,7 @@ const Container = styled.header`
   grid-template-columns: repeat(3, 1fr);
   background-color: ${COLORS.WHITE};
   padding: 1.7rem 1.2rem;
-  border-bottom: 1px solid ${COLORS.ALTO};
+  border-bottom: 1px solid ${COLORS.GRAY_003};
 
   & > .left-menu {
     display: flex;
@@ -51,7 +51,7 @@ const Container = styled.header`
     > li {
       font-size: 0.9rem;
       padding: 1rem;
-      color: ${COLORS.DORADO};
+      color: ${COLORS.GRAY_005};
 
       &::before {
         font-family: 'Font Awesome 6 Free';

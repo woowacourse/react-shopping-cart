@@ -20,8 +20,8 @@ const Container = styled.button`
   }
 
   &:hover {
-    color: ${COLORS.BLUERIBBON};
-    background-color: ${COLORS.CONCRETE};
+    color: ${COLORS.BLUE_001};
+    background-color: ${COLORS.GRAY_002};
   }
 `;
 
