@@ -5,8 +5,7 @@ import Items from "../../components/Items";
 import { getProductsByPage } from "../../modules/products";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
-
-const DELAY_TIME = 500;
+import { DELAY_TIME } from "../../constants/constants";
 
 const ItemList = () => {
   const products = useSelector((state) => state.products);

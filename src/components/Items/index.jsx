@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Item from "../Item";
 import ItemSkeleton from "../ItemSkeleton";
-
-const LOAD_ITEM_AMOUNT = 10;
+import { LOAD_ITEM_AMOUNT } from "../../constants/constants";
 
 const Items = () => {
   const products = useSelector((state) => state.products);

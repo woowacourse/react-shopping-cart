@@ -10,7 +10,7 @@ const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
 
   return (
     <S.ItemContainer>
-      <S.ItemImage onClick={onClick} src={imgUrl} alt="상품이미지" />
+      <S.ItemImage onClick={onClick} src={imgUrl} alt={`${title} 이미지`} />
       <S.ItemInfoWrapper>
         <div onClick={onClick}>
           <S.ItemInfo>{title}</S.ItemInfo>
