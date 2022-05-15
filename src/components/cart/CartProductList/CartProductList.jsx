@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartAsync } from '../../../store/actions/cart';
 import CheckBox from '../../common/CheckBox/CheckBox';
@@ -10,38 +10,32 @@ function CartProductList() {
 
   const {
     cart: { cart },
+    checkedProductList,
   } = useSelector(({ cart }) => cart);
+
   const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
 
   useEffect(() => {
     dispatch(fetchCartAsync());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [productCheckArray, setProductCheckArray] = useState([]);
-
   const isAllChecked = useMemo(
-    () => productCheckArray.every((checked) => checked),
-    [productCheckArray],
+    () => cartLength === checkedProductList.length,
+    [cartLength, checkedProductList],
   );
-
-  useEffect(() => {
-    setProductCheckArray(new Array(cartLength).fill(true));
-  }, [cartLength]);
-
-  const setProductCheck = (index) => {
-    setProductCheckArray((prevArray) => {
-      const newArray = [...prevArray];
-      newArray[index] = !newArray[index];
-      return newArray;
-    });
-  };
 
   const toggleAllCheck = () => {
     if (isAllChecked) {
-      setProductCheckArray(new Array(cartLength).fill(false));
+      dispatch({
+        type: 'UPDATE_CHECKED_LIST',
+        payload: { checkedProductList: [] },
+      });
       return;
     }
-    setProductCheckArray(new Array(cartLength).fill(true));
+    dispatch({
+      type: 'UPDATE_CHECKED_LIST',
+      payload: { checkedProductList: Object.keys(cart) },
+    });
   };
 
   return (
@@ -58,18 +52,10 @@ function CartProductList() {
       <Styled.Title>장바구니 상품 목록 ({cartLength}개)</Styled.Title>
       <Styled.ListWrapper>
         {cart &&
-          Object.keys(cart).map((id, index) => {
+          Object.keys(cart).map((id) => {
             const { productData, quantity } = cart[id];
 
-            return (
-              <CartProductCard
-                key={id}
-                product={productData}
-                quantity={quantity}
-                checked={productCheckArray[index]}
-                setChecked={() => setProductCheck(index)}
-              />
-            );
+            return <CartProductCard key={id} product={productData} quantity={quantity} />;
           })}
       </Styled.ListWrapper>
     </Styled.Container>

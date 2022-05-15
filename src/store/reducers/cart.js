@@ -1,5 +1,6 @@
 const initialState = {
   cart: {},
+  checkedProductList: [],
   isLoading: false,
 };
 
@@ -63,6 +64,16 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    }
+
+    case 'UPDATE_CHECKED_LIST': {
+      const {
+        payload: { checkedProductList },
+      } = action;
+      return {
+        ...state,
+        checkedProductList,
       };
     }
 
