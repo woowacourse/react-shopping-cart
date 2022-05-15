@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ProductItem from 'components/ProductItem';
 import Layout from 'components/Layout';
+import EmptyProductItem from 'components/EmptyProductItem';
 
 import { getProductList } from 'actions/products';
 
@@ -20,10 +21,13 @@ export const ProductList = () => {
     <Layout>
       <Styled.ProductListWrapper>
         {errorMessage && <h1>{errorMessage}</h1>}
-        {productList &&
+        {productList ? (
           productList.map(({ id, name, price, thumbnail }) => (
             <ProductItem key={id} id={id} image={thumbnail} name={name} price={price} />
-          ))}
+          ))
+        ) : (
+          <EmptyProductItem />
+        )}
       </Styled.ProductListWrapper>
     </Layout>
   );
