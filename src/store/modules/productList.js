@@ -6,19 +6,20 @@ const GET_PRODUCT_LIST_PENDING = 'GET_PRODUCT_LIST_PENDING';
 const GET_PRODUCT_LIST_SUCCESS = 'GET_PRODUCT_LIST_SUCCESS';
 const GET_PRODUCT_LIST_FAILURE = 'GET_PRODUCT_LIST_FAILURE';
 
-function getAPI() {
-  return axios.get(`${API_URL}/products`);
-}
+const appClient = axios.create({
+  baseURL: API_URL,
+  timeout: 1000,
+  responseType: 'json',
+});
 
 export const getProductList = () => async (dispatch) => {
   dispatch({type: GET_PRODUCT_LIST_PENDING});
 
   try {
-    const response = await getAPI();
-    console.log(response);
+    const {data} = await appClient.get('products');
     dispatch({
       type: GET_PRODUCT_LIST_SUCCESS,
-      payload: response.data,
+      payload: data,
     });
   } catch (err) {
     dispatch({
