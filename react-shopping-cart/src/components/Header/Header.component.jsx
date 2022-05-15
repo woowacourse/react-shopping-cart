@@ -19,7 +19,7 @@ function Header() {
       <HeaderLink to="/" type="title">
         <HeaderTitleBox>
           <ShoppingCart fill="#fff" width={50} height={44} />
-          {' WOOWA SHOP'}
+          WOOWA SHOP
         </HeaderTitleBox>
       </HeaderLink>
       <HeaderNavBox>
