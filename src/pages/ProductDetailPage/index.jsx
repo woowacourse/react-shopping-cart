@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { CardDetailButton } from 'components/common/Button';
 import { FlexSpaceBetween } from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
+import { setProduct, resetProduct } from 'modules/product';
 
 const ProductDetail = () => {
+  const dispatch = useDispatch();
   const { id: productId } = useParams();
-  const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);
+  const { currentProduct, isLoading } = useSelector(({ productReducer }) => productReducer);
+
+  useEffect(() => {
+    const loadProduct = async () => {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList/${productId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        return;
+      }
+
+      const result = await response.json();
+      dispatch(setProduct(result));
+    };
+
+    loadProduct();
+
+    return () => {
+      dispatch(resetProduct());
+    };
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
-  const { name, price, thumbnail } = productList.find(
-    (product) => product.id === Number(productId),
-  );
+  const { name, price, thumbnail } = currentProduct;
 
   return (
     <Styled.Wrapper>
