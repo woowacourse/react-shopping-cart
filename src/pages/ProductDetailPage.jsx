@@ -9,19 +9,19 @@ import { SIZE } from '../constant';
 
 function ProductDetailPage() {
   const [item, setItem] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
     async function getProductItemInfo(id) {
       const productItem = await getProductItem(id);
       setItem(productItem);
-      setLoading(true);
+      setLoading(false);
     }
     getProductItemInfo(id);
   }, [id]);
 
-  if (!loading) return <Loading />;
+  if (loading) return <Loading />;
 
   const { imageUrl, name, price } = item;
 
