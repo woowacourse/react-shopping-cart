@@ -29,4 +29,16 @@ export const handlers = [
       ctx.body(imageBuffer),
     );
   }),
+  rest.post(`${API_URL}shopping-cart`, (req, res, ctx) => {
+    const currentShoppingCart =
+      JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
+    const { productId, quantity } = req.body;
+    currentShoppingCart[productId] = currentShoppingCart[productId]
+      ? currentShoppingCart[productId] + quantity
+      : quantity;
+
+    window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
+
+    return res(ctx.json(currentShoppingCart));
+  }),
 ];
