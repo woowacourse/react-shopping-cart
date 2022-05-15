@@ -8,17 +8,17 @@ import * as Styled from './CartProductCard.style';
 function CartProductCard({ product: { name, price, imageURL }, quantity }) {
   return (
     <Styled.Container>
-      <CheckBox checked={false} />
+      <CheckBox checked={true} />
 
       <Image src={imageURL} width="150px" />
 
       <Styled.Description>
         <Position position="absolute" top="0" right="0">
-          <Icon iconName="cart" />
+          <Icon iconName="trash" fill="#333333" />
         </Position>
         <Styled.Name>{name}</Styled.Name>
         <Styled.Counter>{quantity}</Styled.Counter>
-        <Styled.Price>{price}</Styled.Price>
+        <Styled.Price>{price * quantity}원</Styled.Price>
       </Styled.Description>
     </Styled.Container>
   );

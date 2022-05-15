@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 60%;
+  width: 100%;
   padding: 20px 15px;
 
   display: flex;
@@ -23,6 +23,7 @@ export const Description = styled.div`
 `;
 
 export const Name = styled.h1`
+  font-size: 20px;
   align-self: flex-start;
 `;
 export const Counter = styled.div``;
