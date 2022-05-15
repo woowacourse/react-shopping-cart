@@ -1,6 +1,6 @@
+import CartLeftSection from 'components/CartLeftSection/CartLeftSection';
+import ExpectedPaymentContainer from 'components/ExpectedPaymentContainer/ExpectedPaymentContainer';
 import styled from 'styled-components';
-import CartLeftSection from 'component/CartLeftSection/CartLeftSection';
-import ExpectedPaymentContainer from 'component/ExpectedPaymentContainer/ExpectedPaymentContainer';
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 const ShoppingCartPageHeader = styled.div`

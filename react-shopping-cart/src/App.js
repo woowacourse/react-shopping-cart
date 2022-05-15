@@ -1,8 +1,8 @@
-import Header from 'component/@shared/Header/Header';
-import PageTitle from 'component/@shared/PageTitle/PageTitle';
+import Header from 'components/@shared/Header/Header';
+import PageTitle from 'components/@shared/PageTitle/PageTitle';
 import { ReactComponent as Cart } from 'assets/cart.svg';
 import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
-import NavigateButton from 'component/@shared/NavigateButton/NavigateButton';
+import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
 import ProductListPage from 'pages/ProductListPage/ProductListPage';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';

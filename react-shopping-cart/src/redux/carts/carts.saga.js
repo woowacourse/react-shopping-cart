@@ -10,7 +10,7 @@ import {
   deleteProductToCartSuccess,
   fetchCartsError,
   fetchCartsSuccess,
-} from './carts.action';
+} from 'redux/carts/carts.action';
 
 export function* getCarts() {
   try {

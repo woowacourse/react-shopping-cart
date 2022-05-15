@@ -6,7 +6,7 @@ import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store';
-import ErrorBoundary from 'component/@shared/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from 'components/@shared/ErrorBoundary/ErrorBoundary';
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

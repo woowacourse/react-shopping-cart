@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductCard from 'component/ProductCard/ProductCard';
+import ProductCard from 'components/ProductCard/ProductCard';
 import {
   selectCurrentProducts,
   selectProductsError,
@@ -8,12 +8,12 @@ import {
 } from 'redux/products/products.selector';
 import { useEffect } from 'react';
 import { fetchProductsStart } from 'redux/products/products.action';
-import WithSpinner from 'component/@shared/WithSpinner/WithSpinner';
+import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 import { fetchCartsStart } from 'redux/carts/carts.action';
 import { selectCurrentCarts } from 'redux/carts/carts.selector';
 import { isInCart } from 'util/check';
-import Pagination from 'component/@shared/Pagination/Pagination';
-import PaginationButton from 'component/@shared/PaginationButton/PaginationButton';
+import Pagination from 'components/@shared/Pagination/Pagination';
+import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const GridContainer = styled.div`
