@@ -136,3 +136,86 @@ export const productList = [
     quantity: 10,
   },
 ];
+
+export const cartList = [
+  {
+    id: 1,
+    name: '캐스터네츠 커스텀캣타워H_가드형',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1608536490_103005_1.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '619000',
+    quantity: 1,
+  },
+  {
+    id: 2,
+    name: '관절에 무리없는 캣워커/캣휠 120CM 대형사이즈',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/164776373888845264.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '124000',
+    quantity: 1,
+  },
+  {
+    id: 3,
+    name: '펫토 세탁이 필요없는 강아지집 고양이집 숨숨집',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162442749999617696.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '99000',
+    quantity: 1,
+  },
+  {
+    id: 4,
+    name: '더테이블 자동급식기 화이트',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/164550636211665211.png?gif=1&w=1280&h=1280&c=c',
+    price: '119200',
+    quantity: 2,
+  },
+  {
+    id: 5,
+    name: 'NEW 컬러추가 강아지 고양이 기절 댕냥쿠션/방석',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/165095245734958156.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '26900',
+    quantity: 2,
+  },
+  {
+    id: 6,
+    name: 'PETMARVEL 펫드라이룸 강아지 고양이 드라이기',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162686064836045500.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '167900',
+    quantity: 2,
+  },
+  {
+    id: 7,
+    name: '펫빈백 방석 펫소파',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161225604925143188.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '16900',
+    quantity: 1,
+  },
+  {
+    id: 8,
+    name: '냥틀 고양이 창문, 창틀선반 캣타워',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163539162531225534.png?gif=1&w=1280&h=1280&c=c',
+    price: '24800',
+    quantity: 1,
+  },
+  {
+    id: 9,
+    name: '캣링크 WIFI 자동 고양이 화장실',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162276338204677539.png?gif=1&w=1280&h=1280&c=c',
+    price: '42500',
+    quantity: 1,
+  },
+  {
+    id: 10,
+    name: '웨이브팟 반려동물 급수기',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/164601050125053383.png?gif=1&w=1280&h=1280&c=c',
+    price: '59000',
+    quantity: 1,
+  },
+];

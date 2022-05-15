@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { productList } from 'assets/mock';
+import { productList, cartList } from 'assets/mock';
 
 export const handlers = [
   rest.get('/product/products/:id', (req, res, ctx) => {
@@ -18,5 +18,13 @@ export const handlers = [
 
   rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productList));
+  }),
+
+  rest.post('/cart/:id', (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+
+  rest.get('/cart/cart', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(cartList));
   }),
 ];
