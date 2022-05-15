@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import * as Styled from "./styles";
+import deleteIcon from "../../assets/deleteIcon.png";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
 import { generateSnackBar } from "../../redux/modules/snackBar";
@@ -37,17 +38,19 @@ function Product({ productInfo }: ProductProps) {
     }
   };
 
+  const onClickDeleteItem = () => {
+    if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+      dispatch(deleteItem(id));
+      setIsShowCartCounter(false);
+      dispatch(generateSnackBar("장바구니에서 삭제되었습니다. 🥲"));
+    }
+  };
+
   const onClickDecreaseCounter = () => {
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
 
-    if (cartItem?.amount === 1) {
-      dispatch(deleteItem(id));
-      setIsShowCartCounter(false);
-      dispatch(generateSnackBar("장바구니에서 삭제되었습니다. 🥲"));
-      return;
-    }
     dispatch(decrement(id));
   };
 
@@ -86,7 +89,11 @@ function Product({ productInfo }: ProductProps) {
           <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
         </Styled.CartImageWrapper>
         <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
-          <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
+          {cartItem?.amount === 1 ? (
+            <Styled.DeleteIcon src={deleteIcon} onClick={onClickDeleteItem} />
+          ) : (
+            <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
+          )}
           <span>{cartItem?.amount ?? 0}</span>
           <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>
         </Styled.CartCounter>

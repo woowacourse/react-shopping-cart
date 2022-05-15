@@ -138,6 +138,15 @@ const CartCounterButton = styled.button`
   border-radius: 15px;
 `;
 
+const DeleteIcon = styled.img`
+  width: 25px;
+  height: 20px;
+  background-color: #2ac1bc;
+  border-radius: 10px;
+  color: wheat;
+  cursor: pointer;
+`;
+
 export {
   ProductWrapper,
   ProductInfoWrapper,
@@ -149,4 +158,5 @@ export {
   CartCounterButton,
   CartImageWrapper,
   CartImageBadge,
+  DeleteIcon,
 };
