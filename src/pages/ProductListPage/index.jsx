@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { initializeProductList } from "../../store";
+import { initProductList } from "../../store";
 import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
@@ -24,7 +24,7 @@ function ProductListPage() {
 
   useEffect(() => {
     if (!isLoading && !errorMessage) {
-      dispatch(initializeProductList({ products: fetchedData }));
+      dispatch(initProductList({ products: fetchedData }));
     }
   }, [isLoading, errorMessage]);
 

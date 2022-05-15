@@ -1,22 +1,20 @@
 import { createStore } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
-const PRODUCT_LIST_ACTION_TYPE = {
+const PRODUCT_LIST_ACTION = {
   INIT: "INIT",
 };
 
-export const initializeProductList = (payload) => ({
-  type: PRODUCT_LIST_ACTION_TYPE.INIT,
+export const initProductList = (payload) => ({
+  type: PRODUCT_LIST_ACTION.INIT,
   payload,
 });
 
 const productListReducer = (state = [], action) => {
-  switch (action.type) {
-    case PRODUCT_LIST_ACTION_TYPE.INIT:
-      return action.payload.products;
-    default:
-      return state;
+  if (action.type === PRODUCT_LIST_ACTION.INIT) {
+    return action.payload.products;
   }
+  return state;
 };
 
 const store = createStore(productListReducer, composeWithDevTools());
