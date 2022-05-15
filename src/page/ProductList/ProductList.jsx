@@ -1,22 +1,9 @@
-import styled from 'styled-components';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAsyncThunk } from 'store/action/productsActions';
 
-import { GridLayout, Spinner } from 'component/common';
-import { PageLayout, Product } from 'component';
-
-import { FRUITS } from 'constant';
-
-const FruitBox = styled.div`
-  width: 300px;
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-`;
+import { GridLayout } from 'component/common';
+import { LoadingSpinner, PageLayout, Product } from 'component';
 
 function ProductList() {
   const products = useSelector(products => products);
@@ -35,13 +22,7 @@ function ProductList() {
           ))}
         </GridLayout>
       ) : (
-        <FruitBox>
-          {FRUITS.map(fruit => (
-            <Spinner key={fruit}>
-              <span style={{ fontSize: '50px' }}>{fruit}</span>
-            </Spinner>
-          ))}
-        </FruitBox>
+        <LoadingSpinner />
       )}
     </PageLayout>
   );
