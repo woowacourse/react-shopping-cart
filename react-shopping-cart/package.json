@@ -8,6 +8,8 @@
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "chromatic": "^6.5.4",
+    "gh-pages": "^4.0.0",
+    "json-server": "^0.17.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
@@ -30,7 +32,8 @@
     "json-server": "json-server --watch db.json --port 3002",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "chromatic": "npx chromatic --project-token=55899d89f33b"
+    "chromatic": "npx chromatic --project-token=55899d89f33b",
+    "pretty": "prettier --write \"src/**/*.{js,jsx,json}\""
   },
   "eslintConfig": {
     "extends": [
@@ -71,11 +74,10 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "postcss": "^8.4.13",
     "postcss-cli": "^9.1.0",
-    "webpack": "^5.72.0",
-    "gh-pages": "^4.0.0",
-    "json-server": "^0.17.0"
-  },
-  "homepage": "https://al-bur.github.io/react-shopping-cart/"
+    "prettier": "^2.6.2",
+    "webpack": "^5.72.0"
+  }
 }
