@@ -1,5 +1,8 @@
 import Header from '../components/Layout/Header';
 
+import { Global } from '@emotion/react';
+import GlobalStyles from 'styles/GlobalStyles';
+
 export default {
   title: 'Component/Header',
   component: Header,
@@ -8,6 +11,11 @@ export default {
   },
 };
 
-const Template = (args) => <Header {...args} />;
+const Template = (args) => (
+  <>
+    <Global styles={GlobalStyles} />
+    <Header {...args} />
+  </>
+);
 
 export const DefaultTemplate = Template.bind({});
