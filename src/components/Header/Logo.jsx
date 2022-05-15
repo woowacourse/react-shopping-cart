@@ -5,6 +5,17 @@ import styled from "styled-components";
 import shoppingCartIconWhite from "../../asset/shopping-cart-icon-white.svg";
 import { PATH } from "./../../constants/index";
 
+function Logo() {
+  return (
+    <Link to={PATH.ROOT}>
+      <LogoContainer>
+        <IconImg src={shoppingCartIconWhite} alt="장바구니 아이콘" />
+        <Title>TAEPHIA SHOP</Title>
+      </LogoContainer>
+    </Link>
+  );
+}
+
 const LogoContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -24,16 +35,5 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 900;
 `;
-
-function Logo() {
-  return (
-    <Link to={PATH.ROOT}>
-      <LogoContainer>
-        <IconImg src={shoppingCartIconWhite} alt="장바구니 아이콘" />
-        <Title>TAEPHIA SHOP</Title>
-      </LogoContainer>
-    </Link>
-  );
-}
 
 export default Logo;

@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PATH } from "./../../constants/index";
-import BoxButton from "./../../components/common/BoxButton";
 import styled from "styled-components";
+
+import Button from "./../../components/common/Button";
+
+import { PATH } from "./../../constants/index";
 
 function ErrorPage() {
   return (
     <div>
       <h2>잘못된 접근입니다.</h2>
-      <Link to={PATH.ROOT}>
-        <ButtonWrapper>
-          <BoxButton>홈으로</BoxButton>
-        </ButtonWrapper>
-      </Link>
+      <ButtonWrapper>
+        <Link to={PATH.ROOT}>
+          <Button>홈으로</Button>
+        </Link>
+      </ButtonWrapper>
     </div>
   );
 }

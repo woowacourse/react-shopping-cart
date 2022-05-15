@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import BoxButton from "../../components/common/BoxButton";
+import Button from "./../../components/common/Button";
 
 function ProductDetailCard({ product: { id, thumbnailUrl, name, price } }) {
   return (
@@ -21,14 +21,14 @@ function ProductDetailCard({ product: { id, thumbnailUrl, name, price } }) {
 
 function AddToCartButton() {
   return (
-    <BoxButton
+    <Button
       onClick={() => {
         alert("🛒아직입니다~~^^🛒");
       }}
-      bgColor="#73675C"
+      bgColor="brown"
     >
       장바구니 담기
-    </BoxButton>
+    </Button>
   );
 }
 

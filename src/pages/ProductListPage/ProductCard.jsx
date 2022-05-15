@@ -6,6 +6,29 @@ import AddToCartButton from "./AddToCartButton";
 
 import { PATH } from "../../constants";
 
+function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(PATH.PRODUCT_DETAIL_WITH_ID(id));
+  };
+
+  return (
+    <Container onClick={onClick}>
+      <ImageWrapper>
+        <ProductThumbnail bgImage={thumbnailUrl ?? ""} />
+      </ImageWrapper>
+      <CardBottom>
+        <TextInfoContainer>
+          <ProductName>{name ?? "%Error%"}</ProductName>
+          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
+        </TextInfoContainer>
+        <AddToCartButton />
+      </CardBottom>
+    </Container>
+  );
+}
+
 const Container = styled.li`
   display: flex;
   flex-direction: column;
@@ -48,7 +71,7 @@ const CardBottom = styled.div`
   padding: 0 12px;
 `;
 
-const InfoWrapper = styled.div`
+const TextInfoContainer = styled.div`
   max-width: 70%;
 `;
 
@@ -66,28 +89,5 @@ const ProductPrice = styled.p`
   font-size: 1.25rem;
   color: ${({ theme }) => theme.color.darkGrey};
 `;
-
-function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate(PATH.PRODUCT_DETAIL_WITH_ID(id));
-  };
-
-  return (
-    <Container onClick={onClick}>
-      <ImageWrapper>
-        <ProductThumbnail bgImage={thumbnailUrl ?? ""} />
-      </ImageWrapper>
-      <CardBottom>
-        <InfoWrapper>
-          <ProductName>{name ?? "%Error%"}</ProductName>
-          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
-        </InfoWrapper>
-        <AddToCartButton />
-      </CardBottom>
-    </Container>
-  );
-}
 
 export default ProductCard;
