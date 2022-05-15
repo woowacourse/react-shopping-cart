@@ -11,6 +11,7 @@ import Loader from 'component/Loader';
 import Empty from 'assets/empty.png';
 
 import {ProductListPageWrapper, ProductListWrapper} from 'page/ProductListPage/style';
+import ErrorPage from 'page/ErrorPage';
 
 export default function ProductListPage() {
   const {dispatch, pending, error, data: productList} = useReducerSelect('productListReducer');
@@ -24,6 +25,7 @@ export default function ProductListPage() {
   return (
     <ProductListPageWrapper>
       {pending && <Loader />}
+      {error && <ErrorPage />}
       {!pending &&
         (productList.length ? (
           <ProductListWrapper>

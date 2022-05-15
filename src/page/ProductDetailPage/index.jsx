@@ -8,6 +8,7 @@ import useReducerSelect from 'hooks/useReducerSelect';
 import {DetailItemPageWrapper} from 'page/ProductDetailPage/style';
 import {getProductItem} from 'store/modules/productItem';
 import Loading from 'component/Loader';
+import ErrorPage from 'page/ErrorPage';
 export default function ProductDetailPage() {
   const {dispatch, pending, error, data: productItem} = useReducerSelect('productItemReducer');
 
@@ -20,6 +21,7 @@ export default function ProductDetailPage() {
   return (
     <DetailItemPageWrapper>
       {pending && <Loading />}
+      {error && <ErrorPage />}
       {!pending && (
         <DetailItem
           itemImgURL={productItem.image}
