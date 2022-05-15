@@ -5,35 +5,25 @@ import { useEffect } from "react";
 import ProductName from "component/@shared/ProductName/ProductName";
 import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
 import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnail";
-import WithSpinner from "component/@shared/WithSpinner/WithSpinner";
-import ShoppingCartButton from "component/ShoppingCartButton/ShoppingCartButton";
+import WithSpinner from "component/Wrapper/WithSpinner/WithSpinner";
+import ShoppingCartButton from "component/ShoppingCart/ShoppingCartButton/ShoppingCartButton";
 
 import {
   selectDetailProduct,
   selectProductsLoading,
 } from "redux/products/products.selector";
 import { fetchProductDetailStart } from "redux/products/products.action";
-import {
-  selectCartsLoading,
-  selectCurrentCarts,
-} from "redux/carts/carts.selector";
+import { selectCartsLoading } from "redux/carts/carts.selector";
 
 import { ColumnFlexWrapper, RowFlexWrapper } from "styles/Wrapper";
-import { isInCart } from "util/check";
-import useClickCartButton from "hooks/useClickCartButton";
-import { CURRENT_USER } from "constants/index";
 
 function ProductDetailPage() {
   const { idx } = useParams();
   const product = useSelector(selectDetailProduct);
-  const carts = useSelector(selectCurrentCarts);
   const cartsLoading = useSelector(selectCartsLoading);
   const productsLoading = useSelector(selectProductsLoading);
 
   const dispatch = useDispatch();
-  const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
-
-  const isCartItem = isInCart(idx, carts);
 
   useEffect(() => {
     dispatch(fetchProductDetailStart(idx));
@@ -55,22 +45,7 @@ function ProductDetailPage() {
             <div>금액</div>
             <ProductPrice type="detail">{product.price}원</ProductPrice>
           </RowFlexWrapper>
-          <ShoppingCartButton
-            $isincart={isCartItem}
-            onClick={
-              isCartItem
-                ? (e) => handleDeleteProduct(e, `${CURRENT_USER}${idx}`)
-                : (e) =>
-                    handleAddProduct(e, {
-                      name: product.name,
-                      price: product.price,
-                      id: idx,
-                      thumbnail: product.image,
-                    })
-            }
-          >
-            {isCartItem ? "장바구니에서 제거" : "장바구니에 추가"}
-          </ShoppingCartButton>
+          <ShoppingCartButton idx={idx} />
         </ColumnFlexWrapper>
       </WithSpinner>
     )

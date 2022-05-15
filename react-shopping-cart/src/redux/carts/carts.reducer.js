@@ -23,6 +23,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: null,
         loading: false,
+        allChecked: false,
         carts: action.payload,
       };
     case cartsActionTypes.deleteProductToCartError:
@@ -80,10 +81,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["quantity"] =
-        typeof currentCartProduct["quantity"] !== "undefined"
-          ? currentCartProduct["quantity"] + 1
-          : 2;
+      currentCartProduct["quantity"] += 1;
       return { ...state, carts: newCarts };
     }
     case cartsActionTypes.decreaseProductQuantity: {
@@ -94,9 +92,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       if (currentCartProduct["quantity"] === 0) {
         return { ...state };
       }
-      currentCartProduct["quantity"] = currentCartProduct["quantity"]
-        ? currentCartProduct["quantity"] - 1
-        : 1;
+      currentCartProduct["quantity"] -= 1;
       return { ...state, carts: newCarts };
     }
     default:

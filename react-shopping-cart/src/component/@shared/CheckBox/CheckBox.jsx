@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CheckBox = styled.input`
+const CheckBox = styled.input.attrs({ type: "checkbox" })`
   appearance: none;
   border: 1px solid #2ac1bc;
   border-radius: 2px;

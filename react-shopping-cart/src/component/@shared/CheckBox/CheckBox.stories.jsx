@@ -6,6 +6,4 @@ export default {
 };
 
 export const DefaultCheckBox = (args) => <CheckBox {...args} />;
-DefaultCheckBox.args = {
-  type: "checkbox",
-};
+DefaultCheckBox.args = {};

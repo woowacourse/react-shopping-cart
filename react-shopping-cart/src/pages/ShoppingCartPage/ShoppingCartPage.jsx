@@ -1,26 +1,11 @@
-import styled from "styled-components";
-
-import CartLeftSection from "component/CartLeftSection/CartLeftSection";
-import ExpectedPaymentContainer from "component/ExpectedPaymentContainer/ExpectedPaymentContainer";
+import CartLeftSection from "component/ShoppingCart/CartLeftSection/CartLeftSection";
+import ExpectedPaymentContainer from "component/ShoppingCart/ExpectedPaymentContainer/ExpectedPaymentContainer";
 
 import { ColumnFlexWrapper } from "styles/Wrapper";
-
-const ShoppingCartPageHeader = styled.div`
-  width: 880px;
-  padding: 20px 0;
-  border-bottom: 3px solid;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 700;
-  border-bottom-color: ${({ theme }) => theme.colors["black_03"]};
-`;
-
-const ShoppingCartPageContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: ${({ gap }) => gap};
-`;
+import {
+  ShoppingCartPageHeader,
+  ShoppingCartPageContent,
+} from "./ShoppingCartPage.style";
 
 function ShoppingCartPage() {
   return (

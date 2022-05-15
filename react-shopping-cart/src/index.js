@@ -8,7 +8,7 @@ import { store, persistor } from "redux/store";
 
 import "./index.css";
 import App from "./App";
-import ErrorBoundary from "component/@shared/ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "component/Wrapper/ErrorBoundary/ErrorBoundary";
 
 import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
