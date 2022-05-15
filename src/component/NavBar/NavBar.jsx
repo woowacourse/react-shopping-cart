@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Button } from 'component/common';
 
 const StyledNavBar = styled.div`
+  width: 100vw;
   height: 80px;
   display: flex;
   justify-content: center;
