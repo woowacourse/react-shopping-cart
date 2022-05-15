@@ -1,7 +1,7 @@
 export const PATH = {
   ROOT: "/",
   PRODUCT_LIST: "/product-list",
-  PRODUCT_DETAIL: "/product-detail",
+  PRODUCT_DETAIL_WITH_ID: (id) => `/product-detail/${id}`,
   PRODUCT_CART: "/product-cart",
   ORDER_LIST: "order-list",
 };

@@ -71,7 +71,7 @@ function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(`${PATH.PRODUCT_DETAIL}/${id}`);
+    navigate(PATH.PRODUCT_DETAIL_WITH_ID(id));
   };
 
   return (

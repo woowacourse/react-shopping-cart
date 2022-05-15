@@ -25,7 +25,7 @@ function App() {
               <Route path={PATH.ROOT} element={<ProductListPage />} />
               <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
               <Route
-                path={PATH.PRODUCT_DETAIL + "/:id"}
+                path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
                 element={<ProductDetailPage />}
               />
               <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
