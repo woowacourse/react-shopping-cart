@@ -24,8 +24,18 @@ const rootReducer = (state = initialState, action: Action) => {
     case types.GET_PRODUCT_LIST_ERROR: {
       return { ...state, condition: CONDITION.ERROR, productList: [] };
     }
-    case types.GET_PRODUCT_DETAIL_FULFILLED: {
-      return { ...state, productDetail: action.payload };
+    case types.GET_PRODUCT_DETAIL: {
+      return { ...state, condition: CONDITION.LOADING };
+    }
+    case types.GET_PRODUCT_DETAIL_SUCCESS: {
+      return {
+        ...state,
+        condition: CONDITION.COMPLETE,
+        productDetail: action.payload,
+      };
+    }
+    case types.GET_PRODUCT_DETAIL_ERROR: {
+      return { ...state, condition: CONDITION.ERROR, productDetail: null };
     }
     default:
       return state;

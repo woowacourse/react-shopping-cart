@@ -17,4 +17,17 @@ const getProducts = (dispatch: Dispatch) => {
     });
 };
 
-export default getProducts;
+const getProduct = (dispatch: Dispatch, id: string) => {
+  dispatch(actions.getProductDetail());
+
+  axios
+    .get(`${SERVER_URL}${PATH.REQUEST_PRODUCT}/${id}`)
+    .then((res) => {
+      dispatch(actions.getProductDetailSuccess(res.data));
+    })
+    .catch((err) => {
+      dispatch(actions.getProductDetailError());
+    });
+};
+
+export { getProducts, getProduct };

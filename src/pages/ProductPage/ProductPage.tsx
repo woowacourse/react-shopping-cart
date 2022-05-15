@@ -1,40 +1,55 @@
+import { useCallback, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CONDITION from 'constants/condition';
 import { StoreState } from 'types';
-import { actions } from 'redux/actions/actions';
+import { getProduct } from 'redux/thunks';
 import styled from 'styled-components';
-import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const condition = useSelector((state: StoreState) => state.condition);
   const productDetail = useSelector((state: StoreState) => state.productDetail);
 
   useLayoutEffect(() => {
     if (id) {
-      dispatch(actions.getProductDetail(id));
+      getProduct(dispatch, id);
     }
-  }, [id, dispatch]);
+  }, [dispatch, id]);
 
-  return productDetail ? (
-    <StyledPage>
-      <StyledImageContainer>
-        <img src={productDetail.image} alt={productDetail.name} />
-      </StyledImageContainer>
-      <h2>{productDetail.name}</h2>
-      <hr />
-      <dl>
-        <dt>가격</dt>
-        <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
-      </dl>
-      <dl>
-        <dt>제품 설명</dt>
-        <dd>{productDetail.description}</dd>
-      </dl>
-      <StyledAddToCartButton>장바구니</StyledAddToCartButton>
-    </StyledPage>
-  ) : null;
+  const renderSwitch = useCallback(() => {
+    switch (condition) {
+      case CONDITION.LOADING:
+        return <Message>Loading...</Message>;
+      case CONDITION.COMPLETE:
+        return productDetail ? (
+          <>
+            <StyledImageContainer>
+              <img src={productDetail.image} alt={productDetail.name} />
+            </StyledImageContainer>
+            <h2>{productDetail.name}</h2>
+            <hr />
+            <dl>
+              <dt>가격</dt>
+              <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
+            </dl>
+            <dl>
+              <dt>제품 설명</dt>
+              <dd>{productDetail.description}</dd>
+            </dl>
+            <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+          </>
+        ) : null;
+      case CONDITION.ERROR:
+        return (
+          <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
+        );
+    }
+  }, [condition, productDetail]);
+
+  return <StyledPage>{renderSwitch()}</StyledPage>;
 }
 
 const StyledPage = styled.div`
@@ -80,6 +95,10 @@ const StyledAddToCartButton = styled.button`
   margin-top: 20px;
   font-size: 1.2rem;
   font-weight: 600;
+`;
+
+const Message = styled.div`
+  font-size: 25px;
 `;
 
 export default ProductPage;

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CONDITION from 'constants/condition';
 import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
 import { StoreState } from 'types';
-import getProducts from 'redux/thunks';
+import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function MainPage() {
