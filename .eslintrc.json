@@ -9,16 +9,18 @@
     "plugin:import/recommended"
   ],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/no-anonymous-default-export": 0,
-    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }],
+    "@typescript-eslint/no-empty-function": ["off"],
     "eol-last": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
     "space-in-parens": ["error", "never"],
     "computed-property-spacing": ["error", "never"],
     "comma-spacing": ["warn", { "before": false, "after": true }],
-    "no-tabs": ["error", { "allowIndentationTabs": true }],
     "object-shorthand": "error",
     "padding-line-between-statements": [
       "error",
@@ -26,12 +28,10 @@
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
     ],
-    "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function": ["off"],
-    "react/prop-types": "off",
     "quotes": ["error", "single"],
-    "react/react-in-jsx-scope": "off",
-    "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }]
+    "no-empty-function": "off",
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }]
   },
   "settings": {
     "import/resolver": {
