@@ -1,24 +1,35 @@
+import { useCallback, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CONDITION from 'constants/condition';
 import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
 import { StoreState } from 'types';
-import { actions } from 'redux/actions/actions';
+import getProducts from 'redux/thunks';
 import styled from 'styled-components';
-import { useLayoutEffect } from 'react';
 
 function MainPage() {
+  const condition = useSelector((state: StoreState) => state.condition);
   const productList = useSelector((state: StoreState) => state.productList);
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    dispatch(actions.getProductList());
+    getProducts(dispatch);
   }, [dispatch]);
 
-  return (
-    <StyledPage>
-      <ProductCardGrid productList={productList} />
-    </StyledPage>
-  );
+  const renderSwitch = useCallback(() => {
+    switch (condition) {
+      case CONDITION.LOADING:
+        return <Message>Loading...</Message>;
+      case CONDITION.COMPLETE:
+        return <ProductCardGrid productList={productList} />;
+      case CONDITION.ERROR:
+        return (
+          <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
+        );
+    }
+  }, [condition, productList]);
+
+  return <StyledPage>{renderSwitch()}</StyledPage>;
 }
 
 const StyledPage = styled.div`
@@ -27,6 +38,10 @@ const StyledPage = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+`;
+
+const Message = styled.div`
+  font-size: 25px;
 `;
 
 export default MainPage;
