@@ -1,7 +1,7 @@
 import { API_URL } from 'constants';
 
-export const fetchProducts = async (id) => {
-  const res = await fetch(`${API_URL}/products?_page=${id}&_limit=12`);
+export const fetchProducts = async (pageNum = 1) => {
+  const res = await fetch(`${API_URL}/products?_page=${pageNum}&_limit=12`);
   if (!res.ok) {
     throw new Error('로드에 실패했습니다');
   }

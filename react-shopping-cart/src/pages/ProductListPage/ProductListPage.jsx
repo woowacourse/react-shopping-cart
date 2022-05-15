@@ -48,14 +48,8 @@ function ProductListPage() {
     }
   }, [error]);
 
-  useEffect(() => {
-    if (typeof idx === 'undefined') {
-      navigate('/1');
-    }
-  }, [idx, navigate]);
-
-  const handleNavigatePage = (pageIdx) => {
-    navigate(`/${pageIdx}`);
+  const handleNavigatePage = (pageNum) => {
+    navigate(`/${pageNum}`);
   };
 
   return (
