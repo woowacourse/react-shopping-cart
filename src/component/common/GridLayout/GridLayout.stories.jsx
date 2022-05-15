@@ -4,8 +4,12 @@ import { Product } from 'component';
 export default {
   title: 'Component/GridLayout',
   component: GridLayout,
-  parameters: {
-    layout: 'centered',
+  argTypes: {
+    children: {
+      table: {
+        disable: true,
+      },
+    },
   },
 };
 

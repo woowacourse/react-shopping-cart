@@ -5,9 +5,6 @@ import { FRUITS } from 'constant';
 export default {
   title: 'Component/Spinner',
   component: Spinner,
-  parameters: {
-    layout: 'centered',
-  },
 };
 
 const FruitBox = styled.div`

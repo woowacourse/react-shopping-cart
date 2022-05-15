@@ -3,8 +3,12 @@ import { Button } from 'component/common';
 export default {
   title: 'Component/Common/Button',
   component: Button,
-  parameters: {
-    layout: 'centered',
+  argTypes: {
+    onClick: {
+      table: {
+        disable: true,
+      },
+    },
   },
 };
 
