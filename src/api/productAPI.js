@@ -1,3 +1,4 @@
+import { fetchData } from 'util/api';
 import { ERROR_MESSAGE } from 'constant/messages';
 
 const productAPI = {
@@ -7,15 +8,15 @@ const productAPI = {
   },
 
   async getProducts() {
-    const response = await fetch(`${this.BASE_URL}/${this.PATH.PRODUCTS}`);
+    const response = await fetchData(`${this.BASE_URL}/${this.PATH.PRODUCTS}`);
 
-    if (!response.ok) {
-      return new Error(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS);
+    if (response instanceof Error) {
+      alert(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS);
+
+      return;
     }
 
-    const json = await response.json();
-
-    return json;
+    return response;
   },
 };
 
