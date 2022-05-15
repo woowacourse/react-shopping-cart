@@ -19,12 +19,8 @@ const Header = () => {
         </div>
       </Link>
       <S.NavContainer>
-        <NavLink exact to="/shopping-cart">
-          장바구니
-        </NavLink>
-        <NavLink exact to="/shopping-list">
-          주문목록
-        </NavLink>
+        <NavLink to="/shopping-cart">장바구니</NavLink>
+        <NavLink to="/shopping-list">주문목록</NavLink>
       </S.NavContainer>
     </S.Header>
   );

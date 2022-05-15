@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef } from "react";
 
 const useInfinityScroll = (ref, cb, endPoint) => {
-  const observer = useRef(null);
+  const observer = useRef(undefined);
+  const callBack = useRef(cb);
 
   const onIntersect = useCallback(
     ([entry]) => {
       if (entry.isIntersecting) {
-        cb();
+        callBack.current();
       }
     },
-    [cb]
+    [callBack]
   );
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const useInfinityScroll = (ref, cb, endPoint) => {
     }
 
     return function () {
-      observer.current && observer.current.disconnect();
+      observer.current && observer.current?.disconnect();
     };
   }, [endPoint, onIntersect, ref]);
 };
