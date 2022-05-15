@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import ShoppingCartApp from 'ShoppingCartApp';
 import Snackbar from 'components/Snackbar';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store';
 
@@ -13,6 +14,11 @@ root.render(
   <Provider store={store}>
     <Global styles={GlobalStyles} />
     <Snackbar />
-    <ShoppingCartApp />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ShoppingCartApp />} />
+        <Route path="*" element={<ShoppingCartApp />} />
+      </Routes>
+    </BrowserRouter>
   </Provider>,
 );
