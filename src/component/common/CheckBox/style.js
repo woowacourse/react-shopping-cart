@@ -17,8 +17,7 @@ const CheckBoxWrapper = styled.div`
 
   ${(props) =>
     css`
-
-    {console.log()}      input[id=${props.id}]:checked + label::after {
+      input[id=${props.id}]:checked + label::after {
         content${props.id}        color: white;
         font-size: 35px;
         width: 30px;
