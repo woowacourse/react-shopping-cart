@@ -24,8 +24,8 @@ export const ProductList = () => {
       <Styled.ProductListWrapper>
         {errorMessage && <h1>{errorMessage}</h1>}
         {productList &&
-          productList.map(({ id, name, price, thumbnail }) => (
-            <ProductItem key={id} id={id} image={thumbnail} name={name} price={price} />
+          productList.map(({ id, name, goodsPrice, listImage }) => (
+            <ProductItem key={id} id={id} image={listImage} name={name} price={goodsPrice} />
           ))}
       </Styled.ProductListWrapper>
     </Layout>
