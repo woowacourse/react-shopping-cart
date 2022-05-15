@@ -1,4 +1,4 @@
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
 
 type Action = ReturnType<typeof show> | ReturnType<typeof hide>;
 

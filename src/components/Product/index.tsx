@@ -6,7 +6,7 @@ import * as Styled from "./styles";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
 import { generateSnackBar } from "../../redux/modules/snackBar";
-import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
+import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
 export type ProductType = {
   name: string;
@@ -23,13 +23,13 @@ function Product({ productInfo }: ProductProps) {
   const { name, price, img, id } = productInfo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartItems = useCartListSelector();
+  const cartItemList = useCartItemListSelector();
   const cartItem = useCartItemSelector(id);
   const timeout = useRef<NodeJS.Timeout>();
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
-    if (!cartItems.some((cartItem) => cartItem.id === id)) {
+    if (!cartItemList.some((cartItem) => cartItem.id === id)) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
