@@ -7,29 +7,22 @@ export default {
   component: GridList,
 };
 
-const dummy = {
+const dummyProduct = {
   id: 1,
   thumbnailUrl: "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
   name: "PET보틀-정사각(420ml)",
   price: 43400,
 };
 
+const dummyProductList = [];
+dummyProductList.length = 22;
+dummyProductList.fill(dummyProduct);
+
 const Template = (args) => (
   <GridList {...args}>
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
+    {dummyProductList.map((product) => (
+      <ProductCard product={product} />
+    ))}
   </GridList>
 );
 
