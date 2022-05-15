@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from 'components/Product';
-import { css } from 'styled-components';
 
 const ProductList = () => {
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
