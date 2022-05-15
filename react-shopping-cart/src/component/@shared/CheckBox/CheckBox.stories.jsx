@@ -1,11 +1,11 @@
-import CheckBox from "./CheckBox";
+import CheckBox from './CheckBox';
 
 export default {
-  title: "CheckBox",
+  title: 'CheckBox',
   component: CheckBox,
 };
 
 export const DefaultCheckBox = (args) => <CheckBox {...args} />;
 DefaultCheckBox.args = {
-  type: "checkbox",
+  type: 'checkbox',
 };

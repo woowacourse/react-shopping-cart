@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ColumnFlexWrapper } from "../../styles/Wrapper";
+import styled from 'styled-components';
+import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 const ExpectedPaymentBottomContainer = styled(ColumnFlexWrapper)`
   gap: 42px;

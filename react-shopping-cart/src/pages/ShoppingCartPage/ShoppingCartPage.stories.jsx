@@ -1,7 +1,7 @@
-import ShoppingCartPage from "./ShoppingCartPage";
+import ShoppingCartPage from 'pages/ShoppingCartPage';
 
 export default {
-  title: "ShoppingCartPage",
+  title: 'ShoppingCartPage',
   component: ShoppingCartPage,
 };
 

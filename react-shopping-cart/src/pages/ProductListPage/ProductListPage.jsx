@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import ProductCard from "../../component/ProductCard/ProductCard";
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from 'component/ProductCard/ProductCard';
 import {
   selectCurrentProducts,
   selectProductsError,
   selectProductsLoading,
-} from "../../redux/products/products.selector";
-import { useEffect } from "react";
-import { fetchProductsStart } from "../../redux/products/products.action";
-import WithSpinner from "../../component/@shared/WithSpinner/WithSpinner";
-import { fetchCartsStart } from "../../redux/carts/carts.action";
-import { selectCurrentCarts } from "../../redux/carts/carts.selector";
-import { isInCart } from "../../util/check";
-import Pagination from "../../component/@shared/Pagination/Pagination";
-import PaginationButton from "../../component/@shared/PaginationButton/PaginationButton";
-import { useNavigate, useParams } from "react-router-dom";
+} from 'redux/products/products.selector';
+import { useEffect } from 'react';
+import { fetchProductsStart } from 'redux/products/products.action';
+import WithSpinner from 'component/@shared/WithSpinner/WithSpinner';
+import { fetchCartsStart } from 'redux/carts/carts.action';
+import { selectCurrentCarts } from 'redux/carts/carts.selector';
+import { isInCart } from 'util/check';
+import Pagination from 'component/@shared/Pagination/Pagination';
+import PaginationButton from 'component/@shared/PaginationButton/PaginationButton';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const GridContainer = styled.div`
   display: grid;
@@ -45,8 +45,8 @@ function ProductListPage() {
   }, [error]);
 
   useEffect(() => {
-    if (typeof idx === "undefined") {
-      navigate("/1");
+    if (typeof idx === 'undefined') {
+      navigate('/1');
     }
   }, [idx, navigate]);
 
@@ -71,7 +71,7 @@ function ProductListPage() {
         })}
       </GridContainer>
       <Pagination>
-        {new Array(5).fill("").map((_, i) => (
+        {new Array(5).fill('').map((_, i) => (
           <PaginationButton key={i} onClick={(_) => handleNavigatePage(i + 1)}>
             {i + 1}
           </PaginationButton>

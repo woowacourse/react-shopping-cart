@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import CheckBox from "../@shared/CheckBox/CheckBox";
-import ProductName from "../@shared/ProductName/ProductName";
-import ProductThumbnail from "../@shared/ProductThumbnail/ProductThumbnail";
-import { ReactComponent as Trash } from "../../assets/trash.svg";
-import ItemCounter from "../ItemCounter/ItemCounter";
-import ProductPrice from "../@shared/ProductPrice/ProductPrice";
-import useClickCartButton from "../../hooks/useClickCartButton";
-import { useDispatch } from "react-redux";
-import { toggleIsChecked } from "../../redux/carts/carts.action";
+import styled from 'styled-components';
+import CheckBox from 'component/@shared/CheckBox/CheckBox';
+import ProductName from 'component/@shared/ProductName/ProductName';
+import ProductThumbnail from 'component/@shared/ProductThumbnail/ProductThumbnail';
+import { ReactComponent as Trash } from 'assets/trash.svg';
+import ItemCounter from 'component/ItemCounter/ItemCounter';
+import ProductPrice from 'component/@shared/ProductPrice/ProductPrice';
+import useClickCartButton from 'hooks/useClickCartButton';
+import { useDispatch } from 'react-redux';
+import { toggleIsChecked } from 'redux/carts/carts.action';
 
 const CartContainer = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const CartContainer = styled.div`
   width: 490px;
   padding: 20px 5px;
   border-top: 1px solid;
-  border-color: ${({ theme }) => theme.colors["gray_03"]};
+  border-color: ${({ theme }) => theme.colors['gray_03']};
 `;
 
 const LeftContainer = styled.div`

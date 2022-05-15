@@ -1,11 +1,11 @@
-import ExpectedPaymentTopContainer from "./ExpectedPaymentTopContainer";
+import ExpectedPaymentTopContainer from 'component/ExpectedPaymentTopContainer';
 
 export default {
-  title: "ExpectedPaymentTopContainer",
+  title: 'ExpectedPaymentTopContainer',
   component: ExpectedPaymentTopContainer,
   decorators: [
     (Story) => (
-      <div style={{ width: "298px" }}>
+      <div style={{ width: '298px' }}>
         <Story />
       </div>
     ),

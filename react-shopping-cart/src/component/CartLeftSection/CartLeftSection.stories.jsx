@@ -1,11 +1,11 @@
-import CartLeftSection from "./CartLeftSection";
+import CartLeftSection from 'component/CartLeftSection';
 
 export default {
-  title: "CartLeftSection",
+  title: 'CartLeftSection',
   component: CartLeftSection,
   decorators: [
     (Story) => (
-      <div style={{ width: "490px" }}>
+      <div style={{ width: '490px' }}>
         <Story />
       </div>
     ),

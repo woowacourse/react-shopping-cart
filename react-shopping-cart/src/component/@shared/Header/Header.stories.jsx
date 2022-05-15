@@ -1,10 +1,10 @@
-import Header from "./Header";
-import PageTitle from "../PageTitle/PageTitle";
-import { ReactComponent as Cart } from "../../../assets/cart.svg";
-import NavigateButton from "../NavigateButton/NavigateButton";
-import { RowFlexWrapper } from "../../../styles/Wrapper";
+import Header from './Header';
+import PageTitle from '../PageTitle/PageTitle';
+import { ReactComponent as Cart } from '../../../assets/cart.svg';
+import NavigateButton from '../NavigateButton/NavigateButton';
+import { RowFlexWrapper } from '../../../styles/Wrapper';
 export default {
-  title: "Header",
+  title: 'Header',
   component: Header,
 };
 

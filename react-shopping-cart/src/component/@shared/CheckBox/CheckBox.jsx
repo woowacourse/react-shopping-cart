@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const CheckBox = styled.input`
   appearance: none;
@@ -17,7 +17,7 @@ const CheckBox = styled.input`
   }
 
   :after {
-    content: "✔";
+    content: '✔';
     width: 100%;
     height: 100%;
     font-size: 0.75rem;

@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import { ColumnFlexWrapper } from "../../styles/Wrapper";
-import AllSelectButton from "../AllSelectButton/AllSelectButton";
-import ProductDeleteButton from "../ProductDeleteButton/ProductDeleteButton";
-import ShoppingCartItemsContainer from "../ShoppingCartItemsContainer/ShoppingCartItemsContainer";
-import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
+import { ColumnFlexWrapper } from 'styles/Wrapper';
+import AllSelectButton from 'component/AllSelectButton/AllSelectButton';
+import ProductDeleteButton from 'component/ProductDeleteButton/ProductDeleteButton';
+import ShoppingCartItemsContainer from 'component/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCartsLoading,
   selectCurrentCarts,
-} from "../../redux/carts/carts.selector";
-import { CURRENT_USER } from "../../constants";
-import WithSpinner from "../@shared/WithSpinner/WithSpinner";
+} from 'redux/carts/carts.selector';
+import { CURRENT_USER } from 'constants';
+import WithSpinner from 'component/@shared/WithSpinner/WithSpinner';
 import {
   deleteCheckedProductsStart,
   fetchCartsStart,
-} from "../../redux/carts/carts.action";
-import { useEffect } from "react";
+} from 'redux/carts/carts.action';
+import { useEffect } from 'react';
 
 const CartLeftSectionHeader = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const CartItemsContainerHeader = styled.div`
   width: 100%;
   padding: 20px 0;
   border-bottom: 2px solid;
-  border-color: ${({ theme }) => theme.colors["gray_01"]};
+  border-color: ${({ theme }) => theme.colors['gray_01']};
 `;
 
 function CartLeftSection() {
@@ -36,7 +36,7 @@ function CartLeftSection() {
   const myCarts = carts.filter((cart) => cart.user === CURRENT_USER);
   const cartLoading = useSelector(selectCartsLoading);
   const checkedIdList = myCarts
-    .filter((cart) => cart["checked"])
+    .filter((cart) => cart['checked'])
     .map((cart) => cart.id);
 
   const handleDeleteCheckedProducts = () => {
@@ -55,7 +55,7 @@ function CartLeftSection() {
           상품삭제
         </ProductDeleteButton>
       </CartLeftSectionHeader>
-      <div style={{ width: "inherit" }}>
+      <div style={{ width: 'inherit' }}>
         <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
         <WithSpinner loading={cartLoading}>
           <ShoppingCartItemsContainer carts={myCarts} />

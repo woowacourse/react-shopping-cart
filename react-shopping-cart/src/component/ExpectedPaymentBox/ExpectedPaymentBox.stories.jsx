@@ -1,11 +1,11 @@
-import ExpectedPaymentBox from "./ExpectedPaymentBox";
+import ExpectedPaymentBox from 'component/ExpectedPaymentBox';
 
 export default {
-  title: "ExpectedPaymentBox",
+  title: 'ExpectedPaymentBox',
   component: ExpectedPaymentBox,
   decorators: [
     (Story) => (
-      <div style={{ width: "298px" }}>
+      <div style={{ width: '298px' }}>
         <Story />
       </div>
     ),
@@ -17,5 +17,5 @@ export const DefaultExpectedPaymentBox = (args) => (
 );
 
 DefaultExpectedPaymentBox.args = {
-  price: "21,200",
+  price: '21,200',
 };

@@ -1,5 +1,5 @@
-import { CURRENT_USER } from "../../constants";
-import cartsActionTypes from "./carts.types";
+import { CURRENT_USER } from 'constants';
+import cartsActionTypes from 'redux/carts/carts.types';
 
 const INITIAL_STATE = {
   loading: false,
@@ -58,7 +58,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["checked"] = !currentCartProduct["checked"];
+      currentCartProduct['checked'] = !currentCartProduct['checked'];
 
       return { ...state, carts: newCarts };
     }
@@ -66,9 +66,9 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const newCarts = state.carts.map((cart) => {
         if (
           cart.user === CURRENT_USER &&
-          state.allChecked === !!cart["checked"]
+          state.allChecked === !!cart['checked']
         ) {
-          cart["checked"] = !cart["checked"];
+          cart['checked'] = !cart['checked'];
         }
         return cart;
       });
@@ -80,9 +80,9 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["quantity"] =
-        typeof currentCartProduct["quantity"] !== "undefined"
-          ? currentCartProduct["quantity"] + 1
+      currentCartProduct['quantity'] =
+        typeof currentCartProduct['quantity'] !== 'undefined'
+          ? currentCartProduct['quantity'] + 1
           : 2;
       return { ...state, carts: newCarts };
     }
@@ -91,11 +91,11 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      if (currentCartProduct["quantity"] === 0) {
+      if (currentCartProduct['quantity'] === 0) {
         return { ...state };
       }
-      currentCartProduct["quantity"] = currentCartProduct["quantity"]
-        ? currentCartProduct["quantity"] - 1
+      currentCartProduct['quantity'] = currentCartProduct['quantity']
+        ? currentCartProduct['quantity'] - 1
         : 1;
       return { ...state, carts: newCarts };
     }

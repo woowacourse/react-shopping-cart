@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Button from "../@shared/Button/Button";
+import styled from 'styled-components';
+import Button from 'component/@shared/Button/Button';
 
 const OrderButton = styled(Button)`
   width: 258px;

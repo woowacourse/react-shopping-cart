@@ -1,7 +1,7 @@
-import ItemCounter from "./ItemCounter";
+import ItemCounter from 'component/ItemCounter';
 
 export default {
-  title: "ItemCounter",
+  title: 'ItemCounter',
   component: ItemCounter,
 };
 

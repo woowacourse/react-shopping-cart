@@ -1,12 +1,12 @@
-import { put, call, takeLatest, all } from "redux-saga/effects";
-import { fetchDetailProduct, fetchProducts } from "../../api";
+import { put, call, takeLatest, all } from 'redux-saga/effects';
+import { fetchDetailProduct, fetchProducts } from 'api';
 import {
   fetchProductDetailError,
   fetchProductDetailSucccess,
   fetchProductsError,
   fetchProductsSuccess,
-} from "./products.action";
-import productActionType from "./products.types";
+} from 'redux/products/products.action';
+import productActionType from 'redux/products/products.types';
 
 export function* getProducts({ payload: id }) {
   try {

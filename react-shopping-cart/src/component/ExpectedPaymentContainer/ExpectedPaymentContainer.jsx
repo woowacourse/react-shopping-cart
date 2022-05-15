@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import ExpectedPaymentTopContainer from "../ExpectedPaymentTopContainer/ExpectedPaymentTopContainer";
-import ExpectedPaymentBottomContainer from "../ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer";
-import ExpectedPaymentBox from "../ExpectedPaymentBox/ExpectedPaymentBox";
-import OrderButton from "../OrderButton/OrderButton";
-import { useSelector } from "react-redux";
-import { selectCurrentCarts } from "../../redux/carts/carts.selector";
-import { CURRENT_USER } from "../../constants";
+import styled from 'styled-components';
+import ExpectedPaymentTopContainer from 'component/ExpectedPaymentTopContainer/ExpectedPaymentTopContainer';
+import ExpectedPaymentBottomContainer from 'component/ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer';
+import ExpectedPaymentBox from 'component/ExpectedPaymentBox/ExpectedPaymentBox';
+import OrderButton from 'component/OrderButton/OrderButton';
+import { useSelector } from 'react-redux';
+import { selectCurrentCarts } from 'redux/carts/carts.selector';
+import { CURRENT_USER } from 'constants';
 
 const ExpectedPaymentWrapper = styled.div`
   border: 1px solid;
-  border-color: ${({ theme }) => theme.colors["gray_04"]};
+  border-color: ${({ theme }) => theme.colors['gray_04']};
 `;
 
 function ExpectedPaymentContainer() {
@@ -20,7 +20,7 @@ function ExpectedPaymentContainer() {
       return (
         acc +
         Number(cart.price) *
-          Number(typeof cart.quantity === "undefined" ? 1 : cart.quantity)
+          Number(typeof cart.quantity === 'undefined' ? 1 : cart.quantity)
       );
     }
     return acc;
@@ -29,7 +29,7 @@ function ExpectedPaymentContainer() {
   const totalOrderProductsQuantity = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
       return (
-        acc + Number(typeof cart.quantity === "undefined" ? 1 : cart.quantity)
+        acc + Number(typeof cart.quantity === 'undefined' ? 1 : cart.quantity)
       );
     }
     return acc;

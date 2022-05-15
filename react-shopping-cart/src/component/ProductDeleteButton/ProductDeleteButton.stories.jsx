@@ -1,7 +1,7 @@
-import ProductDeleteButton from "./ProductDeleteButton";
+import ProductDeleteButton from 'component/ProductDeleteButton';
 
 export default {
-  title: "ProductDeleteButton",
+  title: 'ProductDeleteButton',
   component: ProductDeleteButton,
 };
 

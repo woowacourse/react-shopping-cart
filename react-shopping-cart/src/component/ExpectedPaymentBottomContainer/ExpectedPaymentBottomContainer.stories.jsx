@@ -1,13 +1,13 @@
-import ExpectedPaymentBottomContainer from "./ExpectedPaymentBottomContainer";
-import ExpectedPaymentBox from "../ExpectedPaymentBox/ExpectedPaymentBox";
-import OrderButton from "../OrderButton/OrderButton";
+import ExpectedPaymentBottomContainer from 'component/ExpectedPaymentBottomContainer';
+import ExpectedPaymentBox from 'component/ExpectedPaymentBox/ExpectedPaymentBox';
+import OrderButton from 'component/OrderButton/OrderButton';
 
 export default {
-  title: "ExpectedPaymentBottomContainer",
+  title: 'ExpectedPaymentBottomContainer',
   component: ExpectedPaymentBottomContainer,
   decorators: [
     (Story) => (
-      <div style={{ width: "298px" }}>
+      <div style={{ width: '298px' }}>
         <Story />
       </div>
     ),
@@ -21,5 +21,5 @@ export const DefaultExpectedPaymentBottomContainer = (args) => (
   </ExpectedPaymentBottomContainer>
 );
 DefaultExpectedPaymentBottomContainer.args = {
-  price: "23,210",
+  price: '23,210',
 };

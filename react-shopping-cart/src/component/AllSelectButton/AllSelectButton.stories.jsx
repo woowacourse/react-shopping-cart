@@ -1,7 +1,7 @@
-import AllSelectButton from "./AllSelectButton";
+import AllSelectButton from 'component/AllSelectButton';
 
 export default {
-  title: "AllSelectButton",
+  title: 'AllSelectButton',
   component: AllSelectButton,
 };
 

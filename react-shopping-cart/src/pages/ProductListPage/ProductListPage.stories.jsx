@@ -1,7 +1,7 @@
-import ProductListPage from "./ProductListPage";
+import ProductListPage from 'pages/ProductListPage';
 
 export default {
-  title: "ProductListPage",
+  title: 'ProductListPage',
   component: ProductListPage,
 };
 

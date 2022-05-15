@@ -1,6 +1,6 @@
-import { put, call, takeLatest, all } from "redux-saga/effects";
-import cartsActionTypes from "./carts.types";
-import { addProductToCart, deleteProductFromCart, fetchCarts } from "../../api";
+import { put, call, takeLatest, all } from 'redux-saga/effects';
+import cartsActionTypes from 'redux/carts/carts.types';
+import { addProductToCart, deleteProductFromCart, fetchCarts } from 'api';
 import {
   addProductToCartError,
   addProductToCartSuccess,
@@ -10,7 +10,7 @@ import {
   deleteProductToCartSuccess,
   fetchCartsError,
   fetchCartsSuccess,
-} from "./carts.action";
+} from './carts.action';
 
 export function* getCarts() {
   try {

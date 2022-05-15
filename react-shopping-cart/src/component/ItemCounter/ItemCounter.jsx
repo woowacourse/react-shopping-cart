@@ -1,12 +1,11 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { ColumnFlexWrapper, RowFlexWrapper } from "../../styles/Wrapper";
-import { css } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
+import { useDispatch } from 'react-redux';
 import {
   decreaseProductQuantity,
   increaseProductQuantity,
-} from "../../redux/carts/carts.action";
+} from 'redux/carts/carts.action';
 
 const CountBox = styled.div`
   width: 48px;
@@ -24,7 +23,7 @@ const CounterButton = styled.button`
   font-size: 10px;
   border: 1px solid;
   background-color: transparent;
-  border-color: ${({ theme }) => theme.colors["gray_04"]};
+  border-color: ${({ theme }) => theme.colors['gray_04']};
 `;
 
 function ItemCounter({ id }) {
