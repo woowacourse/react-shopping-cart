@@ -40,7 +40,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
 }
 
 DetailItem.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,

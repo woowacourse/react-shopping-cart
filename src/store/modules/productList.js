@@ -1,16 +1,8 @@
-import axios from 'axios';
-
-import {API_URL} from 'constant';
+import appClient from 'utils';
 
 const GET_PRODUCT_LIST_PENDING = 'GET_PRODUCT_LIST_PENDING';
 const GET_PRODUCT_LIST_SUCCESS = 'GET_PRODUCT_LIST_SUCCESS';
 const GET_PRODUCT_LIST_FAILURE = 'GET_PRODUCT_LIST_FAILURE';
-
-const appClient = axios.create({
-  baseURL: API_URL,
-  timeout: 1000,
-  responseType: 'json',
-});
 
 export const getProductList = () => async (dispatch) => {
   dispatch({type: GET_PRODUCT_LIST_PENDING});

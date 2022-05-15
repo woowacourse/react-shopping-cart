@@ -24,10 +24,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  const handleImageClick = () =>
-    navigation(`${PATH.DETAIL}/${id}`, {
-      state: {itemImgURL, itemName, itemPrice, id, disable},
-    });
+  const handleImageClick = () => navigation(`${PATH.DETAIL}/${id}`);
 
   const handleCartIconClick = () => {
     setDisable(true);
@@ -45,12 +42,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
       />
       <InfoWrapper>
         <NamePriceWrapper>
-          <ItemNameWrapper
-            to={`${PATH.DETAIL}/${id}`}
-            state={{itemImgURL, itemName, itemPrice, id}}
-          >
-            {itemName}
-          </ItemNameWrapper>
+          <ItemNameWrapper to={`${PATH.DETAIL}/${id}`}>{itemName}</ItemNameWrapper>
           <ItemPriceWrapper>{itemPrice} 원</ItemPriceWrapper>
         </NamePriceWrapper>
         <Button disabled={disable} onClick={handleCartIconClick}>
