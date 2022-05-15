@@ -11,7 +11,7 @@ const ProductList = () => {
     <Styled.ProductBox>
       {productList.length ? (
         productList.map(({ id, name, price, thumbnail }) => (
-          <Product key={id} id={id} name={name} price={Number(price)} thumbnail={thumbnail} />
+          <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
         ))
       ) : (
         <Styled.EmptyMessage>상품 목록이 존재하지 않습니다.</Styled.EmptyMessage>

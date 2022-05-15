@@ -26,7 +26,7 @@ const ProductDetail = () => {
         <Styled.Title>{name}</Styled.Title>
         <Styled.Price>
           <p>금액</p>
-          <p>{price}원</p>
+          <p>{price.toLocaleString()}원</p>
         </Styled.Price>
       </Styled.Content>
       <CardDetailButton>장바구니</CardDetailButton>
