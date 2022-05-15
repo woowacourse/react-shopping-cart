@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import shoppingCartIconBlack from "../../../asset/shopping-cart-icon-black.svg";
+import shoppingCartIconBlack from "../../asset/shopping-cart-icon-black.svg";
 
 const IconButton = styled.button`
   padding: 10px 0 10px 10px;
