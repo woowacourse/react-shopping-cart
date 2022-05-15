@@ -19,11 +19,15 @@ const FruitBox = styled.div`
   transform: translateY(-50%);
 `;
 
+const FruitIcon = styled.span`
+  font-size: 50px;
+`;
+
 const Template = args => (
   <FruitBox>
     {FRUITS.map(fruit => (
       <Spinner key={fruit} {...args}>
-        <span style={{ fontSize: '50px' }}>{fruit}</span>
+        <FruitIcon>{fruit}</FruitIcon>
       </Spinner>
     ))}
   </FruitBox>

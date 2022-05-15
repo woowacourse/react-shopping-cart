@@ -11,12 +11,16 @@ const LoadingSpinnnerBox = styled.div`
   transform: translateY(-50%);
 `;
 
+const FruitIcon = styled.span`
+  font-size: 50px;
+`;
+
 function LoadingSpinner() {
   return (
     <LoadingSpinnnerBox>
       {FRUITS.map(fruit => (
         <Spinner key={fruit}>
-          <span style={{ fontSize: '50px' }}>{fruit}</span>
+          <FruitIcon>{fruit}</FruitIcon>
         </Spinner>
       ))}
     </LoadingSpinnnerBox>

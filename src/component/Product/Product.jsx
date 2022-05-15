@@ -36,6 +36,10 @@ const Price = styled.p`
   color: #333333;
 `;
 
+const ShoppingCartIcon = styled.span`
+  font-size: 25px;
+`;
+
 function Product({ image, name, price }) {
   return (
     <ProductBox>
@@ -46,7 +50,7 @@ function Product({ image, name, price }) {
           <Price>{price} 원</Price>
         </div>
         <Button>
-          <span style={{ fontSize: '25px' }}>🛒</span>
+          <ShoppingCartIcon>🛒</ShoppingCartIcon>
         </Button>
       </DescriptionBox>
     </ProductBox>
