@@ -15,15 +15,15 @@
     "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.0-beta.7",
-    "@storybook/addon-essentials": "^6.5.0-beta.7",
-    "@storybook/addon-interactions": "^6.5.0-beta.7",
-    "@storybook/addon-links": "^6.5.0-beta.7",
-    "@storybook/builder-webpack5": "^6.5.0-beta.7",
-    "@storybook/manager-webpack5": "^6.5.0-beta.7",
-    "@storybook/node-logger": "^6.5.0-beta.7",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
+    "@storybook/node-logger": "^6.4.22",
     "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.5.0-beta.7",
+    "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -31,7 +31,7 @@
     "gh-pages": "^4.0.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -53,6 +53,18 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   }
 }
