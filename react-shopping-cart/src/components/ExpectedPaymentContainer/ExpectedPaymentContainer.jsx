@@ -20,20 +20,14 @@ function ExpectedPaymentContainer() {
 
   const totalPaymentCost = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
-      return (
-        acc +
-        Number(cart.price) *
-          Number(typeof cart.quantity === 'undefined' ? 1 : cart.quantity)
-      );
+      return acc + Number(cart.price) * Number(cart.quantity);
     }
     return acc;
   }, 0);
 
   const totalOrderProductsQuantity = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
-      return (
-        acc + Number(typeof cart.quantity === 'undefined' ? 1 : cart.quantity)
-      );
+      return acc + Number(cart.quantity);
     }
     return acc;
   }, 0);
