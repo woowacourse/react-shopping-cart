@@ -1,18 +1,19 @@
-import PageTitle from "components/@shared/PageTitle/PageTitle";
-import { ReactComponent as Cart } from "assets/cart.svg";
+import PageTitle from 'components/@shared/PageTitle/PageTitle';
+
+import { ReactComponent as Cart } from 'assets/cart.svg';
 
 export default {
-  title: "PageTitle",
+  title: 'PageTitle',
   component: PageTitle,
   decorators: [
     (Story) => (
       <div
         style={{
-          background: "black",
-          width: "600px",
-          height: "100px",
-          textAlign: "center",
-          lineHeight: "100px",
+          background: 'black',
+          width: '600px',
+          height: '100px',
+          textAlign: 'center',
+          lineHeight: '100px',
         }}
       >
         <Story />

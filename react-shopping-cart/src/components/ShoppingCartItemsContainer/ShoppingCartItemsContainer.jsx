@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { ColumnFlexWrapper } from 'styles/Wrapper';
+
 import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
+
+import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 const ShoppingCartItemBox = styled(ColumnFlexWrapper)``;
 

@@ -1,19 +1,19 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const ProductThumbnail = styled.img`
   ${({ type }) => {
     switch (type) {
-      case "card":
+      case 'card':
         return css`
           width: 188px;
           height: 188px;
         `;
-      case "detail":
+      case 'detail':
         return css`
           width: 380px;
           height: 380px;
         `;
-      case "shoppingCart":
+      case 'shoppingCart':
         return css`
           width: 98px;
           height: 98px;

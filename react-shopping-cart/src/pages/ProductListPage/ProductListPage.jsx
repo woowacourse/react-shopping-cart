@@ -1,20 +1,24 @@
-import styled from 'styled-components';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+import Pagination from 'components/@shared/Pagination/Pagination';
+import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
+import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
+
 import ProductCard from 'components/ProductCard/ProductCard';
+
+import { fetchCartsStart } from 'redux/carts/carts.action';
+import { selectCurrentCarts } from 'redux/carts/carts.selector';
+import { fetchProductsStart } from 'redux/products/products.action';
 import {
   selectCurrentProducts,
   selectProductsError,
   selectProductsLoading,
 } from 'redux/products/products.selector';
-import { useEffect } from 'react';
-import { fetchProductsStart } from 'redux/products/products.action';
-import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
-import { fetchCartsStart } from 'redux/carts/carts.action';
-import { selectCurrentCarts } from 'redux/carts/carts.selector';
-import { isInCart } from 'util/check';
-import Pagination from 'components/@shared/Pagination/Pagination';
-import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
-import { useNavigate, useParams } from 'react-router-dom';
+
+import { isInCart } from 'utils/check';
 
 const GridContainer = styled.div`
   display: grid;

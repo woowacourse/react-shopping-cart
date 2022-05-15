@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import ExpectedPaymentTopContainer from 'components/ExpectedPaymentTopContainer/ExpectedPaymentTopContainer';
+
 import ExpectedPaymentBottomContainer from 'components/ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer';
 import ExpectedPaymentBox from 'components/ExpectedPaymentBox/ExpectedPaymentBox';
+import ExpectedPaymentTopContainer from 'components/ExpectedPaymentTopContainer/ExpectedPaymentTopContainer';
 import OrderButton from 'components/OrderButton/OrderButton';
-import { useSelector } from 'react-redux';
+
 import { selectCurrentCarts } from 'redux/carts/carts.selector';
+
 import { CURRENT_USER } from 'constants';
 
 const ExpectedPaymentWrapper = styled.div`

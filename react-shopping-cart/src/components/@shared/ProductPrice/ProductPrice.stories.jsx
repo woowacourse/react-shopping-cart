@@ -1,7 +1,7 @@
-import ProductPrice from "components/@shared/ProductPrice/ProductPrice";
+import ProductPrice from 'components/@shared/ProductPrice/ProductPrice';
 
 export default {
-  title: "ProductPrice",
+  title: 'ProductPrice',
   component: ProductPrice,
 };
 
@@ -9,15 +9,15 @@ const Template = (args) => <ProductPrice {...args}>43,400원</ProductPrice>;
 
 export const CardProductPrice = Template.bind({});
 CardProductPrice.args = {
-  type: "card",
+  type: 'card',
 };
 
 export const DetailProductPrice = Template.bind({});
 DetailProductPrice.args = {
-  type: "detail",
+  type: 'detail',
 };
 
 export const ShoppingCartProductPrice = Template.bind({});
 ShoppingCartProductPrice.args = {
-  type: "shoppingCart",
+  type: 'shoppingCart',
 };

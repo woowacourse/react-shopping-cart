@@ -1,6 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import cartsActionTypes from 'redux/carts/carts.types';
-import { addProductToCart, deleteProductFromCart, fetchCarts } from 'api';
+
 import {
   addProductToCartError,
   addProductToCartSuccess,
@@ -11,6 +10,9 @@ import {
   fetchCartsError,
   fetchCartsSuccess,
 } from 'redux/carts/carts.action';
+import cartsActionTypes from 'redux/carts/carts.types';
+
+import { addProductToCart, deleteProductFromCart, fetchCarts } from 'api';
 
 export function* getCarts() {
   try {

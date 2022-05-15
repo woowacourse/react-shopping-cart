@@ -1,13 +1,16 @@
+import App from 'App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from 'App';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
+import ErrorBoundary from 'components/@shared/ErrorBoundary/ErrorBoundary';
+
+import { store } from 'redux/store';
+
 import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
-import { Provider } from 'react-redux';
-import { store } from 'redux/store';
-import ErrorBoundary from 'components/@shared/ErrorBoundary/ErrorBoundary';
-import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

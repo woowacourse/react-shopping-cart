@@ -1,5 +1,6 @@
-import { RowFlexWrapper } from "styles/Wrapper";
-import Spinner from "components/@shared/Spinner/Spinner";
+import Spinner from 'components/@shared/Spinner/Spinner';
+
+import { RowFlexWrapper } from 'styles/Wrapper';
 
 function WithSpinner({ loading, children }) {
   if (loading) {

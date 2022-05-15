@@ -1,20 +1,25 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { ColumnFlexWrapper } from 'styles/Wrapper';
+
+import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
+
 import AllSelectButton from 'components/AllSelectButton/AllSelectButton';
 import ProductDeleteButton from 'components/ProductDeleteButton/ProductDeleteButton';
 import ShoppingCartItemsContainer from 'components/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectCartsLoading,
-  selectCurrentCarts,
-} from 'redux/carts/carts.selector';
-import { CURRENT_USER } from 'constants';
-import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
+
 import {
   deleteCheckedProductsStart,
   fetchCartsStart,
 } from 'redux/carts/carts.action';
-import { useEffect } from 'react';
+import {
+  selectCartsLoading,
+  selectCurrentCarts,
+} from 'redux/carts/carts.selector';
+
+import { ColumnFlexWrapper } from 'styles/Wrapper';
+
+import { CURRENT_USER } from 'constants';
 
 const CartLeftSectionHeader = styled.div`
   display: flex;

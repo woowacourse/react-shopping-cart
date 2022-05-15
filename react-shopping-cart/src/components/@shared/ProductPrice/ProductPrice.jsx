@@ -1,17 +1,17 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const ProductPrice = styled.div`
   ${({ type }) => {
     switch (type) {
-      case "card":
+      case 'card':
         return css`
           font-size: 14px;
         `;
-      case "detail":
+      case 'detail':
         return css`
           font-size: 21px;
         `;
-      case "shoppingCart":
+      case 'shoppingCart':
         return css`
           font-size: 12px;
         `;

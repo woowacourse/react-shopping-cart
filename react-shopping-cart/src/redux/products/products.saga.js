@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { fetchDetailProduct, fetchProducts } from 'api';
+
 import {
   fetchProductDetailError,
   fetchProductDetailSucccess,
@@ -7,6 +7,8 @@ import {
   fetchProductsSuccess,
 } from 'redux/products/products.action';
 import productActionType from 'redux/products/products.types';
+
+import { fetchDetailProduct, fetchProducts } from 'api';
 
 export function* getProducts({ payload: id }) {
   try {

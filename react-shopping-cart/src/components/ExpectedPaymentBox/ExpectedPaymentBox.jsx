@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ExpectedPaymentWrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const ExpectedPaymentText = styled.div`
   font-size: 13px;
   text-decoration-style: solid;
   text-decoration-line: underline;
-  text-decoration-color: ${({ theme }) => theme.colors["opacity_cyon"]};
+  text-decoration-color: ${({ theme }) => theme.colors['opacity_cyon']};
   text-decoration-thickness: 3px;
 `;
 

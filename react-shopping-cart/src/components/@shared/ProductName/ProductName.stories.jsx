@@ -1,7 +1,7 @@
-import ProductName from "components/@shared/ProductName/ProductName";
+import ProductName from 'components/@shared/ProductName/ProductName';
 
 export default {
-  title: "ProductName",
+  title: 'ProductName',
   component: ProductName,
 };
 
@@ -11,15 +11,15 @@ const Template = (args) => (
 
 export const CardProductName = Template.bind({});
 CardProductName.args = {
-  type: "card",
+  type: 'card',
 };
 
 export const DetailProductName = Template.bind({});
 DetailProductName.args = {
-  type: "detail",
+  type: 'detail',
 };
 
 export const ShoppingCartProductName = Template.bind({});
 ShoppingCartProductName.args = {
-  type: "shoppingCart",
+  type: 'shoppingCart',
 };

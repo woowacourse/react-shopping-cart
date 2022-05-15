@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 const ExpectedPaymentBottomContainer = styled(ColumnFlexWrapper)`

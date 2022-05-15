@@ -1,12 +1,16 @@
-import Header from 'components/@shared/Header/Header';
-import PageTitle from 'components/@shared/PageTitle/PageTitle';
-import { ReactComponent as Cart } from 'assets/cart.svg';
-import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
-import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
-import ProductListPage from 'pages/ProductListPage/ProductListPage';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+
 import ProductDetailPage from 'pages/ProductDetailPage/ProductDetailPage';
+import ProductListPage from 'pages/ProductListPage/ProductListPage';
 import ShoppingCartPage from 'pages/ShoppingCartPage/ShoppingCartPage';
+
+import Header from 'components/@shared/Header/Header';
+import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
+import PageTitle from 'components/@shared/PageTitle/PageTitle';
+
+import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
+
+import { ReactComponent as Cart } from 'assets/cart.svg';
 
 function App() {
   const navigate = useNavigate();

@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { CURRENT_USER } from 'constants/index';
+
 import {
   addProductToCartStart,
   deleteProductToCartStart,
 } from 'redux/carts/carts.action';
+
+import { CURRENT_USER } from 'constants/index';
 
 function useClickCartButton() {
   const dispatch = useDispatch();

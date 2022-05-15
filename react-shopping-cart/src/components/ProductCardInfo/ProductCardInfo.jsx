@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
+
 import ProductName from 'components/@shared/ProductName/ProductName';
 import ProductPrice from 'components/@shared/ProductPrice/ProductPrice';
-import { ReactComponent as Cart } from 'assets/cart.svg';
+
 import useClickCartButton from 'hooks/useClickCartButton';
+
+import { ReactComponent as Cart } from 'assets/cart.svg';
 import { CURRENT_USER } from 'constants';
 
 const StyledCart = styled(Cart)`
@@ -30,8 +33,7 @@ const StyledCart = styled(Cart)`
               fill: ${({ theme }) => theme.colors.cyon};
             }
           }
-        `
-  }
+        `}
 `;
 
 const ProductCardInfoBox = styled.div`

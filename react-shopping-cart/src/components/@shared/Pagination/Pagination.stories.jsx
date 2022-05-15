@@ -1,8 +1,8 @@
-import PaginationButton from "components/@shared/PaginationButton/PaginationButton";
-import Pagination from "components/@shared/Pagination/Pagination";
+import Pagination from 'components/@shared/Pagination/Pagination';
+import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 
 export default {
-  title: "Pagination",
+  title: 'Pagination',
   component: Pagination,
 };
 
