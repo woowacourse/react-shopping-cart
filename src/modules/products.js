@@ -72,11 +72,11 @@ const getProductsSuccess = (productsState, action) => ({
   page: productsState.page + 1,
 });
 
-const getProductsError = (productsState, action) => ({
+const getProductsError = (productsState) => ({
   ...productsState,
   loading: false,
   data: null,
-  error: action.error,
+  error: true,
 });
 
 const getProductsEnd = (productsState, action) => ({
@@ -101,7 +101,7 @@ const getProductSuccess = (_, action) => ({
 const getProductError = () => ({
   loading: false,
   data: {},
-  error: null,
+  error: true,
 });
 
 const productsReducer = createReducer(

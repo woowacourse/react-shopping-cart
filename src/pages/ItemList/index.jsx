@@ -6,6 +6,7 @@ import { getProductsByPage } from "../../modules/products";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
 import { DELAY_TIME } from "../../constants/constants";
+import AxiosError from "../AxiosError";
 
 const ItemList = () => {
   const products = useSelector((state) => state.products);
@@ -16,6 +17,8 @@ const ItemList = () => {
   );
 
   useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
+
+  if (products.error) return <AxiosError />;
 
   return (
     <section>
