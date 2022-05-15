@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { initializeProductInfoList } from "../../stores/productInfoListStore";
+import { initializeProductInfoList } from "../../store";
 import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";

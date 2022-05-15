@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "../src/GlobalStyle";
 import { theme } from "../src/theme";
-import { productInfoListStore } from "../src/stores/productInfoListStore";
+import { store } from "../src/store";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -23,7 +23,7 @@ export const decorators = [
         <BrowserRouter>
           <GlobalStyle />
           <ThemeProvider theme={theme}>
-            <Provider store={productInfoListStore}>
+            <Provider store={store}>
               <Story {...context} />
             </Provider>
           </ThemeProvider>

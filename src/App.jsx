@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { productInfoListStore } from "./stores/productInfoListStore";
+import { store } from "./store";
 
 import Header from "./components/Header";
 import ProductListPage from "./pages/ProductListPage";
@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Provider store={productInfoListStore}>
+        <Provider store={store}>
           <Header />
           <Main>
             <Routes>

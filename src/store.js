@@ -19,9 +19,6 @@ const productInfoListReducer = (state = [], action) => {
   }
 };
 
-const productInfoListStore = createStore(
-  productInfoListReducer,
-  composeWithDevTools()
-);
+const store = createStore(productInfoListReducer, composeWithDevTools());
 
-export { productInfoListStore };
+export { store };
