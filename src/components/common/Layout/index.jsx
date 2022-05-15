@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Header from 'components/common/Header';
+import { Outlet } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <Styled.Wrapper>
       <Header />
-      <Styled.Content>{children}</Styled.Content>
+      <Styled.Content>
+        <Outlet />
+      </Styled.Content>
     </Styled.Wrapper>
   );
 };
@@ -24,8 +27,8 @@ const Styled = {
   `,
 };
 
-Layout.propTypes = {
-  children: PropTypes.element.isRequired,
-};
+// Layout.propTypes = {
+//   children: PropTypes.element.isRequired,
+// };
 
 export default Layout;

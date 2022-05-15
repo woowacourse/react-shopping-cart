@@ -3,21 +3,21 @@ import { Route, Routes } from 'react-router-dom';
 import GlobalStyles from 'styles/globalStyles';
 
 import Layout from 'components/common/Layout';
-import ProductListPage from 'pages/ProductList';
-import ProductDetailPage from 'pages/ProductDetail';
-import NotFoundPage from 'pages/NotFound';
+import ProductListPage from 'pages/ProductListPage';
+import ProductDetailPage from 'pages/ProductDetailPage';
+import NotFoundPage from 'pages/NotFoundPage';
 
 const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <Layout>
-        <Routes>
-          <Route path="/react-shopping-cart" element={<ProductListPage />} />
-          <Route path="/react-shopping-cart/product/:id" element={<ProductDetailPage />} />
+      <Routes>
+        <Route path="/react-shopping-cart/*" element={<Layout />}>
+          <Route path="" element={<ProductListPage />} />
+          <Route path="product/:id" element={<ProductDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Layout>
+        </Route>
+      </Routes>
     </div>
   );
 };
