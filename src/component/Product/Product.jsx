@@ -23,7 +23,6 @@ const DescriptionBox = styled.div`
 `;
 
 const Name = styled.p`
-  font-family: 'Noto Sans KR';
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -31,7 +30,6 @@ const Name = styled.p`
 `;
 
 const Price = styled.p`
-  font-family: 'Noto Sans KR';
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;

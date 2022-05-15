@@ -12,7 +12,6 @@ const StyledNavBar = styled.div`
 `;
 
 const LogoText = styled.span`
-  font-family: 'Noto Sans KR';
   font-weight: 900;
   font-size: 40px;
   color: #ffffff;
@@ -24,7 +23,6 @@ const MenuBox = styled.div`
 `;
 
 const MenuText = styled.span`
-  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
