@@ -9,7 +9,7 @@ const Product = ({ id, thumbnail, name, price }) => {
   return (
     <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
       <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="thumbnail" />
+        <img src={thumbnail} alt="상품 이미지" />
       </Styled.ThumbnailBox>
       <Styled.Content>
         <Styled.Description>

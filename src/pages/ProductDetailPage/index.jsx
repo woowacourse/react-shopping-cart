@@ -20,7 +20,7 @@ const ProductDetail = () => {
   return (
     <Styled.Wrapper>
       <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="상품상세이미지" />
+        <img src={thumbnail} alt="상품 상세 이미지" />
       </Styled.ThumbnailBox>
       <Styled.Content>
         <Styled.Title>{name}</Styled.Title>
