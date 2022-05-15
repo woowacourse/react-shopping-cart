@@ -10,16 +10,17 @@ import ShoppingCartPage from "pages/ShoppingCartPage/ShoppingCartPage";
 
 import { ReactComponent as Cart } from "assets/cart.svg";
 import { ColumnFlexWrapper, RowFlexWrapper } from "styles/Wrapper";
+import { ROUTE_PATH } from "constants";
 
 function App() {
   const navigate = useNavigate();
 
   const handleNavigateHome = () => {
-    navigate("/");
+    navigate(ROUTE_PATH.ROOT);
   };
 
   const handleNavigateShoppingCart = () => {
-    navigate("/shopping-cart");
+    navigate(ROUTE_PATH.SHOPPING_CART);
   };
 
   return (
@@ -43,7 +44,7 @@ function App() {
               <ProductListPage />
             </RowFlexWrapper>
           }
-          path="/"
+          path={ROUTE_PATH.ROOT}
         />
         <Route
           element={
@@ -51,10 +52,13 @@ function App() {
               <ProductListPage />
             </ColumnFlexWrapper>
           }
-          path="/:idx"
+          path={`${ROUTE_PATH.ROOT}:idx`}
         />
-        <Route path="/detail/:idx" element={<ProductDetailPage />} />
-        <Route path="/shopping-cart" element={<ShoppingCartPage />} />
+        <Route
+          path={`${ROUTE_PATH.DETAIL}/:idx`}
+          element={<ProductDetailPage />}
+        />
+        <Route path={ROUTE_PATH.SHOPPING_CART} element={<ShoppingCartPage />} />
       </Routes>
     </>
   );

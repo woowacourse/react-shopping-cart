@@ -5,6 +5,7 @@ import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnai
 import ProductCardInfo from "component/ProductCardInfo/ProductCardInfo";
 
 import { ColumnFlexWrapper } from "styles/Wrapper";
+import { ROUTE_PATH } from "constants";
 
 const scaleAnimation = keyframes`
   0%{}
@@ -30,7 +31,7 @@ function ProductCard(props) {
   const navigate = useNavigate();
 
   return (
-    <ProductCardBox onClick={() => navigate(`/detail/${id}`)}>
+    <ProductCardBox onClick={() => navigate(`${ROUTE_PATH.DETAIL}/${id}`)}>
       <ProductThumbnail src={thumbnail} type="card" />
       <ProductCardInfo {...props} />
     </ProductCardBox>

@@ -18,6 +18,7 @@ import {
 import { selectCurrentCarts } from "redux/carts/carts.selector";
 
 import { isInCart } from "util/check";
+import { ROUTE_PATH } from "constants";
 
 const GridContainer = styled.div`
   display: grid;
@@ -49,7 +50,7 @@ function ProductListPage() {
 
   useEffect(() => {
     if (typeof idx === "undefined") {
-      navigate("/1");
+      navigate(ROUTE_PATH.FIRST_PAGE);
     }
   }, [idx, navigate]);
 
