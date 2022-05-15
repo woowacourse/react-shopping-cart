@@ -3,7 +3,7 @@ import { Spinner } from 'component/common';
 import { FRUITS } from 'constant';
 
 export default {
-  title: 'Component/Spinner',
+  title: 'Component/Common/Spinner',
   component: Spinner,
   parameters: {
     layout: 'centered',

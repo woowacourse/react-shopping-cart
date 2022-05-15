@@ -13,7 +13,7 @@ const Template = args => <Button {...args} />;
 const DefaultButton = Template.bind({});
 
 DefaultButton.args = {
-  children: '장바구니',
+  children: '버튼',
 };
 
 export { DefaultButton };
