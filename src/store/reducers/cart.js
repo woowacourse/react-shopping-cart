@@ -35,6 +35,36 @@ const cartReducer = (state = initialState, action) => {
         isLoading: false,
       };
     }
+    case 'CART_FETCH_START': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case 'CART_FETCH_SUCCESS': {
+      const {
+        payload: { cart },
+      } = action;
+      return {
+        ...state,
+        cart,
+        isLoading: false,
+      };
+    }
+
+    case 'CART_FETCH_FAILURE': {
+      const {
+        payload: { message },
+      } = action;
+
+      alert(message);
+
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
 
     default: {
       return state;

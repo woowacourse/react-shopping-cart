@@ -33,12 +33,22 @@ export const handlers = [
     const currentShoppingCart =
       JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
     const { productId, quantity } = req.body;
-    currentShoppingCart[productId] = currentShoppingCart[productId]
-      ? currentShoppingCart[productId] + quantity
-      : quantity;
+
+    if (currentShoppingCart[productId] === undefined) {
+      const newProduct = {};
+      newProduct.productData = data.products.find(({ id }) => id === productId);
+      newProduct.quantity = quantity;
+      currentShoppingCart[productId] = newProduct;
+    } else {
+      currentShoppingCart[productId].quantity += quantity;
+    }
 
     window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
 
     return res(ctx.json(currentShoppingCart));
+  }),
+  rest.get(`${API_URL}shopping-cart`, (_, res, ctx) => {
+    const cart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
+    return res(ctx.json(cart));
   }),
 ];

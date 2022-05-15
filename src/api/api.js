@@ -26,3 +26,13 @@ export const addToCart = async (productId, quantity) => {
 
   return response.data;
 };
+
+export const getCart = async () => {
+  const response = await productAPI.get(`/shopping-cart`);
+
+  if (response.statusText !== 'OK') {
+    throw Error('서버 오류!');
+  }
+
+  return { cart: response.data };
+};
