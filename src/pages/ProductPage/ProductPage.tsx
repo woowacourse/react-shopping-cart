@@ -1,9 +1,10 @@
-import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+
+import { StoreState } from 'types';
+import { actions } from 'actions/actions';
 import styled from 'styled-components';
-import { actions } from '../../actions/actions';
-import { StoreState } from '../../types';
+import { useLayoutEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 function ProductPage() {
   const { id } = useParams();

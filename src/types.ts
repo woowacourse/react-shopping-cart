@@ -1,4 +1,4 @@
-import { types } from './actions/actions';
+import { types } from 'actions/actions';
 
 export type Product = {
   id: number;

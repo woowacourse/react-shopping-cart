@@ -1,5 +1,5 @@
-import ProductCard from '../ProductCard/ProductCard';
-import { Product } from '../../types';
+import { Product } from 'types';
+import ProductCard from 'components/ProductCard/ProductCard';
 import styled from 'styled-components';
 
 type Props = {

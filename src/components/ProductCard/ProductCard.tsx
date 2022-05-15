@@ -1,6 +1,6 @@
-import PATH from '../../constants';
-import PlainLink from '../PlainLink/PlainLink';
-import { Product } from '../../types';
+import PATH from 'constants/path';
+import PlainLink from 'components/PlainLink/PlainLink';
+import { Product } from 'types';
 import styled from 'styled-components';
 
 type Props = {

@@ -1,5 +1,6 @@
-import { StoreState, Action } from '../types';
-import { types } from '../actions/actions';
+import { Action, StoreState } from 'types';
+
+import { types } from 'actions/actions';
 
 const initialState: StoreState = {
   productList: [],

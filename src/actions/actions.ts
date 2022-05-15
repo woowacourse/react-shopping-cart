@@ -1,5 +1,5 @@
-import PATH from '../constants';
-import SERVER_URL from '../configs/api';
+import PATH from 'constants/path';
+import SERVER_URL from 'configs/api';
 import axios from 'axios';
 
 const types = {

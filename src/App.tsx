@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 
-import GlobalStyle from './styles/GlobalStyle';
-import Header from './components/Layout/Header/Header';
-import MainPage from './pages/MainPage/MainPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import PATH from './constants';
-import ProductPage from './pages/ProductPage/ProductPage';
+import GlobalStyle from 'styles/GlobalStyle';
+import Header from 'components/Layout/Header/Header';
+import MainPage from 'pages/MainPage/MainPage';
+import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
+import PATH from 'constants/path';
+import ProductPage from 'pages/ProductPage/ProductPage';
 import { ThemeProvider } from 'styled-components';
-import theme from './styles/theme';
+import theme from 'styles/theme';
 
 function App() {
   return (

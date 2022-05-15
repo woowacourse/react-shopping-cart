@@ -1,10 +1,10 @@
-import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 
-import { actions } from '../../actions/actions';
-import { StoreState } from '../../types';
-import ProductCardGrid from '../../components/ProductCardGrid/ProductCardGrid';
+import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
+import { StoreState } from 'types';
+import { actions } from 'actions/actions';
+import styled from 'styled-components';
+import { useLayoutEffect } from 'react';
 
 function MainPage() {
   const productList = useSelector((state: StoreState) => state.productList);
