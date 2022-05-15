@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const StyledNavButton = styled.button`
+const StyledButton = styled.button`
   padding: 0 4px 4px;
 
   background-color: transparent;
@@ -16,8 +17,12 @@ const StyledNavButton = styled.button`
   }
 `;
 
-function NavButton({ children, ...rest }) {
-  return <StyledNavButton {...rest}>{children}</StyledNavButton>;
+function NavButton({ children, to, ...rest }) {
+  return (
+    <Link to={to}>
+      <StyledButton {...rest}>{children}</StyledButton>
+    </Link>
+  );
 }
 
 export default NavButton;
