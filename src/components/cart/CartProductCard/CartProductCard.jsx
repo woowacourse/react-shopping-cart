@@ -6,10 +6,10 @@ import Icon from '../../common/Icon/Icon';
 import Image from '../../common/Image/Image';
 import * as Styled from './CartProductCard.style';
 
-function CartProductCard({ product: { name, price, imageURL }, quantity }) {
+function CartProductCard({ product: { name, price, imageURL }, quantity, checked, setChecked }) {
   return (
     <Styled.Container>
-      <CheckBox checked={true} />
+      <CheckBox checked={checked} onClick={setChecked} />
 
       <Image src={imageURL} width="150px" />
 
@@ -25,4 +25,4 @@ function CartProductCard({ product: { name, price, imageURL }, quantity }) {
   );
 }
 
-export default CartProductCard;
+export default React.memo(CartProductCard);
