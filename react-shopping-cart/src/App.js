@@ -34,22 +34,8 @@ function App() {
         </RowFlexWrapper>
       </Header>
       <Routes>
-        <Route
-          element={
-            <ColumnFlexWrapper gap="60px">
-              <ProductListPage />
-            </ColumnFlexWrapper>
-          }
-          path="/"
-        >
-          <Route
-            element={
-              <ColumnFlexWrapper gap="60px">
-                <ProductListPage />
-              </ColumnFlexWrapper>
-            }
-            path="/:idx"
-          />
+        <Route element={<ProductListPage />} path="/">
+          <Route element={<ProductListPage />} path="/:idx" />
           <Route path="/detail/:idx" element={<ProductDetailPage />} />
         </Route>
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />

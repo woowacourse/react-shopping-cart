@@ -18,6 +18,8 @@ import {
   selectProductsLoading,
 } from 'redux/products/products.selector';
 
+import { ColumnFlexWrapper } from 'styles/Wrapper';
+
 import { isInCart } from 'utils/check';
 
 const GridContainer = styled.div`
@@ -48,33 +50,38 @@ function ProductListPage() {
     }
   }, [error]);
 
-  const handleNavigatePage = (pageNum) => {
+  const handleNavigatePage = (pageNum) => () => {
     navigate(`/${pageNum}`);
   };
 
   return (
     <WithSpinner loading={loading}>
-      <GridContainer>
-        {products.map(({ id, name, image, price }) => {
-          return (
-            <ProductCard
-              key={id}
-              id={id}
-              name={name}
-              thumbnail={image}
-              price={price}
-              $isincart={isInCart(id, carts)}
-            />
-          );
-        })}
-      </GridContainer>
-      <Pagination>
-        {new Array(5).fill('').map((_, i) => (
-          <PaginationButton key={i} onClick={(_) => handleNavigatePage(i + 1)}>
-            {i + 1}
-          </PaginationButton>
-        ))}
-      </Pagination>
+      <ColumnFlexWrapper gap="60px">
+        <GridContainer>
+          {products.map(({ id, name, image, price }) => {
+            return (
+              <ProductCard
+                key={id}
+                id={id}
+                name={name}
+                thumbnail={image}
+                price={price}
+                $isincart={isInCart(id, carts)}
+              />
+            );
+          })}
+        </GridContainer>
+        <Pagination>
+          {new Array(5).fill('').map((_, pageNum) => (
+            <PaginationButton
+              key={pageNum}
+              onClick={handleNavigatePage(pageNum + 1)}
+            >
+              {pageNum + 1}
+            </PaginationButton>
+          ))}
+        </Pagination>
+      </ColumnFlexWrapper>
     </WithSpinner>
   );
 }
