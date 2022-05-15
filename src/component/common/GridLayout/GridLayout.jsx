@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Layout = styled.div`
+const LayoutBox = styled.div`
   display: grid;
   row-gap: 27px;
   column-gap: 47px;
@@ -9,7 +9,7 @@ const Layout = styled.div`
 `;
 
 function GridLayout({ children }) {
-  return <Layout>{children}</Layout>;
+  return <LayoutBox>{children}</LayoutBox>;
 }
 
 export default GridLayout;

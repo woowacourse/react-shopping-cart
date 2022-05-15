@@ -10,7 +10,7 @@ const ProductBox = styled.div`
   gap: 18px;
 `;
 
-const Image = styled.img`
+const ProductImage = styled.img`
   width: 282px;
   height: 282px;
   object-fit: cover;
@@ -22,7 +22,7 @@ const DescriptionBox = styled.div`
   padding: 0 12px;
 `;
 
-const Name = styled.p`
+const NameText = styled.p`
   font-family: 'Noto Sans KR';
   font-weight: 400;
   font-size: 16px;
@@ -30,7 +30,7 @@ const Name = styled.p`
   color: #333333;
 `;
 
-const Price = styled.p`
+const PriceText = styled.p`
   font-family: 'Noto Sans KR';
   font-weight: 400;
   font-size: 20px;
@@ -41,11 +41,11 @@ const Price = styled.p`
 function Product({ image, name, price }) {
   return (
     <ProductBox>
-      <Image src={image} />
+      <ProductImage src={image} alt="과일 이미지" title="product-image" />
       <DescriptionBox>
         <div>
-          <Name>{name}</Name>
-          <Price>{price} 원</Price>
+          <NameText>{name}</NameText>
+          <PriceText>{price} 원</PriceText>
         </div>
         <Button>
           <span style={{ fontSize: '25px' }}>🛒</span>

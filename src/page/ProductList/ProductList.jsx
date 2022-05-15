@@ -15,7 +15,7 @@ const Body = styled.div`
   padding: 60px 0;
 `;
 
-const FruitBox = styled.div`
+const SpinnerBox = styled.div`
   width: 300px;
   display: flex;
   justify-content: space-between;
@@ -43,13 +43,13 @@ function ProductList() {
             ))}
           </GridLayout>
         ) : (
-          <FruitBox>
+          <SpinnerBox>
             {FRUITS.map(fruit => (
               <Spinner key={fruit}>
                 <span style={{ fontSize: '50px' }}>{fruit}</span>
               </Spinner>
             ))}
-          </FruitBox>
+          </SpinnerBox>
         )}
       </Body>
     </>
