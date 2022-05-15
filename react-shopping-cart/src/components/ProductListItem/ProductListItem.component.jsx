@@ -1,7 +1,9 @@
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Image from 'components/@shared/Image/Image.component';
 import Text from 'components/@shared/Text/Text.component';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
+import { addItem, deleteItem } from 'actions';
 
 const ItemContainer = styled.div`
   display: grid;
@@ -37,7 +39,17 @@ const ItemContainer = styled.div`
   }
 `;
 
-function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
+function ProductListItem({ id, thumbnail, name, price }) {
+  const dispatch = useDispatch();
+
+  const shoppingCart = useSelector(state => state.shoppingCart);
+
+  const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
+
+  const handleToggleShoppingCart = () => {
+    dispatch(isContained ? deleteItem(id) : addItem(id));
+  };
+
   return (
     <ItemContainer isContained={isContained}>
       <Image type="medium" src={thumbnail} />
@@ -47,10 +59,7 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
       <Text className="product-price" fontSize="medium">
         {price}원
       </Text>
-      <ShoppingCart
-        style={{ cursor: 'pointer' }}
-        onClick={() => handleToggleShoppingCart(id, isContained)}
-      />
+      <ShoppingCart style={{ cursor: 'pointer' }} onClick={handleToggleShoppingCart} />
     </ItemContainer>
   );
 }

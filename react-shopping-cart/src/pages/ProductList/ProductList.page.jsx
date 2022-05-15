@@ -1,26 +1,12 @@
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
 import Loading from 'components/Loading/Loading.component';
 import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
-import { addItem, deleteItem } from 'actions';
 
 function ProductList() {
-  const dispatch = useDispatch();
-  const shoppingCart = useSelector(state => state.shoppingCart);
-
   const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
-
-  const handleToggleShoppingCart = (id, isContained) => {
-    dispatch(isContained ? deleteItem(id) : addItem(id));
-  };
-
-  const checkContainedProduct = id => {
-    return shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
-  };
 
   return (
     <>
@@ -31,11 +17,7 @@ function ProductList() {
         ) : error ? (
           <Error>서버에 연결할 수 없습니다.</Error>
         ) : (
-          <ProductListContainer
-            data={data}
-            handleToggleShoppingCart={handleToggleShoppingCart}
-            checkContainedProduct={checkContainedProduct}
-          />
+          <ProductListContainer productList={data} />
         )}
       </PageContainer>
     </>

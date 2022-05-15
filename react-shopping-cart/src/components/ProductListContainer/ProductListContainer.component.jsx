@@ -7,16 +7,11 @@ const ProductListBox = styled.div`
   gap: 45px;
 `;
 
-function ProductListContainer({ data, handleToggleShoppingCart, checkContainedProduct }) {
+function ProductListContainer({ productList }) {
   return (
     <ProductListBox>
-      {data.map(itemInfo => (
-        <ProductListItem
-          key={itemInfo.id}
-          {...itemInfo}
-          isContained={checkContainedProduct(itemInfo.id)}
-          handleToggleShoppingCart={handleToggleShoppingCart}
-        />
+      {productList.map(itemInfo => (
+        <ProductListItem key={itemInfo.id} {...itemInfo} />
       ))}
     </ProductListBox>
   );
