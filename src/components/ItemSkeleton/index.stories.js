@@ -1,10 +1,10 @@
 import ItemSkeleton from ".";
 
 export default {
-  title: "Presentional",
+  title: "Presentational",
   component: ItemSkeleton,
 };
 
 const Template = (args) => <ItemSkeleton {...args} />;
-export const SkeletonTemplate = Template.bind({});
-SkeletonTemplate.args = {};
+export const ItemSkeletonTemplate = Template.bind({});
+ItemSkeletonTemplate.args = {};

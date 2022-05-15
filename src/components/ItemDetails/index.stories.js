@@ -1,7 +1,7 @@
 import ItemDetails from ".";
 
 export default {
-  title: "Presentional",
+  title: "Presentational",
   component: ItemDetails,
 };
 

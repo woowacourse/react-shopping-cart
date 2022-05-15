@@ -1,7 +1,7 @@
 import Skeleton from ".";
 
 export default {
-  title: "Presentional",
+  title: "Presentational",
   component: Skeleton,
 };
 

@@ -1,7 +1,7 @@
 import Header from ".";
 
 export default {
-  title: "Presentional",
+  title: "Presentational",
   component: Header,
 };
 
