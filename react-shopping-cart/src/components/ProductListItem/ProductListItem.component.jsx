@@ -42,7 +42,7 @@ const ItemContainer = styled.div`
 function ProductListItem({ id, thumbnail, name, price }) {
   const dispatch = useDispatch();
 
-  const shoppingCart = useSelector(state => state.shoppingCart);
+  const shoppingCart = useSelector(state => state.shoppingCartList);
 
   const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
 
