@@ -9,4 +9,9 @@ const CARTS_ACTIONS = {
   ADD_CART_LIST: Symbol('장바구니에 상품을 추가합니다.'),
 };
 
-export { PRODUCTS_ACTIONS, CARTS_ACTIONS };
+const SNACKBAR_ACTIONS = {
+  PUSH_MESSAGE: '스낵바에 메시지를 푸시합니다.',
+  HIDE_MESSAGE: '스낵바가 사라집니다.',
+};
+
+export { PRODUCTS_ACTIONS, CARTS_ACTIONS, SNACKBAR_ACTIONS };

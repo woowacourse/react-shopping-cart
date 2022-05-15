@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { addCartList } from 'actions/cart';
+import { snackbar } from 'actions/snackbar';
 
 import IconButton from 'components/@common/IconButton';
 import { ICON_CODE } from 'constants/';
@@ -13,7 +14,7 @@ const ProductItem = ({ id, image, name, price }) => {
 
   const onClickAddCartButton = () => {
     dispatch(addCartList({ id, image, name, price }));
-    alert(`${name}가 장바구니에 추가되었습니다 🧺`);
+    dispatch(snackbar.pushMessageSnackbar(`${name}가 장바구니에 추가되었습니다 🧺`));
   };
 
   return (
