@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 function Header() {
   const navigate = useNavigate();
 
-  const handleClickMoveHome = () => {
+  const handleTitleClick = () => {
     navigate('/');
   };
 
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <StyledTitleWrapper onClick={handleClickMoveHome}>
+        <StyledTitleWrapper onClick={handleTitleClick}>
           <GiShoppingCart />
           <StyledTitle>WOOWA SHOP</StyledTitle>
         </StyledTitleWrapper>
