@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
+import ItemDetailsSkeleton from "../../components/ItemDetailsSkeleton";
 import { getProductById } from "../../modules/products";
 import * as S from "./index.styles";
 
@@ -15,7 +16,13 @@ const Detail = () => {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
-  if (product.loading) return;
+  if (product.loading) {
+    return <ItemDetailsSkeleton />;
+  }
+
+  if (product.error) {
+    return <div>error</div>;
+  }
 
   return (
     <S.DetailPageContainer>
