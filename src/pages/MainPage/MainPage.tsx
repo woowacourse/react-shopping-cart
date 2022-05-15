@@ -1,0 +1,47 @@
+import { useCallback, useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CONDITION from 'constants/condition';
+import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
+import { StoreState } from 'types';
+import { getProducts } from 'redux/thunks';
+import styled from 'styled-components';
+
+function MainPage() {
+  const condition = useSelector((state: StoreState) => state.condition);
+  const productList = useSelector((state: StoreState) => state.productList);
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    getProducts(dispatch);
+  }, [dispatch]);
+
+  const renderSwitch = useCallback(() => {
+    switch (condition) {
+      case CONDITION.LOADING:
+        return <Message>Loading...</Message>;
+      case CONDITION.COMPLETE:
+        return <ProductCardGrid productList={productList} />;
+      case CONDITION.ERROR:
+        return (
+          <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
+        );
+    }
+  }, [condition, productList]);
+
+  return <StyledPage>{renderSwitch()}</StyledPage>;
+}
+
+const StyledPage = styled.div`
+  margin: 60px 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Message = styled.div`
+  font-size: 25px;
+`;
+
+export default MainPage;
