@@ -1,6 +1,6 @@
 import { Action, StoreState } from 'types';
 
-import { types } from 'actions/actions';
+import { types } from 'redux/actions/actions';
 
 const initialState: StoreState = {
   productList: [],

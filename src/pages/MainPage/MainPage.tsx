@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
 import { StoreState } from 'types';
-import { actions } from 'actions/actions';
+import { actions } from 'redux/actions/actions';
 import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 
