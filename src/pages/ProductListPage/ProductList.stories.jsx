@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductList from 'pages/ProductList/index';
+import ProductList from 'pages/ProductListPage/index';
 
 export default {
   title: 'pages/ProductList',

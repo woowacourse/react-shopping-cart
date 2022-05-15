@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from 'components/Product';
+import { Outlet } from 'react-router-dom';
 
 const ProductList = () => {
   const productList = useSelector(({ productListReducer }) => productListReducer.productList);
