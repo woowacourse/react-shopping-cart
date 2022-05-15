@@ -1,17 +1,17 @@
+import Link from 'components/Link/Link';
 import Logo from 'components/Logo/Logo';
-import PlainLink from 'components/PlainLink/PlainLink';
 import RightMenu from './RightMenu';
 import styled from 'styled-components';
 
 function Header() {
   return (
     <StyledHeader>
-      <PlainLink to="/">
+      <Link to="/">
         <Logo />
-      </PlainLink>
+      </Link>
       <RightMenu>
-        <PlainLink to="/orders">장바구니</PlainLink>
-        <PlainLink to="/orders">주문목록</PlainLink>
+        <Link to="/orders">장바구니</Link>
+        <Link to="/orders">주문목록</Link>
       </RightMenu>
     </StyledHeader>
   );

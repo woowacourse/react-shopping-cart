@@ -1,4 +1,5 @@
-import { Link, To } from 'react-router-dom';
+import { Link as BasicLink, To } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-function PlainLink({ to, disabled = false, children }: Props) {
+function Link({ to, disabled = false, children }: Props) {
   return (
     <StyledLink to={to} className={disabled ? 'disabled' : ''}>
       {children}
@@ -15,7 +16,7 @@ function PlainLink({ to, disabled = false, children }: Props) {
   );
 }
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(BasicLink)`
   text-decoration: none;
   color: inherit;
 
@@ -24,4 +25,4 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default PlainLink;
+export default Link;

@@ -1,5 +1,5 @@
+import Link from 'components/Link/Link';
 import PATH from 'constants/path';
-import PlainLink from 'components/PlainLink/PlainLink';
 import { Product } from 'types';
 import styled from 'styled-components';
 
@@ -29,7 +29,7 @@ function ProductCard({ product }: Props) {
   };
 
   return (
-    <PlainLink to={`${PATH.PRODUCT}/${id}`} disabled={stock <= 0}>
+    <Link to={`${PATH.PRODUCT}/${id}`} disabled={stock <= 0}>
       <StyledProductCard>
         <CardImageContainer>
           {stock > 0 ? (
@@ -50,7 +50,7 @@ function ProductCard({ product }: Props) {
           <button>{SHOPPING_CART_ICON}</button>
         </CardButtonContainer>
       </StyledProductCard>
-    </PlainLink>
+    </Link>
   );
 }
 
