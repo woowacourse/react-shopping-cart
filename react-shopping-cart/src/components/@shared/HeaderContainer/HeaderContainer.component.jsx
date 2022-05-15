@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { LAYER } from 'constants';
-import theme from 'styles/theme';
+import { LAYER_POSITION } from 'constants';
 
 const HeaderContainer = styled.div`
   position: sticky;
@@ -14,7 +13,7 @@ const HeaderContainer = styled.div`
   padding: 0 300px;
   background-color: ${({ theme }) => theme.usingColor.headerBackground};
   box-shadow: 0 4px 4px ${({ theme }) => theme.usingColor.shadow};
-  z-index: ${LAYER.FOREGROUND};
+  z-index: ${LAYER_POSITION.FOREGROUND};
 `;
 
 export default HeaderContainer;
