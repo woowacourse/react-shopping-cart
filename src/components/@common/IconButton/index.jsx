@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ICON_CODE } from 'constants/';
+import { 아이콘_코드 } from 'constants/';
 
 import IconButtonStyle from './styles';
 
@@ -11,7 +11,7 @@ IconButton.propTypes = {
 };
 
 IconButton.defaultProps = {
-  icon: ICON_CODE.CARROT,
+  icon: 아이콘_코드.CARROT,
   onClick: () => {},
 };
 

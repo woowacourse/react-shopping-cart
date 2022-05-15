@@ -1,4 +1,4 @@
-import { SNACKBAR_ACTIONS } from 'actions/types';
+import { 스낵바_액션 } from 'actions/types';
 
 const initialState = {
   visible: false,
@@ -9,10 +9,10 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case SNACKBAR_ACTIONS.PUSH_MESSAGE:
+    case 스낵바_액션.PUSH_MESSAGE:
       return { visible: true, message: payload };
 
-    case SNACKBAR_ACTIONS.HIDE_MESSAGE:
+    case 스낵바_액션.HIDE_MESSAGE:
       return { visible: false, message: '' };
     default:
       return state;

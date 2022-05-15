@@ -1,13 +1,13 @@
 import { requestGetProductList } from 'api';
-import { REQUEST_STATUS } from 'constants/';
-import { PRODUCTS_ACTIONS } from './types';
+import { 비동기_요청 } from 'constants/';
+import { 상품리스트_불러오기_액션 } from './types';
 
 const getProductList = () => async (dispatch) => {
   const response = await requestGetProductList();
 
-  if (response.status === REQUEST_STATUS.FAIL) {
+  if (response.status === 비동기_요청.FAILURE) {
     dispatch({
-      type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_FAILURE,
+      type: 상품리스트_불러오기_액션.FAILURE,
       payload: response.content,
     });
 
@@ -15,7 +15,7 @@ const getProductList = () => async (dispatch) => {
   }
 
   dispatch({
-    type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS,
+    type: 상품리스트_불러오기_액션.SUCCESS,
     payload: response.content,
   });
 };

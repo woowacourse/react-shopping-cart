@@ -1,10 +1,10 @@
-export const ICON_CODE = {
+export const 아이콘_코드 = {
   CARROT: 'f787',
   CART: 'f07a',
   USER: 'f007',
 };
 
-export const REQUEST_STATUS = {
-  SUCCESS: Symbol('리퀘스트 성공 결과'),
-  FAIL: Symbol('리퀘스트 실패 결과'),
+export const 비동기_요청 = {
+  SUCCESS: '비동기_요청_성공',
+  FAILURE: '비동기_요청_실패',
 };

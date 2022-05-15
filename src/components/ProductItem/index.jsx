@@ -5,7 +5,7 @@ import { addCartList } from 'actions/cart';
 import { snackbar } from 'actions/snackbar';
 
 import IconButton from 'components/@common/IconButton';
-import { ICON_CODE } from 'constants/';
+import { 아이콘_코드 } from 'constants/';
 
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
@@ -29,7 +29,7 @@ const ProductItem = ({ id, image, name, price }) => {
           <p>{price.toLocaleString('ko-KR')}원</p>
         </Styled.Info>
         <CommonStyled.FlexWrapper>
-          <IconButton onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+          <IconButton onClick={onClickAddCartButton} icon={아이콘_코드.CART} />
         </CommonStyled.FlexWrapper>
       </Styled.Description>
     </Styled.Container>

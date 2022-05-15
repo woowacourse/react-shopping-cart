@@ -1,4 +1,4 @@
-import { SNACKBAR_ACTIONS } from './types';
+import { 스낵바_액션 } from './types';
 
 class Snackbar {
   constructor() {
@@ -10,10 +10,10 @@ class Snackbar {
       clearTimeout(this.timerId);
     }
 
-    dispatch({ type: SNACKBAR_ACTIONS.PUSH_MESSAGE, payload: message });
+    dispatch({ type: 스낵바_액션.PUSH_MESSAGE, payload: message });
 
     this.timerId = setTimeout(() => {
-      dispatch({ type: SNACKBAR_ACTIONS.HIDE_MESSAGE });
+      dispatch({ type: 스낵바_액션.HIDE_MESSAGE });
       this.timerId = null;
     }, 3000);
   };

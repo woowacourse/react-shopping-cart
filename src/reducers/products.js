@@ -1,4 +1,4 @@
-import { PRODUCTS_ACTIONS } from 'actions/types';
+import { 상품리스트_불러오기_액션 } from 'actions/types';
 
 const initialState = {
   items: [],
@@ -9,10 +9,10 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS:
+    case 상품리스트_불러오기_액션.SUCCESS:
       return { ...state, items: [...state.items, ...payload] };
 
-    case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_FAILURE:
+    case 상품리스트_불러오기_액션.FAILURE:
       return { ...state, errorMessage: payload };
 
     default:
