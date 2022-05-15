@@ -1,24 +1,24 @@
 import { createStore } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
-const PRODUCT_INFO_LIST_ACTION_TYPE = {
+const PRODUCT_LIST_ACTION_TYPE = {
   INIT: "INIT",
 };
 
-export const initializeProductInfoList = (payload) => ({
-  type: PRODUCT_INFO_LIST_ACTION_TYPE.INIT,
+export const initializeProductList = (payload) => ({
+  type: PRODUCT_LIST_ACTION_TYPE.INIT,
   payload,
 });
 
-const productInfoListReducer = (state = [], action) => {
+const productListReducer = (state = [], action) => {
   switch (action.type) {
-    case PRODUCT_INFO_LIST_ACTION_TYPE.INIT:
+    case PRODUCT_LIST_ACTION_TYPE.INIT:
       return action.payload.products;
     default:
       return state;
   }
 };
 
-const store = createStore(productInfoListReducer, composeWithDevTools());
+const store = createStore(productListReducer, composeWithDevTools());
 
 export { store };
