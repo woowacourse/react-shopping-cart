@@ -37,7 +37,7 @@
 
 # Step 2
 
-- [ ] MSW를 활용해 API mocking
+- [x] MSW를 활용해 API mocking
   - [x] 상품 리스트 가져오는 API 작성 (GET)
   - [x] 개별 상품 가져오는 API 작성 (GET)
   - [x] 장바구니 담기 API 작성 (POST)
