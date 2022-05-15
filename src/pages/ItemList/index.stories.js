@@ -1,7 +1,7 @@
 import ItemList from ".";
 
 export default {
-  title: "Page",
+  title: "Pages",
   component: ItemList,
   decorators: [
     (Story) => (

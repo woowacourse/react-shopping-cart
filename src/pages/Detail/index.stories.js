@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Detail from ".";
 
 export default {
-  title: "Page",
+  title: "Pages",
   component: Detail,
 };
 
