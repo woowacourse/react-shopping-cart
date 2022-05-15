@@ -10,6 +10,7 @@ import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductCartPage from "./pages/ShoppingCartPage";
 import OrderListPage from "./pages/OrderListPage";
+import ErrorPage from "./pages/ErrorPage";
 
 import { theme } from "./theme";
 import { PATH } from "./constants";
@@ -29,7 +30,7 @@ function App() {
             />
             <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
             <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
-            <Route path="*" element={<div>잘못된 접근입니다.</div>} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Main>
       </Provider>
