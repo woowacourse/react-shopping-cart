@@ -1,8 +1,8 @@
 import React from 'react';
-import NotFound from 'components/NotFound/index';
+import NotFound from 'pages/NotFound/index';
 
 export default {
-  title: 'components/NotFound',
+  title: 'pages/NotFound',
   component: NotFound,
 };
 

@@ -7,6 +7,8 @@ import rootReducer from 'modules';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { setProductList } from 'modules/productList';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -21,7 +23,7 @@ export const parameters = {
 const store = createStore(rootReducer, composeWithDevTools());
 
 const loadProductList = () => {
-  fetch('http://localhost:8080/productList', {
+  fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -36,10 +38,12 @@ loadProductList();
 export const decorators = [
   (Story) => (
     <BrowserRouter>
-      <Provider store={store}>
-        <GlobalStyles />
-        <Story />
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <GlobalStyles />
+          <Story />
+        </Provider>
+      </ThemeProvider>
     </BrowserRouter>
   ),
 ];
