@@ -6,7 +6,7 @@ import * as Styled from './styles';
 const Layout = ({ children }) => (
   <Styled.Container>
     <Header />
-    <main className="container">{children}</main>
+    <main>{children}</main>
     <Footer />
   </Styled.Container>
 );

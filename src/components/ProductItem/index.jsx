@@ -19,18 +19,18 @@ const ProductItem = ({ id, image, name, price }) => {
 
   return (
     <Styled.Container>
-      <div className="image-wrapper">
+      <Styled.ImageWrapper>
         <img src={image} alt="product thumbnail" />
-      </div>
-      <div className="description">
-        <div className="info">
-          <p className="title">{name}</p>
-          <p className="price">{price.toLocaleString('ko-KR')}원</p>
-        </div>
-        <div className="button-wrapper">
-          <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
-        </div>
-      </div>
+      </Styled.ImageWrapper>
+      <Styled.Description>
+        <Styled.Info>
+          <Styled.Title>{name}</Styled.Title>
+          <p>{price.toLocaleString('ko-KR')}원</p>
+        </Styled.Info>
+        <Styled.ButtonWrapper>
+          <IconButton onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+        </Styled.ButtonWrapper>
+      </Styled.Description>
     </Styled.Container>
   );
 };
