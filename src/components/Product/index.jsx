@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { CartButton, FlexCenter, FlexSpaceBetween } from 'components/common/Styled';
+
+import { CartButton } from 'components/common/Button';
+import { FlexCenter, FlexSpaceBetween } from 'components/common/Flex';
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (

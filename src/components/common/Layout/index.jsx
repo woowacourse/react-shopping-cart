@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Header from 'components/common/Header';
 import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
+
+import Header from 'components/common/Header';
 
 const Layout = () => {
   return (
@@ -26,9 +26,5 @@ const Styled = {
     padding: 60px 0 100px;
   `,
 };
-
-// Layout.propTypes = {
-//   children: PropTypes.element.isRequired,
-// };
 
 export default Layout;

@@ -1,6 +1,14 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+const LoadingSpinner = () => {
+  return (
+    <Styled.Wrapper>
+      <Styled.LoadingSpinner />
+    </Styled.Wrapper>
+  );
+};
+
 const spin = keyframes`
   to {
     transform: rotate(360deg);
@@ -22,14 +30,6 @@ const Styled = {
     border-radius: 50%;
     animation: ${spin} 1s linear infinite;
   `,
-};
-
-const LoadingSpinner = () => {
-  return (
-    <Styled.Wrapper>
-      <Styled.LoadingSpinner />
-    </Styled.Wrapper>
-  );
 };
 
 export default LoadingSpinner;

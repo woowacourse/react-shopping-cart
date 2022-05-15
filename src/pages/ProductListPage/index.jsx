@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
 import Product from 'components/Product';
-import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
+import LoadingSpinner from 'components/common/LoadingSpinner';
 
 const ProductList = () => {
   const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);

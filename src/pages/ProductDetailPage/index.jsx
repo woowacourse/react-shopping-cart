@@ -2,8 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { CardDetailButton, FlexSpaceBetween } from 'components/common/Styled';
-import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
+
+import { CardDetailButton } from 'components/common/Button';
+import { FlexSpaceBetween } from 'components/common/Flex';
+import LoadingSpinner from 'components/common/LoadingSpinner';
 
 const ProductDetail = () => {
   const { id: productId } = useParams();

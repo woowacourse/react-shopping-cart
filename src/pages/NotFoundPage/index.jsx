@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
-import { FlexColumnCenter } from 'components/common/Styled';
+
+import { FlexColumnCenter } from 'components/common/Flex';
 
 const NotFound = () => {
   return (
