@@ -27,7 +27,7 @@ const ItemPriceWrapper = styled.span`
 `;
 
 const InfoWrapper = styled.div`
-  color: ${({theme}) => theme.BLACK};
+  color: ${({theme}) => theme.COLOR.BLACK};
   display: flex;
   justify-content: space-between;
   margin: 0 15px;

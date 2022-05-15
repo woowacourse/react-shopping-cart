@@ -6,8 +6,8 @@ const LoaderWrapper = styled.div`
   left: calc(50% - 60px);
   top: calc(50% - 60px);
 
-  border: ${({theme}) => `16px solid ${theme.GRAY_500}`};
-  border-top: ${({theme}) => `16px solid ${theme.MINT}`};
+  border: ${({theme}) => `16px solid ${theme.COLOR.GRAY_500}`};
+  border-top: ${({theme}) => `16px solid ${theme.COLOR.MINT}`};
   border-radius: 50%;
   width: 120px;
   height: 120px;

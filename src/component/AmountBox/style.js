@@ -6,7 +6,7 @@ const AmountBoxWrapper = styled.div`
   width: 448px;
   height: 318px;
 
-  border: ${({theme}) => `1px solid ${theme.GRAY_500}`};
+  border: ${({theme}) => `1px solid ${theme.COLOR.GRAY_500}`};
   padding: 30px;
 `;
 
@@ -15,7 +15,7 @@ const AmountBoxHeaderWrapper = styled.div`
   font-size: 24px;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: ${({theme}) => `3px solid ${theme.GRAY_500}`};
+  border-bottom: ${({theme}) => `3px solid ${theme.COLOR.GRAY_500}`};
 `;
 
 const PriceInfoWrapper = styled.div`
@@ -28,7 +28,7 @@ const PriceInfoWrapper = styled.div`
     font-size: 20px;
     font-weight: 700;
     background-size: 0% 50%;
-    background: ${({theme}) => `linear-gradient(to top, ${theme.MINT} 50%, transparent 50%)`};
+    background: ${({theme}) => `linear-gradient(to top, ${theme.COLOR.MINT} 50%, transparent 50%)`};
   }
 `;
 

@@ -41,7 +41,7 @@ const SelectDeleteWrapper = styled.div`
 `;
 
 const ListHeaderWrapper = styled.div`
-  border-bottom: ${({theme}) => `4px solid ${theme.GRAY_700}`};
+  border-bottom: ${({theme}) => `4px solid ${theme.COLOR.GRAY_700}`};
   padding-bottom: 16px;
   margin-bottom: 10px;
 `;

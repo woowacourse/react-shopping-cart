@@ -7,7 +7,6 @@ import {ADD_CART} from 'store/modules/cart';
 import Button from 'component/common/Button';
 
 import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'component/DetailItem/style';
-import {COLOR} from 'constant';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -27,7 +26,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
         <div>{itemPrice}원</div>
       </ItemPriceWrapper>
       <Button
-        backgroundColor={COLOR.BROWN}
+        backgroundColor="brown"
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}

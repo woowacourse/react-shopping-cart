@@ -16,7 +16,7 @@ const ItemNameWrapper = styled.span`
   font-size: 32px;
   line-height: 36px;
   letter-spacing: 0.5px;
-  color: ${({theme}) => theme.BLACK};
+  color: ${({theme}) => theme.COLOR.BLACK};
 
   margin-top: 21px;
 `;
@@ -33,7 +33,7 @@ const ItemPriceWrapper = styled.span`
   margin-bottom: 10px;
   padding: 0 20px;
 
-  border-top: ${({theme}) => `4px solid ${theme.GRAY_700}`};
+  border-top: ${({theme}) => `4px solid ${theme.COLOR.GRAY_700}`};
 `;
 
 export {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper};

@@ -9,7 +9,7 @@ const CheckBoxWrapper = styled.div`
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: ${({theme}) => `1px solid ${theme.DARK_MINT}`};
+    border: ${({theme}) => `1px solid ${theme.COLOR.DARK_MINT}`};
     border-radius: 2px;
 
     position: relative;
@@ -17,13 +17,13 @@ const CheckBoxWrapper = styled.div`
 
   ${(props) =>
     css`
-
-    {console.log()}      input[id=${props.id}]:checked + label::after {
-        content${props.id}        color: white;
+        input[id=${props.id}]:checked + label::after {
+        content${props.id}        
+        color: white;
         font-size: 35px;
         width: 30px;
         height: 30px;
-        background-color: ${props.theme.DARK_MINT};
+        background-color: ${props.theme.COLOR.DARK_MINT};
         text-align: center;
         position: absolute;
         left: 0;
