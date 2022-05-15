@@ -1,6 +1,5 @@
 import { Link as BasicLink, To } from 'react-router-dom';
-
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type Props = {
   to: To;
@@ -10,7 +9,7 @@ type Props = {
 
 function Link({ to, disabled = false, children }: Props) {
   return (
-    <StyledLink to={to} className={disabled ? 'disabled' : ''}>
+    <StyledLink to={to} disabled={disabled}>
       {children}
     </StyledLink>
   );
@@ -19,6 +18,10 @@ function Link({ to, disabled = false, children }: Props) {
 const StyledLink = styled(BasicLink)`
   text-decoration: none;
   color: inherit;
+
+  ${({ disabled }: Pick<Props, 'disabled'>) => css`
+    ${disabled ? 'pointer-events: none;' : ''}
+  `}
 
   &.disabled {
     pointer-events: none;
