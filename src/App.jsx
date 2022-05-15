@@ -16,26 +16,24 @@ import { PATH } from "./constants";
 
 function App() {
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Header />
-          <Main>
-            <Routes>
-              <Route path={PATH.ROOT} element={<ProductListPage />} />
-              <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
-              <Route
-                path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
-                element={<ProductDetailPage />}
-              />
-              <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
-              <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
-              <Route path="*" element={<div>잘못된 접근입니다.</div>} />
-            </Routes>
-          </Main>
-        </Provider>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <Header />
+        <Main>
+          <Routes>
+            <Route path={PATH.ROOT} element={<ProductListPage />} />
+            <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
+            <Route
+              path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
+              element={<ProductDetailPage />}
+            />
+            <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
+            <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
+            <Route path="*" element={<div>잘못된 접근입니다.</div>} />
+          </Routes>
+        </Main>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
