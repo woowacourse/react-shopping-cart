@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "../src/GlobalStyle";
-import { theme } from "../src/style";
+import { theme } from "../src/theme";
 import { productInfoListStore } from "../src/stores/productInfoListStore";
 
 export const parameters = {

@@ -11,7 +11,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductCartPage from "./pages/ShoppingCartPage";
 import OrderListPage from "./pages/OrderListPage";
 
-import { theme } from "./style";
+import { theme } from "./theme";
 
 function App() {
   return (
