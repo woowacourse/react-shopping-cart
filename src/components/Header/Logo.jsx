@@ -1,7 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import shoppingCartIconWhite from "../../asset/shopping-cart-icon-white.svg";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+import shoppingCartIconWhite from "../../asset/shopping-cart-icon-white.svg";
+import { PATH } from "./../../constants/index";
 
 const LogoContainer = styled.div`
   display: flex;
@@ -25,7 +27,7 @@ const Title = styled.h1`
 
 function Logo() {
   return (
-    <Link to="/">
+    <Link to={PATH.ROOT}>
       <LogoContainer>
         <IconImg src={shoppingCartIconWhite} alt="장바구니 아이콘" />
         <Title>TAEPHIA SHOP</Title>

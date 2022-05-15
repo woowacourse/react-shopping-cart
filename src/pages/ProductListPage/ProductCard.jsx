@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import AddToCartButton from "./AddToCartButton";
 
+import { PATH } from "../../constants";
+
 const Container = styled.li`
   display: flex;
   flex-direction: column;
@@ -69,7 +71,7 @@ function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(`/product-detail/${id}`);
+    navigate(`${PATH.PRODUCT_DETAIL}/${id}`);
   };
 
   return (

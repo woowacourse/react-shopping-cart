@@ -12,6 +12,7 @@ import ProductCartPage from "./pages/ShoppingCartPage";
 import OrderListPage from "./pages/OrderListPage";
 
 import { theme } from "./theme";
+import { PATH } from "./constants";
 
 function App() {
   return (
@@ -21,14 +22,14 @@ function App() {
           <Header />
           <Main>
             <Routes>
-              <Route path="/" element={<ProductListPage />} />
-              <Route path="/product-list" element={<ProductListPage />} />
+              <Route path={PATH.ROOT} element={<ProductListPage />} />
+              <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
               <Route
-                path="/product-detail/:id"
+                path={PATH.PRODUCT_DETAIL + "/:id"}
                 element={<ProductDetailPage />}
               />
-              <Route path="/product-cart" element={<ProductCartPage />} />
-              <Route path="/order-list" element={<OrderListPage />} />
+              <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
+              <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
               <Route path="*" element={<div>잘못된 접근입니다.</div>} />
             </Routes>
           </Main>
