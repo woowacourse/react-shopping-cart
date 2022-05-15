@@ -7,6 +7,7 @@ export const setProductList = (productList) => ({
 
 const initialState = {
   productList: [],
+  isLoading: true,
 };
 
 const productListReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ const productListReducer = (state = initialState, action) => {
     return {
       ...state,
       productList: action.payload.productList,
+      isLoading: false,
     };
   }
   return state;

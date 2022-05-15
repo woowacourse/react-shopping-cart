@@ -7,9 +7,9 @@ import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
 
 const ProductDetail = () => {
   const { id: productId } = useParams();
-  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+  const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);
 
-  if (!productList.length) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
 

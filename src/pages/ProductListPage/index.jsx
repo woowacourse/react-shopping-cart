@@ -2,20 +2,24 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from 'components/Product';
-import { Outlet } from 'react-router-dom';
+import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
 
 const ProductList = () => {
-  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+  const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (productList.length === 0) {
+    return <Styled.EmptyMessage>상품 목록이 존재하지 않습니다.</Styled.EmptyMessage>;
+  }
 
   return (
     <Styled.ProductBox>
-      {productList.length ? (
-        productList.map(({ id, name, price, thumbnail }) => (
-          <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
-        ))
-      ) : (
-        <Styled.EmptyMessage>상품 목록이 존재하지 않습니다.</Styled.EmptyMessage>
-      )}
+      {productList.map(({ id, name, price, thumbnail }) => (
+        <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
+      ))}
     </Styled.ProductBox>
   );
 };
