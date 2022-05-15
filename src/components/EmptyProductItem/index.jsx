@@ -1,12 +1,12 @@
+import * as CommonStyled from 'components/@common/CommonStyle/styles';
+
 import logo from 'assets/logo.png';
 
-import Container from './styles';
-
 const EmptyProductItem = () => (
-  <Container>
+  <CommonStyled.FlexWrapper>
     <img src={logo} alt="상품이 없습니다" />
     <p>감자가 다 떨어졌어요... 😥</p>
-  </Container>
+  </CommonStyled.FlexWrapper>
 );
 
 export default EmptyProductItem;

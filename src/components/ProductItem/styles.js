@@ -56,9 +56,4 @@ const Title = styled.p`
   padding: 0.5rem 0;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export { Container, ImageWrapper, Description, Info, Title, ButtonWrapper };
+export { Container, ImageWrapper, Description, Info, Title };

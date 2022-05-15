@@ -1,11 +1,12 @@
 import { ICON_CODE } from 'constants/';
+import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
 const Header = () => (
   <Styled.Container>
-    <Styled.LeftMenu>
+    <CommonStyled.FlexWrapper>
       <Styled.LeftMenuButton>전체 카테고리</Styled.LeftMenuButton>
-    </Styled.LeftMenu>
+    </CommonStyled.FlexWrapper>
 
     <Styled.Logo />
 

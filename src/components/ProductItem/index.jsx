@@ -7,6 +7,7 @@ import { snackbar } from 'actions/snackbar';
 import IconButton from 'components/@common/IconButton';
 import { ICON_CODE } from 'constants/';
 
+import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
 const ProductItem = ({ id, image, name, price }) => {
@@ -27,9 +28,9 @@ const ProductItem = ({ id, image, name, price }) => {
           <Styled.Title>{name}</Styled.Title>
           <p>{price.toLocaleString('ko-KR')}원</p>
         </Styled.Info>
-        <Styled.ButtonWrapper>
+        <CommonStyled.FlexWrapper>
           <IconButton onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
-        </Styled.ButtonWrapper>
+        </CommonStyled.FlexWrapper>
       </Styled.Description>
     </Styled.Container>
   );
