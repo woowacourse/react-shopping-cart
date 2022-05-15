@@ -33,7 +33,7 @@ function ProductListPage() {
   return (
     <>
       {isLoading && <Spinner />}
-      {errorMessage && <div>😱 Error: 관리자에게 문의하세요 😱</div>}
+      {errorMessage && <div>😱 Error: {errorMessage} 😱</div>}
 
       {dataReady && productList.length === 0 && <h2>😱 텅 비었어요~~ 😱</h2>}
 

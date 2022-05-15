@@ -33,7 +33,7 @@ function ProductDetailPage() {
   return (
     <>
       {isLoading && <Spinner />}
-      {errorMessage && <div>😱 Error: 관리자에게 문의하세요. 😱</div>}
+      {errorMessage && <div>😱 Error: {errorMessage} 😱</div>}
 
       {dataReady && (
         <DetailContainer>
