@@ -28,15 +28,16 @@ function ProductListPage() {
     }
   }, [isLoading, errorMessage]);
 
+  const dataReady = !isLoading && !errorMessage;
+
   return (
     <>
-      {isLoading ? (
-        <Spinner />
-      ) : errorMessage ? (
-        <div>😱 Error: 관리자에게 문의하세요 😱</div>
-      ) : productList.length === 0 ? (
-        <h2>😱 텅 비었어요~~ 😱</h2>
-      ) : (
+      {isLoading && <Spinner />}
+      {errorMessage && <div>😱 Error: 관리자에게 문의하세요 😱</div>}
+
+      {dataReady && productList.length === 0 && <h2>😱 텅 비었어요~~ 😱</h2>}
+
+      {dataReady && productList.length > 0 && (
         <GridList>
           {productList.map((product) => (
             <ProductCard key={product.id} product={product} />
