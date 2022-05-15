@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
 import { StyledImageBox, StyledImg } from '../components/common';
+import useRequest from '../hooks/useRequest';
 import { COLORS } from '../styles/theme';
 
 function ProductDetailPage() {
   const { id } = useParams();
-
-  const [item, setItem] = useState();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function getProductItemInfo(id) {
-      const productItem = await getProductItem(id);
-      setItem(productItem);
-      setLoading(false);
-    }
-    getProductItemInfo(id);
-  }, [id]);
+  const { data: item, loading } = useRequest(() => getProductItem(id));
 
   if (loading) return null;
 

@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProductListAsync } from '../store/actions';
 import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from '../components/common';
+import useRequest from '../hooks/useRequest';
+import { getProductList } from '../api';
 
 function ProductListPage() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const productList = useSelector((state) => state.productList);
+  const { data: productList, loading } = useRequest(getProductList);
 
   const handleClickItem = async (id) => {
     navigate(`${id}`);
@@ -20,9 +18,7 @@ function ProductListPage() {
     alert('기능 추가중...');
   };
 
-  useEffect(() => {
-    dispatch(getProductListAsync());
-  }, [dispatch]);
+  if (loading) return null;
 
   return (
     <StyledContent>
