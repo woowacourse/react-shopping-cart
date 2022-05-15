@@ -8,6 +8,7 @@ export const CounterContainer = styled.div`
 `;
 
 export const CounterButton = styled.button`
+  width: 30px;
   background-color: transparent;
   font-weight: bold;
   cursor: pointer;

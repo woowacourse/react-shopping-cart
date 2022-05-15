@@ -26,6 +26,5 @@ export const Name = styled.h1`
   font-size: 20px;
   align-self: flex-start;
 `;
-export const Counter = styled.div``;
 
 export const Price = styled.p``;
