@@ -15,7 +15,7 @@ import {PATH} from 'constant';
 export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <div className="App">
+      <div>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <Header />

@@ -7,7 +7,7 @@ const GET_PRODUCT_LIST_SUCCESS = 'GET_PRODUCT_LIST_SUCCESS';
 const GET_PRODUCT_LIST_FAILURE = 'GET_PRODUCT_LIST_FAILURE';
 
 function getAPI() {
-  return axios.get(API_URL);
+  return axios.get(`${API_URL}/products`);
 }
 
 export const getProductList = () => async (dispatch) => {
@@ -15,6 +15,7 @@ export const getProductList = () => async (dispatch) => {
 
   try {
     const response = await getAPI();
+    console.log(response);
     dispatch({
       type: GET_PRODUCT_LIST_SUCCESS,
       payload: response.data,

@@ -9,6 +9,6 @@ const COLOR = {
   BROWN: '#73675C',
 };
 
-const API_URL = 'https://shopping-cart-dory-nine.herokuapp.com/products';
+const API_URL = 'https://dory-server.herokuapp.com';
 
 export {PATH, COLOR, API_URL};
