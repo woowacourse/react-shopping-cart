@@ -9,7 +9,7 @@ const LOAD_PRODUCTS_DONE = 'products/LOAD_DONE';
 const initialState = {
   isLoading: false,
   products: [],
-  error: {},
+  error: null,
 };
 
 const loadProductsStart = () => ({ type: LOAD_PRODUCTS_START });

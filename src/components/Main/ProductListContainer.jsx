@@ -3,11 +3,23 @@ import { useSelector } from 'react-redux';
 import Product from './Product';
 
 function ProductListContainer() {
-  const { products } = useSelector((state) => state.productsReducer);
-  const { carts } = useSelector((state) => state.cartsReducer);
+  const {
+    products,
+    isLoading: isProductsLoading,
+    error: productsError,
+  } = useSelector((state) => state.productsReducer);
+  const {
+    carts,
+    isLoading: isCartsLoading,
+    error: cartsError,
+  } = useSelector((state) => state.cartsReducer);
 
   return (
     <Styled.ProductListContainer>
+      {(isProductsLoading || isCartsLoading) && <h1>로딩 중...</h1>}
+      {(productsError || cartsError) && (
+        <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>
+      )}
       {products?.map(({ id, src, title, price }) => (
         <Product
           key={id}

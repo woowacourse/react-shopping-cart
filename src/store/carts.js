@@ -9,7 +9,7 @@ const LOAD_CARTS_DONE = 'carts/LOAD_DONE';
 const initialState = {
   isLoading: false,
   carts: [],
-  error: {},
+  error: null,
 };
 
 const loadCartsStart = () => ({ type: LOAD_CARTS_START });
