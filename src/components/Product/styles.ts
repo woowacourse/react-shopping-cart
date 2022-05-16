@@ -27,16 +27,16 @@ const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: white;
-  position: absolute;
+  background-color: ${({ theme }) => theme.colors.GRAY_50};
+  border: 2px solid ${({ theme }) => theme.colors.TEAL_400};
+  box-shadow: 0px 3px 3px ${({ theme }) => theme.colors.GRAY_800};
+  border-radius: 25px;
   opacity: 0;
+  position: absolute;
   top: -20px;
   right: 10px;
   width: 120px;
-  border: 2px solid #2ac1bc;
-  border-radius: 25px;
   height: 28px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
   animation: ${(props) =>
     props.isShowCartCounter &&
     css`
@@ -55,7 +55,7 @@ const CartImageBadge = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: tomato;
+  background-color: ${({ theme }) => theme.colors.RED_500};
   top: 0;
   left: 18px;
   z-index: 1;
@@ -87,7 +87,7 @@ const ProductImageWrapper = styled.div`
   height: 220px;
   overflow: hidden;
   border-radius: 8px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px ${({ theme }) => theme.colors.GRAY_300};
   &:hover {
     ${ProductImage} {
       transform: scale(1.1);
@@ -124,10 +124,10 @@ const ProductInfo = styled.div`
 `;
 
 const CartCounterButton = styled.button`
-  background-color: #2ac1bc;
+  background-color: ${({ theme }) => theme.colors.TEAL_400};
   border: none;
   font-size: 16px;
-  color: white;
+  color: ${({ theme }) => theme.colors.GRAY_50};
   cursor: pointer;
   width: 25px;
   height: 20px;

@@ -25,8 +25,8 @@ const FadeOut = keyframes`
 const SnackBar = styled.div`
   min-width: 250px;
   margin-left: -125px;
-  background-color: #333;
-  color: #fff;
+  background-color: ${({ theme }) => theme.colors.GRAY_800};
+  color: ${({ theme }) => theme.colors.GRAY_50};
   text-align: center;
   border-radius: 5px;
   padding: 16px;

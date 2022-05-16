@@ -18,7 +18,7 @@ const LoaderWrapper = styled.div`
 
   & div {
     border: 16px solid #f3f3f3;
-    border-top: 16px solid #2ac1bc;
+    border-top: 16px solid ${({ theme }) => theme.colors.TEAL_400};
     border-radius: 50%;
     width: 60px;
     height: 60px;
