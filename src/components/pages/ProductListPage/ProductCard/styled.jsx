@@ -25,7 +25,7 @@ export const ProductThumbnail = styled.div`
   background-repeat: no-repeat;
   background-image: url(${({ bgImage }) => bgImage});
   transition: transform 0.3s;
-  object-fit: cover;
+  background-size: cover;
 
   :hover {
     transform: scale(1.1);
