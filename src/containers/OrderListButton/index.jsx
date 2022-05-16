@@ -1,9 +1,13 @@
 import React from 'react';
 
-import WhiteButton from 'components/WhiteButton';
+import Button from 'components/Button';
 
 function CartPageButton() {
-  return <WhiteButton fontSize="1.5rem">주문목록</WhiteButton>;
+  return (
+    <Button fontSize="1.5rem" color="whiteFontColor" border="none">
+      주문목록
+    </Button>
+  );
 }
 
 export default CartPageButton;

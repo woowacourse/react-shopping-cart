@@ -2,7 +2,7 @@ import React from 'react';
 
 import FlexAlignCenter from 'components/FlexWrapper/FlexAlignCenter';
 import MarginWrapper from 'components/MarginWrapper';
-import WhiteButton from 'components/WhiteButton';
+import Button from 'components/Button';
 
 import HomeButton from 'containers/HomeButton';
 import OrderListButton from 'containers/OrderListButton';
@@ -16,7 +16,9 @@ function Header() {
         <HomeButton />
         <FlexAlignCenter>
           <MarginWrapper marginRight="2.2vw">
-            <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
+            <Button fontSize="1.5rem" color="whiteFontColor" border="none">
+              장바구니
+            </Button>
           </MarginWrapper>
           <OrderListButton />
         </FlexAlignCenter>
