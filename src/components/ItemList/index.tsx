@@ -11,6 +11,7 @@ import { useFetch } from 'hooks/useFetch';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { CartListAction } from 'redux/actions/cartList';
 import { getCartList } from 'redux/action-creators/cartListThunk';
+import Snackbar from 'components/common/Snackbar';
 
 const ItemList = () => {
   const params = useParams();
@@ -28,7 +29,7 @@ const ItemList = () => {
   );
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
-  const { openSnackbar } = useSnackBar();
+  const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   if (loading) return <Loading />;
   if (error) return <RequestFail />;
@@ -46,6 +47,7 @@ const ItemList = () => {
           openSnackbar={openSnackbar}
         />
       ))}
+      {isOpenSnackbar && <Snackbar contentType='cart' />}
     </StyledRoot>
   );
 };

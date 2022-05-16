@@ -4,13 +4,9 @@ import NotFound from 'pages/NotFound';
 import Main from 'pages/Main';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
-import Snackbar from 'components/common/Snackbar';
-import { useAppSelector } from 'hooks/useAppSelector';
 import Cart from 'pages/Cart';
 
 function App() {
-  const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);
-
   return (
     <BrowserRouter basename='/react-shopping-cart'>
       <StyledRoot>
@@ -25,7 +21,6 @@ function App() {
           </Routes>
         </StyledMain>
       </StyledRoot>
-      {isSnackbarOpen && <Snackbar />}
     </BrowserRouter>
   );
 }
