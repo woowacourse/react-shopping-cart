@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import FlexCenterStyled from 'components/FlexWrapper/FlexCenter/style';
+import FlexCenterStyled from 'components/FlexWrapper/style';
 
 export const ProductListStyled = styled.div(
   ({ theme }) => `
@@ -17,6 +17,8 @@ export const ProductListStyled = styled.div(
 
 export const LoadingWrapperStyled = styled(FlexCenterStyled)(
   ({ theme }) => `
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: calc(100% - ${theme.headerHeight});
 `,

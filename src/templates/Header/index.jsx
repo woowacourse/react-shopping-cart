@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FlexAlignCenter from 'components/FlexWrapper/FlexAlignCenter';
+import FlexWrapper from 'components/FlexWrapper';
 import MarginRightWrapper from 'components/MarginRightWrapper';
 
 import HomeButton from 'containers/HomeButton';
@@ -14,12 +14,12 @@ function Header() {
     <HeaderStyled>
       <PageButtonContainerStyled>
         <HomeButton />
-        <FlexAlignCenter>
+        <FlexWrapper alignItmes="center">
           <MarginRightWrapper marginRight="2.2vw">
             <CartPageButton />
           </MarginRightWrapper>
           <OrderListButton />
-        </FlexAlignCenter>
+        </FlexWrapper>
       </PageButtonContainerStyled>
     </HeaderStyled>
   );

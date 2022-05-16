@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-
-import FlexSpaceBetweenStyled from 'components/FlexWrapper/FlexSpaceBetween/style';
+import FlexWrapperStyled from 'components/FlexWrapper/style';
 
 export const HeaderStyled = styled.div(
   ({ theme }) => `
@@ -10,6 +9,8 @@ export const HeaderStyled = styled.div(
 `,
 );
 
-export const PageButtonContainerStyled = styled(FlexSpaceBetweenStyled)`
+export const PageButtonContainerStyled = styled(FlexWrapperStyled)`
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
 `;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import BlackText from 'components/BlackText';
 import Image from 'components/Image';
-import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
+import FlexWrapper from 'components/FlexWrapper';
 import MarginBottomWrapper from 'components/MarginBottomWrapper';
 
 import CartButton from 'containers/CartButton';
@@ -23,7 +23,7 @@ function Product({ imgSrc, title, price }) {
           <Image src={imgSrc} width="100%" height="14.24vmax" />
         </Link>
       </MarginBottomWrapper>
-      <FlexSpaceBetweenCenter>
+      <FlexWrapper alignItems="center" justifyContent="center">
         <div>
           <MarginBottomWrapper marginBottom="6px">
             <Link className="link-text" onClick={handleProductClick} to="">
@@ -35,7 +35,7 @@ function Product({ imgSrc, title, price }) {
           </BlackText>
         </div>
         <CartButton />
-      </FlexSpaceBetweenCenter>
+      </FlexWrapper>
     </ProductStyled>
   );
 }
