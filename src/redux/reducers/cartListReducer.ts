@@ -2,9 +2,9 @@ import { CartListAction, CartListActionType } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
 
 interface CartItemState {
-  loading: boolean;
-  error: string | null;
-  data: CartItem[];
+  readonly loading: boolean;
+  readonly error: string | null;
+  readonly data: CartItem[];
 }
 
 const initialState: CartItemState = {

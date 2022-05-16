@@ -2,9 +2,9 @@ import { Item } from 'types/domain';
 import { ItemListAction, ItemListActionType } from '../actions/itemList';
 
 interface ItemListState {
-  loading: boolean;
-  error: string | null;
-  data: Item[];
+  readonly loading: boolean;
+  readonly error: string | null;
+  readonly data: Item[];
 }
 
 const initialState: ItemListState = {
