@@ -9,14 +9,14 @@ import { UnstyledButton } from '../shared/styles';
 
 const requestDeleteCart = async (id) => {
   await axios({
-    url: `${SERVER_URL}${PATH.CARTS}/${id}`,
+    url: `${SERVER_URL}/${PATH.CARTS}/${id}`,
     method: 'DELETE',
   });
 };
 
 const requestAddCart = async (id) => {
   await axios({
-    url: `${SERVER_URL}${PATH.CARTS}`,
+    url: `${SERVER_URL}/${PATH.CARTS}`,
     data: { id, quantity: 1 },
     method: 'POST',
   });

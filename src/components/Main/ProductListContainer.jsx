@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import Product from './Product';
 
 function ProductListContainer() {
-  const { products, carts } = useSelector((state) => state.productsReducer);
+  const { products } = useSelector((state) => state.productsReducer);
+  const { carts } = useSelector((state) => state.cartsReducer);
 
   return (
     <Styled.ProductListContainer>

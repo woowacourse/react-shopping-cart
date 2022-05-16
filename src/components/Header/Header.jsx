@@ -22,9 +22,9 @@ function Header() {
           <Link to={PATH.CARTS}>
             <Styled.NavButton type="button">장바구니</Styled.NavButton>
           </Link>
-          <Link to={PATH.ORDERLIST}>
+          {/* <Link to={PATH.ORDERLIST}>
             <Styled.NavButton type="button">주문목록</Styled.NavButton>
-          </Link>
+          </Link> */}
         </Styled.NavButtonWrapper>
       </Styled.Nav>
     </header>

@@ -19,7 +19,7 @@ export const SERVER_URL = 'https://hui-shopping-cart.herokuapp.com';
 
 export const PATH = {
   ROOT: '/',
-  PRODUCTS: '/products',
-  CARTS: '/carts',
-  ORDERLIST: '/orderlist',
+  PRODUCTS: 'products',
+  CARTS: 'carts',
+  ORDERS: 'orders',
 };
