@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../../../../assets/images/cart.svg";
-import S from "../../styled";
-import Thumbnail from "../thumbnail/Thumbnail";
-import ImageButton from "../image-button/ImageButton";
-import createAction from "../../../../redux/createAction";
-import { ADD_PRODUCT_TO_CART } from "../../../../redux/actions";
-import { BASE_URL } from "../../../../constants";
+import Cart from "@/assets/images/cart.svg";
+import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
+import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
+import ImageButton from "@/pages/home/components/image-button/ImageButton";
+import createAction from "@/redux/createAction";
+import { ADD_PRODUCT_TO_CART } from "@/redux/actions";
+import { BASE_URL } from "@/constants";
 
 function ProductItem({ id, name, price, stock, thumbnail_url }) {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
   };
 
   return (
-    <S.ProductItem>
+    <StyledProductItem>
       <Thumbnail src={`${BASE_URL}/${thumbnail_url}`} />
       <div className="content">
         <div className="product-detail">
@@ -42,7 +42,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
         </div>
       </div>
       <div className="overlay" />
-    </S.ProductItem>
+    </StyledProductItem>
   );
 }
 

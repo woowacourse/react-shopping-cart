@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "../../styled";
+import { colors } from "@/styled";
 
 const StyledHeader = styled.div`
   background-color: ${colors.black[0]};

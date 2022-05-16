@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "../../../../styled";
-import Lefttop from "../../../../assets/images/lefttop.png";
-import Righttop from "../../../../assets/images/righttop.png";
-import LeftBottom from "../../../../assets/images/leftbottom.png";
-import Rightbottom from "../../../../assets/images/bottomright.png";
+import { noneStyles } from "@/styled";
+import Lefttop from "@/assets/images/lefttop.png";
+import Righttop from "@/assets/images/righttop.png";
+import LeftBottom from "@/assets/images/leftbottom.png";
+import Rightbottom from "@/assets/images/bottomright.png";
 
 const StyledProductItem = styled.div`
   position: relative;

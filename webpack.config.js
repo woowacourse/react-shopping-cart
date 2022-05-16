@@ -50,6 +50,9 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
   resolve: {
+    alias: {
+      "@": join(__dirname, "src"),
+    },
     extensions: [".js", ".jsx", ".scss"],
   },
 };

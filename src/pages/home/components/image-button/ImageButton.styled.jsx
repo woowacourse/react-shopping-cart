@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "../../../../styled";
+import { colors } from "@/styled";
 
 const StyledImageButton = styled.button`
   &:disabled {

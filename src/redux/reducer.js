@@ -1,4 +1,4 @@
-import { ADD_PRODUCT_TO_CART, UPDATE_PRODUCT_LIST } from "./actions";
+import { ADD_PRODUCT_TO_CART, UPDATE_PRODUCT_LIST } from "@/redux/actions";
 
 const reducer = (state, { type, payload }) => {
   switch (type) {

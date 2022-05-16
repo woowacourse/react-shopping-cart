@@ -1,4 +1,4 @@
-import StyledMenu from "./Menu.styled";
+import StyledMenu from "@/components/header/menu/Menu.styled";
 
 function Menu() {
   return (

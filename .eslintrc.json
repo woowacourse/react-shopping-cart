@@ -25,17 +25,10 @@
     "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "prettier/prettier": ["error"],
     "react/jsx-props-no-spreading": "off",
-    "no-shadow": "off", // 상위 스코프의 변수명과 일치하지 않도록
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "scss": "never"
-      }
-    ],
+    "no-shadow": "off",
+    "import/extensions": ["off"],
     "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
     "react/prop-types": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": ["off"],

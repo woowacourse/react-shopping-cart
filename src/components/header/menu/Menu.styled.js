@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors, noneStyles } from "../../../styled";
+import { colors, noneStyles } from "@/styled";
 
 const StyledMenu = styled.div`
   display: inline-flex;

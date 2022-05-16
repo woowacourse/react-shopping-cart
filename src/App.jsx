@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "./components/header/Header";
-import ContentWrapper from "./components/Wrapper.styled";
-import ProductList from "./pages/home/components/product-list/ProductList";
+import Header from "@/components/header/Header";
+import ContentWrapper from "@/components/Wrapper.styled";
+import ProductList from "@/pages/home/components/product-list/ProductList";
 
 function App() {
   return (

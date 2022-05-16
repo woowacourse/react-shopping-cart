@@ -1,14 +1,14 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
-import S from "../../styled";
+import StyledThumbnail from "@/pages/home/components/thumbnail/Thumbnail.styled";
 
 function Thumbnail({ className = "thumbnail", src }) {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
-    <S.Thumbnail className={className}>
+    <StyledThumbnail className={className}>
       {!isLoaded && <div css={indicator}>isLoading</div>}
       <img src={src} alt="상품 이미지" onLoad={() => setIsLoaded(true)} />
-    </S.Thumbnail>
+    </StyledThumbnail>
   );
 }
 

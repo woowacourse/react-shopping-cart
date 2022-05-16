@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mq } from "../../../../styled";
+import { mq } from "@/styled";
 
 const StyledProductList = styled.div`
   display: grid;

@@ -1,10 +1,10 @@
 import { css } from "@emotion/react";
 
-import StyledHeader from "./Header.styled";
-import HeaderWrapper from "../Wrapper.styled";
-import LogoLink from "./logo-link/LogoLink";
-import StarcraftLogo from "../../assets/images/starcraft-logo.png";
-import Menu from "./menu/Menu";
+import StyledHeader from "@/components/header/Header.styled";
+import HeaderWrapper from "@/components/Wrapper.styled";
+import LogoLink from "@/components/header/logo-link/LogoLink";
+import StarcraftLogo from "@/assets/images/starcraft-logo.png";
+import Menu from "@/components/header/menu/Menu";
 
 function Header() {
   return (
