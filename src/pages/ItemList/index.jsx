@@ -22,7 +22,11 @@ const ItemList = () => {
     dispatch(getProductsByPage())
   );
 
-  useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
+  useInfinityScroll({
+    ref: sectionRef,
+    cb: delayGetProduct,
+    endPoint: products.isEnd,
+  });
 
   const handleItemClick = (id) => {
     navigate(`/product/${id}`);

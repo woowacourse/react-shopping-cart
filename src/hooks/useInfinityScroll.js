@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-const useInfinityScroll = (ref, cb, endPoint) => {
+const useInfinityScroll = ({ ref = null, cb, endPoint = false }) => {
   const observer = useRef(undefined);
   const callBack = useRef(cb);
 
