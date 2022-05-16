@@ -8,3 +8,5 @@ export const REQUEST_STATUS = {
   SUCCESS: 0,
   FAIL: 1,
 };
+
+export const REQUEST_TIMEOUT = 3000;
