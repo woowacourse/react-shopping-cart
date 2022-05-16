@@ -1,12 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-
-const LoadingBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-`;
+import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 
 const spin = keyframes`
   to { -webkit-transform: rotate(360deg); }
@@ -24,10 +17,10 @@ const LoadingSpinner = styled.div`
 
 function Loading() {
   return (
-    <LoadingBox>
+    <FlexBox direction="column" justifyContent="center" alignItems="center" gap="50px">
       <LoadingSpinner />
       <p>로딩 중입니다.</p>
-    </LoadingBox>
+    </FlexBox>
   );
 }
 export default Loading;
