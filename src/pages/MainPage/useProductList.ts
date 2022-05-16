@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState, Product } from '../../types';
 
-const useMainPage = () => {
+const useProductList = () => {
   const dispatch = useDispatch();
-  const { isLoading, productList } = useSelector((state: StoreState) => ({
-    isLoading: state.isLoading,
-    productList: state.productList,
-  }));
+  const { isLoading, productList, error } = useSelector(
+    (state: StoreState) => ({
+      isLoading: state.isLoading,
+      productList: state.productList,
+      error: state.error,
+    })
+  );
 
   useEffect(() => {
     dispatch(actions.getProductList());
@@ -32,7 +35,7 @@ const useMainPage = () => {
     return [...availableList, ...outOfStockList];
   }, [productList]);
 
-  return { isLoading, productList: sortedProductList };
+  return { isLoading, productList: sortedProductList, error };
 };
 
-export default useMainPage;
+export default useProductList;

@@ -7,10 +7,13 @@ import { StoreState } from '../../types';
 const useProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading, productDetail } = useSelector((state: StoreState) => ({
-    isLoading: state.isLoading,
-    productDetail: state.productDetail,
-  }));
+  const { isLoading, productDetail, error } = useSelector(
+    (state: StoreState) => ({
+      isLoading: state.isLoading,
+      productDetail: state.productDetail,
+      error: state.error,
+    })
+  );
 
   useEffect(() => {
     if (id) {
@@ -18,7 +21,7 @@ const useProductPage = () => {
     }
   }, [id, dispatch]);
 
-  return { isLoading, productDetail };
+  return { isLoading, productDetail, error };
 };
 
 export default useProductPage;
