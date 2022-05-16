@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderWrapper = styled.div`
@@ -11,27 +12,26 @@ const HeaderWrapper = styled.div`
   margin-bottom: 60px;
 `;
 
-const HeaderTitle = styled.div`
+const HeaderTitle = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 300px;
   height: 40px;
-
-  cursor: pointer;
+  text-decoration: none;
 
   & img {
     width: 40px;
     height: 36px;
   }
 
-  & div {
-    padding: 14px 20px 5px;
+  & h1 {
+    padding: 10px 0 0 10px;
     font-size: 30px;
     font-weight: 900;
     text-align: center;
     vertical-align: middle;
-    color: #ffffff;
+    color: #fff;
   }
 `;
 
@@ -43,8 +43,9 @@ const HeaderMenu = styled.div`
   font-size: 20px;
   color: #fff;
 
-  & div {
-    cursor: pointer;
+  & a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
