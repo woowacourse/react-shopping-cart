@@ -11,7 +11,6 @@ const GlobalStyles = createGlobalStyle`
       height: 100%;
       margin: 0;
       font-family: 'Noto Sans KR';
-      color: red;
     }
 
     input,
