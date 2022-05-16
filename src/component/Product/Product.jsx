@@ -8,12 +8,17 @@ const ProductBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const ProductImage = styled.img`
   width: 282px;
   height: 282px;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const DescriptionBox = styled.div`
@@ -28,6 +33,7 @@ const NameText = styled.p`
   font-size: 16px;
   letter-spacing: 0.5px;
   color: #333333;
+  cursor: pointer;
 `;
 
 const PriceText = styled.p`
@@ -38,17 +44,22 @@ const PriceText = styled.p`
   color: #333333;
 `;
 
-function Product({ image, name, price }) {
+const CartIcon = styled.img`
+  width: 30px;
+  border: none;
+`;
+
+function Product({ handleProductClick, handleCartClick, image, name, price }) {
   return (
-    <ProductBox>
+    <ProductBox onClick={handleProductClick}>
       <ProductImage src={image} alt="과일 이미지" title="product-image" />
       <DescriptionBox>
         <div>
           <NameText>{name}</NameText>
           <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
-        <Button>
-          <span style={{ fontSize: '25px' }}>🛒</span>
+        <Button onClick={handleCartClick}>
+          <CartIcon src="cart.svg" />
         </Button>
       </DescriptionBox>
     </ProductBox>
