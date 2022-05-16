@@ -39,13 +39,13 @@ function ProductDetailPage() {
     return (
       <>
         <Top>
-          <ProductImage src={selectedProduct.thumbnailUrl} />
-          <ProductName>{selectedProduct.name}</ProductName>
+          <ProductImage src={selectedProduct?.thumbnailUrl ?? ""} />
+          <ProductName>{selectedProduct?.name ?? "%Error%"}</ProductName>
         </Top>
         <Bottom>
           <Span>금액</Span>
           <ProductPrice>
-            {selectedProduct.price.toLocaleString()}원
+            {selectedProduct?.price?.toLocaleString() ?? "%Error%"}원
           </ProductPrice>
         </Bottom>
         <BoxButton
