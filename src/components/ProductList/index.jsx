@@ -8,6 +8,9 @@ const Styled = {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 60px 0 100px;
   `,
   EmptyMessage: styled.div`
     text-align: center;

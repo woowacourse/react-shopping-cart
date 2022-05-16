@@ -13,6 +13,7 @@ const Styled = {
     width: 100%;
     height: 80px;
     color: ${COLOR.HEADER_FONT};
+    margin-bottom: 60px;
   `,
   LogoBox: styled(Link)`
     display: flex;

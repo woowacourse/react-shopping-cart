@@ -12,13 +12,13 @@ const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <Layout>
-        <Routes>
+      <Routes>
+        <Route path="/" element={<Layout />}>
           <Route path={ROUTE.HOME} element={<ProductList />} />
           <Route path={ROUTE.DETAIL_PRODUCT} element={<ProductDetail />} />
           <Route path={ROUTE.EXCEPT} element={<NotFound />} />
-        </Routes>
-      </Layout>
+        </Route>
+      </Routes>
     </div>
   );
 };
