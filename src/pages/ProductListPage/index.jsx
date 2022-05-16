@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { getProductList } from "../../store";
+import { getProductList } from "../../store/actions";
 
 import Spinner from "../../components/common/Spinner";
 import ProductCard from "./ProductCard";
@@ -13,7 +13,7 @@ function ProductListPage() {
     data: productList,
     loading: isLoading,
     errorMessage,
-  } = useSelector((state) => state.productList);
+  } = useSelector((state) => state.productListReducer.productList);
 
   useEffect(() => {
     dispatch(getProductList());

@@ -1,6 +1,7 @@
 import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "./constants";
 
-const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
+const productListUrl = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
+const productDetailUrl = (id) => `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}/${id}`;
 
 export const fetchData = async (requestUrl) => {
   const response = await fetch(requestUrl);
@@ -12,4 +13,5 @@ export const fetchData = async (requestUrl) => {
   return data;
 };
 
-export const fetchProductList = () => fetchData(productListURL);
+export const fetchProductList = () => fetchData(productListUrl);
+export const fetchProductDetail = (id) => fetchData(productDetailUrl(id));
