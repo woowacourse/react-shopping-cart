@@ -43,9 +43,7 @@ const loadProductsFailed = (error: Error) => ({ type: LOAD_PRODUCTS_FAILED, payl
 export const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
   dispatch(loadProducts());
   try {
-    const { data: productList } = await axios.get(
-      "https://react-payments-onstar.herokuapp.com/productList"
-    );
+    const { data: productList } = await axios.get(`${process.env.REACT_APP_API_URL}`);
     dispatch(loadProductsSuccess(productList));
   } catch (error: unknown) {
     if (error instanceof Error) {

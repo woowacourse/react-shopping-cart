@@ -28,7 +28,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
-    if (!cartItems.some((items) => items.id === id)) {
+    if (!cartItems.some((item) => item.id === id)) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
