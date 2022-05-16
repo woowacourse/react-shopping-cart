@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import PATH from "./constants/path";
-import Detail from "./page/Detail";
-import ItemList from "./page/ItemList";
-import NotFound from "./page/NotFound";
+import Detail from "./pages/Detail";
+import ItemList from "./pages/ItemList";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
