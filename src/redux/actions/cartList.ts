@@ -1,6 +1,6 @@
 import { CartItem } from 'types/domain';
 
-export enum CartListActionType {
+export const enum CartListActionType {
   GET_CART_LIST_START = 'cart/GET_CART_LIST_START',
   GET_CART_LIST_SUCCESS = 'cart/GET_CART_LIST_SUCCESS',
   GET_CART_LIST_FAILURE = 'cart/GET_CART_LIST_FAILURE',

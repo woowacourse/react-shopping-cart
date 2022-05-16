@@ -1,6 +1,6 @@
 import { Item } from 'types/domain';
 
-export enum ItemListActionType {
+export const enum ItemListActionType {
   GET_ITEM_LIST_START = 'items/GET_ITEMLIST_START',
   GET_ITEM_LIST_SUCCESS = 'items/GET_ITEMLIST_SUCCESS',
   GET_ITEM_LIST_FAILURE = 'items/GET_ITEMLIST_FAILURE',
