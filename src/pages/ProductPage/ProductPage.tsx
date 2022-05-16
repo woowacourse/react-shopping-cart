@@ -5,32 +5,36 @@ import useProductPage from './useProductDetail';
 function ProductPage() {
   const { isLoading, productDetail } = useProductPage();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (productDetail) {
+    return (
+      <StyledPage>
+        <StyledImageContainer>
+          <img src={productDetail.image} alt={productDetail.name} />
+        </StyledImageContainer>
+        <h2>{productDetail.name}</h2>
+        <hr />
+        <dl>
+          <dt>가격</dt>
+          <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
+        </dl>
+        <dl>
+          <dt>제품 설명</dt>
+          <dd>{productDetail.description}</dd>
+        </dl>
+        <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+      </StyledPage>
+    );
+  }
 
   return (
     <StyledPage>
-      {productDetail ? (
-        <>
-          <StyledImageContainer>
-            <img src={productDetail.image} alt={productDetail.name} />
-          </StyledImageContainer>
-          <h2>{productDetail.name}</h2>
-          <hr />
-          <dl>
-            <dt>가격</dt>
-            <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
-          </dl>
-          <dl>
-            <dt>제품 설명</dt>
-            <dd>{productDetail.description}</dd>
-          </dl>
-          <StyledAddToCartButton>장바구니</StyledAddToCartButton>
-        </>
-      ) : (
-        <StyledImageContainer>
-          <EmptyProductImage>존재하지 않는 상품입니다.</EmptyProductImage>
-        </StyledImageContainer>
-      )}
+      <StyledImageContainer>
+        <EmptyProductImage>존재하지 않는 상품입니다.</EmptyProductImage>
+      </StyledImageContainer>
     </StyledPage>
   );
 }
