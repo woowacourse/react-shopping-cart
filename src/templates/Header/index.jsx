@@ -14,7 +14,7 @@ function Header() {
     <HeaderStyled>
       <PageButtonContainerStyled>
         <HomeButton />
-        <FlexWrapper alignItems="center">
+        <FlexWrapper>
           <MarginWrapper marginRight="2.2vw">
             <Button fontSize="1.5rem" color="whiteFontColor" border="none">
               장바구니
