@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
+
+import { addToCarts, deleteFromCarts } from '../../store/product';
+
 import { BasicImage, BasicButton } from '../shared/basics';
 import { CART_SIZE, COLOR } from '../../constants/styles';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { useDispatch } from 'react-redux';
-import { addToCarts, deleteFromCarts } from '../../store/product';
 
 function Product({ id, src, price, title, isStored }) {
   const timeout = useRef();
