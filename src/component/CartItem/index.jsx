@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
 
-import {DELETE_CART} from 'store/modules/cart';
+import {CART} from 'store/modules/cart';
 
 import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
@@ -14,7 +14,7 @@ function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
   const dispatch = useDispatch();
 
   const handleDeleteIconClick = (id) => {
-    dispatch({type: DELETE_CART, payload: id});
+    dispatch({type: CART.DELETE, payload: id});
   };
 
   return (

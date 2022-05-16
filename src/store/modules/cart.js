@@ -1,6 +1,8 @@
-const ADD_CART = 'ADD_CART';
-const DELETE_CART = 'DELETE_CART';
-const EDIT_CART = 'EDIT_CART';
+const CART = {
+  ADD: 'ADD_CART',
+  DELETE: 'DELETE_CART',
+  EDIT: 'EDIT_CART',
+};
 
 const initialState = {
   cart: [],
@@ -8,18 +10,18 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_CART: {
+    case CART.ADD: {
       return {
         cart: [...state.cart, action.payload],
       };
     }
-    case DELETE_CART: {
+    case CART.DELETE: {
       const id = action.payload;
       const newState = state.cart.filter((item) => item.id !== id);
 
       return {...state, cart: newState};
     }
-    case EDIT_CART: {
+    case CART.EDIT: {
       const {id, count} = action.payload;
 
       const newState = state.map((item) => {
@@ -41,4 +43,4 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
-export {ADD_CART, DELETE_CART, EDIT_CART};
+export {CART};

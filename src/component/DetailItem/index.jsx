@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {ADD_CART} from 'store/modules/cart';
+import {CART} from 'store/modules/cart';
 
 import Button from 'component/common/Button';
 
@@ -16,7 +16,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
 
   const handleCartButtonClick = () => {
     setDisable(true);
-    dispatch({type: ADD_CART, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
+    dispatch({type: CART.ADD, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
   };
 
   return (

@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
-import {ADD_CART} from 'store/modules/cart';
+import {CART} from 'store/modules/cart';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'component/common/Button';
@@ -25,7 +25,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
 
   const handleCartIconClick = () => {
     setDisable(true);
-    dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
+    dispatch({type: CART.ADD, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
   };
 
   return (
