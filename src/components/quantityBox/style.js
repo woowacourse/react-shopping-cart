@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledModal = styled.div`
+const StyledQuantityBox = styled.div`
   position: absolute;
   display: flex;
   border-radius: 25px;
@@ -14,4 +14,4 @@ const StyledModal = styled.div`
   justify-content: space-around;
 `;
 
-export default StyledModal;
+export default StyledQuantityBox;

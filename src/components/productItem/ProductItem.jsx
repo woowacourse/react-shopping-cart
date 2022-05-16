@@ -4,7 +4,7 @@ import useClose from 'hooks/useClose';
 
 import Image from 'components/base/image/Image';
 import CartIcon from 'components/base/cartIcon/CartIcon';
-import Modal from 'components/base/modal/Modal';
+import QuantityBox from 'components/quantityBox/QuantityBox';
 import Button from 'components/base/button/Button';
 import Text from 'components/base/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
@@ -71,7 +71,7 @@ const ProductItem = ({ id }) => {
         </div>
       </StyledProductContainer>
       {isOpen && (
-        <Modal onClick={handleModalClick}>
+        <QuantityBox onClick={handleModalClick}>
           <Button
             onClick={() => setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev))}
           >
@@ -81,7 +81,7 @@ const ProductItem = ({ id }) => {
           <Button onClick={() => setQuantity(prev => prev + 1)}>
             <PlusIcon />
           </Button>
-        </Modal>
+        </QuantityBox>
       )}
     </StyledProductItem>
   );
