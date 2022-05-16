@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
 import Spinner from "../../components/common/Spinner";
 import ProductDetailCard from "./ProductDetailCard";
-import { getProductDetail } from "./../../store/actions";
+
+import { useProductDetail } from "../../hooks/useProductDetail";
 
 function ProductDetailPage() {
-  const dispatch = useDispatch();
   const { id: productId } = useParams();
 
-  const {
-    data: selectedProduct,
-    loading: isLoading,
-    errorMessage,
-  } = useSelector((state) => state.productDetailReducer.productDetail);
-
-  useEffect(() => {
-    dispatch(getProductDetail(productId));
-  }, []);
+  const { product, isLoading, errorMessage } = useProductDetail(productId);
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
-  return <ProductDetailCard product={selectedProduct} />;
+  return <ProductDetailCard product={product} />;
 }
 
 export default ProductDetailPage;
