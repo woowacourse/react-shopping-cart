@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { getProduct } from 'modules/product';
 import { COLOR } from 'constants';
 
 import styled from 'styled-components';
@@ -54,16 +55,24 @@ const Styled = {
 
 const ProductDetail = () => {
   const { id: productId } = useParams();
-  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+  const { product, loading, error } = useSelector(({ productReducer }) => productReducer.posts);
+  const dispatch = useDispatch();
 
-  if (!productList.length) {
-    return <LoadingSpinner />;
+  useEffect(() => {
+    dispatch(getProduct(productId));
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <Styled.Wrapper>
+        <LoadingSpinner />
+      </Styled.Wrapper>
+    );
   }
-
-  const { name, price, thumbnail } = productList.find(
-    (product) => product.id === Number(productId),
-  );
-
+  if (error) {
+    return <Styled.Wrapper>에러 발생!</Styled.Wrapper>;
+  }
+  const { name, price, thumbnail } = product;
   return (
     <Styled.Wrapper>
       <Styled.ThumbnailBox>

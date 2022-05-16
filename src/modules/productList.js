@@ -1,7 +1,6 @@
-const GET_PRODUCT_LIST = 'api/PRODUCT_LIST';
-
-const GET_PRODUCT_LIST_SUCCESS = 'api/PRODUCT_LIST_SUCCESS';
-const GET_PRODUCT_LIST_ERROR = 'api/PRODUCT_LIST_ERROR';
+const GET_PRODUCT_LIST = 'productList/GET_PRODUCT_LIST';
+const GET_PRODUCT_LIST_SUCCESS = 'productList/GET_PRODUCT_LIST_SUCCESS';
+const GET_PRODUCT_LIST_ERROR = 'productList/GET_PRODUCT_LIST_ERROR';
 
 export const getProductList = () => async (dispatch) => {
   dispatch({ type: GET_PRODUCT_LIST });

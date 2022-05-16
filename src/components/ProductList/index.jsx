@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getProductList } from 'modules/api';
+import { getProductList } from 'modules/productList';
 
 import Product from 'components/Product';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
