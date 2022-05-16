@@ -2,7 +2,7 @@ import { ICON_CODE } from 'constants/';
 import Button from './index';
 
 export default {
-  title: 'Component/Button',
+  title: 'Component/@Common/Button',
   component: Button,
   parameters: {
     layout: 'centered',
