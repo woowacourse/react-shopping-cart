@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import HeaderContainer from 'components/@shared/HeaderContainer/HeaderContainer.component';
 import HeaderLink from 'components/@shared/HeaderLink/HeaderLink.component';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
+import RESPONSIVE_SIZE from 'constants/responsiveSize';
 
 const HeaderTitleBox = styled.div`
   display: flex;
@@ -13,12 +14,22 @@ const HeaderNavBox = styled.div`
   gap: 43px;
 `;
 
+const ShoppingCartSvg = styled(ShoppingCart)`
+  width: 50px;
+  height: 44px;
+
+  @media (max-width: ${RESPONSIVE_SIZE.MEDIUM}) {
+    width: 30px;
+    height: 27px;
+  }
+`;
+
 function Header() {
   return (
     <HeaderContainer>
       <HeaderLink to="/" type="title">
         <HeaderTitleBox>
-          <ShoppingCart fill="#fff" width={50} height={44} />
+          <ShoppingCartSvg fill="#fff" />
           WOOWA SHOP
         </HeaderTitleBox>
       </HeaderLink>

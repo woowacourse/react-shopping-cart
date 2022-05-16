@@ -22,9 +22,11 @@ root.render(
         <GlobalStyle />
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <ThemeProvider theme={theme}>
-            <Routes>
-              <Route path="/" element={<ProductList />} />
-            </Routes>
+            <div className="App">
+              <Routes>
+                <Route path="/" element={<ProductList />} />
+              </Routes>
+            </div>
           </ThemeProvider>
         </BrowserRouter>
       </PersistGate>
