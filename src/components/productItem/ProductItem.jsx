@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useClose from 'hooks/useClose';
 
@@ -25,12 +25,9 @@ const ProductItem = ({ id }) => {
   const [clearTimer, manualClose, autoClose] = useClose();
   const { name, price, image, isInCart } = products.find(product => product.id === id);
 
-  const quantityRef = useRef(quantity);
-  quantityRef.current = quantity;
-
   const putCart = () => {
     setIsOpen(false);
-    store.dispatch(doPutProductToCart({ id, quantity: quantityRef.current }));
+    store.dispatch(doPutProductToCart({ id, quantity }));
     clearTimer();
   };
 
