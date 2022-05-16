@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import React from 'react';
 import HeaderContainer from 'components/@shared/HeaderContainer/HeaderContainer.component';
 import HeaderLink from 'components/@shared/HeaderLink/HeaderLink.component';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
@@ -25,4 +25,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default React.memo(Header);

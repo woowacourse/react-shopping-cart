@@ -1,5 +1,5 @@
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
@@ -14,9 +14,9 @@ function ProductList() {
 
   const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
 
-  const handleToggleShoppingCart = (id, isContained) => {
+  const handleToggleShoppingCart = useCallback((id, isContained) => {
     dispatch(isContained ? deleteItem(id) : addItem(id));
-  };
+  }, []);
 
   const checkContainedProduct = id => {
     return shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;

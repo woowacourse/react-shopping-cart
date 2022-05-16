@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import Image from 'components/@shared/Image/Image.component';
 import Text from 'components/@shared/Text/Text.component';
@@ -38,6 +39,8 @@ const ItemContainer = styled.div`
 `;
 
 function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
+  const onClick = useCallback(() => handleToggleShoppingCart(id, isContained), [id, isContained]);
+
   return (
     <ItemContainer isContained={isContained}>
       <Image type="medium" src={thumbnail} />
@@ -47,12 +50,9 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
       <Text className="product-price" fontSize="medium">
         {price}원
       </Text>
-      <ShoppingCart
-        style={{ cursor: 'pointer' }}
-        onClick={() => handleToggleShoppingCart(id, isContained)}
-      />
+      <ShoppingCart style={{ cursor: 'pointer' }} onClick={onClick} />
     </ItemContainer>
   );
 }
 
-export default ProductListItem;
+export default React.memo(ProductListItem);
