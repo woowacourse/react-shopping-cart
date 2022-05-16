@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CART_SIZE, COLOR, PATH } from '../../constants';
+
+import PATH from '../../constants/path';
+import { CART_SIZE, COLOR } from '../../constants/styles';
+
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { BasicButton } from '../shared/basics';
 

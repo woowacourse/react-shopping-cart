@@ -1,5 +1,5 @@
 import { ReactComponent as CartIcon } from './CartIcon.svg';
-import { CART_SIZE, COLOR } from '../../constants';
+import { CART_SIZE, COLOR } from '../../constants/styles';
 
 export default {
   title: 'CartIcon',

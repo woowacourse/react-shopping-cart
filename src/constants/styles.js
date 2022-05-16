@@ -14,10 +14,3 @@ export const COLOR = {
   BLACK: 'black',
   PRIMARY: '#2AC1BC',
 };
-
-export const PATH = {
-  ROOT: '/',
-  PRODUCTS: 'products',
-  CARTS: 'carts',
-  ORDERS: 'orders',
-};

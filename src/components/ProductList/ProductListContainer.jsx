@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import Product from './ProductItem';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadProducts } from '../../store/products';
 import { loadCarts } from '../../store/carts';
+
+import Product from './ProductItem';
+
+import styled from 'styled-components';
 
 function ProductListContainer() {
   const dispatch = useDispatch();

@@ -13,7 +13,7 @@ import Carts from './pages/Carts';
 
 import GlobalStyle from './GlobalStyle';
 
-import { PATH } from './constants';
+import PATH from './constants/path';
 
 function App() {
   const dispatch = useDispatch();

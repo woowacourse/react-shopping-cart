@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PATH } from '../constants';
+import PATH from '../constants/path';
 
 const ADD_TO_CARTS_SUCCESS = 'carts/ADD_TO_CARTS_SUCCESS';
 const ADD_TO_CARTS_FAIL = 'carts/ADD_TO_CARTS_FAIL';
