@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productsAsyncThunk } from 'store/action/productsActions';
+import { clearProducts, productsAsyncThunk } from 'store/action/productsActions';
 
 import { GridLayout } from 'component/common';
-import { Product } from 'component';
-
 import LoadingSpinner from 'component/LoadingSpinner/LoadingSpinner';
+import ProductContainer from 'container/ProductContainer';
 
 const Content = styled.div`
   display: flex;
@@ -20,6 +19,9 @@ function ProductList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (products.length) {
+      dispatch(clearProducts());
+    }
     dispatch(productsAsyncThunk());
   }, []);
 
@@ -28,7 +30,7 @@ function ProductList() {
       {products.length ? (
         <GridLayout>
           {products.map(product => (
-            <Product key={product.id} {...product} />
+            <ProductContainer key={product.id} {...product} />
           ))}
         </GridLayout>
       ) : (
