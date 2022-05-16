@@ -2,18 +2,16 @@ import * as Styled from './styles';
 
 const Header = () => (
   <Styled.Container>
-    <div className="left-menu">
-      <button className="menu-button" type="button">
-        전체 카테고리
-      </button>
-    </div>
+    <Styled.LeftMenu>
+      <Styled.MenuButton type="button">전체 카테고리</Styled.MenuButton>
+    </Styled.LeftMenu>
 
-    <div className="logo" />
+    <Styled.Logo />
 
-    <ul className="right-menu">
-      <li className="cart">장바구니</li>
-      <li className="order-list">주문 목록</li>
-    </ul>
+    <Styled.RightMenu>
+      <Styled.RightMenuList className="cart">장바구니</Styled.RightMenuList>
+      <Styled.RightMenuList className="order-list">주문 목록</Styled.RightMenuList>
+    </Styled.RightMenu>
   </Styled.Container>
 );
 
