@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/theme';
 
 import 'styles/utils/Fontawesome.css';
+import 'styles/utils/FontFace.css';
 import 'styles/utils/ResetCss.css';
 
 const GlobalStyles = css`
@@ -15,6 +16,7 @@ const GlobalStyles = css`
   }
 
   body {
+    font-family: 'NanumBarunGothic';
     background-color: ${COLORS.WILDSAND};
   }
 `;
