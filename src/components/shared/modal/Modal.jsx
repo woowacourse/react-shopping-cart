@@ -1,7 +1,7 @@
-import StyledModal from 'components/shared/modal/style';
+import Styled from 'components/shared/modal/style';
 
 const Modal = ({ children, ...rest }) => {
-  return <StyledModal {...rest}>{children}</StyledModal>;
+  return <Styled.Modal {...rest}>{children}</Styled.Modal>;
 };
 
 export default Modal;

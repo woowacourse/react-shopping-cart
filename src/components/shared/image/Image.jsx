@@ -1,7 +1,7 @@
-import StyledImage from 'components/shared/image/style';
+import Styled from 'components/shared/image/style';
 
 const Image = ({ ...rest }) => {
-  return <StyledImage {...rest} />;
+  return <Styled.Image {...rest} />;
 };
 
 export default Image;

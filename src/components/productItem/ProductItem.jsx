@@ -9,12 +9,7 @@ import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 import store from 'store/store';
 import { doPutProductToCart } from 'actions/actionCreator';
 
-import {
-  StyledProductItem,
-  StyledProductContainer,
-  StyledProductText,
-  StyledQuantityContainer,
-} from 'components/productItem/style';
+import Styled from 'components/productItem/style';
 
 import autoComma from 'utils/autoComma';
 import { PRODUCT } from 'constants';
@@ -47,23 +42,23 @@ const ProductItem = ({ id }) => {
   const handleModalClick = () => extendTimer(putCart);
 
   return (
-    <StyledProductItem>
+    <Styled.ProductItem>
       <Image src={image} />
-      <StyledProductContainer>
+      <Styled.ProductContainer>
         <div>
-          <StyledProductText name="true">{name}</StyledProductText>
-          <StyledProductText price="true">{autoComma(price)}원</StyledProductText>
+          <Styled.ProductText name="true">{name}</Styled.ProductText>
+          <Styled.ProductText price="true">{autoComma(price)}원</Styled.ProductText>
         </div>
         <div onClick={handleCartClick}>
           {isInCart ? (
             <Button>
-              <StyledQuantityContainer>{quantity}</StyledQuantityContainer>
+              <Styled.QuantityContainer>{quantity}</Styled.QuantityContainer>
             </Button>
           ) : (
             <CartIcon />
           )}
         </div>
-      </StyledProductContainer>
+      </Styled.ProductContainer>
       {isOpen && (
         <Modal onClick={handleModalClick}>
           <Button
@@ -77,7 +72,7 @@ const ProductItem = ({ id }) => {
           </Button>
         </Modal>
       )}
-    </StyledProductItem>
+    </Styled.ProductItem>
   );
 };
 

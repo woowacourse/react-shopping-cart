@@ -7,7 +7,7 @@ import ProductItem from 'components/productItem/ProductItem';
 import store from 'store/store';
 import { doInitializeCart } from 'actions/actionCreator';
 
-import { StyledProductListPage, StyledProductList } from 'page/productList/style';
+import Styled from 'page/productList/style';
 import { SERVER_URL } from 'constants';
 
 const ProductListPage = () => {
@@ -24,11 +24,11 @@ const ProductListPage = () => {
   }, []);
 
   return (
-    <StyledProductListPage>
-      <StyledProductList>
+    <Styled.ProductListPage>
+      <Styled.ProductList>
         {products.map(({ id }) => id && <ProductItem key={id} id={id} />)}
-      </StyledProductList>
-    </StyledProductListPage>
+      </Styled.ProductList>
+    </Styled.ProductListPage>
   );
 };
 

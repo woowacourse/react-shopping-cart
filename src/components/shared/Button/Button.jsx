@@ -1,7 +1,7 @@
-import StyledButton from 'components/shared/button/style';
+import Styled from 'components/shared/button/style';
 
 const Button = ({ children, ...rest }) => {
-  return <StyledButton {...rest}>{children}</StyledButton>;
+  return <Styled.Button {...rest}>{children}</Styled.Button>;
 };
 
 export default Button;

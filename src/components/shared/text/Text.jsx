@@ -1,7 +1,7 @@
-import StyledText from 'components/shared/text/style';
+import Styled from 'components/shared/text/style';
 
 const Text = ({ children, ...rest }) => {
-  return <StyledText {...rest}>{children}</StyledText>;
+  return <Styled.Text {...rest}>{children}</Styled.Text>;
 };
 
 export default Text;

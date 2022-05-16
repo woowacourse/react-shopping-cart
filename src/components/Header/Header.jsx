@@ -1,11 +1,11 @@
-import StyledHeader from 'components/header/style';
+import Styled from 'components/header/style';
 
 const Header = ({ left, right, ...rest }) => {
   return (
-    <StyledHeader {...rest}>
+    <Styled.Header {...rest}>
       {left}
       {right}
-    </StyledHeader>
+    </Styled.Header>
   );
 };
 

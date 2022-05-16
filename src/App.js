@@ -9,10 +9,12 @@ import GlobalStyles from 'components/GlobalStyles';
 
 import { BASE_URL } from 'constants';
 
-const StyledRoutes = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+const Styled = {
+  Routes: styled.div`
+    display: flex;
+    justify-content: center;
+  `,
+};
 
 function App() {
   return (
@@ -33,11 +35,11 @@ function App() {
           </div>
         }
       />
-      <StyledRoutes>
+      <Styled.Routes>
         <Routes>
           <Route path={BASE_URL} element={<ProductListPage />} />
         </Routes>
-      </StyledRoutes>
+      </Styled.Routes>
       <GlobalStyles />
     </BrowserRouter>
   );
