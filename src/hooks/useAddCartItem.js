@@ -5,12 +5,12 @@ import { addCartItemAsync } from 'reducers/cart/cart.thunk';
 const useAddCartItem = () => {
   const {
     dispatch,
-    state: { isLoadingAddCartItem, isErrorAddCartItem },
+    state: { isLoadingAddCartItem, isSucceedAddCartItem, isErrorAddCartItem },
   } = useReduxState('cart');
 
   useEffect(() => {
     console.log('render');
-  }, [isLoadingAddCartItem, isErrorAddCartItem]);
+  }, [isLoadingAddCartItem, isSucceedAddCartItem, isErrorAddCartItem]);
 
   const addCarItem = (id) => {
     dispatch(addCartItemAsync(id));

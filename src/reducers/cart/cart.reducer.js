@@ -5,6 +5,7 @@ const initialState = {
   isLoadingGetCart: false,
   isErrorGetCart: false,
   isLoadingAddCartItem: false,
+  isSucceedAddCartItem: false,
   isErrorAddCartItem: false,
 };
 
@@ -33,6 +34,7 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingAddCartItem: true,
+      isSucceedAddCartItem: false,
       isErrorAddCartItem: false,
     };
   }
@@ -41,6 +43,7 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingAddCartItem: false,
+      isSucceedAddCartItem: true,
       isErrorAddCartItem: false,
     };
   }
@@ -49,6 +52,7 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingAddCartItem: false,
+      isSucceedAddCartItem: false,
       isErrorAddCartItem: true,
     };
   }
