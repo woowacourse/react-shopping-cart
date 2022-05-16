@@ -5,7 +5,7 @@ export const getProductAsync = (id) => async (dispatch) => {
   dispatch(actions.getProduct());
 
   try {
-    const { data } = await apiClient.get(`products/${id}`);
+    const { data } = await apiClient.get(`/product/${id}`);
     dispatch(actions.getProductSuccess(data));
   } catch (error) {
     dispatch(actions.getProductError());

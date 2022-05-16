@@ -2,7 +2,9 @@ export const actionTypes = {
   GET_CART: 'GET_CART',
   GET_CART_SUCCESS: 'GET_CART_SUCCESS',
   GET_CART_ERROR: 'GET_CART_ERROR',
-  ADD_CART_ITEM: 'ADD_CART_ITEM',
+  ADD_CART: 'ADD_CART',
+  ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
+  ADD_CART_ERROR: 'ADD_CART_ERROR',
 };
 
 export const getCart = () => ({
@@ -18,7 +20,15 @@ export const getCartError = () => ({
   type: actionTypes.GET_CART_ERROR,
 });
 
-export const addCartItem = (item) => ({
-  type: actionTypes.ADD_CART_ITEM,
-  item,
+export const addCart = () => ({
+  type: actionTypes.ADD_CART,
+});
+
+export const addCartSuccess = (data) => ({
+  type: actionTypes.ADD_CART_SUCCESS,
+  data,
+});
+
+export const addCartError = () => ({
+  type: actionTypes.ADD_CART_ERROR,
 });
