@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Button } from 'component/common';
 import { useNavigate } from 'react-router-dom';
+import { PATH } from 'constant/path';
 
 const StyledNavBar = styled.div`
   height: 80px;
@@ -37,12 +38,12 @@ function NavBar() {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    navigate('react-shopping-cart/ProductList');
+    navigate(PATH.PRODUCT_LIST);
     location.reload();
   };
 
   const handleShoppingCartClick = () => {
-    navigate('react-shopping-cart/ShoppingCart');
+    navigate(PATH.SHOPPING_CART);
   };
 
   const handleOrderListClick = () => {
