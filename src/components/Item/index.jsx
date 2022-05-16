@@ -2,7 +2,14 @@ import * as S from "./index.styles";
 import { useTheme } from "@emotion/react";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
-const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
+const Item = ({
+  imgUrl,
+  title,
+  price,
+  onClick,
+  onClickShoppingCart,
+  isInShoppingCart,
+}) => {
   const {
     color: {
       primary,
@@ -26,7 +33,7 @@ const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
           <S.ItemInfo>{title}</S.ItemInfo>
           <S.ItemInfo>{price.toLocaleString("ko-KR")}원</S.ItemInfo>
         </div>
-        <S.ShoppingCartButton onClick={go}>
+        <S.ShoppingCartButton onClick={onClickShoppingCart}>
           <ShoppingCartIcon
             width="30px"
             height="30px"
