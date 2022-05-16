@@ -2,17 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { ROUTE } from 'constants';
+import { ROUTE, COLOR } from 'constants';
 
 const Styled = {
   Wrapper: styled.header`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: #2ac1bc;
+    background: ${COLOR.HEADER_BACKGROUND};
     width: 100%;
     height: 80px;
-    color: #fff;
+    color: ${COLOR.HEADER_FONT};
   `,
   LogoBox: styled(Link)`
     display: flex;

@@ -1,6 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import { COLOR } from 'constants';
+
 import styled from 'styled-components';
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
@@ -39,7 +42,7 @@ const Styled = {
       bottom: -8px;
       height: 3px;
       width: 100%;
-      background: #aaaaaa;
+      background: ${COLOR.PRODUCT_DETAIL_LINE};
     }
   `,
   Price: styled(flexSpaceBetween)`

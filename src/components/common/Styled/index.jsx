@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { StyledButton } from 'components/common/Button';
+import { COLOR } from 'constants';
 
 export const CartButton = styled(StyledButton)`
   :hover {
     svg path {
-      fill: #2ac1bc;
+      fill: ${COLOR.CART_BUTTON_HOVER};
     }
   }
 `;
@@ -12,12 +13,11 @@ export const CartButton = styled(StyledButton)`
 export const CardDetailButton = styled(StyledButton)`
   width: 100%;
   height: 60px;
-  background: #73675c;
-  color: #fff;
+  background: ${COLOR.CART_BUTTON};
   font-weight: 700;
   font-size: 20px;
   :hover {
-    background: #2ac1bc;
+    background: ${COLOR.CART_BUTTON_HOVER};
   }
 `;
 
