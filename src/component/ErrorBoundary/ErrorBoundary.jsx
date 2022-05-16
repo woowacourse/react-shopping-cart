@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ErrorBoundary({children, fallback, error, pending}) {
+export default function ErrorBoundary({children, fallback, error, pending = false}) {
   if (pending) return;
 
   if (error) return fallback;
@@ -10,8 +10,8 @@ export default function ErrorBoundary({children, fallback, error, pending}) {
 }
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.any,
-  fallback: PropTypes.any,
-  error: PropTypes.boolean,
-  pending: PropTypes.boolean,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
+  fallback: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
+  error: PropTypes.bool,
+  pending: PropTypes.bool,
 };
