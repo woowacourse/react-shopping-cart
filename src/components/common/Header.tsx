@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { flexCenter } from 'styles/mixin';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
+import { PATH } from 'Routers';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -9,14 +10,14 @@ const Header = () => {
   return (
     <StyledRoot>
       <div>
-        <Link to='/main/1'>
+        <Link to={PATH.getMain(1)}>
           <StyledLogo>
             <CartIcon fill='white' />
             <StyledBrandName>Woowa Shop</StyledBrandName>
           </StyledLogo>
         </Link>
         <StyledNav>
-          <button onClick={() => navigate('/cart')}>장바구니</button>
+          <button onClick={() => navigate(PATH.cart)}>장바구니</button>
           <button>주문목록</button>
         </StyledNav>
       </div>

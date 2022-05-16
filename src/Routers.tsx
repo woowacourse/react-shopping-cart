@@ -5,7 +5,7 @@ import Main from 'pages/Main';
 import Cart from 'pages/Cart';
 import { ReactElement } from 'react';
 
-const PATH = {
+export const PATH = {
   home: '/',
   main: '/main/:id',
   getMain(id: number) {

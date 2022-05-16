@@ -1,5 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { PATH } from 'Routers';
 import styled, { css } from 'styled-components';
 
 const Paginator = ({ maxIndex }: { maxIndex: number }) => {
@@ -16,7 +17,7 @@ const Paginator = ({ maxIndex }: { maxIndex: number }) => {
     const currentPage = Number(e.target.innerText);
 
     setPage(currentPage);
-    navigate(`/main/${currentPage}`);
+    navigate(PATH.getMain(currentPage));
   };
 
   const handleClickBefore = () => {
@@ -24,7 +25,7 @@ const Paginator = ({ maxIndex }: { maxIndex: number }) => {
     const currentPage = page - 1;
 
     setPage(currentPage);
-    navigate(`/main/${currentPage}`);
+    navigate(PATH.getMain(currentPage));
   };
 
   const handleClickAfter = () => {
@@ -32,7 +33,7 @@ const Paginator = ({ maxIndex }: { maxIndex: number }) => {
     const currentPage = page + 1;
 
     setPage(currentPage);
-    navigate(`/main/${currentPage}`);
+    navigate(PATH.getMain(currentPage));
   };
 
   return (

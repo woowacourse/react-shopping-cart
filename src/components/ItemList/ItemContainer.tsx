@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 import { memo, MouseEvent } from 'react';
 import { flexCenter } from 'styles/mixin';
 import { Link } from 'react-router-dom';
+import { PATH } from 'Routers';
 
 interface ItemContainerProps {
   id: number;
@@ -35,7 +36,7 @@ const ItemContainer = ({
   };
 
   return (
-    <Link to={`/item_detail/${id}`} onClick={handleClickItemContainer} replace>
+    <Link to={PATH.getItemDetail(id)} onClick={handleClickItemContainer} replace>
       <StyledRoot>
         <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
         <StyledBottom>
