@@ -11,7 +11,7 @@ const ProductListBox = styled.div`
 function ProductListContainer({ data, handleToggleShoppingCart, checkContainedProduct }) {
   return (
     <>
-      {data.length === 0 ? (
+      {Array.isArray(data) && data.length === 0 ? (
         <Error>상품이 존재하지 않습니다</Error>
       ) : (
         <ProductListBox>
