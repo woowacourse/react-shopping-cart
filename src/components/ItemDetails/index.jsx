@@ -14,7 +14,7 @@ const ItemDetails = ({
   } = useTheme();
   return (
     <S.ItemContainer>
-      <S.ItemImage src={imgUrl} alt="상품상세이미지" />
+      <S.ItemImage src={imgUrl} alt={`${title}상세이미지`} />
       <S.ItemTitle>{title}</S.ItemTitle>
       <S.PriceContainer color={priceColor}>
         <p>금액</p>
