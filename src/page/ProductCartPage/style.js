@@ -1,17 +1,15 @@
+import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const ProductCartPageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const ProductCartPageLayout = styled(FlexColumn)`
   margin: 140px 10% 0;
 `;
 
-const CartInfoWrapper = styled.div`
-  display: flex;
+const CartInfoBox = styled(FlexRow)`
   gap: 80px;
 `;
 
-const HeaderWrapper = styled.div`
+const HeaederSpan = styled.span`
   font-size: 32px;
   font-weight: 700;
   border-bottom: 4px solid #333333;
@@ -20,15 +18,13 @@ const HeaderWrapper = styled.div`
   margin-bottom: 53px;
 `;
 
-const CheckBoxWrapper = styled.div`
-  display: flex;
+const CheckBoxRow = styled(FlexRow)`
   align-items: center;
   gap: 5px;
   justify-content: space-between;
 `;
 
-const SelectDeleteWrapper = styled.div`
-  display: flex;
+const SelectDeleteRow = styled(FlexRow)`
   justify-content: space-between;
   margin-bottom: 30px;
 
@@ -40,29 +36,27 @@ const SelectDeleteWrapper = styled.div`
   }
 `;
 
-const ListHeaderWrapper = styled.div`
+const ListHeaderSpan = styled.span`
   border-bottom: ${({theme}) => `4px solid ${theme.GRAY_700}`};
   padding-bottom: 16px;
   margin-bottom: 10px;
 `;
 
-const CartListWrapper = styled.div`
+const CartListBox = styled.div`
   width: 100%;
 `;
 
-const SelectCartWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const SelectCartBox = styled(FlexColumn)`
   width: 100%;
 `;
 
 export {
-  ProductCartPageWrapper,
-  HeaderWrapper,
-  ListHeaderWrapper,
-  CartListWrapper,
-  SelectDeleteWrapper,
-  CheckBoxWrapper,
-  CartInfoWrapper,
-  SelectCartWrapper,
+  ProductCartPageLayout,
+  CartInfoBox,
+  HeaederSpan,
+  SelectDeleteRow,
+  CheckBoxRow,
+  ListHeaderSpan,
+  CartListBox,
+  SelectCartBox,
 };

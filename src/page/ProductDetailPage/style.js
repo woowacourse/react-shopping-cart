@@ -1,9 +1,9 @@
+import {FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const DetailItemPageWrapper = styled.div`
-  display: flex;
+const DetailItemPageLayout = styled(FlexRow)`
   justify-content: center;
   margin: 140px 10%;
 `;
 
-export {DetailItemPageWrapper};
+export {DetailItemPageLayout};

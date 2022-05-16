@@ -1,16 +1,17 @@
+import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const CartItemWrapper = styled.div`
+const CartItemLayout = styled(FlexRow)`
   display: flex;
   gap: 15px;
   width: 100%;
 `;
 
-const ItemNameWrapper = styled.div`
+const ItemNameParagraph = styled.p`
   width: 100%;
 `;
 
-const EditQuantityWrapper = styled.div`
+const EditQuantityBox = styled(FlexColumn)`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -19,4 +20,4 @@ const EditQuantityWrapper = styled.div`
   width: 115px;
 `;
 
-export {CartItemWrapper, EditQuantityWrapper, ItemNameWrapper};
+export {CartItemLayout, EditQuantityBox, ItemNameParagraph};

@@ -1,13 +1,12 @@
+import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const DetailItemWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const DetailItemLayout = styled(FlexColumn)`
   align-items: center;
   width: 640px;
 `;
 
-const ItemNameWrapper = styled.span`
+const ItemNameSpan = styled.span`
   display: flex;
   align-items: flex-start;
   width: 570px;
@@ -21,10 +20,11 @@ const ItemNameWrapper = styled.span`
   margin-top: 21px;
 `;
 
-const ItemPriceWrapper = styled.span`
-  display: flex;
+const ItemPriceBox = styled(FlexRow)`
   align-items: center;
   justify-content: space-between;
+
+  font-size: 24px;
 
   width: 100%;
   height: 60px;
@@ -36,4 +36,4 @@ const ItemPriceWrapper = styled.span`
   border-top: ${({theme}) => `4px solid ${theme.GRAY_700}`};
 `;
 
-export {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper};
+export {DetailItemLayout, ItemNameSpan, ItemPriceBox};

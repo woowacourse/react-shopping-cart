@@ -1,6 +1,7 @@
+import {FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const AmountBoxWrapper = styled.div`
+const AmountBoxLayout = styled.div`
   box-sizing: border-box;
 
   width: 448px;
@@ -10,7 +11,7 @@ const AmountBoxWrapper = styled.div`
   padding: 30px;
 `;
 
-const AmountBoxHeaderWrapper = styled.div`
+const AmountBoxHeader = styled.div`
   width: 100%;
   font-size: 24px;
   margin-bottom: 20px;
@@ -18,9 +19,7 @@ const AmountBoxHeaderWrapper = styled.div`
   border-bottom: ${({theme}) => `3px solid ${theme.GRAY_500}`};
 `;
 
-const PriceInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+const PriceInfoBox = styled(FlexRow)`
   justify-content: space-between;
   margin: 34px 0 68px;
 
@@ -32,4 +31,4 @@ const PriceInfoWrapper = styled.div`
   }
 `;
 
-export {AmountBoxWrapper, AmountBoxHeaderWrapper, PriceInfoWrapper};
+export {AmountBoxLayout, AmountBoxHeader, PriceInfoBox};

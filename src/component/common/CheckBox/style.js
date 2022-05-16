@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components';
 
-const CheckBoxWrapper = styled.div`
+const CheckBoxLayout = styled.div`
   input[type='checkbox'] {
     display: none;
   }
@@ -31,4 +31,4 @@ const CheckBoxWrapper = styled.div`
     `}
 `;
 
-export {CheckBoxWrapper};
+export {CheckBoxLayout};

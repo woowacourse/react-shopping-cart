@@ -6,8 +6,9 @@ import {ADD_CART} from 'store/modules/cart';
 
 import Button from 'component/common/Button';
 
-import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'component/DetailItem/style';
+import * as S from 'component/DetailItem/style';
 import {COLOR} from 'constant';
+import {Font} from 'style/common';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -19,13 +20,13 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
   };
 
   return (
-    <DetailItemWrapper>
+    <S.DetailItemLayout>
       <img src={itemImgURL} alt="상품 이미지" width="570px" height="570px" />
-      <ItemNameWrapper>{itemName}</ItemNameWrapper>
-      <ItemPriceWrapper>
-        <div>금액</div>
-        <div>{itemPrice}원</div>
-      </ItemPriceWrapper>
+      <S.ItemNameSpan>{itemName}</S.ItemNameSpan>
+      <S.ItemPriceBox>
+        <span>금액</span>
+        <Font fontSize="32px">{itemPrice.toLocaleString()}원</Font>
+      </S.ItemPriceBox>
       <Button
         backgroundColor={COLOR.BROWN}
         width="640px"
@@ -35,7 +36,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
       >
         장바구니
       </Button>
-    </DetailItemWrapper>
+    </S.DetailItemLayout>
   );
 }
 

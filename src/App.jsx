@@ -8,7 +8,7 @@ import ProductDetailPage from 'page/ProductDetailPage';
 import ProductCartPage from 'page/ProductCartPage';
 
 import theme from 'theme/theme';
-import {GlobalStyles} from 'style';
+import {GlobalStyles} from 'style/globalStyle';
 
 import {PATH} from 'constant';
 

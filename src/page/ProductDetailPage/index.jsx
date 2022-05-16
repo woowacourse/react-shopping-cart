@@ -4,7 +4,7 @@ import {useLocation} from 'react-router-dom';
 
 import DetailItem from 'component/DetailItem';
 
-import {DetailItemPageWrapper} from 'page/ProductDetailPage/style';
+import * as S from 'page/ProductDetailPage/style';
 
 export default function ProductDetailPage() {
   const {
@@ -12,7 +12,7 @@ export default function ProductDetailPage() {
   } = useLocation();
 
   return (
-    <DetailItemPageWrapper>
+    <S.DetailItemPageLayout>
       <DetailItem
         itemImgURL={itemImgURL}
         itemName={itemName}
@@ -20,7 +20,7 @@ export default function ProductDetailPage() {
         id={id}
         disabled={disable}
       />
-    </DetailItemPageWrapper>
+    </S.DetailItemPageLayout>
   );
 }
 

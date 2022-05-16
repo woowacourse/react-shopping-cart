@@ -9,7 +9,7 @@ import Loader from 'component/Loader';
 
 import Empty from 'assets/empty.png';
 
-import {ProductListPageWrapper, ProductListWrapper} from 'page/ProductListPage/style';
+import * as S from 'page/ProductListPage/style';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -23,11 +23,11 @@ export default function ProductListPage() {
   const cart = useSelector((state) => state.cartReducer.cart);
 
   return (
-    <ProductListPageWrapper>
+    <S.ProductListPageLayout>
       {pending && <Loader />}
       {!pending &&
         (productList.length ? (
-          <ProductListWrapper>
+          <S.ProductListBox>
             {productList.map(({id, image, name, price}) => (
               <Item
                 itemImgURL={image}
@@ -38,11 +38,11 @@ export default function ProductListPage() {
                 disabled={cart.some((cartItem) => cartItem.id === id)}
               />
             ))}
-          </ProductListWrapper>
+          </S.ProductListBox>
         ) : (
           <img src={Empty} height="600px" />
         ))}
-    </ProductListPageWrapper>
+    </S.ProductListPageLayout>
   );
 }
 

@@ -10,13 +10,7 @@ import Button from 'component/common/Button';
 
 import {PATH} from 'constant';
 
-import {
-  ItemWrapper,
-  NamePriceWrapper,
-  InfoWrapper,
-  ItemNameWrapper,
-  ItemPriceWrapper,
-} from 'component/Item/style';
+import * as S from 'component/Item/style';
 
 export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -35,7 +29,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   };
 
   return (
-    <ItemWrapper>
+    <S.ItemLayout>
       <img
         src={itemImgURL}
         alt="상품 이미지"
@@ -43,21 +37,18 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
         height="282px"
         onClick={handleImageClick}
       />
-      <InfoWrapper>
-        <NamePriceWrapper>
-          <ItemNameWrapper
-            to={`${PATH.DETAIL}/${id}`}
-            state={{itemImgURL, itemName, itemPrice, id}}
-          >
+      <S.InfoBox>
+        <S.NamePriceBox>
+          <S.ItemNameLink to={`${PATH.DETAIL}/${id}`} state={{itemImgURL, itemName, itemPrice, id}}>
             {itemName}
-          </ItemNameWrapper>
-          <ItemPriceWrapper>{itemPrice} 원</ItemPriceWrapper>
-        </NamePriceWrapper>
+          </S.ItemNameLink>
+          <S.ItemPriceSpan>{itemPrice.toLocaleString()} 원</S.ItemPriceSpan>
+        </S.NamePriceBox>
         <Button disabled={disable} onClick={handleCartIconClick}>
           <BlackCartIcon />
         </Button>
-      </InfoWrapper>
-    </ItemWrapper>
+      </S.InfoBox>
+    </S.ItemLayout>
   );
 }
 

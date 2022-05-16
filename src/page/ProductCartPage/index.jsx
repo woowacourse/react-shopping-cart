@@ -7,16 +7,7 @@ import Button from 'component/common/Button';
 import AmountBox from 'component/AmountBox';
 import CartItem from 'component/CartItem';
 
-import {
-  ProductCartPageWrapper,
-  HeaderWrapper,
-  CheckBoxWrapper,
-  ListHeaderWrapper,
-  CartListWrapper,
-  SelectDeleteWrapper,
-  CartInfoWrapper,
-  SelectCartWrapper,
-} from 'page/ProductCartPage/style';
+import * as S from 'page/ProductCartPage/style';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
@@ -32,20 +23,20 @@ export default function ProductCartPage() {
   );
 
   return (
-    <ProductCartPageWrapper>
-      <HeaderWrapper>장바구니</HeaderWrapper>
-      <CartInfoWrapper>
-        <SelectCartWrapper>
-          <SelectDeleteWrapper>
-            <CheckBoxWrapper>
+    <S.ProductCartPageLayout>
+      <S.HeaederSpan>장바구니</S.HeaederSpan>
+      <S.CartInfoBox>
+        <S.SelectCartBox>
+          <S.SelectDeleteRow>
+            <S.CheckBoxRow>
               <CheckBox id="check" />
               선택해제
-            </CheckBoxWrapper>
+            </S.CheckBoxRow>
             <Button>상품삭제</Button>
-          </SelectDeleteWrapper>
+          </S.SelectDeleteRow>
 
-          <ListHeaderWrapper>장바구니 상품 (개)</ListHeaderWrapper>
-          <CartListWrapper>
+          <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>
+          <S.CartListBox>
             {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
               <React.Fragment key={id}>
                 <CartItem
@@ -58,12 +49,12 @@ export default function ProductCartPage() {
                 <hr />
               </React.Fragment>
             ))}
-          </CartListWrapper>
-        </SelectCartWrapper>
+          </S.CartListBox>
+        </S.SelectCartBox>
 
         <AmountBox type="expect" totalCount={totalCount} totalPrice={totalPrice} />
-      </CartInfoWrapper>
-    </ProductCartPageWrapper>
+      </S.CartInfoBox>
+    </S.ProductCartPageLayout>
   );
 }
 

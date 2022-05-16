@@ -1,12 +1,12 @@
+import {FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const HeaderWrapper = styled.div`
+const HeaderLayout = styled(FlexRow)`
   position: fixed;
   top: 0;
   left: 0;
 
   box-sizing: border-box;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 18px 10%;
@@ -16,10 +16,12 @@ const HeaderWrapper = styled.div`
 
   background-color: #2ac1bc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+
+  z-index: 1;
 `;
 
-const HeaderButtonWrapper = styled.div`
+const HeaderButtonBox = styled.div`
   display: flex;
 `;
 
-export {HeaderWrapper, HeaderButtonWrapper};
+export {HeaderLayout, HeaderButtonBox};

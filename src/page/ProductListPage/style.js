@@ -1,16 +1,16 @@
+import {FlexRow} from 'style/common';
 import styled from 'styled-components';
 
-const ProductListPageWrapper = styled.div`
-  display: flex;
+const ProductListPageLayout = styled(FlexRow)`
   justify-content: center;
   margin-top: 140px;
 `;
 
-const ProductListWrapper = styled.div`
+const ProductListBox = styled.div`
   display: grid;
-  gap: 10px;
+  gap: 3vh 3vw;
   grid-template-columns: repeat(4, 1fr);
   margin: 0 10%;
 `;
 
-export {ProductListPageWrapper, ProductListWrapper};
+export {ProductListPageLayout, ProductListBox};

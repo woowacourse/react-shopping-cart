@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ButtonWrapper = styled.button`
+const ButtonLayout = styled.button`
   color: ${({theme}) => theme.WHITE};
   font-size: 24px;
   font-weight: 500;
@@ -16,4 +16,4 @@ const ButtonWrapper = styled.button`
   opacity: ${(props) => props.disabled && 0.2};
 `;
 
-export {ButtonWrapper};
+export {ButtonLayout};

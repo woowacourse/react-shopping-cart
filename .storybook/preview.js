@@ -1,4 +1,4 @@
-import {GlobalStyles} from '../src/style';
+import {GlobalStyles} from '/style/GlobalStyles';
 import {addDecorator} from '@storybook/react';
 import {ThemeProvider} from 'styled-components';
 import theme from 'theme/theme';
