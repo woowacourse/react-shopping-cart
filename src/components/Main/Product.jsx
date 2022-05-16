@@ -68,7 +68,11 @@ Product.propTypes = {
   src: PropType.string.isRequired,
   title: PropType.string.isRequired,
   price: PropType.string.isRequired,
-  isStored: PropType.bool.isRequired,
+  isStored: PropType.bool,
+};
+
+Product.defaultProps = {
+  isStored: false,
 };
 
 export default Product;
