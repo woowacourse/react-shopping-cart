@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import parsePrice from 'utils/parsePrice';
 
-const ProductItem = ({ id, name, price, imgUrl }) => {
+const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
   const navigate = useNavigate();
-  const handleClick = () => {
+
+  const handleClickItem = () => {
     navigate(`${PATH_NAME.PRODUCT}/${id}`);
   };
 
   return (
-    <Styled.Wrapper onClick={handleClick}>
+    <Styled.Wrapper onClick={handleClickItem}>
       <Styled.Overlay>
         <Styled.ProductNamePreview>{name}</Styled.ProductNamePreview>
       </Styled.Overlay>
@@ -22,7 +23,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{parsePrice(price)}원</Styled.ProductPrice>
         </Styled.ProductInfo>
-        <Styled.CartButton>
+        <Styled.CartButton onClick={onClickCartButton}>
           <Styled.CartSvg src={smallCart} />
         </Styled.CartButton>
       </Styled.ProductDetail>
@@ -35,6 +36,7 @@ ProductItem.propTypes = {
   name: PropTypes.string,
   price: PropTypes.string,
   imgUrl: PropTypes.string,
+  onClickCartButton: PropTypes.func,
 };
 
 export default ProductItem;

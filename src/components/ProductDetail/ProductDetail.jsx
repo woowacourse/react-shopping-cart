@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 import parsePrice from 'utils/parsePrice';
 
-const ProductDetail = ({ imgUrl, name, price, onClick }) => {
+const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
   return (
     <>
       <Styled.ProductImg src={imgUrl} alt="상품 이미지" />
@@ -14,7 +14,11 @@ const ProductDetail = ({ imgUrl, name, price, onClick }) => {
           <p>금액</p>
           <p>{parsePrice(price)}원</p>
         </Styled.ProductPrice>
-        <Button colorType="secondary" sizeType="large" onClick={onClick}>
+        <Button
+          colorType="secondary"
+          sizeType="large"
+          onClick={onClickCartButton}
+        >
           장바구니
         </Button>
       </Styled.ProductInfo>
@@ -23,11 +27,10 @@ const ProductDetail = ({ imgUrl, name, price, onClick }) => {
 };
 
 ProductDetail.propTypes = {
-  id: PropTypes.number,
   imgUrl: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.string,
-  onClick: PropTypes.func,
+  onClickCartButton: PropTypes.func,
 };
 
 export default ProductDetail;

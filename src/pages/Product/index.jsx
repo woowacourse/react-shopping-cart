@@ -4,15 +4,17 @@ import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useProduct from 'hooks/useProduct';
+import useAddCartItem from 'hooks/useAddCartItem';
 import { useNavigate } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
 
 const Product = () => {
-  const { isLoading, isError, product, handleAddCart } = useProduct();
+  const { isLoading, isError, product } = useProduct();
+  const { addCarItem } = useAddCartItem();
   const navigate = useNavigate();
 
   const handleClickCartButton = () => {
-    handleAddCart();
+    addCarItem(product.id);
     navigate(PATH_NAME.CART);
   };
 
@@ -22,11 +24,11 @@ const Product = () => {
       {isError && <ImgWrapper src={errorApiImg} />}
       {!isLoading && product && (
         <ProductDetail
+          id={product.id}
           imgUrl={product.imgUrl}
           name={product.name}
           price={product.price}
-          id={product.id}
-          onClick={handleClickCartButton}
+          onClickCartButton={handleClickCartButton}
         />
       )}
     </Styled.Wrapper>

@@ -13,7 +13,15 @@ export const getCartError = () => ({
   type: actionTypes.GET_CART_ERROR,
 });
 
-export const addCartItem = (item) => ({
+export const addCartItem = (data) => ({
   type: actionTypes.ADD_CART_ITEM,
-  item,
+  data,
+});
+
+export const addCartItemSuccess = () => ({
+  type: actionTypes.ADD_CART_ITEM_SUCCESS,
+});
+
+export const addCartItemError = () => ({
+  type: actionTypes.ADD_CART_ITEM_ERROR,
 });

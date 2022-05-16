@@ -2,34 +2,21 @@ import actionTypes from 'reducers/cart/cart.actionTypes';
 
 const initialState = {
   data: [],
-  isLoading: false,
-  isError: false,
-};
-
-const addCart = (cartList, newCartItem) => {
-  const isExisted =
-    cartList.findIndex(({ id }) => id === newCartItem.id) !== -1;
-
-  if (isExisted) {
-    return cartList.map((item) => {
-      if (item.id === newCartItem.id) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    });
-  }
-  return [...cartList, newCartItem];
+  isLoadingGetCart: false,
+  isErrorGetCart: false,
+  isLoadingAddCartItem: false,
+  isErrorAddCartItem: false,
 };
 
 const cartReducer = (state = initialState, action) => {
   if (action.type === actionTypes.GET_CART) {
-    return { ...state, isLoading: true };
+    return { ...state, isLoadingGetCart: true };
   }
 
   if (action.type === actionTypes.GET_CART_SUCCESS) {
     return {
       ...state,
-      isLoading: false,
+      isLoadingGetCart: false,
       data: action.data,
     };
   }
@@ -37,15 +24,32 @@ const cartReducer = (state = initialState, action) => {
   if (action.type === actionTypes.GET_CART_ERROR) {
     return {
       ...state,
-      isLoading: false,
-      isError: true,
+      isLoadingGetCart: false,
+      isErrorGetCart: true,
     };
   }
 
   if (action.type === actionTypes.ADD_CART_ITEM) {
     return {
       ...state,
-      data: addCart(state.data, action.item),
+      isLoadingAddCartItem: true,
+      isErrorAddCartItem: false,
+    };
+  }
+
+  if (action.type === actionTypes.ADD_CART_ITEM_SUCCESS) {
+    return {
+      ...state,
+      isLoadingAddCartItem: false,
+      isErrorAddCartItem: false,
+    };
+  }
+
+  if (action.type === actionTypes.ADD_CART_ITEM_ERROR) {
+    return {
+      ...state,
+      isLoadingAddCartItem: false,
+      isErrorAddCartItem: true,
     };
   }
   return state;
