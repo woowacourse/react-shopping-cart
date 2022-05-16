@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import ProductItem from 'components/productItem/ProductItem';
@@ -26,9 +26,7 @@ const ProductListPage = () => {
   return (
     <StyledProductListPage>
       <StyledProductList>
-        {products.map(({ id }) => (
-          <ProductItem key={id} id={id} />
-        ))}
+        {products.map(({ id }) => id && <ProductItem key={id} id={id} />)}
       </StyledProductList>
     </StyledProductListPage>
   );
