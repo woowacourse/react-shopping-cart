@@ -6,8 +6,8 @@ export default {
   component: ProductListContainer,
 };
 
-export const Default = args => <ProductListContainer {...args} />;
-Default.args = {
+export const FilledProductListContainer = args => <ProductListContainer {...args} />;
+FilledProductListContainer.args = {
   data: [
     {
       id: 1,
@@ -68,6 +68,13 @@ Default.args = {
       price: 7680,
     },
   ],
+  handleToggleShoppingCart: action('clicked'),
+  checkContainedProduct: () => false,
+};
+
+export const EmptyProductListContainer = args => <ProductListContainer {...args} />;
+EmptyProductListContainer.args = {
+  data: [],
   handleToggleShoppingCart: action('clicked'),
   checkContainedProduct: () => false,
 };
