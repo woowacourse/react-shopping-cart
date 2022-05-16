@@ -5,7 +5,6 @@ const NotFoundPageLayout = styled(FlexColumn)`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: ${({theme}) => theme.GRAY_500};
 
   button {
     margin-top: 50%;

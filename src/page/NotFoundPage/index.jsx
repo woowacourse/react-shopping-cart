@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Button from 'component/common/Button';
 
@@ -9,10 +10,10 @@ import {PATH} from 'constant';
 import {Font} from 'style/common';
 import * as S from 'page/NotFoundPage/style';
 
-export default function NotFoundPage() {
+export default function NotFoundPage({children}) {
   return (
     <S.NotFoundPageLayout>
-      <Font fontSize="100px">잘못 들어왔어요😢</Font>
+      <Font fontSize="100px">{children}</Font>
       <Link to={PATH.HOME}>
         <Button backgroundColor={theme.GRAY_BROWN} width="200px" height="50px">
           홈으로 돌아가기
@@ -21,3 +22,7 @@ export default function NotFoundPage() {
     </S.NotFoundPageLayout>
   );
 }
+
+NotFoundPage.propTypes = {
+  children: PropTypes.string,
+};
