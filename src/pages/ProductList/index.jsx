@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ProductListStyled, LoadingWrapperStyled } from './style';
-
 import Product from 'templates/Product';
 import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
 import BlackText from 'components/BlackText';
@@ -15,7 +14,8 @@ function ProductList() {
     dispatch(requestProducts());
     dispatch(async (storeDispatch) => {
       try {
-        const body = await fetch('https://winnnie-shopping-cart-server.herokuapp.com/products');
+        console.log(process.env.REACT_APP_DATA_SERVER);
+        const body = await fetch(process.env.REACT_APP_DATA_SERVER);
         const products = await body.json();
 
         storeDispatch(requestProductsDone(products));
