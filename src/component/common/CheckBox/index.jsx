@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as S from 'component/common/CheckBox/style';
 
-function CheckBox() {
+export default function CheckBox() {
   return (
     <S.CheckBoxLayout id="check">
       <input type="checkbox" id="check" />
@@ -15,5 +15,3 @@ function CheckBox() {
 CheckBox.propTypes = {
   id: PropTypes.string,
 };
-
-export default CheckBox;

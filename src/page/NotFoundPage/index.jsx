@@ -9,7 +9,7 @@ import {PATH} from 'constant';
 import {Font} from 'style/common';
 import * as S from 'page/NotFoundPage/style';
 
-function NotFoundPage() {
+export default function NotFoundPage() {
   return (
     <S.NotFoundPageLayout>
       <Font fontSize="100px">잘못 들어왔어요😢</Font>
@@ -21,5 +21,3 @@ function NotFoundPage() {
     </S.NotFoundPageLayout>
   );
 }
-
-export default NotFoundPage;

@@ -6,7 +6,7 @@ import Button from 'component/common/Button';
 import * as S from 'component/AmountBox/style';
 import theme from 'theme/theme';
 
-function AmountBox({type = 'expect', totalCount, totalPrice}) {
+export default function AmountBox({type = 'expect', totalCount, totalPrice}) {
   return (
     <S.AmountBoxLayout>
       <S.AmountBoxHeader>{type === 'expect' ? '결제예상금액' : '결제금액'}</S.AmountBoxHeader>
@@ -28,5 +28,3 @@ AmountBox.propTypes = {
   totalCount: PropTypes.number,
   totalPrice: PropTypes.number,
 };
-
-export default AmountBox;

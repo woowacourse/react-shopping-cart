@@ -10,7 +10,7 @@ import CheckBox from 'component/common/CheckBox';
 import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import * as S from 'component/CartItem/style';
 
-function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
+export default function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
   const dispatch = useDispatch();
 
   const handleDeleteIconClick = (id) => {
@@ -44,5 +44,3 @@ CartItem.propTypes = {
   count: PropTypes.number,
   id: PropTypes.number,
 };
-
-export default CartItem;
