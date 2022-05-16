@@ -2,14 +2,14 @@ import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import useClose from 'hooks/useClose';
 
-import { Image, CartIcon, Modal, Button, Text } from 'components/ProductItem/index';
+import { Image, CartIcon, Modal, Button, Text } from 'components';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
 import store from 'store/store';
 import { doPutProductToCart } from 'actions/actionCreator';
 
-import Styled from 'components/ProductItem/style';
+import Styled from 'components/ProductItem/index.style';
 
 import autoComma from 'utils/autoComma';
 import { PRODUCT } from 'constants';

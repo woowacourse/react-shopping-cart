@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ProductListPage from 'page/ProductListPage/ProductListPage';
-import Header from 'components/Header/Header';
-import Button from 'components/Button/Button';
-import CartIcon from 'components/CartIcon/CartIcon';
+import ProductListPage from 'page/ProductListPage';
+import { Header, Button, CartIcon } from 'components';
 import GlobalStyles from 'components/GlobalStyles';
 
 import { BASE_URL } from 'constants';

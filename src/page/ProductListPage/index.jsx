@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-import ProductItem from 'components/ProductItem/ProductItem';
+import ProductItem from 'components/ProductItem';
 
 import store from 'store/store';
 import { doInitializeCart } from 'actions/actionCreator';
 
-import Styled from 'page/ProductListPage/style';
+import Styled from 'page/ProductListPage/index.style';
 import { SERVER_URL } from 'constants';
 
 const ProductListPage = () => {
