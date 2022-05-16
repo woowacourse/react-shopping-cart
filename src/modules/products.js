@@ -13,13 +13,13 @@ const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
 const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
 
-const initialState = {
-  product: {
+const INITIAL_STATE = {
+  PRODUCT: {
     isLoading: false,
     data: {},
     error: null,
   },
-  products: {
+  PRODUCTS: {
     isLoading: false,
     data: [],
     error: null,
@@ -105,14 +105,14 @@ const getProductError = () => ({
   error: null,
 });
 
-const productsReducer = createReducer(initialState.products, {
+const productsReducer = createReducer(INITIAL_STATE.PRODUCTS, {
   [GET_PRODUCTS]: getProducts,
   [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
   [GET_PRODUCTS_ERROR]: getProductsError,
   [GET_PRODUCTS_END]: getProductsEnd,
 });
 
-const productReducer = createReducer(initialState.product, {
+const productReducer = createReducer(INITIAL_STATE.PRODUCT, {
   [GET_PRODUCT]: getProduct,
   [GET_PRODUCT_SUCCESS]: getProductSuccess,
   [GET_PRODUCT_ERROR]: getProductError,
