@@ -1,9 +1,10 @@
 import React from "react";
+
 import { ROUTES } from "../../constants";
 
 import NavButton from "./NavButton";
-import { HeaderContainer, NavButtonContainer } from "./styled";
 import Title from "./Title";
+import { HeaderContainer, NavButtonContainer } from "./styled";
 
 function Header() {
   return (
