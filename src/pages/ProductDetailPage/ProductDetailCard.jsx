@@ -7,7 +7,7 @@ function ProductDetailCard({ product: { id, thumbnailUrl, name, price } }) {
   return (
     <Container>
       <Top>
-        <ProductImage src={thumbnailUrl} />
+        <ProductImage src={thumbnailUrl} alt={name} />
         <ProductName>{name}</ProductName>
       </Top>
       <Bottom>

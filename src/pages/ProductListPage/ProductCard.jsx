@@ -16,7 +16,7 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
   return (
     <Container onClick={onClick}>
       <ImageWrapper>
-        <ProductThumbnail bgImage={thumbnailUrl ?? ""} />
+        <ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
       </ImageWrapper>
       <CardBottom>
         <TextInfoContainer>
@@ -42,17 +42,11 @@ const Container = styled.li`
 const ImageWrapper = styled.div`
   width: 100%;
   height: 278px;
-
   overflow: hidden;
 `;
 
-const ProductThumbnail = styled.div`
+const ProductThumbnail = styled.img`
   width: 100%;
-  height: 100%;
-
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: url(${({ bgImage }) => bgImage});
   transition: transform 0.3s;
   object-fit: cover;
 
