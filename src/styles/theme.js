@@ -1,3 +1,7 @@
+const LAYOUT = {
+  BORDER_RADIUS: 5,
+};
+
 const COLORS = {
   LIGHTEN_MIN: '#000000',
   LIGHTEN_50: '#555555',
@@ -12,4 +16,4 @@ const COLORS = {
 
 const BRAND_COLORS = {};
 
-export { COLORS, BRAND_COLORS };
+export { LAYOUT, COLORS, BRAND_COLORS };
