@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCartAsync } from '../../../store/actions/cart';
+import { deleteCartProductAsync, fetchCartAsync } from '../../../store/actions/cart';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import CartProductCard from '../CartProductCard/CartProductCard';
 import * as Styled from './CartProductList.style';
@@ -38,6 +38,16 @@ function CartProductList() {
     });
   };
 
+  const deleteCheckedProducts = () => {
+    const checkedListLength = checkedProductList.length;
+    if (
+      checkedListLength !== 0 &&
+      window.confirm(`${checkedListLength}개의 상품을 삭제하시겠습니까?`)
+    ) {
+      dispatch(deleteCartProductAsync(checkedProductList));
+    }
+  };
+
   return (
     <Styled.Container>
       <Styled.ListControlWrapper>
@@ -47,7 +57,11 @@ function CartProductList() {
             {isAllChecked ? '전체 선택해제' : '전체 선택하기'}
           </Styled.CheckBoxLabel>
         </Styled.AllCheckControl>
-        <Styled.Button type="button">선택 상품 삭제</Styled.Button>
+        {checkedProductList.length !== 0 && (
+          <Styled.Button type="button" onClick={deleteCheckedProducts}>
+            선택 상품 삭제
+          </Styled.Button>
+        )}
       </Styled.ListControlWrapper>
       <Styled.Title>장바구니 상품 목록 ({cartLength}개)</Styled.Title>
       <Styled.ListWrapper>

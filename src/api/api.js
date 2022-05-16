@@ -47,12 +47,16 @@ export const updateCartQuantity = async (productId, quantity) => {
   return { cart: response.data };
 };
 
-export const deleteCartProduct = async (productId) => {
-  const response = await productAPI.delete(`/shopping-cart/${productId}`);
+export const deleteCartProduct = async (productIdArray) => {
+  const response = await productIdArray.reduce(async (res, productId, index) => {
+    res = await productAPI.delete(`/shopping-cart/${productId}`);
 
-  if (response.statusText !== 'OK') {
-    throw Error('서버 오류');
-  }
+    if (res.statusText !== 'OK') {
+      throw Error('서버 오류');
+    }
+
+    if (index === productIdArray.length - 1) return res;
+  }, null);
 
   return { cart: response.data };
 };

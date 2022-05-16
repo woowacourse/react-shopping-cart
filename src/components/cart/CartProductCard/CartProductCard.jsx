@@ -30,7 +30,7 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
 
   const onProductDelete = () => {
     if (window.confirm(`${name}을/를 장바구니에서 삭제하시겠습니까?`)) {
-      dispatch(deleteCartProductAsync(id));
+      dispatch(deleteCartProductAsync([id]));
     }
   };
 

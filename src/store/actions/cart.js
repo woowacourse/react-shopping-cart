@@ -58,12 +58,12 @@ export const toggleProductCheck = (productId) => (dispatch, getState) => {
   dispatch({ type: 'UPDATE_CHECKED_LIST', payload: { checkedProductList: newArray } });
 };
 
-export const deleteCartProductAsync = (productId) => async (dispatch) => {
+export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
   const stateName = 'CART_PRODUCT_DELETE';
   dispatch(actionStarted(stateName));
 
   try {
-    const cart = await deleteCartProduct(productId);
+    const cart = await deleteCartProduct(productIdArray);
     dispatch(actionSucceeded(stateName, { cart }));
     dispatch({
       type: 'UPDATE_CHECKED_LIST',
