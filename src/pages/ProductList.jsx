@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductList } from 'actions/products';
+import { addCartList } from 'actions/cart';
 
 import StatusMessage from 'components/@common/StatusMessage';
 import ProductItem from 'components/ProductItem';
@@ -28,6 +29,11 @@ export function ProductList() {
     isContentLoaded: productList.length > 0,
   });
 
+  const handleAddCart = ({ id, image, name, price }) => {
+    dispatch(addCartList({ id, image, name, price }));
+    alert(`${name}가 장바구니에 추가되었습니다 🧺`);
+  };
+
   return (
     <Layout>
       <AsyncContainer
@@ -39,7 +45,14 @@ export function ProductList() {
         <Styled.ProductListWrapper>
           {productList &&
             productList.map(({ id, name, goodsPrice, listImage }) => (
-              <ProductItem key={id} id={id} image={listImage} name={name} price={goodsPrice} />
+              <ProductItem
+                key={id}
+                id={id}
+                image={listImage}
+                name={name}
+                price={goodsPrice}
+                onClick={handleAddCart}
+              />
             ))}
         </Styled.ProductListWrapper>
       </AsyncContainer>

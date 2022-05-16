@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { addCartList } from 'actions/cart';
 
 import Button from 'components/@common/Button';
 import ToolTip from 'components/@common/ToolTip';
@@ -8,12 +6,9 @@ import ToolTip from 'components/@common/ToolTip';
 import { ICON_CODE } from 'constants/';
 import * as Styled from './styles';
 
-function ProductItem({ id, image, name, price }) {
-  const dispatch = useDispatch();
-
-  const onClickAddCartButton = () => {
-    dispatch(addCartList({ id, image, name, price }));
-    alert(`${name}가 장바구니에 추가되었습니다 🧺`);
+function ProductItem({ id, image, name, price, onClick }) {
+  const handleClickAddCartButton = () => {
+    onClick({ id, image, name, price });
   };
 
   return (
@@ -30,7 +25,7 @@ function ProductItem({ id, image, name, price }) {
 
         <Styled.ButtonContainer>
           <ToolTip text="장바구니 담기" align="bottom">
-            <Button className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+            <Button className="cart" onClick={handleClickAddCartButton} icon={ICON_CODE.CART} />
           </ToolTip>
         </Styled.ButtonContainer>
       </Styled.Description>
