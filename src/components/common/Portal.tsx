@@ -1,7 +1,12 @@
 import reactDom from 'react-dom';
 
-const Portal = ({ children }: { children: React.ReactNode }) => {
-  return reactDom.createPortal(children, document.getElementById('snackbar'));
+interface PortalProps {
+  children: React.ReactNode;
+  id: string;
+}
+
+const Portal = ({ children, id }: PortalProps) => {
+  return reactDom.createPortal(children, document.getElementById(id));
 };
 
 export default Portal;
