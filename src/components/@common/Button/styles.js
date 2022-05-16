@@ -24,10 +24,19 @@ const Container = styled.button`
 
   ${({ containerType }) => BUTTON_TYPE[containerType]}
 
+  &:hover {
+    color: ${COLORS.BLUE_150};
+    background-color: ${COLORS.LIGHTEN_200};
+  }
+
   &::before {
     content: '\\${({ icon }) => icon}';
 
-    font-size: 0.8rem;
+    ${({ containerType }) =>
+      containerType === 'ICON' &&
+      css`
+        font-size: 0.8rem;
+      `}
     font-family: 'Font Awesome 6 Free';
     font-style: normal;
     font-weight: 900;
@@ -37,11 +46,6 @@ const Container = styled.button`
       css`
         padding-right: 0.5rem;
       `}
-  }
-
-  &:hover {
-    color: ${COLORS.BLUE_150};
-    background-color: ${COLORS.LIGHTEN_200};
   }
 `;
 
