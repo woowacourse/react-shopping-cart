@@ -12,6 +12,7 @@ import useThunkFetch from 'hooks/useThunkFetch';
 import { CartListAction } from 'redux/actions/cartList';
 import { getCartList } from 'redux/action-creators/cartListThunk';
 import Snackbar from 'components/common/Snackbar';
+import { MAX_RESULT_ITEM_LIST } from 'constants/index';
 
 const ItemList = () => {
   const params = useParams();
