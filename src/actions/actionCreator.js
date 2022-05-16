@@ -1,7 +1,7 @@
 import { PUT, INITIALIZE } from 'actions/action';
 
-const doPutProductToCart = ({ id, quantity }) => ({ type: PUT, id, quantity });
+const putProductToCart = ({ id, quantity }) => ({ type: PUT, id, quantity });
 
-const doInitializeCart = ({ products }) => ({ type: INITIALIZE, products });
+const initializeCart = ({ products }) => ({ type: INITIALIZE, products });
 
-export { doPutProductToCart, doInitializeCart };
+export { putProductToCart, initializeCart };

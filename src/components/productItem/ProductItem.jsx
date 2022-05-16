@@ -11,7 +11,7 @@ import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
 import store from 'store/store';
-import { doPutProductToCart } from 'actions/actionCreator';
+import { putProductToCart } from 'actions/actionCreator';
 
 import {
   StyledProductItem,
@@ -31,7 +31,7 @@ const ProductItem = ({ id }) => {
 
   const putCart = () => {
     setIsOpen(false);
-    store.dispatch(doPutProductToCart({ id, quantity }));
+    store.dispatch(putProductToCart({ id, quantity }));
     clearTimer();
   };
 

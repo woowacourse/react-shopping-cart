@@ -5,7 +5,7 @@ import axios from 'axios';
 import ProductItem from 'components/productItem/ProductItem';
 
 import store from 'store/store';
-import { doInitializeCart } from 'actions/actionCreator';
+import { initializeCart } from 'actions/actionCreator';
 
 import { StyledProductListPage, StyledProductList } from 'page/productList/style';
 import { SERVER_URL } from 'constants';
@@ -16,7 +16,7 @@ const ProductListPage = () => {
   const getProducts = async () => {
     const response = await axios.get(SERVER_URL + 'products');
 
-    store.dispatch(doInitializeCart({ products: response.data }));
+    store.dispatch(initializeCart({ products: response.data }));
   };
 
   useEffect(() => {
