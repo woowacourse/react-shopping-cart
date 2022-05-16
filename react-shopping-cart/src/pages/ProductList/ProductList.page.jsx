@@ -1,8 +1,7 @@
+import { PageContainer, Error } from 'components/@shared';
 import Header from 'components/Header/Header.component';
-import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
 import Loading from 'components/Loading/Loading.component';
-import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
 
 function ProductList() {

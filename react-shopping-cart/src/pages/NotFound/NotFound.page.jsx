@@ -1,6 +1,5 @@
-import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
+import { PageContainer, Error } from 'components/@shared';
 import Header from 'components/Header/Header.component';
-import Error from 'components/@shared/Error/Error.component';
 
 function NotFoundPage() {
   return (

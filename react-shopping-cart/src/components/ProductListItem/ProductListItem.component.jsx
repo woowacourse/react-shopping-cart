@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Image from 'components/@shared/Image/Image.component';
-import Text from 'components/@shared/Text/Text.component';
+import { Image, Text } from 'components/@shared';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 import { addItem, deleteItem } from 'actions';
 

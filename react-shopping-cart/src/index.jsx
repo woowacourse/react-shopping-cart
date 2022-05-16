@@ -6,11 +6,9 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
-import ProductList from 'pages/ProductList/ProductList.page';
-import NotFoundPage from 'pages/NotFound/NotFound.page';
 import rootReducer from 'reducers';
-import GlobalStyle from './styles/GlobalStyle';
-import theme from './styles/theme';
+import { ProductList, NotFound } from 'pages';
+import { GlobalStyle, theme } from 'styles';
 
 const store = createStore(rootReducer);
 const persistor = persistStore(store);
@@ -26,7 +24,7 @@ root.render(
             <div className="App">
               <Routes>
                 <Route path="/" element={<ProductList />} />
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </ThemeProvider>

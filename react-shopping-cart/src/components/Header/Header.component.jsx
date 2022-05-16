@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import HeaderContainer from 'components/@shared/HeaderContainer/HeaderContainer.component';
-import HeaderLink from 'components/@shared/HeaderLink/HeaderLink.component';
+import { HeaderContainer, HeaderLink } from 'components/@shared';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 import RESPONSIVE_SIZE from 'constants/responsiveSize';
 
