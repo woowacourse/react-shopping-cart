@@ -2,7 +2,7 @@ import React from 'react';
 import {ThemeProvider} from 'styled-components';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-import Header from 'component/common/Header';
+import Header from 'component/Header';
 import ProductListPage from 'page/ProductListPage';
 import ProductDetailPage from 'page/ProductDetailPage';
 import ProductCartPage from 'page/ProductCartPage';

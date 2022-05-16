@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import Button from 'component/common/Button';
 import {ReactComponent as LogoIcon} from 'assets/logoIcon.svg';
 
-import * as S from 'component/common/Header/style';
+import * as S from 'component/Header/style';
 
 import {PATH} from 'constant';
 
