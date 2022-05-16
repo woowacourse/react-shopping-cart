@@ -16,7 +16,7 @@ const OPTIONS = (method, body) => {
         body: JSON.stringify(body),
       };
     default:
-      alert('존재하지 않은 method입니다.');
+      throw Error('존재하지 않은 method입니다.');
   }
 };
 
@@ -26,8 +26,7 @@ export const loadProductList = async () => {
 
     if (!response.ok) return;
 
-    const result = await response.json();
-    return result;
+    return response.json();
   } catch (e) {
     alert(e);
   }
@@ -42,8 +41,7 @@ export const loadProduct = async (id) => {
 
     if (!response.ok) return;
 
-    const result = await response.json();
-    return result;
+    return response.json();
   } catch (e) {
     alert(e);
   }
