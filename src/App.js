@@ -6,6 +6,8 @@ import Header from 'components/header/Header';
 import Button from 'components/base/button/Button';
 import HeaderCartIcon from 'components/header/HeaderCartIcon';
 
+import GlobalStyles from 'GlobalStyles';
+
 import { BASE_URL } from 'constants';
 
 const PageWrapper = styled.div`
@@ -16,6 +18,7 @@ const PageWrapper = styled.div`
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyles />
       <Header
         left={
           <div>

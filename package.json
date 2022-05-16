@@ -15,6 +15,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "styled-components": "^5.3.5",
+    "styled-reset": "^4.3.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

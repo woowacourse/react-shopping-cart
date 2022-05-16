@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { color } from 'constants';
 
 const StyledText = styled.p`
   ${({ modal }) =>
@@ -6,7 +7,7 @@ const StyledText = styled.p`
     css`
       font-weight: 500;
       font-size: 25px;
-      color: var(--primary-color);
+      color: ${color.mint};
     `}
 `;
 

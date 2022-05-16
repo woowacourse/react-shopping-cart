@@ -8,3 +8,7 @@ export const PRODUCT = {
 export const MODAL = {
   CLOSE_TIME: 1500,
 };
+
+export const color = {
+  mint: '#29c2bc',
+};

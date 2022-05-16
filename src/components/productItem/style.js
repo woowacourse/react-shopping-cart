@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { color } from 'constants';
 
 const StyledProductItem = styled.div`
   width: 282px;
@@ -16,7 +17,6 @@ const StyledProductContainer = styled.div`
 const StyledProductText = styled.p`
   font-weight: 400;
   letter-spacing: 0.5px;
-  color: var(--product-text-color);
 
   ${({ name }) =>
     name &&
@@ -34,7 +34,7 @@ const StyledProductText = styled.p`
 `;
 
 const StyledQuantityContainer = styled.div`
-  background-color: var(--primary-color);
+  background-color: ${color.mint};
   width: 50px;
   height: 50px;
   border-radius: 100%;
