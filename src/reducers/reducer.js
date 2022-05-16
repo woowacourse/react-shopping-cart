@@ -14,7 +14,7 @@ function reducer(state = initState, action) {
       };
 
     case PUT:
-      const isExist = state.shoppingCart.find(product => product.id === action.id);
+      const isExist = state.shoppingCart.some(product => product.id === action.id);
 
       return {
         ...state,
