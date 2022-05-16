@@ -2,16 +2,16 @@ import Portal from './Portal';
 import styled, { keyframes } from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 
-export const Contents = {
+export const MESSAGE = {
   cart: '장바구니에 담았습니다.',
-};
+} as const;
 
-type SnackbarType = 'cart';
+type Message = typeof MESSAGE[keyof typeof MESSAGE];
 
-const Snackbar = ({ contentType }: { contentType: SnackbarType }) => {
+const Snackbar = ({ message }: { message: Message }) => {
   return (
     <Portal>
-      <StyledSnackbarContents>{Contents[contentType]}</StyledSnackbarContents>
+      <StyledSnackbarContents>{message}</StyledSnackbarContents>
     </Portal>
   );
 };
