@@ -25,13 +25,14 @@ function ProductList() {
 
   return (
     <Content>
-      {!products.length && <LoadingSpinner />}
-      {products.length && (
+      {products.length ? (
         <GridLayout>
           {products.map(product => (
             <Product key={product.id} {...product} />
           ))}
         </GridLayout>
+      ) : (
+        <LoadingSpinner />
       )}
     </Content>
   );
