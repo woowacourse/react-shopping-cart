@@ -4,9 +4,9 @@ import StarcraftLogo from "../../assets/images/starcraft-logo.png";
 import LogoLink from "./logo-link/LogoLink";
 import Menu from "./menu/Menu";
 
-function Header({ className = "header" }) {
+function Header() {
   return (
-    <S.Header className={className}>
+    <S.Header>
       <S.Wrapper css={innerHeaderStyle}>
         <LogoLink src={StarcraftLogo} href="/" />
         <Menu />
