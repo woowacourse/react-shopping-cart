@@ -19,21 +19,16 @@ export default function cartReducer(state = initialState, action) {
       const id = action.payload;
       const newState = state.cart.filter((item) => item.id !== id);
 
-      return {...state, cart: newState};
+      return {cart: newState};
     }
     case CART.EDIT: {
       const {id, count} = action.payload;
 
       const newState = state.map((item) => {
-        if (item.id === id) {
-          return {...item, count};
-        }
-
-        return item;
+        return item.id === id ? {...item, count} : item;
       });
 
       return {
-        ...state,
         cart: newState,
       };
     }
