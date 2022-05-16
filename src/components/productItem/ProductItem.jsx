@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useClose from 'hooks/useClose';
 
-import Image from 'components/shared/image/Image';
-import CartIcon from 'components/shared/cartIcon/CartIcon';
-import Modal from 'components/shared/modal/Modal';
-import Button from 'components/shared/button/Button';
-import Text from 'components/shared/text/Text';
+import Image from 'components/base/image/Image';
+import CartIcon from 'components/base/cartIcon/CartIcon';
+import Modal from 'components/base/modal/Modal';
+import Button from 'components/base/button/Button';
+import Text from 'components/base/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 

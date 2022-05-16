@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import ProductListPage from 'page/productList/ProductListPage';
 import Header from 'components/header/Header';
-import Button from 'components/shared/button/Button';
-import CartIcon from 'components/shared/cartIcon/CartIcon';
+import Button from 'components/base/button/Button';
+import HeaderCartIcon from 'components/header/HeaderCartIcon';
 
 import { BASE_URL } from 'constants';
 
@@ -20,7 +20,7 @@ function App() {
         left={
           <div>
             <Button>
-              <CartIcon theme="header" />
+              <HeaderCartIcon />
             </Button>
             <Button boldText>WOOWA SHOP</Button>
           </div>

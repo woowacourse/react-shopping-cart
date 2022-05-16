@@ -1,3 +1,4 @@
+import CartIcon from 'components/base/cartIcon/CartIcon';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
@@ -12,4 +13,12 @@ const StyledHeader = styled.header`
   z-index: 500;
 `;
 
-export default StyledHeader;
+const StyledHeaderCartIcon = styled(CartIcon)`
+  path {
+    fill: white;
+  }
+  width: 49px;
+  height: 39px;
+`;
+
+export { StyledHeader, StyledHeaderCartIcon };

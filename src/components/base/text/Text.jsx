@@ -1,4 +1,4 @@
-import StyledText from 'components/shared/text/style';
+import StyledText from 'components/base/text/style';
 
 const Text = ({ children, ...rest }) => {
   return <StyledText {...rest}>{children}</StyledText>;
