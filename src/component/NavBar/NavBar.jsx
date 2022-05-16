@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'component/common';
+import { useNavigate } from 'react-router-dom';
 
 const StyledNavBar = styled.div`
   height: 80px;
@@ -33,16 +34,31 @@ const MenuText = styled.span`
 `;
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('react-shopping-cart/ProductList');
+    location.reload();
+  };
+
+  const handleShoppingCartClick = () => {
+    navigate('react-shopping-cart/ShoppingCart');
+  };
+
+  const handleOrderListClick = event => {
+    console.log(event);
+  };
+
   return (
     <StyledNavBar>
-      <Button>
+      <Button onClick={handleLogoClick}>
         <LogoText>🛒 WOOWA SHOP</LogoText>
       </Button>
       <MenuBox>
-        <Button>
+        <Button onClick={handleShoppingCartClick}>
           <MenuText>장바구니</MenuText>
         </Button>
-        <Button>
+        <Button onClick={handleOrderListClick}>
           <MenuText>주문목록</MenuText>
         </Button>
       </MenuBox>
