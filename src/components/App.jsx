@@ -11,14 +11,14 @@ import {
 } from "./pages";
 
 import { theme } from "../style";
-import { productInfoListStore } from "../stores/productInfoListStore";
+import { store } from "../reducers/productList";
 import { ROUTES } from "../constants";
 import { Main } from "./styled";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={productInfoListStore}>
+      <Provider store={store}>
         <Header />
         <Main>
           <Routes>

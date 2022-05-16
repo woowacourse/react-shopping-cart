@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { initializeProductInfoList } from "./../../../stores/productInfoListStore";
+import { initializeProductList } from "../../../reducers/productList";
 import { useFetch } from "../../../hooks/useFetch";
 
 import Spinner from "../../common/Spinner";
@@ -14,7 +14,7 @@ const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
 
 function ProductListPage() {
   const dispatch = useDispatch();
-  const productInfoList = useSelector((state) => state);
+  const productList = useSelector((state) => state);
 
   const {
     isLoading,
@@ -24,7 +24,7 @@ function ProductListPage() {
 
   useEffect(() => {
     if (!isLoading && !errorMessage) {
-      dispatch(initializeProductInfoList({ products: fetchedData }));
+      dispatch(initializeProductList({ products: fetchedData }));
     }
   }, [isLoading, errorMessage]);
 
@@ -35,12 +35,12 @@ function ProductListPage() {
         😱 Error: 관리자에게 문의하세요.😱 <br /> %{errorMessage}%
       </div>
     );
-  if (!productInfoList?.length) return <h2>😱 텅 비었어요~~ 😱</h2>;
+  if (!productList?.length) return <h2>😱 텅 비었어요~~ 😱</h2>;
 
   return (
     <GridContainer colNo={4}>
-      {productInfoList.map((productInfo) => (
-        <ProductCard key={productInfo.id} productInfo={productInfo} />
+      {productList.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </GridContainer>
   );

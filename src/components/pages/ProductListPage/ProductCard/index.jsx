@@ -14,7 +14,7 @@ import {
   ProductThumbnail,
 } from "./styled";
 
-function ProductCard({ productInfo: { id, thumbnailUrl, name, price } }) {
+function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
   const navigate = useNavigate();
 
   const onClick = () => {
