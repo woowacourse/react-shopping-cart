@@ -4,7 +4,7 @@ import S from "../../styled";
 import Thumbnail from "../thumbnail/Thumbnail";
 import ImageButton from "../image-button/ImageButton";
 import createAction from "../../../../redux/createAction";
-import { ADD_PRODUCT_TO_CART } from "../../../../redux/actions";
+import ACTION_TYPE from "../../../../redux/actions";
 import { BASE_URL } from "../../../../constants";
 
 function ProductItem({ id, name, price, stock, thumbnail_url }) {
@@ -17,7 +17,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
   };
 
   const handleClick = () => {
-    dispatch(createAction(ADD_PRODUCT_TO_CART, id));
+    dispatch(createAction(ACTION_TYPE.ADD_PRODUCT_TO_CART, id));
   };
 
   return (

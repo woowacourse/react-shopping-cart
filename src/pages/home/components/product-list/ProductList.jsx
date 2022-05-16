@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../../../constants";
-import { UPDATE_PRODUCT_LIST } from "../../../../redux/actions";
+import ACTION_TYPE from "../../../../redux/actions";
 import createAction from "../../../../redux/createAction";
 import S from "../../styled";
 import ProductItem from "../product-item/ProductItem";
@@ -17,7 +17,7 @@ function ProductList() {
       const productList = await fetchResult.json();
       setLoading(false);
       setError(null);
-      dispatch(createAction(UPDATE_PRODUCT_LIST, productList));
+      dispatch(createAction(ACTION_TYPE.UPDATE_PRODUCT_LIST, productList));
     };
   };
 

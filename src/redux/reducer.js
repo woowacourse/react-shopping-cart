@@ -1,8 +1,8 @@
-import { ADD_PRODUCT_TO_CART, UPDATE_PRODUCT_LIST } from "./actions";
+import ACTION_TYPE from "./actions";
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case ADD_PRODUCT_TO_CART: {
+    case ACTION_TYPE.ADD_PRODUCT_TO_CART: {
       const newState = structuredClone(state);
       const id = payload;
       if (newState.cart[id]) {
@@ -13,7 +13,7 @@ const reducer = (state, { type, payload }) => {
       localStorage.setItem("cart", JSON.stringify(newState.cart));
       return newState;
     }
-    case UPDATE_PRODUCT_LIST: {
+    case ACTION_TYPE.UPDATE_PRODUCT_LIST: {
       const newState = structuredClone(state);
       newState.productList = payload;
       return newState;
