@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
-import { generateSnackBar } from "../../redux/modules/snackBar";
+import { show } from "../../redux/modules/snackBar";
 
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 import cart from "../../assets/cart.svg";
@@ -32,7 +32,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
-      dispatch(generateSnackBar("장바구니에 추가되었습니다. 😍"));
+      dispatch(show("장바구니에 추가되었습니다. 😍"));
     }
   };
 
@@ -44,7 +44,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     if (cartItem?.amount === 1) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(generateSnackBar("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(show("장바구니에서 삭제되었습니다. 🥲"));
       return;
     }
     dispatch(decrement(id));

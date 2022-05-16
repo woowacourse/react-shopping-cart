@@ -13,11 +13,11 @@ const FadeIn = keyframes`
 
 const FadeOut = keyframes`
   from {
-    transform: translateY(0);
+    transform: translateY(-50px);
     opacity: 1;
   }
   to {
-    transform: translateY(-50px);
+    transform: translateY(0);
     opacity: 0;
   }
 `;

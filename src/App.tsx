@@ -25,7 +25,7 @@ function App() {
         <Route path="/order-list" element={<OrderList />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      {isShowSnackBar && <SnackBar message={message} />}
+      {isShowSnackBar && <SnackBar key={Date.now()} message={message} />}
     </Router>
   );
 }
