@@ -45,8 +45,8 @@ function NavBar() {
     navigate('react-shopping-cart/ShoppingCart');
   };
 
-  const handleOrderListClick = event => {
-    console.log(event);
+  const handleOrderListClick = () => {
+    return;
   };
 
   return (
