@@ -52,7 +52,7 @@ const Styled = {
     justify-content: center;
 
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     padding: 60px 240px;
   `,
 };

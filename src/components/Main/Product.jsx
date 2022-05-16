@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-import ProductImage from './ProductImage';
+import { BasicImage, BasicButton } from '../shared/basics';
 import { CART_SIZE, COLOR } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { UnstyledButton } from '../shared/styles';
 import { useDispatch } from 'react-redux';
 import { addToCarts, deleteFromCarts } from '../../store/product';
 
@@ -29,7 +28,9 @@ function Product({ id, src, price, title, isStored }) {
 
   return (
     <div>
-      <ProductImage src={src} />
+      <Styled.ProductImageWrapper>
+        <Styled.ProductImage src={src} />
+      </Styled.ProductImageWrapper>
       <Styled.ProductInfoContainer>
         <Styled.ProductInfoWrapper>
           <Styled.ProductName>{title}</Styled.ProductName>
@@ -69,6 +70,18 @@ const Styled = {
     display: flex;
     flex-direction: column;
   `,
+  ProductImageWrapper: styled.div`
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  `,
+  ProductImage: styled(BasicImage)`
+    cursor: pointer;
+    transition: all ease-in-out 0.1s;
+    &:hover {
+      transform: scale(1.05);
+    }
+  `,
   ProductName: styled.span`
     font-weight: 400;
     font-size: 16px;
@@ -79,7 +92,7 @@ const Styled = {
     font-size: 16px;
     line-height: 22px;
   `,
-  CartButton: styled(UnstyledButton)`
+  CartButton: styled(BasicButton)`
     &:hover {
       opacity: 0.6;
     }

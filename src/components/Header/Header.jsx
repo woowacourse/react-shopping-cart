@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CART_SIZE, COLOR, PATH } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { UnstyledButton } from '../shared/styles';
+import { BasicButton } from '../shared/basics';
 
 function Header() {
   return (
@@ -61,7 +61,7 @@ const Styled = {
     align-items: center;
     gap: 15px;
   `,
-  NavButton: styled(UnstyledButton)`
+  NavButton: styled(BasicButton)`
     font-weight: 500;
     font-size: 24px;
 
