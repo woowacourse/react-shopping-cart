@@ -19,9 +19,8 @@ interface ProductProps {
   productInfo: ProductType;
 }
 
-function Product({ productInfo }: ProductProps) {
+function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const [isShowCartCounter, setIsShowCartCounter] = useState(false);
-  const { name, price, img, id } = productInfo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItemList = useCartItemListSelector();
