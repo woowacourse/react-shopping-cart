@@ -5,7 +5,7 @@ const PRODUCTS_ACTIONS = {
 };
 
 const CARTS_ACTIONS = {
-  ADD_CART_LIST: Symbol('장바구니에 상품을 추가합니다.'),
+  ADD_CART_LIST: 'ADD_CART_LIST',
 };
 
 export { PRODUCTS_ACTIONS, CARTS_ACTIONS };
