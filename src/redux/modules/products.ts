@@ -66,7 +66,7 @@ const productsReducer = (state = initialState, action: Action) => {
     case LOAD_PRODUCTS_FAILED: {
       const { error } = action.payload;
 
-      return { ...state, error };
+      return { ...state, loading: false, error };
     }
     default:
       return state;
