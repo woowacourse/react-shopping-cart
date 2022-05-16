@@ -7,7 +7,7 @@ import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styl
 import { ROUTE } from 'constants';
 
 const Styled = {
-  Wrapper: styled(Link)`
+  Wrapper: styled.div`
     width: 282px;
     height: 358px;
     display: flex;
@@ -43,15 +43,20 @@ const Styled = {
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
-    <Styled.Wrapper to={`${ROUTE.PRODUCT}${id}`}>
-      <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="thumbnail" />
-      </Styled.ThumbnailBox>
+    <Styled.Wrapper>
+      <Link to={`${ROUTE.PRODUCT}${id}`}>
+        <Styled.ThumbnailBox>
+          <img src={thumbnail} alt="thumbnail" />
+        </Styled.ThumbnailBox>
+      </Link>
+
       <Styled.Content>
-        <Styled.Description>
-          <Styled.Name>{name}</Styled.Name>
-          <Styled.Price>{price} 원</Styled.Price>
-        </Styled.Description>
+        <Link to={`${ROUTE.PRODUCT}${id}`}>
+          <Styled.Description>
+            <Styled.Name>{name}</Styled.Name>
+            <Styled.Price>{price} 원</Styled.Price>
+          </Styled.Description>
+        </Link>
         <Link to="*">
           <CartButton>
             <CartIcon />
