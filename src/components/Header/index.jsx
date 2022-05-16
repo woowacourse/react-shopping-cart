@@ -30,7 +30,7 @@ const HeaderContainer = styled.header`
 
   width: 100vw;
   height: 80px;
-  padding: 0 20px;
+  padding: 0 40px 0 20px;
   background-color: ${({ theme }) => theme.color.primary};
   box-shadow: 0 4px 10px 2px #bbb;
 `;

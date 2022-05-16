@@ -30,12 +30,6 @@ const GridList = styled.ul`
 
   height: 100%;
   gap: 28px 12px;
-
-  overflow-y: hidden;
-
-  :hover {
-    overflow-y: auto;
-  }
 `;
 
 export default ProductListPage;
