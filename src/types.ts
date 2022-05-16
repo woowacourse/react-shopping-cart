@@ -1,4 +1,4 @@
-import { types } from './redux/actions';
+import { TYPES } from './redux/actions';
 import theme from './styles/theme';
 
 export type Product = {
@@ -14,7 +14,7 @@ export type Product = {
 };
 
 export type Action = {
-  type: typeof types[keyof typeof types];
+  type: typeof TYPES[keyof typeof TYPES];
   payload: any;
 };
 

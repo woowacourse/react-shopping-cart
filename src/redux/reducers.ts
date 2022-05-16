@@ -1,5 +1,5 @@
 import { StoreState, Action } from '../types';
-import { types } from './actions';
+import { TYPES } from './actions';
 
 const initialState: StoreState = {
   isLoading: false,
@@ -10,22 +10,22 @@ const initialState: StoreState = {
 
 const rootReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case `${types.GET_PRODUCT_LIST}_PENDING`: {
+    case `${TYPES.GET_PRODUCT_LIST}_PENDING`: {
       return { ...state, isLoading: true, error: null };
     }
-    case `${types.GET_PRODUCT_LIST}_FULFILLED`: {
+    case `${TYPES.GET_PRODUCT_LIST}_FULFILLED`: {
       return { ...state, isLoading: false, productList: action.payload };
     }
-    case `${types.GET_PRODUCT_LIST}_REJECTED`: {
+    case `${TYPES.GET_PRODUCT_LIST}_REJECTED`: {
       return { ...state, isLoading: false, error: action.payload };
     }
-    case `${types.GET_PRODUCT_DETAIL}_PENDING`: {
+    case `${TYPES.GET_PRODUCT_DETAIL}_PENDING`: {
       return { ...state, isLoading: true, error: null };
     }
-    case `${types.GET_PRODUCT_DETAIL}_FULFILLED`: {
+    case `${TYPES.GET_PRODUCT_DETAIL}_FULFILLED`: {
       return { ...state, isLoading: false, productDetail: action.payload };
     }
-    case `${types.GET_PRODUCT_DETAIL}_REJECTED`: {
+    case `${TYPES.GET_PRODUCT_DETAIL}_REJECTED`: {
       return { ...state, isLoading: false, error: action.payload };
     }
     default:
