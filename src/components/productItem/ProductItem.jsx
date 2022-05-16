@@ -37,7 +37,6 @@ const ProductItem = ({ id }) => {
   const handleCartClick = () => {
     if (isOpen) {
       putCart();
-      return;
     } else {
       setIsOpen(true);
       setAutoCloseTimer(putCart);
