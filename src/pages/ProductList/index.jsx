@@ -5,7 +5,6 @@ import { addCartList } from 'actions/cart';
 
 import StatusMessage from 'components/@common/StatusMessage';
 import ProductItem from 'components/ProductItem';
-import Layout from 'components/Layout';
 import useAsyncContainer from 'hooks/useAsyncContainer';
 
 import * as Styled from './styles';
