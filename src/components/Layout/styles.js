@@ -5,7 +5,7 @@ const Container = styled.div`
   position: relative;
   margin: 0 auto;
   max-width: 1080px;
-  background-color: ${COLORS.WHITE};
+  background-color: ${COLORS.LIGHTEN_MAX};
 
   & > main {
     padding: 0;
