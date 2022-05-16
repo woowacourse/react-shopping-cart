@@ -62,7 +62,7 @@ const ProductDetail = () => {
     dispatch(getProduct(productId));
   }, [dispatch]);
 
-  if (loading) {
+  if (loading || !product) {
     return (
       <Styled.Wrapper>
         <LoadingSpinner />
