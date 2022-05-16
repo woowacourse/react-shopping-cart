@@ -1,6 +1,6 @@
 import CartIcon from 'components/base/cartIcon/CartIcon';
 import styled from 'styled-components';
-import { color } from 'constants';
+import { color } from 'constants/constants';
 
 const StyledHeader = styled.header`
   display: flex;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { color } from 'constants';
+import { color } from 'constants/constants';
 
 const StyledProductItem = styled.div`
   width: 282px;

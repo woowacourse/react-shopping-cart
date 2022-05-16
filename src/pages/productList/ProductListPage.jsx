@@ -5,9 +5,9 @@ import ProductItem from 'components/productItem/ProductItem';
 
 import store from 'store/store';
 import { initializeCart } from 'actions/actionCreator';
-import { getProductList } from 'api';
+import { getProductList } from 'utils/api';
 
-import { StyledProductListPage, StyledProductList } from 'page/productList/style';
+import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
 
 const ProductListPage = () => {
   const { products } = useSelector(state => state.reducer);

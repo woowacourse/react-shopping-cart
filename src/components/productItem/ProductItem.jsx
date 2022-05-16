@@ -20,7 +20,7 @@ import {
   StyledQuantityContainer,
 } from 'components/productItem/style';
 
-import { PRODUCT } from 'constants';
+import { PRODUCT } from 'constants/constants';
 
 const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);

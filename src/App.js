@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ProductListPage from 'page/productList/ProductListPage';
+import ProductListPage from 'pages/productList/ProductListPage';
 import Header from 'components/header/Header';
 import Button from 'components/base/button/Button';
 import HeaderCartIcon from 'components/header/HeaderCartIcon';
 
-import GlobalStyles from 'GlobalStyles';
+import GlobalStyles from 'style/GlobalStyles';
 
-import { BASE_URL } from 'constants';
+import { BASE_URL } from 'constants/constants';
 
 const PageWrapper = styled.div`
   display: flex;

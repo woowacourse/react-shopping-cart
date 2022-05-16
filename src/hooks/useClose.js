@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MODAL } from 'constants';
+import { MODAL } from 'constants/constants';
 
 const useClose = () => {
   const [autoDebounce, setAutoDebounce] = useState(null);
