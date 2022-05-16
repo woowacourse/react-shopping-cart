@@ -8,7 +8,7 @@ function CartButton() {
   return (
     <Image
       onClick={handleCartButtonClick}
-      src={'/img/shopping-cart-black.png'}
+      src={'img/shopping-cart-black.png'}
       width={'30px'}
       height={'26px'}
     />

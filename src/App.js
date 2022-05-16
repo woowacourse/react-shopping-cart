@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 
-import theme from './style/theme';
+import theme from 'style/theme';
 import GlobalStyle from 'style/GlobalStyle';
-import ProductList from './pages/ProductList';
+import ProductList from 'pages/ProductList';
 import rootReducer from 'modules';
 import Header from 'templates/Header';
 
@@ -20,7 +20,7 @@ function App() {
         <GlobalStyle />
         <Header />
         <Routes>
-          <Route path="/" element={<ProductList />} />
+          <Route path="/react-shopping-cart" element={<ProductList />} />
         </Routes>
       </ThemeProvider>
     </Provider>
