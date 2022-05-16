@@ -2,19 +2,19 @@ import * as S from "./index.styles";
 import { useTheme } from "@emotion/react";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
-const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
+const Product = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
   const {
     color: { primary },
   } = useTheme();
   const shoppingCartColor = isInShoppingCart ? primary : "black";
 
   return (
-    <S.ItemContainer>
-      <S.ItemImage onClick={onClick} src={imgUrl} alt={`${title} 이미지`} />
-      <S.ItemInfoWrapper>
+    <S.ProductContainer>
+      <S.ProductImage onClick={onClick} src={imgUrl} alt={`${title} 이미지`} />
+      <S.ProductInfoWrapper>
         <div onClick={onClick}>
-          <S.ItemInfo>{title}</S.ItemInfo>
-          <S.ItemInfo>{price}원</S.ItemInfo>
+          <S.ProductInfo>{title}</S.ProductInfo>
+          <S.ProductInfo>{price}원</S.ProductInfo>
         </div>
         <S.ShoppingCartButton onClick={go}>
           <ShoppingCartIcon
@@ -23,9 +23,9 @@ const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
             fill={shoppingCartColor}
           />
         </S.ShoppingCartButton>
-      </S.ItemInfoWrapper>
-    </S.ItemContainer>
+      </S.ProductInfoWrapper>
+    </S.ProductContainer>
   );
 };
 
-export default Item;
+export default Product;

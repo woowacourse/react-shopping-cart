@@ -10,7 +10,7 @@ const Header = () => {
           <S.LogoContainer>
             <ShoppingCartIcon width="50px" height="50px" fill="white" />
           </S.LogoContainer>
-          <S.HomeTitle>LOKBA MARKET</S.HomeTitle>
+          <S.HomeTitle>KKOJAE MARKET</S.HomeTitle>
         </div>
       </Link>
       <S.NavContainer>

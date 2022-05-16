@@ -1,16 +1,17 @@
 import { useTheme } from "@emotion/react";
+import React from "react";
 import * as S from "./index.styles";
 
-const NotFound = () => {
+const AxiosErrorPage = () => {
   const theme = useTheme();
   return (
-    <S.NotFoundContainer>
-      <p>잘못들어오셨나봐요</p>
+    <S.AxiosErrorContainer>
+      <p>서버에러</p>
       <S.HomeButton to="/" color={theme.color.primary}>
         홈으로 돌아가기
       </S.HomeButton>
-    </S.NotFoundContainer>
+    </S.AxiosErrorContainer>
   );
 };
 
-export default NotFound;
+export default AxiosErrorPage;

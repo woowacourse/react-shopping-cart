@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
-export const ItemContainer = styled.div`
+export const ProductDetailsContainer = styled.div`
   width: 100%;
 `;
 
-export const ItemImage = styled.img`
+export const ProductDetailsImage = styled.img`
   display: block;
   width: 570px;
   height: 570px;
@@ -16,7 +16,7 @@ export const ItemImage = styled.img`
   }
 `;
 
-export const ItemTitle = styled.h3`
+export const ProductDetailsTitle = styled.h3`
   font-size: 2rem;
   font-weight: 700;
   line-height: 2.25em;

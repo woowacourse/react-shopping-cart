@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const ItemContainer = styled.div`
+export const ProductContainer = styled.div`
   width: 280px;
   height: 360px;
   border-radius: 5px;
@@ -16,7 +16,7 @@ export const ItemContainer = styled.div`
   }
 `;
 
-export const ItemImage = styled.img`
+export const ProductImage = styled.img`
   width: 280px;
   height: 280px;
   object-fit: contain;
@@ -24,7 +24,7 @@ export const ItemImage = styled.img`
   cursor: pointer;
 `;
 
-export const ItemInfoWrapper = styled.div`
+export const ProductInfoWrapper = styled.div`
   width: 100%;
   max-width: 280px;
   height: 80px;
@@ -34,7 +34,7 @@ export const ItemInfoWrapper = styled.div`
   padding: 0 1em;
 `;
 
-export const ItemInfo = styled.p`
+export const ProductInfo = styled.p`
   font-family: NotoSansKR;
   margin: 0;
   line-height: 22px;

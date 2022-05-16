@@ -1,5 +1,5 @@
 import GridWrapper from ".";
-import Item from "../Item";
+import Product from "../Product";
 
 export default {
   title: "Presentational",
@@ -11,7 +11,7 @@ const Template = (args) => <GridWrapper {...args} />;
 export const GridWrapperTemplate = Template.bind({});
 GridWrapperTemplate.args = {
   children: Array.from({ length: 10 }).map(() => (
-    <Item
+    <Product
       imgUrl="https://i.ibb.co/8X0KLCr/iOS.jpg"
       title="드록바"
       price="3000000"

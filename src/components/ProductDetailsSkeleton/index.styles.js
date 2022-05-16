@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const ItemDetailsSkeleton = styled.div`
+export const ProductDetailsSkeleton = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;

@@ -1,14 +1,14 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import GridWrapper from "../../components/GridWrapper";
-import Items from "../../components/Items";
 import { getProductsByPage } from "../../modules/products";
+import { DELAY_TIME } from "../../constants/constants";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
-import { DELAY_TIME } from "../../constants/constants";
-import AxiosError from "../AxiosError";
+import GridWrapper from "../../components/GridWrapper";
+import Products from "../../components/Products";
+import AxiosErrorPage from "../AxiosErrorPage";
 
-const ItemList = () => {
+const ProductListPage = () => {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const sectionRef = useRef(null);
@@ -18,16 +18,20 @@ const ItemList = () => {
 
   useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
 
-  if (products.error) return <AxiosError />;
+  useEffect(() => {
+    dispatch(getProductsByPage());
+  }, [dispatch]);
+
+  if (products.error) return <AxiosErrorPage />;
 
   return (
     <section>
       <GridWrapper>
-        <Items />
+        <Products />
       </GridWrapper>
       <div ref={sectionRef}></div>
     </section>
   );
 };
 
-export default ItemList;
+export default ProductListPage;

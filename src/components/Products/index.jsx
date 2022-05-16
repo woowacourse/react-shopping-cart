@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Item from "../Item";
-import ItemSkeleton from "../ItemSkeleton";
+import Product from "../Product";
+import ProductSkeleton from "../ProductSkeleton";
 import { LOAD_ITEM_AMOUNT } from "../../constants/constants";
 
-const Items = () => {
+const Products = () => {
   const products = useSelector((state) => state.products);
   const navigate = useNavigate();
   const handleItemClick = (id) => {
@@ -15,7 +15,7 @@ const Items = () => {
   return (
     <>
       {products.data.map((product) => (
-        <Item
+        <Product
           key={product.id}
           {...product}
           onClick={() => {
@@ -25,10 +25,10 @@ const Items = () => {
       ))}
       {products.loading &&
         Array.from({ length: LOAD_ITEM_AMOUNT }).map((_, index) => (
-          <ItemSkeleton key={`skeleton-${index}`} />
+          <ProductSkeleton key={`skeleton-${index}`} />
         ))}
     </>
   );
 };
 
-export default Items;
+export default Products;

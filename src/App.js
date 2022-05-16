@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Detail from "./pages/Detail";
-import ItemList from "./pages/ItemList";
-import NotFound from "./pages/NotFound";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProductListPage from "./pages/ProductListPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -10,9 +10,9 @@ function App() {
       <Header />
       <div className="App">
         <Routes>
-          <Route path="/" element={<ItemList />} />
-          <Route path="/product/:id" element={<Detail />} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/" element={<ProductListPage />} />
+          <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </>

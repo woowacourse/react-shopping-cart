@@ -17,6 +17,7 @@ export const parameters = {
     },
   },
 };
+
 export const decorators = [
   (Story) => (
     <MemoryRouter initialEntries={["/product/1"]}>

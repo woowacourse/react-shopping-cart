@@ -1,14 +1,14 @@
-import Item from ".";
+import Product from ".";
 
 export default {
   title: "Presentational",
-  component: Item,
+  component: Product,
 };
 
-const Template = (args) => <Item {...args} />;
+const Template = (args) => <Product {...args} />;
 
-export const ItemTemplate = Template.bind({});
-ItemTemplate.args = {
+export const ProductTemplate = Template.bind({});
+ProductTemplate.args = {
   imgUrl: "https://i.ibb.co/8X0KLCr/iOS.jpg",
   title: "드록바",
   price: 3000000,
