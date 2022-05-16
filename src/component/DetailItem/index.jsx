@@ -7,8 +7,8 @@ import {CART} from 'store/modules/cart';
 import Button from 'component/common/Button';
 
 import * as S from 'component/DetailItem/style';
-import {COLOR} from 'constant';
 import {Font} from 'style/common';
+import theme from 'theme/theme';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -28,7 +28,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
         <Font fontSize="32px">{itemPrice.toLocaleString()}원</Font>
       </S.ItemPriceBox>
       <Button
-        backgroundColor={COLOR.BROWN}
+        backgroundColor={theme.GRAY_BROWN}
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}
