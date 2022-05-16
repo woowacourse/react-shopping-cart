@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 import useReduxState from './useReduxState';
 
 const useProducts = () => {
-  const { dispatch, isLoading, isError, data } = useReduxState('products');
+  const {
+    dispatch,
+    state: { isLoading, isError, data },
+  } = useReduxState('products');
 
   useEffect(() => {
     if (data.length > 0) return;

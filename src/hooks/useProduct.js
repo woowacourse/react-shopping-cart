@@ -6,7 +6,10 @@ import useReduxState from 'hooks/useReduxState';
 
 const useProduct = () => {
   const { id } = useParams();
-  const { dispatch, isLoading, isError, data } = useReduxState('product');
+  const {
+    dispatch,
+    state: { isLoading, isError, data },
+  } = useReduxState('product');
 
   useEffect(() => {
     dispatch(getProductAsync(id));
