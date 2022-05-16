@@ -5,22 +5,26 @@ import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 import { CartButton } from 'components/common/Button';
-import { FlexCenter, FlexSpaceBetween } from 'components/common/Flex';
+import Flex from 'components/common/Flex';
 
 const Product = ({ id, thumbnail, name, price }) => {
   return (
     <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
       <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="상품 이미지" />
+        <Flex justify="center" align="center">
+          <img src={thumbnail} alt="상품 이미지" />
+        </Flex>
       </Styled.ThumbnailBox>
       <Styled.Content>
-        <Styled.Description>
-          <Styled.Name>{name}</Styled.Name>
-          <Styled.Price>{price.toLocaleString()} 원</Styled.Price>
-        </Styled.Description>
-        <CartButton>
-          <CartIcon />
-        </CartButton>
+        <Flex justify="space-between">
+          <Styled.Description>
+            <Styled.Name>{name}</Styled.Name>
+            <Styled.Price>{price.toLocaleString()} 원</Styled.Price>
+          </Styled.Description>
+          <CartButton>
+            <CartIcon />
+          </CartButton>
+        </Flex>
       </Styled.Content>
     </Styled.Wrapper>
   );
@@ -35,7 +39,7 @@ const Styled = {
     gap: 14px;
     box-shadow: 3px 3px 5px 0px #00000040;
   `,
-  ThumbnailBox: styled(FlexCenter)`
+  ThumbnailBox: styled.div`
     height: 282px;
     cursor: pointer;
 
@@ -44,7 +48,7 @@ const Styled = {
       height: 100%;
     }
   `,
-  Content: styled(FlexSpaceBetween)`
+  Content: styled.div`
     padding: 0 10px;
     line-height: 22px;
     letter-spacing: 0.5px;

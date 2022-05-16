@@ -1,16 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const FlexCenter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Flex = styled.div`
+  ${({
+    direction = 'row',
+    wrap = 'nowrap',
+    align = 'normal',
+    justify = 'normal',
+    gap = '0',
+  }) => css`
+    display: flex;
+    flex-direction: ${direction};
+    flex-wrap: ${wrap};
+    align-items: ${align};
+    justify-content: ${justify};
+    gap: ${gap};
+  `}
 `;
 
-export const FlexSpaceBetween = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const FlexColumnCenter = styled(FlexCenter)`
-  flex-direction: column;
-`;
+export default Flex;

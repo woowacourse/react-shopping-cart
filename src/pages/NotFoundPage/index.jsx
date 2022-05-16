@@ -4,27 +4,30 @@ import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
 
-import { FlexColumnCenter } from 'components/common/Flex';
+import Flex from 'components/common/Flex';
 
 const NotFound = () => {
   return (
     <Styled.Wrapper>
-      <img src={NotFoundImage} alt="결과 없음 이미지" />
-      <Styled.TextBox>
-        이용에 불편을 드려 죄송합니다.
-        <br /> 홈페이지로 이동하시어 서비스를 다시 이용해주세요.
-      </Styled.TextBox>
-      <Link to="/react-shopping-cart">
-        <img src={HomeButtonImage} alt="홈으로 가는 이미지" />
-      </Link>
+      <Flex justify="center" align="center" direction="column" gap="40px">
+        <img src={NotFoundImage} alt="결과 없음 이미지" />
+        <Styled.TextBox>
+          이용에 불편을 드려 죄송합니다.
+          <br /> 홈페이지로 이동하시어 서비스를 다시 이용해주세요.
+        </Styled.TextBox>
+        <Link to="/react-shopping-cart">
+          <img src={HomeButtonImage} alt="홈으로 가는 이미지" />
+        </Link>
+      </Flex>
     </Styled.Wrapper>
   );
 };
 
 const Styled = {
-  Wrapper: styled(FlexColumnCenter)`
-    height: calc(100vh - 200px);
-    gap: 40px;
+  Wrapper: styled.div`
+    > div {
+      height: calc(100vh - 200px);
+    }
   `,
   TextBox: styled.div`
     text-align: center;

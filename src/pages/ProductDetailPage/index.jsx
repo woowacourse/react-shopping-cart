@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { CardDetailButton } from 'components/common/Button';
-import { FlexSpaceBetween } from 'components/common/Flex';
+import Flex from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
 import { setProduct, resetProduct } from 'modules/product';
 
@@ -51,8 +51,10 @@ const ProductDetail = () => {
       <Styled.Content>
         <Styled.Title>{name}</Styled.Title>
         <Styled.Price>
-          <p>금액</p>
-          <p>{price.toLocaleString()}원</p>
+          <Flex justify="space-between">
+            <p>금액</p>
+            <p>{price.toLocaleString()}원</p>
+          </Flex>
         </Styled.Price>
       </Styled.Content>
       <CardDetailButton>장바구니</CardDetailButton>
@@ -99,7 +101,7 @@ const Styled = {
       background: ${({ theme }) => theme.colors.gray};
     }
   `,
-  Price: styled(FlexSpaceBetween)`
+  Price: styled.div`
     font-weight: 400;
     padding: 10px;
     margin-bottom: 20px;
