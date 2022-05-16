@@ -1,4 +1,4 @@
-import { PUT, INITIALIZE } from 'actions/action';
+import { CART, PRODUCT_LIST } from 'actions/action';
 
 const initState = {
   products: [],
@@ -7,13 +7,13 @@ const initState = {
 
 function reducer(state = initState, action) {
   switch (action.type) {
-    case INITIALIZE:
+    case PRODUCT_LIST.INITIALIZE:
       return {
         ...state,
         products: [...action.products],
       };
 
-    case PUT:
+    case CART.PUT:
       const isExist = state.shoppingCart.find(product => product.id === action.id);
 
       return {

@@ -1,4 +1,9 @@
-const PUT = 'cart/PUT';
-const INITIALIZE = 'productList/INITIALIZE';
+const CART = {
+  PUT: 'cart/PUT',
+};
 
-export { PUT, INITIALIZE };
+const PRODUCT_LIST = {
+  INITIALIZE: 'productList/INITIALIZE',
+};
+
+export { CART, PRODUCT_LIST };
