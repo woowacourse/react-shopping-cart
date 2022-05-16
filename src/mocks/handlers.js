@@ -51,4 +51,21 @@ export const handlers = [
     const cart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
     return res(ctx.json(cart));
   }),
+  rest.patch(`${API_URL}shopping-cart`, (req, res, ctx) => {
+    const { productId, quantity } = req.body;
+    const currentShoppingCart = JSON.parse(window.localStorage.getItem('server-shopping-cart'));
+
+    if (!currentShoppingCart || !currentShoppingCart[productId]) {
+      return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
+    }
+
+    const targetProduct = currentShoppingCart[productId];
+    targetProduct.quantity = quantity;
+
+    currentShoppingCart[productId] = targetProduct;
+
+    window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
+
+    return res(ctx.json(currentShoppingCart));
+  }),
 ];

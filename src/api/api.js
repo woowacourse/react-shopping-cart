@@ -36,3 +36,13 @@ export const getCart = async () => {
 
   return { cart: response.data };
 };
+
+export const updateCartQuantity = async (productId, quantity) => {
+  const response = await productAPI.patch(`/shopping-cart`, { productId, quantity });
+
+  if (response.statusText !== 'OK') {
+    throw Error('서버 오류');
+  }
+
+  return { cart: response.data };
+};

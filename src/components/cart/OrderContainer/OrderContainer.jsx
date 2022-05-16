@@ -10,6 +10,8 @@ function OrderContainer() {
 
   const totalPrice = useMemo(
     () =>
+      cart &&
+      checkedProductList &&
       checkedProductList.reduce((total, productId) => {
         const { productData, quantity } = cart[productId];
         return total + productData.price * quantity;

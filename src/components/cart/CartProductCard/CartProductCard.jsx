@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleProductCheck } from '../../../store/actions/cart';
+import { toggleProductCheck, updateCartProductQuantityAsync } from '../../../store/actions/cart';
 import { Position } from '../../../styles/GlobalStyles';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import Counter from '../../common/Counter/Counter';
@@ -16,6 +16,14 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
     dispatch(toggleProductCheck(String(id)));
   };
 
+  const onIncrementQuantity = () => {
+    dispatch(updateCartProductQuantityAsync(id, quantity + 1));
+  };
+
+  const onDecrementQuantity = () => {
+    dispatch(updateCartProductQuantityAsync(id, quantity - 1));
+  };
+
   return (
     <Styled.Container>
       <CheckBox checked={checked} onClick={toggleCheck} />
@@ -27,7 +35,11 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
           <Icon iconName="trash" fill="#333333" />
         </Position>
         <Styled.Name>{name}</Styled.Name>
-        <Counter count={quantity} />
+        <Counter
+          count={quantity}
+          onIncrement={onIncrementQuantity}
+          onDecrement={onDecrementQuantity}
+        />
         <Styled.Price>{price * quantity}원</Styled.Price>
       </Styled.Description>
     </Styled.Container>
