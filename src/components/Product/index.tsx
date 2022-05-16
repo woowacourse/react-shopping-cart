@@ -6,7 +6,7 @@ import * as Styled from "./styles";
 import deleteIcon from "../../assets/deleteIcon.png";
 import cart from "../../assets/cart.svg";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
-import { generateSnackBar } from "../../redux/modules/snackBar";
+import { show } from "../../redux/modules/snackBar";
 import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
 export type ProductType = {
@@ -33,7 +33,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
-      dispatch(generateSnackBar("장바구니에 추가되었습니다. 😍"));
+      dispatch(show("장바구니에 추가되었습니다. 😍"));
     }
   };
 
@@ -41,7 +41,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(generateSnackBar("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(show("장바구니에서 삭제되었습니다. 🥲"));
     }
   };
 

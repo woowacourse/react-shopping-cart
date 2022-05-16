@@ -1,5 +1,3 @@
-import { AppDispatch } from "../store";
-
 type Action = ReturnType<typeof show> | ReturnType<typeof hide>;
 
 // initialState
@@ -21,16 +19,6 @@ const hide = () => ({
   type: HIDE,
 });
 
-// thunk
-const generateSnackBar =
-  (message: string): any =>
-  (dispatch: AppDispatch) => {
-    dispatch(show(message));
-    setTimeout(() => {
-      dispatch(hide());
-    }, 2500);
-  };
-
 // 리듀서
 const snackBarReducer = (state = initialState, action: Action) => {
   switch (action.type) {
@@ -47,6 +35,6 @@ const snackBarReducer = (state = initialState, action: Action) => {
   }
 };
 
-export { show, hide, generateSnackBar };
+export { show, hide };
 
 export default snackBarReducer;
