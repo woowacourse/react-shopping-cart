@@ -6,17 +6,27 @@ const initialState = {
   carts: [],
 };
 
-const productsReducer = (state = initialState, action) => {
+const productsReducer = (state = initialState.products, action) => {
   switch (action.type) {
     case TYPE.PRODUCTS_LOAD:
       return { ...state, products: action.payload };
-    case TYPE.CARTS_LOAD:
-      return { ...state, carts: action.payload };
     default:
-      return { ...state };
+      return state;
   }
 };
 
-const rootReducer = combineReducers({ productsReducer });
+const cartsReducer = (state = initialState.carts, action) => {
+  switch (action.type) {
+    case TYPE.CARTS_LOAD:
+      return { ...state, carts: action.payload };
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({
+  products: productsReducer,
+  carts: cartsReducer,
+});
 
 export default rootReducer;
