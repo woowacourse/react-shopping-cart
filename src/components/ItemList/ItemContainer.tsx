@@ -38,7 +38,7 @@ const ItemContainer = ({
   return (
     <Link to={PATH.getItemDetail(id)} onClick={handleClickItemContainer} replace>
       <StyledRoot>
-        <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt='상품' />
+        <CroppedImage src={thumbnailUrl} width='270px' height='270px' alt={title} />
         <StyledBottom>
           <StyledDescription>
             <StyledTitle>{title}</StyledTitle>
