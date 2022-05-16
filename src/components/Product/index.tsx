@@ -71,12 +71,12 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductWrapper>
+    <Styled.ProductWrapper flexDirection="column">
       <Styled.ProductImageWrapper>
         <Styled.ProductImage onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
       </Styled.ProductImageWrapper>
-      <Styled.ProductInfoWrapper>
-        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
+      <Styled.ProductInfoWrapper justifyContent="space-between" alignItems="center">
+        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)} flexDirection="column">
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </Styled.ProductInfo>
@@ -84,7 +84,11 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
           {cartItem?.amount && <Styled.CartImageBadge />}
           <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
         </Styled.CartImageWrapper>
-        <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
+        <Styled.CartCounter
+          isShowCartCounter={isShowCartCounter}
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
           <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
           <span>{cartItem?.amount ?? 0}</span>
           <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>

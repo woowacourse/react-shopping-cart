@@ -4,7 +4,7 @@ import * as Styled from "./styles";
 
 function Header() {
   return (
-    <Styled.HeaderWrapper>
+    <Styled.HeaderWrapper justifyContent="space-around" alignItems="center">
       <Styled.HeaderTitle to={"/"}>
         <img alt="Logo" src={Logo} />
         <h1>WOOWA SHOP</h1>

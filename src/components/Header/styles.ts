@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import FlexBox from "../../styles/FlexBox";
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled(FlexBox)`
   width: 100%;
   height: 60px;
   background: ${({ theme }) => theme.colors.TEAL_400};
   box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.GRAY_300};
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   margin-bottom: 60px;
 `;
 

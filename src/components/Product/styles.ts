@@ -1,4 +1,5 @@
 import styled, { keyframes, css } from "styled-components";
+import FlexBox from "../../styles/FlexBox";
 
 const CartShake = keyframes`
   0%, 50%{
@@ -23,10 +24,7 @@ const CartCounterMoveUp = keyframes`
   }
 `;
 
-const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+const CartCounter = styled(FlexBox)<{ isShowCartCounter: boolean }>`
   background-color: ${({ theme }) => theme.colors.GRAY_50};
   border: 2px solid ${({ theme }) => theme.colors.TEAL_400};
   box-shadow: 0px 3px 3px ${({ theme }) => theme.colors.GRAY_800};
@@ -75,11 +73,9 @@ const ProductImage = styled.img`
   cursor: pointer;
 `;
 
-const ProductWrapper = styled.div`
+const ProductWrapper = styled(FlexBox)`
   width: 220px;
   height: 288px;
-  display: flex;
-  flex-direction: column;
 `;
 
 const ProductImageWrapper = styled.div`
@@ -95,17 +91,12 @@ const ProductImageWrapper = styled.div`
   }
 `;
 
-const ProductInfoWrapper = styled.div`
+const ProductInfoWrapper = styled(FlexBox)`
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 10px;
 `;
 
-const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
+const ProductInfo = styled(FlexBox)`
   margin-top: 12px;
   padding-right: 10px;
   &:hover {

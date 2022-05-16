@@ -1,11 +1,12 @@
 import emptyPage from "../../../assets/emptyPage.jpeg";
+import FlexBox from "../../../styles/FlexBox";
 import * as Styled from "./styles";
 
 function NotFound() {
   return (
-    <Styled.Content>
+    <FlexBox flexDirection="column" justifyContent="center" alignItems="center">
       <Styled.EmptyPageImage alt="emptyPage" src={emptyPage} />
-    </Styled.Content>
+    </FlexBox>
   );
 }
 
