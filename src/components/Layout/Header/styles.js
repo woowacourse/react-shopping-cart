@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { COLORS } from 'styles/theme';
 
-import logo from 'assets/logo.png';
+import logo from 'assets/image/logo.png';
 
 const Container = styled.header`
   display: grid;
