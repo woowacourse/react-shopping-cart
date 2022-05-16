@@ -1,16 +1,18 @@
 import styled from 'styled-components';
-import { SIZE } from '../../constant';
+
+const SIZE_MAP = {
+  large: 430,
+  middle: 250,
+  small: 100,
+};
 
 const StyledImageBox = styled.div`
-  width: ${(props) =>
-    `${props.width === SIZE.LARGE ? 430 : props.width === SIZE.MIDDLE ? 250 : 100}`}px;
-  height: ${(props) =>
-    `${props.height === SIZE.LARGE ? 430 : props.height === SIZE.MIDDLE ? 250 : 100}`}px;
+  width: ${(props) => `${SIZE_MAP[props.width]}`}px;
+  height: ${(props) => `${SIZE_MAP[props.height]}`}px;
 `;
 
 const StyledImg = styled.img`
-  width: ${(props) =>
-    `${props.width === SIZE.LARGE ? 430 : props.width === SIZE.MIDDLE ? 250 : 100}`}px;
+  width: ${(props) => `${SIZE_MAP[props.width]}`}px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
