@@ -9,6 +9,7 @@ const ItemLayout = styled(FlexColumn)`
   overflow: hidden;
 
   img {
+    height: 282px;
     cursor: pointer;
   }
 
@@ -25,9 +26,11 @@ const NamePriceBox = styled(FlexColumn)`
 const ItemNameLink = styled(Link)`
   display: inline-block;
   width: 210px;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.3;
 
   font-size: 16px;
 `;

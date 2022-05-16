@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
 
 import App from './App';
+import 'fonts.css';
 
 import productListReducer from 'store/modules/productList';
 import cartReducer from 'store/modules/cart';
