@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
+import PATH from "./constants/path";
 import Detail from "./page/Detail";
 import ItemList from "./page/ItemList";
 import NotFound from "./page/NotFound";
@@ -11,7 +12,7 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<ItemList />} />
-          <Route path="/product/:id" element={<Detail />} />
+          <Route path={PATH.PRODUCT_LIST} element={<Detail />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
