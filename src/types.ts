@@ -1,4 +1,5 @@
 import { types } from './redux/actions';
+import theme from './styles/theme';
 
 export type Product = {
   id: number;
@@ -23,3 +24,5 @@ export type StoreState = {
   productList: Array<Product>;
   productDetail: Product | null;
 };
+
+export type Theme = typeof theme;

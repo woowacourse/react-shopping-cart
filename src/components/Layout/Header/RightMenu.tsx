@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Theme } from '../../../types';
+import PlainLink from '../../PlainLink/PlainLink';
 
-type Props = {
-  children: React.ReactNode;
+type StyledUlProps = {
+  isDrawerOpened: boolean;
+  theme: Theme;
 };
 
 const menuIcon = (
@@ -21,7 +24,7 @@ const menuIcon = (
   </svg>
 );
 
-function RightMenu({ children }: Props) {
+function RightMenu() {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
 
   const toggleDrawer = () => {
@@ -30,14 +33,15 @@ function RightMenu({ children }: Props) {
 
   return (
     <StyledNav>
-      <button className="hamburger" onClick={toggleDrawer}>
-        {menuIcon}
-      </button>
-      <ul className={isDrawerOpened ? 'drawerOpened' : ''}>
-        {Array.isArray(children)
-          ? children.map((child: React.ReactNode) => <li>{child}</li>)
-          : children}
-      </ul>
+      <StyledButton onClick={toggleDrawer}>{menuIcon}</StyledButton>
+      <StyledUl isDrawerOpened={isDrawerOpened}>
+        <li>
+          <PlainLink to="/cart">장바구니</PlainLink>
+        </li>
+        <li>
+          <PlainLink to="/orders">주문목록</PlainLink>
+        </li>
+      </StyledUl>
     </StyledNav>
   );
 }
@@ -46,49 +50,47 @@ const StyledNav = styled.nav`
   font-size: 24px;
   font-weight: 500;
 
+  ${({ theme: { media } }) =>
+    media.sm(`
+      width: auto;
+  `)};
+`;
+
+const StyledButton = styled.button`
+  display: none;
+  color: white;
+  background: transparent;
+
+  ${({ theme: { media } }) =>
+    media.sm(`
+      display: block;
+    `)}
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: row;
+  gap: 44px;
+
   a:hover {
     font-weight: 700;
   }
 
-  .hamburger {
-    display: none;
-    color: white;
-    background: transparent;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    gap: 44px;
-  }
-
-  ${({ theme: { media, colors } }) =>
+  ${({ isDrawerOpened, theme: { media, colors } }: StyledUlProps) =>
     media.sm(`
       width: auto;
+      position: absolute;
+      width: 100%;
+      flex-direction: column;
+      background-color: ${colors.emerald};
+      top: 80px;
+      left: 0;
 
-      .hamburger {
-        display: block;
-      }
-
-      ul {
-        display: none;
-        position: absolute;
-        width: 100%;
-        flex-direction: column;
-        background-color: ${colors.emerald};
-        
-        top: 80px;
-        left: 0;
-      }
-
-      ul.drawerOpened {
-        display: block;
-      }
-
+      display: ${isDrawerOpened ? 'block' : 'none'};
+    
       li {
         margin: 20px;
         text-align: right;
-      }
   `)};
 `;
 
