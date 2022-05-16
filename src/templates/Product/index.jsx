@@ -5,13 +5,13 @@ import Image from 'components/Image';
 import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
 import MarginBottomWrapper from 'components/MarginBottomWrapper';
 
-import CartButton from 'containers/CartButton';
+import CartHomeImage from 'containers/CartHomeImage';
 import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
 
 function Product({ imgSrc, title, price }) {
-  const handleProductIamgeClick = () => {};
+  const handleProductIamgeClick = () => { };
 
   return (
     <ProductStyled>
@@ -27,7 +27,7 @@ function Product({ imgSrc, title, price }) {
             {price.toLocaleString()}원
           </BlackText>
         </div>
-        <CartButton />
+        <CartHomeImage />
       </FlexSpaceBetweenCenter>
     </ProductStyled>
   );
