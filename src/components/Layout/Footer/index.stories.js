@@ -1,7 +1,7 @@
-import Footer from '../components/Layout/Footer';
+import Footer from '.';
 
 export default {
-  title: 'Component/Footer',
+  title: 'Component/Layout/Footer',
   component: Footer,
   parameters: {
     layout: 'centered',
@@ -11,3 +11,6 @@ export default {
 const Template = (args) => <Footer {...args} />;
 
 export const DefaultTemplate = Template.bind({});
+DefaultTemplate.parameters = {
+  controls: { hideNoControlsWarning: true },
+};

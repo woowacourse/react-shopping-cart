@@ -1,7 +1,7 @@
-import Header from '../components/Layout/Header';
+import Header from '.';
 
 export default {
-  title: 'Component/Header',
+  title: 'Component/Layout/Header',
   component: Header,
   parameters: {
     layout: 'centered',
@@ -11,3 +11,6 @@ export default {
 const Template = (args) => <Header {...args} />;
 
 export const DefaultTemplate = Template.bind({});
+DefaultTemplate.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
