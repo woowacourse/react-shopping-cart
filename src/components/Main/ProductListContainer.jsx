@@ -1,9 +1,17 @@
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Product from './Product';
+import { loadCarts, loadProducts } from '../../store/actions';
 
 function ProductListContainer() {
   const { products, carts } = useSelector((state) => state.productsReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadCarts());
+    dispatch(loadProducts());
+  }, []);
 
   return (
     <Styled.ProductListContainer>
