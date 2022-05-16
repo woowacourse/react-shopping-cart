@@ -1,22 +1,20 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import axios from 'axios';
 
 import ProductItem from 'components/productItem/ProductItem';
 
 import store from 'store/store';
 import { initializeCart } from 'actions/actionCreator';
+import { getProductList } from 'api';
 
 import { StyledProductListPage, StyledProductList } from 'page/productList/style';
-import { SERVER_URL } from 'constants';
 
 const ProductListPage = () => {
   const { products } = useSelector(state => state.reducer);
 
   const getProducts = async () => {
-    const response = await axios.get(SERVER_URL + 'products');
-
-    store.dispatch(initializeCart({ products: response.data }));
+    const productList = await getProductList();
+    store.dispatch(initializeCart({ products: productList }));
   };
 
   useEffect(() => {
