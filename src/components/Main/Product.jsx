@@ -5,7 +5,7 @@ import axios from 'axios';
 import ProductImage from './ProductImage';
 import { CART_SIZE, COLOR, SERVER_URL, PATH } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { UnstyledButton } from '../shared/styles';
+import { StyledDefaultButton } from '../shared/styles';
 
 const requestDeleteCart = async (id) => {
   await axios({
@@ -95,7 +95,7 @@ const Styled = {
     font-size: 16px;
     line-height: 22px;
   `,
-  CartButton: styled(UnstyledButton)`
+  CartButton: styled(StyledDefaultButton)`
     &:hover {
       opacity: 0.6;
     }
