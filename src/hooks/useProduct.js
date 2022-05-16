@@ -13,11 +13,13 @@ const useProduct = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getProductAsync(id));
-  }, [id]);
+  const getProductEffect = () => {
+    useEffect(() => {
+      dispatch(getProductAsync(id));
+    }, [id]);
+  };
 
-  return { addCart, isLoading, product: data, isError };
+  return { getProductEffect, addCart, product: data, isLoading, isError };
 };
 
 export default useProduct;

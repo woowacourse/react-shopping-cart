@@ -9,9 +9,12 @@ import useProduct from 'hooks/useProduct';
 import comma from 'utils/comma';
 
 const Product = () => {
-  const { addCart, isLoading, product, isError } = useProduct();
-  const navigate = useNavigate();
+  const { getProductEffect, addCart, isLoading, product, isError } =
+    useProduct();
 
+  getProductEffect();
+
+  const navigate = useNavigate();
   const handleClickCart = () => {
     addCart();
     navigate(PATH.CART);

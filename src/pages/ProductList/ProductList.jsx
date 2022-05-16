@@ -8,7 +8,10 @@ import emptyImg from 'assets/png/emptyImg.png';
 import comma from 'utils/comma';
 
 const ProductList = () => {
-  const { products, isLoading, isError, isEmpty } = useProducts();
+  const { getProductsEffect, products, isLoading, isError, isEmpty } =
+    useProducts();
+
+  getProductsEffect();
 
   return (
     <>

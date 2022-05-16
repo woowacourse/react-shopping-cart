@@ -7,12 +7,14 @@ const useProducts = () => {
 
   const isEmpty = !isLoading && data.length === 0;
 
-  useEffect(() => {
-    if (data.length > 0) return;
-    dispatch(getProductsAsync);
-  }, [data]);
+  const getProductsEffect = () => {
+    useEffect(() => {
+      if (data.length > 0) return;
+      dispatch(getProductsAsync);
+    }, [data]);
+  };
 
-  return { isLoading, products: data, isError, isEmpty };
+  return { getProductsEffect, products: data, isLoading, isError, isEmpty };
 };
 
 export default useProducts;
