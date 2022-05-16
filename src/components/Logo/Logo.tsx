@@ -4,8 +4,8 @@ import styled from 'styled-components';
 function Logo() {
   return (
     <StyledLogo>
-      <ShoppingCart width="51" height="44" fill="white" />
-      <h1>WOOWA SHOP</h1>
+      <ShoppingCart width="40" height="40" fill="white" />
+      <h1>나만 알고 싶은 짱구 스토어</h1>
     </StyledLogo>
   );
 }
@@ -15,11 +15,12 @@ const StyledLogo = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
   gap: 20px;
-  font-size: 40px;
-  font-weight: 900;
+
   color: inherit;
+
+  font-size: 25px;
+  font-weight: 900;
 `;
 
 export default Logo;

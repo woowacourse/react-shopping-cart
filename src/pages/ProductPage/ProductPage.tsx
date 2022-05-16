@@ -53,17 +53,19 @@ function ProductPage() {
 }
 
 const StyledPage = styled.div`
-  width: 570px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px auto;
+
+  width: 400px;
+  margin: 40px auto;
   gap: 20px;
 
   h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    line-height: 2.7rem;
+    line-height: 30px;
+
+    font-size: 20px;
+    font-weight: 600;
   }
 
   hr {
@@ -71,10 +73,13 @@ const StyledPage = styled.div`
   }
 
   dl {
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 1.2rem;
+    gap: 50px;
+
+    width: 100%;
+
+    font-size: 15px;
   }
 `;
 
@@ -88,12 +93,14 @@ const StyledImageContainer = styled.div`
 `;
 
 const StyledAddToCartButton = styled.button`
-  background: ${({ theme: { colors } }) => colors.black};
-  color: ${({ theme: { colors } }) => colors.white};
-  width: 200px;
-  height: 60px;
+  width: 170px;
+  height: 50px;
   margin-top: 20px;
-  font-size: 1.2rem;
+
+  background: ${({ theme: { colors } }) => colors.redPink};
+  color: ${({ theme: { colors } }) => colors.white};
+
+  font-size: 15px;
   font-weight: 600;
 `;
 

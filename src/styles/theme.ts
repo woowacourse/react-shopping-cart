@@ -32,7 +32,7 @@ const media = {
 const theme = {
   media,
   colors: {
-    emerald: '#29C2BC',
+    redPink: '#ff9c9c',
     white: '#FFFFFF',
     gray: '#AAAAAA',
     black: '#161616',

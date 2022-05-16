@@ -44,52 +44,62 @@ function ProductCard({ product }: Props) {
 }
 
 const OutOfStockOverlay = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
-  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
+
+  background: rgba(0, 0, 0, 0.3);
   color: ${({ theme: { colors } }) => colors.white};
-  font-size: 2rem;
+
+  font-size: 25px;
   font-weight: 700;
 `;
 
 const CardImageOverlay = styled.div`
+  position: absolute;
   box-sizing: border-box;
+
   width: 100%;
   height: 100%;
-  position: absolute;
   z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
 
   background: rgba(0, 0, 0, 0.3);
 
   p {
     inset: 30px 30px 60px;
-    color: white;
     position: absolute;
-
-    line-height: 1.4rem;
-
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+
+    line-height: 1.4rem;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
   }
 
   div {
     position: absolute;
+
     bottom: 0px;
     right: 0px;
-    font-size: 24px;
-    color: white;
     padding: 10px;
+
     background: ${({ theme: { colors } }) => colors.black};
+    color: ${({ theme: { colors } }) => colors.white};
+
+    font-size: 16px;
   }
 `;
 
@@ -118,13 +128,13 @@ const CardDescriptionContainer = styled.div`
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    font-size: 16px;
+    font-size: 13px;
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
 
@@ -149,7 +159,7 @@ const StyledProductCard = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: repeat(5, 1fr);
   grid-gap: 10px;
-  width: 282px;
+  width: 200px;
   color: ${({ theme: { colors } }) => colors.black};
 
   :not(:hover) {

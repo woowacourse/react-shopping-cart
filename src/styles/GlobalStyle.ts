@@ -5,9 +5,10 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    font-family: 'Roboto', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', sans-serif;
+    font-family: 'Gowun Dodum', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #faf7fc;
   }
 
   button {
