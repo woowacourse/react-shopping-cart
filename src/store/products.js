@@ -36,7 +36,7 @@ const productsReducer = (state = initialState, action) => {
     case LOAD_PRODUCTS_DONE:
       return { ...state, isLoading: false };
     default:
-      return { ...state };
+      return state;
   }
 };
 

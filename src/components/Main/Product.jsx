@@ -1,39 +1,23 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-import axios from 'axios';
 import ProductImage from './ProductImage';
-import { CART_SIZE, COLOR, SERVER_URL, PATH } from '../../constants';
+import { CART_SIZE, COLOR } from '../../constants';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { UnstyledButton } from '../shared/styles';
-
-const requestDeleteCart = async (id) => {
-  await axios({
-    url: `${SERVER_URL}/${PATH.CARTS}/${id}`,
-    method: 'DELETE',
-  });
-};
-
-const requestAddCart = async (id) => {
-  await axios({
-    url: `${SERVER_URL}/${PATH.CARTS}`,
-    data: { id, quantity: 1 },
-    method: 'POST',
-  });
-};
+import { useDispatch } from 'react-redux';
+import { addToCarts, deleteFromCarts } from '../../store/product';
 
 function Product({ id, src, price, title, isStored }) {
+  const dispatch = useDispatch();
+
   const [isClicked, setIsClicked] = useState(isStored);
 
   const handleCartClick = async () => {
-    try {
-      if (isClicked) {
-        requestDeleteCart(id);
-      } else {
-        requestAddCart(id);
-      }
-    } catch (error) {
-      alert(error.message);
+    if (isClicked) {
+      dispatch(deleteFromCarts(id));
+    } else {
+      dispatch(addToCarts(id));
     }
 
     setIsClicked((prev) => !prev);
