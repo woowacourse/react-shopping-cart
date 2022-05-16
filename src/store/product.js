@@ -1,5 +1,6 @@
 import axios from 'axios';
 import PATH from '../constants/path';
+import { addProductToCarts } from './carts';
 
 const ADD_TO_CARTS_SUCCESS = 'carts/ADD_TO_CARTS_SUCCESS';
 const ADD_TO_CARTS_FAIL = 'carts/ADD_TO_CARTS_FAIL';
@@ -45,6 +46,7 @@ export const addToCarts = (id) => async (dispatch) => {
       data: { id, quantity: 1 },
     });
 
+    dispatch(addProductToCarts(id));
     dispatch(addToCartsSuccess(result.status));
   } catch (error) {
     dispatch(addToCartsFail(error));
