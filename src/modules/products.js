@@ -15,12 +15,12 @@ const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
 
 const initialState = {
   product: {
-    loading: false,
+    isLoading: false,
     data: {},
     error: null,
   },
   products: {
-    loading: false,
+    isLoading: false,
     data: [],
     error: null,
     isEnd: false,
@@ -30,10 +30,10 @@ const initialState = {
 
 export const getProductsByPage = () => async (dispatch, getState) => {
   const {
-    products: { loading, page },
+    products: { isLoading, page },
   } = getState();
 
-  if (loading) return;
+  if (isLoading) return;
 
   dispatch({ type: GET_PRODUCTS });
 
@@ -61,12 +61,12 @@ export const getProductById = (id) => async (dispatch) => {
 
 const getProducts = (productsState) => ({
   ...productsState,
-  loading: true,
+  isLoading: true,
   error: null,
 });
 
 const getProductsSuccess = (productsState, action) => ({
-  loading: false,
+  isLoading: false,
   data: productsState.data.concat(action.products),
   error: null,
   isEnd: false,
@@ -75,7 +75,7 @@ const getProductsSuccess = (productsState, action) => ({
 
 const getProductsError = (productsState, action) => ({
   ...productsState,
-  loading: false,
+  isLoading: false,
   data: null,
   error: action.error,
 });
@@ -83,24 +83,24 @@ const getProductsError = (productsState, action) => ({
 const getProductsEnd = (productsState, action) => ({
   ...productsState,
   data: productsState.data.concat(action.products),
-  loading: false,
+  isLoading: false,
   isEnd: true,
 });
 
 const getProduct = () => ({
-  loading: true,
+  isLoading: true,
   data: {},
   error: null,
 });
 
 const getProductSuccess = (_, action) => ({
-  loading: false,
+  isLoading: false,
   data: action.product,
   error: null,
 });
 
 const getProductError = () => ({
-  loading: false,
+  isLoading: false,
   data: {},
   error: null,
 });

@@ -40,7 +40,7 @@ const ItemList = () => {
             }}
           />
         ))}
-        {products.loading &&
+        {products.isLoading &&
           Array.from({ length: LOAD_ITEM_AMOUNT }).map(() => (
             <ItemSkeleton key={uuidv4()} />
           ))}

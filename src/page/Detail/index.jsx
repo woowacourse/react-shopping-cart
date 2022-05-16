@@ -18,7 +18,7 @@ const Detail = () => {
   return (
     <S.DetailPageContainer>
       <S.DetailContainer>
-        {product.loading || <ItemDetails {...product.data} />}
+        {product.isLoading || <ItemDetails {...product.data} />}
       </S.DetailContainer>
     </S.DetailPageContainer>
   );
