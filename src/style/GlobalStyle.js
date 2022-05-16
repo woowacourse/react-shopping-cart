@@ -23,6 +23,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
   }
+
+  .link-text {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 export default GlobalStyle;

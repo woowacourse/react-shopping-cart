@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import BlackText from 'components/BlackText';
 import Image from 'components/Image';
@@ -11,17 +12,23 @@ import ProductTitle from 'containers/ProductTitle';
 import ProductStyled from './style';
 
 function Product({ imgSrc, title, price }) {
-  const handleProductIamgeClick = () => {};
+  const handleProductClick = () => {
+    console.log('hey');
+  };
 
   return (
     <ProductStyled>
       <MarginBottomWrapper marginBottom="18px">
-        <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
+        <Link onClick={handleProductClick} to="">
+          <Image src={imgSrc} width="100%" height="14.24vmax" />
+        </Link>
       </MarginBottomWrapper>
       <FlexSpaceBetweenCenter>
         <div>
           <MarginBottomWrapper marginBottom="6px">
-            <ProductTitle>{title}</ProductTitle>
+            <Link className="link-text" onClick={handleProductClick} to="">
+              <ProductTitle>{title}</ProductTitle>
+            </Link>
           </MarginBottomWrapper>
           <BlackText fontSize="1.25rem" fontWeight="400">
             {price.toLocaleString()}원
