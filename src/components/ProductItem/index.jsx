@@ -18,18 +18,20 @@ function ProductItem({ id, image, name, price }) {
 
   return (
     <Styled.Container>
-      <div className="image-wrapper">
-        <img src={image} alt="product thumbnail" />
-      </div>
-      <div className="description">
-        <div className="info">
-          <p className="title">{name}</p>
-          <p className="price">{price.toLocaleString('ko-KR')}원</p>
-        </div>
-        <div className="button-wrapper">
+      <Styled.ImageContainer>
+        <Styled.Image src={image} alt="product thumbnail" />
+      </Styled.ImageContainer>
+
+      <Styled.Description>
+        <Styled.ItemInfo>
+          <Styled.Title>{name}</Styled.Title>
+          <Styled.Price>{price.toLocaleString('ko-KR')}원</Styled.Price>
+        </Styled.ItemInfo>
+
+        <Styled.ButtonContainer>
           <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
-        </div>
-      </div>
+        </Styled.ButtonContainer>
+      </Styled.Description>
     </Styled.Container>
   );
 }
