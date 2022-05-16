@@ -19,14 +19,12 @@ function ProductDetailPage() {
     errorMessage,
   } = useFetch(productURL);
 
-  const dataReady = !isLoading && !errorMessage;
+  if (isLoading) return <Spinner />;
+  if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {errorMessage && <div>😱 Error: {errorMessage} 😱</div>}
-
-      {dataReady && <ProductDetailCard product={selectedProduct} />}
+      <ProductDetailCard product={selectedProduct} />
     </>
   );
 }

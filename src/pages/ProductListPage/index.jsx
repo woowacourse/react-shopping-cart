@@ -28,16 +28,14 @@ function ProductListPage() {
     }
   }, [isLoading, errorMessage]);
 
-  const dataReady = !isLoading && !errorMessage;
+  if (isLoading) return <Spinner />;
+  if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {errorMessage && <div>😱 Error: {errorMessage} 😱</div>}
+      {productList.length === 0 && <h2>😱 텅 비었어요~~ 😱</h2>}
 
-      {dataReady && productList.length === 0 && <h2>😱 텅 비었어요~~ 😱</h2>}
-
-      {dataReady && productList.length > 0 && (
+      {productList.length > 0 && (
         <GridList>
           {productList.map((product) => (
             <ProductCard key={product.id} product={product} />
