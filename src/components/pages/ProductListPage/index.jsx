@@ -6,15 +6,15 @@ import { useFetch } from "../../../hooks/useFetch";
 
 import Spinner from "../../common/Spinner";
 import ProductCard from "./ProductCard";
+import GridContainer from "../../common/GridContainer";
 
 import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../../../constants";
-import GridContainer from "../../common/GridContainer";
 
 const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
 
 function ProductListPage() {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state);
+  const productList = useSelector((state) => state.productList);
 
   const {
     isLoading,

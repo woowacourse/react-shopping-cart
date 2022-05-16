@@ -1,6 +1,11 @@
 import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "@redux-devtools/extension";
+import ReduxThunk from "redux-thunk";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+
+import rootReducer from "../reducers/index";
 
 import Header from "./Header";
 import {
@@ -11,9 +16,13 @@ import {
 } from "./pages";
 
 import { theme } from "../style";
-import { store } from "../reducers/productList";
 import { ROUTES } from "../constants";
 import { Main } from "./styled";
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk))
+);
 
 function App() {
   return (
