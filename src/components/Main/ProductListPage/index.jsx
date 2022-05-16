@@ -28,22 +28,21 @@ function ProductListPage() {
     }
   }, [isLoading, errorMessage]);
 
+  if (isLoading) return <Spinner />;
+  if (errorMessage)
+    return (
+      <div>
+        😱 Error: 관리자에게 문의하세요.😱 <br /> %{errorMessage}%
+      </div>
+    );
+  if (!productInfoList?.length) return <h2>😱 텅 비었어요~~ 😱</h2>;
+
   return (
-    <>
-      {isLoading ? (
-        <Spinner />
-      ) : errorMessage ? (
-        <div>😱 Error: 관리자에게 문의하세요 😱</div>
-      ) : productInfoList.length === 0 ? (
-        <h2>😱 텅 비었어요~~ 😱</h2>
-      ) : (
-        <GridContainer colNo={4}>
-          {productInfoList.map((productInfo) => (
-            <ProductCard key={productInfo.id} productInfo={productInfo} />
-          ))}
-        </GridContainer>
-      )}
-    </>
+    <GridContainer colNo={4}>
+      {productInfoList.map((productInfo) => (
+        <ProductCard key={productInfo.id} productInfo={productInfo} />
+      ))}
+    </GridContainer>
   );
 }
 

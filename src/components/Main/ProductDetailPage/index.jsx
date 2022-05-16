@@ -26,36 +26,41 @@ function ProductDetailPage() {
     errorMessage,
   } = useFetch(productURL);
 
-  return (
-    <DetailContainer>
-      {isLoading ? (
-        <Spinner />
-      ) : errorMessage ? (
-        <div>😱 Error: 관리자에게 문의하세요. 😱</div>
-      ) : (
-        <>
-          <Top>
-            <ProductImage src={selectedProduct.thumbnailUrl} />
-            <ProductName>{selectedProduct.name}</ProductName>
-          </Top>
-          <Bottom>
-            <Span>금액</Span>
-            <ProductPrice>
-              {selectedProduct.price.toLocaleString()}원
-            </ProductPrice>
-          </Bottom>
-          <BoxButton
-            onClick={() => {
-              alert("🛒아직입니다~~^^🛒");
-            }}
-            bgColor="#73675C"
-          >
-            장바구니 담기
-          </BoxButton>
-        </>
-      )}
-    </DetailContainer>
-  );
+  const renderContent = () => {
+    if (isLoading) return <Spinner />;
+
+    if (errorMessage)
+      return (
+        <div>
+          😱 Error: 관리자에게 문의하세요.😱 <br /> %{errorMessage}%
+        </div>
+      );
+
+    return (
+      <>
+        <Top>
+          <ProductImage src={selectedProduct.thumbnailUrl} />
+          <ProductName>{selectedProduct.name}</ProductName>
+        </Top>
+        <Bottom>
+          <Span>금액</Span>
+          <ProductPrice>
+            {selectedProduct.price.toLocaleString()}원
+          </ProductPrice>
+        </Bottom>
+        <BoxButton
+          onClick={() => {
+            alert("🛒아직입니다~~^^🛒");
+          }}
+          bgColor="#73675C"
+        >
+          장바구니 담기
+        </BoxButton>
+      </>
+    );
+  };
+
+  return <DetailContainer>{renderContent()}</DetailContainer>;
 }
 
 export default ProductDetailPage;
