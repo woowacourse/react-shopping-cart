@@ -99,6 +99,37 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
+    case 'CART_PRODUCT_DELETE_START': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case 'CART_PRODUCT_DELETE_SUCCESS': {
+      const {
+        payload: { cart },
+      } = action;
+      return {
+        ...state,
+        cart,
+        isLoading: false,
+      };
+    }
+
+    case 'CART_PRODUCT_DELETE_FAILURE': {
+      const {
+        payload: { message },
+      } = action;
+
+      alert(message);
+
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
+
     case 'UPDATE_CHECKED_LIST': {
       const {
         payload: { checkedProductList },

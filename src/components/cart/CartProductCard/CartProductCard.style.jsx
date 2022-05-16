@@ -22,6 +22,12 @@ export const Description = styled.div`
   width: 100%;
 `;
 
+export const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
 export const Name = styled.h1`
   font-size: 20px;
   align-self: flex-start;

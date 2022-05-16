@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import { API_URL } from '../api/constants';
+import { removeProperty } from '../utils';
 import data from './data';
 import images from './images';
 
@@ -67,5 +68,19 @@ export const handlers = [
     window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
 
     return res(ctx.json(currentShoppingCart));
+  }),
+  rest.delete(`${API_URL}shopping-cart/:productId`, (req, res, ctx) => {
+    const { productId } = req.params;
+    const currentShoppingCart = JSON.parse(window.localStorage.getItem('server-shopping-cart'));
+
+    if (!currentShoppingCart || !currentShoppingCart[productId]) {
+      return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
+    }
+
+    const newCart = removeProperty(currentShoppingCart, productId);
+
+    window.localStorage.setItem('server-shopping-cart', JSON.stringify(newCart));
+
+    return res(ctx.json(newCart));
   }),
 ];

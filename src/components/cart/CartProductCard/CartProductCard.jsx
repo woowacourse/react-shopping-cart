@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleProductCheck, updateCartProductQuantityAsync } from '../../../store/actions/cart';
+import {
+  deleteCartProductAsync,
+  toggleProductCheck,
+  updateCartProductQuantityAsync,
+} from '../../../store/actions/cart';
 import { Position } from '../../../styles/GlobalStyles';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import Counter from '../../common/Counter/Counter';
@@ -24,6 +28,12 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
     dispatch(updateCartProductQuantityAsync(id, quantity - 1));
   };
 
+  const onProductDelete = () => {
+    if (window.confirm(`${name}을/를 장바구니에서 삭제하시겠습니까?`)) {
+      dispatch(deleteCartProductAsync(id));
+    }
+  };
+
   return (
     <Styled.Container>
       <CheckBox checked={checked} onClick={toggleCheck} />
@@ -32,7 +42,9 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
 
       <Styled.Description>
         <Position position="absolute" top="0" right="0">
-          <Icon iconName="trash" fill="#333333" />
+          <Styled.Button type="button" onClick={onProductDelete}>
+            <Icon iconName="trash" fill="#333333" />
+          </Styled.Button>
         </Position>
         <Styled.Name>{name}</Styled.Name>
         <Counter

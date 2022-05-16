@@ -46,3 +46,13 @@ export const updateCartQuantity = async (productId, quantity) => {
 
   return { cart: response.data };
 };
+
+export const deleteCartProduct = async (productId) => {
+  const response = await productAPI.delete(`/shopping-cart/${productId}`);
+
+  if (response.statusText !== 'OK') {
+    throw Error('서버 오류');
+  }
+
+  return { cart: response.data };
+};

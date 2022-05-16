@@ -1,4 +1,4 @@
-import { addToCart, getCart, updateCartQuantity } from '../../api/api';
+import { addToCart, deleteCartProduct, getCart, updateCartQuantity } from '../../api/api';
 import { actionFailed, actionStarted, actionSucceeded } from './global';
 
 export const addToCartAsync = (productId, quantity) => async (dispatch) => {
@@ -56,4 +56,20 @@ export const toggleProductCheck = (productId) => (dispatch, getState) => {
       : [...prevList, productId];
 
   dispatch({ type: 'UPDATE_CHECKED_LIST', payload: { checkedProductList: newArray } });
+};
+
+export const deleteCartProductAsync = (productId) => async (dispatch) => {
+  const stateName = 'CART_PRODUCT_DELETE';
+  dispatch(actionStarted(stateName));
+
+  try {
+    const cart = await deleteCartProduct(productId);
+    dispatch(actionSucceeded(stateName, { cart }));
+    dispatch({
+      type: 'UPDATE_CHECKED_LIST',
+      payload: { checkedProductList: Object.keys(cart.cart) },
+    });
+  } catch ({ message }) {
+    dispatch(actionFailed(stateName, { message }));
+  }
 };
