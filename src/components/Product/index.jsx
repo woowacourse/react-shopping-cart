@@ -12,7 +12,7 @@ const Product = ({ id, thumbnail, name, price }) => {
     <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
       <Styled.ThumbnailBox>
         <Flex justify="center" align="center">
-          <img src={thumbnail} alt="상품 이미지" />
+          <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
         </Flex>
       </Styled.ThumbnailBox>
       <Styled.Content>

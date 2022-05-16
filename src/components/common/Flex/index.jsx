@@ -4,15 +4,15 @@ const Flex = styled.div`
   ${({
     direction = 'row',
     wrap = 'nowrap',
-    align = 'normal',
     justify = 'normal',
+    align = 'normal',
     gap = '0',
   }) => css`
     display: flex;
     flex-direction: ${direction};
     flex-wrap: ${wrap};
-    align-items: ${align};
     justify-content: ${justify};
+    align-items: ${align};
     gap: ${gap};
   `}
 `;
