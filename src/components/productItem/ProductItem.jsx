@@ -16,6 +16,7 @@ import {
   StyledQuantityContainer,
 } from 'components/productItem/style';
 
+import autoComma from 'utils/autoComma';
 import { PRODUCT } from 'constants';
 
 const ProductItem = ({ id }) => {
@@ -51,7 +52,7 @@ const ProductItem = ({ id }) => {
       <StyledProductContainer>
         <div>
           <StyledProductText name="true">{name}</StyledProductText>
-          <StyledProductText price="true">{price}원</StyledProductText>
+          <StyledProductText price="true">{autoComma(price)}원</StyledProductText>
         </div>
         <div onClick={handleCartClick}>
           {isInCart ? (
