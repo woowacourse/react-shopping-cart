@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { actions } from '../../redux/actions';
@@ -12,7 +12,7 @@ const useProductPage = () => {
     productDetail: state.productDetail,
   }));
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       dispatch(actions.getProductDetail(id));
     }
