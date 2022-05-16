@@ -1,7 +1,7 @@
-import NotFound from "../../components/@shared/NotFound";
+import Empty from "../../components/@shared/Empty";
 
 function ProductDetail() {
-  return <NotFound />;
+  return <Empty />;
 }
 
 export default ProductDetail;

@@ -1,7 +1,7 @@
-import NotFound from "../../components/@shared/NotFound";
+import Empty from "../../components/@shared/Empty";
 
 function OrderList() {
-  return <NotFound />;
+  return <Empty />;
 }
 
 export default OrderList;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const EmptyPageImage = styled.img`
+const EmptyImage = styled.img`
   width: 800px;
   height: 600px;
 `;
 
-export { EmptyPageImage };
+export { EmptyImage };
