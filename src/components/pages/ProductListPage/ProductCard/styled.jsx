@@ -8,6 +8,10 @@ export const CardContainer = styled.li`
   border: 1px solid ${({ theme: { color } }) => color.border};
 
   cursor: pointer;
+
+  :hover {
+    box-shadow: 0 0 10px 0 ${({ theme: { color } }) => color.shadow};
+  }
 `;
 
 export const ImageWrapper = styled.div`
