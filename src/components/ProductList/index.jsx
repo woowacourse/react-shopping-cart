@@ -1,7 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getProductList } from 'modules/api';
+
 import Product from 'components/Product';
+import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
 
 const Styled = {
   ProductBox: styled.div`
@@ -21,7 +24,27 @@ const Styled = {
 };
 
 const ProductList = () => {
-  const productList = useSelector(({ productListReducer }) => productListReducer.productList);
+  const { productList, loading, error } = useSelector(
+    ({ productListReducer }) => productListReducer.posts,
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductList());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <Styled.ProductBox>
+        <LoadingSpinner />
+      </Styled.ProductBox>
+    );
+  }
+
+  if (error) {
+    return <Styled.ProductBox>에러 발생!</Styled.ProductBox>;
+  }
 
   return (
     <Styled.ProductBox>

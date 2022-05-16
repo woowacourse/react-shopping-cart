@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import productListReducer from 'modules/productList';
+import productListReducer from 'modules/api';
 
 const rootReducer = combineReducers({ productListReducer });
 
