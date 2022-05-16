@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Spinner from '../../components/Spinner/Spinner';
-import useProductPage from './useProductPage';
+import useProductPage from './useProductDetail';
 
 function ProductPage() {
   const { isLoading, productDetail } = useProductPage();
