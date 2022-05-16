@@ -8,6 +8,7 @@ import { GridLayout } from 'component/common';
 import LoadingSpinner from 'component/LoadingSpinner/LoadingSpinner';
 import ProductContainer from 'container/ProductContainer';
 import PageController from 'component/common/PageController/PageController';
+import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
 
 const Content = styled.div`
   display: flex;
@@ -19,9 +20,15 @@ const Content = styled.div`
 `;
 
 function ProductList() {
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const products = useSelector(products => products);
-  const dispatch = useDispatch();
+
+  const currentPageProducts = products.slice(
+    (currentPage - 1) * PRODUCTS_COUNT_PER_PAGE,
+    currentPage * PRODUCTS_COUNT_PER_PAGE
+  );
+  const pageLength = products.length / PRODUCTS_COUNT_PER_PAGE + 1;
 
   useEffect(() => {
     if (products.length) {
@@ -40,12 +47,12 @@ function ProductList() {
       {products.length ? (
         <>
           <GridLayout>
-            {products.slice((currentPage - 1) * 12, currentPage * 12).map(product => (
+            {currentPageProducts.map(product => (
               <ProductContainer key={product.id} {...product} />
             ))}
           </GridLayout>
           <PageController
-            pageLength={products.length / 12 + 1}
+            pageLength={pageLength}
             currentPage={currentPage}
             onClickButton={handlePageChange}
           />
