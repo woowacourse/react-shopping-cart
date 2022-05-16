@@ -8,7 +8,7 @@ import CartIcon from 'components/shared/cartIcon/CartIcon';
 
 import { BASE_URL } from 'constants';
 
-const StyledRoutes = styled.div`
+const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -32,11 +32,11 @@ function App() {
           </div>
         }
       />
-      <StyledRoutes>
+      <PageWrapper>
         <Routes>
           <Route path={BASE_URL} element={<ProductListPage />} />
         </Routes>
-      </StyledRoutes>
+      </PageWrapper>
     </BrowserRouter>
   );
 }
