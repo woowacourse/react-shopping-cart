@@ -38,6 +38,8 @@ export const Button = styled.button`
   width: 100%;
   padding: 15px;
 
+  border: none;
+
   background-color: ${({ theme }) => theme.mainColor};
   color: ${({ theme }) => theme.textColorWhite};
   font-size: 24px;
@@ -46,5 +48,13 @@ export const Button = styled.button`
 
   &:hover {
     opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: #aaaaaa;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 `;

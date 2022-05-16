@@ -24,7 +24,9 @@ function OrderContainer() {
           <Styled.Label>결제예상금액</Styled.Label>
           <Styled.Price>{totalPrice}원</Styled.Price>
         </Styled.ExpectedPriceWrapper>
-        <Styled.Button>주문하기 ({checkedProductList.length}개)</Styled.Button>
+        <Styled.Button disabled={checkedProductList.length === 0}>
+          주문하기 ({checkedProductList.length}개)
+        </Styled.Button>
       </Styled.Content>
     </Styled.Container>
   );
