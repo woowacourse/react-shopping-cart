@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-
 import { addCartList } from 'actions/cart';
 
 import Button from 'components/@common/Button';
-import { ICON_CODE } from 'constants/';
+import ToolTip from 'components/@common/ToolTip';
 
+import { ICON_CODE } from 'constants/';
 import * as Styled from './styles';
 
 function ProductItem({ id, image, name, price }) {
@@ -29,7 +29,9 @@ function ProductItem({ id, image, name, price }) {
         </Styled.ItemInfo>
 
         <Styled.ButtonContainer>
-          <Button className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+          <ToolTip text="장바구니 담기" align="bottom">
+            <Button className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+          </ToolTip>
         </Styled.ButtonContainer>
       </Styled.Description>
     </Styled.Container>
