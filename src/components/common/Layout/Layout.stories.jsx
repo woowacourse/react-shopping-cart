@@ -6,10 +6,6 @@ export default {
   component: Layout,
 };
 
-const Template = (args) => <Layout {...args} />;
+const Template = () => <Layout />;
 
 export const Default = Template.bind({});
-
-Default.args = {
-  children: '레이아웃 테스트',
-};
