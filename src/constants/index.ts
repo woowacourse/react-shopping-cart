@@ -1,0 +1,3 @@
+const MAX_RESULT_ITEM_LIST = 12;
+
+export { MAX_RESULT_ITEM_LIST };

@@ -21,7 +21,7 @@ const ItemList = () => {
     data: itemList,
     error,
     loading,
-  } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=12`);
+  } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
 
   const { data: cartList } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
