@@ -1,10 +1,10 @@
-import S from "../../styled";
+import StyledLogoLink from "./LogoLink.styled";
 
 function LogoLink({ src, href, className = "logo-link" }) {
   return (
-    <S.LogoLink href={href} className={className}>
+    <StyledLogoLink href={href} className={className}>
       <img src={src} alt="" />
-    </S.LogoLink>
+    </StyledLogoLink>
   );
 }
 

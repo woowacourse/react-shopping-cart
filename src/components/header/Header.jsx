@@ -1,17 +1,19 @@
 import { css } from "@emotion/react";
-import S from "../styled";
-import StarcraftLogo from "../../assets/images/starcraft-logo.png";
+
+import StyledHeader from "./Header.styled";
+import HeaderWrapper from "../Wrapper.styled";
 import LogoLink from "./logo-link/LogoLink";
+import StarcraftLogo from "../../assets/images/starcraft-logo.png";
 import Menu from "./menu/Menu";
 
 function Header() {
   return (
-    <S.Header>
-      <S.Wrapper css={innerHeaderStyle}>
+    <StyledHeader>
+      <HeaderWrapper css={innerHeaderStyle}>
         <LogoLink src={StarcraftLogo} href="/" />
         <Menu />
-      </S.Wrapper>
-    </S.Header>
+      </HeaderWrapper>
+    </StyledHeader>
   );
 }
 

@@ -1,8 +1,8 @@
-import S from "../../styled";
+import StyledMenu from "./Menu.styled";
 
 function Menu() {
   return (
-    <S.Menu>
+    <StyledMenu>
       <ul>
         <li>
           <a href="/">장바구니</a>
@@ -11,7 +11,7 @@ function Menu() {
           <a href="/">주문목록</a>
         </li>
       </ul>
-    </S.Menu>
+    </StyledMenu>
   );
 }
 
