@@ -7,8 +7,8 @@ const getProductListAsync = () => async (dispatch) => {
       type: actionTypes.SET_PRODUCT_LIST,
       payload: await getProductList(),
     });
-  } catch (err) {
-    console.log('err', err);
+  } catch (error) {
+    console.log('error', error);
   }
 };
 

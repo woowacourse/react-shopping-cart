@@ -14,9 +14,14 @@ function ProductDetailPage() {
 
   useEffect(() => {
     async function getProductItemInfo(id) {
-      const productItem = await getProductItem(id);
-      setItem(productItem);
-      setLoading(false);
+      try {
+        const productItem = await getProductItem(id);
+        setItem(productItem);
+      } catch (error) {
+        console.log('error', error);
+      } finally {
+        setLoading(false);
+      }
     }
     getProductItemInfo(id);
   }, [id]);
