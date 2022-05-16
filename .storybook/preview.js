@@ -1,3 +1,5 @@
+import { BrowserRouter } from 'react-router-dom';
+
 import { ThemeProvider } from 'styled-components';
 
 import theme from 'style/theme';
@@ -15,9 +17,11 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      {Story()}
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {Story()}
+      </ThemeProvider>
+    </BrowserRouter>
   ),
 ];
