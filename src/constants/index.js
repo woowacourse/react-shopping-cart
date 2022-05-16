@@ -5,7 +5,7 @@ export const PRODUCT_LIST_PATH = "/products";
 export const ROUTES = {
   ROOT: "/",
   PRODUCT_LIST: "/product-list",
-  PRODUCT_DETAIL: "/product-detail/:id",
+  PRODUCT_DETAIL: "/product-detail",
   PRODUCT_CART: "/product-cart",
   PRODUCT_ORDER_LIST: "/product-order-list",
 };

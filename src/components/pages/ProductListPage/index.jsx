@@ -6,6 +6,7 @@ import { getProductList } from "../../../reducers/productList";
 import Spinner from "../../common/Spinner";
 import ProductCard from "./ProductCard";
 import GridContainer from "../../common/GridContainer";
+import ErrorPage from "../ErrorPage";
 
 function ProductListPage() {
   const dispatch = useDispatch();
@@ -20,9 +21,9 @@ function ProductListPage() {
   if (isLoading) return <Spinner />;
   if (errorMessage)
     return (
-      <div>
+      <ErrorPage>
         😱 Error: 관리자에게 문의하세요.😱 <br /> %{errorMessage}%
-      </div>
+      </ErrorPage>
     );
   if (!productList?.length) return <h2>😱 텅 비었어요~~ 😱</h2>;
 

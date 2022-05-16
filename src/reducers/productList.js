@@ -27,7 +27,10 @@ export const getProductList = () => async (dispatch) => {
       products: data,
     });
   } catch (error) {
-    dispatch({ type: PRODUCT_LIST_ACTION.GET_LIST_ERROR, errorMessage: error });
+    dispatch({
+      type: PRODUCT_LIST_ACTION.GET_LIST_ERROR,
+      errorMessage: error.message,
+    });
   }
 };
 

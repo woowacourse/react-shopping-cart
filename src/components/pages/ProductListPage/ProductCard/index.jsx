@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import shoppingCartIconBlack from "../../../../asset/shopping-cart-icon-black.svg";
+import { ROUTES } from "../../../../constants";
 
 import IconButton from "../../../common/IconButton";
 import {
@@ -18,7 +19,7 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(`/product-detail/${id}`);
+    navigate(`${ROUTES.PRODUCT_DETAIL}/${id}`);
   };
 
   return (

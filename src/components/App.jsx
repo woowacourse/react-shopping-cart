@@ -18,6 +18,7 @@ import {
 import { theme } from "../style";
 import { ROUTES } from "../constants";
 import { Main } from "./styled";
+import ErrorPage from "./pages/ErrorPage";
 
 const store = createStore(
   rootReducer,
@@ -39,7 +40,7 @@ function App() {
             />
             <Route
               exact
-              path={ROUTES.PRODUCT_DETAIL}
+              path={`${ROUTES.PRODUCT_DETAIL}/:id`}
               element={<ProductDetailPage />}
             />
             <Route
@@ -52,7 +53,10 @@ function App() {
               path={ROUTES.PRODUCT_ORDER_LIST}
               element={<OrderListPage />}
             />
-            <Route path="*" element={<div>잘못된 접근입니다.</div>} />
+            <Route
+              path="*"
+              element={<ErrorPage>잘못된 접근입니다.</ErrorPage>}
+            />
           </Routes>
         </Main>
       </Provider>
