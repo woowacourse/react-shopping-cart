@@ -17,7 +17,6 @@ const Styled = {
   ProductText: styled.p`
     font-weight: 400;
     letter-spacing: 0.5px;
-    color: var(--product-text-color);
 
     ${({ name }) =>
       name &&
@@ -35,7 +34,7 @@ const Styled = {
   `,
 
   QuantityContainer: styled.div`
-    background-color: var(--primary-color);
+    background-color: ${({ theme }) => theme.colors.mint};
     width: 50px;
     height: 50px;
     border-radius: 100%;

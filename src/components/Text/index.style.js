@@ -7,7 +7,7 @@ const Styled = {
       css`
         font-weight: 500;
         font-size: 25px;
-        color: var(--primary-color);
+        color: ${({ theme }) => theme.colors.mint};
       `}
   `,
 };
