@@ -8,8 +8,8 @@ const ButtonLayout = styled.button`
 
   background-color: ${(props) => props.backgroundColor || 'transparent'};
 
-  width: ${(props) => props?.width};
-  height: ${(props) => props?.height};
+  width: ${(props) => props.width || '200px'};
+  height: ${(props) => props.height || '50px'};
 
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 

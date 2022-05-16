@@ -14,4 +14,4 @@ const Template = (args) => (
   </BrowserRouter>
 );
 
-export const Defaults = Template.bind({});
+export const DefaultHeader = Template.bind({});

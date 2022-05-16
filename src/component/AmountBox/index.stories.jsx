@@ -12,11 +12,13 @@ const Template = (args) => <AmountBox {...args} />;
 export const ExpectedPrice = Template.bind({});
 ExpectedPrice.args = {
   type: 'expect',
-  totalQuantity: '2',
+  totalCount: 2,
+  totalPrice: 25000,
 };
 
 export const PayPrice = Template.bind({});
 PayPrice.args = {
   type: 'pay',
-  totalQuantity: '',
+  totalCount: '',
+  totalPrice: 25000,
 };

@@ -8,7 +8,7 @@ import useCartItem from 'hook/useCartItem';
 import useFetch from 'constant/useFetch';
 import {useParams} from 'react-router-dom';
 import Loader from 'component/Loader';
-import ErrorBoundary from 'component/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from 'component/ErrorBoundary';
 import NotFoundPage from 'page/NotFoundPage';
 
 export default function ProductDetailPage() {
