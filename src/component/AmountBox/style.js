@@ -25,7 +25,7 @@ const PriceInfoWrapper = styled.div`
   margin: 34px 0 68px;
 
   & p {
-    font-size: 20px;
+    font-size: ${({theme}) => theme.FONT_SIZE.S};
     font-weight: 700;
     background-size: 0% 50%;
     background: ${({theme}) => `linear-gradient(to top, ${theme.COLOR.MINT} 50%, transparent 50%)`};

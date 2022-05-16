@@ -29,12 +29,12 @@ const NamePriceWrapper = styled.div`
 `;
 
 const ItemNameWrapper = styled(Link)`
-  font-size: 16px;
+  font-size: ${({theme}) => theme.FONT_SIZE.XS};
 `;
 
 const ItemPriceWrapper = styled.span`
   margin-top: 5px;
-  font-size: 20px;
+  font-size: ${({theme}) => theme.FONT_SIZE.S};
 `;
 
 const InfoWrapper = styled.div`

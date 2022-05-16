@@ -11,7 +11,7 @@ const buttonColor = {
 
 const StyledButton = styled.button`
   color: ${({theme}) => theme.COLOR.WHITE};
-  font-size: 24px;
+  font-size: ${({theme}) => theme.FONT_SIZE.M};
   font-weight: 500;
   line-height: 12px;
 

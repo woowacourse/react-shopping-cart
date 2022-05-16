@@ -25,7 +25,7 @@ export default function ProductListPage() {
   return (
     <ProductListPageWrapper>
       {pending && <Loader />}
-      {error && <ErrorPage />}
+      {!pending && error && <ErrorPage />}
       {!pending &&
         (productList.length ? (
           <ProductListWrapper>
