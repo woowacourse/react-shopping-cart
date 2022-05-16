@@ -1,0 +1,14 @@
+const COLORS = {
+  BLACK: '#000000',
+  GRAY_005: '#555555',
+  GRAY_004: '#AAAAAA',
+  GRAY_003: '#DDDDDD',
+  GRAY_001: '#F6F6F6',
+  GRAY_002: '#F3F3F3',
+  WHITE: '#FFFFFF',
+  BLUE_001: '#0066FF',
+};
+
+const BRAND_COLORS = {};
+
+export { COLORS, BRAND_COLORS };
