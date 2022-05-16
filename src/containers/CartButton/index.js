@@ -8,7 +8,7 @@ function CartButton() {
 
   return (
     <Link onClick={handleCartButtonClick} to="">
-      <Image src={'img/shopping-cart-black.png'} width={'30px'} height={'26px'} />
+      <Image src={'img/shopping-cart-black.png'} width={'30px'} height={'26px'} alt="카드 이미지" />
     </Link>
   );
 }

@@ -9,7 +9,7 @@ function HomeButton() {
   return (
     <FlexWrapper alignItmes="center">
       <MarginRightWrapper marginRight="14px">
-        <Image src="/img/shopping-cart-white.png" width="50" height="44" />
+        <Image src="/img/shopping-cart-white.png" width="50" height="44" alt="홈페이지 로고" />
       </MarginRightWrapper>
       <WhiteButton fontSize="2.5rem" fontWeight="700">
         WOOWA SHOP

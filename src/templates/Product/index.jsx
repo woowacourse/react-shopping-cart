@@ -20,7 +20,7 @@ function Product({ imgSrc, title, price }) {
     <ProductStyled>
       <MarginBottomWrapper marginBottom="18px">
         <Link onClick={handleProductClick} to="">
-          <Image src={imgSrc} width="100%" height="14.24vmax" />
+          <Image src={imgSrc} width="100%" height="14.24vmax" alt="상품 이미지" />
         </Link>
       </MarginBottomWrapper>
       <FlexWrapper alignItems="center" justifyContent="center">
