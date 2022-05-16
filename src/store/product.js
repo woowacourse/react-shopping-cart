@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PATH, SERVER_URL } from '../constants';
+import { PATH } from '../constants';
 
 const ADD_TO_CARTS_SUCCESS = 'carts/ADD_TO_CARTS_SUCCESS';
 const ADD_TO_CARTS_FAIL = 'carts/ADD_TO_CARTS_FAIL';
@@ -40,7 +40,7 @@ const productReducer = (state = initialState, action) => {
 export const addToCarts = (id) => async (dispatch) => {
   try {
     const result = await axios({
-      url: `${SERVER_URL}/${PATH.CARTS}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/${PATH.CARTS}`,
       method: 'POST',
       data: { id, quantity: 1 },
     });
@@ -54,7 +54,7 @@ export const addToCarts = (id) => async (dispatch) => {
 export const deleteFromCarts = (id) => async (dispatch) => {
   try {
     const result = await axios({
-      url: `${SERVER_URL}/${PATH.CARTS}/${id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/${PATH.CARTS}/${id}`,
       method: 'DELETE',
     });
 

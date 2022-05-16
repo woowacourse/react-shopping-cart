@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PATH, SERVER_URL } from '../constants';
+import { PATH } from '../constants';
 
 const LOAD_PRODUCTS_START = 'products/LOAD_START';
 const LOAD_PRODUCTS_SUCCESS = 'products/LOAD_SUCCESS';
@@ -43,7 +43,9 @@ const productsReducer = (state = initialState, action) => {
 export const loadProducts = () => async (dispatch) => {
   dispatch(loadProductsStart());
   try {
-    const products = await axios(`${SERVER_URL}/${PATH.PRODUCTS}`);
+    const products = await axios(
+      `${process.env.REACT_APP_SERVER_URL}/${PATH.PRODUCTS}`
+    );
     dispatch(loadProductsSuccess(products.data));
   } catch (error) {
     dispatch(loadProductsFail(error));

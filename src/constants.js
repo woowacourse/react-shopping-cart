@@ -15,8 +15,6 @@ export const COLOR = {
   PRIMARY: '#2AC1BC',
 };
 
-export const SERVER_URL = 'https://hui-shopping-cart.herokuapp.com';
-
 export const PATH = {
   ROOT: '/',
   PRODUCTS: 'products',

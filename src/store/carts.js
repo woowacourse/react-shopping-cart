@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PATH, SERVER_URL } from '../constants';
+import { PATH } from '../constants';
 
 const LOAD_CARTS_START = 'carts/LOAD_START';
 const LOAD_CARTS_SUCCESS = 'carts/LOAD_SUCCESS';
@@ -43,7 +43,9 @@ const cartsReducer = (state = initialState, action) => {
 export const loadCarts = () => async (dispatch) => {
   dispatch(loadCartsStart());
   try {
-    const carts = await axios(`${SERVER_URL}/${PATH.CARTS}`);
+    const carts = await axios(
+      `${process.env.REACT_APP_SERVER_URL}/${PATH.CARTS}`
+    );
     dispatch(loadCartsSuccess(carts.data));
   } catch (error) {
     dispatch(loadCartsFail(error));
