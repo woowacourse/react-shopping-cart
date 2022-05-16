@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { loadProducts } from './store/products';
 import { loadCarts } from './store/carts';
 
-import ProductListContainer from './components/Main/ProductListContainer';
 import Header from './components/Header/Header';
-import Cart from './components/Cart/Cart';
-import NotFound from './components/NotFound/NotFound';
-import Orders from './components/Orders/Orders';
+import Main from './pages/Main';
+import Orders from './pages/Orders';
+import NotFound from './pages/NotFound';
+import Carts from './pages/Carts';
 
 import GlobalStyle from './GlobalStyle';
 
@@ -29,9 +29,9 @@ function App() {
         <GlobalStyle />
         <Header />
         <Routes>
-          <Route path={`${PATH.ROOT}`} element={<ProductListContainer />} />
+          <Route path={`${PATH.ROOT}`} element={<Main />} />
           <Route path={`${PATH.ORDERS}`} element={<Orders />} />
-          <Route path={`${PATH.CARTS}`} element={<Cart />} />
+          <Route path={`${PATH.CARTS}`} element={<Carts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

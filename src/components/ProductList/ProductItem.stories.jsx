@@ -1,17 +1,17 @@
-import Product from './Product';
+import ProductItem from './ProductItem';
 
 export default {
-  title: 'Product',
-  component: Product,
+  title: 'ProductItem',
+  component: ProductItem,
 };
 
 function Template(args) {
-  return <Product {...args} />;
+  return <ProductItem {...args} />;
 }
 
-export const DefaultProduct = Template.bind({});
+export const DefaultProductItem = Template.bind({});
 
-DefaultProduct.args = {
+DefaultProductItem.args = {
   id: '123',
   src: 'https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9300000002853]_20210419104333070.jpg',
   price: '1500',

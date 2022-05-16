@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import Product from './Product';
+import Product from './ProductItem';
 import { useEffect } from 'react';
 import { loadProducts } from '../../store/products';
 import { loadCarts } from '../../store/carts';
