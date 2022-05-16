@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { addCartList } from 'actions/cart';
 
-import IconButton from 'components/@common/IconButton';
+import Button from 'components/@common/Button';
 import { ICON_CODE } from 'constants/';
 
 import * as Styled from './styles';
@@ -29,7 +29,7 @@ function ProductItem({ id, image, name, price }) {
         </Styled.ItemInfo>
 
         <Styled.ButtonContainer>
-          <IconButton className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
+          <Button className="cart" onClick={onClickAddCartButton} icon={ICON_CODE.CART} />
         </Styled.ButtonContainer>
       </Styled.Description>
     </Styled.Container>
