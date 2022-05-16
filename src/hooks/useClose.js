@@ -2,28 +2,24 @@ import { useState } from 'react';
 import { MODAL } from 'constants';
 
 const useClose = () => {
-  const [manualDebounce, setManualDebounce] = useState(null);
-  const [autoDebounce, setAutoDebounce] = useState(null);
+  const [debounce, setDebounce] = useState(null);
 
   const clearTimer = () => {
-    if (manualDebounce) {
-      clearTimeout(manualDebounce);
-    }
-
-    if (autoDebounce) {
-      clearTimeout(autoDebounce);
+    if (debounce) {
+      clearTimeout(debounce);
     }
   };
 
-  const manualClose = close => {
-    setManualDebounce(setTimeout(() => close(), MODAL.CLOSE_TIME));
+  const setAutoCloseTimer = callback => {
+    setDebounce(setTimeout(() => callback(), MODAL.CLOSE_TIME));
   };
 
-  const autoClose = close => {
-    setAutoDebounce(setTimeout(() => close(), MODAL.CLOSE_TIME));
+  const extendTimer = callback => {
+    clearTimer();
+    setAutoCloseTimer(callback);
   };
 
-  return [clearTimer, manualClose, autoClose];
+  return [clearTimer, setAutoCloseTimer, extendTimer];
 };
 
 export default useClose;
