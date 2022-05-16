@@ -1,19 +1,4 @@
-const START_PRODUCT = 'product/START_PRODUCT';
-const SET_PRODUCT = 'product/SET_PRODUCT';
-const RESET_PRODUCT = 'product/RESET_PRODUCT';
-
-export const startProduct = () => ({
-  type: START_PRODUCT,
-});
-
-export const setProduct = (product) => ({
-  type: SET_PRODUCT,
-  payload: { product },
-});
-
-export const resetProduct = () => ({
-  type: RESET_PRODUCT,
-});
+import { START_PRODUCT, SET_PRODUCT, RESET_PRODUCT } from 'store/product/actionTypes';
 
 const initialState = {
   currentProduct: {

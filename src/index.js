@@ -7,8 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './App';
 import './index.css';
-import rootReducer from 'modules';
-import { setProductList } from 'modules/productList';
+import rootReducer from 'store/index.js';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 

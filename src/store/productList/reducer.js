@@ -1,14 +1,4 @@
-const START_PRODUCT_LIST = 'productList/START_PRODUCT_LIST';
-const SET_PRODUCT_LIST = 'productList/SET_PRODUCT_LIST';
-
-export const startProductList = () => ({
-  type: START_PRODUCT_LIST,
-});
-
-export const setProductList = (productList) => ({
-  type: SET_PRODUCT_LIST,
-  payload: { productList },
-});
+import { START_PRODUCT_LIST, SET_PRODUCT_LIST } from 'store/productList/actionTypes';
 
 const initialState = {
   productList: [],
