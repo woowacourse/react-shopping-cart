@@ -5,29 +5,14 @@ import styled from 'styled-components';
 import Product from 'components/Product';
 import LoadingSpinner from 'components/common/LoadingSpinner';
 import { setProductList } from 'modules/productList';
+import { loadProductList } from 'api';
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);
 
   useEffect(() => {
-    const loadProductList = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        return;
-      }
-
-      const result = await response.json();
-      dispatch(setProductList(result));
-    };
-
-    loadProductList();
+    loadProductList().then((res) => dispatch(setProductList(res)));
   }, []);
 
   if (isLoading) {

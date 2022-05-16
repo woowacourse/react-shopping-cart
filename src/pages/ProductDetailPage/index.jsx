@@ -7,6 +7,7 @@ import { CardDetailButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
 import { setProduct, resetProduct } from 'modules/product';
+import { loadProduct } from 'api';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -14,23 +15,7 @@ const ProductDetail = () => {
   const { currentProduct, isLoading } = useSelector(({ productReducer }) => productReducer);
 
   useEffect(() => {
-    const loadProduct = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList/${productId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        return;
-      }
-
-      const result = await response.json();
-      dispatch(setProduct(result));
-    };
-
-    loadProduct();
+    loadProduct(productId).then((res) => dispatch(setProduct(res)));
 
     return () => {
       dispatch(resetProduct());
