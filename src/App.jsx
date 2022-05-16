@@ -13,6 +13,7 @@ import {GlobalStyles} from 'style/globalStyle';
 import {PATH} from 'constant';
 
 import 'App.css';
+import NotFoundPage from 'page/NotFoundPage';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route exact path={PATH.HOME} element={<ProductListPage />}></Route>
             <Route exact path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
             <Route exact path={PATH.CART} element={<ProductCartPage />}></Route>
+            <Route path="*" element={<NotFoundPage />}></Route>
           </Routes>
         </ThemeProvider>
       </div>
