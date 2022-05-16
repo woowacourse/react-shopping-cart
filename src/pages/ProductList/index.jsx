@@ -7,7 +7,7 @@ import Product from 'templates/Product';
 import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
 import BlackText from 'components/BlackText';
 
-function ProductList() {
+function ProductListPage() {
   const products = useSelector((state) => state.product.products);
   const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
   const dispatch = useDispatch();
@@ -44,4 +44,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductListPage;

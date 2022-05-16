@@ -7,7 +7,7 @@ import ReduxThunk from 'redux-thunk';
 
 import theme from './style/theme';
 import GlobalStyle from 'style/GlobalStyle';
-import ProductList from './pages/ProductList';
+import ProductListPage from './pages/ProductList';
 import rootReducer from 'modules';
 import Header from 'templates/Header';
 
@@ -20,7 +20,7 @@ function App() {
         <GlobalStyle />
         <Header />
         <Routes>
-          <Route path="/" element={<ProductList />} />
+          <Route path="/" element={<ProductListPage />} />
         </Routes>
       </ThemeProvider>
     </Provider>
