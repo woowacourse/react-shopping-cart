@@ -6,9 +6,20 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  overflow: hidden;
+`;
 
+const ItemImageWrapper = styled.div`
+  width: 282px;
+  height: 282px;
+  overflow: hidden;
   & img {
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  & img:hover {
+    transform: scale(1.05);
   }
 `;
 
@@ -33,4 +44,11 @@ const InfoWrapper = styled.div`
   margin: 0 15px;
 `;
 
-export {ItemWrapper, NamePriceWrapper, InfoWrapper, ItemNameWrapper, ItemPriceWrapper};
+export {
+  ItemWrapper,
+  ItemImageWrapper,
+  NamePriceWrapper,
+  InfoWrapper,
+  ItemNameWrapper,
+  ItemPriceWrapper,
+};

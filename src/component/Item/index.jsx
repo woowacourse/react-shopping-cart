@@ -12,6 +12,7 @@ import {PATH} from 'constant';
 
 import {
   ItemWrapper,
+  ItemImageWrapper,
   NamePriceWrapper,
   InfoWrapper,
   ItemNameWrapper,
@@ -33,13 +34,16 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
 
   return (
     <ItemWrapper>
-      <img
-        src={itemImgURL}
-        alt="상품 이미지"
-        width="282px"
-        height="282px"
-        onClick={handleImageClick}
-      />
+      <ItemImageWrapper>
+        <img
+          src={itemImgURL}
+          alt="상품 이미지"
+          width="282px"
+          height="282px"
+          onClick={handleImageClick}
+        />
+      </ItemImageWrapper>
+
       <InfoWrapper>
         <NamePriceWrapper>
           <ItemNameWrapper to={`${PATH.DETAIL}/${id}`}>{itemName}</ItemNameWrapper>
