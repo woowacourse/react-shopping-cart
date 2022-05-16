@@ -5,9 +5,9 @@ import productReducer from './product';
 import cartsReducer from './carts';
 
 const rootReducer = combineReducers({
-  productsReducer,
-  cartsReducer,
-  productReducer,
+  products: productsReducer,
+  carts: cartsReducer,
+  product: productReducer,
 });
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

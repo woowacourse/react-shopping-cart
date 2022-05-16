@@ -14,12 +14,12 @@ function ProductListContainer() {
     products,
     isLoading: isProductsLoading,
     error: productsError,
-  } = useSelector((state) => state.productsReducer);
+  } = useSelector((state) => state.products);
   const {
     carts,
     isLoading: isCartsLoading,
     error: cartsError,
-  } = useSelector((state) => state.cartsReducer);
+  } = useSelector((state) => state.carts);
 
   useEffect(() => {
     dispatch(loadProducts());
