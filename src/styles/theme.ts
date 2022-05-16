@@ -3,9 +3,10 @@ import { css } from 'styled-components';
 type Args = string[];
 
 const sizes = {
-  sm: 320,
-  md: 890,
-  lg: 1280,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
 };
 
 const theme = {
@@ -37,7 +38,13 @@ const theme = {
       `,
     lg: (...args: Args) =>
       css`
-        @media only screen and (min-width: ${sizes.lg}px) {
+        @media only screen and (min-width: ${sizes.lg}px) and (max-width: ${sizes.xl}px) {
+          ${args}
+        }
+      `,
+    xl: (...args: Args) =>
+      css`
+        @media only screen and (min-width: ${sizes.xl}px) {
           ${args}
         }
       `,
