@@ -6,7 +6,7 @@ import animate from 'styles/utils/animate';
 import LoadingCharacter from 'assets/image/loading.png';
 import ErrorCharacter from 'assets/image/error.png';
 
-const ContainerBefore = {
+const CONTAINER_BEFORE = {
   LOADING: css`
     background-image: url(${LoadingCharacter});
 
@@ -51,7 +51,7 @@ const Container = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
 
-    ${({ status }) => ContainerBefore[status.toUpperCase()]}
+    ${({ status }) => CONTAINER_BEFORE[status.toUpperCase()]}
   }
 `;
 
