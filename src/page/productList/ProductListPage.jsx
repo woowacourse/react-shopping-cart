@@ -11,7 +11,6 @@ import { StyledProductListPage, StyledProductList } from 'page/productList/style
 
 const ProductListPage = () => {
   const { products } = useSelector(state => state.reducer);
-
   const getProducts = async () => {
     const productList = await getProductList();
     store.dispatch(initializeCart({ products: productList }));

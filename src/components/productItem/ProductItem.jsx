@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useClose from 'hooks/useClose';
 
@@ -26,12 +26,14 @@ const ProductItem = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
   const { products } = useSelector(state => state.reducer);
-  const [clearTimer, manualClose, autoClose] = useClose();
+  const [clearTimer, autoClose] = useClose();
   const { name, price, image, isInCart } = products.find(product => product.id === id);
+  const quantityRef = useRef(quantity);
+  quantityRef.current = quantity;
 
   const putCart = () => {
     setIsOpen(false);
-    store.dispatch(putProductToCart({ id, quantity }));
+    store.dispatch(putProductToCart({ id, quantity: quantityRef.current }));
     clearTimer();
   };
 
@@ -43,13 +45,13 @@ const ProductItem = ({ id }) => {
 
     if (!isOpen) {
       setIsOpen(true);
-      manualClose(putCart);
+      autoClose(putCart, quantity);
     }
   };
 
   const handleModalClick = () => {
     clearTimer();
-    autoClose(putCart);
+    autoClose(putCart, quantity);
   };
 
   return (
