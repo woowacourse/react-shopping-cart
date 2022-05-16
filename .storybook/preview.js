@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import ReduxThunk from 'redux-thunk';
-import rootReducer from '../src/reducers';
+import rootReducer from '../src/redux/reducers';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

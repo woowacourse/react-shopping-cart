@@ -1,5 +1,5 @@
 import { StoreState, Action } from '../types';
-import { types } from '../actions/actions';
+import { types } from './actions';
 
 const initialState: StoreState = {
   isLoading: false,

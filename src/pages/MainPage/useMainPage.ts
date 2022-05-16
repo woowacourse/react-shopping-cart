@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../actions/actions';
+import { actions } from '../../redux/actions';
 import { StoreState, Product } from '../../types';
 
 const useMainPage = () => {

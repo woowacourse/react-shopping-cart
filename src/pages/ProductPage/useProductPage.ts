@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { actions } from '../../actions/actions';
+import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
 
 const useProductPage = () => {

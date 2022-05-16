@@ -7,7 +7,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import ReduxThunk from 'redux-thunk';
 
 import App from './App';
-import rootReducer from './reducers';
+import rootReducer from './redux/reducers';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 const store = createStore(
