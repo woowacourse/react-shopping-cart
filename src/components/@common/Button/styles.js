@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { css } from '@emotion/react';
 
-import { COLORS } from 'styles/theme';
+import { LAYOUT, COLORS } from 'styles/theme';
 
 const BUTTON_TYPE = {
   BUTTON: css`
@@ -17,10 +17,10 @@ const Container = styled.button`
   cursor: pointer;
 
   font-size: 1rem;
-  border: 1px solid #ddd;
-  background-color: #f3f3f3;
+  border: 1px solid ${COLORS.LIGHTEN_150};
+  background-color: ${COLORS.LIGHTEN_250};
   transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 5px;
+  border-radius: ${LAYOUT.BORDER_RADIUS}px;
 
   ${({ containerType }) => BUTTON_TYPE[containerType]}
 
@@ -41,7 +41,7 @@ const Container = styled.button`
 
   &:hover {
     color: ${COLORS.BLUE_150};
-    background-color: ${COLORS.BLUE_150};
+    background-color: ${COLORS.LIGHTEN_200};
   }
 `;
 
