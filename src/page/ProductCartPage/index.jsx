@@ -8,9 +8,11 @@ import AmountBox from 'component/AmountBox';
 import CartItem from 'component/CartItem';
 
 import * as S from 'page/ProductCartPage/style';
+import useCartItem from 'hook/useCartItem';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
+  const {deleteCartItem} = useCartItem();
 
   const {totalCount, totalPrice} = cartItem.reduce(
     (prev, cur) => {
@@ -45,6 +47,9 @@ export default function ProductCartPage() {
                   itemPrice={itemPrice}
                   count={count}
                   id={id}
+                  handleDeleteIconClick={() => {
+                    deleteCartItem(id);
+                  }}
                 />
                 <hr />
               </React.Fragment>

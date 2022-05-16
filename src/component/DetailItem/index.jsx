@@ -1,8 +1,5 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import {CART} from 'store/modules/cart';
 
 import Button from 'component/common/Button';
 
@@ -10,15 +7,13 @@ import * as S from 'component/DetailItem/style';
 import {Font} from 'style/common';
 import theme from 'theme/theme';
 
-export default function DetailItem({itemImgURL, itemName, itemPrice, id, disabled}) {
-  const [disable, setDisable] = useState(disabled);
-  const dispatch = useDispatch();
-
-  const handleCartButtonClick = () => {
-    setDisable(true);
-    dispatch({type: CART.ADD, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
-  };
-
+export default function DetailItem({
+  itemImgURL,
+  itemName,
+  itemPrice,
+  disabled,
+  handleCartButtonClick = () => void 0,
+}) {
   return (
     <S.DetailItemLayout>
       <img src={itemImgURL} alt={itemName} width="570px" height="570px" />
@@ -32,7 +27,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, id, disable
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}
-        disabled={disable}
+        disabled={disabled}
       >
         장바구니
       </Button>
@@ -46,4 +41,5 @@ DetailItem.propTypes = {
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
   disabled: PropTypes.bool,
+  handleCartButtonClick: PropTypes.func,
 };
