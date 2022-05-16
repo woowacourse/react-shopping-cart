@@ -5,6 +5,7 @@ import ProductListPage from 'page/productList/ProductListPage';
 import Header from 'components/header/Header';
 import Button from 'components/shared/button/Button';
 import CartIcon from 'components/shared/cartIcon/CartIcon';
+import GlobalStyles from 'components/GlobalStyles';
 
 import { BASE_URL } from 'constants';
 
@@ -37,6 +38,7 @@ function App() {
           <Route path={BASE_URL} element={<ProductListPage />} />
         </Routes>
       </StyledRoutes>
+      <GlobalStyles />
     </BrowserRouter>
   );
 }
