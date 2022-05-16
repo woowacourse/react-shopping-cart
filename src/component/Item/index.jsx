@@ -32,7 +32,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
     <S.ItemLayout>
       <img
         src={itemImgURL}
-        alt="상품 이미지"
+        alt={itemName}
         width="282px"
         height="282px"
         onClick={handleImageClick}
