@@ -14,7 +14,7 @@ const ItemDetails = ({ imgUrl, title, price }) => {
       <S.ItemTitle>{title}</S.ItemTitle>
       <S.PriceContainer color={priceColor}>
         <p>금액</p>
-        <p>{price}원</p>
+        <p>{price?.toLocaleString("ko-KR")}원</p>
       </S.PriceContainer>
       <S.ShoppingCartButton
         type="button"

@@ -24,7 +24,7 @@ const Item = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
       <S.ItemInfoWrapper>
         <div onClick={onClick}>
           <S.ItemInfo>{title}</S.ItemInfo>
-          <S.ItemInfo>{price}원</S.ItemInfo>
+          <S.ItemInfo>{price.toLocaleString("ko-KR")}원</S.ItemInfo>
         </div>
         <S.ShoppingCartButton onClick={go}>
           <ShoppingCartIcon
