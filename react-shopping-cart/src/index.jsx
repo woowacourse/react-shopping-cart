@@ -10,6 +10,7 @@ import ProductList from 'pages/ProductList/ProductList.page';
 import rootReducer from 'reducers';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
+import NotFound from 'pages/NotFound/NotFound.page';
 
 const store = createStore(rootReducer);
 const persistor = persistStore(store);
@@ -24,6 +25,7 @@ root.render(
           <ThemeProvider theme={theme}>
             <Routes>
               <Route path="/" element={<ProductList />} />
+              <Route path="/*" element={<NotFound />} />
             </Routes>
           </ThemeProvider>
         </BrowserRouter>
