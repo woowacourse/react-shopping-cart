@@ -5,28 +5,31 @@ import { UPDATE_PRODUCT_LIST } from "@/redux/actions";
 import createAction from "@/redux/createAction";
 import StyledProductList from "@/pages/home/components/product-list/ProductList.styled";
 import ProductItem from "@/pages/home/components/product-item/ProductItem";
+import useFetch from "@/hooks/useFetch";
+
+/*
+
+const initialState = {
+  productList: [],
+  cart: cartFromLocalStorage,
+};
+
+*/
 
 function ProductList() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const productList = useSelector(({ productList }) => productList);
   const dispatch = useDispatch();
-  const getProductList = () => {
-    return async (dispatch) => {
-      const fetchResult = await fetch(`${API_URL}/products`);
-      const productList = await fetchResult.json();
-      setLoading(false);
-      setError(null);
-      dispatch(createAction(UPDATE_PRODUCT_LIST, productList));
-    };
-  };
+  const productList = useSelector(({ productList }) => productList);
 
-  useEffect(() => {
-    dispatch(getProductList());
-  }, []);
+  const [{ data, isLoading, isError }] = useFetch(
+    `${API_URL}/products`,
+    productList
+  );
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
+  dispatch(createAction(UPDATE_PRODUCT_LIST, data));
+
+  if (isLoading) return <p>Loading...😫</p>;
+  if (isError) return <p>Error...!😫</p>;
+
   return (
     <StyledProductList>
       {productList.map((item) => (
