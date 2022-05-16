@@ -4,11 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { ThemeProvider } from 'styled-components';
 
 import App from './App';
 import './index.css';
 import rootReducer from 'store/index.js';
-import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 
 const store = createStore(rootReducer, composeWithDevTools());
