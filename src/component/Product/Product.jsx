@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { Button } from 'component/common';
 
@@ -42,20 +42,42 @@ const PriceText = styled.p`
   font-size: 20px;
   letter-spacing: 0.5px;
   color: #333333;
+  cursor: pointer;
+`;
+
+const zoom = keyframes`
+  from {
+    width: 30px;
+  }
+  to{
+    width: 35px;
+  }
 `;
 
 const CartIcon = styled.img`
   width: 30px;
   border: none;
+
+  &:hover {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-name: ${zoom};
+  }
 `;
 
 function Product({ handleProductClick, handleCartClick, image, name, price }) {
   return (
-    <ProductBox onClick={handleProductClick}>
-      <ProductImage src={image} alt="과일 이미지" title="product-image" />
+    <ProductBox>
+      <ProductImage
+        src={image}
+        alt="과일 이미지"
+        title="product-image"
+        onClick={handleProductClick}
+      />
       <DescriptionBox>
         <div>
-          <NameText>{name}</NameText>
+          <NameText onClick={handleProductClick}>{name}</NameText>
           <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
         <Button onClick={handleCartClick}>
