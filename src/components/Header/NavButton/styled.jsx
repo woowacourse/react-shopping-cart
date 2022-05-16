@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const StyledNavButton = styled.button`
+export const StyledNavButton = styled.button`
   padding: 0 4px 4px;
 
   background-color: transparent;
@@ -15,9 +14,3 @@ const StyledNavButton = styled.button`
     border-bottom: 2px solid ${(props) => props.theme.main};
   }
 `;
-
-function NavButton({ children, ...rest }) {
-  return <StyledNavButton {...rest}>{children}</StyledNavButton>;
-}
-
-export default NavButton;

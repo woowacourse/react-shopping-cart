@@ -5,10 +5,10 @@ import { initializeProductInfoList } from "./../../../stores/productInfoListStor
 import { useFetch } from "../../../hooks/useFetch";
 
 import Spinner from "../../common/Spinner";
-import GridList from "./GridList";
 import ProductCard from "./ProductCard";
 
 import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../../../constants";
+import GridContainer from "../../common/GridContainer";
 
 const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
 
@@ -37,11 +37,11 @@ function ProductListPage() {
       ) : productInfoList.length === 0 ? (
         <h2>😱 텅 비었어요~~ 😱</h2>
       ) : (
-        <GridList>
+        <GridContainer colNo={4}>
           {productInfoList.map((productInfo) => (
             <ProductCard key={productInfo.id} productInfo={productInfo} />
           ))}
-        </GridList>
+        </GridContainer>
       )}
     </>
   );
