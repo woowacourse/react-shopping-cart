@@ -7,7 +7,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 import rootReducer from 'reducers';
-import { ProductList, NotFound } from 'pages';
+import { ProductList, ProductDetail, NotFound } from 'pages';
 import { GlobalStyle, theme } from 'styles';
 import PATH from 'constants/path';
 
@@ -25,6 +25,7 @@ root.render(
             <div className="App">
               <Routes>
                 <Route path={PATH.MAIN} element={<ProductList />} />
+                <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetail />} />
                 <Route path={PATH.NOT_FOUND} element={<NotFound />} />
               </Routes>
             </div>

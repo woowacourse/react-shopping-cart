@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Image, Text } from 'components/@shared';
+import { URL } from 'constants/path';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 import { addItem, deleteItem } from 'actions';
 
@@ -53,10 +55,24 @@ const ImageWrapper = styled.div`
 
 function ProductListItem({ id, thumbnail, name, price }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const shoppingCart = useSelector(state => state.shoppingCartList);
 
   const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
+
+  const handleClickProduct = () => {
+    navigate(URL.PRODUCT_DETAIL + id, {
+      state: {
+        productInfo: {
+          id,
+          thumbnail,
+          name,
+          price,
+        },
+      },
+    });
+  };
 
   const handleToggleShoppingCart = () => {
     dispatch(isContained ? deleteItem(id) : addItem(id));
@@ -64,7 +80,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
 
   return (
     <ItemContainer isContained={isContained}>
-      <ImageWrapper>
+      <ImageWrapper onClick={handleClickProduct}>
         <Image type="medium" src={thumbnail} />
       </ImageWrapper>
       <Text className="product-name" fontSize="small">
