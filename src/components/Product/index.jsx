@@ -52,9 +52,11 @@ const Product = ({ id, thumbnail, name, price }) => {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{price} 원</Styled.Price>
         </Styled.Description>
-        <CartButton>
-          <CartIcon />
-        </CartButton>
+        <Link to="*">
+          <CartButton>
+            <CartIcon />
+          </CartButton>
+        </Link>
       </Styled.Content>
     </Styled.Wrapper>
   );
