@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadProducts, loadCarts } from './store/actions';
-import GlobalStyle from './GlobalStyle';
-import ProductListContainer from './components/Main/ProductListContainer';
-import Header from './components/Header/Header';
-import Cart from './components/Cart/Cart';
-import OrderList from './components/OrderList/OrderList';
-import NotFound from './components/NotFound/NotFound';
-import { PATH } from './constants';
+import { loadProducts, loadCarts } from 'store/actions';
+import GlobalStyle from 'GlobalStyle';
+import ProductListContainer from 'components/Main/ProductListContainer';
+import Header from 'components/Header/Header';
+import Cart from 'components/Cart/Cart';
+import OrderList from 'components/OrderList/OrderList';
+import NotFound from 'components/NotFound/NotFound';
+import { PATH } from 'constants';
 
 function App() {
   const dispatch = useDispatch();

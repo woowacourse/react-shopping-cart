@@ -1,4 +1,4 @@
-import Product from './Product';
+import Product from 'components/Main/Product';
 
 export default {
   title: 'Product',

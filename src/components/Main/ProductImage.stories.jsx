@@ -1,4 +1,4 @@
-import ProductImage from './ProductImage';
+import ProductImage from 'components/Main/ProductImage';
 
 export default {
   title: 'ProductImage',

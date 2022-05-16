@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import axios from 'axios';
-import ProductImage from './ProductImage';
-import { CART_SIZE, COLOR, SERVER_URL, PATH } from '../../constants';
-import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { StyledDefaultButton } from '../shared/styles';
+import ProductImage from 'components/Main/ProductImage';
+import { CART_SIZE, COLOR, SERVER_URL, PATH } from 'constants';
+import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
+import { StyledDefaultButton } from 'components/shared/styles';
 
 const requestDeleteCart = async (id) => {
   await axios({

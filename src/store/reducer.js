@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import TYPE from './types';
+import TYPE from 'store/types';
 
 const initialState = {
   products: [],

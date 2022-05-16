@@ -20,6 +20,7 @@
     "no-confusing-arrow": "warn",
     "no-unused-vars": "warn",
     "default-param-last": "warn",
-    "import/prefer-default-export": "warn"
+    "import/prefer-default-export": "warn",
+    "import/no-unresolved": "warn"
   }
 }

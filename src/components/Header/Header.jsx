@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CART_SIZE, COLOR, PATH } from '../../constants';
-import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { StyledDefaultButton } from '../shared/styles';
+import { CART_SIZE, COLOR, PATH } from 'constants';
+import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
+import { StyledDefaultButton } from 'components/shared/styles';
 
 function Header() {
   return (

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Product from './Product';
-import { loadCarts, loadProducts } from '../../store/actions';
+import Product from 'components/Main/Product';
+import { loadCarts, loadProducts } from 'store/actions';
 
 function ProductListContainer() {
   const { products, carts } = useSelector((state) => state.productsReducer);

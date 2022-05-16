@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { SERVER_URL, PATH } from '../constants';
-import TYPE from './types';
+import { SERVER_URL, PATH } from 'constants';
+import TYPE from 'store/types';
 
 const loadActionGenerator = (type, payload) => ({ type, payload });
 

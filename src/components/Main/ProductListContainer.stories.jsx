@@ -1,4 +1,4 @@
-import ProductListContainer from './ProductListContainer';
+import ProductListContainer from 'components/Main/ProductListContainer';
 
 export default {
   title: 'ProductListContainer',
