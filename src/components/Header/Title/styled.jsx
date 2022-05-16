@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LogoContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -15,7 +15,7 @@ export const IconImg = styled.img`
   height: 44px;
 `;
 
-export const Title = styled.h1`
+export const PageTitle = styled.h1`
   font-size: 40px;
   font-weight: 900;
 `;

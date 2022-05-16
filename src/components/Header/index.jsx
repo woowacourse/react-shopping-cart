@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Logo from "./Logo";
 import NavButton from "./NavButton";
 import { HeaderContainer, NavButtonWrapper } from "./styled";
+import Title from "./Title";
 
 function Header() {
   return (
     <HeaderContainer>
       <Link to="/">
-        <Logo />
+        <Title />
       </Link>
       <NavButtonWrapper>
         <Link to="/product-cart">

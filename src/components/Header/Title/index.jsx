@@ -1,14 +1,14 @@
 import React from "react";
 import shoppingCartIconWhite from "../../../asset/shopping-cart-icon-white.svg";
-import { IconImg, LogoContainer, Title } from "./styled";
+import { IconImg, TitleContainer, PageTitle } from "./styled";
 
-function Logo() {
+function Title() {
   return (
-    <LogoContainer>
+    <TitleContainer>
       <IconImg src={shoppingCartIconWhite} alt="장바구니 아이콘" />
-      <Title>TAEPHIA SHOP</Title>
-    </LogoContainer>
+      <PageTitle>TAEPHIA SHOP</PageTitle>
+    </TitleContainer>
   );
 }
 
-export default Logo;
+export default Title;
