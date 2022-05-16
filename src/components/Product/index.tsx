@@ -22,13 +22,13 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const [isShowCartCounter, setIsShowCartCounter] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartItems = useCartListSelector();
+  const cartItemList = useCartListSelector();
   const cartItem = useCartItemSelector(id);
   const timeout = useRef<NodeJS.Timeout>();
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
-    if (!cartItems.some((item) => item.id === id)) {
+    if (!cartItemList.some((item) => item.id === id)) {
       const newItem = { name, price, img, id, amount: 1 };
 
       dispatch(addItem(newItem));
