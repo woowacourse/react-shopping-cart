@@ -17,7 +17,7 @@ export const HeaderContainer = styled.header`
   box-shadow: 0 4px 10px 2px #bbb;
 `;
 
-export const NavButtonWrapper = styled.nav`
+export const NavButtonContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;

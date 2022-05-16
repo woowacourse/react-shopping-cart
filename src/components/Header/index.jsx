@@ -1,24 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import NavButton from "./NavButton";
-import { HeaderContainer, NavButtonWrapper } from "./styled";
+import { HeaderContainer, NavButtonContainer } from "./styled";
 import Title from "./Title";
 
 function Header() {
   return (
     <HeaderContainer>
-      <Link to="/">
-        <Title />
-      </Link>
-      <NavButtonWrapper>
-        <Link to="/product-cart">
-          <NavButton>장바구니</NavButton>
-        </Link>
-        <Link to="/order-list">
-          <NavButton>주문목록</NavButton>
-        </Link>
-      </NavButtonWrapper>
+      <Title />
+      <NavButtonContainer>
+        <NavButton linkTo="/product-cart">장바구니</NavButton>
+        <NavButton linkTo="/order-list">주문목록</NavButton>
+      </NavButtonContainer>
     </HeaderContainer>
   );
 }

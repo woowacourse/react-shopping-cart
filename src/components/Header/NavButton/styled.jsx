@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledNavButton = styled.button`
+export const UnderlinedButton = styled.button`
   padding: 0 4px 4px;
 
   background-color: transparent;
