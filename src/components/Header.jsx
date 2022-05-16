@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
-import { COLORS } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
+import { BASE_COMPONENT } from './common';
 
 function Header() {
   const navigate = useNavigate();
@@ -32,23 +32,20 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 80px;
   top: 0;
-  background: ${COLORS.PRIMARY};
-  box-shadow: 0px 4px 4px ${COLORS.BOX_SHADOW};
+  background: ${({ theme }) => theme.COLORS.PRIMARY};
+  box-shadow: ${({ theme }) => `0px 4px 4px ${theme.COLORS.BOX_SHADOW}`};
 `;
 
-const StyledHeaderWrapper = styled.div`
-  display: flex;
+const StyledHeaderWrapper = styled(BASE_COMPONENT.flexCenterWrapper)`
   justify-content: space-between;
-  align-items: center;
   width: 80%;
 `;
 
-const StyledTitleWrapper = styled.div`
-  display: flex;
+const StyledTitleWrapper = styled(BASE_COMPONENT.flexWrapper)`
   font-weight: 900;
   font-size: 40px;
   text-align: center;
-  color: ${COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.WHITE};
   cursor: pointer;
 `;
 
@@ -56,9 +53,7 @@ const StyledTitle = styled.span`
   margin-left: 12px;
 `;
 
-const StyledNavWrapper = styled.div`
-  display: flex;
-`;
+const StyledNavWrapper = styled(BASE_COMPONENT.flexWrapper)``;
 
 const StyledNavButton = styled.button`
   margin: 0 5px;
@@ -66,7 +61,7 @@ const StyledNavButton = styled.button`
   background: none;
   font-weight: 500;
   font-size: 18px;
-  color: ${COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
 export default Header;

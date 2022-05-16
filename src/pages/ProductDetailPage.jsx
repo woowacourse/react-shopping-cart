@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
-import { StyledImageBox, StyledImg } from '../components/common';
+import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import useRequest from '../hooks/useRequest';
-import { COLORS } from '../styles/theme';
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -15,9 +14,9 @@ function ProductDetailPage() {
 
   return (
     <StyledProductDetailContainer>
-      <StyledImageBox width={'large'} height={'large'}>
+      <StyledImageWrapper width={'large'} height={'large'}>
         <StyledImg width={'large'} src={imageUrl}></StyledImg>
-      </StyledImageBox>
+      </StyledImageWrapper>
       <StyledProductDetailInfo>
         <StyledProductDetailTitle>{name}</StyledProductDetailTitle>
         <hr />
@@ -31,11 +30,8 @@ function ProductDetailPage() {
   );
 }
 
-const StyledProductDetailContainer = styled.div`
-  display: flex;
+const StyledProductDetailContainer = styled(BASE_COMPONENT.flexCenterWrapper)`
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin: 60px auto;
 `;
 
@@ -51,8 +47,7 @@ const StyledProductDetailTitle = styled.div`
   letter-spacing: 0.5px;
 `;
 
-const StyledProductDetailPrice = styled.div`
-  display: flex;
+const StyledProductDetailPrice = styled(BASE_COMPONENT.flexCenterWrapper)`
   justify-content: space-between;
   margin: 16px;
 `;
@@ -67,14 +62,14 @@ const StyledShopButton = styled.button`
   height: 60px;
   left: 641px;
   bottom: 60px;
-  background: ${COLORS.BROWN};
-  color: ${COLORS.WHITE};
+  background: ${({ theme }) => theme.COLORS.BROWN};
+  color: ${({ theme }) => theme.COLORS.WHITE};
   font-size: 24px;
   font-weight: 700;
   border-radius: 4px;
   border: none;
   &:hover {
-    background-color: ${COLORS.LIGHT_BROWN};
+    background-color: ${({ theme }) => theme.COLORS.LIGHT_BROWN};
   }
 `;
 

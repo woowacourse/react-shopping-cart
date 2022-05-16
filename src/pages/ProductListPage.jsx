@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS } from '../styles/theme';
 import { GiShoppingCart } from 'react-icons/gi';
-import { StyledImageBox, StyledImg } from '../components/common';
+import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import useRequest from '../hooks/useRequest';
 import { getProductList } from '../api';
 
@@ -27,12 +26,12 @@ function ProductListPage() {
           const { id, name, price, imageUrl } = product;
           return (
             <StyledItem key={id}>
-              <StyledImageBox
+              <StyledImageWrapper
                 width={'middle'}
                 height={'middle'}
                 onClick={() => handleClickItem(id)}>
                 <StyledImg width={'middle'} src={imageUrl} />
-              </StyledImageBox>
+              </StyledImageWrapper>
               <StyledItemInfoBox>
                 <StyledItemInfo onClick={() => handleClickItem(id)}>
                   <StyledItemName>{name}</StyledItemName>
@@ -71,17 +70,15 @@ const StyledItem = styled.div`
   cursor: pointer;
 `;
 
-const StyledItemInfoBox = styled.div`
-  display: flex;
+const StyledItemInfoBox = styled(BASE_COMPONENT.flexCenterWrapper)`
   justify-content: space-between;
-  align-items: center;
   margin: 16px 8px 0px 8px;
 `;
 
-const StyledItemInfo = styled.div`
-  display: flex;
+const StyledItemInfo = styled(BASE_COMPONENT.flexWrapper)`
   flex-direction: column;
 `;
+
 const StyledItemName = styled.span`
   font-weight: 400;
   font-size: 16px;
@@ -100,7 +97,7 @@ const StyledIconButton = styled.button`
   background: none;
   &:hover {
     transform: scale(1.1);
-    color: ${COLORS.PRIMARY};
+    color: ${({ theme }) => theme.COLORS.PRIMARY};
   }
 `;
 export default ProductListPage;

@@ -1,42 +1,51 @@
 import styled from 'styled-components';
 
-const SIZE_MAP = {
-  large: 430,
-  middle: 250,
-  small: 100,
-};
-
-const StyledImageBox = styled.div`
-  width: ${(props) =>
+const StyledImageWrapper = styled.div`
+  width: ${({ width, theme }) =>
     `${
-      props.width === 'large'
-        ? SIZE_MAP.large
-        : props.width === 'middle'
-        ? SIZE_MAP.middle
-        : SIZE_MAP.small
+      width === 'large'
+        ? theme.IMAGE_SIZE_MAP.large
+        : width === 'middle'
+        ? theme.IMAGE_SIZE_MAP.middle
+        : theme.IMAGE_SIZE_MAP.small
     }`}px;
-  height: ${(props) =>
+  height: ${({ height, theme }) =>
     `${
-      props.height === 'large'
-        ? SIZE_MAP.large
-        : props.height === 'middle'
-        ? SIZE_MAP.middle
-        : SIZE_MAP.small
+      height === 'large'
+        ? theme.IMAGE_SIZE_MAP.large
+        : height === 'middle'
+        ? theme.IMAGE_SIZE_MAP.middle
+        : theme.IMAGE_SIZE_MAP.small
     }`}px;
 `;
 
 const StyledImg = styled.img`
-  width: ${(props) =>
+  width: ${({ width, theme }) =>
     `${
-      props.width === 'large'
-        ? SIZE_MAP.large
-        : props.width === 'middle'
-        ? SIZE_MAP.middle
-        : SIZE_MAP.small
+      width === 'large'
+        ? theme.IMAGE_SIZE_MAP.large
+        : width === 'middle'
+        ? theme.IMAGE_SIZE_MAP.middle
+        : theme.IMAGE_SIZE_MAP.small
     }`}px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
 `;
 
-export { StyledImageBox, StyledImg };
+const FlexWrapper = styled.div`
+  display: flex;
+`;
+
+const FlexCenterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BASE_COMPONENT = {
+  flexWrapper: FlexWrapper,
+  flexCenterWrapper: FlexCenterWrapper,
+};
+
+export { StyledImageWrapper, StyledImg, BASE_COMPONENT };

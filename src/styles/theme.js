@@ -6,4 +6,15 @@ const COLORS = {
   BOX_SHADOW: '#00000030',
 };
 
-export { COLORS };
+const IMAGE_SIZE_MAP = {
+  large: 430,
+  middle: 250,
+  small: 100,
+};
+
+const theme = {
+  COLORS,
+  IMAGE_SIZE_MAP,
+};
+
+export default theme;
