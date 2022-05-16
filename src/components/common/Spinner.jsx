@@ -28,8 +28,8 @@ const SpinnerContainer = styled.div`
     margin-left: -32px;
     border-radius: 50%;
     border: 8px solid transparent;
-    border-top-color: ${({ theme }) => theme.point};
-    border-bottom-color: ${({ theme }) => theme.point};
+    border-top-color: ${({ theme: { color } }) => color.point};
+    border-bottom-color: ${({ theme: { color } }) => color.point};
     animation: spin 1s ease infinite;
   }
 `;

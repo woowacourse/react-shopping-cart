@@ -1,5 +1,15 @@
 export const theme = {
-  point: "#E7A0A0",
-  main: "#ffffff",
-  textDefault: "#333333",
+  color: {
+    point: "#E7A0A0",
+    main: "#ffffff",
+    text: "#333333",
+    shadow: "#bbbbbb",
+    border: "#dddddd",
+  },
+  fontSize: {
+    default: "1.25rem",
+    title: "2.5rem",
+    large: "1.5rem",
+    small: "1rem",
+  },
 };
