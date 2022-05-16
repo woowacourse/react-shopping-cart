@@ -1,5 +1,7 @@
 import ProductList from 'pages/ProductList';
 
-const ShoppingCartApp = () => <ProductList />;
+function ShoppingCartApp() {
+  return <ProductList />;
+}
 
 export default ShoppingCartApp;
