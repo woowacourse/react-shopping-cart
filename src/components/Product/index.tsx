@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import * as Styled from "./styles";
-import cart from "../../assets/cart.svg";
+import { useDispatch } from "react-redux";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
 import { generateSnackBar } from "../../redux/modules/snackBar";
+
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
+import cart from "../../assets/cart.svg";
+import * as Styled from "./styles";
 
 export type ProductType = {
   name: string;
@@ -18,9 +18,8 @@ interface ProductProps {
   productInfo: ProductType;
 }
 
-function Product({ productInfo }: ProductProps) {
+function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const [isShowCartCounter, setIsShowCartCounter] = useState(false);
-  const { name, price, img, id } = productInfo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useCartListSelector();

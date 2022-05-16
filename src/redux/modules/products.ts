@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { AppDispatch, RootState } from "../store";
 
 type Product = {

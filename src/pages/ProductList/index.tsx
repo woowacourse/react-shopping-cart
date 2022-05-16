@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as Styled from "./styles";
+import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
 
 import Product from "../../components/Product";
-import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
 import Loader from "../../components/@shared/Loader";
+import * as Styled from "./styles";
 
 function ProductList() {
   const { productList, loading, error }: ProductState = useSelector(selectProductState);

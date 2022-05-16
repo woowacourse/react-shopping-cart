@@ -72,7 +72,6 @@ const cartReducer = (state = initialState, action: Action) => {
 
       return { ...state, items: newItems };
     }
-
     case INCREMENT_BY_NUMBER: {
       const { id, number } = action.payload;
       const targetIndex = state.items.findIndex((item) => item.id === id);
