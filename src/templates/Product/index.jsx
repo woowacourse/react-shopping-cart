@@ -2,8 +2,8 @@ import React from 'react';
 
 import Text from 'components/Text';
 import Image from 'components/Image';
-import FlexSpaceBetweenCenter from 'components/FlexWrapper/FlexSpaceBetweenCenter';
 import MarginWrapper from 'components/MarginWrapper';
+import FlexWrapper from 'components/FlexWrapper';
 
 import AddCartButton from 'containers/AddCartButton';
 import ProductTitle from 'containers/ProductTitle';
@@ -18,7 +18,7 @@ function Product({ imgSrc, title, price }) {
       <MarginWrapper marginBottom="18px">
         <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
       </MarginWrapper>
-      <FlexSpaceBetweenCenter>
+      <FlexWrapper flexFlow="row nowrap" justifyContent="space-between" alignItems="center">
         <div>
           <MarginWrapper marginBottom="6px">
             <ProductTitle>{title}</ProductTitle>
@@ -28,7 +28,7 @@ function Product({ imgSrc, title, price }) {
           </Text>
         </div>
         <AddCartButton />
-      </FlexSpaceBetweenCenter>
+      </FlexWrapper>
     </ProductStyled>
   );
 }
