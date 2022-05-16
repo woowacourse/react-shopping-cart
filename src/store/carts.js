@@ -5,7 +5,8 @@ const LOAD_CARTS_START = 'carts/LOAD_START';
 const LOAD_CARTS_SUCCESS = 'carts/LOAD_SUCCESS';
 const LOAD_CARTS_FAIL = 'carts/LOAD_FAIL';
 const LOAD_CARTS_DONE = 'carts/LOAD_DONE';
-const ADD_PRODUCT = 'carts/ADD_PRODUCT';
+const ADD_PRODUCT_TO_CARTS = 'carts/ADD_PRODUCT';
+const DELETE_PRODUCT_FROM_CARTS = 'carts/DELETE_PRODUCT';
 
 const initialState = {
   isLoading: false,
@@ -26,8 +27,12 @@ const loadCartsDone = () => ({
   type: LOAD_CARTS_DONE,
 });
 const addProduct = (id) => ({
-  type: ADD_PRODUCT,
+  type: ADD_PRODUCT_TO_CARTS,
   payload: { id, quantity: 1 },
+});
+const deleteProduct = (id) => ({
+  type: DELETE_PRODUCT_FROM_CARTS,
+  payload: id,
 });
 
 const cartsReducer = (state = initialState, action) => {
@@ -40,8 +45,13 @@ const cartsReducer = (state = initialState, action) => {
       return { ...state, error: action.payload };
     case LOAD_CARTS_DONE:
       return { ...state, isLoading: false };
-    case ADD_PRODUCT:
+    case ADD_PRODUCT_TO_CARTS:
       return { ...state, carts: state.carts.concat(action.payload) };
+    case DELETE_PRODUCT_FROM_CARTS:
+      return {
+        ...state,
+        carts: state.carts.filter(({ id }) => id !== action.payload),
+      };
     default:
       return { ...state };
   }
@@ -63,6 +73,9 @@ export const loadCarts = () => async (dispatch) => {
 
 export const addProductToCarts = (id) => (dispatch) => {
   dispatch(addProduct(id));
+};
+export const deleteProductFromCarts = (id) => (dispatch) => {
+  dispatch(deleteProduct(id));
 };
 
 export default cartsReducer;

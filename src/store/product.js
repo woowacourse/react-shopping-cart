@@ -1,6 +1,6 @@
 import axios from 'axios';
 import PATH from '../constants/path';
-import { addProductToCarts } from './carts';
+import { addProductToCarts, deleteProductFromCarts } from './carts';
 
 const ADD_TO_CARTS_SUCCESS = 'carts/ADD_TO_CARTS_SUCCESS';
 const ADD_TO_CARTS_FAIL = 'carts/ADD_TO_CARTS_FAIL';
@@ -60,6 +60,7 @@ export const deleteFromCarts = (id) => async (dispatch) => {
       method: 'DELETE',
     });
 
+    dispatch(deleteProductFromCarts(id));
     dispatch(deleteFromCartsSuccess(result.status));
   } catch (error) {
     dispatch(deleteFromCartsFail(error));
