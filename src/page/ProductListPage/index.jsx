@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
@@ -14,6 +13,7 @@ import * as S from 'page/ProductListPage/style';
 import {useNavigate} from 'react-router-dom';
 import useCartItem from 'hook/useCartItem';
 import {PATH} from 'constant';
+import ErrorBoundary from 'component/ErrorBoundary/ErrorBoundary';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -32,46 +32,47 @@ export default function ProductListPage() {
   return (
     <S.ProductListPageLayout>
       {pending && <Loader />}
-      {!pending &&
-        (productList.length ? (
-          <S.ProductListBox>
-            {productList.map(({id, image, name, price}) => {
-              const isIncludeCart = cart.some((cartItem) => cartItem.id === id);
-              return (
-                <Item
-                  itemImgURL={image}
-                  itemName={name}
-                  itemPrice={price}
-                  id={id}
-                  key={id}
-                  disabled={isIncludeCart}
-                  handleIconClick={() => {
-                    addCartItem({
+      <ErrorBoundary
+        fallback={<img src={Empty} height="600px" />}
+        pending={pending}
+        error={!productList.length}
+      >
+        <S.ProductListBox>
+          {productList.map(({id, image, name, price}) => {
+            const isIncludeCart = cart.some((cartItem) => cartItem.id === id);
+            return (
+              <Item
+                itemImgURL={image}
+                itemName={name}
+                itemPrice={price}
+                id={id}
+                key={id}
+                disabled={isIncludeCart}
+                handleIconClick={() => {
+                  addCartItem({
+                    itemImgURL: image,
+                    itemName: name,
+                    itemPrice: price,
+                    id,
+                    count: 1,
+                  });
+                }}
+                handleImageClick={() =>
+                  navigation(`${PATH.DETAIL}/${id}`, {
+                    state: {
                       itemImgURL: image,
                       itemName: name,
                       itemPrice: price,
                       id,
-                      count: 1,
-                    });
-                  }}
-                  handleImageClick={() =>
-                    navigation(`${PATH.DETAIL}/${id}`, {
-                      state: {
-                        itemImgURL: image,
-                        itemName: name,
-                        itemPrice: price,
-                        id,
-                        disable: isIncludeCart,
-                      },
-                    })
-                  }
-                />
-              );
-            })}
-          </S.ProductListBox>
-        ) : (
-          <img src={Empty} height="600px" />
-        ))}
+                      disable: isIncludeCart,
+                    },
+                  })
+                }
+              />
+            );
+          })}
+        </S.ProductListBox>
+      </ErrorBoundary>
     </S.ProductListPageLayout>
   );
 }
