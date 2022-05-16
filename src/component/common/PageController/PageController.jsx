@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ControlButtonBox = styled.div`
   display: flex;
@@ -32,5 +33,16 @@ function PageController({ pageLength, currentPage, onClickButton }) {
     </ControlButtonBox>
   );
 }
+
+PageController.defaultProps = {
+  pageLength: 1,
+  currentPage: 1,
+};
+
+PageController.propTypes = {
+  pageLength: PropTypes.number,
+  currentPage: PropTypes.number,
+  onClickButton: PropTypes.func,
+};
 
 export default PageController;
