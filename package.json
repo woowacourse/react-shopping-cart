@@ -1,8 +1,8 @@
 {
   "name": "react-shopping-cart",
   "version": "0.1.0",
+  "homepage": "http://rladpwl0512.github.io/react-shopping-cart",
   "private": true,
-  "homepage" : "https://rladpwl0512.github.io/react-shopping-cart/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
