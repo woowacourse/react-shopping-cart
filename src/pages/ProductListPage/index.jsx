@@ -4,14 +4,19 @@ import styled from 'styled-components';
 
 import Product from 'components/Product';
 import LoadingSpinner from 'components/common/LoadingSpinner';
-import { setProductList } from 'modules/productList';
+import { setProductList, startProductList } from 'modules/productList';
 import { loadProductList } from 'api';
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { productList, isLoading } = useSelector(({ productListReducer }) => productListReducer);
+  const { productList, isLoading, isLoaded } = useSelector(
+    ({ productListReducer }) => productListReducer,
+  );
 
   useEffect(() => {
+    if (isLoaded) return;
+
+    dispatch(startProductList());
     loadProductList().then((res) => dispatch(setProductList(res)));
   }, []);
 

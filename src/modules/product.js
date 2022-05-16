@@ -1,5 +1,10 @@
+const START_PRODUCT = 'product/START_PRODUCT';
 const SET_PRODUCT = 'product/SET_PRODUCT';
 const RESET_PRODUCT = 'product/RESET_PRODUCT';
+
+export const startProduct = () => ({
+  type: START_PRODUCT,
+});
 
 export const setProduct = (product) => ({
   type: SET_PRODUCT,
@@ -11,11 +16,22 @@ export const resetProduct = () => ({
 });
 
 const initialState = {
-  currentProduct: null,
-  isLoading: true,
+  currentProduct: {
+    name: '',
+    price: 0,
+    thumbnail: '',
+  },
+  isLoading: false,
 };
 
 const productReducer = (state = initialState, action) => {
+  if (action.type === START_PRODUCT) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
   if (action.type === SET_PRODUCT) {
     return {
       ...state,

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { CardDetailButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
-import { setProduct, resetProduct } from 'modules/product';
+import { startProduct, setProduct, resetProduct } from 'modules/product';
 import { loadProduct } from 'api';
 
 const ProductDetail = () => {
@@ -15,6 +15,7 @@ const ProductDetail = () => {
   const { currentProduct, isLoading } = useSelector(({ productReducer }) => productReducer);
 
   useEffect(() => {
+    dispatch(startProduct());
     loadProduct(productId).then((res) => dispatch(setProduct(res)));
 
     return () => {
