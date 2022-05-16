@@ -5,7 +5,7 @@ export const CardContainer = styled.li`
   flex-direction: column;
   width: 280px;
   height: 360px;
-  border: 1px solid #ddd;
+  border: 1px solid ${({ theme: { color } }) => color.border};
 
   cursor: pointer;
 `;
@@ -47,8 +47,8 @@ export const InfoWrapper = styled.div`
 `;
 
 export const ProductName = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.textDefault};
+  font-size: ${({ theme: { fontSize } }) => fontSize.small};
+  color: ${({ theme: { color } }) => color.text};
   padding: 2px 0;
 
   overflow: hidden;
@@ -57,6 +57,6 @@ export const ProductName = styled.p`
 `;
 
 export const ProductPrice = styled.p`
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.textDefault};
+  font-size: ${({ theme: { fontSize } }) => fontSize.default};
+  color: ${({ theme: { color } }) => color.text};
 `;

@@ -10,7 +10,7 @@ export const Top = styled.div`
   justify-content: center;
   align-items: center;
 
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid ${({ theme: { color } }) => color.text};
   padding: 16px;
 `;
 
@@ -26,19 +26,19 @@ export const ProductImage = styled.img`
 `;
 
 export const ProductName = styled.p`
-  font-size: 1.25rem;
+  font-size: ${({ theme: { fontSize } }) => fontSize.default};
   font-weight: 700;
-  color: ${({ theme }) => theme.textDefault};
+  color: ${({ theme: { color } }) => color.text};
   padding: 8px 0;
 `;
 
 export const Span = styled.span`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.textDefault};
+  font-size: ${({ theme: { fontSize } }) => fontSize.small};
+  color: ${({ theme: { color } }) => color.text};
   margin: auto 0;
 `;
 
 export const ProductPrice = styled.p`
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.textDefault};
+  font-size: ${({ theme: { fontSize } }) => fontSize.default};
+  color: ${({ theme: { color } }) => color.text};
 `;

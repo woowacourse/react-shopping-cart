@@ -13,8 +13,8 @@ export const HeaderContainer = styled.header`
   width: 100vw;
   height: 80px;
   padding: 0 20px;
-  background-color: ${({ theme }) => theme.point};
-  box-shadow: 0 4px 10px 2px #bbb;
+  background-color: ${({ theme: { color } }) => color.point};
+  box-shadow: 0 4px 10px 2px ${({ theme: { color } }) => color.shadow};
 `;
 
 export const NavButtonContainer = styled.nav`

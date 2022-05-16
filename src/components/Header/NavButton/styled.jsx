@@ -5,12 +5,12 @@ export const UnderlinedButton = styled.button`
 
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.main};
-  font-size: 1.5rem;
+  color: ${({ theme: { color } }) => color.main};
+  font-size: ${({ theme: { fontSize } }) => fontSize.large};
   text-align: center;
   cursor: pointer;
 
   :hover {
-    border-bottom: 2px solid ${(props) => props.theme.main};
+    border-bottom: 2px solid ${({ theme: { color } }) => color.main};
   }
 `;

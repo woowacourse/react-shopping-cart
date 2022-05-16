@@ -6,7 +6,7 @@ export const TitleContainer = styled.div`
   align-items: center;
 
   width: 380px;
-  color: ${({ theme }) => theme.main};
+  color: ${({ theme: { color } }) => color.main};
   cursor: pointer;
 `;
 
@@ -16,6 +16,6 @@ export const IconImg = styled.img`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: 40px;
+  font-size: ${({ theme: { fontSize } }) => fontSize.title};
   font-weight: 900;
 `;
