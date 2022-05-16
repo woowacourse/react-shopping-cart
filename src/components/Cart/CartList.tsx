@@ -4,6 +4,7 @@ import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { getCartList } from 'redux/action-creators/cartListThunk';
+
 const CartList = () => {
   const {
     data: cartList,
