@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import rootReducer from 'reducers';
 import { ProductList, NotFound } from 'pages';
 import { GlobalStyle, theme } from 'styles';
+import PATH from 'constants/path';
 
 const store = createStore(rootReducer);
 const persistor = persistStore(store);
@@ -23,8 +24,8 @@ root.render(
           <ThemeProvider theme={theme}>
             <div className="App">
               <Routes>
-                <Route path="/" element={<ProductList />} />
-                <Route path="*" element={<NotFound />} />
+                <Route path={PATH.MAIN} element={<ProductList />} />
+                <Route path={PATH.NOT_FOUND} element={<NotFound />} />
               </Routes>
             </div>
           </ThemeProvider>
