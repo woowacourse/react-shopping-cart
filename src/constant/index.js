@@ -1,3 +1,6 @@
+const BASE_URL = 'http://localhost:4000';
+const PRODUCTS_PATH = '/products';
+
 const PATH = {
   HOME: '/',
   DETAIL: '/product-detail/:id',
@@ -9,4 +12,4 @@ const SIZE = {
   MIDDLE: 'middle',
 };
 
-export { PATH, SIZE };
+export { BASE_URL, PRODUCTS_PATH, PATH, SIZE };
