@@ -3,7 +3,7 @@ import { useTheme } from "@emotion/react";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const Item = ({
-  imgUrl,
+  imgUrl = "../../assets/image/no-image.png",
   title,
   price,
   onClick,

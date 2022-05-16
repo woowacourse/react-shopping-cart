@@ -1,7 +1,11 @@
 import { useTheme } from "@emotion/react";
 import * as S from "./index.styles";
 
-const ItemDetails = ({ imgUrl, title, price }) => {
+const ItemDetails = ({
+  imgUrl = "../../assets/image/no-image.png",
+  title,
+  price,
+}) => {
   const {
     color: {
       white,
