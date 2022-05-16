@@ -31,18 +31,14 @@ function ProductListPage() {
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
-  return (
-    <>
-      {productList.length === 0 && <h2>😱 텅 비었어요~~ 😱</h2>}
+  if (productList.length === 0) return <h2>😱 텅 비었어요~~ 😱</h2>;
 
-      {productList.length > 0 && (
-        <GridList>
-          {productList.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </GridList>
-      )}
-    </>
+  return (
+    <GridList>
+      {productList.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </GridList>
   );
 }
 

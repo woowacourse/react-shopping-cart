@@ -22,11 +22,7 @@ function ProductDetailPage() {
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
-  return (
-    <>
-      <ProductDetailCard product={selectedProduct} />
-    </>
-  );
+  return <ProductDetailCard product={selectedProduct} />;
 }
 
 export default ProductDetailPage;
