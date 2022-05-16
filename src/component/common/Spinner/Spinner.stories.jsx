@@ -1,0 +1,38 @@
+import styled from 'styled-components';
+import { Spinner } from 'component/common';
+import { FRUITS } from 'constant';
+
+export default {
+  title: 'Component/Common/Spinner',
+  component: Spinner,
+  parameters: {
+    layout: 'centered',
+  },
+};
+
+const FruitBox = styled.div`
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const FruitIcon = styled.span`
+  font-size: 50px;
+`;
+
+const Template = args => (
+  <FruitBox>
+    {FRUITS.map(fruit => (
+      <Spinner key={fruit} {...args}>
+        <FruitIcon>{fruit}</FruitIcon>
+      </Spinner>
+    ))}
+  </FruitBox>
+);
+
+const DefaulGridLayout = Template.bind({});
+
+export { DefaulGridLayout };
