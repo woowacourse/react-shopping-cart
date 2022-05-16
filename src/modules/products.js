@@ -1,3 +1,4 @@
+import { combineReducers } from "redux";
 import * as productAPI from "../api";
 import { LOAD_ITEM_AMOUNT } from "../constants";
 import createReducer from "./createReducer";
@@ -104,28 +105,21 @@ const getProductError = () => ({
   error: null,
 });
 
-const productsReducer = createReducer(
-  {},
-  {
-    [GET_PRODUCTS]: getProducts,
-    [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
-    [GET_PRODUCTS_ERROR]: getProductsError,
-    [GET_PRODUCTS_END]: getProductsEnd,
-  }
-);
+const productsReducer = createReducer(initialState.products, {
+  [GET_PRODUCTS]: getProducts,
+  [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
+  [GET_PRODUCTS_ERROR]: getProductsError,
+  [GET_PRODUCTS_END]: getProductsEnd,
+});
 
-const productReducer = createReducer(
-  {},
-  {
-    [GET_PRODUCT]: getProduct,
-    [GET_PRODUCT_SUCCESS]: getProductSuccess,
-    [GET_PRODUCT_ERROR]: getProductError,
-  }
-);
+const productReducer = createReducer(initialState.product, {
+  [GET_PRODUCT]: getProduct,
+  [GET_PRODUCT_SUCCESS]: getProductSuccess,
+  [GET_PRODUCT_ERROR]: getProductError,
+});
 
-export default function appReducer(state = initialState, action = {}) {
-  return {
-    products: productsReducer(state.products, action),
-    product: productReducer(state.product, action),
-  };
-}
+const appReducer = combineReducers({
+  products: productsReducer,
+  product: productReducer,
+});
+export default appReducer;
