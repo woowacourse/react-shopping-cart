@@ -1,4 +1,4 @@
-import Styled from 'components/shared/cartIcon/style';
+import Styled from 'components/CartIcon/style';
 
 const CartIcon = ({ ...rest }) => {
   return <Styled.CartIcon {...rest} />;

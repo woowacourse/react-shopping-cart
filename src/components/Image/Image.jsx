@@ -1,4 +1,4 @@
-import Styled from 'components/shared/image/style';
+import Styled from 'components/Image/style';
 
 const Image = ({ ...rest }) => {
   return <Styled.Image {...rest} />;

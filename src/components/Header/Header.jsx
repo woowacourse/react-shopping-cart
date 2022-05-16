@@ -1,4 +1,4 @@
-import Styled from 'components/header/style';
+import Styled from 'components/Header/style';
 
 const Header = ({ left, right, ...rest }) => {
   return (
