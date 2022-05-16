@@ -35,28 +35,26 @@ export function ProductList() {
   };
 
   return (
-    <Layout>
-      <AsyncContainer
-        loadingFallback={
-          <StatusMessage status="loading">상품 목록을 불러오고 있습니다.</StatusMessage>
-        }
-        errorFallback={<StatusMessage status="error">{errorMessage}</StatusMessage>}
-      >
-        <Styled.ProductListWrapper>
-          {productList &&
-            productList.map(({ id, name, goodsPrice, listImage }) => (
-              <ProductItem
-                key={id}
-                id={id}
-                image={listImage}
-                name={name}
-                price={goodsPrice}
-                onClick={handleAddCart}
-              />
-            ))}
-        </Styled.ProductListWrapper>
-      </AsyncContainer>
-    </Layout>
+    <AsyncContainer
+      loadingFallback={
+        <StatusMessage status="loading">상품 목록을 불러오고 있습니다.</StatusMessage>
+      }
+      errorFallback={<StatusMessage status="error">{errorMessage}</StatusMessage>}
+    >
+      <Styled.ProductListWrapper>
+        {productList &&
+          productList.map(({ id, name, goodsPrice, listImage }) => (
+            <ProductItem
+              key={id}
+              id={id}
+              image={listImage}
+              name={name}
+              price={goodsPrice}
+              onClick={handleAddCart}
+            />
+          ))}
+      </Styled.ProductListWrapper>
+    </AsyncContainer>
   );
 }
 export default ProductList;

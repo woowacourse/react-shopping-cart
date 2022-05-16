@@ -1,7 +1,7 @@
-import ProductList from 'pages/ProductList';
+import Routes from 'Routes';
 
 function ShoppingCartApp() {
-  return <ProductList />;
+  return <Routes />;
 }
 
 export default ShoppingCartApp;

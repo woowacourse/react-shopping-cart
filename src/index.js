@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import ShoppingCartApp from 'ShoppingCartApp';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import store from 'store';
@@ -16,6 +17,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <Global styles={GlobalStyles} />
-    <ShoppingCartApp />
+    <BrowserRouter>
+      <ShoppingCartApp />
+    </BrowserRouter>
   </Provider>,
 );
