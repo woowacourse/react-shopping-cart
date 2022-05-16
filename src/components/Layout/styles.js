@@ -12,4 +12,8 @@ const Container = styled.div`
   }
 `;
 
-export { Container };
+const Content = styled.main`
+  padding: 0;
+`;
+
+export { Container, Content };

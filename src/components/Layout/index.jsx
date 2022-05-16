@@ -7,7 +7,7 @@ function Layout({ children }) {
   return (
     <Styled.Container>
       <Header />
-      <main className="container">{children}</main>
+      <Styled.Content>{children}</Styled.Content>
       <Footer />
     </Styled.Container>
   );
