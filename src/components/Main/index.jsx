@@ -6,8 +6,9 @@ import ProductListPage from "./ProductListPage";
 import ProductDetailPage from "./ProductDetailPage";
 import ProductCartPage from "./ShoppingCartPage";
 import OrderListPage from "./OrderListPage";
+import { ROUTES } from "../../constants";
 
-const Container = styled.main`
+const MainContainer = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,20 +21,24 @@ const Container = styled.main`
 
 function Main() {
   return (
-    <Container>
+    <MainContainer>
       <Routes>
-        <Route exact path="/" element={<ProductListPage />} />
-        <Route exact path="/product-list" element={<ProductListPage />} />
+        <Route exact path={ROUTES.ROOT} element={<ProductListPage />} />
+        <Route exact path={ROUTES.PRODUCT_LIST} element={<ProductListPage />} />
         <Route
           exact
-          path="/product-detail/:id"
+          path={ROUTES.PRODUCT_DETAIL}
           element={<ProductDetailPage />}
         />
-        <Route exact path="/product-cart" element={<ProductCartPage />} />
-        <Route exact path="/order-list" element={<OrderListPage />} />
+        <Route exact path={ROUTES.PRODUCT_CART} element={<ProductCartPage />} />
+        <Route
+          exact
+          path={ROUTES.PRODUCT_ORDER_LIST}
+          element={<OrderListPage />}
+        />
         <Route path="*" element={<div>잘못된 접근입니다.</div>} />
       </Routes>
-    </Container>
+    </MainContainer>
   );
 }
 

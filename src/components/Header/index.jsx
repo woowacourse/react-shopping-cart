@@ -1,4 +1,5 @@
 import React from "react";
+import { ROUTES } from "../../constants";
 
 import NavButton from "./NavButton";
 import { HeaderContainer, NavButtonContainer } from "./styled";
@@ -9,8 +10,8 @@ function Header() {
     <HeaderContainer>
       <Title />
       <NavButtonContainer>
-        <NavButton linkTo="/product-cart">장바구니</NavButton>
-        <NavButton linkTo="/order-list">주문목록</NavButton>
+        <NavButton linkTo={ROUTES.PRODUCT_CART}>장바구니</NavButton>
+        <NavButton linkTo={ROUTES.PRODUCT_ORDER_LIST}>주문목록</NavButton>
       </NavButtonContainer>
     </HeaderContainer>
   );
