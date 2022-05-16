@@ -1,5 +1,6 @@
 export const SERVER_URL = 'https://shopping-cart-mh.herokuapp.com/';
-export const BASE_URL = '/react-shopping-cart/';
+export const BASE_PAGE_URL = '/react-shopping-cart/';
+export const SHOPPING_CART_PAGE_URL = '/react-shopping-cart/shopping-cart';
 
 export const PRODUCT = {
   MIN_QUANTITY: 1,
