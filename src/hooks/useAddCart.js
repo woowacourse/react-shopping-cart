@@ -1,14 +1,17 @@
-// import { useEffect } from 'react';
-// import useReduxState from 'hooks/useReduxState';
-// import { addCartAsync } from 'reducers/cart/cart.thunks';
+import { useParams } from 'react-router-dom';
+import useReduxState from 'hooks/useReduxState';
+import { addCartAsync } from 'reducers/cart/cart.thunks';
 
-// const useProducts = () => {
-//   const { dispatch, data, isLoadingAddCart, isErrorAddCart } =
-//     useReduxState('cart');
+const useAddCart = () => {
+  const { dispatch, isLoading, data, isError } = useReduxState('cart');
 
-//   dispatch(addCartAsync);
+  const { id } = useParams();
 
-//   return { getProductsEffect, products: data, isLoading, isError, isEmpty };
-// };
+  const addCartItem = () => {
+    dispatch(addCartAsync(id));
+  };
 
-// export default useProducts;
+  return { addCartItem, cart: data, isLoading, isError };
+};
+
+export default useAddCart;

@@ -1,21 +1,26 @@
-import { useSelector } from 'react-redux';
-
 import styled from 'styled-components';
+import ImgWrapper from 'components/ImgWrapper';
+import useAddCart from 'hooks/useAddCart';
+import errorApiImg from 'assets/png/errorApiImg.png';
+import Skeleton from 'components/Skeleton';
 
 const Cart = () => {
-  const { data } = useSelector((state) => state.cart);
-  console.log('/cart - data', data);
+  const { cart, isLoading, isError } = useAddCart();
 
   return (
     <Styled.Wrapper>
-      {data.map(({ name, quantity, price, id }) => (
-        <div key={id}>
-          상품명 : {name} /
-          <span>
-            {quantity}개 {price}원
-          </span>
-        </div>
-      ))}
+      {isLoading && <Skeleton sizeType="large" />}
+      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
+      {!isLoading &&
+        cart &&
+        cart.map(({ name, cartQuantity, price, id }) => (
+          <div key={id}>
+            상품명 : {name} /
+            <span>
+              {cartQuantity}개 {price}원
+            </span>
+          </div>
+        ))}
     </Styled.Wrapper>
   );
 };
