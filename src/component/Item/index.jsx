@@ -1,9 +1,5 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {useNavigate} from 'react-router-dom';
-
-import {CART} from 'store/modules/cart';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'component/common/Button';
@@ -12,22 +8,15 @@ import {PATH} from 'constant';
 
 import * as S from 'component/Item/style';
 
-export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
-  const [disable, setDisable] = useState(disabled);
-
-  const navigation = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleImageClick = () =>
-    navigation(`${PATH.DETAIL}/${id}`, {
-      state: {itemImgURL, itemName, itemPrice, id, disable},
-    });
-
-  const handleCartIconClick = () => {
-    setDisable(true);
-    dispatch({type: CART.ADD, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
-  };
-
+export default function Item({
+  itemImgURL,
+  itemName,
+  itemPrice,
+  id,
+  disabled,
+  handleImageClick = () => void 0,
+  handleIconClick = () => void 0,
+}) {
   return (
     <S.ItemLayout>
       <img
@@ -44,7 +33,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
           </S.ItemNameLink>
           <S.ItemPriceSpan>{itemPrice.toLocaleString()} 원</S.ItemPriceSpan>
         </S.NamePriceBox>
-        <Button disabled={disable} onClick={handleCartIconClick}>
+        <Button disabled={disabled} onClick={handleIconClick}>
           <BlackCartIcon />
         </Button>
       </S.InfoBox>
@@ -58,4 +47,6 @@ Item.propTypes = {
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
   disabled: PropTypes.bool,
+  handleImageClick: PropTypes.func,
+  handleIconClick: PropTypes.func,
 };
