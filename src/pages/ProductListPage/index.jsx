@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -9,6 +10,7 @@ import { setProductList, startProductList } from 'store/productList/actions';
 import { loadProductList } from 'api';
 
 const ProductList = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { productList, isLoading, isLoaded } = useSelector(
     ({ productListReducer }) => productListReducer,
@@ -18,7 +20,9 @@ const ProductList = () => {
     if (isLoaded) return;
 
     dispatch(startProductList());
-    loadProductList().then((res) => dispatch(setProductList(res)));
+    loadProductList()
+      .then((res) => dispatch(setProductList(res)))
+      .catch(() => navigate('/react-shopping-cart/notFound'));
   }, []);
 
   if (isLoading) {

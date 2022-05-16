@@ -9,7 +9,7 @@ import Flex from 'components/common/Flex';
 const NotFound = () => {
   return (
     <Styled.Wrapper>
-      <Flex justify="center" align="center" direction="column" gap="40px">
+      <Flex direction="column" justify="center" align="center" gap="40px">
         <img src={NotFoundImage} alt="사용자가 잘못된 경로로 들어왔을 시 나타나는 이미지" />
         <Styled.TextBox>
           이용에 불편을 드려 죄송합니다.

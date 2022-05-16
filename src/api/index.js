@@ -24,11 +24,13 @@ export const loadProductList = async () => {
   try {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList`, OPTIONS(GET));
 
-    if (!response.ok) return;
+    if (!response.ok) {
+      throw Error('잘못된 API 조회입니다.');
+    }
 
     return response.json();
   } catch (e) {
-    alert(e);
+    throw e;
   }
 };
 
@@ -39,10 +41,12 @@ export const loadProduct = async (id) => {
       OPTIONS(GET),
     );
 
-    if (!response.ok) return;
+    if (!response.ok) {
+      throw Error('잘못된 API 조회입니다.');
+    }
 
     return response.json();
   } catch (e) {
-    alert(e);
+    throw e;
   }
 };

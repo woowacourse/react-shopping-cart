@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -11,13 +11,16 @@ import { startProduct, setProduct, resetProduct } from 'store/product/actions';
 import { loadProduct } from 'api';
 
 const ProductDetail = () => {
-  const dispatch = useDispatch();
   const { id: productId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { currentProduct, isLoading } = useSelector(({ productReducer }) => productReducer);
 
   useEffect(() => {
     dispatch(startProduct());
-    loadProduct(productId).then((res) => dispatch(setProduct(res)));
+    loadProduct(productId)
+      .then((res) => dispatch(setProduct(res)))
+      .catch(() => navigate('/react-shopping-cart/notFound'));
 
     return () => {
       dispatch(resetProduct());
