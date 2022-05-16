@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-import {API_URL} from 'constant';
-
 export const GET_PRODUCT_LIST = {
   PENDING: 'GET_PRODUCT_LIST_PENDING',
   SUCCESS: 'GET_PRODUCT_LIST_SUCCESS',
@@ -9,7 +7,7 @@ export const GET_PRODUCT_LIST = {
 };
 
 function getProductListAPI() {
-  return axios.get(API_URL);
+  return axios.get(process.env.REACT_APP_PRODUCT_API_URL);
 }
 
 export const getProductList = () => async (dispatch) => {
