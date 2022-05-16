@@ -1,23 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import { BasicImage, BasicButton } from '../shared/basics';
-import { CART_SIZE, COLOR } from '../../constants';
+import { CART_SIZE, COLOR } from '../../constants/styles';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import { useDispatch } from 'react-redux';
 import { addToCarts, deleteFromCarts } from '../../store/product';
 
 function Product({ id, src, price, title, isStored }) {
+  const timeout = useRef();
   const dispatch = useDispatch();
 
   const [isClicked, setIsClicked] = useState(isStored);
 
   const handleCartClick = async () => {
-    if (isClicked) {
-      dispatch(deleteFromCarts(id));
-    } else {
-      dispatch(addToCarts(id));
-    }
+    clearTimeout(timeout.current);
+
+    timeout.current = setTimeout(() => {
+      if (isClicked) {
+        dispatch(deleteFromCarts(id));
+      } else {
+        dispatch(addToCarts(id));
+      }
+    }, 500);
 
     setIsClicked((prev) => !prev);
   };
