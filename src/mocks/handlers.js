@@ -3,6 +3,22 @@ import { productList } from 'assets/mock';
 
 const cartList = [];
 
+// const addCartList = (cartList, newCartItem) => {
+//   const isExisted =
+//     cartList.findIndex(({ id }) => id === newCartItem.id) !== -1;
+
+//   if (isExisted) {
+//     return cartList.map((item) => {
+//       if (item.id === newCartItem.id) {
+//         return { ...item, quantity: item.quantity + 1 };
+//       }
+//       return item;
+//     });
+//   }
+
+//   return [...cartList, newCartItem];
+// };
+
 export const handlers = [
   rest.get('/product/:id', (req, res, ctx) => {
     console.log(req);
@@ -19,6 +35,19 @@ export const handlers = [
   rest.post('/cart', (req, res, ctx) => {
     console.log('req.body', req.body);
     // console.log(req);
+    // TODO
+    // const newCartItem = req.body;
+    // const isExisted =
+    //   cartList.findIndex(({ id }) => id === newCartItem.id) !== -1;
+
+    // if (isExisted) {
+    //   return cartList.map((item) => {
+    //     if (item.id === newCartItem.id) {
+    //       return { ...item, quantity: item.quantity + 1 };
+    //     }
+    //     return item;
+    //   });
+    // }
     cartList.push(req.body);
     // console.log('cartList', cartList);
     return res(ctx.status(201));
@@ -26,6 +55,13 @@ export const handlers = [
 
   rest.get('/cart', (req, res, ctx) => {
     // TODO
-    return res(ctx.status(200), ctx.json(cartList));
+    console.log('productList', productList);
+    console.log('cartList', cartList);
+    const result = cartList.map((item) => {
+      const newItem = productList.find((product) => product.id === +item.id);
+      newItem.cartQuantity = item.quantity;
+      return newItem;
+    });
+    return res(ctx.status(200), ctx.json(result));
   }),
 ];
