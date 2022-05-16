@@ -1,9 +1,4 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
-import { loadProducts } from './store/products';
-import { loadCarts } from './store/carts';
 
 import Header from './components/Header/Header';
 import Main from './pages/Main';
@@ -16,13 +11,6 @@ import GlobalStyle from './GlobalStyle';
 import PATH from './constants/path';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadProducts());
-    dispatch(loadCarts());
-  }, []);
-
   return (
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
