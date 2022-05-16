@@ -7,15 +7,6 @@ import StyledProductList from "@/pages/home/components/product-list/ProductList.
 import ProductItem from "@/pages/home/components/product-item/ProductItem";
 import useFetch from "@/hooks/useFetch";
 
-/*
-
-const initialState = {
-  productList: [],
-  cart: cartFromLocalStorage,
-};
-
-*/
-
 function ProductList() {
   const dispatch = useDispatch();
   const productList = useSelector(({ productList }) => productList);
