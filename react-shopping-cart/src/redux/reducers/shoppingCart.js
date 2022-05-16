@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM } from 'actions';
+import { ADD_ITEM, DELETE_ITEM } from 'redux/actions';
 
 const initialState = [];
 

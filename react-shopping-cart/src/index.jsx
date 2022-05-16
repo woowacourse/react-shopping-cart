@@ -7,7 +7,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 import ProductList from 'pages/ProductList/ProductList.page';
-import rootReducer from 'reducers';
+import rootReducer from 'redux/reducers';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 import NotFound from 'pages/NotFound/NotFound.page';

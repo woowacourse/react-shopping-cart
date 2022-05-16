@@ -6,7 +6,7 @@ import ProductListContainer from 'components/ProductListContainer/ProductListCon
 import Loading from 'components/Loading/Loading.component';
 import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
-import { addItem, deleteItem } from 'actions';
+import { addItem, deleteItem } from 'redux/actions';
 
 function ProductList() {
   const dispatch = useDispatch();
