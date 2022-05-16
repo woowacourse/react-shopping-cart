@@ -25,13 +25,11 @@ function ProductList() {
   }
 
   return (
-    <>
-      <Styled.ProductsWrapper>
-        {productList.map((product) => (
-          <Product key={product.id} productInfo={product} />
-        ))}
-      </Styled.ProductsWrapper>
-    </>
+    <Styled.ProductsWrapper>
+      {productList.map((product) => (
+        <Product key={product.id} productInfo={product} />
+      ))}
+    </Styled.ProductsWrapper>
   );
 }
 
