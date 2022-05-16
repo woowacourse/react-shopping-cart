@@ -3,10 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 import GlobalStyles from 'styles/globalStyles';
 
-import rootReducer from 'modules';
+import rootReducer from 'store';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { setProductList } from 'modules/productList';
+import { setProductList } from 'store/productList/actions';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 
