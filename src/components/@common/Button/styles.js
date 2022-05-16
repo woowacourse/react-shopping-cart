@@ -3,11 +3,6 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/theme';
 
-// Todo
-// - 버튼 타입 설정
-// - 스타일링 정리
-// - 라우팅 설치
-
 const BUTTON_TYPE = {
   BUTTON: css`
     padding: 0.8rem 1.2rem;
