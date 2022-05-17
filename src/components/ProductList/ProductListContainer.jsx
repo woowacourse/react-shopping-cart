@@ -27,14 +27,15 @@ function ProductListContainer() {
     dispatch(loadCarts());
   }, []);
 
+  const isLoading = isProductsLoading || isCartsLoading;
+  const isError = productsError || cartsError;
+
   return (
     <Styled.ProductListContainer>
-      {isProductsLoading && isCartsLoading && <h1>로딩 중...</h1>}
-      {(productsError || cartsError) && (
-        <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>
-      )}
-      {!isProductsLoading &&
-        !isCartsLoading &&
+      {isLoading && <h1>로딩 중...</h1>}
+      {isError && <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>}
+      {!isLoading &&
+        !isError &&
         products?.map(({ id, src, title, price }) => (
           <Product
             key={id}
