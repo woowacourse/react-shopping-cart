@@ -5,7 +5,6 @@ import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 import { store, persistor } from "redux/store";
 
-import "./index.css";
 import App from "./App";
 import ErrorBoundary from "component/Wrapper/ErrorBoundary/ErrorBoundary";
 

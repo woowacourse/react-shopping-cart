@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import React from "react";
 
 import { ShoppingCartButtonBox } from "./ShoppingCartButton.style";
 
@@ -8,20 +9,23 @@ import { isInCart } from "util/check";
 import useClickCartButton from "hooks/useClickCartButton";
 import { CURRENT_USER } from "constants";
 
-const ShoppingCartButton = ({ idx }) => {
+const ShoppingCartButton = ({ idx }: { idx: number }) => {
   const product = useSelector(selectDetailProduct);
   const carts = useSelector(selectCurrentCarts);
   const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
 
   const isCartItem = isInCart(idx, carts);
-  const handleShoppingCartButtonClick = (e) => {
+  const handleShoppingCartButtonClick = (e: React.MouseEvent) => {
+    if (product === null) {
+      return;
+    }
     isCartItem
       ? handleDeleteProduct(e, `${CURRENT_USER}${idx}`)
       : handleAddProduct(e, {
           name: product.name,
           price: product.price,
           id: idx,
-          thumbnail: product.image,
+          thumbnail: product.thumbnail,
         });
   };
 

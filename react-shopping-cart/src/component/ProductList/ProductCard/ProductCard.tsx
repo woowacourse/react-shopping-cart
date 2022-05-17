@@ -5,8 +5,9 @@ import ProductCardInfo from "component/ProductList/ProductCardInfo/ProductCardIn
 import { ProductCardBox } from "./ProductCard.style";
 
 import { ROUTE_PATH } from "constants";
+import { Product } from "type";
 
-function ProductCard(props) {
+function ProductCard(props: Product) {
   const { id, thumbnail } = props;
   const navigate = useNavigate();
 

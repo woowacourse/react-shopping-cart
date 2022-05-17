@@ -9,7 +9,7 @@ import {
   increaseProductQuantity,
 } from "redux/carts/carts.action";
 
-function ItemCounter({ id }) {
+function ItemCounter({ id }: { id: string }) {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
 
@@ -30,9 +30,7 @@ function ItemCounter({ id }) {
       <CountBox>{count}</CountBox>
       <ColumnFlexWrapper>
         <CounterButton onClick={increaseCount}>▲</CounterButton>
-        <CounterButton onClick={decreaseCount} type="down">
-          ▼
-        </CounterButton>
+        <CounterButton onClick={decreaseCount}>▼</CounterButton>
       </ColumnFlexWrapper>
     </RowFlexWrapper>
   );

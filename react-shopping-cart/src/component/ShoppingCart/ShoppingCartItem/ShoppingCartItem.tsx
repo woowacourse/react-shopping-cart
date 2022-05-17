@@ -15,8 +15,15 @@ import {
 import { ReactComponent as Trash } from "assets/trash.svg";
 import useClickCartButton from "hooks/useClickCartButton";
 import { toggleIsChecked } from "redux/carts/carts.action";
+import { CartItem } from "type";
 
-function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
+function ShoppingCartItem({
+  id,
+  name,
+  thumbnail,
+  price,
+  checked,
+}: Omit<CartItem, "user" | "quantity">) {
   const { handleDeleteProduct } = useClickCartButton();
   const dispatch = useDispatch();
 
@@ -32,7 +39,11 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
         <ProductName type="shoppingCart">{name}</ProductName>
       </LeftContainer>
       <RightContainer>
-        <TrashContainer onClick={(e) => handleDeleteProduct(e, id)}>
+        <TrashContainer
+          onClick={(event: React.MouseEvent) => {
+            handleDeleteProduct(event, id);
+          }}
+        >
           <Trash />
         </TrashContainer>
         <ItemCounter id={id} />

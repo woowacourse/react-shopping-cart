@@ -33,7 +33,7 @@ function ProductDetailPage() {
     product && (
       <WithSpinner loading={cartsLoading || productsLoading}>
         <ColumnFlexWrapper gap="20px" width="425px" ml="auto" mr="auto">
-          <ProductThumbnail type="detail" src={product.image} />
+          <ProductThumbnail type="detail" src={product.thumbnail} />
           <ProductName type="detail">{product.name}</ProductName>
           <RowFlexWrapper
             gap="300px"
@@ -45,7 +45,7 @@ function ProductDetailPage() {
             <div>금액</div>
             <ProductPrice type="detail">{product.price}원</ProductPrice>
           </RowFlexWrapper>
-          <ShoppingCartButton idx={idx} />
+          <ShoppingCartButton idx={Number(idx)} />
         </ColumnFlexWrapper>
       </WithSpinner>
     )

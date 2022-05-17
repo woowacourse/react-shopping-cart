@@ -16,7 +16,6 @@ function ExpectedPaymentContainer() {
 
   const totalPaymentCost = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
-      console.log(acc);
       return acc + Number(cart.price) * Number(cart.quantity);
     }
     return acc;

@@ -18,7 +18,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "typeRoots": ["src/type"]
   },
   "include": ["./src/"],
   "exclude": ["node_modules/*"]

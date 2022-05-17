@@ -5,23 +5,27 @@ import {
   addProductToCartStart,
   deleteProductToCartStart,
 } from "redux/carts/carts.action";
+import { Product } from "type";
 
 function useClickCartButton() {
   const dispatch = useDispatch();
 
-  const handleDeleteProduct = (e, id) => {
+  const handleDeleteProduct = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     dispatch(deleteProductToCartStart(id));
   };
 
-  const handleAddProduct = (e, { name, price, id, thumbnail }) => {
+  const handleAddProduct = (
+    e: React.MouseEvent,
+    { name, price, id, thumbnail }: Product
+  ) => {
     e.stopPropagation();
     dispatch(
       addProductToCartStart({
         name,
         price,
         id: `${CURRENT_USER}${id}`,
-        image: thumbnail,
+        thumbnail,
         quantity: 1,
         user: CURRENT_USER,
       })

@@ -47,13 +47,13 @@ function ProductListPage() {
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
         <GridContainer>
-          {products.map(({ id, name, image, price }) => {
+          {products.map(({ id, name, thumbnail, price }) => {
             return (
               <ProductCard
                 key={id}
                 id={id}
                 name={name}
-                thumbnail={image}
+                thumbnail={thumbnail}
                 price={price}
               />
             );
