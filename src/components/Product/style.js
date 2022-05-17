@@ -4,10 +4,14 @@ export default styled.div`
   width: 260px;
 
   .thumbnail {
+    cursor: pointer;
     width: 100%;
     height: 260px;
-    border-radius: 5px;
     margin-bottom: 18px;
+  }
+
+  .thumbnail:hover {
+    transform: scale(1.2);
   }
 
   .bottom {
