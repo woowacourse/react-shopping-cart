@@ -6,12 +6,14 @@ import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
 import GridWrapper from "../../components/GridWrapper";
 import Products from "../../components/Products";
-import AxiosErrorPage from "../AxiosErrorPage";
+import { useNavigate } from "react-router-dom";
 
 const ProductListPage = () => {
+  const sectionRef = useRef(null);
+  const navigate = useNavigate();
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  const sectionRef = useRef(null);
+
   const delayGetProduct = throttle(DELAY_TIME, () =>
     dispatch(getProductsByPage())
   );
@@ -22,7 +24,7 @@ const ProductListPage = () => {
     dispatch(getProductsByPage());
   }, [dispatch]);
 
-  if (products.error) return <AxiosErrorPage />;
+  if (products.error) navigate("/server-error");
 
   return (
     <section>

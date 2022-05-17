@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProductListPage from "./pages/ProductListPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductListPage />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/server-error" element={<ErrorPage />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </div>

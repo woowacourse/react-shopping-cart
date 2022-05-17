@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 
-export const AxiosErrorContainer = styled.div`
+export const ErrorContainer = styled.div`
   width: 100%;
   margin-top: 2em;
   display: flex;
