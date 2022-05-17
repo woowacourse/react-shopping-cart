@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledImageWrapper = styled.div`
@@ -33,6 +34,19 @@ const StyledImg = styled.img`
   object-fit: cover;
 `;
 
+const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.COLORS.WHITE};
+  &:link {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const FlexWrapper = styled.div`
   display: flex;
 `;
@@ -48,4 +62,4 @@ const BASE_COMPONENT = {
   flexCenterWrapper: FlexCenterWrapper,
 };
 
-export { StyledImageWrapper, StyledImg, BASE_COMPONENT };
+export { StyledImageWrapper, StyledImg, StyledLink, BASE_COMPONENT };
