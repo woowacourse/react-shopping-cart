@@ -10,6 +10,11 @@ import productListReducer from 'store/modules/productList';
 import productItemReducer from 'store/modules/productItem';
 import cartReducer from 'store/modules/cart';
 
+if (process.env.NODE_ENV === 'development') {
+  const {worker} = require('./mocks/browser');
+  worker.start();
+}
+
 export const rootReducer = combineReducers({
   productListReducer,
   productItemReducer,

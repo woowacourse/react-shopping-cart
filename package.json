@@ -1,7 +1,7 @@
 {
   "name": "react-shopping-cart",
   "version": "0.1.0",
-  "homepage": "https://prefer2.github.io/react-shopping-cart",
+  "homepage": "https://prefer2.github.io/react-shopping-cart/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -73,7 +73,11 @@
     "eslint": "^8.15.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-storybook": "^0.5.11",
+    "msw": "^0.39.2",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
