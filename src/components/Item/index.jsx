@@ -37,7 +37,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
       <ItemImageWrapper>
         <img
           src={itemImgURL}
-          alt="상품 이미지"
+          alt={`${itemName}상품 이미지`}
           width="282px"
           height="282px"
           onClick={handleImageClick}

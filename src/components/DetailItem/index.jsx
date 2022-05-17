@@ -19,7 +19,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disable
 
   return (
     <DetailItemWrapper>
-      <img src={itemImgURL} alt="상품 이미지" width="570px" height="570px" />
+      <img src={itemImgURL} alt={`${itemName} 상품 이미지`} width="570px" height="570px" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <ItemPriceWrapper>
         <div>금액</div>
