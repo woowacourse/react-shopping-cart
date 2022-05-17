@@ -3,11 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
-import Error from 'components/@shared/Error/Error.component';
 import useFetch from 'hooks/useFetch';
 import { addItem, deleteItem } from 'redux/actions';
 import SkeletonItem from 'components/SkeletonItem/SkeletonItem.component';
 import ProductListBox from 'components/ProductListBox/ProductListBox.component';
+
+function LoadingSection() {
+  return (
+    <ProductListBox>
+      {new Array(8).fill('').map((_, idx) => (
+        <SkeletonItem key={idx} />
+      ))}
+    </ProductListBox>
+  );
+}
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -28,11 +37,7 @@ function ProductList() {
       <Header />
       <PageContainer>
         {isLoading ? (
-          <ProductListBox>
-            {new Array(8).fill('').map((_, idx) => (
-              <SkeletonItem key={idx} />
-            ))}
-          </ProductListBox>
+          <LoadingSection />
         ) : (
           <ProductListContainer
             data={data}
