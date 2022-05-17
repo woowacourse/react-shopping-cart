@@ -11,7 +11,7 @@ export default function useProductList() {
 
   useEffect(() => {
     dispatch(fetchProductListAsync(currentPage));
-  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
   const { isLoading, productList, pageCount } = useSelector(({ product }) => product);
 
