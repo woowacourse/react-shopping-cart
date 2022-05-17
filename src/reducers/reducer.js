@@ -6,6 +6,8 @@ const initState = {
 };
 
 function reducer(state = initState, action) {
+  console.log(state);
+
   switch (action.type) {
     case INITIALIZE:
       return {
@@ -25,7 +27,11 @@ function reducer(state = initState, action) {
           ? state.shoppingCart.map(product =>
               product.id === action.id ? { ...product, quantity: action.quantity } : product,
             )
-          : state.shoppingCart.concat({ id: action.id, quantity: action.quantity }),
+          : state.shoppingCart.concat({
+              id: action.id,
+              quantity: action.quantity,
+              isSelect: false,
+            }),
       };
 
     default:

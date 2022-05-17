@@ -19,6 +19,11 @@ const ShoppingCartContainer = styled.div`
   padding: 0 20px;
 `;
 
+const ShoppingCartItemContainer = styled.div`
+  height: 80%;
+  overflow-y: scroll;
+`;
+
 const PaymentAccountContainer = styled.div`
   width: 40%;
   height: 590px;
@@ -31,10 +36,16 @@ const ProductDeleteButton = styled(StyledButton)`
   padding: 10px 20px;
 `;
 
+const UnderLine = styled.hr`
+  border: 0.5px solid #cccccc;
+`;
+
 export {
   PageWrapper,
   ContentWrapper,
   ShoppingCartContainer,
+  ShoppingCartItemContainer,
   PaymentAccountContainer,
   ProductDeleteButton,
+  UnderLine,
 };

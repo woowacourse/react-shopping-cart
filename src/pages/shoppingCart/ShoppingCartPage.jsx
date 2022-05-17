@@ -3,13 +3,16 @@ import Header from 'components/base/header/Header';
 import Title from 'components/base/title/Title';
 import PageTitle from 'components/pageTitle/PageTitle';
 import PaymentAccount from 'components/paymentAccount/PaymentAccount';
+import ShoppingCartItem from 'components/shoppingCartItem/ShoppingCartItem';
 
 import {
   ContentWrapper,
   PageWrapper,
+  ShoppingCartItemContainer,
   PaymentAccountContainer,
   ProductDeleteButton,
   ShoppingCartContainer,
+  UnderLine,
 } from './style';
 
 const ShoppingCartPage = () => {
@@ -23,6 +26,18 @@ const ShoppingCartPage = () => {
             right={<ProductDeleteButton>상품삭제</ProductDeleteButton>}
           />
           <Title title="든든배송 상품" />
+          <ShoppingCartItemContainer>
+            <ShoppingCartItem></ShoppingCartItem>
+            <UnderLine />
+            <ShoppingCartItem></ShoppingCartItem>
+            <UnderLine />
+            <ShoppingCartItem></ShoppingCartItem>
+            <UnderLine />
+            <ShoppingCartItem></ShoppingCartItem>
+            <UnderLine />
+            <ShoppingCartItem></ShoppingCartItem>
+            <UnderLine />
+          </ShoppingCartItemContainer>
         </ShoppingCartContainer>
         <PaymentAccountContainer>
           <PaymentAccount />
