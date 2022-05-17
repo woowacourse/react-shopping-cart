@@ -41,6 +41,8 @@ const StyledRoot = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 5rem;
+  width: 100%;
+  margin: auto;
 `;
 
 const StyledPageIndicator = styled.button<{ selected?: boolean }>`
