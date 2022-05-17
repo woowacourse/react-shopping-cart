@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import Error from 'components/@shared/Error/Error.component';
-
-const ProductListBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 45px;
-`;
+import ProductListBox from 'components/ProductListBox/ProductListBox.component';
 
 function ProductListContainer({ data, handleToggleShoppingCart, checkContainedProduct }) {
   return (
