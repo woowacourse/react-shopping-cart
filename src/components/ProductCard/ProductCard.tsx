@@ -5,7 +5,7 @@ import ShoppingCart from 'components/@shared/ShoppingCart';
 import styled from 'styled-components';
 
 type Props = {
-  product: Partial<Product>;
+  product: Product;
 };
 
 function ProductCard({ product }: Props) {

@@ -3,7 +3,7 @@ import ProductCard from 'components/ProductCard/ProductCard';
 import styled from 'styled-components';
 
 type Props = {
-  productList: Array<Partial<Product>>;
+  productList: Array<Product>;
 };
 
 function ProductCardGrid({ productList }: Props) {

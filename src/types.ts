@@ -8,9 +8,6 @@ export type Product = {
   image: string;
   description: string;
   stock: number;
-  brandId: number;
-  categoryId: number;
-  createdAt: number;
 };
 
 export type Action = {

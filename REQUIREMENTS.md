@@ -28,10 +28,7 @@
     price,
     image,
     description,
-    stock,
-    brandId,
-    categoryId,
-    createdAt
+    stock
   }
   ```
 
