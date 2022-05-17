@@ -1,36 +1,24 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-import axios from 'axios';
 import ProductImage from 'components/Main/ProductImage';
-import { CART_SIZE, COLOR, SERVER_URL, PATH } from 'constants';
+import { CART_SIZE, COLOR } from 'constants';
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 import { StyledDefaultButton } from 'components/shared/styles';
-
-const requestDeleteCart = async (id) => {
-  await axios({
-    url: `${SERVER_URL}${PATH.CARTS}/${id}`,
-    method: 'DELETE',
-  });
-};
-
-const requestAddCart = async (id) => {
-  await axios({
-    url: `${SERVER_URL}${PATH.CARTS}`,
-    data: { id, quantity: 1 },
-    method: 'POST',
-  });
-};
+import { useDispatch } from 'react-redux';
+import { addCart, deleteCart } from 'store/actions';
 
 function Product({ id, src, price, title, isStored }) {
   const [isClicked, setIsClicked] = useState(isStored);
 
+  const dispatch = useDispatch();
+
   const handleCartClick = async () => {
     try {
       if (isClicked) {
-        requestDeleteCart(id);
+        dispatch(deleteCart(id));
       } else {
-        requestAddCart(id);
+        dispatch(addCart(id));
       }
     } catch (error) {
       alert(error.message);
