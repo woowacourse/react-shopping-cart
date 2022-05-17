@@ -10,7 +10,7 @@ export const ShoppingCartPageHeader = styled.div`
   border-bottom-color: ${({ theme }) => theme.colors["black_03"]};
 `;
 
-export const ShoppingCartPageContent = styled.div`
+export const ShoppingCartPageContent = styled.div<{ gap: string }>`
   display: flex;
   justify-content: center;
   align-items: flex-start;

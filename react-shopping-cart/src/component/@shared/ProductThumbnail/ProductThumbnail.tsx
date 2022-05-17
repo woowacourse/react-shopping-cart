@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css, StyledType } from "styled-components";
 
-const ProductThumbnail = styled.img`
+const ProductThumbnail = styled.img<StyledType>`
   ${({ type }) => {
     switch (type) {
       case "card":

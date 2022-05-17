@@ -15,7 +15,7 @@ import {
   selectProductsLoading,
 } from "redux/products/products.selector";
 
-import { ROUTE_PATH } from "constants";
+import { ROUTE_PATH } from "constants/index";
 import { ColumnFlexWrapper } from "styles/Wrapper";
 
 function ProductListPage() {
@@ -27,13 +27,13 @@ function ProductListPage() {
   const { idx } = useParams();
 
   useEffect(() => {
-    dispatch(fetchProductsStart(idx));
+    dispatch(fetchProductsStart(Number(idx)));
     dispatch(fetchCartsStart());
   }, [dispatch, idx]);
 
   useEffect(() => {
-    if (error) {
-      throw new Error(error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
     }
   }, [error]);
 

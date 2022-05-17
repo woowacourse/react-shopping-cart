@@ -1,19 +1,21 @@
-import styled, { css } from "styled-components";
+import styled, { css, StyledType } from "styled-components";
 
-const ProductPrice = styled.div`
+const ProductName = styled.div<StyledType>`
   ${({ type }) => {
     switch (type) {
       case "card":
         return css`
-          font-size: 14px;
+          font-size: 12px;
         `;
       case "detail":
         return css`
+          margin-right: auto;
           font-size: 21px;
+          font-weight: 700;
         `;
       case "shoppingCart":
         return css`
-          font-size: 12px;
+          font-size: 13px;
         `;
       default:
         return;
@@ -21,4 +23,4 @@ const ProductPrice = styled.div`
   }}
 `;
 
-export default ProductPrice;
+export default ProductName;
