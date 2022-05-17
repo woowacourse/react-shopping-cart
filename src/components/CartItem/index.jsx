@@ -10,7 +10,7 @@ import CheckBox from 'components/common/CheckBox';
 import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import {CartItemWrapper, EditQuantityWrapper, ItemNameWrapper} from 'components/CartItem/style';
 
-function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
+function CartItem({itemImgURL, itemName, itemPrice = 0, count, id}) {
   //const dispatch = useDispatch();
 
   const handleDeleteIconClick = () => {
@@ -31,7 +31,7 @@ function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
           <DeleteIcon />
         </Button>
         <div>{count} 개</div>
-        <div>{itemPrice}원</div>
+        <div>{itemPrice.toLocaleString()}원</div>
       </EditQuantityWrapper>
     </CartItemWrapper>
   );

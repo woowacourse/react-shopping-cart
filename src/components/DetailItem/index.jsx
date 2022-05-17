@@ -8,7 +8,7 @@ import Button from 'components/common/Button';
 
 import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'components/DetailItem/style';
 
-export default function DetailItem({itemImgURL, itemName, itemPrice, disabled}) {
+export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disabled}) {
   const [disable, setDisable] = useState(disabled);
   //const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice, disabled}) 
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <ItemPriceWrapper>
         <div>금액</div>
-        <div>{itemPrice}원</div>
+        <div>{itemPrice.toLocaleString()}원</div>
       </ItemPriceWrapper>
       <Button
         backgroundColor="brown"
