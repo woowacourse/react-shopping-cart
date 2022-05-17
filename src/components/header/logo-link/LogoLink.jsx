@@ -4,7 +4,7 @@ const cn = require("classnames");
 
 function LogoLink({ children, href, className }) {
   return (
-    <a href={href} className={cn("logo-link", styles["logo-link"], className)}>
+    <a href={href} className={cn("logoLink", styles.logoLink, className)}>
       {children}
     </a>
   );

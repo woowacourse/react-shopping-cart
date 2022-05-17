@@ -30,7 +30,7 @@ function ProductList({ className }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   return (
-    <div className={cn("product-list", styles["product-list"], className)}>
+    <div className={cn("productList", styles.productList, className)}>
       {productList.map((item) => (
         <ProductItem key={item.id} {...item} />
       ))}

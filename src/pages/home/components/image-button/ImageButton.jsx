@@ -5,7 +5,7 @@ const cn = require("classnames");
 function ImageButton({ children, onClick, included, className }) {
   return (
     <button
-      className={cn("image-button", styles["image-button"], className)}
+      className={cn("imageButton", styles.imageButton, className)}
       type="button"
       onClick={onClick}
       {...(included ? { disabled: true } : {})}

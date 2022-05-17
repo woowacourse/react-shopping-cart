@@ -29,28 +29,28 @@ function ProductItem({
   };
 
   return (
-    <div className={cn("product-item", styles["product-item"], className)}>
+    <div className={cn("productItem", styles.productItem, className)}>
       <Thumbnail
         src={`${thumbnailUrl}`}
         className={styles.thumbnail}
         alt={alt}
       />
       <div className={cn("content", styles.content)}>
-        <div className={cn("product-detail", styles["product-detail"])}>
-          <div className={cn("l-left", styles["l-left"])}>
-            <div className={cn("product-title", styles["product-title"])}>
+        <div className={cn("productDetail", styles.productDetail)}>
+          <div className={cn("lLeft", styles.lLeft)}>
+            <div className={cn("productTitle", styles.productTitle)}>
               {title}
             </div>
-            <div className={cn("product-price", styles["product-price"])}>
+            <div className={cn("productPrice", styles.productPrice)}>
               {price}
             </div>
           </div>
-          <div className="l-right">
+          <div className="lRight">
             {quantity > 0 && (
               <ImageButton
                 onClick={handleClick}
                 included={existInCart(cart, id)}
-                className={cn("add-to-cart-btn", styles["add-to-cart-btn"])}
+                className={cn("addToCartBtn", styles.addToCartBtn)}
               >
                 <Cart width="36px" height="36px" fill="#00cc00" />
               </ImageButton>
