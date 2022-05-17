@@ -7,7 +7,7 @@ const CartItemWrapper = styled.div`
 `;
 
 const ItemNameWrapper = styled.div`
-  width: 100%;
+  width: 300px;
 `;
 
 const EditQuantityWrapper = styled.div`

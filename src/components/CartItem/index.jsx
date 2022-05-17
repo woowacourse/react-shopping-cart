@@ -19,7 +19,7 @@ function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
 
   return (
     <CartItemWrapper>
-      <CheckBox id={id} />
+      <CheckBox />
       <img src={itemImgURL} alt="장바구니 이미지" width="144px" height="144px" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <EditQuantityWrapper>

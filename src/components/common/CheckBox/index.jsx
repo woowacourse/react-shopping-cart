@@ -1,18 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 
-import {CheckBoxWrapper} from 'components/common/CheckBox/style';
+import {StyledCheckbox} from 'components/common/CheckBox/style';
 
 function CheckBox() {
-  return (
-    <CheckBoxWrapper id="check">
-      <input type="checkbox" id="check" />
-      <label htmlFor="check" />
-    </CheckBoxWrapper>
-  );
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckbox = () => {
+    setIsChecked((prev) => !prev);
+    console.log(isChecked);
+  };
+
+  return <StyledCheckbox type="checkbox" onChange={handleCheckbox} />;
 }
-CheckBox.propTypes = {
-  id: PropTypes.string,
-};
 
 export default CheckBox;

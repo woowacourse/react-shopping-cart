@@ -1,35 +1,20 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
-const CheckBoxWrapper = styled.div`
-  input[type='checkbox'] {
-    display: none;
+const StyledCheckbox = styled.input`
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border: ${({theme}) => `1px solid ${theme.COLOR.DARK_MINT}`};
+  border-radius: 2px;
+
+  &:checked {
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: ${({theme}) => theme.COLOR.DARK_MINT};
   }
-
-  input[type='checkbox'] + label {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: ${({theme}) => `1px solid ${theme.COLOR.DARK_MINT}`};
-    border-radius: 2px;
-
-    position: relative;
-  }
-
-  ${(props) =>
-    css`
-        input[id=${props.id}]:checked + label::after {
-        content${props.id}        
-        color: white;
-        font-size: 35px;
-        width: 30px;
-        height: 30px;
-        background-color: ${props.theme.COLOR.DARK_MINT};
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-    `}
 `;
 
-export {CheckBoxWrapper};
+export {StyledCheckbox};
