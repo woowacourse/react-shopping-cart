@@ -63,4 +63,4 @@ function CartProductCard({ product: { id: productId, name, price, imageURL }, qu
   );
 }
 
-export default React.memo(CartProductCard);
+export default CartProductCard;
