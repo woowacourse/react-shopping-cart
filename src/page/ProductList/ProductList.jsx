@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearProducts, productsAsyncThunk } from 'store/action/productsActions';
+import Maybe from 'react-maybe';
 
 import { GridLayout } from 'component/common';
 import LoadingSpinner from 'component/LoadingSpinner/LoadingSpinner';
@@ -35,8 +36,9 @@ function ProductList() {
   }, []);
 
   return (
-    <>
-      {products.length ? (
+    <Maybe
+      of={!!products.length}
+      either={
         <Content>
           <GridLayout>
             {currentPageProducts.map(product => (
@@ -45,10 +47,9 @@ function ProductList() {
           </GridLayout>
           {renderPagination()}
         </Content>
-      ) : (
-        <LoadingSpinner />
-      )}
-    </>
+      }
+      orElse={<LoadingSpinner />}
+    />
   );
 }
 
