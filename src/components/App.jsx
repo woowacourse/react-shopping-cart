@@ -32,24 +32,14 @@ function App() {
         <Header />
         <Main>
           <Routes>
-            <Route exact path={ROUTES.ROOT} element={<ProductListPage />} />
+            <Route path={ROUTES.ROOT} element={<ProductListPage />} />
+            <Route path={ROUTES.PRODUCT_LIST} element={<ProductListPage />} />
             <Route
-              exact
-              path={ROUTES.PRODUCT_LIST}
-              element={<ProductListPage />}
-            />
-            <Route
-              exact
               path={`${ROUTES.PRODUCT_DETAIL}/:id`}
               element={<ProductDetailPage />}
             />
+            <Route path={ROUTES.PRODUCT_CART} element={<ProductCartPage />} />
             <Route
-              exact
-              path={ROUTES.PRODUCT_CART}
-              element={<ProductCartPage />}
-            />
-            <Route
-              exact
               path={ROUTES.PRODUCT_ORDER_LIST}
               element={<OrderListPage />}
             />
