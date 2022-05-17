@@ -8,6 +8,8 @@ const SpinnerBox = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const Icon = styled.div`
