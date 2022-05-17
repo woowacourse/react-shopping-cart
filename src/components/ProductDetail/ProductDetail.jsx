@@ -16,7 +16,7 @@ const ProductDetail = ({ imgUrl, name, price }) => {
 
   return (
     <>
-      <Styled.ProductImg src={imgUrl} alt="상품 이미지" />
+      <Styled.ProductImage src={imgUrl} alt={name} />
       <Styled.ProductInfo>
         <Styled.ProductName>{name}</Styled.ProductName>
         <Styled.Line />
@@ -45,7 +45,7 @@ ProductDetail.propTypes = {
 };
 
 const Styled = {
-  ProductImg: styled.img`
+  ProductImage: styled.img`
     width: 350px;
     height: 350px;
   `,

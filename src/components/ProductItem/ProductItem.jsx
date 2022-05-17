@@ -12,7 +12,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
 
   return (
     <Styled.Wrapper onClick={handleClickProduct}>
-      <Styled.ProductImage src={imgUrl} />
+      <Styled.ProductImage src={imgUrl} alt={name} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
           <Styled.ProductName>{name}</Styled.ProductName>
