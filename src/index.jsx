@@ -5,6 +5,8 @@ import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import App from "./App";
 import reducer from "./redux/reducer";
 import "./scss/style.scss";
+// eslint-disable-next-line import/no-unresolved
+import "./virtual:windi.css";
 
 function prepareMSW() {
   if (process.env.NODE_ENV === "development") {
