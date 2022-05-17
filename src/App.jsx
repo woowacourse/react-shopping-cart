@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadProducts, loadCarts } from 'store/actions';
+import { loadProducts } from 'store/products';
+import { loadCarts } from 'store/carts';
 import GlobalStyle from 'GlobalStyle';
 import ProductListContainer from 'components/Main/ProductListContainer';
 import Header from 'components/Header/Header';
