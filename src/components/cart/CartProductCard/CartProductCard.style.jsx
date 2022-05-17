@@ -8,7 +8,7 @@ export const Container = styled.div`
   justify-content: space-around;
   gap: 20px;
 
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 export const Description = styled.div`

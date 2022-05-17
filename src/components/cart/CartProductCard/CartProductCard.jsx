@@ -11,6 +11,7 @@ import Counter from '../../common/Counter/Counter';
 import Icon from '../../common/Icon/Icon';
 import Image from '../../common/Image/Image';
 import * as Styled from './CartProductCard.style';
+import { color } from '../../../styles/Theme.js';
 
 function CartProductCard({ product: { id: productId, name, price, imageURL }, quantity }) {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ function CartProductCard({ product: { id: productId, name, price, imageURL }, qu
       <Styled.Description>
         <Position position="absolute" top="0" right="0">
           <Styled.Button type="button" onClick={onProductDelete}>
-            <Icon iconName="trash" fill="#333333" />
+            <Icon iconName="trash" fill={color.DARK_GRAY} />
           </Styled.Button>
         </Position>
         <Styled.Name>{name}</Styled.Name>

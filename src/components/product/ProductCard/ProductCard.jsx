@@ -6,6 +6,7 @@ import Modal from '../../common/Modal/Modal';
 import { useModal } from '../../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import CartAdd from '../CartAdd/CartAdd';
+import { color } from '../../../styles/Theme';
 
 function ProductCard({ product }) {
   const { id, imageURL, name, price } = product;
@@ -35,7 +36,7 @@ function ProductCard({ product }) {
 
       <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
         <Styled.TransparentButton type="button" onClick={onClickCartButton}>
-          <Icon iconName="cart" fill="#333333" />
+          <Icon iconName="cart" fill={color.DARK_GRAY} />
         </Styled.TransparentButton>
       </GlobalStyled.Position>
 

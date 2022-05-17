@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ImageContainer = styled.div`
   width: ${({ width }) => width};
   aspect-ratio: 1 / 1;
-  background-color: #e0e0e0;
+  background-color: ${({ theme }) => theme.colors.skeleton};
 
   overflow: hidden;
 `;

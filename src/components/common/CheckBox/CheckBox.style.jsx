@@ -10,9 +10,9 @@ export const CustomCheckBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid ${({ theme }) => theme.mainColor};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: 3px;
 
-  background-color: ${({ checked, theme }) => checked && theme.mainColor};
+  background-color: ${({ checked, theme }) => checked && theme.colors.primary};
   cursor: pointer;
 `;

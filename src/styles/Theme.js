@@ -4,11 +4,23 @@ export const deviceSizeStandard = {
   desktop: 1024,
 };
 
-export default {
-  mainColor: '#141852',
-  buttonDefault: '#73675C',
+export const color = {
+  NAVY: '#141852',
+  WHITE: '#ffffff',
+  DARK_GRAY: '#333333',
+  LIGHT_GRAY: '#aaaaaa',
+  NEAR_WHITE_01: '#e0e0e0',
+  NEAR_WHITE_02: '#ededed',
+  BLACK: '#000000',
+};
 
-  textColorWhite: '#ffffff',
+export default {
+  colors: {
+    primary: color.NAVY,
+    secondary: color.LIGHT_GRAY,
+    textWhite: color.WHITE,
+    skeleton: color.NEAR_WHITE_01,
+  },
 
   // responsive
   mobile: `@media (max-width: ${deviceSizeStandard.mobile}px)`,

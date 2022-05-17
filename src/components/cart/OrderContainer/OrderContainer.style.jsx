@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  border: 1px solid #aaaaaa;
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
   width: 30%;
   height: max-content;
 `;
 
 export const Title = styled.h1`
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
   padding: 15px;
   font-weight: normal;
   font-size: 24px;
@@ -40,8 +40,8 @@ export const Button = styled.button`
 
   border: none;
 
-  background-color: ${({ theme }) => theme.mainColor};
-  color: ${({ theme }) => theme.textColorWhite};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textWhite};
   font-size: 24px;
 
   cursor: pointer;
@@ -51,7 +51,7 @@ export const Button = styled.button`
   }
 
   &:disabled {
-    background-color: #aaaaaa;
+    background-color: ${({ theme }) => theme.colors.secondary};
 
     &:hover {
       opacity: 1;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { color } from '../../../styles/Theme';
 
 export const Dimmed = styled.div`
   width: 100vw;
@@ -12,7 +13,7 @@ export const Dimmed = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #00000099;
+  background-color: ${color.BLACK}99;
 `;
 
 export const Container = styled.div`
