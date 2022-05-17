@@ -1,31 +1,34 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GridWrapper from "../../components/GridWrapper";
 import Item from "../../components/Item";
 import ItemSkeleton from "../../components/ItemSkeleton";
-import { getProductsByPage } from "../../modules/products";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
+import useProductList from "../../hooks/useProductList";
 
 const DELAY_TIME = 500;
 
 const ItemList = () => {
-  const products = useSelector((state) => state.products);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const sectionRef = useRef(null);
 
-  const delayGetProduct = throttle(DELAY_TIME, () =>
-    dispatch(getProductsByPage())
-  );
+  const {
+    isLoading,
+    data: products,
+    isEnd,
+    getProductsByPage,
+  } = useProductList();
+
+  const navigate = useNavigate();
+
+  const delayGetProduct = throttle(DELAY_TIME, () => getProductsByPage());
 
   useInfinityScroll({
     ref: sectionRef,
     cb: delayGetProduct,
-    endPoint: products.isEnd,
+    endPoint: isEnd,
   });
 
   const handleItemClick = (id) => {
@@ -35,7 +38,7 @@ const ItemList = () => {
   return (
     <section>
       <GridWrapper>
-        {products.data.map((product) => (
+        {products.map((product) => (
           <Item
             key={product.id}
             {...product}
@@ -44,7 +47,7 @@ const ItemList = () => {
             }}
           />
         ))}
-        {products.isLoading &&
+        {isLoading &&
           Array.from({ length: LOAD_ITEM_AMOUNT }).map(() => (
             <ItemSkeleton key={uuidv4()} />
           ))}
