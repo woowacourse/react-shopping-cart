@@ -7,6 +7,8 @@ const COLORS = {
   GRAY_002: '#F3F3F3',
   WHITE: '#FFFFFF',
   BLUE_001: '#0066FF',
+  BROWN_100: '#73675C',
+  BROWN_50: '#84786D',
 };
 
 const BRAND_COLORS = {};
