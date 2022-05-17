@@ -3,7 +3,9 @@ import Button from 'components/common/Button';
 import CroppedImage from 'components/common/CroppedImage';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
+import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import { useFetch } from 'hooks/useFetch';
+import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useParams } from 'react-router-dom';
@@ -15,12 +17,18 @@ import type { Item } from 'types/domain';
 const ItemDetail = () => {
   const params = useParams();
   const id = Number(params.id);
+  const { isOpenSnackbar, openSnackbar } = useSnackBar();
   const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
   const { data: cartList } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
     getCartList
   );
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+
+  const handleClickCart = () => {
+    updateCartItemQuantity(id);
+    openSnackbar();
+  };
 
   if (loading) return <Loading />;
   if (error) return <RequestFail />;
@@ -35,9 +43,10 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price.toLocaleString()}</StyledPriceValue>
       </StyldPrice>
-      <Button size='large' backgroundColor='brown' onClick={() => updateCartItemQuantity(id)}>
+      <Button size='large' backgroundColor='brown' onClick={handleClickCart}>
         장바구니
       </Button>
+      {isOpenSnackbar && <Snackbar message={MESSAGE.cart} />}
     </StyledRoot>
   );
 };
