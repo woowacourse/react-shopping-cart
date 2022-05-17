@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import { BasicButton, BasicImage } from '../shared/basics';
@@ -8,19 +8,11 @@ import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import useStoreProduct from '../../hooks/useStoreProduct';
 
 function ProductDetail({ id, src, title, price, isStored }) {
+  const timeout = useRef();
   const [isClicked, setIsClicked] = useState(isStored);
-  const { isCartAddLoading, addToCart } = useStoreProduct(id);
-  const { isCartDeleteLoading, deleteFromCart } = useDeleteProductFromCart(id);
-
-  const handleCartButtonClick = async () => {
-    if (isClicked) {
-      await deleteFromCart();
-    } else {
-      await addToCart();
-    }
-
-    setIsClicked((prev) => !prev);
-  };
+  const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
+  const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
+    useDeleteProductFromCart(id);
 
   useEffect(() => {
     setIsClicked((prev) => !prev);
@@ -28,6 +20,24 @@ function ProductDetail({ id, src, title, price, isStored }) {
 
   const isLoading = isCartAddLoading || isCartDeleteLoading;
   const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';
+  const isError = deleteProductFromCartError || cartAddError;
+
+  const handleCartButtonClick = async () => {
+    if (isError) {
+      return;
+    }
+
+    clearTimeout(timeout.current);
+
+    timeout.current = setTimeout(() => {
+      if (isClicked) {
+        deleteFromCart();
+      } else {
+        addToCart();
+      }
+      setIsClicked((prev) => !prev);
+    }, 350);
+  };
 
   return (
     <Style.ProductDetailBox>
@@ -42,6 +52,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
       </Style.ProductDetailInfo>
       <Style.ProductDetailCartButton onClick={handleCartButtonClick}>
         {isLoading ? '전송 중' : buttonText}
+        {isError && ' 에러가 발생했습니다.'}
       </Style.ProductDetailCartButton>
     </Style.ProductDetailBox>
   );
