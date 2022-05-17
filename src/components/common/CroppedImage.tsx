@@ -1,3 +1,5 @@
+import defaultImage from 'assets/defaultImage.jpeg';
+import { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 
 interface CroppedImageProps {
@@ -8,9 +10,14 @@ interface CroppedImageProps {
 }
 
 const CroppedImage = ({ src, width, height, alt }: CroppedImageProps) => {
+  const handleErrorImage = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    if (!(e.target instanceof HTMLImageElement)) return;
+    e.target.src = defaultImage;
+  };
+
   return (
     <StyledImageWrapper width={width} height={height}>
-      <StyledImage src={src} alt={alt}></StyledImage>
+      <StyledImage src={src} alt={alt} onError={handleErrorImage}></StyledImage>
     </StyledImageWrapper>
   );
 };
