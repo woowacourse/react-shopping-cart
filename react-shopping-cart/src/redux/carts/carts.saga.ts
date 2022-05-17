@@ -3,48 +3,69 @@ import cartsActionTypes from "redux/carts/carts.types";
 import { addProductToCart, deleteProductFromCart, fetchCarts } from "api";
 import {
   addProductToCartError,
+  addProductToCartStart,
   addProductToCartSuccess,
   deleteCheckedProductsError,
+  deleteCheckedProductsStart,
   deleteCheckedProductsSuccess,
   deleteProductToCartError,
+  deleteProductToCartStart,
   deleteProductToCartSuccess,
   fetchCartsError,
   fetchCartsSuccess,
 } from "redux/carts/carts.action";
+import { CartItem, Carts } from "type";
+import { SagaIterator } from "redux-saga";
 
-export function* getCarts() {
+export function* getCarts(): SagaIterator<void> {
   try {
-    const data = yield call(fetchCarts);
+    const data: Carts = yield call(fetchCarts);
     yield put(fetchCartsSuccess(data));
   } catch (err) {
-    yield put(fetchCartsError(err));
+    if (err instanceof Error) {
+      yield put(fetchCartsError(err));
+    }
   }
 }
 
-export function* addProduct({ payload: product }) {
+export function* addProduct({
+  payload: product,
+}: ReturnType<typeof addProductToCartStart>): SagaIterator<void> {
   try {
-    const data = yield call(addProductToCart, product);
+    const data: CartItem = yield call(addProductToCart, product);
     yield put(addProductToCartSuccess(data));
   } catch (err) {
-    yield put(addProductToCartError(err));
+    if (err instanceof Error) {
+      yield put(addProductToCartError(err));
+    }
   }
 }
 
-export function* deleteProduct({ payload: id }) {
+export function* deleteProduct({
+  payload: id,
+}: ReturnType<typeof deleteProductToCartStart>): SagaIterator<void> {
   try {
     yield call(deleteProductFromCart, id);
     yield put(deleteProductToCartSuccess(id));
   } catch (err) {
-    yield put(deleteProductToCartError(err));
+    if (err instanceof Error) {
+      yield put(deleteProductToCartError(err));
+    }
   }
 }
 
-export function* deleteCheckedProducts({ payload: checkedIdList }) {
+export function* deleteCheckedProducts({
+  payload: checkedIdList,
+}: ReturnType<typeof deleteCheckedProductsStart>): SagaIterator<void> {
   try {
-    yield all(checkedIdList.map((id) => call(deleteProductFromCart, id)));
+    yield all(
+      checkedIdList.map((id: string) => call(deleteProductFromCart, id))
+    );
     yield put(deleteCheckedProductsSuccess(checkedIdList));
   } catch (err) {
-    yield put(deleteCheckedProductsError(err));
+    if (err instanceof Error) {
+      yield put(deleteCheckedProductsError(err));
+    }
   }
 }
 

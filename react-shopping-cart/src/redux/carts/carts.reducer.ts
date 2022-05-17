@@ -1,14 +1,26 @@
-import { CURRENT_USER } from "constants";
+import { CURRENT_USER } from "constants/index";
 import cartsActionTypes from "redux/carts/carts.types";
+import { CartItem, Carts } from "type/index";
+import { CartsAction } from "./carts.action";
 
-const INITIAL_STATE = {
+interface CartState {
+  loading: boolean;
+  carts: Carts;
+  error: Error | null;
+  allChecked: boolean;
+}
+
+const INITIAL_STATE: CartState = {
   loading: false,
   carts: [],
-  error: false,
+  error: null,
   allChecked: false,
 };
 
-const cartsReducer = (state = INITIAL_STATE, action) => {
+const cartsReducer = (
+  state = INITIAL_STATE,
+  action: CartsAction
+): CartState => {
   switch (action.type) {
     case cartsActionTypes.addProductToCartStart:
     case cartsActionTypes.fetchCartsStart:
@@ -56,10 +68,12 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     }
     case cartsActionTypes.toggleIsChecked: {
       const newCarts = [...state.carts];
-      const currentCartProduct = newCarts.find(
+      const currentCartProduct: CartItem | undefined = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["checked"] = !currentCartProduct["checked"];
+      if (typeof currentCartProduct !== "undefined") {
+        currentCartProduct["checked"] = !currentCartProduct["checked"];
+      }
 
       return { ...state, carts: newCarts };
     }
@@ -78,21 +92,25 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     case cartsActionTypes.increaseProductQuantity: {
       const newCarts = [...state.carts];
 
-      const currentCartProduct = newCarts.find(
+      const currentCartProduct: CartItem | undefined = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      currentCartProduct["quantity"] += 1;
+      if (typeof currentCartProduct !== "undefined") {
+        currentCartProduct["quantity"] += 1;
+      }
       return { ...state, carts: newCarts };
     }
     case cartsActionTypes.decreaseProductQuantity: {
       const newCarts = [...state.carts];
-      const currentCartProduct = newCarts.find(
+      const currentCartProduct: CartItem | undefined = newCarts.find(
         (carts) => carts.id === action.payload
       );
-      if (currentCartProduct["quantity"] === 0) {
-        return { ...state };
+      if (typeof currentCartProduct !== "undefined") {
+        if (currentCartProduct["quantity"] === 0) {
+          return { ...state };
+        }
+        currentCartProduct["quantity"] -= 1;
       }
-      currentCartProduct["quantity"] -= 1;
       return { ...state, carts: newCarts };
     }
     default:

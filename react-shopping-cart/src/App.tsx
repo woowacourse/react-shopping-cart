@@ -4,7 +4,7 @@ import ProductListPage from "pages/ProductListPage/ProductListPage";
 import ProductDetailPage from "pages/ProductDetailPage/ProductDetailPage";
 import ShoppingCartPage from "pages/ShoppingCartPage/ShoppingCartPage";
 
-import { ROUTE_PATH } from "constants";
+import { ROUTE_PATH } from "constants/index";
 import PageHeader from "component/PageHeader/PageHeader";
 
 function App() {

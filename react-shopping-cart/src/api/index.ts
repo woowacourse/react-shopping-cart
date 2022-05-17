@@ -1,6 +1,7 @@
+import { CartItem, Carts } from "type";
 import { API_URL } from "../constants";
 
-export const fetchProducts = async (id) => {
+export const fetchProducts = async (id: number) => {
   const res = await fetch(`${API_URL}/products?_page=${id}&_limit=12`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
@@ -8,7 +9,7 @@ export const fetchProducts = async (id) => {
   return await res.json();
 };
 
-export const fetchDetailProduct = async (id) => {
+export const fetchDetailProduct = async (id: number) => {
   const res = await fetch(`${API_URL}/products/${id}`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다!");
@@ -16,15 +17,19 @@ export const fetchDetailProduct = async (id) => {
   return await res.json();
 };
 
-export const fetchCarts = async () => {
+export const fetchCarts = async (): Promise<Carts> => {
   const res = await fetch(`${API_URL}/carts`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
   }
-  return await res.json();
+
+  const data: Carts = await res.json();
+  return data;
 };
 
-export const addProductToCart = async (product) => {
+export const addProductToCart = async (
+  product: CartItem
+): Promise<CartItem> => {
   const res = await fetch(`${API_URL}/carts`, {
     method: "POST",
     headers: {
@@ -35,10 +40,12 @@ export const addProductToCart = async (product) => {
   if (!res.ok) {
     throw new Error("등록에 실패했습니다");
   }
-  return await res.json();
+
+  const data: CartItem = await res.json();
+  return data;
 };
 
-export const deleteProductFromCart = async (id) => {
+export const deleteProductFromCart = async (id: string) => {
   const res = await fetch(`${API_URL}/carts/${id}`, {
     method: "DELETE",
     headers: {
