@@ -1,27 +1,29 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  body,
-  p,
-  button {
-    margin: 0;
-    padding: 0;
-    font-family: BMJUA_ttf;
-  }
-
-  * {
+  html {
+    font-size: 62.5%;
     box-sizing: border-box;
   }
 
-  @media (max-width: 800px) {
-    html {
-      font-size: 13px;
-    } 
+  body {
+    font-family: ${({ theme }) => theme.font};
   }
 
-  #root {
-    width: 100vw;
-    height: 100vh;
+  *, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .flex-row {
+    display: flex;
+    align-items: center;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Product from 'templates/Product';
+import Product from 'components/Product';
 
 export default {
   title: 'Template/Product',
