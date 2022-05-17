@@ -1,32 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ProductListStyled, MessageWrapperStyled } from './style';
 import Product from 'templates/Product';
-import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
+import { requestProductsAdd } from 'modules/product';
 import BlackText from 'components/BlackText';
+
+import useDataFetch from 'hooks/useDataFetch';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
-  const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
-  const requestProductError = useSelector((state) => state.product.requestProductsError);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(requestProducts());
-    dispatch(async (storeDispatch) => {
-      try {
-        const body = await fetch(process.env.REACT_APP_DATA_SERVER);
-        const products = await body.json();
 
-        storeDispatch(requestProductsDone(products));
-      } catch (error) {
-        storeDispatch(requestProductsError());
-      }
-    });
-  }, []);
+  const [{ data, isLoading, isError }] = useDataFetch(process.env.REACT_APP_DATA_SERVER, products);
+  dispatch(requestProductsAdd(data));
 
-  if (requestProductLoading) {
+  if (isLoading) {
     return (
       <MessageWrapperStyled>
         <BlackText fontSize="30px" fontWeight="800">
@@ -36,7 +26,7 @@ function ProductList() {
     );
   }
 
-  if (requestProductError) {
+  if (isError) {
     return (
       <MessageWrapperStyled>
         <BlackText fontSize="30px" fontWeight="800">
@@ -48,7 +38,7 @@ function ProductList() {
 
   return (
     <ProductListStyled>
-      {products.map((product) => (
+      {data.map((product) => (
         <Product key={product.id} {...product} />
       ))}
     </ProductListStyled>
