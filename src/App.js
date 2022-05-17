@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 import ProductListPage from 'pages/productList/ProductListPage';
 import ShoppingCartPage from 'pages/shoppingCart/ShoppingCartPage';
-import Header from 'components/header/Header';
+import PageHeader from 'components/pageHeader/PageHeader';
 import Button from 'components/base/button/Button';
-import HeaderCartIcon from 'components/header/HeaderCartIcon';
+import PageHeaderCartIcon from 'components/pageHeader/PageHeaderCartIcon';
 
 import GlobalStyles from 'style/GlobalStyles';
 
@@ -20,11 +20,11 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyles />
-      <Header
+      <PageHeader
         left={
           <Link to={BASE_PAGE_URL}>
             <Button>
-              <HeaderCartIcon />
+              <PageHeaderCartIcon />
             </Button>
             <Button boldText>WOOWA SHOP</Button>
           </Link>

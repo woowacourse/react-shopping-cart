@@ -1,13 +1,10 @@
 import CartIcon from 'components/base/cartIcon/CartIcon';
 import styled from 'styled-components';
 import { color } from 'constants/constants';
+import { BaseHeader } from 'components/base/header/style';
 
-const StyledHeader = styled.header`
-  display: flex;
-  align-items: center;
+const StyledHeader = styled(BaseHeader)`
   justify-content: space-around;
-  width: 100%;
-  height: 80px;
   background-color: ${color.mint};
   position: fixed;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);

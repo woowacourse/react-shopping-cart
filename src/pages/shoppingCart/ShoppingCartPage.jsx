@@ -1,5 +1,35 @@
+import Checkbox from 'components/base/checkBox/CheckBox';
+import Header from 'components/base/header/Header';
+import Title from 'components/base/title/Title';
+import PageTitle from 'components/pageTitle/PageTitle';
+import PaymentAccount from 'components/paymentAccount/PaymentAccount';
+
+import {
+  ContentWrapper,
+  PageWrapper,
+  PaymentAccountContainer,
+  ProductDeleteButton,
+  ShoppingCartContainer,
+} from './style';
+
 const ShoppingCartPage = () => {
-  return <div>shoppingCartPage</div>;
+  return (
+    <PageWrapper>
+      <PageTitle title="장바구니" />
+      <ContentWrapper>
+        <ShoppingCartContainer>
+          <Header
+            left={<Checkbox label="전체선택" />}
+            right={<ProductDeleteButton>상품삭제</ProductDeleteButton>}
+          />
+          <Title title="든든배송 상품" />
+        </ShoppingCartContainer>
+        <PaymentAccountContainer>
+          <PaymentAccount />
+        </PaymentAccountContainer>
+      </ContentWrapper>
+    </PageWrapper>
+  );
 };
 
 export default ShoppingCartPage;

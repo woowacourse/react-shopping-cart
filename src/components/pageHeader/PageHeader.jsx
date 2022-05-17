@@ -1,4 +1,4 @@
-import { StyledHeader } from 'components/header/style';
+import { StyledHeader } from 'components/pageHeader/style';
 
 const Header = ({ left, right, ...rest }) => {
   return (
