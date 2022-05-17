@@ -2,27 +2,38 @@ import { put, call, takeLatest, all } from "redux-saga/effects";
 import { fetchDetailProduct, fetchProducts } from "api";
 import {
   fetchProductDetailError,
+  fetchProductDetailStart,
   fetchProductDetailSucccess,
   fetchProductsError,
+  fetchProductsStart,
   fetchProductsSuccess,
 } from "redux/products/products.action";
 import productActionType from "redux/products/products.types";
+import { SagaIterator } from "redux-saga";
 
-export function* getProducts({ payload: id }) {
+export function* getProducts({
+  payload: id,
+}: ReturnType<typeof fetchProductsStart>): SagaIterator<void> {
   try {
     const data = yield call(fetchProducts, id);
     yield put(fetchProductsSuccess(data));
   } catch (err) {
-    yield put(fetchProductsError(err));
+    if (err instanceof Error) {
+      yield put(fetchProductsError(err));
+    }
   }
 }
 
-export function* getDetailProduct({ payload: id }) {
+export function* getDetailProduct({
+  payload: id,
+}: ReturnType<typeof fetchProductDetailStart>): SagaIterator<void> {
   try {
     const data = yield call(fetchDetailProduct, id);
     yield put(fetchProductDetailSucccess(data));
   } catch (err) {
-    yield put(fetchProductDetailError(err));
+    if (err instanceof Error) {
+      yield put(fetchProductDetailError(err));
+    }
   }
 }
 

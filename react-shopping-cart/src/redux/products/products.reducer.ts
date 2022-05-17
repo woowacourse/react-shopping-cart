@@ -1,13 +1,22 @@
 import productActionType from "redux/products/products.types";
+import { Product } from "type";
+import { ProductAction } from "./products.action";
 
-const INITIAL_STATE = {
+interface ProductState {
+  loading: boolean;
+  products: Product[];
+  detailProduct: Product | null;
+  error: Error | null;
+}
+
+const INITIAL_STATE: ProductState = {
   loading: false,
   products: [],
   detailProduct: null,
   error: null,
 };
 
-const productsReducer = (state = INITIAL_STATE, action) => {
+const productsReducer = (state = INITIAL_STATE, action: ProductAction) => {
   switch (action.type) {
     case productActionType.fetchProductDetailStart:
     case productActionType.fetchProductsStart:

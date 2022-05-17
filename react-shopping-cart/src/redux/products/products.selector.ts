@@ -1,6 +1,7 @@
+import { RootState } from "redux/store";
 import { createSelector } from "reselect";
 
-const selectProducts = (state) => state.products;
+const selectProducts = (state: RootState) => state.products;
 
 export const selectProductsLoading = createSelector(
   [selectProducts],
