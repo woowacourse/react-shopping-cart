@@ -1,4 +1,4 @@
-import ShoppingCart from 'assets/shoppingCart';
+import ShoppingCart from 'components/@shared/ShoppingCart';
 import styled from 'styled-components';
 
 function Logo() {

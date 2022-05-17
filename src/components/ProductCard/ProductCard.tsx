@@ -1,7 +1,7 @@
 import Link from 'components/Link/Link';
 import PATH from 'constants/path';
 import { Product } from 'types';
-import ShoppingCart from 'assets/shoppingCart';
+import ShoppingCart from 'components/@shared/ShoppingCart';
 import styled from 'styled-components';
 
 type Props = {
