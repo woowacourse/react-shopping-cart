@@ -1,22 +1,26 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const MenuItem = ({ children }) => {
-  return <Styled.Wrapper>{children}</Styled.Wrapper>;
+const MenuItem = ({ children, to }) => {
+  return <Styled.Menu to={to}>{children}</Styled.Menu>;
 };
 
 MenuItem.propTypes = {
   children: PropTypes.string,
+  to: PropTypes.string,
 };
 
 const Styled = {
-  Wrapper: styled.div`
+  Menu: styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 500;
     color: #ffffff;
     cursor: pointer;
+    text-decoration-line: none;
+
     ${({ theme }) => `
       font-weight: 900;
       @media ${theme.DEVICE.EXTRA_SMALL} {

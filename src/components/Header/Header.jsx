@@ -11,8 +11,8 @@ const Header = () => {
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>
-        <MenuItem>장바구니</MenuItem>
-        <MenuItem>주문목록</MenuItem>
+        <MenuItem to="/cart">장바구니</MenuItem>
+        <MenuItem to="/order">주문목록</MenuItem>
       </Styled.MenuContainer>
     </Styled.Wrapper>
   );
