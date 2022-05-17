@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
@@ -12,7 +12,7 @@ function MainPage() {
   const productList = useSelector((state: StoreState) => state.productList);
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getProducts(dispatch);
   }, [dispatch]);
 

@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
@@ -13,7 +13,7 @@ function ProductPage() {
   const condition = useSelector((state: StoreState) => state.condition);
   const productDetail = useSelector((state: StoreState) => state.productDetail);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       getProduct(dispatch, id);
     }
