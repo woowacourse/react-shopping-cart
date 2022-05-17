@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../../../constants";
 import ACTION_TYPE from "../../../../redux/actions";
 import createAction from "../../../../redux/createAction";
-import S from "../../styled";
 import ProductItem from "../product-item/ProductItem";
+import styles from "./product-list.module.scss";
 
-function ProductList() {
+const cn = require("classnames");
+
+function ProductList({ className }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const productList = useSelector(({ productList }) => productList);
@@ -28,11 +30,11 @@ function ProductList() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   return (
-    <S.ProductList>
+    <div className={cn("product-list", styles["product-list"], className)}>
       {productList.map((item) => (
         <ProductItem key={item.id} {...item} />
       ))}
-    </S.ProductList>
+    </div>
   );
 }
 

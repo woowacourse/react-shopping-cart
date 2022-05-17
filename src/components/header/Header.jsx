@@ -1,23 +1,25 @@
-import { css } from "@emotion/react";
-import S from "../styled";
-import StarcraftLogo from "../../assets/images/starcraft-logo.png";
-import LogoLink from "./logo-link/LogoLink";
+import React from "react";
+import Logo from "../../assets/images/logo.svg";
 import Menu from "./menu/Menu";
+import styles from "./header.module.scss";
 
-function Header({ className = "header" }) {
+const cn = require("classnames");
+
+function Header({ className }) {
   return (
-    <S.Header className={className}>
-      <S.Wrapper css={innerHeaderStyle}>
-        <LogoLink src={StarcraftLogo} href="/" />
+    <div className={cn("header", styles.header, className)}>
+      <div
+        className="wrapper"
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <a href="/" className={styles.siteLogo}>
+          <Logo width="50px" height="44px" />
+          <span className={styles.title}>WOOWA SHOP</span>
+        </a>
         <Menu />
-      </S.Wrapper>
-    </S.Header>
+      </div>
+    </div>
   );
 }
-
-const innerHeaderStyle = css`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default Header;

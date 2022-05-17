@@ -1,9 +1,11 @@
-import S from "../../styled";
+import styles from "./menu.module.scss";
 
-function Menu() {
+const cn = require("classnames");
+
+function Menu({ className }) {
   return (
-    <S.Menu>
-      <ul>
+    <div className={cn("menu", styles.menu, className)}>
+      <ul className={styles.ul}>
         <li>
           <a href="/">장바구니</a>
         </li>
@@ -11,7 +13,7 @@ function Menu() {
           <a href="/">주문목록</a>
         </li>
       </ul>
-    </S.Menu>
+    </div>
   );
 }
 

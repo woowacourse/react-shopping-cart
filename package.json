@@ -50,6 +50,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
+    "include-media": "^1.4.10",
     "mini-css-extract-plugin": "^2.6.0",
     "node-sass": "^7.0.1",
     "prettier": "^2.6.2",
@@ -57,7 +58,8 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^4.9.0",
+    "windicss-webpack-plugin": "^1.7.2"
   },
   "config": {
     "commitizen": {
@@ -68,6 +70,7 @@
     "@babel/runtime": "^7.17.9",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "classnames": "^2.3.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",

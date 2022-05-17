@@ -1,0 +1,25 @@
+@import "../../../scss/colors.scss";
+@import "../../../scss/no-style.scss";
+
+.menu {
+  display: inline-flex;
+  ul {
+    @include ul-no-style;
+    display: flex;
+    align-items: center;
+    li {
+      padding: 0 25px;
+      a {
+        @include a-no-style;
+        display: block;
+        padding: 10px 0;
+        font-size: 20px;
+        line-height: 20px;
+        color: white;
+        &:hover {
+          color: rgb(220, 220, 220);
+        }
+      }
+    }
+  }
+}

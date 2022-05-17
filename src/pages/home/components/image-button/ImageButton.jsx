@@ -1,15 +1,17 @@
-import S from "../../styled";
+import styles from "./image-button.module.scss";
 
-function ImageButton({ children, onClick, included }) {
+const cn = require("classnames");
+
+function ImageButton({ children, onClick, included, className }) {
   return (
-    <S.ImageButton
-      className="add-cart-btn"
+    <button
+      className={cn("image-button", styles["image-button"], className)}
       type="button"
       onClick={onClick}
       {...(included ? { disabled: true } : {})}
     >
       {children}
-    </S.ImageButton>
+    </button>
   );
 }
 

@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "../../../../assets/images/cart.svg";
-import S from "../../styled";
 import Thumbnail from "../thumbnail/Thumbnail";
 import ImageButton from "../image-button/ImageButton";
 import createAction from "../../../../redux/createAction";
 import ACTION_TYPE from "../../../../redux/actions";
 import { BASE_URL } from "../../../../constants";
+import styles from "./product-item.module.scss";
 
-function ProductItem({ id, name, price, stock, thumbnail_url }) {
+const cn = require("classnames");
+
+function ProductItem({ id, name, price, stock, thumbnail_url, className }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -21,19 +23,27 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
   };
 
   return (
-    <S.ProductItem>
-      <Thumbnail src={`${BASE_URL}/${thumbnail_url}`} />
-      <div className="content">
-        <div className="product-detail">
-          <div className="l-left">
-            <div className="product-title">{name}</div>
-            <div className="product-price">{price}원</div>
+    <div className={cn("product-item", styles["product-item"], className)}>
+      <Thumbnail
+        src={`${BASE_URL}/${thumbnail_url}`}
+        className={styles.thumbnail}
+      />
+      <div className={cn("content", styles.content)}>
+        <div className={cn("product-detail", styles["product-detail"])}>
+          <div className={cn("l-left", styles["l-left"])}>
+            <div className={cn("product-title", styles["product-title"])}>
+              {name}
+            </div>
+            <div className={cn("product-price", styles["product-price"])}>
+              {price}원
+            </div>
           </div>
           <div className="l-right">
             {stock > 0 && (
               <ImageButton
                 onClick={handleClick}
                 included={existInCart(cart, id)}
+                className={cn("add-to-cart-btn", styles["add-to-cart-btn"])}
               >
                 <Cart width="36px" height="36px" fill="#00cc00" />
               </ImageButton>
@@ -41,8 +51,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
           </div>
         </div>
       </div>
-      <div className="overlay" />
-    </S.ProductItem>
+    </div>
   );
 }
 
