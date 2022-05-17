@@ -1,0 +1,20 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react-hooks", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "@types"]
+      }
+    }
+  },
+  "rules": { "react/react-in-jsx-scope": "off" }
+}
