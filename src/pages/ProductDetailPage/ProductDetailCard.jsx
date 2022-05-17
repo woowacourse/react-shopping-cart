@@ -25,6 +25,10 @@ function AddToCartButton() {
       onClick={() => {
         alert("🛒아직입니다~~^^🛒");
       }}
+      height="60px"
+      fontSize="1.25rem"
+      fontWeight="700"
+      color="white"
       bgColor="brown"
     >
       장바구니 담기
