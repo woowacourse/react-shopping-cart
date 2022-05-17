@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import Image from 'components/@shared/Image/Image.component';
-import Text from 'components/@shared/Text/Text.component';
+import TextBox from 'components/@shared/TextBox/TextBox.component';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 
 const ItemContainer = styled.div`
@@ -16,12 +16,12 @@ const ItemContainer = styled.div`
   ${Image} {
     grid-area: img;
   }
-  ${Text}.product-name {
+  ${TextBox}.product-name {
     grid-area: name;
     margin-left: 11px;
     margin-top: 5px;
   }
-  ${Text}.product-price {
+  ${TextBox}.product-price {
     grid-area: price;
     margin-left: 11px;
   }
@@ -44,12 +44,12 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
   return (
     <ItemContainer isContained={isContained}>
       <Image type="medium" src={thumbnail} />
-      <Text className="product-name" fontSize="small">
+      <TextBox className="product-name" fontSize="small">
         {name}
-      </Text>
-      <Text className="product-price" fontSize="medium">
+      </TextBox>
+      <TextBox className="product-price" fontSize="medium">
         {price}원
-      </Text>
+      </TextBox>
       <ShoppingCart style={{ cursor: 'pointer' }} onClick={onClick} />
     </ItemContainer>
   );

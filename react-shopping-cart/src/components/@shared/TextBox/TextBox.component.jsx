@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const Text = styled.div`
+const TextBox = styled.div`
   font-style: normal;
   letter-spacing: 0.5px;
   color: #333333;
@@ -35,4 +35,4 @@ const Text = styled.div`
   }}
 `;
 
-export default Text;
+export default TextBox;
