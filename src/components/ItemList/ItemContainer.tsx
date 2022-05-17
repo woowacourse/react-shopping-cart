@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 import { memo, MouseEvent } from 'react';
 import { flexCenter } from 'styles/mixin';
 import { Link } from 'react-router-dom';
+import useSnackBar from 'hooks/useSnackBar';
 
 interface ItemContainerProps {
   id: number;
@@ -12,7 +13,7 @@ interface ItemContainerProps {
   title: string;
   price: number;
   updateCartItemQuantity?: (id: number) => void;
-  openSnackbar: () => void;
+  openSnackbar?: (type: string) => void;
 }
 
 const ItemContainer = ({
@@ -31,7 +32,7 @@ const ItemContainer = ({
 
   const handleClickCartIcon = () => {
     updateCartItemQuantity?.(id);
-    openSnackbar();
+    openSnackbar('cart');
   };
 
   return (

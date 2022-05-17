@@ -1,20 +1,14 @@
-import { useAppSelector } from 'hooks/useAppSelector';
 import Portal from './Portal';
 import styled, { keyframes } from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 
 export const Contents = {
   cart: '장바구니에 담았습니다.',
+  purchase: '상품을 구매하였습니다',
 };
 
 const Snackbar = () => {
-  const { contentsType } = useAppSelector(state => state.snackbarReducer);
-
-  return (
-    <Portal>
-      <StyledSnackbarContents>{Contents[contentsType]}</StyledSnackbarContents>
-    </Portal>
-  );
+  return <Portal>{<StyledSnackbarContents>{Contents.cart}</StyledSnackbarContents>}</Portal>;
 };
 
 export default Snackbar;
