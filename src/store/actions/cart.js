@@ -5,7 +5,7 @@ export const addToCartAsync = (productId, quantity) => async (dispatch) => {
   const stateName = 'CART_ADD';
   dispatch(actionStarted(stateName));
   try {
-    const cart = await addToCart(productId, quantity);
+    const { cart } = await addToCart(productId, quantity);
     dispatch(actionSucceeded(stateName, { cart }));
     dispatch({ type: 'UPDATE_CHECKED_LIST', payload: { checkedProductList: Object.keys(cart) } });
   } catch ({ message }) {
@@ -17,11 +17,11 @@ export const fetchCartAsync = () => async (dispatch) => {
   const stateName = 'CART_FETCH';
   dispatch(actionStarted(stateName));
   try {
-    const cart = await getCart();
+    const { cart } = await getCart();
     dispatch(actionSucceeded(stateName, { cart }));
     dispatch({
       type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart.cart) },
+      payload: { checkedProductList: Object.keys(cart) },
     });
   } catch ({ message }) {
     dispatch(actionFailed(stateName, { message }));
@@ -33,11 +33,11 @@ export const updateCartProductQuantityAsync = (productId, quantity) => async (di
   dispatch(actionStarted(stateName));
 
   try {
-    const cart = await updateCartQuantity(productId, quantity);
+    const { cart } = await updateCartQuantity(productId, quantity);
     dispatch(actionSucceeded(stateName, { cart }));
     dispatch({
       type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart.cart) },
+      payload: { checkedProductList: Object.keys(cart) },
     });
   } catch ({ message }) {
     dispatch(actionFailed(stateName, { message }));
@@ -63,11 +63,11 @@ export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
   dispatch(actionStarted(stateName));
 
   try {
-    const cart = await deleteCartProduct(productIdArray);
+    const { cart } = await deleteCartProduct(productIdArray);
     dispatch(actionSucceeded(stateName, { cart }));
     dispatch({
       type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart.cart) },
+      payload: { checkedProductList: Object.keys(cart) },
     });
   } catch ({ message }) {
     dispatch(actionFailed(stateName, { message }));

@@ -8,10 +8,7 @@ import * as Styled from './CartProductList.style';
 function CartProductList() {
   const dispatch = useDispatch();
 
-  const {
-    cart: { cart },
-    checkedProductList,
-  } = useSelector(({ cart }) => cart);
+  const { cart, checkedProductList } = useSelector(({ cart }) => cart);
 
   const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
 

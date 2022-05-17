@@ -10,6 +10,8 @@ export const getProductList = async (page) => {
     `/products?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`,
   );
 
+  console.log(response.data);
+
   if (response.statusText !== 'OK') {
     throw Error('서버 오류!');
   }
