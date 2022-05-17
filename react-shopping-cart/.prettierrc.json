@@ -1,0 +1,13 @@
+{
+  "singleQuote": true,
+  "importOrder": [
+    "^(@|pages)(.*|$)",
+    "^(@|components/@shared)(.*|$)",
+    "^(@|components)(.*|$)",
+    "^(@|redux/)(.*|$)",
+    "^(@|hooks)(.*|$)",
+    "^(@|styles)(.*|$)",
+    "^(@|(assets|constants|utils|api))(.*|$)"
+  ],
+  "importOrderSeparation": true
+}
