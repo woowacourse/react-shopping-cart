@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import theme from './style/theme';
-import GlobalStyle from 'style/GlobalStyle';
+import theme from './styles/theme';
+import GlobalStyle from 'styles/GlobalStyle';
 
 import Router from './Router';
 

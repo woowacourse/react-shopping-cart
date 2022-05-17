@@ -11,7 +11,6 @@ export default styled.div`
   }
 
   .bottom {
-    justify-content: space-between;
     color: ${({ theme }) => theme.black};
 
     .title {

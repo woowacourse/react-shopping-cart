@@ -6,7 +6,7 @@ const Product = ({ imgSrc, title, price }) => {
   return (
     <Wrapper>
       <img className="thumbnail" src={imgSrc} alt={`${title} 상품`} />
-      <div className="bottom flex-row">
+      <div className="bottom flex-row-space-between">
         <div>
           <p className="title">{title}</p>
           <p className="price">{price.toLocaleString()}</p>

@@ -3,21 +3,23 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Product from 'components/Product';
 
+import Skeleton from 'skeletons/ProductSkeleton';
+
 import { getProducts } from 'reducers/products';
 
 import Wrapper from './style';
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
-  const { loading, data: products, error } = useSelector((state) => state.products);
+  const { loading, data: products } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  if (loading) return '로딩중';
-
-  if (error) return '이런!';
+  if (loading) {
+    return <Skeleton />;
+  }
 
   return (
     <Wrapper>
