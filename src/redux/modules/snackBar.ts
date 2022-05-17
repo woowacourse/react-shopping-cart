@@ -35,6 +35,6 @@ const snackBarReducer = (state = initialState, action: Action) => {
   }
 };
 
-export { show, hide };
+export const actionCreators = { show, hide };
 
 export default snackBarReducer;

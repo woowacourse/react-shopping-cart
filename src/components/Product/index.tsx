@@ -3,18 +3,22 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import * as Styled from "./styles";
-import deleteIcon from "../../assets/deleteIcon.png";
-import cart from "../../assets/cart.svg";
-import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
-import { show } from "../../redux/modules/snackBar";
+
 import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
-export type ProductType = {
+import { actionCreators as CartActionCreators } from "../../redux/modules/cart";
+import { actionCreators as SnackBarActionCreators } from "../../redux/modules/snackBar";
+
+import deleteIcon from "../../assets/deleteIcon.png";
+import cart from "../../assets/cart.svg";
+
+type ProductType = {
   name: string;
   price: number;
   img: string;
   id: number;
 };
+
 interface ProductProps {
   productInfo: ProductType;
 }
@@ -32,16 +36,16 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     if (!cartItemList.some((cartItem) => cartItem.id === id)) {
       const newItem = { name, price, img, id, amount: 1 };
 
-      dispatch(addItem(newItem));
-      dispatch(show("장바구니에 추가되었습니다. 😍"));
+      dispatch(CartActionCreators.addItem(newItem));
+      dispatch(SnackBarActionCreators.show("장바구니에 추가되었습니다. 😍"));
     }
   };
 
   const onClickDeleteItem = () => {
     if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
-      dispatch(deleteItem(id));
+      dispatch(CartActionCreators.deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(show("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(SnackBarActionCreators.show("장바구니에서 삭제되었습니다. 🥲"));
     }
   };
 
@@ -50,7 +54,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    dispatch(decrement(id));
+    dispatch(CartActionCreators.decrement(id));
   };
 
   const conClickIncreaseCounter = () => {
@@ -59,10 +63,10 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     }
 
     if (cartItem) {
-      dispatch(increment(id));
+      dispatch(CartActionCreators.increment(id));
       return;
     }
-    dispatch(addItem({ id, amount: 1 }));
+    dispatch(CartActionCreators.addItem({ id, amount: 1 }));
   };
 
   useEffect(() => {
@@ -85,11 +89,15 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
         </Styled.ProductInfo>
         <Styled.CartImageWrapper>
           {cartItem?.amount && <Styled.CartImageBadge />}
-          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
+          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니에 담기" />
         </Styled.CartImageWrapper>
         <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
           {cartItem?.amount === 1 ? (
-            <Styled.DeleteIcon src={deleteIcon} onClick={onClickDeleteItem} />
+            <Styled.DeleteIcon
+              onClick={onClickDeleteItem}
+              src={deleteIcon}
+              alt="장바구니에서 삭제"
+            />
           ) : (
             <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
           )}
