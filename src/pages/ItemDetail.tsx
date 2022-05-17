@@ -15,8 +15,7 @@ import styled from 'styled-components';
 import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
-  const params = useParams();
-  const id = Number(params.id);
+  const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
   const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
   const { data: cartList } = useThunkFetch<CartListAction>(

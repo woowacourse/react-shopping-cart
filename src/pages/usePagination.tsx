@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PATH } from 'Routers';
 
@@ -8,9 +8,8 @@ interface PaginationProps {
 }
 
 const usePagination = ({ count, lastIndex }: PaginationProps) => {
-  const params = useParams();
-  const id = Number(params.id);
-  const [currentPage, setCurrentPage] = useState(id);
+  const { id } = useParams();
+  const [currentPage, setCurrentPage] = useState(Number(id));
   const navigate = useNavigate();
 
   const pageStartNumber = Math.floor((currentPage - 1) / count) * count;

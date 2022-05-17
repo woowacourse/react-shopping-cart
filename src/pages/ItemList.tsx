@@ -18,8 +18,7 @@ import styled from 'styled-components';
 import { Item } from 'types/domain';
 
 const ItemList = () => {
-  const params = useParams();
-  const id = Number(params.id);
+  const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   const {
