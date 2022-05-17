@@ -34,7 +34,7 @@ const ItemContainer = styled.div`
 
   path {
     fill: ${({ theme, isContained }) =>
-      isContained ? theme.usingColor.selectedShoppingCartIcon : theme.usingColor.shoppingCartIcon};
+      isContained ? theme.colors['MINT_001'] : theme.colors['BLACK_001']};
   }
 `;
 

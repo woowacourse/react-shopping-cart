@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { LAYER } from 'constants';
-import theme from 'styles/theme';
 import FlexBox from '../FlexBox/FlexBox.component';
+import { withOpacityValue } from 'utils';
 
 const HeaderContainer = styled(FlexBox).attrs(props => ({
   justifyContent: 'space-between',
@@ -13,8 +13,8 @@ const HeaderContainer = styled(FlexBox).attrs(props => ({
   min-width: 1350px;
   height: 80px;
   padding: 0 300px;
-  background-color: ${({ theme }) => theme.usingColor.headerBackground};
-  box-shadow: 0 4px 4px ${({ theme }) => theme.usingColor.shadow};
+  background-color: ${({ theme }) => theme.colors['MINT_001']};
+  box-shadow: 0 4px 4px ${({ theme }) => withOpacityValue(theme.colors['BLACK_002'], 0.3)};
   z-index: ${LAYER.FOREGROUND};
 `;
 

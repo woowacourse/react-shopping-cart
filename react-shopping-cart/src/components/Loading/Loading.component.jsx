@@ -9,7 +9,7 @@ const LoadingSpinner = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  border-top: 3px solid ${({ theme }) => theme.usingColor.loadingSpinner};
+  border-top: 3px solid ${({ theme }) => theme.colors['MINT_001']};
   border-radius: 50%;
   animation: ${spin} 1s ease-in-out infinite;
   -webkit-animation: ${spin} 1s ease-in-out infinite;

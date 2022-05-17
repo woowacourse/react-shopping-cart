@@ -4,7 +4,7 @@ import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from 'reducers';
+import rootReducer from 'redux/reducers';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
