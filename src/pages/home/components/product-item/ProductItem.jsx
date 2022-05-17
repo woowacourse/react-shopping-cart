@@ -13,7 +13,7 @@ function ProductItem({
   title,
   price,
   quantity,
-  thumbnail_image: { url: thumbnailUrl },
+  thumbnail_image: { url: thumbnailUrl, alt },
   className,
 }) {
   const dispatch = useDispatch();
@@ -30,7 +30,11 @@ function ProductItem({
 
   return (
     <div className={cn("product-item", styles["product-item"], className)}>
-      <Thumbnail src={`${thumbnailUrl}`} className={styles.thumbnail} />
+      <Thumbnail
+        src={`${thumbnailUrl}`}
+        className={styles.thumbnail}
+        alt={alt}
+      />
       <div className={cn("content", styles.content)}>
         <div className={cn("product-detail", styles["product-detail"])}>
           <div className={cn("l-left", styles["l-left"])}>
@@ -38,7 +42,7 @@ function ProductItem({
               {title}
             </div>
             <div className={cn("product-price", styles["product-price"])}>
-              {price}원
+              {price}
             </div>
           </div>
           <div className="l-right">
