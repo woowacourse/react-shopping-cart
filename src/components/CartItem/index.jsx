@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useDispatch} from 'react-redux';
+//import {useDispatch} from 'react-redux';
 
-import {DELETE_CART} from 'store/modules/cart';
+//import {DELETE_CART} from 'store/modules/cart';
 
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
@@ -11,10 +11,10 @@ import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import {CartItemWrapper, EditQuantityWrapper, ItemNameWrapper} from 'components/CartItem/style';
 
 function CartItem({itemImgURL, itemName, itemPrice, count, id}) {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
-  const handleDeleteIconClick = (id) => {
-    dispatch({type: DELETE_CART, payload: id});
+  const handleDeleteIconClick = () => {
+    //dispatch({type: DELETE_CART, payload: id});
   };
 
   return (

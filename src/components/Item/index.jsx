@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+//import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
-import {ADD_CART} from 'store/modules/cart';
+//import {ADD_CART} from 'store/modules/cart';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'components/common/Button';
@@ -23,13 +23,13 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
 
   const navigation = useNavigate();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const handleImageClick = () => navigation(`${PATH.DETAIL}/${id}`);
 
   const handleCartIconClick = () => {
     setDisable(true);
-    dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
+    //dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
   };
 
   return (

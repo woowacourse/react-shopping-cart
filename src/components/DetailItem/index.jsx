@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+//import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {ADD_CART} from 'store/modules/cart';
+// import {ADD_CART} from 'store/modules/cart';
 
 import Button from 'components/common/Button';
 
 import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'components/DetailItem/style';
 
-export default function DetailItem({itemImgURL, itemName, itemPrice, id, disabled}) {
+export default function DetailItem({itemImgURL, itemName, itemPrice, disabled}) {
   const [disable, setDisable] = useState(disabled);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const handleCartButtonClick = () => {
     setDisable(true);
-    dispatch({type: ADD_CART, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
+    //dispatch({type: ADD_CART, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
   };
 
   return (

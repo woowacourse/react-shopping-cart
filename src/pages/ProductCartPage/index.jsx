@@ -61,7 +61,7 @@ export default function ProductCartPage() {
           </CartListWrapper>
         </SelectCartWrapper>
 
-        <AmountBox type="expect" totalCount={totalCount} totalPrice={totalPrice} />
+        <AmountBox type="cart" totalCount={totalCount} totalPrice={totalPrice} />
       </CartInfoWrapper>
     </ProductCartPageWrapper>
   );
