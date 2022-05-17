@@ -10,7 +10,9 @@ export const Container = styled.section`
 export const ListControlWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 0;
+  height: 50px;
 `;
 
 export const AllCheckControl = styled.div`
@@ -25,6 +27,7 @@ export const Button = styled.button`
   background-color: transparent;
   padding: 10px;
   cursor: pointer;
+  height: 50px;
 `;
 
 export const Title = styled.h1`
