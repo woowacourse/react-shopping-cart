@@ -48,7 +48,7 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
         {name}
       </TextBox>
       <TextBox className="product-price" fontSize="medium">
-        {price}원
+        {price.toLocaleString()}원
       </TextBox>
       <ShoppingCart style={{ cursor: 'pointer' }} onClick={onClick} />
     </ItemContainer>
