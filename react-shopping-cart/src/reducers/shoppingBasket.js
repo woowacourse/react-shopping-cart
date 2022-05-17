@@ -1,4 +1,7 @@
-import { ADD_SHOPPING_BASKET_PRODUCT, DELETE_SHOPPING_BASKET_PRODUCT } from 'actions';
+import {
+  ADD_SHOPPING_BASKET_PRODUCT,
+  DELETE_SHOPPING_BASKET_PRODUCT,
+} from 'actions/shoppingBasket';
 
 const INITIAL_STATE = {
   shoppingBasketList: [],

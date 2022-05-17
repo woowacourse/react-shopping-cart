@@ -1,5 +1,5 @@
 import useReduxState from './useReduxState';
-import { addShoppingBasketProduct, deleteShoppingBasketProduct } from 'actions';
+import { addShoppingBasketProduct, deleteShoppingBasketProduct } from 'actions/shoppingBasket';
 
 function useShoppingBasket(selectorKey) {
   const { state: shoppingBasketList, dispatch } = useReduxState(selectorKey);
