@@ -14,27 +14,29 @@ import {
 
 import { ReactComponent as TrashCan } from 'assets/trash_can.svg';
 
-const ShoppingCartItem = () => {
+const ShoppingCartItem = ({ product }) => {
+  const { name, image, price, quantity, isSelect } = product;
+
   return (
     <ShoppingCartItemContainer>
-      <Checkbox />
+      <Checkbox checked={isSelect} />
       <ShoppingCartItemBox>
-        <Image width="120" height="120" />
-        <ShoppingCartItemName>삼다수</ShoppingCartItemName>
+        <Image src={image} width="120" height="120" />
+        <ShoppingCartItemName>{name}</ShoppingCartItemName>
         <ShoppingCartItemSidebar>
           <Button style={{ padding: '0 10px 10px 0' }}>
             <TrashCan width="20" height="20" />
           </Button>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ShoppingCartItemQuantitybar>
-              <ShoppingCartItemQuantityDisplay>3</ShoppingCartItemQuantityDisplay>
+              <ShoppingCartItemQuantityDisplay>{quantity}</ShoppingCartItemQuantityDisplay>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ShoppingCartItemQuantityButton>⬆️</ShoppingCartItemQuantityButton>
                 <ShoppingCartItemQuantityButton>⬇️</ShoppingCartItemQuantityButton>
               </div>
             </ShoppingCartItemQuantitybar>
           </div>
-          <ShoppingCartItemTotalPrice>5,100원</ShoppingCartItemTotalPrice>
+          <ShoppingCartItemTotalPrice>{price}원</ShoppingCartItemTotalPrice>
         </ShoppingCartItemSidebar>
       </ShoppingCartItemBox>
     </ShoppingCartItemContainer>

@@ -23,15 +23,20 @@ import {
 import { PRODUCT } from 'constants/constants';
 
 const ProductItem = ({ id }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
-  const { products } = useSelector(state => state.reducer);
+  const { products, shoppingCart } = useSelector(state => state.reducer);
   const [clearTimer, autoClose] = useClose();
-  const { name, price, image, isInCart } = products.find(product => product.id === id);
+  const { name, price, image } = products.find(product => product.id === id);
+  const shoppingCartItem = shoppingCart.find(product => product.id === id);
+  const [isOpen, setIsOpen] = useState(false);
+  const [quantity, setQuantity] = useState(
+    shoppingCartItem ? shoppingCartItem.quantity : PRODUCT.MIN_QUANTITY,
+  );
+
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
 
   const putCart = () => {
+    console.log(products, shoppingCart);
     setIsOpen(false);
     store.dispatch(putProductToCart({ id, quantity: quantityRef.current }));
     clearTimer();
@@ -63,7 +68,7 @@ const ProductItem = ({ id }) => {
           <StyledProductText price="true">{price}원</StyledProductText>
         </div>
         <div onClick={handleCartClick}>
-          {isInCart ? (
+          {shoppingCartItem ? (
             <Button>
               <StyledQuantityContainer>{quantity}</StyledQuantityContainer>
             </Button>

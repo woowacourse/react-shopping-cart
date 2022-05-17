@@ -4,16 +4,19 @@ import { useEffect } from 'react';
 import ProductItem from 'components/productItem/ProductItem';
 
 import store from 'store/store';
-import { initializeCart } from 'actions/actionCreator';
-import { getProductList } from 'utils/api';
+import { initProduct, initShoppingCart } from 'actions/actionCreator';
+import { getProductList, getShoppingCartList } from 'utils/api';
 
 import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
 
 const ProductListPage = () => {
   const { products } = useSelector(state => state.reducer);
+
   const getProducts = async () => {
     const productList = await getProductList();
-    store.dispatch(initializeCart({ products: productList }));
+    const shoppingCartList = await getShoppingCartList();
+    store.dispatch(initProduct({ products: productList }));
+    store.dispatch(initShoppingCart({ shoppingCart: shoppingCartList }));
   };
 
   useEffect(() => {

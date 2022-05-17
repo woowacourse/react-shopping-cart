@@ -1,7 +1,9 @@
-import { PUT, INITIALIZE } from 'actions/action';
+import { CART_INITIALIZE, CART_PUT, PRODUCT_INITIALIZE } from 'actions/action';
 
-const putProductToCart = ({ id, quantity }) => ({ type: PUT, id, quantity });
+const putProductToCart = ({ id, quantity }) => ({ type: CART_PUT, id, quantity });
 
-const initializeCart = ({ products }) => ({ type: INITIALIZE, products });
+const initProduct = ({ products }) => ({ type: PRODUCT_INITIALIZE, products });
 
-export { putProductToCart, initializeCart };
+const initShoppingCart = ({ shoppingCart }) => ({ type: CART_INITIALIZE, shoppingCart });
+
+export { putProductToCart, initProduct, initShoppingCart };

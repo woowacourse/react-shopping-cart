@@ -1,4 +1,6 @@
 export const SERVER_URL = 'https://shopping-cart-mh.herokuapp.com/';
+export const LOCAL_URL = 'http://localhost:4000/';
+
 export const BASE_PAGE_URL = '/react-shopping-cart/';
 export const SHOPPING_CART_PAGE_URL = '/react-shopping-cart/shopping-cart';
 
