@@ -1,31 +1,31 @@
 import { Dispatch } from 'redux';
 import PATH from 'constants/path';
-import { actions } from 'redux/actions/actions';
 import axios from 'axios';
+import { productActions } from 'redux/actions/actions';
 
 const getProducts = (dispatch: Dispatch) => {
-  dispatch(actions.getProductList());
+  dispatch(productActions.getProductList());
 
   axios
     .get(`${PATH.REQUEST_PRODUCT}`)
     .then((res) => {
-      dispatch(actions.getProductListSuccess(res.data));
+      dispatch(productActions.getProductListSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(actions.getProductListError());
+      dispatch(productActions.getProductListError());
     });
 };
 
 const getProduct = (dispatch: Dispatch, id: string) => {
-  dispatch(actions.getProductDetail());
+  dispatch(productActions.getProductDetail());
 
   axios
     .get(`${PATH.REQUEST_PRODUCT}/${id}`)
     .then((res) => {
-      dispatch(actions.getProductDetailSuccess(res.data));
+      dispatch(productActions.getProductDetailSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(actions.getProductDetailError());
+      dispatch(productActions.getProductDetailError());
     });
 };
 

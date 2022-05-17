@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
 import { StoreState } from 'types';
+import { cartActions } from 'redux/actions/actions';
 import { getProduct } from 'redux/thunks';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -10,14 +11,26 @@ import { useParams } from 'react-router-dom';
 function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const condition = useSelector((state: StoreState) => state.condition);
-  const productDetail = useSelector((state: StoreState) => state.productDetail);
+  const condition = useSelector(
+    (state: { product: StoreState }) => state.product.condition
+  );
+  const productDetail = useSelector(
+    (state: { product: StoreState }) => state.product.productDetail
+  );
 
   useEffect(() => {
     if (id) {
       getProduct(dispatch, id);
     }
   }, [dispatch, id]);
+
+  const onClickCartButton = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      dispatch(cartActions.addToCart(Number(id)));
+    },
+    [dispatch, id]
+  );
 
   const renderSwitch = useCallback(() => {
     switch (condition) {
@@ -39,7 +52,9 @@ function ProductPage() {
               <dt>제품 설명</dt>
               <dd>{productDetail.description}</dd>
             </dl>
-            <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+            <StyledAddToCartButton onClick={onClickCartButton}>
+              장바구니
+            </StyledAddToCartButton>
           </>
         ) : null;
       case CONDITION.ERROR:
@@ -47,7 +62,7 @@ function ProductPage() {
           <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
         );
     }
-  }, [condition, productDetail]);
+  }, [condition, productDetail, onClickCartButton]);
 
   return <StyledPage>{renderSwitch()}</StyledPage>;
 }

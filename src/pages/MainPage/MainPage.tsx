@@ -8,8 +8,12 @@ import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function MainPage() {
-  const condition = useSelector((state: StoreState) => state.condition);
-  const productList = useSelector((state: StoreState) => state.productList);
+  const condition = useSelector(
+    (state: { product: StoreState }) => state.product.condition
+  );
+  const productList = useSelector(
+    (state: { product: StoreState }) => state.product.productList
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

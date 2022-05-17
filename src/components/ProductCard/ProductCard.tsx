@@ -2,7 +2,9 @@ import Link from 'components/Link/Link';
 import PATH from 'constants/path';
 import { Product } from 'types';
 import ShoppingCart from 'components/@shared/ShoppingCart';
+import { cartActions } from 'redux/actions/actions';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   product: Product;
@@ -14,6 +16,12 @@ function ProductCard({ product }: Props) {
     stock: Number(product.stock),
     price: Number(product.price),
   };
+  const dispatch = useDispatch();
+
+  const onClickCartButton = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    dispatch(cartActions.addToCart(id));
+  };
 
   return (
     <Link to={`${PATH.PRODUCT}/${id}`} disabled={stock <= 0}>
@@ -22,7 +30,7 @@ function ProductCard({ product }: Props) {
           {stock > 0 ? (
             <CardImageOverlay>
               <p>{description}</p>
-              <div>구매하기</div>
+              <div onClick={onClickCartButton}>구매하기</div>
             </CardImageOverlay>
           ) : (
             <OutOfStockOverlay>품절</OutOfStockOverlay>
@@ -34,7 +42,7 @@ function ProductCard({ product }: Props) {
           <p>{price?.toLocaleString('ko-KR')} 원</p>
         </CardDescriptionContainer>
         <CardButtonContainer>
-          <button>
+          <button onClick={onClickCartButton}>
             <ShoppingCart width="100%" fill="currentColor" />
           </button>
         </CardButtonContainer>
