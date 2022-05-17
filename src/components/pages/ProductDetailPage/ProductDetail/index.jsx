@@ -8,7 +8,7 @@ import {
   ProductImage,
   ProductName,
   ProductPrice,
-  Span,
+  DetailSpan,
   Top,
 } from "./styled";
 
@@ -20,7 +20,7 @@ function ProductDetail({ selectedProduct: { thumbnailUrl, name, price } }) {
         <ProductName>{name ?? "%Error%"}</ProductName>
       </Top>
       <Bottom>
-        <Span>금액</Span>
+        <DetailSpan>금액</DetailSpan>
         <ProductPrice>{price?.toLocaleString() ?? "%Error%"}원</ProductPrice>
       </Bottom>
       <DefaultButton

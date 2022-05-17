@@ -28,7 +28,7 @@ export const ProductName = styled.p`
   padding: 8px 0;
 `;
 
-export const Span = styled.span`
+export const DetailSpan = styled.span`
   font-size: ${({ theme: { fontSize } }) => fontSize.small};
   color: ${({ theme: { color } }) => color.text};
   margin: auto 0;
