@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { productList, cartList } from 'assets/mock';
 
 export const handlers = [
-  rest.get('/product/products/:id', (req, res, ctx) => {
+  rest.get('/products/:id', (req, res, ctx) => {
     const { id } = req.params;
     return res(
       ctx.json({
@@ -24,7 +24,7 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.get('/cart/cart', (req, res, ctx) => {
+  rest.get('/cart', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cartList));
   }),
 ];
