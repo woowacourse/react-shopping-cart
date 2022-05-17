@@ -1,4 +1,4 @@
-import { PageContainer, Error } from 'components/@shared';
+import { Error, FlexWrapper } from 'components/@shared';
 import Header from 'components/Header/Header.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
 import Loading from 'components/Loading/Loading.component';
@@ -10,7 +10,7 @@ function ProductList() {
   return (
     <>
       <Header />
-      <PageContainer>
+      <FlexWrapper style={{ margin: '60px 0 60px' }} isColumnDirection={true}>
         {isLoading ? (
           <Loading />
         ) : error ? (
@@ -18,7 +18,7 @@ function ProductList() {
         ) : (
           <ProductListContainer productList={data} />
         )}
-      </PageContainer>
+      </FlexWrapper>
     </>
   );
 }

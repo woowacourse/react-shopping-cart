@@ -1,13 +1,13 @@
-import { PageContainer, Error } from 'components/@shared';
+import { Error, FlexWrapper } from 'components/@shared';
 import Header from 'components/Header/Header.component';
 
 function NotFoundPage() {
   return (
     <>
       <Header />
-      <PageContainer>
+      <FlexWrapper style={{ margin: '60px 0 60px' }} isColumnDirection={true}>
         <Error>잘못된 페이지 접근입니다.</Error>
-      </PageContainer>
+      </FlexWrapper>
     </>
   );
 }
