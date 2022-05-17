@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
@@ -22,11 +22,11 @@ export const decorators = [
   Story => (
     <Provider store={store}>
       <GlobalStyle />
-      <BrowserRouter>
+      <MemoryRouter initialEntries={['/product/detail/1']}>
         <ThemeProvider theme={theme}>
           <Story />
         </ThemeProvider>
-      </BrowserRouter>
+      </MemoryRouter>
     </Provider>
   ),
 ];

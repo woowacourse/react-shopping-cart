@@ -16,9 +16,9 @@ const ErrorContainer = styled.div`
   }
 `;
 
-function Error({ children }) {
+function Error({ style, children }) {
   return (
-    <ErrorContainer>
+    <ErrorContainer style={style}>
       <img src={ServerErrorCharacter} />
       <p>{children}</p>
     </ErrorContainer>
