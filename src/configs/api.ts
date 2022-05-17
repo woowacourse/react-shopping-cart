@@ -1,3 +1,3 @@
-const SERVER_URL = 'https://heroku-shopping-cart-lv2.herokuapp.com';
+import axios from 'axios';
 
-export default SERVER_URL;
+axios.defaults.baseURL = 'https://heroku-shopping-cart-lv2.herokuapp.com';
