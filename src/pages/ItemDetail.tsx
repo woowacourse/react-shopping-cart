@@ -33,7 +33,7 @@ const ItemDetail = () => {
       <StyledTitle>{title}</StyledTitle>
       <StyldPrice>
         <StyledPriceDescription>금액</StyledPriceDescription>
-        <StyledPriceValue>{price}</StyledPriceValue>
+        <StyledPriceValue>{price.toLocaleString()}</StyledPriceValue>
       </StyldPrice>
       <Button size='large' backgroundColor='brown' onClick={() => updateCartItemQuantity(id)}>
         장바구니

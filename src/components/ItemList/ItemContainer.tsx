@@ -42,7 +42,7 @@ const ItemContainer = ({
         <StyledBottom>
           <StyledDescription>
             <StyledTitle>{title}</StyledTitle>
-            <StyledPrice>{price}</StyledPrice>
+            <StyledPrice>{price.toLocaleString()}</StyledPrice>
           </StyledDescription>
           <StyledCartIcon width='31px' fill={theme.colors.font} onClick={handleClickCartIcon} />
         </StyledBottom>
