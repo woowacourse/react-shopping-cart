@@ -16,8 +16,8 @@ const basicImageSize = {
     height: 282,
   },
   large: {
-    width: 570,
-    height: 570,
+    width: 540,
+    height: 540,
   },
 };
 

@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
@@ -8,6 +9,7 @@ import { addToCarts, deleteFromCarts } from '../../store/product';
 import { BasicImage, BasicButton } from '../shared/basics';
 import { CART_SIZE, COLOR } from '../../constants/styles';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
+import PATH from '../../constants/path';
 
 function Product({ id, src, price, title, isStored }) {
   const timeout = useRef();
@@ -29,15 +31,13 @@ function Product({ id, src, price, title, isStored }) {
     setIsClicked((prev) => !prev);
   };
 
-  useEffect(() => {
-    setIsClicked(isStored);
-  }, [isStored]);
-
   return (
     <div>
-      <Styled.ProductImageWrapper>
-        <Styled.ProductImage src={src} />
-      </Styled.ProductImageWrapper>
+      <Link to={`${PATH.PRODUCT}/${id}`}>
+        <Styled.ProductImageWrapper>
+          <Styled.ProductImage src={src} alt={title} />
+        </Styled.ProductImageWrapper>
+      </Link>
       <Styled.ProductInfoContainer>
         <Styled.ProductInfoWrapper>
           <Styled.ProductName>{title}</Styled.ProductName>

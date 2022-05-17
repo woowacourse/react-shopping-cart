@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import styled from 'styled-components';
+
 import { loadProducts } from '../../store/products';
 import { loadCarts } from '../../store/carts';
 
 import Product from './ProductItem';
-
-import styled from 'styled-components';
 
 function ProductListContainer() {
   const dispatch = useDispatch();

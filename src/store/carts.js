@@ -26,11 +26,11 @@ const loadCartsFail = (error) => ({
 const loadCartsDone = () => ({
   type: LOAD_CARTS_DONE,
 });
-const addProduct = (id) => ({
+export const addProduct = (id) => ({
   type: ADD_PRODUCT_TO_CARTS,
   payload: { id, quantity: 1 },
 });
-const deleteProduct = (id) => ({
+export const deleteProduct = (id) => ({
   type: DELETE_PRODUCT_FROM_CARTS,
   payload: id,
 });
@@ -69,13 +69,6 @@ export const loadCarts = () => async (dispatch) => {
   } finally {
     dispatch(loadCartsDone());
   }
-};
-
-export const addProductToCarts = (id) => (dispatch) => {
-  dispatch(addProduct(id));
-};
-export const deleteProductFromCarts = (id) => (dispatch) => {
-  dispatch(deleteProduct(id));
 };
 
 export default cartsReducer;
