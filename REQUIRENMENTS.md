@@ -22,9 +22,16 @@
   - [x] Endpoint만 변경하면 언제든 Real API를 바라볼 수 있도록 구현(Real API 없이 로컬에서만 동작하는 상태로 리뷰받을 수 있어야 함)
 - [] 페이지 구현
   - [] (필수) 장바구니 페이지
+    - [x] Title : 페이지별 타이틀 텍스트를 표시함. 여러 컴포넌트에서 사용됨(최상위 태그는 div, props는 children).
+    - [] CartTable : 장바구니 테이블로서 내부에 장바구니 상품 상태에 따라 CartDealItem 컴포넌트가 렌더링됨(최상위 태그는 table)
+    - [] CartDealItem : 장바구니에 담긴 각각의 상품의 수량 설정 및 선택을 할 수 있음(최상위 태그는 tr)
+    - [] TotalPriceButton : 장바구니 및 주문/결제 페이지에서 재사용될 수 있음(props는 titleText, totalPrice, buttonText, handleClickButton)
   - [] 주문/결제 페이지
   - [] 주문 목록 페이지
   - [] 주문 상세 페이지
+- [] 컴포넌트 구현
+
+-
 - [] UI/UX
   - [x] 사용자를 위한 로딩 환경 개선
   - [] 페이징 혹은 인피니티 스크롤 적용 (별도의 API 없음)

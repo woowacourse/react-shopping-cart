@@ -21,7 +21,7 @@ const Header = () => {
 const Styled = {
   Wrapper: styled.header`
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 80px;
     background: #2ac1bc;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 30%);
