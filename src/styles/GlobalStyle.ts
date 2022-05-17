@@ -16,14 +16,14 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
   }
 
-  button{
-      outline: none;
-      border: none;
-      cursor: pointer;
-      background-color: inherit;
+  button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
   }
   
-  a{
+  a {
     color: inherit;
     text-decoration: none;
   }
