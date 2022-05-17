@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { API_URL } from "../../../../constants";
 import ACTION_TYPE from "../../../../redux/actions";
 import createAction from "../../../../redux/createAction";
 import ProductItem from "../product-item/ProductItem";
@@ -15,7 +14,7 @@ function ProductList({ className }) {
   const dispatch = useDispatch();
   const getProductList = () => {
     return async (dispatch) => {
-      const fetchResult = await fetch(`${API_URL}/products`);
+      const fetchResult = await fetch(`${process.env.API_URL}/products`);
       const productList = await fetchResult.json();
       setLoading(false);
       setError(null);

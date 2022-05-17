@@ -6,14 +6,14 @@ const { join } = require("path");
 
 module.exports = {
   mode: "development",
-  entry: join(__dirname, "/src/index.jsx"),
+  entry: join(__dirname, "../src/index.jsx"),
   devtool: "source-map",
   devServer: {
     historyApiFallback: true,
   },
   output: {
     filename: "main.js",
-    path: join(__dirname, "/dist"),
+    path: join(__dirname, "../dist"),
   },
   module: {
     rules: [
@@ -66,7 +66,7 @@ module.exports = {
       filename: "style.css",
     }),
     new HtmlWebpackPlugin({
-      template: join(__dirname, "public/index.html"),
+      template: join(__dirname, "../public/index.html"),
     }),
     new CleanWebpackPlugin(),
     new WindiCSSWebpackPlugin({
