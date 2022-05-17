@@ -6,6 +6,15 @@ import App from "./App";
 import reducer from "./redux/reducer";
 import "./scss/style.scss";
 
+function prepareMSW() {
+  if (process.env.NODE_ENV === "development") {
+    // eslint-disable-next-line global-require
+    const { worker } = require("../mock/browser");
+    return worker.start();
+  }
+  return Promise.resolve();
+}
+
 const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "{}");
 
 const initialState = {
@@ -16,8 +25,11 @@ const initialState = {
 const store = createStore(reducer, initialState, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+
+prepareMSW().then(() => {
+  root.render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+});

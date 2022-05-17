@@ -7,6 +7,7 @@
     "build": "webpack --progress",
     "clean": "npm cache clean --force && rm -rf node_modules && rm package-lock.json",
     "start": "webpack serve --open --progress --port 9000",
+    "build:msw": "npx msw init public/ --save",
     "lint": "node_modules/.bin/eslint --ext=.jsx,.js,.tsx,.ts  ."
   },
   "repository": {
@@ -52,6 +53,7 @@
     "husky": "^7.0.0",
     "include-media": "^1.4.10",
     "mini-css-extract-plugin": "^2.6.0",
+    "msw": "^0.39.2",
     "node-sass": "^7.0.1",
     "prettier": "^2.6.2",
     "sass-loader": "^12.6.0",
@@ -76,5 +78,8 @@
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
