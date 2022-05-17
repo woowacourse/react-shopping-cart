@@ -1,47 +1,31 @@
-import { addToCart, deleteCartProduct, getCart, updateCartQuantity } from '../../api/api';
-import { actionFailed, actionStarted, actionSucceeded } from './global';
+import { addToCart, deleteCartProduct, getCart, updateCartProductQuantity } from '../../api/api';
+import { cartActionType } from '../reducers/cart';
 
-export const addToCartAsync = (productId, quantity) => async (dispatch) => {
-  const stateName = 'CART_ADD';
-  dispatch(actionStarted(stateName));
+const handleCartDispatch = async ({ dispatch, func, params = [] }) => {
+  dispatch({ type: cartActionType.START });
+
   try {
-    const { cart } = await addToCart(productId, quantity);
-    dispatch(actionSucceeded(stateName, { cart }));
-    dispatch({ type: 'UPDATE_CHECKED_LIST', payload: { checkedProductList: Object.keys(cart) } });
+    const { cart } = await func(...params);
+    dispatch({ type: cartActionType.UPDATE, payload: { cart } });
   } catch ({ message }) {
-    dispatch(actionFailed(stateName, { message }));
+    dispatch({ type: cartActionType.FAIL, payload: { message } });
   }
 };
 
-export const fetchCartAsync = () => async (dispatch) => {
-  const stateName = 'CART_FETCH';
-  dispatch(actionStarted(stateName));
-  try {
-    const { cart } = await getCart();
-    dispatch(actionSucceeded(stateName, { cart }));
-    dispatch({
-      type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart) },
-    });
-  } catch ({ message }) {
-    dispatch(actionFailed(stateName, { message }));
-  }
+export const addToCartAsync = (productId, quantity) => async (dispatch) => {
+  handleCartDispatch({ dispatch, func: addToCart, params: [productId, quantity] });
+};
+
+export const getCartAsync = () => async (dispatch) => {
+  handleCartDispatch({ dispatch, func: getCart });
 };
 
 export const updateCartProductQuantityAsync = (productId, quantity) => async (dispatch) => {
-  const stateName = 'CART_UPDATE';
-  dispatch(actionStarted(stateName));
+  handleCartDispatch({ dispatch, func: updateCartProductQuantity, params: [productId, quantity] });
+};
 
-  try {
-    const { cart } = await updateCartQuantity(productId, quantity);
-    dispatch(actionSucceeded(stateName, { cart }));
-    dispatch({
-      type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart) },
-    });
-  } catch ({ message }) {
-    dispatch(actionFailed(stateName, { message }));
-  }
+export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
+  handleCartDispatch({ dispatch, func: deleteCartProduct, params: [productIdArray] });
 };
 
 export const toggleProductCheck = (productId) => (dispatch, getState) => {
@@ -55,21 +39,10 @@ export const toggleProductCheck = (productId) => (dispatch, getState) => {
       ? [...prevList.slice(0, idIndex), ...prevList.slice(idIndex + 1)]
       : [...prevList, productId];
 
-  dispatch({ type: 'UPDATE_CHECKED_LIST', payload: { checkedProductList: newArray } });
+  dispatch(updateCheckedList(newArray));
 };
 
-export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
-  const stateName = 'CART_PRODUCT_DELETE';
-  dispatch(actionStarted(stateName));
-
-  try {
-    const { cart } = await deleteCartProduct(productIdArray);
-    dispatch(actionSucceeded(stateName, { cart }));
-    dispatch({
-      type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart) },
-    });
-  } catch ({ message }) {
-    dispatch(actionFailed(stateName, { message }));
-  }
-};
+export const updateCheckedList = (checkedProductList) => ({
+  type: cartActionType.UPDATE_CHECKED_LIST,
+  payload: { checkedProductList },
+});

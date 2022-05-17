@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCartProductAsync, fetchCartAsync } from '../../../store/actions/cart';
+import {
+  deleteCartProductAsync,
+  getCartAsync,
+  updateCheckedList,
+} from '../../../store/actions/cart';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import CartProductCard from '../CartProductCard/CartProductCard';
 import * as Styled from './CartProductList.style';
@@ -13,7 +17,7 @@ function CartProductList() {
   const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
 
   useEffect(() => {
-    dispatch(fetchCartAsync());
+    dispatch(getCartAsync());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const isAllChecked = useMemo(
@@ -23,20 +27,16 @@ function CartProductList() {
 
   const toggleAllCheck = () => {
     if (isAllChecked) {
-      dispatch({
-        type: 'UPDATE_CHECKED_LIST',
-        payload: { checkedProductList: [] },
-      });
+      dispatch(updateCheckedList([]));
       return;
     }
-    dispatch({
-      type: 'UPDATE_CHECKED_LIST',
-      payload: { checkedProductList: Object.keys(cart) },
-    });
+
+    dispatch(updateCheckedList(Object.keys(cart)));
   };
 
   const deleteCheckedProducts = () => {
     const checkedListLength = checkedProductList.length;
+
     if (
       checkedListLength !== 0 &&
       window.confirm(`${checkedListLength}개의 상품을 삭제하시겠습니까?`)

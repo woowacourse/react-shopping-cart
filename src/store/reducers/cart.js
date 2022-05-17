@@ -4,22 +4,24 @@ const initialState = {
   isLoading: false,
 };
 
+export const cartActionType = {
+  START: 'cart/ACTION_START',
+  FAIL: 'cart/ACTION_FAIL',
+  FETCH: 'cart/FETCH',
+  UPDATE: 'cart/UPDATE',
+  UPDATE_CHECKED_LIST: 'cart/UPDATE_CHECKED_LIST',
+};
+
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'CART_ADD_START':
-    case 'CART_FETCH_START':
-    case 'CART_UPDATE_START':
-    case 'CART_PRODUCT_DELETE_START': {
+    case cartActionType.START: {
       return {
         ...state,
         isLoading: true,
       };
     }
 
-    case 'CART_ADD_SUCCESS':
-    case 'CART_FETCH_SUCCESS':
-    case 'CART_UPDATE_SUCCESS':
-    case 'CART_PRODUCT_DELETE_SUCCESS': {
+    case cartActionType.UPDATE: {
       const {
         payload: { cart },
       } = action;
@@ -27,14 +29,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart,
+        checkedProductList: Object.keys(cart),
         isLoading: false,
       };
     }
 
-    case 'CART_ADD_FAILURE':
-    case 'CART_FETCH_FAILURE':
-    case 'CART_UPDATE_FAILURE':
-    case 'CART_PRODUCT_DELETE_FAILURE': {
+    case cartActionType.FAIL: {
       const {
         payload: { message },
       } = action;
@@ -47,7 +47,7 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_CHECKED_LIST': {
+    case cartActionType.UPDATE_CHECKED_LIST: {
       const {
         payload: { checkedProductList },
       } = action;
