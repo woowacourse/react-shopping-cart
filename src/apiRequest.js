@@ -1,7 +1,9 @@
-import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "./constants";
+import { API_SERVER } from "./constants";
 
-const productListUrl = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
-const productDetailUrl = (id) => `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}/${id}`;
+const { BASE_URL, PATH } = API_SERVER;
+
+const productListUrl = `${BASE_URL}${PATH.PRODUCT_LIST}`;
+const productDetailUrl = (id) => `${BASE_URL}${PATH.PRODUCT_LIST}/${id}`;
 
 export const fetchData = async (requestUrl) => {
   const response = await fetch(requestUrl);

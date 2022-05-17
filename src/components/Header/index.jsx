@@ -11,7 +11,7 @@ function Header() {
     <HeaderContainer>
       <Logo />
       <NavButtonContainer>
-        <NavButton to={PATH.PRODUCT_CART}>장바구니</NavButton>
+        <NavButton to={PATH.CART}>장바구니</NavButton>
         <NavButton to={PATH.ORDER_LIST}>주문목록</NavButton>
       </NavButtonContainer>
     </HeaderContainer>

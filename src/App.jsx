@@ -28,7 +28,7 @@ function App() {
               path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
               element={<ProductDetailPage />}
             />
-            <Route path={PATH.PRODUCT_CART} element={<ProductCartPage />} />
+            <Route path={PATH.CART} element={<ProductCartPage />} />
             <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
