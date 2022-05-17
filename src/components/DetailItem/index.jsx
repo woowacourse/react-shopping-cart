@@ -26,7 +26,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disable
         <div>{itemPrice.toLocaleString()}원</div>
       </ItemPriceWrapper>
       <Button
-        backgroundColor="brown"
+        buttonType="brownBackground"
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}

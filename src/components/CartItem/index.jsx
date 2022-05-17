@@ -8,9 +8,11 @@ import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
 
 import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
-import {CartItemWrapper, EditQuantityWrapper, ItemNameWrapper} from 'components/CartItem/style';
 
-function CartItem({itemImgURL, itemName, itemPrice = 0, count, id}) {
+import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
+import {FlexWrapper} from 'components/common/style';
+
+function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id}) {
   //const dispatch = useDispatch();
 
   const handleDeleteIconClick = () => {
@@ -18,11 +20,16 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, count, id}) {
   };
 
   return (
-    <CartItemWrapper>
+    <FlexWrapper gap="15px" height="200px">
       <CheckBox />
       <img src={itemImgURL} alt={`${itemName} 장바구니 이미지`} width="144px" height="144px" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
-      <EditQuantityWrapper>
+      <FlexWrapper
+        direction="column"
+        alignItems="flex-end"
+        justifyContent="space-between"
+        width="115px"
+      >
         <Button
           onClick={() => {
             handleDeleteIconClick(id);
@@ -30,10 +37,20 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, count, id}) {
         >
           <DeleteIcon />
         </Button>
-        <div>{count} 개</div>
+        <FlexWrapper>
+          <ItemCountBox>{quantity}</ItemCountBox>
+          <FlexWrapper direction="column" width="42px">
+            <Button width="42px" height="30px" color="black" buttonType="grayBorder">
+              ▲
+            </Button>
+            <Button width="42px" height="30px" color="black" buttonType="grayBorder">
+              ▼
+            </Button>
+          </FlexWrapper>
+        </FlexWrapper>
         <div>{itemPrice.toLocaleString()}원</div>
-      </EditQuantityWrapper>
-    </CartItemWrapper>
+      </FlexWrapper>
+    </FlexWrapper>
   );
 }
 
@@ -41,7 +58,7 @@ CartItem.propTypes = {
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
-  count: PropTypes.number,
+  quantity: PropTypes.number,
   id: PropTypes.number,
 };
 

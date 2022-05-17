@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyledButton, buttonColor} from 'components/common/Button/style';
+import {StyledButton, buttonTypes} from 'components/common/Button/style';
 
-export default function Button({children, type = 'button', backgroundColor, onClick, ...rest}) {
+export default function Button({children, type = 'button', buttonType, onClick, ...rest}) {
   return (
-    <StyledButton type={type} onClick={onClick} backgroundColor={backgroundColor} button {...rest}>
+    <StyledButton type={type} onClick={onClick} buttonType={buttonType} button {...rest}>
       {children}
     </StyledButton>
   );
@@ -13,6 +13,6 @@ export default function Button({children, type = 'button', backgroundColor, onCl
 Button.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   type: PropTypes.string,
-  backgroundColor: PropTypes.oneOf(Object.keys(buttonColor)),
+  buttonType: PropTypes.oneOf(Object.keys(buttonTypes)),
   onClick: PropTypes.func,
 };

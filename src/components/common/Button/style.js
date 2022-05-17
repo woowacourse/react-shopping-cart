@@ -1,21 +1,24 @@
 import styled, {css} from 'styled-components';
 
-const buttonColor = {
-  brown: css`
+const buttonTypes = {
+  brownBackground: css`
     background-color: ${({theme}) => theme.COLOR.BROWN};
   `,
-  mint: css`
+  mintBackground: css`
     background-color: ${({theme}) => theme.COLOR.MINT};
+  `,
+  grayBorder: css`
+    border: ${({theme}) => `solid 1px ${theme.COLOR.GRAY_500}`};
   `,
 };
 
 const StyledButton = styled.button`
-  color: ${({theme}) => theme.COLOR.WHITE};
+  color: ${(props) => props?.color || props.theme.COLOR.WHITE};
   font-size: ${({theme}) => theme.FONT_SIZE.M};
   font-weight: 500;
   line-height: 12px;
 
-  ${({backgroundColor}) => buttonColor[backgroundColor]}
+  ${({buttonType}) => buttonTypes[buttonType]}
 
   width: ${(props) => props?.width};
   height: ${(props) => props?.height};
@@ -25,4 +28,4 @@ const StyledButton = styled.button`
   opacity: ${(props) => props.disabled && 0.2};
 `;
 
-export {buttonColor, StyledButton};
+export {buttonTypes, StyledButton};

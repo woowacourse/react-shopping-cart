@@ -7,16 +7,16 @@ const CartItemWrapper = styled.div`
 `;
 
 const ItemNameWrapper = styled.div`
-  width: 300px;
+  width: 100%;
 `;
 
-const EditQuantityWrapper = styled.div`
+const ItemCountBox = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-
-  width: 115px;
+  border: ${({theme}) => `solid 1px ${theme.COLOR.GRAY_500}`};
+  width: 73px;
+  height: 58px;
+  align-items: center;
+  justify-content: center;
 `;
 
-export {CartItemWrapper, EditQuantityWrapper, ItemNameWrapper};
+export {CartItemWrapper, ItemNameWrapper, ItemCountBox};

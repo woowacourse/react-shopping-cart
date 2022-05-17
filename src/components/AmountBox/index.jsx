@@ -36,7 +36,7 @@ function AmountBox({type = 'cart', totalCount, totalPrice}) {
         <p>{amountBoxType[type].priceInfo}</p>
         <p>{totalPrice}원</p>
       </PriceInfoWrapper>
-      <Button backgroundColor="brown" width="100%" height="73px">
+      <Button buttonType="brownBackground" width="100%" height="73px">
         {amountBoxType[type].buttonText(totalCount, totalPrice)}
       </Button>
     </AmountBoxWrapper>
