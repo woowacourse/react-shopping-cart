@@ -1,11 +1,15 @@
 import ProductPrice from "component/@shared/ProductPrice/ProductPrice";
+import { Meta, Story } from "@storybook/react";
+import { StyledType } from "styled-components";
 
 export default {
   title: "ProductPrice",
   component: ProductPrice,
-};
+} as Meta;
 
-const Template = (args) => <ProductPrice {...args}>43,400원</ProductPrice>;
+const Template: Story<StyledType> = (args) => (
+  <ProductPrice {...args}>43,400원</ProductPrice>
+);
 
 export const CardProductPrice = Template.bind({});
 CardProductPrice.args = {

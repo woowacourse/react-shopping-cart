@@ -4,7 +4,7 @@ import NavigateButton from "component/@shared/NavigateButton/NavigateButton";
 
 import { ReactComponent as Cart } from "assets/cart.svg";
 import { RowFlexWrapper } from "styles/Wrapper";
-import { ROUTE_PATH } from "constants";
+import { ROUTE_PATH } from "constants/index";
 
 function PageHeader() {
   return (

@@ -11,7 +11,7 @@ import {
   selectCurrentCarts,
 } from "redux/carts/carts.selector";
 import { deleteCheckedProductsStart } from "redux/carts/carts.action";
-import { CURRENT_USER } from "constants";
+import { CURRENT_USER } from "constants/index";
 import {
   CartItemsContainerHeader,
   CartLeftSectionHeader,

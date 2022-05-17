@@ -4,7 +4,7 @@ import ProductThumbnail from "component/@shared/ProductThumbnail/ProductThumbnai
 import ProductCardInfo from "component/ProductList/ProductCardInfo/ProductCardInfo";
 import { ProductCardBox } from "./ProductCard.style";
 
-import { ROUTE_PATH } from "constants";
+import { ROUTE_PATH } from "constants/index";
 import { Product } from "type";
 
 function ProductCard(props: Product) {

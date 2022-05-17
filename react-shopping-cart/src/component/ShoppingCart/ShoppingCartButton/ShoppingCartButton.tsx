@@ -7,7 +7,7 @@ import { selectDetailProduct } from "redux/products/products.selector";
 import { selectCurrentCarts } from "redux/carts/carts.selector";
 import { isInCart } from "util/check";
 import useClickCartButton from "hooks/useClickCartButton";
-import { CURRENT_USER } from "constants";
+import { CURRENT_USER } from "constants/index";
 
 const ShoppingCartButton = ({ idx }: { idx: number }) => {
   const product = useSelector(selectDetailProduct);

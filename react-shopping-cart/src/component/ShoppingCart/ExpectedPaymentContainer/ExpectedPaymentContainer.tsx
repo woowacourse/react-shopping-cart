@@ -9,7 +9,7 @@ import {
 } from "./ExpectedPaymentContainer.style";
 
 import { selectCurrentCarts } from "redux/carts/carts.selector";
-import { CURRENT_USER } from "constants";
+import { CURRENT_USER } from "constants/index";
 
 function ExpectedPaymentContainer() {
   const carts = useSelector(selectCurrentCarts);

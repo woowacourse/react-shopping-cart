@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PaginationButton from "component/@shared/PaginationButton/PaginationButton";
-import { ROUTE_PATH } from "constants";
+import { ROUTE_PATH } from "constants/index";
 
 const PaginationBox = styled.div`
   display: flex;

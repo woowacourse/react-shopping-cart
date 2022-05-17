@@ -1,11 +1,13 @@
 import ProductName from "component/@shared/ProductName/ProductName";
+import { Meta, Story } from "@storybook/react";
+import { StyledType } from "styled-components";
 
 export default {
   title: "ProductName",
   component: ProductName,
-};
+} as Meta;
 
-const Template = (args) => (
+const Template: Story<StyledType> = (args) => (
   <ProductName {...args}>PET보틀-정사각(420ml)</ProductName>
 );
 

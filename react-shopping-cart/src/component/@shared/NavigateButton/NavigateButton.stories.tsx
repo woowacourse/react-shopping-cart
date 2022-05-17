@@ -1,10 +1,11 @@
 import NavigateButton from "component/@shared/NavigateButton/NavigateButton";
+import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "NavigateButton",
   component: NavigateButton,
   decorators: [
-    (Story) => (
+    (Story: Story) => (
       <div
         style={{
           background: "black",
@@ -18,9 +19,9 @@ export default {
       </div>
     ),
   ],
-};
+} as Meta;
 
-const Template = (args) => <NavigateButton {...args}></NavigateButton>;
+const Template: Story = () => <NavigateButton to="/"></NavigateButton>;
 
 export const ShoppingCartNavigateButton = Template.bind({});
 ShoppingCartNavigateButton.args = {

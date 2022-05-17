@@ -1,11 +1,11 @@
 import Spinner from "component/@shared/Spinner/Spinner";
+import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "Spinner",
   component: Spinner,
-};
+} as Meta;
 
-const Template = (args) => <Spinner {...args} />;
+const Template: Story = () => <Spinner />;
 
 export const DefaultSpinner = Template.bind({});
-DefaultSpinner.args = {};

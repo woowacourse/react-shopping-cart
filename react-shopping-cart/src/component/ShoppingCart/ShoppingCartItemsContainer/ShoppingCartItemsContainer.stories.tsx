@@ -1,11 +1,17 @@
 import ShoppingCartItemsContainer from "component/ShoppingCart/ShoppingCartItemsContainer/ShoppingCartItemsContainer";
+import { Meta, Story } from "@storybook/react";
+import { Carts } from "type";
 
 export default {
   title: "ShoppingCartItemsContainer",
   component: ShoppingCartItemsContainer,
-};
+} as Meta;
 
-export const DefaultShoppingCartItemsContainer = (args) => (
+interface CartProps {
+  carts: Carts;
+}
+
+export const DefaultShoppingCartItemsContainer: Story<CartProps> = (args) => (
   <ShoppingCartItemsContainer {...args} />
 );
 DefaultShoppingCartItemsContainer.args = {
@@ -17,6 +23,7 @@ DefaultShoppingCartItemsContainer.args = {
       thumbnail:
         "https://cdn-mart.baemin.com/goods/custom/20200525/11315-main-01.png",
       user: "sming",
+      quantity: 1,
     },
     {
       name: "[든든] 흑곤약 250g",
@@ -25,6 +32,7 @@ DefaultShoppingCartItemsContainer.args = {
       thumbnail:
         "https://cdn-mart.baemin.com/goods/custom/20200525/11263-main-01.png",
       user: "sming",
+      quantity: 1,
     },
     {
       name: "[든든] 냉동조미유부삼각 (60장) 1kg",
@@ -33,6 +41,7 @@ DefaultShoppingCartItemsContainer.args = {
       thumbnail:
         "https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png",
       user: "sming",
+      quantity: 1,
     },
   ],
 };

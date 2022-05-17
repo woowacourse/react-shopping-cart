@@ -1,11 +1,12 @@
 import PageTitle from "component/@shared/PageTitle/PageTitle";
 import { ReactComponent as Cart } from "assets/cart.svg";
+import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "PageTitle",
   component: PageTitle,
   decorators: [
-    (Story) => (
+    (Story: Story) => (
       <div
         style={{
           background: "black",
@@ -19,10 +20,10 @@ export default {
       </div>
     ),
   ],
-};
+} as Meta;
 
-export const DefaultShoppingCartTitle = (args) => (
-  <PageTitle {...args}></PageTitle>
+export const DefaultShoppingCartTitle: Story = () => (
+  <PageTitle to="/"></PageTitle>
 );
 DefaultShoppingCartTitle.args = {
   children: [<Cart />, <div>WOOWA SHOP</div>],

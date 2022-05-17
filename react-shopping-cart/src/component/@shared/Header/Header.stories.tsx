@@ -3,22 +3,23 @@ import PageTitle from "component/@shared/PageTitle/PageTitle";
 import { ReactComponent as Cart } from "assets/cart.svg";
 import NavigateButton from "component/@shared/NavigateButton/NavigateButton";
 import { RowFlexWrapper } from "styles/Wrapper";
+import { Meta, Story } from "@storybook/react";
 export default {
   title: "Header",
   component: Header,
-};
+} as Meta;
 
-export const ShoppingCartPageHeader = (args) => <Header {...args} />;
+export const ShoppingCartPageHeader: Story = () => <Header />;
 
 ShoppingCartPageHeader.args = {
   children: [
-    <PageTitle>
+    <PageTitle to="/">
       <Cart />
       <div>WOOWA SHOP</div>
     </PageTitle>,
     <RowFlexWrapper gap="20px">
-      <NavigateButton>장바구니</NavigateButton>
-      <NavigateButton>주문목록</NavigateButton>
+      <NavigateButton to="/">장바구니</NavigateButton>
+      <NavigateButton to="/">주문목록</NavigateButton>
     </RowFlexWrapper>,
   ],
 };
