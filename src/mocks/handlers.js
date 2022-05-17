@@ -4,7 +4,19 @@ import { removeProperty } from '../utils';
 import data from './data';
 import images from './images';
 
-const { products } = data;
+const cartDB = () => {
+  let cart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
+
+  const getCart = () => cart;
+  const setCart = (newCart) => {
+    cart = newCart;
+    window.localStorage.setItem('server-shopping-cart', JSON.stringify(newCart));
+  };
+
+  return { getCart, setCart };
+};
+
+const { getCart, setCart } = cartDB();
 
 const getProducts = rest.get(`${API_URL}products`, (req, res, ctx) => {
   const page = req.url.searchParams.get('_page');
@@ -13,8 +25,8 @@ const getProducts = rest.get(`${API_URL}products`, (req, res, ctx) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit - 1;
 
-  const productList = products.slice(startIndex, endIndex);
-  const productTotalCount = products.length;
+  const productList = data.products.slice(startIndex, endIndex);
+  const productTotalCount = data.products.length;
 
   return res(ctx.status(200), ctx.json(productList), ctx.set('x-total-count', productTotalCount));
 });
@@ -33,33 +45,41 @@ const getImage = rest.get(`${API_URL}static/images/:imageFileName`, async (req, 
 });
 
 const getShoppingCart = rest.get(`${API_URL}shopping-cart`, (_, res, ctx) => {
-  const cart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
+  const cart = getCart();
   return res(ctx.json(cart));
 });
 
 const postShoppingCart = rest.post(`${API_URL}shopping-cart`, (req, res, ctx) => {
-  const currentShoppingCart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};
+  const currentShoppingCart = getCart();
   const { productId, quantity } = req.body;
 
-  if (currentShoppingCart[productId] === undefined) {
+  const newCart = updateCartProductQuantity(currentShoppingCart, productId, quantity);
+
+  setCart(newCart);
+
+  return res(ctx.json(newCart));
+});
+
+const updateCartProductQuantity = (cart, productId, quantity) => {
+  const newCart = { ...cart };
+  if (newCart[productId] === undefined) {
     const newProduct = {};
-    newProduct.productData = products.find(({ id }) => id === productId);
+    newProduct.productData = data.products.find(({ id }) => id === productId);
     newProduct.quantity = quantity;
-    currentShoppingCart[productId] = newProduct;
+
+    newCart[productId] = newProduct;
   } else {
-    currentShoppingCart[productId].quantity += quantity;
+    newCart[productId].quantity += quantity;
   }
 
-  window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
-
-  return res(ctx.json(currentShoppingCart));
-});
+  return newCart;
+};
 
 const patchShoppingCart = rest.patch(`${API_URL}shopping-cart`, (req, res, ctx) => {
   const { productId, quantity } = req.body;
-  const currentShoppingCart = JSON.parse(window.localStorage.getItem('server-shopping-cart'));
+  const currentShoppingCart = getCart();
 
-  if (!currentShoppingCart || !currentShoppingCart[productId]) {
+  if (!Object.keys(currentShoppingCart).length || !currentShoppingCart[productId]) {
     return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
   }
 
@@ -68,21 +88,22 @@ const patchShoppingCart = rest.patch(`${API_URL}shopping-cart`, (req, res, ctx) 
 
   currentShoppingCart[productId] = targetProduct;
 
-  window.localStorage.setItem('server-shopping-cart', JSON.stringify(currentShoppingCart));
+  setCart(currentShoppingCart);
 
   return res(ctx.json(currentShoppingCart));
 });
+
 const deleteShoppingCart = rest.delete(`${API_URL}shopping-cart/:productId`, (req, res, ctx) => {
   const { productId } = req.params;
-  const currentShoppingCart = JSON.parse(window.localStorage.getItem('server-shopping-cart'));
+  const currentShoppingCart = getCart();
 
-  if (!currentShoppingCart || !currentShoppingCart[productId]) {
+  if (!Object.keys(currentShoppingCart).length || !currentShoppingCart[productId]) {
     return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
   }
 
   const newCart = removeProperty(currentShoppingCart, productId);
 
-  window.localStorage.setItem('server-shopping-cart', JSON.stringify(newCart));
+  setCart(newCart);
 
   return res(ctx.json(newCart));
 });
