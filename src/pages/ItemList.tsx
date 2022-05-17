@@ -17,7 +17,7 @@ import { ItemListAction } from 'redux/actions/itemList';
 import styled from 'styled-components';
 import { Item } from 'types/domain';
 
-const Main = () => {
+const ItemList = () => {
   const params = useParams();
   const id = Number(params.id);
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
@@ -62,7 +62,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ItemList;
 
 const StyledRoot = styled.div`
   width: 1300px;
