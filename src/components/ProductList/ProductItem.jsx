@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
-import { addToCarts, deleteFromCarts } from '../../store/product';
-
 import { BasicImage, BasicButton } from '../shared/basics';
 import { CART_SIZE, COLOR } from '../../constants/styles';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import PATH from '../../constants/path';
+import useStoreProduct from '../../hooks/useStoreProduct';
+import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 
 function Product({ id, src, price, title, isStored }) {
   const timeout = useRef();
-  const dispatch = useDispatch();
+  const { addToCart } = useStoreProduct(id);
+  const { deleteFromCart } = useDeleteProductFromCart(id);
 
   const [isClicked, setIsClicked] = useState(isStored);
 
@@ -22,9 +23,9 @@ function Product({ id, src, price, title, isStored }) {
 
     timeout.current = setTimeout(() => {
       if (isClicked) {
-        dispatch(deleteFromCarts(id));
+        deleteFromCart();
       } else {
-        dispatch(addToCarts(id));
+        addToCart();
       }
     }, 500);
 

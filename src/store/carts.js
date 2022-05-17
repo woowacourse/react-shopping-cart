@@ -26,14 +26,6 @@ const loadCartsFail = (error) => ({
 const loadCartsDone = () => ({
   type: LOAD_CARTS_DONE,
 });
-export const addProduct = (id) => ({
-  type: ADD_PRODUCT_TO_CARTS,
-  payload: { id, quantity: 1 },
-});
-export const deleteProduct = (id) => ({
-  type: DELETE_PRODUCT_FROM_CARTS,
-  payload: id,
-});
 
 const cartsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -45,13 +37,6 @@ const cartsReducer = (state = initialState, action) => {
       return { ...state, error: action.payload };
     case LOAD_CARTS_DONE:
       return { ...state, isLoading: false };
-    case ADD_PRODUCT_TO_CARTS:
-      return { ...state, carts: state.carts.concat(action.payload) };
-    case DELETE_PRODUCT_FROM_CARTS:
-      return {
-        ...state,
-        carts: state.carts.filter(({ id }) => id !== action.payload),
-      };
     default:
       return { ...state };
   }

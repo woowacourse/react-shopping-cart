@@ -4,20 +4,13 @@ import PropType from 'prop-types';
 import { BasicButton, BasicImage } from '../shared/basics';
 import { COLOR } from '../../constants/styles';
 
-import PATH from '../../constants/path';
-import useFetch from '../../hooks/useFetch';
+import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
+import useStoreProduct from '../../hooks/useStoreProduct';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const [isClicked, setIsClicked] = useState(isStored);
-  const { isLoading: isCartAddLoading, apiCall: addToCart } = useFetch({
-    url: `${process.env.REACT_APP_SERVER_URL}/${PATH.CARTS}/`,
-    method: 'POST',
-    data: { id, quantity: 1 },
-  });
-  const { isLoading: isCartDeleteLoading, apiCall: deleteFromCart } = useFetch({
-    url: `${process.env.REACT_APP_SERVER_URL}/${PATH.CARTS}/${id}`,
-    method: 'DELETE',
-  });
+  const { isCartAddLoading, addToCart } = useStoreProduct(id);
+  const { isCartDeleteLoading, deleteFromCart } = useDeleteProductFromCart(id);
 
   const handleCartButtonClick = async () => {
     if (isClicked) {

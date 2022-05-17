@@ -10,7 +10,6 @@ import ProductDetailContainer from './components/ProductDetail/ProductDetailCont
 import GlobalStyle from './GlobalStyle';
 
 import PATH from './constants/path';
-// import SnackBar from './SnackBar';
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {/* <SnackBar></SnackBar> */}
       </BrowserRouter>
     </div>
   );
