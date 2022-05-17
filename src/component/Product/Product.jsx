@@ -66,18 +66,17 @@ const CartIcon = styled.img`
   }
 `;
 
-function Product({ handleProductClick, handleCartClick, image, name, price }) {
+function Product({ handleProductClick, handleCartClick, image, name, price, id }) {
+  const onProductClick = () => {
+    handleProductClick(id);
+  };
+
   return (
     <ProductBox>
-      <ProductImage
-        src={image}
-        alt="과일 이미지"
-        title="product-image"
-        onClick={handleProductClick}
-      />
+      <ProductImage src={image} alt="과일 이미지" title="product-image" onClick={onProductClick} />
       <DescriptionBox>
         <div>
-          <NameText onClick={handleProductClick}>{name}</NameText>
+          <NameText onClick={onProductClick}>{name}</NameText>
           <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
         <Button onClick={handleCartClick}>

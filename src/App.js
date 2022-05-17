@@ -8,6 +8,7 @@ import { PATH } from 'constant/path';
 
 import ProductList from 'page/ProductList/ProductList';
 import ShoppingCart from 'page/ShoppingCart/ShoppingCart';
+import ProductDetail from 'page/ProductDetail/ProductDetail';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path={PATH.PRODUCT_LIST} element={<ProductList />} />
             <Route path={PATH.SHOPPING_CART} element={<ShoppingCart />} />
+            <Route path="productDetail" element={<ProductDetail />} />
             <Route path="*" element={<ProductList />} />
           </Routes>
         </BrowserRouter>
