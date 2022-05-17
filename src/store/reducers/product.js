@@ -19,6 +19,7 @@ const productReducer = (state = initialState, action) => {
       const {
         payload: { productList, totalProductCount },
       } = action;
+
       return {
         ...state,
         productList,
