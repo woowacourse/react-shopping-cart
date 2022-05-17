@@ -1,23 +1,23 @@
 import appClient from 'utils';
 
 const ACTION = {
-  GET_PRODUCT_LIST_PENDING: 'GET_PRODUCT_LIST_PENDING',
-  GET_PRODUCT_LIST_SUCCESS: 'GET_PRODUCT_LIST_SUCCESS',
-  GET_PRODUCT_LIST_FAILURE: 'GET_PRODUCT_LIST_FAILURE',
+  PRODUCT_LIST_PENDING: 'PRODUCT_LIST_PENDING',
+  PRODUCT_LIST_SUCCESS: 'PRODUCT_LIST_SUCCESS',
+  PRODUCT_LIST_FAILURE: 'PRODUCT_LIST_FAILURE',
 };
 
 export const getProductList = () => async (dispatch) => {
-  dispatch({type: ACTION.GET_PRODUCT_LIST_PENDING});
+  dispatch({type: ACTION.PRODUCT_LIST_PENDING});
 
   try {
     const {data} = await appClient.get('products');
     dispatch({
-      type: ACTION.GET_PRODUCT_LIST_SUCCESS,
+      type: ACTION.PRODUCT_LIST_SUCCESS,
       payload: data,
     });
   } catch (err) {
     dispatch({
-      type: ACTION.GET_PRODUCT_LIST_FAILURE,
+      type: ACTION.PRODUCT_LIST_FAILURE,
       payload: err,
     });
     throw err;
@@ -32,14 +32,14 @@ const initialState = {
 
 export default function productListReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTION.GET_PRODUCT_LIST_PENDING: {
+    case ACTION.PRODUCT_LIST_PENDING: {
       return {
         ...state,
         pending: true,
         error: false,
       };
     }
-    case ACTION.GET_PRODUCT_LIST_SUCCESS: {
+    case ACTION.PRODUCT_LIST_SUCCESS: {
       const productList = action.payload;
       return {
         ...state,
@@ -47,7 +47,7 @@ export default function productListReducer(state = initialState, action) {
         data: productList,
       };
     }
-    case ACTION.GET_PRODUCT_LIST_FAILURE: {
+    case ACTION.PRODUCT_LIST_FAILURE: {
       return {
         ...state,
         pending: false,
