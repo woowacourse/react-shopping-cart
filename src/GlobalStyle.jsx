@@ -22,9 +22,9 @@ code {
 }
 
 a {
-  &:link { color: inherit; text-decoration: none;}
-  &:visited { color: inherit; text-decoration: none;}
-  &:hover { color: inherit; text-decoration: none;}
+  :link { color: inherit; text-decoration: none;}
+  :visited { color: inherit; text-decoration: none;}
+  :hover { color: inherit; text-decoration: none;}
 }
 
 `;
