@@ -7,7 +7,10 @@ import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
 import PATH from 'constants/path';
 import ProductPage from 'pages/ProductPage/ProductPage';
 import { ThemeProvider } from 'styled-components';
+import axios from 'axios';
 import theme from 'styles/theme';
+
+axios.defaults.baseURL = 'https://heroku-shopping-cart-lv2.herokuapp.com';
 
 function App() {
   return (
