@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FlexWrapper from 'components/FlexWrapper';
-import MarginRightWrapper from 'components/MarginRightWrapper';
+import MarginWrapper from 'components/MarginWrapper';
 
 import HomeButton from 'containers/HomeButton';
 import CartPageButton from 'containers/CartPageButton';
@@ -15,9 +15,9 @@ function Header() {
       <PageButtonContainerStyled>
         <HomeButton />
         <FlexWrapper alignItmes="center">
-          <MarginRightWrapper marginRight="2.2vw">
+          <MarginWrapper marginRight="2.2vw">
             <CartPageButton />
-          </MarginRightWrapper>
+          </MarginWrapper>
           <OrderListButton />
         </FlexWrapper>
       </PageButtonContainerStyled>

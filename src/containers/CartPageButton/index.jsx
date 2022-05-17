@@ -1,13 +1,13 @@
 import React from 'react';
 
-import MarginRightWrapper from 'components/MarginRightWrapper';
+import MarginWrapper from 'components/MarginWrapper';
 import WhiteButton from 'components/WhiteButton';
 
 function CartPageButton() {
   return (
-    <MarginRightWrapper>
+    <MarginWrapper marginRight="4px">
       <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
-    </MarginRightWrapper>
+    </MarginWrapper>
   );
 }
 

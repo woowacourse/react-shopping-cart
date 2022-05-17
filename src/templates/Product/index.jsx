@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BlackText from 'components/BlackText';
 import Image from 'components/Image';
 import FlexWrapper from 'components/FlexWrapper';
-import MarginBottomWrapper from 'components/MarginBottomWrapper';
+import MarginWrapper from 'components/MarginWrapper';
 
 import CartButton from 'containers/CartButton';
 import ProductTitle from 'containers/ProductTitle';
@@ -18,18 +18,18 @@ function Product({ imgSrc, title, price }) {
 
   return (
     <ProductStyled>
-      <MarginBottomWrapper marginBottom="18px">
+      <MarginWrapper marginBottom="18px">
         <Link onClick={handleProductClick} to="">
           <Image src={imgSrc} width="100%" height="14.24vmax" alt="상품 이미지" />
         </Link>
-      </MarginBottomWrapper>
+      </MarginWrapper>
       <FlexWrapper alignItems="center" justifyContent="center">
         <div>
-          <MarginBottomWrapper marginBottom="6px">
+          <MarginWrapper marginBottom="6px">
             <Link className="link-text" onClick={handleProductClick} to="">
               <ProductTitle>{title}</ProductTitle>
             </Link>
-          </MarginBottomWrapper>
+          </MarginWrapper>
           <BlackText fontSize="1.25rem" fontWeight="400">
             {price.toLocaleString()}원
           </BlackText>
