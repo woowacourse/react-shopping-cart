@@ -11,6 +11,15 @@ import ErrorBoundary from "component/Wrapper/ErrorBoundary/ErrorBoundary";
 import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
 
+if (process.env.NODE_ENV === "development") {
+  const { worker } = require("./mocks/browser");
+  worker.start({
+    serviceWorker: {
+      url: "/react-shopping-cart/mockServiceWorker.js",
+    },
+  });
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

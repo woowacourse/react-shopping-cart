@@ -1,13 +1,12 @@
 import { RowFlexWrapper } from "styles/Wrapper";
 import Spinner from "component/@shared/Spinner/Spinner";
-import { ReactNode } from "react";
 
 function WithSpinner({
   loading,
   children,
 }: {
   loading: boolean;
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   if (loading) {
     return (
@@ -17,7 +16,7 @@ function WithSpinner({
     );
   }
 
-  return children;
+  return <>{children}</>;
 }
 
 export default WithSpinner;
