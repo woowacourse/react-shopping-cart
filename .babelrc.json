@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env"
+    ],
+    "@babel/preset-react",
+    "@emotion/babel-preset-css-prop"
+  ],
+  "plugins": [
+    "@babel/proposal-object-rest-spread",
+    ["@babel/plugin-proposal-pipeline-operator", { "topicToken": "^^", "proposal": "hack" }],
+    ["@babel/plugin-transform-runtime",{"corejs":3}]
+  ]
+}
