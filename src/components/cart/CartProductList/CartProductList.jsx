@@ -1,49 +1,17 @@
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteCartProductAsync,
-  getCartAsync,
-  updateCheckedList,
-} from '../../../store/actions/cart';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import useCartCheckedProducts from '../../../hooks/useCartCheckedProducts';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import CartProductCard from '../CartProductCard/CartProductCard';
 import * as Styled from './CartProductList.style';
 
 function CartProductList() {
-  const dispatch = useDispatch();
+  const { cart } = useSelector(({ cart }) => cart);
 
-  const { cart, checkedProductList } = useSelector(({ cart }) => cart);
+  const { isAllChecked, toggleAllCheck, checkedProductCount, deleteCheckedProducts } =
+    useCartCheckedProducts();
 
   const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
-
-  useEffect(() => {
-    dispatch(getCartAsync());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const isAllChecked = useMemo(
-    () => cartLength === checkedProductList.length,
-    [cartLength, checkedProductList],
-  );
-
-  const toggleAllCheck = () => {
-    if (isAllChecked) {
-      dispatch(updateCheckedList([]));
-      return;
-    }
-
-    dispatch(updateCheckedList(Object.keys(cart)));
-  };
-
-  const deleteCheckedProducts = () => {
-    const checkedListLength = checkedProductList.length;
-
-    if (
-      checkedListLength !== 0 &&
-      window.confirm(`${checkedListLength}개의 상품을 삭제하시겠습니까?`)
-    ) {
-      dispatch(deleteCartProductAsync(checkedProductList));
-    }
-  };
 
   return (
     <Styled.Container>
@@ -54,7 +22,7 @@ function CartProductList() {
             {isAllChecked ? '전체 선택해제' : '전체 선택하기'}
           </Styled.CheckBoxLabel>
         </Styled.AllCheckControl>
-        {checkedProductList.length !== 0 && (
+        {checkedProductCount !== 0 && (
           <Styled.Button type="button" onClick={deleteCheckedProducts}>
             선택 상품 삭제
           </Styled.Button>

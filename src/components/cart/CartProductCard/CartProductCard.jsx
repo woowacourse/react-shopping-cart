@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import useCartCheckedProducts from '../../../hooks/useCartCheckedProducts';
 import {
   deleteCartProductAsync,
-  toggleProductCheck,
   updateCartProductQuantityAsync,
 } from '../../../store/actions/cart';
 import { Position } from '../../../styles/GlobalStyles';
@@ -12,16 +12,17 @@ import Icon from '../../common/Icon/Icon';
 import Image from '../../common/Image/Image';
 import * as Styled from './CartProductCard.style';
 
-function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
+function CartProductCard({ product: { id: productId, name, price, imageURL }, quantity }) {
   const dispatch = useDispatch();
-  const checked = useSelector(({ cart }) => cart.checkedProductList.includes(String(id)));
 
-  const toggleCheck = () => {
-    dispatch(toggleProductCheck(String(id)));
-  };
+  const { isChecked, toggleCheck } = useCartCheckedProducts();
+
+  const checked = useMemo(() => isChecked(productId), [isChecked]);
+
+  const onCheckBoxClick = useCallback(() => toggleCheck(productId), []);
 
   const onIncrementQuantity = () => {
-    dispatch(updateCartProductQuantityAsync(id, quantity + 1));
+    dispatch(updateCartProductQuantityAsync(productId, quantity + 1));
   };
 
   const onDecrementQuantity = () => {
@@ -29,18 +30,18 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
       alert('주문할 수 있는 최소 수량입니다.');
       return;
     }
-    dispatch(updateCartProductQuantityAsync(id, quantity - 1));
+    dispatch(updateCartProductQuantityAsync(productId, quantity - 1));
   };
 
   const onProductDelete = () => {
-    if (window.confirm(`${name}을/를 장바구니에서 삭제하시겠습니까?`)) {
-      dispatch(deleteCartProductAsync([id]));
+    if (window.confirm(`해당 상품을 장바구니에서 삭제하시겠습니까?`)) {
+      dispatch(deleteCartProductAsync([productId]));
     }
   };
 
   return (
     <Styled.Container>
-      <CheckBox checked={checked} onClick={toggleCheck} />
+      <CheckBox checked={checked} onClick={onCheckBoxClick} />
 
       <Image src={imageURL} width="150px" />
 
