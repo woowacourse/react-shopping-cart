@@ -14,14 +14,10 @@ function Product({ id, src, price, title, isStored }) {
   const dispatch = useDispatch();
 
   const handleCartClick = async () => {
-    try {
-      if (isClicked) {
-        dispatch(deleteCart(id));
-      } else {
-        dispatch(addCart(id));
-      }
-    } catch (error) {
-      alert(error.message);
+    if (isClicked) {
+      dispatch(deleteCart(id));
+    } else {
+      dispatch(addCart(id));
     }
 
     setIsClicked((prev) => !prev);

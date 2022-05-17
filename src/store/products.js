@@ -1,16 +1,22 @@
 import axios from 'axios';
-import { SERVER_URL, PATH } from 'constants';
+import { SERVER_URL, PATH, ERROR_MESSAGE } from 'constants';
 
 const TYPE = {
   PRODUCTS_LOAD: 'products/load',
+  LOADING: 'products/loading',
+  ERROR: 'prodcuts/error',
 };
 
 const initialState = {
+  loading: true,
   products: [],
+  productsError: null,
 };
 
 const actionCreators = {
   loadProducts: (payload) => ({ type: TYPE.PRODUCTS_LOAD, payload }),
+  loading: (payload) => ({ type: TYPE.LOADING, payload }),
+  error: (payload) => ({ type: TYPE.ERROR, payload }),
 };
 
 export const loadProducts = () => async (dispatch) => {
@@ -19,14 +25,20 @@ export const loadProducts = () => async (dispatch) => {
 
     dispatch(actionCreators.loadProducts(data));
   } catch (error) {
-    console.log(error);
+    dispatch(actionCreators.error(ERROR_MESSAGE.LOAD_PRODUCTS));
+  } finally {
+    dispatch(actionCreators.loading(false));
   }
 };
 
 export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPE.PRODUCTS_LOAD:
-      return { ...state, products: action.payload };
+      return { ...state, products: action.payload, productsError: null };
+    case TYPE.LOADING:
+      return { ...state, loading: action.payload };
+    case TYPE.ERROR:
+      return { ...state, productsError: action.payload };
     default:
       return state;
   }
