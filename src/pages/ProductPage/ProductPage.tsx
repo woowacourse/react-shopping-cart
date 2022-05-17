@@ -75,11 +75,14 @@ const StyledPage = styled.div`
   dl {
     display: flex;
     justify-content: space-between;
-    gap: 50px;
 
     width: 100%;
 
     font-size: 15px;
+  }
+
+  dt {
+    width: 100px;
   }
 `;
 
