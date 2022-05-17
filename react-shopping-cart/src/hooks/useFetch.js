@@ -1,3 +1,4 @@
+import { LIMIT_SERVER_CONNECTION_TIME } from 'constants';
 import { useState, useEffect } from 'react';
 
 function useFetch(url) {
@@ -11,11 +12,15 @@ function useFetch(url) {
 
   const fetchData = async () => {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), LIMIT_SERVER_CONNECTION_TIME);
+
       const res = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
         },
+        signal: controller.signal,
       });
 
       if (!res.ok) {
