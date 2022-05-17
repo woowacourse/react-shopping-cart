@@ -6,8 +6,8 @@ import { clearProducts, productsAsyncThunk } from 'store/action/productsActions'
 
 import { GridLayout } from 'component/common';
 import LoadingSpinner from 'component/LoadingSpinner/LoadingSpinner';
-import ProductContainer from 'container/ProductContainer';
 import PageController from 'component/common/PageController/PageController';
+import ProductContainer from 'container/ProductContainer';
 import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
 
 const Content = styled.div`

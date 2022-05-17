@@ -14,7 +14,7 @@ function App() {
     <>
       <GlobalStyle />
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <NavBar />
           <Routes>
             <Route path={PATH.PRODUCT_LIST} element={<ProductList />} />
