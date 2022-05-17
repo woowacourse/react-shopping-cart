@@ -11,8 +11,6 @@ export const Container = styled.div`
   border-bottom: 1px solid #aaaaaa;
 `;
 
-export const Image = styled.img``;
-
 export const Description = styled.div`
   position: relative;
   display: flex;
