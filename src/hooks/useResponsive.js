@@ -20,7 +20,7 @@ export default function useResponsive() {
   useEffect(() => {
     window.addEventListener('resize', checkDisplayWidth);
     return () => window.removeEventListener('resize', checkDisplayWidth);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return currentDevice;
 }
