@@ -9,6 +9,7 @@ import App from "./App";
 const GlobalStyle = createGlobalStyle`
   body{  
      margin: 0; 
+     height: 100vh;
    }   
 `;
 

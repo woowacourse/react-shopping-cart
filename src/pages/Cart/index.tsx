@@ -1,7 +1,5 @@
-import NotFound from "../../components/@shared/NotFound";
-
 function Cart() {
-  return <NotFound />;
+  return <div>장바구니</div>;
 }
 
 export default Cart;

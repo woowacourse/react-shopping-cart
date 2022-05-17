@@ -10,6 +10,7 @@ import OrderList from "./pages/OrderList";
 import ProductList from "./pages/ProductList";
 import Header from "./components/Header";
 import { RootState } from "./redux/store";
+import NotFoundPage from "./pages/NotFound";
 
 function App() {
   const { isShowSnackBar, message } = useSelector((state: RootState) => state.snackBar);
@@ -23,7 +24,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order-list" element={<OrderList />} />
-        <Route path="/*" element={<ProductList />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {isShowSnackBar && <SnackBar key={Date.now()} message={message} />}
     </Router>

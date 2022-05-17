@@ -20,9 +20,9 @@ const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
 
 // 액션 크리에터
-const addItem = (cartItem: CartItem) => ({
+const addItem = (id: number) => ({
   type: ADD,
-  payload: { cartItem },
+  payload: { id },
 });
 const deleteItem = (id: number) => ({
   type: DELETE,
@@ -45,8 +45,8 @@ const incrementByNumber = (id: number, number: number) => ({
 const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ADD: {
-      const { cartItem } = action.payload;
-      const newCartItemList = [...state.cartItemList, cartItem];
+      const { id } = action.payload;
+      const newCartItemList = [...state.cartItemList, { id, amount: 1 }];
 
       return { ...state, cartItemList: newCartItemList };
     }

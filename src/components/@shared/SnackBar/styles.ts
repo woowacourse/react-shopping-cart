@@ -34,7 +34,7 @@ const SnackBar = styled.div`
   z-index: 1;
   left: 50%;
   bottom: 0;
-  animation: ${FadeIn} 0.5s, ${FadeOut} 0.5s 2.5s;
+  animation: ${FadeIn} 0.5s, ${FadeOut} 0.5s 1.5s;
   animation-fill-mode: forwards;
 `;
 

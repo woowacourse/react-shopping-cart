@@ -6,8 +6,8 @@ import * as Styled from "./styles";
 
 import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
-import { actionCreators as CartActionCreators } from "../../redux/modules/cart";
-import { actionCreators as SnackBarActionCreators } from "../../redux/modules/snackBar";
+import { actionCreators as CartActions } from "../../redux/modules/cart";
+import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar";
 
 import deleteIcon from "../../assets/deleteIcon.png";
 import cart from "../../assets/cart.svg";
@@ -24,9 +24,10 @@ interface ProductProps {
 }
 
 function Product({ productInfo: { name, price, img, id } }: ProductProps) {
-  const [isShowCartCounter, setIsShowCartCounter] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isShowCartCounter, setIsShowCartCounter] = useState(false);
   const cartItemList = useCartItemListSelector();
   const cartItem = useCartItemSelector(id);
   const timeout = useRef<NodeJS.Timeout>();
@@ -34,18 +35,16 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((cartItem) => cartItem.id === id)) {
-      const newItem = { name, price, img, id, amount: 1 };
-
-      dispatch(CartActionCreators.addItem(newItem));
-      dispatch(SnackBarActionCreators.show("장바구니에 추가되었습니다. 😍"));
+      dispatch(CartActions.addItem(id));
+      dispatch(SnackBarActions.show("장바구니에 추가되었습니다. 😍"));
     }
   };
 
   const onClickDeleteItem = () => {
     if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
-      dispatch(CartActionCreators.deleteItem(id));
+      dispatch(CartActions.deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(SnackBarActionCreators.show("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(SnackBarActions.show("장바구니에서 삭제되었습니다. 🥲"));
     }
   };
 
@@ -54,7 +53,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    dispatch(CartActionCreators.decrement(id));
+    dispatch(CartActions.decrement(id));
   };
 
   const conClickIncreaseCounter = () => {
@@ -63,10 +62,10 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     }
 
     if (cartItem) {
-      dispatch(CartActionCreators.increment(id));
+      dispatch(CartActions.increment(id));
       return;
     }
-    dispatch(CartActionCreators.addItem({ id, amount: 1 }));
+    dispatch(CartActions.addItem(id));
   };
 
   useEffect(() => {
@@ -80,10 +79,20 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   return (
     <Styled.ProductWrapper>
       <Styled.ProductImageWrapper>
-        <Styled.ProductImage onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
+        <Styled.ProductImage
+          onClick={() =>
+            navigate(`/product/${id}`, { state: { productDetail: { name, price, img, id } } })
+          }
+          src={img}
+          alt={name}
+        />
       </Styled.ProductImageWrapper>
       <Styled.ProductInfoWrapper>
-        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
+        <Styled.ProductInfo
+          onClick={() =>
+            navigate(`/product/${id}`, { state: { productDetail: { name, price, img, id } } })
+          }
+        >
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </Styled.ProductInfo>

@@ -9,8 +9,9 @@ import Loader from "../../components/@shared/Loader";
 import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
 
 function ProductList() {
-  const { productList, loading, error }: ProductState = useSelector(selectProductState);
   const dispatch = useDispatch();
+
+  const { productList, loading, error }: ProductState = useSelector(selectProductState);
 
   useEffect(() => {
     dispatch(loadProductsAPI());
