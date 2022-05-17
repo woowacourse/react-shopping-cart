@@ -1,8 +1,9 @@
-import { RootState } from 'redux/reducers';
-import type { Action } from 'redux';
-import { useAppDispatch } from './useAppDispatch';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import type { Action } from 'redux';
+import { RootState } from 'redux/reducers';
+
+import { useAppDispatch } from './useAppDispatch';
 
 type Selector = (state: RootState) => any;
 

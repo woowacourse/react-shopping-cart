@@ -1,8 +1,9 @@
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useEffect } from 'react';
 import { getCartList, putCartItem } from 'redux/action-creators/cartListThunk';
-import { useAppDispatch } from './useAppDispatch';
 import { CartListAction } from 'redux/actions/cartList';
+
+import { useAppDispatch } from './useAppDispatch';
 
 const useCartList = () => {
   const dispatch = useAppDispatch<CartListAction>();

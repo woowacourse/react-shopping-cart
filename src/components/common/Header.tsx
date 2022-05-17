@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { flexCenter } from 'styles/mixin';
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
+import { Link, useNavigate } from 'react-router-dom';
 import { PATH } from 'Routers';
+import styled from 'styled-components';
+import { flexCenter } from 'styles/mixin';
 
 const Header = () => {
   const navigate = useNavigate();

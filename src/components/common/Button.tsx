@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import theme from 'styles/theme';
 import styled from 'styled-components';
+import theme from 'styles/theme';
 
 type Size = 'large' | 'medium' | 'small';
 

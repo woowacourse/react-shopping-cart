@@ -78,6 +78,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "gh-pages": "^4.0.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"

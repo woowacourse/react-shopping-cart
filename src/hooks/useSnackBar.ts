@@ -1,4 +1,4 @@
-import { useRef, useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 const useSnackBar = () => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);

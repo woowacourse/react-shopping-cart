@@ -1,4 +1,5 @@
 import { Item } from 'types/domain';
+
 import { ItemListAction, ItemListActionType } from '../actions/itemList';
 
 interface ItemListState {

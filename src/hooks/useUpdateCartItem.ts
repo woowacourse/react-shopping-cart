@@ -1,7 +1,8 @@
 import { postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
-import { useAppDispatch } from './useAppDispatch';
-import { CartItem } from 'types/domain';
 import { CartListAction } from 'redux/actions/cartList';
+import { CartItem } from 'types/domain';
+
+import { useAppDispatch } from './useAppDispatch';
 
 const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();

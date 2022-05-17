@@ -1,21 +1,21 @@
-import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { BASE_URL } from 'apis';
+import Loading from 'components/common/Loading';
 import Pagination from 'components/common/Pagination';
+import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
-import Loading from 'components/common/Loading';
-import RequestFail from 'components/common/RequestFail';
-import { ItemListAction } from 'redux/actions/itemList';
-import { getItemList } from 'redux/action-creators/itemListThunk';
-import { CartListAction } from 'redux/actions/cartList';
-import { getCartList } from 'redux/action-creators/cartListThunk';
-import useSnackBar from 'hooks/useSnackBar';
+import { MAX_RESULT_ITEM_LIST } from 'constants/index';
 import { useFetch } from 'hooks/useFetch';
+import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
-import { BASE_URL } from 'apis';
+import { useParams } from 'react-router-dom';
+import { getCartList } from 'redux/action-creators/cartListThunk';
+import { getItemList } from 'redux/action-creators/itemListThunk';
+import { CartListAction } from 'redux/actions/cartList';
+import { ItemListAction } from 'redux/actions/itemList';
+import styled from 'styled-components';
 import { Item } from 'types/domain';
-import { MAX_RESULT_ITEM_LIST } from 'constants/index';
 
 const Main = () => {
   const params = useParams();

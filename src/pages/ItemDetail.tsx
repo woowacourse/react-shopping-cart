@@ -1,16 +1,16 @@
-import { useParams } from 'react-router-dom';
-import type { Item } from 'types/domain';
 import { BASE_URL } from 'apis';
-import CroppedImage from 'components/common/CroppedImage';
-import styled from 'styled-components';
 import Button from 'components/common/Button';
-import useUpdateCartItem from 'hooks/useUpdateCartItem';
-import { useFetch } from 'hooks/useFetch';
-import RequestFail from 'components/common/RequestFail';
+import CroppedImage from 'components/common/CroppedImage';
 import Loading from 'components/common/Loading';
+import RequestFail from 'components/common/RequestFail';
+import { useFetch } from 'hooks/useFetch';
 import useThunkFetch from 'hooks/useThunkFetch';
-import { CartListAction } from 'redux/actions/cartList';
+import useUpdateCartItem from 'hooks/useUpdateCartItem';
+import { useParams } from 'react-router-dom';
 import { getCartList } from 'redux/action-creators/cartListThunk';
+import { CartListAction } from 'redux/actions/cartList';
+import styled from 'styled-components';
+import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
   const params = useParams();

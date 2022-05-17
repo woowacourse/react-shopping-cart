@@ -1,9 +1,9 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
-import ItemDetail from 'pages/ItemDetail';
-import NotFound from 'pages/NotFound';
-import Main from 'pages/Main';
 import Cart from 'pages/Cart';
+import ItemDetail from 'pages/ItemDetail';
+import Main from 'pages/ItemList';
+import NotFound from 'pages/NotFound';
 import { ReactElement } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const PATH = {
   home: '/',

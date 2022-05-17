@@ -1,6 +1,7 @@
-import Portal from './Portal';
 import styled, { keyframes } from 'styled-components';
 import { flexCenter } from 'styles/mixin';
+
+import Portal from './Portal';
 
 export const MESSAGE = {
   cart: '장바구니에 담았습니다.',

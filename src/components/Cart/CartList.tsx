@@ -1,9 +1,9 @@
-import React from 'react';
-import { CartItem } from 'types/domain';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
 import useThunkFetch from 'hooks/useThunkFetch';
+import React from 'react';
 import { getCartList } from 'redux/action-creators/cartListThunk';
+import { CartItem } from 'types/domain';
 
 const CartList = () => {
   const {
