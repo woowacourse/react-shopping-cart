@@ -1,21 +1,21 @@
 import { ADD_ITEM, DELETE_ITEM } from 'actions';
 
 const INITIAL_STATE = {
-  shoppingCartList: [],
+  shoppingBasketList: [],
 };
 
-function shoppingCartReducer(state = INITIAL_STATE, action) {
+function shoppingBasketReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_ITEM:
       return {
         ...state,
-        shoppingCartList: [...state.shoppingCartList, { ...action.payload, quantity: 1 }],
+        shoppingBasketList: [...state.shoppingBasketList, { ...action.payload, quantity: 1 }],
       };
 
     case DELETE_ITEM:
       return {
         ...state,
-        shoppingCartList: state.shoppingCartList.filter(
+        shoppingBasketList: state.shoppingBasketList.filter(
           product => product.id !== action.payload.id
         ),
       };
@@ -25,4 +25,4 @@ function shoppingCartReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default shoppingCartReducer;
+export default shoppingBasketReducer;

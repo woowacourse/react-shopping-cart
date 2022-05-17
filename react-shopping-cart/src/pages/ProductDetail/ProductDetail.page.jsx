@@ -15,9 +15,9 @@ function ProductDetail() {
     error,
   } = useFetch(`${process.env.REACT_APP_API_HOST}/product/${productId}`);
   const dispatch = useDispatch();
-  const shoppingCartList = useSelector(state => state.shoppingCartList);
+  const shoppingBasketList = useSelector(state => state.shoppingBasketList);
 
-  const isContained = shoppingCartList.find(itemInfo => itemInfo.id === productId) !== undefined;
+  const isContained = shoppingBasketList.find(itemInfo => itemInfo.id === productId) !== undefined;
 
   const handleClickAddShoppingCart = () => {
     dispatch(isContained ? deleteItem(productId) : addItem(productId));

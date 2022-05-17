@@ -57,9 +57,9 @@ function ProductListItem({ id, thumbnail, name, price }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const shoppingCart = useSelector(state => state.shoppingCartList);
+  const shoppingBasketList = useSelector(state => state.shoppingBasketList);
 
-  const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
+  const isContained = shoppingBasketList.find(itemInfo => itemInfo.id === id) !== undefined;
 
   const handleClickProduct = () => {
     navigate(URL.PRODUCT_DETAIL + id, {
@@ -74,7 +74,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
     });
   };
 
-  const handleToggleShoppingCart = () => {
+  const handleClickShoppingCart = () => {
     dispatch(isContained ? deleteItem(id) : addItem(id));
   };
 
@@ -89,7 +89,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
       <Text className="product-price" fontSize="medium">
         {price.toLocaleString('ko-KR')}원
       </Text>
-      <ShoppingCart style={{ cursor: 'pointer' }} onClick={handleToggleShoppingCart} />
+      <ShoppingCart style={{ cursor: 'pointer' }} onClick={handleClickShoppingCart} />
     </ItemContainer>
   );
 }
