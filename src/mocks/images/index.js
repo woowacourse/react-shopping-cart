@@ -12,7 +12,7 @@ import hammock from './hammock.jpg';
 import icebox from './icebox.jpg';
 import lamp from './lamp.jpg';
 import picnicBox from './picnic-box.jpg';
-import sleepingBag from './sleeping-bag.jpg';
+// import sleepingBag from './sleeping-bag.jpg';
 import swissKnife from './swiss-knife.jpg';
 import table from './table.jpg';
 import tripod from './tripod.jpg';
@@ -33,7 +33,8 @@ export default {
   icebox,
   lamp,
   'picnic-box': picnicBox,
-  'sleeping-bag': sleepingBag,
+  // 이미지 로딩 실패 테스트용 주석 처리
+  // 'sleeping-bag': sleepingBag,
   'swiss-knife': swissKnife,
   table,
   tripod,
