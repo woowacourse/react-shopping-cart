@@ -48,6 +48,7 @@ function ProductDetailContainer() {
       {isLoading && <h1>로딩 중...</h1>}
       {!isLoading && (
         <ProductDetail
+          id={id}
           src={product?.src}
           title={product?.title}
           price={product?.price}
