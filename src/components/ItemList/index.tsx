@@ -12,6 +12,8 @@ import useThunkFetch from 'hooks/useThunkFetch';
 import { CartListAction } from 'redux/actions/cartList';
 import { getCartList } from 'redux/action-creators/cartListThunk';
 
+const contentsNumLimit = 12;
+
 const ItemList = () => {
   const params = useParams();
   const id = Number(params.id);
@@ -20,12 +22,13 @@ const ItemList = () => {
     data: itemList,
     error,
     loading,
-  } = useFetch<Item[]>(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=12`);
+  } = useFetch<Item[]>(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=${contentsNumLimit}`);
 
   const { data: cartList } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
     getCartList
   );
+
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
   const { openSnackbar } = useSnackBar();

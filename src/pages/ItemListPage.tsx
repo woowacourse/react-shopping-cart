@@ -4,10 +4,10 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { ItemListAction } from 'redux/actions/itemList';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { getItemList } from 'redux/action-creators/itemListThunk';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const Main = () => {
-  const { data: itemList, error, loading } = useAppSelector(state => state.itemListReducer);
+const ItemListPage = () => {
+  const { data: itemList } = useAppSelector(state => state.itemListReducer);
   const dispatch = useAppDispatch<ItemListAction>();
 
   useEffect(() => {
@@ -22,4 +22,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ItemListPage;

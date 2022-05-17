@@ -400,15 +400,15 @@
   "cartList": [
     {
       "id": 1,
-      "quantity": 292
+      "quantity": 304
     },
     {
       "id": 2,
-      "quantity": 161
+      "quantity": 165
     },
     {
       "id": 15,
-      "quantity": 3
+      "quantity": 5
     },
     {
       "id": 12,
@@ -417,6 +417,50 @@
     {
       "id": 10,
       "quantity": 5
+    },
+    {
+      "id": 14,
+      "quantity": 9
+    },
+    {
+      "id": 23,
+      "quantity": 1
+    },
+    {
+      "id": 19,
+      "quantity": 2
+    },
+    {
+      "id": 13,
+      "quantity": 27
+    },
+    {
+      "id": 16,
+      "quantity": 1
+    },
+    {
+      "id": 22,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "quantity": 1
+    },
+    {
+      "id": 38,
+      "quantity": 1
+    },
+    {
+      "id": 37,
+      "quantity": 4
+    },
+    {
+      "id": 25,
+      "quantity": 2
     }
   ]
 }
