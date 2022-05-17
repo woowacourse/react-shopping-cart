@@ -10,7 +10,7 @@ export const getProductList = () => async (dispatch) => {
       throw new Error(response);
     }
     const productList = await response.json();
-    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList });
+    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList: productList.productList });
   } catch (e) {
     dispatch({ type: GET_PRODUCT_LIST_ERROR, error: e });
   }
@@ -65,7 +65,6 @@ export const loadProductList = async () => {
       'Content-Type': 'application/json',
     },
   });
-
   return response;
 };
 

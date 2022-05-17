@@ -5,6 +5,8 @@
 - [ ] 단위테스트 진행하기
 
 - [ ] MSW를 활용해 API mocking하기
+  - [x] productList msw 로 api mocking
+  - [x] productItem msw 로 api mocking
 
 ### 필수 구현 페이지
 
