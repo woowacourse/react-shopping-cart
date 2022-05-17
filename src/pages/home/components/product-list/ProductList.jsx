@@ -14,7 +14,8 @@ function ProductList({ className }) {
   const dispatch = useDispatch();
   const getProductList = () => {
     return async (dispatch) => {
-      const fetchResult = await fetch(`${process.env.API_URL}/products`);
+      // eslint-disable-next-line no-undef
+      const fetchResult = await fetch(`${API_URL}/products`);
       const productList = await fetchResult.json();
       setLoading(false);
       setError(null);
