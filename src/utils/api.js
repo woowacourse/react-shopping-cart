@@ -58,3 +58,15 @@ export const postShoppingCartItem = async shoppingCartItem => {
     alert(error);
   }
 };
+
+export const deleteShoppingCartItem = async shoppingCartItem => {
+  try {
+    axios({
+      method: 'delete',
+      url: LOCAL_URL + `shoppingCart/${shoppingCartItem.id}`,
+      data: shoppingCartItem,
+    });
+  } catch (error) {
+    alert(error);
+  }
+};

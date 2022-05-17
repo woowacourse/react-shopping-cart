@@ -1,9 +1,9 @@
 const { BaseLabel, BaseCheckBox } = require('./style');
 
-const Checkbox = ({ label }) => {
+const Checkbox = ({ label, ...rest }) => {
   return (
     <BaseLabel>
-      <BaseCheckBox type="checkbox" />
+      <BaseCheckBox {...rest} type="checkbox" />
       {label}
     </BaseLabel>
   );

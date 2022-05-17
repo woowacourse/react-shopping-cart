@@ -38,7 +38,7 @@ const ProductItem = ({ id }) => {
   const putCart = () => {
     console.log(products, shoppingCart);
     setIsOpen(false);
-    store.dispatch(putProductToCart({ id, quantity: quantityRef.current }));
+    store.dispatch(putProductToCart({ id, quantity: quantityRef.current, isSelect: false }));
     clearTimer();
   };
 
