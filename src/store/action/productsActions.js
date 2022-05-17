@@ -1,6 +1,6 @@
 import productAPI from 'api/productAPI';
 
-const ACTION_TYPE = {
+const PRODUCTS_ACTION_TYPE = {
   UPDATE_PRODUCTS: 'UPDATE_PRODUCTS',
   CLEAR_PRODUCTS: 'CLEAR_PRODUCTS',
 };
@@ -9,15 +9,15 @@ const productsAsyncThunk = () => async dispatch => {
   const responseData = await productAPI.getProducts();
 
   dispatch({
-    type: ACTION_TYPE.UPDATE_PRODUCTS,
+    type: PRODUCTS_ACTION_TYPE.UPDATE_PRODUCTS,
     products: responseData,
   });
 };
 
 const clearProducts = () => {
   return {
-    type: ACTION_TYPE.CLEAR_PRODUCTS,
+    type: PRODUCTS_ACTION_TYPE.CLEAR_PRODUCTS,
   };
 };
 
-export { ACTION_TYPE, productsAsyncThunk, clearProducts };
+export { PRODUCTS_ACTION_TYPE, productsAsyncThunk, clearProducts };
