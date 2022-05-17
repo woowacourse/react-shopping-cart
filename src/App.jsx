@@ -8,7 +8,7 @@ import { store } from "./store";
 import Header from "./components/Header";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import ProductCartPage from "./pages/ShoppingCartPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 import OrderListPage from "./pages/OrderListPage";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -28,7 +28,7 @@ function App() {
               path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
               element={<ProductDetailPage />}
             />
-            <Route path={PATH.CART} element={<ProductCartPage />} />
+            <Route path={PATH.CART} element={<ShoppingCartPage />} />
             <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
