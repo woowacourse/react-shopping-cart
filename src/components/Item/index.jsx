@@ -11,22 +11,13 @@ const Item = ({
   isInShoppingCart,
 }) => {
   const {
-    color: {
-      primary,
-      black,
-      item: {
-        hover: { backgroundColor, textColor },
-      },
-    },
+    color: { primary, black, darkWhite, gray },
   } = useTheme();
 
   const shoppingCartColor = isInShoppingCart ? primary : black;
 
   return (
-    <S.ItemContainer
-      backgroundColorOnHover={backgroundColor}
-      textColorOnHover={textColor}
-    >
+    <S.ItemContainer backgroundColorOnHover={darkWhite} textColorOnHover={gray}>
       <S.ItemImage
         onClick={onClick}
         src={imgUrl}

@@ -5,13 +5,10 @@ const theme = {
     primary: "#2ac1bc",
     white: "white",
     black: "black",
-    item: {
-      hover: { backgroundColor: "#f2efef", textColor: "#666" },
-    },
-    itemDetails: {
-      shoppingCartButtonColor: "#73675c",
-      priceColor: "#333",
-    },
+    gray: "#666",
+    darkGray: "#333",
+    brown: "#73675c",
+    darkWhite: "#f2efef",
   },
 };
 
