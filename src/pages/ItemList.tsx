@@ -24,21 +24,21 @@ const ItemList = () => {
 
   const {
     data: itemList,
-    error,
+    error: itemListError,
     loading,
   } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
-  const { data: allItemList } = useThunkFetch<ItemListAction>(
+  const { data: allItemList, error: allItemListError } = useThunkFetch<ItemListAction>(
     state => state.itemListReducer,
     getItemList
   );
-  const { data: cartList } = useThunkFetch<CartListAction>(
+  const { data: cartList, error: cartListError } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
     getCartList
   );
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
   if (loading) return <Loading />;
-  if (error) return <RequestFail />;
+  if (itemListError || allItemListError || cartListError) return <RequestFail />;
 
   return (
     <StyledRoot>
