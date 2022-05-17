@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ProductListStyled, LoadingWrapperStyled } from './style';
+import { ProductListStyled, MessageWrapperStyled } from './style';
 import Product from 'templates/Product';
 import { requestProducts, requestProductsDone, requestProductsError } from 'modules/product';
 import BlackText from 'components/BlackText';
@@ -14,7 +14,6 @@ function ProductList() {
     dispatch(requestProducts());
     dispatch(async (storeDispatch) => {
       try {
-        console.log(process.env.REACT_APP_DATA_SERVER);
         const body = await fetch(process.env.REACT_APP_DATA_SERVER);
         const products = await body.json();
 
@@ -27,11 +26,21 @@ function ProductList() {
 
   if (requestProductLoading) {
     return (
-      <LoadingWrapperStyled>
+      <MessageWrapperStyled>
         <BlackText fontSize="30px" fontWeight="800">
           로딩중...
         </BlackText>
-      </LoadingWrapperStyled>
+      </MessageWrapperStyled>
+    );
+  }
+
+  if (requestProductsError === 'Error') {
+    return (
+      <MessageWrapperStyled>
+        <BlackText fontSize="30px" fontWeight="800">
+          에러! 개발자에게 문의하세요.
+        </BlackText>
+      </MessageWrapperStyled>
     );
   }
 

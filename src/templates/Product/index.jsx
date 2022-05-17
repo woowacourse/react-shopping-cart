@@ -12,9 +12,7 @@ import ProductTitle from 'containers/ProductTitle';
 import ProductStyled from './style';
 
 function Product({ imgSrc, title, price }) {
-  const handleProductClick = () => {
-    console.log('hey');
-  };
+  const handleProductClick = () => {};
 
   return (
     <ProductStyled>

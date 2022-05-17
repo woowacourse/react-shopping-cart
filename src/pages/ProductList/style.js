@@ -15,7 +15,7 @@ export const ProductListStyled = styled.div(
 `,
 );
 
-export const LoadingWrapperStyled = styled(FlexCenterStyled)(
+export const MessageWrapperStyled = styled(FlexCenterStyled)(
   ({ theme }) => `
   align-items: center;
   justify-content: center;
