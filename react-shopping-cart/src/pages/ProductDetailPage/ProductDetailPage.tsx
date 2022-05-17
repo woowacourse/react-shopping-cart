@@ -26,7 +26,7 @@ function ProductDetailPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProductDetailStart(idx));
+    dispatch(fetchProductDetailStart(Number(idx)));
   }, [dispatch, idx]);
 
   return (

@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { FlexWrapper } from "styled-components";
 
-export const RowFlexWrapper = styled.div`
+export const RowFlexWrapper = styled.div<FlexWrapper>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ export const RowFlexWrapper = styled.div`
   padding: ${({ padding }) => padding};
 `;
 
-export const ColumnFlexWrapper = styled.div`
+export const ColumnFlexWrapper = styled.div<FlexWrapper>`
   display: flex;
   flex-direction: column;
   justify-content: center;
