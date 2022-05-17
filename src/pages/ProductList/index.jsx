@@ -9,6 +9,8 @@ import BlackText from 'components/BlackText';
 function ProductList() {
   const products = useSelector((state) => state.product.products);
   const requestProductLoading = useSelector((state) => state.product.requestProductsLoading);
+  const requestProductError = useSelector((state) => state.product.requestProductsError);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(requestProducts());
@@ -34,7 +36,7 @@ function ProductList() {
     );
   }
 
-  if (requestProductsError === 'Error') {
+  if (requestProductError) {
     return (
       <MessageWrapperStyled>
         <BlackText fontSize="30px" fontWeight="800">
