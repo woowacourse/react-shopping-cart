@@ -23,7 +23,7 @@ const Pagination = ({ count, lastIndex }: PaginationProps) => {
           <StyledPageIndicator
             key={index}
             selected={currentPage === page}
-            onClick={handleClickNumber}
+            onClick={() => handleClickNumber(page)}
           >
             {page}
           </StyledPageIndicator>

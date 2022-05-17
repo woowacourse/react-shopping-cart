@@ -15,10 +15,7 @@ const usePagination = ({ count, lastIndex }: PaginationProps) => {
 
   const pageStartNumber = Math.floor((currentPage - 1) / count) * count;
 
-  const handleClickNumber = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-    if (!(e.target instanceof HTMLButtonElement)) return;
-    const page = Number(e.target.innerText);
-
+  const handleClickNumber = (page: number) => {
     setCurrentPage(page);
     navigate(PATH.getMain(page));
   };
