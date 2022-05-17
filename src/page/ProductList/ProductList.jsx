@@ -22,7 +22,7 @@ const Content = styled.div`
 
 function ProductList() {
   const dispatch = useDispatch();
-  const products = useSelector(products => products);
+  const products = useSelector(store => store.products);
   const { currentPageProducts, renderPagination } = usePagination(
     products,
     PRODUCTS_COUNT_PER_PAGE
