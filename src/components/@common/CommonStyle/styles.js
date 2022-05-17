@@ -10,7 +10,7 @@ const FlexWrapper = styled.div`
 `;
 
 const HR = styled.hr`
-  border: 2px solid ${COLORS.GRAY_003};
+  border: 2px solid ${COLORS.GRAY_300};
   margin: 1rem 0;
 `;
 

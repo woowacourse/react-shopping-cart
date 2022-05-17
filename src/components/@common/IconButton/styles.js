@@ -20,8 +20,8 @@ const IconButtonStyle = styled.button`
   }
 
   &:hover {
-    color: ${COLORS.BLUE_001};
-    background-color: ${COLORS.GRAY_002};
+    color: ${COLORS.BLUE_100};
+    background-color: ${COLORS.GRAY_200};
   }
 `;
 

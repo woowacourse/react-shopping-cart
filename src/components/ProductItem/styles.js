@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { COLORS } from 'styles/theme';
 
 const Container = styled.div`
   margin-bottom: 2rem;
@@ -33,12 +34,8 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const Description = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Info = styled.div`
+  cursor: pointer;
   width: 100%;
   padding: 0.6rem 0;
 
@@ -48,6 +45,10 @@ const Info = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  &:hover {
+    color: ${COLORS.BROWN_200};
+  }
 `;
 
 const Title = styled.p`
@@ -56,4 +57,4 @@ const Title = styled.p`
   padding: 0.5rem 0;
 `;
 
-export { Container, ImageWrapper, Description, Info, Title };
+export { Container, ImageWrapper, Info, Title };

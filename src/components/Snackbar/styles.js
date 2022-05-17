@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   min-width: 360px;
   padding: 1.5rem;
   border-radius: 5px;
-  background-color: ${COLORS.GRAY_005};
+  background-color: ${COLORS.GRAY_500};
   opacity: 80%;
   color: ${COLORS.WHITE};
   text-align: center;
