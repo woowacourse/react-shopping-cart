@@ -10,24 +10,42 @@ import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
 
-function Product({ imgSrc, title, price }) {
-  const handleProductIamgeClick = () => {};
+function Product({ product_id, product_img_src, product_title, product_price }) {
+  const handleProductIamgeClick = (event) => {
+    console.log('상품 상세페이지로', event.target.id);
+  };
 
   return (
     <ProductStyled>
       <MarginWrapper marginBottom="18px">
-        <Image onClick={handleProductIamgeClick} src={imgSrc} width="100%" height="14.24vmax" />
+        <Image
+          onClick={handleProductIamgeClick}
+          src={product_img_src}
+          id={product_id}
+          width="100%"
+          height="14.24vmax"
+          cursor="pointer"
+        />
       </MarginWrapper>
       <FlexWrapper flexFlow="row nowrap" justifyContent="space-between" alignItems="center">
         <div>
           <MarginWrapper marginBottom="6px">
-            <ProductTitle>{title}</ProductTitle>
+            <ProductTitle onClick={handleProductIamgeClick} id={product_id}>
+              {product_title}
+            </ProductTitle>
           </MarginWrapper>
-          <Text color="#333333" fontSize="1.25rem" fontWeight="400">
-            {price.toLocaleString()}원
+          <Text
+            onClick={handleProductIamgeClick}
+            id={product_id}
+            color="#333333"
+            fontSize="1.25rem"
+            fontWeight="400"
+            cursor="pointer"
+          >
+            {product_price.toLocaleString()}원
           </Text>
         </div>
-        <AddCartButton />
+        <AddCartButton id={product_id} />
       </FlexWrapper>
     </ProductStyled>
   );
