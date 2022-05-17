@@ -1,7 +1,13 @@
-export const ADD_ITEM = 'ADD_ITEM';
+export const ADD_SHOPPING_BASKET_PRODUCT = 'ADD_SHOPPING_BASKET_PRODUCT';
 
-export const DELETE_ITEM = 'DELETE_ITEM';
+export const DELETE_SHOPPING_BASKET_PRODUCT = 'DELETE_SHOPPING_BASKET_PRODUCT';
 
-export const addItem = id => ({ type: ADD_ITEM, payload: { id } });
+export const addShoppingBasketProduct = id => ({
+  type: ADD_SHOPPING_BASKET_PRODUCT,
+  payload: { id },
+});
 
-export const deleteItem = id => ({ type: DELETE_ITEM, payload: { id } });
+export const deleteShoppingBasketProduct = id => ({
+  type: DELETE_SHOPPING_BASKET_PRODUCT,
+  payload: { id },
+});

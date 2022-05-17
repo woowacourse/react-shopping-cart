@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM } from 'actions';
+import { ADD_SHOPPING_BASKET_PRODUCT, DELETE_SHOPPING_BASKET_PRODUCT } from 'actions';
 
 const INITIAL_STATE = {
   shoppingBasketList: [],
@@ -6,13 +6,13 @@ const INITIAL_STATE = {
 
 function shoppingBasketReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case ADD_ITEM:
+    case ADD_SHOPPING_BASKET_PRODUCT:
       return {
         ...state,
         shoppingBasketList: [...state.shoppingBasketList, { ...action.payload, quantity: 1 }],
       };
 
-    case DELETE_ITEM:
+    case DELETE_SHOPPING_BASKET_PRODUCT:
       return {
         ...state,
         shoppingBasketList: state.shoppingBasketList.filter(

@@ -1,10 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Image, Text } from 'components/@shared';
+import { useShoppingBasket } from 'hooks';
 import { URL } from 'constants/path';
+import STATE_KEY from 'constants/stateKey';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
-import { addItem, deleteItem } from 'actions';
 
 const ItemContainer = styled.div`
   display: grid;
@@ -54,28 +54,20 @@ const ImageWrapper = styled.div`
 `;
 
 function ProductListItem({ id, thumbnail, name, price }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const shoppingBasketList = useSelector(state => state.shoppingBasketList);
+  const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
+    STATE_KEY.SHOPPING_BASKET_LIST
+  );
 
-  const isContained = shoppingBasketList.find(itemInfo => itemInfo.id === id) !== undefined;
+  const isContained = checkIsContainedProduct(id);
 
   const handleClickProduct = () => {
-    navigate(URL.PRODUCT_DETAIL + id, {
-      state: {
-        productInfo: {
-          id,
-          thumbnail,
-          name,
-          price,
-        },
-      },
-    });
+    navigate(URL.PRODUCT_DETAIL + id);
   };
 
   const handleClickShoppingCart = () => {
-    dispatch(isContained ? deleteItem(id) : addItem(id));
+    dispatchShoppingBasketAction(id, isContained);
   };
 
   return (

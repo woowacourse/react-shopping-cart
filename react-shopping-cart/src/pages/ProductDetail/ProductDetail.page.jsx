@@ -1,26 +1,28 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Button, Divider, Error, FlexWrapper, Image, Text } from 'components/@shared';
 import Header from 'components/Header/Header.component';
 import Loading from 'components/Loading/Loading.component';
-import useFetch from 'hooks/useFetch';
-import { addItem, deleteItem } from 'actions';
+import { useFetch, useShoppingBasket } from 'hooks';
+import STATE_KEY from 'constants/stateKey';
 import { PALETTE } from 'styles/theme';
 
 function ProductDetail() {
   const { product_id: productId } = useParams();
+
   const {
     data: productInfo,
     isLoading,
     error,
   } = useFetch(`${process.env.REACT_APP_API_HOST}/product/${productId}`);
-  const dispatch = useDispatch();
-  const shoppingBasketList = useSelector(state => state.shoppingBasketList);
 
-  const isContained = shoppingBasketList.find(itemInfo => itemInfo.id === productId) !== undefined;
+  const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
+    STATE_KEY.SHOPPING_BASKET_LIST
+  );
+
+  const isContained = checkIsContainedProduct(Number(productId));
 
   const handleClickAddShoppingCart = () => {
-    dispatch(isContained ? deleteItem(productId) : addItem(productId));
+    dispatchShoppingBasketAction(Number(productId), isContained);
   };
 
   if (isLoading) {
