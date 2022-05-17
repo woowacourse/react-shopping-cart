@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const Header = () => {
   return (
     <S.Header>
-      <Link to="/">
+      <NavLink to="/">
         <div>
           <S.LogoContainer>
             <ShoppingCartIcon width="50px" height="50px" fill="white" />
           </S.LogoContainer>
           <S.HomeTitle>KKOJAE MARKET</S.HomeTitle>
         </div>
-      </Link>
+      </NavLink>
       <S.NavContainer>
-        <Link to="/shopping-cart">장바구니</Link>
-        <Link to="/shopping-list">주문목록</Link>
+        <NavLink to="/shopping-cart">장바구니</NavLink>
+        <NavLink to="/shopping-list">주문목록</NavLink>
       </S.NavContainer>
     </S.Header>
   );
