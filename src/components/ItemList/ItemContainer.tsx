@@ -5,7 +5,6 @@ import theme from 'styles/theme';
 import { memo, MouseEvent } from 'react';
 import { flexCenter } from 'styles/mixin';
 import { Link } from 'react-router-dom';
-import useSnackBar from 'hooks/useSnackBar';
 
 interface ItemContainerProps {
   id: number;

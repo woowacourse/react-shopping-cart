@@ -1,4 +1,5 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import { render } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 

@@ -3,26 +3,16 @@ import styled from 'styled-components';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import useSnackBar from 'hooks/useSnackBar';
 import { useParams } from 'react-router-dom';
-import { LOCAL_BASE_URL } from 'apis';
 import { Item } from 'types/domain';
-import Loading from 'components/common/Loading';
-import RequestFail from 'components/common/RequestFail';
-import { useFetch } from 'hooks/useFetch';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { CartListAction } from 'redux/actions/cartList';
 import { getCartList } from 'redux/action-creators/cartListThunk';
 
 const contentsNumLimit = 12;
 
-const ItemList = () => {
+const ItemList = ({ fullItemList }: { fullItemList: Item[] }) => {
   const params = useParams();
   const id = Number(params.id);
-
-  const {
-    data: itemList,
-    error,
-    loading,
-  } = useFetch<Item[]>(`${LOCAL_BASE_URL}/itemList?_page=${id}&_limit=${contentsNumLimit}`);
 
   const { data: cartList } = useThunkFetch<CartListAction>(
     state => state.cartListReducer,
@@ -30,11 +20,11 @@ const ItemList = () => {
   );
 
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
-
   const { openSnackbar } = useSnackBar();
 
-  if (loading) return <Loading />;
-  if (error) return <RequestFail />;
+  if (fullItemList.length === 0) return null;
+
+  const itemList = fullItemList.slice(id * contentsNumLimit, (id + 1) * contentsNumLimit);
 
   return (
     <StyledRoot>
