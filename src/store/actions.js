@@ -45,8 +45,6 @@ export const getProductList = () => async (dispatch, getState) => {
 };
 
 export const getProductDetail = (id) => async (dispatch, getState) => {
-  // if (getState().productDetail.data.id === id) return;
-
   dispatch(actionsCreator.getProductDetail());
 
   try {
