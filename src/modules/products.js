@@ -76,7 +76,7 @@ const getProductsSuccess = (productsState, action) => ({
 const getProductsError = (productsState, action) => ({
   ...productsState,
   isLoading: false,
-  data: null,
+  data: [],
   error: action.error,
 });
 
