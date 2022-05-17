@@ -32,16 +32,20 @@ function ProductListContainer() {
     <Styled.ProductListContainer>
       {loading && <h2>Loading...</h2>}
       {productsError && <h2>{productsError}</h2>}
-      {products?.map(({ id, src, title, price }) => (
-        <Product
-          key={id}
-          id={id}
-          src={src}
-          title={title}
-          price={price}
-          isStored={carts?.some((cart) => cart.id === id)}
-        />
-      ))}
+      {products?.length === 0 ? (
+        <h2>상품이 없습니다.</h2>
+      ) : (
+        products?.map(({ id, src, title, price }) => (
+          <Product
+            key={id}
+            id={id}
+            src={src}
+            title={title}
+            price={price}
+            isStored={carts?.some((cart) => cart.id === id)}
+          />
+        ))
+      )}
     </Styled.ProductListContainer>
   );
 }
