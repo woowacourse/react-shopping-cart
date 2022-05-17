@@ -17,7 +17,7 @@ const CroppedImage = ({ src, width, height, alt }: CroppedImageProps) => {
 
 export default CroppedImage;
 
-const StyledImageWrapper = styled.div<{ width: string; height: string }>`
+const StyledImageWrapper = styled.div<Pick<CroppedImageProps, 'width' | 'height'>>`
   position: relative;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
