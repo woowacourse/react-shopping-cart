@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import ImgWrapper from 'components/ImgWrapper';
-import useAddCart from 'hooks/useAddCart';
+import useCart from 'hooks/useCart';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import Skeleton from 'components/Skeleton';
 
 const Cart = () => {
-  const { cart, isLoading, isError } = useAddCart();
+  const { getCartEffect, cart, isLoading, isError } = useCart();
+  getCartEffect();
 
   return (
     <Styled.Wrapper>

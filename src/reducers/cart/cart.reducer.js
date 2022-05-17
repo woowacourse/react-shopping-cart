@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  if (action.type === actionTypes.ADD_CART) {
+  if (action.type === actionTypes.GET_CART) {
     return {
       ...state,
       isLoading: true,

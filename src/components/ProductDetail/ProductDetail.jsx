@@ -1,17 +1,26 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
-import useAddCart from 'hooks/useAddCart';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from 'constants/path';
+import { useParams } from 'react-router-dom';
+
+import usePost from 'hooks/usePost';
 
 const ProductDetail = ({ imgUrl, name, price }) => {
   const navigate = useNavigate();
-  const { addCartItem } = useAddCart();
+
+  const { id } = useParams();
+  const { isLoading, isError, callApi } = usePost('/cartㅇ', {
+    id,
+    cartQuantity: 1,
+  });
 
   const handleClickCart = () => {
-    addCartItem();
-    navigate(PATH.CART);
+    callApi();
+
+    // TODO isError의 최신 상태를 받아오지 못하고 있다.
+    if (!isError) navigate(PATH.CART);
   };
 
   return (
@@ -31,6 +40,8 @@ const ProductDetail = ({ imgUrl, name, price }) => {
         >
           장바구니
         </Button>
+        {isLoading && '전송 중'}
+        {isError && '에러가 발생했습니다'}
       </Styled.ProductInfo>
     </>
   );

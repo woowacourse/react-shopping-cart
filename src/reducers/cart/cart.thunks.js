@@ -1,12 +1,10 @@
 import * as actions from 'reducers/cart/cart.actions';
 import apiClient from 'utils/apiClient';
 
-export const addCartAsync = (id) => async (dispatch) => {
-  dispatch(actions.addCart());
+export const getCartAsync = async (dispatch) => {
+  dispatch(actions.getCart());
 
   try {
-    await apiClient.post('/cart', { id, cartQuantity: 1 });
-
     const { data } = await apiClient.get('/cart');
     dispatch(actions.getCartSuccess(data));
   } catch (error) {
