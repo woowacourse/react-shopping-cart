@@ -25,6 +25,10 @@ function CartProductCard({ product: { id, name, price, imageURL }, quantity }) {
   };
 
   const onDecrementQuantity = () => {
+    if (quantity === 1) {
+      alert('주문할 수 있는 최소 수량입니다.');
+      return;
+    }
     dispatch(updateCartProductQuantityAsync(id, quantity - 1));
   };
 
