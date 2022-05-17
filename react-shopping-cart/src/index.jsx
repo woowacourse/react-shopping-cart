@@ -10,7 +10,8 @@ import ProductList from 'pages/ProductList/ProductList.page';
 import rootReducer from 'redux/reducers';
 import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
-import NotFound from 'pages/NotFound/NotFound.page';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
+import ErrorPage from 'pages/ErrorPage/ErrorPage.page';
 
 const store = createStore(rootReducer);
 const persistor = persistStore(store);
@@ -23,10 +24,12 @@ root.render(
         <GlobalStyle />
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <ThemeProvider theme={theme}>
-            <Routes>
-              <Route path="/" element={<ProductList />} />
-              <Route path="/*" element={<NotFound />} />
-            </Routes>
+            <ErrorBoundary fallback={<ErrorPage>오류가 발생했습니다</ErrorPage>}>
+              <Routes>
+                <Route path="/" element={<ProductList />} />
+                <Route path="/*" element={<ErrorPage>존재하지 않는 페이지입니다</ErrorPage>} />
+              </Routes>
+            </ErrorBoundary>
           </ThemeProvider>
         </BrowserRouter>
       </PersistGate>
