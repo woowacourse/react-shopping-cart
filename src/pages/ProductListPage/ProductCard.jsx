@@ -71,7 +71,7 @@ const TextInfoContainer = styled.div`
 
 const ProductName = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.color.darkGrey};
+  color: ${({ theme }) => theme.color.grey_700};
   padding: 2px 0;
 
   overflow: hidden;
@@ -81,7 +81,7 @@ const ProductName = styled.p`
 
 const ProductPrice = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.color.darkGrey};
+  color: ${({ theme }) => theme.color.grey_700};
 `;
 
 export default ProductCard;

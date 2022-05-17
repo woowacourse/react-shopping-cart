@@ -42,7 +42,7 @@ const Top = styled.div`
   justify-content: center;
   align-items: center;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.darkGrey};
+  border-bottom: 1px solid ${({ theme }) => theme.color.grey_700};
   padding: 16px;
 `;
 
@@ -60,19 +60,19 @@ const ProductImage = styled.img`
 const ProductName = styled.p`
   font-size: 1.25rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.color.darkGrey};
+  color: ${({ theme }) => theme.color.grey_700};
   padding: 8px 0;
 `;
 
 const PriceText = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.color.darkGrey};
+  color: ${({ theme }) => theme.color.grey_700};
   margin: auto 0;
 `;
 
 const ProductPrice = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.color.darkGrey};
+  color: ${({ theme }) => theme.color.grey_700};
 `;
 
 export default ProductDetailCard;
