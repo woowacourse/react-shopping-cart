@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { fetchProductListAsync } from '../store/actions/product';
+import { productSelector } from '../store/selector';
 
 export default function useProductList() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function useProductList() {
     dispatch(fetchProductListAsync(currentPage));
   }, [currentPage]);
 
-  const { isLoading, productList, pageCount } = useSelector(({ product }) => product);
+  const { isLoading, productList, pageCount } = useSelector(productSelector);
 
   return { isLoading, productList, pageCount, currentPage };
 }

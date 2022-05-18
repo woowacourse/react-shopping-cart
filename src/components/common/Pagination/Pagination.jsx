@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { productSelector } from '../../../store/selector';
 import * as Styled from './Pagination.style';
 
 function Pagination() {
-  const pageCount = useSelector(({ product }) => product.pageCount);
+  const product = useSelector(productSelector);
+
+  const pageCount = useMemo(() => product.pageCount, [product]);
 
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get('page') ?? 1;

@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { cartSelector } from '../../../store/selector';
 import * as Styled from './OrderContainer.style';
 
 function OrderContainer() {
-  const { cart, checkedProductList } = useSelector(({ cart }) => cart);
+  const { cart, checkedProductList } = useSelector(cartSelector);
 
   const totalPrice = useMemo(
     () =>

@@ -5,10 +5,11 @@ import {
   toggleProductCheck,
   updateCheckedList,
 } from '../store/actions/cart';
+import { cartSelector } from '../store/selector';
 
 const useCartCheckedProducts = () => {
   const dispatch = useDispatch();
-  const { cart, checkedProductList } = useSelector(({ cart }) => cart);
+  const { cart, checkedProductList } = useSelector(cartSelector);
   const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
 
   const isChecked = (productId) => checkedProductList.includes(String(productId));
