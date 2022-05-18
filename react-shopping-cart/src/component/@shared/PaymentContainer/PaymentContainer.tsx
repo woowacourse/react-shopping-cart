@@ -1,31 +1,31 @@
-import ExpectedPaymentBox from "component/@shared/PaymentBox/PaymentBox";
+import PaymentBox from "component/@shared/PaymentBox/PaymentBox";
 import OrderButton from "component/@shared/OrderButton/OrderButton";
 import {
-  ExpectedPaymentTopContainer,
-  ExpectedPaymentBottomContainer,
-  ExpectedPaymentWrapper,
+  PaymentTopContainer,
+  PaymentBottomContainer,
+  PaymentWrapper,
 } from "./PaymentContainer.style";
 
-function ExpectedPaymentContainer({
+function PaymentContainer({
   totalPaymentCost,
   label,
   buttonText,
+  handleOrderButtonClick,
 }: {
   totalPaymentCost: number;
   label: string;
   buttonText: string;
+  handleOrderButtonClick?: () => void;
 }) {
   return (
-    <ExpectedPaymentWrapper>
-      <ExpectedPaymentTopContainer>{label}</ExpectedPaymentTopContainer>
-      <ExpectedPaymentBottomContainer>
-        <ExpectedPaymentBox price={totalPaymentCost}>
-          {label}
-        </ExpectedPaymentBox>
-        <OrderButton>{buttonText}</OrderButton>
-      </ExpectedPaymentBottomContainer>
-    </ExpectedPaymentWrapper>
+    <PaymentWrapper>
+      <PaymentTopContainer>{label}</PaymentTopContainer>
+      <PaymentBottomContainer>
+        <PaymentBox price={totalPaymentCost}>{label}</PaymentBox>
+        <OrderButton onClick={handleOrderButtonClick}>{buttonText}</OrderButton>
+      </PaymentBottomContainer>
+    </PaymentWrapper>
   );
 }
 
-export default ExpectedPaymentContainer;
+export default PaymentContainer;

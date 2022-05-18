@@ -1,9 +1,9 @@
-import ExpectedPaymentBox from "component/@shared/PaymentBox/PaymentBox";
+import PaymentBox from "component/@shared/PaymentBox/PaymentBox";
 import { Meta, Story } from "@storybook/react";
 
 export default {
   title: "ExpectedPaymentBox",
-  component: ExpectedPaymentBox,
+  component: PaymentBox,
   decorators: [
     (Story: Story) => (
       <div style={{ width: "298px" }}>
@@ -14,7 +14,7 @@ export default {
 } as Meta;
 
 export const DefaultExpectedPaymentBox: Story<{ price: number }> = (args) => (
-  <ExpectedPaymentBox {...args}>결제 예상 금액</ExpectedPaymentBox>
+  <PaymentBox {...args}>결제 예상 금액</PaymentBox>
 );
 
 DefaultExpectedPaymentBox.args = {

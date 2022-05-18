@@ -1,9 +1,6 @@
-import {
-  ExpectedPaymentText,
-  ExpectedPaymentWrapper,
-} from "./PaymentBox.style";
+import { PaymentText, PaymentWrapper } from "./PaymentBox.style";
 
-const ExpectedPaymentBox = ({
+const PaymentBox = ({
   price,
   children,
 }: {
@@ -11,11 +8,11 @@ const ExpectedPaymentBox = ({
   children: React.ReactNode;
 }) => {
   return (
-    <ExpectedPaymentWrapper>
-      <ExpectedPaymentText>{children}</ExpectedPaymentText>
-      <ExpectedPaymentText>{price}원</ExpectedPaymentText>
-    </ExpectedPaymentWrapper>
+    <PaymentWrapper>
+      <PaymentText>{children}</PaymentText>
+      <PaymentText>{price}원</PaymentText>
+    </PaymentWrapper>
   );
 };
 
-export default ExpectedPaymentBox;
+export default PaymentBox;

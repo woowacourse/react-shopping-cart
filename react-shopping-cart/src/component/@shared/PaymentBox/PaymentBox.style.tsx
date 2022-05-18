@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const ExpectedPaymentWrapper = styled.div`
+export const PaymentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
 
-export const ExpectedPaymentText = styled.div`
+export const PaymentText = styled.div`
   font-weight: 700;
   font-size: 13px;
   text-decoration-style: solid;
