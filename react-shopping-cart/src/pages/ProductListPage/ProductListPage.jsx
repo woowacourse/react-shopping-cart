@@ -47,19 +47,16 @@ function ProductListPage() {
   };
 
   return (
-    // TODO: 컴포넌트 추상화 레벨 맞추기
+    // TODO: 컨테이너 하나 만들기
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
         <Styled.GridContainer>
-          {products.map(({ id, name, image, price }) => {
+          {products.map((product) => {
             return (
               <ProductCard
-                key={id}
-                id={id}
-                name={name}
-                thumbnail={image}
-                price={price}
-                $isincart={isInCart(id, carts)}
+                key={product.id}
+                {...product}
+                $isincart={isInCart(product.id, carts)}
               />
             );
           })}

@@ -22,7 +22,7 @@ function useClickCartButton() {
         name,
         price,
         id: `${CURRENT_USER}${id}`,
-        image: thumbnail,
+        thumbnail,
         user: CURRENT_USER,
       })
     );

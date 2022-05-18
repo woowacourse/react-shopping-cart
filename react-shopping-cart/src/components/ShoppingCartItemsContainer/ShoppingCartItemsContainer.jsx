@@ -2,19 +2,13 @@ import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
 
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
+//TODO: carts를 받는 게 맞을까?
 function ShoppingCartItemsContainer({ carts }) {
+  console.log(carts);
   return (
     <ColumnFlexWrapper>
-      {/* TODO: rest 사용해주기 */}
-      {carts.map(({ id, name, image, price, checked }) => (
-        <ShoppingCartItem
-          key={id}
-          id={id}
-          name={name}
-          thumbnail={image}
-          price={price}
-          checked={checked}
-        />
+      {carts.map((cart) => (
+        <ShoppingCartItem key={cart.id} {...cart} />
       ))}
     </ColumnFlexWrapper>
   );
