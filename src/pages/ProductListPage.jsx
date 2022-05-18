@@ -7,6 +7,7 @@ import CartIconButton from '../components/common/CartIconButton';
 import { AddProductToCart, removeProductToCart } from '../store/modules/cart/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import FloatingActionButton from '../components/common/FloatingActionButton';
 
 function ProductListPage() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function ProductListPage() {
           });
         })}
       </StyledGridContainer>
+      <FloatingActionButton count={count} />
     </StyledContent>
   );
 }
@@ -78,7 +80,7 @@ const StyledGridContainer = styled.div`
   width: 80%;
   grid-template-columns: repeat(4, 1fr);
   margin: auto;
-  overflow-y: auto;
+  overflow: auto;
 `;
 
 const StyledItem = styled.div`
