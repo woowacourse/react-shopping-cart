@@ -5,7 +5,7 @@ import DetailItem from 'component/DetailItem';
 
 import * as S from 'page/ProductDetailPage/style';
 import useCartItem from 'hook/useCartItem';
-import useFetch from 'constant/useFetch';
+import useFetch from 'hook/useFetch';
 import {useParams} from 'react-router-dom';
 import Loader from 'component/Loader';
 import ErrorBoundary from 'component/ErrorBoundary';
