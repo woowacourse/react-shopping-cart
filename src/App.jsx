@@ -1,7 +1,6 @@
-import Header from "./components/header/Header";
-import ProductList from "./pages/home/components/product-list/ProductList";
-
-import styles from "./app.module.scss";
+import Header from "@shared/header/Header";
+import ProductList from "@home/components/product-list/ProductList";
+import styles from "@/app.module";
 
 function App() {
   return (

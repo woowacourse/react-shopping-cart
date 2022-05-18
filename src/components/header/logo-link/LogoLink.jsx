@@ -1,4 +1,4 @@
-import styles from "./logo-link.module.scss";
+import styles from "@shared/header/logo-link/logo-link.module";
 
 const cn = require("classnames");
 

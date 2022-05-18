@@ -2,7 +2,7 @@ const WindiCSSWebpackPlugin = require("windicss-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { join } = require("path");
+const { join, resolve } = require("path");
 
 module.exports = {
   mode: "development",
@@ -74,6 +74,14 @@ module.exports = {
     }),
   ],
   resolve: {
+    alias: {
+      "@": resolve(__dirname, "../src"),
+      "@shared": resolve(__dirname, "../src/components"),
+      "@scss": resolve(__dirname, "../src/scss"),
+      "@home": resolve(__dirname, "../src/pages/home"),
+      "@redux": resolve(__dirname, "../src/redux"),
+      "@assets": resolve(__dirname, "../src/assets"),
+    },
     extensions: [".js", ".jsx", ".scss"],
   },
 };

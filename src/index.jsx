@@ -2,9 +2,9 @@ import ReactDOM from "react-dom/client";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
-import App from "./App";
-import reducer from "./redux/reducer";
-import "./scss/style.scss";
+import App from "@/App";
+import reducer from "@redux/reducer";
+import "@scss/style";
 // eslint-disable-next-line import/no-unresolved
 import "./virtual:windi.css";
 

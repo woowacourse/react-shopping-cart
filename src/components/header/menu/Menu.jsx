@@ -1,4 +1,4 @@
-import styles from "./menu.module.scss";
+import styles from "@shared/header/menu/menu.module";
 
 const cn = require("classnames");
 

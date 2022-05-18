@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ACTION_TYPE from "../../../../redux/actions";
-import createAction from "../../../../redux/createAction";
-import ProductItem from "../product-item/ProductItem";
-import styles from "./product-list.module.scss";
+import ACTION_TYPE from "@redux/actions";
+import createAction from "@redux/createAction";
+import ProductItem from "@home/components/product-item/ProductItem";
+import styles from "@home/components/product-list/product-list.module";
 
 const cn = require("classnames");
 

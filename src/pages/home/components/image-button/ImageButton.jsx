@@ -1,4 +1,4 @@
-import styles from "./image-button.module.scss";
+import styles from "@home/components/image-button/image-button.module";
 
 const cn = require("classnames");
 

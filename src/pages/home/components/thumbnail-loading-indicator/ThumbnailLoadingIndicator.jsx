@@ -1,4 +1,4 @@
-import styles from "./thumbnail-loading-indicator.module.scss";
+import styles from "@home/components/thumbnail-loading-indicator/thumbnail-loading-indicator.module";
 
 const cn = require("classnames");
 

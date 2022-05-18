@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ThumbnailLoadingIndicator from "../thumbnail-loading-indicator/ThumbnailLoadingIndicator";
-import styles from "./thumbnail.module.scss";
+import ThumbnailLoadingIndicator from "@home/components/thumbnail-loading-indicator/ThumbnailLoadingIndicator";
+import styles from "@home/components/thumbnail/thumbnail.module";
 
 const cn = require("classnames");
 

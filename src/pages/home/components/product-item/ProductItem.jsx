@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../../../../assets/images/cart.svg";
-import Thumbnail from "../thumbnail/Thumbnail";
-import ImageButton from "../image-button/ImageButton";
-import createAction from "../../../../redux/createAction";
-import ACTION_TYPE from "../../../../redux/actions";
-import styles from "./product-item.module.scss";
+import Cart from "@assets/images/cart.svg";
+import Thumbnail from "@home/components/thumbnail/Thumbnail";
+import ImageButton from "@home/components/image-button/ImageButton";
+import createAction from "@redux/createAction";
+import ACTION_TYPE from "@redux/actions";
+import styles from "@home/components/product-item/product-item.module";
 
 const cn = require("classnames");
 
