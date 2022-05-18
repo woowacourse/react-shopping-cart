@@ -14,9 +14,9 @@ const Button = styled.button`
   }
 `;
 
-function IconButton({ src, alt, onClick, title, width }) {
+function IconButton({ src, alt, onClick, width }) {
   return (
-    <Button title={title} onClick={onClick} width={width}>
+    <Button onClick={onClick} width={width}>
       <img src={src} alt={alt} />
     </Button>
   );

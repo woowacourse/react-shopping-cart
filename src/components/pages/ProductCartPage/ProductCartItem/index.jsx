@@ -41,13 +41,7 @@ function ProductCartItem({
         isChecked={isChecked}
         handleChangeCheckbox={handleChangeCheckbox}
       />
-      <ProductCartImage
-        src={
-          thumbnailUrl ??
-          "https://cdn-mart.baemin.com/sellergoods/main/92438f0e-0c4b-425e-b03b-999cee7cdca2.jpg"
-        }
-        alt={name ?? "%ERROR%"}
-      />
+      <ProductCartImage src={thumbnailUrl ?? ""} alt={name ?? "%ERROR%"} />
       <ProductCartName>{name ?? "%ERROR%"}</ProductCartName>
       <ProductCartControlBox>
         <IconButton src={trashCanIcon} alt="현재 상품 삭제 버튼" />

@@ -25,7 +25,7 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
   return (
     <CardContainer onClick={onClick}>
       <ImageWrapper>
-        <ProductThumbnail bgImage={thumbnailUrl ?? ""} />
+        <ProductThumbnail bgImage={thumbnailUrl ?? ""} alt={name} />
       </ImageWrapper>
       <CardBottom>
         <InfoWrapper>
@@ -33,13 +33,12 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
           <ProductPrice>{price?.toLocaleString() ?? "%Error%"}원</ProductPrice>
         </InfoWrapper>
         <IconButton
-          title="장바구니 담기"
           onClick={(e) => {
             e.stopPropagation();
             alert("🛒아직입니다~~^^🛒");
           }}
           src={shoppingCartIconBlack}
-          alt="장바구니 담기"
+          alt="장바구니 담기 버튼"
           width="30px"
         />
       </CardBottom>

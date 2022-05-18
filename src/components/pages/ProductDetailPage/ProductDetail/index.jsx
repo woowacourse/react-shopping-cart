@@ -16,7 +16,7 @@ function ProductDetail({ selectedProduct: { thumbnailUrl, name, price } }) {
   return (
     <>
       <Top>
-        <ProductImage src={thumbnailUrl ?? ""} />
+        <ProductImage src={thumbnailUrl ?? ""} alt={name} />
         <ProductName>{name ?? "%Error%"}</ProductName>
       </Top>
       <Bottom>

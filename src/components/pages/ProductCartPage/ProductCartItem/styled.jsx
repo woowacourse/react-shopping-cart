@@ -6,6 +6,9 @@ export const ProductCartContainer = styled.div`
   gap: 8px;
 
   width: 700px;
+  padding: 16px 0;
+
+  border-bottom: 1px solid ${({ theme: { color } }) => color.border};
 `;
 
 export const ProductCartImage = styled.img`

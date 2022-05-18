@@ -7,7 +7,6 @@ const CheckBoxContainer = styled.label`
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 18px;
 `;
 
 const CheckBoxInput = styled.input`
