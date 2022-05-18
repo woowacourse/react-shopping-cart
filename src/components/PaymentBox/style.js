@@ -29,6 +29,11 @@ const Styled = {
     justify-content: space-between;
     padding: 15px 20px;
   `,
+
+  Text: styled.p`
+    line-height: 1.5px;
+    border-bottom: 5px solid ${({ theme }) => theme.COLOR.RED_300};
+  `,
 };
 
 export default Styled;

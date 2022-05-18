@@ -13,8 +13,8 @@ const PaymentBox = () => {
         <Styled.TitleText>결제 금액</Styled.TitleText>
       </Styled.TitleBar>
       <Styled.PaymentInfo>
-        <p>총 결제 금액</p>
-        <p>325,600</p>
+        <Styled.Text>총 결제 금액</Styled.Text>
+        <Styled.Text>325,600</Styled.Text>
       </Styled.PaymentInfo>
       <Button colorType="primary" sizeType="medium">
         결제하기
