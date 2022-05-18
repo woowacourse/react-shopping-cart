@@ -6,8 +6,32 @@ import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 import { CartButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
 import { ProductData } from 'types';
+import { loadCartProduct, updateCartProduct, registerCartProduct, loadCartProductList } from 'api';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
+  const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const cartProduct = await loadCartProduct(id);
+
+      if (cartProduct === null) {
+        registerCartProduct({ thumbnail, name, price, id, quantity: 1 });
+      } else {
+        updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+      }
+
+      const cartProductList = await loadCartProductList();
+
+      /**
+       * TODO
+       * 리덕스에 상태를 반영한다
+       */
+      console.log(cartProductList);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   return (
     <Styled.Wrapper to={`/product/${id}`}>
       <Styled.ThumbnailBox>
@@ -21,7 +45,7 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
             <Styled.Name>{name}</Styled.Name>
             <Styled.Price>{price.toLocaleString()} 원</Styled.Price>
           </Styled.Description>
-          <CartButton>
+          <CartButton onClick={handleAddCartButton}>
             <CartIcon />
           </CartButton>
         </Flex>
@@ -41,6 +65,7 @@ const Styled = {
   `,
   ThumbnailBox: styled.div`
     height: 282px;
+    overflow: hidden;
     cursor: pointer;
 
     img {
