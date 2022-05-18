@@ -5,6 +5,8 @@ module.exports = {
     node: true,
   },
   extends: [
+    'react-app',
+    'react-app/jest',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
@@ -18,5 +20,12 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {},
+  overrides: [
+    {
+      files: ['**/*.stories.*'],
+      rules: {
+        'import/no-anonymous-default-export': 'off',
+      },
+    },
+  ],
 };
