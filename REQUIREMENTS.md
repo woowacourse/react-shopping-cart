@@ -20,7 +20,7 @@
 
   - [ ] ShoppingCartProductList 컴포넌트
 
-  - [ ] ShoppingCartProductItem 컴포넌트
+  - [x] ShoppingCartProductItem 컴포넌트
 
 ### 추가 반영 사항
 
