@@ -7,7 +7,7 @@ const cn = require("classnames");
 function Thumbnail({ className, src, alt }) {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
-    <div className={cn("thumbnail", styles.thumbnail, className)}>
+    <div className={cn(styles.thumbnail, className)}>
       {!isLoaded && <ThumbnailLoadingIndicator />}
       <img
         src={src}

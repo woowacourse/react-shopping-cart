@@ -29,21 +29,17 @@ function ProductItem({
   };
 
   return (
-    <div className={cn("productItem", styles.productItem, className)}>
+    <div className={cn(styles.productItem, className)}>
       <Thumbnail
         src={`${thumbnailUrl}`}
         className={styles.thumbnail}
         alt={alt}
       />
-      <div className={cn("content", styles.content)}>
-        <div className={cn("productDetail", styles.productDetail)}>
-          <div className={cn("lLeft", styles.lLeft)}>
-            <div className={cn("productTitle", styles.productTitle)}>
-              {title}
-            </div>
-            <div className={cn("productPrice", styles.productPrice)}>
-              {price}
-            </div>
+      <div className={cn(styles.content)}>
+        <div className={cn(styles.productDetail)}>
+          <div className={cn(styles.lLeft)}>
+            <div className={cn(styles.productTitle)}>{title}</div>
+            <div className={cn(styles.productPrice)}>{price}</div>
           </div>
           <div className="lRight">
             {quantity > 0 && (

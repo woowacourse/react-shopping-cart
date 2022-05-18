@@ -4,8 +4,8 @@ const cn = require("classnames");
 
 function ThumbnailLoadingIndicator() {
   return (
-    <div className={cn("indicatorWrapper", styles.indicatorWrapper)}>
-      <div className={cn("indicator", styles.indicator)} />
+    <div className={cn(styles.indicatorWrapper)}>
+      <div className={cn(styles.indicator)} />
     </div>
   );
 }

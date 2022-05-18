@@ -6,7 +6,7 @@ const cn = require("classnames");
 
 function Header({ className }) {
   return (
-    <div className={cn("header", styles.header, className)}>
+    <div className={cn(styles.header, className)}>
       <div className="wrapper flex place-content-between">
         <a href="/" className={styles.siteLogo}>
           <Logo width="50px" height="44px" />

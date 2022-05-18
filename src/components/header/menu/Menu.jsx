@@ -4,7 +4,7 @@ const cn = require("classnames");
 
 function Menu({ className }) {
   return (
-    <div className={cn("menu", styles.menu, className)}>
+    <div className={cn(styles.menu, className)}>
       <ul className={styles.ul}>
         <li>
           <a href="/">장바구니</a>
