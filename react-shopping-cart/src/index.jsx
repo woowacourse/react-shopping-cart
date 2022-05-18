@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import thunk from 'redux-thunk';
 import { ThemeProvider } from 'styled-components';
 import rootReducer from 'reducers';
-import { ProductList, ProductDetail, NotFound } from 'pages';
+import { ProductList, ProductDetail, NotFound, ShoppingBasket } from 'pages';
 import { GlobalStyle, theme } from 'styles';
 import PATH from 'constants/path';
 
@@ -26,6 +26,7 @@ root.render(
             <Routes>
               <Route path={PATH.MAIN} element={<ProductList />} />
               <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetail />} />
+              <Route path={PATH.SHOPPING_BASKET} element={<ShoppingBasket />} />
               <Route path={PATH.NOT_FOUND} element={<NotFound />} />
             </Routes>
           </div>
