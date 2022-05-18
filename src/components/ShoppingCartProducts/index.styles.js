@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const ShoppingCartProductsContainer = styled.div`
+  flex-grow: 1;
+  margin-right: 50px;
   display: flex;
   flex-direction: column;
 `;
@@ -13,7 +15,6 @@ export const ProductsControlContainer = styled.div`
 
 export const ProductsCheckBoxContainer = styled.div`
   display: flex;
-  align-items: center;
   label {
     padding-left: 12px;
   }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const PaymentAmountContainer = styled.section`
   max-width: 448px;
+  max-height: 320px;
   border: 1px solid #ddd;
 `;
 
