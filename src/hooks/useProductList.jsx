@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { fetchProductListAsync } from '../store/actions/product';
-import { productSelector } from '../store/selector';
+import { fetchProductListAsync } from 'store/actions/product';
+import { productSelector } from 'store/selector';
 
 export default function useProductList() {
   const dispatch = useDispatch();

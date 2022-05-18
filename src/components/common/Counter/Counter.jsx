@@ -1,5 +1,6 @@
 import React from 'react';
-import * as Styled from './Counter.style';
+
+import * as Styled from 'components/common/Counter/Counter.style';
 
 function Counter({ count, onIncrement, onDecrement }) {
   return (

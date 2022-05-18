@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Home from '../pages/Home/Home';
-import NotFound from '../pages/NotFound/NotFound';
-import OrderList from '../pages/OrderList/OrderList';
-import ProductDetail from '../pages/ProductDetail/ProductDetail';
-import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
-import { ROUTE } from '../route';
+import Home from 'pages/Home/Home';
+import NotFound from 'pages/NotFound/NotFound';
+import OrderList from 'pages/OrderList/OrderList';
+import ProductDetail from 'pages/ProductDetail/ProductDetail';
+import ShoppingCart from 'pages/ShoppingCart/ShoppingCart';
+import { ROUTE } from 'route';
 
 function PageRoutes() {
   return (

@@ -1,5 +1,5 @@
-import { getProductList } from '../../api/api';
-import { productActionTypes } from '../reducers/product';
+import { getProductList } from 'api/api';
+import { productActionTypes } from 'store/reducers/product';
 
 export const fetchProductListAsync = (page) => async (dispatch) => {
   dispatch({ type: productActionTypes.START });

@@ -1,12 +1,15 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { API_URL } from '../../../api/constants';
-import { changeProductQuantity } from '../../../mocks/handlers';
-import { cartActionType } from '../../reducers/cart';
-import { productActionTypes } from '../../reducers/product';
-import { addToCartAsync, getCartAsync } from '../cart';
-import { fetchProductListAsync } from '../product';
-import { productList } from './fixture';
+import { API_URL } from 'api/constants';
+import { changeProductQuantity } from 'mocks/handlers';
+
+import { cartActionType } from 'store/reducers/cart';
+import { productActionTypes } from 'store/reducers/product';
+
+import { addToCartAsync, getCartAsync } from 'cart';
+import { fetchProductListAsync } from 'product';
+
+import { productList } from 'store/actions/__test__/fixture';
 
 const mockDispatch = jest.fn();
 

@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { productSelector } from '../../../store/selector';
-import * as Styled from './Pagination.style';
+
+import { useSelector } from 'react-redux';
+import { productSelector } from 'store/selector';
+
+import * as Styled from 'components/common/Pagination/Pagination.style';
 
 function Pagination() {
   const product = useSelector(productSelector);

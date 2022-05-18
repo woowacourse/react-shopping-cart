@@ -1,5 +1,6 @@
 import React from 'react';
-import * as Styled from './ErrorContainer.style';
+
+import * as Styled from 'components/common/ErrorContainer/ErrorContainer.style';
 
 function ErrorContainer({ children }) {
   return <Styled.Container>{children}</Styled.Container>;

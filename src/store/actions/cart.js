@@ -1,5 +1,5 @@
 import { addToCart, deleteCartProduct, getCart, updateCartProductQuantity } from '../../api/api';
-import { cartActionType } from '../reducers/cart';
+import { cartActionType } from 'store/reducers/cart';
 
 const handleCartDispatch = async ({
   dispatch,

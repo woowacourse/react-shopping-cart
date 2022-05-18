@@ -1,10 +1,13 @@
 import React from 'react';
-import * as Styled from './CartAdd.style';
-import * as GlobalStyled from '../../../styles/GlobalStyles';
-import Counter from '../../common/Counter/Counter';
-import { useCount } from '../../../hooks/useCount';
+
 import { useDispatch } from 'react-redux';
-import { addToCartAsync } from '../../../store/actions/cart';
+import { addToCartAsync } from 'store/actions/cart';
+
+import Counter from 'components/common/Counter/Counter';
+import { useCount } from 'hooks/useCount';
+
+import * as Styled from 'components/product/CartAdd/CartAdd.style';
+import * as GlobalStyled from 'styles/GlobalStyles';
 
 const PRODUCT_ADDED_MESSAGE = (count) => `${count}개가 장바구니에 추가되었습니다.`;
 

@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteCartProductAsync,
-  toggleProductCheck,
-  updateCheckedList,
-} from '../store/actions/cart';
-import { cartSelector } from '../store/selector';
+import { deleteCartProductAsync, toggleProductCheck, updateCheckedList } from 'store/actions/cart';
+import { cartSelector } from 'store/selector';
 
 const PRODUCTS_DELETE_WARNING_MESSAGE = (count) => `${count}개의 상품을 삭제하시겠습니까?`;
 

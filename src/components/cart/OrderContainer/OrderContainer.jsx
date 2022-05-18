@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
+
 import { useSelector } from 'react-redux';
-import { cartSelector } from '../../../store/selector';
-import * as Styled from './OrderContainer.style';
+import { cartSelector } from 'store/selector';
+
+import * as Styled from 'components/cart/OrderContainer/OrderContainer.style';
 
 function OrderContainer() {
   const { cart, checkedProductList } = useSelector(cartSelector);

@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import useCartCheckedProducts from '../../../hooks/useCartCheckedProducts';
-import { getCartAsync } from '../../../store/actions/cart';
-import { cartSelector } from '../../../store/selector';
-import CheckBox from '../../common/CheckBox/CheckBox';
-import CartProductCard from '../CartProductCard/CartProductCard';
-import * as Styled from './CartProductList.style';
-import ErrorContainer from '../../common/ErrorContainer/ErrorContainer';
+import { cartSelector } from 'store/selector';
+import { getCartAsync } from 'store/actions/cart';
+
+import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
+
+import CheckBox from 'components/common/CheckBox/CheckBox';
+import ErrorContainer from 'components/common/ErrorContainer/ErrorContainer';
+
+import CartProductCard from 'components/cart/CartProductCard/CartProductCard';
+import * as Styled from 'components/cart/CartProductList/CartProductList.style';
 
 function CartProductList() {
   const dispatch = useDispatch();

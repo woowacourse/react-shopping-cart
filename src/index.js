@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from './styles/GlobalStyles';
-import Theme from './styles/Theme';
+
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { store } from 'store/store';
+
+import App from './components/App';
+
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from 'styles/GlobalStyles';
+import Theme from 'styles/Theme';
 
 async function main() {
   if (process.env.NODE_ENV === 'development') {

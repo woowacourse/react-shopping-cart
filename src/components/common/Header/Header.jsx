@@ -1,7 +1,9 @@
-import useResponsive from '../../../hooks/useResponsive';
-import { ROUTE } from '../../../route';
-import Icon from '../Icon/Icon';
-import * as Styled from './Header.style';
+import React from 'react';
+
+import useResponsive from 'hooks/useResponsive';
+import { ROUTE } from 'route';
+import Icon from 'components/common/Icon/Icon';
+import * as Styled from 'components/common/Header/Header.style';
 
 function Header() {
   const currentDevice = useResponsive();

@@ -1,17 +1,18 @@
 import React, { useCallback, useMemo } from 'react';
+
 import { useDispatch } from 'react-redux';
-import useCartCheckedProducts from '../../../hooks/useCartCheckedProducts';
-import {
-  deleteCartProductAsync,
-  updateCartProductQuantityAsync,
-} from '../../../store/actions/cart';
-import { Position } from '../../../styles/GlobalStyles';
-import CheckBox from '../../common/CheckBox/CheckBox';
-import Counter from '../../common/Counter/Counter';
-import Icon from '../../common/Icon/Icon';
-import Image from '../../common/Image/Image';
-import * as Styled from './CartProductCard.style';
-import { color } from '../../../styles/Theme.js';
+import { deleteCartProductAsync, updateCartProductQuantityAsync } from 'store/actions/cart';
+
+import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
+
+import CheckBox from 'components/common/CheckBox/CheckBox';
+import Counter from 'components/common/Counter/Counter';
+import Icon from 'components/common/Icon/Icon';
+import Image from 'components/common/Image/Image';
+
+import { Position } from 'styles/GlobalStyles';
+import { color } from 'styles/Theme.js';
+import * as Styled from 'components/cart/CartProductCard/CartProductCard.style';
 
 const MINIMUM_QUANTITY_WARNING_MESSAGE = '주문할 수 있는 최소 수량입니다.';
 const PRODUCT_DELETE_WARNING = '상품을 장바구니에서 삭제하시겠습니까?';

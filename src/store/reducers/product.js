@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
+import { PRODUCT_LIST_PAGE_LIMIT } from 'api/constants';
 
 const initialState = {
   productList: [],

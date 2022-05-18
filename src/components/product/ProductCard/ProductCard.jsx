@@ -1,12 +1,17 @@
-import Image from '../../common/Image/Image';
-import * as Styled from './ProductCard.style';
-import * as GlobalStyled from '../../../styles/GlobalStyles';
-import Icon from '../../common/Icon/Icon';
-import Modal from '../../common/Modal/Modal';
-import { useModal } from '../../../hooks/useModal';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import CartAdd from '../CartAdd/CartAdd';
-import { color } from '../../../styles/Theme';
+
+import { useModal } from 'hooks/useModal';
+
+import Image from 'components/common/Image/Image';
+import Icon from 'components/common/Icon/Icon';
+import Modal from 'components/common/Modal/Modal';
+
+import CartAdd from 'components/product/CartAdd/CartAdd';
+
+import * as Styled from 'components/product/ProductCard/ProductCard.style';
+import { color } from 'styles/Theme';
+import * as GlobalStyled from 'styles/GlobalStyles';
 
 function ProductCard({ product }) {
   const { id, imageURL, name, price } = product;

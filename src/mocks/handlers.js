@@ -1,8 +1,10 @@
 import { rest } from 'msw';
-import { API_URL } from '../api/constants';
-import { removeProperty } from '../utils';
-import data from './data';
-import images from './images';
+
+import { API_URL } from 'api/constants';
+import data from 'mocks/data';
+import images from 'mocks/images';
+
+import { removeProperty } from 'utils';
 
 const cartDB = () => {
   let cart = JSON.parse(window.localStorage.getItem('server-shopping-cart')) || {};

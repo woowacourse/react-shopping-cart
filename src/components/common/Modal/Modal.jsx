@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as Styled from './Modal.style';
+
+import * as Styled from 'components/common/Modal/Modal.style';
 
 function Modal({ children, closeModal }) {
   const handleModalClose = (e) => {

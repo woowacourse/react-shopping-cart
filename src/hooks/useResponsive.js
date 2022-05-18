@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { deviceSizeStandard } from '../styles/Theme';
+import { deviceSizeStandard } from 'styles/Theme';
 
 export default function useResponsive() {
   const [currentDevice, setCurrentDevice] = useState();

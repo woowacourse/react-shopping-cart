@@ -1,4 +1,6 @@
-import Icons from './icons';
+import React from 'react';
+
+import Icons from 'components/common/Icon/icons';
 
 function Icon({ iconName, size = '24', fill, stroke }) {
   const IconComponent = Icons[iconName];
