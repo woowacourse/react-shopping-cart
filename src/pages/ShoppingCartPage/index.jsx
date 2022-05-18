@@ -1,20 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useCartItemList } from "../../hooks/useCartItemList";
+
 import Button from "../../components/common/Button";
 import CheckBox from "../../components/common/CheckBox";
 import CartProductListItem from "./CartProductListItem";
 import PaymentBox from "./PaymentBox";
-
-const dummyProduct = {
-  id: 1,
-  thumbnailUrl: "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
-  name: "PET보틀-정사각(420ml)",
-  price: 43400,
-};
+import Spinner from "../../components/common/Spinner";
 
 function ShoppingCartPage() {
-  const products = Array(10).fill(dummyProduct);
+  const { cartItemList, isLoading, errorMessage } = useCartItemList();
+
+  if (isLoading) return <Spinner />;
+  if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
   return (
     <div>
@@ -38,8 +37,8 @@ function ShoppingCartPage() {
           <div>
             <ListTitle>장바구니 상품목록(3개)</ListTitle>
             <CartProductList>
-              {products.map((product) => (
-                <CartProductListItem key={product.id} product={dummyProduct} />
+              {cartItemList.map((product) => (
+                <CartProductListItem key={product.id} product={product} />
               ))}
             </CartProductList>
           </div>

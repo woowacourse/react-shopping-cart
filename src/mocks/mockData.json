@@ -180,5 +180,19 @@
       "name": "[든든] 미국산 자몽 BOX(40입 내외/14kg내외)",
       "price": 75000
     }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "quantity": 3
+    },
+    {
+      "id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
   ]
 }

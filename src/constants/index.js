@@ -10,5 +10,6 @@ export const API_SERVER = {
   BASE_URL: "https://react-shoppingcart-server.herokuapp.com",
   PATH: {
     PRODUCT_LIST: "/products",
+    CART: "/cart",
   },
 };

@@ -4,8 +4,9 @@ const { BASE_URL, PATH } = API_SERVER;
 
 const productListUrl = `${BASE_URL}${PATH.PRODUCT_LIST}`;
 const productDetailUrl = (id) => `${BASE_URL}${PATH.PRODUCT_LIST}/${id}`;
+const cartUrl = `${BASE_URL}${PATH.CART}`;
 
-export const fetchData = async (requestUrl) => {
+export const fetchData = async (requestUrl = "") => {
   const response = await fetch(requestUrl);
   if (!response.ok) throw new Error("fetch error");
 
@@ -17,3 +18,4 @@ export const fetchData = async (requestUrl) => {
 
 export const fetchProductList = () => fetchData(productListUrl);
 export const fetchProductDetail = (id) => fetchData(productDetailUrl(id));
+export const fetchCartItemList = () => fetchData(cartUrl);

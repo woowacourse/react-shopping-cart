@@ -12,6 +12,11 @@ const initialState = {
     data: null,
     errorMessage: null,
   },
+  cart: {
+    loading: true,
+    data: null,
+    errorMessage: null,
+  },
 };
 
 const productListReducer = (state = initialState, action) => {
@@ -88,9 +93,47 @@ export const productDetailReducer = (state = initialState, action) => {
   }
 };
 
+export const cartReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ACTIONS.GET_CART_ITEM_LIST:
+      return {
+        ...state,
+        cart: {
+          loading: true,
+          data: null,
+          errorMessage: null,
+        },
+      };
+
+    case ACTIONS.GET_CART_ITEM_LIST_SUCCESS:
+      return {
+        ...state,
+        cart: {
+          loading: false,
+          data: action.payload,
+          errorMessage: null,
+        },
+      };
+
+    case ACTIONS.GET_CART_ITEM_LIST_ERROR:
+      return {
+        ...state,
+        cart: {
+          loading: false,
+          data: null,
+          errorMessage: action.payload,
+        },
+      };
+
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   productListReducer,
   productDetailReducer,
+  cartReducer,
 });
 
 export default rootReducer;
