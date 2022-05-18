@@ -38,7 +38,7 @@ const ProductQuantityControlContainer = ({
   );
 };
 
-const ProductQuantity = ({
+const ShoppingCartProduct = ({
   productQuantity,
   imgUrl,
   title,
@@ -47,7 +47,7 @@ const ProductQuantity = ({
   handleDecrement,
 }) => {
   return (
-    <S.ProductQuantityContainer>
+    <S.ShoppingCartProduct>
       <ProductInfoContainer imgUrl={imgUrl} title={title} />
       <ProductQuantityControlContainer
         price={price}
@@ -55,8 +55,8 @@ const ProductQuantity = ({
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
       />
-    </S.ProductQuantityContainer>
+    </S.ShoppingCartProduct>
   );
 };
 
-export default ProductQuantity;
+export default ShoppingCartProduct;

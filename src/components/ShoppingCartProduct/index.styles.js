@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductQuantityContainer = styled.div`
+export const ShoppingCartProduct = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
