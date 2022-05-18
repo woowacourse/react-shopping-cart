@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import Pagination from 'components/@shared/Pagination/Pagination';
 import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
-import ProductCard from 'components/ProductCard/ProductCard';
+import ProductCardGroup from 'components/ProductCardGroup/ProductCardGroup';
 
 import { fetchCartsStart } from 'redux/carts/carts.action';
-import { selectCurrentCarts } from 'redux/carts/carts.selector';
 import { fetchProductsStart } from 'redux/products/products.action';
 import {
   selectCurrentProducts,
@@ -20,13 +18,11 @@ import {
 
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
-import { isInCart } from 'utils/check';
-
 function ProductListPage() {
   const dispatch = useDispatch();
   const loading = useSelector(selectProductsLoading);
   const products = useSelector(selectCurrentProducts);
-  const carts = useSelector(selectCurrentCarts);
+
   const error = useSelector(selectProductsError);
   const navigate = useNavigate();
   const { idx } = useParams();
@@ -47,20 +43,9 @@ function ProductListPage() {
   };
 
   return (
-    // TODO: 컨테이너 하나 만들기
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
-        <Styled.GridContainer>
-          {products.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                {...product}
-                $isincart={isInCart(product.id, carts)}
-              />
-            );
-          })}
-        </Styled.GridContainer>
+        <ProductCardGroup products={products} />
         <Pagination>
           {/* FIXME: Array.from으로 변경 */}
           {new Array(5).fill('').map((_, pageNum) => (
@@ -76,15 +61,5 @@ function ProductListPage() {
     </WithSpinner>
   );
 }
-
-const Styled = {
-  GridContainer: styled.div`
-    display: grid;
-    width: 70%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 22px;
-    justify-content: center;
-  `,
-};
 
 export default ProductListPage;

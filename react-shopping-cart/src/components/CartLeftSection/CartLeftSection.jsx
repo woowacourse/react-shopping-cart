@@ -6,7 +6,7 @@ import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
 import AllSelectButton from 'components/AllSelectCheckbox/AllSelectCheckbox';
 import ProductDeleteButton from 'components/ProductDeleteButton/ProductDeleteButton';
-import ShoppingCartItemsContainer from 'components/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
+import ShoppingCartItemGroup from 'components/ShoppingCartItemGroup/ShoppingCartItemGroup';
 
 import {
   deleteCheckedProductsStart,
@@ -51,7 +51,7 @@ function CartLeftSection() {
       <div style={{ width: 'inherit' }}>
         <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
         <WithSpinner loading={cartLoading}>
-          <ShoppingCartItemsContainer carts={myCarts} />
+          <ShoppingCartItemGroup carts={myCarts} />
         </WithSpinner>
       </div>
     </ColumnFlexWrapper>

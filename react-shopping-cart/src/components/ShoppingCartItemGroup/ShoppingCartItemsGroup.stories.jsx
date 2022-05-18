@@ -1,14 +1,14 @@
-import ShoppingCartItemsContainer from 'components/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
+import ShoppingCartItemGroup from 'components/ShoppingCartItemGroup/ShoppingCartItemGroup';
 
 export default {
-  title: 'ShoppingCartItemsContainer',
-  component: ShoppingCartItemsContainer,
+  title: 'ShoppingCartItemGroup',
+  component: ShoppingCartItemGroup,
 };
 
-export const DefaultShoppingCartItemsContainer = (args) => (
-  <ShoppingCartItemsContainer {...args} />
+export const DefaultShoppingCartItemGroup = (args) => (
+  <ShoppingCartItemGroup {...args} />
 );
-DefaultShoppingCartItemsContainer.args = {
+DefaultShoppingCartItemGroup.args = {
   carts: [
     {
       name: '[든든] 기분 시로가마보코 160g',

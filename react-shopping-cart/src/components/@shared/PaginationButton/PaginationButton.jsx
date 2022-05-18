@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 // 재사용O
 function PaginationButton({ children, ...props }) {
-  console.log('1');
   return <Styled.Root {...props}>{children}</Styled.Root>;
 }
 

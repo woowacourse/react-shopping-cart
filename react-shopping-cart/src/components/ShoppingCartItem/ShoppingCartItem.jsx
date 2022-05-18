@@ -15,6 +15,7 @@ import useClickCartButton from 'hooks/useClickCartButton';
 import { ReactComponent as Trash } from 'assets/trash.svg';
 
 function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
+  console.log(thumbnail);
   const dispatch = useDispatch();
   const { handleDeleteProductFromCart } = useClickCartButton();
 

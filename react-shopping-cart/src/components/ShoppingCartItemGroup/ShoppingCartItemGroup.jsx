@@ -3,8 +3,7 @@ import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 //TODO: carts를 받는 게 맞을까?
-function ShoppingCartItemsContainer({ carts }) {
-  console.log(carts);
+function ShoppingCartItemGroup({ carts }) {
   return (
     <ColumnFlexWrapper>
       {carts.map((cart) => (
@@ -14,4 +13,4 @@ function ShoppingCartItemsContainer({ carts }) {
   );
 }
 
-export default ShoppingCartItemsContainer;
+export default ShoppingCartItemGroup;
