@@ -29,6 +29,18 @@ export default function ProductListPage() {
     dispatch(getProductList());
   }, []);
 
+  const handleIconClick = ({image, name, price, id}) => {
+    addCartItem({
+      itemImgURL: image,
+      itemName: name,
+      itemPrice: price,
+      id,
+      count: 1,
+    });
+  };
+
+  const handleImageClick = (id) => navigation(`${PATH.DETAIL}/${id}`);
+
   return (
     <S.ProductListPageLayout>
       {pending && <Loader />}
@@ -48,26 +60,8 @@ export default function ProductListPage() {
                 id={id}
                 key={id}
                 disabled={isIncludeCart}
-                handleIconClick={() => {
-                  addCartItem({
-                    itemImgURL: image,
-                    itemName: name,
-                    itemPrice: price,
-                    id,
-                    count: 1,
-                  });
-                }}
-                handleImageClick={() =>
-                  navigation(`${PATH.DETAIL}/${id}`, {
-                    state: {
-                      itemImgURL: image,
-                      itemName: name,
-                      itemPrice: price,
-                      id,
-                      disable: isIncludeCart,
-                    },
-                  })
-                }
+                handleIconClick={() => handleIconClick({image, name, price, id})}
+                handleImageClick={() => handleImageClick(id)}
               />
             );
           })}

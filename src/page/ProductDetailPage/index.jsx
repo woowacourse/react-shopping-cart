@@ -17,6 +17,17 @@ export default function ProductDetailPage() {
   const {id} = useParams();
   const {pending, data, error} = useFetch(`${process.env.REACT_APP_PRODUCT_API_URL}/${id}`);
 
+  const handleCartButtonClick = () => {
+    addCartItem({
+      itemImgURL: data.image,
+      itemName: data.name,
+      itemPrice: data.price,
+      id,
+      count: 1,
+    });
+    setDisableStatus(true);
+  };
+
   return (
     <S.DetailItemPageLayout>
       {pending && <Loader />}
@@ -32,16 +43,7 @@ export default function ProductDetailPage() {
             itemPrice={data.price}
             id={id}
             disabled={disableStatus}
-            handleCartButtonClick={() => {
-              addCartItem({
-                itemImgURL: data.image,
-                itemName: data.name,
-                itemPrice: data.price,
-                id,
-                count: 1,
-              });
-              setDisableStatus(true);
-            }}
+            handleCartButtonClick={handleCartButtonClick}
           />
         )}
       </ErrorBoundary>
