@@ -1,0 +1,41 @@
+import styled from 'styled-components';
+import { FlexWrapper, Text, Button } from 'components/@shared';
+import { ReactComponent as CounterArrow } from 'assets/images/counterArrow.svg';
+
+const Container = styled(FlexWrapper)`
+  width: fit-content;
+`;
+
+const CounterText = styled(Text)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 60px;
+  border: 1px solid ${({ theme }) => theme.PALETTE.GRAY_003};
+`;
+
+const CounterButton = styled(Button)`
+  width: 42px;
+  height: 30px;
+  border: 1px solid ${({ theme }) => theme.PALETTE.GRAY_003};
+  cursor: pointer;
+`;
+
+function Counter({ handleClickUp, handleClickDown, children }) {
+  return (
+    <Container>
+      <CounterText fontSize="large">{children}</CounterText>
+      <FlexWrapper isColumnDirection={true}>
+        <CounterButton onClick={handleClickUp}>
+          <CounterArrow />
+        </CounterButton>
+        <CounterButton onClick={handleClickDown}>
+          <CounterArrow style={{ transform: 'rotate(180deg)' }} />
+        </CounterButton>
+      </FlexWrapper>
+    </Container>
+  );
+}
+
+export default Counter;

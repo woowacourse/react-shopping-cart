@@ -5,6 +5,7 @@ export const PALETTE = {
   MINT_002: '#22a6a2',
   GRAY_001: 'rgba(0, 0, 0, 0.3)',
   GRAY_002: '#AAA',
+  GRAY_003: '#DDD',
   BROWN_001: '#73675C',
 };
 
