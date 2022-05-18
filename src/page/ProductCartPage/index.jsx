@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
-import AmountBox from 'component/AmountBox';
+import ContentBox from 'component/ContentBox';
 import CartItem from 'component/CartItem';
 
 import * as S from 'page/ProductCartPage/style';
@@ -56,7 +56,12 @@ export default function ProductCartPage() {
           </S.CartListBox>
         </S.SelectCartBox>
 
-        <AmountBox type="expect" totalCount={totalCount} totalPrice={totalPrice} />
+        <ContentBox
+          headerText="결제예상금액"
+          leftContent="결제예상금액"
+          rightContent={`${totalPrice.toLocaleString()}원`}
+          buttonText={`주문하기 (${totalCount}개)`}
+        />
       </S.CartInfoBox>
     </S.ProductCartPageLayout>
   );

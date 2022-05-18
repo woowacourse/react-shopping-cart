@@ -1,7 +1,7 @@
 import {FlexRow, Font} from 'style/common';
 import styled from 'styled-components';
 
-const AmountBoxLayout = styled.div`
+const ContentBoxLayout = styled.div`
   box-sizing: border-box;
 
   width: 448px;
@@ -11,7 +11,7 @@ const AmountBoxLayout = styled.div`
   padding: 30px;
 `;
 
-const AmountBoxHeader = styled.div`
+const ContentBoxHeader = styled.div`
   width: 100%;
   font-size: 24px;
   margin-bottom: 20px;
@@ -32,4 +32,4 @@ const PriceInfoFont = styled(Font)`
   background: ${({theme}) => `linear-gradient(to top, ${theme.MINT} 50%, transparent 50%)`};
 `;
 
-export {AmountBoxLayout, AmountBoxHeader, PriceInfoBox, PriceInfoFont};
+export {ContentBoxLayout, ContentBoxHeader, PriceInfoBox, PriceInfoFont};
