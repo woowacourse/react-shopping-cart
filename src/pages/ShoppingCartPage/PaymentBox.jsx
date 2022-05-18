@@ -20,7 +20,7 @@ function PaymentBox() {
 
 function OrderButton({ children }) {
   const onClick = () => {
-    alert("🚧 준비 중 🚧 ");
+    alert("🚧 준비 중 🚧");
   };
 
   return (

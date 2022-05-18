@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { useCartItemList } from "../../hooks/useCartItemList";
+import { deleteCartItem } from "../../store/actions";
 
 import Button from "../../components/common/Button";
 import CheckBox from "../../components/common/CheckBox";
@@ -10,11 +12,12 @@ import PaymentBox from "./PaymentBox";
 import Spinner from "../../components/common/Spinner";
 
 function ShoppingCartPage() {
+  const dispatch = useDispatch();
   const { cartItemList, isLoading, errorMessage } = useCartItemList();
   const [selectedItemIdList, setSelectedItemIdList] = useState([]);
 
-  const cartItemIdList = cartItemList.map((cartItem) => cartItem.id);
-  const selectAllChecked = cartItemIdList.every((cartItemId) =>
+  const cartItemIdList = cartItemList?.map((cartItem) => cartItem.id);
+  const selectAllChecked = cartItemIdList?.every((cartItemId) =>
     selectedItemIdList.includes(cartItemId)
   );
 
@@ -48,6 +51,16 @@ function ShoppingCartPage() {
               height="50px"
               borderStyle="1px solid"
               borderColor="grey_300"
+              onClick={() => {
+                if (selectedItemIdList.length === 0) {
+                  alert("선택된 상품이 없습니다.");
+                  return;
+                }
+                // eslint-disable-next-line no-restricted-globals
+                if (confirm("선택한 상품을 모두 삭제하시겠습니까?")) {
+                  dispatch(deleteCartItem([...selectedItemIdList]));
+                }
+              }}
             >
               선택 상품 삭제
             </Button>
