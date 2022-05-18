@@ -47,7 +47,17 @@ const Styled = {
   `,
 };
 
-const PaymentModal = ({ title, description, amount, count }) => {
+const modalType = {
+  cart: {
+    title: '결제 예상 금액',
+    description: '결제 예상 금액',
+    buttonContent: '주문하기',
+  },
+};
+
+const PaymentModal = ({ type, amount }) => {
+  const { title, description, buttonContent } = modalType[type];
+
   return (
     <Styled.Wrapper>
       <Styled.Title>{title}</Styled.Title>
@@ -55,16 +65,14 @@ const PaymentModal = ({ title, description, amount, count }) => {
         <Styled.Content>{description}</Styled.Content>
         <Styled.Content>{amount}원</Styled.Content>
       </Styled.ContentBox>
-      <OrderButton>주문하기</OrderButton>
+      <OrderButton>{buttonContent}</OrderButton>
     </Styled.Wrapper>
   );
 };
 
 PaymentModal.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
+  type: PropTypes.string,
   amount: PropTypes.number,
-  count: PropTypes.number,
 };
 
 export default PaymentModal;
