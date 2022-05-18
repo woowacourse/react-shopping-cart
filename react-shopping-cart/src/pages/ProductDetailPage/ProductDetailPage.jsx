@@ -34,7 +34,8 @@ function ProductDetailPage() {
   const productsLoading = useSelector(selectProductsLoading);
 
   const dispatch = useDispatch();
-  const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
+  const { handleAddProductToCart, handleDeleteProductFromCart } =
+    useClickCartButton();
 
   const isCartItem = isInCart(idx, carts);
 
@@ -63,9 +64,9 @@ function ProductDetailPage() {
             $isincart={isCartItem}
             onClick={
               isCartItem
-                ? (e) => handleDeleteProduct(e, `${CURRENT_USER}${idx}`)
+                ? (e) => handleDeleteProductFromCart(e, `${CURRENT_USER}${idx}`)
                 : (e) =>
-                    handleAddProduct(e, {
+                    handleAddProductToCart(e, {
                       name: product.name,
                       price: product.price,
                       id: idx,

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import {
   addProductToCartStart,
-  deleteProductToCartStart,
+  deleteProductFromCartStart,
 } from 'redux/carts/carts.action';
 
 import { CURRENT_USER } from 'constants/index';
@@ -10,12 +10,12 @@ import { CURRENT_USER } from 'constants/index';
 function useClickCartButton() {
   const dispatch = useDispatch();
 
-  const handleDeleteProduct = (e, id) => {
+  const handleDeleteProductFromCart = (e, id) => {
     e.stopPropagation();
-    dispatch(deleteProductToCartStart(id));
+    dispatch(deleteProductFromCartStart(id));
   };
 
-  const handleAddProduct = (e, { name, price, id, thumbnail }) => {
+  const handleAddProductToCart = (e, { name, price, id, thumbnail }) => {
     e.stopPropagation();
     dispatch(
       addProductToCartStart({
@@ -28,7 +28,7 @@ function useClickCartButton() {
     );
   };
 
-  return { handleAddProduct, handleDeleteProduct };
+  return { handleAddProductToCart, handleDeleteProductFromCart };
 }
 
 export default useClickCartButton;

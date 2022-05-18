@@ -29,8 +29,8 @@ export const addProductToCartError = (error) => ({
   payload: error,
 });
 
-export const deleteProductToCartStart = (id) => ({
-  type: cartsActionTypes.deleteProductToCartStart,
+export const deleteProductFromCartStart = (id) => ({
+  type: cartsActionTypes.deleteProductFromCartStart,
   payload: id,
 });
 

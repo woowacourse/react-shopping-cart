@@ -9,7 +9,8 @@ import { ReactComponent as Cart } from 'assets/cart.svg';
 import { CURRENT_USER } from 'constants';
 
 function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
-  const { handleAddProduct, handleDeleteProduct } = useClickCartButton();
+  const { handleAddProductToCart, handleDeleteProductFromCart } =
+    useClickCartButton();
 
   return (
     <ProductCardInfoContainer>
@@ -20,8 +21,8 @@ function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
       <div
         onClick={
           $isincart
-            ? (e) => handleDeleteProduct(e, `${CURRENT_USER}${id}`)
-            : (e) => handleAddProduct(e, { name, price, id, thumbnail })
+            ? (e) => handleDeleteProductFromCart(e, `${CURRENT_USER}${id}`)
+            : (e) => handleAddProductToCart(e, { name, price, id, thumbnail })
         }
       >
         <StyledCart $isincart={$isincart} />

@@ -6,7 +6,7 @@ const cartsActionTypes = {
   addProductToCartStart: 'addProductToCartStart',
   addProductToCartSuccess: 'addProductToCartSuccess',
   addProductToCartError: 'addProductToCartError',
-  deleteProductToCartStart: 'deleteProductToCartStart',
+  deleteProductFromCartStart: 'deleteProductFromCartStart',
   deleteProductToCartSuccess: 'deleteProductToCartSuccess',
   deleteProductToCartError: 'deleteProductToCartError',
   toggleIsChecked: 'toggleIsChecked',

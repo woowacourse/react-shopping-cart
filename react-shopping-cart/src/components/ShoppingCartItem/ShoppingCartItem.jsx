@@ -15,8 +15,8 @@ import useClickCartButton from 'hooks/useClickCartButton';
 import { ReactComponent as Trash } from 'assets/trash.svg';
 
 function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
-  const { handleDeleteProduct } = useClickCartButton();
   const dispatch = useDispatch();
+  const { handleDeleteProductFromCart } = useClickCartButton();
 
   const handleToggleCheckBox = () => {
     dispatch(toggleIsChecked(id));
@@ -34,7 +34,7 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
         <ProductName type="shoppingCart">{name}</ProductName>
       </LeftContainer>
       <RightContainer>
-        <TrashContainer onClick={(e) => handleDeleteProduct(e, id)}>
+        <TrashContainer onClick={(e) => handleDeleteProductFromCart(e, id)}>
           <Trash />
         </TrashContainer>
         <ItemCounter id={id} />

@@ -15,7 +15,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case cartsActionTypes.addProductToCartStart:
     case cartsActionTypes.fetchCartsStart:
-    case cartsActionTypes.deleteProductToCartStart:
+    case cartsActionTypes.deleteProductFromCartStart:
     case cartsActionTypes.deleteCheckedProductsStart:
       return {
         ...state,

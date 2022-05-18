@@ -50,11 +50,11 @@ export function* deleteCheckedProducts({ payload: checkedIdList }) {
   }
 }
 
-export function* handleDeleteProduct() {
-  yield takeLatest(cartsActionTypes.deleteProductToCartStart, deleteProduct);
+export function* handleDeleteProductFromCart() {
+  yield takeLatest(cartsActionTypes.deleteProductFromCartStart, deleteProduct);
 }
 
-export function* handleAddProduct() {
+export function* handleAddProductToCart() {
   yield takeLatest(cartsActionTypes.addProductToCartStart, addProduct);
 }
 
@@ -72,8 +72,8 @@ export function* handleDeleteCheckedProducts() {
 export function* cartsSaga() {
   yield all([
     call(handleFetchCarts),
-    call(handleAddProduct),
-    call(handleDeleteProduct),
+    call(handleAddProductToCart),
+    call(handleDeleteProductFromCart),
     call(handleDeleteCheckedProducts),
   ]);
 }
