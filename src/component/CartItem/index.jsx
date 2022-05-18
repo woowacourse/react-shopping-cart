@@ -25,7 +25,7 @@ export default function CartItem({
           <DeleteIcon />
         </Button>
         <div>{count} 개</div>
-        <div>{itemPrice.toLocaleString()}원</div>
+        <S.PriceSpan>{itemPrice.toLocaleString()}원</S.PriceSpan>
       </S.EditQuantityBox>
     </S.CartItemLayout>
   );

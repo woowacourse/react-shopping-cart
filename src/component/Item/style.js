@@ -7,13 +7,12 @@ const ItemLayout = styled(FlexColumn)`
   gap: 18px;
   box-shadow: ${({theme}) => `6px 6px ${theme.GRAY_300}`};
   overflow: hidden;
+`;
 
-  img {
-    height: 282px;
-    cursor: pointer;
-  }
+const ItemImage = styled.img`
+  cursor: pointer;
 
-  img:hover {
+  &:hover {
     transform: scale(1.1);
     transition-duration: 0.2s;
   }
@@ -37,7 +36,13 @@ const ItemNameLink = styled(Link)`
 
 const ItemPriceSpan = styled.span`
   margin: 5px 0 10px;
+
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
   font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.5px;
 `;
 
 const InfoBox = styled(FlexRow)`
@@ -46,4 +51,4 @@ const InfoBox = styled(FlexRow)`
   margin: 0 15px;
 `;
 
-export {ItemLayout, NamePriceBox, ItemNameLink, ItemPriceSpan, InfoBox};
+export {ItemLayout, NamePriceBox, ItemNameLink, ItemPriceSpan, InfoBox, ItemImage};

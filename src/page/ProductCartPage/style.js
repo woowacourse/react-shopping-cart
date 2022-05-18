@@ -1,3 +1,4 @@
+import Button from 'component/common/Button';
 import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
@@ -9,7 +10,7 @@ const CartInfoBox = styled(FlexRow)`
   gap: 80px;
 `;
 
-const HeaederSpan = styled.span`
+const HeaderSpan = styled.span`
   font-size: 32px;
   font-weight: 700;
   border-bottom: 4px solid #333333;
@@ -27,15 +28,23 @@ const CheckBoxRow = styled(FlexRow)`
 const SelectDeleteRow = styled(FlexRow)`
   justify-content: space-between;
   margin-bottom: 30px;
-
-  & button {
-    border: 1px solid #bbbbbb;
-    color: #333333;
-    font-size: 16px;
-    padding: 22px 12px;
-  }
 `;
 
+const DeleteButton = styled(Button)`
+  border: 1px solid #bbbbbb;
+  color: #333333;
+  font-size: 16px;
+  padding: 22px 12px;
+  width: 117px;
+  height: 50px;
+
+  &:hover {
+    opacity: 0.8;
+    border: 1px solid red;
+    box-sizing: border-box;
+    color: red;
+  }
+`;
 const ListHeaderSpan = styled.span`
   border-bottom: ${({theme}) => `4px solid ${theme.GRAY_700}`};
   padding-bottom: 16px;
@@ -53,10 +62,11 @@ const SelectCartBox = styled(FlexColumn)`
 export {
   ProductCartPageLayout,
   CartInfoBox,
-  HeaederSpan,
+  HeaderSpan,
   SelectDeleteRow,
   CheckBoxRow,
   ListHeaderSpan,
   CartListBox,
   SelectCartBox,
+  DeleteButton,
 };

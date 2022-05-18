@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
-import Button from 'component/common/Button';
 import AmountBox from 'component/AmountBox';
 import CartItem from 'component/CartItem';
 
@@ -26,7 +25,7 @@ export default function ProductCartPage() {
 
   return (
     <S.ProductCartPageLayout>
-      <S.HeaederSpan>장바구니</S.HeaederSpan>
+      <S.HeaderSpan>장바구니</S.HeaderSpan>
       <S.CartInfoBox>
         <S.SelectCartBox>
           <S.SelectDeleteRow>
@@ -34,7 +33,7 @@ export default function ProductCartPage() {
               <CheckBox id="check" />
               선택해제
             </S.CheckBoxRow>
-            <Button>상품삭제</Button>
+            <S.DeleteButton>상품삭제</S.DeleteButton>
           </S.SelectDeleteRow>
 
           <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>

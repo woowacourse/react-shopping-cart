@@ -19,7 +19,7 @@ export default function Item({
 }) {
   return (
     <S.ItemLayout>
-      <img
+      <S.ItemImage
         src={itemImgURL}
         alt="상품 이미지"
         width="282px"

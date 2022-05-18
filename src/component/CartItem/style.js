@@ -20,4 +20,13 @@ const EditQuantityBox = styled(FlexColumn)`
   width: 115px;
 `;
 
-export {CartItemLayout, EditQuantityBox, ItemNameParagraph};
+const PriceSpan = styled.span`
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+`;
+
+export {CartItemLayout, EditQuantityBox, ItemNameParagraph, PriceSpan};

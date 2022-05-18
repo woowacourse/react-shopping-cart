@@ -11,13 +11,15 @@ export default function AmountBox({type = 'expect', totalCount, totalPrice}) {
     <S.AmountBoxLayout>
       <S.AmountBoxHeader>{type === 'expect' ? '결제예상금액' : '결제금액'}</S.AmountBoxHeader>
       <S.PriceInfoBox>
-        <p>{type === 'expect' ? '결제예상금액' : '총 결제금액'}</p>
-        <p>{totalPrice.toLocaleString()}원</p>
+        <S.PriceInfoFont>{type === 'expect' ? '결제예상금액' : '총 결제금액'}</S.PriceInfoFont>
+        <S.PriceInfoFont>{totalPrice.toLocaleString()}원</S.PriceInfoFont>
       </S.PriceInfoBox>
       <Button backgroundColor={theme.MINT} width="100%" height="73px">
-        {type === 'expect'
-          ? `주문하기(${totalCount}개)`
-          : `${totalPrice.toLocaleString()}원 결제하기`}
+        <S.PriceInfoFont>
+          {type === 'expect'
+            ? `주문하기(${totalCount}개)`
+            : `${totalPrice.toLocaleString()}원 결제하기`}
+        </S.PriceInfoFont>
       </Button>
     </S.AmountBoxLayout>
   );

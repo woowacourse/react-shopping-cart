@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Button from 'component/common/Button';
 
 import * as S from 'component/DetailItem/style';
-import {Font} from 'style/common';
 import theme from 'theme/theme';
 
 export default function DetailItem({
@@ -20,7 +19,7 @@ export default function DetailItem({
       <S.ItemNameSpan>{itemName}</S.ItemNameSpan>
       <S.ItemPriceBox>
         <span>금액</span>
-        <Font fontSize="32px">{itemPrice.toLocaleString()}원</Font>
+        <S.PriceFont fontSize="32px">{itemPrice.toLocaleString()}원</S.PriceFont>
       </S.ItemPriceBox>
       <Button
         backgroundColor={theme.GRAY_BROWN}
