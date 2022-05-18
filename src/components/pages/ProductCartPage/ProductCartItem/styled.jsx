@@ -17,6 +17,12 @@ export const ProductCartImage = styled.img`
 
 export const ProductCartName = styled.p`
   flex-grow: 1;
+
+  color: ${({ theme: { color } }) => color.text};
+`;
+
+export const ProductCartPrice = styled.p`
+  color: ${({ theme: { color } }) => color.text};
 `;
 
 export const ProductCartControlBox = styled.div`

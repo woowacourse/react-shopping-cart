@@ -10,9 +10,13 @@ import {
   ProductCartControlBox,
   ProductCartImage,
   ProductCartName,
+  ProductCartPrice,
 } from "./styled";
 
-function ProductCart({ thumbnailUrl, name, price, amount }) {
+function ProductCartItem({
+  product: { id, thumbnailUrl, name, price, quantity },
+  amount,
+}) {
   const [isChecked, setIsChecked] = useState(true);
   const [count, setCount] = useState(amount || 0);
 
@@ -29,6 +33,8 @@ function ProductCart({ thumbnailUrl, name, price, amount }) {
     setIsChecked((prev) => !prev);
   };
 
+  const totalPrice = price ? Number(price) * count : null;
+
   return (
     <ProductCartContainer>
       <CheckBox
@@ -44,16 +50,18 @@ function ProductCart({ thumbnailUrl, name, price, amount }) {
       />
       <ProductCartName>{name ?? "%ERROR%"}</ProductCartName>
       <ProductCartControlBox>
-        <IconButton src={trashCanIcon} alt="담은 상품 삭제 버튼" />
+        <IconButton src={trashCanIcon} alt="현재 상품 삭제 버튼" />
         <Counter
           count={count}
           handleClickDecreaseButton={handleClickDecreaseButton}
           handleClickIncreaseButton={handleClickIncreaseButton}
         />
-        <p>{price?.toLocaleString() ?? "%ERROR%"}원</p>
+        <ProductCartPrice>
+          {totalPrice?.toLocaleString() || "%ERROR%"}원
+        </ProductCartPrice>
       </ProductCartControlBox>
     </ProductCartContainer>
   );
 }
 
-export default ProductCart;
+export default ProductCartItem;

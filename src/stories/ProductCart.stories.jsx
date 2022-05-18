@@ -1,16 +1,16 @@
 import React from "react";
-import ProductCart from "../components/pages/ProductCartPage/ProductCart";
+import ProductCartItem from "../components/pages/ProductCartPage/ProductCartItem";
 
 export default {
-  title: "Component/ProductCart",
-  component: ProductCart,
+  title: "Component/ProductCartItem",
+  component: ProductCartItem,
   argTypes: {
     product: { controls: "object" },
     amount: { controls: "number" },
   },
 };
 
-const Template = (args) => <ProductCart {...args} />;
+const Template = (args) => <ProductCartItem {...args} />;
 
 export const Default = Template.bind({});
 
