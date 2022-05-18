@@ -6,5 +6,6 @@ import Text from './Text/Text.component';
 import Button from './Button/Button.component';
 import FlexWrapper from './FlexWrapper/FlexWrapper.component';
 import Divider from './Divider/Divider.component';
+import Checkbox from './Checkbox/Checkbox.component';
 
-export { Error, HeaderContainer, HeaderLink, Image, Text, Button, FlexWrapper, Divider };
+export { Error, HeaderContainer, HeaderLink, Image, Text, Button, FlexWrapper, Divider, Checkbox };

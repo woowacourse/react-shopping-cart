@@ -2,6 +2,7 @@ export const PALETTE = {
   WHITE_001: '#fff',
   BLACK_001: '#333',
   MINT_001: '#2AC1BC',
+  MINT_002: '#22a6a2',
   GRAY_001: 'rgba(0, 0, 0, 0.3)',
   GRAY_002: '#AAA',
   BROWN_001: '#73675C',
@@ -17,6 +18,6 @@ const usingColor = {
   loadingSpinner: PALETTE.MINT_001,
 };
 
-const theme = { usingColor };
+const theme = { usingColor, PALETTE };
 
 export default theme;
