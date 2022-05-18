@@ -49,12 +49,6 @@ const cartReducer = (state = initialState, action) => {
     }
 
     case cartActionType.FAIL: {
-      const {
-        payload: { message },
-      } = action;
-
-      alert(message);
-
       return {
         ...state,
         isLoading: false,
