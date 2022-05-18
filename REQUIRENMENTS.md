@@ -45,4 +45,5 @@
 - [ ] 장바구니 페이지
   - [x] CartItem 컴포넌트 만들기
   - [x] CartContainer 컴포넌트 만들기
+  - [x] PaymentBox 컴포넌트 만들기
 - [ ] 단위 테스트 작성
