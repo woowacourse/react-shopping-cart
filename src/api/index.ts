@@ -1,6 +1,13 @@
-import { GET, DELETE, POST, PATCH } from 'constants';
+import { GET, POST, PATCH, DELETE } from 'constants/index';
+import { ProductData } from 'types';
 
-const OPTIONS = (method, body) => {
+type Method = typeof GET | typeof POST | typeof PATCH | typeof DELETE;
+
+type Body = {
+  [key: string]: any;
+};
+
+const OPTIONS = (method: Method, body?: Body) => {
   switch (method) {
     case GET:
     case DELETE:
@@ -20,7 +27,7 @@ const OPTIONS = (method, body) => {
   }
 };
 
-export const loadProductList = async () => {
+export const loadProductList = async (): Promise<ProductData[]> => {
   try {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList`, OPTIONS(GET));
 
@@ -34,7 +41,7 @@ export const loadProductList = async () => {
   }
 };
 
-export const loadProduct = async (id) => {
+export const loadProduct = async (id: number): Promise<ProductData> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/productList/${id}`,

@@ -4,4 +4,6 @@ import productListReducer from 'store/productList/reducer';
 
 const rootReducer = combineReducers({ productReducer, productListReducer });
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 export default rootReducer;

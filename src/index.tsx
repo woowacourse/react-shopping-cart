@@ -8,12 +8,13 @@ import { ThemeProvider } from 'styled-components';
 
 import App from './App';
 import './index.css';
-import rootReducer from 'store/index.js';
+import rootReducer from 'store/index';
 import theme from 'styles/theme';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

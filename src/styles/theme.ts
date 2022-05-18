@@ -6,4 +6,6 @@ const colors = {
 
 const theme = { colors };
 
+export type Colors = typeof colors;
+
 export default theme;

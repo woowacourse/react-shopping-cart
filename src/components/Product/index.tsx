@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 import { CartButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
+import { ProductData } from 'types';
 
-const Product = ({ id, thumbnail, name, price }) => {
+const Product = ({ id, thumbnail, name, price }: ProductData) => {
   return (
     <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
       <Styled.ThumbnailBox>
@@ -63,13 +63,6 @@ const Styled = {
     overflow: hidden;
   `,
   Price: styled.p``,
-};
-
-Product.propTypes = {
-  id: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
 };
 
 export default Product;

@@ -9,12 +9,15 @@ import LoadingSpinner from 'components/common/LoadingSpinner';
 
 import { startProduct, setProduct, resetProduct } from 'store/product/actions';
 import { loadProduct } from 'api';
+import { RootState } from 'store';
 
 const ProductDetail = () => {
-  const { id: productId } = useParams();
+  const params = useParams();
+  const productId = Number(params.id);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { currentProduct, isLoading } = useSelector(({ productReducer }) => productReducer);
+  const { currentProduct, isLoading } = useSelector((state: RootState) => state.productReducer);
 
   useEffect(() => {
     dispatch(startProduct());
