@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
+import useReducerSelect from 'hooks/useReducerSelect';
 import {getProductList} from 'store/modules/productList';
 import {getCart} from 'store/modules/cart';
-import useReducerSelect from 'hooks/useReducerSelect';
 
 import Item from 'components/Item';
 import Loader from 'components/Loader';

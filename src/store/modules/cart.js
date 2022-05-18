@@ -35,6 +35,15 @@ export const postCart = (id) => async (dispatch) => {
   }
 };
 
+export const deleteCart = (id) => async (dispatch) => {
+  try {
+    const {data} = await appClient.delete(`cart/${id}`);
+    dispatch({type: ACTION.DELETE_CART, payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const initialState = {
   pending: false,
   error: false,
@@ -67,6 +76,13 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case ACTION.ADD_CART: {
+      const cartedItem = action.payload;
+      return {
+        ...state,
+        data: cartedItem,
+      };
+    }
+    case ACTION.DELETE_CART: {
       const cartedItem = action.payload;
       return {
         ...state,

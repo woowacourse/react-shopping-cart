@@ -42,4 +42,16 @@ export const handlers = [
 
     return res(ctx.json(detailCart));
   }),
+  rest.delete('/cart/:id', (req, res, ctx) => {
+    const {id} = req.params;
+    const deletedCart = cart.filter((item) => item.id !== id);
+    cart = deletedCart;
+
+    const detailCart = cart.map((cartItem) => {
+      const productDetail = productList.find((item) => item.id === +cartItem.id);
+
+      return {...productDetail, quantity: cartItem.quantity, checked: cartItem.checked};
+    });
+    return res(ctx.status(200), ctx.json(detailCart));
+  }),
 ];

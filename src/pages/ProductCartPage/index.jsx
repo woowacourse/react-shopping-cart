@@ -23,10 +23,12 @@ import {
 export default function ProductCartPage() {
   const {dispatch, pending, error, data: cartItem} = useReducerSelect('cartReducer');
 
-  console.log(cartItem, pending, error);
+  console.log('cartItem', cartItem, pending, error);
+
   useEffect(() => {
     dispatch(getCart());
   }, []);
+
   const {totalQuantity, totalPrice} = cartItem.reduce(
     (prev, cur) => {
       return {

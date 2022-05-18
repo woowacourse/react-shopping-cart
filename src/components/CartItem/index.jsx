@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import {useDispatch} from 'react-redux';
 
-//import {DELETE_CART} from 'store/modules/cart';
+import useReducerSelect from 'hooks/useReducerSelect';
+import {deleteCart} from 'store/modules/cart';
 
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
@@ -13,8 +13,14 @@ import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
 import {FlexWrapper} from 'components/common/style';
 
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, checked, id}) {
+  const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
   const handleDeleteIconClick = () => {
-    //dispatch({type: DELETE_CART, payload: id});
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      console.log('delete');
+      dispatch(deleteCart(id));
+    } else {
+      console.log(pending, error, data);
+    }
   };
 
   return (
