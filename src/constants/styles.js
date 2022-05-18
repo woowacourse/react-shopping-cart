@@ -13,4 +13,5 @@ export const COLOR = {
   WHITE: 'white',
   BLACK: 'black',
   PRIMARY: '#2AC1BC',
+  DARK_BROWN: '#a8744486',
 };
