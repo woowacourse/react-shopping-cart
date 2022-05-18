@@ -7,6 +7,7 @@ import MoveCartPageButton from 'containers/MoveCartPageButton';
 import DeleteProductButton from 'containers/DeleteProductButton';
 import OrderProductsButton from 'containers/OrderProductsButton';
 import ProductCountUpButton from 'containers/ProductCountUpButton';
+import ProductCountDownButton from 'containers/ProductCountDownButton';
 
 export default {
   title: 'containers/Button',
@@ -20,6 +21,7 @@ const MoveCartPageButtonTemplate = () => <MoveCartPageButton />;
 const DeleteProductButtonTemplate = () => <DeleteProductButton />;
 const OrderProductsButtonTemplate = () => <OrderProductsButton />;
 const ProductCountUpButtonTemplate = () => <ProductCountUpButton />;
+const ProductCountDownButtonTemplate = () => <ProductCountDownButton />;
 
 export const Primary = Template.bind({});
 export const HomeButtonPrimary = HomeButtonTemplate.bind({});
@@ -28,6 +30,7 @@ export const MoveCartPageButtonPrimary = MoveCartPageButtonTemplate.bind({});
 export const DeleteProductButtonPrimary = DeleteProductButtonTemplate.bind({});
 export const OrderProductsButtonPrimary = OrderProductsButtonTemplate.bind({});
 export const ProductCountUpButtonPrimary = ProductCountUpButtonTemplate.bind({});
+export const ProductCountDownButtonPrimary = ProductCountDownButtonTemplate.bind({});
 
 Primary.args = {
   width: '150px',
