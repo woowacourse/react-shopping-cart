@@ -45,7 +45,7 @@ export default function ProductListPage() {
     <S.ProductListPageLayout>
       {pending && <Loader />}
       <ErrorBoundary
-        fallback={<img src={Empty} height="600px" />}
+        fallback={<img src={Empty} alt="비어있음" height="600px" />}
         pending={pending}
         error={!productList.length}
       >
