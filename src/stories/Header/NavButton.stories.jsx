@@ -6,6 +6,7 @@ export default {
   component: NavButton,
   argTypes: {
     children: { controls: "text" },
+    linkTo: { controls: "text" },
   },
 };
 
@@ -14,4 +15,5 @@ const Template = (args) => <NavButton {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   children: "안녕",
+  linkTo: "/somePath",
 };

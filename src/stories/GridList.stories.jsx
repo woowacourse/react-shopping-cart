@@ -1,10 +1,10 @@
 import React from "react";
-import GridList from "../components/Main/ProductListPage/GridList";
-import ProductCard from "../components/Main/ProductListPage/ProductCard";
+import GridContainer from "../components/common/GridContainer";
+import ProductCard from "../components/pages/ProductListPage/ProductCard";
 
 export default {
-  title: "Component/GridList",
-  component: GridList,
+  title: "Component/GridContainer",
+  component: GridContainer,
 };
 
 const dummy = {
@@ -15,22 +15,22 @@ const dummy = {
 };
 
 const Template = (args) => (
-  <GridList {...args}>
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-    <ProductCard productInfo={dummy} />
-  </GridList>
+  <GridContainer {...args}>
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+    <ProductCard product={dummy} />
+  </GridContainer>
 );
 
 export const Default = Template.bind({});

@@ -20,7 +20,7 @@ import { ROUTES } from "../constants";
 import { Main } from "./styled";
 import ErrorPage from "./pages/ErrorPage";
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(ReduxThunk))
 );

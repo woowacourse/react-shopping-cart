@@ -1,16 +1,16 @@
 import React from "react";
-import BoxButton from "../components/common/BoxButton";
+import DefaultButton from "../components/common/DefaultButton";
 
 export default {
-  title: "Component/BoxButton",
-  component: BoxButton,
+  title: "Component/DefaultButton",
+  component: DefaultButton,
   argTypes: {
     children: { controls: "text" },
     bgColor: { controls: "text" },
   },
 };
 
-const Template = (args) => <BoxButton {...args} />;
+const Template = (args) => <DefaultButton {...args} />;
 
 export const Default = Template.bind({});
 

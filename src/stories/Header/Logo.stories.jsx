@@ -1,11 +1,11 @@
 import React from "react";
-import Logo from "../../components/Header/Logo";
+import Title from "../../components/Header/Title";
 
 export default {
-  title: "Component/Logo",
-  component: Logo,
+  title: "Component/Title",
+  component: Title,
 };
 
-const Template = (args) => <Logo {...args} />;
+const Template = (args) => <Title {...args} />;
 
 export const Default = Template.bind({});
