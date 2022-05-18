@@ -1,22 +1,16 @@
 import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
-const Product = ({ imgUrl, title, price, onClick, go, shoppingCartColor }) => {
+const Product = ({ imgUrl, title, price, onClick, shoppingCartColor }) => {
   return (
-    <S.ProductContainer>
-      <S.ProductImage onClick={onClick} src={imgUrl} alt={`${title} 이미지`} />
+    <S.ProductContainer onClick={onClick}>
+      <S.ProductImage src={imgUrl} alt={`${title} 이미지`} />
       <S.ProductInfoWrapper>
-        <div onClick={onClick}>
+        <div>
           <S.ProductInfo>{title}</S.ProductInfo>
           <S.ProductInfo>{price}원</S.ProductInfo>
         </div>
-        <S.ShoppingCartButton onClick={go}>
-          <ShoppingCartIcon
-            width="30px"
-            height="30px"
-            fill={shoppingCartColor}
-          />
-        </S.ShoppingCartButton>
+        <ShoppingCartIcon width="30px" height="30px" fill={shoppingCartColor} />
       </S.ProductInfoWrapper>
     </S.ProductContainer>
   );
