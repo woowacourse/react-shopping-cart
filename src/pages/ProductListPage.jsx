@@ -6,16 +6,17 @@ import { getProductList } from '../api';
 import CartIconButton from '../components/common/CartIconButton';
 import { AddProductToCart, removeProductToCart } from '../store/modules/cart/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 function ProductListPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { count } = useSelector((state) => state.cart);
+  const { count, products: productsInCart } = useSelector((state) => state.cart);
   const { data: productList, loading } = useRequest(getProductList);
 
-  const handleClickItem = (id) => {
-    navigate(`${id}`);
-  };
+  const idsInCart = useMemo(() => productsInCart.map((product) => product.id), [productsInCart]);
+
+  const handleClickItem = (id) => navigate(`${id}`);
 
   const onClickCartIcon = ({ tryAdd, product }) => {
     if (tryAdd) {
@@ -31,15 +32,23 @@ function ProductListPage() {
     <StyledContent>
       <StyledGridContainer>
         {productList.map((product) => {
-          return ProductContainer({ product, handleClickItem, onClickCartIcon });
+          return ProductContainer({
+            product,
+            handleClickItem,
+            onClickCartIcon,
+            productsInCart,
+            idsInCart,
+          });
         })}
       </StyledGridContainer>
     </StyledContent>
   );
 }
 
-const ProductContainer = ({ product, handleClickItem, onClickCartIcon }) => {
+const ProductContainer = ({ product, handleClickItem, onClickCartIcon, idsInCart }) => {
   const { id, name, price, imageUrl } = product;
+
+  const isInCart = idsInCart.includes(id);
 
   return (
     <StyledItem key={id}>
@@ -51,7 +60,7 @@ const ProductContainer = ({ product, handleClickItem, onClickCartIcon }) => {
           <StyledItemName>{name}</StyledItemName>
           <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
         </StyledItemInfo>
-        <CartIconButton product={product} onClickCallback={onClickCartIcon} />
+        <CartIconButton product={product} onClickCallback={onClickCartIcon} isInCart={isInCart} />
       </StyledItemInfoBox>
     </StyledItem>
   );
