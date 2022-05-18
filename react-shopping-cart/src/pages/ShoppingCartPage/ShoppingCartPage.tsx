@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import CartLeftSection from "component/ShoppingCart/CartLeftSection/CartLeftSection";
@@ -10,9 +10,11 @@ import { ShoppingCartPageContent } from "./ShoppingCartPage.style";
 
 import { selectCurrentCarts } from "redux/carts/carts.selector";
 import { CURRENT_USER, ROUTE_PATH } from "constants/index";
+import { addOrderStart } from "redux/orders/orders.action";
 
 function ShoppingCartPage() {
   const carts = useSelector(selectCurrentCarts);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const totalPaymentCost = carts.reduce((acc, cart) => {
@@ -30,6 +32,8 @@ function ShoppingCartPage() {
   }, 0);
 
   const handleOrderButtonClick = () => {
+    const orderItems = carts.filter((cart) => cart.checked);
+    dispatch(addOrderStart(orderItems));
     navigate(ROUTE_PATH.ORDER);
   };
 

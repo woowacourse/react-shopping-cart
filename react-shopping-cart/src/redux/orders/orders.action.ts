@@ -1,4 +1,4 @@
-import { CartItem, Carts } from "type";
+import { Carts } from "type";
 import ordersActionTypes from "./orders.types";
 
 export const fetchOrdersStart = () => ({
@@ -15,14 +15,14 @@ export const fetchOrdersError = (error: Error) => ({
   payload: error,
 });
 
-export const addOrderStart = (product: CartItem) => ({
+export const addOrderStart = (orderItems: Carts) => ({
   type: ordersActionTypes.addOrderStart,
-  payload: product,
+  payload: orderItems,
 });
 
-export const addOrderSuccess = (product: CartItem) => ({
+export const addOrderSuccess = (orderItems: Carts) => ({
   type: ordersActionTypes.addOrderSuccess,
-  payload: product,
+  payload: orderItems,
 });
 
 export const addOrderError = (error: Error) => ({

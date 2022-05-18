@@ -22,7 +22,12 @@ function PaymentContainer({
       <PaymentTopContainer>{label}</PaymentTopContainer>
       <PaymentBottomContainer>
         <PaymentBox price={totalPaymentCost}>{label}</PaymentBox>
-        <OrderButton onClick={handleOrderButtonClick}>{buttonText}</OrderButton>
+        <OrderButton
+          onClick={handleOrderButtonClick}
+          data-testid="order-button"
+        >
+          {buttonText}
+        </OrderButton>
       </PaymentBottomContainer>
     </PaymentWrapper>
   );
