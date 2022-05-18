@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Styled from './Modal.style';
 
-function Modal({ children, closeModal }) {
+function Modal({ children, closeModal }: React.PropsWithChildren<{ closeModal: () => void }>) {
   const onClickDimmed = e => {
     if (e.target === e.currentTarget) {
       closeModal();

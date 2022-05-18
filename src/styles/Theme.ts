@@ -10,7 +10,6 @@ export default {
 
   textColorWhite: '#ffffff',
 
-  // responsive
   mobile: `@media (max-width: ${size.mobile}px)`,
   tablet: `@media (max-width: ${size.tablet}px)`,
   desktop: `@media (min-width: ${size.desktop}px)`,

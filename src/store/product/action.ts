@@ -1,5 +1,5 @@
 import { getProductList } from '@/api/api';
-import { Product } from '@/domain/product';
+import { ProductType } from '@/domain/product';
 import { Dispatch } from 'redux';
 export const enum ProductActionType {
   GET_PRODUCT_LIST_START = 'product/GET_PRODUCT_LIST_START',
@@ -14,7 +14,7 @@ interface GetProductListStart {
 interface GetProductListSucceeded {
   type: ProductActionType.GET_PRODUCT_LIST_SUCCEEDED;
   payload: {
-    productList: Product[];
+    productList: ProductType[];
     totalProductCount: number;
   };
 }

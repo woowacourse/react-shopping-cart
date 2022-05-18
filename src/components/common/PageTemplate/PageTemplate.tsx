@@ -1,8 +1,9 @@
 import React from 'react';
 import * as Styled from './PageTemplate.style';
 import Header from '../Header/Header';
+import { EmptyObject } from 'redux';
 
-function PageTemplate({ children }) {
+function PageTemplate({ children }: React.PropsWithChildren<EmptyObject>) {
   return (
     <>
       <Header />

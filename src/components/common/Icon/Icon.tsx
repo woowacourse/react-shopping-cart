@@ -1,19 +1,27 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Icons from './icons';
+import type { IconNames } from './icons';
+
+interface IconPropsType {
+  iconName: IconNames;
+  size?: string;
+  color?: string;
+}
+
 const StyledWrapper = styled.div`
   & svg {
     fill: currentColor;
   }
 
-  ${({ size, color }) => css`
+  ${({ size, color }: Pick<IconPropsType, 'size' | 'color'>) => css`
     color: ${color};
     width: ${size}px;
     height: ${size}px;
   `}
 `;
 
-function Icon({ iconName, size = '24', color = 'white' }) {
+function Icon({ iconName, size = '24', color = 'white' }: IconPropsType) {
   const IconComponent = Icons[iconName];
   return (
     <StyledWrapper size={size} color={color}>

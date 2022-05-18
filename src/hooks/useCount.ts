@@ -1,6 +1,11 @@
 import { useState } from 'react';
+interface UseCountPropsType {
+  initialValue: number;
+  min: number;
+  max: number;
+}
 
-export const useCount = ({ initialValue, min, max }) => {
+export const useCount = ({ initialValue, min, max }: UseCountPropsType) => {
   const [count, setCount] = useState(initialValue);
 
   const increaseCount = () => {
@@ -25,5 +30,5 @@ export const useCount = ({ initialValue, min, max }) => {
     });
   };
 
-  return [count, increaseCount, decreaseCount];
+  return { count, increaseCount, decreaseCount };
 };

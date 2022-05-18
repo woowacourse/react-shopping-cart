@@ -1,9 +1,9 @@
-import { Product } from '@/domain/product';
+import { ProductType } from '@/domain/product';
 import { ProductActionType } from '@/store/product/action';
 import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
 
 interface ProductListState {
-  readonly productList: Product[];
+  readonly productList: ProductType[];
   readonly totalProductCount: number;
   readonly pageCount: number;
   readonly isLoading: boolean;

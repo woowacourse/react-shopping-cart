@@ -8,11 +8,15 @@ import { useModal } from '../../../hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import CartAdd from '../CartAdd/CartAdd';
 import Placeholder from '../../common/Placeholder/Placeholder';
+import { ProductType } from '@/domain/product';
+interface ProductCardType {
+  product: ProductType;
+}
 
-function ProductCard({ product }) {
+function ProductCard({ product }: ProductCardType) {
   const { id, imageURL, name, price } = product;
 
-  const [isShowModal, openModal, closeModal] = useModal();
+  const { isShowModal, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const onClickCard = () => {

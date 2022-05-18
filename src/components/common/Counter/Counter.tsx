@@ -1,12 +1,16 @@
 import React from 'react';
 import * as Styled from './Counter.style';
-
-function Counter({ count, increase, decrease }) {
+interface CounterPropsType {
+  count: number;
+  increaseCount: () => void;
+  decreaseCount: () => void;
+}
+function Counter({ count, increaseCount, decreaseCount }: CounterPropsType) {
   return (
     <Styled.CounterContainer>
-      <Styled.CounterButton onClick={decrease}>-</Styled.CounterButton>
+      <Styled.CounterButton onClick={decreaseCount}>-</Styled.CounterButton>
       <Styled.Count>{count}</Styled.Count>
-      <Styled.CounterButton onClick={increase}>+</Styled.CounterButton>
+      <Styled.CounterButton onClick={increaseCount}>+</Styled.CounterButton>
     </Styled.CounterContainer>
   );
 }
