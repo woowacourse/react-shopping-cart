@@ -14,7 +14,7 @@ import GlobalStyle from 'style/GlobalStyle';
 
 worker.start();
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+export const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 function App() {
   return (
