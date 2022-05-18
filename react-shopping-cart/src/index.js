@@ -16,6 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
+      {/* TODO: 404 페이지 컴포넌트 만들기 */}
       <ErrorBoundary fallback={<div>에러입니다.</div>}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>

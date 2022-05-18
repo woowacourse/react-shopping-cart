@@ -12,6 +12,7 @@ const PaginationButton = styled.button`
   cursor: pointer;
   :hover {
     background-color: ${({ theme }) => theme.colors.cyon};
+    // FIXME: theme 사용
     color: white;
   }
 `;

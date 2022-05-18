@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
 
+// THINK: NaviagateButton을 상속받는 것이 안전할까?
 const PageTitle = styled(NavigateButton)`
   font-size: 28px;
   color: ${({ theme }) => theme.colors.white};

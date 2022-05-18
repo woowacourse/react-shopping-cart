@@ -9,6 +9,7 @@ const Header = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.cyon};
   justify-content: space-between;
+  // FIXME: theme value 사용
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 

@@ -1,4 +1,5 @@
 const cartsActionTypes = {
+  // TODO: 대문자로 바꾸기
   fetchCartsStart: 'fetchCartsStart',
   fetchCartsSuccess: 'fetchCartsSuccess',
   fetchCartsError: 'fetchCartsError',

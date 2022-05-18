@@ -19,6 +19,7 @@ const ProductCardBox = styled(ColumnFlexWrapper)`
   width: 220px;
   height: 300px;
   padding: 20px 10px;
+  /* FIXME: pallete color */
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0.1, 0.1);
   cursor: pointer;
   :hover {

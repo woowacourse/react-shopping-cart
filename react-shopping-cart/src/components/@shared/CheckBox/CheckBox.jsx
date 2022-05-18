@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const CheckBox = styled.input`
   appearance: none;
+  // FIXME: theme value 사용
   border: 1px solid #2ac1bc;
   border-radius: 2px;
   width: 18px;
@@ -11,7 +12,7 @@ const CheckBox = styled.input`
   :focus {
     outline: none;
   }
-
+  // FIXME: theme value 사용
   :checked {
     background-color: #2ac1bc;
   }
@@ -27,5 +28,9 @@ const CheckBox = styled.input`
     align-items: center;
   }
 `;
+
+function CheckBox({children}) {
+  return <CheckBox type="checkbox">{children}</CheckBox>
+}
 
 export default CheckBox;
