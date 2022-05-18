@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const CounterContainer = styled.div`
@@ -16,8 +16,8 @@ const CounterContainer = styled.div`
 `;
 
 const CounterInput = styled.input`
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 60px;
   padding: 4px;
 
   text-align: center;
@@ -33,6 +33,7 @@ const CounterButtonContainer = styled.div`
 `;
 
 const ArrowButton = styled.button`
+  width: 40px;
   height: 50%;
   padding: 1px 2px;
 
@@ -51,27 +52,15 @@ const ArrowButton = styled.button`
   }
 `;
 
-function Counter({ min = 1, step = 1 }) {
-  const [count, setCount] = useState(min);
-
-  const handleClickIncreaseButton = () => {
-    setCount((prev) => prev + step);
-  };
-
-  const handleClickDecreaseButton = () => {
-    if (count <= min) return;
-    setCount((prev) => prev - step);
-  };
-
+function Counter({
+  count,
+  handleClickIncreaseButton,
+  handleClickDecreaseButton,
+}) {
   return (
     <CounterContainer>
       <div>
-        <CounterInput
-          type="number"
-          readOnly="readonly"
-          min={min}
-          value={count}
-        />
+        <CounterInput type="number" readOnly="readonly" value={count} />
       </div>
       <CounterButtonContainer>
         <ArrowButton type="button" onClick={handleClickIncreaseButton}>

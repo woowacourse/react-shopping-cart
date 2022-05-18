@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const CheckBoxContainer = styled.label`
@@ -47,19 +47,13 @@ const CustomCheckBox = styled.span`
   }
 `;
 
-function CheckBox({ children }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleClickCheckbox = () => {
-    setIsChecked((prev) => !prev);
-  };
-
+function CheckBox({ children, isChecked, handleChangeCheckbox }) {
   return (
     <CheckBoxContainer>
       <CheckBoxInput
         type="checkbox"
         checked={isChecked}
-        onClick={handleClickCheckbox}
+        onChange={handleChangeCheckbox}
       />
       <CustomCheckBox checked={isChecked}>
         <CheckIcon />
