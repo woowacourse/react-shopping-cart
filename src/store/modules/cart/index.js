@@ -7,6 +7,12 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.SET_CART_PRODUCT_LIST:
+      return {
+        ...state,
+        products: action.payload,
+        count: action.payload.length,
+      };
     case actionTypes.ADD_PRODUCT_TO_CART:
       return {
         ...state,

@@ -1,5 +1,18 @@
-import { deleteCartItem, postCartItem } from '../../../api';
+import { deleteCartItem, postCartItem, getCartList } from '../../../api';
 import { actionTypes } from './actionTypes';
+
+const setCartProductListAsync = () => async (dispatch) => {
+  try {
+    const { data } = await getCartList();
+
+    dispatch({
+      type: actionTypes.SET_CART_PRODUCT_LIST,
+      payload: data,
+    });
+  } catch (err) {
+    console.log('err', err.message);
+  }
+};
 
 const AddProductToCartAsync = (product) => async (dispatch) => {
   try {
@@ -27,4 +40,4 @@ const removeProductToCartAsync = (id) => async (dispatch) => {
   }
 };
 
-export { AddProductToCartAsync, removeProductToCartAsync };
+export { AddProductToCartAsync, removeProductToCartAsync, setCartProductListAsync };
