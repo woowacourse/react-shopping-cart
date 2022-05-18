@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import FlexWrapper from 'components/FlexWrapper';
 import MarginWrapper from 'components/MarginWrapper';
@@ -16,9 +17,11 @@ function Header() {
         <HomeButton />
         <FlexWrapper>
           <MarginWrapper marginRight="2.2vw">
-            <Button fontSize="1.5rem" color="whiteFontColor" border="none">
-              장바구니
-            </Button>
+            <Link to="/cart">
+              <Button fontSize="1.5rem" color="whiteFontColor" border="none">
+                장바구니
+              </Button>
+            </Link>
           </MarginWrapper>
           <OrderListButton />
         </FlexWrapper>
