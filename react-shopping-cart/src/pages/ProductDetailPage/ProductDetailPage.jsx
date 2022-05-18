@@ -43,6 +43,7 @@ function ProductDetailPage() {
   }, [dispatch, idx]);
 
   return (
+    // THINK: page 컴포넌트의 추상화레벨을 맞춰야할 것 같은데, 맞을까?
     product && (
       <WithSpinner loading={cartsLoading || productsLoading}>
         <ColumnFlexWrapper gap="20px" width="425px" ml="auto" mr="auto">

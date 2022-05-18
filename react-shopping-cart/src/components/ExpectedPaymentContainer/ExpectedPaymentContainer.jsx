@@ -34,6 +34,7 @@ function ExpectedPaymentContainer() {
 
   return (
     <ExpectedPaymentWrapper>
+      {/* THINK: Top, Bottom Container가 단순히 style만 있는 컴포넌트이다. 이 부분은 여기서 선언해서 사용해도 되지 않을까? */}
       <ExpectedPaymentTopContainer>결제예상금액</ExpectedPaymentTopContainer>
       <ExpectedPaymentBottomContainer>
         <ExpectedPaymentBox price={totalPaymentCost} />

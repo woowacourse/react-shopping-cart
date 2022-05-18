@@ -18,6 +18,7 @@ function AllSelectButton() {
 
   return (
     <RowFlexWrapper gap="10px">
+      {/* TODO: type checkbox를 기본적으로 넣어주기 */}
       <CheckBox type="checkbox" onChange={handleChangeCheckBox} />
       <div>{checked ? '전체선택' : '선택해제'}</div>
     </RowFlexWrapper>

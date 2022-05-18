@@ -63,7 +63,6 @@ function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
         <ProductName type="card">{name}</ProductName>
         <ProductPrice type="card">{price}원</ProductPrice>
       </ProductCardInfoBox>
-
       <div
         onClick={
           $isincart

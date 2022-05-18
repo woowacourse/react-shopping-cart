@@ -55,6 +55,7 @@ function ProductListPage() {
   };
 
   return (
+    // TODO: 컴포넌트 추상화 레벨 맞추기
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
         <GridContainer>
@@ -72,6 +73,7 @@ function ProductListPage() {
           })}
         </GridContainer>
         <Pagination>
+          {/* FIXME: Array.from으로 변경 */}
           {new Array(5).fill('').map((_, pageNum) => (
             <PaginationButton
               key={pageNum}

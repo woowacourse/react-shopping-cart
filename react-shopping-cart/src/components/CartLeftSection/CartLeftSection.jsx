@@ -60,6 +60,7 @@ function CartLeftSection() {
           상품삭제
         </ProductDeleteButton>
       </CartLeftSectionHeader>
+      {/* FIXME: inline style 빼기 */}
       <div style={{ width: 'inherit' }}>
         <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
         <WithSpinner loading={cartLoading}>

@@ -3,9 +3,11 @@ import cartsActionTypes from 'redux/carts/carts.types';
 import { CURRENT_USER } from 'constants';
 
 const INITIAL_STATE = {
+  // TODO: isLoading
   loading: false,
   carts: [],
   error: false,
+  // TODO: isAllChecked
   allChecked: false,
 };
 

@@ -8,11 +8,12 @@ import Header from 'components/@shared/Header/Header';
 import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
 import PageTitle from 'components/@shared/PageTitle/PageTitle';
 
-import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
+import { RowFlexWrapper } from 'styles/Wrapper';
 
 import { ReactComponent as Cart } from 'assets/cart.svg';
 
 function App() {
+  // TODO: 개행 손보기
   const navigate = useNavigate();
 
   const handleNavigatePage = (path) => () => {
@@ -35,9 +36,9 @@ function App() {
       </Header>
       <Routes>
         <Route element={<ProductListPage />} path="/">
-          <Route element={<ProductListPage />} path="/:idx" />
-          <Route path="/detail/:idx" element={<ProductDetailPage />} />
+          <Route element={<ProductListPage />} path=":idx" />
         </Route>
+        <Route path="/detail/:idx" element={<ProductDetailPage />} />
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
       </Routes>
     </>
