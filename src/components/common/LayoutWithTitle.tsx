@@ -1,7 +1,13 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 
-const LayoutWithTitle = ({ title, children }) => {
+interface LayoutWithTitleProps {
+  title: string;
+  children: ReactNode;
+}
+
+const LayoutWithTitle = ({ title, children }: LayoutWithTitleProps) => {
   return (
     <StyledRoot>
       <h2>{title}</h2>
@@ -14,7 +20,7 @@ const LayoutWithTitle = ({ title, children }) => {
 export default LayoutWithTitle;
 
 const StyledRoot = styled.div`
-  width: 1320px;
+  width: 100%;
   ${flexCenter}
   flex-direction: column;
   color: ${({ theme }) => theme.colors.font};

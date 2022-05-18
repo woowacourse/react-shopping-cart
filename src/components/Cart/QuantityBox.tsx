@@ -1,20 +1,34 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 
 interface QuantityBoxProps {
   quantity: number;
+  handleChange: (diff?: number) => void;
 }
 
-const QuantityBox = ({ quantity }: QuantityBoxProps) => {
+const QuantityBox = ({ quantity, handleChange }: QuantityBoxProps) => {
+  const inputRef = useRef(null);
+
   return (
     <StyledRoot>
       {/* @TODO: number 제한 */}
-      <StyledInput type='number' value={quantity} />
+      <StyledInput type='number' defaultValue={quantity} ref={inputRef} />
       <div>
-        <StyledArrowBox>
+        <StyledArrowBox
+          onClick={() => {
+            inputRef.current.value = quantity + 1;
+            handleChange(1);
+          }}
+        >
           <StyledArrowUp />
         </StyledArrowBox>
-        <StyledArrowBox>
+        <StyledArrowBox
+          onClick={() => {
+            inputRef.current.value = quantity - 1;
+            handleChange(-1);
+          }}
+        >
           <StyledArrowDown />
         </StyledArrowBox>
         <div></div>
@@ -44,6 +58,7 @@ const StyledArrowBox = styled.div`
   height: 3rem;
   border: 1px solid ${({ theme }) => theme.colors.boxBorder};
   ${flexCenter}
+  cursor: pointer;
 `;
 
 const StyledArrowUp = styled.div`

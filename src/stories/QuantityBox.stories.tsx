@@ -5,6 +5,7 @@ import React from 'react';
 export default {
   component: QuantityBox,
   title: 'QuantityBox',
+  args: { quantity: 3 },
 } as ComponentMeta<typeof QuantityBox>;
 
 const Template = args => <QuantityBox {...args} />;
