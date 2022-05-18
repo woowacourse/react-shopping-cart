@@ -1,10 +1,11 @@
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://ahn-shopping-cart.herokuapp.com';
 const PRODUCTS_PATH = '/products';
 
 const PATH = {
   HOME: '/',
   DETAIL: '/product-detail/:id',
   DETAIL_LINK: '/product-detail/',
+  BASKET: '/shopping-basket',
 };
 
 const SIZE = {
