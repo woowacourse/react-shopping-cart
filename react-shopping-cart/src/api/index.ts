@@ -57,3 +57,30 @@ export const deleteProductFromCart = async (id: string) => {
   }
   return await res.json();
 };
+
+export const addOrderItem = async (product: CartItem): Promise<CartItem> => {
+  const res = await fetch(`${API_URL}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
+  if (!res.ok) {
+    throw new Error("주문에 실패했습니다");
+  }
+  return await res.json();
+};
+
+export const deleteOrderItem = async (id: string) => {
+  const res = await fetch(`${API_URL}/orders/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("삭제에 실패했습니다");
+  }
+  return await res.json();
+};
