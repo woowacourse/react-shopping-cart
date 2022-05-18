@@ -32,7 +32,7 @@ function ProductListContainer() {
     <Styled.ProductListContainer>
       {loading && <h2>Loading...</h2>}
       {productsError && <h2>{productsError}</h2>}
-      {products?.length === 0 ? (
+      {!loading && !productsError && products?.length === 0 ? (
         <h2>상품이 없습니다.</h2>
       ) : (
         products?.map(({ id, src, title, price }) => (

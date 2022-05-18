@@ -13,7 +13,7 @@ const initialState = {
   productsError: null,
 };
 
-const actionCreators = {
+const productsActionCreators = {
   loadProducts: (payload) => ({ type: TYPE.PRODUCTS_LOAD, payload }),
   loading: (payload) => ({ type: TYPE.LOADING, payload }),
   error: (payload) => ({ type: TYPE.ERROR, payload }),
@@ -23,11 +23,11 @@ export const loadProducts = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`${SERVER_URL}${PATH.PRODUCTS}`);
 
-    dispatch(actionCreators.loadProducts(data));
+    dispatch(productsActionCreators.loadProducts(data));
   } catch (error) {
-    dispatch(actionCreators.error(ERROR_MESSAGE.LOAD_PRODUCTS));
+    dispatch(productsActionCreators.error(ERROR_MESSAGE.LOAD_PRODUCTS));
   } finally {
-    dispatch(actionCreators.loading(false));
+    dispatch(productsActionCreators.loading(false));
   }
 };
 
