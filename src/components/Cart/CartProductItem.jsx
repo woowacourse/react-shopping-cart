@@ -73,8 +73,7 @@ const CartProductItem = ({ thumbnail, title, price }) => {
   return (
     <Styled.Wrapper>
       <Styled.ProductInfoBox>
-        <CheckBox />
-
+        <CheckBox id={title} />
         <Styled.Thumbnail src={thumbnail} alt={title} />
         <Styled.Title>샐리 인형</Styled.Title>
       </Styled.ProductInfoBox>
