@@ -30,14 +30,13 @@ export const addOrderError = (error: Error) => ({
   payload: error,
 });
 
-export const deleteOrderStart = (id: string) => ({
+export const deleteOrderStart = (idList: string[]) => ({
   type: ordersActionTypes.deleteOrderStart,
-  payload: id,
+  payload: idList,
 });
 
-export const deleteOrderSuccess = (id: string) => ({
+export const deleteOrderSuccess = () => ({
   type: ordersActionTypes.deleteOrderSuccess,
-  payload: id,
 });
 
 export const deleteOrderError = (error: Error) => ({
