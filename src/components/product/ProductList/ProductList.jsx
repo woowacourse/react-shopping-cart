@@ -4,6 +4,8 @@ import ErrorContainer from '../../common/ErrorContainer/ErrorContainer';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 
+const INVALID_PAGE_ERROR_MESSAGE = '😱 존재하지 상품 페이지입니다. 😱';
+
 function ProductList({ openModal }) {
   const { isLoading, productList, pageCount, currentPage } = useProductList();
 
@@ -13,9 +15,7 @@ function ProductList({ openModal }) {
 
   return (
     <Styled.Container>
-      {currentPage > pageCount && (
-        <ErrorContainer>😱 존재하지 상품 페이지입니다. 😱</ErrorContainer>
-      )}
+      {currentPage > pageCount && <ErrorContainer>{INVALID_PAGE_ERROR_MESSAGE}</ErrorContainer>}
       {isLoading
         ? Array.from({ length: 12 }).map((_, index) => <ProductCard.skeleton key={index} />)
         : productList.map((product) => (

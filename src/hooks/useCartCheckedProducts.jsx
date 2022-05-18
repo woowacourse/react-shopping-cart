@@ -7,6 +7,8 @@ import {
 } from '../store/actions/cart';
 import { cartSelector } from '../store/selector';
 
+const PRODUCTS_DELETE_WARNING_MESSAGE = (count) => `${count}개의 상품을 삭제하시겠습니까?`;
+
 const useCartCheckedProducts = () => {
   const dispatch = useDispatch();
   const { cart, checkedProductList } = useSelector(cartSelector);
@@ -37,7 +39,7 @@ const useCartCheckedProducts = () => {
 
     if (
       checkedListLength !== 0 &&
-      window.confirm(`${checkedListLength}개의 상품을 삭제하시겠습니까?`)
+      window.confirm(PRODUCTS_DELETE_WARNING_MESSAGE(checkedListLength))
     ) {
       dispatch(deleteCartProductAsync(checkedProductList));
     }

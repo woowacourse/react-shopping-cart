@@ -5,6 +5,9 @@ import Counter from '../../common/Counter/Counter';
 import { useCount } from '../../../hooks/useCount';
 import { useDispatch } from 'react-redux';
 import { addToCartAsync } from '../../../store/actions/cart';
+
+const PRODUCT_ADDED_MESSAGE = (count) => `${count}개가 장바구니에 추가되었습니다.`;
+
 function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
   const [count, onIncrement, onDecrement] = useCount({ initialValue: 1, min: 1, max: quantity });
 
@@ -12,7 +15,7 @@ function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
 
   const onClickCartAdd = () => {
     dispatch(addToCartAsync(id, count));
-    alert(`${name} 상품 ${count}개가 장바구니에 추가되었습니다.`);
+    alert(`${name}: ${PRODUCT_ADDED_MESSAGE(count)} `);
     closeModal();
   };
 

@@ -13,6 +13,9 @@ import Image from '../../common/Image/Image';
 import * as Styled from './CartProductCard.style';
 import { color } from '../../../styles/Theme.js';
 
+const MINIMUM_QUANTITY_WARNING_MESSAGE = '주문할 수 있는 최소 수량입니다.';
+const PRODUCT_DELETE_WARNING = '상품을 장바구니에서 삭제하시겠습니까?';
+
 function CartProductCard({ product: { id: productId, name, price, imageURL }, quantity }) {
   const dispatch = useDispatch();
 
@@ -28,14 +31,14 @@ function CartProductCard({ product: { id: productId, name, price, imageURL }, qu
 
   const onDecrementQuantity = () => {
     if (quantity === 1) {
-      alert('주문할 수 있는 최소 수량입니다.');
+      alert(MINIMUM_QUANTITY_WARNING_MESSAGE);
       return;
     }
     dispatch(updateCartProductQuantityAsync(productId, quantity - 1));
   };
 
   const onProductDelete = () => {
-    if (window.confirm(`해당 상품을 장바구니에서 삭제하시겠습니까?`)) {
+    if (window.confirm(`${name}: ${PRODUCT_DELETE_WARNING}`)) {
       dispatch(deleteCartProductAsync([productId]));
     }
   };
