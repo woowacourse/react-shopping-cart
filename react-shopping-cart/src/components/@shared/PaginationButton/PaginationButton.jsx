@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 // 재사용O
-function PaginationButton({ children }) {
-  return <Styled.Root>{children}</Styled.Root>;
+function PaginationButton({ children, ...props }) {
+  console.log('1');
+  return <Styled.Root {...props}>{children}</Styled.Root>;
 }
 
 const Styled = {
-  PaginationButton: styled.button`
+  Root: styled.button`
     width: 50px;
     height: 50px;
     font-size: 18px;
