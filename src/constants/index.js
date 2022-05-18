@@ -1,5 +1,7 @@
 export const BASE_SERVER_URL =
-  "https://react-shoppingcart-server.herokuapp.com";
+  process.env.NODE_ENV === "production"
+    ? "https://react-shoppingcart-server.herokuapp.com"
+    : "dev";
 export const PRODUCT_LIST_PATH = "/products";
 
 export const ROUTES = {
