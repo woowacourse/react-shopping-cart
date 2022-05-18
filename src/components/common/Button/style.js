@@ -9,6 +9,8 @@ const buttonTypes = {
   `,
   grayBorder: css`
     border: ${({theme}) => `solid 1px ${theme.COLOR.GRAY_500}`};
+    color: ${({theme}) => theme.COLOR.BLACK};
+    font-size: ${({theme}) => theme.FONT_SIZE.XS};
   `,
 };
 

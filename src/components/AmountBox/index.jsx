@@ -28,7 +28,7 @@ const amountBoxType = {
   },
 };
 
-function AmountBox({type = 'cart', totalCount, totalPrice}) {
+function AmountBox({type = 'cart', totalQuantity, totalPrice}) {
   return (
     <AmountBoxWrapper>
       <AmountBoxHeaderWrapper>{amountBoxType[type].header}</AmountBoxHeaderWrapper>
@@ -37,7 +37,7 @@ function AmountBox({type = 'cart', totalCount, totalPrice}) {
         <p>{totalPrice}원</p>
       </PriceInfoWrapper>
       <Button buttonType="brownBackground" width="100%" height="73px">
-        {amountBoxType[type].buttonText(totalCount, totalPrice)}
+        {amountBoxType[type].buttonText(totalQuantity, totalPrice)}
       </Button>
     </AmountBoxWrapper>
   );
@@ -45,7 +45,7 @@ function AmountBox({type = 'cart', totalCount, totalPrice}) {
 
 AmountBox.propTypes = {
   type: PropTypes.string,
-  totalCount: PropTypes.number,
+  totalQuantity: PropTypes.number,
   totalPrice: PropTypes.number,
 };
 

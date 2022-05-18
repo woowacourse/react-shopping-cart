@@ -4,6 +4,6 @@ const PATH = {
   DETAIL: '/detail',
 };
 
-const API_URL = 'https://dory-server.herokuapp.com';
+const API_URL = process.env.NODE_ENV === 'production' ? 'https://dory-server.herokuapp.com' : '/';
 
 export {PATH, API_URL};

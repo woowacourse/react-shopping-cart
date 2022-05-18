@@ -1,6 +1,8 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+
+import useReducerSelect from 'hooks/useReducerSelect';
+import {getCart} from 'store/modules/cart';
 
 import CheckBox from 'components/common/CheckBox';
 import Button from 'components/common/Button';
@@ -19,16 +21,20 @@ import {
 } from 'pages/ProductCartPage/style';
 
 export default function ProductCartPage() {
-  const cartItem = useSelector((state) => state.cartReducer.cart);
+  const {dispatch, pending, error, data: cartItem} = useReducerSelect('cartReducer');
 
-  const {totalCount, totalPrice} = cartItem.reduce(
+  console.log(cartItem, pending, error);
+  useEffect(() => {
+    dispatch(getCart());
+  }, []);
+  const {totalQuantity, totalPrice} = cartItem.reduce(
     (prev, cur) => {
       return {
-        totalCount: cur.count + prev.totalCount,
-        totalPrice: cur.itemPrice * cur.count + prev.totalPrice,
+        totalQuantity: cur.quantity + prev.totalQuantity,
+        totalPrice: cur.price * cur.quantity + prev.totalPrice,
       };
     },
-    {totalCount: 0, totalPrice: 0},
+    {totalQuantity: 0, totalPrice: 0},
   );
 
   return (
@@ -38,21 +44,24 @@ export default function ProductCartPage() {
         <SelectCartWrapper>
           <SelectDeleteWrapper>
             <CheckBoxWrapper>
-              <CheckBox id="check" />
+              <CheckBox />
               선택해제
             </CheckBoxWrapper>
-            <Button>상품삭제</Button>
+            <Button buttonType="grayBorder" width="117px" height="50px">
+              상품삭제
+            </Button>
           </SelectDeleteWrapper>
 
-          <ListHeaderWrapper>장바구니 상품 (개)</ListHeaderWrapper>
+          <ListHeaderWrapper>{`장바구니 상품 ${cartItem.length}(개)`}</ListHeaderWrapper>
           <CartListWrapper>
-            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
+            {cartItem.map(({image, name, price, quantity, checked, id}) => (
               <React.Fragment key={id}>
                 <CartItem
-                  itemImgURL={itemImgURL}
-                  itemName={itemName}
-                  itemPrice={itemPrice}
-                  count={count}
+                  itemImgURL={image}
+                  itemName={name}
+                  itemPrice={price}
+                  quantity={quantity}
+                  checked={checked}
                   id={id}
                 />
                 <hr />
@@ -61,7 +70,7 @@ export default function ProductCartPage() {
           </CartListWrapper>
         </SelectCartWrapper>
 
-        <AmountBox type="cart" totalCount={totalCount} totalPrice={totalPrice} />
+        <AmountBox type="cart" totalQuantity={totalQuantity} totalPrice={totalPrice} />
       </CartInfoWrapper>
     </ProductCartPageWrapper>
   );

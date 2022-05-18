@@ -7,7 +7,7 @@ const CartItemWrapper = styled.div`
 `;
 
 const ItemNameWrapper = styled.div`
-  width: 100%;
+  width: 200px;
 `;
 
 const ItemCountBox = styled.div`

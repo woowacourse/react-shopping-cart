@@ -14,15 +14,15 @@ import {PATH} from 'constants';
 
 export default function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename={'react-shopping-cart'}>
       <div>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <Header />
           <Routes>
-            <Route exact path={PATH.HOME} element={<ProductListPage />}></Route>
-            <Route exact path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
-            <Route exact path={PATH.CART} element={<ProductCartPage />}></Route>
+            <Route path={PATH.HOME} element={<ProductListPage />}></Route>
+            <Route path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
+            <Route path={PATH.CART} element={<ProductCartPage />}></Route>
           </Routes>
         </ThemeProvider>
       </div>

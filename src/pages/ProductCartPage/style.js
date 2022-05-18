@@ -31,13 +31,6 @@ const SelectDeleteWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
-
-  & button {
-    border: 1px solid #bbbbbb;
-    color: #333333;
-    font-size: 16px;
-    padding: 22px 12px;
-  }
 `;
 
 const ListHeaderWrapper = styled.div`

@@ -2,35 +2,47 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
 
-import DetailItem from 'components/DetailItem';
+import {getProductItem} from 'store/modules/productItem';
+import {getCart} from 'store/modules/cart';
 import useReducerSelect from 'hooks/useReducerSelect';
 
 import {DetailItemPageWrapper} from 'pages/ProductDetailPage/style';
-import {getProductItem} from 'store/modules/productItem';
-import Loading from 'components/Loader';
 import ErrorPage from 'pages/ErrorPage';
+import Loader from 'components/Loader';
+import DetailItem from 'components/DetailItem';
+
 export default function ProductDetailPage() {
-  const {dispatch, pending, error, data: productItem} = useReducerSelect('productItemReducer');
+  const {
+    dispatch: productItemDispatch,
+    pending: productItemPending,
+    error: productItemError,
+    data: productItem,
+  } = useReducerSelect('productItemReducer');
+  const {data: cart} = useReducerSelect('cartReducer');
 
   const {id} = useParams();
 
+  const disable = cart.some(({id: productId}) => productId === id);
+
   useEffect(() => {
-    dispatch(getProductItem(id));
+    productItemDispatch(getProductItem(id));
+    productItemDispatch(getCart());
   }, []);
+
+  if (productItemPending) return <Loader />;
+  if (productItemError) return <ErrorPage />;
 
   return (
     <DetailItemPageWrapper>
-      {pending && <Loading />}
-      {error && <ErrorPage />}
-      {!pending && (
+      {
         <DetailItem
           itemImgURL={productItem.image}
           itemName={productItem.name}
           itemPrice={productItem.price}
           id={id}
-          disabled={productItem.disable}
+          disabled={disable}
         />
-      )}
+      }
     </DetailItemPageWrapper>
   );
 }

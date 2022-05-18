@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
 
@@ -21,7 +22,7 @@ export const rootReducer = combineReducers({
   cartReducer,
 });
 
-export const store = createStore(rootReducer, applyMiddleware(reduxThunk));
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(reduxThunk)));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

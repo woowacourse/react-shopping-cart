@@ -12,7 +12,7 @@ const getProductItem = (id) => async (dispatch) => {
   });
 
   try {
-    const {data} = await appClient.get(`products/${id}`);
+    const {data} = await appClient.get(`/products/${id}`);
     dispatch({
       type: ACTION.PRODUCT_ITEM_SUCCESS,
       payload: data,

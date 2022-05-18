@@ -16,6 +16,7 @@ const ItemImageWrapper = styled.div`
   & img {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    object-fit: cover;
   }
 
   & img:hover {

@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-//import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
-
-//import {ADD_CART} from 'store/modules/cart';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'components/common/Button';
@@ -18,18 +15,21 @@ import {
   ItemNameWrapper,
   ItemPriceWrapper,
 } from 'components/Item/style';
+import useReducerSelect from 'hooks/useReducerSelect';
+import {postCart} from 'store/modules/cart';
 
 export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
+  const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
 
   const navigation = useNavigate();
-  //const dispatch = useDispatch();
 
   const handleImageClick = () => navigation(`${PATH.DETAIL}/${id}`);
 
   const handleCartIconClick = () => {
     setDisable(true);
-    //dispatch({type: ADD_CART, payload: {id, itemImgURL, itemName, itemPrice, count: 1}});
+    dispatch(postCart(id));
+    console.log(pending, error, data);
   };
 
   return (

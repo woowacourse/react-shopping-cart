@@ -2,19 +2,24 @@ import React, {useState} from 'react';
 //import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import {ADD_CART} from 'store/modules/cart';
+import useReducerSelect from 'hooks/useReducerSelect';
+import {postCart} from 'store/modules/cart';
 
 import Button from 'components/common/Button';
 
 import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'components/DetailItem/style';
+import {useParams} from 'react-router-dom';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disabled}) {
   const [disable, setDisable] = useState(disabled);
-  //const dispatch = useDispatch();
+  const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
+
+  const {id} = useParams();
 
   const handleCartButtonClick = () => {
     setDisable(true);
-    //dispatch({type: ADD_CART, payload: {itemImgURL, itemName, itemPrice, id, count: 1}});
+    dispatch(postCart(id));
+    console.log(pending, error, data);
   };
 
   return (

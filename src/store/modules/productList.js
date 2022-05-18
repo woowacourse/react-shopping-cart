@@ -10,7 +10,7 @@ export const getProductList = () => async (dispatch) => {
   dispatch({type: ACTION.PRODUCT_LIST_PENDING});
 
   try {
-    const {data} = await appClient.get('products');
+    const {data} = await appClient.get('/products');
     dispatch({
       type: ACTION.PRODUCT_LIST_SUCCESS,
       payload: data,
