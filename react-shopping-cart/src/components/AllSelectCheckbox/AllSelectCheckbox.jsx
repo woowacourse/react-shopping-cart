@@ -7,7 +7,8 @@ import { allToggleIsChecked } from 'redux/carts/carts.action';
 
 import { RowFlexWrapper } from 'styles/Wrapper';
 
-function AllSelectButton() {
+//재사용O
+function AllSelectCheckbox() {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
@@ -18,11 +19,10 @@ function AllSelectButton() {
 
   return (
     <RowFlexWrapper gap="10px">
-      {/* TODO: type checkbox를 기본적으로 넣어주기 */}
-      <CheckBox type="checkbox" onChange={handleChangeCheckBox} />
+      <CheckBox onChange={handleChangeCheckBox} />
       <div>{checked ? '전체선택' : '선택해제'}</div>
     </RowFlexWrapper>
   );
 }
 
-export default AllSelectButton;
+export default AllSelectCheckbox;

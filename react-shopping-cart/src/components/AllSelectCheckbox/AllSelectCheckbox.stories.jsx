@@ -1,4 +1,4 @@
-import AllSelectButton from 'components/AllSelectButton/AllSelectButton';
+import AllSelectButton from 'components/AllSelectCheckbox/AllSelectCheckbox';
 
 export default {
   title: 'AllSelectButton',
