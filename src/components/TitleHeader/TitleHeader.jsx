@@ -30,8 +30,9 @@ const Styled = {
 
   DivideLine: styled.hr`
     width: 100%;
-    border: 2px solid black;
+    border: 2px solid #000;
     margin-top: 20px;
+    background-color: #000;
   `,
 };
 

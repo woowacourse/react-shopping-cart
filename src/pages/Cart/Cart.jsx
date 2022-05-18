@@ -12,7 +12,7 @@ const Cart = () => {
   getCartEffect();
 
   const totalPrice = cart.reduce((acc, cur) => {
-    return acc + Number(cur.price);
+    return acc + Number(cur.price * cur.cartQuantity);
   }, 0);
 
   return (
