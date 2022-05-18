@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="react-shopping-cart">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <GlobalStyle />
       <App />
     </BrowserRouter>

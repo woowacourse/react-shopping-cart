@@ -1,5 +1,6 @@
 {
   "name": "react-shopping-cart",
+  "homepage": ".",
   "description": "<우아한테크코스 4기 프론트엔드> level 2 - 장바구니",
   "version": "0.1.0",
   "private": true,
