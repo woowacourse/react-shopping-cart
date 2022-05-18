@@ -10,6 +10,10 @@ const GlobalStyles = () => (
         padding: 0;
       }
 
+      img {
+        display: block;
+      }
+
       p {
         cursor: default;
       }
@@ -22,6 +26,13 @@ const GlobalStyles = () => (
       }
 
       button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        background: transparent;
+        color: inherit;
+        font: inherit;
         cursor: pointer;
       }
 
