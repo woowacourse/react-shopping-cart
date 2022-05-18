@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
-import { useNavigate } from 'react-router-dom';
-import { PATH } from 'constants/path';
+
 import { useParams } from 'react-router-dom';
 
 import usePost from 'hooks/usePost';
 
 const ProductDetail = ({ imgUrl, name, price }) => {
-  const navigate = useNavigate();
-
   const { id } = useParams();
   const { isLoading, isError, callApi } = usePost('/cartList', {
     id,
@@ -18,9 +15,6 @@ const ProductDetail = ({ imgUrl, name, price }) => {
 
   const handleClickCart = () => {
     callApi();
-
-    // TODO isError의 최신 상태를 받아오지 못하고 있다.
-    if (!isError) navigate(PATH.CART);
   };
 
   return (
