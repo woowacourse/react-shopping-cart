@@ -12,7 +12,6 @@ import {GlobalStyles} from 'style/globalStyle';
 
 import {PATH} from 'constant';
 
-import 'App.css';
 import NotFoundPage from 'page/NotFoundPage';
 
 export default function App() {
