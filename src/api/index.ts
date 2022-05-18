@@ -29,7 +29,7 @@ const OPTIONS = (method: Method, body?: Body) => {
 
 export const loadProductList = async (): Promise<ProductData[]> => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/productList`, OPTIONS(GET));
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/productList`, OPTIONS(GET));
 
     if (!response.ok) {
       throw Error('잘못된 API 조회입니다.');
@@ -44,7 +44,7 @@ export const loadProductList = async (): Promise<ProductData[]> => {
 export const loadProduct = async (id: number): Promise<ProductData> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/productList/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/productList/${id}`,
       OPTIONS(GET),
     );
 
