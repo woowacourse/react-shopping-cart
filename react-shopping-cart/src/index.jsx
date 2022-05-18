@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import thunk from 'redux-thunk';
 import { ThemeProvider } from 'styled-components';
 import rootReducer from 'reducers';
 import { ProductList, ProductDetail, NotFound } from 'pages';
 import { GlobalStyle, theme } from 'styles';
 import PATH from 'constants/path';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 const persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
