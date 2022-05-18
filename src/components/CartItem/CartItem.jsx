@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import trash from 'assets/svg/trash.svg';
 import comma from 'utils/comma';
 
-const CartItem = ({ cartList }) => {
+const CartItem = ({ item }) => {
   return (
     <>
       <Styled.Wrapper>
         <Styled.LeftInfo>
           <Styled.Checkbox type="checkbox" checked="true"></Styled.Checkbox>
-          <Styled.ProductImg src={cartList.imgUrl} alt={cartList.name} />
-          <Styled.ProductName>{cartList.name}</Styled.ProductName>
+          <Styled.ProductImg src={item.imgUrl} alt={item.name} />
+          <Styled.ProductName>{item.name}</Styled.ProductName>
         </Styled.LeftInfo>
         <Styled.RightControl>
           <Styled.TrashIcon src={trash} alt="삭제" />
           <Styled.InputWrapper>
-            <Styled.NumberInput value={cartList.cartQuantity} />
+            <Styled.NumberInput value={item.cartQuantity} />
             <div>
               <Styled.NumberInputButton>▲</Styled.NumberInputButton>
               <Styled.NumberInputButton>▼</Styled.NumberInputButton>
             </div>
           </Styled.InputWrapper>
           <Styled.CartPrice>
-            {comma(cartList.cartQuantity * Number(cartList.price))}원
+            {comma(item.cartQuantity * Number(item.price))}원
           </Styled.CartPrice>
         </Styled.RightControl>
       </Styled.Wrapper>
@@ -32,7 +32,7 @@ const CartItem = ({ cartList }) => {
 };
 
 CartItem.propTypes = {
-  cartList: PropTypes.object,
+  item: PropTypes.object,
 };
 
 const Styled = {
@@ -114,6 +114,7 @@ const Styled = {
     width: 100%;
     border: 1px solid #aaaaaa;
     margin-top: 10px;
+    background-color: #aaaaaa;
   `,
 };
 

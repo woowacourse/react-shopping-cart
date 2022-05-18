@@ -10,7 +10,7 @@ const Template = (args) => <CartItem {...args} />;
 export const Example = Template.bind({});
 
 Example.args = {
-  cartList: {
+  item: {
     id: 2,
     name: '관절에 무리없는 캣워커/캣휠 120CM 대형사이즈',
     imgUrl:
