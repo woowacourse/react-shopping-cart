@@ -7,10 +7,9 @@ const Header = styled.header`
   display: flex;
   padding: 0 180px;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.cyon};
+  background-color: ${({ theme }) => theme.colors.cyon_02};
   justify-content: space-between;
-  // FIXME: theme value 사용
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.opacity_black_02};
 `;
 
 export default Header;

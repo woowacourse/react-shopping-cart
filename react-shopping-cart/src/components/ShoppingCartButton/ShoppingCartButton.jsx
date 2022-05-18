@@ -7,7 +7,7 @@ const ShoppingCartButton = styled(Button)`
   height: 65px;
   font-size: 21px;
   background-color: ${({ $isincart, theme }) =>
-    $isincart ? theme.colors['red_03'] : theme.colors['brown_09']};
+    $isincart ? theme.colors.red_01 : theme.colors.brown_09};
 `;
 
 export default ShoppingCartButton;

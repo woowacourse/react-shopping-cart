@@ -4,11 +4,9 @@ import Button from 'components/@shared/Button/Button';
 
 const ProductDeleteButton = styled(Button)`
   padding: 8px 14px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.cyon_02};
   font-size: 12px;
-  // FIXME: theme color 적용
-  color: black;
-  border: 1px solid ${({ theme }) => theme.colors['gray_02']};
+  border: 1px solid ${({ theme }) => theme.colors.gray_02};
 `;
 
 export default ProductDeleteButton;

@@ -10,11 +10,6 @@ import { selectCurrentCarts } from 'redux/carts/carts.selector';
 
 import { CURRENT_USER } from 'constants';
 
-const ExpectedPaymentWrapper = styled.div`
-  border: 1px solid;
-  border-color: ${({ theme }) => theme.colors['gray_04']};
-`;
-
 function ExpectedPaymentContainer() {
   const carts = useSelector(selectCurrentCarts);
 
@@ -43,5 +38,9 @@ function ExpectedPaymentContainer() {
     </ExpectedPaymentWrapper>
   );
 }
+
+const ExpectedPaymentWrapper = styled.div`
+  border: 1px solid ${({ theme }) => theme.colors.gray_04};
+`;
 
 export default ExpectedPaymentContainer;

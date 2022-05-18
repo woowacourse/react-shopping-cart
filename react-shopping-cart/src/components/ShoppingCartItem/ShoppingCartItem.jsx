@@ -14,31 +14,6 @@ import useClickCartButton from 'hooks/useClickCartButton';
 
 import { ReactComponent as Trash } from 'assets/trash.svg';
 
-const CartContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 490px;
-  padding: 20px 5px;
-  border-top: 1px solid;
-  border-color: ${({ theme }) => theme.colors['gray_03']};
-`;
-
-const LeftContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: flex-end;
-`;
-
-const TrashContainer = styled.div`
-  cursor: pointer;
-`;
-
 function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
   const { handleDeleteProduct } = useClickCartButton();
   const dispatch = useDispatch();
@@ -68,5 +43,29 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
     </CartContainer>
   );
 }
+
+const CartContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 490px;
+  padding: 20px 5px;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray_03};
+`;
+
+const LeftContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const RightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+`;
+
+const TrashContainer = styled.div`
+  cursor: pointer;
+`;
 
 export default ShoppingCartItem;

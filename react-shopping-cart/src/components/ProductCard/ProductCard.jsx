@@ -7,6 +7,18 @@ import ProductCardInfo from 'components/ProductCardInfo/ProductCardInfo';
 
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
+function ProductCard(props) {
+  const { id, thumbnail } = props;
+  const navigate = useNavigate();
+
+  return (
+    <ProductCardBox onClick={() => navigate(`/detail/${id}`)}>
+      <ProductThumbnail src={thumbnail} type="card" />
+      <ProductCardInfo {...props} />
+    </ProductCardBox>
+  );
+}
+
 const scaleAnimation = keyframes`
   0%{}
 
@@ -19,25 +31,12 @@ const ProductCardBox = styled(ColumnFlexWrapper)`
   width: 220px;
   height: 300px;
   padding: 20px 10px;
-  /* FIXME: pallete color */
-  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0.1, 0.1);
+  box-shadow: 3px 3px 3px 3px ${({ theme }) => theme.colors.opacity_black_01};
   cursor: pointer;
   :hover {
     animation: ${scaleAnimation} 0.5s ease-out;
     animation-fill-mode: forwards;
   }
 `;
-
-function ProductCard(props) {
-  const { id, thumbnail } = props;
-  const navigate = useNavigate();
-
-  return (
-    <ProductCardBox onClick={() => navigate(`/detail/${id}`)}>
-      <ProductThumbnail src={thumbnail} type="card" />
-      <ProductCardInfo {...props} />
-    </ProductCardBox>
-  );
-}
 
 export default ProductCard;

@@ -6,7 +6,7 @@ const OrderButton = styled(Button)`
   width: 258px;
   height: 48px;
   font-size: 16px;
-  background: ${({ theme }) => theme.colors.cyon};
+  background: ${({ theme }) => theme.colors.cyon_02};
 `;
 
 export default OrderButton;

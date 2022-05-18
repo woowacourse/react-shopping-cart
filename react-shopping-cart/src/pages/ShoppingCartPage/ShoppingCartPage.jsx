@@ -12,7 +12,7 @@ const ShoppingCartPageHeader = styled.div`
   text-align: center;
   font-size: 22px;
   font-weight: 700;
-  border-bottom-color: ${({ theme }) => theme.colors['black_03']};
+  border-bottom-color: ${({ theme }) => theme.colors.black_01};
 `;
 
 const ShoppingCartPageContent = styled.div`
