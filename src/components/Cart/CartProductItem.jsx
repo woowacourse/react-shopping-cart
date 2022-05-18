@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { DeleteButton } from 'components/common/Styled';
 import CountModal from 'components/common/Modal/CountModal';
+import CheckBox from 'components/common/Styled/CheckBox';
 
 const Styled = {
   Wrapper: styled.div`
@@ -20,34 +21,6 @@ const Styled = {
       top: 20px;
       left: 10px;
       position: absolute;
-    }
-  `,
-  CheckButton: styled.div`
-    width: 30px;
-    height: 30px;
-    border: 1px solid red;
-  `,
-  CheckInput: styled.input`
-    display: none;
-    &:checked + label {
-      background: #22a6a2;
-      & > span {
-        display: block;
-      }
-    }
-  `,
-  CheckLabel: styled.label`
-    width: 28px;
-    height: 28px;
-    margin-top: 20px;
-    border: 1px solid #22a6a2;
-    background: transparent;
-    color: #fff;
-    text-align: center;
-    font-size: 22px;
-
-    & > span {
-      display: none;
     }
   `,
   Thumbnail: styled.img`
@@ -100,10 +73,7 @@ const CartProductItem = ({ thumbnail, title, price }) => {
   return (
     <Styled.Wrapper>
       <Styled.ProductInfoBox>
-        <Styled.CheckInput type="checkbox" id="product-check" />
-        <Styled.CheckLabel for="product-check">
-          <span>✔︎</span>
-        </Styled.CheckLabel>
+        <CheckBox />
 
         <Styled.Thumbnail src={thumbnail} alt={title} />
         <Styled.Title>샐리 인형</Styled.Title>
