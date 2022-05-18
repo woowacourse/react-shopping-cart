@@ -1,8 +1,8 @@
-import GridLayout from 'component/common/GridLayout/GridLayout';
+import GridLayout from 'component/@common/GridLayout/GridLayout';
 import { Product } from 'component';
 
 export default {
-  title: 'Component/Common/GridLayout',
+  title: 'Component/@Common/GridLayout',
   component: GridLayout,
   parameters: {
     layout: 'centered',

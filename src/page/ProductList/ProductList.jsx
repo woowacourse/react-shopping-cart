@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsAsyncThunk } from 'store/action/productsActions';
 
-import { GridLayout } from 'component/common';
+import { GridLayout } from 'component/@common';
 import { LoadingSpinner, PageLayout, Product } from 'component';
 
 function ProductList() {

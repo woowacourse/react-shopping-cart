@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Button } from 'component/common';
+import { Button } from 'component/@common';
 
 const ProductBox = styled.div`
   width: 282px;

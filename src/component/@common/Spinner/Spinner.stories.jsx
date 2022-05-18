@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Spinner } from 'component/common';
+import { Spinner } from 'component/@common';
 import { FRUITS } from 'constant';
 
 export default {
-  title: 'Component/Common/Spinner',
+  title: 'Component/@Common/Spinner',
   component: Spinner,
   parameters: {
     layout: 'centered',

@@ -1,7 +1,7 @@
-import { Button } from 'component/common';
+import { Button } from 'component/@common';
 
 export default {
-  title: 'Component/Common/Button',
+  title: 'Component/@Common/Button',
   component: Button,
   parameters: {
     layout: 'centered',
