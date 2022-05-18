@@ -1,19 +1,30 @@
-import { useSelector } from 'react-redux';
 import Styled from './style';
+import { cartList } from 'assets/mock';
+import CartContainer from 'components/CartContainer/CartContainer';
+import CartItem from 'components/CartItem/CartItem';
+import Title from 'components/Title/Title';
+import PaymentBox from 'components/PaymentBox/PaymentBox';
 
 const Cart = () => {
-  const { data } = useSelector((state) => state.cart);
-
   return (
     <Styled.Wrapper>
-      {data.map(({ name, quantity, price, id }) => (
-        <div key={id}>
-          상품명 : {name} /
-          <span>
-            {quantity}개 {price}원
-          </span>
-        </div>
-      ))}
+      <Title contents="장바구니" />
+      <Styled.ContentsWrapper>
+        <CartContainer>
+          {cartList.map(({ id, name, imgUrl, price, quantity }) => (
+            <CartItem
+              key={id}
+              name={name}
+              imgUrl={imgUrl}
+              price={price}
+              quantity={quantity}
+            />
+          ))}
+        </CartContainer>
+        <Styled.PaymentBoxWrapper>
+          <PaymentBox />
+        </Styled.PaymentBoxWrapper>
+      </Styled.ContentsWrapper>
     </Styled.Wrapper>
   );
 };

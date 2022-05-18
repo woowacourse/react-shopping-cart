@@ -12,6 +12,9 @@ const theme = {
     WHITE: '#ffffff',
     BLACK: '#000000',
     RED_300: '#fca5a5',
+    GREY_100: '#BBBBBB',
+    GREY_200: '#e4e4e7',
+    GREY_300: '#DDDDDD',
     GREY_500: '#78716c',
   },
   DEVICE: {
