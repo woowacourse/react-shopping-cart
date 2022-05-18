@@ -26,7 +26,8 @@ const Styled = {
 
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding: 0 100px;
 
       background: ${theme.colors.mint};
       color: ${theme.colors.white};
