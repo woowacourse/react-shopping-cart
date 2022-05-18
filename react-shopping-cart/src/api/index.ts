@@ -58,6 +58,15 @@ export const deleteProductFromCart = async (id: string) => {
   return await res.json();
 };
 
+export const fetchOrderItems = async (): Promise<Carts> => {
+  const res = await fetch(`${API_URL}/orders`);
+  if (!res.ok) {
+    throw new Error("로드에 실패했습니다");
+  }
+  const data: Carts = await res.json();
+  return data;
+};
+
 export const addOrderItem = async (product: CartItem): Promise<CartItem> => {
   const res = await fetch(`${API_URL}/orders`, {
     method: "POST",
