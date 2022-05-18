@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'component/common';
+import { updateSnackBar } from 'store/action/snackBarActions';
 
 const Content = styled.div`
   display: flex;
@@ -57,8 +58,13 @@ const CartParagraph = styled.p`
 `;
 
 function ProductDetail() {
+  const dispatch = useDispatch();
   const { products, selectedProductId } = useSelector(store => store);
   const targetProduct = products.find(product => product.id === selectedProductId);
+
+  const handleCartClick = () => {
+    dispatch(updateSnackBar(`${targetProduct.name} 1개가 장바구니에 추가되었습니다.`));
+  };
 
   return (
     <Content>
@@ -68,7 +74,7 @@ function ProductDetail() {
         <span style={{ fontSize: '24px' }}>금액</span>
         <Price>{targetProduct.price.toLocaleString('ko-KR')} 원</Price>
       </PriceBox>
-      <Button>
+      <Button onClick={handleCartClick}>
         <CartParagraph>장바구니</CartParagraph>
       </Button>
     </Content>
