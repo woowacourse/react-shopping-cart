@@ -1,0 +1,57 @@
+{
+  "plugins": ["react", "@typescript-eslint", "import", "prettier", "simple-import-sort"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "react-app",
+    "prettier/prettier",
+    "plugin:import/recommended"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "import/no-anonymous-default-export": 0,
+    "import/newline-after-import": "error",
+    "import/first": "error",
+    "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }],
+    "@typescript-eslint/no-empty-function": ["off"],
+    "simple-import-sort/imports": "error",
+    "eol-last": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "computed-property-spacing": ["error", "never"],
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "object-shorthand": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
+    ],
+    "quotes": ["error", "single"],
+    "no-empty-function": "off",
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "@types"]
+      },
+      "typescript": {} // 프로젝트 Root의 tsconfig.json을 찾는다.
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"],
+      "import/parser": ["babel-eslint"]
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true,
+    "commonjs": true
+  }
+}
