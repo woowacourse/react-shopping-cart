@@ -8,18 +8,18 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import Button from 'components/@common/Button/styles';
 import * as Styled from './styles';
 
-const DetailProductItem = ({ id, image, name, price }) => {
+const DetailProductItem = ({ id, thumbnail, name, price }) => {
   const dispatch = useDispatch();
 
   const onClickAddCartButton = () => {
-    dispatch(addCartList({ id, image, name, price }));
+    dispatch(addCartList({ id, thumbnail, name, price }));
     dispatch(snackbar.pushMessageSnackbar(`${name}가 장바구니에 추가되었습니다 🧺`));
   };
 
   return (
     <Styled.Container>
       <Styled.ImageWrapper>
-        <img src={image} alt="product thumbnail" />
+        <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
       <Styled.Description>
         <Styled.Info>
@@ -38,13 +38,13 @@ const DetailProductItem = ({ id, image, name, price }) => {
 
 DetailProductItem.propTypes = {
   id: PropTypes.number.isRequired,
-  image: PropTypes.string,
+  thumbnail: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
 };
 
 DetailProductItem.defaultProps = {
-  image: '기본 이미지 URL',
+  thumbnail: '기본 이미지 URL',
   name: '이름이 지정되지 않았습니다.',
   price: -1,
 };

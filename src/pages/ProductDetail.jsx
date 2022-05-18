@@ -27,7 +27,7 @@ const ProductDetail = () => {
           <DetailProductItem
             key={product.id}
             id={Number(product.id)}
-            image={product.image}
+            thumbnail={product.thumbnail}
             name={product.name}
             price={Number(product.price)}
           />

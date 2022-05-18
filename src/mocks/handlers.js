@@ -10,7 +10,7 @@ export const handlers = [
       ctx.status(200),
       ctx.json({
         id: productId,
-        image: 'https://storybook.takealook.kr/image/potato.jpg',
+        thumbnail: 'https://storybook.takealook.kr/image/potato.jpg',
         name: '싱싱한 감자',
         price: '50000',
       }),

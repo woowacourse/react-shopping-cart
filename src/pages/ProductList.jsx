@@ -23,7 +23,7 @@ const ProductList = () => {
         {errorMessage && <h1>{errorMessage}</h1>}
         {productList ? (
           productList.map(({ id, name, price, thumbnail }) => (
-            <ProductItem key={id} id={id} image={thumbnail} name={name} price={price} />
+            <ProductItem key={id} id={id} thumbnail={thumbnail} name={name} price={price} />
           ))
         ) : (
           <EmptyProductItem />
