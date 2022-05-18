@@ -34,10 +34,10 @@ const ItemDetail = () => {
     <StyledRoot>
       <CroppedImage src={thumbnailUrl} width='570px' height='570px' alt='상품' />
       <StyledTitle>{title}</StyledTitle>
-      <StyldPrice>
+      <StyledPrice>
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price.toLocaleString()}</StyledPriceValue>
-      </StyldPrice>
+      </StyledPrice>
       <Button size='large' backgroundColor='brown' onClick={handleClickCart}>
         장바구니
       </Button>
@@ -65,7 +65,7 @@ const StyledTitle = styled.div`
   margin-bottom: 3.3rem;
 `;
 
-const StyldPrice = styled.div`
+const StyledPrice = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: solid 0.4rem ${({ theme }) => theme.colors.divisionLine};
