@@ -49,7 +49,7 @@ export const DownCountButton = styled(UpCountButton)`
   transform: rotate(180deg);
 `;
 
-export const DeleteButton = styled(StyledButton)`
+export const DeleteTrashButton = styled(StyledButton)`
   width: fit-content;
   height: fit-content;
   font-size: 22px;
@@ -57,6 +57,17 @@ export const DeleteButton = styled(StyledButton)`
 
   &:hover {
     background: gray;
+  }
+`;
+
+export const DeleteButton = styled(StyledButton)`
+  width: 117px;
+  height: 30px;
+  border: 1px solid #bbbbbb;
+
+  &:hover {
+    background: gray;
+    color: #fff;
   }
 `;
 

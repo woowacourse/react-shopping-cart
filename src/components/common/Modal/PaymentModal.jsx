@@ -10,6 +10,7 @@ const Styled = {
     display: flex;
     flex-direction: column;
     width: 448px;
+    height: fit-content;
     border: 1px solid ${COLOR.MODAL_BORDER};
     padding-bottom: 20px;
 

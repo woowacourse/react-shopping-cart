@@ -18,7 +18,7 @@
 
   - [x] 결제예상 금액 컴포넌트
 
-  - [ ] ShoppingCartProductList 컴포넌트
+  - [x] Cart 컴포넌트
 
   - [x] CartProductItem 컴포넌트
 
