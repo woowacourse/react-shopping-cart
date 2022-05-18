@@ -1,13 +1,12 @@
 import { getProductList } from '../../api/api';
-import { actionFailed, actionStarted, actionSucceeded } from './global';
+import { productActionTypes } from '../reducers/product';
 
 export const fetchProductListAsync = (page) => async (dispatch) => {
-  const actionName = 'PRODUCT_LIST_FETCH';
-  dispatch(actionStarted(actionName));
+  dispatch({ type: productActionTypes.START });
   try {
     const { productList, totalProductCount } = await getProductList(page);
-    dispatch(actionSucceeded(actionName, { productList, totalProductCount }));
+    dispatch({ type: productActionTypes.LIST_FETCH, payload: { productList, totalProductCount } });
   } catch ({ message }) {
-    dispatch(actionFailed(actionName, { message }));
+    dispatch({ type: productActionTypes.FAIL, payload: { message } });
   }
 };

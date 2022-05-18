@@ -6,16 +6,22 @@ const initialState = {
   isLoading: false,
 };
 
+export const productActionTypes = {
+  START: 'product/ACTION_START',
+  FAIL: 'cart/ACTION_FAIL',
+  LIST_FETCH: 'product/LIST_FETCH',
+};
+
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'PRODUCT_LIST_FETCH_START': {
+    case productActionTypes.START: {
       return {
         ...state,
         isLoading: true,
       };
     }
 
-    case 'PRODUCT_LIST_FETCH_SUCCESS': {
+    case productActionTypes.LIST_FETCH: {
       const {
         payload: { productList, totalProductCount },
       } = action;
@@ -28,7 +34,7 @@ const productReducer = (state = initialState, action) => {
       };
     }
 
-    case 'PRODUCT_LIST_FETCH_FAILURE': {
+    case productActionTypes.FAIL: {
       const {
         payload: { message },
       } = action;
