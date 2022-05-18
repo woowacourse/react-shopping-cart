@@ -1,7 +1,7 @@
 {
-  "name": "starcraft-shop",
+  "name": "woowa-shop",
   "version": "1.0.0",
-  "description": "스타크래프트 쇼핑몰",
+  "description": "우아한 쇼핑몰",
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --config ./webpack/webpack.prod.js",
@@ -15,7 +15,7 @@
     "url": "git+https://github.com/airman5573/react-shopping-cart.git"
   },
   "keywords": [
-    "starcraft"
+    "woowa"
   ],
   "author": "",
   "license": "ISC",
