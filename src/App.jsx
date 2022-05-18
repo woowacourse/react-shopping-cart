@@ -45,8 +45,6 @@ const Main = styled.main`
 
   max-width: 1320px;
   margin: 140px auto 60px;
-
-  overflow-y: auto;
 `;
 
 export default App;
