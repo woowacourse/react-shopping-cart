@@ -5,7 +5,7 @@ import HomeButton from 'containers/HomeButton';
 import OrderListButton from 'containers/OrderListButton';
 import MoveCartPageButton from 'containers/MoveCartPageButton';
 import DeleteProductButton from 'containers/DeleteProductButton';
-import OrderProductsButton from 'containers/OrderButton';
+import OrderProductsButton from 'containers/OrderProductsButton';
 
 export default {
   title: 'containers/Button',
