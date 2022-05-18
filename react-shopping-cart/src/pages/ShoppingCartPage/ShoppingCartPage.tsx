@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import CartLeftSection from "component/ShoppingCart/CartLeftSection/CartLeftSection";
-import ExpectedPaymentContainer from "component/@shared/PaymentContainer/PaymentContainer";
+import PaymentContainer from "component/@shared/PaymentContainer/PaymentContainer";
+import PaymentPageHeader from "component/@shared/PaymentPageHeader/PaymentPageHeader";
 
 import { ColumnFlexWrapper } from "styles/Wrapper";
-import {
-  ShoppingCartPageHeader,
-  ShoppingCartPageContent,
-} from "./ShoppingCartPage.style";
+import { ShoppingCartPageContent } from "./ShoppingCartPage.style";
 
 import { selectCurrentCarts } from "redux/carts/carts.selector";
-import { CURRENT_USER } from "constants/index";
+import { CURRENT_USER, ROUTE_PATH } from "constants/index";
 
 function ShoppingCartPage() {
   const carts = useSelector(selectCurrentCarts);
+  const navigate = useNavigate();
 
   const totalPaymentCost = carts.reduce((acc, cart) => {
     if (cart.user === CURRENT_USER && cart.checked) {
@@ -29,15 +29,20 @@ function ShoppingCartPage() {
     return acc;
   }, 0);
 
+  const handleOrderButtonClick = () => {
+    navigate(ROUTE_PATH.ORDER);
+  };
+
   return (
     <ColumnFlexWrapper gap="30px">
-      <ShoppingCartPageHeader>장바구니</ShoppingCartPageHeader>
+      <PaymentPageHeader>장바구니</PaymentPageHeader>
       <ShoppingCartPageContent gap="60px">
         <CartLeftSection />
-        <ExpectedPaymentContainer
+        <PaymentContainer
           totalPaymentCost={totalPaymentCost}
           label="결제예상금액"
           buttonText={`주문하기(${totalOrderProductsQuantity}개)`}
+          handleOrderButtonClick={handleOrderButtonClick}
         />
       </ShoppingCartPageContent>
     </ColumnFlexWrapper>
