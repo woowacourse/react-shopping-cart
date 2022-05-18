@@ -1,10 +1,10 @@
-import PageTitle from 'components/@shared/PageTitle/PageTitle';
+import HomeButton from 'components/HomeButton/HomeButton';
 
 import { ReactComponent as Cart } from 'assets/cart.svg';
 
 export default {
-  title: 'PageTitle',
-  component: PageTitle,
+  title: 'HomeButton',
+  component: HomeButton,
   decorators: [
     (Story) => (
       <div
@@ -23,7 +23,7 @@ export default {
 };
 
 export const DefaultShoppingCartTitle = (args) => (
-  <PageTitle {...args}></PageTitle>
+  <HomeButton {...args}></HomeButton>
 );
 DefaultShoppingCartTitle.args = {
   children: [<Cart />, <div>WOOWA SHOP</div>],
