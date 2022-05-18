@@ -5,6 +5,14 @@ import { CartItem } from "type";
 import ProductName from "component/@shared/ProductName/ProductName";
 import ProductQuantity from "component/@shared/ProductQuantity/ProductQuantity";
 
+const OrderContainer = styled(RowFlexWrapper)`
+  justify-content: flex-start;
+  width: 490px;
+  padding: 20px 5px;
+  border-top: 1px solid;
+  border-color: ${({ theme }) => theme.colors["gray_03"]};
+`;
+
 const LeftContainer = styled.div`
   display: flex;
   align-items: center;
@@ -21,7 +29,7 @@ function OrderItem({
   quantity,
 }: Pick<CartItem, "name" | "thumbnail" | "quantity">) {
   return (
-    <RowFlexWrapper>
+    <OrderContainer>
       <LeftContainer>
         <ProductThumbnail src={thumbnail} type="orderItem" />
         <OrderItemInfoContainer>
@@ -29,7 +37,7 @@ function OrderItem({
           <ProductQuantity>수량: {quantity}</ProductQuantity>
         </OrderItemInfoContainer>
       </LeftContainer>
-    </RowFlexWrapper>
+    </OrderContainer>
   );
 }
 

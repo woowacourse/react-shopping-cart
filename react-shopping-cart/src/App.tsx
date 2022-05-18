@@ -6,6 +6,7 @@ import ShoppingCartPage from "pages/ShoppingCartPage/ShoppingCartPage";
 
 import { ROUTE_PATH } from "constants/index";
 import PageHeader from "component/PageHeader/PageHeader";
+import OrderPage from "pages/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           element={<ProductDetailPage />}
         />
         <Route path={ROUTE_PATH.SHOPPING_CART} element={<ShoppingCartPage />} />
+        <Route path={ROUTE_PATH.ORDER} element={<OrderPage />} />
       </Routes>
     </>
   );
