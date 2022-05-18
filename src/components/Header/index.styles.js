@@ -14,6 +14,7 @@ export const Header = styled.header`
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1;
     @media screen and (max-width: 850px) {
       padding: 10px 5%;
     }
