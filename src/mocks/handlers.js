@@ -53,14 +53,14 @@ const postShoppingCart = rest.post(`${API_URL}shopping-cart`, (req, res, ctx) =>
   const currentShoppingCart = getCart();
   const { productId, quantity } = req.body;
 
-  const newCart = updateCartProductQuantity(currentShoppingCart, productId, quantity);
+  const newCart = changeProductQuantity(currentShoppingCart, productId, quantity);
 
   setCart(newCart);
 
   return res(ctx.json(newCart));
 });
 
-const updateCartProductQuantity = (cart, productId, quantity) => {
+export const changeProductQuantity = (cart, productId, quantity) => {
   const newCart = { ...cart };
   if (newCart[productId] === undefined) {
     const newProduct = {};
