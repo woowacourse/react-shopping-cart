@@ -7,19 +7,22 @@ import { useAppDispatch } from './useAppDispatch';
 const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
 
-  const updateCartItemQuantity = (id: number | string) => {
-    const targetId = typeof id === 'number' ? id : Number(id);
-    const targetItem = cartList.find(cartItem => cartItem.id === targetId);
+  const postCartItemQuantity =
+    (id: number | string) =>
+    (diff = 1) => {
+      dispatch(postCartItem({ id: Number(id), quantity: diff }));
+    };
 
-    if (!targetItem) {
-      dispatch(postCartItem({ id: targetId, quantity: 1 }));
+  const updateCartItemQuantity =
+    (id: number | string) =>
+    (diff = 1) => {
+      const targetId = typeof id === 'number' ? id : Number(id);
+      const targetItem = cartList.find(cartItem => cartItem.id === targetId);
 
-      return;
-    }
-    dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + 1 }));
-  };
+      dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + diff }));
+    };
 
-  return { updateCartItemQuantity };
+  return { postCartItemQuantity, updateCartItemQuantity };
 };
 
 export default useUpdateCartItem;

@@ -12,7 +12,7 @@ interface ItemContainerProps {
   thumbnailUrl: string;
   title: string;
   price: number;
-  updateCartItemQuantity?: (id: number) => void;
+  onCartClick: (diff?: number) => void;
   openSnackbar: () => void;
 }
 
@@ -21,7 +21,7 @@ const ItemContainer = ({
   thumbnailUrl,
   title,
   price,
-  updateCartItemQuantity,
+  onCartClick,
   openSnackbar,
 }: ItemContainerProps) => {
   const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
@@ -31,7 +31,7 @@ const ItemContainer = ({
   };
 
   const handleClickCartIcon = () => {
-    updateCartItemQuantity?.(id);
+    onCartClick();
     openSnackbar();
   };
 

@@ -17,11 +17,17 @@ const ItemDetail = () => {
   const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
   const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
-  const { data: cartList } = useThunkFetch(state => state.cartListReducer, getCartList);
-  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const cartList = useThunkFetch(state => state.cartListReducer.data, getCartList);
+  const { postCartItemQuantity, updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const isInCart = cartList?.some(el => el.id === item?.id);
 
-  const handleClickCart = () => {
-    updateCartItemQuantity(id);
+  const postCart = () => {
+    postCartItemQuantity(id)(1);
+    openSnackbar();
+  };
+
+  const updateCart = () => {
+    updateCartItemQuantity(id)(1);
     openSnackbar();
   };
 
@@ -38,7 +44,7 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price.toLocaleString()}</StyledPriceValue>
       </StyledPrice>
-      <Button size='large' backgroundColor='brown' onClick={handleClickCart}>
+      <Button size='large' backgroundColor='brown' onClick={isInCart ? updateCart : postCart}>
         장바구니
       </Button>
       {isOpenSnackbar && <Snackbar message={MESSAGE.cart} />}

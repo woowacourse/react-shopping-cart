@@ -34,24 +34,30 @@ const ItemList = () => {
     state => state.cartListReducer,
     getCartList
   );
-  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const { postCartItemQuantity, updateCartItemQuantity } = useUpdateCartItem(cartList);
 
   if (loading) return <Loading />;
   if (itemListError || allItemListError || cartListError) return <RequestFail />;
 
   return (
     <StyledRoot>
-      {itemList.map(item => (
-        <ItemContainer
-          key={item.id}
-          id={item.id}
-          thumbnailUrl={item.thumbnailUrl}
-          price={item.price}
-          title={item.title}
-          updateCartItemQuantity={updateCartItemQuantity}
-          openSnackbar={openSnackbar}
-        />
-      ))}
+      {itemList.map(item => {
+        const isInCart = cartList.some(el => el.id === item.id);
+
+        return (
+          <ItemContainer
+            key={item.id}
+            id={item.id}
+            thumbnailUrl={item.thumbnailUrl}
+            price={item.price}
+            title={item.title}
+            onCartClick={
+              isInCart ? updateCartItemQuantity?.(item.id) : postCartItemQuantity?.(item.id)
+            }
+            openSnackbar={openSnackbar}
+          />
+        );
+      })}
       <Pagination
         count={10}
         lastIndex={Math.floor(allItemList.length / MAX_RESULT_ITEM_LIST) + 1}
