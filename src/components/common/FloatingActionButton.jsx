@@ -31,6 +31,7 @@ const StyledContainer = styled.div`
   position: fixed;
   right: 10%;
   bottom: 10%;
+  cursor: pointer;
 `;
 
 const StyledFabBox = styled.div`

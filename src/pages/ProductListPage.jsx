@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import useRequest from '../hooks/useRequest';
@@ -42,7 +42,9 @@ function ProductListPage() {
           });
         })}
       </StyledGridContainer>
-      <FloatingActionButton count={count} />
+      <Link to={'/cart'}>
+        <FloatingActionButton count={count} />
+      </Link>
     </StyledContent>
   );
 }
