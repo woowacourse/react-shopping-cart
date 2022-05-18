@@ -29,7 +29,7 @@ function product(state = initialState, action) {
         ...state,
         getProductLoading: false,
         getProductSuccess: false,
-        getProductFail: 'Error',
+        getProductFail: action.type,
       };
     default:
       return state;
