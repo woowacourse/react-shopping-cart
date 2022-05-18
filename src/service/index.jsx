@@ -8,13 +8,13 @@ const client = async (endPoint) => {
     },
   };
 
-  const res = await axios.get(`http://localhost:4000/${endPoint}`, config);
+  try {
+    const res = await axios.get(`http://localhost:4000/${endPoint}`, config);
 
-  if (res.statusText !== 'OK') {
-    throw new Error();
+    return res.data;
+  } catch (error) {
+    throw new Error(error.response.data.error);
   }
-
-  return res.data;
 };
 
 export default client;
