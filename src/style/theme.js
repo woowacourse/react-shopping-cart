@@ -5,8 +5,6 @@ const theme = {
 
   whiteFontColor: '#FFFFFF',
   blackFontColor: '#333333',
-
-  headerHeight: '80px',
 };
 
 export default theme;
