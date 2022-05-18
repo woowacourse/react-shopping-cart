@@ -1,13 +1,7 @@
 import * as S from "./index.styles";
-import { useTheme } from "@emotion/react";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
-const Product = ({ imgUrl, title, price, onClick, go, isInShoppingCart }) => {
-  const {
-    color: { primary },
-  } = useTheme();
-  const shoppingCartColor = isInShoppingCart ? primary : "black";
-
+const Product = ({ imgUrl, title, price, onClick, go, shoppingCartColor }) => {
   return (
     <S.ProductContainer>
       <S.ProductImage onClick={onClick} src={imgUrl} alt={`${title} 이미지`} />

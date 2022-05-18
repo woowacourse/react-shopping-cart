@@ -1,20 +1,23 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #2ac1bc;
-  color: #fff;
-  padding: 10px 15%;
-  margin-bottom: 60px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  @media screen and (max-width: 850px) {
-    padding: 10px 5%;
-  }
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: ${theme.color.primary};
+    color: ${theme.color.white};
+    padding: 10px 15%;
+    margin-bottom: 60px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    @media screen and (max-width: 850px) {
+      padding: 10px 5%;
+    }
+  `}
 `;
 
 export const LogoContainer = styled.div`

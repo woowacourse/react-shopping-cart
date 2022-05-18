@@ -1,19 +1,22 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const ProductContainer = styled.div`
-  width: 280px;
-  height: 360px;
-  border-radius: 5px;
-  padding: 10px 3px 0 3px;
-  cursor: pointer;
-  &:hover {
-    transition: 0.3s;
-    background-color: #f2efef;
-    p:first-of-type {
-      text-decoration: underline;
-      text-decoration-color: #666;
+  ${({ theme }) => css`
+    width: 280px;
+    height: 360px;
+    border-radius: 5px;
+    padding: 10px 3px 0 3px;
+    cursor: pointer;
+    &:hover {
+      transition: 0.3s;
+      background-color: ${theme.color.grey_001};
+      p:first-of-type {
+        text-decoration: underline;
+        text-decoration-color: ${theme.color.grey_003};
+      }
     }
-  }
+  `}
 `;
 
 export const ProductImage = styled.img`
