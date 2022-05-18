@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
 
-import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import * as S from 'component/CartItem/style';
 
 export default function CartItem({
@@ -21,9 +19,7 @@ export default function CartItem({
       <img src={itemImgURL} alt="장바구니 상품 이미지" width="144px" height="144px" />
       <S.ItemNameParagraph>{itemName}</S.ItemNameParagraph>
       <S.EditQuantityBox>
-        <Button onClick={handleDeleteIconClick}>
-          <DeleteIcon />
-        </Button>
+        <S.StyledDeleteIcon onClick={handleDeleteIconClick} />
         <div>{count} 개</div>
         <S.PriceSpan>{itemPrice.toLocaleString()}원</S.PriceSpan>
       </S.EditQuantityBox>
