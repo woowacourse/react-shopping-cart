@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
-import AllSelectButton from 'components/AllSelectButton/AllSelectButton';
+import AllSelectButton from 'components/AllSelectCheckbox/AllSelectCheckbox';
 import ProductDeleteButton from 'components/ProductDeleteButton/ProductDeleteButton';
 import ShoppingCartItemsContainer from 'components/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
 
@@ -21,6 +21,7 @@ import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 import { CURRENT_USER } from 'constants';
 
+//재사용X
 function CartLeftSection() {
   const carts = useSelector(selectCurrentCarts);
   const dispatch = useDispatch();

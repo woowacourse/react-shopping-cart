@@ -23,8 +23,8 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
   };
 
   return (
-    <CartContainer>
-      <LeftContainer>
+    <Styled.Root>
+      <Styled.LeftContainer>
         <CheckBox
           type="checkbox"
           onChange={handleToggleCheckBox}
@@ -32,40 +32,43 @@ function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
         />
         <ProductThumbnail type="shoppingCart" src={thumbnail} />
         <ProductName type="shoppingCart">{name}</ProductName>
-      </LeftContainer>
-      <RightContainer>
-        <TrashContainer onClick={(e) => handleDeleteProductFromCart(e, id)}>
+      </Styled.LeftContainer>
+      <Styled.RightContainer>
+        <Styled.TrashIconContainer
+          onClick={(e) => handleDeleteProductFromCart(e, id)}
+        >
           <Trash />
-        </TrashContainer>
+        </Styled.TrashIconContainer>
         <ItemCounter id={id} />
         <ProductPrice type="shoppingCart">{price}원</ProductPrice>
-      </RightContainer>
-    </CartContainer>
+      </Styled.RightContainer>
+    </Styled.Root>
   );
 }
 
-const CartContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 490px;
-  padding: 20px 5px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray_03};
-`;
+const Styled = {
+  Root: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 490px;
+    padding: 20px 5px;
+    border-top: 1px solid ${({ theme }) => theme.colors.gray_03};
+  `,
+  LeftContainer: styled.div`
+    display: flex;
+    align-items: center;
+  `,
 
-const LeftContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
+  RightContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+  `,
 
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: flex-end;
-`;
-
-const TrashContainer = styled.div`
-  cursor: pointer;
-`;
+  TrashIconContainer: styled.div`
+    cursor: pointer;
+  `,
+};
 
 export default ShoppingCartItem;

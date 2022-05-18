@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 재사용O
 function Header({ left, right }) {
   return (
     <Styled.Root>

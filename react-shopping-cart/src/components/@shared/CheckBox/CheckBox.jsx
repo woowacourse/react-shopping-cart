@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-function CheckBox({ children }) {
-  return <Styled.CheckBox type="checkbox">{children}</Styled.CheckBox>;
+//재사용O
+function CheckBox({ children, ...props }) {
+  return (
+    <Styled.Root type="checkbox" {...props}>
+      {children}
+    </Styled.Root>
+  );
 }
 
 const Styled = {
-  CheckBox: styled.input`
+  Root: styled.input`
     appearance: none;
     border: 1px solid ${({ theme }) => theme.colors.cyon_02};
     border-radius: 2px;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
 
+//재사용X
 function HomeButton({ title, emoji }) {
   return (
     <Styled.Root to="/">

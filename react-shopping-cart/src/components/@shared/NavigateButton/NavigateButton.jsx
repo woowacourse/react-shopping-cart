@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// 재사용O
 function NavigateButton({ to = '#', children, ...props }) {
   return (
     <Styled.Root to={to} {...props}>

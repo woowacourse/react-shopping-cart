@@ -5,6 +5,7 @@ import { ColumnFlexWrapper } from 'styles/Wrapper';
 function ShoppingCartItemsContainer({ carts }) {
   return (
     <ColumnFlexWrapper>
+      {/* TODO: rest 사용해주기 */}
       {carts.map(({ id, name, image, price, checked }) => (
         <ShoppingCartItem
           key={id}

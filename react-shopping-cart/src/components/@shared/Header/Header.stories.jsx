@@ -1,7 +1,7 @@
 import Header from 'components/@shared/Header/Header';
 
 import HomeButton from 'components/HomeButton/HomeButton';
-import NavigationButtonList from 'components/NavigationButtonList/NavigationButtonList';
+import NavigationButtonList from 'components/NavigationButtonGroup/NavigationButtonGroup';
 
 import { ReactComponent as Cart } from 'assets/cart.svg';
 

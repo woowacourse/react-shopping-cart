@@ -13,11 +13,11 @@ function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
     useClickCartButton();
 
   return (
-    <ProductCardInfoContainer>
-      <ProductCardInfoBox>
+    <Styled.Root>
+      <Styled.ProductCardInfoBox>
         <ProductName type="card">{name}</ProductName>
         <ProductPrice type="card">{price}원</ProductPrice>
-      </ProductCardInfoBox>
+      </Styled.ProductCardInfoBox>
       <div
         onClick={
           $isincart
@@ -25,19 +25,28 @@ function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
             : (e) => handleAddProductToCart(e, { name, price, id, thumbnail })
         }
       >
-        <StyledCart $isincart={$isincart} />
+        <Styled.Cart $isincart={$isincart} />
       </div>
-    </ProductCardInfoContainer>
+    </Styled.Root>
   );
 }
 
-const StyledCart = styled(Cart)`
-  width: 20px;
-  height: 20px;
+const Styled = {
+  Root: styled.div`
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    width: 188px;
+  `,
 
-  ${({ $isincart }) =>
-    $isincart
-      ? css`
+  Cart: styled(Cart)`
+    width: 20px;
+    height: 20px;
+
+    ${({ $isincart }) =>
+      $isincart
+        ? css`
       & path {
         fill: ${({ theme }) => theme.colors.red_01}
       }
@@ -46,34 +55,26 @@ const StyledCart = styled(Cart)`
           fill: ${({ theme }) => theme.colors.cyon_02};
         }
     `
-      : css`
-          & path {
-            fill: ${({ theme }) => theme.colors.black_02};
-          }
-          :hover {
+        : css`
             & path {
-              fill: ${({ theme }) => theme.colors.cyon_02};
+              fill: ${({ theme }) => theme.colors.black_02};
             }
-          }
-        `}
-`;
+            :hover {
+              & path {
+                fill: ${({ theme }) => theme.colors.cyon_02};
+              }
+            }
+          `}
+  `,
+  ProductCardInfoBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
-const ProductCardInfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-const ProductCardInfoContainer = styled.div`
-  display: flex;
-  cursor: pointer;
-  justify-content: space-between;
-  align-items: center;
-  width: 188px;
-`;
+    :hover {
+      text-decoration: underline;
+    }
+  `,
+};
 
 export default ProductCardInfo;

@@ -22,14 +22,6 @@ import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 import { isInCart } from 'utils/check';
 
-const GridContainer = styled.div`
-  display: grid;
-  width: 70%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 22px;
-  justify-content: center;
-`;
-
 function ProductListPage() {
   const dispatch = useDispatch();
   const loading = useSelector(selectProductsLoading);
@@ -58,7 +50,7 @@ function ProductListPage() {
     // TODO: 컴포넌트 추상화 레벨 맞추기
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
-        <GridContainer>
+        <Styled.GridContainer>
           {products.map(({ id, name, image, price }) => {
             return (
               <ProductCard
@@ -71,7 +63,7 @@ function ProductListPage() {
               />
             );
           })}
-        </GridContainer>
+        </Styled.GridContainer>
         <Pagination>
           {/* FIXME: Array.from으로 변경 */}
           {new Array(5).fill('').map((_, pageNum) => (
@@ -87,5 +79,15 @@ function ProductListPage() {
     </WithSpinner>
   );
 }
+
+const Styled = {
+  GridContainer: styled.div`
+    display: grid;
+    width: 70%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 22px;
+    justify-content: center;
+  `,
+};
 
 export default ProductListPage;

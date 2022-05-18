@@ -7,15 +7,16 @@ import ProductCardInfo from 'components/ProductCardInfo/ProductCardInfo';
 
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
+//재사용X
 function ProductCard(props) {
   const { id, thumbnail } = props;
   const navigate = useNavigate();
 
   return (
-    <ProductCardBox onClick={() => navigate(`/detail/${id}`)}>
+    <Styled.Root onClick={() => navigate(`/detail/${id}`)}>
       <ProductThumbnail src={thumbnail} type="card" />
       <ProductCardInfo {...props} />
-    </ProductCardBox>
+    </Styled.Root>
   );
 }
 
@@ -27,16 +28,18 @@ const scaleAnimation = keyframes`
   }
 `;
 
-const ProductCardBox = styled(ColumnFlexWrapper)`
-  width: 220px;
-  height: 300px;
-  padding: 20px 10px;
-  box-shadow: 3px 3px 3px 3px ${({ theme }) => theme.colors.opacity_black_01};
-  cursor: pointer;
-  :hover {
-    animation: ${scaleAnimation} 0.5s ease-out;
-    animation-fill-mode: forwards;
-  }
-`;
+const Styled = {
+  Root: styled(ColumnFlexWrapper)`
+    width: 220px;
+    height: 300px;
+    padding: 20px 10px;
+    box-shadow: 3px 3px 3px 3px ${({ theme }) => theme.colors.opacity_black_01};
+    cursor: pointer;
+    :hover {
+      animation: ${scaleAnimation} 0.5s ease-out;
+      animation-fill-mode: forwards;
+    }
+  `,
+};
 
 export default ProductCard;
