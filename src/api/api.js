@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
+import { API_ENDPOINT, API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
 
-const productAPI = axios.create({
+const apiInstance = axios.create({
   baseURL: API_URL,
 });
 
@@ -12,9 +12,9 @@ const checkServerError = (statusText) => {
 };
 
 export const getProductList = async (page) => {
-  const pageQuery = `_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`;
+  const pageQuery = `?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`;
 
-  const response = await productAPI.get(`/products?${pageQuery}`);
+  const response = await apiInstance.get(`${API_ENDPOINT.PRODUCTS}${pageQuery}`);
   checkServerError(response.statusText);
 
   const productList = response.data;
@@ -24,7 +24,7 @@ export const getProductList = async (page) => {
 };
 
 export const addToCart = async (productId, quantity) => {
-  const response = await productAPI.post('/shopping-cart', { productId, quantity });
+  const response = await apiInstance.post(API_ENDPOINT.SHOPPING_CART, { productId, quantity });
   checkServerError(response.statusText);
 
   const cart = response.data;
@@ -33,7 +33,7 @@ export const addToCart = async (productId, quantity) => {
 };
 
 export const getCart = async () => {
-  const response = await productAPI.get(`/shopping-cart`);
+  const response = await apiInstance.get(API_ENDPOINT.SHOPPING_CART);
   checkServerError(response.statusText);
 
   const cart = response.data;
@@ -42,7 +42,7 @@ export const getCart = async () => {
 };
 
 export const updateCartProductQuantity = async (productId, quantity) => {
-  const response = await productAPI.patch(`/shopping-cart`, { productId, quantity });
+  const response = await apiInstance.patch(API_ENDPOINT.SHOPPING_CART, { productId, quantity });
   checkServerError(response.statusText);
 
   const cart = response.data;
@@ -50,16 +50,16 @@ export const updateCartProductQuantity = async (productId, quantity) => {
   return { cart };
 };
 
-const sendCartProductDeleteRequest = async (res, productId, index, array) => {
-  res = await productAPI.delete(`/shopping-cart/${productId}`);
-  checkServerError(res.statusText);
-
-  if (index === array.length - 1) return res;
-};
-
 export const deleteCartProduct = async (productIdArray) => {
   const response = await productIdArray.reduce(sendCartProductDeleteRequest, null);
   const cart = response.data;
 
   return { cart };
+};
+
+const sendCartProductDeleteRequest = async (res, productId, index, array) => {
+  res = await apiInstance.delete(`${API_ENDPOINT.SHOPPING_CART}/${productId}`);
+  checkServerError(res.statusText);
+
+  if (index === array.length - 1) return res;
 };
