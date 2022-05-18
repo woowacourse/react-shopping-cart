@@ -73,30 +73,5 @@
       "price": 90000
     }
   ],
-  "shoppingCart": [
-    {
-      "id": 1,
-      "image": "https://cdn-mart.baemin.com/sellergoods/bulk/20200831-203011/14867-main-01.jpg",
-      "name": "우유(300ml)",
-      "price": 30000,
-      "quantity": 1,
-      "isSelect": true
-    },
-    {
-      "id": 6,
-      "image": "https://cdn-mart.baemin.com/sellergoods/main/7a48f6bc-761e-4a51-8337-7677097aec09.jpg",
-      "name": "냉동육(2kg)",
-      "price": 100000,
-      "quantity": 13,
-      "isSelect": false
-    },
-    {
-      "id": 7,
-      "image": "https://cdn-mart.baemin.com/sellergoods/main/0fd75127-a964-4bd8-b620-125b0b721ae0.jpg",
-      "name": "생연어(300g)",
-      "price": 70000,
-      "quantity": 7,
-      "isSelect": true
-    }
-  ]
+  "shoppingCart": []
 }

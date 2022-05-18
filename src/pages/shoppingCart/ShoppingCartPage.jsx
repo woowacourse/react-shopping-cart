@@ -9,7 +9,12 @@ import store from 'store/store';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getProductList, getShoppingCartList } from 'utils/api';
-import { initProduct, initShoppingCart } from 'actions/actionCreator';
+import {
+  initProduct,
+  initShoppingCart,
+  putProductToCart,
+  deleteProductAtCart,
+} from 'actions/actionCreator';
 
 import {
   ContentWrapper,
@@ -25,12 +30,37 @@ const ShoppingCartPage = () => {
   const { shoppingCart } = useSelector(state => state.reducer);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isAllSelect, setIsAllSelect] = useState(false);
 
   const getProducts = async () => {
     const productList = await getProductList();
     const shoppingCartList = await getShoppingCartList();
     store.dispatch(initProduct({ products: productList }));
     store.dispatch(initShoppingCart({ shoppingCart: shoppingCartList }));
+  };
+
+  const handleClickCheckBox = () => {
+    if (isAllSelect === false) {
+      shoppingCart.forEach(product =>
+        store.dispatch(
+          putProductToCart({ id: product.id, quantity: product.quantity, isSelect: true }),
+        ),
+      );
+    } else {
+      shoppingCart.forEach(product =>
+        store.dispatch(
+          putProductToCart({ id: product.id, quantity: product.quantity, isSelect: false }),
+        ),
+      );
+      setIsAllSelect(false);
+    }
+  };
+
+  const handleClickDeleteButton = () => {
+    const selectedProductList = shoppingCart.filter(product => product.isSelect === true);
+    selectedProductList.forEach(product => {
+      store.dispatch(deleteProductAtCart({ id: product.id }));
+    });
   };
 
   useEffect(() => {
@@ -41,6 +71,7 @@ const ShoppingCartPage = () => {
     if (shoppingCart.length === 0) {
       setTotalPrice(0);
       setTotalAmount(0);
+      setIsAllSelect(false);
       return;
     }
 
@@ -49,6 +80,10 @@ const ShoppingCartPage = () => {
     if (selectedProductList.length === 0) {
       setTotalPrice(0);
       return;
+    }
+
+    if (selectedProductList.length === shoppingCart.length) {
+      setIsAllSelect(true);
     }
 
     setTotalPrice(selectedProductList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
@@ -60,8 +95,12 @@ const ShoppingCartPage = () => {
       <ContentWrapper>
         <ShoppingCartContainer>
           <Header
-            left={<Checkbox label="전체선택" />}
-            right={<ProductDeleteButton>상품삭제</ProductDeleteButton>}
+            left={
+              <Checkbox checked={isAllSelect} label="전체선택" onChange={handleClickCheckBox} />
+            }
+            right={
+              <ProductDeleteButton onClick={handleClickDeleteButton}>상품삭제</ProductDeleteButton>
+            }
           />
           <Title title="든든배송 상품" />
           <ShoppingCartItemContainer>

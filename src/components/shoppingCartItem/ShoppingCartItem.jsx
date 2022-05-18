@@ -34,7 +34,7 @@ const ShoppingCartItem = ({ product }) => {
   };
 
   const handleClickDecreaseButton = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
       alert('상품 최소 갯수는 1개입니다!');
@@ -51,7 +51,7 @@ const ShoppingCartItem = ({ product }) => {
 
   return (
     <ShoppingCartItemContainer>
-      <CheckBox checked={isSelect} onChange={handleClickCheckBox} />
+      <CheckBox checked={product.isSelect} onChange={handleClickCheckBox} />
       <ShoppingCartItemBox>
         <Image src={image} width="120" height="120" />
         <ShoppingCartItemName>{name}</ShoppingCartItemName>
@@ -61,7 +61,7 @@ const ShoppingCartItem = ({ product }) => {
           </Button>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ShoppingCartItemQuantitybar>
-              <ShoppingCartItemQuantityDisplay>{quantity}</ShoppingCartItemQuantityDisplay>
+              <ShoppingCartItemQuantityDisplay>{product.quantity}</ShoppingCartItemQuantityDisplay>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ShoppingCartItemQuantityButton onClick={handleClickIncreaseButton}>
                   ⬆️
@@ -72,7 +72,7 @@ const ShoppingCartItem = ({ product }) => {
               </div>
             </ShoppingCartItemQuantitybar>
           </div>
-          <ShoppingCartItemTotalPrice>{price * quantity}원</ShoppingCartItemTotalPrice>
+          <ShoppingCartItemTotalPrice>{price * product.quantity}원</ShoppingCartItemTotalPrice>
         </ShoppingCartItemSidebar>
       </ShoppingCartItemBox>
     </ShoppingCartItemContainer>
