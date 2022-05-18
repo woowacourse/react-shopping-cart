@@ -16,7 +16,9 @@ function ProductList() {
     productList
   );
 
-  dispatch(createAction(UPDATE_PRODUCT_LIST, data));
+  useEffect(() => {
+    dispatch(createAction(UPDATE_PRODUCT_LIST, data));
+  }, [dispatch, data]);
 
   if (isLoading) return <p>Loading...😫</p>;
   if (isError) return <p>Error...!😫</p>;
