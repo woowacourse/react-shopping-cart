@@ -2,8 +2,17 @@ import React from 'react';
 
 import ImageStyled from './style';
 
-function Image({ onClick, src, width, height }) {
-  return <ImageStyled onClick={onClick} src={src} width={width} height={height} />;
+function Image({ onClick, src, id, width, height, cursor }) {
+  return (
+    <ImageStyled
+      onClick={onClick}
+      src={src}
+      id={id}
+      width={width}
+      height={height}
+      cursor={cursor}
+    />
+  );
 }
 
 export default Image;
