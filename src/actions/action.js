@@ -1,0 +1,9 @@
+const CART_ACTIONS = {
+  PUT: 'cart/PUT',
+};
+
+const PRODUCT_LIST_ACTIONS = {
+  INITIALIZE: 'productList/INITIALIZE',
+};
+
+export { CART_ACTIONS, PRODUCT_LIST_ACTIONS };
