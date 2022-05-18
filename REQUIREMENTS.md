@@ -16,7 +16,7 @@
 
   - [x] Title 컴포넌트
 
-  - [ ] 결제예상 금액 컴포넌트
+  - [x] 결제예상 금액 컴포넌트
 
   - [ ] ShoppingCartProductList 컴포넌트
 
