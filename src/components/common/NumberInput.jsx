@@ -44,6 +44,10 @@ const Input = styled.input`
 `;
 
 const ArrowButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   height: 100%;
   border: none;
 `;
