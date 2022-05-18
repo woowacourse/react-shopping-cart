@@ -1,31 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { postCartItem } from "../../store/actions";
 
 import AddToCartButton from "./AddToCartButton";
 
 import { PATH } from "../../constants";
 
 function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate(PATH.PRODUCT_DETAIL_WITH_ID(id));
-  };
+  const dispatch = useDispatch();
 
   return (
-    <Container onClick={onClick}>
-      <ImageWrapper>
-        <ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
-      </ImageWrapper>
-      <CardBottom>
-        <TextInfoContainer>
-          <ProductName>{name ?? "%Error%"}</ProductName>
-          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
-        </TextInfoContainer>
-        <AddToCartButton />
-      </CardBottom>
-    </Container>
+    <Link to={PATH.PRODUCT_DETAIL_WITH_ID(id)}>
+      <Container>
+        <ImageWrapper>
+          <ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
+        </ImageWrapper>
+        <CardBottom>
+          <TextInfoContainer>
+            <ProductName>{name ?? "%Error%"}</ProductName>
+            <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
+          </TextInfoContainer>
+          <AddToCartButton
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(postCartItem([id]));
+            }}
+          />
+        </CardBottom>
+      </Container>
+    </Link>
   );
 }
 

@@ -19,36 +19,27 @@ const initialState = {
   },
 };
 
-const productListReducer = (state = initialState, action) => {
+const productListReducer = (state = initialState.productList, action) => {
   switch (action.type) {
     case ACTIONS.GET_PRODUCT_LIST:
       return {
-        ...state,
-        productList: {
-          loading: true,
-          data: null,
-          errorMessage: null,
-        },
+        loading: true,
+        data: null,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_PRODUCT_LIST_SUCCESS:
       return {
-        ...state,
-        productList: {
-          loading: false,
-          data: action.payload,
-          errorMessage: null,
-        },
+        loading: false,
+        data: action.payload,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_PRODUCT_LIST_ERROR:
       return {
-        ...state,
-        productList: {
-          loading: false,
-          data: null,
-          errorMessage: action.payload,
-        },
+        loading: false,
+        data: null,
+        errorMessage: action.payload,
       };
 
     default:
@@ -56,36 +47,30 @@ const productListReducer = (state = initialState, action) => {
   }
 };
 
-export const productDetailReducer = (state = initialState, action) => {
+export const productDetailReducer = (
+  state = initialState.productDetail,
+  action
+) => {
   switch (action.type) {
     case ACTIONS.GET_PRODUCT_DETAIL:
       return {
-        ...state,
-        productDetail: {
-          loading: true,
-          data: null,
-          errorMessage: null,
-        },
+        loading: true,
+        data: null,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_PRODUCT_DETAIL_SUCCESS:
       return {
-        ...state,
-        productDetail: {
-          loading: false,
-          data: action.payload,
-          errorMessage: null,
-        },
+        loading: false,
+        data: action.payload,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_PRODUCT_DETAIL_ERROR:
       return {
-        ...state,
-        productDetail: {
-          loading: false,
-          data: null,
-          errorMessage: action.payload,
-        },
+        loading: false,
+        data: null,
+        errorMessage: action.payload,
       };
 
     default:
@@ -93,36 +78,69 @@ export const productDetailReducer = (state = initialState, action) => {
   }
 };
 
-export const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState.cart, action) => {
   switch (action.type) {
     case ACTIONS.GET_CART_ITEM_LIST:
       return {
-        ...state,
-        cart: {
-          loading: true,
-          data: null,
-          errorMessage: null,
-        },
+        loading: true,
+        data: state.data,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_CART_ITEM_LIST_SUCCESS:
       return {
-        ...state,
-        cart: {
-          loading: false,
-          data: action.payload,
-          errorMessage: null,
-        },
+        loading: false,
+        data: action.payload,
+        errorMessage: null,
       };
 
     case ACTIONS.GET_CART_ITEM_LIST_ERROR:
       return {
-        ...state,
-        cart: {
-          loading: false,
-          data: null,
-          errorMessage: action.payload,
-        },
+        loading: false,
+        data: state.data,
+        errorMessage: action.payload,
+      };
+
+    case ACTIONS.POST_CART_ITEM:
+      return {
+        loading: false,
+        data: state.data,
+        errorMessage: null,
+      };
+
+    case ACTIONS.POST_CART_ITEM_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+        errorMessage: null,
+      };
+
+    case ACTIONS.POST_CART_ITEM_ERROR:
+      return {
+        loading: false,
+        data: state.data,
+        errorMessage: action.payload,
+      };
+
+    case ACTIONS.DELETE_CART_ITEM:
+      return {
+        loading: false,
+        data: state.data,
+        errorMessage: null,
+      };
+
+    case ACTIONS.DELETE_CART_ITEM_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+        errorMessage: null,
+      };
+
+    case ACTIONS.DELETE_CART_ITEM_ERROR:
+      return {
+        loading: false,
+        data: state.data,
+        errorMessage: action.payload,
       };
 
     default:

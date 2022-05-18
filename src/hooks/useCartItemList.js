@@ -10,7 +10,7 @@ export const useCartItemList = () => {
     data: cartItemList,
     loading: isLoading,
     errorMessage,
-  } = useSelector((state) => state.cartReducer.cart);
+  } = useSelector((state) => state.cartReducer);
 
   useEffect(() => {
     dispatch(getCartItemList());

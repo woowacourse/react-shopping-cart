@@ -10,7 +10,7 @@ export const useProductDetail = (productId) => {
     data: product,
     loading: isLoading,
     errorMessage,
-  } = useSelector((state) => state.productDetailReducer.productDetail);
+  } = useSelector((state) => state.productDetailReducer);
 
   useEffect(() => {
     dispatch(getProductDetail(productId));

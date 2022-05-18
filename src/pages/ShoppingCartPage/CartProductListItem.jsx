@@ -1,11 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { deleteCartItem } from "../../store/actions";
 
 import CheckBox from "../../components/common/CheckBox";
 import NumberInput from "../../components/common/NumberInput";
+
 import DeleteFromCartButton from "./DeleteFromCartButton";
 
 function CartProductListItem({ product }) {
+  const dispatch = useDispatch();
+
   return (
     <CartItemContainer>
       <CheckBox />
@@ -18,7 +24,14 @@ function CartProductListItem({ product }) {
       <ProductName>{product.name}</ProductName>
       <ProductPrice>{product.price.toLocaleString()}원</ProductPrice>
       <ProductQuantityManagement>
-        <DeleteFromCartButton />
+        <DeleteFromCartButton
+          onClick={() => {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm("해당 상품을 장바구니에서 삭제하시겠습니까?")) {
+              dispatch(deleteCartItem([product.id]));
+            }
+          }}
+        />
         <NumberInput />
       </ProductQuantityManagement>
     </CartItemContainer>

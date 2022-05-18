@@ -10,7 +10,7 @@ export const useProductList = () => {
     data: productList,
     loading: isLoading,
     errorMessage,
-  } = useSelector((state) => state.productListReducer.productList);
+  } = useSelector((state) => state.productListReducer);
 
   useEffect(() => {
     dispatch(getProductList());
