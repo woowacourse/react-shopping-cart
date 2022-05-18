@@ -16,7 +16,7 @@ function ProductDetail() {
   } = useFetch(`${process.env.REACT_APP_API_HOST}/product/${productId}`);
 
   const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
-    STATE_KEY.SHOPPING_BASKET_LIST
+    STATE_KEY.SHOPPING_BASKET_REDUCER
   );
 
   const isContained = checkIsContainedProduct(Number(productId));

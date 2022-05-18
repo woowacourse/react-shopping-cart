@@ -1,8 +1,11 @@
 import useReduxState from './useReduxState';
 import { addShoppingBasketProduct, deleteShoppingBasketProduct } from 'actions/shoppingBasket';
 
-function useShoppingBasket(selectorKey) {
-  const { state: shoppingBasketList, dispatch } = useReduxState(selectorKey);
+function useShoppingBasket(stateKey) {
+  const {
+    state: { shoppingBasketList },
+    dispatch,
+  } = useReduxState(stateKey);
 
   const checkIsContainedProduct = productId => {
     return shoppingBasketList.find(productInfo => productInfo.id === productId) !== undefined;

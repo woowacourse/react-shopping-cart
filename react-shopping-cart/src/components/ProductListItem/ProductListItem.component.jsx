@@ -57,7 +57,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
   const navigate = useNavigate();
 
   const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
-    STATE_KEY.SHOPPING_BASKET_LIST
+    STATE_KEY.SHOPPING_BASKET_REDUCER
   );
 
   const isContained = checkIsContainedProduct(id);

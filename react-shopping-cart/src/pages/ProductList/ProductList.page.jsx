@@ -1,22 +1,33 @@
+import { useEffect } from 'react';
 import { Error, FlexWrapper } from 'components/@shared';
 import Header from 'components/Header/Header.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
 import Loading from 'components/Loading/Loading.component';
-import useFetch from 'hooks/useFetch';
+import { useReduxState } from 'hooks';
+import { fetchPostList } from 'actions/productList';
+import STATE_KEY from 'constants/stateKey';
+import STATUS from 'constants/status';
 
 function ProductList() {
-  const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
+  const { state, dispatch } = useReduxState(STATE_KEY.PRODUCT_LIST_REDUCER);
+  const { productList, status } = state;
+
+  useEffect(() => {
+    if (productList.length === 0) {
+      dispatch(fetchPostList());
+    }
+  }, []);
 
   return (
     <>
       <Header />
       <FlexWrapper style={{ margin: '60px 0 60px' }} isColumnDirection={true}>
-        {isLoading ? (
+        {status === STATUS.LOADING ? (
           <Loading />
-        ) : error ? (
+        ) : status === STATUS.ERROR ? (
           <Error>서버에 연결할 수 없습니다.</Error>
         ) : (
-          <ProductListContainer productList={data} />
+          <ProductListContainer productList={productList} />
         )}
       </FlexWrapper>
     </>

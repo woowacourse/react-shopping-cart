@@ -1,3 +1,4 @@
 export default {
-  SHOPPING_BASKET_LIST: 'shoppingBasketList',
+  PRODUCT_LIST_REDUCER: 'productListReducer',
+  SHOPPING_BASKET_REDUCER: 'shoppingBasketReducer',
 };

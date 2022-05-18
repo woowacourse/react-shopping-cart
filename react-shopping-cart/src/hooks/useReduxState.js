@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-function useReduxState(selectorKey) {
+function useReduxState(stateKey) {
+  const state = useSelector(state => state[stateKey]);
   const dispatch = useDispatch();
-  const state = useSelector(state => state[selectorKey]);
 
   return {
-    dispatch,
     state,
+    dispatch,
   };
 }
 
