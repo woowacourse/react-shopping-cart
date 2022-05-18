@@ -17,7 +17,7 @@ const CartTable = ({ cartList }) => {
         <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
       </Styled.TopWrapper>
 
-      <Styled.CartTitle>든든배송 상품({cartList.length})개</Styled.CartTitle>
+      <Styled.CartTitle>든든배송 상품({cartList.length}개)</Styled.CartTitle>
       <Styled.DivideLine />
       {cartList.map((item) => (
         <CartItem key={item.id} item={item} />
@@ -50,8 +50,8 @@ const Styled = {
     appearance: none;
     border: 1px solid #2ac1bc;
     border-radius: 2px;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
     &:checked {
       background-color: #2ac1bc;
@@ -59,8 +59,8 @@ const Styled = {
     &::after {
       box-sizing: border-box;
       content: '✔';
-      width: 100%;
-      height: 100%;
+      width: 25px;
+      height: 25px;
       font-size: 0.75rem;
       color: white;
       display: flex;
