@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getProductList } from 'apis/product';
 import { getProductLoading } from 'modules/product';
+import { getCartList } from 'apis/cart';
 
 export const useProducts = () => {
   const products = useSelector((state) => state.product.products);
   const isProductLoading = useSelector((state) => state.product.getProductLoading);
+  const requestProductFail = useSelector((state) => state.product.getProductFail);
   const dispatch = useDispatch();
 
   const requestProduct = () => {
@@ -13,5 +15,16 @@ export const useProducts = () => {
     dispatch(getProductList());
   };
 
-  return { isProductLoading, products, requestProduct };
+  return { isProductLoading, requestProductFail, products, requestProduct };
+};
+
+export const useCart = () => {
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const dispatch = useDispatch();
+
+  const requestCartProducts = () => {
+    dispatch(getCartList());
+  };
+
+  return { cartProducts, requestCartProducts };
 };

@@ -1,16 +1,25 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import Image from 'components/Image';
 
-function AddCartButton() {
-  const handleCartButtonClick = () => {};
+import { addProductCart } from 'apis/cart';
+
+function AddCartButton({ id }) {
+  const dispatch = useDispatch();
+
+  const handleCartButtonClick = ({ target }) => {
+    dispatch(addProductCart(target));
+  };
 
   return (
     <Image
       onClick={handleCartButtonClick}
       src={'/img/shopping-cart-black.png'}
-      width={'30px'}
-      height={'26px'}
+      id={id}
+      width="30px"
+      height="26px"
+      cursor="pointer"
     />
   );
 }
