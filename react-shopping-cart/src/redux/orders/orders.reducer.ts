@@ -35,14 +35,14 @@ const ordersReducer = (state = INITIAL_STATE, action: OrdersAction) => {
         ...state,
         error: null,
         loading: false,
-        orders: state.orders.concat(action.payload),
+        orders: action.payload,
       };
     case ordersActionTypes.deleteOrderSuccess:
       return {
         ...state,
         error: null,
         loading: false,
-        orders: state.orders.filter((order) => order.id !== action.payload),
+        orders: [],
       };
     case ordersActionTypes.fetchOrderError:
     case ordersActionTypes.addOrderError:
