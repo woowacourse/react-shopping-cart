@@ -8,11 +8,10 @@ import { ColumnFlexWrapper } from 'styles/Wrapper';
 const ShoppingCartPageHeader = styled.div`
   width: 880px;
   padding: 20px 0;
-  border-bottom: 3px solid;
+  border-bottom: 3px solid ${({ theme }) => theme.colors.black_01};
   text-align: center;
   font-size: 22px;
   font-weight: 700;
-  border-bottom-color: ${({ theme }) => theme.colors.black_01};
 `;
 
 const ShoppingCartPageContent = styled.div`
