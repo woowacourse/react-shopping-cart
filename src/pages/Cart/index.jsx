@@ -14,6 +14,7 @@ const Cart = () => {
           {cartList.map(({ id, name, imgUrl, price, quantity }) => (
             <CartItem
               key={id}
+              id={id}
               name={name}
               imgUrl={imgUrl}
               price={price}

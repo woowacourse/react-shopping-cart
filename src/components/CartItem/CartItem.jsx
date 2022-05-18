@@ -3,8 +3,9 @@ import Styled from './style';
 import { useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
+import CheckBox from 'components/CheckBox/CheckBox';
 
-const CartItem = ({ imgUrl, name, price, quantity }) => {
+const CartItem = ({ id, imgUrl, name, price, quantity }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const handleChangeQuantity = ({ target }) => {
     setItemQuantity(target.valueAsNumber);
@@ -12,7 +13,7 @@ const CartItem = ({ imgUrl, name, price, quantity }) => {
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
-        <Styled.CheckBox type="checkbox" />
+        <CheckBox id={id} />
         <Styled.Image src={imgUrl} />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
@@ -33,6 +34,7 @@ const CartItem = ({ imgUrl, name, price, quantity }) => {
 };
 
 CartItem.propTypes = {
+  id: PropTypes.number,
   imgUrl: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.string,

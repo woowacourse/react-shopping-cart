@@ -47,4 +47,5 @@
   - [x] CartContainer 컴포넌트 만들기
   - [x] PaymentBox 컴포넌트 만들기
   - [x] Title 컴포넌트 만들기
+  - [x] CheckBox 컴포넌트 만들기
 - [ ] 단위 테스트 작성
