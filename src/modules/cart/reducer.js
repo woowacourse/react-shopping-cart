@@ -10,7 +10,7 @@ const initialState = {
   getProductCartLoading: false,
   getProductCartSuccess: false,
   getProductCartFail: '',
-  ADD_PRODUCT_CART_FAIL: '',
+  addProductCartFail: '',
 };
 
 const cart = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: true,
         getProductCartSuccess: false,
         getProductCartFail: '',
-        ADD_PRODUCT_CART_FAIL: '',
+        addProductCartFail: '',
       };
     case GET_PRODUCT_CART_SUCCESS:
       return {
@@ -29,7 +29,7 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: true,
         getProductCartFail: '',
-        ADD_PRODUCT_CART_FAIL: '',
+        addProductCartFail: '',
         cartProducts: [...action.cartProducts],
       };
     case GET_PRODUCT_CART_FAIL:
@@ -38,7 +38,7 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: false,
         getProductCartFail: action.type,
-        ADD_PRODUCT_CART_FAIL: '',
+        addProductCartFail: '',
       };
     case ADD_PRODUCT_CART_FAIL:
       return {
@@ -46,7 +46,7 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: false,
         getProductCartFail: '',
-        ADD_PRODUCT_CART_FAIL: action.type,
+        addProductCartFail: action.type,
       };
     default:
       return state;
