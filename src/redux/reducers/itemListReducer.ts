@@ -2,7 +2,7 @@ import { Item } from 'types/domain';
 
 import { ItemListAction, ItemListActionType } from '../actions/itemList';
 
-interface ItemListState {
+export interface ItemListState {
   readonly loading: boolean;
   readonly error: string | null;
   readonly data: Item[];

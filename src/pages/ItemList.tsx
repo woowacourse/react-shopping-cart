@@ -26,11 +26,11 @@ const ItemList = () => {
     error: itemListError,
     loading,
   } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
-  const { data: allItemList, error: allItemListError } = useThunkFetch<ItemListAction>(
+  const { data: allItemList, error: allItemListError } = useThunkFetch(
     state => state.itemListReducer,
     getItemList
   );
-  const { data: cartList, error: cartListError } = useThunkFetch<CartListAction>(
+  const { data: cartList, error: cartListError } = useThunkFetch(
     state => state.cartListReducer,
     getCartList
   );

@@ -10,7 +10,6 @@ import useThunkFetch from 'hooks/useThunkFetch';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useParams } from 'react-router-dom';
 import { getCartList } from 'redux/action-creators/cartListThunk';
-import { CartListAction } from 'redux/actions/cartList';
 import styled from 'styled-components';
 import type { Item } from 'types/domain';
 
@@ -18,10 +17,7 @@ const ItemDetail = () => {
   const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
   const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
-  const { data: cartList } = useThunkFetch<CartListAction>(
-    state => state.cartListReducer,
-    getCartList
-  );
+  const { data: cartList } = useThunkFetch(state => state.cartListReducer, getCartList);
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
 
   const handleClickCart = () => {
