@@ -1,14 +1,15 @@
 import React from 'react';
-import CheckboxStyled from './style';
+import InputStyled from './style';
 
-function Input({ type, width, height, border, background }) {
+function Input({ type, width, height, border, background, fontSize }) {
   return (
-    <CheckboxStyled
+    <InputStyled
       type={type}
       width={width}
       height={height}
-      boder={border}
+      border={border}
       background={background}
+      fontSize={fontSize}
     />
   );
 }
