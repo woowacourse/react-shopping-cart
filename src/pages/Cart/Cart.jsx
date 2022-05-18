@@ -7,7 +7,7 @@ import Skeleton from 'components/Skeleton';
 const Cart = () => {
   const { getCartEffect, cart, isLoading, isError } = useCart();
   getCartEffect();
-
+  console.log(cart);
   return (
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
