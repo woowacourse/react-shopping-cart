@@ -11,7 +11,7 @@ const ProductDetail = ({ imgUrl, name, price }) => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { isLoading, isError, callApi } = usePost('/cartㅇ', {
+  const { isLoading, isError, callApi } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });

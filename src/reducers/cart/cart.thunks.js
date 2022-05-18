@@ -5,7 +5,7 @@ export const getCartAsync = async (dispatch) => {
   dispatch(actions.getCart());
 
   try {
-    const { data } = await apiClient.get('/cart');
+    const { data } = await apiClient.get('/cartList');
     dispatch(actions.getCartSuccess(data));
   } catch (error) {
     dispatch(actions.getCartError());
