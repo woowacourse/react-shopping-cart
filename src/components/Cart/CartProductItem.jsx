@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { DeleteButton, DownCountButton, UpCountButton } from 'components/common/Styled';
+import { DeleteButton } from 'components/common/Styled';
+import CountModal from 'components/common/Modal/CountModal';
 
 const Styled = {
   Wrapper: styled.div`
@@ -109,14 +110,8 @@ const CartProductItem = ({ thumbnail, title, price }) => {
       </Styled.ProductInfoBox>
       <Styled.ProductSelectBox>
         <DeleteButton>🗑</DeleteButton>
-        <Styled.CounterBox>
-          <Styled.CounterShowBox>13</Styled.CounterShowBox>
-          <Styled.UpDownButtonBox>
-            <UpCountButton>▴</UpCountButton>
-            <DownCountButton>▴</DownCountButton>
-          </Styled.UpDownButtonBox>
-        </Styled.CounterBox>
-        <Styled.TotalAmount>10000원</Styled.TotalAmount>
+        <CountModal />
+        <Styled.TotalAmount>{price}원</Styled.TotalAmount>
       </Styled.ProductSelectBox>
     </Styled.Wrapper>
   );

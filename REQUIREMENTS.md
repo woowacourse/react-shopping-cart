@@ -20,7 +20,9 @@
 
   - [ ] ShoppingCartProductList 컴포넌트
 
-  - [x] ShoppingCartProductItem 컴포넌트
+  - [x] CartProductItem 컴포넌트
+
+  - [x] CountModal 컴포넌트
 
 ### 추가 반영 사항
 
