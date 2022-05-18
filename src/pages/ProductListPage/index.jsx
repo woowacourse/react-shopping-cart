@@ -21,8 +21,10 @@ const ProductListPage = () => {
   useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
 
   useEffect(() => {
+    if (products.data.length) return;
+
     dispatch(getProductsByPage());
-  }, [dispatch]);
+  }, [dispatch, products]);
 
   if (products.error) navigate("/server-error");
 
