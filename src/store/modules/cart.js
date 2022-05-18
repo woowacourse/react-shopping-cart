@@ -4,11 +4,13 @@ const CART = {
   EDIT: 'EDIT_CART',
 };
 
-const initialState = {
+const INITIAL_STATE = {
   cart: [],
 };
+Object.freeze(INITIAL_STATE);
+Object.freeze(INITIAL_STATE.cart);
 
-export default function cartReducer(state = initialState, action) {
+export default function cartReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case CART.ADD: {
       return {

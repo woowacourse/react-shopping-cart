@@ -28,13 +28,15 @@ export const getProductList = () => async (dispatch) => {
   }
 };
 
-const initialState = {
+const INITIAL_STATE = {
   pending: false,
   error: false,
   productList: [],
 };
+Object.freeze(INITIAL_STATE);
+Object.freeze(INITIAL_STATE.productList);
 
-export default function productListReducer(state = initialState, action) {
+export default function productListReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_PRODUCT_LIST.PENDING: {
       return {
