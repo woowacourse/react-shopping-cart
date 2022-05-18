@@ -1,0 +1,45 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "react-app",
+    "prettier/prettier",
+    "plugin:import/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/no-anonymous-default-export": 0,
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "eol-last": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "computed-property-spacing": ["error", "never"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    "object-shorthand": "error",
+    "no-empty-function": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "import/no-unresolved": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": ["node_modules"]
+      }
+    },
+    "import/parsers": {
+      "import/parser": ["babel-eslint"]
+    }
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true,
+    "commonjs": true
+  }
+}
