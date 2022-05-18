@@ -7,7 +7,8 @@ const 상품리스트_불러오기_액션 = createAsyncAction('상품리스트_�
 const 상품_불러오기_액션 = createAsyncAction('상품_불러오기');
 
 const 장바구니_액션 = {
-  ADD_CART: '장바구니에 상품을 추가합니다.',
+  ADD_NEW_PRODUCT: '장바구니에 새로운 상품을 추가합니다.',
+  ADD_EXIST_PRODUCT: '장바구니에 존재하는 상품을 추가합니다.',
 };
 
 const 스낵바_액션 = {

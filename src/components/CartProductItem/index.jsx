@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -9,7 +10,7 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import { 아이콘_코드 } from 'constants/';
 import * as Styled from './styles';
 
-const CartProducItem = ({ id, thumbnail, name, price }) => {
+const CartProducItem = ({ id, thumbnail, name, price, count }) => {
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +21,8 @@ const CartProducItem = ({ id, thumbnail, name, price }) => {
       </Styled.ImageWrapper>
       <CommonStyled.FlexWrapper
         height="100px"
-        justifyContent="space-between"
+        justifyContent="flex-end"
+        alignItems="flex-end"
         flexDirection="column"
         padding="0 1rem"
       >
@@ -29,7 +31,7 @@ const CartProducItem = ({ id, thumbnail, name, price }) => {
           <IconButton onClick={() => {}} icon={아이콘_코드.DELETE} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="120px" justifyContent="flex-end">
-          <Counter />
+          <Counter count={count} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="flex-end">
           <CommonStyled.Text padding="0.5rem 0">

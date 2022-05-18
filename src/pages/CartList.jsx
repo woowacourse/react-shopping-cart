@@ -3,17 +3,21 @@ import CheckBox from 'components/@common/CheckBox';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import CartProducItem from 'components/CartProductItem';
 import Layout from 'components/Layout';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { COLORS } from 'styles/theme';
 import { CartListContainer, CartListReceiptContainer } from './styles';
 
 const CartList = () => {
   const { items: cartList } = useSelector((state) => state.cart);
+  // const [purchaseAmount, setPurchaseAmount] = useState([]);
+
+  // const handleAmount = (value) => {
+  //   setAmount(value);
+  // };
 
   useEffect(() => {
-    console.log('장바구니 진입');
-    console.log(cartList);
+    // const purchaseData = {cartList}
   }, []);
 
   return (
@@ -32,7 +36,7 @@ const CartList = () => {
             <p>싱싱배송 상품 (?개)</p>
             <CommonStyled.HR />
             {cartList &&
-              cartList.map(({ id, name, thumbnail, price }) => (
+              cartList.map(({ id, name, thumbnail, price, count }) => (
                 <>
                   <CartProducItem
                     key={id}
@@ -40,6 +44,7 @@ const CartList = () => {
                     name={name}
                     thumbnail={thumbnail}
                     price={price}
+                    count={count}
                   />
                   <CommonStyled.HR size="1px" />
                 </>

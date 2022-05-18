@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { addCartList } from 'actions/cart';
@@ -14,9 +14,10 @@ import * as Styled from './styles';
 const ProductItem = ({ id, thumbnail, name, price }) => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
+  const { items: cartList } = useSelector((state) => state.cart);
 
   const onClickAddCartButton = () => {
-    dispatch(addCartList({ id, thumbnail, name, price }));
+    dispatch(addCartList({ id, thumbnail, name, price }, cartList));
     dispatch(snackbar.pushMessageSnackbar(`${name}가 장바구니에 추가되었습니다 🧺`));
   };
 
