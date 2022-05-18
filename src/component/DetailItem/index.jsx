@@ -16,7 +16,7 @@ export default function DetailItem({
 }) {
   return (
     <S.DetailItemLayout>
-      <img src={itemImgURL} alt={itemName} width="570px" height="570px" />
+      <img src={itemImgURL} alt="상품 이미지" width="570px" height="570px" />
       <S.ItemNameSpan>{itemName}</S.ItemNameSpan>
       <S.ItemPriceBox>
         <span>금액</span>

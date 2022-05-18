@@ -18,7 +18,7 @@ export default function CartItem({
   return (
     <S.CartItemLayout>
       <CheckBox id={id} />
-      <img src={itemImgURL} alt={itemName} width="144px" height="144px" />
+      <img src={itemImgURL} alt="장바구니 상품 이미지" width="144px" height="144px" />
       <S.ItemNameParagraph>{itemName}</S.ItemNameParagraph>
       <S.EditQuantityBox>
         <Button onClick={handleDeleteIconClick}>

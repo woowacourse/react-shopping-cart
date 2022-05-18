@@ -21,7 +21,7 @@ export default function Item({
     <S.ItemLayout>
       <img
         src={itemImgURL}
-        alt={itemName}
+        alt="상품 이미지"
         width="282px"
         height="282px"
         onClick={handleImageClick}
