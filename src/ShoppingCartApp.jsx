@@ -9,6 +9,7 @@ import store from 'store';
 import { Global } from '@emotion/react';
 import GlobalStyles from 'styles/GlobalStyles';
 import ProductDetail from 'pages/ProductDetail';
+import CartList from 'pages/CartList';
 
 const ShoppingCartApp = () => (
   <Provider store={store}>
@@ -18,6 +19,7 @@ const ShoppingCartApp = () => (
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/product" element={<ProductDetail />} />
+        <Route path="/cart" element={<CartList />} />
         <Route path="*" element={<ProductList />} />
       </Routes>
     </BrowserRouter>

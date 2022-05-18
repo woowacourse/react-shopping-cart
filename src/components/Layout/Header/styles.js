@@ -32,6 +32,7 @@ const LeftMenuButton = styled.button`
 const Logo = styled(CommonStyled.FlexWrapper)`
   cursor: pointer;
   justify-content: center;
+  height: 100%;
   background-image: url(${logo});
   background-size: 70%;
   background-repeat: no-repeat;

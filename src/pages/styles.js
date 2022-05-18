@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { FlexWrapper } from 'components/@common/CommonStyle/styles';
+import { COLORS } from 'styles/theme';
 
 const ProductListContainer = styled.div`
   display: grid;
@@ -13,4 +14,14 @@ const ProductDetailWrapper = styled(FlexWrapper)`
   margin: 3rem 0;
 `;
 
-export { ProductListContainer, ProductDetailWrapper };
+const CartListContainer = styled(FlexWrapper)`
+  flex-direction: column;
+  padding: 3rem;
+`;
+
+const CartListReceiptContainer = styled(FlexWrapper)`
+  margin: 5.3rem 2rem;
+  border: 1px solid ${COLORS.GRAY_300};
+`;
+
+export { ProductListContainer, ProductDetailWrapper, CartListContainer, CartListReceiptContainer };

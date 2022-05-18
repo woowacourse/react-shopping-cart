@@ -2,6 +2,7 @@ export const 아이콘_코드 = {
   CARROT: 'f787',
   CART: 'f07a',
   USER: 'f007',
+  DELETE: 'f2ed',
 };
 
 export const 비동기_요청 = {
