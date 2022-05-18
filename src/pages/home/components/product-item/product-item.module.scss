@@ -1,0 +1,50 @@
+@import "../../../../scss/no-style.scss";
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: 0.3s ease;
+
+  &:hover {
+    .thumbnail {
+      img {
+        transform: scale(1.08, 1.08);
+      }
+    }
+  }
+
+  .product-title {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .product-price {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+  }
+}
+
+.thumbnail {
+  overflow: hidden;
+  height: 100%;
+  img {
+    transition: 0.3s ease;
+  }
+}
+
+.product-detail {
+  display: flex;
+  padding: 10px 0px 10px 15px;
+  & > .l-left {
+    width: 100%;
+  }
+}
+
+.add-to-cart-btn {
+  @include button-no-style;
+  width: 50px;
+  padding-right: 12px;
+}

@@ -1,0 +1,22 @@
+html, body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'sans-serif', 
+}
+
+#root {
+  padding-bottom: 50px;
+}
+
+.wrapper {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+

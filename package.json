@@ -1,0 +1,88 @@
+{
+  "name": "starcraft-shop",
+  "version": "1.0.0",
+  "description": "스타크래프트 쇼핑몰",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --progress --config ./webpack/webpack.prod.js",
+    "clean": "npm cache clean --force && rm -rf node_modules && rm package-lock.json",
+    "start": "webpack serve --open --progress --port 9000 --config ./webpack/webpack.dev.js",
+    "build:msw": "npx msw init public/ --save",
+    "lint": "node_modules/.bin/eslint --ext=.jsx,.js,.tsx,.ts  ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airman5573/react-shopping-cart.git"
+  },
+  "keywords": [
+    "starcraft"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/airman5573/react-shopping-cart/issues"
+  },
+  "homepage": "https://github.com/airman5573/react-shopping-cart#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
+    "@babel/plugin-proposal-pipeline-operator": "^7.17.6",
+    "@babel/plugin-transform-runtime": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "@commitlint/cli": "^16.2.4",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@svgr/webpack": "^6.2.1",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "commitizen": "^4.2.4",
+    "core-js": "^3.22.5",
+    "css-loader": "^6.7.1",
+    "cz-customizable": "^6.3.0",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.0",
+    "include-media": "^1.4.10",
+    "mini-css-extract-plugin": "^2.6.0",
+    "msw": "^0.39.2",
+    "node-sass": "^7.0.1",
+    "prettier": "^2.6.2",
+    "sass-loader": "^12.6.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0",
+    "windicss": "^3.5.3",
+    "windicss-webpack-plugin": "^1.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.9",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "classnames": "^2.3.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}
