@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/react-in-jsx-scope": "warn",
+    "react/jsx-props-no-spreading": "warn",
+    "object-curly-newline": "warn",
+    "indent": "warn",
+    "no-confusing-arrow": "warn",
+    "no-unused-vars": "warn",
+    "default-param-last": "warn",
+    "linebreak-style": "off",
+    "comma-dangle": "off",
+    "operator-linebreak": "off",
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "parser": "flow", "endOfLine": "auto" }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
+}
