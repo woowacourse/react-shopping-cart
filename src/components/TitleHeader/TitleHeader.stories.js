@@ -1,11 +1,11 @@
-import Title from 'components/Title';
+import TitleHeader from 'components/TitleHeader';
 
 export default {
-  title: 'components/Title',
-  component: Title,
+  title: 'components/TitleHeader',
+  component: TitleHeader,
 };
 
-const Template = (args) => <Title {...args} />;
+const Template = (args) => <TitleHeader {...args} />;
 
 export const Cart = Template.bind({});
 
