@@ -12,7 +12,7 @@ const CartTable = ({ cartList }) => {
             type="checkbox"
             checked="true"
           ></Styled.Checkbox>
-          <Styled.CheckboxLabel for="checkbox">선택해제</Styled.CheckboxLabel>
+          <Styled.CheckboxLabel for="checkbox">전체선택</Styled.CheckboxLabel>
         </Styled.CheckboxWrapper>
         <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
       </Styled.TopWrapper>
@@ -76,6 +76,7 @@ const Styled = {
   DeleteButton: styled.button`
     padding: 12px 22px;
     border: 1px solid #bbbbbb;
+    cursor: pointer;
   `,
 
   CartTitle: styled.h3`

@@ -95,11 +95,12 @@ const Styled = {
     justify-content: center;
     align-items: center;
     background: #2ac1bc;
-    font-size: 24px;
+    font-size: 20px;
     color: white;
     width: 100%;
     padding: 20px;
     border: none;
+    cursor: pointer;
   `,
 };
 

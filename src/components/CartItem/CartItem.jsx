@@ -85,6 +85,7 @@ const Styled = {
   `,
   TrashIcon: styled.img`
     align-self: flex-end;
+    cursor: pointer;
   `,
   InputWrapper: styled.div`
     display: flex;
@@ -103,7 +104,7 @@ const Styled = {
     justify-content: center;
     align-items: center;
     border: 1px solid #dddddd;
-    height: 31px;
+    height: 29px;
     cursor: pointer;
   `,
   CartPrice: styled.span`

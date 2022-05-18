@@ -31,6 +31,7 @@ const Styled = {
   DivideLine: styled.hr`
     width: 100%;
     border: 2px solid black;
+    margin-top: 20px;
   `,
 };
 

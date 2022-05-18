@@ -3,36 +3,39 @@ import ImgWrapper from 'components/ImgWrapper';
 import useCart from 'hooks/useCart';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import Skeleton from 'components/Skeleton';
+import TitleHeader from 'components/TitleHeader';
+import CartTable from 'components/CartTable';
+import CartOrder from 'components/CartOrder';
 
 const Cart = () => {
   const { getCartEffect, cart, isLoading, isError } = useCart();
   getCartEffect();
-  console.log(cart);
+
+  const totalPrice = cart.reduce((acc, cur) => {
+    return acc + Number(cur.price);
+  }, 0);
+
   return (
-    <Styled.Wrapper>
-      {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
-      {!isLoading &&
-        cart &&
-        cart.map(({ name, cartQuantity, price, id }) => (
-          <div key={id}>
-            상품명 : {name} /
-            <span>
-              {cartQuantity}개 {price}원
-            </span>
-          </div>
-        ))}
-    </Styled.Wrapper>
+    <Styled.CartSection>
+      <TitleHeader>장바구니</TitleHeader>
+      <Styled.FlexBetweenBox>
+        {isLoading && <Skeleton sizeType="large" />}
+        {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
+        {!isLoading && cart && <CartTable cartList={cart} />}
+
+        <CartOrder totalPrice={totalPrice} totalCount={cart.length} />
+      </Styled.FlexBetweenBox>
+    </Styled.CartSection>
   );
 };
 
 const Styled = {
-  Wrapper: styled.section`
+  CartSection: styled.section`
+    padding: 24px 100px;
+  `,
+  FlexBetweenBox: styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 50px;
+    justify-content: space-between;
   `,
 };
 
