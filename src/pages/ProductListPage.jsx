@@ -4,7 +4,7 @@ import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/com
 import useRequest from '../hooks/useRequest';
 import { getProductList } from '../api';
 import CartIconButton from '../components/common/CartIconButton';
-import { AddProductToCart, removeProductToCart } from '../store/modules/cart/actions';
+import { AddProductToCartAsync, removeProductToCartAsync } from '../store/modules/cart/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import FloatingActionButton from '../components/common/FloatingActionButton';
@@ -21,10 +21,10 @@ function ProductListPage() {
 
   const onClickCartIcon = ({ tryAdd, product }) => {
     if (tryAdd) {
-      dispatch(AddProductToCart(product));
+      dispatch(AddProductToCartAsync(product));
       return;
     }
-    dispatch(removeProductToCart(product.id));
+    dispatch(removeProductToCartAsync(product.id));
   };
 
   if (loading) return null;

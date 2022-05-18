@@ -18,4 +18,40 @@ const getProductItem = async (id) => {
   });
 };
 
-export { getProductList, getProductItem };
+const getCartList = async () => {
+  return await axios({
+    method: 'GET',
+    url: `${API_URL}/cart`,
+  });
+};
+
+const postCartItem = async (payload) => {
+  return await axios({
+    method: 'POST',
+    url: `${API_URL}/cart`,
+    headers: { 'Content-Type': 'application/json' },
+    data: payload,
+  });
+};
+
+const deleteCartItem = async (payload) => {
+  const { id } = payload;
+
+  return await axios({
+    method: 'DELETE',
+    url: `${API_URL}/cart/${id}`,
+  });
+};
+
+const patchCartItem = async (payload) => {
+  const { id, quantity } = payload;
+
+  return await axios({
+    method: 'PATCH',
+    url: `${API_URL}/cart/${id}`,
+    headers: { 'Content-Type': 'application/json' },
+    data: { quantity },
+  });
+};
+
+export { getProductList, getProductItem, getCartList, postCartItem, deleteCartItem, patchCartItem };
