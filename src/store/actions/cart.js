@@ -11,6 +11,7 @@ const handleCartDispatch = async ({
 
   try {
     const { cart } = await func(...params);
+
     dispatch({ type: actionType, payload: { cart } });
   } catch ({ message }) {
     dispatch({ type: cartActionType.FAIL, payload: { message } });
@@ -18,19 +19,23 @@ const handleCartDispatch = async ({
 };
 
 export const addToCartAsync = (productId, quantity) => async (dispatch) => {
-  handleCartDispatch({ dispatch, func: addToCart, params: [productId, quantity] });
+  await handleCartDispatch({ dispatch, func: addToCart, params: [productId, quantity] });
 };
 
 export const getCartAsync = () => async (dispatch) => {
-  handleCartDispatch({ dispatch, actionType: cartActionType.FETCH, func: getCart });
+  await handleCartDispatch({ dispatch, actionType: cartActionType.FETCH, func: getCart });
 };
 
 export const updateCartProductQuantityAsync = (productId, quantity) => async (dispatch) => {
-  handleCartDispatch({ dispatch, func: updateCartProductQuantity, params: [productId, quantity] });
+  await handleCartDispatch({
+    dispatch,
+    func: updateCartProductQuantity,
+    params: [productId, quantity],
+  });
 };
 
 export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
-  handleCartDispatch({
+  await handleCartDispatch({
     dispatch,
     actionType: cartActionType.DELETE,
     func: deleteCartProduct,
