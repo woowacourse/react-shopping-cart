@@ -21,6 +21,19 @@ export const CardDetailButton = styled(StyledButton)`
   }
 `;
 
+export const OrderButton = styled(StyledButton)`
+  width: 404px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 22px;
+  color: ${COLOR.DEFAULT_FONT};
+  background: ${COLOR.ORDER_BUTTON};
+
+  :hover {
+    background: ${COLOR.ORDER_BUTTON_HOVER};
+  }
+`;
+
 export const flexCenter = styled.div`
   display: flex;
   justify-content: center;

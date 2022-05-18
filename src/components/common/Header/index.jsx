@@ -12,7 +12,7 @@ const Styled = {
     background: ${COLOR.HEADER_BACKGROUND};
     width: 100%;
     height: 80px;
-    color: ${COLOR.HEADER_FONT};
+    color: ${COLOR.DEFAULT_FONT};
     margin-bottom: 60px;
   `,
   LogoBox: styled(Link)`
