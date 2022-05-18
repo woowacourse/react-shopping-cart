@@ -11,7 +11,7 @@
 ## 로컬 구동 방법
 
 - 로컬에서 구동할 경우 프로젝트 루트 경로에서 다음 스크립트를 실행하여 `.env` 파일을 추가해주세요.
-  - `echo "REACT_APP_API_URL=https://shopping-cart-json-server123.herokuapp.com" > .env`
+  - `echo "REACT_APP_API_URL=https://react-shopping-cart-marco.herokuapp.com" > .env`
 - 로컬 구동 스크립트 `npm i && npm run start`
 
 ## step2 장바구니 요구사항 정리
