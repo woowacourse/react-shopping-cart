@@ -3,7 +3,7 @@ import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
 const ProductCartPageLayout = styled(FlexColumn)`
-  margin: 140px 10% 0;
+  margin: 140px 10%;
 `;
 
 const CartInfoBox = styled(FlexRow)`

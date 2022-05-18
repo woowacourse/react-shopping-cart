@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ProductListPageLayout = styled(FlexRow)`
   justify-content: center;
-  margin-top: 140px;
+  margin: 140px 10%;
 `;
 
 const ProductListBox = styled.div`
