@@ -9,6 +9,7 @@ export const cartActionType = {
   FAIL: 'cart/ACTION_FAIL',
   FETCH: 'cart/FETCH',
   UPDATE: 'cart/UPDATE',
+  DELETE: 'cart/DELETE',
   UPDATE_CHECKED_LIST: 'cart/UPDATE_CHECKED_LIST',
 };
 
@@ -21,7 +22,8 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
-    case cartActionType.FETCH: {
+    case cartActionType.FETCH:
+    case cartActionType.DELETE: {
       const {
         payload: { cart },
       } = action;

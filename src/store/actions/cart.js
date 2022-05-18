@@ -30,7 +30,12 @@ export const updateCartProductQuantityAsync = (productId, quantity) => async (di
 };
 
 export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
-  handleCartDispatch({ dispatch, func: deleteCartProduct, params: [productIdArray] });
+  handleCartDispatch({
+    dispatch,
+    actionType: cartActionType.DELETE,
+    func: deleteCartProduct,
+    params: [productIdArray],
+  });
 };
 
 export const toggleProductCheck = (productId) => (dispatch, getState) => {
