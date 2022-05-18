@@ -1,12 +1,17 @@
 import { addToCart, deleteCartProduct, getCart, updateCartProductQuantity } from '../../api/api';
 import { cartActionType } from '../reducers/cart';
 
-const handleCartDispatch = async ({ dispatch, func, params = [] }) => {
+const handleCartDispatch = async ({
+  dispatch,
+  actionType = cartActionType.UPDATE,
+  func,
+  params = [],
+}) => {
   dispatch({ type: cartActionType.START });
 
   try {
     const { cart } = await func(...params);
-    dispatch({ type: cartActionType.UPDATE, payload: { cart } });
+    dispatch({ type: actionType, payload: { cart } });
   } catch ({ message }) {
     dispatch({ type: cartActionType.FAIL, payload: { message } });
   }
@@ -17,7 +22,7 @@ export const addToCartAsync = (productId, quantity) => async (dispatch) => {
 };
 
 export const getCartAsync = () => async (dispatch) => {
-  handleCartDispatch({ dispatch, func: getCart });
+  handleCartDispatch({ dispatch, actionType: cartActionType.FETCH, func: getCart });
 };
 
 export const updateCartProductQuantityAsync = (productId, quantity) => async (dispatch) => {

@@ -21,7 +21,7 @@ const cartReducer = (state = initialState, action) => {
       };
     }
 
-    case cartActionType.UPDATE: {
+    case cartActionType.FETCH: {
       const {
         payload: { cart },
       } = action;
@@ -30,6 +30,18 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cart,
         checkedProductList: Object.keys(cart),
+        isLoading: false,
+      };
+    }
+
+    case cartActionType.UPDATE: {
+      const {
+        payload: { cart },
+      } = action;
+
+      return {
+        ...state,
+        cart,
         isLoading: false,
       };
     }
