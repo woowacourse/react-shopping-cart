@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
 const ButtonStyled = styled.button(
-  ({ width, height, fontSize, fontWeight, color, border, theme }) => `
+  ({
+    width,
+    height,
+    fontSize = '24px',
+    fontWeight = '500',
+    color,
+    border = 'none',
+    background = 'none',
+    theme,
+  }) => `
   margin: 0;
   cursor: pointer;
-  background: none;
   width: ${width};
   height: ${height};
-  font-size: ${fontSize || 24};
-  font-weight: ${fontWeight || 500};
+  font-size: ${fontSize};
+  font-weight: ${fontWeight};
   color: ${theme[color]};
   border: ${border};
+  background: ${background};
 `,
 );
 

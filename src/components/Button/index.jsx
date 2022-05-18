@@ -2,7 +2,7 @@ import React from 'react';
 
 import ButtonStyled from './style';
 
-function Button({ width, height, fontSize, fontWeight, color, border, children }) {
+function Button({ width, height, fontSize, fontWeight, color, border, background, children }) {
   return (
     <ButtonStyled
       width={width}
@@ -11,6 +11,7 @@ function Button({ width, height, fontSize, fontWeight, color, border, children }
       fontWeight={fontWeight}
       color={color}
       border={border}
+      background={background}
     >
       {children}
     </ButtonStyled>
