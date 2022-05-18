@@ -36,6 +36,11 @@ const GlobalStyles = () => (
         cursor: pointer;
       }
 
+      input,
+      label {
+        cursor: pointer;
+      }
+
       .App {
         padding: 0 10%;
         margin: 140px 0;
