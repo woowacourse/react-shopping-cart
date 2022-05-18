@@ -9,9 +9,8 @@ const useProducts = () => {
   } = useReduxState('products');
 
   useEffect(() => {
-    if (data.length > 0) return;
-    dispatch(getProductsAsync);
-  }, [data]);
+    dispatch(getProductsAsync); // 이 부분 수정하기. 상태있을 경우 안가져오게..
+  }, []);
 
   return { isLoading, isError, products: data };
 };

@@ -19,10 +19,9 @@ const Styled = {
   `,
 
   SelectFieldSet: styled.div`
-    width: 85px;
+    width: 130px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   `,
 
   DeleteButton: styled.button`

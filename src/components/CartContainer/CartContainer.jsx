@@ -1,14 +1,15 @@
 import React from 'react';
 import Styled from './style';
 import PropTypes from 'prop-types';
+import CheckBox from 'components/CheckBox/CheckBox';
 
 const CartContainer = ({ children }) => {
   return (
     <div>
       <Styled.ControlBar>
         <Styled.SelectFieldSet>
-          <input type="checkbox" />
-          <label>선택 해제</label>
+          <CheckBox id="total" />
+          <span>전체 선택 / 해제</span>
         </Styled.SelectFieldSet>
         <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
       </Styled.ControlBar>

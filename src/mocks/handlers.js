@@ -52,6 +52,7 @@ export const handlers = [
   }),
 
   rest.get('/cart', (req, res, ctx) => {
+    console.log(cartStorage);
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
 ];

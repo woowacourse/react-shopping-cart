@@ -45,6 +45,7 @@ const cartReducer = (state = initialState, action) => {
       isLoadingAddCartItem: false,
       isSucceedAddCartItem: true,
       isErrorAddCartItem: false,
+      data: action.data,
     };
   }
 
