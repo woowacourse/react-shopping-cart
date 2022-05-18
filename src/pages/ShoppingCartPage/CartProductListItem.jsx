@@ -9,12 +9,12 @@ import NumberInput from "../../components/common/NumberInput";
 
 import DeleteFromCartButton from "./DeleteFromCartButton";
 
-function CartProductListItem({ product }) {
+function CartProductListItem({ product, selected, handleCheckBoxClick }) {
   const dispatch = useDispatch();
 
   return (
     <CartItemContainer>
-      <CheckBox />
+      <CheckBox checked={selected} onClick={handleCheckBoxClick} />
       <img
         src={product.thumbnailUrl}
         alt={product.name}

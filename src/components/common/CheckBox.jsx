@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-function CheckBox() {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <StyledBox
-      type={"checkbox"}
-      checked={checked}
-      onClick={() => {
-        setChecked((prevState) => !prevState);
-      }}
-    />
-  );
+function CheckBox({ checked, onClick }) {
+  return <StyledInput type={"checkbox"} checked={checked} onClick={onClick} />;
 }
 
-const StyledBox = styled.input`
+const StyledInput = styled.input`
   appearance: none;
 
   width: 28px;

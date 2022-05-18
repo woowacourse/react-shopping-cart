@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useCartItemList } from "../../hooks/useCartItemList";
@@ -11,6 +11,12 @@ import Spinner from "../../components/common/Spinner";
 
 function ShoppingCartPage() {
   const { cartItemList, isLoading, errorMessage } = useCartItemList();
+  const [selectedItemIdList, setSelectedItemIdList] = useState([]);
+
+  const cartItemIdList = cartItemList.map((cartItem) => cartItem.id);
+  const selectAllChecked = cartItemIdList.every((cartItemId) =>
+    selectedItemIdList.includes(cartItemId)
+  );
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
@@ -22,7 +28,19 @@ function ShoppingCartPage() {
         <div>
           <SelectedProductManagementContainer>
             <Label>
-              <CheckBox />
+              <CheckBox
+                checked={selectAllChecked}
+                onClick={() => {
+                  if (selectAllChecked) {
+                    setSelectedItemIdList([]);
+                    return;
+                  }
+
+                  setSelectedItemIdList(
+                    cartItemList.map((cartItem) => cartItem.id)
+                  );
+                }}
+              />
               전체 선택
             </Label>
             <Button
@@ -35,10 +53,33 @@ function ShoppingCartPage() {
             </Button>
           </SelectedProductManagementContainer>
           <div>
-            <ListTitle>장바구니 상품목록(3개)</ListTitle>
+            <ListTitle>장바구니 상품목록({cartItemList.length}개)</ListTitle>
             <CartProductList>
               {cartItemList.map((product) => (
-                <CartProductListItem key={product.id} product={product} />
+                <CartProductListItem
+                  key={product.id}
+                  product={product}
+                  selected={selectedItemIdList.includes(product.id)}
+                  handleCheckBoxClick={() => {
+                    if (selectedItemIdList.includes(product.id)) {
+                      setSelectedItemIdList((prev) => {
+                        const selectedItemIndex = prev.findIndex(
+                          (selectedItem) => selectedItem.id === product.id
+                        );
+                        const newSelectedItemIdList = [...prev];
+                        newSelectedItemIdList.splice(selectedItemIndex, 1);
+                        return newSelectedItemIdList;
+                      });
+                      return;
+                    }
+
+                    setSelectedItemIdList((prev) => {
+                      const newSelectedItemIdList = [...prev];
+                      newSelectedItemIdList.push(product.id);
+                      return newSelectedItemIdList;
+                    });
+                  }}
+                />
               ))}
             </CartProductList>
           </div>
