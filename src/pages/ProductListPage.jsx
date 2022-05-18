@@ -1,20 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GiShoppingCart } from 'react-icons/gi';
 import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import useRequest from '../hooks/useRequest';
 import { getProductList } from '../api';
+import CartIconButton from '../components/common/CartIconButton';
+import { AddProductToCart, removeProductToCart } from '../store/modules/cart/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ProductListPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { count } = useSelector((state) => state.cart);
   const { data: productList, loading } = useRequest(getProductList);
 
-  const handleClickItem = async (id) => {
+  const handleClickItem = (id) => {
     navigate(`${id}`);
   };
 
-  const handleClickCart = () => {
-    alert('기능 추가중...');
+  const onClickCartIcon = ({ tryAdd, product }) => {
+    if (tryAdd) {
+      dispatch(AddProductToCart(product));
+      return;
+    }
+    dispatch(removeProductToCart(product.id));
   };
 
   if (loading) return null;
@@ -23,31 +31,31 @@ function ProductListPage() {
     <StyledContent>
       <StyledGridContainer>
         {productList.map((product) => {
-          const { id, name, price, imageUrl } = product;
-          return (
-            <StyledItem key={id}>
-              <StyledImageWrapper
-                width={'middle'}
-                height={'middle'}
-                onClick={() => handleClickItem(id)}>
-                <StyledImg width={'middle'} src={imageUrl} />
-              </StyledImageWrapper>
-              <StyledItemInfoBox>
-                <StyledItemInfo onClick={() => handleClickItem(id)}>
-                  <StyledItemName>{name}</StyledItemName>
-                  <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
-                </StyledItemInfo>
-                <StyledIconButton onClick={handleClickCart}>
-                  <GiShoppingCart size={25} />
-                </StyledIconButton>
-              </StyledItemInfoBox>
-            </StyledItem>
-          );
+          return ProductContainer({ product, handleClickItem, onClickCartIcon });
         })}
       </StyledGridContainer>
     </StyledContent>
   );
 }
+
+const ProductContainer = ({ product, handleClickItem, onClickCartIcon }) => {
+  const { id, name, price, imageUrl } = product;
+
+  return (
+    <StyledItem key={id}>
+      <StyledImageWrapper width={'middle'} height={'middle'} onClick={() => handleClickItem(id)}>
+        <StyledImg width={'middle'} src={imageUrl} />
+      </StyledImageWrapper>
+      <StyledItemInfoBox>
+        <StyledItemInfo onClick={() => handleClickItem(id)}>
+          <StyledItemName>{name}</StyledItemName>
+          <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
+        </StyledItemInfo>
+        <CartIconButton product={product} onClickCallback={onClickCartIcon} />
+      </StyledItemInfoBox>
+    </StyledItem>
+  );
+};
 
 const StyledContent = styled.div`
   width: 100%;
@@ -92,12 +100,4 @@ const StyledItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const StyledIconButton = styled.button`
-  border: none;
-  background: none;
-  &:hover {
-    transform: scale(1.1);
-    color: ${({ theme }) => theme.COLORS.PRIMARY};
-  }
-`;
 export default ProductListPage;
