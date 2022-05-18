@@ -12,7 +12,7 @@ const App = () => {
     <div>
       <GlobalStyles />
       <Routes>
-        <Route path="/react-shopping-cart/*" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route path="" element={<ProductListPage />} />
           <Route path="product/:id" element={<ProductDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />

@@ -23,7 +23,7 @@ const ProductDetail = () => {
     dispatch(startProduct());
     loadProduct(productId)
       .then((res) => dispatch(setProduct(res)))
-      .catch(() => navigate('/react-shopping-cart/notFound'));
+      .catch(() => navigate('/notFound'));
 
     return () => {
       dispatch(resetProduct());

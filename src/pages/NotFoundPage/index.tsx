@@ -15,7 +15,7 @@ const NotFound = () => {
           이용에 불편을 드려 죄송합니다.
           <br /> 홈페이지로 이동하시어 서비스를 다시 이용해주세요.
         </Styled.TextBox>
-        <Link to="/react-shopping-cart">
+        <Link to="/">
           <img src={HomeButtonImage} alt="홈으로 이동할 수 있는 이미지" />
         </Link>
       </Flex>

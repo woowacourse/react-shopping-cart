@@ -9,7 +9,7 @@ import { ProductData } from 'types';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   return (
-    <Styled.Wrapper to={`/react-shopping-cart/product/${id}`}>
+    <Styled.Wrapper to={`/product/${id}`}>
       <Styled.ThumbnailBox>
         <Flex justify="center" align="center">
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />

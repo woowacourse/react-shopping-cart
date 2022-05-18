@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/react-shopping-cart">
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <App />

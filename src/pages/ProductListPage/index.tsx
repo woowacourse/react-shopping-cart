@@ -23,7 +23,7 @@ const ProductList = () => {
     dispatch(startProductList());
     loadProductList()
       .then((res) => dispatch(setProductList(res)))
-      .catch(() => navigate('/react-shopping-cart/notFound'));
+      .catch(() => navigate('/notFound'));
   }, []);
 
   if (isLoading) {
