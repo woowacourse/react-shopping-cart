@@ -26,12 +26,12 @@ export const Button = styled.div`
   border-radius: 4px;
 
   ${({ theme, $isCurrent }) => css`
-    background-color: ${$isCurrent ? theme.colors.primary : 'transparent'};
-    color: ${$isCurrent && theme.colors.textWhite};
+    background-color: ${$isCurrent ? theme.colorConfig.primary : 'transparent'};
+    color: ${$isCurrent && theme.colorConfig.textWhite};
 
     &:hover {
-      background-color: ${theme.colors.primary};
-      color: ${theme.colors.textWhite};
+      background-color: ${theme.colorConfig.primary};
+      color: ${theme.colorConfig.textWhite};
     }
   `}
 `;

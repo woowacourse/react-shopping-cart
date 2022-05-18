@@ -15,7 +15,7 @@ export const color = {
 };
 
 export default {
-  colors: {
+  colorConfig: {
     primary: color.NAVY,
     secondary: color.LIGHT_GRAY,
     textWhite: color.WHITE,

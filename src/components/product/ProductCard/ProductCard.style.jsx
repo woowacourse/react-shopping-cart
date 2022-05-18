@@ -45,8 +45,8 @@ export const TransparentButton = styled.button`
 export const Placeholder = styled.div`
   width: 100%;
   aspect-ratio: ${({ shape }) => (shape === 'square' ? '1 / 1' : '10 / 1')};
-  background-image: ${({ theme: { colors } }) =>
-    `linear-gradient(90deg, ${colors.skeleton} 0px, ${color.NEAR_WHITE_02} 30px, ${colors.skeleton} 60px)`};
+  background-image: ${({ theme: { colorConfig } }) =>
+    `linear-gradient(90deg, ${colorConfig.skeleton} 0px, ${color.NEAR_WHITE_02} 30px, ${colorConfig.skeleton} 60px)`};
   animation: refresh 2s infinite ease-out;
 
   @keyframes refresh {

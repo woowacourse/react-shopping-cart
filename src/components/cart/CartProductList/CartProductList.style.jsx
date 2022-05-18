@@ -23,7 +23,7 @@ export const AllCheckControl = styled.div`
 export const CheckBoxLabel = styled.p``;
 
 export const Button = styled.button`
-  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colorConfig.secondary};
   background-color: transparent;
   padding: 10px;
   cursor: pointer;
@@ -35,5 +35,5 @@ export const Title = styled.h1`
 `;
 
 export const ListWrapper = styled.div`
-  border-top: 4px solid ${({ theme }) => theme.colors.secondary};
+  border-top: 4px solid ${({ theme }) => theme.colorConfig.secondary};
 `;

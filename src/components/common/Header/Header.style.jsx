@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colorConfig.primary};
   padding: 10px;
 
   min-width: ${({ theme }) => theme.minWidth};
@@ -18,7 +18,7 @@ export const Inner = styled.div`
 `;
 
 export const Logo = styled.h1`
-  color: ${({ theme }) => theme.colors.textWhite};
+  color: ${({ theme }) => theme.colorConfig.textWhite};
   display: flex;
   align-items: center;
 
@@ -36,7 +36,7 @@ export const NavButton = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.textWhite};
+  color: ${({ theme }) => theme.colorConfig.textWhite};
   font-weight: bold;
 
   ${({ theme }) => theme.tablet} {
