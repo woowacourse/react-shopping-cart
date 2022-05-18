@@ -1,4 +1,4 @@
-import ExpectedPaymentBox from "component/ShoppingCart/ExpectedPaymentBox/ExpectedPaymentBox";
+import ExpectedPaymentBox from "component/@shared/PaymentBox/PaymentBox";
 import { Meta, Story } from "@storybook/react";
 
 export default {

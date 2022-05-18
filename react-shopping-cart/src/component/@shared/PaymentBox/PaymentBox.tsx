@@ -1,12 +1,18 @@
 import {
   ExpectedPaymentText,
   ExpectedPaymentWrapper,
-} from "./ExpectedPaymentBox.style";
+} from "./PaymentBox.style";
 
-const ExpectedPaymentBox = ({ price }: { price: number }) => {
+const ExpectedPaymentBox = ({
+  price,
+  children,
+}: {
+  price: number;
+  children: React.ReactNode;
+}) => {
   return (
     <ExpectedPaymentWrapper>
-      <ExpectedPaymentText>결제 예상 금액</ExpectedPaymentText>
+      <ExpectedPaymentText>{children}</ExpectedPaymentText>
       <ExpectedPaymentText>{price}원</ExpectedPaymentText>
     </ExpectedPaymentWrapper>
   );

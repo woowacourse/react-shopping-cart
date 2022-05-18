@@ -51,7 +51,7 @@ export const handlers = [
     `${API_URL}/carts`,
     async (req, res, ctx) => {
       const product = req.body;
-      console.log(carts);
+
       carts = [...carts, product];
       localStorage.setItem("mock-carts", JSON.stringify(carts));
       return res(ctx.status(200), ctx.json(product));
