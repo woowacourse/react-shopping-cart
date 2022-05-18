@@ -6,7 +6,7 @@ export default function ErrorBoundary({children, fallback, error, pending = fals
 
   if (error) return fallback;
 
-  return <React.Fragment>{children}</React.Fragment>;
+  return <>{children}</>;
 }
 
 ErrorBoundary.propTypes = {
