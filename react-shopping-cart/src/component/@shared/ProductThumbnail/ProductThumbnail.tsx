@@ -18,6 +18,11 @@ const ProductThumbnail = styled.img<StyledType>`
           width: 98px;
           height: 98px;
         `;
+      case "orderItem":
+        return css`
+          width: 80px;
+          height: 80px;
+        `;
       default:
         return;
     }

@@ -13,6 +13,7 @@ const ProductName = styled.div<StyledType>`
           font-size: 21px;
           font-weight: 700;
         `;
+      case "orderItem":
       case "shoppingCart":
         return css`
           font-size: 13px;
