@@ -18,7 +18,7 @@ const TextWrapper = styled.p`
     highlightColor || theme.color.primary_light};
 `;
 
-const Text = styled.p`
+const Text = styled.span`
   position: relative;
   top: -200%;
 

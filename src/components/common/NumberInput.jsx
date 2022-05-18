@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function NumberInput({ min = 1, max = 20, step = 1 }) {
+function NumberInput({ min = 1, max = 20, step = 1, ...rest }) {
   return (
     <Container>
-      <Input type="number" min={min} max={max} step={step} />
+      <Input type="number" min={min} max={max} step={step} {...rest} />
       <ArrowButtonContainer>
         <ArrowButton>▲</ArrowButton>
         <ArrowButton>▼</ArrowButton>
