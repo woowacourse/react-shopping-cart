@@ -2,7 +2,7 @@ import React from "react";
 import NavButton from "../../components/Header/NavButton";
 
 export default {
-  title: "Component/NavButton",
+  title: "Component/Header/NavButton",
   component: NavButton,
   argTypes: {
     children: { controls: "text" },

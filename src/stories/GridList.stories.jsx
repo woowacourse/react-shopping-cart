@@ -3,7 +3,7 @@ import GridContainer from "../components/common/GridContainer";
 import ProductCard from "../components/pages/ProductListPage/ProductCard";
 
 export default {
-  title: "Component/GridContainer",
+  title: "Component/Common/GridContainer",
   component: GridContainer,
 };
 

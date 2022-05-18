@@ -2,7 +2,7 @@ import React from "react";
 import DefaultButton from "../components/common/DefaultButton";
 
 export default {
-  title: "Component/DefaultButton",
+  title: "Component/Common/DefaultButton",
   component: DefaultButton,
   argTypes: {
     children: { controls: "text" },
