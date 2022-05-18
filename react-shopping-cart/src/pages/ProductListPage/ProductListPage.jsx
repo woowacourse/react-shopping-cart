@@ -24,7 +24,7 @@ function ProductListPage() {
   const products = useSelector(selectCurrentProducts);
 
   const error = useSelector(selectProductsError);
-  const navigate = useNavigate();
+
   const { idx } = useParams();
 
   useEffect(() => {
@@ -38,24 +38,12 @@ function ProductListPage() {
     }
   }, [error]);
 
-  const handleNavigatePage = (pageNum) => () => {
-    navigate(`/${pageNum}`);
-  };
-
   return (
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
         <ProductCardGroup products={products} />
-        <Pagination>
-          {Array.from({ length: 5 }).map((_, pageNum) => (
-            <PaginationButton
-              key={pageNum}
-              onClick={handleNavigatePage(pageNum + 1)}
-            >
-              {pageNum + 1}
-            </PaginationButton>
-          ))}
-        </Pagination>
+        {/* TODO: pagenum 받아야할듯 */}
+        <Pagination />
       </ColumnFlexWrapper>
     </WithSpinner>
   );

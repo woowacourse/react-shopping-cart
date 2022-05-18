@@ -1,9 +1,24 @@
 import styled from 'styled-components';
 
+import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
+
 // 재사용O
-// TODO: Pagination 컴포넌트에 관련된 컴포넌트랑 합치기
-function Pagination({ children }) {
-  return <Styled.Root>{children}</Styled.Root>;
+function Pagination() {
+  return (
+    <Styled.Root>
+      {Array.from({ length: 5 }).map((_, index) => {
+        const pageNum = index + 1;
+
+        return (
+          <PaginationButton
+            key={pageNum}
+            pageNum={pageNum}
+            to={`/${pageNum}`}
+          />
+        );
+      })}
+    </Styled.Root>
+  );
 }
 
 const Styled = {
