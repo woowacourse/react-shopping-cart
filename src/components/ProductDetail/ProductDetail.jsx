@@ -10,7 +10,8 @@ import useStoreProduct from '../../hooks/useStoreProduct';
 function ProductDetail({ id, src, title, price, isStored }) {
   const timeout = useRef();
   const [isClicked, setIsClicked] = useState(isStored);
-  const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
+  const { isCartAddLoading, addToCart, cartAddError, uuccess } =
+    useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
 
@@ -22,7 +23,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
   const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';
   const isError = deleteProductFromCartError || cartAddError;
 
-  const handleCartButtonClick = async () => {
+  const handleCartButtonClick = () => {
     if (isError) {
       return;
     }
@@ -35,8 +36,9 @@ function ProductDetail({ id, src, title, price, isStored }) {
       } else {
         addToCart();
       }
+
       setIsClicked((prev) => !prev);
-    }, 350);
+    }, 500);
   };
 
   return (

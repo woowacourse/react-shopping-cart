@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { loadProducts } from '../../store/products';
 import { loadCarts } from '../../store/carts';
 
-import Product from './ProductItem';
+import ProductItem from './ProductItem';
 
 function ProductListContainer() {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function ProductListContainer() {
       {!isLoading &&
         !isError &&
         products?.map(({ id, src, title, price }) => (
-          <Product
+          <ProductItem
             key={id}
             id={id}
             src={src}

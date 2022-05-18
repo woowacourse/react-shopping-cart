@@ -1,12 +1,13 @@
+import API_URL from '../constants/api';
 import PATH from '../constants/path';
-import useDelete from './useDelete';
+import useFetch from './useFetch';
 
 function useDeleteProductFromCart(id) {
   const {
     isLoading: isCartDeleteLoading,
     apiCall: deleteFromCart,
     error: deleteProductFromCartError,
-  } = useDelete(`${PATH.CARTS}/${id}`);
+  } = useFetch({ url: `${API_URL}/${PATH.CARTS}/${id}`, method: 'DELETE' });
 
   return { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError };
 }
