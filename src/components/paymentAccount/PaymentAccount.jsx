@@ -7,16 +7,16 @@ import {
   OrderButton,
 } from './style';
 
-const PaymentAccount = () => {
+const PaymentAccount = ({ totalPrice, totalAmount }) => {
   return (
     <PaymentAccountBox>
       <PaymentAccountTitle>결제예상금액</PaymentAccountTitle>
       <PaymentAccountContent>
         <Header
           left={<PaymentAccountTitleText>결제예상금액</PaymentAccountTitleText>}
-          right={<PaymentAccountTitleText>21,700원</PaymentAccountTitleText>}
+          right={<PaymentAccountTitleText>{totalPrice}원</PaymentAccountTitleText>}
         />
-        <OrderButton>주문하기(2개)</OrderButton>
+        <OrderButton>주문하기({totalAmount}개)</OrderButton>
       </PaymentAccountContent>
     </PaymentAccountBox>
   );

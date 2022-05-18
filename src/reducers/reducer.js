@@ -13,7 +13,6 @@ const initState = {
 };
 
 function reducer(state = initState, action) {
-  console.log(action);
   const targetItem = state.products.find(product => product.id === action.id);
 
   switch (action.type) {

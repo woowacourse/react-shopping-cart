@@ -4,7 +4,7 @@ import { LOCAL_URL } from 'constants/constants';
 export const getProductList = async () => {
   try {
     const response = await axios.get(LOCAL_URL + 'products');
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     alert(error);
@@ -14,7 +14,7 @@ export const getProductList = async () => {
 export const getShoppingCartList = async () => {
   try {
     const response = await axios.get(LOCAL_URL + 'shoppingCart');
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     alert(error);
@@ -23,7 +23,6 @@ export const getShoppingCartList = async () => {
 
 export const putProductItem = async productItem => {
   try {
-    console.log(productItem);
     axios({
       method: 'put',
       url: LOCAL_URL + `products/${productItem.id}`,
@@ -36,7 +35,6 @@ export const putProductItem = async productItem => {
 
 export const putShoppingCartItem = async shoppingCartItem => {
   try {
-    console.log(shoppingCartItem);
     axios({
       method: 'post',
       url: LOCAL_URL + `shoppingCart`,
