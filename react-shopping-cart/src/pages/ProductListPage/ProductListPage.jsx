@@ -47,8 +47,7 @@ function ProductListPage() {
       <ColumnFlexWrapper gap="60px">
         <ProductCardGroup products={products} />
         <Pagination>
-          {/* FIXME: Array.from으로 변경 */}
-          {new Array(5).fill('').map((_, pageNum) => (
+          {Array.from({ length: 5 }).map((_, pageNum) => (
             <PaginationButton
               key={pageNum}
               onClick={handleNavigatePage(pageNum + 1)}
