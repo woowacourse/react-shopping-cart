@@ -1,4 +1,6 @@
 import productAPI from 'api/productAPI';
+import { ERROR_MESSAGE } from 'constant/messages';
+import { updateSnackBar } from './snackBarActions';
 
 const PRODUCTS_ACTION_TYPE = {
   UPDATE_PRODUCTS: 'UPDATE_PRODUCTS',
@@ -6,12 +8,16 @@ const PRODUCTS_ACTION_TYPE = {
 };
 
 const productsAsyncThunk = () => async dispatch => {
-  const responseData = await productAPI.getProducts();
+  try {
+    const responseData = await productAPI.getProducts();
 
-  dispatch({
-    type: PRODUCTS_ACTION_TYPE.UPDATE_PRODUCTS,
-    products: responseData,
-  });
+    dispatch({
+      type: PRODUCTS_ACTION_TYPE.UPDATE_PRODUCTS,
+      products: responseData,
+    });
+  } catch (error) {
+    dispatch(updateSnackBar(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS));
+  }
 };
 
 const clearProducts = () => {
