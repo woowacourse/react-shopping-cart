@@ -5,6 +5,9 @@ import ProductCard from "../components/pages/ProductListPage/ProductCard";
 export default {
   title: "Component/Common/GridContainer",
   component: GridContainer,
+  argTypes: {
+    colNo: { controls: "number" },
+  },
 };
 
 const dummy = {
@@ -23,14 +26,11 @@ const Template = (args) => (
     <ProductCard product={dummy} />
     <ProductCard product={dummy} />
     <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
-    <ProductCard product={dummy} />
   </GridContainer>
 );
 
 export const Default = Template.bind({});
+
+Default.args = {
+  colNo: 4,
+};
