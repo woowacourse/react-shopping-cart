@@ -1,14 +1,18 @@
 import { CartListAction, CartListActionType } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
 
-interface CartItemState {
-  readonly loading: boolean;
+export interface CartItemState {
+  readonly loading_get: boolean;
+  readonly loading_post: boolean;
+  readonly loading_put: boolean;
   readonly error: string | null;
   readonly data: CartItem[];
 }
 
 const initialState: CartItemState = {
-  loading: false,
+  loading_get: false,
+  loading_post: false,
+  loading_put: false,
   error: null,
   data: [],
 };
@@ -16,16 +20,14 @@ const initialState: CartItemState = {
 export const cartListReducer = (state = initialState, action: CartListAction) => {
   switch (action.type) {
     case CartListActionType.GET_CART_LIST_START:
-      return { loading: true, error: null, data: state.data };
-    case CartListActionType.GET_CART_LIST_SUCCESS: {
-      return { loading: false, error: null, data: action.payload };
-    }
+      return { ...state, loading_get: true };
+    case CartListActionType.GET_CART_LIST_SUCCESS:
+      return { ...state, loading_get: false, data: action.payload };
     case CartListActionType.GET_CART_LIST_FAILURE:
-      return { loading: true, error: null, data: state.data };
+      return { ...state, loading_get: false, error: action.payload };
 
     case CartListActionType.PUT_CART_ITEM_START:
-      return { loading: true, error: null, data: state.data };
-
+      return { ...state, loading_put: true };
     case CartListActionType.PUT_CART_ITEM_SUCCESS: {
       const prevCartList = state.data;
       const targetItem = action.payload;
@@ -33,17 +35,17 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
         cartItem.id === targetItem.id ? targetItem : cartItem
       );
 
-      return { loading: false, error: null, data: newCartList };
+      return { ...state, loading_put: false, data: newCartList };
     }
     case CartListActionType.PUT_CART_ITEM_FAILURE:
-      return { loading: true, error: null, data: state.data };
+      return { ...state, loading_put: false, error: action.payload };
 
     case CartListActionType.POST_CART_ITEM_START:
-      return { loading: true, error: null, data: state.data };
+      return { ...state, loading_post: true };
     case CartListActionType.POST_CART_ITEM_SUCCESS:
-      return { loading: false, error: null, data: [...state.data, action.payload] };
+      return { ...state, loading_post: false, data: [...state.data, action.payload] };
     case CartListActionType.POST_CART_ITEM_FAILURE:
-      return { loading: true, error: null, data: state.data };
+      return { ...state, loading_post: false, error: action.payload };
     default:
       return state;
   }
