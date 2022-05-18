@@ -6,6 +6,7 @@ import { cartSelector } from '../../../store/selector';
 import CheckBox from '../../common/CheckBox/CheckBox';
 import CartProductCard from '../CartProductCard/CartProductCard';
 import * as Styled from './CartProductList.style';
+import ErrorContainer from '../../common/ErrorContainer/ErrorContainer';
 
 function CartProductList() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function CartProductList() {
 
             return <CartProductCard key={id} product={productData} quantity={quantity} />;
           })}
+        {cartLength === 0 && <ErrorContainer>장바구니에 추가된 상품이 없어요 😥</ErrorContainer>}
       </Styled.ListWrapper>
     </Styled.Container>
   );
