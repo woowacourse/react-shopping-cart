@@ -9,6 +9,7 @@ import { PATH } from 'constant/path';
 import ProductList from 'page/ProductList/ProductList';
 import ShoppingCart from 'page/ShoppingCart/ShoppingCart';
 import ProductDetail from 'page/ProductDetail/ProductDetail';
+import SnackBarContainer from 'container/SnackBarContainer';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="productDetail" element={<ProductDetail />} />
             <Route path="*" element={<ProductList />} />
           </Routes>
+          <SnackBarContainer />
         </BrowserRouter>
       </Provider>
     </>

@@ -23,10 +23,7 @@ const Content = styled.div`
 function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector(store => store.products);
-  const { currentPageProducts, renderPagination } = usePagination(
-    products,
-    PRODUCTS_COUNT_PER_PAGE
-  );
+  const { currentPageProducts, Pagination } = usePagination(products, PRODUCTS_COUNT_PER_PAGE);
 
   useEffect(() => {
     if (products.length) {
@@ -45,7 +42,7 @@ function ProductList() {
               <ProductContainer key={product.id} {...product} />
             ))}
           </GridLayout>
-          {renderPagination()}
+          <Pagination />
         </Content>
       }
       orElse={<LoadingSpinner />}

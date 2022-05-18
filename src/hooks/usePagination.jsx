@@ -15,7 +15,7 @@ function usePagination(items, productsCountPerPage) {
     setCurrentPage(Number(order));
   };
 
-  const renderPagination = () => (
+  const Pagination = () => (
     <PageController
       pageLength={pageLength}
       currentPage={currentPage}
@@ -25,7 +25,7 @@ function usePagination(items, productsCountPerPage) {
 
   return {
     currentPageProducts,
-    renderPagination,
+    Pagination,
   };
 }
 

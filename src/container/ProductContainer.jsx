@@ -2,19 +2,19 @@ import { Product } from 'component';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectProduct } from 'store/action/selectActions';
+import { updateSnackBar } from 'store/action/snackBarActions';
 
 function ProductContainer({ image, name, price, id }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleProductClick = productId => {
-    console.log(productId);
     dispatch(selectProduct(productId));
     navigate('/productDetail');
   };
 
   const handleCartClick = () => {
-    return;
+    dispatch(updateSnackBar(`${name} 1개가 장바구니에 추가되었습니다.`));
   };
 
   return (

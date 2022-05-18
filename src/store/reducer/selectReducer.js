@@ -1,6 +1,6 @@
 import { SELECT_ACTION_TYPE } from 'store/action/selectActions';
 
-const selectedProductId = -1;
+const selectedProductId = null;
 
 function selectReducer(state = selectedProductId, action) {
   switch (action.type) {
@@ -11,4 +11,4 @@ function selectReducer(state = selectedProductId, action) {
   }
 }
 
-export { selectReducer };
+export default selectReducer;
