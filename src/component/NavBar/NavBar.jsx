@@ -39,7 +39,6 @@ function NavBar() {
 
   const handleLogoClick = () => {
     navigate(PATH.PRODUCT_LIST);
-    location.reload();
   };
 
   const handleShoppingCartClick = () => {
