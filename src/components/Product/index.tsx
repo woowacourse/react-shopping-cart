@@ -7,26 +7,25 @@ import { CartButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
 import { ProductData } from 'types';
 import { loadCartProduct, updateCartProduct, registerCartProduct, loadCartProductList } from 'api';
+import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
+import { useDispatch } from 'react-redux';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
+  const dispatch = useDispatch();
+
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const cartProduct = await loadCartProduct(id);
 
       if (cartProduct === null) {
-        registerCartProduct({ thumbnail, name, price, id, quantity: 1 });
+        registerCartProduct({ id, thumbnail, name, price, quantity: 1 });
       } else {
         updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
       }
 
-      const cartProductList = await loadCartProductList();
-
-      /**
-       * TODO
-       * 리덕스에 상태를 반영한다
-       */
-      console.log(cartProductList);
+      dispatch(startCartProductList());
+      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
     } catch (e) {
       alert(e);
     }

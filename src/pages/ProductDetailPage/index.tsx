@@ -8,20 +8,42 @@ import Flex from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
 
 import { startProduct, setProduct, resetProduct } from 'store/product/actions';
-import { loadProduct } from 'api';
+import {
+  loadCartProduct,
+  loadCartProductList,
+  loadProduct,
+  registerCartProduct,
+  updateCartProduct,
+} from 'api';
 import { RootState } from 'store';
+import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 
 const ProductDetail = () => {
   const params = useParams();
-  const productId = Number(params.id);
+  const id = Number(params.id);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentProduct, isLoading } = useSelector((state: RootState) => state.productReducer);
 
+  const handleAddCartButton = async () => {
+    try {
+      const cartProduct = await loadCartProduct(id);
+      if (cartProduct === null) {
+        registerCartProduct({ id, thumbnail, name, price, quantity: 1 });
+      } else {
+        updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+      }
+      dispatch(startCartProductList());
+      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   useEffect(() => {
     dispatch(startProduct());
-    loadProduct(productId)
+    loadProduct(id)
       .then((res) => dispatch(setProduct(res)))
       .catch(() => navigate('/notFound'));
 
@@ -50,7 +72,7 @@ const ProductDetail = () => {
           </Flex>
         </Styled.Price>
       </Styled.Content>
-      <CardDetailButton>장바구니</CardDetailButton>
+      <CardDetailButton onClick={handleAddCartButton}>장바구니</CardDetailButton>
     </Styled.Wrapper>
   );
 };
