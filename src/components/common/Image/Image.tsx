@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Styled from './Image.style';
 
 function Image({ src, alt, width = '100%', height = '100%' }) {

@@ -5,7 +5,7 @@ const productAPI = axios.create({
   baseURL: API_URL,
 });
 
-export const getProductList = async page => {
+export const getProductList = async (page): Promise<any> => {
   const response = await productAPI.get(
     `/products?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`,
   );

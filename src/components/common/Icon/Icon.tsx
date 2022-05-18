@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import Icons from './icons';
 const StyledWrapper = styled.div`
@@ -11,6 +12,7 @@ const StyledWrapper = styled.div`
     height: ${size}px;
   `}
 `;
+
 function Icon({ iconName, size = '24', color = 'white' }) {
   const IconComponent = Icons[iconName];
   return (

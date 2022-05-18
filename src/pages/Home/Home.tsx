@@ -6,18 +6,18 @@ import Pagination from '../../components/common/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import * as Styled from './Home.style';
-import { fetchProductListAsync } from '../../store/product/action';
+import { fetchProductListAsync, ProductListAction } from '@/store/product/action';
+import { Dispatch } from 'redux';
 
 function Home() {
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<Dispatch<ProductListAction>>();
   const { isLoading, pageCount, productList } = useSelector(({ product }) => product);
 
   const [searchParams] = useSearchParams();
-  const currentPage = searchParams.get('page') ?? 1;
+  const currentPage = Number(searchParams.get('page')) ?? 1;
 
   useEffect(() => {
-    dispatch(fetchProductListAsync(currentPage));
+    dispatch(fetchProductListAsync(currentPage) as any);
   }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

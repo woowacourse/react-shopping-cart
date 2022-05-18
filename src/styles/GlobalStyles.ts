@@ -15,7 +15,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: Noto Sans CJK KR, sans-serif;
     letter-spacing: -0.03px; 
-    
   }
 `;
 

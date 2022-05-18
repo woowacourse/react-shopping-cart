@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from '../../common/Image/Image';
 import * as Styled from './ProductCard.style';
 import * as GlobalStyled from '../../../styles/GlobalStyles';

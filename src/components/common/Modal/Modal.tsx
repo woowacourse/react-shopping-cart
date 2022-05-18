@@ -12,7 +12,7 @@ function Modal({ children, closeModal }) {
     <Styled.Dimmed onClick={onClickDimmed}>
       <Styled.Container>{children}</Styled.Container>
     </Styled.Dimmed>,
-    document.querySelector('#root'),
+    document.querySelector('#root') as Element,
   );
 }
 

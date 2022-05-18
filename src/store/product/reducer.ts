@@ -1,21 +1,31 @@
+import { Product } from '@/domain/product';
+import { ProductActionType } from '@/store/product/action';
 import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
 
-const initialState = {
+interface ProductListState {
+  readonly productList: Product[];
+  readonly totalProductCount: number;
+  readonly pageCount: number;
+  readonly isLoading: boolean;
+}
+
+const initialState: ProductListState = {
   productList: [],
-  totalProductCount: null,
+  totalProductCount: 0,
+  pageCount: 0,
   isLoading: false,
 };
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'PRODUCT_LIST_FETCH_START': {
+    case ProductActionType.GET_PRODUCT_LIST_START: {
       return {
         ...state,
         isLoading: true,
       };
     }
 
-    case 'PRODUCT_LIST_FETCH_SUCCESS': {
+    case ProductActionType.GET_PRODUCT_LIST_SUCCEEDED: {
       const {
         payload: { productList, totalProductCount },
       } = action;
@@ -27,7 +37,7 @@ const productReducer = (state = initialState, action) => {
       };
     }
 
-    case 'PRODUCT_LIST_FETCH_FAILURE': {
+    case ProductActionType.GET_PRODUCT_LIST_FAILED: {
       const {
         payload: { message },
       } = action;
