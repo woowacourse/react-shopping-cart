@@ -1,13 +1,24 @@
 import React, { useEffect } from 'react';
 import { useProducts } from 'hooks';
+import { useSelector } from 'react-redux';
 
 import { ProductListStyled, LoadingWrapperStyled } from './style';
 
-import Product from 'templates/Product';
 import Text from 'components/Text';
 
+import AlreadyCartModal from 'containers/AlreadyInCartModal';
+import AddCartModal from 'containers/AddCartModal';
+import AddCartErrorModal from 'containers/AddCartErrorModal';
+
+import Product from 'templates/Product';
+
+import { GET_PRODUCT_FAIL } from 'modules/product';
+
 function ProductList() {
-  const { isProductLoading, products, requestProduct } = useProducts();
+  const { isProductLoading, requestProductFail, products, requestProduct } = useProducts();
+  const { openAlreadyInCartModal, openAddCartModal, OPEN_ADD_CART_ERROR_MODAL } = useSelector(
+    (state) => state.modal,
+  );
 
   useEffect(() => {
     requestProduct();
@@ -23,12 +34,21 @@ function ProductList() {
     );
   }
 
+  if (requestProductFail === GET_PRODUCT_FAIL) {
+    return <p>상품정보를 불러오는데 실패하였습니다.</p>;
+  }
+
   return (
-    <ProductListStyled>
-      {products.map((product) => (
-        <Product key={product.id} {...product} />
-      ))}
-    </ProductListStyled>
+    <>
+      {openAlreadyInCartModal && <AlreadyCartModal />}
+      {openAddCartModal && <AddCartModal />}
+      {OPEN_ADD_CART_ERROR_MODAL && <AddCartErrorModal />}
+      <ProductListStyled>
+        {products.map((product) => (
+          <Product key={product.product_id} {...product} />
+        ))}
+      </ProductListStyled>
+    </>
   );
 }
 
