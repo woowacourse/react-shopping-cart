@@ -1,9 +1,9 @@
 import StyledLogoLink from "@/components/header/logo-link/LogoLink.styled";
 
-function LogoLink({ src, href, className = "logo-link" }) {
+function LogoLink({ href, className = "logo-link" }) {
   return (
     <StyledLogoLink href={href} className={className}>
-      <img src={src} alt="" />
+      MINCHO SHOP
     </StyledLogoLink>
   );
 }

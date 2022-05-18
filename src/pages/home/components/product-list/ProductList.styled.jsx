@@ -4,7 +4,7 @@ import { mq } from "@/styled";
 const StyledProductList = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-row-gap: 30px;
+  grid-row-gap: 80px;
   grid-column-gap: 40px;
   margin-top: 20px;
   padding: 0 20p;

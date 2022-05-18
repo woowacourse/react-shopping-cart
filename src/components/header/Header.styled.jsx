@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
-import { colors } from "@/styled";
 
 const StyledHeader = styled.div`
-  background-color: ${colors.black[0]};
-  border-bottom: 1px solid ${colors.red[0]};
-  margin-bottom: 50px;
+  background-color: #03cf5b;
+  margin-bottom: 25px;
 
   position: sticky;
   z-index: 999;
@@ -15,10 +13,7 @@ const StyledHeader = styled.div`
   .logo-link {
     padding: 10px 0;
     flex-shrink: 0;
-    width: 90px;
-    img {
-      width: 70px;
-    }
+    width: 300px;
   }
 `;
 

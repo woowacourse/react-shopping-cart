@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "@/constants";
 import { UPDATE_PRODUCT_LIST } from "@/redux/actions";

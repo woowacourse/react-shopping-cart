@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Cart from "@/assets/images/cart.svg";
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
@@ -9,12 +9,6 @@ import { BASE_URL } from "@/constants";
 
 function ProductItem({ id, name, price, stock, thumbnail_url }) {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-
-  const existInCart = (cart, id) => {
-    const isInclude = Object.keys(cart).includes(`${id}`);
-    return isInclude;
-  };
 
   const handleClick = () => {
     dispatch(createAction(ADD_PRODUCT_TO_CART, id));
@@ -31,11 +25,8 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
           </div>
           <div className="l-right">
             {stock > 0 && (
-              <ImageButton
-                onClick={handleClick}
-                included={existInCart(cart, id)}
-              >
-                <Cart width="36px" height="36px" fill="#00cc00" />
+              <ImageButton onClick={handleClick}>
+                <Cart width="36px" height="36px" fill="#03CF5B" />
               </ImageButton>
             )}
           </div>

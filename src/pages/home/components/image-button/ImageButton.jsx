@@ -1,15 +1,8 @@
-import StyledImageButton from "@/pages/home/components/image-button/ImageButton.styled";
-
-function ImageButton({ children, onClick, included }) {
+function ImageButton({ children, onClick }) {
   return (
-    <StyledImageButton
-      className="add-cart-btn"
-      type="button"
-      onClick={onClick}
-      {...(included ? { disabled: true } : {})}
-    >
+    <button className="add-cart-btn" type="button" onClick={onClick}>
       {children}
-    </StyledImageButton>
+    </button>
   );
 }
 
