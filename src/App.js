@@ -20,8 +20,8 @@ function App() {
           <NavBar />
           <Routes>
             <Route path={PATH.PRODUCT_LIST} element={<ProductList />} />
+            <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetail />} />
             <Route path={PATH.SHOPPING_CART} element={<ShoppingCart />} />
-            <Route path="productDetail" element={<ProductDetail />} />
             <Route path="*" element={<ProductList />} />
           </Routes>
           <SnackBarContainer />
