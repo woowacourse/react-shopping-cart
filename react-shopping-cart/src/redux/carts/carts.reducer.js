@@ -43,6 +43,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     case cartsActionTypes.addProductToCartSuccess:
       return {
         ...state,
+        error: null,
         loading: false,
         carts: [...state.carts, action.payload],
       };
@@ -50,6 +51,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     case cartsActionTypes.deleteProductToCartSuccess:
       return {
         ...state,
+        error: null,
         loading: false,
         carts: state.carts.filter((cart) => cart.id !== action.payload),
       };
@@ -59,7 +61,13 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const newCarts = state.carts.filter(
         (cart) => !checkedIdList.includes(cart.id)
       );
-      return { ...state, loading: false, carts: newCarts, allChecked: false };
+      return {
+        ...state,
+        error: null,
+        loading: false,
+        carts: newCarts,
+        allChecked: false,
+      };
     }
 
     case cartsActionTypes.toggleIsChecked: {
@@ -113,7 +121,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     }
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
