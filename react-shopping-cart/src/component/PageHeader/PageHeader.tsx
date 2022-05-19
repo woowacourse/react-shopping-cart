@@ -15,7 +15,7 @@ function PageHeader() {
       </PageTitle>
       <RowFlexWrapper gap="20px">
         <NavigateButton to={ROUTE_PATH.SHOPPING_CART}>장바구니</NavigateButton>
-        <NavigateButton to={ROUTE_PATH.ROOT}>주문목록</NavigateButton>
+        <NavigateButton to={ROUTE_PATH.ORDER}>주문목록</NavigateButton>
       </RowFlexWrapper>
     </Header>
   );
