@@ -1,5 +1,6 @@
-import Button from 'components/Button';
 import React from 'react';
+
+import Button from 'components/Button';
 
 function OrderProductsButton() {
   const handleOrderProducts = () => {};
@@ -7,7 +8,7 @@ function OrderProductsButton() {
   return (
     <Button
       onClick={handleOrderProducts}
-      width="388px"
+      width="26vw"
       height="74px"
       color="whiteColor"
       border="none"

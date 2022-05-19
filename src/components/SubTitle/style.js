@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const SubTitleStyled = styled.h3(
   ({
-    width = '34vw',
+    width = '38vw',
     textAlign = 'start',
     fontSize = '1rem',
     borderBottom = '1px solid black',
