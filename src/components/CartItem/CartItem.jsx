@@ -21,7 +21,7 @@ const CartItem = ({
 
   const handleIncrementQuantity = () => {
     setItemQuantity((prevQuantity) => {
-      onChangeQuantity(id, prevQuantity + 1);
+      onChangeQuantity(prevQuantity + 1);
       return prevQuantity + 1;
     });
   };
@@ -32,7 +32,7 @@ const CartItem = ({
       return;
     }
     setItemQuantity((prevQuantity) => {
-      onChangeQuantity(id, prevQuantity - 1);
+      onChangeQuantity(prevQuantity - 1);
       return prevQuantity - 1;
     });
   };
