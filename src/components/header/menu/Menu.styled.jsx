@@ -8,8 +8,9 @@ const StyledMenu = styled.div`
 
     display: flex;
     align-items: center;
+
     li {
-      padding: 0 25px;
+      padding: 0 0 0 25px;
       a {
         ${noneStyles.a}
 

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import Cart from "@/assets/images/cart.svg";
+import CartIcon from "@/assets/images/cart.svg";
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
@@ -26,7 +26,7 @@ function ProductItem({ id, name, price, stock, thumbnail_url }) {
           <div className="l-right">
             {stock > 0 && (
               <ImageButton onClick={handleClick}>
-                <Cart width="36px" height="36px" fill="#03CF5B" />
+                <CartIcon width="36px" height="36px" fill="#03CF5B" />
               </ImageButton>
             )}
           </div>
