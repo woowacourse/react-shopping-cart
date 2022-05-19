@@ -78,9 +78,11 @@ const Styled = {
   `,
 };
 
-const Cart = ({ onAddCartButtonClick }) => {
+const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick }) => {
   const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
   console.log(cartList);
+
+  const totalCount = cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0);
 
   return (
     <Styled.Container>
@@ -95,7 +97,9 @@ const Cart = ({ onAddCartButtonClick }) => {
             <DeleteButton>상품삭제 </DeleteButton>
           </Styled.CartDeleteBox>
           <Styled.CartProductList>
-            <Styled.CartProductTotalAmount>라인프렌즈 상품 (개)</Styled.CartProductTotalAmount>
+            <Styled.CartProductTotalAmount>
+              라인프렌즈 상품 ({totalCount}개)
+            </Styled.CartProductTotalAmount>
             <Styled.CartProductListContent>
               {cartList.length !== 0 ? (
                 cartList.map((item) => (
@@ -103,6 +107,7 @@ const Cart = ({ onAddCartButtonClick }) => {
                     key={`${item.name}${item.id}`}
                     productInfo={item}
                     onAddCartButtonClick={onAddCartButtonClick}
+                    onMinusCartButtonClick={onMinusCartButtonClick}
                   />
                 ))
               ) : (
@@ -121,6 +126,7 @@ const Cart = ({ onAddCartButtonClick }) => {
 
 Cart.propTypes = {
   onAddCartButtonClick: PropTypes.func,
+  onMinusCartButtonClick: PropTypes.func,
 };
 
 export default Cart;

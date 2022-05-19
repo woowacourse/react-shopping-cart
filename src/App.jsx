@@ -10,12 +10,16 @@ import Cart from 'components/Cart';
 
 import { ROUTE } from 'constants';
 import { useDispatch } from 'react-redux';
-import { addCartItem } from 'modules/cart';
+import { addCartItem, minusCartItem } from 'modules/cart';
 
 const App = () => {
   const dispatch = useDispatch();
   const onAddCartButtonClick = (id) => {
     dispatch(addCartItem(id));
+  };
+
+  const onMinusCartButtonClick = (id) => {
+    dispatch(minusCartItem(id));
   };
 
   return (
@@ -31,7 +35,15 @@ const App = () => {
             path={ROUTE.DETAIL_PRODUCT}
             element={<ProductDetail onAddCartButtonClick={onAddCartButtonClick} />}
           />
-          <Route path={ROUTE.CART} element={<Cart onAddCartButtonClick={onAddCartButtonClick} />} />
+          <Route
+            path={ROUTE.CART}
+            element={
+              <Cart
+                onAddCartButtonClick={onAddCartButtonClick}
+                onMinusCartButtonClick={onMinusCartButtonClick}
+              />
+            }
+          />
           <Route path={ROUTE.EXCEPT} element={<NotFound />} />
         </Route>
       </Routes>

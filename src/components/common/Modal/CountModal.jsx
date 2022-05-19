@@ -24,19 +24,25 @@ const Styled = {
   `,
 };
 
-const CountModal = ({ totalCount, onClick, id }) => {
+const CountModal = ({ totalCount, onAddCartButtonClick, onMinusCartButtonClick, id }) => {
   return (
     <Styled.CounterBox>
       <Styled.CounterShowBox>{totalCount}</Styled.CounterShowBox>
       <Styled.UpDownButtonBox>
         <UpCountButton
           onClick={() => {
-            onClick(Number(id));
+            onAddCartButtonClick(Number(id));
           }}
         >
           ▴
         </UpCountButton>
-        <DownCountButton>▴</DownCountButton>
+        <DownCountButton
+          onClick={() => {
+            onMinusCartButtonClick(Number(id));
+          }}
+        >
+          ▴
+        </DownCountButton>
       </Styled.UpDownButtonBox>
     </Styled.CounterBox>
   );
@@ -44,7 +50,8 @@ const CountModal = ({ totalCount, onClick, id }) => {
 
 CountModal.propTypes = {
   totalCount: PropTypes.number,
-  onClick: PropTypes.func,
+  onAddCartButtonClick: PropTypes.func,
+  onMinusCartButtonClick: PropTypes.func,
   id: PropTypes.number,
 };
 

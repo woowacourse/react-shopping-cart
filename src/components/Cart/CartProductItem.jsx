@@ -70,7 +70,7 @@ const Styled = {
   `,
 };
 
-const CartProductItem = ({ productInfo, onAddCartButtonClick }) => {
+const CartProductItem = ({ productInfo, onAddCartButtonClick, onMinusCartButtonClick }) => {
   const [product, setProduct] = useState(null);
   const [name, setName] = useState('');
   const [thumbnail, setThumbnail] = useState('');
@@ -109,7 +109,8 @@ const CartProductItem = ({ productInfo, onAddCartButtonClick }) => {
         <DeleteTrashButton>🗑</DeleteTrashButton>
         <CountModal
           totalCount={productInfo.quantity}
-          onClick={onAddCartButtonClick}
+          onAddCartButtonClick={onAddCartButtonClick}
+          onMinusCartButtonClick={onMinusCartButtonClick}
           id={productInfo.id}
         />
         <Styled.TotalAmount>{Number(productInfo.quantity) * Number(price)}원</Styled.TotalAmount>
@@ -121,6 +122,7 @@ const CartProductItem = ({ productInfo, onAddCartButtonClick }) => {
 CartProductItem.propTypes = {
   productInfo: PropTypes.object,
   onAddCartButtonClick: PropTypes.func,
+  onMinusCartButtonClick: PropTypes.func,
 };
 
 export default CartProductItem;
