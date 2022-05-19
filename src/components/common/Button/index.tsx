@@ -1,8 +1,14 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
+import { Colors } from 'styles/theme';
 
 interface ButtonProp {
+  theme: DefaultTheme;
   w?: number;
   h?: number;
+  borderWidth?: number;
+  borderStyle?: string;
+  borderColor?: keyof Colors;
+  bgColor?: keyof Colors;
 }
 
 const Button = styled.button`
@@ -10,9 +16,13 @@ const Button = styled.button`
   background: none;
   cursor: pointer;
 
-  ${({ w, h }: ButtonProp) => css`
+  ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProp) => css`
     width: ${w}px;
     height: ${h}px;
+    border-width: ${borderWidth};
+    border-style: ${borderStyle};
+    border-color: ${borderColor && theme.colors[borderColor]};
+    background-color: ${({ theme }) => bgColor && theme.colors[bgColor]};
   `}
 `;
 
@@ -24,7 +34,7 @@ export const CartButton = styled(Button)`
   }
 `;
 
-export const CardDetailButton = styled(Button)`
+export const CartDetailButton = styled(Button)`
   ${({ theme }) => css`
     width: 100%;
     height: 60px;
@@ -37,6 +47,13 @@ export const CardDetailButton = styled(Button)`
     :hover {
       background: ${theme.colors.mint};
     }
+  `}
+`;
+
+export const OrderButton = styled(Button)`
+  ${({ theme }) => css`
+    font-size: 24px;
+    color: ${theme.colors.white};
   `}
 `;
 
