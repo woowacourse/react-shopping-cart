@@ -20,7 +20,7 @@ export const fetchProductDetailStart = (id) => ({
   payload: id,
 });
 
-export const fetchProductDetailSucccess = (product) => ({
+export const fetchProductDetailSuccess = (product) => ({
   type: productActionType.fetchProductDetailSuccess,
   payload: product,
 });

@@ -2,7 +2,7 @@ import { put, call, takeLatest, all } from 'redux-saga/effects';
 
 import {
   fetchProductDetailError,
-  fetchProductDetailSucccess,
+  fetchProductDetailSuccess,
   fetchProductsError,
   fetchProductsSuccess,
 } from 'redux/products/products.action';
@@ -22,7 +22,7 @@ export function* getProducts({ payload: id }) {
 export function* getDetailProduct({ payload: id }) {
   try {
     const data = yield call(fetchDetailProduct, id);
-    yield put(fetchProductDetailSucccess(data));
+    yield put(fetchProductDetailSuccess(data));
   } catch (err) {
     yield put(fetchProductDetailError(err));
   }
