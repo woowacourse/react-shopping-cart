@@ -11,8 +11,6 @@ const Styled = {
     border-top: 1px solid ${({ theme }) => theme.COLOR.GREY_200};
   `,
 
-  CheckBox: styled.input``,
-
   ProductPreview: styled.div`
     width: 70%;
     display: flex;
@@ -32,12 +30,6 @@ const Styled = {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-  `,
-
-  QuantityInput: styled.input`
-    width: 50px;
-    height: 30px;
-    margin: 10px 0 15px 0;
   `,
 
   Quantity: styled.div`
