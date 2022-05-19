@@ -10,6 +10,10 @@ import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
 
+const isInList = (list, item) => {
+  return list.indexOf(item) !== -1;
+};
+
 const Cart = () => {
   const {
     isLoading,
@@ -22,9 +26,7 @@ const Cart = () => {
 
   const totalPrice = useMemo(() => {
     if (!cartItems || cartItems.length === 0) return 0;
-    const list = cartItems.filter(
-      ({ id }) => selectedItemList.indexOf(id) !== -1,
-    );
+    const list = cartItems.filter(({ id }) => isInList(selectedItemList, id));
     return list.reduce(
       (prev, { price, quantity }) => (prev += price * quantity),
       0,
@@ -40,7 +42,7 @@ const Cart = () => {
   };
 
   const handleToggleSelect = (id) => () => {
-    if (selectedItemList.indexOf(id) === -1) {
+    if (isInList(selectedItemList, id)) {
       setSelectedItemList([...selectedItemList, id]);
       return;
     }
@@ -80,7 +82,7 @@ const Cart = () => {
                 imgUrl={imgUrl}
                 price={price}
                 quantity={quantity}
-                isSelected={selectedItemList.indexOf(id) !== -1}
+                isSelected={isInList(selectedItemList, id)}
                 onToggleSelect={handleToggleSelect(id)}
                 onChangeQuantity={handleUpdateItemQuantity(id)}
                 onDeleteItem={handleDeleteItem(id)}
