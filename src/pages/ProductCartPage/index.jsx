@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import useReducerSelect from 'hooks/useReducerSelect';
-import {getCart} from 'store/modules/cart';
+import {getCart, deleteCart} from 'store/modules/cart';
 
 import CheckBox from 'components/common/CheckBox';
 import Button from 'components/common/Button';
@@ -55,6 +55,16 @@ export default function ProductCartPage() {
     setCheckedItemList(cartedId);
   };
 
+  const deleteSelectedItems = () => {
+    if (confirm('선택된 상품들을 삭제하시겠습니까?')) {
+      // 선택 상품 삭제
+      checkedItemList.forEach((id) => {
+        dispatch(deleteCart(id));
+        changeCheckedList(id);
+      });
+    }
+  };
+
   const {totalQuantity, totalPrice} = cartItem.reduce(
     (prev, cur) => {
       return {
@@ -75,7 +85,12 @@ export default function ProductCartPage() {
               <CheckBox onChange={allChecked} checked={isAllChecked} />
               {isAllChecked ? '선택해제' : '전체선택'}
             </CheckBoxWrapper>
-            <Button buttonType="grayBorder" width="117px" height="50px">
+            <Button
+              buttonType="grayBorder"
+              width="117px"
+              height="50px"
+              onClick={deleteSelectedItems}
+            >
               {isAllChecked ? '전체 상품 삭제' : '선택 상품 삭제'}
             </Button>
           </SelectDeleteWrapper>
