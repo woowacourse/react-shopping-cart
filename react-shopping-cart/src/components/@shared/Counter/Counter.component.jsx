@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { FlexWrapper, Text, Button } from 'components/@shared';
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper.component';
+import Text from 'components/@shared/Text/Text.component';
+import Button from 'components/@shared/Button/Button.component';
 import { ReactComponent as CounterArrow } from 'assets/images/counterArrow.svg';
 
 const Container = styled(FlexWrapper)`
