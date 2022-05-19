@@ -43,4 +43,32 @@ export const cartsHandlers = [
     db.carts = [...selectedCartsList, { id, count }];
     return res(ctx.status(200));
   }),
+  rest.delete(
+    `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/all`,
+    (req, res, ctx) => {
+      db.carts = [];
+      return res(ctx.status(200), ctx.json([]));
+    }
+  ),
+  rest.delete(
+    `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/:id`,
+    (req, res, ctx) => {
+      const { id } = req.params;
+
+      const productList = db.products;
+      const cartList = db.carts;
+      const selectedCartList = cartList.filter(
+        (cartItem) => cartItem.id !== Number(id)
+      );
+
+      db.carts = selectedCartList;
+      const result = selectedCartList.map(({ id, count }) => {
+        const selectedProduct = productList.find(
+          (product) => product.id === id
+        );
+        return { ...selectedProduct, count };
+      });
+      return res(ctx.status(200), ctx.json(result));
+    }
+  ),
 ];

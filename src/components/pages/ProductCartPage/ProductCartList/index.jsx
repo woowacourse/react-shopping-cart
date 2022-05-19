@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteCartList } from "../../../../reducers/cartList";
 
 import CheckBox from "../../../common/CheckBox";
 import ProductCartItem from "../ProductCartItem";
@@ -9,10 +11,17 @@ import {
 } from "./styled";
 
 function ProductCartList({ cartList }) {
-  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [isAllChecked, setIsAllChecked] = useState(true);
+  const dispatch = useDispatch();
 
   const handleChangeCheckbox = () => {
     setIsAllChecked((prev) => !prev);
+  };
+
+  const handleDeleteAllItem = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      dispatch(deleteCartList());
+    }
   };
 
   return (
@@ -24,7 +33,9 @@ function ProductCartList({ cartList }) {
         >
           선택해제
         </CheckBox>
-        <DeleteCartButton>상품 삭제</DeleteCartButton>
+        <DeleteCartButton onClick={handleDeleteAllItem}>
+          상품 삭제
+        </DeleteCartButton>
       </CartListControlContainer>
       <CartListCount>
         든든배송 상품 ({cartList?.length ?? "%ERROR%"}개)

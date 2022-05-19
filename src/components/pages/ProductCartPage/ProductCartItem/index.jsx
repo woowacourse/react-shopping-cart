@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import trashCanIcon from "../../../../asset/trash-can.svg";
+import { deleteCartList } from "../../../../reducers/cartList";
 
 import CheckBox from "../../../common/CheckBox";
 import Counter from "../../../common/Counter";
@@ -17,6 +19,7 @@ function ProductCartItem({
   product: { id, thumbnailUrl, name, price, quantity },
   amount,
 }) {
+  const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(true);
   const [count, setCount] = useState(amount || 0);
 
@@ -33,6 +36,10 @@ function ProductCartItem({
     setIsChecked((prev) => !prev);
   };
 
+  const handleClickDeleteItemButton = () => {
+    dispatch(deleteCartList(id));
+  };
+
   const totalPrice = price ? Number(price) * count : null;
 
   return (
@@ -44,7 +51,11 @@ function ProductCartItem({
       <ProductCartImage src={thumbnailUrl ?? ""} alt={name ?? "%ERROR%"} />
       <ProductCartName>{name ?? "%ERROR%"}</ProductCartName>
       <ProductCartControlBox>
-        <IconButton src={trashCanIcon} alt="현재 상품 삭제 버튼" />
+        <IconButton
+          src={trashCanIcon}
+          alt="현재 상품 삭제 버튼"
+          onClick={handleClickDeleteItemButton}
+        />
         <Counter
           count={count}
           handleClickDecreaseButton={handleClickDecreaseButton}
