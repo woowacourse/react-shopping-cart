@@ -22,13 +22,17 @@ const CartProduct = ({ data }: CartProductProp) => {
         <Styled.SelectBox>
           <UncheckBoxIcon />
         </Styled.SelectBox>
+
         <Styled.ThumbnailBox>
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
         </Styled.ThumbnailBox>
+
         <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
+
         <Styled.TestBox>
           <Flex direction="column" align="flex-end" gap={20}>
             <DeleteIcon />
+
             <Styled.QuantityControlBox>
               <Flex>
                 <Flex align="center">
@@ -50,6 +54,7 @@ const CartProduct = ({ data }: CartProductProp) => {
                 </Styled.ControlBox>
               </Flex>
             </Styled.QuantityControlBox>
+
             <Text>{price.toLocaleString()}원</Text>
           </Flex>
         </Styled.TestBox>

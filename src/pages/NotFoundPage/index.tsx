@@ -8,7 +8,7 @@ import Flex from 'components/common/Flex';
 
 const NotFound = () => {
   return (
-    <Styled.Wrapper>
+    <Styled.Container>
       <Flex direction="column" justify="center" align="center" gap={40}>
         <img src={NotFoundImage} alt="사용자가 잘못된 경로로 들어왔을 시 나타나는 이미지" />
         <Styled.TextBox>
@@ -19,12 +19,12 @@ const NotFound = () => {
           <img src={HomeButtonImage} alt="홈으로 이동할 수 있는 이미지" />
         </Link>
       </Flex>
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  Wrapper: styled.div`
+  Container: styled.div`
     > div {
       height: calc(100vh - 200px);
     }

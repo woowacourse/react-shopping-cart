@@ -59,7 +59,7 @@ const ProductDetail = () => {
   const { name, price, thumbnail } = currentProduct;
 
   return (
-    <Styled.Wrapper>
+    <Styled.Container>
       <Styled.ThumbnailBox>
         <img src={thumbnail} alt="상품 상세 이미지" />
       </Styled.ThumbnailBox>
@@ -73,12 +73,12 @@ const ProductDetail = () => {
         </Styled.Price>
       </Styled.Content>
       <CartDetailButton onClick={handleAddCartButton}>장바구니</CartDetailButton>
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  Wrapper: styled.div`
+  Container: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

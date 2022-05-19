@@ -6,17 +6,17 @@ import Header from 'components/common/Header';
 
 const Layout = () => {
   return (
-    <Styled.Wrapper>
+    <Styled.Container>
       <Header />
       <Styled.Content>
         <Outlet />
       </Styled.Content>
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  Wrapper: styled.div`
+  Container: styled.div`
     width: 100%;
     height: 100vh;
   `,

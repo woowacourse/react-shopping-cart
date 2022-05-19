@@ -3,9 +3,9 @@ import styled, { keyframes } from 'styled-components';
 
 const LoadingSpinner = () => {
   return (
-    <Styled.Wrapper>
+    <Styled.Container>
       <Styled.LoadingSpinner />
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
@@ -16,7 +16,7 @@ const spin = keyframes`
 `;
 
 const Styled = {
-  Wrapper: styled.div`
+  Container: styled.div`
     position: absolute;
     top: 50%;
     left: 50%;

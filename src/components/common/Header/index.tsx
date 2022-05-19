@@ -5,7 +5,7 @@ import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 const Header = () => {
   return (
-    <Styled.Wrapper>
+    <Styled.Container>
       <Styled.LogoBox to="/">
         <CartIcon />
         <Styled.Title>WOOWA SHOP</Styled.Title>
@@ -14,12 +14,12 @@ const Header = () => {
         <Styled.Menu to="/cart">장바구니</Styled.Menu>
         <Styled.Menu to="/orderList">주문목록</Styled.Menu>
       </Styled.MenuBox>
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  Wrapper: styled.header`
+  Container: styled.header`
     ${({ theme }) => css`
       width: 100%;
       height: 80px;

@@ -35,16 +35,16 @@ const ProductList = () => {
   }
 
   return (
-    <Styled.ProductBox>
+    <Styled.Container>
       {productList.map(({ id, name, price, thumbnail }) => (
         <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
       ))}
-    </Styled.ProductBox>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  ProductBox: styled.div`
+  Container: styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 40px;

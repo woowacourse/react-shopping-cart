@@ -32,7 +32,7 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
   };
 
   return (
-    <Styled.Wrapper to={`/product/${id}`}>
+    <Styled.Container to={`/product/${id}`}>
       <Styled.ThumbnailBox>
         <Flex justify="center" align="center">
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
@@ -49,12 +49,12 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
           </CartButton>
         </Flex>
       </Styled.Content>
-    </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 
 const Styled = {
-  Wrapper: styled(Link)`
+  Container: styled(Link)`
     width: 282px;
     height: 358px;
     display: flex;
