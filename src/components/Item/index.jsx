@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'components/common/Button';
 
-import {PATH} from 'constants';
+import {PATH} from 'constants/path';
 
 import {
   ItemWrapper,

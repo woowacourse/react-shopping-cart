@@ -6,7 +6,7 @@ import {ReactComponent as LogoIcon} from 'assets/logoIcon.svg';
 
 import {HeaderWrapper, HeaderButtonWrapper} from 'components/common/Header/style';
 
-import {PATH} from 'constants';
+import {PATH} from 'constants/path';
 
 export default function Header() {
   const navigation = useNavigate();

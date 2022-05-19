@@ -14,6 +14,25 @@ const buttonTypes = {
   `,
 };
 
+const buttonSizeTypes = {
+  s: css`
+    width: 42px;
+    height: 30px;
+  `,
+  m: css`
+    width: 138px;
+    height: 47px;
+  `,
+  l: css`
+    width: 388px;
+    height: 73px;
+  `,
+  xl: css`
+    width: 638px;
+    height: 98px;
+  `,
+};
+
 const StyledButton = styled.button`
   color: ${(props) => props?.color || props.theme.COLOR.WHITE};
   font-size: ${({theme}) => theme.FONT_SIZE.M};
@@ -21,13 +40,11 @@ const StyledButton = styled.button`
   line-height: 12px;
 
   ${({buttonType}) => buttonTypes[buttonType]}
-
-  width: ${(props) => props?.width};
-  height: ${(props) => props?.height};
+  ${({buttonSizeType}) => buttonSizeTypes[buttonSizeType]}
 
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 
   opacity: ${(props) => props.disabled && 0.2};
 `;
 
-export {buttonTypes, StyledButton};
+export {buttonTypes, buttonSizeTypes, StyledButton};

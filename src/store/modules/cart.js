@@ -5,7 +5,6 @@ const ACTION = {
   GET_CART_SUCCESS: 'GET_CART_SUCCESS',
   GET_CART_FAILURE: 'GET_CART_FAILURE',
   ADD_CART: 'ADD_CART',
-  ADD_CART_FAILURE: 'ADD_CART_FAILURE',
   DELETE_CART: 'DELETE_CART',
   EDIT_CART: 'EDIT_CART',
 };
@@ -28,30 +27,18 @@ export const getCart = () => async (dispatch) => {
 };
 
 export const postCart = (id) => async (dispatch) => {
-  try {
-    const {data} = await appClient.post(`cart/${id}`);
-    dispatch({type: ACTION.ADD_CART, payload: data});
-  } catch (error) {
-    dispatch({type: ACTION.ADD_CART_FAILURE, payload: error});
-  }
+  const {data} = await appClient.post(`cart/${id}`);
+  dispatch({type: ACTION.ADD_CART, payload: data});
 };
 
 export const deleteCart = (id) => async (dispatch) => {
-  try {
-    const {data} = await appClient.delete(`cart/${id}`);
-    dispatch({type: ACTION.DELETE_CART, payload: data});
-  } catch (error) {
-    console.log(error);
-  }
+  const {data} = await appClient.delete(`cart/${id}`);
+  dispatch({type: ACTION.DELETE_CART, payload: data});
 };
 
 export const editCart = (id, quantity) => async (dispatch) => {
-  try {
-    const {data} = await appClient.put(`cart/${id}`, {quantity});
-    dispatch({type: ACTION.EDIT_CART, payload: data});
-  } catch (error) {
-    console.log(error);
-  }
+  const {data} = await appClient.put(`cart/${id}`, {quantity});
+  dispatch({type: ACTION.EDIT_CART, payload: data});
 };
 
 const initialState = {

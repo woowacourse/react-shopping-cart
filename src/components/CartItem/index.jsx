@@ -43,9 +43,8 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
           <ItemCountBox>{quantity}</ItemCountBox>
           <FlexWrapper direction="column" width="42px">
             <Button
-              width="42px"
-              height="30px"
               buttonType="grayBorder"
+              buttonSizeType="s"
               onClick={() => {
                 addQuantity(id, quantity);
               }}
@@ -53,9 +52,8 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
               ▲
             </Button>
             <Button
-              width="42px"
-              height="30px"
               buttonType="grayBorder"
+              buttonSizeType="s"
               onClick={() => {
                 minusQuantity(id, quantity);
               }}

@@ -10,7 +10,7 @@ import ProductCartPage from 'pages/ProductCartPage';
 import theme from 'theme/theme';
 import {GlobalStyles} from 'style';
 
-import {PATH} from 'constants';
+import {PATH} from 'constants/path';
 
 export default function App() {
   return (

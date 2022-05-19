@@ -19,6 +19,7 @@ import {
 import useCart from 'hooks/useCart';
 
 import {calculateChecked} from 'utils';
+import {MESSAGE} from 'constants';
 
 export default function ProductCartPage() {
   const [checkedItemList, setCheckedItemList] = useState([]);
@@ -54,9 +55,9 @@ export default function ProductCartPage() {
 
   const deleteSelectedItems = () => {
     if (checkedItemList.length === 0) {
-      return alert('삭제할 상품을 선택해주세요');
+      return alert(MESSAGE.NO_SELECTED_ITEM);
     }
-    if (confirm('선택된 상품들을 삭제하시겠습니까?')) {
+    if (confirm(MESSAGE.DELETE_SELECTED_ITEMS)) {
       checkedItemList.forEach((id) => {
         deleteItem(id);
         changeCheckedList(id);
@@ -77,12 +78,7 @@ export default function ProductCartPage() {
               <CheckBox onChange={allChecked} checked={isAllChecked} />
               {`전체선택 ${checkedItemList.length}/${cartItem.length}`}
             </CheckBoxWrapper>
-            <Button
-              buttonType="grayBorder"
-              width="117px"
-              height="50px"
-              onClick={deleteSelectedItems}
-            >
+            <Button buttonType="grayBorder" buttonSizeType="m" onClick={deleteSelectedItems}>
               선택 삭제
             </Button>
           </SelectDeleteWrapper>

@@ -1,9 +1,6 @@
-const PATH = {
-  HOME: '/',
-  CART: '/cart',
-  DETAIL: '/detail',
+const MESSAGE = {
+  NO_SELECTED_ITEM: '삭제할 상품을 선택해주세요',
+  DELETE_SELECTED_ITEMS: '선택된 상품들을 삭제하시겠습니까?',
 };
 
-const API_URL = process.env.NODE_ENV === 'production' ? 'https://dory-server.herokuapp.com' : '/';
-
-export {PATH, API_URL};
+export {MESSAGE};

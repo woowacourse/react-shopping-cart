@@ -36,7 +36,7 @@ function AmountBox({type = 'cart', totalQuantity, totalPrice}) {
         <p>{amountBoxType[type].priceInfo}</p>
         <p>{totalPrice.toLocaleString()}원</p>
       </PriceInfoWrapper>
-      <Button buttonType="brownBackground" width="100%" height="73px">
+      <Button buttonType="mintBackground" buttonSizeType="l" disabled={totalQuantity === 0}>
         {amountBoxType[type].buttonText(totalQuantity, totalPrice)}
       </Button>
     </AmountBoxWrapper>

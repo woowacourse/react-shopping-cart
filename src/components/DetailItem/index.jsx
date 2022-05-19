@@ -28,8 +28,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disable
       </ItemPriceWrapper>
       <Button
         buttonType="brownBackground"
-        width="640px"
-        height="100px"
+        buttonSizeType="xl"
         onClick={handleCartButtonClick}
         disabled={disable}
       >
