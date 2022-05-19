@@ -1,46 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { useCartItemList } from "../../hooks/useCartItemList";
+
 import { deleteCartItem } from "../../store/actions";
 
 import Button from "../../components/common/Button";
 import CheckBox from "../../components/common/CheckBox";
+import Spinner from "../../components/common/Spinner";
 import CartProductListItem from "./CartProductListItem";
 import PaymentBox from "./PaymentBox";
-import Spinner from "../../components/common/Spinner";
+import { useCheckBox } from "../../hooks/useCheckBox";
 
 function ShoppingCartPage() {
   const dispatch = useDispatch();
   const { cartItemList, isLoading, errorMessage } = useCartItemList();
-  const [selectedItemIdList, setSelectedItemIdList] = useState([]);
 
   const cartItemIdList = cartItemList?.map((cartItem) => cartItem.id);
-  const selectAllChecked = cartItemIdList?.every((cartItemId) =>
-    selectedItemIdList.includes(cartItemId)
-  );
+  const {
+    selectedList,
+    isSelected,
+    isAllSelected,
+    handleCheckBoxClick,
+    handleSelectAllCheckBoxClick,
+  } = useCheckBox(cartItemIdList);
 
   const paymentAmount = cartItemList?.reduce((prev, cartItem) => {
     return prev + cartItem.price * cartItem.quantity;
   }, 0);
-
-  const handleCartItemCheckBoxClick = (productId) => () => {
-    setSelectedItemIdList((prevSelectedItemIdList) => {
-      const newSelectedItemIdList = [...prevSelectedItemIdList];
-
-      if (prevSelectedItemIdList.includes(productId)) {
-        const selectedItemIndex = prevSelectedItemIdList.findIndex(
-          (selectedItem) => selectedItem.id === productId
-        );
-        newSelectedItemIdList.splice(selectedItemIndex, 1);
-        return newSelectedItemIdList;
-      }
-
-      newSelectedItemIdList.push(productId);
-      return newSelectedItemIdList;
-    });
-  };
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
@@ -53,17 +41,8 @@ function ShoppingCartPage() {
           <SelectedProductManagementContainer>
             <Label>
               <CheckBox
-                checked={selectAllChecked}
-                onClick={() => {
-                  if (selectAllChecked) {
-                    setSelectedItemIdList([]);
-                    return;
-                  }
-
-                  setSelectedItemIdList(
-                    cartItemList.map((cartItem) => cartItem.id)
-                  );
-                }}
+                checked={isAllSelected}
+                onClick={handleSelectAllCheckBoxClick}
               />
               전체 선택
             </Label>
@@ -73,13 +52,13 @@ function ShoppingCartPage() {
               borderStyle="1px solid"
               borderColor="grey_300"
               onClick={() => {
-                if (selectedItemIdList.length === 0) {
+                if (selectedList.length === 0) {
                   alert("선택된 상품이 없습니다.");
                   return;
                 }
                 // eslint-disable-next-line no-restricted-globals
                 if (confirm("선택한 상품을 모두 삭제하시겠습니까?")) {
-                  dispatch(deleteCartItem([...selectedItemIdList]));
+                  dispatch(deleteCartItem([...selectedList]));
                 }
               }}
             >
@@ -93,8 +72,8 @@ function ShoppingCartPage() {
                 <CartProductListItem
                   key={product.id}
                   product={product}
-                  selected={selectedItemIdList.includes(product.id)}
-                  handleCheckBoxClick={handleCartItemCheckBoxClick(product.id)}
+                  selected={isSelected(product.id)}
+                  handleCheckBoxClick={handleCheckBoxClick(product.id)}
                 />
               ))}
             </CartProductList>
