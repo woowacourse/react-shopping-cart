@@ -6,8 +6,8 @@ import { changeProductQuantity } from 'mocks/handlers';
 import { cartActionType } from 'store/reducers/cart';
 import { productActionTypes } from 'store/reducers/product';
 
-import { addToCartAsync, getCartAsync } from 'cart';
-import { fetchProductListAsync } from 'product';
+import { addToCartAsync, getCartAsync } from 'store/actions/cart';
+import { fetchProductListAsync } from 'store/actions/product';
 
 import { productList } from 'store/actions/__test__/fixture';
 

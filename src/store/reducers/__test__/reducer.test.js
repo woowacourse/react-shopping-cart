@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_PAGE_LIMIT } from '/api/constants';
+import { PRODUCT_LIST_PAGE_LIMIT } from 'api/constants';
 
 import cartReducer, { cartActionType } from 'store/reducers/cart';
 import productReducer, { productActionTypes } from 'store/reducers/product';
@@ -17,7 +17,8 @@ describe('상품 리듀서 테스트', () => {
       id: 1,
       name: '캠핑 의자',
       price: 35000,
-      imageURL: 'https://thawing-fortress-83192.herokuapp.com/static/images/camping-chair.jpg',
+      imageURL:
+        'https://thawing-fortress-83192.herokuapp.com/static/images/camping-chair.jpg',
       quantity: 100,
     },
     {
