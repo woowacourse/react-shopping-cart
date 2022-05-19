@@ -1,4 +1,5 @@
 import React from 'react';
+
 import TitleStyled from './style';
 
 function Title(props) {
