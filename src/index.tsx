@@ -1,28 +1,28 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import GlobalStyles from "./globalStyles";
 import { applyMiddleware, createStore } from "redux";
-import appReducer from "./modules/products";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import createThunkMiddleware from "./lib/thunk";
 import ThemeProvider from "./ThemeProvider";
+import rootReducer from "./modules";
 
 const store = createStore(
-  appReducer,
-  composeWithDevTools(applyMiddleware(createThunkMiddleware()))
+  rootReducer,
+  composeWithDevTools(applyMiddleware(createThunkMiddleware))
 );
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
 root.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ThemeProvider>
-        <GlobalStyles />
         <App />
       </ThemeProvider>
-    </Provider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 );

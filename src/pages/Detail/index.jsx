@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
-import { getProductById } from "../../modules/products";
+import { getProductById } from "../../modules/product";
 import * as S from "./index.styles";
 
 const Detail = () => {

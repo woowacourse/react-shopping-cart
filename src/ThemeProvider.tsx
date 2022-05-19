@@ -12,7 +12,7 @@ const theme = {
   },
 };
 
-const ThemeProvider = ({ children }) => {
+const ThemeProvider = ({ children }: { children: JSX.Element }) => {
   return <ProductThemeProvider theme={theme}>{children}</ProductThemeProvider>;
 };
 
