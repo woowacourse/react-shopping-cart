@@ -13,9 +13,19 @@ const CartList = () => {
   const { items: cartList } = useSelector((state) => state.cart);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
   const [checkedList, setCheckedList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let calculateTotalPrice = 0;
+
+    checkedList.forEach((productId) => {
+      const currentProduct = cartList.find((checkedProduct) => checkedProduct.id === productId);
+      calculateTotalPrice += currentProduct.price * currentProduct.count;
+    });
+
+    setTotalPrice(calculateTotalPrice);
+
     if (cartList.length > 0) {
       if (checkedList.length >= cartList.length) {
         setSelectAllChecked(true);
@@ -23,7 +33,7 @@ const CartList = () => {
         setSelectAllChecked(false);
       }
     }
-  }, [checkedList, cartList]);
+  }, [cartList, checkedList]);
 
   const handleChecked = (productId) => {
     const prevState = [...checkedList];
@@ -69,6 +79,7 @@ const CartList = () => {
     }
 
     dispatch(deleteCartItem(checkedList));
+    setCheckedList([]);
   };
 
   return (
@@ -93,7 +104,7 @@ const CartList = () => {
                 상품삭제
               </Button>
             </CommonStyled.FlexWrapper>
-            <p>싱싱배송 상품 ({checkedList.length}종)</p>
+            <p>싱싱배송 상품 ({cartList.length}종)</p>
             <CommonStyled.HR />
             {cartList &&
               cartList.map(({ id, name, thumbnail, price, count }) => (
@@ -123,7 +134,7 @@ const CartList = () => {
                   결제예상금액
                 </CommonStyled.Text>
                 <CommonStyled.Text weight="bold" size="0.8rem">
-                  10,000원
+                  {totalPrice.toLocaleString('ko-KR')}원
                 </CommonStyled.Text>
               </CommonStyled.FlexWrapper>
               <Button height="60px" margin="3rem 0 0 0" size="1.2rem" weight="normal">
