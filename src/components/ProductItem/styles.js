@@ -1,4 +1,5 @@
 import styled from '@emotion/styled/macro';
+import { COLORS, LAYOUT } from 'styles/theme';
 
 const Container = styled.div`
   margin-bottom: 2rem;
@@ -32,6 +33,14 @@ const Image = styled.img`
   ${ImageContainer}:hover & {
     transform: scale(110%);
   }
+`;
+
+const CartController = styled.div`
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  background-color: ${COLORS.WHITE};
+  border-radius: ${LAYOUT.BORDER_RADIUS * 2};
 `;
 
 const Description = styled.div`

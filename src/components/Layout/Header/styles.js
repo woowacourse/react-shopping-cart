@@ -45,7 +45,7 @@ const RightMenu = styled.ul`
 const RightMenuList = styled.li`
   font-size: 0.9rem;
   padding: 1rem;
-  color: ${COLORS.LIGHTEN_50};
+  color: ${COLORS.GRAY_50};
 
   &::before {
     font-family: 'Font Awesome 6 Free';
@@ -67,9 +67,9 @@ const RightMenuList = styled.li`
 const Container = styled.header`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background-color: ${COLORS.LIGHTEN_MAX};
+  background-color: ${COLORS.WHITE};
   padding: 1.7rem 1.2rem;
-  border-bottom: 1px solid ${COLORS.LIGHTEN_150};
+  border-bottom: 1px solid ${COLORS.GRAY_150};
 `;
 
 export { Container, Logo, LeftMenu, MenuButton, RightMenu, RightMenuList };

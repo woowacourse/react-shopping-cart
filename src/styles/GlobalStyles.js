@@ -17,7 +17,7 @@ const GlobalStyles = css`
 
   body {
     font-family: 'NanumBarunGothic', sans-serif;
-    background-color: ${COLORS.LIGHTEN_200};
+    background-color: ${COLORS.GRAY_200};
   }
 `;
 

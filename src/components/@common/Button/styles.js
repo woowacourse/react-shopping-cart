@@ -17,8 +17,8 @@ const Container = styled.button`
   cursor: pointer;
 
   font-size: 1rem;
-  border: 1px solid ${COLORS.LIGHTEN_150};
-  background-color: ${COLORS.LIGHTEN_250};
+  border: 1px solid ${COLORS.GRAY_150};
+  background-color: ${COLORS.GRAY_250};
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: ${LAYOUT.BORDER_RADIUS}px;
 
@@ -26,7 +26,7 @@ const Container = styled.button`
 
   &:hover {
     color: ${COLORS.BLUE_150};
-    background-color: ${COLORS.LIGHTEN_200};
+    background-color: ${COLORS.GRAY_200};
   }
 
   &::before {
