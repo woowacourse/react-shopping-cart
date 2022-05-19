@@ -1,15 +1,15 @@
-import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 
-import { ColumnFlexWrapper } from 'styles/Wrapper';
+import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
 
 //TODO: carts를 받는 게 맞을까?
 function ShoppingCartItemGroup({ carts }) {
   return (
-    <ColumnFlexWrapper>
+    <FlexWrapper flexDirection="column">
       {carts.map((cart) => (
         <ShoppingCartItem key={cart.id} {...cart} />
       ))}
-    </ColumnFlexWrapper>
+    </FlexWrapper>
   );
 }
 

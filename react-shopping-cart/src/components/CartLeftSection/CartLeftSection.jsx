@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
 import AllSelectButton from 'components/AllSelectCheckbox/AllSelectCheckbox';
@@ -16,8 +17,6 @@ import {
   selectCartsLoading,
   selectCurrentCarts,
 } from 'redux/carts/carts.selector';
-
-import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 import { CURRENT_USER } from 'constants';
 
@@ -40,21 +39,21 @@ function CartLeftSection() {
   }, [dispatch]);
 
   return (
-    <ColumnFlexWrapper width="490px">
+    <FlexWrapper flexDirection="column" width="490px">
       <CartLeftSectionHeader>
         <AllSelectButton />
         <ProductDeleteButton onClick={handleDeleteCheckedProducts}>
           상품삭제
         </ProductDeleteButton>
       </CartLeftSectionHeader>
-      {/* FIXME: inline style 빼기 */}
+      {/* TODO: inline style 빼기 */}
       <div style={{ width: 'inherit' }}>
         <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
         <WithSpinner loading={cartLoading}>
           <ShoppingCartItemGroup carts={myCarts} />
         </WithSpinner>
       </div>
-    </ColumnFlexWrapper>
+    </FlexWrapper>
   );
 }
 

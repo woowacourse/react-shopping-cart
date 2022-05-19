@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 import Pagination from 'components/@shared/Pagination/Pagination';
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
@@ -14,8 +15,6 @@ import {
   selectProductsError,
   selectProductsLoading,
 } from 'redux/products/products.selector';
-
-import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 function ProductListPage() {
   const { idx } = useParams();
@@ -38,10 +37,10 @@ function ProductListPage() {
 
   return (
     <WithSpinner loading={loading}>
-      <ColumnFlexWrapper gap="60px">
+      <FlexWrapper flexDirection="column" gap="60px">
         <ProductCardGroup />
         <Pagination />
-      </ColumnFlexWrapper>
+      </FlexWrapper>
     </WithSpinner>
   );
 }

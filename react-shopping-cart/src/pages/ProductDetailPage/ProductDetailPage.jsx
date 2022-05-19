@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 import ProductName from 'components/@shared/ProductName/ProductName';
 import ProductPrice from 'components/@shared/ProductPrice/ProductPrice';
 import ProductThumbnail from 'components/@shared/ProductThumbnail/ProductThumbnail';
@@ -21,8 +22,6 @@ import {
 } from 'redux/products/products.selector';
 
 import useClickCartButton from 'hooks/useClickCartButton';
-
-import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
 
 import { CURRENT_USER } from 'constants/index';
 import { isInCart } from 'utils/check';
@@ -48,7 +47,13 @@ function ProductDetailPage() {
     // THINK: product 없이는 왜 안될까?
     product && (
       <WithSpinner loading={cartsLoading || productsLoading}>
-        <ColumnFlexWrapper gap="20px" width="425px" ml="auto" mr="auto">
+        <FlexWrapper
+          flexDirection="column"
+          gap="20px"
+          width="425px"
+          ml="auto"
+          mr="auto"
+        >
           <ProductThumbnail
             // TODO: type-> size로 변경
             type="detail"
@@ -56,7 +61,7 @@ function ProductDetailPage() {
             alt={product.name}
           />
           <ProductName type="detail">{product.name}</ProductName>
-          <RowFlexWrapper
+          <FlexWrapper
             gap="300px"
             bt="2px solid"
             bColor="gray_01"
@@ -65,7 +70,7 @@ function ProductDetailPage() {
           >
             <div>금액</div>
             <ProductPrice type="detail">{product.price}원</ProductPrice>
-          </RowFlexWrapper>
+          </FlexWrapper>
           {/* //TODO: 네이밍변경 */}
           <ShoppingCartButton
             $isincart={isCartItem}
@@ -83,7 +88,7 @@ function ProductDetailPage() {
           >
             {isCartItem ? '장바구니에서 제거' : '장바구니에 추가'}
           </ShoppingCartButton>
-        </ColumnFlexWrapper>
+        </FlexWrapper>
       </WithSpinner>
     )
   );

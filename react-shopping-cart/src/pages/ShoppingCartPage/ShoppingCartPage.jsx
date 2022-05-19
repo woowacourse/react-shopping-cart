@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
+
 import CartLeftSection from 'components/CartLeftSection/CartLeftSection';
 import ExpectedPaymentContainer from 'components/ExpectedPaymentContainer/ExpectedPaymentContainer';
 
-import { ColumnFlexWrapper } from 'styles/Wrapper';
-
 function ShoppingCartPage() {
   return (
-    <ColumnFlexWrapper gap="30px">
+    <FlexWrapper flexDirection="column" gap="30px">
       <Styled.ShoppingCartPageHeader>장바구니</Styled.ShoppingCartPageHeader>
       <Styled.ShoppingCartPageContent gap="60px">
         <CartLeftSection />
         <ExpectedPaymentContainer />
       </Styled.ShoppingCartPageContent>
-    </ColumnFlexWrapper>
+    </FlexWrapper>
   );
 }
 

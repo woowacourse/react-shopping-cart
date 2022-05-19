@@ -1,13 +1,13 @@
-import Spinner from 'components/@shared/Spinner/Spinner';
+import FlexWrapper from '../FlexWrapper/FlexWrapper';
 
-import { RowFlexWrapper } from 'styles/Wrapper';
+import Spinner from 'components/@shared/Spinner/Spinner';
 
 function WithSpinner({ loading, children }) {
   if (loading) {
     return (
-      <RowFlexWrapper height="100vh">
+      <FlexWrapper height="100vh">
         <Spinner />
-      </RowFlexWrapper>
+      </FlexWrapper>
     );
   }
 

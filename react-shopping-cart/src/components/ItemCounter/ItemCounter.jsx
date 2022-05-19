@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
+
 import {
   decreaseProductQuantity,
   increaseProductQuantity,
 } from 'redux/carts/carts.action';
-
-import { ColumnFlexWrapper, RowFlexWrapper } from 'styles/Wrapper';
 
 //재사용O
 function ItemCounter({ id }) {
@@ -27,15 +27,15 @@ function ItemCounter({ id }) {
   };
 
   return (
-    <RowFlexWrapper border="1px solid" bColor="gray_04" width="70px">
+    <FlexWrapper border="1px solid" bColor="gray_04" width="70px">
       <Styled.CountBox>{count}</Styled.CountBox>
-      <ColumnFlexWrapper>
+      <FlexWrapper flexDirection="column">
         <Styled.CounterButton onClick={increaseCount}>▲</Styled.CounterButton>
         <Styled.CounterButton onClick={decreaseCount} type="down">
           ▼
         </Styled.CounterButton>
-      </ColumnFlexWrapper>
-    </RowFlexWrapper>
+      </FlexWrapper>
+    </FlexWrapper>
   );
 }
 

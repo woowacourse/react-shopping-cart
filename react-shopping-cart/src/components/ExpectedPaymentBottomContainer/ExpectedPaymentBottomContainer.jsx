@@ -1,18 +1,12 @@
-import styled from 'styled-components';
-
-import { ColumnFlexWrapper } from 'styles/Wrapper';
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 
 //재사용X
 function ExpectedPaymentBottomContainer({ children }) {
-  return <Styled.Root>{children}</Styled.Root>;
+  return (
+    <FlexWrapper flexDirection="column" gap="42px" padding="20px" width="100%">
+      {children}
+    </FlexWrapper>
+  );
 }
-
-const Styled = {
-  Root: styled(ColumnFlexWrapper)`
-    gap: 42px;
-    padding: 20px;
-    width: 100%;
-  `,
-};
 
 export default ExpectedPaymentBottomContainer;
