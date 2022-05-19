@@ -17,7 +17,7 @@
 
 - [x] CartHeader 컴포넌트 정적 html,css,스토리북 구현
 - [x] CheckBox 컴포넌트 정적 html,css,스토리북 구현
-- [ ] TrashButton 컴포넌트 정적 html,css,스토리북 구현
+- [x] TrashButton 컴포넌트 정적 html,css,스토리북 구현
 - [ ] AmountController 컴포넌트 정적 html,css,스토리북 구현
 - [ ] Cart 컴포넌트 정적 html,css,스토리북 구현
 - [ ] Order 컴포넌트 정적 html,css,스토리북 구현
