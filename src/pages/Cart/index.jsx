@@ -13,6 +13,7 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 const Cart = () => {
   const {
     isLoading,
+    isSucceed,
     isError,
     data,
     handleDeleteItem,
@@ -56,19 +57,21 @@ const Cart = () => {
       <Title contents="장바구니" />
       {isLoading && <ImgWrapper src={spinner} />}
       {isError && <ImgWrapper src={errorApiImg} />}
-      {data && data?.length > 0 ? (
-        <Styled.ContentsWrapper>
-          <div>
-            <CartControlBar
-              isAllSelected={selectedItemList.length === data.length}
-              onToggleSelect={handleToggleSelectAll(
-                selectedItemList.length === data.length,
-              )}
-              onClickDeleteButton={handleDeleteSelectedItem}
-            />
+      <Styled.ContentsWrapper>
+        <Styled.CartContents>
+          <CartControlBar
+            isAllSelected={
+              selectedItemList.length === data.length && data.length > 0
+            }
+            onToggleSelect={handleToggleSelectAll(
+              selectedItemList.length === data.length,
+            )}
+            onClickDeleteButton={handleDeleteSelectedItem}
+          />
 
-            <CartContainer>
-              {data.map(({ id, name, imgUrl, price, quantity }) => (
+          <CartContainer>
+            {isSucceed &&
+              data.map(({ id, name, imgUrl, price, quantity }) => (
                 <CartItem
                   key={id}
                   id={id}
@@ -82,15 +85,12 @@ const Cart = () => {
                   onDeleteItem={handleDeleteItem(id)}
                 />
               ))}
-            </CartContainer>
-          </div>
-          <Styled.PaymentBoxWrapper>
-            <PaymentBox quantity={selectedItemList.length} price={totalPrice} />
-          </Styled.PaymentBoxWrapper>
-        </Styled.ContentsWrapper>
-      ) : (
-        <div>비어있음</div>
-      )}
+          </CartContainer>
+        </Styled.CartContents>
+        <Styled.PaymentBoxWrapper>
+          <PaymentBox quantity={selectedItemList.length} price={totalPrice} />
+        </Styled.PaymentBoxWrapper>
+      </Styled.ContentsWrapper>
     </Styled.Wrapper>
   );
 };

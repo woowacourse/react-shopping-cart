@@ -21,6 +21,10 @@ const Styled = {
     height: 100%;
     margin-top: 100px;
   `,
+
+  CartContents: styled.div`
+    width: 400px;
+  `,
 };
 
 export default Styled;

@@ -2,8 +2,11 @@ import { actionTypes } from 'reducers/cart/cart.actions';
 
 const initialState = {
   data: [],
+
   isLoadingGetCart: false,
+  isSucceedGetCart: false,
   isErrorGetCart: false,
+
   isLoadingAddCartItem: false,
   isSucceedAddCartItem: false,
   isErrorAddCartItem: false,
@@ -17,13 +20,14 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   if (action.type === actionTypes.GET_CART_REQUEST) {
-    return { ...state, isLoadingGetCart: true };
+    return { ...state, isLoadingGetCart: true, isSucceedGetCart: false };
   }
 
   if (action.type === actionTypes.GET_CART_SUCCESS) {
     return {
       ...state,
       isLoadingGetCart: false,
+      isSucceedGetCart: true,
       data: action.data,
     };
   }
@@ -32,6 +36,7 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingGetCart: false,
+      isSucceedGetCart: false,
       isErrorGetCart: true,
     };
   }

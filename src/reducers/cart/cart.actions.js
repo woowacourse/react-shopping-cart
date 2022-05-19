@@ -34,8 +34,9 @@ export const addCartItemRequest = (data) => ({
   data,
 });
 
-export const addCartItemSuccess = () => ({
+export const addCartItemSuccess = (data) => ({
   type: actionTypes.ADD_CART_ITEM_SUCCESS,
+  data,
 });
 
 export const addCartItemError = () => ({

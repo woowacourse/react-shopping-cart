@@ -9,7 +9,7 @@ import {
 const useCart = () => {
   const {
     dispatch,
-    state: { isLoadingGetCart, isErrorGetCart, data },
+    state: { isLoadingGetCart, isSucceedGetCart, isErrorGetCart, data },
   } = useReduxState('cart');
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const useCart = () => {
 
   return {
     isLoading: isLoadingGetCart,
+    isSucceed: isSucceedGetCart,
     isError: isErrorGetCart,
     data,
     handleDeleteItem,
