@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
@@ -6,9 +7,13 @@ import { PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
 
 function Product({ product }) {
+  const [color, setColor] = useState('');
   const { id, name, price, imageUrl } = product;
 
-  const handleClickCart = () => {};
+  const handleClickCart = () => {
+    color ? setColor('') : setColor(COLORS.PRIMARY);
+  };
+
   return (
     <StyledItem>
       <Link to={`${PATH.DETAIL_LINK}${id}`}>
@@ -23,9 +28,7 @@ function Product({ product }) {
             <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
           </StyledItemInfo>
         </Link>
-        <StyledIconButton onClick={handleClickCart}>
-          <GiShoppingCart size={25} />
-        </StyledIconButton>
+        <GiShoppingCart className="cart" size={28} onClick={handleClickCart} color={color} />
       </StyledItemInfoBox>
     </StyledItem>
   );
@@ -42,6 +45,14 @@ const StyledItemInfoBox = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 16px 8px 0px 8px;
+
+  .cart {
+    color: ${(props) => props.color};
+  }
+  .cart:hover {
+    transform: scale(1.2);
+    color: ${COLORS.PRIMARY};
+  }
 `;
 
 const StyledItemInfo = styled.div`
@@ -59,15 +70,6 @@ const StyledItemPrice = styled.span`
   font-size: 20px;
   line-height: 27px;
   letter-spacing: 0.5px;
-`;
-
-const StyledIconButton = styled.button`
-  border: none;
-  background: none;
-  &:hover {
-    transform: scale(1.1);
-    color: ${COLORS.PRIMARY};
-  }
 `;
 
 export default Product;
