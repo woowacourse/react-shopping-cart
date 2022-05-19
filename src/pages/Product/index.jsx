@@ -14,7 +14,7 @@ import Product from 'templates/Product';
 
 import { GET_PRODUCT_FAIL } from 'modules/product';
 
-function ProductList() {
+function ProductListPage() {
   const { isProductLoading, requestProductFail, products, requestProduct } = useProducts();
   const { openAlreadyInCartModal, openAddCartModal, OPEN_ADD_CART_ERROR_MODAL } = useSelector(
     (state) => state.modal,
@@ -52,4 +52,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductListPage;
