@@ -16,12 +16,12 @@
 ## 장바구니
 
 - [x] CartHeader 컴포넌트 정적 html,css,스토리북 구현
-- [ ] CheckBox 컴포넌트 정적 html,css 구현
-- [ ] TrashButton 컴포넌트 정적 html,css 구현
-- [ ] AmountController 컴포넌트 정적 html,css 구현
-- [ ] Cart 컴포넌트 정적 html,css 구현
-- [ ] Order 컴포넌트 정적 html,css 구현
-- [ ] CartPage 컴포넌트 정적 html,css 구현
+- [x] CheckBox 컴포넌트 정적 html,css,스토리북 구현
+- [ ] TrashButton 컴포넌트 정적 html,css,스토리북 구현
+- [ ] AmountController 컴포넌트 정적 html,css,스토리북 구현
+- [ ] Cart 컴포넌트 정적 html,css,스토리북 구현
+- [ ] Order 컴포넌트 정적 html,css,스토리북 구현
+- [ ] CartPage 컴포넌트 정적 html,css,스토리북 구현
 
 - [ ] store에서 장바구니 목록을 불러와서 화면에 렌더
 - [ ] 수량을 조정하면 store에 값을 저장
