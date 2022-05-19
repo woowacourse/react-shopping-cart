@@ -4,17 +4,17 @@ import { ACTIONS } from "./actions";
 const initialState = {
   productList: {
     loading: true,
-    data: null,
+    data: [],
     errorMessage: null,
   },
   productDetail: {
     loading: true,
-    data: null,
+    data: [],
     errorMessage: null,
   },
   cart: {
     loading: true,
-    data: null,
+    data: [],
     errorMessage: null,
   },
 };
@@ -24,7 +24,7 @@ const productListReducer = (state = initialState.productList, action) => {
     case ACTIONS.GET_PRODUCT_LIST:
       return {
         loading: true,
-        data: null,
+        data: [],
         errorMessage: null,
       };
 
@@ -38,7 +38,7 @@ const productListReducer = (state = initialState.productList, action) => {
     case ACTIONS.GET_PRODUCT_LIST_ERROR:
       return {
         loading: false,
-        data: null,
+        data: [],
         errorMessage: action.payload,
       };
 
@@ -55,7 +55,7 @@ export const productDetailReducer = (
     case ACTIONS.GET_PRODUCT_DETAIL:
       return {
         loading: true,
-        data: null,
+        data: [],
         errorMessage: null,
       };
 
@@ -69,7 +69,7 @@ export const productDetailReducer = (
     case ACTIONS.GET_PRODUCT_DETAIL_ERROR:
       return {
         loading: false,
-        data: null,
+        data: [],
         errorMessage: action.payload,
       };
 

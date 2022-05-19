@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Spinner from "../../components/common/Spinner";
-import ProductDetailCard from "./ProductDetailCard";
 
 import { useProductDetail } from "../../hooks/useProductDetail";
 import { useCartItemList } from "../../hooks/useCartItemList";
+
+import Spinner from "../../components/common/Spinner";
+import ProductDetailCard from "./ProductDetailCard";
 
 function ProductDetailPage() {
   const { id: productId } = useParams();
@@ -19,7 +20,7 @@ function ProductDetailPage() {
     cartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantity,
+    updateCartItemQuantityWithAlert,
   } = useCartItemList();
 
   if (isProductDetailLoading || isCartItemListLoading) return <Spinner />;
@@ -30,19 +31,21 @@ function ProductDetailPage() {
       </div>
     );
 
-  const cartItemListIndex = cartItemList.findIndex(
+  const cartItemListIndex = cartItemList?.findIndex(
     (cartItem) => cartItem.id === product.id
   );
-  const cartItemQuantity =
+  const quantity =
     cartItemListIndex === -1 ? 0 : cartItemList[cartItemListIndex].quantity;
 
   return (
     <ProductDetailCard
-      product={{ ...product, quantity: cartItemQuantity }}
-      onClickAddToCartButton={updateCartItemQuantity(
-        product.id,
-        cartItemQuantity + 1
-      )}
+      product={{ ...product, quantity }}
+      onClickAddToCartButton={() => {
+        updateCartItemQuantityWithAlert({
+          id: product.id,
+          quantity: quantity + 1,
+        });
+      }}
     />
   );
 }

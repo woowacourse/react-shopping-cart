@@ -1,10 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { useCartItemList } from "../../hooks/useCartItemList";
-
-import { deleteCartItem } from "../../store/actions";
 
 import Button from "../../components/common/Button";
 import CheckBox from "../../components/common/CheckBox";
@@ -14,8 +11,13 @@ import PaymentBox from "./PaymentBox";
 import { useCheckBox } from "../../hooks/useCheckBox";
 
 function ShoppingCartPage() {
-  const dispatch = useDispatch();
-  const { cartItemList, isLoading, errorMessage } = useCartItemList();
+  const {
+    cartItemList,
+    isLoading,
+    errorMessage,
+    updateCartItemQuantity,
+    deleteCartItemByIdList,
+  } = useCartItemList();
 
   const cartItemIdList = cartItemList?.map((cartItem) => cartItem.id);
   const {
@@ -29,6 +31,17 @@ function ShoppingCartPage() {
   const paymentAmount = cartItemList?.reduce((prev, cartItem) => {
     return prev + cartItem.price * cartItem.quantity;
   }, 0);
+
+  const handleSelectedItemDeleteButtonClick = () => {
+    if (selectedList.length === 0) {
+      alert("선택된 상품이 없습니다.");
+      return;
+    }
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("선택한 상품을 모두 삭제하시겠습니까?")) {
+      deleteCartItemByIdList([...selectedList]);
+    }
+  };
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
@@ -51,16 +64,7 @@ function ShoppingCartPage() {
               height="50px"
               borderStyle="1px solid"
               borderColor="grey_300"
-              onClick={() => {
-                if (selectedList.length === 0) {
-                  alert("선택된 상품이 없습니다.");
-                  return;
-                }
-                // eslint-disable-next-line no-restricted-globals
-                if (confirm("선택한 상품을 모두 삭제하시겠습니까?")) {
-                  dispatch(deleteCartItem([...selectedList]));
-                }
-              }}
+              onClick={handleSelectedItemDeleteButtonClick}
             >
               선택 상품 삭제
             </Button>
@@ -73,7 +77,13 @@ function ShoppingCartPage() {
                   key={product.id}
                   product={product}
                   selected={isSelected(product.id)}
-                  handleCheckBoxClick={handleCheckBoxClick(product.id)}
+                  onClickCheckBox={handleCheckBoxClick(product.id)}
+                  updateQuantity={(quantity) =>
+                    updateCartItemQuantity({ id: product.id, quantity })
+                  }
+                  deleteSelf={() => {
+                    deleteCartItemByIdList([product.id]);
+                  }}
                 />
               ))}
             </CartProductList>

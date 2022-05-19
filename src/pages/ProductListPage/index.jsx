@@ -18,8 +18,17 @@ function ProductListPage() {
     cartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantity,
+    updateCartItemQuantityWithAlert,
   } = useCartItemList();
+
+  const ProductListWithQuantity = productList?.map((product) => {
+    const cartItemListIndex = cartItemList?.findIndex(
+      (cartItem) => cartItem.id === product.id
+    );
+    const quantity =
+      cartItemListIndex === -1 ? 0 : cartItemList[cartItemListIndex].quantity;
+    return { ...product, quantity };
+  });
 
   if (isProductListLoading || isCartItemListLoading) return <Spinner />;
   if (productListErrorMessage || cartItemErrorMessage)
@@ -31,27 +40,18 @@ function ProductListPage() {
 
   return (
     <GridList>
-      {productList.map((product) => {
-        const cartItemListIndex = cartItemList.findIndex(
-          (cartItem) => cartItem.id === product.id
-        );
-
-        const cartItemQuantity =
-          cartItemListIndex === -1
-            ? 0
-            : cartItemList[cartItemListIndex].quantity;
-
-        return (
-          <ProductCard
-            key={product.id}
-            product={{ ...product, quantity: cartItemQuantity }}
-            onClickAddToCartButton={updateCartItemQuantity(
-              product.id,
-              cartItemQuantity + 1
-            )}
-          />
-        );
-      })}
+      {ProductListWithQuantity.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={{ ...product }}
+          onClickAddToCartButton={() => {
+            updateCartItemQuantityWithAlert({
+              id: product.id,
+              quantity: product.quantity + 1,
+            });
+          }}
+        />
+      ))}
     </GridList>
   );
 }

@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { deleteCartItem, postCartItem } from "../../store/actions";
-
 import { useNumberInput } from "../../hooks/useNumberInput";
-
 import CheckBox from "../../components/common/CheckBox";
 import NumberInput from "../../components/common/NumberInput";
 import DeleteFromCartButton from "./DeleteFromCartButton";
 
 import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
 
-function CartProductListItem({ product, selected, handleCheckBoxClick }) {
-  const dispatch = useDispatch();
-
+function CartProductListItem({
+  product,
+  selected,
+  onClickCheckBox,
+  updateQuantity,
+  deleteSelf,
+}) {
   const {
     value: quantity,
     handleInputChange,
@@ -28,12 +28,13 @@ function CartProductListItem({ product, selected, handleCheckBoxClick }) {
   });
 
   useEffect(() => {
-    dispatch(postCartItem([{ id: product.id, quantity }]));
+    if (!product || !quantity) return;
+    updateQuantity(quantity);
   }, [quantity]);
 
   return (
     <CartItemContainer>
-      <CheckBox checked={selected} onClick={handleCheckBoxClick} />
+      <CheckBox checked={selected} onClick={onClickCheckBox} />
       <img
         src={product.thumbnailUrl}
         alt={product.name}
@@ -48,9 +49,8 @@ function CartProductListItem({ product, selected, handleCheckBoxClick }) {
         <DeleteFromCartButton
           onClick={() => {
             // eslint-disable-next-line no-restricted-globals
-            if (confirm("해당 상품을 장바구니에서 삭제하시겠습니까?")) {
-              dispatch(deleteCartItem([product.id]));
-            }
+            if (confirm("해당 상품을 장바구니에서 삭제하시겠습니까?"))
+              deleteSelf();
           }}
         />
         <NumberInput
