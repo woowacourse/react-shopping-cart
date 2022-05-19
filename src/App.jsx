@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import PageRoutes from './PageRoutes';
+import PageRoutes from 'PageRoutes';
 
 function App() {
   return (
