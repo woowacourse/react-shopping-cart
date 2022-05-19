@@ -1,8 +1,10 @@
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Error from 'components/@shared/Error/Error.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
 import ShoppingCartListItem from 'components/ShoppingCartListItem/ShoppingCartListItem.component';
+import { findData } from 'utils';
 
 const CartListCountTextBox = styled(TextBox).attrs({
   fontSize: 'medium',
@@ -21,14 +23,14 @@ const CartListBox = styled(FlexBox).attrs({
   width: 736px;
 `;
 
-function ShoppingCartListContainer({ cartData }) {
+function ShoppingCartListContainer({ data }) {
+  const shoppingCart = useSelector(state => state.shoppingCart);
+  const cartData = shoppingCart.map(cartItem => findData(cartItem, data));
+
   return (
     <CartListBox>
       {Array.isArray(cartData) && cartData.length === 0 ? (
-        <>
-          <CartListCountTextBox mb="50px">배송 상품 (0개)</CartListCountTextBox>
-          <Error>상품이 존재하지 않습니다</Error>
-        </>
+        <CartListCountTextBox mb="50px">배송 상품 (0개)</CartListCountTextBox>
       ) : (
         <>
           <CartListCountTextBox>배송 상품 ({cartData.length}개)</CartListCountTextBox>
