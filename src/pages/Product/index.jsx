@@ -16,7 +16,7 @@ import { GET_PRODUCT_FAIL } from 'modules/product';
 
 function ProductListPage() {
   const { isProductLoading, requestProductFail, products, requestProduct } = useProducts();
-  const { openAlreadyInCartModal, openAddCartModal, OPEN_ADD_CART_ERROR_MODAL } = useSelector(
+  const { openAlreadyInCartModal, openAddCartModal, openAddCartErrorModal } = useSelector(
     (state) => state.modal,
   );
 
@@ -42,7 +42,7 @@ function ProductListPage() {
     <>
       {openAlreadyInCartModal && <AlreadyCartModal />}
       {openAddCartModal && <AddCartModal />}
-      {OPEN_ADD_CART_ERROR_MODAL && <AddCartErrorModal />}
+      {openAddCartErrorModal && <AddCartErrorModal />}
       <ProductListStyled>
         {products.map((product) => (
           <Product key={product.product_id} {...product} />
