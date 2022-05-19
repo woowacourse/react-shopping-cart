@@ -1,4 +1,5 @@
 import React from 'react';
+
 import InputStyled from './style';
 
 function Input(props) {

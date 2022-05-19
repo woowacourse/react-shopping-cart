@@ -3,6 +3,7 @@ import {
   GET_PRODUCT_CART_SUCCESS,
   GET_PRODUCT_CART_FAIL,
   ADD_PRODUCT_CART_FAIL,
+  DELETE_PRODUCT_CART_FAIL,
 } from './action';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   getProductCartSuccess: false,
   getProductCartFail: '',
   addProductCartFail: '',
+  deleteProductCartFail: '',
 };
 
 const cart = (state = initialState, action) => {
@@ -47,6 +49,11 @@ const cart = (state = initialState, action) => {
         getProductCartSuccess: false,
         getProductCartFail: '',
         addProductCartFail: action.type,
+      };
+    case DELETE_PRODUCT_CART_FAIL:
+      return {
+        ...state,
+        deleteProductCartFail: action.type,
       };
     default:
       return state;

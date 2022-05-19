@@ -2,6 +2,7 @@ export const GET_PRODUCT_CART_LOADING = 'GET_PRODUCT_CART_LOADING';
 export const GET_PRODUCT_CART_SUCCESS = 'GET_PRODUCT_CART_SUCCESS';
 export const GET_PRODUCT_CART_FAIL = 'GET_PRODUCT_CART_FAIL';
 export const ADD_PRODUCT_CART_FAIL = 'ADD_PRODUCT_CART_FAIL';
+export const DELETE_PRODUCT_CART_FAIL = 'DELETE_PRODUCT_CART_FAIL';
 
 export const getProductCartLoading = () => ({ type: GET_PRODUCT_CART_LOADING });
 export const getProductCartSuccess = (cartProducts) => ({
@@ -10,3 +11,4 @@ export const getProductCartSuccess = (cartProducts) => ({
 });
 export const getProductCartFail = () => ({ type: GET_PRODUCT_CART_FAIL });
 export const addProductCartFail = () => ({ type: ADD_PRODUCT_CART_FAIL });
+export const deleteProductCartFail = () => ({ type: DELETE_PRODUCT_CART_FAIL });

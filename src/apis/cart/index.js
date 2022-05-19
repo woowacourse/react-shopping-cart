@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getProductCartSuccess, getProductCartFail } from 'modules/cart';
+import { getProductCartSuccess, getProductCartFail, deleteProductCartFail } from 'modules/cart';
 import { openAddCartErrorModal, openAddCartModal, openAlreadyInCartModal } from 'modules/modal';
 
 export const getCartList = () => async (dispatch) => {
@@ -14,19 +14,29 @@ export const getCartList = () => async (dispatch) => {
   }
 };
 
-export const addProductCart = (target) => async (dispatch, getState) => {
-  const products = getState().product.products;
-  const addProduct = products.find((product) => product.product_id === Number(target.id));
-  const cartInitProduct = Object.assign(addProduct, { cart_product_count: 1 });
-
-  try {
-    const response = await axios.post('/mocking/cart', cartInitProduct);
-    if (response.data === 'same product in cart') {
-      dispatch(openAlreadyInCartModal());
-      return;
+export const addProductCart =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      const response = await axios.post('/mocking/cart', id);
+      if (response.data === 'same product in cart') {
+        dispatch(openAlreadyInCartModal());
+        return;
+      }
+      dispatch(openAddCartModal());
+    } catch (error) {
+      dispatch(openAddCartErrorModal(error));
     }
-    dispatch(openAddCartModal());
-  } catch (error) {
-    dispatch(openAddCartErrorModal(error));
-  }
-};
+  };
+
+export const deleteProductCart =
+  ({ id }) =>
+  (dispatch) => {
+    try {
+      axios.delete('/mocking/cart', id);
+      dispatch(getCartList());
+      return;
+    } catch (error) {
+      dispatch(deleteProductCartFail(error));
+    }
+  };
