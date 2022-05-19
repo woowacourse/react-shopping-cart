@@ -21,7 +21,7 @@
 - [x] AmountController 컴포넌트 정적 html,css,스토리북 구현
 - [x] CartProduct 컴포넌트 정적 html,css,스토리북 구현
 - [x] Order 컴포넌트 정적 html,css,스토리북 구현
-- [ ] CartPage 컴포넌트 정적 html,css,스토리북 구현
+- [x] CartPage 컴포넌트 정적 html,css,스토리북 구현
 
 - [ ] store에서 장바구니 목록을 불러와서 화면에 렌더
 - [ ] 수량을 조정하면 store에 값을 저장

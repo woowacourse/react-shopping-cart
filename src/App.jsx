@@ -6,7 +6,7 @@ import { loadCarts } from 'store/carts';
 import GlobalStyle from 'GlobalStyle';
 import ProductListContainer from 'components/Main/ProductListContainer';
 import Header from 'components/Header/Header';
-import Cart from 'components/CartPage/Cart';
+import CartPage from 'components/CartPage/CartPage';
 import OrderList from 'components/OrderList/OrderList';
 import NotFound from 'components/NotFound/NotFound';
 import { PATH } from 'constants';
@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path={`${PATH.ROOT}`} element={<ProductListContainer />} />
           <Route path={`${PATH.ORDERLIST}`} element={<OrderList />} />
-          <Route path={`${PATH.CARTS}`} element={<Cart />} />
+          <Route path={`${PATH.CARTS}`} element={<CartPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
