@@ -4,7 +4,7 @@ import { CartItem } from 'types/domain';
 
 import { useAppDispatch } from './useAppDispatch';
 
-const useUpdateCartItem = (cartList: CartItem[]) => {
+const useCartRequest = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
 
   const postCartItemQuantity =
@@ -29,4 +29,4 @@ const useUpdateCartItem = (cartList: CartItem[]) => {
   return { postCartItemQuantity, updateCartItemQuantity, patchCartItemSelected };
 };
 
-export default useUpdateCartItem;
+export default useCartRequest;

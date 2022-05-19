@@ -5,10 +5,10 @@ import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import { MAX_RESULT_ITEM_LIST } from 'constants/index';
+import useCartRequest from 'hooks/useCartRequest';
 import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
-import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useParams } from 'react-router-dom';
 import { getCartList } from 'redux/action-creators/cartListThunk';
 import { getItemList } from 'redux/action-creators/itemListThunk';
@@ -32,7 +32,7 @@ const ItemList = () => {
     state => state.cartListReducer,
     getCartList
   );
-  const { postCartItemQuantity, updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
 
   if (loading) return <Loading />;
   if (itemListError || allItemListError || cartListError) return <RequestFail />;

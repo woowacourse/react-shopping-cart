@@ -2,7 +2,7 @@ import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
 import CheckBox from 'components/common/CheckBox';
 import CroppedImage from 'components/common/CroppedImage';
 import Division from 'components/common/Division';
-import useUpdateCartItem from 'hooks/useUpdateCartItem';
+import useCartRequest from 'hooks/useCartRequest';
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'styles/theme';
@@ -16,7 +16,7 @@ interface CartListProps {
 }
 
 const CartList = ({ itemList, cartList }: CartListProps) => {
-  const { updateCartItemQuantity, patchCartItemSelected } = useUpdateCartItem(cartList);
+  const { updateCartItemQuantity, patchCartItemSelected } = useCartRequest(cartList);
 
   return (
     <div>
