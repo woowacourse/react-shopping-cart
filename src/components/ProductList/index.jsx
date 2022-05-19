@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from 'modules/productList';
 
 import Product from 'components/Product';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
+import { addCartItem } from 'modules/cart';
 
 const Styled = {
   ProductBox: styled.div`
@@ -23,12 +25,12 @@ const Styled = {
   `,
 };
 
-const ProductList = () => {
+const ProductList = ({ onAddCartButtonClick }) => {
+  const dispatch = useDispatch();
+
   const { productList, loading, error } = useSelector(
     ({ productListReducer }) => productListReducer.posts,
   );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProductList());
@@ -41,7 +43,6 @@ const ProductList = () => {
       </Styled.ProductBox>
     );
   }
-
   if (error) {
     return <Styled.ProductBox>에러 발생!</Styled.ProductBox>;
   }
@@ -50,13 +51,24 @@ const ProductList = () => {
     <Styled.ProductBox>
       {productList.length ? (
         productList.map(({ id, name, price, thumbnail }) => (
-          <Product key={id} id={id} name={name} price={Number(price)} thumbnail={thumbnail} />
+          <Product
+            key={id}
+            id={id}
+            name={name}
+            price={Number(price)}
+            thumbnail={thumbnail}
+            onClick={onAddCartButtonClick}
+          />
         ))
       ) : (
         <Styled.EmptyMessage>상품 목록이 존재하지 않습니다.</Styled.EmptyMessage>
       )}
     </Styled.ProductBox>
   );
+};
+
+ProductList.propTypes = {
+  onAddCartButtonClick: PropTypes.func,
 };
 
 export default ProductList;

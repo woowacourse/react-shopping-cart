@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styled';
 import { ROUTE } from 'constants';
+import { COLOR } from 'constants';
+import { StyledButton } from 'components/common/Button';
 
 const Styled = {
   Wrapper: styled.div`
@@ -39,9 +41,16 @@ const Styled = {
     overflow: hidden;
   `,
   Price: styled.p``,
+  CartButton: styled(StyledButton)`
+    :hover {
+      svg path {
+        fill: ${COLOR.CART_BUTTON_HOVER};
+      }
+    }
+  `,
 };
 
-const Product = ({ id, thumbnail, name, price }) => {
+const Product = ({ id, thumbnail, name, price, onClick }) => {
   return (
     <Styled.Wrapper>
       <Link to={`${ROUTE.PRODUCT}${id}`}>
@@ -57,11 +66,13 @@ const Product = ({ id, thumbnail, name, price }) => {
             <Styled.Price>{price} 원</Styled.Price>
           </Styled.Description>
         </Link>
-        <Link to="*">
-          <CartButton>
-            <CartIcon />
-          </CartButton>
-        </Link>
+        <Styled.CartButton
+          onClick={() => {
+            onClick(id);
+          }}
+        >
+          <CartIcon />
+        </Styled.CartButton>
       </Styled.Content>
     </Styled.Wrapper>
   );
@@ -72,6 +83,7 @@ Product.propTypes = {
   thumbnail: PropTypes.string,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default Product;

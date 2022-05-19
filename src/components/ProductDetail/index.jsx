@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getProduct } from 'modules/product';
 import { COLOR } from 'constants';
 
-import styled from 'styled-components';
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
 
@@ -53,7 +54,7 @@ const Styled = {
   `,
 };
 
-const ProductDetail = () => {
+const ProductDetail = ({ onAddCartButtonClick }) => {
   const { id: productId } = useParams();
   const { product, loading, error } = useSelector(({ productReducer }) => productReducer.posts);
   const dispatch = useDispatch();
@@ -85,9 +86,19 @@ const ProductDetail = () => {
           <p>{price}원</p>
         </Styled.Price>
       </Styled.Content>
-      <CardDetailButton>장바구니</CardDetailButton>
+      <CardDetailButton
+        onClick={() => {
+          onAddCartButtonClick(productId);
+        }}
+      >
+        장바구니
+      </CardDetailButton>
     </Styled.Wrapper>
   );
+};
+
+ProductDetail.propTypes = {
+  onAddCartButtonClick: PropTypes.func,
 };
 
 export default ProductDetail;
