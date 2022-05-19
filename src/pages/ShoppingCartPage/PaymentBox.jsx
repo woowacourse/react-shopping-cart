@@ -4,16 +4,16 @@ import styled from "styled-components";
 import Button from "../../components/common/Button";
 import HighlightedText from "../../components/common/HighlightedText";
 
-function PaymentBox() {
+function PaymentBox({ amount, quantity }) {
   return (
     <Box>
       <BoxTitle>결제예상금액</BoxTitle>
       <Line />
       <TextContainer>
         <HighlightedText>결제예상금액</HighlightedText>
-        <HighlightedText>21,700원</HighlightedText>
+        <HighlightedText>{amount.toLocaleString()}원</HighlightedText>
       </TextContainer>
-      <OrderButton>주문하기(2개)</OrderButton>
+      <OrderButton>주문하기({quantity}개)</OrderButton>
     </Box>
   );
 }

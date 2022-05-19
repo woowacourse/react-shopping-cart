@@ -113,11 +113,11 @@ export const getCartItemList = () => async (dispatch, getState) => {
   }
 };
 
-export const postCartItem = (productIdList) => async (dispatch, getState) => {
+export const postCartItem = (productList) => async (dispatch, getState) => {
   dispatch(actionsCreator.postCartItem());
 
   try {
-    const newCartItemList = await requestPostCartItem(productIdList);
+    const newCartItemList = await requestPostCartItem(productList);
     dispatch(actionsCreator.postCartItemSuccess(newCartItemList));
   } catch (err) {
     dispatch(actionsCreator.postCartItemSuccess(err.message));

@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-function NumberInput({ min = 1, max = 20, step = 1, ...rest }) {
+function NumberInput({
+  value,
+  onChangeValue,
+  onClickIncreaseButton,
+  onClickDecreaseButton,
+  ...rest
+}) {
   return (
     <Container>
-      <Input type="number" min={min} max={max} step={step} {...rest} />
+      <Input type="number" value={value} onChange={onChangeValue} {...rest} />
       <ArrowButtonContainer>
-        <ArrowButton>▲</ArrowButton>
-        <ArrowButton>▼</ArrowButton>
+        <ArrowButton onClick={onClickIncreaseButton}>▲</ArrowButton>
+        <ArrowButton onClick={onClickDecreaseButton}>▼</ArrowButton>
       </ArrowButtonContainer>
     </Container>
   );

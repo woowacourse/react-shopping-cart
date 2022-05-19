@@ -46,8 +46,8 @@ export const fetchProductList = () => fetchData(productListUrl);
 export const fetchProductDetail = (id) => fetchData(productDetailUrl(id));
 export const fetchCartItemList = () => fetchData(cartUrl);
 
-export const requestPostCartItem = (productIdList) =>
-  postData(cartUrl, { productIdList });
+export const requestPostCartItem = (productList) =>
+  postData(cartUrl, { productList });
 
 export const requestDeleteCartItem = (productIdList) =>
   deleteData(cartUrl, { productIdList });

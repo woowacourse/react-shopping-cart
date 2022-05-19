@@ -36,11 +36,22 @@ export const handlers = [
   }),
 
   rest.post(cartUrl, (req, res, ctx) => {
-    const { productIdList: productIdListToAdd } = JSON.parse(req.body);
+    const { productList } = JSON.parse(req.body);
 
-    productIdListToAdd.forEach((productId) => {
-      mockData.cart.push({ id: productId, quantity: 1 });
+    const newCart = [...mockData.cart];
+    productList.forEach((product) => {
+      const cartItemIndex = mockData.cart.findIndex(
+        (cartItem) => cartItem.id === product.id
+      );
+
+      if (cartItemIndex === -1) {
+        newCart.push(product);
+        return;
+      }
+
+      newCart.splice(cartItemIndex, 1, product);
     });
+    mockData.cart = newCart;
 
     const detailCartItemList = mockData.cart.map((cartItem) => {
       const cartItemDetail = mockData.products.find(

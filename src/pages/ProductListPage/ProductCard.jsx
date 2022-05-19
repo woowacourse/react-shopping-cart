@@ -9,7 +9,7 @@ import AddToCartButton from "./AddToCartButton";
 
 import { PATH } from "../../constants";
 
-function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
+function ProductCard({ product: { id, thumbnailUrl, name, price, quantity } }) {
   const dispatch = useDispatch();
 
   return (
@@ -26,7 +26,13 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
           <AddToCartButton
             onClick={(e) => {
               e.preventDefault();
-              dispatch(postCartItem([id]));
+              const newQuantity = quantity + 1;
+              if (newQuantity > 20) {
+                alert("20개 넘게 못 사~~~");
+                return;
+              }
+              dispatch(postCartItem([{ id, quantity: newQuantity }]));
+              alert(`${newQuantity}개 장바구니에 담김!`);
             }}
           />
         </CardBottom>
