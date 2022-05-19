@@ -1,10 +1,17 @@
+const FETCH_PRODUCST_START = 'FETCH_PRODUCST_START';
+const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
+const FETCH_PRODUCTS_ERROR = 'FETCH_PRODUCTS_ERROR';
+const FETCH_PRODUCT_DETAIL_START = 'FETCH_PRODUCT_DETAIL_START';
+const FETCH_PRODUCT_DETAIL_SUCCESS = 'FETCH_PRODUCT_DETAIL_SUCCESS';
+const FETCH_PRODUCT_DETAIL_ERROR = 'FETCH_PRODUCT_DETAIL_ERROR';
+
 const productActionType = {
-  fetchProductsStart: 'fetchProductsStart',
-  fetchProductsSuccess: 'fetchProductsSuccess',
-  fetchProductsError: 'fetchProductsError',
-  fetchProductDetailStart: 'fetchProductDetailStart',
-  fetchProductDetailSuccess: 'fetchProductDetailSuccess',
-  fetchProductDetailError: 'fetchProductDetailError',
+  fetchProductsStart: FETCH_PRODUCST_START,
+  fetchProductsSuccess: FETCH_PRODUCTS_SUCCESS,
+  fetchProductsError: FETCH_PRODUCTS_ERROR,
+  fetchProductDetailStart: FETCH_PRODUCT_DETAIL_START,
+  fetchProductDetailSuccess: FETCH_PRODUCT_DETAIL_SUCCESS,
+  fetchProductDetailError: FETCH_PRODUCT_DETAIL_ERROR,
 };
 
 export default productActionType;
