@@ -14,27 +14,29 @@ const Cart = () => {
   const {
     isLoading,
     isError,
-    data,
+    cartItems,
     handleDeleteItem,
     handleUpdateItemQuantity,
   } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
 
   const totalPrice = useMemo(() => {
-    if (!data || data.length === 0) return 0;
-    const list = data.filter(({ id }) => selectedItemList.indexOf(id) !== -1);
+    if (!cartItems || cartItems.length === 0) return 0;
+    const list = cartItems.filter(
+      ({ id }) => selectedItemList.indexOf(id) !== -1,
+    );
     return list.reduce(
       (prev, { price, quantity }) => (prev += price * quantity),
       0,
     );
-  }, [data, selectedItemList]);
+  }, [cartItems, selectedItemList]);
 
   const handleToggleSelectAll = (isSelected) => () => {
     if (isSelected) {
       setSelectedItemList([]);
       return;
     }
-    setSelectedItemList(data.map(({ id }) => id));
+    setSelectedItemList(cartItems.map(({ id }) => id));
   };
 
   const handleToggleSelect = (id) => () => {
@@ -60,16 +62,17 @@ const Cart = () => {
         <Styled.CartContents>
           <CartControlBar
             isAllSelected={
-              selectedItemList.length === data.length && data.length > 0
+              selectedItemList.length === cartItems.length &&
+              cartItems.length > 0
             }
             onToggleSelect={handleToggleSelectAll(
-              selectedItemList.length === data.length,
+              selectedItemList.length === cartItems.length,
             )}
             onClickDeleteButton={handleDeleteSelectedItem}
           />
 
           <CartContainer>
-            {data.map(({ id, name, imgUrl, price, quantity }) => (
+            {cartItems.map(({ id, name, imgUrl, price, quantity }) => (
               <CartItem
                 key={id}
                 id={id}

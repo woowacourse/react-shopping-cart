@@ -28,7 +28,7 @@ const useCart = () => {
   return {
     isLoading: isLoadingGetCart,
     isError: isErrorGetCart,
-    data,
+    cartItems: data,
     handleDeleteItem,
     handleUpdateItemQuantity,
   };
