@@ -14,6 +14,10 @@ const Button = styled.button`
       height: ${height};
       margin-top: ${mt};
     `}
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 `;
 
 export default Button;
