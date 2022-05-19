@@ -12,9 +12,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" exact element={<ProductList />} />
+            <Route path="/" element={<ProductList />} />
             <Route path={`${PATH.PRODUCT}/:id`} element={<Product />} />
-            <Route path={PATH.CART} exact element={<Cart />} />
+            <Route path={PATH.CART} element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
