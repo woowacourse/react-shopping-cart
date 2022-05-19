@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -7,7 +7,6 @@ import { CartDetailButton } from 'components/@common/Button';
 import Flex from 'components/@common/Flex';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
 
-import { startProduct, setProduct, resetProduct } from 'store/product/actions';
 import {
   loadCartProduct,
   loadCartProductList,
@@ -17,6 +16,7 @@ import {
 import { loadProduct } from 'api/product';
 import { RootState } from 'store';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
+import { ProductData } from 'types';
 
 const ProductDetail = () => {
   const params = useParams();
@@ -24,7 +24,7 @@ const ProductDetail = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { currentProduct, isLoading } = useSelector((state: RootState) => state.productReducer);
+  const [product, setProduct] = useState<ProductData | null>(null);
 
   const handleAddCartButton = async () => {
     try {
@@ -42,21 +42,16 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(startProduct());
     loadProduct(id)
-      .then((res) => dispatch(setProduct(res)))
+      .then((res) => setProduct(res))
       .catch(() => navigate('/notFound'));
-
-    return () => {
-      dispatch(resetProduct());
-    };
   }, []);
 
-  if (isLoading) {
+  if (product === null) {
     return <LoadingSpinner />;
   }
 
-  const { name, price, thumbnail } = currentProduct;
+  const { name, price, thumbnail } = product;
 
   return (
     <Styled.Container>

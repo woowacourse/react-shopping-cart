@@ -36,7 +36,9 @@ export const loadCartProductList = async (): Promise<CartProductData[]> => {
   }
 };
 
-export const registerCartProduct = async (cartProduct: CartProductData) => {
+export const registerCartProduct = async (
+  cartProduct: CartProductData,
+): Promise<CartProductData[]> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/cartProductList`,
@@ -53,7 +55,10 @@ export const registerCartProduct = async (cartProduct: CartProductData) => {
   }
 };
 
-export const updateCartProduct = async (id: number, cartProduct: CartProductData) => {
+export const updateCartProduct = async (
+  id: number,
+  cartProduct: CartProductData,
+): Promise<CartProductData[]> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/cartProductList/${id}`,
