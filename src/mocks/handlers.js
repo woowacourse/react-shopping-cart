@@ -57,19 +57,20 @@ export const handlers = [
   rest.put('/cart/:id', (req, res, ctx) => {
     // id로 담겨 있는지 확인하고 없으면 바로 저장, 아니면 수량 추가
     const productId = req.params.id;
-    const isCarted = cart.some(({id}) => id === productId);
 
-    if (!isCarted) {
-      cart.push({id: productId, quantity: 1});
-    } else {
-      const updatedCart = cart.map((item) => {
-        if (item.id === productId) {
-          return {...item, quantity: item.quantity + 1};
-        }
-        return item;
-      });
-      cart = updatedCart;
-    }
-    return res(ctx.status(200), ctx.json(cart));
+    const updatedCart = cart.map((item) => {
+      if (item.id === productId) {
+        return {...item, quantity: req.body.quantity};
+      }
+      return item;
+    });
+    cart = updatedCart;
+
+    const detailCart = cart.map((cartItem) => {
+      const productDetail = productList.find((item) => item.id === +cartItem.id);
+
+      return {...productDetail, quantity: cartItem.quantity};
+    });
+    return res(ctx.status(200), ctx.json(detailCart));
   }),
 ];

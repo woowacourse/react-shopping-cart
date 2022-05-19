@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import useReducerSelect from 'hooks/useReducerSelect';
-import {deleteCart} from 'store/modules/cart';
+import {deleteCart, editCart} from 'store/modules/cart';
 
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
@@ -14,14 +14,25 @@ import {FlexWrapper} from 'components/common/style';
 
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
   const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
+
   const handleDeleteIconClick = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      console.log('delete');
       dispatch(deleteCart(id));
       onChange();
     } else {
       console.log(pending, error, data);
     }
+  };
+
+  const addQuantity = () => {
+    dispatch(editCart(id, quantity + 1));
+  };
+
+  const minusQuantity = () => {
+    if (quantity === 1) {
+      return alert('최소 상품 수량은 1개입니다');
+    }
+    dispatch(editCart(id, quantity - 1));
   };
 
   return (
@@ -45,10 +56,10 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
         <FlexWrapper>
           <ItemCountBox>{quantity}</ItemCountBox>
           <FlexWrapper direction="column" width="42px">
-            <Button width="42px" height="30px" buttonType="grayBorder">
+            <Button width="42px" height="30px" buttonType="grayBorder" onClick={addQuantity}>
               ▲
             </Button>
-            <Button width="42px" height="30px" buttonType="grayBorder">
+            <Button width="42px" height="30px" buttonType="grayBorder" onClick={minusQuantity}>
               ▼
             </Button>
           </FlexWrapper>

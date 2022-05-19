@@ -45,9 +45,9 @@ export const deleteCart = (id) => async (dispatch) => {
   }
 };
 
-export const editCart = (id) => async (dispatch) => {
+export const editCart = (id, quantity) => async (dispatch) => {
   try {
-    const {data} = await appClient.put(`cart/${id}`);
+    const {data} = await appClient.put(`cart/${id}`, {quantity});
     dispatch({type: ACTION.EDIT_CART, payload: data});
   } catch (error) {
     console.log(error);
@@ -93,6 +93,13 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case ACTION.DELETE_CART: {
+      const cartedItem = action.payload;
+      return {
+        ...state,
+        data: cartedItem,
+      };
+    }
+    case ACTION.EDIT_CART: {
       const cartedItem = action.payload;
       return {
         ...state,
