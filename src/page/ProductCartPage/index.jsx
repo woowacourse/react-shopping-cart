@@ -56,7 +56,7 @@ export default function ProductCartPage() {
             <S.DeleteButton>상품삭제</S.DeleteButton>
           </S.SelectDeleteRow>
 
-          <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>
+          <S.ListHeaderSpan>장바구니 상품 ({cartItem.length}개)</S.ListHeaderSpan>
           <S.CartListBox>
             {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => {
               const initialChecked = selectedItem.includes(id);
