@@ -46,12 +46,15 @@ export const QuantityButtonControlContainer = styled.div`
   align-items: center;
 `;
 
-export const ProductQuantity = styled.p`
+export const ProductQuantityInput = styled.input`
+  display: block;
+  width: 73px;
+  height: 60px;
   font-size: 24px;
   line-height: 18.67px;
   letter-spacing: 0.5px;
-  padding: 23px 30px;
   border: 1px solid #ddd;
+  text-align: center;
 `;
 
 export const ButtonContainer = styled.div`
@@ -62,6 +65,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const QuantityButton = styled.button`
+  height: 30px;
   border: 1px solid #ddd;
   padding: 6px 15px;
 `;

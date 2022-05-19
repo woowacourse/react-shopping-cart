@@ -15,3 +15,11 @@ export const getProductsByPage = async (page) => {
 export const getProductById = async (id) => {
   return axios.get(`/products/${id}`);
 };
+
+export const getShoppingCartProducts = async () => {
+  return axios.get("/shopping-cart");
+};
+
+export const patchShoppingCartProductQuantity = async (id, newState) => {
+  return axios.patch(`/shopping-cart/${id}`, newState);
+};

@@ -1,4 +1,3 @@
-import React from "react";
 import ShoppingCartProduct from "../ShoppingCartProduct";
 import * as S from "./index.styles";
 

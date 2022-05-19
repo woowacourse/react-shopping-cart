@@ -1,5 +1,11 @@
 import * as S from "./index.styles";
 import RemoveIcon from "../../assets/image/remove.svg";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrementCartProductQuantity,
+  incrementCartProductQuantity,
+  updateCartProductQuantityByUserInput,
+} from "../../modules/products";
 
 const ProductInfoContainer = ({ imgUrl, title }) => {
   return (
@@ -14,8 +20,10 @@ const ProductInfoContainer = ({ imgUrl, title }) => {
 const ProductQuantityControlContainer = ({
   price,
   productQuantity,
-  handleDecrement,
   handleIncrement,
+  handleDecrement,
+  handleUpdateQuantityByUser,
+  handleBackspaceByUser,
 }) => {
   return (
     <S.ProductQuantityControlContainer>
@@ -23,13 +31,18 @@ const ProductQuantityControlContainer = ({
         <img src={RemoveIcon} alt="삭제 버튼" />
       </button>
       <S.QuantityButtonControlContainer>
-        <S.ProductQuantity>{productQuantity}</S.ProductQuantity>
+        <S.ProductQuantityInput
+          type="number"
+          value={productQuantity}
+          onChange={handleUpdateQuantityByUser}
+          onKeyDown={handleBackspaceByUser}
+        />
         <S.ButtonContainer>
           <S.QuantityButton type="button" onClick={handleIncrement}>
-            ⬆
+            🔼
           </S.QuantityButton>
           <S.QuantityButton type="button" onClick={handleDecrement}>
-            ⬇
+            🔽
           </S.QuantityButton>
         </S.ButtonContainer>
       </S.QuantityButtonControlContainer>
@@ -38,22 +51,49 @@ const ProductQuantityControlContainer = ({
   );
 };
 
-const ShoppingCartProduct = ({
-  productQuantity,
-  imgUrl,
-  title,
-  price,
-  handleIncrement,
-  handleDecrement,
-}) => {
+const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
+  const dispatch = useDispatch();
+  const shoppingCartProducts = useSelector(
+    (state) => state.shoppingCartProducts
+  );
+
+  const shoppingCartProduct = shoppingCartProducts.data.find(
+    (product) => product.id === id
+  );
+
+  const handleIncrement = () => {
+    dispatch(incrementCartProductQuantity(id));
+  };
+
+  const handleDecrement = () => {
+    dispatch(decrementCartProductQuantity(id));
+  };
+
+  const handleUpdateQuantityByUser = ({ target }) => {
+    // if (Number(target.value) < 1) return;
+    dispatch(updateCartProductQuantityByUserInput(id, target.value));
+  };
+
+  const handleBackspaceByUser = (event) => {
+    const { key, target } = event;
+
+    if (key !== "Backspace") return;
+    if (target.value.length !== 1) return;
+
+    event.preventDefault();
+    target.select();
+  };
+
   return (
     <S.ShoppingCartProduct>
       <ProductInfoContainer imgUrl={imgUrl} title={title} />
       <ProductQuantityControlContainer
         price={price}
-        productQuantity={productQuantity}
-        handleDecrement={handleDecrement}
+        productQuantity={shoppingCartProduct.quantity}
         handleIncrement={handleIncrement}
+        handleDecrement={handleDecrement}
+        handleUpdateQuantityByUser={handleUpdateQuantityByUser}
+        handleBackspaceByUser={handleBackspaceByUser}
       />
     </S.ShoppingCartProduct>
   );
