@@ -1,8 +1,11 @@
 import styled from 'styled-components';
-import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
 
 const PaymentsAmount = ({ children }) => {
+  const onClick = () => {
+    alert('주문하였습니다!!');
+  };
+
   return (
     <StyledRoot>
       <Header>결제 예상금액</Header>
@@ -13,7 +16,7 @@ const PaymentsAmount = ({ children }) => {
           </UnderLineBox>
           <UnderLineBox> {children}</UnderLineBox>
         </TotalPrice>
-        <OrderButton>주문하기</OrderButton>
+        <OrderButton onClick={onClick}>주문하기</OrderButton>
       </Bottom>
     </StyledRoot>
   );

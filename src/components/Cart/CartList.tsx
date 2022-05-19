@@ -1,55 +1,92 @@
-import React, { Fragment } from 'react';
 import { ReactComponent as TrashCanIcon } from 'assets/trashCanIcon.svg';
 import { CartItem, Item } from 'types/domain';
 import styled from 'styled-components';
 import CroppedImage from 'components/common/CroppedImage';
 import { flexCenter } from 'styles/mixin';
 import CheckBox from 'components/common/CheckBox';
+import useUpdateCartItem from 'hooks/useUpdateCartItem';
+import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 
-const CartList = ({ cartList, cartDetail }: { cartList: CartItem[]; cartDetail: Item[] }) => {
-  console.log('f', cartList, cartDetail);
+const CartList = ({
+  cartList,
+  cartDetail,
+  cartListWithDetail,
+  setPaymentsAmount,
+}: {
+  cartList: CartItem[];
+  cartDetail: Item[];
+  cartListWithDetail: any[];
+  setPaymentsAmount: Dispatch<SetStateAction<number>>;
+}) => {
+  const { toggleCartItemWillPurchase } = useUpdateCartItem(cartList);
+
+  const isAllItemWillPurchase = cartList.every(cartItem => cartItem.willPurchase);
+  const totalPaymentsPrice = cartListWithDetail.reduce((prev, after) => {
+    if (after.willPurchase) {
+      return prev + after.price * after.quantity;
+    }
+
+    return prev;
+  }, 0);
+
+  useEffect(() => {
+    setPaymentsAmount(totalPaymentsPrice);
+  });
+
+  const toggleCheckedAll = () => {
+    console.log('전부 키거나 끄기');
+  };
+
+  const toggleChecked = (targetId: number) => {
+    toggleCartItemWillPurchase(targetId);
+  };
 
   return (
     <StyledRoot>
-      <StyledSelectAll>
-        <SelectBox>
-          <CheckBox id='전체 선택'></CheckBox>
+      <ButtonSet>
+        <SelectItemAll>
+          <CheckBox
+            id='전체 선택'
+            checked={isAllItemWillPurchase}
+            onChange={toggleCheckedAll}
+          ></CheckBox>
           <p>선택 해제</p>
-        </SelectBox>
-        <DeleteButton>상품 삭제</DeleteButton>
-      </StyledSelectAll>
-      <StyledHeader>든든상품배송 {`${cartList.length}`} 개</StyledHeader>
-      <StyledList>
+        </SelectItemAll>
+        <DeleteSelectedButton>상품 삭제</DeleteSelectedButton>
+      </ButtonSet>
+      <CartItemListHeader>든든상품배송 {`( ${cartList.length} )`}개</CartItemListHeader>
+      <CartItemList>
         {cartList.map(cartItem => {
           const id = cartItem.id;
-          const quantity = cartItem.quantity;
           const detail = cartDetail.filter(item => item.id === id)[0];
+          const totalPrice = cartItem.quantity * detail.price;
 
           return (
-            <StyledListItem key={cartItem.id}>
-              <CheckBox id={`${cartItem.id}`}></CheckBox>
+            <CartItemContainer key={cartItem.id}>
+              <CheckBox
+                id={`${cartItem.id}`}
+                checked={cartItem.willPurchase}
+                onChange={() => toggleChecked(id)}
+              ></CheckBox>
               <CroppedImage src={detail.thumbnailUrl} width='150px' height='144px' alt='상품' />
-              <StyledItemTitle>{detail.title}</StyledItemTitle>
+              <ItemName>{detail.title}</ItemName>
               <StyledRight>
-                <TrashCan></TrashCan>
+                <TrashCan />
                 <QuantityController>
-                  <QuantityPlace>
+                  <QuantityInput>
                     <div>{cartItem.quantity}</div>
-                  </QuantityPlace>
+                  </QuantityInput>
                   <IncreaseButton>▲</IncreaseButton>
                   <DecreaseButton>▼</DecreaseButton>
                 </QuantityController>
                 <TotalPrice>
-                  {(cartItem.quantity * detail.price)
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-                  원
+                  {totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')} 원
                 </TotalPrice>
               </StyledRight>
-            </StyledListItem>
+            </CartItemContainer>
           );
         })}
-      </StyledList>
+      </CartItemList>
     </StyledRoot>
   );
 };
@@ -61,14 +98,14 @@ const StyledRoot = styled.div`
   height: 724px;
 `;
 
-const StyledSelectAll = styled.div`
+const ButtonSet = styled.div`
   display: flex;
   justify-content: space-between;
 
   margin-bottom: 20px;
 `;
 
-const DeleteButton = styled.button`
+const DeleteSelectedButton = styled.button`
   ${flexCenter}
   width: 117px;
   height: 50px;
@@ -82,7 +119,7 @@ const DeleteButton = styled.button`
   text-align: center;
 `;
 
-const SelectBox = styled.div`
+const SelectItemAll = styled.div`
   display: flex;
   font-size: 20px;
   width: 135px;
@@ -90,14 +127,14 @@ const SelectBox = styled.div`
   justify-content: space-between;
 `;
 
-const StyledHeader = styled.p`
+const CartItemListHeader = styled.p`
   padding: 5px 0px;
 
   border-bottom: solid silver 4px;
   font-size: 20px;
 `;
 
-const StyledList = styled.div`
+const CartItemList = styled.div`
   width: 736px;
   height: 700px;
   overflow: auto;
@@ -116,7 +153,7 @@ const StyledList = styled.div`
   }
 `;
 
-const StyledListItem = styled.div`
+const CartItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -125,7 +162,7 @@ const StyledListItem = styled.div`
   padding: 20px 0;
 `;
 
-const StyledItemTitle = styled.div`
+const ItemName = styled.div`
   width: 260px;
   padding: 0px 20px;
   font-family: 'Noto Sans KR';
@@ -159,7 +196,7 @@ const QuantityController = styled.div`
   border: solid grey 1px;
 `;
 
-const QuantityPlace = styled.div`
+const QuantityInput = styled.div`
   ${flexCenter}
 
   font-size: 24px;
