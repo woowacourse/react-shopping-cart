@@ -50,7 +50,7 @@ function ProductDetail() {
         ) : (
           <Styled.CartButton
             onClick={() => {
-              dispatch(CartActions.addItem(id));
+              dispatch(CartActions.addItem(id, { img, name, price }));
             }}
           >
             장바구니 담기

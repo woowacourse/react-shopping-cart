@@ -12,7 +12,7 @@ import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar"
 import deleteIcon from "../../assets/deleteIcon_white.png";
 import cart from "../../assets/cart.svg";
 
-type ProductType = {
+export type ProductType = {
   name: string;
   price: number;
   img: string;
@@ -35,7 +35,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((cartItem) => cartItem.id === id)) {
-      dispatch(CartActions.addItem(id));
+      dispatch(CartActions.addItem(id, { name, price, img }));
       dispatch(SnackBarActions.show("장바구니에 추가되었습니다. 😍"));
     }
   };

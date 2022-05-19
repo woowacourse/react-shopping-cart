@@ -1,25 +1,46 @@
 import React from "react";
 import styled from "styled-components";
 
-import deleteIcon from "../../assets/deleteIcon_gray.png";
+import { actionCreators as CartActions, CartItem as CartItemType } from "../../redux/modules/cart";
 
-function CartItem() {
+import deleteIcon from "../../assets/deleteIcon_gray.png";
+import { useDispatch } from "react-redux";
+
+interface CartItemProps {
+  cartItem: CartItemType;
+}
+
+function CartItem({ cartItem }: CartItemProps) {
+  const dispatch = useDispatch();
+  const { name, img, price } = cartItem.detail;
+
+  const onClickDeleteItem = () => {
+    if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+      dispatch(CartActions.deleteItem(cartItem.id));
+    }
+  };
+
+  const onClickIncreaseCounter = () => {
+    dispatch(CartActions.increment(cartItem.id));
+  };
+
+  const onClickDecreaseCounter = () => {
+    if (cartItem.amount > 1) dispatch(CartActions.decrement(cartItem.id));
+  };
+
   return (
     <CartItemWrapper>
       <input type="checkbox" />
-      <CartItemImage
-        src="https://cdn-mart.baemin.com/sellergoods/main/ed5392ab-b239-4306-a13b-c671708d200e.jpg"
-        alt="상품 이미지"
-      />
-      <CartItemName>[든든] 야채바삭 김말이 700g</CartItemName>
+      <CartItemImage src={img} alt={name} />
+      <CartItemName>{name}</CartItemName>
       <CartItemInfoWrapper>
-        <DeleteIcon src={deleteIcon} alt="장바구니 삭제" />
+        <DeleteIcon src={deleteIcon} alt="장바구니 삭제" onClick={onClickDeleteItem} />
         <CartCounter>
-          <CartCounterNumber>1</CartCounterNumber>
-          <CartCounterIncreaseButton>▲</CartCounterIncreaseButton>
-          <CartCounterDecreaseButton>▼</CartCounterDecreaseButton>
+          <CartCounterNumber>{cartItem.amount}</CartCounterNumber>
+          <CartCounterIncreaseButton onClick={onClickIncreaseCounter}>▲</CartCounterIncreaseButton>
+          <CartCounterDecreaseButton onClick={onClickDecreaseCounter}>▼</CartCounterDecreaseButton>
         </CartCounter>
-        <div>5,100원</div>
+        <div>{price.toLocaleString()}원</div>
       </CartItemInfoWrapper>
     </CartItemWrapper>
   );

@@ -1,22 +1,21 @@
 import styled from "styled-components";
-import CartItemList from "../../components/CartItemList";
 
+import CartItemList from "../../components/CartItemList";
+import CartItemListController from "../../components/CartItemListController";
 import OrderBox from "../../components/OrderBox";
 
+import { useCartItemListSelector } from "../../hooks/useCartSelector";
+
 function Cart() {
+  const cartItemList = useCartItemListSelector();
+
   return (
     <PageWrapper direction="column">
       <PageTitle>장바구니</PageTitle>
       <Content>
         <LeftContent>
-          <CartItemListController justify="space-between">
-            <CartItemListSelect>
-              <input type="checkbox" id="all-check" />
-              <label htmlFor="all-check">선택해제</label>
-            </CartItemListSelect>
-            <CartItemListDeleteButton>상품삭제</CartItemListDeleteButton>
-          </CartItemListController>
-          <CartItemListTitle>든든배송 상품 (3개)</CartItemListTitle>
+          <CartItemListController />
+          <CartItemListTitle>든든배송 상품 ({cartItemList.length})</CartItemListTitle>
           <CartItemList />
         </LeftContent>
         <RightContent>
@@ -63,27 +62,6 @@ const RightContent = styled.div`
   align-self: start;
   display: flex;
   justify-content: end;
-`;
-
-const CartItemListController = styled(FlexBox)``;
-
-const CartItemListSelect = styled.p`
-  padding: 20px 0;
-  label {
-    margin-left: 6px;
-  }
-`;
-
-const CartItemListDeleteButton = styled.button`
-  width: 80px;
-  height: 36px;
-  background-color: white;
-  border: 1px solid #dddddd;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #dddddd;
-  }
 `;
 
 const CartItemListTitle = styled.h2`

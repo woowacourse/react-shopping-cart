@@ -1,4 +1,5 @@
-type CartItem = { id: number; amount: number };
+type CartItemDetail = { name: string; price: number; img: string };
+export type CartItem = { id: number; amount: number; detail: CartItemDetail };
 type CartState = { cartItemList: CartItem[] };
 type Action =
   | ReturnType<typeof addItem>
@@ -20,9 +21,9 @@ const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
 
 // 액션 크리에터
-const addItem = (id: number) => ({
+const addItem = (id: number, detail: CartItemDetail) => ({
   type: ADD,
-  payload: { id },
+  payload: { id, detail },
 });
 const deleteItem = (id: number) => ({
   type: DELETE,
@@ -45,8 +46,8 @@ const incrementByNumber = (id: number, number: number) => ({
 const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ADD: {
-      const { id } = action.payload;
-      const newCartItemList = [...state.cartItemList, { id, amount: 1 }];
+      const { id, detail } = action.payload;
+      const newCartItemList = [...state.cartItemList, { id, amount: 1, detail }];
 
       return { ...state, cartItemList: newCartItemList };
     }
