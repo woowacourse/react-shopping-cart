@@ -6,7 +6,7 @@ const WhiteButtonStyled = styled.p(
   cursor: pointer;
   font-size: ${fontSize || 24};
   font-weight: ${fontWeight || 500};
-  color: #FFFFFF;
+  color: #FFF;
   border: none;
 `,
 );

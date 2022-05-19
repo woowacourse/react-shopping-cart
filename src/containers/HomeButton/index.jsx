@@ -17,7 +17,7 @@ function HomeButton() {
         />
       </MarginWrapper>
       <WhiteButton fontSize="2.5rem" fontWeight="700">
-        WOOWA SHOP
+        APEACH SHOP
       </WhiteButton>
     </FlexWrapper>
   );
