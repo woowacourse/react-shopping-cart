@@ -6,7 +6,7 @@ import { useCartItemList } from "../../hooks/useCartItemList";
 import Button from "../../components/common/Button";
 import CheckBox from "../../components/common/CheckBox";
 import Spinner from "../../components/common/Spinner";
-import CartProductListItem from "./CartProductListItem";
+import CartItem from "./CartItem";
 import PaymentBox from "./PaymentBox";
 import { useCheckBox } from "../../hooks/useCheckBox";
 
@@ -71,9 +71,9 @@ function ShoppingCartPage() {
           </SelectedProductManagementContainer>
           <div>
             <ListTitle>장바구니 상품목록({cartItemList.length}개)</ListTitle>
-            <CartProductList>
+            <CartItemList>
               {cartItemList.map((product) => (
-                <CartProductListItem
+                <CartItem
                   key={product.id}
                   product={product}
                   selected={isSelected(product.id)}
@@ -86,7 +86,7 @@ function ShoppingCartPage() {
                   }}
                 />
               ))}
-            </CartProductList>
+            </CartItemList>
           </div>
         </div>
         <PaymentBox amount={paymentAmount} quantity={cartItemList.length} />
@@ -150,7 +150,7 @@ const ListTitle = styled.h3`
   color: ${({ theme }) => theme.color.grey_700};
 `;
 
-const CartProductList = styled.ul`
+const CartItemList = styled.ul`
   display: flex;
   flex-direction: column;
 

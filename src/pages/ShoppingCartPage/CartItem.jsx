@@ -8,9 +8,9 @@ import NumberInput from "../../components/common/NumberInput";
 import DeleteFromCartButton from "./DeleteFromCartButton";
 
 import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
-import { PATH } from "./../../constants/index";
+import { PATH } from "../../constants/index";
 
-function CartProductListItem({
+function CartItem({
   product,
   selected,
   onClickCheckBox,
@@ -116,4 +116,4 @@ const ProductQuantityManagement = styled.div`
   gap: 20px;
 `;
 
-export default CartProductListItem;
+export default CartItem;
