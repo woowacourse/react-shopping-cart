@@ -24,7 +24,7 @@ import {
   CartProductPriceWrapperStyled,
 } from './style';
 
-function Cart() {
+function Cart({ cartProducts }) {
   return (
     <CartStyled>
       <Title>장바구니</Title>
@@ -36,28 +36,36 @@ function Cart() {
                 <Checkbox></Checkbox>
                 <Text>선택해제</Text>
               </FlexWrapper>
-              <DeleteProductButton></DeleteProductButton>
+              <DeleteProductButton />
             </FlexWrapper>
           </CartProductContentStyled>
 
           <FlexWrapper>
-            <SubTitle>든든배송 상품 (3개)</SubTitle>
-            <CartProductStyled>
-              <Checkbox />
-              <Image />
-              <Text>상품명</Text>
-              <FlexWrapper flexFlow="column wrap" justifyContent="space-between" alignItems="end">
-                <DeleteProductIconButton />
-                <CartProductCountWrapperStyled>
-                  <ProductCountInput />
-                  <FlexWrapper flexFlow="column wrap">
-                    <ProductCountUpButton />
-                    <ProductCountDownButton />
-                  </FlexWrapper>
-                </CartProductCountWrapperStyled>
-                <Text>가격</Text>
-              </FlexWrapper>
-            </CartProductStyled>
+            <SubTitle>{`든든배송 상품 (${cartProducts.length}개)`}</SubTitle>
+            {cartProducts.map((product) => (
+              <CartProductStyled key={product.product_id}>
+                <Checkbox />
+                <Image
+                  src={product.product_img_src}
+                  id={product.product_id}
+                  width="144px"
+                  height="144px"
+                  cursor="pointer"
+                />
+                <Text>{product.product_title}</Text>
+                <FlexWrapper flexFlow="column wrap" justifyContent="space-between" alignItems="end">
+                  <DeleteProductIconButton id={product.product_id} />
+                  <CartProductCountWrapperStyled>
+                    <ProductCountInput productCount={product.cart_product_count} />
+                    <FlexWrapper flexFlow="column wrap">
+                      <ProductCountUpButton id={product.product_id} />
+                      <ProductCountDownButton id={product.product_id} />
+                    </FlexWrapper>
+                  </CartProductCountWrapperStyled>
+                  <Text>{product.product_price.toLocaleString()}원</Text>
+                </FlexWrapper>
+              </CartProductStyled>
+            ))}
           </FlexWrapper>
         </CartProductInfoStyled>
 

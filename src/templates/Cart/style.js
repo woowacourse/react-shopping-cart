@@ -20,8 +20,8 @@ export const CartProductContentStyled = styled.div(css`
 export const CartProductStyled = styled.div(css`
   width: 38vw;
   height: 200px;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 0.3fr 1.5fr 3fr 1fr;
   padding: 20px 0;
   border-bottom: 1px solid black;
 `);
