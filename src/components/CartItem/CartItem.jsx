@@ -45,7 +45,7 @@ CartItem.propTypes = {
   id: PropTypes.number,
   imgUrl: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   quantity: PropTypes.number,
   isSelected: PropTypes.bool,
   onToggleSelect: PropTypes.func,

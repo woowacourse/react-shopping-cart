@@ -34,7 +34,7 @@ const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
 ProductItem.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   imgUrl: PropTypes.string,
   onClickCartButton: PropTypes.func,
 };

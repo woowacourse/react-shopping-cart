@@ -13,7 +13,9 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 const Cart = () => {
   const { isLoading, isError, data } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
+
   const totalPrice = useMemo(() => {
+    if (!data || data.length === 0) return 0;
     const list = data.filter(({ id }) => selectedItemList.indexOf(id) !== -1);
     return list.reduce(
       (prev, { price, quantity }) => (prev += Number(price) * quantity),

@@ -29,7 +29,7 @@ const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
 ProductDetail.propTypes = {
   imgUrl: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   onClickCartButton: PropTypes.func,
 };
 

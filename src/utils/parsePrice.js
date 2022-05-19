@@ -1,5 +1,5 @@
 const parsePrice = (price) => {
-  return Number(price).toLocaleString();
+  return price.toLocaleString('ko-KR');
 };
 
 export default parsePrice;
