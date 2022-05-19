@@ -8,6 +8,7 @@ export const useFetch = <T>(url: string) => {
 
   const requestData = async () => {
     setLoading(true);
+
     try {
       const { data }: { data: T } = await axios.get(url);
 
