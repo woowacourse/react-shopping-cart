@@ -1,9 +1,44 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/cudCart';
+
+import debounce from 'utils';
 
 import Wrapper from './style';
 
-const Product = ({ imgSrc, title, price }) => {
+const Product = ({ id, imgSrc, title, price }) => {
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(0);
   const [showQuantity, setShowQuantity] = useState(false);
+
+  const handleClickMinusButton = debounce(
+    useCallback(async () => {
+      if (quantity === 0) return;
+
+      if (quantity > 1) {
+        await dispatch(downCart(id)).unwrap();
+      } else {
+        await dispatch(deleteCart(id)).unwrap();
+      }
+
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }, [dispatch, id, quantity]),
+    150,
+  );
+
+  const handleClickAddButton = debounce(
+    useCallback(async () => {
+      if (quantity) {
+        await dispatch(addMoreCart(id)).unwrap();
+      } else {
+        await dispatch(addCart(id)).unwrap();
+      }
+
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }, [dispatch, id, quantity]),
+    150,
+  );
 
   const handleClickCartImage = useCallback(() => {
     setShowQuantity(!showQuantity);
@@ -17,13 +52,13 @@ const Product = ({ imgSrc, title, price }) => {
           <p className="title">{title}</p>
           <p className="price">{price.toLocaleString()}</p>
         </div>
-        <div className="circle minus">
+        <div className="circle minus" onClick={handleClickMinusButton}>
           <p>-</p>
         </div>
         <div className="circle quantity">
-          <p>1</p>
+          <p>{quantity}</p>
         </div>
-        <div className="circle plus">
+        <div className="circle plus" onClick={handleClickAddButton}>
           <p>+</p>
         </div>
         <div className="img-wrapper" onClick={handleClickCartImage}>

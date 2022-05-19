@@ -1,15 +1,8 @@
 import axios from 'axios';
 
-const client = async (endPoint) => {
-  const config = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-
+const getResult = async (execute) => {
   try {
-    const res = await axios.get(`http://localhost:4000/${endPoint}`, config);
+    const res = await execute();
 
     return res.data;
   } catch (error) {
@@ -17,4 +10,13 @@ const client = async (endPoint) => {
   }
 };
 
-export default client;
+export const getApi = async (endPoint) => getResult(async () => axios.get(`/${endPoint}`));
+
+export const postApi = async (endPoint, data = {}) =>
+  getResult(async () => axios.post(`/${endPoint}`, data));
+
+export const putApi = async (endPoint, data = {}) =>
+  getResult(async () => axios.put(`/${endPoint}`, data));
+
+export const deleteApi = async (endPoint, data = {}) =>
+  getResult(async () => axios.delete(`/${endPoint}`, data));

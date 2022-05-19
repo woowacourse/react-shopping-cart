@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import client from 'service';
+import { getApi } from 'service';
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const products = await client('products');
+      const products = await getApi('products');
 
       return products;
     } catch (error) {
@@ -29,6 +29,7 @@ const productsSlice = createSlice({
 
     [getProducts.fulfilled]: (state, action) => {
       state.loading = false;
+      state.error = false;
       state.data = action.payload;
     },
 
