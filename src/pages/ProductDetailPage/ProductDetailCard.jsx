@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 import Button from "./../../components/common/Button";
 
-function ProductDetailCard({ product: { id, thumbnailUrl, name, price } }) {
+function ProductDetailCard({
+  product: { id, thumbnailUrl, name, price, quantity },
+  onClickAddToCartButton,
+}) {
   return (
     <Container>
       <Top>
@@ -14,22 +17,20 @@ function ProductDetailCard({ product: { id, thumbnailUrl, name, price } }) {
         <PriceText>금액</PriceText>
         <ProductPrice>{price.toLocaleString()}원</ProductPrice>
       </Bottom>
-      <AddToCartButton />
+      <AddToCartButton onClick={onClickAddToCartButton} />
     </Container>
   );
 }
 
-function AddToCartButton() {
+function AddToCartButton({ ...props }) {
   return (
     <Button
-      onClick={() => {
-        alert("🛒아직입니다~~^^🛒");
-      }}
       height="60px"
       fontSize="1.25rem"
       fontWeight="700"
       color="white"
       bgColor="brown"
+      {...props}
     >
       장바구니 담기
     </Button>

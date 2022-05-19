@@ -18,6 +18,7 @@ function ProductListPage() {
     cartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
+    updateCartItemQuantity,
   } = useCartItemList();
 
   if (isProductListLoading || isCartItemListLoading) return <Spinner />;
@@ -35,13 +36,20 @@ function ProductListPage() {
           (cartItem) => cartItem.id === product.id
         );
 
-        const quantity =
+        const cartItemQuantity =
           cartItemListIndex === -1
             ? 0
             : cartItemList[cartItemListIndex].quantity;
 
         return (
-          <ProductCard key={product.id} product={{ ...product, quantity }} />
+          <ProductCard
+            key={product.id}
+            product={{ ...product, quantity: cartItemQuantity }}
+            onClickAddToCartButton={updateCartItemQuantity(
+              product.id,
+              cartItemQuantity + 1
+            )}
+          />
         );
       })}
     </GridList>
