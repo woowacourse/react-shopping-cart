@@ -5,7 +5,6 @@ const addCartList = (product, cartList) => {
   let count = 1;
 
   cartList.every((item) => {
-    console.log(item.id, product.id);
     if (item.id === product.id) {
       isExist = true;
       count = Number(item.count) + 1;
@@ -15,7 +14,6 @@ const addCartList = (product, cartList) => {
   });
 
   const targetProduct = { ...product, count, isChecked: true };
-  console.log(isExist);
 
   if (isExist) return { type: 장바구니_액션.ADD_EXIST_PRODUCT, payload: targetProduct };
   return { type: 장바구니_액션.ADD_NEW_PRODUCT, payload: targetProduct };

@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case 장바구니_액션.ADD_NEW_PRODUCT:
-      return { ...state, items: [...state.items, payload] };
+      return { items: [...state.items, payload] };
 
     case 장바구니_액션.ADD_EXIST_PRODUCT:
       [...state.items].forEach((item) => {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
         modifiedItems.push(item);
       });
 
-      return { ...state, items: modifiedItems };
+      return { items: modifiedItems };
 
     default:
       return state;
