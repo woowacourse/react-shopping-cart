@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 import { BasicButton, BasicImage } from '../shared/basics';
@@ -6,12 +7,13 @@ import { COLOR } from '../../constants/styles';
 
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import useStoreProduct from '../../hooks/useStoreProduct';
+import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
 
 function ProductDetail({ id, src, title, price, isStored }) {
+  const dispatch = useDispatch();
   const timeout = useRef();
   const [isClicked, setIsClicked] = useState(isStored);
-  const { isCartAddLoading, addToCart, cartAddError, uuccess } =
-    useStoreProduct(id);
+  const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
 
@@ -33,8 +35,10 @@ function ProductDetail({ id, src, title, price, isStored }) {
     timeout.current = setTimeout(() => {
       if (isClicked) {
         deleteFromCart();
+        dispatch(deleteProductFromCarts(id));
       } else {
         addToCart();
+        dispatch(addProductToCarts(id));
       }
 
       setIsClicked((prev) => !prev);

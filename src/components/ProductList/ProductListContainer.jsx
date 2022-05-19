@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
-
-import { loadProducts } from '../../store/products';
-import { loadCarts } from '../../store/carts';
 
 import ProductItem from './ProductItem';
 
 function ProductListContainer() {
-  const dispatch = useDispatch();
-
   const {
     products,
     isLoading: isProductsLoading,
@@ -22,10 +16,7 @@ function ProductListContainer() {
     error: cartsError,
   } = useSelector((state) => state.carts);
 
-  useEffect(() => {
-    dispatch(loadProducts());
-    dispatch(loadCarts());
-  }, []);
+  console.log(carts);
 
   const isLoading = isProductsLoading || isCartsLoading;
   const isError = productsError || cartsError;

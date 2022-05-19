@@ -10,8 +10,10 @@ import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import PATH from '../../constants/path';
 import useStoreProduct from '../../hooks/useStoreProduct';
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
+import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
 
 function Product({ id, src, price, title, isStored }) {
+  const dispatch = useDispatch();
   const timeout = useRef();
   const { addToCart } = useStoreProduct(id);
   const { deleteFromCart } = useDeleteProductFromCart(id);
@@ -24,8 +26,10 @@ function Product({ id, src, price, title, isStored }) {
     timeout.current = setTimeout(() => {
       if (isClicked) {
         deleteFromCart();
+        dispatch(deleteProductFromCarts(id));
       } else {
         addToCart();
+        dispatch(addProductToCarts(id));
       }
     }, 500);
 

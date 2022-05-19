@@ -1,33 +1,34 @@
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/styles';
+import CheckBox from '../CheckBox/CheckBox';
 import { BasicButton, BasicImage, Flex } from '../shared/basics';
 import { ReactComponent as Bin } from '../shared/Bin.svg';
+import NumberInput from '../shared/NumberInput';
 
-function CartProductItem() {
+function CartProductItem({ title, price, src }) {
   return (
     <Style.CartProductContainer justify="space-between">
       <Flex justify="space-between" gap="20px">
-        <Style.CheckBox name="checkbox" type="checkbox" checked="true" />
-        <BasicImage
-          size="small"
-          src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000000487]_20210430112319040.jpg"
-        />
-        <span>[든든] 야채바삭 김말이 700g</span>
+        <CheckBox />
+        <BasicImage size="small" src={src} alt={title} />
+        <span>{title}</span>
       </Flex>
       <Flex direction="column" justify="space-between" align="flex-end">
         <Bin />
-        <Flex justify="center" align="center">
-          <Style.NumberInput type="number" value="1" />
-          <Style.NumberInputBox>
-            <Style.NumberInputButton type="button">▲</Style.NumberInputButton>
-            <Style.NumberInputButton type="button">▼</Style.NumberInputButton>
-          </Style.NumberInputBox>
-        </Flex>
-        <span>4,800원</span>
+        <NumberInput />
+        <span>{`${Number(price).toLocaleString('ko-KR')}원`}</span>
       </Flex>
     </Style.CartProductContainer>
   );
 }
+
+CartProductItem.propTypes = {
+  price: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+};
 
 export default CartProductItem;
 
@@ -60,25 +61,5 @@ const Style = {
       justify-content: center;
       align-items: center;
     }
-  `,
-  NumberInput: styled.input`
-    width: 72px;
-    height: 58px;
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 24px;
-  `,
-  NumberInputBox: styled.div`
-    height: 100%;
-  `,
-  NumberInputButton: styled(BasicButton)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 4px 12px;
-    border: 1px solid #dddddd;
-    font-size: 8px;
-    height: 50%;
-    cursor: pointer;
   `,
 };
