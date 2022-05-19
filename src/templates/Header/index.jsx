@@ -14,7 +14,9 @@ function Header() {
   return (
     <HeaderStyled>
       <PageButtonContainerStyled>
-        <HomeButton />
+        <Link to="/">
+          <HomeButton />
+        </Link>
         <FlexWrapper>
           <MarginWrapper marginRight="2.2vw">
             <Link to="/cart">
