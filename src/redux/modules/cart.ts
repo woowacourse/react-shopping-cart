@@ -53,11 +53,17 @@ const toggleItemSelected = (id: number, toggleKey: boolean) => ({
 // thunk
 const toggleAllItemsSelected =
   (toggleKey: boolean): any =>
-  async (dispatch: AppDispatch, getState: () => RootState) => {
+  (dispatch: AppDispatch, getState: () => RootState) => {
     const { cartItemList } = getState().cart;
-
     cartItemList.map((cartItem) => dispatch(toggleItemSelected(cartItem.detail.id, toggleKey)));
   };
+
+const deleteSelectedItems = (): any => (dispatch: AppDispatch, getState: () => RootState) => {
+  const { cartItemList } = getState().cart;
+  cartItemList.map((cartItem) => {
+    if (cartItem.isSelected) dispatch(deleteItem(cartItem.detail.id));
+  });
+};
 
 // 리듀서
 const cartReducer = (state = initialState, action: Action) => {
@@ -114,6 +120,7 @@ const cartReducer = (state = initialState, action: Action) => {
 export const actionCreators = {
   addItem,
   deleteItem,
+  deleteSelectedItems,
   increment,
   decrement,
   incrementByNumber,

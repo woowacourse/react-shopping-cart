@@ -19,7 +19,15 @@ function CartItemListController() {
         />
         <label htmlFor="all-check">선택해제</label>
       </CartItemListSelect>
-      <CartItemListDeleteButton>상품삭제</CartItemListDeleteButton>
+      <CartItemListDeleteButton
+        onClick={() => {
+          if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+            dispatch(CartActions.deleteSelectedItems());
+          }
+        }}
+      >
+        상품삭제
+      </CartItemListDeleteButton>
     </CartItemListControllerWrapper>
   );
 }
