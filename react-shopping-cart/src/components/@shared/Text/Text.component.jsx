@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const Text = styled.div`
   font-style: normal;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: ${({ theme }) => theme.PALETTE.BLACK_001};
   ${({ bold }) =>
     bold &&
     css`

@@ -3,9 +3,11 @@ export const PALETTE = {
   BLACK_001: '#333',
   MINT_001: '#2AC1BC',
   MINT_002: '#22a6a2',
+  SKY_BLUE_001: '#93E0DD',
   GRAY_001: 'rgba(0, 0, 0, 0.3)',
   GRAY_002: '#AAA',
   GRAY_003: '#DDD',
+  GRAY_004: '#BBB',
   BROWN_001: '#73675C',
 };
 

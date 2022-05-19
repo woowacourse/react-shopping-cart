@@ -1,4 +1,5 @@
 export const LAYER_POSITION = {
+  BACKGROUND: -50,
   STANDARD: 0,
   FOREGROUND: 50,
 };
