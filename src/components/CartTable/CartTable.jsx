@@ -1,26 +1,60 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import CartItem from 'components/CartItem';
+import Checkbox from 'components/Checkbox';
+import { useState } from 'react';
 
 const CartTable = ({ cartList }) => {
+  const initialIdList = cartList.map((item) => item.id);
+  const [isAllChecked, setIsAllChecked] = useState(true);
+  const [isEachChecked, setIsEachChecked] = useState(true);
+  const [checkedIdList, setCheckedIdList] = useState(initialIdList);
+
+  const handleChangeAllCheckbox = () => {
+    if (isAllChecked) {
+      setIsAllChecked(false);
+      setIsEachChecked(false);
+      setCheckedIdList([]);
+    } else {
+      setIsAllChecked(true);
+      setIsEachChecked(true);
+      setCheckedIdList(initialIdList);
+    }
+  };
+
+  const handleChangeEachCheckbox = (id, isChecked) => {
+    // CheckedIdList 배열에 대하여 id와 isChecked를 갖고
+    // 선택된 id로 구성된 새 배열을 setState한다.
+    let newCheckedIdList = [...checkedIdList];
+    if (!isChecked) {
+      newCheckedIdList.push(id);
+    } else {
+      newCheckedIdList = newCheckedIdList.filter((itemId) => itemId !== +id);
+    }
+
+    setCheckedIdList(newCheckedIdList);
+  };
+
   return (
     <Styled.Section>
       <Styled.TopWrapper>
-        <Styled.CheckboxWrapper>
-          <Styled.Checkbox
-            name="checkbox"
-            type="checkbox"
-            checked="true"
-          ></Styled.Checkbox>
-          <Styled.CheckboxLabel for="checkbox">전체선택</Styled.CheckboxLabel>
-        </Styled.CheckboxWrapper>
+        <Checkbox
+          name="전체선택"
+          checked={isAllChecked}
+          onChange={handleChangeAllCheckbox}
+        />
         <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
       </Styled.TopWrapper>
 
       <Styled.CartTitle>든든배송 상품({cartList.length}개)</Styled.CartTitle>
       <Styled.DivideLine />
       {cartList.map((item) => (
-        <CartItem key={item.id} item={item} />
+        <CartItem
+          key={item.id}
+          item={item}
+          onChangeEachCheckbox={handleChangeEachCheckbox}
+          checked={isEachChecked}
+        />
       ))}
     </Styled.Section>
   );

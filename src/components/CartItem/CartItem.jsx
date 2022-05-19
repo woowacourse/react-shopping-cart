@@ -2,13 +2,25 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import trash from 'assets/svg/trash.svg';
 import comma from 'utils/comma';
+import Checkbox from 'components/Checkbox';
+import { useEffect, useState } from 'react';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
+  const [isChecked, setIsChecked] = useState(true);
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+    onChangeEachCheckbox(item.id, isChecked);
+  };
+
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
+
   return (
     <>
       <Styled.Wrapper>
         <Styled.LeftInfo>
-          <Styled.Checkbox type="checkbox" checked="true"></Styled.Checkbox>
+          <Checkbox checked={isChecked} onChange={handleChange} />
           <Styled.ProductImg src={item.imgUrl} alt={item.name} />
           <Styled.ProductName>{item.name}</Styled.ProductName>
         </Styled.LeftInfo>
@@ -33,6 +45,8 @@ const CartItem = ({ item }) => {
 
 CartItem.propTypes = {
   item: PropTypes.object,
+  onChangeEachCheckbox: PropTypes.func,
+  checked: PropTypes.bool,
 };
 
 const Styled = {
