@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width: string;
   height: string;
-  backgroundColor?: keyof typeof theme.colors;
+  backgroundColor?: string;
   borderColor?: string;
   fontSize?: string;
   color?: string;
@@ -22,12 +22,12 @@ const StyledButton = styled.button<ButtonProps>`
   color: white;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
-  ${({ width, height, fontSize, color, backgroundColor, borderColor, theme }) => css`
+  ${({ width, height, fontSize, color, backgroundColor, borderColor }) => css`
     width: ${width};
     height: ${height};
     font-size: ${fontSize || 'inherit'};
     color: ${color || 'inherit'};
     border: ${borderColor && `1px solid ${borderColor}`};
-    background-color: ${theme.colors[backgroundColor] || 'transparent'};
+    background-color: ${backgroundColor || 'transparent'};
   `}
 `;

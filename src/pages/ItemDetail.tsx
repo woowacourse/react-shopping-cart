@@ -11,6 +11,7 @@ import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
 import { getCartListRequest } from 'redux/action-creators/cartListThunk';
 import styled from 'styled-components';
+import theme from 'styles/theme';
 import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
@@ -48,7 +49,7 @@ const ItemDetail = () => {
         width='63.8rem'
         height='9.8rem'
         fontSize='3.2rem'
-        backgroundColor='brown'
+        backgroundColor={theme.colors.brown}
         color='white'
         onClick={isInCart ? updateCart : postCart}
       >
