@@ -10,7 +10,7 @@ interface FlexProp {
   wrap?: Wrap;
   justify?: Justify;
   align?: Align;
-  gap?: number;
+  gap?: string;
 }
 
 const Flex = styled.div`
@@ -20,7 +20,7 @@ const Flex = styled.div`
     flex-wrap: ${wrap};
     justify-content: ${justify};
     align-items: ${align};
-    gap: ${gap}px;
+    gap: ${gap};
   `}
 `;
 
@@ -29,7 +29,7 @@ Flex.defaultProps = {
   wrap: 'nowrap',
   justify: 'normal',
   align: 'normal',
-  gap: 0,
+  gap: '0',
 };
 
 export default Flex;

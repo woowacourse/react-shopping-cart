@@ -18,43 +18,38 @@ const CartProduct = ({ data }: CartProductProp) => {
 
   return (
     <Styled.Wrapper>
-      <Flex gap={20}>
+      <Flex gap="20px">
         <Styled.SelectBox>
           <UncheckBoxIcon />
         </Styled.SelectBox>
-
         <Styled.ThumbnailBox>
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
         </Styled.ThumbnailBox>
-
         <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
-
         <Styled.TestBox>
-          <Flex direction="column" align="flex-end" gap={20}>
+          <Flex direction="column" align="flex-end" gap="20px">
             <DeleteIcon />
-
             <Styled.QuantityControlBox>
               <Flex>
                 <Flex align="center">
                   <Styled.QuantityBox>
-                    <Text size={24} align="center">
+                    <Text size="24px" align="center">
                       {quantity}
                     </Text>
                   </Styled.QuantityBox>
                 </Flex>
                 <Styled.ControlBox>
                   <Flex direction="column">
-                    <Button w={42} h={30}>
+                    <Button w="42px" h="30px">
                       ▲
                     </Button>
-                    <Button w={42} h={30}>
+                    <Button w="42px" h="30px">
                       ▼
                     </Button>
                   </Flex>
                 </Styled.ControlBox>
               </Flex>
             </Styled.QuantityControlBox>
-
             <Text>{price.toLocaleString()}원</Text>
           </Flex>
         </Styled.TestBox>

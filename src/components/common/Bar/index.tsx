@@ -4,13 +4,13 @@ import { Colors } from 'styles/theme';
 
 interface BarProp {
   theme: DefaultTheme;
-  h: number;
+  h: string;
   color: keyof Colors;
 }
 
 const Bar = styled.div`
   ${({ theme, h, color }: BarProp) => css`
-    height: ${h}px;
+    height: ${h};
     background: ${theme.colors[color]};
   `}
 `;

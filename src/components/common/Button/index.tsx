@@ -3,9 +3,9 @@ import { Colors } from 'styles/theme';
 
 interface ButtonProp {
   theme: DefaultTheme;
-  w?: number;
-  h?: number;
-  borderWidth?: number;
+  w?: string;
+  h?: string;
+  borderWidth?: string;
   borderStyle?: string;
   borderColor?: keyof Colors;
   bgColor?: keyof Colors;
@@ -17,8 +17,8 @@ const Button = styled.button`
   cursor: pointer;
 
   ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProp) => css`
-    width: ${w}px;
-    height: ${h}px;
+    width: ${w};
+    height: ${h};
     border-width: ${borderWidth};
     border-style: ${borderStyle};
     border-color: ${borderColor && theme.colors[borderColor]};

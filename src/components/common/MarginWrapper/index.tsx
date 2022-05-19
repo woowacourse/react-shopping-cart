@@ -2,18 +2,18 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface MarginWrapperProp {
-  mt?: number;
-  mr?: number;
-  mb?: number;
-  ml?: number;
+  mt?: string;
+  mr?: string;
+  mb?: string;
+  ml?: string;
 }
 
 const MarginWrapper = styled.div`
   ${({ mt, mr, mb, ml }: MarginWrapperProp) => css`
-    margin-top: ${mt}px;
-    margin-right: ${mr}px;
-    margin-bottom: ${mb}px;
-    margin-left: ${ml}px;
+    margin-top: ${mt};
+    margin-right: ${mr};
+    margin-bottom: ${mb};
+    margin-left: ${ml};
   `}
 `;
 

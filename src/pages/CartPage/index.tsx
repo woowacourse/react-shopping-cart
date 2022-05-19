@@ -28,27 +28,27 @@ const CartPage = () => {
 
   return (
     <Styled.Container>
-      <MarginWrapper mb={30}>
-        <Text color="black" size={32} weight="bold" align="center">
+      <MarginWrapper mb="30px">
+        <Text color="black" size="32px" weight="bold" align="center">
           장바구니
         </Text>
       </MarginWrapper>
-      <Bar h={4} color="black" />
+      <Bar h="4px" color="black" />
       <Styled.Content>
         <Flex justify="space-between">
           <Styled.CartListBox>
-            <MarginWrapper mb={50}>
+            <MarginWrapper mb="50px">
               <Flex justify="space-between">
-                <Flex align="center" gap={12}>
+                <Flex align="center" gap="12px">
                   <UncheckBoxIcon />
                   <Text>선택해제</Text>
                 </Flex>
-                <Button w={117} h={50} borderWidth={1} borderStyle="solid" borderColor="gray">
+                <Button w="117px" h="50px" borderWidth="1px" borderStyle="solid" borderColor="gray">
                   상품삭제
                 </Button>
               </Flex>
             </MarginWrapper>
-            <MarginWrapper mb={16}>
+            <MarginWrapper mb="16px">
               <Text>배송 상품 ({cartProductList.length}개)</Text>
             </MarginWrapper>
             {cartProductList &&
@@ -58,21 +58,21 @@ const CartPage = () => {
           </Styled.CartListBox>
           <Styled.OrderBox>
             <Styled.OrderWrapper>
-              <MarginWrapper mb={20}>
-                <Text size={24}>결제예상금액</Text>
+              <MarginWrapper mb="20px">
+                <Text size="24px">결제예상금액</Text>
               </MarginWrapper>
-              <Bar color="gray" h={3} />
-              <MarginWrapper mt={34} mb={68}>
+              <Bar color="gray" h="3px" />
+              <MarginWrapper mt="34px" mb="68px">
                 <Flex justify="space-between">
-                  <Text size={20} weight={700}>
+                  <Text size="20px" weight={700}>
                     결제예상금액
                   </Text>
-                  <Text size={20} weight={700}>
+                  <Text size="20px" weight={700}>
                     21,700원
                   </Text>
                 </Flex>
               </MarginWrapper>
-              <OrderButton w={388} h={73} bgColor="mint">
+              <OrderButton w="388px" h="73px" bgColor="mint">
                 주문하기(2개)
               </OrderButton>
             </Styled.OrderWrapper>

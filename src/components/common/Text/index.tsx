@@ -7,7 +7,7 @@ type Align = 'start' | 'end' | 'center' | 'jusitfy';
 
 interface TextProp {
   theme: DefaultTheme;
-  size?: number;
+  size?: string;
   weight?: Weight;
   color?: keyof Colors;
   align?: Align;
@@ -15,7 +15,7 @@ interface TextProp {
 
 const Text = styled.div`
   ${({ theme, size, weight, color, align }: TextProp) => css`
-    font-size: ${size}px;
+    font-size: ${size};
     font-weight: ${weight};
     color: ${color && theme.colors[color]};
     text-align: ${align};
