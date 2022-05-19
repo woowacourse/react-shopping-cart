@@ -9,34 +9,34 @@ import QuantityBox from './QuantityBox';
 interface CartItemContainerProps {
   item: Item;
   cartItem: CartItem;
-  handleClickCheckBox: () => void;
-  handleQuantity: () => void;
-  handleDelete: () => void;
+  selectItem: () => void;
+  changeQuantity: () => void;
+  deleteItem: () => void;
 }
 
 const CartItemContainer = ({
   item,
   cartItem,
-  handleClickCheckBox,
-  handleQuantity,
-  handleDelete,
+  selectItem,
+  changeQuantity,
+  deleteItem,
 }: CartItemContainerProps) => {
   const { thumbnailUrl, price, title } = item;
 
+  const handleClickDeleteButton = () => {
+    if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
+      deleteItem();
+    }
+  };
+
   return (
     <StyledCartItem>
-      <CheckBox checked={cartItem.isSelected} onChange={handleClickCheckBox} />
+      <CheckBox checked={cartItem.isSelected} onChange={selectItem} />
       <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
       <p>{title}</p>
       <StyledRight>
-        <StyledDeleteIcon
-          onClick={() => {
-            if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
-              handleDelete();
-            }
-          }}
-        />
-        <QuantityBox quantity={cartItem.quantity} handleChange={handleQuantity} />
+        <StyledDeleteIcon onClick={handleClickDeleteButton} />
+        <QuantityBox quantity={cartItem.quantity} handleChange={changeQuantity} />
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
     </StyledCartItem>

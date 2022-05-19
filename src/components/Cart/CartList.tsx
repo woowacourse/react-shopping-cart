@@ -26,6 +26,12 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
   const isAllSelected = cartList.every(item => item.isSelected);
   const totalItemCount = itemList.length;
 
+  const handleClickAllDeleteButton = () => {
+    if (window.confirm('모든 상품을 삭제하시겠습니까?')) {
+      deleteAllCartItem();
+    }
+  };
+
   return (
     <StyledRoot>
       <StyledTop>
@@ -42,11 +48,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           width='117px'
           height='50px'
           borderColor={theme.colors.font2}
-          onClick={() => {
-            if (window.confirm('모든 상품을 삭제하시겠습니까?')) {
-              deleteAllCartItem();
-            }
-          }}
+          onClick={handleClickAllDeleteButton}
         >
           상품삭제
         </Button>
@@ -58,9 +60,9 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           <CartItemContainer
             item={item}
             cartItem={cartList[index]}
-            handleClickCheckBox={selectCartItem(item.id)}
-            handleQuantity={updateCartItemQuantity(item.id)}
-            handleDelete={deleteCartItem(item.id)}
+            selectItem={selectCartItem(item.id)}
+            changeQuantity={updateCartItemQuantity(item.id)}
+            deleteItem={deleteCartItem(item.id)}
           />
           {itemList.length !== index + 1 && (
             <Division color={theme.colors.cartDivision} height='2px' margin='0 0 26px' />
