@@ -7,6 +7,7 @@ const ACTION = {
   ADD_CART: 'ADD_CART',
   ADD_CART_FAILURE: 'ADD_CART_FAILURE',
   DELETE_CART: 'DELETE_CART',
+  EDIT_CART: 'EDIT_CART',
 };
 
 export const getCart = () => async (dispatch) => {
@@ -39,6 +40,15 @@ export const deleteCart = (id) => async (dispatch) => {
   try {
     const {data} = await appClient.delete(`cart/${id}`);
     dispatch({type: ACTION.DELETE_CART, payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editCart = (id) => async (dispatch) => {
+  try {
+    const {data} = await appClient.put(`cart/${id}`);
+    dispatch({type: ACTION.EDIT_CART, payload: data});
   } catch (error) {
     console.log(error);
   }

@@ -12,12 +12,13 @@ import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
 import {FlexWrapper} from 'components/common/style';
 
-function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, checked, id}) {
+function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
   const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
   const handleDeleteIconClick = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
       console.log('delete');
       dispatch(deleteCart(id));
+      onChange();
     } else {
       console.log(pending, error, data);
     }
@@ -25,7 +26,7 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, checked, id}) 
 
   return (
     <FlexWrapper gap="15px" height="200px" justifyContent="flex-start">
-      <CheckBox checked={checked} />
+      <CheckBox onChange={onChange} checked={checked} />
       <img src={itemImgURL} alt={`${itemName} 장바구니 이미지`} width="144px" height="144px" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <FlexWrapper
@@ -63,8 +64,9 @@ CartItem.propTypes = {
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
   quantity: PropTypes.number,
-  checked: PropTypes.bool,
   id: PropTypes.number,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default CartItem;
