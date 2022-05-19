@@ -41,7 +41,7 @@ const CartItem = ({
     <Styled.Wrapper>
       <Styled.ProductPreview>
         <CheckBox id={id} onCheck={onToggleSelect} checkedStatus={isSelected} />
-        <Styled.Image src={imgUrl} />
+        <Styled.Image src={imgUrl} alt={name} loading="lazy" />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>

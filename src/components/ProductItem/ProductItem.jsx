@@ -17,7 +17,7 @@ const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
       <Styled.Overlay>
         <Styled.NamePreview>{name}</Styled.NamePreview>
       </Styled.Overlay>
-      <Styled.Image src={imgUrl} loading="lazy" />
+      <Styled.Image src={imgUrl} alt={name} loading="lazy" />
       <Styled.Detail>
         <Styled.Info>
           <Styled.Name>{name}</Styled.Name>
