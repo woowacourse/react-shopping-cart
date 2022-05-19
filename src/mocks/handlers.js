@@ -6,6 +6,7 @@ export const handlers = [
     return res(ctx.json(products));
   }),
   rest.get('/products/:id', (req, res, ctx) => {
-    return res(ctx.json(products));
+    const { id } = req.params;
+    return res(ctx.json(products[id]));
   }),
 ];

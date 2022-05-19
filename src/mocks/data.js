@@ -1,7 +1,7 @@
 export const products = [
   {
     id: 1,
-    name: '아이스컵 92파이 16온스(국산형)',
+    name: '아이스컵 92파이 16온스',
     price: '51000',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/9fed83ff-2dc3-448b-9aac-1d4a750b3720.jpg',
@@ -10,7 +10,7 @@ export const products = [
   },
   {
     id: 2,
-    name: '캔시머 페트캔(500ml) 크리스탈',
+    name: '캔시머 페트캔(500ml)',
     price: '30500',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/dbcb4df8-f202-4388-9d8b-b6f33b05f129.jpg',
@@ -28,7 +28,7 @@ export const products = [
   },
   {
     id: 4,
-    name: '아이스컵 98파이 20온스(국산형)',
+    name: '아이스컵 98파이 20온스',
     price: '60700',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/f2ad3aed-57d0-4f6c-a499-ed9b8fa78f06.jpg',
@@ -55,7 +55,7 @@ export const products = [
   },
   {
     id: 7,
-    name: '아이스컵 92파이 22온스(일반형)',
+    name: '아이스컵 92파이 22온스',
     price: '55900',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/cba781d9-943e-4ea2-a921-a6405096415c.jpg',
@@ -73,7 +73,7 @@ export const products = [
   },
   {
     id: 9,
-    name: '아이스컵 92파이 14온스(국산형)',
+    name: '아이스컵 92파이 14온스',
     price: '39500',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/6506f1ca-0a13-48e9-bf7f-3e5e9d86e83b.jpg',

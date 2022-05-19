@@ -16,6 +16,7 @@ function ProductDetailPage() {
     async function getProductItemInfo(id) {
       try {
         const productItem = await getProductItem(id);
+        console.log(productItem);
         setItem(productItem);
       } catch (error) {
         console.log('error', error);
