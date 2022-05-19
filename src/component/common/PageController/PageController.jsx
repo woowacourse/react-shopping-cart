@@ -17,7 +17,12 @@ const ControlButton = styled.button`
   cursor: pointer;
 `;
 
-function PageController({ pageLength, currentPage, onClickButton }) {
+function PageController({ pageLength, currentPage, onPageChange }) {
+  const onButtonClick = event => {
+    const order = event.target.name;
+    onPageChange(order);
+  };
+
   return (
     <ControlButtonBox>
       {Array.from({ length: pageLength }).map((_, index) => (
@@ -25,7 +30,7 @@ function PageController({ pageLength, currentPage, onClickButton }) {
           key={index}
           name={index + 1}
           clicked={index + 1 === currentPage}
-          onClick={onClickButton}
+          onClick={onButtonClick}
         >
           {index + 1}
         </ControlButton>
