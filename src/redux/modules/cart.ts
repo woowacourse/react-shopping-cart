@@ -11,8 +11,9 @@ export type CartState = { cartItems: CartItem[] };
 type Action =
   | ReturnType<typeof addItem>
   | ReturnType<typeof deleteItem>
+  | ReturnType<typeof deleteBySelectedItems>
   | ReturnType<typeof selectItem>
-  | ReturnType<typeof selectAllItem>
+  | ReturnType<typeof selectAllItems>
   | ReturnType<typeof increment>
   | ReturnType<typeof decrement>
   | ReturnType<typeof incrementByNumber>;
@@ -25,6 +26,7 @@ const initialState: CartState = {
 // 액션
 const ADD = "cart/ADD" as const;
 const DELETE = "cart/DELETE" as const;
+const DELETE_BY_SELECTED = "cart/DELETE_BY_SELECTED" as const;
 const SELECT = "cart/SELECT" as const;
 const SELECT_ALL = "cart/SELECT_ALL" as const;
 const INCREMENT = "cart/INCREMENT" as const;
@@ -40,11 +42,14 @@ const deleteItem = (id: number) => ({
   type: DELETE,
   payload: { id },
 });
+const deleteBySelectedItems = () => ({
+  type: DELETE_BY_SELECTED,
+});
 const selectItem = (id: number) => ({
   type: SELECT,
   payload: { id },
 });
-const selectAllItem = (isAllSelected: boolean) => ({
+const selectAllItems = (isAllSelected: boolean) => ({
   type: SELECT_ALL,
   payload: { isAllSelected },
 });
@@ -73,6 +78,11 @@ const cartReducer = (state = initialState, action: Action) => {
     case DELETE: {
       const { id } = action.payload;
       const newItems = state.cartItems.filter((item) => item.id !== id);
+
+      return { ...state, cartItems: newItems };
+    }
+    case DELETE_BY_SELECTED: {
+      const newItems = state.cartItems.filter((item) => !item.isSelected);
 
       return { ...state, cartItems: newItems };
     }
@@ -122,6 +132,15 @@ const cartReducer = (state = initialState, action: Action) => {
   }
 };
 
-export { addItem, deleteItem, selectItem, selectAllItem, increment, decrement, incrementByNumber };
+export {
+  addItem,
+  deleteItem,
+  deleteBySelectedItems,
+  selectItem,
+  selectAllItems,
+  increment,
+  decrement,
+  incrementByNumber,
+};
 
 export default cartReducer;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { CartItem, selectAllItem } from "../../redux/modules/cart";
+import { CartItem, selectAllItems, deleteBySelectedItems } from "../../redux/modules/cart";
 import { useCartListSelector } from "../../hooks/useCartSelector";
 
 import Button from "../../components/@shared/Button/styles";
@@ -24,7 +24,11 @@ function Cart() {
 
   const onToggleAllSelect = () => {
     setAllSelect((prev) => !prev);
-    dispatch(selectAllItem(allSelect));
+    dispatch(selectAllItems(allSelect));
+  };
+
+  const onClickDeleteItems = () => {
+    dispatch(deleteBySelectedItems());
   };
 
   return (
@@ -37,7 +41,7 @@ function Cart() {
               <CheckBox checked={allSelect} onChange={onToggleAllSelect} />
               <span>{allSelect ? "선택해제" : "전제선택"}</span>
             </div>
-            <Button>상품삭제</Button>
+            <Button onClick={onClickDeleteItems}>상품삭제</Button>
           </SelectAllContainer>
           <CartListTitle>든든배송 상품</CartListTitle>
           {cartItemList.map((item: CartItem) => (
