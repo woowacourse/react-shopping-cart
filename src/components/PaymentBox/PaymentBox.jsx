@@ -1,6 +1,7 @@
 import Styled from './style';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
+import parsePrice from 'utils/parsePrice';
 
 const PaymentBox = ({ price, quantity }) => {
   return (
@@ -10,7 +11,7 @@ const PaymentBox = ({ price, quantity }) => {
       </Styled.TitleBar>
       <Styled.PaymentInfo>
         <Styled.Text>총 결제 금액</Styled.Text>
-        <Styled.Text>{price}</Styled.Text>
+        <Styled.Text>{parsePrice(price)}원</Styled.Text>
       </Styled.PaymentInfo>
       <Button colorType="primary" sizeType="medium">
         결제하기 ({quantity}개)
