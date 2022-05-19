@@ -4,7 +4,7 @@ import { NavBar } from 'component';
 const Body = styled.div`
   display: flex;
   justify-content: center;
-  padding: 60px 0;
+  padding: 140px 0 60px;
 `;
 
 function PageLayout({ children }) {

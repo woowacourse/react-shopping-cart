@@ -2,12 +2,16 @@ import styled from 'styled-components';
 import { Button } from 'component/@common';
 
 const StyledNavBar = styled.div`
-  width: 100vw;
   height: 80px;
   display: flex;
   justify-content: center;
   gap: 712px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: #2ac1bc;
+  opacity: 0.95;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
