@@ -2,12 +2,15 @@ export const actionTypes = {
   GET_CART_REQUEST: 'GET_CART_REQUEST',
   GET_CART_SUCCESS: 'GET_CART_SUCCESS',
   GET_CART_ERROR: 'GET_CART_ERROR',
+
   ADD_CART_ITEM_REQUEST: 'ADD_CART_ITEM',
   ADD_CART_ITEM_SUCCESS: 'ADD_CART_ITEM_SUCCESS',
   ADD_CART_ITEM_ERROR: 'ADD_CART_ITEM_ERROR',
+
   UPDATE_CART_ITEM_QUANTITY_REQUEST: 'UPDATE_CART_ITEM_QUANTITY',
   UPDATE_CART_ITEM_QUANTITY_SUCCESS: 'UPDATE_CART_ITEM_QUANTITY_SUCCESS',
   UPDATE_CART_ITEM_QUANTITY_ERROR: 'UPDATE_CART_ITEM_QUANTITY_ERROR',
+
   DELETE_CART_ITEM_REQUEST: 'DELETE_CART_ITEM_REQUEST',
   DELETE_CART_ITEM_SUCCESS: 'DELETE_CART_ITEM_SUCCESS',
   DELETE_CART_ITEM_ERROR: 'DELETE_CART_ITEM_ERROR',
@@ -48,9 +51,8 @@ export const updateCartItemQuantitySuccess = (data) => ({
   data,
 });
 
-export const updateCartItemQuantityError = (error) => ({
+export const updateCartItemQuantityError = () => ({
   type: actionTypes.UPDATE_CART_ITEM_QUANTITY_ERROR,
-  error,
 });
 
 export const deleteCartItemRequest = () => ({
@@ -62,7 +64,6 @@ export const deleteCartItemSuccess = (data) => ({
   data,
 });
 
-export const deleteCartItemError = (error) => ({
+export const deleteCartItemError = () => ({
   type: actionTypes.DELETE_CART_ITEM_ERROR,
-  error,
 });
