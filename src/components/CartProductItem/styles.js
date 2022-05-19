@@ -8,7 +8,6 @@ const Container = styled(FlexWrapper)`
 
 const ImageWrapper = styled.div`
   cursor: pointer;
-
   position: relative;
   width: 25%;
   height: 100%;

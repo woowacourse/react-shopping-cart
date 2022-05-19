@@ -4,7 +4,6 @@ import { COLORS } from 'styles/theme';
 
 const IconButtonStyle = styled.button`
   cursor: pointer;
-
   border: none;
   background-color: transparent;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -13,7 +12,6 @@ const IconButtonStyle = styled.button`
 
   &::before {
     content: '\\${({ icon }) => icon}';
-
     font-family: 'Font Awesome 6 Free';
     font-style: normal;
     font-weight: 900;

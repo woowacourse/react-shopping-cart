@@ -8,6 +8,7 @@ export const DefaultCheckBox = styled.input`
 
 export const CheckBoxStyle = styled.span`
   cursor: pointer;
+  user-select: none;
   display: inline-block;
   min-width: 30px;
   max-width: 30px;
