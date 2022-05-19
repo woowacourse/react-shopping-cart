@@ -56,7 +56,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: 'Kirang Haerang';
+  font-family: 'Kirang Haerang', '맑은 고딕', sans-serif;
   font-size: 1.5rem;
   color: #000;
   letter-spacing: 3px;
