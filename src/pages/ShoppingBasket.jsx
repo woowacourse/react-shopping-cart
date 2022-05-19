@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Product from '../components/Product';
+import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
 
@@ -22,7 +22,7 @@ function ShoppingBasket() {
           </StyledLeftDiv>
           <StyledTitle>든든배송 상품(3개)</StyledTitle>
           <StyledDivideLine margin={10} size={2} color={COLORS.GRAY} />
-          <Product></Product>
+          <ShoppingItem></ShoppingItem>
           <StyledDivideLine margin={10} size={1} color={COLORS.GRAY} />
         </StyledLeftSection>
         <StyledRightSection>

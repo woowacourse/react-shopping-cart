@@ -1,94 +1,73 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { StyledCheckbox } from './common/Styled';
-import { BsTrash } from 'react-icons/bs';
+import { GiShoppingCart } from 'react-icons/gi';
+import { StyledImageBox, StyledImg } from './common/Styled';
+import { PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
 
-function Product() {
+function Product({ product }) {
+  const { id, name, price, imageUrl } = product;
+
+  const handleClickCart = () => {};
   return (
-    <StyledContainer>
-      <StyledProductLeft>
-        <StyledCheckbox name="checkbox" type="checkbox" />
-        <img src="./assets/images/product.png" alt="" />
-        <span>PET보틀-정사각(420ml)</span>
-      </StyledProductLeft>
-      <StyledProductRight>
-        <BsTrash className="logo" />
-        <StyledAmountContainer>
-          <input type="number" value="1" readOnly />
-          <div>
-            <button>▲</button>
-            <button>▼</button>
-          </div>
-        </StyledAmountContainer>
-        <StyledPrice>123,456원</StyledPrice>
-      </StyledProductRight>
-    </StyledContainer>
+    <StyledItem>
+      <Link to={`${PATH.DETAIL_LINK}${id}`}>
+        <StyledImageBox width={SIZE.MIDDLE} height={SIZE.MIDDLE}>
+          <StyledImg width={SIZE.MIDDLE} src={imageUrl} />
+        </StyledImageBox>
+      </Link>
+      <StyledItemInfoBox>
+        <Link to={`${PATH.DETAIL_LINK}${id}`}>
+          <StyledItemInfo>
+            <StyledItemName>{name}</StyledItemName>
+            <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
+          </StyledItemInfo>
+        </Link>
+        <StyledIconButton onClick={handleClickCart}>
+          <GiShoppingCart size={25} />
+        </StyledIconButton>
+      </StyledItemInfoBox>
+    </StyledItem>
   );
 }
 
-const StyledContainer = styled.div`
+const StyledItem = styled.div`
+  width: 250px;
+  height: 330px;
+  cursor: pointer;
+`;
+
+const StyledItemInfoBox = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  align-items: center;
+  margin: 16px 8px 0px 8px;
 `;
 
-const StyledProductLeft = styled.div`
-  display: flex;
-  margin-top: 10px;
-  gap: 15px;
-
-  img {
-    width: 144px;
-    height: 144px;
-  }
-
-  span {
-    font-size: 20px;
-  }
-`;
-
-const StyledProductRight = styled.div`
+const StyledItemInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  justify-content: end;
-  gap: 20px;
-
-  .logo {
-    align-self: flex-end;
-    font-size: 20px;
-    cursor: pointer;
-  }
+`;
+const StyledItemName = styled.span`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+`;
+const StyledItemPrice = styled.span`
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.5px;
 `;
 
-const StyledAmountContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  input {
-    width: 66px;
-    height: 53px;
-    border: 1px solid ${COLORS.LIGHT_GRAY};
-    text-align: center;
-    font-size: 24px;
+const StyledIconButton = styled.button`
+  border: none;
+  background: none;
+  &:hover {
+    transform: scale(1.1);
+    color: ${COLORS.PRIMARY};
   }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 4px 12px;
-    border: 1px solid ${COLORS.LIGHT_GRAY};
-    font-size: 100%;
-    cursor: pointer;
-  }
-`;
-
-const StyledPrice = styled.span`
-  align-self: flex-end;
 `;
 
 export default Product;
