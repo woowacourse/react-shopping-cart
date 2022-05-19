@@ -1,4 +1,9 @@
-import { patchCartSelected, postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
+import {
+  patchAllCartSelected,
+  patchCartSelected,
+  postCartItem,
+  putCartItem,
+} from 'redux/action-creators/cartListThunk';
 import { CartListAction } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
 
@@ -26,7 +31,16 @@ const useCartRequest = (cartList: CartItem[]) => {
     dispatch(patchCartSelected(Number(id)));
   };
 
-  return { postCartItemQuantity, updateCartItemQuantity, patchCartItemSelected };
+  const patchAllCartItemSelected = (isAllSelected: boolean) => {
+    dispatch(patchAllCartSelected(isAllSelected));
+  };
+
+  return {
+    postCartItemQuantity,
+    updateCartItemQuantity,
+    patchCartItemSelected,
+    patchAllCartItemSelected,
+  };
 };
 
 export default useCartRequest;

@@ -16,13 +16,19 @@ interface CartListProps {
 }
 
 const CartList = ({ itemList, cartList }: CartListProps) => {
-  const { updateCartItemQuantity, patchCartItemSelected } = useCartRequest(cartList);
+  const { updateCartItemQuantity, patchCartItemSelected, patchAllCartItemSelected } =
+    useCartRequest(cartList);
+  const isAllSelected = cartList.every(item => item.isSelected);
 
   return (
     <StyledRoot>
       <StyledTop>
         <StyledRight>
-          <CheckBox id='check' checked={false} onChange={() => {}} />
+          <CheckBox
+            id='check'
+            checked={isAllSelected}
+            onChange={() => patchAllCartItemSelected(isAllSelected)}
+          />
           <label htmlFor='check'>선택해제</label>
         </StyledRight>
         <Button width='117px' height='50px' borderColor={theme.colors.font2}>

@@ -16,6 +16,10 @@ export const enum CartListActionType {
   PATCH_CART_SELECTED_START = 'cart/PATCH_CART_SELECTED_START',
   PATCH_CART_SELECTED_SUCCESS = 'cart/PATCH_CART_SELECTED_SUCCESS',
   PATCH_CART_SELECTED_FAILURE = 'cart/PATCH_CART_SELECTED_FAILURE',
+
+  PATCH_ALL_CART_SELECTED_START = 'cart/PATCH_ALL_CART_SELECTED_START',
+  PATCH_ALL_CART_SELECTED_SUCCESS = 'cart/PATCH_ALL_CART_SELECTED_SUCCESS',
+  PATCH_ALL_CART_SELECTED_FAILURE = 'cart/PATCH_ALL_CART_SELECTED_FAILURE',
 }
 
 // GET: /cartList
@@ -70,6 +74,19 @@ interface PatchCartSelectedFailure {
   payload: string;
 }
 
+// PATCH: /cartList/:id
+interface PatchAllCartSelectedStart {
+  type: CartListActionType.PATCH_ALL_CART_SELECTED_START;
+}
+interface PatchAllCartSelectedSuccess {
+  type: CartListActionType.PATCH_ALL_CART_SELECTED_SUCCESS;
+  payload: CartItem[];
+}
+interface PatchAllCartSelectedFailure {
+  type: CartListActionType.PATCH_ALL_CART_SELECTED_FAILURE;
+  payload: string;
+}
+
 export type CartListAction =
   | GetCartListStart
   | GetCartListSuccess
@@ -82,4 +99,7 @@ export type CartListAction =
   | PostCartItemFailure
   | PatchCartSelectedStart
   | PatchCartSelectedSuccess
-  | PatchCartSelectedFailure;
+  | PatchCartSelectedFailure
+  | PatchAllCartSelectedStart
+  | PatchAllCartSelectedSuccess
+  | PatchAllCartSelectedFailure;

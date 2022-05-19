@@ -14,12 +14,12 @@ const Cart = () => {
   const {
     data: cartList,
     error: cartListError,
-    loading_get,
+    loading_getCartList,
   } = useThunkFetch(state => state.cartListReducer, getCartList);
   const cartIds = cartList.map(item => item.id);
   const itemListInCart = itemList.filter(el => cartIds.includes(el.id));
 
-  if (loading_get) return <Loading />;
+  if (loading_getCartList) return <Loading />;
   if (itemListError || cartListError) return <RequestFail />;
 
   return (

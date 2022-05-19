@@ -75,3 +75,29 @@ export const patchCartSelected =
       });
     }
   };
+
+export const patchAllCartSelected =
+  (isAllSelected: boolean) =>
+  async (dispatch: Dispatch<CartListAction>, getState: () => RootState) => {
+    dispatch({ type: CartListActionType.PATCH_ALL_CART_SELECTED_START });
+    try {
+      const { data: cartList } = getState().cartListReducer;
+
+      cartList.forEach(
+        async item =>
+          await axios.patch(`${BASE_URL}/cartList/${item.id}`, { isSelected: !isAllSelected })
+      );
+
+      const newCartList = cartList.map(item => ({ ...item, isSelected: !isAllSelected }));
+
+      dispatch({
+        type: CartListActionType.PATCH_ALL_CART_SELECTED_SUCCESS,
+        payload: newCartList,
+      });
+    } catch (e) {
+      dispatch({
+        type: CartListActionType.PATCH_ALL_CART_SELECTED_FAILURE,
+        payload: e.message,
+      });
+    }
+  };
