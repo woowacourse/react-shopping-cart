@@ -1,4 +1,4 @@
-import appClient from 'utils';
+import appClient from 'utils/appClient';
 
 const ACTION = {
   PRODUCT_ITEM_PENDING: 'PRODUCT_ITEM_PENDING',

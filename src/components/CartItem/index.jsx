@@ -17,7 +17,7 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
   const handleDeleteIconClick = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
       deleteItem(id);
-      onChange();
+      if (checked) onChange(id);
     }
   };
 
