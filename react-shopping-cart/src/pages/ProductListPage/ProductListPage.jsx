@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Pagination from 'components/@shared/Pagination/Pagination';
-import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
 import ProductCardGroup from 'components/ProductCardGroup/ProductCardGroup';
@@ -11,7 +11,6 @@ import ProductCardGroup from 'components/ProductCardGroup/ProductCardGroup';
 import { fetchCartsStart } from 'redux/carts/carts.action';
 import { fetchProductsStart } from 'redux/products/products.action';
 import {
-  selectCurrentProducts,
   selectProductsError,
   selectProductsLoading,
 } from 'redux/products/products.selector';
@@ -19,18 +18,10 @@ import {
 import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 function ProductListPage() {
+  const { idx } = useParams();
   const dispatch = useDispatch();
   const loading = useSelector(selectProductsLoading);
-  const products = useSelector(selectCurrentProducts);
-
   const error = useSelector(selectProductsError);
-
-  const { idx } = useParams();
-
-  useEffect(() => {
-    dispatch(fetchProductsStart(idx));
-    dispatch(fetchCartsStart());
-  }, [dispatch, idx]);
 
   useEffect(() => {
     if (error) {
@@ -38,11 +29,17 @@ function ProductListPage() {
     }
   }, [error]);
 
+  // THINK: withSpinner 때문에, ProductCardGroup에서 datafetching을 못해옴
+  // 아무리 생각해도, 여기서 data fetching은 하면 안됨
+  useEffect(() => {
+    dispatch(fetchProductsStart(idx));
+    dispatch(fetchCartsStart());
+  }, [idx]);
+
   return (
     <WithSpinner loading={loading}>
       <ColumnFlexWrapper gap="60px">
-        <ProductCardGroup products={products} />
-        {/* TODO: pagenum 받아야할듯 */}
+        <ProductCardGroup />
         <Pagination />
       </ColumnFlexWrapper>
     </WithSpinner>
