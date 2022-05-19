@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import Error from 'components/@shared/Error/Error.component';
 import ProductListBox from 'components/ProductListBox/ProductListBox.component';
