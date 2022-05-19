@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 import { DeleteTrashButton } from 'components/common/Styled';
 import CountModal from 'components/common/Modal/CountModal';
 import CheckBox from 'components/common/Styled/CheckBox';
@@ -69,27 +70,57 @@ const Styled = {
   `,
 };
 
-const CartProductItem = ({ thumbnail, title, price }) => {
+const CartProductItem = ({ productInfo, onAddCartButtonClick }) => {
+  const [product, setProduct] = useState(null);
+  const [name, setName] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/productList/${productInfo.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((product) => {
+        setProduct(product);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (product === null) {
+      return;
+    }
+    setName(product.name);
+    setThumbnail(product.thumbnail);
+    setPrice(product.price);
+  }, [product]);
+
   return (
     <Styled.Wrapper>
       <Styled.ProductInfoBox>
-        <CheckBox id={title} />
-        <Styled.Thumbnail src={thumbnail} alt={title} />
-        <Styled.Title>샐리 인형</Styled.Title>
+        <CheckBox id={name} />
+        <Styled.Thumbnail src={thumbnail} alt={name} />
+        <Styled.Title>{name}</Styled.Title>
       </Styled.ProductInfoBox>
       <Styled.ProductSelectBox>
         <DeleteTrashButton>🗑</DeleteTrashButton>
-        <CountModal />
-        <Styled.TotalAmount>{price}원</Styled.TotalAmount>
+        <CountModal
+          totalCount={productInfo.quantity}
+          onClick={onAddCartButtonClick}
+          id={productInfo.id}
+        />
+        <Styled.TotalAmount>{Number(productInfo.quantity) * Number(price)}원</Styled.TotalAmount>
       </Styled.ProductSelectBox>
     </Styled.Wrapper>
   );
 };
 
 CartProductItem.propTypes = {
-  thumbnail: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.number,
+  productInfo: PropTypes.object,
+  onAddCartButtonClick: PropTypes.func,
 };
 
 export default CartProductItem;

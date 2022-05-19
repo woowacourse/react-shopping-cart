@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Title from 'components/common/Title';
 import CartProductItem from './CartProductItem';
 import CheckBox from 'components/common/Styled/CheckBox';
 import PaymentModal from 'components/common/Modal/PaymentModal';
 import { DeleteButton } from 'components/common/Styled';
+import { useDispatch, useSelector } from 'react-redux';
+import cartReducer from 'modules/cart';
+import { getProduct } from 'modules/product';
 
 const Styled = {
   Container: styled.section`
@@ -74,7 +78,10 @@ const Styled = {
   `,
 };
 
-const Cart = () => {
+const Cart = ({ onAddCartButtonClick }) => {
+  const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
+  console.log(cartList);
+
   return (
     <Styled.Container>
       <Title>장바구니</Title>
@@ -88,52 +95,32 @@ const Cart = () => {
             <DeleteButton>상품삭제 </DeleteButton>
           </Styled.CartDeleteBox>
           <Styled.CartProductList>
-            <Styled.CartProductTotalAmount>라인프렌즈 상품 (3개)</Styled.CartProductTotalAmount>
+            <Styled.CartProductTotalAmount>라인프렌즈 상품 (개)</Styled.CartProductTotalAmount>
             <Styled.CartProductListContent>
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
-              <CartProductItem
-                thumbnail="https://stickershop.line-scdn.net/stickershop/v1/product/789/LINEStorePC/main.png;compress=true"
-                title="라인프렌즈"
-                price={1000}
-              />
+              {cartList.length !== 0 ? (
+                cartList.map((item) => (
+                  <CartProductItem
+                    key={`${item.name}${item.id}`}
+                    productInfo={item}
+                    onAddCartButtonClick={onAddCartButtonClick}
+                  />
+                ))
+              ) : (
+                <div>상품비어있음</div>
+              )}
             </Styled.CartProductListContent>
           </Styled.CartProductList>
         </Styled.CartContentBox>
         <Styled.PaymentModalBox>
-          <PaymentModal type="cart" amount={40000} />
+          <PaymentModal type="cart" amount={1000} />
         </Styled.PaymentModalBox>
       </Styled.Wrapper>
     </Styled.Container>
   );
+};
+
+Cart.propTypes = {
+  onAddCartButtonClick: PropTypes.func,
 };
 
 export default Cart;

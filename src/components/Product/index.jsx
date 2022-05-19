@@ -68,7 +68,7 @@ const Product = ({ id, thumbnail, name, price, onClick }) => {
         </Link>
         <Styled.CartButton
           onClick={() => {
-            onClick(id);
+            onClick(Number(id));
           }}
         >
           <CartIcon />

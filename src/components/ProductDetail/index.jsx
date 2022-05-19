@@ -88,7 +88,7 @@ const ProductDetail = ({ onAddCartButtonClick }) => {
       </Styled.Content>
       <CardDetailButton
         onClick={() => {
-          onAddCartButtonClick(productId);
+          onAddCartButtonClick(Number(productId));
         }}
       >
         장바구니
