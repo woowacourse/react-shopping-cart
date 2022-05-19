@@ -26,8 +26,10 @@ const Cart = () => {
 
   const totalPrice = useMemo(() => {
     if (!cartItems || cartItems.length === 0) return 0;
-    const list = cartItems.filter(({ id }) => isInList(selectedItemList, id));
-    return list.reduce(
+    const selectedItems = cartItems.filter(({ id }) =>
+      isInList(selectedItemList, id),
+    );
+    return selectedItems.reduce(
       (prev, { price, quantity }) => (prev += price * quantity),
       0,
     );
