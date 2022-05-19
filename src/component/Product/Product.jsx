@@ -81,7 +81,7 @@ function Product({ handleProductClick, handleCartClick, image, name, price }) {
           <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
         <Button onClick={handleCartClick}>
-          <CartIcon src="cart.svg" />
+          <CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />
         </Button>
       </DescriptionBox>
     </ProductBox>
