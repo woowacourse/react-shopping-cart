@@ -14,10 +14,16 @@ const ChangeQuantityButtonContainer = styled.div`
 function ChangeQuantityButton({ quantity, onClickAddProduct, onClickReduceProduct }) {
   return (
     <ChangeQuantityButtonContainer>
-      <BorderBox textAlign="center" lineHeight="30px" fontSize="24px">
+      <BorderBox textAlign="center" lineHeight="30px" fontSize="24px" padding="10px">
         {quantity}
       </BorderBox>
-      <BorderBox textAlign="center" lineHeight="8px" onClick={onClickAddProduct} cursor="pointer">
+      <BorderBox
+        textAlign="center"
+        lineHeight="8px"
+        onClick={onClickAddProduct}
+        cursor="pointer"
+        padding="10px"
+      >
         ▲
       </BorderBox>
       <BorderBox
@@ -25,6 +31,7 @@ function ChangeQuantityButton({ quantity, onClickAddProduct, onClickReduceProduc
         lineHeight="8px"
         onClick={onClickReduceProduct}
         cursor="pointer"
+        padding="10px"
       >
         ▼
       </BorderBox>
