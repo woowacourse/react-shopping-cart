@@ -17,10 +17,15 @@ function ChangeQuantityButton({ quantity, onClickAddProduct, onClickReduceProduc
       <BorderBox textAlign="center" lineHeight="30px" fontSize="24px">
         {quantity}
       </BorderBox>
-      <BorderBox textAlign="center" lineHeight="8px" onClick={onClickAddProduct}>
+      <BorderBox textAlign="center" lineHeight="8px" onClick={onClickAddProduct} cursor="pointer">
         ▲
       </BorderBox>
-      <BorderBox textAlign="center" lineHeight="8px" onClick={onClickReduceProduct}>
+      <BorderBox
+        textAlign="center"
+        lineHeight="8px"
+        onClick={onClickReduceProduct}
+        cursor="pointer"
+      >
         ▼
       </BorderBox>
     </ChangeQuantityButtonContainer>
