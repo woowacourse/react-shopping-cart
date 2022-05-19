@@ -1,6 +1,6 @@
 import { getProductAsync } from 'reducers/product/product.thunks';
 import { useParams } from 'react-router-dom';
-import { addCartItem } from 'reducers/cart/cart.actions';
+import { addCartItemRequest } from 'reducers/cart/cart.actions';
 import { useEffect } from 'react';
 import useReduxState from 'hooks/useReduxState';
 
@@ -16,7 +16,7 @@ const useProduct = () => {
   }, [id]);
 
   const handleAddCart = () => {
-    dispatch(addCartItem({ ...data, quantity: 1 }));
+    dispatch(addCartItemRequest({ ...data, quantity: 1 }));
   };
 
   return { isLoading, isError, product: data, handleAddCart };

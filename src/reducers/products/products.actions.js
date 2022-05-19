@@ -1,7 +1,11 @@
-import actionTypes from 'reducers/products/products.actionTypes';
+export const actionTypes = {
+  GET_PRODUCTS_REQUEST: 'GET_PRODUCTS_REQUEST',
+  GET_PRODUCTS_SUCCESS: 'GET_PRODUCTS_SUCCESS',
+  GET_PRODUCTS_ERROR: 'GET_PRODUCTS_ERROR',
+};
 
-export const getProducts = () => ({
-  type: actionTypes.GET_PRODUCTS,
+export const getProductsRequest = () => ({
+  type: actionTypes.GET_PRODUCTS_REQUEST,
 });
 
 export const getProductsSuccess = (data) => ({

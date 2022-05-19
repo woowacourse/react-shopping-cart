@@ -1,4 +1,4 @@
-import actionTypes from 'reducers/products/products.actionTypes';
+import { actionTypes } from 'reducers/products/products.actions';
 
 const initialState = {
   data: [],
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const productsReducer = (state = initialState, action) => {
-  if (action.type === actionTypes.GET_PRODUCTS) {
+  if (action.type === actionTypes.GET_PRODUCTS_REQUEST) {
     return { ...state, isLoading: true };
   }
   if (action.type === actionTypes.GET_PRODUCTS_SUCCESS) {
