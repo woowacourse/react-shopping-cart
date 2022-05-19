@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/styles';
 import CheckBox from '../CheckBox/CheckBox';
@@ -9,7 +8,7 @@ import NumberInput from '../shared/NumberInput';
 
 function CartItem({ title, price, src }) {
   return (
-    <Style.CartProductContainer justify="space-between">
+    <Style.Container justify="space-between">
       <Flex justify="space-between" gap="20px">
         <CheckBox />
         <BasicImage size="small" src={src} alt={title} />
@@ -20,7 +19,7 @@ function CartItem({ title, price, src }) {
         <NumberInput />
         <span>{`${Number(price).toLocaleString('ko-KR')}원`}</span>
       </Flex>
-    </Style.CartProductContainer>
+    </Style.Container>
   );
 }
 
@@ -33,7 +32,7 @@ CartItem.propTypes = {
 export default CartItem;
 
 const Style = {
-  CartProductContainer: styled(Flex)`
+  Container: styled(Flex)`
     padding: 23px 0;
     border-bottom: 2px solid lightgray;
   `,
