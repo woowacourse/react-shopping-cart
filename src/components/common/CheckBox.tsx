@@ -1,17 +1,10 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface CheckBoxProps {
-  checked: boolean;
-  onClick: () => void;
-}
+type CheckBoxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
-const CheckBox = ({ checked, onClick }: CheckBoxProps) => {
-  const handleChange = () => {
-    onClick();
-  };
-
-  return <StyledCheckBox type='checkbox' checked={checked} onChange={handleChange} />;
+const CheckBox = (props: CheckBoxProps) => {
+  return <StyledCheckBox type='checkbox' {...props} />;
 };
 
 export default CheckBox;

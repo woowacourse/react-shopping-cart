@@ -29,6 +29,10 @@ const StyledRoot = styled.div`
     font-size: 32px;
     margin-bottom: 30px;
   }
+
+  & > :nth-child(2) {
+    margin-bottom: 4rem;
+  }
 `;
 
 const StyledDivider = styled.div`

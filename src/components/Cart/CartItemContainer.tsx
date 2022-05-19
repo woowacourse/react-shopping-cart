@@ -24,7 +24,7 @@ const CartItemContainer = ({
 
   return (
     <StyledCartItem>
-      <CheckBox checked={cartItem.isSelected} onClick={handleClickCheckBox} />
+      <CheckBox checked={cartItem.isSelected} onChange={handleClickCheckBox} />
       <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
       <p>{title}</p>
       <StyledRight>
