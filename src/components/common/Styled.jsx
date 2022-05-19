@@ -10,6 +10,8 @@ const SIZE_MAP = {
 const StyledImageBox = styled.div`
   width: ${(props) => `${SIZE_MAP[props.width]}`}px;
   height: ${(props) => `${SIZE_MAP[props.height]}`}px;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 const StyledImg = styled.img`
@@ -17,6 +19,10 @@ const StyledImg = styled.img`
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+  transition: all 0.1s linear;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledCheckbox = styled.input`
