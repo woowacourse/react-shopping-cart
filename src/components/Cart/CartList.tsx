@@ -24,6 +24,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
     deleteAllCartItem,
   } = useCartRequest(cartList);
   const isAllSelected = cartList.every(item => item.isSelected);
+  const totalItemCount = itemList.length;
 
   return (
     <StyledRoot>
@@ -32,6 +33,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           <CheckBox
             id='check'
             checked={isAllSelected}
+            disabled={!totalItemCount}
             onChange={() => selectAllCartItem(isAllSelected)}
           />
           <label htmlFor='check'>선택해제</label>
@@ -49,7 +51,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           상품삭제
         </Button>
       </StyledTop>
-      <StyledCount>든든배송 상품 ({itemList.length}개)</StyledCount>
+      <StyledCount>든든배송 상품 ({totalItemCount}개)</StyledCount>
       <Division margin='20px 0' height='4px' color={theme.colors.divisionLine} />
       {itemList.map((item, index) => (
         <React.Fragment key={item.id}>
