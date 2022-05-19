@@ -32,8 +32,10 @@ function CartItem({ cartItem }: CartItemProps) {
     <CartItemWrapper>
       <input
         type="checkbox"
-        onClick={() => {
-          dispatch(CartActions.select(id));
+        checked={cartItem.isSelected}
+        onClick={(e) => {
+          const targetInput = e.target as HTMLInputElement;
+          dispatch(CartActions.toggleItemSelected(cartItem.detail.id, targetInput.checked));
         }}
       />
       <CartItemImage src={img} alt={name} />

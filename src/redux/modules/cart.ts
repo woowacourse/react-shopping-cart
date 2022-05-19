@@ -1,3 +1,5 @@
+import { AppDispatch, RootState } from "../store";
+
 type CartItemDetail = { name: string; price: number; img: string; id: number };
 export type CartItem = { amount: number; isSelected: boolean; detail: CartItemDetail };
 type CartState = { cartItemList: CartItem[] };
@@ -7,7 +9,7 @@ type Action =
   | ReturnType<typeof increment>
   | ReturnType<typeof decrement>
   | ReturnType<typeof incrementByNumber>
-  | ReturnType<typeof select>;
+  | ReturnType<typeof toggleItemSelected>;
 
 // initialState
 const initialState: CartState = {
@@ -20,7 +22,7 @@ const DELETE = "cart/DELETE" as const;
 const INCREMENT = "cart/INCREMENT" as const;
 const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
-const SELECT = "cart/SELECT" as const;
+const TOGGLE_ITEM_SELECTED = "cart/SELECT" as const;
 
 // 액션 크리에터
 const addItem = (detail: CartItemDetail) => ({
@@ -43,10 +45,19 @@ const incrementByNumber = (id: number, number: number) => ({
   type: INCREMENT_BY_NUMBER,
   payload: { id, number },
 });
-const select = (id: number) => ({
-  type: SELECT,
-  payload: { id },
+const toggleItemSelected = (id: number, toggleKey: boolean) => ({
+  type: TOGGLE_ITEM_SELECTED,
+  payload: { id, toggleKey },
 });
+
+// thunk
+const toggleAllItemsSelected =
+  (toggleKey: boolean): any =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const { cartItemList } = getState().cart;
+
+    cartItemList.map((cartItem) => dispatch(toggleItemSelected(cartItem.detail.id, toggleKey)));
+  };
 
 // 리듀서
 const cartReducer = (state = initialState, action: Action) => {
@@ -87,11 +98,11 @@ const cartReducer = (state = initialState, action: Action) => {
 
       return { cartItemList: newCartItemList };
     }
-    case SELECT: {
-      const { id } = action.payload;
+    case TOGGLE_ITEM_SELECTED: {
+      const { id, toggleKey } = action.payload;
       const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.detail.id === id);
       const newCartItemList = [...state.cartItemList];
-      newCartItemList[targetIndex].isSelected = true;
+      newCartItemList[targetIndex].isSelected = toggleKey;
 
       return { cartItemList: newCartItemList };
     }
@@ -106,7 +117,8 @@ export const actionCreators = {
   increment,
   decrement,
   incrementByNumber,
-  select,
+  toggleItemSelected,
+  toggleAllItemsSelected,
 };
 
 export default cartReducer;

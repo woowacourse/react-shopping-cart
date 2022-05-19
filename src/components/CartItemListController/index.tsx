@@ -1,11 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as CartActions } from "../../redux/modules/cart";
 
 function CartItemListController() {
+  const dispatch = useDispatch();
+
   return (
     <CartItemListControllerWrapper justify="space-between">
       <CartItemListSelect>
-        <input type="checkbox" id="all-check" />
+        <input
+          type="checkbox"
+          id="all-check"
+          onClick={(e) => {
+            const targetInput = e.target as HTMLInputElement;
+            dispatch(CartActions.toggleAllItemsSelected(targetInput.checked));
+          }}
+        />
         <label htmlFor="all-check">선택해제</label>
       </CartItemListSelect>
       <CartItemListDeleteButton>상품삭제</CartItemListDeleteButton>
