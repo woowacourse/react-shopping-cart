@@ -2,7 +2,7 @@ import { PRODUCTS_ACTIONS } from 'actions/types';
 import { createRequestState } from 'lib/requestUtils';
 
 const initialState = {
-  products: createRequestState.initial([]),
+  productInfo: createRequestState.initial([]),
 };
 
 export default (state = initialState, action) => {
@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST:
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS:
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_ERROR:
-      return { ...state, products: { ...state.products, ...payload } };
+      return { ...state, productInfo: { ...state.productInfo, ...payload } };
 
     default:
       return state;

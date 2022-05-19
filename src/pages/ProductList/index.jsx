@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { getProductList } from 'actions/products';
 import { addCartList } from 'actions/cart';
+
+import useReduxState from 'hooks/useReduxState';
 
 import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
 import StatusMessage from 'components/@common/StatusMessage';
@@ -10,17 +11,12 @@ import ProductItem from 'components/ProductItem';
 import * as Styled from './styles';
 
 export function ProductList() {
-  const dispatch = useDispatch();
+  const { state, dispatch } = useReduxState('products');
+  const { content: products, isLoading, error: errorMessage } = state.productInfo;
 
   useEffect(() => {
     dispatch(getProductList());
   }, []);
-
-  const {
-    content: productList,
-    isLoading,
-    error: errorMessage,
-  } = useSelector((state) => state.products.products);
 
   const handleAddCart = ({ id, image, name, price }) => {
     dispatch(addCartList({ id, image, name, price }));
@@ -31,12 +27,12 @@ export function ProductList() {
     <SwitchAsync
       isLoading={isLoading}
       isError={!!errorMessage}
-      isContentLoaded={productList.length > 0}
+      isContentLoaded={products.length > 0}
     >
       <Case.Success>
         <Styled.ProductListWrapper>
-          {productList &&
-            productList.map(({ id, name, goodsPrice, listImage }) => (
+          {products &&
+            products.map(({ id, name, goodsPrice, listImage }) => (
               <ProductItem
                 key={id}
                 id={id}
