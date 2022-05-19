@@ -20,7 +20,7 @@ function PaymentBox({ title, paymentAmountLabel, paymentAmount, buttonLabel }) {
       <Text margin="0 7.5% 0" fontSize="large">
         {title}
       </Text>
-      <Divider height={3} margin="19px 0 34px" backgroundColor={PALETTE.GRAY_003} />
+      <Divider height="3px" margin="19px 0 34px" backgroundColor={PALETTE.GRAY_003} />
       <PaymentAmountBox justifyContent="space-between">
         <UnderlineText>{paymentAmountLabel}</UnderlineText>
         <UnderlineText>{paymentAmount.toLocaleString('ko-kr')}원</UnderlineText>

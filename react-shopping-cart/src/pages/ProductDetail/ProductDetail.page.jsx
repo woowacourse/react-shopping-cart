@@ -53,12 +53,7 @@ function ProductDetail() {
             {productInfo.name}
           </Text>
         </FlexWrapper>
-        <Divider
-          style={{ marginTop: '33px' }}
-          width={640}
-          height={4}
-          backgroundColor={PALETTE.GRAY_002}
-        />
+        <Divider width="640px" height="4px" margin="33px 0 0" backgroundColor={PALETTE.GRAY_002} />
         <FlexWrapper style={{ justifyContent: 'space-between', width: '570px', marginTop: '33px' }}>
           <Text fontSize="large">금액</Text>
           <Text className="product-price" fontSize="extraLarge">
