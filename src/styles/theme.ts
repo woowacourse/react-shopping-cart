@@ -3,6 +3,7 @@ const colors = {
   font: '#333333',
   divisionLine: '#AAAAAA',
   brown: '#73675C',
+  font2: '#BBBBBB',
   cartDivision: '#CCCCCC',
   boxBorder: '#DDDDDD',
 };

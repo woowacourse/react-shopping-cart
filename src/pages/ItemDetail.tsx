@@ -44,7 +44,14 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price.toLocaleString()}</StyledPriceValue>
       </StyledPrice>
-      <Button size='large' backgroundColor='brown' onClick={isInCart ? updateCart : postCart}>
+      <Button
+        width='63.8rem'
+        height='9.8rem'
+        fontSize='3.2rem'
+        backgroundColor='brown'
+        color='white'
+        onClick={isInCart ? updateCart : postCart}
+      >
         장바구니
       </Button>
       {isOpenSnackbar && <Snackbar message={MESSAGE.cart} />}
