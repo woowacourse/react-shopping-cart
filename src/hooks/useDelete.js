@@ -3,18 +3,17 @@ import apiClient from 'utils/apiClient';
 import { useDispatch } from 'react-redux';
 import { getCartAsync } from 'reducers/cart/cart.thunks';
 
-const useDelete = (url, payload) => {
+const useDelete = (url) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
 
-  const callApi = () => {
+  const callDeleteApi = (targetId) => {
     setIsLoading(true);
 
-    // post와 delete는 메서드 차이만 있음
     apiClient
-      .delete(url, payload)
+      .delete(url, { data: { id: targetId } })
       .then((response) => {
         setIsLoading(false);
         setResult(response.data);
@@ -27,7 +26,7 @@ const useDelete = (url, payload) => {
       });
   };
 
-  return { isLoading, isError, result, callApi };
+  return { isLoading, isError, result, callDeleteApi };
 };
 
 export default useDelete;

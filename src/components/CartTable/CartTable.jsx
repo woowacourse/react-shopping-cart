@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
 import { useState } from 'react';
+import useDelete from 'hooks/useDelete';
 
 const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   const [isAllChecked, setIsAllChecked] = useState(true);
@@ -32,6 +33,14 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
     setCheckedIdList(newCheckedIdList);
   };
 
+  const { callDeleteApi } = useDelete('/cartList');
+
+  const handleClickDeleteButton = () => {
+    checkedIdList.forEach((targetId) => {
+      callDeleteApi(targetId);
+    });
+  };
+
   return (
     <Styled.Section>
       <Styled.TopWrapper>
@@ -40,7 +49,9 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
           checked={isAllChecked}
           onChange={handleChangeAllCheckbox}
         />
-        <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
+        <Styled.DeleteButton onClick={handleClickDeleteButton}>
+          상품삭제
+        </Styled.DeleteButton>
       </Styled.TopWrapper>
 
       <Styled.CartTitle>든든배송 상품({cartList.length}개)</Styled.CartTitle>

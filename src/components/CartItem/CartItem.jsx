@@ -7,11 +7,7 @@ import { useEffect, useState } from 'react';
 import useDelete from 'hooks/useDelete';
 
 const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
-  const { callApi: callDeleteApi } = useDelete('/cartList', {
-    data: {
-      id: item.id,
-    },
-  });
+  const { callDeleteApi } = useDelete('/cartList');
 
   const [isChecked, setIsChecked] = useState(true);
 
@@ -33,7 +29,11 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
           <Styled.ProductName>{item.name}</Styled.ProductName>
         </Styled.LeftInfo>
         <Styled.RightControl>
-          <Styled.TrashIcon src={trash} alt="삭제" onClick={callDeleteApi} />
+          <Styled.TrashIcon
+            src={trash}
+            alt="삭제"
+            onClick={() => callDeleteApi(item.id)}
+          />
           <Styled.InputWrapper>
             <Styled.NumberInput value={item.cartQuantity} />
             <div>
