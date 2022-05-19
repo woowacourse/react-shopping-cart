@@ -1,11 +1,27 @@
-import { useCallback, useEffect, useRef } from "react";
+import {
+  MutableRefObject,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 
-const useInfinityScroll = ({ ref = undefined, cb, endPoint = true }) => {
-  const observer = useRef(undefined);
+interface InfinityScrollProps {
+  ref: RefObject<HTMLElement>;
+  cb: () => {};
+  endPoint: boolean;
+}
+
+const useInfinityScroll = ({
+  ref,
+  cb,
+  endPoint = true,
+}: InfinityScrollProps) => {
+  const observer = useRef(undefined) as MutableRefObject<any>;
   const callBack = useRef(cb);
 
   const onIntersect = useCallback(
-    ([entry]) => {
+    ([entry]: any[]) => {
       if (entry.isIntersecting) {
         callBack.current();
       }

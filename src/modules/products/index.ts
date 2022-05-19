@@ -1,12 +1,11 @@
 import { AxiosResponse } from "axios";
-import { Dispatch } from "react";
 import { RootState } from "..";
 import * as productAPI from "../../api";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
-import { ThunkAction } from "../../lib/thunk.type";
 import { product } from "../../types/product";
 import createReducer from "../createReducer";
-import { ProductListAction, Products, ProductsListActionType } from "./type";
+import { AppThunk } from "../thunk";
+import { Products, ProductsListActionType } from "./type";
 
 const GET_PRODUCTS = "products/GET_PRODUCTS" as const;
 const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS" as const;
@@ -22,8 +21,7 @@ const INITIAL_STATE: Products = {
 };
 
 export const getProductsByPage =
-  (): ThunkAction<void, RootState, null, ProductListAction> =>
-  async (dispatch: Dispatch<ProductListAction>, getState: () => RootState) => {
+  (): AppThunk => async (dispatch, getState: () => RootState) => {
     const {
       products: { isLoading, page },
     } = getState();
@@ -79,7 +77,7 @@ const getProductsEnd = (productsState: Products, action: any) => ({
   isEnd: true,
 });
 
-export const productsReducer = createReducer(INITIAL_STATE, {
+export const productsReducer = createReducer<Products>(INITIAL_STATE, {
   [GET_PRODUCTS]: getProducts,
   [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
   [GET_PRODUCTS_ERROR]: getProductsError,
