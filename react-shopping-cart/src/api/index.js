@@ -1,7 +1,9 @@
-import { API_URL } from 'constants';
+import { API_URL, FETCH_PRODUCTS_LIMIT } from 'constants';
 
 export const fetchProducts = async (pageNum = 1) => {
-  const res = await fetch(`${API_URL}/products?_page=${pageNum}&_limit=12`);
+  const res = await fetch(
+    `${API_URL}/products?_page=${pageNum}&_limit=${FETCH_PRODUCTS_LIMIT}`
+  );
   if (!res.ok) {
     throw new Error('로드에 실패했습니다');
   }
