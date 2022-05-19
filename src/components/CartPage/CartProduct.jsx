@@ -17,7 +17,7 @@ function CartProduct({ product }) {
             size="small"
             alt={`${product.title} 사진`}
           />
-          <Styled.ProductTitle>PET보틀-정사각(420ml)</Styled.ProductTitle>
+          <Styled.ProductTitle>{product.title}</Styled.ProductTitle>
         </Styled.ProductLeftWrapper>
         <Styled.ProductRightWrapper>
           <Styled.TrashButtonWrapper>
@@ -46,6 +46,7 @@ const Styled = {
   CartContainer: styled.div`
     display: flex;
     justify-content: space-between;
+    margin: 20px 0 20px 0;
   `,
   ProductLeftWrapper: styled.div`
     display: flex;
@@ -69,6 +70,7 @@ const Styled = {
   TrashButtonWrapper: styled.div`
     align-self: flex-end;
     cursor: pointer;
+    margin-bottom: 12px;
     &:hover {
       opacity: 0.6;
     }

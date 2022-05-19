@@ -34,7 +34,7 @@ const Styled = {
     width: 35%;
     height: 260px;
     margin-left: 5%;
-    margin-top: 80px;
+    margin-top: 100px;
     border: 1px solid #dddddd;
   `,
   OrderTitleWrapper: styled.div`

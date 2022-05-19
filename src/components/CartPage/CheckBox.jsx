@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropType from 'prop-types';
 
 function CheckBox({ checked }) {
-  return <Styled.CheckBox type="checkbox" checked={checked} />;
+  return <Styled.CheckBox type="checkbox" name="checkbox" checked={checked} />;
 }
 
 export default CheckBox;

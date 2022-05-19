@@ -39,5 +39,7 @@ const Styled = {
     border: 1px solid #dddddd;
     font-size: 100%;
     cursor: pointer;
+    background-color: white;
+    height: 29px;
   `,
 };
