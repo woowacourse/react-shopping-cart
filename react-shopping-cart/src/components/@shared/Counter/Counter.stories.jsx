@@ -16,11 +16,18 @@ export default {
 export const Default = args => {
   const [{ children }, updateArgs] = useArgs();
 
-  const handleClickUp = () => updateArgs({ children: children + 1 });
+  const handleClickIncrease = () => updateArgs({ children: children + 1 });
 
-  const handleClickDown = () => updateArgs({ children: children === 0 ? children : children - 1 });
+  const handleClickDecrease = () =>
+    updateArgs({ children: children === 0 ? children : children - 1 });
 
-  return <Counter {...args} handleClickUp={handleClickUp} handleClickDown={handleClickDown} />;
+  return (
+    <Counter
+      {...args}
+      handleClickIncrease={handleClickIncrease}
+      handleClickDecrease={handleClickDecrease}
+    />
+  );
 };
 
 Default.args = {

@@ -22,15 +22,15 @@ const CounterButton = styled(Button)`
   cursor: pointer;
 `;
 
-function Counter({ handleClickUp, handleClickDown, children }) {
+function Counter({ handleClickIncrease, handleClickDecrease, style, children }) {
   return (
-    <Container>
+    <Container style={style}>
       <CounterText fontSize="large">{children}</CounterText>
       <FlexWrapper isColumnDirection={true}>
-        <CounterButton onClick={handleClickUp}>
+        <CounterButton onClick={handleClickIncrease}>
           <CounterArrow />
         </CounterButton>
-        <CounterButton onClick={handleClickDown}>
+        <CounterButton onClick={handleClickDecrease}>
           <CounterArrow style={{ transform: 'rotate(180deg)' }} />
         </CounterButton>
       </FlexWrapper>
