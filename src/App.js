@@ -1,8 +1,8 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 
 import { worker } from 'mocks/server';
 import rootReducer from 'modules';
@@ -11,10 +11,11 @@ import MainContent from 'routes';
 
 import theme from './style/theme';
 import GlobalStyle from 'style/GlobalStyle';
+import { ThemeProvider } from 'styled-components';
 
 worker.start();
 
-export const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 function App() {
   return (
