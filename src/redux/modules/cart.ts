@@ -1,12 +1,13 @@
 type CartItemDetail = { name: string; price: number; img: string; id: number };
-export type CartItem = { amount: number; detail: CartItemDetail };
+export type CartItem = { amount: number; isSelected: boolean; detail: CartItemDetail };
 type CartState = { cartItemList: CartItem[] };
 type Action =
   | ReturnType<typeof addItem>
   | ReturnType<typeof deleteItem>
   | ReturnType<typeof increment>
   | ReturnType<typeof decrement>
-  | ReturnType<typeof incrementByNumber>;
+  | ReturnType<typeof incrementByNumber>
+  | ReturnType<typeof select>;
 
 // initialState
 const initialState: CartState = {
@@ -19,6 +20,7 @@ const DELETE = "cart/DELETE" as const;
 const INCREMENT = "cart/INCREMENT" as const;
 const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
+const SELECT = "cart/SELECT" as const;
 
 // 액션 크리에터
 const addItem = (detail: CartItemDetail) => ({
@@ -41,21 +43,25 @@ const incrementByNumber = (id: number, number: number) => ({
   type: INCREMENT_BY_NUMBER,
   payload: { id, number },
 });
+const select = (id: number) => ({
+  type: SELECT,
+  payload: { id },
+});
 
 // 리듀서
 const cartReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ADD: {
       const { detail } = action.payload;
-      const newCartItemList = [...state.cartItemList, { amount: 1, detail }];
+      const newCartItemList = [...state.cartItemList, { isSelected: false, amount: 1, detail }];
 
-      return { ...state, cartItemList: newCartItemList };
+      return { cartItemList: newCartItemList };
     }
     case DELETE: {
       const { id } = action.payload;
       const newCartItemList = state.cartItemList.filter((cartItem) => cartItem.detail.id !== id);
 
-      return { ...state, cartItemList: newCartItemList };
+      return { cartItemList: newCartItemList };
     }
     case INCREMENT: {
       const { id } = action.payload;
@@ -63,7 +69,7 @@ const cartReducer = (state = initialState, action: Action) => {
       const newCartItemList = [...state.cartItemList];
       newCartItemList[targetIndex].amount++;
 
-      return { ...state, cartItemList: newCartItemList };
+      return { cartItemList: newCartItemList };
     }
     case DECREMENT: {
       const { id } = action.payload;
@@ -71,22 +77,36 @@ const cartReducer = (state = initialState, action: Action) => {
       const newCartItemList = [...state.cartItemList];
       newCartItemList[targetIndex].amount--;
 
-      return { ...state, cartItemList: newCartItemList };
+      return { cartItemList: newCartItemList };
     }
-
     case INCREMENT_BY_NUMBER: {
       const { id, number } = action.payload;
       const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.detail.id === id);
       const newCartItemList = [...state.cartItemList];
       newCartItemList[targetIndex].amount += number;
 
-      return { ...state, cartItemList: newCartItemList };
+      return { cartItemList: newCartItemList };
+    }
+    case SELECT: {
+      const { id } = action.payload;
+      const targetIndex = state.cartItemList.findIndex((cartItem) => cartItem.detail.id === id);
+      const newCartItemList = [...state.cartItemList];
+      newCartItemList[targetIndex].isSelected = true;
+
+      return { cartItemList: newCartItemList };
     }
     default:
       return state;
   }
 };
 
-export const actionCreators = { addItem, deleteItem, increment, decrement, incrementByNumber };
+export const actionCreators = {
+  addItem,
+  deleteItem,
+  increment,
+  decrement,
+  incrementByNumber,
+  select,
+};
 
 export default cartReducer;

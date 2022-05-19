@@ -30,7 +30,12 @@ function CartItem({ cartItem }: CartItemProps) {
 
   return (
     <CartItemWrapper>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        onClick={() => {
+          dispatch(CartActions.select(id));
+        }}
+      />
       <CartItemImage src={img} alt={name} />
       <CartItemName>{name}</CartItemName>
       <CartItemInfoWrapper>
