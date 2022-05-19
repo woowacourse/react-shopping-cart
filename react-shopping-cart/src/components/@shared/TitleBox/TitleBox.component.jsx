@@ -9,6 +9,7 @@ const TitleBox = styled(TextBox).attrs({
   border-bottom: 4px solid ${({ theme }) => theme.colors['BLACK_001']};
   padding: 30px;
   text-align: center;
+  margin-bottom: 40px;
 `;
 
 export default TitleBox;
