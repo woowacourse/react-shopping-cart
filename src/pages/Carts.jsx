@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
 import CartListContainer from '../components/CartsList/CartListContainer';
 import CheckedItemsController from '../components/CheckBox/CheckedItemsController';
 import { BasicDivideLine, Flex } from '../components/shared/basics';
@@ -11,9 +12,7 @@ import useFetch from '../hooks/useFetch';
 
 function Carts() {
   const { carts } = useSelector((state) => state.carts);
-  const query = carts.length
-    ? carts.map((cart) => `id=${cart.id}`).join('&')
-    : '';
+  const query = carts.map((cart) => `id=${cart.id}`).join('&');
   const {
     isLoading: isStoredProductsLoading,
     result: storedProducts,
@@ -22,7 +21,12 @@ function Carts() {
     url: `${API_URL}/${PATH.PRODUCTS}?${query}`,
   });
 
+  const total = storedProducts?.reduce((acc, cur) => acc + +cur.price, 0);
+
   useEffect(() => {
+    if (!carts.length) {
+      return;
+    }
     apiCall();
   }, [query]);
 
@@ -42,7 +46,7 @@ function Carts() {
             <CartListContainer storedProducts={storedProducts} />
           )}
         </Style.CartListWrapper>
-        <TotalPrice />
+        <TotalPrice total={total} />
       </Style.CartListContainer>
     </Style.Container>
   );

@@ -4,7 +4,7 @@ import { useState } from 'react';
 function useFetch({ url, data, method = 'GET' }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState([]);
 
   const apiCall = async () => {
     setIsLoading(true);

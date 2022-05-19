@@ -16,8 +16,6 @@ function ProductListContainer() {
     error: cartsError,
   } = useSelector((state) => state.carts);
 
-  console.log(carts);
-
   const isLoading = isProductsLoading || isCartsLoading;
   const isError = productsError || cartsError;
 

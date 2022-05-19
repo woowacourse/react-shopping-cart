@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLOR } from '../../constants/styles';
 import { BasicButton, BasicDivideLine, Flex } from '../shared/basics';
 
-function TotalPrice() {
+function TotalPrice({ total = 0, quantity = 0 }) {
   return (
     <Style.TotalPriceContainer>
       <Style.TotalPriceHeader>
@@ -12,14 +12,12 @@ function TotalPrice() {
       <div>
         <Style.TotalPriceBox justify="space-between">
           <Style.HighLightText>결제예상금액</Style.HighLightText>
-          <Style.HighLightText>21,800원</Style.HighLightText>
+          <Style.HighLightText>{total}</Style.HighLightText>
         </Style.TotalPriceBox>
-        <Style.OrderButtonWrapper
-          justify="center"
-          align="center"
-          className="flex-center mt-30 mx-10"
-        >
-          <Style.OrderButton type="button">주문하기(3개)</Style.OrderButton>
+        <Style.OrderButtonWrapper justify="center" align="center">
+          <Style.OrderButton type="button">
+            {`주문하기(${quantity}개)`}
+          </Style.OrderButton>
         </Style.OrderButtonWrapper>
       </div>
     </Style.TotalPriceContainer>
