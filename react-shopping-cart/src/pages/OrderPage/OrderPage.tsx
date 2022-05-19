@@ -9,7 +9,7 @@ import { deleteOrderStart } from "redux/orders/orders.action";
 import { selectCurrentOrders } from "redux/orders/orders.selector";
 import { ColumnFlexWrapper } from "styles/Wrapper";
 import { OrderPageContent } from "pages/OrderPage/OrderPage.style";
-import { calculatePaymentCost } from "util/check";
+import { calculatePaymentCost } from "util/calculate";
 
 function OrderPage() {
   const orders = useSelector(selectCurrentOrders);

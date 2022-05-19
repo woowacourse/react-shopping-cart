@@ -15,7 +15,7 @@ import { deleteCheckedProductsStart } from "redux/carts/carts.action";
 import {
   calculateOrderProductsQuantity,
   calculatePaymentCost,
-} from "util/check";
+} from "util/calculate";
 
 function ShoppingCartPage() {
   const carts = useSelector(selectCurrentCarts);
