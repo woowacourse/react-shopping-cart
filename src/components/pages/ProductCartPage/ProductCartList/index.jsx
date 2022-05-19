@@ -1,61 +1,37 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 
+import CheckBox from "../../../common/CheckBox";
 import ProductCartItem from "../ProductCartItem";
-
-const CartListCount = styled.p`
-  padding: 16px 0;
-  border-bottom: 4px solid ${({ theme: { color } }) => color.border};
-`;
+import {
+  CartListControlContainer,
+  CartListCount,
+  DeleteCartButton,
+} from "./styled";
 
 function ProductCartList({ cartList }) {
+  const [isAllChecked, setIsAllChecked] = useState(false);
+
+  const handleChangeCheckbox = () => {
+    setIsAllChecked((prev) => !prev);
+  };
+
   return (
     <>
+      <CartListControlContainer>
+        <CheckBox
+          isChecked={isAllChecked}
+          handleChangeCheckbox={handleChangeCheckbox}
+        >
+          선택해제
+        </CheckBox>
+        <DeleteCartButton>상품 삭제</DeleteCartButton>
+      </CartListControlContainer>
       <CartListCount>
         든든배송 상품 ({cartList?.length ?? "%ERROR%"}개)
       </CartListCount>
       {cartList?.map((cartItem) => (
-        <ProductCartItem
-          product={{
-            id: 1,
-            thumbnailUrl:
-              "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
-            name: "PET보틀-정사각(420ml)",
-            price: 43400,
-          }}
-          amount={10}
-        />
+        <ProductCartItem product={cartItem} amount={10} key={cartItem.id} />
       ))}
-      <ProductCartItem
-        product={{
-          id: 1,
-          thumbnailUrl:
-            "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
-          name: "PET보틀-정사각(420ml)",
-          price: 43400,
-        }}
-        amount={10}
-      />
-      <ProductCartItem
-        product={{
-          id: 1,
-          thumbnailUrl:
-            "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
-          name: "PET보틀-정사각(420ml)",
-          price: 43400,
-        }}
-        amount={10}
-      />
-      <ProductCartItem
-        product={{
-          id: 1,
-          thumbnailUrl:
-            "https://cdn-mart.baemin.com/goods/85/1537405626217m0.jpg",
-          name: "PET보틀-정사각(420ml)",
-          price: 43400,
-        }}
-        amount={10}
-      />
     </>
   );
 }

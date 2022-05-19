@@ -2,7 +2,11 @@ export const BASE_SERVER_URL =
   process.env.NODE_ENV === "production"
     ? "https://react-shoppingcart-server.herokuapp.com"
     : "dev";
-export const PRODUCT_LIST_PATH = "/products";
+
+export const SERVER_PATH = {
+  PRODUCT_LIST: "/products",
+  CART_LIST: "/carts",
+};
 
 export const ROUTES = {
   ROOT: "/",

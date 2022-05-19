@@ -1,17 +1,17 @@
 import { BASE_SERVER_URL, SERVER_PATH } from "../constants";
 
-const PRODUCT_LIST_ACTION = {
-  GET_LIST: "productList/GET_LIST",
-  GET_LIST_SUCCESS: "productList/GET_SUCCESS",
-  GET_LIST_ERROR: "productList/GET_ERROR",
+const CART_LIST_ACTION = {
+  GET_LIST: "cartList/GET_LIST",
+  GET_LIST_SUCCESS: "cartList/GET_SUCCESS",
+  GET_LIST_ERROR: "cartList/GET_ERROR",
 };
 
-export const getProductList = () => async (dispatch) => {
-  const productListURL = `${BASE_SERVER_URL}${SERVER_PATH.PRODUCT_LIST}`;
+export const getCartList = (idList) => () => async (dispatch) => {
+  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/?idList=${idList}`;
 
-  dispatch({ type: PRODUCT_LIST_ACTION.GET_LIST });
+  dispatch({ type: CART_LIST_ACTION.GET_LIST });
   try {
-    const response = await fetch(productListURL);
+    const response = await fetch(`${cartListUrl}`);
 
     if (!response.ok) {
       throw new Error(`fetch error`);
@@ -23,12 +23,12 @@ export const getProductList = () => async (dispatch) => {
     }
 
     dispatch({
-      type: PRODUCT_LIST_ACTION.GET_LIST_SUCCESS,
+      type: CART_LIST_ACTION.GET_LIST_SUCCESS,
       products: data,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_LIST_ACTION.GET_LIST_ERROR,
+      type: CART_LIST_ACTION.GET_LIST_ERROR,
       errorMessage: error.message,
     });
   }
@@ -42,19 +42,19 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case PRODUCT_LIST_ACTION.GET_LIST:
+    case CART_LIST_ACTION.GET_LIST:
       return {
         isLoading: true,
         data: [],
         errorMessage: "",
       };
-    case PRODUCT_LIST_ACTION.GET_LIST_SUCCESS:
+    case CART_LIST_ACTION.GET_LIST_SUCCESS:
       return {
         isLoading: false,
         data: action.products,
         errorMessage: "",
       };
-    case PRODUCT_LIST_ACTION.GET_LIST_ERROR:
+    case CART_LIST_ACTION.GET_LIST_ERROR:
       return {
         isLoading: false,
         data: [],
