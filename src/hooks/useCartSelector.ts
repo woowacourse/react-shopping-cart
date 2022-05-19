@@ -6,6 +6,7 @@ const selectCartItemById = (state: RootState, targetId: number) => {
 };
 
 const useCartListSelector = () => useSelector((state: RootState) => state.cart.cartItems);
+
 const useCartItemSelector = (id: number) =>
   useSelector((state: RootState) => selectCartItemById(state, id));
 

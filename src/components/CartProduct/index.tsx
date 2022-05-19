@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { CartItem, deleteItem } from "../../redux/modules/cart";
+import { CartItem, deleteItem, selectItem } from "../../redux/modules/cart";
 import CheckBox from "../@shared/CheckBox/styles";
 import Delete from "../../assets/Delete.png";
 import {
@@ -15,8 +15,12 @@ interface CartProductProps {
   item: CartItem;
 }
 
-function CartProduct({ item: { id, img, name, price, amount } }: CartProductProps) {
+function CartProduct({ item: { id, img, name, price, amount, isSelected } }: CartProductProps) {
   const dispatch = useDispatch();
+
+  const onToggleSelect = () => {
+    dispatch(selectItem(id));
+  };
 
   const onClickDeleteItem = () => {
     dispatch(deleteItem(id));
@@ -24,7 +28,7 @@ function CartProduct({ item: { id, img, name, price, amount } }: CartProductProp
 
   return (
     <CartProductContainer>
-      <CheckBox />
+      <CheckBox checked={isSelected} onChange={onToggleSelect} />
       <ProductImageContainer>
         <img src={img} alt={name} />
         <span>{name}</span>

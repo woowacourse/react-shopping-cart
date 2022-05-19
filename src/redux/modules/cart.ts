@@ -11,6 +11,8 @@ export type CartState = { cartItems: CartItem[] };
 type Action =
   | ReturnType<typeof addItem>
   | ReturnType<typeof deleteItem>
+  | ReturnType<typeof selectItem>
+  | ReturnType<typeof selectAllItem>
   | ReturnType<typeof increment>
   | ReturnType<typeof decrement>
   | ReturnType<typeof incrementByNumber>;
@@ -23,6 +25,8 @@ const initialState: CartState = {
 // 액션
 const ADD = "cart/ADD" as const;
 const DELETE = "cart/DELETE" as const;
+const SELECT = "cart/SELECT" as const;
+const SELECT_ALL = "cart/SELECT_ALL" as const;
 const INCREMENT = "cart/INCREMENT" as const;
 const DECREMENT = "cart/DECREMENT" as const;
 const INCREMENT_BY_NUMBER = "cart/INCREMENT_BY_NUMBER" as const;
@@ -35,6 +39,14 @@ const addItem = (item: CartItem) => ({
 const deleteItem = (id: number) => ({
   type: DELETE,
   payload: { id },
+});
+const selectItem = (id: number) => ({
+  type: SELECT,
+  payload: { id },
+});
+const selectAllItem = (isAllSelected: boolean) => ({
+  type: SELECT_ALL,
+  payload: { isAllSelected },
 });
 const increment = (id: number) => ({
   type: INCREMENT,
@@ -61,6 +73,23 @@ const cartReducer = (state = initialState, action: Action) => {
     case DELETE: {
       const { id } = action.payload;
       const newItems = state.cartItems.filter((item) => item.id !== id);
+
+      return { ...state, cartItems: newItems };
+    }
+    case SELECT: {
+      const { id } = action.payload;
+      const targetIndex = state.cartItems.findIndex((item) => item.id === id);
+      const newItems = [...state.cartItems];
+      newItems[targetIndex].isSelected = !newItems[targetIndex].isSelected;
+
+      return { ...state, cartItems: newItems };
+    }
+    case SELECT_ALL: {
+      const { isAllSelected } = action.payload;
+      const newItems = [...state.cartItems].map((item) => {
+        item.isSelected = isAllSelected ? false : true;
+        return item;
+      });
 
       return { ...state, cartItems: newItems };
     }
@@ -93,6 +122,6 @@ const cartReducer = (state = initialState, action: Action) => {
   }
 };
 
-export { addItem, deleteItem, increment, decrement, incrementByNumber };
+export { addItem, deleteItem, selectItem, selectAllItem, increment, decrement, incrementByNumber };
 
 export default cartReducer;

@@ -1,9 +1,12 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CartItem, selectAllItem } from "../../redux/modules/cart";
+import { useCartListSelector } from "../../hooks/useCartSelector";
+
 import Button from "../../components/@shared/Button/styles";
 import PageTitle from "../../components/PageTitle/styles";
 import CheckBox from "../../components/@shared/CheckBox/styles";
 import CartProduct from "../../components/CartProduct";
-import { CartItem } from "../../redux/modules/cart";
-import { useCartListSelector } from "../../hooks/useCartSelector";
 import {
   CartListTitle,
   GridContainer,
@@ -15,7 +18,14 @@ import {
 } from "./styles";
 
 function Cart() {
+  const dispatch = useDispatch();
   const cartItemList = useCartListSelector();
+  const [allSelect, setAllSelect] = useState(false);
+
+  const onToggleAllSelect = () => {
+    setAllSelect((prev) => !prev);
+    dispatch(selectAllItem(allSelect));
+  };
 
   return (
     <CartPageContainer>
@@ -24,8 +34,8 @@ function Cart() {
         <div>
           <SelectAllContainer>
             <div>
-              <CheckBox />
-              <span>선택해제</span>
+              <CheckBox checked={allSelect} onChange={onToggleAllSelect} />
+              <span>{allSelect ? "선택해제" : "전제선택"}</span>
             </div>
             <Button>상품삭제</Button>
           </SelectAllContainer>
