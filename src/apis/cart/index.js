@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-import { getProductCartSuccess, getProductCartFail, deleteProductCartFail } from 'modules/cart';
-import { openAddCartErrorModal, openAddCartModal, openAlreadyInCartModal } from 'modules/modal';
+import { getProductCartSuccess, getProductCartFail } from 'modules/cart';
+import {
+  openAddCartErrorModal,
+  openAddCartModal,
+  openAlreadyInCartModal,
+  openDeleteProductCartErrorModal,
+} from 'modules/modal';
 
 export const getCartList = () => async (dispatch) => {
   try {
@@ -37,6 +42,6 @@ export const deleteProductCart =
       dispatch(getCartList());
       return;
     } catch (error) {
-      dispatch(deleteProductCartFail(error));
+      dispatch(openDeleteProductCartErrorModal(error));
     }
   };
