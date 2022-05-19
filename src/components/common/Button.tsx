@@ -1,48 +1,33 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
-import styled from 'styled-components';
+import { ButtonHTMLAttributes } from 'react';
+import styled, { css } from 'styled-components';
 import theme from 'styles/theme';
 
-type Size = 'large' | 'medium' | 'small';
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size: Size;
-  backgroundColor: keyof typeof theme.colors;
-  children: ReactNode;
+  width: string;
+  height: string;
+  backgroundColor?: keyof typeof theme.colors;
+  borderColor?: string;
+  fontSize?: string;
+  color?: string;
 }
 
-const Button = ({ size, backgroundColor, children, ...props }: ButtonProps) => {
-  return (
-    <StyledButton size={size} backgroundColor={backgroundColor} {...props}>
-      {children}
-    </StyledButton>
-  );
+const Button = ({ children, ...props }: React.PropsWithChildren<ButtonProps>) => {
+  return <StyledButton {...props}>{children}</StyledButton>;
 };
 
 export default Button;
 
-const StyledButton = styled.button<{ size: Size; backgroundColor: keyof typeof theme.colors }>`
+const StyledButton = styled.button<ButtonProps>`
   background-color: ${({ theme, backgroundColor }) => theme.colors[backgroundColor]};
   color: white;
-  ${({ size }) => {
-    switch (size) {
-      case 'large':
-        return `
-          width: 638px; 
-          height: 98px;
-          font-size: 3.2rem;
-        `;
-      case 'medium':
-        return `
-          width: 388px; 
-          height: 73px;
-          font-size: 2.4rem;
-        `;
-      case 'small':
-        return `
-          width: 13.8rem; 
-          height: 4.7rem;
-          font-size: 2.0rem;
-        `;
-    }
-  }};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  ${({ width, height, fontSize, color, backgroundColor, borderColor, theme }) => css`
+    width: ${width};
+    height: ${height};
+    font-size: ${fontSize || 'inherit'};
+    color: ${color || 'inherit'};
+    border: ${borderColor && `1px solid ${borderColor}`};
+    background-color: ${theme.colors[backgroundColor] || 'transparent'};
+  `}
 `;
