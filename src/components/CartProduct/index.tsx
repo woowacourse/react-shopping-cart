@@ -5,9 +5,9 @@ import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
 import { ReactComponent as CheckBoxIcon } from 'assets/icon/CheckBox.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icon/Delete.svg';
 
-import Flex from 'components/common/Flex';
-import Button from 'components/common/Button';
-import Text from 'components/common/Text';
+import Flex from 'components/@common/Flex';
+import Button from 'components/@common/Button';
+import Text from 'components/@common/Text';
 
 interface CartProductProps {
   data: CartProductData;

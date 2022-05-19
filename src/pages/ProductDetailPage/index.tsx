@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { CartDetailButton } from 'components/common/Button';
-import Flex from 'components/common/Flex';
-import LoadingSpinner from 'components/common/LoadingSpinner';
+import { CartDetailButton } from 'components/@common/Button';
+import Flex from 'components/@common/Flex';
+import LoadingSpinner from 'components/@common/LoadingSpinner';
 
 import { startProduct, setProduct, resetProduct } from 'store/product/actions';
 import {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import GlobalStyles from 'styles/globalStyles';
 
-import Layout from 'components/common/Layout';
+import Layout from 'components/@common/Layout';
 import ProductListPage from 'pages/ProductListPage';
 import ProductDetailPage from 'pages/ProductDetailPage';
 import NotFoundPage from 'pages/NotFoundPage';

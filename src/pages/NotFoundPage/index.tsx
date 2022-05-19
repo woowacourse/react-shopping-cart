@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
 
-import Flex from 'components/common/Flex';
+import Flex from 'components/@common/Flex';
 
 const NotFound = () => {
   return (

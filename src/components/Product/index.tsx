@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
-import { CartButton } from 'components/common/Button';
-import Flex from 'components/common/Flex';
+import { CartButton } from 'components/@common/Button';
+import Flex from 'components/@common/Flex';
 import { ProductData } from 'types';
 import { loadCartProduct, updateCartProduct, registerCartProduct, loadCartProductList } from 'api';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';

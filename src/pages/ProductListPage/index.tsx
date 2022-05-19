@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Product from 'components/Product';
-import LoadingSpinner from 'components/common/LoadingSpinner';
+import LoadingSpinner from 'components/@common/LoadingSpinner';
 
 import { setProductList, startProductList } from 'store/productList/actions';
 import { loadProductList } from 'api';

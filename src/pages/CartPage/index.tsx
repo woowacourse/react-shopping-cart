@@ -4,14 +4,14 @@ import { startCartProductList, setCartProductList } from 'store/cartProductList/
 import { RootState } from 'store';
 import { loadCartProductList } from 'api';
 import styled from 'styled-components';
-import Bar from 'components/common/Bar';
-import Text from 'components/common/Text';
+import Bar from 'components/@common/Bar';
+import Text from 'components/@common/Text';
 import CartProduct from 'components/CartProduct';
-import Flex from 'components/common/Flex';
+import Flex from 'components/@common/Flex';
 import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
 import { ReactComponent as CheckBoxIcon } from 'assets/icon/CheckBox.svg';
-import Button, { OrderButton } from 'components/common/Button';
-import MarginWrapper from 'components/common/MarginWrapper';
+import Button, { OrderButton } from 'components/@common/Button';
+import MarginWrapper from 'components/@common/MarginWrapper';
 
 const CartPage = () => {
   const dispatch = useDispatch();
