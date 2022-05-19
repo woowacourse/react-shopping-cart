@@ -11,3 +11,5 @@ export const ROUTES = {
   PRODUCT_CART: "/product-cart",
   PRODUCT_ORDER_LIST: "/product-order-list",
 };
+
+export const LOCAL_STORAGE_CART_LIST_KEY = "CART_LIST";
