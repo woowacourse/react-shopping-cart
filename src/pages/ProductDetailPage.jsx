@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getProductItem } from '../store/api';
+import { getProductItem } from '../api';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';

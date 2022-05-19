@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductListAsync } from '../store/actions';
+import { getProductListAsync } from '../store/actions/product';
 import styled from 'styled-components';
 import Product from '../components/Product';
 
 function ProductListPage() {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector(({ product }) => product.productList);
 
   useEffect(() => {
     dispatch(getProductListAsync());

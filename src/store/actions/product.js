@@ -1,5 +1,5 @@
-import { getProductList } from './api';
-import { actionTypes } from './actionTypes';
+import { getProductList } from '../../api';
+import { actionTypes } from '../actionTypes';
 
 const getProductListAsync = () => async (dispatch) => {
   try {
