@@ -5,7 +5,15 @@ import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
 
-const CartItem = ({ id, imgUrl, name, price, quantity }) => {
+const CartItem = ({
+  id,
+  imgUrl,
+  name,
+  price,
+  quantity,
+  isSelected,
+  onToggleSelect,
+}) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const handleChangeQuantity = ({ target }) => {
     setItemQuantity(target.valueAsNumber);
@@ -13,7 +21,7 @@ const CartItem = ({ id, imgUrl, name, price, quantity }) => {
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
-        <CheckBox id={id} />
+        <CheckBox id={id} onCheck={onToggleSelect} isChecked={isSelected} />
         <Styled.Image src={imgUrl} />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
@@ -39,6 +47,8 @@ CartItem.propTypes = {
   name: PropTypes.string,
   price: PropTypes.string,
   quantity: PropTypes.number,
+  isSelected: PropTypes.bool,
+  onToggleSelect: PropTypes.func,
 };
 
 export default CartItem;

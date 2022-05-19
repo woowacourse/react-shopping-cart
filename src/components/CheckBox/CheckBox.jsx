@@ -1,13 +1,18 @@
 import Styled from './style';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const CheckBox = ({ id, isChecked = false }) => {
+const CheckBox = ({ id, onCheck, isChecked = false }) => {
   const [checked, setChecked] = useState(isChecked);
 
   const handleChangeChecked = () => {
     setChecked(!checked);
+    onCheck();
   };
+
+  useEffect(() => {
+    setChecked(isChecked);
+  }, [isChecked]);
 
   return (
     <Styled.Wrapper>
@@ -25,6 +30,7 @@ const CheckBox = ({ id, isChecked = false }) => {
 CheckBox.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isChecked: PropTypes.bool,
+  onCheck: PropTypes.func,
 };
 
 export default CheckBox;

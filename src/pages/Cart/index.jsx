@@ -3,7 +3,7 @@ import CartContainer from 'components/CartContainer/CartContainer';
 import CartItem from 'components/CartItem/CartItem';
 import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useCart from 'hooks/useCart';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
@@ -13,8 +13,20 @@ const Cart = () => {
   const { isLoading, isError, data } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
 
+  useEffect(() => {
+    console.log('선택된 상품', selectedItemList);
+  }, [selectedItemList]);
+
+  const handleToggleSelectAll = (isSelected) => () => {
+    if (isSelected) {
+      setSelectedItemList([]);
+      return;
+    }
+    setSelectedItemList(data.map(({ id }) => id));
+  };
+
   const handleToggleSelect = (id) => () => {
-    if (selectedItemList.indexOf(id) !== -1) {
+    if (selectedItemList.indexOf(id) === -1) {
       setSelectedItemList([...selectedItemList, id]);
       return;
     }
@@ -27,7 +39,12 @@ const Cart = () => {
       {isError && <ImgWrapper src={errorApiImg} />}
       {data && data?.length > 0 ? (
         <Styled.ContentsWrapper>
-          <CartContainer>
+          <CartContainer
+            isAllSelected={selectedItemList.length === data.length}
+            onToggleSelect={handleToggleSelectAll(
+              selectedItemList.length === data.length,
+            )}
+          >
             {data.map(({ id, name, imgUrl, price, quantity }) => (
               <CartItem
                 key={id}
@@ -36,7 +53,8 @@ const Cart = () => {
                 imgUrl={imgUrl}
                 price={price}
                 quantity={quantity}
-                handleToggleSelect={handleToggleSelect}
+                isSelected={selectedItemList.indexOf(id) !== -1}
+                onToggleSelect={handleToggleSelect(id)}
               />
             ))}
           </CartContainer>

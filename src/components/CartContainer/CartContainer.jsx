@@ -3,12 +3,16 @@ import Styled from './style';
 import PropTypes from 'prop-types';
 import CheckBox from 'components/CheckBox/CheckBox';
 
-const CartContainer = ({ children }) => {
+const CartContainer = ({ children, onToggleSelect, isAllSelected }) => {
   return (
     <div>
       <Styled.ControlBar>
         <Styled.SelectFieldSet>
-          <CheckBox id="total" />
+          <CheckBox
+            id="total"
+            onCheck={onToggleSelect}
+            isChecked={isAllSelected}
+          />
           <span>전체 선택 / 해제</span>
         </Styled.SelectFieldSet>
         <Styled.DeleteButton>상품삭제</Styled.DeleteButton>
@@ -26,6 +30,8 @@ CartContainer.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  isAllSelected: PropTypes.bool,
+  onToggleSelect: PropTypes.func,
 };
 
 export default CartContainer;
