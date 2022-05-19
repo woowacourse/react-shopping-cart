@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {FlexColumn, FlexRow} from 'style/common';
+import Button from 'component/common/Button';
 
 const ItemLayout = styled(FlexColumn)`
   width: 282px;
@@ -51,4 +52,8 @@ const InfoBox = styled(FlexRow)`
   margin: 0 15px;
 `;
 
-export {ItemLayout, NamePriceBox, ItemNameLink, ItemPriceSpan, InfoBox, ItemImage};
+const DeleteButton = styled(Button)`
+  opacity: ${(props) => props.isInCart && 0.2};
+`;
+
+export {ItemLayout, NamePriceBox, ItemNameLink, ItemPriceSpan, InfoBox, ItemImage, DeleteButton};

@@ -7,7 +7,7 @@ export default function useCartItem(path = null) {
   const navigation = useNavigate();
 
   const deleteCartItem = (payload) => {
-    const deleteConfirm = window.confirm('정말 삭제하시겠습니까?');
+    const deleteConfirm = window.confirm('장바구니에서 삭제하시겠습니까?');
     if (deleteConfirm) {
       dispatch({type: CART.DELETE, payload});
       return;

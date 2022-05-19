@@ -23,13 +23,18 @@ export default function ProductListPage() {
   const pending = useSelector((state) => state.productListReducer.pending);
   const cart = useSelector((state) => state.cartReducer.cart);
 
-  const {addCartItem} = useCartItem();
+  const {addCartItem, deleteCartItem} = useCartItem();
 
   useEffect(() => {
     dispatch(getProductList());
   }, [dispatch]);
 
-  const handleIconClick = ({image, name, price, id}) => {
+  const handleIconClick = ({image, name, price, id, isInCart}) => {
+    if (isInCart) {
+      deleteCartItem(id);
+      return;
+    }
+
     addCartItem({
       itemImgURL: image,
       itemName: name,
@@ -51,7 +56,7 @@ export default function ProductListPage() {
       >
         <S.ProductListBox>
           {productList.map(({id, image, name, price}) => {
-            const isIncludeCart = cart.some((cartItem) => cartItem.id === id);
+            const isInCart = cart.some((cartItem) => cartItem.id === id);
             return (
               <Item
                 itemImgURL={image}
@@ -59,8 +64,8 @@ export default function ProductListPage() {
                 itemPrice={price}
                 id={id}
                 key={id}
-                disabled={isIncludeCart}
-                handleIconClick={() => handleIconClick({image, name, price, id})}
+                isInCart={isInCart}
+                handleIconClick={() => handleIconClick({image, name, price, id, isInCart})}
                 handleImageClick={() => handleImageClick(id)}
               />
             );
