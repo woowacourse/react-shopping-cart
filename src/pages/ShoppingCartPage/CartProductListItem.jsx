@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { useNumberInput } from "../../hooks/useNumberInput";
@@ -7,6 +8,7 @@ import NumberInput from "../../components/common/NumberInput";
 import DeleteFromCartButton from "./DeleteFromCartButton";
 
 import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
+import { PATH } from "./../../constants/index";
 
 function CartProductListItem({
   product,
@@ -35,13 +37,17 @@ function CartProductListItem({
   return (
     <CartItemContainer>
       <CheckBox checked={selected} onClick={onClickCheckBox} />
-      <img
-        src={product.thumbnailUrl}
-        alt={product.name}
-        width="144px"
-        height="144px"
-      />
-      <ProductName>{product.name}</ProductName>
+
+      <Link to={PATH.PRODUCT_DETAIL_WITH_ID(product.id)}>
+        <img
+          src={product.thumbnailUrl}
+          alt={product.name}
+          width="144px"
+          height="144px"
+        />
+        <ProductName>{product.name}</ProductName>
+      </Link>
+
       <ProductPrice>
         {(product.price * quantity).toLocaleString()}원
       </ProductPrice>
@@ -76,6 +82,11 @@ const CartItemContainer = styled.li`
   border-bottom: 1.5px solid ${({ theme }) => theme.color.grey_200};
 
   list-style-type: none;
+
+  a {
+    display: flex;
+    gap: 20px;
+  }
 `;
 
 const ProductName = styled.p`

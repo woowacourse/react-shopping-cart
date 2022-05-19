@@ -31,7 +31,6 @@ export const useCartItemList = () => {
   };
 
   const updateCartItemQuantityWithAlert = ({ id, quantity }) => {
-    console.log(id, quantity);
     if (!id || !quantity) return;
     if (quantity > PRODUCT_QUANTITY_CONDITION.MAX) {
       alert(
