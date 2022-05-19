@@ -1,3 +1,4 @@
+import Button from 'component/common/Button';
 import styled from 'styled-components';
 
 export default function OrderContainer() {
@@ -7,15 +8,15 @@ export default function OrderContainer() {
       <OrderBoxBody>
         <TotalPrice>
           <span>결제예상금액</span>
-          <p>
+          <span>
             <span>21,700</span>원
-          </p>
+          </span>
         </TotalPrice>
-        <OrderButton>
-          <p>
+        <Button>
+          <OrderButtonContent>
             주문하기<span>2</span>개
-          </p>
-        </OrderButton>
+          </OrderButtonContent>
+        </Button>
       </OrderBoxBody>
     </OrderBox>
   );
@@ -54,9 +55,31 @@ const OrderBoxBody = styled.div`
 const TotalPrice = styled.p`
   display: flex;
   justify-content: space-between;
+
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
 `;
 
-const OrderButton = styled.button`
+const OrderButtonContent = styled.div`
   width: 100%;
   height: 73px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 21px;
+
+  color: white;
+  background-color: #2ac1bc;
+
+  &:hover {
+    background-color: #48d1cc;
+  }
 `;

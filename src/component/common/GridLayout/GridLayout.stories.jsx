@@ -15,9 +15,9 @@ export default {
 
 const Template = args => <GridLayout {...args}></GridLayout>;
 
-const DefaulGridLayout = Template.bind({});
+const DefaultGridLayout = Template.bind({});
 
-DefaulGridLayout.args = {
+DefaultGridLayout.args = {
   children: [
     {
       image: 'https://i.pinimg.com/474x/4a/47/d5/4a47d5956eb090ff702e3b2cb47fdf98.jpg',
@@ -42,4 +42,4 @@ DefaulGridLayout.args = {
   ].map(product => <Product key={product.id} {...product} />),
 };
 
-export { DefaulGridLayout };
+export { DefaultGridLayout as DefaulGridLayout };

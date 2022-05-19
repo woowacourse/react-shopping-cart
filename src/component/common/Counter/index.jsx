@@ -1,7 +1,32 @@
 import styled from 'styled-components';
+import Button from '../Button';
+
+export default function Counter() {
+  return (
+    <CounterBox>
+      <Count>1</Count>
+      <CounterButtonBox>
+        <Button>
+          <CounterButtonContent>
+            <img src="up.svg" />
+          </CounterButtonContent>
+        </Button>
+        <Button>
+          <CounterButtonContent>
+            <img src="down.svg" />
+          </CounterButtonContent>
+        </Button>
+      </CounterButtonBox>
+    </CounterBox>
+  );
+}
 
 const CounterBox = styled.div`
   display: flex;
+
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 19px;
 `;
 
 const Count = styled.div`
@@ -10,6 +35,8 @@ const Count = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border: 1px solid #dddddd;
 `;
 
 const CounterButtonBox = styled.div`
@@ -17,28 +44,12 @@ const CounterButtonBox = styled.div`
   flex-direction: column;
 `;
 
-const CounterButton = styled.button`
+const CounterButtonContent = styled.div`
   width: 42px;
-  height: 30px;
+  height: 29px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
+  border: 1px solid #dddddd;
 `;
-
-function Counter() {
-  return (
-    <CounterBox>
-      <Count>1</Count>
-      <CounterButtonBox>
-        <CounterButton>
-          <img src="up.svg" />
-        </CounterButton>
-        <CounterButton>
-          <img src="down.svg" />
-        </CounterButton>
-      </CounterButtonBox>
-    </CounterBox>
-  );
-}
-
-export default Counter;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import CartOperation from 'component/ShoppingCart/CartOperation';
-import OrderContainer from 'component/ShoppingCart/OrderBox';
+import OrderContainer from 'component/ShoppingCart/OrderContainer';
 
 export default function ShoppingCart() {
   return (
