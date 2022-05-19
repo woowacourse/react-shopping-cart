@@ -6,6 +6,7 @@ import Layout from 'components/common/Layout';
 import ProductListPage from 'pages/ProductListPage';
 import ProductDetailPage from 'pages/ProductDetailPage';
 import NotFoundPage from 'pages/NotFoundPage';
+import CartPage from 'pages/CartPage';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<ProductListPage />} />
           <Route path="product/:id" element={<ProductDetailPage />} />
+          <Route path="cart" element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

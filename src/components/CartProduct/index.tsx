@@ -62,7 +62,7 @@ const Styled = {
   Wrapper: styled.div`
     max-width: 735px;
     height: 200px;
-    border: 3px solid red;
+    border-top: 1px solid #cccccc;
     padding: 23px 0;
   `,
   SelectBox: styled.div``,
