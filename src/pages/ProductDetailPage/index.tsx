@@ -11,10 +11,10 @@ import { startProduct, setProduct, resetProduct } from 'store/product/actions';
 import {
   loadCartProduct,
   loadCartProductList,
-  loadProduct,
   registerCartProduct,
   updateCartProduct,
-} from 'api';
+} from 'api/cart';
+import { loadProduct } from 'api/product';
 import { RootState } from 'store';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 

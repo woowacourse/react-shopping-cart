@@ -6,7 +6,12 @@ import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 import { CartButton } from 'components/@common/Button';
 import Flex from 'components/@common/Flex';
 import { ProductData } from 'types';
-import { loadCartProduct, updateCartProduct, registerCartProduct, loadCartProductList } from 'api';
+import {
+  loadCartProduct,
+  loadCartProductList,
+  updateCartProduct,
+  registerCartProduct,
+} from 'api/cart';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import { useDispatch } from 'react-redux';
 

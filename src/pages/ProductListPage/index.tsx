@@ -7,7 +7,7 @@ import Product from 'components/Product';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
 
 import { setProductList, startProductList } from 'store/productList/actions';
-import { loadProductList } from 'api';
+import { loadProductList } from 'api/product';
 import { RootState } from 'store';
 
 const ProductList = () => {

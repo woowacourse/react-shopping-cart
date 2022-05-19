@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import { RootState } from 'store';
-import { loadCartProductList } from 'api';
+import { loadCartProductList } from 'api/cart';
 import styled from 'styled-components';
 import Bar from 'components/@common/Bar';
 import Text from 'components/@common/Text';
