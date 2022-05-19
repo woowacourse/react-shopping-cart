@@ -1,4 +1,4 @@
-import usePagination from 'pages/usePagination';
+import usePagination from 'hooks/usePagination';
 import styled, { css } from 'styled-components';
 
 interface PaginationProps {

@@ -16,8 +16,13 @@ interface CartListProps {
 }
 
 const CartList = ({ itemList, cartList }: CartListProps) => {
-  const { updateCartItemQuantity, patchCartItemSelected, patchAllCartItemSelected } =
-    useCartRequest(cartList);
+  const {
+    updateCartItemQuantity,
+    selectCartItem,
+    selectAllCartItem,
+    deleteCartItem,
+    deleteAllCartItem,
+  } = useCartRequest(cartList);
   const isAllSelected = cartList.every(item => item.isSelected);
 
   return (
@@ -27,11 +32,20 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           <CheckBox
             id='check'
             checked={isAllSelected}
-            onChange={() => patchAllCartItemSelected(isAllSelected)}
+            onChange={() => selectAllCartItem(isAllSelected)}
           />
           <label htmlFor='check'>선택해제</label>
         </StyledRight>
-        <Button width='117px' height='50px' borderColor={theme.colors.font2}>
+        <Button
+          width='117px'
+          height='50px'
+          borderColor={theme.colors.font2}
+          onClick={() => {
+            if (window.confirm('모든 상품을 삭제하시겠습니까?')) {
+              deleteAllCartItem();
+            }
+          }}
+        >
           상품삭제
         </Button>
       </StyledTop>
@@ -42,8 +56,9 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
           <CartItemContainer
             item={item}
             cartItem={cartList[index]}
-            handleClickCheckBox={patchCartItemSelected(item.id)}
+            handleClickCheckBox={selectCartItem(item.id)}
             handleQuantity={updateCartItemQuantity(item.id)}
+            handleDelete={deleteCartItem(item.id)}
           />
           {itemList.length !== index + 1 && (
             <Division color={theme.colors.cartDivision} height='2px' margin='0 0 26px' />
@@ -56,7 +71,9 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
 
 export default CartList;
 
-const StyledRoot = styled.div``;
+const StyledRoot = styled.div`
+  width: 73.5rem;
+`;
 
 const StyledTop = styled.div`
   display: flex;

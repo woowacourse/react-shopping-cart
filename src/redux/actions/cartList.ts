@@ -20,6 +20,14 @@ export const enum CartListActionType {
   PATCH_ALL_CART_SELECTED_START = 'cart/PATCH_ALL_CART_SELECTED_START',
   PATCH_ALL_CART_SELECTED_SUCCESS = 'cart/PATCH_ALL_CART_SELECTED_SUCCESS',
   PATCH_ALL_CART_SELECTED_FAILURE = 'cart/PATCH_ALL_CART_SELECTED_FAILURE',
+
+  DELETE_CART_ITEM_START = 'cart/DELETE_CART_ITEM_START',
+  DELETE_CART_ITEM_SUCCESS = 'cart/DELETE_CART_ITEM_SUCCESS',
+  DELETE_CART_ITEM_FAILURE = 'cart/DELETE_CART_ITEM_FAILURE',
+
+  DELETE_ALL_CART_ITEM_START = 'cart/DELETE_ALL_CART_ITEM_START',
+  DELETE_ALL_CART_ITEM_SUCCESS = 'cart/DELETE_ALL_CART_ITEM_SUCCESS',
+  DELETE_ALL_CART_ITEM_FAILURE = 'cart/DELETE_ALL_CART_ITEM_FAILURE',
 }
 
 // GET: /cartList
@@ -87,6 +95,31 @@ interface PatchAllCartSelectedFailure {
   payload: string;
 }
 
+// DELETE: /cartList/:id
+interface DeleteCartItemStart {
+  type: CartListActionType.DELETE_CART_ITEM_START;
+}
+interface DeleteCartItemSuccess {
+  type: CartListActionType.DELETE_CART_ITEM_SUCCESS;
+  payload: number;
+}
+interface DeleteCartItemFailure {
+  type: CartListActionType.DELETE_CART_ITEM_FAILURE;
+  payload: string;
+}
+
+// DELETE: /cartList
+interface DeleteAllCartItemStart {
+  type: CartListActionType.DELETE_ALL_CART_ITEM_START;
+}
+interface DeleteAllCartItemSuccess {
+  type: CartListActionType.DELETE_ALL_CART_ITEM_SUCCESS;
+}
+interface DeleteAllCartItemFailure {
+  type: CartListActionType.DELETE_ALL_CART_ITEM_FAILURE;
+  payload: string;
+}
+
 export type CartListAction =
   | GetCartListStart
   | GetCartListSuccess
@@ -102,4 +135,10 @@ export type CartListAction =
   | PatchCartSelectedFailure
   | PatchAllCartSelectedStart
   | PatchAllCartSelectedSuccess
-  | PatchAllCartSelectedFailure;
+  | PatchAllCartSelectedFailure
+  | DeleteCartItemStart
+  | DeleteCartItemSuccess
+  | DeleteCartItemFailure
+  | DeleteAllCartItemStart
+  | DeleteAllCartItemSuccess
+  | DeleteAllCartItemFailure;

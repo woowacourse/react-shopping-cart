@@ -1,8 +1,10 @@
 import {
-  patchAllCartSelected,
-  patchCartSelected,
-  postCartItem,
-  putCartItem,
+  deleteAllCartItemRequest,
+  deleteCartItemRequest,
+  patchAllCartSelectedRequest,
+  patchCartSelectedRequest,
+  postCartItemRequest,
+  putCartItemRequest,
 } from 'redux/action-creators/cartListThunk';
 import { CartListAction } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
@@ -15,7 +17,7 @@ const useCartRequest = (cartList: CartItem[]) => {
   const postCartItemQuantity =
     (id: number | string) =>
     (diff = 1) => {
-      dispatch(postCartItem({ id: Number(id), quantity: diff, isSelected: true }));
+      dispatch(postCartItemRequest({ id: Number(id), quantity: diff, isSelected: true }));
     };
 
   const updateCartItemQuantity =
@@ -24,22 +26,32 @@ const useCartRequest = (cartList: CartItem[]) => {
       const targetId = typeof id === 'number' ? id : Number(id);
       const targetItem = cartList.find(cartItem => cartItem.id === targetId);
 
-      dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + diff }));
+      dispatch(putCartItemRequest({ ...targetItem, quantity: targetItem.quantity + diff }));
     };
 
-  const patchCartItemSelected = (id: number | string) => () => {
-    dispatch(patchCartSelected(Number(id)));
+  const selectCartItem = (id: number | string) => () => {
+    dispatch(patchCartSelectedRequest(Number(id)));
   };
 
-  const patchAllCartItemSelected = (isAllSelected: boolean) => {
-    dispatch(patchAllCartSelected(isAllSelected));
+  const selectAllCartItem = (isAllSelected: boolean) => {
+    dispatch(patchAllCartSelectedRequest(isAllSelected));
+  };
+
+  const deleteCartItem = (id: number | string) => () => {
+    dispatch(deleteCartItemRequest(Number(id)));
+  };
+
+  const deleteAllCartItem = () => {
+    dispatch(deleteAllCartItemRequest());
   };
 
   return {
     postCartItemQuantity,
     updateCartItemQuantity,
-    patchCartItemSelected,
-    patchAllCartItemSelected,
+    selectCartItem,
+    selectAllCartItem,
+    deleteCartItem,
+    deleteAllCartItem,
   };
 };
 

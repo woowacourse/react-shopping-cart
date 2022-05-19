@@ -3,7 +3,7 @@ import LayoutWithTitle from 'components/common/LayoutWithTitle';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
 import useThunkFetch from 'hooks/useThunkFetch';
-import { getCartList } from 'redux/action-creators/cartListThunk';
+import { getCartListRequest } from 'redux/action-creators/cartListThunk';
 import { getItemList } from 'redux/action-creators/itemListThunk';
 
 const Cart = () => {
@@ -15,7 +15,7 @@ const Cart = () => {
     data: cartList,
     error: cartListError,
     loading_getCartList,
-  } = useThunkFetch(state => state.cartListReducer, getCartList);
+  } = useThunkFetch(state => state.cartListReducer, getCartListRequest);
   const cartIds = cartList.map(item => item.id);
   const itemListInCart = itemList.filter(el => cartIds.includes(el.id));
 

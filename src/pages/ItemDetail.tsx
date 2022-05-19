@@ -9,7 +9,7 @@ import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { getCartList } from 'redux/action-creators/cartListThunk';
+import { getCartListRequest } from 'redux/action-creators/cartListThunk';
 import styled from 'styled-components';
 import type { Item } from 'types/domain';
 
@@ -17,7 +17,7 @@ const ItemDetail = () => {
   const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
   const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
-  const cartList = useThunkFetch(state => state.cartListReducer.data, getCartList);
+  const cartList = useThunkFetch(state => state.cartListReducer.data, getCartListRequest);
   const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
   const isInCart = cartList?.some(el => el.id === item?.id);
 

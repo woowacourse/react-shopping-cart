@@ -7,6 +7,8 @@ export interface CartItemState {
   readonly loading_putCartItem: boolean;
   readonly loading_patchCartSelected: boolean;
   readonly loading_patchAllCartSelected: boolean;
+  readonly loading_deleteCartItem: boolean;
+  readonly loading_deleteAllCartItem: boolean;
   readonly error: string | null;
   readonly data: CartItem[];
 }
@@ -17,11 +19,13 @@ const initialState: CartItemState = {
   loading_putCartItem: false,
   loading_patchCartSelected: false,
   loading_patchAllCartSelected: false,
+  loading_deleteCartItem: false,
+  loading_deleteAllCartItem: false,
   error: null,
   data: [],
 };
 
-export const cartListReducer = (state = initialState, action: CartListAction) => {
+export const cartListReducer = (state = initialState, action: CartListAction): CartItemState => {
   switch (action.type) {
     case CartListActionType.GET_CART_LIST_START:
       return { ...state, loading_getCartList: true };
@@ -72,6 +76,24 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
     }
     case CartListActionType.PATCH_ALL_CART_SELECTED_FAILURE:
       return { ...state, loading_patchAllCartSelected: false, error: action.payload };
+
+    case CartListActionType.DELETE_CART_ITEM_START:
+      return { ...state, loading_deleteCartItem: true };
+    case CartListActionType.DELETE_CART_ITEM_SUCCESS: {
+      const newCartList = state.data.filter(item => item.id !== action.payload);
+
+      return { ...state, loading_deleteCartItem: false, data: newCartList };
+    }
+    case CartListActionType.DELETE_CART_ITEM_FAILURE:
+      return { ...state, loading_deleteCartItem: false, error: action.payload };
+
+    case CartListActionType.DELETE_ALL_CART_ITEM_START:
+      return { ...state, loading_deleteCartItem: true };
+    case CartListActionType.DELETE_ALL_CART_ITEM_SUCCESS: {
+      return { ...state, loading_deleteCartItem: false, data: [] };
+    }
+    case CartListActionType.DELETE_ALL_CART_ITEM_FAILURE:
+      return { ...state, loading_deleteCartItem: false, error: action.payload };
     default:
       return state;
   }

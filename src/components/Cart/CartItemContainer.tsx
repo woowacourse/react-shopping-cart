@@ -1,7 +1,6 @@
 import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
 import CheckBox from 'components/common/CheckBox';
 import CroppedImage from 'components/common/CroppedImage';
-import React from 'react';
 import styled from 'styled-components';
 import { CartItem, Item } from 'types/domain';
 
@@ -12,6 +11,7 @@ interface CartItemContainerProps {
   cartItem: CartItem;
   handleClickCheckBox: () => void;
   handleQuantity: () => void;
+  handleDelete: () => void;
 }
 
 const CartItemContainer = ({
@@ -19,6 +19,7 @@ const CartItemContainer = ({
   cartItem,
   handleClickCheckBox,
   handleQuantity,
+  handleDelete,
 }: CartItemContainerProps) => {
   const { thumbnailUrl, price, title } = item;
 
@@ -28,7 +29,13 @@ const CartItemContainer = ({
       <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
       <p>{title}</p>
       <StyledRight>
-        <DeleteIcon />
+        <StyledDeleteIcon
+          onClick={() => {
+            if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
+              handleDelete();
+            }
+          }}
+        />
         <QuantityBox quantity={cartItem.quantity} handleChange={handleQuantity} />
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
@@ -41,7 +48,7 @@ export default CartItemContainer;
 const StyledCartItem = styled.div`
   display: flex;
   color: ${({ theme }) => theme.colors.font};
-  width: 735px;
+  width: 100%;
   height: 181px;
 
   & > p {
@@ -66,4 +73,8 @@ const StyledRight = styled.div`
   & > p {
     font-size: 16px;
   }
+`;
+
+const StyledDeleteIcon = styled(DeleteIcon)`
+  cursor: pointer;
 `;
