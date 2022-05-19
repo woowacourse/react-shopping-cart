@@ -21,4 +21,9 @@ const addCartList = (product, cartList) => {
 
 const deleteCartItem = (productId) => ({ type: 장바구니_액션.DELETE_PRODUCT, payload: productId });
 
-export { addCartList, deleteCartItem };
+const modifyCartItemCount = (productId, count) => ({
+  type: 장바구니_액션.MODIFY_PRODUCT_COUNT,
+  payload: { productId, count },
+});
+
+export { addCartList, deleteCartItem, modifyCartItemCount };

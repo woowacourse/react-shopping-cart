@@ -11,7 +11,16 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import { 아이콘_코드 } from 'constants/';
 import * as Styled from './styles';
 
-const CartProducItem = ({ id, thumbnail, name, price, count, isChecked, handleChecked }) => {
+const CartProducItem = ({
+  id,
+  thumbnail,
+  name,
+  price,
+  count,
+  isChecked,
+  handleChecked,
+  handleItemCount,
+}) => {
   const dispatch = useDispatch();
 
   const onClickDeleteButton = () => {
@@ -37,7 +46,7 @@ const CartProducItem = ({ id, thumbnail, name, price, count, isChecked, handleCh
           <IconButton onClick={onClickDeleteButton} icon={아이콘_코드.DELETE} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="120px" justifyContent="flex-end">
-          <Counter count={count} />
+          <Counter id={id} count={count} handleItemCount={handleItemCount} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="flex-end">
           <CommonStyled.Text padding="0.5rem 0">

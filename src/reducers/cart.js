@@ -43,6 +43,20 @@ export default (state = initialState, action) => {
       });
 
       return { items: modifiedItems };
+
+    case 장바구니_액션.MODIFY_PRODUCT_COUNT:
+      [...state.items].forEach((item) => {
+        if (item.id === payload.productId) {
+          const prevStateItem = item;
+          prevStateItem.count = payload.count;
+          modifiedItems.push(prevStateItem);
+          return;
+        }
+        modifiedItems.push(item);
+      });
+
+      return { items: modifiedItems };
+
     default:
       return state;
   }

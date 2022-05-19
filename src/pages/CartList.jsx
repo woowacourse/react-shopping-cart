@@ -1,4 +1,4 @@
-import { deleteCartItem } from 'actions/cart';
+import { deleteCartItem, modifyCartItemCount } from 'actions/cart';
 import Button from 'components/@common/Button/styles';
 import CheckBox from 'components/@common/CheckBox';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
@@ -82,6 +82,10 @@ const CartList = () => {
     setCheckedList([]);
   };
 
+  const handleItemCount = (productId, count) => {
+    dispatch(modifyCartItemCount(productId, count));
+  };
+
   return (
     <Layout>
       <CartListContainer>
@@ -118,6 +122,7 @@ const CartList = () => {
                     count={count}
                     isChecked={isChecked(id)}
                     handleChecked={() => handleChecked(id)}
+                    handleItemCount={handleItemCount}
                   />
                   <CommonStyled.HR size="1px" />
                 </>
