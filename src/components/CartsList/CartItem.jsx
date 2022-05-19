@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/styles';
 import CheckBox from '../CheckBox/CheckBox';
-import { BasicButton, BasicImage, Flex } from '../shared/basics';
+import { BasicImage, Flex } from '../shared/basics';
 import { ReactComponent as Bin } from '../shared/Bin.svg';
 import NumberInput from '../shared/NumberInput';
 
-function CartProductItem({ title, price, src }) {
+function CartItem({ title, price, src }) {
   return (
     <Style.CartProductContainer justify="space-between">
       <Flex justify="space-between" gap="20px">
@@ -24,13 +24,13 @@ function CartProductItem({ title, price, src }) {
   );
 }
 
-CartProductItem.propTypes = {
+CartItem.propTypes = {
   price: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
 
-export default CartProductItem;
+export default CartItem;
 
 const Style = {
   CartProductContainer: styled(Flex)`
