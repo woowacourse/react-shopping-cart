@@ -13,3 +13,9 @@ export const API_SERVER = {
     CART: "/cart",
   },
 };
+
+export const PRODUCT_QUANTITY_CONDITION = {
+  MIN: 1,
+  MAX: 20,
+  STEP: 1,
+};

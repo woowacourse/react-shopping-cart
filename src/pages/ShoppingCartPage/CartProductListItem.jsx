@@ -1,48 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { deleteCartItem, postCartItem } from "../../store/actions";
 
+import { useNumberInput } from "../../hooks/useNumberInput";
+
 import CheckBox from "../../components/common/CheckBox";
 import NumberInput from "../../components/common/NumberInput";
-
 import DeleteFromCartButton from "./DeleteFromCartButton";
+
+import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
 
 function CartProductListItem({ product, selected, handleCheckBoxClick }) {
   const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState(Number(product.quantity));
-
-  const PRODUCT_QUANTITY_CONDITION = {
-    MIN: 1,
-    MAX: 20,
-    STEP: 1,
-  };
-
-  const handleNumberInputChange = (e) => {
-    if (Number(e.target.value) > PRODUCT_QUANTITY_CONDITION.MAX) {
-      setQuantity(PRODUCT_QUANTITY_CONDITION.MAX);
-      return;
-    }
-    if (Number(e.target.value) < PRODUCT_QUANTITY_CONDITION.MIN) {
-      setQuantity(PRODUCT_QUANTITY_CONDITION.MIN);
-      return;
-    }
-    setQuantity(e.target.value);
-  };
-
-  const handleNumberIncreaseButtonClick = () => {
-    const newQuantity = quantity + PRODUCT_QUANTITY_CONDITION.STEP;
-    if (newQuantity > PRODUCT_QUANTITY_CONDITION.MAX) return;
-    setQuantity(newQuantity);
-  };
-
-  const handleNumberDecreaseButtonClick = () => {
-    const newQuantity = quantity - PRODUCT_QUANTITY_CONDITION.STEP;
-    if (newQuantity < PRODUCT_QUANTITY_CONDITION.MIN) return;
-    setQuantity(newQuantity);
-  };
+  const {
+    value: quantity,
+    handleInputChange,
+    handleIncreaseButtonClick,
+    handleDecreaseButtonClick,
+  } = useNumberInput({
+    initialValue: product.quantity,
+    min: PRODUCT_QUANTITY_CONDITION.MIN,
+    max: PRODUCT_QUANTITY_CONDITION.MAX,
+    step: PRODUCT_QUANTITY_CONDITION.STEP,
+  });
 
   useEffect(() => {
     dispatch(postCartItem([{ id: product.id, quantity }]));
@@ -72,9 +55,9 @@ function CartProductListItem({ product, selected, handleCheckBoxClick }) {
         />
         <NumberInput
           value={quantity}
-          onChangeValue={handleNumberInputChange}
-          onClickIncreaseButton={handleNumberIncreaseButtonClick}
-          onClickDecreaseButton={handleNumberDecreaseButtonClick}
+          onChangeValue={handleInputChange}
+          onClickIncreaseButton={handleIncreaseButtonClick}
+          onClickDecreaseButton={handleDecreaseButtonClick}
         />
       </ProductQuantityManagement>
     </CartItemContainer>
