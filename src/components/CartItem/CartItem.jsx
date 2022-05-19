@@ -4,6 +4,7 @@ import { useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
+import noImage from 'assets/png/noImage.png';
 import { MESSAGE } from 'constants';
 
 const CartItem = ({
@@ -41,7 +42,7 @@ const CartItem = ({
     <Styled.Wrapper>
       <Styled.ProductPreview>
         <CheckBox id={id} onCheck={onToggleSelect} checkedStatus={isSelected} />
-        <Styled.Image src={imgUrl} alt={name} loading="lazy" />
+        <Styled.Image src={imgUrl || noImage} alt={name} loading="lazy" />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>

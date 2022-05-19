@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
+import noImage from 'assets/png/noImage.png';
 import parsePrice from 'utils/parsePrice';
 
 const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
@@ -17,7 +18,7 @@ const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
       <Styled.Overlay>
         <Styled.NamePreview>{name}</Styled.NamePreview>
       </Styled.Overlay>
-      <Styled.Image src={imgUrl} alt={name} loading="lazy" />
+      <Styled.Image src={imgUrl || noImage} alt={name} loading="lazy" />
       <Styled.Detail>
         <Styled.Info>
           <Styled.Name>{name}</Styled.Name>
