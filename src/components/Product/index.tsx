@@ -50,7 +50,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     dispatch(decrement(id));
   };
 
-  const conClickIncreaseCounter = () => {
+  const onClickIncreaseCounter = () => {
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
@@ -71,27 +71,23 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductWrapper flexDirection="column">
+    <Styled.ProductWrapper>
       <Styled.ProductImageWrapper>
-        <Styled.ProductImage onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
+        <img onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
       </Styled.ProductImageWrapper>
-      <Styled.ProductInfoWrapper justifyContent="space-between" alignItems="center">
-        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)} flexDirection="column">
+      <Styled.ProductInfoWrapper>
+        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </Styled.ProductInfo>
         <Styled.CartImageWrapper>
           {cartItem?.amount && <Styled.CartImageBadge />}
-          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
+          <img onClick={onClickCartImage} src={cart} alt="장바구니" />
         </Styled.CartImageWrapper>
-        <Styled.CartCounter
-          isShowCartCounter={isShowCartCounter}
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
-          <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
+        <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
+          <button onClick={onClickDecreaseCounter}>-</button>
           <span>{cartItem?.amount ?? 0}</span>
-          <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>
+          <button onClick={onClickIncreaseCounter}>+</button>
         </Styled.CartCounter>
       </Styled.ProductInfoWrapper>
     </Styled.ProductWrapper>

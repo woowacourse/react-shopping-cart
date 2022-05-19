@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import FlexBox from "../../styles/FlexBox";
 
-const NotFoundWrapper = styled(FlexBox)`
-  & div {
+const NotFoundWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  div {
     margin-bottom: 10px;
   }
 
-  & button {
+  button {
     border: none;
     padding: 10px;
     background-color: ${({ theme }) => theme.colors.GRAY_800};

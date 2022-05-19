@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import FlexBox from "../../../styles/FlexBox";
 
 const Spin = keyframes`
 0% { 
@@ -10,7 +9,11 @@ const Spin = keyframes`
  }
 `;
 
-const LoaderWrapper = styled(FlexBox)`
+const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 50vh;
 

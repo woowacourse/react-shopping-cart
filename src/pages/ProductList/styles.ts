@@ -5,7 +5,7 @@ const ProductsWrapper = styled.div`
   grid-template-columns: repeat(auto-fill, 220px);
   grid-gap: 30px;
   justify-content: center;
-  margin: 0 160px;
+  margin: 0 240px;
 `;
 
 export { ProductsWrapper };

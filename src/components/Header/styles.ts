@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import FlexBox from "../../styles/FlexBox";
 
-const HeaderWrapper = styled(FlexBox)`
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
   height: 60px;
   background: ${({ theme }) => theme.colors.TEAL_400};
@@ -35,8 +37,8 @@ const HeaderTitle = styled(Link)`
 
 const HeaderMenu = styled.div`
   display: flex;
-  width: 160px;
   justify-content: space-between;
+  width: 160px;
   font-weight: 500;
   font-size: 20px;
   color: ${({ theme }) => theme.colors.GRAY_50};
