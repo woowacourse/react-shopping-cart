@@ -4,6 +4,7 @@ import { useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
+import { MESSAGE } from 'constants';
 
 const CartItem = ({
   id,
@@ -27,7 +28,8 @@ const CartItem = ({
 
   const handleDecrementQuantity = () => {
     if (itemQuantity === 1) {
-      return alert('최소 주문 갯수는 1개 입니다.');
+      alert(MESSAGE.MINIMUM_CART_LENGTH);
+      return;
     }
     setItemQuantity((prevQuantity) => {
       onChangeQuantity(id, prevQuantity - 1);
@@ -38,7 +40,7 @@ const CartItem = ({
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
-        <CheckBox id={id} onCheck={onToggleSelect} isChecked={isSelected} />
+        <CheckBox id={id} onCheck={onToggleSelect} checkedStatus={isSelected} />
         <Styled.Image src={imgUrl} />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
