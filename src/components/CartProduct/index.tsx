@@ -68,9 +68,11 @@ const Styled = {
   SelectBox: styled.div``,
   ThumbnailBox: styled.div`
     width: 144px;
+    height: 147px;
 
     img {
       width: 100%;
+      height: 100%;
     }
   `,
   ProductNameBox: styled.div`
