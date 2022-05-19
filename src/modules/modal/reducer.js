@@ -2,8 +2,10 @@ import {
   OPEN_ALREADY_IN_CART_MODAL,
   OPEN_ADD_CART_MODAL,
   OPEN_ADD_CART_ERROR_MODAL,
-  CLOSE_MODAL,
   OPEN_DELETE_PRODUCT_CART_ERROR_MODAL,
+  OPEN_PRODUCT_COUNT_UP_ERROR_MODAL,
+  OPEN_CART_PRODUCT_MAX_COUNT_MODAL,
+  CLOSE_MODAL,
 } from './action';
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   openAddCartModal: false,
   openAddCartErrorModal: false,
   openDeleteProductCartErrorModal: false,
+  openProductCountUpErrorModal: false,
+  openCartProductMaxCountModal: false,
 };
 
 const modal = (state = initialState, action) => {
@@ -35,6 +39,16 @@ const modal = (state = initialState, action) => {
         ...state,
         openDeleteProductCartErrorModal: true,
       };
+    case OPEN_PRODUCT_COUNT_UP_ERROR_MODAL:
+      return {
+        ...state,
+        openProductCountUpErrorModal: true,
+      };
+    case OPEN_CART_PRODUCT_MAX_COUNT_MODAL:
+      return {
+        ...state,
+        openCartProductMaxCountModal: true,
+      };
     case CLOSE_MODAL:
       return {
         ...state,
@@ -42,6 +56,8 @@ const modal = (state = initialState, action) => {
         openAddCartModal: false,
         openAddCartErrorModal: false,
         openDeleteProductCartErrorModal: false,
+        openProductCountUpErrorModal: false,
+        openCartProductMaxCountModal: false,
       };
     default:
       return state;
