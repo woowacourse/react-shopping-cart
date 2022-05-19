@@ -6,6 +6,7 @@ import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
 import { useState, useMemo } from 'react';
 import useCart from 'hooks/useCart';
+import useDeleteCartItem from 'hooks/useDeleteCartItem';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
@@ -15,13 +16,8 @@ const isInList = (list, item) => {
 };
 
 const Cart = () => {
-  const {
-    isLoading,
-    isError,
-    cartItems,
-    handleDeleteItem,
-    handleUpdateItemQuantity,
-  } = useCart();
+  const { isLoading, isError, cartItems, handleUpdateItemQuantity } = useCart();
+  const { deleteCartItem } = useDeleteCartItem();
   const [selectedItemList, setSelectedItemList] = useState([]);
 
   const totalPrice = useMemo(() => {
@@ -51,9 +47,13 @@ const Cart = () => {
     setSelectedItemList(selectedItemList.filter((itemId) => itemId !== id));
   };
 
+  const handleDeleteItem = (id) => () => {
+    deleteCartItem(id);
+  };
+
   const handleDeleteSelectedItem = () => {
     if (selectedItemList.length === 0) return;
-    selectedItemList.forEach((id) => handleDeleteItem(id)());
+    selectedItemList.forEach((id) => deleteCartItem(id));
     setSelectedItemList([]);
   };
 
