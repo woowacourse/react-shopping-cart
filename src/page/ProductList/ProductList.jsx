@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productsAsyncThunk } from 'store/action/productsActions';
 
 import { GridLayout } from 'component/@common';
-import { LoadingSpinner, PageLayout, Product } from 'component';
+import { ListProduct, LoadingSpinner, PageLayout } from 'component';
 
 function ProductList() {
   const products = useSelector(products => products);
@@ -18,7 +18,7 @@ function ProductList() {
       {products.length ? (
         <GridLayout>
           {products.map(product => (
-            <Product key={product.id} {...product} />
+            <ListProduct key={product.id} {...product} />
           ))}
         </GridLayout>
       ) : (

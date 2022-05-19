@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Button } from 'component/@common';
+import { addThousandUnitComma } from 'utils';
 
-const ProductBox = styled.div`
+const ListProductBox = styled.div`
   width: 282px;
   height: 358px;
   display: flex;
@@ -40,33 +41,33 @@ const ShoppingCartIcon = styled.span`
   font-size: 25px;
 `;
 
-function Product({ image, name, price }) {
+function ListProduct({ image, name, price }) {
   return (
-    <ProductBox>
+    <ListProductBox>
       <Image src={image} />
       <DescriptionBox>
         <div>
           <Name>{name}</Name>
-          <Price>{price} 원</Price>
+          <Price>{addThousandUnitComma(price)} 원</Price>
         </div>
         <Button>
           <ShoppingCartIcon>🛒</ShoppingCartIcon>
         </Button>
       </DescriptionBox>
-    </ProductBox>
+    </ListProductBox>
   );
 }
 
-Product.defaultProps = {
+ListProduct.defaultProps = {
   image: '',
   name: '과일',
   price: 0,
 };
 
-Product.propTypes = {
+ListProduct.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
 };
 
-export default Product;
+export default ListProduct;
