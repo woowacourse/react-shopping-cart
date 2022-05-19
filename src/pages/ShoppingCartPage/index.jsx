@@ -21,6 +21,27 @@ function ShoppingCartPage() {
     selectedItemIdList.includes(cartItemId)
   );
 
+  const paymentAmount = cartItemList?.reduce((prev, cartItem) => {
+    return prev + cartItem.price * cartItem.quantity;
+  }, 0);
+
+  const handleCartItemCheckBoxClick = (productId) => () => {
+    setSelectedItemIdList((prevSelectedItemIdList) => {
+      const newSelectedItemIdList = [...prevSelectedItemIdList];
+
+      if (prevSelectedItemIdList.includes(productId)) {
+        const selectedItemIndex = prevSelectedItemIdList.findIndex(
+          (selectedItem) => selectedItem.id === productId
+        );
+        newSelectedItemIdList.splice(selectedItemIndex, 1);
+        return newSelectedItemIdList;
+      }
+
+      newSelectedItemIdList.push(productId);
+      return newSelectedItemIdList;
+    });
+  };
+
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
 
@@ -73,31 +94,13 @@ function ShoppingCartPage() {
                   key={product.id}
                   product={product}
                   selected={selectedItemIdList.includes(product.id)}
-                  handleCheckBoxClick={() => {
-                    if (selectedItemIdList.includes(product.id)) {
-                      setSelectedItemIdList((prev) => {
-                        const selectedItemIndex = prev.findIndex(
-                          (selectedItem) => selectedItem.id === product.id
-                        );
-                        const newSelectedItemIdList = [...prev];
-                        newSelectedItemIdList.splice(selectedItemIndex, 1);
-                        return newSelectedItemIdList;
-                      });
-                      return;
-                    }
-
-                    setSelectedItemIdList((prev) => {
-                      const newSelectedItemIdList = [...prev];
-                      newSelectedItemIdList.push(product.id);
-                      return newSelectedItemIdList;
-                    });
-                  }}
+                  handleCheckBoxClick={handleCartItemCheckBoxClick(product.id)}
                 />
               ))}
             </CartProductList>
           </div>
         </div>
-        <PaymentBox />
+        <PaymentBox amount={paymentAmount} quantity={cartItemList.length} />
       </ContentContainer>
     </div>
   );
