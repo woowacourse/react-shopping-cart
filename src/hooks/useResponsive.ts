@@ -1,15 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
 import { size } from '../styles/Theme';
+const getDevice = () => {
+  const {
+    visualViewport: { width: vw },
+  } = window;
 
+  if (vw >= size.desktop) {
+    return 'desktop';
+  }
+
+  if (vw >= size.tablet) {
+    return 'tablet';
+  }
+
+  return 'mobile';
+};
 export default function useResponsive() {
-  const [isTablet, setIsTablet] = useState(false);
+  const [device, setDevice] = useState(() => getDevice());
 
   const updateWindowWidth = useCallback(() => {
-    if (window.visualViewport.width >= size.tablet) {
-      setIsTablet(true);
-      return;
-    }
-    setIsTablet(false);
+    const device = getDevice();
+    setDevice(device);
   }, []);
 
   useEffect(() => {
@@ -17,5 +28,5 @@ export default function useResponsive() {
     return () => window.removeEventListener('resize', updateWindowWidth);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return isTablet;
+  return device;
 }
