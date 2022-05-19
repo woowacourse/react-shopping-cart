@@ -29,12 +29,24 @@ function ProductCartPage() {
     return <ProductCartList cartList={cartList} />;
   };
 
+  const totalPrice = cartList.reduce((acc, { price }) => {
+    return acc + price;
+  }, 0);
+
+  const totalCount = cartList.reduce((acc, { count }) => {
+    return acc + count;
+  }, 0);
+
   return (
     <CartPageContainer>
       <CartPageHeader>장바구니</CartPageHeader>
       <CartPageList>{renderListContent()}</CartPageList>
       <CartPagePayment>
-        <PaymentAmount position="sticky" />
+        <PaymentAmount
+          position="sticky"
+          totalPrice={totalPrice}
+          totalCount={totalCount}
+        />
       </CartPagePayment>
     </CartPageContainer>
   );
