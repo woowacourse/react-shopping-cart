@@ -1,5 +1,5 @@
 import React from "react";
-import { LOCAL_STORAGE_CART_LIST_KEY } from "../../../../constants";
+import { BASE_SERVER_URL, SERVER_PATH } from "../../../../constants";
 
 import { theme } from "../../../../style";
 
@@ -13,37 +13,22 @@ import {
   Top,
 } from "./styled";
 
-const removeDuplicatedIdFromObjectArray = (array, newItem) => {
-  const newArray = array.filter((item) => item.id !== newItem.id);
-  return [...newArray, newItem];
-};
-
 function ProductDetail({ selectedProduct: { id, thumbnailUrl, name, price } }) {
-  const handleClickCartButton = () => {
-    let cartList = [];
+  const handleClickCartButton = async () => {
     try {
-      cartList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CART_LIST_KEY));
+      await fetch(`${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, count: 1 }),
+      });
     } catch (error) {
-      localStorage.setItem(LOCAL_STORAGE_CART_LIST_KEY, JSON.stringify([]));
-      alert("장바구니에 담기 실패했습니다.");
+      alert("장바구니 담기에 실패했습니다.");
       return;
     }
 
-    alert("장바구니에 담겼습니다.");
-    if (!cartList) {
-      localStorage.setItem(
-        LOCAL_STORAGE_CART_LIST_KEY,
-        JSON.stringify([{ id, count: 1 }])
-      );
-      return;
-    }
-
-    localStorage.setItem(
-      LOCAL_STORAGE_CART_LIST_KEY,
-      JSON.stringify(
-        removeDuplicatedIdFromObjectArray(cartList, { id, count: 1 })
-      )
-    );
+    alert("장바구니에 담았습니다.");
   };
 
   return (

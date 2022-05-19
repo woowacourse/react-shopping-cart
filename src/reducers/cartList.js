@@ -6,8 +6,8 @@ const CART_LIST_ACTION = {
   GET_LIST_ERROR: "cartList/GET_ERROR",
 };
 
-export const getCartList = (idList) => () => async (dispatch) => {
-  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/?idList=${idList}`;
+export const getCartList = () => async (dispatch) => {
+  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`;
 
   dispatch({ type: CART_LIST_ACTION.GET_LIST });
   try {
@@ -24,7 +24,7 @@ export const getCartList = (idList) => () => async (dispatch) => {
 
     dispatch({
       type: CART_LIST_ACTION.GET_LIST_SUCCESS,
-      products: data,
+      carts: data,
     });
   } catch (error) {
     dispatch({
@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
     case CART_LIST_ACTION.GET_LIST_SUCCESS:
       return {
         isLoading: false,
-        data: action.products,
+        data: action.carts,
         errorMessage: "",
       };
     case CART_LIST_ACTION.GET_LIST_ERROR:

@@ -24,26 +24,23 @@ export const prouctsHandlers = [
 
 export const cartsHandlers = [
   rest.get(`${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`, (req, res, ctx) => {
-    const idList = req.url.searchParams.get("idList");
-    if (!idList) return res(ctx.status(400), ctx.json({}));
-
+    const cartList = db.carts;
     const productList = db.products;
-    const cartList = productList.filter((product) =>
-      idList.split(",").includes(product.id.toString())
-    );
-    return res(ctx.status(200), ctx.json(cartList));
-  }),
-  rest.get(
-    `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/:id`,
-    (req, res, ctx) => {
-      const { id } = req.params;
-      const productList = db.products;
-      const selectedProduct = productList.find(
-        (product) => product.id === Number(id)
-      );
 
-      if (!selectedProduct) return res(ctx.status(404), ctx.json({}));
-      return res(ctx.status(200), ctx.json(selectedProduct));
-    }
-  ),
+    const result = cartList.map(({ id, count }) => {
+      const selectedProduct = productList.find((product) => product.id === id);
+      return { ...selectedProduct, count };
+    });
+
+    return res(ctx.status(200), ctx.json(result));
+  }),
+  rest.post(`${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`, (req, res, ctx) => {
+    const { id, count } = req.body;
+    if (!id || !count) return res(ctx.status(400));
+
+    const cartList = db.carts;
+    const selectedCartsList = cartList.filter((cart) => cart.id !== id);
+    db.carts = [...selectedCartsList, { id, count }];
+    return res(ctx.status(200));
+  }),
 ];
