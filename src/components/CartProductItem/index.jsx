@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import IconButton from 'components/@common/IconButton';
 import CheckBox from 'components/@common/CheckBox';
@@ -12,17 +11,17 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import { 아이콘_코드 } from 'constants/';
 import * as Styled from './styles';
 
-const CartProducItem = ({ id, thumbnail, name, price, count, isChecked }) => {
+const CartProducItem = ({ id, thumbnail, name, price, count, isChecked, handleChecked }) => {
   const dispatch = useDispatch();
 
   const onClickDeleteButton = () => {
-    dispatch(deleteCartItem(id));
+    dispatch(deleteCartItem([id]));
     dispatch(snackbar.pushMessageSnackbar(`${name}를 장바구니에서 삭제하였습니다 🧺`));
   };
 
   return (
     <Styled.Container>
-      <CheckBox checkState={isChecked} />
+      <CheckBox checkState={isChecked} handleChecked={() => handleChecked()} />
       <Styled.ImageWrapper>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>

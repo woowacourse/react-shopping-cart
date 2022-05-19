@@ -25,7 +25,18 @@ export default (state = initialState, action) => {
 
     case 장바구니_액션.DELETE_PRODUCT:
       [...state.items].forEach((item) => {
-        if (item.id === payload) {
+        let isExist = false;
+        payload.forEach((willDeleteItem) => {
+          if (isExist) {
+            return;
+          }
+
+          if (item.id === willDeleteItem) {
+            isExist = true;
+          }
+        });
+
+        if (isExist) {
           return;
         }
         modifiedItems.push(item);
