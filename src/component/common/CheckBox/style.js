@@ -1,33 +1,29 @@
+import {FlexColumn} from 'style/common';
 import styled, {css} from 'styled-components';
 
-const CheckBoxLayout = styled.div`
-  input[type='checkbox'] {
-    display: none;
-  }
+const CheckBoxLayout = styled(FlexColumn)`
+  min-width: 28px;
+  max-width: 28px;
+  min-height: 28px;
+  max-height: 28px;
 
-  input[type='checkbox'] + label {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: ${({theme}) => `1px solid ${theme.DARK_MINT}`};
-    border-radius: 2px;
+  justify-content: center;
+  align-items: center;
 
-    position: relative;
-  }
+  background-color: transparent;
+
+  box-sizing: border-box;
+  border: 1px solid ${({theme}) => theme.DARK_MINT};
+  border-radius: 2px;
 
   ${(props) =>
+    props.checked &&
     css`
-      input[id=${props.id}]:checked + label::after {
-        content${props.id}        color: white;
-        font-size: 35px;
-        width: 30px;
-        height: 30px;
-        background-color: ${props.theme.DARK_MINT};
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top: 0;
+      &::after {
+        content: '✔';
       }
+      color: ${({theme}) => theme.WHITE};
+      background-color: ${({theme}) => theme.DARK_MINT};
     `}
 `;
 
