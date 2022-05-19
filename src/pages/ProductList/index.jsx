@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ProductListStyled, MessageWrapperStyled } from './style';
+import ProductListStyled from './style';
 import Product from 'templates/Product';
 import { requestProductsAdd } from 'modules/product';
-import BlackText from 'components/BlackText';
+import StateMessage from 'containers/StateMessage';
 
 import useDataFetch from 'hooks/useDataFetch';
+import MESSAGE from 'constants';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
@@ -17,23 +18,11 @@ function ProductList() {
   dispatch(requestProductsAdd(data));
 
   if (isLoading) {
-    return (
-      <MessageWrapperStyled>
-        <BlackText fontSize="30px" fontWeight="800">
-          로딩중...
-        </BlackText>
-      </MessageWrapperStyled>
-    );
+    return <StateMessage message={MESSAGE.LOADING} />;
   }
 
   if (isError) {
-    return (
-      <MessageWrapperStyled>
-        <BlackText fontSize="30px" fontWeight="800">
-          에러! 개발자에게 문의하세요.
-        </BlackText>
-      </MessageWrapperStyled>
-    );
+    return <StateMessage message={MESSAGE.ERROR} />;
   }
 
   return (
