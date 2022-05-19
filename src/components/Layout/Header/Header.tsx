@@ -1,5 +1,6 @@
-import Link from 'components/Link/Link';
+import Link from 'components/@shared/Link';
 import Logo from 'components/Logo/Logo';
+import PATH from 'constants/path';
 import RightMenu from './RightMenu';
 import styled from 'styled-components';
 
@@ -10,8 +11,8 @@ function Header() {
         <Logo />
       </Link>
       <RightMenu>
-        <Link to="/orders">장바구니</Link>
-        <Link to="/orders">주문목록</Link>
+        <Link to={PATH.CART}>장바구니</Link>
+        <Link to={PATH.BASE}>주문목록</Link>
       </RightMenu>
     </StyledHeader>
   );

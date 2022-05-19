@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
-import { StoreState } from 'types';
+import { ProductStoreState } from 'types';
 import { cartActions } from 'redux/actions/actions';
 import { getProduct } from 'redux/thunks';
 import styled from 'styled-components';
@@ -12,10 +12,10 @@ function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const condition = useSelector(
-    (state: { product: StoreState }) => state.product.condition
+    (state: { product: ProductStoreState }) => state.product.condition
   );
   const productDetail = useSelector(
-    (state: { product: StoreState }) => state.product.productDetail
+    (state: { product: ProductStoreState }) => state.product.productDetail
   );
 
   useEffect(() => {

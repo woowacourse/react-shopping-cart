@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
 import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
-import { StoreState } from 'types';
+import { ProductStoreState } from 'types';
 import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function MainPage() {
   const condition = useSelector(
-    (state: { product: StoreState }) => state.product.condition
+    (state: { product: ProductStoreState }) => state.product.condition
   );
   const productList = useSelector(
-    (state: { product: StoreState }) => state.product.productList
+    (state: { product: ProductStoreState }) => state.product.productList
   );
   const dispatch = useDispatch();
 

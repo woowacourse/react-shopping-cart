@@ -1,4 +1,4 @@
-import Link from 'components/Link/Link';
+import Link from 'components/@shared/Link';
 import PATH from 'constants/path';
 import { Product } from 'types';
 import ShoppingCart from 'components/@shared/ShoppingCart';
@@ -39,7 +39,7 @@ function ProductCard({ product }: Props) {
         </CardImageContainer>
         <CardDescriptionContainer>
           <h3>{name}</h3>
-          <p>{price?.toLocaleString('ko-KR')} 원</p>
+          <p>{price.toLocaleString('ko-KR')} 원</p>
         </CardDescriptionContainer>
         <CardButtonContainer>
           <button onClick={onClickCartButton}>

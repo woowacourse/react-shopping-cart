@@ -40,8 +40,10 @@ const theme = {
   media,
   colors: {
     redPink: '#ff9c9c',
+    pink: '#ffc2c2',
     white: '#FFFFFF',
     gray: '#AAAAAA',
+    lightGray: '#dddddd',
     black: '#161616',
     brown: '#73675C',
   },

@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Gowun Dodum', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
     background: #faf7fc;
   }
 

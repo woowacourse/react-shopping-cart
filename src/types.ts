@@ -14,6 +14,7 @@ export type Product = {
 export type Cart = {
   id: Product['id'];
   stock: number;
+  checked: boolean;
 };
 
 export type ProductAction = {
@@ -28,12 +29,18 @@ export type CartAction = {
 
 type condition = typeof CONDITION[keyof typeof CONDITION];
 
-export type StoreState = {
+export type ProductStoreState = {
   condition: condition;
   productList: Array<Product>;
   productDetail: Product | null;
 };
 
-export type CartState = {
+export type CartStoreState = {
   cart: Array<Cart>;
+};
+
+export type CartProductState = {
+  product: Product;
+  stock: number;
+  checked: boolean;
 };

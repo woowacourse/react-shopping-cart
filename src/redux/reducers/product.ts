@@ -1,9 +1,9 @@
-import { ProductAction, StoreState } from 'types';
+import { ProductAction, ProductStoreState } from 'types';
 
 import CONDITION from 'constants/condition';
 import { productTypes } from 'redux/actions/actions';
 
-const initialState: StoreState = {
+const initialState: ProductStoreState = {
   condition: CONDITION.NONE,
   productList: [],
   productDetail: null,
