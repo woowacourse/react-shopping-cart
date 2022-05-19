@@ -1,4 +1,4 @@
-import PageController from './PageController';
+import PageController from '.';
 
 export default {
   title: 'Component/Common/PageController',
