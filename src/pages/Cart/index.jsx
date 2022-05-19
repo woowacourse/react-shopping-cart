@@ -4,7 +4,7 @@ import CartItem from 'components/CartItem/CartItem';
 import CartControlBar from 'components/CartControlBar/CartControlBar';
 import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
-import { useEffect, useState } from 'react';
+import { useState, useMemo } from 'react';
 import useCart from 'hooks/useCart';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
@@ -13,10 +13,13 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 const Cart = () => {
   const { isLoading, isError, data } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
-
-  useEffect(() => {
-    console.log('선택된 상품', selectedItemList);
-  }, [selectedItemList]);
+  const totalPrice = useMemo(() => {
+    const list = data.filter(({ id }) => selectedItemList.indexOf(id) !== -1);
+    return list.reduce(
+      (prev, { price, quantity }) => (prev += Number(price) * quantity),
+      0,
+    );
+  }, [data, selectedItemList]);
 
   const handleToggleSelectAll = (isSelected) => () => {
     if (isSelected) {
@@ -64,7 +67,7 @@ const Cart = () => {
             </CartContainer>
           </div>
           <Styled.PaymentBoxWrapper>
-            <PaymentBox />
+            <PaymentBox quantity={selectedItemList.length} price={totalPrice} />
           </Styled.PaymentBoxWrapper>
         </Styled.ContentsWrapper>
       ) : (
