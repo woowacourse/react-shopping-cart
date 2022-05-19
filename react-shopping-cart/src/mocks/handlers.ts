@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { API_URL } from "constants/index";
-import { CartItem, Product } from "type";
+import { CartItem, Carts, Product } from "type";
 import { PRODUCT_MOCK_DATA } from "./mockData";
 
 type PathParams = Record<string, string | ReadonlyArray<string>>;
@@ -8,9 +8,11 @@ type PathParams = Record<string, string | ReadonlyArray<string>>;
 interface PathParamsId extends PathParams {
   id: string;
 }
-const data = localStorage.getItem("mock-carts");
-
-let carts: Omit<CartItem, "quantity">[] = (data && JSON.parse(data)) ?? [];
+const mockCarts = localStorage.getItem("mock-carts");
+const mockOrders = localStorage.getItem("mock-orders");
+let carts: Omit<CartItem, "quantity">[] =
+  (mockCarts && JSON.parse(mockCarts)) ?? [];
+let orders: Carts = (mockOrders && JSON.parse(mockOrders)) ?? [];
 
 export const handlers = [
   rest.get<never, never, Product[]>(
@@ -70,6 +72,36 @@ export const handlers = [
       localStorage.setItem("mock-carts", JSON.stringify(carts));
       if (typeof deletedCartItem !== "undefined") {
         return res(ctx.status(200), ctx.json(deletedCartItem));
+      }
+      return res(ctx.status(401));
+    }
+  ),
+
+  rest.get<never, never, Carts>(`${API_URL}/orders`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(orders));
+  }),
+
+  rest.post<CartItem, never, CartItem>(
+    `${API_URL}/orders`,
+    async (req, res, ctx) => {
+      const orderItem = req.body;
+      orders = [...orders, orderItem];
+      localStorage.setItem("mock-orders", JSON.stringify(orders));
+      return res(ctx.status(200), ctx.json(orderItem));
+    }
+  ),
+
+  rest.delete<never, PathParamsId, CartItem>(
+    `${API_URL}/orders/:id`,
+    async (req, res, ctx) => {
+      const { id } = req.params;
+      const deletedOrderItem: CartItem | undefined = orders.find(
+        (order) => order.id === id
+      );
+      orders = orders.filter((order) => order.id !== id);
+      localStorage.setItem("mock-orders", JSON.stringify(orders));
+      if (typeof deletedOrderItem !== "undefined") {
+        return res(ctx.status(200), ctx.json(deletedOrderItem));
       }
       return res(ctx.status(401));
     }

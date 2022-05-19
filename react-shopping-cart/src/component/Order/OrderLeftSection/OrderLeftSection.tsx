@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 import { ColumnFlexWrapper } from "styles/Wrapper";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCartsLoading,
-  selectCurrentCarts,
-} from "redux/carts/carts.selector";
 import WithSpinner from "component/Wrapper/WithSpinner/WithSpinner";
 import OrderItem from "../OrderItem/OrderItem";
 import { useEffect } from "react";
-import { fetchCartsStart } from "redux/carts/carts.action";
+import {
+  selectCurrentOrders,
+  selectOrdersLoading,
+} from "redux/orders/orders.selector";
+import { fetchOrdersStart } from "redux/orders/orders.action";
 
 const OrderLeftSectionHeader = styled.div`
   font-size: 16px;
@@ -22,24 +22,23 @@ const OrderLeftSectionContainer = styled(ColumnFlexWrapper)`
 `;
 
 function OrderLeftSection() {
-  const carts = useSelector(selectCurrentCarts);
+  const orders = useSelector(selectCurrentOrders);
   const dispatch = useDispatch();
-  const orderedCarts = carts.filter((cart) => cart.checked);
-  const loading = useSelector(selectCartsLoading);
+  const loading = useSelector(selectOrdersLoading);
 
   useEffect(() => {
-    dispatch(fetchCartsStart());
+    dispatch(fetchOrdersStart());
   }, [dispatch]);
 
   return (
     <OrderLeftSectionContainer gap="30px">
       <OrderLeftSectionHeader>
-        {`주문 상품 (${orderedCarts.length}건)`}
+        {`주문 상품 (${orders.length}건)`}
       </OrderLeftSectionHeader>
       <div style={{ width: "inherit" }}>
         <WithSpinner loading={loading}>
-          {orderedCarts.map((cart) => (
-            <OrderItem {...cart} key={cart.id} />
+          {orders.map((order) => (
+            <OrderItem {...order} key={order.id} />
           ))}
         </WithSpinner>
       </div>

@@ -40,8 +40,9 @@ export function* addOrderItems({
 
 export function* deleteOrderItems({
   payload,
-}: ReturnType<typeof deleteOrderStart>) {
+}: ReturnType<typeof deleteOrderStart>): SagaIterator<void> {
   try {
+    console.log(payload);
     yield all(payload.map((id) => call(deleteOrderItem, id)));
     yield put(deleteOrderSuccess());
   } catch (err) {
@@ -59,6 +60,14 @@ export function* handleAddOrders() {
   yield takeLatest(ordersActionTypes.addOrderStart, addOrderItems);
 }
 
+export function* handleDeleteOrders() {
+  yield takeLatest(ordersActionTypes.deleteOrderStart, deleteOrderItems);
+}
+
 export function* orderSaga() {
-  yield all([call(handleFetchOrders), call(handleAddOrders)]);
+  yield all([
+    call(handleFetchOrders),
+    call(handleAddOrders),
+    call(handleDeleteOrders),
+  ]);
 }

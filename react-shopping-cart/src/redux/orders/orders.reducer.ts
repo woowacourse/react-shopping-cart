@@ -52,6 +52,8 @@ const ordersReducer = (state = INITIAL_STATE, action: OrdersAction) => {
         error: action.payload,
         loading: false,
       };
+    default:
+      return state;
   }
 };
 
