@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
@@ -8,11 +8,13 @@ import CartItem from 'component/CartItem';
 
 import * as S from 'page/ProductCartPage/style';
 import useCartItem from 'hook/useCartItem';
+import {SELECTED_ITEM} from 'store/modules/selectedItem';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
+  const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
   const {deleteCartItem} = useCartItem();
-
+  const dispatch = useDispatch();
   const {totalCount, totalPrice} = cartItem.reduce(
     (prev, cur) => {
       return {
@@ -23,6 +25,14 @@ export default function ProductCartPage() {
     {totalCount: 0, totalPrice: 0},
   );
 
+  const handleCheckedTrue = (id) => {
+    dispatch({type: SELECTED_ITEM.ADD, payload: Number(id)});
+  };
+
+  const handleCheckedFalse = (id) => {
+    dispatch({type: SELECTED_ITEM.DELETE, payload: Number(id)});
+  };
+
   return (
     <S.ProductCartPageLayout>
       <S.HeaderSpan>장바구니</S.HeaderSpan>
@@ -30,7 +40,7 @@ export default function ProductCartPage() {
         <S.SelectCartBox>
           <S.SelectDeleteRow>
             <S.CheckBoxRow>
-              <CheckBox id="check" />
+              <CheckBox />
               선택해제
             </S.CheckBoxRow>
             <S.DeleteButton>상품삭제</S.DeleteButton>
@@ -38,21 +48,27 @@ export default function ProductCartPage() {
 
           <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>
           <S.CartListBox>
-            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
-              <React.Fragment key={id}>
-                <CartItem
-                  itemImgURL={itemImgURL}
-                  itemName={itemName}
-                  itemPrice={itemPrice}
-                  count={count}
-                  id={id}
-                  handleDeleteIconClick={() => {
-                    deleteCartItem(id);
-                  }}
-                />
-                <hr />
-              </React.Fragment>
-            ))}
+            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => {
+              const initialChecked = selectedItem.some((item) => item === id);
+              return (
+                <React.Fragment key={id}>
+                  <CartItem
+                    initialChecked={initialChecked}
+                    itemImgURL={itemImgURL}
+                    itemName={itemName}
+                    itemPrice={itemPrice}
+                    count={count}
+                    id={id}
+                    handleDeleteIconClick={() => {
+                      deleteCartItem(id);
+                    }}
+                    handleCheckedTrue={handleCheckedTrue}
+                    handleCheckedFalse={handleCheckedFalse}
+                  />
+                  <hr />
+                </React.Fragment>
+              );
+            })}
           </S.CartListBox>
         </S.SelectCartBox>
 
