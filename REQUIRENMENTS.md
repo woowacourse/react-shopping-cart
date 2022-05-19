@@ -32,6 +32,12 @@
       - [x] 체크박스에는 해당 상품의 id가 전달되며, onChange될때마다 checked에 기존 상태(isChecked)의 반대값이 저장되며, checkedIdList에 접근하여 해당 id가 없으면 push하고 해당 id가 있으면 나머지 id들만 filter한다.
       - [x] totalCount는 checkedIdList의 length이다.
       - [x] 해당 id들의 배열(checkedIdList)과 redux(api에서 받은)에서 가져온 cart객체들(cart)의 배열을 통해 totalPrice를 setState한다.
+    - [ ] 상품 삭제 버튼
+      - [ ] 상품 삭제 버튼 클릭 시 API에 DELETE 요청을 하고, 다시 API에서 cartList를 get한다. (cartList가 바뀌면 재렌더링된다)
+        - useDelete -> getCartEffect
+      - [ ] Delete dispatch를 만든다.
+      - [ ] 상단 상품 삭제 버튼 클릭 시 선택된 상품들의 checkedIdList를 갖고 Delete dispatch한다
+      - [ ] 개별 상품 삭제 버튼 클릭 시 해당 상품 id를 갖고 Delete dispatch한다.
   - [] 주문/결제 페이지
   - [] 주문 목록 페이지
   - [] 주문 상세 페이지

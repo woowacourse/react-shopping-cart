@@ -7,6 +7,7 @@ import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
 import CartOrder from 'components/CartOrder';
 import { useEffect, useState } from 'react';
+// import useDelete from 'hooks/useDelete';
 
 const Cart = () => {
   const { getCartEffect, cartList, isLoading, isError } = useCart();
@@ -34,6 +35,13 @@ const Cart = () => {
     setTotalPrice(totalPrice);
   }, [checkedIdList]);
 
+  // delete
+  // const { callApi: callDeleteApi } = useDelete('/cartList', {
+  //   data: {
+  //     id: 1,
+  //   },
+  // });
+
   return (
     <Styled.CartSection>
       <TitleHeader>장바구니</TitleHeader>
@@ -45,6 +53,7 @@ const Cart = () => {
             cartList={cartList}
             checkedIdList={checkedIdList}
             setCheckedIdList={setCheckedIdList}
+            // handleClickDelete={callDeleteApi}
           />
         )}
 

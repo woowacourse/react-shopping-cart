@@ -45,4 +45,11 @@ export const handlers = [
     });
     return res(ctx.status(200), ctx.json(result));
   }),
+
+  rest.delete('/cartList', (req, res, ctx) => {
+    // TODO delete 필요
+    console.log(req.body.id);
+    cartList = cartList.filter((item) => item.id !== req.body.id);
+    return res(ctx.status(200), ctx.json());
+  }),
 ];
