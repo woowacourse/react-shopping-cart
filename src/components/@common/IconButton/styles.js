@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 
 import { COLORS } from 'styles/theme';
+import Button from '../Button/styles';
 
-const IconButtonStyle = styled.button`
-  cursor: pointer;
-  border: none;
+const IconButtonStyle = styled(Button)`
+  height: unset;
+  margin: unset;
   background-color: transparent;
   transition: background-color 0.3s ease, color 0.3s ease;
+  color: ${COLORS.BLACK};
+  font-size: unset;
   border-radius: 5px;
   padding: 0.35rem;
 

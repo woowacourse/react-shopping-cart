@@ -1,6 +1,6 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button/styles';
-import { Input, FlexWrapper } from '../CommonStyle/styles';
+import * as CommonStyle from '../CommonStyle/styles';
 
 const Counter = ({ id, count, handleItemCount }) => {
   const onClickButton = (amount) => {
@@ -23,8 +23,8 @@ const Counter = ({ id, count, handleItemCount }) => {
   };
 
   return (
-    <FlexWrapper>
-      <Input
+    <CommonStyle.FlexWrapper>
+      <CommonStyle.Input
         width="80px"
         height="40px"
         type="number"
@@ -33,7 +33,7 @@ const Counter = ({ id, count, handleItemCount }) => {
         value={count}
         onChange={(e) => onInputCounter(e)}
       />
-      <FlexWrapper flexDirection="column" width="30%" margin="0">
+      <CommonStyle.FlexWrapper flexDirection="column" width="30%" margin="0">
         <Button
           onClick={() => onClickButton(1)}
           width="40px"
@@ -52,9 +52,20 @@ const Counter = ({ id, count, handleItemCount }) => {
         >
           ▼
         </Button>
-      </FlexWrapper>
-    </FlexWrapper>
+      </CommonStyle.FlexWrapper>
+    </CommonStyle.FlexWrapper>
   );
+};
+
+Counter.propTypes = {
+  id: PropTypes.string.isRequired,
+  count: PropTypes.number,
+  handleItemCount: PropTypes.func,
+};
+
+Counter.defaultProps = {
+  count: 1,
+  handleItemCount: () => {},
 };
 
 export default Counter;

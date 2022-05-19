@@ -11,7 +11,7 @@ import { deleteCartItem, modifyCartItemCount } from 'actions/cart';
 import { COLORS } from 'styles/theme';
 
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
-import { CartListContainer, CartListReceiptContainer } from './styles';
+import * as Styled from './styles';
 
 const CartList = () => {
   const { items: cartList } = useSelector((state) => state.cart);
@@ -49,7 +49,7 @@ const CartList = () => {
 
   return (
     <Layout>
-      <CartListContainer>
+      <Styled.CartListContainer>
         <CommonStyled.PageTitle>장바구니</CommonStyled.PageTitle>
         <CommonStyled.HR color={COLORS.BLACK} />
         <CommonStyled.FlexWrapper alignItems="flex-start">
@@ -89,7 +89,7 @@ const CartList = () => {
                 </>
               ))}
           </CommonStyled.FlexWrapper>
-          <CartListReceiptContainer flexDirection="column" width="60%" alignItems="flex-start">
+          <Styled.CartListReceiptContainer>
             <CommonStyled.FlexWrapper padding="1.5rem">
               <CommonStyled.Text>결제예상금액</CommonStyled.Text>
             </CommonStyled.FlexWrapper>
@@ -107,9 +107,9 @@ const CartList = () => {
                 주문하기({checkedList.length}종)
               </Button>
             </CommonStyled.FlexWrapper>
-          </CartListReceiptContainer>
+          </Styled.CartListReceiptContainer>
         </CommonStyled.FlexWrapper>
-      </CartListContainer>
+      </Styled.CartListContainer>
     </Layout>
   );
 };

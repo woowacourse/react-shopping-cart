@@ -20,6 +20,9 @@ const CartListContainer = styled(FlexWrapper)`
 `;
 
 const CartListReceiptContainer = styled(FlexWrapper)`
+  width: 60%;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 5.3rem 2rem;
   border: 1px solid ${COLORS.GRAY_300};
 `;

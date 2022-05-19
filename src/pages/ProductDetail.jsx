@@ -6,7 +6,7 @@ import { getProduct } from 'actions/products';
 import Layout from 'components/Layout';
 import EmptyProductItem from 'components/EmptyProductItem';
 import DetailProductItem from 'components/DetailProductItem';
-import { ProductDetailWrapper } from './styles';
+import * as Styled from './styles';
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
   return (
     <Layout>
-      <ProductDetailWrapper>
+      <Styled.ProductDetailWrapper>
         {errorMessage && <h1>{errorMessage}</h1>}
         {product ? (
           <DetailProductItem
@@ -34,7 +34,7 @@ const ProductDetail = () => {
         ) : (
           <EmptyProductItem />
         )}
-      </ProductDetailWrapper>
+      </Styled.ProductDetailWrapper>
     </Layout>
   );
 };
