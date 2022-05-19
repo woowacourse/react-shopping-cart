@@ -9,6 +9,7 @@ import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
 import ShoppingCartButton from 'components/ShoppingCartButton/ShoppingCartButton';
 
+import { fetchCartsStart } from 'redux/carts/carts.action';
 import {
   selectCartsLoading,
   selectCurrentCarts,
@@ -28,31 +29,36 @@ import { isInCart } from 'utils/check';
 
 function ProductDetailPage() {
   const { idx } = useParams();
+  const dispatch = useDispatch();
   const product = useSelector(selectDetailProduct);
   const carts = useSelector(selectCurrentCarts);
   const cartsLoading = useSelector(selectCartsLoading);
   const productsLoading = useSelector(selectProductsLoading);
-
-  const dispatch = useDispatch();
+  const isCartItem = isInCart(idx, carts);
   const { handleAddProductToCart, handleDeleteProductFromCart } =
     useClickCartButton();
 
-  const isCartItem = isInCart(idx, carts);
-
   useEffect(() => {
+    dispatch(fetchCartsStart());
     dispatch(fetchProductDetailStart(idx));
   }, [dispatch, idx]);
 
   return (
     // THINK: page 컴포넌트의 추상화레벨을 맞춰야할 것 같은데, 맞을까?
+    // THINK: product 없이는 왜 안될까?
     product && (
       <WithSpinner loading={cartsLoading || productsLoading}>
         <ColumnFlexWrapper gap="20px" width="425px" ml="auto" mr="auto">
-          <ProductThumbnail type="detail" src={product.image} />
+          <ProductThumbnail
+            // TODO: type-> size로 변경
+            type="detail"
+            src={product.thumbnail}
+            alt={product.name}
+          />
           <ProductName type="detail">{product.name}</ProductName>
           <RowFlexWrapper
             gap="300px"
-            bt="2px"
+            bt="2px solid"
             bColor="gray_01"
             width="100%"
             padding="15px 0px"
@@ -60,6 +66,7 @@ function ProductDetailPage() {
             <div>금액</div>
             <ProductPrice type="detail">{product.price}원</ProductPrice>
           </RowFlexWrapper>
+          {/* //TODO: 네이밍변경 */}
           <ShoppingCartButton
             $isincart={isCartItem}
             onClick={
