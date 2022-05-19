@@ -4,12 +4,20 @@ import { CartItem, Item } from 'types/domain';
 import styled from 'styled-components';
 import CroppedImage from 'components/common/CroppedImage';
 import { flexCenter } from 'styles/mixin';
+import CheckBox from 'components/common/CheckBox';
 
 const CartList = ({ cartList, cartDetail }: { cartList: CartItem[]; cartDetail: Item[] }) => {
   console.log('f', cartList, cartDetail);
 
   return (
     <StyledRoot>
+      <StyledSelectAll>
+        <SelectBox>
+          <CheckBox id='전체 선택'></CheckBox>
+          <p>선택 해제</p>
+        </SelectBox>
+        <DeleteButton>상품 삭제</DeleteButton>
+      </StyledSelectAll>
       <StyledHeader>든든상품배송 {`${cartList.length}`} 개</StyledHeader>
       <StyledList>
         {cartList.map(cartItem => {
@@ -19,7 +27,7 @@ const CartList = ({ cartList, cartDetail }: { cartList: CartItem[]; cartDetail: 
 
           return (
             <StyledListItem key={cartItem.id}>
-              <input type='checkbox' />
+              <CheckBox id={`${cartItem.id}`}></CheckBox>
               <CroppedImage src={detail.thumbnailUrl} width='150px' height='144px' alt='상품' />
               <StyledItemTitle>{detail.title}</StyledItemTitle>
               <StyledRight>
@@ -47,9 +55,39 @@ const CartList = ({ cartList, cartDetail }: { cartList: CartItem[]; cartDetail: 
 };
 
 const StyledRoot = styled.div`
+  grid-area: cl;
   display: inline-block;
   width: 736px;
   height: 724px;
+`;
+
+const StyledSelectAll = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+`;
+
+const DeleteButton = styled.button`
+  ${flexCenter}
+  width: 117px;
+  height: 50px;
+  border: solid silver 1px;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+
+  text-align: center;
+`;
+
+const SelectBox = styled.div`
+  display: flex;
+  font-size: 20px;
+  width: 135px;
+
+  justify-content: space-between;
 `;
 
 const StyledHeader = styled.p`
