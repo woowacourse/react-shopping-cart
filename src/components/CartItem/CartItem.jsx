@@ -4,11 +4,6 @@ import { useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
-import { useDispatch } from 'react-redux';
-import {
-  updateCartItemQuantityAsync,
-  deleteCartItemAsync,
-} from 'reducers/cart/cart.thunk';
 
 const CartItem = ({
   id,
@@ -18,13 +13,14 @@ const CartItem = ({
   quantity,
   isSelected,
   onToggleSelect,
+  onChangeQuantity,
+  onDeleteItem,
 }) => {
-  const dispatch = useDispatch();
   const [itemQuantity, setItemQuantity] = useState(quantity);
 
   const handleIncrementQuantity = () => {
     setItemQuantity((prevQuantity) => {
-      dispatch(updateCartItemQuantityAsync(id, prevQuantity + 1));
+      onChangeQuantity(id, prevQuantity + 1);
       return prevQuantity + 1;
     });
   };
@@ -34,15 +30,9 @@ const CartItem = ({
       return alert('최소 주문 갯수는 1개 입니다.');
     }
     setItemQuantity((prevQuantity) => {
-      dispatch(updateCartItemQuantityAsync(id, prevQuantity - 1));
+      onChangeQuantity(id, prevQuantity - 1);
       return prevQuantity - 1;
     });
-  };
-
-  const handleClickDeleteButton = () => {
-    if (confirm('정말로 삭제하시겠습니까?')) {
-      dispatch(deleteCartItemAsync(id));
-    }
   };
 
   return (
@@ -53,7 +43,7 @@ const CartItem = ({
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>
-        <Styled.DeleteButton onClick={handleClickDeleteButton}>
+        <Styled.DeleteButton onClick={onDeleteItem}>
           <Styled.TrashBinSvg src={smallTrashBin} alt="상품 삭제 버튼" />
         </Styled.DeleteButton>
         <Styled.Quantity>
@@ -79,6 +69,8 @@ CartItem.propTypes = {
   quantity: PropTypes.number,
   isSelected: PropTypes.bool,
   onToggleSelect: PropTypes.func,
+  onChangeQuantity: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 };
 
 export default CartItem;

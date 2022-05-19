@@ -9,12 +9,15 @@ import useCart from 'hooks/useCart';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import { useDispatch } from 'react-redux';
-import { deleteCartItemAsync } from 'reducers/cart/cart.thunk';
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { isLoading, isError, data } = useCart();
+  const {
+    isLoading,
+    isError,
+    data,
+    handleDeleteItem,
+    handleUpdateItemQuantity,
+  } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
 
   const totalPrice = useMemo(() => {
@@ -43,7 +46,7 @@ const Cart = () => {
   };
 
   const handleDeleteSelectedItem = () => {
-    selectedItemList.forEach((id) => dispatch(deleteCartItemAsync(id)));
+    selectedItemList.forEach((id) => handleDeleteItem(id)());
     setSelectedItemList([]);
   };
 
@@ -74,6 +77,8 @@ const Cart = () => {
                   quantity={quantity}
                   isSelected={selectedItemList.indexOf(id) !== -1}
                   onToggleSelect={handleToggleSelect(id)}
+                  onChangeQuantity={handleUpdateItemQuantity(id)}
+                  onDeleteItem={handleDeleteItem(id)}
                 />
               ))}
             </CartContainer>

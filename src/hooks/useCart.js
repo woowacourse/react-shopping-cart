@@ -1,6 +1,10 @@
 import useReduxState from './useReduxState';
 import { getCartItemAsync } from 'reducers/cart/cart.thunk';
 import { useEffect } from 'react';
+import {
+  deleteCartItemAsync,
+  updateCartItemQuantityAsync,
+} from 'reducers/cart/cart.thunk';
 
 const useCart = () => {
   const {
@@ -12,7 +16,20 @@ const useCart = () => {
     dispatch(getCartItemAsync);
   }, []);
 
-  return { isLoading: isLoadingGetCart, isError: isErrorGetCart, data };
+  const handleUpdateItemQuantity = (id) => (quantity) => {
+    dispatch(updateCartItemQuantityAsync(id, quantity));
+  };
+  const handleDeleteItem = (id) => () => {
+    dispatch(deleteCartItemAsync(id));
+  };
+
+  return {
+    isLoading: isLoadingGetCart,
+    isError: isErrorGetCart,
+    data,
+    handleDeleteItem,
+    handleUpdateItemQuantity,
+  };
 };
 
 export default useCart;
