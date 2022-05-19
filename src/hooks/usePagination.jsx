@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PageController from 'component/common/PageController/PageController';
+import PageController from 'component/common/PageController';
 
 function usePagination(items, productsCountPerPage) {
   const [currentPage, setCurrentPage] = useState(1);

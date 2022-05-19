@@ -1,4 +1,4 @@
-import { Product } from 'component';
+import Product from 'component/ProductList/Product';
 import { PATH } from 'constant/path';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

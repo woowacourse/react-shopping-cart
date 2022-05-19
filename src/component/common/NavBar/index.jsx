@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'component/common';
+import Button from 'component/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from 'constant/path';
 

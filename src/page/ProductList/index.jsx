@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearProducts, productsAsyncThunk } from 'store/action/productsActions';
 import Maybe from 'react-maybe';
+import usePagination from 'hooks/usePagination';
 
-import { GridLayout } from 'component/common';
-import LoadingSpinner from 'component/LoadingSpinner/LoadingSpinner';
+import GridLayout from 'component/common/GridLayout';
+import LoadingSpinner from 'component/common/LoadingSpinner';
 import ProductContainer from 'container/ProductContainer';
 import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
-import usePagination from 'hooks/usePagination';
 
 const Content = styled.div`
   display: flex;

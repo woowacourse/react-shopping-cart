@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Product from './Product';
+import Product from '.';
 
 describe('product 컴포넌트', () => {
   test('Product 컴포넌트는 상품 이미지, 이름, 가격을 렌더링할 수 있어야 한다.', () => {

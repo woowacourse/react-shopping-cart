@@ -1,4 +1,4 @@
-import SnackBar from 'component/SnackBar/SnackBar';
+import SnackBar from 'component/common/SnackBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { clearSnackBar } from 'store/action/snackBarActions';

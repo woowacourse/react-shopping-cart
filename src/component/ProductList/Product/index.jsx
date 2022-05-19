@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import { Button } from 'component/common';
+import Button from 'component/common/Button';
 
 const ProductBox = styled.div`
   width: 282px;

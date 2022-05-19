@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from 'component/common';
 import { updateSnackBar } from 'store/action/snackBarActions';
+import Button from 'component/common/Button';
 
 const Content = styled.div`
   display: flex;
