@@ -13,8 +13,10 @@ const useCart = () => {
   } = useReduxState('cart');
 
   useEffect(() => {
+    if (data.length > 0) return;
+    if (isSucceedGetCart) return;
     dispatch(getCartItemAsync);
-  }, []);
+  }, [isSucceedGetCart, data]);
 
   const handleUpdateItemQuantity = (id) => (quantity) => {
     dispatch(updateCartItemQuantityAsync(id, quantity));
@@ -25,7 +27,6 @@ const useCart = () => {
 
   return {
     isLoading: isLoadingGetCart,
-    isSucceed: isSucceedGetCart,
     isError: isErrorGetCart,
     data,
     handleDeleteItem,

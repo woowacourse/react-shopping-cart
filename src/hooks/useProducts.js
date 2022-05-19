@@ -5,14 +5,16 @@ import useReduxState from './useReduxState';
 const useProducts = () => {
   const {
     dispatch,
-    state: { isLoading, isError, data },
+    state: { isLoading, isSucceed, isError, data },
   } = useReduxState('products');
 
   useEffect(() => {
-    dispatch(getProductsAsync); // 이 부분 수정하기. 상태있을 경우 안가져오게..
-  }, []);
+    if (data.length > 0) return;
+    if (isSucceed) return;
+    dispatch(getProductsAsync);
+  }, [data, isSucceed]);
 
-  return { isLoading, isError, products: data };
+  return { isLoading, isSucceed, isError, products: data };
 };
 
 export default useProducts;

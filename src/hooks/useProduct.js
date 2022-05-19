@@ -8,7 +8,7 @@ const useProduct = () => {
   const { id } = useParams();
   const {
     dispatch,
-    state: { isLoading, isError, data },
+    state: { isLoading, isSucceed, isError, data },
   } = useReduxState('product');
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const useProduct = () => {
     dispatch(addCartItemRequest({ ...data, quantity: 1 }));
   };
 
-  return { isLoading, isError, product: data, handleAddCart };
+  return { isLoading, isError, isSucceed, product: data, handleAddCart };
 };
 
 export default useProduct;

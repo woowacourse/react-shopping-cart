@@ -8,7 +8,7 @@ import useProducts from 'hooks/useProducts';
 import useAddCartItem from 'hooks/useAddCartItem';
 
 const ProductList = () => {
-  const { isLoading, isError, products } = useProducts();
+  const { isLoading, isSucceed, isError, products } = useProducts();
   const { addCarItem } = useAddCartItem();
   const isEmpty = !isLoading && products.length === 0;
 
@@ -32,16 +32,17 @@ const ProductList = () => {
       ) : (
         <ProductContainer>
           {isLoading && getLoadingStatus()}
-          {products.map(({ name, price, imgUrl, id }) => (
-            <ProductItem
-              id={id}
-              name={name}
-              price={price}
-              imgUrl={imgUrl}
-              key={id}
-              onClickCartButton={handleClickCartButton(id)}
-            />
-          ))}
+          {isSucceed &&
+            products.map(({ name, price, imgUrl, id }) => (
+              <ProductItem
+                id={id}
+                name={name}
+                price={price}
+                imgUrl={imgUrl}
+                key={id}
+                onClickCartButton={handleClickCartButton(id)}
+              />
+            ))}
         </ProductContainer>
       )}
     </>

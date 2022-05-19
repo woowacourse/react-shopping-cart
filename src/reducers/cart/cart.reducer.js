@@ -20,7 +20,12 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   if (action.type === actionTypes.GET_CART_REQUEST) {
-    return { ...state, isLoadingGetCart: true, isSucceedGetCart: false };
+    return {
+      ...state,
+      isLoadingGetCart: true,
+      isSucceedGetCart: false,
+      isErrorGetCart: false,
+    };
   }
 
   if (action.type === actionTypes.GET_CART_SUCCESS) {
@@ -36,7 +41,6 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingGetCart: false,
-      isSucceedGetCart: false,
       isErrorGetCart: true,
     };
   }
@@ -55,7 +59,6 @@ const cartReducer = (state = initialState, action) => {
       ...state,
       isLoadingAddCartItem: false,
       isSucceedAddCartItem: true,
-      isErrorAddCartItem: false,
       data: action.data,
     };
   }
@@ -64,7 +67,6 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingAddCartItem: false,
-      isSucceedAddCartItem: false,
       isErrorAddCartItem: true,
     };
   }

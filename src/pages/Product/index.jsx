@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
 
 const Product = () => {
-  const { isLoading, isError, product } = useProduct();
+  const { isLoading, isSucceed, isError, product } = useProduct();
   const { addCarItem } = useAddCartItem();
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const Product = () => {
     <Styled.Wrapper>
       {isLoading && <Skeleton sizeType="large" />}
       {isError && <ImgWrapper src={errorApiImg} />}
-      {!isLoading && product && (
+      {isSucceed && product && (
         <ProductDetail
           id={product.id}
           imgUrl={product.imgUrl}

@@ -13,7 +13,6 @@ import errorApiImg from 'assets/png/errorApiImg.png';
 const Cart = () => {
   const {
     isLoading,
-    isSucceed,
     isError,
     data,
     handleDeleteItem,
@@ -70,21 +69,20 @@ const Cart = () => {
           />
 
           <CartContainer>
-            {isSucceed &&
-              data.map(({ id, name, imgUrl, price, quantity }) => (
-                <CartItem
-                  key={id}
-                  id={id}
-                  name={name}
-                  imgUrl={imgUrl}
-                  price={price}
-                  quantity={quantity}
-                  isSelected={selectedItemList.indexOf(id) !== -1}
-                  onToggleSelect={handleToggleSelect(id)}
-                  onChangeQuantity={handleUpdateItemQuantity(id)}
-                  onDeleteItem={handleDeleteItem(id)}
-                />
-              ))}
+            {data.map(({ id, name, imgUrl, price, quantity }) => (
+              <CartItem
+                key={id}
+                id={id}
+                name={name}
+                imgUrl={imgUrl}
+                price={price}
+                quantity={quantity}
+                isSelected={selectedItemList.indexOf(id) !== -1}
+                onToggleSelect={handleToggleSelect(id)}
+                onChangeQuantity={handleUpdateItemQuantity(id)}
+                onDeleteItem={handleDeleteItem(id)}
+              />
+            ))}
           </CartContainer>
         </Styled.CartContents>
         <Styled.PaymentBoxWrapper>
