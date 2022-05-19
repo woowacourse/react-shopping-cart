@@ -25,7 +25,7 @@ function shoppingCart(state = initialState, action) {
 
       const currentState = newState.find(product => product.id === Number(action.payload.id));
       const index = newState.findIndex(product => product.id === Number(action.payload.id));
-      const currentQuantity = currentState['quantity'] === 0 ? 0 : currentState['quantity'] - 1;
+      const currentQuantity = currentState['quantity'] === 1 ? 1 : currentState['quantity'] - 1;
       newState[index] = { ...currentState, quantity: currentQuantity };
 
       return newState;
