@@ -9,12 +9,12 @@ import { ColumnFlexWrapper } from 'styles/Wrapper';
 
 //재사용X
 function ProductCard(props) {
-  const { id, thumbnail } = props;
   const navigate = useNavigate();
+  const { id, thumbnail, name } = props;
 
   return (
     <Styled.Root onClick={() => navigate(`/detail/${id}`)}>
-      <ProductThumbnail src={thumbnail} type="card" />
+      <ProductThumbnail src={thumbnail} alt={name} type="card" />
       <ProductCardInfo {...props} />
     </Styled.Root>
   );

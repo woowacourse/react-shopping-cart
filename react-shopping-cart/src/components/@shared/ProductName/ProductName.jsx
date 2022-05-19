@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 // 재사용O
-function ProductName({ children }) {
-  return <Styled.Root>{children}</Styled.Root>;
+function ProductName({ children, ...props }) {
+  return <Styled.Root {...props}>{children}</Styled.Root>;
 }
 
 const Styled = {
