@@ -28,6 +28,21 @@ export default function selectedItemReducer(state = INITIAL_STATE, action) {
         selectedItem: newState,
       };
     }
+
+    case SELECTED_ITEM.ADD_ALL: {
+      const cart = action.payload;
+      const newState = cart.map(({id}) => id);
+      return {
+        selectedItem: newState,
+      };
+    }
+
+    case SELECTED_ITEM.DELETE_ALL: {
+      return {
+        selectedItem: [],
+      };
+    }
+
     default:
       return state;
   }
