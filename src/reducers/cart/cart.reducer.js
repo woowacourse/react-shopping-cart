@@ -7,6 +7,9 @@ const initialState = {
   isLoadingAddCartItem: false,
   isSucceedAddCartItem: false,
   isErrorAddCartItem: false,
+
+  isLoadingUpdateCartItemQuantity: false,
+  isErrorUpdateCartITemQuantity: false,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -55,6 +58,30 @@ const cartReducer = (state = initialState, action) => {
       isLoadingAddCartItem: false,
       isSucceedAddCartItem: false,
       isErrorAddCartItem: true,
+    };
+  }
+
+  if (action.type === actionTypes.UPDATE_CART_ITEM_QUANTITY_REQUEST) {
+    return {
+      ...state,
+      isLoadingUpdateCartItemQuantity: true,
+      isErrorUpdateCartITemQuantity: false,
+    };
+  }
+
+  if (action.type === actionTypes.UPDATE_CART_ITEM_QUANTITY_SUCCESS) {
+    return {
+      ...state,
+      data: action.data,
+      isLoadingUpdateCartItemQuantity: false,
+    };
+  }
+
+  if (action.type === actionTypes.UPDATE_CART_ITEM_QUANTITY_ERROR) {
+    return {
+      ...state,
+      isLoadingUpdateCartItemQuantity: false,
+      isErrorUpdateCartITemQuantity: true,
     };
   }
   return state;

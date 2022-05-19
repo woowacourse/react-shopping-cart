@@ -38,6 +38,7 @@ const Cart = () => {
     }
     setSelectedItemList(selectedItemList.filter((itemId) => itemId !== id));
   };
+
   return (
     <Styled.Wrapper>
       <Title contents="장바구니" />

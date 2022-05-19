@@ -20,3 +20,14 @@ export const addCartItemAsync = (id) => async (dispatch) => {
     dispatch(actions.addCartItemError());
   }
 };
+
+export const updateCartItemQuantityAsync =
+  (id, quantity) => async (dispatch) => {
+    dispatch(actions.updateCartItemQuantityRequest());
+    try {
+      const { data } = await apiClient.put(`/cart/${id}/${quantity}`);
+      dispatch(actions.updateCartItemQuantitySuccess(data));
+    } catch (error) {
+      dispatch(actions.updateCartItemQuantityError());
+    }
+  };

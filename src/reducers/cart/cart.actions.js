@@ -25,3 +25,17 @@ export const addCartItemSuccess = () => ({
 export const addCartItemError = () => ({
   type: actionTypes.ADD_CART_ITEM_ERROR,
 });
+
+export const updateCartItemQuantityRequest = () => ({
+  type: actionTypes.UPDATE_CART_ITEM_QUANTITY_REQUEST,
+});
+
+export const updateCartItemQuantitySuccess = (data) => ({
+  type: actionTypes.UPDATE_CART_ITEM_QUANTITY_SUCCESS,
+  data,
+});
+
+export const updateCartItemQuantityError = (error) => ({
+  type: actionTypes.UPDATE_CART_ITEM_QUANTITY_ERROR,
+  error,
+});

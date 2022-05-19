@@ -52,7 +52,18 @@ export const handlers = [
   }),
 
   rest.get('/cart', (req, res, ctx) => {
-    console.log(cartStorage);
+    return res(ctx.status(200), ctx.json(cartStorage));
+  }),
+
+  rest.put('/cart/:id/:quantity', (req, res, ctx) => {
+    const id = +req.params.id;
+    const quantity = +req.params.quantity;
+
+    const newCartList = cartStorage.map((item) => {
+      if (item.id === id) return { ...item, quantity };
+      return item;
+    });
+    cartStorage = newCartList;
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
 ];

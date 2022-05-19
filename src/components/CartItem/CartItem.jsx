@@ -4,6 +4,8 @@ import { useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
+import { useDispatch } from 'react-redux';
+import { updateCartItemQuantityAsync } from 'reducers/cart/cart.thunk';
 
 const CartItem = ({
   id,
@@ -14,17 +16,24 @@ const CartItem = ({
   isSelected,
   onToggleSelect,
 }) => {
+  const dispatch = useDispatch();
   const [itemQuantity, setItemQuantity] = useState(quantity);
 
   const handleIncrementQuantity = () => {
-    setItemQuantity((prevQuantity) => prevQuantity + 1);
+    setItemQuantity((prevQuantity) => {
+      dispatch(updateCartItemQuantityAsync(id, prevQuantity + 1));
+      return prevQuantity + 1;
+    });
   };
 
   const handleDecrementQuantity = () => {
     if (itemQuantity === 1) {
       return alert('최소 주문 갯수는 1개 입니다.');
     }
-    setItemQuantity((prevQuantity) => prevQuantity - 1);
+    setItemQuantity((prevQuantity) => {
+      dispatch(updateCartItemQuantityAsync(id, prevQuantity - 1));
+      return prevQuantity - 1;
+    });
   };
 
   return (
