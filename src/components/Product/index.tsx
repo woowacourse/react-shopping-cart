@@ -9,7 +9,7 @@ import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCar
 import { actionCreators as CartActions } from "../../redux/modules/cart";
 import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar";
 
-import deleteIcon from "../../assets/deleteIcon.png";
+import deleteIcon from "../../assets/deleteIcon_white.png";
 import cart from "../../assets/cart.svg";
 
 type ProductType = {
@@ -56,16 +56,12 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     dispatch(CartActions.decrement(id));
   };
 
-  const conClickIncreaseCounter = () => {
+  const onClickIncreaseCounter = () => {
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
 
-    if (cartItem) {
-      dispatch(CartActions.increment(id));
-      return;
-    }
-    dispatch(CartActions.addItem(id));
+    dispatch(CartActions.increment(id));
   };
 
   useEffect(() => {
@@ -111,7 +107,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
             <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
           )}
           <span>{cartItem?.amount ?? 0}</span>
-          <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>
+          <Styled.CartCounterButton onClick={onClickIncreaseCounter}>+</Styled.CartCounterButton>
         </Styled.CartCounter>
       </Styled.ProductInfoWrapper>
     </Styled.ProductWrapper>

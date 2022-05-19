@@ -20,12 +20,12 @@ const HeaderTitle = styled.div`
 
   cursor: pointer;
 
-  & img {
+  img {
     width: 40px;
     height: 36px;
   }
 
-  & div {
+  div {
     padding: 14px 20px 5px;
     font-size: 30px;
     font-weight: 900;
@@ -43,7 +43,7 @@ const HeaderMenu = styled.div`
   font-size: 20px;
   color: #fff;
 
-  & div {
+  div {
     cursor: pointer;
   }
 `;

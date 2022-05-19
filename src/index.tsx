@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body{  
      margin: 0; 
      height: 100vh;
-   }   
+   }
 `;
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
