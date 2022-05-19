@@ -9,8 +9,11 @@ import useCart from 'hooks/useCart';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
+import { useDispatch } from 'react-redux';
+import { deleteCartItemAsync } from 'reducers/cart/cart.thunk';
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { isLoading, isError, data } = useCart();
   const [selectedItemList, setSelectedItemList] = useState([]);
 
@@ -39,6 +42,11 @@ const Cart = () => {
     setSelectedItemList(selectedItemList.filter((itemId) => itemId !== id));
   };
 
+  const handleDeleteSelectedItem = () => {
+    selectedItemList.forEach((id) => dispatch(deleteCartItemAsync(id)));
+    setSelectedItemList([]);
+  };
+
   return (
     <Styled.Wrapper>
       <Title contents="장바구니" />
@@ -52,6 +60,7 @@ const Cart = () => {
               onToggleSelect={handleToggleSelectAll(
                 selectedItemList.length === data.length,
               )}
+              onClickDeleteButton={handleDeleteSelectedItem}
             />
 
             <CartContainer>

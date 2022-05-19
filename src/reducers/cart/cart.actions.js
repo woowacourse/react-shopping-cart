@@ -39,3 +39,17 @@ export const updateCartItemQuantityError = (error) => ({
   type: actionTypes.UPDATE_CART_ITEM_QUANTITY_ERROR,
   error,
 });
+
+export const deleteCartItemRequest = () => ({
+  type: actionTypes.DELETE_CART_ITEM_REQUEST,
+});
+
+export const deleteCartItemSuccess = (data) => ({
+  type: actionTypes.DELETE_CART_ITEM_SUCCESS,
+  data,
+});
+
+export const deleteCartItemError = (error) => ({
+  type: actionTypes.DELETE_CART_ITEM_ERROR,
+  error,
+});

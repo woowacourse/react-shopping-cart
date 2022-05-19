@@ -9,7 +9,10 @@ const initialState = {
   isErrorAddCartItem: false,
 
   isLoadingUpdateCartItemQuantity: false,
-  isErrorUpdateCartITemQuantity: false,
+  isErrorUpdateCartItemQuantity: false,
+
+  isLoadingDeleteCartItem: false,
+  isErrorDeleteCartItem: false,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -65,7 +68,7 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingUpdateCartItemQuantity: true,
-      isErrorUpdateCartITemQuantity: false,
+      isErrorUpdateCartItemQuantity: false,
     };
   }
 
@@ -81,9 +84,33 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       isLoadingUpdateCartItemQuantity: false,
-      isErrorUpdateCartITemQuantity: true,
+      isErrorUpdateCartItemQuantity: true,
     };
   }
+
+  if (action.type === actionTypes.DELETE_CART_ITEM_REQUEST) {
+    return {
+      ...state,
+      isLoadingDeleteCartItem: true,
+      isErrorDeleteCartItem: false,
+    };
+  }
+
+  if (action.type === actionTypes.DELETE_CART_ITEM_SUCCESS) {
+    return {
+      ...state,
+      data: action.data,
+      isLoadingDeleteCartItem: false,
+    };
+  }
+  if (action.type === actionTypes.DELETE_CART_ITEM_ERROR) {
+    return {
+      ...state,
+      isLoadingDeleteCartItem: false,
+      isErrorDeleteCartItem: true,
+    };
+  }
+
   return state;
 };
 

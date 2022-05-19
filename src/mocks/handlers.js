@@ -18,15 +18,7 @@ export const handlers = [
 
   rest.delete('/cart/:id', (req, res, ctx) => {
     const id = +req.params.id;
-    const index = cartStorage.findIndex(
-      ({ id: productId }) => productId === id,
-    );
-
-    if (cartStorage[index].quantity === 1) {
-      cartStorage = cartStorage.filter((_, itemIndex) => index !== itemIndex);
-    } else {
-      cartStorage[index].quantity = cartStorage[index].quantity - 1;
-    }
+    cartStorage = cartStorage.filter((item) => item.id !== id);
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
 

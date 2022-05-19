@@ -18,7 +18,7 @@ const CartControlBar = ({
         <span>전체 선택 / 해제</span>
       </Styled.FieldSet>
       <Styled.DeleteButton onClick={onClickDeleteButton}>
-        상품삭제
+        선택 상품 삭제
       </Styled.DeleteButton>
     </Styled.Wrapper>
   );

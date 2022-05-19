@@ -31,3 +31,14 @@ export const updateCartItemQuantityAsync =
       dispatch(actions.updateCartItemQuantityError());
     }
   };
+
+export const deleteCartItemAsync = (id) => async (dispatch) => {
+  dispatch(actions.deleteCartItemRequest());
+  try {
+    const { data } = await apiClient.delete(`/cart/${id}`);
+    dispatch(actions.deleteCartItemSuccess(data));
+    dispatch();
+  } catch (error) {
+    dispatch(actions.deleteCartItemError());
+  }
+};

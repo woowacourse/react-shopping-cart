@@ -5,7 +5,10 @@ import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
 import { useDispatch } from 'react-redux';
-import { updateCartItemQuantityAsync } from 'reducers/cart/cart.thunk';
+import {
+  updateCartItemQuantityAsync,
+  deleteCartItemAsync,
+} from 'reducers/cart/cart.thunk';
 
 const CartItem = ({
   id,
@@ -36,6 +39,12 @@ const CartItem = ({
     });
   };
 
+  const handleClickDeleteButton = () => {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      dispatch(deleteCartItemAsync(id));
+    }
+  };
+
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
@@ -44,7 +53,7 @@ const CartItem = ({
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>
-        <Styled.DeleteButton>
+        <Styled.DeleteButton onClick={handleClickDeleteButton}>
           <Styled.TrashBinSvg src={smallTrashBin} alt="상품 삭제 버튼" />
         </Styled.DeleteButton>
         <Styled.Quantity>
@@ -56,7 +65,6 @@ const CartItem = ({
             -
           </Styled.QuantityControlButton>
         </Styled.Quantity>
-
         <Styled.Price>{parsePrice(itemQuantity * price)}원</Styled.Price>
       </Styled.ProductInfo>
     </Styled.Wrapper>
