@@ -1,9 +1,10 @@
 import * as S from "./index.styles";
-import RemoveIcon from "../../assets/image/remove.svg";
+import RemoveIcon from "../RemoveIcon";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrementCartProductQuantity,
   incrementCartProductQuantity,
+  removeCartProduct,
   updateCartProductQuantityByUserInput,
 } from "../../modules/products";
 
@@ -24,11 +25,12 @@ const ProductQuantityControlContainer = ({
   handleDecrement,
   handleUpdateQuantityByUser,
   handleBackspaceByUser,
+  handleRemoveProduct,
 }) => {
   return (
     <S.ProductQuantityControlContainer>
-      <button type="button">
-        <img src={RemoveIcon} alt="삭제 버튼" />
+      <button onClick={handleRemoveProduct} type="button">
+        <RemoveIcon fill="#666" alt="삭제 버튼" />
       </button>
       <S.QuantityButtonControlContainer>
         <S.ProductQuantityInput
@@ -70,7 +72,6 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
   };
 
   const handleUpdateQuantityByUser = ({ target }) => {
-    // if (Number(target.value) < 1) return;
     dispatch(updateCartProductQuantityByUserInput(id, target.value));
   };
 
@@ -84,6 +85,10 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
     target.select();
   };
 
+  const handleRemoveProduct = () => {
+    dispatch(removeCartProduct(id));
+  };
+
   return (
     <S.ShoppingCartProduct>
       <ProductInfoContainer imgUrl={imgUrl} title={title} />
@@ -94,6 +99,7 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
         handleDecrement={handleDecrement}
         handleUpdateQuantityByUser={handleUpdateQuantityByUser}
         handleBackspaceByUser={handleBackspaceByUser}
+        handleRemoveProduct={handleRemoveProduct}
       />
     </S.ShoppingCartProduct>
   );

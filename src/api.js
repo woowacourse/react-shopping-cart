@@ -23,3 +23,7 @@ export const getShoppingCartProducts = async () => {
 export const patchShoppingCartProductQuantity = async (id, newState) => {
   return axios.patch(`/shopping-cart/${id}`, newState);
 };
+
+export const removeShoppingCartProduct = async (id) => {
+  return axios.delete(`/shopping-cart/${id}`);
+};

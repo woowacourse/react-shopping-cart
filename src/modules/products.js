@@ -21,6 +21,8 @@ const DECREMENT_CART_PRODUCT_QUANTITY =
   "cart-product/DECREMENT_CART_PRODUCT_QUANTITY";
 const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
   "cart-product/UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT";
+const REMOVE_SHOPPING_CART_PRODUCT =
+  "cart-product/REMOVE_SHOPPING_CART_PRODUCT";
 
 const initialState = {
   product: {
@@ -40,6 +42,21 @@ const initialState = {
     data: [],
     error: null,
   },
+};
+
+export const removeCartProduct = (id) => async (dispatch, getState) => {
+  try {
+    const shoppingCartProducts = getState().shoppingCartProducts;
+    const newShoppingCartProducts = shoppingCartProducts.data.filter(
+      (product) => product.id !== id
+    );
+
+    await API.removeShoppingCartProduct(id);
+
+    dispatch({ type: REMOVE_SHOPPING_CART_PRODUCT, newShoppingCartProducts });
+  } catch (error) {
+    dispatch({ type: GET_CART_PRODUCTS_ERROR });
+  }
 };
 
 export const updateCartProductQuantityByUserInput =
@@ -247,6 +264,11 @@ const updateProductQuantityByUserInput = (state) => ({
   data: state.data,
 });
 
+const removeShoppingCartProduct = (state, action) => ({
+  ...state,
+  data: action.newShoppingCartProducts,
+});
+
 const productsReducer = createReducer(
   {},
   {
@@ -276,6 +298,7 @@ const shoppingCartProductsReducer = createReducer(
     [DECREMENT_CART_PRODUCT_QUANTITY]: decrementProductQuantity,
     [UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT]:
       updateProductQuantityByUserInput,
+    [REMOVE_SHOPPING_CART_PRODUCT]: removeShoppingCartProduct,
   }
 );
 
