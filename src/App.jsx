@@ -6,7 +6,7 @@ import { loadCarts } from 'store/carts';
 import GlobalStyle from 'GlobalStyle';
 import ProductListContainer from 'components/Main/ProductListContainer';
 import Header from 'components/Header/Header';
-import Cart from 'components/Cart/Cart';
+import Cart from 'components/CartPage/Cart';
 import OrderList from 'components/OrderList/OrderList';
 import NotFound from 'components/NotFound/NotFound';
 import { PATH } from 'constants';

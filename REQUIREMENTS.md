@@ -14,7 +14,8 @@
   - [x] 장바구니에 이미 추가된 상품이면, 장바구니에서 제거한다.
 
 ## 장바구니
-- [ ] CartHeader 컴포넌트 정적 html,css 구현
+
+- [x] CartHeader 컴포넌트 정적 html,css,스토리북 구현
 - [ ] CheckBox 컴포넌트 정적 html,css 구현
 - [ ] TrashButton 컴포넌트 정적 html,css 구현
 - [ ] AmountController 컴포넌트 정적 html,css 구현
