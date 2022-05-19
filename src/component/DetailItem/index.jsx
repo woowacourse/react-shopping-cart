@@ -10,7 +10,7 @@ export default function DetailItem({
   itemImgURL,
   itemName,
   itemPrice,
-  disabled,
+  isInCart,
   handleCartButtonClick = () => void 0,
 }) {
   return (
@@ -26,7 +26,7 @@ export default function DetailItem({
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}
-        disabled={disabled}
+        disabled={isInCart}
       >
         장바구니
       </Button>
@@ -39,6 +39,6 @@ DetailItem.propTypes = {
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
-  disabled: PropTypes.bool,
+  isInCart: PropTypes.bool,
   handleCartButtonClick: PropTypes.func,
 };

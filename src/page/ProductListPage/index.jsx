@@ -31,7 +31,7 @@ export default function ProductListPage() {
 
   const handleIconClick = ({image, name, price, id, isInCart}) => {
     if (isInCart) {
-      deleteCartItem(id);
+      deleteCartItem(Number(id));
       return;
     }
 
@@ -39,7 +39,7 @@ export default function ProductListPage() {
       itemImgURL: image,
       itemName: name,
       itemPrice: price,
-      id,
+      id: Number(id),
       count: 1,
     });
   };
