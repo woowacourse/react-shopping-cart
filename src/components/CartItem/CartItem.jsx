@@ -57,7 +57,7 @@ const CartItem = ({
           </Styled.QuantityControlButton>
         </Styled.Quantity>
 
-        <Styled.Price>{parsePrice(price)}원</Styled.Price>
+        <Styled.Price>{parsePrice(itemQuantity * price)}원</Styled.Price>
       </Styled.ProductInfo>
     </Styled.Wrapper>
   );
