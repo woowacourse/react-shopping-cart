@@ -14,7 +14,7 @@ function Header() {
         </FlexBox>
       </HeaderLink>
       <FlexBox gap="43px">
-        <HeaderLink to="/" type="nav">
+        <HeaderLink to="/cart" type="nav">
           장바구니
         </HeaderLink>
         <HeaderLink to="/" type="nav">
