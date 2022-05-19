@@ -14,7 +14,7 @@ function CartItemList() {
   return (
     <CartItemListWrapper>
       {cartItemList.map((cartItem) => (
-        <CartItem cartItem={cartItem} key={cartItem.id} />
+        <CartItem cartItem={cartItem} key={cartItem.detail.id} />
       ))}
     </CartItemListWrapper>
   );

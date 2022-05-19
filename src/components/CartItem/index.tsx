@@ -12,20 +12,20 @@ interface CartItemProps {
 
 function CartItem({ cartItem }: CartItemProps) {
   const dispatch = useDispatch();
-  const { name, img, price } = cartItem.detail;
+  const { id, name, img, price } = cartItem.detail;
 
   const onClickDeleteItem = () => {
     if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
-      dispatch(CartActions.deleteItem(cartItem.id));
+      dispatch(CartActions.deleteItem(id));
     }
   };
 
   const onClickIncreaseCounter = () => {
-    dispatch(CartActions.increment(cartItem.id));
+    dispatch(CartActions.increment(id));
   };
 
   const onClickDecreaseCounter = () => {
-    if (cartItem.amount > 1) dispatch(CartActions.decrement(cartItem.id));
+    if (cartItem.amount > 1) dispatch(CartActions.decrement(id));
   };
 
   return (

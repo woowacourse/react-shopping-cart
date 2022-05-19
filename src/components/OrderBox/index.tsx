@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import { useCartItemListSelector } from "../../hooks/useCartSelector";
+
 function OrderBox() {
+  const cartItemList = useCartItemListSelector();
+  const [totalPayAmount, setTotalPayAmount] = useState(0);
+
   return (
     <OrderBoxWrapper>
       <OrderBoxTitle>결제예상금액</OrderBoxTitle>
       <OrderBoxDetail>
         <span>결제예상금액</span>
-        <span>21,700원</span>
+        <span>{totalPayAmount}원</span>
       </OrderBoxDetail>
       <ButtonWrapper>
         <OrderButton>주문하기(2개)</OrderButton>

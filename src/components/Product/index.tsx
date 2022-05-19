@@ -23,10 +23,11 @@ interface ProductProps {
   productInfo: ProductType;
 }
 
-function Product({ productInfo: { name, price, img, id } }: ProductProps) {
+function Product({ productInfo }: ProductProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { name, price, img, id } = productInfo;
   const [isShowCartCounter, setIsShowCartCounter] = useState(false);
   const cartItemList = useCartItemListSelector();
   const cartItem = useCartItemSelector(id);
@@ -34,8 +35,8 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
 
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
-    if (!cartItemList.some((cartItem) => cartItem.id === id)) {
-      dispatch(CartActions.addItem(id, { name, price, img }));
+    if (!cartItemList.some((cartItem) => cartItem.detail.id === id)) {
+      dispatch(CartActions.addItem(productInfo));
       dispatch(SnackBarActions.show("장바구니에 추가되었습니다. 😍"));
     }
   };
@@ -76,18 +77,14 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     <Styled.ProductWrapper>
       <Styled.ProductImageWrapper>
         <Styled.ProductImage
-          onClick={() =>
-            navigate(`/product/${id}`, { state: { productDetail: { name, price, img, id } } })
-          }
+          onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
           src={img}
           alt={name}
         />
       </Styled.ProductImageWrapper>
       <Styled.ProductInfoWrapper>
         <Styled.ProductInfo
-          onClick={() =>
-            navigate(`/product/${id}`, { state: { productDetail: { name, price, img, id } } })
-          }
+          onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
         >
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>

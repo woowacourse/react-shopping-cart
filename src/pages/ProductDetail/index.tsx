@@ -22,9 +22,8 @@ function ProductDetail() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    productDetail: { img, name, price, id },
-  } = location.state as LocationState;
+  const { productDetail } = location.state as LocationState;
+  const { name, price, img, id } = productDetail;
   const cartItem = useCartItemSelector(id);
 
   return (
@@ -50,7 +49,7 @@ function ProductDetail() {
         ) : (
           <Styled.CartButton
             onClick={() => {
-              dispatch(CartActions.addItem(id, { img, name, price }));
+              dispatch(CartActions.addItem(productDetail));
             }}
           >
             장바구니 담기

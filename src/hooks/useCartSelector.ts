@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const selectCartItemById = (state: RootState, targetId: number) => {
-  return state.cart.cartItemList.find((cartItem) => cartItem.id === targetId);
+  return state.cart.cartItemList.find((cartItem) => cartItem.detail.id === targetId);
 };
 
 const useCartItemListSelector = () => useSelector((state: RootState) => state.cart.cartItemList);

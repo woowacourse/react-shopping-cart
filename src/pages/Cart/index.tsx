@@ -54,6 +54,7 @@ const Content = styled.div`
 
 const LeftContent = styled.div`
   width: 55%;
+  align-self: start;
 `;
 
 const RightContent = styled.div`
