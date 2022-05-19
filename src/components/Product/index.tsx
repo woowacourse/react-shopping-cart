@@ -29,7 +29,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((item) => item.id === id)) {
-      const newItem = { name, price, img, id, amount: 1 };
+      const newItem = { name, price, img, id, amount: 1, isSelected: false };
 
       dispatch(addItem(newItem));
       dispatch(show("장바구니에 추가되었습니다. 😍"));
@@ -59,7 +59,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       dispatch(increment(id));
       return;
     }
-    dispatch(addItem({ name, price, img, id, amount: 1 }));
+    dispatch(addItem({ name, price, img, id, amount: 1, isSelected: false }));
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductWrapper>
+    <Styled.ProductContainer>
       <Styled.ProductImageWrapper>
         <img onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
       </Styled.ProductImageWrapper>
@@ -90,7 +90,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
           <button onClick={onClickIncreaseCounter}>+</button>
         </Styled.CartCounter>
       </Styled.ProductInfoWrapper>
-    </Styled.ProductWrapper>
+    </Styled.ProductContainer>
   );
 }
 

@@ -31,7 +31,7 @@ function Cart() {
           </SelectAllContainer>
           <CartListTitle>든든배송 상품</CartListTitle>
           {cartItemList.map((item: CartItem) => (
-            <CartProduct key={item.id} {...item} />
+            <CartProduct key={item.id} {...{ item }} />
           ))}
         </div>
         <PaymentContainer>

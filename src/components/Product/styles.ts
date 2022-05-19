@@ -75,7 +75,7 @@ const CartImageWrapper = styled.div`
   }
 `;
 
-const ProductWrapper = styled.div`
+const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 220px;
@@ -130,7 +130,7 @@ const ProductInfo = styled.div`
 `;
 
 export {
-  ProductWrapper,
+  ProductContainer,
   ProductInfoWrapper,
   ProductInfo,
   ProductImageWrapper,

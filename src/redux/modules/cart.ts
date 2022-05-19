@@ -1,4 +1,11 @@
-export type CartItem = { name: string; price: number; img: string; id: number; amount: number };
+export type CartItem = {
+  name: string;
+  price: number;
+  img: string;
+  id: number;
+  amount: number;
+  isSelected: boolean;
+};
 export type CartState = { cartItems: CartItem[] };
 
 type Action =
