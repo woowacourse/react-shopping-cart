@@ -9,11 +9,11 @@ import Flex from 'components/common/Flex';
 import Button from 'components/common/Button';
 import Text from 'components/common/Text';
 
-interface CartProductProp {
+interface CartProductProps {
   data: CartProductData;
 }
 
-const CartProduct = ({ data }: CartProductProp) => {
+const CartProduct = ({ data }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface MarginWrapperProp {
+interface MarginWrapperProps {
   mt?: string;
   mr?: string;
   mb?: string;
@@ -9,7 +9,7 @@ interface MarginWrapperProp {
 }
 
 const MarginWrapper = styled.div`
-  ${({ mt, mr, mb, ml }: MarginWrapperProp) => css`
+  ${({ mt, mr, mb, ml }: MarginWrapperProps) => css`
     margin-top: ${mt};
     margin-right: ${mr};
     margin-bottom: ${mb};

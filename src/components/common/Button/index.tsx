@@ -1,7 +1,7 @@
 import styled, { css, DefaultTheme } from 'styled-components';
 import { Colors } from 'styles/theme';
 
-interface ButtonProp {
+interface ButtonProps {
   theme: DefaultTheme;
   w?: string;
   h?: string;
@@ -16,7 +16,7 @@ const Button = styled.button`
   background: none;
   cursor: pointer;
 
-  ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProp) => css`
+  ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProps) => css`
     width: ${w};
     height: ${h};
     border-width: ${borderWidth};

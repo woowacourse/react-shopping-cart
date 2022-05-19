@@ -5,7 +5,7 @@ type Wrap = 'nowrap' | 'wrap' | 'wrap-reverse';
 type Justify = 'normal' | 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
 type Align = 'normal' | 'center' | 'start' | 'flex-start' | 'end' | 'flex-end' | 'stretch';
 
-interface FlexProp {
+interface FlexProps {
   direction?: Direction;
   wrap?: Wrap;
   justify?: Justify;
@@ -14,7 +14,7 @@ interface FlexProp {
 }
 
 const Flex = styled.div`
-  ${({ direction, wrap, justify, align, gap }: FlexProp) => css`
+  ${({ direction, wrap, justify, align, gap }: FlexProps) => css`
     display: flex;
     flex-direction: ${direction};
     flex-wrap: ${wrap};
