@@ -12,8 +12,8 @@ const CartControlBar = ({
       <Styled.FieldSet>
         <CheckBox
           id="total"
-          onCheck={onToggleSelect}
           isChecked={isAllSelected}
+          onCheck={onToggleSelect}
         />
         <span>전체 선택 / 해제</span>
       </Styled.FieldSet>

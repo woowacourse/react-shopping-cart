@@ -46,6 +46,7 @@ const Cart = () => {
   };
 
   const handleDeleteSelectedItem = () => {
+    if (selectedItemList.length === 0) return;
     selectedItemList.forEach((id) => handleDeleteItem(id)());
     setSelectedItemList([]);
   };
