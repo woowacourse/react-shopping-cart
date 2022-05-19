@@ -4,11 +4,10 @@ import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
 import { useState } from 'react';
 
-const CartTable = ({ cartList }) => {
-  const initialIdList = cartList.map((item) => item.id);
+const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [isEachChecked, setIsEachChecked] = useState(true);
-  const [checkedIdList, setCheckedIdList] = useState(initialIdList);
+  const initialIdList = cartList.map((item) => item.id);
 
   const handleChangeAllCheckbox = () => {
     if (isAllChecked) {
@@ -23,8 +22,6 @@ const CartTable = ({ cartList }) => {
   };
 
   const handleChangeEachCheckbox = (id, isChecked) => {
-    // CheckedIdList 배열에 대하여 id와 isChecked를 갖고
-    // 선택된 id로 구성된 새 배열을 setState한다.
     let newCheckedIdList = [...checkedIdList];
     if (!isChecked) {
       newCheckedIdList.push(id);
@@ -62,6 +59,8 @@ const CartTable = ({ cartList }) => {
 
 CartTable.propTypes = {
   cartList: PropTypes.array,
+  checkedIdList: PropTypes.object,
+  setCheckedIdList: PropTypes.func,
 };
 
 const Styled = {

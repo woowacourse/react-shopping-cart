@@ -11,7 +11,7 @@ const useCart = () => {
     }, []);
   };
 
-  return { getCartEffect, cart: data, isLoading, isError };
+  return { getCartEffect, cartList: data, isLoading, isError };
 };
 
 export default useCart;

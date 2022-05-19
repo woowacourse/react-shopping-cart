@@ -26,12 +26,12 @@
     - [x] TitleHeader : 페이지별 타이틀 텍스트를 표시함. 여러 컴포넌트에서 사용됨(props는 children).
     - [x] CartTable : 장바구니 테이블로서 내부에 장바구니 상품 상태에 따라 CartItem 컴포넌트가 렌더링됨(props는 cartList)
     - [x] CartItem : 장바구니에 담긴 각각의 상품의 수량 설정 및 선택을 할 수 있음(props는 item)
-    - [ ] 체크박스 기능
+    - [x] 체크박스 기능
       - [x] Checkbox 컴포넌트를 분리한다.
       - [x] 체크된 상품들의 id들을 배열인 checkedIdList는 Cart 컴포넌트에서만 알면 되며 useState로 관리한다.
       - [x] 체크박스에는 해당 상품의 id가 전달되며, onChange될때마다 checked에 기존 상태(isChecked)의 반대값이 저장되며, checkedIdList에 접근하여 해당 id가 없으면 push하고 해당 id가 있으면 나머지 id들만 filter한다.
-      - [ ] totalCount는 checkedIdList의 length이다.
-      - [ ] 해당 id들의 배열(checkedIdList)과 redux(api에서 받은)에서 가져온 cart객체들(cart)의 배열을 통해 totalPrice를 setState한다.
+      - [x] totalCount는 checkedIdList의 length이다.
+      - [x] 해당 id들의 배열(checkedIdList)과 redux(api에서 받은)에서 가져온 cart객체들(cart)의 배열을 통해 totalPrice를 setState한다.
   - [] 주문/결제 페이지
   - [] 주문 목록 페이지
   - [] 주문 상세 페이지
