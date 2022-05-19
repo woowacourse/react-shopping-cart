@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 import Icons from './icons';
 import type { IconNames } from './icons';

@@ -1,15 +1,15 @@
 import { ProductType } from '@/domain/product';
-import { ProductActionType } from '@/store/product/action';
+import { ProductActionType, ProductListAction } from '@/store/product/action';
 import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
 
-interface ProductListState {
+interface ProductState {
   readonly productList: ProductType[];
   readonly totalProductCount: number;
   readonly pageCount: number;
   readonly isLoading: boolean;
 }
 
-const initialState: ProductListState = {
+const initialState: ProductState = {
   productList: [],
   totalProductCount: 0,
   pageCount: 0,

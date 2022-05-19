@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styled from './CartAdd.style';
 import * as GlobalStyled from '../../../styles/GlobalStyles';
 import Counter from '../../common/Counter/Counter';

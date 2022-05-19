@@ -1,5 +1,4 @@
 import { ProductType } from '@/domain/product';
-import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import * as Styled from './ProductList.style';
 interface ProductListType {

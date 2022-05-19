@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 import ProductList from '../../components/product/ProductList/ProductList';
 import { useDispatch, useSelector } from 'react-redux';

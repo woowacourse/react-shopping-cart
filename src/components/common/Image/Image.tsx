@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styled from './Image.style';
 interface ImagePropsType {
   src: string;

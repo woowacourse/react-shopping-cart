@@ -1,4 +1,3 @@
-import React from 'react';
 import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 

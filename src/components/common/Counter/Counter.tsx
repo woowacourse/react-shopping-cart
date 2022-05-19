@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styled from './Counter.style';
 interface CounterPropsType {
   count: number;

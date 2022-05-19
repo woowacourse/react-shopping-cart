@@ -1,4 +1,3 @@
-import React from 'react';
 import ProductDetail from '@/pages/ProductDetail/ProductDetail';
 import ShoppingCart from '@/pages/ShoppingCart/ShoppingCart';
 import Home from '@/pages/Home/Home';

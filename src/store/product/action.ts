@@ -20,9 +20,9 @@ interface GetProductListSucceeded {
 }
 
 interface GetProductListFailed {
-  type: ProductActionType.GET_PRODUCT_LIST_SUCCEEDED;
+  type: ProductActionType.GET_PRODUCT_LIST_FAILED;
   payload: {
-    message: string;
+    message: string | unknown;
   };
 }
 
@@ -45,7 +45,7 @@ export const fetchProductListAsync =
       });
     } catch ({ message }) {
       dispatch({
-        type: ProductActionType.GET_PRODUCT_LIST_SUCCEEDED,
+        type: ProductActionType.GET_PRODUCT_LIST_FAILED,
         payload: {
           message,
         },

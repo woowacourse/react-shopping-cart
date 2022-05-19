@@ -1,4 +1,3 @@
-import React from 'react';
 import { ROUTE } from '../../../route';
 import Icon from '../Icon/Icon';
 import * as Styled from './Header.style';
