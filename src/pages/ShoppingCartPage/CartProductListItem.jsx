@@ -25,6 +25,10 @@ function CartProductListItem({ product, selected, handleCheckBoxClick }) {
       setQuantity(PRODUCT_QUANTITY_CONDITION.MAX);
       return;
     }
+    if (Number(e.target.value) < PRODUCT_QUANTITY_CONDITION.MIN) {
+      setQuantity(PRODUCT_QUANTITY_CONDITION.MIN);
+      return;
+    }
     setQuantity(e.target.value);
   };
 
