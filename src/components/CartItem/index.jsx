@@ -29,9 +29,6 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
   };
 
   const minusQuantity = () => {
-    if (quantity === 1) {
-      return alert('최소 상품 수량은 1개입니다');
-    }
     dispatch(editCart(id, quantity - 1));
   };
 
@@ -59,7 +56,13 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
             <Button width="42px" height="30px" buttonType="grayBorder" onClick={addQuantity}>
               ▲
             </Button>
-            <Button width="42px" height="30px" buttonType="grayBorder" onClick={minusQuantity}>
+            <Button
+              width="42px"
+              height="30px"
+              buttonType="grayBorder"
+              onClick={minusQuantity}
+              disabled={quantity === 1}
+            >
               ▼
             </Button>
           </FlexWrapper>

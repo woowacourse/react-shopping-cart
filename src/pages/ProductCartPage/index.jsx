@@ -65,7 +65,8 @@ export default function ProductCartPage() {
     }
   };
 
-  const {totalQuantity, totalPrice} = cartItem.reduce(
+  const checkedItems = cartItem.filter(({id}) => checkedItemList.includes(id));
+  const {totalQuantity, totalPrice} = checkedItems.reduce(
     (prev, cur) => {
       return {
         totalQuantity: cur.quantity + prev.totalQuantity,
@@ -83,7 +84,7 @@ export default function ProductCartPage() {
           <SelectDeleteWrapper>
             <CheckBoxWrapper>
               <CheckBox onChange={allChecked} checked={isAllChecked} />
-              {isAllChecked ? '선택해제' : '전체선택'}
+              {`전체선택 ${checkedItemList.length}/${cartItem.length}`}
             </CheckBoxWrapper>
             <Button
               buttonType="grayBorder"
@@ -91,28 +92,30 @@ export default function ProductCartPage() {
               height="50px"
               onClick={deleteSelectedItems}
             >
-              {isAllChecked ? '전체 상품 삭제' : '선택 상품 삭제'}
+              선택 삭제
             </Button>
           </SelectDeleteWrapper>
 
-          <ListHeaderWrapper>{`장바구니 상품 ${cartItem.length}(개)`}</ListHeaderWrapper>
+          <ListHeaderWrapper>{`장바구니 상품 (${cartItem.length}개)`}</ListHeaderWrapper>
           <CartListWrapper>
-            {cartItem.map(({image, name, price, quantity, id}) => (
-              <React.Fragment key={id}>
-                <CartItem
-                  itemImgURL={image}
-                  itemName={name}
-                  itemPrice={price}
-                  quantity={quantity}
-                  checked={checkedItemList.includes(id)}
-                  id={id}
-                  onChange={() => {
-                    changeCheckedList(id);
-                  }}
-                />
-                <hr />
-              </React.Fragment>
-            ))}
+            {cartItem.length === 0 && <div>장바구니에 담긴 상품이 없습니다</div>}
+            {cartItem.length !== 0 &&
+              cartItem.map(({image, name, price, quantity, id}) => (
+                <React.Fragment key={id}>
+                  <CartItem
+                    itemImgURL={image}
+                    itemName={name}
+                    itemPrice={price}
+                    quantity={quantity}
+                    checked={checkedItemList.includes(id)}
+                    id={id}
+                    onChange={() => {
+                      changeCheckedList(id);
+                    }}
+                  />
+                  <hr />
+                </React.Fragment>
+              ))}
           </CartListWrapper>
         </SelectCartWrapper>
 
