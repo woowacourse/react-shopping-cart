@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import ImgWrapper from 'components/ImgWrapper';
 import useCart from 'hooks/useCart';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import Skeleton from 'components/Skeleton';
+import spinner from 'assets/svg/spinner.svg';
 import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
 import CartOrder from 'components/CartOrder';
 import { useEffect, useState } from 'react';
-// import useDelete from 'hooks/useDelete';
 
 const Cart = () => {
   const { getCartEffect, cartList, isLoading, isError } = useCart();
@@ -35,25 +34,19 @@ const Cart = () => {
     setTotalPrice(totalPrice);
   }, [checkedIdList]);
 
-  // delete
-  // const { callApi: callDeleteApi } = useDelete('/cartList', {
-  //   data: {
-  //     id: 1,
-  //   },
-  // });
-
   return (
     <Styled.CartSection>
       <TitleHeader>장바구니</TitleHeader>
       <Styled.FlexBetweenBox>
-        {isLoading && <Skeleton sizeType="large" />}
+        {isLoading && (
+          <ImgWrapper isMini="true" src={spinner} alt="로딩 스피너" />
+        )}
         {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
         {!isLoading && cartList && (
           <CartTable
             cartList={cartList}
             checkedIdList={checkedIdList}
             setCheckedIdList={setCheckedIdList}
-            // handleClickDelete={callDeleteApi}
           />
         )}
 

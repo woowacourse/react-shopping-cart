@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const ImgWrapper = ({ src, alt }) => {
+const ImgWrapper = ({ src, alt, isMini = false }) => {
   return (
     <Styled.Wrapper>
-      <Styled.Img src={src} alt={alt} />
+      <Styled.Img src={src} alt={alt} isMini={isMini} />
     </Styled.Wrapper>
   );
 };
@@ -12,6 +12,7 @@ const ImgWrapper = ({ src, alt }) => {
 ImgWrapper.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
+  isMini: PropTypes.bool,
 };
 
 const Styled = {
@@ -23,7 +24,9 @@ const Styled = {
     align-items: center;
   `,
   Img: styled.img`
-    width: 60%;
+    ${({ isMini }) => `
+      width: ${isMini ? '10%' : '60%'}; 
+    `}
   `,
 };
 
