@@ -1,21 +1,28 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import IconButton from 'components/@common/IconButton';
 import CheckBox from 'components/@common/CheckBox';
 import Counter from 'components/@common/Counter';
 
+import { deleteCartItem } from 'actions/cart';
+import { snackbar } from 'actions/snackbar';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import { 아이콘_코드 } from 'constants/';
 import * as Styled from './styles';
 
-const CartProducItem = ({ id, thumbnail, name, price, count }) => {
+const CartProducItem = ({ id, thumbnail, name, price, count, isChecked }) => {
   const dispatch = useDispatch();
+
+  const onClickDeleteButton = () => {
+    dispatch(deleteCartItem(id));
+    dispatch(snackbar.pushMessageSnackbar(`${name}를 장바구니에서 삭제하였습니다 🧺`));
+  };
 
   return (
     <Styled.Container>
-      <CheckBox />
+      <CheckBox checkState={isChecked} />
       <Styled.ImageWrapper>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
@@ -28,7 +35,7 @@ const CartProducItem = ({ id, thumbnail, name, price, count }) => {
       >
         <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="space-between">
           <Styled.Title>{name}</Styled.Title>
-          <IconButton onClick={() => {}} icon={아이콘_코드.DELETE} />
+          <IconButton onClick={onClickDeleteButton} icon={아이콘_코드.DELETE} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="120px" justifyContent="flex-end">
           <Counter count={count} />

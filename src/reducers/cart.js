@@ -23,6 +23,15 @@ export default (state = initialState, action) => {
 
       return { items: modifiedItems };
 
+    case 장바구니_액션.DELETE_PRODUCT:
+      [...state.items].forEach((item) => {
+        if (item.id === payload) {
+          return;
+        }
+        modifiedItems.push(item);
+      });
+
+      return { items: modifiedItems };
     default:
       return state;
   }

@@ -19,4 +19,6 @@ const addCartList = (product, cartList) => {
   return { type: 장바구니_액션.ADD_NEW_PRODUCT, payload: targetProduct };
 };
 
-export { addCartList };
+const deleteCartItem = (productId) => ({ type: 장바구니_액션.DELETE_PRODUCT, payload: productId });
+
+export { addCartList, deleteCartItem };
