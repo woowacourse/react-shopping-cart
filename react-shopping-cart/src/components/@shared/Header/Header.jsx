@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { ZINDEX } from 'constants';
+
 // 재사용O
 function Header({ left, right }) {
   return (
@@ -16,6 +18,8 @@ const Styled = {
     height: 65px;
     margin-bottom: 40px;
     display: flex;
+    position: fixed;
+    z-index: ${ZINDEX.HEADER};
     padding: 0 180px;
     align-items: center;
     background-color: ${({ theme }) => theme.colors.cyon_02};
