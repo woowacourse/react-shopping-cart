@@ -1,5 +1,5 @@
 import { ProductType } from '@/domain/product';
-import { ProductActionType, ProductListAction } from '@/store/product/action';
+import { ProductActionType } from '@/store/product/action';
 import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
 
 interface ProductState {

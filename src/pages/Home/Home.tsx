@@ -1,24 +1,21 @@
-import { useEffect } from 'react';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
 import ProductList from '../../components/product/ProductList/ProductList';
-import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../components/common/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import * as Styled from './Home.style';
-import { fetchProductListAsync, ProductListAction } from '@/store/product/action';
-import { Dispatch } from 'redux';
+import { fetchProductListAsync } from '@/store/product/action';
+import { useThunkFetch } from '@/hooks/useFecth';
 
 function Home() {
-  const dispatch = useDispatch<Dispatch<ProductListAction>>();
-  const { isLoading, pageCount, productList } = useSelector(({ product }) => product);
-
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) ?? 1;
 
-  useEffect(() => {
-    dispatch(fetchProductListAsync(currentPage) as any);
-  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { isLoading, pageCount, productList } = useThunkFetch({
+    selector: state => state.product,
+    thunkAction: () => fetchProductListAsync(currentPage),
+    deps: [currentPage],
+  });
 
   return (
     <PageTemplate>
