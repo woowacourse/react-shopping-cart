@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { CardDetailButton } from 'components/common/Button';
+import { CartDetailButton } from 'components/common/Button';
 import Flex from 'components/common/Flex';
 import LoadingSpinner from 'components/common/LoadingSpinner';
 
@@ -72,7 +72,7 @@ const ProductDetail = () => {
           </Flex>
         </Styled.Price>
       </Styled.Content>
-      <CardDetailButton onClick={handleAddCartButton}>장바구니</CardDetailButton>
+      <CartDetailButton onClick={handleAddCartButton}>장바구니</CartDetailButton>
     </Styled.Wrapper>
   );
 };
