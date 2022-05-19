@@ -5,3 +5,8 @@ export const StyledDefaultButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const DivideUnderLine = styled.hr`
+  width: 100%;
+  border: 2px solid black;
+`;

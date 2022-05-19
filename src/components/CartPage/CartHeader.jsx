@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DivideUnderLine } from 'components/shared/styles';
 
 function CartHeader() {
   return (
@@ -23,9 +24,7 @@ const Styled = {
     font-size: 32px;
     font-weight: 600;
   `,
-  UnderLine: styled.hr`
-    width: 100%;
-    border: 2px solid black;
+  UnderLine: styled(DivideUnderLine)`
     margin-top: 20px;
   `,
 };
