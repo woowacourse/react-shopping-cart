@@ -1,9 +1,19 @@
 import styled, { css } from 'styled-components';
 
+interface ButtonProp {
+  w?: number;
+  h?: number;
+}
+
 const Button = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+
+  ${({ w, h }: ButtonProp) => css`
+    width: ${w}px;
+    height: ${h}px;
+  `}
 `;
 
 export const CartButton = styled(Button)`
