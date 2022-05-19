@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 function StatusMessage({ status, children }) {
   return (
-    <Styled.Container status={status}>
+    <S.Container status={status}>
       {status === 'error' ? (
         <>
-          <Styled.Title>이런 오류를 예상한건 아닌데...</Styled.Title>
-          <Styled.ErrorText>{children}</Styled.ErrorText>
+          <S.Title>이런 오류를 예상한건 아닌데...</S.Title>
+          <S.ErrorText>{children}</S.ErrorText>
         </>
       ) : (
-        <Styled.Title>{children}</Styled.Title>
+        <S.Title>{children}</S.Title>
       )}
-    </Styled.Container>
+    </S.Container>
   );
 }
 

@@ -8,7 +8,7 @@ import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
 import StatusMessage from 'components/@common/StatusMessage';
 import ProductItem from 'components/ProductItem';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 export function ProductList() {
   const { state, dispatch } = useReduxState('products');
@@ -30,7 +30,7 @@ export function ProductList() {
       isContentLoaded={products.length > 0}
     >
       <Case.Success>
-        <Styled.ProductListWrapper>
+        <S.ProductListWrapper>
           {products &&
             products.map(({ id, name, goodsPrice, listImage }) => (
               <ProductItem
@@ -42,7 +42,7 @@ export function ProductList() {
                 onClick={handleAddCart}
               />
             ))}
-        </Styled.ProductListWrapper>
+        </S.ProductListWrapper>
       </Case.Success>
 
       <Case.Loading>

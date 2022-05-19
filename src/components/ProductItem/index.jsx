@@ -4,7 +4,7 @@ import Button from 'components/@common/Button';
 import ToolTip from 'components/@common/ToolTip';
 
 import { ICON_CODE } from 'constants/';
-import * as Styled from './styles';
+import * as S from './styles';
 
 function ProductItem({ id, image, name, price, onClick }) {
   const handleClickAddCartButton = () => {
@@ -12,24 +12,24 @@ function ProductItem({ id, image, name, price, onClick }) {
   };
 
   return (
-    <Styled.Container>
-      <Styled.ImageContainer>
-        <Styled.Image src={image} alt="product thumbnail" />
-      </Styled.ImageContainer>
+    <S.Container>
+      <S.ImageContainer>
+        <S.Image src={image} alt="product thumbnail" />
+      </S.ImageContainer>
 
-      <Styled.Description>
-        <Styled.ItemInfo>
-          <Styled.Title>{name}</Styled.Title>
-          <Styled.Price>{price.toLocaleString('ko-KR')}원</Styled.Price>
-        </Styled.ItemInfo>
+      <S.Description>
+        <S.ItemInfo>
+          <S.Title>{name}</S.Title>
+          <S.Price>{price.toLocaleString('ko-KR')}원</S.Price>
+        </S.ItemInfo>
 
-        <Styled.ButtonContainer>
+        <S.ButtonContainer>
           <ToolTip text="장바구니 담기" align="bottom">
             <Button className="cart" onClick={handleClickAddCartButton} icon={ICON_CODE.CART} />
           </ToolTip>
-        </Styled.ButtonContainer>
-      </Styled.Description>
-    </Styled.Container>
+        </S.ButtonContainer>
+      </S.Description>
+    </S.Container>
   );
 }
 

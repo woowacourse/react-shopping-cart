@@ -11,7 +11,6 @@ const ImageContainer = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  filter: brightness(0.95);
 
   &::after {
     content: '';
@@ -30,6 +29,8 @@ const Image = styled.img`
   object-fit: cover;
   transition: transform 0.3s ease;
 
+  filter: brightness(0.95);
+
   ${ImageContainer}:hover & {
     transform: scale(110%);
   }
@@ -38,9 +39,24 @@ const Image = styled.img`
 const CartController = styled.div`
   position: absolute;
   width: 90%;
+
   left: 5%;
+  bottom: 0%;
+
   background-color: ${COLORS.WHITE};
-  border-radius: ${LAYOUT.BORDER_RADIUS * 2};
+  opacity: 0;
+  border-radius: ${LAYOUT.BORDER_RADIUS * 3}px;
+
+  transition: opacity 0.2s ease, bottom 0.2s ease;
+
+  ${ImageContainer}:hover > & {
+    bottom: 5%;
+    opacity: 1;
+  }
+`;
+
+const ControlButton = styled.button`
+  padding: 0.3rem;
 `;
 
 const Description = styled.div`
@@ -77,4 +93,15 @@ const ButtonContainer = styled.div`
   width: 20%;
 `;
 
-export { Container, ImageContainer, Image, Description, ItemInfo, Title, Price, ButtonContainer };
+export {
+  Container,
+  ImageContainer,
+  Image,
+  Description,
+  ItemInfo,
+  Title,
+  Price,
+  ButtonContainer,
+  CartController,
+  ControlButton,
+};
