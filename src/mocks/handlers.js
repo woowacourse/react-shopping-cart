@@ -48,6 +48,17 @@ export const handlers = [
 
   rest.delete('/cartList', (req, res, ctx) => {
     cartList = cartList.filter((item) => +item.id !== +req.body.id);
-    return res(ctx.status(200), ctx.json());
+    return res(ctx.status(200));
+  }),
+
+  rest.patch('/cartList/:id', (req, res, ctx) => {
+    const itemId = req.body.itemId;
+    const updatedCartQuantity = req.body.cartQuantity;
+    cartList = cartList.map((product) =>
+      +product.id === +itemId
+        ? { ...product, cartQuantity: updatedCartQuantity }
+        : product,
+    );
+    return res(ctx.status(200));
   }),
 ];

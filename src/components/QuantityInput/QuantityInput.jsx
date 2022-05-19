@@ -1,19 +1,26 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
+import usePatch from 'hooks/usePatch';
 
-const QuantityInput = ({ cartQuantity }) => {
+const QuantityInput = ({ itemId, cartQuantity }) => {
   const numberInput = useRef(null);
-  const [quantity, setQuantity] = useState(cartQuantity);
+  const [newQuantity, setNewQuantity] = useState(cartQuantity);
+  const { callPatchApi } = usePatch(`/cartList/${itemId}`);
+
   const handleChangeInput = (e) => {
-    setQuantity(e.target.value);
+    setNewQuantity(e.target.value);
   };
 
   const handleClickStepUp = () => {
     numberInput.current.stepUp(1);
+    setNewQuantity(numberInput.current.value);
+    callPatchApi(itemId, numberInput.current.value);
   };
   const handleClickStepDown = () => {
     numberInput.current.stepDown(1);
+    setNewQuantity(numberInput.current.value);
+    callPatchApi(itemId, numberInput.current.value);
   };
 
   return (
@@ -24,7 +31,7 @@ const QuantityInput = ({ cartQuantity }) => {
         min="1"
         max="100"
         ref={numberInput}
-        value={quantity}
+        value={newQuantity}
         onChange={handleChangeInput}
       />
       <div>
@@ -40,6 +47,7 @@ const QuantityInput = ({ cartQuantity }) => {
 };
 
 QuantityInput.propTypes = {
+  itemId: PropTypes.number,
   cartQuantity: PropTypes.number,
 };
 

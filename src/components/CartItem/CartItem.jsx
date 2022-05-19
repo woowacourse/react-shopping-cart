@@ -35,7 +35,7 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
             alt="삭제"
             onClick={() => callDeleteApi(item.id)}
           />
-          <QuantityInput cartQuantity={item.cartQuantity} />
+          <QuantityInput itemId={item.id} cartQuantity={item.cartQuantity} />
           <Styled.CartPrice>
             {comma(item.cartQuantity * Number(item.price))}원
           </Styled.CartPrice>
