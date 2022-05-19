@@ -48,6 +48,10 @@
     ]
   },
   "devDependencies": {
+    "msw": "^0.40.0",
     "redux-devtools": "^3.7.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
