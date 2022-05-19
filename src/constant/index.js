@@ -1,3 +1,4 @@
+const BASE_URL = '';
 const PRODUCTS_PATH = '/products';
 
 const PATH = {
@@ -12,4 +13,4 @@ const SIZE = {
   MIDDLE: 'middle',
 };
 
-export { PRODUCTS_PATH, PATH, SIZE };
+export { BASE_URL, PRODUCTS_PATH, PATH, SIZE };
