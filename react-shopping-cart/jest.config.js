@@ -12,7 +12,6 @@ module.exports = {
   moduleDirectories: ["node_modules", "src"],
   testEnvironment: "jsdom",
   moduleNameMapper: {
-    // jest가 절대경로를 인식하기 위함
     "^src/(.*)$": "<rootDir>/src/$1",
     "^.+\\.svg$": "jest-svg-transformer",
   },

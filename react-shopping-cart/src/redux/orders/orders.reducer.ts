@@ -14,7 +14,10 @@ const INITIAL_STATE: OrderState = {
   error: null,
 };
 
-const ordersReducer = (state = INITIAL_STATE, action: OrdersAction) => {
+const ordersReducer = (
+  state = INITIAL_STATE,
+  action: OrdersAction
+): OrderState => {
   switch (action.type) {
     case ordersActionTypes.fetchOrdersStart:
     case ordersActionTypes.addOrderStart:

@@ -1,25 +1,22 @@
 import PaymentContainer from "component/@shared/PaymentContainer/PaymentContainer";
 import PaymentPageHeader from "component/@shared/PaymentPageHeader/PaymentPageHeader";
 import OrderLeftSection from "component/Order/OrderLeftSection/OrderLeftSection";
-import { CURRENT_USER, ROUTE_PATH } from "constants/index";
+
+import { ROUTE_PATH } from "constants/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteOrderStart } from "redux/orders/orders.action";
 import { selectCurrentOrders } from "redux/orders/orders.selector";
 import { ColumnFlexWrapper } from "styles/Wrapper";
 import { OrderPageContent } from "pages/OrderPage/OrderPage.style";
+import { calculatePaymentCost } from "util/check";
 
 function OrderPage() {
   const orders = useSelector(selectCurrentOrders);
   const ordersIdList = orders.map((order) => order.id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const totalPaymentCost = orders.reduce((acc, order) => {
-    if (order.user === CURRENT_USER) {
-      return acc + Number(order.price) * Number(order.quantity);
-    }
-    return acc;
-  }, 0);
+  const totalPaymentCost = calculatePaymentCost(orders);
 
   const handleOrderButtonClick = () => {
     dispatch(deleteOrderStart(ordersIdList));

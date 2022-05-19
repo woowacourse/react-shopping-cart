@@ -12,6 +12,10 @@ import { selectCurrentCarts } from "redux/carts/carts.selector";
 import { CURRENT_USER, ROUTE_PATH } from "constants/index";
 import { addOrderStart, deleteOrderStart } from "redux/orders/orders.action";
 import { deleteCheckedProductsStart } from "redux/carts/carts.action";
+import {
+  calculateOrderProductsQuantity,
+  calculatePaymentCost,
+} from "util/check";
 
 function ShoppingCartPage() {
   const carts = useSelector(selectCurrentCarts);
@@ -22,19 +26,10 @@ function ShoppingCartPage() {
     .filter((cart) => cart["checked"])
     .map((cart) => cart.id);
 
-  const totalPaymentCost = carts.reduce((acc, cart) => {
-    if (cart.user === CURRENT_USER && cart.checked) {
-      return acc + Number(cart.price) * Number(cart.quantity);
-    }
-    return acc;
-  }, 0);
-
-  const totalOrderProductsQuantity = carts.reduce((acc, cart) => {
-    if (cart.user === CURRENT_USER && cart.checked) {
-      return acc + Number(cart.quantity);
-    }
-    return acc;
-  }, 0);
+  const totalPaymentCost = calculatePaymentCost(
+    myCarts.filter((cart) => cart.checked)
+  );
+  const totalOrderProductsQuantity = calculateOrderProductsQuantity(myCarts);
 
   const handleOrderButtonClick = () => {
     const orderItems = carts.filter((cart) => cart.checked);
