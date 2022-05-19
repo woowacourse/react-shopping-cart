@@ -18,7 +18,7 @@ const Cart = () => {
     if (!data || data.length === 0) return 0;
     const list = data.filter(({ id }) => selectedItemList.indexOf(id) !== -1);
     return list.reduce(
-      (prev, { price, quantity }) => (prev += Number(price) * quantity),
+      (prev, { price, quantity }) => (prev += price * quantity),
       0,
     );
   }, [data, selectedItemList]);

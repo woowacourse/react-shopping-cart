@@ -15,9 +15,18 @@ const CartItem = ({
   onToggleSelect,
 }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
-  const handleChangeQuantity = ({ target }) => {
-    setItemQuantity(target.valueAsNumber);
+
+  const handleIncrementQuantity = () => {
+    setItemQuantity((prevQuantity) => prevQuantity + 1);
   };
+
+  const handleDecrementQuantity = () => {
+    if (itemQuantity === 1) {
+      return alert('최소 주문 갯수는 1개 입니다.');
+    }
+    setItemQuantity((prevQuantity) => prevQuantity - 1);
+  };
+
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
@@ -29,12 +38,16 @@ const CartItem = ({
         <Styled.DeleteButton>
           <Styled.TrashBinSvg src={smallTrashBin} alt="상품 삭제 버튼" />
         </Styled.DeleteButton>
-        <Styled.QuantityInput
-          type="number"
-          value={itemQuantity}
-          onChange={handleChangeQuantity}
-          min={1}
-        />
+        <Styled.Quantity>
+          <Styled.QuantityControlButton onClick={handleIncrementQuantity}>
+            +
+          </Styled.QuantityControlButton>
+          <span>{itemQuantity}</span>
+          <Styled.QuantityControlButton onClick={handleDecrementQuantity}>
+            -
+          </Styled.QuantityControlButton>
+        </Styled.Quantity>
+
         <Styled.Price>{parsePrice(price)}원</Styled.Price>
       </Styled.ProductInfo>
     </Styled.Wrapper>
