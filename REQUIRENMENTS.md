@@ -38,6 +38,10 @@
         - callDeleteApi 성공시 dispatch(getCartAsync)하여 cartList 갱신
       - [x] 개별 상품 삭제 버튼 클릭 시 해당 상품 id를 갖고 useDelete의 callDeleteApi한다.
       - [x] 상단 상품 삭제 버튼 클릭 시 선택된 상품들의 checkedIdList를 갖고 useDelete의 callDeleteApi를 돌린다
+    - [ ] 상품 수량 변경 인풋 버튼
+      - [ ] input element의 stepUp, stepDown 메서드를 사용한다
+      - [ ] 수량 변경 버튼 클릭 시 API에서 cartList의 해당 상품 수량(cartQuantity)이 변경된다.(patch)
+      - [ ] usePatch 훅을 만든다.
   - [] 주문/결제 페이지
   - [] 주문 목록 페이지
   - [] 주문 상세 페이지

@@ -5,6 +5,7 @@ import comma from 'utils/comma';
 import Checkbox from 'components/Checkbox';
 import { useEffect, useState } from 'react';
 import useDelete from 'hooks/useDelete';
+import QuantityInput from 'components/QuantityInput';
 
 const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
   const { callDeleteApi } = useDelete('/cartList');
@@ -34,13 +35,7 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
             alt="삭제"
             onClick={() => callDeleteApi(item.id)}
           />
-          <Styled.InputWrapper>
-            <Styled.NumberInput value={item.cartQuantity} />
-            <div>
-              <Styled.NumberInputButton>▲</Styled.NumberInputButton>
-              <Styled.NumberInputButton>▼</Styled.NumberInputButton>
-            </div>
-          </Styled.InputWrapper>
+          <QuantityInput cartQuantity={item.cartQuantity} />
           <Styled.CartPrice>
             {comma(item.cartQuantity * Number(item.price))}원
           </Styled.CartPrice>
@@ -107,26 +102,6 @@ const Styled = {
   `,
   TrashIcon: styled.img`
     align-self: flex-end;
-    cursor: pointer;
-  `,
-  InputWrapper: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `,
-  NumberInput: styled.input`
-    width: 70px;
-    height: 58px;
-    border: 1px solid #ddd;
-    text-align: center;
-    font-size: 24px;
-  `,
-  NumberInputButton: styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #dddddd;
-    height: 29px;
     cursor: pointer;
   `,
   CartPrice: styled.span`
