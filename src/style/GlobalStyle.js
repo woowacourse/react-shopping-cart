@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
   button {
     font-family: BMJUA_ttf;
   }
+  
+  a {
+    text-decoration: none;
+  }
 
   footer, header, hgroup, menu, nav, section {
 	display: block;
