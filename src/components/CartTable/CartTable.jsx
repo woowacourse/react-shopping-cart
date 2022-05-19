@@ -4,12 +4,7 @@ import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
 import { useState } from 'react';
 
-const CartTable = ({
-  cartList,
-  checkedIdList,
-  setCheckedIdList,
-  // handleClickDelete,
-}) => {
+const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [isEachChecked, setIsEachChecked] = useState(true);
   const initialIdList = cartList.map((item) => item.id);
@@ -56,7 +51,6 @@ const CartTable = ({
           item={item}
           onChangeEachCheckbox={handleChangeEachCheckbox}
           checked={isEachChecked}
-          // handleClickDelete={handleClickDelete}
         />
       ))}
     </Styled.Section>
@@ -67,7 +61,6 @@ CartTable.propTypes = {
   cartList: PropTypes.array,
   checkedIdList: PropTypes.object,
   setCheckedIdList: PropTypes.func,
-  // handleClickDelete: PropTypes.func,
 };
 
 const Styled = {

@@ -6,12 +6,7 @@ import Checkbox from 'components/Checkbox';
 import { useEffect, useState } from 'react';
 import useDelete from 'hooks/useDelete';
 
-const CartItem = ({
-  item,
-  onChangeEachCheckbox,
-  checked,
-  // handleClickDelete,
-}) => {
+const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
   const [isChecked, setIsChecked] = useState(true);
   const handleChange = () => {
     setIsChecked(!isChecked);
@@ -67,7 +62,6 @@ CartItem.propTypes = {
   item: PropTypes.object,
   onChangeEachCheckbox: PropTypes.func,
   checked: PropTypes.bool,
-  handleClickDelete: PropTypes.func,
 };
 
 const Styled = {
