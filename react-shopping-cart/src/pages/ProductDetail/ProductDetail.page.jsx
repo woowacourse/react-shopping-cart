@@ -68,8 +68,8 @@ function ProductDetail() {
         <Button
           type="button"
           style={{ marginTop: '57px' }}
-          width={638}
-          height={98}
+          width={'638px'}
+          height={'98px'}
           backgroundColor={isContained ? PALETTE.MINT_001 : PALETTE.BROWN_001}
           onClick={handleClickAddShoppingCart}
         >

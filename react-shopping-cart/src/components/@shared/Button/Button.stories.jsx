@@ -12,7 +12,7 @@ export const Default = args => (
 );
 
 Default.args = {
-  width: 638,
-  height: 98,
+  width: '638px',
+  height: '98px',
   backgroundColor: '#73675C',
 };

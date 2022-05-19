@@ -29,10 +29,10 @@ function Counter({ handleClickIncrease, handleClickDecrease, style, children }) 
     <Container style={style}>
       <CounterText fontSize="large">{children}</CounterText>
       <FlexWrapper isColumnDirection={true}>
-        <CounterButton onClick={handleClickIncrease}>
+        <CounterButton type="button" onClick={handleClickIncrease}>
           <CounterArrow />
         </CounterButton>
-        <CounterButton onClick={handleClickDecrease}>
+        <CounterButton type="button" onClick={handleClickDecrease}>
           <CounterArrow style={{ transform: 'rotate(180deg)' }} />
         </CounterButton>
       </FlexWrapper>
