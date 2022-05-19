@@ -6,14 +6,14 @@ import parsePrice from 'utils/parsePrice';
 const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
   return (
     <>
-      <Styled.ProductImg src={imgUrl} alt="상품 이미지" />
-      <Styled.ProductInfo>
-        <Styled.ProductName>{name}</Styled.ProductName>
+      <Styled.Image src={imgUrl} alt="상품 이미지" />
+      <Styled.Info>
+        <Styled.Name>{name}</Styled.Name>
         <Styled.Line />
-        <Styled.ProductPrice>
+        <Styled.Price>
           <p>금액</p>
           <p>{parsePrice(price)}원</p>
-        </Styled.ProductPrice>
+        </Styled.Price>
         <Button
           colorType="secondary"
           sizeType="large"
@@ -21,7 +21,7 @@ const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
         >
           장바구니
         </Button>
-      </Styled.ProductInfo>
+      </Styled.Info>
     </>
   );
 };

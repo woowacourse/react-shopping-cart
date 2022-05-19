@@ -23,7 +23,7 @@ const Styled = {
     margin-left: 20px;
   `,
 
-  PaymentInfo: styled.div`
+  Info: styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;

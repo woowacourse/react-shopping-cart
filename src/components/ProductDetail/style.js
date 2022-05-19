@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
 const Styled = {
-  ProductImg: styled.img`
+  Image: styled.img`
     width: 350px;
     height: 350px;
   `,
-  ProductInfo: styled.div`
+  Info: styled.div`
     width: 380px;
     font-family: ${({ theme }) => theme.FONT.SECONDARY};
   `,
-  ProductName: styled.div`
+  Name: styled.div`
     margin: 10px 0 10px 15px;
     font-size: 18px;
     font-weight: 700;
   `,
-  ProductPrice: styled.div`
+  Price: styled.div`
     margin: 0 0 10px 15px;
     display: flex;
     justify-content: space-between;

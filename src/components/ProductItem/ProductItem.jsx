@@ -15,18 +15,18 @@ const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
   return (
     <Styled.Wrapper onClick={handleClickItem}>
       <Styled.Overlay>
-        <Styled.ProductNamePreview>{name}</Styled.ProductNamePreview>
+        <Styled.NamePreview>{name}</Styled.NamePreview>
       </Styled.Overlay>
-      <Styled.ProductImage src={imgUrl} loading="lazy" />
-      <Styled.ProductDetail>
-        <Styled.ProductInfo>
-          <Styled.ProductName>{name}</Styled.ProductName>
-          <Styled.ProductPrice>{parsePrice(price)}원</Styled.ProductPrice>
-        </Styled.ProductInfo>
+      <Styled.Image src={imgUrl} loading="lazy" />
+      <Styled.Detail>
+        <Styled.Info>
+          <Styled.Name>{name}</Styled.Name>
+          <Styled.Price>{parsePrice(price)}원</Styled.Price>
+        </Styled.Info>
         <Styled.CartButton onClick={onClickCartButton}>
           <Styled.CartSvg src={smallCart} />
         </Styled.CartButton>
-      </Styled.ProductDetail>
+      </Styled.Detail>
     </Styled.Wrapper>
   );
 };

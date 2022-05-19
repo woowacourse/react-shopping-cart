@@ -23,7 +23,7 @@ const Styled = {
     }
   `,
 
-  ProductNamePreview: styled.span`
+  NamePreview: styled.span`
     font-size: 18px;
     font-weight: bold;
     font-family: ${({ theme }) => theme.FONT.PRIMARY};
@@ -31,24 +31,24 @@ const Styled = {
     text-align: center;
   `,
 
-  ProductImage: styled.img`
+  Image: styled.img`
     max-width: 100%;
   `,
 
-  ProductDetail: styled.div`
+  Detail: styled.div`
     display: flex;
     justify-content: space-between;
     padding: 5px;
     width: 100%;
   `,
 
-  ProductInfo: styled.div`
+  Info: styled.div`
     display: flex;
     flex-direction: column;
     font-family: ${({ theme }) => theme.FONT.SECONDARY};
   `,
 
-  ProductName: styled.span`
+  Name: styled.span`
     font-size: 14px;
     width: 147px;
     display: block;
@@ -57,7 +57,7 @@ const Styled = {
     text-overflow: ellipsis;
   `,
 
-  ProductPrice: styled.span`
+  Price: styled.span`
     font-size: 18px;
   `,
 
