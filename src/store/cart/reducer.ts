@@ -3,7 +3,7 @@ import { CartActionType } from '@/store/cart/action';
 
 interface CartState {
   readonly cartList: ProductType[];
-  isLoading: boolean;
+  readonly isLoading: boolean;
 }
 
 const initialState: CartState = {
@@ -16,23 +16,26 @@ const cartReducer = (state = initialState, action) => {
     case CartActionType.ADD_CART_START: {
       return {
         ...state,
+        isLoading: true,
       };
     }
 
     case CartActionType.ADD_CART_SUCCEEDED: {
       const {
-        payload: { cartList },
+        payload: { product },
       } = action;
 
       return {
         ...state,
-        cartList,
+        cartList: [...state.cartList, product],
+        isLoading: false,
       };
     }
 
     case CartActionType.ADD_CART_FAILED: {
       return {
         ...state,
+        isLoading: false,
       };
     }
 

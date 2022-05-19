@@ -18,7 +18,7 @@ interface AddCartStart {
 interface AddCartSucceeded {
   type: CartActionType.ADD_CART_SUCCEEDED;
   payload: {
-    cartList: ProductType[];
+    product: ProductType;
   };
 }
 
@@ -53,12 +53,12 @@ export const fetchAddCartAsync = product => async (dispatch: Dispatch<CartAction
   dispatch({ type: CartActionType.ADD_CART_START });
 
   try {
-    const { cartList } = await addCart(product);
+    await addCart(product);
 
     dispatch({
       type: CartActionType.ADD_CART_SUCCEEDED,
       payload: {
-        cartList,
+        product,
       },
     });
   } catch ({ message }) {

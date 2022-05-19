@@ -23,7 +23,7 @@ function CartAdd({ product, closeModal }: CartAddPropsType) {
   });
 
   const onClickCartAdd = () => {
-    dispatch(fetchAddCartAsync(product) as any);
+    dispatch(fetchAddCartAsync({ ...product, quantity: count }) as any);
 
     closeModal();
 

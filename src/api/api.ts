@@ -26,8 +26,6 @@ export const addCart = async (product): Promise<any> => {
   if (response.statusText !== 'Created') {
     throw Error('서버 오류!');
   }
-
-  return { cartList: response.data };
 };
 
 export const getCart = async (): Promise<any> => {

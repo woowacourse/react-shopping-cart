@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from '../../common/Image/Image';
 import * as Styled from './ProductCard.style';
 import * as GlobalStyled from '../../../styles/GlobalStyles';
@@ -9,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import CartAdd from '../CartAdd/CartAdd';
 import Placeholder from '../../common/Placeholder/Placeholder';
 import { ProductType } from '@/domain/product';
+import { useSelector } from 'react-redux';
 interface ProductCardType {
   product: ProductType;
 }
@@ -27,6 +27,10 @@ function ProductCard({ product }: ProductCardType) {
     openModal();
   };
 
+  const { cartList } = useSelector((state: any) => state.cart);
+
+  const isShowCartButton = !cartList.find(cart => cart.id === id);
+
   return (
     <GlobalStyled.Position>
       <Styled.Container onClick={onClickCard}>
@@ -39,11 +43,13 @@ function ProductCard({ product }: ProductCardType) {
         </Styled.Content>
       </Styled.Container>
 
-      <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
-        <Styled.TransparentButton type="button" onClick={onClickCartButton}>
-          <Icon iconName="cart" color="#333" />
-        </Styled.TransparentButton>
-      </GlobalStyled.Position>
+      {isShowCartButton && (
+        <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
+          <Styled.TransparentButton type="button" onClick={onClickCartButton}>
+            <Icon iconName="cart" color="#333" />
+          </Styled.TransparentButton>
+        </GlobalStyled.Position>
+      )}
 
       {isShowModal && (
         <Modal closeModal={closeModal}>

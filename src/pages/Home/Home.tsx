@@ -6,26 +6,47 @@ import ErrorContainer from '../../components/common/ErrorContainer/ErrorContaine
 import * as Styled from './Home.style';
 import { fetchProductListAsync } from '@/store/product/action';
 import { useThunkFetch } from '@/hooks/useFecth';
+import { fetchGetCartAsync } from '@/store/cart/action';
 
 function Home() {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) ?? 1;
 
-  const { isLoading, pageCount, productList } = useThunkFetch({
+  const {
+    isLoading: isProductLoading,
+    pageCount,
+    productList,
+  } = useThunkFetch({
     selector: state => state.product,
     thunkAction: () => fetchProductListAsync(currentPage),
     deps: [currentPage],
   });
 
+  const { isLoading: isCartLoading } = useThunkFetch({
+    selector: state => state.cart,
+    thunkAction: fetchGetCartAsync,
+    deps: [],
+  });
+
+  if (isCartLoading || isProductLoading) {
+    return (
+      <PageTemplate>
+        <Styled.Container>
+          <ProductList.skeleton />
+          <Pagination />
+        </Styled.Container>
+      </PageTemplate>
+    );
+  }
+
   return (
     <PageTemplate>
       <Styled.Container>
-        {currentPage > pageCount && (
+        {currentPage > pageCount ? (
           <ErrorContainer>😱 존재하지 상품 페이지입니다. 😱</ErrorContainer>
+        ) : (
+          <ProductList productList={productList} />
         )}
-
-        {isLoading ? <ProductList.skeleton /> : <ProductList productList={productList} />}
-
         <Pagination />
       </Styled.Container>
     </PageTemplate>
