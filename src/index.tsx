@@ -6,7 +6,13 @@ import Theme from '@/styles/Theme';
 import { GlobalStyle } from '@/styles/GlobalStyles';
 import { store } from '@/store/store';
 import App from '@/components/App';
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
+
 root.render(
   <React.StrictMode>
     <GlobalStyle />

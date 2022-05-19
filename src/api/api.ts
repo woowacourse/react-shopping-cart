@@ -1,14 +1,13 @@
 import axios from 'axios';
 import { API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
-
 const productAPI = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_URL}products`,
 });
 
 export const getProductList = async (page): Promise<any> => {
-  const response = await productAPI.get(
-    `/products?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`,
-  );
+  const response = await productAPI.get('', {
+    params: { _page: page, _limit: PRODUCT_LIST_PAGE_LIMIT },
+  });
 
   if (response.statusText !== 'OK') {
     throw Error('서버 오류!');
