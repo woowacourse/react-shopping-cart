@@ -1,6 +1,7 @@
 import Styled from './style';
 import CartContainer from 'components/CartContainer/CartContainer';
 import CartItem from 'components/CartItem/CartItem';
+import CartControlBar from 'components/CartControlBar/CartControlBar';
 import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
 import { useEffect, useState } from 'react';
@@ -39,25 +40,29 @@ const Cart = () => {
       {isError && <ImgWrapper src={errorApiImg} />}
       {data && data?.length > 0 ? (
         <Styled.ContentsWrapper>
-          <CartContainer
-            isAllSelected={selectedItemList.length === data.length}
-            onToggleSelect={handleToggleSelectAll(
-              selectedItemList.length === data.length,
-            )}
-          >
-            {data.map(({ id, name, imgUrl, price, quantity }) => (
-              <CartItem
-                key={id}
-                id={id}
-                name={name}
-                imgUrl={imgUrl}
-                price={price}
-                quantity={quantity}
-                isSelected={selectedItemList.indexOf(id) !== -1}
-                onToggleSelect={handleToggleSelect(id)}
-              />
-            ))}
-          </CartContainer>
+          <div>
+            <CartControlBar
+              isAllSelected={selectedItemList.length === data.length}
+              onToggleSelect={handleToggleSelectAll(
+                selectedItemList.length === data.length,
+              )}
+            />
+
+            <CartContainer>
+              {data.map(({ id, name, imgUrl, price, quantity }) => (
+                <CartItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  imgUrl={imgUrl}
+                  price={price}
+                  quantity={quantity}
+                  isSelected={selectedItemList.indexOf(id) !== -1}
+                  onToggleSelect={handleToggleSelect(id)}
+                />
+              ))}
+            </CartContainer>
+          </div>
           <Styled.PaymentBoxWrapper>
             <PaymentBox />
           </Styled.PaymentBoxWrapper>
