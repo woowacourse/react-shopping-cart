@@ -1,5 +1,11 @@
 import { ThemeProvider as ProductThemeProvider } from "@emotion/react";
 
+export interface themeType {
+  color: {
+    [key: string]: string;
+  };
+}
+
 const theme = {
   color: {
     primary: "#2ac1bc",

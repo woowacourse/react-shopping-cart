@@ -1,8 +1,9 @@
 import { useTheme } from "@emotion/react";
+import { themeType } from "../../ThemeProvider";
 import * as S from "./index.styles";
 
 const NotFound = () => {
-  const theme = useTheme();
+  const theme = useTheme() as themeType;
   return (
     <S.NotFoundContainer>
       <p>잘못들어오셨나봐요</p>

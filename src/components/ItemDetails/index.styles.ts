@@ -47,7 +47,7 @@ export const PriceContainer = styled.div`
   }
 `;
 
-export const ShoppingCartButton = styled.button`
+export const ShoppingCartButton = styled.button<{ backgroundColor: string }>`
   width: 100%;
   height: 100px;
   border: none;

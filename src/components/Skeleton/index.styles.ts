@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const SkeletonContainer = styled.div`
+export const SkeletonContainer = styled.div<{ width: string; height: string }>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
 

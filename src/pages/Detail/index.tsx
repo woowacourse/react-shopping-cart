@@ -1,19 +1,17 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
-import { getProductById } from "../../modules/product";
+import useProduct from "../../hooks/useProduct";
 import * as S from "./index.styles";
 
 const Detail = () => {
   const { id } = useParams();
 
-  const product = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  const { product, getProductById } = useProduct();
 
   useEffect(() => {
-    dispatch(getProductById(id));
-  }, [dispatch, id]);
+    getProductById(Number(id));
+  }, [id, getProductById]);
 
   return (
     <S.DetailPageContainer>

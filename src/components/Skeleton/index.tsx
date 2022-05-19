@@ -1,6 +1,11 @@
 import * as S from "./index.styles";
 
-const Skeleton = ({ width, height }) => {
+interface SkeletonProps {
+  width: string;
+  height: string;
+}
+
+const Skeleton = ({ width, height }: SkeletonProps) => {
   return <S.SkeletonContainer width={width} height={height} />;
 };
 

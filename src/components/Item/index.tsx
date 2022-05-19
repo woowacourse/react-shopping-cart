@@ -1,6 +1,16 @@
 import * as S from "./index.styles";
 import { useTheme } from "@emotion/react";
 import ShoppingCartIcon from "../ShoppingCartIcon";
+import { themeType } from "../../ThemeProvider";
+
+interface ItemProps {
+  imgUrl: string;
+  title: string;
+  price: number;
+  onClick: () => void;
+  onClickShoppingCart?: () => void;
+  isInShoppingCart?: boolean;
+}
 
 const Item = ({
   imgUrl = "../../assets/image/no-image.png",
@@ -9,10 +19,10 @@ const Item = ({
   onClick,
   onClickShoppingCart,
   isInShoppingCart,
-}) => {
+}: ItemProps): JSX.Element => {
   const {
     color: { primary, black, darkWhite, gray },
-  } = useTheme();
+  } = useTheme() as themeType;
 
   const shoppingCartColor = isInShoppingCart ? primary : black;
 

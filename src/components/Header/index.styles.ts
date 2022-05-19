@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Header = styled.header`
+export const Header = styled.header<{ backgroundColor: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;

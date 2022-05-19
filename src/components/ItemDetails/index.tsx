@@ -1,14 +1,15 @@
 import { useTheme } from "@emotion/react";
+import { themeType } from "../../ThemeProvider";
 import * as S from "./index.styles";
 
 const ItemDetails = ({
   imgUrl = "../../assets/image/no-image.png",
-  title,
-  price,
+  title = "NO_TITLE",
+  price = 200000,
 }) => {
   const {
     color: { white, brown, darkGray },
-  } = useTheme();
+  } = useTheme() as themeType;
   return (
     <S.ItemContainer>
       <S.ItemImage src={imgUrl} alt={`${title}상세이미지`} />

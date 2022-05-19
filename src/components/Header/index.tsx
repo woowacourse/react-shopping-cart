@@ -3,11 +3,12 @@ import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 import { useTheme } from "@emotion/react";
 import PATH from "../../constants/path";
+import { themeType } from "../../ThemeProvider";
 
 const Header = () => {
   const {
     color: { primary, white },
-  } = useTheme();
+  } = useTheme() as themeType;
 
   return (
     <S.Header color={white} backgroundColor={primary}>

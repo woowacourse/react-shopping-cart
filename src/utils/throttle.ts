@@ -1,5 +1,5 @@
-const throttle = (time, cb) => {
-  let timer;
+const throttle = (time: number, cb: () => void) => {
+  let timer: any;
 
   return function () {
     if (!timer) {

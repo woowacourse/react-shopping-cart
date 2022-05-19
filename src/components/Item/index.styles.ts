@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled.div<{
+  backgroundColorOnHover: string;
+  textColorOnHover: string;
+}>`
   width: 280px;
   height: 360px;
   border-radius: 5px;

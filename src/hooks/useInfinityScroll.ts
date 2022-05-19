@@ -8,7 +8,7 @@ import {
 
 interface InfinityScrollProps {
   ref: RefObject<HTMLElement>;
-  cb: () => {};
+  cb: () => void;
   endPoint: boolean;
 }
 
@@ -18,7 +18,7 @@ const useInfinityScroll = ({
   endPoint = true,
 }: InfinityScrollProps) => {
   const observer = useRef(undefined) as MutableRefObject<any>;
-  const callBack = useRef(cb);
+  const callBack = useRef(cb) as MutableRefObject<any>;
 
   const onIntersect = useCallback(
     ([entry]: any[]) => {

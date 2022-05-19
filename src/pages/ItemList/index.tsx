@@ -8,6 +8,7 @@ import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
 import useProductList from "../../hooks/useProductList";
+import { product } from "../../types/product";
 
 const DELAY_TIME = 500;
 
@@ -31,22 +32,28 @@ const ItemList = () => {
     endPoint: isEnd,
   });
 
-  const handleItemClick = (id) => {
+  const handleItemClick = (id: number) => {
     navigate(`/product/${id}`);
   };
+
+  const ProductList: Function = (products: product[]): React.ReactElement[] =>
+    products.map((product: product) => {
+      const itemCardElemProps = {
+        key: product.id,
+        onClick: () => {
+          handleItemClick(product.id);
+        },
+        onClickShoppingCart: () => {},
+        ...product,
+      };
+
+      return <Item {...itemCardElemProps} />;
+    });
 
   return (
     <section>
       <GridWrapper>
-        {products.map((product) => (
-          <Item
-            key={product.id}
-            {...product}
-            onClick={() => {
-              handleItemClick(product.id);
-            }}
-          />
-        ))}
+        {ProductList(products)}
         {isLoading &&
           Array.from({ length: LOAD_ITEM_AMOUNT }).map(() => (
             <ItemSkeleton key={uuidv4()} />

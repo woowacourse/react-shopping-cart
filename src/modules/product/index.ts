@@ -1,11 +1,9 @@
 import { product } from "../../types/product";
 import * as productAPI from "../../api";
 import createReducer from "../createReducer";
-import { Dispatch } from "react";
 import { AxiosResponse } from "axios";
-import { Product, ProductAction, ProductActionType } from "./type";
-import { ThunkAction } from "../../lib/thunk.type";
-import { RootState } from "..";
+import { Product, ProductActionType } from "./type";
+import { AppThunk } from "../thunk";
 
 const GET_PRODUCT = "product/GET_PRODUCT" as const;
 const GET_PRODUCT_SUCCESS = "product/GET_PRODUCT_SUCCESS" as const;
@@ -18,8 +16,8 @@ const INITIAL_STATE: Product = {
 };
 
 export const getProductById =
-  (id: number): ThunkAction<void, RootState, null, ProductAction> =>
-  async (dispatch: Dispatch<ProductAction>, getState) => {
+  (id: number): AppThunk =>
+  async (dispatch) => {
     dispatch({ type: ProductActionType.GET_PRODUCT });
     try {
       const product: AxiosResponse<product> = await productAPI.getProductById(
