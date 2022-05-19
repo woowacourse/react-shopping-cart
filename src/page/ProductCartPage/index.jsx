@@ -15,7 +15,10 @@ export default function ProductCartPage() {
   const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
   const {deleteCartItem} = useCartItem();
   const dispatch = useDispatch();
-  const {totalCount, totalPrice} = cartItem.reduce(
+
+  const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
+
+  const {totalCount, totalPrice} = selectedCartItem.reduce(
     (prev, cur) => {
       return {
         totalCount: cur.count + prev.totalCount,
@@ -49,7 +52,7 @@ export default function ProductCartPage() {
           <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>
           <S.CartListBox>
             {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => {
-              const initialChecked = selectedItem.some((item) => item === id);
+              const initialChecked = selectedItem.includes(id);
               return (
                 <React.Fragment key={id}>
                   <CartItem
