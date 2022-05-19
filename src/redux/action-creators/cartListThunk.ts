@@ -2,6 +2,7 @@ import { BASE_URL } from 'apis';
 import axios from 'axios';
 import type { Dispatch } from 'redux';
 import { CartListAction, CartListActionType } from 'redux/actions/cartList';
+import { RootState } from 'redux/reducers';
 import { CartItem } from 'types/domain';
 
 export const getCartList = () => async (dispatch: Dispatch<CartListAction>) => {
@@ -54,3 +55,23 @@ export const postCartItem = (cartItem: CartItem) => async (dispatch: Dispatch<Ca
     });
   }
 };
+
+export const patchCartSelected =
+  (id: number) => async (dispatch: Dispatch<CartListAction>, getState: () => RootState) => {
+    dispatch({ type: CartListActionType.PATCH_CART_SELECTED_START });
+    try {
+      const { data: cartList } = getState().cartListReducer;
+      const isSelected = cartList.find(item => item.id === id).isSelected;
+      const response = await axios.patch(`${BASE_URL}/cartList/${id}`, { isSelected: !isSelected });
+
+      dispatch({
+        type: CartListActionType.PATCH_CART_SELECTED_SUCCESS,
+        payload: response.data,
+      });
+    } catch (e) {
+      dispatch({
+        type: CartListActionType.PATCH_CART_SELECTED_FAILURE,
+        payload: e.message,
+      });
+    }
+  };

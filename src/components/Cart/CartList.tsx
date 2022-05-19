@@ -1,4 +1,5 @@
 import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
+import CheckBox from 'components/common/CheckBox';
 import CroppedImage from 'components/common/CroppedImage';
 import Division from 'components/common/Division';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
@@ -15,14 +16,14 @@ interface CartListProps {
 }
 
 const CartList = ({ itemList, cartList }: CartListProps) => {
-  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const { updateCartItemQuantity, patchCartItemSelected } = useUpdateCartItem(cartList);
 
   return (
     <div>
       {itemList.map(({ id, thumbnailUrl, title, price }, index) => (
         <React.Fragment key={id}>
           <StyledCartItem>
-            <input type='checkbox' />
+            <CheckBox checked={cartList[index].isSelected} onClick={patchCartItemSelected(id)} />
             <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
             <p>{title}</p>
             <StyledRight>
@@ -65,6 +66,11 @@ const StyledCartItem = styled.div`
 `;
 
 const StyledRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+
   & > p {
     font-size: 16px;
   }

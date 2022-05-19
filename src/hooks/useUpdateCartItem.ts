@@ -1,4 +1,4 @@
-import { postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
+import { patchCartSelected, postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
 import { CartListAction } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
 
@@ -10,7 +10,7 @@ const useUpdateCartItem = (cartList: CartItem[]) => {
   const postCartItemQuantity =
     (id: number | string) =>
     (diff = 1) => {
-      dispatch(postCartItem({ id: Number(id), quantity: diff }));
+      dispatch(postCartItem({ id: Number(id), quantity: diff, isSelected: true }));
     };
 
   const updateCartItemQuantity =
@@ -22,7 +22,11 @@ const useUpdateCartItem = (cartList: CartItem[]) => {
       dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + diff }));
     };
 
-  return { postCartItemQuantity, updateCartItemQuantity };
+  const patchCartItemSelected = (id: number | string) => () => {
+    dispatch(patchCartSelected(Number(id)));
+  };
+
+  return { postCartItemQuantity, updateCartItemQuantity, patchCartItemSelected };
 };
 
 export default useUpdateCartItem;
