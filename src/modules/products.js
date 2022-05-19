@@ -23,6 +23,7 @@ const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
   "cart-product/UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT";
 const REMOVE_SHOPPING_CART_PRODUCT =
   "cart-product/REMOVE_SHOPPING_CART_PRODUCT";
+const UPDATE_CART_PRODUCT_CHECKED = "cart-product/UPDATE_CART_PRODUCT_CHECKED";
 
 const initialState = {
   product: {
@@ -59,6 +60,23 @@ export const removeCartProduct = (id) => async (dispatch, getState) => {
   }
 };
 
+export const updateCartProductChecked = (id) => async (dispatch, getState) => {
+  try {
+    const shoppingCartProducts = getState().shoppingCartProducts;
+    const newTargetShoppingCartProduct = shoppingCartProducts.data.filter(
+      (product) => product.id === id
+    )[0];
+    newTargetShoppingCartProduct.isChecked =
+      !newTargetShoppingCartProduct.isChecked;
+
+    await API.patchShoppingCartProduct(id, newTargetShoppingCartProduct);
+
+    dispatch({ type: UPDATE_CART_PRODUCT_CHECKED });
+  } catch (error) {
+    dispatch({ type: GET_CART_PRODUCTS_ERROR });
+  }
+};
+
 export const updateCartProductQuantityByUserInput =
   (id, currentValue) => async (dispatch, getState) => {
     try {
@@ -71,11 +89,10 @@ export const updateCartProductQuantityByUserInput =
 
       newTargetShoppingCartProduct.quantity = Number(currentValue);
 
-      const updateShoppingCartProduct =
-        await API.patchShoppingCartProductQuantity(
-          id,
-          newTargetShoppingCartProduct
-        );
+      const updateShoppingCartProduct = await API.patchShoppingCartProduct(
+        id,
+        newTargetShoppingCartProduct
+      );
 
       dispatch({
         type: UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT,
@@ -96,11 +113,10 @@ export const incrementCartProductQuantity =
 
       newTargetShoppingCartProduct.quantity += 1;
 
-      const updateShoppingCartProduct =
-        await API.patchShoppingCartProductQuantity(
-          id,
-          newTargetShoppingCartProduct
-        );
+      const updateShoppingCartProduct = await API.patchShoppingCartProduct(
+        id,
+        newTargetShoppingCartProduct
+      );
 
       dispatch({
         type: INCREMENT_CART_PRODUCT_QUANTITY,
@@ -123,11 +139,10 @@ export const decrementCartProductQuantity =
         ? (newTargetShoppingCartProduct.quantity -= 1)
         : (newTargetShoppingCartProduct.quantity = 1);
 
-      const updateShoppingCartProduct =
-        await API.patchShoppingCartProductQuantity(
-          id,
-          newTargetShoppingCartProduct
-        );
+      const updateShoppingCartProduct = await API.patchShoppingCartProduct(
+        id,
+        newTargetShoppingCartProduct
+      );
 
       dispatch({
         type: DECREMENT_CART_PRODUCT_QUANTITY,
@@ -269,6 +284,11 @@ const removeShoppingCartProduct = (state, action) => ({
   data: action.newShoppingCartProducts,
 });
 
+const updateProductChecked = (state) => ({
+  ...state,
+  data: state.data,
+});
+
 const productsReducer = createReducer(
   {},
   {
@@ -299,6 +319,7 @@ const shoppingCartProductsReducer = createReducer(
     [UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT]:
       updateProductQuantityByUserInput,
     [REMOVE_SHOPPING_CART_PRODUCT]: removeShoppingCartProduct,
+    [UPDATE_CART_PRODUCT_CHECKED]: updateProductChecked,
   }
 );
 

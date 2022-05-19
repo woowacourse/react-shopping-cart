@@ -5,13 +5,18 @@ import {
   decrementCartProductQuantity,
   incrementCartProductQuantity,
   removeCartProduct,
+  updateCartProductChecked,
   updateCartProductQuantityByUserInput,
 } from "../../modules/products";
 
-const ProductInfoContainer = ({ imgUrl, title }) => {
+const ProductInfoContainer = ({ imgUrl, title, isChecked, handleChecked }) => {
   return (
     <S.ProductInfoContainer>
-      <S.ProductCheckBox type="checkbox" />
+      <S.ProductCheckBox
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleChecked}
+      />
       <S.ProductImage src={imgUrl} alt={`${title}-이미지`} />
       <S.ProductTitle>{title}</S.ProductTitle>
     </S.ProductInfoContainer>
@@ -53,7 +58,7 @@ const ProductQuantityControlContainer = ({
   );
 };
 
-const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
+const ShoppingCartProduct = ({ imgUrl, title, price, id, isChecked }) => {
   const dispatch = useDispatch();
   const shoppingCartProducts = useSelector(
     (state) => state.shoppingCartProducts
@@ -89,9 +94,18 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id }) => {
     dispatch(removeCartProduct(id));
   };
 
+  const handleChecked = () => {
+    dispatch(updateCartProductChecked(id));
+  };
+
   return (
     <S.ShoppingCartProduct>
-      <ProductInfoContainer imgUrl={imgUrl} title={title} />
+      <ProductInfoContainer
+        imgUrl={imgUrl}
+        title={title}
+        handleChecked={handleChecked}
+        isChecked={isChecked}
+      />
       <ProductQuantityControlContainer
         price={price}
         productQuantity={shoppingCartProduct.quantity}

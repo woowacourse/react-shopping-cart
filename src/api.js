@@ -20,7 +20,7 @@ export const getShoppingCartProducts = async () => {
   return axios.get("/shopping-cart");
 };
 
-export const patchShoppingCartProductQuantity = async (id, newState) => {
+export const patchShoppingCartProduct = async (id, newState) => {
   return axios.patch(`/shopping-cart/${id}`, newState);
 };
 

@@ -13,13 +13,21 @@ const PaymentAmount = () => {
     if (shoppingCartProducts.data.length) {
       const totalProductsAmount = shoppingCartProducts.data.reduce(
         (totalAmount, currentProduct) => {
-          return totalAmount + currentProduct.price * currentProduct.quantity;
+          if (currentProduct.isChecked) {
+            return totalAmount + currentProduct.price * currentProduct.quantity;
+          }
+
+          return totalAmount;
         },
         0
       );
       const totalProductsQuantity = shoppingCartProducts.data.reduce(
         (totalQuantity, currentProduct) => {
-          return totalQuantity + currentProduct.quantity;
+          if (currentProduct.isChecked) {
+            return totalQuantity + currentProduct.quantity;
+          }
+
+          return totalQuantity;
         },
         0
       );
