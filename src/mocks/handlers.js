@@ -3,6 +3,13 @@ import productList from 'assets/mockData';
 
 let cart = [];
 
+const getDetailCart = () =>
+  cart.map((cartItem) => {
+    const productDetail = productList.find((item) => item.id === +cartItem.id);
+
+    return {...productDetail, quantity: cartItem.quantity};
+  });
+
 export const handlers = [
   rest.get('/products/:id', (req, res, ctx) => {
     const {id} = req.params;
@@ -30,7 +37,9 @@ export const handlers = [
       });
       cart = updatedCart;
     }
-    return res(ctx.status(200), ctx.json(cart));
+
+    const detailCart = getDetailCart();
+    return res(ctx.status(200), ctx.json(detailCart));
   }),
   rest.get('/cart', (req, res, ctx) => {
     // detail 정보를 담은 cart
@@ -47,11 +56,7 @@ export const handlers = [
     const deletedCart = cart.filter((item) => item.id !== id);
     cart = deletedCart;
 
-    const detailCart = cart.map((cartItem) => {
-      const productDetail = productList.find((item) => item.id === +cartItem.id);
-
-      return {...productDetail, quantity: cartItem.quantity};
-    });
+    const detailCart = getDetailCart();
     return res(ctx.status(200), ctx.json(detailCart));
   }),
   rest.put('/cart/:id', (req, res, ctx) => {
@@ -66,11 +71,7 @@ export const handlers = [
     });
     cart = updatedCart;
 
-    const detailCart = cart.map((cartItem) => {
-      const productDetail = productList.find((item) => item.id === +cartItem.id);
-
-      return {...productDetail, quantity: cartItem.quantity};
-    });
+    const detailCart = getDetailCart();
     return res(ctx.status(200), ctx.json(detailCart));
   }),
 ];

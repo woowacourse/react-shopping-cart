@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-import useReducerSelect from 'hooks/useReducerSelect';
-import {getCart, deleteCart} from 'store/modules/cart';
-
 import CheckBox from 'components/common/CheckBox';
 import Button from 'components/common/Button';
 import AmountBox from 'components/AmountBox';
@@ -19,18 +16,18 @@ import {
   CartInfoWrapper,
   SelectCartWrapper,
 } from 'pages/ProductCartPage/style';
+import useCart from 'hooks/useCart';
+
+import {calculateChecked} from 'utils';
 
 export default function ProductCartPage() {
   const [checkedItemList, setCheckedItemList] = useState([]);
-  const {dispatch, pending, error, data: cartItem} = useReducerSelect('cartReducer');
+  const {data: cartItem, getCartList, deleteItem} = useCart();
 
   let isAllChecked = cartItem.length !== 0 && cartItem.length === checkedItemList.length;
 
-  console.log('cartItem', cartItem, pending, error);
-  console.log('체크된 리스트', checkedItemList);
-
   useEffect(() => {
-    dispatch(getCart());
+    getCartList();
   }, []);
 
   const changeCheckedList = (id) => {
@@ -39,7 +36,7 @@ export default function ProductCartPage() {
       setCheckedItemList((prev) => prev.filter((itemId) => itemId !== id));
       return;
     }
-    // 없은 아이디라면 체크 리스트에 넣어주고
+    // 없는 아이디라면 체크 리스트에 넣어주고
     setCheckedItemList((prev) => [...prev, id]);
   };
 
@@ -56,25 +53,19 @@ export default function ProductCartPage() {
   };
 
   const deleteSelectedItems = () => {
+    if (checkedItemList.length === 0) {
+      return alert('삭제할 상품을 선택해주세요');
+    }
     if (confirm('선택된 상품들을 삭제하시겠습니까?')) {
-      // 선택 상품 삭제
       checkedItemList.forEach((id) => {
-        dispatch(deleteCart(id));
+        deleteItem(id);
         changeCheckedList(id);
       });
     }
   };
 
   const checkedItems = cartItem.filter(({id}) => checkedItemList.includes(id));
-  const {totalQuantity, totalPrice} = checkedItems.reduce(
-    (prev, cur) => {
-      return {
-        totalQuantity: cur.quantity + prev.totalQuantity,
-        totalPrice: cur.price * cur.quantity + prev.totalPrice,
-      };
-    },
-    {totalQuantity: 0, totalPrice: 0},
-  );
+  const {totalQuantity, totalPrice} = calculateChecked(checkedItems);
 
   return (
     <ProductCartPageWrapper>

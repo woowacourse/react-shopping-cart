@@ -1,4 +1,4 @@
-import appClient from 'utils';
+import appClient from 'utils/appClient';
 
 const ACTION = {
   GET_CART_PENDING: 'GET_CART_PENDING',
@@ -71,7 +71,6 @@ export default function cartReducer(state = initialState, action) {
     }
     case ACTION.GET_CART_SUCCESS: {
       const productItem = action.payload;
-      console.log('here', productItem);
       return {
         ...state,
         pending: false,

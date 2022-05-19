@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import useReducerSelect from 'hooks/useReducerSelect';
+import useCart from 'hooks/useCart';
 import {getProductList} from 'store/modules/productList';
-import {getCart} from 'store/modules/cart';
 
 import Item from 'components/Item';
 import Loader from 'components/Loader';
@@ -20,16 +20,11 @@ export default function ProductListPage() {
     error: productListError,
     data: productList,
   } = useReducerSelect('productListReducer');
-  const {
-    dispatch: cartDispatch,
-    pending: cartPending,
-    error: cartError,
-    data: cart,
-  } = useReducerSelect('cartReducer');
+  const {getCartList, pending: cartPending, error: cartError, data: cart} = useCart();
 
   useEffect(() => {
     productListDispatch(getProductList());
-    cartDispatch(getCart());
+    getCartList();
   }, []);
 
   if (productListPending || cartPending) return <Loader />;

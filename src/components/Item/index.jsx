@@ -15,12 +15,11 @@ import {
   ItemNameWrapper,
   ItemPriceWrapper,
 } from 'components/Item/style';
-import useReducerSelect from 'hooks/useReducerSelect';
-import {postCart} from 'store/modules/cart';
+import useCart from 'hooks/useCart';
 
-export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
+export default function Item({itemImgURL, itemName, itemPrice = 0, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
-  const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
+  const {postCartItem} = useCart();
 
   const navigation = useNavigate();
 
@@ -28,8 +27,7 @@ export default function Item({itemImgURL, itemName, itemPrice, id, disabled}) {
 
   const handleCartIconClick = () => {
     setDisable(true);
-    dispatch(postCart(id));
-    console.log(pending, error, data);
+    postCartItem(id);
   };
 
   return (

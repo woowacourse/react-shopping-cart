@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import useReducerSelect from 'hooks/useReducerSelect';
-import {deleteCart, editCart} from 'store/modules/cart';
+import useCart from 'hooks/useCart';
 
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
@@ -13,23 +12,13 @@ import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
 import {FlexWrapper} from 'components/common/style';
 
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
-  const {dispatch, pending, error, data} = useReducerSelect('cartReducer');
+  const {addQuantity, minusQuantity, deleteItem} = useCart();
 
   const handleDeleteIconClick = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      dispatch(deleteCart(id));
+      deleteItem(id);
       onChange();
-    } else {
-      console.log(pending, error, data);
     }
-  };
-
-  const addQuantity = () => {
-    dispatch(editCart(id, quantity + 1));
-  };
-
-  const minusQuantity = () => {
-    dispatch(editCart(id, quantity - 1));
   };
 
   return (
@@ -53,21 +42,30 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
         <FlexWrapper>
           <ItemCountBox>{quantity}</ItemCountBox>
           <FlexWrapper direction="column" width="42px">
-            <Button width="42px" height="30px" buttonType="grayBorder" onClick={addQuantity}>
+            <Button
+              width="42px"
+              height="30px"
+              buttonType="grayBorder"
+              onClick={() => {
+                addQuantity(id, quantity);
+              }}
+            >
               ▲
             </Button>
             <Button
               width="42px"
               height="30px"
               buttonType="grayBorder"
-              onClick={minusQuantity}
+              onClick={() => {
+                minusQuantity(id, quantity);
+              }}
               disabled={quantity === 1}
             >
               ▼
             </Button>
           </FlexWrapper>
         </FlexWrapper>
-        <div>{itemPrice.toLocaleString()}원</div>
+        <div>{(itemPrice * quantity).toLocaleString()}원</div>
       </FlexWrapper>
     </FlexWrapper>
   );
