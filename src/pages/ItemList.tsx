@@ -12,8 +12,6 @@ import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useParams } from 'react-router-dom';
 import { getCartList } from 'redux/action-creators/cartListThunk';
 import { getItemList } from 'redux/action-creators/itemListThunk';
-import { CartListAction } from 'redux/actions/cartList';
-import { ItemListAction } from 'redux/actions/itemList';
 import styled from 'styled-components';
 import { Item } from 'types/domain';
 
