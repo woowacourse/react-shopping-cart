@@ -3,7 +3,7 @@ import CheckBox from 'component/common/CheckBox';
 import styled from 'styled-components';
 import CartProduct from './CartProduct';
 
-export default function CartOperation() {
+export default function CartOperation({ products }) {
   return (
     <CartOperationBox>
       <CartOperationHead>
@@ -20,7 +20,9 @@ export default function CartOperation() {
             배송 상품 <span>3</span>개
           </p>
         </CartCounter>
-        <CartProduct />
+        {products.map(product => (
+          <CartProduct key={product.id} product={product} />
+        ))}
       </CartOperationBody>
     </CartOperationBox>
   );

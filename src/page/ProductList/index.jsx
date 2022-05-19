@@ -39,7 +39,7 @@ function ProductList() {
         <Content>
           <GridLayout>
             {currentPageProducts.map(product => (
-              <ProductContainer key={product.id} {...product} />
+              <ProductContainer key={product.id} product={product} />
             ))}
           </GridLayout>
           <Pagination />

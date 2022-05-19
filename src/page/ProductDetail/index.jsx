@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSnackBar } from 'store/action/snackBarActions';
 import Button from 'component/common/Button';
+import { addProductCart } from 'store/action/cartActions';
 
 const Content = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ function ProductDetail() {
   const targetProduct = products.find(product => product.id === selectedProductId);
 
   const handleCartClick = () => {
+    dispatch(addProductCart(targetProduct));
     dispatch(updateSnackBar(`${targetProduct.name} 1개가 장바구니에 추가되었습니다.`));
   };
 

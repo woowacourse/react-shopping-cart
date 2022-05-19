@@ -1,7 +1,15 @@
 import Button from 'component/common/Button';
 import styled from 'styled-components';
 
-export default function OrderContainer() {
+export default function OrderContainer({ products }) {
+  const totalAmount = products.reduce((amount, product) => {
+    return amount + product.price * product.count;
+  }, 0);
+
+  const totalCount = products.reduce((count, product) => {
+    return count + product.count;
+  }, 0);
+
   return (
     <OrderBox>
       <OrderBoxHeader>결제예상금액</OrderBoxHeader>
@@ -9,12 +17,12 @@ export default function OrderContainer() {
         <TotalPrice>
           <span>결제예상금액</span>
           <span>
-            <span>21,700</span>원
+            <span>{totalAmount.toLocaleString('ko-KR')}</span>원
           </span>
         </TotalPrice>
         <Button>
           <OrderButtonContent>
-            주문하기<span>2</span>개
+            주문하기<span>{totalCount.toLocaleString('ko-KR')}</span>개
           </OrderButtonContent>
         </Button>
       </OrderBoxBody>

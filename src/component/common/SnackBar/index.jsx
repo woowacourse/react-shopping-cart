@@ -42,7 +42,13 @@ const Box = styled.div`
 `;
 
 function SnackBar({ message }) {
-  return message && <Box isShow={!!message}>{message}</Box>;
+  return (
+    message && (
+      <Box key={Math.random()} isShow={!!message}>
+        {message}
+      </Box>
+    )
+  );
 }
 
 SnackBar.propTypes = {

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Button from '../Button';
 
-export default function Counter() {
+export default function Counter({ initialCount }) {
   return (
     <CounterBox>
-      <Count>1</Count>
+      <Count>{initialCount}</Count>
       <CounterButtonBox>
         <Button>
           <CounterButtonContent>

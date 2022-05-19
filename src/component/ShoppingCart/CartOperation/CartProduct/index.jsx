@@ -3,20 +3,22 @@ import Counter from 'component/common/Counter';
 import CheckBox from 'component/common/CheckBox';
 import Button from 'component/common/Button';
 
-export default function CartProduct() {
+export default function CartProduct({ product }) {
+  const { image, name, price, count } = product;
+
   return (
     <CartProductBox>
       <CartProductPresentBox>
         <CheckBox />
-        <CartProductImage src="https://i.pinimg.com/474x/4a/47/d5/4a47d5956eb090ff702e3b2cb47fdf98.jpg" />
-        <ProductName>사과</ProductName>
+        <CartProductImage src={image} />
+        <ProductName>{name}</ProductName>
       </CartProductPresentBox>
       <CarProductOperateBox>
         <Button>
           <img src="trashCan.svg" />
         </Button>
-        <Counter />
-        <p>5,800원</p>
+        <Counter initialCount={count} />
+        <p>{price.toLocaleString('ko-KR')}</p>
       </CarProductOperateBox>
     </CartProductBox>
   );
