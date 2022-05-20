@@ -11,7 +11,7 @@ function Layout() {
   return (
     <>
       <Header
-        left={<HomeButton title="WOOWA SHOP" emoji={<Cart />} />}
+        left={<HomeButton title="MINGALSHOP" emoji={<Cart />} />}
         right={<NavigationButtonList />}
       />
       <Styled.Root>
