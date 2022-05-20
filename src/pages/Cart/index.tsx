@@ -5,13 +5,11 @@ import PageTitle from "../../components/PageTitle/styles";
 import CartProductList from "../../components/CartProductList";
 import PaymentBox from "../../components/PaymentBox";
 import { GridContainer, CartPageContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const totalAmount = useCartAmount();
-
-  const onClickOrder = () => {
-    alert("주문 완료!");
-  };
 
   return (
     <CartPageContainer>
@@ -23,7 +21,7 @@ function Cart() {
           subTitle="결제 예상 금액"
           amount={totalAmount.toLocaleString()}
         >
-          <Button onClick={onClickOrder}>주문하기</Button>
+          <Button onClick={() => navigate("/order-list")}>주문하기</Button>
         </PaymentBox>
       </GridContainer>
     </CartPageContainer>
