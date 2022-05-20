@@ -26,9 +26,14 @@ const SelectAllContainer = styled.div`
   }
 
   button {
-    color: black;
+    color: ${({ theme }) => theme.colors.GRAY_800};
     background-color: ${({ theme }) => theme.colors.WHITE};
     border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.GRAY_800};
+      color: ${({ theme }) => theme.colors.WHITE};
+    }
   }
 `;
 

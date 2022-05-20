@@ -28,6 +28,10 @@ const ProductOptionContainer = styled.div`
     width: 20px;
     height: 20px;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 `;
 
@@ -54,6 +58,10 @@ const ProductCounterContainer = styled.div`
     padding: 5px 10px;
     font-size: 10;
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 `;
 
