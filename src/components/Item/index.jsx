@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
+import useCart from 'hooks/useCart';
+
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
 import Button from 'components/common/Button';
 
@@ -15,7 +17,7 @@ import {
   ItemNameWrapper,
   ItemPriceWrapper,
 } from 'components/Item/style';
-import useCart from 'hooks/useCart';
+import {Image} from 'components/common/style';
 
 export default function Item({itemImgURL, itemName, itemPrice = 0, id, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -33,11 +35,10 @@ export default function Item({itemImgURL, itemName, itemPrice = 0, id, disabled}
   return (
     <ItemWrapper>
       <ItemImageWrapper>
-        <img
+        <Image
           src={itemImgURL}
           alt={`${itemName}상품 이미지`}
-          width="282px"
-          height="282px"
+          imgSize="m"
           onClick={handleImageClick}
         />
       </ItemImageWrapper>

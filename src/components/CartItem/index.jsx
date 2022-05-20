@@ -9,8 +9,7 @@ import CheckBox from 'components/common/CheckBox';
 import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 
 import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
-import {FlexWrapper} from 'components/common/style';
-
+import {FlexRowWrapper, FlexColWrapper, Image} from 'components/common/style';
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
   const {addQuantity, minusQuantity, deleteItem} = useCart();
 
@@ -22,16 +21,11 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
   };
 
   return (
-    <FlexWrapper gap="15px" height="200px" justifyContent="flex-start">
+    <FlexRowWrapper gap="15px" height="200px" justifyContent="flex-start">
       <CheckBox onChange={onChange} checked={checked} />
-      <img src={itemImgURL} alt={`${itemName} 장바구니 이미지`} width="144px" height="144px" />
+      <Image src={itemImgURL} alt={`${itemName} 장바구니 이미지`} imgSize="s" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
-      <FlexWrapper
-        direction="column"
-        alignItems="flex-end"
-        justifyContent="space-between"
-        width="115px"
-      >
+      <FlexColWrapper alignItems="flex-end" justifyContent="space-between" width="115px">
         <Button
           onClick={() => {
             handleDeleteIconClick(id);
@@ -39,9 +33,9 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
         >
           <DeleteIcon />
         </Button>
-        <FlexWrapper>
+        <FlexRowWrapper>
           <ItemCountBox>{quantity}</ItemCountBox>
-          <FlexWrapper direction="column" width="42px">
+          <FlexColWrapper width="42px">
             <Button
               buttonType="grayBorder"
               buttonSizeType="s"
@@ -61,11 +55,11 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
             >
               ▼
             </Button>
-          </FlexWrapper>
-        </FlexWrapper>
+          </FlexColWrapper>
+        </FlexRowWrapper>
         <div>{(itemPrice * quantity).toLocaleString()}원</div>
-      </FlexWrapper>
-    </FlexWrapper>
+      </FlexColWrapper>
+    </FlexRowWrapper>
   );
 }
 

@@ -5,13 +5,14 @@ import useReducerSelect from 'hooks/useReducerSelect';
 import useCart from 'hooks/useCart';
 import {getProductList} from 'store/modules/productList';
 
+import ErrorPage from 'pages/ErrorPage';
 import Item from 'components/Item';
 import Loader from 'components/Loader';
 
 import Empty from 'assets/empty.png';
 
 import {ProductListPageWrapper, ProductListWrapper} from 'pages/ProductListPage/style';
-import ErrorPage from 'pages/ErrorPage';
+import {Image} from 'components/common/style';
 
 export default function ProductListPage() {
   const {
@@ -48,7 +49,7 @@ export default function ProductListPage() {
           })}
         </ProductListWrapper>
       ) : (
-        <img src={Empty} height="600px" />
+        <Image src={Empty} imgSize="l" />
       )}
     </ProductListPageWrapper>
   );

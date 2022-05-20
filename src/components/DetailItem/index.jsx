@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {useParams} from 'react-router-dom';
+
+import useCart from 'hooks/useCart';
 
 import Button from 'components/common/Button';
 
 import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'components/DetailItem/style';
-import {useParams} from 'react-router-dom';
-import useCart from 'hooks/useCart';
+import {Image} from 'components/common/style';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disabled}) {
   const [disable, setDisable] = useState(disabled);
@@ -20,7 +22,7 @@ export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disable
 
   return (
     <DetailItemWrapper>
-      <img src={itemImgURL} alt={`${itemName} 상품 이미지`} width="570px" height="570px" />
+      <Image src={itemImgURL} alt={`${itemName} 상품 이미지`} imgSize="l" />
       <ItemNameWrapper>{itemName}</ItemNameWrapper>
       <ItemPriceWrapper>
         <div>금액</div>

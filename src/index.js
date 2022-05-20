@@ -8,7 +8,6 @@ import reduxThunk from 'redux-thunk';
 import App from './App';
 
 import productListReducer from 'store/modules/productList';
-import productItemReducer from 'store/modules/productItem';
 import cartReducer from 'store/modules/cart';
 
 if (process.env.NODE_ENV === 'development') {
@@ -18,7 +17,6 @@ if (process.env.NODE_ENV === 'development') {
 
 export const rootReducer = combineReducers({
   productListReducer,
-  productItemReducer,
   cartReducer,
 });
 
