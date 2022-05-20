@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useCartItemListSelector } from "../../hooks/useCartSelector";
+import { useSelectedCartItemSelector } from "../../hooks/useCartSelector";
 
 import * as S from "./styles";
 
 function OrderBox() {
-  const cartItemList = useCartItemListSelector();
+  const selectedCartItemList = useSelectedCartItemSelector();
   const [totalPayAmount, setTotalPayAmount] = useState<number>(0);
 
   useEffect(() => {
-    const newTotalPayAmount = cartItemList
-      .filter((cartItem) => cartItem.isSelected)
-      .reduce((acc, cur) => acc + cur.detail.price * cur.amount, 0);
+    const newTotalPayAmount = selectedCartItemList.reduce(
+      (acc, cur) => acc + cur.detail.price * cur.amount,
+      0
+    );
     setTotalPayAmount(newTotalPayAmount);
-  }, [cartItemList]);
+  }, [selectedCartItemList]);
 
   return (
     <S.OrderBoxWrapper>
@@ -23,7 +24,7 @@ function OrderBox() {
         <span>{totalPayAmount.toLocaleString()}원</span>
       </S.OrderBoxDetail>
       <S.ButtonWrapper>
-        <S.OrderButton>주문하기({cartItemList.length})</S.OrderButton>
+        <S.OrderButton>주문하기 ({selectedCartItemList.length})</S.OrderButton>
       </S.ButtonWrapper>
     </S.OrderBoxWrapper>
   );
