@@ -7,5 +7,17 @@ import Button from './Button/Button.component';
 import FlexWrapper from './FlexWrapper/FlexWrapper.component';
 import Divider from './Divider/Divider.component';
 import Checkbox from './Checkbox/Checkbox.component';
+import Counter from './Counter/Counter.component';
 
-export { Error, HeaderContainer, HeaderLink, Image, Text, Button, FlexWrapper, Divider, Checkbox };
+export {
+  Error,
+  HeaderContainer,
+  HeaderLink,
+  Image,
+  Text,
+  Button,
+  FlexWrapper,
+  Divider,
+  Checkbox,
+  Counter,
+};

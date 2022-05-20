@@ -8,6 +8,7 @@ export const PALETTE = {
   GRAY_002: '#AAA',
   GRAY_003: '#DDD',
   GRAY_004: '#BBB',
+  GRAY_005: '#CCC',
   BROWN_001: '#73675C',
 };
 
