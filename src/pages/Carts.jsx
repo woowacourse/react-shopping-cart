@@ -54,7 +54,7 @@ function Carts() {
 
       <Style.CartListContainer justify="space-between">
         <Style.CartListWrapper>
-          <CheckedItemsController />
+          <CheckedItemsController checkedProducts={checkedProducts} />
           <span>{`든든배송 상품(${checkedProductsInfo?.length}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           {!isStoredProductsLoading && (

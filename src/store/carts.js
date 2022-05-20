@@ -11,6 +11,7 @@ const CHECK_ALL = 'carts/CHECK_ALL';
 const CHECK_ONE = 'carts/CHECK_ONE';
 const UNCHECK_ALL = 'carts/UNCHECK_ALL';
 const UNCHECK_ONE = 'carts/UNCHECK_ONE';
+const DELETE_CHECKED_PRODUCTS = 'carts/DELETE_CHECKED_PRODUCTS';
 
 const initialState = {
   isLoading: false,
@@ -101,6 +102,8 @@ const cartsReducer = (state = initialState, action) => {
           (product) => product.id !== action.payload
         ),
       };
+    case DELETE_CHECKED_PRODUCTS:
+      return { ...state };
     default:
       return { ...state };
   }
@@ -119,5 +122,11 @@ export const loadCarts = () => async (dispatch) => {
     dispatch(loadCartsDone());
   }
 };
+
+// export const deleteCheckedProducts = () => async (dispatch) => {
+//   try {
+//     await axios();
+//   } catch (error) {}
+// };
 
 export default cartsReducer;

@@ -1,16 +1,32 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { COLOR } from '../../constants/styles';
+import { checkOne, uncheckOne } from '../../store/carts';
 import CheckBox from '../CheckBox/CheckBox';
 import { BasicButton, BasicImage, Flex } from '../shared/basics';
 import { ReactComponent as Bin } from '../shared/Bin.svg';
 import NumberInput from '../shared/NumberInput';
 
 function CartItem({ id, title, price, src, isChecked }) {
+  const dispatch = useDispatch();
+
+  const handleUncheckProduct = () => {
+    dispatch(uncheckOne(id));
+  };
+
+  const handleCheckProduct = () => {
+    dispatch(checkOne(id));
+  };
+
   return (
     <Style.Container justify="space-between">
       <Flex justify="space-between" gap="20px">
-        <CheckBox checked={isChecked} id={id} />
+        <CheckBox
+          checked={isChecked}
+          onCheck={handleCheckProduct}
+          onUncheck={handleUncheckProduct}
+        />
         <BasicImage size="small" src={src} alt={title} />
         <span>{title}</span>
       </Flex>
