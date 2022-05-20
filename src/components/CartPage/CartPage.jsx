@@ -62,6 +62,7 @@ export default CartPage;
 const Styled = {
   CartSection: styled.section`
     padding: 24px 300px;
+    min-width: 1500px;
   `,
   CartBody: styled.div`
     display: flex;
