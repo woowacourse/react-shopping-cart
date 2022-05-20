@@ -4,13 +4,17 @@ import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import { PATH } from 'constants/path';
 import usePost from 'hooks/usePost';
+import useCart from 'hooks/useCart';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const { callApi } = usePost('/cartList', {
+  const { callApi: handleClickCartButton } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
+
+  const { cartList } = useCart();
+
   const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
   };
@@ -27,7 +31,10 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Styled.ProductInfo>
-        <Styled.CartButton onClick={callApi}>
+        <Styled.CartButton
+          onClick={handleClickCartButton}
+          isInCart={cartList.find((item) => item.id === id)}
+        >
           <Styled.CartSvg src={smallCart} />
         </Styled.CartButton>
       </Styled.ProductDetail>
@@ -48,12 +55,16 @@ const Styled = {
     cursor: pointer;
   `,
   ProductImage: styled.img`
+    border-radius: 4px;
     max-width: 100%;
+    &:hover {
+      filter: brightness(90%);
+    }
   `,
   ProductDetail: styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
     width: 100%;
   `,
   ProductInfo: styled.div`
@@ -72,9 +83,15 @@ const Styled = {
     font-size: 18px;
   `,
   CartButton: styled.button`
-    background-color: transparent;
+    background-color: ${({ isInCart }) =>
+      isInCart ? '#a7e2f75d' : 'transparent'};
+    border-radius: 7px;
     border: none;
+    padding: 6px;
     cursor: pointer;
+    &:hover {
+      background-color: #a7e2f75d;
+    }
   `,
   CartSvg: styled.img`
     max-width: 100%;
