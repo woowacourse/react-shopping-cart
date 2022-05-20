@@ -1,4 +1,3 @@
-import React from 'react';
 import { EmptyObject } from 'redux';
 import * as Styled from './ErrorContainer.style';
 

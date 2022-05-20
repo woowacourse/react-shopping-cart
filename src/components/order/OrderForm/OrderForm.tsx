@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button/Button';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import * as Styled from './OrderForm.style';
 function OrderForm() {

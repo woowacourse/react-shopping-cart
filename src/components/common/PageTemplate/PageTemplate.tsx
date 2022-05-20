@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styled from './PageTemplate.style';
 import Header from '../Header/Header';
 import { EmptyObject } from 'redux';
