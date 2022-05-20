@@ -41,11 +41,7 @@ function ProductCartList({ cartList }) {
         든든배송 상품 ({cartList?.length ?? "%ERROR%"}개)
       </CartListCount>
       {cartList.map((cartItem) => (
-        <ProductCartItem
-          product={cartItem}
-          amount={cartItem.count}
-          key={cartItem.id}
-        />
+        <ProductCartItem product={cartItem} key={cartItem.id} />
       ))}
     </>
   );

@@ -71,4 +71,50 @@ export const cartsHandlers = [
       return res(ctx.status(200), ctx.json(result));
     }
   ),
+  rest.patch(
+    `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/increase/:id`,
+    (req, res, ctx) => {
+      const { id } = req.params;
+
+      const productList = db.products;
+      const cartList = db.carts;
+      const cartItemIndex = cartList.findIndex(
+        (cartItem) => cartItem.id === Number(id)
+      );
+
+      if (cartItemIndex < 0) return res(ctx.status(404), ctx.json([]));
+
+      db.carts[cartItemIndex].count += 1;
+
+      const result = db.carts.map(({ id, count }) => {
+        const cartList = productList.find((product) => product.id === id);
+        return { ...cartList, count };
+      });
+
+      return res(ctx.status(200), ctx.json(result));
+    }
+  ),
+  rest.patch(
+    `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/decrease/:id`,
+    (req, res, ctx) => {
+      const { id } = req.params;
+
+      const productList = db.products;
+      const cartList = db.carts;
+      const cartItemIndex = cartList.findIndex(
+        (cartItem) => cartItem.id === Number(id)
+      );
+
+      if (cartItemIndex < 0) return res(ctx.status(404), ctx.json([]));
+
+      db.carts[cartItemIndex].count -= 1;
+
+      const result = db.carts.map(({ id, count }) => {
+        const cartList = productList.find((product) => product.id === id);
+        return { ...cartList, count };
+      });
+
+      return res(ctx.status(200), ctx.json(result));
+    }
+  ),
 ];

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import trashCanIcon from "../../../../asset/trash-can.svg";
-import { deleteCartList } from "../../../../reducers/cartList";
+import { deleteCartList, updateCartCount } from "../../../../reducers/cartList";
 
 import CheckBox from "../../../common/CheckBox";
 import Counter from "../../../common/Counter";
@@ -16,20 +16,19 @@ import {
 } from "./styled";
 
 function ProductCartItem({
-  product: { id, thumbnailUrl, name, price, quantity },
-  amount,
+  product: { id, thumbnailUrl, name, price, quantity, count },
 }) {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(true);
-  const [count, setCount] = useState(amount || 0);
 
   const handleClickIncreaseButton = () => {
-    setCount((prev) => prev + 1);
+    dispatch(updateCartCount(id, "increase"));
   };
 
   const handleClickDecreaseButton = () => {
     if (count <= 1) return;
-    setCount((prev) => prev - 1);
+
+    dispatch(updateCartCount(id, "decrease"));
   };
 
   const handleChangeCheckbox = () => {
@@ -69,4 +68,4 @@ function ProductCartItem({
   );
 }
 
-export default ProductCartItem;
+export default React.memo(ProductCartItem);

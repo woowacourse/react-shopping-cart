@@ -29,8 +29,8 @@ function ProductCartPage() {
     return <ProductCartList cartList={cartList} />;
   };
 
-  const totalPrice = cartList.reduce((acc, { price }) => {
-    return acc + price;
+  const totalPrice = cartList.reduce((acc, { price, count }) => {
+    return acc + price * count;
   }, 0);
 
   const totalCount = cartList.reduce((acc, { count }) => {

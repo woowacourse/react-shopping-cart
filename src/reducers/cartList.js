@@ -7,14 +7,25 @@ const CART_LIST_ACTION = {
   DELETE_LIST: "cartList/DELETE_LIST",
   DELETE_LIST_SUCCESS: "cartList/DELETE_LIST_SUCCESS",
   DELETE_LIST_ERROR: "cartList/DELETE_LIST_ERROR",
+  UPDATE_ITEM_COUNT: "cartList/UPDATE_ITEM_COUNT",
+  UPDATE_ITEM_COUNT_SUCCESS: "cartList/UPDATE_ITEM_COUNT_SUCCESS",
+  UPDATE_ITEM_COUNT_ERROR: "cartList/UPDATE_ITEM_COUNT_ERROR",
 };
 
-export const getCartList = () => async (dispatch) => {
-  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`;
-
-  dispatch({ type: CART_LIST_ACTION.GET_LIST });
+const fetchServer = async (
+  url,
+  method,
+  dispatch,
+  { start, success, error }
+) => {
+  dispatch({ type: start });
   try {
-    const response = await fetch(`${cartListUrl}`);
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`fetch error`);
@@ -26,15 +37,24 @@ export const getCartList = () => async (dispatch) => {
     }
 
     dispatch({
-      type: CART_LIST_ACTION.GET_LIST_SUCCESS,
+      type: success,
       carts: data,
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
-      type: CART_LIST_ACTION.GET_LIST_ERROR,
-      errorMessage: error.message,
+      type: error,
+      errorMessage: err.message,
     });
   }
+};
+
+export const getCartList = () => async (dispatch) => {
+  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`;
+  await fetchServer(cartListUrl, "GET", dispatch, {
+    start: CART_LIST_ACTION.GET_LIST,
+    success: CART_LIST_ACTION.GET_LIST_SUCCESS,
+    error: CART_LIST_ACTION.GET_LIST_ERROR,
+  });
 };
 
 export const deleteCartList =
@@ -42,35 +62,22 @@ export const deleteCartList =
   async (dispatch) => {
     const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${id}`;
 
-    dispatch({ type: CART_LIST_ACTION.DELETE_LIST });
-    try {
-      const response = await fetch(cartListUrl, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`fetch error`);
-      }
-
-      const data = await response.json();
-      if (!data) {
-        throw new Error(`No Data`);
-      }
-
-      dispatch({
-        type: CART_LIST_ACTION.DELETE_LIST_SUCCESS,
-        carts: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: CART_LIST_ACTION.DELETE_LIST_ERROR,
-        errorMessage: error.message,
-      });
-    }
+    await fetchServer(cartListUrl, "DELETE", dispatch, {
+      start: CART_LIST_ACTION.DELETE_LIST,
+      success: CART_LIST_ACTION.DELETE_LIST_SUCCESS,
+      error: CART_LIST_ACTION.DELETE_LIST_ERROR,
+    });
   };
+
+export const updateCartCount = (id, type) => async (dispatch) => {
+  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${type}/${id}`;
+
+  await fetchServer(cartListUrl, "PATCH", dispatch, {
+    start: CART_LIST_ACTION.UPDATE_ITEM_COUNT,
+    success: CART_LIST_ACTION.UPDATE_ITEM_COUNT_SUCCESS,
+    error: CART_LIST_ACTION.UPDATE_ITEM_COUNT_ERROR,
+  });
+};
 
 const initialState = {
   isLoading: false,
@@ -80,13 +87,20 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CART_LIST_ACTION.UPDATE_ITEM_COUNT:
     case CART_LIST_ACTION.DELETE_LIST:
+      return {
+        isLoading: false,
+        data: state.data,
+        errorMessage: "",
+      };
     case CART_LIST_ACTION.GET_LIST:
       return {
         isLoading: true,
-        data: [],
+        data: state.data,
         errorMessage: "",
       };
+    case CART_LIST_ACTION.UPDATE_ITEM_COUNT_SUCCESS:
     case CART_LIST_ACTION.DELETE_LIST_SUCCESS:
     case CART_LIST_ACTION.GET_LIST_SUCCESS:
       return {
@@ -94,6 +108,7 @@ const reducer = (state = initialState, action) => {
         data: action.carts,
         errorMessage: "",
       };
+    case CART_LIST_ACTION.UPDATE_ITEM_COUNT_ERROR:
     case CART_LIST_ACTION.DELETE_LIST_ERROR:
     case CART_LIST_ACTION.GET_LIST_ERROR:
       return {
