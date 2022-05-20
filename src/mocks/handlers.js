@@ -33,12 +33,12 @@ export const handlers = [
     if (index === -1) {
       cartStorage.push({ ...product, quantity: 1 });
     } else {
-      const newCartList = cartStorage.map((item, itemIndex) => {
+      const newCartStorage = cartStorage.map((item, itemIndex) => {
         if (index === itemIndex)
           return { ...item, quantity: item.quantity + 1 };
         return item;
       });
-      cartStorage = newCartList;
+      cartStorage = newCartStorage;
     }
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
@@ -51,11 +51,11 @@ export const handlers = [
     const id = +req.params.id;
     const quantity = +req.params.quantity;
 
-    const newCartList = cartStorage.map((item) => {
+    const newCartStorage = cartStorage.map((item) => {
       if (item.id === id) return { ...item, quantity };
       return item;
     });
-    cartStorage = newCartList;
+    cartStorage = newCartStorage;
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
 ];
