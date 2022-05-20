@@ -1,26 +1,40 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-// import PropType from 'prop-types';
+import PropType from 'prop-types';
 import { COLOR } from '../../constants/styles';
+import usePropDefaultState from '../../hooks/usePropDefaultState';
+import { checkOne, uncheckOne } from '../../store/carts';
 
-function CheckBox() {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleCheckBoxClick = (e) => {
+function CheckBox({ checked, id }) {
+  const dispatch = useDispatch();
+
+  const [isChecked, setIsChecked] = usePropDefaultState(checked);
+  const handleCheckBoxClick = () => {
+    if (isChecked) {
+      // onCheck();
+      console.log('uncheck');
+      dispatch(uncheckOne(id));
+    } else {
+      // onUncheck();
+      console.log('check');
+      dispatch(checkOne(id));
+    }
     setIsChecked((prev) => !prev);
   };
 
   return (
     <StyleCheckBox
-      // onClick={handleCheckBoxClick}
       name="checkbox"
       type="checkbox"
-      // checked={isChecked}
+      onClick={handleCheckBoxClick}
+      checked={isChecked}
     />
   );
 }
 
 // CheckBox.propTypes = {
-//   onClick: PropType.func.isRequired,
+//   onCheck: PropType.func.isRequired,
+//   onUncheck: PropType.func.isRequired,
 // };
 
 export default CheckBox;

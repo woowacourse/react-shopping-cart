@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -11,24 +11,39 @@ import PATH from '../constants/path';
 import useFetch from '../hooks/useFetch';
 
 function Carts() {
-  const { carts } = useSelector((state) => state.carts);
+  const { carts, checkedProducts } = useSelector((state) => state.carts);
   const query = carts.map((cart) => `id=${cart.id}`).join('&');
   const {
     isLoading: isStoredProductsLoading,
     result: storedProducts,
-    apiCall,
+    apiCall: loadStoredProducts,
   } = useFetch({
     url: `${API_URL}/${PATH.PRODUCTS}?${query}`,
   });
-
-  const total = storedProducts?.reduce((acc, cur) => acc + +cur.price, 0);
+  const [checkedProductsInfo, setCheckedProductsInfo] =
+    useState(storedProducts);
 
   useEffect(() => {
     if (!carts.length) {
       return;
     }
-    apiCall();
+
+    loadStoredProducts();
   }, [query]);
+
+  useEffect(() => {
+    const ids = checkedProducts.map((product) => product.id);
+    const productInfos = storedProducts.filter(
+      (product) =>
+        // eslint-disable-next-line implicit-arrow-linebreak
+        ids.includes(product.id)
+      // eslint-disable-next-line function-paren-newline
+    );
+    setCheckedProductsInfo(productInfos);
+  }, [checkedProducts, storedProducts]);
+  const totalPrice = Number(
+    checkedProductsInfo?.reduce((acc, cur) => acc + +cur.price, 0)
+  ).toLocaleString('ko-kr');
 
   return (
     <Style.Container>
@@ -40,13 +55,16 @@ function Carts() {
       <Style.CartListContainer justify="space-between">
         <Style.CartListWrapper>
           <CheckedItemsController />
-          <span>{`든든배송 상품(${carts?.length}개)`}</span>
+          <span>{`든든배송 상품(${checkedProductsInfo?.length}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           {!isStoredProductsLoading && (
-            <CartListContainer storedProducts={storedProducts} />
+            <CartListContainer
+              storedProducts={storedProducts}
+              checkedProducts={checkedProducts}
+            />
           )}
         </Style.CartListWrapper>
-        <TotalPrice total={total} />
+        <TotalPrice total={totalPrice} quantity={checkedProductsInfo.length} />
       </Style.CartListContainer>
     </Style.Container>
   );

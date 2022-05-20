@@ -3,10 +3,16 @@ import { BasicButton, Flex } from '../shared/basics';
 import CheckBox from './CheckBox';
 
 function CheckedItemsController() {
+  const handleClickAllCheckBox = () => {};
   return (
     <Style.CheckBoxContainer justify="space-between" align="center">
       <Flex align="center">
-        <CheckBox />
+        <CheckBox
+          onCheck={handleClickAllCheckBox}
+          onUncheck={() => {
+            console.log(123);
+          }}
+        />
         <Style.CheckBoxLabel>전체선택</Style.CheckBoxLabel>
       </Flex>
       <Style.DeleteButton type="button">상품삭제</Style.DeleteButton>

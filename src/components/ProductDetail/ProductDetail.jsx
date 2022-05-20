@@ -8,18 +8,15 @@ import { COLOR } from '../../constants/styles';
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import useStoreProduct from '../../hooks/useStoreProduct';
 import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
+import usePropDefaultState from '../../hooks/usePropDefaultState';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const dispatch = useDispatch();
   const timeout = useRef();
-  const [isClicked, setIsClicked] = useState(isStored);
+  const [isClicked, setIsClicked] = usePropDefaultState(isStored);
   const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
-
-  useEffect(() => {
-    setIsClicked((prev) => !prev);
-  }, [isStored]);
 
   const isLoading = isCartAddLoading || isCartDeleteLoading;
   const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';

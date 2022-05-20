@@ -12,7 +12,7 @@ function TotalPrice({ total = 0, quantity = 0 }) {
       <div>
         <Style.TotalPriceBox justify="space-between">
           <Style.HighLightText>결제예상금액</Style.HighLightText>
-          <Style.HighLightText>{total}</Style.HighLightText>
+          <Style.HighLightText>{`${total}원`}</Style.HighLightText>
         </Style.TotalPriceBox>
         <Style.OrderButtonWrapper justify="center" align="center">
           <Style.OrderButton type="button">
