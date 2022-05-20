@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, StyleProps } from 'styled-components';
 
 const Placeholder = styled.div`
   border-radius: 4px;
@@ -15,7 +15,11 @@ const Placeholder = styled.div`
     }
   }
 
-  ${({ width = '100%', height = '100%', aspectRatio }) => css`
+  ${({
+    width = '100%',
+    height = '100%',
+    aspectRatio,
+  }: Partial<Pick<StyleProps, 'width' | 'height' | 'aspectRatio'>>) => css`
     width: ${width};
     height: ${height};
 

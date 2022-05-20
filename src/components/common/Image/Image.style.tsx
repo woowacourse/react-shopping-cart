@@ -1,7 +1,10 @@
-import styled from 'styled-components';
+import styled, { css, StyleProps } from 'styled-components';
 
 export const ImageContainer = styled.div`
-  width: ${({ width }) => width};
+  ${({ width = '100%', height = '100%' }: Partial<Pick<StyleProps, 'width' | 'height'>>) => css`
+    width: ${width};
+    height: ${height};
+  `};
   aspect-ratio: 1 / 1;
 
   overflow: hidden;

@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle, css, StyleProps } from 'styled-components';
 import styled from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -19,7 +19,13 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Position = styled.div`
-  ${({ position = 'relative', top, bottom, left, right }) => css`
+  ${({
+    position = 'relative',
+    top,
+    bottom,
+    left,
+    right,
+  }: Partial<Pick<StyleProps, 'position' | 'top' | 'bottom' | 'left' | 'right'>>) => css`
     position: ${position};
     top: ${top};
     bottom: ${bottom};

@@ -1,18 +1,13 @@
-import styled, { css } from 'styled-components';
-interface ButtonStyleProp {
-  backgroundColor?: string;
-  fontColor?: string;
-  padding?: string;
-  border?: string;
-}
-const Button = styled.button<ButtonStyleProp>`
+import theme from '@/styles/Theme';
+import styled, { css, StyleProps } from 'styled-components';
+
+const Button = styled.button`
   ${({
-    theme,
     backgroundColor = theme.brandColor_1,
     fontColor = theme.whiteColor_1,
     padding = '10px',
     border = 'none',
-  }) =>
+  }: Partial<Pick<StyleProps, 'backgroundColor' | 'fontColor' | 'padding' | 'border'>>) =>
     css`
       background-color: ${backgroundColor};
       color: ${fontColor};
