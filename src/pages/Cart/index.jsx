@@ -42,7 +42,7 @@ const Cart = () => {
   };
 
   const handleToggleSelect = (id) => () => {
-    if (isInList(selectedItemList, id)) {
+    if (!isInList(selectedItemList, id)) {
       setSelectedItemList([...selectedItemList, id]);
       return;
     }
