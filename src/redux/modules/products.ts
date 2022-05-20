@@ -33,11 +33,11 @@ const LOAD_PRODUCTS_FAILED = "product/LOAD_FAILED" as const;
 
 // 액션 크리에터
 const loadProducts = () => ({ type: LOAD_PRODUCTS });
-export const loadProductsSuccess = (productList: Product[]) => ({
+const loadProductsSuccess = (productList: Product[]) => ({
   type: LOAD_PRODUCTS_SUCCESS,
   payload: { productList },
 });
-export const loadProductsFailed = (error: Error) => ({
+const loadProductsFailed = (error: Error) => ({
   type: LOAD_PRODUCTS_FAILED,
   payload: { error },
 });
@@ -77,5 +77,7 @@ const productsReducer = (state = initialState, action: Action) => {
 };
 
 export const selectProductState = (state: RootState) => state.products;
+
+export { loadProductsSuccess, loadProductsFailed };
 
 export default productsReducer;
