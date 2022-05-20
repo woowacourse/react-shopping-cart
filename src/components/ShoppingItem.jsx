@@ -4,13 +4,15 @@ import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
 
-function ShoppingItem() {
+function ShoppingItem({ item }) {
+  const { name, price, imageUrl } = item;
+
   return (
     <StyledContainer>
       <StyledProductLeft>
-        <StyledCheckbox name="checkbox" type="checkbox" />
-        <img src="./assets/images/product.png" alt="" />
-        <span>PET보틀-정사각(420ml)</span>
+        <StyledCheckbox name="checkbox" type="checkbox" checked="true" />
+        <img src={imageUrl} alt="" />
+        <span>{name}</span>
       </StyledProductLeft>
       <StyledProductRight>
         <BsTrash className="logo" />
@@ -21,7 +23,7 @@ function ShoppingItem() {
             <button>▼</button>
           </div>
         </StyledAmountContainer>
-        <StyledPrice>123,456원</StyledPrice>
+        <StyledPrice>{Number(price).toLocaleString()} 원</StyledPrice>
       </StyledProductRight>
     </StyledContainer>
   );
@@ -30,12 +32,11 @@ function ShoppingItem() {
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 28px 0;
 `;
 
 const StyledProductLeft = styled.div`
   display: flex;
-  margin-top: 10px;
   gap: 15px;
 
   img {

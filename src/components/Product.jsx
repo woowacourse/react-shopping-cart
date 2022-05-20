@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from './common/Styled';
 import { PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
+import { actionTypes } from '../store/actionTypes';
 
 function Product({ product }) {
+  const dispatch = useDispatch();
   const [color, setColor] = useState('');
   const { id, name, price, imageUrl } = product;
 
   const handleClickCart = () => {
     color ? setColor('') : setColor(COLORS.PRIMARY);
+    dispatch({ type: actionTypes.ADD_CART, payload: product });
   };
 
   return (
