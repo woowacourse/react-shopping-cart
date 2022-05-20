@@ -5,16 +5,9 @@ import Title from 'components/base/title/Title';
 import PageTitle from 'components/pageTitle/PageTitle';
 import PaymentAccount from 'components/paymentAccount/PaymentAccount';
 import ShoppingCartItem from 'components/shoppingCartItem/ShoppingCartItem';
-import store from 'store/store';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getProductList, getShoppingCartList } from 'utils/api';
-import {
-  initProduct,
-  initShoppingCart,
-  putProductToCart,
-  deleteProductAtCart,
-} from 'actions/actionCreator';
+import { useDispatch, useSelector } from 'react-redux';
+import { getShoppingCartList, putShoppingCartItem } from 'modules/shoppingCarts';
 
 import {
   ContentWrapper,
@@ -25,69 +18,66 @@ import {
   ShoppingCartContainer,
   UnderLine,
 } from './style';
+import { deleteShoppingCartItem } from 'modules/shoppingCarts';
 
 const ShoppingCartPage = () => {
-  const { shoppingCart } = useSelector(state => state.reducer);
+  const dispatch = useDispatch();
+  const { shoppingCartList, shoppingCartListLoading, shoppingCartListError } = useSelector(
+    state => state.shoppingCartReducer.shoppingCarts,
+  );
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isAllSelect, setIsAllSelect] = useState(false);
 
-  const getProducts = async () => {
-    const productList = await getProductList();
-    const shoppingCartList = await getShoppingCartList();
-    store.dispatch(initProduct({ products: productList }));
-    store.dispatch(initShoppingCart({ shoppingCart: shoppingCartList }));
-  };
-
   const handleClickCheckBox = () => {
+    console.log(shoppingCartList);
     if (isAllSelect === false) {
-      shoppingCart.forEach(product =>
-        store.dispatch(
-          putProductToCart({ id: product.id, quantity: product.quantity, isSelect: true }),
-        ),
-      );
+      shoppingCartList.forEach(product => {
+        dispatch(putShoppingCartItem({ ...product, isSelect: true }));
+      });
     } else {
-      shoppingCart.forEach(product =>
-        store.dispatch(
-          putProductToCart({ id: product.id, quantity: product.quantity, isSelect: false }),
-        ),
+      shoppingCartList.forEach(product =>
+        dispatch(putShoppingCartItem({ ...product, isSelect: false })),
       );
       setIsAllSelect(false);
     }
   };
 
   const handleClickDeleteButton = () => {
-    const selectedProductList = shoppingCart.filter(product => product.isSelect === true);
+    const selectedProductList = shoppingCartList.filter(product => product.isSelect === true);
     selectedProductList.forEach(product => {
-      store.dispatch(deleteProductAtCart({ id: product.id }));
+      dispatch(deleteShoppingCartItem({ id: product.id }));
     });
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    dispatch(getShoppingCartList());
+  }, [dispatch]);
 
   useEffect(() => {
-    if (shoppingCart.length === 0) {
+    if (shoppingCartList.length === 0) {
       setTotalPrice(0);
       setTotalAmount(0);
       setIsAllSelect(false);
       return;
     }
 
-    const selectedProductList = shoppingCart.filter(product => product.isSelect === true);
+    const selectedProductList = shoppingCartList.filter(product => product.isSelect === true);
     setTotalAmount(selectedProductList.length);
     if (selectedProductList.length === 0) {
       setTotalPrice(0);
       return;
     }
 
-    if (selectedProductList.length === shoppingCart.length) {
+    if (selectedProductList.length === shoppingCartList.length) {
       setIsAllSelect(true);
     }
 
     setTotalPrice(selectedProductList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
-  }, [shoppingCart]);
+  }, [shoppingCartList]);
+
+  if (shoppingCartListLoading) return <div>로딩중...</div>;
+  if (shoppingCartListError) return <div>에러 발생!</div>;
 
   return (
     <PageWrapper>
@@ -104,7 +94,7 @@ const ShoppingCartPage = () => {
           />
           <Title title="든든배송 상품" />
           <ShoppingCartItemContainer>
-            {shoppingCart.map(product => (
+            {shoppingCartList.map(product => (
               <React.Fragment key={product.id}>
                 <ShoppingCartItem product={product}></ShoppingCartItem>
                 <UnderLine />

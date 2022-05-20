@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import store from 'store/store';
-import { deleteProductAtCart, putProductToCart } from 'actions/actionCreator';
+import { putShoppingCartItem, deleteShoppingCartItem } from 'modules/shoppingCarts';
 
 import CheckBox from 'components/base/checkBox/CheckBox';
 import Image from 'components/base/image/Image';
@@ -21,6 +21,7 @@ import {
 import { ReactComponent as TrashCan } from 'assets/trash_can.svg';
 
 const ShoppingCartItem = ({ product }) => {
+  const dispatch = useDispatch();
   const { name, image, price, id } = product;
   const [quantity, setQuantity] = useState(product.quantity);
   const [isSelect, setIsSelect] = useState(product.isSelect || false);
@@ -42,16 +43,26 @@ const ShoppingCartItem = ({ product }) => {
   };
 
   const handleClickDeleteButton = () => {
-    store.dispatch(deleteProductAtCart({ id }));
+    dispatch(deleteShoppingCartItem({ id }));
   };
 
   useEffect(() => {
-    store.dispatch(putProductToCart({ id, quantity, isSelect }));
-  }, [quantity, isSelect]);
+    if (quantity === product.quantity) {
+      return;
+    }
+    dispatch(putShoppingCartItem({ ...product, quantity }));
+  }, [quantity]);
+
+  useEffect(() => {
+    if (isSelect === product.isSelect) {
+      return;
+    }
+    dispatch(putShoppingCartItem({ ...product, isSelect }));
+  }, [isSelect]);
 
   return (
     <ShoppingCartItemContainer>
-      <CheckBox checked={product.isSelect} onChange={handleClickCheckBox} />
+      <CheckBox checked={isSelect} onChange={handleClickCheckBox} />
       <ShoppingCartItemBox>
         <Image src={image} width="120" height="120" />
         <ShoppingCartItemName>{name}</ShoppingCartItemName>
@@ -61,7 +72,7 @@ const ShoppingCartItem = ({ product }) => {
           </Button>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ShoppingCartItemQuantitybar>
-              <ShoppingCartItemQuantityDisplay>{product.quantity}</ShoppingCartItemQuantityDisplay>
+              <ShoppingCartItemQuantityDisplay>{quantity}</ShoppingCartItemQuantityDisplay>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ShoppingCartItemQuantityButton onClick={handleClickIncreaseButton}>
                   ⬆️
@@ -72,7 +83,7 @@ const ShoppingCartItem = ({ product }) => {
               </div>
             </ShoppingCartItemQuantitybar>
           </div>
-          <ShoppingCartItemTotalPrice>{price * product.quantity}원</ShoppingCartItemTotalPrice>
+          <ShoppingCartItemTotalPrice>{price * quantity}원</ShoppingCartItemTotalPrice>
         </ShoppingCartItemSidebar>
       </ShoppingCartItemBox>
     </ShoppingCartItemContainer>

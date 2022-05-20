@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useClose from 'hooks/useClose';
 
 import Image from 'components/base/image/Image';
@@ -10,9 +10,6 @@ import Text from 'components/base/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
-import store from 'store/store';
-import { putProductToCart } from 'actions/actionCreator';
-
 import {
   StyledProductItem,
   StyledProductContainer,
@@ -21,12 +18,16 @@ import {
 } from 'components/productItem/style';
 
 import { PRODUCT } from 'constants/constants';
+import { postShoppingCartItem, putShoppingCartItem } from 'modules/shoppingCarts';
 
 const ProductItem = ({ id }) => {
-  const { products, shoppingCart } = useSelector(state => state.reducer);
+  const dispatch = useDispatch();
+  const { productList } = useSelector(state => state.productReducer.products);
+  const { shoppingCartList } = useSelector(state => state.shoppingCartReducer.shoppingCarts);
   const [clearTimer, autoClose] = useClose();
-  const { name, price, image } = products.find(product => product.id === id);
-  const shoppingCartItem = shoppingCart.find(product => product.id === id);
+  const product = productList.find(product => product.id === id);
+  const { name, price, image } = product;
+  const shoppingCartItem = shoppingCartList.find(product => product.id === id);
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(
     shoppingCartItem ? shoppingCartItem.quantity : PRODUCT.MIN_QUANTITY,
@@ -37,7 +38,12 @@ const ProductItem = ({ id }) => {
 
   const putCart = () => {
     setIsOpen(false);
-    store.dispatch(putProductToCart({ id, quantity: quantityRef.current, isSelect: false }));
+    const isProductInCart = shoppingCartList.some(product => product.id === id);
+    if (isProductInCart) {
+      dispatch(putShoppingCartItem({ ...product, quantity, isSelect: false }));
+    } else {
+      dispatch(postShoppingCartItem({ ...product, quantity, isSelect: false }));
+    }
     clearTimer();
   };
 

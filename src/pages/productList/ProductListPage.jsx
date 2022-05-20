@@ -1,32 +1,35 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import ProductItem from 'components/productItem/ProductItem';
 
-import store from 'store/store';
-import { initProduct, initShoppingCart } from 'actions/actionCreator';
-import { getProductList, getShoppingCartList } from 'utils/api';
+import { getProductList } from 'modules/products';
+import { getShoppingCartList } from 'modules/shoppingCarts';
 
 import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
 
 const ProductListPage = () => {
-  const { products } = useSelector(state => state.reducer);
-
-  const getProducts = async () => {
-    const productList = await getProductList();
-    const shoppingCartList = await getShoppingCartList();
-    store.dispatch(initProduct({ products: productList }));
-    store.dispatch(initShoppingCart({ shoppingCart: shoppingCartList }));
-  };
+  const { productList, productListLoading, productListError } = useSelector(
+    state => state.productReducer.products,
+  );
+  const { shoppingCartListLoading, shoppingCartListError } = useSelector(
+    state => state.shoppingCartReducer.shoppingCarts,
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    dispatch(getProductList());
+    dispatch(getShoppingCartList());
+  }, [dispatch]);
+
+  if (productListLoading || shoppingCartListLoading) return <div>로딩중...</div>;
+  if (productListError || shoppingCartListError) return <div>에러 발생!</div>;
+  if (productList.length === 0) return null;
 
   return (
     <StyledProductListPage>
       <StyledProductList>
-        {products.map(({ id }) => (
+        {productList.map(({ id }) => (
           <ProductItem key={id} id={id} />
         ))}
       </StyledProductList>
