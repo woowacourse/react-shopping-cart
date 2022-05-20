@@ -13,8 +13,12 @@ const Button = styled.button`
       color: ${fontColor};
       padding: ${padding};
       border: ${border};
-    `}
 
+      &:hover {
+        opacity: 0.7;
+      }
+    `}
+  transition: opacity 0.2s;
   border-radius: 4px;
   cursor: pointer;
 `;
