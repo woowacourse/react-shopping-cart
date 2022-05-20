@@ -12,6 +12,7 @@ import Loading from 'components/Loading/Loading.component';
 import useFetch from 'hooks/useFetch';
 import { useEffect, useState } from 'react';
 import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
+import { deleteItem } from 'redux/actions/shoppingCart.action';
 
 function ShoppingCartList() {
   const dispatch = useDispatch();
@@ -29,6 +30,15 @@ function ShoppingCartList() {
       dispatch(deleteAllItem());
     } else {
       dispatch(addAllItem(shoppingCart));
+    }
+  };
+
+  const handleClickDeleteBox = () => {
+    if (window.confirm(`${orderList.length}개의 상품을 장바구니에서 삭제하시겠습니까?`)) {
+      orderList.forEach(itemId => {
+        dispatch(deleteItem(itemId));
+      });
+      dispatch(deleteAllItem());
     }
   };
 
@@ -56,6 +66,7 @@ function ShoppingCartList() {
                   lineHeight="50px"
                   textAlign="center"
                   cursor="pointer"
+                  onClick={() => handleClickDeleteBox()}
                 >
                   상품삭제
                 </BorderBox>
