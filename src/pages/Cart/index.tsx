@@ -9,6 +9,10 @@ import { GridContainer, CartPageContainer } from "./styles";
 function Cart() {
   const totalAmount = useCartAmount();
 
+  const onClickOrder = () => {
+    alert("주문 완료!");
+  };
+
   return (
     <CartPageContainer>
       <PageTitle>장바구니</PageTitle>
@@ -19,7 +23,7 @@ function Cart() {
           subTitle="결제 예상 금액"
           amount={totalAmount.toLocaleString()}
         >
-          <Button>주문하기</Button>
+          <Button onClick={onClickOrder}>주문하기</Button>
         </PaymentBox>
       </GridContainer>
     </CartPageContainer>

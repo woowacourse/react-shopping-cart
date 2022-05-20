@@ -52,6 +52,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "gh-pages": "^4.0.0",
+    "msw": "^0.40.1",
     "prettier": "^2.6.2",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
@@ -61,5 +62,8 @@
     "styled-components": "^5.3.5",
     "typescript": "^4.6.4"
   },
-  "homepage": "https://inkyojeong.github.io/react-shopping-cart/"
+  "homepage": "https://inkyojeong.github.io/react-shopping-cart/",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
