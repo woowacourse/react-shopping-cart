@@ -7,6 +7,7 @@ import reducer from "@redux/reducer";
 import "@scss/style";
 // eslint-disable-next-line import/no-unresolved
 import "./virtual:windi.css";
+import ModalProvider from "@shared/modal/ModalProvider";
 
 function prepareMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -31,7 +32,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 prepareMSW().then(() => {
   root.render(
     <Provider store={store}>
-      <App />
+      <ModalProvider>
+        <App />
+      </ModalProvider>
     </Provider>
   );
 });

@@ -1,0 +1,26 @@
+@import "@scss/no-style";
+@import "@scss/colors";
+
+.button {
+  @include button-no-style;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: center;
+  padding: 12px 22px;
+
+  border:  1px solid $gray800;
+  background-color: white;
+  color: #333333;
+}
+
+.primary {
+  background-color: #2AC1BC;
+  color: white;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}

@@ -7,7 +7,7 @@ function Menu({ className }) {
     <div className={cn(styles.menu, className)}>
       <ul className={styles.ul}>
         <li>
-          <a href="/">장바구니</a>
+          <a href="/cart">장바구니</a>
         </li>
         <li>
           <a href="/">주문목록</a>

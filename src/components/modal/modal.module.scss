@@ -1,0 +1,30 @@
+@import "@scss/utils";
+
+.modal {
+  &.hide {
+    display: none;
+  }
+}
+
+.overlay {
+  @include fixed-full;
+  background: #000;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2;
+}
+
+.content {
+  @include fixed-full;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  background-color: yellow;
+}

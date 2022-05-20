@@ -1,0 +1,15 @@
+.highlighter {
+  display: inline-block;
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    height: 40%;
+    background-color: yellow;
+    opacity: 0.5;
+    z-index: 1;
+  }
+}
