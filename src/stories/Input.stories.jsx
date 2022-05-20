@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Input from 'components/Input';
-import Checkbox from 'containers/Checkbox';
+import CartProductCheckbox from 'containers/CartProductCheckbox';
 import ProductCountInput from 'containers/ProductCountInput';
 
 export default {
@@ -10,9 +10,9 @@ export default {
 };
 
 const Template = () => <Input />;
-const CheckboxTemplate = () => <Checkbox />;
+const CartProductCheckboxTemplate = () => <CartProductCheckbox />;
 const ProductCountInputTemplate = () => <ProductCountInput />;
 
 export const Primary = Template.bind({});
-export const CheckboxPrimary = CheckboxTemplate.bind({});
+export const CartProductCheckboxPrimary = CartProductCheckboxTemplate.bind({});
 export const ProductCountInputPrimary = ProductCountInputTemplate.bind({});

@@ -6,7 +6,7 @@ import FlexWrapper from 'components/FlexWrapper';
 import Image from 'components/Image';
 import SubTitle from 'components/SubTitle';
 
-import Checkbox from 'containers/Checkbox';
+import CartProductCheckbox from 'containers/CartProductCheckbox';
 import DeleteProductButton from 'containers/DeleteProductButton';
 import DeleteProductIconButton from 'containers/DeleteProductIconButton';
 import ProductCountInput from 'containers/ProductCountInput';
@@ -33,7 +33,7 @@ function Cart({ cartProducts }) {
           <CartProductContentStyled>
             <FlexWrapper justifyContent="space-between">
               <FlexWrapper>
-                <Checkbox></Checkbox>
+                <CartProductCheckbox />
                 <Text>선택해제</Text>
               </FlexWrapper>
               <DeleteProductButton />
@@ -44,7 +44,7 @@ function Cart({ cartProducts }) {
             <SubTitle>{`든든배송 상품 (${cartProducts.length}개)`}</SubTitle>
             {cartProducts.map((product) => (
               <CartProductStyled key={product.product_id}>
-                <Checkbox />
+                <CartProductCheckbox />
                 <Image
                   src={product.product_img_src}
                   id={product.product_id}
