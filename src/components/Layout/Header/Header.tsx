@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <StyledHeader>
-      <Link to="/">
+      <Link to={PATH.BASE}>
         <Logo />
       </Link>
       <RightMenu>
