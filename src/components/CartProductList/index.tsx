@@ -27,7 +27,7 @@ function CartProductList() {
       <SelectAllContainer>
         <div>
           <CheckBox checked={allSelect} onChange={onToggleAllSelect} />
-          <span>{allSelect ? "선택해제" : "전제선택"}</span>
+          <span>{allSelect ? "선택해제" : "전체선택"}</span>
         </div>
         <Button onClick={onClickDeleteItems}>상품삭제</Button>
       </SelectAllContainer>
