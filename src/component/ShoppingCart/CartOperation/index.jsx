@@ -1,24 +1,40 @@
 import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { checkProductCart, removeProductCart } from 'store/action/cartActions';
 import styled from 'styled-components';
 import CartProduct from './CartProduct';
 
 export default function CartOperation({ products }) {
+  const dispatch = useDispatch();
+  const [allCheck, setAllCheck] = useState(true);
+
+  const handleAllCheck = () => {
+    setAllCheck(!allCheck);
+    products.forEach(product => dispatch(checkProductCart(product, !allCheck)));
+  };
+
+  const handleAllRemoveClick = () => {
+    products
+      .filter(product => product.checked)
+      .forEach(product => dispatch(removeProductCart(product)));
+  };
+
   return (
     <CartOperationBox>
       <CartOperationHead>
         <label>
-          <CheckBox description="선택해제" />
+          <CheckBox description="전체선택" onCheckChange={handleAllCheck} checked={allCheck} />
         </label>
-        <Button>
+        <Button onClick={handleAllRemoveClick}>
           <DeleteButtonContent>상품 삭제</DeleteButtonContent>
         </Button>
       </CartOperationHead>
+
       <CartOperationBody>
         <CartCounter>
-          <p>
-            배송 상품 <span>3</span>개
-          </p>
+          <p>배송 상품 {products.length}개</p>
         </CartCounter>
         {products.map(product => (
           <CartProduct key={product.id} product={product} />

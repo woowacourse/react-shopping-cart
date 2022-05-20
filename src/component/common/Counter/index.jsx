@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import Button from '../Button';
 
-export default function Counter({ initialCount }) {
+export default function Counter({ count, onUPClick, onDownClick }) {
   return (
     <CounterBox>
-      <Count>{initialCount}</Count>
+      <Count>{count}</Count>
       <CounterButtonBox>
-        <Button>
+        <Button onClick={onUPClick}>
           <CounterButtonContent>
             <img src="up.svg" />
           </CounterButtonContent>
         </Button>
-        <Button>
+        <Button onClick={onDownClick}>
           <CounterButtonContent>
             <img src="down.svg" />
           </CounterButtonContent>

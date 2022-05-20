@@ -2,6 +2,39 @@ import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'component/common/Button';
 
+export default function Product({ handleProductClick, handleCartClick, image, name, price, id }) {
+  const onProductClick = () => {
+    handleProductClick(id);
+  };
+
+  return (
+    <ProductBox>
+      <ProductImage src={image} alt="과일 이미지" title="product-image" onClick={onProductClick} />
+      <DescriptionBox>
+        <div>
+          <NameText onClick={onProductClick}>{name}</NameText>
+          <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
+        </div>
+        <Button onClick={handleCartClick}>
+          <CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />
+        </Button>
+      </DescriptionBox>
+    </ProductBox>
+  );
+}
+
+Product.defaultProps = {
+  image: '',
+  name: '과일',
+  price: 0,
+};
+
+Product.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+};
+
 const ProductBox = styled.div`
   width: 282px;
   height: 358px;
@@ -65,38 +98,3 @@ const CartIcon = styled.img`
     animation-name: ${zoom};
   }
 `;
-
-function Product({ handleProductClick, handleCartClick, image, name, price, id }) {
-  const onProductClick = () => {
-    handleProductClick(id);
-  };
-
-  return (
-    <ProductBox>
-      <ProductImage src={image} alt="과일 이미지" title="product-image" onClick={onProductClick} />
-      <DescriptionBox>
-        <div>
-          <NameText onClick={onProductClick}>{name}</NameText>
-          <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
-        </div>
-        <Button onClick={handleCartClick}>
-          <CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />
-        </Button>
-      </DescriptionBox>
-    </ProductBox>
-  );
-}
-
-Product.defaultProps = {
-  image: '',
-  name: '과일',
-  price: 0,
-};
-
-Product.propTypes = {
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-};
-
-export default Product;

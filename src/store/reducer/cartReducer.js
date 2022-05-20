@@ -16,7 +16,33 @@ const cartReducer = (state = InitialCartedProducts, action) => {
           return product;
         });
       }
-      return state.concat([{ ...action.payload.product, count: 1 }]);
+      return state.concat([{ ...action.payload.product, count: 1, checked: true }]);
+
+    case CART_ACTION_TYPES.SUBTRACT_PRODUCT:
+      if (state.some(product => isSameProduct(action, product))) {
+        return state.map(product => {
+          if (isSameProduct(action, product) && product.count > 1) {
+            return { ...product, count: product.count - 1 };
+          }
+          return product;
+        });
+      }
+      break;
+
+    case CART_ACTION_TYPES.CHECK_PRODUCT:
+      if (state.some(product => isSameProduct(action, product))) {
+        return state.map(product => {
+          if (isSameProduct(action, product)) {
+            return { ...product, checked: action.payload.checked };
+          }
+          return product;
+        });
+      }
+      break;
+
+    case CART_ACTION_TYPES.REMOVE_PRODUCT:
+      return state.filter(product => !isSameProduct(action, product));
+
     default:
       return state;
   }

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export default function CheckBox({ description, onCheckChange }) {
+export default function CheckBox({ description, checked, onCheckChange }) {
   return (
     <Wrapper>
-      <Box type="checkbox" onChange={onCheckChange} />
+      <CheckInput type="checkbox" onChange={onCheckChange} checked={checked} />
       <Description>{description}</Description>
     </Wrapper>
   );
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   gap: 10px;
 `;
 
-const Box = styled.input`
+const CheckInput = styled.input`
   width: 28px;
   height: 28px;
 `;

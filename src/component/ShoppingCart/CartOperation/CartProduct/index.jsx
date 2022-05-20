@@ -2,22 +2,47 @@ import styled from 'styled-components';
 import Counter from 'component/common/Counter';
 import CheckBox from 'component/common/CheckBox';
 import Button from 'component/common/Button';
+import { useDispatch } from 'react-redux';
+import {
+  addProductCart,
+  checkProductCart,
+  removeProductCart,
+  subtractProductCart,
+} from 'store/action/cartActions';
 
 export default function CartProduct({ product }) {
   const { image, name, price, count } = product;
+  const dispatch = useDispatch();
+
+  const handleUpClick = () => {
+    dispatch(addProductCart(product));
+  };
+
+  const handleDownClick = () => {
+    dispatch(subtractProductCart(product));
+  };
+
+  const handleCheckChange = () => {
+    dispatch(checkProductCart(product, !product.checked));
+  };
+
+  const handleDeleteClick = () => {
+    dispatch(removeProductCart(product));
+  };
 
   return (
     <CartProductBox>
       <CartProductPresentBox>
-        <CheckBox />
+        <CheckBox checked={product.checked} onCheckChange={handleCheckChange} />
         <CartProductImage src={image} />
         <ProductName>{name}</ProductName>
       </CartProductPresentBox>
+
       <CarProductOperateBox>
-        <Button>
+        <Button onClick={handleDeleteClick}>
           <img src="trashCan.svg" />
         </Button>
-        <Counter initialCount={count} />
+        <Counter count={count} onUPClick={handleUpClick} onDownClick={handleDownClick} />
         <p>{price.toLocaleString('ko-KR')}</p>
       </CarProductOperateBox>
     </CartProductBox>
@@ -28,6 +53,8 @@ const CartProductImage = styled.img`
   width: 144px;
   height: 147px;
   margin-left: 15px;
+
+  object-fit: cover;
 `;
 
 const CartProductBox = styled.div`
