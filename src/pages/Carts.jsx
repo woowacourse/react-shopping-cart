@@ -6,20 +6,20 @@ import CartListContainer from '../components/CartsList/CartListContainer';
 import CheckedItemsController from '../components/CheckBox/CheckedItemsController';
 import { BasicDivideLine, Flex } from '../components/shared/basics';
 import TotalPrice from '../components/TotalPrice/TotalPrice';
-import API_URL from '../constants/api';
 import PATH from '../constants/path';
 import useFetch from '../hooks/useFetch';
 
 function Carts() {
   const { carts, checkedProducts } = useSelector((state) => state.carts);
-  const query = carts.map((cart) => `id=${cart.id}`).join('&');
+  const query = carts.map((cart) => cart.id).join('&');
   const {
     isLoading: isStoredProductsLoading,
     result: storedProducts,
     apiCall: loadStoredProducts,
   } = useFetch({
-    url: `${API_URL}/${PATH.PRODUCTS}?${query}`,
+    url: `${PATH.PRODUCTS}/${query}`,
   });
+
   const [checkedProductsInfo, setCheckedProductsInfo] =
     useState(storedProducts);
 
@@ -33,14 +33,12 @@ function Carts() {
 
   useEffect(() => {
     const ids = checkedProducts.map((product) => product.id);
-    const productInfos = storedProducts.filter(
-      (product) =>
-        // eslint-disable-next-line implicit-arrow-linebreak
-        ids.includes(product.id)
-      // eslint-disable-next-line function-paren-newline
+    const productInfos = storedProducts.filter((product) =>
+      ids.includes(product.id)
     );
     setCheckedProductsInfo(productInfos);
   }, [checkedProducts, storedProducts]);
+
   const totalPrice = Number(
     checkedProductsInfo?.reduce((acc, cur) => acc + +cur.price, 0)
   ).toLocaleString('ko-kr');

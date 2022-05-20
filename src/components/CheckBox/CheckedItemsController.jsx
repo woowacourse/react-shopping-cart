@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import API_URL from '../../constants/api';
 import PATH from '../../constants/path';
 import useFetch from '../../hooks/useFetch';
 import { checkAll, loadCarts, uncheckAll } from '../../store/carts';
@@ -8,9 +7,9 @@ import { BasicButton, Flex } from '../shared/basics';
 import CheckBox from './CheckBox';
 
 function CheckedItemsController({ checkedProducts }) {
-  const query = checkedProducts.map((product) => `id=${product.id}`).join('&');
+  const query = checkedProducts.map((product) => product.id).join('&');
   const { apiCall: deleteCheckedProducts } = useFetch({
-    url: `${API_URL}/${PATH.CARTS}?${query}`,
+    url: `${PATH.CARTS}/${query}`,
     method: 'DELETE',
   });
 

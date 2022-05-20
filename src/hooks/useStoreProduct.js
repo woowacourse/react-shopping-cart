@@ -1,4 +1,3 @@
-import API_URL from '../constants/api';
 import PATH from '../constants/path';
 import useFetch from './useFetch';
 
@@ -8,7 +7,7 @@ function useStoreProduct(id) {
     apiCall: addToCart,
     error: cartAddError,
   } = useFetch({
-    url: `${API_URL}/${PATH.CARTS}/`,
+    url: `${PATH.CARTS}/${id}`,
     data: { id, quantity: 1 },
     method: 'POST',
   });

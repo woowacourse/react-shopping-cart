@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import API_URL from '../../constants/api';
 import PATH from '../../constants/path';
 import useFetch from '../../hooks/useFetch';
 import { loadProduct } from '../../store/product';
@@ -18,7 +17,7 @@ function ProductDetailContainer() {
     error: cartError,
     apiCall: loadCart,
   } = useFetch({
-    url: `${API_URL}/${PATH.CARTS}/${id}`,
+    url: `${PATH.CARTS}/${id}`,
   });
 
   useEffect(() => {

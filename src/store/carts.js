@@ -112,7 +112,7 @@ const cartsReducer = (state = initialState, action) => {
 export const loadCarts = () => async (dispatch) => {
   dispatch(loadCartsStart());
   try {
-    const carts = await axios(`${PATH.CARTS}`);
+    const carts = await axios(`/${PATH.CARTS}`);
     dispatch(loadCartsSuccess(carts.data));
   } catch (error) {
     dispatch(loadCartsFail(error));

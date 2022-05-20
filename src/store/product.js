@@ -42,9 +42,7 @@ const productReducer = (state = initialState, action) => {
 export const loadProduct = (id) => async (dispatch) => {
   dispatch(loadProductStart());
   try {
-    const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/${PATH.PRODUCTS}/${id}`
-    );
+    const result = await axios.get(`${PATH.PRODUCTS}/${id}`);
 
     dispatch(loadProductSuccess(result.data));
   } catch (error) {
