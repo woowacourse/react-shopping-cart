@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Header from 'components/Header/Header.component';
 import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
 import TitleBox from 'components/@shared/TitleBox/TitleBox.component';
@@ -9,9 +10,28 @@ import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
 import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
 import Loading from 'components/Loading/Loading.component';
 import useFetch from 'hooks/useFetch';
+import { useEffect, useState } from 'react';
+import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
 
 function ShoppingCartList() {
+  const dispatch = useDispatch();
   const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
+  const orderList = useSelector(state => state.orderList);
+  const shoppingCart = useSelector(state => state.shoppingCart);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setChecked(orderList.length === shoppingCart.length);
+  }, [orderList, shoppingCart]);
+
+  const handleChangeCheckBox = () => {
+    if (checked) {
+      dispatch(deleteAllItem());
+    } else {
+      dispatch(addAllItem(shoppingCart));
+    }
+  };
+
   return (
     <>
       <Header />
@@ -27,8 +47,8 @@ function ShoppingCartList() {
                 alignItems="center"
               >
                 <FlexBox gap="10px">
-                  <CheckBox />
-                  <TextBox fontSize="small">선택해제</TextBox>
+                  <CheckBox checked={checked} onChange={() => handleChangeCheckBox()} />
+                  <TextBox fontSize="small">{checked ? '선택해제' : '전체선택'}</TextBox>
                 </FlexBox>
                 <BorderBox
                   width="117px"
@@ -42,7 +62,7 @@ function ShoppingCartList() {
               </FlexBox>
               {isLoading ? <Loading /> : <ShoppingCartListContainer data={data} />}
             </div>
-            <PaymentAmountContainer count={3} />
+            <PaymentAmountContainer count={orderList.length} />
           </FlexBox>
         </PageContainer>
       </FlexBox>
