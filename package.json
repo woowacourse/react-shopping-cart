@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^17.0.34",
+    "@types/styled-components": "^5.1.25",
     "axios": "^0.27.2",
     "msw": "^0.40.0",
     "react": "^18.1.0",
