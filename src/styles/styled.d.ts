@@ -20,6 +20,8 @@ declare module 'styled-components' {
     brownColor_1: string;
 
     whiteColor_1: string;
+
+    redColor_1: string;
   }
 
   export interface StyleProps {

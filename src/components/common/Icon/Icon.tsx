@@ -6,7 +6,6 @@ interface IconPropsType {
   iconName: IconNames;
   size?: string;
   color?: string;
-  clickable?: boolean;
   hoverColor?: string;
 }
 
@@ -15,12 +14,7 @@ const StyledWrapper = styled.div`
     fill: currentColor;
   }
 
-  ${({
-    size,
-    color,
-    clickable,
-    hoverColor,
-  }: Pick<IconPropsType, 'size' | 'color' | 'clickable' | 'hoverColor'>) => css`
+  ${({ size, color, hoverColor }: Pick<IconPropsType, 'size' | 'color' | 'hoverColor'>) => css`
     color: ${color};
     width: ${size}px;
     height: ${size}px;
@@ -28,24 +22,16 @@ const StyledWrapper = styled.div`
     &:hover {
       color: ${hoverColor};
     }
-
-    cursor: ${clickable && 'pointer'};
   `}
 `;
 
-function Icon({
-  iconName,
-  size = '24',
-  color = 'white',
-  clickable = false,
-  ...props
-}: IconPropsType) {
+const Icon = ({ iconName, size = '24', color = 'white', ...props }: IconPropsType) => {
   const IconComponent = Icons[iconName];
   return (
-    <StyledWrapper size={size} color={color} clickable={clickable} {...props}>
+    <StyledWrapper size={size} color={color} {...props}>
       <IconComponent width="100%" height="100%" />
     </StyledWrapper>
   );
-}
+};
 
 export default Icon;

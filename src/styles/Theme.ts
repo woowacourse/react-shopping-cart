@@ -24,6 +24,8 @@ const theme: DefaultTheme = {
   brownColor_1: '#73675C',
 
   whiteColor_1: '#ffffff',
+
+  redColor_1: 'red',
 };
 
 export default theme;
