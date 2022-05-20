@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../constants/constants";
 
 import { AppDispatch, RootState } from "../store";
 
@@ -44,9 +45,7 @@ const loadProductsFailed = (error: Error) => ({ type: LOAD_PRODUCTS_FAILED, payl
 export const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
   dispatch(loadProducts());
   try {
-    const { data: productList } = await axios.get(
-      "https://react-payments-onstar.herokuapp.com/productList"
-    );
+    const { data: productList } = await axios.get(API_URL);
     dispatch(loadProductsSuccess(productList));
   } catch (error: unknown) {
     if (error instanceof Error) {

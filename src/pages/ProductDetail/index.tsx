@@ -38,20 +38,11 @@ function ProductDetail() {
           <span>{price.toLocaleString()}원</span>
         </S.ProductPriceWrapper>
         {cartItem ? (
-          <S.CartButton
-            color="#2ac1bc"
-            onClick={() => {
-              navigate("/cart");
-            }}
-          >
+          <S.CartButton onClick={() => navigate("/cart")} color="#2ac1bc">
             상품 {cartItem.amount}개 바로구매
           </S.CartButton>
         ) : (
-          <S.CartButton
-            onClick={() => {
-              dispatch(CartActions.addItem(productDetail));
-            }}
-          >
+          <S.CartButton onClick={() => dispatch(CartActions.addItem(productDetail))}>
             장바구니 담기
           </S.CartButton>
         )}
