@@ -36,16 +36,18 @@ export const addProductCart =
     }
   };
 
-export const deleteProductCart =
-  ({ id }) =>
-  (dispatch) => {
-    try {
-      axios.delete('/mocking/cart', id);
-      dispatch(getCartList());
-    } catch (error) {
-      dispatch(openDeleteProductCartErrorModal(error));
-    }
-  };
+export const deleteProductCart = (id) => async (dispatch, getState) => {
+  const cartProducts = getState().cart.cartProducts.filter(
+    (product) => product.product_id !== Number(id),
+  );
+
+  try {
+    await axios.delete('/mocking/cart', id);
+    dispatch(getProductCartSuccess(cartProducts));
+  } catch (error) {
+    dispatch(openDeleteProductCartErrorModal(error));
+  }
+};
 
 export const productCountEdit = (id, count) => async (dispatch, getState) => {
   const editCartProducts = getState().cart.cartProducts.map((product) =>
