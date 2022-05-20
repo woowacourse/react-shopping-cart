@@ -62,7 +62,7 @@ function ShoppingCartList() {
               </FlexBox>
               {isLoading ? <Loading /> : <ShoppingCartListContainer data={data} />}
             </div>
-            <PaymentAmountContainer count={orderList.length} />
+            {!isLoading && <PaymentAmountContainer count={orderList.length} data={data} />}
           </FlexBox>
         </PageContainer>
       </FlexBox>

@@ -1,8 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
 import Button from 'components/@shared/Button/Button.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import HighlightText from 'components/@shared/HighlightText/HighlightText.component';
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { addQuantityData } from 'utils';
 
 const PaymentAmountBox = styled(FlexBox).attrs({
   direction: 'column',
@@ -10,8 +13,18 @@ const PaymentAmountBox = styled(FlexBox).attrs({
   width: 448px;
 `;
 
-function PaymentAmountContainer({ count }) {
-  const price = 27000;
+function PaymentAmountContainer({ count, data }) {
+  const shoppingCart = useSelector(state => state.shoppingCart);
+  const orderList = useSelector(state => state.orderList);
+
+  const price = useMemo(() => {
+    const orderItemData = data.filter(({ id }) => orderList.includes(id));
+    const orderItemInfoList = shoppingCart
+      .filter(cartItem => orderList.includes(cartItem.id))
+      .map(orderItem => addQuantityData(orderItem, orderItemData));
+    return orderItemInfoList.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
+  }, [data, orderList, shoppingCart]);
+
   return (
     <PaymentAmountBox>
       <BorderBox fontSize="24px" padding="30px">
