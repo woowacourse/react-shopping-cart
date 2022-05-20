@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
@@ -25,11 +25,8 @@ const CartItemContainer = styled(FlexBox).attrs({
 function ShoppingCartListItem({ id, name, thumbnail, price, quantity }) {
   const dispatch = useDispatch();
   const orderList = useSelector(state => state.orderList);
-  const [checked, setChecked] = useState(false);
 
-  useEffect(() => {
-    setChecked(orderList.some(productId => productId === id));
-  }, [orderList]);
+  const checked = useMemo(() => orderList.some(productId => productId === id), [orderList]);
 
   const handleChangeCheckBox = id => {
     if (checked) {
