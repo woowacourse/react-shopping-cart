@@ -18,12 +18,12 @@ const HeaderTitle = styled(Link)`
   height: 40px;
   text-decoration: none;
 
-  & img {
+  img {
     width: 40px;
     height: 36px;
   }
 
-  & h1 {
+  h1 {
     padding: 10px 0 0 10px;
     font-size: 30px;
     font-weight: 900;
@@ -40,7 +40,7 @@ const HeaderMenu = styled.div`
   font-size: 20px;
   color: ${({ theme }) => theme.colors.GRAY_50};
 
-  & a {
+  a {
     text-decoration: none;
     color: inherit;
   }

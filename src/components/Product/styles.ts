@@ -111,17 +111,18 @@ const ProductInfo = styled.div`
   margin-top: 12px;
   padding-right: 10px;
 
+  span + span {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
   &:hover {
     text-decoration: underline;
   }
   &:first-child {
     font-size: 14px;
-    cursor: pointer;
-  }
-  & span + span {
-    margin-top: 5px;
-    font-size: 18px;
-    font-weight: bold;
     cursor: pointer;
   }
 `;
