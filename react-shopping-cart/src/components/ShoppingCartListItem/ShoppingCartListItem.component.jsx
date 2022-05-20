@@ -28,7 +28,7 @@ function ShoppingCartListItem({ id, name, thumbnail, price, quantity }) {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    setChecked(orderList.some(product => product.id === id));
+    setChecked(orderList.some(productId => productId === id));
   }, [orderList]);
 
   const handleChangeCheckBox = id => {

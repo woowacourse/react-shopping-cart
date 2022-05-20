@@ -10,18 +10,16 @@ const initialState = [];
 function orderList(state = initialState, action) {
   switch (action.type) {
     case ADD_ALL_ITEM:
-      return action.payload.itemList.map(item => ({
-        id: item.id,
-      }));
+      return action.payload.itemList.map(item => item.id);
 
     case DELETE_ALL_ITEM:
       return [];
 
     case ADD_SPECIFIC_ITEM:
-      return [...state, { ...action.payload }];
+      return [...state, action.payload.id];
 
     case DELETE_SPECIFIC_ITEM:
-      return state.filter(item => item.id !== action.payload.id);
+      return state.filter(id => id !== action.payload.id);
 
     default:
       return state;
