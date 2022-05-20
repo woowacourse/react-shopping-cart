@@ -23,7 +23,7 @@ function CartProduct({ product }) {
           <Styled.TrashButtonWrapper>
             <TrashButton />
           </Styled.TrashButtonWrapper>
-          <AmountController />
+          <AmountController product={product} />
           <Styled.ProductPrice>{`${product.price}원`}</Styled.ProductPrice>
         </Styled.ProductRightWrapper>
       </React.Fragment>
@@ -39,6 +39,7 @@ CartProduct.propTypes = {
     price: PropType.string.isRequired,
     src: PropType.string.isRequired,
     title: PropType.string.isRequired,
+    quantity: PropType.number.isRequired,
   }).isRequired,
 };
 

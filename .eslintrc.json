@@ -21,6 +21,7 @@
     "no-unused-vars": "warn",
     "default-param-last": "warn",
     "import/prefer-default-export": "warn",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/destructuring-assignment": "warn"
   }
 }

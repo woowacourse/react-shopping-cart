@@ -6,6 +6,7 @@ const TYPE = {
   CARTS_LOAD: 'carts/load',
   CARTS_ADD: 'carts/add',
   CARTS_DELETE: 'carts/delete',
+  CARTS_UPDATE: 'carts/update',
   CARTS_ERROR: 'carts/error',
   CARTS_CLEAN_ERROR: 'carts/clean',
 };
@@ -19,6 +20,7 @@ export const cartsActionCreators = {
   loadCarts: (payload) => ({ type: TYPE.CARTS_LOAD, payload }),
   addCart: (payload) => ({ type: TYPE.CARTS_ADD, payload }),
   deleteCart: (payload) => ({ type: TYPE.CARTS_DELETE, payload }),
+  updateCartQuantity: (payload) => ({ type: TYPE.CARTS_UPDATE, payload }),
   error: (payload) => ({ type: TYPE.CARTS_ERROR, payload }),
   cleanError: (payload) => ({ type: TYPE.CARTS_CLEAN_ERROR, payload }),
 };
@@ -59,6 +61,19 @@ export const deleteCart = (id) => async (dispatch) => {
   }
 };
 
+export const updateCartQuantity = (product) => async (dispatch) => {
+  try {
+    await axios({
+      url: `${SERVER_URL}${PATH.CARTS}/${product.id}`,
+      data: { ...product },
+      method: 'PUT',
+    });
+    dispatch(cartsActionCreators.updateCartQuantity(product));
+  } catch (error) {
+    dispatch(cartsActionCreators.error(ERROR_MESSAGE.UPDATE_CART_QUANTITY));
+  }
+};
+
 export const cartsReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPE.CARTS_LOAD:
@@ -73,6 +88,17 @@ export const cartsReducer = (state = initialState, action) => {
       return {
         ...state,
         carts: state.carts.filter((cart) => cart.id !== action.payload),
+        cartsError: null,
+      };
+    case TYPE.CARTS_UPDATE:
+      return {
+        ...state,
+        carts: state.carts.map((cart) => {
+          if (cart.id === action.payload.id) {
+            return action.payload;
+          }
+          return cart;
+        }),
         cartsError: null,
       };
     case TYPE.CARTS_ERROR:
