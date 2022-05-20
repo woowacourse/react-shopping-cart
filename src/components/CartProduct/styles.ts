@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { alignCenter, directionColumn } from "../../styles/mixin";
 
 const CartProductContainer = styled.div`
   display: flex;
@@ -19,8 +20,7 @@ const ProductImageContainer = styled.div`
 `;
 
 const ProductOptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${directionColumn};
   align-items: flex-end;
   justify-content: space-between;
 
@@ -40,8 +40,7 @@ const ProductAmountContainer = styled.div`
 `;
 
 const ProductAmountWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${alignCenter};
   border: 1px solid ${({ theme }) => theme.colors.GRAY_300};
   background-color: ${({ theme }) => theme.colors.WHITE};
   padding: 5px 20px;
@@ -49,8 +48,7 @@ const ProductAmountWrapper = styled.div`
 `;
 
 const ProductCounterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${directionColumn};
 
   button {
     border: 1px solid ${({ theme }) => theme.colors.GRAY_300};

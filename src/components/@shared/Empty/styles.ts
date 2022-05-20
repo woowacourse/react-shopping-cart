@@ -1,10 +1,8 @@
 import styled from "styled-components";
+import { flexColumnCenter } from "../../../styles/mixin";
 
 const EmptyImageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${flexColumnCenter};
 
   img {
     width: 800px;

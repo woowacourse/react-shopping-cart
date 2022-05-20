@@ -1,4 +1,5 @@
 import styled, { keyframes, css } from "styled-components";
+import { alignCenter, directionColumn, spaceBetween } from "../../styles/mixin";
 
 const CartShake = keyframes`
   0%, 50%{
@@ -24,9 +25,8 @@ const CartCounterMoveUp = keyframes`
 `;
 
 const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
-  display: flex;
+  ${alignCenter};
   justify-content: space-evenly;
-  align-items: center;
   background-color: ${({ theme }) => theme.colors.GRAY_50};
   border: 2px solid ${({ theme }) => theme.colors.TEAL_400};
   box-shadow: 0px 3px 3px ${({ theme }) => theme.colors.GRAY_800};
@@ -76,8 +76,7 @@ const CartImageWrapper = styled.div`
 `;
 
 const ProductContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${directionColumn};
   width: 220px;
   height: 288px;
 `;
@@ -101,16 +100,14 @@ const ProductImageWrapper = styled.div`
 `;
 
 const ProductInfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${spaceBetween};
   align-items: center;
   position: relative;
   padding: 0 10px;
 `;
 
 const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${directionColumn};
   margin-top: 12px;
   padding-right: 10px;
 

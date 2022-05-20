@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { flexCenter } from "../../../styles/mixin";
 
 const CheckBox = styled.input.attrs({ type: "checkbox" })`
   appearance: none;
@@ -13,10 +14,8 @@ const CheckBox = styled.input.attrs({ type: "checkbox" })`
   }
 
   :checked:after {
+    ${flexCenter};
     content: "✔";
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
     color: ${({ theme }) => theme.colors.GRAY_50};

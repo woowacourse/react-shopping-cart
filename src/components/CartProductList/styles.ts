@@ -1,13 +1,12 @@
 import styled from "styled-components";
+import { alignCenter, spaceBetween } from "../../styles/mixin";
 
 const SelectAllContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${spaceBetween};
   margin: 30px 0;
 
   div {
-    display: flex;
-    align-items: center;
+    ${alignCenter};
   }
 
   span {

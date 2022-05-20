@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { spaceBetween } from "../../styles/mixin";
 
 const PaymentContainer = styled.div`
   margin-top: 80px;
@@ -11,16 +12,14 @@ const PaymentTitleWrapper = styled.div`
 `;
 
 const PaymentResultContainer = styled.div`
-  display: flex;
-  border: 1px solid ${({ theme }) => theme.colors.GRAY_300};
+  ${spaceBetween};
   flex-direction: column;
-  justify-content: space-between;
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_300};
   height: 100px;
   padding: 15px;
 
   div {
-    display: flex;
-    justify-content: space-between;
+    ${spaceBetween};
   }
 
   span {

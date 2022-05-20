@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { alignCenter, flexCenter, spaceBetween } from "../../styles/mixin";
 
 const HeaderContainer = styled.div`
-  display: flex;
+  ${alignCenter};
   justify-content: space-around;
-  align-items: center;
   width: 100%;
   height: 60px;
   background: ${({ theme }) => theme.colors.TEAL_400};
@@ -13,9 +13,7 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderTitle = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter};
   width: 300px;
   height: 40px;
   text-decoration: none;
@@ -36,8 +34,7 @@ const HeaderTitle = styled(Link)`
 `;
 
 const HeaderMenu = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${spaceBetween};
   width: 160px;
   font-weight: 500;
   font-size: 20px;

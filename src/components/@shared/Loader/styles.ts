@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { flexColumnCenter } from "../../../styles/mixin";
 
 const Spin = keyframes`
 0% { 
@@ -10,10 +11,7 @@ const Spin = keyframes`
 `;
 
 const LoaderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${flexColumnCenter};
   width: 100vw;
   height: 50vh;
 
