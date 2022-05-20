@@ -35,13 +35,19 @@ export default function ProductCartPage() {
 
   const addSelectedItem = (id) => dispatch({type: SELECTED_ITEM.ADD, payload: Number(id)});
 
-  const deleteSeletedItem = (id) => dispatch({type: SELECTED_ITEM.DELETE, payload: Number(id)});
+  const deleteSelectedItem = (id) => dispatch({type: SELECTED_ITEM.DELETE, payload: Number(id)});
 
   const increaseQuantity = (id) => dispatch({type: CART.INCREASE_QUANTITY, payload: id});
 
   const decreaseQuantity = (id) => dispatch({type: CART.DECREASE_QUANTITY, payload: id});
 
-  const isAllChecked = cartItem.length === selectedItem.length;
+  const deleteSelectedCart = (selectedItem) => {
+    dispatch({type: SELECTED_ITEM.DELETE_ALL});
+    dispatch({type: CART.DELETE_SELECTED_CART, payload: selectedItem});
+  };
+
+  const isAllChecked = cartItem.length === selectedItem.length && selectedItem.length > 0;
+
   return (
     <S.ProductCartPageLayout>
       <S.HeaderSpan>장바구니</S.HeaderSpan>
@@ -56,7 +62,9 @@ export default function ProductCartPage() {
               />
               {isAllChecked ? '선택해제' : '전체선택'}
             </S.CheckBoxRow>
-            <S.DeleteButton>상품삭제</S.DeleteButton>
+            <S.DeleteButton onClick={() => deleteSelectedCart(selectedItem)}>
+              상품삭제
+            </S.DeleteButton>
           </S.SelectDeleteRow>
 
           <S.ListHeaderSpan>장바구니 상품 ({cartItem.length}개)</S.ListHeaderSpan>
@@ -74,7 +82,7 @@ export default function ProductCartPage() {
                     id={id}
                     handleDeleteIconClick={() => deleteCartItem(id)}
                     handleCheckedTrue={addSelectedItem}
-                    handleCheckedFalse={deleteSeletedItem}
+                    handleCheckedFalse={deleteSelectedItem}
                     handleIncrease={increaseQuantity}
                     handleDecrease={decreaseQuantity}
                   />

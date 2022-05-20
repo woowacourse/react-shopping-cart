@@ -3,6 +3,7 @@ const CART = {
   DELETE: 'DELETE_CART',
   INCREASE_QUANTITY: 'INCREASE_QUANTITY',
   DECREASE_QUANTITY: 'DECREASE_QUANTITY',
+  DELETE_SELECTED_CART: 'DELETE_SELECTED_CART',
 };
 
 const INITIAL_STATE = {
@@ -39,6 +40,14 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       const newState = state.cart.map((item) =>
         item.id === id ? {...item, quantity: Math.max(item.quantity - 1, 1)} : item,
       );
+
+      return {
+        cart: newState,
+      };
+    }
+    case CART.DELETE_SELECTED_CART: {
+      const selectedCartItem = action.payload;
+      const newState = state.cart.filter((item) => !selectedCartItem.includes(item.id));
 
       return {
         cart: newState,
