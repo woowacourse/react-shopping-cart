@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ShoppingItem from '../components/ShoppingItem';
@@ -6,8 +6,8 @@ import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
 
 function ShoppingCart() {
+  const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
   const cartList = useSelector(({ cart }) => cart.cart);
-  console.log(cartList);
 
   return (
     <StyledSection>
@@ -19,7 +19,12 @@ function ShoppingCart() {
         <StyledLeftSection>
           <StyledLeftDiv>
             <StyledCheckboxContainer>
-              <StyledCheckbox name="checkbox" type="checkbox" checked="true" />
+              <StyledCheckbox
+                name="checkbox"
+                type="checkbox"
+                checked={isCheckedAll}
+                onChange={() => setCheckedAll()}
+              />
               <StyledLabel htmlfor="checkbox">선택해제</StyledLabel>
             </StyledCheckboxContainer>
             <StyledDeleteButton>상품삭제</StyledDeleteButton>
@@ -28,7 +33,7 @@ function ShoppingCart() {
           <StyledDivideLine margin={10} size={2} color={COLORS.GRAY} />
           {cartList.map((item) => (
             <React.Fragment key={item.id}>
-              <ShoppingItem item={item} />
+              <ShoppingItem item={item} isCheckedAll={isCheckedAll} />
               <StyledDivideLine margin={10} size={1} color={COLORS.GRAY} />
             </React.Fragment>
           ))}

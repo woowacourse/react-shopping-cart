@@ -1,17 +1,31 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
 
-function ShoppingItem({ item }) {
+function ShoppingItem({ item, isCheckedAll }) {
+  const [isChecked, setChecked] = useState(isCheckedAll);
   const { name, price, imageUrl } = item;
+
+  const toggleChecked = () => {
+    setChecked(!isChecked);
+  };
+
+  useEffect(() => {
+    setChecked(isCheckedAll);
+  }, [isCheckedAll]);
 
   return (
     <StyledContainer>
       <StyledProductLeft>
-        <StyledCheckbox name="checkbox" type="checkbox" checked="true" />
-        <img src={imageUrl} alt="" />
+        <StyledCheckbox
+          name="checkbox"
+          type="checkbox"
+          checked={isChecked}
+          onChange={toggleChecked}
+        />
+        <img src={imageUrl} alt={name} />
         <span>{name}</span>
       </StyledProductLeft>
       <StyledProductRight>
