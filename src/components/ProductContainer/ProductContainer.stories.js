@@ -1,6 +1,6 @@
 import { productList } from 'assets/mock';
-import ProductContainer from 'components/ProductContainer/ProductContainer';
-import ProductItem from 'components/ProductItem/ProductItem';
+import ProductContainer from 'components/ProductContainer';
+import ProductItem from 'components/ProductItem';
 
 export default {
   title: 'components/ProductContainer',
