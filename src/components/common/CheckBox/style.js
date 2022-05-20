@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledCheckbox = styled.input`
   appearance: none;
-  width: 28px;
+  min-width: 28px;
   height: 28px;
   border: ${({theme}) => `1px solid ${theme.COLOR.DARK_MINT}`};
   border-radius: 2px;

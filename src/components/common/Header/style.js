@@ -18,10 +18,16 @@ const HeaderWrapper = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 
   z-index: 100;
+
+  @media ${({theme}) => theme.DEVICE.mobile} {
+    & svg {
+      width: 120px;
+    }
+
+    & button {
+      font-size: 16px;
+    }
+  }
 `;
 
-const HeaderButtonWrapper = styled.div`
-  display: flex;
-`;
-
-export {HeaderWrapper, HeaderButtonWrapper};
+export {HeaderWrapper};

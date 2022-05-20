@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from 'components/common/Button';
 
-import {
-  AmountBoxWrapper,
-  AmountBoxHeaderWrapper,
-  PriceInfoWrapper,
-} from 'components/AmountBox/style';
+import {AmountBoxWrapper, AmountBoxHeaderBox, PriceInfoContainer} from 'components/AmountBox/style';
 
 // 앞으로 type이 더 많아져도 여기저기서 쓸 수 있도록 만들고 싶음
 // 부모에서 props로 다 전달해주기 vs 객체 형식으로 만들어서 constant에서 가져다 쓰기
@@ -31,11 +27,11 @@ const amountBoxType = {
 function AmountBox({type = 'cart', totalQuantity, totalPrice}) {
   return (
     <AmountBoxWrapper>
-      <AmountBoxHeaderWrapper>{amountBoxType[type].header}</AmountBoxHeaderWrapper>
-      <PriceInfoWrapper>
+      <AmountBoxHeaderBox>{amountBoxType[type].header}</AmountBoxHeaderBox>
+      <PriceInfoContainer>
         <p>{amountBoxType[type].priceInfo}</p>
         <p>{totalPrice.toLocaleString()}원</p>
-      </PriceInfoWrapper>
+      </PriceInfoContainer>
       <Button buttonType="mintBackground" buttonSizeType="l" disabled={totalQuantity === 0}>
         {amountBoxType[type].buttonText(totalQuantity, totalPrice)}
       </Button>

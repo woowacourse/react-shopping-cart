@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LoaderWrapper = styled.div`
+const LoaderBox = styled.div`
   position: fixed;
 
   left: calc(50% - 60px);
@@ -23,4 +23,4 @@ const LoaderWrapper = styled.div`
   }
 `;
 
-export {LoaderWrapper};
+export {LoaderBox};

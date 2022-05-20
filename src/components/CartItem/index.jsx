@@ -8,7 +8,7 @@ import CheckBox from 'components/common/CheckBox';
 
 import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 
-import {ItemNameWrapper, ItemCountBox} from 'components/CartItem/style';
+import {CartItemWrapper, ItemNameBox, ItemCountBox} from 'components/CartItem/style';
 import {FlexRowWrapper, FlexColWrapper, Image} from 'components/common/style';
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
   const {addQuantity, minusQuantity, deleteItem} = useCart();
@@ -21,10 +21,10 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
   };
 
   return (
-    <FlexRowWrapper gap="15px" height="200px" justifyContent="flex-start">
+    <CartItemWrapper>
       <CheckBox onChange={onChange} checked={checked} />
       <Image src={itemImgURL} alt={`${itemName} 장바구니 이미지`} imgSize="s" />
-      <ItemNameWrapper>{itemName}</ItemNameWrapper>
+      <ItemNameBox>{itemName}</ItemNameBox>
       <FlexColWrapper alignItems="flex-end" justifyContent="space-between" width="115px">
         <Button
           onClick={() => {
@@ -33,33 +33,35 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
         >
           <DeleteIcon />
         </Button>
-        <FlexRowWrapper>
-          <ItemCountBox>{quantity}</ItemCountBox>
-          <FlexColWrapper width="42px">
-            <Button
-              buttonType="grayBorder"
-              buttonSizeType="s"
-              onClick={() => {
-                addQuantity(id, quantity);
-              }}
-            >
-              ▲
-            </Button>
-            <Button
-              buttonType="grayBorder"
-              buttonSizeType="s"
-              onClick={() => {
-                minusQuantity(id, quantity);
-              }}
-              disabled={quantity === 1}
-            >
-              ▼
-            </Button>
-          </FlexColWrapper>
+        <FlexRowWrapper height="144px" alignItems="space-between">
+          <FlexRowWrapper justifyContent="flex-end">
+            <ItemCountBox>{quantity}</ItemCountBox>
+            <FlexColWrapper width="42px">
+              <Button
+                buttonType="grayBorder"
+                buttonSizeType="s"
+                onClick={() => {
+                  addQuantity(id, quantity);
+                }}
+              >
+                ▲
+              </Button>
+              <Button
+                buttonType="grayBorder"
+                buttonSizeType="s"
+                onClick={() => {
+                  minusQuantity(id, quantity);
+                }}
+                disabled={quantity === 1}
+              >
+                ▼
+              </Button>
+            </FlexColWrapper>
+          </FlexRowWrapper>
         </FlexRowWrapper>
         <div>{(itemPrice * quantity).toLocaleString()}원</div>
       </FlexColWrapper>
-    </FlexRowWrapper>
+    </CartItemWrapper>
   );
 }
 

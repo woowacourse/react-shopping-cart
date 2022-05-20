@@ -6,7 +6,7 @@ import useCart from 'hooks/useCart';
 
 import Button from 'components/common/Button';
 
-import {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper} from 'components/DetailItem/style';
+import {DetailItemWrapper, ItemNameBox, ItemPriceContainer} from 'components/DetailItem/style';
 import {Image} from 'components/common/style';
 
 export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disabled}) {
@@ -23,11 +23,11 @@ export default function DetailItem({itemImgURL, itemName, itemPrice = 0, disable
   return (
     <DetailItemWrapper>
       <Image src={itemImgURL} alt={`${itemName} 상품 이미지`} imgSize="l" />
-      <ItemNameWrapper>{itemName}</ItemNameWrapper>
-      <ItemPriceWrapper>
+      <ItemNameBox>{itemName}</ItemNameBox>
+      <ItemPriceContainer>
         <div>금액</div>
         <div>{itemPrice.toLocaleString()}원</div>
-      </ItemPriceWrapper>
+      </ItemPriceContainer>
       <Button
         buttonType="brownBackground"
         buttonSizeType="xl"

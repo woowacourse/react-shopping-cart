@@ -9,7 +9,7 @@ const ItemWrapper = styled.div`
   overflow: hidden;
 `;
 
-const ItemImageWrapper = styled.div`
+const ItemImageContainer = styled.div`
   width: 282px;
   height: 282px;
   overflow: hidden;
@@ -24,16 +24,19 @@ const ItemImageWrapper = styled.div`
   }
 `;
 
-const NamePriceWrapper = styled.div`
+const NamePriceContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ItemNameWrapper = styled(Link)`
+const ItemNameBox = styled(Link)`
   font-size: ${({theme}) => theme.FONT_SIZE.XS};
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
-const ItemPriceWrapper = styled.span`
+const ItemPriceBox = styled.span`
   margin-top: 5px;
   font-size: ${({theme}) => theme.FONT_SIZE.S};
 `;
@@ -47,9 +50,9 @@ const InfoWrapper = styled.div`
 
 export {
   ItemWrapper,
-  ItemImageWrapper,
-  NamePriceWrapper,
+  ItemImageContainer,
+  NamePriceContainer,
   InfoWrapper,
-  ItemNameWrapper,
-  ItemPriceWrapper,
+  ItemNameBox,
+  ItemPriceBox,
 };

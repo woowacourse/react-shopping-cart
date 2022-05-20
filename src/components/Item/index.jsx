@@ -11,11 +11,11 @@ import {PATH} from 'constants/path';
 
 import {
   ItemWrapper,
-  ItemImageWrapper,
-  NamePriceWrapper,
+  ItemImageContainer,
+  NamePriceContainer,
   InfoWrapper,
-  ItemNameWrapper,
-  ItemPriceWrapper,
+  ItemNameBox,
+  ItemPriceBox,
 } from 'components/Item/style';
 import {Image} from 'components/common/style';
 
@@ -34,20 +34,20 @@ export default function Item({itemImgURL, itemName, itemPrice = 0, id, disabled}
 
   return (
     <ItemWrapper>
-      <ItemImageWrapper>
+      <ItemImageContainer>
         <Image
           src={itemImgURL}
           alt={`${itemName}상품 이미지`}
           imgSize="m"
           onClick={handleImageClick}
         />
-      </ItemImageWrapper>
+      </ItemImageContainer>
 
       <InfoWrapper>
-        <NamePriceWrapper>
-          <ItemNameWrapper to={`${PATH.DETAIL}/${id}`}>{itemName}</ItemNameWrapper>
-          <ItemPriceWrapper>{itemPrice.toLocaleString()} 원</ItemPriceWrapper>
-        </NamePriceWrapper>
+        <NamePriceContainer>
+          <ItemNameBox to={`${PATH.DETAIL}/${id}`}>{itemName}</ItemNameBox>
+          <ItemPriceBox>{itemPrice.toLocaleString()} 원</ItemPriceBox>
+        </NamePriceContainer>
         <Button disabled={disable} onClick={handleCartIconClick}>
           <BlackCartIcon />
         </Button>

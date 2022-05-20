@@ -9,6 +9,10 @@ const ProductCartPageWrapper = styled.div`
 const CartInfoWrapper = styled.div`
   display: flex;
   gap: 80px;
+
+  @media ${({theme}) => theme.DEVICE.tablet} {
+    flex-direction: column;
+  }
 `;
 
 const HeaderWrapper = styled.div`

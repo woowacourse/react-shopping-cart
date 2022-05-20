@@ -8,9 +8,17 @@ const AmountBoxWrapper = styled.div`
 
   border: ${({theme}) => `1px solid ${theme.COLOR.GRAY_500}`};
   padding: 30px;
+
+  @media ${({theme}) => theme.DEVICE.tablet} {
+    width: 100%;
+
+    & button {
+      width: 100%;
+    }
+  }
 `;
 
-const AmountBoxHeaderWrapper = styled.div`
+const AmountBoxHeaderBox = styled.div`
   width: 100%;
   font-size: 24px;
   margin-bottom: 20px;
@@ -18,7 +26,7 @@ const AmountBoxHeaderWrapper = styled.div`
   border-bottom: ${({theme}) => `3px solid ${theme.COLOR.GRAY_500}`};
 `;
 
-const PriceInfoWrapper = styled.div`
+const PriceInfoContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -32,4 +40,4 @@ const PriceInfoWrapper = styled.div`
   }
 `;
 
-export {AmountBoxWrapper, AmountBoxHeaderWrapper, PriceInfoWrapper};
+export {AmountBoxWrapper, AmountBoxHeaderBox, PriceInfoContainer};

@@ -5,23 +5,41 @@ const DetailItemWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 640px;
+
+  @media ${({theme}) => theme.DEVICE.mobile} {
+    width: 90%;
+
+    & img {
+      width: 100%;
+    }
+
+    & button {
+      width: 95%;
+      height: 70px;
+    }
+  }
 `;
 
-const ItemNameWrapper = styled.span`
+const ItemNameBox = styled.span`
   display: flex;
   align-items: flex-start;
   width: 570px;
 
   font-weight: 700;
-  font-size: 32px;
+  font-size: ${({theme}) => theme.FONT_SIZE.L};
   line-height: 36px;
   letter-spacing: 0.5px;
   color: ${({theme}) => theme.COLOR.BLACK};
 
   margin-top: 21px;
+
+  @media ${({theme}) => theme.DEVICE.mobile} {
+    font-size: ${({theme}) => theme.FONT_SIZE.M};
+    width: 90%;
+  }
 `;
 
-const ItemPriceWrapper = styled.span`
+const ItemPriceContainer = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,4 +54,4 @@ const ItemPriceWrapper = styled.span`
   border-top: ${({theme}) => `4px solid ${theme.COLOR.GRAY_700}`};
 `;
 
-export {DetailItemWrapper, ItemNameWrapper, ItemPriceWrapper};
+export {DetailItemWrapper, ItemNameBox, ItemPriceContainer};
