@@ -100,7 +100,7 @@ const ProductImageWrapper = styled.div`
   }
 `;
 
-const ProductInfoWrapper = styled.div`
+const ProductInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -131,7 +131,7 @@ const ProductInfo = styled.div`
 
 export {
   ProductContainer,
-  ProductInfoWrapper,
+  ProductInfoContainer,
   ProductInfo,
   ProductImageWrapper,
   CartCounter,

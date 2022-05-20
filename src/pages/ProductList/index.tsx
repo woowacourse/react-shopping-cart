@@ -4,7 +4,7 @@ import { loadProductsAPI, ProductState, selectProductState } from "../../redux/m
 
 import Product from "../../components/Product";
 import Loader from "../../components/@shared/Loader";
-import * as Styled from "./styles";
+import { ProductsWrapper } from "./styles";
 
 function ProductList() {
   const { productList, loading, error }: ProductState = useSelector(selectProductState);
@@ -25,11 +25,11 @@ function ProductList() {
   }
 
   return (
-    <Styled.ProductsWrapper>
+    <ProductsWrapper>
       {productList.map((product) => (
         <Product key={product.id} productInfo={product} />
       ))}
-    </Styled.ProductsWrapper>
+    </ProductsWrapper>
   );
 }
 

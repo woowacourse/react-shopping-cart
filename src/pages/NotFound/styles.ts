@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const NotFoundWrapper = styled.div`
+const NotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,4 +19,4 @@ const NotFoundWrapper = styled.div`
   }
 `;
 
-export { NotFoundWrapper };
+export { NotFoundContainer };

@@ -6,7 +6,15 @@ import { show } from "../../redux/modules/snackBar";
 
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 import cart from "../../assets/cart.svg";
-import * as Styled from "./styles";
+import {
+  CartCounter,
+  CartImageBadge,
+  CartImageWrapper,
+  ProductContainer,
+  ProductImageWrapper,
+  ProductInfo,
+  ProductInfoContainer,
+} from "./styles";
 
 export type ProductType = {
   name: string;
@@ -71,26 +79,26 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductContainer>
-      <Styled.ProductImageWrapper>
+    <ProductContainer>
+      <ProductImageWrapper>
         <img onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
-      </Styled.ProductImageWrapper>
-      <Styled.ProductInfoWrapper>
-        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)}>
+      </ProductImageWrapper>
+      <ProductInfoContainer>
+        <ProductInfo onClick={() => navigate(`/product/${id}`)}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
-        </Styled.ProductInfo>
-        <Styled.CartImageWrapper>
-          {cartItem?.amount && <Styled.CartImageBadge />}
+        </ProductInfo>
+        <CartImageWrapper>
+          {cartItem?.amount && <CartImageBadge />}
           <img onClick={onClickCartImage} src={cart} alt="장바구니" />
-        </Styled.CartImageWrapper>
-        <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
+        </CartImageWrapper>
+        <CartCounter isShowCartCounter={isShowCartCounter}>
           <button onClick={onClickDecreaseCounter}>-</button>
           <span>{cartItem?.amount ?? 0}</span>
           <button onClick={onClickIncreaseCounter}>+</button>
-        </Styled.CartCounter>
-      </Styled.ProductInfoWrapper>
-    </Styled.ProductContainer>
+        </CartCounter>
+      </ProductInfoContainer>
+    </ProductContainer>
   );
 }
 

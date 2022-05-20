@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const HeaderWrapper = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -49,4 +49,4 @@ const HeaderMenu = styled.div`
   }
 `;
 
-export { HeaderWrapper, HeaderTitle, HeaderMenu };
+export { HeaderContainer, HeaderTitle, HeaderMenu };

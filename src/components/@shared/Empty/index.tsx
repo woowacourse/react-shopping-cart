@@ -1,11 +1,11 @@
 import emptyPage from "../../../assets/emptyPage.jpeg";
-import * as Styled from "./styles";
+import { EmptyImageWrapper } from "./styles";
 
 function Empty() {
   return (
-    <Styled.EmptyImageWrapper>
+    <EmptyImageWrapper>
       <img alt="emptyPage" src={emptyPage} />
-    </Styled.EmptyImageWrapper>
+    </EmptyImageWrapper>
   );
 }
 

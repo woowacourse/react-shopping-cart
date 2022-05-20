@@ -1,10 +1,10 @@
-import * as Styled from "./styles";
+import { LoaderWrapper } from "./styles";
 
 function Loader() {
   return (
-    <Styled.LoaderWrapper>
+    <LoaderWrapper>
       <div />
-    </Styled.LoaderWrapper>
+    </LoaderWrapper>
   );
 }
 
