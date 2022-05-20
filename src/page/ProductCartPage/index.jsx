@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
@@ -7,15 +7,16 @@ import ContentBox from 'component/ContentBox';
 import CartItem from 'component/CartItem';
 
 import * as S from 'page/ProductCartPage/style';
+
 import useCartItem from 'hook/useCartItem';
-import {SELECTED_ITEM} from 'store/modules/selectedItem';
-import {CART} from 'store/modules/cart';
+import useSelectedItem from 'hook/useSelectedItem';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
   const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
-  const {deleteCartItem} = useCartItem();
-  const dispatch = useDispatch();
+
+  const {deleteCartItem, increaseQuantity, decreaseQuantity, deleteSelectedCart} = useCartItem();
+  const {selectAllItem, unselectAllItem, addSelectedItem, deleteSelectedItem} = useSelectedItem();
 
   const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
 
@@ -29,23 +30,6 @@ export default function ProductCartPage() {
     {totalQuantity: 0, totalPrice: 0},
   );
 
-  const selectAllItem = (id) => dispatch({type: SELECTED_ITEM.ADD_ALL, payload: cartItem});
-
-  const unselectAllItem = () => dispatch({type: SELECTED_ITEM.DELETE_ALL});
-
-  const addSelectedItem = (id) => dispatch({type: SELECTED_ITEM.ADD, payload: Number(id)});
-
-  const deleteSelectedItem = (id) => dispatch({type: SELECTED_ITEM.DELETE, payload: Number(id)});
-
-  const increaseQuantity = (id) => dispatch({type: CART.INCREASE_QUANTITY, payload: id});
-
-  const decreaseQuantity = (id) => dispatch({type: CART.DECREASE_QUANTITY, payload: id});
-
-  const deleteSelectedCart = (selectedItem) => {
-    dispatch({type: SELECTED_ITEM.DELETE_ALL});
-    dispatch({type: CART.DELETE_SELECTED_CART, payload: selectedItem});
-  };
-
   const isAllChecked = cartItem.length === selectedItem.length && selectedItem.length > 0;
 
   return (
@@ -57,7 +41,7 @@ export default function ProductCartPage() {
             <S.CheckBoxRow>
               <CheckBox
                 initialChecked={isAllChecked}
-                handleCheckedTrue={selectAllItem}
+                handleCheckedTrue={() => selectAllItem(cartItem)}
                 handleCheckedFalse={unselectAllItem}
               />
               {isAllChecked ? '선택해제' : '전체선택'}

@@ -29,5 +29,18 @@ export default function useCartItem(path = null) {
     navigation(path);
   };
 
-  return {deleteCartItem, addCartItem};
+  const increaseQuantity = (payload) => dispatch({type: CART.INCREASE_QUANTITY, payload});
+
+  const decreaseQuantity = (payload) => dispatch({type: CART.DECREASE_QUANTITY, payload});
+
+  const deleteSelectedCart = (payload) => {
+    const deleteConfirm = window.confirm('장바구니에서 삭제하시겠습니까?');
+    if (deleteConfirm) {
+      dispatch({type: SELECTED_ITEM.DELETE_ALL});
+      dispatch({type: CART.DELETE_SELECTED_CART, payload});
+      return;
+    }
+  };
+
+  return {deleteCartItem, addCartItem, increaseQuantity, decreaseQuantity, deleteSelectedCart};
 }
