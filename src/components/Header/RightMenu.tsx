@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Theme } from '../../../types';
-import PlainLink from '../../PlainLink/PlainLink';
+import { Theme } from '../../types';
+import PlainLink from '../PlainLink/PlainLink';
 
 type StyledUlProps = {
   isDrawerOpened: boolean;

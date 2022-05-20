@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import PlainLink from '../../PlainLink/PlainLink';
-import Logo from '../../Logo/Logo';
+import PlainLink from '../PlainLink/PlainLink';
+import Logo from '../Logo/Logo';
 import RightMenu from './RightMenu';
 
 function Header() {

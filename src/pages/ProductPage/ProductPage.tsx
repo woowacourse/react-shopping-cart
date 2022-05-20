@@ -1,20 +1,15 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Spinner from '../../components/Spinner/Spinner';
 import useProductPage from './useProductDetail';
 
 function ProductPage() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { isLoading, productDetail, error } = useProductPage(id);
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-      navigate('/');
-    }
-  }, [error, navigate]);
+  if (error) {
+    alert(error);
+  }
 
   if (isLoading) {
     return <Spinner />;
