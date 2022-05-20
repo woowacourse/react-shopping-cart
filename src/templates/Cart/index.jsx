@@ -56,7 +56,10 @@ function Cart({ cartProducts }) {
                 <FlexWrapper flexFlow="column wrap" justifyContent="space-between" alignItems="end">
                   <DeleteProductIconButton id={product.product_id} />
                   <CartProductCountWrapperStyled>
-                    <ProductCountInput productCount={product.cart_product_count} />
+                    <ProductCountInput
+                      id={product.product_id}
+                      productCount={product.cart_product_count}
+                    />
                     <FlexWrapper flexFlow="column wrap">
                       <ProductCountUpButton id={product.product_id} />
                       <ProductCountDownButton id={product.product_id} />

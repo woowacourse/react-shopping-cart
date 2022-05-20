@@ -48,7 +48,12 @@ export const cartHandler = [
 
     return res(ctx.status(200), ctx.json(cartProducts));
   }),
-  rest.patch('/mocking/cart/:id', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.delay(1000), ctx.json(cartProducts));
+  rest.patch('/mocking/cart', (req, res, ctx) => {
+    cartProducts.find((product) =>
+      product.product_id === Number(req.body.product_id)
+        ? (product.cart_product_count = Number(req.body.product_count))
+        : '',
+    );
+    return res(ctx.status(200), ctx.json(cartProducts));
   }),
 ];

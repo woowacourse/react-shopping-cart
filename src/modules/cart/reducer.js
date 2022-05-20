@@ -2,8 +2,6 @@ import {
   GET_PRODUCT_CART_LOADING,
   GET_PRODUCT_CART_SUCCESS,
   GET_PRODUCT_CART_FAIL,
-  ADD_PRODUCT_CART_FAIL,
-  DELETE_PRODUCT_CART_FAIL,
 } from './action';
 
 const initialState = {
@@ -11,8 +9,6 @@ const initialState = {
   getProductCartLoading: false,
   getProductCartSuccess: false,
   getProductCartFail: '',
-  addProductCartFail: '',
-  deleteProductCartFail: '',
 };
 
 const cart = (state = initialState, action) => {
@@ -23,7 +19,6 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: true,
         getProductCartSuccess: false,
         getProductCartFail: '',
-        addProductCartFail: '',
       };
     case GET_PRODUCT_CART_SUCCESS:
       return {
@@ -31,7 +26,6 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: true,
         getProductCartFail: '',
-        addProductCartFail: '',
         cartProducts: [...action.cartProducts],
       };
     case GET_PRODUCT_CART_FAIL:
@@ -40,20 +34,6 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: false,
         getProductCartFail: action.type,
-        addProductCartFail: '',
-      };
-    case ADD_PRODUCT_CART_FAIL:
-      return {
-        ...state,
-        getProductCartLoading: false,
-        getProductCartSuccess: false,
-        getProductCartFail: '',
-        addProductCartFail: action.type,
-      };
-    case DELETE_PRODUCT_CART_FAIL:
-      return {
-        ...state,
-        deleteProductCartFail: action.type,
       };
     default:
       return state;

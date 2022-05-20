@@ -1,14 +1,33 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Image from 'components/Image';
 import Button from 'components/Button';
 
-function ProductCountDownButton() {
-  const handleProductCountDown = () => {};
+import { productCountEdit } from 'apis/cart';
+
+function ProductCountDownButton({ id }) {
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
+
+  const handleProductCountDown = ({ target }) => {
+    const cartProduct = cartProducts.find((product) => product.product_id === id);
+
+    if (cartProduct.cart_product_count === 1) return;
+
+    dispatch(productCountEdit(target, (cartProduct.cart_product_count -= 1)));
+  };
 
   return (
-    <Button onClick={handleProductCountDown} width="42px" height="30px" border="1px solid black">
-      <Image src="img/arrow-down.png" id="" width="12px" height="12px" cursor="pointer" />
+    <Button id={id} width="42px" height="30px" border="1px solid black">
+      <Image
+        onClick={handleProductCountDown}
+        src="img/arrow-down.png"
+        id={id}
+        width="12px"
+        height="12px"
+        cursor="pointer"
+      />
     </Button>
   );
 }

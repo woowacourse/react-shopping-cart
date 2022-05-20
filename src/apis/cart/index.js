@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 import { getProductCartSuccess, getProductCartFail } from 'modules/cart';
+
 import {
   openAddCartErrorModal,
   openAddCartModal,
   openAlreadyInCartModal,
   openDeleteProductCartErrorModal,
+  openProductCountUpErrorModal,
 } from 'modules/modal';
 
 export const getCartList = () => async (dispatch) => {
@@ -40,8 +42,16 @@ export const deleteProductCart =
     try {
       axios.delete('/mocking/cart', id);
       dispatch(getCartList());
-      return;
     } catch (error) {
       dispatch(openDeleteProductCartErrorModal(error));
     }
   };
+
+export const productCountEdit = (target, count) => async (dispatch) => {
+  try {
+    await axios.patch('/mocking/cart', { product_id: target.id, product_count: count });
+    dispatch(getCartList());
+  } catch (error) {
+    dispatch(openProductCountUpErrorModal(error));
+  }
+};
