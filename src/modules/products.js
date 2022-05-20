@@ -10,6 +10,7 @@ const GET_PRODUCTS = "products/GET_PRODUCTS";
 const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
 const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
+const REPLACE_PRODUCTS = "products/REPLACE_PRODUCTS";
 
 const GET_CART_PRODUCTS = "cart-products/GET_CART_PRODUCTS";
 const GET_CART_PRODUCTS_SUCCESS = "cart-products/GET_CART_PRODUCTS_SUCCESS";
@@ -24,6 +25,7 @@ const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
 const REMOVE_SHOPPING_CART_PRODUCT =
   "cart-product/REMOVE_SHOPPING_CART_PRODUCT";
 const UPDATE_CART_PRODUCT_CHECKED = "cart-product/UPDATE_CART_PRODUCT_CHECKED";
+const POST_CART_PRODUCT = "cart-product/POST_CART_PRODUCT";
 
 const initialState = {
   product: {
@@ -45,16 +47,59 @@ const initialState = {
   },
 };
 
+export const postCartProduct =
+  (id, newShoppingCartProduct) => async (dispatch, getState) => {
+    try {
+      const { products } = getState();
+      const newProduct = newShoppingCartProduct.data
+        ? newShoppingCartProduct.data
+        : newShoppingCartProduct;
+
+      newProduct.isInShoppingCart = true;
+
+      API.patchProductById(id, newProduct);
+      API.postShoppingCartProduct(newProduct);
+
+      const replaceProducts = products.data.map((product) => {
+        if (product.id === id) return newProduct;
+        return product;
+      });
+
+      dispatch({
+        type: POST_CART_PRODUCT,
+        newShoppingCartProduct: newProduct,
+      });
+      dispatch({
+        type: REPLACE_PRODUCTS,
+        replaceProducts: replaceProducts,
+      });
+    } catch (error) {
+      dispatch({ type: GET_CART_PRODUCTS_ERROR });
+    }
+  };
+
 export const removeCartProduct = (id) => async (dispatch, getState) => {
   try {
-    const shoppingCartProducts = getState().shoppingCartProducts;
+    const { shoppingCartProducts, products } = getState();
     const newShoppingCartProducts = shoppingCartProducts.data.filter(
       (product) => product.id !== id
     );
+    const removeProduct = shoppingCartProducts.data.filter(
+      (product) => product.id === id
+    )[0];
 
-    await API.removeShoppingCartProduct(id);
+    removeProduct.isInShoppingCart = false;
+
+    API.removeShoppingCartProduct(id);
+    const newProduct = await API.patchProductById(id, removeProduct);
+
+    const replaceProducts = products.data.map((product) => {
+      if (product.id === id) return newProduct.data;
+      return product;
+    });
 
     dispatch({ type: REMOVE_SHOPPING_CART_PRODUCT, newShoppingCartProducts });
+    dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
   } catch (error) {
     dispatch({ type: GET_CART_PRODUCTS_ERROR });
   }
@@ -228,6 +273,11 @@ const getProductsEnd = (productsState, action) => ({
   isEnd: true,
 });
 
+const replaceProducts = (productsState, action) => ({
+  ...productsState,
+  data: action.replaceProducts,
+});
+
 const getProduct = () => ({
   loading: true,
   data: {},
@@ -289,6 +339,11 @@ const updateProductChecked = (state) => ({
   data: state.data,
 });
 
+const postProduct = (state, action) => ({
+  ...state,
+  data: state.data.concat(action.newShoppingCartProduct),
+});
+
 const productsReducer = createReducer(
   {},
   {
@@ -296,6 +351,7 @@ const productsReducer = createReducer(
     [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
     [GET_PRODUCTS_ERROR]: getProductsError,
     [GET_PRODUCTS_END]: getProductsEnd,
+    [REPLACE_PRODUCTS]: replaceProducts,
   }
 );
 
@@ -320,6 +376,7 @@ const shoppingCartProductsReducer = createReducer(
       updateProductQuantityByUserInput,
     [REMOVE_SHOPPING_CART_PRODUCT]: removeShoppingCartProduct,
     [UPDATE_CART_PRODUCT_CHECKED]: updateProductChecked,
+    [POST_CART_PRODUCT]: postProduct,
   }
 );
 

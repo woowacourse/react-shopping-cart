@@ -11,10 +11,6 @@ export const ProductContainer = styled.div`
     &:hover {
       transition: 0.3s;
       background-color: ${theme.color.grey_001};
-      p:first-of-type {
-        text-decoration: underline;
-        text-decoration-color: ${theme.color.grey_003};
-      }
     }
   `}
 `;

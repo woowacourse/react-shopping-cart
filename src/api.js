@@ -16,6 +16,10 @@ export const getProductById = async (id) => {
   return axios.get(`/products/${id}`);
 };
 
+export const patchProductById = async (id, newState) => {
+  return axios.patch(`/products/${id}`, newState);
+};
+
 export const getShoppingCartProducts = async () => {
   return axios.get("/shopping-cart");
 };
@@ -26,4 +30,8 @@ export const patchShoppingCartProduct = async (id, newState) => {
 
 export const removeShoppingCartProduct = async (id) => {
   return axios.delete(`/shopping-cart/${id}`);
+};
+
+export const postShoppingCartProduct = async (newState) => {
+  return axios.post(`/shopping-cart`, newState);
 };

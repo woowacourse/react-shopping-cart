@@ -5,6 +5,8 @@ import ProductListPage from "./pages/ProductListPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+import SnackBar from "./modal/SnackBar";
+import SnackBarPortal from "./modal/SnackBarPortal";
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
           <Route path="/server-error" element={<ErrorPage />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
+        <SnackBarPortal>
+          <SnackBar />
+        </SnackBarPortal>
       </div>
     </>
   );
