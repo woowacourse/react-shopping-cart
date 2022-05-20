@@ -1,4 +1,4 @@
-import { getProductList } from '@/api/api';
+import { getProductList } from '@/api/product';
 import { ProductType } from '@/domain/product';
 import { Dispatch } from 'redux';
 export const enum ProductActionType {

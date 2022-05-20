@@ -1,4 +1,4 @@
-import { addCart, getCart } from '@/api/api';
+import { addCart, getCart } from '@/api/cart';
 import { ProductType } from '@/domain/product';
 import { Dispatch } from 'redux';
 export const enum CartActionType {
