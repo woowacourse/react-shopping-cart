@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCheckBox } from 'hooks';
 
 import Layout from 'components/Layout';
+import PageHeader from 'components/@common/PageHeader';
 import CartList from 'components/CartList';
 import CartReceipt from 'components/CartReceipt';
 import { snackbar } from 'actions/snackbar';
 import { deleteCartItem, modifyCartItemCount } from 'actions/cart';
-import { COLORS } from 'styles/theme';
 
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
@@ -49,8 +49,7 @@ const Cart = () => {
   return (
     <Layout>
       <Styled.CartListContainer>
-        <CommonStyled.PageTitle>장바구니</CommonStyled.PageTitle>
-        <CommonStyled.HR color={COLORS.BLACK} />
+        <PageHeader pageTitle="장바구니" />
         <CommonStyled.FlexWrapper alignItems="flex-start">
           <CommonStyled.FlexWrapper margin="2rem" flexDirection="column" alignItems="flex-start">
             <CartList
