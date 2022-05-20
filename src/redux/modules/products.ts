@@ -33,11 +33,14 @@ const LOAD_PRODUCTS_FAILED = "product/LOAD_FAILED" as const;
 
 // 액션 크리에터
 const loadProducts = () => ({ type: LOAD_PRODUCTS });
-const loadProductsSuccess = (productList: Product[]) => ({
+export const loadProductsSuccess = (productList: Product[]) => ({
   type: LOAD_PRODUCTS_SUCCESS,
   payload: { productList },
 });
-const loadProductsFailed = (error: Error) => ({ type: LOAD_PRODUCTS_FAILED, payload: { error } });
+export const loadProductsFailed = (error: Error) => ({
+  type: LOAD_PRODUCTS_FAILED,
+  payload: { error },
+});
 
 // thunk
 export const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
