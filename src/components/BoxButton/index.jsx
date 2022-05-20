@@ -1,9 +1,9 @@
 import React from 'react';
 import BoxButtonStyled from './style';
 
-function BoxButton({ message, fontSize, fontWeight, width, height }) {
+function BoxButton({ color, message, fontSize, width, height }) {
   return (
-    <BoxButtonStyled fontSize={fontSize} fontWeight={fontWeight} width={width} height={height}>
+    <BoxButtonStyled color={color} fontSize={fontSize} width={width} height={height}>
       {message}
     </BoxButtonStyled>
   );

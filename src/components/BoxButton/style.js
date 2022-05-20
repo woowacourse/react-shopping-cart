@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
 const BoxButtonStyled = styled.button(
-  ({ fontSize, fontWeight, theme, width, height }) => `
-    background: ${theme.mainColor};
+  ({ color, fontSize, width, height }) => `
+    background: ${color};
     font-size: ${fontSize};
-    font-weight: ${fontWeight};
-    color: #FFF;
+    color: black;
     width: ${width};
     height: ${height};
-    border: none;
     border-radius: 10px;
+    border: none;
   `,
 );
 
