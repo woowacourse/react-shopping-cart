@@ -6,7 +6,7 @@ import { checkProductCart, removeProductCart } from 'store/action/cartActions';
 import styled from 'styled-components';
 import CartProduct from './CartProduct';
 
-export default function CartOperation({ products }) {
+export default function CartOperationContainer({ products }) {
   const dispatch = useDispatch();
   const [allCheck, setAllCheck] = useState(true);
 

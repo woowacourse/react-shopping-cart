@@ -25,12 +25,14 @@ export default function OrderContainer({ products }) {
               )
           )}
         </OrderUl>
+
         <TotalPrice>
           <span>결제예상금액</span>
           <span>
             <span>{totalAmount.toLocaleString('ko-KR')}</span>원
           </span>
         </TotalPrice>
+
         <Button>
           <OrderButtonContent>
             주문하기<span>{totalCount.toLocaleString('ko-KR')}</span>개

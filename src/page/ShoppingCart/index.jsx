@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CartOperation from 'component/ShoppingCart/CartOperation';
+import CartOperationContainer from 'component/ShoppingCart/CartOperationContainer';
 import OrderContainer from 'component/ShoppingCart/OrderContainer';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ export default function ShoppingCart() {
         <Head>장바구니</Head>
         <BodyBox>
           <CartOperationWrapper>
-            <CartOperation products={cartedProducts} />
+            <CartOperationContainer products={cartedProducts} />
           </CartOperationWrapper>
           <OrderContainerWrapper>
             <OrderContainer products={cartedProducts} />
