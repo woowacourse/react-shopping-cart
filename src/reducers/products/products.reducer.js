@@ -1,6 +1,6 @@
 import { actionTypes } from 'reducers/products/products.actions';
 
-const initialState = {
+export const initialState = {
   data: [],
   isLoading: false,
   isSucceed: false,
