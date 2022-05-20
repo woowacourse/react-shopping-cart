@@ -25,26 +25,35 @@ const getProducts = rest.get(`${API_URL}products`, (req, res, ctx) => {
   const limit = req.url.searchParams.get('_limit');
 
   const startIndex = (page - 1) * limit;
-  const endIndex = page * limit - 1;
+  const endIndex = page * limit;
 
   const productList = data.products.slice(startIndex, endIndex);
   const productTotalCount = data.products.length;
 
-  return res(ctx.status(200), ctx.json(productList), ctx.set('x-total-count', productTotalCount));
-});
-
-const getImage = rest.get(`${API_URL}static/images/:imageFileName`, async (req, res, ctx) => {
-  const { imageFileName } = req.params;
-  const imageName = imageFileName.split('.')[0];
-
-  const imageBuffer = await fetch(images[`${imageName}`]).then((res) => res.arrayBuffer());
-
   return res(
-    ctx.set('Content-Length', imageBuffer.byteLength.toString()),
-    ctx.set('Content-Type', 'image/jpeg'),
-    ctx.body(imageBuffer),
+    ctx.status(200),
+    ctx.json(productList),
+    ctx.set('x-total-count', productTotalCount),
   );
 });
+
+const getImage = rest.get(
+  `${API_URL}static/images/:imageFileName`,
+  async (req, res, ctx) => {
+    const { imageFileName } = req.params;
+    const imageName = imageFileName.split('.')[0];
+
+    const imageBuffer = await fetch(images[`${imageName}`]).then((res) =>
+      res.arrayBuffer(),
+    );
+
+    return res(
+      ctx.set('Content-Length', imageBuffer.byteLength.toString()),
+      ctx.set('Content-Type', 'image/jpeg'),
+      ctx.body(imageBuffer),
+    );
+  },
+);
 
 const getShoppingCart = rest.get(`${API_URL}shopping-cart`, (_, res, ctx) => {
   const cart = getCart();
@@ -82,7 +91,9 @@ const patchShoppingCart = rest.patch(`${API_URL}shopping-cart`, (req, res, ctx) 
   const currentShoppingCart = getCart();
 
   if (!Object.keys(currentShoppingCart).length || !currentShoppingCart[productId]) {
-    return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
+    return res(
+      ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'),
+    );
   }
 
   const targetProduct = currentShoppingCart[productId];
@@ -95,20 +106,25 @@ const patchShoppingCart = rest.patch(`${API_URL}shopping-cart`, (req, res, ctx) 
   return res(ctx.json(currentShoppingCart));
 });
 
-const deleteShoppingCart = rest.delete(`${API_URL}shopping-cart/:productId`, (req, res, ctx) => {
-  const { productId } = req.params;
-  const currentShoppingCart = getCart();
+const deleteShoppingCart = rest.delete(
+  `${API_URL}shopping-cart/:productId`,
+  (req, res, ctx) => {
+    const { productId } = req.params;
+    const currentShoppingCart = getCart();
 
-  if (!Object.keys(currentShoppingCart).length || !currentShoppingCart[productId]) {
-    return res(ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'));
-  }
+    if (!Object.keys(currentShoppingCart).length || !currentShoppingCart[productId]) {
+      return res(
+        ctx.status(404, '장바구니가 비었거나 장바구니에 존재하지 않는 상품입니다.'),
+      );
+    }
 
-  const newCart = removeProperty(currentShoppingCart, productId);
+    const newCart = removeProperty(currentShoppingCart, productId);
 
-  setCart(newCart);
+    setCart(newCart);
 
-  return res(ctx.json(newCart));
-});
+    return res(ctx.json(newCart));
+  },
+);
 
 export const handlers = [
   getProducts,
