@@ -33,11 +33,11 @@ export const loadCarts = () => async (dispatch) => {
   }
 };
 
-export const addCart = (id) => async (dispatch) => {
+export const addCart = (product) => async (dispatch) => {
   try {
     const { data } = await axios({
       url: `${SERVER_URL}${PATH.CARTS}`,
-      data: { id, quantity: 1 },
+      data: { ...product, quantity: 1 },
       method: 'POST',
     });
     dispatch(cartsActionCreators.addCart(data));

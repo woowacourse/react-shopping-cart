@@ -7,31 +7,8 @@ import { DivideUnderLine } from 'components/shared/styles';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const dummyProducts = [
-  {
-    id: '11',
-    price: '4800',
-    src: 'https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001636]_20210225093600536.jpg',
-    title: '콜드 브루 몰트',
-  },
-  {
-    id: '22',
-    price: '4200',
-    src: 'https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000000487]_20210430112319040.jpg',
-    title: '바닐라 크림 콜드 브루',
-  },
-  {
-    id: '33',
-    price: '5500',
-    src: 'https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[72]_20210415140949967.jpg',
-    title: '시그니처 핫 초콜릿',
-  },
-];
-
 function CartPage() {
   const { carts } = useSelector((state) => state.carts);
-
-  console.log('carts', carts);
 
   return (
     <Styled.CartSection>
@@ -49,7 +26,7 @@ function CartPage() {
           </Styled.CartSelectorWrapper>
           <Styled.CartListTitle>든든배송 상품(3개)</Styled.CartListTitle>
           <Styled.CartDivideLine shape="greyThick" />
-          {dummyProducts.map((product) => (
+          {carts.map((product) => (
             <React.Fragment key={product.id}>
               <CartProduct product={product} />
               <Styled.CartDivideLine shape="greyThin" />

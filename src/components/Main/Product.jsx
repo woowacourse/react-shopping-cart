@@ -17,7 +17,7 @@ function Product({ id, src, price, title, isStored }) {
     if (isClicked) {
       dispatch(deleteCart(id));
     } else {
-      dispatch(addCart(id));
+      dispatch(addCart({ id, src, price, title }));
     }
 
     setIsClicked((prev) => !prev);
