@@ -13,9 +13,11 @@ function ProductCountDownButton({ id }) {
   const handleProductCountDown = ({ target }) => {
     const cartProduct = cartProducts.find((product) => product.product_id === id);
 
-    if (cartProduct.cart_product_count === 1) return;
+    if (Number(cartProduct.cart_product_count) <= 1) return;
 
-    dispatch(productCountEdit(target, (cartProduct.cart_product_count -= 1)));
+    let count = Number(cartProduct.cart_product_count);
+
+    dispatch(productCountEdit(target.id, (count -= 1)));
   };
 
   return (
