@@ -49,3 +49,5 @@
   - [x] Title 컴포넌트 만들기
   - [x] CheckBox 컴포넌트 만들기
 - [x] 단위 테스트 작성
+  - [x] 리듀서 테스트
+  - [x] useReduxState 테스트
