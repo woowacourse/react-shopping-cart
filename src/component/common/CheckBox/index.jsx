@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export default function CheckBox({ description, checked, onCheckChange }) {
   return (
-    <Wrapper>
+    <Description>
       <CheckInput type="checkbox" onChange={onCheckChange} checked={checked} />
-      <Description>{description}</Description>
-    </Wrapper>
+      {description}
+    </Description>
   );
 }
 
@@ -13,18 +13,16 @@ CheckBox.defaultProps = {
   description: '',
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
 const CheckInput = styled.input`
   width: 28px;
   height: 28px;
 `;
 
-const Description = styled.p`
+const Description = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
