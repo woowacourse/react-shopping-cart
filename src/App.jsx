@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from './components/Header/Header';
-import Main from './pages/Main';
-import Orders from './pages/Orders';
-import NotFound from './pages/NotFound';
-import Carts from './pages/Carts';
-import ProductDetailContainer from './components/ProductDetail/ProductDetailContainer';
+// import Header from './components/Header/Header';
+// import Main from './pages/Main';
+// import Orders from './pages/Orders';
+// import NotFound from './pages/NotFound';
+// import Carts from './pages/Carts';
+// import ProductDetailContainer from './components/ProductDetail/ProductDetailContainer';
 
 import GlobalStyle from './GlobalStyle';
 
@@ -17,16 +17,18 @@ import { loadCarts } from './store/carts';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(loadProducts());
-    dispatch(loadCarts());
+    // dispatch(loadProducts());
+    // dispatch(loadCarts());
   }, []);
+
   return (
     <div className="App">
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
         <GlobalStyle />
-        <Header />
-        <Routes>
+        {/* <Header /> */}
+        {/* <Routes>
           <Route path={`${PATH.ROOT}`} element={<Main />} />
           <Route path={`${PATH.ORDERS}`} element={<Orders />} />
           <Route path={`${PATH.CARTS}`} element={<Carts />} />
@@ -35,7 +37,7 @@ function App() {
             element={<ProductDetailContainer />}
           />
           <Route path="*" element={<NotFound />} />
-        </Routes>
+        </Routes> */}
       </BrowserRouter>
     </div>
   );
