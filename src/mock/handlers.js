@@ -88,6 +88,16 @@ export default [
     return res(ctx.status(200), ctx.json(products));
   }),
 
+  rest.get('carts', (req, res, ctx) => {
+    const result = carts.map(({ productId, quantity }) => ({
+      ...products.find((product) => product.id === productId),
+      quantity,
+      selected: false,
+    }));
+
+    return res(ctx.status(200), ctx.json(result));
+  }),
+
   rest.post('addCart/:productId', (req, res, ctx) => {
     const productId = Number(req.params.productId);
 
@@ -126,6 +136,14 @@ export default [
     const productId = Number(req.params.productId);
 
     carts = carts.filter((cart) => cart.productId !== productId);
+
+    return res(ctx.status(200));
+  }),
+
+  rest.delete('deleteCarts', (req, res, ctx) => {
+    const { productIds } = req.body;
+
+    carts = carts.filter(({ productId }) => !productIds.includes(productId));
 
     return res(ctx.status(200));
   }),

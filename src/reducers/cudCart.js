@@ -43,6 +43,17 @@ export const deleteCart = createAsyncThunk(
   },
 );
 
+export const deleteCarts = createAsyncThunk(
+  'cudCart/deletes',
+  async (productIds, { rejectWithValue }) => {
+    try {
+      await deleteApi('deleteCarts', { data: { productIds } });
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  },
+);
+
 const pending = (state) => {
   state.loading = true;
 };
@@ -79,6 +90,12 @@ const cudCartSlice = createSlice({
     [deleteCart.fulfilled]: fulfilled,
 
     [deleteCart.rejected]: rejected,
+
+    [deleteCarts.pending]: pending,
+
+    [deleteCarts.fulfilled]: fulfilled,
+
+    [deleteCarts.rejected]: rejected,
   },
 });
 
