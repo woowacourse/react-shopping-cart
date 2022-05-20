@@ -5,9 +5,13 @@ import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
 import { ReactComponent as CheckBoxIcon } from 'assets/icon/CheckBox.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icon/Delete.svg';
 
+import { useDispatch } from 'react-redux';
+
 import Flex from 'components/@common/Flex';
 import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
+import { loadCartProductList, updateCartProduct } from 'api/cart';
+import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 
 interface CartProductProps {
   data: CartProductData;
@@ -15,12 +19,39 @@ interface CartProductProps {
 
 const CartProduct = ({ data }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
+  const dispatch = useDispatch();
+
+  const handleIncreaseButton = async () => {
+    try {
+      await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
+
+      dispatch(startCartProductList());
+      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  const handleDecreaseButton = async () => {
+    try {
+      if (quantity <= 1) return;
+
+      await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
+
+      dispatch(startCartProductList());
+      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <Styled.Wrapper>
       <Flex gap="20px">
         <Styled.SelectBox>
-          <UncheckBoxIcon />
+          <Button>
+            <UncheckBoxIcon />
+          </Button>
         </Styled.SelectBox>
         <Styled.ThumbnailBox>
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
@@ -28,7 +59,9 @@ const CartProduct = ({ data }: CartProductProps) => {
         <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
         <Styled.TestBox>
           <Flex direction="column" align="flex-end" gap="20px">
-            <DeleteIcon />
+            <Button>
+              <DeleteIcon />
+            </Button>
             <Styled.QuantityControlBox>
               <Flex>
                 <Flex align="center">
@@ -40,17 +73,31 @@ const CartProduct = ({ data }: CartProductProps) => {
                 </Flex>
                 <Styled.ControlBox>
                   <Flex direction="column">
-                    <Button w="42px" h="30px">
+                    <Button
+                      w="42px"
+                      h="30px"
+                      borderWidth="1px"
+                      borderStyle="solid"
+                      borderColor="lightGray"
+                      onClick={handleIncreaseButton}
+                    >
                       ▲
                     </Button>
-                    <Button w="42px" h="30px">
+                    <Button
+                      w="42px"
+                      h="30px"
+                      borderWidth="1px"
+                      borderStyle="solid"
+                      borderColor="lightGray"
+                      onClick={handleDecreaseButton}
+                    >
                       ▼
                     </Button>
                   </Flex>
                 </Styled.ControlBox>
               </Flex>
             </Styled.QuantityControlBox>
-            <Text>{price.toLocaleString()}원</Text>
+            <Text>{(price * quantity).toLocaleString()}원</Text>
           </Flex>
         </Styled.TestBox>
       </Flex>
@@ -90,10 +137,6 @@ const Styled = {
   `,
   ControlBox: styled.div`
     width: 42px;
-
-    button {
-      border: 1px solid #dddddd;
-    }
   `,
 };
 

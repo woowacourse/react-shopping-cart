@@ -15,6 +15,7 @@ const Button = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+  padding: 0;
 
   ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProps) => css`
     width: ${w};
