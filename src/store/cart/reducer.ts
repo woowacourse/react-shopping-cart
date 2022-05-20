@@ -55,6 +55,46 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     }
 
+    case CartActionType.DELETE_CART_START: {
+      return { ...state, isLoading: true };
+    }
+
+    case CartActionType.DELETE_CART_SUCCEEDED: {
+      const {
+        payload: { deletedCartId },
+      } = action;
+
+      const newCartList = state.cartList.filter(cart => cart.id !== deletedCartId);
+      return { ...state, isLoading: false, cartList: newCartList };
+    }
+
+    case CartActionType.DELETE_CART_FAILED: {
+      return { ...state, isLoading: false };
+    }
+
+    case CartActionType.PATCH_CART_START: {
+      return { ...state, isLoading: true };
+    }
+
+    case CartActionType.PATCH_CART_SUCCEEDED: {
+      const {
+        payload: { id, newCartProduct },
+      } = action;
+
+      const newCartList = state.cartList.map(cart => {
+        if (cart.id === id) {
+          return newCartProduct;
+        }
+        return cart;
+      });
+
+      return { ...state, isLoading: false, cartList: newCartList };
+    }
+
+    case CartActionType.PATCH_CART_FAILED: {
+      return { ...state, isLoading: false };
+    }
+
     default: {
       return state;
     }
