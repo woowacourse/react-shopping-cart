@@ -1,6 +1,6 @@
 import { actionTypes } from 'reducers/cart/cart.actions';
 
-const initialState = {
+export const initialState = {
   data: [],
 
   isLoadingGetCart: false,
