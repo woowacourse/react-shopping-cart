@@ -9,6 +9,7 @@ import CartItem from 'component/CartItem';
 import * as S from 'page/ProductCartPage/style';
 import useCartItem from 'hook/useCartItem';
 import {SELECTED_ITEM} from 'store/modules/selectedItem';
+import {CART} from 'store/modules/cart';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
@@ -18,25 +19,27 @@ export default function ProductCartPage() {
 
   const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
 
-  const {totalCount, totalPrice} = selectedCartItem.reduce(
+  const {totalQuantity, totalPrice} = selectedCartItem.reduce(
     (prev, cur) => {
       return {
-        totalCount: cur.count + prev.totalCount,
-        totalPrice: cur.itemPrice * cur.count + prev.totalPrice,
+        totalQuantity: cur.quantity + prev.totalQuantity,
+        totalPrice: cur.itemPrice * cur.quantity + prev.totalPrice,
       };
     },
-    {totalCount: 0, totalPrice: 0},
+    {totalQuantity: 0, totalPrice: 0},
   );
 
   const selectAllItem = (id) => dispatch({type: SELECTED_ITEM.ADD_ALL, payload: cartItem});
 
   const unselectAllItem = () => dispatch({type: SELECTED_ITEM.DELETE_ALL});
 
-  const addSelectedItem = (id) => {
-    dispatch({type: SELECTED_ITEM.ADD, payload: Number(id)});
-  };
+  const addSelectedItem = (id) => dispatch({type: SELECTED_ITEM.ADD, payload: Number(id)});
 
   const deleteSeletedItem = (id) => dispatch({type: SELECTED_ITEM.DELETE, payload: Number(id)});
+
+  const increaseQuantity = (id) => dispatch({type: CART.INCREASE_QUANTITY, payload: id});
+
+  const decreaseQuantity = (id) => dispatch({type: CART.DECREASE_QUANTITY, payload: id});
 
   const isAllChecked = cartItem.length === selectedItem.length;
   return (
@@ -58,7 +61,7 @@ export default function ProductCartPage() {
 
           <S.ListHeaderSpan>장바구니 상품 ({cartItem.length}개)</S.ListHeaderSpan>
           <S.CartListBox>
-            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => {
+            {cartItem.map(({itemImgURL, itemName, itemPrice, quantity, id}) => {
               const initialChecked = selectedItem.includes(id);
               return (
                 <React.Fragment key={id}>
@@ -67,11 +70,13 @@ export default function ProductCartPage() {
                     itemImgURL={itemImgURL}
                     itemName={itemName}
                     itemPrice={itemPrice}
-                    count={count}
+                    quantity={quantity}
                     id={id}
                     handleDeleteIconClick={() => deleteCartItem(id)}
                     handleCheckedTrue={addSelectedItem}
                     handleCheckedFalse={deleteSeletedItem}
+                    handleIncrease={increaseQuantity}
+                    handleDecrease={decreaseQuantity}
                   />
                   <hr />
                 </React.Fragment>
@@ -84,7 +89,7 @@ export default function ProductCartPage() {
           headerText="결제예상금액"
           leftContent="결제예상금액"
           rightContent={`${totalPrice.toLocaleString()}원`}
-          buttonText={`주문하기 (${totalCount}개)`}
+          buttonText={`주문하기 (${totalQuantity}개)`}
         />
       </S.CartInfoBox>
     </S.ProductCartPageLayout>

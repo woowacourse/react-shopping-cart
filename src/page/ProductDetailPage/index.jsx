@@ -25,7 +25,7 @@ export default function ProductDetailPage() {
       itemName: data.name,
       itemPrice: data.price,
       id: Number(id),
-      count: 1,
+      quantity: 1,
     });
   };
 

@@ -40,7 +40,7 @@ export default function ProductListPage() {
       itemName: name,
       itemPrice: price,
       id: Number(id),
-      count: 1,
+      quantity: 1,
     });
   };
 

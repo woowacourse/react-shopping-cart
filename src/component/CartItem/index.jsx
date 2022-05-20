@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 import CheckBox from 'component/common/CheckBox';
 
 import * as S from 'component/CartItem/style';
+import QuantityBox from 'component/common/QuantityBox';
 
 export default function CartItem({
   itemImgURL,
   itemName,
   itemPrice,
-  count,
+  quantity = 1,
   id,
   handleDeleteIconClick = () => void 0,
   handleCheckedTrue = () => void 0,
   handleCheckedFalse = () => void 0,
-  initialChecked,
+  handleIncrease = () => void 0,
+  handleDecrease = () => void 0,
+  initialChecked = false,
 }) {
   return (
     <S.CartItemLayout>
@@ -28,7 +31,11 @@ export default function CartItem({
       <S.ItemNameParagraph>{itemName}</S.ItemNameParagraph>
       <S.EditQuantityBox>
         <S.StyledDeleteIcon onClick={handleDeleteIconClick} />
-        <div>{count} 개</div>
+        <QuantityBox
+          quantity={quantity}
+          handleIncrease={() => handleIncrease(id)}
+          handleDecrease={() => handleDecrease(id)}
+        />
         <S.PriceSpan>{itemPrice.toLocaleString()}원</S.PriceSpan>
       </S.EditQuantityBox>
     </S.CartItemLayout>
@@ -39,10 +46,12 @@ CartItem.propTypes = {
   itemImgURL: PropTypes.string,
   itemName: PropTypes.string,
   itemPrice: PropTypes.number,
-  count: PropTypes.number,
+  quantity: PropTypes.number,
   id: PropTypes.number,
   handleDeleteIconClick: PropTypes.func,
   handleCheckedTrue: PropTypes.func,
   handleCheckedFalse: PropTypes.func,
+  handleIncrease: PropTypes.func,
+  handleDecrease: PropTypes.func,
   initialChecked: PropTypes.bool,
 };
