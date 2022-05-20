@@ -11,9 +11,11 @@ function useShoppingBasket(stateKey) {
     return shoppingBasketList.find(productInfo => productInfo.id === productId) !== undefined;
   };
 
-  const dispatchShoppingBasketAction = (productId, isContained) => {
+  const dispatchShoppingBasketAction = (productInfo, isContained) => {
     dispatch(
-      isContained ? deleteShoppingBasketProduct(productId) : addShoppingBasketProduct(productId)
+      isContained
+        ? deleteShoppingBasketProduct(productInfo.id)
+        : addShoppingBasketProduct(productInfo)
     );
   };
 

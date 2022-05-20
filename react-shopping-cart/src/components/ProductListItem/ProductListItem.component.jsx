@@ -67,7 +67,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
   };
 
   const handleClickShoppingCart = () => {
-    dispatchShoppingBasketAction(id, isContained);
+    dispatchShoppingBasketAction({ id, thumbnail, name, price }, isContained);
   };
 
   return (

@@ -22,7 +22,7 @@ function ProductDetail() {
   const isContained = checkIsContainedProduct(Number(productId));
 
   const handleClickAddShoppingCart = () => {
-    dispatchShoppingBasketAction(Number(productId), isContained);
+    dispatchShoppingBasketAction(productInfo, isContained);
   };
 
   if (isLoading) {
