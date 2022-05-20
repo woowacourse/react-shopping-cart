@@ -1,9 +1,9 @@
-import OrderListItem from './OrderListItem.component';
+import ShoppingBasketListItem from './ShoppingBasketListItem.component';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: 'Components/OrderListItem',
-  component: OrderListItem,
+  title: 'Components/ShoppingBasketListItem',
+  component: ShoppingBasketListItem,
   decorators: [
     Story => (
       <div style={{ width: '731px' }}>
@@ -28,7 +28,7 @@ export const Default = args => {
   const handleClickDecrease = () => updateArgs({ count: count === 0 ? count : count - 1 });
 
   return (
-    <OrderListItem
+    <ShoppingBasketListItem
       {...args}
       handleClickIncrease={handleClickIncrease}
       handleClickDecrease={handleClickDecrease}

@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import { Checkbox, Counter, FlexWrapper, Image, Text } from 'components/@shared';
 import TrashCan from 'assets/images/trashCan.svg';
 
-const OrderListItemBox = styled(FlexWrapper)`
+const ShoppingBasketListItemBox = styled(FlexWrapper)`
   justify-content: flex-start;
   align-items: flex-start;
 `;
 
-const OrderListItemControlBox = styled(FlexWrapper)`
+const ShoppingBasketListItemControlBox = styled(FlexWrapper)`
   align-items: flex-end;
   margin-left: auto;
 `;
 
-function OrderListItem({
+function ShoppingBasketListItem({
   id,
   thumbnail,
   name,
@@ -22,13 +22,13 @@ function OrderListItem({
   handleClickDecrease,
 }) {
   return (
-    <OrderListItemBox>
+    <ShoppingBasketListItemBox>
       <Checkbox />
       <Image style={{ marginLeft: '15px' }} src={thumbnail} type="small" />
       <Text margin="0 0 0 20px" fontSize="medium">
         {name}
       </Text>
-      <OrderListItemControlBox isColumnDirection={true}>
+      <ShoppingBasketListItemControlBox isColumnDirection={true}>
         <img style={{ cursor: 'pointer' }} src={TrashCan} alt={`${name} 삭제 아이콘`} />
         <Counter
           style={{ marginTop: '23px' }}
@@ -40,9 +40,9 @@ function OrderListItem({
         <Text margin="23px 0 0" fontSize="small">
           {price.toLocaleString('ko-kr')}원
         </Text>
-      </OrderListItemControlBox>
-    </OrderListItemBox>
+      </ShoppingBasketListItemControlBox>
+    </ShoppingBasketListItemBox>
   );
 }
 
-export default OrderListItem;
+export default ShoppingBasketListItem;
