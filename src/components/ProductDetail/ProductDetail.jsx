@@ -8,13 +8,14 @@ import usePost from 'hooks/usePost';
 
 const ProductDetail = ({ imgUrl, name, price }) => {
   const { id } = useParams();
-  const { isLoading, isError, callApi } = usePost('/cartList', {
+  const { callApi } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
 
   const handleClickCart = () => {
     callApi();
+    console.log('hi');
   };
 
   return (
@@ -34,8 +35,6 @@ const ProductDetail = ({ imgUrl, name, price }) => {
         >
           장바구니
         </Button>
-        {isLoading && '전송 중'}
-        {isError && '에러가 발생했습니다'}
       </Styled.ProductInfo>
     </>
   );

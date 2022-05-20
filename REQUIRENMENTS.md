@@ -42,6 +42,7 @@
       - [x] input element의 stepUp, stepDown 메서드를 사용한다
       - [x] 수량 변경 버튼 클릭 시 API에서 cartList의 해당 상품 수량(cartQuantity)이 변경된다.(patch)
       - [x] usePatch 훅을 만든다.
+    - [x] 장바구니를 담으면 Header의 장바구니 메뉴 옆에 숫자가 증가한다.
   - [] 주문/결제 페이지
   - [] 주문 목록 페이지
   - [] 주문 상세 페이지

@@ -17,7 +17,7 @@ const usePatch = (url) => {
       .then((response) => {
         setIsLoading(false);
         setResult(response.data);
-        dispatch(getCartAsync);
+        dispatch(getCartAsync); // api에서 리덕스로 cart 상태 가져오기
       })
       .catch((error) => {
         console.log(error);

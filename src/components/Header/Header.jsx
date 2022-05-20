@@ -2,8 +2,12 @@ import styled from 'styled-components';
 import MenuItem from 'components/MenuItem';
 import bigCart from 'assets/svg/bigCart.svg';
 import { Link } from 'react-router-dom';
+import Circle from 'components/Circle/Circle';
+import useCart from 'hooks/useCart';
 
 const Header = () => {
+  const { cartList } = useCart();
+
   return (
     <Styled.Wrapper>
       <Styled.Logo to="/">
@@ -11,7 +15,9 @@ const Header = () => {
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>
-        <MenuItem to="/cart">장바구니</MenuItem>
+        <MenuItem to="/cart">
+          장바구니<Circle>{cartList.length}</Circle>
+        </MenuItem>
         <MenuItem to="/order">주문목록</MenuItem>
       </Styled.MenuContainer>
     </Styled.Wrapper>
