@@ -1,4 +1,9 @@
-import { ADD_ITEM, DELETE_ITEM, INCREASE_QUANTITY, DECREASE_QUANTITY } from 'redux/actions';
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  INCREASE_QUANTITY,
+  DECREASE_QUANTITY,
+} from 'redux/actions/shoppingCart.action';
 
 const initialState = [];
 
