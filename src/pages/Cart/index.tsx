@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CartItem, selectAllItems, deleteBySelectedItems } from "../../redux/modules/cart";
-import { useCartListSelector } from "../../hooks/useCartSelector";
+import { useCartAmount, useCartListSelector } from "../../hooks/useCartSelector";
 
 import Button from "../../components/@shared/Button/styles";
 import PageTitle from "../../components/PageTitle/styles";
@@ -20,6 +20,7 @@ import {
 function Cart() {
   const dispatch = useDispatch();
   const cartItemList = useCartListSelector();
+  const totalAmount = useCartAmount();
   const [allSelect, setAllSelect] = useState(false);
 
   const onToggleAllSelect = () => {
@@ -53,7 +54,7 @@ function Cart() {
           <PaymentResultContainer>
             <div>
               <span>결제 예상 금액</span>
-              <span>00000원</span>
+              <span>{totalAmount.toLocaleString()}원</span>
             </div>
             <Button>주문하기</Button>
           </PaymentResultContainer>
