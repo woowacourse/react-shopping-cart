@@ -5,22 +5,23 @@ import usePatch from 'hooks/usePatch';
 
 const QuantityInput = ({ itemId, cartQuantity }) => {
   const numberInput = useRef(null);
-  const [newQuantity, setNewQuantity] = useState(cartQuantity);
+  const [newQuantity, setNewQuantity] = useState(+cartQuantity);
   const { callPatchApi } = usePatch(`/cartList/${itemId}`);
 
   const handleChangeInput = (e) => {
-    setNewQuantity(e.target.value);
+    setNewQuantity(+e.target.value);
+    callPatchApi(itemId, +e.target.value);
   };
 
   const handleClickStepUp = () => {
     numberInput.current.stepUp(1);
-    setNewQuantity(numberInput.current.value);
-    callPatchApi(itemId, numberInput.current.value);
+    setNewQuantity(+numberInput.current.value);
+    callPatchApi(itemId, +numberInput.current.value);
   };
   const handleClickStepDown = () => {
     numberInput.current.stepDown(1);
-    setNewQuantity(numberInput.current.value);
-    callPatchApi(itemId, numberInput.current.value);
+    setNewQuantity(+numberInput.current.value);
+    callPatchApi(itemId, +numberInput.current.value);
   };
 
   return (

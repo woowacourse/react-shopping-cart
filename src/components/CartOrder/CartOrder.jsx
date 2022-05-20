@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import comma from 'utils/comma';
 
-const CartOrder = ({ totalPrice, totalCount }) => {
+const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
   return (
     <Styled.Section>
       <Styled.TopWrapper>
@@ -15,7 +15,9 @@ const CartOrder = ({ totalPrice, totalCount }) => {
           <Styled.HighlightText>{comma(totalPrice)}원</Styled.HighlightText>
         </Styled.FlexBetweenBox>
         <Styled.FlexCenterBox>
-          <Styled.OrderButton>주문하기({totalCount}개)</Styled.OrderButton>
+          <Styled.OrderButton onClick={handleClickOrder}>
+            주문하기({totalCount}개)
+          </Styled.OrderButton>
         </Styled.FlexCenterBox>
       </Styled.BottomWrapper>
     </Styled.Section>
@@ -25,6 +27,7 @@ const CartOrder = ({ totalPrice, totalCount }) => {
 CartOrder.propTypes = {
   totalPrice: PropTypes.number,
   totalCount: PropTypes.number,
+  handleClickOrder: PropTypes.func,
 };
 
 const Styled = {

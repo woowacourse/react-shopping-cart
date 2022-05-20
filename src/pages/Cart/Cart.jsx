@@ -7,16 +7,15 @@ import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
 import CartOrder from 'components/CartOrder';
 import { useEffect, useState } from 'react';
+import usePost from 'hooks/usePost';
 
 const Cart = () => {
-  const { getCartEffect, cartList, isLoading, isError } = useCart();
-  getCartEffect();
-
-  const initialIdList = cartList.map((item) => item.id);
-
-  const [checkedIdList, setCheckedIdList] = useState(initialIdList);
+  const [checkedIdList, setCheckedIdList] = useState([]);
+  const [checkedItemList, setCheckedItemList] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState();
+  const { getCartEffect, cartList, isLoading, isError } = useCart();
+  getCartEffect();
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
@@ -24,15 +23,22 @@ const Cart = () => {
   }, [cartList]);
 
   useEffect(() => {
-    const checkedItemList = cartList.filter(
+    const newCheckedItemList = cartList.filter(
       (item) =>
         checkedIdList.findIndex((checkedId) => item.id === checkedId) !== -1,
     );
-    const totalPrice = checkedItemList.reduce((acc, cur) => {
+    const totalPrice = newCheckedItemList.reduce((acc, cur) => {
       return acc + Number(cur.price * cur.cartQuantity);
     }, 0);
+    setCheckedItemList(newCheckedItemList);
     setTotalPrice(totalPrice);
   }, [checkedIdList]);
+
+  const { callApi: orderCheckedList } = usePost('/orderList', checkedItemList);
+
+  const handleClickOrder = () => {
+    orderCheckedList();
+  };
 
   return (
     <Styled.CartSection>
@@ -50,7 +56,11 @@ const Cart = () => {
           />
         )}
 
-        <CartOrder totalPrice={totalPrice} totalCount={checkedIdList.length} />
+        <CartOrder
+          totalPrice={totalPrice}
+          totalCount={checkedIdList.length}
+          handleClickOrder={handleClickOrder}
+        />
       </Styled.FlexBetweenBox>
     </Styled.CartSection>
   );

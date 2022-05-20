@@ -3,6 +3,8 @@ import { productList } from 'assets/mock';
 
 let cartList = [];
 
+let orderList = [];
+
 export const handlers = [
   rest.get('/productList/:id', (req, res, ctx) => {
     const { id } = req.params;
@@ -60,5 +62,16 @@ export const handlers = [
         : product,
     );
     return res(ctx.status(200));
+  }),
+
+  rest.post('/orderList', (req, res, ctx) => {
+    orderList = req.body;
+    console.log(orderList);
+    // orderList = newOrderIdList;
+    return res(ctx.status(201));
+  }),
+
+  rest.get('/orderList', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(orderList));
   }),
 ];
