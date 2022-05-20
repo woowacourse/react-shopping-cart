@@ -6,6 +6,7 @@ import CartProducItem from 'components/CartProductItem';
 import Layout from 'components/Layout';
 import Button from 'components/@common/Button/styles';
 import CheckBox from 'components/@common/CheckBox';
+import CartListReceipt from 'components/CartListReceipt';
 import { snackbar } from 'actions/snackbar';
 import { deleteCartItem, modifyCartItemCount } from 'actions/cart';
 import { COLORS } from 'styles/theme';
@@ -89,25 +90,7 @@ const CartList = () => {
                 </>
               ))}
           </CommonStyled.FlexWrapper>
-          <Styled.CartListReceiptContainer>
-            <CommonStyled.FlexWrapper padding="1.5rem">
-              <CommonStyled.Text>결제예상금액</CommonStyled.Text>
-            </CommonStyled.FlexWrapper>
-            <CommonStyled.HR margin="0" />
-            <CommonStyled.FlexWrapper flexDirection="column" padding="1.5rem">
-              <CommonStyled.FlexWrapper justifyContent="space-between">
-                <CommonStyled.Text weight="bold" size="0.8rem">
-                  결제예상금액
-                </CommonStyled.Text>
-                <CommonStyled.Text weight="bold" size="0.8rem">
-                  {totalPrice.toLocaleString('ko-KR')}원
-                </CommonStyled.Text>
-              </CommonStyled.FlexWrapper>
-              <Button height="60px" margin="3rem 0 0 0" size="1.2rem" weight="normal">
-                주문하기({checkedList.length}종)
-              </Button>
-            </CommonStyled.FlexWrapper>
-          </Styled.CartListReceiptContainer>
+          <CartListReceipt totalPrice={totalPrice} checkedListCount={checkedList.length} />
         </CommonStyled.FlexWrapper>
       </Styled.CartListContainer>
     </Layout>

@@ -4,6 +4,7 @@ import { COLORS } from 'styles/theme';
 import Button from '../Button/styles';
 
 const IconButtonStyle = styled(Button)`
+  width: unset;
   height: unset;
   margin: unset;
   background-color: transparent;
