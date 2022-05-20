@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import * as Styled from "./styles";
-
 import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
 import { actionCreators as CartActions } from "../../redux/modules/cart";
 import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar";
+
+import * as S from "./styles";
 
 import deleteIcon from "../../assets/deleteIcon_white.png";
 import cart from "../../assets/cart.svg";
@@ -74,40 +74,36 @@ function Product({ productInfo }: ProductProps) {
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductWrapper>
-      <Styled.ProductImageWrapper>
-        <Styled.ProductImage
+    <S.ProductWrapper>
+      <S.ProductImageWrapper>
+        <S.ProductImage
           onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
           src={img}
           alt={name}
         />
-      </Styled.ProductImageWrapper>
-      <Styled.ProductInfoWrapper>
-        <Styled.ProductInfo
+      </S.ProductImageWrapper>
+      <S.ProductInfoWrapper>
+        <S.ProductInfo
           onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
         >
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
-        </Styled.ProductInfo>
-        <Styled.CartImageWrapper>
-          {cartItem?.amount && <Styled.CartImageBadge />}
-          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니에 담기" />
-        </Styled.CartImageWrapper>
-        <Styled.CartCounter isShowCartCounter={isShowCartCounter}>
+        </S.ProductInfo>
+        <S.CartImageWrapper>
+          {cartItem?.amount && <S.CartImageBadge />}
+          <S.CartImage onClick={onClickCartImage} src={cart} alt="장바구니에 담기" />
+        </S.CartImageWrapper>
+        <S.CartCounter isShowCartCounter={isShowCartCounter}>
           {cartItem?.amount === 1 ? (
-            <Styled.DeleteIcon
-              onClick={onClickDeleteItem}
-              src={deleteIcon}
-              alt="장바구니에서 삭제"
-            />
+            <S.DeleteIcon onClick={onClickDeleteItem} src={deleteIcon} alt="장바구니에서 삭제" />
           ) : (
-            <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
+            <S.CartCounterButton onClick={onClickDecreaseCounter}>-</S.CartCounterButton>
           )}
           <span>{cartItem?.amount ?? 0}</span>
-          <Styled.CartCounterButton onClick={onClickIncreaseCounter}>+</Styled.CartCounterButton>
-        </Styled.CartCounter>
-      </Styled.ProductInfoWrapper>
-    </Styled.ProductWrapper>
+          <S.CartCounterButton onClick={onClickIncreaseCounter}>+</S.CartCounterButton>
+        </S.CartCounter>
+      </S.ProductInfoWrapper>
+    </S.ProductWrapper>
   );
 }
 

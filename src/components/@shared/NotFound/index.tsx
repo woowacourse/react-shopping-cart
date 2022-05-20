@@ -1,11 +1,12 @@
+import * as S from "./styles";
+
 import emptyPage from "../../../assets/emptyPage.jpeg";
-import * as Styled from "./styles";
 
 function NotFound() {
   return (
-    <Styled.Content>
-      <Styled.EmptyPageImage alt="emptyPage" src={emptyPage} />
-    </Styled.Content>
+    <S.Content>
+      <S.EmptyPageImage alt="emptyPage" src={emptyPage} />
+    </S.Content>
   );
 }
 

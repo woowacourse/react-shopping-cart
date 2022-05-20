@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 import { actionCreators as CartActions, CartItem as CartItemType } from "../../redux/modules/cart";
 
+import * as S from "./styles";
+
 import deleteIcon from "../../assets/deleteIcon_gray.png";
-import { useDispatch } from "react-redux";
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -29,7 +29,7 @@ function CartItem({ cartItem }: CartItemProps) {
   };
 
   return (
-    <CartItemWrapper>
+    <S.CartItemWrapper>
       <input
         type="checkbox"
         checked={cartItem.isSelected}
@@ -38,87 +38,23 @@ function CartItem({ cartItem }: CartItemProps) {
           dispatch(CartActions.toggleItemSelected(cartItem.detail.id, targetInput.checked));
         }}
       />
-      <CartItemImage src={img} alt={name} />
-      <CartItemName>{name}</CartItemName>
-      <CartItemInfoWrapper>
-        <DeleteIcon src={deleteIcon} alt="장바구니 삭제" onClick={onClickDeleteItem} />
-        <CartCounter>
-          <CartCounterNumber>{cartItem.amount}</CartCounterNumber>
-          <CartCounterIncreaseButton onClick={onClickIncreaseCounter}>▲</CartCounterIncreaseButton>
-          <CartCounterDecreaseButton onClick={onClickDecreaseCounter}>▼</CartCounterDecreaseButton>
-        </CartCounter>
+      <S.CartItemImage src={img} alt={name} />
+      <S.CartItemName>{name}</S.CartItemName>
+      <S.CartItemInfoWrapper>
+        <S.DeleteIcon src={deleteIcon} alt="장바구니 삭제" onClick={onClickDeleteItem} />
+        <S.CartCounter>
+          <S.CartCounterNumber>{cartItem.amount}</S.CartCounterNumber>
+          <S.CartCounterIncreaseButton onClick={onClickIncreaseCounter}>
+            ▲
+          </S.CartCounterIncreaseButton>
+          <S.CartCounterDecreaseButton onClick={onClickDecreaseCounter}>
+            ▼
+          </S.CartCounterDecreaseButton>
+        </S.CartCounter>
         <div>{price.toLocaleString()}원</div>
-      </CartItemInfoWrapper>
-    </CartItemWrapper>
+      </S.CartItemInfoWrapper>
+    </S.CartItemWrapper>
   );
 }
 
 export default CartItem;
-
-const CartItemWrapper = styled.div`
-  display: flex;
-  padding: 16px 0;
-  border-bottom: 1px solid #cccccc;
-  width: 100%;
-`;
-
-const CartItemImage = styled.img`
-  width: 100px;
-  margin: 0 12px;
-`;
-
-const CartItemName = styled.div`
-  width: 100%;
-`;
-
-const DeleteIcon = styled.img`
-  width: 16px;
-  cursor: pointer;
-`;
-
-const CartItemInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: space-between;
-`;
-
-const CartCounter = styled.div`
-  display: grid;
-  grid-template-columns: 50px 30px;
-  grid-template-rows: repeat(2, 20px);
-  width: 80px;
-  height: 40px;
-  border: 1px solid #dddddd;
-`;
-
-const CartCounterNumber = styled.div`
-  grid-column: 1/2;
-  grid-row: 1/-1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid #dddddd;
-  font-size: 18px;
-`;
-
-const CartCounterIncreaseButton = styled.div`
-  grid-column: 2/-1;
-  grid-row: 1/2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #dddddd;
-  font-size: 10px;
-  cursor: pointer;
-`;
-
-const CartCounterDecreaseButton = styled.div`
-  grid-column: 2/-1;
-  grid-row: 2/-1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 10px;
-  cursor: pointer;
-`;

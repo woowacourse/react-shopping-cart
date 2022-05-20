@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import * as Styled from "./styles";
+import * as S from "./styles";
 
 import Logo from "../../assets/Logo.png";
 
@@ -8,16 +8,16 @@ function Header() {
   const navigate = useNavigate();
 
   return (
-    <Styled.HeaderWrapper>
-      <Styled.HeaderTitle onClick={() => navigate("/")}>
+    <S.HeaderWrapper>
+      <S.HeaderTitle onClick={() => navigate("/")}>
         <img alt="Logo" src={Logo} />
         <div>WOOWA SHOP</div>
-      </Styled.HeaderTitle>
-      <Styled.HeaderMenu>
+      </S.HeaderTitle>
+      <S.HeaderMenu>
         <div onClick={() => navigate("/cart")}>장바구니</div>
         <div onClick={() => navigate("/order-list")}>주문목록</div>
-      </Styled.HeaderMenu>
-    </Styled.HeaderWrapper>
+      </S.HeaderMenu>
+    </S.HeaderWrapper>
   );
 }
 

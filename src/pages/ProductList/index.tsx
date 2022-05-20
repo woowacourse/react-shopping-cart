@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import * as Styled from "./styles";
+import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
 
 import Product from "../../components/Product";
 import Loader from "../../components/@shared/Loader";
 
-import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
+import * as S from "./styles";
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -28,11 +28,11 @@ function ProductList() {
   }
 
   return (
-    <Styled.ProductsWrapper>
+    <S.ProductsWrapper>
       {productList.map((product) => (
         <Product key={product.id} productInfo={product} />
       ))}
-    </Styled.ProductsWrapper>
+    </S.ProductsWrapper>
   );
 }
 

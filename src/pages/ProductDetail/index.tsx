@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 
-import * as Styled from "./styles";
-
 import { useCartItemSelector } from "../../hooks/useCartSelector";
 
 import { actionCreators as CartActions } from "../../redux/modules/cart";
+
+import * as S from "./styles";
 
 type ProductDetailType = {
   name: string;
@@ -27,36 +27,36 @@ function ProductDetail() {
   const cartItem = useCartItemSelector(id);
 
   return (
-    <Styled.Content>
-      <Styled.ProductDetailWrapper>
-        <Styled.ProductImage src={img} alt={name} />
-        {cartItem && <Styled.ProductBadge>찜</Styled.ProductBadge>}
-        <Styled.ProductName>{name}</Styled.ProductName>
+    <S.Content>
+      <S.ProductDetailWrapper>
+        <S.ProductImage src={img} alt={name} />
+        {cartItem && <S.ProductBadge>찜</S.ProductBadge>}
+        <S.ProductName>{name}</S.ProductName>
         <hr />
-        <Styled.ProductPriceWrapper>
+        <S.ProductPriceWrapper>
           <span>금액</span>
           <span>{price.toLocaleString()}원</span>
-        </Styled.ProductPriceWrapper>
+        </S.ProductPriceWrapper>
         {cartItem ? (
-          <Styled.CartButton
+          <S.CartButton
             color="#2ac1bc"
             onClick={() => {
               navigate("/cart");
             }}
           >
             상품 {cartItem.amount}개 바로구매
-          </Styled.CartButton>
+          </S.CartButton>
         ) : (
-          <Styled.CartButton
+          <S.CartButton
             onClick={() => {
               dispatch(CartActions.addItem(productDetail));
             }}
           >
             장바구니 담기
-          </Styled.CartButton>
+          </S.CartButton>
         )}
-      </Styled.ProductDetailWrapper>
-    </Styled.Content>
+      </S.ProductDetailWrapper>
+    </S.Content>
   );
 }
 

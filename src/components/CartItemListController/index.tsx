@@ -1,14 +1,15 @@
-import React from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
+
 import { actionCreators as CartActions } from "../../redux/modules/cart";
+
+import * as S from "./styles";
 
 function CartItemListController() {
   const dispatch = useDispatch();
 
   return (
-    <CartItemListControllerWrapper justify="space-between">
-      <CartItemListSelect>
+    <S.CartItemListControllerWrapper justify="space-between">
+      <S.CartItemListSelect>
         <input
           type="checkbox"
           id="all-check"
@@ -18,8 +19,8 @@ function CartItemListController() {
           }}
         />
         <label htmlFor="all-check">선택해제</label>
-      </CartItemListSelect>
-      <CartItemListDeleteButton
+      </S.CartItemListSelect>
+      <S.CartItemListDeleteButton
         onClick={() => {
           if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
             dispatch(CartActions.deleteSelectedItems());
@@ -27,37 +28,9 @@ function CartItemListController() {
         }}
       >
         상품삭제
-      </CartItemListDeleteButton>
-    </CartItemListControllerWrapper>
+      </S.CartItemListDeleteButton>
+    </S.CartItemListControllerWrapper>
   );
 }
 
 export default CartItemListController;
-
-const FlexBox = styled.div<{ direction?: string; justify?: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: ${({ justify = "center" }) => justify};
-  flex-direction: ${({ direction = "row" }) => direction};
-`;
-
-const CartItemListControllerWrapper = styled(FlexBox)``;
-
-const CartItemListSelect = styled.p`
-  padding: 20px 0;
-  label {
-    margin-left: 6px;
-  }
-`;
-
-const CartItemListDeleteButton = styled.button`
-  width: 80px;
-  height: 36px;
-  background-color: white;
-  border: 1px solid #dddddd;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #dddddd;
-  }
-`;
