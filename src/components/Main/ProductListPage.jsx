@@ -5,7 +5,7 @@ import Product from 'components/Main/Product';
 import { loadCarts, cartsActionCreators } from 'store/carts';
 import { loadProducts } from 'store/products';
 
-function ProductListContainer() {
+function ProductListPage() {
   const { products, loading, productsError } = useSelector(
     (state) => state.products,
   );
@@ -29,7 +29,7 @@ function ProductListContainer() {
   }, [cartsError]);
 
   return (
-    <Styled.ProductListContainer>
+    <Styled.ProductListPage>
       {loading && <h2>Loading...</h2>}
       {productsError && <h2>{productsError}</h2>}
       {!loading && !productsError && products?.length === 0 ? (
@@ -46,12 +46,12 @@ function ProductListContainer() {
           />
         ))
       )}
-    </Styled.ProductListContainer>
+    </Styled.ProductListPage>
   );
 }
 
 const Styled = {
-  ProductListContainer: styled.section`
+  ProductListPage: styled.section`
     display: flex;
     justify-content: center;
 
@@ -61,4 +61,4 @@ const Styled = {
   `,
 };
 
-export default ProductListContainer;
+export default ProductListPage;

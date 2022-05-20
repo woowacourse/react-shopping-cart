@@ -5,6 +5,7 @@ import Order from 'components/CartPage/Order';
 import CheckBox from 'components/CartPage/CheckBox';
 import { DivideUnderLine } from 'components/shared/styles';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const dummyProducts = [
   {
@@ -28,6 +29,10 @@ const dummyProducts = [
 ];
 
 function CartPage() {
+  const { carts } = useSelector((state) => state.carts);
+
+  console.log('carts', carts);
+
   return (
     <Styled.CartSection>
       <CartHeader />
