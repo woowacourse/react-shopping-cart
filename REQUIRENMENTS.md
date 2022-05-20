@@ -42,10 +42,10 @@
   - [x] 개별 상품 가져오는 API 작성 (GET)
   - [x] 장바구니 담기 API 작성 (POST)
   - [x] 장바구니 가져오는 API 작성 (GET)
-- [ ] 장바구니 페이지
+- [x] 장바구니 페이지
   - [x] CartItem 컴포넌트 만들기
   - [x] CartContainer 컴포넌트 만들기
   - [x] PaymentBox 컴포넌트 만들기
   - [x] Title 컴포넌트 만들기
   - [x] CheckBox 컴포넌트 만들기
-- [ ] 단위 테스트 작성
+- [x] 단위 테스트 작성
