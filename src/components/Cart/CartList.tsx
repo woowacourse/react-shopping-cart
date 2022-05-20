@@ -6,12 +6,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
-import { CartItem, Item } from 'types/domain';
+import { CartItem, ItemInCart } from 'types/domain';
 
 import CartItemContainer from './CartItemContainer';
 
 interface CartListProps {
-  itemList: Item[];
+  itemList: ItemInCart[];
   cartList: CartItem[];
 }
 
@@ -23,7 +23,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
     deleteCartItem,
     deleteAllCartItem,
   } = useCartRequest(cartList);
-  const isAllSelected = cartList.every(item => item.isSelected);
+  const isAllSelected = itemList.every(item => item.isSelected);
   const totalItemCount = itemList.length;
 
   const handleClickAllDeleteButton = () => {
@@ -31,6 +31,8 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
       deleteAllCartItem();
     }
   };
+
+  console.log('itemList', itemList);
 
   return (
     <StyledRoot>
@@ -55,11 +57,10 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
       </StyledTop>
       <StyledCount>든든배송 상품 ({totalItemCount}개)</StyledCount>
       <Division margin='20px 0' height='4px' color={theme.colors.divisionLine} />
-      {itemList.map((item, index) => (
+      {itemList?.map((item, index) => (
         <React.Fragment key={item.id}>
           <CartItemContainer
             item={item}
-            cartItem={cartList[index]}
             selectItem={selectCartItem(item.id)}
             changeQuantity={updateCartItemQuantity(item.id)}
             deleteItem={deleteCartItem(item.id)}

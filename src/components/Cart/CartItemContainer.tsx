@@ -2,13 +2,12 @@ import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
 import CheckBox from 'components/common/CheckBox';
 import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
-import { CartItem, Item } from 'types/domain';
+import { ItemInCart } from 'types/domain';
 
 import QuantityBox from './QuantityBox';
 
 interface CartItemContainerProps {
-  item: Item;
-  cartItem: CartItem;
+  item: ItemInCart;
   selectItem: () => void;
   changeQuantity: () => void;
   deleteItem: () => void;
@@ -16,12 +15,11 @@ interface CartItemContainerProps {
 
 const CartItemContainer = ({
   item,
-  cartItem,
   selectItem,
   changeQuantity,
   deleteItem,
 }: CartItemContainerProps) => {
-  const { thumbnailUrl, price, title } = item;
+  const { thumbnailUrl, price, title, isSelected, quantity } = item;
 
   const handleClickDeleteButton = () => {
     if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
@@ -31,12 +29,12 @@ const CartItemContainer = ({
 
   return (
     <StyledCartItem>
-      <CheckBox checked={cartItem.isSelected} onChange={selectItem} />
+      <CheckBox checked={isSelected} onChange={selectItem} />
       <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
       <p>{title}</p>
       <StyledRight>
         <StyledDeleteIcon onClick={handleClickDeleteButton} />
-        <QuantityBox quantity={cartItem.quantity} handleChange={changeQuantity} />
+        <QuantityBox quantity={quantity} handleChange={changeQuantity} />
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
     </StyledCartItem>

@@ -10,3 +10,5 @@ export interface CartItem {
   quantity: number;
   isSelected: boolean;
 }
+
+export type ItemInCart = Item & CartItem;

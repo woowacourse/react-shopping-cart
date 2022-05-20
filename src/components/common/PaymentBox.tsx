@@ -9,11 +9,12 @@ interface PaymentBoxProps {
   priceDescription: string;
   price: number;
   buttonText: string;
+  style: any;
 }
 
-const PaymentBox = ({ title, priceDescription, price, buttonText }: PaymentBoxProps) => {
+const PaymentBox = ({ title, priceDescription, price, buttonText, style }: PaymentBoxProps) => {
   return (
-    <StyledRoot>
+    <StyledRoot style={style}>
       <PriceNotice title={title} priceDescription={priceDescription} price={price} />
       <Button
         color='white'
