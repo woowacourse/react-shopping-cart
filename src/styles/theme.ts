@@ -39,6 +39,7 @@ const media = {
 const theme = {
   media,
   colors: {
+    red: '#ff413b',
     redPink: '#ff9c9c',
     pink: '#ffc2c2',
     white: '#FFFFFF',
