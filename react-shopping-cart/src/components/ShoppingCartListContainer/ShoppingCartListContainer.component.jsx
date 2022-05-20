@@ -4,7 +4,7 @@ import Error from 'components/@shared/Error/Error.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
 import ShoppingCartListItem from 'components/ShoppingCartListItem/ShoppingCartListItem.component';
-import { findData } from 'utils';
+import { addQuantityData } from 'utils';
 
 const CartListCountTextBox = styled(TextBox).attrs({
   fontSize: 'medium',
@@ -25,7 +25,7 @@ const CartListBox = styled(FlexBox).attrs({
 
 function ShoppingCartListContainer({ data }) {
   const shoppingCart = useSelector(state => state.shoppingCart);
-  const cartData = shoppingCart.map(cartItem => findData(cartItem, data));
+  const cartData = shoppingCart.map(cartItem => addQuantityData(cartItem, data));
 
   return (
     <CartListBox>

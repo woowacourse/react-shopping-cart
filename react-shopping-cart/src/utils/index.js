@@ -6,7 +6,7 @@ export function withOpacityValue(hexCode, opacity) {
   return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 }
 
-export function findData(cartItem, data) {
+export function addQuantityData(cartItem, data) {
   const productData = data.find(datum => cartItem.id === datum.id);
   return { ...productData, quantity: cartItem.quantity };
 }
