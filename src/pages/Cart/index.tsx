@@ -29,7 +29,7 @@ function Cart() {
   };
 
   const onClickDeleteItems = () => {
-    dispatch(deleteBySelectedItems());
+    confirm("선택된 상품을 삭제 하시겠습니까?") && dispatch(deleteBySelectedItems());
   };
 
   return (

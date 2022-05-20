@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { CartItem, deleteItem, selectItem } from "../../redux/modules/cart";
+import { CartItem, decrement, deleteItem, increment, selectItem } from "../../redux/modules/cart";
 import CheckBox from "../@shared/CheckBox/styles";
 import Delete from "../../assets/Delete.png";
 import {
@@ -23,7 +23,18 @@ function CartProduct({ item: { id, img, name, price, amount, isSelected } }: Car
   };
 
   const onClickDeleteItem = () => {
-    dispatch(deleteItem(id));
+    confirm("해당 상품을 삭제 하시겠습니까?") && dispatch(deleteItem(id));
+  };
+
+  const onClickIncreaseCounter = () => {
+    dispatch(increment(id));
+  };
+
+  const onClickDecreaseCounter = () => {
+    if (amount === 1) {
+      return;
+    }
+    dispatch(decrement(id));
   };
 
   return (
@@ -38,8 +49,8 @@ function CartProduct({ item: { id, img, name, price, amount, isSelected } }: Car
         <ProductAmountContainer>
           <ProductAmountWrapper>{amount}</ProductAmountWrapper>
           <ProductCounterContainer>
-            <button>▲</button>
-            <button>▼</button>
+            <button onClick={onClickIncreaseCounter}>▲</button>
+            <button onClick={onClickDecreaseCounter}>▼</button>
           </ProductCounterContainer>
         </ProductAmountContainer>
         <span>{price.toLocaleString()}원</span>
