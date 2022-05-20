@@ -17,8 +17,10 @@ function MainPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getProducts(dispatch);
-  }, [dispatch]);
+    if (productList.length < 1) {
+      getProducts(dispatch);
+    }
+  }, [dispatch, productList]);
 
   const renderSwitch = useCallback(() => {
     switch (condition) {
