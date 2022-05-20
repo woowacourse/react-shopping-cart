@@ -1,4 +1,8 @@
-import { postCartItem, putCartItem } from 'redux/action-creators/cartListThunk';
+import {
+  postCartItem,
+  putCartItem,
+  removeCartItem as deleteCartItem,
+} from 'redux/action-creators/cartListThunk';
 import { useAppDispatch } from './useAppDispatch';
 import { CartItem } from 'types/domain';
 import { CartListAction } from 'redux/actions/cartList';
@@ -7,15 +11,45 @@ import { LOCAL_BASE_URL } from 'apis';
 const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
 
-  const updateCartItemQuantity = (id: number) => {
+  const updateCartItemQuantity = (id: number, type = 'up', updateQuantity = 1) => {
     const targetItem = cartList.find(cartItem => cartItem.id === id);
 
-    if (!targetItem) {
-      dispatch(postCartItem({ id, quantity: 1, willPurchase: true }));
+    if (type === 'up') {
+      if (!targetItem) {
+        dispatch(postCartItem({ id, quantity: 1, willPurchase: true }));
+
+        return;
+      }
+      dispatch(
+        putCartItem({
+          ...targetItem,
+          quantity: targetItem.quantity + updateQuantity,
+          willPurchase: true,
+        })
+      );
 
       return;
     }
-    dispatch(putCartItem({ ...targetItem, quantity: targetItem.quantity + 1, willPurchase: true }));
+    if (type === 'down') {
+      if (targetItem.quantity - updateQuantity > 0) {
+        dispatch(
+          putCartItem({
+            ...targetItem,
+            quantity: targetItem.quantity - updateQuantity,
+            willPurchase: true,
+          })
+        );
+      }
+      if (targetItem.quantity - updateQuantity <= 0) {
+        dispatch(deleteCartItem(targetItem));
+      }
+    }
+  };
+
+  const removeCartItem = (id: number) => {
+    const targetItem = cartList.find(cartItem => cartItem.id === id);
+
+    dispatch(deleteCartItem(targetItem));
   };
 
   const toggleCartItemWillPurchase = (id: number) => {
@@ -25,7 +59,7 @@ const useUpdateCartItem = (cartList: CartItem[]) => {
     dispatch(putCartItem({ id, quantity: targetItem.quantity, willPurchase: !prevWillPurchase }));
   };
 
-  return { updateCartItemQuantity, toggleCartItemWillPurchase };
+  return { updateCartItemQuantity, toggleCartItemWillPurchase, removeCartItem };
 };
 
 export default useUpdateCartItem;

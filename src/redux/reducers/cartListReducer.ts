@@ -1,5 +1,6 @@
 import { CartListAction, CartListActionType } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
+import { itemListReducer } from './itemListReducer';
 
 interface CartItemState {
   loading: boolean;
@@ -44,6 +45,21 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
       return { loading: false, error: null, data: [...state.data, action.payload] };
     case CartListActionType.POST_CART_ITEM_FAILURE:
       return { loading: true, error: null, data: state.data };
+
+    case CartListActionType.REMOVE_CART_ITEM_START:
+      return { loading: true, error: null, data: state.data };
+    case CartListActionType.REMOVE_CART_ITEM_SUCCESS: {
+      const itemDeletedCartList = state.data.filter(item => item.id !== action.payload.id);
+
+      return {
+        loading: false,
+        error: null,
+        data: itemDeletedCartList,
+      };
+    }
+    case CartListActionType.REMOVE_CART_ITEM_FAILURE:
+      return { loading: true, error: null, data: state.data };
+
     default:
       return state;
   }

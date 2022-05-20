@@ -6,6 +6,7 @@ import { flexCenter } from 'styles/mixin';
 import CheckBox from 'components/common/CheckBox';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
+import Controller from './Controller';
 
 const CartList = ({
   cartList,
@@ -41,6 +42,16 @@ const CartList = ({
     toggleCartItemWillPurchase(targetId);
   };
 
+  const { updateCartItemQuantity, removeCartItem } = useUpdateCartItem(cartList);
+
+  const modifyQuantity = (targetId: number, type: 'up' | 'down' | 'alter', quantity: number) => {
+    updateCartItemQuantity(targetId, type, 1);
+  };
+
+  const deleteItem = (targetId: number) => {
+    removeCartItem(targetId);
+  };
+
   return (
     <StyledRoot>
       <ButtonSet>
@@ -71,14 +82,12 @@ const CartList = ({
               <CroppedImage src={detail.thumbnailUrl} width='150px' height='144px' alt='상품' />
               <ItemName>{detail.title}</ItemName>
               <StyledRight>
-                <TrashCan />
-                <QuantityController>
-                  <QuantityInput>
-                    <div>{cartItem.quantity}</div>
-                  </QuantityInput>
-                  <IncreaseButton>▲</IncreaseButton>
-                  <DecreaseButton>▼</DecreaseButton>
-                </QuantityController>
+                <TrashCan id={cartItem.id} onClick={() => deleteItem(id)} />
+                <Controller
+                  id={cartItem.id}
+                  quantity={cartItem.quantity}
+                  modifyQuantity={modifyQuantity}
+                ></Controller>
                 <TotalPrice>
                   {totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')} 원
                 </TotalPrice>
@@ -184,45 +193,6 @@ const TrashCan = styled(TrashCanIcon)`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-`;
-
-const QuantityController = styled.div`
-  display: grid;
-  grid-template-areas:
-    ' qp ib'
-    'qp db';
-
-  border: solid grey 1px;
-`;
-
-const QuantityInput = styled.div`
-  ${flexCenter}
-
-  font-size: 24px;
-  grid-area: qp;
-  width: 73px;
-  height: 60px;
-  border: solid grey 1px;
-`;
-
-const IncreaseButton = styled.button`
-  ${flexCenter}
-
-  grid-area: ib;
-  width: 42px;
-  height: 30px;
-  border: solid grey 1px;
-  cursor: pointer;
-`;
-
-const DecreaseButton = styled.button`
-  ${flexCenter}
-
-  grid-area: db;
-  width: 42px;
-  height: 30px;
-  border: solid grey 1px;
   cursor: pointer;
 `;
 

@@ -54,3 +54,22 @@ export const postCartItem = (cartItem: CartItem) => async (dispatch: Dispatch<Ca
     });
   }
 };
+
+export const removeCartItem =
+  (cartItem: CartItem) => async (dispatch: Dispatch<CartListAction>) => {
+    dispatch({ type: CartListActionType.REMOVE_CART_ITEM_START });
+
+    try {
+      const response = await axios.delete(`${LOCAL_BASE_URL}/cartList/${cartItem.id}`);
+
+      dispatch({
+        type: CartListActionType.REMOVE_CART_ITEM_SUCCESS,
+        payload: cartItem,
+      });
+    } catch (e) {
+      dispatch({
+        type: CartListActionType.REMOVE_CART_ITEM_FAILURE,
+        payload: e.message,
+      });
+    }
+  };
