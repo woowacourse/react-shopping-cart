@@ -37,7 +37,7 @@ function ShoppingCartListItem({ id, name, thumbnail, price, quantity }) {
   };
 
   const itemDeleteConfirm = id => {
-    if (window.confirm('장바구니에서 삭제하시겠습니까?')) {
+    if (window.confirm(`${name}을(를) 장바구니에서 삭제하시겠습니까?`)) {
       dispatch(deleteItem(id));
       dispatch(deleteSpecificItem(id));
     }
