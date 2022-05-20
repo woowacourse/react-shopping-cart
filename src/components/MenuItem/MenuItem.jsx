@@ -7,7 +7,7 @@ const MenuItem = ({ children, to }) => {
 };
 
 MenuItem.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
   to: PropTypes.string,
 };
 

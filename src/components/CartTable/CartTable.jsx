@@ -70,7 +70,7 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
 
 CartTable.propTypes = {
   cartList: PropTypes.array,
-  checkedIdList: PropTypes.object,
+  checkedIdList: PropTypes.array,
   setCheckedIdList: PropTypes.func,
 };
 

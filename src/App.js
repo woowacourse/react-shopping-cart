@@ -9,7 +9,7 @@ import Layout from 'components/Layout';
 function App() {
   return (
     <Suspense
-      fallback={<ImgWrapper isMini="true" src={spinner} alt="로딩 스피너" />}
+      fallback={<ImgWrapper isMini={true} src={spinner} alt="로딩 스피너" />}
     >
       <BrowserRouter>
         <Routes>

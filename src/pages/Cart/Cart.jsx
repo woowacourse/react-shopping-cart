@@ -45,7 +45,7 @@ const Cart = () => {
       <TitleHeader>장바구니</TitleHeader>
       <Styled.FlexBetweenBox>
         {isLoading && (
-          <ImgWrapper isMini="true" src={spinner} alt="로딩 스피너" />
+          <ImgWrapper isMini={true} src={spinner} alt="로딩 스피너" />
         )}
         {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
         {!isLoading && cartList && (
