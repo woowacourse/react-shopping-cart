@@ -1,20 +1,32 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
-
 import { useParams } from 'react-router-dom';
-
 import usePost from 'hooks/usePost';
+import { useState } from 'react';
+import CartPopup from 'components/CartPopup';
+import useCart from 'hooks/useCart';
 
 const ProductDetail = ({ imgUrl, name, price }) => {
   const { id } = useParams();
-  const { callApi } = usePost('/cartList', {
+  const { callApi, isError } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
+  const { cartList } = useCart();
+  const [isInCart, setIsInCart] = useState(
+    cartList.find((item) => +item.id === +id),
+  );
+  const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = () => {
     callApi();
+    setIsCartPopupShow(true);
+
+    setTimeout(() => {
+      setIsCartPopupShow(false);
+      setIsInCart(true);
+    }, 3000);
     console.log('hi');
   };
 
@@ -35,6 +47,11 @@ const ProductDetail = ({ imgUrl, name, price }) => {
         >
           장바구니
         </Button>
+        <CartPopup
+          isCartPopupShow={isCartPopupShow}
+          isInCart={isInCart}
+          isError={isError}
+        />
       </Styled.ProductInfo>
     </>
   );
