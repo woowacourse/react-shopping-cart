@@ -33,7 +33,7 @@ function ProductDetailPage() {
   return (
     <StyledProductDetailContainer>
       <StyledImageBox width={SIZE.LARGE} height={SIZE.LARGE}>
-        <StyledImg width={SIZE.LARGE} src={imageUrl}></StyledImg>
+        <StyledImg width={SIZE.LARGE} src={imageUrl} alt={name}></StyledImg>
       </StyledImageBox>
       <StyledProductDetailInfo>
         <StyledProductDetailTitle>{name}</StyledProductDetailTitle>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from './common/Styled';
@@ -22,7 +22,7 @@ function Product({ product }) {
     <StyledItem>
       <Link to={`${PATH.DETAIL_LINK}${id}`}>
         <StyledImageBox width={SIZE.MIDDLE} height={SIZE.MIDDLE}>
-          <StyledImg width={SIZE.MIDDLE} src={imageUrl} />
+          <StyledImg width={SIZE.MIDDLE} src={imageUrl} alt={name} />
         </StyledImageBox>
       </Link>
       <StyledItemInfoBox>
