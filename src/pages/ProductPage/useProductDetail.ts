@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
 
-const useProductPage = () => {
+const useProductDetail = (id: string | undefined) => {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const { isLoading, productDetail, error } = useSelector(
     (state: StoreState) => ({
       isLoading: state.isLoading,
@@ -24,4 +22,4 @@ const useProductPage = () => {
   return { isLoading, productDetail, error };
 };
 
-export default useProductPage;
+export default useProductDetail;
