@@ -15,9 +15,7 @@ import MarginWrapper from 'components/@common/MarginWrapper';
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartProductList, isLoading } = useSelector(
-    (state: RootState) => state.cartProductListReducer,
-  );
+  const { cartProductList, isLoading } = useSelector((state: RootState) => state.cartProductList);
 
   useEffect(() => {
     // 상태가 변경되지 않았으면 return;

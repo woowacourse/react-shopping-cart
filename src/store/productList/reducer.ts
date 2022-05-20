@@ -16,7 +16,7 @@ const initialState: ProductListState = {
   isLoaded: false,
 };
 
-const productListReducer = (state: ProductListState = initialState, action: ProductListAction) => {
+const productList = (state: ProductListState = initialState, action: ProductListAction) => {
   if (action.type === START_PRODUCT_LIST) {
     return {
       ...state,
@@ -35,4 +35,4 @@ const productListReducer = (state: ProductListState = initialState, action: Prod
   return state;
 };
 
-export default productListReducer;
+export default productList;

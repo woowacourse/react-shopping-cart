@@ -13,9 +13,7 @@ import { RootState } from 'store';
 const ProductList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { productList, isLoading, isLoaded } = useSelector(
-    (state: RootState) => state.productListReducer,
-  );
+  const { productList, isLoading, isLoaded } = useSelector((state: RootState) => state.productList);
 
   useEffect(() => {
     if (isLoaded) return;

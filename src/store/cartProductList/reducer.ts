@@ -14,10 +14,7 @@ const initialState: CartProductListState = {
   isLoading: false,
 };
 
-export const cartProductListReducer = (
-  state: CartProductListState = initialState,
-  action: Action,
-) => {
+const cartProductList = (state: CartProductListState = initialState, action: Action) => {
   if (action.type === START_CART_PRODUCT_LIST) {
     return {
       ...state,
@@ -35,3 +32,5 @@ export const cartProductListReducer = (
 
   return state;
 };
+
+export default cartProductList;
