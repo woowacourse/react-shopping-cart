@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
   ${({ theme }) => css`
-    background-color: ${theme.mainColor};
+    background-color: ${theme.brandColor_1};
     min-width: ${theme.minWidth};
   `}
   padding: 10px;
@@ -24,7 +24,7 @@ export const Logo = styled.h1`
 
   font-size: 1.5rem;
   ${({ theme }) => css`
-    color: ${theme.textColorWhite};
+    color: ${theme.whiteColor_1};
 
     ${theme.tablet} {
       font-size: 1rem;
@@ -44,7 +44,7 @@ export const NavLink = styled(Link)`
   font-weight: bold;
 
   ${({ theme }) => css`
-    color: ${theme.textColorWhite};
+    color: ${theme.whiteColor_1};
 
     ${theme.tablet} {
       font-size: 0.8rem;

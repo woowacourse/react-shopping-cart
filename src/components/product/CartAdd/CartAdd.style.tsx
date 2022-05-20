@@ -34,8 +34,8 @@ export const TotalPrice = styled.h1``;
 
 export const Button = styled.button`
   ${({ theme }) => css`
-    background-color: ${theme.mainColor};
-    color: ${theme.textColorWhite};
+    background-color: ${theme.brandColor_1};
+    color: ${theme.whiteColor_1};
   `}
 
   font-weight: bold;

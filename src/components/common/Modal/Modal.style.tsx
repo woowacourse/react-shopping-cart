@@ -12,11 +12,11 @@ export const Dimmed = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #00000099;
+  background-color: ${({ theme }) => theme.blackColor_2};
 `;
 
 export const Container = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.whiteColor_1};
   padding: 50px;
   border-radius: 4px;
 `;
