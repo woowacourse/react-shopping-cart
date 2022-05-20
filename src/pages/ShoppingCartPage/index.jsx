@@ -28,7 +28,11 @@ function ShoppingCartPage() {
     handleSelectAllCheckBoxClick,
   } = useCheckBox(cartItemIdList);
 
-  const paymentAmount = cartItemList?.reduce((prev, cartItem) => {
+  const selectedCartItemList = cartItemList?.filter((cartItem) =>
+    selectedList.includes(cartItem.id)
+  );
+
+  const paymentAmount = selectedCartItemList?.reduce((prev, cartItem) => {
     return prev + cartItem.price * cartItem.quantity;
   }, 0);
 
@@ -89,7 +93,10 @@ function ShoppingCartPage() {
             </CartItemList>
           </div>
         </div>
-        <PaymentBox amount={paymentAmount} quantity={cartItemList.length} />
+        <PaymentBox
+          amount={paymentAmount}
+          quantity={selectedCartItemList.length}
+        />
       </ContentContainer>
     </div>
   );

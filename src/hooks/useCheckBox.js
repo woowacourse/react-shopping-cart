@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const useCheckBox = (baseList = []) => {
-  const [selectedList, setSelectedList] = useState([]);
+  const [selectedList, setSelectedList] = useState([...baseList]);
 
   const isSelected = (id) => selectedList.includes(id);
 
