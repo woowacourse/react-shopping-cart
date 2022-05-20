@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { MESSAGE } from "../../constants/constants";
 
 import { actionCreators as CartActions } from "../../redux/modules/cart";
 
@@ -22,7 +23,7 @@ function CartItemListController() {
       </S.CartItemListSelect>
       <S.CartItemListDeleteButton
         onClick={() => {
-          if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+          if (confirm(MESSAGE.CONFIRM_DELETE)) {
             dispatch(CartActions.deleteSelectedItems());
           }
         }}

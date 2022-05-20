@@ -11,6 +11,12 @@ import * as S from "./styles";
 
 import deleteIcon from "../../assets/deleteIcon_white.png";
 import cart from "../../assets/cart.svg";
+import {
+  CART_AMOUNT_MIN,
+  CART_COUNTER_HIDE_TIME,
+  MESSAGE,
+  ROUTE_URL,
+} from "../../constants/constants";
 
 export type ProductType = {
   name: string;
@@ -37,15 +43,15 @@ function Product({ productInfo }: ProductProps) {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((cartItem) => cartItem.detail.id === id)) {
       dispatch(CartActions.addItem(productInfo));
-      dispatch(SnackBarActions.show("장바구니에 추가되었습니다. 😍"));
+      dispatch(SnackBarActions.show(MESSAGE.ADD_CART_ITEM));
     }
   };
 
   const onClickDeleteItem = () => {
-    if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+    if (confirm(MESSAGE.CONFIRM_DELETE)) {
       dispatch(CartActions.deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(SnackBarActions.show("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(SnackBarActions.show(MESSAGE.DELETE_CART_ITEM));
     }
   };
 
@@ -69,7 +75,7 @@ function Product({ productInfo }: ProductProps) {
     if (isShowCartCounter) {
       timeout.current = setTimeout(() => {
         setIsShowCartCounter(false);
-      }, 3000);
+      }, CART_COUNTER_HIDE_TIME);
     }
   }, [isShowCartCounter, cartItem?.amount]);
 
@@ -77,14 +83,18 @@ function Product({ productInfo }: ProductProps) {
     <S.ProductWrapper>
       <S.ProductImageWrapper>
         <S.ProductImage
-          onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
+          onClick={() =>
+            navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } })
+          }
           src={img}
           alt={name}
         />
       </S.ProductImageWrapper>
       <S.ProductInfoWrapper>
         <S.ProductInfo
-          onClick={() => navigate(`/product/${id}`, { state: { productDetail: productInfo } })}
+          onClick={() =>
+            navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } })
+          }
         >
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
@@ -94,7 +104,7 @@ function Product({ productInfo }: ProductProps) {
           <S.CartImage onClick={onClickCartImage} src={cart} alt="장바구니에 담기" />
         </S.CartImageWrapper>
         <S.CartCounter isShowCartCounter={isShowCartCounter}>
-          {cartItem?.amount === 1 ? (
+          {cartItem?.amount === CART_AMOUNT_MIN ? (
             <S.DeleteIcon onClick={onClickDeleteItem} src={deleteIcon} alt="장바구니에서 삭제" />
           ) : (
             <S.CartCounterButton onClick={onClickDecreaseCounter}>-</S.CartCounterButton>

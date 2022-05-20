@@ -5,6 +5,7 @@ import { actionCreators as CartActions, CartItem as CartItemType } from "../../r
 import * as S from "./styles";
 
 import deleteIcon from "../../assets/deleteIcon_gray.png";
+import { CART_AMOUNT_MIN, MESSAGE } from "../../constants/constants";
 
 interface CartItemProps {
   cartItem: CartItemType;
@@ -15,7 +16,7 @@ function CartItem({ cartItem }: CartItemProps) {
   const { id, name, img, price } = cartItem.detail;
 
   const onClickDeleteItem = () => {
-    if (confirm("상품을 장바구니에서 삭제하시겠습니까?")) {
+    if (confirm(MESSAGE.CONFIRM_DELETE)) {
       dispatch(CartActions.deleteItem(id));
     }
   };
@@ -25,7 +26,7 @@ function CartItem({ cartItem }: CartItemProps) {
   };
 
   const onClickDecreaseCounter = () => {
-    if (cartItem.amount > 1) dispatch(CartActions.decrement(id));
+    if (cartItem.amount > CART_AMOUNT_MIN) dispatch(CartActions.decrement(id));
   };
 
   return (
