@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const StyledButton = styled.button`
   border: none;
   background-color: transparent;
+  font-family: inherit;
   cursor: pointer;
 `;
 
