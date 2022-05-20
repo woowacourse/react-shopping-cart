@@ -3,22 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import { PATH } from 'constants/path';
+import usePost from 'hooks/usePost';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
+  const { callApi } = usePost('/cartList', {
+    id,
+    cartQuantity: 1,
+  });
   const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
   };
 
   return (
-    <Styled.Wrapper onClick={handleClickProduct}>
-      <Styled.ProductImage src={imgUrl} alt={name} />
+    <Styled.Wrapper>
+      <Styled.ProductImage
+        src={imgUrl}
+        alt={name}
+        onClick={handleClickProduct}
+      />
       <Styled.ProductDetail>
-        <Styled.ProductInfo>
+        <Styled.ProductInfo onClick={handleClickProduct}>
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Styled.ProductInfo>
-        <Styled.CartButton>
+        <Styled.CartButton onClick={callApi}>
           <Styled.CartSvg src={smallCart} />
         </Styled.CartButton>
       </Styled.ProductDetail>
