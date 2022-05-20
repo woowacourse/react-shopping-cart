@@ -2,6 +2,7 @@ import {
   GET_PRODUCT_CART_LOADING,
   GET_PRODUCT_CART_SUCCESS,
   GET_PRODUCT_CART_FAIL,
+  GET_CHECK_TOTAL_CART_PRODUCT,
 } from './action';
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   getProductCartLoading: false,
   getProductCartSuccess: false,
   getProductCartFail: '',
+  getCheckTotalCartProduct: true,
 };
 
 const cart = (state = initialState, action) => {
@@ -34,6 +36,11 @@ const cart = (state = initialState, action) => {
         getProductCartLoading: false,
         getProductCartSuccess: false,
         getProductCartFail: action.type,
+      };
+    case GET_CHECK_TOTAL_CART_PRODUCT:
+      return {
+        ...state,
+        getCheckTotalCartProduct: action.check,
       };
     default:
       return state;

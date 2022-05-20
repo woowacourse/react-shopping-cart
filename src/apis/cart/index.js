@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getProductCartSuccess, getProductCartFail } from 'modules/cart';
+import { getProductCartSuccess, getProductCartFail, getCheckTotalCartProduct } from 'modules/cart';
 
 import {
   openAddCartErrorModal,
@@ -68,6 +68,36 @@ export const checkCartProduct = (id, check) => (dispatch, getState) => {
   const editCartProducts = getState().cart.cartProducts.map((product) =>
     product.product_id === Number(id) ? ((product.cart_check = check), { ...product }) : product,
   );
+  const cartProductCheckList = getState().cart.cartProducts.every((product) => product.cart_check);
 
+  // cartProductCheckList = false 된다면 전체체크 박스 미체크
+  if (cartProductCheckList) {
+    dispatch(getCheckTotalCartProduct(true));
+    // cartProductCheckList = true 전체체크 박스 체크
+  } else {
+    dispatch(getCheckTotalCartProduct(false));
+  }
   dispatch(getProductCartSuccess(editCartProducts));
+};
+
+export const checkTotalCartProduct = (check) => (dispatch, getState) => {
+  const cartProductCheckList = getState().cart.cartProducts.every((product) => product.cart_check);
+
+  if (cartProductCheckList) {
+    // cartProductCheckList = ture라면 전체 다 체크 없애기
+    const editCartProducts = getState().cart.cartProducts.map(
+      (product) => ((product.cart_check = false), { ...product }),
+    );
+
+    dispatch(getProductCartSuccess(editCartProducts));
+  } else {
+    // cartProductCheckList = false라면 전체 체크
+    const editCartProducts = getState().cart.cartProducts.map(
+      (product) => ((product.cart_check = true), { ...product }),
+    );
+
+    dispatch(getProductCartSuccess(editCartProducts));
+  }
+
+  dispatch(getCheckTotalCartProduct(check));
 };

@@ -13,6 +13,8 @@ import ProductCountInput from 'containers/ProductCountInput';
 import ProductCountUpButton from 'containers/ProductCountUpButton';
 import ProductCountDownButton from 'containers/ProductCountDownButton';
 import OrderProductsButton from 'containers/OrderProductsButton';
+import CartTotalPrice from 'containers/CartTotalPrice';
+import TotalCartProductCheckbox from 'containers/TotalCartProductCheckbox';
 
 import {
   CartProductInfoStyled,
@@ -33,7 +35,7 @@ function Cart({ cartProducts }) {
           <CartProductContentStyled>
             <FlexWrapper justifyContent="space-between">
               <FlexWrapper>
-                <CartProductCheckbox />
+                <TotalCartProductCheckbox />
                 <Text>선택해제</Text>
               </FlexWrapper>
               <DeleteProductButton />
@@ -44,7 +46,7 @@ function Cart({ cartProducts }) {
             <SubTitle>{`든든배송 상품 (${cartProducts.length}개)`}</SubTitle>
             {cartProducts.map((product) => (
               <CartProductStyled key={product.product_id}>
-                <CartProductCheckbox />
+                <CartProductCheckbox id={product.product_id} checked={product.cart_check} />
                 <Image
                   src={product.product_img_src}
                   id={product.product_id}
@@ -77,7 +79,7 @@ function Cart({ cartProducts }) {
             <SubTitle width="26vw">결제예상금액</SubTitle>
             <FlexWrapper justifyContent="space-between">
               <Text>결제예상금액</Text>
-              <Text>20000원</Text>
+              <CartTotalPrice cartProducts={cartProducts} />
             </FlexWrapper>
             <OrderProductsButton />
           </CartProductPriceWrapperStyled>
