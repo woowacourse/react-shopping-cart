@@ -15,7 +15,7 @@ function Header() {
           </StyledTitleWrapper>
         </Link>
         <StyledNavWrapper>
-          <Link to={PATH.BASKET}>
+          <Link to={PATH.CART}>
             <StyledNavButton>장바구니</StyledNavButton>
           </Link>
           <StyledNavButton>주문목록</StyledNavButton>

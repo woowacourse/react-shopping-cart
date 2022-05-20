@@ -11,7 +11,7 @@ const Loadable = (Component) => (props) =>
 
 const ProductListPage = Loadable(lazy(() => import('../pages/ProductListPage')));
 const ProductDetailPage = Loadable(lazy(() => import('../pages/ProductDetailPage')));
-const ShoppingBasket = Loadable(lazy(() => import('../pages/ShoppingBasket')));
+const ShoppingCart = Loadable(lazy(() => import('../pages/ShoppingCart')));
 
 const routes = [
   {
@@ -23,8 +23,8 @@ const routes = [
     element: <ProductDetailPage />,
   },
   {
-    path: PATH.BASKET,
-    element: <ShoppingBasket />,
+    path: PATH.CART,
+    element: <ShoppingCart />,
   },
 ];
 

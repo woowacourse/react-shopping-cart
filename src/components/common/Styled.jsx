@@ -4,7 +4,6 @@ import { COLORS } from '../../styles/theme';
 const SIZE_MAP = {
   large: 430,
   middle: 250,
-  small: 100,
 };
 
 const StyledImageBox = styled.div`

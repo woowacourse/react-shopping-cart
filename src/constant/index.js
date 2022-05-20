@@ -5,7 +5,7 @@ const PATH = {
   HOME: '/',
   DETAIL: '/product-detail/:id',
   DETAIL_LINK: '/product-detail/',
-  BASKET: '/shopping-basket',
+  CART: '/shopping-cart',
 };
 
 const SIZE = {
