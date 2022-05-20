@@ -7,9 +7,9 @@ import debounce from 'utils';
 
 import Wrapper from './style';
 
-const Product = ({ id, imgSrc, title, price }) => {
+const Product = ({ id, imgSrc, title, price, cartQuantity }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(cartQuantity);
   const [showQuantity, setShowQuantity] = useState(false);
 
   const handleClickMinusButton = debounce(
