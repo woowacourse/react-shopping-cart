@@ -19,6 +19,7 @@ const theme: DefaultTheme = {
   blackColor_2: '#00000099',
 
   greyColor_1: '#dddddd',
+  greyColor_2: '#aaaaaa',
 
   brownColor_1: '#73675C',
 
