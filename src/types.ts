@@ -19,12 +19,12 @@ export type Cart = {
 
 export type ProductAction = {
   type: typeof productTypes[keyof typeof productTypes];
-  payload: any;
+  payload?: any;
 };
 
 export type CartAction = {
   type: typeof cartTypes[keyof typeof cartTypes];
-  payload: any;
+  payload?: any;
 };
 
 type condition = typeof CONDITION[keyof typeof CONDITION];

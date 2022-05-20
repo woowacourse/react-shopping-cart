@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import PATH from 'constants/path';
+import { Product } from 'types';
 import axios from 'axios';
 import { productActions } from 'redux/actions/actions';
 
@@ -16,7 +17,7 @@ const getProducts = (dispatch: Dispatch) => {
     });
 };
 
-const getProduct = (dispatch: Dispatch, id: string) => {
+const getProduct = (dispatch: Dispatch, id: Product['id']) => {
   dispatch(productActions.getProductDetail());
 
   axios
