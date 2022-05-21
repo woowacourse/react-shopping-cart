@@ -15,6 +15,7 @@ import ProductCountDownButton from 'containers/ProductCountDownButton';
 import OrderProductsButton from 'containers/OrderProductsButton';
 import CartTotalPrice from 'containers/CartTotalPrice';
 import TotalCartProductCheckbox from 'containers/TotalCartProductCheckbox';
+import TotalCartProductText from 'containers/TotalCartProductText';
 
 import {
   CartProductInfoStyled,
@@ -27,6 +28,7 @@ import {
 } from './style';
 
 function Cart({ cartProducts }) {
+  console.log(cartProducts);
   return (
     <CartStyled>
       <Title>장바구니</Title>
@@ -36,7 +38,7 @@ function Cart({ cartProducts }) {
             <FlexWrapper justifyContent="space-between">
               <FlexWrapper>
                 <TotalCartProductCheckbox />
-                <Text>선택해제</Text>
+                <TotalCartProductText />
               </FlexWrapper>
               <DeleteProductButton />
             </FlexWrapper>
