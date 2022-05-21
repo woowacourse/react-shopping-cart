@@ -1,3 +1,4 @@
+export { default as CartProduct } from 'component/CartProduct/CartProduct';
 export { default as ListProduct } from 'component/ListProduct/ListProduct';
 export { default as LoadingSpinner } from 'component/LoadingSpinner/LoadingSpinner';
 export { default as NavBar } from 'component/NavBar/NavBar';
