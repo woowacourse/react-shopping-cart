@@ -12,23 +12,19 @@ import Text from 'components/@common/Text';
 import { CartDetailButton } from 'components/@common/Button/Extends';
 import SnackBar from 'components/@common/Snackbar';
 
-import {
-  loadCartProduct,
-  loadCartProductList,
-  registerCartProduct,
-  updateCartProduct,
-} from 'api/cart';
+import { loadCartProduct, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
-import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
+import { CartProductListAction } from 'store/cartProductList/reducer';
+import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import useSnackBar from 'hooks/useSnackBar';
-import { ProductData } from 'types';
+import { ProductData, AppDispatch } from 'types';
 
 const ProductDetail = () => {
   const params = useParams();
   const id = Number(params.id);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
   const [product, setProduct] = useState<ProductData | null>(null);
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
@@ -40,8 +36,8 @@ const ProductDetail = () => {
       } else {
         updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
       }
-      dispatch(startCartProductList());
-      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+
+      dispatch(getCartProductListAsync());
       triggerSnackbar('장바구니에 상품이 담겼습니다.');
     } catch (e) {
       alert(e);
@@ -52,6 +48,8 @@ const ProductDetail = () => {
     loadProduct(id)
       .then((res) => setProduct(res))
       .catch(() => navigate('/notFound'));
+
+    dispatch(getCartProductListAsync());
   }, []);
 
   if (product === null) {

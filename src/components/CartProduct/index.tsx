@@ -14,10 +14,11 @@ import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
 import SnackBar from 'components/@common/Snackbar';
 
-import { loadCartProductList, updateCartProduct } from 'api/cart';
-import { setCartProductList } from 'store/cartProductList/actions';
+import { updateCartProduct } from 'api/cart';
+import { CartProductListAction } from 'store/cartProductList/reducer';
+import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import useSnackBar from 'hooks/useSnackBar';
-import { CartProductData } from 'types';
+import { CartProductData, AppDispatch } from 'types';
 
 interface CartProductProps {
   data: CartProductData;
@@ -33,13 +34,13 @@ const CartProduct = ({
   handleCartProductDelete,
 }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleIncreaseButton = async (): Promise<void> => {
     try {
       await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
-      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      dispatch(getCartProductListAsync());
       triggerSnackbar('상품이 정상적으로 수량 +1 되었습니다.');
     } catch (e) {
       alert(e);
@@ -51,7 +52,7 @@ const CartProduct = ({
       if (quantity <= 1) return;
 
       await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
-      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      dispatch(getCartProductListAsync());
       triggerSnackbar('상품이 정상적으로 수량 -1 되었습니다.');
     } catch (e) {
       alert(e);

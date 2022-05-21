@@ -11,20 +11,18 @@ import Flex from 'components/@common/Flex';
 import Box from 'components/@common/Box';
 import Text from 'components/@common/Text';
 import { EllipsisText } from 'components/@common/Text/Extends';
-import useSnackBar from 'hooks/useSnackBar';
-
-import {
-  loadCartProduct,
-  loadCartProductList,
-  updateCartProduct,
-  registerCartProduct,
-} from 'api/cart';
-import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import SnackBar from 'components/@common/Snackbar';
-import { ProductData } from 'types';
+
+import { loadCartProduct, updateCartProduct, registerCartProduct } from 'api/cart';
+
+import { CartProductListAction } from 'store/cartProductList/reducer';
+import { getCartProductListAsync } from 'store/cartProductList/thunk';
+
+import useSnackBar from 'hooks/useSnackBar';
+import { ProductData, AppDispatch } from 'types';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,8 +36,7 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
         updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
       }
 
-      dispatch(startCartProductList());
-      loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      dispatch(getCartProductListAsync());
       triggerSnackbar('장바구니에 상품이 담겼습니다.');
     } catch (e) {
       alert(e);

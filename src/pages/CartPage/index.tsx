@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -17,15 +18,19 @@ import { OrderButton } from 'components/@common/Button/Extends';
 import SnackBar from 'components/@common/Snackbar';
 
 import { OPTIONS } from 'api';
-import { loadCartProductList, deleteCartProduct } from 'api/cart';
+import { deleteCartProduct } from 'api/cart';
 import { RootState } from 'store';
-import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
+import { CartProductListAction } from 'store/cartProductList/reducer';
+import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import useSnackBar from 'hooks/useSnackBar';
 import { DELETE } from 'constants/index';
+import { AppDispatch } from 'types';
+import { getCartProductList } from 'store/cartProductList/actions';
 
 const CartPage = () => {
-  const dispatch = useDispatch();
-  const { cartProductList, isLoading } = useSelector((state: RootState) => state.cart);
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
+  const { cartProductList, isLoading, isError } = useSelector((state: RootState) => state.cart);
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
@@ -58,14 +63,16 @@ const CartPage = () => {
     });
 
     await Promise.all([fetchList]);
-    loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+
+    dispatch(getCartProductListAsync());
     setCheckedIdList([]);
     triggerSnackbar('선택된 상품이 삭제되었습니다.');
   };
 
   const handleCartProductDelete = async (id: number) => {
     await deleteCartProduct(id);
-    loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+
+    dispatch(getCartProductListAsync());
     setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id));
     triggerSnackbar('해당 상품이 삭제되었습니다.');
   };
@@ -83,9 +90,13 @@ const CartPage = () => {
     );
   }, [cartProductList, checkedIdList]);
 
+  if (isError) {
+    navigate('/notFound');
+  }
+
   useEffect(() => {
-    dispatch(startCartProductList());
-    loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    dispatch(getCartProductList());
+    dispatch(getCartProductListAsync());
   }, []);
 
   return (
