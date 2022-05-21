@@ -28,7 +28,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     getProductDetail({});
     initializeCartList();
-  }, []);
+  }, [getProductDetail, initializeCartList]);
 
   const cartItem = useSelector((state) => state.cartReducer.cart);
   const isInCart = cartItem.some((item) => item.id === Number(id));

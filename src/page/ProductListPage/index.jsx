@@ -27,7 +27,7 @@ export default function ProductListPage() {
   useEffect(() => {
     dispatch(getProductList());
     initializeCartList();
-  }, []);
+  }, [dispatch, initializeCartList]);
 
   const handleIconClick = ({image, name, price, id, isInCart}) => {
     if (isInCart) {

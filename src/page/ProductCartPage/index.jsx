@@ -30,7 +30,7 @@ export default function ProductCartPage() {
 
   useEffect(() => {
     initializeCartList();
-  }, []);
+  }, [initializeCartList]);
 
   const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
 

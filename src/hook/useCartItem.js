@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
@@ -25,7 +26,7 @@ export default function useCartItem(path = null) {
     API_URL: process.env.REACT_APP_CART_API_URL,
   });
 
-  const initializeCartList = () => dispatch(getCartList());
+  const initializeCartList = useCallback(() => dispatch(getCartList()), [dispatch]);
 
   const deleteCartItem = (payload) => {
     const deleteConfirm = window.confirm('장바구니에서 삭제하시겠습니까?');
