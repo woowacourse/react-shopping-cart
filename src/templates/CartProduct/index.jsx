@@ -30,7 +30,7 @@ function CartProduct({ imgSrc, title, price }) {
           <TrashcanButton />
           <NumberInput />
           <BlackText fontSize="16px" fontWeight="400">
-            {price}원
+            {price.toLocaleString()}원
           </BlackText>
         </FlexWrapper>
       </FlexWrapper>
