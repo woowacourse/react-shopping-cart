@@ -120,7 +120,7 @@ export const postCartItem = (productList) => async (dispatch, getState) => {
     const newCartItemList = await requestPostCartItem(productList);
     dispatch(actionsCreator.postCartItemSuccess(newCartItemList));
   } catch (err) {
-    dispatch(actionsCreator.postCartItemSuccess(err.message));
+    dispatch(actionsCreator.postCartItemError(err.message));
   }
 };
 
