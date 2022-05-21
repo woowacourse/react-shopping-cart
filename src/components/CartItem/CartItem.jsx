@@ -95,6 +95,7 @@ const Styled = {
   ProductImg: styled.img`
     width: 144px;
     height: 144px;
+    border-radius: 4px;
   `,
   ProductName: styled.span`
     font-size: 20px;

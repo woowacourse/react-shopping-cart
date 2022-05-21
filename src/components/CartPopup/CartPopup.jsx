@@ -33,10 +33,10 @@ const Styled = {
     top: 10px;
     width: 380px;
     padding: 10px;
-    background-color: #00bcd4;
+    background-color: #2ac1bc;
     border-radius: 4px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
     transition: all 0.5s;
   `,
@@ -47,7 +47,7 @@ const Styled = {
   `,
 
   CartLink: styled(Link)`
-    color: #006eff;
+    color: #002291;
     text-decoration: none;
   `,
 };

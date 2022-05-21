@@ -68,6 +68,7 @@ const Styled = {
   ProductImage: styled.img`
     width: 350px;
     height: 350px;
+    border-radius: 4px;
   `,
   ProductInfo: styled.div`
     width: 380px;
