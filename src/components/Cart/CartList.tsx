@@ -32,8 +32,6 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
     }
   };
 
-  console.log('itemList', itemList);
-
   return (
     <StyledRoot>
       <StyledTop>
