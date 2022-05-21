@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import ErrorPage from 'pages/ErrorPage/ErrorPage';
+
 import ErrorBoundary from 'components/@shared/ErrorBoundary/ErrorBoundary';
 
 import { store } from 'redux/store';
@@ -23,8 +25,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
-      {/* TODO: 404 페이지 컴포넌트 만들기 */}
-      <ErrorBoundary fallback={<div>에러입니다.</div>}>
+      <ErrorBoundary fallback={<ErrorPage />}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <App />
