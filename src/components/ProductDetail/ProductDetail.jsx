@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import usePost from 'hooks/usePost';
-import useCart from 'hooks/useCart';
+import useGetCartList from 'hooks/useGetCartList';
 import Button from 'components/Button';
 import CartPopup from 'components/CartPopup';
-import { getCartAsync } from 'reducers/cart/cart.thunks';
 
 const ProductDetail = ({ name, price, imgUrl }) => {
   const id = +useParams().id;
@@ -14,13 +13,13 @@ const ProductDetail = ({ name, price, imgUrl }) => {
     id,
     cartQuantity: 1,
   });
-  const { cartList } = useCart();
+  const { cartList } = useGetCartList();
   const foundItem = cartList.find((item) => +item.id === +id);
   const [isInCart, setIsInCart] = useState(!!foundItem);
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = () => {
-    postApi(getCartAsync);
+    postApi();
     setIsCartPopupShow(true);
 
     setTimeout(() => {

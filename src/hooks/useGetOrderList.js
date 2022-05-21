@@ -1,8 +1,8 @@
-import useReduxState from 'hooks/useReduxState';
+import useReduxState from 'hooks/shared/useReduxState';
 import { useEffect } from 'react';
 import { getOrderListAsync } from 'reducers/orderList/orderList.thunks';
 
-const useOrderList = () => {
+const useGetOrderList = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('orderList');
 
   useEffect(() => {
@@ -10,7 +10,11 @@ const useOrderList = () => {
     console.log('useEffect');
   }, []);
 
-  return { orderList: data, isLoading, isError };
+  return {
+    orderList: data,
+    isOrderListLoading: isLoading,
+    isOrderListError: isError,
+  };
 };
 
-export default useOrderList;
+export default useGetOrderList;

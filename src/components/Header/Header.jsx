@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import useCart from 'hooks/useCart';
+import useGetCartList from 'hooks/useGetCartList';
 import MenuItem from 'components/MenuItem';
 import Circle from 'components/Circle';
 import bigCart from 'assets/svg/bigCart.svg';
 
 const Header = () => {
-  const { cartList } = useCart();
+  const { cartList } = useGetCartList();
 
   return (
     <Styled.Wrapper>

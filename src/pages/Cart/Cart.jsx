@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import useCart from 'hooks/useCart';
+import useGetCartList from 'hooks/useGetCartList';
 import usePost from 'hooks/usePost';
 import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
@@ -8,9 +8,7 @@ import CartOrder from 'components/CartOrder';
 import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import spinner from 'assets/svg/spinner.svg';
-import useOrderList from 'hooks/useOrderList';
-import { getOrderListAsync } from 'reducers/orderList/orderList.thunks';
-import useReduxState from 'hooks/useReduxState';
+import useGetOrderList from 'hooks/useGetOrderList';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
@@ -18,9 +16,8 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState();
 
   const { postApi } = usePost('/orderList', checkedItemList);
-  const { cartList, isLoading, isError } = useCart();
-  const { orderList } = useOrderList();
-  const { dispatch } = useReduxState('orderList');
+  const { cartList, isCartListLoading, isCartListError } = useGetCartList();
+  const { orderList } = useGetOrderList();
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
@@ -41,8 +38,7 @@ const Cart = () => {
 
   const handleClickOrder = async () => {
     await postApi();
-    await dispatch(getOrderListAsync);
-
+    // TODO
     await console.log('orderList', orderList);
   };
 
@@ -63,10 +59,12 @@ const Cart = () => {
           />
         </Styled.FlexBetweenBox>
       </Styled.CartSection>
-      {isLoading && (
+      {isCartListLoading && (
         <ImgWrapper src={spinner} isMini={true} alt="로딩 스피너" />
       )}
-      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
+      {isCartListError && (
+        <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />
+      )}
     </>
   );
 };

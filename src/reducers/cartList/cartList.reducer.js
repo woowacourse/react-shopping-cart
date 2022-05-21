@@ -1,4 +1,4 @@
-import { actionTypes } from 'reducers/cart/cart.actions';
+import { actionTypes } from 'reducers/cartList/cartList.actions';
 
 const initialState = {
   data: [],
@@ -6,15 +6,15 @@ const initialState = {
   isError: false,
 };
 
-const cartReducer = (state = initialState, action) => {
-  if (action.type === actionTypes.GET_CART) {
+const cartListReducer = (state = initialState, action) => {
+  if (action.type === actionTypes.GET_CART_LIST) {
     return {
       ...state,
       isLoading: true,
     };
   }
 
-  if (action.type === actionTypes.GET_CART_SUCCESS) {
+  if (action.type === actionTypes.GET_CART_LIST_SUCCESS) {
     return {
       ...state,
       isLoading: false,
@@ -22,7 +22,7 @@ const cartReducer = (state = initialState, action) => {
     };
   }
 
-  if (action.type === actionTypes.GET_CART_ERROR) {
+  if (action.type === actionTypes.GET_CART_LIST_ERROR) {
     return {
       ...state,
       isLoading: false,
@@ -33,4 +33,4 @@ const cartReducer = (state = initialState, action) => {
   return state;
 };
 
-export default cartReducer;
+export default cartListReducer;

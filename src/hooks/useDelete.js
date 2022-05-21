@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import apiClient from 'utils/apiClient';
 import { useDispatch } from 'react-redux';
-import { getCartAsync } from 'reducers/cart/cart.thunks';
+import { getCartListAsync } from 'reducers/cartList/cartList.thunks';
 
 const useDelete = (url) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const useDelete = (url) => {
       .then((response) => {
         setIsLoading(false);
         setResult(response.data);
-        dispatch(getCartAsync); // api에서 리덕스로 cart 상태 가져오기
+        dispatch(getCartListAsync); // api에서 리덕스로 cart 상태 가져오기
       })
       .catch((error) => {
         console.log(error);

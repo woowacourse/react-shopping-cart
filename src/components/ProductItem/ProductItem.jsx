@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import { PATH } from 'constants/path';
 import usePost from 'hooks/usePost';
-import { getCartAsync } from 'reducers/cart/cart.thunks';
-import useReduxState from 'hooks/useReduxState';
+import useReduxState from 'hooks/shared/useReduxState';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
@@ -13,14 +12,14 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
     id,
     cartQuantity: 1,
   });
-  const { data: cartList } = useReduxState('cart');
+  const { data: cartList } = useReduxState('cartList');
 
   const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
   };
 
   const handleClickCart = () => {
-    postApi(getCartAsync);
+    postApi();
   };
 
   return (

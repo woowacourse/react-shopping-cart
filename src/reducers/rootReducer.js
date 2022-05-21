@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import productsReducer from 'reducers/products/products.reducer';
+import productListReducer from 'reducers/productList/productList.reducer';
 import productReducer from 'reducers/product/product.reducer';
-import cartReducer from 'reducers/cart/cart.reducer';
+import cartListReducer from 'reducers/cartList/cartList.reducer';
 import orderListReducer from './orderList/orderList.reducer';
 
 const rootReducer = () =>
   combineReducers({
-    products: productsReducer,
+    productList: productListReducer,
     product: productReducer,
-    cart: cartReducer,
+    cartList: cartListReducer,
     orderList: orderListReducer,
   });
 
