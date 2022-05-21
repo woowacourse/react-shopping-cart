@@ -5,9 +5,10 @@ import {
   addProductToCartSuccess,
   deleteCheckedProductsError,
   deleteCheckedProductsSuccess,
-  deleteProductToCartError,
-  deleteProductToCartSuccess,
+  deleteProductFromCartError,
+  deleteProductFromCartSuccess,
   fetchCartsError,
+  fetchCartsStart,
   fetchCartsSuccess,
 } from 'redux/carts/carts.action';
 import cartsActionTypes from 'redux/carts/carts.types';
@@ -35,16 +36,16 @@ export function* addProduct({ payload: product }) {
 export function* deleteProduct({ payload: id }) {
   try {
     yield call(deleteProductFromCart, id);
-    yield put(deleteProductToCartSuccess(id));
+    yield put(deleteProductFromCartSuccess(id));
   } catch (err) {
-    yield put(deleteProductToCartError(err));
+    yield put(deleteProductFromCartError(err));
   }
 }
 
 export function* deleteCheckedProducts({ payload: checkedIdList }) {
   try {
     yield all(checkedIdList.map((id) => call(deleteProductFromCart, id)));
-    yield put(deleteCheckedProductsSuccess(checkedIdList));
+    yield put(deleteCheckedProductsSuccess());
   } catch (err) {
     yield put(deleteCheckedProductsError(err));
   }
@@ -62,6 +63,19 @@ export function* handleFetchCarts() {
   yield takeLatest(cartsActionTypes.fetchCartsStart, getCarts);
 }
 
+export function* watchHandlingProductAndFetchCarts() {
+  yield takeLatest(
+    [
+      cartsActionTypes.addProductToCartSuccess,
+      cartsActionTypes.deleteProductFromCartSuccess,
+      cartsActionTypes.deleteCheckedProductsSuccess,
+    ],
+    function* () {
+      yield put(fetchCartsStart());
+    }
+  );
+}
+
 export function* handleDeleteCheckedProducts() {
   yield takeLatest(
     cartsActionTypes.deleteCheckedProductsStart,
@@ -75,5 +89,6 @@ export function* cartsSaga() {
     call(handleAddProductToCart),
     call(handleDeleteProductFromCart),
     call(handleDeleteCheckedProducts),
+    call(watchHandlingProductAndFetchCarts),
   ]);
 }

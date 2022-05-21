@@ -7,8 +7,6 @@ const INITIAL_STATE = {
   loading: false,
   carts: [],
   error: false,
-  // TODO: isAllChecked
-  allChecked: false,
 };
 
 const cartsReducer = (state = INITIAL_STATE, action) => {
@@ -30,7 +28,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         carts: action.payload,
       };
 
-    case cartsActionTypes.deleteProductToCartError:
+    case cartsActionTypes.deleteProductFromCartError:
     case cartsActionTypes.addProductToCartError:
     case cartsActionTypes.fetchCartsError:
     case cartsActionTypes.deleteCheckedProductsError:
@@ -45,28 +43,20 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: null,
         loading: false,
-        carts: [...state.carts, action.payload],
       };
 
-    case cartsActionTypes.deleteProductToCartSuccess:
+    case cartsActionTypes.deleteProductFromCartSuccess:
       return {
         ...state,
         error: null,
         loading: false,
-        carts: state.carts.filter((cart) => cart.id !== action.payload),
       };
 
     case cartsActionTypes.deleteCheckedProductsSuccess: {
-      const checkedIdList = action.payload;
-      const newCarts = state.carts.filter(
-        (cart) => !checkedIdList.includes(cart.id)
-      );
       return {
         ...state,
         error: null,
         loading: false,
-        carts: newCarts,
-        allChecked: false,
       };
     }
 
@@ -84,13 +74,13 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const newCarts = state.carts.map((cart) => {
         if (
           cart.user === CURRENT_USER &&
-          state.allChecked === !!cart['checked']
+          action.payload === !!cart['checked']
         ) {
           cart['checked'] = !cart['checked'];
         }
         return cart;
       });
-      return { ...state, carts: newCarts, allChecked: !state.allChecked };
+      return { ...state, carts: newCarts };
     }
 
     case cartsActionTypes.increaseProductQuantity: {
