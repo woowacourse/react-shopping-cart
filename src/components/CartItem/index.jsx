@@ -10,11 +10,12 @@ import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 
 import {CartItemWrapper, ItemNameBox, ItemCountBox} from 'components/CartItem/style';
 import {FlexRowWrapper, FlexColWrapper, Image} from 'components/common/style';
+import {MESSAGE} from 'constants';
 function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, onChange}) {
   const {addQuantity, minusQuantity, deleteItem} = useCart();
 
   const handleDeleteIconClick = () => {
-    if (confirm('정말로 삭제하시겠습니까?')) {
+    if (confirm(MESSAGE.DELETE_ITEM)) {
       deleteItem(id);
       if (checked) onChange(id);
     }
