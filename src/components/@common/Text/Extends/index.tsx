@@ -1,5 +1,5 @@
-import Text from 'components/@common/Text';
 import styled from 'styled-components';
+import Text from 'components/@common/Text';
 
 export const EllipsisText = styled(Text)`
   width: 100%;

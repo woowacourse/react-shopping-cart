@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 import { CartButton } from 'components/@common/Button/Extends';
 import Flex from 'components/@common/Flex';
-import { ProductData } from 'types';
+import Box from 'components/@common/Box';
+import Text from 'components/@common/Text';
+import { EllipsisText } from 'components/@common/Text/Extends';
+
 import {
   loadCartProduct,
   loadCartProductList,
@@ -13,10 +18,7 @@ import {
   registerCartProduct,
 } from 'api/cart';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
-import { useDispatch } from 'react-redux';
-import Box from 'components/@common/Box';
-import Text from 'components/@common/Text';
-import { EllipsisText } from 'components/@common/Text/Extends';
+import { ProductData } from 'types';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   const dispatch = useDispatch();

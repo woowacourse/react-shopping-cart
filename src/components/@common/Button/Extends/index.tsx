@@ -1,5 +1,5 @@
-import Button from 'components/@common/Button';
 import styled, { css } from 'styled-components';
+import Button from 'components/@common/Button';
 
 export const CartButton = styled(Button)`
   :hover {
@@ -10,12 +10,13 @@ export const CartButton = styled(Button)`
 `;
 
 export const CartDetailButton = styled(Button)`
-  ${({ theme }) => css`
-    width: 100%;
-    height: 60px;
+  width: 100%;
+  height: 60px;
 
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
+
+  ${({ theme }) => css`
     background: ${theme.colors.gray};
     color: ${theme.colors.white};
 
@@ -26,8 +27,9 @@ export const CartDetailButton = styled(Button)`
 `;
 
 export const OrderButton = styled(Button)`
+  font-size: 24px;
+
   ${({ theme }) => css`
-    font-size: 24px;
     color: ${theme.colors.white};
 
     :hover {

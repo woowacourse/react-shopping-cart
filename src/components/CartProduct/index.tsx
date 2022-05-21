@@ -1,19 +1,20 @@
 import React from 'react';
-import { CartProductData } from 'types';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
 import { ReactComponent as CheckBoxIcon } from 'assets/icon/CheckBox.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icon/Delete.svg';
 
-import { useDispatch } from 'react-redux';
-
+import Box from 'components/@common/Box';
+import QuantityControlBox from 'components/@common/QuantityControlBox';
 import Flex from 'components/@common/Flex';
 import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
+
 import { loadCartProductList, updateCartProduct } from 'api/cart';
 import { setCartProductList } from 'store/cartProductList/actions';
-import Box from 'components/@common/Box';
-import QuantityControlBox from 'components/@common/QuantityControlBox';
+import { CartProductData } from 'types';
 
 interface CartProductProps {
   data: CartProductData;

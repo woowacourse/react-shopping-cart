@@ -1,5 +1,5 @@
-import { GET, PUT, POST, DELETE } from 'constants/index';
 import { OPTIONS } from 'api';
+import { GET, PUT, POST, DELETE } from 'constants/index';
 import { CartProductData } from 'types';
 
 export const loadCartProduct = async (id: number): Promise<CartProductData | null> => {

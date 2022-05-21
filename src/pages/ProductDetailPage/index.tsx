@@ -3,9 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { CartDetailButton } from 'components/@common/Button/Extends';
 import Flex from 'components/@common/Flex';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
+import MarginWrapper from 'components/@common/MarginWrapper';
+import Bar from 'components/@common/Bar';
+import Text from 'components/@common/Text';
+import { CartDetailButton } from 'components/@common/Button/Extends';
 
 import {
   loadCartProduct,
@@ -16,9 +19,6 @@ import {
 import { loadProduct } from 'api/product';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 import { ProductData } from 'types';
-import Bar from 'components/@common/Bar';
-import Text from 'components/@common/Text';
-import MarginWrapper from 'components/@common/MarginWrapper';
 
 const ProductDetail = () => {
   const params = useParams();

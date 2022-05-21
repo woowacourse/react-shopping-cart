@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Product from 'components/Product';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
-
-import { setProductList, startProductList } from 'store/productList/actions';
-import { loadProductList } from 'api/product';
-import { RootState } from 'store';
 import Flex from 'components/@common/Flex';
 import Text from 'components/@common/Text';
+
+import { loadProductList } from 'api/product';
+import { RootState } from 'store';
+import { setProductList, startProductList } from 'store/productList/actions';
 
 const ProductList = () => {
   const navigate = useNavigate();
