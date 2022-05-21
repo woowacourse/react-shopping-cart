@@ -10,10 +10,11 @@ import ErrorPage from "../ErrorPage";
 import { useThunk } from "../../../hooks/useThunk";
 
 function ProductListPage() {
-  const productList = useSelector((state) => state.productList.data);
-  const isLoading = useSelector((state) => state.productList.isLoading);
-  const errorMessage = useSelector((state) => state.productList.errorMessage);
-
+  const {
+    data: productList,
+    isLoading,
+    errorMessage,
+  } = useSelector((state) => state.productList);
   useThunk(getProductList);
 
   if (isLoading) return <Spinner />;

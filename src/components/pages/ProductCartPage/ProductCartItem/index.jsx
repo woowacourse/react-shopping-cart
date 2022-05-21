@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 
 import trashCanIcon from "../../../../asset/trash-can.svg";
@@ -16,10 +16,11 @@ import {
 } from "./styled";
 
 function ProductCartItem({
-  product: { id, thumbnailUrl, name, price, quantity, count },
+  product: { id, thumbnailUrl, name, price, count },
+  checkList,
+  setCheckList,
 }) {
   const dispatch = useDispatch();
-  const [isChecked, setIsChecked] = useState(true);
 
   const handleClickIncreaseButton = () => {
     dispatch(updateCartCount(id, "increase"));
@@ -27,16 +28,19 @@ function ProductCartItem({
 
   const handleClickDecreaseButton = () => {
     if (count <= 1) return;
-
     dispatch(updateCartCount(id, "decrease"));
-  };
-
-  const handleChangeCheckbox = () => {
-    setIsChecked((prev) => !prev);
   };
 
   const handleClickDeleteItemButton = () => {
     dispatch(deleteCartList(id));
+  };
+
+  const handleChangeCheckbox = () => {
+    if (checkList.includes(id)) {
+      setCheckList((prev) => prev.filter((cartItemId) => cartItemId !== id));
+      return;
+    }
+    setCheckList((prev) => [...prev, id]);
   };
 
   const totalPrice = price ? Number(price) * count : null;
@@ -44,7 +48,7 @@ function ProductCartItem({
   return (
     <ProductCartContainer>
       <CheckBox
-        isChecked={isChecked}
+        isChecked={checkList.includes(id)}
         handleChangeCheckbox={handleChangeCheckbox}
       />
       <ProductCartImage src={thumbnailUrl ?? ""} alt={name ?? "%ERROR%"} />

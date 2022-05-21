@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { useThunk } from "../../../hooks/useThunk";
@@ -23,19 +23,46 @@ function ProductCartPage() {
   } = useSelector((state) => state.cartList);
   useThunk(getCartList);
 
+  const [checkList, setCheckList] = useState([]);
+
+  const handleChangeAllCheckbox = () => {
+    if (checkList.length === 0) {
+      setCheckList(cartList.map((cartItem) => cartItem.id));
+      return;
+    }
+    setCheckList([]);
+  };
+
+  const handleDeleteAllItem = () => {};
+
+  const [totalPrice, totalCount] = cartList.reduce(
+    (acc, { id, price, count }) => {
+      if (checkList.includes(id)) {
+        acc[0] += price * count;
+        acc[1] += count;
+      }
+      return acc;
+    },
+    [0, 0]
+  );
+
   const renderListContent = () => {
     if (isLoading) return <Spinner />;
     if (errorMessage) return <ErrorPage>에러: ${errorMessage} </ErrorPage>;
-    return <ProductCartList cartList={cartList} />;
+    return (
+      <ProductCartList
+        cartList={cartList}
+        checkList={checkList}
+        handleChangeAllCheckbox={handleChangeAllCheckbox}
+        handleDeleteAllItem={handleDeleteAllItem}
+        setCheckList={setCheckList}
+      />
+    );
   };
 
-  const totalPrice = cartList.reduce((acc, { price, count }) => {
-    return acc + price * count;
-  }, 0);
-
-  const totalCount = cartList.reduce((acc, { count }) => {
-    return acc + count;
-  }, 0);
+  useEffect(() => {
+    setCheckList(cartList.map((cartItem) => cartItem.id));
+  }, [cartList]);
 
   return (
     <CartPageContainer>
