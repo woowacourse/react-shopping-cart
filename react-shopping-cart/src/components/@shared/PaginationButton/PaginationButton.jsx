@@ -16,7 +16,7 @@ const Styled = {
     height: 50px;
     text-decoration: none;
     color: ${({ isActive, theme }) =>
-      isActive ? theme.colors.white : theme.colors.black};
+      isActive ? theme.colors.white : theme.colors.black_02};
     font-size: 18px;
     text-align: center;
     line-height: 50px;

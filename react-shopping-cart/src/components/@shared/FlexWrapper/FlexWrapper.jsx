@@ -56,6 +56,6 @@ const Styled = {
     padding: ${({ padding }) => padding};
     border: ${({ border }) => border};
     border-top: ${({ bt }) => bt};
-    border-color: ${({ bColor, theme }) => theme.colors[bColor]};
+    border-color: ${({ bColor, theme }) => bColor && theme.colors[bColor]};
   `,
 };
