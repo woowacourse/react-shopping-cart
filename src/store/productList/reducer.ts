@@ -1,35 +1,54 @@
-import { START_PRODUCT_LIST, SET_PRODUCT_LIST } from 'store/productList/actionTypes';
-import { startProductList, setProductList } from 'store/productList/actions';
+import {
+  GET_PRODUCT_LIST,
+  GET_PRODUCT_LIST_SUCCESS,
+  GET_PRODUCT_LIST_ERROR,
+} from 'store/productList/actionTypes';
+import {
+  getProductListSuccess,
+  getProductListError,
+  getProductList,
+} from 'store/productList/actions';
 import { ProductData } from 'types';
 
 interface ProductListState {
   productList: ProductData[];
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
 }
 
-type ProductListAction = ReturnType<typeof startProductList> | ReturnType<typeof setProductList>;
+export type ProductListAction =
+  | ReturnType<typeof getProductList>
+  | ReturnType<typeof getProductListSuccess>
+  | ReturnType<typeof getProductListError>;
 
 const initialState: ProductListState = {
   productList: [],
   isLoading: false,
-  isLoaded: false,
+  isError: false,
 };
 
 const productList = (state: ProductListState = initialState, action: ProductListAction) => {
-  if (action.type === START_PRODUCT_LIST) {
+  if (action.type === GET_PRODUCT_LIST) {
     return {
       ...state,
       isLoading: true,
     };
   }
 
-  if (action.type === SET_PRODUCT_LIST) {
+  if (action.type === GET_PRODUCT_LIST_SUCCESS) {
     return {
       ...state,
       productList: action.payload.productList,
       isLoading: false,
-      isLoaded: true,
+      isError: false,
+    };
+  }
+
+  if (action.type === GET_PRODUCT_LIST_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      isError: true,
     };
   }
   return state;

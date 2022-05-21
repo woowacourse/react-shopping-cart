@@ -1,11 +1,19 @@
-import { START_PRODUCT_LIST, SET_PRODUCT_LIST } from 'store/productList/actionTypes';
+import {
+  GET_PRODUCT_LIST,
+  GET_PRODUCT_LIST_SUCCESS,
+  GET_PRODUCT_LIST_ERROR,
+} from 'store/productList/actionTypes';
 import { ProductData } from 'types';
 
-export const startProductList = () => ({
-  type: START_PRODUCT_LIST,
+export const getProductList = () => ({
+  type: GET_PRODUCT_LIST,
 });
 
-export const setProductList = (productList: ProductData[]) => ({
-  type: SET_PRODUCT_LIST,
+export const getProductListSuccess = (productList: ProductData[]) => ({
+  type: GET_PRODUCT_LIST_SUCCESS,
   payload: { productList },
+});
+
+export const getProductListError = () => ({
+  type: GET_PRODUCT_LIST_ERROR,
 });
