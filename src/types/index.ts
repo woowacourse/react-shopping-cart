@@ -5,10 +5,6 @@ export interface ProductData {
   thumbnail: string;
 }
 
-export interface CartProductData {
-  id: number;
-  name: string;
-  price: number;
-  thumbnail: string;
+export interface CartProductData extends ProductData {
   quantity: number;
 }
