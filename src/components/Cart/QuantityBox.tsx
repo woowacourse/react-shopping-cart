@@ -42,13 +42,13 @@ export default QuantityBox;
 const StyledRoot = styled.div`
   display: flex;
   height: 6rem;
-  color: ${({ theme }) => theme.colors.font};
+  color: ${({ theme }) => theme.colors.GRAY_500};
 `;
 
 const StyledInput = styled.input`
   width: 7.3rem;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.boxBorder};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
   text-align: center;
   font-size: 24px;
 `;
@@ -56,7 +56,7 @@ const StyledInput = styled.input`
 const StyledArrowBox = styled.div`
   width: 4.2rem;
   height: 3rem;
-  border: 1px solid ${({ theme }) => theme.colors.boxBorder};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
   ${flexCenter}
   cursor: pointer;
 `;

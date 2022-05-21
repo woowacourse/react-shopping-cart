@@ -38,6 +38,6 @@ const StyledRoot = styled.div`
   padding: 1.9rem 3rem 3.5rem;
   width: 44.8rem;
   height: 32.8rem;
-  color: ${({ theme }) => theme.colors.font};
-  border: 1px solid ${({ theme }) => theme.colors.boxBorder};
+  color: ${({ theme }) => theme.colors.GRAY_500};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
 `;

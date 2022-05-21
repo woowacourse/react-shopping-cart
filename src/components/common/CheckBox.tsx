@@ -26,7 +26,7 @@ const StyledCheckBox = styled.input`
   }
 
   :disabled {
-    background-color: ${({ theme }) => theme.colors.font2};
+    background-color: ${({ theme }) => theme.colors.GRAY_200};
   }
 
   :after {

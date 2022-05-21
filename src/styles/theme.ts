@@ -1,11 +1,11 @@
 const colors = {
   primary: '#2AC1BC',
-  font: '#333333',
-  divisionLine: '#AAAAAA',
   brown: '#73675C',
-  font2: '#BBBBBB',
-  cartDivision: '#CCCCCC',
-  boxBorder: '#DDDDDD',
+  GRAY_100: '#AAAAAA',
+  GRAY_200: '#BBBBBB',
+  GRAY_300: '#CCCCCC',
+  GRAY_400: '#DDDDDD',
+  GRAY_500: '#333333',
 };
 
 const size = {

@@ -44,7 +44,7 @@ const ItemContainer = ({
             <StyledTitle>{title}</StyledTitle>
             <StyledPrice>{price.toLocaleString()}</StyledPrice>
           </StyledDescription>
-          <StyledCartIcon width='31px' fill={theme.colors.font} onClick={handleClickCartIcon} />
+          <StyledCartIcon width='31px' fill={theme.colors.GRAY_500} onClick={handleClickCartIcon} />
         </StyledBottom>
       </StyledRoot>
     </Link>

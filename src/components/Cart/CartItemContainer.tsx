@@ -45,7 +45,7 @@ export default CartItemContainer;
 
 const StyledCartItem = styled.div`
   display: flex;
-  color: ${({ theme }) => theme.colors.font};
+  color: ${({ theme }) => theme.colors.GRAY_500};
   width: 100%;
   height: 181px;
 

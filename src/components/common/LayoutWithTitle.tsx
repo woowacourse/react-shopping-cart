@@ -23,7 +23,7 @@ const StyledRoot = styled.div`
   width: 100%;
   ${flexCenter}
   flex-direction: column;
-  color: ${({ theme }) => theme.colors.font};
+  color: ${({ theme }) => theme.colors.GRAY_500};
 
   & > h2 {
     font-size: 32px;
@@ -37,5 +37,5 @@ const StyledRoot = styled.div`
 
 const StyledDivider = styled.div`
   width: 100%;
-  border-top: 4px solid ${({ theme }) => theme.colors.font};
+  border-top: 4px solid ${({ theme }) => theme.colors.GRAY_500};
 `;
