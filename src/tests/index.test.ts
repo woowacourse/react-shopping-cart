@@ -1,4 +1,4 @@
-import { CartListActionType } from 'redux/cartList/action';
+import { cartListAction, CartListActionType } from 'redux/cartList/action';
 import { CartItemState, cartListReducer } from 'redux/cartList/reducer';
 
 const initialState: CartItemState = {
@@ -27,72 +27,40 @@ const cartItem2 = {
 
 describe('test', () => {
   test('장바구니 담기', () => {
-    expect(
-      cartListReducer(initialState, {
-        type: CartListActionType.POST_CART_ITEM_SUCCESS,
-        payload: cartItem,
-      })
-    ).toEqual({
+    expect(cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem))).toEqual({
       ...initialState,
       data: [cartItem],
     });
   });
 
   test('장바구니 개수 수정', () => {
-    const prevState = cartListReducer(initialState, {
-      type: CartListActionType.POST_CART_ITEM_SUCCESS,
-      payload: cartItem,
-    });
+    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
 
     const addedCartItem = {
       ...cartItem,
       quantity: 3,
     };
 
-    expect(
-      cartListReducer(prevState, {
-        type: CartListActionType.PUT_CART_ITEM_SUCCESS,
-        payload: addedCartItem,
-      })
-    ).toEqual({
+    expect(cartListReducer(prevState, cartListAction.putCartItemSuccess(addedCartItem))).toEqual({
       ...initialState,
       data: [addedCartItem],
     });
   });
 
   test('장바구니 삭제', () => {
-    const prevState = cartListReducer(initialState, {
-      type: CartListActionType.POST_CART_ITEM_SUCCESS,
-      payload: cartItem,
-    });
+    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
 
-    expect(
-      cartListReducer(prevState, {
-        type: CartListActionType.DELETE_CART_ITEM_SUCCESS,
-        payload: cartItem.id,
-      })
-    ).toEqual({
+    expect(cartListReducer(prevState, cartListAction.deleteCartItemSuccess(cartItem.id))).toEqual({
       ...initialState,
       data: [],
     });
   });
 
   test('장바구니 전체 삭제 ', () => {
-    const prevState = cartListReducer(initialState, {
-      type: CartListActionType.POST_CART_ITEM_SUCCESS,
-      payload: cartItem,
-    });
+    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
+    const prevState2 = cartListReducer(prevState, cartListAction.postCartItemSuccess(cartItem2));
 
-    const prevState2 = cartListReducer(prevState, {
-      type: CartListActionType.POST_CART_ITEM_SUCCESS,
-      payload: cartItem2,
-    });
-
-    expect(
-      cartListReducer(prevState2, {
-        type: CartListActionType.DELETE_ALL_CART_ITEM_SUCCESS,
-      })
-    ).toEqual({
+    expect(cartListReducer(prevState2, cartListAction.deleteAllCartItemSuccess())).toEqual({
       ...initialState,
       data: [],
     });
