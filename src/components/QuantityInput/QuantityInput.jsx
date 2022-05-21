@@ -2,26 +2,32 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import usePatch from 'hooks/usePatch';
+import useGetCartList from 'hooks/useGetCartList';
 
 const QuantityInput = ({ itemId, cartQuantity }) => {
   const numberInput = useRef(null);
   const [newQuantity, setNewQuantity] = useState(+cartQuantity);
   const { callPatchApi } = usePatch(`/cartList/${itemId}`);
+  const { getCartList } = useGetCartList();
 
   const handleChangeInput = (e) => {
     setNewQuantity(+e.target.value);
     callPatchApi(itemId, +e.target.value);
+    getCartList();
   };
 
   const handleClickStepUp = () => {
     numberInput.current.stepUp(1);
     setNewQuantity(+numberInput.current.value);
     callPatchApi(itemId, +numberInput.current.value);
+    getCartList();
   };
+
   const handleClickStepDown = () => {
     numberInput.current.stepDown(1);
     setNewQuantity(+numberInput.current.value);
     callPatchApi(itemId, +numberInput.current.value);
+    getCartList();
   };
 
   return (
