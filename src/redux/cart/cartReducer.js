@@ -1,25 +1,33 @@
 import ACTION_TYPE from 'redux/cart/cartActions';
 import { getObjectArrayValues } from 'utils';
 
-const initialState = [];
+const initialState = {
+  products: [],
+};
 
 const cartReducer = (state = initialState, action) => {
+  const { products } = state;
+  const newState = { ...state };
+
   const { type, payload } = action;
 
   switch (type) {
-    case ACTION_TYPE.ADD_PRODUCT_TO_SHOPPING_CART: {
-      const cartProductIds = getObjectArrayValues(state, 'id');
+    case ACTION_TYPE.ADD_PRODUCT_TO_CART: {
+      const cartProductIds = getObjectArrayValues(products, 'id');
       const targetProductIdx = cartProductIds.indexOf(payload.id);
 
       if (targetProductIdx !== -1) {
-        const newState = [...state];
+        const newProducts = [...products];
 
-        newState[targetProductIdx].quantity += 1;
+        newProducts[targetProductIdx].quantity += 1;
+        newState.products = [...newProducts];
 
         return newState;
       }
 
-      return [...state, { ...payload, quantity: 1 }];
+      newState.products = [...products, { ...payload, quantity: 1 }];
+
+      return newState;
     }
     default:
       return state;

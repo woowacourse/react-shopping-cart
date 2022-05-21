@@ -50,14 +50,12 @@ const ShoppingCartIcon = styled.span`
     font-size: 35px;
   }
 `;
+
 function ListProduct({ id, image, name, price }) {
   const dispatch = useDispatch();
 
   const onClickShoppingCartIcon = () => {
-    dispatch({
-      type: ACTION_TYPE.ADD_PRODUCT_TO_SHOPPING_CART,
-      payload: { id, image, name, price },
-    });
+    dispatch({ type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: { id, image, name, price } });
   };
 
   return (

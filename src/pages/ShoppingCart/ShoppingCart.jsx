@@ -40,7 +40,7 @@ const DivisionLine = styled.hr`
 `;
 
 function ShoppingCart() {
-  const cartProducts = useSelector(store => store.cart);
+  const { products } = useSelector(store => store.cart);
 
   return (
     <PageLayout header="장바구니">
@@ -54,7 +54,7 @@ function ShoppingCart() {
           </SelectorBox>
           <ProductListHeader>든든배송 상품 ({cartProducts.length}개)</ProductListHeader>
           <DivisionLine />
-          {cartProducts.map(product => (
+          {products.map(product => (
             <CartProduct key={`cart${product.id}`} {...product} />
           ))}
         </div>
