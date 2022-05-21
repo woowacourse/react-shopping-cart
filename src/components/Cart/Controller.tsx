@@ -14,13 +14,14 @@ const Controller = ({
 }) => {
   return (
     <QuantityController>
-      <QuantityInput onChange={() => {}} quantity={quantity}></QuantityInput>
       <IncreaseButton onClick={() => modifyQuantity(id, 'up', 1)}>▲</IncreaseButton>
       <DecreaseButton onClick={() => modifyQuantity(id, 'down', 1)}>▼</DecreaseButton>
+      <QuantityInput onChange={() => {}} quantity={quantity}></QuantityInput>
     </QuantityController>
   );
 };
-
+/*
+ */
 const QuantityController = styled.div`
   display: grid;
   grid-template-areas:
@@ -29,16 +30,6 @@ const QuantityController = styled.div`
 
   border: solid grey 1px;
 `;
-/*
-const QuantityInput = styled.div`
-  ${flexCenter}
-
-  font-size: 24px;
-  grid-area: qp;
-  width: 73px;
-  height: 60px;
-  border: solid grey 1px;
-`;*/
 
 const IncreaseButton = styled(ControllButton)`
   grid-area: ib;

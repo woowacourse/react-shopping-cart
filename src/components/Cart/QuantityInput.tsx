@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 
-const QuantityInput = ({ quantity, onChange }) => {
+const QuantityInput = ({ quantity, onChange }: { quantity: number; onChange: () => void }) => {
   return <StyledRoot onChange={onChange}>{quantity}</StyledRoot>;
 };
 
