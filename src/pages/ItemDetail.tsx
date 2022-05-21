@@ -1,4 +1,3 @@
-import { BASE_URL } from 'apis';
 import Button from 'components/common/Button';
 import CroppedImage from 'components/common/CroppedImage';
 import Loading from 'components/common/Loading';
@@ -17,7 +16,7 @@ import type { Item } from 'types/domain';
 const ItemDetail = () => {
   const { id } = useParams();
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
-  const { data: item, loading, error } = useFetch<Item>(`${BASE_URL}/itemList/${id}`);
+  const { data: item, loading, error } = useFetch<Item>(`/itemList/${id}`);
   const cartList = useThunkFetch(state => state.cartListReducer.data, getCartListRequest);
   const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
   const isInCart = cartList?.some(el => el.id === item?.id);

@@ -1,4 +1,3 @@
-import { BASE_URL } from 'apis';
 import Loading from 'components/common/Loading';
 import Pagination from 'components/common/Pagination';
 import RequestFail from 'components/common/RequestFail';
@@ -17,13 +16,11 @@ import { Item } from 'types/domain';
 
 const ItemList = () => {
   const { id } = useParams();
-  const { isOpenSnackbar, openSnackbar } = useSnackBar();
-
   const {
     data: itemList,
     error: itemListError,
     loading,
-  } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
+  } = useFetch<Item[]>(`/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
   const { data: allItemList, error: allItemListError } = useThunkFetch(
     state => state.itemListReducer,
     getItemList
@@ -33,6 +30,7 @@ const ItemList = () => {
     getCartListRequest
   );
   const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
+  const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   if (loading) return <Loading />;
   if (itemListError || allItemListError || cartListError) return <RequestFail />;

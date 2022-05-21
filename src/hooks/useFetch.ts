@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { client } from 'apis';
 import { useEffect, useState } from 'react';
 
 export const useFetch = <T>(url: string) => {
@@ -9,11 +9,11 @@ export const useFetch = <T>(url: string) => {
   const requestData = async () => {
     setLoading(true);
     try {
-      const { data }: { data: T } = await axios.get(url);
+      const { data }: { data: T } = await client.get(url);
 
       setData(data);
     } catch {
-      setError('something is worng!');
+      setError('something is wrong!');
     } finally {
       setLoading(false);
     }
