@@ -1,6 +1,6 @@
 import { BASE_SERVER_URL, SERVER_PATH } from "../constants";
 
-const CART_LIST_ACTION = {
+export const CART_LIST_ACTION = {
   GET_LIST: "cartList/GET_LIST",
   GET_LIST_SUCCESS: "cartList/GET_SUCCESS",
   GET_LIST_ERROR: "cartList/GET_ERROR",
