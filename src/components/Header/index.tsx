@@ -6,7 +6,7 @@ import { HeaderContainer, HeaderTitle, HeaderMenu } from "./styles";
 function Header() {
   return (
     <HeaderContainer>
-      <HeaderTitle to={"/"}>
+      <HeaderTitle to={routes.home}>
         <img alt="Logo" src={Logo} />
         <h1>WOOWA SHOP</h1>
       </HeaderTitle>

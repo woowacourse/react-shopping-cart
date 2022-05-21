@@ -5,6 +5,7 @@ import { addItem, decrement, deleteItem, increment } from "../../redux/modules/c
 import { show } from "../../redux/modules/snackBar";
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 import routes from "../../routes";
+import { INFO_MESSAGES, NUM } from "../../constants";
 
 import cart from "../../assets/cart.svg";
 import {
@@ -41,7 +42,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       const newItem = { name, price, img, id, amount: 1, isSelected: false };
 
       dispatch(addItem(newItem));
-      dispatch(show("장바구니에 추가되었습니다. 😍"));
+      dispatch(show(INFO_MESSAGES.ADDED_TO_CART));
     }
   };
 
@@ -50,10 +51,10 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    if (cartItem?.amount === 1) {
+    if (cartItem?.amount === NUM.MIN_PRODUCT_COUNT) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(show("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(show(INFO_MESSAGES.DELETED_FROM_CART));
       return;
     }
     dispatch(decrement(id));
@@ -75,9 +76,10 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     if (isShowCartCounter) {
       timeout.current = setTimeout(() => {
         setIsShowCartCounter(false);
-      }, 3000);
+      }, NUM.COUNTER_DISPLAY_TIME);
     }
   }, [isShowCartCounter, cartItem?.amount]);
+
   return (
     <ProductContainer>
       <ProductImageWrapper>

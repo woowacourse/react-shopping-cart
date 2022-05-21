@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { CartItem, decrement, deleteItem, increment, selectItem } from "../../redux/modules/cart";
 import CheckBox from "../@shared/CheckBox/styles";
+import { INFO_MESSAGES, NUM } from "../../constants";
 import Delete from "../../assets/Delete.png";
 import {
   CartProductContainer,
@@ -23,7 +24,7 @@ function CartProduct({ item: { id, img, name, price, amount, isSelected } }: Car
   };
 
   const onClickDeleteItem = () => {
-    confirm("해당 상품을 삭제 하시겠습니까?") && dispatch(deleteItem(id));
+    confirm(INFO_MESSAGES.ASK_DELETE_PRODUCT) && dispatch(deleteItem(id));
   };
 
   const onClickIncreaseCounter = () => {
@@ -31,7 +32,7 @@ function CartProduct({ item: { id, img, name, price, amount, isSelected } }: Car
   };
 
   const onClickDecreaseCounter = () => {
-    if (amount === 1) {
+    if (amount === NUM.MIN_PRODUCT_COUNT) {
       return;
     }
     dispatch(decrement(id));

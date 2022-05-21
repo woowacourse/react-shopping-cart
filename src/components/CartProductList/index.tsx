@@ -6,6 +6,7 @@ import { useCartListSelector } from "../../hooks/useCartSelector";
 import Button from "../@shared/Button/styles";
 import CheckBox from "../@shared/CheckBox/styles";
 import CartProduct from "../CartProduct";
+import { INFO_MESSAGES } from "../../constants";
 import { CartListTitle, SelectAllContainer } from "./styles";
 
 function CartProductList() {
@@ -19,7 +20,7 @@ function CartProductList() {
   };
 
   const onClickDeleteItems = () => {
-    confirm("선택된 상품을 삭제 하시겠습니까?") && dispatch(deleteBySelectedItems());
+    confirm(INFO_MESSAGES.ASK_DELETE_SELECTED_PRODUCT) && dispatch(deleteBySelectedItems());
   };
 
   return (
