@@ -3,7 +3,8 @@ import { NavBar } from 'component';
 
 const Body = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 140px 0 60px;
 `;
 
