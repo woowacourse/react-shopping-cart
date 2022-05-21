@@ -45,6 +45,7 @@ Button.propTypes = {
 
 const Styled = {
   Button: styled.button`
+    border-radius: 4px;
     ${({ colorType, sizeType }) => `
         color: #fff;
         border: none;

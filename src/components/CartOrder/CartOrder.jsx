@@ -111,6 +111,7 @@ const Styled = {
     padding: 20px;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
   `,
 };
 
