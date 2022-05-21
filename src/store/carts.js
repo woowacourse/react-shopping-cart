@@ -13,6 +13,7 @@ const UNCHECK_ALL = 'carts/UNCHECK_ALL';
 const UNCHECK_ONE = 'carts/UNCHECK_ONE';
 const INCREMENT_QUANTITY = 'carts/INCREMENT_QUANTITY';
 const DECREMENT_QUANTITY = 'carts/DECREMENT_QUANTITY';
+const PATCH_CARTS = 'carts/PATCH_CARTS';
 
 const initialState = {
   isLoading: false,
@@ -54,6 +55,10 @@ export const uncheckAll = () => ({
 export const uncheckOne = (id) => ({
   type: UNCHECK_ONE,
   payload: id,
+});
+export const patchCarts = (id, quantity) => ({
+  type: PATCH_CARTS,
+  payload: { id, quantity },
 });
 
 const cartsReducer = (state = initialState, action) => {
@@ -104,6 +109,21 @@ const cartsReducer = (state = initialState, action) => {
           (product) => product.id !== action.payload
         ),
       };
+    case PATCH_CARTS: {
+      const { id, quantity } = action.payload;
+      const newCarts = state.checkedCarts.map((cart) => {
+        if (cart.id === id) {
+          return { id, quantity };
+        }
+        return cart;
+      });
+
+      return {
+        ...state,
+        carts: newCarts,
+        checkedCarts: newCarts,
+      };
+    }
     default:
       return { ...state };
   }

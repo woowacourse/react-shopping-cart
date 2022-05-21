@@ -6,41 +6,34 @@ import CartListContainer from '../components/CartsList/CartListContainer';
 import CheckedItemsController from '../components/CheckBox/CheckedItemsController';
 import { BasicDivideLine, Flex } from '../components/shared/basics';
 import TotalPrice from '../components/TotalPrice/TotalPrice';
-import useFetch from '../hooks/useFetch';
-import usePropDefaultState from '../hooks/usePropDefaultState';
-import useUser from '../hooks/useUser';
 
 function Carts() {
   const { carts, checkedCarts } = useSelector((state) => state.carts);
+  const { products } = useSelector((state) => state.products);
 
-  const { userId } = useUser();
-  const {
-    isLoading: isStoredProductsLoading,
-    result: storedProducts,
-    apiCall: loadStoredProducts,
-  } = useFetch({
-    url: `/cartsInfo/${userId}`,
-  });
+  const findById = (objectArray, id) =>
+    objectArray.find((object) => object.id === id);
 
-  const [checkedCartsInfo, setCheckedCartsInfo] =
-    usePropDefaultState(storedProducts);
-
-  useEffect(() => {
-    const ids = checkedCarts.map((cart) => cart.id);
-    const productInfos = storedProducts.filter((product) =>
-      ids.includes(product.id)
-    );
-
-    setCheckedCartsInfo(productInfos);
-  }, [checkedCarts, storedProducts]);
+  const storedProducts = carts
+    .map((cart) => cart.id)
+    .map((id) => ({
+      ...findById(products, id),
+      quantity: findById(carts, id).quantity,
+    }));
+  const checkedProducts = checkedCarts
+    .map((cart) => cart.id)
+    .map((id) => ({
+      ...findById(products, id),
+      quantity: findById(carts, id).quantity,
+    }));
 
   const totalPrice = Number(
-    checkedCartsInfo?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
+    storedProducts?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
   ).toLocaleString('ko-kr');
 
-  useEffect(() => {
-    loadStoredProducts();
-  }, [carts, userId]);
+  const totalQuantity = Number(
+    storedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
+  ).toLocaleString('ko-kr');
 
   return (
     <Style.Container>
@@ -52,16 +45,14 @@ function Carts() {
       <Style.CartListContainer justify="space-between">
         <Style.CartListWrapper>
           <CheckedItemsController checkedCarts={checkedCarts} />
-          <span>{`든든배송 상품(${checkedCartsInfo?.length}개)`}</span>
+          <span>{`든든배송 상품(${totalQuantity}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
-          {!isStoredProductsLoading && (
-            <CartListContainer
-              storedProducts={storedProducts}
-              checkedCarts={checkedCarts}
-            />
-          )}
+          <CartListContainer
+            storedProducts={storedProducts}
+            checkedProducts={checkedProducts}
+          />
         </Style.CartListWrapper>
-        <TotalPrice total={totalPrice} quantity={checkedCartsInfo.length} />
+        <TotalPrice total={totalPrice} quantity={totalQuantity} />
       </Style.CartListContainer>
     </Style.Container>
   );

@@ -4,9 +4,9 @@ import CartItem from './CartItem';
 function CartListContainer({
   isStoredProductsLoading,
   storedProducts,
-  checkedCarts,
+  checkedProducts,
 }) {
-  const checkedCartsId = checkedCarts.map((product) => product.id);
+  const checkedProductsId = checkedProducts.map((product) => product.id);
 
   return (
     <Style.Container>
@@ -20,7 +20,7 @@ function CartListContainer({
             title={title}
             src={src}
             quantity={storedProducts?.quantity}
-            isChecked={checkedCartsId.includes(id)}
+            isChecked={checkedProductsId.includes(id)}
           />
         ))}
     </Style.Container>

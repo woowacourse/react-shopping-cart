@@ -6,7 +6,7 @@ import PATH from '../../constants/path';
 import { COLOR } from '../../constants/styles';
 import useFetch from '../../hooks/useFetch';
 import useUser from '../../hooks/useUser';
-import { checkOne, loadCarts, uncheckOne } from '../../store/carts';
+import { checkOne, loadCarts, patchCarts, uncheckOne } from '../../store/carts';
 import CheckBox from '../CheckBox/CheckBox';
 import { BasicButton, BasicImage, Flex } from '../shared/basics';
 import { ReactComponent as Bin } from '../shared/Bin.svg';
@@ -51,12 +51,8 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
   };
 
   useEffect(() => {
-    if (quantity === count) {
-      return;
-    }
-
     patchQuantity();
-    dispatch(loadCarts());
+    dispatch(patchCarts(id, count));
   }, [count]);
 
   return (

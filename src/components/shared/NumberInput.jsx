@@ -14,6 +14,7 @@ const NumberInput = ({ count, onChange }) => {
     if (e.target.value < 0) {
       return;
     }
+
     setValue(Number(e.target.value));
   };
 
