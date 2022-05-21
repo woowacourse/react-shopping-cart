@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import useCart from 'hooks/useCart';
@@ -20,53 +20,19 @@ import {
 } from 'pages/ProductCartPage/style';
 
 import {calculateChecked} from 'utils';
-import {MESSAGE} from 'constants';
+import useCheckBox from 'hooks/useCheckBox';
 
 export default function ProductCartPage() {
-  const [checkedItemList, setCheckedItemList] = useState([]);
-  const {data: cartItem, getCartList, deleteItem} = useCart();
+  const {data: cartList, getCartList} = useCart();
+  const {checkedItemList, changeCheckedList, allChecked, deleteSelectedItems} = useCheckBox();
 
-  let isAllChecked = cartItem.length !== 0 && cartItem.length === checkedItemList.length;
+  let isAllChecked = cartList.length !== 0 && cartList.length === checkedItemList.length;
 
   useEffect(() => {
     getCartList();
   }, []);
 
-  const changeCheckedList = (id) => {
-    // 이미 체크된 것이라면 체크 리스트에서 빼주고
-    if (checkedItemList.find((checkedId) => checkedId === id)) {
-      setCheckedItemList((prev) => prev.filter((itemId) => itemId !== id));
-      return;
-    }
-    // 없는 아이디라면 체크 리스트에 넣어주고
-    setCheckedItemList((prev) => [...prev, id]);
-  };
-
-  const allChecked = () => {
-    const cartedId = cartItem.map(({id}) => id);
-
-    // 체크 리스트의 길이가 카드의 길이와 같다면 -> 다 빼기
-    if (checkedItemList.length === cartedId.length) {
-      setCheckedItemList([]);
-      return;
-    }
-    // 아니면 다 체크
-    setCheckedItemList(cartedId);
-  };
-
-  const deleteSelectedItems = () => {
-    if (checkedItemList.length === 0) {
-      return alert(MESSAGE.NO_SELECTED_ITEM);
-    }
-    if (confirm(MESSAGE.DELETE_SELECTED_ITEMS)) {
-      checkedItemList.forEach((id) => {
-        deleteItem(id);
-        changeCheckedList(id);
-      });
-    }
-  };
-
-  const checkedItems = cartItem.filter(({id}) => checkedItemList.includes(id));
+  const checkedItems = cartList.filter(({id}) => checkedItemList.includes(id));
   const {totalQuantity, totalPrice} = calculateChecked(checkedItems);
 
   return (
@@ -77,18 +43,18 @@ export default function ProductCartPage() {
           <SelectDeleteWrapper>
             <CheckBoxWrapper>
               <CheckBox onChange={allChecked} checked={isAllChecked} />
-              {`전체선택 ${checkedItemList.length}/${cartItem.length}`}
+              {`전체선택 ${checkedItemList.length}/${cartList.length}`}
             </CheckBoxWrapper>
             <Button buttonType="grayBorder" buttonSizeType="m" onClick={deleteSelectedItems}>
               선택 삭제
             </Button>
           </SelectDeleteWrapper>
 
-          <ListHeaderWrapper>{`장바구니 상품 (${cartItem.length}개)`}</ListHeaderWrapper>
+          <ListHeaderWrapper>{`장바구니 상품 (${cartList.length}개)`}</ListHeaderWrapper>
           <CartListWrapper>
-            {cartItem.length === 0 && <div>장바구니에 담긴 상품이 없습니다</div>}
-            {cartItem.length !== 0 &&
-              cartItem.map(({image, name, price, quantity, id}) => (
+            {cartList.length === 0 && <div>장바구니에 담긴 상품이 없습니다</div>}
+            {cartList.length !== 0 &&
+              cartList.map(({image, name, price, quantity, id}) => (
                 <React.Fragment key={id}>
                   <CartItem
                     itemImgURL={image}
