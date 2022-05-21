@@ -24,7 +24,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=53566bfac013 --force-rebuild",
-    "test": "jest"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

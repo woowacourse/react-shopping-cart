@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import CartOrder from 'components/CartOrder';
-import React from 'react';
+import '@testing-library/jest-dom';
 
 const mockNavigate = jest.fn();
 const mockDispatch = jest.fn();
