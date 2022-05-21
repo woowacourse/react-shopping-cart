@@ -5,7 +5,9 @@ function Checkbox() {
   return (
     <>
       <InputStyled input id="checkbox" type="checkbox" />
-      <LabelStyled htmlFor="checkbox"></LabelStyled>
+      <LabelStyled htmlFor="checkbox">
+        <div></div>
+      </LabelStyled>
     </>
   );
 }

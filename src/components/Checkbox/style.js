@@ -7,19 +7,12 @@ const InputStyled = styled.input(
   :checked + label {
     background-color: ${theme.mainColor};
   }
-  :checked + label::after {
-    content: '∨';
-    width: 28px;
-    height: 28px;
-    text-align: center;
-    font-size: 28px;
-    
-  }
 `,
 );
 
 const LabelStyled = styled.label(
   ({ theme }) => `
+  position: relative;
   display: inline-block;
   width: 28px;
   height: 28px;
@@ -27,6 +20,15 @@ const LabelStyled = styled.label(
   border-radius: 2px;
   cursor: pointer;
   color: white;
+
+  div {
+    width: 15px;
+    height: 10px;
+    transform: rotate(-45deg);
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
+    margin: 5px auto;
+  }
   `,
 );
 
