@@ -47,7 +47,6 @@ const Container = styled.label`
     height: 1.3em;
     border: 0.125em solid ${COLORS.GRAY_70};
     border-radius: ${LAYOUT.BORDER_RADIUS}px;
-    margin-right: 0.5em;
 
     ${({ checked }) =>
       checked
@@ -67,4 +66,9 @@ const Check = styled.input`
   display: none;
 `;
 
-export { Container, Check };
+const Text = styled.span`
+  margin-left: 0.5em;
+  font-size: 0.85em;
+`;
+
+export { Container, Check, Text };

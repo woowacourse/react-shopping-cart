@@ -5,7 +5,7 @@ function Checkbox({ size, checked, onChange, children }) {
   return (
     <S.Container size={size} checked={checked}>
       <S.Check type="checkbox" defaultChecked={checked} onChange={onChange} />
-      {children}
+      {children && <S.Text>{children}</S.Text>}
     </S.Container>
   );
 }
