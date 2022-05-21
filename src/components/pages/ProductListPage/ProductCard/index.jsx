@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import shoppingCartIconBlack from "../../../../asset/shopping-cart-icon-black.svg";
-import { BASE_SERVER_URL, ROUTES, SERVER_PATH } from "../../../../constants";
+import shoppingCartIconBlack from "asset/shopping-cart-icon-black.svg";
+import { BASE_SERVER_URL, ROUTES, SERVER_PATH } from "constants";
 
-import IconButton from "../../../common/IconButton";
+import IconButton from "components/common/IconButton";
 import {
   CardBottom,
   CardContainer,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ROUTES } from "../../../constants";
+import { ROUTES } from "constants";
 
 import NavButton from "./NavButton";
 import Title from "./Title";

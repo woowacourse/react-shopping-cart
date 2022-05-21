@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import { useStore } from "../../../hooks/useStore";
+import { useStore } from "hooks/useStore";
 import {
   deleteCartList,
   getCartList,
   updateCartCount,
-} from "../../../reducers/cartList";
+} from "reducers/cartList";
 
-import Spinner from "../../common/Spinner";
-import ErrorPage from "../ErrorPage";
+import Spinner from "components/common/Spinner";
+import ErrorPage from "components/pages/ErrorPage";
 import PaymentAmount from "./PaymentAmount";
 import ProductCartList from "./ProductCartList";
 import {

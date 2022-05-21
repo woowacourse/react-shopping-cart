@@ -1,9 +1,9 @@
 import React from "react";
-import { BASE_SERVER_URL, SERVER_PATH } from "../../../../constants";
+import { BASE_SERVER_URL, SERVER_PATH } from "constants";
 
-import { theme } from "../../../../style";
+import { theme } from "style";
 
-import DefaultButton from "../../../common/DefaultButton";
+import DefaultButton from "components/common/DefaultButton";
 import {
   Bottom,
   ProductImage,

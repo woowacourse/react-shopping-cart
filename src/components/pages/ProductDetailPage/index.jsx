@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { useFetch } from "../../../hooks/useFetch";
+import { useFetch } from "hooks/useFetch";
 
-import { BASE_SERVER_URL, SERVER_PATH } from "../../../constants";
+import { BASE_SERVER_URL, SERVER_PATH } from "constants";
 
-import Spinner from "../../common/Spinner";
+import Spinner from "components/common/Spinner";
 import { DetailContainer } from "./styled";
-import ErrorPage from "../ErrorPage";
+import ErrorPage from "components/pages/ErrorPage";
 import ProductDetail from "./ProductDetail";
 
 function ProductDetailPage() {

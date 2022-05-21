@@ -1,10 +1,10 @@
 import React from "react";
 
-import trashCanIcon from "../../../../asset/trash-can.svg";
+import trashCanIcon from "asset/trash-can.svg";
 
-import CheckBox from "../../../common/CheckBox";
-import Counter from "../../../common/Counter";
-import IconButton from "../../../common/IconButton";
+import CheckBox from "components/common/CheckBox";
+import Counter from "components/common/Counter";
+import IconButton from "components/common/IconButton";
 import {
   ProductCartContainer,
   ProductCartControlBox,

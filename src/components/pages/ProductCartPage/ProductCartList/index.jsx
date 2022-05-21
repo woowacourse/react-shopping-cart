@@ -1,6 +1,6 @@
 import React from "react";
 
-import CheckBox from "../../../common/CheckBox";
+import CheckBox from "components/common/CheckBox";
 import ProductCartItem from "../ProductCartItem";
 import {
   CartListControlContainer,

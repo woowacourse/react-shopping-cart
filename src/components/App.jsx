@@ -5,12 +5,12 @@ import ReduxThunk from "redux-thunk";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import { theme } from "../style";
-import { ROUTES } from "../constants";
+import { theme } from "style";
+import { ROUTES } from "constants";
 
-import rootReducer from "../reducers/index";
+import rootReducer from "reducers/index";
 
-import Header from "../components/common/Header";
+import Header from "components/common/Header";
 import {
   OrderListPage,
   ProductCartPage,

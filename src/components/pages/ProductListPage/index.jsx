@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
-import { useStore } from "../../../hooks/useStore";
-import { getProductList } from "../../../reducers/productList";
+import { useStore } from "hooks/useStore";
+import { getProductList } from "reducers/productList";
 
-import Spinner from "../../common/Spinner";
+import Spinner from "components/common/Spinner";
 import ProductCard from "./ProductCard";
-import GridContainer from "../../common/GridContainer";
-import ErrorPage from "../ErrorPage";
+import GridContainer from "components/common/GridContainer";
+import ErrorPage from "components/pages/ErrorPage";
 
 function ProductListPage() {
   const {
