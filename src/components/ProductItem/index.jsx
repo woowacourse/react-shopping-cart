@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import useClose from 'hooks/useClose';
 
 import { Image, CartIcon, Modal, Button, Text } from 'components';
@@ -15,6 +16,7 @@ import autoComma from 'utils/autoComma';
 import { PRODUCT } from 'constants';
 
 const ProductItem = ({ id }) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
   const { products } = useSelector(state => state.reducer);
@@ -30,7 +32,13 @@ const ProductItem = ({ id }) => {
     clearTimer();
   };
 
-  const handleCartClick = () => {
+  const handleItemClick = () => {
+    navigate(`/details/${id}`);
+  };
+
+  const handleCartClick = e => {
+    e.stopPropagation();
+
     if (isOpen) {
       putCart();
     } else {
@@ -39,10 +47,13 @@ const ProductItem = ({ id }) => {
     }
   };
 
-  const handleModalClick = () => extendTimer(putCart);
+  const handleModalClick = e => {
+    e.stopPropagation();
+    extendTimer(putCart);
+  };
 
   return (
-    <Styled.ProductItem>
+    <Styled.ProductItem onClick={handleItemClick}>
       <Image src={image} />
       <Styled.ProductContainer>
         <div>

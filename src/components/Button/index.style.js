@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components';
 
 const Styled = {
   Button: styled.button`
-    width: fit-content;
+    width: ${({ width }) => width || 'fit-content'};
+    height: ${({ height }) => height || 'fit-content'};
     text-align: center;
     padding: 10px;
-    background-color: transparent;
+    background-color: ${({ bg }) => bg || 'transparent'};
     border: none;
     cursor: pointer;
     color: ${({ theme }) => theme.colors.white};

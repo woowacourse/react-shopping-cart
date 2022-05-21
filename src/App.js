@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 
 import ProductListPage from 'page/ProductListPage';
+import ProductDetailPage from 'page/ProductDetailPage';
 import { Header, Button, CartIcon } from 'components';
 import GlobalStyles from 'components/GlobalStyles';
 import theme from 'components/theme';
@@ -18,7 +19,7 @@ const Styled = {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <BrowserRouter basename={BASE_URL}>
         <Header
           left={
             <div>
@@ -37,7 +38,8 @@ function App() {
         />
         <Styled.Routes>
           <Routes>
-            <Route path={BASE_URL} element={<ProductListPage />} />
+            <Route path="" element={<ProductListPage />} />
+            <Route path="details/:id" element={<ProductDetailPage />} />
           </Routes>
         </Styled.Routes>
         <GlobalStyles />

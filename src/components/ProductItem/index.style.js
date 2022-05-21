@@ -4,6 +4,7 @@ const Styled = {
   ProductItem: styled.div`
     width: 282px;
     position: relative;
+    cursor: pointer;
   `,
 
   ProductContainer: styled.div`
