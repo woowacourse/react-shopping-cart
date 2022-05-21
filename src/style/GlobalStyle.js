@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: BMJUA_ttf;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   * {
     box-sizing: border-box;
   }
