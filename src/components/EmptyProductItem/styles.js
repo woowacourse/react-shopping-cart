@@ -5,6 +5,10 @@ const Container = styled(CommonStyled.FlexWrapper)`
   align-items: center;
   flex-direction: column;
   padding: 2rem;
+
+  & > img {
+    width: 100%;
+  }
 `;
 
 const Notice = styled.h2`
