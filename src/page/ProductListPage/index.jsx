@@ -29,9 +29,13 @@ const ProductListPage = () => {
 
   return (
     <Styled.ProductListPage>
-      <Styled.ProductList>
-        {products.map(({ id }) => id && <ProductItem key={id} id={id} />)}
-      </Styled.ProductList>
+      {products.length > 0 ? (
+        <Styled.ProductList>
+          {products.map(({ id }) => id && <ProductItem key={id} id={id} />)}
+        </Styled.ProductList>
+      ) : (
+        <Styled.Loading>열심히 로딩중 .. ✨</Styled.Loading>
+      )}
     </Styled.ProductListPage>
   );
 };
