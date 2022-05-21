@@ -33,6 +33,8 @@ const REMOVE_PRODUCT_ID = "checked-ids/REMOVE_PRODUCT_ID";
 const ADD_PRODUCT_IDS = "checked-ids/ADD_PRODUCT_IDS";
 const REMOVE_PRODUCT_IDS = "checked-ids/REMOVE_PRODUCT_IDS";
 
+// const SNACK_BAR_STATE = "snack-bar/SNACK_BAR_STATE";
+
 const initialState = {
   product: {
     loading: false,
@@ -52,7 +54,16 @@ const initialState = {
     error: null,
   },
   checkedProductIds: [],
+  // snackBarState: {
+  //   message: "",
+  //   isOpen: false,
+  //   duration: 0,
+  // },
 };
+
+// export const setSnackBar = (snackBarState) => {
+//   return { type: SNACK_BAR_STATE, snackBarState };
+// };
 
 export const removeIds = () => ({
   type: REMOVE_PRODUCT_IDS,
@@ -83,8 +94,10 @@ export const postCartProduct =
 
       newProduct.isInShoppingCart = true;
 
-      API.patchProductById(id, newProduct);
-      API.postShoppingCartProduct(newProduct);
+      Promise.all([
+        API.patchProductById(id, newProduct),
+        API.postShoppingCartProduct(newProduct),
+      ]);
 
       const replaceProducts = products.data.map((product) => {
         if (product.id === id) return newProduct;
@@ -99,6 +112,9 @@ export const postCartProduct =
         type: REPLACE_PRODUCTS,
         replaceProducts: replaceProducts,
       });
+      dispatch(
+        setSnackBar({ message: "장바구니", isOpen: true, duration: 700 })
+      );
     } catch (error) {
       dispatch({ type: GET_CART_PRODUCTS_ERROR });
     }
@@ -106,21 +122,48 @@ export const postCartProduct =
 
 export const removeCartProducts = () => async (dispatch, getState) => {
   try {
-    const { shoppingCartProducts, checkedProductIds } = getState();
+    const { shoppingCartProducts, checkedProductIds, products } = getState();
     const remainProducts = [...shoppingCartProducts.data];
+    const newProducts = [...products.data];
+    const removeProducts = [];
 
     checkedProductIds.forEach((id) => {
       remainProducts.forEach((product, index) => {
         if (id === product.id) {
-          remainProducts.splice(index, 1);
+          const removeProduct = remainProducts.splice(index, 1);
+
+          removeProducts.push(removeProduct[0]);
         }
       });
     });
 
+    const updateProducts = removeProducts.map((product) => {
+      product.isInShoppingCart = false;
+      return product;
+    });
+
+    console.log("remain", remainProducts);
+    console.log("remove", removeProducts);
+    console.log("update", updateProducts);
+    console.log("ids", checkedProductIds);
+
     Promise.all(
       checkedProductIds.map((id) => API.removeShoppingCartProduct(id))
     );
+    Promise.all(
+      updateProducts.map((product) => API.patchProductById(product.id, product))
+    );
 
+    console.log("newproducts", newProducts);
+    const replaceProducts = newProducts.map((product) => {
+      if (checkedProductIds.includes(product.id)) {
+        product.isInShoppingCart = false;
+        return product;
+      }
+      return product;
+    });
+
+    dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
     dispatch({ type: REMOVE_SHOPPING_CART_PRODUCTS, remainProducts });
   } catch (error) {
     dispatch({ type: GET_CART_PRODUCTS_ERROR });
@@ -398,6 +441,12 @@ const removeProductIds = () => [];
 
 const addProductIds = (_, action) => action.ids;
 
+// const setSnackBarState = (state, action) => {
+//   console.log(state);
+//   console.log(action);
+//   return action.snackBarState;
+// };
+
 const productsReducer = createReducer(
   {},
   {
@@ -444,6 +493,13 @@ const checkedProductIdsReducer = createReducer(
   }
 );
 
+const snackBarStateReducer = createReducer(
+  {},
+  {
+    // [SNACK_BAR_STATE]: setSnackBarState,
+  }
+);
+
 export default function appReducer(state = initialState, action = {}) {
   return {
     products: productsReducer(state.products, action),
@@ -456,5 +512,6 @@ export default function appReducer(state = initialState, action = {}) {
       state.checkedProductIds,
       action
     ),
+    // snackBarState: snackBarStateReducer(state.snackBarState, action),
   };
 }
