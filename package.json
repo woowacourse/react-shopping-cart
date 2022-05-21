@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.18.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "detect-node": "^2.1.0",
     "react": "^18.1.0",
@@ -19,7 +23,8 @@
     "build": "react-scripts build",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "npx chromatic --project-token=53566bfac013 --force-rebuild"
+    "chromatic": "npx chromatic --project-token=53566bfac013 --force-rebuild",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +55,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
     "@redux-devtools/extension": "^3.2.2",
     "@storybook/addon-actions": "^6.5.3",
     "@storybook/addon-essentials": "^6.5.3",
@@ -64,8 +71,11 @@
     "chromatic": "^6.5.4",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.2.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "msw": "^0.39.2",
     "prettier": "2.6.2",
     "webpack": "^5.72.0"

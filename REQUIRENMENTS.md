@@ -17,41 +17,40 @@
 
 ## step2 장바구니 요구사항 정리
 
-`(필수)`라고 적혀있지 않은 요구사항은 심화 요구사항임.
-
 - [x] (필수) MSW를 활용하여 API Mocking
-  - [x] Endpoint만 변경하면 언제든 Real API를 바라볼 수 있도록 구현(Real API 없이 로컬에서만 동작하는 상태로 리뷰받을 수 있어야 함)
-- [x] 페이지 구현
-  - [x] (필수) 장바구니 페이지 : Cart
-    - [x] TitleHeader : 페이지별 타이틀 텍스트를 표시함. 여러 컴포넌트에서 사용됨(props는 children).
-    - [x] CartTable : 장바구니 테이블로서 내부에 장바구니 상품 상태에 따라 CartItem 컴포넌트가 렌더링됨(props는 cartList)
-    - [x] CartItem : 장바구니에 담긴 각각의 상품의 수량 설정 및 선택을 할 수 있음(props는 item)
-    - [x] 체크박스 기능
-      - [x] Checkbox 컴포넌트를 분리한다.
-      - [x] 체크된 상품들의 id들을 배열인 checkedIdList는 Cart 컴포넌트에서만 알면 되며 useState로 관리한다.
-      - [x] 체크박스에는 해당 상품의 id가 전달되며, onChange될때마다 checked에 기존 상태(isChecked)의 반대값이 저장되며, checkedIdList에 접근하여 해당 id가 없으면 push하고 해당 id가 있으면 나머지 id들만 filter한다.
-      - [x] totalCount는 checkedIdList의 length이다.
-      - [x] 해당 id들의 배열(checkedIdList)과 redux(api에서 받은)에서 가져온 cart객체들(cart)의 배열을 통해 totalPrice를 setState한다.
-    - [x] 상품 삭제 버튼
-      - [x] useDelete 커스텀훅을 만든다.
-        - [x] 상품 삭제 버튼 클릭 시 API에 DELETE 요청을 하고, 다시 API에서 cartList를 get한다. (cartList가 바뀌면 재렌더링된다)
-        - callDeleteApi 성공시 dispatch(getCartAsync)하여 cartList 갱신
-      - [x] 개별 상품 삭제 버튼 클릭 시 해당 상품 id를 갖고 useDelete의 callDeleteApi한다.
-      - [x] 상단 상품 삭제 버튼 클릭 시 선택된 상품들의 checkedIdList를 갖고 useDelete의 callDeleteApi를 돌린다
-    - [x] 상품 수량 변경 인풋 버튼
-      - [x] input element의 stepUp, stepDown 메서드를 사용한다
-      - [x] 수량 변경 버튼 클릭 시 API에서 cartList의 해당 상품 수량(cartQuantity)이 변경된다.(patch)
-      - [x] usePatch 훅을 만든다.
-    - [x] 장바구니를 담으면 Header의 장바구니 메뉴 옆에 숫자가 증가한다.
-    - [x] 상품 리스트 페이지에서 상품이미지와 상품명을 누르면 상세페이지로 이동하도록 하고, 장바구니 버튼을 누르면 이동하지 않고 장바구니에 바로 담도록 한다.
-      - [x] 상품 리스트 페이지에서 장바구니에 담긴 상품의 버튼은 색상이 변한다.
-    - [x] 상세페이지에서 장바구니 버튼을 누르면, 장바구니에 담겼다는 팝업이 표시된다.
-  - [] 주문/결제 페이지
-  - [] 주문 목록 페이지
-  - [] 주문 상세 페이지
-- [] 컴포넌트 구현
 
--
+  - [x] Endpoint만 변경하면 언제든 Real API를 바라볼 수 있도록 구현(Real API 없이 로컬에서만 동작하는 상태로 리뷰받을 수 있어야 함)
+
+- [x] (필수) 장바구니 페이지 : Cart
+  - [x] TitleHeader : 페이지별 타이틀 텍스트를 표시함. 여러 컴포넌트에서 사용됨(props는 children).
+  - [x] CartTable : 장바구니 테이블로서 내부에 장바구니 상품 상태에 따라 CartItem 컴포넌트가 렌더링됨(props는 cartList)
+  - [x] CartItem : 장바구니에 담긴 각각의 상품의 수량 설정 및 선택을 할 수 있음(props는 item)
+  - [x] 체크박스 기능
+    - [x] Checkbox 컴포넌트를 분리한다.
+    - [x] 체크된 상품들의 id들을 배열인 checkedIdList는 Cart 컴포넌트에서만 알면 되며 useState로 관리한다.
+    - [x] 체크박스에는 해당 상품의 id가 전달되며, onChange될때마다 checked에 기존 상태(isChecked)의 반대값이 저장되며, checkedIdList에 접근하여 해당 id가 없으면 push하고 해당 id가 있으면 나머지 id들만 filter한다.
+    - [x] totalCount는 checkedIdList의 length이다.
+    - [x] 해당 id들의 배열(checkedIdList)과 redux(api에서 받은)에서 가져온 cart객체들(cart)의 배열을 통해 totalPrice를 setState한다.
+  - [x] 상품 삭제 버튼
+    - [x] useDelete 커스텀훅을 만든다.
+      - [x] 상품 삭제 버튼 클릭 시 API에 DELETE 요청을 하고, 다시 API에서 cartList를 get한다. (cartList가 바뀌면 재렌더링된다)
+      - callDeleteApi 성공시 dispatch(getCartAsync)하여 cartList 갱신
+    - [x] 개별 상품 삭제 버튼 클릭 시 해당 상품 id를 갖고 useDelete의 callDeleteApi한다.
+    - [x] 상단 상품 삭제 버튼 클릭 시 선택된 상품들의 checkedIdList를 갖고 useDelete의 callDeleteApi를 돌린다
+  - [x] 상품 수량 변경 인풋 버튼
+    - [x] input element의 stepUp, stepDown 메서드를 사용한다
+    - [x] 수량 변경 버튼 클릭 시 API에서 cartList의 해당 상품 수량(cartQuantity)이 변경된다.(patch)
+    - [x] usePatch 훅을 만든다.
+  - [x] 장바구니를 담으면 Header의 장바구니 메뉴 옆에 숫자가 증가한다.
+  - [x] 상품 리스트 페이지에서 상품이미지와 상품명을 누르면 상세페이지로 이동하도록 하고, 장바구니 버튼을 누르면 이동하지 않고 장바구니에 바로 담도록 한다.
+    - [x] 상품 리스트 페이지에서 장바구니에 담긴 상품의 버튼은 색상이 변한다.
+  - [x] 상세페이지에서 장바구니 버튼을 누르면, 장바구니에 담겼다는 팝업이 표시된다.
+- [] 주문/결제 페이지
+- [] 주문 목록 페이지
+- [] 주문 상세 페이지
+
+- [] 타입스크립트 적용
+- [] 단위테스트(Jest)
 - [] UI/UX
   - [x] 사용자를 위한 로딩 환경 개선
   - [] 페이징 혹은 인피니티 스크롤 적용 (별도의 API 없음)

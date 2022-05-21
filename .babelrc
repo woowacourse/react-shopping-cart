@@ -1,0 +1,13 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "throwIfNamespace": false,
+        "runtime": "automatic",
+        "importSource": "custom-jsx-library"
+      }
+    ]
+  ]
+}
