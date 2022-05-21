@@ -19,5 +19,10 @@ export default {
 const Template = args => <PageLayout {...args} />;
 
 const DefaultPageLayout = Template.bind({});
+const ShoppingCartPageLayout = Template.bind({});
 
-export { DefaultPageLayout };
+ShoppingCartPageLayout.args = {
+  header: '장바구니',
+};
+
+export { DefaultPageLayout, ShoppingCartPageLayout };

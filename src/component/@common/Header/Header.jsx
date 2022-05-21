@@ -12,7 +12,7 @@ const HeaderTitle = styled.h2`
 const DivisionLine = styled.hr`
   width: 1320px;
   height: 4px;
-  margin: 29px 0 51px;
+  margin-top: 29px;
   border: 0;
   background: #333333;
 `;

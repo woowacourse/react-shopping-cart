@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+import { Header } from 'component/@common';
 import { NavBar } from 'component';
 
 const Body = styled.div`
@@ -8,13 +11,24 @@ const Body = styled.div`
   padding: 140px 0 60px;
 `;
 
-function PageLayout({ children }) {
+function PageLayout({ header, children }) {
   return (
     <>
       <NavBar />
-      <Body>{children}</Body>
+      <Body>
+        {header && <Header>{header}</Header>}
+        {children}
+      </Body>
     </>
   );
 }
+
+PageLayout.defaultProps = {
+  header: '',
+};
+
+PageLayout.propTypes = {
+  header: PropTypes.string,
+};
 
 export default PageLayout;
