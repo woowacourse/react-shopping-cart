@@ -1,6 +1,18 @@
 import { FRUITS } from 'constant';
 import styled from 'styled-components';
 
+export default function LoadingSpinner() {
+  return (
+    <SpinnerBox>
+      {FRUITS.map(fruit => (
+        <Icon key={fruit}>
+          <span style={{ fontSize: '50px' }}>{fruit}</span>
+        </Icon>
+      ))}
+    </SpinnerBox>
+  );
+}
+
 const SpinnerBox = styled.div`
   width: 300px;
   display: flex;
@@ -22,17 +34,3 @@ const Icon = styled.div`
     }
   }
 `;
-
-function LoadingSpinner() {
-  return (
-    <SpinnerBox>
-      {FRUITS.map(fruit => (
-        <Icon key={fruit}>
-          <span style={{ fontSize: '50px' }}>{fruit}</span>
-        </Icon>
-      ))}
-    </SpinnerBox>
-  );
-}
-
-export default LoadingSpinner;

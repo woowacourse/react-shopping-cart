@@ -1,4 +1,4 @@
-import { Button } from 'component/common';
+import Button from '.';
 
 export default {
   title: 'Component/Common/Button',
@@ -18,6 +18,7 @@ const DefaultButton = Template.bind({});
 
 DefaultButton.args = {
   children: '장바구니',
+  type: 'button',
 };
 
 export { DefaultButton };

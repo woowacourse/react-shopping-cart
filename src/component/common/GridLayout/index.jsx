@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export default function GridLayout({ children }) {
+  return <LayoutBox>{children}</LayoutBox>;
+}
+
 const LayoutBox = styled.div`
   display: grid;
   row-gap: 27px;
@@ -7,9 +11,3 @@ const LayoutBox = styled.div`
   place-items: center;
   grid: '. . . .';
 `;
-
-function GridLayout({ children }) {
-  return <LayoutBox>{children}</LayoutBox>;
-}
-
-export default GridLayout;

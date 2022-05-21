@@ -45,7 +45,7 @@ export default function CartProduct({ product }) {
           <img src="trashCan.svg" />
         </Button>
         <Counter count={count} onUPClick={handleUpClick} onDownClick={handleDownClick} />
-        <p>{price.toLocaleString('ko-KR')}</p>
+        <p>{price.toLocaleString('ko-KR')} 원</p>
       </CarProductOperateBox>
     </CartProductBox>
   );
@@ -60,6 +60,7 @@ const CartProductImage = styled.img`
 `;
 
 const CartProductBox = styled.div`
+  width: max(736px);
   display: flex;
   justify-content: space-between;
   padding: 23px 0;

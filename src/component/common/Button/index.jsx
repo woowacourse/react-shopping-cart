@@ -1,13 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StyledButton = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-`;
-
-function Button({ type, onClick, children }) {
+export default function Button({ type, onClick, children }) {
   return (
     <StyledButton type={type} onClick={onClick}>
       {children}
@@ -24,4 +18,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default Button;
+const StyledButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
