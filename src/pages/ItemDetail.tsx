@@ -23,7 +23,7 @@ const ItemDetail = () => {
   const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
-  const isInCart = cartList?.some(el => el.id === item?.id);
+  const isInCart = cartList?.some(cartItem => cartItem.id === item?.id);
 
   const postCart = () => {
     postCartItemQuantity(id)(1);
