@@ -38,3 +38,7 @@ export const LIMIT = {
   MIN_QUANTITY: 1,
   MAX_QUANTITY: 10,
 };
+
+export const NOTICE = {
+  DELETE_CONFIRM: '해당 상품을 장바구니에서 제거하시겠습니까?',
+};

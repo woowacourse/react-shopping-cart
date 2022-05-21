@@ -5,8 +5,19 @@ import ProductImage from 'components/Main/ProductImage';
 import { ReactComponent as TrashButton } from 'components/CartPage/TrashButton.svg';
 import AmountController from 'components/CartPage/AmountController';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteCart } from 'store/carts';
+import { NOTICE } from 'constants';
 
 function CartProduct({ product }) {
+  const dispatch = useDispatch();
+
+  const deleteCartProduct = () => {
+    if (window.confirm(NOTICE.DELETE_CONFIRM)) {
+      dispatch(deleteCart(product.id));
+    }
+  };
+
   return (
     <Styled.CartContainer>
       <React.Fragment key={product.id}>
@@ -21,7 +32,7 @@ function CartProduct({ product }) {
         </Styled.ProductLeftWrapper>
         <Styled.ProductRightWrapper>
           <Styled.TrashButtonWrapper>
-            <TrashButton />
+            <TrashButton onClick={deleteCartProduct} />
           </Styled.TrashButtonWrapper>
           <AmountController product={product} />
           <Styled.ProductPrice>{`${product.price}원`}</Styled.ProductPrice>
