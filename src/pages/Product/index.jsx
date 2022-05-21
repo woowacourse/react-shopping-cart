@@ -35,7 +35,11 @@ function ProductListPage() {
   }
 
   if (requestProductFail === GET_PRODUCT_FAIL) {
-    return <p>상품정보를 불러오는데 실패하였습니다.</p>;
+    return (
+      <Text color="#333333" fontSize="30px" fontWeight="800">
+        상품 정보를 불러오는데 실패하였습니다.
+      </Text>
+    );
   }
 
   return (
