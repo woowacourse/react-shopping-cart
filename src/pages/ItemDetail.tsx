@@ -15,10 +15,14 @@ import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
   const { id } = useParams();
-  const { isOpenSnackbar, openSnackbar } = useSnackBar();
-  const { data: item, loading, error } = useFetch<Item>(`/itemList/${id}`);
-  const cartList = useThunkFetch(state => state.cartListReducer.data, getCartListRequest);
+  const { data: item, loading, error: itemError } = useFetch<Item>(`/itemList/${id}`);
+  const { data: cartList, error: cartListError } = useThunkFetch(
+    state => state.cartListReducer,
+    getCartListRequest
+  );
   const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
+  const { isOpenSnackbar, openSnackbar } = useSnackBar();
+
   const isInCart = cartList?.some(el => el.id === item?.id);
 
   const postCart = () => {
@@ -32,7 +36,7 @@ const ItemDetail = () => {
   };
 
   if (loading) return <Loading />;
-  if (error) return <RequestFail />;
+  if (itemError || cartListError) return <RequestFail />;
 
   const { thumbnailUrl, title, price } = item;
 
