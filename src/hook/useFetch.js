@@ -6,11 +6,11 @@ export default function useFetch({method = 'get', API_URL}) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const fetch = (body) => {
+  const fetch = ({params = '', body = null}) => {
     setPending(true);
     setData(null);
     setError(null);
-    axios[method](API_URL, body)
+    axios[method](API_URL + params, body)
       .then((response) => {
         setPending(false);
         response.data && setData(response.data);

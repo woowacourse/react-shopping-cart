@@ -67,8 +67,8 @@ export default function ProductCartPage() {
                     handleDeleteIconClick={() => deleteCartItem(id)}
                     handleCheckedTrue={addSelectedItem}
                     handleCheckedFalse={deleteSelectedItem}
-                    handleIncrease={increaseQuantity}
-                    handleDecrease={decreaseQuantity}
+                    handleIncrease={() => increaseQuantity({quantity, id})}
+                    handleDecrease={() => decreaseQuantity({quantity, id})}
                   />
                   <hr />
                 </React.Fragment>

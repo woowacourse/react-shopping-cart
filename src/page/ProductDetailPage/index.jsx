@@ -24,11 +24,6 @@ export default function ProductDetailPage() {
     API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`,
   });
 
-  const {fetch: postCart} = useFetch({
-    method: 'post',
-    API_URL: process.env.REACT_APP_CART_API_URL,
-  });
-
   useEffect(() => {
     getProductDetail();
   }, []);
@@ -46,7 +41,6 @@ export default function ProductDetailPage() {
     };
 
     addCartItem(cartInfo);
-    postCart(cartInfo);
   };
 
   return (
