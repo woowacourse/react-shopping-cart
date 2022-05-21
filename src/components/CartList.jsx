@@ -1,5 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import {
+  allCheckProduct,
+  allUnCheckProduct,
+  checkProduct,
+  removeProductsToCartAsync,
+  removeProductToCartAsync,
+  unCheckProduct,
+} from '../store/modules/cart/actions';
 import { StyledImageWrapper, StyledImg } from './common';
 import CheckBox from './common/CheckBox';
 
@@ -7,12 +16,45 @@ import Counter from './common/Counter';
 import DeleteIconButton from './common/DeleteIconButton';
 import PriceBox from './common/PriceBox';
 
-function CartList({ products }) {
+function CartList({ products, checkedIds }) {
+  const dispatch = useDispatch();
+  const [allChecked, setAllChecked] = useState(true);
+
+  const onClickCheckProduct = (id) => dispatch(checkProduct(id));
+  const onClickUnCheckProduct = (id) => dispatch(unCheckProduct(id));
+  // const onClickCheckAllProduct = () => dispatch(allCheckProduct());
+  // const onClickUnCheckAllProduct = () => dispatch(allUnCheckProduct());
+  const onClickAllCkeck = (isAllCkeck) => {
+    setAllChecked(isAllCkeck);
+
+    if (isAllCkeck) {
+      dispatch(allCheckProduct());
+      return;
+    }
+    dispatch(allUnCheckProduct());
+  };
+
+  // TODO: removeProductsToCartAsync
+  const handlRemoveProductsToCart = (ids) => {
+    if (ids.length === 0) {
+      alert('삭제 할 상품을 선택해 주세요.');
+      return;
+    }
+    // console.log('remove', ids);
+  };
+
+  useEffect(() => {
+    const isAllCkeck = products.length === checkedIds.length;
+    setAllChecked(isAllCkeck);
+  }, [checkedIds, products]);
+
   return (
     <StyledCartListLayout>
       <StyledCartListOptionWrapper>
-        <CheckBox labelText={'선택해제'} />
-        <StyledDeleteButton>상품 삭제</StyledDeleteButton>
+        <CheckBox labelText={'선택해제'} isClicked={allChecked} onClickCallback={onClickAllCkeck} />
+        <StyledDeleteButton onClick={() => handlRemoveProductsToCart(checkedIds)}>
+          상품 삭제
+        </StyledDeleteButton>
       </StyledCartListOptionWrapper>
       <StyledCartListWrapper>
         <StyledCartListTitle>
@@ -20,7 +62,16 @@ function CartList({ products }) {
         </StyledCartListTitle>
         <StyledCartList>
           {products.map((product) => {
-            return <CartListItem key={product.id} product={product} />;
+            return (
+              <CartListItem
+                key={product.id}
+                dispatch={dispatch}
+                product={product}
+                isClicked={checkedIds.includes(product.id)}
+                onClickCheck={() => onClickCheckProduct(product.id)}
+                onClickUnCheck={() => onClickUnCheckProduct(product.id)}
+              />
+            );
           })}
         </StyledCartList>
       </StyledCartListWrapper>
@@ -28,18 +79,27 @@ function CartList({ products }) {
   );
 }
 
-const CartListItem = ({ product }) => {
+const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnCheck }) => {
   const { id, name, price, imageUrl } = product;
 
-  const handleRemoveItem = () => {
-    console.log('delete click');
+  const handleRemoveItem = (id) => {
+    const isRemove = window.confirm('해당 상품을 장바구니에서 삭제 하시겠습니까?');
+    if (isRemove) dispatch(removeProductToCartAsync(id));
+  };
+
+  const onClickCheckCallback = (isCheck) => {
+    if (isCheck) {
+      onClickCheck();
+      return;
+    }
+    onClickUnCheck();
   };
 
   return (
     <StyledCartListItem>
       <StyledItemInfoWrapper>
         <div>
-          <CheckBox />
+          <CheckBox isClicked={isClicked} onClickCallback={onClickCheckCallback} />
         </div>
         <StyledItemInfo>
           <StyledImageWrapper>
@@ -49,7 +109,7 @@ const CartListItem = ({ product }) => {
         </StyledItemInfo>
       </StyledItemInfoWrapper>
       <StyledItemControlBox>
-        <DeleteIconButton onClickCallback={handleRemoveItem} />
+        <DeleteIconButton onClickCallback={() => handleRemoveItem(id)} />
         <Counter />
         <PriceBox price={price} />
       </StyledItemControlBox>

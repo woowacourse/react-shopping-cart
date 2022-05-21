@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsCheckSquareFill, BsSquare } from 'react-icons/bs';
 
-function CheckBox({ boxSize = 30, labelText }) {
-  const [clicked, setClicked] = useState(false);
+function CheckBox({ isClicked = true, boxSize = 30, labelText, onClickCallback = () => {} }) {
+  const [clicked, setClicked] = useState();
 
-  const handleClick = () => setClicked((prev) => !prev);
+  const handleClick = () => {
+    setClicked((prev) => !prev);
+    onClickCallback(!clicked);
+  };
+
+  useEffect(() => {
+    setClicked(isClicked);
+  }, [isClicked]);
 
   return (
     <StyledCheckBoxLayout onClick={handleClick}>

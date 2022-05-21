@@ -1,11 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CartList from '../components/CartList';
 import OrderBox from '../components/common/OrderBox';
+import { allCheckProduct } from '../store/modules/cart/actions';
 
 function CartPage() {
-  const { products } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { products, checkedIds } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(allCheckProduct());
+  }, [dispatch]);
 
   return (
     <StyledContentLayout>
@@ -14,7 +20,7 @@ function CartPage() {
           <StyledHeaderTitle>장바구니</StyledHeaderTitle>
         </StyledContentHeader>
         <StyledContent>
-          <CartList products={products} />
+          <CartList products={products} checkedIds={checkedIds} />
           <OrderBox />
         </StyledContent>
       </StyledContentWrapper>
