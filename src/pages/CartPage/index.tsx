@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import { RootState } from 'store';
@@ -18,60 +18,59 @@ import { DELETE } from 'constants/index';
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartProductList, isLoading } = useSelector((state: RootState) => state.cartProductList);
-  const [checkedCartProductList, setCheckedCartProductList] = useState<number[]>([]);
+  const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
 
-  const handleToggleEntireCheckBoxButton = (isChecked: boolean) => {
-    if (isChecked) {
-      setCheckedCartProductList([]);
+  const handleEntireCheckButtonClick = () => {
+    if (checkedIdList.length === cartProductList.length) {
+      setCheckedIdList([]);
       return;
     }
 
-    setCheckedCartProductList(cartProductList.map(({ id }) => id));
+    setCheckedIdList(cartProductList.map(({ id }) => id));
   };
 
-  const handleToggleCheckBoxButton = (id: number) => {
-    if (isExistInCheckedList(id)) {
-      const filteredCheckedCartProductList = checkedCartProductList.filter(
-        (checkedCartProduct) => checkedCartProduct !== id,
-      );
-      setCheckedCartProductList(filteredCheckedCartProductList);
+  const handleCheckButtonClick = (id: number) => {
+    if (isExistInCheckedIdList(id)) {
+      setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id));
       return;
     }
 
-    setCheckedCartProductList((prev) => [...prev, id]);
+    setCheckedIdList((prev) => [...prev, id]);
   };
 
-  const handleDeleteEntireCartProduct = async () => {
-    if (checkedCartProductList.length === 0) return;
+  const handleCheckedCartProductDelete = async () => {
+    if (checkedIdList.length === 0) return;
 
-    const deleteFetchList = checkedCartProductList.map((checkedCartProduct) => {
+    const fetchList = checkedIdList.map((checkedId) => {
       return fetch(
-        `${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedCartProduct}`,
+        `${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedId}`,
         OPTIONS(DELETE),
       );
     });
 
-    await Promise.all([deleteFetchList]);
+    await Promise.all([fetchList]);
     loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    setCheckedIdList([]);
   };
 
-  const handleDeleteCartProduct = async (id: number) => {
+  const handleCartProductDelete = async (id: number) => {
     await deleteCartProduct(id);
     loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+    setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id));
   };
 
-  const isExistInCheckedList = (id: number) => {
-    return checkedCartProductList.indexOf(id) !== -1;
+  const isExistInCheckedIdList = (id: number) => {
+    return checkedIdList.indexOf(id) !== -1;
   };
 
   const totalPrice = useMemo(() => {
-    const filteredCartProductList = cartProductList.filter(({ id }) => isExistInCheckedList(id));
+    const checkedCartProductList = cartProductList.filter(({ id }) => isExistInCheckedIdList(id));
 
-    return filteredCartProductList.reduce(
+    return checkedCartProductList.reduce(
       (totalPrice, { quantity, price }) => (totalPrice += quantity * price),
       0,
     );
-  }, [cartProductList, checkedCartProductList]);
+  }, [cartProductList, checkedIdList]);
 
   useEffect(() => {
     dispatch(startCartProductList());
@@ -91,16 +90,10 @@ const CartPage = () => {
           <Styled.CartListBox>
             <MarginWrapper mb="50px">
               <Flex justify="space-between">
-                <Button
-                  onClick={() =>
-                    handleToggleEntireCheckBoxButton(
-                      checkedCartProductList.length === cartProductList.length,
-                    )
-                  }
-                >
+                <Button onClick={handleEntireCheckButtonClick}>
                   <Flex align="center" gap="12px">
-                    {checkedCartProductList.length === cartProductList.length &&
-                    cartProductList.length !== 0 ? (
+                    {cartProductList.length !== 0 &&
+                    checkedIdList.length === cartProductList.length ? (
                       <>
                         <CheckBoxIcon />
                         <Text size="16px">전체해제</Text>
@@ -119,9 +112,9 @@ const CartPage = () => {
                   borderWidth="1px"
                   borderStyle="solid"
                   borderColor="gray"
-                  onClick={handleDeleteEntireCartProduct}
+                  onClick={handleCheckedCartProductDelete}
                 >
-                  상품삭제
+                  선택 삭제
                 </Button>
               </Flex>
             </MarginWrapper>
@@ -135,9 +128,9 @@ const CartPage = () => {
                 <CartProduct
                   key={cartProduct.id}
                   data={cartProduct}
-                  isChecked={isExistInCheckedList(cartProduct.id)}
-                  handleToggleCheckBoxButton={handleToggleCheckBoxButton}
-                  handleDeleteCartProduct={handleDeleteCartProduct}
+                  isChecked={isExistInCheckedIdList(cartProduct.id)}
+                  handleCheckButtonClick={handleCheckButtonClick}
+                  handleCartProductDelete={handleCartProductDelete}
                 />
               ))
             )}

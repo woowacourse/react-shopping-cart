@@ -16,15 +16,15 @@ import { setCartProductList } from 'store/cartProductList/actions';
 interface CartProductProps {
   data: CartProductData;
   isChecked: boolean;
-  handleToggleCheckBoxButton: (id: number) => void;
-  handleDeleteCartProduct: (id: number) => void;
+  handleCheckButtonClick: (id: number) => void;
+  handleCartProductDelete: (id: number) => void;
 }
 
 const CartProduct = ({
   data,
   isChecked,
-  handleToggleCheckBoxButton,
-  handleDeleteCartProduct,
+  handleCheckButtonClick,
+  handleCartProductDelete,
 }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const CartProduct = ({
     <Styled.Wrapper>
       <Flex gap="20px">
         <Styled.CheckBox>
-          <Button onClick={() => handleToggleCheckBoxButton(id)}>
+          <Button onClick={() => handleCheckButtonClick(id)}>
             {isChecked ? <CheckBoxIcon /> : <UncheckBoxIcon />}
           </Button>
         </Styled.CheckBox>
@@ -63,7 +63,7 @@ const CartProduct = ({
         <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
         <Styled.TestBox>
           <Flex direction="column" align="flex-end" gap="20px">
-            <Button onClick={() => handleDeleteCartProduct(id)}>
+            <Button onClick={() => handleCartProductDelete(id)}>
               <DeleteIcon />
             </Button>
             <Styled.QuantityControlBox>
