@@ -33,14 +33,15 @@ const ProductItem = ({ id }) => {
   }, [isInCart, id, shoppingCart]);
 
   const controlCart = () => {
+    setIsOpen(false);
+    clearTimer();
+
     if (quantityRef.current > 0) {
       store.dispatch(doPutProductToCart({ id, quantity: quantityRef.current }));
       return;
     }
 
     store.dispatch(doDeleteProductFromCart({ id }));
-    setIsOpen(false);
-    clearTimer();
   };
 
   const handleItemClick = () => {
@@ -71,15 +72,13 @@ const ProductItem = ({ id }) => {
           <Styled.ProductText name="true">{name}</Styled.ProductText>
           <Styled.ProductText price="true">{autoComma(price)}원</Styled.ProductText>
         </div>
-        <div onClick={handleCartClick}>
+        <Styled.CartContainer onClick={handleCartClick}>
           {isInCart ? (
-            <Button>
-              <Styled.QuantityContainer>{quantity}</Styled.QuantityContainer>
-            </Button>
+            <Styled.QuantityContainer>{quantity}</Styled.QuantityContainer>
           ) : (
             <CartIcon />
           )}
-        </div>
+        </Styled.CartContainer>
       </Styled.ProductContainer>
       {isOpen && (
         <Modal onClick={handleModalClick}>

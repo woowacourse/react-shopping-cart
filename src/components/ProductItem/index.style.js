@@ -43,6 +43,13 @@ const Styled = {
     align-items: center;
     justify-content: center;
     font-size: 20px;
+    color: white;
+  `,
+
+  CartContainer: styled.div`
+    width: 100px;
+    display: flex;
+    justify-content: end;
   `,
 };
 
