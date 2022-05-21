@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultButton from "../components/common/DefaultButton";
+import DefaultButton from "components/common/DefaultButton";
 
 export default {
   title: "Component/Common/DefaultButton",

@@ -10,7 +10,7 @@ import { ROUTES } from "constants";
 
 import rootReducer from "reducers/index";
 
-import Header from "components/common/Header";
+import Header from "components/layout/Header";
 import {
   OrderListPage,
   ProductCartPage,
@@ -18,7 +18,7 @@ import {
   ProductListPage,
 } from "./pages";
 
-import { Main } from "./styled";
+import { Main } from "./layout/Main";
 import ErrorPage from "./pages/ErrorPage";
 
 export const store = createStore(

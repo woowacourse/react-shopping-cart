@@ -1,6 +1,6 @@
 import React from "react";
-import GridContainer from "../components/common/GridContainer";
-import ProductCard from "../components/pages/ProductListPage/ProductCard";
+import GridContainer from "components/common/GridContainer";
+import ProductCard from "components/pages/ProductListPage/ProductCard";
 
 export default {
   title: "Component/Common/GridContainer",

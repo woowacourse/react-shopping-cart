@@ -1,5 +1,5 @@
 import React from "react";
-import PaymentAmount from "../components/pages/ProductCartPage/PaymentAmount";
+import PaymentAmount from "components/pages/ProductCartPage/PaymentAmount";
 
 export default {
   title: "Component/PaymentAmount",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductCartItem from "../components/pages/ProductCartPage/ProductCartItem";
+import ProductCartItem from "components/pages/ProductCartPage/ProductCartItem";
 
 export default {
   title: "Component/ProductCartItem",

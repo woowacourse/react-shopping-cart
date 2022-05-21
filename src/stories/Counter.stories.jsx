@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Counter from "../components/common/Counter";
+import Counter from "components/common/Counter";
 
 export default {
   title: "Component/Common/Counter",
