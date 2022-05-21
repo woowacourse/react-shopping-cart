@@ -24,13 +24,13 @@ const CartProducItem = ({
   const dispatch = useDispatch();
 
   const onClickDeleteButton = () => {
+    if (isChecked(id)) {
+      handleChecked(id);
+    }
+
     dispatch(deleteCartItem([id]));
     dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_개별_삭제(name)));
   };
-
-  console.log('id:', id);
-  console.log('isChecked:', isChecked(id));
-  console.log('그거였던였던거:', handleItemCount());
 
   return (
     <Styled.Container>
