@@ -1,7 +1,7 @@
 import styled, { css, StyleProps } from 'styled-components';
 
 const Loading = styled.div`
-  animation: rotateY 1s;
+  animation: rotateY 1s infinite;
 
   @keyframes rotateY {
     from {
