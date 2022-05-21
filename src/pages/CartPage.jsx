@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CartList from '../components/CartList';
+import OrderBox from '../components/common/OrderBox';
 
 function CartPage() {
   const { products } = useSelector((state) => state.cart);
@@ -14,20 +15,12 @@ function CartPage() {
         </StyledContentHeader>
         <StyledContent>
           <CartList products={products} />
-          {/* <OrderBox /> */}
+          <OrderBox />
         </StyledContent>
       </StyledContentWrapper>
     </StyledContentLayout>
   );
 }
-
-const OrderBox = () => {
-  return (
-    <div>
-      <div>오른쪽 결제예상금액</div>
-    </div>
-  );
-};
 
 const StyledContentLayout = styled.div`
   width: 100%;
@@ -67,8 +60,9 @@ const StyledHeaderTitle = styled.span`
 const StyledContent = styled.div`
   width: 90%;
   height: 100%;
-  display: flex;
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  gap: 40px;
 `;
 
 export default CartPage;
