@@ -2,6 +2,7 @@ import Product from 'component/ProductList/Product';
 import { PATH } from 'constant/path';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import storage from 'storage/storage';
 import { addProductCart } from 'store/action/cartActions';
 import { selectProduct } from 'store/action/selectActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
@@ -18,6 +19,7 @@ function ProductContainer({ product }) {
 
   const handleCartClick = () => {
     dispatch(addProductCart(product));
+    storage.addCartProductId(product.id);
     dispatch(updateSnackBar(`${name} 1개가 장바구니에 추가되었습니다.`));
   };
 

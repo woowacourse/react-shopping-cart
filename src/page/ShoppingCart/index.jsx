@@ -1,10 +1,21 @@
 import styled from 'styled-components';
 import CartOperationContainer from 'component/ShoppingCart/CartOperationContainer';
 import OrderContainer from 'component/ShoppingCart/OrderContainer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import storage from 'storage/storage';
+import { targetProductAsyncThunk } from 'store/thunk/productThunk';
 
 export default function ShoppingCart() {
+  const dispatch = useDispatch();
   const cartedProducts = useSelector(store => store.shoppingCart);
+
+  useEffect(() => {
+    const idList = storage.getCartProductIds();
+    if (cartedProducts.length === 0 && idList.length !== 0) {
+      idList.forEach(id => dispatch(targetProductAsyncThunk(id)));
+    }
+  }, []);
 
   return (
     <Page>

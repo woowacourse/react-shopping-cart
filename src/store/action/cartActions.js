@@ -1,3 +1,5 @@
+import storage from 'storage/storage';
+
 const CART_ACTION_TYPES = {
   ADD_PRODUCT: 'CART_ADD_PRODUCT',
   SUBTRACT_PRODUCT: 'SUBTRACT_PRODUCT',
@@ -34,6 +36,7 @@ const checkProductCart = (product, checked) => {
 };
 
 const removeProductCart = product => {
+  storage.removeCartProductId(product.id);
   return {
     type: CART_ACTION_TYPES.REMOVE_PRODUCT,
     payload: {
