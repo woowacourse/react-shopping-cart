@@ -17,10 +17,10 @@ const Template = (args) => <Image {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  src: 'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201704/10/8a043cc8-818b-4b85-a962-7914b83777de.jpg',
+  src: process.env.PUBLIC_URL + '/img/fallback.png',
   width: '100px',
   height: '100px',
-  alt: '사나 이미지',
+  alt: 'fallback 이미지',
 };
 
 export const Trashcan = Template.bind({});
