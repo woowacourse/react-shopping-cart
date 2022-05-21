@@ -22,7 +22,7 @@ import { deleteCartProduct } from 'api/cart';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import { getCartProductList } from 'store/cartProductList/actions';
 import { isExistInList } from 'utils';
-import { DELETE } from 'constants/index';
+import { DELETE, 상품삭제메시지, 선택상품삭제메시지 } from 'constants/index';
 
 const CartPage = () => {
   const {
@@ -55,7 +55,7 @@ const CartPage = () => {
 
     dispatch(getCartProductListAsync());
     setCheckedIdList([]);
-    triggerSnackbar('선택된 상품이 삭제되었습니다.');
+    triggerSnackbar(선택상품삭제메시지);
   };
 
   const handleCartProductDelete = async (id: number) => {
@@ -63,7 +63,7 @@ const CartPage = () => {
 
     dispatch(getCartProductListAsync());
     setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id));
-    triggerSnackbar('해당 상품이 삭제되었습니다.');
+    triggerSnackbar(상품삭제메시지);
   };
 
   if (isError) {

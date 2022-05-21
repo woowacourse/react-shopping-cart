@@ -18,6 +18,7 @@ import useSnackBar from 'hooks/useSnackBar';
 import { updateCartProduct } from 'api/cart';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import { CartProductData } from 'types';
+import { 수량감소메시지, 수량증가메시지 } from 'constants/index';
 
 interface CartProductProps {
   data: CartProductData;
@@ -42,12 +43,12 @@ const CartProduct = ({
     try {
       if (type === 'increase') {
         await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
-        triggerSnackbar('상품이 정상적으로 수량 +1 되었습니다.');
+        triggerSnackbar(수량증가메시지);
       }
 
       if (type === 'decrease') {
         await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
-        triggerSnackbar('상품이 정상적으로 수량 -1 되었습니다.');
+        triggerSnackbar(수량감소메시지);
       }
 
       dispatch(getCartProductListAsync());

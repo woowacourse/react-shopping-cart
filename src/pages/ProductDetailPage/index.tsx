@@ -15,6 +15,7 @@ import useSnackBar from 'hooks/useSnackBar';
 import { loadCartProduct, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
+import { 상품저장메시지 } from 'constants/index';
 
 const ProductDetail = () => {
   const {
@@ -32,7 +33,7 @@ const ProductDetail = () => {
         : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
 
       dispatch(getCartProductListAsync());
-      triggerSnackbar('장바구니에 상품이 담겼습니다.');
+      triggerSnackbar(상품저장메시지);
     } catch (e) {
       alert(e);
     }

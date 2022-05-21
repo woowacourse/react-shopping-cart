@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SNACKBAR_DELAY_TIME } from 'constants/index';
 
 const useSnackBar = (initialState: boolean) => {
   const [showSnackbar, setShowSnackBar] = useState(initialState);
@@ -15,7 +16,7 @@ const useSnackBar = (initialState: boolean) => {
     timer = setTimeout(() => {
       clearTimeout(timer);
       setShowSnackBar(false);
-    }, 2000);
+    }, SNACKBAR_DELAY_TIME);
   };
 
   return { message, showSnackbar, triggerSnackbar };
