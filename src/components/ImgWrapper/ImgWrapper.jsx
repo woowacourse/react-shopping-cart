@@ -17,15 +17,16 @@ ImgWrapper.propTypes = {
 
 const Styled = {
   Wrapper: styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   `,
   Img: styled.img`
+    border-radius: 10px;
     ${({ isMini }) => `
-      width: ${isMini ? '10%' : '60%'}; 
+      width: ${isMini ? '80px' : '500px'}; 
     `}
   `,
 };

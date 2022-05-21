@@ -1,19 +1,20 @@
 import styled from 'styled-components';
-import ImgWrapper from 'components/ImgWrapper';
+import { useEffect, useState } from 'react';
 import useCart from 'hooks/useCart';
-import errorApiImg from 'assets/png/errorApiImg.png';
-import spinner from 'assets/svg/spinner.svg';
+import usePost from 'hooks/usePost';
 import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
 import CartOrder from 'components/CartOrder';
-import { useEffect, useState } from 'react';
-import usePost from 'hooks/usePost';
+import ImgWrapper from 'components/ImgWrapper';
+import errorApiImg from 'assets/png/errorApiImg.png';
+import spinner from 'assets/svg/spinner.svg';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [checkedItemList, setCheckedItemList] = useState([]);
-
   const [totalPrice, setTotalPrice] = useState();
+
+  const { callApi: orderCheckedList } = usePost('/orderList', checkedItemList);
   const { getCartEffect, cartList, isLoading, isError } = useCart();
   getCartEffect();
 
@@ -34,35 +35,32 @@ const Cart = () => {
     setTotalPrice(totalPrice);
   }, [checkedIdList]);
 
-  const { callApi: orderCheckedList } = usePost('/orderList', checkedItemList);
-
   const handleClickOrder = () => {
     orderCheckedList();
   };
 
   return (
-    <Styled.CartSection>
-      <TitleHeader>장바구니</TitleHeader>
-      <Styled.FlexBetweenBox>
-        {isLoading && (
-          <ImgWrapper isMini={true} src={spinner} alt="로딩 스피너" />
-        )}
-        {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
-        {!isLoading && cartList && (
+    <>
+      <Styled.CartSection>
+        <TitleHeader>장바구니</TitleHeader>
+        <Styled.FlexBetweenBox>
           <CartTable
             cartList={cartList}
             checkedIdList={checkedIdList}
             setCheckedIdList={setCheckedIdList}
           />
-        )}
-
-        <CartOrder
-          totalPrice={totalPrice}
-          totalCount={checkedIdList.length}
-          handleClickOrder={handleClickOrder}
-        />
-      </Styled.FlexBetweenBox>
-    </Styled.CartSection>
+          <CartOrder
+            totalPrice={totalPrice}
+            totalCount={checkedIdList.length}
+            handleClickOrder={handleClickOrder}
+          />
+        </Styled.FlexBetweenBox>
+      </Styled.CartSection>
+      {isLoading && (
+        <ImgWrapper src={spinner} isMini={true} alt="로딩 스피너" />
+      )}
+      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
+    </>
   );
 };
 
