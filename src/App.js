@@ -10,6 +10,7 @@ import GlobalStyle from 'style/GlobalStyle';
 import ProductList from 'pages/ProductList';
 import rootReducer from 'modules';
 import Header from 'templates/Header';
+import CartList from 'pages/CartList';
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
@@ -21,6 +22,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/react-shopping-cart" element={<ProductList />} />
+          <Route path="/cart-list" element={<CartList />} />
         </Routes>
       </ThemeProvider>
     </Provider>
