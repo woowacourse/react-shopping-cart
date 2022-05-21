@@ -5,6 +5,7 @@ const LineStyled = styled.hr(
     width: ${width};
     background-color: ${color};
     height: ${height};
+    margin: 0px;
   `,
 );
 
