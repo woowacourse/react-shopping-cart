@@ -6,10 +6,11 @@ import usePost from 'hooks/usePost';
 import useCart from 'hooks/useCart';
 import Button from 'components/Button';
 import CartPopup from 'components/CartPopup';
+import { getCartAsync } from 'reducers/cart/cart.thunks';
 
 const ProductDetail = ({ name, price, imgUrl }) => {
   const id = +useParams().id;
-  const { callApi: addItemToCart, isError } = usePost('/cartList', {
+  const { postApi, isError } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
@@ -19,7 +20,7 @@ const ProductDetail = ({ name, price, imgUrl }) => {
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = () => {
-    addItemToCart();
+    postApi(getCartAsync);
     setIsCartPopupShow(true);
 
     setTimeout(() => {

@@ -24,11 +24,11 @@ const ProductList = () => {
           {isLoading && <SkeletonList length={8} />}
           {products.map(({ name, price, imgUrl, id }) => (
             <ProductItem
+              key={id}
               id={id}
               name={name}
               price={comma(price)}
               imgUrl={imgUrl}
-              key={id}
             />
           ))}
         </ProductContainer>
