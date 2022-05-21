@@ -1,8 +1,16 @@
-import ProductList from 'page/ProductList/ProductList';
+import { BrowserRouter } from 'react-router-dom';
+import { ProductList } from 'page';
 
 export default {
   title: 'Component/ProductList',
   component: ProductList,
+  decorators: [
+    Story => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 const Template = args => <ProductList {...args} />;

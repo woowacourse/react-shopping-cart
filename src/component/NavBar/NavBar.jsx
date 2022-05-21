@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+import { PATH } from 'constant';
+
 import { Button } from 'component/@common';
 
 const StyledNavBar = styled.div`
@@ -36,13 +40,28 @@ const MenuText = styled.span`
 `;
 
 function NavBar() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const onClickLogo = () => {
+    if (location.pathname === PATH.PRODUCT_LIST_PAGE) return;
+
+    navigate(PATH.PRODUCT_LIST_PAGE);
+  };
+
+  const onClickShoppingCartMenu = () => {
+    if (location.pathname === PATH.SHOPPING_CART_PAGE) return;
+
+    navigate(PATH.SHOPPING_CART_PAGE);
+  };
+
   return (
     <StyledNavBar>
-      <Button>
+      <Button onClick={onClickLogo}>
         <LogoText>🛒 WOOWA SHOP</LogoText>
       </Button>
       <MenuBox>
-        <Button>
+        <Button onClick={onClickShoppingCartMenu}>
           <MenuText>장바구니</MenuText>
         </Button>
         <Button>
