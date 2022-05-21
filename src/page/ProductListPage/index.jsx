@@ -14,6 +14,7 @@ import {useNavigate} from 'react-router-dom';
 import useCartItem from 'hook/useCartItem';
 import {PATH} from 'constant';
 import ErrorBoundary from 'component/ErrorBoundary';
+import {getCartList} from 'store/modules/cart';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ export default function ProductListPage() {
 
   useEffect(() => {
     dispatch(getProductList());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCartList());
   }, [dispatch]);
 
   const handleIconClick = ({image, name, price, id, isInCart}) => {
