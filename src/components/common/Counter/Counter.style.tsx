@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const CounterContainer = styled.div`
-  width: 100px;
+  min-width: 100px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.brandColor_1};
 `;

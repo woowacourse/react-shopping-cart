@@ -5,6 +5,7 @@ import * as Styled from './ShoppingCart.style';
 import CartList from '@/components/cart/CartList/CartList';
 import OrderForm from '@/components/order/OrderForm/OrderForm';
 import ErrorContainer from '@/components/common/ErrorContainer/ErrorContainer';
+import Loading from '@/components/common/Loading/Loading';
 
 function ShoppingCart() {
   const { isLoading, cartList } = useThunkFetch({
@@ -19,7 +20,9 @@ function ShoppingCart() {
         <Styled.Container>
           <Styled.Title>장바구니</Styled.Title>
           <Styled.Wrapper>
-            <ErrorContainer>로딩 중</ErrorContainer>
+            <ErrorContainer>
+              <Loading fontSize="2.5rem">👻</Loading>
+            </ErrorContainer>
           </Styled.Wrapper>
         </Styled.Container>
       </PageTemplate>

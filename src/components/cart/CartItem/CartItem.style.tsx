@@ -13,10 +13,6 @@ export const ImageWrapper = styled.div`
   width: 150px;
 
   cursor: pointer;
-
-  ${({ theme }) => theme.tablet} {
-    width: 100px;
-  }
 `;
 
 export const NameWrapper = styled.div`
@@ -33,6 +29,7 @@ export const NameWrapper = styled.div`
 `;
 
 export const PriceWrapper = styled.div`
+  min-width: 100px;
   display: flex;
 
   flex-direction: column;
@@ -40,6 +37,13 @@ export const PriceWrapper = styled.div`
   align-items: center;
 
   gap: 30px;
+`;
+
+export const CounterWrapper = styled.div`
+  height: 100px;
+
+  display: flex;
+  align-items: center;
 `;
 
 export const Text = styled.span``;
