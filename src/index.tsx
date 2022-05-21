@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
 import { ThemeProvider } from 'styled-components';
 
 import App from './App';
 import './index.css';
+
 import rootReducer from 'store/index';
 import theme from 'styles/theme';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
