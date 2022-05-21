@@ -29,6 +29,7 @@ declare module 'styled-components' {
     height: string;
     backgroundColor: string;
     fontColor: string;
+    fontSize: string;
     padding: string;
     border: string;
     aspectRatio: string;
