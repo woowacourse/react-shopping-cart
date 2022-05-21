@@ -17,7 +17,7 @@ export const selectProductsError = createSelector(
   (products) => products.error
 );
 
-export const selectDetailProduct = createSelector(
+export const selectProduct = createSelector(
   [selectProducts],
-  (products) => products.detailProduct
+  (products) => products.product
 );

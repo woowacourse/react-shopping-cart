@@ -17,7 +17,7 @@ import {
 } from 'redux/carts/carts.selector';
 import { fetchProductStart } from 'redux/products/products.action';
 import {
-  selectDetailProduct,
+  selectProduct,
   selectIsProductsLoading,
 } from 'redux/products/products.selector';
 
@@ -29,7 +29,7 @@ import { isInCart } from 'utils/check';
 function ProductDetailPage() {
   const { idx } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector(selectDetailProduct);
+  const product = useSelector(selectProduct);
   const carts = useSelector(selectCurrentCarts);
   const isCartsLoading = useSelector(selectIsCartsLoading);
   const isProductsLoading = useSelector(selectIsProductsLoading);
@@ -40,6 +40,8 @@ function ProductDetailPage() {
     dispatch(fetchCartsStart());
     dispatch(fetchProductStart(idx));
   }, [dispatch, idx]);
+
+  console.log(product);
 
   return (
     // THINK: page 컴포넌트의 추상화레벨을 맞춰야할 것 같은데, 맞을까?

@@ -19,7 +19,7 @@ export function* getProducts({ payload: id }) {
   }
 }
 
-export function* getDetailProduct({ payload: id }) {
+export function* getProduct({ payload: id }) {
   try {
     const data = yield call(fetchProduct, id);
     yield put(fetchProductSuccess(data));
@@ -33,7 +33,7 @@ export function* handleFetchProducts() {
 }
 
 export function* handlefetchProduct() {
-  yield takeLatest(productActionType.fetchProductStart, getDetailProduct);
+  yield takeLatest(productActionType.fetchProductStart, getProduct);
 }
 
 export function* productsSaga() {

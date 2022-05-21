@@ -16,14 +16,14 @@ describe('product reducer 테스트', () => {
     const INITIAL_STATE = {
       isLoading: false,
       products: [],
-      detailProduct: null,
+      product: null,
       error: null,
     };
 
     expect(productsReducer(INITIAL_STATE, fetchProductsStart(page))).toEqual({
       isLoading: true,
       products: [],
-      detailProduct: null,
+      product: null,
       error: null,
     });
 
@@ -37,7 +37,7 @@ describe('product reducer 테스트', () => {
     ).toEqual({
       isLoading: false,
       products: products,
-      detailProduct: null,
+      product: null,
       error: null,
     });
   });
@@ -46,7 +46,7 @@ describe('product reducer 테스트', () => {
     const INITIAL_STATE = {
       isLoading: false,
       products: [],
-      detailProduct: null,
+      product: null,
       error: null,
     };
     const id = 1;
@@ -54,7 +54,7 @@ describe('product reducer 테스트', () => {
     expect(productsReducer(INITIAL_STATE, fetchProductStart(id))).toEqual({
       isLoading: true,
       products: [],
-      detailProduct: null,
+      product: null,
       error: null,
     });
 
@@ -65,7 +65,7 @@ describe('product reducer 테스트', () => {
     ).toEqual({
       isLoading: false,
       products: [],
-      detailProduct: product,
+      product: product,
       error: null,
     });
   });
