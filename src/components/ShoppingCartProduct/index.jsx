@@ -2,20 +2,28 @@ import * as S from "./index.styles";
 import RemoveIcon from "../RemoveIcon";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addId,
+  removeId,
+  removeCartProduct,
   decrementCartProductQuantity,
   incrementCartProductQuantity,
-  removeCartProduct,
-  updateCartProductChecked,
   updateCartProductQuantityByUserInput,
 } from "../../modules/products";
+import { useState, useEffect } from "react";
 
-const ProductInfoContainer = ({ imgUrl, title, isChecked, handleChecked }) => {
+const ProductInfoContainer = ({
+  id,
+  imgUrl,
+  title,
+  isChecked,
+  handleChecked,
+}) => {
   return (
     <S.ProductInfoContainer>
       <S.ProductCheckBox
         type="checkbox"
         checked={isChecked}
-        onChange={handleChecked}
+        onChange={() => handleChecked(id)}
       />
       <S.ProductImage src={imgUrl} alt={`${title}-이미지`} />
       <S.ProductTitle>{title}</S.ProductTitle>
@@ -58,7 +66,8 @@ const ProductQuantityControlContainer = ({
   );
 };
 
-const ShoppingCartProduct = ({ imgUrl, title, price, id, isChecked }) => {
+const ShoppingCartProduct = ({ checked, imgUrl, title, price, id }) => {
+  const [isChecked, setChecked] = useState(true);
   const dispatch = useDispatch();
   const shoppingCartProducts = useSelector(
     (state) => state.shoppingCartProducts
@@ -67,6 +76,14 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id, isChecked }) => {
   const shoppingCartProduct = shoppingCartProducts.data.find(
     (product) => product.id === id
   );
+
+  const handleChecked = (id) => {
+    if (isChecked) {
+      dispatch(removeId(id));
+      return;
+    }
+    dispatch(addId(id));
+  };
 
   const handleIncrement = () => {
     dispatch(incrementCartProductQuantity(id));
@@ -94,13 +111,14 @@ const ShoppingCartProduct = ({ imgUrl, title, price, id, isChecked }) => {
     dispatch(removeCartProduct(id));
   };
 
-  const handleChecked = () => {
-    dispatch(updateCartProductChecked(id));
-  };
+  useEffect(() => {
+    setChecked(checked);
+  }, [checked]);
 
   return (
     <S.ShoppingCartProduct>
       <ProductInfoContainer
+        id={id}
         imgUrl={imgUrl}
         title={title}
         handleChecked={handleChecked}

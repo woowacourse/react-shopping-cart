@@ -1,41 +1,35 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import * as S from "./index.styles";
 
-const PaymentAmount = () => {
+const PaymentAmount = ({ products, checkedProductIds }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const shoppingCartProducts = useSelector(
-    (state) => state.shoppingCartProducts
-  );
 
   useEffect(() => {
-    if (shoppingCartProducts.data.length) {
-      const totalProductsAmount = shoppingCartProducts.data.reduce(
-        (totalAmount, currentProduct) => {
-          if (currentProduct.isChecked) {
-            return totalAmount + currentProduct.price * currentProduct.quantity;
-          }
+    const totalProductsAmount = products.reduce(
+      (totalAmount, currentProduct) => {
+        if (checkedProductIds.includes(currentProduct.id)) {
+          return totalAmount + currentProduct.price * currentProduct.quantity;
+        }
 
-          return totalAmount;
-        },
-        0
-      );
-      const totalProductsQuantity = shoppingCartProducts.data.reduce(
-        (totalQuantity, currentProduct) => {
-          if (currentProduct.isChecked) {
-            return totalQuantity + currentProduct.quantity;
-          }
+        return totalAmount;
+      },
+      0
+    );
+    const totalProductsQuantity = products.reduce(
+      (totalQuantity, currentProduct) => {
+        if (checkedProductIds.includes(currentProduct.id)) {
+          return totalQuantity + currentProduct.quantity;
+        }
 
-          return totalQuantity;
-        },
-        0
-      );
+        return totalQuantity;
+      },
+      0
+    );
 
-      setTotalAmount(totalProductsAmount);
-      setTotalQuantity(totalProductsQuantity);
-    }
-  }, [shoppingCartProducts]);
+    setTotalAmount(totalProductsAmount);
+    setTotalQuantity(totalProductsQuantity);
+  }, [products, checkedProductIds]);
 
   return (
     <S.PaymentAmountContainer>

@@ -2,8 +2,6 @@ import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 import { useDispatch } from "react-redux";
 import { postCartProduct } from "../../modules/products";
-import { useState } from "react";
-import SnackBar from "../../modal/SnackBar";
 import { useTheme } from "@emotion/react";
 
 const Product = ({
@@ -15,17 +13,11 @@ const Product = ({
   isInShoppingCart,
   id,
 }) => {
-  const [isCartIconClicked, setCartIconClicked] = useState(false);
   const theme = useTheme();
   const dispatch = useDispatch();
 
   const handlePutInShoppingCart = () => {
     dispatch(postCartProduct(id, product));
-
-    setCartIconClicked((prevState) => !prevState);
-    setTimeout(() => {
-      setCartIconClicked((prevState) => !prevState);
-    }, 700);
   };
 
   return (
@@ -44,7 +36,6 @@ const Product = ({
           />
         </button>
       </S.ProductInfoWrapper>
-      {isCartIconClicked && <SnackBar message="장바구니에 상품이 담겼습니다" />}
     </S.ProductContainer>
   );
 };
