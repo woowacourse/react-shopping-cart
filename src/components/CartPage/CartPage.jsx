@@ -5,10 +5,14 @@ import Order from 'components/CartPage/Order';
 import CheckBox from 'components/CartPage/CheckBox';
 import { DivideUnderLine } from 'components/shared/styles';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCart } from 'store/carts';
+import { ERROR_MESSAGE, NOTICE } from 'constants';
 
 function CartPage() {
   const { carts } = useSelector((state) => state.carts);
+
+  const dispatch = useDispatch();
 
   const [checkedList, setCheckedList] = useState(carts);
 
@@ -31,6 +35,18 @@ function CartPage() {
     setCheckedList(carts);
   };
 
+  const deleteCheckedProducts = () => {
+    if (checkedList.length) {
+      if (window.confirm(NOTICE.DELETE_CONFIRM)) {
+        checkedList.forEach((product) => {
+          dispatch(deleteCart(product.id));
+        });
+      }
+      return;
+    }
+    alert(ERROR_MESSAGE.NON_SELECTED);
+  };
+
   useEffect(() => {
     setCheckedList(carts);
   }, [carts]);
@@ -50,7 +66,9 @@ function CartPage() {
                 선택해제
               </Styled.CancelSelectLabel>
             </Styled.CheckBoxContainer>
-            <Styled.DeleteProductButton>상품삭제</Styled.DeleteProductButton>
+            <Styled.DeleteProductButton onClick={deleteCheckedProducts}>
+              상품삭제
+            </Styled.DeleteProductButton>
           </Styled.CartSelectorWrapper>
           <Styled.CartListTitle>{`돔하디배송 상품(${carts.length}개)`}</Styled.CartListTitle>
           <Styled.CartDivideLine shape="greyThick" />
@@ -102,6 +120,11 @@ const Styled = {
     padding: 12px 22px;
     border: 1px solid #bbbbbb;
     background-color: white;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+    }
   `,
   CartListTitle: styled.h3`
     display: flex;

@@ -32,6 +32,7 @@ export const ERROR_MESSAGE = {
   DELETE_CART: '장바구니에서 제품을 제거하지 못했습니다. 다시 시도해주세요.',
   UPDATE_CART_QUANTITY:
     '장바구니 제품의 수량을 조정하지 못했습니다. 다시 시도해주세요.',
+  NON_SELECTED: '선택된 상품이 없습니다.',
 };
 
 export const LIMIT = {
