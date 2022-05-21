@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -13,15 +13,19 @@ import { SERVER_URL } from 'constants';
 const ProductListPage = () => {
   const { products } = useSelector(state => state.reducer);
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
+    if (products.length > 0) {
+      return;
+    }
+
     const response = await axios.get(SERVER_URL + 'products');
 
     store.dispatch(doInitializeCart({ products: response.data }));
-  };
+  }, [products]);
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return (
     <Styled.ProductListPage>

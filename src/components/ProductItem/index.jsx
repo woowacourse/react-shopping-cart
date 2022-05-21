@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useClose from 'hooks/useClose';
@@ -19,12 +19,18 @@ const ProductItem = ({ id }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
-  const { products } = useSelector(state => state.reducer);
+  const { products, shoppingCart } = useSelector(state => state.reducer);
   const [clearTimer, setAutoCloseTimer, extendTimer] = useClose();
   const { name, price, image, isInCart } = products.find(product => product.id === id);
 
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
+
+  useEffect(() => {
+    if (isInCart) {
+      setQuantity(shoppingCart.find(product => product.id === id).quantity);
+    }
+  }, [isInCart, id, shoppingCart]);
 
   const putCart = () => {
     setIsOpen(false);
