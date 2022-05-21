@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import useDelete from 'hooks/useDelete';
+import useDelete from 'hooks/shared/useDelete';
 import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
 

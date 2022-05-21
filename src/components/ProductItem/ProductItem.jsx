@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import { PATH } from 'constants/path';
-import usePost from 'hooks/usePost';
+import usePost from 'hooks/shared/usePost';
 import useGetCartList from 'hooks/useGetCartList';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {

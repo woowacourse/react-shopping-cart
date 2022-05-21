@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
-import usePatch from 'hooks/usePatch';
+import usePatch from 'hooks/shared/usePatch';
 import useGetCartList from 'hooks/useGetCartList';
 
 const QuantityInput = ({ itemId, cartQuantity }) => {

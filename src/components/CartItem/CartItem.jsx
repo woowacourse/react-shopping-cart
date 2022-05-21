@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import useDelete from 'hooks/useDelete';
+import useDelete from 'hooks/shared/useDelete';
 import QuantityInput from 'components/QuantityInput';
 import comma from 'utils/comma';
 import Checkbox from 'components/Checkbox';

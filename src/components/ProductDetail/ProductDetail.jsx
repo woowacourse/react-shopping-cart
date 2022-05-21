@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import usePost from 'hooks/usePost';
+import usePost from 'hooks/shared/usePost';
 import useGetCartList from 'hooks/useGetCartList';
 import Button from 'components/Button';
 import CartPopup from 'components/CartPopup';

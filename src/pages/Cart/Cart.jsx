@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import useGetCartList from 'hooks/useGetCartList';
-import usePost from 'hooks/usePost';
+import usePost from 'hooks/shared/usePost';
 import TitleHeader from 'components/TitleHeader';
 import CartTable from 'components/CartTable';
 import CartOrder from 'components/CartOrder';
