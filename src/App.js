@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 
 import ProductListPage from 'page/ProductListPage';
@@ -8,6 +8,7 @@ import GlobalStyles from 'components/GlobalStyles';
 import theme from 'components/theme';
 
 import { BASE_URL } from 'constants';
+import CartPage from 'page/CartPage';
 
 const Styled = {
   Routes: styled.div`
@@ -31,7 +32,9 @@ function App() {
           }
           right={
             <div>
-              <Button normalFont>장바구니</Button>
+              <Link to="cart">
+                <Button normalFont>장바구니</Button>
+              </Link>
               <Button normalFont>주문목록</Button>
             </div>
           }
@@ -40,6 +43,7 @@ function App() {
           <Routes>
             <Route path="" element={<ProductListPage />} />
             <Route path="details/:id" element={<ProductDetailPage />} />
+            <Route path="cart" element={<CartPage />} />
           </Routes>
         </Styled.Routes>
         <GlobalStyles />
