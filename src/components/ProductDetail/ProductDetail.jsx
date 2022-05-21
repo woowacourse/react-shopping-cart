@@ -8,10 +8,9 @@ import Button from 'components/Button';
 import CartPopup from 'components/CartPopup';
 
 const ProductDetail = ({ name, price, imgUrl }) => {
-  const { cartList, getCartListWhenMounted } = useGetCartList();
-  getCartListWhenMounted();
+  const { cartList, getCartList } = useGetCartList();
   const id = +useParams().id;
-  const { postApi, isError } = usePost('/cartList', {
+  const { callPostApi, isError } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
@@ -19,15 +18,15 @@ const ProductDetail = ({ name, price, imgUrl }) => {
   const [isInCart, setIsInCart] = useState(!!foundItem);
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
-  const handleClickCart = () => {
-    postApi();
+  const handleClickCart = async () => {
+    await callPostApi();
+    await getCartList();
     setIsCartPopupShow(true);
 
     setTimeout(() => {
       setIsCartPopupShow(false);
       setIsInCart(true);
     }, 3000);
-    console.log('productDetail', cartList);
   };
 
   return (

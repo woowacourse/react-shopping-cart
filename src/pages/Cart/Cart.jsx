@@ -15,7 +15,7 @@ const Cart = () => {
   const [checkedItemList, setCheckedItemList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
-  const { postApi } = usePost('/orderList', checkedItemList);
+  const { callPostApi } = usePost('/orderList', checkedItemList);
   const { orderList } = useGetOrderList();
   const {
     getCartListWhenMounted,
@@ -43,7 +43,7 @@ const Cart = () => {
   }, [checkedIdList]);
 
   const handleClickOrder = async () => {
-    await postApi();
+    await callPostApi();
     // TODO
     await console.log('orderList', orderList);
   };

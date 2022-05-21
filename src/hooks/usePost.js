@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import apiClient from 'utils/apiClient';
-import { useDispatch } from 'react-redux';
-import { getCartListAsync } from 'reducers/cartList/cartList.thunks';
+// import { useDispatch } from 'react-redux';
+// import { getCartListAsync } from 'reducers/cartList/cartList.thunks';
 
 const usePost = (url, payload) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [result, setResult] = useState(null);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const postApi = () => {
+  const callPostApi = () => {
     setIsLoading(true);
 
     apiClient
@@ -17,7 +17,7 @@ const usePost = (url, payload) => {
       .then((response) => {
         setIsLoading(false);
         setResult(response.data);
-        dispatch(getCartListAsync); // api에서 리덕스로 cart 상태 가져오기
+        // dispatch(getCartListAsync); // api에서 리덕스로 cart 상태 가져오기
       })
       .catch((error) => {
         console.log(error);
@@ -26,7 +26,7 @@ const usePost = (url, payload) => {
       });
   };
 
-  return { isLoading, isError, result, postApi };
+  return { isLoading, isError, result, callPostApi };
 };
 
 export default usePost;
