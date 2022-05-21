@@ -3,14 +3,13 @@ import styled, { css } from 'styled-components';
 import ProductName from 'components/@shared/ProductName/ProductName';
 import ProductPrice from 'components/@shared/ProductPrice/ProductPrice';
 
-import useClickCartButton from 'hooks/useClickCartButton';
+import useCart from 'hooks/useCart';
 
 import { ReactComponent as Cart } from 'assets/cart.svg';
 import { CURRENT_USER } from 'constants';
 
 function ProductCardInfo({ name, price, id, thumbnail, $isincart }) {
-  const { handleAddProductToCart, handleDeleteProductFromCart } =
-    useClickCartButton();
+  const { handleAddProductToCart, handleDeleteProductFromCart } = useCart();
 
   return (
     <Styled.Root>

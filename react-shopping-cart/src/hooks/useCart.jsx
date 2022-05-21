@@ -16,7 +16,6 @@ function useCart() {
 
     if (window.confirm('장바구니에서 삭제하시겠습니까?')) {
       dispatch(deleteProductFromCartStart(id));
-      dispatch(fetchCartsStart());
     }
   };
 
@@ -32,9 +31,7 @@ function useCart() {
         user: CURRENT_USER,
       })
     );
-    dispatch(fetchCartsStart());
   };
-
   return { handleAddProductToCart, handleDeleteProductFromCart };
 }
 

@@ -21,7 +21,7 @@ import {
   selectProductsLoading,
 } from 'redux/products/products.selector';
 
-import useClickCartButton from 'hooks/useClickCartButton';
+import useCart from 'hooks/useCart';
 
 import { CURRENT_USER } from 'constants/index';
 import { isInCart } from 'utils/check';
@@ -34,8 +34,7 @@ function ProductDetailPage() {
   const cartsLoading = useSelector(selectCartsLoading);
   const productsLoading = useSelector(selectProductsLoading);
   const isCartItem = isInCart(idx, carts);
-  const { handleAddProductToCart, handleDeleteProductFromCart } =
-    useClickCartButton();
+  const { handleAddProductToCart, handleDeleteProductFromCart } = useCart();
 
   useEffect(() => {
     dispatch(fetchCartsStart());

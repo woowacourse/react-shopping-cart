@@ -10,14 +10,13 @@ import ItemCounter from 'components/ItemCounter/ItemCounter';
 
 import { toggleIsChecked } from 'redux/carts/carts.action';
 
-import useClickCartButton from 'hooks/useClickCartButton';
+import useCart from 'hooks/useCart';
 
 import { ReactComponent as Trash } from 'assets/trash.svg';
 
 function ShoppingCartItem({ id, name, thumbnail, price, checked }) {
-  console.log(thumbnail);
   const dispatch = useDispatch();
-  const { handleDeleteProductFromCart } = useClickCartButton();
+  const { handleDeleteProductFromCart } = useCart();
 
   const handleToggleCheckBox = () => {
     dispatch(toggleIsChecked(id));
