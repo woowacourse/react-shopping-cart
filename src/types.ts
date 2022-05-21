@@ -2,14 +2,14 @@ import { TYPES } from './redux/actions';
 import theme from './styles/theme';
 
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
   description: string;
   stock: number;
-  brandId: number;
-  categoryId: number;
+  brandId: string;
+  categoryId: string;
   createdAt: number;
 };
 
