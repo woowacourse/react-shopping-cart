@@ -10,7 +10,7 @@ import Cart from 'components/Cart';
 
 import { ROUTE } from 'constants';
 import { useDispatch } from 'react-redux';
-import { addCartItem, minusCartItem } from 'modules/cart';
+import { addCartItem, deleteCartItem, minusCartItem } from 'modules/cart';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,10 @@ const App = () => {
 
   const onMinusCartButtonClick = (id) => {
     dispatch(minusCartItem(id));
+  };
+
+  const onDeleteCartButtonClick = (id) => {
+    dispatch(deleteCartItem(id));
   };
 
   return (
@@ -41,6 +45,7 @@ const App = () => {
               <Cart
                 onAddCartButtonClick={onAddCartButtonClick}
                 onMinusCartButtonClick={onMinusCartButtonClick}
+                onDeleteCartButtonClick={onDeleteCartButtonClick}
               />
             }
           />

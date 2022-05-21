@@ -32,11 +32,11 @@ const Styled = {
   `,
 };
 
-const CheckBox = ({ id }) => {
+const CheckBox = ({ id, isChecked }) => {
   return (
     <div>
-      <Styled.CheckInput type="checkbox" id={`product-check-${id}`} />
-      <Styled.CheckLabel for={`product-check-${id}`}>
+      <Styled.CheckInput type="checkbox" id={`product-check-${id}`} checked={isChecked} readOnly />
+      <Styled.CheckLabel htmlFor={`product-check-${id}`}>
         <span>✔︎</span>
       </Styled.CheckLabel>
     </div>
@@ -45,6 +45,8 @@ const CheckBox = ({ id }) => {
 
 CheckBox.propTypes = {
   id: PropTypes.string,
+  onToggleCheckClick: PropTypes.func,
+  isChecked: PropTypes.bool,
 };
 
 export default CheckBox;

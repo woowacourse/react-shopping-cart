@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -7,9 +7,7 @@ import CartProductItem from './CartProductItem';
 import CheckBox from 'components/common/Styled/CheckBox';
 import PaymentModal from 'components/common/Modal/PaymentModal';
 import { DeleteButton } from 'components/common/Styled';
-import { useDispatch, useSelector } from 'react-redux';
-import cartReducer from 'modules/cart';
-import { getProduct } from 'modules/product';
+import { useSelector } from 'react-redux';
 
 const Styled = {
   Container: styled.section`
@@ -78,11 +76,39 @@ const Styled = {
   `,
 };
 
-const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick }) => {
+const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButtonClick }) => {
   const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
-  console.log(cartList);
-
   const totalCount = cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0);
+
+  const [checkList, setCheckList] = useState([]);
+
+  const onToggleTotalClick = () => {
+    if (cartList.length === checkList.length) {
+      setCheckList([]);
+      return;
+    }
+    const checkedList = cartList.map((item) => item.id);
+    setCheckList(checkedList);
+  };
+
+  const onToggleCheckClick = (id) => {
+    if (checkList.includes(id)) {
+      setCheckList(checkList.filter((item) => item !== Number(id)));
+      return;
+    }
+    if (checkList.includes(id) && checkList.length === 1) {
+      setCheckList([]);
+      return;
+    }
+    setCheckList(checkList.concat(id));
+  };
+  const getIsCheck = (id) => {
+    return checkList.includes(id);
+  };
+
+  const getIsTotalCheck = () => {
+    return checkList.length === cartList.length && checkList.length !== 0;
+  };
 
   return (
     <Styled.Container>
@@ -90,8 +116,13 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick }) => {
       <Styled.Wrapper>
         <Styled.CartContentBox>
           <Styled.CartDeleteBox>
-            <Styled.CartDeleteSelector>
-              <CheckBox id="total" />
+            <Styled.CartDeleteSelector
+              onClick={(e) => {
+                e.preventDefault();
+                onToggleTotalClick();
+              }}
+            >
+              <CheckBox id={'total'} isChecked={getIsTotalCheck()} />
               <span>선택해제</span>
             </Styled.CartDeleteSelector>
             <DeleteButton>상품삭제 </DeleteButton>
@@ -102,16 +133,21 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick }) => {
             </Styled.CartProductTotalAmount>
             <Styled.CartProductListContent>
               {cartList.length !== 0 ? (
-                cartList.map((item) => (
-                  <CartProductItem
-                    key={`${item.name}${item.id}`}
-                    productInfo={item}
-                    onAddCartButtonClick={onAddCartButtonClick}
-                    onMinusCartButtonClick={onMinusCartButtonClick}
-                  />
-                ))
+                cartList.map((item) => {
+                  return (
+                    <CartProductItem
+                      key={`${item.name}${item.id}`}
+                      productInfo={item}
+                      onAddCartButtonClick={onAddCartButtonClick}
+                      onMinusCartButtonClick={onMinusCartButtonClick}
+                      onDeleteCartButtonClick={onDeleteCartButtonClick}
+                      onToggleCheckClick={onToggleCheckClick}
+                      isChecked={getIsCheck(item.id)}
+                    />
+                  );
+                })
               ) : (
-                <div>상품비어있음</div>
+                <div>상품이 비어있음</div>
               )}
             </Styled.CartProductListContent>
           </Styled.CartProductList>
@@ -127,6 +163,7 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick }) => {
 Cart.propTypes = {
   onAddCartButtonClick: PropTypes.func,
   onMinusCartButtonClick: PropTypes.func,
+  onDeleteCartButtonClick: PropTypes.func,
 };
 
 export default Cart;

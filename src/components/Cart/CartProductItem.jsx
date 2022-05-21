@@ -70,7 +70,14 @@ const Styled = {
   `,
 };
 
-const CartProductItem = ({ productInfo, onAddCartButtonClick, onMinusCartButtonClick }) => {
+const CartProductItem = ({
+  productInfo,
+  onAddCartButtonClick,
+  onMinusCartButtonClick,
+  onDeleteCartButtonClick,
+  onToggleCheckClick,
+  isChecked,
+}) => {
   const [product, setProduct] = useState(null);
   const [name, setName] = useState('');
   const [thumbnail, setThumbnail] = useState('');
@@ -101,12 +108,26 @@ const CartProductItem = ({ productInfo, onAddCartButtonClick, onMinusCartButtonC
   return (
     <Styled.Wrapper>
       <Styled.ProductInfoBox>
-        <CheckBox id={name} />
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            onToggleCheckClick(productInfo.id);
+          }}
+        >
+          <CheckBox id={String(productInfo.id)} isChecked={isChecked} />
+        </div>
+
         <Styled.Thumbnail src={thumbnail} alt={name} />
         <Styled.Title>{name}</Styled.Title>
       </Styled.ProductInfoBox>
       <Styled.ProductSelectBox>
-        <DeleteTrashButton>🗑</DeleteTrashButton>
+        <DeleteTrashButton
+          onClick={() => {
+            onDeleteCartButtonClick(Number(productInfo.id));
+          }}
+        >
+          🗑
+        </DeleteTrashButton>
         <CountModal
           totalCount={productInfo.quantity}
           onAddCartButtonClick={onAddCartButtonClick}
@@ -123,6 +144,9 @@ CartProductItem.propTypes = {
   productInfo: PropTypes.object,
   onAddCartButtonClick: PropTypes.func,
   onMinusCartButtonClick: PropTypes.func,
+  onDeleteCartButtonClick: PropTypes.func,
+  onToggleCheckClick: PropTypes.func,
+  isChecked: PropTypes.bool,
 };
 
 export default CartProductItem;
