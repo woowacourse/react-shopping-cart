@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { Action, Dispatch } from 'redux';
-import { RootState } from 'redux/reducers';
+import { RootState } from 'redux/rootReducer';
 
 import { useAppDispatch } from './useAppDispatch';
 

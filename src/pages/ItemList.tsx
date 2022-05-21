@@ -10,8 +10,8 @@ import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { getCartListRequest } from 'redux/action-creators/cartListThunk';
-import { getItemList } from 'redux/action-creators/itemListThunk';
+import { getCartListRequest } from 'redux/cartList/cartListThunk';
+import { getItemList } from 'redux/itemList/itemListThunk';
 import styled from 'styled-components';
 import { Item } from 'types/domain';
 

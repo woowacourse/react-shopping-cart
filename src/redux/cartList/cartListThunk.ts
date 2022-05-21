@@ -1,8 +1,8 @@
 import { BASE_URL } from 'apis';
 import axios from 'axios';
 import type { Dispatch } from 'redux';
-import { CartListAction, CartListActionType } from 'redux/actions/cartList';
-import { RootState } from 'redux/reducers';
+import { CartListAction, CartListActionType } from 'redux/cartList/cartList';
+import { RootState } from 'redux/rootReducer';
 import { CartItem } from 'types/domain';
 
 export const getCartListRequest = () => async (dispatch: Dispatch<CartListAction>) => {

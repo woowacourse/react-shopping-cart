@@ -1,9 +1,8 @@
-import { worker } from 'mocks/browser';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import rootReducer from 'redux/reducers';
+import rootReducer from 'redux/rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { ThemeProvider } from 'styled-components';

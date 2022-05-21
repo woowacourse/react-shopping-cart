@@ -4,8 +4,8 @@ import Loading from 'components/common/Loading';
 import PaymentBox from 'components/common/PaymentBox';
 import RequestFail from 'components/common/RequestFail';
 import useThunkFetch from 'hooks/useThunkFetch';
-import { getCartListRequest } from 'redux/action-creators/cartListThunk';
-import { getItemList } from 'redux/action-creators/itemListThunk';
+import { getCartListRequest } from 'redux/cartList/cartListThunk';
+import { getItemList } from 'redux/itemList/itemListThunk';
 import styled from 'styled-components';
 
 const Cart = () => {

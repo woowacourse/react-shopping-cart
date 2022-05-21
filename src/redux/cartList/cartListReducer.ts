@@ -1,4 +1,4 @@
-import { CartListAction, CartListActionType } from 'redux/actions/cartList';
+import { CartListAction, CartListActionType } from 'redux/cartList/cartList';
 import { CartItem } from 'types/domain';
 
 export interface CartItemState {

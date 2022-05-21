@@ -9,7 +9,7 @@ import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { getCartListRequest } from 'redux/action-creators/cartListThunk';
+import { getCartListRequest } from 'redux/cartList/cartListThunk';
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import type { Item } from 'types/domain';
