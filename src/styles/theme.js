@@ -5,12 +5,14 @@ const COLORS = {
   BROWN: '#73675c',
   LIGHT_BROWN: '#73675c30',
   BOX_SHADOW: '#00000030',
+  BLACK: '#000',
+  LIGHT_BLACK: '#00000030',
 };
 
 const IMAGE_SIZE_MAP = {
   large: 430,
   middle: 250,
-  small: 100,
+  small: 150,
 };
 
 const theme = {
