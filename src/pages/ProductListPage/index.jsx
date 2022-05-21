@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import useReducerSelect from 'hooks/useReducerSelect';
+import useProductList from 'hooks/useProductList';
 import useCart from 'hooks/useCart';
-import {getProductList} from 'store/modules/productList';
 
 import ErrorPage from 'pages/ErrorPage';
 import Item from 'components/Item';
@@ -16,15 +15,15 @@ import {Image} from 'components/common/style';
 
 export default function ProductListPage() {
   const {
-    dispatch: productListDispatch,
     pending: productListPending,
     error: productListError,
     data: productList,
-  } = useReducerSelect('productListReducer');
+    getProducts,
+  } = useProductList();
   const {getCartList, pending: cartPending, error: cartError, data: cart} = useCart();
 
   useEffect(() => {
-    productListDispatch(getProductList());
+    getProducts();
     getCartList();
   }, []);
 
@@ -43,7 +42,7 @@ export default function ProductListPage() {
                 itemPrice={price}
                 id={id}
                 key={id}
-                disabled={cart.some((cartItem) => +cartItem.id === id)}
+                disabled={cart.some((cartItem) => cartItem.id === id)}
               />
             );
           })}

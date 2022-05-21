@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
+import useCart from 'hooks/useCart';
+
 import CheckBox from 'components/common/CheckBox';
 import Button from 'components/common/Button';
 import AmountBox from 'components/AmountBox';
@@ -16,7 +18,6 @@ import {
   CartInfoWrapper,
   SelectCartWrapper,
 } from 'pages/ProductCartPage/style';
-import useCart from 'hooks/useCart';
 
 import {calculateChecked} from 'utils';
 import {MESSAGE} from 'constants';

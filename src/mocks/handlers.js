@@ -24,10 +24,10 @@ export const handlers = [
   rest.post('/cart/:id', (req, res, ctx) => {
     // id로 담겨 있는지 확인하고 없으면 바로 저장, 아니면 수량 추가
     const productId = req.params.id;
-    const isCarted = cart.some(({id}) => id === productId);
+    const isCarted = cart.some(({id}) => id === +productId);
 
     if (!isCarted) {
-      cart.push({id: productId, quantity: 1});
+      cart.push({id: +productId, quantity: 1});
     } else {
       const updatedCart = cart.map((item) => {
         if (item.id === productId) {
@@ -53,7 +53,7 @@ export const handlers = [
   }),
   rest.delete('/cart/:id', (req, res, ctx) => {
     const {id} = req.params;
-    const deletedCart = cart.filter((item) => item.id !== id);
+    const deletedCart = cart.filter((item) => item.id !== +id);
     cart = deletedCart;
 
     const detailCart = getDetailCart();
@@ -64,7 +64,7 @@ export const handlers = [
     const productId = req.params.id;
 
     const updatedCart = cart.map((item) => {
-      if (item.id === productId) {
+      if (item.id === +productId) {
         return {...item, quantity: req.body.quantity};
       }
       return item;
