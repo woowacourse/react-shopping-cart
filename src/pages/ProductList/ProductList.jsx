@@ -6,7 +6,7 @@ import { GridLayout } from 'components/@common';
 import { ListProduct, LoadingSpinner, PageLayout } from 'components';
 
 function ProductList() {
-  const products = useSelector(products => products);
+  const products = useSelector(store => store.products);
   const dispatch = useDispatch();
 
   useEffect(() => {

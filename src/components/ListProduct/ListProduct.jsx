@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import { useDispatch } from 'react-redux';
+import ACTION_TYPE from 'redux/cart/cartActions';
+
 import { Button } from 'components/@common';
+
 import { addThousandUnitComma } from 'utils';
 
 const ListProductBox = styled.div`
@@ -39,9 +44,22 @@ const Price = styled.p`
 
 const ShoppingCartIcon = styled.span`
   font-size: 25px;
-`;
+  transition: font-size 0.1s ease;
 
-function ListProduct({ image, name, price }) {
+  &:hover {
+    font-size: 35px;
+  }
+`;
+function ListProduct({ id, image, name, price }) {
+  const dispatch = useDispatch();
+
+  const onClickShoppingCartIcon = () => {
+    dispatch({
+      type: ACTION_TYPE.ADD_PRODUCT_TO_SHOPPING_CART,
+      payload: { id, image, name, price },
+    });
+  };
+
   return (
     <ListProductBox>
       <Image src={image} />
@@ -50,7 +68,7 @@ function ListProduct({ image, name, price }) {
           <Name>{name}</Name>
           <Price>{addThousandUnitComma(price)} 원</Price>
         </div>
-        <Button>
+        <Button onClick={onClickShoppingCartIcon}>
           <ShoppingCartIcon>🛒</ShoppingCartIcon>
         </Button>
       </DescriptionBox>
@@ -59,6 +77,7 @@ function ListProduct({ image, name, price }) {
 }
 
 ListProduct.propTypes = {
+  id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
