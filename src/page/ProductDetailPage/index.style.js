@@ -34,6 +34,7 @@ const Styled = {
     font-size: 32px;
     line-height: 36px;
     letter-spacing: 0.5px;
+    margin-top: 21px;
   `,
 
   PriceContainer: styled.div`
