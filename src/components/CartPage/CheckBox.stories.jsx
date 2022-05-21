@@ -3,6 +3,13 @@ import CheckBox from 'components/CartPage/CheckBox';
 export default {
   title: 'CheckBox',
   component: CheckBox,
+  argTypes: {
+    updateList: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 };
 
 function Template(args) {

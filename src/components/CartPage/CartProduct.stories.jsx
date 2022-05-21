@@ -5,7 +5,9 @@ export default {
   component: CartProduct,
   argTypes: {
     updateCheckedList: {
-      constrol: false,
+      table: {
+        disable: true,
+      },
     },
   },
   decorators: [
