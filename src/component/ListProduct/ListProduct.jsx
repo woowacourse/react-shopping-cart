@@ -58,16 +58,10 @@ function ListProduct({ image, name, price }) {
   );
 }
 
-ListProduct.defaultProps = {
-  image: '',
-  name: '과일',
-  price: 0,
-};
-
 ListProduct.propTypes = {
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default ListProduct;
