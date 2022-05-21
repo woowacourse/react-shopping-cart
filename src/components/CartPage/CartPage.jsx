@@ -23,6 +23,14 @@ function CartPage() {
     setCheckedList(newList);
   };
 
+  const selectAll = (isChecked) => {
+    if (isChecked) {
+      setCheckedList([]);
+      return;
+    }
+    setCheckedList(carts);
+  };
+
   useEffect(() => {
     setCheckedList(carts);
   }, [carts]);
@@ -34,8 +42,11 @@ function CartPage() {
         <Styled.CartLeftSection>
           <Styled.CartSelectorWrapper>
             <Styled.CheckBoxContainer>
-              <CheckBox />
-              <Styled.CancelSelectLabel for="checkbox">
+              <CheckBox
+                checked={carts.length === checkedList.length}
+                updateList={selectAll}
+              />
+              <Styled.CancelSelectLabel htmlFor="checkbox">
                 선택해제
               </Styled.CancelSelectLabel>
             </Styled.CheckBoxContainer>

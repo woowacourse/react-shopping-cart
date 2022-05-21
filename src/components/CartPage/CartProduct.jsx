@@ -27,7 +27,9 @@ function CartProduct({ product, checkedList, updateCheckedList }) {
       <React.Fragment key={product.id}>
         <Styled.ProductLeftWrapper>
           <CheckBox
-            checked={checkedList.find((item) => item.id === product.id)}
+            checked={Boolean(
+              checkedList.find((item) => item.id === product.id),
+            )}
             list={checkedList}
             updateList={updateCheckedListWithProduct}
           />
@@ -60,7 +62,15 @@ CartProduct.propTypes = {
     title: PropType.string.isRequired,
     quantity: PropType.number.isRequired,
   }).isRequired,
-  checkedList: PropType.arrayOf(PropType.string).isRequired,
+  checkedList: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.string.isRequired,
+      price: PropType.string.isRequired,
+      src: PropType.string.isRequired,
+      title: PropType.string.isRequired,
+      quantity: PropType.number.isRequired,
+    }),
+  ).isRequired,
   updateCheckedList: PropType.func.isRequired,
 };
 

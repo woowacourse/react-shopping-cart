@@ -3,7 +3,7 @@ import PropType from 'prop-types';
 import { useEffect, useState } from 'react';
 
 function CheckBox({ checked, updateList }) {
-  const [isChecked, setIsChecked] = useState(Boolean(checked));
+  const [isChecked, setIsChecked] = useState(checked);
 
   const toggleCheckBox = () => {
     setIsChecked((prevState) => !prevState);
@@ -17,7 +17,7 @@ function CheckBox({ checked, updateList }) {
   return (
     <Styled.CheckBox
       type="checkbox"
-      name="checkbox"
+      id="checkbox"
       checked={isChecked}
       onChange={toggleCheckBox}
     />
