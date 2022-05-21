@@ -4,11 +4,13 @@ import { CartActionType } from '@/store/cart/action';
 interface CartState {
   readonly cartList: ProductType[];
   readonly isLoading: boolean;
+  readonly loadingCartProductId: number | null;
 }
 
 const initialState: CartState = {
   cartList: [],
   isLoading: false,
+  loadingCartProductId: null,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -73,7 +75,11 @@ const cartReducer = (state = initialState, action) => {
     }
 
     case CartActionType.PATCH_CART_START: {
-      return { ...state, isLoading: true };
+      const {
+        payload: { id },
+      } = action;
+
+      return { ...state, loadingCartProductId: id };
     }
 
     case CartActionType.PATCH_CART_SUCCEEDED: {
@@ -88,11 +94,11 @@ const cartReducer = (state = initialState, action) => {
         return cart;
       });
 
-      return { ...state, isLoading: false, cartList: newCartList };
+      return { ...state, loadingCartProductId: null, cartList: newCartList };
     }
 
     case CartActionType.PATCH_CART_FAILED: {
-      return { ...state, isLoading: false };
+      return { ...state, loadingCartProductId: null };
     }
 
     default: {

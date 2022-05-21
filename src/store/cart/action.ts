@@ -133,7 +133,7 @@ export const fetchDeleteCartAsync = id => async (dispatch: Dispatch<CartAction>)
 
 export const fetchPatchCartAsync =
   (id, newCartProduct) => async (dispatch: Dispatch<CartAction>) => {
-    dispatch({ type: CartActionType.PATCH_CART_START });
+    dispatch({ type: CartActionType.PATCH_CART_START, payload: { id } });
     try {
       await patchCart(id, newCartProduct);
       dispatch({ type: CartActionType.PATCH_CART_SUCCEEDED, payload: { id, newCartProduct } });
