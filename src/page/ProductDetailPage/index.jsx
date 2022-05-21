@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import DetailItem from 'component/DetailItem';
@@ -15,33 +15,53 @@ import {useSelector} from 'react-redux';
 export default function ProductDetailPage() {
   const {addCartItem} = useCartItem();
   const {id} = useParams();
-  const {pending, data, error} = useFetch(`${process.env.REACT_APP_PRODUCT_API_URL}/${id}`);
+  const {
+    pending: getPending,
+    data: getData,
+    error: getError,
+    fetch: getProductDetail,
+  } = useFetch({
+    API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`,
+  });
+
+  const {fetch: postCart} = useFetch({
+    method: 'post',
+    API_URL: process.env.REACT_APP_CART_API_URL,
+  });
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
   const cartItem = useSelector((state) => state.cartReducer.cart);
   const isInCart = cartItem.some((item) => item.id === Number(id));
 
-  const handleCartButtonClick = (isInCart) => {
-    addCartItem({
-      itemImgURL: data.image,
-      itemName: data.name,
-      itemPrice: data.price,
+  const handleCartButtonClick = () => {
+    const cartInfo = {
+      itemImgURL: getData.image,
+      itemName: getData.name,
+      itemPrice: getData.price,
       id: Number(id),
       quantity: 1,
-    });
+    };
+
+    addCartItem(cartInfo);
+    postCart(cartInfo);
   };
 
   return (
     <S.DetailItemPageLayout>
-      {pending && <Loader />}
+      {getPending && <Loader />}
       <ErrorBoundary
         fallback={<NotFoundPage>해당 상품이 없어요😢</NotFoundPage>}
-        pending={pending}
-        error={error}
+        pending={getPending}
+        error={getError}
       >
-        {data && (
+        {getData && (
           <DetailItem
-            itemImgURL={data.image}
-            itemName={data.name}
-            itemPrice={data.price}
+            itemImgURL={getData.image}
+            itemName={getData.name}
+            itemPrice={getData.price}
             id={Number(id)}
             isInCart={isInCart}
             handleCartButtonClick={handleCartButtonClick}
