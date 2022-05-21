@@ -13,7 +13,10 @@ function ProductCartList({
   checkList,
   handleChangeAllCheckbox,
   handleDeleteAllItem,
-  setCheckList,
+  handleClickIncreaseButton,
+  handleClickDecreaseButton,
+  handleClickDeleteItemButton,
+  handleChangeCheckbox,
 }) {
   return (
     <>
@@ -35,7 +38,10 @@ function ProductCartList({
         <ProductCartItem
           product={cartItem}
           checkList={checkList}
-          setCheckList={setCheckList}
+          handleClickIncreaseButton={handleClickIncreaseButton}
+          handleClickDecreaseButton={handleClickDecreaseButton}
+          handleClickDeleteItemButton={handleClickDeleteItemButton}
+          handleChangeCheckbox={handleChangeCheckbox}
           key={cartItem.id}
         />
       ))}

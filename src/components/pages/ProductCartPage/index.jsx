@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { useStore } from "../../../hooks/useStore";
-import { deleteCartList, getCartList } from "../../../reducers/cartList";
+import {
+  deleteCartList,
+  getCartList,
+  updateCartCount,
+} from "../../../reducers/cartList";
 
 import Spinner from "../../common/Spinner";
 import ErrorPage from "../ErrorPage";
@@ -38,6 +42,27 @@ function ProductCartPage() {
     });
   };
 
+  const handleClickIncreaseButton = (id) => () => {
+    dispatch(updateCartCount(id, "increase"));
+  };
+
+  const handleClickDecreaseButton = (id, count) => () => {
+    if (count <= 1) return;
+    dispatch(updateCartCount(id, "decrease"));
+  };
+
+  const handleClickDeleteItemButton = (id) => () => {
+    dispatch(deleteCartList(id));
+  };
+
+  const handleChangeCheckbox = (id) => () => {
+    if (checkList.includes(id)) {
+      setCheckList((prev) => prev.filter((cartItemId) => cartItemId !== id));
+      return;
+    }
+    setCheckList((prev) => [...prev, id]);
+  };
+
   const [totalPrice, totalCount] = cartList.reduce(
     (acc, { id, price, count }) => {
       if (checkList.includes(id)) {
@@ -58,7 +83,10 @@ function ProductCartPage() {
         checkList={checkList}
         handleChangeAllCheckbox={handleChangeAllCheckbox}
         handleDeleteAllItem={handleDeleteAllItem}
-        setCheckList={setCheckList}
+        handleClickIncreaseButton={handleClickIncreaseButton}
+        handleClickDecreaseButton={handleClickDecreaseButton}
+        handleClickDeleteItemButton={handleClickDeleteItemButton}
+        handleChangeCheckbox={handleChangeCheckbox}
       />
     );
   };

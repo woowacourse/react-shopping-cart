@@ -2,9 +2,6 @@ import React from "react";
 
 import trashCanIcon from "../../../../asset/trash-can.svg";
 
-import { useStore } from "../../../../hooks/useStore";
-import { deleteCartList, updateCartCount } from "../../../../reducers/cartList";
-
 import CheckBox from "../../../common/CheckBox";
 import Counter from "../../../common/Counter";
 import IconButton from "../../../common/IconButton";
@@ -19,38 +16,18 @@ import {
 function ProductCartItem({
   product: { id, thumbnailUrl, name, price, count },
   checkList,
-  setCheckList,
+  handleClickIncreaseButton,
+  handleClickDecreaseButton,
+  handleClickDeleteItemButton,
+  handleChangeCheckbox,
 }) {
-  const { dispatch } = useStore("cartList");
-
-  const handleClickIncreaseButton = () => {
-    dispatch(updateCartCount(id, "increase"));
-  };
-
-  const handleClickDecreaseButton = () => {
-    if (count <= 1) return;
-    dispatch(updateCartCount(id, "decrease"));
-  };
-
-  const handleClickDeleteItemButton = () => {
-    dispatch(deleteCartList(id));
-  };
-
-  const handleChangeCheckbox = () => {
-    if (checkList.includes(id)) {
-      setCheckList((prev) => prev.filter((cartItemId) => cartItemId !== id));
-      return;
-    }
-    setCheckList((prev) => [...prev, id]);
-  };
-
   const totalPrice = Number(price) * count || null;
 
   return (
     <ProductCartContainer>
       <CheckBox
         isChecked={checkList.includes(id)}
-        handleChangeCheckbox={handleChangeCheckbox}
+        handleChangeCheckbox={handleChangeCheckbox(id)}
       />
       <ProductCartImage src={thumbnailUrl ?? ""} alt={name ?? "%ERROR%"} />
       <ProductCartName>{name ?? "%ERROR%"}</ProductCartName>
@@ -58,12 +35,12 @@ function ProductCartItem({
         <IconButton
           src={trashCanIcon}
           alt="현재 상품 삭제 버튼"
-          onClick={handleClickDeleteItemButton}
+          onClick={handleClickDeleteItemButton(id)}
         />
         <Counter
           count={count}
-          handleClickDecreaseButton={handleClickDecreaseButton}
-          handleClickIncreaseButton={handleClickIncreaseButton}
+          handleClickDecreaseButton={handleClickDecreaseButton(id, count)}
+          handleClickIncreaseButton={handleClickIncreaseButton(id)}
         />
         <ProductCartPrice>
           {totalPrice?.toLocaleString() || "%ERROR%"}원
