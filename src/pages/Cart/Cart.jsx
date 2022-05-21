@@ -9,15 +9,18 @@ import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import spinner from 'assets/svg/spinner.svg';
 import useOrderList from 'hooks/useOrderList';
+import { getOrderListAsync } from 'reducers/orderList/orderList.thunks';
+import useReduxState from 'hooks/useReduxState';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [checkedItemList, setCheckedItemList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
-  const { callApi: orderCheckedList } = usePost('/orderList', checkedItemList);
+  const { postApi } = usePost('/orderList', checkedItemList);
   const { cartList, isLoading, isError } = useCart();
-  const { getOrderListEffect, orderList } = useOrderList();
+  const { orderList } = useOrderList();
+  const { dispatch } = useReduxState('orderList');
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
@@ -37,11 +40,10 @@ const Cart = () => {
   }, [checkedIdList]);
 
   const handleClickOrder = async () => {
-    console.log('1');
-    await orderCheckedList();
-    console.log('2');
-    await getOrderListEffect();
-    console.log('orderList', orderList);
+    await postApi();
+    await dispatch(getOrderListAsync);
+
+    await console.log('orderList', orderList);
   };
 
   return (

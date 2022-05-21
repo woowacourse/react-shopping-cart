@@ -9,7 +9,7 @@ const usePost = (url, payload) => {
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
 
-  const callApi = () => {
+  const postApi = () => {
     setIsLoading(true);
 
     apiClient
@@ -26,7 +26,7 @@ const usePost = (url, payload) => {
       });
   };
 
-  return { isLoading, isError, result, callApi };
+  return { isLoading, isError, result, postApi };
 };
 
 export default usePost;

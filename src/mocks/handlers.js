@@ -66,8 +66,7 @@ export const handlers = [
 
   rest.post('/orderList', (req, res, ctx) => {
     orderList = req.body;
-    console.log(orderList);
-    // orderList = newOrderIdList;
+    console.log('rest.post orderList', orderList);
     return res(ctx.status(201));
   }),
 
