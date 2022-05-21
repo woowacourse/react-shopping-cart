@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Styled from 'components/CartProductItem/index.style';
-import { Image } from 'components';
+import { Button, Image } from 'components';
 import { ReactComponent as DeleteIcon } from 'assets/trash_can_icon.svg';
 import Counter from 'components/Counter';
 import autoComma from 'utils/autoComma';
@@ -42,7 +42,9 @@ const CartProductItem = ({ id, quantity }) => {
       </Styled.ProductDetailController>
 
       <Styled.ProductController>
-        <DeleteIcon onClick={() => store.dispatch(doDeleteProductFromCart({ id }))} />
+        <Button>
+          <DeleteIcon onClick={() => store.dispatch(doDeleteProductFromCart({ id }))} />
+        </Button>
         <Counter
           quantity={quantity}
           increase={() => store.dispatch(doPutProductToCart({ id, quantity: quantity + 1 }))}
