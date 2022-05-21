@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ContentBox from 'component/ContentBox';
+import ContentBox from 'component/common/ContentBox';
 
 export default {
   component: ContentBox,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from 'component/common/Button';
 
-import * as S from 'component/ContentBox/style';
+import * as S from 'component/common/ContentBox/style';
 import theme from 'theme/theme';
 
 export default function ContentBox({

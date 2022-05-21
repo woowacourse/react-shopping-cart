@@ -13,7 +13,7 @@ import * as S from 'page/ProductListPage/style';
 import {useNavigate} from 'react-router-dom';
 import useCartItem from 'hook/useCartItem';
 import {PATH} from 'constant';
-import ErrorBoundary from 'component/ErrorBoundary';
+import ErrorBoundary from 'component/common/ErrorBoundary';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();

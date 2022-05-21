@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
-import ContentBox from 'component/ContentBox';
+import ContentBox from 'component/common/ContentBox';
 import CartItem from 'component/CartItem';
 
 import * as S from 'page/ProductCartPage/style';

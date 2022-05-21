@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ErrorBoundary from 'component/ErrorBoundary';
+import ErrorBoundary from 'component/common/ErrorBoundary';
 
 export default {
   component: ErrorBoundary,

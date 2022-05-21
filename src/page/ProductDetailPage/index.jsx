@@ -8,7 +8,7 @@ import useCartItem from 'hook/useCartItem';
 import useFetch from 'hook/useFetch';
 import {useParams} from 'react-router-dom';
 import Loader from 'component/Loader';
-import ErrorBoundary from 'component/ErrorBoundary';
+import ErrorBoundary from 'component/common/ErrorBoundary';
 import NotFoundPage from 'page/NotFoundPage';
 import {useSelector} from 'react-redux';
 
