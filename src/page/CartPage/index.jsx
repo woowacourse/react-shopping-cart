@@ -7,7 +7,11 @@ import Line from 'components/Line';
 import CheckBox from 'components/CheckBox';
 import TotalPrice from 'components/TotalPrice';
 import store from 'store/store';
-import { doAddProdcutToOrder, doInitializeOrder } from 'actions/actionCreator';
+import {
+  doAddProdcutToOrder,
+  doDeleteProductFromCart,
+  doInitializeOrder,
+} from 'actions/actionCreator';
 
 const CartPage = () => {
   const { products, shoppingCart, order } = useSelector(state => state.reducer);
@@ -57,7 +61,16 @@ const CartPage = () => {
               />
               선택해제
             </Styled.CheckBoxContainer>
-            <Button color="black" border="1px solid #BBBBBB" style={{ padding: '12px 22px' }}>
+            <Button
+              color="black"
+              border="1px solid #BBBBBB"
+              style={{ padding: '12px 22px' }}
+              onClick={() =>
+                order.forEach(productId =>
+                  store.dispatch(doDeleteProductFromCart({ id: productId })),
+                )
+              }
+            >
               상품삭제
             </Button>
           </Styled.SelectController>

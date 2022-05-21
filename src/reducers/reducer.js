@@ -30,6 +30,13 @@ function reducer(state = initState, action) {
         order: isExist ? state.order : [...state.order, action.id],
       };
 
+    case CART_ACTIONS.DELETE:
+      return {
+        ...state,
+        shoppingCart: state.shoppingCart.filter(product => product.id !== action.id),
+        order: state.order.filter(productId => productId !== action.id),
+      };
+
     case ORDER_ACTIONS.ADD:
       return {
         ...state,

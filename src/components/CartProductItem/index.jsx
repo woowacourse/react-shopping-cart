@@ -10,6 +10,7 @@ import {
   doDeleteProductFromOrder,
   doPutProductToCart,
   doAddProdcutToOrder,
+  doDeleteProductFromCart,
 } from 'actions/actionCreator';
 import { useEffect, useState } from 'react';
 
@@ -41,7 +42,7 @@ const CartProductItem = ({ id, quantity }) => {
       </Styled.ProductDetailController>
 
       <Styled.ProductController>
-        <DeleteIcon />
+        <DeleteIcon onClick={() => store.dispatch(doDeleteProductFromCart({ id }))} />
         <Counter
           quantity={quantity}
           increase={() => store.dispatch(doPutProductToCart({ id, quantity: quantity + 1 }))}

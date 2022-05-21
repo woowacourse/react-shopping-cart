@@ -1,5 +1,6 @@
 const CART_ACTIONS = {
   PUT: 'cart/PUT',
+  DELETE: 'cart/DELETE',
 };
 
 const PRODUCT_LIST_ACTIONS = {
