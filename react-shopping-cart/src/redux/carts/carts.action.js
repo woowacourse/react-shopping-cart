@@ -19,9 +19,8 @@ export const addProductToCartStart = (product) => ({
   payload: product,
 });
 
-export const addProductToCartSuccess = (product) => ({
+export const addProductToCartSuccess = () => ({
   type: cartsActionTypes.addProductToCartSuccess,
-  payload: product,
 });
 
 export const addProductToCartError = (error) => ({
@@ -34,9 +33,8 @@ export const deleteProductFromCartStart = (id) => ({
   payload: id,
 });
 
-export const deleteProductFromCartSuccess = (id) => ({
+export const deleteProductFromCartSuccess = () => ({
   type: cartsActionTypes.deleteProductFromCartSuccess,
-  payload: id,
 });
 
 export const deleteProductFromCartError = (error) => ({

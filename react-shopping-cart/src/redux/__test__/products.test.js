@@ -1,8 +1,8 @@
 import mockData from '../../mocks/mockData.json';
 
 import {
-  fetchProductDetailStart,
-  fetchProductDetailSuccess,
+  fetchProductStart,
+  fetchProductSuccess,
   fetchProductsStart,
   fetchProductsSuccess,
 } from 'redux/products/products.action';
@@ -51,19 +51,17 @@ describe('product reducer 테스트', () => {
     };
     const id = 1;
 
-    expect(productsReducer(INITIAL_STATE, fetchProductDetailStart(id))).toEqual(
-      {
-        loading: true,
-        products: [],
-        detailProduct: null,
-        error: null,
-      }
-    );
+    expect(productsReducer(INITIAL_STATE, fetchProductStart(id))).toEqual({
+      loading: true,
+      products: [],
+      detailProduct: null,
+      error: null,
+    });
 
     const product = mockData.products.find((product) => product.id === id);
 
     expect(
-      productsReducer(INITIAL_STATE, fetchProductDetailSuccess(product))
+      productsReducer(INITIAL_STATE, fetchProductSuccess(product))
     ).toEqual({
       loading: false,
       products: [],

@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   // TODO: isLoading
   loading: false,
   carts: [],
-  error: false,
+  error: null,
 };
 
 const cartsReducer = (state = INITIAL_STATE, action) => {

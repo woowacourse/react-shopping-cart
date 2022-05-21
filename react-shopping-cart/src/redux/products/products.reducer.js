@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 
 const productsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case productActionType.fetchProductDetailStart:
+    case productActionType.fetchProductStart:
     case productActionType.fetchProductsStart:
       return {
         ...state,
@@ -23,14 +23,14 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         products: action.payload,
         error: null,
       };
-    case productActionType.fetchProductDetailSuccess:
+    case productActionType.fetchProductSuccess:
       return {
         ...state,
         loading: false,
         detailProduct: action.payload,
         error: null,
       };
-    case productActionType.fetchProductDetailError:
+    case productActionType.fetchProductError:
     case productActionType.fetchProductsError:
       return {
         ...state,

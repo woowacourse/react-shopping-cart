@@ -15,7 +15,7 @@ import {
   selectCartsLoading,
   selectCurrentCarts,
 } from 'redux/carts/carts.selector';
-import { fetchProductDetailStart } from 'redux/products/products.action';
+import { fetchProductStart } from 'redux/products/products.action';
 import {
   selectDetailProduct,
   selectProductsLoading,
@@ -38,7 +38,7 @@ function ProductDetailPage() {
 
   useEffect(() => {
     dispatch(fetchCartsStart());
-    dispatch(fetchProductDetailStart(idx));
+    dispatch(fetchProductStart(idx));
   }, [dispatch, idx]);
 
   return (

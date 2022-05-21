@@ -1,14 +1,14 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 
 import {
-  fetchProductDetailError,
-  fetchProductDetailSuccess,
+  fetchProductError,
+  fetchProductSuccess,
   fetchProductsError,
   fetchProductsSuccess,
 } from 'redux/products/products.action';
 import productActionType from 'redux/products/products.types';
 
-import { fetchDetailProduct, fetchProducts } from 'api';
+import { fetchProduct, fetchProducts } from 'api';
 
 export function* getProducts({ payload: id }) {
   try {
@@ -21,10 +21,10 @@ export function* getProducts({ payload: id }) {
 
 export function* getDetailProduct({ payload: id }) {
   try {
-    const data = yield call(fetchDetailProduct, id);
-    yield put(fetchProductDetailSuccess(data));
+    const data = yield call(fetchProduct, id);
+    yield put(fetchProductSuccess(data));
   } catch (err) {
-    yield put(fetchProductDetailError(err));
+    yield put(fetchProductError(err));
   }
 }
 
@@ -32,10 +32,10 @@ export function* handleFetchProducts() {
   yield takeLatest(productActionType.fetchProductsStart, getProducts);
 }
 
-export function* handleFetchDetailProduct() {
-  yield takeLatest(productActionType.fetchProductDetailStart, getDetailProduct);
+export function* handlefetchProduct() {
+  yield takeLatest(productActionType.fetchProductStart, getDetailProduct);
 }
 
 export function* productsSaga() {
-  yield all([call(handleFetchProducts), call(handleFetchDetailProduct)]);
+  yield all([call(handleFetchProducts), call(handlefetchProduct)]);
 }

@@ -13,7 +13,7 @@ export const fetchProducts = async (pageNum = 1) => {
 };
 
 //TODO: 네이밍 변경 fetchProduct
-export const fetchDetailProduct = async (id) => {
+export const fetchProduct = async (id) => {
   const res = await fetch(`${API_URL}/products/${id}`);
   if (!res.ok) {
     throw new Error('로드에 실패했습니다!');

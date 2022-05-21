@@ -26,8 +26,8 @@ export function* getCarts() {
 
 export function* addProduct({ payload: product }) {
   try {
-    const data = yield call(addProductToCart, { ...product, quantity: 1 });
-    yield put(addProductToCartSuccess(data));
+    yield call(addProductToCart, { ...product, quantity: 1 });
+    yield put(addProductToCartSuccess());
   } catch (err) {
     yield put(addProductToCartError(err));
   }
