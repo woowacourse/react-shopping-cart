@@ -5,7 +5,7 @@ import Image from 'components/Image';
 import MarginWrapper from 'components/MarginWrapper';
 import FlexWrapper from 'components/FlexWrapper';
 
-import AddCartButton from 'containers/AddCartButton';
+import AddCartIconButton from 'containers/AddCartIconButton';
 import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
@@ -45,7 +45,7 @@ function Product({ product_id, product_img_src, product_title, product_price }) 
             {product_price.toLocaleString()}원
           </Text>
         </div>
-        <AddCartButton id={product_id} />
+        <AddCartIconButton id={product_id} />
       </FlexWrapper>
     </ProductStyled>
   );

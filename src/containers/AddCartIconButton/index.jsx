@@ -5,7 +5,7 @@ import Image from 'components/Image';
 
 import { addProductCart } from 'apis/cart';
 
-function AddCartButton({ id }) {
+function AddCartIconButton({ id }) {
   const dispatch = useDispatch();
 
   const handleCartButtonClick = ({ target }) => {
@@ -24,4 +24,4 @@ function AddCartButton({ id }) {
   );
 }
 
-export default AddCartButton;
+export default AddCartIconButton;
