@@ -123,7 +123,7 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
               }}
             >
               <CheckBox id={'total'} isChecked={getIsTotalCheck()} />
-              <span>선택해제</span>
+              <span>{checkList.length === cartList.length ? '선택해제' : '전체선택'}</span>
             </Styled.CartDeleteSelector>
             <DeleteButton>상품삭제 </DeleteButton>
           </Styled.CartDeleteBox>
