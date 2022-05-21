@@ -6,7 +6,8 @@ import Circle from 'components/Circle';
 import bigCart from 'assets/svg/bigCart.svg';
 
 const Header = () => {
-  const { cartList } = useGetCartList();
+  const { cartList, getCartListWhenMounted } = useGetCartList();
+  getCartListWhenMounted();
 
   return (
     <Styled.Wrapper>

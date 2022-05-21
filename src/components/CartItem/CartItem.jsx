@@ -7,9 +7,12 @@ import comma from 'utils/comma';
 import Checkbox from 'components/Checkbox';
 import trash from 'assets/svg/trash.svg';
 
+import useGetCartList from 'hooks/useGetCartList';
+
 const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
   const { callDeleteApi } = useDelete('/cartList');
   const [isChecked, setIsChecked] = useState(true);
+  const { getCartList } = useGetCartList();
 
   useEffect(() => {
     setIsChecked(checked);
@@ -20,8 +23,9 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
     onChangeEachCheckbox(item.id, isChecked);
   };
 
-  const handleDeleteButton = () => {
-    callDeleteApi(item.id);
+  const handleDeleteButton = async () => {
+    await callDeleteApi(item.id);
+    getCartList();
   };
 
   return (

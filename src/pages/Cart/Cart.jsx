@@ -16,8 +16,14 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState();
 
   const { postApi } = usePost('/orderList', checkedItemList);
-  const { cartList, isCartListLoading, isCartListError } = useGetCartList();
   const { orderList } = useGetOrderList();
+  const {
+    getCartListWhenMounted,
+    cartList,
+    isCartListLoading,
+    isCartListError,
+  } = useGetCartList();
+  getCartListWhenMounted();
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
