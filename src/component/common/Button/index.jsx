@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import * as S from 'component/common/Button/style';
 
 export default function Button({children, type = 'button', onClick, ...rest}) {

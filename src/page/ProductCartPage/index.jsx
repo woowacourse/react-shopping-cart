@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import CheckBox from 'component/common/CheckBox';
 import ContentBox from 'component/common/ContentBox';
 import CartItem from 'component/CartItem';
-import ErrorBoundary from 'component/common/ErrorBoundary';
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 
 import * as S from 'page/ProductCartPage/style';
 
 import useCartItem from 'hook/useCartItem';
 import useSelectedItem from 'hook/useSelectedItem';
-import Loading from 'component/Loader';
 import NotFoundPage from 'page/NotFoundPage';
 
 export default function ProductCartPage() {
@@ -68,8 +67,7 @@ export default function ProductCartPage() {
 
           <S.ListHeaderSpan>장바구니 상품 ({cartItem.length}개)</S.ListHeaderSpan>
           <S.CartListBox>
-            {pending && <Loading />}
-            <ErrorBoundary
+            <ErrorPendingBoundary
               error={error}
               pending={pending}
               fallback={<NotFoundPage>에러가 발생했어요.</NotFoundPage>}
@@ -95,7 +93,7 @@ export default function ProductCartPage() {
                   </React.Fragment>
                 );
               })}
-            </ErrorBoundary>
+            </ErrorPendingBoundary>
           </S.CartListBox>
         </S.SelectCartBox>
 

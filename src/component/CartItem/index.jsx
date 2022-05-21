@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
-
 import * as S from 'component/CartItem/style';
 import QuantityBox from 'component/common/QuantityBox';
 

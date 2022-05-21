@@ -27,9 +27,7 @@ export default function Item({
       />
       <S.InfoBox>
         <S.NamePriceBox>
-          <S.ItemNameLink to={`${PATH.DETAIL}/${id}`} state={{itemImgURL, itemName, itemPrice, id}}>
-            {itemName}
-          </S.ItemNameLink>
+          <S.ItemNameLink to={`${PATH.DETAIL}/${id}`}>{itemName}</S.ItemNameLink>
           <S.ItemPriceSpan>{itemPrice.toLocaleString()} 원</S.ItemPriceSpan>
         </S.NamePriceBox>
         <S.DeleteButton isInCart={isInCart} onClick={handleIconClick}>

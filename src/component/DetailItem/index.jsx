@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Button from 'component/common/Button';
 
 import * as S from 'component/DetailItem/style';
+
 import theme from 'theme/theme';
 
 export default function DetailItem({

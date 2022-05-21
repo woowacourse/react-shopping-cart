@@ -2,11 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import * as S from 'page/NotFoundPage/style';
+
 import theme from 'theme/theme';
 import {PATH} from 'constant';
 
 import {Font} from 'style/common';
-import * as S from 'page/NotFoundPage/style';
 
 export default function NotFoundPage({children}) {
   return (

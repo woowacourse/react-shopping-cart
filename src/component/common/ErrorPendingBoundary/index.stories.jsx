@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ErrorBoundary from 'component/common/ErrorBoundary';
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 
 export default {
-  component: ErrorBoundary,
+  component: ErrorPendingBoundary,
   title: 'ErrorBoundary',
 };
 
-const Template = (args) => <ErrorBoundary {...args} />;
+const Template = (args) => <ErrorPendingBoundary {...args} />;
 export const ErrorBoundaryWithError = Template.bind({});
 ErrorBoundaryWithError.args = {
   children: <div>here comes what you want to render</div>,

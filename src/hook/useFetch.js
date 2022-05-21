@@ -10,6 +10,7 @@ export default function useFetch({method = 'get', API_URL}) {
     setPending(true);
     setData(null);
     setError(null);
+
     axios[method](API_URL + params, body)
       .then((response) => {
         setPending(false);

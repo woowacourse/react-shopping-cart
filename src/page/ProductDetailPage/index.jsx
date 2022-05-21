@@ -1,16 +1,15 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 import DetailItem from 'component/DetailItem';
-
+import NotFoundPage from 'page/NotFoundPage';
 import * as S from 'page/ProductDetailPage/style';
+
 import useCartItem from 'hook/useCartItem';
 import useFetch from 'hook/useFetch';
-import {useParams} from 'react-router-dom';
-import Loader from 'component/Loader';
-import ErrorBoundary from 'component/common/ErrorBoundary';
-import NotFoundPage from 'page/NotFoundPage';
-import {useSelector} from 'react-redux';
 
 export default function ProductDetailPage() {
   const {addCartItem} = useCartItem();
@@ -48,8 +47,7 @@ export default function ProductDetailPage() {
 
   return (
     <S.DetailItemPageLayout>
-      {getPending && <Loader />}
-      <ErrorBoundary
+      <ErrorPendingBoundary
         fallback={<NotFoundPage>해당 상품이 없어요😢</NotFoundPage>}
         pending={getPending}
         error={getError}
@@ -64,7 +62,7 @@ export default function ProductDetailPage() {
             handleCartButtonClick={handleCartButtonClick}
           />
         )}
-      </ErrorBoundary>
+      </ErrorPendingBoundary>
     </S.DetailItemPageLayout>
   );
 }

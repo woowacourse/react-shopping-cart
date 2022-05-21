@@ -1,19 +1,18 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {useNavigate} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {getProductList} from 'store/modules/productList';
 
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 import Item from 'component/Item';
-import Loader from 'component/Loader';
-
+import * as S from 'page/ProductListPage/style';
 import Empty from 'assets/empty.png';
 
-import * as S from 'page/ProductListPage/style';
-import {useNavigate} from 'react-router-dom';
 import useCartItem from 'hook/useCartItem';
+
 import {PATH} from 'constant';
-import ErrorBoundary from 'component/common/ErrorBoundary';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -49,8 +48,7 @@ export default function ProductListPage() {
 
   return (
     <S.ProductListPageLayout>
-      {pending && <Loader />}
-      <ErrorBoundary
+      <ErrorPendingBoundary
         fallback={<img src={Empty} alt="비어있음" height="600px" />}
         pending={pending}
         error={!productList.length}
@@ -72,7 +70,7 @@ export default function ProductListPage() {
             );
           })}
         </S.ProductListBox>
-      </ErrorBoundary>
+      </ErrorPendingBoundary>
     </S.ProductListPageLayout>
   );
 }

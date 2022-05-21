@@ -9,22 +9,22 @@ export default function CheckBox({
   handleCheckedTrue = () => void 0,
   handleCheckedFalse = () => void 0,
 }) {
-  const [checked, setChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
-    setChecked(initialChecked);
+    setIsChecked(initialChecked);
   }, [initialChecked]);
 
   const handleClicked = (checked, productId) => {
     checked ? handleCheckedFalse(productId) : handleCheckedTrue(productId);
-    setChecked((prev) => !prev);
+    setIsChecked((prev) => !prev);
   };
 
   return (
     <S.CheckBoxLayout
       productId={productId}
-      checked={checked}
-      onClick={() => handleClicked(checked, productId)}
+      checked={isChecked}
+      onClick={() => handleClicked(isChecked, productId)}
     ></S.CheckBoxLayout>
   );
 }

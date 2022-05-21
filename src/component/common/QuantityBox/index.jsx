@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import * as S from 'component/common/QuantityBox/style';
 
 export default function QuantityBox({
