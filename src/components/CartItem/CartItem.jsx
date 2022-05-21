@@ -1,31 +1,34 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import trash from 'assets/svg/trash.svg';
-import comma from 'utils/comma';
-import Checkbox from 'components/Checkbox';
 import { useEffect, useState } from 'react';
 import useDelete from 'hooks/useDelete';
 import QuantityInput from 'components/QuantityInput';
+import comma from 'utils/comma';
+import Checkbox from 'components/Checkbox';
+import trash from 'assets/svg/trash.svg';
 
 const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
   const { callDeleteApi } = useDelete('/cartList');
-
   const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
     setIsChecked(checked);
   }, [checked]);
 
-  const handleChange = () => {
+  const handleChangeCheckbox = () => {
     setIsChecked(!isChecked);
     onChangeEachCheckbox(item.id, isChecked);
+  };
+
+  const handleDeleteButton = () => {
+    callDeleteApi(item.id);
   };
 
   return (
     <>
       <Styled.Wrapper>
         <Styled.LeftInfo>
-          <Checkbox checked={isChecked} onChange={handleChange} />
+          <Checkbox checked={isChecked} onChange={handleChangeCheckbox} />
           <Styled.ProductImg src={item.imgUrl} alt={item.name} />
           <Styled.ProductName>{item.name}</Styled.ProductName>
         </Styled.LeftInfo>
@@ -33,7 +36,7 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
           <Styled.TrashIcon
             src={trash}
             alt="삭제"
-            onClick={() => callDeleteApi(item.id)}
+            onClick={handleDeleteButton}
           />
           <QuantityInput itemId={item.id} cartQuantity={item.cartQuantity} />
           <Styled.CartPrice>

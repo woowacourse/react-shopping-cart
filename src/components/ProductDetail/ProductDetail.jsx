@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Button from 'components/Button';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import usePost from 'hooks/usePost';
-import { useState } from 'react';
-import CartPopup from 'components/CartPopup';
 import useCart from 'hooks/useCart';
+import Button from 'components/Button';
+import CartPopup from 'components/CartPopup';
 
 const ProductDetail = ({ name, price, imgUrl }) => {
   const id = +useParams().id;

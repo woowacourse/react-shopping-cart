@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import useProduct from 'hooks/useProduct';
 import ProductDetail from 'components/ProductDetail';
 import Skeleton from 'components/Skeleton';
-import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper';
-import useProduct from 'hooks/useProduct';
 import comma from 'utils/comma';
+import errorApiImg from 'assets/png/errorApiImg.png';
 
 const Product = () => {
   const { getProductEffect, isLoading, product, isError } = useProduct();
