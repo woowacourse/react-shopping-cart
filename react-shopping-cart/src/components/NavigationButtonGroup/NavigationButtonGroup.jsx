@@ -9,7 +9,6 @@ function NavigationButtonList() {
   return (
     <FlexWrapper gap="20px">
       <NavigateButton to={PATH.SHOPPING_CART}>장바구니</NavigateButton>
-      <NavigateButton>주문목록</NavigateButton>
     </FlexWrapper>
   );
 }
