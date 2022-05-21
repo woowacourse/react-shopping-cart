@@ -15,7 +15,10 @@ const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
           <Styled.HighlightText>{comma(totalPrice)}원</Styled.HighlightText>
         </Styled.FlexBetweenBox>
         <Styled.FlexCenterBox>
-          <Styled.OrderButton onClick={handleClickOrder}>
+          <Styled.OrderButton
+            disabled={totalCount === 0}
+            onClick={handleClickOrder}
+          >
             주문하기({totalCount}개)
           </Styled.OrderButton>
         </Styled.FlexCenterBox>
