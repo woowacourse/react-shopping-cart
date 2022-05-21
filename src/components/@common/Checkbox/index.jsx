@@ -1,0 +1,23 @@
+import PropTypes from 'prop-types';
+import * as S from './styles';
+
+function Checkbox({ size, checked, onChange, children }) {
+  return (
+    <S.Container size={size} checked={checked}>
+      <S.Check type="checkbox" defaultChecked={checked} onChange={onChange} />
+      {children}
+    </S.Container>
+  );
+}
+
+Checkbox.defaultProps = {
+  checked: false,
+  size: 'medium',
+};
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  size: PropTypes.oneOf(['large', 'medium', 'small', PropTypes.number]),
+};
+
+export default Checkbox;
