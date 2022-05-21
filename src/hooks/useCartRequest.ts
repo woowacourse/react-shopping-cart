@@ -1,4 +1,4 @@
-import { CartListAction } from 'redux/cartList/cartList';
+import { CartListAction } from 'redux/cartList/action';
 import {
   deleteAllCartItemRequest,
   deleteCartItemRequest,
@@ -6,7 +6,7 @@ import {
   patchCartSelectedRequest,
   postCartItemRequest,
   putCartItemRequest,
-} from 'redux/cartList/cartListThunk';
+} from 'redux/cartList/thunk';
 import { CartItem } from 'types/domain';
 
 import { useAppDispatch } from './useAppDispatch';

@@ -1,6 +1,6 @@
 import { Item } from 'types/domain';
 
-import { ItemListAction, ItemListActionType } from './itemList';
+import { ItemListAction, ItemListActionType } from './action';
 
 export interface ItemListState {
   readonly loading: boolean;

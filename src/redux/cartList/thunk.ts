@@ -1,7 +1,7 @@
 import { BASE_URL } from 'apis';
 import axios from 'axios';
 import type { Dispatch } from 'redux';
-import { CartListAction, CartListActionType } from 'redux/cartList/cartList';
+import { CartListAction, CartListActionType } from 'redux/cartList/action';
 import { RootState } from 'redux/rootReducer';
 import { CartItem } from 'types/domain';
 
