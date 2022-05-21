@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useThunk } from "../../../hooks/useThunk";
-import { getCartList } from "../../../reducers/cartList";
+import { deleteCartList, getCartList } from "../../../reducers/cartList";
 
 import Spinner from "../../common/Spinner";
 import ErrorPage from "../ErrorPage";
@@ -21,7 +20,7 @@ function ProductCartPage() {
     isLoading,
     errorMessage,
   } = useSelector((state) => state.cartList);
-  useThunk(getCartList);
+  const dispatch = useDispatch();
 
   const [checkList, setCheckList] = useState([]);
 
@@ -33,7 +32,12 @@ function ProductCartPage() {
     setCheckList([]);
   };
 
-  const handleDeleteAllItem = () => {};
+  const handleDeleteAllItem = () => {
+    checkList.forEach((carItemId) => {
+      dispatch(deleteCartList(carItemId));
+    });
+    setCheckList([]);
+  };
 
   const [totalPrice, totalCount] = cartList.reduce(
     (acc, { id, price, count }) => {
@@ -59,6 +63,10 @@ function ProductCartPage() {
       />
     );
   };
+
+  useEffect(() => {
+    dispatch(getCartList());
+  }, []);
 
   useEffect(() => {
     setCheckList(cartList.map((cartItem) => cartItem.id));

@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getProductList } from "../../../reducers/productList";
 
@@ -7,7 +7,6 @@ import Spinner from "../../common/Spinner";
 import ProductCard from "./ProductCard";
 import GridContainer from "../../common/GridContainer";
 import ErrorPage from "../ErrorPage";
-import { useThunk } from "../../../hooks/useThunk";
 
 function ProductListPage() {
   const {
@@ -15,7 +14,11 @@ function ProductListPage() {
     isLoading,
     errorMessage,
   } = useSelector((state) => state.productList);
-  useThunk(getProductList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductList());
+  }, []);
 
   if (isLoading) return <Spinner />;
   if (errorMessage)
