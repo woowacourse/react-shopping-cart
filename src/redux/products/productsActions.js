@@ -1,0 +1,5 @@
+const ACTION_TYPE = {
+  UPDATE_PRODUCTS: 'UPDATE_PRODUCTS',
+};
+
+export default ACTION_TYPE;

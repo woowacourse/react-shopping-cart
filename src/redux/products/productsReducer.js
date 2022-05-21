@@ -1,11 +1,13 @@
-import { ACTION_TYPE } from 'store/action/productsActions';
+import ACTION_TYPE from 'redux/products/productsActions';
 
 const initialState = [];
 
 const productsReducer = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case ACTION_TYPE.UPDATE_PRODUCTS:
-      return state.concat(action.products);
+      return state.concat(payload);
     default:
       return state;
   }

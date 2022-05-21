@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productsAsyncThunk } from 'store/action/productsActions';
+import productsAsyncThunk from 'redux/products/productsThunk';
 
 import { GridLayout } from 'components/@common';
 import { ListProduct, LoadingSpinner, PageLayout } from 'components';

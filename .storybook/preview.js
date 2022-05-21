@@ -1,7 +1,7 @@
 import 'index.css';
 
 import { Provider } from 'react-redux';
-import { store } from 'store/store';
+import { store } from 'redux/store';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
