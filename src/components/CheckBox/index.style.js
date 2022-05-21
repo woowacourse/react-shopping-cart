@@ -14,6 +14,7 @@ const Styled = {
     height: 25px;
     width: 25px;
     border-radius: 2px;
+    box-sizing: border-box;
 
     input {
       position: absolute;
