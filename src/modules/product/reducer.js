@@ -1,10 +1,21 @@
-import { GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAIL } from './action';
+import {
+  GET_PRODUCT_LOADING,
+  GET_PRODUCT_SUCCESS,
+  GET_PRODUCT_FAIL,
+  GET_DETAIL_PRODUCT_LOADING,
+  GET_DETAIL_PRODUCT_SUCCESS,
+  GET_DETAIL_PRODUCT_FAIL,
+} from './action';
 
 const initialState = {
   products: [],
   getProductLoading: false,
   getProductSuccess: false,
   getProductFail: '',
+  detailProduct: '',
+  getDetailProductLoading: false,
+  getDetailProductSuccess: false,
+  getDetailProductFail: '',
 };
 
 function product(state = initialState, action) {
@@ -29,7 +40,29 @@ function product(state = initialState, action) {
         ...state,
         getProductLoading: false,
         getProductSuccess: false,
-        getProductFail: action.type,
+        getProductFail: action.error,
+      };
+    case GET_DETAIL_PRODUCT_LOADING:
+      return {
+        ...state,
+        getDetailProductLoading: true,
+        getDetailProductSuccess: false,
+        getDetailProductFail: '',
+      };
+    case GET_DETAIL_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        getDetailProductLoading: false,
+        getDetailProductSuccess: true,
+        detailProduct: action.detailProduct,
+        getDetailProductFail: '',
+      };
+    case GET_DETAIL_PRODUCT_FAIL:
+      return {
+        ...state,
+        getDetailProductLoading: false,
+        getDetailProductSuccess: false,
+        getDetailProductFail: action.error,
       };
     default:
       return state;

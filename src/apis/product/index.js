@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { getProductSuccess, getProductFail } from 'modules/product';
+
+import {
+  getProductSuccess,
+  getProductFail,
+  getDetailProductSuccess,
+  getDetailProductFail,
+} from 'modules/product';
 
 export const getProductList = () => async (dispatch) => {
   try {
@@ -8,6 +14,17 @@ export const getProductList = () => async (dispatch) => {
 
     dispatch(getProductSuccess(products));
   } catch (error) {
-    dispatch(getProductFail());
+    dispatch(getProductFail(error));
+  }
+};
+
+export const getDetailProduct = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(`/mocking/products/${id}`);
+    const detailProduct = await response.data;
+
+    dispatch(getDetailProductSuccess(detailProduct));
+  } catch (error) {
+    dispatch(getDetailProductFail(error));
   }
 };

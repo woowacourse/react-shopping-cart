@@ -92,6 +92,8 @@ export const productHandler = [
     return res(ctx.status(200), ctx.delay(1000), ctx.json(products));
   }),
   rest.get('/mocking/products/:id', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.delay(1000), ctx.json(req));
+    const product = products.find((product) => product.product_id === Number(req.params.id));
+
+    return res(ctx.status(200), ctx.delay(1000), ctx.json(product));
   }),
 ];

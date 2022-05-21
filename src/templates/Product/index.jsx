@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Text from 'components/Text';
 import Image from 'components/Image';
@@ -11,8 +12,10 @@ import ProductTitle from 'containers/ProductTitle';
 import ProductStyled from './style';
 
 function Product({ product_id, product_img_src, product_title, product_price }) {
-  const handleProductIamgeClick = (event) => {
-    console.log('상품 상세페이지로', event.target.id);
+  const navigate = useNavigate();
+
+  const handleProductIamgeClick = ({ target }) => {
+    navigate(`/product/${target.id}`);
   };
 
   return (

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getProductList } from 'apis/product';
 import { getCartList } from 'apis/cart';
-
-import { getProductLoading } from 'modules/product';
 import { getProductCartLoading } from 'modules/cart';
+
+import { getDetailProduct, getProductList } from 'apis/product';
+import { getDetailProductLoading, getProductLoading } from 'modules/product';
 
 export const useProducts = () => {
   const products = useSelector((state) => state.product.products);
@@ -32,4 +32,18 @@ export const useCart = () => {
   };
 
   return { isCartProductsLoading, requestCartProductFail, cartProducts, requestCartProducts };
+};
+
+export const useDetailProduct = (id) => {
+  const detailProduct = useSelector((state) => state.product.detailProduct);
+  const isDetailProductLoading = useSelector((state) => state.product.getDetailProductLoading);
+  const requestDetailProductFail = useSelector((state) => state.product.getDetailProductFail);
+  const dispatch = useDispatch();
+
+  const requestDetailProduct = () => {
+    dispatch(getDetailProductLoading());
+    dispatch(getDetailProduct(id));
+  };
+
+  return { isDetailProductLoading, requestDetailProductFail, detailProduct, requestDetailProduct };
 };

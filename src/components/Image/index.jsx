@@ -2,7 +2,7 @@ import React from 'react';
 
 import ImageStyled from './style';
 
-function Image({ onClick, src, id, width, height, cursor }) {
+function Image({ onClick, src, id, width, height, cursor = 'inherit' }) {
   return (
     <ImageStyled
       onClick={onClick}

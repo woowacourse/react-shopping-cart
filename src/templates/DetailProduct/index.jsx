@@ -4,16 +4,16 @@ import Text from 'components/Text';
 import Image from 'components/Image';
 import SubTitle from 'components/SubTitle';
 import MarginWrapper from 'components/MarginWrapper';
+import FlexWrapper from 'components/FlexWrapper';
 
 import AddCartButton from 'containers/AddCartButton';
 
 import { DetailProductStyled, DetailProductPriceStyled } from './style';
-import FlexWrapper from 'components/FlexWrapper';
 
-function DetailProduct(product) {
+function DetailProduct({ product }) {
   return (
     <DetailProductStyled>
-      <FlexWrapper flexFlow="column wrap" alignItems="center">
+      <FlexWrapper flexFlow="column wrap" alignItems="center" alignContent="center">
         <Image src={product.product_img_src} width="570px" height="570px" />
         <MarginWrapper marginBottom="20px" />
         <SubTitle width="640px" fontSize="2rem" paddingLeft="36px">
@@ -25,11 +25,11 @@ function DetailProduct(product) {
             금액
           </Text>
           <Text fontSize="32px" fontWeight="400">
-            {product.product_price.toLocaleString()}
+            {product.product_price && product.product_price.toLocaleString()}원
           </Text>
         </DetailProductPriceStyled>
         <MarginWrapper marginBottom="58px" />
-        <AddCartButton />
+        <AddCartButton id={product.product_id} />
       </FlexWrapper>
     </DetailProductStyled>
   );
