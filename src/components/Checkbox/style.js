@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const CheckboxWrapperStyled = styled.div`
+  position: relative;
+`;
+
 const InputStyled = styled.input(
   ({ theme }) => `
   display: none;
@@ -10,7 +14,7 @@ const InputStyled = styled.input(
 `,
 );
 
-const LabelStyled = styled.label(
+const CheckboxStyled = styled.label(
   ({ theme }) => `
   position: relative;
   display: inline-block;
@@ -32,4 +36,12 @@ const LabelStyled = styled.label(
   `,
 );
 
-export { InputStyled, LabelStyled };
+const LabelStyled = styled.label`
+  font-size: 16px;
+  color: #333;
+  position: absolute;
+  top: 5px;
+  margin-left: 12px;
+`;
+
+export { CheckboxWrapperStyled, InputStyled, CheckboxStyled, LabelStyled };

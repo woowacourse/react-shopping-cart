@@ -1,14 +1,15 @@
 import React from 'react';
-import { InputStyled, LabelStyled } from './style';
+import { CheckboxWrapperStyled, InputStyled, CheckboxStyled, LabelStyled } from './style';
 
-function Checkbox() {
+function Checkbox({ label }) {
   return (
-    <>
+    <CheckboxWrapperStyled>
       <InputStyled input id="checkbox" type="checkbox" />
-      <LabelStyled htmlFor="checkbox">
+      <CheckboxStyled htmlFor="checkbox">
         <div></div>
-      </LabelStyled>
-    </>
+      </CheckboxStyled>
+      <LabelStyled htmlFor="checkbox">{label}</LabelStyled>
+    </CheckboxWrapperStyled>
   );
 }
 
