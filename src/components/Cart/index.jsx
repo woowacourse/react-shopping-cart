@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -7,7 +8,7 @@ import CartProductItem from './CartProductItem';
 import CheckBox from 'components/common/Styled/CheckBox';
 import PaymentModal from 'components/common/Modal/PaymentModal';
 import { DeleteButton } from 'components/common/Styled';
-import { useSelector } from 'react-redux';
+import { deleteCheckedItem } from 'modules/cart';
 
 const Styled = {
   Container: styled.section`
@@ -77,6 +78,8 @@ const Styled = {
 };
 
 const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButtonClick }) => {
+  const dispatch = useDispatch();
+
   const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
   const totalCount = cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0);
 
@@ -110,6 +113,13 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
     return checkList.length === cartList.length && checkList.length !== 0;
   };
 
+  const onDeleteCheckedClick = () => {
+    if (checkList.length === 0) {
+      return;
+    }
+    dispatch(deleteCheckedItem(checkList));
+  };
+
   return (
     <Styled.Container>
       <Title>장바구니</Title>
@@ -125,7 +135,13 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
               <CheckBox id={'total'} isChecked={getIsTotalCheck()} />
               <span>{checkList.length === cartList.length ? '선택해제' : '전체선택'}</span>
             </Styled.CartDeleteSelector>
-            <DeleteButton>상품삭제 </DeleteButton>
+            <DeleteButton
+              onClick={() => {
+                onDeleteCheckedClick();
+              }}
+            >
+              상품삭제{' '}
+            </DeleteButton>
           </Styled.CartDeleteBox>
           <Styled.CartProductList>
             <Styled.CartProductTotalAmount>

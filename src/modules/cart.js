@@ -1,6 +1,7 @@
 const ADD_ITEM = 'cart/ADD_ITEM';
-const DELETE_ITEM = 'cart/DELETE_ITEM';
 const MINUS_ITEM = 'cart/MINUS_ITEM';
+const DELETE_ITEM = 'cart/DELETE_ITEM';
+const DELETE_CHECKED_ITEM = 'cart/DELETE_CHECKED_ITEM';
 
 export const addCartItem = (id) => (dispatch) => {
   dispatch({ type: ADD_ITEM, payload: { id } });
@@ -12,6 +13,10 @@ export const minusCartItem = (id) => (dispatch) => {
 
 export const deleteCartItem = (id) => (dispatch) => {
   dispatch({ type: DELETE_ITEM, payload: { id } });
+};
+
+export const deleteCheckedItem = (checkedList) => (dispatch) => {
+  dispatch({ type: DELETE_CHECKED_ITEM, payload: { checkedList: checkedList } });
 };
 
 const initialState = {
@@ -64,6 +69,14 @@ const cartReducer = (state = initialState, action) => {
     return {
       ...state,
       cartList: state.cartList.filter((product) => product.id !== productId),
+    };
+  }
+  if (action.type === DELETE_CHECKED_ITEM) {
+    const checkedList = action.payload.checkedList;
+
+    return {
+      ...state,
+      cartList: state.cartList.filter((product) => !checkedList.includes(product.id)),
     };
   }
   return state;
