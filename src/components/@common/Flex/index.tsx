@@ -6,6 +6,8 @@ type Justify = 'normal' | 'flex-start' | 'flex-end' | 'center' | 'space-between'
 type Align = 'normal' | 'center' | 'start' | 'flex-start' | 'end' | 'flex-end' | 'stretch';
 
 interface FlexProps {
+  w?: string;
+  h?: string;
   direction?: Direction;
   wrap?: Wrap;
   justify?: Justify;
@@ -14,7 +16,10 @@ interface FlexProps {
 }
 
 const Flex = styled.div`
-  ${({ direction, wrap, justify, align, gap }: FlexProps) => css`
+  ${({ w, h, direction, wrap, justify, align, gap }: FlexProps) => css`
+    width: ${w};
+    height: ${h};
+
     display: flex;
     flex-direction: ${direction};
     flex-wrap: ${wrap};
