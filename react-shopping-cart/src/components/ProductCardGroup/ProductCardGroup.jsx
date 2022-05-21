@@ -20,6 +20,7 @@ function ProductCardGroup() {
         return (
           <ProductCard
             key={product.id}
+            // THINK: isincart를 여기서 하는 게 맞을까? 여기서 하면 안될듯
             $isincart={isInCart(product.id, carts)}
             {...product}
           />

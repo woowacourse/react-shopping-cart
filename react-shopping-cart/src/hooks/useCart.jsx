@@ -32,6 +32,7 @@ function useCart() {
       })
     );
   };
+
   return { handleAddProductToCart, handleDeleteProductFromCart };
 }
 

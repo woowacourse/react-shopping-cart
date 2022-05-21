@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 //THINK: 이렇게 일일이 내려주는 게 맞나? (직관적으로?)
 function FlexWrapper({
-  children,
   flexDirection = 'row',
   width,
   height,
@@ -15,6 +14,7 @@ function FlexWrapper({
   border,
   bt,
   bColor,
+  children,
   ...props
 }) {
   return (

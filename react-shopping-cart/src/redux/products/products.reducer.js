@@ -3,6 +3,7 @@ import productActionType from 'redux/products/products.types';
 const INITIAL_STATE = {
   loading: false,
   products: [],
+  //TODO: 네이밍 변경
   detailProduct: null,
   error: null,
 };
@@ -37,7 +38,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
     default:
-      return { ...state };
+      return state;
   }
 };
 

@@ -22,10 +22,10 @@ import { CURRENT_USER } from 'constants';
 
 //재사용X
 function CartLeftSection() {
-  const carts = useSelector(selectCurrentCarts);
   const dispatch = useDispatch();
-  const myCarts = carts.filter((cart) => cart.user === CURRENT_USER);
+  const carts = useSelector(selectCurrentCarts);
   const cartLoading = useSelector(selectCartsLoading);
+  const myCarts = carts.filter((cart) => cart.user === CURRENT_USER);
   const checkedIdList = myCarts
     .filter((cart) => cart['checked'])
     .map((cart) => cart.id);
@@ -41,7 +41,7 @@ function CartLeftSection() {
   return (
     <FlexWrapper flexDirection="column" width="490px">
       <CartLeftSectionHeader>
-        <AllSelectButton />
+        <AllSelectButton carts={myCarts} />
         <ProductDeleteButton onClick={handleDeleteCheckedProducts}>
           상품삭제
         </ProductDeleteButton>

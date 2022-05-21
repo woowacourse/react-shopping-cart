@@ -20,14 +20,13 @@ function ProductCard(props) {
       onClick={() => navigate(`/detail/${id}`)}
     >
       <ProductThumbnail src={thumbnail} alt={name} type="card" />
+      {/* THINK: 뭐가 props로 내려가는지..모르겠다 코드파악하기 어려움 */}
       <ProductCardInfo {...props} />
     </Styled.Root>
   );
 }
 
 const scaleAnimation = keyframes`
-  0%{}
-
   100%{
     transform: scale(1.04);
   }
