@@ -1,14 +1,11 @@
-import { useState } from 'react';
 import Styled from './index.style';
 
-const Counter = ({ quantity }) => {
-  const [count, setCount] = useState(quantity ?? 0);
-
+const Counter = ({ quantity, increase, decrease }) => {
   return (
     <Styled.Counter>
-      <Styled.Count>{count}</Styled.Count>
-      <Styled.CountButton>▲</Styled.CountButton>
-      <Styled.CountButton>▼</Styled.CountButton>
+      <Styled.Count>{quantity}</Styled.Count>
+      <Styled.CountButton onClick={increase}>▲</Styled.CountButton>
+      <Styled.CountButton onClick={decrease}>▼</Styled.CountButton>
     </Styled.Counter>
   );
 };

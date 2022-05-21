@@ -25,6 +25,7 @@ const Styled = {
     align-items: center;
     justify-content: center;
     outline: 1px solid #cccccc;
+    cursor: pointer;
   `,
 };
 
