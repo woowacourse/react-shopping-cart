@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 import Pagination from 'components/@shared/Pagination/Pagination';
@@ -17,8 +17,9 @@ import {
 } from 'redux/products/products.selector';
 
 function ProductListPage() {
-  const { idx } = useParams();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const idx = searchParams.get('page') ?? 1;
   const loading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
 

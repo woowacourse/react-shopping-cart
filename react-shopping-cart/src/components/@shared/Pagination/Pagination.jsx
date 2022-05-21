@@ -1,14 +1,14 @@
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 
-//TODO: 네이밍
 const isActive = (idx, pageNum) => Number(idx) === pageNum;
 
 // 재사용O
 function Pagination() {
-  const { idx } = useParams();
+  const [searchParams] = useSearchParams();
+  const idx = searchParams.get('page') ?? 1;
 
   return (
     <Styled.Root>
@@ -19,7 +19,7 @@ function Pagination() {
           <PaginationButton
             key={pageNum}
             pageNum={pageNum}
-            to={`/${pageNum}`}
+            to={`?page=${pageNum}`}
             isActive={isActive(idx, pageNum)}
           />
         );
