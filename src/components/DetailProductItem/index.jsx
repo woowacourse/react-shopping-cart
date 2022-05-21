@@ -5,6 +5,8 @@ import { addCartList } from 'actions/cart';
 import { snackbar } from 'actions/snackbar';
 
 import { 알림_메시지 } from 'constants/';
+import noImage from 'assets/no_image.png';
+
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import Button from 'components/@common/Button/styles';
 import * as Styled from './styles';
@@ -46,7 +48,7 @@ DetailProductItem.propTypes = {
 };
 
 DetailProductItem.defaultProps = {
-  thumbnail: '기본 이미지 URL',
+  thumbnail: noImage,
   name: '이름이 지정되지 않았습니다.',
   price: -1,
 };

@@ -7,6 +7,7 @@ import { snackbar } from 'actions/snackbar';
 
 import IconButton from 'components/@common/IconButton';
 import { 아이콘_코드, 알림_메시지 } from 'constants/';
+import noImage from 'assets/no_image.png';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
@@ -50,7 +51,7 @@ ProductItem.propTypes = {
 };
 
 ProductItem.defaultProps = {
-  thumbnail: '기본 이미지 URL',
+  thumbnail: noImage,
   name: '이름이 지정되지 않았습니다.',
   price: -1,
 };

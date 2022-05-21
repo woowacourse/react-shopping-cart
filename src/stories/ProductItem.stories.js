@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ProductItem from '../components/ProductItem';
 import store from 'store';
@@ -13,13 +14,19 @@ export default {
 
 const Template = (args) => (
   <Provider store={store}>
-    <ProductItem {...args} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<ProductItem {...args} />} />
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );
 
 export const DefaultTemplate = Template.bind({});
+
 DefaultTemplate.args = {
-  image: '기본 이미지 URL',
+  thumbnail: 'https://storybook.takealook.kr/image/potato.jpg',
   name: '감자',
   price: 50000,
+  id: 0,
 };
