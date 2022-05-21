@@ -6,17 +6,36 @@ import Counter from 'components/Counter';
 import autoComma from 'utils/autoComma';
 import CheckBox from 'components/CheckBox';
 import store from 'store/store';
-import { doPutProductToCart } from 'actions/actionCreator';
+import {
+  doDeleteProductFromOrder,
+  doPutProductToCart,
+  doAddProdcutToOrder,
+} from 'actions/actionCreator';
+import { useEffect, useState } from 'react';
 
 const CartProductItem = ({ id, quantity }) => {
-  const { products } = useSelector(state => state.reducer);
+  const { products, order } = useSelector(state => state.reducer);
   const product = products.find(product => product.id === id);
   const { name, price, image } = product;
+  const [isInOrder, setIsInOrder] = useState(order.some(productId => productId === id));
+
+  const toggleOrder = () => {
+    if (isInOrder) {
+      store.dispatch(doDeleteProductFromOrder({ id }));
+      return;
+    }
+
+    store.dispatch(doAddProdcutToOrder({ id }));
+  };
+
+  useEffect(() => {
+    setIsInOrder(order.some(productId => productId === id));
+  }, [order, id]);
 
   return (
     <Styled.ProductItem>
       <Styled.ProductDetailController>
-        <CheckBox />
+        <CheckBox checked={isInOrder} handleChange={toggleOrder} />
         <Image src={image} size="200px" />
         <Styled.ProductName>{name}</Styled.ProductName>
       </Styled.ProductDetailController>

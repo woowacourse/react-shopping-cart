@@ -6,22 +6,38 @@ import CartProductItem from 'components/CartProductItem';
 import Line from 'components/Line';
 import CheckBox from 'components/CheckBox';
 import TotalPrice from 'components/TotalPrice';
+import store from 'store/store';
+import { doAddProdcutToOrder, doInitializeOrder } from 'actions/actionCreator';
 
 const CartPage = () => {
-  const { products, shoppingCart } = useSelector(state => state.reducer);
+  const { products, shoppingCart, order } = useSelector(state => state.reducer);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const calculateTotalPrice = useCallback(() => {
     let total = 0;
 
-    shoppingCart.forEach(item => {
-      const target = products.find(product => product.id === item.id);
+    order.forEach(productId => {
+      const { price } = products.find(product => product.id === productId);
+      const { quantity } = shoppingCart.find(product => product.id === productId);
 
-      total += item.quantity * target.price;
+      total += quantity * price;
     });
 
     return total;
-  }, [products, shoppingCart]);
+  }, [products, shoppingCart, order]);
+
+  const handleCheckboxClick = () => {
+    if (shoppingCart.length === order.length) {
+      store.dispatch(doInitializeOrder());
+      return;
+    }
+
+    shoppingCart.forEach(product => {
+      if (!order.some(productId => productId === product.id)) {
+        store.dispatch(doAddProdcutToOrder({ id: product.id }));
+      }
+    });
+  };
 
   useEffect(() => {
     setTotalPrice(calculateTotalPrice());
@@ -35,7 +51,11 @@ const CartPage = () => {
         <Styled.LeftSide>
           <Styled.SelectController>
             <Styled.CheckBoxContainer>
-              <CheckBox /> 선택해제
+              <CheckBox
+                checked={shoppingCart.length === order.length}
+                handleChange={handleCheckboxClick}
+              />
+              선택해제
             </Styled.CheckBoxContainer>
             <Button color="black" border="1px solid #BBBBBB" style={{ padding: '12px 22px' }}>
               상품삭제
@@ -53,7 +73,7 @@ const CartPage = () => {
           <TotalPrice
             title="결제예상금액"
             price={totalPrice}
-            action={`주문하기(${shoppingCart.length}개)`}
+            action={`주문하기(${order.length}개)`}
           />
         </Styled.RightSide>
       </Styled.OrderSheet>

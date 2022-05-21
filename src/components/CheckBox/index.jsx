@@ -1,9 +1,9 @@
 import Styled from './index.style';
 
-const CheckBox = () => {
+const CheckBox = ({ checked, handleChange }) => {
   return (
     <Styled.CheckBoxLabel className="container">
-      <input type="checkbox" />
+      <input type="checkbox" checked={checked} onChange={handleChange} />
       <span className="checkmark" />
     </Styled.CheckBoxLabel>
   );
