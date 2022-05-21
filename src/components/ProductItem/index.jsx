@@ -8,7 +8,7 @@ import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
 import store from 'store/store';
-import { doPutProductToCart } from 'actions/actionCreator';
+import { doDeleteProductFromCart, doPutProductToCart } from 'actions/actionCreator';
 
 import Styled from 'components/ProductItem/index.style';
 
@@ -32,9 +32,14 @@ const ProductItem = ({ id }) => {
     }
   }, [isInCart, id, shoppingCart]);
 
-  const putCart = () => {
+  const controlCart = () => {
+    if (quantityRef.current > 0) {
+      store.dispatch(doPutProductToCart({ id, quantity: quantityRef.current }));
+      return;
+    }
+
+    store.dispatch(doDeleteProductFromCart({ id }));
     setIsOpen(false);
-    store.dispatch(doPutProductToCart({ id, quantity: quantityRef.current }));
     clearTimer();
   };
 
@@ -46,16 +51,16 @@ const ProductItem = ({ id }) => {
     e.stopPropagation();
 
     if (isOpen) {
-      putCart();
+      controlCart();
     } else {
       setIsOpen(true);
-      setAutoCloseTimer(putCart);
+      setAutoCloseTimer(controlCart);
     }
   };
 
   const handleModalClick = e => {
     e.stopPropagation();
-    extendTimer(putCart);
+    extendTimer(controlCart);
   };
 
   return (
@@ -78,9 +83,7 @@ const ProductItem = ({ id }) => {
       </Styled.ProductContainer>
       {isOpen && (
         <Modal onClick={handleModalClick}>
-          <Button
-            onClick={() => setQuantity(prev => (prev > PRODUCT.MIN_QUANTITY ? prev - 1 : prev))}
-          >
+          <Button onClick={() => setQuantity(prev => (prev > 0 ? prev - 1 : prev))}>
             <MinusIcon />
           </Button>
           <Text modal="true">{quantity}</Text>
