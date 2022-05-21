@@ -3,23 +3,20 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from 'components/@common/Header';
+import Box from 'components/@common/Box';
 
 const Layout = () => {
   return (
-    <Styled.Container>
+    <Box w="100%" h="100vh">
       <Header />
       <Styled.Content>
         <Outlet />
       </Styled.Content>
-    </Styled.Container>
+    </Box>
   );
 };
 
 const Styled = {
-  Container: styled.div`
-    width: 100%;
-    height: 100vh;
-  `,
   Content: styled.div`
     max-width: 1260px;
     margin: 0 auto;

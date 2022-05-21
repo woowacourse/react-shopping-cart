@@ -14,6 +14,7 @@ import Button, { OrderButton } from 'components/@common/Button';
 import MarginWrapper from 'components/@common/MarginWrapper';
 import { OPTIONS } from 'api';
 import { DELETE } from 'constants/index';
+import Box from 'components/@common/Box';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -42,10 +43,7 @@ const CartPage = () => {
     if (checkedIdList.length === 0) return;
 
     const fetchList = checkedIdList.map((checkedId) => {
-      return fetch(
-        `${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedId}`,
-        OPTIONS(DELETE),
-      );
+      return fetch(`${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedId}`, OPTIONS(DELETE));
     });
 
     await Promise.all([fetchList]);
@@ -66,10 +64,7 @@ const CartPage = () => {
   const totalPrice = useMemo(() => {
     const checkedCartProductList = cartProductList.filter(({ id }) => isExistInCheckedIdList(id));
 
-    return checkedCartProductList.reduce(
-      (totalPrice, { quantity, price }) => (totalPrice += quantity * price),
-      0,
-    );
+    return checkedCartProductList.reduce((totalPrice, { quantity, price }) => (totalPrice += quantity * price), 0);
   }, [cartProductList, checkedIdList]);
 
   useEffect(() => {
@@ -78,22 +73,21 @@ const CartPage = () => {
   }, []);
 
   return (
-    <Styled.Container>
+    <div>
       <MarginWrapper mb="30px">
         <Text color="black" size="32px" weight="bold" align="center">
           장바구니
         </Text>
       </MarginWrapper>
       <Bar h="4px" color="black" />
-      <Styled.Content>
+      <MarginWrapper mt="53px">
         <Flex justify="space-between">
-          <Styled.CartListBox>
+          <Box w="736px">
             <MarginWrapper mb="50px">
               <Flex justify="space-between">
                 <Button onClick={handleEntireCheckButtonClick}>
                   <Flex align="center" gap="12px">
-                    {cartProductList.length !== 0 &&
-                    checkedIdList.length === cartProductList.length ? (
+                    {cartProductList.length !== 0 && checkedIdList.length === cartProductList.length ? (
                       <>
                         <CheckBoxIcon />
                         <Text size="16px">전체해제</Text>
@@ -134,8 +128,8 @@ const CartPage = () => {
                 />
               ))
             )}
-          </Styled.CartListBox>
-          <Styled.OrderBox>
+          </Box>
+          <Box w="448px">
             <Styled.OrderWrapper>
               <MarginWrapper mb="20px">
                 <Text size="24px">결제예상금액</Text>
@@ -151,28 +145,18 @@ const CartPage = () => {
                   </Text>
                 </Flex>
               </MarginWrapper>
-              <OrderButton w="388px" h="73px" bgColor="mint">
+              <OrderButton w="388px" h="73px" bgColor="gray">
                 주문하기({cartProductList.length}개)
               </OrderButton>
             </Styled.OrderWrapper>
-          </Styled.OrderBox>
+          </Box>
         </Flex>
-      </Styled.Content>
-    </Styled.Container>
+      </MarginWrapper>
+    </div>
   );
 };
 
 const Styled = {
-  Container: styled.div``,
-  Content: styled.div`
-    margin-top: 53px;
-  `,
-  CartListBox: styled.div`
-    width: 736px;
-  `,
-  OrderBox: styled.div`
-    width: 448px;
-  `,
   OrderWrapper: styled.div`
     width: 448px;
     height: 318px;

@@ -14,6 +14,8 @@ import {
 } from 'api/cart';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import { useDispatch } from 'react-redux';
+import Box from 'components/@common/Box';
+import Text, { EllipsisText } from 'components/@common/Text';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   const dispatch = useDispatch();
@@ -38,22 +40,24 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
 
   return (
     <Styled.Container to={`/product/${id}`}>
-      <Styled.ThumbnailBox>
-        <Flex justify="center" align="center">
-          <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
-        </Flex>
-      </Styled.ThumbnailBox>
-      <Styled.Content>
-        <Flex justify="space-between">
-          <Styled.Description>
-            <Styled.Name>{name}</Styled.Name>
-            <Styled.Price>{price.toLocaleString()} 원</Styled.Price>
-          </Styled.Description>
-          <CartButton onClick={handleAddCartButton}>
-            <CartIcon />
-          </CartButton>
-        </Flex>
-      </Styled.Content>
+      <Flex direction="column" gap="14px">
+        <Styled.ThumbnailBox>
+          <Flex justify="center" align="center">
+            <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
+          </Flex>
+        </Styled.ThumbnailBox>
+        <Styled.Content>
+          <Flex justify="space-between">
+            <Box w="200px">
+              <EllipsisText>{name}</EllipsisText>
+              <Text>{price.toLocaleString()} 원</Text>
+            </Box>
+            <CartButton onClick={handleAddCartButton}>
+              <CartIcon />
+            </CartButton>
+          </Flex>
+        </Styled.Content>
+      </Flex>
     </Styled.Container>
   );
 };
@@ -62,9 +66,6 @@ const Styled = {
   Container: styled(Link)`
     width: 282px;
     height: 358px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
     box-shadow: 3px 3px 5px 0px #00000040;
   `,
   ThumbnailBox: styled.div`
@@ -82,16 +83,6 @@ const Styled = {
     line-height: 22px;
     letter-spacing: 0.5px;
   `,
-  Description: styled.div`
-    width: 200px;
-  `,
-  Name: styled.p`
-    width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  `,
-  Price: styled.p``,
 };
 
 export default Product;

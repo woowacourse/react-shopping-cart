@@ -12,6 +12,7 @@ import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
 import { loadCartProductList, updateCartProduct } from 'api/cart';
 import { setCartProductList } from 'store/cartProductList/actions';
+import Box from 'components/@common/Box';
 
 interface CartProductProps {
   data: CartProductData;
@@ -52,30 +53,30 @@ const CartProduct = ({
   return (
     <Styled.Wrapper>
       <Flex gap="20px">
-        <Styled.CheckBox>
+        <Box>
           <Button onClick={() => handleCheckButtonClick(id)}>
             {isChecked ? <CheckBoxIcon /> : <UncheckBoxIcon />}
           </Button>
-        </Styled.CheckBox>
+        </Box>
         <Styled.ThumbnailBox>
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
         </Styled.ThumbnailBox>
-        <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
-        <Styled.TestBox>
+        <Box w="380px">{name}</Box>
+        <Box w="115px">
           <Flex direction="column" align="flex-end" gap="20px">
             <Button onClick={() => handleCartProductDelete(id)}>
               <DeleteIcon />
             </Button>
-            <Styled.QuantityControlBox>
+            <Box w="115px" borderWidth="1px" borderStyle="solid" borderColor="lightGray">
               <Flex>
                 <Flex align="center">
-                  <Styled.QuantityBox>
+                  <Box w="73px">
                     <Text size="24px" align="center">
                       {quantity}
                     </Text>
-                  </Styled.QuantityBox>
+                  </Box>
                 </Flex>
-                <Styled.ControlBox>
+                <Box w="42px">
                   <Flex direction="column">
                     <Button
                       w="42px"
@@ -98,12 +99,12 @@ const CartProduct = ({
                       ▼
                     </Button>
                   </Flex>
-                </Styled.ControlBox>
+                </Box>
               </Flex>
-            </Styled.QuantityControlBox>
+            </Box>
             <Text>{(price * quantity).toLocaleString()}원</Text>
           </Flex>
-        </Styled.TestBox>
+        </Box>
       </Flex>
     </Styled.Wrapper>
   );
@@ -116,7 +117,6 @@ const Styled = {
     border-top: 1px solid #cccccc;
     padding: 23px 0;
   `,
-  CheckBox: styled.div``,
   ThumbnailBox: styled.div`
     width: 144px;
     height: 147px;
@@ -125,22 +125,6 @@ const Styled = {
       width: 100%;
       height: 100%;
     }
-  `,
-  ProductNameBox: styled.div`
-    width: 380px;
-  `,
-  TestBox: styled.div`
-    width: 115px;
-  `,
-  QuantityControlBox: styled.div`
-    width: 115px;
-    border: 1px solid #dddddd;
-  `,
-  QuantityBox: styled.div`
-    width: 73px;
-  `,
-  ControlBox: styled.div`
-    width: 42px;
   `,
 };
 

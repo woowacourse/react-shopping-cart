@@ -7,15 +7,13 @@ import { CartDetailButton } from 'components/@common/Button';
 import Flex from 'components/@common/Flex';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
 
-import {
-  loadCartProduct,
-  loadCartProductList,
-  registerCartProduct,
-  updateCartProduct,
-} from 'api/cart';
+import { loadCartProduct, loadCartProductList, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 import { ProductData } from 'types';
+import Bar from 'components/@common/Bar';
+import Text from 'components/@common/Text';
+import MarginWrapper from 'components/@common/MarginWrapper';
 
 const ProductDetail = () => {
   const params = useParams();
@@ -54,28 +52,34 @@ const ProductDetail = () => {
 
   return (
     <Styled.Container>
-      <Styled.ThumbnailBox>
-        <img src={thumbnail} alt="상품 상세 이미지" />
-      </Styled.ThumbnailBox>
-      <Styled.Content>
-        <Styled.Title>{name}</Styled.Title>
-        <Styled.Price>
-          <Flex justify="space-between">
-            <p>금액</p>
-            <p>{price.toLocaleString()}원</p>
+      <Flex direction="column" align="center">
+        <Styled.ThumbnailBox>
+          <img src={thumbnail} alt="상품 상세 이미지" />
+        </Styled.ThumbnailBox>
+        <Styled.Content>
+          <Flex direction="column" gap="15px">
+            <MarginWrapper mt="5px" ml="10px" mb="5px" mr="10px">
+              <Text size="22px" weight={700}>
+                {name}
+              </Text>
+            </MarginWrapper>
+            <Bar h="2px" color="gray" />
+            <MarginWrapper mt="10px" ml="10px" mb="30px" mr="10px">
+              <Flex justify="space-between">
+                <Text weight={500}>금액</Text>
+                <Text weight={500}>{price.toLocaleString()}원</Text>
+              </Flex>
+            </MarginWrapper>
           </Flex>
-        </Styled.Price>
-      </Styled.Content>
-      <CartDetailButton onClick={handleAddCartButton}>장바구니</CartDetailButton>
+        </Styled.Content>
+        <CartDetailButton onClick={handleAddCartButton}>장바구니</CartDetailButton>
+      </Flex>
     </Styled.Container>
   );
 };
 
 const Styled = {
   Container: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 400px;
     margin: 0 auto;
   `,
@@ -87,33 +91,7 @@ const Styled = {
   `,
   Content: styled.div`
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
     margin-top: 20px;
-  `,
-  Title: styled.p`
-    font-weight: 700;
-    font-size: 22px;
-    padding: 10px;
-    position: relative;
-
-    :after {
-      content: '';
-      width: 100%;
-      height: 2px;
-
-      position: absolute;
-      left: 0px;
-      bottom: -8px;
-
-      background: ${({ theme }) => theme.colors.gray};
-    }
-  `,
-  Price: styled.div`
-    font-weight: 400;
-    padding: 10px;
-    margin-bottom: 20px;
   `,
 };
 

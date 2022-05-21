@@ -20,6 +20,7 @@ const Button = styled.button`
   ${({ theme, w, h, borderWidth, borderStyle, borderColor, bgColor }: ButtonProps) => css`
     width: ${w};
     height: ${h};
+
     border-width: ${borderWidth};
     border-style: ${borderStyle};
     border-color: ${borderColor && theme.colors[borderColor]};
@@ -55,6 +56,10 @@ export const OrderButton = styled(Button)`
   ${({ theme }) => css`
     font-size: 24px;
     color: ${theme.colors.white};
+
+    :hover {
+      background: ${theme.colors.mint};
+    }
   `}
 `;
 
