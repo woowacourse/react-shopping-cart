@@ -26,6 +26,7 @@ function ProductCartPage() {
     dispatch,
   } = useStore("cartList");
 
+  console.log(cartList);
   const [checkList, setCheckList] = useState([]);
 
   const handleChangeAllCheckbox = () => {
@@ -40,19 +41,23 @@ function ProductCartPage() {
     checkList.forEach((carItemId) => {
       dispatch(deleteCartList(carItemId));
     });
+    setCheckList([]);
   };
 
   const handleClickIncreaseButton = (id) => () => {
+    if (!checkList.includes(id)) setCheckList((prev) => [...prev, id]);
     dispatch(updateCartCount(id, "increase"));
   };
 
   const handleClickDecreaseButton = (id, count) => () => {
     if (count <= 1) return;
+    if (!checkList.includes(id)) setCheckList((prev) => [...prev, id]);
     dispatch(updateCartCount(id, "decrease"));
   };
 
   const handleClickDeleteItemButton = (id) => () => {
     dispatch(deleteCartList(id));
+    setCheckList((prev) => prev.filter((cartItemId) => cartItemId !== id));
   };
 
   const handleChangeCheckbox = (id) => () => {
@@ -96,7 +101,8 @@ function ProductCartPage() {
   }, []);
 
   useEffect(() => {
-    setCheckList(cartList.map((cartItem) => cartItem.id));
+    if (checkList.length === 0)
+      setCheckList(cartList.map((cartItem) => cartItem.id));
   }, [cartList]);
 
   return (
