@@ -9,11 +9,8 @@ import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import spinner from 'assets/svg/spinner.svg';
 import useGetOrderList from 'hooks/useGetOrderList';
-import { PATH } from 'constants/path';
-import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const navigate = useNavigate();
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [checkedItemList, setCheckedItemList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
@@ -48,9 +45,7 @@ const Cart = () => {
 
   const handleClickOrder = async () => {
     await callPostApi();
-    // TODO
     await getOrderList();
-    navigate(PATH.ORDER);
   };
 
   return (

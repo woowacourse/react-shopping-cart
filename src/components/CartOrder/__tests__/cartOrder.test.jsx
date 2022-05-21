@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CartOrder from 'components/CartOrder';
 import React from 'react';
 
@@ -24,5 +24,25 @@ describe('1 컴포넌트 렌더 테스트', () => {
 
     expect(screen.getByText(expectedTotalPrice)).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent(expectedButtonText);
+  });
+});
+
+describe('2 이벤트에 따라 의도한 호출이 일어나는지', () => {
+  const totalPrice = 15000;
+  const totalCount = 3;
+
+  test('주문하기 버튼을 클릭하면 주문목록 페이지로 이동해야 한다.', () => {
+    render(
+      <CartOrder
+        totalPrice={totalPrice}
+        totalCount={totalCount}
+        handleClickOrder={() => null}
+      />,
+    );
+
+    const orderButton = screen.getByRole('button');
+    fireEvent.click(orderButton);
+
+    expect(mockNavigate).toBeCalledWith('/order');
   });
 });

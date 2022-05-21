@@ -1,10 +1,15 @@
 import React from 'react';
-
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import comma from 'utils/comma';
+import { useNavigate } from 'react-router-dom';
 
-function CartOrder({ totalPrice, totalCount, handleClickOrder }) {
+const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    handleClickOrder();
+    navigate('/order');
+  };
   return (
     <Styled.Section>
       <Styled.TopWrapper>
@@ -17,17 +22,14 @@ function CartOrder({ totalPrice, totalCount, handleClickOrder }) {
           <Styled.HighlightText>{comma(totalPrice)}원</Styled.HighlightText>
         </Styled.FlexBetweenBox>
         <Styled.FlexCenterBox>
-          <Styled.OrderButton
-            disabled={totalCount === 0}
-            onClick={handleClickOrder}
-          >
+          <Styled.OrderButton disabled={totalCount === 0} onClick={handleClick}>
             주문하기({totalCount}개)
           </Styled.OrderButton>
         </Styled.FlexCenterBox>
       </Styled.BottomWrapper>
     </Styled.Section>
   );
-}
+};
 
 CartOrder.propTypes = {
   totalPrice: PropTypes.number,
