@@ -31,7 +31,9 @@ function CartLeftSection() {
     .map((cart) => cart.id);
 
   const handleDeleteCheckedProducts = () => {
-    dispatch(deleteCheckedProductsStart(checkedIdList));
+    if (window.confirm('선택하신 상품(들)을 삭제하시겠습니까?')) {
+      dispatch(deleteCheckedProductsStart(checkedIdList));
+    }
   };
 
   useEffect(() => {
