@@ -2,7 +2,7 @@ import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 
 import ShoppingCartItem from 'components/ShoppingCartItem/ShoppingCartItem';
 
-//TODO: carts를 받는 게 맞을까?
+//THINK: carts 인자를 받는 게 옳을지 생각해보기
 function ShoppingCartItemGroup({ carts }) {
   return (
     <FlexWrapper flexDirection="column">

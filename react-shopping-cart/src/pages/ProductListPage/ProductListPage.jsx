@@ -29,8 +29,7 @@ function ProductListPage() {
     }
   }, [error]);
 
-  // THINK: withSpinner 때문에, ProductCardGroup에서 datafetching을 못해옴
-  // 아무리 생각해도, 여기서 data fetching은 하면 안됨
+  // THINK: withSpinner 때문에, ProductCardGroup에서 datafetching을 못함
   useEffect(() => {
     dispatch(fetchProductsStart(idx));
     dispatch(fetchCartsStart());

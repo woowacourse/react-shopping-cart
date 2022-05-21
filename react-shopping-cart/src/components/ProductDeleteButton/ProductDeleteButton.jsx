@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import Button from 'components/@shared/Button/Button';
 
-//TODO: 내부에 가지고 있어야 될듯
 //TODO: Button으로 대체
 function ProductDeleteButton({ children, ...props }) {
   return <Styled.Root {...props}>{children}</Styled.Root>;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Button from 'components/@shared/Button/Button';
 
-//TODO: 여기도 컴포넌트를 Button으로 대체하자
+//TODO: Button으로 대체
 function ShoppingCartButton({ children, ...props }) {
   return <Styled.Root {...props}>{children}</Styled.Root>;
 }
