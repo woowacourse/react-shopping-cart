@@ -4,11 +4,13 @@ import { useState } from 'react';
 import useDelete from 'hooks/shared/useDelete';
 import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
+import useGetCartList from 'hooks/useGetCartList';
 
 const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [isEachChecked, setIsEachChecked] = useState(true);
   const { callDeleteApi } = useDelete('/cartList');
+  const { getCartList } = useGetCartList();
 
   const initialIdList = cartList.map((item) => item.id);
 
@@ -39,6 +41,7 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
     await checkedIdList.forEach((targetId) => {
       callDeleteApi(targetId);
     });
+    await getCartList();
   };
 
   return (
