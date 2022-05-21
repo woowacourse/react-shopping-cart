@@ -57,6 +57,7 @@
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/preset-env": "^7.17.12",
+    "@babel/preset-react": "^7.17.12",
     "@redux-devtools/extension": "^3.2.2",
     "@storybook/addon-actions": "^6.5.3",
     "@storybook/addon-essentials": "^6.5.3",
