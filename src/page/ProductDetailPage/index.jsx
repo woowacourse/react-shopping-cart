@@ -24,8 +24,11 @@ export default function ProductDetailPage() {
     API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`,
   });
 
+  const {initializeCartList} = useCartItem();
+
   useEffect(() => {
-    getProductDetail();
+    getProductDetail({});
+    initializeCartList();
   }, []);
 
   const cartItem = useSelector((state) => state.cartReducer.cart);

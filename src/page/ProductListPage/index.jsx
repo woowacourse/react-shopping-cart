@@ -14,7 +14,6 @@ import {useNavigate} from 'react-router-dom';
 import useCartItem from 'hook/useCartItem';
 import {PATH} from 'constant';
 import ErrorBoundary from 'component/ErrorBoundary';
-import {getCartList} from 'store/modules/cart';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -24,15 +23,12 @@ export default function ProductListPage() {
   const pending = useSelector((state) => state.productListReducer.pending);
   const cart = useSelector((state) => state.cartReducer.cart);
 
-  const {addCartItem, deleteCartItem} = useCartItem();
+  const {initializeCartList, addCartItem, deleteCartItem} = useCartItem();
 
   useEffect(() => {
     dispatch(getProductList());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getCartList());
-  }, [dispatch]);
+    initializeCartList();
+  }, []);
 
   const handleIconClick = ({image, name, price, id, isInCart}) => {
     if (isInCart) {

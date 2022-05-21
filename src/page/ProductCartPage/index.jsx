@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,8 +15,18 @@ export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
   const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
 
-  const {deleteCartItem, increaseQuantity, decreaseQuantity, deleteSelectedCart} = useCartItem();
+  const {
+    initializeCartList,
+    deleteCartItem,
+    increaseQuantity,
+    decreaseQuantity,
+    deleteSelectedCart,
+  } = useCartItem();
   const {selectAllItem, unselectAllItem, addSelectedItem, deleteSelectedItem} = useSelectedItem();
+
+  useEffect(() => {
+    initializeCartList();
+  }, []);
 
   const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
 
