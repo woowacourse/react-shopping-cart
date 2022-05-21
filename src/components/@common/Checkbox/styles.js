@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import { BRAND_COLORS, COLORS, LAYOUT } from 'styles/theme';
 import { ICON_CODE } from 'constants/';
+import { getPixelToRem } from 'lib/formatterUtils';
 
 const SIZE_PROP = (size) => {
   switch (size) {
@@ -16,7 +17,7 @@ const SIZE_PROP = (size) => {
       return '0.8rem';
 
     default:
-      return `${(size / LAYOUT.ROOT_PIXEL_SIZE).toFixed(2)}rem`;
+      return `${getPixelToRem(size)}rem`;
   }
 };
 
