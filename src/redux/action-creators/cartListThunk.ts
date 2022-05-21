@@ -90,11 +90,9 @@ export const patchAllCartSelectedRequest =
           await axios.patch(`${BASE_URL}/cartList/${item.id}`, { isSelected: !isAllSelected })
       );
 
-      const newCartList = cartList.map(item => ({ ...item, isSelected: !isAllSelected }));
-
       dispatch({
         type: CartListActionType.PATCH_ALL_CART_SELECTED_SUCCESS,
-        payload: newCartList,
+        payload: !isAllSelected,
       });
     } catch (e) {
       dispatch({

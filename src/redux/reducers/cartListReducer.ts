@@ -72,7 +72,9 @@ export const cartListReducer = (state = initialState, action: CartListAction): C
     case CartListActionType.PATCH_ALL_CART_SELECTED_START:
       return { ...state, loading_patchAllCartSelected: true };
     case CartListActionType.PATCH_ALL_CART_SELECTED_SUCCESS: {
-      return { ...state, loading_patchAllCartSelected: false, data: action.payload };
+      const newCartList = state.data.map(item => ({ ...item, isSelected: action.payload }));
+
+      return { ...state, loading_patchAllCartSelected: false, data: newCartList };
     }
     case CartListActionType.PATCH_ALL_CART_SELECTED_FAILURE:
       return { ...state, loading_patchAllCartSelected: false, error: action.payload };

@@ -88,7 +88,7 @@ interface PatchAllCartSelectedStart {
 }
 interface PatchAllCartSelectedSuccess {
   type: CartListActionType.PATCH_ALL_CART_SELECTED_SUCCESS;
-  payload: CartItem[];
+  payload: boolean;
 }
 interface PatchAllCartSelectedFailure {
   type: CartListActionType.PATCH_ALL_CART_SELECTED_FAILURE;
