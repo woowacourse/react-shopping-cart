@@ -1,7 +1,7 @@
 import productActionType from 'redux/products/products.types';
 
 const INITIAL_STATE = {
-  loading: false,
+  isLoading: false,
   products: [],
   //TODO: 네이밍 변경
   detailProduct: null,
@@ -14,19 +14,19 @@ const productsReducer = (state = INITIAL_STATE, action) => {
     case productActionType.fetchProductsStart:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     case productActionType.fetchProductsSuccess:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         products: action.payload,
         error: null,
       };
     case productActionType.fetchProductSuccess:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         detailProduct: action.payload,
         error: null,
       };
@@ -34,7 +34,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
     case productActionType.fetchProductsError:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload,
       };
     default:

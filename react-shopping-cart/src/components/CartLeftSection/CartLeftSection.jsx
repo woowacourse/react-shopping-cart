@@ -14,7 +14,7 @@ import {
   fetchCartsStart,
 } from 'redux/carts/carts.action';
 import {
-  selectCartsLoading,
+  selectIsCartsLoading,
   selectCurrentCarts,
 } from 'redux/carts/carts.selector';
 
@@ -24,7 +24,7 @@ import { CURRENT_USER } from 'constants';
 function CartLeftSection() {
   const dispatch = useDispatch();
   const carts = useSelector(selectCurrentCarts);
-  const cartLoading = useSelector(selectCartsLoading);
+  const isCartsLoading = useSelector(selectIsCartsLoading);
   const myCarts = carts.filter((cart) => cart.user === CURRENT_USER);
   const checkedIdList = myCarts
     .filter((cart) => cart['checked'])
@@ -50,7 +50,7 @@ function CartLeftSection() {
       </Styled.CartLeftSectionHeader>
       <Styled.CartItemsContainer>
         <Styled.CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</Styled.CartItemsContainerHeader>
-        <WithSpinner loading={cartLoading}>
+        <WithSpinner isLoading={isCartsLoading}>
           <ShoppingCartItemGroup carts={myCarts} />
         </WithSpinner>
       </Styled.CartItemsContainer>

@@ -22,14 +22,14 @@ describe('carts reducer 테스트', () => {
 
   test('상품을 카트에 담은 후 상품 목록 가져오기', () => {
     const INITIAL_STATE = {
-      loading: false,
+      isLoading: false,
       carts: [],
       error: null,
     };
 
     expect(cartsReducer(INITIAL_STATE, addProductToCartStart(product))).toEqual(
       {
-        loading: true,
+        isLoading: true,
         carts: [],
         error: null,
       }
@@ -38,13 +38,13 @@ describe('carts reducer 테스트', () => {
     expect(
       cartsReducer(INITIAL_STATE, addProductToCartSuccess(product))
     ).toEqual({
-      loading: false,
+      isLoading: false,
       carts: [],
       error: null,
     });
 
     expect(cartsReducer(INITIAL_STATE, fetchCartsStart())).toEqual({
-      loading: true,
+      isLoading: true,
       carts: [],
       error: null,
     });
@@ -52,7 +52,7 @@ describe('carts reducer 테스트', () => {
     expect(
       cartsReducer(INITIAL_STATE, fetchCartsSuccess([productWithQuantity]))
     ).toEqual({
-      loading: false,
+      isLoading: false,
       carts: [productWithQuantity],
       error: null,
     });
@@ -60,7 +60,7 @@ describe('carts reducer 테스트', () => {
 
   test('카트에 있는 상품을 제거한 후 상품 목록 가져오기', () => {
     const INITIAL_STATE = {
-      loading: false,
+      isLoading: false,
       carts: [productWithQuantity],
       error: null,
     };
@@ -71,7 +71,7 @@ describe('carts reducer 테스트', () => {
         deleteProductFromCartStart(productWithQuantity.id)
       )
     ).toEqual({
-      loading: true,
+      isLoading: true,
       carts: [productWithQuantity],
       error: null,
     });
@@ -82,19 +82,19 @@ describe('carts reducer 테스트', () => {
         deleteProductFromCartSuccess(productWithQuantity.id)
       )
     ).toEqual({
-      loading: false,
+      isLoading: false,
       carts: [productWithQuantity],
       error: null,
     });
 
     expect(cartsReducer(INITIAL_STATE, fetchCartsStart())).toEqual({
-      loading: true,
+      isLoading: true,
       carts: [productWithQuantity],
       error: null,
     });
 
     expect(cartsReducer(INITIAL_STATE, fetchCartsSuccess([]))).toEqual({
-      loading: false,
+      isLoading: false,
       carts: [],
       error: null,
     });

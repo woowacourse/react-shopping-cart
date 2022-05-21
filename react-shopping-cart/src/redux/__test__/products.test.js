@@ -14,14 +14,14 @@ describe('product reducer 테스트', () => {
   test('상품 목록 받아오기', () => {
     const page = 1;
     const INITIAL_STATE = {
-      loading: false,
+      isLoading: false,
       products: [],
       detailProduct: null,
       error: null,
     };
 
     expect(productsReducer(INITIAL_STATE, fetchProductsStart(page))).toEqual({
-      loading: true,
+      isLoading: true,
       products: [],
       detailProduct: null,
       error: null,
@@ -35,7 +35,7 @@ describe('product reducer 테스트', () => {
     expect(
       productsReducer(INITIAL_STATE, fetchProductsSuccess(products))
     ).toEqual({
-      loading: false,
+      isLoading: false,
       products: products,
       detailProduct: null,
       error: null,
@@ -44,7 +44,7 @@ describe('product reducer 테스트', () => {
 
   test('상품 받아오기', () => {
     const INITIAL_STATE = {
-      loading: false,
+      isLoading: false,
       products: [],
       detailProduct: null,
       error: null,
@@ -52,7 +52,7 @@ describe('product reducer 테스트', () => {
     const id = 1;
 
     expect(productsReducer(INITIAL_STATE, fetchProductStart(id))).toEqual({
-      loading: true,
+      isLoading: true,
       products: [],
       detailProduct: null,
       error: null,
@@ -63,7 +63,7 @@ describe('product reducer 테스트', () => {
     expect(
       productsReducer(INITIAL_STATE, fetchProductSuccess(product))
     ).toEqual({
-      loading: false,
+      isLoading: false,
       products: [],
       detailProduct: product,
       error: null,

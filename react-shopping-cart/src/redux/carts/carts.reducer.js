@@ -3,8 +3,7 @@ import cartsActionTypes from 'redux/carts/carts.types';
 import { CURRENT_USER } from 'constants';
 
 const INITIAL_STATE = {
-  // TODO: isLoading
-  loading: false,
+  isLoading: false,
   carts: [],
   error: null,
 };
@@ -17,14 +16,14 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     case cartsActionTypes.deleteCheckedProductsStart:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
 
     case cartsActionTypes.fetchCartsSuccess:
       return {
         ...state,
         error: null,
-        loading: false,
+        isLoading: false,
         carts: action.payload,
       };
 
@@ -34,7 +33,7 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
     case cartsActionTypes.deleteCheckedProductsError:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload,
       };
 
@@ -42,21 +41,21 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: null,
-        loading: false,
+        isLoading: false,
       };
 
     case cartsActionTypes.deleteProductFromCartSuccess:
       return {
         ...state,
         error: null,
-        loading: false,
+        isLoading: false,
       };
 
     case cartsActionTypes.deleteCheckedProductsSuccess: {
       return {
         ...state,
         error: null,
-        loading: false,
+        isLoading: false,
       };
     }
 

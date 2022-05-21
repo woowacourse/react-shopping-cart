@@ -9,7 +9,6 @@ import { selectCurrentProducts } from 'redux/products/products.selector';
 
 import { isInCart } from 'utils/check';
 
-//TODO: 스토리북
 function ProductCardGroup() {
   const products = useSelector(selectCurrentProducts);
   const carts = useSelector(selectCurrentCarts);

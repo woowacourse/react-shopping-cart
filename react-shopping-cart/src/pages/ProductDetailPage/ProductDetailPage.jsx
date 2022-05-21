@@ -12,13 +12,13 @@ import ShoppingCartButton from 'components/ShoppingCartButton/ShoppingCartButton
 
 import { fetchCartsStart } from 'redux/carts/carts.action';
 import {
-  selectCartsLoading,
+  selectIsCartsLoading,
   selectCurrentCarts,
 } from 'redux/carts/carts.selector';
 import { fetchProductStart } from 'redux/products/products.action';
 import {
   selectDetailProduct,
-  selectProductsLoading,
+  selectIsProductsLoading,
 } from 'redux/products/products.selector';
 
 import useCart from 'hooks/useCart';
@@ -31,8 +31,8 @@ function ProductDetailPage() {
   const dispatch = useDispatch();
   const product = useSelector(selectDetailProduct);
   const carts = useSelector(selectCurrentCarts);
-  const cartsLoading = useSelector(selectCartsLoading);
-  const productsLoading = useSelector(selectProductsLoading);
+  const isCartsLoading = useSelector(selectIsCartsLoading);
+  const isProductsLoading = useSelector(selectIsProductsLoading);
   const isCartItem = isInCart(idx, carts);
   const { handleAddProductToCart, handleDeleteProductFromCart } = useCart();
 
@@ -45,7 +45,7 @@ function ProductDetailPage() {
     // THINK: page 컴포넌트의 추상화레벨을 맞춰야할 것 같은데, 맞을까?
     // THINK: product 없이는 왜 안될까?
     product && (
-      <WithSpinner loading={cartsLoading || productsLoading}>
+      <WithSpinner isLoading={isCartsLoading || isProductsLoading}>
         <FlexWrapper
           flexDirection="column"
           gap="20px"

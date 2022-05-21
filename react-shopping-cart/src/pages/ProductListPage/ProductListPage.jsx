@@ -13,14 +13,14 @@ import { fetchCartsStart } from 'redux/carts/carts.action';
 import { fetchProductsStart } from 'redux/products/products.action';
 import {
   selectProductsError,
-  selectProductsLoading,
+  selectIsProductsLoading,
 } from 'redux/products/products.selector';
 
 function ProductListPage() {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const idx = searchParams.get('page') ?? 1;
-  const loading = useSelector(selectProductsLoading);
+  const isLoading = useSelector(selectIsProductsLoading);
   const error = useSelector(selectProductsError);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function ProductListPage() {
   }, [idx]);
 
   return (
-    <WithSpinner loading={loading}>
+    <WithSpinner isLoading={isLoading}>
       <FlexWrapper flexDirection="column" gap="60px">
         <ProductCardGroup />
         <Pagination />

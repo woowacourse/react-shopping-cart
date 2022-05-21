@@ -2,8 +2,8 @@ import FlexWrapper from '../FlexWrapper/FlexWrapper';
 
 import Spinner from 'components/@shared/Spinner/Spinner';
 
-function WithSpinner({ loading, children }) {
-  if (loading) {
+function WithSpinner({ isLoading, children }) {
+  if (isLoading) {
     return (
       <FlexWrapper height="100vh">
         <Spinner />
