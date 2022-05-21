@@ -11,21 +11,21 @@ import Flex from 'components/@common/Flex';
 import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
 import { loadCartProductList, updateCartProduct } from 'api/cart';
-import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
+import { setCartProductList } from 'store/cartProductList/actions';
 
 interface CartProductProps {
   data: CartProductData;
+  isChecked: boolean;
+  handleToggleCheckBoxButton: (id: number) => void;
 }
 
-const CartProduct = ({ data }: CartProductProps) => {
+const CartProduct = ({ data, isChecked, handleToggleCheckBoxButton }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
   const dispatch = useDispatch();
 
   const handleIncreaseButton = async () => {
     try {
       await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
-
-      dispatch(startCartProductList());
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
     } catch (e) {
       alert(e);
@@ -37,8 +37,6 @@ const CartProduct = ({ data }: CartProductProps) => {
       if (quantity <= 1) return;
 
       await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
-
-      dispatch(startCartProductList());
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
     } catch (e) {
       alert(e);
@@ -48,11 +46,11 @@ const CartProduct = ({ data }: CartProductProps) => {
   return (
     <Styled.Wrapper>
       <Flex gap="20px">
-        <Styled.SelectBox>
-          <Button>
-            <UncheckBoxIcon />
+        <Styled.CheckBox>
+          <Button onClick={() => handleToggleCheckBoxButton(id)}>
+            {isChecked ? <CheckBoxIcon /> : <UncheckBoxIcon />}
           </Button>
-        </Styled.SelectBox>
+        </Styled.CheckBox>
         <Styled.ThumbnailBox>
           <img src={thumbnail} alt="상품을 나타내는 대표 이미지" />
         </Styled.ThumbnailBox>
@@ -112,7 +110,7 @@ const Styled = {
     border-top: 1px solid #cccccc;
     padding: 23px 0;
   `,
-  SelectBox: styled.div``,
+  CheckBox: styled.div``,
   ThumbnailBox: styled.div`
     width: 144px;
     height: 147px;

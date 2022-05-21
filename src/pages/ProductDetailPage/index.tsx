@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { CartDetailButton } from 'components/@common/Button';
@@ -14,7 +14,6 @@ import {
   updateCartProduct,
 } from 'api/cart';
 import { loadProduct } from 'api/product';
-import { RootState } from 'store';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 import { ProductData } from 'types';
 

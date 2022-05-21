@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
 import { RootState } from 'store';
@@ -16,10 +16,43 @@ import MarginWrapper from 'components/@common/MarginWrapper';
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartProductList, isLoading } = useSelector((state: RootState) => state.cartProductList);
+  const [checkedCartProductList, setCheckedCartProductList] = useState<Number[]>([]);
+
+  const handleToggleEntireCheckBoxButton = (isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedCartProductList([]);
+      return;
+    }
+
+    setCheckedCartProductList(cartProductList.map(({ id }) => id));
+  };
+
+  const handleToggleCheckBoxButton = (id: number) => {
+    if (isExistInCheckedList(id)) {
+      const filteredCheckedCartProductList = checkedCartProductList.filter(
+        (checkedCartProduct) => checkedCartProduct !== id,
+      );
+      setCheckedCartProductList(filteredCheckedCartProductList);
+      return;
+    }
+
+    setCheckedCartProductList((prev) => [...prev, id]);
+  };
+
+  const isExistInCheckedList = (id: number) => {
+    return checkedCartProductList.indexOf(id) !== -1;
+  };
+
+  const totalPrice = useMemo(() => {
+    const filteredCartProductList = cartProductList.filter(({ id }) => isExistInCheckedList(id));
+
+    return filteredCartProductList.reduce(
+      (totalPrice, { quantity, price }) => (totalPrice += quantity * price),
+      0,
+    );
+  }, [cartProductList, checkedCartProductList]);
 
   useEffect(() => {
-    // 상태가 변경되지 않았으면 return;
-
     dispatch(startCartProductList());
     loadCartProductList().then((res) => dispatch(setCartProductList(res)));
   }, []);
@@ -37,10 +70,27 @@ const CartPage = () => {
           <Styled.CartListBox>
             <MarginWrapper mb="50px">
               <Flex justify="space-between">
-                <Flex align="center" gap="12px">
-                  <UncheckBoxIcon />
-                  <Text>선택해제</Text>
-                </Flex>
+                <Button
+                  onClick={() =>
+                    handleToggleEntireCheckBoxButton(
+                      checkedCartProductList.length === cartProductList.length,
+                    )
+                  }
+                >
+                  <Flex align="center" gap="12px">
+                    {checkedCartProductList.length === cartProductList.length ? (
+                      <>
+                        <CheckBoxIcon />
+                        <Text size="16px">전체해제</Text>
+                      </>
+                    ) : (
+                      <>
+                        <UncheckBoxIcon />
+                        <Text size="16px">전체선택</Text>
+                      </>
+                    )}
+                  </Flex>
+                </Button>
                 <Button w="117px" h="50px" borderWidth="1px" borderStyle="solid" borderColor="gray">
                   상품삭제
                 </Button>
@@ -49,10 +99,18 @@ const CartPage = () => {
             <MarginWrapper mb="16px">
               <Text>배송 상품 ({cartProductList.length}개)</Text>
             </MarginWrapper>
-            {cartProductList &&
+            {isLoading ? (
+              <div>상품을 불러오고 있습니다...</div>
+            ) : (
               cartProductList.map((cartProduct) => (
-                <CartProduct key={cartProduct.id} data={cartProduct} />
-              ))}
+                <CartProduct
+                  key={cartProduct.id}
+                  data={cartProduct}
+                  isChecked={isExistInCheckedList(cartProduct.id)}
+                  handleToggleCheckBoxButton={handleToggleCheckBoxButton}
+                />
+              ))
+            )}
           </Styled.CartListBox>
           <Styled.OrderBox>
             <Styled.OrderWrapper>
@@ -66,12 +124,12 @@ const CartPage = () => {
                     결제예상금액
                   </Text>
                   <Text size="20px" weight={700}>
-                    21,700원
+                    {totalPrice.toLocaleString()}원
                   </Text>
                 </Flex>
               </MarginWrapper>
               <OrderButton w="388px" h="73px" bgColor="mint">
-                주문하기(2개)
+                주문하기({cartProductList.length}개)
               </OrderButton>
             </Styled.OrderWrapper>
           </Styled.OrderBox>
