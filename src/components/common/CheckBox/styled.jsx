@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const CheckBoxContainer = styled.label`
+export const CheckBoxContainer = styled.label`
   display: block;
   position: relative;
   padding-left: 35px;
@@ -9,7 +8,7 @@ const CheckBoxContainer = styled.label`
   cursor: pointer;
 `;
 
-const CheckBoxInput = styled.input`
+export const CheckBoxInput = styled.input`
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -17,7 +16,7 @@ const CheckBoxInput = styled.input`
   width: 0;
 `;
 
-const CheckIcon = styled.div`
+export const CheckIcon = styled.div`
   display: inline-block;
   transform: rotate(45deg);
   height: 18px;
@@ -26,7 +25,7 @@ const CheckIcon = styled.div`
   border-right: 4px solid ${({ theme: { color } }) => color.main};
 `;
 
-const CustomCheckBox = styled.span`
+export const CustomCheckBox = styled.span`
   position: absolute;
   top: 0;
   left: 0;
@@ -45,21 +44,3 @@ const CustomCheckBox = styled.span`
     visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
   }
 `;
-
-function CheckBox({ children, isChecked, handleChangeCheckbox }) {
-  return (
-    <CheckBoxContainer>
-      <CheckBoxInput
-        type="checkbox"
-        checked={isChecked}
-        onChange={handleChangeCheckbox}
-      />
-      <CustomCheckBox checked={isChecked}>
-        <CheckIcon />
-      </CustomCheckBox>
-      {children}
-    </CheckBoxContainer>
-  );
-}
-
-export default CheckBox;

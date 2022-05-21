@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const CounterContainer = styled.div`
+export const CounterContainer = styled.div`
   display: flex;
 
   width: fit-content;
@@ -15,7 +14,7 @@ const CounterContainer = styled.div`
   }
 `;
 
-const CounterInput = styled.input`
+export const CounterInput = styled.input`
   width: 70px;
   height: 60px;
   padding: 4px;
@@ -27,12 +26,12 @@ const CounterInput = styled.input`
   border-right: 1px solid ${({ theme: { color } }) => color.border};
 `;
 
-const CounterButtonContainer = styled.div`
+export const CounterButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ArrowButton = styled.button`
+export const ArrowButton = styled.button`
   width: 40px;
   height: 50%;
   padding: 1px 2px;
@@ -51,27 +50,3 @@ const ArrowButton = styled.button`
     color: ${({ theme: { color } }) => color.point};
   }
 `;
-
-function Counter({
-  count,
-  handleClickIncreaseButton,
-  handleClickDecreaseButton,
-}) {
-  return (
-    <CounterContainer>
-      <div>
-        <CounterInput type="number" readOnly="readonly" value={count} />
-      </div>
-      <CounterButtonContainer>
-        <ArrowButton type="button" onClick={handleClickIncreaseButton}>
-          ▲
-        </ArrowButton>
-        <ArrowButton type="button" onClick={handleClickDecreaseButton}>
-          ▼
-        </ArrowButton>
-      </CounterButtonContainer>
-    </CounterContainer>
-  );
-}
-
-export default Counter;

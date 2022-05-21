@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import shoppingCartIconWhite from "../../../asset/shopping-cart-icon-white.svg";
+import shoppingCartIconWhite from "../../../../asset/shopping-cart-icon-white.svg";
 
 import { IconImg, TitleContainer, PageTitle } from "./styled";
 

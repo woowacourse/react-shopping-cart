@@ -7,7 +7,7 @@ import { ThemeProvider } from "styled-components";
 
 import rootReducer from "../reducers/index";
 
-import Header from "./Header";
+import Header from "../components/common/Header";
 import {
   OrderListPage,
   ProductCartPage,
