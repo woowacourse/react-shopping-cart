@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import MenuItem from 'components/MenuItem';
 import bigCart from 'assets/svg/bigCart.svg';
 import { Link } from 'react-router-dom';
-import Circle from 'components/Circle/Circle';
+import Circle from 'components/Circle';
 import useCart from 'hooks/useCart';
 
 const Header = () => {

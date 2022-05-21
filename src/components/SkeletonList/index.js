@@ -1,2 +1,1 @@
-import SkeletonList from './SkeletonList';
-export default SkeletonList;
+export { default } from './SkeletonList';

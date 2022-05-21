@@ -1,2 +1,1 @@
-import CartItem from './CartItem';
-export default CartItem;
+export { default } from './CartItem';

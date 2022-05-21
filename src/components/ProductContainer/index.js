@@ -1,2 +1,1 @@
-import ProductContainer from './ProductContainer';
-export default ProductContainer;
+export { default } from './ProductContainer';

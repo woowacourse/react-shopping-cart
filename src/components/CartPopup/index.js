@@ -1,2 +1,1 @@
-import CartPopup from './CartPopup';
-export default CartPopup;
+export { default } from './CartPopup';

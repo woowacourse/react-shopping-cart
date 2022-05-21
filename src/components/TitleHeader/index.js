@@ -1,2 +1,1 @@
-import TitleHeader from './TitleHeader';
-export default TitleHeader;
+export { default } from './TitleHeader';

@@ -1,2 +1,1 @@
-import CartTable from './CartTable';
-export default CartTable;
+export { default } from './CartTable';
