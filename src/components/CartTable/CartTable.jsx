@@ -5,11 +5,12 @@ import useDelete from 'hooks/shared/useDelete';
 import CartItem from 'components/CartItem';
 import Checkbox from 'components/Checkbox';
 import useGetCartList from 'hooks/useGetCartList';
+import { API_PATH } from 'constants/path';
 
 const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [isEachChecked, setIsEachChecked] = useState(true);
-  const { callDeleteApi } = useDelete('/cartList');
+  const { callDeleteApi } = useDelete(API_PATH.CART_LIST);
   const { getCartList } = useGetCartList();
 
   const initialIdList = cartList.map((item) => item.id);

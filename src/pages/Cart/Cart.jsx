@@ -9,13 +9,14 @@ import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import spinner from 'assets/svg/spinner.svg';
 import useGetOrderList from 'hooks/useGetOrderList';
+import { API_PATH } from 'constants/path';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
   const [checkedItemList, setCheckedItemList] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
-  const { callPostApi } = usePost('/orderList', checkedItemList);
+  const { callPostApi } = usePost(API_PATH.ORDER_LIST, checkedItemList);
   const { getOrderList } = useGetOrderList();
 
   const {

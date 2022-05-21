@@ -6,11 +6,12 @@ import usePost from 'hooks/shared/usePost';
 import useGetCartList from 'hooks/useGetCartList';
 import Button from 'components/Button';
 import CartPopup from 'components/CartPopup';
+import { API_PATH } from 'constants/path';
 
 const ProductDetail = ({ name, price, imgUrl }) => {
   const { cartList, getCartList } = useGetCartList();
   const id = +useParams().id;
-  const { callPostApi, isError } = usePost('/cartList', {
+  const { callPostApi, isError } = usePost(API_PATH.CART_LIST, {
     id,
     cartQuantity: 1,
   });

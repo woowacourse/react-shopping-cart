@@ -8,9 +8,10 @@ import Checkbox from 'components/Checkbox';
 import trash from 'assets/svg/trash.svg';
 
 import useGetCartList from 'hooks/useGetCartList';
+import { API_PATH } from 'constants/path';
 
 const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
-  const { callDeleteApi } = useDelete('/cartList');
+  const { callDeleteApi } = useDelete(API_PATH.CART_LIST);
   const [isChecked, setIsChecked] = useState(true);
   const { getCartList } = useGetCartList();
 

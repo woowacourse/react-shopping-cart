@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
-import { PATH } from 'constants/path';
+import { API_PATH, PATH } from 'constants/path';
 import usePost from 'hooks/shared/usePost';
 import useGetCartList from 'hooks/useGetCartList';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const { callPostApi } = usePost('/cartList', {
+  const { callPostApi } = usePost(API_PATH.CART_LIST, {
     id,
     cartQuantity: 1,
   });

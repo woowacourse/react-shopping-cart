@@ -5,6 +5,7 @@ import { setupServer } from 'msw/node';
 import httpMocks from 'node-mocks-http';
 import { getProductAsync } from 'reducers/product/product.thunks';
 import * as actions from 'reducers/product/product.actions';
+import { API_PATH } from 'constants/path';
 
 const mockDispatch = jest.fn();
 
@@ -30,7 +31,7 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
     req.params = { id: '5' };
 
     server.use(
-      rest.get('/productList/:id', (req, res, ctx) => {
+      rest.get(API_PATH.PRODUCT_LIST_ID, (req, res, ctx) => {
         const { id } = req.params;
         const product = mockProductList.find((product) => product.id === +id);
         return res(ctx.status(200), ctx.json(product));
@@ -46,7 +47,7 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
     req.params = { id: '5' };
 
     server.use(
-      rest.get('/productList/:id', (req, res, ctx) => {
+      rest.get(API_PATH.PRODUCT_LIST_ID, (req, res, ctx) => {
         return res(ctx.status(500));
       }),
     );
