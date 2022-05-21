@@ -4,6 +4,7 @@ import Icon from '@/components/common/Icon/Icon';
 import Image from '@/components/common/Image/Image';
 import Loading from '@/components/common/Loading/Loading';
 import { useCount } from '@/hooks/useCount';
+import useResponsive from '@/hooks/useResponsive';
 import { fetchDeleteCartAsync, fetchPatchCartAsync } from '@/store/cart/action';
 import theme from '@/styles/Theme';
 import { useEffect, useRef } from 'react';
@@ -15,6 +16,7 @@ function CartItem({ cart }) {
   const navigate = useNavigate();
   const isLoading = useSelector((state: any) => state.cart.loadingCartProductId) === id;
   const dispatch = useDispatch();
+  const responsive = useResponsive();
 
   const { count, increaseCount, decreaseCount } = useCount({
     initialValue: quantity,
@@ -42,7 +44,12 @@ function CartItem({ cart }) {
   return (
     <Styled.Container>
       <Styled.ImageWrapper onClick={navigateToProduct}>
-        <Image src={imageURL} alt="" />
+        <Image
+          src={imageURL}
+          alt=""
+          width={responsive === 'desktop' ? '200px' : '150px'}
+          height={responsive === 'desktop' ? '200px' : '150px'}
+        />
       </Styled.ImageWrapper>
       <Styled.NameWrapper onClick={navigateToProduct}>{name}</Styled.NameWrapper>
       <Styled.PriceWrapper>

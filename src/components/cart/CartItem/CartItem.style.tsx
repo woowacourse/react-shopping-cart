@@ -10,22 +10,27 @@ export const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.greyColor_1};
 `;
 export const ImageWrapper = styled.div`
-  width: 150px;
-
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const NameWrapper = styled.div`
   min-width: 50px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 
   cursor: pointer;
 
   flex: 1;
 
   ${({ theme }) => theme.tablet} {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
+
+  display: flex;
+  align-items: center;
 `;
 
 export const PriceWrapper = styled.div`
