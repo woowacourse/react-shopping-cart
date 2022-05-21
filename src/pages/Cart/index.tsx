@@ -5,6 +5,7 @@ import Button from "../../components/@shared/Button/styles";
 import PageTitle from "../../components/PageTitle/styles";
 import CartProductList from "../../components/CartProductList";
 import PaymentBox from "../../components/PaymentBox";
+import routes from "../../routes";
 import { GridContainer, CartPageContainer } from "./styles";
 
 function Cart() {
@@ -21,7 +22,7 @@ function Cart() {
           subTitle="결제 예상 금액"
           amount={totalAmount.toLocaleString()}
         >
-          <Button onClick={() => navigate("/order-list")}>주문하기</Button>
+          <Button onClick={() => navigate(routes.orderList)}>주문하기</Button>
         </PaymentBox>
       </GridContainer>
     </CartPageContainer>

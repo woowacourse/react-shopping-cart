@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
 import { show } from "../../redux/modules/snackBar";
-
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
+import routes from "../../routes";
+
 import cart from "../../assets/cart.svg";
 import {
   CartCounter,
@@ -77,14 +78,13 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       }, 3000);
     }
   }, [isShowCartCounter, cartItem?.amount]);
-
   return (
     <ProductContainer>
       <ProductImageWrapper>
-        <img onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
+        <img onClick={() => navigate(routes.productDetail(id))} src={img} alt={name} />
       </ProductImageWrapper>
       <ProductInfoContainer>
-        <ProductInfo onClick={() => navigate(`/product/${id}`)}>
+        <ProductInfo onClick={() => navigate(routes.productDetail(id))}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </ProductInfo>

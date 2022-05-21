@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
+import routes from "../../routes";
 import { HeaderContainer, HeaderTitle, HeaderMenu } from "./styles";
 
 function Header() {
@@ -10,8 +11,8 @@ function Header() {
         <h1>WOOWA SHOP</h1>
       </HeaderTitle>
       <HeaderMenu>
-        <Link to={"/cart"}>장바구니</Link>
-        <Link to={"/order-list"}>주문목록</Link>
+        <Link to={routes.cart}>장바구니</Link>
+        <Link to={routes.orderList}>주문목록</Link>
       </HeaderMenu>
     </HeaderContainer>
   );
