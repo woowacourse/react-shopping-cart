@@ -40,10 +40,10 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export const loadProducts = () => async (dispatch) => {
+export const loadProducts = (userId) => async (dispatch) => {
   dispatch(loadProductsStart());
   try {
-    const products = await axios(`/${PATH.PRODUCTS}`);
+    const products = await axios(`/${PATH.PRODUCTS}/${userId}`);
     dispatch(loadProductsSuccess(products.data));
   } catch (error) {
     dispatch(loadProductsFail(error));

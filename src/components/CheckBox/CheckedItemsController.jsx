@@ -2,14 +2,17 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PATH from '../../constants/path';
 import useFetch from '../../hooks/useFetch';
+import useUser from '../../hooks/useUser';
 import { checkAll, loadCarts, uncheckAll } from '../../store/carts';
 import { BasicButton, Flex } from '../shared/basics';
 import CheckBox from './CheckBox';
 
-function CheckedItemsController({ checkedProducts }) {
-  const query = checkedProducts.map((product) => product.id).join('&');
+function CheckedItemsController({ checkedCarts }) {
+  const { userId } = useUser();
+  const query = checkedCarts.map((cart) => cart.id).join('&');
+
   const { apiCall: deleteCheckedProducts } = useFetch({
-    url: `${PATH.CARTS}/${query}`,
+    url: `${PATH.CARTS}/${userId}/${query}`,
     method: 'DELETE',
   });
 
@@ -24,7 +27,7 @@ function CheckedItemsController({ checkedProducts }) {
   };
 
   const handleCheckedProductsDelete = () => {
-    if (!checkedProducts.length) {
+    if (!checkedCarts.length) {
       return;
     }
 
@@ -33,7 +36,7 @@ function CheckedItemsController({ checkedProducts }) {
     }
 
     deleteCheckedProducts();
-    dispatch(loadCarts());
+    dispatch(loadCarts(userId));
   };
 
   return (

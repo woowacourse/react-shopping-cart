@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,16 +11,24 @@ import PATH from '../../constants/path';
 import useStoreProduct from '../../hooks/useStoreProduct';
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
+import usePropDefaultState from '../../hooks/usePropDefaultState';
+import useUser from '../../hooks/useUser';
 
-function Product({ id, src, price, title, isStored }) {
+function ProductItem({ id, src, price, title, isStored }) {
   const dispatch = useDispatch();
   const timeout = useRef();
+
+  const { isLoggedIn } = useUser();
   const { addToCart } = useStoreProduct(id);
   const { deleteFromCart } = useDeleteProductFromCart(id);
-
-  const [isClicked, setIsClicked] = useState(isStored);
+  const [isClicked, setIsClicked] = usePropDefaultState(isStored);
 
   const handleCartClick = async () => {
+    if (!isLoggedIn) {
+      window.alert('로그인 해주세요.');
+      return;
+    }
+
     clearTimeout(timeout.current);
 
     timeout.current = setTimeout(() => {
@@ -60,15 +68,19 @@ function Product({ id, src, price, title, isStored }) {
   );
 }
 
-Product.propTypes = {
+ProductItem.propTypes = {
   id: PropType.string.isRequired,
   src: PropType.string.isRequired,
   title: PropType.string.isRequired,
   price: PropType.string.isRequired,
-  isStored: PropType.bool.isRequired,
+  isStored: PropType.bool,
 };
 
-export default Product;
+ProductItem.defaultState = {
+  isStored: false,
+};
+
+export default ProductItem;
 
 const Styled = {
   ProductInfoContainer: styled.div`

@@ -75,44 +75,102 @@ const products = [
     price: '5800',
   },
 ];
-let carts = [];
+const users = {
+  a1b2c3d4: {
+    carts: [
+      { id: '11', quantity: 1 },
+      { id: '33', quantity: 1 },
+      { id: '44', quantity: 1 },
+    ],
+  },
+};
+
+const findById = (objectArray, id) =>
+  objectArray.find((object) => object.id === id);
 
 export const handlers = [
   rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
   }),
 
-  rest.get('/carts', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(carts));
+  rest.get('/products/:userId', (req, res, ctx) => {
+    const { userId } = req.params;
+    const storedProductsId = users[userId].carts.map((product) => product.id);
+    const quantityContainedProducts = products.map((product) => {
+      if (storedProductsId.includes(product.id)) {
+        return {
+          ...product,
+          quantity: findById(users[userId].carts, product.id).quantity,
+          isStored: true,
+        };
+      }
+      return product;
+    });
+
+    return res(ctx.status(200), ctx.json(quantityContainedProducts));
   }),
 
-  rest.post('/carts/:id', (req, res, ctx) => {
-    const { id } = req.params;
-    carts.push({ id, quantity: 1 });
+  rest.get('/carts', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json([]));
+  }),
 
-    console.log(carts);
+  rest.get('/carts/:userId', (req, res, ctx) => {
+    const { userId } = req.params;
+    return res(ctx.status(200), ctx.json(users[userId].carts));
+  }),
+
+  rest.post('/carts/:userId/:id', (req, res, ctx) => {
+    const { userId, id } = req.params;
+    users[userId].carts.push({ id, quantity: 1 });
+
     return res(ctx.status(200));
   }),
 
-  rest.get('/products/:productList', (req, res, ctx) => {
-    const { productList } = req.params;
-    const requestedProductList = productList.split('&');
+  rest.get('/cartsInfo/:userId', (req, res, ctx) => {
+    const { userId } = req.params;
 
-    return res(
-      ctx.status(200),
-      ctx.json(
-        products.filter((product) => requestedProductList.includes(product.id))
-      )
-    );
+    const carts = [...users[userId].carts];
+
+    const storedProducts = carts
+      .map((cart) => cart.id)
+      .map((id) => ({
+        ...findById(products, id),
+        quantity: findById(carts, id).quantity,
+      }));
+
+    return res(ctx.status(200), ctx.json(storedProducts));
   }),
 
-  rest.delete('/carts/:cartList', (req, res, ctx) => {
-    const { cartList } = req.params;
+  rest.delete('/carts/:userId/:cartList', (req, res, ctx) => {
+    const { userId, cartList } = req.params;
     const requestedCartList = cartList.split('&');
 
-    carts = carts.filter((cart) => !requestedCartList.includes(cart.id));
-    console.log(carts);
+    users[userId].carts = users[userId].carts.filter(
+      (cart) => !requestedCartList.includes(cart.id)
+    );
 
     return res(ctx.delay(200), ctx.status(204));
   }),
+
+  // rest.get('/products/:productList', (req, res, ctx) => {
+  //   const { productList } = req.params;
+  //   const requestedProductList = productList.split('&');
+
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json(
+  //       products.filter((product) => requestedProductList.includes(product.id))
+  //     )
+  //   );
+  // }),
+  // rest.patch('/carts/:id', (req, res, ctx) => {
+  //   const { id } = req.params;
+  //   carts.forEach((product) => {
+  //     if (product.id === id) {
+  //       product.quantity = req.body;
+  //     }
+  //   });
+
+  //   return res(ctx.status(200));
+  // }),
 ];

@@ -13,15 +13,19 @@ import GlobalStyle from './GlobalStyle';
 
 import PATH from './constants/path';
 import { loadProducts } from './store/products';
+import useUser from './hooks/useUser';
 import { loadCarts } from './store/carts';
 
 function App() {
   const dispatch = useDispatch();
+  const { userId, isLoggedIn } = useUser();
 
   useEffect(() => {
-    dispatch(loadProducts());
-    dispatch(loadCarts());
-  }, []);
+    dispatch(loadProducts(userId));
+    if (isLoggedIn) {
+      dispatch(loadCarts(userId));
+    }
+  }, [userId]);
 
   return (
     <div className="App">

@@ -19,7 +19,7 @@ function CheckBox({ checked, onCheck, onUncheck }) {
     <StyleCheckBox
       name="checkbox"
       type="checkbox"
-      onClick={handleCheckBoxClick}
+      onChange={handleCheckBoxClick}
       checked={isChecked}
     />
   );

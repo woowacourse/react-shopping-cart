@@ -11,12 +11,13 @@ const CHECK_ALL = 'carts/CHECK_ALL';
 const CHECK_ONE = 'carts/CHECK_ONE';
 const UNCHECK_ALL = 'carts/UNCHECK_ALL';
 const UNCHECK_ONE = 'carts/UNCHECK_ONE';
-const DELETE_CHECKED_PRODUCTS = 'carts/DELETE_CHECKED_PRODUCTS';
+const INCREMENT_QUANTITY = 'carts/INCREMENT_QUANTITY';
+const DECREMENT_QUANTITY = 'carts/DECREMENT_QUANTITY';
 
 const initialState = {
   isLoading: false,
   carts: [],
-  checkedProducts: [],
+  checkedCarts: [],
   error: null,
 };
 
@@ -63,56 +64,55 @@ const cartsReducer = (state = initialState, action) => {
       return {
         ...state,
         carts: action.payload,
-        checkedProducts: action.payload,
+        checkedCarts: action.payload,
       };
     case LOAD_CARTS_FAIL:
       return { ...state, error: action.payload };
     case LOAD_CARTS_DONE:
       return { ...state, isLoading: false };
-    case ADD_PRODUCT_TO_CARTS:
+    case ADD_PRODUCT_TO_CARTS: {
+      const newCarts = state.carts.concat({ id: action.payload, quantity: 1 });
+
       return {
         ...state,
-        carts: state.carts.concat({ id: action.payload, quantity: 1 }),
-        checkedProducts: state.carts.concat({
-          id: action.payload,
-          quantity: 1,
-        }),
+        carts: newCarts,
+        checkedCarts: newCarts,
       };
-    case DELETE_PRODUCT_FROM_CARTS:
+    }
+    case DELETE_PRODUCT_FROM_CARTS: {
+      const newCarts = state.carts.filter((cart) => cart.id !== action.payload);
+
       return {
         ...state,
-        carts: state.carts.filter((cart) => cart.id !== action.payload),
-        checkedProducts: state.carts.filter(
-          (cart) => cart.id !== action.payload
-        ),
+        carts: newCarts,
+        checkedCarts: newCarts,
       };
+    }
     case CHECK_ALL:
-      return { ...state, checkedProducts: state.carts };
+      return { ...state, checkedCarts: state.carts };
     case UNCHECK_ALL:
-      return { ...state, checkedProducts: [] };
+      return { ...state, checkedCarts: [] };
     case CHECK_ONE:
       return {
         ...state,
-        checkedProducts: state.checkedProducts.concat({ id: action.payload }),
+        checkedCarts: state.checkedCarts.concat({ id: action.payload }),
       };
     case UNCHECK_ONE:
       return {
         ...state,
-        checkedProducts: state.checkedProducts.filter(
+        checkedCarts: state.checkedCarts.filter(
           (product) => product.id !== action.payload
         ),
       };
-    case DELETE_CHECKED_PRODUCTS:
-      return { ...state };
     default:
       return { ...state };
   }
 };
 
-export const loadCarts = () => async (dispatch) => {
+export const loadCarts = (userId) => async (dispatch) => {
   dispatch(loadCartsStart());
   try {
-    const carts = await axios(`/${PATH.CARTS}`);
+    const carts = await axios(`${PATH.CARTS}/${userId}`);
     dispatch(loadCartsSuccess(carts.data));
   } catch (error) {
     dispatch(loadCartsFail(error));
@@ -120,11 +120,5 @@ export const loadCarts = () => async (dispatch) => {
     dispatch(loadCartsDone());
   }
 };
-
-// export const deleteCheckedProducts = () => async (dispatch) => {
-//   try {
-//     await axios();
-//   } catch (error) {}
-// };
 
 export default cartsReducer;
