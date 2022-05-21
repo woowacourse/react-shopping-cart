@@ -7,9 +7,9 @@ const Styled = {
     text-align: center;
     padding: 10px;
     background-color: ${({ bg }) => bg || 'transparent'};
-    border: none;
+    border: ${({ border }) => border || 'none'};
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme, color }) => color || theme.colors.white};
 
     ${({ boldFont }) =>
       boldFont &&

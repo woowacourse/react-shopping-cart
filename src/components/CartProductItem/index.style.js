@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Styled = {
   ProductItem: styled.div`
-    width: 735px;
+    width: 660px;
     height: 203px;
     border-top: 2px solid #cccccc;
     border-bottom: 2px solid #cccccc;
@@ -20,6 +20,7 @@ const Styled = {
 
   ProductDetailController: styled.div`
     display: flex;
+    gap: 15px;
   `,
 
   ProductName: styled.p`
