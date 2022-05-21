@@ -6,12 +6,14 @@ const SubTitleStyled = styled.h3(
     textAlign = 'start',
     fontSize = '1rem',
     borderBottom = '1px solid black',
+    paddingLeft = '0',
   }) => `
+  padding-bottom: 10px;
   width: ${width};
   text-align: ${textAlign};
-  padding-bottom: 10px;
   font-size: ${fontSize};
   border-bottom: ${borderBottom};
+  padding-left: ${paddingLeft};
 `,
 );
 
