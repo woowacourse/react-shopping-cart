@@ -15,17 +15,21 @@ function ProductList() {
     dispatch(productsAsyncThunk());
   }, []);
 
+  if (!products.length) {
+    return (
+      <PageLayout>
+        <LoadingSpinner />
+      </PageLayout>
+    );
+  }
+
   return (
     <PageLayout>
-      {products.length ? (
-        <GridLayout>
-          {products.map(product => (
-            <ListProduct key={product.id} {...product} />
-          ))}
-        </GridLayout>
-      ) : (
-        <LoadingSpinner />
-      )}
+      <GridLayout>
+        {products.map(product => (
+          <ListProduct key={`list${product.id}`} {...product} />
+        ))}
+      </GridLayout>
     </PageLayout>
   );
 }
