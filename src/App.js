@@ -5,6 +5,7 @@ import ImgWrapper from 'components/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import { PATH } from 'constants/path';
 import Layout from 'components/Layout';
+import Order from 'pages/Order';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<ProductList />} />
             <Route path={`${PATH.PRODUCT}/:id`} element={<Product />} />
             <Route path={PATH.CART} element={<Cart />} />
+            <Route path={PATH.ORDER} element={<Order />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

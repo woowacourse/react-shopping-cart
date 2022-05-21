@@ -4,6 +4,7 @@ import useGetCartList from 'hooks/useGetCartList';
 import MenuItem from 'components/MenuItem';
 import Circle from 'components/Circle';
 import bigCart from 'assets/svg/bigCart.svg';
+import { PATH } from 'constants/path';
 
 const Header = () => {
   const { cartList, getCartListWhenMounted } = useGetCartList();
@@ -16,10 +17,10 @@ const Header = () => {
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>
-        <MenuItem to="/cart">
+        <MenuItem to={PATH.CART}>
           장바구니<Circle>{cartList.length}</Circle>
         </MenuItem>
-        <MenuItem to="/order">주문목록</MenuItem>
+        <MenuItem to={PATH.ORDER}>주문목록</MenuItem>
       </Styled.MenuContainer>
     </Styled.Wrapper>
   );
