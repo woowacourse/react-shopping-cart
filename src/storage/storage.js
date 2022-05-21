@@ -18,17 +18,18 @@ const storage = {
   },
 
   addCartProductId(productId) {
-    let idListCookie = this.getCookie(this.KEYS.CART) ?? `${productId}`;
+    let idListCookie = this.getCookie(this.KEYS.CART) || `${productId}`;
+    const idList = idListCookie.split(',');
 
-    if (!idListCookie.split(',').includes(`${productId}`)) {
-      idListCookie += `,${productId}`;
+    if (!idList.includes(`${productId}`)) {
+      idList.push(productId);
     }
 
-    this.setCookie(this.KEYS.CART, idListCookie);
+    this.setCookie(this.KEYS.CART, idList.join(','));
   },
 
   removeCartProductId(productId) {
-    const idListCookie = this.getCookie(this.KEYS.CART) ?? '';
+    const idListCookie = this.getCookie(this.KEYS.CART) || '';
     const idList = idListCookie.split(',');
 
     if (!idList.includes(`${productId}`)) return;
