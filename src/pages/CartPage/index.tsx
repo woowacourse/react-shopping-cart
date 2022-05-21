@@ -10,7 +10,8 @@ import CartProduct from 'components/CartProduct';
 import Flex from 'components/@common/Flex';
 import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
 import { ReactComponent as CheckBoxIcon } from 'assets/icon/CheckBox.svg';
-import Button, { OrderButton } from 'components/@common/Button';
+import Button from 'components/@common/Button';
+import { OrderButton } from 'components/@common/Button/Extends';
 import MarginWrapper from 'components/@common/MarginWrapper';
 import { OPTIONS } from 'api';
 import { DELETE } from 'constants/index';
@@ -43,7 +44,10 @@ const CartPage = () => {
     if (checkedIdList.length === 0) return;
 
     const fetchList = checkedIdList.map((checkedId) => {
-      return fetch(`${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedId}`, OPTIONS(DELETE));
+      return fetch(
+        `${process.env.REACT_APP_SERVER_URL}/cartProductList/${checkedId}`,
+        OPTIONS(DELETE),
+      );
     });
 
     await Promise.all([fetchList]);
@@ -64,7 +68,10 @@ const CartPage = () => {
   const totalPrice = useMemo(() => {
     const checkedCartProductList = cartProductList.filter(({ id }) => isExistInCheckedIdList(id));
 
-    return checkedCartProductList.reduce((totalPrice, { quantity, price }) => (totalPrice += quantity * price), 0);
+    return checkedCartProductList.reduce(
+      (totalPrice, { quantity, price }) => (totalPrice += quantity * price),
+      0,
+    );
   }, [cartProductList, checkedIdList]);
 
   useEffect(() => {
@@ -87,7 +94,8 @@ const CartPage = () => {
               <Flex justify="space-between">
                 <Button onClick={handleEntireCheckButtonClick}>
                   <Flex align="center" gap="12px">
-                    {cartProductList.length !== 0 && checkedIdList.length === cartProductList.length ? (
+                    {cartProductList.length !== 0 &&
+                    checkedIdList.length === cartProductList.length ? (
                       <>
                         <CheckBoxIcon />
                         <Text size="16px">전체해제</Text>

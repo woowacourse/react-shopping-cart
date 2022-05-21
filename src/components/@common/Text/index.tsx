@@ -3,7 +3,7 @@ import styled, { css, DefaultTheme } from 'styled-components';
 import { Colors } from 'styles/theme';
 
 type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'normal' | 'bold';
-type Align = 'start' | 'end' | 'center' | 'jusitfy';
+type Align = 'start' | 'end' | 'center' | 'justify';
 
 interface TextProps {
   theme: DefaultTheme;
@@ -22,13 +22,6 @@ const Text = styled.p`
     line-height: ${lineHeight};
     color: ${color && theme.colors[color]};
   `}
-`;
-
-export const EllipsisText = styled(Text)`
-  width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 `;
 
 export default Text;

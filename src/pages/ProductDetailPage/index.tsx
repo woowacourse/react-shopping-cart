@@ -3,11 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { CartDetailButton } from 'components/@common/Button';
+import { CartDetailButton } from 'components/@common/Button/Extends';
 import Flex from 'components/@common/Flex';
 import LoadingSpinner from 'components/@common/LoadingSpinner';
 
-import { loadCartProduct, loadCartProductList, registerCartProduct, updateCartProduct } from 'api/cart';
+import {
+  loadCartProduct,
+  loadCartProductList,
+  registerCartProduct,
+  updateCartProduct,
+} from 'api/cart';
 import { loadProduct } from 'api/product';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
 import { ProductData } from 'types';
