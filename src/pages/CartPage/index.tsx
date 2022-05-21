@@ -99,7 +99,8 @@ const CartPage = () => {
                   }
                 >
                   <Flex align="center" gap="12px">
-                    {checkedCartProductList.length === cartProductList.length ? (
+                    {checkedCartProductList.length === cartProductList.length &&
+                    cartProductList.length !== 0 ? (
                       <>
                         <CheckBoxIcon />
                         <Text size="16px">전체해제</Text>
