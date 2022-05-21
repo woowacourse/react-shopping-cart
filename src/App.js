@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { NotFound, ProductList, ShoppingCart } from 'page';
-import { PATH } from 'constant';
+import { NotFound, ProductList, ShoppingCart } from 'pages';
+import { PATH } from 'constants';
 
 function App() {
   return (
