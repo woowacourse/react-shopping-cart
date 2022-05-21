@@ -13,10 +13,12 @@ export const ChekedBox = Template.bind({});
 
 ChekedBox.args = {
   checked: true,
+  updateList: () => {},
 };
 
 export const UnchekedBox = Template.bind({});
 
 UnchekedBox.args = {
   checked: false,
+  updateList: () => {},
 };
