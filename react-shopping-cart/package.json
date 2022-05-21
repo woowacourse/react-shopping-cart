@@ -76,6 +76,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.5.11",
     "gh-pages": "^4.0.0",
+    "msw": "^0.40.2",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
   },
