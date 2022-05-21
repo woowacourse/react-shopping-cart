@@ -14,9 +14,8 @@ const ProductDetail = ({ name, price, imgUrl }) => {
     cartQuantity: 1,
   });
   const { cartList } = useCart();
-  const [isInCart, setIsInCart] = useState(
-    cartList.find((item) => +item.id === +id),
-  );
+  const foundItem = cartList.find((item) => +item.id === +id);
+  const [isInCart, setIsInCart] = useState(!!foundItem);
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = () => {
