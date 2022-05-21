@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
+import { useStore } from "../../../hooks/useStore";
 import { getProductList } from "../../../reducers/productList";
 
 import Spinner from "../../common/Spinner";
@@ -13,8 +13,8 @@ function ProductListPage() {
     data: productList,
     isLoading,
     errorMessage,
-  } = useSelector((state) => state.productList);
-  const dispatch = useDispatch();
+    dispatch,
+  } = useStore("productList");
 
   useEffect(() => {
     dispatch(getProductList());

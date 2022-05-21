@@ -1,7 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
 import trashCanIcon from "../../../../asset/trash-can.svg";
+
+import { useStore } from "../../../../hooks/useStore";
 import { deleteCartList, updateCartCount } from "../../../../reducers/cartList";
 
 import CheckBox from "../../../common/CheckBox";
@@ -20,7 +21,7 @@ function ProductCartItem({
   checkList,
   setCheckList,
 }) {
-  const dispatch = useDispatch();
+  const { dispatch } = useStore("cartList");
 
   const handleClickIncreaseButton = () => {
     dispatch(updateCartCount(id, "increase"));

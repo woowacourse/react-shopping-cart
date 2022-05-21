@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
+import { useStore } from "../../../hooks/useStore";
 import { deleteCartList, getCartList } from "../../../reducers/cartList";
 
 import Spinner from "../../common/Spinner";
@@ -19,8 +19,8 @@ function ProductCartPage() {
     data: cartList,
     isLoading,
     errorMessage,
-  } = useSelector((state) => state.cartList);
-  const dispatch = useDispatch();
+    dispatch,
+  } = useStore("cartList");
 
   const [checkList, setCheckList] = useState([]);
 
@@ -36,7 +36,6 @@ function ProductCartPage() {
     checkList.forEach((carItemId) => {
       dispatch(deleteCartList(carItemId));
     });
-    setCheckList([]);
   };
 
   const [totalPrice, totalCount] = cartList.reduce(
