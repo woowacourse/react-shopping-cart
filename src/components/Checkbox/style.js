@@ -42,6 +42,7 @@ const LabelStyled = styled.label`
   position: absolute;
   top: 5px;
   margin-left: 12px;
+  width: 100px;
 `;
 
 export { CheckboxWrapperStyled, InputStyled, CheckboxStyled, LabelStyled };
