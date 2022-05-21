@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import styled from 'styled-components';
 
-function Counter() {
+function Counter({ onClickCallback }) {
+  const [count, setCount] = useState(1);
+
+  const handlUp = () => setCount((prev) => prev + 1);
+  const handleDown = (count) => {
+    if (count === 1) return;
+    setCount((prev) => prev - 1);
+  };
+
+  useEffect(() => {
+    onClickCallback(count);
+  }, [count, onClickCallback]);
+
   return (
     <StyledCounterLayout>
       <StyledNumberBox>
-        <span>2</span>
+        <span>{count}</span>
       </StyledNumberBox>
       <StyledArrowWrapper>
-        <StyledArrowBox>
-          <TiArrowSortedDown size={20} />
-        </StyledArrowBox>
-        <StyledArrowBox>
+        <StyledArrowBox onClick={handlUp}>
           <TiArrowSortedUp size={20} />
+        </StyledArrowBox>
+        <StyledArrowBox onClick={() => handleDown(count)}>
+          <TiArrowSortedDown size={20} />
         </StyledArrowBox>
       </StyledArrowWrapper>
     </StyledCounterLayout>

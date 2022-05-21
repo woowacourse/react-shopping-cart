@@ -82,11 +82,16 @@ function CartList({ products, checkedIds, count }) {
 }
 
 const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnCheck }) => {
+  const [itemPrice, setItemPrice] = useState(0);
   const { id, name, price, imageUrl } = product;
 
   const handleRemoveItem = (id) => {
     const isRemove = window.confirm('해당 상품을 장바구니에서 삭제 하시겠습니까?');
     if (isRemove) dispatch(removeProductToCartAsync(id));
+  };
+
+  const onClickCounterCallback = (count) => {
+    setItemPrice(price * count);
   };
 
   const onClickCheckCallback = (isCheck) => {
@@ -96,6 +101,10 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
     }
     onClickUnCheck();
   };
+
+  useEffect(() => {
+    setItemPrice(price);
+  }, [price]);
 
   return (
     <StyledCartListItem>
@@ -112,8 +121,8 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
       </StyledItemInfoWrapper>
       <StyledItemControlBox>
         <DeleteIconButton onClickCallback={() => handleRemoveItem(id)} />
-        <Counter />
-        <PriceBox price={price} />
+        <Counter onClickCallback={onClickCounterCallback} />
+        <PriceBox price={itemPrice} />
       </StyledItemControlBox>
     </StyledCartListItem>
   );
