@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import CheckBox from 'component/common/CheckBox';
 import * as S from 'component/CartItem/style';
 import QuantityBox from 'component/common/QuantityBox';
+import {PATH} from 'constant';
 
 export default function CartItem({
   itemImgURL,
@@ -26,7 +28,9 @@ export default function CartItem({
         handleCheckedTrue={handleCheckedTrue}
         handleCheckedFalse={handleCheckedFalse}
       />
-      <img src={itemImgURL} alt="장바구니 상품 이미지" width="144px" height="144px" />
+      <Link to={`${PATH.DETAIL}/${id}`}>
+        <img src={itemImgURL} alt="장바구니 상품 이미지" width="144px" height="144px" />
+      </Link>
       <S.ItemNameParagraph>{itemName}</S.ItemNameParagraph>
       <S.EditQuantityBox>
         <S.StyledDeleteIcon onClick={handleDeleteIconClick} />
