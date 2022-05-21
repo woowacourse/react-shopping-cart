@@ -81,7 +81,7 @@ function ProductDetailPage() {
                       name: product.name,
                       price: product.price,
                       id: idx,
-                      thumbnail: product.image,
+                      thumbnail: product.thumbnail,
                     })
             }
           >
