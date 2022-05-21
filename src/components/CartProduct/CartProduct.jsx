@@ -47,11 +47,13 @@ const QuantityBox = styled.div`
   display: flex;
 `;
 
-const QuantityInput = styled.input`
+const Quantity = styled.div`
   width: 72px;
   height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #dddddd;
-  text-align: center;
   font-size: 24px;
 `;
 
@@ -73,7 +75,7 @@ const Price = styled.p`
   color: #333333;
 `;
 
-function CartProduct({ image, name, price }) {
+function CartProduct({ image, name, quantity, price }) {
   return (
     <CartProductBox>
       <LeftBox>
@@ -86,7 +88,7 @@ function CartProduct({ image, name, price }) {
           <DeleteButton>🗑</DeleteButton>
         </Button>
         <QuantityBox>
-          <QuantityInput type="number" />
+          <Quantity>{quantity}</Quantity>
           <Button>
             <QuantityControlButton>▲</QuantityControlButton>
             <QuantityControlButton>▼</QuantityControlButton>
@@ -101,6 +103,7 @@ function CartProduct({ image, name, price }) {
 CartProduct.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
 };
 
