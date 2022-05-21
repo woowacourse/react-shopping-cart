@@ -10,7 +10,7 @@ import {
   GET_CART_PRODUCT_LIST_ERROR,
 } from 'store/cartProductList/actionTypes';
 
-interface CartProductListState {
+export interface CartProductListState {
   cartProductList: CartProductData[];
   isLoading: boolean;
   isError: boolean;

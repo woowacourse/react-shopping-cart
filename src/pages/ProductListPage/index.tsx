@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import Product from 'components/Product';
 import Flex from 'components/@common/Flex';
 import Text from 'components/@common/Text';
 import Skeleton from 'components/@common/Skeleton';
 
-import { RootState } from 'store';
-import { ProductListAction } from 'store/productList/reducer';
+import useProductList from 'hooks/useProductList';
 import { getProductListAsync } from 'store/productList/thunk';
-import { AppDispatch } from 'types';
 
 const ProductList = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch<ProductListAction>>();
-  const { productList, isLoading, isError } = useSelector((state: RootState) => state.product);
+  const {
+    dispatch,
+    navigate,
+    data: { productList, isLoading, isError },
+  } = useProductList();
 
   useEffect(() => {
     if (productList.length !== 0) return;

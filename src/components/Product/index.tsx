@@ -1,7 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
@@ -12,17 +11,15 @@ import Box from 'components/@common/Box';
 import Text from 'components/@common/Text';
 import { EllipsisText } from 'components/@common/Text/Extends';
 import SnackBar from 'components/@common/Snackbar';
+import useAppDispatch from 'hooks/useAppDispatch';
+import useSnackBar from 'hooks/useSnackBar';
 
 import { loadCartProduct, updateCartProduct, registerCartProduct } from 'api/cart';
-
-import { CartProductListAction } from 'store/cartProductList/reducer';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
-
-import useSnackBar from 'hooks/useSnackBar';
-import { ProductData, AppDispatch } from 'types';
+import { ProductData } from 'types';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
-  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
+  const dispatch = useAppDispatch();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,11 +27,9 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
     try {
       const cartProduct = await loadCartProduct(id);
 
-      if (cartProduct === null) {
-        registerCartProduct({ id, thumbnail, name, price, quantity: 1 });
-      } else {
-        updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
-      }
+      cartProduct === null
+        ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
+        : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
 
       dispatch(getCartProductListAsync());
       triggerSnackbar('장바구니에 상품이 담겼습니다.');

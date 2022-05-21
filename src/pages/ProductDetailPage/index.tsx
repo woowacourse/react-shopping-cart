@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Flex from 'components/@common/Flex';
@@ -11,31 +9,27 @@ import Bar from 'components/@common/Bar';
 import Text from 'components/@common/Text';
 import { CartDetailButton } from 'components/@common/Button/Extends';
 import SnackBar from 'components/@common/Snackbar';
+import useProductDetail from 'hooks/useProductDetail';
+import useSnackBar from 'hooks/useSnackBar';
 
 import { loadCartProduct, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
-import { CartProductListAction } from 'store/cartProductList/reducer';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
-import useSnackBar from 'hooks/useSnackBar';
-import { ProductData, AppDispatch } from 'types';
 
 const ProductDetail = () => {
-  const params = useParams();
-  const id = Number(params.id);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
-  const [product, setProduct] = useState<ProductData | null>(null);
+  const {
+    dispatch,
+    navigate,
+    data: { productId: id, product, setProduct },
+  } = useProductDetail();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleAddCartButton = async () => {
     try {
       const cartProduct = await loadCartProduct(id);
-      if (cartProduct === null) {
-        registerCartProduct({ id, thumbnail, name, price, quantity: 1 });
-      } else {
-        updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
-      }
+      cartProduct === null
+        ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
+        : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
 
       dispatch(getCartProductListAsync());
       triggerSnackbar('장바구니에 상품이 담겼습니다.');

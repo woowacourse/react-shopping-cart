@@ -1,6 +1,5 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
@@ -13,12 +12,12 @@ import Flex from 'components/@common/Flex';
 import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
 import SnackBar from 'components/@common/Snackbar';
+import useAppDispatch from 'hooks/useAppDispatch';
+import useSnackBar from 'hooks/useSnackBar';
 
 import { updateCartProduct } from 'api/cart';
-import { CartProductListAction } from 'store/cartProductList/reducer';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
-import useSnackBar from 'hooks/useSnackBar';
-import { CartProductData, AppDispatch } from 'types';
+import { CartProductData } from 'types';
 
 interface CartProductProps {
   data: CartProductData;
@@ -33,10 +32,11 @@ const CartProduct = ({
   handleCheckButtonClick,
   handleCartProductDelete,
 }: CartProductProps) => {
-  const { id, name, price, thumbnail, quantity } = data;
-  const dispatch = useDispatch<AppDispatch<CartProductListAction>>();
+  const dispatch = useAppDispatch();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
+  const { id, name, price, thumbnail, quantity } = data;
 
+  // 리팩토링
   const handleIncreaseButton = async (): Promise<void> => {
     try {
       await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });

@@ -10,7 +10,7 @@ import {
 } from 'store/productList/actions';
 import { ProductData } from 'types';
 
-interface ProductListState {
+export interface ProductListState {
   productList: ProductData[];
   isLoading: boolean;
   isError: boolean;
