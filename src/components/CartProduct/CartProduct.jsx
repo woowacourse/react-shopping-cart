@@ -8,6 +8,7 @@ import { Button } from 'components/@common';
 import { Selector } from 'components';
 
 import { addThousandUnitComma } from 'utils';
+import { CART_PRODUCT } from 'constants';
 
 const CartProductBox = styled.div`
   width: 736px;
@@ -84,6 +85,8 @@ function CartProduct({ id, image, name, quantity, price }) {
 
   const onClickQuantityControlButton = ({ target }) => {
     if (target.getAttribute('type') === 'increment') {
+      if (quantity >= CART_PRODUCT.MAX_QUANTITY) return;
+
       dispatch({
         type: ACTION_TYPE.ADD_PRODUCT_TO_CART,
         payload: { id, image, name, quantity, price },
@@ -91,6 +94,8 @@ function CartProduct({ id, image, name, quantity, price }) {
 
       return;
     }
+
+    if (quantity <= CART_PRODUCT.MIN_QUANTITY) return;
 
     dispatch({ type: ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY, payload: { id } });
   };

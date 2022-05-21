@@ -1,3 +1,8 @@
+const CART_PRODUCT = {
+  MIN_QUANTITY: 1,
+  MAX_QUANTITY: 100,
+};
+
 const FRUITS = ['🍅', '🍑', '🥝', '🥥'];
 
 const PATH = {
@@ -6,4 +11,4 @@ const PATH = {
   SHOPPING_CART_PAGE: '/cart',
 };
 
-export { FRUITS, PATH };
+export { CART_PRODUCT, FRUITS, PATH };
