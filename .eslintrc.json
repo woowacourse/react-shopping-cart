@@ -22,6 +22,7 @@
     "default-param-last": "warn",
     "import/prefer-default-export": "warn",
     "import/no-unresolved": "off",
-    "react/destructuring-assignment": "warn"
+    "react/destructuring-assignment": "warn",
+    "implicit-arrow-linebreak": "warn"
   }
 }

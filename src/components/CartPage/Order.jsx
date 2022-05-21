@@ -2,7 +2,13 @@ import { DivideUnderLine } from 'components/shared/styles';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
-function Order({ expectedPrice, quantity }) {
+function Order({ checkedList }) {
+  const getExpectedPrice = () =>
+    checkedList.reduce(
+      (sum, current) => sum + Number(current.price) * current.quantity,
+      0,
+    );
+
   return (
     <Styled.OrderContainer>
       <Styled.OrderTitleWrapper>
@@ -12,10 +18,10 @@ function Order({ expectedPrice, quantity }) {
       <div>
         <Styled.ExpectedPriceWrapper>
           <Styled.HilightText>결제예상금액</Styled.HilightText>
-          <Styled.HilightText>{`${expectedPrice}원`}</Styled.HilightText>
+          <Styled.HilightText>{`${getExpectedPrice()}원`}</Styled.HilightText>
         </Styled.ExpectedPriceWrapper>
         <Styled.OrderButtonWrapper>
-          <Styled.OrderButton>{`주문하기(${quantity}개)`}</Styled.OrderButton>
+          <Styled.OrderButton>{`주문하기(${checkedList.length}개)`}</Styled.OrderButton>
         </Styled.OrderButtonWrapper>
       </div>
     </Styled.OrderContainer>
@@ -25,8 +31,15 @@ function Order({ expectedPrice, quantity }) {
 export default Order;
 
 Order.propTypes = {
-  expectedPrice: PropType.string.isRequired,
-  quantity: PropType.string.isRequired,
+  checkedList: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.string.isRequired,
+      price: PropType.string.isRequired,
+      quantity: PropType.number.isRequired,
+      src: PropType.string.isRequired,
+      title: PropType.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 const Styled = {

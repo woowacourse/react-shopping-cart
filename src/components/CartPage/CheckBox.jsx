@@ -1,14 +1,34 @@
 import styled from 'styled-components';
 import PropType from 'prop-types';
+import { useEffect, useState } from 'react';
 
-function CheckBox({ checked }) {
-  return <Styled.CheckBox type="checkbox" name="checkbox" checked={checked} />;
+function CheckBox({ checked, updateList }) {
+  const [isChecked, setIsChecked] = useState(Boolean(checked));
+
+  const toggleCheckBox = () => {
+    setIsChecked((prevState) => !prevState);
+    updateList(isChecked);
+  };
+
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
+
+  return (
+    <Styled.CheckBox
+      type="checkbox"
+      name="checkbox"
+      checked={isChecked}
+      onChange={toggleCheckBox}
+    />
+  );
 }
 
 export default CheckBox;
 
 CheckBox.propTypes = {
   checked: PropType.bool,
+  updateList: PropType.func.isRequired,
 };
 
 CheckBox.defaultProps = {

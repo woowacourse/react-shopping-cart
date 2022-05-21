@@ -4,11 +4,28 @@ import CartProduct from 'components/CartPage/CartProduct';
 import Order from 'components/CartPage/Order';
 import CheckBox from 'components/CartPage/CheckBox';
 import { DivideUnderLine } from 'components/shared/styles';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function CartPage() {
   const { carts } = useSelector((state) => state.carts);
+
+  const [checkedList, setCheckedList] = useState(carts);
+
+  const updateCheckedList = (product, isChecked) => {
+    if (isChecked) {
+      setCheckedList(checkedList.filter((item) => item.id !== product.id));
+      return;
+    }
+    const newList = [...checkedList];
+
+    newList.push(product);
+    setCheckedList(newList);
+  };
+
+  useEffect(() => {
+    setCheckedList(carts);
+  }, [carts]);
 
   return (
     <Styled.CartSection>
@@ -24,16 +41,20 @@ function CartPage() {
             </Styled.CheckBoxContainer>
             <Styled.DeleteProductButton>상품삭제</Styled.DeleteProductButton>
           </Styled.CartSelectorWrapper>
-          <Styled.CartListTitle>든든배송 상품(3개)</Styled.CartListTitle>
+          <Styled.CartListTitle>{`돔하디배송 상품(${carts.length}개)`}</Styled.CartListTitle>
           <Styled.CartDivideLine shape="greyThick" />
           {carts.map((product) => (
             <React.Fragment key={product.id}>
-              <CartProduct product={product} />
+              <CartProduct
+                product={product}
+                checkedList={checkedList}
+                updateCheckedList={updateCheckedList}
+              />
               <Styled.CartDivideLine shape="greyThin" />
             </React.Fragment>
           ))}
         </Styled.CartLeftSection>
-        <Order />
+        <Order checkedList={checkedList} />
       </Styled.CartBody>
     </Styled.CartSection>
   );
