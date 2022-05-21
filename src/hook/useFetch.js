@@ -1,17 +1,16 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 
-export default function useFetch(API_URL) {
+export default function useFetch({method = 'get', API_URL}) {
   const [pending, setPending] = useState(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetch = (body) => {
     setPending(true);
     setData(null);
     setError(null);
-    axios
-      .get(API_URL)
+    axios[method](API_URL, body)
       .then((response) => {
         setPending(false);
         response.data && setData(response.data);
@@ -20,7 +19,7 @@ export default function useFetch(API_URL) {
         setPending(false);
         setError(error.message);
       });
-  }, [API_URL]);
+  };
 
-  return {pending, data, error};
+  return {pending, data, error, fetch};
 }
