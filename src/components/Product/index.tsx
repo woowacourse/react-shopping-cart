@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -17,23 +17,29 @@ import useSnackBar from 'hooks/useSnackBar';
 import { loadCartProduct, updateCartProduct, registerCartProduct } from 'api/cart';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import { ProductData } from 'types';
-import { 상품저장메시지 } from 'constants/index';
+import { ADD_CART_DELAY_TIME, 상품저장메시지 } from 'constants/index';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   const dispatch = useAppDispatch();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
+  let timer: ReturnType<typeof setTimeout>;
 
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     try {
-      const cartProduct = await loadCartProduct(id);
+      if (timer) clearTimeout(timer);
 
-      cartProduct === null
-        ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
-        : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+      timer = setTimeout(() => {
+        loadCartProduct(id).then((cartProduct) => {
+          cartProduct === null
+            ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
+            : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+        });
 
-      dispatch(getCartProductListAsync());
-      triggerSnackbar(상품저장메시지);
+        dispatch(getCartProductListAsync());
+        triggerSnackbar(상품저장메시지);
+      }, ADD_CART_DELAY_TIME);
     } catch (e) {
       alert(e);
     }

@@ -15,7 +15,7 @@ import useSnackBar from 'hooks/useSnackBar';
 import { loadCartProduct, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
-import { 상품저장메시지 } from 'constants/index';
+import { ADD_CART_DELAY_TIME, 상품저장메시지 } from 'constants/index';
 
 const ProductDetail = () => {
   const {
@@ -24,16 +24,22 @@ const ProductDetail = () => {
     data: { productId: id, product, setProduct },
   } = useProductDetail();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
+  let timer: ReturnType<typeof setTimeout>;
 
   const handleAddCartButton = async () => {
     try {
-      const cartProduct = await loadCartProduct(id);
-      cartProduct === null
-        ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
-        : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+      if (timer) clearTimeout(timer);
 
-      dispatch(getCartProductListAsync());
-      triggerSnackbar(상품저장메시지);
+      timer = setTimeout(() => {
+        loadCartProduct(id).then((cartProduct) => {
+          cartProduct === null
+            ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
+            : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+        });
+
+        dispatch(getCartProductListAsync());
+        triggerSnackbar(상품저장메시지);
+      }, ADD_CART_DELAY_TIME);
     } catch (e) {
       alert(e);
     }
