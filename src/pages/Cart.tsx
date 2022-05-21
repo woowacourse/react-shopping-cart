@@ -29,9 +29,8 @@ const Cart = () => {
     };
   });
 
-  const totalPrice = itemListInCart
-    .filter(item => item.isSelected)
-    .reduce((acc, item) => item.price * item.quantity + acc, 0);
+  const selectedItem = itemListInCart.filter(item => item.isSelected);
+  const totalPrice = selectedItem.reduce((acc, item) => item.price * item.quantity + acc, 0);
 
   if (loading_getCartList || loading_getItemList) return <Loading />;
   if (itemListError || cartListError) return <RequestFail />;
@@ -44,7 +43,7 @@ const Cart = () => {
           title='결제예샹금액'
           priceDescription='결제예샹금액'
           price={totalPrice}
-          buttonText={`주문하기 (${cartList.length}개)`}
+          buttonText={`주문하기 (${selectedItem.length}개)`}
           style={{ position: 'sticky', top: '50%' }}
         />
       </StyledMain>
