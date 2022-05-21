@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import ExpectedPaymentBottomContainer from 'components/ExpectedPaymentBottomContainer/ExpectedPaymentBottomContainer';
-import ExpectedPaymentBox from 'components/ExpectedPaymentBox/ExpectedPaymentBox';
-import ExpectedPaymentTopContainer from 'components/ExpectedPaymentTopContainer/ExpectedPaymentTopContainer';
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
+
+import ExpectedPaymentAmount from 'components/ExpectedPaymentAmount/ExpectedPaymentAmount';
 import OrderButton from 'components/OrderButton/OrderButton';
 
 import { selectCurrentCarts } from 'redux/carts/carts.selector';
@@ -11,7 +11,6 @@ import { selectCurrentCarts } from 'redux/carts/carts.selector';
 import { CURRENT_USER } from 'constants';
 
 //재사용X
-//TODO: 불필요하게 나눠진 컴포넌트 삭제 및 합체
 function ExpectedPaymentContainer() {
   const carts = useSelector(selectCurrentCarts);
 
@@ -31,12 +30,16 @@ function ExpectedPaymentContainer() {
 
   return (
     <Styled.Root>
-      {/* THINK: Top, Bottom Container가 단순히 style만 있는 컴포넌트이다. 이 부분은 여기서 선언해서 사용해도 되지 않을까? */}
-      <ExpectedPaymentTopContainer>결제예상금액</ExpectedPaymentTopContainer>
-      <ExpectedPaymentBottomContainer>
-        <ExpectedPaymentBox price={totalPaymentCost} />
+      <Styled.TopWrapper>결제예상금액</Styled.TopWrapper>
+      <FlexWrapper
+        flexDirection="column"
+        gap="42px"
+        padding="20px"
+        width="100%"
+      >
+        <ExpectedPaymentAmount price={totalPaymentCost} />
         <OrderButton>{`주문하기(${totalOrderProductsQuantity}개)`}</OrderButton>
-      </ExpectedPaymentBottomContainer>
+      </FlexWrapper>
     </Styled.Root>
   );
 }
@@ -44,6 +47,12 @@ function ExpectedPaymentContainer() {
 const Styled = {
   Root: styled.div`
     border: 1px solid ${({ theme }) => theme.colors.gray_04};
+  `,
+
+  TopWrapper: styled.div`
+    padding: 20px;
+    font-size: 16px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray_04};
   `,
 };
 

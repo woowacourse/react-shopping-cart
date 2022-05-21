@@ -12,7 +12,6 @@ export const fetchProducts = async (pageNum = 1) => {
   return await res.json();
 };
 
-//TODO: 네이밍 변경 fetchProduct
 export const fetchProduct = async (id) => {
   const res = await fetch(`${API_URL}/products/${id}`);
   if (!res.ok) {

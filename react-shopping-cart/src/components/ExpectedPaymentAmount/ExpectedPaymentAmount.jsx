@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 //재사용X
-function ExpectedPaymentBox({ price }) {
+function ExpectedPaymentAmount({ price }) {
   return (
     <Styled.Root>
-      <Styled.ExpectedPaymentText>결제 예상 금액</Styled.ExpectedPaymentText>
+      <Styled.ExpectedPaymentText>결제예상금액</Styled.ExpectedPaymentText>
       <Styled.ExpectedPaymentText>{price}원</Styled.ExpectedPaymentText>
     </Styled.Root>
   );
@@ -27,4 +27,4 @@ const Styled = {
   `,
 };
 
-export default ExpectedPaymentBox;
+export default ExpectedPaymentAmount;

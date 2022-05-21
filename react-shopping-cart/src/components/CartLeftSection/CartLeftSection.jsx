@@ -42,34 +42,38 @@ function CartLeftSection() {
 
   return (
     <FlexWrapper flexDirection="column" width="490px">
-      <CartLeftSectionHeader>
+      <Styled.CartLeftSectionHeader>
         <AllSelectButton carts={myCarts} />
         <ProductDeleteButton onClick={handleDeleteCheckedProducts}>
           상품삭제
         </ProductDeleteButton>
-      </CartLeftSectionHeader>
-      {/* TODO: inline style 빼기 */}
-      <div style={{ width: 'inherit' }}>
-        <CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</CartItemsContainerHeader>
+      </Styled.CartLeftSectionHeader>
+      <Styled.CartItemsContainer>
+        <Styled.CartItemsContainerHeader>{`든든배송상품 ${myCarts.length}개`}</Styled.CartItemsContainerHeader>
         <WithSpinner loading={cartLoading}>
           <ShoppingCartItemGroup carts={myCarts} />
         </WithSpinner>
-      </div>
+      </Styled.CartItemsContainer>
     </FlexWrapper>
   );
 }
 
-const CartLeftSectionHeader = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`;
+const Styled = {
+  CartItemsContainer: styled.div`
+    width: inherit;
+  `,
+  CartLeftSectionHeader: styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  `,
 
-const CartItemsContainerHeader = styled.div`
-  font-size: 13px;
-  width: 100%;
-  padding: 20px 0;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.gray_01};
-`;
+  CartItemsContainerHeader: styled.div`
+    font-size: 13px;
+    width: 100%;
+    padding: 20px 0;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.gray_01};
+  `,
+};
 
 export default CartLeftSection;

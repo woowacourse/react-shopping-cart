@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import {
   addProductToCartStart,
   deleteProductFromCartStart,
-  fetchCartsStart,
 } from 'redux/carts/carts.action';
 
 import { CURRENT_USER } from 'constants/index';
