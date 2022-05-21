@@ -29,6 +29,16 @@ const cartReducer = (state = initialState, action) => {
 
       return newState;
     }
+    case ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY: {
+      const cartProductIds = getObjectArrayValues(products, 'id');
+      const targetProductIdx = cartProductIds.indexOf(payload.id);
+      const newProducts = [...products];
+
+      newProducts[targetProductIdx].quantity -= 1;
+      newState.products = [...newProducts];
+
+      return newState;
+    }
     default:
       return state;
   }

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { useDispatch } from 'react-redux';
+import ACTION_TYPE from 'redux/cart/cartActions';
+
 import { Button } from 'components/@common';
 import { Selector } from 'components';
 
@@ -76,7 +79,22 @@ const Price = styled.p`
   color: #333333;
 `;
 
-function CartProduct({ image, name, quantity, price }) {
+function CartProduct({ id, image, name, quantity, price }) {
+  const dispatch = useDispatch();
+
+  const onClickQuantityControlButton = ({ target }) => {
+    if (target.getAttribute('type') === 'increment') {
+      dispatch({
+        type: ACTION_TYPE.ADD_PRODUCT_TO_CART,
+        payload: { id, image, name, quantity, price },
+      });
+
+      return;
+    }
+
+    dispatch({ type: ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY, payload: { id } });
+  };
+
   return (
     <CartProductBox>
       <LeftBox>
@@ -90,9 +108,9 @@ function CartProduct({ image, name, quantity, price }) {
         </Button>
         <QuantityBox>
           <Quantity>{quantity}</Quantity>
-          <Button>
-            <QuantityControlButton>▲</QuantityControlButton>
-            <QuantityControlButton>▼</QuantityControlButton>
+          <Button onClick={onClickQuantityControlButton}>
+            <QuantityControlButton type="increment">▲</QuantityControlButton>
+            <QuantityControlButton type="decrement">▼</QuantityControlButton>
           </Button>
         </QuantityBox>
         <Price>{addThousandUnitComma(price * quantity)}원</Price>
