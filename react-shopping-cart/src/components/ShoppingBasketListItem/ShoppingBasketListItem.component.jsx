@@ -19,8 +19,8 @@ function ShoppingBasketListItem({
   price,
   quantity,
   deleteProducts,
-  handleClickIncrease,
-  handleClickDecrease,
+  increaseQuantity,
+  decreaseQuantity,
 }) {
   const handleClickDelete = () => {
     deleteProducts([id]);
@@ -42,8 +42,8 @@ function ShoppingBasketListItem({
         />
         <Counter
           style={{ marginTop: '23px' }}
-          handleClickIncrease={() => handleClickIncrease(id)}
-          handleClickDecrease={() => handleClickDecrease(id)}
+          handleClickIncrease={() => increaseQuantity(id)}
+          handleClickDecrease={() => decreaseQuantity(id)}
         >
           {quantity}
         </Counter>

@@ -27,9 +27,8 @@ const RightBox = styled(FlexWrapper)`
 `;
 
 function ShoppingBasket() {
-  const { shoppingBasketList, deleteProducts } = useShoppingBasket(
-    STATE_KEY.SHOPPING_BASKET_REDUCER
-  );
+  const { shoppingBasketList, deleteProducts, increaseQuantity, decreaseQuantity } =
+    useShoppingBasket(STATE_KEY.SHOPPING_BASKET_REDUCER);
 
   return (
     <>
@@ -49,6 +48,8 @@ function ShoppingBasket() {
             <ShoppingBasketListContainer
               shoppingBasketList={shoppingBasketList}
               deleteProducts={deleteProducts}
+              increaseQuantity={increaseQuantity}
+              decreaseQuantity={decreaseQuantity}
             />
           </LeftBox>
           <RightBox isColumnDirection={true}>

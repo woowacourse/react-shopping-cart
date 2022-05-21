@@ -1,5 +1,10 @@
 import useReduxState from './useReduxState';
-import { addShoppingBasketProduct, deleteShoppingBasketProduct } from 'actions/shoppingBasket';
+import {
+  addShoppingBasketProduct,
+  deleteShoppingBasketProduct,
+  increaseShoppingBasketProduct,
+  decreaseShoppingBasketProduct,
+} from 'actions/shoppingBasket';
 
 function useShoppingBasket(stateKey) {
   const {
@@ -19,11 +24,21 @@ function useShoppingBasket(stateKey) {
     dispatch(deleteShoppingBasketProduct(idList));
   };
 
+  const increaseQuantity = id => {
+    dispatch(increaseShoppingBasketProduct(id));
+  };
+
+  const decreaseQuantity = id => {
+    dispatch(decreaseShoppingBasketProduct(id));
+  };
+
   return {
     shoppingBasketList,
     checkIsContainedProduct,
     addProduct,
     deleteProducts,
+    increaseQuantity,
+    decreaseQuantity,
   };
 }
 
