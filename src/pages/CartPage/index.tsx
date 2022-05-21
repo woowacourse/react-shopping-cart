@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -13,17 +14,20 @@ import Bar from 'components/@common/Bar';
 import Text from 'components/@common/Text';
 import Button from 'components/@common/Button';
 import { OrderButton } from 'components/@common/Button/Extends';
+import SnackBar from 'components/@common/Snackbar';
 
 import { OPTIONS } from 'api';
 import { loadCartProductList, deleteCartProduct } from 'api/cart';
 import { RootState } from 'store';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
+import useSnackBar from 'hooks/useSnackBar';
 import { DELETE } from 'constants/index';
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartProductList, isLoading } = useSelector((state: RootState) => state.cart);
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
+  const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleEntireCheckButtonClick = () => {
     if (checkedIdList.length === cartProductList.length) {
@@ -56,12 +60,14 @@ const CartPage = () => {
     await Promise.all([fetchList]);
     loadCartProductList().then((res) => dispatch(setCartProductList(res)));
     setCheckedIdList([]);
+    triggerSnackbar('선택된 상품이 삭제되었습니다.');
   };
 
   const handleCartProductDelete = async (id: number) => {
     await deleteCartProduct(id);
     loadCartProductList().then((res) => dispatch(setCartProductList(res)));
     setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id));
+    triggerSnackbar('해당 상품이 삭제되었습니다.');
   };
 
   const isExistInCheckedIdList = (id: number) => {
@@ -163,6 +169,11 @@ const CartPage = () => {
           </Box>
         </Flex>
       </MarginWrapper>
+      {showSnackbar &&
+        createPortal(
+          <SnackBar message={message} />,
+          document.getElementById('snackbar') as HTMLElement,
+        )}
     </div>
   );
 };

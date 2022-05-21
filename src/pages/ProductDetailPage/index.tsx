@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -9,6 +10,7 @@ import MarginWrapper from 'components/@common/MarginWrapper';
 import Bar from 'components/@common/Bar';
 import Text from 'components/@common/Text';
 import { CartDetailButton } from 'components/@common/Button/Extends';
+import SnackBar from 'components/@common/Snackbar';
 
 import {
   loadCartProduct,
@@ -18,6 +20,7 @@ import {
 } from 'api/cart';
 import { loadProduct } from 'api/product';
 import { setCartProductList, startCartProductList } from 'store/cartProductList/actions';
+import useSnackBar from 'hooks/useSnackBar';
 import { ProductData } from 'types';
 
 const ProductDetail = () => {
@@ -27,6 +30,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [product, setProduct] = useState<ProductData | null>(null);
+  const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleAddCartButton = async () => {
     try {
@@ -38,6 +42,7 @@ const ProductDetail = () => {
       }
       dispatch(startCartProductList());
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      triggerSnackbar('장바구니에 상품이 담겼습니다.');
     } catch (e) {
       alert(e);
     }
@@ -79,6 +84,11 @@ const ProductDetail = () => {
         </Styled.Content>
         <CartDetailButton onClick={handleAddCartButton}>장바구니</CartDetailButton>
       </Flex>
+      {showSnackbar &&
+        createPortal(
+          <SnackBar message={message} />,
+          document.getElementById('snackbar') as HTMLElement,
+        )}
     </Styled.Container>
   );
 };

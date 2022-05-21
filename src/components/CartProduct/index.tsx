@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -11,9 +12,11 @@ import QuantityControlBox from 'components/@common/QuantityControlBox';
 import Flex from 'components/@common/Flex';
 import Button from 'components/@common/Button';
 import Text from 'components/@common/Text';
+import SnackBar from 'components/@common/Snackbar';
 
 import { loadCartProductList, updateCartProduct } from 'api/cart';
 import { setCartProductList } from 'store/cartProductList/actions';
+import useSnackBar from 'hooks/useSnackBar';
 import { CartProductData } from 'types';
 
 interface CartProductProps {
@@ -31,11 +34,13 @@ const CartProduct = ({
 }: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
   const dispatch = useDispatch();
+  const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleIncreaseButton = async (): Promise<void> => {
     try {
       await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      triggerSnackbar('상품이 정상적으로 수량 +1 되었습니다.');
     } catch (e) {
       alert(e);
     }
@@ -47,6 +52,7 @@ const CartProduct = ({
 
       await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      triggerSnackbar('상품이 정상적으로 수량 -1 되었습니다.');
     } catch (e) {
       alert(e);
     }
@@ -78,6 +84,11 @@ const CartProduct = ({
           </Flex>
         </Box>
       </Flex>
+      {showSnackbar &&
+        createPortal(
+          <SnackBar message={message} />,
+          document.getElementById('snackbar') as HTMLElement,
+        )}
     </Styled.Wrapper>
   );
 };

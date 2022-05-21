@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ import Flex from 'components/@common/Flex';
 import Box from 'components/@common/Box';
 import Text from 'components/@common/Text';
 import { EllipsisText } from 'components/@common/Text/Extends';
+import useSnackBar from 'hooks/useSnackBar';
 
 import {
   loadCartProduct,
@@ -18,10 +20,12 @@ import {
   registerCartProduct,
 } from 'api/cart';
 import { startCartProductList, setCartProductList } from 'store/cartProductList/actions';
+import SnackBar from 'components/@common/Snackbar';
 import { ProductData } from 'types';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   const dispatch = useDispatch();
+  const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
 
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -36,6 +40,7 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
 
       dispatch(startCartProductList());
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
+      triggerSnackbar('장바구니에 상품이 담겼습니다.');
     } catch (e) {
       alert(e);
     }
@@ -61,6 +66,11 @@ const Product = ({ id, thumbnail, name, price }: ProductData) => {
           </Flex>
         </Styled.Content>
       </Flex>
+      {showSnackbar &&
+        createPortal(
+          <SnackBar message={message} />,
+          document.getElementById('snackbar') as HTMLElement,
+        )}
     </Styled.Container>
   );
 };
