@@ -8,12 +8,17 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 62.5%
+    font-size: 62.5%;
+    height: 100vh;
   }
 
   body {
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
+  }
+  
+  #root, body {
+    height: 100%;
   }
 
   button {

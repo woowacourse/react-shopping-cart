@@ -39,7 +39,7 @@ const ItemList = () => {
 
   return (
     <StyledRoot>
-      {itemList.map(item => {
+      {itemList?.map(item => {
         const isInCart = cartList.some(el => el.id === item.id);
 
         return (
