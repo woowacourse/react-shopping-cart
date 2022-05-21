@@ -6,7 +6,6 @@ export const getOrderListAsync = async (dispatch) => {
 
   try {
     const { data } = await apiClient.get('/orderList');
-    console.log('getOrderListAsync', data);
     dispatch(actions.getOrderListSuccess(data));
   } catch (error) {
     dispatch(actions.getOrderListError());

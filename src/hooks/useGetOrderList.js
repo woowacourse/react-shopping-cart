@@ -8,7 +8,6 @@ const useGetOrderList = () => {
   const getOrderListWhenMounted = () => {
     useEffect(() => {
       dispatch(getOrderListAsync);
-      console.log('useEffect');
     }, []);
   };
 

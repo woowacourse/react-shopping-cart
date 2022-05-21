@@ -1,19 +1,30 @@
-# 우아한테크코스 FE 레벨2 장바구니 미션
+# 우아한테크코스 FE 레벨2 장바구니 스텝2 미션
 
 - 마르코
-- step1 페어 : 호프
 
 ## 데모페이지
 
-- [step2 데모페이지](https://cute-dragon-0fd6d5.netlify.app/)
+### step1
+
 - [step1 데모페이지](https://nimble-figolla-852c84.netlify.app/)
 - [step1 스토리북 배포페이지](https://627cd06ea27170004a54a0ed-txsykezezl.chromatic.com/)
 
+### step2
+
+- [step2 데모페이지](https://cute-dragon-0fd6d5.netlify.app/)
+  - msw 위주로 개발하다보니 json-server api 이용하는 배포 페이지는 정상 작동하지 않음.
+- [step2 스토리북 데모페이지](https://627cd06ea27170004a54a0ed-shuuxltqvd.chromatic.com/)
+
 ## 로컬 구동 방법
 
-- 로컬에서 구동할 경우 프로젝트 루트 경로에서 다음 스크립트를 실행하여 `.env` 파일을 추가해주세요.
-  - `echo "REACT_APP_API_URL=https://react-shopping-cart-marco.herokuapp.com" > .env`
-- 로컬 구동 스크립트 `npm i && npm run start`
+- npm install
+  - npm 패키지 설치
+- npm run start
+  - 로컬 구동
+- npm run test
+  - jest 단위 테스트 실행
+- npm run storybook
+  - 로컬 스토리북 구동
 
 ## step2 장바구니 요구사항 정리
 
@@ -45,20 +56,20 @@
   - [x] 상품 리스트 페이지에서 상품이미지와 상품명을 누르면 상세페이지로 이동하도록 하고, 장바구니 버튼을 누르면 이동하지 않고 장바구니에 바로 담도록 한다.
     - [x] 상품 리스트 페이지에서 장바구니에 담긴 상품의 버튼은 색상이 변한다.
   - [x] 상세페이지에서 장바구니 버튼을 누르면, 장바구니에 담겼다는 팝업이 표시된다.
-- [] 주문/결제 페이지
-- [] 주문 목록 페이지
-- [] 주문 상세 페이지
+- [ ] 주문/결제 페이지
+- [ ] 주문 목록 페이지
+- [ ] 주문 상세 페이지
 
-- [] 타입스크립트 적용
-- [] 단위테스트(Jest)
-- [] UI/UX
+- [ ] 타입스크립트 적용
+- [x] 단위테스트(Jest)
+- [ ] UI/UX
   - [x] 사용자를 위한 로딩 환경 개선
-  - [] 페이징 혹은 인피니티 스크롤 적용 (별도의 API 없음)
-  - [] 뒤로가기 및 페이지 전환시 기존 페이지 및 스크롤 위치 기억
+  - [ ] 페이징 혹은 인피니티 스크롤 적용 (별도의 API 없음)
+  - [ ] 뒤로가기 및 페이지 전환시 기존 페이지 및 스크롤 위치 기억
   - [x] API 요청 실패에 대한 Edge Case 대응
   - [x] 상품이 없을 때와 같은 다양한 Edge Case 대응
   - [x] 반응형 레이아웃 구현
-  - [] 별도의 모바일 레이아웃 추가 제공
+  - [ ] 별도의 모바일 레이아웃 추가 제공
 
 ## step1 장바구니 구현사항
 
