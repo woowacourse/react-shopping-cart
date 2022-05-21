@@ -1,5 +1,6 @@
 import React from 'react';
 import BoxButton from 'components/BoxButton';
+import theme from 'style/theme';
 
 export default {
   title: 'Component/BoxButton',
@@ -11,24 +12,30 @@ export default {
     fontWeight: { controls: 'number' },
     width: { controls: 'text' },
     height: { controls: 'text' },
+    border: { controls: 'text' },
+    fontColor: { controls: 'text' },
   },
 };
 
 const Template = (args) => <BoxButton {...args} />;
 
-export const Cart = Template.bind({});
-Cart.args = {
-  color: '#FFC9C9',
-  message: '장바구니 담기',
-  fontSize: '15px',
-  width: '100px',
+export const Delete = Template.bind({});
+Delete.args = {
+  color: '#FFF',
+  message: '상품삭제',
+  fontSize: '16px',
+  width: '117px',
   height: '50px',
+  border: '#BBB',
+  fontColor: '#333',
 };
 
-export const Cancel = Template.bind({});
-Cancel.args = {
-  message: '삭제',
-  fontSize: '15px',
-  width: '100px',
-  height: '50px',
+export const Order = Template.bind({});
+Order.args = {
+  color: theme.mainColor,
+  message: '주문하기',
+  fontSize: '24px',
+  width: '388px',
+  height: '73px',
+  fontColor: '#FFF',
 };

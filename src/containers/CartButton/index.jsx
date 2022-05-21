@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Image from 'components/Image';
+import { useDispatch } from 'react-redux';
 
 function CartButton() {
+  const dispatch = useDispatch();
   const handleCartButtonClick = () => {};
 
   return (
-    <Link onClick={handleCartButtonClick} to="">
-      <Image
-        src={process.env.PUBLIC_URL + '/img/shopping-cart-black.png'}
-        width={'30px'}
-        height={'26px'}
-        alt="카트 이미지"
-      />
-    </Link>
+    <Image
+      src={process.env.PUBLIC_URL + '/img/shopping-cart-black.png'}
+      width={'30px'}
+      height={'26px'}
+      alt="카트 이미지"
+      onClick={handleCartButtonClick}
+    />
   );
 }
 

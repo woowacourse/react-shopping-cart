@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 const BoxButtonStyled = styled.button(
-  ({ color, fontSize, width, height }) => `
+  ({ color, fontSize, fontColor, width, height, border }) => `
     background: ${color};
     font-size: ${fontSize};
-    color: black;
+    color: ${fontColor};
     width: ${width};
     height: ${height};
-    border-radius: 10px;
-    border: none;
+    border: ${border ? `1px solid ${border}` : 'none'};
   `,
 );
 
