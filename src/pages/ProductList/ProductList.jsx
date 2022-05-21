@@ -10,6 +10,8 @@ function ProductList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (products.length) return;
+
     dispatch(productsAsyncThunk());
   }, []);
 
