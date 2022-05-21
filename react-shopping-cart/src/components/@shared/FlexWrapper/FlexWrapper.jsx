@@ -38,8 +38,6 @@ function FlexWrapper({
   );
 }
 
-export default FlexWrapper;
-
 const Styled = {
   Root: styled.div`
     display: flex;
@@ -59,3 +57,5 @@ const Styled = {
     border-color: ${({ bColor, theme }) => bColor && theme.colors[bColor]};
   `,
 };
+
+export default FlexWrapper;

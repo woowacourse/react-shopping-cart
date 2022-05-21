@@ -13,6 +13,7 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
+
 sagaMiddleware.run(rootSaga);
 
 export { store };

@@ -77,21 +77,24 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
         ) {
           cart['checked'] = !cart['checked'];
         }
+
         return cart;
       });
+
       return { ...state, carts: newCarts };
     }
 
     case cartsActionTypes.increaseProductQuantity: {
       const newCarts = [...state.carts];
-
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
+
       currentCartProduct['quantity'] =
         typeof currentCartProduct['quantity'] !== 'undefined'
           ? currentCartProduct['quantity'] + 1
           : 2;
+
       return { ...state, carts: newCarts };
     }
 
@@ -100,12 +103,15 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
+
       if (currentCartProduct['quantity'] === 0) {
         return { ...state };
       }
+
       currentCartProduct['quantity'] = currentCartProduct['quantity']
         ? currentCartProduct['quantity'] - 1
         : 1;
+
       return { ...state, carts: newCarts };
     }
 

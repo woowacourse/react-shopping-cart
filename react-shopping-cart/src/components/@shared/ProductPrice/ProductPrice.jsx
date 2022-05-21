@@ -13,14 +13,17 @@ const Styled = {
           return css`
             font-size: 14px;
           `;
+
         case 'detail':
           return css`
             font-size: 21px;
           `;
+
         case 'shoppingCart':
           return css`
             font-size: 12px;
           `;
+
         default:
           return;
       }

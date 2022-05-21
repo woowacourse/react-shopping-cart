@@ -18,6 +18,7 @@ function ExpectedPaymentContainer() {
     if (cart.user === CURRENT_USER && cart.checked) {
       return acc + Number(cart.price) * Number(cart.quantity);
     }
+
     return acc;
   }, 0);
 
@@ -25,6 +26,7 @@ function ExpectedPaymentContainer() {
     if (cart.user === CURRENT_USER && cart.checked) {
       return acc + Number(cart.quantity);
     }
+
     return acc;
   }, 0);
 

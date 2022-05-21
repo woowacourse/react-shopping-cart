@@ -15,6 +15,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
+
     case productActionType.fetchProductsSuccess:
       return {
         ...state,
@@ -22,6 +23,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         products: action.payload,
         error: null,
       };
+
     case productActionType.fetchProductSuccess:
       return {
         ...state,
@@ -29,6 +31,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         error: null,
       };
+
     case productActionType.fetchProductError:
     case productActionType.fetchProductsError:
       return {
@@ -36,6 +39,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         error: action.payload,
       };
+
     default:
       return state;
   }

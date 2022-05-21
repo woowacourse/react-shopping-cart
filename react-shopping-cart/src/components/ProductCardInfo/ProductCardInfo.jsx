@@ -49,6 +49,7 @@ const Styled = {
       & path {
         fill: ${({ theme }) => theme.colors.red_01}
       }
+
       :hover {
         & path {
           fill: ${({ theme }) => theme.colors.cyon_02};
@@ -58,6 +59,7 @@ const Styled = {
             & path {
               fill: ${({ theme }) => theme.colors.black_02};
             }
+
             :hover {
               & path {
                 fill: ${({ theme }) => theme.colors.cyon_02};

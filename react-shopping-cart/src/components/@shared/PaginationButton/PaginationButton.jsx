@@ -25,6 +25,7 @@ const Styled = {
       isActive ? theme.colors.cyon_02 : 'transparent'};
     border: none;
     cursor: pointer;
+
     :hover {
       background-color: ${({ theme }) => theme.colors.cyon_02};
       color: ${({ theme }) => theme.colors.white};

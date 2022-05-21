@@ -20,6 +20,7 @@ const Styled = {
     border: none;
     color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
+
     :hover {
       filter: brightness(90%);
     }

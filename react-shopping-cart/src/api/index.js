@@ -14,9 +14,11 @@ export const fetchProducts = async (pageNum = 1) => {
 
 export const fetchProduct = async (id) => {
   const res = await fetch(`${API_URL}/products/${id}`);
+
   if (!res.ok) {
     throw new Error('로드에 실패했습니다!');
   }
+
   return await res.json();
 };
 

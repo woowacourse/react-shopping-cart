@@ -35,6 +35,7 @@ const Styled = {
   Root: styled(FlexWrapper)`
     box-shadow: 3px 3px 3px 3px ${({ theme }) => theme.colors.opacity_black_01};
     cursor: pointer;
+
     :hover {
       animation: ${scaleAnimation} 0.5s ease-out;
       animation-fill-mode: forwards;

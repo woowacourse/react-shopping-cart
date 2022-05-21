@@ -16,12 +16,14 @@ function ItemCounter({ id }) {
 
   const increaseCount = () => {
     setCount((prev) => prev + 1);
+
     dispatch(increaseProductQuantity(id));
   };
 
   const decreaseCount = () => {
     if (count > 0) {
       setCount((prev) => prev - 1);
+
       dispatch(decreaseProductQuantity(id));
     }
   };
@@ -47,6 +49,7 @@ const Styled = {
     font-size: 16px;
     line-height: 40px;
   `,
+
   CounterButton: styled.button`
     padding: 0;
     cursor: pointer;

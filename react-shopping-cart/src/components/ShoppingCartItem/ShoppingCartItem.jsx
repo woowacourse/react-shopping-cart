@@ -54,6 +54,7 @@ const Styled = {
     padding: 20px 5px;
     border-top: 1px solid ${({ theme }) => theme.colors.gray_03};
   `,
+
   LeftContainer: styled.div`
     display: flex;
     align-items: center;

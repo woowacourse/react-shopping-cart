@@ -26,6 +26,7 @@ const Styled = {
     font-size: 22px;
     font-weight: 700;
   `,
+
   ShoppingCartPageContent: styled.div`
     display: flex;
     justify-content: center;

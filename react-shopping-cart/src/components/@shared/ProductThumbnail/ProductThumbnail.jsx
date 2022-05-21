@@ -14,16 +14,19 @@ const Styled = {
             width: 188px;
             height: 188px;
           `;
+
         case 'detail':
           return css`
             width: 380px;
             height: 380px;
           `;
+
         case 'shoppingCart':
           return css`
             width: 98px;
             height: 98px;
           `;
+
         default:
           return;
       }

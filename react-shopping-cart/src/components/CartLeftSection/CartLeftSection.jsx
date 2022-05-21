@@ -62,6 +62,7 @@ const Styled = {
   CartItemsContainer: styled.div`
     width: inherit;
   `,
+
   CartLeftSectionHeader: styled.div`
     display: flex;
     width: 100%;
