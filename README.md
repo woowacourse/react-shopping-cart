@@ -7,7 +7,7 @@
 
 ## [🛒 장바구니 데모 페이지](https://nan-noo.github.io/react-shopping-cart/)
 
-## [📙 장바구니 스토리북 데모 페이지](https://627cc0fecc754f004a31ede8-xwbaufuocg.chromatic.com/)
+## [📙 장바구니 스토리북 데모 페이지](https://6288a7606a00ac004a864838-bojkovcyzv.chromatic.com/?path=/story/component-common-checkbox--default)
 
 ## 🚀 Getting Started
 
