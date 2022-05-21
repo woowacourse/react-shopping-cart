@@ -1,9 +1,17 @@
 const ADD_ITEM = 'cart/ADD_ITEM';
 const DELETE_ITEM = 'cart/DELETE_ITEM';
-const MODIFY_ITEM = 'cart/MODIFY_ITEM';
+const MINUS_ITEM = 'cart/MINUS_ITEM';
 
 export const addCartItem = (id) => (dispatch) => {
   dispatch({ type: ADD_ITEM, payload: { id } });
+};
+
+export const minusCartItem = (id) => (dispatch) => {
+  dispatch({ type: MINUS_ITEM, payload: { id } });
+};
+
+export const deleteCartItem = (id) => (dispatch) => {
+  dispatch({ type: DELETE_ITEM, payload: { id } });
 };
 
 const initialState = {
@@ -11,7 +19,6 @@ const initialState = {
 };
 
 const cartReducer = (state = initialState, action) => {
-  console.log(state);
   if (action.type === ADD_ITEM) {
     const productId = action.payload.id;
     if (state.cartList.length === 0) {
@@ -35,14 +42,28 @@ const cartReducer = (state = initialState, action) => {
       ),
     };
   }
-  if (action.type === DELETE_ITEM) {
+  if (action.type === MINUS_ITEM) {
+    const productId = action.payload.id;
+    const existIndex = state.cartList.findIndex((product) => product.id === Number(productId));
+    const existQuantity = state.cartList[existIndex].quantity;
+    if (existQuantity === 1) {
+      return {
+        ...state,
+        cartList: state.cartList.filter((product) => product.id !== productId),
+      };
+    }
     return {
       ...state,
+      cartList: state.cartList.map((product, index) =>
+        index === existIndex ? { ...product, quantity: existQuantity - 1 } : product,
+      ),
     };
   }
-  if (action.type === MODIFY_ITEM) {
+  if (action.type === DELETE_ITEM) {
+    const productId = action.payload.id;
     return {
       ...state,
+      cartList: state.cartList.filter((product) => product.id !== productId),
     };
   }
   return state;
