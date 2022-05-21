@@ -67,7 +67,9 @@ function Cart({ cartProducts }) {
                       <ProductCountDownButton id={product.product_id} />
                     </FlexWrapper>
                   </CartProductCountWrapperStyled>
-                  <Text>{product.product_price.toLocaleString()}원</Text>
+                  <Text>
+                    {(product.cart_product_count * product.product_price).toLocaleString()}원
+                  </Text>
                 </FlexWrapper>
               </CartProductStyled>
             ))}
