@@ -3,14 +3,14 @@ import { ERROR_MESSAGE } from 'constant/messages';
 import { addProductCart } from 'store/action/cartActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
 
-const targetProductAsyncThunk = id => async dispatch => {
+const cartProductsAsyncThunk = idList => async dispatch => {
   try {
-    const product = await productAPI.getTargetProduct(id);
+    const products = await productAPI.getTargetProducts(idList);
 
-    dispatch(addProductCart(product));
+    products.forEach(product => dispatch(addProductCart(product)));
   } catch (error) {
     dispatch(updateSnackBar(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS));
   }
 };
 
-export { targetProductAsyncThunk };
+export { cartProductsAsyncThunk };

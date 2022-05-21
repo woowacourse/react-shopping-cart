@@ -14,7 +14,7 @@ const storage = {
 
   getCartProductIds() {
     const idListCookie = this.getCookie(this.KEYS.CART);
-    return idListCookie ? idListCookie.split(',') : [];
+    return idListCookie || '';
   },
 
   addCartProductId(productId) {

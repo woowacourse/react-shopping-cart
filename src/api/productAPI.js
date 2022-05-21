@@ -18,8 +18,8 @@ const productAPI = {
     return json;
   },
 
-  async getTargetProduct(id) {
-    const response = await fetch(`${this.BASE_URL}/${this.PATH.PRODUCTS}/${id}`);
+  async getTargetProducts(idList) {
+    const response = await fetch(`${this.BASE_URL}/${this.PATH.PRODUCTS}/${idList}`);
 
     if (!response.ok) {
       return new Error(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS);

@@ -8,12 +8,12 @@ export const handlers = [
     return res(ctx.json(productsData));
   }),
 
-  rest.get(`${baseUrl}/products/:productId`, (req, res, ctx) => {
-    const { productId } = req.params;
+  rest.get(`${baseUrl}/products/:idList`, (req, res, ctx) => {
+    const { idList } = req.params;
 
-    const targetProduct = productsData.find(product => product.id === productId);
-    console.log(productId);
+    const ids = idList.split(',');
+    const products = productsData.filter(product => ids.includes(String(product.id)));
 
-    return res(ctx.json(targetProduct));
+    return res(ctx.json(products));
   }),
 ];
