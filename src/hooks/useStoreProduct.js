@@ -10,7 +10,7 @@ function useStoreProduct(id) {
     apiCall: addToCart,
     error: cartAddError,
   } = useFetch({
-    url: `${PATH.CARTS}/${userId}/${id}`,
+    url: `/${PATH.CARTS}/${userId}/${id}`,
     data: { id, quantity: 1 },
     method: 'POST',
   });

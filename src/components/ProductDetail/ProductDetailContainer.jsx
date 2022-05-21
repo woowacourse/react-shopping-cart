@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import PATH from '../../constants/path';
-import useFetch from '../../hooks/useFetch';
 import { loadProduct } from '../../store/product';
 import ProductDetail from './ProductDetail';
 
@@ -11,17 +9,11 @@ function ProductDetailContainer() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { isLoading, product, error } = useSelector((state) => state.product);
-  const {
-    isLoading: isCartLoading,
-    result: cart,
-    error: cartError,
-    apiCall: loadCart,
-  } = useFetch({
-    url: `${PATH.CARTS}/${id}`,
-  });
+  const { carts } = useSelector((state) => state.carts);
+
+  const isStored = carts.map((cart) => cart.id).includes(id);
 
   useEffect(() => {
-    loadCart();
     dispatch(loadProduct(id));
   }, []);
 
@@ -34,7 +26,7 @@ function ProductDetailContainer() {
           src={product?.src}
           title={product?.title}
           price={product?.price}
-          isStored={cart !== null}
+          isStored={isStored}
         />
       )}
     </Style.ProductDetailContainer>

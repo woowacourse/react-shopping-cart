@@ -152,25 +152,9 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(204));
   }),
 
-  // rest.get('/products/:productList', (req, res, ctx) => {
-  //   const { productList } = req.params;
-  //   const requestedProductList = productList.split('&');
+  rest.get('/product/:id', (req, res, ctx) => {
+    const { id } = req.params;
 
-  //   return res(
-  //     ctx.status(200),
-  //     ctx.json(
-  //       products.filter((product) => requestedProductList.includes(product.id))
-  //     )
-  //   );
-  // }),
-  // rest.patch('/carts/:id', (req, res, ctx) => {
-  //   const { id } = req.params;
-  //   carts.forEach((product) => {
-  //     if (product.id === id) {
-  //       product.quantity = req.body;
-  //     }
-  //   });
-
-  //   return res(ctx.status(200));
-  // }),
+    return res(ctx.status(200), ctx.json(findById(products, id)));
+  }),
 ];

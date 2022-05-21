@@ -8,7 +8,7 @@ const LOAD_PRODUCT_DONE = 'product/LOAD_PRODUCT_DONE';
 
 const initialState = {
   isLoading: false,
-  product: null,
+  product: [],
   status: '',
   error: null,
 };
@@ -42,8 +42,7 @@ const productReducer = (state = initialState, action) => {
 export const loadProduct = (id) => async (dispatch) => {
   dispatch(loadProductStart());
   try {
-    const result = await axios.get(`${PATH.PRODUCTS}/${id}`);
-
+    const result = await axios(`/${PATH.PRODUCT}/${id}`);
     dispatch(loadProductSuccess(result.data));
   } catch (error) {
     dispatch(loadProductFail(error));

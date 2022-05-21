@@ -9,7 +9,7 @@ function useDeleteProductFromCart(id) {
     isLoading: isCartDeleteLoading,
     apiCall: deleteFromCart,
     error: deleteProductFromCartError,
-  } = useFetch({ url: `${PATH.CARTS}/${userId}/${id}`, method: 'DELETE' });
+  } = useFetch({ url: `/${PATH.CARTS}/${userId}/${id}`, method: 'DELETE' });
 
   return { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError };
 }
