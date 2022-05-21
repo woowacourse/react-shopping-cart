@@ -28,6 +28,7 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.5.0-beta.7",
     "@storybook/testing-library": "^0.0.11",
+    "chromatic": "^6.5.4",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -45,7 +46,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "chromatic": "npx chromatic --project-token=e68e7f4dc3ee"
   },
   "browserslist": {
     "production": [
