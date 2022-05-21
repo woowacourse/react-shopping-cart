@@ -1,8 +1,10 @@
+import React from 'react';
+
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import comma from 'utils/comma';
 
-const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
+function CartOrder({ totalPrice, totalCount, handleClickOrder }) {
   return (
     <Styled.Section>
       <Styled.TopWrapper>
@@ -25,7 +27,7 @@ const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
       </Styled.BottomWrapper>
     </Styled.Section>
   );
-};
+}
 
 CartOrder.propTypes = {
   totalPrice: PropTypes.number,
