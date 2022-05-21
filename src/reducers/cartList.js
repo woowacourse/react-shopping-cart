@@ -4,15 +4,17 @@ const CART_LIST_ACTION = {
   GET_LIST: "cartList/GET_LIST",
   GET_LIST_SUCCESS: "cartList/GET_SUCCESS",
   GET_LIST_ERROR: "cartList/GET_ERROR",
+
   DELETE_LIST: "cartList/DELETE_LIST",
   DELETE_LIST_SUCCESS: "cartList/DELETE_LIST_SUCCESS",
   DELETE_LIST_ERROR: "cartList/DELETE_LIST_ERROR",
+
   UPDATE_ITEM_COUNT: "cartList/UPDATE_ITEM_COUNT",
   UPDATE_ITEM_COUNT_SUCCESS: "cartList/UPDATE_ITEM_COUNT_SUCCESS",
   UPDATE_ITEM_COUNT_ERROR: "cartList/UPDATE_ITEM_COUNT_ERROR",
 };
 
-const fetchServer = async (
+const updateStoreState = async (
   url,
   method,
   dispatch,
@@ -50,7 +52,7 @@ const fetchServer = async (
 
 export const getCartList = () => async (dispatch) => {
   const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`;
-  await fetchServer(cartListUrl, "GET", dispatch, {
+  await updateStoreState(cartListUrl, "GET", dispatch, {
     start: CART_LIST_ACTION.GET_LIST,
     success: CART_LIST_ACTION.GET_LIST_SUCCESS,
     error: CART_LIST_ACTION.GET_LIST_ERROR,
@@ -62,7 +64,7 @@ export const deleteCartList =
   async (dispatch) => {
     const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${id}`;
 
-    await fetchServer(cartListUrl, "DELETE", dispatch, {
+    await updateStoreState(cartListUrl, "DELETE", dispatch, {
       start: CART_LIST_ACTION.DELETE_LIST,
       success: CART_LIST_ACTION.DELETE_LIST_SUCCESS,
       error: CART_LIST_ACTION.DELETE_LIST_ERROR,
@@ -72,7 +74,7 @@ export const deleteCartList =
 export const updateCartCount = (id, type) => async (dispatch) => {
   const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${type}/${id}`;
 
-  await fetchServer(cartListUrl, "PATCH", dispatch, {
+  await updateStoreState(cartListUrl, "PATCH", dispatch, {
     start: CART_LIST_ACTION.UPDATE_ITEM_COUNT,
     success: CART_LIST_ACTION.UPDATE_ITEM_COUNT_SUCCESS,
     error: CART_LIST_ACTION.UPDATE_ITEM_COUNT_ERROR,

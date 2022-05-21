@@ -16,18 +16,23 @@ import {
 function ProductDetail({ selectedProduct: { id, thumbnailUrl, name, price } }) {
   const handleClickCartButton = async () => {
     try {
-      await fetch(`${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, count: 1 }),
-      });
+      const response = await fetch(
+        `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, count: 1 }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("response not ok");
+      }
     } catch (error) {
-      alert("장바구니 담기에 실패했습니다.");
+      alert(`장바구니 담기에 실패했습니다. 에러: ${error.message}`);
       return;
     }
-
     alert("장바구니에 담았습니다.");
   };
 

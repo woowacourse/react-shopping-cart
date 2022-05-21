@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 
 import { useFetch } from "../../../hooks/useFetch";
 
+import { BASE_SERVER_URL, SERVER_PATH } from "../../../constants";
+
 import Spinner from "../../common/Spinner";
 import { DetailContainer } from "./styled";
-
-import { BASE_SERVER_URL, SERVER_PATH } from "../../../constants";
 import ErrorPage from "../ErrorPage";
 import ProductDetail from "./ProductDetail";
 
@@ -21,14 +21,12 @@ function ProductDetailPage() {
 
   const renderContent = () => {
     if (isLoading) return <Spinner />;
-
     if (errorMessage)
       return (
         <ErrorPage>
           😱 Error: 관리자에게 문의하세요.😱 <br /> %{errorMessage}%
         </ErrorPage>
       );
-
     return <ProductDetail selectedProduct={selectedProduct} />;
   };
 

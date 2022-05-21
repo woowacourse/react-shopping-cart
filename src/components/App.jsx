@@ -5,6 +5,9 @@ import ReduxThunk from "redux-thunk";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
+import { theme } from "../style";
+import { ROUTES } from "../constants";
+
 import rootReducer from "../reducers/index";
 
 import Header from "../components/common/Header";
@@ -15,8 +18,6 @@ import {
   ProductListPage,
 } from "./pages";
 
-import { theme } from "../style";
-import { ROUTES } from "../constants";
 import { Main } from "./styled";
 import ErrorPage from "./pages/ErrorPage";
 

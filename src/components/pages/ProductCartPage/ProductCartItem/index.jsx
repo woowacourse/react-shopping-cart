@@ -44,7 +44,7 @@ function ProductCartItem({
     setCheckList((prev) => [...prev, id]);
   };
 
-  const totalPrice = price ? Number(price) * count : null;
+  const totalPrice = Number(price) * count || null;
 
   return (
     <ProductCartContainer>
