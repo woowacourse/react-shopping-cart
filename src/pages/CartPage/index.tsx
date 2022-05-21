@@ -22,7 +22,7 @@ import { DELETE } from 'constants/index';
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartProductList, isLoading } = useSelector((state: RootState) => state.cartProductList);
+  const { cartProductList, isLoading } = useSelector((state: RootState) => state.cart);
   const [checkedIdList, setCheckedIdList] = useState<number[]>([]);
 
   const handleEntireCheckButtonClick = () => {
