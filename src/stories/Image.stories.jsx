@@ -28,5 +28,5 @@ Trashcan.args = {
   src: process.env.PUBLIC_URL + '/img/trashcan.png',
   width: '24px',
   height: '24px',
-  alt: '사나 이미지',
+  alt: '휴지통 이미지',
 };
