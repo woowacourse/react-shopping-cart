@@ -10,24 +10,24 @@ const QuantityInput = ({ itemId, cartQuantity }) => {
   const { callPatchApi } = usePatch(`/cartList/${itemId}`);
   const { getCartList } = useGetCartList();
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = async (e) => {
     setNewQuantity(+e.target.value);
-    callPatchApi(itemId, +e.target.value);
-    getCartList();
+    await callPatchApi(itemId, +e.target.value);
+    await getCartList();
   };
 
-  const handleClickStepUp = () => {
+  const handleClickStepUp = async () => {
     numberInput.current.stepUp(1);
     setNewQuantity(+numberInput.current.value);
-    callPatchApi(itemId, +numberInput.current.value);
-    getCartList();
+    await callPatchApi(itemId, +numberInput.current.value);
+    await getCartList();
   };
 
-  const handleClickStepDown = () => {
+  const handleClickStepDown = async () => {
     numberInput.current.stepDown(1);
     setNewQuantity(+numberInput.current.value);
-    callPatchApi(itemId, +numberInput.current.value);
-    getCartList();
+    await callPatchApi(itemId, +numberInput.current.value);
+    await getCartList();
   };
 
   return (

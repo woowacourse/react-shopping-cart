@@ -35,8 +35,8 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
     setCheckedIdList(newCheckedIdList);
   };
 
-  const handleClickDeleteAllButton = () => {
-    checkedIdList.forEach((targetId) => {
+  const handleClickDeleteAllButton = async () => {
+    await checkedIdList.forEach((targetId) => {
       callDeleteApi(targetId);
     });
   };

@@ -6,10 +6,10 @@ const useDelete = (url) => {
   const [isError, setIsError] = useState(false);
   const [result, setResult] = useState(null);
 
-  const callDeleteApi = (targetId) => {
+  const callDeleteApi = async (targetId) => {
     setIsLoading(true);
 
-    apiClient
+    await apiClient
       .delete(url, { data: { id: targetId } })
       .then((response) => {
         setIsLoading(false);

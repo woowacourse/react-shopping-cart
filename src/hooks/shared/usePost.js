@@ -6,10 +6,10 @@ const usePost = (url, payload) => {
   const [isError, setIsError] = useState(false);
   const [result, setResult] = useState(null);
 
-  const callPostApi = () => {
+  const callPostApi = async () => {
     setIsLoading(true);
 
-    apiClient
+    await apiClient
       .post(url, payload)
       .then((response) => {
         setIsLoading(false);

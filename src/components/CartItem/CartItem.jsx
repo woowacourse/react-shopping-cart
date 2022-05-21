@@ -25,7 +25,7 @@ const CartItem = ({ item, onChangeEachCheckbox, checked }) => {
 
   const handleDeleteButton = async () => {
     await callDeleteApi(item.id);
-    getCartList();
+    await getCartList();
   };
 
   return (

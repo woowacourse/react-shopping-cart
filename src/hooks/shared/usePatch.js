@@ -6,10 +6,10 @@ const usePatch = (url) => {
   const [isError, setIsError] = useState(false);
   const [result, setResult] = useState(null);
 
-  const callPatchApi = (itemId, newQuantity) => {
+  const callPatchApi = async (itemId, newQuantity) => {
     setIsLoading(true);
 
-    apiClient
+    await apiClient
       .patch(url, { itemId: itemId, cartQuantity: newQuantity })
       .then((response) => {
         setIsLoading(false);
