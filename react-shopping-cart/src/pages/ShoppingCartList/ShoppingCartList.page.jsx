@@ -10,7 +10,7 @@ import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
 import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
 import Loading from 'components/Loading/Loading.component';
 import useFetch from 'hooks/useFetch';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
 import { deleteItem } from 'redux/actions/shoppingCart.action';
 
@@ -19,11 +19,10 @@ function ShoppingCartList() {
   const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
   const orderList = useSelector(state => state.orderList);
   const shoppingCart = useSelector(state => state.shoppingCart);
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    setChecked(orderList.length === shoppingCart.length);
-  }, [orderList, shoppingCart]);
+  const checked = useMemo(
+    () => orderList.length === shoppingCart.length,
+    [orderList, shoppingCart]
+  );
 
   const handleChangeCheckBox = () => {
     if (checked) {
