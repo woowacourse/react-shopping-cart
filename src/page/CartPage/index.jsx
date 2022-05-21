@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Styled from 'page/CartPage/index.style';
 import { Button } from 'components';
@@ -8,8 +8,24 @@ import CheckBox from 'components/CheckBox';
 import TotalPrice from 'components/TotalPrice';
 
 const CartPage = () => {
-  const { shoppingCart } = useSelector(state => state.reducer);
-  const [totalPrice, setTotalPrice] = useState(1000);
+  const { products, shoppingCart } = useSelector(state => state.reducer);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calculateTotalPrice = useCallback(() => {
+    let total = 0;
+
+    shoppingCart.forEach(item => {
+      const target = products.find(product => product.id === item.id);
+
+      total += item.quantity * target.price;
+    });
+
+    return total;
+  }, [products, shoppingCart]);
+
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice());
+  }, [calculateTotalPrice]);
 
   return (
     <Styled.CartPage>
