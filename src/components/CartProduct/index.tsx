@@ -13,6 +13,7 @@ import Text from 'components/@common/Text';
 import { loadCartProductList, updateCartProduct } from 'api/cart';
 import { setCartProductList } from 'store/cartProductList/actions';
 import Box from 'components/@common/Box';
+import QuantityControlBox from 'components/@common/QuantityControlBox';
 
 interface CartProductProps {
   data: CartProductData;
@@ -30,7 +31,7 @@ const CartProduct = ({
   const { id, name, price, thumbnail, quantity } = data;
   const dispatch = useDispatch();
 
-  const handleIncreaseButton = async () => {
+  const handleIncreaseButton = async (): Promise<void> => {
     try {
       await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
       loadCartProductList().then((res) => dispatch(setCartProductList(res)));
@@ -39,7 +40,7 @@ const CartProduct = ({
     }
   };
 
-  const handleDecreaseButton = async () => {
+  const handleDecreaseButton = async (): Promise<void> => {
     try {
       if (quantity <= 1) return;
 
@@ -67,41 +68,11 @@ const CartProduct = ({
             <Button onClick={() => handleCartProductDelete(id)}>
               <DeleteIcon />
             </Button>
-            <Box w="115px" borderWidth="1px" borderStyle="solid" borderColor="lightGray">
-              <Flex>
-                <Flex align="center">
-                  <Box w="73px">
-                    <Text size="24px" align="center">
-                      {quantity}
-                    </Text>
-                  </Box>
-                </Flex>
-                <Box w="42px">
-                  <Flex direction="column">
-                    <Button
-                      w="42px"
-                      h="30px"
-                      borderWidth="1px"
-                      borderStyle="solid"
-                      borderColor="lightGray"
-                      onClick={handleIncreaseButton}
-                    >
-                      ▲
-                    </Button>
-                    <Button
-                      w="42px"
-                      h="30px"
-                      borderWidth="1px"
-                      borderStyle="solid"
-                      borderColor="lightGray"
-                      onClick={handleDecreaseButton}
-                    >
-                      ▼
-                    </Button>
-                  </Flex>
-                </Box>
-              </Flex>
-            </Box>
+            <QuantityControlBox
+              quantity={quantity}
+              handleIncreaseButton={handleIncreaseButton}
+              handleDecreaseButton={handleDecreaseButton}
+            />
             <Text>{(price * quantity).toLocaleString()}원</Text>
           </Flex>
         </Box>
