@@ -5,7 +5,7 @@ const BoxButton = styled.button`
   width: 100%;
   padding: 16px 8px;
 
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
   font-weight: 700;
   color: ${({ theme: { color } }) => color.main};
   border: none;

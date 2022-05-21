@@ -12,14 +12,14 @@ export const PaymentAmountContainer = styled.div`
   height: 250px;
   padding: 16px;
 
-  border: 1px solid ${({ theme: { color } }) => color.border};
+  border: 1px solid ${({ theme: { color } }) => color.gray03};
 
   p {
     padding: 0 0 16px;
 
-    color: ${({ theme: { color } }) => color.text};
+    color: ${({ theme: { color } }) => color.gray01};
     font-size: ${({ theme: { fontSize } }) => fontSize.large};
-    border-bottom: 1px solid ${({ theme: { color } }) => color.border};
+    border-bottom: 1px solid ${({ theme: { color } }) => color.gray03};
   }
 `;
 
@@ -27,8 +27,8 @@ export const PaymentAmountPrice = styled.dl`
   display: flex;
   justify-content: space-between;
 
-  color: ${({ theme: { color } }) => color.text};
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
+  color: ${({ theme: { color } }) => color.gray01};
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
 
   dt,
   dd {

@@ -15,9 +15,9 @@ export const DeleteCartButton = styled.button`
 
   font-size: ${({ theme: { fontSize } }) => fontSize.small};
   text-align: center;
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
   background-color: ${({ theme: { color } }) => color.main};
-  border: 1px solid ${({ theme: { color } }) => color.border};
+  border: 1px solid ${({ theme: { color } }) => color.gray03};
   cursor: pointer;
 
   :active {
@@ -28,5 +28,5 @@ export const DeleteCartButton = styled.button`
 
 export const CartListCount = styled.p`
   padding: 16px 0;
-  border-bottom: 4px solid ${({ theme: { color } }) => color.border};
+  border-bottom: 4px solid ${({ theme: { color } }) => color.gray03};
 `;

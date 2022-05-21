@@ -8,7 +8,7 @@ export const ProductCartContainer = styled.div`
   width: 700px;
   padding: 16px 0;
 
-  border-bottom: 1px solid ${({ theme: { color } }) => color.border};
+  border-bottom: 1px solid ${({ theme: { color } }) => color.gray03};
 `;
 
 export const ProductCartImage = styled.img`
@@ -21,11 +21,11 @@ export const ProductCartImage = styled.img`
 export const ProductCartName = styled.p`
   flex-grow: 1;
 
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
 `;
 
 export const ProductCartPrice = styled.p`
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
 `;
 
 export const ProductCartControlBox = styled.div`

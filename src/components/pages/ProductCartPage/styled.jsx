@@ -18,7 +18,7 @@ export const CartPageHeader = styled.h2`
   padding: 16px 0;
 
   text-align: center;
-  border-bottom: 4px solid ${({ theme: { color } }) => color.text};
+  border-bottom: 4px solid ${({ theme: { color } }) => color.gray01};
 `;
 
 export const CartPageList = styled.div`
