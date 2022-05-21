@@ -24,10 +24,12 @@ function App() {
         <Header
           left={
             <div>
-              <Button>
-                <CartIcon category="header" />
-              </Button>
-              <Button boldFont>WOOWA SHOP</Button>
+              <Link to="">
+                <Button>
+                  <CartIcon category="header" />
+                </Button>
+                <Button boldFont>WOOWA SHOP</Button>
+              </Link>
             </div>
           }
           right={
