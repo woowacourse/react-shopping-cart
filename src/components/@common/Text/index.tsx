@@ -7,19 +7,28 @@ type Align = 'start' | 'end' | 'center' | 'jusitfy';
 
 interface TextProps {
   theme: DefaultTheme;
+  align?: Align;
   size?: string;
   weight?: Weight;
+  lineHeight?: number;
   color?: keyof Colors;
-  align?: Align;
 }
 
-const Text = styled.div`
-  ${({ theme, size, weight, color, align }: TextProps) => css`
+const Text = styled.p`
+  ${({ theme, size, weight, color, align, lineHeight }: TextProps) => css`
+    text-align: ${align};
     font-size: ${size};
     font-weight: ${weight};
+    line-height: ${lineHeight};
     color: ${color && theme.colors[color]};
-    text-align: ${align};
   `}
+`;
+
+export const EllipsisText = styled(Text)`
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export default Text;
