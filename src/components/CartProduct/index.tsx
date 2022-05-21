@@ -17,9 +17,15 @@ interface CartProductProps {
   data: CartProductData;
   isChecked: boolean;
   handleToggleCheckBoxButton: (id: number) => void;
+  handleDeleteCartProduct: (id: number) => void;
 }
 
-const CartProduct = ({ data, isChecked, handleToggleCheckBoxButton }: CartProductProps) => {
+const CartProduct = ({
+  data,
+  isChecked,
+  handleToggleCheckBoxButton,
+  handleDeleteCartProduct,
+}: CartProductProps) => {
   const { id, name, price, thumbnail, quantity } = data;
   const dispatch = useDispatch();
 
@@ -57,7 +63,7 @@ const CartProduct = ({ data, isChecked, handleToggleCheckBoxButton }: CartProduc
         <Styled.ProductNameBox>{name}</Styled.ProductNameBox>
         <Styled.TestBox>
           <Flex direction="column" align="flex-end" gap="20px">
-            <Button>
+            <Button onClick={() => handleDeleteCartProduct(id)}>
               <DeleteIcon />
             </Button>
             <Styled.QuantityControlBox>
