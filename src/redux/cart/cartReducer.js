@@ -7,7 +7,9 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   const { products } = state;
+
   const newState = { ...state };
+  const newProducts = [...products];
 
   const { type, payload } = action;
 
@@ -17,8 +19,6 @@ const cartReducer = (state = initialState, action) => {
       const targetProductIdx = cartProductIds.indexOf(payload.id);
 
       if (targetProductIdx !== -1) {
-        const newProducts = [...products];
-
         newProducts[targetProductIdx].quantity += 1;
         newState.products = [...newProducts];
 
@@ -32,10 +32,14 @@ const cartReducer = (state = initialState, action) => {
     case ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY: {
       const cartProductIds = getObjectArrayValues(products, 'id');
       const targetProductIdx = cartProductIds.indexOf(payload.id);
-      const newProducts = [...products];
 
       newProducts[targetProductIdx].quantity -= 1;
       newState.products = [...newProducts];
+
+      return newState;
+    }
+    case ACTION_TYPE.REMOVE_PRODUCT_FROM_CART: {
+      newState.products = products.filter(product => product.id !== payload.id);
 
       return newState;
     }

@@ -83,6 +83,10 @@ const Price = styled.p`
 function CartProduct({ id, image, name, quantity, price }) {
   const dispatch = useDispatch();
 
+  const onClickDeleteButton = () => {
+    dispatch({ type: ACTION_TYPE.REMOVE_PRODUCT_FROM_CART, payload: { id } });
+  };
+
   const onClickQuantityControlButton = ({ target }) => {
     if (target.getAttribute('type') === 'increment') {
       if (quantity >= CART_PRODUCT.MAX_QUANTITY) return;
@@ -108,7 +112,7 @@ function CartProduct({ id, image, name, quantity, price }) {
         <Name>{name}</Name>
       </LeftBox>
       <RightBox>
-        <Button>
+        <Button onClick={onClickDeleteButton}>
           <DeleteButton>🗑</DeleteButton>
         </Button>
         <QuantityBox>
