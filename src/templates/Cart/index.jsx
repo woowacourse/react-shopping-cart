@@ -83,7 +83,7 @@ function Cart({ cartProducts }) {
               <Text>결제예상금액</Text>
               <CartTotalPrice cartProducts={cartProducts} />
             </FlexWrapper>
-            <OrderProductsButton />
+            <OrderProductsButton cartProducts={cartProducts} />
           </CartProductPriceWrapperStyled>
         </CartProductPriceStyled>
       </FlexWrapper>

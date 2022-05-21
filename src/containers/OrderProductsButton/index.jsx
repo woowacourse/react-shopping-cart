@@ -2,8 +2,12 @@ import React from 'react';
 
 import Button from 'components/Button';
 
-function OrderProductsButton() {
-  const handleOrderProducts = () => {};
+function OrderProductsButton({ cartProducts }) {
+  const orderProductCount = cartProducts.filter((product) => product.cart_check).length;
+
+  const handleOrderProducts = () => {
+    console.log('주문하기');
+  };
 
   return (
     <Button
@@ -14,7 +18,7 @@ function OrderProductsButton() {
       border="none"
       background="#2AC1BC"
     >
-      주문하기
+      주문하기({orderProductCount})개
     </Button>
   );
 }
