@@ -7,7 +7,7 @@ import { allCheckProduct } from '../store/modules/cart/actions';
 
 function CartPage() {
   const dispatch = useDispatch();
-  const { products, checkedIds } = useSelector((state) => state.cart);
+  const { products, checkedIds, count } = useSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(allCheckProduct());
@@ -20,7 +20,7 @@ function CartPage() {
           <StyledHeaderTitle>장바구니</StyledHeaderTitle>
         </StyledContentHeader>
         <StyledContent>
-          <CartList products={products} checkedIds={checkedIds} />
+          <CartList products={products} checkedIds={checkedIds} count={count} />
           <OrderBox />
         </StyledContent>
       </StyledContentWrapper>

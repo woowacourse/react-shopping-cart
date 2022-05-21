@@ -16,7 +16,7 @@ import Counter from './common/Counter';
 import DeleteIconButton from './common/DeleteIconButton';
 import PriceBox from './common/PriceBox';
 
-function CartList({ products, checkedIds }) {
+function CartList({ products, checkedIds, count }) {
   const dispatch = useDispatch();
   const [allChecked, setAllChecked] = useState(true);
 
@@ -40,6 +40,8 @@ function CartList({ products, checkedIds }) {
       alert('삭제 할 상품을 선택해 주세요.');
       return;
     }
+
+    // dispatch(removeProductsToCartAsync(ids));
     // console.log('remove', ids);
   };
 
@@ -58,7 +60,7 @@ function CartList({ products, checkedIds }) {
       </StyledCartListOptionWrapper>
       <StyledCartListWrapper>
         <StyledCartListTitle>
-          <span>든든배송 상품(3개)</span>
+          <span>든든배송 상품({count}개)</span>
         </StyledCartListTitle>
         <StyledCartList>
           {products.map((product) => {
