@@ -13,9 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import * as Styled from './CartItem.style';
 function CartItem({ cart }) {
   const { id, imageURL, name, price, quantity } = cart;
+
   const navigate = useNavigate();
+
   const isLoading = useSelector((state: any) => state.cart.loadingCartProductId) === id;
   const dispatch = useDispatch();
+
   const responsive = useResponsive();
 
   const { count, increaseCount, decreaseCount } = useCount({

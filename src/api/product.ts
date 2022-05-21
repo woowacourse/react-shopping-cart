@@ -16,3 +16,12 @@ export const getProductList = async (page): Promise<any> => {
 
   return { productList: response.data, totalProductCount: response.headers['x-total-count'] };
 };
+
+export const getProduct = async (id): Promise<any> => {
+  const response = await productAPI.get(`/${id}`, {});
+  if (response.statusText !== 'OK') {
+    throw Error('서버 오류!');
+  }
+
+  return { product: response.data };
+};
