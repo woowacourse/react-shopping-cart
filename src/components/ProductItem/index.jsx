@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { getNumberFormatter } from 'lib/formatterUtils';
 
 import Button from 'components/@common/Button';
 import ToolTip from 'components/@common/ToolTip';
@@ -20,7 +21,7 @@ function ProductItem({ id, image, name, price, onClick }) {
       <S.Description>
         <S.ItemInfo>
           <S.Title>{name}</S.Title>
-          <S.Price>{price.toLocaleString('ko-KR')}원</S.Price>
+          <S.Price>{getNumberFormatter(price)}원</S.Price>
         </S.ItemInfo>
 
         <S.ButtonContainer>
