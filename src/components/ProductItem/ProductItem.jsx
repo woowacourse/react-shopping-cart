@@ -8,7 +8,7 @@ import useCart from 'hooks/useCart';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const { callApi: handleClickCartButton } = usePost('/cartList', {
+  const { callApi: addItemToCart } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
@@ -17,6 +17,10 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
 
   const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
+  };
+
+  const handleClickCart = () => {
+    addItemToCart();
   };
 
   return (
@@ -32,7 +36,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
           <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Styled.ProductInfo>
         <Styled.CartButton
-          onClick={handleClickCartButton}
+          onClick={handleClickCart}
           isInCart={cartList.find((item) => item.id === id)}
         >
           <Styled.CartSvg src={smallCart} />

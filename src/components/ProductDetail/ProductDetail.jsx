@@ -7,9 +7,9 @@ import { useState } from 'react';
 import CartPopup from 'components/CartPopup';
 import useCart from 'hooks/useCart';
 
-const ProductDetail = ({ imgUrl, name, price }) => {
-  const { id } = useParams();
-  const { callApi, isError } = usePost('/cartList', {
+const ProductDetail = ({ name, price, imgUrl }) => {
+  const id = +useParams().id;
+  const { callApi: addItemToCart, isError } = usePost('/cartList', {
     id,
     cartQuantity: 1,
   });
@@ -20,14 +20,14 @@ const ProductDetail = ({ imgUrl, name, price }) => {
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = () => {
-    callApi();
+    addItemToCart();
     setIsCartPopupShow(true);
 
     setTimeout(() => {
       setIsCartPopupShow(false);
       setIsInCart(true);
     }, 3000);
-    console.log('hi');
+    console.log('productDetail', cartList);
   };
 
   return (
