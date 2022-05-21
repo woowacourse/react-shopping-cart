@@ -136,3 +136,54 @@ export const productList = [
     quantity: 10,
   },
 ];
+
+export const mockCartList = [
+  {
+    id: 1,
+    name: 'MSW 캐스터네츠 커스텀캣타워H_가드형',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1608536490_103005_1.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '619000',
+    quantity: 10,
+    cartQuantity: 1,
+  },
+  {
+    id: 3,
+    name: '펫토 세탁이 필요없는 강아지집 고양이집 숨숨집',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162442749999617696.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '99000',
+    quantity: 10,
+    cartQuantity: 1,
+  },
+  {
+    id: 6,
+    name: 'PETMARVEL 펫드라이룸 강아지 고양이 드라이기',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162686064836045500.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '167900',
+    quantity: 10,
+    cartQuantity: 1,
+  },
+];
+
+export const mockOrderList = [
+  {
+    id: 1,
+    name: 'MSW 캐스터네츠 커스텀캣타워H_가드형',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1608536490_103005_1.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '619000',
+    quantity: 10,
+    cartQuantity: 1,
+  },
+  {
+    id: 3,
+    name: '펫토 세탁이 필요없는 강아지집 고양이집 숨숨집',
+    imgUrl:
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/162442749999617696.jpg?gif=1&w=1280&h=1280&c=c',
+    price: '99000',
+    quantity: 10,
+    cartQuantity: 1,
+  },
+];
