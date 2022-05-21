@@ -35,7 +35,7 @@ const ProductList = () => {
 
   return (
     <Flex wrap="wrap" gap="40px">
-      {isLoading && Array.from({ length: 8 }, () => <Skeleton />)}
+      {isLoading && Array.from({ length: 8 }, (_, idx) => <Skeleton key={idx} />)}
       {productList.map(({ id, name, price, thumbnail }) => (
         <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
       ))}
