@@ -17,10 +17,15 @@ function ShoppingBasketListItem({
   thumbnail,
   name,
   price,
-  count,
+  quantity,
+  deleteProducts,
   handleClickIncrease,
   handleClickDecrease,
 }) {
+  const handleClickDelete = () => {
+    deleteProducts([id]);
+  };
+
   return (
     <ShoppingBasketListItemBox>
       <Checkbox />
@@ -29,13 +34,18 @@ function ShoppingBasketListItem({
         {name}
       </Text>
       <ShoppingBasketListItemControlBox isColumnDirection={true}>
-        <img style={{ cursor: 'pointer' }} src={TrashCan} alt={`${name} 삭제 아이콘`} />
+        <img
+          style={{ cursor: 'pointer' }}
+          src={TrashCan}
+          alt={`${name} 삭제 아이콘`}
+          onClick={handleClickDelete}
+        />
         <Counter
           style={{ marginTop: '23px' }}
           handleClickIncrease={() => handleClickIncrease(id)}
           handleClickDecrease={() => handleClickDecrease(id)}
         >
-          {count}
+          {quantity}
         </Counter>
         <Text margin="23px 0 0" fontSize="small">
           {price.toLocaleString('ko-kr')}원

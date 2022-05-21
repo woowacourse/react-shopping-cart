@@ -4,14 +4,16 @@ import Header from 'components/Header/Header.component';
 import ShoppingBasketControl from 'components/ShoppingBasketControl/ShoppingBasketControl.component';
 import ShoppingBasketListContainer from 'components/ShoppingBasketListContainer/ShoppingBasketListContainer.component';
 import PaymentBox from 'components/PaymentBox/PaymentBox.component';
+import { useShoppingBasket } from 'hooks';
 import { PALETTE } from 'styles/theme';
-import { SHOPPING_BASKET_MOCK_DATA } from 'constants/mockData';
+import STATE_KEY from 'constants/stateKey';
 
 const PageBox = styled(FlexWrapper)`
   margin: 60px 0 60px;
 `;
 
 const ContentBox = styled(FlexWrapper)`
+  align-items: flex-start;
   position: relative;
   gap: 86px;
 `;
@@ -21,11 +23,14 @@ const LeftBox = styled(FlexWrapper)`
 `;
 
 const RightBox = styled(FlexWrapper)`
-  align-self: flex-start;
   margin-top: 103px;
 `;
 
 function ShoppingBasket() {
+  const { shoppingBasketList, deleteProducts } = useShoppingBasket(
+    STATE_KEY.SHOPPING_BASKET_REDUCER
+  );
+
   return (
     <>
       <Header />
@@ -38,10 +43,13 @@ function ShoppingBasket() {
           <LeftBox alignItems="flex-start" isColumnDirection={true}>
             <ShoppingBasketControl />
             <Text margin="26px 0 0" fontSize="medium">
-              든든배송 상품 (3개)
+              든든배송 상품 ({shoppingBasketList.length})
             </Text>
             <Divider height="4px" margin="16px 0 23px" backgroundColor={PALETTE.GRAY_002} />
-            <ShoppingBasketListContainer shoppingBasketList={SHOPPING_BASKET_MOCK_DATA} />
+            <ShoppingBasketListContainer
+              shoppingBasketList={shoppingBasketList}
+              deleteProducts={deleteProducts}
+            />
           </LeftBox>
           <RightBox isColumnDirection={true}>
             <PaymentBox

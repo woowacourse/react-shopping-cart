@@ -19,7 +19,7 @@ function shoppingBasketReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         shoppingBasketList: state.shoppingBasketList.filter(
-          product => product.id !== action.payload.id
+          product => !action.payload.idList.includes(product.id)
         ),
       };
 

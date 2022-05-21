@@ -56,7 +56,7 @@ const ImageWrapper = styled.div`
 function ProductListItem({ id, thumbnail, name, price }) {
   const navigate = useNavigate();
 
-  const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
+  const { checkIsContainedProduct, addProduct, deleteProducts } = useShoppingBasket(
     STATE_KEY.SHOPPING_BASKET_REDUCER
   );
 
@@ -67,7 +67,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
   };
 
   const handleClickShoppingCart = () => {
-    dispatchShoppingBasketAction({ id, thumbnail, name, price }, isContained);
+    isContained ? deleteProducts([id]) : addProduct({ id, thumbnail, name, price });
   };
 
   return (

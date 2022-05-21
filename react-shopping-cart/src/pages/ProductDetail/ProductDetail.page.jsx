@@ -15,14 +15,14 @@ function ProductDetail() {
     error,
   } = useFetch(`${process.env.REACT_APP_API_HOST}/product/${productId}`);
 
-  const { checkIsContainedProduct, dispatchShoppingBasketAction } = useShoppingBasket(
+  const { checkIsContainedProduct, addProduct, deleteProducts } = useShoppingBasket(
     STATE_KEY.SHOPPING_BASKET_REDUCER
   );
 
   const isContained = checkIsContainedProduct(Number(productId));
 
   const handleClickAddShoppingCart = () => {
-    dispatchShoppingBasketAction(productInfo, isContained);
+    isContained ? deleteProducts([productInfo.id]) : addProduct(productInfo);
   };
 
   if (isLoading) {

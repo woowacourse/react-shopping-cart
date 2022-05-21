@@ -11,18 +11,19 @@ function useShoppingBasket(stateKey) {
     return shoppingBasketList.find(productInfo => productInfo.id === productId) !== undefined;
   };
 
-  const dispatchShoppingBasketAction = (productInfo, isContained) => {
-    dispatch(
-      isContained
-        ? deleteShoppingBasketProduct(productInfo.id)
-        : addShoppingBasketProduct(productInfo)
-    );
+  const addProduct = productInfo => {
+    dispatch(addShoppingBasketProduct(productInfo));
+  };
+
+  const deleteProducts = idList => {
+    dispatch(deleteShoppingBasketProduct(idList));
   };
 
   return {
     shoppingBasketList,
     checkIsContainedProduct,
-    dispatchShoppingBasketAction,
+    addProduct,
+    deleteProducts,
   };
 }
 

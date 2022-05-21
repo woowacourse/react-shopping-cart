@@ -7,7 +7,7 @@ export const addShoppingBasketProduct = productInfo => ({
   payload: { ...productInfo },
 });
 
-export const deleteShoppingBasketProduct = id => ({
+export const deleteShoppingBasketProduct = idList => ({
   type: DELETE_SHOPPING_BASKET_PRODUCT,
-  payload: { id },
+  payload: { idList },
 });
