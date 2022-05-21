@@ -6,14 +6,15 @@ let cartList = [];
 let orderList = [];
 
 export const handlers = [
-  rest.get('/productList/:id', (req, res, ctx) => {
-    const { id } = req.params;
-    const product = productList.find((product) => product.id === +id);
-    return res(ctx.json(product));
-  }),
-
   rest.get('/productList', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productList));
+  }),
+
+  rest.get('/productList/:id', (req, res, ctx) => {
+    console.log(req.params);
+    const { id } = req.params;
+    const product = productList.find((product) => product.id === +id);
+    return res(ctx.status(200), ctx.json(product));
   }),
 
   rest.post('/cartList', (req, res, ctx) => {
