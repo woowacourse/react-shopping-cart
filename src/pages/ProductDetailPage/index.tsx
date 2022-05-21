@@ -48,8 +48,6 @@ const ProductDetail = () => {
     loadProduct(id)
       .then((res) => setProduct(res))
       .catch(() => navigate('/notFound'));
-
-    dispatch(getCartProductListAsync());
   }, []);
 
   if (product === null) {
