@@ -7,9 +7,7 @@ import comma from 'utils/comma';
 import errorApiImg from 'assets/png/errorApiImg.png';
 
 const Product = () => {
-  const { getProductEffect, isLoading, product, isError } = useProduct();
-
-  getProductEffect();
+  const { isLoading, product, isError } = useProduct();
 
   return (
     <Styled.Wrapper>

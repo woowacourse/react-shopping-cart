@@ -8,6 +8,7 @@ import CartOrder from 'components/CartOrder';
 import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import spinner from 'assets/svg/spinner.svg';
+import useOrderList from 'hooks/useOrderList';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
@@ -15,8 +16,8 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState();
 
   const { callApi: orderCheckedList } = usePost('/orderList', checkedItemList);
-  const { getCartEffect, cartList, isLoading, isError } = useCart();
-  getCartEffect();
+  const { cartList, isLoading, isError } = useCart();
+  const { getOrderListEffect, orderList } = useOrderList();
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
@@ -35,8 +36,12 @@ const Cart = () => {
     setTotalPrice(totalPrice);
   }, [checkedIdList]);
 
-  const handleClickOrder = () => {
-    orderCheckedList();
+  const handleClickOrder = async () => {
+    console.log('1');
+    await orderCheckedList();
+    console.log('2');
+    await getOrderListEffect();
+    console.log('orderList', orderList);
   };
 
   return (

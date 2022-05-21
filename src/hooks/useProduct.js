@@ -8,13 +8,11 @@ const useProduct = () => {
 
   const { id } = useParams();
 
-  const getProductEffect = () => {
-    useEffect(() => {
-      dispatch(getProductAsync(id));
-    }, [id]);
-  };
+  useEffect(() => {
+    dispatch(getProductAsync(id));
+  }, [id]);
 
-  return { getProductEffect, product: data, isLoading, isError };
+  return { product: data, isLoading, isError };
 };
 
 export default useProduct;
