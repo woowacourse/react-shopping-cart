@@ -16,3 +16,8 @@ export const selectCartsError = createSelector(
   [selectCarts],
   (carts) => carts.error
 );
+
+export const selectCartsIsAllChecked = createSelector(
+  [selectCarts],
+  (carts) => carts.allChecked
+);
