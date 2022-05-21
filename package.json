@@ -36,7 +36,8 @@
     "webpack": "^5.72.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cp ./env/.env.server ./.env.local && react-scripts start",
+    "start:msw": "cp ./env/.env.msw ./.env.local && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
