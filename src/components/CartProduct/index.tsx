@@ -26,6 +26,8 @@ interface CartProductProps {
   handleCartProductDelete: (id: number) => void;
 }
 
+type Type = 'increase' | 'decrease';
+
 const CartProduct = ({
   data,
   isChecked,
@@ -36,24 +38,19 @@ const CartProduct = ({
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
   const { id, name, price, thumbnail, quantity } = data;
 
-  // 리팩토링
-  const handleIncreaseButton = async (): Promise<void> => {
+  const handleQuantityControlButton = async (type: Type): Promise<void> => {
     try {
-      await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
-      dispatch(getCartProductListAsync());
-      triggerSnackbar('상품이 정상적으로 수량 +1 되었습니다.');
-    } catch (e) {
-      alert(e);
-    }
-  };
+      if (type === 'increase') {
+        await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
+        triggerSnackbar('상품이 정상적으로 수량 +1 되었습니다.');
+      }
 
-  const handleDecreaseButton = async (): Promise<void> => {
-    try {
-      if (quantity <= 1) return;
+      if (type === 'decrease') {
+        await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
+        triggerSnackbar('상품이 정상적으로 수량 -1 되었습니다.');
+      }
 
-      await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
       dispatch(getCartProductListAsync());
-      triggerSnackbar('상품이 정상적으로 수량 -1 되었습니다.');
     } catch (e) {
       alert(e);
     }
@@ -78,8 +75,8 @@ const CartProduct = ({
             </Button>
             <QuantityControlBox
               quantity={quantity}
-              handleIncreaseButton={handleIncreaseButton}
-              handleDecreaseButton={handleDecreaseButton}
+              handleIncreaseButton={() => handleQuantityControlButton('increase')}
+              handleDecreaseButton={() => handleQuantityControlButton('decrease')}
             />
             <Text>{(price * quantity).toLocaleString()}원</Text>
           </Flex>
