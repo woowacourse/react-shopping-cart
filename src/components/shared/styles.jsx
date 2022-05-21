@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-export const StyledDefaultButton = styled.button`
+export const DefaultButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const DivideUnderLine = styled.hr`

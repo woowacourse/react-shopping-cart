@@ -3,7 +3,7 @@ import CartHeader from 'components/CartPage/CartHeader';
 import CartProduct from 'components/CartPage/CartProduct';
 import Order from 'components/CartPage/Order';
 import CheckBox from 'components/CartPage/CheckBox';
-import { DivideUnderLine } from 'components/shared/styles';
+import { DivideUnderLine, DefaultButton } from 'components/shared/styles';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCart } from 'store/carts';
@@ -116,15 +116,10 @@ const Styled = {
   CancelSelectLabel: styled.label`
     padding-left: 7px;
   `,
-  DeleteProductButton: styled.button`
+  DeleteProductButton: styled(DefaultButton)`
     padding: 12px 22px;
     border: 1px solid #bbbbbb;
     background-color: white;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.6;
-    }
   `,
   CartListTitle: styled.h3`
     display: flex;

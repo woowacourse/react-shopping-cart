@@ -1,4 +1,4 @@
-import { DivideUnderLine } from 'components/shared/styles';
+import { DefaultButton, DivideUnderLine } from 'components/shared/styles';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
@@ -97,7 +97,7 @@ const Styled = {
     align-items: center;
     margin: 30px 10px 0 10px;
   `,
-  OrderButton: styled.button`
+  OrderButton: styled(DefaultButton)`
     border: none;
     display: flex;
     justify-content: center;

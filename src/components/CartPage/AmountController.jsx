@@ -4,6 +4,7 @@ import PropType from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateCartQuantity } from 'store/carts';
+import { DefaultButton } from 'components/shared/styles';
 
 function AmountController({ product }) {
   const [quantity, setQuantity] = useState(product.quantity);
@@ -77,14 +78,13 @@ const Styled = {
       outline: none;
     }
   `,
-  ContollerButton: styled.button`
+  ContollerButton: styled(DefaultButton)`
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4px 12px;
     border: 1px solid #dddddd;
     font-size: 100%;
-    cursor: pointer;
     background-color: white;
     height: 29px;
   `,

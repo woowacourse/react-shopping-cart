@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CART_SIZE, COLOR, PATH } from 'constants';
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
-import { StyledDefaultButton } from 'components/shared/styles';
+import { DefaultButton } from 'components/shared/styles';
 
 function Header() {
   return (
@@ -61,7 +61,7 @@ const Styled = {
     align-items: center;
     gap: 15px;
   `,
-  NavButton: styled(StyledDefaultButton)`
+  NavButton: styled(DefaultButton)`
     font-weight: 500;
     font-size: 24px;
 

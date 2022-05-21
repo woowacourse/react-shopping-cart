@@ -62,5 +62,9 @@ const Styled = {
       justify-content: center;
       align-items: center;
     }
+
+    &:hover {
+      opacity: 0.7;
+    }
   `,
 };
