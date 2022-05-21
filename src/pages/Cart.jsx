@@ -9,6 +9,7 @@ import CartReceipt from 'components/CartReceipt';
 import { snackbar } from 'actions/snackbar';
 import { deleteCartItem, modifyCartItemCount } from 'actions/cart';
 
+import { 알림_메시지 } from 'constants/';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
@@ -37,9 +38,13 @@ const Cart = () => {
   }, [cartList, checkedList]);
 
   const handleDeleteSelectedItem = () => {
+    if (checkedList.length <= 0) {
+      return;
+    }
+
     dispatch(deleteCartItem(checkedList));
-    dispatch(snackbar.pushMessageSnackbar('삭제했습니다! 다음에 구매해주세요 😊'));
     deleteSelectedItem();
+    dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_다중_삭제));
   };
 
   const handleItemCount = (productId, count) => {
@@ -55,11 +60,12 @@ const Cart = () => {
             <CartList
               cartList={cartList}
               selectAllChecked={selectAllChecked}
-              checkAllSelectButton={checkAllSelectButton}
-              handleDeleteSelectedItem={handleDeleteSelectedItem}
+              checkedListCount={checkedList.length}
+              checkAllSelectButton={() => checkAllSelectButton}
+              handleDeleteSelectedItem={() => handleDeleteSelectedItem}
               isChecked={isChecked}
-              handleChecked={handleChecked}
-              handleItemCount={handleItemCount}
+              handleChecked={() => handleChecked}
+              handleItemCount={() => handleItemCount}
             />
           </CommonStyled.FlexWrapper>
           <CartReceipt totalPrice={totalPrice} checkedListCount={checkedList.length} />

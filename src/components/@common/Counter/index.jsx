@@ -1,11 +1,14 @@
+import { 상수 } from 'constants/';
 import PropTypes from 'prop-types';
 import Button from '../Button/styles';
 import * as CommonStyle from '../CommonStyle/styles';
 
+const isValidOrder = (value) => value > 상수.최대_주문수량 || value < 상수.최소_주문수량;
+
 const Counter = ({ id, count, handleItemCount }) => {
   const onClickButton = (amount) => {
     const totalAmount = count + amount;
-    if (totalAmount > 99 || totalAmount < 1) {
+    if (isValidOrder(totalAmount)) {
       return;
     }
 
@@ -15,11 +18,11 @@ const Counter = ({ id, count, handleItemCount }) => {
   const onInputCounter = (e) => {
     const inputNumber = Number(e.target.value);
 
-    if (inputNumber > 99 || inputNumber < 1) {
+    if (isValidOrder(inputNumber)) {
       return;
     }
 
-    handleItemCount(id, Number(e.target.value));
+    handleItemCount(id, inputNumber);
   };
 
   return (
@@ -58,7 +61,7 @@ const Counter = ({ id, count, handleItemCount }) => {
 };
 
 Counter.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   count: PropTypes.number,
   handleItemCount: PropTypes.func,
 };

@@ -5,6 +5,8 @@ export const useCheckBox = (state) => {
   const [checkedList, setCheckedList] = useState([]);
 
   useEffect(() => {
+    console.log(checkedList);
+
     if (state.length > 0) {
       if (checkedList.length >= state.length) {
         setSelectAllChecked(true);
@@ -15,6 +17,7 @@ export const useCheckBox = (state) => {
   }, [state, checkedList]);
 
   const handleChecked = (productId) => {
+    console.log('call : ', productId);
     const prevState = [...checkedList];
     const itemIndex = checkedList.findIndex((id) => id === productId);
 

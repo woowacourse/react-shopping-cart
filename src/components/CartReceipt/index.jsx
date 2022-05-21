@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import Button from 'components/@common/Button/styles';
+
+import { COLORS } from 'styles/theme';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
@@ -16,12 +18,27 @@ const CartReceipt = ({ totalPrice, checkedListCount }) => (
           결제예상금액
         </CommonStyled.Text>
         <CommonStyled.Text weight="bold" size="0.8rem">
-          {totalPrice.toLocaleString('ko-KR')}원
+          {totalPrice ? totalPrice.toLocaleString('ko-KR') : 0}원
         </CommonStyled.Text>
       </CommonStyled.FlexWrapper>
-      <Button height="60px" margin="3rem 0 0 0" size="1.2rem" weight="normal">
-        주문하기({checkedListCount}종)
-      </Button>
+      {checkedListCount === 0 ? (
+        <Button
+          height="60px"
+          margin="3rem 0 0 0"
+          size="1.2rem"
+          weight="normal"
+          cursor="not-allowed"
+          backgroundColor={COLORS.GRAY_100}
+          color={COLORS.GRAY_300}
+          hoverColor={COLORS.GRAY_100}
+        >
+          주문하기({checkedListCount || 0}종)
+        </Button>
+      ) : (
+        <Button height="60px" margin="3rem 0 0 0" size="1.2rem" weight="normal">
+          주문하기({checkedListCount || 0}종)
+        </Button>
+      )}
     </CommonStyled.FlexWrapper>
   </Styled.CartListReceiptContainer>
 );

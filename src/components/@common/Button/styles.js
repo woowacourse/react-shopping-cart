@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { COLORS } from 'styles/theme';
 
 const Button = styled.button`
-  cursor: pointer;
+  cursor: ${(props) => props.cursor || 'pointer'};
   width: ${(props) => props.width || '100%'};
   height: ${(props) => props.height || '70px'};
   border: none;

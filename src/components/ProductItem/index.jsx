@@ -6,8 +6,7 @@ import { addCartList } from 'actions/cart';
 import { snackbar } from 'actions/snackbar';
 
 import IconButton from 'components/@common/IconButton';
-import { 아이콘_코드 } from 'constants/';
-
+import { 아이콘_코드, 알림_메시지 } from 'constants/';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
@@ -18,7 +17,7 @@ const ProductItem = ({ id, thumbnail, name, price }) => {
 
   const onClickAddCartButton = () => {
     dispatch(addCartList({ id, thumbnail, name, price }, cartList));
-    dispatch(snackbar.pushMessageSnackbar(`${name}가 장바구니에 추가되었습니다 🧺`));
+    dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_추가(name)));
   };
 
   const onClickProduct = () => {

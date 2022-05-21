@@ -8,7 +8,7 @@ import Counter from 'components/@common/Counter';
 import { deleteCartItem } from 'actions/cart';
 import { snackbar } from 'actions/snackbar';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
-import { 아이콘_코드 } from 'constants/';
+import { 아이콘_코드, 알림_메시지 } from 'constants/';
 import * as Styled from './styles';
 
 const CartProducItem = ({
@@ -25,12 +25,16 @@ const CartProducItem = ({
 
   const onClickDeleteButton = () => {
     dispatch(deleteCartItem([id]));
-    dispatch(snackbar.pushMessageSnackbar(`${name}를 장바구니에서 삭제하였습니다 🧺`));
+    dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_개별_삭제(name)));
   };
+
+  console.log('id:', id);
+  console.log('isChecked:', isChecked(id));
+  console.log('그거였던였던거:', handleItemCount());
 
   return (
     <Styled.Container>
-      <CheckBox checkState={isChecked} handleChecked={() => handleChecked()} />
+      <CheckBox checkState={isChecked(id)} handleChecked={() => handleChecked(id)} />
       <Styled.ImageWrapper>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
@@ -46,7 +50,7 @@ const CartProducItem = ({
           <IconButton onClick={onClickDeleteButton} icon={아이콘_코드.DELETE} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="120px" justifyContent="flex-end">
-          <Counter id={id} count={count} handleItemCount={handleItemCount} />
+          <Counter id={id} count={count} handleItemCount={handleItemCount()} />
         </CommonStyled.FlexWrapper>
         <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="flex-end">
           <CommonStyled.Text padding="0.5rem 0">
