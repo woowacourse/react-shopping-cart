@@ -10,12 +10,13 @@ const CartProductBox = styled.div`
   width: 736px;
   display: flex;
   justify-content: space-between;
+  padding: 25px 0;
+  border-top: 1.5px solid #cccccc;
 `;
 
 const LeftBox = styled.div`
   display: flex;
   gap: 15px;
-  margin-top: 10px;
 `;
 
 const Image = styled.img`
@@ -94,7 +95,7 @@ function CartProduct({ image, name, quantity, price }) {
             <QuantityControlButton>▼</QuantityControlButton>
           </Button>
         </QuantityBox>
-        <Price>{addThousandUnitComma(price)}원</Price>
+        <Price>{addThousandUnitComma(price * quantity)}원</Price>
       </RightBox>
     </CartProductBox>
   );
