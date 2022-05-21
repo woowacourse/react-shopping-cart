@@ -4,9 +4,18 @@ const ACTION = {
   GET_CART_PENDING: 'GET_CART_PENDING',
   GET_CART_SUCCESS: 'GET_CART_SUCCESS',
   GET_CART_FAILURE: 'GET_CART_FAILURE',
-  ADD_CART: 'ADD_CART',
-  DELETE_CART: 'DELETE_CART',
-  EDIT_CART: 'EDIT_CART',
+
+  ADD_CART_PENDING: 'ADD_CART_PENDING',
+  ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
+  ADD_CART_FAILURE: 'ADD_CART_FAILURE',
+
+  DELETE_CART_PENDING: 'DELETE_CART_PENDING',
+  DELETE_CART_SUCCESS: 'DELETE_CART_SUCCESS',
+  DELETE_CART_FAILURE: 'DELETE_CART_FAILURE',
+
+  EDIT_CART_PENDING: 'EDIT_CART_PENDING',
+  EDIT_CART_SUCCESS: 'EDIT_CART_SUCCESS',
+  EDIT_CART_FAILURE: 'EDIT_CART_FAILURE',
 };
 
 export const getCart = () => async (dispatch) => {
@@ -27,18 +36,45 @@ export const getCart = () => async (dispatch) => {
 };
 
 export const postCart = (id) => async (dispatch) => {
-  const {data} = await appClient.post(`cart/${id}`);
-  dispatch({type: ACTION.ADD_CART, payload: data});
+  dispatch({type: ACTION.ADD_CART_PENDING});
+  try {
+    const {data} = await appClient.post(`cart/${id}`);
+    dispatch({type: ACTION.ADD_CART_SUCCESS, payload: data});
+  } catch (error) {
+    dispatch({
+      type: ACTION.ADD_CART_FAILURE,
+      payload: error,
+      error: true,
+    });
+  }
 };
 
 export const deleteCart = (id) => async (dispatch) => {
-  const {data} = await appClient.delete(`cart/${id}`);
-  dispatch({type: ACTION.DELETE_CART, payload: data});
+  dispatch({type: ACTION.DELETE_CART_PENDING});
+  try {
+    const {data} = await appClient.delete(`cart/${id}`);
+    dispatch({type: ACTION.DELETE_CART_SUCCESS, payload: data});
+  } catch (error) {
+    dispatch({
+      type: ACTION.DELETE_CART_FAILURE,
+      payload: error,
+      error: true,
+    });
+  }
 };
 
 export const editCart = (id, quantity) => async (dispatch) => {
-  const {data} = await appClient.put(`cart/${id}`, {quantity});
-  dispatch({type: ACTION.EDIT_CART, payload: data});
+  dispatch({type: ACTION.EDIT_CART_PENDING});
+  try {
+    const {data} = await appClient.put(`cart/${id}`, {quantity});
+    dispatch({type: ACTION.EDIT_CART_SUCCESS, payload: data});
+  } catch (error) {
+    dispatch({
+      type: ACTION.EDIT_CART_FAILURE,
+      payload: error,
+      error: true,
+    });
+  }
 };
 
 const initialState = {
@@ -57,11 +93,11 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case ACTION.GET_CART_SUCCESS: {
-      const productItem = action.payload;
+      const cartedItem = action.payload;
       return {
         ...state,
         pending: false,
-        data: productItem,
+        data: cartedItem,
       };
     }
     case ACTION.GET_CART_FAILURE: {
@@ -71,25 +107,70 @@ export default function cartReducer(state = initialState, action) {
         error: true,
       };
     }
-    case ACTION.ADD_CART: {
+    case ACTION.ADD_CART_PENDING: {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+    }
+    case ACTION.ADD_CART_SUCCESS: {
       const cartedItem = action.payload;
       return {
         ...state,
+        pending: false,
         data: cartedItem,
       };
     }
-    case ACTION.DELETE_CART: {
+    case ACTION.ADD_CART_FAILURE: {
+      return {
+        ...state,
+        pending: false,
+        error: true,
+      };
+    }
+    case ACTION.DELETE_CART_PENDING: {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+    }
+    case ACTION.DELETE_CART_SUCCESS: {
       const cartedItem = action.payload;
       return {
         ...state,
+        pending: false,
         data: cartedItem,
       };
     }
-    case ACTION.EDIT_CART: {
+    case ACTION.DELETE_CART_FAILURE: {
+      return {
+        ...state,
+        pending: false,
+        error: true,
+      };
+    }
+    case ACTION.EDIT_CART_PENDING: {
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+    }
+    case ACTION.EDIT_CART_SUCCESS: {
       const cartedItem = action.payload;
       return {
         ...state,
+        pending: false,
         data: cartedItem,
+      };
+    }
+    case ACTION.EDIT_CART_FAILURE: {
+      return {
+        ...state,
+        pending: false,
+        error: true,
       };
     }
     default:
