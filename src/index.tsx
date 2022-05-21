@@ -10,6 +10,10 @@ import App from "./App";
 import { worker } from "./mocks/browser";
 
 if (process.env.NODE_ENV === "development") {
+  if (window.location.pathname === "/react-shopping-cart") {
+    window.location.pathname = "/react-shopping-cart/";
+  }
+
   worker.start({
     serviceWorker: {
       url: "/react-shopping-cart/mockServiceWorker.js",
