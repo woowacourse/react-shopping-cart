@@ -1,4 +1,5 @@
 import useCart from 'hooks/useCart';
+import { getNumberFormatter } from 'lib/formatterUtils';
 
 import FlexContainer from 'components/@common/FlexContainer';
 import Button from 'components/@common/Button';
@@ -19,6 +20,10 @@ export function CartList() {
     action;
 
   const isSelectAllChecked = checkedItemList.length > 0;
+  const totalAmount = checkedItemList.reduce(
+    (previous, { price, quantity }) => previous + price * quantity,
+    0,
+  );
 
   const handleCheckItem = (id, isChecked) => {
     updateItemChecked(id, isChecked);
@@ -112,11 +117,11 @@ export function CartList() {
 
             <FlexContainer direction="row" justify="space-between">
               <TextUnderline>결제 예상 금액</TextUnderline>
-              <TextUnderline>21,700원</TextUnderline>
+              <TextUnderline>{`${getNumberFormatter(totalAmount)}원`}</TextUnderline>
             </FlexContainer>
 
             <FlexContainer>
-              <Button state="primary">주문하기 (2개)</Button>
+              <Button state="primary">주문하기 ({checkedItemList.length}개)</Button>
             </FlexContainer>
           </S.OrderContainer>
         </FlexContainer>
