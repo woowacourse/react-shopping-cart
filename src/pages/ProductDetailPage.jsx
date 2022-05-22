@@ -1,17 +1,39 @@
-import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
 import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import PriceBox from '../components/common/PriceBox';
 import useRequest from '../hooks/useRequest';
+import { AddProductToCartAsync } from '../store/modules/cart/actions';
 
 function ProductDetailPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products } = useSelector((state) => state.cart);
   const { id } = useParams();
   const { data: item, loading } = useRequest(() => getProductItem(id));
+
+  const isCkecked = useMemo(() => !!products.find((product) => product.id === id), [id, products]);
+
+  const handleClick = (isCkecked, product) => {
+    if (isCkecked) {
+      alert('이미 장바구니에 들어 있습니다.');
+      navigate('/cart');
+      return;
+    }
+
+    alert('장바구니에 추가 되었습니다.');
+    dispatch(AddProductToCartAsync(product));
+    navigate('/cart');
+  };
 
   if (loading) return null;
 
   const { imageUrl, name, price } = item;
+
+  // console.log('item', item);
 
   return (
     <StyledProductDetailContainer>
@@ -26,7 +48,7 @@ function ProductDetailPage() {
           <PriceBox price={price} fontSize={'20'} />
         </StyledProductDetailPrice>
       </StyledProductDetailInfo>
-      <StyledShopButton>장바구니</StyledShopButton>
+      <StyledShopButton onClick={() => handleClick(isCkecked, item)}>장바구니</StyledShopButton>
     </StyledProductDetailContainer>
   );
 }
