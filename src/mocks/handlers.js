@@ -1,3 +1,4 @@
+import { API } from 'constants/api';
 import { rest } from 'msw';
 
 const products = [
@@ -88,11 +89,11 @@ const findById = (objectArray, id) =>
   objectArray.find((object) => object.id === id);
 
 export const handlers = [
-  rest.get('/products', (req, res, ctx) => {
+  rest.get(`/${API.PRODUCTS}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
   }),
 
-  rest.get('/products/:userId', (req, res, ctx) => {
+  rest.get(`/${API.PRODUCTS}/:userId`, (req, res, ctx) => {
     const { userId } = req.params;
     const storedProductsId = users[userId].carts.map((product) => product.id);
     const quantityContainedProducts = products.map((product) => {
@@ -109,23 +110,34 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(quantityContainedProducts));
   }),
 
-  rest.get('/carts', (req, res, ctx) => {
+  rest.get(`/${API.CARTS}`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json([]));
   }),
 
-  rest.get('/carts/:userId', (req, res, ctx) => {
+  rest.get(`/${API.CARTS}/:userId`, (req, res, ctx) => {
     const { userId } = req.params;
     return res(ctx.status(200), ctx.json(users[userId].carts));
   }),
 
-  rest.post('/carts/:userId/:id', (req, res, ctx) => {
+  rest.post(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {
     const { userId, id } = req.params;
     users[userId].carts.push({ id, quantity: 1 });
 
     return res(ctx.status(200));
   }),
 
-  rest.get('/cartsInfo/:userId', (req, res, ctx) => {
+  rest.delete(`/${API.CARTS}/:userId/:cartList`, (req, res, ctx) => {
+    const { userId, cartList } = req.params;
+    const requestedCartList = cartList.split('&');
+
+    users[userId].carts = users[userId].carts.filter(
+      (cart) => !requestedCartList.includes(cart.id)
+    );
+
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+
+  rest.get(`/${API.CARTSINFO}/:userId`, (req, res, ctx) => {
     const { userId } = req.params;
 
     const carts = [...users[userId].carts];
@@ -140,18 +152,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(storedProducts));
   }),
 
-  rest.delete('/carts/:userId/:cartList', (req, res, ctx) => {
-    const { userId, cartList } = req.params;
-    const requestedCartList = cartList.split('&');
-
-    users[userId].carts = users[userId].carts.filter(
-      (cart) => !requestedCartList.includes(cart.id)
-    );
-
-    return res(ctx.delay(200), ctx.status(204));
-  }),
-
-  rest.get('/product/:id', (req, res, ctx) => {
+  rest.get(`/${API.PRODUCT}/:id`, (req, res, ctx) => {
     const { id } = req.params;
 
     return res(ctx.status(200), ctx.json(findById(products, id)));

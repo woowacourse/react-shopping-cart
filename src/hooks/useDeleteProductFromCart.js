@@ -1,6 +1,7 @@
-import PATH from 'constants/path';
 import useFetch from 'hooks/useFetch';
 import useUser from 'hooks/useUser';
+
+import { API } from 'constants/api';
 
 function useDeleteProductFromCart(id) {
   const { userId } = useUser();
@@ -9,7 +10,7 @@ function useDeleteProductFromCart(id) {
     isLoading: isCartDeleteLoading,
     apiCall: deleteFromCart,
     error: deleteProductFromCartError,
-  } = useFetch({ url: `/${PATH.CARTS}/${userId}/${id}`, method: 'DELETE' });
+  } = useFetch({ url: `/${API.CARTS}/${userId}/${id}`, method: 'DELETE' });
 
   return { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError };
 }

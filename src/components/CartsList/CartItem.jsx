@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { checkOne, loadCarts, patchCarts, uncheckOne } from 'store/carts';
 
-import PATH from 'constants/path';
+import { API } from 'constants/api';
 import { COLOR } from 'constants/styles';
 
 import useFetch from 'hooks/useFetch';
@@ -23,12 +23,12 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
   const [count, setCount] = useState(quantity);
 
   const { apiCall: deleteClickedProduct } = useFetch({
-    url: `${PATH.CARTS}/${userId}/${id}`,
+    url: `${API.CARTS}/${userId}/${id}`,
     method: 'DELETE',
   });
 
   const { apiCall: patchQuantity } = useFetch({
-    url: `${PATH.CARTS}/${id}/`,
+    url: `${API.CARTS}/${id}/`,
     method: 'PATCH',
     data: count,
   });

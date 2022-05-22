@@ -1,5 +1,6 @@
 import axios from 'axios';
-import PATH from 'constants/path';
+
+import { API } from 'constants/api';
 
 const LOAD_CARTS_START = 'carts/LOAD_START';
 const LOAD_CARTS_SUCCESS = 'carts/LOAD_SUCCESS';
@@ -11,8 +12,6 @@ const CHECK_ALL = 'carts/CHECK_ALL';
 const CHECK_ONE = 'carts/CHECK_ONE';
 const UNCHECK_ALL = 'carts/UNCHECK_ALL';
 const UNCHECK_ONE = 'carts/UNCHECK_ONE';
-const INCREMENT_QUANTITY = 'carts/INCREMENT_QUANTITY';
-const DECREMENT_QUANTITY = 'carts/DECREMENT_QUANTITY';
 const PATCH_CARTS = 'carts/PATCH_CARTS';
 
 const initialState = {
@@ -132,7 +131,7 @@ const cartsReducer = (state = initialState, action) => {
 export const loadCarts = (userId) => async (dispatch) => {
   dispatch(loadCartsStart());
   try {
-    const carts = await axios(`${PATH.CARTS}/${userId}`);
+    const carts = await axios(`/${API.CARTS}/${userId}`);
     dispatch(loadCartsSuccess(carts.data));
   } catch (error) {
     dispatch(loadCartsFail(error));

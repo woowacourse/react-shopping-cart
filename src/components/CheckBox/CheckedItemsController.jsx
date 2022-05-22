@@ -6,7 +6,7 @@ import { checkAll, loadCarts, uncheckAll } from 'store/carts';
 import { BasicButton, Flex } from 'components/shared/basics';
 import CheckBox from 'components/CheckBox/CheckBox';
 
-import PATH from 'constants/path';
+import { API } from 'constants/api';
 
 import useFetch from 'hooks/useFetch';
 import useUser from 'hooks/useUser';
@@ -16,7 +16,7 @@ function CheckedItemsController({ checkedCarts }) {
   const query = checkedCarts.map((cart) => cart.id).join('&');
 
   const { apiCall: deleteCheckedProducts } = useFetch({
-    url: `${PATH.CARTS}/${userId}/${query}`,
+    url: `${API.CARTS}/${userId}/${query}`,
     method: 'DELETE',
   });
 

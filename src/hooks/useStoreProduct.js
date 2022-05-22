@@ -1,6 +1,7 @@
-import PATH from 'constants/path';
 import useFetch from 'hooks/useFetch';
 import useUser from 'hooks/useUser';
+
+import { API } from 'constants/api';
 
 function useStoreProduct(id) {
   const { userId } = useUser();
@@ -10,7 +11,7 @@ function useStoreProduct(id) {
     apiCall: addToCart,
     error: cartAddError,
   } = useFetch({
-    url: `/${PATH.CARTS}/${userId}/${id}`,
+    url: `/${API.CARTS}/${userId}/${id}`,
     data: { id, quantity: 1 },
     method: 'POST',
   });

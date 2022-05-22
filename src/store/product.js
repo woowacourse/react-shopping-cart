@@ -1,5 +1,6 @@
 import axios from 'axios';
-import PATH from 'constants/path';
+
+import { API } from 'constants/api';
 
 const LOAD_PRODUCT_START = 'product/LOAD_PRODUCT_START';
 const LOAD_PRODUCT_SUCCESS = 'product/LOAD_PRODUCT_SUCCESS';
@@ -42,7 +43,7 @@ const productReducer = (state = initialState, action) => {
 export const loadProduct = (id) => async (dispatch) => {
   dispatch(loadProductStart());
   try {
-    const result = await axios(`/${PATH.PRODUCT}/${id}`);
+    const result = await axios(`/${API.PRODUCT}/${id}`);
     dispatch(loadProductSuccess(result.data));
   } catch (error) {
     dispatch(loadProductFail(error));
