@@ -47,3 +47,7 @@ export const incrementCartItemQuantity = (id) => async (dispatch) => {
 export const decrementCartItemQuantity = (id) => async (dispatch) => {
   dispatch(createAction(DECREMENT_CART_ITEM_QUANTITY, id));
 };
+
+export const removeAllCartItem = () => async (dispatch) => {
+  dispatch(createAction(REMOVE_ALL_CART_ITEM));
+};
