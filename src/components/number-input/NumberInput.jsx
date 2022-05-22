@@ -4,7 +4,13 @@ import CaretDown from "@assets/images/caret-down.svg";
 import { flushSync } from "react-dom/cjs/react-dom.production.min";
 import styles from "./number-input.module";
 
-function NumberInput({ value, onChange, step = 1, positive = true }) {
+function NumberInput({
+  value,
+  onChange,
+  step = 1,
+  positive = true,
+  maxLength = 3,
+}) {
   const [val, setVal] = useState(value);
 
   const handleChange = (e) => {
@@ -37,7 +43,12 @@ function NumberInput({ value, onChange, step = 1, positive = true }) {
 
   return (
     <div className={styles.numberInput}>
-      <input type="text" onChange={handleChange} value={val} />
+      <input
+        type="text"
+        onChange={handleChange}
+        value={val}
+        maxLength={maxLength}
+      />
       <div className={styles.steps}>
         <button type="button" onClick={handleIncrease} className={styles.up}>
           <CaretUp />
