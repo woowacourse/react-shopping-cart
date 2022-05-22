@@ -12,8 +12,8 @@ import {
   DECREMENT_CART_ITEM_QUANTITY,
   REMOVE_CHECKED_CART_ITEM,
   REMOVE_ROW_CART_ITEM,
-} from "./types";
-import createAction from "./createAction";
+} from "@/redux/types";
+import createAction from "@/redux/createAction";
 
 export const getProductList = () => async (dispatch) => {
   try {

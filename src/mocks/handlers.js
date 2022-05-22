@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { productList } from "./data";
+import { productList } from "@/mocks/data";
 import { BASE_URL } from "@/constants";
 
 export const handlers = [

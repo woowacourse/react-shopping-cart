@@ -10,7 +10,7 @@ import {
   DECREMENT_CART_ITEM_QUANTITY,
   REMOVE_CHECKED_CART_ITEM,
   REMOVE_ROW_CART_ITEM,
-} from "./types";
+} from "@/redux/types";
 
 export const productListInitialState = {
   productList: {

@@ -1,4 +1,4 @@
-import StyledSpinner from "./Spinner.styled";
+import StyledSpinner from "@/components/spinner/Spinner.styled";
 
 function Spinner() {
   return <StyledSpinner />;
