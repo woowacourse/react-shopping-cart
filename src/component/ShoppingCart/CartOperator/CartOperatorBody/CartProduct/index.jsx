@@ -34,57 +34,59 @@ export default function CartProduct({ product }) {
   };
 
   return (
-    <CartProductBox>
-      <CartProductPresentBox>
+    <Styled.CartProductBox>
+      <Styled.CartProductPresentBox>
         <CheckBox checked={product.checked} onCheckChange={handleCheckChange} />
-        <CartProductImage src={image} />
-        <ProductName>{name}</ProductName>
-      </CartProductPresentBox>
+        <Styled.CartProductImage src={image} />
+        <Styled.ProductName>{name}</Styled.ProductName>
+      </Styled.CartProductPresentBox>
 
-      <CarProductOperateBox>
+      <Styled.CarProductOperateBox>
         <Button onClick={handleDeleteClick}>
           <img src="trashCan.svg" />
         </Button>
         <Counter count={count} onUPClick={handleUpClick} onDownClick={handleDownClick} />
         <p>{price.toLocaleString('ko-KR')} 원</p>
-      </CarProductOperateBox>
-    </CartProductBox>
+      </Styled.CarProductOperateBox>
+    </Styled.CartProductBox>
   );
 }
 
-const CartProductImage = styled.img`
-  width: 144px;
-  height: 147px;
-  margin-left: 15px;
+const Styled = {
+  CartProductImage: styled.img`
+    width: 144px;
+    height: 147px;
+    margin-left: 15px;
 
-  object-fit: cover;
-`;
+    object-fit: cover;
+  `,
 
-const CartProductBox = styled.div`
-  width: max(736px);
-  display: flex;
-  justify-content: space-between;
-  padding: 23px 0;
-  border-bottom: 2px solid #cccccc;
-`;
+  CartProductBox: styled.div`
+    width: max(736px);
+    display: flex;
+    justify-content: space-between;
+    padding: 23px 0;
+    border-bottom: 2px solid #cccccc;
+  `,
 
-const CartProductPresentBox = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
+  CartProductPresentBox: styled.div`
+    display: flex;
+    align-items: flex-start;
+  `,
 
-const CarProductOperateBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
+  CarProductOperateBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  `,
 
-const ProductName = styled.p`
-  margin-left: 20px;
-  font-family: 'Noto Sans KR';
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 0.5px;
-`;
+  ProductName: styled.p`
+    margin-left: 20px;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+  `,
+};

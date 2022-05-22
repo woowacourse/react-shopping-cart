@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export default function CheckBox({ description, checked, onCheckChange }) {
   return (
-    <Description>
-      <CheckInput type="checkbox" onChange={onCheckChange} checked={checked} />
+    <Styled.Description>
+      <Styled.CheckInput type="checkbox" onChange={onCheckChange} checked={checked} />
       {description}
-    </Description>
+    </Styled.Description>
   );
 }
 
@@ -13,22 +13,24 @@ CheckBox.defaultProps = {
   description: '',
 };
 
-const CheckInput = styled.input`
-  width: 28px;
-  height: 28px;
-`;
+const Styled = {
+  CheckInput: styled.input`
+    width: 28px;
+    height: 28px;
+  `,
 
-const Description = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  Description: styled.label`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0.5px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
 
-  color: #333333;
-`;
+    color: #333333;
+  `,
+};

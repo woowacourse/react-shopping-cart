@@ -18,29 +18,31 @@ export default function AllRemoveButton({ products }) {
 
   return (
     <Button onClick={handleAllRemoveClick}>
-      <DeleteButtonContent>상품 삭제</DeleteButtonContent>
+      <Styled.DeleteButtonContent>상품 삭제</Styled.DeleteButtonContent>
     </Button>
   );
 }
 
-const DeleteButtonContent = styled.div`
-  width: 117px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #bbbbbb;
+const Styled = {
+  DeleteButtonContent: styled.div`
+    width: 117px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #bbbbbb;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 21px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
 
-  color: #333333;
+    color: #333333;
 
-  &:hover {
-    background-color: #2ac1bc;
-    color: white;
-  }
-`;
+    &:hover {
+      background-color: #2ac1bc;
+      color: white;
+    }
+  `,
+};

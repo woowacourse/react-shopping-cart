@@ -2,30 +2,32 @@ import styled from 'styled-components';
 
 export default function OrderList({ products }) {
   return (
-    <OrderUl>
+    <Styled.OrderUl>
       {products.map(
         product =>
           product.checked && (
-            <OrderLi key={product.id}>
+            <Styled.OrderLi key={product.id}>
               <span>{product.name}</span>
               <span>{product.count * product.price} 원</span>
-            </OrderLi>
+            </Styled.OrderLi>
           )
       )}
-    </OrderUl>
+    </Styled.OrderUl>
   );
 }
 
-const OrderUl = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 15px;
-`;
+const Styled = {
+  OrderUl: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 15px;
+  `,
 
-const OrderLi = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
+  OrderLi: styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  `,
+};

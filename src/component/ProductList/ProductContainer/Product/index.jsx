@@ -6,23 +6,25 @@ export default function Product({ handleProductClick, handleCartClick, product }
   const { image, name, price } = product;
 
   return (
-    <ProductBox>
-      <ProductImage
+    <Styled.Product>
+      <Styled.ProductImage
         src={image}
         alt="과일 이미지"
         title="product-image"
         onClick={handleProductClick}
       />
-      <DescriptionBox>
+      <Styled.DescriptionBox>
         <div>
-          <NameText onClick={handleProductClick}>{name}</NameText>
-          <PriceText onClick={handleProductClick}>{price.toLocaleString('ko-KR')} 원</PriceText>
+          <Styled.NameText onClick={handleProductClick}>{name}</Styled.NameText>
+          <Styled.PriceText onClick={handleProductClick}>
+            {price.toLocaleString('ko-KR')} 원
+          </Styled.PriceText>
         </div>
         <Button onClick={handleCartClick}>
-          <CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />
+          <Styled.CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />
         </Button>
-      </DescriptionBox>
-    </ProductBox>
+      </Styled.DescriptionBox>
+    </Styled.Product>
   );
 }
 
@@ -38,66 +40,68 @@ Product.propTypes = {
   price: PropTypes.number,
 };
 
-const ProductBox = styled.div`
-  width: 282px;
-  height: 358px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const ProductImage = styled.img`
-  width: 282px;
-  height: 282px;
-  object-fit: cover;
-  cursor: pointer;
-`;
-
-const DescriptionBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 12px;
-`;
-
-const NameText = styled.p`
-  font-family: 'Noto Sans KR';
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  color: #333333;
-  cursor: pointer;
-`;
-
-const PriceText = styled.p`
-  font-family: 'Noto Sans KR';
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  color: #333333;
-  cursor: pointer;
-`;
-
 const zoom = keyframes`
-  from {
-    width: 30px;
-  }
-  to{
-    width: 35px;
-  }
-`;
-
-const CartIcon = styled.img`
+from {
   width: 30px;
-  border: none;
-
-  &:hover {
-    animation-duration: 0.3s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-    animation-name: ${zoom};
-  }
+}
+to{
+  width: 35px;
+}
 `;
+
+const Styled = {
+  Product: styled.div`
+    width: 282px;
+    height: 358px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  `,
+
+  ProductImage: styled.img`
+    width: 282px;
+    height: 282px;
+    object-fit: cover;
+    cursor: pointer;
+  `,
+
+  DescriptionBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+  `,
+
+  NameText: styled.p`
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #333333;
+    cursor: pointer;
+  `,
+
+  PriceText: styled.p`
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #333333;
+    cursor: pointer;
+  `,
+
+  CartIcon: styled.img`
+    width: 30px;
+    border: none;
+
+    &:hover {
+      animation-duration: 0.3s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      animation-name: ${zoom};
+    }
+  `,
+};

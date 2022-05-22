@@ -19,49 +19,51 @@ export default function NavBar() {
   };
 
   return (
-    <StyledNavBar>
+    <Styled.NavBar>
       <Button onClick={handleLogoClick}>
-        <LogoText>🛒 WOOWA SHOP</LogoText>
+        <Styled.LogoText>🛒 WOOWA SHOP</Styled.LogoText>
       </Button>
-      <MenuBox>
+      <Styled.MenuBox>
         <Button onClick={handleShoppingCartClick}>
-          <MenuText>장바구니</MenuText>
+          <Styled.MenuText>장바구니</Styled.MenuText>
         </Button>
         <Button onClick={handleOrderListClick}>
-          <MenuText>주문목록</MenuText>
+          <Styled.MenuText>주문목록</Styled.MenuText>
         </Button>
-      </MenuBox>
-    </StyledNavBar>
+      </Styled.MenuBox>
+    </Styled.NavBar>
   );
 }
 
-const StyledNavBar = styled.div`
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  gap: 712px;
-  background-color: #2ac1bc;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-`;
+const Styled = {
+  NavBar: styled.div`
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    gap: 712px;
+    background-color: #2ac1bc;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  `,
 
-const LogoText = styled.span`
-  font-family: 'Noto Sans KR';
-  font-weight: 900;
-  font-size: 40px;
-  color: #ffffff;
-`;
+  LogoText: styled.span`
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    font-size: 40px;
+    color: #ffffff;
+  `,
 
-const MenuBox = styled.div`
-  display: flex;
-  gap: 44px;
-`;
+  MenuBox: styled.div`
+    display: flex;
+    gap: 44px;
+  `,
 
-const MenuText = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  text-align: center;
-  text-transform: capitalize;
-  color: #ffffff;
-`;
+  MenuText: styled.span`
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #ffffff;
+  `,
+};

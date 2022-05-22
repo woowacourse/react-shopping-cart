@@ -3,53 +3,55 @@ import Button from '../Button';
 
 export default function Counter({ count, onUPClick, onDownClick }) {
   return (
-    <CounterBox>
-      <Count>{count}</Count>
-      <CounterButtonBox>
+    <Styled.CounterBox>
+      <Styled.Count>{count}</Styled.Count>
+      <Styled.CounterButtonBox>
         <Button onClick={onUPClick}>
-          <CounterButtonContent>
+          <Styled.CounterButtonContent>
             <img src="up.svg" />
-          </CounterButtonContent>
+          </Styled.CounterButtonContent>
         </Button>
         <Button onClick={onDownClick}>
-          <CounterButtonContent>
+          <Styled.CounterButtonContent>
             <img src="down.svg" />
-          </CounterButtonContent>
+          </Styled.CounterButtonContent>
         </Button>
-      </CounterButtonBox>
-    </CounterBox>
+      </Styled.CounterButtonBox>
+    </Styled.CounterBox>
   );
 }
 
-const CounterBox = styled.div`
-  display: flex;
+const Styled = {
+  CounterBox: styled.div`
+    display: flex;
 
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 19px;
-`;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 19px;
+  `,
 
-const Count = styled.div`
-  width: 73px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  Count: styled.div`
+    width: 73px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  border: 1px solid #dddddd;
-`;
+    border: 1px solid #dddddd;
+  `,
 
-const CounterButtonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+  CounterButtonBox: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
 
-const CounterButtonContent = styled.div`
-  width: 42px;
-  height: 29px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  border: 1px solid #dddddd;
-`;
+  CounterButtonContent: styled.div`
+    width: 42px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #dddddd;
+  `,
+};

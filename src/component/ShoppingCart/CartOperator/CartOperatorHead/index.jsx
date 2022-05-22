@@ -4,15 +4,17 @@ import ProductCheckBox from './ProductCheckBox';
 
 export default function CartOperatorHead({ products }) {
   return (
-    <CartOperationHeadBox>
+    <Styled.CartOperationHeadBox>
       <ProductCheckBox products={products} />
       <AllRemoveButton products={products} />
-    </CartOperationHeadBox>
+    </Styled.CartOperationHeadBox>
   );
 }
 
-const CartOperationHeadBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 26px;
-`;
+const Styled = {
+  CartOperationHeadBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 26px;
+  `,
+};

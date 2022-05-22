@@ -4,13 +4,15 @@ import CartOperatorHead from './CartOperatorHead';
 
 export default function CartOperator({ products }) {
   return (
-    <CartOperationBox>
+    <Styled.CartOperationBox>
       <CartOperatorHead products={products} />
       <CartOperatorBody products={products} />
-    </CartOperationBox>
+    </Styled.CartOperationBox>
   );
 }
 
-const CartOperationBox = styled.div`
-  width: 736px;
-`;
+const Styled = {
+  CartOperationBox: styled.div`
+    width: 736px;
+  `,
+};

@@ -8,18 +8,18 @@ export default function PageController({ pageLength, currentPage, onPageChange }
   };
 
   return (
-    <ControlButtonBox>
+    <Styled.ControlButtonBox>
       {Array.from({ length: pageLength }).map((_, index) => (
-        <ControlButton
+        <Styled.ControlButton
           key={Math.random()}
           name={index + 1}
           clicked={index + 1 === currentPage}
           onClick={onButtonClick}
         >
           {index + 1}
-        </ControlButton>
+        </Styled.ControlButton>
       ))}
-    </ControlButtonBox>
+    </Styled.ControlButtonBox>
   );
 }
 
@@ -34,18 +34,20 @@ PageController.propTypes = {
   onPageChange: PropTypes.func,
 };
 
-const ControlButtonBox = styled.div`
-  display: flex;
-  gap: 10px;
-`;
+const Styled = {
+  ControlButtonBox: styled.div`
+    display: flex;
+    gap: 10px;
+  `,
 
-const ControlButton = styled.button`
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  border: none;
-  border-radius: 50%;
-  background-color: ${props => (props.clicked ? 'skyblue' : 'transparent')};
-  color: ${props => (props.clicked ? 'white' : 'black')};
-  cursor: pointer;
-`;
+  ControlButton: styled.button`
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: ${props => (props.clicked ? 'skyblue' : 'transparent')};
+    color: ${props => (props.clicked ? 'white' : 'black')};
+    cursor: pointer;
+  `,
+};

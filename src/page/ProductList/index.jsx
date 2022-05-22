@@ -28,25 +28,27 @@ export default function ProductList() {
     <Maybe
       of={!!products.length}
       either={
-        <Content>
+        <Styled.Content>
           <GridLayout>
             {currentPageProducts.map(product => (
               <ProductContainer key={product.id} product={product} />
             ))}
           </GridLayout>
           <Pagination />
-        </Content>
+        </Styled.Content>
       }
       orElse={<LoadingSpinner />}
     />
   );
 }
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  padding: 60px 0;
-`;
+const Styled = {
+  Content: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 60px 0;
+  `,
+};

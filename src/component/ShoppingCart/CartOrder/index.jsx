@@ -13,42 +13,44 @@ export default function CartOrder({ products }) {
   }, 0);
 
   return (
-    <OrderBox>
-      <OrderBoxHeader>결제예상금액</OrderBoxHeader>
-      <OrderBoxBody>
+    <Styled.OrderBox>
+      <Styled.OrderBoxHeader>결제예상금액</Styled.OrderBoxHeader>
+      <Styled.OrderBoxBody>
         <OrderList products={products} />
         <TotalPrice totalAmount={totalAmount} />
         <OrderButton totalCount={totalCount} />
-      </OrderBoxBody>
-    </OrderBox>
+      </Styled.OrderBoxBody>
+    </Styled.OrderBox>
   );
 }
 
-const OrderBox = styled.div`
-  width: 448px;
-  height: 318px;
-  display: flex;
-  flex-direction: column;
-`;
+const Styled = {
+  OrderBox: styled.div`
+    width: 448px;
+    height: 318px;
+    display: flex;
+    flex-direction: column;
+  `,
 
-const OrderBoxHeader = styled.div`
-  display: flex;
-  align-items: center;
-  height: 41px;
-  padding: 22px 30px;
-  border: 1px solid #dddddd;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 33px;
-  letter-spacing: 0.5px;
-`;
+  OrderBoxHeader: styled.div`
+    display: flex;
+    align-items: center;
+    height: 41px;
+    padding: 22px 30px;
+    border: 1px solid #dddddd;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: 0.5px;
+  `,
 
-const OrderBoxBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid #dddddd;
-  padding: 35px 30px;
-`;
+  OrderBoxBody: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #dddddd;
+    padding: 35px 30px;
+  `,
+};
