@@ -40,7 +40,7 @@ function CheckedItemsController({ checkedCarts }) {
   };
 
   return (
-    <Style.CheckBoxContainer justify="space-between" align="center">
+    <Style.CheckBoxFlexContainer justify="space-between" align="center">
       <Flex align="center">
         <CheckBox
           onCheck={handleCheckAllProducts}
@@ -51,14 +51,14 @@ function CheckedItemsController({ checkedCarts }) {
       <Style.DeleteButton onClick={handleCheckedProductsDelete} type="button">
         상품삭제
       </Style.DeleteButton>
-    </Style.CheckBoxContainer>
+    </Style.CheckBoxFlexContainer>
   );
 }
 
 export default CheckedItemsController;
 
 const Style = {
-  CheckBoxContainer: styled(Flex)`
+  CheckBoxFlexContainer: styled(Flex)`
     margin: 20px 0;
   `,
   DeleteButton: styled(BasicButton)`

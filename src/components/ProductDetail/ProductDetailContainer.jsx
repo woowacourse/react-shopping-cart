@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { loadProduct } from '../../store/product';
+import { Flex } from '../shared/basics';
 import ProductDetail from './ProductDetail';
 
 function ProductDetailContainer() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading, product, error } = useSelector((state) => state.product);
+
+  const { isLoading, product } = useSelector((state) => state.product);
   const { carts } = useSelector((state) => state.carts);
 
   const isStored = carts.map((cart) => cart.id).includes(id);
@@ -18,7 +20,7 @@ function ProductDetailContainer() {
   }, []);
 
   return (
-    <Style.ProductDetailContainer>
+    <Style.ProductDetailFlexContainer direction="column" align="center">
       {isLoading && <h1>로딩 중...</h1>}
       {!isLoading && (
         <ProductDetail
@@ -29,18 +31,14 @@ function ProductDetailContainer() {
           isStored={isStored}
         />
       )}
-    </Style.ProductDetailContainer>
+    </Style.ProductDetailFlexContainer>
   );
 }
 
 export default ProductDetailContainer;
 
 const Style = {
-  ProductDetailContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+  ProductDetailFlexContainer: styled(Flex)`
     margin-top: 50px;
   `,
 };

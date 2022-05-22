@@ -12,8 +12,8 @@ import ProductDetailContainer from './components/ProductDetail/ProductDetailCont
 import GlobalStyle from './GlobalStyle';
 
 import PATH from './constants/path';
-import { loadProducts } from './store/products';
 import useUser from './hooks/useUser';
+import { loadProducts } from './store/products';
 import { loadCarts } from './store/carts';
 
 function App() {
@@ -25,25 +25,23 @@ function App() {
     if (isLoggedIn) {
       dispatch(loadCarts(userId));
     }
-  }, [userId]);
+  }, [userId, isLoggedIn]);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <GlobalStyle />
-        <Header />
-        <Routes>
-          <Route path={`${PATH.ROOT}`} element={<Main />} />
-          <Route path={`${PATH.ORDERS}`} element={<Orders />} />
-          <Route path={`${PATH.CARTS}`} element={<Carts />} />
-          <Route
-            path={`${PATH.PRODUCT}/:id`}
-            element={<ProductDetailContainer />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path={`${PATH.ROOT}`} element={<Main />} />
+        <Route path={`${PATH.ORDERS}`} element={<Orders />} />
+        <Route path={`${PATH.CARTS}`} element={<Carts />} />
+        <Route
+          path={`${PATH.PRODUCT}/:id`}
+          element={<ProductDetailContainer />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

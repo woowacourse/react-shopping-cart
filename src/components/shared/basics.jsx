@@ -51,7 +51,7 @@ const DIVIDE_LINE_WEIGHT = {
 export const BasicDivideLine = styled.hr`
   ${({ weight = 'bold', mv = 0, color = 'black' }) => css`
     border: ${DIVIDE_LINE_WEIGHT[weight]}px solid ${color};
-    margin: ${mv}px 0;
+    margin: ${mv} 0;
   `}
   width: 100%;
 `;

@@ -56,7 +56,7 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
   }, [count]);
 
   return (
-    <Style.Container justify="space-between">
+    <Style.FlexContainer justify="space-between">
       <Flex justify="space-between" gap="20px">
         <CheckBox
           checked={isChecked}
@@ -73,7 +73,7 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
         <NumberInput count={quantity} onChange={handleChangeQuantity} />
         <span>{`${Number(price).toLocaleString('ko-KR')}원`}</span>
       </Flex>
-    </Style.Container>
+    </Style.FlexContainer>
   );
 }
 
@@ -92,7 +92,7 @@ CartItem.defaultProps = {
 export default CartItem;
 
 const Style = {
-  Container: styled(Flex)`
+  FlexContainer: styled(Flex)`
     padding: 23px 0;
     border-bottom: 2px solid lightgray;
   `,

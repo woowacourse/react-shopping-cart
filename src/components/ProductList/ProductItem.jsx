@@ -1,37 +1,35 @@
-import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
-import { BasicImage, BasicButton } from '../shared/basics';
+import { BasicImage, BasicButton, Flex } from '../shared/basics';
 import { CART_SIZE, COLOR } from '../../constants/styles';
 import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
 import PATH from '../../constants/path';
 import useStoreProduct from '../../hooks/useStoreProduct';
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
-import usePropDefaultState from '../../hooks/usePropDefaultState';
+import usePropInitState from '../../hooks/usePropInitState';
 import useUser from '../../hooks/useUser';
+import useDebounce from '../../hooks/useDebounce';
 
 function ProductItem({ id, src, price, title, isStored }) {
   const dispatch = useDispatch();
-  const timeout = useRef();
+  const debounce = useDebounce();
 
   const { isLoggedIn } = useUser();
   const { addToCart } = useStoreProduct(id);
   const { deleteFromCart } = useDeleteProductFromCart(id);
-  const [isClicked, setIsClicked] = usePropDefaultState(isStored);
+  const [isClicked, setIsClicked] = usePropInitState(isStored);
 
-  const handleCartClick = async () => {
+  const handleCartClick = () => {
     if (!isLoggedIn) {
       window.alert('로그인 해주세요.');
       return;
     }
 
-    clearTimeout(timeout.current);
-
-    timeout.current = setTimeout(() => {
+    debounce(() => {
       if (isClicked) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
@@ -39,9 +37,9 @@ function ProductItem({ id, src, price, title, isStored }) {
         addToCart();
         dispatch(addProductToCarts(id));
       }
-    }, 500);
 
-    setIsClicked((prev) => !prev);
+      setIsClicked((prev) => !prev);
+    }, 500);
   };
 
   return (
@@ -51,11 +49,11 @@ function ProductItem({ id, src, price, title, isStored }) {
           <Styled.ProductImage src={src} alt={title} />
         </Styled.ProductImageWrapper>
       </Link>
-      <Styled.ProductInfoContainer>
-        <Styled.ProductInfoWrapper>
+      <Styled.ProductInfoFlexContainer justify="space-between" align="center">
+        <Flex direction="column">
           <Styled.ProductName>{title}</Styled.ProductName>
           <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
-        </Styled.ProductInfoWrapper>
+        </Flex>
         <Styled.CartButton onClick={handleCartClick}>
           <CartIcon
             width={CART_SIZE.SMALL.WIDTH}
@@ -63,7 +61,7 @@ function ProductItem({ id, src, price, title, isStored }) {
             fill={isClicked ? COLOR.PRIMARY : COLOR.BLACK}
           />
         </Styled.CartButton>
-      </Styled.ProductInfoContainer>
+      </Styled.ProductInfoFlexContainer>
     </div>
   );
 }
@@ -83,19 +81,11 @@ ProductItem.defaultState = {
 export default ProductItem;
 
 const Styled = {
-  ProductInfoContainer: styled.div`
-    display: flex;
-    justify-content: space-between;
+  ProductInfoFlexContainer: styled(Flex)`
     width: 280px;
     padding: 5px;
-    align-items: center;
   `,
-  ProductInfoWrapper: styled.div`
-    display: flex;
-    flex-direction: column;
-  `,
-  ProductImageWrapper: styled.div`
-    display: flex;
+  ProductImageWrapper: styled(Flex)`
     width: 100%;
     overflow: hidden;
   `,
@@ -119,6 +109,9 @@ const Styled = {
   CartButton: styled(BasicButton)`
     &:hover {
       opacity: 0.6;
+    }
+    &:active {
+      transform: scale(0.9);
     }
   `,
 };

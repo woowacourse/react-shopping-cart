@@ -12,7 +12,7 @@ function Header() {
   const { carts } = useSelector((state) => state.carts);
   return (
     <header>
-      <Styled.Nav justify="space-around">
+      <Styled.NavFlex justify="space-around">
         <Flex align="center">
           <Link to={PATH.ROOT}>
             <CartIcon
@@ -23,20 +23,20 @@ function Header() {
             <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
           </Link>
         </Flex>
-        <Styled.NavButtonWrapper align="center">
+        <Flex align="center" gap="15px">
           <Link to={PATH.CARTS}>
             <Styled.NavCartButtonWrapper>
               <Styled.NavButton type="button">장바구니</Styled.NavButton>
-              <Styled.Badge align="center" justify="center">
+              <Styled.BadgeFlex align="center" justify="center">
                 {carts.length}
-              </Styled.Badge>
+              </Styled.BadgeFlex>
             </Styled.NavCartButtonWrapper>
           </Link>
           <Link to={PATH.ORDERS}>
             <Styled.NavButton type="button">주문목록</Styled.NavButton>
           </Link>
-        </Styled.NavButtonWrapper>
-      </Styled.Nav>
+        </Flex>
+      </Styled.NavFlex>
     </header>
   );
 }
@@ -44,7 +44,7 @@ function Header() {
 export default Header;
 
 const Styled = {
-  Nav: styled(Flex)`
+  NavFlex: styled(Flex)`
     width: 100%;
     height: 80px;
 
@@ -59,9 +59,6 @@ const Styled = {
     color: #ffffff;
     margin-left: 15px;
   `,
-  NavButtonWrapper: styled(Flex)`
-    gap: 15px;
-  `,
   NavCartButtonWrapper: styled.div`
     position: relative;
   `,
@@ -71,7 +68,7 @@ const Styled = {
 
     color: #ffffff;
   `,
-  Badge: styled(Flex)`
+  BadgeFlex: styled(Flex)`
     position: absolute;
     color: white;
     top: -15px;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import usePropDefaultState from '../../hooks/usePropDefaultState';
+import usePropInitState from '../../hooks/usePropInitState';
 import { BasicButton, Flex } from './basics';
 
 const NumberInput = ({ count, onChange }) => {
-  const [value, setValue] = usePropDefaultState(count);
+  const [value, setValue] = usePropInitState(count);
   const [isMin, setIsMin] = useState(count === 1);
 
   const handleChangeInput = (e) => {

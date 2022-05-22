@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
+import { Flex } from '../shared/basics';
 
 import ProductItem from './ProductItem';
 
@@ -20,7 +21,7 @@ function ProductListContainer() {
   const isError = productsError || cartsError;
 
   return (
-    <Styled.ProductListContainer>
+    <Styled.ProductListFlexContainer justify="center" wrap="wrap" gap="25px">
       {isLoading && <h1>로딩 중...</h1>}
       {isError && <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>}
       {!isLoading &&
@@ -35,17 +36,12 @@ function ProductListContainer() {
             isStored={carts.some((cart) => cart.id === id)}
           />
         ))}
-    </Styled.ProductListContainer>
+    </Styled.ProductListFlexContainer>
   );
 }
 
 const Styled = {
-  ProductListContainer: styled.section`
-    display: flex;
-    justify-content: center;
-
-    flex-wrap: wrap;
-    gap: 25px;
+  ProductListFlexContainer: styled(Flex)`
     padding: 60px 240px;
   `,
 };

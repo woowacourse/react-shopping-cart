@@ -1,35 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-import { BasicButton, BasicImage } from '../shared/basics';
+import {
+  BasicButton,
+  BasicDivideLine,
+  BasicImage,
+  Flex,
+} from '../shared/basics';
 import { COLOR } from '../../constants/styles';
 
 import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
 import useStoreProduct from '../../hooks/useStoreProduct';
 import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
-import usePropDefaultState from '../../hooks/usePropDefaultState';
+import usePropInitState from '../../hooks/usePropInitState';
+import useDebounce from '../../hooks/useDebounce';
+import useUser from '../../hooks/useUser';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const dispatch = useDispatch();
-  const timeout = useRef();
-  const [isClicked, setIsClicked] = usePropDefaultState(isStored);
+  const debounce = useDebounce();
+
+  const { isLoggedIn } = useUser();
+  const [isClicked, setIsClicked] = usePropInitState(isStored);
   const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
 
-  const isLoading = isCartAddLoading || isCartDeleteLoading;
-  const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';
-  const isError = deleteProductFromCartError || cartAddError;
-
   const handleCartButtonClick = () => {
-    if (isError) {
+    if (!isLoggedIn) {
+      alert('로그인 해주세요.');
       return;
     }
 
-    clearTimeout(timeout.current);
-
-    timeout.current = setTimeout(() => {
+    debounce(() => {
       if (isClicked) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
@@ -42,22 +45,26 @@ function ProductDetail({ id, src, title, price, isStored }) {
     }, 500);
   };
 
+  const isLoading = isCartAddLoading || isCartDeleteLoading;
+  const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';
+  const isError = deleteProductFromCartError || cartAddError;
+
   return (
-    <Style.ProductDetailBox>
+    <Style.ProductDetailFlexBox direction="column" align="center">
       <Style.ProductDetailImage size="large" src={src} alt={title} />
       <Style.ProductDetailInfo>
         <Style.ProductDetailTitle>{title}</Style.ProductDetailTitle>
-        <Style.DivideLine />
-        <Style.ProductDetailPriceWrapper>
+        <BasicDivideLine mv="20px" color="#aaaaaa" weight="bold" />
+        <Flex justify="space-between">
           <span>금액</span>
           <Style.ProductDetailPrice>{`${price}원`}</Style.ProductDetailPrice>
-        </Style.ProductDetailPriceWrapper>
+        </Flex>
       </Style.ProductDetailInfo>
       <Style.ProductDetailCartButton onClick={handleCartButtonClick}>
         {isLoading ? '전송 중' : buttonText}
         {isError && ' 에러가 발생했습니다.'}
       </Style.ProductDetailCartButton>
-    </Style.ProductDetailBox>
+    </Style.ProductDetailFlexBox>
   );
 }
 
@@ -72,17 +79,7 @@ ProductDetail.propTypes = {
 export default ProductDetail;
 
 const Style = {
-  ProductDetailContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin-top: 50px;
-  `,
-  ProductDetailBox: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  ProductDetailFlexBox: styled(Flex)`
     width: 520px;
   `,
   ProductDetailImage: styled(BasicImage)`
@@ -93,10 +90,6 @@ const Style = {
   `,
   ProductDetailTitle: styled.span`
     font-size: 24px;
-  `,
-  ProductDetailPriceWrapper: styled.div`
-    display: flex;
-    justify-content: space-between;
   `,
   ProductDetailPrice: styled.span`
     font-size: 24px;
@@ -117,10 +110,5 @@ const Style = {
       margin-top: 25px;
       border-bottom-width: 0px;
     }
-  `,
-  DivideLine: styled.hr`
-    width: 100%;
-    margin: 20px 0;
-    border: 2px solid #aaaaaa;
   `,
 };

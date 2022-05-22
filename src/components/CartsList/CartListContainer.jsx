@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import CartItem from './CartItem';
 
 function CartListContainer({
@@ -9,7 +8,7 @@ function CartListContainer({
   const checkedProductsId = checkedProducts.map((product) => product.id);
 
   return (
-    <Style.Container>
+    <div>
       {isStoredProductsLoading && <h1>로딩중...</h1>}
       {!isStoredProductsLoading &&
         storedProducts?.map(({ id, price, title, src }) => (
@@ -23,12 +22,8 @@ function CartListContainer({
             isChecked={checkedProductsId.includes(id)}
           />
         ))}
-    </Style.Container>
+    </div>
   );
 }
 
 export default CartListContainer;
-
-const Style = {
-  Container: styled.section``,
-};

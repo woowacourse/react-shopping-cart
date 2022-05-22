@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function usePropDefaultState(prop) {
+function usePropInitState(prop) {
   const [state, setState] = useState(prop);
 
   useEffect(() => {
@@ -10,4 +10,4 @@ function usePropDefaultState(prop) {
   return [state, setState];
 }
 
-export default usePropDefaultState;
+export default usePropInitState;
