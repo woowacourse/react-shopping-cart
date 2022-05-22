@@ -27,7 +27,8 @@
     "build-storybook": "build-storybook -s public",
     "server": "json-server db.json --watch --port 4000",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "msw": "msw init public/ --save"
   },
   "eslintConfig": {
     "extends": [
