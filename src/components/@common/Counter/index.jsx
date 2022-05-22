@@ -30,12 +30,4 @@ function Counter({ onChange, children }) {
   );
 }
 
-Counter.defaultProps = {
-  children: 1,
-};
-
-Counter.propTypes = {
-  children: PropTypes.string,
-};
-
 export default Counter;
