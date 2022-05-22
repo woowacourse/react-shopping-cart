@@ -15,7 +15,7 @@ const StyledMenu = styled.div`
       padding: 0 0 0 25px;
       a {
         ${noneStyles.a}
-
+        position: relative;
         display: block;
         padding: 10px 0;
         font-size: 20px;
