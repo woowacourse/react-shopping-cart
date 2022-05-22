@@ -1,5 +1,7 @@
 import React from "react";
 
+import { css } from "@emotion/react";
+
 import { useDispatch } from "react-redux";
 import {
   toggleCartItemCheckButton,
@@ -8,10 +10,8 @@ import {
   removeRowCartItem,
 } from "@/redux/actions";
 
-import { css } from "@emotion/react";
-
-import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
 import TrashIcon from "@/assets/images/trash.svg";
+import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
 
 function ProductItem({ item }) {
   const { id, name, price, imgUrl, quantity, checked } = item;
@@ -55,7 +55,12 @@ function ProductItem({ item }) {
             `}
           />
           <div className="number-input-container">
-            <input type="number" className="number-input" value={quantity} />
+            <input
+              type="number"
+              className="number-input"
+              value={quantity}
+              onChange={(e) => e}
+            />
             <div>
               <button
                 onClick={handleIncrementClick}
