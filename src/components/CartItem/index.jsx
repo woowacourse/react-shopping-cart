@@ -11,11 +11,33 @@ import ProductItem from 'components/ProductItem';
 import { ICON_CODE } from 'constants/';
 import * as S from './styles';
 
-function CartItem({ id, image, name, price }) {
+function CartItem({
+  id,
+  image,
+  name,
+  price,
+  quantity,
+  isChecked,
+  onChangeCheckBox,
+  onChangeCounter,
+  onClickRemove,
+}) {
+  const handleChangeCheckBox = () => {
+    onChangeCheckBox(id, !isChecked);
+  };
+
+  const handleChangeCounter = (inputNumber) => {
+    onChangeCounter(id, inputNumber);
+  };
+
+  const onClickRemoveButton = () => {
+    onClickRemove(id);
+  };
+
   return (
     <S.Container direction="row">
       <FlexContainer width="10%" justify="center">
-        <Checkbox size="medium" />
+        <Checkbox size="medium" checked={isChecked} onChange={handleChangeCheckBox} />
       </FlexContainer>
 
       <FlexContainer width="70%">
@@ -24,9 +46,9 @@ function CartItem({ id, image, name, price }) {
 
       <FlexContainer width="20%" justify="space-between" align="end">
         <ToolTip align="right" text="상품 삭제">
-          <Button icon={ICON_CODE.TRASH_CAN} />
+          <Button icon={ICON_CODE.TRASH_CAN} onClick={onClickRemoveButton} />
         </ToolTip>
-        <Counter>0</Counter>
+        <Counter onChange={handleChangeCounter}>{quantity}</Counter>
       </FlexContainer>
     </S.Container>
   );

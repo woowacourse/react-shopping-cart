@@ -49,4 +49,15 @@ const updateCartItemChecked = (id, isChecked) => ({
   payload: { id, isChecked },
 });
 
-export { getCartListAction, addCartListAction, updateCartItemSuccess, updateCartItemChecked };
+const removeCartItemSuccess = (id) => ({
+  type: CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS,
+  payload: { id },
+});
+
+export {
+  getCartListAction,
+  addCartListAction,
+  updateCartItemSuccess,
+  updateCartItemChecked,
+  removeCartItemSuccess,
+};

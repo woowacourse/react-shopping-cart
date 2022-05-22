@@ -1,11 +1,16 @@
 import {
   requestAddCart,
-  requestEditCartItem,
   requestGetCartList,
+  requestRemoveCartItem,
   requestUpdateCartItem,
 } from 'api/cart';
 import { REQUEST_STATUS } from 'constants/';
-import { addCartListAction, getCartListAction, updateCartItemSuccess } from './action';
+import {
+  addCartListAction,
+  getCartListAction,
+  updateCartItemSuccess,
+  removeCartItemSuccess,
+} from './action';
 
 const getCartList = () => async (dispatch) => {
   dispatch(getCartListAction.pending());
@@ -48,4 +53,15 @@ const updateCartItem = (id, changedContent) => async (dispatch) => {
   return true;
 };
 
-export { getCartList, addCartList, updateCartItem };
+const removeCartItem = (id) => async (dispatch) => {
+  const { status } = await requestRemoveCartItem(id);
+
+  if (status === REQUEST_STATUS.FAIL) {
+    return false;
+  }
+
+  dispatch(removeCartItemSuccess(id));
+  return true;
+};
+
+export { getCartList, addCartList, updateCartItem, removeCartItem };

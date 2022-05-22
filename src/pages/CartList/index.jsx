@@ -25,8 +25,12 @@ export function CartList() {
     updateItem(id, { quantity });
   };
 
-  const handleRemoveItem = () => {
-    console.log('remove');
+  const handleRemoveItem = (id) => {
+    if (!confirm('정말 해당 상품을 장바구니에서 제거하시겠습니까?')) {
+      return;
+    }
+
+    removeItem(id);
   };
 
   return (
@@ -66,6 +70,7 @@ export function CartList() {
                     isChecked={isChecked}
                     onChangeCheckBox={handleCheckItem}
                     onChangeCounter={handleChangeQuantity}
+                    onClickRemove={handleRemoveItem}
                   />
                 ))}
             </FlexContainer>

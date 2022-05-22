@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addCartList, getCartList, updateCartItem } from 'actions/cart/thunk';
+import { addCartList, getCartList, removeCartItem, updateCartItem } from 'actions/cart/thunk';
 import { updateCartItemChecked } from 'actions/cart/action';
 
 function useCart() {
@@ -28,7 +28,11 @@ function useCart() {
     dispatch(updateCartItemChecked(id, isChecked));
   };
 
-  const removeItem = (id) => {};
+  const removeItem = (id) => {
+    dispatch(removeCartItem(id)).then(() => {
+      alert('상품이 제거 되었습니다.');
+    });
+  };
 
   return {
     action: { addItem, updateItem, updateItemChecked, removeItem },
