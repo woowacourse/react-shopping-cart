@@ -3,22 +3,27 @@ import { ReactComponent as ShoppingCart } from 'assets/shopping_cart_icon.svg';
 
 const Styled = {
   CartIcon: styled(ShoppingCart)`
-    path {
-      fill: ${({ theme }) => theme.colors.black};
-    }
-    width: 30px;
-    height: 26px;
-    cursor: pointer;
+    ${({ category, theme }) => {
+      switch (category) {
+        case 'header':
+          return css`
+            path {
+              fill: ${theme.colors.white};
+            }
+            width: 49px;
+            height: 39px;
+          `;
 
-    ${({ category, theme }) =>
-      category === 'header' &&
-      css`
-        path {
-          fill: ${theme.colors.white};
-        }
-        width: 49px;
-        height: 39px;
-      `}
+        default:
+          return css`
+            path {
+              fill: ${theme.colors.black};
+            }
+            width: 30px;
+            height: 26px;
+          `;
+      }
+    }}
   `,
 };
 
