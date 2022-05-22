@@ -8,7 +8,7 @@ import {
   removeCartItemList,
   updateCartItem,
 } from 'actions/cart/thunk';
-import { updateCartItemChecked } from 'actions/cart/action';
+import { updateCartItemAllChecked, updateCartItemChecked } from 'actions/cart/action';
 
 function useCart() {
   const { items: cartItems } = useSelector((state) => state.cart);
@@ -31,12 +31,21 @@ function useCart() {
 
   const updateItemChecked = (id, isChecked) => dispatch(updateCartItemChecked(id, isChecked));
 
+  const updateItemAllChecked = (isChecked) => dispatch(updateCartItemAllChecked(isChecked));
+
   const removeItem = (id) => dispatch(removeCartItem(id));
 
   const removeItemList = (idList) => dispatch(removeCartItemList(idList));
 
   return {
-    action: { addItem, updateItem, updateItemChecked, removeItem, removeItemList },
+    action: {
+      addItem,
+      updateItem,
+      updateItemChecked,
+      updateItemAllChecked,
+      removeItem,
+      removeItemList,
+    },
     state: {
       cartItems: cartItems.content,
       isLoading: cartItems.isLoading,

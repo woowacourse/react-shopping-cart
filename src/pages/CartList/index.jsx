@@ -15,12 +15,17 @@ import * as S from './styles';
 export function CartList() {
   const { action, state } = useCart();
   const { cartItems, isLoading, isLoaded, error, checkedItemList } = state;
-  const { updateItem, updateItemChecked, removeItem, removeItemList } = action;
+  const { updateItem, updateItemChecked, updateItemAllChecked, removeItem, removeItemList } =
+    action;
 
   const isSelectAllChecked = checkedItemList.length > 0;
 
   const handleCheckItem = (id, isChecked) => {
     updateItemChecked(id, isChecked);
+  };
+
+  const handleAllCheckItem = () => {
+    updateItemAllChecked(!isSelectAllChecked);
   };
 
   const handleChangeQuantity = (id, quantity) => {
@@ -61,7 +66,7 @@ export function CartList() {
       <S.Container>
         <FlexContainer gap={16}>
           <S.ControllerContainer>
-            <Checkbox size="medium" checked={isSelectAllChecked}>
+            <Checkbox size="medium" checked={isSelectAllChecked} onChange={handleAllCheckItem}>
               {isSelectAllChecked ? '선택 해제' : '전체 선택'}
             </Checkbox>
             <ToolTip text="선택한 상품을 장바구니에서 삭제합니다." align="bottom">

@@ -47,8 +47,9 @@ const updateCartItemChecked = (id, isChecked) => ({
   payload: { id, isChecked },
 });
 
-const updateCartItemAllChecked = () => ({
+const updateCartItemAllChecked = (isChecked) => ({
   type: CARTS_ACTIONS.UPDATE_CART_ITEM_ALL_CHECKED,
+  payload: { isChecked },
 });
 
 const removeCartItemSuccess = (id) => ({

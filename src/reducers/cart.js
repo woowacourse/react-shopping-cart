@@ -39,6 +39,13 @@ export default (state = initialState, action) => {
       return { ...state, items: { ...state.items, content: updateCartList } };
     }
 
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_ALL_CHECKED: {
+      const { isChecked } = payload;
+      const updateCartList = [...state.items.content].map((item) => ({ ...item, isChecked }));
+
+      return { ...state, items: { ...state.items, content: updateCartList } };
+    }
+
     case CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS: {
       const { id: updatedId } = payload;
       const updateCartList = [...state.items.content].filter(({ id }) => id !== updatedId);
