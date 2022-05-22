@@ -1,3 +1,4 @@
+import CART_MESSAGE from 'constants/message';
 import Link from 'components/@shared/Link';
 import PATH from 'constants/path';
 import { Product } from 'types';
@@ -22,7 +23,7 @@ function ProductCard({ product, isInCart }: Props) {
   const onClickCartButton = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(cartActions.addToCart(id));
-    alert('장바구니에 추가되었습니다.');
+    alert(CART_MESSAGE.SUCCESS_ADD);
   };
 
   return (

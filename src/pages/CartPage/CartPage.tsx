@@ -2,6 +2,7 @@ import { CartProductState, CartStoreState, Product } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
+import CART_MESSAGE from 'constants/message';
 import CartItem from 'components/CartItem/CartItem';
 import CheckBox from 'components/@shared/CheckBox';
 import PATH from 'constants/path';
@@ -27,10 +28,12 @@ function CartPage() {
             ...prevState,
             { product: res.data, stock, checked },
           ]);
+
           if (!checked) {
             setAllChecked(false);
             return;
           }
+
           setTotalMoney((prevState) => prevState + res.data.price * stock);
         });
     });
@@ -47,14 +50,17 @@ function CartPage() {
       const item = cartItems.find(
         (cartItem) => cartItem.product.id === id
       ) as CartProductState;
+
       setCartItems((prevState: Array<CartProductState>) => [
         ...prevState,
         { product: item.product, stock, checked },
       ]);
+
       if (!checked) {
         setAllChecked(false);
         return;
       }
+
       setTotalMoney((prevState) => prevState + item.product.price * stock);
     });
   }, [cart]);
@@ -71,7 +77,7 @@ function CartPage() {
   };
 
   const onClickCheckedDeleteButton = () => {
-    if (window.confirm('삭제하시겠습니까?')) {
+    if (window.confirm(CART_MESSAGE.ASK_DELETE)) {
       dispatch(cartActions.deleteCheckedToCart());
     }
   };

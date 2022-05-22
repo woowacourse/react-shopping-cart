@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CART_MESSAGE from 'constants/message';
 import CONDITION from 'constants/condition';
 import { ProductStoreState } from 'types';
 import { cartActions } from 'redux/actions/actions';
@@ -28,7 +29,7 @@ function ProductPage() {
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
       dispatch(cartActions.addToCart(Number(id)));
-      alert('장바구니에 추가되었습니다.');
+      alert(CART_MESSAGE.SUCCESS_ADD);
     },
     [dispatch, id]
   );

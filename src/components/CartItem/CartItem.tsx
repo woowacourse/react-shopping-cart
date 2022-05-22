@@ -1,3 +1,4 @@
+import CART_MESSAGE from 'constants/message';
 import CheckBox from 'components/@shared/CheckBox';
 import { ReactComponent as Delete } from 'assets/Delete.svg';
 import Link from 'components/@shared/Link';
@@ -24,7 +25,7 @@ function CartItem({ product, stock, checked }: Props) {
   const onClickDeleteButton = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    if (window.confirm('삭제하시겠습니까?')) {
+    if (window.confirm(CART_MESSAGE.ASK_DELETE)) {
       dispatch(cartActions.deleteToCart(id));
     }
   };
