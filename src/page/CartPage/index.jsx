@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Styled from 'page/CartPage/index.style';
 import { Button, Image } from 'components';
 import CartProductItem from 'components/CartProductItem';
-import Line from 'components/Line';
 import CheckBox from 'components/CheckBox';
 import TotalPrice from 'components/TotalPrice';
 import store from 'store/store';
@@ -53,7 +52,7 @@ const CartPage = () => {
       {shoppingCart.length > 0 ? (
         <>
           <Styled.Title>장바구니</Styled.Title>
-          <Line height="4px" width="inherit" />
+          <Styled.Division />
           <Styled.OrderSheet>
             <Styled.LeftSide>
               <Styled.SelectController>

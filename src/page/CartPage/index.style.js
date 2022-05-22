@@ -26,6 +26,12 @@ const Styled = {
     margin: 29px 0;
   `,
 
+  Division: styled.hr`
+    width: inherit;
+    height: 4px;
+    background-color: black;
+  `,
+
   SelectController: styled.div`
     display: flex;
     justify-content: space-between;

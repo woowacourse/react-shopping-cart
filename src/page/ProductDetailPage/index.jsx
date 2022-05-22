@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Button, Image } from 'components';
-import Line from 'components/Line';
 import theme from 'components/theme';
 
 import Styled from 'page/ProductDetailPage/index.style';
@@ -33,7 +32,7 @@ const ProductDetailPage = () => {
       <Styled.ProductContainer>
         <Image src={image} alt={name} size="570px" />
         <Styled.ProductName>{name}</Styled.ProductName>
-        <Line margin="33px 0" />
+        <Styled.Division />
         <Styled.PriceContainer>
           <Styled.PriceTag>금액</Styled.PriceTag>
           <Styled.ProductPrice>{autoComma(price)}</Styled.ProductPrice>

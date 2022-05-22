@@ -37,6 +37,13 @@ const Styled = {
     margin-top: 21px;
   `,
 
+  Division: styled.hr`
+    width: 640px;
+    height: 1px;
+    background-color: black;
+    margin: 33px 0;
+  `,
+
   PriceContainer: styled.div`
     width: inherit;
     display: flex;
