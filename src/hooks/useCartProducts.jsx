@@ -11,7 +11,7 @@ const PRODUCT_ADDED_MESSAGE = (count) => `${count}개가 장바구니에 추가�
 const MINIMUM_QUANTITY_WARNING_MESSAGE = '주문할 수 있는 최소 수량입니다.';
 const PRODUCT_DELETE_WARNING = '상품을 장바구니에서 삭제하시겠습니까?';
 
-const useCart = () => {
+const useCartProducts = () => {
   const dispatch = useDispatch();
   const cart = useSelector(cartObjectSelector);
 
@@ -30,16 +30,16 @@ const useCart = () => {
     dispatch(updateCartProductQuantityAsync(productId, quantity));
   };
 
+  const incrementCartProduct = (productId, currentQuantity) => {
+    dispatchQuantityUpdate(productId, currentQuantity + 1);
+  };
+
   const decrementCartProduct = (productId, currentQuantity) => {
     if (currentQuantity === 1) {
       alert(MINIMUM_QUANTITY_WARNING_MESSAGE);
       return;
     }
     dispatchQuantityUpdate(productId, currentQuantity - 1);
-  };
-
-  const incrementCartProduct = (productId, currentQuantity) => {
-    dispatchQuantityUpdate(productId, currentQuantity + 1);
   };
 
   const deleteProduct = (productIdArray) => {
@@ -59,4 +59,4 @@ const useCart = () => {
   };
 };
 
-export default useCart;
+export default useCartProducts;

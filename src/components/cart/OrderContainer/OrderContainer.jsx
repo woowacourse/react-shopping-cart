@@ -1,10 +1,10 @@
 import React from 'react';
 
 import * as Styled from 'components/cart/OrderContainer/OrderContainer.style';
-import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
+import useCartCheck from 'hooks/useCartCheck';
 
 function OrderContainer() {
-  const { checkedProductCount, totalPrice } = useCartCheckedProducts();
+  const { checkedProductCount, totalPrice } = useCartCheck();
 
   return (
     <Styled.Container>

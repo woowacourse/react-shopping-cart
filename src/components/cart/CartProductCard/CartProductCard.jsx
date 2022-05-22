@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
+import useCartCheck from 'hooks/useCartCheck';
 
 import CheckBox from 'components/common/CheckBox/CheckBox';
 import Counter from 'components/common/Counter/Counter';
@@ -10,14 +10,14 @@ import Image from 'components/common/Image/Image';
 import { Position } from 'styles/GlobalStyles';
 import { color } from 'styles/Theme.js';
 import * as Styled from 'components/cart/CartProductCard/CartProductCard.style';
-import useCart from 'hooks/useCart';
+import useCartProducts from 'hooks/useCartProducts';
 
 function CartProductCard({
   product: { id: productId, name, price, imageURL },
   quantity,
 }) {
-  const { decrementCartProduct, incrementCartProduct, deleteProduct } = useCart();
-  const { isChecked, toggleCheck } = useCartCheckedProducts();
+  const { decrementCartProduct, incrementCartProduct, deleteProduct } = useCartProducts();
+  const { isChecked, toggleCheck } = useCartCheck();
 
   const handleQuantityIncrement = useCallback(
     () => incrementCartProduct(productId, quantity),

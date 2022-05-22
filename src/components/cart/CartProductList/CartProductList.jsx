@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import useCart from 'hooks/useCart';
-import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
+import useCartProducts from 'hooks/useCartProducts';
+import useCartCheck from 'hooks/useCartCheck';
 
 import CheckBox from 'components/common/CheckBox/CheckBox';
 import ErrorContainer from 'components/common/ErrorContainer/ErrorContainer';
@@ -10,9 +10,9 @@ import CartProductCard from 'components/cart/CartProductCard/CartProductCard';
 import * as Styled from 'components/cart/CartProductList/CartProductList.style';
 
 function CartProductList() {
-  const { cart, cartLength, loadCart } = useCart();
+  const { cart, cartLength, loadCart } = useCartProducts();
   const { isAllChecked, toggleAllCheck, checkedProductCount, deleteCheckedProducts } =
-    useCartCheckedProducts();
+    useCartCheck();
 
   useEffect(() => {
     loadCart();
