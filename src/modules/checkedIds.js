@@ -1,9 +1,10 @@
 import createReducer from "./createReducer";
 
-const ADD_PRODUCT_ID = "checked-ids/ADD_PRODUCT_ID";
-export const REMOVE_PRODUCT_ID = "checked-ids/REMOVE_PRODUCT_ID";
-export const ADD_PRODUCT_IDS = "checked-ids/ADD_PRODUCT_IDS";
 const REMOVE_PRODUCT_IDS = "checked-ids/REMOVE_PRODUCT_IDS";
+export const ADD_PRODUCT_IDS = "checked-ids/ADD_PRODUCT_IDS";
+
+export const REMOVE_PRODUCT_ID = "checked-ids/REMOVE_PRODUCT_ID";
+const ADD_PRODUCT_ID = "checked-ids/ADD_PRODUCT_ID";
 
 export const removeIds = () => ({
   type: REMOVE_PRODUCT_IDS,
@@ -28,15 +29,15 @@ const removeProductId = (state, action) => {
   const removeIndex = state.findIndex((id) => id === action.removeId);
   const newState = [...state];
   newState.splice(removeIndex, 1);
+
   return newState;
 };
 
 const addProductId = (state, action) => {
-  const addIndex = state.findIndex((id) => id === action.newId);
-  if (addIndex === -1) {
-    return [...state, action.newId];
+  if (state.includes(action.newId)) {
+    return [...state];
   }
-  return [...state];
+  return [...state, action.newId];
 };
 
 const removeProductIds = () => [];

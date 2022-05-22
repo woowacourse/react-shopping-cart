@@ -8,17 +8,20 @@ const GET_CART_PRODUCTS = "cart-products/GET_CART_PRODUCTS";
 const GET_CART_PRODUCTS_SUCCESS = "cart-products/GET_CART_PRODUCTS_SUCCESS";
 const GET_CART_PRODUCTS_ERROR = "cart-products/GET_CART_PRODUCTS_ERROR";
 
+const REMOVE_SHOPPING_CART_PRODUCTS =
+  "cart-products/REMOVE_SHOPPING_CART_PRODUCTS";
+
+const REMOVE_SHOPPING_CART_PRODUCT =
+  "cart-product/REMOVE_SHOPPING_CART_PRODUCT";
+
 const INCREMENT_CART_PRODUCT_QUANTITY =
   "cart-product/INCREMENT_CART_PRODUCT_QUANTITY";
 const DECREMENT_CART_PRODUCT_QUANTITY =
   "cart-product/DECREMENT_CART_PRODUCT_QUANTITY";
 const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
   "cart-product/UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT";
-const REMOVE_SHOPPING_CART_PRODUCT =
-  "cart-product/REMOVE_SHOPPING_CART_PRODUCT";
+
 const POST_CART_PRODUCT = "cart-product/POST_CART_PRODUCT";
-const REMOVE_SHOPPING_CART_PRODUCTS =
-  "cart-product/REMOVE_SHOPPING_CART_PRODUCTS";
 
 export const postCartProduct =
   (id, newShoppingCartProduct) => async (dispatch, getState) => {
@@ -64,9 +67,7 @@ export const removeCartProducts = () => async (dispatch, getState) => {
     checkedProductIds.forEach((id) => {
       remainProducts.forEach((product, index) => {
         if (id === product.id) {
-          const removeProduct = remainProducts.splice(index, 1);
-
-          removeProducts.push(removeProduct[0]);
+          removeProducts.push(remainProducts.splice(index, 1)[0]);
         }
       });
     });
@@ -95,7 +96,10 @@ export const removeCartProducts = () => async (dispatch, getState) => {
     });
 
     dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
-    dispatch({ type: REMOVE_SHOPPING_CART_PRODUCTS, remainProducts });
+    dispatch({
+      type: REMOVE_SHOPPING_CART_PRODUCTS,
+      newShoppingCartProducts: remainProducts,
+    });
   } catch (error) {
     dispatch({ type: GET_CART_PRODUCTS_ERROR });
   }
@@ -113,8 +117,10 @@ export const removeCartProduct = (id) => async (dispatch, getState) => {
 
     removeProduct.isInShoppingCart = false;
 
-    API.removeShoppingCartProduct(id);
-    const newProduct = await API.patchProductById(id, removeProduct);
+    const [_, newProduct] = await Promise.all([
+      API.removeShoppingCartProduct(id),
+      API.patchProductById(id, removeProduct),
+    ]);
 
     const replaceProducts = products.data.map((product) => {
       if (product.id === id) return newProduct.data;
@@ -129,10 +135,10 @@ export const removeCartProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateCartProductQuantityByUserInput =
-  (id, currentValue) => async (dispatch, getState) => {
+export const updateCartProductQuantity =
+  (id, type, currentValue) => async (dispatch, getState) => {
     try {
-      if (Number(currentValue) < 1) return;
+      if (currentValue && Number(currentValue) < 1) return;
 
       const shoppingCartProducts = getState().shoppingCartProducts;
       const newProducts = [...shoppingCartProducts.data];
@@ -140,58 +146,20 @@ export const updateCartProductQuantityByUserInput =
         (product) => product.id === id
       )[0];
 
-      newTargetShoppingCartProduct.quantity = Number(currentValue);
+      if (type === "increment") {
+        newTargetShoppingCartProduct.quantity += 1;
+      } else if (type === "decrement") {
+        newTargetShoppingCartProduct.quantity > 1
+          ? (newTargetShoppingCartProduct.quantity -= 1)
+          : (newTargetShoppingCartProduct.quantity = 1);
+      } else {
+        newTargetShoppingCartProduct.quantity = Number(currentValue);
+      }
 
       await API.patchShoppingCartProduct(id, newTargetShoppingCartProduct);
 
       dispatch({
         type: UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT,
-        newShoppingCartProducts: newProducts,
-      });
-    } catch (error) {
-      dispatch({ type: GET_CART_PRODUCTS_ERROR });
-    }
-  };
-
-export const incrementCartProductQuantity =
-  (id) => async (dispatch, getState) => {
-    try {
-      const shoppingCartProducts = getState().shoppingCartProducts;
-      const newProducts = [...shoppingCartProducts.data];
-      const newTargetShoppingCartProduct = shoppingCartProducts.data.filter(
-        (product) => product.id === id
-      )[0];
-
-      newTargetShoppingCartProduct.quantity += 1;
-
-      await API.patchShoppingCartProduct(id, newTargetShoppingCartProduct);
-
-      dispatch({
-        type: INCREMENT_CART_PRODUCT_QUANTITY,
-        newShoppingCartProducts: newProducts,
-      });
-    } catch (error) {
-      dispatch({ type: GET_CART_PRODUCTS_ERROR });
-    }
-  };
-
-export const decrementCartProductQuantity =
-  (id) => async (dispatch, getState) => {
-    try {
-      const shoppingCartProducts = getState().shoppingCartProducts;
-      const newProducts = [...shoppingCartProducts.data];
-      const newTargetShoppingCartProduct = shoppingCartProducts.data.filter(
-        (product) => product.id === id
-      )[0];
-
-      newTargetShoppingCartProduct.quantity > 1
-        ? (newTargetShoppingCartProduct.quantity -= 1)
-        : (newTargetShoppingCartProduct.quantity = 1);
-
-      await API.patchShoppingCartProduct(id, newTargetShoppingCartProduct);
-
-      dispatch({
-        type: DECREMENT_CART_PRODUCT_QUANTITY,
         newShoppingCartProducts: newProducts,
       });
     } catch (error) {
@@ -222,9 +190,9 @@ const getCartProducts = () => ({
   error: false,
 });
 
-const getCartProductsSuccess = (shoppingCartProducts, action) => ({
+const getCartProductsSuccess = (state, action) => ({
   loading: false,
-  data: shoppingCartProducts.data.concat(action.shoppingCartProducts),
+  data: state.data.concat(action.shoppingCartProducts),
   error: false,
 });
 
@@ -234,35 +202,9 @@ const getCartProductsError = () => ({
   error: true,
 });
 
-const incrementProductQuantity = (state, action) => {
-  return {
-    ...state,
-    data: action.newShoppingCartProducts,
-  };
-};
-
-const decrementProductQuantity = (state, action) => {
-  return {
-    ...state,
-    data: action.newShoppingCartProducts,
-  };
-};
-
-const updateProductQuantityByUserInput = (state, action) => {
-  return {
-    ...state,
-    data: action.newShoppingCartProducts,
-  };
-};
-
-const removeShoppingCartProduct = (state, action) => ({
+const updateProductQuantity = (state, action) => ({
   ...state,
   data: action.newShoppingCartProducts,
-});
-
-const removeShoppingCartProducts = (state, action) => ({
-  ...state,
-  data: action.remainProducts,
 });
 
 const postProduct = (state, action) => ({
@@ -276,13 +218,12 @@ const shoppingCartProductsReducer = createReducer(
     [GET_CART_PRODUCTS]: getCartProducts,
     [GET_CART_PRODUCTS_SUCCESS]: getCartProductsSuccess,
     [GET_CART_PRODUCTS_ERROR]: getCartProductsError,
-    [INCREMENT_CART_PRODUCT_QUANTITY]: incrementProductQuantity,
-    [DECREMENT_CART_PRODUCT_QUANTITY]: decrementProductQuantity,
-    [UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT]:
-      updateProductQuantityByUserInput,
-    [REMOVE_SHOPPING_CART_PRODUCT]: removeShoppingCartProduct,
+    [INCREMENT_CART_PRODUCT_QUANTITY]: updateProductQuantity,
+    [DECREMENT_CART_PRODUCT_QUANTITY]: updateProductQuantity,
+    [UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT]: updateProductQuantity,
+    [REMOVE_SHOPPING_CART_PRODUCT]: updateProductQuantity,
     [POST_CART_PRODUCT]: postProduct,
-    [REMOVE_SHOPPING_CART_PRODUCTS]: removeShoppingCartProducts,
+    [REMOVE_SHOPPING_CART_PRODUCTS]: updateProductQuantity,
   }
 );
 

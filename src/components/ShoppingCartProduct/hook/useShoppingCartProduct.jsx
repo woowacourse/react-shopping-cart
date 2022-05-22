@@ -2,10 +2,8 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { addId, removeId } from "../../../modules/checkedIds";
 import {
-  decrementCartProductQuantity,
-  incrementCartProductQuantity,
+  updateCartProductQuantity,
   removeCartProduct,
-  updateCartProductQuantityByUserInput,
 } from "../../../modules/cartProducts";
 
 const useShoppingCartProduct = (id, checked, price, quantity) => {
@@ -22,15 +20,15 @@ const useShoppingCartProduct = (id, checked, price, quantity) => {
   };
 
   const handleIncrement = () => {
-    dispatch(incrementCartProductQuantity(id));
+    dispatch(updateCartProductQuantity(id, "increment"));
   };
 
   const handleDecrement = () => {
-    dispatch(decrementCartProductQuantity(id));
+    dispatch(updateCartProductQuantity(id, "decrement"));
   };
 
   const handleUpdateQuantityByUser = ({ target }) => {
-    dispatch(updateCartProductQuantityByUserInput(id, target.value));
+    dispatch(updateCartProductQuantity(id, "ByUserInput", target.value));
   };
 
   const handleBackspaceByUser = (event) => {

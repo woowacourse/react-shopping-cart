@@ -34,24 +34,16 @@ export const setSnackBarTypeRemove = () => ({
   },
 });
 
-const setSnackBarSuccess = (_, action) => {
-  return action.snackBarState;
-};
-
-const setSnackBarFail = (_, action) => {
-  return action.snackBarState;
-};
-
-const setSnackBarRemove = (_, action) => {
+const setSnackBar = (_, action) => {
   return action.snackBarState;
 };
 
 const snackBarStateReducer = createReducer(
   {},
   {
-    [SNACK_BAR_SUCCESS]: setSnackBarSuccess,
-    [SNACK_BAR_FAIL]: setSnackBarFail,
-    [SNACK_BAR_REMOVE]: setSnackBarRemove,
+    [SNACK_BAR_SUCCESS]: setSnackBar,
+    [SNACK_BAR_FAIL]: setSnackBar,
+    [SNACK_BAR_REMOVE]: setSnackBar,
   }
 );
 
