@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { COLORS } from 'styles/theme';
+import { css } from '@emotion/react';
+import { BRAND_COLORS, COLORS } from 'styles/theme';
 
 import logo from 'assets/image/logo.png';
 
@@ -52,6 +53,12 @@ const RightMenu = styled.ul`
 
 const RightMenuList = styled.li`
   cursor: pointer;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   font-size: 0.9rem;
   padding: 1rem;
   color: ${COLORS.GRAY_50};
@@ -74,6 +81,28 @@ const RightMenuList = styled.li`
 
   &.order-list::before {
     content: '\\f007';
+  }
+
+  &::after {
+    ${({ count }) =>
+      count &&
+      css`
+        content: '${count}';
+        color: ${BRAND_COLORS.PRIMARY_FONT};
+        background-color: ${BRAND_COLORS.PRIMARY};
+
+        width: 1.3rem;
+        height: 1.3rem;
+        font-size: 0.7rem;
+        font-weight: bold;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-left: 0.5rem;
+      `}
   }
 `;
 
