@@ -20,7 +20,7 @@ function Header() {
         <Styled.NavLink to={ROUTE.home.path}>
           <Styled.Logo>
             <Icon
-              iconName="tent"
+              iconName="Tent"
               size={windowSize >= IconSizeBreakPoint ? '50' : '30'}
               stroke="white"
             />

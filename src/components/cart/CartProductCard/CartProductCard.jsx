@@ -44,7 +44,7 @@ function CartProductCard({
       <Styled.Description>
         <Position position="absolute" top="0" right="0">
           <Styled.Button type="button" onClick={handleProductDelete}>
-            <Icon iconName="trash" fill={color.DARK_GRAY} />
+            <Icon iconName="Trash" fill={color.DARK_GRAY} />
           </Styled.Button>
         </Position>
         <Styled.Name>{name}</Styled.Name>

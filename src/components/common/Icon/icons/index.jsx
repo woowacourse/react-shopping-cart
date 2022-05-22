@@ -4,8 +4,8 @@ import { ReactComponent as CheckBox } from './assets/checkBox.svg';
 import { ReactComponent as Trash } from './assets/trash.svg';
 
 export default {
-  tent: Tent,
-  cart: Cart,
-  checkBox: CheckBox,
-  trash: Trash,
+  Tent,
+  Cart,
+  CheckBox,
+  Trash,
 };

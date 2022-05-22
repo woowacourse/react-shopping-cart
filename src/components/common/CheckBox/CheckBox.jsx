@@ -8,7 +8,7 @@ function CheckBox({ checked = false, onClick = () => {} }) {
   return (
     <Styled.Container>
       <Styled.CustomCheckBox checked={checked} onClick={onClick}>
-        {checked && <Icon iconName="checkBox" size="15px" stroke="white" />}
+        {checked && <Icon iconName="CheckBox" size="15px" stroke="white" />}
       </Styled.CustomCheckBox>
     </Styled.Container>
   );

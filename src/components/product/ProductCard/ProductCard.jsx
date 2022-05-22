@@ -41,7 +41,7 @@ function ProductCard({ product }) {
 
       <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
         <Styled.TransparentButton type="button" onClick={onClickCartButton}>
-          <Icon iconName="cart" fill={color.DARK_GRAY} />
+          <Icon iconName="Cart" fill={color.DARK_GRAY} />
         </Styled.TransparentButton>
       </GlobalStyled.Position>
 
