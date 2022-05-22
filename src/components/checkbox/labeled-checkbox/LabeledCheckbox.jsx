@@ -13,4 +13,8 @@ function LabeledCheckbox({ id, label, onChange }) {
   );
 }
 
+LabeledCheckbox.defaultProps = {
+  onChange: () => undefined,
+};
+
 export default LabeledCheckbox;
