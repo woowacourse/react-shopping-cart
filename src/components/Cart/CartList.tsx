@@ -7,6 +7,9 @@ import CheckBox from 'components/common/CheckBox';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 import Controller from './Controller';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { getCartList } from 'redux/action-creators/cartListThunk';
+import { CartListAction } from 'redux/actions/cartList';
 
 const CartList = ({
   cartList,
@@ -35,7 +38,7 @@ const CartList = ({
   });
 
   const toggleCheckedAll = () => {
-    console.log('전부 키거나 끄기');
+    cartList.forEach(cartItem => toggleCartItemWillPurchase(cartItem.id));
   };
 
   const toggleChecked = (targetId: number) => {

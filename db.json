@@ -387,8 +387,13 @@
   ],
   "cartList": [
     {
-      "id": 1,
-      "quantity": 3,
+      "id": 3,
+      "quantity": 1,
+      "willPurchase": true
+    },
+    {
+      "id": 8,
+      "quantity": 1,
       "willPurchase": true
     }
   ]
