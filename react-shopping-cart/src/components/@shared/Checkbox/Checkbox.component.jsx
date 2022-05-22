@@ -33,10 +33,10 @@ const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
   }
 `;
 
-function Checkbox({ children }) {
+function Checkbox({ checked, handleChangeCheckbox, children }) {
   return (
     <Container>
-      <StyledCheckbox />
+      <StyledCheckbox checked={checked} onChange={handleChangeCheckbox} />
       <Check />
       {children}
     </Container>
