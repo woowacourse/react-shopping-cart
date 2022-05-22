@@ -32,7 +32,7 @@ function NumberInput({ value, onChange, step = 1, positive = true }) {
     });
 
   useEffect(() => {
-    onChange(val);
+    onChange && onChange(val);
   }, [val]);
 
   return (
