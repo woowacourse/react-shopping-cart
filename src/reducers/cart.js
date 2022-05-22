@@ -19,6 +19,13 @@ export default (state = initialState, action) => {
     case CARTS_ACTIONS.UPDATE_CART_LIST_ERROR:
       return { ...state, items: { ...state.items, ...async } };
 
+    case CARTS_ACTIONS.ADD_CART_LIST_SUCCESS: {
+      const updateCartList = [...state.items.content];
+      updateCartList.push({ ...payload, isChecked: true });
+
+      return { ...state, items: { ...state.items, ...async, content: updateCartList } };
+    }
+
     case CARTS_ACTIONS.UPDATE_CART_ITEM_SUCCESS: {
       const { id: updatedId } = payload;
       const targetIndex = state.items.content.findIndex(({ id }) => id === updatedId);
