@@ -45,8 +45,8 @@ const Container = styled.label`
     font-style: normal;
     font-weight: 900;
 
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.1em;
+    height: 1.1em;
     border: 0.125em solid ${COLORS.GRAY_70};
     border-radius: ${LAYOUT.BORDER_RADIUS}px;
 
