@@ -6,7 +6,7 @@ function useFetch({ url, data, method = 'GET' }) {
   const [error, setError] = useState(null);
   const [result, setResult] = useState([]);
 
-  const apiCall = async () => {
+  const apiCall = async (data) => {
     setIsLoading(true);
     try {
       const response = await axios({ url, method, data });

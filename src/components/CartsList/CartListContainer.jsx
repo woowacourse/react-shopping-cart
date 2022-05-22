@@ -15,14 +15,14 @@ function CartListContainer({
           <SkeletonCartItem key={idx} />
         ))}
       {!isStoredProductsLoading &&
-        storedProducts?.map(({ id, price, title, src }) => (
+        storedProducts?.map(({ id, price, title, src, quantity }) => (
           <CartItem
             key={id}
             id={id}
             price={price}
             title={title}
             src={src}
-            quantity={storedProducts?.quantity}
+            quantity={quantity}
             isChecked={checkedProductsId.includes(id)}
           />
         ))}

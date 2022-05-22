@@ -20,17 +20,14 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
   const dispatch = useDispatch();
   const { userId } = useUser();
 
-  const [count, setCount] = useState(quantity);
-
   const { apiCall: deleteClickedProduct } = useFetch({
     url: `${API.CARTS}/${userId}/${id}`,
     method: 'DELETE',
   });
 
   const { apiCall: patchQuantity } = useFetch({
-    url: `${API.CARTS}/${id}/`,
+    url: `${API.CARTS}/${userId}/${id}/`,
     method: 'PATCH',
-    data: count,
   });
 
   const handleUncheckProduct = () => {
@@ -50,14 +47,10 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
     dispatch(loadCarts(userId));
   };
 
-  const handleChangeQuantity = (quantity) => {
-    setCount(quantity);
-  };
-
-  useEffect(() => {
-    patchQuantity();
+  const handleChangeQuantity = (count) => {
+    patchQuantity(count);
     dispatch(patchCarts(id, count));
-  }, [count]);
+  };
 
   return (
     <Style.FlexContainer justify="space-between">
@@ -86,10 +79,10 @@ CartItem.propTypes = {
   price: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
+  quantity: PropTypes.string.isRequired,
 };
 
 CartItem.defaultProps = {
-  quantity: 1,
   isChecked: true,
 };
 

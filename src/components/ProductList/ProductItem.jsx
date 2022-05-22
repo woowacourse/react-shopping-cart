@@ -13,7 +13,6 @@ import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 
 import useStoreProduct from 'hooks/useStoreProduct';
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
-import usePropInitState from 'hooks/usePropInitState';
 import useUser from 'hooks/useUser';
 import useDebounce from 'hooks/useDebounce';
 
@@ -24,7 +23,6 @@ function ProductItem({ id, src, price, title, isStored }) {
   const { isLoggedIn } = useUser();
   const { addToCart } = useStoreProduct(id);
   const { deleteFromCart } = useDeleteProductFromCart(id);
-  const [isClicked, setIsClicked] = usePropInitState(isStored);
 
   const handleCartClick = () => {
     if (!isLoggedIn) {
@@ -33,15 +31,13 @@ function ProductItem({ id, src, price, title, isStored }) {
     }
 
     debounce(() => {
-      if (isClicked) {
+      if (isStored) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
       } else {
-        addToCart();
+        addToCart({ id, quantity: 1 });
         dispatch(addProductToCarts(id));
       }
-
-      setIsClicked((prev) => !prev);
     }, 500);
   };
 
@@ -61,7 +57,7 @@ function ProductItem({ id, src, price, title, isStored }) {
           <CartIcon
             width={CART_SIZE.SMALL.WIDTH}
             height={CART_SIZE.SMALL.HEIGHT}
-            fill={isClicked ? COLOR.PRIMARY : COLOR.BLACK}
+            fill={isStored ? COLOR.PRIMARY : COLOR.BLACK}
           />
         </Styled.CartButton>
       </Styled.ProductInfoFlexContainer>

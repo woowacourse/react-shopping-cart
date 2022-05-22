@@ -79,8 +79,8 @@ const users = {
   a1b2c3d4: {
     carts: [
       { id: '11', quantity: 1 },
-      { id: '33', quantity: 1 },
-      { id: '44', quantity: 1 },
+      { id: '33', quantity: 3 },
+      { id: '44', quantity: 5 },
     ],
   },
 };
@@ -116,8 +116,9 @@ export const handlers = [
   }),
 
   rest.post(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {
-    const { userId, id } = req.params;
-    users[userId].carts.push({ id, quantity: 1 });
+    const { userId } = req.params;
+    const data = req.body;
+    users[userId].carts.push(data);
 
     return res(ctx.status(200));
   }),
@@ -150,6 +151,16 @@ export const handlers = [
 
   rest.get(`/${API.PRODUCT}/:id`, (req, res, ctx) => {
     const { id } = req.params;
+
+    return res(ctx.status(200), ctx.json(findById(products, id)));
+  }),
+
+  rest.patch(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {
+    const { userId, id } = req.params;
+    const quantity = req.body;
+
+    const targetCarts = users[userId].carts;
+    findById(targetCarts, id).quantity = +quantity;
 
     return res(ctx.status(200), ctx.json(findById(products, id)));
   }),

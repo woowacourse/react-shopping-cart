@@ -29,12 +29,14 @@ function Carts() {
     }));
 
   const totalPrice = Number(
-    storedProducts?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
+    checkedProducts?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
   ).toLocaleString('ko-kr');
 
   const totalQuantity = Number(
-    storedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
+    checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
   ).toLocaleString('ko-kr');
+
+  console.log('Carts', storedProducts);
 
   return (
     <Style.Container>

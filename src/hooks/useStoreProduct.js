@@ -12,7 +12,6 @@ function useStoreProduct(id) {
     error: cartAddError,
   } = useFetch({
     url: `/${API.CARTS}/${userId}/${id}`,
-    data: { id, quantity: 1 },
     method: 'POST',
   });
 

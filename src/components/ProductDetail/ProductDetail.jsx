@@ -15,7 +15,7 @@ import { COLOR } from 'constants/styles';
 
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 import useStoreProduct from 'hooks/useStoreProduct';
-import usePropInitState from 'hooks/usePropInitState';
+// import usePropInitState from 'hooks/usePropInitState';
 import useDebounce from 'hooks/useDebounce';
 import useUser from 'hooks/useUser';
 import Spinner from 'components/shared/Spinner';
@@ -25,7 +25,6 @@ function ProductDetail({ id, src, title, price, isStored }) {
   const debounce = useDebounce();
 
   const { isLoggedIn } = useUser();
-  const [isClicked, setIsClicked] = usePropInitState(isStored);
   const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
@@ -37,20 +36,18 @@ function ProductDetail({ id, src, title, price, isStored }) {
     }
 
     debounce(() => {
-      if (isClicked) {
+      if (isStored) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
       } else {
-        addToCart();
+        addToCart({ id, quantity: 1 });
         dispatch(addProductToCarts(id));
       }
-
-      setIsClicked((prev) => !prev);
     }, 500);
   };
 
   const isLoading = isCartAddLoading || isCartDeleteLoading;
-  const buttonText = isClicked ? '장바구니 취소' : '장바구니 담기';
+  const buttonText = isStored ? '장바구니 취소' : '장바구니 담기';
   const isError = deleteProductFromCartError || cartAddError;
 
   return (

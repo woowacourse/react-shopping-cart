@@ -3,18 +3,13 @@ import PropType from 'prop-types';
 
 import { COLOR } from 'constants/styles';
 
-import usePropInitState from 'hooks/usePropInitState';
-
 function CheckBox({ checked, onCheck, onUncheck }) {
-  const [isChecked, setIsChecked] = usePropInitState(checked);
-
   const handleCheckBoxClick = () => {
-    if (isChecked) {
+    if (checked) {
       onUncheck();
     } else {
       onCheck();
     }
-    setIsChecked((prev) => !prev);
   };
 
   return (
@@ -22,7 +17,7 @@ function CheckBox({ checked, onCheck, onUncheck }) {
       name="checkbox"
       type="checkbox"
       onChange={handleCheckBoxClick}
-      checked={isChecked}
+      checked={checked}
     />
   );
 }

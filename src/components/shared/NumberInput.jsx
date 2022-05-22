@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import usePropInitState from 'hooks/usePropInitState';
 import { BasicButton, Flex } from 'components/shared/basics';
 
 const NumberInput = ({ count, onChange }) => {
-  const [value, setValue] = usePropInitState(count);
-  const [isMin, setIsMin] = useState(count === 1);
+  const isMin = count === 1;
 
   const handleChangeInput = (e) => {
     if (e.target.value === 0) {
@@ -15,29 +12,25 @@ const NumberInput = ({ count, onChange }) => {
       return;
     }
 
-    setValue(Number(e.target.value));
+    onChange(Number(e.target.value));
   };
 
   const handleIncrement = () => {
-    setValue((prev) => prev + 1);
+    onChange(count + 1);
   };
   const handleDecrement = () => {
-    if (value <= 1) {
+    if (count <= 1) {
       return;
     }
-    setValue((prev) => prev - 1);
-  };
 
-  useEffect(() => {
-    setIsMin(value === 1);
-    onChange(value);
-  }, [value]);
+    onChange(count - 1);
+  };
 
   return (
     <Flex justify="center" align="center">
       <Style.NumberInput
         type="number"
-        value={value}
+        value={count}
         onChange={handleChangeInput}
       />
       <Style.NumberInputBox>
