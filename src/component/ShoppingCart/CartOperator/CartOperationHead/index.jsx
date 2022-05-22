@@ -1,5 +1,6 @@
 import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
+import { ALERT_MESSAGE } from 'constant/messages';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { checkProductCart, removeProductCart } from 'store/action/cartActions';
@@ -20,7 +21,7 @@ export default function CartOperationHead({ products }) {
       .filter(product => product.checked)
       .forEach(product => dispatch(removeProductCart(product)));
 
-    dispatch(updateSnackBar('선택 상품을 삭제했습니다.'));
+    dispatch(updateSnackBar(ALERT_MESSAGE.CHECKED_REMOVE_CART));
   };
 
   return (

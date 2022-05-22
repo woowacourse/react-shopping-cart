@@ -10,6 +10,7 @@ import {
   subtractProductCart,
 } from 'store/action/cartActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
+import { ALERT_MESSAGE } from 'constant/messages';
 
 export default function CartProduct({ product }) {
   const { image, name, price, count } = product;
@@ -29,7 +30,7 @@ export default function CartProduct({ product }) {
 
   const handleDeleteClick = () => {
     dispatch(removeProductCart(product));
-    dispatch(updateSnackBar(`${product.name} 상품을 삭제했습니다.`));
+    dispatch(updateSnackBar(`${product.name} ${ALERT_MESSAGE.REMOVE_CART}`));
   };
 
   return (

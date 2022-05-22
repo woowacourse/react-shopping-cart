@@ -4,6 +4,8 @@ const ERROR_MESSAGE = {
 
 const ALERT_MESSAGE = {
   ADD_CART: '상품이 장바구니에 추가되었습니다.',
+  CHECKED_REMOVE_CART: '선택 상품을 삭제했습니다.',
+  REMOVE_CART: '상품을 삭제했습니다.',
 };
 
 export { ERROR_MESSAGE, ALERT_MESSAGE };
