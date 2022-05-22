@@ -1,10 +1,15 @@
-import { BrowserRouter } from 'react-router-dom';
-import PageRoutes from 'PageRoutes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { PAGES } from 'pages';
 
 function App() {
   return (
     <BrowserRouter basename="/react-shopping-cart">
-      <PageRoutes />
+      <Routes>
+        {Object.keys(PAGES).map((path) => (
+          <Route key={path} path={path} element={PAGES[path]} />
+        ))}
+      </Routes>
     </BrowserRouter>
   );
 }
