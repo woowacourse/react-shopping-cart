@@ -6,18 +6,32 @@ import Icon from 'components/@common/Icon';
 import { getPixelToRem } from 'lib/formatterUtils';
 import { BRAND_COLORS, COLORS } from 'styles/theme';
 
+const TITLE_TYPE = {
+  PAGE: css`
+    padding: 1.5rem;
+
+    border-bottom: 0.25rem solid ${COLORS.GRAY_50};
+    margin-bottom: 1rem;
+  `,
+
+  CONTENT: css`
+    padding: 1em 0.3em;
+
+    border-bottom: 1px solid ${COLORS.GRAY_150};
+    margin-bottom: 1em;
+  `,
+};
+
 const Container = styled.div`
   width: 100%;
-  padding: 1.5rem;
-
-  border-bottom: 0.25rem solid ${COLORS.GRAY_50};
-  margin-bottom: 1rem;
 
   ${({ size }) =>
     size &&
     css`
       font-size: ${getPixelToRem(size)}rem;
     `}
+
+  ${({ type }) => TITLE_TYPE[type.toUpperCase()]}
 `;
 
 const PageTitle = styled.h1`
