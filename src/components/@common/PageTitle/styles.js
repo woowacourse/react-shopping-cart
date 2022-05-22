@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 import Icon from 'components/@common/Icon';
 
+import { getPixelToRem } from 'lib/formatterUtils';
 import { BRAND_COLORS, COLORS } from 'styles/theme';
 
 const Container = styled.div`
@@ -10,17 +12,23 @@ const Container = styled.div`
 
   border-bottom: 0.25rem solid ${COLORS.GRAY_50};
   margin-bottom: 1rem;
+
+  ${({ size }) =>
+    size &&
+    css`
+      font-size: ${getPixelToRem(size)}rem;
+    `}
 `;
 
 const PageTitle = styled.h1`
   display: flex;
   align-items: center;
 
-  font-size: 1.5rem;
+  font-size: 1em;
   font-weight: bold;
 
   &:not(:last-child) {
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.7em;
   }
 
   ${Icon} {
@@ -44,12 +52,12 @@ const PageTitle = styled.h1`
 const PageDescription = styled.p`
   display: flex;
   align-items: center;
-  font-size: 0.85rem;
+  font-size: 0.55em;
   color: ${COLORS.GRAY_100};
 
   ${Icon} {
     color: ${COLORS.GRAY_50};
-    margin-right: 0.5rem;
+    margin-right: 0.5em;
   }
 `;
 

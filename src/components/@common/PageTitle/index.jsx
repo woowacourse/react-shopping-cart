@@ -5,9 +5,9 @@ import Icon from 'components/@common/Icon';
 
 import * as S from './styles';
 
-function PageTitle({ description, children }) {
+function PageTitle({ size, description, children }) {
   return (
-    <S.Container>
+    <S.Container size={size}>
       <S.PageTitle>{children}</S.PageTitle>
       {description && (
         <S.PageDescription>
@@ -19,10 +19,12 @@ function PageTitle({ description, children }) {
 }
 
 PageTitle.defaultProps = {
+  size: 24,
   description: null,
 };
 
 PageTitle.propTypes = {
+  size: PropTypes.number,
   description: PropTypes.string,
 };
 
