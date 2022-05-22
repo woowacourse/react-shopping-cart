@@ -16,7 +16,7 @@ function DetailProduct({ product }) {
       <FlexWrapper flexFlow="column wrap" alignItems="center" alignContent="center">
         <Image src={product.product_img_src} width="570px" height="570px" />
         <MarginWrapper marginBottom="20px" />
-        <SubTitle width="640px" fontSize="2rem" paddingLeft="36px">
+        <SubTitle width="640px" minWidth="400px" fontSize="2rem" paddingLeft="36px">
           {product.product_title}
         </SubTitle>
         <MarginWrapper marginBottom="34px" />

@@ -80,7 +80,9 @@ function Cart({ cartProducts }) {
 
         <CartProductPriceStyled>
           <CartProductPriceWrapperStyled>
-            <SubTitle width="26vw">결제예상금액</SubTitle>
+            <SubTitle width="26vw" minWidth="300px">
+              결제예상금액
+            </SubTitle>
             <FlexWrapper justifyContent="space-between">
               <Text>결제예상금액</Text>
               <CartTotalPrice cartProducts={cartProducts} />
