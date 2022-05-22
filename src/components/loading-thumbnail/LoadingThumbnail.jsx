@@ -3,10 +3,13 @@ import styles from "./loading-thumbnail.module";
 
 const cn = require("classnames");
 
-function LoadingThumbnail({ className, src, alt }) {
+function LoadingThumbnail({ className, src, alt, minHeight }) {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
-    <div className={cn(styles.thumbnail, className)}>
+    <div
+      className={cn(styles.thumbnail, className)}
+      style={{ minHeight: `${minHeight}px` }}
+    >
       {!isLoaded && <ThumbnailLoadingIndicator />}
       <img
         src={src}

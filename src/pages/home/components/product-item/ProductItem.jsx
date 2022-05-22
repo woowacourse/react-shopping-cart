@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "@assets/images/cart.svg";
-import Thumbnail from "@home/components/thumbnail/Thumbnail";
 import ImageButton from "@home/components/image-button/ImageButton";
 import createAction from "@redux/createAction";
 import ACTION_TYPE from "@redux/actions";
 import styles from "@home/components/product-item/product-item.module";
+import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
 
 const cn = require("classnames");
 
@@ -30,10 +30,11 @@ function ProductItem({
 
   return (
     <div className={cn(styles.productItem, className)}>
-      <Thumbnail
+      <LoadingThumbnail
         src={`${thumbnailUrl}`}
         className={styles.thumbnail}
         alt={alt}
+        minHeight="295"
       />
       <div className={cn(styles.content)}>
         <div className={cn(styles.productDetail)}>
