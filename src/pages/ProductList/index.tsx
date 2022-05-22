@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
+import {
+  actionCreators as productsActions,
+  ProductState,
+  selectProductState,
+} from "../../redux/modules/products";
 
 import Product from "../../components/Product";
 import Loader from "../../components/@shared/Loader";
@@ -14,7 +18,7 @@ function ProductList() {
   const { productList, loading, error }: ProductState = useSelector(selectProductState);
 
   useEffect(() => {
-    dispatch(loadProductsAPI());
+    dispatch(productsActions.loadProductsAPI());
   }, [dispatch]);
 
   useEffect(() => {
