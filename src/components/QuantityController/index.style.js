@@ -20,7 +20,7 @@ const Styled = {
   Quantity: styled.p`
     font-weight: 500;
     font-size: 25px;
-    color: ${({ theme }) => theme.colors.mint};
+    color: ${({ theme }) => theme.colors.mint_001};
   `,
 
   Increase: styled(PlusIcon)`

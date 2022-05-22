@@ -5,8 +5,8 @@ const Styled = {
   Container: styled.div`
     width: 660px;
     height: 203px;
-    border-top: 2px solid #cccccc;
-    border-bottom: 2px solid #cccccc;
+    border-top: 2px solid ${({ theme }) => theme.colors.gray};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.gray};
     display: flex;
     padding: 30px;
     justify-content: space-between;

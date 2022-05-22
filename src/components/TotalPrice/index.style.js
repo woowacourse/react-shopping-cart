@@ -5,13 +5,13 @@ const Styled = {
   Container: styled.div`
     width: 448px;
     height: 318px;
-    border: 1px solid #cccccc;
+    border: 1px solid ${({ theme }) => theme.colors.gray};
   `,
 
   Header: styled.div`
     width: 448px;
     height: 81px;
-    border: 1px solid #cccccc;
+    border: 1px solid ${({ theme }) => theme.colors.gray};
     display: flex;
     padding: 25px;
     box-sizing: border-box;
@@ -49,7 +49,7 @@ const Styled = {
     font-weight: 400;
     font-size: 24px;
     line-height: 21px;
-    background-color: ${({ theme }) => theme.colors.mint};
+    background-color: ${({ theme }) => theme.colors.mint_001};
     color: ${({ theme }) => theme.colors.white};
   `,
 };

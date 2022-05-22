@@ -4,7 +4,7 @@ const Styled = {
   Container: styled.div`
     width: 113px;
     height: 60px;
-    border: 1px solid #cccccc;
+    border: 1px solid ${({ theme }) => theme.colors.gray};
     display: grid;
     box-sizing: border-box;
     grid-template-areas:
@@ -24,7 +24,7 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
-    outline: 1px solid #cccccc;
+    outline: 1px solid ${({ theme }) => theme.colors.gray};
     cursor: pointer;
   `,
 };

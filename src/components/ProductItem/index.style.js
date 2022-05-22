@@ -30,7 +30,7 @@ const Styled = {
   `,
 
   Quantity: styled.div`
-    background-color: ${({ theme }) => theme.colors.mint};
+    background-color: ${({ theme }) => theme.colors.mint_001};
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -38,7 +38,7 @@ const Styled = {
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    color: white;
+    color: ${({ theme }) => theme.colors.white};
   `,
 
   CartController: styled.div`
