@@ -4,19 +4,22 @@ import NumberInput from "@shared/number-input/NumberInput";
 import DeleteIcon from "@shared/icons/delete-icon/DeleteIcon";
 import styles from "./cart-item.module";
 
+const cn = require("classnames");
+
 function CartItem({
-  checked,
-  src,
-  alt,
-  productId,
-  productName,
+  id: productId,
+  title,
+  thumbnail_image: { url, alt },
   quantity,
   price,
+  checked,
+  onDelete,
   onChecked,
   onQuantityChange,
+  className,
 }) {
   return (
-    <div className={styles.cartItem}>
+    <div className={cn(styles.cartItem, className)}>
       <Checkbox
         checked={checked}
         onChange={onChecked}
@@ -25,13 +28,13 @@ function CartItem({
       />
       <div className={styles.content}>
         <div className={styles.left}>
-          <LoadingThumbnail src={src} alt={alt} />
+          <LoadingThumbnail src={url} alt={alt} />
         </div>
         <div className={styles.middle}>
-          <div className={styles.productName}>{productName}</div>
+          <div className={styles.productName}>{title}</div>
         </div>
         <div className={styles.right}>
-          <DeleteIcon onClick={() => alert("onClicked!")} />
+          <DeleteIcon onClick={onDelete} />
           <NumberInput onChange={onQuantityChange} value={quantity} />
           <div className={styles.productPrice}>{price}</div>
         </div>
@@ -39,5 +42,11 @@ function CartItem({
     </div>
   );
 }
+
+CartItem.defaultProps = {
+  onDelete: () => undefined,
+  onQuantityChange: () => undefined,
+  onChecked: () => undefined,
+};
 
 export default CartItem;

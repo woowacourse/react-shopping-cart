@@ -15,14 +15,21 @@ function Template(args) {
 }
 
 export const Primary = Template.bind({});
-Primary.args = {
-  checked: false,
-  src: "https://place-hold.it/150x150",
-  alt: "This is image alt",
-  productId: "product-id",
-  productName: "Product Name",
+
+const item = {
+  selected_in_cart: false,
+  id: "mUtrhmnU",
+  title: "Product Title",
   quantity: 10,
-  price: "$30.2",
+  price: "$120.00",
+  thumbnail_image: {
+    url: "https://place-hold.it/150x150",
+    alt: "Product Image Alt",
+  },
+};
+
+Primary.args = {
   onChecked: () => undefined,
   onQuantityChange: () => undefined,
+  ...item,
 };
