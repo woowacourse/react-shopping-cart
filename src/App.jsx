@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Route, Routes } from "react-router-dom";
 import ProductList from "@/pages/home/components/product-list/ProductList";
 import Cart from "@/pages/cart/components/cart/Cart";

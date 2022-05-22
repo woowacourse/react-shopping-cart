@@ -4,7 +4,6 @@ import StyledProductList from "@/pages/cart/components/product-list/ProductList.
 
 function ProductList() {
   const cartList = useSelector((state) => state.cartListState);
-  console.log(cartList);
 
   return (
     <StyledProductList>
@@ -17,10 +16,9 @@ function ProductList() {
           상품삭제
         </button>
       </div>
-      <h3 className="cart-title">든든배송 상품(3개)</h3>
+      <h3 className="cart-title">든든배송 상품({cartList.length}개)</h3>
       <hr className="cart-title-border" />
       {cartList.map((item) => {
-        console.log(item);
         return <ProductItem key={item.id} item={item} />;
       })}
     </StyledProductList>
