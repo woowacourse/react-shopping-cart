@@ -1,16 +1,16 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import GlobalStyles from 'styles/globalStyles';
 
-import Layout from 'components/common/Layout';
-import ProductList from 'components/ProductList';
-import ProductDetail from 'components/ProductDetail';
-import NotFound from 'components/NotFound';
-import Cart from 'components/Cart';
-
 import { ROUTE } from 'constants';
-import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem, deleteCartItem, minusCartItem } from 'modules/cart';
+
+import Layout from 'components/common/Layout';
+import ProductList from 'components/Pages/ProductList';
+import ProductDetail from 'components/Pages/ProductDetail';
+import NotFound from 'components/Pages/NotFound';
+import Cart from 'components/Pages/Cart';
 
 const App = () => {
   const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);

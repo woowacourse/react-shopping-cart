@@ -2,7 +2,7 @@ import React from 'react';
 import PaymentModal from 'components/common/Modal/PaymentModal';
 
 export default {
-  title: 'components/PaymentModal',
+  title: 'components/common/PaymentModal',
   component: PaymentModal,
 };
 

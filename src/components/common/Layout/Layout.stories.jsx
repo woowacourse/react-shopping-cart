@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from 'components/common/Layout/index';
 
 export default {
-  title: 'components/Layout',
+  title: 'components/common/Layout',
   component: Layout,
 };
 

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from 'modules/productList';
 
-import Product from 'components/Product';
+import Product from 'components/Pages/ProductList/Product';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
-import { addCartItem } from 'modules/cart';
 
 const Styled = {
   ProductBox: styled.div`

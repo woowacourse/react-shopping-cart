@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getProduct } from 'modules/product';
 import { COLOR } from 'constants';
+import { getProduct } from 'modules/product';
 
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';

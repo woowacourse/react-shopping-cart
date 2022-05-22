@@ -2,7 +2,7 @@ import React from 'react';
 import Title from 'components/common/Title';
 
 export default {
-  title: 'components/Title',
+  title: 'components/common/Title',
   component: Title,
 };
 

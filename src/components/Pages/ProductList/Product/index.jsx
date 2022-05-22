@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import { CartButton, flexCenter, flexSpaceBetween } from 'components/common/Styled';
-import { ROUTE } from 'constants';
-import { COLOR } from 'constants';
+import { Link } from 'react-router-dom';
+
+import { COLOR, ROUTE } from 'constants';
+import { flexCenter, flexSpaceBetween } from 'components/common/Styled';
+
 import { StyledButton } from 'components/common/Button';
+
+import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 const Styled = {
   Wrapper: styled.div`
