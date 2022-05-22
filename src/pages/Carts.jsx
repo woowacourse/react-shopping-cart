@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import CartListContainer from '../components/CartsList/CartListContainer';
-import CheckedItemsController from '../components/CheckBox/CheckedItemsController';
-import { BasicDivideLine, Flex } from '../components/shared/basics';
-import TotalPrice from '../components/TotalPrice/TotalPrice';
+import CartListContainer from 'components/CartsList/CartListContainer';
+import CheckedItemsController from 'components/CheckBox/CheckedItemsController';
+import { BasicDivideLine, Flex } from 'components/shared/basics';
+import TotalPrice from 'components/TotalPrice/TotalPrice';
 
 function Carts() {
   const { carts, checkedCarts } = useSelector((state) => state.carts);

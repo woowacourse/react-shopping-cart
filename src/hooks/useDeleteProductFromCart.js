@@ -1,6 +1,6 @@
-import PATH from '../constants/path';
-import useFetch from './useFetch';
-import useUser from './useUser';
+import PATH from 'constants/path';
+import useFetch from 'hooks/useFetch';
+import useUser from 'hooks/useUser';
 
 function useDeleteProductFromCart(id) {
   const { userId } = useUser();

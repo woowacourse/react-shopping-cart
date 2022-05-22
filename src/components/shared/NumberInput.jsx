@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import usePropInitState from '../../hooks/usePropInitState';
-import { BasicButton, Flex } from './basics';
+import usePropInitState from 'hooks/usePropInitState';
+import { BasicButton, Flex } from 'components/shared/basics';
 
 const NumberInput = ({ count, onChange }) => {
   const [value, setValue] = usePropInitState(count);

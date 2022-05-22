@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from './components/Header/Header';
-import Main from './pages/Main';
-import Orders from './pages/Orders';
-import NotFound from './pages/NotFound';
-import Carts from './pages/Carts';
-import ProductDetailContainer from './components/ProductDetail/ProductDetailContainer';
+import Header from 'components/Header/Header';
+import Main from 'pages/Main';
+import Orders from 'pages/Orders';
+import NotFound from 'pages/NotFound';
+import Carts from 'pages/Carts';
+import ProductDetailContainer from 'components/ProductDetail/ProductDetailContainer';
 
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from 'GlobalStyle';
 
-import PATH from './constants/path';
-import useUser from './hooks/useUser';
-import { loadProducts } from './store/products';
-import { loadCarts } from './store/carts';
+import PATH from 'constants/path';
+import useUser from 'hooks/useUser';
+import { loadProducts } from 'store/products';
+import { loadCarts } from 'store/carts';
 
 function App() {
   const dispatch = useDispatch();

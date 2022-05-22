@@ -1,20 +1,23 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
+
+import { addProductToCarts, deleteProductFromCarts } from 'store/carts';
+
 import {
   BasicButton,
   BasicDivideLine,
   BasicImage,
   Flex,
-} from '../shared/basics';
-import { COLOR } from '../../constants/styles';
+} from 'components/shared/basics';
 
-import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
-import useStoreProduct from '../../hooks/useStoreProduct';
-import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
-import usePropInitState from '../../hooks/usePropInitState';
-import useDebounce from '../../hooks/useDebounce';
-import useUser from '../../hooks/useUser';
+import { COLOR } from 'constants/styles';
+
+import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
+import useStoreProduct from 'hooks/useStoreProduct';
+import usePropInitState from 'hooks/usePropInitState';
+import useDebounce from 'hooks/useDebounce';
+import useUser from 'hooks/useUser';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const dispatch = useDispatch();

@@ -1,11 +1,15 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import PATH from '../../constants/path';
-import useFetch from '../../hooks/useFetch';
-import useUser from '../../hooks/useUser';
-import { checkAll, loadCarts, uncheckAll } from '../../store/carts';
-import { BasicButton, Flex } from '../shared/basics';
-import CheckBox from './CheckBox';
+
+import { checkAll, loadCarts, uncheckAll } from 'store/carts';
+
+import { BasicButton, Flex } from 'components/shared/basics';
+import CheckBox from 'components/CheckBox/CheckBox';
+
+import PATH from 'constants/path';
+
+import useFetch from 'hooks/useFetch';
+import useUser from 'hooks/useUser';
 
 function CheckedItemsController({ checkedCarts }) {
   const { userId } = useUser();

@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-import PATH from '../../constants/path';
-import { CART_SIZE, COLOR } from '../../constants/styles';
-
-import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { BasicButton, Flex } from '../shared/basics';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import PATH from 'constants/path';
+import { CART_SIZE, COLOR } from 'constants/styles';
+
+import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
+import { BasicButton, Flex } from 'components/shared/basics';
 
 function Header() {
   const { carts } = useSelector((state) => state.carts);

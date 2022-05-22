@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
-import { BasicImage, BasicButton, Flex } from '../shared/basics';
-import { CART_SIZE, COLOR } from '../../constants/styles';
-import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import PATH from '../../constants/path';
-import useStoreProduct from '../../hooks/useStoreProduct';
-import useDeleteProductFromCart from '../../hooks/useDeleteProductFromCart';
-import { addProductToCarts, deleteProductFromCarts } from '../../store/carts';
-import usePropInitState from '../../hooks/usePropInitState';
-import useUser from '../../hooks/useUser';
-import useDebounce from '../../hooks/useDebounce';
+import { addProductToCarts, deleteProductFromCarts } from 'store/carts';
+
+import { CART_SIZE, COLOR } from 'constants/styles';
+import PATH from 'constants/path';
+
+import { BasicImage, BasicButton, Flex } from 'components/shared/basics';
+import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
+
+import useStoreProduct from 'hooks/useStoreProduct';
+import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
+import usePropInitState from 'hooks/usePropInitState';
+import useUser from 'hooks/useUser';
+import useDebounce from 'hooks/useDebounce';
 
 function ProductItem({ id, src, price, title, isStored }) {
   const dispatch = useDispatch();

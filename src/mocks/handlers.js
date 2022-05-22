@@ -1,5 +1,4 @@
 import { rest } from 'msw';
-// import { products } from './db.js';
 
 const products = [
   {

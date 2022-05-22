@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { COLOR } from '../../constants/styles';
-import { BasicButton, BasicDivideLine, Flex } from '../shared/basics';
+import { COLOR } from 'constants/styles';
+import { BasicButton, BasicDivideLine, Flex } from 'components/shared/basics';
 
 function TotalPrice({ total = 0, quantity = 0 }) {
   return (

@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import productsReducer from './products';
-import productReducer from './product';
-import cartsReducer from './carts';
+import productsReducer from 'store/products';
+import productReducer from 'store/product';
+import cartsReducer from 'store/carts';
 
 const rootReducer = combineReducers({
   products: productsReducer,

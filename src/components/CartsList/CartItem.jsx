@@ -1,16 +1,20 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import PATH from '../../constants/path';
-import { COLOR } from '../../constants/styles';
-import useFetch from '../../hooks/useFetch';
-import useUser from '../../hooks/useUser';
-import { checkOne, loadCarts, patchCarts, uncheckOne } from '../../store/carts';
-import CheckBox from '../CheckBox/CheckBox';
-import { BasicButton, BasicImage, Flex } from '../shared/basics';
-import { ReactComponent as Bin } from '../shared/Bin.svg';
-import NumberInput from '../shared/NumberInput';
+
+import { checkOne, loadCarts, patchCarts, uncheckOne } from 'store/carts';
+
+import PATH from 'constants/path';
+import { COLOR } from 'constants/styles';
+
+import useFetch from 'hooks/useFetch';
+import useUser from 'hooks/useUser';
+
+import CheckBox from 'components/CheckBox/CheckBox';
+import { BasicButton, BasicImage, Flex } from 'components/shared/basics';
+import { ReactComponent as Bin } from 'components/shared/Bin.svg';
+import NumberInput from 'components/shared/NumberInput';
 
 function CartItem({ id, title, price, src, isChecked, quantity }) {
   const dispatch = useDispatch();

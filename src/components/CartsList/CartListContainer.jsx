@@ -1,4 +1,4 @@
-import CartItem from './CartItem';
+import CartItem from 'components/CartsList/CartItem';
 
 function CartListContainer({
   isStoredProductsLoading,

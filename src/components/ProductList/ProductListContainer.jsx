@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
-import { Flex } from '../shared/basics';
+import { Flex } from 'components/shared/basics';
 
-import ProductItem from './ProductItem';
+import ProductItem from 'components/ProductList/ProductItem';
 
 function ProductListContainer() {
   const {

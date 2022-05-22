@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import PropType from 'prop-types';
-import { COLOR } from '../../constants/styles';
-import usePropInitState from '../../hooks/usePropInitState';
+
+import { COLOR } from 'constants/styles';
+
+import usePropInitState from 'hooks/usePropInitState';
 
 function CheckBox({ checked, onCheck, onUncheck }) {
   const [isChecked, setIsChecked] = usePropInitState(checked);

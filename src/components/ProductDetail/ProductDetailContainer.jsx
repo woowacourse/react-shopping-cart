@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { loadProduct } from '../../store/product';
-import { Flex } from '../shared/basics';
-import ProductDetail from './ProductDetail';
+
+import { loadProduct } from 'store/product';
+import { Flex } from 'components/shared/basics';
+import ProductDetail from 'components/ProductDetail/ProductDetail';
 
 function ProductDetailContainer() {
   const dispatch = useDispatch();

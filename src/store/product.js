@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PATH from '../constants/path';
+import PATH from 'constants/path';
 
 const LOAD_PRODUCT_START = 'product/LOAD_PRODUCT_START';
 const LOAD_PRODUCT_SUCCESS = 'product/LOAD_PRODUCT_SUCCESS';
