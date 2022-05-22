@@ -6,20 +6,20 @@ export const useFetch = <T>(url: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>(null);
 
-  const requestData = async () => {
-    setLoading(true);
-    try {
-      const { data }: { data: T } = await client.get(url);
-
-      setData(data);
-    } catch {
-      setError('something is wrong!');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const requestData = async () => {
+      setLoading(true);
+      try {
+        const { data }: { data: T } = await client.get(url);
+
+        setData(data);
+      } catch {
+        setError('something is wrong!');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     requestData();
   }, [url]);
 
