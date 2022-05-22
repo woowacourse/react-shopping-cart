@@ -11,6 +11,7 @@ import {
   INCREMENT_CART_ITEM_QUANTITY,
   DECREMENT_CART_ITEM_QUANTITY,
   REMOVE_CHECKED_CART_ITEM,
+  REMOVE_ROW_CART_ITEM,
 } from "./types";
 import createAction from "./createAction";
 
@@ -51,4 +52,8 @@ export const decrementCartItemQuantity = (id) => async (dispatch) => {
 
 export const removeCheckedCartItem = () => async (dispatch) => {
   dispatch(createAction(REMOVE_CHECKED_CART_ITEM));
+};
+
+export const removeRowCartItem = (id) => async (dispatch) => {
+  dispatch(createAction(REMOVE_ROW_CART_ITEM, id));
 };

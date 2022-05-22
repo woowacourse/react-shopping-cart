@@ -9,6 +9,7 @@ import {
   INCREMENT_CART_ITEM_QUANTITY,
   DECREMENT_CART_ITEM_QUANTITY,
   REMOVE_CHECKED_CART_ITEM,
+  REMOVE_ROW_CART_ITEM,
 } from "./types";
 
 export const productListInitialState = {
@@ -126,6 +127,13 @@ export const cartListReducer = (state = cartListInitialState, action) => {
         return item.checked === false;
       });
       return checkedItemRemovedState;
+
+    case REMOVE_ROW_CART_ITEM:
+      const rowItemRemovedState = newState.filter((item) => {
+        return item.id !== action.payload;
+      });
+
+      return rowItemRemovedState;
 
     default:
       return state;

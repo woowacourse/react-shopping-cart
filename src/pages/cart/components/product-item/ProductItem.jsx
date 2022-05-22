@@ -6,6 +6,7 @@ import {
   toggleCartItemCheckButton,
   incrementCartItemQuantity,
   decrementCartItemQuantity,
+  removeRowCartItem,
 } from "@/redux/actions";
 import TrashIcon from "@/assets/images/trash.svg";
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
@@ -26,6 +27,10 @@ function ProductItem({ item }) {
     dispatch(decrementCartItemQuantity(id));
   };
 
+  const handleRemoveIconClick = () => {
+    dispatch(removeRowCartItem(id));
+  };
+
   return (
     <>
       <StyledCartContainer>
@@ -42,6 +47,7 @@ function ProductItem({ item }) {
         </div>
         <div className="product-item__right">
           <TrashIcon
+            onClick={handleRemoveIconClick}
             css={css`
               cursor: pointer;
             `}
