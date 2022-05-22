@@ -4,7 +4,7 @@ import CartPageLayout from './layouts/CartPageLayout';
 
 const Loadable = (Component) => (props) =>
   (
-    <Suspense>
+    <Suspense fallback={<div>로딩중...</div>}>
       <Component {...props} />
     </Suspense>
   );

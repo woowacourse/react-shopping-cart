@@ -17,7 +17,7 @@ function CartPageLayout() {
 
   return (
     <LayoutRoot>
-      <Suspense fallback={<div>로딩중</div>}>{isLoading && <Outlet />}</Suspense>
+      <Suspense fallback={<div>로딩중...</div>}>{isLoading && <Outlet />}</Suspense>
     </LayoutRoot>
   );
 }
