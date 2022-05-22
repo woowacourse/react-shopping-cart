@@ -1,3 +1,4 @@
+import { Button } from 'components';
 import styled from 'styled-components';
 
 const Styled = {
@@ -86,6 +87,12 @@ const Styled = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  `,
+
+  ProductDeleteButton: styled(Button)`
+    color: ${({ theme }) => theme.colors.black};
+    border: 1px solid #bbbbbb;
+    padding: 12px 22px;
   `,
 };
 

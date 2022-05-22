@@ -12,6 +12,7 @@ const Styled = {
             }
             width: 49px;
             height: 39px;
+            margin: 0 10px;
           `;
 
         default:

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Styled from 'page/CartPage/index.style';
-import { Button, Image } from 'components';
+import { Image } from 'components';
 import CartProductItem from 'components/CartProductItem';
 import CheckBox from 'components/CheckBox';
 import TotalPrice from 'components/TotalPrice';
@@ -63,10 +63,7 @@ const CartPage = () => {
                   />
                   선택해제
                 </Styled.CheckBoxContainer>
-                <Button
-                  color="black"
-                  border="1px solid #BBBBBB"
-                  style={{ padding: '12px 22px' }}
+                <Styled.ProductDeleteButton
                   onClick={() =>
                     order.forEach(productId =>
                       store.dispatch(doDeleteProductFromCart({ id: productId })),
@@ -74,7 +71,7 @@ const CartPage = () => {
                   }
                 >
                   상품삭제
-                </Button>
+                </Styled.ProductDeleteButton>
               </Styled.SelectController>
 
               <Styled.ProductListTitle>

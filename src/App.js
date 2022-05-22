@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import ProductListPage from 'page/ProductListPage';
 import ProductDetailPage from 'page/ProductDetailPage';
-import { Header, Button, CartIcon } from 'components';
+import { Header, CartIcon } from 'components';
 import GlobalStyles from 'components/GlobalStyles';
 import theme from 'components/theme';
 
@@ -15,6 +15,32 @@ const Styled = {
     display: flex;
     justify-content: center;
   `,
+
+  HomeLink: styled(Link)`
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 58px;
+    text-decoration: none;
+    color: white;
+  `,
+
+  CartLink: styled(Link)`
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 12px;
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+  `,
+
+  OrderLink: styled(Link)`
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 12px;
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+  `,
 };
 
 function App() {
@@ -23,21 +49,14 @@ function App() {
       <BrowserRouter basename={BASE_URL}>
         <Header
           left={
-            <div>
-              <Link to="">
-                <Button>
-                  <CartIcon category="header" />
-                </Button>
-                <Button boldFont>WOOWA SHOP</Button>
-              </Link>
-            </div>
+            <Styled.HomeLink to="">
+              <CartIcon category="header" /> WOOWA SHOP
+            </Styled.HomeLink>
           }
           right={
             <div>
-              <Link to="cart">
-                <Button normalFont>장바구니</Button>
-              </Link>
-              <Button normalFont>주문목록</Button>
+              <Styled.CartLink to="cart">장바구니</Styled.CartLink>
+              <Styled.OrderLink to="">주문목록</Styled.OrderLink>
             </div>
           }
         />

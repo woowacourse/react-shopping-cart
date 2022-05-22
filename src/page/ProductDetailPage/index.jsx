@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Button, Image } from 'components';
-import theme from 'components/theme';
+import { Image } from 'components';
 
 import Styled from 'page/ProductDetailPage/index.style';
 
@@ -37,15 +36,7 @@ const ProductDetailPage = () => {
           <Styled.PriceTag>금액</Styled.PriceTag>
           <Styled.ProductPrice>{autoComma(price)}</Styled.ProductPrice>
         </Styled.PriceContainer>
-        <Button
-          bg={theme.colors.brown}
-          width="638px"
-          height="98px"
-          style={{ fontWeight: 700, fontSize: '32px', lineHeight: '21px', marginTop: '57px' }}
-          onClick={putCart}
-        >
-          장바구니
-        </Button>
+        <Styled.PutCartButton onClick={putCart}>장바구니</Styled.PutCartButton>
       </Styled.ProductContainer>
     </Styled.ProductDetailPage>
   );

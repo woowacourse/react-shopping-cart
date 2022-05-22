@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'components';
 
 const Styled = {
   ProductDetailPage: styled.main`
@@ -64,6 +65,17 @@ const Styled = {
     font-size: 32px;
     line-height: 27px;
     letter-spacing: 0.5px;
+  `,
+
+  PutCartButton: styled(Button)`
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.brown};
+    width: 638px;
+    height: 98px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 21px;
+    margin-top: 57px;
   `,
 };
 
