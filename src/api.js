@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const DEV_URL = 'http://localhost:4000';
-const PROD_URL = 'https://coke-react-shopping-cart.herokuapp.com';
+const PROD_URL = process.env.REACT_APP_API_ROOT;
 const BASE_URL = '';
 let API_URL = process.env.NODE_ENV === 'development' ? BASE_URL : PROD_URL;
 
