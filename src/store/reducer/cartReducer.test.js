@@ -1,4 +1,3 @@
-import CartProduct from 'component/ShoppingCart/CartOperationContainer/CartProduct';
 import { CART_ACTION_TYPES } from 'store/action/cartActions';
 import cartReducer from './cartReducer';
 

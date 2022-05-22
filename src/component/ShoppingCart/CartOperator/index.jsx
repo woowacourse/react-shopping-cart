@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import CartOperationHead from './CartOperationHead';
 import CartProduct from './CartProduct';
 
-export default function CartOperationContainer({ products }) {
+export default function CartOperator({ products }) {
   return (
     <CartOperationBox>
       <CartOperationHead products={products} />

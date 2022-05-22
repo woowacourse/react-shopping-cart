@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import CartOperationContainer from 'component/ShoppingCart/CartOperationContainer';
-import OrderContainer from 'component/ShoppingCart/OrderContainer';
+import storage from 'storage/storage';
+import CartOperator from 'component/ShoppingCart/CartOperator';
+import CartOrder from 'component/ShoppingCart/CartOrder';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import storage from 'storage/storage';
 import { cartProductsAsyncThunk } from 'store/thunk/productThunk';
 
 export default function ShoppingCart() {
@@ -23,10 +23,10 @@ export default function ShoppingCart() {
         <Head>장바구니</Head>
         <BodyBox>
           <CartOperationWrapper>
-            <CartOperationContainer products={cartedProducts} />
+            <CartOperator products={cartedProducts} />
           </CartOperationWrapper>
           <OrderContainerWrapper>
-            <OrderContainer products={cartedProducts} />
+            <CartOrder products={cartedProducts} />
           </OrderContainerWrapper>
         </BodyBox>
       </Content>

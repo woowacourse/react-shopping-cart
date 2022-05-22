@@ -3,7 +3,7 @@ import OrderButton from './OrderButton';
 import OrderList from './OrderList';
 import TotalPrice from './TotalPrice';
 
-export default function OrderContainer({ products }) {
+export default function CartOrder({ products }) {
   const totalAmount = products.reduce((amount, product) => {
     return product.checked ? amount + product.price * product.count : amount;
   }, 0);
