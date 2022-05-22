@@ -64,7 +64,7 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
           upButtonClick={handleUpStockButton}
           handleChange={handleChangeNumber}
         />
-        <p>{product.data?.price.toLocaleString("ko-kr")}원</p>
+        <p>{(product.data?.price * cart?.stock).toLocaleString("ko-kr")}원</p>
       </S.ItemRightContainer>
     </S.CartItemContainer>
   );
