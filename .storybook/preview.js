@@ -21,10 +21,6 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 
-initialize();
-
-export const decorators = [mswDecorator];
-
 addDecorator((story) => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
@@ -33,6 +29,9 @@ addDecorator((story) => (
     </ThemeProvider>
   </Provider>
 ));
+
+initialize();
+addDecorator(mswDecorator);
 
 export const parameters = {
   controls: {
