@@ -9,12 +9,13 @@ import useInfinityScroll from "../../hooks/useInfinityScroll";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
 import useProductList from "../../hooks/useProductList";
 import { product } from "../../types/product";
+import useCart from "../../hooks/useCart";
 
 const DELAY_TIME = 500;
 
 const ItemList = () => {
   const sectionRef = useRef(null);
-
+  const { createNewCart, cartData } = useCart();
   const {
     isLoading,
     data: products,
@@ -38,12 +39,16 @@ const ItemList = () => {
 
   const ProductList: Function = (products: product[]): React.ReactElement[] =>
     products.map((product: product) => {
+      const { id } = product;
       const itemCardElemProps = {
         key: product.id,
         onClick: () => {
           handleItemClick(product.id);
         },
-        onClickShoppingCart: () => {},
+        onClickShoppingCart: () => {
+          createNewCart(id);
+          console.log(cartData);
+        },
         ...product,
       };
 
