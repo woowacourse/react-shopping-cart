@@ -1,6 +1,5 @@
 import { createAsyncState } from 'lib/requestUtils';
-
-import { PRODUCTS_ACTIONS } from './types';
+import { PRODUCTS_ACTIONS } from '../types';
 
 const getProductListAction = {
   pending: () => ({

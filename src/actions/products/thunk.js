@@ -1,7 +1,7 @@
 import { requestGetProductList } from 'api/products';
 import { REQUEST_STATUS } from 'constants/';
 
-import { getProductListAction } from './products';
+import { getProductListAction } from './action';
 
 const getProductList =
   (page = 1) =>
