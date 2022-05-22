@@ -60,8 +60,13 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
+    "msw": "^0.40.2",
+    "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.6.2",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
