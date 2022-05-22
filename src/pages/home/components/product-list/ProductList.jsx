@@ -6,6 +6,7 @@ import { getProductList } from "@/redux/actions";
 import StyledProductList from "@/pages/home/components/product-list/ProductList.styled";
 import ProductItem from "@/pages/home/components/product-item/ProductItem";
 import Error from "@/pages/error/components/Error";
+import Loading from "@/pages/loading/Loading";
 
 function ProductList() {
   const { data, loading, error } = useSelector((state) => state.productList);
@@ -15,7 +16,7 @@ function ProductList() {
     dispatch(getProductList());
   }, [dispatch]);
 
-  if (loading) return <div>로딩중...</div>;
+  if (loading) return <Loading />;
   if (error) return <Error />;
 
   return (
