@@ -37,16 +37,14 @@ const ItemList = () => {
 
   return (
     <StyledRoot>
-      {itemList?.map(({ id, thumbnailUrl, title, price }) => {
+      {itemList?.map(item => {
+        const id = item.id;
         const isInCart = cartList.some(cartItem => cartItem.id === id);
 
         return (
           <ItemContainer
             key={id}
-            id={id}
-            thumbnailUrl={thumbnailUrl}
-            price={price}
-            title={title}
+            item={item}
             onCartClick={isInCart ? updateCartItemQuantity?.(id) : postCartItemQuantity?.(id)}
             openSnackbar={openSnackbar}
           />

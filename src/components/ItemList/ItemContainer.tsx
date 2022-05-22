@@ -6,24 +6,16 @@ import { PATH } from 'Routers';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
+import { Item } from 'types/domain';
 
 interface ItemContainerProps {
-  id: number;
-  thumbnailUrl: string;
-  title: string;
-  price: number;
+  item: Item;
   onCartClick: (diff?: number) => void;
   openSnackbar: () => void;
 }
 
-const ItemContainer = ({
-  id,
-  thumbnailUrl,
-  title,
-  price,
-  onCartClick,
-  openSnackbar,
-}: ItemContainerProps) => {
+const ItemContainer = ({ item, onCartClick, openSnackbar }: ItemContainerProps) => {
+  const { id, thumbnailUrl, price, title } = item;
   const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     if (e.target instanceof SVGElement) {
       e.preventDefault();
