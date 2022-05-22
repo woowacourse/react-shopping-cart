@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  min-width: 250px;
+  min-width: 450px;
 
   display: flex;
   flex-direction: column;
 
-  gap: 20px;
+  gap: 40px;
+
+  ${({ theme }) => theme.tablet} {
+    min-width: 250px;
+  }
 `;
 
 export const ProductInfoWrapper = styled.div`
