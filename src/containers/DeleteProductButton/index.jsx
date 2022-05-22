@@ -1,8 +1,16 @@
-import Button from 'components/Button';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import Button from 'components/Button';
+
+import { deleteSelectProductCart } from 'apis/cart';
 
 function DeleteProductButton() {
-  const handleDeleteProduct = () => {};
+  const dispatch = useDispatch();
+
+  const handleDeleteProduct = () => {
+    dispatch(deleteSelectProductCart());
+  };
 
   return (
     <Button

@@ -39,16 +39,12 @@ export const cartHandler = [
     return res(ctx.status(200));
   }),
   rest.delete('/mocking/cart', (req, res, ctx) => {
-    if (cartProducts.some((product) => product.product_id === Number(req.body))) {
-      return res(ctx.status(400), ctx.json('Error, wrong product id'));
-    }
-
     const deleteProductIndex = cartProducts.findIndex(
       (product) => product.product_id === Number(req.body),
     );
     cartProducts.splice(deleteProductIndex - 1, 1);
 
-    return res(ctx.status(200), ctx.json(cartProducts));
+    return res(ctx.status(200));
   }),
   rest.patch('/mocking/cart', (req, res, ctx) => {
     cartProducts.find((product) =>

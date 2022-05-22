@@ -37,13 +37,36 @@ export const addProductCart =
   };
 
 export const deleteProductCart = (id) => async (dispatch, getState) => {
-  const cartProducts = getState().cart.cartProducts.filter(
-    (product) => product.product_id !== Number(id),
-  );
+  const cartProducts = getState().cart.cartProducts;
+
+  if (!cartProducts.some((product) => product.product_id === Number(id))) {
+    dispatch(openDeleteProductCartErrorModal('Error'));
+    return;
+  }
 
   try {
     await axios.delete('/mocking/cart', id);
-    dispatch(getProductCartSuccess(cartProducts));
+    const editCartProducts = getState().cart.cartProducts.filter(
+      (product) => product.product_id !== Number(id),
+    );
+    dispatch(getProductCartSuccess(editCartProducts));
+  } catch (error) {
+    dispatch(openDeleteProductCartErrorModal(error));
+  }
+};
+
+export const deleteSelectProductCart = () => async (dispatch, getState) => {
+  const cartProducts = getState().cart.cartProducts;
+  const deleteCartProductsId = cartProducts.map(
+    (product) => product.cart_check && product.product_id,
+  );
+  const editCartProducts = cartProducts.filter((product) => !product.cart_check);
+
+  try {
+    Promise.all([
+      deleteCartProductsId.forEach((productId) => axios.delete('/mocking/cart', productId)),
+    ]);
+    dispatch(getProductCartSuccess(editCartProducts));
   } catch (error) {
     dispatch(openDeleteProductCartErrorModal(error));
   }
