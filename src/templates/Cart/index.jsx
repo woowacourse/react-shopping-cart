@@ -7,7 +7,7 @@ import DeleteProductButton from 'containers/DeleteProductButton';
 import CartProduct from 'templates/CartProduct';
 import ExpectedPriceBox from 'containers/ExpectedPriceBox';
 import FlexWrapper from 'components/FlexWrapper';
-import CartStyled from './style';
+import { CartStyled, CartProductStyled } from './style';
 import MarginWrapper from 'components/MarginWrapper';
 import { useSelector } from 'react-redux';
 
@@ -25,7 +25,7 @@ function Cart() {
         <Line width="1320px" height="3px" color="#333" />
       </MarginWrapper>
       <FlexWrapper justifyContent="space-between">
-        <div>
+        <CartProductStyled>
           <MarginWrapper marginBottom="50px">
             <FlexWrapper justifyContent="space-between">
               <AllCheckbox />
@@ -43,7 +43,7 @@ function Cart() {
               price={product.price}
             />
           ))}
-        </div>
+        </CartProductStyled>
         <ExpectedPriceBox />
       </FlexWrapper>
     </CartStyled>

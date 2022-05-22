@@ -5,4 +5,8 @@ const CartStyled = styled.div`
   margin: 0 auto;
 `;
 
-export default CartStyled;
+const CartProductStyled = styled.div`
+  width: 736px;
+`;
+
+export { CartStyled, CartProductStyled };
