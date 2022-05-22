@@ -1,6 +1,6 @@
 import { AppDispatch, RootState } from "../store";
 
-type CartItemDetail = { name: string; price: number; img: string; id: number };
+export type CartItemDetail = { name: string; price: number; img: string; id: number };
 export type CartItem = { amount: number; isSelected: boolean; detail: CartItemDetail };
 type CartState = { cartItemList: CartItem[] };
 type Action =
