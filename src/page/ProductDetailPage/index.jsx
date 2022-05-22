@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 
 import { Image } from 'components';
 
-import Styled from 'page/ProductDetailPage/index.style';
-
 import store from 'store/store';
 import { doPutProductToCart } from 'actions/actionCreator';
 import autoComma from 'utils/autoComma';
+import { LINK } from 'constants';
+import Styled from 'page/ProductDetailPage/index.style';
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const ProductDetailPage = () => {
     } else {
       store.dispatch(doPutProductToCart({ id: Number(id), quantity: 1 }));
     }
-    navigate('/cart');
+
+    navigate(LINK.TO_CART);
   };
 
   return (

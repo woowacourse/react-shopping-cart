@@ -9,8 +9,9 @@ import store from 'store/store';
 import { doDeleteProductFromCart, doPutProductToCart } from 'actions/actionCreator';
 
 import autoComma from 'utils/autoComma';
-import { PRODUCT, ROUTES } from 'constants';
+import { PRODUCT } from 'constants';
 import Styled from 'components/ProductItem/index.style';
+import { LINK } from 'constants';
 
 const ProductItem = ({ id }) => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ProductItem = ({ id }) => {
   };
 
   const handleItemClick = () => {
-    navigate(`/${ROUTES.DETAILS}/${id}`);
+    navigate(`${LINK.TO_DETAILS}/${id}`);
   };
 
   const handleCartClick = e => {

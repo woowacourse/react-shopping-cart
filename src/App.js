@@ -27,7 +27,7 @@ function App() {
         <Styled.Body>
           <Routes>
             <Route path={ROUTES.HOME} element={<ProductListPage />} />
-            <Route path={ROUTES.DETAILS + '/:id'} element={<ProductDetailPage />} />
+            <Route path={ROUTES.DETAILS} element={<ProductDetailPage />} />
             <Route path={ROUTES.CART} element={<CartPage />} />
           </Routes>
         </Styled.Body>

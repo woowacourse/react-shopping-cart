@@ -12,7 +12,13 @@ const MODAL = {
 const ROUTES = {
   HOME: '',
   CART: 'cart',
-  DETAILS: 'details',
+  DETAILS: 'details/:id',
 };
 
-export { SERVER_URL, BASE_URL, PRODUCT, MODAL, ROUTES };
+const LINK = {
+  TO_HOME: '/',
+  TO_CART: '/cart',
+  TO_DETAILS: '/details',
+};
+
+export { SERVER_URL, BASE_URL, PRODUCT, MODAL, ROUTES, LINK };
