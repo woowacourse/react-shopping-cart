@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import PaymentAmount from "../../components/PaymentAmount";
 import ShoppingCartProducts from "../../components/ShoppingCartProducts";
 import {
-  addIds,
   getShoppingCartProducts,
   removeCartProducts,
-  removeIds,
-} from "../../modules/products";
+} from "../../modules/cartProducts";
+import { addIds, removeIds } from "../../modules/checkedIds";
 import * as S from "./index.styles";
 
 const ShoppingCartPage = () => {

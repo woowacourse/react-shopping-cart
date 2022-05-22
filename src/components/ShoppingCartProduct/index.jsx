@@ -1,15 +1,6 @@
 import * as S from "./index.styles";
 import RemoveIcon from "../RemoveIcon";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addId,
-  removeId,
-  removeCartProduct,
-  decrementCartProductQuantity,
-  incrementCartProductQuantity,
-  updateCartProductQuantityByUserInput,
-} from "../../modules/products";
-import { useState, useEffect } from "react";
+import useShoppingCartProduct from "./hook/useShoppingCartProduct";
 
 const ProductInfoContainer = ({
   id,
@@ -66,54 +57,24 @@ const ProductQuantityControlContainer = ({
   );
 };
 
-const ShoppingCartProduct = ({ checked, imgUrl, title, price, id }) => {
-  const [isChecked, setChecked] = useState(true);
-  const dispatch = useDispatch();
-  const shoppingCartProducts = useSelector(
-    (state) => state.shoppingCartProducts
-  );
-
-  const shoppingCartProduct = shoppingCartProducts.data.find(
-    (product) => product.id === id
-  );
-
-  const handleChecked = (id) => {
-    if (isChecked) {
-      dispatch(removeId(id));
-      return;
-    }
-    dispatch(addId(id));
-  };
-
-  const handleIncrement = () => {
-    dispatch(incrementCartProductQuantity(id));
-  };
-
-  const handleDecrement = () => {
-    dispatch(decrementCartProductQuantity(id));
-  };
-
-  const handleUpdateQuantityByUser = ({ target }) => {
-    dispatch(updateCartProductQuantityByUserInput(id, target.value));
-  };
-
-  const handleBackspaceByUser = (event) => {
-    const { key, target } = event;
-
-    if (key !== "Backspace") return;
-    if (target.value.length !== 1) return;
-
-    event.preventDefault();
-    target.select();
-  };
-
-  const handleRemoveProduct = () => {
-    dispatch(removeCartProduct(id));
-  };
-
-  useEffect(() => {
-    setChecked(checked);
-  }, [checked]);
+const ShoppingCartProduct = ({
+  checked,
+  imgUrl,
+  title,
+  price,
+  quantity,
+  id,
+}) => {
+  const {
+    handleChecked,
+    handleIncrement,
+    handleDecrement,
+    handleUpdateQuantityByUser,
+    handleBackspaceByUser,
+    handleRemoveProduct,
+    isChecked,
+    productPrice,
+  } = useShoppingCartProduct(id, checked, price, quantity);
 
   return (
     <S.ShoppingCartProduct>
@@ -125,8 +86,8 @@ const ShoppingCartProduct = ({ checked, imgUrl, title, price, id }) => {
         isChecked={isChecked}
       />
       <ProductQuantityControlContainer
-        price={price}
-        productQuantity={shoppingCartProduct.quantity}
+        price={productPrice}
+        productQuantity={quantity}
         handleIncrement={handleIncrement}
         handleDecrement={handleDecrement}
         handleUpdateQuantityByUser={handleUpdateQuantityByUser}
