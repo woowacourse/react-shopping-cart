@@ -34,11 +34,11 @@ function Carts() {
 
   const totalPrice = Number(
     checkedProducts?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
-  ).toLocaleString('ko-kr');
+  );
 
   const totalQuantity = Number(
     checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
-  ).toLocaleString('ko-kr');
+  );
 
   const isLoading = isCartsLoading || isProductLoading;
 
@@ -60,7 +60,10 @@ function Carts() {
             checkedProducts={checkedProducts}
           />
         </Style.CartListWrapper>
-        <TotalPrice total={totalPrice} quantity={totalQuantity} />
+        <TotalPrice
+          total={isNaN(totalPrice) ? '0' : totalPrice.toLocaleString('ko-kr')}
+          quantity={totalQuantity}
+        />
       </Style.CartListContainer>
     </Style.Container>
   );
