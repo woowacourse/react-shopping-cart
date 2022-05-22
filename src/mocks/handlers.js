@@ -13,7 +13,7 @@ export const handlers = [
   }),
   rest.post(`${process.env.REACT_APP_BASE_URL}/cartList`, (req, res, ctx) => {
     db.cartList = req.body;
-    return res(ctx.status(200), ctx.json(req.body));
+    return res(ctx.status(200));
   }),
   rest.get(`${process.env.REACT_APP_BASE_URL}/cartList`, (req, res, ctx) => {
     const cartList = db.cartList;

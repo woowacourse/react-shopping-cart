@@ -29,9 +29,6 @@ const App = () => {
   };
 
   useLayoutEffect(() => {
-    if (cartList.length === 0) {
-      return;
-    }
     fetch(`${process.env.REACT_APP_BASE_URL}/cartList`, {
       method: 'POST',
       headers: {

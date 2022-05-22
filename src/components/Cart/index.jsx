@@ -151,6 +151,7 @@ const Cart = ({
 
   useEffect(() => {
     if (cartList.length === 0) {
+      setProductInfoList([]);
       return;
     }
     fetch(`${process.env.REACT_APP_BASE_URL}/cartList`, {
