@@ -9,6 +9,7 @@ const LeftMenu = styled.div`
 `;
 
 const MenuButton = styled.button`
+  cursor: pointer;
   background: unset;
   border: none;
   font-weight: bold;
@@ -27,6 +28,9 @@ const MenuButton = styled.button`
 
 const Logo = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
+
   justify-content: center;
   align-items: center;
   background-image: url(${logo});
@@ -40,12 +44,21 @@ const RightMenu = styled.ul`
   justify-content: right;
   align-items: center;
   gap: 1rem;
+
+  & > a {
+    text-decoration: none;
+  }
 `;
 
 const RightMenuList = styled.li`
+  cursor: pointer;
   font-size: 0.9rem;
   padding: 1rem;
   color: ${COLORS.GRAY_50};
+
+  &:hover {
+    color: ${COLORS.MINT_400};
+  }
 
   &::before {
     font-family: 'Font Awesome 6 Free';
