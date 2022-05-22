@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { css } from "@emotion/react";
 import CartIcon from "@/assets/images/cart.svg";
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
@@ -15,7 +14,7 @@ function ProductItem({ id, name, price, imgUrl }) {
 
   return (
     <StyledProductItem>
-      <Thumbnail src={`${imgUrl}`} />
+      <Thumbnail src={`${imgUrl}`} name={name} />
       <div className="content">
         <div className="product-detail">
           <div className="l-left">
@@ -31,7 +30,6 @@ function ProductItem({ id, name, price, imgUrl }) {
           </div>
         </div>
       </div>
-      <div className="overlay" />
     </StyledProductItem>
   );
 }
