@@ -1,22 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
-import { getProductItem } from '../api';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
+import { PRODUCTS_PATH } from '../constant';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
 import { SIZE } from '../constant';
+import useAddCartItem from '../hooks/useAddCartItem';
 
 function ProductDetailPage() {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(true);
+  const { addCartItem } = useAddCartItem();
   const { id } = useParams();
+
+  const onClickCartButton = () => {
+    addCartItem(id);
+  };
 
   useEffect(() => {
     async function getProductItemInfo(id) {
       try {
-        const productItem = await getProductItem(id);
-        setItem(productItem);
+        const { data } = await axios.get(`${PRODUCTS_PATH}/${id}`);
+        setItem(data);
       } catch (error) {
         console.log('error', error);
       } finally {
@@ -43,7 +50,7 @@ function ProductDetailPage() {
           <StyledPriceBox>{Number(price).toLocaleString()}원</StyledPriceBox>
         </StyledProductDetailPrice>
       </StyledProductDetailInfo>
-      <StyledShopButton>장바구니</StyledShopButton>
+      <StyledCartButton onClick={onClickCartButton}>장바구니</StyledCartButton>
     </StyledProductDetailContainer>
   );
 }
@@ -79,7 +86,7 @@ const StyledPriceBox = styled.span`
   font-weight: 400;
 `;
 
-const StyledShopButton = styled.button`
+const StyledCartButton = styled.button`
   width: 430px;
   height: 60px;
   left: 641px;

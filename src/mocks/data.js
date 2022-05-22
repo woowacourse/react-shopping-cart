@@ -1,4 +1,4 @@
-export const products = [
+const productList = [
   {
     id: 1,
     name: '아이스컵 92파이 16온스',
@@ -81,3 +81,7 @@ export const products = [
     amount: 5,
   },
 ];
+
+const cartList = [];
+
+export { productList, cartList };

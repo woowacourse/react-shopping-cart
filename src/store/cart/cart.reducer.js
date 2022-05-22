@@ -1,4 +1,4 @@
-import { actionTypes } from '../actionTypes';
+import { actionTypes } from './cart.actions';
 
 const initialState = {
   cart: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 function cartReducer(state = initialState, action) {
   if (action.type === actionTypes.ADD_CART) {
-    return { ...state, cart: [...state.cart, action.payload] };
+    return { ...state, cart: [...action.payload] };
   }
   return state;
 }

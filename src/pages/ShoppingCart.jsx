@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ShoppingItem from '../components/ShoppingItem';
@@ -6,8 +6,15 @@ import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
 
 function ShoppingCart() {
+  const [totalPrice, setTotalPrice] = useState();
   const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
   const cartList = useSelector(({ cart }) => cart.cart);
+  console.log(cartList);
+
+  useEffect(() => {
+    const sum = cartList.reduce((acc, cur) => (acc += Number(cur.price)), 0);
+    setTotalPrice(sum);
+  }, [cartList, totalPrice]);
 
   return (
     <StyledSection>
@@ -46,7 +53,7 @@ function ShoppingCart() {
           <div>
             <StyledAmount>
               <StyledHighlight>결제예상금액</StyledHighlight>
-              <StyledHighlight>21,800원</StyledHighlight>
+              <StyledHighlight>{Number(totalPrice).toLocaleString()}원</StyledHighlight>
             </StyledAmount>
             <StyledOrderButtonWrapper>
               <StyledOrderButton>주문하기(3개)</StyledOrderButton>
