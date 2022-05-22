@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ProductList from "@/pages/home/components/product-list/ProductList";
 import Cart from "@/pages/cart/components/cart/Cart";
 import Layout from "@/components/layout/Layout";
-import NotFound from "@/pages/not-found/components/NotFound";
+import NotFound from "@/pages/not-found/NotFound";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
