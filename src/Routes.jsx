@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
 
 import ProductList from 'pages/ProductList';
+import CartList from 'pages/CartList';
 import NotFound from 'pages/NotFound';
 
 import { PAGE_LIST } from 'constants/';
@@ -13,6 +14,7 @@ function PageRoute() {
       <Route element={<Layout />}>
         <Route index element={<ProductList />} />
         <Route path={PAGE_LIST.PRODUCT_LIST} element={<ProductList />} />
+        <Route path={PAGE_LIST.CART_LIST} element={<CartList />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
