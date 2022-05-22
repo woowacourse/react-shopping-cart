@@ -7,9 +7,7 @@ import {
 } from 'store/actions/cart';
 import { cartObjectSelector } from 'store/selector';
 
-const PRODUCT_ADDED_MESSAGE = (count) => `${count}개가 장바구니에 추가되었습니다.`;
-const MINIMUM_QUANTITY_WARNING_MESSAGE = '주문할 수 있는 최소 수량입니다.';
-const PRODUCT_DELETE_WARNING = '상품을 장바구니에서 삭제하시겠습니까?';
+import { ALERT_MESSAGES, WARNING_MESSAGES } from 'constants/messages';
 
 const useCartProducts = () => {
   const dispatch = useDispatch();
@@ -23,7 +21,7 @@ const useCartProducts = () => {
 
   const addProductToCart = ({ id, name, count }) => {
     dispatch(addToCartAsync(id, count));
-    alert(`${name}: ${PRODUCT_ADDED_MESSAGE(count)} `);
+    alert(`${name}: ${ALERT_MESSAGES.PRODUCT_ADDED(count)} `);
   };
 
   const dispatchQuantityUpdate = (productId, quantity) => {
@@ -36,14 +34,14 @@ const useCartProducts = () => {
 
   const decrementCartProduct = (productId, currentQuantity) => {
     if (currentQuantity === 1) {
-      alert(MINIMUM_QUANTITY_WARNING_MESSAGE);
+      alert(WARNING_MESSAGES.MIN_QUANTITY);
       return;
     }
     dispatchQuantityUpdate(productId, currentQuantity - 1);
   };
 
   const deleteProduct = (productIdArray) => {
-    if (window.confirm(PRODUCT_DELETE_WARNING)) {
+    if (window.confirm(WARNING_MESSAGES.PRODUCT_DELETE)) {
       dispatch(deleteCartProductAsync(productIdArray));
     }
   };
