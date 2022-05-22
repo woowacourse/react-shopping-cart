@@ -9,6 +9,7 @@ const StyledLogoLink = styled.a`
   color: #ffffff;
   font-size: 30px;
   font-weight: 900;
+  margin-left: 20px;
 `;
 
 export default StyledLogoLink;

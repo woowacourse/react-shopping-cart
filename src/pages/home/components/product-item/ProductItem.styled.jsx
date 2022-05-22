@@ -4,7 +4,7 @@ import { noneStyles } from "@/styled";
 const StyledProductItem = styled.div`
   position: relative;
   transition: 0.3s ease;
-  margin: 20px 0;
+  margin: 15px 0;
 
   :hover {
     .thumbnail {

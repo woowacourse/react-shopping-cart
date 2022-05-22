@@ -3,6 +3,8 @@ import { noneStyles } from "@/styled";
 
 const StyledMenu = styled.div`
   display: inline-flex;
+  margin-right: 20px;
+
   ul {
     ${noneStyles.ul}
 

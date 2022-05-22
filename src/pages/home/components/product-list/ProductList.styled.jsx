@@ -7,7 +7,7 @@ const StyledProductList = styled.div`
   grid-row-gap: 80px;
   grid-column-gap: 40px;
   margin-top: 20px;
-  padding: 0 20p;
+  padding: 0 20px;
 
   ${mq[0]} {
     grid-template-columns: repeat(2, 1fr);

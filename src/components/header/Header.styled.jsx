@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   background-color: #03cf5b;
   margin-bottom: 25px;
 
