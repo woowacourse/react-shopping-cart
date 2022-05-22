@@ -17,7 +17,7 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   checked: PropTypes.bool,
-  size: PropTypes.oneOf(['large', 'medium', 'small', PropTypes.number]),
+  size: PropTypes.oneOfType([PropTypes.oneOf(['large', 'medium', 'small']), PropTypes.number]),
 };
 
 export default Checkbox;
