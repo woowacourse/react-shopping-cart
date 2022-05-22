@@ -13,7 +13,7 @@ function VerticalContent({ id, image, name, price, onClickAddCart }) {
 
   return (
     <S.Container direction="vertical">
-      <S.ImageContainer fill>
+      <S.ImageContainer fill="true">
         <S.Image src={image} alt="product thumbnail" />
       </S.ImageContainer>
 
