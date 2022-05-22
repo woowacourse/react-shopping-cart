@@ -9,8 +9,11 @@ import ExpectedPriceBox from 'containers/ExpectedPriceBox';
 import FlexWrapper from 'components/FlexWrapper';
 import CartStyled from './style';
 import MarginWrapper from 'components/MarginWrapper';
+import { useSelector } from 'react-redux';
 
 function Cart() {
+  const carts = useSelector((state) => state.cart.carts);
+
   return (
     <CartStyled>
       <BlackText fontSize="32px" fontWeight="700" textAlign="center">
@@ -30,23 +33,16 @@ function Cart() {
             </FlexWrapper>
           </MarginWrapper>
           <MarginWrapper marginBottom="15px">
-            <BlackText>든든배송 상품(3개)</BlackText>
+            <BlackText>든든배송 상품({carts.length})</BlackText>
           </MarginWrapper>
-          <CartProduct
-            imgSrc="https://t1.kakaocdn.net/friends/prod/product/20220303141620326_8809814923602_AW_00.jpg"
-            title="노티드X라이언 풍선든 브라운슈가라이언"
-            price="35000"
-          />
-          <CartProduct
-            imgSrc="https://t1.kakaocdn.net/friends/prod/product/20220303141620326_8809814923602_AW_00.jpg"
-            title="노티드X라이언 풍선든 브라운슈가라이언"
-            price="35000"
-          />
-          <CartProduct
-            imgSrc="https://t1.kakaocdn.net/friends/prod/product/20220303141620326_8809814923602_AW_00.jpg"
-            title="노티드X라이언 풍선든 브라운슈가라이언"
-            price="35000"
-          />
+          {carts.map((product) => (
+            <CartProduct
+              key={product.id}
+              imgSrc={product.imgSrc}
+              title={product.title}
+              price={product.price}
+            />
+          ))}
         </div>
         <ExpectedPriceBox />
       </FlexWrapper>
