@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import UnderlineText from 'components/UnderlineText';
 import autoComma from 'utils/autoComma';
-import Styled from './index.style';
+import Styled from 'components/TotalPrice/index.style';
 
 const TotalPrice = ({ title, price, action }) => {
   return (
@@ -19,6 +20,12 @@ const TotalPrice = ({ title, price, action }) => {
       </Styled.Body>
     </Styled.Container>
   );
+};
+
+TotalPrice.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  action: PropTypes.string.isRequired,
 };
 
 export default TotalPrice;
