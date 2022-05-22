@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Styled from './style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import parsePrice from 'utils/parsePrice';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
@@ -20,11 +20,12 @@ const CartItem = ({
 }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
 
+  useEffect(() => {
+    onChangeQuantity(itemQuantity);
+  }, [itemQuantity]);
+
   const handleIncrementQuantity = () => {
-    setItemQuantity((prevQuantity) => {
-      onChangeQuantity(prevQuantity + 1);
-      return prevQuantity + 1;
-    });
+    setItemQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const handleDecrementQuantity = () => {
@@ -32,10 +33,7 @@ const CartItem = ({
       alert(MESSAGE.MINIMUM_CART_LENGTH);
       return;
     }
-    setItemQuantity((prevQuantity) => {
-      onChangeQuantity(prevQuantity - 1);
-      return prevQuantity - 1;
-    });
+    setItemQuantity((prevQuantity) => prevQuantity - 1);
   };
 
   return (
