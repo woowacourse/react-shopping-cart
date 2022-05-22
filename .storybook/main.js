@@ -51,9 +51,25 @@ module.exports = {
     const fileLoaderRule = rules.find((rule) => rule.test.test('.svg'));
     fileLoaderRule.exclude = /\.svg$/;
 
-    rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
+    rules.push(
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      }
+    );
+
+    config.module.rules.push({
+      test: /\.css$/,
+      use: [
+        {
+          loader: "postcss-loader",
+          options: {
+            postcssOptions: {
+              plugins: [require("tailwindcss"), require("autoprefixer")],
+            },
+          },
+        },
+      ],
     });
 
     return config;
