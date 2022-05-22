@@ -17,7 +17,7 @@ function ProductDetailPage() {
 
   const isCkecked = useMemo(() => !!products.find((product) => product.id === id), [id, products]);
 
-  const handleClick = (isCkecked, product) => {
+  const handleClick = async (isCkecked, product) => {
     if (isCkecked) {
       alert('이미 장바구니에 들어 있습니다.');
       navigate('/cart');
@@ -25,7 +25,7 @@ function ProductDetailPage() {
     }
 
     alert('장바구니에 추가 되었습니다.');
-    dispatch(AddProductToCartAsync(product));
+    await dispatch(AddProductToCartAsync(product));
     navigate('/cart');
   };
 
