@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import { productList } from './data';
 
-const cartList = [];
+let cartList = [];
 
 const handlers = [
   rest.get('/products', (req, res, ctx) => {
@@ -31,10 +31,8 @@ const handlers = [
 
   rest.delete('/cart/:id', (req, res, ctx) => {
     const id = +req.params.id;
-    const index = cartList.findIndex(({ id: productId }) => productId === id);
-
-    cartList.splice(index, 1);
-    return res(ctx.status(200), ctx.json(cartList));
+    cartList = cartList.filter((item) => item.id !== id);
+    return res(ctx.json(cartList));
   }),
 ];
 

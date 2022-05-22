@@ -1,19 +1,44 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
+import { deleteCartItemAsync } from '../store/cart/cart.actions';
 
 function ShoppingCart() {
+  const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState();
+  const [selectedItems, setSelectedItems] = useState([]);
   const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
   const cartList = useSelector(({ cart }) => cart.cart);
 
+  const toggleCheckedAll = () => {
+    if (!isCheckedAll) {
+      setSelectedItems(cartList.map(({ id }) => id));
+    } else {
+      setSelectedItems([]);
+    }
+    setCheckedAll();
+  };
+
+  const deleteSelectedItems = () => {
+    selectedItems.forEach((id) => dispatch(deleteCartItemAsync(id)));
+  };
+
+  const handleSelectedItem = (id) => {
+    if (selectedItems.includes(id)) {
+      setSelectedItems(selectedItems.filter((cartId) => cartId !== id));
+    } else {
+      setSelectedItems((prevItem) => [...prevItem, id]);
+    }
+  };
+
   useEffect(() => {
+    setSelectedItems(cartList.map(({ id }) => id));
     const sum = cartList.reduce((acc, cur) => (acc += Number(cur.price)), 0);
     setTotalPrice(sum);
-  }, [cartList, totalPrice]);
+  }, []);
 
   return (
     <StyledSection>
@@ -29,17 +54,21 @@ function ShoppingCart() {
                 name="checkbox"
                 type="checkbox"
                 checked={isCheckedAll}
-                onChange={() => setCheckedAll()}
+                onChange={toggleCheckedAll}
               />
               <StyledLabel htmlfor="checkbox">선택해제</StyledLabel>
             </StyledCheckboxContainer>
-            <StyledDeleteButton>상품삭제</StyledDeleteButton>
+            <StyledDeleteButton onClick={deleteSelectedItems}>상품삭제</StyledDeleteButton>
           </StyledLeftDiv>
           <StyledTitle>든든배송 상품(3개)</StyledTitle>
           <StyledDivideLine margin={10} size={2} color={COLORS.GRAY} />
           {cartList.map((item) => (
             <React.Fragment key={item.id}>
-              <ShoppingItem item={item} isCheckedAll={isCheckedAll} />
+              <ShoppingItem
+                item={item}
+                isCheckedAll={isCheckedAll}
+                handleSelectedItem={handleSelectedItem}
+              />
               <StyledDivideLine margin={10} size={1} color={COLORS.GRAY} />
             </React.Fragment>
           ))}

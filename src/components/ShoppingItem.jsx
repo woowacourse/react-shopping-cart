@@ -6,21 +6,19 @@ import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
 import { deleteCartItemAsync } from '../store/cart/cart.actions';
 
-function ShoppingItem({ item, isCheckedAll }) {
+function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   const dispatch = useDispatch();
   const [isChecked, setChecked] = useState(isCheckedAll);
   const { id, name, price, imageUrl } = item;
 
   const toggleChecked = () => {
+    handleSelectedItem(id);
     setChecked(!isChecked);
   };
 
   const deleteItem = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
       dispatch(deleteCartItemAsync(id));
-      console.log('삭제됨');
-    } else {
-      console.log('취소됨');
     }
   };
 
