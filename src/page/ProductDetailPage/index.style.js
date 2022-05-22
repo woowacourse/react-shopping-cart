@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Button } from 'components';
 
 const Styled = {
-  ProductDetailPage: styled.main`
+  Container: styled.main`
     display: flex;
     justify-content: center;
     align-items: center;

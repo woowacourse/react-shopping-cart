@@ -28,7 +28,7 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <Styled.ProductDetailPage>
+    <Styled.Container>
       <Styled.ProductContainer>
         <Image src={image} alt={name} size="570px" />
         <Styled.ProductName>{name}</Styled.ProductName>
@@ -39,7 +39,7 @@ const ProductDetailPage = () => {
         </Styled.PriceContainer>
         <Styled.PutCartButton onClick={putCart}>장바구니</Styled.PutCartButton>
       </Styled.ProductContainer>
-    </Styled.ProductDetailPage>
+    </Styled.Container>
   );
 };
 

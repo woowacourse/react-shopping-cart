@@ -2,7 +2,7 @@ import { Button } from 'components';
 import styled from 'styled-components';
 
 const Styled = {
-  CartPage: styled.main`
+  Container: styled.main`
     width: 1269px;
     background-color: ${({ theme }) => theme.colors.white};
     margin-top: 140px;

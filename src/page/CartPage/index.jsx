@@ -47,7 +47,7 @@ const CartPage = () => {
   }, [calculateTotalPrice]);
 
   return (
-    <Styled.CartPage>
+    <Styled.Container>
       {shoppingCart.length > 0 ? (
         <>
           <Styled.Title>장바구니</Styled.Title>
@@ -99,7 +99,7 @@ const CartPage = () => {
           장바구니가 비어있어요.
         </Styled.Empty>
       )}
-    </Styled.CartPage>
+    </Styled.Container>
   );
 };
 
