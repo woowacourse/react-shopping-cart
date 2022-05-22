@@ -38,20 +38,24 @@ const Label = styled.label`
   cursor: pointer;
 `;
 
-function Selector({ label }) {
+function Selector({ onChange, checked, label }) {
   return (
     <SelectorBox>
-      <Checkbox type="checkbox" id="checkbox" />
+      <Checkbox type="checkbox" id="checkbox" onChange={onChange} checked={checked} />
       {label && <Label htmlFor="checkbox">{label}</Label>}
     </SelectorBox>
   );
 }
 
 Selector.defaultProps = {
+  onChange: () => {},
+  checked: false,
   label: '',
 };
 
 Selector.propTypes = {
+  onChange: PropTypes.func,
+  checked: PropTypes.bool,
   label: PropTypes.string,
 };
 

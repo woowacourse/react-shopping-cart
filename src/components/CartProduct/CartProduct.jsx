@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ACTION_TYPE from 'redux/cart/cartActions';
 
 import { Button } from 'components/@common';
@@ -81,7 +82,18 @@ const Price = styled.p`
 `;
 
 function CartProduct({ id, image, name, quantity, price }) {
+  const { clicker, isAllProductsChecked } = useSelector(store => store.cart);
+  const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setChecked(isAllProductsChecked);
+  }, [clicker]);
+
+  const onChangeSelector = () => {
+    dispatch({ type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id } });
+    setChecked(prevChecked => !prevChecked);
+  };
 
   const onClickDeleteButton = () => {
     dispatch({ type: ACTION_TYPE.REMOVE_PRODUCT_FROM_CART, payload: { id } });
@@ -91,10 +103,7 @@ function CartProduct({ id, image, name, quantity, price }) {
     if (target.getAttribute('type') === 'increment') {
       if (quantity >= CART_PRODUCT.MAX_QUANTITY) return;
 
-      dispatch({
-        type: ACTION_TYPE.ADD_PRODUCT_TO_CART,
-        payload: { id, image, name, quantity, price },
-      });
+      dispatch({ type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: { id } });
 
       return;
     }
@@ -107,7 +116,7 @@ function CartProduct({ id, image, name, quantity, price }) {
   return (
     <CartProductBox>
       <LeftBox>
-        <Selector />
+        <Selector onChange={onChangeSelector} checked={checked} />
         <Image src={image} />
         <Name>{name}</Name>
       </LeftBox>

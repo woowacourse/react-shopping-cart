@@ -3,18 +3,20 @@ import { getObjectArrayValues } from 'utils';
 
 const initialState = {
   products: [],
+  checkedProducts: [],
+  isAllProductsChecked: true,
+  clicker: false,
 };
 
 const cartReducer = (state = initialState, action) => {
-  const { products } = state;
+  const { products, checkedProducts } = state;
+  const { type, payload } = action;
 
   const newState = { ...state };
-  const newProducts = [...products];
-
-  const { type, payload } = action;
 
   switch (type) {
     case ACTION_TYPE.ADD_PRODUCT_TO_CART: {
+      const newProducts = [...products];
       const cartProductIds = getObjectArrayValues(products, 'id');
       const targetProductIdx = cartProductIds.indexOf(payload.id);
 
@@ -26,10 +28,12 @@ const cartReducer = (state = initialState, action) => {
       }
 
       newState.products = [...products, { ...payload, quantity: 1 }];
+      newState.checkedProducts = [...checkedProducts, { id: payload.id }];
 
       return newState;
     }
     case ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY: {
+      const newProducts = [...products];
       const cartProductIds = getObjectArrayValues(products, 'id');
       const targetProductIdx = cartProductIds.indexOf(payload.id);
 
@@ -38,8 +42,36 @@ const cartReducer = (state = initialState, action) => {
 
       return newState;
     }
+    case ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK: {
+      newState.isAllProductsChecked = payload.checked;
+      newState.clicker = !state.clicker;
+
+      if (!payload.checked) {
+        newState.checkedProducts = [];
+
+        return newState;
+      }
+
+      newState.checkedProducts = [...products];
+
+      return newState;
+    }
+    case ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK: {
+      const checkedProductIds = getObjectArrayValues(checkedProducts, 'id');
+
+      if (checkedProductIds.includes(payload.id)) {
+        newState.checkedProducts = checkedProducts.filter(product => product.id !== payload.id);
+
+        return newState;
+      }
+
+      newState.checkedProducts = [...checkedProducts, { id: payload.id }];
+
+      return newState;
+    }
     case ACTION_TYPE.REMOVE_PRODUCT_FROM_CART: {
       newState.products = products.filter(product => product.id !== payload.id);
+      newState.checkedProducts = checkedProducts.filter(product => product.id !== payload.id);
 
       return newState;
     }

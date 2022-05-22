@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ACTION_TYPE from 'redux/cart/cartActions';
 
 import { Button } from 'components/@common';
 import { CartProduct, PageLayout, Result, Selector } from 'components';
@@ -40,25 +42,39 @@ const DivisionLine = styled.hr`
 `;
 
 function ShoppingCart() {
-  const { products } = useSelector(store => store.cart);
+  const { products, checkedProducts } = useSelector(store => store.cart);
+  const [checked, setChecked] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setChecked(products.length === checkedProducts.length);
+  }, [products, checkedProducts]);
+
+  const onChangeAllSelector = ({ target }) => {
+    dispatch({
+      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
+      payload: { checked: target.checked },
+    });
+    setChecked(prevChecked => !prevChecked);
+  };
 
   return (
     <PageLayout header="장바구니">
       <ShoppingCartBox>
         <div>
           <SelectorBox>
-            <Selector label="전체" />
+            <Selector label="전체" onChange={onChangeAllSelector} checked={checked} />
             <Button>
               <ProductDeleteButton>선택삭제</ProductDeleteButton>
             </Button>
           </SelectorBox>
-          <ProductListHeader>든든배송 상품 ({cartProducts.length}개)</ProductListHeader>
+          <ProductListHeader>든든배송 상품 ({products.length}개)</ProductListHeader>
           <DivisionLine />
           {products.map(product => (
             <CartProduct key={`cart${product.id}`} {...product} />
           ))}
         </div>
-        <Result title="결제예상금액" price={0} button={`주문하기(개)`} />
+        <Result title="결제예상금액" price={0} button={`주문하기(${checkedProducts.length}개)`} />
       </ShoppingCartBox>
     </PageLayout>
   );
