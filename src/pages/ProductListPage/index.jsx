@@ -31,7 +31,7 @@ const ProductListPage = () => {
   return (
     <section>
       <GridWrapper>
-        <Products />
+        <Products products={products} />
       </GridWrapper>
       <div ref={sectionRef}></div>
     </section>

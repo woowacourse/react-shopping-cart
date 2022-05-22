@@ -33,7 +33,10 @@ const REMOVE_PRODUCT_ID = "checked-ids/REMOVE_PRODUCT_ID";
 const ADD_PRODUCT_IDS = "checked-ids/ADD_PRODUCT_IDS";
 const REMOVE_PRODUCT_IDS = "checked-ids/REMOVE_PRODUCT_IDS";
 
-// const SNACK_BAR_STATE = "snack-bar/SNACK_BAR_STATE";
+const SNACK_BAR_STATE = "snack-bar/SNACK_BAR_STATE";
+const SNACK_BAR_SUCCESS = "snack-bar/SNACK_BAR_SUCCESS";
+const SNACK_BAR_FAIL = "snack-bar/SNACK_BAR_FAIL";
+const SNACK_BAR_REMOVE = "snack-bar/SNACK_BAR_REMOVE";
 
 const initialState = {
   product: {
@@ -54,16 +57,43 @@ const initialState = {
     error: null,
   },
   checkedProductIds: [],
-  // snackBarState: {
-  //   message: "",
-  //   isOpen: false,
-  //   duration: 0,
-  // },
+  snackBarState: {
+    message: "",
+    isOpen: false,
+    duration: 0,
+    isSuccess: false,
+  },
 };
 
-// export const setSnackBar = (snackBarState) => {
-//   return { type: SNACK_BAR_STATE, snackBarState };
-// };
+export const setSnackBarTypeSuccess = () => ({
+  type: SNACK_BAR_SUCCESS,
+  snackBarState: {
+    message: "장바구니에 상품이 담겼습니다",
+    isOpen: true,
+    duration: 3000,
+    isSuccess: true,
+  },
+});
+
+export const setSnackBarTypeFail = () => ({
+  type: SNACK_BAR_FAIL,
+  snackBarState: {
+    message: "해당 상품은 이미 장바구니에 존재합니다",
+    isOpen: true,
+    duration: 3000,
+    isSuccess: false,
+  },
+});
+
+export const setSnackBarTypeRemove = () => ({
+  type: SNACK_BAR_REMOVE,
+  snackBarState: {
+    message: "",
+    isOpen: false,
+    duration: 0,
+    isSuccess: false,
+  },
+});
 
 export const removeIds = () => ({
   type: REMOVE_PRODUCT_IDS,
@@ -94,7 +124,7 @@ export const postCartProduct =
 
       newProduct.isInShoppingCart = true;
 
-      Promise.all([
+      await Promise.all([
         API.patchProductById(id, newProduct),
         API.postShoppingCartProduct(newProduct),
       ]);
@@ -112,11 +142,9 @@ export const postCartProduct =
         type: REPLACE_PRODUCTS,
         replaceProducts: replaceProducts,
       });
-      dispatch(
-        setSnackBar({ message: "장바구니", isOpen: true, duration: 700 })
-      );
+      dispatch(setSnackBarTypeSuccess());
     } catch (error) {
-      dispatch({ type: GET_CART_PRODUCTS_ERROR });
+      dispatch(setSnackBarTypeFail());
     }
   };
 
@@ -142,19 +170,16 @@ export const removeCartProducts = () => async (dispatch, getState) => {
       return product;
     });
 
-    console.log("remain", remainProducts);
-    console.log("remove", removeProducts);
-    console.log("update", updateProducts);
-    console.log("ids", checkedProductIds);
-
     Promise.all(
-      checkedProductIds.map((id) => API.removeShoppingCartProduct(id))
-    );
-    Promise.all(
-      updateProducts.map((product) => API.patchProductById(product.id, product))
+      checkedProductIds
+        .map((id) => API.removeShoppingCartProduct(id))
+        .concat(
+          updateProducts.map((product) =>
+            API.patchProductById(product.id, product)
+          )
+        )
     );
 
-    console.log("newproducts", newProducts);
     const replaceProducts = newProducts.map((product) => {
       if (checkedProductIds.includes(product.id)) {
         product.isInShoppingCart = false;
@@ -441,11 +466,17 @@ const removeProductIds = () => [];
 
 const addProductIds = (_, action) => action.ids;
 
-// const setSnackBarState = (state, action) => {
-//   console.log(state);
-//   console.log(action);
-//   return action.snackBarState;
-// };
+const setSnackBarSuccess = (_, action) => {
+  return action.snackBarState;
+};
+
+const setSnackBarFail = (_, action) => {
+  return action.snackBarState;
+};
+
+const setSnackBarRemove = (_, action) => {
+  return action.snackBarState;
+};
 
 const productsReducer = createReducer(
   {},
@@ -496,7 +527,9 @@ const checkedProductIdsReducer = createReducer(
 const snackBarStateReducer = createReducer(
   {},
   {
-    // [SNACK_BAR_STATE]: setSnackBarState,
+    [SNACK_BAR_SUCCESS]: setSnackBarSuccess,
+    [SNACK_BAR_FAIL]: setSnackBarFail,
+    [SNACK_BAR_REMOVE]: setSnackBarRemove,
   }
 );
 
@@ -512,6 +545,6 @@ export default function appReducer(state = initialState, action = {}) {
       state.checkedProductIds,
       action
     ),
-    // snackBarState: snackBarStateReducer(state.snackBarState, action),
+    snackBarState: snackBarStateReducer(state.snackBarState, action),
   };
 }

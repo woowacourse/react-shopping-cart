@@ -1,11 +1,9 @@
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Product from "../Product";
 import ProductSkeleton from "../ProductSkeleton";
 import { LOAD_ITEM_AMOUNT } from "../../constants/constants";
 
-const Products = () => {
-  const products = useSelector((state) => state.products);
+const Products = ({ products }) => {
   const navigate = useNavigate();
   const handleItemClick = (id) => {
     navigate(`/product/${id}`);
