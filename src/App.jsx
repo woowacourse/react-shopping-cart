@@ -30,6 +30,10 @@ export default function App() {
             <Route path={PATH.HOME} element={<ProductListPage />}></Route>
             <Route path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
             <Route path={PATH.CART} element={<ProductCartPage />}></Route>
+            <Route
+              path={PATH.ORDER}
+              element={<NotFoundPage> 아직 개발중인 페이지입니다🔨</NotFoundPage>}
+            ></Route>
             <Route path="*" element={<NotFoundPage> 잘못 들어왔어요😢</NotFoundPage>}></Route>
           </Routes>
         </ThemeProvider>
