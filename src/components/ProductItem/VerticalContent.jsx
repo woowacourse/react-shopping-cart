@@ -6,9 +6,9 @@ import ToolTip from 'components/@common/ToolTip';
 import { ICON_CODE } from 'constants/';
 import * as S from './styles';
 
-function VerticalContent({ id, image, name, price, onClickAddCart }) {
-  const handleClickAddCartButton = () => {
-    onClickAddCart({ id, image, name, price });
+function VerticalContent({ id, image, name, price, cartId, onClickCartButton }) {
+  const handleClickCartButton = () => {
+    onClickCartButton({ id, image, name, price });
   };
 
   return (
@@ -25,7 +25,12 @@ function VerticalContent({ id, image, name, price, onClickAddCart }) {
 
         <S.ButtonContainer>
           <ToolTip text="장바구니 담기" align="bottom">
-            <Button className="cart" onClick={handleClickAddCartButton} icon={ICON_CODE.CART} />
+            <Button
+              className="cart"
+              icon={ICON_CODE.CART}
+              state={cartId ? 'info' : 'default'}
+              onClick={handleClickCartButton}
+            />
           </ToolTip>
         </S.ButtonContainer>
       </S.Description>
