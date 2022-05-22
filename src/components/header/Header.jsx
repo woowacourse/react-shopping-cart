@@ -9,7 +9,7 @@ function Header() {
   return (
     <StyledHeader>
       <HeaderWrapper css={innerHeaderStyle}>
-        <LogoLink href="/" />
+        <LogoLink />
         <Menu />
       </HeaderWrapper>
     </StyledHeader>

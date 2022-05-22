@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import StyledMenu from "@/components/header/menu/Menu.styled";
 
 function Menu() {
@@ -5,10 +6,10 @@ function Menu() {
     <StyledMenu>
       <ul>
         <li>
-          <a href="/">장바구니</a>
+          <Link to="/cart">장바구니</Link>
         </li>
         <li>
-          <a href="/">주문목록</a>
+          <Link to="/not-found">주문목록</Link>
         </li>
       </ul>
     </StyledMenu>

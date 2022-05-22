@@ -1,10 +1,10 @@
 import React from "react";
 
-import Header from "@/components/header/Header";
-import ContentWrapper from "@/components/wrapper/Wrapper.styled";
+import { Route, Routes } from "react-router-dom";
 import ProductList from "@/pages/home/components/product-list/ProductList";
-import Cart from "./pages/cart/components/cart/Cart";
-import Footer from "./pages/home/components/footer/Footer";
+import Cart from "@/pages/cart/components/cart/Cart";
+import Layout from "@/components/layout/Layout";
+import NotFound from "@/pages/not-found/components/NotFound";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
@@ -13,14 +13,13 @@ if (process.env.NODE_ENV === "development") {
 
 function App() {
   return (
-    <>
-      <Header />
-      <ContentWrapper>
-        <ProductList />
-        {/* <Cart /> */}
-      </ContentWrapper>
-      <Footer />
-    </>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

@@ -1,4 +1,4 @@
-import StyledWrapper from "@/components/wrapper/Wrapper.styled";
+import StyledWrapper from "@/components/wrapper/ContentWrapper.styled";
 
 import Header from "@/pages/cart/components/header/Header";
 
