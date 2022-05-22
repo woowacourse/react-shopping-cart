@@ -1,21 +1,29 @@
 import React from 'react';
 
-import useResponsive from 'hooks/useResponsive';
+import useWindowsSize from 'hooks/useWindowSize';
 
 import { ROUTE } from 'route';
 
 import Icon from 'components/common/Icon/Icon';
 import * as Styled from 'components/common/Header/Header.style';
 
+import { deviceSizeStandard } from 'styles/Theme';
+
 function Header() {
-  const currentDevice = useResponsive();
+  const windowSize = useWindowsSize();
+
+  const IconSizeBreakPoint = deviceSizeStandard.desktop;
 
   return (
     <Styled.Container>
       <Styled.Inner>
         <Styled.NavLink to={ROUTE.home.path}>
           <Styled.Logo>
-            <Icon iconName="tent" size={currentDevice === 'desktop' ? '50' : '30'} stroke="white" />
+            <Icon
+              iconName="tent"
+              size={windowSize >= IconSizeBreakPoint ? '50' : '30'}
+              stroke="white"
+            />
             BLZZI&apos;S CAMPING
           </Styled.Logo>
         </Styled.NavLink>
