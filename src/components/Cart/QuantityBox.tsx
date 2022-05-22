@@ -1,14 +1,23 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
+import { debounce } from 'utils/debounce';
 
 interface QuantityBoxProps {
   quantity: number;
-  handleChange: (diff?: number) => void;
+  changeQuantity: (diff?: number) => void;
 }
 
-const QuantityBox = ({ quantity, handleChange }: QuantityBoxProps) => {
-  const inputRef = useRef(null);
+const QuantityBox = ({ quantity, changeQuantity }: QuantityBoxProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleChangeInput = debounce(() => {
+    const diff = inputRef.current.valueAsNumber
+      ? inputRef.current.valueAsNumber - quantity
+      : 1 - quantity;
+
+    changeQuantity(diff);
+  }, 300);
 
   return (
     <StyledRoot>
@@ -17,23 +26,21 @@ const QuantityBox = ({ quantity, handleChange }: QuantityBoxProps) => {
         type='number'
         defaultValue={quantity}
         ref={inputRef}
-        onChange={() => {
-          handleChange(inputRef.current.value - quantity);
-        }}
+        onChange={handleChangeInput}
       />
       <div>
         <StyledArrowBox
           onClick={() => {
-            inputRef.current.value = quantity + 1;
-            handleChange(1);
+            inputRef.current.valueAsNumber = quantity + 1;
+            changeQuantity(1);
           }}
         >
           <StyledArrowUp />
         </StyledArrowBox>
         <StyledArrowBox
           onClick={() => {
-            inputRef.current.value = quantity - 1;
-            handleChange(-1);
+            inputRef.current.valueAsNumber = quantity - 1;
+            changeQuantity(-1);
           }}
           disabled={quantity <= 1}
         >

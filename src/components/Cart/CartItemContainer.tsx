@@ -34,7 +34,7 @@ const CartItemContainer = ({
       <p>{title}</p>
       <StyledRight>
         <StyledDeleteIcon onClick={handleClickDeleteButton} />
-        <QuantityBox quantity={quantity} handleChange={changeQuantity} />
+        <QuantityBox quantity={quantity} changeQuantity={changeQuantity} />
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
     </StyledCartItem>
