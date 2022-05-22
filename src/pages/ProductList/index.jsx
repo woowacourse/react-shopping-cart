@@ -30,7 +30,7 @@ export function ProductList() {
       isContentLoaded={products.length > 0}
     >
       <Case.Success>
-        <S.ProductListWrapper>
+        <S.Container>
           {products &&
             products.map(({ id, name, goodsPrice, listImage }) => (
               <ProductItem
@@ -42,7 +42,7 @@ export function ProductList() {
                 onClick={handleAddCart}
               />
             ))}
-        </S.ProductListWrapper>
+        </S.Container>
       </Case.Success>
 
       <Case.Loading>
