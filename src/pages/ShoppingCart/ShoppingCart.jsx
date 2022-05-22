@@ -70,6 +70,8 @@ function ShoppingCart() {
   };
 
   const onClickSelectDeleteButton = () => {
+    if (!checkedProducts.length) return;
+
     dispatch({ type: ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART });
   };
 
