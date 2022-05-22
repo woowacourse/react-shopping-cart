@@ -1,6 +1,8 @@
 import ProductListItem from './ProductListItem.component';
-import DefaultImage from 'assets/images/baeminImage.png';
+
 import { useArgs } from '@storybook/client-api';
+
+import DefaultImage from 'assets/images/baeminImage.png';
 
 export default {
   title: 'Components/ProductListItem',

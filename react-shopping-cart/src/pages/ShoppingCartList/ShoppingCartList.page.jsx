@@ -1,17 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Header from 'components/Header/Header.component';
-import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
-import TitleBox from 'components/@shared/TitleBox/TitleBox.component';
-import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
-import PaymentAmountContainer from 'components/PaymentAmountContainer/PaymentAmountContainer.component';
-import CheckBox from 'components/@shared/CheckBox/CheckBox.component';
-import TextBox from 'components/@shared/TextBox/TextBox.component';
+
 import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
-import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
+import CheckBox from 'components/@shared/CheckBox/CheckBox.component';
+import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
+import PageContainer from 'components/@shared/PageContainer/PageContainer.component';
+import TextBox from 'components/@shared/TextBox/TextBox.component';
+import TitleBox from 'components/@shared/TitleBox/TitleBox.component';
+
+import Header from 'components/Header/Header.component';
 import Loading from 'components/Loading/Loading.component';
-import useFetch from 'hooks/useFetch';
+import PaymentAmountContainer from 'components/PaymentAmountContainer/PaymentAmountContainer.component';
+import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
+
 import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
 import { deleteItem } from 'redux/actions/shoppingCart.action';
+
+import useFetch from 'hooks/useFetch';
 
 function ShoppingCartList() {
   const dispatch = useDispatch();

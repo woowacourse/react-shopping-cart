@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import FlexBox from '../FlexBox/FlexBox.component';
+import styled from 'styled-components';
 
 const PageContainer = styled(FlexBox).attrs(props => ({
   justifyContent: 'center',

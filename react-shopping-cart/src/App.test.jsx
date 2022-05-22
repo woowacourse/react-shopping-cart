@@ -1,10 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from 'redux/reducers';
+import { createStore } from 'redux';
+import { ThemeProvider } from 'styled-components';
+
+import { render, screen } from '@testing-library/react';
+
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import ShoppingCartListItem from 'components/ShoppingCartListItem/ShoppingCartListItem.component';
-import { ThemeProvider } from 'styled-components';
+
+import rootReducer from 'redux/reducers';
+
 import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
 

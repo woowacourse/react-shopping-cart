@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+
 import { withOpacityValue } from 'utils';
 
 const refresh = keyframes`

@@ -1,14 +1,18 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
+import styled from 'styled-components';
+
 import CheckBox from 'components/@shared/CheckBox/CheckBox.component';
+import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import Image from 'components/@shared/Image/Image.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
+
 import ChangeQuantityButton from 'components/ChangeQuantityButton/ChangeQuantityButton.component';
-import { ReactComponent as TrashCan } from 'assets/images/trashCan.svg';
+
 import { addSpecificItem, deleteSpecificItem } from 'redux/actions/orderList.action';
 import { deleteItem, increaseQuantity, decreaseQuantity } from 'redux/actions/shoppingCart.action';
+
+import { ReactComponent as TrashCan } from 'assets/images/trashCan.svg';
 
 const CartItemContainer = styled(FlexBox).attrs({
   gap: '15px',

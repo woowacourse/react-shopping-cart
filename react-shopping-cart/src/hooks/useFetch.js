@@ -1,5 +1,6 @@
-import { LIMIT_SERVER_CONNECTION_TIME } from 'constants/index';
 import { useState, useEffect } from 'react';
+
+import { LIMIT_SERVER_CONNECTION_TIME } from 'constants/index';
 
 function useFetch(url) {
   const [data, setData] = useState(null);

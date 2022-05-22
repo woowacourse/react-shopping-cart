@@ -1,10 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
 import Image from 'components/@shared/Image/Image.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
-import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
+
 import { addItem, deleteItem } from 'redux/actions/shoppingCart.action';
+
+import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 
 const ItemContainer = styled.div`
   display: grid;

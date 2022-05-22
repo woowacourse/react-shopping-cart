@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
+
 import ShoppingCartListItem from 'components/ShoppingCartListItem/ShoppingCartListItem.component';
+
 import { addQuantityData } from 'utils';
 
 const CartListCountTextBox = styled(TextBox).attrs({

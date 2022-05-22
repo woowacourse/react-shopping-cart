@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import TextBox from '../TextBox/TextBox.component';
+import styled from 'styled-components';
 
 const TitleBox = styled(TextBox).attrs({
   fontSize: 'extraLarge',

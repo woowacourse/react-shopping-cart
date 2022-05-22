@@ -1,6 +1,7 @@
-import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import Error from 'components/@shared/Error/Error.component';
+
 import ProductListBox from 'components/ProductListBox/ProductListBox.component';
+import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 
 function ProductListContainer({ data }) {
   return (

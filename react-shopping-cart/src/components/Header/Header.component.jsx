@@ -1,8 +1,10 @@
 import React from 'react';
+
+import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import HeaderContainer from 'components/@shared/HeaderContainer/HeaderContainer.component';
 import HeaderLink from 'components/@shared/HeaderLink/HeaderLink.component';
+
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
-import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 
 function Header() {
   return (

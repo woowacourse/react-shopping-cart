@@ -1,6 +1,8 @@
 import ShoppingCartListItem from './ShoppingCartListItem.component';
-import DefaultImage from 'assets/images/baeminImage.png';
+
 import { action } from '@storybook/addon-actions';
+
+import DefaultImage from 'assets/images/baeminImage.png';
 
 export default {
   title: 'Components/ShoppingCartListItem',

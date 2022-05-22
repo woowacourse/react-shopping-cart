@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import ServerErrorCharacter from 'assets/images/serverErrorCharacter.png';
+
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
+
+import ServerErrorCharacter from 'assets/images/serverErrorCharacter.png';
 
 const ErrorContainer = styled(FlexBox)`
   img {

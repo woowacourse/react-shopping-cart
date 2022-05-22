@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
 import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
 import Button from 'components/@shared/Button/Button.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import HighlightText from 'components/@shared/HighlightText/HighlightText.component';
-import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
+
 import { addQuantityData } from 'utils';
 
 const PaymentAmountBox = styled(FlexBox).attrs({

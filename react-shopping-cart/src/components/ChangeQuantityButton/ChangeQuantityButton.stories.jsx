@@ -1,4 +1,5 @@
 import ChangeQuantityButton from './ChangeQuantityButton.component';
+
 import { action } from '@storybook/addon-actions';
 
 export default {

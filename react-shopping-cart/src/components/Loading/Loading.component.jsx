@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 
 const spin = keyframes`
