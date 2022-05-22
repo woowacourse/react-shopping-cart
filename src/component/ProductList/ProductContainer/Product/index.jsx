@@ -2,18 +2,21 @@ import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from 'component/common/Button';
 
-export default function Product({ handleProductClick, handleCartClick, image, name, price, id }) {
-  const onProductClick = () => {
-    handleProductClick(id);
-  };
+export default function Product({ handleProductClick, handleCartClick, product }) {
+  const { image, name, price } = product;
 
   return (
     <ProductBox>
-      <ProductImage src={image} alt="과일 이미지" title="product-image" onClick={onProductClick} />
+      <ProductImage
+        src={image}
+        alt="과일 이미지"
+        title="product-image"
+        onClick={handleProductClick}
+      />
       <DescriptionBox>
         <div>
-          <NameText onClick={onProductClick}>{name}</NameText>
-          <PriceText>{price.toLocaleString('ko-KR')} 원</PriceText>
+          <NameText onClick={handleProductClick}>{name}</NameText>
+          <PriceText onClick={handleProductClick}>{price.toLocaleString('ko-KR')} 원</PriceText>
         </div>
         <Button onClick={handleCartClick}>
           <CartIcon src={`${process.env.PUBLIC_URL}/cart.svg`} />

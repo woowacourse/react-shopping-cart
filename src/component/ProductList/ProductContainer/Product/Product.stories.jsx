@@ -1,7 +1,7 @@
 import Product from '.';
 
 export default {
-  title: 'Component/Product',
+  title: 'Component/ProductList/Product',
   component: Product,
 };
 

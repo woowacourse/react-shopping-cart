@@ -8,7 +8,7 @@ import usePagination from 'hooks/usePagination';
 
 import GridLayout from 'component/common/GridLayout';
 import LoadingSpinner from 'component/common/LoadingSpinner';
-import ProductContainer from 'container/ProductContainer';
+import ProductContainer from 'component/ProductList/ProductContainer';
 import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
 import { productListAsyncThunk } from 'store/thunk/productThunk';
 
