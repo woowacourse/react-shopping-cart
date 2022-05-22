@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentAmount from "../../components/PaymentAmount";
-import ShoppingCartProducts from "../../components/ShoppingCartProducts";
+import ShoppingCartProductsContainer from "../../components/ShoppingCartProductsContainer";
 import {
   getShoppingCartProducts,
   removeCartProducts,
@@ -46,7 +46,7 @@ const ShoppingCartPage = () => {
     <section>
       <S.ShoppingCartTitle>장바구니</S.ShoppingCartTitle>
       <S.ShoppingCartPaymentContainer>
-        <ShoppingCartProducts
+        <ShoppingCartProductsContainer
           handleAllChecked={handleAllChecked}
           isAllChecked={isAllChecked}
           checkedProductIds={checkedProductIds}
