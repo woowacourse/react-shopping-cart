@@ -27,15 +27,16 @@ function CartAdd({ product, closeModal }: CartAddPropsType) {
   const [isLoading, setIsLoading] = useState(false);
 
   const onClickCartAdd = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await addCart({ ...product, quantity: count });
-      setIsLoading(false);
+
       closeModal();
       navigate(ROUTE.ShoppingCart);
     } catch ({ message }) {
-      setIsLoading(false);
       alert(message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
