@@ -51,6 +51,10 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0",
+    "msw": "^0.41.0",
     "redux-devtools": "^3.7.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
