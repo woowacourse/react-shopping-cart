@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as S from "./index.styles";
 
-const PaymentAmount = ({ products, checkedProductIds }) => {
+const ShoppingCartOrder = ({ products, checkedProductIds }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
@@ -45,4 +45,4 @@ const PaymentAmount = ({ products, checkedProductIds }) => {
   );
 };
 
-export default PaymentAmount;
+export default ShoppingCartOrder;

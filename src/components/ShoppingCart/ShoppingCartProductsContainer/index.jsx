@@ -1,5 +1,5 @@
-import ShoppingCartProducts from "../ShoppingCartProducts";
-import ShoppingCartProductsController from "../ShoppingCartProductsController";
+import ShoppingCartProducts from "./ShoppingCartProducts";
+import ShoppingCartProductsController from "./ShoppingCartProductsController";
 import * as S from "./index.styles";
 
 const ShoppingCartProductsContainer = ({

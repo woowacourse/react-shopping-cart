@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { addId, removeId } from "../../../modules/checkedIds";
+import { addId, removeId } from "../../../../../../modules/checkedIds";
 import {
   updateCartProductQuantity,
   removeCartProduct,
-} from "../../../modules/cartProducts";
+} from "../../../../../../modules/cartProducts";
 
 const useShoppingCartProduct = (id, checked, price, quantity) => {
   const [isChecked, setChecked] = useState(true);

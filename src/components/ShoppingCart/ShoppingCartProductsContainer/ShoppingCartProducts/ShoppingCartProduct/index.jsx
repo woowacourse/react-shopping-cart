@@ -1,5 +1,5 @@
 import * as S from "./index.styles";
-import RemoveIcon from "../RemoveIcon";
+import RemoveIcon from "../../../../RemoveIcon";
 import useShoppingCartProduct from "./hook/useShoppingCartProduct";
 
 const ProductInfoContainer = ({

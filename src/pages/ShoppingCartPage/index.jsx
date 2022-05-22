@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PaymentAmount from "../../components/PaymentAmount";
-import ShoppingCartProductsContainer from "../../components/ShoppingCartProductsContainer";
+import ShoppingCartOrder from "../../components/ShoppingCart/\bShoppingCartOrder";
+import ShoppingCartProductsContainer from "../../components/ShoppingCart/ShoppingCartProductsContainer";
 import {
   getShoppingCartProducts,
   removeCartProducts,
@@ -53,7 +53,7 @@ const ShoppingCartPage = () => {
           products={shoppingCartProducts.data}
           handleRemoveProducts={handleRemoveProducts}
         />
-        <PaymentAmount
+        <ShoppingCartOrder
           products={shoppingCartProducts.data}
           checkedProductIds={checkedProductIds}
         />

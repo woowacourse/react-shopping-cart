@@ -1,5 +1,5 @@
 import React from "react";
-import ShoppingCartProduct from "../ShoppingCartProduct";
+import ShoppingCartProduct from "./ShoppingCartProduct";
 
 const ShoppingCartProducts = ({ products, checkedProductIds }) => {
   return (
