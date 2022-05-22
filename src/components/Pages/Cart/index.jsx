@@ -121,7 +121,7 @@ const Cart = ({
           }, 0)
         : 0,
     );
-  }, [checkList, cartList, productInfoList]);
+  }, [checkList, productInfoList, cartList]);
 
   const onToggleTotalClick = () => {
     if (cartList.length === checkList.length) {
@@ -175,7 +175,7 @@ const Cart = ({
       .then((infoList) => {
         setProductInfoList(infoList);
       });
-  }, [cartList, productInfoList]);
+  }, [cartList]);
 
   return (
     <Styled.Container>
