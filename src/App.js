@@ -1,17 +1,45 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 
-import ProductListPage from 'page/ProductListPage';
-import ProductDetailPage from 'page/ProductDetailPage';
-import { Header, CartIcon } from 'components';
-import GlobalStyles from 'components/GlobalStyles';
-import theme from 'components/theme';
+import { ProductListPage, ProductDetailPage, CartPage } from 'page';
+import { Header, CartIcon, GlobalStyles, theme } from 'components';
 
-import { BASE_URL } from 'constants';
-import CartPage from 'page/CartPage';
+import { BASE_URL, ROUTES } from 'constants';
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter basename={BASE_URL}>
+        <Header
+          left={
+            <Styled.HomeLink to={ROUTES.HOME}>
+              <CartIcon category="header" /> WOOWA SHOP
+            </Styled.HomeLink>
+          }
+          right={
+            <div>
+              <Styled.CartLink to={ROUTES.CART}>장바구니</Styled.CartLink>
+              <Styled.OrderLink to={ROUTES.HOME}>주문목록</Styled.OrderLink>
+            </div>
+          }
+        />
+
+        <Styled.Body>
+          <Routes>
+            <Route path={ROUTES.HOME} element={<ProductListPage />} />
+            <Route path={ROUTES.DETAILS + '/:id'} element={<ProductDetailPage />} />
+            <Route path={ROUTES.CART} element={<CartPage />} />
+          </Routes>
+        </Styled.Body>
+
+        <GlobalStyles />
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+}
 
 const Styled = {
-  Routes: styled.div`
+  Body: styled.div`
     display: flex;
     justify-content: center;
   `,
@@ -42,35 +70,5 @@ const Styled = {
     margin: 0 10px;
   `,
 };
-
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter basename={BASE_URL}>
-        <Header
-          left={
-            <Styled.HomeLink to="">
-              <CartIcon category="header" /> WOOWA SHOP
-            </Styled.HomeLink>
-          }
-          right={
-            <div>
-              <Styled.CartLink to="cart">장바구니</Styled.CartLink>
-              <Styled.OrderLink to="">주문목록</Styled.OrderLink>
-            </div>
-          }
-        />
-        <Styled.Routes>
-          <Routes>
-            <Route path="" element={<ProductListPage />} />
-            <Route path="details/:id" element={<ProductDetailPage />} />
-            <Route path="cart" element={<CartPage />} />
-          </Routes>
-        </Styled.Routes>
-        <GlobalStyles />
-      </BrowserRouter>
-    </ThemeProvider>
-  );
-}
 
 export default App;
