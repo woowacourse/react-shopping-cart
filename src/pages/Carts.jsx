@@ -12,7 +12,7 @@ function Carts() {
     carts,
     checkedCarts,
   } = useSelector((state) => state.carts);
-  const { isLoading: isProductLoading, products } = useSelector(
+  const { isLoading: isProductsLoading, products } = useSelector(
     (state) => state.products
   );
 
@@ -40,8 +40,6 @@ function Carts() {
     checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
   );
 
-  const isLoading = isCartsLoading || isProductLoading;
-
   return (
     <Style.Container>
       <Style.Header>
@@ -55,7 +53,7 @@ function Carts() {
           <span>{`든든배송 상품(${totalQuantity}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           <CartListContainer
-            isLoading={isLoading}
+            isLoading={isProductsLoading}
             storedProducts={storedProducts}
             checkedProducts={checkedProducts}
           />
