@@ -16,14 +16,20 @@ export const Label = styled.label`
   cursor: pointer;
   color: white;
   text-align: center;
-  & span {
-    display: none;
-  }
+`;
+
+export const CheckLabel = styled.p`
+  cursor: pointer;
+  display: none;
 `;
 
 export const Checkbox = styled.input<{ backgroundColor: string }>`
   display: none;
+  cursor: pointer;
   &:checked + ${Label} {
     background-color: ${(props) => props.backgroundColor};
+    & p {
+      display: inline;
+    }
   }
 `;

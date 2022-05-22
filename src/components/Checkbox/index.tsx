@@ -16,7 +16,7 @@ const Checkbox = ({ id, label }: CheckboxProps) => {
     <S.CheckboxContainer>
       <S.Checkbox type="checkbox" id={stringId} backgroundColor={primary} />
       <S.Label htmlFor={stringId}>
-        <p>✔</p>
+        <S.CheckLabel>✔</S.CheckLabel>
       </S.Label>
       <p>{label}</p>
     </S.CheckboxContainer>
