@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearProducts, productsAsyncThunk } from 'store/action/productsActions';
+import { clearProducts } from 'store/action/productsActions';
 import Maybe from 'react-maybe';
 import usePagination from 'hooks/usePagination';
 
@@ -10,6 +10,7 @@ import GridLayout from 'component/common/GridLayout';
 import LoadingSpinner from 'component/common/LoadingSpinner';
 import ProductContainer from 'container/ProductContainer';
 import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
+import { productListAsyncThunk } from 'store/thunk/productThunk';
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function ProductList() {
     if (products.length) {
       dispatch(clearProducts());
     }
-    dispatch(productsAsyncThunk());
+    dispatch(productListAsyncThunk());
   }, []);
 
   return (

@@ -17,7 +17,9 @@ describe('상품 리스트 저장상태 테스트', () => {
 
     reducer({
       type: PRODUCTS_ACTION_TYPE.UPDATE_PRODUCTS,
-      products: [product],
+      payload: {
+        products: [product],
+      },
     });
 
     expect(productsState).toEqual([product]);
