@@ -33,7 +33,6 @@ const ShoppingCartPage = () => {
   const [isAllSelect, setIsAllSelect] = useState(false);
 
   const handleClickCheckBox = () => {
-    console.log(shoppingCartList);
     if (isAllSelect === false) {
       shoppingCartList.forEach(product => {
         dispatch(putShoppingCartItem({ ...product, isSelect: true }));
@@ -67,6 +66,7 @@ const ShoppingCartPage = () => {
 
     const selectedProductList = shoppingCartList.filter(product => product.isSelect === true);
     setTotalAmount(selectedProductList.length);
+
     if (selectedProductList.length === 0) {
       setTotalPrice(0);
       return;
@@ -78,8 +78,6 @@ const ShoppingCartPage = () => {
 
     setTotalPrice(selectedProductList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
   }, [shoppingCartList]);
-
-  console.log(shoppingCartList);
 
   return (
     <PageWrapper>

@@ -4,7 +4,7 @@ import {
   PRODUCT_INITIALIZE_ERROR,
 } from 'actions/action';
 
-const initState = {
+export const initState = {
   products: {
     productListLoading: false,
     productList: [],
