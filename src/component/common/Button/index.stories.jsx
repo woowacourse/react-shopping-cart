@@ -1,30 +1,31 @@
 import React from 'react';
 
 import Button from 'component/common/Button';
+import theme from 'theme/theme';
 
 export default {
   component: Button,
-  title: 'Button',
+  title: 'Common/Button',
+  argTypes: {
+    type: {table: {disable: true}},
+    onClick: {action: 'click', table: {disable: true}},
+    width: {table: {disable: true}},
+    height: {table: {disable: true}},
+  },
 };
 
 const Template = (args) => <Button {...args} />;
 
-export const DefaultButton = Template.bind({});
-DefaultButton.args = {
-  children: '기본 버튼',
-  backgroundColor: 'cyan',
+export const Defaults = Template.bind({});
+Defaults.args = {
+  children: 'Default Button',
+  backgroundColor: theme.GRAY_BROWN,
 };
 
-export const BlueButton = Template.bind({});
-BlueButton.args = {
-  children: '파란 버튼',
-  backgroundColor: 'blue',
-};
-
-export const CustomWidthHeightButton = Template.bind({});
-CustomWidthHeightButton.args = {
-  children: '사이즈 조절 가능한 버튼',
-  backgroundColor: 'cyan',
-  width: '500px',
-  height: '300px',
+export const OrderButton = Template.bind({});
+OrderButton.args = {
+  children: '주문하기 (0개)',
+  backgroundColor: theme.MINT,
+  width: '223px',
+  height: '73px',
 };

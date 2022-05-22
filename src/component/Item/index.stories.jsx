@@ -2,10 +2,16 @@ import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
 import Item from 'component/Item';
+import {MOCK_PRODUCT_LIST} from 'mocks/mockData';
 
 export default {
   component: Item,
   title: 'Item',
+  argTypes: {
+    handleImageClick: {action: 'click', table: {disable: true}},
+    handleIconClick: {action: 'click', table: {disable: true}},
+    id: {table: {disable: true}},
+  },
 };
 
 const Template = (args) => (
@@ -14,10 +20,10 @@ const Template = (args) => (
   </BrowserRouter>
 );
 
-export const DefaultItem = Template.bind({});
-DefaultItem.args = {
-  itemImgURL:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png',
-  itemName: 'PET보틀-정사각(420ml)',
-  itemPrice: 43400,
+export const Defaults = Template.bind({});
+Defaults.args = {
+  itemImgURL: MOCK_PRODUCT_LIST[0].image,
+  itemName: MOCK_PRODUCT_LIST[0].name,
+  itemPrice: MOCK_PRODUCT_LIST[0].price,
+  isInCart: false,
 };

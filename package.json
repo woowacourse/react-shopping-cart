@@ -53,6 +53,7 @@
     "eslint-plugin-storybook": "^0.5.11",
     "gh-pages": "^4.0.0",
     "msw": "^0.40.1",
+    "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.6.2",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",

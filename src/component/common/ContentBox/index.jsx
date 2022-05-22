@@ -12,6 +12,7 @@ export default function ContentBox({
   leftContent = 'left content',
   rightContent = 'right content',
   buttonText = 'button',
+  onClickButton = () => void 0,
 }) {
   return (
     <S.ContentBoxLayout>
@@ -20,7 +21,7 @@ export default function ContentBox({
         <S.PriceInfoFont>{leftContent}</S.PriceInfoFont>
         <S.PriceInfoFont>{rightContent}</S.PriceInfoFont>
       </S.PriceInfoBox>
-      <Button backgroundColor={theme.MINT} width="100%" height="73px">
+      <Button onClick={onClickButton} backgroundColor={theme.MINT} width="100%" height="73px">
         <S.PriceInfoFont>{buttonText}</S.PriceInfoFont>
       </Button>
     </S.ContentBoxLayout>
@@ -32,4 +33,5 @@ ContentBox.propTypes = {
   leftContent: PropTypes.string,
   rightContent: PropTypes.string,
   buttonText: PropTypes.string,
+  onClickButton: PropTypes.func,
 };
