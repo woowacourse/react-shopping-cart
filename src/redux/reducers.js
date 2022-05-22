@@ -63,7 +63,7 @@ export const cartListReducer = (state = cartListInitialState, action) => {
       if (isExistInCart) {
         return state;
       }
-      return [...state, action.payload];
+      return [...state, { ...action.payload, quantity: 1 }];
 
     default:
       return state;
