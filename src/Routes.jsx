@@ -1,10 +1,11 @@
 import { Suspense, lazy } from 'react';
 import DefaultLayout from './layouts/DefaultLayout';
 import CartPageLayout from './layouts/CartPageLayout';
+import Loading from './components/common/Loading';
 
 const Loadable = (Component) => (props) =>
   (
-    <Suspense fallback={<div>로딩중...</div>}>
+    <Suspense fallback={<Loading />}>
       <Component {...props} />
     </Suspense>
   );

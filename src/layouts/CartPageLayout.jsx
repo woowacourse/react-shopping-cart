@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import Loading from '../components/common/Loading';
 import { setCartProductListAsync } from '../store/modules/cart/actions';
 
 function CartPageLayout() {
@@ -17,7 +18,7 @@ function CartPageLayout() {
 
   return (
     <LayoutRoot>
-      <Suspense fallback={<div>로딩중...</div>}>{isLoading && <Outlet />}</Suspense>
+      <Suspense fallback={<Loading />}>{isLoading && <Outlet />}</Suspense>
     </LayoutRoot>
   );
 }
