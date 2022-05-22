@@ -4,7 +4,7 @@ import Header from 'components/Header/Header.component';
 import ShoppingBasketControl from 'components/ShoppingBasketControl/ShoppingBasketControl.component';
 import ShoppingBasketListContainer from 'components/ShoppingBasketListContainer/ShoppingBasketListContainer.component';
 import PaymentBox from 'components/PaymentBox/PaymentBox.component';
-import { useShoppingBasket } from 'hooks';
+import { useShoppingBasket, useSelectShoppingBasketItem } from 'hooks';
 import { PALETTE } from 'styles/theme';
 import STATE_KEY from 'constants/stateKey';
 
@@ -30,6 +30,9 @@ function ShoppingBasket() {
   const { shoppingBasketList, deleteProducts, increaseQuantity, decreaseQuantity } =
     useShoppingBasket(STATE_KEY.SHOPPING_BASKET_REDUCER);
 
+  const { selectedProductList, isAllSelected, clickCheckbox, clickAllCheckbox } =
+    useSelectShoppingBasketItem(shoppingBasketList);
+
   return (
     <>
       <Header />
@@ -40,13 +43,18 @@ function ShoppingBasket() {
         <Divider width="1320px" height="4px" backgroundColor={PALETTE.BLACK_001} />
         <ContentBox>
           <LeftBox alignItems="flex-start" isColumnDirection={true}>
-            <ShoppingBasketControl />
+            <ShoppingBasketControl
+              isAllSelected={isAllSelected}
+              clickAllCheckbox={clickAllCheckbox}
+            />
             <Text margin="26px 0 0" fontSize="medium">
               든든배송 상품 ({shoppingBasketList.length})
             </Text>
             <Divider height="4px" margin="16px 0 23px" backgroundColor={PALETTE.GRAY_002} />
             <ShoppingBasketListContainer
               shoppingBasketList={shoppingBasketList}
+              selectedProductList={selectedProductList}
+              clickCheckbox={clickCheckbox}
               deleteProducts={deleteProducts}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}

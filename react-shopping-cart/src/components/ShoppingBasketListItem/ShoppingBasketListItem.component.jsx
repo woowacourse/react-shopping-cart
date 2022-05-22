@@ -18,6 +18,8 @@ function ShoppingBasketListItem({
   name,
   price,
   quantity,
+  isSelected,
+  clickCheckbox,
   deleteProducts,
   increaseQuantity,
   decreaseQuantity,
@@ -28,7 +30,10 @@ function ShoppingBasketListItem({
 
   return (
     <ShoppingBasketListItemBox>
-      <Checkbox />
+      <Checkbox
+        checked={isSelected}
+        handleChangeCheckbox={({ target }) => clickCheckbox(id, target.checked)}
+      />
       <Image style={{ marginLeft: '15px' }} src={thumbnail} type="small" />
       <Text margin="0 0 0 20px" fontSize="medium">
         {name}

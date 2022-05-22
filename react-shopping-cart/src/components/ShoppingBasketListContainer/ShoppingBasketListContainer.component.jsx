@@ -13,6 +13,8 @@ const EmptyListMessage = styled(Text)`
 
 function ShoppingBasketListContainer({
   shoppingBasketList,
+  selectedProductList,
+  clickCheckbox,
   deleteProducts,
   increaseQuantity,
   decreaseQuantity,
@@ -30,10 +32,12 @@ function ShoppingBasketListContainer({
       {shoppingBasketList.map((productInfo, index) => (
         <ShoppingBasketListItemBox key={productInfo.id}>
           <ShoppingBasketListItem
+            isSelected={selectedProductList.includes(productInfo.id)}
+            clickCheckbox={clickCheckbox}
             deleteProducts={deleteProducts}
-            {...productInfo}
             increaseQuantity={increaseQuantity}
             decreaseQuantity={decreaseQuantity}
+            {...productInfo}
           />
           {shoppingBasketList.length - 1 !== index ? (
             <Divider height="1.5px" margin="24px 0 26px" backgroundColor={PALETTE.GRAY_005} />
