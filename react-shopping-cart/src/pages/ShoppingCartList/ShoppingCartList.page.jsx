@@ -10,7 +10,6 @@ import BorderBox from 'components/@shared/BorderBox/BorderBox.component';
 import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
 import Loading from 'components/Loading/Loading.component';
 import useFetch from 'hooks/useFetch';
-import { useMemo } from 'react';
 import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
 import { deleteItem } from 'redux/actions/shoppingCart.action';
 
