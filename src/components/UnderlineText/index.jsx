@@ -1,7 +1,12 @@
+import PropTypes from 'prop-types';
 import Styled from './index.style';
 
-const UnderlineText = ({ children }) => {
-  return <Styled.UnderlineText>{children}</Styled.UnderlineText>;
+const UnderlineText = ({ text }) => {
+  return <Styled.UnderlineText>{text}</Styled.UnderlineText>;
+};
+
+UnderlineText.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 export default UnderlineText;

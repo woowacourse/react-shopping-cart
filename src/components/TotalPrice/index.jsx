@@ -10,8 +10,8 @@ const TotalPrice = ({ title, price, action }) => {
       <Styled.TitleContainer>{title}</Styled.TitleContainer>
       <Styled.DetailContainer>
         <Styled.PriceContainer>
-          <UnderlineText>{title}</UnderlineText>
-          <UnderlineText>{autoComma(price)}원</UnderlineText>
+          <UnderlineText text={title} />
+          <UnderlineText text={`${autoComma(price)}원`} />
         </Styled.PriceContainer>
         <Styled.ButtonContainer>
           <Button bg={theme.colors.mint} width="100%" height="73px">
