@@ -1,23 +1,43 @@
-import { ADD_PRODUCT_TO_CART, UPDATE_PRODUCT_LIST } from "@/redux/actions";
+import {
+  GET_PRODUCT_LIST_START,
+  GET_PRODUCT_LIST_SUCCESS,
+  GET_PRODUCT_LIST_ERROR,
+} from "./types";
 
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    case ADD_PRODUCT_TO_CART: {
-      const newState = structuredClone(state);
-      const id = payload;
-      if (newState.cart[id]) {
-        newState.cart[id] += 1;
-      } else {
-        newState.cart[id] = 1;
-      }
-      localStorage.setItem("cart", JSON.stringify(newState.cart));
-      return newState;
-    }
-    case UPDATE_PRODUCT_LIST: {
-      const newState = structuredClone(state);
-      newState.productList = payload;
-      return newState;
-    }
+import { initialState } from "@/index";
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PRODUCT_LIST_START:
+      return {
+        ...state,
+        productList: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+
+    case GET_PRODUCT_LIST_SUCCESS:
+      return {
+        ...state,
+        productList: {
+          loading: false,
+          data: JSON.parse(action.payload),
+          error: null,
+        },
+      };
+
+    case GET_PRODUCT_LIST_ERROR:
+      return {
+        ...state,
+        productList: {
+          loading: false,
+          data: null,
+          error: action.payload.message,
+        },
+      };
+
     default: {
       return state;
     }

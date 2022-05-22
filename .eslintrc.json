@@ -33,6 +33,8 @@
     "no-underscore-dangle": "off",
     "no-use-before-define": ["off"],
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "global-require": 0,
+    "default-param-last": "off"
   }
 }

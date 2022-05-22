@@ -4,19 +4,17 @@ import StyledProductItem from "@/pages/home/components/product-item/ProductItem.
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
 import createAction from "@/redux/createAction";
-import { ADD_PRODUCT_TO_CART } from "@/redux/actions";
-import { BASE_URL } from "@/constants";
 
-function ProductItem({ id, name, price, stock, thumbnail_url }) {
+function ProductItem({ id, name, price, stock, imgUrl }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(createAction(ADD_PRODUCT_TO_CART, id));
+    dispatch(createAction("ADD_PRODUCT_TO_CART", id));
   };
 
   return (
     <StyledProductItem>
-      <Thumbnail src={`${BASE_URL}/${thumbnail_url}`} />
+      <Thumbnail src={`${imgUrl}`} />
       <div className="content">
         <div className="product-detail">
           <div className="l-left">
