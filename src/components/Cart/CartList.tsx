@@ -38,7 +38,21 @@ const CartList = ({
   });
 
   const toggleCheckedAll = () => {
-    cartList.forEach(cartItem => toggleCartItemWillPurchase(cartItem.id));
+    if (isAllItemWillPurchase) {
+      toggleAll(true);
+
+      return;
+    }
+
+    toggleAll(false);
+  };
+
+  const toggleAll = (check: boolean) => {
+    cartList.forEach(cartItem => {
+      if (cartItem.willPurchase === check) {
+        toggleCartItemWillPurchase(cartItem.id);
+      }
+    });
   };
 
   const toggleChecked = (targetId: number) => {
