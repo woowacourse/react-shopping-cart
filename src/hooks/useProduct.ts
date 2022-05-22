@@ -1,21 +1,35 @@
-import { useSelector } from "react-redux";
-import { getProductById } from "../modules/product";
-import { RootState } from "../modules";
-import { ProductAction } from "../modules/product/type";
-import { useAppDispatch } from "./useAppDispatch";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getProductById } from "../api";
+import { Product } from "../modules/product/type";
+import { product } from "../types/product";
 
-const useProduct = () => {
-  const product = useSelector((state: RootState) => state.product);
+const useProduct = (id: number) => {
+  const [productData, setProductData] = useState({} as Product);
 
-  const dispatch = useAppDispatch<ProductAction>();
+  const fetchData = useCallback(async () => {
+    const data = await getProductById(id);
+    setProductData(() => ({ isLoading: false, data, error: null }));
+  }, [id]);
+
+  useEffect(() => {
+    try {
+      setProductData(() => ({
+        isLoading: true,
+        data: {} as product,
+        error: null,
+      }));
+      fetchData();
+    } catch (e: any) {
+      setProductData(() => ({
+        isLoading: false,
+        data: {} as product,
+        error: e.message,
+      }));
+    }
+  }, [fetchData, id]);
 
   return {
-    product,
-    getProductById: useCallback(
-      (id: number) => dispatch(getProductById(id)),
-      [dispatch]
-    ),
+    product: productData,
   };
 };
 
