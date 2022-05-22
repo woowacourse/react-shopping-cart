@@ -6,24 +6,16 @@ function Price() {
   const cartList = useSelector((state) => state.cartListState);
 
   const getTotalCount =
-    (cartList.length > 0 &&
-      cartList.reduce((prev, current) => {
-        if (current.checked === true) {
-          return prev + current.quantity;
-        }
-        return prev;
-      }, 0)) ||
-    0;
+    cartList.reduce((prev, current) => {
+      return current.checked === true ? prev + current.quantity : prev;
+    }, 0) || 0;
 
   const getTotalPrice =
-    (cartList.length > 0 &&
-      cartList.reduce((prev, current) => {
-        if (current.checked === true) {
-          return prev + current.quantity * current.price;
-        }
-        return prev;
-      }, 0)) ||
-    0;
+    cartList.reduce((prev, current) => {
+      return current.checked === true
+        ? prev + current.quantity * current.price
+        : prev;
+    }, 0) || 0;
 
   return (
     <StyledPrice>
