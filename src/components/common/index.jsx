@@ -2,36 +2,21 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledImageWrapper = styled.div`
-  width: ${({ width, theme }) =>
-    `${
-      width === 'large'
-        ? theme.IMAGE_SIZE_MAP.large
-        : width === 'middle'
-        ? theme.IMAGE_SIZE_MAP.middle
-        : theme.IMAGE_SIZE_MAP.small
-    }`}px;
+  overflow: hidden;
+  border-radius: 8px;
+  min-width: ${({ width, theme }) =>
+    `${theme.IMAGE_SIZE_MAP[width] || theme.IMAGE_SIZE_MAP.middle}`}px;
   height: ${({ height, theme }) =>
-    `${
-      height === 'large'
-        ? theme.IMAGE_SIZE_MAP.large
-        : height === 'middle'
-        ? theme.IMAGE_SIZE_MAP.middle
-        : theme.IMAGE_SIZE_MAP.small
-    }`}px;
+    `${theme.IMAGE_SIZE_MAP[height] || theme.IMAGE_SIZE_MAP.middle}`}px;
 `;
 
 const StyledImg = styled.img`
-  width: ${({ width, theme }) =>
-    `${
-      width === 'large'
-        ? theme.IMAGE_SIZE_MAP.large
-        : width === 'middle'
-        ? theme.IMAGE_SIZE_MAP.middle
-        : theme.IMAGE_SIZE_MAP.small
-    }`}px;
+  width: ${({ width, theme }) => `${theme.IMAGE_SIZE_MAP[width] || theme.IMAGE_SIZE_MAP.middle}`}px;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const StyledLink = styled(Link)`
