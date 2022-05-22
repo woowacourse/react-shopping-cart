@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { css } from '@emotion/react';
 
-import { LAYOUT, COLORS } from 'styles/theme';
+import { LAYOUT, COLORS, BRAND_COLORS } from 'styles/theme';
 
 const BUTTON_TYPE = {
   BUTTON: css`
@@ -14,8 +14,18 @@ const BUTTON_TYPE = {
   ICON: css`
     padding: 0.25em 0.35em;
     border: 1px solid ${COLORS.GRAY_150};
-    background-color: ${COLORS.GRAY_250};
+    background-color: ${COLORS.WHITE};
   `,
+};
+
+const BUTTON_STATE_COLOR = (state) => {
+  const backgroundColorKey = state.toUpperCase();
+  const fontColorKey = `${state.toUpperCase()}_FONT`;
+
+  return css`
+    background-color: ${BRAND_COLORS[backgroundColorKey]};
+    color: ${BRAND_COLORS[fontColorKey]};
+  `;
 };
 
 const Container = styled.button`
@@ -27,9 +37,14 @@ const Container = styled.button`
   color: inherit;
 
   ${({ containerType }) => BUTTON_TYPE[containerType]}
+  ${({ state }) => BUTTON_STATE_COLOR(state)}
+  ${({ state }) =>
+    state !== 'default' &&
+    css`
+      border: none;
+    `}
 
   &:hover {
-    color: ${COLORS.BLACK};
     filter: brightness(0.95);
   }
 
