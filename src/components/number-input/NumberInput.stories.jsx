@@ -5,19 +5,21 @@ export default {
   component: NumberInput,
   argTypes: {
     step: {
-      control: { type: 'number' },
+      control: { type: "number" },
     },
     positive: {
-      control: { type: 'boolean' },
-    }
+      control: { type: "boolean" },
+    },
   },
 };
 
-const Template = (args) => <NumberInput {...args} />
+function Template(args) {
+  return <NumberInput {...args} />;
+}
 
 export const Primary = Template.bind({});
 
 Primary.args = {
   value: 1,
-  onChange: () => undefined
+  onChange: () => undefined,
 };
