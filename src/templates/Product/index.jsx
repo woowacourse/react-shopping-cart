@@ -11,7 +11,7 @@ import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
 
-function Product({ imgSrc, title, price }) {
+function Product({ id, imgSrc, title, price }) {
   const handleProductClick = () => {};
 
   return (
@@ -32,7 +32,7 @@ function Product({ imgSrc, title, price }) {
             {price.toLocaleString()}원
           </BlackText>
         </div>
-        <CartButton />
+        <CartButton id={id} />
       </FlexWrapper>
     </ProductStyled>
   );

@@ -1,28 +1,39 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-function useDataFetch(initialUrl, initialData) {
-  const [data, setData] = useState(initialData);
-  const [url, setUrl] = useState(initialUrl);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+import { requestProductsAdd, requestProductsAddFail } from 'modules/product';
+import { requestCartAdd, requestCartAddFail } from 'modules/cart';
+
+async function useGetProductList() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setIsError(false);
-
       try {
-        const body = await fetch(url);
-        setData(await body.json());
+        const res = await axios.get('/products');
+        const products = await res.data;
+
+        dispatch(requestProductsAdd(products));
       } catch (error) {
-        setIsError(true);
+        dispatch(requestProductsAddFail(error));
       }
-      setIsLoading(false);
     };
     fetchData();
-  }, [url]);
-
-  return [{ data, isLoading, isError }, setUrl];
+  }, []);
 }
 
-export default useDataFetch;
+async function useGetSelectedProduct(id) {
+  const dispatch = useDispatch();
+
+  try {
+    const res = await axios.get(`/products/${id}`);
+    const product = await res.data;
+
+    dispatch(requestCartAdd(product));
+  } catch (error) {
+    dispatch(requestCartAddFail(error));
+  }
+}
+
+export { useGetProductList, useGetSelectedProduct };

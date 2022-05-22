@@ -1,9 +1,15 @@
-// src/mocks/handlers.js
 import { rest } from 'msw';
+import products from 'mockData';
 
 export const handlers = [
-  // Handles a POST /login request
-  rest.post('/login', null),
-  // Handles a GET /user request
-  rest.get('/user', null),
+  rest.get('/products/:id', (req, res, ctx) => {
+    const productId = Number(req.params.id);
+    const product = products.find((product) => product.id === productId);
+
+    return res(ctx.status(200), ctx.json(product));
+  }),
+
+  rest.get('/products', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(products));
+  }),
 ];

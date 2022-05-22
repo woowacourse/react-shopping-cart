@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import ProductListStyled from './style';
 import Product from 'templates/Product';
-import { requestProductsAdd } from 'modules/product';
 import StateMessage from 'containers/StateMessage';
 
-import useDataFetch from 'hooks/useDataFetch';
 import MESSAGE from 'constants';
+import { useGetProductList } from 'hooks/useDataFetch';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
-  const dispatch = useDispatch();
-  const [{ data, isLoading, isError }] = useDataFetch(process.env.REACT_APP_DATA_SERVER, products);
+  const isLoading = useSelector((state) => state.product.isLoading);
+  const isError = useSelector((state) => state.product.isError);
 
-  useEffect(() => {
-    dispatch(requestProductsAdd(data));
-  });
+  useGetProductList();
 
   if (isLoading) {
     return <StateMessage message={MESSAGE.LOADING} />;
@@ -25,10 +22,9 @@ function ProductList() {
   if (isError) {
     return <StateMessage message={MESSAGE.ERROR} />;
   }
-
   return (
     <ProductListStyled>
-      {data.map((product) => (
+      {products.map((product) => (
         <Product key={product.id} {...product} />
       ))}
     </ProductListStyled>
