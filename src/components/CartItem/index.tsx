@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 
-import { actionCreators as CartActions, CartItem as CartItemType } from "../../redux/modules/cart";
+import { actionCreators as cartActions, CartItem as CartItemType } from "../../redux/modules/cart";
 
 import * as S from "./styles";
 
 import deleteIcon from "../../assets/deleteIcon_gray.png";
+
 import { CART_AMOUNT_MIN, MESSAGE } from "../../constants/constants";
 
 interface CartItemProps {
@@ -17,16 +18,16 @@ function CartItem({ cartItem }: CartItemProps) {
 
   const onClickDeleteItem = () => {
     if (confirm(MESSAGE.CONFIRM_DELETE)) {
-      dispatch(CartActions.deleteItem(id));
+      dispatch(cartActions.deleteItem(id));
     }
   };
 
   const onClickIncreaseCounter = () => {
-    dispatch(CartActions.increment(id));
+    dispatch(cartActions.increment(id));
   };
 
   const onClickDecreaseCounter = () => {
-    if (cartItem.amount > CART_AMOUNT_MIN) dispatch(CartActions.decrement(id));
+    if (cartItem.amount > CART_AMOUNT_MIN) dispatch(cartActions.decrement(id));
   };
 
   return (
@@ -36,7 +37,7 @@ function CartItem({ cartItem }: CartItemProps) {
         checked={cartItem.isSelected}
         onClick={(e) => {
           const targetInput = e.target as HTMLInputElement;
-          dispatch(CartActions.toggleItemSelected(cartItem.detail.id, targetInput.checked));
+          dispatch(cartActions.toggleItemSelected(cartItem.detail.id, targetInput.checked));
         }}
       />
       <S.CartItemImage src={img} alt={name} />

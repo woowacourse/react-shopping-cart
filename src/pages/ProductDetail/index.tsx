@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useCartItemSelector } from "../../hooks/useCartSelector";
 
-import { actionCreators as CartActions } from "../../redux/modules/cart";
+import { actionCreators as cartActions } from "../../redux/modules/cart";
 
 import * as S from "./styles";
 
@@ -42,7 +42,7 @@ function ProductDetail() {
             상품 {cartItem.amount}개 바로구매
           </S.CartButton>
         ) : (
-          <S.CartButton onClick={() => dispatch(CartActions.addItem(productDetail))}>
+          <S.CartButton onClick={() => dispatch(cartActions.addItem(productDetail))}>
             장바구니 담기
           </S.CartButton>
         )}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
 
-import { actionCreators as CartActions } from "../../redux/modules/cart";
+import { actionCreators as cartActions } from "../../redux/modules/cart";
 import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar";
 
 import * as S from "./styles";
@@ -42,14 +42,14 @@ function Product({ productInfo }: ProductProps) {
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((cartItem) => cartItem.detail.id === id)) {
-      dispatch(CartActions.addItem(productInfo));
+      dispatch(cartActions.addItem(productInfo));
       dispatch(SnackBarActions.show(MESSAGE.ADD_CART_ITEM));
     }
   };
 
   const onClickDeleteItem = () => {
     if (confirm(MESSAGE.CONFIRM_DELETE)) {
-      dispatch(CartActions.deleteItem(id));
+      dispatch(cartActions.deleteItem(id));
       setIsShowCartCounter(false);
       dispatch(SnackBarActions.show(MESSAGE.DELETE_CART_ITEM));
     }
@@ -60,7 +60,7 @@ function Product({ productInfo }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    dispatch(CartActions.decrement(id));
+    dispatch(cartActions.decrement(id));
   };
 
   const onClickIncreaseCounter = () => {
@@ -68,7 +68,7 @@ function Product({ productInfo }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    dispatch(CartActions.increment(id));
+    dispatch(cartActions.increment(id));
   };
 
   useEffect(() => {

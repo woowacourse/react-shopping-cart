@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
-import { MESSAGE } from "../../constants/constants";
 
-import { actionCreators as CartActions } from "../../redux/modules/cart";
+import { actionCreators as cartActions } from "../../redux/modules/cart";
+
+import { MESSAGE } from "../../constants/constants";
 
 import * as S from "./styles";
 
@@ -16,7 +17,7 @@ function CartItemListController() {
           id="all-check"
           onClick={(e) => {
             const targetInput = e.target as HTMLInputElement;
-            dispatch(CartActions.toggleAllItemsSelected(targetInput.checked));
+            dispatch(cartActions.toggleAllItemsSelected(targetInput.checked));
           }}
         />
         <label htmlFor="all-check">선택해제</label>
@@ -24,7 +25,7 @@ function CartItemListController() {
       <S.CartItemListDeleteButton
         onClick={() => {
           if (confirm(MESSAGE.CONFIRM_DELETE)) {
-            dispatch(CartActions.deleteSelectedItems());
+            dispatch(cartActions.deleteSelectedItems());
           }
         }}
       >
