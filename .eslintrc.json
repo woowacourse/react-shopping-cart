@@ -9,7 +9,7 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "ignorePatterns": ["src/stories/*", "*.stories.*"],
+  "ignorePatterns": ["src/stories/*", "*.stories.*", "config-overrides.js"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "import/no-extraneous-dependencies": "off",

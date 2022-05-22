@@ -16,6 +16,7 @@
     "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.9.2",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
@@ -26,24 +27,26 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.11",
+    "customize-cra": "^1.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
     "msw": "^0.40.2",
+    "react-app-rewired": "^2.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "webpack": "^5.72.1"
   },
   "scripts": {
-    "start": "cp ./env/.env.server ./.env.local && react-scripts start",
-    "start:msw": "cp ./env/.env.msw ./.env.local && react-scripts start",
-    "build": "react-scripts build",
+    "start": "cp ./env/.env.server ./.env.local && react-app-rewired start",
+    "start:msw": "cp ./env/.env.msw ./.env.local && react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "browserslist": {
@@ -56,18 +59,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
     ]
   },
   "msw": {
