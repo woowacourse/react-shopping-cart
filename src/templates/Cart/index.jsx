@@ -55,6 +55,7 @@ function Cart({ cartProducts }) {
                   width="144px"
                   height="144px"
                   cursor="pointer"
+                  productTitle={product.product_title}
                 />
                 <Text>{product.product_title}</Text>
                 <FlexWrapper flexFlow="column wrap" justifyContent="space-between" alignItems="end">
