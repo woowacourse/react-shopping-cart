@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Product from 'components/Product';
 import Flex from 'components/@common/Flex';
@@ -14,6 +14,22 @@ const ProductList = () => {
     navigate,
     data: { productList, isLoading, isError },
   } = useProductList();
+
+  const [loadedImageCount, setLoadedImageCount] = useState(0);
+  const isUsed = useRef(false);
+
+  if (isUsed.current === false && productList.length !== 0) {
+    productList.forEach(({ thumbnail }) => {
+      const image = new Image();
+
+      image.onload = function () {
+        setLoadedImageCount((prev) => prev + 1);
+      };
+      image.src = thumbnail;
+    });
+
+    isUsed.current = true;
+  }
 
   useEffect(() => {
     if (productList.length !== 0) return;
@@ -34,10 +50,12 @@ const ProductList = () => {
 
   return (
     <Flex wrap="wrap" gap="40px">
-      {isLoading && Array.from({ length: 8 }, (_, idx) => <Skeleton key={idx} />)}
-      {productList.map(({ id, name, price, thumbnail }) => (
-        <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
-      ))}
+      {loadedImageCount !== productList.length &&
+        Array.from({ length: 8 }, (_, idx) => <Skeleton key={idx} />)}
+      {loadedImageCount === productList.length &&
+        productList.map(({ id, name, price, thumbnail }) => (
+          <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
+        ))}
     </Flex>
   );
 };
