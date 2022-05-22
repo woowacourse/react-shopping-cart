@@ -3,11 +3,9 @@ import Counter from '@/components/common/Counter/Counter';
 import Icon from '@/components/common/Icon/Icon';
 import Image from '@/components/common/Image/Image';
 import Loading from '@/components/common/Loading/Loading';
-import { useCount } from '@/hooks/useCount';
 import useResponsive from '@/hooks/useResponsive';
 import { fetchDeleteCartAsync, fetchPatchCartAsync } from '@/store/cart/action';
 import theme from '@/styles/Theme';
-import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Styled from './CartItem.style';
@@ -21,27 +19,20 @@ function CartItem({ cart }) {
 
   const responsive = useResponsive();
 
-  const { count, increaseCount, decreaseCount } = useCount({
-    initialValue: quantity,
-    min: 0,
-    max: 100,
-  });
-
-  const prevCountRef = useRef(count);
-
-  useEffect(() => {
-    if (prevCountRef.current !== count) {
-      dispatch(fetchPatchCartAsync(id, { ...cart, quantity: count }) as any);
-    }
-    prevCountRef.current = count;
-  }, [count]);
-
   const navigateToProduct = () => {
     navigate(`/products/${id}`);
   };
 
   const onClickDeleteButton = async () => {
     dispatch(fetchDeleteCartAsync(id) as any);
+  };
+
+  const onClickIncreaseButton = () => {
+    dispatch(fetchPatchCartAsync(id, { ...cart, quantity: quantity + 1 }) as any);
+  };
+
+  const onClickDecreaseButton = () => {
+    dispatch(fetchPatchCartAsync(id, { ...cart, quantity: quantity - 1 }) as any);
   };
 
   return (
@@ -64,7 +55,11 @@ function CartItem({ cart }) {
           {isLoading ? (
             <Loading type="ui">👻</Loading>
           ) : (
-            <Counter count={quantity} increaseCount={increaseCount} decreaseCount={decreaseCount} />
+            <Counter
+              count={quantity}
+              increaseCount={onClickIncreaseButton}
+              decreaseCount={onClickDecreaseButton}
+            />
           )}
         </Styled.CounterWrapper>
 
