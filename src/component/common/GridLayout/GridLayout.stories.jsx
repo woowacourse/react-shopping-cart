@@ -2,7 +2,7 @@ import GridLayout from 'component/common/GridLayout';
 import Product from 'component/ProductList/ProductContainer/Product';
 
 export default {
-  title: 'Component/GridLayout',
+  title: 'Component/Common/GridLayout',
   component: GridLayout,
   argTypes: {
     children: {

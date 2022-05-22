@@ -1,7 +1,7 @@
 import LoadingSpinner from '.';
 
 export default {
-  title: 'Component/LoadingSpinner',
+  title: 'Component/Common/LoadingSpinner',
   component: LoadingSpinner,
 };
 
