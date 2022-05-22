@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { Button } from 'components';
 
 const Styled = {
-  TotalPrice: styled.div`
+  Container: styled.div`
     width: 448px;
     height: 318px;
     border: 1px solid #cccccc;
   `,
 
-  TitleContainer: styled.div`
+  Header: styled.div`
     width: 448px;
     height: 81px;
     border: 1px solid #cccccc;
@@ -20,7 +21,7 @@ const Styled = {
     letter-spacing: 0.5px;
   `,
 
-  DetailContainer: styled.div`
+  Body: styled.div`
     width: 448px;
     height: 237px;
     padding: 25px;
@@ -28,12 +29,6 @@ const Styled = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  `,
-
-  Action: styled.p`
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 21px;
   `,
 
   PriceContainer: styled.div`
@@ -46,6 +41,16 @@ const Styled = {
     display: flex;
     justify-content: center;
     align-items: center;
+  `,
+
+  Action: styled(Button)`
+    width: 100%;
+    height: 73px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 21px;
+    background-color: ${({ theme }) => theme.colors.mint};
+    color: ${({ theme }) => theme.colors.white};
   `,
 };
 
