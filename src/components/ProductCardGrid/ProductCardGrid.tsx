@@ -1,6 +1,7 @@
 import { CartStoreState, Product } from 'types';
 
 import ProductCard from 'components/ProductCard/ProductCard';
+import isProductInCart from 'utils/validator';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -19,7 +20,7 @@ function ProductCardGrid({ productList }: Props) {
         productList.map((product) => (
           <ProductCard
             product={product}
-            isInCart={cart.find((item) => item.id === product.id) !== undefined}
+            isInCart={isProductInCart(product.id, cart)}
             key={product.id}
           />
         ))
