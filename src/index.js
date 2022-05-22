@@ -10,6 +10,16 @@ import createThunkMiddleware from "./lib/thunk";
 import ThemeProvider from "./ThemeProvider";
 import appReducer from "./modules";
 
+if (process.env.NODE_ENV === "development") {
+  const { worker } = require("./mocks/browser");
+
+  worker.start({
+    serviceWorker: {
+      url: "/react-shopping-cart/mockServiceWorker.js",
+    },
+  });
+}
+
 const store = createStore(
   appReducer,
   composeWithDevTools(applyMiddleware(createThunkMiddleware()))

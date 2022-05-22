@@ -114,16 +114,15 @@ export const removeCartProduct = (id) => async (dispatch, getState) => {
     const removeProduct = shoppingCartProducts.data.filter(
       (product) => product.id === id
     )[0];
-
     removeProduct.isInShoppingCart = false;
 
-    const [_, newProduct] = await Promise.all([
+    await Promise.all([
       API.removeShoppingCartProduct(id),
       API.patchProductById(id, removeProduct),
     ]);
 
     const replaceProducts = products.data.map((product) => {
-      if (product.id === id) return newProduct.data;
+      if (product.id === id) return removeProduct;
       return product;
     });
 
