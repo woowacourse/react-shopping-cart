@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'no-undef': 'off',
   },
   ignorePatterns: ['*.test.js', '*.test.jsx'],
 };
