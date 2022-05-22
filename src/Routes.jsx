@@ -13,7 +13,7 @@ const Home = Loadable(lazy(() => import('./pages/Home')));
 const ProductListPage = Loadable(lazy(() => import('./pages/ProductListPage')));
 const ProductDetailPage = Loadable(lazy(() => import('./pages/ProductDetailPage')));
 const CartPage = Loadable(lazy(() => import('./pages/CartPage')));
-const NotPage = Loadable(lazy(() => import('./pages/NotPage')));
+const NotFoundPage = Loadable(lazy(() => import('./pages/NotFoundPage')));
 
 const routes = [
   {
@@ -51,7 +51,7 @@ const routes = [
   },
   {
     path: '*',
-    element: <NotPage />,
+    element: <NotFoundPage />,
   },
 ];
 
