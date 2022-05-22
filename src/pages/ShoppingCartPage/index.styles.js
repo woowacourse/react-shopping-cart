@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const ShoppingCartTitle = styled.h1`
   margin: 60px 0 30px;
