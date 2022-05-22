@@ -1,5 +1,5 @@
-import GridLayout from 'components/@common/GridLayout/GridLayout';
-import { Product } from 'components';
+import { GridLayout } from 'components/@common';
+import { ListProduct } from 'components';
 
 export default {
   title: 'Components/@Common/GridLayout',
@@ -35,7 +35,7 @@ DefaulGridLayout.args = {
       name: '사과',
       price: 1300,
     },
-  ].map(product => <Product key={product.id} {...product} />),
+  ].map(product => <ListProduct key={product.id} {...product} />),
 };
 
 export { DefaulGridLayout };
