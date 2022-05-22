@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Image } from 'components';
-import Counter from 'components/Counter';
-import CheckBox from 'components/CheckBox';
+
+import { Image, Counter, CheckBox } from 'components';
+
 import store from 'store/store';
 import {
   doDeleteProductFromOrder,
@@ -19,7 +19,7 @@ const CartProductItem = ({ id, quantity }) => {
   const [isInOrder, setIsInOrder] = useState(order.some(productId => productId === id));
   const { name, price, image } = products.find(product => product.id === id);
 
-  const toggleOrder = () => {
+  const updateOrder = () => {
     if (isInOrder) {
       store.dispatch(doDeleteProductFromOrder({ id }));
       return;
@@ -35,7 +35,7 @@ const CartProductItem = ({ id, quantity }) => {
   return (
     <Styled.Container>
       <Styled.LeftSide>
-        <CheckBox checked={isInOrder} handleChange={toggleOrder} />
+        <CheckBox checked={isInOrder} handleChange={updateOrder} />
         <Image src={image} alt={name} size="200px" />
         <Styled.ProductName>{name}</Styled.ProductName>
       </Styled.LeftSide>
