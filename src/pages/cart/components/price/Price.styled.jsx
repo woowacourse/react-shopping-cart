@@ -11,6 +11,7 @@ const StyledPrice = styled.section`
     display: flex;
     align-items: center;
     padding: 16px 22px;
+    margin: 0 10px;
 
     h3 {
       display: flex;
@@ -32,7 +33,7 @@ const StyledPrice = styled.section`
       display: flex;
       justify-content: space-between;
       padding: 20px;
-      margin-top: 20px;
+      margin: 20px 10px 0 10px;
 
       .highlight-text {
         position: relative;
