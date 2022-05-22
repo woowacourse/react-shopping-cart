@@ -1,4 +1,9 @@
-import { addToCart, deleteCartProduct, getCart, updateCartProductQuantity } from '../../api/api';
+import {
+  addToCart,
+  deleteCartProduct,
+  getCart,
+  updateCartProductQuantity,
+} from 'api/api';
 import { cartActionType } from 'store/reducers/cart';
 
 const handleCartDispatch = async ({
@@ -28,13 +33,14 @@ export const getCartAsync = () => async (dispatch) => {
   await handleCartDispatch({ dispatch, actionType: cartActionType.FETCH, func: getCart });
 };
 
-export const updateCartProductQuantityAsync = (productId, quantity) => async (dispatch) => {
-  await handleCartDispatch({
-    dispatch,
-    func: updateCartProductQuantity,
-    params: [productId, quantity],
-  });
-};
+export const updateCartProductQuantityAsync =
+  (productId, quantity) => async (dispatch) => {
+    await handleCartDispatch({
+      dispatch,
+      func: updateCartProductQuantity,
+      params: [productId, quantity],
+    });
+  };
 
 export const deleteCartProductAsync = (productIdArray) => async (dispatch) => {
   await handleCartDispatch({
