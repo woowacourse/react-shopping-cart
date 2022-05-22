@@ -12,17 +12,21 @@ import { Global } from '@emotion/react';
 import GlobalStyles from 'styles/GlobalStyles';
 
 if (process.env.NODE_ENV === 'development') {
+  const MSW_TARGET_PATH = `${process.env.PUBLIC_URL}/`;
+
   if (window.location.pathname === process.env.PUBLIC_URL) {
-    window.location.pathname = `${process.env.PUBLIC_URL}/`;
+    location.pathname = MSW_TARGET_PATH;
   }
 
-  // eslint-disable-next-line global-require
-  const { worker } = require('mocks/browser');
-  worker.start({
-    serviceWorker: {
-      url: `${process.env.PUBLIC_URL}/mockServiceWorker.js`,
-    },
-  });
+  if (window.location.pathname === MSW_TARGET_PATH) {
+    // eslint-disable-next-line global-require
+    const { worker } = require('mocks/browser');
+    worker.start({
+      serviceWorker: {
+        url: `${MSW_TARGET_PATH}mockServiceWorker.js`,
+      },
+    });
+  }
 }
 
 imagePreload(Object.values(preloadAssets));
