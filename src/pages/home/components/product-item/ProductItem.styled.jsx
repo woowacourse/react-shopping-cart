@@ -3,10 +3,8 @@ import { noneStyles } from "@/styled";
 
 const StyledProductItem = styled.div`
   position: relative;
-  border: 1px solid #80ff6650;
-  border-radius: 5px;
   transition: 0.3s ease;
-  margin-top: 15px;
+  margin: 20px 0;
 
   :hover {
     .thumbnail {

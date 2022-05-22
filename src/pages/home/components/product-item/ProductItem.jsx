@@ -5,7 +5,7 @@ import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
 import createAction from "@/redux/createAction";
 
-function ProductItem({ id, name, price, stock, imgUrl }) {
+function ProductItem({ id, name, price, imgUrl }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -22,11 +22,9 @@ function ProductItem({ id, name, price, stock, imgUrl }) {
             <div className="product-price">{price}원</div>
           </div>
           <div className="l-right">
-            {stock > 0 && (
-              <ImageButton onClick={handleClick}>
-                <CartIcon width="36px" height="36px" fill="#03CF5B" />
-              </ImageButton>
-            )}
+            <ImageButton onClick={handleClick}>
+              <CartIcon width="36px" height="36px" fill="#03CF5B" />
+            </ImageButton>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ const StyledThumbnail = styled.div`
     height: 100%;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 10px;
   }
 `;
 
