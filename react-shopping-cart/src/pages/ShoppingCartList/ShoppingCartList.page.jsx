@@ -19,10 +19,8 @@ function ShoppingCartList() {
   const { data, isLoading } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
   const orderList = useSelector(state => state.orderList);
   const shoppingCart = useSelector(state => state.shoppingCart);
-  const checked = useMemo(
-    () => orderList.length === shoppingCart.length,
-    [orderList, shoppingCart]
-  );
+
+  const checked = orderList.length === shoppingCart.length;
 
   const handleChangeCheckBox = () => {
     if (checked) {
