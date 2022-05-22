@@ -13,7 +13,7 @@ interface CartItemPros {
 
 const CartItem = ({ id, cartId }: CartItemPros) => {
   const { product } = useProduct(id);
-  const { getCart, changeCartStock } = useCart();
+  const { getCart, changeCartStock, changeCartChecked } = useCart();
   const cart = getCart(cartId) as CartType;
 
   const handleUpStockButton = () => {
@@ -30,17 +30,30 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
     changeCartStock(cartId, e.target.valueAsNumber);
   };
 
+  const handleChangeClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeCartChecked(cartId, e.target.checked);
+  };
+
   if (!Object.keys(product).length) {
     return <div></div>;
   }
+
   if (product.isLoading) {
     return <div></div>;
   }
+
   return (
     <S.CartItemContainer>
       <S.ItemContainer>
-        <Checkbox id={id} />
-        <S.ItemImage src={product.data?.imgUrl} alt={"안녕"} />
+        <Checkbox
+          id={id}
+          value={cart?.isChecked}
+          handleChange={handleChangeClick}
+        />
+        <S.ItemImage
+          src={product.data?.imgUrl}
+          alt={`${product.data?.title}이미지`}
+        />
         <span>{product.data?.title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
