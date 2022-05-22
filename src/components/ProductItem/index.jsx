@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useClose from 'hooks/useClose';
 
-import { Image, CartIcon, Modal, Button, Text } from 'components';
-import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
-import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
+import { Image, CartIcon, QuantityController } from 'components';
 
 import store from 'store/store';
 import { doDeleteProductFromCart, doPutProductToCart } from 'actions/actionCreator';
@@ -81,15 +79,12 @@ const ProductItem = ({ id }) => {
         </Styled.CartContainer>
       </Styled.ProductContainer>
       {isOpen && (
-        <Modal onClick={handleModalClick}>
-          <Button onClick={() => setQuantity(prev => (prev > 0 ? prev - 1 : prev))}>
-            <MinusIcon />
-          </Button>
-          <Text modal="true">{quantity}</Text>
-          <Button onClick={() => setQuantity(prev => prev + 1)}>
-            <PlusIcon />
-          </Button>
-        </Modal>
+        <QuantityController
+          handleClick={handleModalClick}
+          quantity={quantity}
+          increase={() => setQuantity(prev => prev + 1)}
+          decrease={() => setQuantity(prev => (prev > 0 ? prev - 1 : prev))}
+        />
       )}
     </Styled.ProductItem>
   );
