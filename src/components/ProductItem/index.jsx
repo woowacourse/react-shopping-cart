@@ -66,7 +66,7 @@ const ProductItem = ({ id }) => {
 
   return (
     <Styled.ProductItem onClick={handleItemClick}>
-      <Image src={image} />
+      <Image src={image} alt={name} />
       <Styled.ProductContainer>
         <div>
           <Styled.ProductText name="true">{name}</Styled.ProductText>

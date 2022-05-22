@@ -31,7 +31,7 @@ const ProductDetailPage = () => {
   return (
     <Styled.ProductDetailPage>
       <Styled.ProductContainer>
-        <Image src={image} size="570px" />
+        <Image src={image} size="570px" alt={name} />
         <Styled.ProductName>{name}</Styled.ProductName>
         <Line margin="33px 0" />
         <Styled.PriceContainer>
