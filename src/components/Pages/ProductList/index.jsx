@@ -49,7 +49,7 @@ const ProductList = ({ onAddCartButtonClick }) => {
 
   return (
     <Styled.ProductBox>
-      {productList.length ? (
+      {productList.length !== 0 ? (
         productList.map(({ id, name, price, thumbnail }) => (
           <Product
             key={id}

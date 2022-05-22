@@ -87,32 +87,41 @@ const Cart = ({
   const [checkList, setCheckList] = useState([]);
   const [productInfoList, setProductInfoList] = useState([]);
 
-  const totalCount =
-    cartList.length !== 0
-      ? cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0)
-      : 0;
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
+  const [totalCheckedCount, setTotalCheckedCount] = useState(0);
 
-  const totalCheckedPrice =
-    checkList.length !== 0
-      ? checkList.reduce((prev, cur) => {
-          const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
-          if (productInfo === undefined) {
-            return prev;
-          }
-          return prev + productInfo.price * productInfo.quantity;
-        }, 0)
-      : 0;
+  useEffect(() => {
+    setTotalCount(
+      cartList.length !== 0
+        ? cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0)
+        : 0,
+    );
 
-  const totalCheckedCount =
-    checkList.length !== 0
-      ? checkList.reduce((prev, cur) => {
-          const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
-          if (productInfo === undefined) {
-            return prev;
-          }
-          return prev + productInfo.quantity;
-        }, 0)
-      : 0;
+    setTotalCheckedPrice(
+      checkList.length !== 0
+        ? checkList.reduce((prev, cur) => {
+            const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
+            if (productInfo === undefined) {
+              return prev;
+            }
+            return prev + productInfo.price * productInfo.quantity;
+          }, 0)
+        : 0,
+    );
+
+    setTotalCheckedCount(
+      checkList.length !== 0
+        ? checkList.reduce((prev, cur) => {
+            const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
+            if (productInfo === undefined) {
+              return prev;
+            }
+            return prev + productInfo.quantity;
+          }, 0)
+        : 0,
+    );
+  }, [checkList, cartList]);
 
   const onToggleTotalClick = () => {
     if (cartList.length === checkList.length) {
