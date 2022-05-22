@@ -7,7 +7,9 @@ import { BasicDivideLine, Flex } from 'components/shared/basics';
 import TotalPrice from 'components/TotalPrice/TotalPrice';
 
 function Carts() {
-  const { carts, checkedCarts } = useSelector((state) => state.carts);
+  const { isLoading, carts, checkedCarts } = useSelector(
+    (state) => state.carts
+  );
   const { products } = useSelector((state) => state.products);
 
   const findById = (objectArray, id) =>
@@ -47,6 +49,7 @@ function Carts() {
           <span>{`든든배송 상품(${totalQuantity}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           <CartListContainer
+            isStoredProductsLoading={isLoading}
             storedProducts={storedProducts}
             checkedProducts={checkedProducts}
           />

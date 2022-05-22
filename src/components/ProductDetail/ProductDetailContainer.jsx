@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { loadProduct } from 'store/product';
+
 import { Flex } from 'components/shared/basics';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
+import SkeletonProductDetail from 'components/ProductDetail/SkeletonProductDetail';
 
 function ProductDetailContainer() {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ function ProductDetailContainer() {
 
   return (
     <Style.ProductDetailFlexContainer direction="column" align="center">
-      {isLoading && <h1>로딩 중...</h1>}
+      {isLoading && <SkeletonProductDetail />}
       {!isLoading && (
         <ProductDetail
           id={id}

@@ -6,7 +6,7 @@ export const BasicButton = styled.button`
   cursor: pointer;
 `;
 
-const basicImageSize = {
+export const basicImageSize = {
   small: {
     width: 144,
     height: 144,
@@ -54,4 +54,20 @@ export const BasicDivideLine = styled.hr`
     margin: ${mv} 0;
   `}
   width: 100%;
+`;
+
+export const BasicSkeletonImage = styled.div`
+  ${({ size = 'medium' }) => css`
+    width: ${basicImageSize[size].width}px;
+    height: ${basicImageSize[size].height}px;
+  `}
+  background-color:lightgray;
+`;
+
+export const BasicSkeletonElement = styled.div`
+  ${({ width = '50px', height = '30px' }) => css`
+    width: ${width};
+    height: ${height};
+  `}
+  background-color:lightgray;
 `;

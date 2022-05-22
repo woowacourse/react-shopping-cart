@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Flex } from 'components/shared/basics';
 
 import ProductItem from 'components/ProductList/ProductItem';
+import SkeletonProductItem from 'components/ProductList/SkeletonProductItem';
 
 function ProductListContainer() {
   const {
@@ -22,7 +23,10 @@ function ProductListContainer() {
 
   return (
     <Styled.ProductListFlexContainer justify="center" wrap="wrap" gap="25px">
-      {isLoading && <h1>로딩 중...</h1>}
+      {isLoading &&
+        Array.from({ length: 12 }).map((_, idx) => (
+          <SkeletonProductItem key={idx} />
+        ))}
       {isError && <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>}
       {!isLoading &&
         !isError &&

@@ -1,4 +1,5 @@
 import CartItem from 'components/CartsList/CartItem';
+import SkeletonCartItem from 'components/CartsList/SkeletonCartItem';
 
 function CartListContainer({
   isStoredProductsLoading,
@@ -9,7 +10,10 @@ function CartListContainer({
 
   return (
     <div>
-      {isStoredProductsLoading && <h1>로딩중...</h1>}
+      {isStoredProductsLoading &&
+        Array.from({ length: 3 }).map((_, idx) => (
+          <SkeletonCartItem key={idx} />
+        ))}
       {!isStoredProductsLoading &&
         storedProducts?.map(({ id, price, title, src }) => (
           <CartItem
