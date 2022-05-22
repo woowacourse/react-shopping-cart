@@ -14,6 +14,11 @@ import './index.css';
 import rootReducer from 'store/index';
 import theme from 'styles/theme';
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('mocks/browser');
+  worker.start();
+}
+
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(reduxThunk, logger)));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
