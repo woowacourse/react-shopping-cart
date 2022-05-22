@@ -8,6 +8,8 @@ import {
   TOGGLE_CART_ITEM_CHECK_BUTTON,
   UNCHECK_ALL_CHECK_BUTTON,
   CHECK_ALL_CHECK_BUTTON,
+  INCREMENT_CART_ITEM_QUANTITY,
+  DECREMENT_CART_ITEM_QUANTITY,
 } from "./types";
 import createAction from "./createAction";
 
@@ -36,4 +38,12 @@ export const uncheckAllCheckButton = () => async (dispatch) => {
 
 export const checkAllCheckButton = () => async (dispatch) => {
   dispatch(createAction(CHECK_ALL_CHECK_BUTTON));
+};
+
+export const incrementCartItemQuantity = (id) => async (dispatch) => {
+  dispatch(createAction(INCREMENT_CART_ITEM_QUANTITY, id));
+};
+
+export const decrementCartItemQuantity = (id) => async (dispatch) => {
+  dispatch(createAction(DECREMENT_CART_ITEM_QUANTITY, id));
 };

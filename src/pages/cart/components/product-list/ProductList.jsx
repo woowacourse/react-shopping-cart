@@ -8,6 +8,8 @@ function ProductList() {
   const cartList = useSelector((state) => state.cartListState);
   const dispatch = useDispatch();
 
+  console.log(cartList);
+
   const handleChange = (e) => {
     const { checked } = e.target;
     if (checked) {

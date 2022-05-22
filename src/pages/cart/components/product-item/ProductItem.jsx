@@ -2,7 +2,11 @@ import React from "react";
 
 import { css } from "@emotion/react";
 import { useDispatch } from "react-redux";
-import { toggleCartItemCheckButton } from "@/redux/actions";
+import {
+  toggleCartItemCheckButton,
+  incrementCartItemQuantity,
+  decrementCartItemQuantity,
+} from "@/redux/actions";
 import TrashIcon from "@/assets/images/trash.svg";
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
 
@@ -12,6 +16,14 @@ function ProductItem({ item }) {
 
   const handleChange = () => {
     dispatch(toggleCartItemCheckButton(id));
+  };
+
+  const handleIncrementClick = () => {
+    dispatch(incrementCartItemQuantity(id));
+  };
+
+  const handleDecrementClick = () => {
+    dispatch(decrementCartItemQuantity(id));
   };
 
   return (
@@ -37,15 +49,25 @@ function ProductItem({ item }) {
           <div className="number-input-container">
             <input type="number" className="number-input" value={quantity} />
             <div>
-              <button type="button" className="number-input-button">
+              <button
+                onClick={handleIncrementClick}
+                type="button"
+                className="number-input-button"
+              >
                 ▲
               </button>
-              <button type="button" className="number-input-button">
+              <button
+                onClick={handleDecrementClick}
+                type="button"
+                className="number-input-button"
+              >
                 ▼
               </button>
             </div>
           </div>
-          <span className="cart-price">{price.toLocaleString("ko-KR")}원</span>
+          <span className="cart-price">
+            {(price * quantity).toLocaleString("ko-KR")}원
+          </span>
         </div>
       </StyledCartContainer>
       <hr css={hrStyle} />

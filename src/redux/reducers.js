@@ -6,6 +6,8 @@ import {
   TOGGLE_CART_ITEM_CHECK_BUTTON,
   UNCHECK_ALL_CHECK_BUTTON,
   CHECK_ALL_CHECK_BUTTON,
+  INCREMENT_CART_ITEM_QUANTITY,
+  DECREMENT_CART_ITEM_QUANTITY,
 } from "./types";
 
 export const productListInitialState = {
@@ -96,6 +98,27 @@ export const cartListReducer = (state = cartListInitialState, action) => {
       });
 
       return allCheckedState;
+
+    case INCREMENT_CART_ITEM_QUANTITY:
+      const incrementState = newState.map((item) => {
+        return item.id === action.payload
+          ? { ...item, quantity: item.quantity + 1 }
+          : { ...item };
+      });
+
+      return incrementState;
+
+    case DECREMENT_CART_ITEM_QUANTITY:
+      const decrementState = newState.map((item) => {
+        return item.id === action.payload
+          ? {
+              ...item,
+              quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity,
+            }
+          : { ...item };
+      });
+
+      return decrementState;
 
     default:
       return state;
