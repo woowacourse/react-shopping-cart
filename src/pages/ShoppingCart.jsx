@@ -36,9 +36,16 @@ function ShoppingCart() {
 
   useEffect(() => {
     setSelectedItems(cartList.map(({ id }) => id));
-    const sum = cartList.reduce((acc, cur) => (acc += Number(cur.price)), 0);
-    setTotalPrice(sum);
   }, []);
+
+  useEffect(() => {
+    const selectedCarts = cartList.filter((item) => selectedItems.includes(item.id));
+    const sum = selectedCarts.reduce(
+      (acc, { price, quantity }) => (acc += Number(price) * Number(quantity)),
+      0
+    );
+    setTotalPrice(sum);
+  }, [cartList, selectedItems]);
 
   return (
     <StyledSection>
@@ -60,7 +67,7 @@ function ShoppingCart() {
             </StyledCheckboxContainer>
             <StyledDeleteButton onClick={deleteSelectedItems}>상품삭제</StyledDeleteButton>
           </StyledLeftDiv>
-          <StyledTitle>든든배송 상품(3개)</StyledTitle>
+          <StyledTitle>든든배송 상품({selectedItems.length}개)</StyledTitle>
           <StyledDivideLine margin={10} size={2} color={COLORS.GRAY} />
           {cartList.map((item) => (
             <React.Fragment key={item.id}>
@@ -84,7 +91,7 @@ function ShoppingCart() {
               <StyledHighlight>{Number(totalPrice).toLocaleString()}원</StyledHighlight>
             </StyledAmount>
             <StyledOrderButtonWrapper>
-              <StyledOrderButton>주문하기(3개)</StyledOrderButton>
+              <StyledOrderButton>주문하기({selectedItems.length}개)</StyledOrderButton>
             </StyledOrderButtonWrapper>
           </div>
         </StyledRightSection>
