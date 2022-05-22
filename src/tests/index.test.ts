@@ -1,4 +1,4 @@
-import { cartListAction, CartListActionType } from 'redux/cartList/action';
+import { cartListAction } from 'redux/cartList/action';
 import { CartItemState, cartListReducer } from 'redux/cartList/reducer';
 
 const initialState: CartItemState = {
@@ -57,20 +57,58 @@ describe('test', () => {
   });
 
   test('장바구니 전체 삭제 ', () => {
-    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
-    const prevState2 = cartListReducer(prevState, cartListAction.postCartItemSuccess(cartItem2));
+    const stateWithOneItem = cartListReducer(
+      initialState,
+      cartListAction.postCartItemSuccess(cartItem)
+    );
+    const stateWithTwoItem = cartListReducer(
+      stateWithOneItem,
+      cartListAction.postCartItemSuccess(cartItem2)
+    );
 
-    expect(cartListReducer(prevState2, cartListAction.deleteAllCartItemSuccess())).toEqual({
+    expect(cartListReducer(stateWithTwoItem, cartListAction.deleteAllCartItemSuccess())).toEqual({
       ...initialState,
       data: [],
     });
   });
 
   test('장바구니 선택 해제', () => {
-    // thunk, reducer 코드 수정 후 작성
+    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
+
+    const changedCartItem = {
+      ...cartItem,
+      isSelected: !cartItem.isSelected,
+    };
+
+    expect(
+      cartListReducer(prevState, cartListAction.patchCartSelectedSuccess(changedCartItem))
+    ).toEqual({
+      ...initialState,
+      data: [changedCartItem],
+    });
   });
 
   test('장바구니 전체 선택 해제 ', () => {
-    // thunk, reducer 코드 수정 후 작성
+    const stateWithOneItem = cartListReducer(
+      initialState,
+      cartListAction.postCartItemSuccess(cartItem)
+    );
+    const stateWithTwoItem = cartListReducer(
+      stateWithOneItem,
+      cartListAction.postCartItemSuccess(cartItem2)
+    );
+
+    const isAllSelected = stateWithTwoItem.data.every(item => item.isSelected);
+    const newCartList = stateWithTwoItem.data.map(item => ({
+      ...item,
+      isSelected: !isAllSelected,
+    }));
+
+    expect(
+      cartListReducer(stateWithTwoItem, cartListAction.patchAllCartSelectedSuccess(!isAllSelected))
+    ).toEqual({
+      ...initialState,
+      data: newCartList,
+    });
   });
 });
