@@ -3,6 +3,7 @@ import { getProductById } from "../modules/product";
 import { RootState } from "../modules";
 import { ProductAction } from "../modules/product/type";
 import { useAppDispatch } from "./useAppDispatch";
+import { useCallback } from "react";
 
 const useProduct = () => {
   const product = useSelector((state: RootState) => state.product);
@@ -11,7 +12,10 @@ const useProduct = () => {
 
   return {
     product,
-    getProductById: (id: number) => dispatch(getProductById(id)),
+    getProductById: useCallback(
+      (id: number) => dispatch(getProductById(id)),
+      [dispatch]
+    ),
   };
 };
 
