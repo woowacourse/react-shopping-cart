@@ -1,13 +1,13 @@
 import { Item } from 'types/domain';
 import { ItemListAction, ItemListActionType } from '../actions/itemList';
 
-interface ItemListState {
+export interface ItemListState {
   loading: boolean;
   error: string | null;
   data: Item[];
 }
 
-const initialState: ItemListState = {
+export const initialState: ItemListState = {
   loading: false,
   error: null,
   data: [],
