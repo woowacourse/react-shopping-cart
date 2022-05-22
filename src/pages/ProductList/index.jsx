@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ProductListStyled from './style';
@@ -11,11 +11,12 @@ import MESSAGE from 'constants';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
-
   const dispatch = useDispatch();
-
   const [{ data, isLoading, isError }] = useDataFetch(process.env.REACT_APP_DATA_SERVER, products);
-  dispatch(requestProductsAdd(data));
+
+  useEffect(() => {
+    dispatch(requestProductsAdd(data));
+  });
 
   if (isLoading) {
     return <StateMessage message={MESSAGE.LOADING} />;
