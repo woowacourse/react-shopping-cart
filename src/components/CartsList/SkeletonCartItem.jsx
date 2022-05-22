@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Shimmer from 'components/Skeleton/Shimmer';
+import Shimmer from 'components/shared/Shimmer';
 import {
-  BasicDivideLine,
   BasicSkeletonElement,
   BasicSkeletonImage,
   Flex,

@@ -18,6 +18,7 @@ import useStoreProduct from 'hooks/useStoreProduct';
 import usePropInitState from 'hooks/usePropInitState';
 import useDebounce from 'hooks/useDebounce';
 import useUser from 'hooks/useUser';
+import Spinner from 'components/shared/Spinner';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
         </Flex>
       </Style.ProductDetailInfo>
       <Style.ProductDetailCartButton onClick={handleCartButtonClick}>
-        {isLoading ? '전송 중' : buttonText}
+        {isLoading ? <Spinner /> : buttonText}
         {isError && ' 에러가 발생했습니다.'}
       </Style.ProductDetailCartButton>
     </Style.ProductDetailFlexBox>
@@ -100,9 +101,10 @@ const Style = {
   ProductDetailCartButton: styled(BasicButton)`
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 20px;
     width: 100%;
-    padding: 24px;
+    height: 80px;
     background: ${COLOR.PRIMARY};
     border-bottom: 6px solid ${COLOR.DARK_BROWN};
     font-size: 24px;

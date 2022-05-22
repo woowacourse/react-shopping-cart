@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Shimmer from 'components/Skeleton/Shimmer';
+import Shimmer from 'components/shared/Shimmer';
 import {
   BasicSkeletonElement,
   BasicSkeletonImage,
