@@ -13,14 +13,14 @@ const App = () => {
     <div>
       <GlobalStyles />
       <Suspense fallback={<div>loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="" element={<ProductListPage />} />
-            <Route path="product/:id" element={<ProductDetailPage />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<ProductListPage />} />
+          <Route path="product/:id" element={<ProductDetailPage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
       </Suspense>
     </div>
   );

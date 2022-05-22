@@ -86,20 +86,4 @@ export const cartProductList: CartProductData[] = [
     price: 200000,
     quantity: 2,
   },
-  {
-    id: 9,
-    thumbnail:
-      'https://mblogthumb-phinf.pstatic.net/MjAxOTEwMDdfMjgy/MDAxNTcwNDExNDIwMDM4.REw1QRn-vGNQv2N32x5HoCLuQNZqKfRVpYzCvU9D3UUg.wbHbMzI8U60HCP0fdMjQE_0jWXQyTiKTCdaqX2PIeE8g.PNG.coachgymred/%EB%B8%8C%EB%9E%9C%EB%93%A0.png?type=w800',
-    name: '브랜든 헨드릭슨 인형',
-    price: 15000000,
-    quantity: 4,
-  },
-  {
-    id: 10,
-    thumbnail:
-      'https://static.thcdn.com/images/small/original/widgets/83-kr/16/mp-core-10530943-437x437-124817-120616.jpg',
-    name: '마이프로틴 초코맛',
-    price: 45000,
-    quantity: 3,
-  },
 ];
