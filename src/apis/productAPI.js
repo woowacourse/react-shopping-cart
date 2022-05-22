@@ -2,7 +2,7 @@ import { fetchData } from 'utils/api';
 import { ERROR_MESSAGE } from 'constants/messages';
 
 const productAPI = {
-  BASE_URL: 'https://tigers-react-shopping-cart.herokuapp.com',
+  BASE_URL: '',
   PATH: {
     PRODUCTS: 'products',
   },
