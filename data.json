@@ -75,19 +75,11 @@
   ],
   "shoppingCart": [
     {
-      "id": 7,
-      "image": "https://cdn-mart.baemin.com/sellergoods/main/0fd75127-a964-4bd8-b620-125b0b721ae0.jpg",
-      "name": "생연어(300g)",
-      "price": 70000,
-      "quantity": 9,
-      "isSelect": false
-    },
-    {
-      "id": 2,
-      "image": "https://cdn-mart.baemin.com/sellergoods/main/e355e6d4-ec5a-49d0-94cf-879fb24a3ac8.png",
-      "name": "사과(100g)",
-      "price": 50000,
-      "quantity": 4,
+      "id": 3,
+      "image": "https://cdn-mart.baemin.com/sellergoods/bulk/20220303-114029/23657-main-01.jpg",
+      "name": "포도주스(500ml)",
+      "price": 40000,
+      "quantity": 1,
       "isSelect": false
     }
   ]

@@ -22,9 +22,7 @@ import { deleteShoppingCartItem } from 'modules/shoppingCarts';
 
 const ShoppingCartPage = () => {
   const dispatch = useDispatch();
-  const { shoppingCartList, shoppingCartListLoading, shoppingCartListError } = useSelector(
-    state => state.shoppingCartReducer.shoppingCarts,
-  );
+  const { shoppingCartList } = useSelector(state => state.shoppingCartReducer.shoppingCarts);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isAllSelect, setIsAllSelect] = useState(false);
@@ -76,8 +74,7 @@ const ShoppingCartPage = () => {
     setTotalPrice(selectedProductList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
   }, [shoppingCartList]);
 
-  if (shoppingCartListLoading) return <div>로딩중...</div>;
-  if (shoppingCartListError) return <div>에러 발생!</div>;
+  console.log(shoppingCartList);
 
   return (
     <PageWrapper>
