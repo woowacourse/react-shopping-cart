@@ -4,7 +4,7 @@ import { noneStyles } from "@/styled";
 const StyledProductItem = styled.div`
   position: relative;
   transition: 0.3s ease;
-  margin: 15px 0;
+  margin: 10px 0;
 
   :hover {
     .thumbnail {
@@ -25,12 +25,14 @@ const StyledProductItem = styled.div`
   .content {
     position: absolute;
     margin-top: 5px;
+
     left: 0;
     right: 0;
 
     .product-detail {
       display: flex;
       padding: 10px 0px 10px 15px;
+      margin-bottom: 30px;
       .l-left {
         width: 100%;
       }
