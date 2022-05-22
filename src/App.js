@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PATH } from 'constant/path';
-import NavBar from 'component/common/NavBar';
+import NavBar from 'component/NavBar';
 
 import ProductList from 'page/ProductList';
 import ShoppingCart from 'page/ShoppingCart';

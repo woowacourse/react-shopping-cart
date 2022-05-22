@@ -1,6 +1,6 @@
 import productAPI from 'api/productAPI';
 import storage from 'storage/storage';
-import { ERROR_MESSAGE } from 'constant/messages';
+import { ALERT_MESSAGE, ERROR_MESSAGE } from 'constant/messages';
 import { addProductCart } from 'store/action/cartActions';
 import { updateProducts } from 'store/action/productsActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
@@ -28,7 +28,7 @@ const cartProductsAsyncThunk = idList => async dispatch => {
 const addCartProductThunk = product => dispatch => {
   dispatch(addProductCart(product));
   storage.addCartProductId(product.id);
-  dispatch(updateSnackBar(`${product.name} 1개가 장바구니에 추가되었습니다.`));
+  dispatch(updateSnackBar(`${product.name} ${ALERT_MESSAGE.ADD_CART}`));
 };
 
 export { productListAsyncThunk, cartProductsAsyncThunk, addCartProductThunk };

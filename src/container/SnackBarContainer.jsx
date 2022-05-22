@@ -2,6 +2,7 @@ import SnackBar from 'component/common/SnackBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { clearSnackBar } from 'store/action/snackBarActions';
+import { SNACKBAR_RUNNING_TIME } from 'constant';
 
 function SnackBarContainer() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function SnackBarContainer() {
 
   timer.current = setTimeout(() => {
     dispatch(clearSnackBar());
-  }, 2500);
+  }, SNACKBAR_RUNNING_TIME);
 
   useEffect(() => {
     return () => {
