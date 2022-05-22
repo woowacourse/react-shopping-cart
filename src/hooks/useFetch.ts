@@ -10,7 +10,9 @@ export const useFetch = <T>(url: string) => {
     const requestData = async () => {
       setLoading(true);
       try {
-        const { data }: { data: T } = await client.get(url);
+        const { data, statusText } = await client.get<T>(url);
+
+        if (statusText !== 'OK') throw new Error();
 
         setData(data);
       } catch {
@@ -21,6 +23,10 @@ export const useFetch = <T>(url: string) => {
     };
 
     requestData();
+
+    return () => {
+      setLoading(false);
+    };
   }, [url]);
 
   return { data, loading, error };
