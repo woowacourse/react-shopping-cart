@@ -22,8 +22,7 @@ function CartList({ products, checkedIds, count }) {
 
   const onClickCheckProduct = (id) => dispatch(checkProduct(id));
   const onClickUnCheckProduct = (id) => dispatch(unCheckProduct(id));
-  // const onClickCheckAllProduct = () => dispatch(allCheckProduct());
-  // const onClickUnCheckAllProduct = () => dispatch(allUnCheckProduct());
+
   const onClickAllCkeck = (isAllCkeck) => {
     setAllChecked(isAllCkeck);
 
@@ -65,7 +64,11 @@ function CartList({ products, checkedIds, count }) {
   return (
     <StyledCartListLayout>
       <StyledCartListOptionWrapper>
-        <CheckBox labelText={'선택해제'} isClicked={allChecked} onClickCallback={onClickAllCkeck} />
+        <CheckBox
+          labelText={allChecked ? '선택해제' : '전체선택'}
+          isClicked={allChecked}
+          onClickCallback={onClickAllCkeck}
+        />
         <StyledDeleteButton onClick={() => handlRemoveProductsToCart(checkedIds)}>
           상품 삭제
         </StyledDeleteButton>
