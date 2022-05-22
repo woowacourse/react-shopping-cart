@@ -8,10 +8,9 @@ import { Image, CartIcon, QuantityController } from 'components';
 import store from 'store/store';
 import { doDeleteProductFromCart, doPutProductToCart } from 'actions/actionCreator';
 
-import Styled from 'components/ProductItem/index.style';
-
 import autoComma from 'utils/autoComma';
-import { PRODUCT } from 'constants';
+import { PRODUCT, ROUTES } from 'constants';
+import Styled from 'components/ProductItem/index.style';
 
 const ProductItem = ({ id }) => {
   const navigate = useNavigate();
@@ -23,12 +22,6 @@ const ProductItem = ({ id }) => {
 
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
-
-  useEffect(() => {
-    if (isInCart) {
-      setQuantity(shoppingCart.find(product => product.id === id).quantity);
-    }
-  }, [isInCart, id, shoppingCart]);
 
   const controlCart = () => {
     setIsOpen(false);
@@ -43,7 +36,7 @@ const ProductItem = ({ id }) => {
   };
 
   const handleItemClick = () => {
-    navigate(`/details/${id}`);
+    navigate(`/${ROUTES.DETAILS}/${id}`);
   };
 
   const handleCartClick = e => {
@@ -57,36 +50,40 @@ const ProductItem = ({ id }) => {
     }
   };
 
-  const handleModalClick = e => {
+  const handleQuantityControllerClick = e => {
     e.stopPropagation();
     extendTimer(controlCart);
   };
 
+  useEffect(() => {
+    if (isInCart) {
+      setQuantity(shoppingCart.find(product => product.id === id).quantity);
+    }
+  }, [isInCart, shoppingCart, id]);
+
   return (
-    <Styled.ProductItem onClick={handleItemClick}>
+    <Styled.Container onClick={handleItemClick}>
       <Image src={image} alt={name} />
-      <Styled.ProductContainer>
+
+      <Styled.ProductController>
         <div>
-          <Styled.ProductText name="true">{name}</Styled.ProductText>
-          <Styled.ProductText price="true">{autoComma(price)}원</Styled.ProductText>
+          <Styled.ProductName>{name}</Styled.ProductName>
+          <Styled.ProductPrice>{autoComma(price)}원</Styled.ProductPrice>
         </div>
-        <Styled.CartContainer onClick={handleCartClick}>
-          {isInCart ? (
-            <Styled.QuantityContainer>{quantity}</Styled.QuantityContainer>
-          ) : (
-            <CartIcon />
-          )}
-        </Styled.CartContainer>
-      </Styled.ProductContainer>
+        <Styled.CartController onClick={handleCartClick}>
+          {isInCart ? <Styled.Quantity>{quantity}</Styled.Quantity> : <CartIcon />}
+        </Styled.CartController>
+      </Styled.ProductController>
+
       {isOpen && (
         <QuantityController
-          handleClick={handleModalClick}
+          handleClick={handleQuantityControllerClick}
           quantity={quantity}
           increase={() => setQuantity(prev => prev + 1)}
           decrease={() => setQuantity(prev => (prev > 0 ? prev - 1 : prev))}
         />
       )}
-    </Styled.ProductItem>
+    </Styled.Container>
   );
 };
 

@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Styled = {
-  ProductItem: styled.div`
+  Container: styled.div`
     width: 282px;
     position: relative;
     cursor: pointer;
   `,
 
-  ProductContainer: styled.div`
+  ProductController: styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,26 +15,21 @@ const Styled = {
     padding: 0 15px;
   `,
 
-  ProductText: styled.p`
+  ProductName: styled.p`
     font-weight: 400;
     letter-spacing: 0.5px;
-
-    ${({ name }) =>
-      name &&
-      css`
-        font-size: 16px;
-        line-height: 22px;
-      `}
-
-    ${({ price }) =>
-      price &&
-      css`
-        font-size: 20px;
-        line-height: 27px;
-      `}
+    font-size: 16px;
+    line-height: 22px;
   `,
 
-  QuantityContainer: styled.div`
+  ProductPrice: styled.p`
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    line-height: 27px;
+  `,
+
+  Quantity: styled.div`
     background-color: ${({ theme }) => theme.colors.mint};
     width: 50px;
     height: 50px;
@@ -46,7 +41,7 @@ const Styled = {
     color: white;
   `,
 
-  CartContainer: styled.div`
+  CartController: styled.div`
     width: 100px;
     display: flex;
     justify-content: end;
