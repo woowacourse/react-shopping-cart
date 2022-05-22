@@ -24,7 +24,10 @@ export const getProductList = async (page) => {
 };
 
 export const addToCart = async (productId, quantity) => {
-  const response = await apiInstance.post(API_ENDPOINT.SHOPPING_CART, { productId, quantity });
+  const response = await apiInstance.post(API_ENDPOINT.SHOPPING_CART, {
+    productId,
+    quantity,
+  });
   checkServerError(response.statusText);
 
   const cart = response.data;
@@ -42,7 +45,10 @@ export const getCart = async () => {
 };
 
 export const updateCartProductQuantity = async (productId, quantity) => {
-  const response = await apiInstance.patch(API_ENDPOINT.SHOPPING_CART, { productId, quantity });
+  const response = await apiInstance.patch(API_ENDPOINT.SHOPPING_CART, {
+    productId,
+    quantity,
+  });
   checkServerError(response.statusText);
 
   const cart = response.data;
@@ -57,9 +63,9 @@ export const deleteCartProduct = async (productIdArray) => {
   return { cart };
 };
 
-const sendCartProductDeleteRequest = async (res, productId, index, array) => {
+const sendCartProductDeleteRequest = async (res, productId) => {
   res = await apiInstance.delete(`${API_ENDPOINT.SHOPPING_CART}/${productId}`);
   checkServerError(res.statusText);
 
-  if (index === array.length - 1) return res;
+  return res;
 };
