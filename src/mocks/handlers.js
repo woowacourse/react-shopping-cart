@@ -90,7 +90,7 @@ const findById = (objectArray, id) =>
 
 export const handlers = [
   rest.get(`/${API.PRODUCTS}`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(products));
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(products));
   }),
 
   rest.get(`/${API.PRODUCTS}/:userId`, (req, res, ctx) => {
@@ -107,7 +107,11 @@ export const handlers = [
       return product;
     });
 
-    return res(ctx.status(200), ctx.json(quantityContainedProducts));
+    return res(
+      ctx.delay(1000),
+      ctx.status(200),
+      ctx.json(quantityContainedProducts)
+    );
   }),
 
   rest.get(`/${API.CARTS}/:userId`, (req, res, ctx) => {
@@ -120,7 +124,7 @@ export const handlers = [
     const data = req.body;
     users[userId].carts.push(data);
 
-    return res(ctx.status(200));
+    return res(ctx.delay(500), ctx.status(200));
   }),
 
   rest.delete(`/${API.CARTS}/:userId/:cartList`, (req, res, ctx) => {
@@ -131,7 +135,7 @@ export const handlers = [
       (cart) => !requestedCartList.includes(cart.id)
     );
 
-    return res(ctx.delay(200), ctx.status(204));
+    return res(ctx.delay(500), ctx.status(204));
   }),
 
   rest.get(`/${API.CARTSINFO}/:userId`, (req, res, ctx) => {
@@ -152,7 +156,11 @@ export const handlers = [
   rest.get(`/${API.PRODUCT}/:id`, (req, res, ctx) => {
     const { id } = req.params;
 
-    return res(ctx.status(200), ctx.json(findById(products, id)));
+    return res(
+      ctx.delay(1000),
+      ctx.status(200),
+      ctx.json(findById(products, id))
+    );
   }),
 
   rest.patch(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {

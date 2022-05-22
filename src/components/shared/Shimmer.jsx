@@ -1,7 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Shimmer = () => {
   return (
@@ -17,7 +16,7 @@ const loading = keyframes`
     0% {transform: translateX(-150%);}
     50% {transform: translateX(-60%);}
     100% {transform: translateX(150%);}
-}`;
+`;
 const ShimmerWrapperStyle = styled.div`
   position: absolute;
   top: 0;
