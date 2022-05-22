@@ -22,11 +22,14 @@ function ProductList() {
   const dispatch = useDispatch();
   const shoppingCart = useSelector(state => state.shoppingCart);
 
-  const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
+  const { data, isLoading } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
 
-  const handleToggleShoppingCart = useCallback((id, isContained) => {
-    dispatch(isContained ? deleteItem(id) : addItem(id));
-  }, []);
+  const handleToggleShoppingCart = useCallback(
+    (id, isContained) => {
+      dispatch(isContained ? deleteItem(id) : addItem(id));
+    },
+    [dispatch]
+  );
 
   const checkContainedProduct = id => {
     return shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;

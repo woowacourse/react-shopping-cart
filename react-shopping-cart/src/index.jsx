@@ -17,6 +17,15 @@ import ShoppingCartList from 'pages/ShoppingCartList/ShoppingCartList.page';
 const store = createStore(rootReducer);
 const persistor = persistStore(store);
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

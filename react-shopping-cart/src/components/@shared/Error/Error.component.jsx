@@ -15,7 +15,7 @@ const ErrorContainer = styled(FlexBox)`
 function Error({ children }) {
   return (
     <ErrorContainer direction="column" alignItems="center" gap="30px">
-      <img src={ServerErrorCharacter} />
+      <img src={ServerErrorCharacter} alt="에러이미지" />
       <p>{children}</p>
     </ErrorContainer>
   );

@@ -1,4 +1,4 @@
-import { LIMIT_SERVER_CONNECTION_TIME } from 'constants';
+import { LIMIT_SERVER_CONNECTION_TIME } from 'constants/index';
 import { useState, useEffect } from 'react';
 
 function useFetch(url) {
@@ -7,34 +7,34 @@ function useFetch(url) {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), LIMIT_SERVER_CONNECTION_TIME);
+
+        const res = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          throw new Error('서버 에러 발생!!');
+        }
+
+        const data = await res.json();
+        setData(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchData();
   }, [url]);
-
-  const fetchData = async () => {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), LIMIT_SERVER_CONNECTION_TIME);
-
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        signal: controller.signal,
-      });
-
-      if (!res.ok) {
-        throw new Error('서버 에러 발생!!');
-      }
-
-      const data = await res.json();
-      setData(data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return {
     data,

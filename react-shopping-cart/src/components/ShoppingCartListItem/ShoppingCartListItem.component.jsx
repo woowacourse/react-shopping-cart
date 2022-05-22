@@ -25,7 +25,7 @@ const CartItemContainer = styled(FlexBox).attrs({
 function ShoppingCartListItem({ id, name, thumbnail, price, quantity }) {
   const dispatch = useDispatch();
   const orderList = useSelector(state => state.orderList);
-  const checked = useMemo(() => orderList.some(productId => productId === id), [orderList]);
+  const checked = useMemo(() => orderList.some(productId => productId === id), [orderList, id]);
 
   const handleChangeCheckBox = id => {
     if (checked) {

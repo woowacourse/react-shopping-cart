@@ -16,7 +16,7 @@ import { deleteItem } from 'redux/actions/shoppingCart.action';
 
 function ShoppingCartList() {
   const dispatch = useDispatch();
-  const { data, isLoading, error } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
+  const { data, isLoading } = useFetch(`${process.env.REACT_APP_API_HOST}/product`);
   const orderList = useSelector(state => state.orderList);
   const shoppingCart = useSelector(state => state.shoppingCart);
   const checked = useMemo(

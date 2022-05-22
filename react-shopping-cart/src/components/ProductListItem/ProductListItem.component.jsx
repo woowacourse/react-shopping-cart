@@ -39,7 +39,10 @@ const ItemContainer = styled.div`
 `;
 
 function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
-  const onClick = useCallback(() => handleToggleShoppingCart(id, isContained), [id, isContained]);
+  const onClick = useCallback(
+    () => handleToggleShoppingCart(id, isContained),
+    [id, isContained, handleToggleShoppingCart]
+  );
 
   return (
     <ItemContainer isContained={isContained}>

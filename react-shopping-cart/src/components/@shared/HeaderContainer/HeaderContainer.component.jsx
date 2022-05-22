@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LAYER } from 'constants';
+import { LAYER } from 'constants/index';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import { withOpacityValue } from 'utils';
 
