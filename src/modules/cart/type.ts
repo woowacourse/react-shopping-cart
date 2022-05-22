@@ -9,25 +9,25 @@ export enum CartActionType {
 
 export interface Cart {
   isLoading: boolean;
-  data: CartType | {};
+  data: CartType[] | [];
   error: null | string;
 }
 
-interface GetCartList {
+export interface GetCartList {
   type: CartActionType.GET_CART_LIST;
 }
 
-interface PostCart {
+export interface PostCart {
   type: CartActionType.POST_CART;
   payload: CartType;
 }
 
-interface PostCartSuccess {
+export interface PostCartSuccess {
   type: CartActionType.POST_CART_SUCCESS;
   payload: CartType;
 }
 
-interface PostCartError {
+export interface PostCartError {
   type: CartActionType.POST_CART_ERROR;
   error: string;
 }
