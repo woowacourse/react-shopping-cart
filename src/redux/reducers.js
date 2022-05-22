@@ -2,9 +2,10 @@ import {
   GET_PRODUCT_LIST_START,
   GET_PRODUCT_LIST_SUCCESS,
   GET_PRODUCT_LIST_ERROR,
+  ADD_PRODUCT_TO_CART,
 } from "./types";
 
-export const productListState = {
+export const productListInitialState = {
   productList: {
     loading: false,
     data: null,
@@ -12,7 +13,7 @@ export const productListState = {
   },
 };
 
-export const productListReducer = (state = productListState, action) => {
+export const productListReducer = (state = productListInitialState, action) => {
   switch (action.type) {
     case GET_PRODUCT_LIST_START:
       return {
@@ -47,5 +48,24 @@ export const productListReducer = (state = productListState, action) => {
     default: {
       return state;
     }
+  }
+};
+
+export const cartListInitialState = [];
+
+export const cartListReducer = (state = cartListInitialState, action) => {
+  switch (action.type) {
+    case ADD_PRODUCT_TO_CART:
+      const isExistInCart = state.some((item) => {
+        return item.id === action.payload.id;
+      });
+
+      if (isExistInCart) {
+        return state;
+      }
+      return [...state, action.payload];
+
+    default:
+      return state;
   }
 };

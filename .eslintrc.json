@@ -35,6 +35,7 @@
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "global-require": 0,
-    "default-param-last": "off"
+    "default-param-last": "off",
+    "no-case-declarations": "off"
   }
 }

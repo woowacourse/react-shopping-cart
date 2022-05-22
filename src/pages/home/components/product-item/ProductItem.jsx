@@ -3,13 +3,13 @@ import CartIcon from "@/assets/images/cart.svg";
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
-import createAction from "@/redux/createAction";
+import { addProductToCart } from "@/redux/actions";
 
 function ProductItem({ id, name, price, imgUrl }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(createAction("ADD_PRODUCT_TO_CART", id));
+    dispatch(addProductToCart({ id, name, price, imgUrl }));
   };
 
   return (

@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 
 const StyledBadge = styled.div`
   position: absolute;
-  top: 0px;
-  right: -15px;
+  top: -5px;
+  right: -18px;
   background-color: red;
   border-radius: 50%;
   width: 24px;

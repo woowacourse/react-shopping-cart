@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import StyledMenu from "@/components/header/menu/Menu.styled";
 import Badge from "@/components/badge/Badge";
 
 function Menu() {
+  const cartList = useSelector((state) => state.cartListState);
+  const count = cartList.length;
+
   return (
     <StyledMenu>
       <ul>
         <li>
           <Link to="/cart">
             장바구니
-            <Badge count={33} />
+            {count > 0 && <Badge count={count} />}
           </Link>
         </li>
         <li>

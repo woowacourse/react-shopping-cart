@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "@/constants";
 import {
+  ADD_PRODUCT_TO_CART,
   GET_PRODUCT_LIST_ERROR,
   GET_PRODUCT_LIST_START,
   GET_PRODUCT_LIST_SUCCESS,
@@ -15,4 +16,9 @@ export const getProductList = () => async (dispatch) => {
   } catch (error) {
     dispatch(createAction(GET_PRODUCT_LIST_ERROR, error));
   }
+};
+
+export const addProductToCart = (args) => async (dispatch) => {
+  const { id, name, price, imgUrl } = args;
+  dispatch(createAction(ADD_PRODUCT_TO_CART, { id, name, price, imgUrl }));
 };
