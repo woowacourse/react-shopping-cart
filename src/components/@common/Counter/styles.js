@@ -7,7 +7,6 @@ const Container = styled.div`
   flex-direction: row;
 
   width: 100%;
-  min-width: 4rem;
 
   border: 1px solid ${COLORS.GRAY_150};
   background-color: ${COLORS.WHITE};
@@ -18,9 +17,8 @@ const Container = styled.div`
 
 const CounterText = styled.input`
   font-weight: bold;
-  min-width: 4.5rem;
   text-align: center;
-  width: 0;
+  width: 100%;
 
   border: none;
   border-right: 1px solid ${COLORS.GRAY_150};
@@ -45,7 +43,7 @@ const ControlButton = styled.button`
 
   transition: background-color 0.2s ease, color 0.2s ease;
 
-  &:first-child {
+  &:first-of-type {
     border-bottom: 1px solid ${COLORS.GRAY_150};
   }
 
