@@ -1,6 +1,8 @@
+import { Dimmed } from '@/styles/GlobalStyles';
+import ReactDOM from 'react-dom';
 import styled, { css, StyleProps } from 'styled-components';
 
-const Loading = styled.div`
+const Container = styled.div`
   animation: rotateY 1s infinite;
 
   @keyframes rotateY {
@@ -16,5 +18,18 @@ const Loading = styled.div`
     font-size: ${fontSize};
   `}
 `;
+
+function Loading({ children, type = 'ui', ...props }) {
+  if (type === 'page') {
+    return ReactDOM.createPortal(
+      <Dimmed>
+        <Container {...props}>{children}</Container>
+      </Dimmed>,
+      document.querySelector('#root') as Element,
+    );
+  }
+
+  return <Container {...props}>{children}</Container>;
+}
 
 export default Loading;

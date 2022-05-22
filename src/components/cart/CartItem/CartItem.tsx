@@ -62,7 +62,7 @@ function CartItem({ cart }) {
 
         <Styled.CounterWrapper>
           {isLoading ? (
-            <Loading>👻</Loading>
+            <Loading type="ui">👻</Loading>
           ) : (
             <Counter count={quantity} increaseCount={increaseCount} decreaseCount={decreaseCount} />
           )}

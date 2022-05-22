@@ -16,16 +16,9 @@ function ShoppingCart() {
 
   if (isLoading) {
     return (
-      <PageTemplate>
-        <Styled.Container>
-          <Styled.Title>장바구니</Styled.Title>
-          <Styled.Wrapper>
-            <ErrorContainer>
-              <Loading fontSize="2.5rem">👻</Loading>
-            </ErrorContainer>
-          </Styled.Wrapper>
-        </Styled.Container>
-      </PageTemplate>
+      <Loading type="page" fontSize="2rem">
+        👻
+      </Loading>
     );
   }
 

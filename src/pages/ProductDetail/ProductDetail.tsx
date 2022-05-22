@@ -46,17 +46,16 @@ function ProductDetail() {
 
   if (isLoading || isCartLoading) {
     return (
-      <PageTemplate>
-        <Styled.Container>
-          <Loading fontSize="2rem">👻</Loading>
-        </Styled.Container>
-      </PageTemplate>
+      <Loading type="page" fontSize="2rem">
+        👻
+      </Loading>
     );
   }
 
   if (product === null) {
     return (
       <PageTemplate>
+        <Styled.Title>상품 상세</Styled.Title>
         <ErrorContainer>🚧 잘못된 접근입니다. 🚧 </ErrorContainer>
       </PageTemplate>
     );
@@ -64,6 +63,8 @@ function ProductDetail() {
 
   return (
     <PageTemplate>
+      <Styled.Title>상품 상세</Styled.Title>
+
       <Styled.Container>
         <ProductDetailCard
           product={product}
