@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Styled = {
-  Counter: styled.div`
+  Container: styled.div`
     width: 113px;
     height: 60px;
     border: 1px solid #cccccc;
