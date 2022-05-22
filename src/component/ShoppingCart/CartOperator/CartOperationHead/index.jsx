@@ -1,7 +1,7 @@
 import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
 import { ALERT_MESSAGE } from 'constant/messages';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { checkProductCart, removeProductCart } from 'store/action/cartActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
@@ -10,6 +10,10 @@ import styled from 'styled-components';
 export default function CartOperationHead({ products }) {
   const dispatch = useDispatch();
   const [allCheck, setAllCheck] = useState(true);
+
+  useEffect(() => {
+    setAllCheck(products.every(product => product.checked));
+  }, [products]);
 
   const handleAllCheck = () => {
     setAllCheck(!allCheck);
