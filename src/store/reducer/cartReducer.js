@@ -1,11 +1,11 @@
 import { CART_ACTION_TYPES } from 'store/action/cartActions';
 
-const InitialCartedProducts = [];
+const initialCartedProducts = [];
 
 const isSameProduct = (action, product) =>
   action.payload.product.id === product.id && action.payload.product.name === product.name;
 
-const cartReducer = (state = InitialCartedProducts, action) => {
+const cartReducer = (state = initialCartedProducts, action) => {
   switch (action.type) {
     case CART_ACTION_TYPES.ADD_PRODUCT:
       if (state.some(product => isSameProduct(action, product))) {
