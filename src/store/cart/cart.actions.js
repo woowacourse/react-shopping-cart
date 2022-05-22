@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SERVER_PATH } from '../../constant';
 
 const actionTypes = {
   ADD_CART: 'ADD_CART',
@@ -8,7 +9,7 @@ const actionTypes = {
 
 const addCartItemAsync = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`/cart/${id}`);
+    const { data } = await axios.post(`${SERVER_PATH.CART}/${id}`);
     dispatch({
       type: actionTypes.ADD_CART,
       payload: data,
@@ -20,7 +21,7 @@ const addCartItemAsync = (id) => async (dispatch) => {
 
 const deleteCartItemAsync = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(`/cart/${id}`);
+    const { data } = await axios.delete(`${SERVER_PATH.CART}/${id}`);
     dispatch({
       type: actionTypes.DELETE_CART,
       payload: data,
@@ -32,7 +33,7 @@ const deleteCartItemAsync = (id) => async (dispatch) => {
 
 const updateItemQuantityAsync = (id, quantity) => async (dispatch) => {
   try {
-    const { data } = await axios.put(`/cart/${id}/${quantity}`);
+    const { data } = await axios.put(`${SERVER_PATH.CART}/${id}/${quantity}`);
     dispatch({
       type: actionTypes.UPDATE_ITEM_QUANTITY,
       payload: data,

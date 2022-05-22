@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from './common/Styled';
-import { PATH, SIZE } from '../constant/index';
+import { ROUTES_PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
 import useAddCartItem from '../hooks/useAddCartItem';
 
@@ -19,13 +19,13 @@ function Product({ product }) {
 
   return (
     <StyledItem>
-      <Link to={`${PATH.DETAIL_LINK}${id}`}>
+      <Link to={`${ROUTES_PATH.DETAIL_LINK}${id}`}>
         <StyledImageBox width={SIZE.MIDDLE} height={SIZE.MIDDLE}>
           <StyledImg width={SIZE.MIDDLE} src={imageUrl} alt={name} />
         </StyledImageBox>
       </Link>
       <StyledItemInfoBox>
-        <Link to={`${PATH.DETAIL_LINK}${id}`}>
+        <Link to={`${ROUTES_PATH.DETAIL_LINK}${id}`}>
           <StyledItemInfo>
             <StyledItemName>{name}</StyledItemName>
             <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>

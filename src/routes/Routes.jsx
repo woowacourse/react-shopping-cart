@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { PATH } from '../constant';
+import { ROUTES_PATH } from '../constant';
 import Loading from '../components/Loading';
 
 const Loadable = (Component) => (props) =>
@@ -15,15 +15,15 @@ const ShoppingCart = Loadable(lazy(() => import('../pages/ShoppingCart')));
 
 const routes = [
   {
-    path: PATH.HOME,
+    path: ROUTES_PATH.HOME,
     element: <ProductListPage />,
   },
   {
-    path: PATH.DETAIL,
+    path: ROUTES_PATH.DETAIL,
     element: <ProductDetailPage />,
   },
   {
-    path: PATH.CART,
+    path: ROUTES_PATH.CART,
     element: <ShoppingCart />,
   },
 ];

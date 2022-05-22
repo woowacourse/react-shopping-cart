@@ -1,6 +1,9 @@
-const PRODUCTS_PATH = '/products';
+const SERVER_PATH = {
+  PRODUCTS: '/products',
+  CART: '/cart',
+};
 
-const PATH = {
+const ROUTES_PATH = {
   HOME: '/',
   DETAIL: '/product-detail/:id',
   DETAIL_LINK: '/product-detail/',
@@ -16,4 +19,4 @@ const MESSAGE = {
   DELETE: '🗑 정말로 삭제하시겠습니까? 🗑',
 };
 
-export { PRODUCTS_PATH, PATH, SIZE, MESSAGE };
+export { SERVER_PATH, ROUTES_PATH, SIZE, MESSAGE };

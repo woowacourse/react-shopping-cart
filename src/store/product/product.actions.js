@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PRODUCTS_PATH } from '../../constant';
+import { SERVER_PATH } from '../../constant';
 
 const actionTypes = {
   SET_PRODUCT_LIST: 'SET_PRODUCT_LIST',
@@ -7,7 +7,7 @@ const actionTypes = {
 
 const getProductListAsync = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(PRODUCTS_PATH);
+    const { data } = await axios.get(SERVER_PATH.PRODUCTS);
 
     dispatch({
       type: actionTypes.SET_PRODUCT_LIST,

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
-import { PRODUCTS_PATH } from '../constant';
+import { SERVER_PATH } from '../constant';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
 import { SIZE } from '../constant';
@@ -22,7 +22,7 @@ function ProductDetailPage() {
   useEffect(() => {
     async function getProductItemInfo(id) {
       try {
-        const { data } = await axios.get(`${PRODUCTS_PATH}/${id}`);
+        const { data } = await axios.get(`${SERVER_PATH.PRODUCTS}/${id}`);
         setItem(data);
       } catch (error) {
         console.log('error', error);

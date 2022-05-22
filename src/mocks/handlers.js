@@ -1,24 +1,25 @@
 import { rest } from 'msw';
+import { SERVER_PATH } from '../constant';
 import { productList } from './data';
 
 let cartList = [];
 
 const handlers = [
-  rest.get('/products', (req, res, ctx) => {
+  rest.get(SERVER_PATH.PRODUCTS, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productList));
   }),
 
-  rest.get('/products/:id', (req, res, ctx) => {
+  rest.get(`${SERVER_PATH.PRODUCTS}/:id`, (req, res, ctx) => {
     const id = +req.params.id;
     const product = productList.find(({ id: productId }) => productId === id);
     return res(ctx.status(200), ctx.json(product));
   }),
 
-  rest.get('/cart', (req, res, ctx) => {
+  rest.get(SERVER_PATH.CART, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.post('/cart/:id', (req, res, ctx) => {
+  rest.post(`${SERVER_PATH.CART}/:id`, (req, res, ctx) => {
     const id = +req.params.id;
     const index = cartList.findIndex(({ id: productId }) => productId === id);
     const product = productList.find(({ id: productId }) => productId === id);
@@ -29,13 +30,13 @@ const handlers = [
     return res(ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.delete('/cart/:id', (req, res, ctx) => {
+  rest.delete(`${SERVER_PATH.CART}/:id`, (req, res, ctx) => {
     const id = +req.params.id;
     cartList = cartList.filter((item) => item.id !== id);
     return res(ctx.status(200), ctx.json(cartList));
   }),
 
-  rest.put('/cart/:id/:quantity', (req, res, ctx) => {
+  rest.put(`${SERVER_PATH.CART}/:id/:quantity`, (req, res, ctx) => {
     const id = +req.params.id;
     const quantity = +req.params.quantity;
     const cartItemIndex = cartList.findIndex((cartItem) => cartItem.id === id);
