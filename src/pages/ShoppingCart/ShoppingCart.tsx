@@ -1,11 +1,11 @@
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
-import { useThunkFetch } from '@/hooks/useFecth';
 import { fetchGetCartAsync } from '@/store/cart/action';
 import * as Styled from './ShoppingCart.style';
 import CartList from '@/components/cart/CartList/CartList';
 import OrderForm from '@/components/order/OrderForm/OrderForm';
 import ErrorContainer from '@/components/common/ErrorContainer/ErrorContainer';
 import Loading from '@/components/common/Loading/Loading';
+import { useThunkFetch } from '@/hooks/useFecth';
 
 function ShoppingCart() {
   const { isLoading, cartList } = useThunkFetch({

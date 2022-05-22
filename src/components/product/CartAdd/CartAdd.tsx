@@ -3,10 +3,11 @@ import * as GlobalStyled from '../../../styles/GlobalStyles';
 import Counter from '../../common/Counter/Counter';
 import { useCount } from '../../../hooks/useCount';
 import { ProductType } from '@/domain/product';
-import { useDispatch } from 'react-redux';
-import { fetchAddCartAsync } from '@/store/cart/action';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@/route';
+import { addCart } from '@/api/cart';
+import { useState } from 'react';
+import Loading from '@/components/common/Loading/Loading';
 interface CartAddPropsType {
   product: Pick<ProductType, 'name' | 'price' | 'quantity'>;
   closeModal: () => void;
@@ -14,20 +15,28 @@ interface CartAddPropsType {
 
 function CartAdd({ product, closeModal }: CartAddPropsType) {
   const { name, price, quantity } = product;
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const { count, increaseCount, decreaseCount } = useCount({
     initialValue: 1,
     min: 1,
     max: quantity,
   });
 
-  const onClickCartAdd = () => {
-    dispatch(fetchAddCartAsync({ ...product, quantity: count }) as any);
+  const [isLoading, setIsLoading] = useState(false);
 
-    closeModal();
-
-    navigate(ROUTE.ShoppingCart);
+  const onClickCartAdd = async () => {
+    try {
+      setIsLoading(true);
+      await addCart({ ...product, quantity: count });
+      setIsLoading(false);
+      closeModal();
+      navigate(ROUTE.ShoppingCart);
+    } catch ({ message }) {
+      setIsLoading(false);
+      alert(message);
+    }
   };
 
   return (
@@ -48,6 +57,8 @@ function CartAdd({ product, closeModal }: CartAddPropsType) {
       </Styled.TotalPriceWrapper>
 
       <Styled.Button onClick={onClickCartAdd}>장바구니에 담기</Styled.Button>
+
+      {isLoading && <Loading type="page">👻</Loading>}
     </Styled.Container>
   );
 }
