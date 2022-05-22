@@ -32,7 +32,6 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
 
-    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', false);
     expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', []);
   });
 
@@ -45,7 +44,6 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
 
-    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', true);
     expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', [
       { ...apple, quantity: 1 },
       { ...grape, quantity: 1 },

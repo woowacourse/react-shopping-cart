@@ -8,7 +8,7 @@ import ACTION_TYPE from 'redux/cart/cartActions';
 import { Button } from 'components/@common';
 import { Selector } from 'components';
 
-import { addThousandUnitComma } from 'utils';
+import { addThousandUnitComma, isArrayIncludesObject } from 'utils';
 import { CART_PRODUCT } from 'constants';
 
 const CartProductBox = styled.div`
@@ -82,13 +82,13 @@ const Price = styled.p`
 `;
 
 function CartProduct({ id, image, name, quantity, price }) {
-  const { clicker, isAllProductsChecked } = useSelector(store => store.cart);
+  const { checkedProducts } = useSelector(store => store.cart);
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setChecked(isAllProductsChecked);
-  }, [clicker]);
+    setChecked(isArrayIncludesObject(checkedProducts, { key: 'id', value: id }));
+  }, [checkedProducts]);
 
   const onChangeSelector = () => {
     dispatch({ type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id } });

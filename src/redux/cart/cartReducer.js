@@ -4,8 +4,6 @@ import { getObjectArrayIdxOfValue, getObjectArrayValuesOfKey, isArrayIncludesObj
 const initialState = {
   products: [],
   checkedProducts: [],
-  isAllProductsChecked: true,
-  clicker: false,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -41,9 +39,6 @@ const cartReducer = (state = initialState, action) => {
       return newState;
     }
     case ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK: {
-      newState.isAllProductsChecked = payload.checked;
-      newState.clicker = !state.clicker;
-
       if (!payload.checked) {
         newState.checkedProducts = [];
 
