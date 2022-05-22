@@ -1,12 +1,13 @@
 # 리액트 장바구니
 
-## 배포 페이지
-
-- https://mincho-shopping-cart.netlify.app/
-
-
 ## Step1 구현 사항
 
 - [x] Redux를 활용한 상태 관리
 - [x] JSON Server
 - [x] 상품 목록 출력
+
+## Step2 구현 사항
+
+- [x] MSW 활용 API Mocking
+- [ ] 단위 테스트 작성
+- [ ] 장바구니 기능
