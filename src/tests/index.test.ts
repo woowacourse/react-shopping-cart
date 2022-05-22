@@ -1,7 +1,7 @@
 import { cartListAction } from 'redux/cartList/action';
-import { CartItemState, cartListReducer } from 'redux/cartList/reducer';
+import { cartListReducer, CartListState } from 'redux/cartList/reducer';
 
-const initialState: CartItemState = {
+const initialState: CartListState = {
   loading_getCartList: false,
   loading_postCartList: false,
   loading_putCartItem: false,
