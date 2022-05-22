@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -77,13 +77,20 @@ const Styled = {
   `,
 };
 
-const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButtonClick }) => {
+const Cart = ({
+  cartList,
+  onAddCartButtonClick,
+  onMinusCartButtonClick,
+  onDeleteCartButtonClick,
+}) => {
   const dispatch = useDispatch();
-
-  const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
-  const totalCount = cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0);
+  const totalCount =
+    cartList.length !== 0
+      ? cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0)
+      : 0;
 
   const [checkList, setCheckList] = useState([]);
+  const [productInfoList, setProductInfoList] = useState([]);
 
   const onToggleTotalClick = () => {
     if (cartList.length === checkList.length) {
@@ -120,6 +127,22 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
     dispatch(deleteCheckedItem(checkList));
   };
 
+  useEffect(() => {
+    if (cartList.length === 0) {
+      return;
+    }
+    fetch(`${process.env.REACT_APP_BASE_URL}/cartList`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((infoList) => {
+        setProductInfoList(infoList);
+      });
+  }, [cartList]);
+
   return (
     <Styled.Container>
       <Title>장바구니</Title>
@@ -148,8 +171,8 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
               라인프렌즈 상품 ({totalCount}개)
             </Styled.CartProductTotalAmount>
             <Styled.CartProductListContent>
-              {cartList.length !== 0 ? (
-                cartList.map((item) => {
+              {productInfoList.length !== 0 ? (
+                productInfoList.map((item) => {
                   return (
                     <CartProductItem
                       key={`${item.name}${item.id}`}
@@ -169,7 +192,7 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
           </Styled.CartProductList>
         </Styled.CartContentBox>
         <Styled.PaymentModalBox>
-          <PaymentModal type="cart" amount={1000} />
+          <PaymentModal type="cart" amount={totalCheckedPrice} totalCount={totalCheckedCount} />
         </Styled.PaymentModalBox>
       </Styled.Wrapper>
     </Styled.Container>
@@ -177,6 +200,7 @@ const Cart = ({ onAddCartButtonClick, onMinusCartButtonClick, onDeleteCartButton
 };
 
 Cart.propTypes = {
+  cartList: PropTypes.array,
   onAddCartButtonClick: PropTypes.func,
   onMinusCartButtonClick: PropTypes.func,
   onDeleteCartButtonClick: PropTypes.func,

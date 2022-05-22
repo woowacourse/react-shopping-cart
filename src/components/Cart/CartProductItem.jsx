@@ -78,33 +78,6 @@ const CartProductItem = ({
   onToggleCheckClick,
   isChecked,
 }) => {
-  const [product, setProduct] = useState(null);
-  const [name, setName] = useState('');
-  const [thumbnail, setThumbnail] = useState('');
-  const [price, setPrice] = useState(0);
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/productList/${productInfo.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((product) => {
-        setProduct(product);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (product === null) {
-      return;
-    }
-    setName(product.name);
-    setThumbnail(product.thumbnail);
-    setPrice(product.price);
-  }, [product]);
-
   return (
     <Styled.Wrapper>
       <Styled.ProductInfoBox>
@@ -117,8 +90,8 @@ const CartProductItem = ({
           <CheckBox id={String(productInfo.id)} isChecked={isChecked} />
         </div>
 
-        <Styled.Thumbnail src={thumbnail} alt={name} />
-        <Styled.Title>{name}</Styled.Title>
+        <Styled.Thumbnail src={productInfo.thumbnail} alt={productInfo.name} />
+        <Styled.Title>{productInfo.name}</Styled.Title>
       </Styled.ProductInfoBox>
       <Styled.ProductSelectBox>
         <DeleteTrashButton
@@ -134,7 +107,9 @@ const CartProductItem = ({
           onMinusCartButtonClick={onMinusCartButtonClick}
           id={productInfo.id}
         />
-        <Styled.TotalAmount>{Number(productInfo.quantity) * Number(price)}원</Styled.TotalAmount>
+        <Styled.TotalAmount>
+          {Number(productInfo.quantity) * Number(productInfo.price)}원
+        </Styled.TotalAmount>
       </Styled.ProductSelectBox>
     </Styled.Wrapper>
   );
