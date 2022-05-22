@@ -83,6 +83,8 @@ const Text = styled.div`
   opacity: 0;
   transition: opacity 0.3s ease;
 
+  z-index: 5;
+
   ${({ isDisabled }) =>
     isDisabled &&
     css`
