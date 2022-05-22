@@ -41,7 +41,7 @@ function NumberInput({
     });
 
   useEffect(() => {
-    onChange && onChange(val);
+    onChange && onChange(Number(val));
   }, [val]);
 
   return (
