@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
-import { updateItemQuantityAsync } from '../store/cart/cart.actions';
 import { MESSAGE } from '../constant';
 import useDeleteCartItem from '../hooks/useDeleteCartItem';
+import useUpdateItemQuantity from '../hooks/useUpdateQuantity';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
-  const dispatch = useDispatch();
   const { deleteCartItem } = useDeleteCartItem();
+  const { updateItemQuantity } = useUpdateItemQuantity();
   const [isChecked, setChecked] = useState(isCheckedAll);
   const { id, name, price, imageUrl, quantity } = item;
 
   const incrementQuantity = () => {
-    dispatch(updateItemQuantityAsync(id, quantity + 1));
+    updateItemQuantity(id, quantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity === 1) return;
-    dispatch(updateItemQuantityAsync(id, quantity - 1));
+    updateItemQuantity(id, quantity - 1);
   };
 
   const toggleChecked = () => {
