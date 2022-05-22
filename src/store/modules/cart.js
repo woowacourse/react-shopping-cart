@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CART = {
+export const CART = {
   ADD: 'ADD_CART',
   DELETE: 'DELETE_CART',
   INCREASE_QUANTITY: 'INCREASE_QUANTITY',
@@ -8,7 +8,7 @@ const CART = {
   DELETE_SELECTED_CART: 'DELETE_SELECTED_CART',
 };
 
-const GET_CART = {
+export const GET_CART = {
   PENDING: 'PENDING',
   SUCCESS: 'SUCCESS',
   FAILURE: 'FAILURE',
@@ -115,5 +115,3 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       return state;
   }
 }
-
-export {CART};
