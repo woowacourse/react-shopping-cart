@@ -15,8 +15,8 @@ import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
   const { id } = useParams();
-  const { data: item, loading, error: itemError } = useFetch<Item>(`/itemList/${id}`);
-  const { data: cartList, error: cartListError } = useThunkFetch(
+  const { data: item, loading, error: error_itemList } = useFetch<Item>(`/itemList/${id}`);
+  const { data: cartList, error: error_cartList } = useThunkFetch(
     state => state.cartListReducer,
     getCartListRequest
   );
@@ -36,7 +36,7 @@ const ItemDetail = () => {
   };
 
   if (loading) return <Loading />;
-  if (itemError || cartListError) return <RequestFail />;
+  if (error_itemList || error_cartList) return <RequestFail />;
 
   const { thumbnailUrl, title, price } = item;
 

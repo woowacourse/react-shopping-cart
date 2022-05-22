@@ -11,12 +11,12 @@ import styled from 'styled-components';
 const Cart = () => {
   const {
     data: itemList,
-    error: itemListError,
+    error: error_getItemList,
     loading: loading_getItemList,
   } = useThunkFetch(state => state.itemListReducer, getItemList);
   const {
     data: cartList,
-    error: cartListError,
+    error: error_getCartList,
     loading_getCartList,
   } = useThunkFetch(state => state.cartListReducer, getCartListRequest);
 
@@ -33,7 +33,7 @@ const Cart = () => {
   const totalPrice = selectedItem.reduce((acc, item) => item.price * item.quantity + acc, 0);
 
   if (loading_getCartList || loading_getItemList) return <Loading />;
-  if (itemListError || cartListError) return <RequestFail />;
+  if (error_getItemList || error_getCartList) return <RequestFail />;
 
   return (
     <LayoutWithTitle title='장바구니'>

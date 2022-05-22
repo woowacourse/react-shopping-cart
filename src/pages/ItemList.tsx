@@ -18,14 +18,14 @@ const ItemList = () => {
   const { id } = useParams();
   const {
     data: itemList,
-    error: itemListError,
+    error: error_getItemList,
     loading,
   } = useFetch<Item[]>(`/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
-  const { data: allItemList, error: allItemListError } = useThunkFetch(
+  const { data: allItemList, error: error_getAllItemList } = useThunkFetch(
     state => state.itemListReducer,
     getItemList
   );
-  const { data: cartList, error: cartListError } = useThunkFetch(
+  const { data: cartList, error: error_getCartList } = useThunkFetch(
     state => state.cartListReducer,
     getCartListRequest
   );
@@ -33,7 +33,7 @@ const ItemList = () => {
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   if (loading) return <Loading />;
-  if (itemListError || allItemListError || cartListError) return <RequestFail />;
+  if (error_getItemList || error_getAllItemList || error_getCartList) return <RequestFail />;
 
   return (
     <StyledRoot>
