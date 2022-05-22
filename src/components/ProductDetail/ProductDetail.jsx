@@ -65,7 +65,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
         </Flex>
       </Style.ProductDetailInfo>
       <Style.ProductDetailCartButton onClick={handleCartButtonClick}>
-        {isLoading ? <Spinner /> : buttonText}
+        {isLoading && !isError ? <Spinner /> : buttonText}
         {isError && ' 에러가 발생했습니다.'}
       </Style.ProductDetailCartButton>
     </Style.ProductDetailFlexBox>
