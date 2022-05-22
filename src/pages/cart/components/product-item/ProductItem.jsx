@@ -1,6 +1,5 @@
 import React from "react";
 
-import { css } from "@emotion/react";
 import { useDispatch } from "react-redux";
 import {
   toggleCartItemCheckButton,
@@ -8,8 +7,11 @@ import {
   decrementCartItemQuantity,
   removeRowCartItem,
 } from "@/redux/actions";
-import TrashIcon from "@/assets/images/trash.svg";
+
+import { css } from "@emotion/react";
+
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
+import TrashIcon from "@/assets/images/trash.svg";
 
 function ProductItem({ item }) {
   const { id, name, price, imgUrl, quantity, checked } = item;

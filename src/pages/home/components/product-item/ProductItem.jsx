@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux";
-import CartIcon from "@/assets/images/cart.svg";
+import { addProductToCart } from "@/redux/actions";
+
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
-import { addProductToCart } from "@/redux/actions";
+import CartIcon from "@/assets/images/cart.svg";
 
 function ProductItem({ id, name, price, imgUrl }) {
   const dispatch = useDispatch();

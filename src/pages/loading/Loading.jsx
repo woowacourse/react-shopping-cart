@@ -1,5 +1,5 @@
-import BaedaliImg from "@/assets/images/baedali.png";
 import StyledLoading from "@/pages/loading/Loading.styled";
+import BaedaliImg from "@/assets/images/baedali.png";
 
 function Loading() {
   return (

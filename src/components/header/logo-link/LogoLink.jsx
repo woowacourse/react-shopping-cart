@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import StyledLogoLink from "@/components/header/logo-link/LogoLink.styled";
 
 function LogoLink() {

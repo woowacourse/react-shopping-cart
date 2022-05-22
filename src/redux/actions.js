@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "@/constants";
+
 import {
   ADD_PRODUCT_TO_CART,
   GET_PRODUCT_LIST_ERROR,
@@ -14,6 +14,8 @@ import {
   REMOVE_ROW_CART_ITEM,
 } from "@/redux/types";
 import createAction from "@/redux/createAction";
+
+import { BASE_URL } from "@/constants";
 
 export const getProductList = () => async (dispatch) => {
   try {

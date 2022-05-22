@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-
-import ProductItem from "@/pages/cart/components/product-item/ProductItem";
-import StyledProductList from "@/pages/cart/components/product-list/ProductList.styled";
 import {
   uncheckAllCheckButton,
   checkAllCheckButton,
   removeCheckedCartItem,
 } from "@/redux/actions";
+
+import StyledProductList from "@/pages/cart/components/product-list/ProductList.styled";
+import ProductItem from "@/pages/cart/components/product-item/ProductItem";
 
 function ProductList() {
   const cartList = useSelector((state) => state.cartListState);

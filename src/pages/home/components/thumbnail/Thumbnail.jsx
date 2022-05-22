@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import StyledThumbnail from "@/pages/home/components/thumbnail/Thumbnail.styled";
 import Spinner from "@/components/spinner/Spinner";
 

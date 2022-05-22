@@ -4,6 +4,7 @@ import {
   applyMiddleware,
 } from "redux";
 import thunk from "redux-thunk";
+
 import { productListReducer, cartListReducer } from "@/redux/reducers";
 
 const rootReducer = combineReducers({

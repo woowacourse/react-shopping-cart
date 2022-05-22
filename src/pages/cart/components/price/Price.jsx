@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+
 import StyledPrice from "@/pages/cart/components/price/Price.styled";
 
 function Price() {
