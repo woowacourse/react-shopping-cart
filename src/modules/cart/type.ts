@@ -5,6 +5,7 @@ export enum CartActionType {
   POST_CART = "cart/POST_CART",
   POST_CART_SUCCESS = "cart/POST_CART_SUCCESS",
   POST_CART_ERROR = "cart/POST_CART_ERROR",
+  PATCH_CART_STOCK = "cart/PATCH_CART_STOCK",
 }
 
 export interface Cart {
@@ -32,8 +33,19 @@ export interface PostCartError {
   error: string;
 }
 
+interface PatchCartStockPayload {
+  targetId: string;
+  stockChanged: number;
+}
+
+export interface PatchCartStock {
+  type: CartActionType.PATCH_CART_STOCK;
+  payload: PatchCartStockPayload;
+}
+
 export type CartAction =
   | GetCartList
   | PostCart
   | PostCartSuccess
-  | PostCartError;
+  | PostCartError
+  | PatchCartStock;

@@ -11,6 +11,9 @@ const useCart = () => {
 
   return {
     cartData: cartList.data,
+    getCart: (targetId: string): CartType | undefined => {
+      return cartList.data.find(({ id }) => id === targetId);
+    },
     createNewCart: (productId: number) => {
       const cart: CartType = {
         productId,
@@ -20,8 +23,14 @@ const useCart = () => {
       };
       dispatch({ type: CartActionType.POST_CART_SUCCESS, payload: cart });
     },
-    getCart: () => {
+    getCartList: () => {
       dispatch({ type: CartActionType.GET_CART_LIST });
+    },
+    changeCartStock: (targetId: string, stockChanged: number) => {
+      dispatch({
+        type: CartActionType.PATCH_CART_STOCK,
+        payload: { targetId, stockChanged },
+      });
     },
   };
 };
