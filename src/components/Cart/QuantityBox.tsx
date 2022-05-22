@@ -13,7 +13,14 @@ const QuantityBox = ({ quantity, handleChange }: QuantityBoxProps) => {
   return (
     <StyledRoot>
       {/* @TODO: number 제한 */}
-      <StyledInput type='number' defaultValue={quantity} ref={inputRef} />
+      <StyledInput
+        type='number'
+        defaultValue={quantity}
+        ref={inputRef}
+        onChange={() => {
+          handleChange(inputRef.current.value - quantity);
+        }}
+      />
       <div>
         <StyledArrowBox
           onClick={() => {
