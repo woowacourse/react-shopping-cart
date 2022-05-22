@@ -1,9 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { cartSelector } from 'store/selector';
-import { getCartAsync } from 'store/actions/cart';
-
+import useCart from 'hooks/useCart';
 import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
 
 import CheckBox from 'components/common/CheckBox/CheckBox';
@@ -13,16 +10,12 @@ import CartProductCard from 'components/cart/CartProductCard/CartProductCard';
 import * as Styled from 'components/cart/CartProductList/CartProductList.style';
 
 function CartProductList() {
-  const dispatch = useDispatch();
-  const { cart } = useSelector(cartSelector);
-
+  const { cart, cartLength, loadCart } = useCart();
   const { isAllChecked, toggleAllCheck, checkedProductCount, deleteCheckedProducts } =
     useCartCheckedProducts();
 
-  const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
-
   useEffect(() => {
-    dispatch(getCartAsync());
+    loadCart();
   }, []);
 
   return (
@@ -48,7 +41,9 @@ function CartProductList() {
 
             return <CartProductCard key={id} product={productData} quantity={quantity} />;
           })}
-        {cartLength === 0 && <ErrorContainer>장바구니에 추가된 상품이 없어요 😥</ErrorContainer>}
+        {cartLength === 0 && (
+          <ErrorContainer>장바구니에 추가된 상품이 없어요 😥</ErrorContainer>
+        )}
       </Styled.ListWrapper>
     </Styled.Container>
   );

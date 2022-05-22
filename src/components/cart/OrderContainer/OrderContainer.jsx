@@ -1,23 +1,11 @@
-import React, { useMemo } from 'react';
-
-import { useSelector } from 'react-redux';
-import { cartSelector } from 'store/selector';
+import React from 'react';
 
 import * as Styled from 'components/cart/OrderContainer/OrderContainer.style';
+import useCartCheckedProducts from 'hooks/useCartCheckedProducts';
 
 function OrderContainer() {
-  const { cart, checkedProductList } = useSelector(cartSelector);
+  const { checkedProductCount, totalPrice } = useCartCheckedProducts();
 
-  const totalPrice = useMemo(
-    () =>
-      cart &&
-      checkedProductList &&
-      checkedProductList.reduce((total, productId) => {
-        const { productData, quantity } = cart[productId];
-        return total + productData.price * quantity;
-      }, 0),
-    [checkedProductList, cart],
-  );
   return (
     <Styled.Container>
       <Styled.Title>결제예상금액</Styled.Title>
@@ -26,8 +14,8 @@ function OrderContainer() {
           <Styled.Label>결제예상금액</Styled.Label>
           <Styled.Price>{totalPrice}원</Styled.Price>
         </Styled.ExpectedPriceWrapper>
-        <Styled.Button disabled={checkedProductList.length === 0}>
-          주문하기 ({checkedProductList.length}개)
+        <Styled.Button disabled={checkedProductCount === 0}>
+          주문하기 ({checkedProductCount}개)
         </Styled.Button>
       </Styled.Content>
     </Styled.Container>
