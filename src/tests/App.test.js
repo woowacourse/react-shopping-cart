@@ -81,21 +81,6 @@ describe('상품 페이지 테스트', () => {
       products,
     });
   });
-
-  test('장바구니 담기 버튼을 클릭혀면 상품 추가 요청을 보내야 한다.', () => {
-    render(
-      <Product
-        product_img_src={product.product_img_src}
-        product_title={product.product_title}
-        product_price={product.product_price}
-      />,
-    );
-
-    const addCartImg = screen.getAllByRole('img')[1];
-    fireEvent.click(addCartImg);
-
-    waitFor(() => expect(screen.getByText('장바구니에 상품이 담겼습니다.')));
-  });
 });
 
 describe('장바구니 페이지 테스트', () => {
@@ -117,30 +102,6 @@ describe('장바구니 페이지 테스트', () => {
     expect(mockDispatch).toBeCalledWith({
       type: 'GET_PRODUCT_CART_SUCCESS',
       cartProducts,
-    });
-  });
-
-  test('장바구니 상품을 삭제하면 상품 삭제 요청을 보내야 한다.', async () => {
-    await 상품삭제함수()(mockDispatch);
-
-    expect(mockDispatch).toBeCalledWith({
-      type: '상품 삭제 액션',
-    });
-  });
-
-  test('장바구니 상품 수량 변경 버튼을 클릭하면 상품 수량 변경 요청을 보내야 한다.', async () => {
-    await 상품수량변경함수()(mockDispatch);
-
-    expect(mockDispatch).toBeCalledWith({
-      type: '상품 수량 변경 액션',
-    });
-  });
-
-  test('장바구니 상품 수량 input을 변경하고 input focus가 해제되면 수량 변경 요청을 보내야 한다.', async () => {
-    await 상품수량변경함수()(mockDispatch);
-
-    expect(mockDispatch).toBeCalledWith({
-      type: '상품 수량 변경 액션',
     });
   });
 });
