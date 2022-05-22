@@ -30,8 +30,13 @@ function ShoppingBasket() {
   const { shoppingBasketList, deleteProducts, increaseQuantity, decreaseQuantity } =
     useShoppingBasket(STATE_KEY.SHOPPING_BASKET_REDUCER);
 
-  const { selectedProductList, isAllSelected, clickCheckbox, clickAllCheckbox } =
-    useSelectShoppingBasketItem(shoppingBasketList);
+  const {
+    selectedProductList,
+    isAllSelected,
+    estimatedPaymentAmount,
+    clickCheckbox,
+    clickAllCheckbox,
+  } = useSelectShoppingBasketItem(shoppingBasketList);
 
   const handleClickDeleteSelectedProduct = () => {
     if (selectedProductList.length === 0) {
@@ -73,7 +78,7 @@ function ShoppingBasket() {
             <PaymentBox
               title="결제예상금액"
               paymentAmountLabel="결제예상금액"
-              paymentAmount={123000}
+              paymentAmount={estimatedPaymentAmount}
               buttonLabel="주문하기"
             />
           </RightBox>

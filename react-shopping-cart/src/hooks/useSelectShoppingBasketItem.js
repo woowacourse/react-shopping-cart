@@ -17,6 +17,18 @@ function useSelectShoppingBasketItem(shoppingBasketList) {
   const isAllSelected =
     selectedProductList.length !== 0 && selectedProductList.length === shoppingBasketList.length;
 
+  const estimatedPaymentAmount = shoppingBasketList.reduce((accumulatedPaymentAmount, product) => {
+    const foundIndex = selectedProductList.findIndex(
+      selectedProductId => selectedProductId === product.id
+    );
+
+    if (foundIndex === -1) {
+      return accumulatedPaymentAmount;
+    }
+
+    return accumulatedPaymentAmount + product.price * product.quantity;
+  }, 0);
+
   const clickCheckbox = (id, isSelected) => {
     isSelected ? selectProduct(id) : deselectProduct(id);
   };
@@ -48,6 +60,7 @@ function useSelectShoppingBasketItem(shoppingBasketList) {
   return {
     selectedProductList,
     isAllSelected,
+    estimatedPaymentAmount,
     clickCheckbox,
     clickAllCheckbox,
   };
