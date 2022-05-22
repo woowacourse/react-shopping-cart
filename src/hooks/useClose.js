@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { MODAL } from 'constants/constants';
 
 const useClose = () => {

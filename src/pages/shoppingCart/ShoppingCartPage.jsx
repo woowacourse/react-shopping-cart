@@ -1,13 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Checkbox from 'components/base/checkBox/CheckBox';
 import Header from 'components/base/header/Header';
 import Title from 'components/base/title/Title';
 import PageTitle from 'components/pageTitle/PageTitle';
 import PaymentAccount from 'components/paymentAccount/PaymentAccount';
 import ShoppingCartItem from 'components/shoppingCartItem/ShoppingCartItem';
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getShoppingCartList, putShoppingCartItem } from 'modules/shoppingCarts';
+
+import {
+  getShoppingCartList,
+  putShoppingCartItem,
+  deleteShoppingCartItem,
+} from 'modules/shoppingCarts';
 
 import {
   ContentWrapper,
@@ -18,7 +24,6 @@ import {
   ShoppingCartContainer,
   UnderLine,
 } from './style';
-import { deleteShoppingCartItem } from 'modules/shoppingCarts';
 
 const ShoppingCartPage = () => {
   const dispatch = useDispatch();

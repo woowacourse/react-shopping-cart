@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { color } from 'constants/constants';
+
 import StyledButton from 'components/base/button/style';
+
+import { color } from 'constants/constants';
 
 const PaymentAccountBox = styled.div`
   margin-top: 50px;

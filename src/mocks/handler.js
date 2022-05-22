@@ -1,8 +1,9 @@
-import { LOCAL_URL } from 'constants/constants';
-import { productList, shoppingCartList } from './mockData';
 import { rest } from 'msw';
 
-export const getProductHandler = [
+import { LOCAL_URL } from 'constants/constants';
+import { productList, shoppingCartList } from './mockData';
+
+export const handler = [
   rest.get(LOCAL_URL + 'products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(productList));
   }),

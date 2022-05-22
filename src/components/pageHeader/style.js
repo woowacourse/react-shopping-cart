@@ -1,7 +1,9 @@
-import CartIcon from 'components/base/cartIcon/CartIcon';
 import styled from 'styled-components';
-import { color } from 'constants/constants';
+
+import CartIcon from 'components/base/cartIcon/CartIcon';
 import { BaseHeader } from 'components/base/header/style';
+
+import { color } from 'constants/constants';
 
 const StyledHeader = styled(BaseHeader)`
   justify-content: space-around;

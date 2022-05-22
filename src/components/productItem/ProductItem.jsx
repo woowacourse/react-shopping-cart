@@ -10,6 +10,8 @@ import Text from 'components/base/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
+import { postShoppingCartItem, putShoppingCartItem } from 'modules/shoppingCarts';
+
 import {
   StyledProductItem,
   StyledProductContainer,
@@ -18,7 +20,6 @@ import {
 } from 'components/productItem/style';
 
 import { PRODUCT } from 'constants/constants';
-import { postShoppingCartItem, putShoppingCartItem } from 'modules/shoppingCarts';
 
 const ProductItem = ({ id }) => {
   const dispatch = useDispatch();

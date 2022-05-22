@@ -1,6 +1,7 @@
+import styled from 'styled-components';
+
 import Button from 'components/base/button/Button';
 import StyledText from 'components/base/text/style';
-import styled from 'styled-components';
 
 const ShoppingCartItemContainer = styled.div`
   display: flex;

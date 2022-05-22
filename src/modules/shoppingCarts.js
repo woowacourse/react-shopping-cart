@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {
   CART_INITIALIZE,
   CART_INITIALIZE_ERROR,
@@ -12,7 +14,7 @@ import {
   CART_DELETE_SUCCESS,
   CART_DELETE_ERROR,
 } from 'actions/action';
-import axios from 'axios';
+
 import { LOCAL_URL } from 'constants/constants';
 
 export const getShoppingCartList = () => async dispatch => {
