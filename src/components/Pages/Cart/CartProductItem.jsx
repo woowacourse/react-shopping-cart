@@ -72,7 +72,7 @@ const Styled = {
 
 const CartProductItem = ({
   productInfo,
-  onAddCartButtonClick,
+  onPlusCartButtonClick,
   onMinusCartButtonClick,
   onDeleteCartButtonClick,
   onToggleCheckClick,
@@ -103,7 +103,7 @@ const CartProductItem = ({
         </DeleteTrashButton>
         <CountModal
           totalCount={productInfo.quantity}
-          onAddCartButtonClick={onAddCartButtonClick}
+          onPlusCartButtonClick={onPlusCartButtonClick}
           onMinusCartButtonClick={onMinusCartButtonClick}
           id={productInfo.id}
         />
@@ -117,7 +117,7 @@ const CartProductItem = ({
 
 CartProductItem.propTypes = {
   productInfo: PropTypes.object,
-  onAddCartButtonClick: PropTypes.func,
+  onPlusCartButtonClick: PropTypes.func,
   onMinusCartButtonClick: PropTypes.func,
   onDeleteCartButtonClick: PropTypes.func,
   onToggleCheckClick: PropTypes.func,

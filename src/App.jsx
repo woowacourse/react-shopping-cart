@@ -17,6 +17,12 @@ const App = () => {
 
   const dispatch = useDispatch();
   const onAddCartButtonClick = (id) => {
+    if (window.confirm('상품을 장바구니에 담으시겠습니까?')) {
+      dispatch(addCartItem(id));
+    }
+  };
+
+  const onPlusCartButtonClick = (id) => {
     dispatch(addCartItem(id));
   };
 
@@ -25,7 +31,9 @@ const App = () => {
   };
 
   const onDeleteCartButtonClick = (id) => {
-    dispatch(deleteCartItem(id));
+    if (window.confirm('상품을 장바구니에서 제거하시겠습니까?')) {
+      dispatch(deleteCartItem(id));
+    }
   };
 
   useLayoutEffect(() => {
@@ -56,7 +64,7 @@ const App = () => {
             element={
               <Cart
                 cartList={cartList}
-                onAddCartButtonClick={onAddCartButtonClick}
+                onPlusCartButtonClick={onPlusCartButtonClick}
                 onMinusCartButtonClick={onMinusCartButtonClick}
                 onDeleteCartButtonClick={onDeleteCartButtonClick}
               />

@@ -79,7 +79,7 @@ const Styled = {
 
 const Cart = ({
   cartList,
-  onAddCartButtonClick,
+  onPlusCartButtonClick,
   onMinusCartButtonClick,
   onDeleteCartButtonClick,
 }) => {
@@ -146,7 +146,9 @@ const Cart = ({
     if (checkList.length === 0) {
       return;
     }
-    dispatch(deleteCheckedItem(checkList));
+    if (window.confirm('체크된 항목들을 모두 장바구니에서 삭제하시겠습니까?')) {
+      dispatch(deleteCheckedItem(checkList));
+    }
   };
 
   useEffect(() => {
@@ -200,7 +202,7 @@ const Cart = ({
                     <CartProductItem
                       key={`${item.name}${item.id}`}
                       productInfo={item}
-                      onAddCartButtonClick={onAddCartButtonClick}
+                      onPlusCartButtonClick={onPlusCartButtonClick}
                       onMinusCartButtonClick={onMinusCartButtonClick}
                       onDeleteCartButtonClick={onDeleteCartButtonClick}
                       onToggleCheckClick={onToggleCheckClick}
@@ -224,7 +226,7 @@ const Cart = ({
 
 Cart.propTypes = {
   cartList: PropTypes.array,
-  onAddCartButtonClick: PropTypes.func,
+  onPlusCartButtonClick: PropTypes.func,
   onMinusCartButtonClick: PropTypes.func,
   onDeleteCartButtonClick: PropTypes.func,
 };
