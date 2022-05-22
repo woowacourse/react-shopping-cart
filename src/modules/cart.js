@@ -1,7 +1,7 @@
-const ADD_ITEM = 'cart/ADD_ITEM';
-const MINUS_ITEM = 'cart/MINUS_ITEM';
-const DELETE_ITEM = 'cart/DELETE_ITEM';
-const DELETE_CHECKED_ITEM = 'cart/DELETE_CHECKED_ITEM';
+export const ADD_ITEM = 'cart/ADD_ITEM';
+export const MINUS_ITEM = 'cart/MINUS_ITEM';
+export const DELETE_ITEM = 'cart/DELETE_ITEM';
+export const DELETE_CHECKED_ITEM = 'cart/DELETE_CHECKED_ITEM';
 
 export const addCartItem = (id) => (dispatch) => {
   dispatch({ type: ADD_ITEM, payload: { id } });

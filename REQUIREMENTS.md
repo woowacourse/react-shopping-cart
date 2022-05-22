@@ -2,11 +2,14 @@
 
 ## 필수요구사항
 
-- [ ] 단위테스트 진행하기
+- [x] 단위테스트 진행하기
 
-- [ ] MSW를 활용해 API mocking하기
+  - [x] cartReducer에 대한 테스트 진행하기
+
+- [x] MSW를 활용해 API mocking하기
   - [x] productList msw 로 api mocking
   - [x] productItem msw 로 api mocking
+  - [x] cart msw로 api mocking
 
 ## 필수 구현 페이지
 
