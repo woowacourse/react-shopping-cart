@@ -23,10 +23,10 @@ ProductItem.defaultProps = {
 
 ProductItem.propTypes = {
   direction: PropTypes.oneOf(['vertical', 'horizontal']),
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   image: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.number,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ProductItem;

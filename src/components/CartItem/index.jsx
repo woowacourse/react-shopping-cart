@@ -32,17 +32,17 @@ function CartItem({ id, image, name, price }) {
   );
 }
 
-ProductItem.defaultProps = {
+CartItem.defaultProps = {
   image: '기본 이미지 URL',
   name: '이름이 지정되지 않았습니다.',
   price: -1,
 };
 
-ProductItem.propTypes = {
-  id: PropTypes.number.isRequired,
+CartItem.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   image: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.number,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default CartItem;
