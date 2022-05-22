@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductById, postCartProduct } from "../../modules/products";
 import ProductDetails from "../../components/ProductDetails";
 import ProductDetailsSkeleton from "../../components/ProductDetailsSkeleton";
+import { postCartProduct } from "../../modules/cartProducts";
+import { getProductById } from "../../modules/product";
 import * as S from "./index.styles";
 
 const ProductDetailsPage = () => {

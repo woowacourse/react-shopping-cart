@@ -1,8 +1,8 @@
 import * as S from "./index.styles";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 import { useDispatch } from "react-redux";
-import { postCartProduct } from "../../modules/products";
 import { useTheme } from "@emotion/react";
+import { postCartProduct } from "../../modules/cartProducts";
 
 const Product = ({
   imgUrl,
