@@ -3,28 +3,22 @@ import Image from '@/components/common/Image/Image';
 import Modal from '@/components/common/Modal/Modal';
 import CartAdd from '@/components/product/CartAdd/CartAdd';
 import { ProductType } from '@/domain/product';
+import { useExcludeCart } from '@/hooks/useExcludeCart';
 import { useModal } from '@/hooks/useModal';
 import useResponsive from '@/hooks/useResponsive';
 import * as Styled from './ProductDetailCard.style';
 
-function ProductDetailCard({
-  product,
-  isShowCartAddButton,
-}: {
-  product: ProductType;
-  isShowCartAddButton: boolean;
-}) {
+function ProductDetailCard({ product }: { product: ProductType }) {
   const responsive = useResponsive();
   const { isShowModal, openModal, closeModal } = useModal();
+  const isShowCartButton = useExcludeCart(product.id);
 
-  const onClickCartAddBUtton = () => {
+  const onClickCartAddButton = () => {
     openModal();
   };
 
   return (
     <>
-      <Styled.Title>상품 상세</Styled.Title>
-
       <Styled.InformationWrapper>
         <Image
           src={(product as any).imageURL}
@@ -38,8 +32,8 @@ function ProductDetailCard({
         </Styled.Price>
       </Styled.InformationWrapper>
 
-      {isShowCartAddButton && (
-        <Styled.ButtonWrapper onClick={onClickCartAddBUtton}>
+      {isShowCartButton && (
+        <Styled.ButtonWrapper onClick={onClickCartAddButton}>
           <Button width="100%" padding="20px">
             장바구니
           </Button>

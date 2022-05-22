@@ -15,3 +15,13 @@ export const Container = styled.div`
 
   padding: 10px;
 `;
+
+export const Title = styled.h1`
+  width: 100%;
+
+  text-align: center;
+  border-bottom: 2px solid ${({ theme }) => theme.blackColor_1};
+
+  font-weight: bold;
+  line-height: 1.8;
+`;

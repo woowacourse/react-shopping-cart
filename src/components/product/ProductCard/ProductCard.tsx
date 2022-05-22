@@ -8,16 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import CartAdd from '../CartAdd/CartAdd';
 import Placeholder from '../../common/Placeholder/Placeholder';
 import { ProductType } from '@/domain/product';
-import { useSelector } from 'react-redux';
+import { useExcludeCart } from '@/hooks/useExcludeCart';
 interface ProductCardType {
   product: ProductType;
 }
 
 function ProductCard({ product }: ProductCardType) {
   const { id, imageURL, name, price } = product;
+  const navigate = useNavigate();
 
   const { isShowModal, openModal, closeModal } = useModal();
-  const navigate = useNavigate();
+  const isShowCartButton = useExcludeCart(id);
 
   const onClickCard = () => {
     navigate(`/products/${id}`);
@@ -26,10 +27,6 @@ function ProductCard({ product }: ProductCardType) {
   const onClickCartButton = () => {
     openModal();
   };
-
-  const { cartList } = useSelector((state: any) => state.cart);
-
-  const isShowCartButton = !cartList.find(cart => cart.id === id);
 
   return (
     <GlobalStyled.Position>

@@ -17,7 +17,7 @@ import * as Styled from './ProductDetail.style';
 function ProductDetail() {
   const { productId } = useParams();
 
-  const { isLoading: isCartLoading, cartList } = useThunkFetch({
+  const { isLoading: isCartLoading } = useThunkFetch({
     selector: state => state.cart,
     thunkAction: fetchGetCartAsync,
     deps: [],
@@ -66,10 +66,7 @@ function ProductDetail() {
       <Styled.Title>상품 상세</Styled.Title>
 
       <Styled.Container>
-        <ProductDetailCard
-          product={product}
-          isShowCartAddButton={!cartList.find(cart => cart.id === (product as any)?.id)}
-        />
+        <ProductDetailCard product={product} />
       </Styled.Container>
     </PageTemplate>
   );
