@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Styled = {
-  Header: styled.header`
+  Container: styled.header`
     display: flex;
     align-items: center;
     justify-content: space-around;
