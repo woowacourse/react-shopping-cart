@@ -12,6 +12,8 @@ const getProductList =
 
     (status === REQUEST_STATUS.SUCCESS && dispatch(getProductListAction.success(content))) ||
       (status === REQUEST_STATUS.FAIL && dispatch(getProductListAction.error(content)));
+
+    return true;
   };
 
 export { getProductList };
