@@ -13,6 +13,7 @@ export const useFetch = <T>(url: string) => {
         const { data, statusText } = await client.get<T>(url);
 
         if (statusText !== 'OK') throw new Error();
+        if (!loading) return;
 
         setData(data);
       } catch {
