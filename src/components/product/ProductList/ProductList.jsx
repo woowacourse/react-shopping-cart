@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 import useProductList from 'hooks/useProductList';
 
-import ErrorContainer from 'components/common/ErrorContainer/ErrorContainer';
-import ProductCard from 'components/product/ProductCard/ProductCard';
+import { ErrorContainer } from 'components/common';
+import { ProductCard } from 'components/product';
+
 import * as Styled from 'components/product/ProductList/ProductList.style';
 import { ERROR_MESSAGES } from 'constants/messages';
 

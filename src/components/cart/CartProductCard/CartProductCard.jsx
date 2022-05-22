@@ -2,10 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import useCartCheck from 'hooks/useCartCheck';
 
-import CheckBox from 'components/common/CheckBox/CheckBox';
-import Counter from 'components/common/Counter/Counter';
-import Icon from 'components/common/Icon/Icon';
-import Image from 'components/common/Image/Image';
+import { CheckBox, Counter, Icon, Image } from 'components/common';
 
 import { Position } from 'styles/GlobalStyles';
 import { color } from 'styles/Theme.js';

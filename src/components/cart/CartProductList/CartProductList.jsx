@@ -3,10 +3,9 @@ import React, { useEffect } from 'react';
 import useCartProducts from 'hooks/useCartProducts';
 import useCartCheck from 'hooks/useCartCheck';
 
-import CheckBox from 'components/common/CheckBox/CheckBox';
-import ErrorContainer from 'components/common/ErrorContainer/ErrorContainer';
+import { CheckBox, ErrorContainer } from 'components/common';
 
-import CartProductCard from 'components/cart/CartProductCard/CartProductCard';
+import { CartProductCard } from 'components/cart';
 import * as Styled from 'components/cart/CartProductList/CartProductList.style';
 
 function CartProductList() {

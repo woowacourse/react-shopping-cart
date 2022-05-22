@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useModal } from 'hooks/useModal';
 
-import Image from 'components/common/Image/Image';
-import Icon from 'components/common/Icon/Icon';
-import Modal from 'components/common/Modal/Modal';
+import { Image, Icon, Modal } from 'components/common';
 
-import CartAdd from 'components/product/CartAdd/CartAdd';
+import { CartAdd } from 'components/product';
 
 import * as Styled from 'components/product/ProductCard/ProductCard.style';
 import { color } from 'styles/Theme';

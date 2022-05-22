@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Counter from 'components/common/Counter/Counter';
+import { Counter } from 'components/common';
 import { useCount } from 'hooks/useCount';
 
 import * as Styled from 'components/product/CartAdd/CartAdd.style';

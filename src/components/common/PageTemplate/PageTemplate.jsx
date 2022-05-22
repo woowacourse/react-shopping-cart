@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from 'components/common/Header/Header';
+import { Header } from 'components/common';
 
 import * as Styled from 'components/common/PageTemplate/PageTemplate.style';
 

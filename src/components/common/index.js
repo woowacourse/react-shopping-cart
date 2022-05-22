@@ -1,0 +1,10 @@
+export { default as CheckBox } from 'components/common/CheckBox/CheckBox.jsx';
+export { default as Counter } from 'components/common/Counter/Counter.jsx';
+export { default as ErrorContainer } from 'components/common/ErrorContainer/ErrorContainer.jsx';
+export { default as Header } from 'components/common/Header/Header.jsx';
+export { default as Icon } from 'components/common/Icon/Icon.jsx';
+export { default as Image } from 'components/common/Image/Image.jsx';
+export { default as Modal } from 'components/common/Modal/Modal.jsx';
+export { default as PageTemplate } from 'components/common/PageTemplate/PageTemplate.jsx';
+export { default as PageTitle } from 'components/common/PageTitle/PageTitle.jsx';
+export { default as Pagination } from 'components/common/Pagination/Pagination.jsx';

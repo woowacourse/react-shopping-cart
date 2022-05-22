@@ -1,9 +1,7 @@
 import React from 'react';
 
-import CartProductList from 'components/cart/CartProductList/CartProductList';
-import OrderContainer from 'components/cart/OrderContainer/OrderContainer';
-import PageTemplate from 'components/common/PageTemplate/PageTemplate';
-import PageTitle from 'components/common/PageTitle/PageTitle';
+import { CartProductList, OrderContainer } from 'components/cart';
+import { PageTemplate, PageTitle } from 'components/common';
 
 import * as Styled from 'pages/ShoppingCart/ShoppingCart.style';
 
