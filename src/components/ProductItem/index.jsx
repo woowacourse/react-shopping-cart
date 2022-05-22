@@ -23,7 +23,7 @@ const ProductItem = ({ id }) => {
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
 
-  const controlCart = () => {
+  const updateCart = () => {
     setIsOpen(false);
     clearTimer();
 
@@ -43,16 +43,16 @@ const ProductItem = ({ id }) => {
     e.stopPropagation();
 
     if (isOpen) {
-      controlCart();
+      updateCart();
     } else {
       setIsOpen(true);
-      setAutoCloseTimer(controlCart);
+      setAutoCloseTimer(updateCart);
     }
   };
 
   const handleQuantityControllerClick = e => {
     e.stopPropagation();
-    extendTimer(controlCart);
+    extendTimer(updateCart);
   };
 
   useEffect(() => {
