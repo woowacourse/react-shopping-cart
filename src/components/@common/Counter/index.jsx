@@ -28,7 +28,7 @@ Counter.defaultProps = {
 };
 
 Counter.propTypes = {
-  children: PropTypes.number,
+  children: PropTypes.string,
 };
 
 export default Counter;
