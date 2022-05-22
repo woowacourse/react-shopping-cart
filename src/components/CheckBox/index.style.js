@@ -1,55 +1,35 @@
 import styled from 'styled-components';
 
 const Styled = {
-  CheckBoxLabel: styled.label`
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid #22a6a2;
+  Container: styled.label`
     height: 25px;
     width: 25px;
     border-radius: 2px;
+    position: relative;
+    border: 1px solid #22a6a2;
     box-sizing: border-box;
+    cursor: pointer;
 
     input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
+      display: none;
     }
+  `,
 
-    .checkmark {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 25px;
-      width: 25px;
-      border-radius: 2px;
-    }
+  CheckMark: styled.span`
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 2px;
 
-    input:checked ~ .checkmark {
+    input:checked ~ & {
       background-color: #22a6a2;
     }
 
-    .checkmark:after {
+    &:after {
       content: '';
       position: absolute;
-      display: none;
-    }
-
-    input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkmark:after {
-      left: 9px;
-      top: 5px;
+      left: 8px;
+      top: 4px;
       width: 5px;
       height: 10px;
       border: solid white;
