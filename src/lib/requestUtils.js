@@ -1,4 +1,4 @@
-import { REQUEST_STATUS, REQUEST_TIMEOUT } from 'constants/';
+import { CONTENT_NOT_LOADED, REQUEST_STATUS, REQUEST_TIMEOUT } from 'constants/';
 
 const request = async (url, option) => {
   const fetchController = new AbortController();
@@ -28,9 +28,14 @@ const request = async (url, option) => {
 };
 
 const createAsyncState = {
-  initial: (defaultContent) => ({ isLoading: false, content: defaultContent, error: null }),
+  initial: (defaultContent) => ({
+    isLoading: false,
+    isLoaded: false,
+    content: defaultContent,
+    error: null,
+  }),
   pending: () => ({ isLoading: true, error: null }),
-  success: () => ({ isLoading: false, error: null }),
+  success: () => ({ isLoading: false, error: null, isLoaded: true }),
   error: (error) => ({ isLoading: false, error }),
 };
 
