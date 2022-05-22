@@ -15,14 +15,16 @@ export const getProductList = async (page): Promise<any> => {
     throw Error('서버 오류!');
   }
 
-  return { productList: response.data, totalProductCount: response.headers['x-total-count'] };
+  return {
+    data: { productList: response.data, totalProductCount: response.headers['x-total-count'] },
+  };
 };
 
-export const getProduct = async (id): Promise<{ product: ProductType }> => {
+export const getProduct = async (id): Promise<{ data: ProductType }> => {
   const response = await productAPI.get(`/${id}`, {});
   if (response.statusText !== 'OK') {
     throw Error('서버 오류!');
   }
 
-  return { product: response.data };
+  return { data: response.data };
 };

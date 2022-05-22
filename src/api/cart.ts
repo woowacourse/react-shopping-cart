@@ -20,7 +20,7 @@ export const getCart = async (): Promise<any> => {
     throw Error('서버 오류!');
   }
 
-  return { cartList: response.data };
+  return { data: response.data };
 };
 
 export const deleteCart = async (id): Promise<any> => {

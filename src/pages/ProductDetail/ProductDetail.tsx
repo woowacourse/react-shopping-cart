@@ -2,12 +2,9 @@ import { getProduct } from '@/api/product';
 
 import Loading from '@/components/common/Loading/Loading';
 import ProductDetailCard from '@/components/product/ProductDetailCard/ProductDetailCard';
-import { ProductType } from '@/domain/product';
-
-import { useThunkFetch } from '@/hooks/useFecth';
+import { useFetch, useThunkFetch } from '@/hooks/useFecth';
 
 import { fetchGetCartAsync } from '@/store/cart/action';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import ErrorContainer from '../../components/common/ErrorContainer/ErrorContainer';
 import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
@@ -23,28 +20,12 @@ function ProductDetail() {
     deps: [],
   });
 
-  const [{ isLoading, product }, setProduct] = useState<{
-    isLoading: boolean;
-    product: ProductType | null;
-  }>({
-    isLoading: false,
-    product: null,
+  const { isLoading: isProductLoading, data: product } = useFetch({
+    action: () => getProduct(productId),
+    deps: [],
   });
 
-  useEffect(() => {
-    const fetch = async () => {
-      setProduct(prev => ({ ...prev, isLoading: true }));
-      try {
-        const { product } = await getProduct(productId);
-        setProduct(prev => ({ ...prev, isLoading: false, product }));
-      } catch ({ message }) {
-        setProduct(prev => ({ ...prev, isLoading: false }));
-      }
-    };
-    fetch();
-  }, []);
-
-  if (isLoading || isCartLoading) {
+  if (isProductLoading || isCartLoading) {
     return (
       <Loading type="page" fontSize="2rem">
         👻

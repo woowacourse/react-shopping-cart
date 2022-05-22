@@ -35,7 +35,9 @@ export const fetchProductListAsync =
   (page: number) => async (dispatch: Dispatch<ProductListAction>) => {
     dispatch({ type: ProductActionType.GET_PRODUCT_LIST_START });
     try {
-      const { productList, totalProductCount } = await getProductList(page);
+      const {
+        data: { productList, totalProductCount },
+      } = await getProductList(page);
       dispatch({
         type: ProductActionType.GET_PRODUCT_LIST_SUCCEEDED,
         payload: {

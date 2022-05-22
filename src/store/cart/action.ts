@@ -70,7 +70,7 @@ export const fetchGetCartAsync = () => async (dispatch: Dispatch<CartAction>) =>
   dispatch({ type: CartActionType.GET_CART_START });
 
   try {
-    const { cartList } = await getCart();
+    const { data: cartList } = await getCart();
 
     dispatch({ type: CartActionType.GET_CART_SUCCEEDED, payload: { cartList } });
   } catch ({ message }) {
