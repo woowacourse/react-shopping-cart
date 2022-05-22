@@ -5,6 +5,32 @@ import Button from 'component/common/Button';
 import { addProductCart } from 'store/action/cartActions';
 import storage from 'storage/storage';
 
+export default function ProductDetail() {
+  const dispatch = useDispatch();
+  const { products, selectedProductId } = useSelector(store => store);
+  const targetProduct = products.find(product => product.id === selectedProductId);
+
+  const handleCartClick = () => {
+    dispatch(addProductCart(targetProduct));
+    storage.addCartProductId(targetProduct.id);
+    dispatch(updateSnackBar(`${targetProduct.name} 1개가 장바구니에 추가되었습니다.`));
+  };
+
+  return (
+    <Content>
+      <Image src={targetProduct.image} />
+      <Name>{targetProduct.name}</Name>
+      <PriceBox>
+        <span style={{ fontSize: '24px' }}>금액</span>
+        <Price>{targetProduct.price.toLocaleString('ko-KR')} 원</Price>
+      </PriceBox>
+      <Button onClick={handleCartClick}>
+        <CartParagraph>장바구니</CartParagraph>
+      </Button>
+    </Content>
+  );
+}
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,31 +84,3 @@ const CartParagraph = styled.p`
   line-height: 21px;
   color: white;
 `;
-
-function ProductDetail() {
-  const dispatch = useDispatch();
-  const { products, selectedProductId } = useSelector(store => store);
-  const targetProduct = products.find(product => product.id === selectedProductId);
-
-  const handleCartClick = () => {
-    dispatch(addProductCart(targetProduct));
-    storage.addCartProductId(targetProduct.id);
-    dispatch(updateSnackBar(`${targetProduct.name} 1개가 장바구니에 추가되었습니다.`));
-  };
-
-  return (
-    <Content>
-      <Image src={targetProduct.image} />
-      <Name>{targetProduct.name}</Name>
-      <PriceBox>
-        <span style={{ fontSize: '24px' }}>금액</span>
-        <Price>{targetProduct.price.toLocaleString('ko-KR')} 원</Price>
-      </PriceBox>
-      <Button onClick={handleCartClick}>
-        <CartParagraph>장바구니</CartParagraph>
-      </Button>
-    </Content>
-  );
-}
-
-export default ProductDetail;

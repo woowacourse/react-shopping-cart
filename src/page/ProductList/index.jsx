@@ -11,16 +11,7 @@ import LoadingSpinner from 'component/common/LoadingSpinner';
 import ProductContainer from 'container/ProductContainer';
 import { PRODUCTS_COUNT_PER_PAGE } from 'constant';
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  padding: 60px 0;
-`;
-
-function ProductList() {
+export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector(store => store.products);
   const { currentPageProducts, Pagination } = usePagination(products, PRODUCTS_COUNT_PER_PAGE);
@@ -50,4 +41,11 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 60px 0;
+`;
