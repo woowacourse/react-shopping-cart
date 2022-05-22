@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 
 function FloatingActionButton({ count }) {
@@ -14,18 +14,6 @@ function FloatingActionButton({ count }) {
     </StyledContainer>
   );
 }
-
-// TODO: mount, unmount 애니메이션 적용 할것
-// const smoothAppear = keyframes`
-//    from {
-//       opacity: 0;
-//       transform: translateY(-5%);
-//     }
-//     to {
-//       opacity: 1;
-//       transform: translateY(0);
-//     }
-// `;
 
 const StyledContainer = styled.div`
   position: fixed;

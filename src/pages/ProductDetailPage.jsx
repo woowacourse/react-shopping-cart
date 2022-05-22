@@ -33,8 +33,6 @@ function ProductDetailPage() {
 
   const { imageUrl, name, price } = item;
 
-  // console.log('item', item);
-
   return (
     <StyledProductDetailContainer>
       <StyledImageWrapper width={'large'} height={'large'}>

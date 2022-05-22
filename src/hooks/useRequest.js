@@ -8,7 +8,6 @@ const useRequest = (callback) => {
   const getData = useCallback(callback, [callback]);
 
   useEffect(() => {
-    console.log('--');
     getData()
       .then((res) => {
         setDate(res.data);
