@@ -56,4 +56,5 @@ export default Cart;
 const StyledMain = styled.main`
   display: flex;
   gap: 15.7rem;
+  height: 100%;
 `;

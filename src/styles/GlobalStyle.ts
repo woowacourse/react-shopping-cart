@@ -9,7 +9,9 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 62.5%;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   body {
@@ -18,7 +20,9 @@ const GlobalStyle = createGlobalStyle`
   }
   
   #root, body {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   button {

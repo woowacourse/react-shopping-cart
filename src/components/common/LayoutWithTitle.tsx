@@ -21,6 +21,7 @@ export default LayoutWithTitle;
 
 const StyledRoot = styled.div`
   width: 100%;
+  height: 100%;
   ${flexCenter}
   flex-direction: column;
   color: ${({ theme }) => theme.colors.GRAY_500};

@@ -28,10 +28,11 @@ const StyledRoot = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  flex: 1;
 `;
 
 const StyledMain = styled.main`
   width: ${({ theme }) => theme.size.fullContentWidth};
   ${flexCenter};
-  height: 100%;
+  flex: 1;
 `;

@@ -1,3 +1,4 @@
+import Loading from 'components/common/Loading';
 import { lazy, ReactElement } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -42,6 +43,7 @@ const Routers = () => {
       {ROUTES.map(route => (
         <Route key={route.path} {...route} />
       ))}
+      <Route path='/loading' element={<Loading />} />
     </Routes>
   );
 };
