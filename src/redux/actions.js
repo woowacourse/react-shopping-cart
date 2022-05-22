@@ -10,6 +10,7 @@ import {
   CHECK_ALL_CHECK_BUTTON,
   INCREMENT_CART_ITEM_QUANTITY,
   DECREMENT_CART_ITEM_QUANTITY,
+  REMOVE_CHECKED_CART_ITEM,
 } from "./types";
 import createAction from "./createAction";
 
@@ -48,6 +49,6 @@ export const decrementCartItemQuantity = (id) => async (dispatch) => {
   dispatch(createAction(DECREMENT_CART_ITEM_QUANTITY, id));
 };
 
-export const removeAllCartItem = () => async (dispatch) => {
-  dispatch(createAction(REMOVE_ALL_CART_ITEM));
+export const removeCheckedCartItem = () => async (dispatch) => {
+  dispatch(createAction(REMOVE_CHECKED_CART_ITEM));
 };

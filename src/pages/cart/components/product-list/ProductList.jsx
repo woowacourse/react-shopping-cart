@@ -2,7 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ProductItem from "@/pages/cart/components/product-item/ProductItem";
 import StyledProductList from "@/pages/cart/components/product-list/ProductList.styled";
-import { uncheckAllCheckButton, checkAllCheckButton } from "@/redux/actions";
+import {
+  uncheckAllCheckButton,
+  checkAllCheckButton,
+  removeCheckedCartItem,
+} from "@/redux/actions";
 
 function ProductList() {
   const cartList = useSelector((state) => state.cartListState);
@@ -17,6 +21,10 @@ function ProductList() {
     dispatch(uncheckAllCheckButton());
   };
 
+  const handleClick = () => {
+    dispatch(removeCheckedCartItem());
+  };
+
   return (
     <StyledProductList>
       <div>
@@ -29,7 +37,7 @@ function ProductList() {
           />
           <label className="checkbox-label">선택해제</label>
         </div>
-        <button type="button" className="delete-button">
+        <button onClick={handleClick} type="button" className="delete-button">
           상품삭제
         </button>
       </div>

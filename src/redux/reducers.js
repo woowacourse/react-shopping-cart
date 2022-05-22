@@ -8,6 +8,7 @@ import {
   CHECK_ALL_CHECK_BUTTON,
   INCREMENT_CART_ITEM_QUANTITY,
   DECREMENT_CART_ITEM_QUANTITY,
+  REMOVE_CHECKED_CART_ITEM,
 } from "./types";
 
 export const productListInitialState = {
@@ -119,6 +120,12 @@ export const cartListReducer = (state = cartListInitialState, action) => {
       });
 
       return decrementState;
+
+    case REMOVE_CHECKED_CART_ITEM:
+      const checkedItemRemovedState = newState.filter((item) => {
+        return item.checked === false;
+      });
+      return checkedItemRemovedState;
 
     default:
       return state;
