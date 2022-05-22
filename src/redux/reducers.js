@@ -4,6 +4,8 @@ import {
   GET_PRODUCT_LIST_ERROR,
   ADD_PRODUCT_TO_CART,
   TOGGLE_CART_ITEM_CHECK_BUTTON,
+  UNCHECK_ALL_CHECK_BUTTON,
+  CHECK_ALL_CHECK_BUTTON,
 } from "./types";
 
 export const productListInitialState = {
@@ -55,6 +57,8 @@ export const productListReducer = (state = productListInitialState, action) => {
 export const cartListInitialState = [];
 
 export const cartListReducer = (state = cartListInitialState, action) => {
+  const newState = [...state];
+
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
       const isExistInCart = state.some((item) => {
@@ -67,7 +71,6 @@ export const cartListReducer = (state = cartListInitialState, action) => {
       return [...state, { ...action.payload, quantity: 1, checked: true }];
 
     case TOGGLE_CART_ITEM_CHECK_BUTTON:
-      const newState = [...state];
       const selectedItem = newState.find((item) => item.id === action.payload);
       const selectedItemIndex = newState.indexOf(selectedItem);
 
@@ -75,6 +78,24 @@ export const cartListReducer = (state = cartListInitialState, action) => {
         !newState[selectedItemIndex].checked;
 
       return newState;
+
+    case UNCHECK_ALL_CHECK_BUTTON:
+      const allUnCheckedState = newState.map((item) => {
+        return item.checked === true
+          ? { ...item, checked: false }
+          : { ...item };
+      });
+
+      return allUnCheckedState;
+
+    case CHECK_ALL_CHECK_BUTTON:
+      const allCheckedState = newState.map((item) => {
+        return item.checked === false
+          ? { ...item, checked: true }
+          : { ...item };
+      });
+
+      return allCheckedState;
 
     default:
       return state;

@@ -8,7 +8,6 @@ import StyledCartContainer from "@/pages/cart/components/product-item/ProductIte
 
 function ProductItem({ item }) {
   const { id, name, price, imgUrl, quantity, checked } = item;
-  console.log(item);
   const dispatch = useDispatch();
 
   const handleChange = () => {
