@@ -1,29 +1,23 @@
-import { requestGetProductList } from 'api/products';
-import { createRequestState } from 'lib/requestUtils';
+import { createAsyncState } from 'lib/requestUtils';
+
 import { PRODUCTS_ACTIONS } from './types';
 
-const getProductList =
-  (page = 1) =>
-  async (dispatch) => {
-    await requestGetProductList(page)({
-      PENDING: () =>
-        dispatch({
-          type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST,
-          payload: createRequestState.loading(),
-        }),
+const getProductListAction = {
+  pending: () => ({
+    type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_PENDING,
+    async: createAsyncState.pending(),
+  }),
 
-      SUCCESS: (result) =>
-        dispatch({
-          type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS,
-          payload: createRequestState.success(result),
-        }),
+  success: (payload) => ({
+    type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS,
+    payload,
+    async: createAsyncState.success(),
+  }),
 
-      ERROR: (result) =>
-        dispatch({
-          type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_ERROR,
-          payload: createRequestState.error(result),
-        }),
-    });
-  };
+  error: (payload) => ({
+    type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_ERROR,
+    async: createAsyncState.error(payload),
+  }),
+};
 
-export { getProductList };
+export { getProductListAction };
