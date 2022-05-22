@@ -13,6 +13,7 @@ import { productListReducer, cartListReducer } from "@/redux/reducers";
 const persistConfig = {
   key: "root",
   storage: localStorage,
+  whitelist: ["cartListState"],
 };
 
 export const rootReducer = combineReducers({
