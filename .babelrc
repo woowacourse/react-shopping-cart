@@ -4,7 +4,7 @@
       "@emotion",
       {
         "autoLabel": "dev-only",
-        "labelFormat": "styled-[dirname]-[local]"
+        "labelFormat": "-Component_[dirname]--Variable_[local]"
       }
     ]
   ]
