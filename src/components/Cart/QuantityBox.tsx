@@ -28,6 +28,7 @@ const QuantityBox = ({ quantity, handleChange }: QuantityBoxProps) => {
             inputRef.current.value = quantity - 1;
             handleChange(-1);
           }}
+          disabled={quantity <= 1}
         >
           <StyledArrowDown />
         </StyledArrowBox>
@@ -53,12 +54,16 @@ const StyledInput = styled.input`
   font-size: 24px;
 `;
 
-const StyledArrowBox = styled.div`
+const StyledArrowBox = styled.button`
   width: 4.2rem;
   height: 3rem;
   border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
   ${flexCenter}
   cursor: pointer;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.GRAY_400};
+  }
 `;
 
 const StyledArrowUp = styled.div`
