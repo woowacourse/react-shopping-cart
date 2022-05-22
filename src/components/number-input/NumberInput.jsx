@@ -4,12 +4,15 @@ import CaretDown from "@assets/images/caret-down.svg";
 import { flushSync } from "react-dom/cjs/react-dom.production.min";
 import styles from "./number-input.module";
 
+const cn = require("classnames");
+
 function NumberInput({
   value,
   onChange,
   step = 1,
   positive = true,
   maxLength = 3,
+  className,
 }) {
   const [val, setVal] = useState(value);
 
@@ -42,7 +45,7 @@ function NumberInput({
   }, [val]);
 
   return (
-    <div className={styles.numberInput}>
+    <div className={cn(styles.numberInput, className)}>
       <input
         type="text"
         onChange={handleChange}
