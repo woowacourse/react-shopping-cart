@@ -15,6 +15,21 @@ import PATH from 'constants/path';
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const persistor = persistStore(store);
 
+if (process.env.NODE_ENV === 'development') {
+  if (window.location.pathname === process.env.PUBLIC_URL) {
+    window.location.pathname = `${process.env.PUBLIC_URL}/`;
+  }
+
+  const { worker } = require('./mocks/browser');
+
+  worker.start({
+    serviceWorker: {
+      url: `${process.env.PUBLIC_URL}/mockServiceWorker.js`,
+    },
+    onUnhandledRequest: 'bypass',
+  });
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

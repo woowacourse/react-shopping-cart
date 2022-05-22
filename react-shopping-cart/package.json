@@ -77,8 +77,12 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.5.11",
     "gh-pages": "^4.0.0",
+    "msw": "^0.41.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://woose28.github.io/react-shopping-cart"
+  "homepage": "https://woose28.github.io/react-shopping-cart",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
