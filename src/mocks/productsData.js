@@ -311,10 +311,10 @@ export const productsData = [
     name: '파파야',
     price: 3300,
   },
-  // {
-  //   id: 53,
-  //   image: 'https://i.pinimg.com/474x/0c/c5/63/0cc563c08748379f83e8e06ac8148703.jpg',
-  //   name: '아로니아',
-  //   price: 400,
-  // },
+  {
+    id: 53,
+    image: 'https://i.pinimg.com/474x/0c/c5/63/0cc563c08748379f83e8e06ac8148703.jpg',
+    name: '아로니아',
+    price: 400,
+  },
 ];
