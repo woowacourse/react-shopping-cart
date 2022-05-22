@@ -1,4 +1,4 @@
-import { clearCache, caching } from '@/api/cache/store';
+import { clearCache, caching } from '@/api/cache';
 import { API_URL } from '@/api/constants';
 import axios from 'axios';
 

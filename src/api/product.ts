@@ -1,4 +1,4 @@
-import { caching } from '@/api/cache/store';
+import { caching } from '@/api/cache';
 import { API_URL, PRODUCT_LIST_PAGE_LIMIT } from '@/api/constants';
 import { ProductType } from '@/domain/product';
 import axios from 'axios';
