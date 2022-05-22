@@ -1,0 +1,6 @@
+@import "@scss/no-style";
+
+.deleteIcon {
+  @include button-no-style;
+  font-size: 18px;
+}
