@@ -2,7 +2,7 @@ import { PRODUCT_LIST_PAGE_LIMIT } from 'api/constants';
 
 const initialState = {
   productList: [],
-  totalProductCount: null,
+  pageCount: null,
   isLoading: false,
 };
 
