@@ -1,5 +1,5 @@
 import ACTION_TYPE from 'redux/cart/cartActions';
-import { getObjectArrayValues } from 'utils';
+import { getObjectArrayIdxOfValue, getObjectArrayValuesOfKey, isArrayIncludesObject } from 'utils';
 
 const initialState = {
   products: [],
@@ -17,8 +17,7 @@ const cartReducer = (state = initialState, action) => {
   switch (type) {
     case ACTION_TYPE.ADD_PRODUCT_TO_CART: {
       const newProducts = [...products];
-      const cartProductIds = getObjectArrayValues(products, 'id');
-      const targetProductIdx = cartProductIds.indexOf(payload.id);
+      const targetProductIdx = getObjectArrayIdxOfValue(products, { key: 'id', value: payload.id });
 
       if (targetProductIdx !== -1) {
         newProducts[targetProductIdx].quantity += 1;
@@ -34,8 +33,7 @@ const cartReducer = (state = initialState, action) => {
     }
     case ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY: {
       const newProducts = [...products];
-      const cartProductIds = getObjectArrayValues(products, 'id');
-      const targetProductIdx = cartProductIds.indexOf(payload.id);
+      const targetProductIdx = getObjectArrayIdxOfValue(products, { key: 'id', value: payload.id });
 
       newProducts[targetProductIdx].quantity -= 1;
       newState.products = [...newProducts];
@@ -57,9 +55,12 @@ const cartReducer = (state = initialState, action) => {
       return newState;
     }
     case ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK: {
-      const checkedProductIds = getObjectArrayValues(checkedProducts, 'id');
+      const isCheckedProduct = isArrayIncludesObject(checkedProducts, {
+        key: 'id',
+        value: payload.id,
+      });
 
-      if (checkedProductIds.includes(payload.id)) {
+      if (isCheckedProduct) {
         newState.checkedProducts = checkedProducts.filter(product => product.id !== payload.id);
 
         return newState;
@@ -70,7 +71,7 @@ const cartReducer = (state = initialState, action) => {
       return newState;
     }
     case ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART: {
-      const checkedProductIds = getObjectArrayValues(checkedProducts, 'id');
+      const checkedProductIds = getObjectArrayValuesOfKey(checkedProducts, 'id');
 
       newState.products = products.filter(product => !checkedProductIds.includes(product.id));
       newState.checkedProducts = [];
