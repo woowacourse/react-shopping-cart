@@ -98,7 +98,7 @@ const CartPage = () => {
         </>
       ) : (
         <Styled.Empty>
-          <Image src={empty} size="500px" alt="empty_img" />
+          <Image src={empty} alt="empty" size="500px" />
           장바구니가 비어있어요.
         </Styled.Empty>
       )}
