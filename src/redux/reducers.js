@@ -3,6 +3,7 @@ import {
   GET_PRODUCT_LIST_SUCCESS,
   GET_PRODUCT_LIST_ERROR,
   ADD_PRODUCT_TO_CART,
+  TOGGLE_CART_ITEM_CHECK_BUTTON,
 } from "./types";
 
 export const productListInitialState = {
@@ -63,7 +64,17 @@ export const cartListReducer = (state = cartListInitialState, action) => {
       if (isExistInCart) {
         return state;
       }
-      return [...state, { ...action.payload, quantity: 1 }];
+      return [...state, { ...action.payload, quantity: 1, checked: true }];
+
+    case TOGGLE_CART_ITEM_CHECK_BUTTON:
+      const newState = [...state];
+      const selectedItem = newState.find((item) => item.id === action.payload);
+      const selectedItemIndex = newState.indexOf(selectedItem);
+
+      newState[selectedItemIndex].checked =
+        !newState[selectedItemIndex].checked;
+
+      return newState;
 
     default:
       return state;

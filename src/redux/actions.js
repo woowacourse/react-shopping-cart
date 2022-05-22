@@ -5,6 +5,7 @@ import {
   GET_PRODUCT_LIST_ERROR,
   GET_PRODUCT_LIST_START,
   GET_PRODUCT_LIST_SUCCESS,
+  TOGGLE_CART_ITEM_CHECK_BUTTON,
 } from "./types";
 import createAction from "./createAction";
 
@@ -21,4 +22,8 @@ export const getProductList = () => async (dispatch) => {
 export const addProductToCart = (args) => async (dispatch) => {
   const { id, name, price, imgUrl } = args;
   dispatch(createAction(ADD_PRODUCT_TO_CART, { id, name, price, imgUrl }));
+};
+
+export const toggleCartItemCheckButton = (id) => async (dispatch) => {
+  dispatch(createAction(TOGGLE_CART_ITEM_CHECK_BUTTON, id));
 };
