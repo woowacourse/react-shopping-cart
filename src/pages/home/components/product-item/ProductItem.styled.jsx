@@ -48,6 +48,13 @@ const StyledProductItem = styled.div`
       width: 50px;
       padding-right: 12px;
     }
+    .add-cart-btn:hover {
+      svg {
+        path {
+          fill: #03cf5b;
+        }
+      }
+    }
   }
 `;
 

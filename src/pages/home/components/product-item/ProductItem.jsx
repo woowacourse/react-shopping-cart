@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { css } from "@emotion/react";
 import CartIcon from "@/assets/images/cart.svg";
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
@@ -25,7 +26,7 @@ function ProductItem({ id, name, price, imgUrl }) {
           </div>
           <div className="l-right">
             <ImageButton onClick={handleClick}>
-              <CartIcon width="36px" height="36px" fill="#03CF5B" />
+              <CartIcon />
             </ImageButton>
           </div>
         </div>
