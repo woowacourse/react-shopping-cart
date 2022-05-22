@@ -1,7 +1,7 @@
 import StyledBadge from "./Badge.styled";
 
-function Badge() {
-  return <StyledBadge>99</StyledBadge>;
+function Badge({ count }) {
+  return <StyledBadge>{count}</StyledBadge>;
 }
 
 export default Badge;

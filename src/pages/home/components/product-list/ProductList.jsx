@@ -9,7 +9,9 @@ import Error from "@/pages/error/components/Error";
 import Loading from "@/pages/loading/Loading";
 
 function ProductList() {
-  const { data, loading, error } = useSelector((state) => state.productList);
+  const { data, loading, error } = useSelector(
+    (state) => state.productListState.productList
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -9,7 +9,7 @@ function Menu() {
         <li>
           <Link to="/cart">
             장바구니
-            <Badge />
+            <Badge count={33} />
           </Link>
         </li>
         <li>
