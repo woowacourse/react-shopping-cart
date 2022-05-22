@@ -14,12 +14,10 @@ export const useThunkFetch = ({ selector, thunkAction, deps }): RootState | any 
 };
 
 export const useFetch = ({ action, deps }) => {
-  const [response, setResponse] = useState({ isLoading: false, data: null });
+  const [response, setResponse] = useState({ isLoading: true, data: null });
 
   useEffect(() => {
     const fetch = async () => {
-      setResponse(prev => ({ ...prev, isLoading: true }));
-
       try {
         const { data } = await action();
 
