@@ -12,7 +12,7 @@ const Checkbox = styled.input`
   width: 28px;
   height: inherit;
   appearance: none;
-  border: 1px solid #22a6a2;
+  border: 1px solid var(--cyan-dark);
   border-radius: 2px;
   cursor: pointer;
 
@@ -20,14 +20,14 @@ const Checkbox = styled.input`
     outline: none;
   }
   &:checked {
-    background: #22a6a2;
+    background: var(--cyan-dark);
   }
   &::after {
     content: '✓';
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
-    color: white;
+    color: var(--white);
   }
 `;
 

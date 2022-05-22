@@ -16,7 +16,7 @@ const CartProductBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 25px 0;
-  border-top: 1.5px solid #cccccc;
+  border-top: 1.5px solid var(--gray-600);
 `;
 
 const LeftBox = styled.div`
@@ -34,7 +34,7 @@ const Name = styled.p`
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: var(--gray-900);
 `;
 
 const RightBox = styled.div`
@@ -59,15 +59,15 @@ const Quantity = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--gray-500);
   font-size: 24px;
 `;
 
 const QuantityControlButton = styled.div`
   height: 30px;
   padding: 4px 12px;
-  border: 1px solid #dddddd;
-  background: white;
+  border: 1px solid var(--gray-500);
+  background: var(--white);
   font-size: 100%;
 
   &:focus {
@@ -78,7 +78,7 @@ const QuantityControlButton = styled.div`
 const Price = styled.p`
   font-weight: 400;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: var(--gray-900);
 `;
 
 function CartProduct({ id, image, name, quantity, price }) {

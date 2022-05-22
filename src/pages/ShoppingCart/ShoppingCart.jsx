@@ -26,7 +26,7 @@ const SelectorBox = styled.div`
 
 const SelectDeleteButton = styled.div`
   padding: 12px 22px;
-  border: 1px solid #bbbbbb;
+  border: 1px solid var(--gray-700);
   font-size: 16px;
 `;
 
@@ -40,7 +40,7 @@ const DivisionLine = styled.hr`
   height: 4px;
   margin-top: 16px;
   border: 0;
-  background: #aaaaaa;
+  background: var(--gray-800);
 `;
 
 function ShoppingCart() {

@@ -32,14 +32,14 @@ const Name = styled.p`
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: var(--gray-900);
 `;
 
 const Price = styled.p`
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: var(--gray-900);
 `;
 
 const ShoppingCartIcon = styled.span`

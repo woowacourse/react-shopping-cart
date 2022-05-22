@@ -14,7 +14,7 @@ const StyledNavBar = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  background-color: #2ac1bc;
+  background-color: var(--cyan);
   opacity: 0.95;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
@@ -22,7 +22,7 @@ const StyledNavBar = styled.div`
 const LogoText = styled.span`
   font-weight: 900;
   font-size: 40px;
-  color: #ffffff;
+  color: var(--white);
 `;
 
 const MenuBox = styled.div`
@@ -36,7 +36,7 @@ const MenuText = styled.span`
   font-size: 24px;
   text-align: center;
   text-transform: capitalize;
-  color: #ffffff;
+  color: var(--white);
 `;
 
 function NavBar() {

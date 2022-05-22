@@ -8,7 +8,7 @@ const ResultBox = styled.div`
   width: 448px;
   height: 318px;
   margin: 52px 0 0 86px;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--gray-500);
 `;
 
 const Title = styled.div`
@@ -21,7 +21,7 @@ const Title = styled.div`
 const DivisionLine = styled.hr`
   height: 3px;
   border: 0;
-  background: #dddddd;
+  background: var(--gray-500);
 `;
 
 const HighlightTextBox = styled.div`
@@ -45,7 +45,7 @@ const HighlightText = styled.span`
     bottom: 0;
     width: 100%;
     height: 8px;
-    background-color: #2ac1bc;
+    background-color: var(--cyan);
     opacity: 0.5;
     z-index: -1;
   }
@@ -63,9 +63,9 @@ const OrderButton = styled.div`
   width: 388px;
   height: 73px;
   padding: 20px;
-  background: #2ac1bc;
+  background: var(--cyan);
   font-size: 24px;
-  color: white;
+  color: var(--white);
 `;
 
 function Result({ title, price, button }) {

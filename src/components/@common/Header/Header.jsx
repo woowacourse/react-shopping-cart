@@ -6,7 +6,7 @@ const HeaderTitle = styled.h2`
   line-height: 37px;
   text-align: center;
   letter-spacing: 0.5px;
-  color: #333333;
+  color: var(--gray-900);
 `;
 
 const DivisionLine = styled.hr`
@@ -14,7 +14,7 @@ const DivisionLine = styled.hr`
   height: 4px;
   margin-top: 29px;
   border: 0;
-  background: #333333;
+  background: var(--gray-900);
 `;
 
 function Header({ children }) {
