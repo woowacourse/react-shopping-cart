@@ -1,50 +1,32 @@
 import PropTypes from 'prop-types';
-import { getNumberFormatter } from 'lib/formatterUtils';
 
-import Button from 'components/@common/Button';
-import ToolTip from 'components/@common/ToolTip';
+import VerticalContent from './VerticalContent';
+import HorizontalContent from './HorizontalContent';
 
-import { ICON_CODE } from 'constants/';
-import * as S from './styles';
+function ProductItem({ direction = 'vertical', id, image, name, price, onClickAddCart }) {
+  switch (direction) {
+    case 'vertical':
+      return <VerticalContent {...{ id, image, name, price, onClickAddCart }} />;
+    case 'horizontal':
+      return <HorizontalContent {...{ id, image, name, price, onClickAddCart }} />;
 
-function ProductItem({ id, image, name, price, onClick }) {
-  const handleClickAddCartButton = () => {
-    onClick({ id, image, name, price });
-  };
-
-  return (
-    <S.Container>
-      <S.ImageContainer>
-        <S.Image src={image} alt="product thumbnail" />
-      </S.ImageContainer>
-
-      <S.Description>
-        <S.ItemInfo>
-          <S.Title>{name}</S.Title>
-          <S.Price>{getNumberFormatter(price)}원</S.Price>
-        </S.ItemInfo>
-
-        <S.ButtonContainer>
-          <ToolTip text="장바구니 담기" align="bottom">
-            <Button className="cart" onClick={handleClickAddCartButton} icon={ICON_CODE.CART} />
-          </ToolTip>
-        </S.ButtonContainer>
-      </S.Description>
-    </S.Container>
-  );
+    // no default
+  }
 }
 
+ProductItem.defaultProps = {
+  direction: 'vertical',
+  image: '기본 이미지 URL',
+  name: '이름이 지정되지 않았습니다.',
+  price: -1,
+};
+
 ProductItem.propTypes = {
+  direction: PropTypes.oneOf(['vertical', 'horizontal']),
   id: PropTypes.number.isRequired,
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
-};
-
-ProductItem.defaultProps = {
-  image: '기본 이미지 URL',
-  name: '이름이 지정되지 않았습니다.',
-  price: -1,
 };
 
 export default ProductItem;

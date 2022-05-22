@@ -1,15 +1,26 @@
 import styled from '@emotion/styled/macro';
+import { css } from '@emotion/react';
+
 import { COLORS, LAYOUT } from 'styles/theme';
 
 const Container = styled.div`
-  margin-bottom: 2rem;
+  ${({ direction }) =>
+    (direction === 'horizontal' &&
+      css`
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+      `) ||
+    (direction === 'vertical' &&
+      css`
+        margin-bottom: 2rem;
+      `)}
 `;
 
 const ImageContainer = styled.div`
   cursor: pointer;
 
   position: relative;
-  width: 100%;
   overflow: hidden;
 
   &::after {
@@ -17,6 +28,15 @@ const ImageContainer = styled.div`
     display: block;
     padding-bottom: 100%;
   }
+
+  ${({ fill }) =>
+    fill
+      ? css`
+          width: 100%;
+        `
+      : css`
+          width: 25%;
+        `};
 `;
 
 const Image = styled.img`
@@ -65,8 +85,19 @@ const Description = styled.div`
 `;
 
 const ItemInfo = styled.div`
-  width: 80%;
-  padding: 0.6rem 0;
+  ${({ direction }) =>
+    direction === 'horizontal'
+      ? css`
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 75%;
+          padding: 1rem 1.5rem;
+        `
+      : css`
+          width: 80%;
+          padding: 0.6rem 0;
+        `}
 
   & > p {
     width: 100%;
@@ -83,7 +114,7 @@ const Title = styled.p`
 `;
 
 const Price = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 `;
 
 const ButtonContainer = styled.div`
