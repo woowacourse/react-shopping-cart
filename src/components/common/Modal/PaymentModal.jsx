@@ -56,9 +56,8 @@ const modalType = {
   },
 };
 
-const PaymentModal = ({ type, amount }) => {
+const PaymentModal = ({ type, amount, totalCount }) => {
   const { title, description, buttonContent } = modalType[type];
-
   return (
     <Styled.Wrapper>
       <Styled.Title>{title}</Styled.Title>
@@ -66,7 +65,7 @@ const PaymentModal = ({ type, amount }) => {
         <Styled.Content>{description}</Styled.Content>
         <Styled.Content>{amount}원</Styled.Content>
       </Styled.ContentBox>
-      <OrderButton>{buttonContent}</OrderButton>
+      <OrderButton>{`${buttonContent}(${totalCount}개)`}</OrderButton>
     </Styled.Wrapper>
   );
 };
@@ -74,6 +73,7 @@ const PaymentModal = ({ type, amount }) => {
 PaymentModal.propTypes = {
   type: PropTypes.string,
   amount: PropTypes.number,
+  totalCount: PropTypes.number,
 };
 
 export default PaymentModal;
