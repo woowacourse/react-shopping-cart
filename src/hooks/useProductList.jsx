@@ -8,15 +8,14 @@ import { productSelector } from 'store/selector';
 
 export default function useProductList() {
   const dispatch = useDispatch();
-
+  const { isLoading, productList, pageCount } = useSelector(productSelector);
   const [searchParams] = useSearchParams();
+
   const currentPage = searchParams.get('page') ?? 1;
 
   useEffect(() => {
     dispatch(fetchProductListAsync(currentPage));
   }, [currentPage]);
-
-  const { isLoading, productList, pageCount } = useSelector(productSelector);
 
   return { isLoading, productList, pageCount, currentPage };
 }
