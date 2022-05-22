@@ -9,14 +9,13 @@ import store from 'store/store';
 import { doDeleteProductFromCart, doPutProductToCart } from 'actions/actionCreator';
 
 import autoComma from 'utils/autoComma';
-import { PRODUCT } from 'constants';
 import Styled from 'components/ProductItem/index.style';
 import { LINK } from 'constants';
 
 const ProductItem = ({ id }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
+  const [quantity, setQuantity] = useState(1);
   const { products, shoppingCart } = useSelector(state => state.reducer);
   const [clearTimer, setAutoCloseTimer, extendTimer] = useClose();
   const { name, price, image, isInCart } = products.find(product => product.id === id);
