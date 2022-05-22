@@ -1,6 +1,94 @@
 import cartReducer, { initialState } from 'redux/cart/cartReducer';
 import ACTION_TYPE from 'redux/cart/cartActions';
 
+describe('장바구니를 이용할 수 있다.', () => {
+  test('상품을 장바구니에 추가할 수 있다.', () => {
+    const newState = addApple();
+
+    expect(newState).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+  });
+
+  test('장바구니 상품의 수량을 증가시킬 수 있다.', () => {
+    const newState = addAppleTwice();
+
+    expect(newState).toHaveProperty('products', [{ ...apple, quantity: 2 }]);
+  });
+
+  test('장바구니 상품의 수량을 감소시킬 수 있다.', () => {
+    const subtractAction = { type: ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY, payload: apple };
+    const newStateAfterAddTwice = addAppleTwice();
+
+    const newStateAfterSubtract = cartReducer(newStateAfterAddTwice, subtractAction);
+
+    expect(newStateAfterSubtract).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+  });
+
+  test('모든 장바구니 상품을 선택 해제할 수 있다.', () => {
+    const selectAllAction = {
+      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
+      payload: { checked: false },
+    };
+    const newStateAfterAddAppleAndGrape = addAppleAndGrape();
+
+    const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
+
+    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', false);
+    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', []);
+  });
+
+  test('장바구니의 모든 상품을 선택할 수 있다.', () => {
+    const selectAllAction = {
+      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
+      payload: { checked: true },
+    };
+    const newStateAfterAddAppleAndGrape = addAppleAndGrape();
+
+    const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
+
+    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', true);
+    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', [
+      { ...apple, quantity: 1 },
+      { ...grape, quantity: 1 },
+    ]);
+  });
+
+  test('장바구니 상품을 선택할 수 있다.', () => {
+    const newStateAfterAdd = addApple();
+    const newStateAfterUnselect = toggleApple(newStateAfterAdd);
+
+    const newStateAfterSelect = toggleApple(newStateAfterUnselect);
+
+    expect(newStateAfterSelect).toHaveProperty('checkedProducts', [{ id: apple.id }]);
+  });
+
+  test('장바구니 상품을 선택 해제할 수 있다.', () => {
+    const newStateAfterAddApple = addApple();
+
+    const newStateAfterSelectApple = toggleApple(newStateAfterAddApple);
+
+    expect(newStateAfterSelectApple).toHaveProperty('checkedProducts', []);
+  });
+
+  test('선택한 상품을 장바구니에서 삭제할 수 있다.', () => {
+    const removeAction = { type: ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART };
+    const newStateAfterAddGrape = addAppleAndGrape();
+    const newStateAfterUnselectApple = toggleApple(newStateAfterAddGrape);
+
+    const newStateRemove = cartReducer(newStateAfterUnselectApple, removeAction);
+
+    expect(newStateRemove).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+  });
+
+  test('상품을 장바구니에서 삭제할 수 있다.', () => {
+    const removeAction = { type: ACTION_TYPE.REMOVE_PRODUCT_FROM_CART, payload: { id: apple.id } };
+    const newStateAfterAdd = addApple();
+
+    const newStateAfterRemove = cartReducer(newStateAfterAdd, removeAction);
+
+    expect(newStateAfterRemove).toHaveProperty('products', []);
+  });
+});
+
 const mockDatas = [
   {
     id: 1,
@@ -18,115 +106,33 @@ const mockDatas = [
 
 const [apple, grape] = mockDatas;
 
-describe('장바구니를 이용할 수 있다.', () => {
-  test('상품을 장바구니에 추가할 수 있다.', () => {
-    const action = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
+const addApple = () => {
+  const action = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
 
-    const newState = cartReducer(initialState, action);
+  return cartReducer(initialState, action);
+};
 
-    expect(newState).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
-  });
+const addAppleTwice = () => {
+  const action = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
 
-  test('장바구니 상품의 수량을 증가시킬 수 있다.', () => {
-    const action = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
+  const newStateAfterFirstAdd = cartReducer(initialState, action);
+  const newStateAfterSecondAdd = cartReducer(newStateAfterFirstAdd, action);
 
-    const newStateAfterFirstAdd = cartReducer(initialState, action);
-    const newStateAfterSecondAdd = cartReducer(newStateAfterFirstAdd, action);
+  return newStateAfterSecondAdd;
+};
 
-    expect(newStateAfterSecondAdd).toHaveProperty('products', [{ ...apple, quantity: 2 }]);
-  });
+const addAppleAndGrape = () => {
+  const appleAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
+  const grapeAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: grape };
 
-  test('장바구니 상품의 수량을 감소시킬 수 있다.', () => {
-    const addAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const subtractAction = { type: ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY, payload: apple };
+  const newStateAfterAddApple = cartReducer(initialState, appleAddAction);
+  const newStateAfterAddGrape = cartReducer(newStateAfterAddApple, grapeAddAction);
 
-    const newStateAfterFirstAdd = cartReducer(initialState, addAction);
-    const newStateAfterSecondAdd = cartReducer(newStateAfterFirstAdd, addAction);
-    const newStateAfterSubtract = cartReducer(newStateAfterSecondAdd, subtractAction);
+  return newStateAfterAddGrape;
+};
 
-    expect(newStateAfterSubtract).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
-  });
+const toggleApple = prevState => {
+  const toggleAction = { type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id: apple.id } };
 
-  test('모든 장바구니 상품을 선택 해제할 수 있다.', () => {
-    const appleAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const grapeAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: grape };
-    const selectAllAction = {
-      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
-      payload: { checked: false },
-    };
-
-    const newStateAfterAddApple = cartReducer(initialState, appleAddAction);
-    const newStateAfterAddGrape = cartReducer(newStateAfterAddApple, grapeAddAction);
-    const newStateAfterSelectAll = cartReducer(newStateAfterAddGrape, selectAllAction);
-
-    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', false);
-    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', []);
-  });
-
-  test('장바구니의 모든 상품을 선택할 수 있다.', () => {
-    const appleAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const grapeAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: grape };
-    const selectAllAction = {
-      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
-      payload: { checked: true },
-    };
-
-    const newStateAfterAddApple = cartReducer(initialState, appleAddAction);
-    const newStateAfterAddGrape = cartReducer(newStateAfterAddApple, grapeAddAction);
-    const newStateAfterSelectAll = cartReducer(newStateAfterAddGrape, selectAllAction);
-
-    expect(newStateAfterSelectAll).toHaveProperty('isAllProductsChecked', true);
-    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', [
-      { ...apple, quantity: 1 },
-      { ...grape, quantity: 1 },
-    ]);
-  });
-
-  test('장바구니 상품을 선택할 수 있다.', () => {
-    const addAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const selectAction = { type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id: apple.id } };
-
-    const newStateAfterAdd = cartReducer(initialState, addAction);
-    const newStateAfterUnselect = cartReducer(newStateAfterAdd, selectAction);
-    const newStateAfterSelect = cartReducer(newStateAfterUnselect, selectAction);
-
-    expect(newStateAfterSelect).toHaveProperty('checkedProducts', [{ id: apple.id }]);
-  });
-
-  test('장바구니 상품을 선택 해제할 수 있다.', () => {
-    const addAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const selectAction = { type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id: apple.id } };
-
-    const newStateAfterAddApple = cartReducer(initialState, addAction);
-    const newStateAfterSelectApple = cartReducer(newStateAfterAddApple, selectAction);
-
-    expect(newStateAfterSelectApple).toHaveProperty('checkedProducts', []);
-  });
-
-  test('선택한 상품을 장바구니에서 삭제할 수 있다.', () => {
-    const appleAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const grapeAddAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: grape };
-    const unSelectAction = {
-      type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK,
-      payload: { id: apple.id },
-    };
-    const removeAction = { type: ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART };
-
-    const newStateAfterAddApple = cartReducer(initialState, appleAddAction);
-    const newStateAfterAddGrape = cartReducer(newStateAfterAddApple, grapeAddAction);
-    const newStateAfterSelectApple = cartReducer(newStateAfterAddGrape, unSelectAction);
-    const newStateRemove = cartReducer(newStateAfterSelectApple, removeAction);
-
-    expect(newStateRemove).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
-  });
-
-  test('상품을 장바구니에서 삭제할 수 있다.', () => {
-    const addAction = { type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: apple };
-    const removeAction = { type: ACTION_TYPE.REMOVE_PRODUCT_FROM_CART, payload: { id: apple.id } };
-
-    const newStateAfterAdd = cartReducer(initialState, addAction);
-    const newStateAfterRemove = cartReducer(newStateAfterAdd, removeAction);
-
-    expect(newStateAfterRemove).toHaveProperty('products', []);
-  });
-});
+  return cartReducer(prevState, toggleAction);
+};
