@@ -9,7 +9,7 @@ interface PaymentBoxProps {
   priceDescription: string;
   price: number;
   buttonText: string;
-  style: any;
+  style: Record<string, string>;
 }
 
 const PaymentBox = ({ title, priceDescription, price, buttonText, style }: PaymentBoxProps) => {
