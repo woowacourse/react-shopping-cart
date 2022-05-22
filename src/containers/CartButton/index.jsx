@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'components/Image';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestCartAdd, requestCartAddFail } from 'modules/cart';
+import CartButtonStyled from './style';
 
 function CartButton({ id }) {
   const carts = useSelector((state) => state.cart.carts);
@@ -22,13 +23,15 @@ function CartButton({ id }) {
   };
 
   return (
-    <Image
-      src={process.env.PUBLIC_URL + '/img/shopping-cart-black.png'}
-      width={'30px'}
-      height={'26px'}
-      alt="카트 이미지"
-      onClick={handleCartButtonClick}
-    />
+    <CartButtonStyled>
+      <Image
+        src={process.env.PUBLIC_URL + '/img/shopping-cart-black.png'}
+        width={'30px'}
+        height={'26px'}
+        alt="카트 이미지"
+        onClick={handleCartButtonClick}
+      />
+    </CartButtonStyled>
   );
 }
 
