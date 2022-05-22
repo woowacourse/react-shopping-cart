@@ -19,7 +19,9 @@ function ProductItem({ id, name, price, imgUrl }) {
         <div className="product-detail">
           <div className="l-left">
             <div className="product-title">{name}</div>
-            <div className="product-price">{price}원</div>
+            <div className="product-price">
+              {price.toLocaleString("ko-KR")}원
+            </div>
           </div>
           <div className="l-right">
             <ImageButton onClick={handleClick}>
