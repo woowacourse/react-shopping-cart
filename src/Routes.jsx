@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import DefaultLayout from './layouts/DefaultLayout';
+import CartPageLayout from './layouts/CartPageLayout';
 
 const Loadable = (Component) => (props) =>
   (
@@ -38,7 +39,13 @@ const routes = [
       },
       {
         path: 'cart',
-        element: <CartPage />,
+        element: <CartPageLayout />,
+        children: [
+          {
+            path: '',
+            element: <CartPage />,
+          },
+        ],
       },
     ],
   },
