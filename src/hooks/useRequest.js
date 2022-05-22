@@ -5,13 +5,10 @@ const useRequest = (callback) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState({ isError: false, message: '' });
 
-  const getData = useCallback(async () => {
-    return await callback();
-  }, [callback]);
+  const getData = useCallback(callback, [callback]);
 
   useEffect(() => {
-    if (data || error.isError) return;
-
+    console.log('--');
     getData()
       .then((res) => {
         setDate(res.data);
@@ -19,7 +16,7 @@ const useRequest = (callback) => {
         return;
       })
       .catch((err) => setError({ isError: true, message: err.message }));
-  }, [getData, data, error]);
+  }, []);
 
   return { data, loading, error };
 };
