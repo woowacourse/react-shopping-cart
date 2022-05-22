@@ -5,18 +5,18 @@ export default {
   component: LoadingThumbnail,
   argTypes: {
     src: {
-      control: { type: 'string' },
+      control: { type: "string" },
     },
   },
 };
 
-const Template = (args) => {
+function Template(args) {
   return (
-    <div style={{width: '300px'}}>
+    <div style={{ width: "300px" }}>
       <LoadingThumbnail {...args} />
     </div>
-  )
-};
+  );
+}
 
 export const Primary = Template.bind({});
 
