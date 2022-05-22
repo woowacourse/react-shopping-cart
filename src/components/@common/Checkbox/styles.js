@@ -6,7 +6,9 @@ import { ICON_CODE } from 'constants/';
 import { getPixelToRem } from 'lib/formatterUtils';
 
 const SIZE_PROP = (size) => {
-  switch (size) {
+  const sizeOption = typeof size === 'string' ? size.toUpperCase() : size;
+
+  switch (sizeOption) {
     case 'LARGE':
       return '1.5rem';
 
@@ -31,7 +33,7 @@ const Container = styled.label`
   ${({ size }) =>
     size &&
     css`
-      font-size: ${SIZE_PROP(size.toUpperCase())};
+      font-size: ${SIZE_PROP(size)};
     `}
 
   &::before {
@@ -67,7 +69,7 @@ const Check = styled.input`
 `;
 
 const Text = styled.span`
-  margin-left: 0.5em;
+  margin-left: 0.7em;
   font-size: 0.85em;
 `;
 
