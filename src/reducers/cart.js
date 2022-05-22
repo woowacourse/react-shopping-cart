@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import produce from 'immer';
-
 import { CARTS_ACTIONS } from 'actions/types';
 import { createAsyncState } from 'lib/requestUtils';
 
@@ -12,15 +10,34 @@ export default (state = initialState, action) => {
   const { type, payload = {}, async = {} } = action;
 
   switch (type) {
-    case CARTS_ACTIONS.UPDATE_CART_LIST_SUCCESS:
-      return produce(state, (draft) => {
-        draft.items = { ...draft.items, ...async };
-        draft.items.content = payload;
-      });
+    case CARTS_ACTIONS.UPDATE_CART_LIST_SUCCESS: {
+      const updateCartList = payload.map((item) => ({ ...item, isChecked: true }));
+      return { ...state, items: { ...state.items, ...async, content: updateCartList } };
+    }
 
     case CARTS_ACTIONS.UPDATE_CART_LIST_PENDING:
     case CARTS_ACTIONS.UPDATE_CART_LIST_ERROR:
       return { ...state, items: { ...state.items, ...async } };
+
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_SUCCESS: {
+      const { id: updatedId } = payload;
+      const targetIndex = state.items.content.findIndex(({ id }) => id === updatedId);
+
+      const updateCartList = [...state.items.content];
+      updateCartList[targetIndex] = { ...updateCartList[targetIndex], ...payload };
+
+      return { ...state, items: { ...state.items, content: updateCartList } };
+    }
+
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_CHECKED: {
+      const { id: updatedId, isChecked } = payload;
+      const targetIndex = state.items.content.findIndex(({ id }) => id === updatedId);
+
+      const updateCartList = [...state.items.content];
+      updateCartList[targetIndex].isChecked = isChecked;
+
+      return { ...state, items: { ...state.items, content: updateCartList } };
+    }
 
     default:
       return state;

@@ -1,6 +1,11 @@
-import { requestAddCart, requestGetCartList } from 'api/cart';
+import {
+  requestAddCart,
+  requestEditCartItem,
+  requestGetCartList,
+  requestUpdateCartItem,
+} from 'api/cart';
 import { REQUEST_STATUS } from 'constants/';
-import { addCartListAction, getCartListAction } from './action';
+import { addCartListAction, getCartListAction, updateCartItemSuccess } from './action';
 
 const getCartList = () => async (dispatch) => {
   dispatch(getCartListAction.pending());
@@ -14,7 +19,7 @@ const getCartList = () => async (dispatch) => {
 };
 
 const addCartList =
-  ({ id, image, name, price, quantity = 1, isChecked = true }) =>
+  ({ id, image, name, price, quantity = 1 }) =>
   async (dispatch) => {
     dispatch(addCartListAction.pending());
 
@@ -24,7 +29,6 @@ const addCartList =
       name,
       price,
       quantity,
-      isChecked,
     });
 
     (status === REQUEST_STATUS.SUCCESS && dispatch(addCartListAction.success(content))) ||
@@ -33,4 +37,15 @@ const addCartList =
     return true;
   };
 
-export { getCartList, addCartList };
+const updateCartItem = (id, changedContent) => async (dispatch) => {
+  const { status, content } = await requestUpdateCartItem(id, changedContent);
+
+  if (status === REQUEST_STATUS.FAIL) {
+    return false;
+  }
+
+  dispatch(updateCartItemSuccess(content));
+  return true;
+};
+
+export { getCartList, addCartList, updateCartItem };

@@ -1,3 +1,5 @@
+import useCart from 'hooks/useCart';
+
 import FlexContainer from 'components/@common/FlexContainer';
 import Button from 'components/@common/Button';
 import Checkbox from 'components/@common/Checkbox';
@@ -11,6 +13,22 @@ import { ICON_CODE } from 'constants/';
 import * as S from './styles';
 
 export function CartList() {
+  const { action, state } = useCart();
+  const { cartItems, isLoading, isLoaded, error } = state;
+  const { addItem, updateItem, updateItemChecked, removeItem } = action;
+
+  const handleCheckItem = (id, isChecked) => {
+    updateItemChecked(id, isChecked);
+  };
+
+  const handleChangeQuantity = (id, quantity) => {
+    updateItem(id, { quantity });
+  };
+
+  const handleRemoveItem = () => {
+    console.log('remove');
+  };
+
   return (
     <>
       <Title description="구매할 상품을 체크한 후 우측의 주문하기를 누르시면 상품을 주문할 수 있어요!">
@@ -29,22 +47,27 @@ export function CartList() {
 
           <FlexContainer>
             <Title type="content" size={14}>
-              장바구니 상품 <TextUnderline>(7개 담김)</TextUnderline>
+              장바구니 상품{'\u00A0'}
+              <TextUnderline>
+                {isLoaded === true ? `(${cartItems.length}개 담김)` : '(0개 담김)'}
+              </TextUnderline>
             </Title>
 
             <FlexContainer direction="column" justify="center">
-              <CartItem
-                id="1"
-                image="https://cdn-mart.baemin.com/sellergoods/list/374ca49e-99a3-4070-8b62-178a27d2fa1c.jpg"
-                name="테스트 상품"
-                price="50000"
-              />
-              <CartItem
-                id="1"
-                image="https://cdn-mart.baemin.com/sellergoods/list/374ca49e-99a3-4070-8b62-178a27d2fa1c.jpg"
-                name="테스트 상품"
-                price="50000"
-              />
+              {isLoaded &&
+                cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
+                  <CartItem
+                    key={id}
+                    id={id}
+                    image={image}
+                    name={name}
+                    price={price}
+                    quantity={quantity}
+                    isChecked={isChecked}
+                    onChangeCheckBox={handleCheckItem}
+                    onChangeCounter={handleChangeQuantity}
+                  />
+                ))}
             </FlexContainer>
           </FlexContainer>
         </FlexContainer>

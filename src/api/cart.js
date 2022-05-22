@@ -21,14 +21,14 @@ const requestAddCart = ({ id, image, name, price, quantity, isChecked }) =>
     }),
   });
 
-const requestEditCartItem = async (id, quantity) => {
+const requestUpdateCartItem = async (id, content) => {
   const response = await request(`/cart/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      quantity,
+      ...content,
     }),
   });
 
@@ -43,4 +43,4 @@ const requestRemoveCartItem = async (id) => {
   return response;
 };
 
-export { requestGetCartList, requestAddCart, requestEditCartItem, requestRemoveCartItem };
+export { requestGetCartList, requestAddCart, requestUpdateCartItem, requestRemoveCartItem };
