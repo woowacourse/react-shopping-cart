@@ -1,17 +1,27 @@
-import { Product } from 'types';
+import { CartStoreState, Product } from 'types';
+
 import ProductCard from 'components/ProductCard/ProductCard';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 type Props = {
   productList: Array<Product>;
 };
 
 function ProductCardGrid({ productList }: Props) {
+  const cart = useSelector(
+    (state: { cart: CartStoreState }) => state.cart.cart
+  );
+
   return (
     <StyledProductCardGrid>
       {productList.length > 0 ? (
         productList.map((product) => (
-          <ProductCard product={product} key={product.id} />
+          <ProductCard
+            product={product}
+            isInCart={cart.find((item) => item.id === product.id) !== undefined}
+            key={product.id}
+          />
         ))
       ) : (
         <Message>상품이 없어요 😢</Message>

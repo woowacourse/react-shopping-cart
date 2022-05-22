@@ -28,6 +28,7 @@ function ProductPage() {
     (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
       dispatch(cartActions.addToCart(Number(id)));
+      alert('장바구니에 추가되었습니다.');
     },
     [dispatch, id]
   );

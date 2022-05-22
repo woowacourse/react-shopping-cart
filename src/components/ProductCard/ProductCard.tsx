@@ -8,9 +8,10 @@ import { useDispatch } from 'react-redux';
 
 type Props = {
   product: Product;
+  isInCart: boolean;
 };
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product, isInCart }: Props) {
   const { id, name, price, stock, description, image } = {
     ...product,
     stock: Number(product.stock),
@@ -21,6 +22,7 @@ function ProductCard({ product }: Props) {
   const onClickCartButton = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(cartActions.addToCart(id));
+    alert('장바구니에 추가되었습니다.');
   };
 
   return (
@@ -43,7 +45,10 @@ function ProductCard({ product }: Props) {
         </CardDescriptionContainer>
         <CardButtonContainer>
           <button onClick={onClickCartButton}>
-            <ShoppingCart width="100%" fill="currentColor" />
+            <ShoppingCart
+              width="100%"
+              fill={isInCart ? '#ff9c9c' : 'currentColor'}
+            />
           </button>
         </CardButtonContainer>
       </StyledProductCard>
