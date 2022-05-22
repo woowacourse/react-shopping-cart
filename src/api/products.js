@@ -1,6 +1,6 @@
-import { requestHandler } from 'lib/requestUtils';
+import { request } from 'lib/requestUtils';
 
 const requestGetProductList = (page = 1) =>
-  requestHandler(`/shopping?_page=${page}&_limit=12`, { method: 'GET' });
+  request(`/shopping?_page=${page}&_limit=12`, { method: 'GET' });
 
 export { requestGetProductList };

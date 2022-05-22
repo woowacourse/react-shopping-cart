@@ -9,39 +9,29 @@ const request = async (url, option) => {
   try {
     const response = await fetch(process.env.REACT_APP_API_URL + url, newOption);
     const jsonBody = await response.json();
+    const responseHeader = Object.fromEntries(response.headers.entries());
 
     clearTimeout(timerID);
 
     return {
       status: response.ok ? REQUEST_STATUS.SUCCESS : REQUEST_STATUS.FAIL,
       statusCode: response.status,
+      header: responseHeader,
       content: jsonBody,
     };
   } catch (error) {
     return {
       status: REQUEST_STATUS.FAIL,
-      content: `서버와의 통신에 실패하였습니다. (${error.message})`,
+      content: `서버와의 통신에 실패하였습니다.\n(${error.message})`,
     };
   }
 };
 
-const createRequestState = {
+const createAsyncState = {
   initial: (defaultContent) => ({ isLoading: false, content: defaultContent, error: null }),
-  loading: () => ({ isLoading: true, error: null }),
-  success: (content) => ({ isLoading: false, content, error: null }),
+  pending: () => ({ isLoading: true, error: null }),
+  success: () => ({ isLoading: false, error: null }),
   error: (error) => ({ isLoading: false, error }),
 };
 
-const requestHandler =
-  (url, option) =>
-  async ({ PENDING: pendingDispatch, SUCCESS: successDispatch, ERROR: errorDispatch }) => {
-    pendingDispatch();
-
-    const response = await request(url, option);
-
-    response.status === REQUEST_STATUS.SUCCESS
-      ? successDispatch(response.content)
-      : errorDispatch(response.content);
-  };
-
-export { createRequestState, requestHandler };
+export { request, createAsyncState };
