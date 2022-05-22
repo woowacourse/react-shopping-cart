@@ -43,4 +43,18 @@ const requestRemoveCartItem = async (id) => {
   return response;
 };
 
-export { requestGetCartList, requestAddCart, requestUpdateCartItem, requestRemoveCartItem };
+const requestRemoveCartItemList = async (idList) => {
+  const response = await request(`/cart/${idList.join(',')}`, {
+    method: 'DELETE',
+  });
+
+  return response;
+};
+
+export {
+  requestGetCartList,
+  requestAddCart,
+  requestUpdateCartItem,
+  requestRemoveCartItem,
+  requestRemoveCartItemList,
+};

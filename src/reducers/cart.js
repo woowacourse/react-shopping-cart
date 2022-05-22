@@ -41,9 +41,14 @@ export default (state = initialState, action) => {
 
     case CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS: {
       const { id: updatedId } = payload;
-
       const updateCartList = [...state.items.content].filter(({ id }) => id !== updatedId);
-      console.log(updatedId, updateCartList);
+
+      return { ...state, items: { ...state.items, content: updateCartList } };
+    }
+
+    case CARTS_ACTIONS.REMOVE_CART_ITEM_LIST_SUCCESS: {
+      const { idList } = payload;
+      const updateCartList = [...state.items.content].filter(({ id }) => !idList.includes(id));
 
       return { ...state, items: { ...state.items, content: updateCartList } };
     }

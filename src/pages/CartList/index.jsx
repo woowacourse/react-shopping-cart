@@ -14,15 +14,19 @@ import * as S from './styles';
 
 export function CartList() {
   const { action, state } = useCart();
-  const { cartItems, isLoading, isLoaded, error } = state;
-  const { addItem, updateItem, updateItemChecked, removeItem } = action;
+  const { cartItems, isLoading, isLoaded, error, checkedItemList } = state;
+  const { updateItem, updateItemChecked, removeItem, removeItemList } = action;
+
+  const isSelectAllChecked = checkedItemList.length > 0;
 
   const handleCheckItem = (id, isChecked) => {
     updateItemChecked(id, isChecked);
   };
 
   const handleChangeQuantity = (id, quantity) => {
-    updateItem(id, { quantity });
+    updateItem(id, { quantity }).then((status) => {
+      status === false && alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
+    });
   };
 
   const handleRemoveItem = (id) => {
@@ -30,7 +34,21 @@ export function CartList() {
       return;
     }
 
-    removeItem(id);
+    removeItem(id).then((status) => {
+      status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
+    });
+  };
+
+  const handleRemoveItemList = () => {
+    if (!confirm('정말 선택한 상품을 모두 제거하시겠습니까?')) {
+      return;
+    }
+
+    const checkedIdList = checkedItemList.map(({ id }) => id);
+
+    removeItemList(checkedIdList).then((status) => {
+      status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
+    });
   };
 
   return (
@@ -43,9 +61,13 @@ export function CartList() {
       <S.Container>
         <FlexContainer gap={16}>
           <S.ControllerContainer>
-            <Checkbox size="medium">선택 해제</Checkbox>
+            <Checkbox size="medium" checked={isSelectAllChecked}>
+              {isSelectAllChecked ? '선택 해제' : '전체 선택'}
+            </Checkbox>
             <ToolTip text="선택한 상품을 장바구니에서 삭제합니다." align="bottom">
-              <Button icon={ICON_CODE.TRASH}>상품 삭제</Button>
+              <Button icon={ICON_CODE.TRASH} onClick={handleRemoveItemList}>
+                선택 삭제
+              </Button>
             </ToolTip>
           </S.ControllerContainer>
 

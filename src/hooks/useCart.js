@@ -1,11 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addCartList, getCartList, removeCartItem, updateCartItem } from 'actions/cart/thunk';
+import {
+  addCartList,
+  getCartList,
+  removeCartItem,
+  removeCartItemList,
+  updateCartItem,
+} from 'actions/cart/thunk';
 import { updateCartItemChecked } from 'actions/cart/action';
 
 function useCart() {
   const { items: cartItems } = useSelector((state) => state.cart);
+  const checkedItemList = cartItems.content.filter(({ isChecked }) => isChecked === true);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,31 +24,25 @@ function useCart() {
     dispatch(getCartList());
   }, []);
 
-  const addItem = ({ id, image, name, price, quantity }) => {
+  const addItem = ({ id, image, name, price, quantity }) =>
     dispatch(addCartList({ id, image, name, price, quantity }));
-  };
 
-  const updateItem = (id, content) => {
-    dispatch(updateCartItem(id, content));
-  };
+  const updateItem = (id, content) => dispatch(updateCartItem(id, content));
 
-  const updateItemChecked = (id, isChecked) => {
-    dispatch(updateCartItemChecked(id, isChecked));
-  };
+  const updateItemChecked = (id, isChecked) => dispatch(updateCartItemChecked(id, isChecked));
 
-  const removeItem = (id) => {
-    dispatch(removeCartItem(id)).then(() => {
-      alert('상품이 제거 되었습니다.');
-    });
-  };
+  const removeItem = (id) => dispatch(removeCartItem(id));
+
+  const removeItemList = (idList) => dispatch(removeCartItemList(idList));
 
   return {
-    action: { addItem, updateItem, updateItemChecked, removeItem },
+    action: { addItem, updateItem, updateItemChecked, removeItem, removeItemList },
     state: {
       cartItems: cartItems.content,
       isLoading: cartItems.isLoading,
       isLoaded: cartItems.isLoaded,
       error: cartItems.error,
+      checkedItemList,
     },
   };
 }

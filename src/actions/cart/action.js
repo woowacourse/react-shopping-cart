@@ -1,6 +1,4 @@
 import { createAsyncState } from 'lib/requestUtils';
-import { number } from 'prop-types';
-
 import { CARTS_ACTIONS } from '../types';
 
 const getCartListAction = {
@@ -49,9 +47,18 @@ const updateCartItemChecked = (id, isChecked) => ({
   payload: { id, isChecked },
 });
 
+const updateCartItemAllChecked = () => ({
+  type: CARTS_ACTIONS.UPDATE_CART_ITEM_ALL_CHECKED,
+});
+
 const removeCartItemSuccess = (id) => ({
   type: CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS,
   payload: { id },
+});
+
+const removeCartItemListSuccess = (idList) => ({
+  type: CARTS_ACTIONS.REMOVE_CART_ITEM_LIST_SUCCESS,
+  payload: { idList },
 });
 
 export {
@@ -59,5 +66,7 @@ export {
   addCartListAction,
   updateCartItemSuccess,
   updateCartItemChecked,
+  updateCartItemAllChecked,
   removeCartItemSuccess,
+  removeCartItemListSuccess,
 };
