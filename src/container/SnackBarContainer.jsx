@@ -23,7 +23,7 @@ function SnackBarContainer() {
     };
   }, []);
 
-  return <SnackBar message={message} />;
+  return <SnackBar message={message.text} />;
 }
 
 export default SnackBarContainer;
