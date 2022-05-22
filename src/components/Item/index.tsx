@@ -8,7 +8,7 @@ interface ItemProps {
   title: string;
   price: number;
   onClick: () => void;
-  onClickShoppingCart?: () => void;
+  onClickShoppingCart: () => void;
   isInShoppingCart?: boolean;
 }
 
@@ -18,13 +18,10 @@ const Item = ({
   price,
   onClick,
   onClickShoppingCart,
-  isInShoppingCart,
 }: ItemProps): JSX.Element => {
   const {
     color: { primary, black, darkWhite, gray },
   } = useTheme() as themeType;
-
-  const shoppingCartColor = isInShoppingCart ? primary : black;
 
   return (
     <S.ItemContainer backgroundColorOnHover={darkWhite} textColorOnHover={gray}>
@@ -38,11 +35,16 @@ const Item = ({
           <S.ItemInfo>{title}</S.ItemInfo>
           <S.ItemInfo>{price.toLocaleString("ko-KR")}원</S.ItemInfo>
         </div>
-        <S.ShoppingCartButton onClick={onClickShoppingCart}>
+        <S.ShoppingCartButton
+          onClick={() => {
+            onClickShoppingCart();
+          }}
+        >
           <ShoppingCartIcon
             width="30px"
             height="30px"
-            fill={shoppingCartColor}
+            hover={primary}
+            basicColor={black}
           />
         </S.ShoppingCartButton>
       </S.ItemInfoWrapper>
