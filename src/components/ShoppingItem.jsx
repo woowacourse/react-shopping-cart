@@ -4,12 +4,21 @@ import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
-import { deleteCartItemAsync } from '../store/cart/cart.actions';
+import { deleteCartItemAsync, updateItemQuantityAsync } from '../store/cart/cart.actions';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   const dispatch = useDispatch();
   const [isChecked, setChecked] = useState(isCheckedAll);
-  const { id, name, price, imageUrl } = item;
+  const { id, name, price, imageUrl, quantity } = item;
+
+  const incrementQuantity = () => {
+    dispatch(updateItemQuantityAsync(id, quantity + 1));
+  };
+
+  const decrementQuantity = () => {
+    if (quantity === 1) return;
+    dispatch(updateItemQuantityAsync(id, quantity - 1));
+  };
 
   const toggleChecked = () => {
     handleSelectedItem(id);
@@ -41,10 +50,10 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
       <StyledProductRight>
         <BsTrash className="logo" onClick={deleteItem} />
         <StyledAmountContainer>
-          <input type="number" value="1" readOnly />
+          <span>{quantity}</span>
           <div>
-            <button>▲</button>
-            <button>▼</button>
+            <button onClick={incrementQuantity}>▲</button>
+            <button onClick={decrementQuantity}>▼</button>
           </div>
         </StyledAmountContainer>
         <StyledPrice>{Number(price).toLocaleString()} 원</StyledPrice>
@@ -93,11 +102,12 @@ const StyledAmountContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  input {
+  span {
     width: 66px;
-    height: 53px;
+    height: 55px;
     border: 1px solid ${COLORS.LIGHT_GRAY};
     text-align: center;
+    line-height: 55px;
     font-size: 24px;
   }
 

@@ -10,6 +10,8 @@ function cartReducer(state = initialState, action) {
       return { ...state, cart: [...action.payload] };
     case actionTypes.DELETE_CART:
       return { ...state, cart: [...action.payload] };
+    case actionTypes.UPDATE_ITEM_QUANTITY:
+      return { ...state, cart: [...action.payload] };
     default:
       return state;
   }
