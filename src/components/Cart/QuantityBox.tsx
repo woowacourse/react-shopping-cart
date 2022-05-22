@@ -49,7 +49,7 @@ const StyledRoot = styled.div`
 const StyledInput = styled.input`
   width: 7.3rem;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_100};
   text-align: center;
   font-size: 24px;
 `;
@@ -57,12 +57,12 @@ const StyledInput = styled.input`
 const StyledArrowBox = styled.button`
   width: 4.2rem;
   height: 3rem;
-  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_100};
   ${flexCenter}
   cursor: pointer;
 
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.GRAY_400};
+    background-color: ${({ theme }) => theme.colors.GRAY_100};
   }
 `;
 

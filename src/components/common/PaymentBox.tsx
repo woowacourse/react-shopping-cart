@@ -39,5 +39,5 @@ const StyledRoot = styled.div`
   width: 44.8rem;
   height: 32.8rem;
   color: ${({ theme }) => theme.colors.GRAY_500};
-  border: 1px solid ${({ theme }) => theme.colors.GRAY_400};
+  border: 1px solid ${({ theme }) => theme.colors.GRAY_100};
 `;

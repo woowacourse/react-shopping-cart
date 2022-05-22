@@ -9,7 +9,7 @@ const PriceNotice = ({ title, priceDescription, price }) => {
     <>
       <StyledTitle>{title}</StyledTitle>
       <StyledDivision>
-        <Division color={theme.colors.GRAY_400} height='3px' />
+        <Division color={theme.colors.GRAY_100} height='3px' />
       </StyledDivision>
       <StyledBottom>
         <UnderLinedText fontSize='2rem' fontWeight='700'>

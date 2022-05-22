@@ -47,14 +47,14 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
         <Button
           width='117px'
           height='50px'
-          borderColor={theme.colors.GRAY_200}
+          borderColor={theme.colors.GRAY_300}
           onClick={handleClickAllDeleteButton}
         >
           상품삭제
         </Button>
       </StyledTop>
       <StyledCount>든든배송 상품 ({totalItemCount}개)</StyledCount>
-      <Division margin='20px 0' height='4px' color={theme.colors.GRAY_100} />
+      <Division margin='20px 0' height='4px' color={theme.colors.GRAY_400} />
       {itemList?.map((item, index) => (
         <React.Fragment key={item.id}>
           <CartItemContainer
@@ -64,7 +64,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
             deleteItem={deleteCartItem(item.id)}
           />
           {itemList.length !== index + 1 && (
-            <Division color={theme.colors.GRAY_300} height='2px' margin='0 0 26px' />
+            <Division color={theme.colors.GRAY_200} height='2px' margin='0 0 26px' />
           )}
         </React.Fragment>
       ))}
