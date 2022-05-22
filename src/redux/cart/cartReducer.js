@@ -69,6 +69,14 @@ const cartReducer = (state = initialState, action) => {
 
       return newState;
     }
+    case ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART: {
+      const checkedProductIds = getObjectArrayValues(checkedProducts, 'id');
+
+      newState.products = products.filter(product => !checkedProductIds.includes(product.id));
+      newState.checkedProducts = [];
+
+      return newState;
+    }
     case ACTION_TYPE.REMOVE_PRODUCT_FROM_CART: {
       newState.products = products.filter(product => product.id !== payload.id);
       newState.checkedProducts = checkedProducts.filter(product => product.id !== payload.id);

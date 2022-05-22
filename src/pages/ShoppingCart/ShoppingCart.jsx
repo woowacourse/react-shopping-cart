@@ -22,7 +22,7 @@ const SelectorBox = styled.div`
   margin: 53px 0 26px;
 `;
 
-const ProductDeleteButton = styled.div`
+const SelectDeleteButton = styled.div`
   padding: 12px 22px;
   border: 1px solid #bbbbbb;
   font-size: 16px;
@@ -58,14 +58,18 @@ function ShoppingCart() {
     setChecked(prevChecked => !prevChecked);
   };
 
+  const onClickSelectDeleteButton = () => {
+    dispatch({ type: ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART });
+  };
+
   return (
     <PageLayout header="장바구니">
       <ShoppingCartBox>
         <div>
           <SelectorBox>
             <Selector label="전체" onChange={onChangeAllSelector} checked={checked} />
-            <Button>
-              <ProductDeleteButton>선택삭제</ProductDeleteButton>
+            <Button onClick={onClickSelectDeleteButton}>
+              <SelectDeleteButton>선택삭제</SelectDeleteButton>
             </Button>
           </SelectorBox>
           <ProductListHeader>든든배송 상품 ({products.length}개)</ProductListHeader>
