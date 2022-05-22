@@ -50,7 +50,7 @@ function useCart() {
       cartItems: cartItems.content,
       isLoading: cartItems.isLoading,
       isLoaded: cartItems.isLoaded,
-      error: cartItems.error,
+      errorMessage: cartItems.error,
       checkedItemList,
     },
   };

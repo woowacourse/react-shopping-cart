@@ -1,6 +1,8 @@
 import useCart from 'hooks/useCart';
 import { getNumberFormatter } from 'lib/formatterUtils';
 
+import { Case, SwitchAsync } from 'components/@common/SwitchAsync';
+import StatusMessage from 'components/@common/StatusMessage';
 import FlexContainer from 'components/@common/FlexContainer';
 import Button from 'components/@common/Button';
 import Checkbox from 'components/@common/Checkbox';
@@ -11,13 +13,12 @@ import TextUnderline from 'components/@common/TextUnderline';
 import CartItem from 'components/CartItem';
 
 import { ICON_CODE } from 'constants/';
+
 import * as S from './styles';
 
 export function CartList() {
-  const { action, state } = useCart();
-  const { cartItems, isLoading, isLoaded, error, checkedItemList } = state;
-  const { updateItem, updateItemChecked, updateItemAllChecked, removeItem, removeItemList } =
-    action;
+  const { action: cartAction, state } = useCart();
+  const { cartItems, isLoading, isLoaded, errorMessage, checkedItemList } = state;
 
   const isSelectAllChecked = checkedItemList.length > 0;
   const totalAmount = checkedItemList.reduce(
@@ -26,15 +27,15 @@ export function CartList() {
   );
 
   const handleCheckItem = (id, isChecked) => {
-    updateItemChecked(id, isChecked);
+    cartAction.updateItemChecked(id, isChecked);
   };
 
   const handleAllCheckItem = () => {
-    updateItemAllChecked(!isSelectAllChecked);
+    cartAction.updateItemAllChecked(!isSelectAllChecked);
   };
 
   const handleChangeQuantity = (id, quantity) => {
-    updateItem(id, { quantity }).then((status) => {
+    cartAction.updateItem(id, { quantity }).then((status) => {
       status === false && alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
     });
   };
@@ -44,7 +45,7 @@ export function CartList() {
       return;
     }
 
-    removeItem(id).then((status) => {
+    cartAction.removeItem(id).then((status) => {
       status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
     });
   };
@@ -56,7 +57,7 @@ export function CartList() {
 
     const checkedIdList = checkedItemList.map(({ id }) => id);
 
-    removeItemList(checkedIdList).then((status) => {
+    cartAction.removeItemList(checkedIdList).then((status) => {
       status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
     });
   };
@@ -90,21 +91,37 @@ export function CartList() {
             </Title>
 
             <FlexContainer direction="column" justify="center">
-              {isLoaded &&
-                cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
-                  <CartItem
-                    key={id}
-                    id={id}
-                    image={image}
-                    name={name}
-                    price={price}
-                    quantity={quantity}
-                    isChecked={isChecked}
-                    onChangeCheckBox={handleCheckItem}
-                    onChangeCounter={handleChangeQuantity}
-                    onClickRemove={handleRemoveItem}
-                  />
-                ))}
+              <SwitchAsync
+                isLoading={isLoading}
+                isError={!!errorMessage}
+                isContentLoaded={isLoaded}
+              >
+                <Case.Success>
+                  {isLoaded &&
+                    cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
+                      <CartItem
+                        key={id}
+                        id={id}
+                        image={image}
+                        name={name}
+                        price={price}
+                        quantity={quantity}
+                        isChecked={isChecked}
+                        onChangeCheckBox={handleCheckItem}
+                        onChangeCounter={handleChangeQuantity}
+                        onClickRemove={handleRemoveItem}
+                      />
+                    ))}
+                </Case.Success>
+
+                <Case.Loading>
+                  <StatusMessage status="loading">장바구니 목록을 불러오고 있습니다.</StatusMessage>
+                </Case.Loading>
+
+                <Case.Error>
+                  <StatusMessage status="error">{errorMessage}</StatusMessage>
+                </Case.Error>
+              </SwitchAsync>
             </FlexContainer>
           </FlexContainer>
         </FlexContainer>
