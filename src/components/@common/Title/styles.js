@@ -15,10 +15,9 @@ const TITLE_TYPE = {
   `,
 
   CONTENT: css`
-    padding: 1em 0.3em;
+    padding: 1em 0.8em;
 
     border-bottom: 1px solid ${COLORS.GRAY_150};
-    margin-bottom: 1em;
   `,
 };
 
