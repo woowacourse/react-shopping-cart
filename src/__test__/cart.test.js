@@ -5,13 +5,13 @@ describe('장바구니를 이용할 수 있다.', () => {
   test('상품을 장바구니에 추가할 수 있다.', () => {
     const newState = addApple();
 
-    expect(newState).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+    expect(newState).toHaveProperty(PROPERTY.PRODUCTS, [{ ...apple, quantity: 1 }]);
   });
 
   test('장바구니 상품의 수량을 증가시킬 수 있다.', () => {
     const newState = addAppleTwice();
 
-    expect(newState).toHaveProperty('products', [{ ...apple, quantity: 2 }]);
+    expect(newState).toHaveProperty(PROPERTY.PRODUCTS, [{ ...apple, quantity: 2 }]);
   });
 
   test('장바구니 상품의 수량을 감소시킬 수 있다.', () => {
@@ -20,7 +20,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSubtract = cartReducer(newStateAfterAddTwice, subtractAction);
 
-    expect(newStateAfterSubtract).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+    expect(newStateAfterSubtract).toHaveProperty(PROPERTY.PRODUCTS, [{ ...apple, quantity: 1 }]);
   });
 
   test('모든 장바구니 상품을 선택 해제할 수 있다.', () => {
@@ -32,7 +32,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
 
-    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', []);
+    expect(newStateAfterSelectAll).toHaveProperty(PROPERTY.CHECKED_PRODUCTS, []);
   });
 
   test('장바구니의 모든 상품을 선택할 수 있다.', () => {
@@ -44,7 +44,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelectAll = cartReducer(newStateAfterAddAppleAndGrape, selectAllAction);
 
-    expect(newStateAfterSelectAll).toHaveProperty('checkedProducts', [
+    expect(newStateAfterSelectAll).toHaveProperty(PROPERTY.CHECKED_PRODUCTS, [
       { ...apple, quantity: 1 },
       { ...grape, quantity: 1 },
     ]);
@@ -56,7 +56,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelect = toggleApple(newStateAfterUnselect);
 
-    expect(newStateAfterSelect).toHaveProperty('checkedProducts', [{ id: apple.id }]);
+    expect(newStateAfterSelect).toHaveProperty(PROPERTY.CHECKED_PRODUCTS, [{ id: apple.id }]);
   });
 
   test('장바구니 상품을 선택 해제할 수 있다.', () => {
@@ -64,7 +64,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterSelectApple = toggleApple(newStateAfterAddApple);
 
-    expect(newStateAfterSelectApple).toHaveProperty('checkedProducts', []);
+    expect(newStateAfterSelectApple).toHaveProperty(PROPERTY.CHECKED_PRODUCTS, []);
   });
 
   test('선택한 상품을 장바구니에서 삭제할 수 있다.', () => {
@@ -74,7 +74,7 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateRemove = cartReducer(newStateAfterUnselectApple, removeAction);
 
-    expect(newStateRemove).toHaveProperty('products', [{ ...apple, quantity: 1 }]);
+    expect(newStateRemove).toHaveProperty(PROPERTY.PRODUCTS, [{ ...apple, quantity: 1 }]);
   });
 
   test('상품을 장바구니에서 삭제할 수 있다.', () => {
@@ -83,9 +83,14 @@ describe('장바구니를 이용할 수 있다.', () => {
 
     const newStateAfterRemove = cartReducer(newStateAfterAdd, removeAction);
 
-    expect(newStateAfterRemove).toHaveProperty('products', []);
+    expect(newStateAfterRemove).toHaveProperty(PROPERTY.PRODUCTS, []);
   });
 });
+
+const PROPERTY = {
+  PRODUCTS: 'products',
+  CHECKED_PRODUCTS: 'checkedProducts',
+};
 
 const mockDatas = [
   {
