@@ -2,7 +2,7 @@ import ProductListItem from 'components/ProductListItem/ProductListItem.componen
 import Error from 'components/@shared/Error/Error.component';
 import ProductListBox from 'components/ProductListBox/ProductListBox.component';
 
-function ProductListContainer({ data, handleToggleShoppingCart, checkContainedProduct }) {
+function ProductListContainer({ data }) {
   return (
     <>
       {Array.isArray(data) && data.length === 0 ? (
@@ -10,12 +10,7 @@ function ProductListContainer({ data, handleToggleShoppingCart, checkContainedPr
       ) : (
         <ProductListBox>
           {data.map(itemInfo => (
-            <ProductListItem
-              key={itemInfo.id}
-              {...itemInfo}
-              isContained={checkContainedProduct(itemInfo.id)}
-              handleToggleShoppingCart={handleToggleShoppingCart}
-            />
+            <ProductListItem key={itemInfo.id} {...itemInfo} />
           ))}
         </ProductListBox>
       )}

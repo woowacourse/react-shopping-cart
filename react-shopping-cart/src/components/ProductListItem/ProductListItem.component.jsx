@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import Image from 'components/@shared/Image/Image.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
+import { addItem, deleteItem } from 'redux/actions/shoppingCart.action';
 
 const ItemContainer = styled.div`
   display: grid;
@@ -38,11 +40,13 @@ const ItemContainer = styled.div`
   }
 `;
 
-function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
-  const onClick = useCallback(
-    () => handleToggleShoppingCart(id, isContained),
-    [id, isContained, handleToggleShoppingCart]
-  );
+function ProductListItem({ id, thumbnail, name, price }) {
+  const dispatch = useDispatch();
+  const shoppingCart = useSelector(state => state.shoppingCart);
+
+  const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
+
+  const onClick = () => dispatch(isContained ? deleteItem(id) : addItem(id));
 
   return (
     <ItemContainer isContained={isContained}>
