@@ -39,7 +39,7 @@ DefaultGridLayout.args = {
       name: '사과',
       price: 1300,
     },
-  ].map(product => <Product key={product.id} {...product} />),
+  ].map(product => <Product key={product.id} product={product} />),
 };
 
 export { DefaultGridLayout as DefaulGridLayout };
