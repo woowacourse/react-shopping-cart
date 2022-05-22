@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { getPixelToRem } from 'lib/formatterUtils';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -24,6 +25,10 @@ const FlexContainer = styled.div`
     css`
       width: ${width};
     `}
+
+  ${({ gap }) => css`
+    gap: ${getPixelToRem(gap)}rem;
+  `}
 `;
 
 FlexContainer.defaultProps = {
@@ -31,6 +36,7 @@ FlexContainer.defaultProps = {
   justify: '',
   align: '',
   width: '100%',
+  gap: 0,
 };
 
 FlexContainer.propTypes = {
@@ -38,6 +44,7 @@ FlexContainer.propTypes = {
   justify: PropTypes.string,
   align: PropTypes.string,
   width: PropTypes.string,
+  gap: PropTypes.number,
 };
 
 export default FlexContainer;
