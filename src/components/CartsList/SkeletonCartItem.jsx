@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Shimmer from 'components/shared/Shimmer';
 import {
+  BasicDivideLine,
   BasicSkeletonElement,
   BasicSkeletonImage,
   Flex,
@@ -8,19 +9,22 @@ import {
 
 function SkeletonCartItem() {
   return (
-    <Style.Wrapper justify="space-between" gap="15px">
-      <Flex gap="18px">
-        <Style.SkeletonElement width="32px" height="32px" />
-        <BasicSkeletonImage size="small" />
-        <Style.SkeletonElement width="300px" height="30px" />
-      </Flex>
-      <Flex direction="column" align="flex-end" gap="10px">
-        <Style.SkeletonElement width="32px" height="32px" />
-        <Style.SkeletonElement width="100px" height="55px" />
-        <Style.SkeletonElement width="80px" height="25px" />
-      </Flex>
-      <Shimmer />
-    </Style.Wrapper>
+    <Flex direction="column">
+      <Style.Wrapper justify="space-between" gap="15px">
+        <Flex gap="18px">
+          <Style.SkeletonElement width="32px" height="32px" />
+          <BasicSkeletonImage size="small" />
+          <Style.SkeletonElement width="300px" height="30px" />
+        </Flex>
+        <Flex direction="column" align="flex-end" gap="10px">
+          <Style.SkeletonElement width="32px" height="32px" />
+          <Style.SkeletonElement width="100px" height="55px" />
+          <Style.SkeletonElement width="80px" height="25px" />
+        </Flex>
+        <Shimmer />
+      </Style.Wrapper>
+      <BasicDivideLine weight="thin" color="lightgray" />
+    </Flex>
   );
 }
 
@@ -32,7 +36,7 @@ const Style = {
     width: 100%;
     border-radius: 4px;
     overflow: hidden;
-    margin: 18px 0;
+    margin: 24px 0;
   `,
   SkeletonElement: styled(BasicSkeletonElement)`
     margin-top: 5px;

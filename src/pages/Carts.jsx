@@ -7,10 +7,14 @@ import { BasicDivideLine, Flex } from 'components/shared/basics';
 import TotalPrice from 'components/TotalPrice/TotalPrice';
 
 function Carts() {
-  const { isLoading, carts, checkedCarts } = useSelector(
-    (state) => state.carts
+  const {
+    isLoading: isCartsLoading,
+    carts,
+    checkedCarts,
+  } = useSelector((state) => state.carts);
+  const { isLoading: isProductLoading, products } = useSelector(
+    (state) => state.products
   );
-  const { products } = useSelector((state) => state.products);
 
   const findById = (objectArray, id) =>
     objectArray.find((object) => object.id === id);
@@ -36,7 +40,7 @@ function Carts() {
     checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
   ).toLocaleString('ko-kr');
 
-  console.log('Carts', storedProducts);
+  const isLoading = isCartsLoading || isProductLoading;
 
   return (
     <Style.Container>
@@ -51,7 +55,7 @@ function Carts() {
           <span>{`든든배송 상품(${totalQuantity}개)`}</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           <CartListContainer
-            isStoredProductsLoading={isLoading}
+            isLoading={isLoading}
             storedProducts={storedProducts}
             checkedProducts={checkedProducts}
           />

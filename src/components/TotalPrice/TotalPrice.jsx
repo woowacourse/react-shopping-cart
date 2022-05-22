@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLOR } from 'constants/styles';
 import { BasicButton, BasicDivideLine, Flex } from 'components/shared/basics';
 
-function TotalPrice({ total = 0, quantity = 0 }) {
+function TotalPrice({ total, quantity }) {
   return (
     <Style.TotalPriceContainer>
       <Style.TotalPriceHeader>
@@ -12,7 +12,9 @@ function TotalPrice({ total = 0, quantity = 0 }) {
       <div>
         <Style.TotalPriceBox justify="space-between">
           <Style.HighLightText>결제예상금액</Style.HighLightText>
-          <Style.HighLightText>{`${total}원`}</Style.HighLightText>
+          <Style.HighLightText>{`${
+            isNaN(total) ? 0 : total
+          }원`}</Style.HighLightText>
         </Style.TotalPriceBox>
         <Style.OrderButtonWrapper justify="center" align="center">
           <Style.OrderButton type="button">
@@ -23,6 +25,11 @@ function TotalPrice({ total = 0, quantity = 0 }) {
     </Style.TotalPriceContainer>
   );
 }
+
+TotalPrice.defaultProps = {
+  total: 0,
+  quantity: 0,
+};
 
 export default TotalPrice;
 
