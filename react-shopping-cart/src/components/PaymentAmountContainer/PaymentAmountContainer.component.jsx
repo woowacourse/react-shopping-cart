@@ -28,8 +28,8 @@ function PaymentAmountContainer({ count, data }) {
   }, [data, orderList, shoppingCart]);
 
   return (
-    <PaymentAmountBox>
-      <BorderBox fontSize="24px" padding="30px">
+    <PaymentAmountBox as="article">
+      <BorderBox as="h2" fontSize="24px" padding="30px">
         결제예상금액
       </BorderBox>
       <BorderBox padding="30px">

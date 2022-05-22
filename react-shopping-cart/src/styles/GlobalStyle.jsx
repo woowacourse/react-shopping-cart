@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
   button {
   	background-color: #ffffff;
   }
+  
+  ol, ul {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;

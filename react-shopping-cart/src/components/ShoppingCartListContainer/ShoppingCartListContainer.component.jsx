@@ -32,13 +32,19 @@ function ShoppingCartListContainer({ data }) {
   return (
     <CartListBox>
       {Array.isArray(cartData) && cartData.length === 0 ? (
-        <CartListCountTextBox mb="50px">배송 상품 (0개)</CartListCountTextBox>
+        <CartListCountTextBox as="h3" mb="50px">
+          배송 상품 (0개)
+        </CartListCountTextBox>
       ) : (
         <>
-          <CartListCountTextBox>배송 상품 ({cartData.length}개)</CartListCountTextBox>
-          {cartData.map(itemInfo => (
-            <ShoppingCartListItem key={itemInfo.id} {...itemInfo} />
-          ))}
+          <CartListCountTextBox as="h3">배송 상품 ({cartData.length}개)</CartListCountTextBox>
+          <ul>
+            {cartData.map(itemInfo => (
+              <li key={itemInfo.id}>
+                <ShoppingCartListItem {...itemInfo} />
+              </li>
+            ))}
+          </ul>
         </>
       )}
     </CartListBox>

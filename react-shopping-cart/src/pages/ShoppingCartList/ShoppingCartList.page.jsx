@@ -45,11 +45,12 @@ function ShoppingCartList() {
   return (
     <>
       <Header />
-      <FlexBox justifyContent="center">
+      <FlexBox as="main" justifyContent="center">
         <PageContainer width="1320px" direction="column" alignItems="center">
-          <TitleBox>장바구니</TitleBox>
+          <TitleBox as="h1">장바구니</TitleBox>
           <FlexBox width="1320px" justifyContent="space-between">
-            <div>
+            <article>
+              <h2 hidden>장바구니 상품들 리스트</h2>
               <FlexBox
                 width="736px"
                 height="80px"
@@ -72,7 +73,7 @@ function ShoppingCartList() {
                 </BorderBox>
               </FlexBox>
               {isLoading ? <Loading /> : <ShoppingCartListContainer data={data} />}
-            </div>
+            </article>
             {!isLoading && <PaymentAmountContainer count={orderList.length} data={data} />}
           </FlexBox>
         </PageContainer>
