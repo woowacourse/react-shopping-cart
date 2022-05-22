@@ -1,24 +1,22 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
-import { addToCartAsync } from 'store/actions/cart';
-
 import Counter from 'components/common/Counter/Counter';
 import { useCount } from 'hooks/useCount';
 
 import * as Styled from 'components/product/CartAdd/CartAdd.style';
 import * as GlobalStyled from 'styles/GlobalStyles';
-
-const PRODUCT_ADDED_MESSAGE = (count) => `${count}개가 장바구니에 추가되었습니다.`;
+import useCart from 'hooks/useCart';
 
 function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
-  const [count, onIncrement, onDecrement] = useCount({ initialValue: 1, min: 1, max: quantity });
-
-  const dispatch = useDispatch();
+  const [count, onIncrement, onDecrement] = useCount({
+    initialValue: 1,
+    min: 1,
+    max: quantity,
+  });
+  const { addProductToCart } = useCart();
 
   const onClickCartAdd = () => {
-    dispatch(addToCartAsync(id, count));
-    alert(`${name}: ${PRODUCT_ADDED_MESSAGE(count)} `);
+    addProductToCart({ id, name, count });
     closeModal();
   };
 
