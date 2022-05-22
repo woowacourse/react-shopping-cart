@@ -1,15 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
+import { deleteCartItemAsync } from '../store/cart/cart.actions';
 
 function ShoppingItem({ item, isCheckedAll }) {
+  const dispatch = useDispatch();
   const [isChecked, setChecked] = useState(isCheckedAll);
-  const { name, price, imageUrl } = item;
+  const { id, name, price, imageUrl } = item;
 
   const toggleChecked = () => {
     setChecked(!isChecked);
+  };
+
+  const deleteItem = () => {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      dispatch(deleteCartItemAsync(id));
+      console.log('삭제됨');
+    } else {
+      console.log('취소됨');
+    }
   };
 
   useEffect(() => {
@@ -29,7 +41,7 @@ function ShoppingItem({ item, isCheckedAll }) {
         <span>{name}</span>
       </StyledProductLeft>
       <StyledProductRight>
-        <BsTrash className="logo" />
+        <BsTrash className="logo" onClick={deleteItem} />
         <StyledAmountContainer>
           <input type="number" value="1" readOnly />
           <div>

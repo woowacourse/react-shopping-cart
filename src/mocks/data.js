@@ -82,6 +82,4 @@ const productList = [
   },
 ];
 
-const cartList = [];
-
-export { productList, cartList };
+export { productList };

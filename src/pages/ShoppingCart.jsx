@@ -9,7 +9,6 @@ function ShoppingCart() {
   const [totalPrice, setTotalPrice] = useState();
   const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
   const cartList = useSelector(({ cart }) => cart.cart);
-  console.log(cartList);
 
   useEffect(() => {
     const sum = cartList.reduce((acc, cur) => (acc += Number(cur.price)), 0);
