@@ -32,6 +32,12 @@ const useCart = () => {
         payload: { targetId, stockChanged },
       });
     },
+    changeCartChecked: (targetId: string, isChecked: boolean) => {
+      dispatch({
+        type: CartActionType.PATCH_CART_CHECK,
+        payload: { targetId, isChecked },
+      });
+    },
   };
 };
 
