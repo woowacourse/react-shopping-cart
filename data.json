@@ -73,14 +73,5 @@
       "price": 90000
     }
   ],
-  "shoppingCart": [
-    {
-      "id": 3,
-      "image": "https://cdn-mart.baemin.com/sellergoods/bulk/20220303-114029/23657-main-01.jpg",
-      "name": "포도주스(500ml)",
-      "price": 40000,
-      "quantity": 1,
-      "isSelect": false
-    }
-  ]
+  "shoppingCart": []
 }
