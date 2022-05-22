@@ -1,4 +1,3 @@
-const WindiCSSWebpackPlugin = require("windicss-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -25,7 +24,7 @@ module.exports = {
       {
         test: /\.css$/i,
         exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.module\.scss$/i,
@@ -69,9 +68,6 @@ module.exports = {
       template: join(__dirname, "../public/index.html"),
     }),
     new CleanWebpackPlugin(),
-    new WindiCSSWebpackPlugin({
-      virtualModulePath: "src",
-    }),
   ],
   resolve: {
     alias: {
@@ -79,6 +75,7 @@ module.exports = {
       "@shared": resolve(__dirname, "../src/components"),
       "@scss": resolve(__dirname, "../src/scss"),
       "@home": resolve(__dirname, "../src/pages/home"),
+      "@cart": resolve(__dirname, "../src/pages/cart"),
       "@redux": resolve(__dirname, "../src/redux"),
       "@assets": resolve(__dirname, "../src/assets"),
     },

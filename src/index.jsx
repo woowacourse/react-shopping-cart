@@ -4,9 +4,8 @@ import { Provider } from "react-redux";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import App from "@/App";
 import reducer from "@redux/reducer";
+import "./index.css";
 import "@scss/style";
-// eslint-disable-next-line import/no-unresolved
-import "./virtual:windi.css";
 import ModalProvider from "@shared/modal/ModalProvider";
 
 function prepareMSW() {
