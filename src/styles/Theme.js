@@ -11,7 +11,7 @@ export const color = {
   LIGHT_GRAY: '#aaaaaa',
   NEAR_WHITE_01: '#e0e0e0',
   NEAR_WHITE_02: '#ededed',
-  BLACK: '#000000',
+  BLACK_TRANSPARENT: '#00000099',
 };
 
 export default {

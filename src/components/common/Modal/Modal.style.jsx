@@ -13,7 +13,7 @@ export const Dimmed = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: ${color.BLACK}99;
+  background-color: ${color.BLACK_TRANSPARENT};
 `;
 
 export const Container = styled.div`

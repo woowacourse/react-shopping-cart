@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { color } from '../../../styles/Theme';
+import { color } from 'styles/Theme';
 
 export const Container = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ export const Placeholder = styled.div`
   width: 100%;
   aspect-ratio: ${({ shape }) => (shape === 'square' ? '1 / 1' : '10 / 1')};
   background-image: ${({ theme: { colorConfig } }) =>
-    `linear-gradient(90deg, ${colorConfig.skeleton} 0px, ${color.NEAR_WHITE_02} 30px, ${colorConfig.skeleton} 60px)`};
+    `linear-gradient(90deg, ${colorConfig.skeleton} 0, ${color.NEAR_WHITE_02} 30px, ${colorConfig.skeleton} 60px)`};
   animation: refresh 2s infinite ease-out;
 
   @keyframes refresh {
