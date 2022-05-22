@@ -4,9 +4,15 @@ import {
   GET_PRODUCT_LIST_ERROR,
 } from "./types";
 
-import { initialState } from "@/index";
+export const productListState = {
+  productList: {
+    loading: false,
+    data: null,
+    error: null,
+  },
+};
 
-const reducer = (state = initialState, action) => {
+export const productListReducer = (state = productListState, action) => {
   switch (action.type) {
     case GET_PRODUCT_LIST_START:
       return {
@@ -43,5 +49,3 @@ const reducer = (state = initialState, action) => {
     }
   }
 };
-
-export default reducer;
