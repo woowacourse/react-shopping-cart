@@ -4,7 +4,7 @@ import * as S from './styles';
 function Checkbox({ size, checked, onChange, children }) {
   return (
     <S.Container size={size} checked={checked}>
-      <S.Check type="checkbox" defaultChecked={checked} onChange={onChange} />
+      <S.Check type="checkbox" checked={checked} onChange={onChange} />
       {children && <S.Text>{children}</S.Text>}
     </S.Container>
   );
