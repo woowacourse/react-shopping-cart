@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BlackTextStyled = styled.p(
+const BlackTextStyled = styled.div(
   ({ fontSize, fontWeight, theme, textAlign }) => `
   margin: 0;
   font-size: ${fontSize || '1rem'};
