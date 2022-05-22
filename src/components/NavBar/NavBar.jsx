@@ -43,25 +43,19 @@ function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const onClickLogo = () => {
-    if (location.pathname === PATH.PRODUCT_LIST_PAGE) return;
+  const onClickMenu = path => {
+    if (location.pathname === path) return;
 
-    navigate(PATH.PRODUCT_LIST_PAGE);
-  };
-
-  const onClickShoppingCartMenu = () => {
-    if (location.pathname === PATH.SHOPPING_CART_PAGE) return;
-
-    navigate(PATH.SHOPPING_CART_PAGE);
+    navigate(path);
   };
 
   return (
     <StyledNavBar>
-      <Button onClick={onClickLogo}>
+      <Button onClick={() => onClickMenu(PATH.PRODUCT_LIST_PAGE)}>
         <LogoText>🛒 WOOWA SHOP</LogoText>
       </Button>
       <MenuBox>
-        <Button onClick={onClickShoppingCartMenu}>
+        <Button onClick={() => onClickMenu(PATH.SHOPPING_CART_PAGE)}>
           <MenuText>장바구니</MenuText>
         </Button>
         <Button>
