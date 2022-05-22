@@ -5,6 +5,7 @@ import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
 import { deleteCartItemAsync, updateItemQuantityAsync } from '../store/cart/cart.actions';
+import { MESSAGE } from '../constant';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   };
 
   const deleteItem = () => {
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
+    if (window.confirm(MESSAGE.DELETE)) {
       dispatch(deleteCartItemAsync(id));
     }
   };

@@ -5,6 +5,7 @@ import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
 import { deleteCartItemAsync } from '../store/cart/cart.actions';
+import { MESSAGE } from '../constant';
 
 function ShoppingCart() {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ function ShoppingCart() {
   };
 
   const deleteSelectedItems = () => {
-    selectedItems.forEach((id) => dispatch(deleteCartItemAsync(id)));
+    if (selectedItems.length === 0) return;
+
+    if (window.confirm(MESSAGE.DELETE)) {
+      selectedItems.forEach((id) => dispatch(deleteCartItemAsync(id)));
+    }
   };
 
   const handleSelectedItem = (id) => {
