@@ -1,43 +1,32 @@
 import Checkbox from "../Checkbox";
 import NumberInputButton from "../NumberInputButton";
 import * as S from "./index.styles";
-import { getProductById } from "../../api";
-import { useCallback, useEffect, useState } from "react";
-import { product } from "../../types/product";
+import useProduct from "../../hooks/useProduct";
 
 interface CartItemPros {
   id: number;
 }
 
 const CartItem = ({ id }: CartItemPros) => {
-  const [data, setData] = useState({} as product);
+  const { product } = useProduct(id);
 
-  const fetchData = useCallback(
-    async function () {
-      const data = (await getProductById(id)) as product;
-      setData(data);
-    },
-    [id]
-  );
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData, id]);
-
-  if (!Object.keys(data)) {
+  if (!Object.keys(product).length) {
+    return <div></div>;
+  }
+  if (product.isLoading) {
     return <div></div>;
   }
   return (
     <S.CartItemContainer>
       <S.ItemContainer>
         <Checkbox id={id} />
-        <S.ItemImage src={data.imgUrl} alt={"안녕"} />
-        <span>{data.title}</span>
+        <S.ItemImage src={product.data?.imgUrl} alt={"안녕"} />
+        <span>{product.data?.title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
         <S.CartButton>🗑</S.CartButton>
         <NumberInputButton />
-        <p>{data.price.toLocaleString("ko-kr")}원</p>
+        <p>{product.data?.price.toLocaleString("ko-kr")}원</p>
       </S.ItemRightContainer>
     </S.CartItemContainer>
   );

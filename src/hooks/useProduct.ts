@@ -7,7 +7,7 @@ const useProduct = (id: number) => {
   const [productData, setProductData] = useState({} as Product);
 
   const fetchData = useCallback(async () => {
-    const data = await getProductById(id);
+    const data = (await getProductById(id)) as product;
     setProductData(() => ({ isLoading: false, data, error: null }));
   }, [id]);
 
