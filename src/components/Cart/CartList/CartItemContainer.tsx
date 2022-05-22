@@ -4,7 +4,7 @@ import CroppedImage from 'components/common/CroppedImage';
 import styled from 'styled-components';
 import { ItemInCart } from 'types/domain';
 
-import QuantityBox from './QuantityBox';
+import QuantityBox from '../QuantityBox';
 
 interface CartItemContainerProps {
   item: ItemInCart;
