@@ -39,8 +39,8 @@ const handlers = [
     const id = +req.params.id;
     const quantity = +req.params.quantity;
     const cartItemIndex = cartList.findIndex((cartItem) => cartItem.id === id);
+
     cartList[cartItemIndex].quantity = quantity;
-    console.log('서버 카트 리스트', cartList);
     return res(ctx.status(200), ctx.json(cartList));
   }),
 ];

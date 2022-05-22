@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
-import { deleteCartItemAsync, updateItemQuantityAsync } from '../store/cart/cart.actions';
+import { updateItemQuantityAsync } from '../store/cart/cart.actions';
 import { MESSAGE } from '../constant';
+import useDeleteCartItem from '../hooks/useDeleteCartItem';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   const dispatch = useDispatch();
+  const { deleteCartItem } = useDeleteCartItem();
   const [isChecked, setChecked] = useState(isCheckedAll);
   const { id, name, price, imageUrl, quantity } = item;
 
@@ -28,7 +30,7 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
 
   const deleteItem = () => {
     if (window.confirm(MESSAGE.DELETE)) {
-      dispatch(deleteCartItemAsync(id));
+      deleteCartItem(id);
     }
   };
 

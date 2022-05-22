@@ -1,14 +1,14 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
-import { deleteCartItemAsync } from '../store/cart/cart.actions';
 import { MESSAGE } from '../constant';
+import useDeleteCartItem from '../hooks/useDeleteCartItem';
 
 function ShoppingCart() {
-  const dispatch = useDispatch();
+  const { deleteCartItem } = useDeleteCartItem();
   const [totalPrice, setTotalPrice] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
   const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
@@ -27,7 +27,7 @@ function ShoppingCart() {
     if (selectedItems.length === 0) return;
 
     if (window.confirm(MESSAGE.DELETE)) {
-      selectedItems.forEach((id) => dispatch(deleteCartItemAsync(id)));
+      selectedItems.forEach((id) => deleteCartItem(id));
     }
   };
 
