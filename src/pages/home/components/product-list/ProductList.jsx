@@ -10,10 +10,6 @@ function ProductList() {
   const { data, loading, error } = useSelector((state) => state.productList);
   const dispatch = useDispatch();
 
-  console.log(data);
-
-  // console.log(data);
-
   useEffect(() => {
     dispatch(getProductList());
   }, [dispatch]);
