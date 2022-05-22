@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -15,6 +14,8 @@ import CheckBox from 'components/CheckBox/CheckBox';
 import { BasicButton, BasicImage, Flex } from 'components/shared/basics';
 import { ReactComponent as Bin } from 'components/shared/Bin.svg';
 import NumberInput from 'components/shared/NumberInput';
+import { Link } from 'react-router-dom';
+import PATH from 'constants/path';
 
 function CartItem({ id, title, price, src, isChecked, quantity }) {
   const dispatch = useDispatch();
@@ -60,8 +61,10 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
           onCheck={handleCheckProduct}
           onUncheck={handleUncheckProduct}
         />
-        <BasicImage size="small" src={src} alt={title} />
-        <span>{title}</span>
+        <Style.Link to={`/${PATH.PRODUCT}/${id}`}>
+          <BasicImage size="small" src={src} alt={title} />
+          <span>{title}</span>
+        </Style.Link>
       </Flex>
       <Flex direction="column" justify="space-between" align="flex-end">
         <BasicButton onClick={handleDeleteCartProduct}>
@@ -92,6 +95,11 @@ const Style = {
   FlexContainer: styled(Flex)`
     padding: 23px 0;
     border-bottom: 2px solid lightgray;
+  `,
+  Link: styled(Link)`
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
   `,
   CheckBox: styled.input`
     appearance: none;
