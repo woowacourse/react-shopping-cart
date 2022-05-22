@@ -1,12 +1,7 @@
 import { Dispatch } from 'redux';
 
-import {
-  getCartProductList,
-  getCartProductListError,
-  getCartProductListSuccess,
-} from 'store/cartProductList/actions';
+import { getCartProductListError, getCartProductListSuccess } from 'store/cartProductList/actions';
 import { CartProductListAction } from 'store/cartProductList/reducer';
-
 import { loadCartProductList } from 'api/cart';
 
 export const getCartProductListAsync = () => async (dispatch: Dispatch<CartProductListAction>) => {

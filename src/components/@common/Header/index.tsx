@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
-import Box from 'components/@common/Box';
 import Flex from 'components/@common/Flex';
 
 const Header = () => {
