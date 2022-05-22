@@ -1,7 +1,7 @@
 import { CartListAction, CartListActionType } from 'redux/cartList/action';
 import { CartItem } from 'types/domain';
 
-export interface CartItemState {
+export interface CartListState {
   readonly loading_getCartList: boolean;
   readonly loading_postCartList: boolean;
   readonly loading_putCartItem: boolean;
@@ -13,7 +13,7 @@ export interface CartItemState {
   readonly data: CartItem[];
 }
 
-const initialState: CartItemState = {
+const initialState: CartListState = {
   loading_getCartList: false,
   loading_postCartList: false,
   loading_putCartItem: false,
@@ -25,7 +25,7 @@ const initialState: CartItemState = {
   data: [],
 };
 
-export const cartListReducer = (state = initialState, action: CartListAction): CartItemState => {
+export const cartListReducer = (state = initialState, action: CartListAction): CartListState => {
   switch (action.type) {
     case CartListActionType.GET_CART_LIST_START:
       return { ...state, loading_getCartList: true };
