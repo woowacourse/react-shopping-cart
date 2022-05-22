@@ -110,10 +110,6 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(quantityContainedProducts));
   }),
 
-  rest.get(`/${API.CARTS}`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json([]));
-  }),
-
   rest.get(`/${API.CARTS}/:userId`, (req, res, ctx) => {
     const { userId } = req.params;
     return res(ctx.status(200), ctx.json(users[userId].carts));
