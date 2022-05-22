@@ -9,6 +9,10 @@ import { store } from 'redux/store';
 import App from 'App';
 
 if (process.env.NODE_ENV === 'development') {
+  if (window.location.pathname === '/react-shopping-cart') {
+    window.location.pathname = '/react-shopping-cart/';
+  }
+
   const { worker } = require('mocks/browser');
 
   worker.start({
