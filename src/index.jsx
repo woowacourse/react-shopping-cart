@@ -6,7 +6,6 @@ import App from "@/App";
 import reducer from "@redux/reducer";
 import "./index.css";
 import "@scss/style";
-import ModalProvider from "@shared/modal/ModalProvider";
 
 function prepareMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -20,8 +19,10 @@ function prepareMSW() {
 const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "{}");
 
 const initialState = {
-  productList: [],
-  cart: cartFromLocalStorage,
+  productList: [], // 화면에 그리는 용도
+  productObjs: {}, // 상품 정보 검색용
+  cart: cartFromLocalStorage, // 장바구니에 담긴 상품 리스트
+  selectedProductsInCart: [], // 장바구니안에서 주문할(선택된) 상품 리스트
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk));
@@ -31,9 +32,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 prepareMSW().then(() => {
   root.render(
     <Provider store={store}>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
+      <App />
     </Provider>
   );
 });
