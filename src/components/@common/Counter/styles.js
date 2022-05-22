@@ -51,6 +51,12 @@ const ControlButton = styled.button`
     color: ${COLORS.MINT_400};
     background-color: ${COLORS.GRAY_200};
   }
+
+  &:disabled {
+    cursor: default;
+    color: ${COLORS.GRAY_100};
+    background-color: ${COLORS.GRAY_200};
+  }
 `;
 
 const ButtonContainer = styled.div`
