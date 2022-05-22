@@ -11,7 +11,7 @@ export default function PageController({ pageLength, currentPage, onPageChange }
     <ControlButtonBox>
       {Array.from({ length: pageLength }).map((_, index) => (
         <ControlButton
-          key={index}
+          key={Math.random()}
           name={index + 1}
           clicked={index + 1 === currentPage}
           onClick={onButtonClick}
