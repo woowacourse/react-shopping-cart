@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Styled from 'page/CartPage/index.style';
-import { Image } from 'components';
-import CartProductItem from 'components/CartProductItem';
-import CheckBox from 'components/CheckBox';
-import TotalPrice from 'components/TotalPrice';
+
+import { Image, CartProductItem, CheckBox, TotalPrice } from 'components';
+
 import store from 'store/store';
 import {
   doAddProdcutToOrder,
@@ -12,6 +10,7 @@ import {
   doInitializeOrder,
 } from 'actions/actionCreator';
 import empty from 'assets/empty.jpeg';
+import Styled from 'page/CartPage/index.style';
 
 const CartPage = () => {
   const { products, shoppingCart, order } = useSelector(state => state.reducer);
@@ -53,6 +52,7 @@ const CartPage = () => {
         <>
           <Styled.Title>장바구니</Styled.Title>
           <Styled.Division />
+
           <Styled.OrderSheet>
             <Styled.LeftSide>
               <Styled.SelectController>
@@ -83,6 +83,7 @@ const CartPage = () => {
                 ))}
               </Styled.ProductList>
             </Styled.LeftSide>
+
             <Styled.RightSide>
               <TotalPrice
                 title="결제예상금액"
