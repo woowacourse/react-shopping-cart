@@ -50,6 +50,10 @@ export const deleteProductCart = (id) => async (dispatch, getState) => {
       (product) => product.product_id !== Number(id),
     );
     dispatch(getProductCartSuccess(editCartProducts));
+    const cartProductCheckList = getState().cart.cartProducts.every(
+      (product) => product.cart_check,
+    );
+    dispatch(getCheckTotalCartProduct(cartProductCheckList));
   } catch (error) {
     dispatch(openDeleteProductCartErrorModal(error));
   }
