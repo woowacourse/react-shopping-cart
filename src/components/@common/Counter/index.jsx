@@ -1,21 +1,28 @@
 import PropTypes from 'prop-types';
-import { getNumberFormatter } from 'lib/formatterUtils';
 
 import Icon from 'components/@common/Icon';
 
 import { ICON_CODE } from 'constants/';
 import * as S from './styles';
 
-function Counter({ onClickUpButton, onClickDownButton, onChangeInputValue, children }) {
+function Counter({ onChange, children }) {
+  const onClickUpButton = () => {
+    onChange(Number(children) + 1);
+  };
+
+  const onClickDownButton = () => {
+    onChange(Number(children) - 1);
+  };
+
   return (
     <S.Container>
-      <S.CounterText onChange={onChangeInputValue} value={getNumberFormatter(children)} />
+      <S.CounterText value={Number(children)} readOnly />
 
       <S.ButtonContainer>
         <S.ControlButton onClick={onClickUpButton}>
           <Icon icon={ICON_CODE.UP} />
         </S.ControlButton>
-        <S.ControlButton onClick={onClickDownButton}>
+        <S.ControlButton onClick={onClickDownButton} disabled={children <= 1}>
           <Icon icon={ICON_CODE.DOWN} />
         </S.ControlButton>
       </S.ButtonContainer>
@@ -24,7 +31,7 @@ function Counter({ onClickUpButton, onClickDownButton, onChangeInputValue, child
 }
 
 Counter.defaultProps = {
-  children: 1500,
+  children: 1,
 };
 
 Counter.propTypes = {
