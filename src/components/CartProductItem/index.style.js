@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { ReactComponent as DeleteIcon } from 'assets/trash_can_icon.svg';
 
 const Styled = {
-  ProductItem: styled.div`
+  Container: styled.div`
     width: 660px;
     height: 203px;
     border-top: 2px solid #cccccc;
@@ -11,16 +12,20 @@ const Styled = {
     justify-content: space-between;
   `,
 
-  ProductController: styled.div`
+  LeftSide: styled.div`
+    display: flex;
+    gap: 15px;
+  `,
+
+  RightSide: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: end;
   `,
 
-  ProductDetailController: styled.div`
-    display: flex;
-    gap: 15px;
+  DeleteButton: styled(DeleteIcon)`
+    cursor: pointer;
   `,
 
   ProductName: styled.p`

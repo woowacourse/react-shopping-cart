@@ -1,9 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Styled from 'components/CartProductItem/index.style';
-import { Button, Image } from 'components';
-import { ReactComponent as DeleteIcon } from 'assets/trash_can_icon.svg';
+import PropTypes from 'prop-types';
+import { Image } from 'components';
 import Counter from 'components/Counter';
-import autoComma from 'utils/autoComma';
 import CheckBox from 'components/CheckBox';
 import store from 'store/store';
 import {
@@ -12,13 +11,13 @@ import {
   doAddProdcutToOrder,
   doDeleteProductFromCart,
 } from 'actions/actionCreator';
-import { useEffect, useState } from 'react';
+import autoComma from 'utils/autoComma';
+import Styled from 'components/CartProductItem/index.style';
 
 const CartProductItem = ({ id, quantity }) => {
   const { products, order } = useSelector(state => state.reducer);
-  const product = products.find(product => product.id === id);
-  const { name, price, image } = product;
   const [isInOrder, setIsInOrder] = useState(order.some(productId => productId === id));
+  const { name, price, image } = products.find(product => product.id === id);
 
   const toggleOrder = () => {
     if (isInOrder) {
@@ -34,26 +33,29 @@ const CartProductItem = ({ id, quantity }) => {
   }, [order, id]);
 
   return (
-    <Styled.ProductItem>
-      <Styled.ProductDetailController>
+    <Styled.Container>
+      <Styled.LeftSide>
         <CheckBox checked={isInOrder} handleChange={toggleOrder} />
         <Image src={image} size="200px" alt={name} />
         <Styled.ProductName>{name}</Styled.ProductName>
-      </Styled.ProductDetailController>
+      </Styled.LeftSide>
 
-      <Styled.ProductController>
-        <Button>
-          <DeleteIcon onClick={() => store.dispatch(doDeleteProductFromCart({ id }))} />
-        </Button>
+      <Styled.RightSide>
+        <Styled.DeleteButton onClick={() => store.dispatch(doDeleteProductFromCart({ id }))} />
         <Counter
           quantity={quantity}
           increase={() => store.dispatch(doPutProductToCart({ id, quantity: quantity + 1 }))}
           decrease={() => store.dispatch(doPutProductToCart({ id, quantity: quantity - 1 }))}
         />
         {autoComma(price)}원
-      </Styled.ProductController>
-    </Styled.ProductItem>
+      </Styled.RightSide>
+    </Styled.Container>
   );
+};
+
+CartProductItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default CartProductItem;
