@@ -7,7 +7,22 @@ import { allCheckProduct } from '../store/modules/cart/actions';
 
 function CartPage() {
   const dispatch = useDispatch();
-  const { products, checkedIds, count } = useSelector((state) => state.cart);
+  const { products, checkedIds, count, orderDetail } = useSelector((state) => state.cart);
+
+  const cartResult = checkedIds.reduce(
+    (payment, id) => {
+      const { quantity, paymentAmount } = orderDetail[id];
+
+      return {
+        totalPaymentAmount: payment.totalPaymentAmount + Number(paymentAmount),
+        totalOrders: payment.totalOrders + Number(quantity),
+      };
+    },
+    {
+      totalPaymentAmount: 0,
+      totalOrders: 0,
+    }
+  );
 
   useEffect(() => {
     dispatch(allCheckProduct());
@@ -21,7 +36,11 @@ function CartPage() {
         </StyledContentHeader>
         <StyledContent>
           <CartList products={products} checkedIds={checkedIds} count={count} />
-          <OrderBox />
+          <OrderBox
+            titleText={'결제예상금액'}
+            price={cartResult.totalPaymentAmount}
+            orders={cartResult.totalOrders}
+          />
         </StyledContent>
       </StyledContentWrapper>
     </StyledContentLayout>

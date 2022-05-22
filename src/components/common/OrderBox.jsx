@@ -1,20 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function OrderBox() {
+function OrderBox({ titleText, price = 0, orders = 0 }) {
   return (
     <StyledOrderBoxLayout>
       <StyledOrderTitle>
-        <span>결제예상금액</span>
+        <span>{titleText}</span>
       </StyledOrderTitle>
       <StyledOrderContent>
         <StyledOrderContentInfo>
-          <StyledUnderLineText>결제예상금액</StyledUnderLineText>
-          <StyledUnderLineText>20,000원</StyledUnderLineText>
+          <StyledUnderLineText>{titleText}</StyledUnderLineText>
+          <StyledUnderLineText>{Number(price).toLocaleString()}원</StyledUnderLineText>
         </StyledOrderContentInfo>
         <div>
           <StyledButton>
-            주문하기(<span>2</span>개)
+            주문하기(<span>{orders}</span>개)
           </StyledButton>
         </div>
       </StyledOrderContent>

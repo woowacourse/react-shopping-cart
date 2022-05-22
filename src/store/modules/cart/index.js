@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   checkedIds: [],
   count: 0,
+  orderDetail: {},
 };
 
 function reducer(state = initialState, action) {
@@ -14,6 +15,16 @@ function reducer(state = initialState, action) {
         products: action.payload,
         count: action.payload.length,
         checkedIds: action.payload.map((product) => product.id),
+        orderDetail: action.payload.reduce((target, product) => {
+          target[product.id] = {
+            id: product.id,
+            quantity: 1,
+            price: product.price,
+            paymentAmount: product.price,
+          };
+
+          return target;
+        }, {}),
       };
     case actionTypes.ADD_PRODUCT_TO_CART:
       return {
@@ -56,6 +67,16 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         checkedIds: [],
+      };
+    case actionTypes.ORDER_DETAIL:
+      const _orderDetail = { ...state.orderDetail };
+      _orderDetail[`${action.payload.id}`] = action.payload;
+
+      return {
+        ...state,
+        orderDetail: {
+          ..._orderDetail,
+        },
       };
     default:
       return state;

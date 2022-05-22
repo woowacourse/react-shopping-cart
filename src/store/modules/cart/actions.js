@@ -42,6 +42,7 @@ const removeProductToCartAsync = (id) => async (dispatch) => {
 
 const removeProductsToCartAsync = (ids) => async (dispatch) => {
   try {
+    // Promise.all()
     // TODO
     // await deleteCartItem({ ids });
     // dispatch({
@@ -71,6 +72,13 @@ const allCheckProduct = () => (dispatch) => dispatch({ type: actionTypes.ALL_CHE
 
 const allUnCheckProduct = () => (dispatch) => dispatch({ type: actionTypes.ALL_UN_CHECK });
 
+const setOrderDetail = (detail) => (dispatch) => {
+  dispatch({
+    type: actionTypes.ORDER_DETAIL,
+    payload: detail,
+  });
+};
+
 export {
   AddProductToCartAsync,
   removeProductToCartAsync,
@@ -80,4 +88,5 @@ export {
   unCheckProduct,
   allCheckProduct,
   allUnCheckProduct,
+  setOrderDetail,
 };

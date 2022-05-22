@@ -7,4 +7,5 @@ export const actionTypes = {
   CHECK: 'CHECK',
   ALL_CHECK: 'ALL_CHECK',
   ALL_UN_CHECK: 'ALL_UN_CHECK',
+  ORDER_DETAIL: 'ORDER_DETAIL',
 };

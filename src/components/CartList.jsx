@@ -7,6 +7,7 @@ import {
   checkProduct,
   removeProductsToCartAsync,
   removeProductToCartAsync,
+  setOrderDetail,
   unCheckProduct,
 } from '../store/modules/cart/actions';
 import { StyledImageWrapper, StyledImg } from './common';
@@ -91,7 +92,16 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
   };
 
   const onClickCounterCallback = (count) => {
-    setItemPrice(price * count);
+    const paymentAmount = price * count;
+    dispatch(
+      setOrderDetail({
+        id,
+        quantity: count,
+        price,
+        paymentAmount,
+      })
+    );
+    setItemPrice(paymentAmount);
   };
 
   const onClickCheckCallback = (isCheck) => {
