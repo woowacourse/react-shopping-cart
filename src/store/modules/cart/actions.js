@@ -40,20 +40,6 @@ const removeProductToCartAsync = (id) => async (dispatch) => {
   }
 };
 
-const removeProductsToCartAsync = (ids) => async (dispatch) => {
-  try {
-    // Promise.all()
-    // TODO
-    // await deleteCartItem({ ids });
-    // dispatch({
-    //   type: actionTypes.REMOVE_PRODUCTS_TO_CART,
-    //   payload: ids,
-    // });
-  } catch (err) {
-    console.log('err', err.message);
-  }
-};
-
 const checkProduct = (id) => (dispatch) => {
   dispatch({
     type: actionTypes.CHECK,
@@ -82,7 +68,6 @@ const setOrderDetail = (detail) => (dispatch) => {
 export {
   AddProductToCartAsync,
   removeProductToCartAsync,
-  removeProductsToCartAsync,
   setCartProductListAsync,
   checkProduct,
   unCheckProduct,

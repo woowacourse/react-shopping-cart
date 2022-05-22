@@ -5,7 +5,6 @@ import {
   allCheckProduct,
   allUnCheckProduct,
   checkProduct,
-  removeProductsToCartAsync,
   removeProductToCartAsync,
   setOrderDetail,
   unCheckProduct,
@@ -35,15 +34,27 @@ function CartList({ products, checkedIds, count }) {
     dispatch(allUnCheckProduct());
   };
 
-  // TODO: removeProductsToCartAsync
-  const handlRemoveProductsToCart = (ids) => {
+  const handlRemoveProductsToCart = async (ids) => {
     if (ids.length === 0) {
       alert('삭제 할 상품을 선택해 주세요.');
       return;
     }
 
-    // dispatch(removeProductsToCartAsync(ids));
-    // console.log('remove', ids);
+    const isRemove = window.confirm('해당 상품들을 장바구니에서 삭제 하시겠습니까?');
+    if (!isRemove) return;
+
+    await Promise.all(
+      ids.map((id) => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const res = await dispatch(removeProductToCartAsync(id));
+            resolve(res);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      })
+    );
   };
 
   useEffect(() => {

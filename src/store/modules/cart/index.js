@@ -40,14 +40,6 @@ function reducer(state = initialState, action) {
         count: state.count - 1,
         checkedIds: state.checkedIds.filter((id) => id !== action.payload),
       };
-    case actionTypes.REMOVE_PRODUCTS_TO_CART:
-      return {
-        ...state,
-        // TODO
-        // products: state.products.filter(({ id }) => id !== action.payload),
-        // count: state.count - 1,
-        // checkedIds: state.checkedIds.filter((id) => id !== action.payload),
-      };
     case actionTypes.CHECK:
       return {
         ...state,
