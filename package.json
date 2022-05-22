@@ -44,7 +44,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "msw": "^0.41.0"
   },
   "homepage": "http://byhhh2.github.io/react-shopping-cart"
 }
