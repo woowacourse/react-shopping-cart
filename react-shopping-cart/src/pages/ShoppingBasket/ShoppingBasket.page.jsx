@@ -33,6 +33,14 @@ function ShoppingBasket() {
   const { selectedProductList, isAllSelected, clickCheckbox, clickAllCheckbox } =
     useSelectShoppingBasketItem(shoppingBasketList);
 
+  const handleClickDeleteSelectedProduct = () => {
+    if (selectedProductList.length === 0) {
+      return;
+    }
+
+    deleteProducts(selectedProductList);
+  };
+
   return (
     <>
       <Header />
@@ -46,6 +54,7 @@ function ShoppingBasket() {
             <ShoppingBasketControl
               isAllSelected={isAllSelected}
               clickAllCheckbox={clickAllCheckbox}
+              handleClickDeleteSelectedProduct={handleClickDeleteSelectedProduct}
             />
             <Text margin="26px 0 0" fontSize="medium">
               든든배송 상품 ({shoppingBasketList.length})

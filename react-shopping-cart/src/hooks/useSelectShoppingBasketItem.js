@@ -14,7 +14,8 @@ function useSelectShoppingBasketItem(shoppingBasketList) {
     setSelectedProductList(updatedSelectedProductList);
   }, [shoppingBasketList]);
 
-  const isAllSelected = selectedProductList.length === shoppingBasketList.length;
+  const isAllSelected =
+    selectedProductList.length !== 0 && selectedProductList.length === shoppingBasketList.length;
 
   const clickCheckbox = (id, isSelected) => {
     isSelected ? selectProduct(id) : deselectProduct(id);
