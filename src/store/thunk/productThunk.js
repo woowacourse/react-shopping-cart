@@ -1,5 +1,5 @@
 import productAPI from 'api/productAPI';
-import storage from 'storage/storage';
+import cookieStorage from 'storage/cookieStorage';
 import { ALERT_MESSAGE, ERROR_MESSAGE } from 'constant/messages';
 import { addProductCart } from 'store/action/cartActions';
 import { updateProducts } from 'store/action/productsActions';
@@ -27,7 +27,7 @@ const cartProductsAsyncThunk = idList => async dispatch => {
 
 const addCartProductThunk = product => dispatch => {
   dispatch(addProductCart(product));
-  storage.addCartProductId(product.id);
+  cookieStorage.addCartProductId(product.id);
   dispatch(updateSnackBar(`${product.name} ${ALERT_MESSAGE.ADD_CART}`));
 };
 

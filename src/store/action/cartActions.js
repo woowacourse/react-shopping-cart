@@ -1,4 +1,4 @@
-import storage from 'storage/storage';
+import cookieStorage from 'storage/cookieStorage';
 
 const CART_ACTION_TYPES = {
   ADD_PRODUCT: 'CART_ADD_PRODUCT',
@@ -36,7 +36,7 @@ const checkProductCart = (product, checked) => {
 };
 
 const removeProductCart = product => {
-  storage.removeCartProductId(product.id);
+  cookieStorage.removeCartProductId(product.id);
   return {
     type: CART_ACTION_TYPES.REMOVE_PRODUCT,
     payload: {

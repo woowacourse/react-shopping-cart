@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import storage from 'storage/storage';
+import cookieStorage from 'storage/cookieStorage';
 import CartOperator from 'component/ShoppingCart/CartOperator';
 import CartOrder from 'component/ShoppingCart/CartOrder';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ export default function ShoppingCart() {
   const cartedProducts = useSelector(store => store.shoppingCart);
 
   useEffect(() => {
-    const idList = storage.getCartProductIds();
+    const idList = cookieStorage.getCartProductIds();
     if (cartedProducts.length === 0 && idList) {
       dispatch(cartProductsAsyncThunk(idList));
     }

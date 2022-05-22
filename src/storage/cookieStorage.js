@@ -1,4 +1,4 @@
-const storage = {
+const cookieStorage = {
   KEYS: {
     CART: 'CART_PRODUCT_ID',
   },
@@ -43,4 +43,4 @@ const storage = {
   },
 };
 
-export default storage;
+export default cookieStorage;
