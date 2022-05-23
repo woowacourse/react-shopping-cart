@@ -1,9 +1,9 @@
-import { 상수 } from 'constants/';
+import { 숫자 } from 'constants/';
 import PropTypes from 'prop-types';
 import Button from '../Button/styles';
 import * as CommonStyle from '../CommonStyle/styles';
 
-const isValidOrder = (value) => value > 상수.최대_주문수량 || value < 상수.최소_주문수량;
+const isValidOrder = (value) => value > 숫자.최대_주문수량 || value < 숫자.최소_주문수량;
 
 const Counter = ({ id, count, handleItemCount }) => {
   const onClickButton = (amount) => {

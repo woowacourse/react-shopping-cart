@@ -10,7 +10,7 @@ export const 비동기_요청 = {
   FAILURE: '비동기_요청_실패',
 };
 
-export const 상수 = {
+export const 숫자 = {
   최소_주문수량: 1,
   최대_주문수량: 99,
 };
