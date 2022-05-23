@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   SkeletonProductContainer,
   SkeletonProductItem,
@@ -15,6 +17,14 @@ const Skeleton = () => {
       </SkeletonProductContainer>
     </SkeletonProductItem>
   );
+};
+
+export const getSkeletonList = length => {
+  const skeletonList = [];
+  for (let i = 0; i < length; i++) {
+    skeletonList.push(<Skeleton key={uuidv4()} />);
+  }
+  return skeletonList;
 };
 
 export default Skeleton;

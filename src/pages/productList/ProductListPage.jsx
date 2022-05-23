@@ -7,7 +7,7 @@ import { getProductList } from 'modules/products';
 import { getShoppingCartList } from 'modules/shoppingCarts';
 
 import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
-import Skeleton from 'components/productItem/Skeleton';
+import { getSkeletonList } from 'components/productItem/Skeleton';
 
 const ProductListPage = () => {
   const { productList, productListLoading } = useSelector(state => state.productReducer.products);
@@ -21,7 +21,7 @@ const ProductListPage = () => {
   if (productListLoading) {
     return (
       <StyledProductListPage>
-        <StyledProductList>{Array(12).fill(<Skeleton />)}</StyledProductList>
+        <StyledProductList>{getSkeletonList(12)}</StyledProductList>
       </StyledProductListPage>
     );
   }
