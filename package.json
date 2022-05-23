@@ -7,6 +7,7 @@
     "build": "webpack --progress",
     "clean": "npm cache clean --force && rm -rf node_modules && rm package-lock.json",
     "start": "webpack serve --open --progress --port 9000",
+    "test": "jest",
     "lint": "node_modules/.bin/eslint --ext=.jsx,.js,.tsx,.ts  ."
   },
   "repository": {
@@ -34,6 +35,7 @@
     "@commitlint/cli": "^16.2.4",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@svgr/webpack": "^6.2.1",
+    "@testing-library/react": "^13.2.0",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "commitizen": "^4.2.4",
@@ -50,6 +52,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
+    "jest": "^28.1.0",
     "mini-css-extract-plugin": "^2.6.0",
     "node-sass": "^7.0.1",
     "prettier": "^2.6.2",
@@ -68,6 +71,7 @@
     "@babel/runtime": "^7.17.9",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@testing-library/jest-dom": "^5.16.4",
     "axios": "^0.27.2",
     "msw": "^0.40.1",
     "react": "^18.1.0",

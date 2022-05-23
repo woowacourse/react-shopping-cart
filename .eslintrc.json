@@ -36,6 +36,7 @@
     "react/react-in-jsx-scope": "off",
     "global-require": 0,
     "default-param-last": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "react/jsx-filename-extension": [1, { "allow": "as-needed" }]
   }
 }
