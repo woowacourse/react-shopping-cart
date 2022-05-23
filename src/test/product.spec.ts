@@ -1,7 +1,7 @@
 import cartReducer, {
   actionCreators as productsActions,
   ProductState,
-} from "../redux/modules/products";
+} from "redux/modules/products";
 
 describe("productsReducer 테스트", () => {
   const initialState: ProductState = {

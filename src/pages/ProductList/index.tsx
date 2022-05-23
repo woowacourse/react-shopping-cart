@@ -5,10 +5,10 @@ import {
   actionCreators as productsActions,
   ProductState,
   selectProductState,
-} from "../../redux/modules/products";
+} from "redux/modules/products";
 
-import Product from "../../components/Product";
-import Loader from "../../components/@shared/Loader";
+import Product from "components/Product";
+import Loader from "components/@shared/Loader";
 
 import * as S from "./styles";
 

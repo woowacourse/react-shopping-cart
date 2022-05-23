@@ -1,4 +1,4 @@
-import cartReducer, { actionCreators as snackBarActions } from "../redux/modules/snackBar";
+import cartReducer, { actionCreators as snackBarActions } from "redux/modules/snackBar";
 
 describe("snackBarReducer 테스트", () => {
   const initialState = {

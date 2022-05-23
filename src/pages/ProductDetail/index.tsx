@@ -2,9 +2,9 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 
-import { useCartItemSelector } from "../../hooks/useCartSelector";
+import { useCartItemSelector } from "hooks/useCartSelector";
 
-import { actionCreators as cartActions } from "../../redux/modules/cart";
+import { actionCreators as cartActions } from "redux/modules/cart";
 
 import * as S from "./styles";
 

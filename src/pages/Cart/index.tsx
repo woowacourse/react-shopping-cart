@@ -1,8 +1,8 @@
-import { useCartItemListSelector } from "../../hooks/useCartSelector";
+import { useCartItemListSelector } from "hooks/useCartSelector";
 
-import CartItemList from "../../components/CartItemList";
-import CartItemListController from "../../components/CartItemListController";
-import OrderBox from "../../components/OrderBox";
+import CartItemList from "components/CartItemList";
+import CartItemListController from "components/CartItemListController";
+import OrderBox from "components/OrderBox";
 
 import * as S from "./styles";
 

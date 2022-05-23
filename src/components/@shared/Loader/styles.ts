@@ -16,7 +16,7 @@ const LoaderWrapper = styled.div`
   width: 100vw;
   height: 50vh;
 
-  & div {
+  div {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #2ac1bc;
     border-radius: 50%;

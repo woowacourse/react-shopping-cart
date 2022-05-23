@@ -1,6 +1,6 @@
 import * as S from "./styles";
 
-import emptyPage from "../../../assets/emptyPage.jpeg";
+import emptyPage from "assets/emptyPage.jpeg";
 
 function NotFound() {
   return (

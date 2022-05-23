@@ -1,18 +1,18 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { ROUTE_URL } from "./constants/constants";
+import { ROUTE_URL } from "constants/constants";
 
-import { RootState } from "./redux/store";
+import { RootState } from "redux/store";
 
-import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
-import OrderList from "./pages/OrderList";
-import ProductList from "./pages/ProductList";
-import NotFoundPage from "./pages/NotFound";
+import ProductDetail from "pages/ProductDetail";
+import Cart from "pages/Cart";
+import OrderList from "pages/OrderList";
+import ProductList from "pages/ProductList";
+import NotFoundPage from "pages/NotFound";
 
-import SnackBar from "./components/@shared/SnackBar";
-import Header from "./components/Header";
+import SnackBar from "components/@shared/SnackBar";
+import Header from "components/Header";
 
 function App() {
   const { isShowSnackBar, message } = useSelector((state: RootState) => state.snackBar);

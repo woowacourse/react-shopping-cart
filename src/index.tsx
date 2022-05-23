@@ -1,9 +1,10 @@
 import ReactDOM from "react-dom/client";
-import store from "./redux/store";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 
-import App from "./App";
+import App from "App";
+
+import store from "redux/store";
 
 if (process.env.NODE_ENV === "development") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 
-import { actionCreators as cartActions } from "../../redux/modules/cart";
+import { actionCreators as cartActions } from "redux/modules/cart";
 
-import { MESSAGE } from "../../constants/constants";
+import { MESSAGE } from "constants/constants";
 
 import * as S from "./styles";
 

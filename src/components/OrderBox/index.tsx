@@ -1,4 +1,4 @@
-import { useSelectedCartItemSelector } from "../../hooks/useCartSelector";
+import { useSelectedCartItemSelector } from "hooks/useCartSelector";
 
 import * as S from "./styles";
 

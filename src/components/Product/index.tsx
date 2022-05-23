@@ -2,21 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { useCartItemSelector, useCartItemListSelector } from "../../hooks/useCartSelector";
+import { useCartItemSelector, useCartItemListSelector } from "hooks/useCartSelector";
 
-import { actionCreators as cartActions } from "../../redux/modules/cart";
-import { actionCreators as SnackBarActions } from "../../redux/modules/snackBar";
+import { actionCreators as cartActions } from "redux/modules/cart";
+import { actionCreators as SnackBarActions } from "redux/modules/snackBar";
 
 import * as S from "./styles";
 
-import deleteIcon from "../../assets/deleteIcon_white.png";
-import cart from "../../assets/cart.svg";
-import {
-  CART_AMOUNT_MIN,
-  CART_COUNTER_HIDE_TIME,
-  MESSAGE,
-  ROUTE_URL,
-} from "../../constants/constants";
+import deleteIcon from "assets/deleteIcon_white.png";
+import cart from "assets/cart.svg";
+
+import { CART_AMOUNT_MIN, CART_COUNTER_HIDE_TIME, MESSAGE, ROUTE_URL } from "constants/constants";
 
 export type ProductType = {
   name: string;

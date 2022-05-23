@@ -1,4 +1,4 @@
-import NotFound from "../../components/@shared/NotFound";
+import NotFound from "components/@shared/NotFound";
 
 function NotFoundPage() {
   return <NotFound />;

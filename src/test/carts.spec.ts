@@ -1,4 +1,4 @@
-import cartReducer, { actionCreators as cartActions, CartItemDetail } from "../redux/modules/cart";
+import cartReducer, { actionCreators as cartActions, CartItemDetail } from "redux/modules/cart";
 
 const makeNewCartItem = ({ name, img, price, id }: CartItemDetail) => ({
   amount: 1,
