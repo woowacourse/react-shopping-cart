@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { RootState } from "..";
 import * as productAPI from "../../api";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
-import { product } from "../../types/product";
+import { ProductType } from "../../types/product";
 import createReducer from "../createReducer";
 import { AppThunk } from "../thunk";
 import { Products, ProductsListActionType } from "./type";
@@ -31,7 +31,7 @@ export const getProductsByPage =
     dispatch({ type: ProductsListActionType.GET_PRODUCTS });
 
     try {
-      const products: AxiosResponse<product[]> =
+      const products: AxiosResponse<ProductType[]> =
         await productAPI.getProductsByPage(page);
 
       if (products.data.length < LOAD_ITEM_AMOUNT) {

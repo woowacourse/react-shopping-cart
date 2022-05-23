@@ -45,6 +45,7 @@ export const PatchCartCheck = (cartListState: Cart, action: any) => {
     (cart) => cart.id === action.payload.targetId
   );
   const targetCart = { ...cartListState.data[targetCartIndex] };
+
   targetCart.isChecked = action.payload.isChecked;
   return {
     isLoading: false,

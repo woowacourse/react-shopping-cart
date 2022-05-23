@@ -1,4 +1,4 @@
-import { product } from "../../types/product";
+import { ProductType } from "../../types/product";
 
 export enum ProductActionType {
   GET_PRODUCT = "product/GET_PRODUCT",
@@ -8,7 +8,7 @@ export enum ProductActionType {
 
 export interface Product {
   isLoading: boolean;
-  data: product;
+  data: ProductType;
   error: null | string;
 }
 
@@ -18,7 +18,7 @@ interface GetProductAction {
 
 interface GetProductActionSuccess {
   type: ProductActionType.GET_PRODUCT_SUCCESS;
-  product: product;
+  product: ProductType;
 }
 
 interface GetProductActionError {

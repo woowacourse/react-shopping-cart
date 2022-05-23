@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LOAD_ITEM_AMOUNT } from "./constants";
 import { Product } from "./modules/product/type";
-import { product } from "./types/product";
+import { ProductType } from "./types/product";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -16,5 +16,5 @@ export const getProductsByPage = async (page: number) => {
 };
 
 export const getProductById = async (id: number) => {
-  return (await axios.get<product, Product>(`/products/${id}`)).data;
+  return (await axios.get<ProductType, Product>(`/products/${id}`)).data;
 };

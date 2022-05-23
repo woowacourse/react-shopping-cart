@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { getProductById } from "../api";
 import { Product } from "../modules/product/type";
-import { product } from "../types/product";
+import { ProductType } from "../types/product";
 
 const useProduct = (id: number) => {
   const [productData, setProductData] = useState({} as Product);
 
   const fetchData = useCallback(async () => {
-    const data = (await getProductById(id)) as product;
+    const data = (await getProductById(id)) as ProductType;
     setProductData(() => ({ isLoading: false, data, error: null }));
   }, [id]);
 
@@ -15,14 +15,14 @@ const useProduct = (id: number) => {
     try {
       setProductData(() => ({
         isLoading: true,
-        data: {} as product,
+        data: {} as ProductType,
         error: null,
       }));
       fetchData();
     } catch (e: any) {
       setProductData(() => ({
         isLoading: false,
-        data: {} as product,
+        data: {} as ProductType,
         error: e.message,
       }));
     }
