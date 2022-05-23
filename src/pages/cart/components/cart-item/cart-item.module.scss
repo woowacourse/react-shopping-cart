@@ -11,6 +11,9 @@
 
 .content {
   display: flex;
+  .thumbnail {
+    max-width: 150px;
+  }
   .productName {
     font-size: 20px;
     line-height: 24px;
