@@ -38,6 +38,13 @@ const useCart = () => {
         payload: { targetId, isChecked },
       });
     },
+    isAllChecked: cartList.data.every((cart) => cart.isChecked),
+    changeAllCartChecked: (isChecked: boolean) => {
+      dispatch({
+        type: CartActionType.PATCH_CART_ALL_CHECK,
+        payload: isChecked,
+      });
+    },
   };
 };
 

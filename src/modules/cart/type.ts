@@ -7,6 +7,7 @@ export enum CartActionType {
   POST_CART_ERROR = "cart/POST_CART_ERROR",
   PATCH_CART_STOCK = "cart/PATCH_CART_STOCK",
   PATCH_CART_CHECK = "cart/PATCH_CART_CHECK",
+  PATCH_CART_ALL_CHECK = "cart/PATCH_CART_ALL_CHECK",
 }
 
 export interface Cart {
@@ -52,6 +53,10 @@ export interface PatchCartCheck {
   type: CartActionType.PATCH_CART_CHECK;
   payload: PatchCartCheckedPayload;
 }
+export interface PatchCartALLCheck {
+  type: CartActionType.PATCH_CART_ALL_CHECK;
+  payload: boolean;
+}
 
 export type CartAction =
   | GetCartList
@@ -59,4 +64,5 @@ export type CartAction =
   | PostCartSuccess
   | PostCartError
   | PatchCartStock
-  | PatchCartCheck;
+  | PatchCartCheck
+  | PatchCartALLCheck;

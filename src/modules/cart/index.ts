@@ -5,6 +5,7 @@ import { Cart } from "./type";
 const POST_CART_SUCCESS = "cart/POST_CART_SUCCESS" as const;
 const PATCH_CART_STOCK = "cart/PATCH_CART_STOCK" as const;
 const PATCH_CART_CHECK = "cart/PATCH_CART_CHECK" as const;
+const PATCH_CART_ALL_CHECK = "cart/PATCH_CART_ALL_CHECK" as const;
 
 const INITIAL_STATE: Cart = {
   isLoading: false,
@@ -60,8 +61,20 @@ export const PatchCartCheck = (cartListState: Cart, action: any) => {
   };
 };
 
+export const PatchCartAllCheck = (cartListState: Cart, action: any) => {
+  return {
+    isLoading: false,
+    data: cartListState.data.map((data) => {
+      data.isChecked = action.payload;
+      return data;
+    }),
+    error: null,
+  };
+};
+
 export const cartReducer = createReducer<Cart>(INITIAL_STATE, {
   [POST_CART_SUCCESS]: postCartSuccess,
   [PATCH_CART_STOCK]: PatchCartStock,
   [PATCH_CART_CHECK]: PatchCartCheck,
+  [PATCH_CART_ALL_CHECK]: PatchCartAllCheck,
 });
