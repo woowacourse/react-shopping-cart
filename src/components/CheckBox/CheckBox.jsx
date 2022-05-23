@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function CheckBox() {
-  return <StyledCheckbox type="checkbox" />;
+function CheckBox(props) {
+  return <StyledCheckbox {...props} type="checkbox" />;
 }
 
 const StyledCheckbox = styled.input`

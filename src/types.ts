@@ -23,6 +23,8 @@ export type StoreState = {
   error: any;
   productList: Array<Product>;
   productDetail: Product | null;
+  cart: Array<{ id: string; quantity: string; checked: boolean }>;
+  cartItems: Array<Product>;
 };
 
 export type Theme = typeof theme;

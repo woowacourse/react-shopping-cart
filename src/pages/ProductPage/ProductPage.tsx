@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Spinner from '../../components/Spinner/Spinner';
-import useProductPage from './useProductDetail';
+import useProductDetail from './useProductDetail';
 
 function ProductPage() {
   const { id } = useParams();
-  const { isLoading, productDetail, error } = useProductPage(id);
+  const { isLoading, productDetail, error, isAlreadyAdded, addItemToCart } =
+    useProductDetail(id as string);
 
   if (error) {
     alert(error);
@@ -31,7 +32,13 @@ function ProductPage() {
           <dt>제품 설명</dt>
           <dd>{productDetail.description}</dd>
         </dl>
-        <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+        {isAlreadyAdded ? (
+          <StyledAddToCartButton disabled>이미 추가됨</StyledAddToCartButton>
+        ) : (
+          <StyledAddToCartButton onClick={addItemToCart}>
+            장바구니
+          </StyledAddToCartButton>
+        )}
       </StyledPage>
     );
   }

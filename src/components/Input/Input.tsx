@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 type InputProps = React.HTMLProps<HTMLInputElement>;
 
 function Input(props: InputProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <StyledInputBox>
-      <input {...props} />
+      <input {...props} ref={inputRef} />
       <StyledInputStepButtonBox>
-        <button>
+        <button
+          onClick={() => {
+            if (inputRef.current) {
+              inputRef.current.stepUp();
+            }
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.25rem"
@@ -23,7 +31,13 @@ function Input(props: InputProps) {
             />
           </svg>
         </button>
-        <button>
+        <button
+          onClick={() => {
+            if (inputRef.current) {
+              inputRef.current.stepDown();
+            }
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.25rem"

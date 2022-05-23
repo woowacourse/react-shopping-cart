@@ -1,15 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 import CartItem from '../../components/CartItem/CartItem';
+import CheckBox from '../../components/CheckBox/CheckBox';
+import Spinner from '../../components/Spinner/Spinner';
+import useCart from './useCart';
 
 function CartPage() {
+  const {
+    isLoading,
+    error,
+    cart,
+    totalPrice,
+    handleChangeQuantity,
+    handleCheck,
+    handleCheckAll,
+    removeCartItem,
+    removeAllCartItem,
+  } = useCart();
+
+  if (error) {
+    alert(error);
+  }
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <h2 style={{ fontSize: '24px', fontWeight: '600', textAlign: 'center' }}>
         장바구니
       </h2>
       <StyledHr />
-
       <div style={{ display: 'flex' }}>
         <section style={{ width: '60%', marginTop: '50px' }}>
           <div
@@ -20,25 +42,22 @@ function CartPage() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                style={{
-                  appearance: 'none',
-                  border: '1px solid #2ac1bc',
-                  borderRadius: '2px',
-                  width: '1.75rem',
-                  height: '1.75rem',
-                  cursor: 'pointer',
-                }}
-                name="checkbox"
-                type="checkbox"
-                checked={true}
+              <CheckBox
+                id="select-all-checkbox"
+                name="select-all-checkbox"
+                checked={cart.every((item) => item.checked)}
+                onChange={handleCheckAll}
               />
-              <label style={{ paddingLeft: '7px' }} htmlFor="checkbox">
+              <label
+                style={{ paddingLeft: '7px' }}
+                htmlFor="select-all-checkbox"
+              >
                 선택해제
               </label>
             </div>
             <button
               style={{ padding: '12px 22px', border: '1px solid #bbbbbb' }}
+              onClick={removeAllCartItem}
             >
               상품삭제
             </button>
@@ -46,57 +65,27 @@ function CartPage() {
           <h3
             style={{ display: 'flex', alignItems: 'center', fontSize: '20px' }}
           >
-            든든배송 상품 (3개)
+            든든배송 상품 ({cart.length}개)
           </h3>
           <StyledHr variant="gray" />
-          <CartItem
-            product={{
-              id: '1',
-              name: '[든든] 전처리 양파 다이스 15mm(1.5*1.5*1.5/국내산) 1KG',
-              price: 3940,
-              image:
-                'https://user-images.githubusercontent.com/44823900/167772500-dff4dfb5-6ad2-48fe-937d-81bc6800d0e2.jpg',
-              description: '전처리 양파 다이스',
-              stock: 76,
-              brandId: '1',
-              categoryId: '1',
-              createdAt: 1652193534410,
-            }}
-            count={1}
-          />
-          <StyledHr variant="thin" />
-          <CartItem
-            product={{
-              id: '1',
-              name: '[든든] 전처리 양파 다이스 15mm(1.5*1.5*1.5/국내산) 1KG',
-              price: 3940,
-              image:
-                'https://user-images.githubusercontent.com/44823900/167772500-dff4dfb5-6ad2-48fe-937d-81bc6800d0e2.jpg',
-              description: '전처리 양파 다이스',
-              stock: 76,
-              brandId: '1',
-              categoryId: '1',
-              createdAt: 1652193534410,
-            }}
-            count={1}
-          />
-          <StyledHr variant="thin" />
-          <CartItem
-            product={{
-              id: '1',
-              name: '[든든] 전처리 양파 다이스 15mm(1.5*1.5*1.5/국내산) 1KG',
-              price: 3940,
-              image:
-                'https://user-images.githubusercontent.com/44823900/167772500-dff4dfb5-6ad2-48fe-937d-81bc6800d0e2.jpg',
-              description: '전처리 양파 다이스',
-              stock: 76,
-              brandId: '1',
-              categoryId: '1',
-              createdAt: 1652193534410,
-            }}
-            count={1}
-          />
-          <StyledHr variant="thin" />
+          <ul>
+            {cart.map(
+              (item) =>
+                item.product && (
+                  <li key={item.id}>
+                    <CartItem
+                      product={item.product}
+                      quantity={item.quantity}
+                      checked={item.checked}
+                      onChangeQuantity={handleChangeQuantity(item.id)}
+                      onCheck={handleCheck(item.id)}
+                      onClickRemove={removeCartItem(item.id)}
+                    />
+                    <StyledHr variant="thin" />
+                  </li>
+                )
+            )}
+          </ul>
         </section>
         <CartRightSection>
           <CartRightSectionTop>
@@ -113,7 +102,9 @@ function CartPage() {
               }}
             >
               <HighlightText>결제예상금액</HighlightText>
-              <HighlightText>21,800원</HighlightText>
+              <HighlightText>
+                {totalPrice.toLocaleString('ko-KR')}원
+              </HighlightText>
             </div>
             <div
               style={{
@@ -123,7 +114,9 @@ function CartPage() {
                 margin: '30px 30px 0 30px',
               }}
             >
-              <PrimaryButton>주문하기(3개)</PrimaryButton>
+              <PrimaryButton>
+                주문하기({cart.filter((item) => item.checked).length}개)
+              </PrimaryButton>
             </div>
           </div>
         </CartRightSection>
