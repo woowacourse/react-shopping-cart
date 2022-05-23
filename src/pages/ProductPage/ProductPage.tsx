@@ -26,7 +26,7 @@ function ProductPage() {
         <hr />
         <dl>
           <dt>가격</dt>
-          <dd>{Number(productDetail.price)?.toLocaleString('ko-KR')} 원</dd>
+          <dd>{productDetail.price.toLocaleString('ko-KR')} 원</dd>
         </dl>
         <dl>
           <dt>제품 설명</dt>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Product } from '../../types';
 
 type Props = {
-  product: Partial<Product>;
+  product: Product;
 };
 
 const SHOPPING_CART_ICON = (
@@ -23,8 +23,6 @@ const SHOPPING_CART_ICON = (
 function ProductCard({ product }: Props) {
   const { id, name, price, stock, description, image } = {
     ...product,
-    stock: Number(product.stock),
-    price: Number(product.price),
   };
 
   return (
@@ -43,7 +41,7 @@ function ProductCard({ product }: Props) {
         </CardImageContainer>
         <CardDescriptionContainer>
           <h3>{name}</h3>
-          <p>{price?.toLocaleString('ko-KR')} 원</p>
+          <p>{price.toLocaleString('ko-KR')} 원</p>
         </CardDescriptionContainer>
         <CardButtonContainer>
           <button>{SHOPPING_CART_ICON}</button>
