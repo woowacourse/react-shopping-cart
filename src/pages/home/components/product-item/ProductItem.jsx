@@ -10,7 +10,7 @@ import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
 const cn = require("classnames");
 
 function ProductItem({
-  id,
+  sku: productId,
   name,
   price,
   thumbnail_image: { url: thumbnailUrl, alt },
@@ -25,7 +25,7 @@ function ProductItem({
   };
 
   const handleClick = () => {
-    dispatch(createAction(ACTION_TYPE.ADD_PRODUCT_TO_CART, id));
+    dispatch(createAction(ACTION_TYPE.ADD_PRODUCT_TO_CART, productId));
   };
 
   return (
@@ -47,7 +47,7 @@ function ProductItem({
           <div className="lRight">
             <ImageButton
               onClick={handleClick}
-              included={existInCart(cart, id)}
+              included={existInCart(cart, productId)}
               className={cn("addToCartBtn", styles.addToCartBtn)}
             >
               <Cart width="36px" height="36px" fill="#00cc00" />

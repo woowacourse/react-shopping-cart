@@ -32,7 +32,7 @@ function ProductList({ className }) {
   return (
     <div className={cn(styles.productList, className)}>
       {productList.map((item) => (
-        <ProductItem key={item.id} {...item} />
+        <ProductItem key={item.sku} {...item} />
       ))}
     </div>
   );
