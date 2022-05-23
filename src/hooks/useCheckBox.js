@@ -5,12 +5,13 @@ export const useCheckBox = (state) => {
   const [checkedList, setCheckedList] = useState([]);
 
   useEffect(() => {
-    if (state.length > 0) {
-      if (checkedList.length >= state.length) {
-        setSelectAllChecked(true);
-      } else {
-        setSelectAllChecked(false);
-      }
+    if (state.length === 0) {
+      return;
+    }
+    if (checkedList.length === state.length) {
+      setSelectAllChecked(true);
+    } else {
+      setSelectAllChecked(false);
     }
   }, [state, checkedList]);
 
@@ -23,14 +24,9 @@ export const useCheckBox = (state) => {
       return;
     }
 
-    if (checkedList.length === 1) {
-      setCheckedList([]);
-      return;
-    }
-
     setCheckedList(() => {
-      prevState.splice(itemIndex, 1);
-      return prevState;
+      const nextState = prevState.filter((_, i) => i !== itemIndex);
+      return nextState;
     });
   };
 
