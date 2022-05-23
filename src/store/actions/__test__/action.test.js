@@ -30,22 +30,34 @@ const server = setupServer(
   rest.get(`${API_URL}products`, (_, res, ctx) => {
     return res(ctx.json(productList), ctx.set('x-total-count', productList.length));
   }),
-  rest.post(`${API_URL}shopping-cart`, (req, res, ctx) => {
+  rest.post(`${API_URL}shopping-cart`, (_, res, ctx) => {
     return res(ctx.json(expectedCart));
   }),
-  rest.get(`${API_URL}shopping-cart`, (req, res, ctx) => {
+  rest.get(`${API_URL}shopping-cart`, (_, res, ctx) => {
     return res(ctx.json(expectedCart));
   }),
 );
 
-describe('액션 테스트', () => {
+const errorServer = setupServer(
+  rest.get(`${API_URL}products`, (_, res, ctx) => {
+    return res(ctx.status(400));
+  }),
+  rest.post(`${API_URL}shopping-cart`, (_, res, ctx) => {
+    return res(ctx.status(400));
+  }),
+  rest.get(`${API_URL}shopping-cart`, (_, res, ctx) => {
+    return res(ctx.status(400));
+  }),
+);
+
+describe('1. 액션 디스패치 테스트', () => {
   beforeAll(() => server.listen());
 
   afterEach(() => server.resetHandlers());
 
   afterAll(() => server.close());
 
-  describe('상품 액션 테스트', () => {
+  describe('1-1. 상품 스토어 정상 액션 디스패치 테스트', () => {
     test('상품을 불러오는 것에 성공하면 상품 정보와 함께 상품 정보 업데이트 action이 dispatch 되어야 한다.', async () => {
       await fetchProductListAsync()(mockDispatch);
 
@@ -57,7 +69,7 @@ describe('액션 테스트', () => {
     });
   });
 
-  describe('장바구니 액션 테스트', () => {
+  describe('1-2. 장바구니 스토어 정상 액션 디스패치 테스트', () => {
     async function addSampleProductToCart() {
       await addToCartAsync(sampleProduct.id, sampleQuantity)(mockDispatch);
     }
@@ -80,6 +92,43 @@ describe('액션 테스트', () => {
         type: cartActionType.FETCH,
         payload: { cart: expectedCart },
       });
+    });
+  });
+});
+
+describe('2. 오류 액션 디스패치 테스트', () => {
+  beforeAll(() => errorServer.listen());
+
+  afterEach(() => errorServer.resetHandlers());
+
+  afterAll(() => errorServer.close());
+
+  describe('2-1. 상품 스토어 오류 디스패치 테스트', () => {
+    test('상품을 불러오는 것에 실패하면 실패 action이 dispatch 되어야 한다.', async () => {
+      await fetchProductListAsync()(mockDispatch);
+
+      expect(mockDispatch).toHaveBeenNthCalledWith(1, { type: productActionTypes.START });
+      expect(mockDispatch).toHaveBeenNthCalledWith(2, { type: cartActionType.FAIL });
+    });
+  });
+
+  describe('2-2. 장바구니 스토어 오류 디스패치 테스트', () => {
+    async function addSampleProductToCart() {
+      await addToCartAsync(sampleProduct.id, sampleQuantity)(mockDispatch);
+    }
+
+    test('상품 추가를 실패하면 실패 action이 dispatch 되어야 한다.', async () => {
+      await addSampleProductToCart();
+
+      expect(mockDispatch).toHaveBeenNthCalledWith(1, { type: cartActionType.START });
+      expect(mockDispatch).toHaveBeenNthCalledWith(2, { type: cartActionType.FAIL });
+    });
+
+    test('장바구니 목록을 불러오기에 실패하면 실패 action이 dispatch 되어야 한다.', async () => {
+      await getCartAsync()(mockDispatch);
+
+      expect(mockDispatch).toHaveBeenNthCalledWith(1, { type: cartActionType.START });
+      expect(mockDispatch).toHaveBeenNthCalledWith(2, { type: cartActionType.FAIL });
     });
   });
 });
