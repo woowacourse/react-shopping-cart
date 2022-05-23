@@ -22,11 +22,11 @@ function ProductListPage() {
     };
   }, []);
 
-  useEffect(() => {
-    if (cartsError) {
-      alert(cartsError);
-    }
-  }, [cartsError]);
+  // useEffect(() => {
+  //   if (cartsError) {
+  //     alert(cartsError);
+  //   }
+  // }, [cartsError]);
 
   return (
     <Styled.ProductListPage>

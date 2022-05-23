@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import App from 'App';
-import { productsReducer } from './store/products';
-import { cartsReducer } from './store/carts';
+import { worker } from 'mocks/browser';
+import { productsReducer } from 'store/products';
+import { cartsReducer } from 'store/carts';
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -13,6 +14,14 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

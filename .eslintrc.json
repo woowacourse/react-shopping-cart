@@ -20,9 +20,13 @@
     "no-confusing-arrow": "warn",
     "no-unused-vars": "warn",
     "default-param-last": "warn",
-    "import/prefer-default-export": "warn",
+    "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "react/destructuring-assignment": "warn",
-    "implicit-arrow-linebreak": "warn"
+    "implicit-arrow-linebreak": "warn",
+    "import/no-extraneous-dependencies": "warn",
+    "function-paren-newline": "warn",
+    "global-require": "warn",
+    "no-use-before-define": "warn"
   }
 }
