@@ -9,10 +9,12 @@ function Modal({ children, closeModal }) {
       closeModal();
     }
   };
+
   return ReactDOM.createPortal(
-    <Styled.Dimmed onClick={handleModalClose}>
+    <Styled.Root>
       <Styled.Container>{children}</Styled.Container>
-    </Styled.Dimmed>,
+      <Styled.Backdrop onClick={handleModalClose} />
+    </Styled.Root>,
     document.querySelector('#root'),
   );
 }
