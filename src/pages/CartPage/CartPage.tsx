@@ -14,7 +14,7 @@ function CartPage() {
   const cart = useSelector(
     (state: { cart: CartStoreState }) => state.cart.cart
   );
-  const [cartItems, setCartItems] = useState(Array<CartProductState>());
+  const [cartItems, setCartItems] = useState<Array<CartProductState>>([]);
   const [totalMoney, setTotalMoney] = useState(0);
   const [allChecked, setAllChecked] = useState(true);
   const dispatch = useDispatch();
