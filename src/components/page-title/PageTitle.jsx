@@ -1,9 +1,11 @@
 import Divider from "../divider/Divider";
 import styles from "./page-title.module";
 
-function PageTitle({ children }) {
+const cn = require("classnames");
+
+function PageTitle({ children, className }) {
   return (
-    <div className={styles.pageTitle}>
+    <div className={cn(styles.pageTitle, className)}>
       <div className={styles.title}>{children}</div>
       <Divider />
     </div>

@@ -3,8 +3,10 @@ import TitleBoxContent from "./TitleBoxContent";
 
 import styles from "./title-box.module";
 
-function TitleBox({ children }) {
-  return <div className={styles.box}>{children}</div>;
+const cn = require("classnames");
+
+function TitleBox({ children, className }) {
+  return <div className={cn(styles.box, className)}>{children}</div>;
 }
 
 Object.assign(TitleBox, {

@@ -10,7 +10,7 @@ import getSelectedProductIds from "@cart/utils/getSelectedProductIds";
 import CartFormProductTable from "./CartFormProductTable";
 import styles from "./cart-form.module";
 
-function CartForm() {
+function CartForm({ className }) {
   const dispatch = useDispatch();
   const productObjs = useSelector(
     (state) => state.productObjs,
@@ -68,7 +68,7 @@ function CartForm() {
   }, [dispatch, selectedProductIds]);
 
   return (
-    <div>
+    <div className={className}>
       <div className="flex justify-between mb-26">
         <LabeledCheckbox
           id="all-select"

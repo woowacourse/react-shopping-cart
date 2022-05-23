@@ -7,7 +7,7 @@ import Highlighter from "@shared/highlighter/Highlighter";
 import TitleBox from "@shared/title-box/TitleBox";
 import styles from "./cart-total.module";
 
-function CartTotal() {
+function CartTotal({ className }) {
   const { productObjs } = useStore().getState();
   const cart = useSelector((state) => state.cart);
   const total = getTotal(productObjs, cart);
@@ -18,7 +18,7 @@ function CartTotal() {
   }, []);
 
   return (
-    <TitleBox>
+    <TitleBox className={className}>
       <TitleBox.Head>
         <h2 className={styles.title}>결제예상금액</h2>
       </TitleBox.Head>
