@@ -72,6 +72,7 @@ module.exports = {
   resolve: {
     alias: {
       "@": resolve(__dirname, "../src"),
+      "@hooks": resolve(__dirname, "../src/hooks"),
       "@shared": resolve(__dirname, "../src/components"),
       "@scss": resolve(__dirname, "../src/scss"),
       "@home": resolve(__dirname, "../src/pages/home"),
