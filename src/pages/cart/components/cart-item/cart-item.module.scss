@@ -1,3 +1,5 @@
+@import "@scss/responsive";
+
 .cartItem {
   display: block;
   position: relative;
@@ -27,5 +29,18 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+  }
+}
+
+@include media("<=sm") {
+  .content {
+    .thumbnail {
+      min-height: auto;
+      min-width: 80px;
+      width: 80px;
+    }
+    .productName {
+      font-size: 16px;
+    }
   }
 }

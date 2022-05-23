@@ -10,7 +10,7 @@ function Cart() {
     <div className="wrapper">
       <div className={cn(styles.cart)}>
         <PageTitle className="mb-50">장바구니</PageTitle>
-        <div className="relative flex space-between">
+        <div className={styles.container}>
           <CartForm className={styles.cartForm} />
           <CartTotal className={styles.cartTotal} />
         </div>
