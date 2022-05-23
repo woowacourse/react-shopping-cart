@@ -14,7 +14,7 @@ import * as GlobalStyled from 'styles/GlobalStyles';
 function ProductCard({ product }) {
   const { id, imageURL, name, price } = product;
 
-  const [isShowModal, openModal, closeModal] = useModal();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const onClickCard = () => {
@@ -43,7 +43,7 @@ function ProductCard({ product }) {
         </Styled.TransparentButton>
       </GlobalStyled.Position>
 
-      {isShowModal && (
+      {isModalOpen && (
         <Modal closeModal={closeModal}>
           <CartAdd product={product} closeModal={closeModal} />
         </Modal>

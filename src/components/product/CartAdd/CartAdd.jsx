@@ -8,7 +8,7 @@ import * as GlobalStyled from 'styles/GlobalStyles';
 import useCart from 'hooks/useCart';
 
 function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
-  const [count, onIncrement, onDecrement] = useCount({
+  const [count, handleIncrement, handleDecrement] = useCount({
     initialValue: 1,
     min: 1,
     max: quantity,
@@ -27,7 +27,11 @@ function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{price} 원</Styled.Price>
           <GlobalStyled.Position position="absolute" right="0" bottom="0">
-            <Counter count={count} onIncrement={onIncrement} onDecrement={onDecrement} />
+            <Counter
+              count={count}
+              onIncrement={handleIncrement}
+              onDecrement={handleDecrement}
+            />
           </GlobalStyled.Position>
         </Styled.ProductInfoWrapper>
       </GlobalStyled.Position>

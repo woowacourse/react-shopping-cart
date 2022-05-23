@@ -5,7 +5,7 @@ import { WARNING_MESSAGES } from 'constants/messages';
 export const useCount = ({ initialValue, min, max }) => {
   const [count, setCount] = useState(initialValue);
 
-  const onIncrement = () => {
+  const handleIncrement = () => {
     setCount((prev) => {
       if (prev === max) {
         alert(WARNING_MESSAGES.MAX_QUANTITY);
@@ -16,7 +16,7 @@ export const useCount = ({ initialValue, min, max }) => {
     });
   };
 
-  const onDecrement = () => {
+  const handleDecrement = () => {
     setCount((prev) => {
       if (prev === min) {
         alert(WARNING_MESSAGES.MIN_QUANTITY);
@@ -27,5 +27,5 @@ export const useCount = ({ initialValue, min, max }) => {
     });
   };
 
-  return [count, onIncrement, onDecrement];
+  return [count, handleIncrement, handleDecrement];
 };
