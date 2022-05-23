@@ -1,21 +1,28 @@
 import axios from 'axios';
+import { ERROR_MESSAGES } from 'constants/messages';
 import { API_ENDPOINT, API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
 
 const apiInstance = axios.create({
   baseURL: API_URL,
 });
 
-const checkServerError = (statusText) => {
-  if (statusText !== 'OK') {
-    throw Error('서버에서 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+const handleAPIError = (error) => {
+  const { status } = error.response;
+  if (status >= 500) {
+    throw Error(ERROR_MESSAGES.SERVER_ERROR);
   }
+  if (status >= 400) {
+    throw Error(ERROR_MESSAGES.INVALID_REQUEST);
+  }
+  throw Error(ERROR_MESSAGES.UNKNOWN);
 };
+
+apiInstance.interceptors.response.use((response) => response, handleAPIError);
 
 export const getProductList = async (page) => {
   const pageQuery = `?_page=${page}&_limit=${PRODUCT_LIST_PAGE_LIMIT}`;
 
   const response = await apiInstance.get(`${API_ENDPOINT.PRODUCTS}${pageQuery}`);
-  checkServerError(response.statusText);
 
   const productList = response.data;
   const totalProductCount = response.headers['x-total-count'];
@@ -28,7 +35,6 @@ export const addToCart = async (productId, quantity) => {
     productId,
     quantity,
   });
-  checkServerError(response.statusText);
 
   const cart = response.data;
 
@@ -37,7 +43,6 @@ export const addToCart = async (productId, quantity) => {
 
 export const getCart = async () => {
   const response = await apiInstance.get(API_ENDPOINT.SHOPPING_CART);
-  checkServerError(response.statusText);
 
   const cart = response.data;
 
@@ -49,7 +54,6 @@ export const updateCartProductQuantity = async (productId, quantity) => {
     productId,
     quantity,
   });
-  checkServerError(response.statusText);
 
   const cart = response.data;
 
@@ -65,7 +69,6 @@ export const deleteCartProduct = async (productIdArray) => {
 
 const sendCartProductDeleteRequest = async (res, productId) => {
   res = await apiInstance.delete(`${API_ENDPOINT.SHOPPING_CART}/${productId}`);
-  checkServerError(res.statusText);
 
   return res;
 };
