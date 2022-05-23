@@ -12,9 +12,18 @@ const productsHandlers = [
       );
     }
   }),
-  rest.get(`${SERVER_URL}/products`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(products))
-  ),
+  rest.get(`${SERVER_URL}/products`, (req, res, ctx) => {
+    const ids = req.url.searchParams.getAll('id');
+
+    if (ids.length > 0) {
+      return res(
+        ctx.status(200),
+        ctx.json(ids.map((id) => products.find((product) => product.id === id)))
+      );
+    }
+
+    return res(ctx.status(200), ctx.json(products));
+  }),
 ];
 
 const products = [
