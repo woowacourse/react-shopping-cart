@@ -55,12 +55,14 @@ const reducer = (state, { type, payload }) => {
       const newState = structuredClone(state);
       const { productId, quantity } = payload;
       newState.cart[productId].quantity = quantity;
+      localStorage.setItem("cart", JSON.stringify(newState.cart));
       return newState;
     }
     case ACTION_TYPE.DELETE_PRODUCT_IN_CART: {
       const newState = structuredClone(state);
       const productId = payload;
       delete newState.cart[productId];
+      localStorage.setItem("cart", JSON.stringify(newState.cart));
       return newState;
     }
     case ACTION_TYPE.DELETE_MULTIPLE_PRODUCTS_IN_CART: {
@@ -69,6 +71,7 @@ const reducer = (state, { type, payload }) => {
       productIds.forEach((id) => {
         delete newState.cart[id];
       });
+      localStorage.setItem("cart", JSON.stringify(newState.cart));
       return newState;
     }
     default: {
