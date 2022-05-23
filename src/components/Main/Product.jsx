@@ -13,7 +13,7 @@ function Product({ id, src, price, title, isStored }) {
 
   const dispatch = useDispatch();
 
-  const handleCartClick = async () => {
+  const handleCartClick = () => {
     if (isClicked) {
       dispatch(deleteCart(id));
     } else {
