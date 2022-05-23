@@ -15,13 +15,11 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-if (process.env.NODE_ENV === 'development') {
-  worker.start({
-    serviceWorker: {
-      url: '/react-shopping-cart/mockServiceWorker.js',
-    },
-  });
-}
+worker.start({
+  serviceWorker: {
+    url: '/react-shopping-cart/mockServiceWorker.js',
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
