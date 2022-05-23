@@ -21,7 +21,7 @@ const useCart = () => {
     dispatch(getCartAsync());
   };
 
-  const addProductToCart = ({ id, count }) => {
+  const addProduct = ({ id, count }) => {
     dispatch(addToCartAsync(id, count));
   };
 
@@ -42,7 +42,7 @@ const useCart = () => {
   };
 
   const deleteProduct = (productIdArray) => {
-    if (window.confirm(WARNING_MESSAGES.PRODUCT_DELETE)) {
+    if (window.confirm(WARNING_MESSAGES.PRODUCTS_DELETE(1))) {
       dispatch(deleteCartProductAsync(productIdArray));
     }
   };
@@ -84,7 +84,7 @@ const useCart = () => {
     cart,
     cartLength,
     loadCart,
-    addProductToCart,
+    addProduct,
     decrementCartProduct,
     incrementCartProduct,
     deleteProduct,

@@ -13,10 +13,10 @@ function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
     min: 1,
     max: quantity,
   });
-  const { addProductToCart } = useCart();
+  const { addProduct } = useCart();
 
   const onClickCartAdd = () => {
-    addProductToCart({ id, name, count });
+    addProduct({ id, name, count });
     closeModal();
   };
 
