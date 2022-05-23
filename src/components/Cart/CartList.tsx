@@ -5,7 +5,7 @@ import CroppedImage from 'components/common/CroppedImage';
 import { flexCenter } from 'styles/mixin';
 import CheckBox from 'components/common/CheckBox';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
-import { Children, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import Controller from './Controller';
 
 const CartList = ({
@@ -19,7 +19,7 @@ const CartList = ({
   cartDetail: Item[];
   cartListWithDetail: any[];
   setPaymentsAmount: Dispatch<SetStateAction<number>>;
-  children: any;
+  children: React.ReactNode;
 }) => {
   const { toggleCartItemWillPurchase } = useUpdateCartItem(cartList);
   const { updateCartItemQuantity, removeCartItem } = useUpdateCartItem(cartList);
