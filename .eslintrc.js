@@ -49,7 +49,12 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        devDependencies: ["mock/*.js", "**/webpack.*.js", "*.config.js"],
+        devDependencies: [
+          "mock/*.js",
+          "**/webpack.*.js",
+          "*.config.js",
+          "**/*.test.js",
+        ],
       },
     ],
     "no-func-assign": "off",

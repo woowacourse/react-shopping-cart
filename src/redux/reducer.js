@@ -1,4 +1,4 @@
-import ACTION_TYPE from "@redux/actions";
+import ACTION_TYPE from "./actions";
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
