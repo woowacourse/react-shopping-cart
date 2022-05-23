@@ -10,9 +10,9 @@ function Cart() {
     <div className="wrapper">
       <div className={cn(styles.cart)}>
         <PageTitle className="mb-50">장바구니</PageTitle>
-        <div className="flex space-between">
+        <div className="relative flex space-between">
           <CartForm className="w-full pr-100" />
-          <CartTotal className="min-w-400 place-self-start" />
+          <CartTotal className="sticky top-100 min-w-400 place-self-start" />
         </div>
       </div>
     </div>
