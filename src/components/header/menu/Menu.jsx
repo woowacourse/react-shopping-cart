@@ -10,9 +10,6 @@ function Menu({ className }) {
         <li>
           <Link to="/cart">장바구니</Link>
         </li>
-        <li>
-          <a href="/">주문목록</a>
-        </li>
       </ul>
     </div>
   );
