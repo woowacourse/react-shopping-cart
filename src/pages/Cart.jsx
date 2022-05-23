@@ -21,7 +21,7 @@ const Cart = () => {
     handleChecked,
     isChecked,
     checkAllSelectButton,
-    deleteSelectedItem,
+    clearCheckBoxItems,
   } = useCheckBox(cartList);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
@@ -37,13 +37,13 @@ const Cart = () => {
     setTotalPrice(calculateTotalPrice);
   }, [cartList, checkedList]);
 
-  const handleDeleteSelectedItem = () => {
+  const deleteSelectedItem = () => {
     if (checkedList.length <= 0) {
       return;
     }
 
     dispatch(deleteCartItem(checkedList));
-    deleteSelectedItem();
+    clearCheckBoxItems();
     dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_다중_삭제));
   };
 
@@ -62,7 +62,7 @@ const Cart = () => {
               selectAllChecked={selectAllChecked}
               checkedListCount={checkedList.length}
               checkAllSelectButton={() => checkAllSelectButton}
-              handleDeleteSelectedItem={() => handleDeleteSelectedItem}
+              deleteSelectedItem={() => deleteSelectedItem}
               isChecked={isChecked}
               handleChecked={() => handleChecked}
               handleItemCount={() => handleItemCount}

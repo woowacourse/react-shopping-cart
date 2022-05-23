@@ -52,7 +52,7 @@ export const useCheckBox = (state) => {
     setSelectAllChecked(true);
   };
 
-  const deleteSelectedItem = () => {
+  const clearCheckBoxItems = () => {
     if (checkedList <= 0) {
       return;
     }
@@ -66,6 +66,6 @@ export const useCheckBox = (state) => {
     handleChecked,
     isChecked,
     checkAllSelectButton,
-    deleteSelectedItem,
+    clearCheckBoxItems,
   };
 };

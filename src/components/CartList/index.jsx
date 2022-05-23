@@ -12,7 +12,7 @@ const CartList = ({
   selectAllChecked,
   checkedListCount,
   checkAllSelectButton,
-  handleDeleteSelectedItem,
+  deleteSelectedItem,
   isChecked,
   handleChecked,
   handleItemCount,
@@ -44,7 +44,7 @@ const CartList = ({
           margin="0"
           size="1rem"
           weight="normal"
-          onClick={handleDeleteSelectedItem()}
+          onClick={deleteSelectedItem()}
         >
           상품삭제
         </Button>
@@ -76,7 +76,7 @@ CartList.propTypes = {
   cartList: PropTypes.array,
   selectAllChecked: PropTypes.bool,
   checkAllSelectButton: PropTypes.func,
-  handleDeleteSelectedItem: PropTypes.func,
+  deleteSelectedItem: PropTypes.func,
   isChecked: PropTypes.func,
   handleChecked: PropTypes.func,
   handleItemCount: PropTypes.func,
@@ -86,7 +86,7 @@ CartList.defaultProps = {
   cartList: {},
   selectAllChecked: false,
   checkAllSelectButton: () => {},
-  handleDeleteSelectedItem: () => {},
+  deleteSelectedItem: () => {},
   isChecked: () => {},
   handleChecked: () => {},
   handleItemCount: () => {},
