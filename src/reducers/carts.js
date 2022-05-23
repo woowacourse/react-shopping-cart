@@ -15,7 +15,7 @@ export const getCarts = createAsyncThunk('carts/getCarts', async (_, { rejectWit
 const cartsSlice = createSlice({
   name: 'carts',
   initialState: {
-    loading: false,
+    loading: true,
     data: [],
     error: false,
   },

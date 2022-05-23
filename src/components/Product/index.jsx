@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/cudCart';
 
@@ -46,10 +47,14 @@ const Product = ({ id, imgSrc, title, price, cartQuantity }) => {
 
   return (
     <Wrapper showQuantity={showQuantity}>
-      <img className="thumbnail" src={imgSrc} alt={`${title} 상품`} />
+      <Link to={`/product/${id}`}>
+        <img className="thumbnail" src={imgSrc} alt={`${title} 상품`} />
+      </Link>
       <div className="bottom flex-row-space-between">
         <div>
-          <p className="title">{title}</p>
+          <Link to={`/product/${id}`}>
+            <p className="title">{title}</p>
+          </Link>
           <p className="price">{price.toLocaleString()}</p>
         </div>
         <div className="circle minus" onClick={handleClickMinusButton}>

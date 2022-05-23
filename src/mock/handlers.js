@@ -84,11 +84,18 @@ const products = [
 let carts = [];
 
 export default [
-  rest.get('products', (req, res, ctx) => {
+  rest.get('/products', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(products));
   }),
 
-  rest.get('carts', (req, res, ctx) => {
+  rest.get('/product/:productId', (req, res, ctx) => {
+    const productId = Number(req.params.productId);
+    const product = products.find(({ id }) => id === productId);
+
+    return res(ctx.status(200), ctx.json(product));
+  }),
+
+  rest.get('/carts', (req, res, ctx) => {
     const result = carts.map(({ productId, quantity }) => ({
       ...products.find((product) => product.id === productId),
       quantity,
@@ -98,7 +105,14 @@ export default [
     return res(ctx.status(200), ctx.json(result));
   }),
 
-  rest.post('addCart/:productId', (req, res, ctx) => {
+  rest.get('/cart/:productId', (req, res, ctx) => {
+    const productId = Number(req.params.productId);
+    const cart = carts.find((cart) => cart.productId === productId);
+
+    return res(ctx.status(200), ctx.json(cart));
+  }),
+
+  rest.post('/addCart/:productId', (req, res, ctx) => {
     const productId = Number(req.params.productId);
 
     carts.push({ productId, quantity: 1 });
@@ -106,7 +120,7 @@ export default [
     return res(ctx.status(201));
   }),
 
-  rest.put('addMoreCart/:productId', (req, res, ctx) => {
+  rest.put('/addMoreCart/:productId', (req, res, ctx) => {
     const productId = Number(req.params.productId);
     const cart = carts.find((cart) => cart.productId === productId);
 
@@ -119,7 +133,7 @@ export default [
     return res(ctx.status(200));
   }),
 
-  rest.put('downCart/:productId', (req, res, ctx) => {
+  rest.put('/downCart/:productId', (req, res, ctx) => {
     const productId = Number(req.params.productId);
     const cart = carts.find((cart) => cart.productId === productId);
 
@@ -132,7 +146,7 @@ export default [
     return res(ctx.status(200));
   }),
 
-  rest.delete('deleteCart/:productId', (req, res, ctx) => {
+  rest.delete('/deleteCart/:productId', (req, res, ctx) => {
     const productId = Number(req.params.productId);
 
     carts = carts.filter((cart) => cart.productId !== productId);
@@ -140,7 +154,7 @@ export default [
     return res(ctx.status(200));
   }),
 
-  rest.delete('deleteCarts', (req, res, ctx) => {
+  rest.delete('/deleteCarts', (req, res, ctx) => {
     const { productIds } = req.body;
 
     carts = carts.filter(({ productId }) => !productIds.includes(productId));

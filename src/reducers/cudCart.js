@@ -69,7 +69,7 @@ const rejected = (state) => {
 const cudCartSlice = createSlice({
   name: 'cudCart',
   initialState: {
-    loading: false,
+    loading: true,
     error: false,
   },
   extraReducers: {

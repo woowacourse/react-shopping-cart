@@ -12,8 +12,8 @@ import Wrapper from './style';
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
-  const { productLoading, data: products } = useSelector((state) => state.products);
-  const { cartLoading, data: carts } = useSelector((state) => state.carts);
+  const { loading: productLoading, data: products } = useSelector((state) => state.products);
+  const { loading: cartLoading, data: carts } = useSelector((state) => state.carts);
 
   useEffect(() => {
     dispatch(getProducts());

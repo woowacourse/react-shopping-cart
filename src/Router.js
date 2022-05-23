@@ -6,6 +6,7 @@ import Header from 'components/Header';
 import Body from 'styles/Body';
 
 import ProductsPage from './pages/ProductsPage';
+import ProductPage from 'pages/ProductPage';
 import CartsPage from 'pages/CartsPage';
 import NotFoundPage from 'pages/NotFoundPage';
 
@@ -15,6 +16,7 @@ const Router = () => (
     <Body>
       <Routes>
         <Route path="/" element={<ProductsPage />} />
+        <Route path="/product/:productId" element={<ProductPage />} />
         <Route path="/carts" element={<CartsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

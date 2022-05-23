@@ -23,6 +23,10 @@ export default styled.div`
       font-size: 1.6rem;
     }
 
+    .title:hover {
+      text-decoration: underline;
+    }
+
     .price {
       font-size: 2rem;
     }

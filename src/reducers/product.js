@@ -2,42 +2,42 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { getApi } from 'service';
 
-export const getProducts = createAsyncThunk(
-  'products/getProducts',
-  async (_, { rejectWithValue }) => {
+export const getProduct = createAsyncThunk(
+  'products/getProduct',
+  async (productId, { rejectWithValue }) => {
     try {
-      const products = await getApi('products');
+      const product = await getApi(`product/${productId}`);
 
-      return products;
+      return product;
     } catch (error) {
       return rejectWithValue(error);
     }
   },
 );
 
-const productsSlice = createSlice({
-  name: 'products',
+const productSlice = createSlice({
+  name: 'product',
   initialState: {
     loading: true,
-    data: [],
+    data: null,
     error: false,
   },
   extraReducers: {
-    [getProducts.pending]: (state) => {
+    [getProduct.pending]: (state) => {
       state.loading = true;
     },
 
-    [getProducts.fulfilled]: (state, action) => {
+    [getProduct.fulfilled]: (state, action) => {
       state.loading = false;
       state.error = false;
       state.data = action.payload;
     },
 
-    [getProducts.rejected]: (state) => {
+    [getProduct.rejected]: (state) => {
       state.loading = false;
       state.error = true;
     },
   },
 });
 
-export default productsSlice.reducer;
+export default productSlice.reducer;
