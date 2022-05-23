@@ -8,11 +8,15 @@ import createAction from "@redux/createAction";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION_TYPE from "@redux/actions";
 import Alert from "@shared/alert/Alert";
+import productListEquality from "@redux/equalities/productListEquality";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const productList = useSelector(({ productList }) => productList);
+  const productList = useSelector(
+    ({ productList }) => productList,
+    productListEquality
+  );
   const dispatch = useDispatch();
   const getProductList = () => {
     return async (dispatch) => {
