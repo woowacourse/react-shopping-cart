@@ -4,10 +4,10 @@ import styles from "./labeled-checkbox.module";
 const cn = require("classnames");
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
-function LabeledCheckbox({ id, label, onChange }) {
+function LabeledCheckbox({ id, label, onChange, checked }) {
   return (
     <div className={cn(styles.checkboxContainer)}>
-      <Checkbox id={id} onChange={onChange} />
+      <Checkbox id={id} onChange={onChange} checked={checked} />
       <label htmlFor={id}>{label}</label>
     </div>
   );
