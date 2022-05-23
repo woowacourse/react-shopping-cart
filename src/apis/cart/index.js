@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getProductCartSuccess, getProductCartFail, getCheckTotalCartProduct } from 'modules/cart';
+import { getProductCartSuccess, getProductCartFail } from 'modules/cart';
 
 import {
   openAddCartErrorModal,
@@ -50,10 +50,6 @@ export const deleteProductCart = (id) => async (dispatch, getState) => {
       (product) => product.product_id !== Number(id),
     );
     dispatch(getProductCartSuccess(editCartProducts));
-    const cartProductCheckList = getState().cart.cartProducts.every(
-      (product) => product.cart_check,
-    );
-    dispatch(getCheckTotalCartProduct(cartProductCheckList));
   } catch (error) {
     dispatch(openDeleteProductCartErrorModal(error));
   }
@@ -83,9 +79,14 @@ export const productCountEdit = (id, count) => async (dispatch, getState) => {
       : product,
   );
 
+  dispatch(getProductCartSuccess(editCartProducts));
+
   try {
-    await axios.patch('/mocking/cart', { product_id: id, product_count: count });
-    dispatch(getProductCartSuccess(editCartProducts));
+    const response = await axios.patch('/mocking/cart', { product_id: id, product_count: count });
+    if (response.status === 202) {
+      dispatch(getProductCartSuccess(editCartProducts));
+    }
+    console.log(response);
   } catch (error) {
     dispatch(openProductCountUpErrorModal(error));
   }
@@ -95,15 +96,7 @@ export const checkCartProduct = (id, check) => (dispatch, getState) => {
   const editCartProducts = getState().cart.cartProducts.map((product) =>
     product.product_id === Number(id) ? ((product.cart_check = check), { ...product }) : product,
   );
-  const cartProductCheckList = getState().cart.cartProducts.every((product) => product.cart_check);
 
-  // cartProductCheckList = false 된다면 전체체크 박스 미체크
-  if (cartProductCheckList) {
-    dispatch(getCheckTotalCartProduct(true));
-    // cartProductCheckList = true 전체체크 박스 체크
-  } else {
-    dispatch(getCheckTotalCartProduct(false));
-  }
   dispatch(getProductCartSuccess(editCartProducts));
 };
 
@@ -125,6 +118,4 @@ export const checkTotalCartProduct = (check) => (dispatch, getState) => {
 
     dispatch(getProductCartSuccess(editCartProducts));
   }
-
-  dispatch(getCheckTotalCartProduct(check));
 };

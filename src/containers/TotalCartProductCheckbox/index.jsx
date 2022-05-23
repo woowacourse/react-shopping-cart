@@ -7,7 +7,9 @@ import { checkTotalCartProduct } from 'apis/cart';
 
 function TotalCartProductCheckbox() {
   const dispatch = useDispatch();
-  const totalCheck = useSelector((state) => state.cart.getCheckTotalCartProduct);
+  const isTotalCartProductCheck = useSelector((state) => state.cart.cartProducts).every(
+    (product) => product.cart_check,
+  );
 
   const handleTotalCheckbox = ({ target }) => {
     dispatch(checkTotalCartProduct(target.checked));
@@ -20,7 +22,7 @@ function TotalCartProductCheckbox() {
       width="28px"
       height="28px"
       border="1px solid #22A6A2"
-      checked={totalCheck}
+      checked={isTotalCartProductCheck}
     />
   );
 }
