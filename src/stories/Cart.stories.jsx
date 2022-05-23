@@ -19,8 +19,17 @@ const cartProducts = [
 ];
 
 const Template = (args) => <Cart {...args} />;
+const EmptyTemplate = (args) => <Cart {...args} />;
 
 export const Primary = Template.bind({});
+export const EmptyPrimary = EmptyTemplate.bind({});
+
 Primary.args = {
+  cartProducts,
+};
+
+cartProducts.splice(0, 1);
+
+EmptyPrimary.args = {
   cartProducts,
 };

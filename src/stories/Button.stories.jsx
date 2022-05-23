@@ -28,6 +28,7 @@ const ProductCountDownButtonTemplate = () => <ProductCountDownButton />;
 const DeleteProductIconButtonTemplate = () => <DeleteProductIconButton />;
 const AddCartIconButtonTemplate = () => <AddCartIconButton />;
 const AddCartButtonTemplate = () => <AddCartButton />;
+const ContinueShoppingButtonTemplate = (arg) => <Button {...arg}>CONTINUE SHOPPING</Button>;
 
 export const Primary = Template.bind({});
 export const HomeButtonPrimary = HomeButtonTemplate.bind({});
@@ -40,6 +41,7 @@ export const ProductCountUpButtonPrimary = ProductCountUpButtonTemplate.bind({})
 export const ProductCountDownButtonPrimary = ProductCountDownButtonTemplate.bind({});
 export const AddCartIconButtonPrimary = AddCartIconButtonTemplate.bind({});
 export const AddCartButtonPrimary = AddCartButtonTemplate.bind({});
+export const ContinueShoppingButtonPrimary = ContinueShoppingButtonTemplate.bind({});
 
 Primary.args = {
   width: '150px',
@@ -48,4 +50,9 @@ Primary.args = {
   fontWeight: 900,
   border: '1px solid black',
   children: '버튼',
+};
+ContinueShoppingButtonPrimary.args = {
+  width: '34vw',
+  height: '70px',
+  border: '1px solid #000000',
 };

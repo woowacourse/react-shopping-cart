@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Title from 'components/Title';
 import Text from 'components/Text';
+import Button from 'components/Button';
 import FlexWrapper from 'components/FlexWrapper';
 import Image from 'components/Image';
 import SubTitle from 'components/SubTitle';
@@ -26,9 +28,27 @@ import {
   CartProductCountWrapperStyled,
   CartProductPriceWrapperStyled,
 } from './style';
+import MarginWrapper from 'components/MarginWrapper';
 
 function Cart({ cartProducts }) {
-  console.log(cartProducts);
+  if (cartProducts.length === 0) {
+    return (
+      <CartStyled>
+        <Title>장바구니</Title>
+        <MarginWrapper marginTop="50px" />
+        <FlexWrapper flexFlow="column wrap" alignItems="center" alignContent="center">
+          <Text fontSize="1.5rem">장바구니에 담은 상품이 없습니다.</Text>
+          <MarginWrapper marginTop="30px" />
+          <Link to="/">
+            <Button width="34vw" height="70px" border="1px solid #000000">
+              CONTINUE SHOPPING
+            </Button>
+          </Link>
+        </FlexWrapper>
+      </CartStyled>
+    );
+  }
+
   return (
     <CartStyled>
       <Title>장바구니</Title>
@@ -43,7 +63,6 @@ function Cart({ cartProducts }) {
               <DeleteProductButton />
             </FlexWrapper>
           </CartProductContentStyled>
-
           <FlexWrapper>
             <SubTitle>{`든든배송 상품 (${cartProducts.length}개)`}</SubTitle>
             {cartProducts.map((product) => (
