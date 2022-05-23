@@ -47,7 +47,6 @@ const ItemList = () => {
         },
         onClickShoppingCart: () => {
           createNewCart(id);
-          console.log(cartData);
         },
         ...product,
       };
