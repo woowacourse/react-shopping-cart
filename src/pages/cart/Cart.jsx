@@ -8,7 +8,7 @@ function Cart() {
     <div className="wrapper">
       <div className={cn(styles.cart)}>
         <PageTitle>장바구니</PageTitle>
-      </div>;
+      </div>
     </div>
   );
 }
