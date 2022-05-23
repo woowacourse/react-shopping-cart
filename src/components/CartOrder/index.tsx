@@ -9,7 +9,7 @@ interface CartOrderProps {
 
 const CartOrder = ({ itemAmount, price }: CartOrderProps) => {
   const {
-    color: { primary, gray },
+    color: { primary, gray, white },
   } = useTheme() as themeType;
 
   const buttonColor = itemAmount > 0 ? primary : gray;
@@ -18,8 +18,13 @@ const CartOrder = ({ itemAmount, price }: CartOrderProps) => {
     <S.CartOrderContainer>
       <S.CartOrderTitle>결제예상금액</S.CartOrderTitle>
       <S.PriceContainer>
-        <S.Price>결제예상금액</S.Price>
-        <S.Price>{`${price.toLocaleString("ko-kr")}원`}</S.Price>
+        <S.Price linearColorFrom={white} linearColorTo={primary}>
+          결제예상금액
+        </S.Price>
+        <S.Price
+          linearColorFrom={white}
+          linearColorTo={primary}
+        >{`${price.toLocaleString("ko-kr")}원`}</S.Price>
       </S.PriceContainer>
       <S.OrderButton
         buttonColor={buttonColor}

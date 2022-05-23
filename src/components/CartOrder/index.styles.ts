@@ -35,8 +35,12 @@ export const OrderButton = styled.button<{ buttonColor: string }>`
   margin-bottom: 1em;
 `;
 
-export const Price = styled.p`
+export const Price = styled.p<{
+  linearColorFrom: string;
+  linearColorTo: string;
+}>`
   font-weight: bold;
   display: inline-block;
-  background: linear-gradient(to bottom, white 70%, #2ac1bc 30%);
+  background: ${(props) =>
+    `linear-gradient(to bottom, ${props.linearColorFrom} 70%, ${props.linearColorTo} 30%)`};
 `;
