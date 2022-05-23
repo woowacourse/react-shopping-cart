@@ -18,27 +18,24 @@ function CartPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    cart.forEach(({ id, stock, checked }) => {
-      axios
-        .get(`${PATH.REQUEST_PRODUCT}/${id}`)
-        .then((res: { data: Product }) => {
-          setCartItems((prevState: Array<CartProductState>) => [
-            ...prevState,
-            { product: res.data, stock, checked },
-          ]);
-        });
-    });
-  }, []);
+    // 초기에 API 요청을 통해 상품 정보를 받아오는 부분
+    if (cartItems.length <= 0) {
+      getCartProductsInfo().forEach((cartInfo) => {
+        cartInfo.then((info) =>
+          setCartItems((prevState) => [...prevState, info])
+        );
+      });
 
-  useEffect(() => {
-    if (cartItems.length <= 0) return;
+      return;
+    }
 
+    // 체크 여부나 개수가 바뀔 경우 업데이트하는 부분
     setCartItems([]);
 
     cart.forEach(({ id, stock, checked }) => {
-      const item = cartItems.find(
-        (cartItem) => cartItem.product.id === id
-      ) as CartProductState;
+      const item = cartItems.find((cartItem) => cartItem.product.id === id);
+
+      if (item === undefined) return;
 
       setCartItems((prevState: Array<CartProductState>) => [
         ...prevState,
@@ -46,6 +43,16 @@ function CartPage() {
       ]);
     });
   }, [cart]);
+
+  const getCartProductsInfo = () => {
+    return cart.map(async ({ id, stock, checked }) => {
+      const { data }: { data: Product } = await axios.get(
+        `${PATH.REQUEST_PRODUCT}/${id}`
+      );
+
+      return { product: data, stock, checked };
+    });
+  };
 
   const calculateTotalMoney = () => {
     return cartItems.reduce((prevMoney, item) => {
