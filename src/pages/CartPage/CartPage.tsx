@@ -15,9 +15,18 @@ function CartPage() {
     (state: { cart: CartStoreState }) => state.cart.cart
   );
   const [cartItems, setCartItems] = useState<Array<CartProductState>>([]);
-  const [totalMoney, setTotalMoney] = useState(0);
   const [allChecked, setAllChecked] = useState(true);
   const dispatch = useDispatch();
+
+  const calculateTotalMoney = () => {
+    return cartItems.reduce((prevMoney, item) => {
+      const { product, stock, checked } = item;
+
+      if (!checked) return prevMoney;
+
+      return prevMoney + product.price * stock;
+    }, 0);
+  };
 
   useEffect(() => {
     cart.forEach(({ id, stock, checked }) => {
@@ -33,8 +42,6 @@ function CartPage() {
             setAllChecked(false);
             return;
           }
-
-          setTotalMoney((prevState) => prevState + res.data.price * stock);
         });
     });
   }, []);
@@ -43,7 +50,6 @@ function CartPage() {
     if (cartItems.length <= 0) return;
 
     setCartItems([]);
-    setTotalMoney(0);
     setAllChecked(true);
 
     cart.forEach(({ id, stock, checked }) => {
@@ -60,8 +66,6 @@ function CartPage() {
         setAllChecked(false);
         return;
       }
-
-      setTotalMoney((prevState) => prevState + item.product.price * stock);
     });
   }, [cart]);
 
@@ -117,7 +121,7 @@ function CartPage() {
           <h3>결제예상금액</h3>
           <hr />
           <StyledTotalMoney>
-            {totalMoney.toLocaleString('ko-KR')} 원
+            {calculateTotalMoney().toLocaleString('ko-KR')} 원
           </StyledTotalMoney>
           <StyledOrderButton type="button">주문하기</StyledOrderButton>
         </StyledTotalContainer>
