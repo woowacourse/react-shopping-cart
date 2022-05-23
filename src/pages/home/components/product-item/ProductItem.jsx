@@ -12,7 +12,6 @@ function ProductItem({
   id,
   title,
   price,
-  quantity,
   thumbnail_image: { url: thumbnailUrl, alt },
   className,
 }) {
@@ -43,15 +42,13 @@ function ProductItem({
             <div className={cn(styles.productPrice)}>{price}</div>
           </div>
           <div className="lRight">
-            {quantity > 0 && (
-              <ImageButton
-                onClick={handleClick}
-                included={existInCart(cart, id)}
-                className={cn("addToCartBtn", styles.addToCartBtn)}
-              >
-                <Cart width="36px" height="36px" fill="#00cc00" />
-              </ImageButton>
-            )}
+            <ImageButton
+              onClick={handleClick}
+              included={existInCart(cart, id)}
+              className={cn("addToCartBtn", styles.addToCartBtn)}
+            >
+              <Cart width="36px" height="36px" fill="#00cc00" />
+            </ImageButton>
           </div>
         </div>
       </div>

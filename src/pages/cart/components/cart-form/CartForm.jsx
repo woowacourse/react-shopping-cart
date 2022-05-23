@@ -16,10 +16,11 @@ function CartForm() {
     productObjsEquality
   );
   const cart = useSelector((state) => state.cart, cartEquality);
+  const productIdsInCart = Object.keys(cart);
   const selectedProductIds = getSelectedProducts(cart);
   const isAllSelected =
     selectedProductIds.length > 0 &&
-    selectedProductIds.length === Object.keys(cart).length;
+    selectedProductIds.length === productIdsInCart.length;
 
   const handleAllSelectToggle = useCallback(() => {
     if (isAllSelected) {
@@ -77,10 +78,10 @@ function CartForm() {
         <Button onClick={handleDeleteSelectedProducts}>상품삭제</Button>
       </div>
       <div>
-        <div className="mb-16">This is Cart Table Title</div>
+        <div className="mb-16">{`상품 리스트 (${productIdsInCart.length}개)`}</div>
         <table className={styles.table}>
           <tbody>
-            {Object.keys(cart).map((id) => {
+            {productIdsInCart.map((id) => {
               const isSelected = selectedProductIds.indexOf(id) > -1;
               return (
                 <tr key={id}>
@@ -88,7 +89,7 @@ function CartForm() {
                     <CartItem
                       {...productObjs[id]}
                       id={id}
-                      title={productObjs[id].title}
+                      name={productObjs[id].name}
                       thumbnail_image={productObjs[id].thumbnail_image}
                       price={productObjs[id].price}
                       checked={isSelected}

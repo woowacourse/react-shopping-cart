@@ -45,6 +45,7 @@ module.exports = {
       "@cart": resolve(__dirname, "../src/pages/cart"),
       "@redux": resolve(__dirname, "../src/redux"),
       "@assets": resolve(__dirname, "../src/assets"),
+      "@mock": resolve(__dirname, "../mock"),
     };
     config.resolve.alias = Object.assign(config.resolve.alias, alias);
 

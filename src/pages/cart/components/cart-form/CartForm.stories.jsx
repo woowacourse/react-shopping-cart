@@ -2,6 +2,7 @@ import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "@redux/reducer";
+import productsFromJSON from "@mock/products.json";
 import CartForm from "./CartForm";
 
 export default {
@@ -10,51 +11,29 @@ export default {
   argTypes: {},
 };
 
-const productList = [
-  {
-    id: "83kW9mUr",
-    title: "Product Title",
-    quantity: 10,
-    price: "$120.00",
-    thumbnail_image: {
-      url: "https://place-hold.it/150x150",
-      alt: "Product Image Alt",
-    },
-  },
-  {
-    id: "jBR5pmE5",
-    title: "Product Title",
-    quantity: 10,
-    price: "$120.00",
-    thumbnail_image: {
-      url: "https://place-hold.it/150x150",
-      alt: "Product Image Alt",
-    },
-  },
-  {
-    id: "mUtrhmnU",
-    title: "Product Title",
-    quantity: 10,
-    price: "$120.00",
-    thumbnail_image: {
-      url: "https://place-hold.it/150x150",
-      alt: "Product Image Alt",
-    },
-  },
-];
+const productList = productsFromJSON.map((product) => {
+  const newProduct = structuredClone(product);
+  newProduct.thumbnail_image = {
+    url: "https://place-hold.it/150x150",
+    alt: "Product Image Alt",
+  };
+  return newProduct;
+});
 
 const productObjs = productList.reduce((acc, cur) => {
-  acc[cur.id] = cur;
+  acc[cur.sku] = cur;
   return acc;
 }, {});
 
 const initialState = {
   productList,
   productObjs,
-  cart: {
-    [productList[0].id]: { quantity: 1, selected: false },
-    [productList[1].id]: { quantity: 1, selected: false },
-  },
+  cart: productList
+    .splice(0, Math.ceil(productList.length / 2))
+    .reduce((acc, product) => {
+      acc[product.sku] = { quantity: 1, selected: false };
+      return acc;
+    }, {}),
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk));

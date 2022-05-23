@@ -1,3 +1,4 @@
+import productsFromJSON from "@mock/products.json";
 import CartItem from "./CartItem";
 
 export default {
@@ -16,11 +17,8 @@ function Template(args) {
 
 export const Primary = Template.bind({});
 
-const item = {
-  id: "mUtrhmnU",
-  title: "Product Title",
-  quantity: 10,
-  price: "$120.00",
+const product = {
+  ...productsFromJSON[0],
   thumbnail_image: {
     url: "https://place-hold.it/150x150",
     alt: "Product Image Alt",
@@ -30,5 +28,6 @@ const item = {
 Primary.args = {
   onChecked: () => undefined,
   onQuantityChange: () => undefined,
-  ...item,
+  ...product,
+  id: product.sku,
 };

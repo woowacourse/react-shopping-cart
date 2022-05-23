@@ -8,9 +8,9 @@ const cn = require("classnames");
 
 function CartItem({
   id: productId,
-  title,
+  name,
   thumbnail_image: { url, alt },
-  quantity,
+  quantity = 1,
   price,
   checked,
   onDelete,
@@ -28,15 +28,15 @@ function CartItem({
       />
       <div className={styles.content}>
         <div className={styles.left}>
-          <LoadingThumbnail src={url} alt={alt} />
+          <LoadingThumbnail className={styles.thumbnail} src={url} alt={alt} />
         </div>
         <div className={styles.middle}>
-          <div className={styles.productName}>{title}</div>
+          <div className={styles.productName}>{name}</div>
         </div>
         <div className={styles.right}>
           <DeleteIcon onClick={onDelete} />
           <NumberInput onChange={onQuantityChange} value={quantity} />
-          <div className={styles.productPrice}>{price}</div>
+          <div className={styles.productPrice}>{`$${price}`}</div>
         </div>
       </div>
     </div>
