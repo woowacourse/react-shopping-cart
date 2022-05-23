@@ -17,7 +17,6 @@ function Template(args) {
 export const Primary = Template.bind({});
 
 const item = {
-  selected_in_cart: false,
   id: "mUtrhmnU",
   title: "Product Title",
   quantity: 10,
