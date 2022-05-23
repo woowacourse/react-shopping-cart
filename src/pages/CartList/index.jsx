@@ -97,7 +97,7 @@ export function CartList() {
                 isContentLoaded={isLoaded}
               >
                 <Case.Success>
-                  {isLoaded &&
+                  {(cartItems.length > 0 &&
                     cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
                       <CartItem
                         key={id}
@@ -111,7 +111,9 @@ export function CartList() {
                         onChangeCounter={handleChangeQuantity}
                         onClickRemove={handleRemoveItem}
                       />
-                    ))}
+                    ))) || (
+                    <StatusMessage status="empty">텅! 장바구니에 담은 상품이 없어요!</StatusMessage>
+                  )}
                 </Case.Success>
 
                 <Case.Loading>
