@@ -42,7 +42,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
   );
 
   const handleClickRecycleBin = useCallback(async () => {
-    await dispatch(deleteCart(id));
+    await dispatch(deleteCart(id)).unwrap();
     dispatch(deleteOneCart(id));
   }, [dispatch, id]);
 
