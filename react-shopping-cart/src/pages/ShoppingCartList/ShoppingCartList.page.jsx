@@ -48,34 +48,38 @@ function ShoppingCartList() {
       <FlexBox as="main" justifyContent="center">
         <PageContainer width="1320px" direction="column" alignItems="center">
           <TitleBox as="h1">장바구니</TitleBox>
-          <FlexBox width="1320px" justifyContent="space-between">
-            <article>
-              <h2 hidden>장바구니 상품들 리스트</h2>
-              <FlexBox
-                width="736px"
-                height="80px"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <FlexBox gap="10px">
-                  <CheckBox checked={checked} onChange={() => handleChangeCheckBox()} />
-                  <TextBox fontSize="small">{checked ? '선택해제' : '전체선택'}</TextBox>
-                </FlexBox>
-                <BorderBox
-                  width="117px"
-                  height="50px"
-                  lineHeight="50px"
-                  textAlign="center"
-                  cursor="pointer"
-                  onClick={() => handleClickDeleteBox()}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <FlexBox width="1320px" justifyContent="space-between">
+              <article>
+                <h2 hidden>장바구니 상품들 리스트</h2>
+                <FlexBox
+                  width="736px"
+                  height="80px"
+                  justifyContent="space-between"
+                  alignItems="center"
                 >
-                  상품삭제
-                </BorderBox>
-              </FlexBox>
-              {isLoading ? <Loading /> : <ShoppingCartListContainer data={data} />}
-            </article>
-            {!isLoading && <PaymentAmountContainer count={orderList.length} data={data} />}
-          </FlexBox>
+                  <FlexBox gap="10px">
+                    <CheckBox checked={checked} onChange={() => handleChangeCheckBox()} />
+                    <TextBox fontSize="small">{checked ? '선택해제' : '전체선택'}</TextBox>
+                  </FlexBox>
+                  <BorderBox
+                    width="117px"
+                    height="50px"
+                    lineHeight="50px"
+                    textAlign="center"
+                    cursor="pointer"
+                    onClick={() => handleClickDeleteBox()}
+                  >
+                    상품삭제
+                  </BorderBox>
+                </FlexBox>
+                <ShoppingCartListContainer data={data} />
+              </article>
+              <PaymentAmountContainer count={orderList.length} data={data} />
+            </FlexBox>
+          )}
         </PageContainer>
       </FlexBox>
     </>
