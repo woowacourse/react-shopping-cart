@@ -3,11 +3,11 @@ import React from 'react';
 import { Counter } from 'components/common';
 import { useCount } from 'hooks/useCount';
 
-import * as Styled from 'components/product/CartAdd/CartAdd.style';
+import * as Styled from 'components/product/CartAddForm/CartAddForm.style';
 import * as GlobalStyled from 'styles/GlobalStyles';
 import useCart from 'hooks/useCart';
 
-function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
+function CartAddForm({ product: { id, name, price, quantity }, closeModal }) {
   const [count, handleIncrement, handleDecrement] = useCount({
     initialValue: 1,
     min: 1,
@@ -46,4 +46,4 @@ function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
   );
 }
 
-export default CartAdd;
+export default CartAddForm;

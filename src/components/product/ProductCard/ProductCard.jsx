@@ -5,7 +5,7 @@ import { useModal } from 'hooks/useModal';
 
 import { Image, Icon, Modal } from 'components/common';
 
-import { CartAdd } from 'components/product';
+import { CartAddForm } from 'components/product';
 
 import * as Styled from 'components/product/ProductCard/ProductCard.style';
 import { color } from 'styles/Theme';
@@ -45,7 +45,7 @@ function ProductCard({ product }) {
 
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <CartAdd product={product} closeModal={closeModal} />
+          <CartAddForm product={product} closeModal={closeModal} />
         </Modal>
       )}
     </GlobalStyled.Position>
