@@ -17,20 +17,6 @@ function CartPage() {
   const [cartItems, setCartItems] = useState<Array<CartProductState>>([]);
   const dispatch = useDispatch();
 
-  const calculateTotalMoney = () => {
-    return cartItems.reduce((prevMoney, item) => {
-      const { product, stock, checked } = item;
-
-      if (!checked) return prevMoney;
-
-      return prevMoney + product.price * stock;
-    }, 0);
-  };
-
-  const isAllChecked = () => {
-    return cartItems.every((item) => item.checked === true);
-  };
-
   useEffect(() => {
     cart.forEach(({ id, stock, checked }) => {
       axios
@@ -60,6 +46,20 @@ function CartPage() {
       ]);
     });
   }, [cart]);
+
+  const calculateTotalMoney = () => {
+    return cartItems.reduce((prevMoney, item) => {
+      const { product, stock, checked } = item;
+
+      if (!checked) return prevMoney;
+
+      return prevMoney + product.price * stock;
+    }, 0);
+  };
+
+  const isAllChecked = () => {
+    return cartItems.every((item) => item.checked === true);
+  };
 
   const onChangeAllChecked = (
     e: React.MouseEvent<HTMLElement> | React.ChangeEvent<HTMLElement>
