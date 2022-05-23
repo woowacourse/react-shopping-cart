@@ -1,4 +1,4 @@
-import { CONTENT_NOT_LOADED, REQUEST_STATUS, REQUEST_TIMEOUT } from 'constants/';
+import { REQUEST_STATUS, REQUEST_TIMEOUT } from 'constants/';
 
 const request = async (url, option) => {
   const fetchController = new AbortController();
