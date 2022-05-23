@@ -5,8 +5,13 @@ import useCart from "../../hooks/useCart";
 import * as S from "./index.styles";
 
 const Cart = () => {
-  const { cartData, isAllChecked, changeAllCartChecked, deleteAllCheckedCart } =
-    useCart();
+  const {
+    cartData,
+    isAllChecked,
+    changeAllCartChecked,
+    deleteAllCheckedCart,
+    checkedItemAmount,
+  } = useCart();
 
   const handleAllCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeAllCartChecked(e.target.checked);
@@ -38,7 +43,7 @@ const Cart = () => {
           ))}
         </S.ItemListContainer>
         <S.OrderContainer>
-          <CartOrderContainer />
+          <CartOrderContainer itemAmount={checkedItemAmount} />
         </S.OrderContainer>
       </S.ItemOrderContainer>
     </>

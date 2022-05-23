@@ -24,12 +24,12 @@ export const PriceContainer = styled.div`
   margin-bottom: 2em;
 `;
 
-export const OrderButton = styled.button`
+export const OrderButton = styled.button<{ buttonColor: string }>`
   text-align: center;
   width: 90%;
   padding: 0.7em;
   color: white;
-  background-color: #2ac1bc;
+  background-color: ${(props) => props.buttonColor};
   font-size: 1.2rem;
   border: none;
   margin-bottom: 1em;
