@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 function ExpectedPriceBox() {
   const carts = useSelector((state) => state.cart.carts);
   const totalPrice = carts
+    .filter((product) => product.isChecked)
     .map((product) => product.total)
     .reduce((total, productPrice) => total + productPrice, 0);
 
