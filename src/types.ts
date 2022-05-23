@@ -13,18 +13,23 @@ export type Product = {
   createdAt: number;
 };
 
+export type CartItem = {
+  userId: string;
+  quantity: number;
+};
+
 export type Action = {
   type: typeof TYPES[keyof typeof TYPES];
   payload: any;
 };
 
 export type StoreState = {
+  userId: string;
   isLoading: boolean;
   error: any;
-  productList: Array<Product>;
+  productList: Product[];
   productDetail: Product | null;
-  cart: Array<{ id: string; quantity: number; checked: boolean }>;
-  cartItems: Array<Product>;
+  cart: { product: Product; quantity: number; checked: boolean }[];
 };
 
 export type Theme = typeof theme;

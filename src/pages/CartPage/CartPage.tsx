@@ -11,6 +11,7 @@ function CartPage() {
     isLoading,
     error,
     cart,
+    checkedFlags,
     totalPrice,
     handleChangeQuantity,
     handleCheck,
@@ -38,7 +39,9 @@ function CartPage() {
               <CheckBox
                 id="select-all-checkbox"
                 name="select-all-checkbox"
-                checked={cart.every((item) => item.checked)}
+                checked={Object.values(checkedFlags).every(
+                  (checked) => checked
+                )}
                 onChange={handleCheckAll}
               />
               <label htmlFor="select-all-checkbox">선택해제</label>
@@ -50,22 +53,19 @@ function CartPage() {
           <StyledH3>든든배송 상품 ({cart.length}개)</StyledH3>
           <DivideLine variant="gray" />
           <ul>
-            {cart.map(
-              (item) =>
-                item.product && (
-                  <li key={item.id}>
-                    <CartItem
-                      product={item.product}
-                      quantity={item.quantity}
-                      checked={item.checked}
-                      onChangeQuantity={handleChangeQuantity(item.id)}
-                      onCheck={handleCheck(item.id)}
-                      onClickRemove={removeCartItem(item.id)}
-                    />
-                    <DivideLine variant="thin" />
-                  </li>
-                )
-            )}
+            {cart.map(({ product, quantity }) => (
+              <li key={product.id}>
+                <CartItem
+                  product={product}
+                  quantity={quantity}
+                  checked={checkedFlags[product.id] ?? true}
+                  onChangeQuantity={handleChangeQuantity(product.id)}
+                  onCheck={handleCheck(product.id)}
+                  onClickRemove={removeCartItem(product.id)}
+                />
+                <DivideLine variant="thin" />
+              </li>
+            ))}
           </ul>
         </CartLeftSection>
         <CartRightSection>
@@ -81,7 +81,9 @@ function CartPage() {
           </TotalPriceContainer>
           <OrderButtonContainer>
             <PrimaryButton>
-              주문하기({cart.filter((item) => item.checked).length}개)
+              주문하기 (
+              {Object.values(checkedFlags).filter((checked) => checked).length}
+              개)
             </PrimaryButton>
           </OrderButtonContainer>
         </CartRightSection>

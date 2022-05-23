@@ -11,8 +11,17 @@ const TYPES = {
   GET_PRODUCT_DETAIL_FULFILLED: 'GET_PRODUCT_DETAIL_FULFILLED',
   GET_PRODUCT_DETAIL_REJECTED: 'GET_PRODUCT_DETAIL_REJECTED',
   ADD_ITEM_TO_CART: 'ADD_ITEM_TO_CART',
-  GET_CART_ITEMS: 'GET_CART_ITEMS',
-  HANDLE_CHANGE_QUANTITY: 'HANDLE_CHANGE_QUANTITY',
+  ADD_ITEM_TO_CART_PENDING: 'ADD_ITEM_TO_CART_PENDING',
+  ADD_ITEM_TO_CART_FULFILLED: 'ADD_ITEM_TO_CART_FULFILLED',
+  ADD_ITEM_TO_CART_REJECTED: 'ADD_ITEM_TO_CART_REJECTED',
+  GET_CART: 'GET_CART',
+  GET_CART_PENDING: 'GET_CART_PENDING',
+  GET_CART_FULFILLED: 'GET_CART_FULFILLED',
+  GET_CART_REJECTED: 'GET_CART_REJECTED',
+  UPDATE_QUANTITY: 'UPDATE_QUANTITY',
+  UPDATE_QUANTITY_PENDING: 'UPDATE_QUANTITY_PENDING',
+  UPDATE_QUANTITY_FULFILLED: 'UPDATE_QUANTITY_FULFILLED',
+  UPDATE_QUANTITY_REJECTED: 'UPDATE_QUANTITY_REJECTED',
   HANDLE_CHECK: 'HANDLE_CHECK',
   REMOVE_CART_ITEM: 'REMOVE_CART_ITEM',
 } as const;
@@ -33,28 +42,44 @@ const actions = {
 
     return { type: TYPES.GET_PRODUCT_DETAIL, payload: request };
   },
-  addItemToCart: (id: string, quantity: number) => {
-    return { type: TYPES.ADD_ITEM_TO_CART, payload: { id, quantity } };
-  },
-  getCartItems: (ids?: Array<String>) => {
-    const query =
-      ids && ids.length > 0 ? `?${ids.map((id) => `id=${id}`).join('&')}` : '';
-    const url = `${SERVER_URL}/products${query}`;
-    const request = axios.get(url).then((res) => res.data);
+  getCart: (userId: string) => {
+    const request = axios
+      .get(`${SERVER_URL}/cart/${userId}`)
+      .then((res) => res.data);
 
-    return { type: TYPES.GET_CART_ITEMS, payload: request };
+    return { type: TYPES.GET_CART, payload: request };
   },
-  handleChangeQuantity: (id: string, quantity: string) => {
-    console.log(id, quantity);
-    return { type: TYPES.HANDLE_CHANGE_QUANTITY, payload: { id, quantity } };
+  addItemToCart: (userId: string, productId: string, quantity: number) => {
+    const request = axios
+      .post(`${SERVER_URL}/cart/${userId}`, {
+        productId,
+        quantity,
+      })
+      .then((res) => res.data);
+
+    return { type: TYPES.ADD_ITEM_TO_CART, payload: request };
+  },
+  removeCartItem: (userId: string, productId: string | string[]) => {
+    const productIdList = Array.isArray(productId) ? productId : [productId];
+    const query = productIdList.map((productId) => `id=${productId}`).join('&');
+    const request = axios
+      .delete(`${SERVER_URL}/cart/${userId}?${query}`)
+      .then((res) => res.data);
+
+    return { type: TYPES.REMOVE_CART_ITEM, payload: request };
+  },
+  updateQuantity: (userId: string, productId: string, quantity: string) => {
+    const request = axios
+      .patch(`${SERVER_URL}/cart/${userId}`, {
+        productId,
+        quantity,
+      })
+      .then((res) => res.data);
+
+    return { type: TYPES.UPDATE_QUANTITY, payload: request };
   },
   handleCheck: (id: string, checked: boolean) => {
     return { type: TYPES.HANDLE_CHECK, payload: { id, checked } };
-  },
-  removeCartItem: (id: string | string[]) => {
-    const idList = Array.isArray(id) ? id : [id];
-
-    return { type: TYPES.REMOVE_CART_ITEM, payload: idList };
   },
 };
 

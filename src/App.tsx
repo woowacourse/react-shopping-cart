@@ -9,8 +9,19 @@ import MainPage from './pages/MainPage/MainPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import CartPage from './pages/CartPage/CartPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from './redux/actions';
+import { StoreState } from './types';
 
 function App() {
+  const dispatch = useDispatch();
+  const userId = useSelector((state: StoreState) => state.userId);
+
+  useEffect(() => {
+    dispatch(actions.getCart(userId));
+  }, [dispatch, userId]);
+
   return (
     <>
       <GlobalStyle />

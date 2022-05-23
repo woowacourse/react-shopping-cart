@@ -2,12 +2,12 @@ import { StoreState, Action } from '../types';
 import { TYPES } from './actions';
 
 const initialState: StoreState = {
+  userId: '1',
   isLoading: false,
   error: null,
   productList: [],
   productDetail: null,
-  cart: [{ id: '1', quantity: 1, checked: true }],
-  cartItems: [],
+  cart: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -30,55 +30,41 @@ const rootReducer = (state = initialState, action: Action) => {
     case `${TYPES.GET_PRODUCT_DETAIL}_REJECTED`: {
       return { ...state, isLoading: false, error: action.payload };
     }
-    case TYPES.ADD_ITEM_TO_CART: {
-      return {
-        ...state,
-        cart: [...state.cart, { ...action.payload, checked: true }],
-      };
-    }
-    case `${TYPES.GET_CART_ITEMS}_PENDING`: {
+    case `${TYPES.ADD_ITEM_TO_CART}_PENDING`: {
       return { ...state, isLoading: true, error: null };
     }
-    case `${TYPES.GET_CART_ITEMS}_FULFILLED`: {
-      return { ...state, isLoading: false, cartItems: action.payload };
+    case `${TYPES.ADD_ITEM_TO_CART}_FULFILLED`: {
+      return { ...state, isLoading: false, cart: action.payload };
     }
-    case `${TYPES.GET_CART_ITEMS}_REJECTED`: {
+    case `${TYPES.ADD_ITEM_TO_CART}_REJECTED`: {
       return { ...state, isLoading: false, error: action.payload };
     }
-    case TYPES.HANDLE_CHANGE_QUANTITY: {
-      const updatedCart = state.cart.map((item) => {
-        if (item.id === action.payload.id) {
-          return {
-            ...item,
-            quantity: action.payload.quantity,
-          };
-        }
-
-        return item;
-      });
-
-      return { ...state, cart: updatedCart };
+    case `${TYPES.GET_CART}_PENDING`: {
+      return { ...state, isLoading: true, error: null };
     }
-    case TYPES.HANDLE_CHECK: {
-      const updatedCart = state.cart.map((item) => {
-        if (item.id === action.payload.id) {
-          return {
-            ...item,
-            checked: action.payload.checked,
-          };
-        }
-
-        return item;
-      });
-
-      return { ...state, cart: updatedCart };
+    case `${TYPES.GET_CART}_FULFILLED`: {
+      return { ...state, isLoading: false, cart: action.payload };
     }
-    case TYPES.REMOVE_CART_ITEM: {
-      const updatedCart = state.cart.filter(
-        (item) => !action.payload.includes(item.id)
-      );
-
-      return { ...state, cart: updatedCart };
+    case `${TYPES.GET_CART}_REJECTED`: {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+    case `${TYPES.UPDATE_QUANTITY}_PENDING`: {
+      return { ...state, isLoading: true, error: null };
+    }
+    case `${TYPES.UPDATE_QUANTITY}_FULFILLED`: {
+      return { ...state, isLoading: false, cart: action.payload };
+    }
+    case `${TYPES.UPDATE_QUANTITY}_REJECTED`: {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+    case `${TYPES.REMOVE_CART_ITEM}_PENDING`: {
+      return { ...state, isLoading: true, error: null };
+    }
+    case `${TYPES.REMOVE_CART_ITEM}_FULFILLED`: {
+      return { ...state, isLoading: false, cart: action.payload };
+    }
+    case `${TYPES.REMOVE_CART_ITEM}_REJECTED`: {
+      return { ...state, isLoading: true, error: action.payload };
     }
     default:
       return state;

@@ -1,6 +1,8 @@
 import { rest } from 'msw';
 import SERVER_URL from '../../configs/api';
-import { products } from '../db.json';
+import * as db from '../db.json';
+
+const { products } = db;
 
 const productsHandlers = [
   rest.get(`${SERVER_URL}/products/:id`, (req, res, ctx) => {

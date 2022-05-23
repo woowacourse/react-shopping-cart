@@ -6,6 +6,17 @@
       "createdAt": 1652193534410
     }
   ],
+  "cart": [
+    {
+      "userId": "1",
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
   "orders": [
     {
       "id": "1",
