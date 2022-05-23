@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Styled = {
   Container: styled.label`
+    display: block;
     height: 25px;
     width: 25px;
     border-radius: 2px;
