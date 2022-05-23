@@ -25,9 +25,11 @@ const SelectAllContainer = styled.div`
   }
 `;
 
-const CartListTitle = styled.div`
+const CartListTitle = styled.h1`
   border-bottom: 2px solid ${({ theme }) => theme.colors.GRAY_400};
   padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 400;
 `;
 
 export { SelectAllContainer, CartListTitle };

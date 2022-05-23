@@ -6,7 +6,7 @@ const PaymentContainer = styled.div`
   height: 200px;
 `;
 
-const PaymentTitleWrapper = styled.div`
+const PaymentTitle = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.GRAY_300};
   padding: 15px;
 `;
@@ -27,4 +27,4 @@ const PaymentResultContainer = styled.div`
   }
 `;
 
-export { PaymentContainer, PaymentTitleWrapper, PaymentResultContainer };
+export { PaymentContainer, PaymentTitle, PaymentResultContainer };

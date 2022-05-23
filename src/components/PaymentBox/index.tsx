@@ -1,4 +1,4 @@
-import { PaymentContainer, PaymentResultContainer, PaymentTitleWrapper } from "./styles";
+import { PaymentContainer, PaymentResultContainer, PaymentTitle } from "./styles";
 
 interface PaymentBoxProps {
   title: string;
@@ -10,7 +10,7 @@ interface PaymentBoxProps {
 function PaymentBox({ title, subTitle, amount, children }: PaymentBoxProps) {
   return (
     <PaymentContainer>
-      <PaymentTitleWrapper>{title}</PaymentTitleWrapper>
+      <PaymentTitle>{title}</PaymentTitle>
       <PaymentResultContainer>
         <div>
           <span>{subTitle}</span>
