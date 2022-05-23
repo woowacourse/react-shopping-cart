@@ -1,4 +1,4 @@
-import Icon from 'components/@common/Icon';
+import { Icon } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
 import * as S from './styles';

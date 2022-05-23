@@ -5,7 +5,7 @@ import useReduxState from 'hooks/useReduxState';
 import useCart from 'hooks/useCart';
 
 import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
-import StatusMessage from 'components/@common/StatusMessage';
+import { StatusMessage } from 'components/@common';
 import ProductItem from 'components/ProductItem';
 
 import * as S from './styles';

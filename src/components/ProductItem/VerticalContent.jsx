@@ -1,7 +1,5 @@
 import { getNumberFormatter } from 'lib/formatterUtils';
-
-import Button from 'components/@common/Button';
-import ToolTip from 'components/@common/ToolTip';
+import { Button, ToolTip } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
 import * as S from './styles';

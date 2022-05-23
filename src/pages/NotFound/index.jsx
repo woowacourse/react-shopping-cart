@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Button from 'components/@common/Button';
-import StatusMessage from 'components/@common/StatusMessage';
+import { Button, StatusMessage } from 'components/@common';
 
 import { ICON_CODE, PAGE_LIST } from 'constants/';
 import * as S from './styles';

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Icon from 'components/@common/Icon';
+import { Icon } from 'components/@common';
 
 import * as S from './styles';
 

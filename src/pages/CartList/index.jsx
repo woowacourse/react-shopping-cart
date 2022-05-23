@@ -2,14 +2,16 @@ import useCart from 'hooks/useCart';
 import { getNumberFormatter } from 'lib/formatterUtils';
 
 import { Case, SwitchAsync } from 'components/@common/SwitchAsync';
-import StatusMessage from 'components/@common/StatusMessage';
-import FlexContainer from 'components/@common/FlexContainer';
-import Button from 'components/@common/Button';
-import Checkbox from 'components/@common/Checkbox';
-import ToolTip from 'components/@common/ToolTip';
-import Icon from 'components/@common/Icon';
-import Title from 'components/@common/Title';
-import TextUnderline from 'components/@common/TextUnderline';
+import {
+  Button,
+  Checkbox,
+  FlexContainer,
+  ToolTip,
+  Title,
+  TextUnderline,
+  StatusMessage,
+  Icon,
+} from 'components/@common';
 import CartItem from 'components/CartItem';
 
 import { ICON_CODE } from 'constants/';

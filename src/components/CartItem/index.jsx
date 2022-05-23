@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FlexContainer from 'components/@common/FlexContainer';
-import Checkbox from 'components/@common/Checkbox';
-import Counter from 'components/@common/Counter';
-import Button from 'components/@common/Button';
-import ToolTip from 'components/@common/ToolTip';
+import { Button, Checkbox, Counter, FlexContainer, ToolTip } from 'components/@common';
 import ProductItem from 'components/ProductItem';
 
 import { ICON_CODE } from 'constants/';
