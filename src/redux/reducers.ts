@@ -6,7 +6,7 @@ const initialState: StoreState = {
   error: null,
   productList: [],
   productDetail: null,
-  cart: [{ id: '1', quantity: '1', checked: true }],
+  cart: [{ id: '1', quantity: 1, checked: true }],
   cartItems: [],
 };
 
@@ -86,3 +86,4 @@ const rootReducer = (state = initialState, action: Action) => {
 };
 
 export default rootReducer;
+export { initialState };

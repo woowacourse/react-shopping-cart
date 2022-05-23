@@ -23,7 +23,7 @@ export type StoreState = {
   error: any;
   productList: Array<Product>;
   productDetail: Product | null;
-  cart: Array<{ id: string; quantity: string; checked: boolean }>;
+  cart: Array<{ id: string; quantity: number; checked: boolean }>;
   cartItems: Array<Product>;
 };
 

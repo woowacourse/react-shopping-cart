@@ -7,11 +7,9 @@ type Props = {
   product: Product;
 };
 
-function ProductCard({ product }: Props) {
-  const { id, name, price, stock, description, image } = {
-    ...product,
-  };
-
+function ProductCard({
+  product: { id, name, price, stock, description, image },
+}: Props) {
   return (
     <PlainLink to={`/product/${id}`} disabled={stock <= 0}>
       <StyledProductCard>

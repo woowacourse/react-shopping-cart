@@ -7,7 +7,7 @@ import ICONS from '../../constants/icons';
 
 type Props = {
   product: Product;
-  quantity: string;
+  quantity: number;
   checked: boolean;
   onChangeQuantity: React.ChangeEventHandler<HTMLInputElement>;
   onCheck: React.ChangeEventHandler<HTMLInputElement>;
@@ -42,7 +42,7 @@ function CartItem({
           value={quantity}
         />
         <p style={{ alignSelf: 'flex-end' }}>
-          {product.price.toLocaleString('ko-KR')}원
+          {(product.price * quantity).toLocaleString('ko-KR')}원
         </p>
       </StyledCartItemControl>
     </StyledCartItemContainer>
