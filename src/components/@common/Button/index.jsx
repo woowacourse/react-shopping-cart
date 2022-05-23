@@ -30,7 +30,7 @@ Button.defaultProps = {
 Button.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
-  state: PropTypes.oneOf(['default', 'primary', 'success', 'complete', 'danger', 'info']),
+  state: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'info']),
   icon: PropTypes.string,
   onClick: PropTypes.func,
 };
