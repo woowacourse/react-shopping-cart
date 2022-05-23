@@ -4,7 +4,7 @@ import productReducer from "./product";
 import productsReducer from "./products";
 import snackBarStateReducer from "./snackBar";
 
-const initialState = {
+export const initialState = {
   product: {
     loading: false,
     data: {},

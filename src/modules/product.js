@@ -1,9 +1,9 @@
 import * as API from "../api";
 import createReducer from "./createReducer";
 
-const GET_PRODUCT = "product/GET_PRODUCT";
-const GET_PRODUCT_SUCCESS = "product/GET_PRODUCT_SUCCESS";
-const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
+export const GET_PRODUCT = "product/GET_PRODUCT";
+export const GET_PRODUCT_SUCCESS = "product/GET_PRODUCT_SUCCESS";
+export const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 
 export const getProductById = (id) => async (dispatch) => {
   dispatch({ type: GET_PRODUCT });
