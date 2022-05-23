@@ -15,14 +15,14 @@ const Product = () => {
     isLoading,
     isError,
     data: product,
-    fetchData,
+    fetchApi,
   } = useFetch({
     method: 'get',
     url: `/products/${id}`,
   });
 
   useEffect(() => {
-    fetchData();
+    fetchApi();
   }, []);
 
   const { addCarItem } = useAddCartItem();

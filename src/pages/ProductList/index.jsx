@@ -13,7 +13,7 @@ const ProductList = () => {
     isLoading,
     isError,
     data: products,
-    fetchData,
+    fetchApi,
   } = useFetch({
     method: 'get',
     url: '/products',
@@ -23,9 +23,7 @@ const ProductList = () => {
   const isEmpty = products && !isLoading && products.length === 0;
 
   useEffect(() => {
-    if (!products) {
-      fetchData();
-    }
+    fetchApi();
   }, []);
 
   const handleClickCartButton = (id) => (e) => {

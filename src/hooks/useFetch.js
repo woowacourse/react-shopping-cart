@@ -7,7 +7,7 @@ const useFetch = ({ method, url }) => {
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState(null);
 
-  const fetchData = async () => {
+  const fetchApi = async () => {
     setIsLoading(true);
     setIsError(false);
     try {
@@ -19,7 +19,7 @@ const useFetch = ({ method, url }) => {
       setIsLoading(false);
     }
   };
-  return { isLoading, isError, data, fetchData };
+  return { isLoading, isError, data, fetchApi };
 };
 
 useFetch.propTypes = {
