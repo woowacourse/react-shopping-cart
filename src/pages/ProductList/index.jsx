@@ -29,7 +29,7 @@ export function ProductList() {
 
   const handleRemoveCart = ({ id }) => {
     cartAction.removeItem(id).then(() => {
-      cartState.isLoaded && alert('해당 상품이 장바구니에서 제거되었습니다.');
+      cartState.isLoaded && alert('해당 상품을 장바구니에서 제거하였습니다.');
     });
   };
 
