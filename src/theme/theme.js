@@ -10,6 +10,7 @@ const COLOR = {
   GRAY_500: '#DDDDDD',
   GRAY_400: '#F6F6F6',
   GRAY_300: '#E5E5E5',
+  PINK: '#F05F74',
 };
 
 const FONT_SIZE = {
