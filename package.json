@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "env-cmd": "^10.1.0",
     "immer": "^9.0.14",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
@@ -40,10 +41,10 @@
     "webpack": "^5.72.1"
   },
   "scripts": {
-    "start": "cp ./env/.env.server ./.env.local && react-app-rewired start",
-    "start:msw": "cp ./env/.env.msw ./.env.local && react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-scripts test",
+    "start": "env-cmd -f env/.env.development react-app-rewired start",
+    "start:msw": "env-cmd -f env/.env.development.mocking react-app-rewired start",
+    "build": "env-cmd -f env/.env.production react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
