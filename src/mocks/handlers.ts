@@ -2,9 +2,6 @@ import { LOCAL_BASE_URL } from 'apis';
 import { rest } from 'msw';
 import { mockItemList } from './mockDB';
 import { CartItem, Item } from 'types/domain';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { CartListAction } from 'redux/actions/cartList';
 
 let mockCartList: CartItem[] = [];
 

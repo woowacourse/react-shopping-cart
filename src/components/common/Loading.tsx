@@ -14,9 +14,10 @@ const Loading = () => {
 export default Loading;
 
 const StyledLoader = styled.div`
+  z-index: 1;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 48%;
+  left: 28%;
 
   @-webkit-keyframes sk-bounce {
     0%,

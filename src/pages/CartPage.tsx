@@ -12,8 +12,12 @@ import { Item } from 'types/domain';
 import styled from 'styled-components';
 import PaymentsAmount from 'components/Cart/PaymentsAmount';
 
-const Cart = () => {
-  const { data: cartList, error, loading } = useAppSelector(state => state.cartListReducer);
+const CartPage = () => {
+  const {
+    data: cartList,
+    error: errorGetCartList,
+    loading: loadingGetCartList,
+  } = useAppSelector(state => state.cartListReducer);
   const dispatch = useAppDispatch<CartListAction>();
 
   const [paymentsAmount, setpaymentsAmount] = useState(0);
@@ -28,16 +32,16 @@ const Cart = () => {
 
   const {
     data: cartDetail,
-    loading: loading2,
-    error: error2,
+    loading: loadingGetCartDetail,
+    error: errorGetCartDetail,
   }: { data: Item[]; loading: boolean; error: string } = useFetch(cartListString);
 
   useEffect(() => {
     dispatch(getCartList());
   }, []);
 
-  if (loading || loading2) return <Loading />;
-  if (error || error2) return <RequestFail />;
+  if (loadingGetCartDetail) return <Loading></Loading>;
+  if (errorGetCartList || errorGetCartDetail) return <RequestFail />;
 
   const cartListWithDetail = cartList.map(
     (cartItem, idx) =>
@@ -53,7 +57,9 @@ const Cart = () => {
           cartDetail={cartDetail}
           cartListWithDetail={cartListWithDetail}
           setPaymentsAmount={setpaymentsAmount}
-        />
+        >
+          {loadingGetCartList && <Loading></Loading>}
+        </CartList>
         <PaymentsAmount>{paymentsAmount}원</PaymentsAmount>
       </StyledRoot>
     </>
@@ -84,4 +90,4 @@ const StyledHeader = styled.div`
   letter-spacing: 0.5px;
 `;
 
-export default Cart;
+export default CartPage;

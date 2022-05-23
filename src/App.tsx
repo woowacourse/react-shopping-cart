@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Header from 'components/common/Header';
 import Snackbar from 'components/common/Snackbar';
 import { useAppSelector } from 'hooks/useAppSelector';
-import Cart from 'pages/CartPage';
+import CartPage from 'pages/CartPage';
 import useSnackBar from 'hooks/useSnackBar';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
             <Route path='/' element={<Navigate replace to='/main/1' />} />
             <Route path='/main/:id' element={<ItemListPage />} />
             <Route path='/item_detail/:id' element={<ItemDetail />} />
-            <Route path='/cart' element={<Cart />} />
+            <Route path='/cart' element={<CartPage />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </StyledMain>
