@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { getPixelToRem } from 'lib/formatterUtils';
 import Icon from 'components/@common/Icon';
 
-import { getPixelToRem } from 'lib/formatterUtils';
 import { BRAND_COLORS, COLORS } from 'styles/theme';
 
 const TITLE_TYPE = {

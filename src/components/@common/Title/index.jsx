@@ -20,7 +20,7 @@ function Title({ type, size, description, children }) {
 Title.defaultProps = {
   type: 'page',
   size: 24,
-  description: null,
+  description: '',
 };
 
 Title.propTypes = {
