@@ -9,7 +9,7 @@ import MarginWrapper from 'components/MarginWrapper';
 import FlexWrapper from 'components/FlexWrapper';
 import QuantityInput from 'containers/QuantityInput';
 
-function CartProduct({ id, imgSrc, title, price }) {
+function CartProduct({ id, imgSrc, title, total }) {
   return (
     <CartProductStyled>
       <FlexWrapper justifyContent="space-between">
@@ -30,7 +30,7 @@ function CartProduct({ id, imgSrc, title, price }) {
           <TrashcanButton productId={id} />
           <QuantityInput productId={id} />
           <BlackText fontSize="16px" fontWeight="400">
-            {price.toLocaleString()}원
+            {total.toLocaleString()}원
           </BlackText>
         </FlexWrapper>
       </FlexWrapper>

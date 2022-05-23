@@ -41,7 +41,7 @@ function Cart() {
               id={product.id}
               imgSrc={product.imgSrc}
               title={product.title}
-              price={product.price}
+              total={product.total}
             />
           ))}
         </CartProductStyled>

@@ -18,6 +18,7 @@ function CartButton({ id }) {
       const productIdx = productsId.indexOf(id);
       const newCarts = [...carts];
       newCarts[productIdx].quantity += 1;
+      newCarts[productIdx].total += newCarts[productIdx].price;
 
       dispatch(requestExistProductAdd(newCarts));
       return;
@@ -26,7 +27,7 @@ function CartButton({ id }) {
       const res = await axios.get(`/products/${id}`);
       const product = await res.data;
 
-      dispatch(requestCartAdd({ ...product, quantity: 1, isChecked: true }));
+      dispatch(requestCartAdd({ ...product, quantity: 1, isChecked: true, total: product.price }));
     } catch (error) {
       dispatch(requestCartAddFail(error));
     }

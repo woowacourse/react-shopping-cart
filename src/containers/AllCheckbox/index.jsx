@@ -1,20 +1,26 @@
 import React from 'react';
 
 import Checkbox from 'components/Checkbox';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestAllCheckboxTrue, requestProductAllCheck } from 'modules/cart';
 
 function AllCheckbox() {
-  let isChecked = false;
   const carts = useSelector((state) => state.cart.carts);
+  const isCheckedAll = useSelector((state) => state.cart.isCheckedAll);
+  const dispatch = useDispatch();
 
-  if (carts.every((product) => product.isChecked)) {
-    isChecked = true;
+  // 모든 상품이 체크가 된 경우, all checkbox도 체크 상태로 만들어준다
+  if (carts.length && carts.every((product) => product.isChecked)) {
+    dispatch(requestAllCheckboxTrue());
   }
-  // const productIdx = cartsIdx.indexOf(productId);
 
-  const handleClickCheckbox = () => {};
+  const handleClickCheckbox = () => {
+    const newCarts = carts.map((product) => ({ ...product, isChecked: !isCheckedAll }));
 
-  return <Checkbox label="선택해제" onClick={handleClickCheckbox} isChecked={isChecked} />;
+    dispatch(requestProductAllCheck(newCarts));
+  };
+
+  return <Checkbox label="선택해제" onClick={handleClickCheckbox} isChecked={isCheckedAll} />;
 }
 
 export default AllCheckbox;

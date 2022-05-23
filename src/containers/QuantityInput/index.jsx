@@ -22,6 +22,8 @@ function QuantityInput({ productId }) {
     const newCarts = [...carts];
     if (newCarts[productIdx].quantity === 100) return;
     newCarts[productIdx].quantity += 1;
+    newCarts[productIdx].total = newCarts[productIdx].price * newCarts[productIdx].quantity;
+    console.log(newCarts);
 
     dispatch(requestExistProductAdd(newCarts));
   };
@@ -30,6 +32,7 @@ function QuantityInput({ productId }) {
 
     if (newCarts[productIdx].quantity === 1) return;
     newCarts[productIdx].quantity -= 1;
+    newCarts[productIdx].total -= newCarts[productIdx].price;
 
     dispatch(requestExistProductAdd(newCarts));
   };
