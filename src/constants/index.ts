@@ -5,9 +5,12 @@ const INFO_MESSAGES = {
   ASK_DELETE_PRODUCT: "해당 상품을 삭제하시겠습니까?",
 };
 
-const NUM = {
-  MIN_PRODUCT_COUNT: 1,
+const PRODUCT = {
+  MIN_COUNT: 1,
+};
+
+const CART = {
   COUNTER_DISPLAY_TIME: 3000,
 };
 
-export { INFO_MESSAGES, NUM };
+export { INFO_MESSAGES, PRODUCT, CART };

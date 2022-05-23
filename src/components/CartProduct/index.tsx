@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { CartItem, decrement, deleteItem, increment, selectItem } from "../../redux/modules/cart";
 import CheckBox from "../@shared/CheckBox/styles";
-import { INFO_MESSAGES, NUM } from "../../constants";
+import { INFO_MESSAGES, PRODUCT } from "../../constants";
 import Delete from "../../assets/Delete.png";
 import {
   CartProductContainer,
@@ -32,7 +32,7 @@ function CartProduct({ item: { id, img, name, price, amount, isSelected } }: Car
   };
 
   const onClickDecreaseCounter = () => {
-    if (amount === NUM.MIN_PRODUCT_COUNT) {
+    if (amount === PRODUCT.MIN_COUNT) {
       return;
     }
     dispatch(decrement(id));

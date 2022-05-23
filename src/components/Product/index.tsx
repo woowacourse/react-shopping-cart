@@ -5,7 +5,7 @@ import { addItem, decrement, deleteItem, increment } from "../../redux/modules/c
 import { show } from "../../redux/modules/snackBar";
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
 import routes from "../../routes";
-import { INFO_MESSAGES, NUM } from "../../constants";
+import { INFO_MESSAGES, CART, PRODUCT } from "../../constants";
 
 import cart from "../../assets/cart.svg";
 import {
@@ -51,7 +51,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    if (cartItem?.amount === NUM.MIN_PRODUCT_COUNT) {
+    if (cartItem?.amount === PRODUCT.MIN_COUNT) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
       dispatch(show(INFO_MESSAGES.DELETED_FROM_CART));
@@ -76,7 +76,7 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
     if (isShowCartCounter) {
       timeout.current = setTimeout(() => {
         setIsShowCartCounter(false);
-      }, NUM.COUNTER_DISPLAY_TIME);
+      }, CART.COUNTER_DISPLAY_TIME);
     }
   }, [isShowCartCounter, cartItem?.amount]);
 
