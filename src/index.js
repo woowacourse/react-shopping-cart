@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
     location.pathname = MSW_TARGET_PATH;
   }
 
-  if (window.location.pathname === MSW_TARGET_PATH) {
+  if (window.location.pathname.includes(MSW_TARGET_PATH)) {
     // eslint-disable-next-line global-require
     const { worker } = require('mocks/browser');
     worker.start({
