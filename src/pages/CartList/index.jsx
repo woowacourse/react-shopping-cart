@@ -46,7 +46,7 @@ export function CartList() {
     }
 
     cartAction.removeItem(id).then((status) => {
-      status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
+      status ? alert('해당 상품을 제거하였습니다.') : alert('해당 상품 제거에 실패하였습니다.');
     });
   };
 
@@ -58,7 +58,7 @@ export function CartList() {
     const checkedIdList = checkedItemList.map(({ id }) => id);
 
     cartAction.removeItemList(checkedIdList).then((status) => {
-      status ? alert('상품이 제거되었습니다.') : alert('상품 제거에 실패하였습니다.');
+      status ? alert('선택한 상품이 제거되었습니다.') : alert('선택한 상품 제거에 실패하였습니다.');
     });
   };
 
