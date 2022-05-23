@@ -12,7 +12,7 @@ function Cart() {
         <PageTitle className="mb-50">장바구니</PageTitle>
         <div className="flex space-between">
           <CartForm className="w-full pr-100" />
-          <CartTotal className="min-w-400" />
+          <CartTotal className="min-w-400 place-self-start" />
         </div>
       </div>
     </div>
