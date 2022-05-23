@@ -36,20 +36,11 @@ export const addProductCart =
     }
   };
 
-export const deleteProductCart = (id) => async (dispatch, getState) => {
-  const cartProducts = getState().cart.cartProducts;
-
-  if (!cartProducts.some((product) => product.product_id === Number(id))) {
-    dispatch(openDeleteProductCartErrorModal('Error'));
-    return;
-  }
-
+export const deleteProductCart = (id) => async (dispatch) => {
   try {
-    await axios.delete('/mocking/cart', id);
-    const editCartProducts = getState().cart.cartProducts.filter(
-      (product) => product.product_id !== Number(id),
-    );
-    dispatch(getProductCartSuccess(editCartProducts));
+    const response = await axios.delete('/mocking/cart', id);
+
+    dispatch(getProductCartSuccess(response.data));
   } catch (error) {
     dispatch(openDeleteProductCartErrorModal(error));
   }
@@ -60,35 +51,30 @@ export const deleteSelectProductCart = () => async (dispatch, getState) => {
   const deleteCartProductsId = cartProducts.map(
     (product) => product.cart_check && product.product_id,
   );
-  const editCartProducts = cartProducts.filter((product) => !product.cart_check);
 
   try {
     Promise.all([
-      deleteCartProductsId.forEach((productId) => axios.delete('/mocking/cart', productId)),
-    ]);
-    dispatch(getProductCartSuccess(editCartProducts));
+      deleteCartProductsId.map((productId) => axios.delete('/mocking/cart', productId)),
+    ]).then(() => {
+      const editCartProducts = cartProducts.filter((product) => !product.cart_check);
+      dispatch(getProductCartSuccess(editCartProducts));
+    });
   } catch (error) {
     dispatch(openDeleteProductCartErrorModal(error));
   }
 };
 
-export const productCountEdit = (id, count) => async (dispatch, getState) => {
-  const editCartProducts = getState().cart.cartProducts.map((product) =>
-    product.product_id === Number(id)
-      ? ((product.cart_product_count = count), { ...product })
-      : product,
-  );
-
-  dispatch(getProductCartSuccess(editCartProducts));
-
+export const productCountEdit = (id, count) => async (dispatch) => {
   try {
     const response = await axios.patch('/mocking/cart', { product_id: id, product_count: count });
     if (response.status === 202) {
-      dispatch(getProductCartSuccess(editCartProducts));
+      dispatch(openProductCountUpErrorModal());
+      return;
     }
-    console.log(response);
+
+    dispatch(getProductCartSuccess(response.data));
   } catch (error) {
-    dispatch(openProductCountUpErrorModal(error));
+    dispatch(openProductCountUpErrorModal());
   }
 };
 
@@ -100,7 +86,7 @@ export const checkCartProduct = (id, check) => (dispatch, getState) => {
   dispatch(getProductCartSuccess(editCartProducts));
 };
 
-export const checkTotalCartProduct = (check) => (dispatch, getState) => {
+export const checkTotalCartProduct = () => (dispatch, getState) => {
   const cartProductCheckList = getState().cart.cartProducts.every((product) => product.cart_check);
 
   if (cartProductCheckList) {

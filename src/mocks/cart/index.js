@@ -44,14 +44,19 @@ export const cartHandler = [
     );
     cartProducts.splice(deleteProductIndex - 1, 1);
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json(cartProducts));
   }),
   rest.patch('/mocking/cart', (req, res, ctx) => {
-    cartProducts.find((product) =>
+    const editCartProducts = cartProducts.find((product) =>
       product.product_id === Number(req.body.product_id)
         ? (product.cart_product_count = Number(req.body.product_count))
         : '',
     );
+
+    if (!editCartProducts) {
+      return res(ctx.status(202), ctx.json(cartProducts));
+    }
+
     return res(ctx.status(200), ctx.json(cartProducts));
   }),
 ];
