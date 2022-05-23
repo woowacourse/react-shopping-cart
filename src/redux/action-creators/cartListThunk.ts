@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export const getCartList = () => async (dispatch: Dispatch<CartListAction>) => {
   dispatch({ type: CartListActionType.GET_CART_LIST_START });
+
   try {
     const response = await axios.get(`${LOCAL_BASE_URL}/cartList`);
 

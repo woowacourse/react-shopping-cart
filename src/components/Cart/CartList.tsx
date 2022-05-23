@@ -5,11 +5,8 @@ import CroppedImage from 'components/common/CroppedImage';
 import { flexCenter } from 'styles/mixin';
 import CheckBox from 'components/common/CheckBox';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
-import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import Controller from './Controller';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { getCartList } from 'redux/action-creators/cartListThunk';
-import { CartListAction } from 'redux/actions/cartList';
 
 const CartList = ({
   cartList,
@@ -23,6 +20,11 @@ const CartList = ({
   setPaymentsAmount: Dispatch<SetStateAction<number>>;
 }) => {
   const { toggleCartItemWillPurchase } = useUpdateCartItem(cartList);
+  const { updateCartItemQuantity, removeCartItem } = useUpdateCartItem(cartList);
+
+  useEffect(() => {
+    setPaymentsAmount(totalPaymentsPrice);
+  });
 
   const isAllItemWillPurchase = cartList.every(cartItem => cartItem.willPurchase);
   const totalPaymentsPrice = cartListWithDetail.reduce((prev, after) => {
@@ -32,10 +34,6 @@ const CartList = ({
 
     return prev;
   }, 0);
-
-  useEffect(() => {
-    setPaymentsAmount(totalPaymentsPrice);
-  });
 
   const toggleCheckedAll = () => {
     if (isAllItemWillPurchase) {
@@ -58,8 +56,6 @@ const CartList = ({
   const toggleChecked = (targetId: number) => {
     toggleCartItemWillPurchase(targetId);
   };
-
-  const { updateCartItemQuantity, removeCartItem } = useUpdateCartItem(cartList);
 
   const modifyQuantity = (targetId: number, type: 'up' | 'down' | 'alter', quantity: number) => {
     updateCartItemQuantity(targetId, type, 1);

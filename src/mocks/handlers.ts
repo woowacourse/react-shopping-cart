@@ -2,6 +2,9 @@ import { LOCAL_BASE_URL } from 'apis';
 import { rest } from 'msw';
 import { mockItemList } from './mockDB';
 import { CartItem, Item } from 'types/domain';
+import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { CartListAction } from 'redux/actions/cartList';
 
 let mockCartList: CartItem[] = [];
 
@@ -54,12 +57,12 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
-  rest.put(`${LOCAL_BASE_URL}/cartList/:id`, (req, res, ctx) => {
-    const cartItem: CartItem = Object(req.body);
+  rest.put<CartItem>(`${LOCAL_BASE_URL}/cartList/:id`, (req, res, ctx) => {
+    const cartItem: CartItem = req.body;
 
     const newCartList = mockCartList.map(item => {
       if (item.id === cartItem.id) {
-        return cartItem;
+        return { ...cartItem };
       }
 
       return item;
@@ -67,6 +70,6 @@ export const handlers = [
 
     mockCartList = [...newCartList];
 
-    return res(ctx.status(200));
+    return res(ctx.status(200), ctx.json(cartItem));
   }),
 ];
