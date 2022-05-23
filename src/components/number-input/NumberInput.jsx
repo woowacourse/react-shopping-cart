@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, flushSync } from "react";
 import CaretUp from "@assets/images/caret-up.svg";
 import CaretDown from "@assets/images/caret-down.svg";
-import { flushSync } from "react-dom/cjs/react-dom.production.min";
 import styles from "./number-input.module";
 
 const cn = require("classnames");
