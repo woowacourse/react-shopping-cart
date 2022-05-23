@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
-import { SERVER_PATH } from '../constant';
+import { MESSAGE, SERVER_PATH } from '../constant';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
 import { SIZE } from '../constant';
@@ -16,6 +16,7 @@ function ProductDetailPage() {
   const { id } = useParams();
 
   const onClickCartButton = () => {
+    alert(MESSAGE.ADD);
     addCartItem(id);
   };
 
