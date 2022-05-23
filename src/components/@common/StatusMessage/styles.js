@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import animate from 'styles/utils/animate';
 
 import LoadingCharacter from 'assets/image/loading.png';
+import EmptyCharacter from 'assets/image/empty.png';
 import ErrorCharacter from 'assets/image/error.png';
 
 const CONTAINER_BEFORE = {
@@ -24,6 +25,13 @@ const CONTAINER_BEFORE = {
         }
       `,
     )}
+  `,
+
+  EMPTY: css`
+    background-image: url(${EmptyCharacter});
+
+    width: 10rem;
+    height: 10rem;
   `,
 
   ERROR: css`
