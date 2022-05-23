@@ -7,7 +7,7 @@ import { MESSAGE } from '../constant';
 import useDeleteCartItem from '../hooks/useDeleteCartItem';
 import useUpdateItemQuantity from '../hooks/useUpdateQuantity';
 
-function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
+function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedItem }) {
   const { deleteCartItem } = useDeleteCartItem();
   const { updateItemQuantity } = useUpdateItemQuantity();
   const [isChecked, setChecked] = useState(isCheckedAll);
@@ -30,6 +30,7 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem }) {
   const deleteItem = () => {
     if (window.confirm(MESSAGE.DELETE)) {
       deleteCartItem(id);
+      removeSelectedItem(id);
     }
   };
 

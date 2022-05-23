@@ -28,12 +28,17 @@ function ShoppingCart() {
 
     if (window.confirm(MESSAGE.DELETE)) {
       selectedItems.forEach((id) => deleteCartItem(id));
+      setSelectedItems([]);
     }
+  };
+
+  const removeSelectedItem = (id) => {
+    setSelectedItems(selectedItems.filter((cartId) => cartId !== id));
   };
 
   const handleSelectedItem = (id) => {
     if (selectedItems.includes(id)) {
-      setSelectedItems(selectedItems.filter((cartId) => cartId !== id));
+      removeSelectedItem(id);
     } else {
       setSelectedItems((prevItem) => [...prevItem, id]);
     }
@@ -72,7 +77,7 @@ function ShoppingCart() {
             </StyledCheckboxContainer>
             <StyledDeleteButton onClick={deleteSelectedItems}>상품삭제</StyledDeleteButton>
           </StyledLeftDiv>
-          <StyledTitle>든든배송 상품({selectedItems.length}개)</StyledTitle>
+          <StyledTitle>든든배송 상품({cartList.length}개)</StyledTitle>
           <StyledDivideLine margin={10} size={2} color={COLORS.GRAY} />
           {cartList.map((item) => (
             <React.Fragment key={item.id}>
@@ -80,6 +85,7 @@ function ShoppingCart() {
                 item={item}
                 isCheckedAll={isCheckedAll}
                 handleSelectedItem={handleSelectedItem}
+                removeSelectedItem={removeSelectedItem}
               />
               <StyledDivideLine margin={10} size={1} color={COLORS.GRAY} />
             </React.Fragment>
