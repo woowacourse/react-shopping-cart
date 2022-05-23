@@ -5,7 +5,7 @@ import { useCount } from 'hooks/useCount';
 
 import * as Styled from 'components/product/CartAdd/CartAdd.style';
 import * as GlobalStyled from 'styles/GlobalStyles';
-import useCartProducts from 'hooks/useCartProducts';
+import useCart from 'hooks/useCart';
 
 function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
   const [count, onIncrement, onDecrement] = useCount({
@@ -13,7 +13,7 @@ function CartAdd({ product: { id, name, price, quantity }, closeModal }) {
     min: 1,
     max: quantity,
   });
-  const { addProductToCart } = useCartProducts();
+  const { addProductToCart } = useCart();
 
   const onClickCartAdd = () => {
     addProductToCart({ id, name, count });

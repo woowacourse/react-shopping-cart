@@ -1,19 +1,51 @@
-import { useMemo } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addToCartAsync,
   deleteCartProductAsync,
+  getCartAsync,
   toggleProductCheck,
+  updateCartProductQuantityAsync,
   updateCheckedList,
 } from 'store/actions/cart';
 import { cartStoreSelector } from 'store/selector';
 
 import { WARNING_MESSAGES } from 'constants/messages';
 
-const useCartCheck = () => {
+const useCart = () => {
   const dispatch = useDispatch();
   const { cart, checkedProductList } = useSelector(cartStoreSelector);
-  const cartLength = useMemo(() => cart && Object.keys(cart).length, [cart]);
+
+  const cartLength = cart && Object.keys(cart).length;
+
+  const loadCart = () => {
+    dispatch(getCartAsync());
+  };
+
+  const addProductToCart = ({ id, count }) => {
+    dispatch(addToCartAsync(id, count));
+  };
+
+  const dispatchQuantityUpdate = (productId, quantity) => {
+    dispatch(updateCartProductQuantityAsync(productId, quantity));
+  };
+
+  const incrementCartProduct = (productId, currentQuantity) => {
+    dispatchQuantityUpdate(productId, currentQuantity + 1);
+  };
+
+  const decrementCartProduct = (productId, currentQuantity) => {
+    if (currentQuantity === 1) {
+      alert(WARNING_MESSAGES.MIN_QUANTITY);
+      return;
+    }
+    dispatchQuantityUpdate(productId, currentQuantity - 1);
+  };
+
+  const deleteProduct = (productIdArray) => {
+    if (window.confirm(WARNING_MESSAGES.PRODUCT_DELETE)) {
+      dispatch(deleteCartProductAsync(productIdArray));
+    }
+  };
 
   const isChecked = (productId) => checkedProductList.includes(String(productId));
 
@@ -21,10 +53,7 @@ const useCartCheck = () => {
     dispatch(toggleProductCheck(String(productId)));
   };
 
-  const isAllChecked = useMemo(
-    () => cartLength === checkedProductList.length,
-    [cartLength, checkedProductList],
-  );
+  const isAllChecked = cartLength === checkedProductList.length;
 
   const toggleAllCheck = () => {
     if (isAllChecked) {
@@ -52,6 +81,13 @@ const useCartCheck = () => {
   }, 0);
 
   return {
+    cart,
+    cartLength,
+    loadCart,
+    addProductToCart,
+    decrementCartProduct,
+    incrementCartProduct,
+    deleteProduct,
     isChecked,
     toggleCheck,
     checkedProductCount: checkedProductList.length,
@@ -62,4 +98,4 @@ const useCartCheck = () => {
   };
 };
 
-export default useCartCheck;
+export default useCart;
