@@ -38,6 +38,7 @@ function Cart() {
           {carts.map((product) => (
             <CartProduct
               key={product.id}
+              id={product.id}
               imgSrc={product.imgSrc}
               title={product.title}
               price={product.price}

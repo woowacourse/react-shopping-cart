@@ -1,12 +1,12 @@
 import React from 'react';
 
-import NumberInput from 'components/NumberInput';
+import QuantityInput from 'containers/QuantityInput';
 
 export default {
-  title: 'Component/NumberInput',
-  component: NumberInput,
+  title: 'Template/QuantityInput',
+  component: QuantityInput,
 };
 
-const Template = () => <NumberInput />;
+const Template = () => <QuantityInput />;
 
 export const Primary = Template.bind({});
