@@ -8,6 +8,7 @@ const BoxButtonStyled = styled.button(
     width: ${width};
     height: ${height};
     border: ${border ? `1px solid ${border}` : 'none'};
+    cursor: pointer;
   `,
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import BoxButtonStyled from './style';
 
-function BoxButton({ color, message, fontColor, fontSize, width, height, border }) {
+function BoxButton({ color, message, fontColor, fontSize, width, height, border, onClick }) {
   return (
     <BoxButtonStyled
       color={color}
@@ -10,6 +10,7 @@ function BoxButton({ color, message, fontColor, fontSize, width, height, border 
       width={width}
       height={height}
       border={border}
+      onClick={onClick}
     >
       {message}
     </BoxButtonStyled>
