@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useCheckBox } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { useCheckBox, useCartItem } from 'hooks';
 
 import Layout from 'components/Layout';
 import PageHeader from 'components/@common/PageHeader';
@@ -14,7 +14,7 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
 const Cart = () => {
-  const { items: cartList } = useSelector((state) => state.cart);
+  const cartList = useCartItem();
   const {
     checkedList,
     selectAllChecked,

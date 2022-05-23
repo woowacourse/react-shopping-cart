@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useCartItem } from 'hooks';
 
 import { addCartList } from 'actions/cart';
 import { snackbar } from 'actions/snackbar';
@@ -13,7 +14,7 @@ import * as Styled from './styles';
 
 const DetailProductItem = ({ id, thumbnail, name, price }) => {
   const dispatch = useDispatch();
-  const { items: cartList } = useSelector((state) => state.cart);
+  const cartList = useCartItem();
 
   const onClickAddCartButton = () => {
     dispatch(addCartList({ id, thumbnail, name, price }, cartList));
