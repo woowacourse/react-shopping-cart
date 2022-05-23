@@ -1,16 +1,10 @@
 import axios from 'axios';
 import { SERVER_URL, PATH, ERROR_MESSAGE } from 'constants';
 
-const TYPE = {
+export const TYPE = {
   PRODUCTS_LOAD: 'products/load',
   LOADING: 'products/loading',
   ERROR: 'prodcuts/error',
-};
-
-const initialState = {
-  loading: true,
-  products: [],
-  productsError: null,
 };
 
 const productsActionCreators = {
@@ -28,18 +22,5 @@ export const loadProducts = () => async (dispatch) => {
     dispatch(productsActionCreators.error(ERROR_MESSAGE.LOAD_PRODUCTS));
   } finally {
     dispatch(productsActionCreators.loading(false));
-  }
-};
-
-export const productsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TYPE.PRODUCTS_LOAD:
-      return { ...state, products: action.payload, productsError: null };
-    case TYPE.LOADING:
-      return { ...state, loading: action.payload };
-    case TYPE.ERROR:
-      return { ...state, productsError: action.payload };
-    default:
-      return state;
   }
 };

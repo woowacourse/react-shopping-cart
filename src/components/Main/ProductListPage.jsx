@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Product from 'components/Main/Product';
-import { loadCarts, cartsActionCreators } from 'store/carts';
-import { loadProducts } from 'store/products';
+import { loadCarts, cartsActionCreators } from 'store/carts/action';
+import { loadProducts } from 'store/products/action';
 
 function ProductListPage() {
   const { products, loading, productsError } = useSelector(

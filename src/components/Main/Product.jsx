@@ -6,7 +6,7 @@ import { CART_SIZE, COLOR } from 'constants';
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 import { DefaultButton } from 'components/shared/styles';
 import { useDispatch } from 'react-redux';
-import { addCart, deleteCart } from 'store/carts';
+import { addCart, deleteCart } from 'store/carts/action';
 
 function Product({ id, src, price, title, isStored }) {
   const [isClicked, setIsClicked] = useState(isStored);

@@ -3,7 +3,7 @@ import { LIMIT } from 'constants';
 import PropType from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateCartQuantity } from 'store/carts';
+import { updateCartQuantity } from 'store/carts/action';
 import { DefaultButton } from 'components/shared/styles';
 
 function AmountController({ product }) {

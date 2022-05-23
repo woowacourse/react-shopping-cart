@@ -6,7 +6,7 @@ import { ReactComponent as TrashButton } from 'components/CartPage/TrashButton.s
 import AmountController from 'components/CartPage/AmountController';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from 'store/carts';
+import { deleteCart } from 'store/carts/action';
 import { NOTICE } from 'constants';
 
 function CartProduct({ product, checkedList, updateCheckedList }) {

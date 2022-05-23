@@ -6,7 +6,7 @@ import CheckBox from 'components/CartPage/CheckBox';
 import { DivideUnderLine, DefaultButton } from 'components/shared/styles';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCart } from 'store/carts';
+import { deleteCart } from 'store/carts/action';
 import { ERROR_MESSAGE, NOTICE } from 'constants';
 
 function CartPage() {
