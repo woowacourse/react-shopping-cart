@@ -44,7 +44,7 @@ describe("장바구니 리듀서 테스트", () => {
   test("상품 증가 요청이 들어오면 해당 상품 장바구니 개수를 정상적으로 증가시켜야 한다.", () => {
     const id = 0;
     const newState = cartReducer(initialState, addItem(cartList[id]));
-    const newItems = [{ ...cartList[id], amount: 2 }];
+    const newItems = [{ ...cartList[id], amount: cartList[id].amount + 1 }];
 
     expect(cartReducer(newState, increment(id))).toEqual({ items: newItems });
   });
@@ -52,7 +52,7 @@ describe("장바구니 리듀서 테스트", () => {
   test("상품 차감 요청이 들어오면 해당 상품 장바구니 개수를 정상적으로 차감시켜야 한다.", () => {
     const id = 1;
     const newState = cartReducer(initialState, addItem(cartList[id]));
-    const newItems = [{ ...cartList[id], amount: 1 }];
+    const newItems = [{ ...cartList[id], amount: cartList[id].amount - 1 }];
 
     expect(cartReducer(newState, decrement(id))).toEqual({ items: newItems });
   });
