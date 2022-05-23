@@ -3,13 +3,28 @@ import ProductDetail from 'components/ProductDetail/ProductDetail';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useProduct from 'hooks/useProduct';
 import useAddCartItem from 'hooks/useAddCartItem';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
+import useFetch from 'hooks/useFetch';
+import { useEffect } from 'react';
 
 const Product = () => {
-  const { isLoading, isSucceed, isError, product } = useProduct();
+  const { id } = useParams();
+  const {
+    isLoading,
+    isError,
+    data: product,
+    fetchData,
+  } = useFetch({
+    method: 'get',
+    url: `/products/${id}`,
+  });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const { addCarItem } = useAddCartItem();
   const navigate = useNavigate();
 
@@ -18,11 +33,23 @@ const Product = () => {
     navigate(PATH_NAME.CART);
   };
 
+  if (isLoading)
+    return (
+      <Styled.Wrapper>
+        <Skeleton sizeType="large" />
+      </Styled.Wrapper>
+    );
+
+  if (isError)
+    return (
+      <Styled.Wrapper>
+        <ImgWrapper src={errorApiImg} />
+      </Styled.Wrapper>
+    );
+
   return (
     <Styled.Wrapper>
-      {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ImgWrapper src={errorApiImg} />}
-      {isSucceed && product && (
+      {product && (
         <ProductDetail
           id={product.id}
           imgUrl={product.imgUrl}
