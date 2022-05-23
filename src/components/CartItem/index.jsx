@@ -58,6 +58,11 @@ CartItem.defaultProps = {
   image: '기본 이미지 URL',
   name: '이름이 지정되지 않았습니다.',
   price: -1,
+  quantity: 1,
+  isChecked: false,
+  onChangeCheckBox: () => {},
+  onChangeCounter: () => {},
+  onClickRemove: () => {},
 };
 
 CartItem.propTypes = {
@@ -65,6 +70,11 @@ CartItem.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isChecked: PropTypes.bool,
+  onChangeCheckBox: PropTypes.func,
+  onChangeCounter: PropTypes.func,
+  onClickRemove: PropTypes.func,
 };
 
 export default CartItem;
