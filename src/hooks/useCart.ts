@@ -64,6 +64,11 @@ const useCart = () => {
         payload: targetId,
       });
     },
+    deleteAllCheckedCart: () => {
+      dispatch({
+        type: CartActionType.DELETE_ALL_CHECKED_CART,
+      });
+    },
   };
 };
 

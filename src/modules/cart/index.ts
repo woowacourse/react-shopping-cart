@@ -7,6 +7,7 @@ const PATCH_CART_STOCK = "cart/PATCH_CART_STOCK" as const;
 const PATCH_CART_CHECK = "cart/PATCH_CART_CHECK" as const;
 const PATCH_CART_ALL_CHECK = "cart/PATCH_CART_ALL_CHECK" as const;
 const DELETE_CART = "cart/DELETE_CART" as const;
+const DELETE_ALL_CHECKED_CART = "cart/DELETE_ALL_CHECKED_CART" as const;
 
 const INITIAL_STATE: Cart = {
   isLoading: false,
@@ -81,10 +82,19 @@ export const DeleteCart = (cartListState: Cart, action: any) => {
   };
 };
 
+export const DeleteAllCheckedCart = (cartListState: Cart, action: any) => {
+  return {
+    isLoading: false,
+    data: cartListState.data.filter((data) => !data.isChecked),
+    error: null,
+  };
+};
+
 export const cartReducer = createReducer<Cart>(INITIAL_STATE, {
   [POST_CART_SUCCESS]: postCartSuccess,
   [PATCH_CART_STOCK]: PatchCartStock,
   [PATCH_CART_CHECK]: PatchCartCheck,
   [PATCH_CART_ALL_CHECK]: PatchCartAllCheck,
   [DELETE_CART]: DeleteCart,
+  [DELETE_ALL_CHECKED_CART]: DeleteAllCheckedCart,
 });

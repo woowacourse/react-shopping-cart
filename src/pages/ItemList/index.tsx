@@ -15,7 +15,7 @@ const DELAY_TIME = 500;
 
 const ItemList = () => {
   const sectionRef = useRef(null);
-  const { createNewCart, cartData } = useCart();
+  const { createNewCart } = useCart();
   const {
     isLoading,
     data: products,

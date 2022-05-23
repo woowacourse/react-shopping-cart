@@ -5,16 +5,20 @@ import useCart from "../../hooks/useCart";
 import * as S from "./index.styles";
 
 const Cart = () => {
-  const { cartData, isAllChecked, changeAllCartChecked } = useCart();
+  const { cartData, isAllChecked, changeAllCartChecked, deleteAllCheckedCart } =
+    useCart();
 
   const handleAllCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeAllCartChecked(e.target.checked);
   };
 
+  const handleCheckedItemDeleteButton = () => {
+    deleteAllCheckedCart();
+  };
+
   return (
     <>
       <S.Title>장바구니</S.Title>
-
       <S.DeleteButtonContainer>
         <Checkbox
           id={100000}
@@ -22,7 +26,9 @@ const Cart = () => {
           value={isAllChecked}
           handleChange={handleAllCheckedChange}
         />
-        <S.DeleteButton>상품 삭제</S.DeleteButton>
+        <S.DeleteButton onClick={handleCheckedItemDeleteButton}>
+          상품 삭제
+        </S.DeleteButton>
       </S.DeleteButtonContainer>
       <S.ItemOrderContainer>
         <S.ItemListContainer>
