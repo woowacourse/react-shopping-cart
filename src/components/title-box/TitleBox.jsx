@@ -8,8 +8,8 @@ function TitleBox({ children }) {
 }
 
 Object.assign(TitleBox, {
-  TitleBoxHead,
-  TitleBoxContent,
+  Head: TitleBoxHead,
+  Content: TitleBoxContent,
 });
 
 export default TitleBox;
