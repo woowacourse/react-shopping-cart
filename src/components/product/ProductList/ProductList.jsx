@@ -15,11 +15,10 @@ function ProductList({ openModal }) {
     window.scrollTo(0, 0);
   }, [isLoading]);
 
-  return (
+  return pageCount && currentPage > pageCount ? (
+    <ErrorContainer>{ERROR_MESSAGES.INVALID_PAGE}</ErrorContainer>
+  ) : (
     <Styled.Container>
-      {currentPage > pageCount && (
-        <ErrorContainer>{ERROR_MESSAGES.INVALID_PAGE}</ErrorContainer>
-      )}
       {isLoading
         ? Array.from({ length: 12 }).map((_, index) => (
             <ProductCard.skeleton key={index} />
