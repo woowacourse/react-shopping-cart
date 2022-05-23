@@ -1,0 +1,14 @@
+.table {
+  width: 100%;
+  tr {
+    display: block;
+    padding: 15px 0;
+    border-top: 1px solid gray;
+    &:nth-of-type(1) {
+      border-top: 3px solid gray;
+    }
+    td {
+      display: block;
+    }
+  }
+}
