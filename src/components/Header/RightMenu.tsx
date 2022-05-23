@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import ICONS from '../../constants/icons';
 import { Theme } from '../../types';
 import PlainLink from '../PlainLink/PlainLink';
 
@@ -7,22 +8,6 @@ type StyledUlProps = {
   isDrawerOpened: boolean;
   theme: Theme;
 };
-
-const menuIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="40px"
-    height="40px"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 
 function RightMenu() {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -33,7 +18,7 @@ function RightMenu() {
 
   return (
     <StyledNav>
-      <StyledButton onClick={toggleDrawer}>{menuIcon}</StyledButton>
+      <StyledButton onClick={toggleDrawer}>{ICONS.MENU}</StyledButton>
       <StyledUl isDrawerOpened={isDrawerOpened}>
         <li>
           <PlainLink to="/cart">장바구니</PlainLink>

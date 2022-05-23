@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { createBrotliCompress } from 'zlib';
 import CartItem from '../../components/CartItem/CartItem';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import Spinner from '../../components/Spinner/Spinner';
