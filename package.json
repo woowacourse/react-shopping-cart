@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "jest": "^28.1.0",
     "msw": "^0.40.0",
     "redux-devtools": "^3.7.0"
   },
