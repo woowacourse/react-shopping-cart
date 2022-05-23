@@ -28,6 +28,7 @@ const ButtonStyled = styled.div`
     height: 30px;
     border: 1px solid #ddd;
     background: none;
+    cursor: pointer;
   }
   .decrease {
     border-top: none;

@@ -16,7 +16,22 @@ function QuantityInput({ productId }) {
     newCarts[productIdx].quantity = Number(event.target.value);
 
     dispatch(requestExistProductAdd(newCarts));
-    console.log(carts);
+  };
+
+  const handleClickIncrease = () => {
+    const newCarts = [...carts];
+    if (newCarts[productIdx].quantity === 100) return;
+    newCarts[productIdx].quantity += 1;
+
+    dispatch(requestExistProductAdd(newCarts));
+  };
+  const handleClickDecrease = () => {
+    const newCarts = [...carts];
+
+    if (newCarts[productIdx].quantity === 1) return;
+    newCarts[productIdx].quantity -= 1;
+
+    dispatch(requestExistProductAdd(newCarts));
   };
 
   return (
@@ -30,8 +45,12 @@ function QuantityInput({ productId }) {
         value={carts[productIdx].quantity}
       />
       <ButtonStyled>
-        <button className="increase"> + </button>
-        <button className="decrease"> - </button>
+        <button onClick={handleClickIncrease} className="increase">
+          +
+        </button>
+        <button onClick={handleClickDecrease} className="decrease">
+          -
+        </button>
       </ButtonStyled>
     </InputWrapperStyled>
   );
