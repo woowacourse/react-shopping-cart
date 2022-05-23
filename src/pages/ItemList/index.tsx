@@ -46,7 +46,7 @@ const ItemList = () => {
           handleItemClick(product.id);
         },
         onClickShoppingCart: () => {
-          createNewCart(id);
+          createNewCart(id, product.price);
         },
         ...product,
       };

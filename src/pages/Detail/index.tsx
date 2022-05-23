@@ -22,7 +22,7 @@ const Detail = () => {
           <ItemDetails
             {...product?.data}
             onClickShoppingCartButton={() => {
-              createNewCart(Number(id));
+              createNewCart(Number(id), product.data.price);
             }}
           />
         )}

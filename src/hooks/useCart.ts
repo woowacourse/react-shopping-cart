@@ -13,11 +13,14 @@ const useCart = () => {
     cartData: cartList.data,
     isAllChecked: cartList.data.every((cart) => cart.isChecked),
     checkedItemAmount: cartList.data.filter((cart) => cart.isChecked).length,
+    totalPrice: cartList.data
+      .filter((cart) => cart.isChecked)
+      .reduce((prev, acc) => prev + acc.price * acc.stock, 0),
 
     getCart: (targetId: string): CartType | undefined => {
       return cartList.data.find(({ id }) => id === targetId);
     },
-    createNewCart: (productId: number) => {
+    createNewCart: (productId: number, price: number) => {
       const targetCart = cartList.data.find(
         (cart) => cart.productId === productId
       ) as CartType;
@@ -35,6 +38,7 @@ const useCart = () => {
         stock: 1,
         isChecked: false,
         id: new Date().toString(),
+        price,
       };
       dispatch({ type: CartActionType.POST_CART_SUCCESS, payload: cart });
     },

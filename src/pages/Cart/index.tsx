@@ -11,6 +11,7 @@ const Cart = () => {
     changeAllCartChecked,
     deleteAllCheckedCart,
     checkedItemAmount,
+    totalPrice,
   } = useCart();
 
   const handleAllCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +27,7 @@ const Cart = () => {
       <S.Title>장바구니</S.Title>
       <S.DeleteButtonContainer>
         <Checkbox
-          id={100000}
+          id={-1}
           label={isAllChecked ? "선택해제" : "전체선택"}
           value={isAllChecked}
           handleChange={handleAllCheckedChange}
@@ -43,7 +44,10 @@ const Cart = () => {
           ))}
         </S.ItemListContainer>
         <S.OrderContainer>
-          <CartOrderContainer itemAmount={checkedItemAmount} />
+          <CartOrderContainer
+            itemAmount={checkedItemAmount}
+            price={totalPrice}
+          />
         </S.OrderContainer>
       </S.ItemOrderContainer>
     </>

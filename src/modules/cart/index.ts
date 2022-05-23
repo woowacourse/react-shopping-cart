@@ -32,12 +32,9 @@ export const PatchCartStock = (cartListState: Cart, action: any) => {
   return {
     isLoading: false,
     data: [
-      ...cartListState.data.splice(0, targetCartIndex),
+      ...cartListState.data.slice(0, targetCartIndex),
       targetCart,
-      ...cartListState.data.splice(
-        targetCartIndex + 1,
-        cartListState.data.length
-      ),
+      ...cartListState.data.slice(targetCartIndex + 1),
     ],
     error: null,
   };
@@ -52,12 +49,9 @@ export const PatchCartCheck = (cartListState: Cart, action: any) => {
   return {
     isLoading: false,
     data: [
-      ...cartListState.data.splice(0, targetCartIndex),
+      ...cartListState.data.slice(0, targetCartIndex),
       targetCart,
-      ...cartListState.data.splice(
-        targetCartIndex + 1,
-        cartListState.data.length
-      ),
+      ...cartListState.data.slice(targetCartIndex + 1),
     ],
     error: null,
   };

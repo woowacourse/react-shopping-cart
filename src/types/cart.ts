@@ -3,4 +3,5 @@ export interface CartType {
   productId: number;
   stock: number;
   isChecked: boolean;
+  price: number;
 }
