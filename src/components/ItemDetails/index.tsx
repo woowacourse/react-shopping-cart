@@ -18,6 +18,7 @@ const ItemDetails = ({
   const {
     color: { white, brown, darkGray },
   } = useTheme() as themeType;
+
   return (
     <S.ItemContainer>
       <S.ItemImage src={imgUrl} alt={`${title}상세이미지`} />

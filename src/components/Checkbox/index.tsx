@@ -14,6 +14,7 @@ const Checkbox = ({ id, label, value, handleChange }: CheckboxProps) => {
   const {
     color: { primary },
   } = useTheme() as themeType;
+
   return (
     <S.CheckboxContainer>
       <S.Checkbox

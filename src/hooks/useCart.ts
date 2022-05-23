@@ -15,6 +15,17 @@ const useCart = () => {
       return cartList.data.find(({ id }) => id === targetId);
     },
     createNewCart: (productId: number) => {
+      const targetCart = cartList.data.find(
+        (cart) => cart.productId === productId
+      ) as CartType;
+
+      if (targetCart) {
+        const { id, stock } = targetCart;
+        return dispatch({
+          type: CartActionType.PATCH_CART_STOCK,
+          payload: { targetId: id, stockChanged: stock + 1 },
+        });
+      }
       const cart: CartType = {
         productId,
         stock: 1,
