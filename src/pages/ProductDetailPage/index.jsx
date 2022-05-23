@@ -17,12 +17,12 @@ export default function ProductDetailPage() {
   const disable = cart.some(({id: productId}) => productId === +id);
 
   useEffect(() => {
-    const get = async () => {
+    const getItemInfo = async () => {
       const {data: productItem} = await appClient.get(`/products/${id}`);
       setDetailItem(productItem);
     };
 
-    get();
+    getItemInfo();
     getCartList();
   }, []);
 
