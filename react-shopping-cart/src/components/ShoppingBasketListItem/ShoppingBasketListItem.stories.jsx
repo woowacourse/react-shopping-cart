@@ -1,4 +1,5 @@
 import ShoppingBasketListItem from './ShoppingBasketListItem.component';
+import { action } from '@storybook/addon-actions';
 import { useArgs } from '@storybook/client-api';
 
 export default {
@@ -21,22 +22,28 @@ const PRODUCT_DATA = {
 };
 
 export const Default = args => {
-  const [{ count }, updateArgs] = useArgs();
+  const [{ quantity }, updateArgs] = useArgs();
 
-  const handleClickIncrease = () => updateArgs({ count: count + 1 });
+  const clickCheckbox = action('clickCheckbox');
 
-  const handleClickDecrease = () => updateArgs({ count: count === 0 ? count : count - 1 });
+  const deleteProducts = action('deleteProduct');
+
+  const increaseQuantity = () => updateArgs({ quantity: quantity + 1 });
+
+  const decreaseQuantity = () => updateArgs({ quantity: quantity === 0 ? quantity : quantity - 1 });
 
   return (
     <ShoppingBasketListItem
       {...args}
-      handleClickIncrease={handleClickIncrease}
-      handleClickDecrease={handleClickDecrease}
+      clickCheckbox={clickCheckbox}
+      deleteProducts={deleteProducts}
+      increaseQuantity={increaseQuantity}
+      decreaseQuantity={decreaseQuantity}
     />
   );
 };
 
 Default.args = {
   ...PRODUCT_DATA,
-  count: 1,
+  quantity: 1,
 };
