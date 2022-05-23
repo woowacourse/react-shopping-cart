@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import priceToDollar from "@utils/priceToDollar";
 import Cart from "@assets/images/cart.svg";
 import ImageButton from "@home/components/image-button/ImageButton";
 import createAction from "@redux/createAction";
@@ -10,7 +11,7 @@ const cn = require("classnames");
 
 function ProductItem({
   id,
-  title,
+  name,
   price,
   thumbnail_image: { url: thumbnailUrl, alt },
   className,
@@ -38,8 +39,10 @@ function ProductItem({
       <div className={cn(styles.content)}>
         <div className={cn(styles.productDetail)}>
           <div className={cn(styles.lLeft)}>
-            <div className={cn(styles.productTitle)}>{title}</div>
-            <div className={cn(styles.productPrice)}>{price}</div>
+            <div className={cn(styles.productTitle)}>{name}</div>
+            <div className={cn(styles.productPrice)}>
+              {priceToDollar(price)}
+            </div>
           </div>
           <div className="lRight">
             <ImageButton

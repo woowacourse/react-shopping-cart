@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useSelector, useStore } from "react-redux";
+import priceToDollar from "@utils/priceToDollar";
 import getSelectedProductIds from "@cart/utils/getSelectedProductIds";
 import Button from "@shared/button/Button";
 import Highlighter from "@shared/highlighter/Highlighter";
@@ -24,7 +25,7 @@ function CartTotal() {
       <TitleBox.Content>
         <div className={styles.top}>
           <Highlighter>결제예상금액</Highlighter>
-          <Highlighter>{`$${total}`}</Highlighter>
+          <Highlighter>{priceToDollar(total)}</Highlighter>
         </div>
         <div className={styles.bottom}>
           <Button

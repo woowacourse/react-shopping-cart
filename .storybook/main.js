@@ -46,6 +46,7 @@ module.exports = {
       "@redux": resolve(__dirname, "../src/redux"),
       "@assets": resolve(__dirname, "../src/assets"),
       "@mock": resolve(__dirname, "../mock"),
+      "@utils": resolve(__dirname, "../src/utils"),
     };
     config.resolve.alias = Object.assign(config.resolve.alias, alias);
 

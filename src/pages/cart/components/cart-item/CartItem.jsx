@@ -1,3 +1,4 @@
+import priceToDollar from "@utils/priceToDollar";
 import Checkbox from "@shared/checkbox/single/Checkbox";
 import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
 import NumberInput from "@shared/number-input/NumberInput";
@@ -36,7 +37,7 @@ function CartItem({
         <div className={styles.right}>
           <DeleteIcon onClick={onDelete} />
           <NumberInput onChange={onQuantityChange} value={quantity} />
-          <div className={styles.productPrice}>{`$${price}`}</div>
+          <div className={styles.productPrice}>{priceToDollar(price)}</div>
         </div>
       </div>
     </div>
