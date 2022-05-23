@@ -1,20 +1,37 @@
+const FETCH_CARTS_START = 'FETCH_CARTS_START';
+const FETCH_CARTS_SUCCESS = 'FETCH_CARTS_SUCCESS';
+const FETCH_CARTS_ERROR = 'FETCH_CARTS_ERROR';
+const ADD_PRODUCT_TO_CART_START = 'ADD_PRODUCT_TO_CART_START';
+const ADD_PRODUCT_TO_CART_SUCCESS = 'ADD_PRODUCT_TO_CART_SUCCESS';
+const ADD_PRODUCT_TO_CART_ERROR = 'ADD_PRODUCT_TO_CART_ERROR';
+const DELETE_PRODUCT_FROM_CART_START = 'DELETE_PRODUCT_FROM_CART_START';
+const DELETE_PRODUCT_FROM_CART_SUCCESS = 'DELETE_PRODUCT_FROM_CART_SUCCESS';
+const DELETE_PRODUCT_FROM_CART_ERROR = 'DELETE_PRODUCT_FROM_CART_ERROR';
+const TOGGLE_IS_CHECKED = 'TOGGLE_IS_CHECKED';
+const ALL_TOGGLE_IS_CHECKED = 'ALL_TOGGLE_IS_CHECKED';
+const DELETE_CHECKED_PRODUCTS_START = 'DELETE_CHECKED_PRODUCTS_START';
+const DELETE_CHECKED_PRODUCTS_SUCCESS = 'DELETE_CHECKED_PRODUCTS_SUCCESS';
+const DELETE_CHECKED_PRODUCTS_ERROR = 'DELETE_CHECKED_PRODUCTS_ERROR';
+const INCREASE_PRODUCT_QUANTITY = 'INCREASE_PRODUCT_QUANTITY';
+const DECREASE_PRODUCT_QUANTITY = 'DECREASE_PRODUCT_QUANTITY';
+
 const cartsActionTypes = {
-  fetchCartsStart: 'fetchCartsStart',
-  fetchCartsSuccess: 'fetchCartsSuccess',
-  fetchCartsError: 'fetchCartsError',
-  addProductToCartStart: 'addProductToCartStart',
-  addProductToCartSuccess: 'addProductToCartSuccess',
-  addProductToCartError: 'addProductToCartError',
-  deleteProductToCartStart: 'deleteProductToCartStart',
-  deleteProductToCartSuccess: 'deleteProductToCartSuccess',
-  deleteProductToCartError: 'deleteProductToCartError',
-  toggleIsChecked: 'toggleIsChecked',
-  allToggleIsChecked: 'allToggleIsChecked',
-  deleteCheckedProductsStart: 'deleteCheckedProductsStart',
-  deleteCheckedProductsSuccess: 'deleteCheckedProductsSuccess',
-  deleteCheckedProductsError: 'deleteCheckedProductsError',
-  increaseProductQuantity: 'increaseProductQuantity',
-  decreaseProductQuantity: 'decreaseProductQuantity',
+  fetchCartsStart: FETCH_CARTS_START,
+  fetchCartsSuccess: FETCH_CARTS_SUCCESS,
+  fetchCartsError: FETCH_CARTS_ERROR,
+  addProductToCartStart: ADD_PRODUCT_TO_CART_START,
+  addProductToCartSuccess: ADD_PRODUCT_TO_CART_SUCCESS,
+  addProductToCartError: ADD_PRODUCT_TO_CART_ERROR,
+  deleteProductFromCartStart: DELETE_PRODUCT_FROM_CART_START,
+  deleteProductFromCartSuccess: DELETE_PRODUCT_FROM_CART_SUCCESS,
+  deleteProductFromCartError: DELETE_PRODUCT_FROM_CART_ERROR,
+  toggleIsChecked: TOGGLE_IS_CHECKED,
+  allToggleIsChecked: ALL_TOGGLE_IS_CHECKED,
+  deleteCheckedProductsStart: DELETE_CHECKED_PRODUCTS_START,
+  deleteCheckedProductsSuccess: DELETE_CHECKED_PRODUCTS_SUCCESS,
+  deleteCheckedProductsError: DELETE_CHECKED_PRODUCTS_ERROR,
+  increaseProductQuantity: INCREASE_PRODUCT_QUANTITY,
+  decreaseProductQuantity: DECREASE_PRODUCT_QUANTITY,
 };
 
 export default cartsActionTypes;

@@ -14,9 +14,11 @@ class ErrorBoundary extends Component {
 
   render() {
     const { children, fallback } = this.props;
+
     if (this.state.hasError) {
       return fallback;
     }
+
     return children;
   }
 }

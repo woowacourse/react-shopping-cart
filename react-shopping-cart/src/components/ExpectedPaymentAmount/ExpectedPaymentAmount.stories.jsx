@@ -1,4 +1,4 @@
-import ExpectedPaymentBox from 'components/ExpectedPaymentBox/ExpectedPaymentBox';
+import ExpectedPaymentBox from 'components/ExpectedPaymentAmount/ExpectedPaymentAmount';
 
 export default {
   title: 'ExpectedPaymentBox',

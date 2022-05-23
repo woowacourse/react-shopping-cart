@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 
 const selectCarts = (state) => state.carts;
 
-export const selectCartsLoading = createSelector(
+export const selectIsCartsLoading = createSelector(
   [selectCarts],
-  (carts) => carts.loading
+  (carts) => carts.isLoading
 );
 
 export const selectCurrentCarts = createSelector(
@@ -15,4 +15,9 @@ export const selectCurrentCarts = createSelector(
 export const selectCartsError = createSelector(
   [selectCarts],
   (carts) => carts.error
+);
+
+export const selectCartsIsAllChecked = createSelector(
+  [selectCarts],
+  (carts) => carts.allChecked
 );

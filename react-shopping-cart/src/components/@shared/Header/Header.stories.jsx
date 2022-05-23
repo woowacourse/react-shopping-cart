@@ -1,8 +1,7 @@
 import Header from 'components/@shared/Header/Header';
-import NavigateButton from 'components/@shared/NavigateButton/NavigateButton';
-import PageTitle from 'components/@shared/PageTitle/PageTitle';
 
-import { RowFlexWrapper } from 'styles/Wrapper';
+import HomeButton from 'components/HomeButton/HomeButton';
+import NavigationButtonList from 'components/NavigationButtonGroup/NavigationButtonGroup';
 
 import { ReactComponent as Cart } from 'assets/cart.svg';
 
@@ -14,14 +13,6 @@ export default {
 export const ShoppingCartPageHeader = (args) => <Header {...args} />;
 
 ShoppingCartPageHeader.args = {
-  children: [
-    <PageTitle>
-      <Cart />
-      <div>WOOWA SHOP</div>
-    </PageTitle>,
-    <RowFlexWrapper gap="20px">
-      <NavigateButton>장바구니</NavigateButton>
-      <NavigateButton>주문목록</NavigateButton>
-    </RowFlexWrapper>,
-  ],
+  left: <HomeButton title="WOOWA SHOP" emoji={<Cart />} />,
+  right: <NavigationButtonList />,
 };

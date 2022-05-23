@@ -2,33 +2,37 @@ import { useDispatch } from 'react-redux';
 
 import {
   addProductToCartStart,
-  deleteProductToCartStart,
+  deleteProductFromCartStart,
 } from 'redux/carts/carts.action';
 
 import { CURRENT_USER } from 'constants/index';
 
-function useClickCartButton() {
+function useCart() {
   const dispatch = useDispatch();
 
-  const handleDeleteProduct = (e, id) => {
+  const handleDeleteProductFromCart = (e, id) => {
     e.stopPropagation();
-    dispatch(deleteProductToCartStart(id));
+
+    if (window.confirm('장바구니에서 삭제하시겠습니까?')) {
+      dispatch(deleteProductFromCartStart(id));
+    }
   };
 
-  const handleAddProduct = (e, { name, price, id, thumbnail }) => {
+  const handleAddProductToCart = (e, { name, price, id, thumbnail }) => {
     e.stopPropagation();
+
     dispatch(
       addProductToCartStart({
         name,
         price,
         id: `${CURRENT_USER}${id}`,
-        image: thumbnail,
+        thumbnail,
         user: CURRENT_USER,
       })
     );
   };
 
-  return { handleAddProduct, handleDeleteProduct };
+  return { handleAddProductToCart, handleDeleteProductFromCart };
 }
 
-export default useClickCartButton;
+export default useCart;

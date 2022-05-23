@@ -5,9 +5,10 @@ import {
   addProductToCartSuccess,
   deleteCheckedProductsError,
   deleteCheckedProductsSuccess,
-  deleteProductToCartError,
-  deleteProductToCartSuccess,
+  deleteProductFromCartError,
+  deleteProductFromCartSuccess,
   fetchCartsError,
+  fetchCartsStart,
   fetchCartsSuccess,
 } from 'redux/carts/carts.action';
 import cartsActionTypes from 'redux/carts/carts.types';
@@ -25,8 +26,8 @@ export function* getCarts() {
 
 export function* addProduct({ payload: product }) {
   try {
-    const data = yield call(addProductToCart, { ...product, quantity: 1 });
-    yield put(addProductToCartSuccess(data));
+    yield call(addProductToCart, { ...product, quantity: 1 });
+    yield put(addProductToCartSuccess());
   } catch (err) {
     yield put(addProductToCartError(err));
   }
@@ -35,31 +36,44 @@ export function* addProduct({ payload: product }) {
 export function* deleteProduct({ payload: id }) {
   try {
     yield call(deleteProductFromCart, id);
-    yield put(deleteProductToCartSuccess(id));
+    yield put(deleteProductFromCartSuccess(id));
   } catch (err) {
-    yield put(deleteProductToCartError(err));
+    yield put(deleteProductFromCartError(err));
   }
 }
 
 export function* deleteCheckedProducts({ payload: checkedIdList }) {
   try {
     yield all(checkedIdList.map((id) => call(deleteProductFromCart, id)));
-    yield put(deleteCheckedProductsSuccess(checkedIdList));
+    yield put(deleteCheckedProductsSuccess());
   } catch (err) {
     yield put(deleteCheckedProductsError(err));
   }
 }
 
-export function* handleDeleteProduct() {
-  yield takeLatest(cartsActionTypes.deleteProductToCartStart, deleteProduct);
+export function* handleDeleteProductFromCart() {
+  yield takeLatest(cartsActionTypes.deleteProductFromCartStart, deleteProduct);
 }
 
-export function* handleAddProduct() {
+export function* handleAddProductToCart() {
   yield takeLatest(cartsActionTypes.addProductToCartStart, addProduct);
 }
 
 export function* handleFetchCarts() {
   yield takeLatest(cartsActionTypes.fetchCartsStart, getCarts);
+}
+
+export function* watchHandlingProductAndFetchCarts() {
+  yield takeLatest(
+    [
+      cartsActionTypes.addProductToCartSuccess,
+      cartsActionTypes.deleteProductFromCartSuccess,
+      cartsActionTypes.deleteCheckedProductsSuccess,
+    ],
+    function* () {
+      yield put(fetchCartsStart());
+    }
+  );
 }
 
 export function* handleDeleteCheckedProducts() {
@@ -72,8 +86,9 @@ export function* handleDeleteCheckedProducts() {
 export function* cartsSaga() {
   yield all([
     call(handleFetchCarts),
-    call(handleAddProduct),
-    call(handleDeleteProduct),
+    call(handleAddProductToCart),
+    call(handleDeleteProductFromCart),
     call(handleDeleteCheckedProducts),
+    call(watchHandlingProductAndFetchCarts),
   ]);
 }

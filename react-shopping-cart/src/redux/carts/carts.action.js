@@ -19,9 +19,8 @@ export const addProductToCartStart = (product) => ({
   payload: product,
 });
 
-export const addProductToCartSuccess = (product) => ({
+export const addProductToCartSuccess = () => ({
   type: cartsActionTypes.addProductToCartSuccess,
-  payload: product,
 });
 
 export const addProductToCartError = (error) => ({
@@ -29,18 +28,17 @@ export const addProductToCartError = (error) => ({
   payload: error,
 });
 
-export const deleteProductToCartStart = (id) => ({
-  type: cartsActionTypes.deleteProductToCartStart,
+export const deleteProductFromCartStart = (id) => ({
+  type: cartsActionTypes.deleteProductFromCartStart,
   payload: id,
 });
 
-export const deleteProductToCartSuccess = (id) => ({
-  type: cartsActionTypes.deleteProductToCartSuccess,
-  payload: id,
+export const deleteProductFromCartSuccess = () => ({
+  type: cartsActionTypes.deleteProductFromCartSuccess,
 });
 
-export const deleteProductToCartError = (error) => ({
-  type: cartsActionTypes.deleteProductToCartError,
+export const deleteProductFromCartError = (error) => ({
+  type: cartsActionTypes.deleteProductFromCartError,
   payload: error,
 });
 
@@ -49,9 +47,8 @@ export const deleteCheckedProductsStart = (checkedIdList) => ({
   payload: checkedIdList,
 });
 
-export const deleteCheckedProductsSuccess = (checkedIdList) => ({
+export const deleteCheckedProductsSuccess = () => ({
   type: cartsActionTypes.deleteCheckedProductsSuccess,
-  payload: checkedIdList,
 });
 
 export const deleteCheckedProductsError = (err) => ({
@@ -64,8 +61,9 @@ export const toggleIsChecked = (id) => ({
   payload: id,
 });
 
-export const allToggleIsChecked = () => ({
+export const allToggleIsChecked = (isAllChecked) => ({
   type: cartsActionTypes.allToggleIsChecked,
+  payload: isAllChecked,
 });
 
 export const increaseProductQuantity = (id) => ({

@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 
 const selectProducts = (state) => state.products;
 
-export const selectProductsLoading = createSelector(
+export const selectIsProductsLoading = createSelector(
   [selectProducts],
-  (products) => products.loading
+  (products) => products.isLoading
 );
 
 export const selectCurrentProducts = createSelector(
@@ -17,7 +17,7 @@ export const selectProductsError = createSelector(
   (products) => products.error
 );
 
-export const selectDetailProduct = createSelector(
+export const selectProduct = createSelector(
   [selectProducts],
-  (products) => products.detailProduct
+  (products) => products.product
 );

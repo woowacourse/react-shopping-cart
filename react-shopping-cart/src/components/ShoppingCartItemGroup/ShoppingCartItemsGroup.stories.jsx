@@ -1,20 +1,20 @@
-import ShoppingCartItemsContainer from 'components/ShoppingCartItemsContainer/ShoppingCartItemsContainer';
+import ShoppingCartItemGroup from 'components/ShoppingCartItemGroup/ShoppingCartItemGroup';
 
 export default {
-  title: 'ShoppingCartItemsContainer',
-  component: ShoppingCartItemsContainer,
+  title: 'ShoppingCartItemGroup',
+  component: ShoppingCartItemGroup,
 };
 
-export const DefaultShoppingCartItemsContainer = (args) => (
-  <ShoppingCartItemsContainer {...args} />
+export const DefaultShoppingCartItemGroup = (args) => (
+  <ShoppingCartItemGroup {...args} />
 );
-DefaultShoppingCartItemsContainer.args = {
+DefaultShoppingCartItemGroup.args = {
   carts: [
     {
       name: '[든든] 기분 시로가마보코 160g',
       price: 2800,
       id: 'sming7',
-      image:
+      thumbnail:
         'https://cdn-mart.baemin.com/goods/custom/20200525/11315-main-01.png',
       user: 'sming',
     },
@@ -22,7 +22,7 @@ DefaultShoppingCartItemsContainer.args = {
       name: '[든든] 흑곤약 250g',
       price: 1300,
       id: 'sming4',
-      image:
+      thumbnail:
         'https://cdn-mart.baemin.com/goods/custom/20200525/11263-main-01.png',
       user: 'sming',
     },
@@ -30,7 +30,7 @@ DefaultShoppingCartItemsContainer.args = {
       name: '[든든] 냉동조미유부삼각 (60장) 1kg',
       price: 8400,
       id: 'sming8',
-      image:
+      thumbnail:
         'https://cdn-mart.baemin.com/goods/custom/20200525/11323-main-01.png',
       user: 'sming',
     },

@@ -1,48 +1,27 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
+import FlexWrapper from 'components/@shared/FlexWrapper/FlexWrapper';
 import Pagination from 'components/@shared/Pagination/Pagination';
-import PaginationButton from 'components/@shared/PaginationButton/PaginationButton';
 import WithSpinner from 'components/@shared/WithSpinner/WithSpinner';
 
-import ProductCard from 'components/ProductCard/ProductCard';
+import ProductCardGroup from 'components/ProductCardGroup/ProductCardGroup';
 
 import { fetchCartsStart } from 'redux/carts/carts.action';
-import { selectCurrentCarts } from 'redux/carts/carts.selector';
 import { fetchProductsStart } from 'redux/products/products.action';
 import {
-  selectCurrentProducts,
   selectProductsError,
-  selectProductsLoading,
+  selectIsProductsLoading,
 } from 'redux/products/products.selector';
-
-import { ColumnFlexWrapper } from 'styles/Wrapper';
-
-import { isInCart } from 'utils/check';
-
-const GridContainer = styled.div`
-  display: grid;
-  width: 70%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 22px;
-  justify-content: center;
-`;
 
 function ProductListPage() {
   const dispatch = useDispatch();
-  const loading = useSelector(selectProductsLoading);
-  const products = useSelector(selectCurrentProducts);
-  const carts = useSelector(selectCurrentCarts);
+  const [searchParams] = useSearchParams();
+  const idx = searchParams.get('page') ?? 1;
+  const isLoading = useSelector(selectIsProductsLoading);
   const error = useSelector(selectProductsError);
-  const navigate = useNavigate();
-  const { idx } = useParams();
-
-  useEffect(() => {
-    dispatch(fetchProductsStart(idx));
-    dispatch(fetchCartsStart());
-  }, [dispatch, idx]);
 
   useEffect(() => {
     if (error) {
@@ -50,38 +29,18 @@ function ProductListPage() {
     }
   }, [error]);
 
-  const handleNavigatePage = (pageNum) => () => {
-    navigate(`/${pageNum}`);
-  };
+  // THINK: withSpinner 때문에, ProductCardGroup에서 datafetching을 못함
+  useEffect(() => {
+    dispatch(fetchProductsStart(idx));
+    dispatch(fetchCartsStart());
+  }, [idx]);
 
   return (
-    <WithSpinner loading={loading}>
-      <ColumnFlexWrapper gap="60px">
-        <GridContainer>
-          {products.map(({ id, name, image, price }) => {
-            return (
-              <ProductCard
-                key={id}
-                id={id}
-                name={name}
-                thumbnail={image}
-                price={price}
-                $isincart={isInCart(id, carts)}
-              />
-            );
-          })}
-        </GridContainer>
-        <Pagination>
-          {new Array(5).fill('').map((_, pageNum) => (
-            <PaginationButton
-              key={pageNum}
-              onClick={handleNavigatePage(pageNum + 1)}
-            >
-              {pageNum + 1}
-            </PaginationButton>
-          ))}
-        </Pagination>
-      </ColumnFlexWrapper>
+    <WithSpinner isLoading={isLoading}>
+      <FlexWrapper flexDirection="column" gap="60px">
+        <ProductCardGroup />
+        <Pagination />
+      </FlexWrapper>
     </WithSpinner>
   );
 }

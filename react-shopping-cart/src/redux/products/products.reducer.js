@@ -1,43 +1,47 @@
 import productActionType from 'redux/products/products.types';
 
 const INITIAL_STATE = {
-  loading: false,
+  isLoading: false,
+  product: null,
   products: [],
-  detailProduct: null,
   error: null,
 };
 
 const productsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case productActionType.fetchProductDetailStart:
+    case productActionType.fetchProductStart:
     case productActionType.fetchProductsStart:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
+
     case productActionType.fetchProductsSuccess:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         products: action.payload,
         error: null,
       };
-    case productActionType.fetchProductDetailSuccess:
+
+    case productActionType.fetchProductSuccess:
       return {
         ...state,
-        loading: false,
-        detailProduct: action.payload,
+        product: action.payload,
+        isLoading: false,
         error: null,
       };
-    case productActionType.fetchProductDetailError:
+
+    case productActionType.fetchProductError:
     case productActionType.fetchProductsError:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload,
       };
+
     default:
-      return { ...state };
+      return state;
   }
 };
 

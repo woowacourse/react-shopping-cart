@@ -15,17 +15,17 @@ export const fetchProductsError = (error) => ({
   payload: error,
 });
 
-export const fetchProductDetailStart = (id) => ({
-  type: productActionType.fetchProductDetailStart,
+export const fetchProductStart = (id) => ({
+  type: productActionType.fetchProductStart,
   payload: id,
 });
 
-export const fetchProductDetailSucccess = (product) => ({
-  type: productActionType.fetchProductDetailSuccess,
+export const fetchProductSuccess = (product) => ({
+  type: productActionType.fetchProductSuccess,
   payload: product,
 });
 
-export const fetchProductDetailError = (err) => ({
-  type: productActionType.fetchProductDetailError,
+export const fetchProductError = (err) => ({
+  type: productActionType.fetchProductError,
   payload: err,
 });

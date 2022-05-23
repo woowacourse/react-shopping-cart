@@ -3,61 +3,60 @@ import cartsActionTypes from 'redux/carts/carts.types';
 import { CURRENT_USER } from 'constants';
 
 const INITIAL_STATE = {
-  loading: false,
+  isLoading: false,
   carts: [],
-  error: false,
-  allChecked: false,
+  error: null,
 };
 
 const cartsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case cartsActionTypes.addProductToCartStart:
     case cartsActionTypes.fetchCartsStart:
-    case cartsActionTypes.deleteProductToCartStart:
+    case cartsActionTypes.deleteProductFromCartStart:
     case cartsActionTypes.deleteCheckedProductsStart:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
 
     case cartsActionTypes.fetchCartsSuccess:
       return {
         ...state,
         error: null,
-        loading: false,
+        isLoading: false,
         carts: action.payload,
       };
 
-    case cartsActionTypes.deleteProductToCartError:
+    case cartsActionTypes.deleteProductFromCartError:
     case cartsActionTypes.addProductToCartError:
     case cartsActionTypes.fetchCartsError:
     case cartsActionTypes.deleteCheckedProductsError:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload,
       };
 
     case cartsActionTypes.addProductToCartSuccess:
       return {
         ...state,
-        loading: false,
-        carts: [...state.carts, action.payload],
+        error: null,
+        isLoading: false,
       };
 
-    case cartsActionTypes.deleteProductToCartSuccess:
+    case cartsActionTypes.deleteProductFromCartSuccess:
       return {
         ...state,
-        loading: false,
-        carts: state.carts.filter((cart) => cart.id !== action.payload),
+        error: null,
+        isLoading: false,
       };
 
     case cartsActionTypes.deleteCheckedProductsSuccess: {
-      const checkedIdList = action.payload;
-      const newCarts = state.carts.filter(
-        (cart) => !checkedIdList.includes(cart.id)
-      );
-      return { ...state, loading: false, carts: newCarts, allChecked: false };
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
     }
 
     case cartsActionTypes.toggleIsChecked: {
@@ -74,25 +73,28 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const newCarts = state.carts.map((cart) => {
         if (
           cart.user === CURRENT_USER &&
-          state.allChecked === !!cart['checked']
+          action.payload === !!cart['checked']
         ) {
           cart['checked'] = !cart['checked'];
         }
+
         return cart;
       });
-      return { ...state, carts: newCarts, allChecked: !state.allChecked };
+
+      return { ...state, carts: newCarts };
     }
 
     case cartsActionTypes.increaseProductQuantity: {
       const newCarts = [...state.carts];
-
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
+
       currentCartProduct['quantity'] =
         typeof currentCartProduct['quantity'] !== 'undefined'
           ? currentCartProduct['quantity'] + 1
           : 2;
+
       return { ...state, carts: newCarts };
     }
 
@@ -101,17 +103,20 @@ const cartsReducer = (state = INITIAL_STATE, action) => {
       const currentCartProduct = newCarts.find(
         (carts) => carts.id === action.payload
       );
+
       if (currentCartProduct['quantity'] === 0) {
         return { ...state };
       }
+
       currentCartProduct['quantity'] = currentCartProduct['quantity']
         ? currentCartProduct['quantity'] - 1
         : 1;
+
       return { ...state, carts: newCarts };
     }
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
