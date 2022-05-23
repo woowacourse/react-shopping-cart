@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ERROR_MESSAGES } from 'constants/messages';
+import { ALERT_MESSAGES, ERROR_MESSAGES } from 'constants/messages';
 import { API_ENDPOINT, API_URL, PRODUCT_LIST_PAGE_LIMIT } from './constants';
 
 const apiInstance = axios.create({
@@ -37,6 +37,8 @@ export const addToCart = async (productId, quantity) => {
   });
 
   const cart = response.data;
+
+  alert(ALERT_MESSAGES.PRODUCT_ADDED(quantity));
 
   return { cart };
 };

@@ -7,7 +7,7 @@ import {
 } from 'store/actions/cart';
 import { cartObjectSelector } from 'store/selector';
 
-import { ALERT_MESSAGES, WARNING_MESSAGES } from 'constants/messages';
+import { WARNING_MESSAGES } from 'constants/messages';
 
 const useCartProducts = () => {
   const dispatch = useDispatch();
@@ -19,9 +19,8 @@ const useCartProducts = () => {
     dispatch(getCartAsync());
   };
 
-  const addProductToCart = ({ id, name, count }) => {
+  const addProductToCart = ({ id, count }) => {
     dispatch(addToCartAsync(id, count));
-    alert(`${name}: ${ALERT_MESSAGES.PRODUCT_ADDED(count)} `);
   };
 
   const dispatchQuantityUpdate = (productId, quantity) => {
