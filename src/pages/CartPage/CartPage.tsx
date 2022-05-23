@@ -15,7 +15,6 @@ function CartPage() {
     (state: { cart: CartStoreState }) => state.cart.cart
   );
   const [cartItems, setCartItems] = useState<Array<CartProductState>>([]);
-  const [allChecked, setAllChecked] = useState(true);
   const dispatch = useDispatch();
 
   const calculateTotalMoney = () => {
@@ -28,6 +27,10 @@ function CartPage() {
     }, 0);
   };
 
+  const isAllChecked = () => {
+    return cartItems.every((item) => item.checked === true);
+  };
+
   useEffect(() => {
     cart.forEach(({ id, stock, checked }) => {
       axios
@@ -37,11 +40,6 @@ function CartPage() {
             ...prevState,
             { product: res.data, stock, checked },
           ]);
-
-          if (!checked) {
-            setAllChecked(false);
-            return;
-          }
         });
     });
   }, []);
@@ -50,7 +48,6 @@ function CartPage() {
     if (cartItems.length <= 0) return;
 
     setCartItems([]);
-    setAllChecked(true);
 
     cart.forEach(({ id, stock, checked }) => {
       const item = cartItems.find(
@@ -61,23 +58,15 @@ function CartPage() {
         ...prevState,
         { product: item.product, stock, checked },
       ]);
-
-      if (!checked) {
-        setAllChecked(false);
-        return;
-      }
     });
   }, [cart]);
 
-  const onChangeAllCheck = (
+  const onChangeAllChecked = (
     e: React.MouseEvent<HTMLElement> | React.ChangeEvent<HTMLElement>
   ) => {
     e.preventDefault();
 
-    setAllChecked((prevState) => {
-      dispatch(cartActions.toggleCheckAllProduct(!prevState));
-      return !prevState;
-    });
+    dispatch(cartActions.toggleCheckAllProduct(!isAllChecked()));
   };
 
   const onClickCheckedDeleteButton = () => {
@@ -96,8 +85,8 @@ function CartPage() {
             <StyledAllCheckOption>
               <CheckBox
                 id="all-check"
-                checked={allChecked}
-                onChange={onChangeAllCheck}
+                checked={isAllChecked()}
+                onChange={onChangeAllChecked}
               />
               <p>전체 선택/해제</p>
             </StyledAllCheckOption>
