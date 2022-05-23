@@ -12,7 +12,7 @@ export const getProductList = () => async dispatch => {
   dispatch({ type: PRODUCT_INITIALIZE });
   try {
     const productList = await axios.get(LOCAL_URL + 'products');
-    dispatch({ type: PRODUCT_INITIALIZE_SUCCESS, productList });
+    setTimeout(() => dispatch({ type: PRODUCT_INITIALIZE_SUCCESS, productList }), 300);
   } catch (error) {
     dispatch({ type: PRODUCT_INITIALIZE_ERROR, error });
   }

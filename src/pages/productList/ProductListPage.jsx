@@ -7,9 +7,10 @@ import { getProductList } from 'modules/products';
 import { getShoppingCartList } from 'modules/shoppingCarts';
 
 import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
+import Skeleton from 'components/productItem/Skeleton';
 
 const ProductListPage = () => {
-  const { productList } = useSelector(state => state.productReducer.products);
+  const { productList, productListLoading } = useSelector(state => state.productReducer.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,15 +18,25 @@ const ProductListPage = () => {
     dispatch(getShoppingCartList());
   }, [dispatch]);
 
-  return (
-    <StyledProductListPage>
-      <StyledProductList>
-        {productList.map(({ id }) => (
-          <ProductItem key={id} id={id} />
-        ))}
-      </StyledProductList>
-    </StyledProductListPage>
-  );
+  if (productListLoading) {
+    return (
+      <StyledProductListPage>
+        <StyledProductList>{Array(12).fill(<Skeleton />)}</StyledProductList>
+      </StyledProductListPage>
+    );
+  }
+
+  if (productList.length > 0) {
+    return (
+      <StyledProductListPage>
+        <StyledProductList>
+          {productList.map(({ id }) => (
+            <ProductItem key={id} id={id} />
+          ))}
+        </StyledProductList>
+      </StyledProductListPage>
+    );
+  }
 };
 
 export default ProductListPage;

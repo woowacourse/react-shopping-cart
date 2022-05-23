@@ -1,13 +1,13 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import { color } from 'constants/constants';
 
-const StyledProductItem = styled.div`
+export const StyledProductItem = styled.div`
   width: 282px;
   position: relative;
 `;
 
-const StyledProductContainer = styled.div`
+export const StyledProductContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +15,7 @@ const StyledProductContainer = styled.div`
   padding: 0 15px;
 `;
 
-const StyledProductText = styled.p`
+export const StyledProductText = styled.p`
   font-weight: 400;
   letter-spacing: 0.5px;
 
@@ -34,7 +34,7 @@ const StyledProductText = styled.p`
     `}
 `;
 
-const StyledQuantityContainer = styled.div`
+export const StyledQuantityContainer = styled.div`
   background-color: ${color.mint};
   width: 50px;
   height: 50px;
@@ -45,4 +45,49 @@ const StyledQuantityContainer = styled.div`
   font-size: 20px;
 `;
 
-export { StyledProductItem, StyledProductContainer, StyledProductText, StyledQuantityContainer };
+export const refresh = keyframes`
+  0% {
+    background-position: calc(-100px);
+  }
+  40%,
+  100% {
+    background-position: 320px;
+  }
+`;
+
+export const SkeletonProductItem = styled.div`
+  width: 282px;
+`;
+
+export const SkeletonProductImage = styled.div`
+  width: 282px;
+  height: 282px;
+  background-color: gray;
+  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);
+  animation: ${refresh} 2s infinite ease-out;
+`;
+
+export const SkeletonProductContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 75px;
+`;
+
+export const SkeletonProductText = styled.div`
+  background-color: gray;
+  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);
+  margin-top: 13px;
+  animation: ${refresh} 2s infinite ease-out;
+  ${({ name }) =>
+    name &&
+    css`
+      width: 100%;
+      height: 22px;
+    `}
+  ${({ price }) =>
+    price &&
+    css`
+      width: 80%;
+      height: 27px;
+    `}
+`;
