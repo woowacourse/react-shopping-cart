@@ -13,7 +13,7 @@ interface CartItemPros {
 
 const CartItem = ({ id, cartId }: CartItemPros) => {
   const { product } = useProduct(id);
-  const { getCart, changeCartStock, changeCartChecked } = useCart();
+  const { getCart, changeCartStock, changeCartChecked, deleteCart } = useCart();
   const cart = getCart(cartId) as CartType;
 
   const handleUpStockButton = () => {
@@ -32,6 +32,10 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
 
   const handleChangeClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeCartChecked(cartId, e.target.checked);
+  };
+
+  const handleDeleteButton = () => {
+    deleteCart(cart.id);
   };
 
   if (!Object.keys(product).length) {
@@ -57,7 +61,7 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
         <span>{product.data?.title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
-        <S.CartButton>🗑</S.CartButton>
+        <S.CartButton onClick={handleDeleteButton}>🗑</S.CartButton>
         <NumberInputButton
           value={cart?.stock}
           downButtonClick={handleDownStockButton}

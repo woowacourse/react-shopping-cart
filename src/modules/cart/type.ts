@@ -8,6 +8,7 @@ export enum CartActionType {
   PATCH_CART_STOCK = "cart/PATCH_CART_STOCK",
   PATCH_CART_CHECK = "cart/PATCH_CART_CHECK",
   PATCH_CART_ALL_CHECK = "cart/PATCH_CART_ALL_CHECK",
+  DELETE_CART = "cart/DELETE_CART",
 }
 
 export interface Cart {
@@ -58,6 +59,11 @@ export interface PatchCartALLCheck {
   payload: boolean;
 }
 
+export interface DeleteCart {
+  type: CartActionType.DELETE_CART;
+  payload: string;
+}
+
 export type CartAction =
   | GetCartList
   | PostCart
@@ -65,4 +71,5 @@ export type CartAction =
   | PostCartError
   | PatchCartStock
   | PatchCartCheck
-  | PatchCartALLCheck;
+  | PatchCartALLCheck
+  | DeleteCart;

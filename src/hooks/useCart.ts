@@ -11,6 +11,8 @@ const useCart = () => {
 
   return {
     cartData: cartList.data,
+    isAllChecked: cartList.data.every((cart) => cart.isChecked),
+
     getCart: (targetId: string): CartType | undefined => {
       return cartList.data.find(({ id }) => id === targetId);
     },
@@ -26,6 +28,7 @@ const useCart = () => {
           payload: { targetId: id, stockChanged: stock + 1 },
         });
       }
+
       const cart: CartType = {
         productId,
         stock: 1,
@@ -49,11 +52,16 @@ const useCart = () => {
         payload: { targetId, isChecked },
       });
     },
-    isAllChecked: cartList.data.every((cart) => cart.isChecked),
     changeAllCartChecked: (isChecked: boolean) => {
       dispatch({
         type: CartActionType.PATCH_CART_ALL_CHECK,
         payload: isChecked,
+      });
+    },
+    deleteCart: (targetId: string) => {
+      dispatch({
+        type: CartActionType.DELETE_CART,
+        payload: targetId,
       });
     },
   };
