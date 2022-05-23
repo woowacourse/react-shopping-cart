@@ -5,6 +5,7 @@ const REQUEST_PRODUCT_DELETE = 'REQUEST_PRODUCT_DELETE';
 const REQUEST_PRODUCT_CHECK = 'REQUEST_PRODUCT_CHECK';
 const REQUEST_PRODUCT_ALL_CHECK = 'REQUEST_PRODUCT_ALL_CHECK';
 const REQUEST_ALL_CHECKBOX_TRUE = 'REQUEST_ALL_CHECKBOX_TRUE';
+const REQUEST_ALL_CHECKBOX_FALSE = 'REQUEST_ALL_CHECKBOX_FALSE';
 
 export const requestCartAdd = (product) => ({ type: REQUEST_CART_ADD, product });
 export const requestExistProductAdd = (newCarts) => ({ type: REQUEST_EXIST_PRODUCT_ADD, newCarts });
@@ -13,6 +14,7 @@ export const requestProductDelete = (newCarts) => ({ type: REQUEST_PRODUCT_DELET
 export const requestProductCheck = (newCarts) => ({ type: REQUEST_PRODUCT_CHECK, newCarts });
 export const requestProductAllCheck = (newCarts) => ({ type: REQUEST_PRODUCT_ALL_CHECK, newCarts });
 export const requestAllCheckboxTrue = () => ({ type: REQUEST_ALL_CHECKBOX_TRUE });
+export const requestAllCheckboxFalse = () => ({ type: REQUEST_ALL_CHECKBOX_FALSE });
 
 const initialState = {
   carts: [],
@@ -57,6 +59,11 @@ export default function cart(state = initialState, action) {
       return {
         ...state,
         isCheckedAll: true,
+      };
+    case REQUEST_ALL_CHECKBOX_FALSE:
+      return {
+        ...state,
+        isCheckedAll: false,
       };
     default:
       return state;
