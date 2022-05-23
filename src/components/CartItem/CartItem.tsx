@@ -8,7 +8,6 @@ import { Product } from 'types/index';
 import { cartActions } from 'redux/actions/actions';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 type Props = {
   product: Product;
@@ -18,8 +17,6 @@ type Props = {
 
 function CartItem({ product, stock, checked }: Props) {
   const { id, name, image } = product;
-  const [isCheck, setIsCheck] = useState(checked);
-  const [cartStock, setCartStock] = useState(stock);
   const dispatch = useDispatch();
 
   const onClickDeleteButton = (e: React.MouseEvent<HTMLElement>) => {
@@ -35,25 +32,17 @@ function CartItem({ product, stock, checked }: Props) {
   ) => {
     e.preventDefault();
 
-    setIsCheck((prevState) => {
-      dispatch(cartActions.toggleCheckAProduct(id));
-      return !prevState;
-    });
+    dispatch(cartActions.toggleCheckAProduct(id));
   };
 
   const onChangeCartStock = (value: number) => {
-    setCartStock(value);
     dispatch(cartActions.changeProductStock({ id, stock: value }));
   };
 
   return (
     <Link to={`${PATH.PRODUCT}/${id}`}>
       <StyledCartItem>
-        <CheckBox
-          id={id + ''}
-          checked={checked ?? isCheck}
-          onChange={onChangeCheckBox}
-        />
+        <CheckBox id={id + ''} checked={checked} onChange={onChangeCheckBox} />
         <img src={image} alt={name} />
         <StyledProductName>{name}</StyledProductName>
         <StyledDeleteButton type="button" onClick={onClickDeleteButton}>
@@ -61,7 +50,7 @@ function CartItem({ product, stock, checked }: Props) {
         </StyledDeleteButton>
         <NumberInput
           max={product.stock}
-          value={cartStock}
+          value={stock}
           setValue={onChangeCartStock}
         />
         <StyledPrice>
