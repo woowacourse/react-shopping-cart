@@ -24,7 +24,8 @@ import useCheckBox from 'hooks/useCheckBox';
 
 export default function ProductCartPage() {
   const {data: cartList, getCartList} = useCart();
-  const {checkedItemList, changeCheckedList, allChecked, deleteSelectedItems} = useCheckBox();
+  const {checkedItemList, changeCheckedList, allChecked, deleteSelectedItems} =
+    useCheckBox(cartList);
 
   let isAllChecked = cartList.length !== 0 && cartList.length === checkedItemList.length;
 
