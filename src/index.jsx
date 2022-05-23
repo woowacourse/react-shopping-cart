@@ -22,7 +22,6 @@ const initialState = {
   productList: [], // 화면에 그리는 용도
   productObjs: {}, // 상품 정보 검색용
   cart: cartFromLocalStorage, // 장바구니에 담긴 상품 리스트
-  selectedProductsInCart: [], // 장바구니안에서 주문할(선택된) 상품 리스트
 };
 
 const store = createStore(reducer, initialState, applyMiddleware(thunk));
