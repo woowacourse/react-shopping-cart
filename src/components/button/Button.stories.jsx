@@ -5,19 +5,21 @@ export default {
   component: Button,
   argTypes: {
     variant: {
-      options: ['default', 'primary'],
-      control: { type: 'radio' },
+      options: ["default", "primary"],
+      control: { type: "radio" },
     },
     block: {
-      control: { type: 'boolean' }
-    }
+      control: { type: "boolean" },
+    },
   },
 };
 
-const Template = (args) => <Button {...args}>Button</Button>;
+function Template(args) {
+  return <Button {...args}>Button</Button>;
+}
 
 export const Primary = Template.bind({});
 
 Primary.args = {
-  variant: '',
+  variant: "",
 };
