@@ -27,7 +27,7 @@ function CartProduct({ id, imgSrc, title, price }) {
           </FlexWrapper>
         </div>
         <FlexWrapper flexDirection="column" alignItems="flex-end" justifyContent="space-between">
-          <TrashcanButton />
+          <TrashcanButton productId={id} />
           <QuantityInput productId={id} />
           <BlackText fontSize="16px" fontWeight="400">
             {price.toLocaleString()}원
