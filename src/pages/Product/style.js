@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ProductListStyled = styled.div(
   ({ theme }) => `
@@ -13,11 +13,10 @@ export const ProductListStyled = styled.div(
 `,
 );
 
-export const LoadingWrapperStyled = styled.div(
-  ({ theme }) => `
+export const LoadingWrapperStyled = styled.div(css`
+  width: 100%;
+  height: calc(100vh - 80px);
   display: flex;
   align-items: center;
-  width: 100%;
-  height: calc(100% - ${theme.headerHeight});
-`,
-);
+  justify-content: center;
+`);
