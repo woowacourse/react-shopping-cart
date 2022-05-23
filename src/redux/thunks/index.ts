@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import PATH from 'constants/path';
 import { Product } from 'types';
-import axios from 'axios';
+import axios from 'configs/api';
 import { productActions } from 'redux/actions/actions';
 
 const getProducts = (dispatch: Dispatch) => {
