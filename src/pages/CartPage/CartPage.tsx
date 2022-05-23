@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { createBrotliCompress } from 'zlib';
 import CartItem from '../../components/CartItem/CartItem';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import Spinner from '../../components/Spinner/Spinner';
+import DivideLine from '../DivideLine/DivideLine';
 import useCart from './useCart';
 
 function CartPage() {
@@ -27,47 +29,27 @@ function CartPage() {
   }
 
   return (
-    <>
-      <h2 style={{ fontSize: '24px', fontWeight: '600', textAlign: 'center' }}>
-        장바구니
-      </h2>
-      <StyledHr />
-      <div style={{ display: 'flex' }}>
-        <section style={{ width: '60%', marginTop: '50px' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'items-center',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+    <CartContainer>
+      <CartTitle>장바구니</CartTitle>
+      <DivideLine />
+      <CartSectionsContainer>
+        <CartLeftSection>
+          <CartControlContainer>
+            <SelectAllContainer>
               <CheckBox
                 id="select-all-checkbox"
                 name="select-all-checkbox"
                 checked={cart.every((item) => item.checked)}
                 onChange={handleCheckAll}
               />
-              <label
-                style={{ paddingLeft: '7px' }}
-                htmlFor="select-all-checkbox"
-              >
-                선택해제
-              </label>
-            </div>
-            <button
-              style={{ padding: '12px 22px', border: '1px solid #bbbbbb' }}
-              onClick={removeAllCartItem}
-            >
+              <label htmlFor="select-all-checkbox">선택해제</label>
+            </SelectAllContainer>
+            <RemoveSelectedButtonContainer onClick={removeAllCartItem}>
               상품삭제
-            </button>
-          </div>
-          <h3
-            style={{ display: 'flex', alignItems: 'center', fontSize: '20px' }}
-          >
-            든든배송 상품 ({cart.length}개)
-          </h3>
-          <StyledHr variant="gray" />
+            </RemoveSelectedButtonContainer>
+          </CartControlContainer>
+          <StyledH3>든든배송 상품 ({cart.length}개)</StyledH3>
+          <DivideLine variant="gray" />
           <ul>
             {cart.map(
               (item) =>
@@ -81,72 +63,108 @@ function CartPage() {
                       onCheck={handleCheck(item.id)}
                       onClickRemove={removeCartItem(item.id)}
                     />
-                    <StyledHr variant="thin" />
+                    <DivideLine variant="thin" />
                   </li>
                 )
             )}
           </ul>
-        </section>
+        </CartLeftSection>
         <CartRightSection>
           <CartRightSectionTop>
-            <CartTitle>결제예상금액</CartTitle>
+            <StyledH3>결제예상금액</StyledH3>
           </CartRightSectionTop>
-          <StyledHr variant="thin" />
-          <div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                padding: '0 30px',
-                marginTop: '20px',
-              }}
-            >
-              <HighlightText>결제예상금액</HighlightText>
-              <HighlightText>
-                {totalPrice.toLocaleString('ko-KR')}원
-              </HighlightText>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '30px 30px 0 30px',
-              }}
-            >
-              <PrimaryButton>
-                주문하기({cart.filter((item) => item.checked).length}개)
-              </PrimaryButton>
-            </div>
-          </div>
+          <DivideLine variant="thin" />
+          <TotalPriceContainer>
+            <HighlightText>결제예상금액</HighlightText>
+            <HighlightText>
+              {totalPrice.toLocaleString('ko-KR')}원
+            </HighlightText>
+          </TotalPriceContainer>
+          <OrderButtonContainer>
+            <PrimaryButton>
+              주문하기({cart.filter((item) => item.checked).length}개)
+            </PrimaryButton>
+          </OrderButtonContainer>
         </CartRightSection>
-      </div>
-    </>
+      </CartSectionsContainer>
+    </CartContainer>
   );
 }
 
-type StyledHrProps = {
-  variant?: string;
-};
+const CartContainer = styled.div`
+  width: 1200px;
 
-const StyledHr = styled.hr`
-  width: 100%;
-  border: ${({ variant }: StyledHrProps) => {
-    if (variant === 'gray') return '2px solid #aaaaaa';
+  ${({ theme: { media } }) => media.sm`
+    width: 100%;
+  `}
 
-    if (variant === 'thin') return '1px solid #aaaaaa';
+  ${({ theme: { media } }) => media.md`
+    width: 100%;
+  `}
+`;
 
-    return '2px solid black';
-  }};
+const CartTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const CartSectionsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  ${({ theme: { media } }) => media.sm`
+    flex-direction: column;
+  `}
+
+  ${({ theme: { media } }) => media.md`
+    flex-direction: column;
+  `}
+`;
+
+const CartLeftSection = styled.section`
+  width: 60%;
+  margin-top: 50px;
+
+  ${({ theme: { media } }) => media.sm`
+    width: 100%;
+  `}
+
+  ${({ theme: { media } }) => media.md`
+    width: 100%;
+  `}
+`;
+
+const CartControlContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: items-center;
+`;
+
+const SelectAllContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const RemoveSelectedButtonContainer = styled.div`
+  padding: 12px 22px;
+  border: 1px solid #bbbbbb;
 `;
 
 const CartRightSection = styled.section`
   width: 35%;
   height: 260px;
-  margin-left: 5%;
-  margin-top: 80px;
+  margin-top: 50px;
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${({ theme: { colors } }) => colors.gray};
+
+  ${({ theme: { media } }) => media.sm`
+    width: 100%;
+  `}
+  ${({ theme: { media } }) => media.md`
+    width: 100%;
+  `};
 `;
 
 const CartRightSectionTop = styled.div`
@@ -155,10 +173,17 @@ const CartRightSectionTop = styled.div`
   padding: 16px 30px;
 `;
 
-const CartTitle = styled.h3`
+const StyledH3 = styled.h3`
   display: flex;
   align-items: center;
   font-size: 20px;
+`;
+
+const TotalPriceContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin-top: 20px;
 `;
 
 const HighlightText = styled.span`
@@ -183,12 +208,19 @@ const HighlightText = styled.span`
   }
 `;
 
+const OrderButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 30px 0 30px;
+`;
+
 const PrimaryButton = styled.button`
-  background: #2ac1bc;
   font-size: 24px;
-  color: white;
   width: 100%;
   padding: 16px;
+  background: ${({ theme: { colors } }) => colors.emerald};
+  color: ${({ theme: { colors } }) => colors.white};
 `;
 
 export default CartPage;

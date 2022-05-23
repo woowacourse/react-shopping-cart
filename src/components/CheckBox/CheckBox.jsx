@@ -9,7 +9,7 @@ const StyledCheckbox = styled.input`
   appearance: none;
   border: 1px solid #2ac1bc;
   border-radius: 2px;
-  width: 1.75rem;
+  min-width: 1.75rem;
   height: 1.75rem;
   cursor: pointer;
 
@@ -18,7 +18,7 @@ const StyledCheckbox = styled.input`
   }
 
   :checked {
-    background-color: #2ac1bc;
+    background-color: ${({ theme: { colors } }) => colors.emerald};
   }
 
   :after {

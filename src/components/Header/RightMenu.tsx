@@ -67,7 +67,7 @@ const StyledButton = styled.button`
     `)}
 `;
 
-const StyledUl = styled.ul`
+const StyledUl = styled.ul<StyledUlProps>`
   display: flex;
   flex-direction: row;
   gap: 44px;
@@ -76,7 +76,7 @@ const StyledUl = styled.ul`
     font-weight: 700;
   }
 
-  ${({ isDrawerOpened, theme: { media, colors } }: StyledUlProps) =>
+  ${({ isDrawerOpened, theme: { media, colors } }) =>
     media.sm(`
       width: auto;
       position: absolute;

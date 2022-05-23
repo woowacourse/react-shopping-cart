@@ -7,10 +7,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-const PlainLink = styled(Link)`
+const PlainLink = styled(Link)<Props>`
   text-decoration: none;
   color: inherit;
 
-  pointer-events: ${(props: Props) => (props.disabled ? 'none' : 'auto')};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `;
 export default PlainLink;

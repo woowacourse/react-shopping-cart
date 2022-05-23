@@ -23,15 +23,15 @@ function CartItem({
 }: Props) {
   return (
     <StyledCartItemContainer>
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '0.6rem' }}>
+      <StyledCartItemInformation>
         <Checkbox checked={checked} onChange={onCheck} />
         <StyledImageContainer>
           <img src={product.image} alt={product.name} />
         </StyledImageContainer>
         <p>{product.name}</p>
-      </div>
-      <StyledCartItemInformation>
-        <button onClick={onClickRemove}>
+      </StyledCartItemInformation>
+      <StyledCartItemControl>
+        <StyledButton onClick={onClickRemove}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.5rem"
@@ -48,7 +48,7 @@ function CartItem({
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
             />
           </svg>
-        </button>
+        </StyledButton>
         <Input
           type="number"
           min="1"
@@ -60,7 +60,7 @@ function CartItem({
         <p style={{ alignSelf: 'flex-end' }}>
           {product.price.toLocaleString('ko-KR')}원
         </p>
-      </StyledCartItemInformation>
+      </StyledCartItemControl>
     </StyledCartItemContainer>
   );
 }
@@ -70,10 +70,15 @@ const StyledCartItemContainer = styled.div`
   justify-content: space-between;
 `;
 
+const StyledCartItemInformation = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 const StyledImageContainer = styled.div`
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  width: 144px;
+  min-width: 144px;
   height: 144px;
 
   img {
@@ -81,10 +86,15 @@ const StyledImageContainer = styled.div`
   }
 `;
 
-const StyledCartItemInformation = styled.div`
+const StyledCartItemControl = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const StyledButton = styled.button`
+  width: fit-content;
+  align-self: flex-end;
 `;
 
 export default CartItem;
