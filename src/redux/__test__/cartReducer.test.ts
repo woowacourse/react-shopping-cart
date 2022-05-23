@@ -9,7 +9,7 @@ import cartReducer, {
 
 describe("장바구니 리듀서 테스트", () => {
   const initialState: CartState = {
-    cartItems: [],
+    items: [],
   };
 
   const cartList = [
@@ -32,13 +32,13 @@ describe("장바구니 리듀서 테스트", () => {
   ];
 
   test("상품 추가 요청이 들어오면 해당 상품을 정상적으로 장바구니 상태에 추가해야 한다.", () => {
-    expect(cartReducer(initialState, addItem(cartList[0]))).toEqual({ cartItems: [cartList[0]] });
+    expect(cartReducer(initialState, addItem(cartList[0]))).toEqual({ items: [cartList[0]] });
   });
 
   test("상품 삭제 요청이 들어오면 해당 상품을 정상적으로 장바구니에서 삭제해야 한다.", () => {
     const id = 0;
     const newState = cartReducer(initialState, addItem(cartList[id]));
-    expect(cartReducer(newState, deleteItem(id))).toEqual({ cartItems: [] });
+    expect(cartReducer(newState, deleteItem(id))).toEqual({ items: [] });
   });
 
   test("상품 증가 요청이 들어오면 해당 상품 장바구니 개수를 정상적으로 증가시켜야 한다.", () => {
@@ -46,7 +46,7 @@ describe("장바구니 리듀서 테스트", () => {
     const newState = cartReducer(initialState, addItem(cartList[id]));
     const newItems = [{ ...cartList[id], amount: 2 }];
 
-    expect(cartReducer(newState, increment(id))).toEqual({ cartItems: newItems });
+    expect(cartReducer(newState, increment(id))).toEqual({ items: newItems });
   });
 
   test("상품 차감 요청이 들어오면 해당 상품 장바구니 개수를 정상적으로 차감시켜야 한다.", () => {
@@ -54,7 +54,7 @@ describe("장바구니 리듀서 테스트", () => {
     const newState = cartReducer(initialState, addItem(cartList[id]));
     const newItems = [{ ...cartList[id], amount: 1 }];
 
-    expect(cartReducer(newState, decrement(id))).toEqual({ cartItems: newItems });
+    expect(cartReducer(newState, decrement(id))).toEqual({ items: newItems });
   });
 
   test("상품 선택 요청이 들어오면 해당 상품 선택 상태를 정상적으로 변경해야 한다.", () => {
@@ -62,6 +62,6 @@ describe("장바구니 리듀서 테스트", () => {
     const newState = cartReducer(initialState, addItem(cartList[id]));
     const newItems = [{ ...cartList[id], isSelected: true }];
 
-    expect(cartReducer(newState, selectItem(id))).toEqual({ cartItems: newItems });
+    expect(cartReducer(newState, selectItem(id))).toEqual({ items: newItems });
   });
 });
