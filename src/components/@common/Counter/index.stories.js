@@ -9,7 +9,7 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Counter {...args} />;
+const Template = (args) => <Counter {...args}>1</Counter>;
 
 export const DefaultCounter = Template.bind({});
 DefaultCounter.args = {};

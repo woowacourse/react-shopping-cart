@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import Icon from 'components/@common/Icon';
 
 import { ICON_CODE } from 'constants/';
