@@ -10,7 +10,14 @@ function Header({ className }) {
     <div className={cn(styles.header, className)}>
       <div className="flex wrapper place-content-between">
         <Link to="/" className={styles.siteLogo}>
-          <Logo width="50px" height="44px" />
+          <div className={styles.logo}>
+            <Logo
+              width="auto"
+              height="auto"
+              viewBox="0 0 50 44"
+              preserveAspectRatio="xMidYMid meet"
+            />
+          </div>
           <span className={styles.title}>WOOWA SHOP</span>
         </Link>
         <Menu />
