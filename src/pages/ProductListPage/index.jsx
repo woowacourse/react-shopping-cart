@@ -20,14 +20,14 @@ export default function ProductListPage() {
     data: productList,
     getProducts,
   } = useProductList();
-  const {getCartList, pending: cartPending, error: cartError, data: cart} = useCart();
+  const {getCartList, error: cartError, data: cart} = useCart();
 
   useEffect(() => {
     getProducts();
     getCartList();
   }, []);
 
-  if (productListPending || cartPending) return <Loader />;
+  if (productListPending) return <Loader />;
   if (productListError || cartError) return <ErrorPage />;
 
   return (

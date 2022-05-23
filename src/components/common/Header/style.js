@@ -19,7 +19,7 @@ const HeaderWrapper = styled.div`
 
   z-index: 100;
 
-  @media ${({theme}) => theme.DEVICE.mobile} {
+  @media ${({theme}) => theme.DEVICE.tablet} {
     & svg {
       width: 120px;
     }
