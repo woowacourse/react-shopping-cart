@@ -4,7 +4,7 @@ import { ReactComponent as Delete } from 'assets/Delete.svg';
 import Link from 'components/@shared/Link';
 import NumberInput from 'components/@shared/NumberInput';
 import PATH from 'constants/path';
-import { Product } from 'types';
+import { Product } from 'types/index';
 import { cartActions } from 'redux/actions/actions';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';

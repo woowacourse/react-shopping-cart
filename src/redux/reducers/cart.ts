@@ -1,4 +1,4 @@
-import { CartAction, CartStoreState } from 'types';
+import { CartAction, CartStoreState } from 'types/index';
 
 import { cartTypes } from 'redux/actions/actions';
 import isProductInCart from 'utils/validator';

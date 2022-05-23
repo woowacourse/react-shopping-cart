@@ -1,4 +1,4 @@
-import { ProductAction, ProductStoreState } from 'types';
+import { ProductAction, ProductStoreState } from 'types/index';
 
 import CONDITION from 'constants/condition';
 import { productTypes } from 'redux/actions/actions';

@@ -1,4 +1,4 @@
-import { Cart, Product } from 'types';
+import { Cart, Product } from 'types/index';
 
 const productTypes = {
   GET_PRODUCT_LIST: 'GET_PRODUCT',

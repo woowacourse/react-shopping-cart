@@ -1,4 +1,4 @@
-import { CartStoreState } from 'types';
+import { CartStoreState } from 'types/index';
 import isProductInCart from 'utils/validator';
 
 describe('util 함수 테스트', () => {

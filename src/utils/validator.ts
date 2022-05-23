@@ -1,4 +1,4 @@
-import { CartStoreState, Product } from 'types';
+import { CartStoreState, Product } from 'types/index';
 
 const isProductInCart = (
   productId: Product['id'],

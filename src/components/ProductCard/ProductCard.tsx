@@ -1,7 +1,7 @@
 import CART_MESSAGE from 'constants/message';
 import Link from 'components/@shared/Link';
 import PATH from 'constants/path';
-import { Product } from 'types';
+import { Product } from 'types/index';
 import ShoppingCart from 'components/@shared/ShoppingCart';
 import { cartActions } from 'redux/actions/actions';
 import styled from 'styled-components';

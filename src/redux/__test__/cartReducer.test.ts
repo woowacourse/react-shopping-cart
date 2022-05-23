@@ -1,4 +1,4 @@
-import { CartStoreState, Product } from 'types';
+import { CartStoreState, Product } from 'types/index';
 
 import { cartActions } from '../actions/actions';
 import cartReducer from '../reducers/cart';

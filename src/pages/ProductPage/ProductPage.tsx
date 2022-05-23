@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CART_MESSAGE from 'constants/message';
 import CONDITION from 'constants/condition';
-import { ProductStoreState } from 'types';
+import { ProductStoreState } from 'types/index';
 import { cartActions } from 'redux/actions/actions';
 import { getProduct } from 'redux/thunks';
 import styled from 'styled-components';

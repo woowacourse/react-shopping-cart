@@ -1,4 +1,4 @@
-import { CartStoreState } from 'types';
+import { CartStoreState } from 'types/index';
 import Link from 'components/@shared/Link';
 import Logo from 'components/Logo/Logo';
 import PATH from 'constants/path';

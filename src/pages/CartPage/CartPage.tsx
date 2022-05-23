@@ -1,4 +1,4 @@
-import { CartProductState, CartStoreState, Product } from 'types';
+import { CartProductState, CartStoreState, Product } from 'types/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { CartStoreState, Product } from 'types';
+import { CartStoreState, Product } from 'types/index';
 
 import ProductCard from 'components/ProductCard/ProductCard';
 import isProductInCart from 'utils/validator';
