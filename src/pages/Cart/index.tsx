@@ -21,9 +21,9 @@ function Cart() {
           title="결제 예상 금액"
           subTitle="결제 예상 금액"
           amount={totalAmount.toLocaleString()}
-        >
-          <Button onClick={() => navigate(routes.orderList)}>주문하기</Button>
-        </PaymentBox>
+          onClick={() => navigate(routes.orderList)}
+          buttonName="주문하기"
+        />
       </GridContainer>
     </CartPageContainer>
   );

@@ -1,13 +1,15 @@
+import Button from "../@shared/Button/styles";
 import { PaymentContainer, PaymentResultContainer, PaymentTitle } from "./styles";
 
 interface PaymentBoxProps {
   title: string;
   subTitle: string;
   amount: string;
-  children: React.ReactNode;
+  onClick: () => void;
+  buttonName: string;
 }
 
-function PaymentBox({ title, subTitle, amount, children }: PaymentBoxProps) {
+function PaymentBox({ title, subTitle, amount, onClick, buttonName }: PaymentBoxProps) {
   return (
     <PaymentContainer>
       <PaymentTitle>{title}</PaymentTitle>
@@ -16,7 +18,7 @@ function PaymentBox({ title, subTitle, amount, children }: PaymentBoxProps) {
           <span>{subTitle}</span>
           <span>{amount}원</span>
         </div>
-        {children}
+        <Button onClick={onClick}>{buttonName}</Button>
       </PaymentResultContainer>
     </PaymentContainer>
   );
