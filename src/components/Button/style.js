@@ -4,6 +4,7 @@ const ButtonStyled = styled.button(
   ({
     width,
     height,
+    minWidth,
     fontSize = '24px',
     fontWeight = '500',
     color,
@@ -15,6 +16,7 @@ const ButtonStyled = styled.button(
   cursor: pointer;
   width: ${width};
   height: ${height};
+  min-width: ${minWidth};
   font-size: ${fontSize};
   font-weight: ${fontWeight};
   color: ${theme[color]};

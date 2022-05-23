@@ -14,6 +14,7 @@ function OrderProductsButton({ cartProducts }) {
       onClick={handleOrderProducts}
       width="26vw"
       height="74px"
+      minWidth="300px"
       color="whiteColor"
       border="none"
       background="#2AC1BC"
