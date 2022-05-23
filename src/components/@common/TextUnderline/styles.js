@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BRAND_COLORS, COLORS } from 'styles/theme';
+import { COLORS } from 'styles/theme';
 
 const TextUnderline = styled.span`
   position: relative;
