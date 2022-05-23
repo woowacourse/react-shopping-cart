@@ -7,7 +7,7 @@ import Button from "@shared/button/Button";
 import LabeledCheckbox from "@shared/checkbox/labeled-checkbox/LabeledCheckbox";
 import cartEquality from "@redux/equalities/cartEquality";
 import getSelectedProductIds from "@cart/utils/getSelectedProductIds";
-import CartItem from "../cart-item/CartItem";
+import CartFormProductTable from "./CartFormProductTable";
 import styles from "./cart-form.module";
 
 function CartForm() {
@@ -80,31 +80,16 @@ function CartForm() {
       </div>
       <div>
         <div className="mb-16">{`상품 리스트 (${productIdsInCart.length}개)`}</div>
-        <table className={styles.table}>
-          <tbody>
-            {productIdsInCart.map((id) => {
-              const isSelected = selectedProductIds.indexOf(id) > -1;
-              return (
-                <tr key={id}>
-                  <td>
-                    <CartItem
-                      {...productObjs[id]}
-                      id={id}
-                      name={productObjs[id].name}
-                      thumbnail_image={productObjs[id].thumbnail_image}
-                      price={productObjs[id].price}
-                      checked={isSelected}
-                      onChecked={handleCheck(id)}
-                      onQuantityChange={handleQuantityChange(id)}
-                      onDelete={handleDeleteProduct(id)}
-                      quantity={cart[id].quantity}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <CartFormProductTable
+          cart={cart}
+          productObjs={productObjs}
+          productIdsInCart={productIdsInCart}
+          selectedProductIds={selectedProductIds}
+          onCheck={handleCheck}
+          onQuantityChange={handleQuantityChange}
+          onDeleteProduct={handleDeleteProduct}
+          className={styles.table}
+        />
       </div>
     </div>
   );
