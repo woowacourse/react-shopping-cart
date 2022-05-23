@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
@@ -15,12 +15,16 @@ const useCart = () => {
     })
   );
 
-  const joinedCart = cart.map((item) => ({
-    ...item,
-    product: cartItems.find((product) => product.id === item.id),
-  }));
+  const joinedCart = useMemo(
+    () =>
+      cart.map((item) => ({
+        ...item,
+        product: cartItems.find((product) => product.id === item.id),
+      })),
+    [cart, cartItems]
+  );
 
-  const cartItemIdList = cart.map((item) => item.id);
+  const cartItemIdList = useMemo(() => cart.map((item) => item.id), [cart]);
 
   useEffect(() => {
     dispatch(actions.getCartItems(cartItemIdList));
