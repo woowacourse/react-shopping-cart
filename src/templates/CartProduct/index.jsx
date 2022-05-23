@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Checkbox from 'components/Checkbox';
+import ProductCheckbox from 'containers/ProductCheckbox';
 import Image from 'components/Image';
 import BlackText from 'components/BlackText';
 import TrashcanButton from 'containers/TrashcanButton';
@@ -16,7 +16,7 @@ function CartProduct({ id, imgSrc, title, price }) {
         <div>
           <FlexWrapper>
             <MarginWrapper marginRight="15px">
-              <Checkbox />
+              <ProductCheckbox productId={id} />
             </MarginWrapper>
             <MarginWrapper marginRight="20px">
               <Image src={imgSrc} width="144px" height="147px" alt="상품 이미지" />
