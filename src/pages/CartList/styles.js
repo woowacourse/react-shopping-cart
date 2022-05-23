@@ -26,7 +26,7 @@ const ControllerContainer = styled.div`
 const OrderContainer = styled.div`
   display: flex;
   position: sticky;
-  top: 100px;
+  top: 3.125rem;
 
   flex-direction: column;
   border: 1px solid ${COLORS.GRAY_150};
