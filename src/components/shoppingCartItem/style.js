@@ -6,7 +6,6 @@ import StyledText from 'components/base/text/style';
 const ShoppingCartItemContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  margin: 15px 0;
 `;
 
 const ShoppingCartItemBox = styled.div`

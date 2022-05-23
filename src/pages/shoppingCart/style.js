@@ -17,6 +17,7 @@ const ShoppingCartContainer = styled.div`
   width: 60%;
   height: 590px;
   padding: 0 20px;
+  overflow: hidden;
 `;
 
 const ShoppingCartItemContainer = styled.div`
