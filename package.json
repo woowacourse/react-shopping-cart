@@ -47,7 +47,7 @@
     "build-storybook": "build-storybook -s public",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "chromatic": "npx chromatic --project-token=e68e7f4dc3ee"
+    "chromatic": "npx chromatic --project-token="
   },
   "browserslist": {
     "production": [
