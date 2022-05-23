@@ -27,6 +27,7 @@
     "import/no-extraneous-dependencies": "warn",
     "function-paren-newline": "warn",
     "global-require": "warn",
-    "no-use-before-define": "warn"
+    "no-use-before-define": "warn",
+    "no-undef": "off"
   }
 }
