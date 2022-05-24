@@ -13,17 +13,19 @@ export const DeleteCartButton = styled.button`
   height: 50px;
   padding: 8px 16px;
 
-  font-size: ${({ theme: { fontSize } }) => fontSize.small};
-  text-align: center;
-  color: ${({ theme: { color } }) => color.gray01};
-  background-color: ${({ theme: { color } }) => color.main};
-  border: 1px solid ${({ theme: { color } }) => color.gray03};
-  cursor: pointer;
+  ${({ theme: { fontSize, color } }) => `
+    font-size: ${fontSize.small};
+    text-align: center;
+    color: ${color.gray01};
+    background-color: ${color.main};
+    border: 1px solid ${color.gray03};
+    cursor: pointer;
 
-  :active {
-    color: ${({ theme: { color } }) => color.point};
-    border: 1px solid ${({ theme: { color } }) => color.point};
-  }
+    :active {
+      color: ${color.point};
+      border: 1px solid ${color.point};
+    }
+  `}
 `;
 
 export const CartListCount = styled.p`
