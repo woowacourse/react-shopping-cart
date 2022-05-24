@@ -75,8 +75,6 @@ const productsReducer = (state = initialState, action: Action) => {
   }
 };
 
-export const selectProductState = (state: RootState) => state.products;
-
 export const actionCreators = {
   loadProducts,
   loadProductsSuccess,

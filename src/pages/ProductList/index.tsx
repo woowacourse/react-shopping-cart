@@ -1,21 +1,18 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import {
-  actionCreators as productsActions,
-  ProductState,
-  selectProductState,
-} from "redux/modules/products";
+import { actionCreators as productsActions, ProductState } from "redux/modules/products";
 
 import Product from "components/Product";
 import Loader from "components/@shared/Loader";
 
 import * as S from "./styles";
+import { useProductsStateSelector } from "hooks/useProductSelector";
 
 function ProductList() {
   const dispatch = useDispatch();
 
-  const { productList, loading, error }: ProductState = useSelector(selectProductState);
+  const { productList, loading, error }: ProductState = useProductsStateSelector();
 
   useEffect(() => {
     dispatch(productsActions.loadProductsAPI());

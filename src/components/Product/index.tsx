@@ -67,8 +67,7 @@ function Product({ productInfo }: ProductProps) {
     dispatch(cartActions.increment(id));
   };
 
-  const goToProductDetailPage = () =>
-    navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } });
+  const goToProductDetailPage = () => navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`);
 
   useEffect(() => {
     if (isShowCartCounter) {
