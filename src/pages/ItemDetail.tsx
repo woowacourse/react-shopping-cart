@@ -3,35 +3,38 @@ import CroppedImage from 'components/common/CroppedImage';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
-import useCartRequest from 'hooks/useCartRequest';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { getCartListRequest } from 'redux/cartList/thunk';
+import { CartListAction } from 'redux/cartList/action';
+import { getCartListRequest, postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch<CartListAction>();
   const { data: item, loading, error: error_itemList } = useFetch<Item>(`/itemList/${id}`);
   const { data: cartList, error: error_cartList } = useThunkFetch(
     state => state.cartListReducer,
     getCartListRequest
   );
-  const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   const isInCart = cartList?.some(cartItem => cartItem.id === item?.id);
 
   const postCart = () => {
-    postCartItemQuantity(id)(1);
+    dispatch(postCartItemRequest({ id: Number(id), quantity: 1, isSelected: true }));
     openSnackbar();
   };
 
   const updateCart = () => {
-    updateCartItemQuantity(id)(1);
+    const targetItem = cartList.find(cartItem => cartItem.id === Number(id));
+
+    dispatch(putCartItemRequest({ ...targetItem, quantity: targetItem.quantity + 1 }));
     openSnackbar();
   };
 

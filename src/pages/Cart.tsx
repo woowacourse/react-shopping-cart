@@ -38,7 +38,7 @@ const Cart = () => {
   return (
     <LayoutWithTitle title='장바구니'>
       <StyledMain>
-        <CartList itemList={itemListInCart} cartList={cartList} />
+        <CartList itemList={itemListInCart} />
         <PaymentBox
           title='결제예샹금액'
           priceDescription='결제예샹금액'

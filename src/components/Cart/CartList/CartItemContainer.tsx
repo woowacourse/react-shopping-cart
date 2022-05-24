@@ -1,6 +1,13 @@
 import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
 import CheckBox from 'components/common/CheckBox';
 import CroppedImage from 'components/common/CroppedImage';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { CartListAction } from 'redux/cartList/action';
+import {
+  deleteCartItemRequest,
+  patchCartSelectedRequest,
+  putCartItemRequest,
+} from 'redux/cartList/thunk';
 import styled from 'styled-components';
 import { ItemInCart } from 'types/domain';
 
@@ -8,33 +15,35 @@ import QuantityBox from '../QuantityBox';
 
 interface CartItemContainerProps {
   item: ItemInCart;
-  selectItem: () => void;
-  changeQuantity: () => void;
-  deleteItem: () => void;
 }
 
-const CartItemContainer = ({
-  item,
-  selectItem,
-  changeQuantity,
-  deleteItem,
-}: CartItemContainerProps) => {
-  const { thumbnailUrl, price, title, isSelected, quantity } = item;
+const CartItemContainer = ({ item }: CartItemContainerProps) => {
+  const dispatch = useAppDispatch<CartListAction>();
+  const { id, thumbnailUrl, price, title, isSelected, quantity } = item;
 
   const handleClickDeleteButton = () => {
     if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
-      deleteItem();
+      dispatch(deleteCartItemRequest(Number(id)));
     }
   };
 
   return (
     <StyledCartItem>
-      <CheckBox checked={isSelected} onChange={selectItem} />
+      <CheckBox
+        checked={isSelected}
+        onChange={() => dispatch(patchCartSelectedRequest(Number(id)))}
+      />
       <CroppedImage src={thumbnailUrl} width='144px' height='144px' alt={title} />
       <p>{title}</p>
       <StyledRight>
         <StyledDeleteIcon onClick={handleClickDeleteButton} />
-        <QuantityBox quantity={quantity} changeQuantity={changeQuantity} />
+        <QuantityBox
+          quantity={quantity}
+          changeQuantity={(diff: number) =>
+            dispatch(putCartItemRequest({ ...item, quantity: item.quantity + diff }))
+          }
+        />
+
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
     </StyledCartItem>

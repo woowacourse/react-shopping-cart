@@ -1,34 +1,29 @@
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
 import Division from 'components/common/Division';
-import useCartRequest from 'hooks/useCartRequest';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import React from 'react';
+import { CartListAction } from 'redux/cartList/action';
+import { deleteAllCartItemRequest, patchAllCartSelectedRequest } from 'redux/cartList/thunk';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
-import { CartItem, ItemInCart } from 'types/domain';
+import { ItemInCart } from 'types/domain';
 
 import CartItemContainer from './CartItemContainer';
 
 interface CartListProps {
   itemList: ItemInCart[];
-  cartList: CartItem[];
 }
 
-const CartList = ({ itemList, cartList }: CartListProps) => {
-  const {
-    updateCartItemQuantity,
-    selectCartItem,
-    selectAllCartItem,
-    deleteCartItem,
-    deleteAllCartItem,
-  } = useCartRequest(cartList);
+const CartList = ({ itemList }: CartListProps) => {
+  const dispatch = useAppDispatch<CartListAction>();
   const isAllSelected = itemList.every(item => item.isSelected);
   const totalItemCount = itemList.length;
 
   const handleClickAllDeleteButton = () => {
     if (window.confirm('모든 상품을 삭제하시겠습니까?')) {
-      deleteAllCartItem();
+      dispatch(deleteAllCartItemRequest());
     }
   };
 
@@ -40,7 +35,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
             id='check'
             checked={isAllSelected}
             disabled={!totalItemCount}
-            onChange={() => selectAllCartItem(isAllSelected)}
+            onChange={() => dispatch(patchAllCartSelectedRequest(isAllSelected))}
           />
           <label htmlFor='check'>선택해제</label>
         </StyledRight>
@@ -57,12 +52,7 @@ const CartList = ({ itemList, cartList }: CartListProps) => {
       <Division margin='20px 0' height='4px' color={theme.colors.GRAY_400} />
       {itemList?.map((item, index) => (
         <React.Fragment key={item.id}>
-          <CartItemContainer
-            item={item}
-            selectItem={selectCartItem(item.id)}
-            changeQuantity={updateCartItemQuantity(item.id)}
-            deleteItem={deleteCartItem(item.id)}
-          />
+          <CartItemContainer item={item} />
           {itemList.length !== index + 1 && (
             <Division color={theme.colors.GRAY_200} height='2px' margin='0 0 26px' />
           )}

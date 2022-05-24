@@ -10,7 +10,7 @@ import { Item } from 'types/domain';
 
 interface ItemContainerProps {
   item: Item;
-  onCartClick: (diff?: number) => void;
+  onCartClick: () => void;
   openSnackbar: () => void;
 }
 

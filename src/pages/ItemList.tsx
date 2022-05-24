@@ -4,18 +4,20 @@ import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import { MAX_RESULT_ITEM_LIST } from 'constants/index';
-import useCartRequest from 'hooks/useCartRequest';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { getCartListRequest } from 'redux/cartList/thunk';
+import { CartListAction } from 'redux/cartList/action';
+import { getCartListRequest, postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
 import { getItemList } from 'redux/itemList/thunk';
 import styled from 'styled-components';
 import { Item } from 'types/domain';
 
 const ItemList = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch<CartListAction>();
   const {
     data: itemList,
     error: error_getItemList,
@@ -29,7 +31,6 @@ const ItemList = () => {
     state => state.cartListReducer,
     getCartListRequest
   );
-  const { postCartItemQuantity, updateCartItemQuantity } = useCartRequest(cartList);
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   if (loading) return <Loading />;
@@ -39,13 +40,28 @@ const ItemList = () => {
     <StyledRoot>
       {itemList?.map(item => {
         const id = item.id;
-        const isInCart = cartList.some(cartItem => cartItem.id === id);
+        const targetCartItem = cartList.find(cartItem => cartItem.id === id);
+
+        const handleCartClick = () => {
+          if (targetCartItem) {
+            return () =>
+              dispatch(
+                putCartItemRequest({
+                  ...targetCartItem,
+                  quantity: targetCartItem.quantity + 1,
+                })
+              );
+          }
+
+          return () =>
+            dispatch(postCartItemRequest({ id: Number(id), quantity: 1, isSelected: true }));
+        };
 
         return (
           <ItemContainer
             key={id}
             item={item}
-            onCartClick={isInCart ? updateCartItemQuantity?.(id) : postCartItemQuantity?.(id)}
+            onCartClick={handleCartClick()}
             openSnackbar={openSnackbar}
           />
         );
