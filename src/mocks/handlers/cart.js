@@ -41,8 +41,6 @@ export const cartHanlders = [
       return cart;
     });
 
-    console.log(cartList.current);
-
     return res(ctx.json());
   }),
 ];
