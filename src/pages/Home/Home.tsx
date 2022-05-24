@@ -43,7 +43,7 @@ function Home() {
     <PageTemplate>
       <Styled.Container>
         {currentPage > pageCount ? (
-          <ErrorContainer>😱 존재하지 상품 페이지입니다. 😱</ErrorContainer>
+          <ErrorContainer>😱 존재하지 않는 상품 페이지입니다. 😱</ErrorContainer>
         ) : (
           <ProductList productList={productList} />
         )}
