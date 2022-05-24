@@ -67,6 +67,9 @@ function Product({ productInfo }: ProductProps) {
     dispatch(cartActions.increment(id));
   };
 
+  const goToProductDetailPage = () =>
+    navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } });
+
   useEffect(() => {
     if (isShowCartCounter) {
       timeout.current = setTimeout(() => {
@@ -78,20 +81,10 @@ function Product({ productInfo }: ProductProps) {
   return (
     <S.ProductWrapper>
       <S.ProductImageWrapper>
-        <S.ProductImage
-          onClick={() =>
-            navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } })
-          }
-          src={img}
-          alt={name}
-        />
+        <S.ProductImage onClick={goToProductDetailPage} src={img} alt={name} />
       </S.ProductImageWrapper>
       <S.ProductInfoWrapper>
-        <S.ProductInfo
-          onClick={() =>
-            navigate(ROUTE_URL.PRODUCT_DETAIL + `/${id}`, { state: { productDetail: productInfo } })
-          }
-        >
+        <S.ProductInfo onClick={goToProductDetailPage}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
         </S.ProductInfo>
