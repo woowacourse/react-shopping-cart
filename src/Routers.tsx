@@ -43,7 +43,6 @@ const Routers = () => {
       {ROUTES.map(route => (
         <Route key={route.path} {...route} />
       ))}
-      <Route path='/loading' element={<Loading />} />
     </Routes>
   );
 };
