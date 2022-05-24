@@ -19,14 +19,9 @@ export default function ProductCartPage() {
   const pending = useSelector((state) => state.cartReducer.pending);
   const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
 
-  const {
-    initializeCartList,
-    deleteCartItem,
-    increaseQuantity,
-    decreaseQuantity,
-    deleteSelectedCart,
-  } = useCartItem();
-  const {selectAllItem, unselectAllItem, addSelectedItem, deleteSelectedItem} = useSelectedItem();
+  const {initializeCartList, deleteSelectedCart} = useCartItem();
+
+  const {selectAllItem, unselectAllItem} = useSelectedItem();
 
   useEffect(() => {
     initializeCartList();
@@ -38,7 +33,7 @@ export default function ProductCartPage() {
     (prev, cur) => {
       return {
         totalQuantity: cur.quantity + prev.totalQuantity,
-        totalPrice: cur.itemPrice * cur.quantity + prev.totalPrice,
+        totalPrice: cur.price * cur.quantity + prev.totalPrice,
       };
     },
     {totalQuantity: 0, totalPrice: 0},
@@ -72,23 +67,11 @@ export default function ProductCartPage() {
               pending={pending}
               fallback={<NotFoundPage>에러가 발생했어요.</NotFoundPage>}
             >
-              {cartItem.map(({itemImgURL, itemName, itemPrice, quantity, id}) => {
-                const initialChecked = selectedItem.includes(id);
+              {cartItem.map((cartInfo) => {
+                const initialChecked = selectedItem.includes(cartInfo.id);
                 return (
-                  <React.Fragment key={id}>
-                    <CartItem
-                      initialChecked={initialChecked}
-                      itemImgURL={itemImgURL}
-                      itemName={itemName}
-                      itemPrice={itemPrice}
-                      quantity={quantity}
-                      id={id}
-                      handleDeleteIconClick={() => deleteCartItem(id)}
-                      handleCheckedTrue={addSelectedItem}
-                      handleCheckedFalse={deleteSelectedItem}
-                      handleIncrease={() => increaseQuantity({quantity, id})}
-                      handleDecrease={() => decreaseQuantity({quantity, id})}
-                    />
+                  <React.Fragment key={cartInfo.id}>
+                    <CartItem cartInfo={cartInfo} initialChecked={initialChecked} />
                     <hr />
                   </React.Fragment>
                 );
@@ -109,7 +92,7 @@ export default function ProductCartPage() {
 }
 
 ProductCartPage.propTypes = {
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.string,
 };

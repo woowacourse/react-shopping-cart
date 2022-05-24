@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 
 import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 import DetailItem from 'component/DetailItem';
@@ -12,8 +11,10 @@ import useCartItem from 'hook/useCartItem';
 import useFetch from 'hook/useFetch';
 
 export default function ProductDetailPage() {
-  const {addCartItem} = useCartItem();
   const {id} = useParams();
+
+  const {initializeCartList} = useCartItem();
+
   const {
     pending: getPending,
     data: getData,
@@ -23,27 +24,10 @@ export default function ProductDetailPage() {
     API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`,
   });
 
-  const {initializeCartList} = useCartItem();
-
   useEffect(() => {
     getProductDetail({});
     initializeCartList();
   }, [getProductDetail, initializeCartList]);
-
-  const cartItem = useSelector((state) => state.cartReducer.cart);
-  const isInCart = cartItem.some((item) => item.id === Number(id));
-
-  const handleCartButtonClick = () => {
-    const cartInfo = {
-      itemImgURL: getData.image,
-      itemName: getData.name,
-      itemPrice: getData.price,
-      id: Number(id),
-      quantity: 1,
-    };
-
-    addCartItem(cartInfo);
-  };
 
   return (
     <S.DetailItemPageLayout>
@@ -52,23 +36,14 @@ export default function ProductDetailPage() {
         pending={getPending}
         error={getError}
       >
-        {getData && (
-          <DetailItem
-            itemImgURL={getData.image}
-            itemName={getData.name}
-            itemPrice={getData.price}
-            id={Number(id)}
-            isInCart={isInCart}
-            handleCartButtonClick={handleCartButtonClick}
-          />
-        )}
+        {getData && <DetailItem productInfo={getData} />}
       </ErrorPendingBoundary>
     </S.DetailItemPageLayout>
   );
 }
 
 ProductDetailPage.propTypes = {
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.string,
 };
