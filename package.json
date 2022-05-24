@@ -11,7 +11,8 @@
     "lint": "node_modules/.bin/eslint --ext=.jsx,.js,.tsx,.ts  .",
     "storybook": "start-storybook -p 6006",
     "build:storybook": "build-storybook",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "chromatic": "npx chromatic --project-token=1a6ccb5b9389"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,7 @@
     "autoprefixer": "^10.4.7",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.5.4",
     "clean-webpack-plugin": "^4.0.0",
     "commitizen": "^4.2.4",
     "core-js": "^3.22.5",
