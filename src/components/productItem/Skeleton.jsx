@@ -20,11 +20,7 @@ const Skeleton = () => {
 };
 
 export const getSkeletonList = length => {
-  const skeletonList = [];
-  for (let i = 0; i < length; i++) {
-    skeletonList.push(<Skeleton key={uuidv4()} />);
-  }
-  return skeletonList;
+  return Array.from({ length }).map(() => <Skeleton key={uuidv4()} />);
 };
 
 export default Skeleton;
