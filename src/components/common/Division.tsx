@@ -7,12 +7,6 @@ interface DivisionProps {
   height: string;
 }
 
-const Division = ({ color, width, margin, height }: DivisionProps) => {
-  return <StyledDivision color={color} width={width} margin={margin} height={height} />;
-};
-
-export default Division;
-
 const StyledDivision = styled.div<DivisionProps>`
   ${({ color, width, margin, height }) => css`
     background-color: ${color};
@@ -21,3 +15,5 @@ const StyledDivision = styled.div<DivisionProps>`
     height: ${height || '1px'};
   `}
 `;
+
+export default StyledDivision;

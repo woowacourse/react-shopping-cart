@@ -1,6 +1,6 @@
 import Button from 'components/common/Button';
 import CheckBox from 'components/common/CheckBox';
-import Division from 'components/common/Division';
+import StyledDivision from 'components/common/Division';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import React from 'react';
 import { CartListAction } from 'redux/cartList/action';
@@ -49,12 +49,12 @@ const CartList = ({ itemList }: CartListProps) => {
         </Button>
       </StyledTop>
       <StyledCount>든든배송 상품 ({totalItemCount}개)</StyledCount>
-      <Division margin='20px 0' height='4px' color={theme.colors.GRAY_400} />
+      <StyledDivision margin='20px 0' height='4px' color={theme.colors.GRAY_400} />
       {itemList?.map((item, index) => (
         <React.Fragment key={item.id}>
           <CartItemContainer item={item} />
           {itemList.length !== index + 1 && (
-            <Division color={theme.colors.GRAY_200} height='2px' margin='0 0 26px' />
+            <StyledDivision color={theme.colors.GRAY_200} height='2px' margin='0 0 26px' />
           )}
         </React.Fragment>
       ))}
