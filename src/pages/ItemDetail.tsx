@@ -88,7 +88,7 @@ const StyledTitle = styled.div`
 const StyledPrice = styled.div`
   display: flex;
   justify-content: space-between;
-  border-top: solid 0.4rem ${({ theme }) => theme.colors.GRAY_400};
+  border-top: solid 0.4rem ${({ theme }) => theme.colors.GRAY_aaa};
   width: 100%;
   padding: 0 3.5rem;
   padding-top: 3.3rem;

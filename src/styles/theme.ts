@@ -1,11 +1,11 @@
 const colors = {
   primary: '#2AC1BC',
   brown: '#73675C',
-  GRAY_100: '#DDDDDD',
-  GRAY_200: '#CCCCCC',
-  GRAY_300: '#BBBBBB',
-  GRAY_400: '#AAAAAA',
-  GRAY_500: '#333333',
+  GRAY_ddd: '#DDDDDD',
+  GRAY_ccc: '#CCCCCC',
+  GRAY_bbb: '#BBBBBB',
+  GRAY_aaa: '#AAAAAA',
+  GRAY_333: '#333333',
 };
 
 const size = {

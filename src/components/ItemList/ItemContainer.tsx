@@ -36,7 +36,7 @@ const ItemContainer = ({ item, onCartClick, openSnackbar }: ItemContainerProps) 
             <StyledTitle>{title}</StyledTitle>
             <StyledPrice>{price.toLocaleString()}</StyledPrice>
           </StyledDescription>
-          <StyledCartIcon width='31px' fill={theme.colors.GRAY_500} onClick={handleClickCartIcon} />
+          <StyledCartIcon width='31px' fill={theme.colors.GRAY_333} onClick={handleClickCartIcon} />
         </StyledBottom>
       </StyledRoot>
     </Link>
