@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
 import { MESSAGE, SERVER_PATH } from '../constant';
@@ -8,35 +6,22 @@ import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
 import { SIZE } from '../constant';
 import useAddCartItem from '../hooks/useAddCartItem';
+import useFetch from '../hooks/useFetch';
 
 function ProductDetailPage() {
-  const [item, setItem] = useState();
-  const [loading, setLoading] = useState(true);
-  const { addCartItem } = useAddCartItem();
   const { id } = useParams();
+  const { data: product, isLoading, isError } = useFetch(`${SERVER_PATH.PRODUCTS}/${id}`);
+  const { addCartItem } = useAddCartItem();
 
   const onClickCartButton = () => {
     alert(MESSAGE.ADD);
     addCartItem(id);
   };
 
-  useEffect(() => {
-    async function getProductItemInfo(id) {
-      try {
-        const { data } = await axios.get(`${SERVER_PATH.PRODUCTS}/${id}`);
-        setItem(data);
-      } catch (error) {
-        console.log('error', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getProductItemInfo(id);
-  }, [id]);
+  if (isError) return <h1>error</h1>;
+  if (isLoading) return <Loading />;
 
-  if (loading) return <Loading />;
-
-  const { imageUrl, name, price } = item;
+  const { imageUrl, name, price } = product;
 
   return (
     <StyledProductDetailContainer>

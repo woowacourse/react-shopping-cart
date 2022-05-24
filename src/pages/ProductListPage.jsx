@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getProductListAsync } from '../store/product/product.actions';
 import styled from 'styled-components';
 import Product from '../components/Product';
+import useFetch from '../hooks/useFetch';
+import Loading from '../components/Loading';
+import { SERVER_PATH } from '../constant';
 
 function ProductListPage() {
-  const dispatch = useDispatch();
-  const productList = useSelector(({ product }) => product.productList);
+  const { data: productList, isLoading, isError } = useFetch(SERVER_PATH.PRODUCTS);
 
-  useEffect(() => {
-    dispatch(getProductListAsync());
-  }, [dispatch]);
+  if (isError) return <h1>error</h1>;
+  if (isLoading) return <Loading />;
 
   return (
     <StyledContent>
