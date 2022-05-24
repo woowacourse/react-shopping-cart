@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 import { useNumberInput } from "../../hooks/useNumberInput";
 
+import IconButton from "../../components/common/IconButton";
 import CheckBox from "../../components/common/CheckBox";
 import NumberInput from "../../components/common/NumberInput";
-import DeleteFromCartButton from "./DeleteFromCartButton";
+import {
+  StyledCartItemContainer,
+  StyledProductName,
+  StyledProductPrice,
+  StyledProductQuantityManagement,
+} from "./CartItem.styled";
 
 import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
 import { PATH } from "../../constants/index";
+import trashCanIcon from "../../asset/trash-can-icon.svg";
 
 function CartItem({
   product,
@@ -36,7 +42,7 @@ function CartItem({
   }, [quantity]);
 
   return (
-    <CartItemContainer>
+    <StyledCartItemContainer>
       <CheckBox checked={selected} onClick={onClickCheckBox} />
 
       <Link to={PATH.PRODUCT_DETAIL_WITH_ID(product.id)}>
@@ -46,13 +52,13 @@ function CartItem({
           width="144px"
           height="144px"
         />
-        <ProductName>{product.name}</ProductName>
+        <StyledProductName>{product.name}</StyledProductName>
       </Link>
 
-      <ProductPrice>
+      <StyledProductPrice>
         {(product.price * quantity).toLocaleString()}원
-      </ProductPrice>
-      <ProductQuantityManagement>
+      </StyledProductPrice>
+      <StyledProductQuantityManagement>
         <DeleteFromCartButton
           onClick={() => {
             // eslint-disable-next-line no-restricted-globals
@@ -66,55 +72,21 @@ function CartItem({
           onClickIncreaseButton={handleIncreaseButtonClick}
           onClickDecreaseButton={handleDecreaseButtonClick}
         />
-      </ProductQuantityManagement>
-    </CartItemContainer>
+      </StyledProductQuantityManagement>
+    </StyledCartItemContainer>
   );
 }
 
-const CartItemContainer = styled.li`
-  position: relative;
-
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  height: 200px;
-  padding: 25px 0;
-
-  border-bottom: 1.5px solid ${({ theme }) => theme.color.grey_200};
-
-  list-style-type: none;
-
-  a {
-    display: flex;
-    gap: 20px;
-  }
-`;
-
-const ProductName = styled.p`
-  font-size: 20px;
-  line-height: 24px;
-  color: ${({ theme }) => theme.color.grey_700};
-`;
-
-const ProductPrice = styled.p`
-  position: absolute;
-  bottom: 25px;
-  right: 0;
-
-  font-size: 16px;
-  line-height: 24px;
-  color: ${({ theme }) => theme.color.grey_700};
-`;
-
-const ProductQuantityManagement = styled.div`
-  position: absolute;
-  top: 25px;
-  right: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 20px;
-`;
+function DeleteFromCartButton({ onClick }) {
+  return (
+    <IconButton
+      title="장바구니에서 삭제하기"
+      onClick={onClick}
+      iconImgSrc={trashCanIcon}
+      iconImgAlt="쓰레기통 아이콘"
+      width="24px"
+    />
+  );
+}
 
 export default CartItem;

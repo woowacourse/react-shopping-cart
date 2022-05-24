@@ -1,25 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import { StyledIconButton, StyledIconButtonImg } from "./IconButton.styled";
 
 function IconButton({ title, onClick, iconImgSrc, iconImgAlt, width }) {
   return (
-    <StyledButton title={title} onClick={onClick} width={width}>
-      <img src={iconImgSrc} alt={iconImgAlt} />
-    </StyledButton>
+    <StyledIconButton title={title} onClick={onClick} width={width}>
+      <StyledIconButtonImg src={iconImgSrc} alt={iconImgAlt} width={width} />
+    </StyledIconButton>
   );
 }
-
-const StyledButton = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  img {
-    width: ${({ width }) => width};
-    :hover {
-      transform: scale(1.05);
-    }
-  }
-`;
 
 export default IconButton;

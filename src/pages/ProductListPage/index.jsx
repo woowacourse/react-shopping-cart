@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 
 import { useProductList } from "../../hooks/useProductList";
 import { useCartItemList } from "./../../hooks/useCartItemList";
 
 import Spinner from "../../components/common/Spinner";
 import ProductCard from "./ProductCard";
+import { StyledGridList } from "./index.styled";
 
 function ProductListPage() {
   const {
@@ -39,7 +39,7 @@ function ProductListPage() {
   if (productList?.length === 0) return <h2>😱 텅 비었어요~~ 😱</h2>;
 
   return (
-    <GridList>
+    <StyledGridList>
       {ProductListWithQuantity.map((product) => (
         <ProductCard
           key={product.id}
@@ -52,18 +52,8 @@ function ProductListPage() {
           }}
         />
       ))}
-    </GridList>
+    </StyledGridList>
   );
 }
-
-const GridList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  height: 100%;
-  gap: 28px 12px;
-`;
 
 export default ProductListPage;
