@@ -4,12 +4,12 @@ import StyledButton from 'components/base/button/style';
 
 import { color } from 'constants/constants';
 
-export const PaymentAccountBox = styled.div`
+export const Box = styled.div`
   margin-top: 50px;
   margin-left: 40px;
 `;
 
-export const PaymentAccountTitle = styled.div`
+export const Title = styled.div`
   width: 310px;
   height: 70px;
   border: 1px solid #dddddd;
@@ -20,7 +20,7 @@ export const PaymentAccountTitle = styled.div`
   padding: 0 20px;
 `;
 
-export const PaymentAccountTitleText = styled.p`
+export const TitleText = styled.p`
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -36,7 +36,7 @@ export const PaymentAccountTitleText = styled.p`
   align-items: center;
 `;
 
-export const PaymentAccountContent = styled.div`
+export const Content = styled.div`
   width: 310px;
   height: 180px;
   border: 1px solid #dddddd;

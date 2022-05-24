@@ -1,25 +1,19 @@
 import Header from 'components/base/header/Header';
 
-import {
-  PaymentAccountContent,
-  PaymentAccountTitle,
-  PaymentAccountBox,
-  PaymentAccountTitleText,
-  OrderButton,
-} from './style';
+import { Content, Title, Box, TitleText, OrderButton } from './style';
 
 const PaymentAccount = ({ totalPrice, totalAmount }) => {
   return (
-    <PaymentAccountBox>
-      <PaymentAccountTitle>결제예상금액</PaymentAccountTitle>
-      <PaymentAccountContent>
+    <Box>
+      <Title>결제예상금액</Title>
+      <Content>
         <Header
-          left={<PaymentAccountTitleText>결제예상금액</PaymentAccountTitleText>}
-          right={<PaymentAccountTitleText>{totalPrice}원</PaymentAccountTitleText>}
+          left={<TitleText>결제예상금액</TitleText>}
+          right={<TitleText>{totalPrice}원</TitleText>}
         />
         <OrderButton>주문하기({totalAmount}개)</OrderButton>
-      </PaymentAccountContent>
-    </PaymentAccountBox>
+      </Content>
+    </Box>
   );
 };
 
