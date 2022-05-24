@@ -6,8 +6,7 @@ import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
 import { useState, useMemo } from 'react';
 import useCart from 'hooks/useCart';
-import useDeleteCartItem from 'hooks/useDeleteCartItem';
-import useUpdateCartItem from 'hooks/useUpdateCartItem';
+
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
@@ -17,9 +16,14 @@ const isInList = (list, item) => {
 };
 
 const Cart = () => {
-  const { isLoading, isError, cartItems } = useCart();
-  const { deleteCartItem } = useDeleteCartItem();
-  const { updateCartItemQuantity } = useUpdateCartItem();
+  const {
+    isLoading,
+    isError,
+    cartItems,
+    handleDeleteItem,
+    handleUpdateItemQuantity,
+  } = useCart();
+
   const [selectedItemList, setSelectedItemList] = useState([]);
 
   const totalPrice = useMemo(() => {
@@ -49,18 +53,11 @@ const Cart = () => {
     setSelectedItemList(selectedItemList.filter((itemId) => itemId !== id));
   };
 
-  const handleDeleteItem = (id) => () => {
-    deleteCartItem(id);
-  };
-
   const handleDeleteSelectedItem = () => {
     if (selectedItemList.length === 0) return;
-    selectedItemList.forEach((id) => deleteCartItem(id));
-    setSelectedItemList([]);
-  };
 
-  const handleUpdateItemQuantity = (id) => (quantity) => {
-    updateCartItemQuantity(id, quantity);
+    selectedItemList.forEach((id) => handleDeleteItem(id));
+    setSelectedItemList([]);
   };
 
   return (
@@ -72,30 +69,31 @@ const Cart = () => {
         <Styled.CartContents>
           <CartControlBar
             isAllSelected={
-              selectedItemList.length === cartItems.length &&
-              cartItems.length > 0
+              selectedItemList.length === cartItems?.length &&
+              cartItems?.length > 0
             }
             onToggleSelect={handleToggleSelectAll(
-              selectedItemList.length === cartItems.length,
+              selectedItemList.length === cartItems?.length,
             )}
             onClickDeleteButton={handleDeleteSelectedItem}
           />
 
           <CartContainer>
-            {cartItems.map(({ id, name, imgUrl, price, quantity }) => (
-              <CartItem
-                key={id}
-                id={id}
-                name={name}
-                imgUrl={imgUrl}
-                price={price}
-                quantity={quantity}
-                isSelected={isInList(selectedItemList, id)}
-                onToggleSelect={handleToggleSelect(id)}
-                onChangeQuantity={handleUpdateItemQuantity(id)}
-                onDeleteItem={handleDeleteItem(id)}
-              />
-            ))}
+            {cartItems &&
+              cartItems.map(({ id, name, imgUrl, price, quantity }) => (
+                <CartItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  imgUrl={imgUrl}
+                  price={price}
+                  quantity={quantity}
+                  isSelected={isInList(selectedItemList, id)}
+                  onToggleSelect={handleToggleSelect(id)}
+                  onChangeQuantity={handleUpdateItemQuantity(id)}
+                  onDeleteItem={handleDeleteItem(id)}
+                />
+              ))}
           </CartContainer>
         </Styled.CartContents>
         <Styled.PaymentBoxWrapper>

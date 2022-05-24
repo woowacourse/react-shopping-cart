@@ -1,29 +1,47 @@
-import useReduxState from './useReduxState';
+import useReduxState from 'hooks/useReduxState';
 import { getCartItemAsync } from 'reducers/cart/cart.thunk';
+import { setCart } from 'reducers/cart/cart.actions';
 import { useEffect } from 'react';
-import { updateCartItemQuantityAsync } from 'reducers/cart/cart.thunk';
+import useFetch from 'hooks/useFetch';
 
 const useCart = () => {
   const {
     dispatch,
-    state: { isLoadingGetCart, isSucceedGetCart, isErrorGetCart, data },
+    state: { isLoading, isError, data },
   } = useReduxState('cart');
 
+  const { fetchApi: deleteItemApi } = useFetch({
+    method: 'delete',
+    url: '/cart',
+    handler: (data) => dispatch(setCart(data)),
+  });
+
+  const { fetchApi: updateItemApi } = useFetch({
+    method: 'put',
+    url: '/cart',
+    handler: (data) => dispatch(setCart(data)),
+  });
+
   useEffect(() => {
-    if (data.length > 0) return;
-    if (isSucceedGetCart) return;
-    dispatch(getCartItemAsync);
-  }, [isSucceedGetCart, data]);
+    if (!data) {
+      dispatch(getCartItemAsync);
+    }
+  }, []);
+
+  const handleDeleteItem = (id) => () => {
+    deleteItemApi(id);
+  };
 
   const handleUpdateItemQuantity = (id) => (quantity) => {
-    dispatch(updateCartItemQuantityAsync(id, quantity));
+    updateItemApi(`${id}/${quantity}`);
   };
 
   return {
-    isLoading: isLoadingGetCart,
-    isError: isErrorGetCart,
-    cartItems: data,
+    isLoading,
+    isError,
+    handleDeleteItem,
     handleUpdateItemQuantity,
+    cartItems: data,
   };
 };
 

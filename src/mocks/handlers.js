@@ -40,6 +40,7 @@ export const handlers = [
       });
       cartStorage = newCartStorage;
     }
+
     return res(ctx.status(200), ctx.json(cartStorage));
   }),
 

@@ -21,7 +21,9 @@ const CartItem = ({
   const [itemQuantity, setItemQuantity] = useState(quantity);
 
   useEffect(() => {
-    onChangeQuantity(itemQuantity);
+    if (quantity !== itemQuantity) {
+      onChangeQuantity(itemQuantity);
+    }
   }, [itemQuantity]);
 
   const handleIncrementQuantity = () => {

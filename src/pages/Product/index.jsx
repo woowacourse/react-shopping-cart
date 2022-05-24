@@ -4,8 +4,7 @@ import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useAddCartItem from 'hooks/useAddCartItem';
-import { useNavigate, useParams } from 'react-router-dom';
-import { PATH_NAME } from 'constants';
+import { useParams } from 'react-router-dom';
 import useFetch from 'hooks/useFetch';
 import { useEffect } from 'react';
 
@@ -26,11 +25,9 @@ const Product = () => {
   }, []);
 
   const { addCarItem } = useAddCartItem();
-  const navigate = useNavigate();
 
   const handleClickCartButton = () => {
     addCarItem(product.id);
-    navigate(PATH_NAME.CART);
   };
 
   if (isLoading)
