@@ -1,4 +1,4 @@
-import cartReducer, {ACTION} from 'store/modules/cart';
+import cartReducer, {ACTION} from 'store/cart';
 
 const initialState = {
   pending: false,

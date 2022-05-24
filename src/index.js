@@ -7,8 +7,8 @@ import reduxThunk from 'redux-thunk';
 
 import App from './App';
 
-import productListReducer from 'store/modules/productList';
-import cartReducer from 'store/modules/cart';
+import productListReducer from 'store/productList';
+import cartReducer from 'store/cart';
 
 if (process.env.NODE_ENV === 'development') {
   const {worker} = require('./mocks/browser');

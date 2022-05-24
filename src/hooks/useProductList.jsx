@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {getProductList} from 'store/modules/productList';
+import {getProductList} from 'store/productList';
 
 const useProductList = () => {
   const dispatch = useDispatch();

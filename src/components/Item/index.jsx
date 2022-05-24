@@ -46,7 +46,7 @@ export default function Item({itemImgURL, itemName, itemPrice = 0, id, disabled}
       <InfoWrapper>
         <NamePriceContainer>
           <ItemNameBox to={`${PATH.DETAIL}/${id}`}>{itemName}</ItemNameBox>
-          <ItemPriceBox>{itemPrice.toLocaleString()} 원</ItemPriceBox>
+          <ItemPriceBox>{itemPrice.toLocaleString()}원</ItemPriceBox>
         </NamePriceContainer>
         <Button disabled={disable} onClick={handleCartIconClick}>
           <BlackCartIcon />
