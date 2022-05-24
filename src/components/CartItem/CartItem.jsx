@@ -5,7 +5,6 @@ import { parsePrice } from 'utils';
 import { MESSAGE } from 'constants';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
-import noImage from 'assets/png/noImage.png';
 
 const CartItem = ({
   id,
@@ -42,7 +41,7 @@ const CartItem = ({
     <Styled.Wrapper>
       <Styled.ProductPreview>
         <CheckBox id={id} onCheck={onToggleSelect} checkedStatus={isSelected} />
-        <Styled.Image src={imgUrl || noImage} alt={name} loading="lazy" />
+        <Styled.Image src={imgUrl} alt={name} loading="lazy" />
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>

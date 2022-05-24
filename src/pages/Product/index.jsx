@@ -4,6 +4,7 @@ import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useProductPage from 'hooks/pages/useProductPage';
+import itemAltImg from 'assets/png/itemAltImg.png';
 
 const Product = () => {
   const { isLoading, isError, product, handleClickCartButton } =
@@ -27,7 +28,7 @@ const Product = () => {
       {product && (
         <ProductDetail
           id={product.id}
-          imgUrl={product.imgUrl}
+          imgUrl={product.imgUrl || itemAltImg}
           name={product.name}
           price={product.price}
           onClickCartButton={handleClickCartButton}

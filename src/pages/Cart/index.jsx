@@ -9,6 +9,7 @@ import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import useCartPage from 'hooks/pages/useCartPage';
+import itemAltImg from 'assets/png/itemAltImg.png';
 import { isInList } from 'utils';
 
 const Cart = () => {
@@ -50,7 +51,7 @@ const Cart = () => {
                   key={id}
                   id={id}
                   name={name}
-                  imgUrl={imgUrl}
+                  imgUrl={imgUrl || itemAltImg}
                   price={price}
                   quantity={quantity}
                   isSelected={isInList(selectedItemList, id)}
