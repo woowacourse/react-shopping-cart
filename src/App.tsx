@@ -5,11 +5,7 @@ import { ROUTE_URL } from "constants/constants";
 
 import { RootState } from "redux/store";
 
-import ProductDetail from "pages/ProductDetail";
-import Cart from "pages/Cart";
-import OrderList from "pages/OrderList";
-import ProductList from "pages/ProductList";
-import NotFoundPage from "pages/NotFound";
+import { ProductDetail, Cart, OrderList, ProductList, NotFoundPage } from "./pages";
 
 import SnackBar from "components/@shared/SnackBar";
 import Header from "components/Header";
