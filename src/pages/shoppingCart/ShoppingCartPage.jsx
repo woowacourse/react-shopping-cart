@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Checkbox from 'components/base/checkBox/CheckBox';
@@ -28,9 +28,14 @@ import {
 const ShoppingCartPage = () => {
   const dispatch = useDispatch();
   const { shoppingCartList } = useSelector(state => state.shoppingCartReducer.shoppingCarts);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [isAllSelect, setIsAllSelect] = useState(false);
+  const totalAmount = shoppingCartList.filter(product => product.isSelect === true).length;
+  const totalPrice = shoppingCartList
+    .filter(product => product.isSelect === true)
+    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+  const isAllSelect =
+    shoppingCartList.length === 0
+      ? false
+      : shoppingCartList.every(product => product.isSelect === true);
 
   const handleClickCheckBox = () => {
     if (isAllSelect === false) {
@@ -41,7 +46,6 @@ const ShoppingCartPage = () => {
       shoppingCartList.forEach(product =>
         dispatch(putShoppingCartItem({ ...product, isSelect: false })),
       );
-      setIsAllSelect(false);
     }
   };
 
@@ -55,29 +59,6 @@ const ShoppingCartPage = () => {
   useEffect(() => {
     dispatch(getShoppingCartList());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (shoppingCartList.length === 0) {
-      setTotalPrice(0);
-      setTotalAmount(0);
-      setIsAllSelect(false);
-      return;
-    }
-
-    const selectedProductList = shoppingCartList.filter(product => product.isSelect === true);
-    setTotalAmount(selectedProductList.length);
-
-    if (selectedProductList.length === 0) {
-      setTotalPrice(0);
-      return;
-    }
-
-    if (selectedProductList.length === shoppingCartList.length) {
-      setIsAllSelect(true);
-    }
-
-    setTotalPrice(selectedProductList.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
-  }, [shoppingCartList]);
 
   return (
     <PageWrapper>
