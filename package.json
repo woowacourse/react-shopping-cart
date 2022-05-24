@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.18.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.2.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "detect-node": "^2.1.0",
     "react": "^18.1.0",
@@ -55,9 +51,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.18.0",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/preset-env": "^7.17.12",
     "@babel/preset-react": "^7.17.12",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
     "@redux-devtools/extension": "^3.2.2",
     "@storybook/addon-actions": "^6.5.3",
     "@storybook/addon-essentials": "^6.5.3",
