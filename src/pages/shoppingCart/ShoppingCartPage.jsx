@@ -6,7 +6,7 @@ import Checkbox from 'components/base/checkBox/CheckBox';
 import Header from 'components/base/header/Header';
 import Title from 'components/base/title/Title';
 import PageTitle from 'components/pageTitle/PageTitle';
-import PaymentAccount from 'components/paymentAccount/PaymentAccount';
+import TotalAmount from 'components/totalAmount/TotalAmount';
 import ShoppingCartItem from 'components/shoppingCartItem/ShoppingCartItem';
 
 import {
@@ -18,8 +18,8 @@ import {
 import {
   ContentWrapper,
   PageWrapper,
-  ShoppingCartItemContainer,
-  PaymentAccountContainer,
+  ShoppingCartBox,
+  TotalAmountContainer,
   ProductDeleteButton,
   ShoppingCartContainer,
   UnderLine,
@@ -93,18 +93,18 @@ const ShoppingCartPage = () => {
             }
           />
           <Title title="든든배송 상품" />
-          <ShoppingCartItemContainer>
+          <ShoppingCartBox>
             {shoppingCartList.map(product => (
               <React.Fragment key={product.id}>
                 <ShoppingCartItem product={product}></ShoppingCartItem>
                 <UnderLine />
               </React.Fragment>
             ))}
-          </ShoppingCartItemContainer>
+          </ShoppingCartBox>
         </ShoppingCartContainer>
-        <PaymentAccountContainer>
-          <PaymentAccount totalPrice={totalPrice} totalAmount={totalAmount} />
-        </PaymentAccountContainer>
+        <TotalAmountContainer>
+          <TotalAmount totalPrice={totalPrice} totalAmount={totalAmount} />
+        </TotalAmountContainer>
       </ContentWrapper>
     </PageWrapper>
   );

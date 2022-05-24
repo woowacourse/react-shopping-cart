@@ -4,9 +4,16 @@ import StyledButton from 'components/base/button/style';
 
 import { color } from 'constants/constants';
 
-export const Box = styled.div`
+export const TotalAmountContainer = styled.div`
   margin-top: 50px;
   margin-left: 40px;
+`;
+
+export const TotalAmountBox = styled.div`
+  width: 310px;
+  height: 180px;
+  border: 1px solid #dddddd;
+  padding: 0 20px;
 `;
 
 export const Title = styled.div`
@@ -34,13 +41,6 @@ export const TitleText = styled.p`
 
   display: flex;
   align-items: center;
-`;
-
-export const Content = styled.div`
-  width: 310px;
-  height: 180px;
-  border: 1px solid #dddddd;
-  padding: 0 20px;
 `;
 
 export const OrderButton = styled(StyledButton)`

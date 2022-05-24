@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Button from 'components/base/button/Button';
 import StyledText from 'components/base/text/style';
 
-export const Container = styled.div`
+export const ShoppingCartContainer = styled.div`
   display: flex;
   align-items: flex-start;
 `;
 
-export const Box = styled.div`
+export const ShoppingCartBox = styled.div`
   display: flex;
   width: 90%;
 `;

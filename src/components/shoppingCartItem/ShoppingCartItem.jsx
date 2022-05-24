@@ -8,8 +8,8 @@ import CheckBox from 'components/base/checkBox/CheckBox';
 import Image from 'components/base/image/Image';
 import Button from 'components/base/button/Button';
 import {
-  Box,
-  Container,
+  ShoppingCartBox,
+  ShoppingCartContainer,
   Name,
   Sidebar,
   Quantitybar,
@@ -61,9 +61,9 @@ const ShoppingCartItem = ({ product }) => {
   }, [isSelect]);
 
   return (
-    <Container>
+    <ShoppingCartContainer>
       <CheckBox checked={isSelect} onChange={handleClickCheckBox} />
-      <Box>
+      <ShoppingCartBox>
         <Image src={image} width="120" height="120" />
         <Name>{name}</Name>
         <Sidebar>
@@ -81,8 +81,8 @@ const ShoppingCartItem = ({ product }) => {
           </div>
           <TotalPrice>{price * quantity}원</TotalPrice>
         </Sidebar>
-      </Box>
-    </Container>
+      </ShoppingCartBox>
+    </ShoppingCartContainer>
   );
 };
 
