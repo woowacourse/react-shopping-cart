@@ -14,12 +14,13 @@ const ProductList = () => {
     productList,
     isProductListLoading,
     isProductListError,
-    isProductListEmpty,
   } = useProducts();
 
   useEffect(() => {
     getProductList();
   }, []);
+
+  const isProductListEmpty = !isProductListLoading && productList.length === 0;
 
   return (
     <>
