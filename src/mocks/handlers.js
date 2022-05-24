@@ -28,7 +28,7 @@ export const handlers = [
     const isInCart = cart.some(({id}) => id === Number.parseInt(productId));
 
     if (isInCart) {
-      return res(ctx.status(505));
+      return res(ctx.status(404));
     }
 
     cart.push(req.body);
@@ -42,7 +42,7 @@ export const handlers = [
     const isInCart = cart.some(({id}) => id === productId);
 
     if (!isInCart) {
-      return res(ctx.status(505));
+      return res(ctx.status(404));
     }
 
     const newCart = cart.filter(({id}) => id !== productId);
@@ -58,7 +58,7 @@ export const handlers = [
     const isInCart = cart.some(({id}) => id === productId);
 
     if (!isInCart) {
-      return res(ctx.status(505));
+      return res(ctx.status(404));
     }
 
     const newCart = cart.map((item) => {
