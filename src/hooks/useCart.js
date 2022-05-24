@@ -22,25 +22,36 @@ const useCart = () => {
     handler: (data) => dispatch(setCart(data)),
   });
 
+  const { fetchApi: addItemApi } = useFetch({
+    method: 'post',
+    url: '/cart',
+    handler: (data) => dispatch(setCart(data)),
+  });
+
   useEffect(() => {
     if (!data) {
       dispatch(getCartItemAsync);
     }
   }, []);
 
-  const handleDeleteItem = (id) => () => {
+  const deleteItem = (id) => {
     deleteItemApi(id);
   };
 
-  const handleUpdateItemQuantity = (id) => (quantity) => {
+  const updateItemQuantity = (id, quantity) => {
     updateItemApi(`${id}/${quantity}`);
+  };
+
+  const addItem = (id) => {
+    addItemApi(id);
   };
 
   return {
     isLoading,
     isError,
-    handleDeleteItem,
-    handleUpdateItemQuantity,
+    deleteItem,
+    updateItemQuantity,
+    addItem,
     cartItems: data,
   };
 };

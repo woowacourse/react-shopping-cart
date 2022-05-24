@@ -16,13 +16,8 @@ const isInList = (list, item) => {
 };
 
 const Cart = () => {
-  const {
-    isLoading,
-    isError,
-    cartItems,
-    handleDeleteItem,
-    handleUpdateItemQuantity,
-  } = useCart();
+  const { isLoading, isError, cartItems, deleteItem, updateItemQuantity } =
+    useCart();
 
   const [selectedItemList, setSelectedItemList] = useState([]);
 
@@ -56,8 +51,16 @@ const Cart = () => {
   const handleDeleteSelectedItem = () => {
     if (selectedItemList.length === 0) return;
 
-    selectedItemList.forEach((id) => handleDeleteItem(id));
+    selectedItemList.forEach((id) => deleteItem(id));
     setSelectedItemList([]);
+  };
+
+  const handleDeleteItem = (id) => () => {
+    deleteItem(id);
+  };
+
+  const handleUpdateItemQuantity = (id) => (quantity) => {
+    updateItemQuantity(id, quantity);
   };
 
   return (

@@ -3,7 +3,7 @@ import ProductDetail from 'components/ProductDetail/ProductDetail';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useAddCartItem from 'hooks/useAddCartItem';
+import useCart from 'hooks/useCart';
 import { useParams } from 'react-router-dom';
 import useFetch from 'hooks/useFetch';
 import { useEffect } from 'react';
@@ -24,10 +24,10 @@ const Product = () => {
     fetchApi();
   }, []);
 
-  const { addCarItem } = useAddCartItem();
+  const { addItem } = useCart();
 
   const handleClickCartButton = () => {
-    addCarItem(product.id);
+    addItem(product.id);
   };
 
   if (isLoading)

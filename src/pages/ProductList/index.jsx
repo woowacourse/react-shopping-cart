@@ -4,8 +4,8 @@ import ProductContainer from 'components/ProductContainer/ProductContainer';
 import ProductItem from 'components/ProductItem/ProductItem';
 import Skeleton from 'components/Skeleton/Skeleton';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useAddCartItem from 'hooks/useAddCartItem';
 import useFetch from 'hooks/useFetch';
+import useCart from 'hooks/useCart';
 import { useEffect } from 'react';
 
 const ProductList = () => {
@@ -19,7 +19,7 @@ const ProductList = () => {
     url: '/products',
   });
 
-  const { addCarItem } = useAddCartItem();
+  const { addItem } = useCart();
   const isEmpty = products && !isLoading && products.length === 0;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ProductList = () => {
 
   const handleClickCartButton = (id) => (e) => {
     e.stopPropagation();
-    addCarItem(id);
+    addItem(id);
   };
 
   if (isError) return <ImgWrapper src={errorApiImg} />;
