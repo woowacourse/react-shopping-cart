@@ -51,7 +51,7 @@ function ProductItem({ id, src, price, title, isStored }) {
       <Styled.ProductInfoFlexContainer justify="space-between" align="center">
         <Flex direction="column">
           <Styled.ProductName>{title}</Styled.ProductName>
-          <Styled.ProductPrice>{`${price}원`}</Styled.ProductPrice>
+          <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Flex>
         <Styled.CartButton onClick={handleCartClick}>
           <CartIcon

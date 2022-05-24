@@ -71,7 +71,7 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
           <Bin />
         </BasicButton>
         <NumberInput count={quantity} onChange={handleChangeQuantity} />
-        <span>{`${Number(price).toLocaleString('ko-KR')}원`}</span>
+        <span>{Number(price).toLocaleString('ko-KR')}원</span>
       </Flex>
     </Style.FlexContainer>
   );

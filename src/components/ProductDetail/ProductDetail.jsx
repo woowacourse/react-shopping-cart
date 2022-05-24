@@ -15,7 +15,6 @@ import { COLOR } from 'constants/styles';
 
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 import useStoreProduct from 'hooks/useStoreProduct';
-// import usePropInitState from 'hooks/usePropInitState';
 import useDebounce from 'hooks/useDebounce';
 import useUser from 'hooks/useUser';
 import Spinner from 'components/shared/Spinner';
@@ -58,7 +57,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
         <BasicDivideLine mv="20px" color="#aaaaaa" weight="bold" />
         <Flex justify="space-between">
           <span>금액</span>
-          <Style.ProductDetailPrice>{`${price}원`}</Style.ProductDetailPrice>
+          <Style.ProductDetailPrice>{price}원</Style.ProductDetailPrice>
         </Flex>
       </Style.ProductDetailInfo>
       <Style.ProductDetailCartButton onClick={handleCartButtonClick}>

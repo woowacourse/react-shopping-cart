@@ -50,7 +50,7 @@ function Carts() {
       <Style.CartListContainer justify="space-between">
         <Style.CartListWrapper>
           <CheckedItemsController checkedCarts={checkedCarts} />
-          <span>{`든든배송 상품(${totalQuantity}개)`}</span>
+          <span>든든배송 상품 {totalQuantity}개</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           <CartListContainer
             isLoading={isProductsLoading}
