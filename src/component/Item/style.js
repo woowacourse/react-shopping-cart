@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {FlexColumn, FlexRow} from 'style/common';
@@ -24,7 +23,7 @@ const NamePriceBox = styled(FlexColumn)`
   gap: 10px;
 `;
 
-const ItemNameLink = styled((props) => <Link {...props} />)`
+const ItemNameLink = styled(Link)`
   display: inline-block;
   width: 210px;
 
