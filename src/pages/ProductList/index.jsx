@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import ProductListStyled from './style';
@@ -13,9 +13,14 @@ function ProductList() {
   const isLoading = useSelector((state) => state.product.isLoading);
   const isError = useSelector((state) => state.product.isError);
 
-  useGetProductList();
+  const test = useGetProductList();
+
+  useEffect(() => {
+    test();
+  }, []);
 
   if (isLoading) {
+    console.log(isLoading);
     return <StateMessage message={MESSAGE.LOADING} />;
   }
 
