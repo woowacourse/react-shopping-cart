@@ -19,7 +19,6 @@ const useFetch = ({ method, url, handler }) => {
     setIsError(false);
     try {
       const { data } = await apiClient[method](`${url}/${params}`);
-
       setData(data);
     } catch (error) {
       setIsError(true);
