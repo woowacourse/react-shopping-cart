@@ -1,5 +1,5 @@
 import * as actions from 'reducers/cart/cart.actions';
-import apiClient from 'utils/apiClient';
+import { apiClient } from 'utils';
 
 export const getCartItemAsync = async (dispatch) => {
   dispatch(actions.getCartRequest());

@@ -4,64 +4,26 @@ import CartItem from 'components/CartItem/CartItem';
 import CartControlBar from 'components/CartControlBar/CartControlBar';
 import Title from 'components/Title/Title';
 import PaymentBox from 'components/PaymentBox/PaymentBox';
-import { useState, useMemo } from 'react';
-import useCart from 'hooks/useCart';
 
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
-
-const isInList = (list, item) => {
-  return list.indexOf(item) !== -1;
-};
+import useCartPage from 'hooks/pages/useCartPage';
+import { isInList } from 'utils';
 
 const Cart = () => {
-  const { isLoading, isError, cartItems, deleteItem, updateItemQuantity } =
-    useCart();
-
-  const [selectedItemList, setSelectedItemList] = useState([]);
-
-  const totalPrice = useMemo(() => {
-    if (!cartItems || cartItems.length === 0) return 0;
-    const selectedItems = cartItems.filter(({ id }) =>
-      isInList(selectedItemList, id),
-    );
-    return selectedItems.reduce(
-      (prev, { price, quantity }) => (prev += price * quantity),
-      0,
-    );
-  }, [cartItems, selectedItemList]);
-
-  const handleToggleSelectAll = (isSelected) => () => {
-    if (isSelected) {
-      setSelectedItemList([]);
-      return;
-    }
-    setSelectedItemList(cartItems.map(({ id }) => id));
-  };
-
-  const handleToggleSelect = (id) => () => {
-    if (!isInList(selectedItemList, id)) {
-      setSelectedItemList([...selectedItemList, id]);
-      return;
-    }
-    setSelectedItemList(selectedItemList.filter((itemId) => itemId !== id));
-  };
-
-  const handleDeleteSelectedItem = () => {
-    if (selectedItemList.length === 0) return;
-
-    selectedItemList.forEach((id) => deleteItem(id));
-    setSelectedItemList([]);
-  };
-
-  const handleDeleteItem = (id) => () => {
-    deleteItem(id);
-  };
-
-  const handleUpdateItemQuantity = (id) => (quantity) => {
-    updateItemQuantity(id, quantity);
-  };
+  const {
+    isLoading,
+    isError,
+    cartItems,
+    totalPrice,
+    selectedItemList,
+    handleToggleSelectAll,
+    handleToggleSelect,
+    handleDeleteSelectedItem,
+    handleDeleteItem,
+    handleUpdateItemQuantity,
+  } = useCartPage();
 
   return (
     <Styled.Wrapper>

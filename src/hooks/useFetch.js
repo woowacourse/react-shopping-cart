@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import apiClient from 'utils/apiClient';
-import PropTypes from 'prop-types';
+import { apiClient } from 'utils';
 import { METHOD } from 'constants';
+import PropTypes from 'prop-types';
 
 const useFetch = ({ method, url, handler }) => {
   const [isLoading, setIsLoading] = useState(false);

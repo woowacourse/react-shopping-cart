@@ -4,7 +4,7 @@ import { PATH_NAME } from 'constants';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
 import noImage from 'assets/png/noImage.png';
-import parsePrice from 'utils/parsePrice';
+import { parsePrice } from 'utils';
 
 const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
   const navigate = useNavigate();

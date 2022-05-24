@@ -3,34 +3,11 @@ import ProductDetail from 'components/ProductDetail/ProductDetail';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useCart from 'hooks/useCart';
-import { useParams } from 'react-router-dom';
-import useFetch from 'hooks/useFetch';
-import { METHOD } from 'constants';
-import { useEffect } from 'react';
+import useProductPage from 'hooks/pages/useProductPage';
 
 const Product = () => {
-  const { id } = useParams();
-  const {
-    isLoading,
-    isError,
-    data: product,
-    fetchApi,
-  } = useFetch({
-    method: METHOD.GET,
-    url: `/products/${id}`,
-  });
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
-  const { addItem } = useCart();
-
-  const handleClickCartButton = () => {
-    addItem(product.id);
-  };
-
+  const { isLoading, isError, product, handleClickCartButton } =
+    useProductPage();
   if (isLoading)
     return (
       <Styled.Wrapper>

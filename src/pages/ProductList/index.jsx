@@ -4,33 +4,11 @@ import ProductContainer from 'components/ProductContainer/ProductContainer';
 import ProductItem from 'components/ProductItem/ProductItem';
 import Skeleton from 'components/Skeleton/Skeleton';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useFetch from 'hooks/useFetch';
-import useCart from 'hooks/useCart';
-import { METHOD } from 'constants';
-import { useEffect } from 'react';
+import useProductListPage from 'hooks/pages/useProductListPage';
 
 const ProductList = () => {
-  const {
-    isLoading,
-    isError,
-    data: products,
-    fetchApi,
-  } = useFetch({
-    method: METHOD.GET,
-    url: '/products',
-  });
-
-  const { addItem } = useCart();
-  const isEmpty = products && !isLoading && products.length === 0;
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
-  const handleClickCartButton = (id) => (e) => {
-    e.stopPropagation();
-    addItem(id);
-  };
+  const { isLoading, isError, products, isEmpty, handleClickCartButton } =
+    useProductListPage();
 
   if (isError) return <ImgWrapper src={errorApiImg} />;
   if (isEmpty) return <ImgWrapper src={emptyImg} />;

@@ -1,7 +1,7 @@
 import Styled from './style';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
-import parsePrice from 'utils/parsePrice';
+import { parsePrice } from 'utils';
 
 const PaymentBox = ({ price, quantity }) => {
   return (

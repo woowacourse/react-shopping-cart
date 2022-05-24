@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import Styled from './style';
 import { useEffect, useState } from 'react';
-import parsePrice from 'utils/parsePrice';
+import { parsePrice } from 'utils';
+import { MESSAGE } from 'constants';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
 import noImage from 'assets/png/noImage.png';
-import { MESSAGE } from 'constants';
 
 const CartItem = ({
   id,
