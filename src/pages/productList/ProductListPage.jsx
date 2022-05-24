@@ -11,6 +11,7 @@ import { getSkeletonList } from 'components/productItem/Skeleton';
 
 const ProductListPage = () => {
   const { productList, productListLoading } = useSelector(state => state.productReducer.products);
+  const { shoppingCartList } = useSelector(state => state.shoppingCartReducer.shoppingCarts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,8 +31,12 @@ const ProductListPage = () => {
     return (
       <StyledProductListPage>
         <StyledProductList>
-          {productList.map(({ id }) => (
-            <ProductItem key={id} id={id} />
+          {productList.map(product => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              cartItem={shoppingCartList.find(cartItem => cartItem.id === product.id)}
+            />
           ))}
         </StyledProductList>
       </StyledProductListPage>
