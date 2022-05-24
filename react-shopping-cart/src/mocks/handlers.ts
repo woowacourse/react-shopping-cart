@@ -20,15 +20,18 @@ export const handlers = [
     async (req, res, ctx) => {
       const pageQuery = req.url.searchParams.get("_page");
       const limitQuery = req.url.searchParams.get("_limit");
+
       if (pageQuery && limitQuery) {
         const initialPageId: number =
           Number(limitQuery) * (Number(pageQuery) - 1);
         const endPageId: number = initialPageId + Number(limitQuery);
+
         return res(
           ctx.status(200),
           ctx.json(PRODUCT_MOCK_DATA.slice(initialPageId, endPageId))
         );
       }
+
       return res(ctx.status(401));
     }
   ),
@@ -56,6 +59,7 @@ export const handlers = [
 
       carts = [...carts, product];
       localStorage.setItem("mock-carts", JSON.stringify(carts));
+
       return res(ctx.status(200), ctx.json(product));
     }
   ),
@@ -73,6 +77,7 @@ export const handlers = [
       if (typeof deletedCartItem !== "undefined") {
         return res(ctx.status(200), ctx.json(deletedCartItem));
       }
+
       return res(ctx.status(401));
     }
   ),
@@ -85,8 +90,10 @@ export const handlers = [
     `${API_URL}/orders`,
     async (req, res, ctx) => {
       const orderItem = req.body;
+
       orders = [...orders, orderItem];
       localStorage.setItem("mock-orders", JSON.stringify(orders));
+
       return res(ctx.status(200), ctx.json(orderItem));
     }
   ),
@@ -98,11 +105,14 @@ export const handlers = [
       const deletedOrderItem: CartItem | undefined = orders.find(
         (order) => order.id === id
       );
+
       orders = orders.filter((order) => order.id !== id);
       localStorage.setItem("mock-orders", JSON.stringify(orders));
+
       if (typeof deletedOrderItem !== "undefined") {
         return res(ctx.status(200), ctx.json(deletedOrderItem));
       }
+
       return res(ctx.status(401));
     }
   ),
