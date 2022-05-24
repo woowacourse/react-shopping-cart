@@ -21,9 +21,6 @@ const Cart = () => {
     selectedItemList,
     handleToggleSelectAll,
     handleToggleSelect,
-    handleDeleteSelectedItem,
-    handleDeleteItem,
-    handleUpdateItemQuantity,
   } = useCartPage();
 
   return (
@@ -41,7 +38,6 @@ const Cart = () => {
             onToggleSelect={handleToggleSelectAll(
               selectedItemList.length === cartItems?.length,
             )}
-            onClickDeleteButton={handleDeleteSelectedItem}
           />
 
           <CartContainer>
@@ -56,8 +52,6 @@ const Cart = () => {
                   quantity={quantity}
                   isSelected={isInList(selectedItemList, id)}
                   onToggleSelect={handleToggleSelect(id)}
-                  onChangeQuantity={handleUpdateItemQuantity(id)}
-                  onDeleteItem={handleDeleteItem(id)}
                 />
               ))}
           </CartContainer>

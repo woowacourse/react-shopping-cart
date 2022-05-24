@@ -5,6 +5,7 @@ import { parsePrice } from 'utils';
 import { MESSAGE } from 'constants';
 import smallTrashBin from 'assets/svg/smallTrashbin.svg';
 import CheckBox from 'components/CheckBox/CheckBox';
+import useCart from 'hooks/useCart';
 
 const CartItem = ({
   id,
@@ -14,14 +15,13 @@ const CartItem = ({
   quantity,
   isSelected,
   onToggleSelect,
-  onChangeQuantity,
-  onDeleteItem,
 }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
+  const { updateItemQuantity, deleteItem } = useCart();
 
   useEffect(() => {
     if (quantity !== itemQuantity) {
-      onChangeQuantity(itemQuantity);
+      updateItemQuantity(id, itemQuantity);
     }
   }, [itemQuantity]);
 
@@ -37,6 +37,10 @@ const CartItem = ({
     setItemQuantity((prevQuantity) => prevQuantity - 1);
   };
 
+  const handleDeleteItem = (id) => () => {
+    deleteItem(id);
+  };
+
   return (
     <Styled.Wrapper>
       <Styled.ProductPreview>
@@ -45,7 +49,7 @@ const CartItem = ({
         <Styled.Name>{name}</Styled.Name>
       </Styled.ProductPreview>
       <Styled.ProductInfo>
-        <Styled.DeleteButton onClick={onDeleteItem}>
+        <Styled.DeleteButton onClick={handleDeleteItem(id)}>
           <Styled.TrashBinSvg src={smallTrashBin} alt="상품 삭제 버튼" />
         </Styled.DeleteButton>
         <Styled.Quantity>

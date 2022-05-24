@@ -3,8 +3,7 @@ import { isInList } from 'utils';
 import { useMemo, useState } from 'react';
 
 const useCartPage = () => {
-  const { isLoading, isError, cartItems, deleteItem, updateItemQuantity } =
-    useCart();
+  const { isLoading, isError, cartItems, deleteItem } = useCart();
 
   const [selectedItemList, setSelectedItemList] = useState([]);
 
@@ -42,14 +41,6 @@ const useCartPage = () => {
     setSelectedItemList([]);
   };
 
-  const handleDeleteItem = (id) => () => {
-    deleteItem(id);
-  };
-
-  const handleUpdateItemQuantity = (id) => (quantity) => {
-    updateItemQuantity(id, quantity);
-  };
-
   return {
     isLoading,
     isError,
@@ -59,8 +50,6 @@ const useCartPage = () => {
     handleToggleSelectAll,
     handleToggleSelect,
     handleDeleteSelectedItem,
-    handleDeleteItem,
-    handleUpdateItemQuantity,
   };
 };
 
