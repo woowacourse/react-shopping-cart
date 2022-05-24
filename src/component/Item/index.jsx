@@ -26,7 +26,7 @@ export default function Item({productInfo}) {
 
   const handleIconClick = ({image, name, price, id}, isInCart) => {
     if (isInCart) {
-      deleteCartItem(Number(id));
+      deleteCartItem(Number.parseInt(id));
       return;
     }
 
@@ -34,7 +34,7 @@ export default function Item({productInfo}) {
       image,
       name,
       price,
-      id: Number(id),
+      id: Number.parseInt(id),
       quantity: 1,
     });
   };

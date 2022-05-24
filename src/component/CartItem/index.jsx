@@ -23,7 +23,7 @@ export default function CartItem({cartInfo, initialChecked = false}) {
     <S.CartItemLayout>
       <CheckBox
         initialChecked={initialChecked}
-        productId={Number(id)}
+        productId={Number.parseInt(id)}
         handleCheckedTrue={addSelectedItem}
         handleCheckedFalse={deleteSelectedItem}
       />

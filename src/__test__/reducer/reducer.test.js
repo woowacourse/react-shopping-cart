@@ -46,7 +46,7 @@ describe('action에 따른 reducer의 동작을 확인한다.', () => {
     };
     const productId = initialCartItem.cart[0].id;
     const expectedCart = [
-      {...initialCartItem.cart[0], quantity: Number(initialCartItem.cart[0].quantity) + 1},
+      {...initialCartItem.cart[0], quantity: Number.parseInt(initialCartItem.cart[0].quantity) + 1},
     ];
 
     expect(

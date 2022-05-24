@@ -17,14 +17,14 @@ export default function DetailItem({productInfo}) {
 
   const {image, name, price, id} = productInfo;
 
-  const isInCart = cartItem.some((item) => item.id === Number(id));
+  const isInCart = cartItem.some((item) => item.id === Number.parseInt(id));
 
   const handleCartButtonClick = () => {
     const cartInfo = {
       image,
       name,
       price,
-      id: Number(id),
+      id: Number.parseInt(id),
       quantity: 1,
     };
 
