@@ -23,7 +23,7 @@ export const cartHanlders = [
       params: { productId },
     } = req;
 
-    cartList.current = cartList.current.filter(cart => productId !== cart.id);
+    cartList.current = cartList.current.filter(cart => Number(productId) !== cart.id);
 
     return res(ctx.json());
   }),
@@ -35,11 +35,13 @@ export const cartHanlders = [
     } = req;
 
     cartList.current = cartList.current.map(cart => {
-      if (cart.id === productId) {
+      if (cart.id === Number(productId)) {
         return newCartProduct;
       }
       return cart;
     });
+
+    console.log(cartList.current);
 
     return res(ctx.json());
   }),
