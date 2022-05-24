@@ -2,6 +2,7 @@ import useReduxState from 'hooks/useReduxState';
 import { getCartItemAsync } from 'reducers/cart/cart.thunk';
 import { setCart } from 'reducers/cart/cart.actions';
 import { useEffect } from 'react';
+import { METHOD } from 'constants';
 import useFetch from 'hooks/useFetch';
 
 const useCart = () => {
@@ -11,19 +12,19 @@ const useCart = () => {
   } = useReduxState('cart');
 
   const { fetchApi: deleteItemApi } = useFetch({
-    method: 'delete',
+    method: METHOD.DELETE,
     url: '/cart',
     handler: (data) => dispatch(setCart(data)),
   });
 
   const { fetchApi: updateItemApi } = useFetch({
-    method: 'put',
+    method: METHOD.PUT,
     url: '/cart',
     handler: (data) => dispatch(setCart(data)),
   });
 
   const { fetchApi: addItemApi } = useFetch({
-    method: 'post',
+    method: METHOD.POST,
     url: '/cart',
     handler: (data) => dispatch(setCart(data)),
   });

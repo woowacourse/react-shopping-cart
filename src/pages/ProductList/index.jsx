@@ -6,6 +6,7 @@ import Skeleton from 'components/Skeleton/Skeleton';
 import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useFetch from 'hooks/useFetch';
 import useCart from 'hooks/useCart';
+import { METHOD } from 'constants';
 import { useEffect } from 'react';
 
 const ProductList = () => {
@@ -15,7 +16,7 @@ const ProductList = () => {
     data: products,
     fetchApi,
   } = useFetch({
-    method: 'get',
+    method: METHOD.GET,
     url: '/products',
   });
 

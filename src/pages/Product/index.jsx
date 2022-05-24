@@ -6,6 +6,7 @@ import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
 import useCart from 'hooks/useCart';
 import { useParams } from 'react-router-dom';
 import useFetch from 'hooks/useFetch';
+import { METHOD } from 'constants';
 import { useEffect } from 'react';
 
 const Product = () => {
@@ -16,7 +17,7 @@ const Product = () => {
     data: product,
     fetchApi,
   } = useFetch({
-    method: 'get',
+    method: METHOD.GET,
     url: `/products/${id}`,
   });
 
