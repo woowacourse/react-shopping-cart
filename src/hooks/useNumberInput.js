@@ -5,21 +5,17 @@ export const useNumberInput = ({ initialValue, min, max, step }) => {
 
   const handleInputChange = ({ target }) => {
     const targetValue = Number(target.value);
-    if (targetValue % step !== 0) return;
-    if (targetValue > max) {
-      setValue(max);
-      return;
-    }
-    if (targetValue < min) {
-      setValue(min);
-      return;
-    }
-    setValue(targetValue);
+
+    if (Number.isInteger(targetValue)) return;
+
+    const newValue = Math.max(Math.min(targetValue, max), min);
+    setValue(newValue);
   };
 
   const handleIncreaseButtonClick = () => {
     setValue((prevValue) => {
       const newValue = prevValue + step;
+
       if (newValue > max) return prevValue;
       return newValue;
     });
@@ -28,6 +24,7 @@ export const useNumberInput = ({ initialValue, min, max, step }) => {
   const handleDecreaseButtonClick = () => {
     setValue((prevValue) => {
       const newValue = prevValue - step;
+
       if (newValue < min) return prevValue;
       return newValue;
     });
