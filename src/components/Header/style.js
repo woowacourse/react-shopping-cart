@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Styled = {
   Wrapper: styled.header`
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 80px;
     background: ${({ theme }) => theme.COLOR.RED_300};
     box-shadow: 0px 4px 4px rgb(0 0 0 / 30%);
