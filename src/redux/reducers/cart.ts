@@ -1,6 +1,6 @@
 import { CartAction, CartStoreState } from 'types/index';
 
-import { cartTypes } from 'redux/actions/actions';
+import { cartTypes } from 'redux/actions';
 import isProductInCart from 'utils/validator';
 
 const initialState: CartStoreState = {

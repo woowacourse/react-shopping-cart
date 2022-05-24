@@ -3,7 +3,7 @@ import Link from 'components/@shared/Link';
 import PATH from 'constants/path';
 import { Product } from 'types/index';
 import ShoppingCart from 'components/@shared/ShoppingCart';
-import { cartActions } from 'redux/actions/actions';
+import { cartActions } from 'redux/actions';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 

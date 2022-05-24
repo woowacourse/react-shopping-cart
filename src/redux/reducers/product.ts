@@ -1,7 +1,7 @@
 import { ProductAction, ProductStoreState } from 'types/index';
 
 import CONDITION from 'constants/condition';
-import { productTypes } from 'redux/actions/actions';
+import { productTypes } from 'redux/actions';
 
 const initialState: ProductStoreState = {
   condition: CONDITION.NONE,

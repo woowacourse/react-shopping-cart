@@ -1,5 +1,5 @@
 import CONDITION from 'constants/condition';
-import { productTypes } from 'redux/actions/actions';
+import { productTypes } from 'redux/actions';
 
 export type Product = {
   id: number;

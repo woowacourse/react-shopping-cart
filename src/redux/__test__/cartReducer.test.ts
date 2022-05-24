@@ -1,6 +1,6 @@
 import { CartStoreState, Product } from 'types/index';
 
-import { cartActions } from '../actions/actions';
+import { cartActions } from '../actions';
 import cartReducer from '../reducers/cart';
 import db from 'db.json';
 

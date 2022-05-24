@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import PATH from 'constants/path';
 import { Product } from 'types/index';
 import axios from 'configs/api';
-import { productActions } from 'redux/actions/actions';
+import { productActions } from 'redux/actions';
 
 const getProducts = (dispatch: Dispatch) => {
   dispatch(productActions.getProductList());

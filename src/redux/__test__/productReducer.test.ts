@@ -1,7 +1,7 @@
 import CONDITION from 'constants/condition';
 import { ProductStoreState } from 'types/index';
 import db from 'db.json';
-import { productActions } from 'redux/actions/actions';
+import { productActions } from 'redux/actions';
 import productReducer from '../reducers/product';
 
 const initialState: ProductStoreState = {

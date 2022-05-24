@@ -1,5 +1,5 @@
 import { Product } from './product';
-import { cartTypes } from 'redux/actions/actions';
+import { cartTypes } from 'redux/actions';
 
 export type Cart = {
   id: Product['id'];

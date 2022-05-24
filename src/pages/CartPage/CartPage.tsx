@@ -7,7 +7,7 @@ import CartItem from 'components/CartItem/CartItem';
 import CheckBox from 'components/@shared/CheckBox';
 import PATH from 'constants/path';
 import axios from 'configs/api';
-import { cartActions } from 'redux/actions/actions';
+import { cartActions } from 'redux/actions';
 import styled from 'styled-components';
 
 function CartPage() {
