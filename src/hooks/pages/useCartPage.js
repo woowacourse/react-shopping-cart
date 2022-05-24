@@ -3,7 +3,7 @@ import { isInList } from 'utils';
 import { useMemo, useState } from 'react';
 
 const useCartPage = () => {
-  const { isLoading, isError, cartItems, deleteItem } = useCart();
+  const { isLoading, isError, cartItems, deleteItems } = useCart();
 
   const [selectedItemList, setSelectedItemList] = useState([]);
 
@@ -35,9 +35,7 @@ const useCartPage = () => {
   };
 
   const handleDeleteSelectedItem = () => {
-    if (selectedItemList.length === 0) return;
-
-    selectedItemList.forEach((id) => deleteItem(id));
+    deleteItems(selectedItemList);
     setSelectedItemList([]);
   };
 
