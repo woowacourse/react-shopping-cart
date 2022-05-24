@@ -1,7 +1,7 @@
 import {
-  fetchCartItemList,
-  fetchProductDetail,
-  fetchProductList,
+  requestGetCartItemList,
+  requestGetProductDetail,
+  requestGetProductList,
   requestDeleteCartItem,
   requestPostCartItem,
 } from "../apiRequest";
@@ -84,7 +84,7 @@ export const getProductList = () => async (dispatch, getState) => {
   dispatch(actionsCreator.getProductList());
 
   try {
-    const fetchedProductList = await fetchProductList();
+    const fetchedProductList = await requestGetProductList();
     dispatch(actionsCreator.getProductListSuccess(fetchedProductList));
   } catch (err) {
     dispatch(actionsCreator.getProductListError(err.message));
@@ -95,7 +95,7 @@ export const getProductDetail = (id) => async (dispatch, getState) => {
   dispatch(actionsCreator.getProductDetail());
 
   try {
-    const fetchedProductDetail = await fetchProductDetail(id);
+    const fetchedProductDetail = await requestGetProductDetail(id);
     dispatch(actionsCreator.getProductDetailSuccess(fetchedProductDetail));
   } catch (err) {
     dispatch(actionsCreator.getProductDetailError(err.message));
@@ -106,7 +106,7 @@ export const getCartItemList = () => async (dispatch, getState) => {
   dispatch(actionsCreator.getCartItemList());
 
   try {
-    const fetchedCartItemList = await fetchCartItemList();
+    const fetchedCartItemList = await requestGetCartItemList();
     dispatch(actionsCreator.getCartItemListSuccess(fetchedCartItemList));
   } catch (err) {
     dispatch(actionsCreator.getCartItemListError(err.message));
