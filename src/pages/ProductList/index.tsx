@@ -19,13 +19,11 @@ function ProductList() {
 
   useEffect(() => {
     dispatch(productsActions.loadProductsAPI());
-  }, [dispatch]);
+  }, []);
 
-  useEffect(() => {
-    if (error) {
-      alert(error.message);
-    }
-  }, [error]);
+  if (error) {
+    alert(error.message);
+  }
 
   if (loading) {
     return <Loader />;
