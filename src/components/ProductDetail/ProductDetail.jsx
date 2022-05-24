@@ -11,7 +11,7 @@ import { API_PATH } from 'constants/path';
 const ProductDetail = ({ name, price, imgUrl }) => {
   const { cartList, getCartList } = useGetCartList();
   const id = +useParams().id;
-  const { callPostApi, isError } = usePost(API_PATH.CART_LIST, {
+  const { callPostApi: postCartList, isError } = usePost(API_PATH.CART_LIST, {
     id,
     cartQuantity: 1,
   });
@@ -20,7 +20,7 @@ const ProductDetail = ({ name, price, imgUrl }) => {
   const [isCartPopupShow, setIsCartPopupShow] = useState(false);
 
   const handleClickCart = async () => {
-    await callPostApi();
+    await postCartList();
     await getCartList();
     setIsCartPopupShow(true);
 

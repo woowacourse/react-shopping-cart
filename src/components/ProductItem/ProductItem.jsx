@@ -8,7 +8,7 @@ import useGetCartList from 'hooks/useGetCartList';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
-  const { callPostApi } = usePost(API_PATH.CART_LIST, {
+  const { callPostApi: postCartList } = usePost(API_PATH.CART_LIST, {
     id,
     cartQuantity: 1,
   });
@@ -20,7 +20,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
   };
 
   const handleClickCart = async () => {
-    await callPostApi();
+    await postCartList();
     await getCartList();
   };
 
