@@ -13,8 +13,16 @@ import { API_PATH } from 'constants/path';
 
 const Cart = () => {
   const [checkedIdList, setCheckedIdList] = useState([]);
-  const [checkedItemList, setCheckedItemList] = useState([]);
-  const [totalPrice, setTotalPrice] = useState();
+  const { cartList, isCartListLoading, isCartListError } = useGetCartList();
+
+  const checkedItemList = cartList.filter(
+    (item) =>
+      checkedIdList.findIndex((checkedId) => item.id === checkedId) !== -1,
+  );
+
+  const totalPrice = checkedItemList.reduce((acc, cur) => {
+    return acc + Number(cur.price * cur.cartQuantity);
+  }, 0);
 
   const { callPostApi: postOrderList } = usePost(
     API_PATH.ORDER_LIST,
@@ -22,24 +30,10 @@ const Cart = () => {
   );
   const { getOrderList } = useGetOrderList();
 
-  const { cartList, isCartListLoading, isCartListError } = useGetCartList();
-
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);
     setCheckedIdList(initialIdList);
   }, [cartList]);
-
-  useEffect(() => {
-    const newCheckedItemList = cartList.filter(
-      (item) =>
-        checkedIdList.findIndex((checkedId) => item.id === checkedId) !== -1,
-    );
-    const totalPrice = newCheckedItemList.reduce((acc, cur) => {
-      return acc + Number(cur.price * cur.cartQuantity);
-    }, 0);
-    setCheckedItemList(newCheckedItemList);
-    setTotalPrice(totalPrice);
-  }, [checkedIdList]);
 
   const handleClickOrder = () => {
     postOrderList();
