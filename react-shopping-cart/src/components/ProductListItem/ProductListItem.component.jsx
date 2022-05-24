@@ -60,7 +60,7 @@ function ProductListItem({ id, thumbnail, name, price }) {
       <TextBox className="product-price" fontSize="medium">
         {price.toLocaleString()}원
       </TextBox>
-      <ShoppingCart style={{ cursor: 'pointer' }} onClick={onClick} />
+      <ShoppingCart role="button" style={{ cursor: 'pointer' }} onClick={onClick} />
     </ItemContainer>
   );
 }

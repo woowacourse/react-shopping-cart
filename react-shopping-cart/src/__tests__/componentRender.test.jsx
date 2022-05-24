@@ -1,5 +1,3 @@
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import { ThemeProvider } from 'styled-components';
 
 import { render, screen } from '@testing-library/react';
@@ -7,27 +5,35 @@ import { render, screen } from '@testing-library/react';
 import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import ShoppingCartListItem from 'components/ShoppingCartListItem/ShoppingCartListItem.component';
 
-import rootReducer from 'redux/reducers';
-
-import GlobalStyle from 'styles/GlobalStyle';
 import theme from 'styles/theme';
 
-const store = createStore(rootReducer);
+const mockDispatch = jest.fn();
+
+const shoppingCart = [
+  { id: 1, quantity: 3 },
+  { id: 2, quantity: 5 },
+];
+
+const orderList = [1];
+
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+  useSelector: selector =>
+    selector({
+      shoppingCart: [...shoppingCart],
+      orderList: [...orderList],
+    }),
+}));
 
 function MockProvider({ children }) {
-  return (
-    <Provider store={store}>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </Provider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
 
 const product = {
   id: 1,
-  thumbnail: 'https://cdn-mart.baemin.com/sellergoods/bulk/20220502-173334/12619-main-01.jpg',
-  name: '[든든] 전지베이컨 500g',
-  price: 6390,
+  thumbnail: 'test1thumnail',
+  name: 'testName1',
+  price: 1000,
   quantity: 3,
 };
 
