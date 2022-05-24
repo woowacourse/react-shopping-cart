@@ -18,30 +18,27 @@ function CartPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // 초기에 API 요청을 통해 상품 정보를 받아오는 부분
-    if (cartItems.length <= 0) {
-      getCartProductsInfo().forEach((cartInfo) => {
-        cartInfo.then((info) =>
-          setCartItems((prevState) => [...prevState, info])
-        );
+    Promise.all(getCartProductsInfo()).then((cartInfoArr) => {
+      cartInfoArr.forEach((cartInfo) => {
+        setCartItems((prevState) => [...prevState, cartInfo]);
       });
-
-      return;
-    }
-
-    // 체크 여부나 개수가 바뀔 경우 업데이트하는 부분
-    setCartItems([]);
-
-    cart.forEach(({ id, stock, checked }) => {
-      const item = cartItems.find((cartItem) => cartItem.product.id === id);
-
-      if (item === undefined) return;
-
-      setCartItems((prevState: Array<CartProductState>) => [
-        ...prevState,
-        { product: item.product, stock, checked },
-      ]);
     });
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (cartItems.length <= 0) return;
+
+    setCartItems(
+      cart.map(({ id, stock, checked }) => {
+        const item = cartItems.find(
+          ({ product }) => product.id === id
+        ) as CartProductState;
+
+        return { product: item.product, stock, checked };
+      })
+    );
+    // eslint-disable-next-line
   }, [cart]);
 
   const getCartProductsInfo = () => {
