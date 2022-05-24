@@ -39,9 +39,12 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
   };
 
   const handleClickDeleteAllButton = async () => {
-    await checkedIdList.forEach((targetId) => {
-      callDeleteApi(targetId);
-    });
+    await Promise.all(
+      checkedIdList.map((targetId) => {
+        return callDeleteApi(targetId);
+      }),
+    );
+
     await getCartList();
   };
 
