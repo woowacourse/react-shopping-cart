@@ -3,34 +3,34 @@ import styled from 'styled-components';
 import Button from 'components/base/button/Button';
 import StyledText from 'components/base/text/style';
 
-const ShoppingCartItemContainer = styled.div`
+export const ShoppingCartItemContainer = styled.div`
   display: flex;
   align-items: flex-start;
 `;
 
-const ShoppingCartItemBox = styled.div`
+export const ShoppingCartItemBox = styled.div`
   display: flex;
   width: 90%;
 `;
 
-const ShoppingCartItemName = styled(StyledText)`
+export const ShoppingCartItemName = styled(StyledText)`
   padding: 10px;
   width: 280px;
 `;
 
-const ShoppingCartItemSidebar = styled.div`
+export const ShoppingCartItemSidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 `;
 
-const ShoppingCartItemQuantitybar = styled.div`
+export const ShoppingCartItemQuantitybar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-const ShoppingCartItemQuantityDisplay = styled.div`
+export const ShoppingCartItemQuantityDisplay = styled.div`
   color: black;
   width: 50px;
   height: 47px;
@@ -40,23 +40,12 @@ const ShoppingCartItemQuantityDisplay = styled.div`
   align-items: center;
 `;
 
-const ShoppingCartItemQuantityButton = styled(Button)`
+export const ShoppingCartItemQuantityButton = styled(Button)`
   color: black;
   border: 1px solid #dddddd;
   padding: 3px 10px;
 `;
 
-const ShoppingCartItemTotalPrice = styled.p`
+export const ShoppingCartItemTotalPrice = styled.p`
   margin-top: 20px;
 `;
-
-export {
-  ShoppingCartItemContainer,
-  ShoppingCartItemBox,
-  ShoppingCartItemName,
-  ShoppingCartItemSidebar,
-  ShoppingCartItemQuantitybar,
-  ShoppingCartItemQuantityButton,
-  ShoppingCartItemQuantityDisplay,
-  ShoppingCartItemTotalPrice,
-};

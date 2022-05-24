@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import CartIcon from 'components/base/cartIcon/CartIcon';
-import { BaseHeader } from 'components/base/header/style';
+import BaseHeader from 'components/base/header/style';
 
 import { color } from 'constants/constants';
 
-const StyledHeader = styled(BaseHeader)`
+export const StyledHeader = styled(BaseHeader)`
   justify-content: space-around;
   background-color: ${color.mint};
   position: fixed;
@@ -13,12 +13,10 @@ const StyledHeader = styled(BaseHeader)`
   z-index: 500;
 `;
 
-const StyledHeaderCartIcon = styled(CartIcon)`
+export const StyledHeaderCartIcon = styled(CartIcon)`
   path {
     fill: white;
   }
   width: 49px;
   height: 39px;
 `;
-
-export { StyledHeader, StyledHeaderCartIcon };

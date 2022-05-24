@@ -1,4 +1,4 @@
-import { BaseHeader } from './style';
+import BaseHeader from './style';
 
 const Header = ({ left, right, ...rest }) => {
   return (

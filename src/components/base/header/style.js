@@ -9,4 +9,4 @@ const BaseHeader = styled.header`
   margin-bottom: 20px;
 `;
 
-export { BaseHeader };
+export default BaseHeader;
