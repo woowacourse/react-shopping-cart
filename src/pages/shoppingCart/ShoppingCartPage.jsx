@@ -13,7 +13,7 @@ import {
   getShoppingCartList,
   putShoppingCartItem,
   deleteShoppingCartItem,
-} from 'modules/shoppingCarts';
+} from 'middlewares/shoppingCarts';
 
 import {
   ContentWrapper,

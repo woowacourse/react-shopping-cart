@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { putShoppingCartItem, deleteShoppingCartItem } from 'modules/shoppingCarts';
+import { putShoppingCartItem, deleteShoppingCartItem } from 'middlewares/shoppingCarts';
 
 import CheckBox from 'components/base/checkBox/CheckBox';
 import Image from 'components/base/image/Image';

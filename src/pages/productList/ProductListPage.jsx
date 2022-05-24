@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 
 import ProductItem from 'components/productItem/ProductItem';
 
-import { getProductList } from 'modules/products';
-import { getShoppingCartList } from 'modules/shoppingCarts';
+import { getProductList } from 'middlewares/products';
+import { getShoppingCartList } from 'middlewares/shoppingCarts';
 
 import { StyledProductListPage, StyledProductList } from 'pages/productList/style';
 import { getSkeletonList } from 'components/productItem/Skeleton';
