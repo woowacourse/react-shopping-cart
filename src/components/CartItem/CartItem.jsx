@@ -30,11 +30,12 @@ const CartItem = ({
   };
 
   const handleDecrementQuantity = () => {
-    if (itemQuantity === 1) {
-      alert(MESSAGE.MINIMUM_CART_LENGTH);
-      return;
+    try {
+      if (itemQuantity === 1) throw new Error(MESSAGE.MINIMUM_CART_LENGTH);
+      setItemQuantity((prevQuantity) => prevQuantity - 1);
+    } catch (error) {
+      alert(error.message);
     }
-    setItemQuantity((prevQuantity) => prevQuantity - 1);
   };
 
   const handleDeleteItem = (id) => () => {
