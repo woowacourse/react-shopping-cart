@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ShoppingCartPage from "../ShoppingCartPage";
-import MockTheme from "testMock/index";
+import MockTheme from "testMock";
 
 const { useSelector } = require("react-redux");
 

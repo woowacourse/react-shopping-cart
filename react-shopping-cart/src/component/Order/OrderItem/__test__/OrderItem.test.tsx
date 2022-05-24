@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import OrderItem from "../OrderItem";
 import "@testing-library/jest-dom";
-import MockTheme from "testMock/index";
+import MockTheme from "testMock";
 
 describe("OrderItem 컴포넌트를 불러낼수 있다.", () => {
   test("OrderItem은 상품이름, 수량, 썸네일을 렌더해야한다.", () => {
