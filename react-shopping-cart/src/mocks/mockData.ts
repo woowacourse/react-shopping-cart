@@ -1,4 +1,4 @@
-import { CartItem, Product } from "type";
+import { Product } from "type";
 
 export const PRODUCT_MOCK_DATA: Product[] = [
   {
@@ -422,5 +422,3 @@ export const PRODUCT_MOCK_DATA: Product[] = [
     price: 4800,
   },
 ];
-
-export const CART_MOCK_DATA: Omit<CartItem, "quantity">[] = [];
