@@ -5,8 +5,8 @@ import { API_SERVER } from "../constants";
 
 const { BASE_URL, PATH } = API_SERVER;
 
-const productListUrl = `${BASE_URL}${PATH.PRODUCT_LIST}`;
-const productDetailUrl = `${BASE_URL}${PATH.PRODUCT_LIST}/:productId`;
+const productListUrl = `${BASE_URL}${PATH.PRODUCTS}`;
+const productDetailUrl = `${BASE_URL}${PATH.PRODUCTS}/:productId`;
 const cartUrl = `${BASE_URL}${PATH.CART}`;
 
 export const handlers = [
@@ -21,16 +21,24 @@ export const handlers = [
       (product) => product.id === Number(productId)
     );
 
+    if (!product) {
+      return res(ctx.status(404));
+    }
+
     return res(ctx.json(product));
   }),
 
   rest.get(cartUrl, (req, res, ctx) => {
-    const cartItemList = mockData.cart.map((cartItem) => {
-      const cartItemDetail = mockData.products.find(
-        (product) => product.id === Number(cartItem.id)
-      );
-      return { ...cartItemDetail, quantity: cartItem.quantity };
-    });
+    const cartItemList = mockData.cart
+      .map((cartItem) => {
+        const detailCartItem = mockData.products.find(
+          (product) => product.id === Number(cartItem.id)
+        );
+
+        if (!detailCartItem) return undefined;
+        return { ...detailCartItem, quantity: cartItem.quantity };
+      })
+      .filter((detailCartItem) => detailCartItem !== undefined);
 
     return res(ctx.json(cartItemList));
   }),
@@ -53,12 +61,16 @@ export const handlers = [
     });
     mockData.cart = newCart;
 
-    const detailCartItemList = mockData.cart.map((cartItem) => {
-      const cartItemDetail = mockData.products.find(
-        (product) => product.id === Number(cartItem.id)
-      );
-      return { ...cartItemDetail, quantity: cartItem.quantity };
-    });
+    const detailCartItemList = mockData.cart
+      .map((cartItem) => {
+        const detailCartItem = mockData.products.find(
+          (product) => product.id === Number(cartItem.id)
+        );
+
+        if (!detailCartItem) return undefined;
+        return { ...detailCartItem, quantity: cartItem.quantity };
+      })
+      .filter((detailCartItem) => detailCartItem !== undefined);
 
     return res(ctx.json(detailCartItemList));
   }),
@@ -71,12 +83,16 @@ export const handlers = [
     });
     mockData.cart = cartItemList;
 
-    const detailCartItemList = cartItemList.map((cartItem) => {
-      const cartItemDetail = mockData.products.find(
-        (product) => product.id === Number(cartItem.id)
-      );
-      return { ...cartItemDetail, quantity: cartItem.quantity };
-    });
+    const detailCartItemList = cartItemList
+      .map((cartItem) => {
+        const detailCartItem = mockData.products.find(
+          (product) => product.id === Number(cartItem.id)
+        );
+
+        if (!detailCartItem) return undefined;
+        return { ...detailCartItem, quantity: cartItem.quantity };
+      })
+      .filter((detailCartItem) => detailCartItem !== undefined);
 
     return res(ctx.json(detailCartItemList));
   }),
