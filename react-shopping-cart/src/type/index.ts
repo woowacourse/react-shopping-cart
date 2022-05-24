@@ -16,5 +16,3 @@ export interface CartItem extends ProductInfo {
 }
 
 export type CheckedIdList = string[];
-
-export type Carts = CartItem[];

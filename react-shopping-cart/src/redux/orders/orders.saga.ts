@@ -12,11 +12,11 @@ import {
   fetchOrdersError,
   fetchOrdersSuccess,
 } from "./orders.action";
-import { Carts } from "type";
+import { CartItem } from "type";
 
 export function* getOrderItems(): SagaIterator<void> {
   try {
-    const data: Carts = yield call(fetchOrderItems);
+    const data: CartItem[] = yield call(fetchOrderItems);
     yield put(fetchOrdersSuccess(data));
   } catch (err) {
     if (err instanceof Error) {

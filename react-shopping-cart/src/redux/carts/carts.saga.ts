@@ -14,12 +14,12 @@ import {
   fetchCartsError,
   fetchCartsSuccess,
 } from "redux/carts/carts.action";
-import { CartItem, Carts } from "type";
+import { CartItem } from "type";
 import { SagaIterator } from "redux-saga";
 
 export function* getCarts(): SagaIterator<void> {
   try {
-    const data: Carts = yield call(fetchCarts);
+    const data: CartItem[] = yield call(fetchCarts);
     yield put(fetchCartsSuccess(data));
   } catch (err) {
     if (err instanceof Error) {

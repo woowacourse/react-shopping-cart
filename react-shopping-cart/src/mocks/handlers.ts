@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { API_URL } from "constants/index";
-import { CartItem, Carts, Product } from "type";
+import { CartItem, Product } from "type";
 import { PRODUCT_MOCK_DATA } from "./mockData";
 
 type PathParams = Record<string, string | ReadonlyArray<string>>;
@@ -12,7 +12,7 @@ const mockCarts = localStorage.getItem("mock-carts");
 const mockOrders = localStorage.getItem("mock-orders");
 let carts: Omit<CartItem, "quantity">[] =
   (mockCarts && JSON.parse(mockCarts)) ?? [];
-let orders: Carts = (mockOrders && JSON.parse(mockOrders)) ?? [];
+let orders: CartItem[] = (mockOrders && JSON.parse(mockOrders)) ?? [];
 
 export const handlers = [
   rest.get<never, never, Product[]>(
@@ -82,9 +82,12 @@ export const handlers = [
     }
   ),
 
-  rest.get<never, never, Carts>(`${API_URL}/orders`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(orders));
-  }),
+  rest.get<never, never, CartItem[]>(
+    `${API_URL}/orders`,
+    async (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(orders));
+    }
+  ),
 
   rest.post<CartItem, never, CartItem>(
     `${API_URL}/orders`,

@@ -1,10 +1,10 @@
-import { Carts } from "type";
+import { CartItem } from "type";
 import { OrdersAction } from "./orders.action";
 import ordersActionTypes from "./orders.types";
 
 interface OrderState {
   loading: boolean;
-  orders: Carts;
+  orders: CartItem[];
   error: Error | null;
 }
 

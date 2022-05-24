@@ -1,11 +1,11 @@
-import { Carts } from "type";
+import { CartItem } from "type";
 import ordersActionTypes from "./orders.types";
 
 export const fetchOrdersStart = () => ({
   type: ordersActionTypes.fetchOrdersStart,
 });
 
-export const fetchOrdersSuccess = (orders: Carts) => ({
+export const fetchOrdersSuccess = (orders: CartItem[]) => ({
   type: ordersActionTypes.fetchOrderSuccess,
   payload: orders,
 });
@@ -15,12 +15,12 @@ export const fetchOrdersError = (error: Error) => ({
   payload: error,
 });
 
-export const addOrderStart = (orderItems: Carts) => ({
+export const addOrderStart = (orderItems: CartItem[]) => ({
   type: ordersActionTypes.addOrderStart,
   payload: orderItems,
 });
 
-export const addOrderSuccess = (orderItems: Carts) => ({
+export const addOrderSuccess = (orderItems: CartItem[]) => ({
   type: ordersActionTypes.addOrderSuccess,
   payload: orderItems,
 });

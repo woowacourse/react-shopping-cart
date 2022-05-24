@@ -1,9 +1,9 @@
 import ShoppingCartItem from "component/ShoppingCart/ShoppingCartItem/ShoppingCartItem";
 
 import { ColumnFlexWrapper } from "styles/Wrapper";
-import { Carts } from "type";
+import { CartItem } from "type";
 
-function ShoppingCartItemsContainer({ carts }: { carts: Carts }) {
+function ShoppingCartItemsContainer({ carts }: { carts: CartItem[] }) {
   return (
     <ColumnFlexWrapper>
       {carts.map(({ id, name, thumbnail, price, checked }) => (

@@ -1,11 +1,11 @@
 import { CURRENT_USER } from "constants/index";
 import cartsActionTypes from "redux/carts/carts.types";
-import { CartItem, Carts } from "type/index";
+import { CartItem } from "type/index";
 import { CartsAction } from "./carts.action";
 
 interface CartState {
   loading: boolean;
-  carts: Carts;
+  carts: CartItem[];
   error: Error | null;
   allChecked: boolean;
 }

@@ -1,11 +1,11 @@
 import cartsActionTypes from "redux/carts/carts.types";
-import { CartItem, Carts, CheckedIdList } from "type";
+import { CartItem, CheckedIdList } from "type";
 
 export const fetchCartsStart = () => ({
   type: cartsActionTypes.fetchCartsStart,
 });
 
-export const fetchCartsSuccess = (carts: Carts) => ({
+export const fetchCartsSuccess = (carts: CartItem[]) => ({
   type: cartsActionTypes.fetchCartsSuccess,
   payload: carts,
 });

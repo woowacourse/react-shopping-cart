@@ -1,6 +1,6 @@
 import ShoppingCartItemsContainer from "component/ShoppingCart/ShoppingCartItemsContainer/ShoppingCartItemsContainer";
 import { Meta, Story } from "@storybook/react";
-import { Carts } from "type";
+import { CartItem } from "type";
 
 export default {
   title: "ShoppingCartItemsContainer",
@@ -8,7 +8,7 @@ export default {
 } as Meta;
 
 interface CartProps {
-  carts: Carts;
+  carts: CartItem[];
 }
 
 export const DefaultShoppingCartItemsContainer: Story<CartProps> = (args) => (

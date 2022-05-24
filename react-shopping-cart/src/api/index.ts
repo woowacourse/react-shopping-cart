@@ -1,4 +1,4 @@
-import { CartItem, Carts } from "type";
+import { CartItem } from "type";
 import { API_URL } from "../constants";
 
 export const fetchProducts = async (id: number) => {
@@ -17,13 +17,13 @@ export const fetchDetailProduct = async (id: number) => {
   return await res.json();
 };
 
-export const fetchCarts = async (): Promise<Carts> => {
+export const fetchCarts = async (): Promise<CartItem[]> => {
   const res = await fetch(`${API_URL}/carts`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
   }
 
-  const data: Carts = await res.json();
+  const data: CartItem[] = await res.json();
   return data;
 };
 
@@ -58,12 +58,12 @@ export const deleteProductFromCart = async (id: string) => {
   return await res.json();
 };
 
-export const fetchOrderItems = async (): Promise<Carts> => {
+export const fetchOrderItems = async (): Promise<CartItem[]> => {
   const res = await fetch(`${API_URL}/orders`);
   if (!res.ok) {
     throw new Error("로드에 실패했습니다");
   }
-  const data: Carts = await res.json();
+  const data: CartItem[] = await res.json();
   return data;
 };
 
