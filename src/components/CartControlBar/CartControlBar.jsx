@@ -3,8 +3,8 @@ import CheckBox from 'components/CheckBox/CheckBox';
 import PropTypes from 'prop-types';
 
 const CartControlBar = ({
-  isAllSelected,
-  onToggleSelect,
+  isSelectedAll,
+  handleSelectAll,
   onClickDeleteButton,
 }) => {
   return (
@@ -12,8 +12,8 @@ const CartControlBar = ({
       <Styled.FieldSet>
         <CheckBox
           id="total"
-          checkedStatus={isAllSelected}
-          onCheck={onToggleSelect}
+          checkedStatus={isSelectedAll}
+          onCheck={handleSelectAll}
         />
         <span>전체 선택 / 해제</span>
       </Styled.FieldSet>
@@ -25,8 +25,8 @@ const CartControlBar = ({
 };
 
 CartControlBar.propTypes = {
-  isAllSelected: PropTypes.bool,
-  onToggleSelect: PropTypes.func,
+  isSelectedAll: PropTypes.bool,
+  handleSelectAll: PropTypes.func,
   onClickDeleteButton: PropTypes.func,
 };
 

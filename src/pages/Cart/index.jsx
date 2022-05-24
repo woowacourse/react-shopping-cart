@@ -21,6 +21,7 @@ const Cart = () => {
     selectedItemList,
     handleToggleSelectAll,
     handleToggleSelect,
+    handleDeleteSelectedItem,
   } = useCartPage();
 
   return (
@@ -31,13 +32,14 @@ const Cart = () => {
       <Styled.ContentsWrapper>
         <Styled.CartContents>
           <CartControlBar
-            isAllSelected={
+            isSelectedAll={
               selectedItemList.length === cartItems?.length &&
               cartItems?.length > 0
             }
-            onToggleSelect={handleToggleSelectAll(
+            handleSelectAll={handleToggleSelectAll(
               selectedItemList.length === cartItems?.length,
             )}
+            onClickDeleteButton={handleDeleteSelectedItem}
           />
 
           <CartContainer>
