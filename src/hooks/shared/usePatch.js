@@ -9,17 +9,18 @@ const usePatch = (url) => {
   const callPatchApi = async (itemId, newQuantity) => {
     setIsLoading(true);
 
-    await apiClient
-      .patch(url, { itemId: itemId, cartQuantity: newQuantity })
-      .then((response) => {
-        setIsLoading(false);
-        setResult(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-        setIsError(true);
+    try {
+      const response = await apiClient.patch(url, {
+        itemId: itemId,
+        cartQuantity: newQuantity,
       });
+      setIsLoading(false);
+      setResult(response.data);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsError(true);
+    }
   };
 
   return { isLoading, isError, result, callPatchApi };

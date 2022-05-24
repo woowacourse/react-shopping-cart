@@ -8,18 +8,15 @@ const useDelete = (url) => {
 
   const callDeleteApi = async (targetId) => {
     setIsLoading(true);
-
-    await apiClient
-      .delete(url, { data: { id: targetId } })
-      .then((response) => {
-        setIsLoading(false);
-        setResult(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-        setIsError(true);
-      });
+    try {
+      const response = await apiClient.delete(url, { data: { id: targetId } });
+      setIsLoading(false);
+      setResult(response.data);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsError(true);
+    }
   };
 
   return { isLoading, isError, result, callDeleteApi };

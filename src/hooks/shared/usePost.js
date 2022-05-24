@@ -8,18 +8,15 @@ const usePost = (url, payload) => {
 
   const callPostApi = async () => {
     setIsLoading(true);
-
-    await apiClient
-      .post(url, payload)
-      .then((response) => {
-        setIsLoading(false);
-        setResult(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-        setIsError(true);
-      });
+    try {
+      const response = await apiClient.post(url, payload);
+      setIsLoading(false);
+      setResult(response.data);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setIsError(true);
+    }
   };
 
   return { isLoading, isError, result, callPostApi };
