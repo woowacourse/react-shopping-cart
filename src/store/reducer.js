@@ -2,80 +2,11 @@ import { combineReducers } from "redux";
 import { ACTIONS } from "./actions";
 
 const initialState = {
-  productList: {
-    loading: true,
-    data: [],
-    errorMessage: null,
-  },
-  productDetail: {
-    loading: true,
-    data: [],
-    errorMessage: null,
-  },
   cart: {
     loading: true,
     data: [],
     errorMessage: null,
   },
-};
-
-const productListReducer = (state = initialState.productList, action) => {
-  switch (action.type) {
-    case ACTIONS.GET_PRODUCT_LIST:
-      return {
-        loading: true,
-        data: [],
-        errorMessage: null,
-      };
-
-    case ACTIONS.GET_PRODUCT_LIST_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
-
-    case ACTIONS.GET_PRODUCT_LIST_ERROR:
-      return {
-        ...state,
-        loading: false,
-        errorMessage: action.payload,
-      };
-
-    default:
-      return state;
-  }
-};
-
-export const productDetailReducer = (
-  state = initialState.productDetail,
-  action
-) => {
-  switch (action.type) {
-    case ACTIONS.GET_PRODUCT_DETAIL:
-      return {
-        loading: true,
-        data: [],
-        errorMessage: null,
-      };
-
-    case ACTIONS.GET_PRODUCT_DETAIL_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
-
-    case ACTIONS.GET_PRODUCT_DETAIL_ERROR:
-      return {
-        ...state,
-        loading: false,
-        errorMessage: action.payload,
-      };
-
-    default:
-      return state;
-  }
 };
 
 export const cartReducer = (state = initialState.cart, action) => {
@@ -145,8 +76,6 @@ export const cartReducer = (state = initialState.cart, action) => {
 };
 
 const rootReducer = combineReducers({
-  productListReducer,
-  productDetailReducer,
   cartReducer,
 });
 

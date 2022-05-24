@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { useProductDetail } from "../../hooks/useProductDetail";
 import { useCartItemList } from "../../hooks/useCartItemList";
 
 import Spinner from "../../components/common/Spinner";
@@ -16,14 +15,21 @@ import {
   StyledTopSection,
 } from "./index.styled";
 
+import { API_SERVER, REQUEST_METHOD } from "../../constants";
+import { useFetch } from "../../hooks/useFetch";
+
+const REQUEST_PRODUCT_DETAIL_URL = (id) =>
+  `${API_SERVER.BASE_URL}${API_SERVER.PATH.PRODUCTS}/${id}`;
+
 function ProductDetailPage() {
   const { id: productId } = useParams();
 
   const {
-    product,
-    isLoading: isProductDetailLoading,
-    errorMessage: productDetailErrorMEssage,
-  } = useProductDetail(productId);
+    fetch: getProduct,
+    data: product,
+    isLoading: isProductLoading,
+    errorMessage: productErrorMessage,
+  } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_DETAIL_URL(productId), []);
 
   const {
     cartItemList,
@@ -32,12 +38,14 @@ function ProductDetailPage() {
     updateCartItemQuantityWithAlert,
   } = useCartItemList();
 
-  if (isProductDetailLoading || isCartItemListLoading) return <Spinner />;
-  if (productDetailErrorMEssage || cartItemErrorMessage)
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  if (isProductLoading || isCartItemListLoading) return <Spinner />;
+  if (productErrorMessage || cartItemErrorMessage)
     return (
-      <div>
-        😱 Error: {productDetailErrorMEssage || cartItemErrorMessage} 😱
-      </div>
+      <div>😱 Error: {productErrorMessage || cartItemErrorMessage} 😱</div>
     );
 
   const cartItemListIndex = cartItemList?.findIndex(

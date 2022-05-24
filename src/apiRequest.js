@@ -1,4 +1,4 @@
-import { API_SERVER } from "./constants";
+import { API_SERVER, REQUEST_METHOD } from "./constants";
 
 const { BASE_URL, PATH } = API_SERVER;
 
@@ -6,13 +6,7 @@ const productListUrl = `${BASE_URL}${PATH.PRODUCT_LIST}`;
 const productDetailUrl = (id) => `${BASE_URL}${PATH.PRODUCT_LIST}/${id}`;
 const cartUrl = `${BASE_URL}${PATH.CART}`;
 
-const REQUEST_METHOD = {
-  GET: "GET",
-  POST: "POST",
-  DELETE: "DELETE",
-};
-
-const fetchData = async (method, requestUrl = "", requestData = {}) => {
+export const fetchData = async (method, requestUrl = "", requestData = {}) => {
   const fetchInitOption = { method };
   if (method !== REQUEST_METHOD.GET) {
     fetchInitOption.body = JSON.stringify(requestData);

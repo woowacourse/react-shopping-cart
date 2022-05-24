@@ -1,20 +1,10 @@
 import {
   requestGetCartItemList,
-  requestGetProductDetail,
-  requestGetProductList,
   requestDeleteCartItem,
   requestPostCartItem,
 } from "../apiRequest";
 
 export const ACTIONS = {
-  GET_PRODUCT_LIST: "GET_PRODUCT_LIST",
-  GET_PRODUCT_LIST_SUCCESS: "GET_PRODUCT_LIST_SUCCESS",
-  GET_PRODUCT_LIST_ERROR: "GET_PRODUCT_LIST_ERROR",
-
-  GET_PRODUCT_DETAIL: "GET_PRODUCT_DETAIL",
-  GET_PRODUCT_DETAIL_SUCCESS: "GET_PRODUCT_DETAIL_SUCCESS",
-  GET_PRODUCT_DETAIL_ERROR: "GET_PRODUCT_DETAIL_ERROR",
-
   GET_CART_ITEM_LIST: "GET_CART_ITEM_LIST",
   GET_CART_ITEM_LIST_SUCCESS: "GET_CART_ITEM_LIST_SUCCESS",
   GET_CART_ITEM_LIST_ERROR: "GET_CART_ITEM_LIST_ERROR",
@@ -29,26 +19,6 @@ export const ACTIONS = {
 };
 
 const actionsCreator = {
-  getProductList: () => ({ type: ACTIONS.GET_PRODUCT_LIST }),
-  getProductListSuccess: (productList) => ({
-    type: ACTIONS.GET_PRODUCT_LIST_SUCCESS,
-    payload: productList,
-  }),
-  getProductListError: (errMessage) => ({
-    type: ACTIONS.GET_PRODUCT_LIST_ERROR,
-    payload: errMessage,
-  }),
-
-  getProductDetail: () => ({ type: ACTIONS.GET_PRODUCT_DETAIL }),
-  getProductDetailSuccess: (product) => ({
-    type: ACTIONS.GET_PRODUCT_DETAIL_SUCCESS,
-    payload: product,
-  }),
-  getProductDetailError: (errMessage) => ({
-    type: ACTIONS.GET_PRODUCT_DETAIL_ERROR,
-    payload: errMessage,
-  }),
-
   getCartItemList: () => ({ type: ACTIONS.GET_CART_ITEM_LIST }),
   getCartItemListSuccess: (cartItemList) => ({
     type: ACTIONS.GET_CART_ITEM_LIST_SUCCESS,
@@ -78,28 +48,6 @@ const actionsCreator = {
     type: ACTIONS.DELETE_CART_ITEM_ERROR,
     payload: errMessage,
   }),
-};
-
-export const getProductList = () => async (dispatch, getState) => {
-  dispatch(actionsCreator.getProductList());
-
-  try {
-    const fetchedProductList = await requestGetProductList();
-    dispatch(actionsCreator.getProductListSuccess(fetchedProductList));
-  } catch (err) {
-    dispatch(actionsCreator.getProductListError(err.message));
-  }
-};
-
-export const getProductDetail = (id) => async (dispatch, getState) => {
-  dispatch(actionsCreator.getProductDetail());
-
-  try {
-    const fetchedProductDetail = await requestGetProductDetail(id);
-    dispatch(actionsCreator.getProductDetailSuccess(fetchedProductDetail));
-  } catch (err) {
-    dispatch(actionsCreator.getProductDetailError(err.message));
-  }
 };
 
 export const getCartItemList = () => async (dispatch, getState) => {
