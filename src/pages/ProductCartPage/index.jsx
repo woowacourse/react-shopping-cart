@@ -19,7 +19,7 @@ import {
   SelectCartWrapper,
 } from 'pages/ProductCartPage/style';
 
-import {calculateChecked} from 'utils';
+import {checkedQuantityPrice} from 'utils';
 import useCheckBox from 'hooks/useCheckBox';
 
 export default function ProductCartPage() {
@@ -34,7 +34,7 @@ export default function ProductCartPage() {
   }, []);
 
   const checkedItems = cartList.filter(({id}) => checkedItemList.includes(id));
-  const {totalQuantity, totalPrice} = calculateChecked(checkedItems);
+  const {totalQuantity, totalPrice} = checkedQuantityPrice(checkedItems);
 
   return (
     <ProductCartPageWrapper>

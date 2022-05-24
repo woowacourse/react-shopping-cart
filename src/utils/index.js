@@ -1,4 +1,4 @@
-const calculateChecked = (checkedItems) =>
+const checkedQuantityPrice = (checkedItems) =>
   checkedItems.reduce(
     (prev, cur) => {
       return {
@@ -9,4 +9,4 @@ const calculateChecked = (checkedItems) =>
     {totalQuantity: 0, totalPrice: 0},
   );
 
-export {calculateChecked};
+export {checkedQuantityPrice};
