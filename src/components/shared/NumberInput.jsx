@@ -2,16 +2,23 @@ import styled from 'styled-components';
 import { BasicButton, Flex } from 'components/shared/basics';
 
 const NumberInput = ({ count, onChange }) => {
-  const isMin = count === 1;
+  const isMin = count <= 1;
+
+  const handleKeyDown = (e) => {
+    if (e.target.value.length === 1 && e.nativeEvent.key === 'Backspace') {
+      e.preventDefault();
+
+      e.target.focus();
+      e.target.select();
+
+      return;
+    }
+  };
 
   const handleChangeInput = (e) => {
-    if (e.target.value === 0) {
+    if (e.target.value === '0') {
       return;
     }
-    if (e.target.value < 0) {
-      return;
-    }
-
     onChange(Number(e.target.value));
   };
 
@@ -31,6 +38,7 @@ const NumberInput = ({ count, onChange }) => {
       <Style.NumberInput
         type="number"
         value={count}
+        onKeyDown={handleKeyDown}
         onChange={handleChangeInput}
       />
       <Style.NumberInputBox>
