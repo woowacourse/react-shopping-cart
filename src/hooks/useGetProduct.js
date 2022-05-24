@@ -4,8 +4,8 @@ import { getProductAsync } from 'reducers/product/product.thunks';
 const useGetProduct = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
 
-  const getProduct = (id) => {
-    dispatch(getProductAsync(id));
+  const getProduct = async (id) => {
+    await dispatch(getProductAsync(id));
   };
 
   return {
