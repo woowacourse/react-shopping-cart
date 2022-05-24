@@ -7,7 +7,7 @@ const Button = styled.button`
   cursor: pointer;
 
   img {
-    width: ${(props) => props.width};
+    width: ${({ width }) => width};
     :hover {
       transform: scale(1.05);
     }

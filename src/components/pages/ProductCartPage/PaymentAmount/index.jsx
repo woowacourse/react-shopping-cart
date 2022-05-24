@@ -1,6 +1,6 @@
 import React from "react";
 
-import DefaultButton from "components/common/DefaultButton";
+import DefaultButton from "components/common/Button/DefaultButton";
 import { PaymentAmountContainer, PaymentAmountPrice } from "./styled";
 
 function PaymentAmount({ totalPrice, totalCount, position }) {

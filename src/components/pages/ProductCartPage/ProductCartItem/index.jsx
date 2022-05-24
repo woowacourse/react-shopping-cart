@@ -4,7 +4,7 @@ import trashCanIcon from "asset/trash-can.svg";
 
 import CheckBox from "components/common/CheckBox";
 import Counter from "components/common/Counter";
-import IconButton from "components/common/IconButton";
+import IconButton from "components/common/Button/IconButton";
 import {
   ProductCartContainer,
   ProductCartControlBox,

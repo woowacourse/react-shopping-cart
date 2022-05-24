@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import shoppingCartIconBlack from "asset/shopping-cart-icon-black.svg";
 import { BASE_SERVER_URL, ROUTES, SERVER_PATH } from "constants";
 
-import IconButton from "components/common/IconButton";
+import IconButton from "components/common/Button/IconButton";
 import {
   CardBottom,
   CardContainer,
@@ -46,7 +46,7 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
         return;
       }
     } catch (error) {
-      alert(`장바구니 담기에 실패했습니다. 에러: ${error.message}`);
+      alert(`장바구니 담기에 실패했습니다.`);
       return;
     }
     alert("장바구니에 담았습니다.");

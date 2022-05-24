@@ -3,7 +3,7 @@ import { BASE_SERVER_URL, SERVER_PATH } from "constants";
 
 import { theme } from "style";
 
-import DefaultButton from "components/common/DefaultButton";
+import DefaultButton from "components/common/Button/DefaultButton";
 import {
   Bottom,
   ProductImage,
@@ -36,7 +36,7 @@ function ProductDetail({ selectedProduct: { id, thumbnailUrl, name, price } }) {
         return;
       }
     } catch (error) {
-      alert(`장바구니 담기에 실패했습니다. 에러: ${error.message}`);
+      alert(`장바구니 담기에 실패했습니다.`);
       return;
     }
     alert("장바구니에 담았습니다.");
