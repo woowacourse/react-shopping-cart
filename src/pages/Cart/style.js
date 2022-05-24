@@ -18,7 +18,6 @@ const Styled = {
   `,
 
   PaymentBoxWrapper: styled.div`
-    height: 100%;
     margin-top: 100px;
   `,
 
