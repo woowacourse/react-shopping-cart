@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import CaretUp from "@assets/images/caret-up.svg";
 import CaretDown from "@assets/images/caret-down.svg";
 import styles from "./number-input.module";
@@ -12,6 +13,8 @@ function NumberInput({
   maxLength = 3,
   className,
 }) {
+  const [localValue, setLocalValue] = useState(value);
+
   const handleChange = (e) => {
     const { target } = e;
     const { selectionStart } = target;
@@ -24,25 +27,32 @@ function NumberInput({
     queueMicrotask(() => {
       target.setSelectionRange(cursor, cursor);
     });
-    onChange && onChange(newValue);
+
+    setLocalValue(newValue);
   };
 
   const handleIncrease = () => {
-    const newValue = Number(value) + step;
-    onChange && onChange(newValue);
+    setLocalValue((prev) => Number(prev) + step);
   };
 
   const handleDecrease = () => {
-    const newValue = Number(value) - step;
-    onChange && onChange(positive ? Math.max(0, newValue) : newValue);
+    setLocalValue((prev) =>
+      positive ? Math.max(0, Number(prev) - step) : Number(prev) - step
+    );
   };
+
+  useEffect(() => {
+    if (onChange && localValue !== value) {
+      onChange(localValue);
+    }
+  }, [localValue, value, onChange]);
 
   return (
     <div className={cn(styles.numberInput, className)}>
       <input
         type="text"
         onChange={handleChange}
-        value={value}
+        value={localValue}
         maxLength={maxLength}
       />
       <div className={styles.steps}>
