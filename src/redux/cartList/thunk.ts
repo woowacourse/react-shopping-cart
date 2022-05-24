@@ -44,7 +44,7 @@ export const patchCartSelectedRequest =
   (id: number) => async (dispatch: Dispatch<CartListAction>, getState: () => RootState) => {
     dispatch(cartListAction.patchCartSelectedStart());
     try {
-      const { data: cartList } = getState().cartListReducer;
+      const { data: cartList } = getState().cartList;
       const isSelected = cartList.find(item => item.id === id).isSelected;
       const response = await axios.patch(`${BASE_URL}/cartList/${id}`, { isSelected: !isSelected });
 
@@ -59,7 +59,7 @@ export const patchAllCartSelectedRequest =
   async (dispatch: Dispatch<CartListAction>, getState: () => RootState) => {
     dispatch(cartListAction.patchAllCartSelectedStart());
     try {
-      const { data: cartList } = getState().cartListReducer;
+      const { data: cartList } = getState().cartList;
 
       cartList.forEach(
         async item =>
@@ -87,7 +87,7 @@ export const deleteAllCartItemRequest =
   () => async (dispatch: Dispatch<CartListAction>, getState: () => RootState) => {
     dispatch(cartListAction.deleteAllCartItemStart());
     try {
-      const { data: cartList } = getState().cartListReducer;
+      const { data: cartList } = getState().cartList;
 
       cartList.forEach(async item => await axios.delete(`${BASE_URL}/cartList/${item.id}`));
 

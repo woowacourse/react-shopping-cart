@@ -19,7 +19,7 @@ const ItemDetail = () => {
   const dispatch = useAppDispatch<CartListAction>();
   const { data: item, loading, error: error_itemList } = useFetch<Item>(`/itemList/${id}`);
   const { data: cartList, error: error_cartList } = useThunkFetch(
-    state => state.cartListReducer,
+    state => state.cartList,
     getCartListRequest
   );
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
