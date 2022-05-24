@@ -2,22 +2,20 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { useFetch } from "hooks/useFetch";
-
-import { BASE_SERVER_URL, SERVER_PATH } from "constants";
+import { getBaseServerProductItem } from "util/fetch";
 
 import Spinner from "components/common/Spinner";
-import { DetailContainer } from "./styled";
 import ErrorPage from "components/pages/ErrorPage";
 import ProductDetail from "./ProductDetail";
+import { DetailContainer } from "./styled";
 
 function ProductDetailPage() {
   const { id: productId } = useParams();
-  const productURL = `${BASE_SERVER_URL}${SERVER_PATH.PRODUCT_LIST}/${productId}`;
   const {
     data: selectedProduct,
     isLoading,
     errorMessage,
-  } = useFetch(productURL);
+  } = useFetch(getBaseServerProductItem(productId));
 
   const renderContent = () => {
     if (isLoading) return <Spinner />;

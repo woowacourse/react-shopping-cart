@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import shoppingCartIconBlack from "asset/shopping-cart-icon-black.svg";
-import { BASE_SERVER_URL, ROUTES, SERVER_PATH } from "constants";
+import { ROUTES } from "constants";
+
+import { postBaseServerCartItem } from "util/fetch";
 
 import IconButton from "components/common/Button/IconButton";
 import {
@@ -25,22 +27,10 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
   const handleClickCartIconButton = async (e) => {
     e.stopPropagation();
     try {
-      const response = await fetch(
-        `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id, count: 1 }),
-        }
+      const { isAlreadyExists } = await postBaseServerCartItem(
+        JSON.stringify({ id, count: 1 })
       );
 
-      if (!response.ok) {
-        throw new Error("response not ok");
-      }
-
-      const { isAlreadyExists } = await response.json();
       if (isAlreadyExists) {
         alert("이미 장바구니에 담은 상품입니다.");
         return;

@@ -1,4 +1,8 @@
-import { BASE_SERVER_URL, SERVER_PATH } from "../constants";
+import {
+  deleteBaseServerCartItem,
+  getBaseServerCartList,
+  patchBaseServerCartItem,
+} from "util/fetch";
 
 export const CART_LIST_ACTION = {
   GET_LIST: "cartList/GET_LIST",
@@ -15,28 +19,13 @@ export const CART_LIST_ACTION = {
 };
 
 const updateStoreState = async (
-  url,
-  method,
+  fetchFunc,
   dispatch,
   { start, success, error }
 ) => {
   dispatch({ type: start });
   try {
-    const response = await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`fetch error`);
-    }
-
-    const data = await response.json();
-    if (!data) {
-      throw new Error(`No Data`);
-    }
+    const data = await fetchFunc();
 
     dispatch({
       type: success,
@@ -51,8 +40,7 @@ const updateStoreState = async (
 };
 
 export const getCartList = () => async (dispatch) => {
-  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`;
-  await updateStoreState(cartListUrl, "GET", dispatch, {
+  await updateStoreState(getBaseServerCartList(), dispatch, {
     start: CART_LIST_ACTION.GET_LIST,
     success: CART_LIST_ACTION.GET_LIST_SUCCESS,
     error: CART_LIST_ACTION.GET_LIST_ERROR,
@@ -62,9 +50,7 @@ export const getCartList = () => async (dispatch) => {
 export const deleteCartList =
   (id = "all") =>
   async (dispatch) => {
-    const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${id}`;
-
-    await updateStoreState(cartListUrl, "DELETE", dispatch, {
+    await updateStoreState(deleteBaseServerCartItem(id), dispatch, {
       start: CART_LIST_ACTION.DELETE_LIST,
       success: CART_LIST_ACTION.DELETE_LIST_SUCCESS,
       error: CART_LIST_ACTION.DELETE_LIST_ERROR,
@@ -72,9 +58,7 @@ export const deleteCartList =
   };
 
 export const updateCartCount = (id, type) => async (dispatch) => {
-  const cartListUrl = `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/${type}/${id}`;
-
-  await updateStoreState(cartListUrl, "PATCH", dispatch, {
+  await updateStoreState(patchBaseServerCartItem({ type, id }), dispatch, {
     start: CART_LIST_ACTION.UPDATE_ITEM_COUNT,
     success: CART_LIST_ACTION.UPDATE_ITEM_COUNT_SUCCESS,
     error: CART_LIST_ACTION.UPDATE_ITEM_COUNT_ERROR,

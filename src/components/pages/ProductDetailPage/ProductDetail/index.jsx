@@ -1,7 +1,8 @@
 import React from "react";
-import { BASE_SERVER_URL, SERVER_PATH } from "constants";
 
 import { theme } from "style";
+
+import { postBaseServerCartItem } from "util/fetch";
 
 import DefaultButton from "components/common/Button/DefaultButton";
 import {
@@ -16,21 +17,10 @@ import {
 function ProductDetail({ selectedProduct: { id, thumbnailUrl, name, price } }) {
   const handleClickCartButton = async () => {
     try {
-      const response = await fetch(
-        `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id, count: 1 }),
-        }
+      const { isAlreadyExists } = await postBaseServerCartItem(
+        JSON.stringify({ id, count: 1 })
       );
-      if (!response.ok) {
-        throw new Error("response not ok");
-      }
 
-      const { isAlreadyExists } = await response.json();
       if (isAlreadyExists) {
         alert("이미 장바구니에 담은 상품입니다.");
         return;
