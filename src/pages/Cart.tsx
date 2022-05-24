@@ -12,12 +12,12 @@ const Cart = () => {
   const {
     data: itemList,
     error: error_getItemList,
-    loading: loading_getItemList,
+    loading: loading_itemList,
   } = useThunkFetch(state => state.itemListReducer, getItemList);
   const {
     data: cartList,
     error: error_getCartList,
-    loading_getCartList,
+    loading: loading_cartList,
   } = useThunkFetch(state => state.cartListReducer, getCartListRequest);
 
   const itemListInCart = cartList.map(cartItem => {
@@ -32,7 +32,7 @@ const Cart = () => {
   const selectedItem = itemListInCart.filter(item => item.isSelected);
   const totalPrice = selectedItem.reduce((acc, item) => item.price * item.quantity + acc, 0);
 
-  if (loading_getCartList || loading_getItemList) return <Loading />;
+  if (loading_itemList || loading_cartList === 'getCartList') return <Loading />;
   if (error_getItemList || error_getCartList) return <RequestFail />;
 
   return (
