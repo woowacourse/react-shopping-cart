@@ -21,9 +21,15 @@ export const DeleteCartButton = styled.button`
     border: 1px solid ${color.gray03};
     cursor: pointer;
 
-    :active {
+    &:active {
       color: ${color.point};
       border: 1px solid ${color.point};
+    }
+
+    &:disabled {
+      color: ${color.gray02};
+      border: 1px solid ${color.gray03};
+      cursor: default;
     }
   `}
 `;

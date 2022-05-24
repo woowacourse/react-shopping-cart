@@ -63,6 +63,7 @@ function ProductCartList({ checkList, setCheckList }) {
   const renderListContent = () => {
     if (isLoading) return <Spinner />;
     if (errorMessage) return <ErrorPage>에러: ${errorMessage} </ErrorPage>;
+    if (cartList.length === 0) return <div>담은 상품이 없습니다.</div>;
     return (
       <>
         {cartList.map((cartItem) => (
@@ -86,10 +87,14 @@ function ProductCartList({ checkList, setCheckList }) {
         <CheckBox
           isChecked={checkList.length !== 0}
           handleChangeCheckbox={handleChangeAllCheckbox}
+          disabled={cartList.length === 0}
         >
           선택해제
         </CheckBox>
-        <DeleteCartButton onClick={handleDeleteAllItem}>
+        <DeleteCartButton
+          onClick={handleDeleteAllItem}
+          disabled={cartList.length === 0}
+        >
           상품 삭제
         </DeleteCartButton>
       </CartListControlContainer>

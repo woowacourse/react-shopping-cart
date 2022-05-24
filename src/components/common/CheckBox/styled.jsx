@@ -1,12 +1,5 @@
 import styled from "styled-components";
-
-export const CheckBoxContainer = styled.label`
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-`;
+import { css } from "styled-components";
 
 export const CheckBoxInput = styled.input`
   position: absolute;
@@ -14,6 +7,25 @@ export const CheckBoxInput = styled.input`
   cursor: pointer;
   height: 0;
   width: 0;
+
+  &:disabled {
+    cursor: default;
+  }
+`;
+
+export const CheckBoxContainer = styled.label`
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      font-size: large;
+      cursor: default;
+    `}
 `;
 
 export const CheckIcon = styled.div`
@@ -38,6 +50,11 @@ export const CustomCheckBox = styled.span`
 
   ${CheckBoxInput}:checked + & {
     background-color: ${({ theme: { color } }) => color.point};
+  }
+
+  ${CheckBoxInput}:disabled + & {
+    box-shadow: 0 0 0 1px ${({ theme: { color } }) => color.gray02};
+    cursor: default;
   }
 
   ${CheckIcon} {

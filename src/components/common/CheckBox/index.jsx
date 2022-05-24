@@ -6,13 +6,14 @@ import {
   CustomCheckBox,
 } from "./styled";
 
-function CheckBox({ children, isChecked, handleChangeCheckbox }) {
+function CheckBox({ children, isChecked, handleChangeCheckbox, disabled }) {
   return (
-    <CheckBoxContainer>
+    <CheckBoxContainer disabled={disabled}>
       <CheckBoxInput
         type="checkbox"
         checked={isChecked}
         onChange={handleChangeCheckbox}
+        disabled={disabled}
       />
       <CustomCheckBox checked={isChecked}>
         <CheckIcon />
