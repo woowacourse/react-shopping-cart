@@ -35,8 +35,15 @@ function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
           body: JSON.stringify({ id, count: 1 }),
         }
       );
+
       if (!response.ok) {
         throw new Error("response not ok");
+      }
+
+      const { isAlreadyExists } = await response.json();
+      if (isAlreadyExists) {
+        alert("이미 장바구니에 담은 상품입니다.");
+        return;
       }
     } catch (error) {
       alert(`장바구니 담기에 실패했습니다. 에러: ${error.message}`);

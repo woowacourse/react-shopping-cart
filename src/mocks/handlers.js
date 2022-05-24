@@ -39,9 +39,12 @@ export const cartsHandlers = [
     if (!id || !count) return res(ctx.status(400));
 
     const cartList = db.carts;
-    const selectedCartsList = cartList.filter((cart) => cart.id !== id);
-    db.carts = [...selectedCartsList, { id, count }];
-    return res(ctx.status(200));
+    if (cartList.some((cart) => cart.id === id)) {
+      return res(ctx.status(200), ctx.json({ isAlreadyExists: true }));
+    }
+
+    db.carts = [...cartList, { id, count }];
+    return res(ctx.status(200), ctx.json({ isAlreadyExists: false }));
   }),
   rest.delete(
     `${BASE_SERVER_URL}${SERVER_PATH.CART_LIST}/all`,
