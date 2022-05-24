@@ -15,7 +15,7 @@ function Header() {
         <div>WOOWA SHOP</div>
       </S.HeaderTitle>
       <S.HeaderMenu>
-        <div onClick={() => navigate(ROUTE_URL.PRODUCT_LIST)}>장바구니</div>
+        <div onClick={() => navigate(ROUTE_URL.CART)}>장바구니</div>
         <div onClick={() => navigate(ROUTE_URL.ORDER_LIST)}>주문목록</div>
       </S.HeaderMenu>
     </S.HeaderWrapper>
