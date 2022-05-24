@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   font-size: ${({ fontSize }) => fontSize || "1rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "400"};
   color: ${({ theme, color }) =>
-    theme.color[color] || color || theme.color.grey_700};
+    theme.color[color] || color || theme.color.grey_darker};
 
   border: ${({ borderStyle }) => borderStyle || "none"};
   border-color: ${({ theme, borderColor }) =>

@@ -7,7 +7,7 @@ const StyledPageTitle = styled.h2`
   font-weight: 700;
   font-size: 32px;
   line-height: 37px;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 const StyledPageContentContainer = styled.div`
@@ -18,7 +18,7 @@ const StyledPageContentContainer = styled.div`
   width: 1320px;
   padding: 50px 25px 0;
 
-  border-top: 4px solid ${({ theme }) => theme.color.grey_700};
+  border-top: 4px solid ${({ theme }) => theme.color.grey_darker};
 
   div:first-child {
     width: 736px;
@@ -52,7 +52,7 @@ const StyledListTitle = styled.h3`
   font-size: 20px;
   line-height: 33px;
   letter-spacing: 0.5px;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 const StyledCartItemList = styled.ul`
@@ -62,7 +62,7 @@ const StyledCartItemList = styled.ul`
   width: 100%;
 
   border: none;
-  border-top: 4px solid ${({ theme }) => theme.color.grey_300};
+  border-top: 4px solid ${({ theme }) => theme.color.grey};
 `;
 
 export {

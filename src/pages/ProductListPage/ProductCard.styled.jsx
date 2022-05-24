@@ -42,7 +42,7 @@ const StyledProductTextInfoContainer = styled.div`
 
 const StyledProductName = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
   padding: 2px 0;
 
   overflow: hidden;
@@ -52,7 +52,7 @@ const StyledProductName = styled.p`
 
 const StyledProductPrice = styled.p`
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 export {

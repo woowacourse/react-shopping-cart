@@ -15,7 +15,7 @@ const StyledText = styled.span`
 
   font-size: 20px;
   font-weight: bold;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 export { StyledTextWrapper, StyledText };

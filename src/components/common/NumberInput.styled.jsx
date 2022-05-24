@@ -15,9 +15,9 @@ const StyledInput = styled.input`
 
   font-size: 24px;
   line-height: 19px;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 
-  border: 1px solid ${({ theme }) => theme.color.grey_100};
+  border: 1px solid ${({ theme }) => theme.color.grey_lighter};
 
   :focus {
     outline: none;
@@ -44,7 +44,7 @@ const StyledArrowButton = styled.button`
   height: 50%;
 
   font-size: 10px;
-  border: 1px solid ${({ theme }) => theme.color.grey_100};
+  border: 1px solid ${({ theme }) => theme.color.grey_lighter};
   background-color: transparent;
 
   :hover {

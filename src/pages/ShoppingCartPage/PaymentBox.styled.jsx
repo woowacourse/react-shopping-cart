@@ -7,7 +7,7 @@ const StyledPaymentBoxContainer = styled.div`
   width: 448px;
   padding: 30px;
 
-  border: 1px solid ${({ theme }) => theme.color.grey_100};
+  border: 1px solid ${({ theme }) => theme.color.grey_lighter};
 `;
 
 const StyledTitle = styled.h3`
@@ -17,7 +17,7 @@ const StyledTitle = styled.h3`
   font-size: 24px;
   line-height: 33px;
   letter-spacing: 0.5px;
-  color: ${({ theme }) => theme.color.grey_700};
+  color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 const StyledLine = styled.hr`
@@ -27,7 +27,7 @@ const StyledLine = styled.hr`
   width: 446px;
   height: 3px;
 
-  background-color: ${({ theme }) => theme.color.grey_100};
+  background-color: ${({ theme }) => theme.color.grey_lighter};
   border: none;
 `;
 

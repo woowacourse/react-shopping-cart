@@ -74,7 +74,7 @@ function ShoppingCartPage() {
               width="117px"
               height="50px"
               borderStyle="1px solid"
-              borderColor="grey_300"
+              borderColor="grey"
               onClick={handleSelectedItemDeleteButtonClick}
             >
               선택 상품 삭제
