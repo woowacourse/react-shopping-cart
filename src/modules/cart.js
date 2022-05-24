@@ -18,10 +18,7 @@ export const requestExistProductAdd = (productIdx, inputQuantity) => ({
 });
 export const requestCartAddFail = (error) => ({ type: REQUEST_CART_ADD_FAIL, error });
 export const requestProductDelete = (productIdx) => ({ type: REQUEST_PRODUCT_DELETE, productIdx });
-export const requestCheckedProductDelete = (checkedProductIdx) => ({
-  type: REQUEST_CHECKED_PRODUCT_DELETE,
-  checkedProductIdx,
-});
+export const requestCheckedProductDelete = () => ({ type: REQUEST_CHECKED_PRODUCT_DELETE });
 export const requestProductCheck = (productIdx) => ({ type: REQUEST_PRODUCT_CHECK, productIdx });
 export const requestProductAllCheck = () => ({ type: REQUEST_PRODUCT_ALL_CHECK });
 export const requestAllCheckboxTrue = () => ({ type: REQUEST_ALL_CHECKBOX_TRUE });
@@ -98,7 +95,15 @@ export default function cart(state = initialState, action) {
     }
     case REQUEST_CHECKED_PRODUCT_DELETE: {
       const newCarts = [...state.carts];
-      for (let idx of action.checkedProductIdx) {
+      const checkedProductIdx = newCarts
+        .reduce((a, e, i) => {
+          if (e.isChecked === true) {
+            a.push(i);
+          }
+          return a;
+        }, [])
+        .reverse();
+      for (let idx of checkedProductIdx) {
         newCarts.splice(idx, 1);
       }
       return {

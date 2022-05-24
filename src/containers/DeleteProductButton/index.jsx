@@ -6,19 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function DeleteProductButton() {
   const carts = useSelector((state) => state.cart.carts);
-  const checkedProductIdx = carts
-    .reduce((a, e, i) => {
-      if (e.isChecked === true) {
-        a.push(i);
-      }
-      return a;
-    }, [])
-    .reverse();
+
   const dispatch = useDispatch();
 
   const handleClickDeleteButton = () => {
     if (window.confirm('선택하신 상품을 삭제하시겠습니까?')) {
-      dispatch(requestCheckedProductDelete(checkedProductIdx));
+      dispatch(requestCheckedProductDelete());
     }
   };
 
