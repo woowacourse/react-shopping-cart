@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import useReduxState from 'hooks/shared/useReduxState';
 import { getProductListAsync } from 'reducers/productList/productList.thunks';
 
@@ -7,12 +6,12 @@ const useGetProductList = () => {
 
   const isEmpty = !isLoading && data.length === 0;
 
-  useEffect(() => {
-    if (data.length > 0) return;
+  const getProductList = () => {
     dispatch(getProductListAsync);
-  }, [data]);
+  };
 
   return {
+    getProductList,
     productList: data,
     isProductListLoading: isLoading,
     isProductListError: isError,

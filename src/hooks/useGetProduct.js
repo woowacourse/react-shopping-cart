@@ -1,18 +1,15 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import useReduxState from 'hooks/shared/useReduxState';
 import { getProductAsync } from 'reducers/product/product.thunks';
 
 const useGetProduct = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
 
-  const { id } = useParams();
-
-  useEffect(() => {
+  const getProduct = (id) => {
     dispatch(getProductAsync(id));
-  }, [id]);
+  };
 
   return {
+    getProduct,
     product: data,
     isProductLoading: isLoading,
     isProductError: isError,

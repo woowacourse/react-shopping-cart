@@ -5,10 +5,13 @@ import MenuItem from 'components/MenuItem';
 import Circle from 'components/Circle';
 import bigCart from 'assets/svg/bigCart.svg';
 import { PATH } from 'constants/path';
+import { useEffect } from 'react';
 
 const Header = () => {
-  const { cartList, getCartListWhenMounted } = useGetCartList();
-  getCartListWhenMounted();
+  const { getCartList, cartList } = useGetCartList();
+  useEffect(() => {
+    getCartList();
+  }, []);
 
   return (
     <Styled.Wrapper>

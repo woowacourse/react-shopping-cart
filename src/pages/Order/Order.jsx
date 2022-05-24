@@ -1,8 +1,12 @@
 import useGetOrderList from 'hooks/useGetOrderList';
+import { useEffect } from 'react';
 
 const Order = () => {
-  const { getOrderListWhenMounted, orderList } = useGetOrderList();
-  getOrderListWhenMounted();
+  const { getOrderList, orderList } = useGetOrderList();
+
+  useEffect(() => {
+    getOrderList();
+  }, []);
 
   return (
     <div>

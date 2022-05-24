@@ -19,13 +19,7 @@ const Cart = () => {
   const { callPostApi } = usePost(API_PATH.ORDER_LIST, checkedItemList);
   const { getOrderList } = useGetOrderList();
 
-  const {
-    getCartListWhenMounted,
-    cartList,
-    isCartListLoading,
-    isCartListError,
-  } = useGetCartList();
-  getCartListWhenMounted();
+  const { cartList, isCartListLoading, isCartListError } = useGetCartList();
 
   useEffect(() => {
     const initialIdList = cartList.map((item) => item.id);

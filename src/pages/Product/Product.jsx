@@ -5,9 +5,17 @@ import Skeleton from 'components/Skeleton';
 import ImgWrapper from 'components/ImgWrapper';
 import comma from 'utils/comma';
 import errorApiImg from 'assets/png/errorApiImg.png';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Product = () => {
-  const { product, isProductLoading, isProductError } = useGetProduct();
+  const { getProduct, product, isProductLoading, isProductError } =
+    useGetProduct();
+
+  const { id } = useParams();
+  useEffect(() => {
+    getProduct(id);
+  }, []);
 
   return (
     <Styled.Wrapper>

@@ -6,14 +6,20 @@ import ImgWrapper from 'components/ImgWrapper';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
 import comma from 'utils/comma';
+import { useEffect } from 'react';
 
 const ProductList = () => {
   const {
+    getProductList,
     productList,
     isProductListLoading,
     isProductListError,
     isProductListEmpty,
   } = useProducts();
+
+  useEffect(() => {
+    getProductList();
+  }, []);
 
   return (
     <>

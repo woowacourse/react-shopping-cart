@@ -1,15 +1,8 @@
 import useReduxState from 'hooks/shared/useReduxState';
 import { getCartListAsync } from 'reducers/cartList/cartList.thunks';
-import { useEffect } from 'react';
 
 const useGetCartList = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('cartList');
-
-  const getCartListWhenMounted = () => {
-    useEffect(() => {
-      dispatch(getCartListAsync);
-    }, []);
-  };
 
   const getCartList = () => {
     dispatch(getCartListAsync);
@@ -17,7 +10,6 @@ const useGetCartList = () => {
 
   return {
     getCartList,
-    getCartListWhenMounted,
     cartList: data,
     isCartListLoading: isLoading,
     isCartListError: isError,
