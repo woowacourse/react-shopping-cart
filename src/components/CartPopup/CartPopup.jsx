@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { PATH } from 'constants/path';
 
 CartPopup.propTypes = {
   isCartPopupShow: PropTypes.bool,
@@ -18,7 +19,7 @@ function CartPopup({ isCartPopupShow, isInCart, isError }) {
           ? '이미 장바구니에 있는 상품입니다.'
           : '장바구니에 상품이 담겼습니다'}
       </Styled.Text>
-      <Styled.CartLink to="/cart">장바구니로 가기</Styled.CartLink>
+      <Styled.CartLink to={PATH.CART}>장바구니로 가기</Styled.CartLink>
     </Styled.Wrapper>
   );
 }

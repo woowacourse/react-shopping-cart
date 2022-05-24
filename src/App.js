@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<ProductList />} />
+            <Route path={PATH.ROOT} element={<ProductList />} />
             <Route path={`${PATH.PRODUCT}/:id`} element={<Product />} />
             <Route path={PATH.CART} element={<Cart />} />
             <Route path={PATH.ORDER} element={<Order />} />

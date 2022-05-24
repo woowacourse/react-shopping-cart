@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import comma from 'utils/comma';
 import { useNavigate } from 'react-router-dom';
+import { PATH } from 'constants/path';
 
 const CartOrder = ({ totalPrice, totalCount, handleClickOrder }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     handleClickOrder();
-    navigate('/order');
+    navigate(PATH.ORDER);
   };
   return (
     <Styled.Section>

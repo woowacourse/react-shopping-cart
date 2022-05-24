@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <Styled.Wrapper>
-      <Styled.Logo to="/">
+      <Styled.Logo to={PATH.ROOT}>
         <Styled.LogoImage src={bigCart} alt="로고" />
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import CartOrder from 'components/CartOrder';
 import '@testing-library/jest-dom';
+import { PATH } from 'constants/path';
 
 const mockNavigate = jest.fn();
 const mockDispatch = jest.fn();
@@ -43,6 +44,6 @@ describe('2 이벤트에 따라 의도한 호출이 일어나는지', () => {
     const orderButton = screen.getByRole('button');
     fireEvent.click(orderButton);
 
-    expect(mockNavigate).toBeCalledWith('/order');
+    expect(mockNavigate).toBeCalledWith(PATH.ORDER);
   });
 });
