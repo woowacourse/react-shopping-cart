@@ -1,11 +1,17 @@
 import useCart from 'hooks/useCart';
 import { isInList } from 'utils';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 const useCartPage = () => {
-  const { isLoading, isError, cartItems, deleteItems } = useCart();
+  const { isLoading, isError, cartItems, getItems, deleteItems } = useCart();
 
   const [selectedItemList, setSelectedItemList] = useState([]);
+
+  useEffect(() => {
+    if (!cartItems) {
+      getItems();
+    }
+  }, []);
 
   const totalPrice = useMemo(() => {
     if (!cartItems || cartItems.length === 0) return 0;

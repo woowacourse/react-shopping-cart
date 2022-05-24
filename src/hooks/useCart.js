@@ -1,7 +1,6 @@
 import useReduxState from 'hooks/useReduxState';
 import { getCartItemAsync } from 'reducers/cart/cart.thunk';
 import { setCart } from 'reducers/cart/cart.actions';
-import { useEffect } from 'react';
 import { METHOD } from 'constants';
 import useFetch from 'hooks/useFetch';
 
@@ -29,11 +28,9 @@ const useCart = () => {
     handler: (data) => dispatch(setCart(data)),
   });
 
-  useEffect(() => {
-    if (!data) {
-      dispatch(getCartItemAsync);
-    }
-  }, []);
+  const getItems = () => {
+    dispatch(getCartItemAsync);
+  };
 
   const deleteItem = (id) => {
     deleteItemApi(id);
@@ -54,6 +51,7 @@ const useCart = () => {
   return {
     isLoading,
     isError,
+    getItems,
     deleteItem,
     deleteItems,
     updateItemQuantity,
