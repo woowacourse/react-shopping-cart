@@ -14,10 +14,7 @@ function TrashcanButton({ productId }) {
 
   const handleClickTrashButton = () => {
     if (window.confirm('선택하신 상품을 삭제하시겠습니까?')) {
-      const newCarts = [...carts];
-      newCarts.splice(productIdx, 1);
-
-      dispatch(requestProductDelete(newCarts));
+      dispatch(requestProductDelete(productIdx));
     }
   };
 

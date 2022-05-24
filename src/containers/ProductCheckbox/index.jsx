@@ -12,10 +12,7 @@ function ProductCheckbox({ productId }) {
   const dispatch = useDispatch();
 
   const handleClickCheckbox = () => {
-    const newCarts = [...carts];
-
-    newCarts[productIdx].isChecked = !newCarts[productIdx].isChecked;
-    dispatch(requestProductCheck(newCarts));
+    dispatch(requestProductCheck(productIdx));
   };
 
   return <Checkbox isChecked={carts[productIdx].isChecked} onClick={handleClickCheckbox} />;

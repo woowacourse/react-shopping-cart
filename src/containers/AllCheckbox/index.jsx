@@ -21,9 +21,7 @@ function AllCheckbox() {
   }
 
   const handleClickCheckbox = () => {
-    const newCarts = carts.map((product) => ({ ...product, isChecked: !isCheckedAll }));
-
-    dispatch(requestProductAllCheck(newCarts));
+    dispatch(requestProductAllCheck());
   };
 
   return <Checkbox label="선택해제" onClick={handleClickCheckbox} isChecked={isCheckedAll} />;

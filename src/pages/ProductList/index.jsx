@@ -20,7 +20,6 @@ function ProductList() {
   }, []);
 
   if (isLoading) {
-    console.log(isLoading);
     return <StateMessage message={MESSAGE.LOADING} />;
   }
 

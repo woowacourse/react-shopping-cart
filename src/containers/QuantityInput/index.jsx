@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { requestExistProductAdd } from 'modules/cart';
+import {
+  requestExistProductAdd,
+  requestExistProductDecrease,
+  requestUpdateProductQuantity,
+} from 'modules/cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { InputWrapperStyled, InputStyled, ButtonStyled } from './style';
 
@@ -15,26 +19,18 @@ function QuantityInput({ productId }) {
     const newCarts = [...carts];
     newCarts[productIdx].quantity = Number(event.target.value);
 
-    dispatch(requestExistProductAdd(newCarts));
+    dispatch(requestUpdateProductQuantity(productIdx, event.target.value));
   };
 
   const handleClickIncrease = () => {
-    const newCarts = [...carts];
-    if (newCarts[productIdx].quantity === 100) return;
-    newCarts[productIdx].quantity += 1;
-    newCarts[productIdx].total = newCarts[productIdx].price * newCarts[productIdx].quantity;
-    console.log(newCarts);
+    if (carts[productIdx].quantity === 100) return;
 
-    dispatch(requestExistProductAdd(newCarts));
+    dispatch(requestExistProductAdd(productIdx));
   };
   const handleClickDecrease = () => {
-    const newCarts = [...carts];
+    if (carts[productIdx].quantity === 1) return;
 
-    if (newCarts[productIdx].quantity === 1) return;
-    newCarts[productIdx].quantity -= 1;
-    newCarts[productIdx].total -= newCarts[productIdx].price;
-
-    dispatch(requestExistProductAdd(newCarts));
+    dispatch(requestExistProductDecrease(productIdx));
   };
 
   return (

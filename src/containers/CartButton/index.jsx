@@ -16,18 +16,15 @@ function CartButton({ id }) {
     // 이미 카트에 담긴 상품일 경우, 수량을 업데이트해준다
     if (productsId.includes(id)) {
       const productIdx = productsId.indexOf(id);
-      const newCarts = [...carts];
-      newCarts[productIdx].quantity += 1;
-      newCarts[productIdx].total += newCarts[productIdx].price;
 
-      dispatch(requestExistProductAdd(newCarts));
+      dispatch(requestExistProductAdd(productIdx));
       return;
     }
     try {
       const res = await axios.get(`/products/${id}`);
       const product = await res.data;
 
-      dispatch(requestCartAdd({ ...product, quantity: 1, isChecked: true, total: product.price }));
+      dispatch(requestCartAdd(product));
     } catch (error) {
       dispatch(requestCartAddFail(error));
     }

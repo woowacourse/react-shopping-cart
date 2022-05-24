@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BoxButton from 'components/BoxButton';
-import { requestProductDelete } from 'modules/cart';
+import { requestCheckedProductDelete } from 'modules/cart';
 import { useSelector, useDispatch } from 'react-redux';
 
 function DeleteProductButton() {
@@ -14,16 +14,11 @@ function DeleteProductButton() {
       return a;
     }, [])
     .reverse();
-  console.log(checkedProductIdx);
   const dispatch = useDispatch();
 
   const handleClickDeleteButton = () => {
     if (window.confirm('선택하신 상품을 삭제하시겠습니까?')) {
-      const newCarts = [...carts];
-      for (let idx of checkedProductIdx) {
-        newCarts.splice(idx, 1);
-      }
-      dispatch(requestProductDelete(newCarts));
+      dispatch(requestCheckedProductDelete(checkedProductIdx));
     }
   };
 
