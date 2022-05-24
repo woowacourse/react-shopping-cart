@@ -29,7 +29,7 @@ function MockProvider({ children }) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
 
-const product = {
+const existProduct = {
   id: 1,
   thumbnail: 'test1thumnail',
   name: 'testName1',
@@ -45,7 +45,7 @@ const newProduct = {
 };
 
 describe('장바구니 담기 기능 확인', () => {
-  test('장바구니에 이미 존재하는 상품의 버튼을 눌렀을 때 장바구니 상품 추가 액션을 보내야한다.', () => {
+  test('새로운 상품의 버튼을 눌렀을 때 장바구니 상품 추가 액션을 보내야한다.', () => {
     render(
       <MockProvider>
         <ProductListItem {...newProduct} />
@@ -64,7 +64,7 @@ describe('장바구니 담기 기능 확인', () => {
   test('장바구니에 이미 존재하는 상품의 버튼을 눌렀을 때 장바구니 상품 삭제 액션을 보내야한다.', () => {
     render(
       <MockProvider>
-        <ProductListItem {...product} />
+        <ProductListItem {...existProduct} />
       </MockProvider>
     );
 
@@ -73,7 +73,7 @@ describe('장바구니 담기 기능 확인', () => {
 
     expect(mockDispatch).toBeCalledWith({
       type: 'DELETE_ITEM',
-      payload: { id: product.id },
+      payload: { id: existProduct.id },
     });
   });
 });
