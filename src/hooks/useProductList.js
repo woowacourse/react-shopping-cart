@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 import { getProductList } from "../store/actions";
 
 export const useProductList = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   getCartItemList,
   postCartItem,
