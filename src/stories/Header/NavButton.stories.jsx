@@ -14,4 +14,5 @@ const Template = (args) => <NavButton {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   children: "안녕",
+  to: "/",
 };
