@@ -20,14 +20,12 @@ export default function ProductDetailPage() {
     data: getData,
     error: getError,
     fetch: getProductDetail,
-  } = useFetch({
-    API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`,
-  });
+  } = useFetch('get');
 
   useEffect(() => {
-    getProductDetail({});
+    getProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
     initializeCartList();
-  }, [getProductDetail, initializeCartList]);
+  }, [getProductDetail, initializeCartList, id]);
 
   return (
     <S.DetailItemPageLayout>

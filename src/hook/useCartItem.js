@@ -11,20 +11,11 @@ export default function useCartItem(path = null) {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-  const {fetch: postCart} = useFetch({
-    method: 'post',
-    API_URL: process.env.REACT_APP_CART_API_URL,
-  });
+  const {fetch: postCart} = useFetch('post');
 
-  const {fetch: deleteCart} = useFetch({
-    method: 'delete',
-    API_URL: process.env.REACT_APP_CART_API_URL,
-  });
+  const {fetch: deleteCart} = useFetch('delete');
 
-  const {fetch: patchCart} = useFetch({
-    method: 'patch',
-    API_URL: process.env.REACT_APP_CART_API_URL,
-  });
+  const {fetch: patchCart} = useFetch('patch');
 
   const initializeCartList = useCallback(() => dispatch(getCartList()), [dispatch]);
 
@@ -35,7 +26,7 @@ export default function useCartItem(path = null) {
       dispatch({type: CART.DELETE, payload});
       dispatch({type: SELECTED_ITEM.DELETE, payload});
       deleteCart({
-        params: `/${payload}`,
+        API_URL: `${process.env.REACT_APP_CART_API_URL}/${payload}`,
       });
       return;
     }
@@ -49,6 +40,7 @@ export default function useCartItem(path = null) {
   const addCartItem = (payload) => {
     dispatch({type: CART.ADD, payload});
     postCart({
+      API_URL: process.env.REACT_APP_CART_API_URL,
       body: payload,
     });
     if (!path) {
@@ -62,7 +54,7 @@ export default function useCartItem(path = null) {
 
     dispatch({type: CART.INCREASE_QUANTITY, payload: id});
     patchCart({
-      params: `/${id}`,
+      API_URL: `${process.env.REACT_APP_CART_API_URL}/${id}`,
       body: {
         quantity: quantity + 1,
       },
@@ -89,7 +81,7 @@ export default function useCartItem(path = null) {
       dispatch({type: CART.DELETE_SELECTED_CART, payload});
       payload.forEach((id) =>
         deleteCart({
-          params: `/${id}`,
+          API_URL: `${process.env.REACT_APP_CART_API_URL}/${id}`,
         }),
       );
       return;

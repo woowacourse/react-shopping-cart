@@ -1,18 +1,18 @@
 import {useCallback, useState} from 'react';
 import axios from 'axios';
 
-export default function useFetch({method = 'get', API_URL}) {
+export default function useFetch(method = 'get') {
   const [pending, setPending] = useState(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   const fetch = useCallback(
-    ({params = '', body = null}) => {
+    ({API_URL = '', body = null}) => {
       setPending(true);
       setData(null);
       setError(null);
 
-      axios[method](API_URL + params, body)
+      axios[method](API_URL, body)
         .then((response) => {
           setPending(false);
           response.data && setData(response.data);
@@ -22,7 +22,7 @@ export default function useFetch({method = 'get', API_URL}) {
           setError(error.message);
         });
     },
-    [method, API_URL],
+    [method],
   );
 
   return {pending, data, error, fetch};
