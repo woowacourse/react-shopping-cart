@@ -6,8 +6,7 @@ export const useCheckBox = (baseList = []) => {
   const isSelected = (id) => selectedList.includes(id);
 
   const isAllSelected =
-    baseList &&
-    baseList.length !== 0 &&
+    baseList?.length !== 0 &&
     baseList.every((baseListItem) => selectedList.includes(baseListItem));
 
   const handleCheckBoxClick = (id) => () => {
