@@ -10,33 +10,33 @@ export default styled.div`
   .product-wrapper {
     width: 400px;
 
-    img {
+    > img {
       margin: 0 auto;
       width: 380px;
       height: 380px;
     }
   }
 
-  .title-wrapper {
-    margin-top: 21px;
-    border-bottom: 1px solid ${({ theme }) => theme.black};
+  .top {
+    padding: 0 10px;
+    margin-top: 10px;
   }
 
   .title {
-    padding-left: 10px;
-    padding-bottom: 33px;
     font-size: 3.2rem;
     letter-spacing: 0.5px;
     color: ${({ theme }) => theme.black};
   }
 
   .bottom {
-    padding: 0 10px;
+    margin-top: 5px;
+    padding: 10px 10px 0;
     letter-spacing: 0.5px;
+    border-top: 1px solid ${({ theme }) => theme.black};
     color: ${({ theme }) => theme.black};
   }
 
-  .bottom p:fitst-child {
+  .bottom p:first-child {
     font-size: 2.4rem;
   }
 
