@@ -1,32 +1,15 @@
 import { useState } from 'react';
-import PageController from 'component/common/PageController';
 
-function usePagination(items, productsCountPerPage) {
+export default function usePagination(totalProductCount, productCountPerPage) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const currentPageProducts = items.slice(
-    (currentPage - 1) * productsCountPerPage,
-    currentPage * productsCountPerPage
-  );
-
-  const pageLength = items.length / productsCountPerPage + 1;
+  const totalPageLength = totalProductCount / productCountPerPage + 1;
+  const startIndex = productCountPerPage * (currentPage - 1);
+  const endIndex = startIndex + productCountPerPage - 1;
 
   const handlePageChange = order => {
     setCurrentPage(Number(order));
   };
 
-  const Pagination = () => (
-    <PageController
-      pageLength={pageLength}
-      currentPage={currentPage}
-      onPageChange={handlePageChange}
-    />
-  );
-
-  return {
-    currentPageProducts,
-    Pagination,
-  };
+  return { totalPageLength, currentPage, startIndex, endIndex, handlePageChange };
 }
-
-export default usePagination;
