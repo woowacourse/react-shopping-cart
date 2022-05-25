@@ -23,7 +23,7 @@ function ShoppingCartList() {
   const orderList = useSelector(state => state.orderList);
   const shoppingCart = useSelector(state => state.shoppingCart);
 
-  const checked = orderList.length === shoppingCart.length;
+  const checked = orderList.length !== 0 && orderList.length === shoppingCart.length;
 
   const handleChangeCheckBox = () => {
     if (checked) {
