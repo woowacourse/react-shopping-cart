@@ -7,12 +7,12 @@ import { useCartItemSelector, useCartItemListSelector } from "hooks/useCartSelec
 import { actionCreators as cartActions } from "redux/modules/cart";
 import { actionCreators as SnackBarActions } from "redux/modules/snackBar";
 
+import { CART_AMOUNT_MIN, CART_COUNTER_HIDE_TIME, MESSAGE, ROUTE_URL } from "constants/constants";
+
 import * as S from "./styles";
 
 import deleteIcon from "assets/deleteIcon_white.png";
 import cart from "assets/cart.svg";
-
-import { CART_AMOUNT_MIN, CART_COUNTER_HIDE_TIME, MESSAGE, ROUTE_URL } from "constants/constants";
 
 export type ProductType = {
   name: string;
@@ -75,7 +75,7 @@ function Product({ productInfo }: ProductProps) {
         setIsShowCartCounter(false);
       }, CART_COUNTER_HIDE_TIME);
     }
-  }, [isShowCartCounter, cartItem?.amount]);
+  }, [cartItem?.amount]);
 
   return (
     <S.ProductWrapper>

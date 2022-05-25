@@ -1,7 +1,8 @@
 import axios from "axios";
-import { API_URL } from "constants/constants";
 
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
+
+import { API_URL } from "constants/constants";
 
 type Product = {
   name: string;

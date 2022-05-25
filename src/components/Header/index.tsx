@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
+import { ROUTE_URL } from "constants/constants";
+
 import * as S from "./styles";
 
 import Logo from "assets/Logo.png";
-import { ROUTE_URL } from "constants/constants";
 
 function Header() {
   const navigate = useNavigate();

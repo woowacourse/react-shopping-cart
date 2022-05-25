@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux";
 
 import { actionCreators as cartActions, CartItem as CartItemType } from "redux/modules/cart";
 
+import { CART_AMOUNT_MIN, MESSAGE } from "constants/constants";
+
 import * as S from "./styles";
 
 import deleteIcon from "assets/deleteIcon_gray.png";
-
-import { CART_AMOUNT_MIN, MESSAGE } from "constants/constants";
 
 interface CartItemProps {
   cartItem: CartItemType;

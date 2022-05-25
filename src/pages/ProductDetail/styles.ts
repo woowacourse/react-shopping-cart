@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const CartCounterSizeUp = keyframes`
+  0% {
+    width: 50px;
+  }
+  100% {
+    width: 180px;
+  }
+`;
 
 const Content = styled.div`
   display: flex;
@@ -75,6 +84,45 @@ const ProductBadge = styled.div`
   top: 295px;
   right: 30px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  border: 2px solid #2ac1bc;
+`;
+
+const CartCounter = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  width: 180px;
+  height: 50px;
+  background-color: white;
+  border-radius: 25px;
+  top: 295px;
+  right: 30px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+  border: 2px solid #2ac1bc;
+  font-size: 20px;
+  animation: ${CartCounterSizeUp} 0.5s;
+`;
+
+const DeleteIcon = styled.img`
+  width: 35px;
+  height: 28px;
+  background-color: #2ac1bc;
+  border-radius: 15px;
+  color: wheat;
+  cursor: pointer;
+`;
+
+const CartCounterButton = styled.button`
+  background-color: #2ac1bc;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  width: 35px;
+  height: 28px;
+  border-radius: 15px;
 `;
 
 export {
@@ -85,4 +133,7 @@ export {
   ProductPriceWrapper,
   CartButton,
   ProductBadge,
+  CartCounter,
+  DeleteIcon,
+  CartCounterButton,
 };

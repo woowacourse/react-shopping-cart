@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { ROUTE_URL } from "constants/constants";
-
 import { RootState } from "redux/store";
 
 import { ProductDetail, Cart, OrderList, ProductList, NotFoundPage } from "./pages";
 
 import SnackBar from "components/@shared/SnackBar";
 import Header from "components/Header";
+
+import { ROUTE_URL } from "constants/constants";
 
 function App() {
   const { isShowSnackBar, message } = useSelector((state: RootState) => state.snackBar);

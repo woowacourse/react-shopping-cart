@@ -1,20 +1,60 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useCartItemSelector } from "hooks/useCartSelector";
+import { useCartItemListSelector } from "hooks/useCartSelector";
+import { useTargetProductSelector } from "hooks/useProductSelector";
 
 import { actionCreators as cartActions } from "redux/modules/cart";
+import { actionCreators as snackBarActions } from "redux/modules/snackBar";
+
+import { CART_AMOUNT_MIN, CART_COUNTER_HIDE_TIME, MESSAGE } from "constants/constants";
 
 import * as S from "./styles";
-import { useTargetProductSelector } from "hooks/useProductSelector";
+
+import deleteIcon from "assets/deleteIcon_white.png";
 
 function ProductDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const params = useParams();
+  const id = Number(params.id);
 
-  const cartItem = useCartItemSelector(Number(id));
-  const targetProduct = useTargetProductSelector(Number(id));
+  const [isShowCartCounter, setIsShowCartCounter] = useState(false);
+  const cartItemList = useCartItemListSelector();
+  const cartItem = cartItemList.find((cartItem) => cartItem.detail.id === id);
+  const targetProduct = useTargetProductSelector(id);
+  const timeout = useRef<NodeJS.Timeout>();
+
+  const onClickDeleteItem = () => {
+    if (confirm(MESSAGE.CONFIRM_DELETE)) {
+      dispatch(cartActions.deleteItem(id));
+      setIsShowCartCounter(false);
+      dispatch(snackBarActions.show(MESSAGE.DELETE_CART_ITEM));
+    }
+  };
+
+  const onClickDecreaseCounter = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    dispatch(cartActions.decrement(id));
+  };
+
+  const onClickIncreaseCounter = () => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    dispatch(cartActions.increment(id));
+  };
+
+  useEffect(() => {
+    if (isShowCartCounter) {
+      timeout.current = setTimeout(() => {
+        setIsShowCartCounter(false);
+      }, CART_COUNTER_HIDE_TIME);
+    }
+  }, [cartItem?.amount]);
 
   if (!targetProduct) {
     return (
@@ -28,7 +68,18 @@ function ProductDetail() {
     <S.Content>
       <S.ProductDetailWrapper>
         <S.ProductImage src={targetProduct.img} alt={targetProduct.name} />
-        {cartItem && <S.ProductBadge>찜</S.ProductBadge>}
+        {cartItem && <S.ProductBadge onClick={() => setIsShowCartCounter(true)}>찜</S.ProductBadge>}
+        {isShowCartCounter && (
+          <S.CartCounter>
+            {cartItem?.amount === CART_AMOUNT_MIN ? (
+              <S.DeleteIcon onClick={onClickDeleteItem} src={deleteIcon} alt="장바구니에서 삭제" />
+            ) : (
+              <S.CartCounterButton onClick={onClickDecreaseCounter}>-</S.CartCounterButton>
+            )}
+            <span>{cartItem?.amount}</span>
+            <S.CartCounterButton onClick={onClickIncreaseCounter}>+</S.CartCounterButton>
+          </S.CartCounter>
+        )}
         <S.ProductName>{targetProduct.name}</S.ProductName>
         <hr />
         <S.ProductPriceWrapper>

@@ -1,7 +1,8 @@
 import { rest } from "msw";
 
-import mockData from "./mockData.json";
 import { API_URL } from "constants/constants";
+
+import mockData from "./mockData.json";
 
 export const handlers = [
   rest.get(API_URL, (req, res, ctx) => {
