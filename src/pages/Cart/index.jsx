@@ -24,11 +24,24 @@ const Cart = () => {
     handleDeleteSelectedItem,
   } = useCartPage();
 
+  if (isLoading)
+    return (
+      <Styled.Wrapper>
+        <Title contents="장바구니" />
+        <ImgWrapper src={spinner} />
+      </Styled.Wrapper>
+    );
+
+  if (isError) {
+    <Styled.Wrapper>
+      <Title contents="장바구니" />
+      <ImgWrapper src={errorApiImg} />
+    </Styled.Wrapper>;
+  }
+
   return (
     <Styled.Wrapper>
       <Title contents="장바구니" />
-      {isLoading && <ImgWrapper src={spinner} />}
-      {isError && <ImgWrapper src={errorApiImg} />}
       <Styled.MainContentsWrapper>
         <Styled.LeftBox>
           <CartControlBar
