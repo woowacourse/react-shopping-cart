@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { apiClient } from 'utils';
-import { METHOD } from 'constants';
 import PropTypes from 'prop-types';
 
 const useFetch = ({ method, url, handler }) => {
@@ -30,7 +29,7 @@ const useFetch = ({ method, url, handler }) => {
 };
 
 useFetch.propTypes = {
-  method: PropTypes.oneOf(Object.values(METHOD)),
+  method: PropTypes.oneOf(['get', 'post', 'put', 'delete']),
   url: PropTypes.string,
 };
 
