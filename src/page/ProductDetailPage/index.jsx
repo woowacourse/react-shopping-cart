@@ -8,14 +8,12 @@ import NotFoundPage from 'page/NotFoundPage';
 import * as S from 'page/ProductDetailPage/style';
 
 import useFetch from 'hook/useFetch';
-import {useDispatch} from 'react-redux';
-import {CART} from 'store/modules/cart';
+import useCartItem from 'hook/useCartItem';
 
 export default function ProductDetailPage() {
   const {id} = useParams();
-  const dispatch = useDispatch();
 
-  const {fetch: fetchCart} = useFetch('get');
+  const {initializeCart} = useCartItem();
 
   const {
     pending: detailPending,
@@ -25,15 +23,12 @@ export default function ProductDetailPage() {
   } = useFetch('get');
 
   useEffect(() => {
-    fetchProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
+    initializeCart();
+  }, [initializeCart]);
 
-    fetchCart({
-      API_URL: process.env.REACT_APP_CART_API_URL,
-      onSuccess: (fetchedData) => {
-        dispatch({type: CART.INITIALIZE, payload: fetchedData});
-      },
-    });
-  }, [fetchProductDetail, id, dispatch, fetchCart]);
+  useEffect(() => {
+    fetchProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
+  }, [fetchProductDetail, id]);
 
   return (
     <S.DetailItemPageLayout>

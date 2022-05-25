@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {getProductList, PRODUCT_LIST} from 'store/modules/productList';
+import {PRODUCT_LIST} from 'store/modules/productList';
 
 import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 import Item from 'component/Item';
@@ -12,7 +11,6 @@ import Empty from 'assets/empty.png';
 
 import useCartItem from 'hook/useCartItem';
 import useFetch from 'hook/useFetch';
-import {CART} from 'store/modules/cart';
 
 export default function ProductListPage() {
   const dispatch = useDispatch();
@@ -21,7 +19,7 @@ export default function ProductListPage() {
 
   const {pending: productPending, error: productError, fetch: fetchProduct} = useFetch('get');
 
-  const {fetch: fetchCart} = useFetch('get');
+  const {initializeCart} = useCartItem();
 
   useEffect(() => {
     fetchProduct({
@@ -30,14 +28,11 @@ export default function ProductListPage() {
         dispatch({type: PRODUCT_LIST.INITIALIZE, payload: fetchedData});
       },
     });
+  }, [dispatch, fetchProduct]);
 
-    fetchCart({
-      API_URL: process.env.REACT_APP_CART_API_URL,
-      onSuccess: (fetchedData) => {
-        dispatch({type: CART.INITIALIZE, payload: fetchedData});
-      },
-    });
-  }, [dispatch, fetchProduct, fetchCart]);
+  useEffect(() => {
+    initializeCart();
+  }, [initializeCart]);
 
   return (
     <S.ProductListPageLayout>

@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
@@ -9,6 +10,8 @@ import useFetch from './useFetch';
 export default function useCartItem(path = null) {
   const dispatch = useDispatch();
   const navigation = useNavigate();
+
+  const {fetch: fetchCart} = useFetch('get');
 
   const {fetch: postCart} = useFetch('post');
 
@@ -33,6 +36,15 @@ export default function useCartItem(path = null) {
     }
     navigation(path);
   };
+
+  const initializeCart = useCallback(() => {
+    fetchCart({
+      API_URL: process.env.REACT_APP_CART_API_URL,
+      onSuccess: (fetchedData) => {
+        dispatch({type: CART.INITIALIZE, payload: fetchedData});
+      },
+    });
+  }, [dispatch, fetchCart]);
 
   const addCartItem = (payload) => {
     dispatch({type: CART.ADD, payload});
@@ -91,5 +103,6 @@ export default function useCartItem(path = null) {
     increaseQuantity,
     decreaseQuantity,
     deleteSelectedCart,
+    initializeCart,
   };
 }
