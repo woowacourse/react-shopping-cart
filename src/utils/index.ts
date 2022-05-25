@@ -1,4 +1,6 @@
-export const isExistInList = <T>(list: T[], value: T) => {
+type Primitive = boolean | string | number;
+
+export const isExistInList = <T extends Primitive>(list: T[], value: T) => {
   return list.indexOf(value) !== -1;
 };
 
