@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
@@ -25,16 +25,28 @@ const ProductDetail = () => {
   } = useProductDetail();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
   let timer: ReturnType<typeof setTimeout>;
+  let addCartButtonClickCount = useRef(0);
 
   const handleAddCartButton = async () => {
     try {
+      addCartButtonClickCount.current += 1;
       if (timer) clearTimeout(timer);
 
       timer = setTimeout(() => {
         loadCartProduct(id).then((cartProduct) => {
           cartProduct === null
-            ? registerCartProduct({ id, thumbnail, name, price, quantity: 1 })
-            : updateCartProduct(id, { ...cartProduct, quantity: cartProduct.quantity + 1 });
+            ? registerCartProduct({
+                id,
+                thumbnail,
+                name,
+                price,
+                quantity: addCartButtonClickCount.current,
+              })
+            : updateCartProduct(id, {
+                ...cartProduct,
+                quantity: cartProduct.quantity + addCartButtonClickCount.current,
+              });
+          addCartButtonClickCount.current = 0;
         });
 
         dispatch(getCartProductListAsync());
