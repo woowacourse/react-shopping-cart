@@ -35,9 +35,9 @@ const Cart = () => {
     setCheckedIdList(initialIdList);
   }, [cartList]);
 
-  const handleClickOrder = () => {
-    postOrderList();
-    getOrderList();
+  const handleClickOrder = async () => {
+    await postOrderList();
+    await getOrderList();
   };
 
   return (
