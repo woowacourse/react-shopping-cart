@@ -13,7 +13,7 @@ import PaymentAmountContainer from 'components/PaymentAmountContainer/PaymentAmo
 import ShoppingCartListContainer from 'components/ShoppingCartListContainer/ShoppingCartListContainer.component';
 
 import { addAllItem, deleteAllItem } from 'redux/actions/orderList.action';
-import { deleteItem } from 'redux/actions/shoppingCart.action';
+import { deleteItemList } from 'redux/actions/shoppingCart.action';
 
 import useFetch from 'hooks/useFetch';
 
@@ -40,9 +40,7 @@ function ShoppingCartList() {
       return;
     }
     if (window.confirm(`${orderList.length}개의 상품을 장바구니에서 삭제하시겠습니까?`)) {
-      orderList.forEach(itemId => {
-        dispatch(deleteItem(itemId));
-      });
+      dispatch(deleteItemList(orderList));
       dispatch(deleteAllItem());
     }
   };

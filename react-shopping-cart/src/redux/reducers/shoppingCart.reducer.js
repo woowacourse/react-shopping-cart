@@ -1,6 +1,7 @@
 import {
   ADD_ITEM,
   DELETE_ITEM,
+  DELETE_ITEM_LIST,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
 } from 'redux/actions/shoppingCart.action';
@@ -14,6 +15,9 @@ function shoppingCart(state = initialState, action) {
 
     case DELETE_ITEM:
       return state.filter(product => product.id !== action.payload.id);
+
+    case DELETE_ITEM_LIST:
+      return state.filter(product => !action.payload.includes(product.id));
 
     case INCREASE_QUANTITY: {
       const newState = [...state];
