@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { flexCenter } from 'styles/mixin';
 import ControllButton from './ControllButton';
 import QuantityInput from './QuantityInput';
 

@@ -1,12 +1,8 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import ItemDetail from 'pages/ItemDetailPage';
-import NotFound from 'pages/NotFoundPage';
-import ItemListPage from 'pages/ItemListPage';
+import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import Modal from 'components/common/Snackbar';
 import { useAppSelector } from 'hooks/useAppSelector';
-import CartPage from 'pages/CartPage';
 import Router from 'Router';
 
 function App() {
