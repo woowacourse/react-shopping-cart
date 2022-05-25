@@ -5,7 +5,7 @@ import { LOAD_ITEM_AMOUNT } from "../../constants/constants";
 
 const Products = ({ products }) => {
   const navigate = useNavigate();
-  const handleItemClick = (id) => {
+  const handleItemClick = (id) => () => {
     navigate(`/product/${id}`);
   };
 
@@ -15,10 +15,8 @@ const Products = ({ products }) => {
         <Product
           product={product}
           key={product.id}
+          handleItemClick={handleItemClick(product.id)}
           {...product}
-          onClick={() => {
-            handleItemClick(product.id);
-          }}
         />
       ))}
       {products.loading &&
