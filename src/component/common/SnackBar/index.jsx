@@ -2,13 +2,7 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 export default function SnackBar({ message }) {
-  return (
-    message && (
-      <Styled.Box key={Math.random()} isShow={!!message}>
-        {message}
-      </Styled.Box>
-    )
-  );
+  return message && <Styled.Box key={Math.random()}>{message}</Styled.Box>;
 }
 
 SnackBar.propTypes = {
@@ -21,14 +15,6 @@ from {
 }
 to {
   opacity: 1;
-}
-`;
-const fadeOut = keyframes`
-from {
-  opacity: 1;
-}
-to {
-  opacity: 0;
 }
 `;
 
@@ -52,6 +38,6 @@ const Styled = {
     bottom: 30px;
 
     animation-duration: 0.5s;
-    animation-name: ${props => (props.isShow ? fadeIn : fadeOut)};
+    animation-name: ${fadeIn};
   `,
 };
