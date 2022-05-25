@@ -17,8 +17,8 @@ import useSnackBar from 'hooks/useSnackBar';
 
 import { updateCartProduct } from 'api/cart';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
-import { CartProductData } from 'types';
 import { 수량감소메시지, 수량증가메시지 } from 'constants/index';
+import { CartProductData } from 'types';
 
 interface CartProductProps {
   data: CartProductData;
@@ -26,8 +26,6 @@ interface CartProductProps {
   handleCheckButtonClick: (id: number) => void;
   handleCartProductDelete: (id: number) => void;
 }
-
-type Type = 'increase' | 'decrease';
 
 const CartProduct = ({
   data,
@@ -39,19 +37,21 @@ const CartProduct = ({
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
   const { id, name, price, thumbnail, quantity } = data;
 
-  const handleQuantityControlButton = async (type: Type): Promise<void> => {
+  const handleIncreaseButton = async (): Promise<void> => {
     try {
-      if (type === 'increase') {
-        await updateCartProduct(id, { ...data, quantity: data.quantity + 1 });
-        triggerSnackbar(수량증가메시지);
-      }
-
-      if (type === 'decrease') {
-        await updateCartProduct(id, { ...data, quantity: data.quantity - 1 });
-        triggerSnackbar(수량감소메시지);
-      }
-
+      await updateCartProduct(id, { ...data, quantity: quantity + 1 });
       dispatch(getCartProductListAsync());
+      triggerSnackbar(수량증가메시지);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  const handleDecreaseButton = async (): Promise<void> => {
+    try {
+      await updateCartProduct(id, { ...data, quantity: quantity - 1 });
+      dispatch(getCartProductListAsync());
+      triggerSnackbar(수량감소메시지);
     } catch (e) {
       alert(e);
     }
@@ -76,8 +76,8 @@ const CartProduct = ({
             </Button>
             <QuantityControlBox
               quantity={quantity}
-              handleIncreaseButton={() => handleQuantityControlButton('increase')}
-              handleDecreaseButton={() => handleQuantityControlButton('decrease')}
+              handleIncreaseButton={handleIncreaseButton}
+              handleDecreaseButton={handleDecreaseButton}
             />
             <Text as="span">{(price * quantity).toLocaleString()}원</Text>
           </Flex>
