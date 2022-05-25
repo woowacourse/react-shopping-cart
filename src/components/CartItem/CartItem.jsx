@@ -76,8 +76,6 @@ CartItem.propTypes = {
   quantity: PropTypes.number,
   isSelected: PropTypes.bool,
   onToggleSelect: PropTypes.func,
-  onChangeQuantity: PropTypes.func,
-  onDeleteItem: PropTypes.func,
 };
 
 export default CartItem;
