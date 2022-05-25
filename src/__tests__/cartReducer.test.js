@@ -2,7 +2,7 @@ import cartReducer, { initialState } from 'reducers/cart/cart.reducer';
 import * as actions from 'reducers/cart/cart.actions';
 import { productList } from 'assets/mock';
 
-describe('Cart Store Reducer 테스트 - 리듀서 함수의 매개변수 액션에 따라서 상태를 변경하여 스토어에 반영한다.', () => {
+describe('Cart Store Reducer 테스트 - 리듀서 함수의 매개변수 액션에 따라서 변경된 상태를 반환한다.', () => {
   test('(REQUEST) 장바구니 불러오기 요청 액션이 들어오면, api 요청 Pending 이 상태에 반영된다.', () => {
     expect(cartReducer(initialState, actions.getCartRequest())).toEqual({
       ...initialState,
