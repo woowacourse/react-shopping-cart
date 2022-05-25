@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useCartItemList } from "../../hooks/useCartItemList";
 import { useCheckBox } from "../../hooks/useCheckBox";
@@ -22,7 +22,8 @@ function ShoppingCartPage() {
     cartItemList,
     isLoading,
     errorMessage,
-    updateCartItemQuantity,
+    getCartItemList,
+    addCartItemQuantity,
     deleteCartItemByIdList,
   } = useCartItemList();
 
@@ -53,6 +54,10 @@ function ShoppingCartPage() {
       deleteCartItemByIdList([...selectedList]);
     }
   };
+
+  useEffect(() => {
+    getCartItemList();
+  }, []);
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
@@ -92,7 +97,7 @@ function ShoppingCartPage() {
                   selected={isSelected(product.id)}
                   onClickCheckBox={handleCheckBoxClick(product.id)}
                   updateQuantity={(quantity) =>
-                    updateCartItemQuantity({
+                    addCartItemQuantity({
                       id: product.id,
                       quantity,
                     })

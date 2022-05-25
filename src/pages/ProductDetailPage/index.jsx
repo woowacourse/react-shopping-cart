@@ -25,21 +25,23 @@ function ProductDetailPage() {
   const { id: productId } = useParams();
 
   const {
-    fetch: getProduct,
     data: product,
+    fetch: getProduct,
     isLoading: isProductLoading,
     errorMessage: productErrorMessage,
   } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_DETAIL_URL(productId), []);
 
   const {
     cartItemList,
+    getCartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantityWithSuccessMessage,
+    addCartItemQuantityWithSuccessMessage,
   } = useCartItemList();
 
   useEffect(() => {
     getProduct();
+    getCartItemList();
   }, []);
 
   if (isProductLoading || isCartItemListLoading) return <Spinner />;
@@ -68,7 +70,7 @@ function ProductDetailPage() {
       </StyledBottomSection>
       <AddToCartButton
         onClick={() => {
-          updateCartItemQuantityWithSuccessMessage({
+          addCartItemQuantityWithSuccessMessage({
             id: product.id,
             quantity: quantity + 1,
           });

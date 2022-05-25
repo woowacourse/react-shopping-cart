@@ -13,21 +13,23 @@ const REQUEST_PRODUCT_LIST_URL = `${API_SERVER.BASE_URL}${API_SERVER.PATH.PRODUC
 
 function ProductListPage() {
   const {
-    fetch: getProductList,
     data: productList,
+    fetch: getProductList,
     isLoading: isProductListLoading,
     errorMessage: productListErrorMessage,
   } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_LIST_URL, []);
 
   const {
     cartItemList,
+    getCartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantityWithSuccessMessage,
+    addCartItemQuantityWithSuccessMessage,
   } = useCartItemList();
 
   useEffect(() => {
     getProductList();
+    getCartItemList();
   }, []);
 
   if (isProductListLoading || isCartItemListLoading) return <Spinner />;
@@ -54,7 +56,7 @@ function ProductListPage() {
           key={product.id}
           product={{ ...product }}
           onClickAddToCartButton={() => {
-            updateCartItemQuantityWithSuccessMessage({
+            addCartItemQuantityWithSuccessMessage({
               id: product.id,
               quantity: product.quantity + 1,
             });
