@@ -13,21 +13,21 @@ const QuantityInput = ({ itemId, cartQuantity }) => {
   const handleChangeInput = async (e) => {
     setNewQuantity(+e.target.value);
     await callPatchApi(itemId, +e.target.value);
-    await getCartList();
+    getCartList();
   };
 
   const handleClickStepUp = async () => {
     numberInput.current.stepUp(1);
     setNewQuantity(+numberInput.current.value);
     await callPatchApi(itemId, +numberInput.current.value);
-    await getCartList();
+    getCartList();
   };
 
   const handleClickStepDown = async () => {
     numberInput.current.stepDown(1);
     setNewQuantity(+numberInput.current.value);
     await callPatchApi(itemId, +numberInput.current.value);
-    await getCartList();
+    getCartList();
   };
 
   return (

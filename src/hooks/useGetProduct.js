@@ -5,7 +5,7 @@ const useGetProduct = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('product');
 
   const getProduct = async (id) => {
-    await dispatch(getProductAsync(id));
+    dispatch(getProductAsync(id));
   };
 
   return {

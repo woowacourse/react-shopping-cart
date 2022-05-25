@@ -45,7 +45,7 @@ const CartTable = ({ cartList, checkedIdList, setCheckedIdList }) => {
       }),
     );
 
-    await getCartList();
+    getCartList();
   };
 
   return (

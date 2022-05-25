@@ -37,7 +37,7 @@ const Cart = () => {
 
   const handleClickOrder = async () => {
     await postOrderList();
-    await getOrderList();
+    getOrderList();
   };
 
   return (

@@ -4,8 +4,8 @@ import { getOrderListAsync } from 'reducers/orderList/orderList.thunks';
 const useGetOrderList = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('orderList');
 
-  const getOrderList = async () => {
-    await dispatch(getOrderListAsync);
+  const getOrderList = () => {
+    dispatch(getOrderListAsync);
   };
 
   return {

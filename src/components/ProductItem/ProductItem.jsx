@@ -21,7 +21,7 @@ const ProductItem = ({ id, name, price, imgUrl }) => {
 
   const handleClickCart = async () => {
     await postCartList();
-    await getCartList();
+    getCartList();
   };
 
   return (
