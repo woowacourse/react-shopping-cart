@@ -11,4 +11,4 @@ export const 상품삭제메시지 = '해당 상품이 삭제되었습니다';
 export const 선택상품삭제메시지 = '선택된 상품이 삭제되었습니다';
 
 export const SNACKBAR_DELAY_TIME = 2000;
-export const ADD_CART_DELAY_TIME = 500;
+export const ADD_CART_DELAY_TIME = 150;
