@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Styled from './style';
+import * as Styled from './style';
 
 const Title = ({ contents }) => {
   return (
