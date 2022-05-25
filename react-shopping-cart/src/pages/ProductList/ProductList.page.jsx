@@ -9,8 +9,10 @@ import STATE_KEY from 'constants/stateKey';
 import STATUS from 'constants/status';
 
 function ProductList() {
-  const { state, dispatch } = useReduxState(STATE_KEY.PRODUCT_LIST_REDUCER);
-  const { productList, status } = state;
+  const {
+    state: { productList, status },
+    dispatch,
+  } = useReduxState(STATE_KEY.PRODUCT_LIST_REDUCER);
 
   useEffect(() => {
     if (!productList.length) {
