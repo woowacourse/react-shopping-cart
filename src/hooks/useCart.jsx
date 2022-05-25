@@ -14,12 +14,14 @@ const useCart = () => {
     dispatch(postCart(id));
   };
 
-  const addQuantity = (id, quantity) => {
-    dispatch(editCart(id, quantity + 1));
+  const addQuantity = (id) => {
+    const editItem = data.find(({id: cartedId}) => cartedId === id);
+    dispatch(editCart(id, editItem.quantity + 1));
   };
 
-  const minusQuantity = (id, quantity) => {
-    dispatch(editCart(id, quantity - 1));
+  const minusQuantity = (id) => {
+    const editItem = data.find(({id: cartedId}) => cartedId === id);
+    dispatch(editCart(id, editItem.quantity - 1));
   };
 
   const deleteItem = (id) => {

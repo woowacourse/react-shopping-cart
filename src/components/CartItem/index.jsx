@@ -42,7 +42,7 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
                 buttonType="grayBorder"
                 buttonSizeType="s"
                 onClick={() => {
-                  addQuantity(id, quantity);
+                  addQuantity(id);
                 }}
               >
                 ▲
@@ -51,7 +51,7 @@ function CartItem({itemImgURL, itemName, itemPrice = 0, quantity, id, checked, o
                 buttonType="grayBorder"
                 buttonSizeType="s"
                 onClick={() => {
-                  minusQuantity(id, quantity);
+                  minusQuantity(id);
                 }}
                 disabled={quantity === 1}
               >
