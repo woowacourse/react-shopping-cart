@@ -7,6 +7,7 @@ import CheckBox from 'components/common/CheckBox';
 import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import Controller from './Controller';
+import { formatDecimal } from 'utils';
 
 const CartList = ({
   cartList,
@@ -104,9 +105,7 @@ const CartList = ({
                   quantity={cartItem.quantity}
                   modifyQuantity={modifyQuantity}
                 ></Controller>
-                <TotalPrice>
-                  {totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')} 원
-                </TotalPrice>
+                <TotalPrice>{formatDecimal(totalPrice)} 원</TotalPrice>
               </StyledRight>
             </CartItemContainer>
           );

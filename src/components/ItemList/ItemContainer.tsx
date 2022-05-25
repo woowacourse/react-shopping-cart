@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 import { memo, MouseEvent } from 'react';
 import { flexCenter } from 'styles/mixin';
 import { Link } from 'react-router-dom';
+import { formatDecimal } from 'utils';
 
 interface ItemContainerProps {
   id: number;
@@ -41,7 +42,7 @@ const ItemContainer = ({
         <StyledBottom>
           <StyledDescription>
             <StyledTitle>{title}</StyledTitle>
-            <StyledPrice>{price}</StyledPrice>
+            <StyledPrice>{formatDecimal(price)}원</StyledPrice>
           </StyledDescription>
           <StyledCartIcon width='31px' fill={theme.colors.font} onClick={handleClickCartIcon} />
         </StyledBottom>
