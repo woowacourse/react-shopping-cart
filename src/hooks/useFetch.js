@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (getFunc, initialData = {}) => {
+export const useFetch = (getFunc, initialData = {}, isEffect = true) => {
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const getItems = async () => {
+    try {
+      const data = await getFunc();
+      setData(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    }
+  };
+
   useEffect(() => {
-    const getItems = async () => {
-      try {
-        const data = await getFunc();
-        setData(data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setErrorMessage(error.message);
-      }
-    };
-    getItems();
+    isEffect && getItems();
   }, []);
 
-  return { data, isLoading, errorMessage };
+  return { data, isLoading, errorMessage, getItems };
 };
