@@ -19,7 +19,7 @@ interface CartItemContainerProps {
 
 const CartItemContainer = ({ item }: CartItemContainerProps) => {
   const dispatch = useAppDispatch<CartListAction>();
-  const { id, thumbnailUrl, price, title, isSelected, quantity } = item;
+  const { id, thumbnailUrl, price, title, isSelected } = item;
 
   const handleClickDeleteButton = () => {
     if (window.confirm(`<${title}> 상품을 삭제하시겠습니까?`)) {
@@ -37,13 +37,7 @@ const CartItemContainer = ({ item }: CartItemContainerProps) => {
       <p>{title}</p>
       <StyledRight>
         <StyledDeleteIcon onClick={handleClickDeleteButton} />
-        <QuantityBox
-          quantity={quantity}
-          changeQuantity={(diff: number) =>
-            dispatch(putCartItemRequest({ ...item, quantity: item.quantity + diff }))
-          }
-        />
-
+        <QuantityBox item={item} />
         <p>{price.toLocaleString()}원</p>
       </StyledRight>
     </StyledCartItem>

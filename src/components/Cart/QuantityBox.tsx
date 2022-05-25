@@ -1,14 +1,19 @@
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useRef } from 'react';
+import { CartListAction } from 'redux/cartList/action';
+import { putCartItemRequest } from 'redux/cartList/thunk';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
+import { ItemInCart } from 'types/domain';
 import { debounce } from 'utils/debounce';
 
 interface QuantityBoxProps {
-  quantity: number;
-  changeQuantity: (diff?: number) => void;
+  item: ItemInCart;
 }
 
-const QuantityBox = ({ quantity, changeQuantity }: QuantityBoxProps) => {
+const QuantityBox = ({ item }: QuantityBoxProps) => {
+  const { quantity } = item;
+  const dispatch = useAppDispatch<CartListAction>();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChangeInput = debounce(() => {
@@ -16,7 +21,7 @@ const QuantityBox = ({ quantity, changeQuantity }: QuantityBoxProps) => {
       ? inputRef.current.valueAsNumber - quantity
       : 1 - quantity;
 
-    changeQuantity(diff);
+    dispatch(putCartItemRequest({ ...item, quantity: quantity + diff }));
   }, 300);
 
   return (
@@ -32,7 +37,7 @@ const QuantityBox = ({ quantity, changeQuantity }: QuantityBoxProps) => {
         <StyledArrowBox
           onClick={() => {
             inputRef.current.valueAsNumber = quantity + 1;
-            changeQuantity(1);
+            dispatch(putCartItemRequest({ ...item, quantity: quantity + 1 }));
           }}
         >
           <StyledArrowUp />
@@ -40,7 +45,7 @@ const QuantityBox = ({ quantity, changeQuantity }: QuantityBoxProps) => {
         <StyledArrowBox
           onClick={() => {
             inputRef.current.valueAsNumber = quantity - 1;
-            changeQuantity(-1);
+            dispatch(putCartItemRequest({ ...item, quantity: quantity - 1 }));
           }}
           disabled={quantity <= 1}
         >
