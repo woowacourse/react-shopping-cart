@@ -24,7 +24,8 @@ const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
 const POST_CART_PRODUCT = "cart-product/POST_CART_PRODUCT";
 
 export const postCartProduct =
-  (id, newShoppingCartProduct) => async (dispatch, getState) => {
+  (id, newShoppingCartProduct, successCallback, failCallback) =>
+  async (dispatch, getState) => {
     try {
       const { products } = getState();
       const newProduct = newShoppingCartProduct.data
@@ -51,9 +52,9 @@ export const postCartProduct =
         type: REPLACE_PRODUCTS,
         replaceProducts: replaceProducts,
       });
-      dispatch(setSnackBarTypeSuccess());
+      dispatch(successCallback());
     } catch (error) {
-      dispatch(setSnackBarTypeFail());
+      dispatch(failCallback());
     }
   };
 

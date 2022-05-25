@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductDetails from "../../components/ProductDetails";
 import ProductDetailsSkeleton from "../../components/ProductDetailsSkeleton";
 import { postCartProduct } from "../../modules/cartProducts";
 import { getProductById } from "../../modules/product";
+import {
+  setSnackBarTypeFail,
+  setSnackBarTypeSuccess,
+} from "../../modules/snackBar";
 import * as S from "./index.styles";
 
 const ProductDetailsPage = () => {
-  const [isCartIconClicked, setCartIconClicked] = useState(false);
   const { id } = useParams();
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handlePutInShoppingCart = () => {
-    dispatch(postCartProduct(Number(id), product));
-
-    setCartIconClicked((prevState) => !prevState);
-    setTimeout(() => {
-      setCartIconClicked((prevState) => !prevState);
-    }, 700);
+    dispatch(
+      postCartProduct(id, product, setSnackBarTypeSuccess, setSnackBarTypeFail)
+    );
   };
 
   useEffect(() => {
@@ -35,7 +35,6 @@ const ProductDetailsPage = () => {
       <S.DetailContainer>
         <ProductDetails
           handlePutInShoppingCart={handlePutInShoppingCart}
-          isCartIconClicked={isCartIconClicked}
           {...product.data}
         />
       </S.DetailContainer>

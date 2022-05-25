@@ -3,6 +3,10 @@ import ShoppingCartIcon from "../ShoppingCartIcon";
 import { useDispatch } from "react-redux";
 import { useTheme } from "@emotion/react";
 import { postCartProduct } from "../../modules/cartProducts";
+import {
+  setSnackBarTypeFail,
+  setSnackBarTypeSuccess,
+} from "../../modules/snackBar";
 
 const Product = ({
   imgUrl,
@@ -17,7 +21,9 @@ const Product = ({
   const dispatch = useDispatch();
 
   const handlePutInShoppingCart = () => {
-    dispatch(postCartProduct(id, product));
+    dispatch(
+      postCartProduct(id, product, setSnackBarTypeSuccess, setSnackBarTypeFail)
+    );
   };
 
   return (

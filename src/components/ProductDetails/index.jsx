@@ -1,13 +1,6 @@
-import SnackBar from "../../modal/SnackBar";
 import * as S from "./index.styles";
 
-const ProductDetails = ({
-  imgUrl,
-  title,
-  price,
-  handlePutInShoppingCart,
-  isCartIconClicked,
-}) => {
+const ProductDetails = ({ imgUrl, title, price, handlePutInShoppingCart }) => {
   return (
     <S.ProductDetailsContainer>
       <S.ProductDetailsImage src={imgUrl} alt={`${title} 상세이미지`} />
@@ -19,7 +12,6 @@ const ProductDetails = ({
       <S.ShoppingCartButton onClick={handlePutInShoppingCart} type="button">
         장바구니
       </S.ShoppingCartButton>
-      {isCartIconClicked && <SnackBar message="장바구니에 상품이 담겼습니다" />}
     </S.ProductDetailsContainer>
   );
 };
