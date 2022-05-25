@@ -4,10 +4,6 @@ import { ProductListAction } from 'store/productList/reducer';
 import { CartProductListAction } from 'store/cartProductList/reducer';
 import { AppDispatch } from 'types';
 
-const useAppDispatch = () => {
-  const dispatch = useDispatch<AppDispatch<ProductListAction | CartProductListAction>>();
-
-  return dispatch;
-};
+const useAppDispatch = () => useDispatch<AppDispatch<ProductListAction | CartProductListAction>>();
 
 export default useAppDispatch;
