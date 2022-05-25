@@ -10,6 +10,7 @@ const useSnackBar = (initialState: boolean) => {
 
     setShowSnackBar(true);
     setMessage(message);
+
     setTimeout(() => {
       setShowSnackBar(false);
     }, SNACKBAR_DELAY_TIME);
