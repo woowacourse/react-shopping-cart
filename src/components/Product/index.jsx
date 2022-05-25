@@ -7,6 +7,7 @@ import {
   setSnackBarTypeFail,
   setSnackBarTypeSuccess,
 } from "../../modules/snackBar";
+import ProductImage from "../ProductImage";
 
 const Product = ({
   imgUrl,
@@ -28,10 +29,10 @@ const Product = ({
 
   return (
     <S.ProductContainer>
-      <S.ProductImage
-        src={imgUrl}
-        alt={`${title} 이미지`}
-        onClick={handleItemClick}
+      <ProductImage
+        imgUrl={imgUrl}
+        title={title}
+        handleItemClick={handleItemClick}
       />
       <S.ProductInfoWrapper>
         <div onClick={handleItemClick}>

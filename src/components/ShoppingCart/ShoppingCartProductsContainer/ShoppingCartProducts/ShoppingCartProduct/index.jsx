@@ -1,6 +1,7 @@
 import * as S from "./index.styles";
 import RemoveIcon from "../../../../RemoveIcon";
 import useShoppingCartProduct from "./hook/useShoppingCartProduct";
+import ProductImage from "../../../../ProductImage";
 
 const ProductInfoContainer = ({
   id,
@@ -8,6 +9,7 @@ const ProductInfoContainer = ({
   title,
   isChecked,
   handleChecked,
+  handleItemClick,
 }) => {
   return (
     <S.ProductInfoContainer>
@@ -16,7 +18,11 @@ const ProductInfoContainer = ({
         checked={isChecked}
         onChange={() => handleChecked(id)}
       />
-      <S.ProductImage src={imgUrl} alt={`${title}-이미지`} />
+      <ProductImage
+        imgUrl={imgUrl}
+        title={title}
+        handleItemClick={handleItemClick}
+      />
       <S.ProductTitle>{title}</S.ProductTitle>
     </S.ProductInfoContainer>
   );
@@ -72,10 +78,10 @@ const ShoppingCartProduct = ({
     handleUpdateQuantityByUser,
     handleBackspaceByUser,
     handleRemoveProduct,
+    handleItemClick,
     isChecked,
     productPrice,
   } = useShoppingCartProduct(id, checked, price, quantity);
-
   return (
     <S.ShoppingCartProduct>
       <ProductInfoContainer
@@ -83,6 +89,7 @@ const ShoppingCartProduct = ({
         imgUrl={imgUrl}
         title={title}
         handleChecked={handleChecked}
+        handleItemClick={handleItemClick(id)}
         isChecked={isChecked}
       />
       <ProductQuantityControlContainer

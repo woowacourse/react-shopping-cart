@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { addId, removeId } from "../../../../../../modules/checkedIds";
@@ -10,6 +11,11 @@ const useShoppingCartProduct = (id, checked, price, quantity) => {
   const [isChecked, setChecked] = useState(true);
   const [productPrice, setProductPrice] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleItemClick = (id) => () => {
+    navigate(`/product/${id}`);
+  };
 
   const handleChecked = (id) => {
     if (isChecked) {
@@ -54,6 +60,7 @@ const useShoppingCartProduct = (id, checked, price, quantity) => {
   }, [price, quantity]);
 
   return {
+    handleItemClick,
     handleChecked,
     handleIncrement,
     handleDecrement,
