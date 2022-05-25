@@ -23,10 +23,10 @@ function CartList({ products, checkedIds, count }) {
   const onClickCheckProduct = (id) => dispatch(checkProduct(id));
   const onClickUnCheckProduct = (id) => dispatch(unCheckProduct(id));
 
-  const onClickAllCkeck = (isAllCkeck) => {
-    setAllChecked(isAllCkeck);
+  const onClickAllCkeck = (isAllCheck) => {
+    setAllChecked(isAllCheck);
 
-    if (isAllCkeck) {
+    if (isAllCheck) {
       dispatch(allCheckProduct());
       return;
     }
@@ -57,8 +57,8 @@ function CartList({ products, checkedIds, count }) {
   };
 
   useEffect(() => {
-    const isAllCkeck = products.length === checkedIds.length;
-    setAllChecked(isAllCkeck);
+    const isAllCheck = products.length === checkedIds.length;
+    setAllChecked(isAllCheck);
   }, [checkedIds, products]);
 
   return (
