@@ -16,7 +16,7 @@ function TotalPrice({ total, quantity }) {
         </Style.TotalPriceBox>
         <Style.OrderButtonWrapper justify="center" align="center">
           <Style.OrderButton type="button">
-            주문하기(${quantity}개)
+            주문하기({quantity}개)
           </Style.OrderButton>
         </Style.OrderButtonWrapper>
       </div>
