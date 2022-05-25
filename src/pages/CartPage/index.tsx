@@ -168,7 +168,7 @@ const Styled = {
   OrderWrapper: styled.div`
     width: 448px;
     height: 318px;
-    border: 1px solid #dddddd;
+    border: 1px solid ${({ theme }) => theme.colors.lightGray};
     padding: 22px 30px;
   `,
 };
