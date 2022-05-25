@@ -12,7 +12,7 @@ const Styled = {
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    padding: 0 15px;
+    padding-left: 15px;
   `,
 
   ProductName: styled.p`
@@ -43,8 +43,11 @@ const Styled = {
 
   CartController: styled.div`
     width: 100px;
+    height: 100%;
     display: flex;
     justify-content: end;
+    align-items: center;
+    padding-right: 15px;
   `,
 };
 
