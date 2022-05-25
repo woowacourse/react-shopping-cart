@@ -22,10 +22,8 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
     }
     case CartListActionType.GET_CART_LIST_FAILURE:
       return { loading: true, error: null, data: state.data };
-
     case CartListActionType.PUT_CART_ITEM_START:
       return { loading: true, error: null, data: state.data };
-
     case CartListActionType.PUT_CART_ITEM_SUCCESS: {
       const prevCartList = state.data;
       const targetItem = action.payload;
@@ -37,14 +35,12 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
     }
     case CartListActionType.PUT_CART_ITEM_FAILURE:
       return { loading: true, error: null, data: state.data };
-
     case CartListActionType.POST_CART_ITEM_START:
       return { loading: true, error: null, data: state.data };
     case CartListActionType.POST_CART_ITEM_SUCCESS:
       return { loading: false, error: null, data: [...state.data, action.payload] };
     case CartListActionType.POST_CART_ITEM_FAILURE:
       return { loading: true, error: null, data: state.data };
-
     case CartListActionType.REMOVE_CART_ITEM_START:
       return { loading: true, error: null, data: state.data };
     case CartListActionType.REMOVE_CART_ITEM_SUCCESS: {
@@ -58,7 +54,6 @@ export const cartListReducer = (state = initialState, action: CartListAction) =>
     }
     case CartListActionType.REMOVE_CART_ITEM_FAILURE:
       return { loading: true, error: null, data: state.data };
-
     default:
       return state;
   }

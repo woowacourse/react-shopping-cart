@@ -59,11 +59,7 @@ const CartList = ({
     toggleCartItemWillPurchase(targetId);
   };
 
-  const modifyQuantity = (
-    targetId: number,
-    type: 'Increase' | 'Decrease' | 'alter',
-    quantity: number
-  ) => {
+  const modifyQuantity = (targetId: number, type: 'Increase' | 'Decrease') => {
     updateCartItemQuantity(targetId, type, 1);
   };
 
@@ -98,7 +94,7 @@ const CartList = ({
                 id={`${cartItem.id}`}
                 checked={cartItem.willPurchase}
                 onChange={() => toggleChecked(id)}
-              ></CheckBox>
+              />
               <CroppedImage src={detail.thumbnailUrl} width='150px' height='144px' alt='상품' />
               <ItemName>{detail.title}</ItemName>
               <StyledRight>
