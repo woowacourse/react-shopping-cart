@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useGlobalState from 'hooks/useGlobalState';
 import { CartProductListState } from 'store/cartProductList/reducer';
-import { isExistInList } from 'utils';
+import { isExistInList, sum } from 'utils';
 
 const useCartList = () => {
   const navigate = useNavigate();
@@ -17,10 +17,7 @@ const useCartList = () => {
       isExistInList<number>(checkedIdList, id),
     );
 
-    return checkedCartProductList.reduce(
-      (totalPrice, { quantity, price }) => (totalPrice += quantity * price),
-      0,
-    );
+    return sum(checkedCartProductList.map(({ quantity, price }) => quantity * price));
   }, [cartProductList, checkedIdList]);
 
   const isAllChecked = useMemo(
