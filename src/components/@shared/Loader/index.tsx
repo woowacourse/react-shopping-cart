@@ -3,7 +3,7 @@ import * as S from "./styles";
 function Loader() {
   return (
     <S.LoaderWrapper>
-      <div />
+      <S.Spinner />
     </S.LoaderWrapper>
   );
 }

@@ -12,12 +12,12 @@ function Header() {
   return (
     <S.HeaderWrapper>
       <S.HeaderTitle onClick={() => navigate(ROUTE_URL.ROOT)}>
-        <img alt="Logo" src={Logo} />
-        <div>WOOWA SHOP</div>
+        <S.HeaderLogo alt="Logo" src={Logo} />
+        <S.HeaderText>WOOWA SHOP</S.HeaderText>
       </S.HeaderTitle>
       <S.HeaderMenu>
-        <div onClick={() => navigate(ROUTE_URL.CART)}>장바구니</div>
-        <div onClick={() => navigate(ROUTE_URL.ORDER_LIST)}>주문목록</div>
+        <S.HeaderText onClick={() => navigate(ROUTE_URL.CART)}>장바구니</S.HeaderText>
+        <S.HeaderText onClick={() => navigate(ROUTE_URL.ORDER_LIST)}>주문목록</S.HeaderText>
       </S.HeaderMenu>
     </S.HeaderWrapper>
   );

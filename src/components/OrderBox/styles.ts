@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const OrderBoxText = styled.span``;
+
 const OrderBoxWrapper = styled.div`
   width: 80%;
   height: 200px;
@@ -25,7 +27,7 @@ const OrderBoxDetail = styled.div`
   padding: 0 20px;
   box-sizing: border-box;
 
-  span {
+  ${OrderBoxText} {
     font-weight: 700;
     font-size: 14px;
     background-image: linear-gradient(transparent 70%, rgba(42, 193, 188, 0.5) 40%);
@@ -50,4 +52,4 @@ const OrderButton = styled.button`
   cursor: pointer;
 `;
 
-export { OrderBoxWrapper, OrderBoxTitle, OrderBoxDetail, ButtonWrapper, OrderButton };
+export { OrderBoxWrapper, OrderBoxTitle, OrderBoxDetail, ButtonWrapper, OrderButton, OrderBoxText };
