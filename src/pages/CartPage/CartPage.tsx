@@ -4,10 +4,11 @@ import {
   Product,
   ProductStoreState,
 } from 'types/index';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 
 import CART_MESSAGE from 'constants/message';
+import CONDITION from 'constants/condition';
 import CartItem from 'components/CartItem/CartItem';
 import CheckBox from 'components/@shared/CheckBox';
 import { cartActions } from 'redux/actions';
@@ -15,6 +16,9 @@ import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function CartPage() {
+  const condition = useSelector(
+    (state: { product: ProductStoreState }) => state.product.condition
+  );
   const productList = useSelector(
     (state: { product: ProductStoreState }) => state.product.productList
   );
@@ -44,7 +48,7 @@ function CartPage() {
     );
   }, [cart, productList]);
 
-  const calculateTotalMoney = () => {
+  const calculateTotalMoney = useCallback(() => {
     return cartItems.reduce((prevMoney, item) => {
       const { product, stock, checked } = item;
 
@@ -52,66 +56,91 @@ function CartPage() {
 
       return prevMoney + product.price * stock;
     }, 0);
-  };
+  }, [cartItems]);
 
-  const isAllChecked = () => {
+  const isAllChecked = useCallback(() => {
     return cartItems.every((item) => item.checked === true);
-  };
+  }, [cartItems]);
 
-  const onChangeAllChecked = (
-    e: React.MouseEvent<HTMLElement> | React.ChangeEvent<HTMLElement>
-  ) => {
-    e.preventDefault();
+  const onChangeAllChecked = useCallback(
+    (e: React.MouseEvent<HTMLElement> | React.ChangeEvent<HTMLElement>) => {
+      e.preventDefault();
 
-    dispatch(cartActions.toggleCheckAllProduct(!isAllChecked()));
-  };
+      dispatch(cartActions.toggleCheckAllProduct(!isAllChecked()));
+    },
+    [dispatch, isAllChecked]
+  );
 
-  const onClickCheckedDeleteButton = () => {
+  const onClickCheckedDeleteButton = useCallback(() => {
     if (window.confirm(CART_MESSAGE.ASK_DELETE)) {
       dispatch(cartActions.deleteCheckedToCart());
     }
-  };
+  }, [dispatch]);
+
+  const renderSwitch = useCallback(() => {
+    switch (condition) {
+      case CONDITION.LOADING:
+        return <Message>Loading...</Message>;
+      case CONDITION.COMPLETE:
+        return (
+          <>
+            <StyledContentBox>
+              <StyledProductContainer>
+                <StyledProductOptions>
+                  <StyledAllCheckOption>
+                    <CheckBox
+                      id="all-check"
+                      checked={isAllChecked()}
+                      onChange={onChangeAllChecked}
+                    />
+                    <p>전체 선택/해제</p>
+                  </StyledAllCheckOption>
+                  <StyledDeleteButton
+                    type="button"
+                    onClick={onClickCheckedDeleteButton}
+                  >
+                    선택 상품 삭제
+                  </StyledDeleteButton>
+                </StyledProductOptions>
+                {cartItems.map(({ product, stock, checked }) => (
+                  <CartItem
+                    product={product}
+                    stock={stock}
+                    checked={checked}
+                    key={product.id}
+                  />
+                ))}
+              </StyledProductContainer>
+              <StyledTotalContainer>
+                <h3>결제예상금액</h3>
+                <hr />
+                <StyledTotalMoney>
+                  {calculateTotalMoney().toLocaleString('ko-KR')} 원
+                </StyledTotalMoney>
+                <StyledOrderButton type="button">주문하기</StyledOrderButton>
+              </StyledTotalContainer>
+            </StyledContentBox>
+          </>
+        );
+      case CONDITION.ERROR:
+        return (
+          <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
+        );
+    }
+  }, [
+    condition,
+    calculateTotalMoney,
+    cartItems,
+    isAllChecked,
+    onChangeAllChecked,
+    onClickCheckedDeleteButton,
+  ]);
 
   return (
     <StyledPage>
       <h2>장바구니</h2>
       <hr />
-      <StyledContentBox>
-        <StyledProductContainer>
-          <StyledProductOptions>
-            <StyledAllCheckOption>
-              <CheckBox
-                id="all-check"
-                checked={isAllChecked()}
-                onChange={onChangeAllChecked}
-              />
-              <p>전체 선택/해제</p>
-            </StyledAllCheckOption>
-            <StyledDeleteButton
-              type="button"
-              onClick={onClickCheckedDeleteButton}
-            >
-              선택 상품 삭제
-            </StyledDeleteButton>
-          </StyledProductOptions>
-          {cartItems.map(({ product, stock, checked }) => (
-            <CartItem
-              product={product}
-              stock={stock}
-              checked={checked}
-              key={product.id}
-            />
-          ))}
-        </StyledProductContainer>
-        <StyledTotalContainer>
-          <h3>결제예상금액</h3>
-          <hr />
-          <StyledTotalMoney>
-            {calculateTotalMoney().toLocaleString('ko-KR')} 원
-          </StyledTotalMoney>
-          <StyledOrderButton type="button">주문하기</StyledOrderButton>
-        </StyledTotalContainer>
-      </StyledContentBox>
+      {renderSwitch()}
     </StyledPage>
   );
 }
@@ -209,6 +238,12 @@ const StyledOrderButton = styled.button`
 
   background: ${({ theme: { colors } }) => colors.redPink};
   color: ${({ theme: { colors } }) => colors.white};
+`;
+
+const Message = styled.div`
+  margin-top: 20px;
+
+  font-size: 25px;
 `;
 
 export default CartPage;
