@@ -35,6 +35,10 @@ function ShoppingCartList() {
   };
 
   const handleClickDeleteBox = () => {
+    if (orderList.length === 0) {
+      alert('삭제할 상품이 존재하지 않습니다');
+      return;
+    }
     if (window.confirm(`${orderList.length}개의 상품을 장바구니에서 삭제하시겠습니까?`)) {
       orderList.forEach(itemId => {
         dispatch(deleteItem(itemId));
