@@ -7,7 +7,6 @@ import Header from 'components/common/Header';
 import Snackbar from 'components/common/Snackbar';
 import { useAppSelector } from 'hooks/useAppSelector';
 import CartPage from 'pages/CartPage';
-import useSnackBar from 'hooks/useSnackBar';
 
 function App() {
   const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);

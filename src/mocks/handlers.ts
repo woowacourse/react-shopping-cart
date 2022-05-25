@@ -1,7 +1,7 @@
 import { LOCAL_BASE_URL } from 'apis';
 import { rest } from 'msw';
 import { mockItemList } from './mockDB';
-import { CartItem, Item } from 'types/domain';
+import { CartItem } from 'types/domain';
 
 let mockCartList: CartItem[] = [];
 

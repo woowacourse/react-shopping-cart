@@ -1,7 +1,7 @@
 import CartList from 'components/Cart/CartList';
 import Loading from 'components/common/Loading';
 import RequestFail from 'components/common/RequestFail';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { getCartList } from 'redux/action-creators/cartListThunk';

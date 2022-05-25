@@ -1,6 +1,5 @@
 import { CartListAction, CartListActionType } from 'redux/actions/cartList';
 import { CartItem } from 'types/domain';
-import { itemListReducer } from './itemListReducer';
 
 interface CartItemState {
   loading: boolean;

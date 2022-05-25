@@ -6,7 +6,6 @@ import {
 import { useAppDispatch } from './useAppDispatch';
 import { CartItem } from 'types/domain';
 import { CartListAction } from 'redux/actions/cartList';
-import { LOCAL_BASE_URL } from 'apis';
 
 const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
