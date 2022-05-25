@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from 'component/common/Button';
 import { addCartProductThunk } from 'store/thunk/productThunk';
+import Button from 'component/common/Button';
 
 export default function ProductDetail() {
   const dispatch = useDispatch();

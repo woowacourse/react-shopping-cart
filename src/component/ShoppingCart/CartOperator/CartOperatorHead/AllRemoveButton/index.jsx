@@ -4,8 +4,9 @@ import { removeProductCart } from 'store/action/cartActions';
 import { ALERT_MESSAGE } from 'constant/messages';
 import { updateSnackBar } from 'store/action/snackBarActions';
 import { useDispatch } from 'react-redux';
+import { memo } from 'react';
 
-export default function AllRemoveButton({ products }) {
+function AllRemoveButton({ products }) {
   const dispatch = useDispatch();
 
   const handleAllRemoveClick = () => {
@@ -22,6 +23,8 @@ export default function AllRemoveButton({ products }) {
     </Button>
   );
 }
+
+export default memo(AllRemoveButton);
 
 const Styled = {
   DeleteButtonContent: styled.div`

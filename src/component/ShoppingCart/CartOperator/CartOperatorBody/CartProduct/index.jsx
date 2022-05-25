@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { memo } from 'react';
 import Counter from 'component/common/Counter';
 import CheckBox from 'component/common/CheckBox';
 import Button from 'component/common/Button';
@@ -12,7 +13,7 @@ import {
 import { updateSnackBar } from 'store/action/snackBarActions';
 import { ALERT_MESSAGE } from 'constant/messages';
 
-export default function CartProduct({ product }) {
+function CartProduct({ product }) {
   const { image, name, price, count } = product;
   const dispatch = useDispatch();
 
@@ -51,6 +52,8 @@ export default function CartProduct({ product }) {
     </Styled.CartProductBox>
   );
 }
+
+export default memo(CartProduct);
 
 const Styled = {
   CartProductImage: styled.img`
