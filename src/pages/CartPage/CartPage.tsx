@@ -1,16 +1,23 @@
-import { CartProductState, CartStoreState, Product } from 'types/index';
+import {
+  CartProductState,
+  CartStoreState,
+  Product,
+  ProductStoreState,
+} from 'types/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import CART_MESSAGE from 'constants/message';
 import CartItem from 'components/CartItem/CartItem';
 import CheckBox from 'components/@shared/CheckBox';
-import PATH from 'constants/path';
-import axios from 'configs/api';
 import { cartActions } from 'redux/actions';
+import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function CartPage() {
+  const productList = useSelector(
+    (state: { product: ProductStoreState }) => state.product.productList
+  );
   const cart = useSelector(
     (state: { cart: CartStoreState }) => state.cart.cart
   );
@@ -18,38 +25,24 @@ function CartPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Promise.all(getCartProductsInfo()).then((cartInfoArr) => {
-      cartInfoArr.forEach((cartInfo) => {
-        setCartItems((prevState) => [...prevState, cartInfo]);
-      });
-    });
-    // eslint-disable-next-line
-  }, []);
+    if (productList.length < 1) {
+      getProducts(dispatch);
+    }
+  }, [dispatch, productList.length]);
 
   useEffect(() => {
-    if (cartItems.length <= 0) return;
+    if (productList.length < 1) return;
 
     setCartItems(
       cart.map(({ id, stock, checked }) => {
-        const item = cartItems.find(
-          ({ product }) => product.id === id
-        ) as CartProductState;
+        const item = productList.find(
+          (product) => product.id === id
+        ) as Product;
 
-        return { product: item.product, stock, checked };
+        return { product: item, stock, checked };
       })
     );
-    // eslint-disable-next-line
-  }, [cart]);
-
-  const getCartProductsInfo = () => {
-    return cart.map(async ({ id, stock, checked }) => {
-      const { data }: { data: Product } = await axios.get(
-        `${PATH.REQUEST_PRODUCT}/${id}`
-      );
-
-      return { product: data, stock, checked };
-    });
-  };
+  }, [cart, productList]);
 
   const calculateTotalMoney = () => {
     return cartItems.reduce((prevMoney, item) => {
