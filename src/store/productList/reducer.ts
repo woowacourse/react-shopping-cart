@@ -1,3 +1,4 @@
+import produce from 'immer';
 import {
   GET_PRODUCT_LIST,
   GET_PRODUCT_LIST_SUCCESS,
@@ -29,27 +30,24 @@ const initialState: ProductListState = {
 
 const productList = (state: ProductListState = initialState, action: ProductListAction) => {
   if (action.type === GET_PRODUCT_LIST) {
-    return {
-      ...state,
-      isLoading: true,
-    };
+    return produce(state, (draft) => {
+      draft.isLoading = true;
+    });
   }
 
   if (action.type === GET_PRODUCT_LIST_SUCCESS) {
-    return {
-      ...state,
-      productList: action.payload.productList,
-      isLoading: false,
-      isError: false,
-    };
+    return produce(state, (draft) => {
+      draft.productList = action.payload.productList;
+      draft.isLoading = false;
+      draft.isError = false;
+    });
   }
 
   if (action.type === GET_PRODUCT_LIST_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      isError: true,
-    };
+    return produce(state, (draft) => {
+      draft.isLoading = false;
+      draft.isError = true;
+    });
   }
   return state;
 };
