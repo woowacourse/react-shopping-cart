@@ -14,8 +14,11 @@ import {
   deleteOneCart,
 } from 'reducers/carts';
 import { addMoreCart, downCart, deleteCart } from 'reducers/cudCart';
+import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';
+
+import SNACKBAR_MESSAGE from 'constants';
 
 const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
 
       await dispatch(downCart(id)).unwrap();
       dispatch(downOneQuantity(id));
+      dispatch(onMessage(SNACKBAR_MESSAGE.deleteProduct(title)));
     }, [dispatch, id, quantity]),
     150,
   );
@@ -38,6 +42,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
     useCallback(async () => {
       await dispatch(addMoreCart(id)).unwrap();
       dispatch(addOneQuantity(id));
+      dispatch(onMessage(SNACKBAR_MESSAGE.addProduct(title)));
     }, [dispatch, id]),
     150,
   );
@@ -45,6 +50,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
   const handleClickRecycleBin = useCallback(async () => {
     await dispatch(deleteCart(id)).unwrap();
     dispatch(deleteOneCart(id));
+    dispatch(onMessage(SNACKBAR_MESSAGE.clearProduct(title)));
   }, [dispatch, id]);
 
   return (

@@ -5,6 +5,7 @@ import product from './product';
 import cudCart from './cudCart';
 import carts from './carts';
 import cart from './cart';
+import snackbar from './snackbar';
 
 export default combineReducers({
   products,
@@ -12,4 +13,5 @@ export default combineReducers({
   cudCart,
   carts,
   cart,
+  snackbar,
 });

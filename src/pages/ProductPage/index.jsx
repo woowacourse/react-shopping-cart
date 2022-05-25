@@ -29,7 +29,11 @@ const ProductPage = () => {
       <div className="product-wrapper">
         <img src={product.imgSrc} alt={`${product.title}상품`} />
         <div className="top">
-          <ProductQuantity productId={productId} cartQuantity={cart ? cart.quantity : 0}>
+          <ProductQuantity
+            productId={productId}
+            productTitle={product.title}
+            cartQuantity={cart ? cart.quantity : 0}
+          >
             <p className="title">{product.title}</p>
           </ProductQuantity>
         </div>

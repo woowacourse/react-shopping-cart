@@ -13,6 +13,9 @@ import Wrapper from './style';
 
 import { getCarts, selectAllCart, clearAllCart, deleteSeveralCarts } from 'reducers/carts';
 import { deleteCarts } from 'reducers/cudCart';
+import { onMessage } from 'reducers/snackbar';
+
+import SNACKBAR_MESSAGE from 'constants';
 
 const CartsPage = () => {
   const dispatch = useDispatch();
@@ -40,6 +43,7 @@ const CartsPage = () => {
 
     await dispatch(deleteCarts(ids)).unwrap();
     dispatch(deleteSeveralCarts(ids));
+    dispatch(onMessage(SNACKBAR_MESSAGE.deletesProduct()));
   }, [dispatch, carts]);
 
   useEffect(() => {

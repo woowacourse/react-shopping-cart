@@ -11,7 +11,7 @@ const Product = ({ id, imgSrc, title, price, cartQuantity }) => {
       <Link to={`/product/${id}`}>
         <img className="thumbnail" src={imgSrc} alt={`${title} 상품`} />
       </Link>
-      <ProductQuantity productId={id} cartQuantity={cartQuantity}>
+      <ProductQuantity productId={id} productTitle={title} cartQuantity={cartQuantity}>
         <div>
           <Link to={`/product/${id}`}>
             <p className="title">{title}</p>

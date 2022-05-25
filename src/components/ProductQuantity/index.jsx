@@ -4,10 +4,13 @@ import { useDispatch } from 'react-redux';
 import Wrapper from './style';
 
 import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/cudCart';
+import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';
 
-const ProductQuantity = ({ productId, cartQuantity, children }) => {
+import SNACKBAR_MESSAGE from 'constants';
+
+const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) => {
   const dispatch = useDispatch();
   const [showQuantity, setShowQuantity] = useState(false);
   const [quantity, setQuantity] = useState(cartQuantity);
@@ -23,6 +26,7 @@ const ProductQuantity = ({ productId, cartQuantity, children }) => {
       }
 
       setQuantity((prevQuantity) => prevQuantity - 1);
+      dispatch(onMessage(SNACKBAR_MESSAGE.deleteProduct(productTitle)));
     }, [dispatch, productId, quantity]),
     150,
   );
@@ -36,6 +40,7 @@ const ProductQuantity = ({ productId, cartQuantity, children }) => {
       }
 
       setQuantity((prevQuantity) => prevQuantity + 1);
+      dispatch(onMessage(SNACKBAR_MESSAGE.addProduct(productTitle)));
     }, [dispatch, productId, quantity]),
     150,
   );
