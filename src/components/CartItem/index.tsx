@@ -35,7 +35,7 @@ function CartItem({ cartItem }: CartItemProps) {
       <input
         type="checkbox"
         checked={cartItem.isSelected}
-        onClick={(e) => {
+        onChange={(e) => {
           const targetInput = e.target as HTMLInputElement;
           dispatch(cartActions.toggleItemSelected(cartItem.detail.id, targetInput.checked));
         }}
