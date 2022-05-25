@@ -128,7 +128,7 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
 
   useEffect(() => {
     setItemPrice(price);
-  }, [price]);
+  }, []);
 
   return (
     <StyledCartListItem>
