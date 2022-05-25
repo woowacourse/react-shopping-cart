@@ -19,6 +19,11 @@ export default styled.div`
     width: 144px;
     height: 147px;
     margin: 0 20px 0 15px;
+    transition: transform 0.2s;
+  }
+
+  .left img:hover {
+    transform: scale(1.2);
   }
 
   .left .title {

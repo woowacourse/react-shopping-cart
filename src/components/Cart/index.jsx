@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import CheckBox from 'components/CheckBox';
 
@@ -50,7 +51,9 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
     <Wrapper>
       <div className="left">
         <CheckBox id={`cart${id}`} checked={selected} onChange={handleChangeCheckBox} />
-        <img src={imgSrc} alt="장바구니에 담긴 상품" />
+        <Link to={`/product/${id}`}>
+          <img src={imgSrc} alt="장바구니에 담긴 상품" />
+        </Link>
         <p className="title">{title}</p>
       </div>
       <div className="right">

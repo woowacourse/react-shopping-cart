@@ -7,6 +7,8 @@ import CheckBox from 'components/CheckBox';
 import Cart from 'components/Cart';
 import PayAmount from 'components/PayAmount';
 
+import Skeleton from 'skeletons/CartSkeleton';
+
 import Wrapper from './style';
 
 import { getCarts, selectAllCart, clearAllCart, deleteSeveralCarts } from 'reducers/carts';
@@ -14,7 +16,7 @@ import { deleteCarts } from 'reducers/cudCart';
 
 const CartsPage = () => {
   const dispatch = useDispatch();
-  const { data: carts } = useSelector((state) => state.carts);
+  const { loading, data: carts } = useSelector((state) => state.carts);
 
   const selectedCartTotalPrice = useMemo(
     () =>
@@ -66,9 +68,14 @@ const CartsPage = () => {
           <h3 className="title">든든 상품 배송 ({carts.length}개)</h3>
 
           <div className="container">
-            {carts.map((cart) => (
-              <Cart key={cart.id} {...cart} />
-            ))}
+            {loading && (
+              <>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </>
+            )}
+            {loading || carts.map((cart) => <Cart key={cart.id} {...cart} />)}
           </div>
         </div>
         <div className="right">
