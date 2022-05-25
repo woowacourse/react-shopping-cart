@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import { ThemeProvider } from 'styled-components';
 import rootReducer from 'reducers';
 import { ProductList, ProductDetail, NotFound, ShoppingBasket } from 'pages';
+import Header from 'components/Header/Header.component';
 import { GlobalStyle, theme } from 'styles';
 import PATH from 'constants/path';
 
@@ -38,6 +39,7 @@ root.render(
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ThemeProvider theme={theme}>
           <div className="App">
+            <Header />
             <Routes>
               <Route path={PATH.MAIN} element={<ProductList />} />
               <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetail />} />

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Error, FlexWrapper } from 'components/@shared';
-import Header from 'components/Header/Header.component';
 import ProductListContainer from 'components/ProductListContainer/ProductListContainer.component';
 import Loading from 'components/Loading/Loading.component';
 import { useReduxState } from 'hooks';
@@ -21,18 +20,15 @@ function ProductList() {
   }, []);
 
   return (
-    <>
-      <Header />
-      <FlexWrapper style={{ margin: '60px 0 60px' }} isColumnDirection={true}>
-        {status === STATUS.LOADING ? (
-          <Loading />
-        ) : status === STATUS.ERROR ? (
-          <Error>서버에 연결할 수 없습니다.</Error>
-        ) : (
-          <ProductListContainer productList={productList} />
-        )}
-      </FlexWrapper>
-    </>
+    <FlexWrapper style={{ margin: '60px 0 60px' }} isColumnDirection={true}>
+      {status === STATUS.LOADING ? (
+        <Loading />
+      ) : status === STATUS.ERROR ? (
+        <Error>서버에 연결할 수 없습니다.</Error>
+      ) : (
+        <ProductListContainer productList={productList} />
+      )}
+    </FlexWrapper>
   );
 }
 
