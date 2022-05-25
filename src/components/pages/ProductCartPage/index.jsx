@@ -13,7 +13,7 @@ import {
 } from "./styled";
 
 function ProductCartPage() {
-  const { data: cartList, dispatch } = useStore("cartList");
+  const { data: cartList, isLoading, dispatch } = useStore("cartList");
 
   const [checkList, setCheckList] = useState([]);
 
@@ -33,9 +33,8 @@ function ProductCartPage() {
   }, []);
 
   useEffect(() => {
-    if (checkList.length === 0)
-      setCheckList(cartList.map((cartItem) => cartItem.id));
-  }, [cartList]);
+    if (!isLoading) setCheckList(cartList.map((cartItem) => cartItem.id));
+  }, [isLoading]);
 
   return (
     <CartPageContainer>
