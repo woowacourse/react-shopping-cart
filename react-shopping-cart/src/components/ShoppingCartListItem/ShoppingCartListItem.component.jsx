@@ -32,11 +32,9 @@ function ShoppingCartListItem({ id, name, thumbnail, price, quantity }) {
   const checked = useMemo(() => orderList.some(productId => productId === id), [orderList, id]);
 
   const handleChangeCheckBox = id => {
-    if (checked) {
-      dispatch(deleteSpecificItem(id));
-    } else {
-      dispatch(addSpecificItem(id));
-    }
+    const toggleItemAction = checked ? deleteSpecificItem : addSpecificItem;
+
+    dispatch(toggleItemAction(id));
   };
 
   const itemDeleteConfirm = id => {
