@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
@@ -12,20 +12,30 @@ import * as S from 'page/ProductCartPage/style';
 import useCartItem from 'hook/useCartItem';
 import useSelectedItem from 'hook/useSelectedItem';
 import NotFoundPage from 'page/NotFoundPage';
+import {CART} from 'store/modules/cart';
+import useFetch from 'hook/useFetch';
 
 export default function ProductCartPage() {
+  const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartReducer.cart);
   const error = useSelector((state) => state.cartReducer.error);
   const pending = useSelector((state) => state.cartReducer.pending);
   const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
 
-  const {initializeCartList, deleteSelectedCart} = useCartItem();
+  const {fetch: fetchCart} = useFetch('get');
+
+  const {deleteSelectedCart} = useCartItem();
 
   const {selectAllItem, unselectAllItem} = useSelectedItem();
 
   useEffect(() => {
-    initializeCartList();
-  }, [initializeCartList]);
+    fetchCart({
+      API_URL: process.env.REACT_APP_CART_API_URL,
+      onSuccess: (fetchedData) => {
+        dispatch({type: CART.INITIALIZE, payload: fetchedData});
+      },
+    });
+  }, [dispatch, fetchCart]);
 
   const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
 

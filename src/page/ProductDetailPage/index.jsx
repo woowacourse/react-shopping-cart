@@ -7,34 +7,42 @@ import DetailItem from 'component/DetailItem';
 import NotFoundPage from 'page/NotFoundPage';
 import * as S from 'page/ProductDetailPage/style';
 
-import useCartItem from 'hook/useCartItem';
 import useFetch from 'hook/useFetch';
+import {useDispatch} from 'react-redux';
+import {CART} from 'store/modules/cart';
 
 export default function ProductDetailPage() {
   const {id} = useParams();
+  const dispatch = useDispatch();
 
-  const {initializeCartList} = useCartItem();
+  const {fetch: fetchCart} = useFetch('get');
 
   const {
-    pending: getPending,
-    data: getData,
-    error: getError,
-    fetch: getProductDetail,
+    pending: detailPending,
+    data: detailProduct,
+    error: detailError,
+    fetch: fetchProductDetail,
   } = useFetch('get');
 
   useEffect(() => {
-    getProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
-    initializeCartList();
-  }, [getProductDetail, initializeCartList, id]);
+    fetchProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
+
+    fetchCart({
+      API_URL: process.env.REACT_APP_CART_API_URL,
+      onSuccess: (fetchedData) => {
+        dispatch({type: CART.INITIALIZE, payload: fetchedData});
+      },
+    });
+  }, [fetchProductDetail, id, dispatch, fetchCart]);
 
   return (
     <S.DetailItemPageLayout>
       <ErrorPendingBoundary
         fallback={<NotFoundPage>해당 상품이 없어요😢</NotFoundPage>}
-        pending={getPending}
-        error={getError}
+        pending={detailPending}
+        error={detailError}
       >
-        {getData && <DetailItem productInfo={getData} />}
+        {detailProduct && <DetailItem productInfo={detailProduct} />}
       </ErrorPendingBoundary>
     </S.DetailItemPageLayout>
   );

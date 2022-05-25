@@ -7,7 +7,7 @@ export default function useFetch(method = 'get') {
   const [error, setError] = useState(null);
 
   const fetch = useCallback(
-    ({API_URL = '', body = null}) => {
+    ({API_URL = '', body = null, onSuccess = () => void 0}) => {
       setPending(true);
       setData(null);
       setError(null);
@@ -16,6 +16,7 @@ export default function useFetch(method = 'get') {
         .then((response) => {
           setPending(false);
           response.data && setData(response.data);
+          onSuccess(response.data);
         })
         .catch((error) => {
           setPending(false);

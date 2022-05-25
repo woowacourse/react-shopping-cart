@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 export const CART = {
+  INITIALIZE: 'INITIALIZE_CART',
   ADD: 'ADD_CART',
   DELETE: 'DELETE_CART',
   INCREASE_QUANTITY: 'INCREASE_QUANTITY',
@@ -8,37 +7,7 @@ export const CART = {
   DELETE_SELECTED_CART: 'DELETE_SELECTED_CART',
 };
 
-export const GET_CART = {
-  PENDING: 'PENDING',
-  SUCCESS: 'SUCCESS',
-  FAILURE: 'FAILURE',
-};
-
-function getCartListAPI() {
-  return axios.get(process.env.REACT_APP_CART_API_URL);
-}
-
-export const getCartList = () => async (dispatch) => {
-  dispatch({type: GET_CART.PENDING});
-
-  try {
-    const response = await getCartListAPI();
-    dispatch({
-      type: GET_CART.SUCCESS,
-      payload: response.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: GET_CART.FAILURE,
-      payload: err,
-    });
-    throw err;
-  }
-};
-
 const INITIAL_STATE = {
-  pending: false,
-  error: false,
   cart: [],
 };
 Object.freeze(INITIAL_STATE);
@@ -46,31 +15,15 @@ Object.freeze(INITIAL_STATE.cart);
 
 export default function cartReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case GET_CART.PENDING: {
-      return {
-        ...state,
-        pending: true,
-        error: false,
-      };
-    }
-    case GET_CART.SUCCESS: {
+    case CART.INITIALIZE: {
       const cart = action.payload;
       return {
-        ...state,
-        pending: false,
         cart,
       };
     }
-    case GET_CART.FAILURE: {
-      return {
-        ...state,
-        pending: false,
-        error: true,
-      };
-    }
+
     case CART.ADD: {
       return {
-        ...state,
         cart: [...state.cart, action.payload],
       };
     }
@@ -87,7 +40,6 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       );
 
       return {
-        ...state,
         cart: newState,
       };
     }
@@ -98,7 +50,6 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       );
 
       return {
-        ...state,
         cart: newState,
       };
     }
@@ -107,7 +58,6 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       const newState = state.cart.filter((item) => !selectedCartItem.includes(item.id));
 
       return {
-        ...state,
         cart: newState,
       };
     }

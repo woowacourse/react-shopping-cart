@@ -1,8 +1,7 @@
-import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
-import {CART, getCartList} from 'store/modules/cart';
+import {CART} from 'store/modules/cart';
 import {SELECTED_ITEM} from 'store/modules/selectedItem';
 
 import useFetch from './useFetch';
@@ -16,8 +15,6 @@ export default function useCartItem(path = null) {
   const {fetch: deleteCart} = useFetch('delete');
 
   const {fetch: patchCart} = useFetch('patch');
-
-  const initializeCartList = useCallback(() => dispatch(getCartList()), [dispatch]);
 
   const deleteCartItem = (payload) => {
     const deleteConfirm = window.confirm('장바구니에서 삭제하시겠습니까?');
@@ -89,7 +86,6 @@ export default function useCartItem(path = null) {
   };
 
   return {
-    initializeCartList,
     deleteCartItem,
     addCartItem,
     increaseQuantity,
