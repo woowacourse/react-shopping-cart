@@ -2,133 +2,40 @@ import cartReducer, { initialState } from 'reducers/cart/cart.reducer';
 import * as actions from 'reducers/cart/cart.actions';
 import { productList } from 'assets/mock';
 
-describe('장바구니 불러오기 요청 액션에 따라 상태가 변경된다.', () => {
-  test('(REQUEST) 장바구니 불러오기 요청이 들어오면, 상태가 정상적으로 수정되어야 한다.', () => {
+describe('Cart Store Reducer 테스트 - 리듀서 함수의 매개변수 액션에 따라서 상태를 변경하여 스토어에 반영한다.', () => {
+  test('(REQUEST) 장바구니 불러오기 요청 액션이 들어오면, api 요청 Pending 이 상태에 반영된다.', () => {
     expect(cartReducer(initialState, actions.getCartRequest())).toEqual({
       ...initialState,
-      isLoadingGetCart: true,
-      isSucceedGetCart: false,
-      isErrorGetCart: false,
+      isLoading: true,
+      isError: false,
     });
   });
 
-  test('(SUCCESS) 장바구니 불러오기 요청이 성공하면, 상태가 정상적으로 수정되어야 한다.', () => {
+  test('(SUCCESS) 장바구니 불러오기 성공 액션이 들어오면, 매개변수로 받아온 장바구니 리스트가 상태의 data에 저장되고,api 요청 fulfilled 이 상태에 반영된다.', () => {
     expect(
       cartReducer(initialState, actions.getCartSuccess(productList)),
     ).toEqual({
       ...initialState,
+      isLoading: false,
+      isError: false,
       data: productList,
-      isLoadingGetCart: false,
-      isSucceedGetCart: true,
-      isErrorGetCart: false,
     });
   });
 
-  test('(ERROR) 장바구니 불러오기 요청이 실패하면 상태가 정상적으로 수정되어야 한다.', () => {
+  test('(ERROR) 장바구니 불러오기 실패 액션이 들어오면 , api 요청 rejected 이 상태에 반영된다.', () => {
     expect(cartReducer(initialState, actions.getCartError())).toEqual({
       ...initialState,
-      isLoadingGetCart: false,
-      isSucceedGetCart: false,
-      isErrorGetCart: true,
-    });
-  });
-});
-
-describe('장바구니 아이템 추가 요청 액션에 따라 상태가 변경된다.', () => {
-  test('(REQUEST) 장바구니 아이템 추가 요청이 들어오면, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(cartReducer(initialState, actions.addCartItemRequest())).toEqual({
-      ...initialState,
-      isLoadingAddCartItem: true,
-      isSucceedAddCartItem: false,
-      isErrorAddCartItem: false,
+      isLoading: false,
+      isError: true,
     });
   });
 
-  test('(SUCCESS) 장바구니 아이템 추가 요청이 성공하면, 상태가 정상적으로 수정되어야 한다.', () => {
-    const data = productList[0];
-    expect(cartReducer(initialState, actions.addCartItemSuccess(data))).toEqual(
-      {
-        ...initialState,
-        data,
-        isLoadingAddCartItem: false,
-        isSucceedAddCartItem: true,
-        isErrorAddCartItem: false,
-      },
-    );
-  });
-
-  test('(ERROR) 장바구니 아이템 추가 요청이 실패, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(cartReducer(initialState, actions.addCartItemError())).toEqual({
+  test('장바구니 상품 교체 액션이 들어오면 , 매개변수로 받아온 장바구니 리스트가 상태의 data에 저장된다. ', () => {
+    expect(cartReducer(initialState, actions.setCart(productList))).toEqual({
       ...initialState,
-      isLoadingAddCartItem: false,
-      isSucceedAddCartItem: false,
-      isErrorAddCartItem: true,
-    });
-  });
-});
-
-describe('장바구니 아이템 수량 변경 요청 액션에 따라 상태가 변경된다.', () => {
-  test('(REQUEST) 장바구니 아이템 수량 변경 요청이 들어오면, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(
-      cartReducer(initialState, actions.updateCartItemQuantityRequest()),
-    ).toEqual({
-      ...initialState,
-      isLoadingUpdateCartItemQuantity: true,
-      isErrorUpdateCartItemQuantity: false,
-    });
-  });
-
-  test('(SUCCESS) 장바구니 아이템 수량 변경 요청이 성공하면, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(
-      cartReducer(
-        initialState,
-        actions.updateCartItemQuantitySuccess(productList),
-      ),
-    ).toEqual({
-      ...initialState,
+      isLoading: false,
+      isError: false,
       data: productList,
-      isLoadingUpdateCartItemQuantity: false,
-      isErrorUpdateCartItemQuantity: false,
-    });
-  });
-
-  test('(ERROR) 장바구니 아이템 추가 요청이 실패, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(
-      cartReducer(initialState, actions.updateCartItemQuantityError()),
-    ).toEqual({
-      ...initialState,
-      isLoadingUpdateCartItemQuantity: false,
-      isErrorUpdateCartItemQuantity: true,
-    });
-  });
-});
-
-describe('장바구니 아이템 삭제 요청 액션에 따라 상태가 변경된다.', () => {
-  test('(REQUEST) 장바구니 아이템 삭제 요청이 들어오면, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(cartReducer(initialState, actions.deleteCartItemRequest())).toEqual({
-      ...initialState,
-      isLoadingDeleteCartItem: true,
-      isErrorDeleteCartItem: false,
-    });
-  });
-
-  test('(SUCCESS) 장바구니 아이템 삭제 요청이 성공하면, 상태가 정상적으로 수정되어야 한다.', () => {
-    const data = productList;
-    expect(
-      cartReducer(initialState, actions.deleteCartItemSuccess(data)),
-    ).toEqual({
-      ...initialState,
-      data,
-      isLoadingDeleteCartItem: false,
-      isErrorDeleteCartItem: false,
-    });
-  });
-
-  test('(ERROR) 장바구니 아이템 삭제 요청이 실패하면, 상태가 정상적으로 수정되어야 한다.', () => {
-    expect(cartReducer(initialState, actions.deleteCartItemError())).toEqual({
-      ...initialState,
-      isLoadingDeleteCartItem: false,
-      isErrorDeleteCartItem: true,
     });
   });
 });
