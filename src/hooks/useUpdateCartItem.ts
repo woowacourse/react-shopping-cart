@@ -10,10 +10,10 @@ import { CartListAction } from 'redux/actions/cartList';
 const useUpdateCartItem = (cartList: CartItem[]) => {
   const dispatch = useAppDispatch<CartListAction>();
 
-  const updateCartItemQuantity = (id: number, type = 'up', updateQuantity = 1) => {
+  const updateCartItemQuantity = (id: number, type = 'Increase', updateQuantity = 1) => {
     const targetItem = cartList.find(cartItem => cartItem.id === id);
 
-    if (type === 'up') {
+    if (type === 'Increase') {
       if (!targetItem) {
         dispatch(postCartItem({ id, quantity: 1, willPurchase: true }));
 
@@ -29,7 +29,7 @@ const useUpdateCartItem = (cartList: CartItem[]) => {
 
       return;
     }
-    if (type === 'down') {
+    if (type === 'Decrease') {
       if (targetItem.quantity - updateQuantity > 0) {
         dispatch(
           putCartItem({

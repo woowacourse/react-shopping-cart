@@ -10,12 +10,16 @@ const Controller = ({
 }: {
   id: number;
   quantity: number;
-  modifyQuantity: (targetId: number, type: 'up' | 'down' | 'alter', quantity: number) => void;
+  modifyQuantity: (
+    targetId: number,
+    type: 'Increase' | 'Decrease' | 'alter',
+    quantity: number
+  ) => void;
 }) => {
   return (
     <QuantityController>
-      <IncreaseButton onClick={() => modifyQuantity(id, 'up', 1)}>▲</IncreaseButton>
-      <DecreaseButton onClick={() => modifyQuantity(id, 'down', 1)}>▼</DecreaseButton>
+      <IncreaseButton onClick={() => modifyQuantity(id, 'Increase', 1)}>▲</IncreaseButton>
+      <DecreaseButton onClick={() => modifyQuantity(id, 'Decrease', 1)}>▼</DecreaseButton>
       <QuantityInput onChange={() => {}} quantity={quantity}></QuantityInput>
     </QuantityController>
   );

@@ -59,7 +59,11 @@ const CartList = ({
     toggleCartItemWillPurchase(targetId);
   };
 
-  const modifyQuantity = (targetId: number, type: 'up' | 'down' | 'alter', quantity: number) => {
+  const modifyQuantity = (
+    targetId: number,
+    type: 'Increase' | 'Decrease' | 'alter',
+    quantity: number
+  ) => {
     updateCartItemQuantity(targetId, type, 1);
   };
 
