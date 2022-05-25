@@ -10,11 +10,11 @@ const StyledCheckBoxInput = styled.input`
   border-radius: 2px;
   background-color: ${({ theme }) => theme.color.white};
 
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 
-  :checked {
+  &:checked {
     background-color: ${({ theme }) => theme.color.primary};
     background-position: 30% 45%;
     background-repeat: no-repeat;

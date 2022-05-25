@@ -19,7 +19,7 @@ const StyledInput = styled.input`
 
   border: 1px solid ${({ theme }) => theme.color.grey_lighter};
 
-  :focus {
+  &:focus {
     outline: none;
   }
 
@@ -47,7 +47,7 @@ const StyledArrowButton = styled.button`
   border: 1px solid ${({ theme }) => theme.color.grey_lighter};
   background-color: transparent;
 
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;

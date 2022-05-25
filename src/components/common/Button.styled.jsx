@@ -16,7 +16,7 @@ const StyledButton = styled.button`
     theme.color[bgColor] || bgColor || "transparent"};
 
   cursor: pointer;
-  :hover {
+  &:hover {
     opacity: 0.95;
   }
 `;

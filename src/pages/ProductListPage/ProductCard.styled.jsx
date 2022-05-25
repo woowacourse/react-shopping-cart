@@ -21,7 +21,7 @@ const StyledProductThumbnail = styled.img`
   transition: transform 0.3s;
   object-fit: cover;
 
-  :hover {
+  &:hover {
     transform: scale(1.1);
   }
 `;

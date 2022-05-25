@@ -40,7 +40,7 @@ const StyledLabel = styled.label`
   align-items: center;
   gap: 12px;
 
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;

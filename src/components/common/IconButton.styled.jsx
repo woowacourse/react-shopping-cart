@@ -8,7 +8,7 @@ const StyledIconButton = styled.button`
 
 const StyledIconButtonImg = styled.img`
   width: ${({ width }) => width};
-  :hover {
+  &:hover {
     transform: scale(1.05);
   }
 `;

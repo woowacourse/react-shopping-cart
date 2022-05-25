@@ -10,7 +10,7 @@ const StyledNavButton = styled.button`
   text-align: center;
   cursor: pointer;
 
-  :hover {
+  &:hover {
     border-bottom: 2px solid ${({ theme }) => theme.color.white};
   }
 `;
