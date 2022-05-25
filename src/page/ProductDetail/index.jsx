@@ -5,8 +5,8 @@ import Button from 'component/common/Button';
 
 export default function ProductDetail() {
   const dispatch = useDispatch();
-  const { products, selectedProductId } = useSelector(store => store);
-  const targetProduct = products.find(product => product.id === selectedProductId);
+  const { productList, selectedProductId } = useSelector(store => store.product);
+  const targetProduct = productList.find(product => product.id === selectedProductId);
 
   const handleCartClick = () => {
     dispatch(addCartProductThunk(targetProduct));

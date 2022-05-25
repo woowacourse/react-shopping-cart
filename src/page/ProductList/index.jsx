@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
+import Maybe from 'react-maybe';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearProducts } from 'store/action/productsActions';
-import Maybe from 'react-maybe';
+import { clearProductList } from 'store/action/productActions';
 
 import GridLayout from 'component/common/GridLayout';
 import LoadingSpinner from 'component/common/LoadingSpinner';
@@ -15,26 +15,26 @@ import PageController from 'component/common/PageController';
 
 export default function ProductList() {
   const dispatch = useDispatch();
-  const products = useSelector(store => store.products);
+  const { productList } = useSelector(store => store.product);
   const { totalPageLength, currentPage, startIndex, endIndex, handlePageChange } = usePagination(
-    products.length,
+    productList.length,
     PRODUCTS_COUNT_PER_PAGE
   );
 
   useEffect(() => {
-    if (products.length) {
-      dispatch(clearProducts());
+    if (productList.length) {
+      dispatch(clearProductList());
     }
     dispatch(productListAsyncThunk());
   }, []);
 
   return (
     <Maybe
-      of={!!products.length}
+      of={!!productList.length}
       either={
         <Styled.Content>
           <GridLayout>
-            {products.slice(startIndex, endIndex + 1).map(product => (
+            {productList.slice(startIndex, endIndex + 1).map(product => (
               <ProductContainer key={product.id} product={product} />
             ))}
           </GridLayout>

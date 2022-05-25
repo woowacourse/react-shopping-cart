@@ -2,14 +2,14 @@ import productAPI from 'api/productAPI';
 import cookieStorage from 'storage/cookieStorage';
 import { ALERT_MESSAGE, ERROR_MESSAGE } from 'constant/messages';
 import { addProductCart } from 'store/action/cartActions';
-import { updateProducts } from 'store/action/productsActions';
+import { updateProductList } from 'store/action/productActions';
 import { updateSnackBar } from 'store/action/snackBarActions';
 
 const productListAsyncThunk = () => async dispatch => {
   try {
     const responseData = await productAPI.getProducts();
 
-    dispatch(updateProducts(responseData));
+    dispatch(updateProductList(responseData));
   } catch (error) {
     dispatch(updateSnackBar(ERROR_MESSAGE.FAIL_TO_FETCH_PRODUCTS));
   }
