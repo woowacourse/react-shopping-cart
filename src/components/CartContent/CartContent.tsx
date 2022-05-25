@@ -42,44 +42,42 @@ function CartContent({ cartItems }: Props) {
   };
 
   return (
-    <>
-      <StyledContentBox>
-        <StyledProductContainer>
-          <StyledProductOptions>
-            <StyledAllCheckOption>
-              <CheckBox
-                id="all-check"
-                checked={isAllChecked()}
-                onChange={onChangeAllChecked}
-              />
-              <p>전체 선택/해제</p>
-            </StyledAllCheckOption>
-            <StyledDeleteButton
-              type="button"
-              onClick={onClickCheckedDeleteButton}
-            >
-              선택 상품 삭제
-            </StyledDeleteButton>
-          </StyledProductOptions>
-          {cartItems.map(({ product, stock, checked }) => (
-            <CartItem
-              product={product}
-              stock={stock}
-              checked={checked}
-              key={product.id}
+    <StyledContentBox>
+      <StyledProductContainer>
+        <StyledProductOptions>
+          <StyledAllCheckOption>
+            <CheckBox
+              id="all-check"
+              checked={isAllChecked()}
+              onChange={onChangeAllChecked}
             />
-          ))}
-        </StyledProductContainer>
-        <StyledTotalContainer>
-          <h3>결제예상금액</h3>
-          <hr />
-          <StyledTotalMoney>
-            {calculateTotalMoney().toLocaleString('ko-KR')} 원
-          </StyledTotalMoney>
-          <StyledOrderButton type="button">주문하기</StyledOrderButton>
-        </StyledTotalContainer>
-      </StyledContentBox>
-    </>
+            <p>전체 선택/해제</p>
+          </StyledAllCheckOption>
+          <StyledDeleteButton
+            type="button"
+            onClick={onClickCheckedDeleteButton}
+          >
+            선택 상품 삭제
+          </StyledDeleteButton>
+        </StyledProductOptions>
+        {cartItems.map(({ product, stock, checked }) => (
+          <CartItem
+            product={product}
+            stock={stock}
+            checked={checked}
+            key={product.id}
+          />
+        ))}
+      </StyledProductContainer>
+      <StyledTotalContainer>
+        <h3>결제예상금액</h3>
+        <hr />
+        <StyledTotalMoney>
+          {calculateTotalMoney().toLocaleString('ko-KR')} 원
+        </StyledTotalMoney>
+        <StyledOrderButton type="button">주문하기</StyledOrderButton>
+      </StyledTotalContainer>
+    </StyledContentBox>
   );
 }
 
