@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useCartItemListSelector } from "hooks/useCartSelector";
+import { useCartItemListSelector, useCartItemSelector } from "hooks/useCartSelector";
 import { useTargetProductSelector } from "hooks/useProductSelector";
 
 import { actionCreators as cartActions } from "redux/modules/cart";
@@ -21,8 +21,7 @@ function ProductDetail() {
   const id = Number(params.id);
 
   const [isShowCartCounter, setIsShowCartCounter] = useState(false);
-  const cartItemList = useCartItemListSelector();
-  const cartItem = cartItemList.find((cartItem) => cartItem.detail.id === id);
+  const cartItem = useCartItemSelector(id);
   const targetProduct = useTargetProductSelector(id);
   const timeout = useRef<NodeJS.Timeout>();
 
