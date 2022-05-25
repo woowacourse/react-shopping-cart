@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ import Button from 'components/@shared/Button/Button.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
 import HighlightText from 'components/@shared/HighlightText/HighlightText.component';
 
-import { addQuantityData } from 'utils';
+import { calculatePrice } from 'utils';
 
 const PaymentAmountBox = styled(FlexBox).attrs({
   direction: 'column',
@@ -19,13 +18,7 @@ function PaymentAmountContainer({ count, data }) {
   const shoppingCart = useSelector(state => state.shoppingCart);
   const orderList = useSelector(state => state.orderList);
 
-  const price = useMemo(() => {
-    const orderItemData = data.filter(({ id }) => orderList.includes(id));
-    const orderItemInfoList = shoppingCart
-      .filter(cartItem => orderList.includes(cartItem.id))
-      .map(orderItem => addQuantityData(orderItem, orderItemData));
-    return orderItemInfoList.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
-  }, [data, orderList, shoppingCart]);
+  const price = calculatePrice(data, shoppingCart, orderList);
 
   return (
     <PaymentAmountBox as="article">
