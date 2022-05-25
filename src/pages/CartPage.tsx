@@ -11,6 +11,7 @@ import { useFetch } from 'hooks/useFetch';
 import { Item } from 'types/domain';
 import styled from 'styled-components';
 import PaymentsAmount from 'components/Cart/PaymentsAmount';
+import useSnackBar from 'hooks/useSnackBar';
 
 const CartPage = () => {
   const {

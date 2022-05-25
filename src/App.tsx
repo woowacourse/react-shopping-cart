@@ -4,7 +4,7 @@ import NotFound from 'pages/NotFoundPage';
 import ItemListPage from 'pages/ItemListPage';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
-import Snackbar from 'components/common/Snackbar';
+import Modal from 'components/common/Snackbar';
 import { useAppSelector } from 'hooks/useAppSelector';
 import CartPage from 'pages/CartPage';
 
@@ -25,7 +25,7 @@ function App() {
           </Routes>
         </StyledMain>
       </StyledRoot>
-      {isSnackbarOpen && <Snackbar />}
+      {isSnackbarOpen && <Modal />}
     </BrowserRouter>
   );
 }
