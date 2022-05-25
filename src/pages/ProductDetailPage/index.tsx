@@ -21,13 +21,13 @@ import { debounce } from 'utils';
 import { ProductData } from 'types';
 
 const ProductDetail = () => {
+  const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [product, setProduct] = useState<ProductData | null>(null);
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
-  const params = useParams();
-  const id = Number(params.id);
   let cartButtonClickCount = useRef(0);
+  const id = Number(params.id);
 
   const delayAddCart = debounce(async () => {
     const cartProduct = await loadCartProduct(id);
