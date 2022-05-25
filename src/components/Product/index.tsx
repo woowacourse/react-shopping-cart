@@ -18,40 +18,40 @@ import { loadCartProduct, updateCartProduct, registerCartProduct } from 'api/car
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import { ProductData } from 'types';
 import { ADD_CART_DELAY_TIME, 상품저장메시지 } from 'constants/index';
+import { debounce } from 'utils';
 
 const Product = ({ id, thumbnail, name, price }: ProductData) => {
   const dispatch = useAppDispatch();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
-  let timer: ReturnType<typeof setTimeout>;
-  let addCartButtonClickCount = useRef(0);
+  let cartButtonClickCount = useRef(0);
+
+  const delayAddCart = debounce(async () => {
+    const cartProduct = await loadCartProduct(id);
+
+    if (cartProduct === null) {
+      const product = { id, thumbnail, name, price };
+      registerCartProduct({
+        ...product,
+        quantity: cartButtonClickCount.current,
+      });
+    } else {
+      updateCartProduct(id, {
+        ...cartProduct,
+        quantity: cartProduct.quantity + cartButtonClickCount.current,
+      });
+    }
+
+    cartButtonClickCount.current = 0;
+    dispatch(getCartProductListAsync());
+    triggerSnackbar(상품저장메시지);
+  }, ADD_CART_DELAY_TIME);
 
   const handleAddCartButton = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    cartButtonClickCount.current += 1;
 
     try {
-      addCartButtonClickCount.current += 1;
-      if (timer) clearTimeout(timer);
-
-      timer = setTimeout(() => {
-        loadCartProduct(id).then((cartProduct) => {
-          cartProduct === null
-            ? registerCartProduct({
-                id,
-                thumbnail,
-                name,
-                price,
-                quantity: addCartButtonClickCount.current,
-              })
-            : updateCartProduct(id, {
-                ...cartProduct,
-                quantity: cartProduct.quantity + addCartButtonClickCount.current,
-              });
-          addCartButtonClickCount.current = 0;
-        });
-
-        dispatch(getCartProductListAsync());
-        triggerSnackbar(상품저장메시지);
-      }, ADD_CART_DELAY_TIME);
+      delayAddCart();
     } catch (e) {
       alert(e);
     }

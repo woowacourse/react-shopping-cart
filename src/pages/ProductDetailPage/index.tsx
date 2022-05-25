@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Flex from 'components/@common/Flex';
@@ -9,49 +10,49 @@ import Bar from 'components/@common/Bar';
 import Text from 'components/@common/Text';
 import { CartDetailButton } from 'components/@common/Button/Extends';
 import SnackBar from 'components/@common/Snackbar';
-import useProductDetail from 'hooks/useProductDetail';
+import useAppDispatch from 'hooks/useAppDispatch';
 import useSnackBar from 'hooks/useSnackBar';
 
 import { loadCartProduct, registerCartProduct, updateCartProduct } from 'api/cart';
 import { loadProduct } from 'api/product';
 import { getCartProductListAsync } from 'store/cartProductList/thunk';
 import { ADD_CART_DELAY_TIME, 상품저장메시지 } from 'constants/index';
+import { debounce } from 'utils';
+import { ProductData } from 'types';
 
 const ProductDetail = () => {
-  const {
-    dispatch,
-    navigate,
-    data: { productId: id, product, setProduct },
-  } = useProductDetail();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState<ProductData | null>(null);
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
-  let timer: ReturnType<typeof setTimeout>;
-  let addCartButtonClickCount = useRef(0);
+  const params = useParams();
+  const id = Number(params.id);
+  let cartButtonClickCount = useRef(0);
+
+  const delayAddCart = debounce(async () => {
+    const cartProduct = await loadCartProduct(id);
+
+    if (cartProduct === null) {
+      const product = { id, thumbnail, name, price };
+      registerCartProduct({
+        ...product,
+        quantity: cartButtonClickCount.current,
+      });
+    } else {
+      updateCartProduct(id, {
+        ...cartProduct,
+        quantity: cartProduct.quantity + cartButtonClickCount.current,
+      });
+    }
+
+    cartButtonClickCount.current = 0;
+    dispatch(getCartProductListAsync());
+    triggerSnackbar(상품저장메시지);
+  }, ADD_CART_DELAY_TIME);
 
   const handleAddCartButton = async () => {
     try {
-      addCartButtonClickCount.current += 1;
-      if (timer) clearTimeout(timer);
-
-      timer = setTimeout(() => {
-        loadCartProduct(id).then((cartProduct) => {
-          cartProduct === null
-            ? registerCartProduct({
-                id,
-                thumbnail,
-                name,
-                price,
-                quantity: addCartButtonClickCount.current,
-              })
-            : updateCartProduct(id, {
-                ...cartProduct,
-                quantity: cartProduct.quantity + addCartButtonClickCount.current,
-              });
-          addCartButtonClickCount.current = 0;
-        });
-
-        dispatch(getCartProductListAsync());
-        triggerSnackbar(상품저장메시지);
-      }, ADD_CART_DELAY_TIME);
+      delayAddCart();
     } catch (e) {
       alert(e);
     }
