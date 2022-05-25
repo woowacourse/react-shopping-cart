@@ -44,6 +44,7 @@ const ItemList = ({ fullItemList }: { fullItemList: Item[] }) => {
 };
 
 const StyledRoot = styled.div`
+  height: 1128px;
   width: 1300px;
   display: flex;
   flex-wrap: wrap;
