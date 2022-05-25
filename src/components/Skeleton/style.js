@@ -27,43 +27,35 @@ const skeletonStyle = css`
   animation: ${refresh} 2s infinite ease-out;
 `;
 
-const Styled = {
-  Wrapper: styled.div`
-    ${({ sizeType }) => `
-        ${skeletonSize[sizeType]}
-      `}
-    margin-bottom: 30px;
-  `,
+export const Wrapper = styled.div`
+  ${({ sizeType }) => `
+    ${skeletonSize[sizeType]}
+  `}
+  margin-bottom: 30px;
+`;
 
-  ProductImage: styled.div`
-    max-width: 100%;
-    height: 100%;
-    ${skeletonStyle}
-  `,
+export const LargeBox = styled.div`
+  max-width: 100%;
+  height: 100%;
+  ${skeletonStyle}
+`;
 
-  ProductDetail: styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 8px;
-  `,
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 8px;
+  width: 100%;
+`;
 
-  ProductInfo: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  `,
+export const MediumBox = styled.div`
+  width: 180px;
+  height: 18px;
+  ${skeletonStyle}
+`;
 
-  ProductName: styled.div`
-    width: 180px;
-    height: 18px;
-    ${skeletonStyle}
-  `,
-  ProductPrice: styled.div`
-    width: 147px;
-    height: 18px;
-    ${skeletonStyle}
-  `,
-};
-
-export default Styled;
+export const SmallBox = styled.div`
+  width: 147px;
+  height: 18px;
+  ${skeletonStyle}
+`;

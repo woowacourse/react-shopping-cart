@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Styled from './style';
+import * as Styled from './style';
 import { useEffect, useState } from 'react';
 import { parsePrice } from 'utils';
 import { MESSAGE } from 'constants';
@@ -44,26 +44,26 @@ const CartItem = ({
 
   return (
     <Styled.Wrapper>
-      <Styled.ProductPreview>
+      <Styled.LeftBox>
         <CheckBox onCheck={onToggleSelect} checkedStatus={isSelected} />
         <Styled.Image src={imgUrl} alt={name} loading="lazy" />
         <Styled.Name>{name}</Styled.Name>
-      </Styled.ProductPreview>
-      <Styled.ProductInfo>
+      </Styled.LeftBox>
+      <Styled.RightBox>
         <Styled.DeleteButton onClick={handleDeleteItem(id)}>
           <Styled.TrashBinSvg src={smallTrashBin} alt="상품 삭제 버튼" />
         </Styled.DeleteButton>
-        <Styled.Quantity>
-          <Styled.QuantityControlButton onClick={handleIncrementQuantity}>
+        <Styled.QuantityControlBox>
+          <Styled.QuantityButton onClick={handleIncrementQuantity}>
             +
-          </Styled.QuantityControlButton>
+          </Styled.QuantityButton>
           <span>{itemQuantity}</span>
-          <Styled.QuantityControlButton onClick={handleDecrementQuantity}>
+          <Styled.QuantityButton onClick={handleDecrementQuantity}>
             -
-          </Styled.QuantityControlButton>
-        </Styled.Quantity>
+          </Styled.QuantityButton>
+        </Styled.QuantityControlBox>
         <Styled.Price>{parsePrice(itemQuantity * price)}원</Styled.Price>
-      </Styled.ProductInfo>
+      </Styled.RightBox>
     </Styled.Wrapper>
   );
 };

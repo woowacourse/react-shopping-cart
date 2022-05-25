@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import CartContainer from 'components/CartContainer/CartContainer';
 import CartItem from 'components/CartItem/CartItem';
 import CartControlBar from 'components/CartControlBar/CartControlBar';
@@ -29,8 +29,8 @@ const Cart = () => {
       <Title contents="장바구니" />
       {isLoading && <ImgWrapper src={spinner} />}
       {isError && <ImgWrapper src={errorApiImg} />}
-      <Styled.ContentsWrapper>
-        <Styled.CartContents>
+      <Styled.MainContentsWrapper>
+        <Styled.LeftBox>
           <CartControlBar
             isChecked={
               selectedItemList.length === cartItems?.length &&
@@ -57,11 +57,11 @@ const Cart = () => {
                 />
               ))}
           </CartContainer>
-        </Styled.CartContents>
-        <Styled.PaymentBoxWrapper>
+        </Styled.LeftBox>
+        <Styled.RightBox>
           <PaymentBox quantity={selectedItemList.length} price={totalPrice} />
-        </Styled.PaymentBoxWrapper>
-      </Styled.ContentsWrapper>
+        </Styled.RightBox>
+      </Styled.MainContentsWrapper>
     </Styled.Wrapper>
   );
 };

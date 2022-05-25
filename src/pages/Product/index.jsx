@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import ProductDetail from 'components/ProductDetail/ProductDetail';
 import Skeleton from 'components/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';

@@ -1,16 +1,15 @@
-import Styled, { skeletonSize } from './style';
+import { skeletonSize } from './style';
+import * as Styled from './style';
 import PropTypes from 'prop-types';
 
 const Skeleton = ({ sizeType }) => {
   return (
     <Styled.Wrapper sizeType={sizeType}>
-      <Styled.ProductImage />
-      <Styled.ProductDetail>
-        <Styled.ProductInfo>
-          <Styled.ProductName />
-          <Styled.ProductPrice />
-        </Styled.ProductInfo>
-      </Styled.ProductDetail>
+      <Styled.LargeBox />
+      <Styled.Container>
+        <Styled.MediumBox />
+        <Styled.SmallBox />
+      </Styled.Container>
     </Styled.Wrapper>
   );
 };

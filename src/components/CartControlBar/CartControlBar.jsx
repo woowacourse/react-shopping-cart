@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import CheckBox from 'components/CheckBox/CheckBox';
 import PropTypes from 'prop-types';
 
@@ -9,13 +9,13 @@ const CartControlBar = ({
 }) => {
   return (
     <Styled.Wrapper>
-      <Styled.FieldSet>
+      <Styled.LeftBox>
         <CheckBox checkedStatus={isChecked} onCheck={onControlToggleCheck} />
         <span>전체 선택 / 해제</span>
-      </Styled.FieldSet>
-      <Styled.DeleteButton onClick={onControlClickButton}>
+      </Styled.LeftBox>
+      <Styled.Button onClick={onControlClickButton}>
         선택 상품 삭제
-      </Styled.DeleteButton>
+      </Styled.Button>
     </Styled.Wrapper>
   );
 };

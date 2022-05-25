@@ -1,5 +1,5 @@
 import React from 'react';
-import Styled from './style';
+import * as Styled from './style';
 import PropTypes from 'prop-types';
 
 const CartContainer = ({ children }) => {

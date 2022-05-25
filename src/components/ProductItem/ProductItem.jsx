@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import { useNavigate } from 'react-router-dom';
 import { PATH_NAME } from 'constants';
 import PropTypes from 'prop-types';
@@ -15,17 +15,17 @@ const ProductItem = ({ id, name, price, imgUrl, onClickCartButton }) => {
   return (
     <Styled.Wrapper onClick={handleClickItem}>
       <Styled.Overlay>
-        <Styled.NamePreview>{name}</Styled.NamePreview>
+        <Styled.ThumbnailText>{name}</Styled.ThumbnailText>
       </Styled.Overlay>
       <Styled.Image src={imgUrl} alt={name} loading="lazy" />
       <Styled.Detail>
-        <Styled.Info>
+        <Styled.TopBox>
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{parsePrice(price)}원</Styled.Price>
-        </Styled.Info>
-        <Styled.CartButton onClick={onClickCartButton}>
+        </Styled.TopBox>
+        <Styled.Button onClick={onClickCartButton}>
           <Styled.CartSvg src={smallCart} />
-        </Styled.CartButton>
+        </Styled.Button>
       </Styled.Detail>
     </Styled.Wrapper>
   );

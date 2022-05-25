@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import MenuItem from 'components/MenuItem/MenuItem';
 import bigCart from 'assets/svg/bigCart.svg';
 import { PATH_NAME } from 'constants';

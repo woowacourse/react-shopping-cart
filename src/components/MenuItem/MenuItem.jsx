@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import PropTypes from 'prop-types';
 
 const MenuItem = ({ children, onClick }) => {

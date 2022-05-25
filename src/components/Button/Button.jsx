@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import Styled, { buttonSize, buttonColor } from './style';
+import { buttonColor, buttonSize } from './style';
+import * as Styled from './style';
 
 const Button = ({ colorType, sizeType, children, ...rest }) => {
   return (

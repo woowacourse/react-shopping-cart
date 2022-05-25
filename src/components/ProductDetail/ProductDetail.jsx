@@ -1,4 +1,4 @@
-import Styled from './style';
+import * as Styled from './style';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 import { parsePrice } from 'utils';
@@ -7,7 +7,7 @@ const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
   return (
     <>
       <Styled.Image src={imgUrl} alt="상품 이미지" />
-      <Styled.Info>
+      <Styled.InfoBox>
         <Styled.Name>{name}</Styled.Name>
         <Styled.Line />
         <Styled.Price>
@@ -21,7 +21,7 @@ const ProductDetail = ({ imgUrl, name, price, onClickCartButton }) => {
         >
           장바구니
         </Button>
-      </Styled.Info>
+      </Styled.InfoBox>
     </>
   );
 };

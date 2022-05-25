@@ -27,15 +27,11 @@ export const buttonColor = {
   `,
 };
 
-const Styled = {
-  Button: styled.button`
-    color: ${({ theme }) => theme.COLOR.WHITE};
-    border: none;
-    cursor: pointer;
-    font-family: ${({ theme }) => theme.FONT.SECONDARY};
-    ${({ sizeType }) => buttonSize[sizeType]}
-    ${({ colorType }) => buttonColor[colorType]}
-  `,
-};
-
-export default Styled;
+export const Button = styled.button`
+  color: ${({ theme }) => theme.COLOR.WHITE};
+  border: none;
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.FONT.SECONDARY};
+  ${({ sizeType }) => buttonSize[sizeType]}
+  ${({ colorType }) => buttonColor[colorType]}
+`;
