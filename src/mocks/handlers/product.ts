@@ -7,7 +7,7 @@ export const loadProduct = rest.get(`${BASE_URL}/productList/:id`, (req, res, ct
   const id = Number(req.params.id);
   const product = productList.find((product) => id === product.id);
 
-  if (!product) return res(ctx.status(400));
+  if (!product) return res(ctx.status(404));
 
   return res(ctx.status(200), ctx.json(product));
 });

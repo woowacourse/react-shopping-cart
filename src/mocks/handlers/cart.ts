@@ -8,7 +8,7 @@ export const loadCartProduct = rest.get(`${BASE_URL}/cartProductList/:id`, (req,
   const id = Number(req.params.id);
   const cartProduct = cartProductList.find((cartProduct) => id === cartProduct.id);
 
-  if (!cartProduct) return res(ctx.status(400));
+  if (!cartProduct) return res(ctx.status(404));
   return res(ctx.status(200), ctx.json(cartProduct));
 });
 
@@ -39,5 +39,5 @@ export const deleteCartProduct = rest.delete(`${BASE_URL}/cartProductList/:id`, 
   const index = cartProductList.findIndex((cartProduct) => cartProduct.id === id);
   cartProductList.splice(index, 1);
 
-  return res(ctx.status(200));
+  return res(ctx.status(204));
 });
