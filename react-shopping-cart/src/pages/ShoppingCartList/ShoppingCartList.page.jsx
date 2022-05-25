@@ -23,7 +23,8 @@ function ShoppingCartList() {
   const orderList = useSelector(state => state.orderList);
   const shoppingCart = useSelector(state => state.shoppingCart);
 
-  const checked = orderList.length !== 0 && orderList.length === shoppingCart.length;
+  const disabled = shoppingCart.length === 0;
+  const checked = shoppingCart.length !== 0 && orderList.length === shoppingCart.length;
 
   const handleChangeCheckBox = () => {
     if (checked) {
@@ -61,7 +62,11 @@ function ShoppingCartList() {
                   alignItems="center"
                 >
                   <FlexBox gap="10px">
-                    <CheckBox checked={checked} onChange={() => handleChangeCheckBox()} />
+                    <CheckBox
+                      disabled={disabled}
+                      checked={checked}
+                      onChange={() => handleChangeCheckBox()}
+                    />
                     <TextBox fontSize="small">{checked ? '선택해제' : '전체선택'}</TextBox>
                   </FlexBox>
                   <BorderBox

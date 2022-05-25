@@ -28,6 +28,16 @@ const CheckBox = styled.input.attrs({
     justify-content: center;
     align-items: center;
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors['GRAY_001']};
+    cursor: auto;
+    border: none;
+
+    &:after {
+      content: '';
+    }
+  }
 `;
 
 export default CheckBox;
