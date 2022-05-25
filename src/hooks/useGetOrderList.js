@@ -5,7 +5,7 @@ const useGetOrderList = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('orderList');
 
   const getOrderList = () => {
-    dispatch(getOrderListAsync);
+    dispatch(getOrderListAsync());
   };
 
   return {

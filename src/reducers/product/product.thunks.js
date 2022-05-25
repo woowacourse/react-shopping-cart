@@ -1,13 +1,8 @@
-import * as actions from 'reducers/product/product.actions';
-import apiClient from 'utils/apiClient';
+import { getProductFromApi } from 'api/get';
+import { createPromiseThunk } from 'utils/createPromiseThunk';
+import { GET_PRODUCT } from './product.reducer';
 
-export const getProductAsync = (id) => async (dispatch) => {
-  dispatch(actions.getProduct());
-
-  try {
-    const { data } = await apiClient.get(`/productList/${id}`);
-    dispatch(actions.getProductSuccess(data));
-  } catch (error) {
-    dispatch(actions.getProductError());
-  }
-};
+export const getProductAsync = createPromiseThunk(
+  GET_PRODUCT,
+  getProductFromApi,
+);

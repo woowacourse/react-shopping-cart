@@ -5,7 +5,7 @@ const useGetCartList = () => {
   const { dispatch, isLoading, data, isError } = useReduxState('cartList');
 
   const getCartList = () => {
-    dispatch(getCartListAsync);
+    dispatch(getCartListAsync());
   };
 
   return {

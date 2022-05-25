@@ -1,14 +1,8 @@
-import { API_PATH } from 'constants/path';
-import * as actions from 'reducers/productList/productList.actions';
-import apiClient from 'utils/apiClient';
+import { getProductListFromApi } from 'api/get';
+import { createPromiseThunk } from 'utils/createPromiseThunk';
+import { GET_PRODUCT_LIST } from './productList.reducer';
 
-export const getProductListAsync = async (dispatch) => {
-  dispatch(actions.getProductList());
-
-  try {
-    const { data } = await apiClient.get(API_PATH.PRODUCT_LIST);
-    dispatch(actions.getProductListSuccess(data));
-  } catch (error) {
-    dispatch(actions.getProductListError());
-  }
-};
+export const getProductListAsync = createPromiseThunk(
+  GET_PRODUCT_LIST,
+  getProductListFromApi,
+);

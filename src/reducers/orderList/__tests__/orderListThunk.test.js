@@ -2,9 +2,12 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { handlers } from 'mocks/handlers';
 import { mockOrderList } from 'fixture';
-import * as actions from 'reducers/orderList/orderList.actions';
 import { getOrderListAsync } from '../orderList.thunks';
 import { API_PATH } from 'constants/path';
+import {
+  GET_ORDER_LIST_ERROR,
+  GET_ORDER_LIST_SUCCESS,
+} from '../orderList.reducer';
 
 const mockDispatch = jest.fn();
 
@@ -30,11 +33,12 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
       }),
     );
 
-    await getOrderListAsync(mockDispatch);
+    await getOrderListAsync()(mockDispatch);
 
-    expect(mockDispatch).toBeCalledWith(
-      actions.getOrderListSuccess(mockOrderList),
-    );
+    expect(mockDispatch).toBeCalledWith({
+      type: GET_ORDER_LIST_SUCCESS,
+      data: mockOrderList,
+    });
   });
 
   test('2. 주문 목록 정보를 불러오는 데 실패하면 GET_ORDER_LIST_ERROR 액션이 dispatch 되어야 한다.', async () => {
@@ -44,8 +48,10 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
       }),
     );
 
-    await getOrderListAsync(mockDispatch);
+    await getOrderListAsync()(mockDispatch);
 
-    expect(mockDispatch).toBeCalledWith(actions.getOrderListError());
+    expect(mockDispatch).toBeCalledWith({
+      type: GET_ORDER_LIST_ERROR,
+    });
   });
 });

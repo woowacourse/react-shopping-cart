@@ -1,4 +1,6 @@
-import { actionTypes } from 'reducers/productList/productList.actions';
+export const GET_PRODUCT_LIST = 'GET_PRODUCT_LIST';
+export const GET_PRODUCT_LIST_SUCCESS = 'GET_PRODUCT_LIST_SUCCESS';
+export const GET_PRODUCT_LIST_ERROR = 'GET_PRODUCT_LIST_ERROR';
 
 const initialState = {
   data: [],
@@ -7,17 +9,17 @@ const initialState = {
 };
 
 const productListReducer = (state = initialState, action) => {
-  if (action.type === actionTypes.GET_PRODUCT_LIST) {
+  if (action.type === GET_PRODUCT_LIST) {
     return { ...state, isLoading: true };
   }
-  if (action.type === actionTypes.GET_PRODUCT_LIST_SUCCESS) {
+  if (action.type === GET_PRODUCT_LIST_SUCCESS) {
     return {
       ...state,
       isLoading: false,
       data: action.data,
     };
   }
-  if (action.type === actionTypes.GET_PRODUCT_LIST_ERROR) {
+  if (action.type === GET_PRODUCT_LIST_ERROR) {
     return {
       ...state,
       isLoading: false,

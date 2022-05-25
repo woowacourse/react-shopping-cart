@@ -4,8 +4,8 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import httpMocks from 'node-mocks-http';
 import { getProductAsync } from 'reducers/product/product.thunks';
-import * as actions from 'reducers/product/product.actions';
 import { API_PATH } from 'constants/path';
+import { GET_PRODUCT_ERROR, GET_PRODUCT_SUCCESS } from '../product.reducer';
 
 const mockDispatch = jest.fn();
 
@@ -40,7 +40,10 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
 
     await getProductAsync(req.params.id)(mockDispatch);
 
-    expect(mockDispatch).toBeCalledWith(actions.getProductSuccess(mockProduct));
+    expect(mockDispatch).toBeCalledWith({
+      type: GET_PRODUCT_SUCCESS,
+      data: mockProduct,
+    });
   });
 
   test('2. 상품 정보를 불러오는 데 실패하면 GET_PRODUCT_ERROR 액션이 dispatch 되어야 한다.', async () => {
@@ -54,6 +57,6 @@ describe('thunk를 이용하여 외부 API에 잘 연동되는지 확인한다.'
 
     await getProductAsync(req.params.id)(mockDispatch);
 
-    expect(mockDispatch).toBeCalledWith(actions.getProductError());
+    expect(mockDispatch).toBeCalledWith({ type: GET_PRODUCT_ERROR });
   });
 });

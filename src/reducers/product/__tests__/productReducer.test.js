@@ -1,5 +1,6 @@
-import productReducer from 'reducers/product/product.reducer';
-import * as actions from 'reducers/product/product.actions';
+import productReducer, {
+  GET_PRODUCT_SUCCESS,
+} from 'reducers/product/product.reducer';
 
 describe('action에 맞춰서 상태를 의도한대로 잘 변경하는지 확인한다', () => {
   test('상품 요청이 들어오면 해당 상품을 정상적으로 상품  상태에 추가해야 한다.', () => {
@@ -24,7 +25,10 @@ describe('action에 맞춰서 상태를 의도한대로 잘 변경하는지 확�
     };
 
     expect(
-      productReducer(initialProduct, actions.getProductSuccess(mockProduct)),
+      productReducer(initialProduct, {
+        type: GET_PRODUCT_SUCCESS,
+        data: mockProduct,
+      }),
     ).toEqual(expectedProduct);
   });
 });

@@ -1,14 +1,8 @@
-import { API_PATH } from 'constants/path';
-import * as actions from 'reducers/orderList/orderList.actions';
-import apiClient from 'utils/apiClient';
+import { createPromiseThunk } from 'utils/createPromiseThunk';
+import { GET_ORDER_LIST } from 'reducers/orderList/orderList.reducer';
+import { getOrderListFromApi } from 'api/get';
 
-export const getOrderListAsync = async (dispatch) => {
-  dispatch(actions.getOrderList());
-
-  try {
-    const { data } = await apiClient.get(API_PATH.ORDER_LIST);
-    dispatch(actions.getOrderListSuccess(data));
-  } catch (error) {
-    dispatch(actions.getOrderListError());
-  }
-};
+export const getOrderListAsync = createPromiseThunk(
+  GET_ORDER_LIST,
+  getOrderListFromApi,
+);
