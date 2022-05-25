@@ -35,7 +35,7 @@ function ProductDetailPage() {
     cartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantityWithAlert,
+    updateCartItemQuantityWithSuccessMessage,
   } = useCartItemList();
 
   useEffect(() => {
@@ -67,8 +67,8 @@ function ProductDetailPage() {
         </StyledProductPrice>
       </StyledBottomSection>
       <AddToCartButton
-        onClickAddToCartButton={() => {
-          updateCartItemQuantityWithAlert({
+        onClick={() => {
+          updateCartItemQuantityWithSuccessMessage({
             id: product.id,
             quantity: quantity + 1,
           });

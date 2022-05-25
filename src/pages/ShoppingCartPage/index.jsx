@@ -92,7 +92,10 @@ function ShoppingCartPage() {
                   selected={isSelected(product.id)}
                   onClickCheckBox={handleCheckBoxClick(product.id)}
                   updateQuantity={(quantity) =>
-                    updateCartItemQuantity({ id: product.id, quantity })
+                    updateCartItemQuantity({
+                      id: product.id,
+                      quantity,
+                    })
                   }
                   deleteSelf={() => {
                     deleteCartItemByIdList([product.id]);

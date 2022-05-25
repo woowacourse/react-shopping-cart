@@ -11,10 +11,10 @@ const initialState = {
 
 export const cartReducer = (state = initialState.cart, action) => {
   switch (action.type) {
-    case ACTIONS.GET_CART_ITEM_LIST:
+    case ACTIONS.GET_CART_ITEM_LIST_PENDING:
       return {
+        ...state,
         loading: true,
-        data: [],
         errorMessage: null,
       };
 
@@ -32,11 +32,17 @@ export const cartReducer = (state = initialState.cart, action) => {
         errorMessage: action.payload,
       };
 
-    case ACTIONS.POST_CART_ITEM:
+    case ACTIONS.POST_CART_ITEM_PENDING:
       return {
+        ...state,
         loading: false,
-        data: state.data,
         errorMessage: null,
+      };
+
+    case ACTIONS.POST_CART_ITEM_CANCEL:
+      return {
+        ...state,
+        loading: false,
       };
 
     case ACTIONS.POST_CART_ITEM_SUCCESS:
@@ -51,10 +57,10 @@ export const cartReducer = (state = initialState.cart, action) => {
         errorMessage: action.payload,
       };
 
-    case ACTIONS.DELETE_CART_ITEM:
+    case ACTIONS.DELETE_CART_ITEM_PENDING:
       return {
+        ...state,
         loading: false,
-        data: state.data,
         errorMessage: null,
       };
 

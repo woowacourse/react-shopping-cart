@@ -33,11 +33,11 @@ describe("장바구니 아이템 정보 가져오기 요청 관련 dispatch acti
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  test("장바구니 아이템 정보 불러오기 요청이 있으면, GET_CART_ITEM_LIST 액션이 dispatch 되어야 한다.", async () => {
+  test("장바구니 아이템 정보 불러오기 요청이 있으면, GET_CART_ITEM_LIST_PENDING 액션이 dispatch 되어야 한다.", async () => {
     await getCartItemList()(mockDispatch);
 
     expect(mockDispatch).toBeCalledWith({
-      type: ACTIONS.GET_CART_ITEM_LIST,
+      type: ACTIONS.GET_CART_ITEM_LIST_PENDING,
     });
   });
 
@@ -90,7 +90,7 @@ describe("장바구니 아이템 추가 및 수량 변경 요청 관련 dispatch
     },
   ];
 
-  test("장바구니 아이템 추가 및 수량 변경 요청이 있으면, POST_CART_ITEM 액션이 dispatch 되어야 한다.", async () => {
+  test("장바구니 아이템 추가 및 수량 변경 요청이 있으면, POST_CART_ITEM_PENDING 액션이 dispatch 되어야 한다.", async () => {
     server.use(
       rest.post(cartUrl, (req, res, ctx) => {
         return res(ctx.json(CART_ITEM_LIST_ADDED));
@@ -100,7 +100,7 @@ describe("장바구니 아이템 추가 및 수량 변경 요청 관련 dispatch
     await postCartItem(CART_ITEM_LIST_TO_ADD)(mockDispatch);
 
     expect(mockDispatch).toBeCalledWith({
-      type: ACTIONS.POST_CART_ITEM,
+      type: ACTIONS.POST_CART_ITEM_PENDING,
     });
   });
 
@@ -141,7 +141,7 @@ describe("장바구니 아이템 삭제하기 요청 관련 action dispatch 테�
 
   const CART_ITEM_ID_LIST_TO_DELETE = [4];
 
-  test("장바구니 아이템 삭제하기 요청이 있으면, DELETE_CART_ITEM 액션이 dispatch 되어야 한다.", async () => {
+  test("장바구니 아이템 삭제하기 요청이 있으면, DELETE_CART_ITEM_PENDING 액션이 dispatch 되어야 한다.", async () => {
     server.use(
       rest.delete(cartUrl, (req, res, ctx) => {
         return res(ctx.json(MOCK_CART_ITEM_LIST));
@@ -151,7 +151,7 @@ describe("장바구니 아이템 삭제하기 요청 관련 action dispatch 테�
     await deleteCartItem(CART_ITEM_ID_LIST_TO_DELETE)(mockDispatch);
 
     expect(mockDispatch).toBeCalledWith({
-      type: ACTIONS.DELETE_CART_ITEM,
+      type: ACTIONS.DELETE_CART_ITEM_PENDING,
     });
   });
 

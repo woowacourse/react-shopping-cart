@@ -23,7 +23,7 @@ function ProductListPage() {
     cartItemList,
     isLoading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    updateCartItemQuantityWithAlert,
+    updateCartItemQuantityWithSuccessMessage,
   } = useCartItemList();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function ProductListPage() {
           key={product.id}
           product={{ ...product }}
           onClickAddToCartButton={() => {
-            updateCartItemQuantityWithAlert({
+            updateCartItemQuantityWithSuccessMessage({
               id: product.id,
               quantity: product.quantity + 1,
             });

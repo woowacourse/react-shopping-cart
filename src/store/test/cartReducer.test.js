@@ -14,7 +14,7 @@ describe("cartReducer - getCartItem 테스트", () => {
 
   test("장바구니 아이템 가져오기 action이 들어오면, 장바구니 상태를 초기화한다.", () => {
     const ACTION_GET_CART_ITEM_LIST = {
-      type: ACTIONS.GET_CART_ITEM_LIST,
+      type: ACTIONS.GET_CART_ITEM_LIST_PENDING,
     };
 
     expect(cartReducer(initialCartState, ACTION_GET_CART_ITEM_LIST)).toEqual({
@@ -66,7 +66,7 @@ describe("cartReducer - postCartItem 테스트", () => {
 
   test("장바구니 아이템 추가 및 수량 변경 action이 들어오면, 장바구니 상태 중 data는 유지하고, loading은 false, errorMessage는 null로 업데이트한다.", () => {
     const ACTION_POST_CART_ITEM = {
-      type: ACTIONS.POST_CART_ITEM,
+      type: ACTIONS.POST_CART_ITEM_PENDING,
     };
 
     expect(cartReducer(initialCartState, ACTION_POST_CART_ITEM)).toEqual({
@@ -116,7 +116,7 @@ describe("cartReducer - deleteCartItem 테스트", () => {
 
   test("장바구니 아이템 삭제 action이 들어오면, 장바구니 상태 중 data는 유지하고, loading은 false, errorMessage는 null로 업데이트한다.", () => {
     const ACTION_DELETE_CART_ITEM = {
-      type: ACTIONS.DELETE_CART_ITEM,
+      type: ACTIONS.DELETE_CART_ITEM_PENDING,
     };
 
     expect(cartReducer(initialCartState, ACTION_DELETE_CART_ITEM)).toEqual({
