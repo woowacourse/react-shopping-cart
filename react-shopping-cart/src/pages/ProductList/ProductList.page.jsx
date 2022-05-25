@@ -13,7 +13,7 @@ function ProductList() {
   const { productList, status } = state;
 
   useEffect(() => {
-    if (productList.length === 0) {
+    if (!productList.length) {
       dispatch(fetchPostList());
     }
   }, []);
