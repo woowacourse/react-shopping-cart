@@ -32,14 +32,14 @@ const Cart = () => {
       <Styled.ContentsWrapper>
         <Styled.CartContents>
           <CartControlBar
-            isAllSelected={
+            isChecked={
               selectedItemList.length === cartItems?.length &&
               cartItems?.length > 0
             }
-            onControlSelectAll={handleToggleSelectAll(
+            onControlToggleCheck={handleToggleSelectAll(
               selectedItemList.length === cartItems?.length,
             )}
-            onControlDelete={handleDeleteSelectedItem}
+            onControlClickButton={handleDeleteSelectedItem}
           />
 
           <CartContainer>

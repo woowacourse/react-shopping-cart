@@ -3,21 +3,21 @@ import CheckBox from 'components/CheckBox/CheckBox';
 import PropTypes from 'prop-types';
 
 const CartControlBar = ({
-  isAllSelected,
-  onControlSelectAll,
-  onControlDelete,
+  isChecked,
+  onControlToggleCheck,
+  onControlClickButton,
 }) => {
   return (
     <Styled.Wrapper>
       <Styled.FieldSet>
         <CheckBox
           id="total"
-          checkedStatus={isAllSelected}
-          onCheck={onControlSelectAll}
+          checkedStatus={isChecked}
+          onCheck={onControlToggleCheck}
         />
         <span>전체 선택 / 해제</span>
       </Styled.FieldSet>
-      <Styled.DeleteButton onClick={onControlDelete}>
+      <Styled.DeleteButton onClick={onControlClickButton}>
         선택 상품 삭제
       </Styled.DeleteButton>
     </Styled.Wrapper>
@@ -25,9 +25,9 @@ const CartControlBar = ({
 };
 
 CartControlBar.propTypes = {
-  isAllSelected: PropTypes.bool,
-  onControlSelectAll: PropTypes.func,
-  onControlDelete: PropTypes.func,
+  isChecked: PropTypes.bool,
+  onControlToggleCheck: PropTypes.func,
+  onControlClickButton: PropTypes.func,
 };
 
 export default CartControlBar;
