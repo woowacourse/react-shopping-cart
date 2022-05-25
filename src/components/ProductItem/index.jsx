@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useClose from 'hooks/useClose';
+import PropTypes from 'prop-types';
 
 import { Image, CartIcon, QuantityController } from 'components';
 
@@ -85,6 +86,13 @@ const ProductItem = ({ id }) => {
       )}
     </Styled.Container>
   );
+};
+
+ProductItem.propTypes = {
+  /**
+   * 해당 상품의 id
+   */
+  id: PropTypes.number.isRequired,
 };
 
 export default ProductItem;

@@ -6,6 +6,9 @@ const UnderlineText = ({ text }) => {
 };
 
 UnderlineText.propTypes = {
+  /**
+   * 표시되는 텍스트
+   */
   text: PropTypes.string.isRequired,
 };
 

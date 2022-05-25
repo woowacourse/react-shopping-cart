@@ -1,8 +1,12 @@
 import Image from '.';
+import { dummyProductList } from 'dummy_data';
 
 export default {
   title: 'Components/Image',
   component: Image,
+  argTypes: {
+    src: { control: 'select', options: dummyProductList.map(product => product.image) },
+  },
 };
 
 const Template = args => <Image {...args} />;

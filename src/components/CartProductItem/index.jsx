@@ -54,7 +54,13 @@ const CartProductItem = ({ id, quantity }) => {
 };
 
 CartProductItem.propTypes = {
+  /**
+   * 해당 상품의 id
+   */
   id: PropTypes.number.isRequired,
+  /**
+   * 해당 상품이 장바구니에 담긴 수량
+   */
   quantity: PropTypes.number.isRequired,
 };
 

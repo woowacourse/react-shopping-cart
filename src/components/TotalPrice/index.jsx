@@ -23,8 +23,17 @@ const TotalPrice = ({ title, price, action }) => {
 };
 
 TotalPrice.propTypes = {
+  /**
+   * 해당 컴포넌트에 표시되는 제목
+   */
   title: PropTypes.string.isRequired,
+  /**
+   * 가격을 보여주는 곳
+   */
   price: PropTypes.number.isRequired,
+  /**
+   * 버튼에 쓰일 텍스트
+   */
   action: PropTypes.string.isRequired,
 };
 
