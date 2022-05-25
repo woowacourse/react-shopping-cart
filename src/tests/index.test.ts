@@ -1,4 +1,4 @@
-import { cartListAction } from 'redux/cartList/action';
+import { cartListActions } from 'redux/cartList/action';
 import { cartListReducer, initialState } from 'redux/cartList/reducer';
 
 const cartItem = {
@@ -15,30 +15,42 @@ const cartItem2 = {
 
 describe('test', () => {
   test('장바구니 담기', () => {
-    expect(cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem))).toEqual({
+    expect(
+      cartListReducer(initialState, cartListActions.postCartItemActionGroup.success(cartItem))
+    ).toEqual({
       ...initialState,
       data: [cartItem],
     });
   });
 
   test('장바구니 개수 수정', () => {
-    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
+    const prevState = cartListReducer(
+      initialState,
+      cartListActions.postCartItemActionGroup.success(cartItem)
+    );
 
     const addedCartItem = {
       ...cartItem,
       quantity: 3,
     };
 
-    expect(cartListReducer(prevState, cartListAction.putCartItemSuccess(addedCartItem))).toEqual({
+    expect(
+      cartListReducer(prevState, cartListActions.putCartItemActionGroup.success(addedCartItem))
+    ).toEqual({
       ...initialState,
       data: [addedCartItem],
     });
   });
 
   test('장바구니 삭제', () => {
-    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
+    const prevState = cartListReducer(
+      initialState,
+      cartListActions.postCartItemActionGroup.success(cartItem)
+    );
 
-    expect(cartListReducer(prevState, cartListAction.deleteCartItemSuccess(cartItem.id))).toEqual({
+    expect(
+      cartListReducer(prevState, cartListActions.deleteCartItemActionGroup.success(cartItem.id))
+    ).toEqual({
       ...initialState,
       data: [],
     });
@@ -47,21 +59,26 @@ describe('test', () => {
   test('장바구니 전체 삭제 ', () => {
     const stateWithOneItem = cartListReducer(
       initialState,
-      cartListAction.postCartItemSuccess(cartItem)
+      cartListActions.postCartItemActionGroup.success(cartItem)
     );
     const stateWithTwoItem = cartListReducer(
       stateWithOneItem,
-      cartListAction.postCartItemSuccess(cartItem2)
+      cartListActions.postCartItemActionGroup.success(cartItem2)
     );
 
-    expect(cartListReducer(stateWithTwoItem, cartListAction.deleteAllCartItemSuccess())).toEqual({
+    expect(
+      cartListReducer(stateWithTwoItem, cartListActions.deleteAllCartItemActionGroup.success())
+    ).toEqual({
       ...initialState,
       data: [],
     });
   });
 
   test('장바구니 선택 해제', () => {
-    const prevState = cartListReducer(initialState, cartListAction.postCartItemSuccess(cartItem));
+    const prevState = cartListReducer(
+      initialState,
+      cartListActions.postCartItemActionGroup.success(cartItem)
+    );
 
     const changedCartItem = {
       ...cartItem,
@@ -69,7 +86,10 @@ describe('test', () => {
     };
 
     expect(
-      cartListReducer(prevState, cartListAction.patchCartSelectedSuccess(changedCartItem))
+      cartListReducer(
+        prevState,
+        cartListActions.patchCartSelectedActionGroup.success(changedCartItem)
+      )
     ).toEqual({
       ...initialState,
       data: [changedCartItem],
@@ -79,11 +99,11 @@ describe('test', () => {
   test('장바구니 전체 선택 해제 ', () => {
     const stateWithOneItem = cartListReducer(
       initialState,
-      cartListAction.postCartItemSuccess(cartItem)
+      cartListActions.postCartItemActionGroup.success(cartItem)
     );
     const stateWithTwoItem = cartListReducer(
       stateWithOneItem,
-      cartListAction.postCartItemSuccess(cartItem2)
+      cartListActions.postCartItemActionGroup.success(cartItem2)
     );
 
     const isAllSelected = stateWithTwoItem.data.every(item => item.isSelected);
@@ -93,7 +113,10 @@ describe('test', () => {
     }));
 
     expect(
-      cartListReducer(stateWithTwoItem, cartListAction.patchAllCartSelectedSuccess(!isAllSelected))
+      cartListReducer(
+        stateWithTwoItem,
+        cartListActions.patchAllCartSelectedActionGroup.success(!isAllSelected)
+      )
     ).toEqual({
       ...initialState,
       data: newCartList,

@@ -1,6 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import theme from 'styles/theme';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width: string;
