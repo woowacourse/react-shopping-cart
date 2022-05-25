@@ -27,7 +27,12 @@ export const useCartItemList = () => {
     if (quantity > PRODUCT_QUANTITY_CONDITION.MAX) return;
     if (quantity < PRODUCT_QUANTITY_CONDITION.MIN) return;
 
-    dispatch(postCartItem([{ id, quantity }]));
+    dispatch(
+      postCartItem(
+        [{ id, quantity }],
+        `${quantity}개의 상품을 장바구니에 담았습니다.`
+      )
+    );
   };
 
   const updateCartItemQuantityWithAlert = ({ id, quantity }) => {
@@ -44,12 +49,18 @@ export const useCartItemList = () => {
       );
       return;
     }
-    dispatch(postCartItem([{ id, quantity }]));
-    alert(`${quantity}개의 상품을 장바구니에 담았습니다.`);
+    dispatch(
+      postCartItem(
+        [{ id, quantity }],
+        `${quantity}개의 상품을 장바구니에 담았습니다.`
+      )
+    );
   };
 
   const deleteCartItemByIdList = (cartItemIdList) => {
-    dispatch(deleteCartItem(cartItemIdList));
+    dispatch(
+      deleteCartItem(cartItemIdList, `장바구니에서 상품을 삭제했습니다.`)
+    );
   };
 
   return {

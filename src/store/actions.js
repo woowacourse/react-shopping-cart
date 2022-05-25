@@ -32,30 +32,34 @@ export const getCartItemList = () => async (dispatch, getState) => {
   }
 };
 
-export const postCartItem = (productList) => async (dispatch, getState) => {
-  dispatch({ type: ACTIONS.POST_CART_ITEM });
+export const postCartItem =
+  (productList, successMessage) => async (dispatch, getState) => {
+    dispatch({ type: ACTIONS.POST_CART_ITEM });
 
-  try {
-    const newCartItemList = await requestPostCartItem(productList);
-    dispatch({
-      type: ACTIONS.POST_CART_ITEM_SUCCESS,
-      payload: newCartItemList,
-    });
-  } catch (err) {
-    dispatch({ type: ACTIONS.POST_CART_ITEM_ERROR, payload: err.message });
-  }
-};
+    try {
+      const newCartItemList = await requestPostCartItem(productList);
+      dispatch({
+        type: ACTIONS.POST_CART_ITEM_SUCCESS,
+        payload: newCartItemList,
+      });
+      successMessage && alert(successMessage);
+    } catch (err) {
+      dispatch({ type: ACTIONS.POST_CART_ITEM_ERROR, payload: err.message });
+    }
+  };
 
-export const deleteCartItem = (productIdList) => async (dispatch, getState) => {
-  dispatch({ type: ACTIONS.DELETE_CART_ITEM });
+export const deleteCartItem =
+  (productIdList, successMessage) => async (dispatch, getState) => {
+    dispatch({ type: ACTIONS.DELETE_CART_ITEM });
 
-  try {
-    const newCartItemList = await requestDeleteCartItem(productIdList);
-    dispatch({
-      type: ACTIONS.DELETE_CART_ITEM_SUCCESS,
-      payload: newCartItemList,
-    });
-  } catch (err) {
-    dispatch({ type: ACTIONS.DELETE_CART_ITEM_ERROR, payload: err.message });
-  }
-};
+    try {
+      const newCartItemList = await requestDeleteCartItem(productIdList);
+      dispatch({
+        type: ACTIONS.DELETE_CART_ITEM_SUCCESS,
+        payload: newCartItemList,
+      });
+      successMessage && alert(successMessage);
+    } catch (err) {
+      dispatch({ type: ACTIONS.DELETE_CART_ITEM_ERROR, payload: err.message });
+    }
+  };
