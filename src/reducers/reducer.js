@@ -19,9 +19,6 @@ function reducer(state = initState, action) {
 
       return {
         ...state,
-        products: state.products.map(product =>
-          product.id === action.id ? { ...product, isInCart: true } : product,
-        ),
         shoppingCart: isExist
           ? state.shoppingCart.map(product =>
               product.id === action.id ? { ...product, quantity: action.quantity } : product,
@@ -33,9 +30,6 @@ function reducer(state = initState, action) {
     case CART_ACTIONS.DELETE:
       return {
         ...state,
-        products: state.products.map(product =>
-          product.id === action.id ? { ...product, isInCart: false } : product,
-        ),
         shoppingCart: state.shoppingCart.filter(product => product.id !== action.id),
         order: state.order.filter(productId => productId !== action.id),
       };

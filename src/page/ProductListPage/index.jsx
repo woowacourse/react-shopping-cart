@@ -28,7 +28,9 @@ const ProductListPage = () => {
     <Styled.ProductListPage>
       {products.length > 0 ? (
         <Styled.ProductList>
-          {products.map(({ id }) => id && <ProductItem key={id} id={id} />)}
+          {products.map(({ id, name, price, image }) => {
+            return id && <ProductItem key={id} id={id} name={name} price={price} image={image} />;
+          })}
         </Styled.ProductList>
       ) : (
         <Styled.Loading>열심히 로딩중 .. ✨</Styled.Loading>

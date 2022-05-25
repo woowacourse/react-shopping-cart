@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useClose from 'hooks/useClose';
 import PropTypes from 'prop-types';
+import useClose from 'hooks/useClose';
+import useCart from 'hooks/useCart';
 
 import { Image, CartIcon, QuantityController } from 'components';
 
@@ -13,19 +13,19 @@ import autoComma from 'utils/autoComma';
 import Styled from 'components/ProductItem/index.style';
 import { LINK } from 'constants';
 
-const ProductItem = ({ id }) => {
+const ProductItem = ({ id, name, price, image }) => {
+  const [isInCart, product] = useCart(id);
+  const [quantity, setQuantity] = useState(isInCart ? product.quantity : 1);
+
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const { products, shoppingCart } = useSelector(state => state.reducer);
+  const [isControllerOpen, setIsControllerOpen] = useState(false);
   const [clearTimer, setAutoCloseTimer, extendTimer] = useClose();
-  const { name, price, image, isInCart } = products.find(product => product.id === id);
 
   const quantityRef = useRef(quantity);
   quantityRef.current = quantity;
 
   const updateCart = () => {
-    setIsOpen(false);
+    setIsControllerOpen(false);
     clearTimer();
 
     if (quantityRef.current > 0) {
@@ -43,10 +43,10 @@ const ProductItem = ({ id }) => {
   const handleCartClick = e => {
     e.stopPropagation();
 
-    if (isOpen) {
+    if (isControllerOpen) {
       updateCart();
     } else {
-      setIsOpen(true);
+      setIsControllerOpen(true);
       setAutoCloseTimer(updateCart);
     }
   };
@@ -55,12 +55,6 @@ const ProductItem = ({ id }) => {
     e.stopPropagation();
     extendTimer(updateCart);
   };
-
-  useEffect(() => {
-    if (isInCart) {
-      setQuantity(shoppingCart.find(product => product.id === id).quantity);
-    }
-  }, [isInCart, shoppingCart, id]);
 
   return (
     <Styled.Container onClick={handleItemClick}>
@@ -76,7 +70,7 @@ const ProductItem = ({ id }) => {
         </Styled.CartController>
       </Styled.ProductController>
 
-      {isOpen && (
+      {isControllerOpen && (
         <QuantityController
           handleClick={handleQuantityControllerClick}
           quantity={quantity}
@@ -93,6 +87,18 @@ ProductItem.propTypes = {
    * 해당 상품의 id
    */
   id: PropTypes.number.isRequired,
+  /**
+   * 상품의 이름
+   */
+  name: PropTypes.string.isRequired,
+  /**
+   * 상품의 가격
+   */
+  price: PropTypes.number.isRequired,
+  /**
+   * 상품의 이미지 경로
+   */
+  image: PropTypes.string.isRequired,
 };
 
 export default ProductItem;

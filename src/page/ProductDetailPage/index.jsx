@@ -13,7 +13,8 @@ const ProductDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { shoppingCart, products } = useSelector(state => state.reducer);
-  const { image, name, price, isInCart } = products.find(product => product.id === Number(id));
+  const { image, name, price } = products.find(product => product.id === Number(id));
+  const isInCart = shoppingCart.some(product => product.id === Number(id));
 
   const putCart = () => {
     if (isInCart) {
