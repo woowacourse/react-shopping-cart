@@ -25,7 +25,8 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=874e4a557e1b"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +68,7 @@
     "@storybook/react": "^6.5.3",
     "@storybook/testing-library": "^0.0.11",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.5.4",
     "gh-pages": "^4.0.0",
     "msw": "^0.41.0",
     "webpack": "^5.72.1"
