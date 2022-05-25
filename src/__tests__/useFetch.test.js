@@ -32,6 +32,7 @@ describe('useFetch 커스텀 훅 테스트', () => {
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
+
   test('useFetch 내 초기 상태가 data = null, isLoading = false, isError=false로 설정되어 있다. ', () => {
     const { result } = renderHook(() => useFetch(mockArgs));
     const { data, isLoading, isError } = result.current;
