@@ -1,9 +1,9 @@
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
-import ProductContainer from 'components/ProductContainer/ProductContainer';
-import ProductItem from 'components/ProductItem/ProductItem';
-import Skeleton from 'components/Skeleton/Skeleton';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ProductContainer from 'components/Product/ProductContainer/ProductContainer';
+import ProductItem from 'components/Product/ProductItem/ProductItem';
+import Skeleton from 'components/Common/Skeleton/Skeleton';
+import ImgWrapper from 'components/Common/ImgWrapper/ImgWrapper';
 import useProductListPage from 'hooks/pages/useProductListPage';
 import itemAltImg from 'assets/png/itemAltImg.png';
 

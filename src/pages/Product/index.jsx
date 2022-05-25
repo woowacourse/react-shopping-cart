@@ -1,8 +1,8 @@
 import * as Styled from './style';
-import ProductDetail from 'components/ProductDetail/ProductDetail';
-import Skeleton from 'components/Skeleton/Skeleton';
+import ProductDetail from 'components/Product/ProductDetail/ProductDetail';
+import Skeleton from 'components/Common/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/Common/ImgWrapper/ImgWrapper';
 import useProductPage from 'hooks/pages/useProductPage';
 import itemAltImg from 'assets/png/itemAltImg.png';
 

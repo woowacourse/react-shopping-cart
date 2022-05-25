@@ -1,11 +1,11 @@
 import * as Styled from './style';
-import CartContainer from 'components/CartContainer/CartContainer';
-import CartItem from 'components/CartItem/CartItem';
-import CartControlBar from 'components/CartControlBar/CartControlBar';
-import Title from 'components/Title/Title';
-import PaymentBox from 'components/PaymentBox/PaymentBox';
+import CartContainer from 'components/Cart/CartContainer/CartContainer';
+import CartItem from 'components/Cart/CartItem/CartItem';
+import CartControlBar from 'components/Cart/CartControlBar/CartControlBar';
+import Title from 'components/Common/Title/Title';
+import PaymentBox from 'components/Cart/PaymentBox/PaymentBox';
 
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
+import ImgWrapper from 'components/Common/ImgWrapper/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import errorApiImg from 'assets/png/errorApiImg.png';
 import useCartPage from 'hooks/pages/useCartPage';
