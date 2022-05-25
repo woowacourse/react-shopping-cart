@@ -85,8 +85,12 @@ const ProductDetail = () => {
             <Bar h="2px" color="gray" />
             <MarginWrapper mt="10px" ml="10px" mb="30px" mr="10px">
               <Flex justify="space-between">
-                <Text weight={500}>금액</Text>
-                <Text weight={500}>{price.toLocaleString()}원</Text>
+                <Text as="span" weight={500}>
+                  금액
+                </Text>
+                <Text as="span" weight={500}>
+                  {price.toLocaleString()}원
+                </Text>
               </Flex>
             </MarginWrapper>
           </Flex>

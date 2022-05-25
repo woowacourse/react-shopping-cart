@@ -79,7 +79,7 @@ const CartProduct = ({
               handleIncreaseButton={() => handleQuantityControlButton('increase')}
               handleDecreaseButton={() => handleQuantityControlButton('decrease')}
             />
-            <Text>{(price * quantity).toLocaleString()}원</Text>
+            <Text as="span">{(price * quantity).toLocaleString()}원</Text>
           </Flex>
         </Box>
       </Flex>
