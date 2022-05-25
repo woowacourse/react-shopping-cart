@@ -2,7 +2,7 @@ import Styled from './style';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
-const CheckBox = ({ id, onCheck, checkedStatus = false }) => {
+const CheckBox = ({ onCheck, checkedStatus = false }) => {
   const [checked, setChecked] = useState(checkedStatus);
 
   const handleChange = () => {
@@ -16,19 +16,18 @@ const CheckBox = ({ id, onCheck, checkedStatus = false }) => {
 
   return (
     <Styled.Wrapper>
-      <Styled.CheckBox
-        id={id}
-        type="checkbox"
-        checked={checked}
-        onChange={handleChange}
-      />
-      <Styled.CheckMark htmlFor={id} />
+      <Styled.Label checked={checked}>
+        <Styled.Input
+          type="checkbox"
+          checked={checked}
+          onChange={handleChange}
+        />
+      </Styled.Label>
     </Styled.Wrapper>
   );
 };
 
 CheckBox.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   checkedStatus: PropTypes.bool,
   onCheck: PropTypes.func,
 };

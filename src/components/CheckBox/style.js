@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Styled = {
   Wrapper: styled.div`
@@ -7,7 +7,7 @@ const Styled = {
     width: 16px;
   `,
 
-  CheckMark: styled.label`
+  Label: styled.label`
     position: absolute;
     top: 0;
     left: 0;
@@ -29,19 +29,21 @@ const Styled = {
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
+
+    ${({ checked }) =>
+      checked &&
+      css`
+        background-color: ${({ theme }) => theme.COLOR.RED_300};
+        &:after {
+          display: block;
+        }
+      `}
   `,
 
-  CheckBox: styled.input`
+  Input: styled.input`
     display: none;
     height: 16px;
     width: 16px;
-
-    &:checked + label {
-      background-color: ${({ theme }) => theme.COLOR.RED_300};
-      &:after {
-        display: block;
-      }
-    }
   `,
 };
 

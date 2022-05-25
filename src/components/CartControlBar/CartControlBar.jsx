@@ -10,11 +10,7 @@ const CartControlBar = ({
   return (
     <Styled.Wrapper>
       <Styled.FieldSet>
-        <CheckBox
-          id="total"
-          checkedStatus={isChecked}
-          onCheck={onControlToggleCheck}
-        />
+        <CheckBox checkedStatus={isChecked} onCheck={onControlToggleCheck} />
         <span>전체 선택 / 해제</span>
       </Styled.FieldSet>
       <Styled.DeleteButton onClick={onControlClickButton}>
