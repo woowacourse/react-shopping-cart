@@ -16,20 +16,15 @@ import { ReactComponent as Bin } from 'components/shared/Bin.svg';
 import NumberInput from 'components/shared/NumberInput';
 import { Link } from 'react-router-dom';
 import PATH from 'constants/path';
+import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
+import usePatchQuantity from 'hooks/usePatchQuantity';
 
 function CartItem({ id, title, price, src, isChecked, quantity }) {
   const dispatch = useDispatch();
   const { userId } = useUser();
 
-  const { apiCall: deleteClickedProduct } = useFetch({
-    url: `${API.CARTS}/${userId}/${id}`,
-    method: 'DELETE',
-  });
-
-  const { apiCall: patchQuantity } = useFetch({
-    url: `${API.CARTS}/${userId}/${id}/`,
-    method: 'PATCH',
-  });
+  const { deleteFromCart } = useDeleteProductFromCart(id);
+  const { patchQuantity } = usePatchQuantity(id);
 
   const handleUncheckProduct = () => {
     dispatch(uncheckOne(id));
@@ -44,7 +39,7 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
       return;
     }
 
-    deleteClickedProduct();
+    deleteFromCart();
     dispatch(loadCarts(userId));
   };
 

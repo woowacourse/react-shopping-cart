@@ -6,19 +6,14 @@ import { checkAll, loadCarts, uncheckAll } from 'store/carts';
 import { BasicButton, Flex } from 'components/shared/basics';
 import CheckBox from 'components/CheckBox/CheckBox';
 
-import { API } from 'constants/api';
-
-import useFetch from 'hooks/useFetch';
 import useUser from 'hooks/useUser';
+import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 
 function CheckedItemsController({ checkedCarts }) {
   const { userId } = useUser();
-  const query = checkedCarts.map((cart) => cart.id).join('&');
+  const deleteCarts = checkedCarts.map((cart) => cart.id).join('&');
 
-  const { apiCall: deleteCheckedProducts } = useFetch({
-    url: `${API.CARTS}/${userId}/${query}`,
-    method: 'DELETE',
-  });
+  const { deleteFromCart } = useDeleteProductFromCart(deleteCarts);
 
   const dispatch = useDispatch();
 
@@ -39,7 +34,7 @@ function CheckedItemsController({ checkedCarts }) {
       return;
     }
 
-    deleteCheckedProducts();
+    deleteFromCart();
     dispatch(loadCarts(userId));
   };
 
