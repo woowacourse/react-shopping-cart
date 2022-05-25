@@ -1,0 +1,56 @@
+import { CartItem } from "type";
+import ordersActionTypes from "./orders.types";
+
+export const fetchOrdersStart = () => ({
+  type: ordersActionTypes.fetchOrdersStart,
+});
+
+export const fetchOrdersSuccess = (orders: CartItem[]) => ({
+  type: ordersActionTypes.fetchOrderSuccess,
+  payload: orders,
+});
+
+export const fetchOrdersError = (error: Error) => ({
+  type: ordersActionTypes.fetchOrderError,
+  payload: error,
+});
+
+export const addOrderStart = (orderItems: CartItem[]) => ({
+  type: ordersActionTypes.addOrderStart,
+  payload: orderItems,
+});
+
+export const addOrderSuccess = (orderItems: CartItem[]) => ({
+  type: ordersActionTypes.addOrderSuccess,
+  payload: orderItems,
+});
+
+export const addOrderError = (error: Error) => ({
+  type: ordersActionTypes.addOrderError,
+  payload: error,
+});
+
+export const deleteOrderStart = (idList: string[]) => ({
+  type: ordersActionTypes.deleteOrderStart,
+  payload: idList,
+});
+
+export const deleteOrderSuccess = () => ({
+  type: ordersActionTypes.deleteOrderSuccess,
+});
+
+export const deleteOrderError = (error: Error) => ({
+  type: ordersActionTypes.deleteOrderError,
+  payload: error,
+});
+
+export type OrdersAction =
+  | ReturnType<typeof fetchOrdersStart>
+  | ReturnType<typeof fetchOrdersSuccess>
+  | ReturnType<typeof fetchOrdersError>
+  | ReturnType<typeof addOrderStart>
+  | ReturnType<typeof addOrderSuccess>
+  | ReturnType<typeof addOrderError>
+  | ReturnType<typeof deleteOrderStart>
+  | ReturnType<typeof deleteOrderSuccess>
+  | ReturnType<typeof deleteOrderError>;
