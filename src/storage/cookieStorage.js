@@ -41,6 +41,14 @@ const cookieStorage = {
     const newIdList = idList.filter(id => id !== `${productId}`);
     this.setCookie(this.KEYS.CART, newIdList.join(this.SEPARATOR.ITEMS));
   },
+
+  removeSelectedProductId(selectedIdList) {
+    const idListCookie = this.getCookie(this.KEYS.CART) || '';
+    const idList = idListCookie.split(this.SEPARATOR.ITEMS);
+
+    const newIdList = idList.filter(id => !selectedIdList.includes(Number(id)));
+    this.setCookie(this.KEYS.CART, newIdList.join(this.SEPARATOR.ITEMS));
+  },
 };
 
 export default cookieStorage;

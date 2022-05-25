@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from 'component/common/Button';
-import { removeProductCart } from 'store/action/cartActions';
+import { removeSelectedProductCart } from 'store/action/cartActions';
 import { ALERT_MESSAGE } from 'constant/messages';
 import { updateSnackBar } from 'store/action/snackBarActions';
 import { useDispatch } from 'react-redux';
@@ -10,10 +10,7 @@ function AllRemoveButton({ products }) {
   const dispatch = useDispatch();
 
   const handleAllRemoveClick = () => {
-    products
-      .filter(product => product.checked)
-      .forEach(product => dispatch(removeProductCart(product)));
-
+    dispatch(removeSelectedProductCart(products.filter(product => product.checked)));
     dispatch(updateSnackBar(ALERT_MESSAGE.CHECKED_REMOVE_CART));
   };
 

@@ -5,6 +5,7 @@ const CART_ACTION_TYPES = {
   SUBTRACT_PRODUCT: 'SUBTRACT_PRODUCT',
   CHECK_PRODUCT: 'CHECK_PRODUCT',
   REMOVE_PRODUCT: 'REMOVE_PRODUCT',
+  REMOVE_SELECTED_PRODUCT: 'REMOVE_SELECTED_PRODUCT',
 };
 
 const addProductCart = product => {
@@ -45,10 +46,22 @@ const removeProductCart = product => {
   };
 };
 
+const removeSelectedProductCart = productList => {
+  const idList = productList.map(product => product.id);
+  cookieStorage.removeSelectedProductId(idList);
+  return {
+    type: CART_ACTION_TYPES.REMOVE_SELECTED_PRODUCT,
+    payload: {
+      productIdList: idList,
+    },
+  };
+};
+
 export {
   CART_ACTION_TYPES,
   addProductCart,
   subtractProductCart,
   checkProductCart,
   removeProductCart,
+  removeSelectedProductCart,
 };

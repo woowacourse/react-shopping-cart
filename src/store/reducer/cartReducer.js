@@ -43,6 +43,9 @@ const cartReducer = (state = initialCartedProducts, action) => {
     case CART_ACTION_TYPES.REMOVE_PRODUCT:
       return state.filter(product => !isSameProduct(action, product));
 
+    case CART_ACTION_TYPES.REMOVE_SELECTED_PRODUCT:
+      return state.filter(product => !action.payload.productIdList.includes(product.id));
+
     default:
       return state;
   }
