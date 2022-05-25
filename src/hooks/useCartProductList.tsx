@@ -12,18 +12,18 @@ const useCartList = () => {
 
   const { cartProductList } = state as CartProductListState;
 
-  const totalPrice = useMemo(() => {
+  const [totalPrice, isAllChecked] = useMemo(() => {
     const checkedCartProductList = cartProductList.filter(({ id }) =>
       isExistInList<number>(checkedIdList, id),
     );
 
-    return sum(checkedCartProductList.map(({ quantity, price }) => quantity * price));
-  }, [cartProductList, checkedIdList]);
+    const totalPrice = sum(checkedCartProductList.map(({ quantity, price }) => quantity * price));
 
-  const isAllChecked = useMemo(
-    () => cartProductList.length !== 0 && checkedIdList.length === cartProductList.length,
-    [cartProductList, checkedIdList],
-  );
+    const isAllChecked =
+      cartProductList.length !== 0 && checkedIdList.length === cartProductList.length;
+
+    return [totalPrice, isAllChecked];
+  }, [cartProductList, checkedIdList]);
 
   return {
     dispatch,
