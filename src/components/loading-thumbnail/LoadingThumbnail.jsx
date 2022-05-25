@@ -1,7 +1,6 @@
+import cn from "classnames";
 import { useState } from "react";
 import styles from "./loading-thumbnail.module";
-
-const cn = require("classnames");
 
 function LoadingThumbnail({ className, src, alt, minHeight }) {
   const [isLoaded, setIsLoaded] = useState(false);

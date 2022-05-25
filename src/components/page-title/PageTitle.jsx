@@ -1,7 +1,6 @@
+import cn from "classnames";
 import Divider from "../divider/Divider";
 import styles from "./page-title.module";
-
-const cn = require("classnames");
 
 function PageTitle({ children, className }) {
   return (

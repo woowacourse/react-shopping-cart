@@ -1,6 +1,5 @@
+import cn from "classnames";
 import styles from "./highlighter.module";
-
-const cn = require("classnames");
 
 function Highlighter({ children }) {
   return (

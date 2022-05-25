@@ -1,9 +1,8 @@
+import cn from "classnames";
 import { useEffect, useState } from "react";
 import CaretUp from "@assets/images/caret-up.svg";
 import CaretDown from "@assets/images/caret-down.svg";
 import styles from "./number-input.module";
-
-const cn = require("classnames");
 
 function NumberInput({
   value,

@@ -1,6 +1,5 @@
+import cn from "classnames";
 import styles from "./checkbox.module";
-
-const cn = require("classnames");
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 function Checkbox({ id, onChange, checked, className }) {

@@ -1,6 +1,5 @@
+import cn from "classnames";
 import styles from "./button.module";
-
-const cn = require("classnames");
 
 function Button({ children, onClick, variant, block, className }) {
   const classNames = cn(

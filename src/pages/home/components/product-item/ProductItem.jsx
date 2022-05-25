@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import priceToDollar from "@utils/priceToDollar";
 import Cart from "@assets/images/cart.svg";
@@ -6,8 +7,6 @@ import createAction from "@redux/createAction";
 import ACTION_TYPE from "@redux/actions";
 import styles from "@home/components/product-item/product-item.module";
 import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
-
-const cn = require("classnames");
 
 function ProductItem({
   sku: productId,

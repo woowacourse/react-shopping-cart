@@ -1,6 +1,5 @@
+import cn from "classnames";
 import styles from "@home/components/image-button/image-button.module";
-
-const cn = require("classnames");
 
 function ImageButton({ children, onClick, included, className }) {
   return (

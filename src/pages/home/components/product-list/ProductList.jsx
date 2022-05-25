@@ -1,8 +1,7 @@
+import cn from "classnames";
 import { useSelector } from "react-redux";
 import ProductItem from "@home/components/product-item/ProductItem";
 import styles from "@home/components/product-list/product-list.module";
-
-const cn = require("classnames");
 
 function ProductList({ className }) {
   const productList = useSelector((state) => state.productList);

@@ -1,9 +1,8 @@
+import cn from "classnames";
 import PageTitle from "@shared/page-title/PageTitle";
 import styles from "@cart/cart.module";
 import CartForm from "./components/cart-form/CartForm";
 import CartTotal from "./components/cart-total/CartTotal";
-
-const cn = require("classnames");
 
 function Cart() {
   return (

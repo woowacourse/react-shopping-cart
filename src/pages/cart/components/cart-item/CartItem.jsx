@@ -1,11 +1,10 @@
+import cn from "classnames";
 import priceToDollar from "@utils/priceToDollar";
 import Checkbox from "@shared/checkbox/single/Checkbox";
 import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
 import NumberInput from "@shared/number-input/NumberInput";
 import DeleteIcon from "@shared/icons/delete-icon/DeleteIcon";
 import styles from "./cart-item.module";
-
-const cn = require("classnames");
 
 function CartItem({
   id: productId,

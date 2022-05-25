@@ -1,9 +1,8 @@
+import cn from "classnames";
 import Logo from "@assets/images/logo.svg";
 import Menu from "@shared/header/menu/Menu";
 import styles from "@shared/header/header.module";
 import { Link } from "react-router-dom";
-
-const cn = require("classnames");
 
 function Header({ className }) {
   return (

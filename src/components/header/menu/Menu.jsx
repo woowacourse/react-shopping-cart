@@ -1,7 +1,6 @@
+import cn from "classnames";
 import styles from "@shared/header/menu/menu.module";
 import { Link } from "react-router-dom";
-
-const cn = require("classnames");
 
 function Menu({ className }) {
   return (

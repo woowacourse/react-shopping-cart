@@ -1,6 +1,5 @@
+import cn from "classnames";
 import styles from "./alert.module";
-
-const cn = require("classnames");
 
 function Alert({ variant = "danger", children, className }) {
   return (
