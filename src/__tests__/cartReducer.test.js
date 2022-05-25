@@ -22,7 +22,7 @@ describe('Cart Store Reducer 테스트 - 리듀서 함수의 매개변수 액션
     });
   });
 
-  test('(ERROR) 장바구니 불러오기 실패 액션이 들어오면 , api 요청 rejected 이 상태에 반영된다.', () => {
+  test('(ERROR) 장바구니 불러오기 실패 액션이 들어오면, api 요청 rejected 이 상태에 반영된다.', () => {
     expect(cartReducer(initialState, actions.getCartError())).toEqual({
       ...initialState,
       isLoading: false,
@@ -30,7 +30,7 @@ describe('Cart Store Reducer 테스트 - 리듀서 함수의 매개변수 액션
     });
   });
 
-  test('장바구니 상품 교체 액션이 들어오면 , 매개변수로 받아온 장바구니 리스트가 상태의 data에 저장된다. ', () => {
+  test('장바구니 상품 교체 액션이 들어오면, 매개변수로 받아온 장바구니 리스트가 상태의 data에 저장된다.', () => {
     expect(cartReducer(initialState, actions.setCart(productList))).toEqual({
       ...initialState,
       isLoading: false,
