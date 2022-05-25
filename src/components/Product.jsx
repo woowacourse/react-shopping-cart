@@ -7,10 +7,10 @@ import { ROUTES_PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
 import useAddCartItem from '../hooks/useAddCartItem';
 
-function Product({ product }) {
+function Product({ productData }) {
   const [color, setColor] = useState('');
   const { addCartItem } = useAddCartItem();
-  const { id, name, price, imageUrl } = product;
+  const { id, name, price, imageUrl } = productData;
 
   const handleClickCart = () => {
     color ? setColor('') : setColor(COLORS.PRIMARY);

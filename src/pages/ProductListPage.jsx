@@ -14,7 +14,7 @@ function ProductListPage() {
     <StyledContent>
       <StyledGridContainer>
         {productList.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product.id} productData={product} />
         ))}
       </StyledGridContainer>
     </StyledContent>
