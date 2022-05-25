@@ -18,8 +18,6 @@ CartContainer.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  isAllSelected: PropTypes.bool,
-  onToggleSelect: PropTypes.func,
 };
 
 export default CartContainer;
