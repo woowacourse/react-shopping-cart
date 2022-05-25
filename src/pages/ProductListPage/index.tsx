@@ -1,25 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Product from 'components/Product';
 import Flex from 'components/@common/Flex';
 import Text from 'components/@common/Text';
 import Skeleton from 'components/@common/Skeleton';
+import useAppDispatch from 'hooks/useAppDispatch';
+import useGlobalState from 'hooks/useGlobalState';
 
-import useProductList from 'hooks/useProductList';
 import { getProductListAsync } from 'store/productList/thunk';
+import { ProductListState } from 'store/productList/reducer';
 
 const ProductList = () => {
-  const {
-    dispatch,
-    navigate,
-    data: { productList, isLoading, isError },
-  } = useProductList();
-
-  const isUsed = useRef(false);
-  const loadedImageCount = useRef(0);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { productList, isLoading, isError } = useGlobalState('product') as ProductListState;
   const [isLoadedAllImage, setIsLoadedAllImage] = useState(false);
+  const loadedImageCount = useRef(0);
 
-  if (isUsed.current === false && productList.length !== 0) {
+  if (isLoadedAllImage === false && productList.length !== 0) {
     productList.forEach(({ thumbnail }) => {
       const image = new Image();
 
@@ -29,11 +28,8 @@ const ProductList = () => {
           setIsLoadedAllImage(true);
         }
       };
-
       image.src = thumbnail;
     });
-
-    isUsed.current = true;
   }
 
   useEffect(() => {

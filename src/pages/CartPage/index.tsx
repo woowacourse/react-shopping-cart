@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ReactComponent as UncheckBoxIcon } from 'assets/icon/UncheckBox.svg';
@@ -14,6 +15,7 @@ import Text from 'components/@common/Text';
 import Button from 'components/@common/Button';
 import { OrderButton } from 'components/@common/Button/Extends';
 import SnackBar from 'components/@common/Snackbar';
+import useAppDispatch from 'hooks/useAppDispatch';
 import useSnackBar from 'hooks/useSnackBar';
 import useCartProductList from 'hooks/useCartProductList';
 
@@ -25,25 +27,15 @@ import { isExistInList } from 'utils';
 import { DELETE, 상품삭제메시지, 선택상품삭제메시지 } from 'constants/index';
 
 const CartPage = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
-    dispatch,
-    navigate,
     data: { cartProductList, isLoading, isError, totalPrice },
     checkedIdListState: { checkedIdList, setCheckedIdList, isAllChecked },
+    handleEntireCheckButtonClick,
+    handleCheckButtonClick,
   } = useCartProductList();
   const { message, showSnackbar, triggerSnackbar } = useSnackBar(false);
-
-  const handleEntireCheckButtonClick = () => {
-    checkedIdList.length === cartProductList.length
-      ? setCheckedIdList([])
-      : setCheckedIdList(cartProductList.map(({ id }) => id));
-  };
-
-  const handleCheckButtonClick = (id: number) => {
-    isExistInList<number>(checkedIdList, id)
-      ? setCheckedIdList(checkedIdList.filter((checkedId) => checkedId !== id))
-      : setCheckedIdList((prev) => [...prev, id]);
-  };
 
   const handleCheckedCartProductDelete = async () => {
     if (checkedIdList.length === 0) return;
