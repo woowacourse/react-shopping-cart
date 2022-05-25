@@ -15,16 +15,21 @@ const ProductList = () => {
     data: { productList, isLoading, isError },
   } = useProductList();
 
-  const [loadedImageCount, setLoadedImageCount] = useState(0);
   const isUsed = useRef(false);
+  const loadedImageCount = useRef(0);
+  const [isLoadedAllImage, setIsLoadedAllImage] = useState(false);
 
   if (isUsed.current === false && productList.length !== 0) {
     productList.forEach(({ thumbnail }) => {
       const image = new Image();
 
       image.onload = function () {
-        setLoadedImageCount((prev) => prev + 1);
+        loadedImageCount.current += 1;
+        if (loadedImageCount.current === productList.length) {
+          setIsLoadedAllImage(true);
+        }
       };
+
       image.src = thumbnail;
     });
 
@@ -50,12 +55,11 @@ const ProductList = () => {
 
   return (
     <Flex wrap="wrap" gap="40px">
-      {loadedImageCount !== productList.length &&
-        Array.from({ length: 8 }, (_, idx) => <Skeleton key={idx} />)}
-      {loadedImageCount === productList.length &&
-        productList.map(({ id, name, price, thumbnail }) => (
-          <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
-        ))}
+      {isLoadedAllImage
+        ? productList.map(({ id, name, price, thumbnail }) => (
+            <Product key={id} id={id} name={name} price={price} thumbnail={thumbnail} />
+          ))
+        : Array.from({ length: 8 }, (_, idx) => <Skeleton key={idx} />)}
     </Flex>
   );
 };
