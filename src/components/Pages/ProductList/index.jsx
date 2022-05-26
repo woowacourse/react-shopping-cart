@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductList } from 'modules/productList';
+import { getProductList } from 'reduxModule/productList';
 
 import Product from 'components/Pages/ProductList/Product';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';

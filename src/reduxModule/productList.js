@@ -9,8 +9,8 @@ export const getProductList = () => async (dispatch) => {
     if (!response.ok) {
       throw new Error(response);
     }
-    const productList = await response.json();
-    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList: productList.productList });
+    const db = await response.json();
+    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList: db.productList });
   } catch (e) {
     dispatch({ type: GET_PRODUCT_LIST_ERROR, error: e });
   }

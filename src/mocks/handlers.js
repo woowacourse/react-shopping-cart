@@ -11,11 +11,15 @@ export const handlers = [
     const product = productList.find((product) => product.id === Number(targetId));
     return res(ctx.status(200), ctx.json(product));
   }),
+
   rest.post(`${process.env.REACT_APP_BASE_URL}/cartList`, (req, res, ctx) => {
     db.cartList = req.body;
     return res(ctx.status(200));
   }),
   rest.get(`${process.env.REACT_APP_BASE_URL}/cartList`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(db));
+  }),
+  rest.get(`${process.env.REACT_APP_BASE_URL}/productInfoList`, (req, res, ctx) => {
     const cartList = db.cartList;
     const productList = db.productList;
     const infoList = cartList.map((item) => {

@@ -67,5 +67,6 @@
       "price": "200000"
     }
   ],
-  "cartList": []
+  "cartList": [],
+  "productInfoList": []
 }

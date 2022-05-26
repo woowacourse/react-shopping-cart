@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+
+import {
+  addCartItem,
+  deleteCartItem,
+  deleteCheckedItem,
+  initCartList,
+  toggleTotalCheck,
+  minusCartItem,
+  toggleCheckItem,
+} from 'reduxModule/cart';
+import { setCartList } from 'utils/cart';
+import { getProductInfoList } from 'reduxModule/productInfoList';
 
 import Title from 'components/common/Title';
 import CartProductItem from './CartProductItem';
 import CheckBox from 'components/common/Styled/CheckBox';
 import PaymentModal from 'components/common/Modal/PaymentModal';
 import { DeleteButton } from 'components/common/Styled';
-import { deleteCheckedItem } from 'modules/cart';
 
 const Styled = {
   Container: styled.section`
@@ -77,105 +87,91 @@ const Styled = {
   `,
 };
 
-const Cart = ({
-  cartList,
-  onPlusCartButtonClick,
-  onMinusCartButtonClick,
-  onDeleteCartButtonClick,
-}) => {
+const Cart = () => {
   const dispatch = useDispatch();
-  const [checkList, setCheckList] = useState([]);
-  const [productInfoList, setProductInfoList] = useState([]);
+  const cartList = useSelector(({ cartReducer }) => cartReducer.cartList);
+  const productInfoList = useSelector(
+    ({ productInfoListReducer }) => productInfoListReducer.productInfoList,
+  );
 
   const [totalCount, setTotalCount] = useState(0);
   const [totalCheckedPrice, setTotalCheckedPrice] = useState(0);
   const [totalCheckedCount, setTotalCheckedCount] = useState(0);
 
   useEffect(() => {
+    initCartList();
+  }, []);
+
+  useEffect(() => {
+    setCartList(cartList).then(() => {
+      dispatch(getProductInfoList());
+    });
+  }, [cartList]);
+
+  useEffect(() => {
     setTotalCount(
       cartList.length !== 0
-        ? cartList.map((item) => item.quantity).reduce((prev, next) => prev + next, 0)
+        ? cartList.map((item) => item.quantity).reduce((prev, cur) => prev + cur, 0)
         : 0,
     );
+
+    setTotalCheckedCount(cartList.length !== 0 ? cartList.map((item) => item.isChecked).length : 0);
 
     setTotalCheckedPrice(
-      checkList.length !== 0
-        ? checkList.reduce((prev, cur) => {
-            const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
-            if (productInfo === undefined) {
+      cartList.length !== 0
+        ? productInfoList.reduce((prev, cur) => {
+            const existItem = cartList.find((item) => item.isChecked && item.id === cur.id);
+            if (existItem === undefined) {
               return prev;
             }
-            return prev + productInfo.price * productInfo.quantity;
+            return cur.quantity * cur.price + prev;
           }, 0)
         : 0,
     );
+  }, [cartList, productInfoList]);
 
-    setTotalCheckedCount(
-      checkList.length !== 0
-        ? checkList.reduce((prev, cur) => {
-            const productInfo = productInfoList.find((item) => Number(item.id) === Number(cur));
-            if (productInfo === undefined) {
-              return prev;
-            }
-            return prev + productInfo.quantity;
-          }, 0)
-        : 0,
-    );
-  }, [checkList, productInfoList, cartList]);
+  const onPlusCartButtonClick = (id) => {
+    dispatch(addCartItem(id));
+  };
+
+  const onMinusCartButtonClick = (id) => {
+    dispatch(minusCartItem(id));
+  };
+
+  const onDeleteCartButtonClick = (id) => {
+    if (window.confirm('상품을 장바구니에서 제거하시겠습니까?')) {
+      dispatch(deleteCartItem(id));
+    }
+  };
 
   const onToggleTotalClick = () => {
-    if (cartList.length === checkList.length) {
-      setCheckList([]);
-      return;
-    }
-    const checkedList = cartList.map((item) => item.id);
-    setCheckList(checkedList);
+    dispatch(toggleTotalCheck());
   };
 
   const onToggleCheckClick = (id) => {
-    if (checkList.includes(id)) {
-      setCheckList(checkList.filter((item) => item !== Number(id)));
-      return;
-    }
-    if (checkList.includes(id) && checkList.length === 1) {
-      setCheckList([]);
-      return;
-    }
-    setCheckList(checkList.concat(id));
+    dispatch(toggleCheckItem(id));
   };
+
   const getIsCheck = (id) => {
-    return checkList.includes(id);
+    if (cartList.length === 0) {
+      return false;
+    }
+    const checkedItem = cartList.find((item) => item.id === id);
+    return checkedItem !== undefined ? checkedItem.isChecked : false;
   };
 
   const getIsTotalCheck = () => {
-    return checkList.length === cartList.length && checkList.length !== 0;
+    if (cartList.length === 0) {
+      return false;
+    }
+    return cartList.reduce((prev, cur) => cur.isChecked && prev, true);
   };
 
   const onDeleteCheckedClick = () => {
-    if (checkList.length === 0) {
-      return;
-    }
     if (window.confirm('체크된 항목들을 모두 장바구니에서 삭제하시겠습니까?')) {
-      dispatch(deleteCheckedItem(checkList));
+      dispatch(deleteCheckedItem());
     }
   };
-
-  useEffect(() => {
-    if (cartList.length === 0) {
-      setProductInfoList([]);
-      return;
-    }
-    fetch(`${process.env.REACT_APP_BASE_URL}/cartList`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((infoList) => {
-        setProductInfoList(infoList);
-      });
-  }, [cartList]);
 
   return (
     <Styled.Container>
@@ -190,7 +186,7 @@ const Cart = ({
               }}
             >
               <CheckBox id={'total'} isChecked={getIsTotalCheck()} />
-              <span>{checkList.length === cartList.length ? '선택해제' : '전체선택'}</span>
+              <span>{getIsTotalCheck() ? '선택해제' : '전체선택'}</span>
             </Styled.CartDeleteSelector>
             <DeleteButton
               onClick={() => {
@@ -205,7 +201,7 @@ const Cart = ({
               라인프렌즈 상품 ({totalCount}개)
             </Styled.CartProductTotalAmount>
             <Styled.CartProductListContent>
-              {productInfoList.length !== 0 ? (
+              {productInfoList && productInfoList.length !== 0 ? (
                 productInfoList.map((item) => {
                   return (
                     <CartProductItem
@@ -231,13 +227,6 @@ const Cart = ({
       </Styled.Wrapper>
     </Styled.Container>
   );
-};
-
-Cart.propTypes = {
-  cartList: PropTypes.array,
-  onPlusCartButtonClick: PropTypes.func,
-  onMinusCartButtonClick: PropTypes.func,
-  onDeleteCartButtonClick: PropTypes.func,
 };
 
 export default Cart;

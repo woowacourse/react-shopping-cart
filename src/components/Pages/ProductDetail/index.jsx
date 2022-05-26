@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { COLOR } from 'constants';
-import { getProduct } from 'modules/product';
+import { getProduct } from 'reduxModule/product';
 
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
