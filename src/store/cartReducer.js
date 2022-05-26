@@ -1,5 +1,6 @@
-import { combineReducers } from "redux";
-import { ACTIONS } from "./actions";
+export const ACTIONS = {
+  SET_CART_ITEM_LIST: "SET_CART_ITEM_LIST",
+};
 
 const initialState = {
   cart: {
@@ -19,8 +20,4 @@ export const cartReducer = (state = initialState.cart, action) => {
   }
 };
 
-const rootReducer = combineReducers({
-  cartReducer,
-});
-
-export default rootReducer;
+export default cartReducer;

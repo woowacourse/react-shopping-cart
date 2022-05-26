@@ -1,10 +1,9 @@
 /* eslint-disable no-restricted-globals */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ACTIONS } from "../store/actions";
-
 import { fetchData } from "../apiRequest";
+import { ACTIONS } from "../store/cartReducer";
 import {
   API_SERVER,
   REQUEST_METHOD,

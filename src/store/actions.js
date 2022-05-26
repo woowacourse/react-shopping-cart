@@ -1,3 +1,0 @@
-export const ACTIONS = {
-  SET_CART_ITEM_LIST: "SET_CART_ITEM_LIST",
-};
