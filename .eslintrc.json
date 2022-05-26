@@ -36,6 +36,7 @@
     "class-methods-use-this": "off",
     "consistent-return": "off",
     "default-param-last": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "function-paren-newline": "off"
   }
 }
