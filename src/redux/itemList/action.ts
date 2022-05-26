@@ -1,6 +1,6 @@
 import { buildThunkActionGroup } from 'redux/utils';
 import { Item } from 'types/domain';
-import { Valueof } from 'types/utilitys';
+import { Valueof } from 'types/utilities';
 
 export const ItemListActionType = {
   GET_ITEM_LIST: 'items/GET_ITEM_LIST',
