@@ -26,33 +26,34 @@ const POST_CART_PRODUCT = "cart-product/POST_CART_PRODUCT";
 export const postCartProduct =
   (id, product, successCallback, failCallback) =>
   async (dispatch, getState) => {
-    try {
-      const { products } = getState();
+    const { products } = getState();
+    const newProduct = { ...product };
 
-      const newProduct = { ...product };
+    try {
       newProduct.isInShoppingCart = true;
 
-      await Promise.all([
-        API.patchProductById(id, newProduct),
-        API.postShoppingCartProduct(newProduct),
-      ]);
+      await API.postShoppingCartProduct(newProduct);
 
+      dispatch({
+        type: POST_CART_PRODUCT,
+        newShoppingCartProduct: newProduct,
+      });
+      dispatch(successCallback(SNACK_BAR_MESSAGE.SUCCESS_PUT_IN_SHOPPING_CART));
+    } catch (error) {
+      newProduct.isInShoppingCart = false;
+      await API.removeShoppingCartProduct(id);
+
+      dispatch(failCallback(SNACK_BAR_MESSAGE.FAIL_PUT_IN_SHOPPING_CART));
+    } finally {
       const replaceProducts = products.data.map((product) => {
         if (product.id === id) return newProduct;
         return product;
       });
 
       dispatch({
-        type: POST_CART_PRODUCT,
-        newShoppingCartProduct: newProduct,
-      });
-      dispatch({
         type: REPLACE_PRODUCTS,
         replaceProducts: replaceProducts,
       });
-      dispatch(successCallback(SNACK_BAR_MESSAGE.SUCCESS_PUT_IN_SHOPPING_CART));
-    } catch (error) {
-      dispatch(failCallback(SNACK_BAR_MESSAGE.FAIL_PUT_IN_SHOPPING_CART));
     }
   };
 
@@ -71,19 +72,8 @@ export const removeCartProducts = () => async (dispatch, getState) => {
       });
     });
 
-    const updateProducts = removeProducts.map((product) => {
-      product.isInShoppingCart = false;
-      return product;
-    });
-
     Promise.all(
-      checkedProductIds
-        .map((id) => API.removeShoppingCartProduct(id))
-        .concat(
-          updateProducts.map((product) =>
-            API.patchProductById(product.id, product)
-          )
-        )
+      checkedProductIds.map((id) => API.removeShoppingCartProduct(id))
     );
 
     const replaceProducts = newProducts.map((product) => {
@@ -115,10 +105,7 @@ export const removeCartProduct = (id) => async (dispatch, getState) => {
     )[0];
     removeProduct.isInShoppingCart = false;
 
-    await Promise.all([
-      API.removeShoppingCartProduct(id),
-      API.patchProductById(id, removeProduct),
-    ]);
+    await API.removeShoppingCartProduct(id);
 
     const replaceProducts = products.data.map((product) => {
       if (product.id === id) return removeProduct;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsByPage } from "../../modules/products";
 import { DELAY_TIME } from "../../constants/constants";
@@ -19,12 +19,6 @@ const ProductListPage = () => {
   );
 
   useInfinityScroll(sectionRef, delayGetProduct, products.isEnd);
-
-  useEffect(() => {
-    if (products.data.length) return;
-
-    dispatch(getProductsByPage());
-  }, [dispatch, products]);
 
   if (products.error) navigate("/server-error");
 
