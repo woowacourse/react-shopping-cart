@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledProductListPage = styled.main`
+export const StyledProductListPage = styled.main`
   width: 1269px;
   background-color: white;
   margin-top: 140px;
@@ -14,10 +14,8 @@ const StyledProductListPage = styled.main`
   }
 `;
 
-const StyledProductList = styled.div`
+export const StyledProductList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 47px;
 `;
-
-export { StyledProductListPage, StyledProductList };

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useClose from 'hooks/useClose';
 
 import Image from 'components/base/image/Image';
@@ -10,8 +10,7 @@ import Text from 'components/base/text/Text';
 import { ReactComponent as PlusIcon } from 'assets/plus_icon.svg';
 import { ReactComponent as MinusIcon } from 'assets/minus_icon.svg';
 
-import store from 'store/store';
-import { putProductToCart } from 'actions/actionCreator';
+import { postShoppingCartItem, putShoppingCartItem } from 'middlewares/shoppingCarts';
 
 import {
   StyledProductItem,
@@ -20,36 +19,39 @@ import {
   StyledQuantityContainer,
 } from 'components/productItem/style';
 
-import { PRODUCT } from 'constants';
+import { PRODUCT } from 'constants/constants';
 
-const ProductItem = ({ id }) => {
+const ProductItem = ({ product, cartItem }) => {
+  const dispatch = useDispatch();
+  const [clearTimer, autoClose] = useClose();
   const [isOpen, setIsOpen] = useState(false);
-  const [quantity, setQuantity] = useState(PRODUCT.MIN_QUANTITY);
-  const { products } = useSelector(state => state.reducer);
-  const [clearTimer, manualClose, autoClose] = useClose();
-  const { name, price, image, isInCart } = products.find(product => product.id === id);
+  const [quantity, setQuantity] = useState(cartItem ? cartItem.quantity : PRODUCT.MIN_QUANTITY);
+  const quantityRef = useRef(quantity);
+  const { name, price, image } = product;
+  quantityRef.current = quantity;
 
-  const putCart = () => {
+  const addItemShoppingCart = () => {
     setIsOpen(false);
-    store.dispatch(putProductToCart({ id, quantity }));
+    if (cartItem) {
+      dispatch(putShoppingCartItem({ ...product, quantity, isSelect: false }));
+    } else {
+      dispatch(postShoppingCartItem({ ...product, quantity, isSelect: false }));
+    }
     clearTimer();
   };
 
   const handleCartClick = () => {
     if (isOpen) {
-      putCart();
-      return;
-    }
-
-    if (!isOpen) {
+      addItemShoppingCart();
+    } else {
       setIsOpen(true);
-      manualClose(putCart);
+      autoClose(addItemShoppingCart, quantity);
     }
   };
 
   const handleModalClick = () => {
     clearTimer();
-    autoClose(putCart);
+    autoClose(addItemShoppingCart, quantity);
   };
 
   return (
@@ -61,7 +63,7 @@ const ProductItem = ({ id }) => {
           <StyledProductText price="true">{price}원</StyledProductText>
         </div>
         <div onClick={handleCartClick}>
-          {isInCart ? (
+          {cartItem ? (
             <Button>
               <StyledQuantityContainer>{quantity}</StyledQuantityContainer>
             </Button>
