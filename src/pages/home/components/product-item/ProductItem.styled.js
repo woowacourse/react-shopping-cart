@@ -8,7 +8,7 @@ const StyledProductItem = styled.div`
   :hover {
     .thumbnail {
       img {
-        transform: scale(1.08, 1.08);
+        transform: scale(0.99);
       }
     }
   }
