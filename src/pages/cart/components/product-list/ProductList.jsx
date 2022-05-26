@@ -13,8 +13,14 @@ function ProductList() {
   const cartList = useSelector((state) => state.cartListState);
   const dispatch = useDispatch();
 
+  const allCheckboxIsChecked = () => {
+    const isAllChecked = cartList.every((item) => item.checked === true);
+    return isAllChecked;
+  };
+
   const handleChange = (e) => {
     const { checked } = e.target;
+
     if (checked) {
       dispatch(checkAllCheckButton());
       return;
@@ -35,7 +41,11 @@ function ProductList() {
     <StyledProductList>
       <div>
         <div className="checkbox-container">
-          <Checkbox id="checkbox" onChange={handleChange} />
+          <Checkbox
+            id="checkbox"
+            onChange={handleChange}
+            checked={allCheckboxIsChecked() ? true : false}
+          />
           <label htmlFor="checkbox" className="checkbox-label">
             선택해제
           </label>
