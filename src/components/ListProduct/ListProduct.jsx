@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as S from './ListProduct.styles';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
@@ -8,49 +8,6 @@ import { Button } from 'components/@common';
 
 import { addThousandUnitComma } from 'utils';
 
-const ListProductBox = styled.div`
-  width: 282px;
-  height: 358px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-`;
-
-const Image = styled.img`
-  width: 282px;
-  height: 282px;
-  object-fit: cover;
-`;
-
-const DescriptionBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 12px;
-`;
-
-const Name = styled.p`
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  color: var(--gray-900);
-`;
-
-const Price = styled.p`
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  color: var(--gray-900);
-`;
-
-const ShoppingCartIcon = styled.span`
-  font-size: 25px;
-  transition: font-size 0.1s ease;
-
-  &:hover {
-    font-size: 35px;
-  }
-`;
-
 function ListProduct({ id, image, name, price }) {
   const dispatch = useDispatch();
 
@@ -59,18 +16,18 @@ function ListProduct({ id, image, name, price }) {
   };
 
   return (
-    <ListProductBox>
-      <Image src={image} />
-      <DescriptionBox>
+    <S.ListProduct>
+      <S.Image src={image} />
+      <S.DescriptionBox>
         <div>
-          <Name>{name}</Name>
-          <Price>{addThousandUnitComma(price)} 원</Price>
+          <S.Name>{name}</S.Name>
+          <S.Price>{addThousandUnitComma(price)} 원</S.Price>
         </div>
         <Button onClick={onClickShoppingCartIcon}>
-          <ShoppingCartIcon>🛒</ShoppingCartIcon>
+          <S.ShoppingCartIcon>🛒</S.ShoppingCartIcon>
         </Button>
-      </DescriptionBox>
-    </ListProductBox>
+      </S.DescriptionBox>
+    </S.ListProduct>
   );
 }
 

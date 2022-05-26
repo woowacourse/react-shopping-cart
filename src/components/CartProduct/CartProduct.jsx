@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as S from './CartProduct.styles';
 import PropTypes from 'prop-types';
 
 import { useEffect, useState } from 'react';
@@ -10,76 +10,6 @@ import { Selector } from 'components';
 
 import { addThousandUnitComma, isArrayIncludesObject } from 'utils';
 import { CART_PRODUCT } from 'constants';
-
-const CartProductBox = styled.div`
-  width: 736px;
-  display: flex;
-  justify-content: space-between;
-  padding: 25px 0;
-  border-top: 1.5px solid var(--gray-600);
-`;
-
-const LeftBox = styled.div`
-  display: flex;
-  gap: 15px;
-`;
-
-const Image = styled.img`
-  width: 144px;
-  height: 144px;
-  object-fit: cover;
-`;
-
-const Name = styled.p`
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  color: var(--gray-900);
-`;
-
-const RightBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
-  gap: 15px;
-`;
-
-const DeleteButton = styled.div`
-  font-size: 20px;
-`;
-
-const QuantityBox = styled.div`
-  display: flex;
-`;
-
-const Quantity = styled.div`
-  width: 72px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid var(--gray-500);
-  font-size: 24px;
-`;
-
-const QuantityControlButton = styled.div`
-  height: 30px;
-  padding: 4px 12px;
-  border: 1px solid var(--gray-500);
-  background: var(--white);
-  font-size: 100%;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Price = styled.p`
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  color: var(--gray-900);
-`;
 
 function CartProduct({ id, image, name, quantity, price }) {
   const { checkedProducts } = useSelector(store => store.cart);
@@ -114,26 +44,26 @@ function CartProduct({ id, image, name, quantity, price }) {
   };
 
   return (
-    <CartProductBox>
-      <LeftBox>
+    <S.CartProduct>
+      <S.LeftPart>
         <Selector onChange={onChangeSelector} checked={checked} />
-        <Image src={image} />
-        <Name>{name}</Name>
-      </LeftBox>
-      <RightBox>
+        <S.Image src={image} />
+        <S.Name>{name}</S.Name>
+      </S.LeftPart>
+      <S.RightPart>
         <Button onClick={onClickDeleteButton}>
-          <DeleteButton>🗑</DeleteButton>
+          <S.DeleteButton>🗑</S.DeleteButton>
         </Button>
-        <QuantityBox>
-          <Quantity>{quantity}</Quantity>
+        <S.QuantityBox>
+          <S.Quantity>{quantity}</S.Quantity>
           <Button onClick={onClickQuantityControlButton}>
-            <QuantityControlButton type="increment">▲</QuantityControlButton>
-            <QuantityControlButton type="decrement">▼</QuantityControlButton>
+            <S.QuantityControlButton type="increment">▲</S.QuantityControlButton>
+            <S.QuantityControlButton type="decrement">▼</S.QuantityControlButton>
           </Button>
-        </QuantityBox>
-        <Price>{addThousandUnitComma(price * quantity)}원</Price>
-      </RightBox>
-    </CartProductBox>
+        </S.QuantityBox>
+        <S.Price>{addThousandUnitComma(price * quantity)}원</S.Price>
+      </S.RightPart>
+    </S.CartProduct>
   );
 }
 

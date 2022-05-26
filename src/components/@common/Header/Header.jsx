@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const HeaderTitle = styled.h2`
+const HeaderText = styled.h2`
   font-weight: 700;
   font-size: 32px;
   line-height: 37px;
@@ -20,7 +20,7 @@ const DivisionLine = styled.hr`
 function Header({ children }) {
   return (
     <header>
-      <HeaderTitle>{children}</HeaderTitle>
+      <HeaderText>{children}</HeaderText>
       <DivisionLine />
     </header>
   );

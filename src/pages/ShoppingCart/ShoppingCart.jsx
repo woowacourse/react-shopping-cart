@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as S from './ShoppingCart.styles';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,40 +8,6 @@ import { Button } from 'components/@common';
 import { CartProduct, PageLayout, Result, Selector } from 'components';
 
 import { getObjectArrayIdxOfValue } from 'utils';
-
-const ShoppingCartBox = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-
-const SelectorBox = styled.div`
-  width: 736px;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 53px 0 26px;
-`;
-
-const SelectDeleteButton = styled.div`
-  padding: 12px 22px;
-  border: 1px solid var(--gray-700);
-  font-size: 16px;
-`;
-
-const ProductListHeader = styled.span`
-  font-weight: 400px;
-  font-size: 20px;
-`;
-
-const DivisionLine = styled.hr`
-  width: 736px;
-  height: 4px;
-  margin-top: 16px;
-  border: 0;
-  background: var(--gray-800);
-`;
 
 function ShoppingCart() {
   const { products, checkedProducts } = useSelector(store => store.cart);
@@ -77,16 +43,16 @@ function ShoppingCart() {
 
   return (
     <PageLayout header="장바구니">
-      <ShoppingCartBox>
+      <S.ShoppingCart>
         <div>
-          <SelectorBox>
+          <S.SelectorBox>
             <Selector label="전체" onChange={onChangeAllSelector} checked={checked} />
             <Button onClick={onClickSelectDeleteButton}>
-              <SelectDeleteButton>선택삭제</SelectDeleteButton>
+              <S.SelectDeleteButton>선택삭제</S.SelectDeleteButton>
             </Button>
-          </SelectorBox>
-          <ProductListHeader>든든배송 상품 ({products.length}개)</ProductListHeader>
-          <DivisionLine />
+          </S.SelectorBox>
+          <S.ProductListHeader>든든배송 상품 ({products.length}개)</S.ProductListHeader>
+          <S.DivisionLine />
           {products.map(product => (
             <CartProduct key={`cart${product.id}`} {...product} />
           ))}
@@ -96,7 +62,7 @@ function ShoppingCart() {
           price={totalPrice}
           button={`주문하기(${checkedProducts.length}개)`}
         />
-      </ShoppingCartBox>
+      </S.ShoppingCart>
     </PageLayout>
   );
 }

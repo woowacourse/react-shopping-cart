@@ -1,43 +1,9 @@
-import styled from 'styled-components';
+import * as S from './NavBar.styles';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from 'constants';
 
 import { Button } from 'components/@common';
-
-const StyledNavBar = styled.div`
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  gap: 712px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--cyan);
-  opacity: 0.95;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-`;
-
-const LogoText = styled.span`
-  font-weight: 900;
-  font-size: 40px;
-  color: var(--white);
-`;
-
-const MenuBox = styled.div`
-  display: flex;
-  gap: 44px;
-`;
-
-const MenuText = styled.span`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  text-align: center;
-  text-transform: capitalize;
-  color: var(--white);
-`;
 
 function NavBar() {
   const location = useLocation();
@@ -50,19 +16,19 @@ function NavBar() {
   };
 
   return (
-    <StyledNavBar>
+    <S.NavBar>
       <Button onClick={() => onClickMenu(PATH.PRODUCT_LIST_PAGE)}>
-        <LogoText>🛒 WOOWA SHOP</LogoText>
+        <S.LogoText>🛒 WOOWA SHOP</S.LogoText>
       </Button>
-      <MenuBox>
+      <S.MenuBox>
         <Button onClick={() => onClickMenu(PATH.SHOPPING_CART_PAGE)}>
-          <MenuText>장바구니</MenuText>
+          <S.MenuText>장바구니</S.MenuText>
         </Button>
         <Button>
-          <MenuText>주문목록</MenuText>
+          <S.MenuText>주문목록</S.MenuText>
         </Button>
-      </MenuBox>
-    </StyledNavBar>
+      </S.MenuBox>
+    </S.NavBar>
   );
 }
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SpinnerBox = styled.div`
+const StyledSpinner = styled.div`
   animation: loading_spin 2s linear infinite;
   transform-origin: 50% 50%;
 
@@ -12,7 +12,7 @@ const SpinnerBox = styled.div`
 `;
 
 function Spinner({ children }) {
-  return <SpinnerBox>{children}</SpinnerBox>;
+  return <StyledSpinner>{children}</StyledSpinner>;
 }
 
 export default Spinner;
