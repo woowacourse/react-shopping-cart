@@ -2,15 +2,14 @@ import React from 'react';
 
 import BoxButton from 'components/BoxButton';
 import { requestCheckedProductDelete } from 'modules/cart';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import MESSAGE from 'constants';
 
 function DeleteProductButton() {
-  const carts = useSelector((state) => state.cart.carts);
-
   const dispatch = useDispatch();
 
   const handleClickDeleteButton = () => {
-    if (window.confirm('선택하신 상품을 삭제하시겠습니까?')) {
+    if (window.confirm(MESSAGE.DELETE_CONFIRM)) {
       dispatch(requestCheckedProductDelete());
     }
   };

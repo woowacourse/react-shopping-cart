@@ -4,6 +4,7 @@ import Image from 'components/Image';
 import TrashcanButtonStyled from './style';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestProductDelete } from 'modules/cart';
+import MESSAGE from 'constants';
 
 function TrashcanButton({ productId }) {
   const carts = useSelector((state) => state.cart.carts);
@@ -13,7 +14,7 @@ function TrashcanButton({ productId }) {
   const dispatch = useDispatch();
 
   const handleClickTrashButton = () => {
-    if (window.confirm('선택하신 상품을 삭제하시겠습니까?')) {
+    if (window.confirm(MESSAGE.DELETE_CONFIRM)) {
       dispatch(requestProductDelete(productIdx));
     }
   };
