@@ -25,9 +25,10 @@ function ProductDetailPage() {
       return;
     }
 
-    alert('장바구니에 추가 되었습니다.');
-    dispatch(AddProductToCartAsync(product));
-    navigate('/cart');
+    dispatch(AddProductToCartAsync(product)).then(() => {
+      alert('장바구니에 추가 되었습니다.');
+      navigate('/cart');
+    });
   };
 
   if (loading) return <Loading />;
