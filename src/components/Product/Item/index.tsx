@@ -1,7 +1,7 @@
 import * as S from "./index.styles";
 import { useTheme } from "@emotion/react";
-import ShoppingCartIcon from "../ShoppingCartIcon";
-import { themeType } from "../../ThemeProvider";
+import ShoppingCartIcon from "../../@shared/ShoppingCartIcon";
+import { themeType } from "../../../ThemeProvider";
 
 interface ItemProps {
   imgUrl: string;

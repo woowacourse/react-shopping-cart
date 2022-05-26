@@ -1,5 +1,5 @@
 import GridWrapper from ".";
-import Item from "../Item";
+import Item from "../../Product/Item";
 
 export default {
   title: "Presentional",

@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { themeType } from "../../ThemeProvider";
+import { themeType } from "../../../ThemeProvider";
 import * as S from "./index.styles";
 
 interface ItemDetailsProps {

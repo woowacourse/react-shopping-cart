@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import ItemDetails from "../../components/ItemDetails";
+import ItemDetails from "../../components/Product/ItemDetails";
 import useCartList from "../../hooks/useCartList";
 import useProduct from "../../hooks/useProduct";
 import { isProduct } from "../../types/product";

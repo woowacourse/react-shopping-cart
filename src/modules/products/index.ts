@@ -4,7 +4,8 @@ import * as productAPI from "../../api";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
 import { ProductType } from "../../types/product";
 import createReducer from "../createReducer";
-import { AppThunk } from "../thunk";
+import { AppThunk } from "../type";
+
 import { Products, ProductsListActionType } from "./type";
 
 const GET_PRODUCTS = "products/GET_PRODUCTS" as const;

@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import GridWrapper from "../../components/GridWrapper";
-import ItemSkeleton from "../../components/ItemSkeleton";
+import GridWrapper from "../../components/@shared/GridWrapper";
+import ItemSkeleton from "../../components/Product/ItemSkeleton";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
@@ -9,7 +9,7 @@ import useProductList from "../../hooks/useProductList";
 
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../../types/product";
-import Item from "../../components/Item";
+import Item from "../../components/Product/Item";
 import useCartList from "../../hooks/useCartList";
 
 const DELAY_TIME = 500;

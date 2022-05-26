@@ -1,6 +1,6 @@
-import CartItem from "../../components/CartItem";
-import CartOrderContainer from "../../components/CartOrder";
-import Checkbox from "../../components/Checkbox";
+import CartItem from "../../components/Cart/CartItem";
+import CartOrderContainer from "../../components/Cart/CartOrder";
+import Checkbox from "../../components/@shared/Checkbox";
 import useCartList from "../../hooks/useCartList";
 import * as S from "./index.styles";
 

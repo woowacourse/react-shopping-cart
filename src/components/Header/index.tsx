@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import * as S from "./index.styles";
-import ShoppingCartIcon from "../ShoppingCartIcon";
+import ShoppingCartIcon from "../@shared/ShoppingCartIcon";
 import { useTheme } from "@emotion/react";
 import PATH from "../../constants/path";
 import { themeType } from "../../ThemeProvider";

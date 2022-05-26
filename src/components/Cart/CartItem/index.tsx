@@ -1,11 +1,11 @@
-import Checkbox from "../Checkbox";
-import NumberInputButton from "../NumberInputButton";
+import Checkbox from "../../@shared/Checkbox";
+import NumberInputButton from "../../@shared/NumberInputButton";
 import * as S from "./index.styles";
-import useProduct from "../../hooks/useProduct";
-import useCartItem from "../../hooks/useCart";
-import { isCart } from "../../types/cart";
+import useProduct from "../../../hooks/useProduct";
+import useCartItem from "../../../hooks/useCart";
+import { isCart } from "../../../types/cart";
 import React from "react";
-import { isProduct } from "../../types/product";
+import { isProduct } from "../../../types/product";
 
 interface CartItemPros {
   id: number;

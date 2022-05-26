@@ -1,5 +1,5 @@
 import * as S from "./index.styles";
-import Skeleton from "../Skeleton";
+import Skeleton from "../../@shared/Skeleton";
 
 const ItemSkeleton = () => {
   return (
