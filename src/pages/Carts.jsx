@@ -6,27 +6,26 @@ import CheckedItemsController from 'components/CheckBox/CheckedItemsController';
 import { BasicDivideLine, Flex } from 'components/shared/basics';
 import TotalPrice from 'components/TotalPrice/TotalPrice';
 
+import { findByIdInObjectArray, isContainedInObjectArray } from 'utils';
+
 function Carts() {
   const { carts, checkedCarts } = useSelector((state) => state.carts);
-
   const { isLoading: isProductsLoading, products } = useSelector(
     (state) => state.products
   );
 
-  const findById = (objectArray, id) =>
-    objectArray.find((object) => object.id === id);
-
   const storedProducts = carts
     .map((cart) => cart.id)
     .map((id) => ({
-      ...findById(products, id),
-      quantity: findById(carts, id).quantity,
+      ...findByIdInObjectArray(products, id),
+      quantity: findByIdInObjectArray(carts, id).quantity,
+      isStored: isContainedInObjectArray(checkedCarts, id),
     }));
   const checkedProducts = checkedCarts
     .map((cart) => cart.id)
     .map((id) => ({
-      ...findById(products, id),
-      quantity: findById(carts, id).quantity,
+      ...findByIdInObjectArray(products, id),
+      quantity: findByIdInObjectArray(carts, id).quantity,
     }));
 
   const totalPrice = Number(
@@ -52,7 +51,6 @@ function Carts() {
           <CartListContainer
             isLoading={isProductsLoading}
             storedProducts={storedProducts}
-            checkedProducts={checkedProducts}
           />
         </Style.CartListWrapper>
         <TotalPrice

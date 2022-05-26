@@ -1,9 +1,7 @@
 import CartItem from 'components/CartsList/CartItem';
 import SkeletonCartItem from 'components/CartsList/SkeletonCartItem';
 
-function CartListContainer({ isLoading, storedProducts, checkedProducts }) {
-  const checkedProductsId = checkedProducts.map((product) => product.id);
-
+function CartListContainer({ isLoading, storedProducts }) {
   return (
     <div>
       {isLoading &&
@@ -11,16 +9,8 @@ function CartListContainer({ isLoading, storedProducts, checkedProducts }) {
           <SkeletonCartItem key={idx} />
         ))}
       {!isLoading &&
-        storedProducts?.map(({ id, price, title, src, quantity }) => (
-          <CartItem
-            key={id}
-            id={id}
-            price={price}
-            title={title}
-            src={src}
-            quantity={quantity}
-            isChecked={checkedProductsId.includes(id)}
-          />
+        storedProducts?.map((product) => (
+          <CartItem key={product.id} {...product} />
         ))}
     </div>
   );

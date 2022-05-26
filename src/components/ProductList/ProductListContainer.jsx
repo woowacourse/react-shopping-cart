@@ -30,14 +30,11 @@ function ProductListContainer() {
       {isError && <h1>상품 목록을 불러오던 중 에러가 발생했습니다.</h1>}
       {!isLoading &&
         !isError &&
-        products?.map(({ id, src, title, price }) => (
+        products?.map((product) => (
           <ProductItem
-            key={id}
-            id={id}
-            src={src}
-            title={title}
-            price={price}
-            isStored={carts.some((cart) => cart.id === id)}
+            key={product.id}
+            {...product}
+            isStored={carts.some((cart) => cart.id === product.id)}
           />
         ))}
     </Styled.ProductListFlexContainer>

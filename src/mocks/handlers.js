@@ -1,5 +1,6 @@
 import { API } from 'constants/api';
 import { rest } from 'msw';
+import { findByIdInObjectArray } from 'utils';
 
 const products = [
   {
@@ -85,9 +86,6 @@ const users = {
   },
 };
 
-const findById = (objectArray, id) =>
-  objectArray.find((object) => object.id === id);
-
 export const handlers = [
   rest.get(`/${API.PRODUCTS}`, (req, res, ctx) => {
     const { userid } = req.headers['_headers'];
@@ -98,7 +96,8 @@ export const handlers = [
         if (storedProductsId.includes(product.id)) {
           return {
             ...product,
-            quantity: findById(users[userid].carts, product.id).quantity,
+            quantity: findByIdInObjectArray(users[userid].carts, product.id)
+              .quantity,
             isStored: true,
           };
         }
@@ -147,28 +146,13 @@ export const handlers = [
     return res(ctx.delay(500), ctx.status(204));
   }),
 
-  rest.get(`/${API.CARTSINFO}`, (req, res, ctx) => {
-    const { userid } = req.headers['_headers'];
-
-    const carts = [...users[userid].carts];
-
-    const storedProducts = carts
-      .map((cart) => cart.id)
-      .map((id) => ({
-        ...findById(products, id),
-        quantity: findById(carts, id).quantity,
-      }));
-
-    return res(ctx.status(200), ctx.json(storedProducts));
-  }),
-
   rest.get(`/${API.PRODUCT}/:id`, (req, res, ctx) => {
     const { id } = req.params;
 
     return res(
       ctx.delay(1000),
       ctx.status(200),
-      ctx.json(findById(products, id))
+      ctx.json(findByIdInObjectArray(products, id))
     );
   }),
 
@@ -178,12 +162,9 @@ export const handlers = [
 
     const quantity = req.body;
 
-    console.log(userid);
-    console.log(quantity);
-
     const targetCarts = users[userid].carts;
-    findById(targetCarts, id).quantity = +quantity;
+    findByIdInObjectArray(targetCarts, id).quantity = +quantity;
 
-    return res(ctx.status(200), ctx.json(findById(products, id)));
+    return res(ctx.status(200), ctx.json(findByIdInObjectArray(products, id)));
   }),
 ];

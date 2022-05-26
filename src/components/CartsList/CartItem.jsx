@@ -15,7 +15,7 @@ import PATH from 'constants/path';
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 import usePatchQuantity from 'hooks/usePatchQuantity';
 
-function CartItem({ id, title, price, src, isChecked, quantity }) {
+function CartItem({ id, title, price, src, isStored, quantity }) {
   const dispatch = useDispatch();
 
   const { deleteFromCart } = useDeleteProductFromCart(id);
@@ -47,7 +47,7 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
     <Style.FlexContainer justify="space-between">
       <Flex justify="space-between" gap="20px">
         <CheckBox
-          checked={isChecked}
+          checked={isStored}
           onCheck={handleCheckProduct}
           onUncheck={handleUncheckProduct}
         />
@@ -76,7 +76,7 @@ CartItem.propTypes = {
 };
 
 CartItem.defaultProps = {
-  isChecked: true,
+  isStored: true,
 };
 
 export default CartItem;
