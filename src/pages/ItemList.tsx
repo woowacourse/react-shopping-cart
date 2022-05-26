@@ -43,6 +43,7 @@ const ItemList = () => {
         />
       ))}
       <Pagination
+        endpoint='main'
         count={10}
         lastIndex={Math.floor(allItemList.length / MAX_RESULT_ITEM_LIST) + 1}
       />

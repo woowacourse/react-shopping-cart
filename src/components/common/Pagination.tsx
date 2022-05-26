@@ -3,13 +3,15 @@ import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 interface PaginationProps {
+  endpoint: string;
   lastIndex: number;
   count: number;
 }
 
-const Pagination = ({ count, lastIndex }: PaginationProps) => {
+const Pagination = ({ endpoint, count, lastIndex }: PaginationProps) => {
   const id = Number(useParams().id);
   const { pageStartNumber, handleChange } = usePagination({
+    endpoint,
     count,
     lastIndex,
   });

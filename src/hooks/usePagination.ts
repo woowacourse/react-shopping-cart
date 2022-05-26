@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { PATH } from 'Routers';
 
 interface PaginationProps {
+  endpoint: string;
   count: number;
   lastIndex: number;
 }
 
-const usePagination = ({ count, lastIndex }: PaginationProps) => {
+const usePagination = ({ endpoint, count, lastIndex }: PaginationProps) => {
   const id = Number(useParams().id);
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const usePagination = ({ count, lastIndex }: PaginationProps) => {
 
   const handleChange = (page: number) => () => {
     if (page === id || page < 1 || page > lastIndex) return;
-    navigate(PATH.getMain(page));
+    navigate(`/${endpoint}/${page}`);
   };
 
   return {
