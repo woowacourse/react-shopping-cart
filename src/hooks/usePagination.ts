@@ -13,8 +13,7 @@ const usePagination = ({ count, lastIndex }: PaginationProps) => {
   const pageStartNumber = Math.floor((id - 1) / count) * count;
 
   const handleChange = (page: number) => () => {
-    console.log('page', page);
-    if (page < 1 || page > lastIndex) return;
+    if (page === id || page < 1 || page > lastIndex) return;
     navigate(PATH.getMain(page));
   };
 
