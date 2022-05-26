@@ -31,9 +31,11 @@ const cartStoreState = {
     1: {
       id: '1',
       quantity: 1,
-      price: '51000',
+      price: 51000,
     },
   },
+  totalOrders: 1,
+  totalPrice: 51000,
 };
 
 const addCartStoreState = {
@@ -63,9 +65,16 @@ const addCartStoreState = {
     1: {
       id: '1',
       quantity: 1,
-      price: '51000',
+      price: 51000,
+    },
+    5: {
+      id: '5',
+      price: 30500,
+      quantity: 1,
     },
   },
+  totalOrders: 2,
+  totalPrice: 81500,
 };
 
 describe('[장바구니 Reducer] 세팅, 추가, 삭제 테스트', () => {
@@ -93,7 +102,7 @@ describe('[장바구니 Reducer] 세팅, 추가, 삭제 테스트', () => {
   test('cart 저장소에 초기 데이터를 세팅해야한다.', () => {
     reducer({
       type: actionTypes.SET_CART_PRODUCT_LIST,
-      payload: products,
+      payload: { products },
     });
 
     expect(initialState).toEqual(cartStoreState);
@@ -102,7 +111,7 @@ describe('[장바구니 Reducer] 세팅, 추가, 삭제 테스트', () => {
   test('cart 저장소에 상품을 추가 할 수 있어야 한다.', () => {
     reducer({
       type: actionTypes.ADD_PRODUCT_TO_CART,
-      payload: product,
+      payload: { product },
     });
 
     expect(initialState).toEqual(addCartStoreState);
@@ -113,7 +122,7 @@ describe('[장바구니 Reducer] 세팅, 추가, 삭제 테스트', () => {
 
     reducer({
       type: actionTypes.REMOVE_PRODUCT_TO_CART,
-      payload: id,
+      payload: { id },
     });
 
     expect(initialState).toEqual(cartStoreState);
@@ -155,7 +164,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] check �
 
   reducer({
     type: actionTypes.SET_CART_PRODUCT_LIST,
-    payload: products,
+    payload: { products },
   });
 
   test('체크 활성화 상품을 체크해제 할 수 있어야 한다.', () => {
@@ -164,7 +173,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] check �
 
     reducer({
       type: actionTypes.UN_CHECK,
-      payload: id,
+      payload: { id },
     });
     expect(initialState.checkedIds).toEqual(checkedIds);
   });
@@ -175,7 +184,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] check �
 
     reducer({
       type: actionTypes.CHECK,
-      payload: id,
+      payload: { id },
     });
     expect(initialState.checkedIds).toEqual(checkedIds);
   });
@@ -234,7 +243,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] 상품 �
 
   reducer({
     type: actionTypes.SET_CART_PRODUCT_LIST,
-    payload: products,
+    payload: { products },
   });
 
   test('장바구니의 해당 상품의 수량 및 변경된 가격 등 detail 정보를 변경 할 수 있어야 한다.', () => {
@@ -251,7 +260,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] 상품 �
       5: {
         id: '5',
         quantity: 1,
-        price: '30500',
+        price: 30500,
       },
     };
 
