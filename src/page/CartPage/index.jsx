@@ -6,8 +6,8 @@ import { Image, CartProductItem, CheckBox, TotalPrice } from 'components';
 import store from 'store/store';
 import {
   doAddProdcutToOrder,
-  doDeleteProductFromCart,
   doInitializeOrder,
+  doSelectiveDeleteFromCart,
 } from 'actions/actionCreator';
 import empty from 'assets/empty.jpeg';
 import Styled from 'page/CartPage/index.style';
@@ -64,11 +64,7 @@ const CartPage = () => {
                   선택해제
                 </Styled.CheckBoxContainer>
                 <Styled.ProductDeleteButton
-                  onClick={() =>
-                    order.forEach(productId =>
-                      store.dispatch(doDeleteProductFromCart({ id: productId })),
-                    )
-                  }
+                  onClick={() => store.dispatch(doSelectiveDeleteFromCart())}
                 >
                   상품삭제
                 </Styled.ProductDeleteButton>
