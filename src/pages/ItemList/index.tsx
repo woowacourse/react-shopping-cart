@@ -6,9 +6,39 @@ import throttle from "../../utils/throttle";
 import useInfinityScroll from "../../hooks/useInfinityScroll";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
 import useProductList from "../../hooks/useProductList";
-import ProductList from "../../components/ProductList";
+
+import { useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
+import { ProductType } from "../../types/product";
+import Item from "../../components/Item";
 
 const DELAY_TIME = 500;
+
+const ProductList: Function = (
+  products: ProductType[]
+): React.ReactElement[] => {
+  const navigate = useNavigate();
+  const { createNewCart } = useCart();
+
+  const handleItemClick = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+  return products.map((product: ProductType) => {
+    const { id } = product;
+    const itemCardElemProps = {
+      key: product.id,
+      onClick: () => {
+        handleItemClick(product.id);
+      },
+      onClickShoppingCart: () => {
+        createNewCart(id, product.price);
+      },
+      ...product,
+    };
+
+    return <Item {...itemCardElemProps} />;
+  });
+};
 
 const ItemList = () => {
   const sectionRef = useRef(null);
