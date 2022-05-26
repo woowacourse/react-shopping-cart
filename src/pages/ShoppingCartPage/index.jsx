@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useCartItemList } from "../../hooks/useCartItemList";
 import { useCheckBox } from "../../hooks/useCheckBox";
 
 import Button from "../../components/common/Button";
@@ -8,6 +8,13 @@ import CheckBox from "../../components/common/CheckBox";
 import Spinner from "../../components/common/Spinner";
 import CartItem from "./CartItem";
 import PaymentBox from "./PaymentBox";
+
+import {
+  deleteCartItemByIdList,
+  getCartItemList,
+  postCartItemByProductList,
+} from "../../store/cartReducer";
+
 import {
   StyledCartItemList,
   StyledLabel,
@@ -18,14 +25,13 @@ import {
 } from "./index.styled";
 
 function ShoppingCartPage() {
+  const dispatch = useDispatch();
+
   const {
-    cartItemList,
-    isLoading,
-    errorMessage,
-    getCartItemList,
-    addCartItemQuantity,
-    deleteCartItemByIdList,
-  } = useCartItemList();
+    data: cartItemList,
+    loading: isCartItemListLoading,
+    errorMessage: cartItemErrorMessage,
+  } = useSelector((state) => state.cartReducer);
 
   const cartItemIdList = cartItemList?.map((cartItem) => cartItem.id);
   const {
@@ -51,16 +57,25 @@ function ShoppingCartPage() {
     }
     // eslint-disable-next-line no-restricted-globals
     if (confirm("선택한 상품을 모두 삭제하시겠습니까?")) {
-      deleteCartItemByIdList([...selectedList]);
+      dispatch(deleteCartItemByIdList([...selectedCartItemList]));
     }
   };
 
+  const updateCartItemQuantity = (id) => (quantity) => {
+    dispatch(postCartItemByProductList([{ id, quantity }]));
+  };
+
+  const deleteCartItem = (id) => () => {
+    dispatch(deleteCartItemByIdList([id]));
+  };
+
   useEffect(() => {
-    getCartItemList();
+    dispatch(getCartItemList());
   }, []);
 
-  if (isLoading) return <Spinner />;
-  if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
+  if (isCartItemListLoading) return <Spinner />;
+  if (cartItemErrorMessage)
+    return <div>😱 Error: {cartItemErrorMessage} 😱</div>;
 
   return (
     <div>
@@ -96,15 +111,8 @@ function ShoppingCartPage() {
                   product={product}
                   selected={isSelected(product.id)}
                   onClickCheckBox={handleCheckBoxClick(product.id)}
-                  updateQuantity={(quantity) =>
-                    addCartItemQuantity({
-                      id: product.id,
-                      quantity,
-                    })
-                  }
-                  deleteSelf={() => {
-                    deleteCartItemByIdList([product.id]);
-                  }}
+                  updateQuantity={updateCartItemQuantity(product.id)}
+                  deleteSelf={deleteCartItem(product.id)}
                 />
               ))}
             </StyledCartItemList>

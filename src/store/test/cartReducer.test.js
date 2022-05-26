@@ -57,7 +57,7 @@ describe("cartReducer - getCartItem 테스트", () => {
   });
 });
 
-describe("cartReducer - postCartItem 테스트", () => {
+describe("cartReducer - postCartItemByProductList 테스트", () => {
   const initialCartState = {
     loading: true,
     data: [],

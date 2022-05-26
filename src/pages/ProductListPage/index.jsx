@@ -1,17 +1,28 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useCartItemList } from "./../../hooks/useCartItemList";
+import {
+  getCartItemList,
+  postCartItemByProductList,
+} from "../../store/cartReducer";
+
 import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
 import ProductCard from "./ProductCard";
 import { StyledGridList } from "./index.styled";
 
-import { API_SERVER, REQUEST_METHOD } from "../../constants";
+import {
+  ACTION_SUCCESS_MESSAGE,
+  API_SERVER,
+  REQUEST_METHOD,
+} from "../../constants";
 
 const REQUEST_PRODUCT_LIST_URL = `${API_SERVER.BASE_URL}${API_SERVER.PATH.PRODUCTS}`;
 
 function ProductListPage() {
+  const dispatch = useDispatch();
+
   const {
     data: productList,
     fetch: getProductList,
@@ -20,16 +31,23 @@ function ProductListPage() {
   } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_LIST_URL, []);
 
   const {
-    cartItemList,
-    getCartItemList,
-    isLoading: isCartItemListLoading,
+    data: cartItemList,
+    loading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    addCartItemQuantityWithSuccessMessage,
-  } = useCartItemList();
+  } = useSelector((state) => state.cartReducer);
+
+  const handleClickAddToCartButton = (id, quantity) => () => {
+    dispatch(
+      postCartItemByProductList(
+        [{ id, quantity }],
+        ACTION_SUCCESS_MESSAGE.POST_CART_ITEM_SUCCESS_WITH_QUANTITY(quantity)
+      )
+    );
+  };
 
   useEffect(() => {
     getProductList();
-    getCartItemList();
+    dispatch(getCartItemList());
   }, []);
 
   if (isProductListLoading || isCartItemListLoading) return <Spinner />;
@@ -55,12 +73,10 @@ function ProductListPage() {
         <ProductCard
           key={product.id}
           product={{ ...product }}
-          onClickAddToCartButton={() => {
-            addCartItemQuantityWithSuccessMessage({
-              id: product.id,
-              quantity: product.quantity + 1,
-            });
-          }}
+          onClickAddToCartButton={handleClickAddToCartButton(
+            product.id,
+            product.quantity + 1
+          )}
         />
       ))}
     </StyledGridList>

@@ -6,7 +6,7 @@ import {
   ACTIONS,
   deleteCartItem,
   getCartItemList,
-  postCartItem,
+  postCartItemByProductList,
 } from "../actions";
 
 import { MOCK_CART_ITEM_LIST } from "./mock";
@@ -97,8 +97,7 @@ describe("장바구니 아이템 추가 및 수량 변경 요청 관련 dispatch
       })
     );
 
-    await postCartItem(CART_ITEM_LIST_TO_ADD)(mockDispatch);
-
+    await postCartItemByProductList(CART_ITEM_LIST_TO_ADD)(mockDispatch);
     expect(mockDispatch).toBeCalledWith({
       type: ACTIONS.POST_CART_ITEM_PENDING,
     });
@@ -111,8 +110,7 @@ describe("장바구니 아이템 추가 및 수량 변경 요청 관련 dispatch
       })
     );
 
-    await postCartItem(CART_ITEM_LIST_TO_ADD)(mockDispatch);
-
+    await postCartItemByProductList(CART_ITEM_LIST_TO_ADD)(mockDispatch);
     expect(mockDispatch).toBeCalledWith({
       type: ACTIONS.POST_CART_ITEM_SUCCESS,
       payload: CART_ITEM_LIST_ADDED,
@@ -126,7 +124,7 @@ describe("장바구니 아이템 추가 및 수량 변경 요청 관련 dispatch
       })
     );
 
-    await postCartItem(CART_ITEM_LIST_TO_ADD)(mockDispatch);
+    await postCartItemByProductList(CART_ITEM_LIST_TO_ADD)(mockDispatch);
     expect(mockDispatch).toBeCalledWith({
       type: ACTIONS.POST_CART_ITEM_ERROR,
       payload: "fetch error",

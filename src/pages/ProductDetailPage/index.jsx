@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useCartItemList } from "../../hooks/useCartItemList";
+import {
+  getCartItemList,
+  postCartItemByProductList,
+} from "../../store/cartReducer";
+
+import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
 import Button from "../../components/common/Button";
@@ -15,13 +21,17 @@ import {
   StyledTopSection,
 } from "./index.styled";
 
-import { API_SERVER, REQUEST_METHOD } from "../../constants";
-import { useFetch } from "../../hooks/useFetch";
+import {
+  ACTION_SUCCESS_MESSAGE,
+  API_SERVER,
+  REQUEST_METHOD,
+} from "../../constants";
 
 const REQUEST_PRODUCT_DETAIL_URL = (id) =>
   `${API_SERVER.BASE_URL}${API_SERVER.PATH.PRODUCTS}/${id}`;
 
 function ProductDetailPage() {
+  const dispatch = useDispatch();
   const { id: productId } = useParams();
 
   const {
@@ -32,16 +42,23 @@ function ProductDetailPage() {
   } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_DETAIL_URL(productId), []);
 
   const {
-    cartItemList,
-    getCartItemList,
-    isLoading: isCartItemListLoading,
+    data: cartItemList,
+    loading: isCartItemListLoading,
     errorMessage: cartItemErrorMessage,
-    addCartItemQuantityWithSuccessMessage,
-  } = useCartItemList();
+  } = useSelector((state) => state.cartReducer);
+
+  const handleClickAddToCartButton = (id, quantity) => () => {
+    dispatch(
+      postCartItemByProductList(
+        [{ id, quantity }],
+        ACTION_SUCCESS_MESSAGE.POST_CART_ITEM_SUCCESS_WITH_QUANTITY(quantity)
+      )
+    );
+  };
 
   useEffect(() => {
     getProduct();
-    getCartItemList();
+    dispatch(getCartItemList());
   }, []);
 
   if (isProductLoading || isCartItemListLoading) return <Spinner />;
@@ -69,12 +86,7 @@ function ProductDetailPage() {
         </StyledProductPrice>
       </StyledBottomSection>
       <AddToCartButton
-        onClick={() => {
-          addCartItemQuantityWithSuccessMessage({
-            id: product.id,
-            quantity: quantity + 1,
-          });
-        }}
+        onClick={handleClickAddToCartButton(product.id, quantity + 1)}
       />
     </StyledContainer>
   );
