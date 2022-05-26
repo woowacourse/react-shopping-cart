@@ -19,9 +19,12 @@ export const useCartList = () => {
 
   const dispatch = useDispatch();
 
-  const isCartItemLoading = useCallback(id => loadingCartProductId === id, [loadingCartProductId]);
+  const checkCartItemLoading = useCallback(
+    id => loadingCartProductId === id,
+    [loadingCartProductId],
+  );
 
-  const isCartItemChecked = useCallback(id => checkedCartItem.includes(id), [checkedCartItem]);
+  const checkCartItemChecked = useCallback(id => checkedCartItem.includes(id), [checkedCartItem]);
 
   const decreaseCartItemCount = useCallback(cart => {
     const { id, quantity } = cart;
@@ -53,8 +56,8 @@ export const useCartList = () => {
     amount,
     dispatch,
     cartItemStatusUtil: {
-      isCartItemLoading,
-      isCartItemChecked,
+      checkCartItemLoading,
+      checkCartItemChecked,
     },
     cartItemEvent: {
       decreaseCartItemCount,
