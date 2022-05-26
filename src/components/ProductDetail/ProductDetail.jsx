@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
 
@@ -16,14 +16,13 @@ import { COLOR } from 'constants/styles';
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 import useStoreProduct from 'hooks/useStoreProduct';
 import useDebounce from 'hooks/useDebounce';
-import useUser from 'hooks/useUser';
 import Spinner from 'components/shared/Spinner';
 
 function ProductDetail({ id, src, title, price, isStored }) {
   const dispatch = useDispatch();
   const debounce = useDebounce();
 
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
   const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
     useDeleteProductFromCart(id);
@@ -39,7 +38,7 @@ function ProductDetail({ id, src, title, price, isStored }) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
       } else {
-        addToCart({ id, quantity: 1 });
+        addToCart();
         dispatch(addProductToCarts(id));
       }
     }, 500);

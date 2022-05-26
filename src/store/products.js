@@ -40,10 +40,14 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export const loadProducts = (userId) => async (dispatch) => {
+export const loadProducts = () => async (dispatch, getState) => {
+  const userId = getState().user.userId;
+
   dispatch(loadProductsStart());
   try {
-    const products = await axios(`/${API.PRODUCTS}/${userId}`);
+    const products = await axios.get(`/${API.PRODUCTS}`, {
+      headers: { userId },
+    });
     dispatch(loadProductsSuccess(products.data));
   } catch (error) {
     dispatch(loadProductsFail(error));

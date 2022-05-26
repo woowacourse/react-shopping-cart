@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,9 +7,21 @@ import { CART_SIZE, COLOR } from 'constants/styles';
 
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 import { BasicButton, Flex } from 'components/shared/basics';
+import { logIn, logOut } from 'store/user';
 
 function Header() {
+  const dispatch = useDispatch();
   const { carts } = useSelector((state) => state.carts);
+  const { isLoggedIn } = useSelector((state) => state.user);
+
+  const handleClickLogin = () => {
+    if (isLoggedIn) {
+      dispatch(logOut());
+    } else {
+      dispatch(logIn('a1b2c3d4'));
+    }
+  };
+
   return (
     <header>
       <Styled.NavFlex justify="space-around">
@@ -35,6 +47,9 @@ function Header() {
           <Link to={PATH.ORDERS}>
             <Styled.NavButton type="button">주문목록</Styled.NavButton>
           </Link>
+          <Styled.NavButton onClick={handleClickLogin} type="button">
+            {isLoggedIn ? '로그아웃' : '로그인'}
+          </Styled.NavButton>
         </Flex>
       </Styled.NavFlex>
     </header>

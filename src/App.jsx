@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from 'components/Header/Header';
@@ -12,20 +12,23 @@ import ProductDetailContainer from 'components/ProductDetail/ProductDetailContai
 import GlobalStyle from 'GlobalStyle';
 
 import PATH from 'constants/path';
-import useUser from 'hooks/useUser';
+
 import { loadProducts } from 'store/products';
-import { loadCarts } from 'store/carts';
+import { clearCarts, loadCarts } from 'store/carts';
 
 function App() {
   const dispatch = useDispatch();
-  const { userId, isLoggedIn } = useUser();
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(loadProducts(userId));
+    dispatch(loadProducts());
+
     if (isLoggedIn) {
-      dispatch(loadCarts(userId));
+      dispatch(loadCarts());
+    } else {
+      dispatch(clearCarts());
     }
-  }, [userId, isLoggedIn]);
+  }, [isLoggedIn]);
 
   return (
     <BrowserRouter>

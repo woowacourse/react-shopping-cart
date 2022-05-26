@@ -4,11 +4,7 @@ import styled from 'styled-components';
 
 import { checkOne, loadCarts, patchCarts, uncheckOne } from 'store/carts';
 
-import { API } from 'constants/api';
 import { COLOR } from 'constants/styles';
-
-import useFetch from 'hooks/useFetch';
-import useUser from 'hooks/useUser';
 
 import CheckBox from 'components/CheckBox/CheckBox';
 import { BasicButton, BasicImage, Flex } from 'components/shared/basics';
@@ -21,7 +17,6 @@ import usePatchQuantity from 'hooks/usePatchQuantity';
 
 function CartItem({ id, title, price, src, isChecked, quantity }) {
   const dispatch = useDispatch();
-  const { userId } = useUser();
 
   const { deleteFromCart } = useDeleteProductFromCart(id);
   const { patchQuantity } = usePatchQuantity(id);
@@ -40,12 +35,12 @@ function CartItem({ id, title, price, src, isChecked, quantity }) {
     }
 
     deleteFromCart();
-    dispatch(loadCarts(userId));
+    dispatch(loadCarts());
   };
 
   const handleChangeQuantity = (count) => {
-    patchQuantity(count);
     dispatch(patchCarts(id, count));
+    patchQuantity(count);
   };
 
   return (

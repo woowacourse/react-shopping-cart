@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { checkAll, loadCarts, uncheckAll } from 'store/carts';
@@ -6,11 +6,9 @@ import { checkAll, loadCarts, uncheckAll } from 'store/carts';
 import { BasicButton, Flex } from 'components/shared/basics';
 import CheckBox from 'components/CheckBox/CheckBox';
 
-import useUser from 'hooks/useUser';
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 
 function CheckedItemsController({ checkedCarts }) {
-  const { userId } = useUser();
   const deleteCarts = checkedCarts.map((cart) => cart.id).join('&');
 
   const { deleteFromCart } = useDeleteProductFromCart(deleteCarts);
@@ -35,7 +33,7 @@ function CheckedItemsController({ checkedCarts }) {
     }
 
     deleteFromCart();
-    dispatch(loadCarts(userId));
+    dispatch(loadCarts());
   };
 
   return (

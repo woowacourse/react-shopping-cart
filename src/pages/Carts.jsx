@@ -7,11 +7,8 @@ import { BasicDivideLine, Flex } from 'components/shared/basics';
 import TotalPrice from 'components/TotalPrice/TotalPrice';
 
 function Carts() {
-  const {
-    isLoading: isCartsLoading,
-    carts,
-    checkedCarts,
-  } = useSelector((state) => state.carts);
+  const { carts, checkedCarts } = useSelector((state) => state.carts);
+
   const { isLoading: isProductsLoading, products } = useSelector(
     (state) => state.products
   );

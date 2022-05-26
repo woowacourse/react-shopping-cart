@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
@@ -13,14 +13,13 @@ import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 
 import useStoreProduct from 'hooks/useStoreProduct';
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
-import useUser from 'hooks/useUser';
 import useDebounce from 'hooks/useDebounce';
 
 function ProductItem({ id, src, price, title, isStored }) {
   const dispatch = useDispatch();
   const debounce = useDebounce();
 
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { addToCart } = useStoreProduct(id);
   const { deleteFromCart } = useDeleteProductFromCart(id);
 
@@ -35,7 +34,7 @@ function ProductItem({ id, src, price, title, isStored }) {
         deleteFromCart();
         dispatch(deleteProductFromCarts(id));
       } else {
-        addToCart({ id, quantity: 1 });
+        addToCart();
         dispatch(addProductToCarts(id));
       }
     }, 500);

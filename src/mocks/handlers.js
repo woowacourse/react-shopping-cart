@@ -90,58 +90,67 @@ const findById = (objectArray, id) =>
 
 export const handlers = [
   rest.get(`/${API.PRODUCTS}`, (req, res, ctx) => {
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(products));
+    const { userid } = req.headers['_headers'];
+
+    if (userid) {
+      const storedProductsId = users[userid].carts.map((product) => product.id);
+      const quantityContainedProducts = products.map((product) => {
+        if (storedProductsId.includes(product.id)) {
+          return {
+            ...product,
+            quantity: findById(users[userid].carts, product.id).quantity,
+            isStored: true,
+          };
+        }
+        return product;
+      });
+
+      return res(
+        ctx.delay(1000),
+        ctx.status(200),
+        ctx.json(quantityContainedProducts)
+      );
+    } else {
+      return res(ctx.delay(1000), ctx.status(200), ctx.json(products));
+    }
   }),
 
-  rest.get(`/${API.PRODUCTS}/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
-    const storedProductsId = users[userId].carts.map((product) => product.id);
-    const quantityContainedProducts = products.map((product) => {
-      if (storedProductsId.includes(product.id)) {
-        return {
-          ...product,
-          quantity: findById(users[userId].carts, product.id).quantity,
-          isStored: true,
-        };
-      }
-      return product;
-    });
+  rest.get(`/${API.CARTS}`, (req, res, ctx) => {
+    const { userid } = req.headers['_headers'];
 
-    return res(
-      ctx.delay(1000),
-      ctx.status(200),
-      ctx.json(quantityContainedProducts)
-    );
+    if (userid) {
+      return res(ctx.status(200), ctx.json(users[userid].carts));
+    } else {
+      return res(ctx.status(200), ctx.json([]));
+    }
   }),
 
-  rest.get(`/${API.CARTS}/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
-    return res(ctx.status(200), ctx.json(users[userId].carts));
-  }),
+  rest.post(`/${API.CARTS}/:id`, (req, res, ctx) => {
+    const { id } = req.params;
+    const { userid } = req.headers['_headers'];
 
-  rest.post(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {
-    const { userId } = req.params;
-    const data = req.body;
-    users[userId].carts.push(data);
+    users[userid].carts.push({ id, quantity: 1 });
 
     return res(ctx.delay(500), ctx.status(200));
   }),
 
-  rest.delete(`/${API.CARTS}/:userId/:cartList`, (req, res, ctx) => {
-    const { userId, cartList } = req.params;
+  rest.delete(`/${API.CARTS}/:cartList`, (req, res, ctx) => {
+    const { cartList } = req.params;
+    const { userid } = req.headers['_headers'];
+
     const requestedCartList = cartList.split('&');
 
-    users[userId].carts = users[userId].carts.filter(
+    users[userid].carts = users[userid].carts.filter(
       (cart) => !requestedCartList.includes(cart.id)
     );
 
     return res(ctx.delay(500), ctx.status(204));
   }),
 
-  rest.get(`/${API.CARTSINFO}/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
+  rest.get(`/${API.CARTSINFO}`, (req, res, ctx) => {
+    const { userid } = req.headers['_headers'];
 
-    const carts = [...users[userId].carts];
+    const carts = [...users[userid].carts];
 
     const storedProducts = carts
       .map((cart) => cart.id)
@@ -163,11 +172,16 @@ export const handlers = [
     );
   }),
 
-  rest.patch(`/${API.CARTS}/:userId/:id`, (req, res, ctx) => {
-    const { userId, id } = req.params;
+  rest.patch(`/${API.CARTS}/:id`, (req, res, ctx) => {
+    const { id } = req.params;
+    const { userid } = req.headers['_headers'];
+
     const quantity = req.body;
 
-    const targetCarts = users[userId].carts;
+    console.log(userid);
+    console.log(quantity);
+
+    const targetCarts = users[userid].carts;
     findById(targetCarts, id).quantity = +quantity;
 
     return res(ctx.status(200), ctx.json(findById(products, id)));

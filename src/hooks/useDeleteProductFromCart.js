@@ -1,16 +1,20 @@
 import useFetch from 'hooks/useFetch';
-import useUser from 'hooks/useUser';
 
 import { API } from 'constants/api';
+import { useSelector } from 'react-redux';
 
 function useDeleteProductFromCart(query) {
-  const { userId } = useUser();
+  const { userId } = useSelector((state) => state.user);
 
   const {
     isLoading: isCartDeleteLoading,
     apiCall: deleteFromCart,
     error: deleteProductFromCartError,
-  } = useFetch({ url: `/${API.CARTS}/${userId}/${query}`, method: 'DELETE' });
+  } = useFetch({
+    url: `/${API.CARTS}/${query}`,
+    method: 'DELETE',
+    headers: { userId },
+  });
 
   return { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError };
 }

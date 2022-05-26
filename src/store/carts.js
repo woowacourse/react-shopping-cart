@@ -8,6 +8,7 @@ const LOAD_CARTS_FAIL = 'carts/LOAD_FAIL';
 const LOAD_CARTS_DONE = 'carts/LOAD_DONE';
 const ADD_PRODUCT_TO_CARTS = 'carts/ADD_PRODUCT';
 const DELETE_PRODUCT_FROM_CARTS = 'carts/DELETE_PRODUCT';
+const CLAER_CARTS = 'carts/CLEAR_CARTS';
 const CHECK_ALL = 'carts/CHECK_ALL';
 const CHECK_ONE = 'carts/CHECK_ONE';
 const UNCHECK_ALL = 'carts/UNCHECK_ALL';
@@ -40,6 +41,9 @@ export const addProductToCarts = (id) => ({
 export const deleteProductFromCarts = (id) => ({
   type: DELETE_PRODUCT_FROM_CARTS,
   payload: id,
+});
+export const clearCarts = () => ({
+  type: CLAER_CARTS,
 });
 export const checkAll = () => ({
   type: CHECK_ALL,
@@ -92,6 +96,8 @@ const cartsReducer = (state = initialState, action) => {
         checkedCarts: newCarts,
       };
     }
+    case CLAER_CARTS:
+      return { ...initialState };
     case CHECK_ALL:
       return { ...state, checkedCarts: state.carts };
     case UNCHECK_ALL:
@@ -128,10 +134,15 @@ const cartsReducer = (state = initialState, action) => {
   }
 };
 
-export const loadCarts = (userId) => async (dispatch) => {
+export const loadCarts = () => async (dispatch, getState) => {
+  const userId = getState().user.userId;
+
   dispatch(loadCartsStart());
   try {
-    const carts = await axios(`/${API.CARTS}/${userId}`);
+    const carts = await axios.get(`/${API.CARTS}`, {
+      headers: { userId },
+    });
+
     dispatch(loadCartsSuccess(carts.data));
   } catch (error) {
     dispatch(loadCartsFail(error));
