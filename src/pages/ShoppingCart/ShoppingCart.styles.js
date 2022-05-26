@@ -17,7 +17,7 @@ const SelectorBox = styled.div`
 
 const SelectDeleteButton = styled.div`
   padding: 12px 22px;
-  border: 1px solid var(--gray-700);
+  border: 1px solid ${props => props.theme.colors.gray_700};
   font-size: 16px;
 `;
 
@@ -31,7 +31,7 @@ const DivisionLine = styled.hr`
   height: 4px;
   margin-top: 16px;
   border: 0;
-  background: var(--gray-800);
+  background: ${props => props.theme.colors.gray_800};
 `;
 
 export { ShoppingCart, SelectorBox, SelectDeleteButton, ProductListHeader, DivisionLine };

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import 'styles/index.css';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
 import GlobalStyle from 'styles/GlobalStyle';
 
 import { Provider } from 'react-redux';
@@ -26,8 +27,10 @@ if (process.env.NODE_ENV === 'development') {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <Provider store={store}>
-    <GlobalStyle />
-    <App />
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <GlobalStyle />
+      <App />
+    </Provider>
+  </ThemeProvider>
 );

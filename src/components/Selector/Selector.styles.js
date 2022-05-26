@@ -11,7 +11,7 @@ const Checkbox = styled.input`
   width: 28px;
   height: inherit;
   appearance: none;
-  border: 1px solid var(--cyan-dark);
+  border: 1px solid ${props => props.theme.colors.cyan_dark};
   border-radius: 2px;
   cursor: pointer;
 
@@ -19,14 +19,14 @@ const Checkbox = styled.input`
     outline: none;
   }
   &:checked {
-    background: var(--cyan-dark);
+    background: ${props => props.theme.colors.cyan_dark};
   }
   &::after {
     content: '✓';
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
-    color: var(--white);
+    color: ${props => props.theme.colors.white};
   }
 `;
 

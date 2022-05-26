@@ -5,7 +5,7 @@ const CartProduct = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 25px 0;
-  border-top: 1.5px solid var(--gray-600);
+  border-top: 1.5px solid ${props => props.theme.colors.gray_600};
 `;
 
 const LeftPart = styled.div`
@@ -23,7 +23,7 @@ const Name = styled.p`
   font-weight: 400;
   font-size: 20px;
   letter-spacing: 0.5px;
-  color: var(--gray-900);
+  color: ${props => props.theme.colors.gray_900};
 `;
 
 const RightPart = styled.div`
@@ -48,15 +48,15 @@ const Quantity = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--gray-500);
+  border: 1px solid ${props => props.theme.colors.gray_500};
   font-size: 24px;
 `;
 
 const QuantityControlButton = styled.div`
   height: 30px;
   padding: 4px 12px;
-  border: 1px solid var(--gray-500);
-  background: var(--white);
+  border: 1px solid ${props => props.theme.colors.gray_500};
+  background: ${props => props.theme.colors.white};
   font-size: 100%;
 
   &:focus {
@@ -67,7 +67,7 @@ const QuantityControlButton = styled.div`
 const Price = styled.p`
   font-weight: 400;
   letter-spacing: 0.5px;
-  color: var(--gray-900);
+  color: ${props => props.theme.colors.gray_900};
 `;
 
 export {
