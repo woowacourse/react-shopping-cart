@@ -5,10 +5,9 @@ const setCartProductListAsync = () => async (dispatch) => {
   try {
     await getCartList().then((res) => {
       const { data } = res;
-
       dispatch({
         type: actionTypes.SET_CART_PRODUCT_LIST,
-        payload: data,
+        payload: { products: data },
       });
     });
   } catch (err) {
@@ -21,7 +20,7 @@ const AddProductToCartAsync = (product) => async (dispatch) => {
     await postCartItem(product).then(() => {
       dispatch({
         type: actionTypes.ADD_PRODUCT_TO_CART,
-        payload: product,
+        payload: { product },
       });
     });
   } catch (err) {
@@ -34,7 +33,7 @@ const removeProductToCartAsync = (id) => async (dispatch) => {
     await deleteCartItem({ id }).then(() => {
       dispatch({
         type: actionTypes.REMOVE_PRODUCT_TO_CART,
-        payload: id,
+        payload: { id },
       });
     });
   } catch (err) {
@@ -42,17 +41,17 @@ const removeProductToCartAsync = (id) => async (dispatch) => {
   }
 };
 
-const checkProduct = (id) => (dispatch) => {
+const checkProduct = (payload) => (dispatch) => {
   dispatch({
     type: actionTypes.CHECK,
-    payload: id,
+    payload,
   });
 };
 
-const unCheckProduct = (id) => (dispatch) => {
+const unCheckProduct = (payload) => (dispatch) => {
   dispatch({
     type: actionTypes.UN_CHECK,
-    payload: id,
+    payload,
   });
 };
 
@@ -60,10 +59,10 @@ const allCheckProduct = () => (dispatch) => dispatch({ type: actionTypes.ALL_CHE
 
 const allUnCheckProduct = () => (dispatch) => dispatch({ type: actionTypes.ALL_UN_CHECK });
 
-const setOrderDetail = (detail) => (dispatch) => {
+const setOrderDetail = (payload) => (dispatch) => {
   dispatch({
     type: actionTypes.ORDER_DETAIL,
-    payload: detail,
+    payload,
   });
 };
 

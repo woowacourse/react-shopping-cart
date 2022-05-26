@@ -20,8 +20,8 @@ function CartList({ products, checkedIds, count, orderDetail }) {
   const dispatch = useDispatch();
   const [allChecked, setAllChecked] = useState(true);
 
-  const onClickCheckProduct = (id) => dispatch(checkProduct(id));
-  const onClickUnCheckProduct = (id) => dispatch(unCheckProduct(id));
+  const onClickCheckProduct = (args) => dispatch(checkProduct(args));
+  const onClickUnCheckProduct = (args) => dispatch(unCheckProduct(args));
 
   const onClickAllCkeck = (isAllCheck) => {
     setAllChecked(isAllCheck);
@@ -90,8 +90,8 @@ function CartList({ products, checkedIds, count, orderDetail }) {
                 price={price}
                 quantity={quantity}
                 isClicked={checkedIds.includes(id)}
-                onClickCheck={() => onClickCheckProduct(id)}
-                onClickUnCheck={() => onClickUnCheckProduct(id)}
+                onClickCheck={() => onClickCheckProduct({ id, price, quantity })}
+                onClickUnCheck={() => onClickUnCheckProduct({ id, price, quantity })}
               />
             );
           })}
