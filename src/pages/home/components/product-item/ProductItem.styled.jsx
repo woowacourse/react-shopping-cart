@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "@/styled";
 
 const StyledProductItem = styled.div`
   position: relative;
@@ -43,18 +42,6 @@ const StyledProductItem = styled.div`
       }
       .product-price {
         font-size: 20px;
-      }
-    }
-    .add-cart-btn {
-      ${noneStyles.button}
-      width: 50px;
-      padding-right: 12px;
-    }
-    .add-cart-btn:hover {
-      svg {
-        path {
-          fill: #03cf5b;
-        }
       }
     }
   }
