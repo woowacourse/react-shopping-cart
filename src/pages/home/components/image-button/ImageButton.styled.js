@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "@/styles/styled";
+import { noneStyles } from "@/styles/styleUtil";
 
 const StyledImageButton = styled.button`
   ${noneStyles.button}
