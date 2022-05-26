@@ -3,7 +3,7 @@ import {
   uncheckAllCheckButton,
   checkAllCheckButton,
   removeCheckedCartItem,
-} from "@/redux/actions";
+} from "@/redux/modules/cartList";
 
 import StyledProductList from "@/pages/cart/components/product-list/ProductList.styled";
 import ProductItem from "@/pages/cart/components/product-item/ProductItem";

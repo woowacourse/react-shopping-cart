@@ -8,7 +8,7 @@ import App from "@/App";
 
 import "@/style.scss";
 import Loading from "@/components/loading/Loading";
-import configureStore from "@/redux/rootReducer";
+import configureStore from "@/redux/index";
 
 const { store, persistor } = configureStore();
 

@@ -8,7 +8,8 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 
-import { productListReducer, cartListReducer } from "@/redux/reducers";
+import { productListReducer } from "@/redux/modules/productList";
+import { cartListReducer } from "@/redux/modules/cartList";
 
 const persistConfig = {
   key: "root",

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getProductList } from "@/redux/actions";
+import { getProductList } from "@/redux/modules/productList";
 
 import Loading from "@/components/loading/Loading";
 import Error from "@/pages/error/Error";

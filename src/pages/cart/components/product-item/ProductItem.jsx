@@ -8,7 +8,7 @@ import {
   incrementCartItemQuantity,
   decrementCartItemQuantity,
   removeRowCartItem,
-} from "@/redux/actions";
+} from "@/redux/modules/cartList";
 
 import TrashIcon from "@/assets/images/trash.svg";
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";

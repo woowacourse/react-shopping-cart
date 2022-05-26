@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addProductToCart } from "@/redux/actions";
+import { addProductToCart } from "@/redux/modules/cartList";
 
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";

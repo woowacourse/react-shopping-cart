@@ -1,10 +1,4 @@
-import { cartListReducer } from "@/redux/reducers";
-import {
-  ADD_PRODUCT_TO_CART,
-  INCREMENT_CART_ITEM_QUANTITY,
-  DECREMENT_CART_ITEM_QUANTITY,
-  REMOVE_ROW_CART_ITEM,
-} from "@/redux/types";
+import { ACTION_TYPES, cartListReducer } from "@/redux/modules/cartList";
 
 describe("action에 맞춰서 상태를 의도한대로 잘 변경하는지 확인한다.", () => {
   test("상품 추가 요청이 들어오면 해당 상품을 정상적으로 장바구니 상태에 추가해야 한다.", () => {
@@ -18,7 +12,7 @@ describe("action에 맞춰서 상태를 의도한대로 잘 변경하는지 확�
     };
 
     const addProductAction = {
-      type: ADD_PRODUCT_TO_CART,
+      type: ACTION_TYPES.ADD_PRODUCT_TO_CART,
       payload: {
         ...product,
       },
@@ -47,7 +41,7 @@ describe("action에 맞춰서 상태를 의도한대로 잘 변경하는지 확�
     const initialCartItems = [product];
 
     const incrementCartItemQuantityAction = {
-      type: INCREMENT_CART_ITEM_QUANTITY,
+      type: ACTION_TYPES.INCREMENT_CART_ITEM_QUANTITY,
       payload: 1,
     };
 
@@ -76,7 +70,7 @@ describe("action에 맞춰서 상태를 의도한대로 잘 변경하는지 확�
     const initialCartItems = [product];
 
     const decrementCartItemQuantityAction = {
-      type: DECREMENT_CART_ITEM_QUANTITY,
+      type: ACTION_TYPES.DECREMENT_CART_ITEM_QUANTITY,
       payload: 1,
     };
 
@@ -105,7 +99,7 @@ describe("action에 맞춰서 상태를 의도한대로 잘 변경하는지 확�
     const initialCartItems = [product];
 
     const removeRowCartItemAction = {
-      type: REMOVE_ROW_CART_ITEM,
+      type: ACTION_TYPES.REMOVE_ROW_CART_ITEM,
       payload: 1,
     };
 
