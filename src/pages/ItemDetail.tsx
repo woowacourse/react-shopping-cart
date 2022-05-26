@@ -10,17 +10,24 @@ import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
 import { CartListAction } from 'redux/cartList/action';
 import { getCartListRequest, postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
+import { ItemAction } from 'redux/item/action';
+import { ItemState } from 'redux/item/reducer';
+import { getItemRequest } from 'redux/item/thunk';
 import styled from 'styled-components';
 import theme from 'styles/theme';
-import type { Item } from 'types/domain';
 
 const ItemDetail = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch<CartListAction>();
-  const { data: item, loading, error: error_itemList } = useFetch<Item>(`/itemList/${id}`);
+
+  const {
+    data: item,
+    loading,
+    error: error_itemList,
+  } = useThunkFetch(state => state.item, getItemRequest(id));
   const { data: cartList, error: error_cartList } = useThunkFetch(
     state => state.cartList,
-    getCartListRequest
+    getCartListRequest()
   );
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
