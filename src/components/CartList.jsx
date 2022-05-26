@@ -44,9 +44,9 @@ function CartList({ products, checkedIds, count }) {
 
     await Promise.all(
       ids.map((id) => {
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
           try {
-            const res = await dispatch(removeProductToCartAsync(id));
+            const res = dispatch(removeProductToCartAsync(id));
             resolve(res);
           } catch (err) {
             reject(err);

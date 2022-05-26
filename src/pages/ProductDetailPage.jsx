@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getProductItem } from '../api';
 import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
+import Loading from '../components/common/Loading';
 import PriceBox from '../components/common/PriceBox';
 import useRequest from '../hooks/useRequest';
 import { AddProductToCartAsync } from '../store/modules/cart/actions';
@@ -17,7 +18,7 @@ function ProductDetailPage() {
 
   const isCkecked = useMemo(() => !!products.find((product) => product.id === id), [id, products]);
 
-  const handleClick = async (isCkecked, product) => {
+  const handleClick = (isCkecked, product) => {
     if (isCkecked) {
       alert('이미 장바구니에 들어 있습니다.');
       navigate('/cart');
@@ -25,11 +26,11 @@ function ProductDetailPage() {
     }
 
     alert('장바구니에 추가 되었습니다.');
-    await dispatch(AddProductToCartAsync(product));
+    dispatch(AddProductToCartAsync(product));
     navigate('/cart');
   };
 
-  if (loading) return null;
+  if (loading) return <Loading />;
 
   const { imageUrl, name, price } = item;
 

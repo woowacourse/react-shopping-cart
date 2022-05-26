@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,18 +7,17 @@ import { setCartProductListAsync } from '../store/modules/cart/actions';
 
 function CartPageLayout() {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    (async function () {
-      await dispatch(setCartProductListAsync());
-    })();
+    dispatch(setCartProductListAsync()).then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   return (
     <LayoutRoot>
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
+      <Suspense fallback={<Loading />}>{isLoading ? <Loading /> : <Outlet />}</Suspense>
     </LayoutRoot>
   );
 }

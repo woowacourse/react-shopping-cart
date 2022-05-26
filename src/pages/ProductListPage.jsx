@@ -8,6 +8,7 @@ import { AddProductToCartAsync, removeProductToCartAsync } from '../store/module
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import FloatingActionButton from '../components/common/FloatingActionButton';
+import Loading from '../components/common/Loading';
 
 function ProductListPage() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function ProductListPage() {
     dispatch(removeProductToCartAsync(product.id));
   };
 
-  if (loading) return null;
+  if (loading) return <Loading />;
 
   return (
     <StyledContent>
