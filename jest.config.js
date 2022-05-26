@@ -18,5 +18,5 @@ module.exports = {
     '^.+\\.svg$': 'jest-svg-transformer',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
-  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
 };
