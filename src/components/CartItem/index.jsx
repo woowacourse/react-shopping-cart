@@ -44,7 +44,7 @@ function CartItem({
         <ToolTip align="right" text="상품 삭제">
           <Button icon={ICON_CODE.TRASH_CAN} onClick={onClickRemoveButton} />
         </ToolTip>
-        <Counter onChange={handleChangeCounter}>{quantity}</Counter>
+        <Counter count={quantity} onChange={handleChangeCounter} />
       </FlexContainer>
     </S.Container>
   );
