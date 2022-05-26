@@ -27,23 +27,6 @@ const StyledProductItem = styled.div`
 
     left: 0;
     right: 0;
-
-    .product-detail {
-      display: flex;
-      padding: 10px 0px 10px 15px;
-      margin-bottom: 30px;
-      .l-left {
-        width: 100%;
-      }
-
-      color: #000000;
-      .product-title {
-        font-size: 20px;
-      }
-      .product-price {
-        font-size: 20px;
-      }
-    }
   }
 `;
 
