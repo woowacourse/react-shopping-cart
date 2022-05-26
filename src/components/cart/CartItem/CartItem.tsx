@@ -1,4 +1,5 @@
 import Button from '@/components/common/Button/Button';
+import CheckBox from '@/components/common/CheckBox/CheckBox';
 import Counter from '@/components/common/Counter/Counter';
 import Icon from '@/components/common/Icon/Icon';
 import Image from '@/components/common/Image/Image';
@@ -39,6 +40,7 @@ function CartItem({ cart }) {
 
   return (
     <Styled.Container>
+      <CheckBox isChecked={true} onClick={() => console.log()} />
       <Styled.ImageWrapper onClick={navigateToProduct}>
         <Image
           src={imageURL}
