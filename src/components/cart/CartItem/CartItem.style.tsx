@@ -38,15 +38,13 @@ export const PriceWrapper = styled.div`
   display: flex;
 
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   gap: 30px;
 `;
 
 export const CounterWrapper = styled.div`
-  height: 100px;
-
   display: flex;
   align-items: center;
 `;

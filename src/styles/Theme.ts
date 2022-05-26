@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'styled-components';
+
 export const enum size {
   mobile = 480,
   tablet = 800,

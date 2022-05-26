@@ -6,7 +6,7 @@ const Button = styled.button`
     width,
     backgroundColor = theme.brandColor_1,
     fontColor = theme.whiteColor_1,
-    padding = '10px',
+    padding = 'none',
     border = 'none',
   }: Partial<Pick<StyleProps, 'width' | 'backgroundColor' | 'fontColor' | 'padding' | 'border'>>) =>
     css`
