@@ -1,11 +1,16 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../modules";
-import { CartAction, CartActionType } from "../modules/cart/type";
+import {
+  Cart,
+  CartAction,
+  CartActionType,
+  PatchCartStock,
+} from "../modules/cart/type";
 import { CartType } from "../types/cart";
 import { useAppDispatch } from "./useAppDispatch";
 
 const useCart = () => {
-  const cartList = useSelector((state: RootState) => state.cart);
+  const cartList = useSelector<RootState, Cart>((state) => state.cart);
 
   const dispatch = useAppDispatch<CartAction>();
 
@@ -17,17 +22,17 @@ const useCart = () => {
       .filter((cart) => cart.isChecked)
       .reduce((prev, acc) => prev + acc.price * acc.stock, 0),
 
-    getCart: (targetId: string): CartType | undefined => {
+    getCart: (targetId: string) => {
       return cartList.data.find(({ id }) => id === targetId);
     },
     createNewCart: (productId: number, price: number) => {
       const targetCart = cartList.data.find(
         (cart) => cart.productId === productId
-      ) as CartType;
+      );
 
       if (targetCart) {
         const { id, stock } = targetCart;
-        return dispatch({
+        return dispatch<PatchCartStock>({
           type: CartActionType.PATCH_CART_STOCK,
           payload: { targetId: id, stockChanged: stock + 1 },
         });
