@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import useProduct from 'hooks/useProduct';
 import PropTypes from 'prop-types';
 
 import { Image, Counter, CheckBox } from 'components';
@@ -15,9 +16,9 @@ import autoComma from 'utils/autoComma';
 import Styled from 'components/CartProductItem/index.style';
 
 const CartProductItem = ({ id, quantity }) => {
-  const { products, order } = useSelector(state => state.reducer);
+  const [{ name, price, image }] = useProduct(id);
+  const { order } = useSelector(state => state.reducer);
   const [isInOrder, setIsInOrder] = useState(order.some(productId => productId === id));
-  const { name, price, image } = products.find(product => product.id === id);
 
   const updateOrder = () => {
     if (isInOrder) {
