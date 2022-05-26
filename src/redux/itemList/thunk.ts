@@ -2,15 +2,15 @@ import { BASE_URL } from 'apis';
 import axios from 'axios';
 import type { Dispatch } from 'redux';
 
-import { ItemListAction, itemListAction } from './action';
+import { ItemListAction, itemListActions } from './action';
 
 export const getItemList = () => async (dispatch: Dispatch<ItemListAction>) => {
-  dispatch(itemListAction.getItemListStart());
+  dispatch(itemListActions.getItemListActionGroup.request());
   try {
     const response = await axios.get(`${BASE_URL}/itemList`);
 
-    dispatch(itemListAction.getItemListSuccess(response.data));
+    dispatch(itemListActions.getItemListActionGroup.success(response.data));
   } catch (e) {
-    dispatch(itemListAction.getItemListFailure(e.message));
+    dispatch(itemListActions.getItemListActionGroup.failure(e.message));
   }
 };

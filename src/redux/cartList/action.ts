@@ -1,4 +1,6 @@
+import { buildThunkActionGroup } from 'redux/utils';
 import { CartItem } from 'types/domain';
+import { Valueof } from 'types/utilitys';
 
 export const CartListActionType = {
   GET_CART_LIST: 'cart/GET_CART_LIST',
@@ -9,17 +11,6 @@ export const CartListActionType = {
   DELETE_CART_ITEM: 'cart/DELETE_CART_ITEM',
   DELETE_ALL_CART_ITEM: 'cart/DELETE_ALL_CART_ITEM',
 } as const;
-
-type CartAction = typeof CartListActionType[keyof typeof CartListActionType];
-
-const buildThunkActionGroup = <T, A extends CartAction>(actionType: A) => ({
-  request: () => ({ type: `${actionType}_REQUEST` as const }),
-  success: (data?: T) => ({ type: `${actionType}_SUCCESS` as const, payload: data }),
-  failure: (message: string) => ({
-    type: `${actionType}_FAILURE` as const,
-    payload: message,
-  }),
-});
 
 const getCartListActionGroup = buildThunkActionGroup<
   CartItem[],
@@ -67,7 +58,7 @@ export const cartListActions = {
 // type StatusType = keyof ReturnType<typeof buildThunkActionGroup>;
 
 type StatusType = 'success' | 'failure' | 'request';
-type ActionGroupType = typeof cartListActions[keyof typeof cartListActions];
+type ActionGroupType = Valueof<typeof cartListActions>;
 type AllActionType = ReturnType<ActionGroupType[StatusType]>['type'];
 
 type ActionType = (arg?: any) => { type: AllActionType; payload?: any };
