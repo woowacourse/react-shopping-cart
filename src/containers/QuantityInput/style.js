@@ -19,7 +19,7 @@ const InputStyled = styled.input`
   }
 `;
 
-const ButtonStyled = styled.div`
+const ButtonWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -35,4 +35,4 @@ const ButtonStyled = styled.div`
   }
 `;
 
-export { InputWrapperStyled, InputStyled, ButtonStyled };
+export { InputWrapperStyled, InputStyled, ButtonWrapperStyled };

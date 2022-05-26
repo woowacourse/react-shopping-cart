@@ -6,7 +6,7 @@ import {
   requestUpdateProductQuantity,
 } from 'modules/cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { InputWrapperStyled, InputStyled, ButtonStyled } from './style';
+import { InputWrapperStyled, InputStyled, ButtonWrapperStyled } from './style';
 
 function QuantityInput({ productId }) {
   const carts = useSelector((state) => state.cart.carts);
@@ -43,14 +43,14 @@ function QuantityInput({ productId }) {
         onChange={handleChange}
         value={carts[productIdx].quantity}
       />
-      <ButtonStyled>
+      <ButtonWrapperStyled>
         <button onClick={handleClickIncrease} className="increase">
           +
         </button>
         <button onClick={handleClickDecrease} className="decrease">
           -
         </button>
-      </ButtonStyled>
+      </ButtonWrapperStyled>
     </InputWrapperStyled>
   );
 }
