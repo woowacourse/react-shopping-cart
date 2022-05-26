@@ -2,9 +2,16 @@ import React from 'react';
 
 import Text from 'components/Text';
 
-function ProductTitle({ children }) {
+function ProductTitle({ onClick, id, children }) {
   return (
-    <Text color="#333333" fontSize="1rem" fontWeight="400">
+    <Text
+      onClick={onClick}
+      id={id}
+      color="#333333"
+      fontSize="1rem"
+      fontWeight="400"
+      cursor="pointer"
+    >
       {children}
     </Text>
   );

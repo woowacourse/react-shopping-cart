@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ProductStyled = styled.div(css`
   width: 14.24vw;

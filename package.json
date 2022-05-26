@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
@@ -12,21 +11,23 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.4.22",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/builder-webpack5": "^6.4.22",
-    "@storybook/manager-webpack5": "^6.4.22",
-    "@storybook/node-logger": "^6.4.22",
+    "@storybook/addon-actions": "^6.5.3",
+    "@storybook/addon-essentials": "^6.5.3",
+    "@storybook/addon-interactions": "^6.5.3",
+    "@storybook/addon-links": "^6.5.3",
+    "@storybook/builder-webpack5": "^6.5.3",
+    "@storybook/manager-webpack5": "^6.5.3",
+    "@storybook/node-logger": "^6.5.3",
     "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.4.22",
+    "@storybook/react": "^6.5.3",
     "@storybook/testing-library": "^0.0.11",
+    "@testing-library/jest-dom": "^5.16.4",
     "commitizen": "^4.2.4",
     "commitlint-config-gitmoji": "^2.2.5",
     "cz-customizable": "^6.3.0",
@@ -34,9 +35,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
+    "msw": "^0.39.2",
+    "react-scripts": "5.0.1",
     "redux-devtools": "^3.7.0",
-    "webpack": "^5.72.0",
-    "react-scripts": "5.0.1"
+    "webpack": "^5.72.0"
   },
   "config": {
     "commitizen": {
@@ -63,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

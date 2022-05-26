@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import FlexAlignCenter from 'components/FlexWrapper/FlexAlignCenter';
+import FlexWrapper from 'components/FlexWrapper';
 import MarginWrapper from 'components/MarginWrapper';
-import WhiteButton from 'components/WhiteButton';
+import Button from 'components/Button';
 
 import HomeButton from 'containers/HomeButton';
 import OrderListButton from 'containers/OrderListButton';
@@ -13,13 +14,19 @@ function Header() {
   return (
     <HeaderStyled>
       <PageButtonContainerStyled>
-        <HomeButton />
-        <FlexAlignCenter>
+        <Link to="/">
+          <HomeButton />
+        </Link>
+        <FlexWrapper>
           <MarginWrapper marginRight="2.2vw">
-            <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
+            <Link to="/cart">
+              <Button fontSize="1.5rem" color="whiteFontColor" border="none">
+                장바구니
+              </Button>
+            </Link>
           </MarginWrapper>
           <OrderListButton />
-        </FlexAlignCenter>
+        </FlexWrapper>
       </PageButtonContainerStyled>
     </HeaderStyled>
   );

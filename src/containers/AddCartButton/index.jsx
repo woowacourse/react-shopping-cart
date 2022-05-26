@@ -1,17 +1,30 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-import Image from 'components/Image';
+import Button from 'components/Button';
 
-function AddCartButton() {
-  const handleCartButtonClick = () => {};
+import { addProductCart } from 'apis/cart';
+
+function AddCartButton({ id }) {
+  const dispatch = useDispatch();
+
+  const handleCartButtonClick = ({ target }) => {
+    dispatch(addProductCart(target));
+  };
 
   return (
-    <Image
+    <Button
       onClick={handleCartButtonClick}
-      src={'/img/shopping-cart-black.png'}
-      width={'30px'}
-      height={'26px'}
-    />
+      id={id}
+      width="638px"
+      height="98px"
+      fontSize="32px"
+      fontWeight="700"
+      color="whiteColor"
+      background="#73675C"
+    >
+      장바구니
+    </Button>
   );
 }
 
