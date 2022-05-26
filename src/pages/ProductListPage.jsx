@@ -11,8 +11,8 @@ function ProductListPage() {
   const cartList = useSelector(({ cart }) => cart.cart);
   const { addItem, deleteItem } = useCart();
 
-  const handleCartItem = (id, color) => {
-    if (color) {
+  const handleCartItem = (id, isCart) => {
+    if (isCart) {
       deleteItem(id);
       alert(MESSAGE.REMOVE);
       return;
