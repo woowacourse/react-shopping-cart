@@ -13,6 +13,8 @@ export const enum CartActionType {
   PATCH_CART_START = 'cart/PATCH_CART_START',
   PATCH_CART_SUCCEEDED = 'cart/PATCH_CART_SUCCEEDED',
   PATCH_CART_FAILED = 'cart/PATCH_CART_FAILED',
+
+  CHECK_CART_ITEM = 'cart/CHECK_CART_ITEM',
 }
 
 interface GetCartStart {
@@ -55,6 +57,11 @@ interface PatchCartFailed {
   type: CartActionType.PATCH_CART_FAILED;
 }
 
+interface CheckCartItem {
+  type: CartActionType.CHECK_CART_ITEM;
+  payalod: { id: number };
+}
+
 export type CartAction =
   | GetCartStart
   | GetCartSucceeded
@@ -64,7 +71,8 @@ export type CartAction =
   | DeleteCartFailed
   | PatchCartStart
   | PatchCartSucceeded
-  | PatchCartFailed;
+  | PatchCartFailed
+  | CheckCartItem;
 
 export const fetchGetCartAsync = () => async (dispatch: Dispatch<CartAction>) => {
   dispatch({ type: CartActionType.GET_CART_START });

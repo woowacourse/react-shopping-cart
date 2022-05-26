@@ -5,12 +5,14 @@ interface CartState {
   readonly cartList: ProductType[];
   readonly isLoading: boolean;
   readonly loadingCartProductId: number | null;
+  readonly checkedCartItem: number[];
 }
 
 const initialState: CartState = {
   cartList: [],
   isLoading: false,
   loadingCartProductId: null,
+  checkedCartItem: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -73,6 +75,20 @@ const cartReducer = (state = initialState, action) => {
 
     case CartActionType.PATCH_CART_FAILED: {
       return { ...state, loadingCartProductId: null };
+    }
+
+    case CartActionType.CHECK_CART_ITEM: {
+      const {
+        payload: { id },
+      } = action;
+
+      if (state.checkedCartItem.includes(id)) {
+        return {
+          ...state,
+          checkedCartItem: state.checkedCartItem.filter(checkedId => checkedId !== id),
+        };
+      }
+      return { ...state, checkedCartItem: [...state.checkedCartItem, id] };
     }
 
     default: {
