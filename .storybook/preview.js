@@ -10,8 +10,6 @@ import productListReducer from 'store/modules/productList';
 import cartReducer from 'store/modules/cart';
 import selectedItemReducer from 'store/modules/selectedItem';
 
-import {initialize, mswDecorator} from 'msw-storybook-addon';
-
 const rootReducer = combineReducers({
   productListReducer,
   cartReducer,
@@ -28,9 +26,6 @@ addDecorator((story) => (
     </ThemeProvider>
   </Provider>
 ));
-
-initialize();
-addDecorator(mswDecorator);
 
 export const parameters = {
   controls: {
