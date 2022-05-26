@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as cartThunk from 'actions/cart/thunk';
-import { updateCartItemAllChecked, updateCartItemChecked } from 'actions/cart/action';
 
 function useCart() {
   const { items: cartItems } = useSelector((state) => state.cart);
