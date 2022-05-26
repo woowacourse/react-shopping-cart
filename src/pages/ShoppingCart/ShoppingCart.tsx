@@ -6,6 +6,7 @@ import OrderForm from '@/components/order/OrderForm/OrderForm';
 import ErrorContainer from '@/components/common/ErrorContainer/ErrorContainer';
 import Loading from '@/components/common/Loading/Loading';
 import { useThunkFetch } from '@/hooks/useFecth';
+import { useCartList } from '@/hooks/useCartList';
 
 function ShoppingCart() {
   const { isLoading, cartList } = useThunkFetch({
@@ -13,6 +14,12 @@ function ShoppingCart() {
     thunkAction: fetchGetCartAsync,
     deps: [],
   });
+
+  const {
+    amount,
+    cartItemStatusUtil: { checkCartItemLoading, checkCartItemChecked },
+    cartItemEvent: { decreaseCartItemCount, increaseCartItemCount, deleteCartItem, checkCartItem },
+  } = useCartList();
 
   if (isLoading) {
     return (
@@ -40,8 +47,16 @@ function ShoppingCart() {
       <Styled.Container>
         <Styled.Title>장바구니</Styled.Title>
         <Styled.Wrapper>
-          <CartList cartList={cartList} />
-          <OrderForm />
+          <CartList
+            cartList={cartList}
+            checkCartItemLoading={checkCartItemLoading}
+            checkCartItemChecked={checkCartItemChecked}
+            decreaseCartItemCount={decreaseCartItemCount}
+            increaseCartItemCount={increaseCartItemCount}
+            deleteCartItem={deleteCartItem}
+            checkCartItem={checkCartItem}
+          />
+          <OrderForm amount={amount} />
         </Styled.Wrapper>
       </Styled.Container>
     </PageTemplate>

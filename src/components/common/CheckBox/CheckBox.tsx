@@ -34,7 +34,7 @@ function CheckBox({ isChecked, onClick }) {
   return (
     <>
       <CheckBoxLabel checked={isChecked} onClick={onClick} />
-      <CheckBoxInput checked={isChecked} />
+      <CheckBoxInput defaultChecked={isChecked} />
     </>
   );
 }

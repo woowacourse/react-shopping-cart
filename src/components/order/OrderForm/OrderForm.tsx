@@ -1,14 +1,6 @@
 import Button from '@/components/common/Button/Button';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import * as Styled from './OrderForm.style';
-function OrderForm() {
-  const { cartList } = useSelector((state: any) => state.cart);
-
-  const amount = useMemo(
-    () => cartList.reduce((prev, cart) => prev + cart.price * cart.quantity, 0),
-    [cartList],
-  );
+function OrderForm({ amount }) {
   return (
     <Styled.Container>
       <Styled.Title>결제 금액</Styled.Title>
