@@ -14,6 +14,8 @@ import TrashIcon from "@/assets/images/trash.svg";
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
 import StyledHr from "@/pages/cart/components/product-item/hr.styled";
 
+import Checkbox from "@/components/checkbox/Checkbox";
+
 function ProductItem({ item }) {
   const { id, name, price, imgUrl, quantity, checked } = item;
   const dispatch = useDispatch();
@@ -38,13 +40,7 @@ function ProductItem({ item }) {
     <>
       <StyledCartContainer>
         <div className="product-item__left">
-          <input
-            onChange={handleChange}
-            className="checkbox"
-            name="checkbox"
-            type="checkbox"
-            checked={checked}
-          />
+          <Checkbox onChange={handleChange} checked={checked} />
           <img src={imgUrl} alt={name} />
           <span className="cart-name">{name}</span>
         </div>

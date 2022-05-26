@@ -7,6 +7,7 @@ import {
 
 import StyledProductList from "@/pages/cart/components/product-list/ProductList.styled";
 import ProductItem from "@/pages/cart/components/product-item/ProductItem";
+import Checkbox from "@/components/checkbox/Checkbox";
 
 function ProductList() {
   const cartList = useSelector((state) => state.cartListState);
@@ -29,13 +30,10 @@ function ProductList() {
     <StyledProductList>
       <div>
         <div className="checkbox-container">
-          <input
-            className="checkbox"
-            name="checkbox"
-            type="checkbox"
-            onChange={handleChange}
-          />
-          <label className="checkbox-label">선택해제</label>
+          <Checkbox id="checkbox" onChange={handleChange} />
+          <label htmlFor="checkbox" className="checkbox-label">
+            선택해제
+          </label>
         </div>
         <button onClick={handleClick} type="button" className="delete-button">
           상품삭제
