@@ -16,7 +16,7 @@ const useCartList = () => {
 
   return {
     cartData: cartList.data,
-    isAllChecked: cartList.data.every((cart) => cart.isChecked),
+
     checkedItemAmount: cartList.data.filter((cart) => cart.isChecked).length,
     totalPrice: cartList.data
       .filter((cart) => cart.isChecked)

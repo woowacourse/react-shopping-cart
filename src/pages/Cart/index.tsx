@@ -7,7 +7,6 @@ import * as S from "./index.styles";
 const Cart = () => {
   const {
     cartData,
-    isAllChecked,
     changeAllCartChecked,
     deleteAllCheckedCart,
     checkedItemAmount,
@@ -28,8 +27,10 @@ const Cart = () => {
       <S.DeleteButtonContainer>
         <Checkbox
           id={-1}
-          label={isAllChecked ? "선택해제" : "전체선택"}
-          value={isAllChecked}
+          label={
+            checkedItemAmount === cartData.length ? "선택해제" : "전체선택"
+          }
+          value={checkedItemAmount === cartData.length}
           handleChange={handleAllCheckedChange}
         />
         <S.DeleteButton onClick={handleCheckedItemDeleteButton}>
