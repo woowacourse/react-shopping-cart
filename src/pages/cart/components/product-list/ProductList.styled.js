@@ -14,7 +14,7 @@ const StyledProductList = styled.section`
 
       .checkbox {
         appearance: none;
-        border: 1px solid #03cf5b;
+        border: 1px solid ${(props) => props.theme.colors.green};
         border-radius: 2px;
         width: 1.75rem;
         height: 1.75rem;
@@ -26,7 +26,7 @@ const StyledProductList = styled.section`
       }
 
       .checkbox:checked {
-        background-color: #03cf5b;
+        background-color: ${(props) => props.theme.colors.green};
       }
 
       .checkbox:after {
@@ -34,7 +34,7 @@ const StyledProductList = styled.section`
         width: 100%;
         height: 100%;
         font-size: 0.75rem;
-        color: white;
+        color: ${(props) => props.theme.colors.white};
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,7 +47,7 @@ const StyledProductList = styled.section`
 
     .delete-button {
       padding: 12px 22px;
-      border: 1px solid #bbbbbb;
+      border: 1px solid ${(props) => props.theme.colors.gray2};
       cursor: pointer;
     }
   }
@@ -60,7 +60,7 @@ const StyledProductList = styled.section`
   }
 
   .cart-title-border {
-    border: 2px solid #aaaaaa;
+    border: 2px solid ${(props) => props.theme.colors.gray1};
   }
 `;
 

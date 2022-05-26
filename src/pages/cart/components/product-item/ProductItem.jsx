@@ -12,6 +12,7 @@ import {
 
 import TrashIcon from "@/assets/images/trash.svg";
 import StyledCartContainer from "@/pages/cart/components/product-item/ProductItem.styled";
+import StyledHr from "@/pages/cart/components/product-item/hr.styled";
 
 function ProductItem({ item }) {
   const { id, name, price, imgUrl, quantity, checked } = item;
@@ -83,15 +84,9 @@ function ProductItem({ item }) {
           </span>
         </div>
       </StyledCartContainer>
-      <hr css={hrStyle} />
+      <StyledHr />
     </>
   );
 }
-
-const hrStyle = css`
-  width: 100%;
-  border: 1px solid #aaaaaa;
-  margin-top: 10px;
-`;
 
 export default ProductItem;

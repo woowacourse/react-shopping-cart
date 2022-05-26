@@ -11,7 +11,7 @@ const StyledCartContainer = styled.div`
 
     .checkbox {
       appearance: none;
-      border: 1px solid #03cf5b;
+      border: 1px solid ${(props) => props.theme.colors.green};
       border-radius: 2px;
       width: 1.75rem;
       height: 1.75rem;
@@ -24,7 +24,7 @@ const StyledCartContainer = styled.div`
     }
 
     .checkbox:checked {
-      background-color: #03cf5b;
+      background-color: ${(props) => props.theme.colors.green};
     }
 
     .checkbox:after {
@@ -32,7 +32,7 @@ const StyledCartContainer = styled.div`
       width: 100%;
       height: 100%;
       font-size: 0.75rem;
-      color: white;
+      color: ${(props) => props.theme.colors.white};
       display: flex;
       justify-content: center;
       align-items: center;
@@ -73,7 +73,7 @@ const StyledCartContainer = styled.div`
       .number-input {
         width: 72px;
         height: 58px;
-        border: 1px solid #dddddd;
+        border: 1px solid ${(props) => props.theme.colors.gray4};
         text-align: center;
         font-size: 24px;
       }
@@ -87,7 +87,7 @@ const StyledCartContainer = styled.div`
           justify-content: center;
           align-items: center;
           padding: 4px 12px;
-          border: 1px solid #dddddd;
+          border: 1px solid ${(props) => props.theme.colors.gray4};
           font-size: 100%;
           cursor: pointer;
         }
@@ -98,7 +98,7 @@ const StyledCartContainer = styled.div`
       }
 
       .cart-price {
-        color: #333333;
+        color: ${(props) => props.theme.colors.black2};
         align-self: flex-end;
       }
     }

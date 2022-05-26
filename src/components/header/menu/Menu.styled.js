@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "@/styled";
+import { noneStyles } from "@/styles/styled";
 
 const StyledMenu = styled.div`
   display: inline-flex;
@@ -20,7 +20,7 @@ const StyledMenu = styled.div`
         padding: 10px 0;
         font-size: 20px;
         line-height: 20px;
-        color: #ffffff;
+        color: ${(props) => props.theme.colors.white};
       }
     }
   }

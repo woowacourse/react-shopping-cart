@@ -5,7 +5,7 @@ const StyledPrice = styled.section`
   height: 330px;
   margin-left: 5%;
   margin-top: 80px;
-  border: 1px solid #dddddd;
+  border: 1px solid ${(props) => props.theme.colors.gray4};
 
   .cart-right-section__top {
     display: flex;
@@ -22,7 +22,7 @@ const StyledPrice = styled.section`
 
   hr {
     width: 100%;
-    border: 1px solid #aaaaaa;
+    border: 1px solid ${(props) => props.theme.colors.gray1};
   }
 
   .cart-right-section__bottom {
@@ -52,7 +52,7 @@ const StyledPrice = styled.section`
         bottom: 0;
         width: 100%;
         height: 8px;
-        background-color: #03cf5b;
+        background-color: ${(props) => props.theme.colors.green};
         opacity: 0.5;
         z-index: -1;
       }
@@ -68,9 +68,9 @@ const StyledPrice = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #03cf5b;
+        background: ${(props) => props.theme.colors.green};
         font-size: 24px;
-        color: white;
+        color: ${(props) => props.theme.colors.white};
         width: 100%;
         padding: 20px;
         border: none;

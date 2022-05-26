@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "@/styled";
+import { noneStyles } from "@/styles/styled";
 
 const StyledImageButton = styled.button`
   ${noneStyles.button}
@@ -9,7 +9,7 @@ const StyledImageButton = styled.button`
   &:hover {
     svg {
       path {
-        fill: #03cf5b;
+        fill: ${(props) => props.theme.colors.green};
       }
     }
   }

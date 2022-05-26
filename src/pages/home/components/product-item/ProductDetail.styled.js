@@ -9,7 +9,7 @@ const StyledProductDetail = styled.div`
     width: 100%;
   }
 
-  color: #000000;
+  color: ${(props) => props.theme.colors.black1};
   .product-title {
     font-size: 20px;
   }

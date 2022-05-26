@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { noneStyles } from "@/styled";
+import { noneStyles } from "@/styles/styled";
 
 const StyledLogoLink = styled.h1`
   .logo-link {
@@ -7,7 +7,7 @@ const StyledLogoLink = styled.h1`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: #ffffff;
+    color: ${(props) => props.theme.colors.white};
     font-size: 30px;
     font-weight: 900;
     margin-left: 20px;

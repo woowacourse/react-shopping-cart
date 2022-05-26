@@ -15,7 +15,7 @@ const StyledHeader = styled.header`
 
   hr {
     width: 100%;
-    border: 2px solid #333333;
+    border: 2px solid ${(props) => props.theme.colors.black2};
     margin-top: 20px;
   }
 `;
