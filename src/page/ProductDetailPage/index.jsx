@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { Image } from 'components';
 
@@ -8,23 +7,18 @@ import { doPutProductToCart } from 'actions/actionCreator';
 import autoComma from 'utils/autoComma';
 import { LINK } from 'constants';
 import Styled from 'page/ProductDetailPage/index.style';
+import useProduct from 'hooks/useProduct';
+import useCart from 'hooks/useCart';
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { shoppingCart, products } = useSelector(state => state.reducer);
-  const { image, name, price } = products.find(product => product.id === Number(id));
-  const isInCart = shoppingCart.some(product => product.id === Number(id));
+  const params = useParams();
+  const id = Number(params.id);
+  const [{ image, name, price }] = useProduct(id);
+  const [isInCart, product] = useCart(id);
 
   const putCart = () => {
-    if (isInCart) {
-      const { quantity } = shoppingCart.find(product => product.id === Number(id));
-
-      store.dispatch(doPutProductToCart({ id: Number(id), quantity: quantity + 1 }));
-    } else {
-      store.dispatch(doPutProductToCart({ id: Number(id), quantity: 1 }));
-    }
-
+    store.dispatch(doPutProductToCart({ id: id, quantity: isInCart ? product.quantity + 1 : 1 }));
     navigate(LINK.TO_CART);
   };
 
