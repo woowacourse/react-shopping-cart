@@ -1,4 +1,5 @@
 import * as API from "../api";
+import { SNACK_BAR_MESSAGE } from "../constants/constants";
 import { ADD_PRODUCT_IDS, REMOVE_PRODUCT_ID } from "./checkedIds";
 import createReducer from "./createReducer";
 import { REPLACE_PRODUCTS } from "./products";
@@ -49,9 +50,9 @@ export const postCartProduct =
         type: REPLACE_PRODUCTS,
         replaceProducts: replaceProducts,
       });
-      dispatch(successCallback());
+      dispatch(successCallback(SNACK_BAR_MESSAGE.SUCCESS_PUT_IN_SHOPPING_CART));
     } catch (error) {
-      dispatch(failCallback());
+      dispatch(failCallback(SNACK_BAR_MESSAGE.FAIL_PUT_IN_SHOPPING_CART));
     }
   };
 
