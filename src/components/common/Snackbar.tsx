@@ -12,7 +12,7 @@ type Message = typeof MESSAGE[keyof typeof MESSAGE];
 const Snackbar = ({ message }: { message: Message }) => {
   return (
     <Portal id='snackbar'>
-      <StyledSnackbarContents>{message}</StyledSnackbarContents>
+      <StyledSnackbarContents key={Date.now()}>{message}</StyledSnackbarContents>
     </Portal>
   );
 };
