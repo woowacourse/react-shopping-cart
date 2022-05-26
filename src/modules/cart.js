@@ -123,7 +123,7 @@ export default function cart(state = initialState, action) {
     case REQUEST_PRODUCT_ALL_CHECK: {
       const newCarts = state.carts.map((product) => ({
         ...product,
-        isChecked: !product.isCheckedAll,
+        isChecked: !state.isCheckedAll,
       }));
 
       return {
