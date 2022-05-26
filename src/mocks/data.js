@@ -5,8 +5,7 @@ const productList = [
     price: '51000',
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/9fed83ff-2dc3-448b-9aac-1d4a750b3720.jpg',
-    category: 'person',
-    amount: 10,
+    category: 'beverage',
   },
   {
     id: 2,
@@ -15,7 +14,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/dbcb4df8-f202-4388-9d8b-b6f33b05f129.jpg',
     category: 'beverage',
-    amount: 2,
   },
   {
     id: 3,
@@ -24,7 +22,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/5ede0150-620c-422d-8ced-0566746031be.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 4,
@@ -33,7 +30,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/f2ad3aed-57d0-4f6c-a499-ed9b8fa78f06.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 5,
@@ -42,7 +38,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/6488a856-f3cd-4d52-b0e0-59cfa2533cd8.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 6,
@@ -51,7 +46,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/907103a3-db82-4fc2-b123-e609f4f13485.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 7,
@@ -60,7 +54,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/cba781d9-943e-4ea2-a921-a6405096415c.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 8,
@@ -69,7 +62,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/c15d1594-a9dc-49e0-8106-b521ea378789.jpg',
     category: 'beverage',
-    amount: 5,
   },
   {
     id: 9,
@@ -78,7 +70,6 @@ const productList = [
     imageUrl:
       'https://cdn-mart.baemin.com/sellergoods/main/6506f1ca-0a13-48e9-bf7f-3e5e9d86e83b.jpg',
     category: 'beverage',
-    amount: 5,
   },
 ];
 
