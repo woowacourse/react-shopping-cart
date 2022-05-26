@@ -34,13 +34,16 @@ function ProductListPage() {
     <StyledContent>
       <StyledGridContainer>
         {productList.map((product) => {
-          return ProductContainer({
-            product,
-            handleClickItem,
-            onClickCartIcon,
-            productsInCart,
-            idsInCart,
-          });
+          return (
+            <ProductContainer
+              key={product.id}
+              product={product}
+              handleClickItem={handleClickItem}
+              onClickCartIcon={onClickCartIcon}
+              productsInCart={productsInCart}
+              idsInCart={idsInCart}
+            />
+          );
         })}
       </StyledGridContainer>
       <Link to={'/cart'}>
