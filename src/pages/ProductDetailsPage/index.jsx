@@ -19,7 +19,12 @@ const ProductDetailsPage = () => {
 
   const handlePutInShoppingCart = () => {
     dispatch(
-      postCartProduct(id, product, setSnackBarTypeSuccess, setSnackBarTypeFail)
+      postCartProduct(
+        id,
+        product.data,
+        setSnackBarTypeSuccess,
+        setSnackBarTypeFail
+      )
     );
   };
 

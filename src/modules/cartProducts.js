@@ -2,7 +2,6 @@ import * as API from "../api";
 import { ADD_PRODUCT_IDS, REMOVE_PRODUCT_ID } from "./checkedIds";
 import createReducer from "./createReducer";
 import { REPLACE_PRODUCTS } from "./products";
-import { setSnackBarTypeFail, setSnackBarTypeSuccess } from "./snackBar";
 
 const GET_CART_PRODUCTS = "cart-products/GET_CART_PRODUCTS";
 const GET_CART_PRODUCTS_SUCCESS = "cart-products/GET_CART_PRODUCTS_SUCCESS";
@@ -24,14 +23,12 @@ const UPDATE_CART_PRODUCT_QUANTITY_BY_USER_INPUT =
 const POST_CART_PRODUCT = "cart-product/POST_CART_PRODUCT";
 
 export const postCartProduct =
-  (id, newShoppingCartProduct, successCallback, failCallback) =>
+  (id, product, successCallback, failCallback) =>
   async (dispatch, getState) => {
     try {
       const { products } = getState();
-      const newProduct = newShoppingCartProduct.data
-        ? newShoppingCartProduct.data
-        : newShoppingCartProduct;
 
+      const newProduct = { ...product };
       newProduct.isInShoppingCart = true;
 
       await Promise.all([
