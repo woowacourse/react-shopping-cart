@@ -1,12 +1,25 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { CartItem } from "redux/modules/cart";
+import { RootState } from "redux/store";
 
-const selectCartItemById = (state: RootState, targetId: number) => {
-  return state.cart.cartItemList.find((cartItem) => cartItem.id === targetId);
-};
+const findCartItemById = (cartItemList: CartItem[], targetId: number) =>
+  cartItemList.find((cartItem) => cartItem.detail.id === targetId);
+
+const findSelectedCartItems = (cartItemList: CartItem[]) =>
+  cartItemList.filter((cartItem) => cartItem.isSelected);
 
 const useCartItemListSelector = () => useSelector((state: RootState) => state.cart.cartItemList);
-const useCartItemSelector = (id: number) =>
-  useSelector((state: RootState) => selectCartItemById(state, id));
 
-export { useCartItemSelector, useCartItemListSelector };
+const useCartItemSelector = (id: number) => {
+  const cartItemList = useSelector((state: RootState) => state.cart.cartItemList);
+
+  return findCartItemById(cartItemList, id);
+};
+
+const useSelectedCartItemSelector = () => {
+  const cartItemList = useSelector((state: RootState) => state.cart.cartItemList);
+
+  return findSelectedCartItems(cartItemList);
+};
+
+export { useCartItemSelector, useCartItemListSelector, useSelectedCartItemSelector };

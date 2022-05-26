@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+const HeaderText = styled.h2`
+  font-size: 20px;
+  font-weight: 500;
+`;
+
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 60px;
@@ -17,15 +22,9 @@ const HeaderTitle = styled.div`
   align-items: center;
   width: 300px;
   height: 40px;
-
   cursor: pointer;
 
-  & img {
-    width: 40px;
-    height: 36px;
-  }
-
-  & div {
+  ${HeaderText} {
     padding: 14px 20px 5px;
     font-size: 30px;
     font-weight: 900;
@@ -33,6 +32,11 @@ const HeaderTitle = styled.div`
     vertical-align: middle;
     color: #ffffff;
   }
+`;
+
+const HeaderLogo = styled.img`
+  width: 40px;
+  height: 36px;
 `;
 
 const HeaderMenu = styled.div`
@@ -43,9 +47,9 @@ const HeaderMenu = styled.div`
   font-size: 20px;
   color: #fff;
 
-  & div {
+  ${HeaderText} {
     cursor: pointer;
   }
 `;
 
-export { HeaderWrapper, HeaderTitle, HeaderMenu };
+export { HeaderWrapper, HeaderTitle, HeaderMenu, HeaderText, HeaderLogo };

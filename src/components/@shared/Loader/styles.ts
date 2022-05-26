@@ -15,15 +15,15 @@ const LoaderWrapper = styled.div`
   justify-content: center;
   width: 100vw;
   height: 50vh;
-
-  & div {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #2ac1bc;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: ${Spin} 2s linear infinite;
-  }
 `;
 
-export { LoaderWrapper };
+const Spinner = styled.div`
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #2ac1bc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: ${Spin} 2s linear infinite;
+`;
+
+export { LoaderWrapper, Spinner };

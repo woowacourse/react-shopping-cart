@@ -1,6 +1,8 @@
 import axios from "axios";
 
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch } from "../store";
+
+import { API_URL } from "constants/constants";
 
 type Product = {
   name: string;
@@ -41,12 +43,10 @@ const loadProductsSuccess = (productList: Product[]) => ({
 const loadProductsFailed = (error: Error) => ({ type: LOAD_PRODUCTS_FAILED, payload: { error } });
 
 // thunk
-export const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
+const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
   dispatch(loadProducts());
   try {
-    const { data: productList } = await axios.get(
-      "https://react-payments-onstar.herokuapp.com/productList"
-    );
+    const { data: productList } = await axios.get(API_URL);
     dispatch(loadProductsSuccess(productList));
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -76,6 +76,11 @@ const productsReducer = (state = initialState, action: Action) => {
   }
 };
 
-export const selectProductState = (state: RootState) => state.products;
+export const actionCreators = {
+  loadProducts,
+  loadProductsSuccess,
+  loadProductsFailed,
+  loadProductsAPI,
+};
 
 export default productsReducer;

@@ -1,7 +1,7 @@
 import NotFound from "components/@shared/NotFound";
 
-function OrderList() {
+function NotFoundPage() {
   return <NotFound />;
 }
 
-export default OrderList;
+export default NotFoundPage;

@@ -1,37 +1,37 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import * as Styled from "./styles";
+import { actionCreators as productsActions, ProductState } from "redux/modules/products";
 
-import Product from "../../components/Product";
-import Loader from "../../components/@shared/Loader";
+import Product from "components/Product";
+import Loader from "components/@shared/Loader";
 
-import { loadProductsAPI, ProductState, selectProductState } from "../../redux/modules/products";
+import * as S from "./styles";
+import { useProductsStateSelector } from "hooks/useProductSelector";
 
 function ProductList() {
-  const { productList, loading, error }: ProductState = useSelector(selectProductState);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadProductsAPI());
-  }, [dispatch]);
+  const { productList, loading, error }: ProductState = useProductsStateSelector();
 
   useEffect(() => {
-    if (error) {
-      alert(error.message);
-    }
-  }, [error]);
+    dispatch(productsActions.loadProductsAPI());
+  }, []);
+
+  if (error) {
+    alert(error.message);
+  }
 
   if (loading) {
     return <Loader />;
   }
 
   return (
-    <Styled.ProductsWrapper>
+    <S.ProductsWrapper>
       {productList.map((product) => (
         <Product key={product.id} productInfo={product} />
       ))}
-    </Styled.ProductsWrapper>
+    </S.ProductsWrapper>
   );
 }
 
