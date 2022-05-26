@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../modules";
-import { getProductsByPage } from "../modules/products";
-import { ProductListAction, Products } from "../modules/products/type";
+import { RootState } from "../../modules";
+import { getProductsByPage } from "../../modules/products";
+import { ProductListAction, Products } from "../../modules/products/type";
 import { useAppDispatch } from "./useAppDispatch";
 
 const useProductList = () => {

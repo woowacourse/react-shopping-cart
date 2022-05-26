@@ -1,8 +1,8 @@
 import Checkbox from "../../@shared/Checkbox";
 import NumberInputButton from "../../@shared/NumberInputButton";
 import * as S from "./index.styles";
-import useProduct from "../../../hooks/useProduct";
-import useCartItem from "../../../hooks/useCart";
+import useProduct from "../../../hooks/Domain/useProduct";
+import useCartItem from "../../../hooks/Domain/useCart";
 import { isCart } from "../../../types/cart";
 import React from "react";
 import { isProduct } from "../../../types/product";

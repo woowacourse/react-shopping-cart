@@ -1,7 +1,7 @@
 import CartItem from "../../components/Cart/CartItem";
 import CartOrderContainer from "../../components/Cart/CartOrder";
 import Checkbox from "../../components/@shared/Checkbox";
-import useCartList from "../../hooks/useCartList";
+import useCartList from "../../hooks/Domain/useCartList";
 import * as S from "./index.styles";
 
 const Cart = () => {

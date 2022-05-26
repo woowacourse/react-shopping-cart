@@ -3,14 +3,14 @@ import GridWrapper from "../../components/@shared/GridWrapper";
 import ItemSkeleton from "../../components/Product/ItemSkeleton";
 import { v4 as uuidv4 } from "uuid";
 import throttle from "../../utils/throttle";
-import useInfinityScroll from "../../hooks/useInfinityScroll";
+import useInfinityScroll from "../../hooks/UI/useInfinityScroll";
 import { LOAD_ITEM_AMOUNT } from "../../constants";
-import useProductList from "../../hooks/useProductList";
+import useProductList from "../../hooks/Domain/useProductList";
 
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../../types/product";
 import Item from "../../components/Product/Item";
-import useCartList from "../../hooks/useCartList";
+import useCartList from "../../hooks/Domain/useCartList";
 
 const DELAY_TIME = 500;
 

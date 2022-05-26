@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { getProductById } from "../api";
-import { Product } from "../modules/product/type";
+import { getProductById } from "../../api";
+import { Product } from "../../modules/product/type";
 
 const useProduct = (id: number) => {
   const [productData, setProductData] = useState<Product>({

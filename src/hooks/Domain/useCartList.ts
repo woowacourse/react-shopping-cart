@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../modules";
+import { RootState } from "../../modules";
 import {
   Cart,
   CartAction,
   CartActionType,
   PatchCartStock,
-} from "../modules/cart/type";
-import { CartType } from "../types/cart";
+} from "../../modules/cart/type";
+import { CartType } from "../../types/cart";
 import { useAppDispatch } from "./useAppDispatch";
 
 const useCartList = () => {

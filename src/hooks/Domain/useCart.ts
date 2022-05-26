@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../modules";
-import { Cart, CartAction, CartActionType } from "../modules/cart/type";
+import { RootState } from "../../modules";
+import { Cart, CartAction, CartActionType } from "../../modules/cart/type";
 import { useAppDispatch } from "./useAppDispatch";
 
 const useCartItem = (targetId: string) => {
