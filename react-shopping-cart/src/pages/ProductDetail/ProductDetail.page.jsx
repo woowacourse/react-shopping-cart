@@ -56,7 +56,7 @@ function ProductDetail() {
         onClick={handleClickAddShoppingCart}
       >
         <Text style={{ color: PALETTE.WHITE_001 }} bold={true} fontSize="extraLarge">
-          장바구니
+          {isContained ? '장바구니 빼기' : '장바구니 담기'}
         </Text>
       </Button>
     </FlexWrapper>
