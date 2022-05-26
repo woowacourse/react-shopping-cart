@@ -1,4 +1,4 @@
-import { GridLayout } from 'components/@common';
+import GridLayout from './GridLayout';
 import { ListProduct } from 'components';
 
 export default {

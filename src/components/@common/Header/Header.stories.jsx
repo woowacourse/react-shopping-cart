@@ -1,4 +1,4 @@
-import { Header } from 'components/@common';
+import Header from './Header';
 
 export default {
   title: 'Components/@Common/Header',

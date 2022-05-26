@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { PageLayout } from 'components';
+import PageLayout from './PageLayout';
 
 export default {
   title: 'Components/PageLayout',

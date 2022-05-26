@@ -1,4 +1,4 @@
-import { Result } from 'components';
+import Result from './Result';
 
 export default {
   title: 'Components/Result',

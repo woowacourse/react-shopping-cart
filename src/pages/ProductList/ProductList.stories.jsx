@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { ProductList } from 'pages';
+import ProductList from './ProductList';
 
 export default {
   title: 'Pages/ProductList',

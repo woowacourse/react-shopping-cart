@@ -1,4 +1,4 @@
-import { ListProduct } from 'components';
+import ListProduct from './ListProduct';
 
 export default {
   title: 'Components/ListProduct',

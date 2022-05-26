@@ -1,4 +1,4 @@
-import { CartProduct } from 'components';
+import CartProduct from './CartProduct';
 
 export default {
   title: 'Components/CartProduct',

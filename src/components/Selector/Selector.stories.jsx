@@ -1,4 +1,4 @@
-import { Selector } from 'components';
+import Selector from './Selector';
 
 export default {
   title: 'Components/Selector',

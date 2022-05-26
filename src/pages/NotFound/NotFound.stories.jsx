@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { NotFound } from 'pages';
+import NotFound from './NotFound';
 
 export default {
   title: 'Pages/NotFound',

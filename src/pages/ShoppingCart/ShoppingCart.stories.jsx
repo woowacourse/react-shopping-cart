@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { ShoppingCart } from 'pages';
+import ShoppingCart from './ShoppingCart';
 
 export default {
   title: 'Pages/ShoppingCart',
