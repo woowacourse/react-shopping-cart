@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ACTION_TYPE from 'redux/cart/cartActions';
+import {
+  addProductToCart,
+  removeProductFromCart,
+  subtractCartProductQuantity,
+  toggleCartProductCheck,
+} from 'redux/cart/cartActions';
 
 import { Button } from 'components/@common';
 import { Selector } from 'components';
@@ -21,26 +26,26 @@ function CartProduct({ id, image, name, quantity, price }) {
   }, [checkedProducts]);
 
   const onChangeSelector = () => {
-    dispatch({ type: ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK, payload: { id } });
+    dispatch(toggleCartProductCheck(id));
     setChecked(prevChecked => !prevChecked);
   };
 
   const onClickDeleteButton = () => {
-    dispatch({ type: ACTION_TYPE.REMOVE_PRODUCT_FROM_CART, payload: { id } });
+    dispatch(removeProductFromCart(id));
   };
 
   const onClickQuantityControlButton = ({ target }) => {
     if (target.getAttribute('type') === 'increment') {
       if (quantity >= CART_PRODUCT.MAX_QUANTITY) return;
 
-      dispatch({ type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: { id } });
+      dispatch(addProductToCart(id));
 
       return;
     }
 
     if (quantity <= CART_PRODUCT.MIN_QUANTITY) return;
 
-    dispatch({ type: ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY, payload: { id } });
+    dispatch(subtractCartProductQuantity(id));
   };
 
   return (

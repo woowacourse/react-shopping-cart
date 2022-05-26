@@ -2,7 +2,7 @@ import * as S from './ListProduct.styles';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-import ACTION_TYPE from 'redux/cart/cartActions';
+import { addProductToCart } from 'redux/cart/cartActions';
 
 import { Button } from 'components/@common';
 
@@ -12,7 +12,7 @@ function ListProduct({ id, image, name, price }) {
   const dispatch = useDispatch();
 
   const onClickShoppingCartIcon = () => {
-    dispatch({ type: ACTION_TYPE.ADD_PRODUCT_TO_CART, payload: { id, image, name, price } });
+    dispatch(addProductToCart(id, image, name, price));
   };
 
   return (

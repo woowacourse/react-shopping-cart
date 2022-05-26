@@ -2,7 +2,7 @@ import * as S from './ShoppingCart.styles';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ACTION_TYPE from 'redux/cart/cartActions';
+import { removeSelectedProductsFromCart, toggleAllCartProductsCheck } from 'redux/cart/cartActions';
 
 import { Button } from 'components/@common';
 import { CartProduct, PageLayout, Result, Selector } from 'components';
@@ -26,17 +26,14 @@ function ShoppingCart() {
   }, [products, checkedProducts]);
 
   const onChangeAllSelector = ({ target }) => {
-    dispatch({
-      type: ACTION_TYPE.TOGGLE_ALL_CART_PRODUCTS_CHECK,
-      payload: { checked: target.checked },
-    });
+    dispatch(toggleAllCartProductsCheck(target.checked));
     setChecked(prevChecked => !prevChecked);
   };
 
   const onClickSelectDeleteButton = () => {
     if (!checkedProducts.length) return;
 
-    dispatch({ type: ACTION_TYPE.REMOVE_SELECTED_PRODUCTS_FROM_CART });
+    dispatch(removeSelectedProductsFromCart());
   };
 
   return (
