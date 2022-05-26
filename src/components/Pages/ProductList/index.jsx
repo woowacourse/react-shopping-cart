@@ -34,7 +34,7 @@ const ProductList = ({ onAddCartButtonClick }) => {
 
   useEffect(() => {
     dispatch(getProductList());
-  }, [dispatch]);
+  }, []);
 
   if (loading) {
     return (
