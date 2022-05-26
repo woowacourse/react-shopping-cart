@@ -2,7 +2,7 @@ import Checkbox from "../Checkbox";
 import NumberInputButton from "../NumberInputButton";
 import * as S from "./index.styles";
 import useProduct from "../../hooks/useProduct";
-import useCart from "../../hooks/useCart";
+import useCartItem from "../../hooks/useCart";
 import { isCart } from "../../types/cart";
 import React from "react";
 import { isProduct } from "../../types/product";
@@ -12,42 +12,43 @@ interface CartItemPros {
   cartId: string;
 }
 
+let imgUrl = "",
+  price = 0,
+  title = "";
+let stock = 0,
+  isChecked = false;
+
 const CartItem = ({ id, cartId }: CartItemPros) => {
   const { product } = useProduct(id);
-  const { getCart, changeCartStock, changeCartChecked, deleteCart } = useCart();
-  const cart = getCart(cartId);
-  let stock = 0,
-    isChecked = false;
+  const { getCart, changeCartStock, changeCartChecked, deleteCart } =
+    useCartItem(cartId);
+  const cart = getCart();
 
   if (isCart(cart)) {
     stock = cart.stock;
     isChecked = cart.isChecked;
   }
 
-  let imgUrl = "",
-    price = 0,
-    title = "";
-
   const handleUpStockButton = () => {
-    changeCartStock(cartId, stock + 1);
+    changeCartStock(stock + 1);
   };
 
   const handleDownStockButton = () => {
     if (stock <= 1) return;
-    changeCartStock(cartId, stock - 1);
+    changeCartStock(stock - 1);
   };
 
   const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") return changeCartStock(cartId, 1);
-    changeCartStock(cartId, e.target.valueAsNumber);
+    if (e.target.value === "") return changeCartStock(1);
+    changeCartStock(e.target.valueAsNumber);
   };
 
   const handleChangeClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeCartChecked(cartId, e.target.checked);
+    changeCartChecked(e.target.checked);
   };
 
   const handleDeleteButton = () => {
-    deleteCart(cartId);
+    deleteCart();
   };
 
   if (!Object.keys(product).length || product.isLoading) {

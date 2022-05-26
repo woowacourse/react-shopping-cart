@@ -1,7 +1,7 @@
 import CartItem from "../../components/CartItem";
 import CartOrderContainer from "../../components/CartOrder";
 import Checkbox from "../../components/Checkbox";
-import useCart from "../../hooks/useCart";
+import useCartList from "../../hooks/useCartList";
 import * as S from "./index.styles";
 
 const Cart = () => {
@@ -12,7 +12,7 @@ const Cart = () => {
     deleteAllCheckedCart,
     checkedItemAmount,
     totalPrice,
-  } = useCart();
+  } = useCartList();
 
   const handleAllCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeAllCartChecked(e.target.checked);

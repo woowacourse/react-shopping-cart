@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
-import useCart from "../../hooks/useCart";
+import useCartList from "../../hooks/useCartList";
 import useProduct from "../../hooks/useProduct";
 import { isProduct } from "../../types/product";
 import * as S from "./index.styles";
 
 const Detail = () => {
   const { id } = useParams();
-  const { createNewCart } = useCart();
+  const { createNewCart } = useCartList();
   const { product } = useProduct(Number(id));
 
   if (product.isLoading) {

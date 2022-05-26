@@ -8,9 +8,9 @@ import { LOAD_ITEM_AMOUNT } from "../../constants";
 import useProductList from "../../hooks/useProductList";
 
 import { useNavigate } from "react-router-dom";
-import useCart from "../../hooks/useCart";
 import { ProductType } from "../../types/product";
 import Item from "../../components/Item";
+import useCartList from "../../hooks/useCartList";
 
 const DELAY_TIME = 500;
 
@@ -18,7 +18,7 @@ const ProductList: Function = (
   products: ProductType[]
 ): React.ReactElement[] => {
   const navigate = useNavigate();
-  const { createNewCart } = useCart();
+  const { createNewCart } = useCartList();
 
   const handleItemClick = (id: number) => {
     navigate(`/product/${id}`);
