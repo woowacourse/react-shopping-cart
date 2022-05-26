@@ -1,19 +1,19 @@
 import { requestGetProductList } from 'api/products';
 import { REQUEST_STATUS } from 'constants/';
 
-import { getProductListAction } from './action';
+import * as productsAction from './action';
 
-const getProductList =
+const getList =
   (page = 1) =>
   async (dispatch) => {
-    dispatch(getProductListAction.pending());
+    dispatch(productsAction.getList.pending());
 
     const { status, content } = await requestGetProductList(page);
 
-    (status === REQUEST_STATUS.SUCCESS && dispatch(getProductListAction.success(content))) ||
-      (status === REQUEST_STATUS.FAIL && dispatch(getProductListAction.error(content)));
+    (status === REQUEST_STATUS.SUCCESS && dispatch(productsAction.getList.success(content))) ||
+      (status === REQUEST_STATUS.FAIL && dispatch(productsAction.getList.error(content)));
 
     return true;
   };
 
-export { getProductList };
+export { getList };

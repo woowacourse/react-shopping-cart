@@ -1,7 +1,7 @@
 import { createAsyncState } from 'lib/requestUtils';
 import { PRODUCTS_ACTIONS } from '../types';
 
-const getProductListAction = {
+const getList = {
   pending: () => ({
     type: PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_PENDING,
     async: createAsyncState.pending(),
@@ -19,4 +19,4 @@ const getProductListAction = {
   }),
 };
 
-export { getProductListAction };
+export { getList };

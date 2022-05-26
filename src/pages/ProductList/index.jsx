@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductList } from 'actions/products/thunk';
+
+import * as productsThunk from 'actions/products/thunk';
+import * as cartThunk from 'actions/cart/thunk';
 
 import useCart from 'hooks/useCart';
 
@@ -16,21 +18,21 @@ export function ProductList() {
   const productState = useSelector((state) => state.products);
   const { content: products, isLoading, error: errorMessage } = productState.productInfo;
 
-  const { action: cartAction, state: cartState } = useCart();
+  const { state: cartState } = useCart();
   const { cartItems } = cartState;
 
   useEffect(() => {
-    dispatch(getProductList());
+    dispatch(productsThunk.getList());
   }, []);
 
   const handleAddCart = ({ id, image, name, price }) => {
-    cartAction.addItem({ id, image, name, price }).then(() => {
+    dispatch(cartThunk.addList({ id, image, name, price })).then(() => {
       cartState.isLoaded && alert('해당 상품을 장바구니에 추가하였습니다.');
     });
   };
 
   const handleRemoveCart = ({ id }) => {
-    cartAction.removeItem(id).then(() => {
+    dispatch(cartThunk.removeItem(id)).then(() => {
       cartState.isLoaded && alert('해당 상품을 장바구니에서 제거하였습니다.');
     });
   };
