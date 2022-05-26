@@ -14,7 +14,7 @@ const StyledLoading = styled.div`
 
   @keyframes loadingspin {
     100% {
-      transform: rotate(360deg);
+      transform: rotate(-360deg);
     }
   }
 `;
