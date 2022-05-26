@@ -14,6 +14,12 @@ function NumberInput({
 }) {
   const [localValue, setLocalValue] = useState(value);
 
+  useEffect(() => {
+    if (onChange && localValue !== value) {
+      onChange(localValue);
+    }
+  }, [localValue, value, onChange]);
+
   const handleChange = (e) => {
     const { target } = e;
     const { selectionStart } = target;
@@ -39,12 +45,6 @@ function NumberInput({
       positive ? Math.max(0, Number(prev) - step) : Number(prev) - step
     );
   };
-
-  useEffect(() => {
-    if (onChange && localValue !== value) {
-      onChange(localValue);
-    }
-  }, [localValue, value, onChange]);
 
   return (
     <div className={cn(styles.numberInput, className)}>
