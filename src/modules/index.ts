@@ -4,7 +4,6 @@ import thunk from "../lib/thunk";
 import { cartReducer } from "./cart";
 import { Cart } from "./cart/type";
 
-import { Product } from "./product/type";
 import { productsReducer } from "./products";
 import { Products } from "./products/type";
 
@@ -17,9 +16,10 @@ export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
-export default rootReducer;
+
 export interface RootState {
-  product: Product;
   products: Products;
   cart: Cart;
 }
+
+export default rootReducer;

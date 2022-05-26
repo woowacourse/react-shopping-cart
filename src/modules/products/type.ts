@@ -1,6 +1,6 @@
 import { ProductType } from "../../types/product";
 
-export enum ProductsListActionType {
+export const enum ProductsListActionType {
   GET_PRODUCTS = "products/GET_PRODUCTS",
   GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS",
   GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR",
