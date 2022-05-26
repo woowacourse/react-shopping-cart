@@ -1,10 +1,12 @@
-import axios from 'axios';
-import {API_URL} from 'constant';
+const checkedQuantityPrice = (checkedItems) =>
+  checkedItems.reduce(
+    (prev, cur) => {
+      return {
+        totalQuantity: cur.quantity + prev.totalQuantity,
+        totalPrice: cur.price * cur.quantity + prev.totalPrice,
+      };
+    },
+    {totalQuantity: 0, totalPrice: 0},
+  );
 
-const appClient = axios.create({
-  baseURL: API_URL,
-  timeout: 1000,
-  responseType: 'json',
-});
-
-export default appClient;
+export {checkedQuantityPrice};
