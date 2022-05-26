@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Product from '../components/Product';
 import useFetch from '../hooks/useFetch';
 import Loading from '../components/Loading';
-import { MESSAGE, SERVER_PATH } from '../constant';
+import { MESSAGE, SERVER_PATH } from '../constants';
 import useCart from '../hooks/useCart';
 
 function ProductListPage() {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SERVER_PATH } from '../../constant';
+import { SERVER_PATH } from '../../constants';
 
 const actionTypes = {
   ADD_CART: 'ADD_CART',

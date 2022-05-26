@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
-import { MESSAGE } from '../constant';
+import { MESSAGE } from '../constants';
 import useCart from '../hooks/useCart';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedItem }) {

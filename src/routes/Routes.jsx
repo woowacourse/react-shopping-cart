@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { ROUTES_PATH } from '../constant';
+import { ROUTES_PATH } from '../constants';
 import Loading from '../components/Loading';
 
 const Loadable = (Component) => (props) =>

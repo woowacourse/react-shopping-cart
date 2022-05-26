@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { SERVER_PATH } from '../constant';
+import { SERVER_PATH } from '../constants';
 import { productList } from './data';
 
 let cartList = [];

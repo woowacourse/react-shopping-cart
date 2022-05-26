@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
-import { MESSAGE } from '../constant';
+import { MESSAGE } from '../constants';
 import useCart from '../hooks/useCart';
 
 function ShoppingCart() {

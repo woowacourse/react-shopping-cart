@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
 import { Link } from 'react-router-dom';
-import { ROUTES_PATH } from '../constant';
+import { ROUTES_PATH } from '../constants';
 
 function Header() {
   return (

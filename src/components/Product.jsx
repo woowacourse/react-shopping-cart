@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from './common/Styled';
-import { ROUTES_PATH, SIZE } from '../constant/index';
+import { ROUTES_PATH, SIZE } from '../constants/index';
 import { COLORS } from '../styles/theme';
 
 function Product({ productData, handleCartItem, isCart }) {

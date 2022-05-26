@@ -1,10 +1,9 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledImageBox, StyledImg } from '../components/common/Styled';
-import { MESSAGE, SERVER_PATH } from '../constant';
+import { MESSAGE, SERVER_PATH, SIZE } from '../constants';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
-import { SIZE } from '../constant';
 import useFetch from '../hooks/useFetch';
 import useCart from '../hooks/useCart';
 
