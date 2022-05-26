@@ -3,7 +3,7 @@ import NumberInputButton from "../NumberInputButton";
 import * as S from "./index.styles";
 import useProduct from "../../hooks/useProduct";
 import useCart from "../../hooks/useCart";
-import { CartType } from "../../types/cart";
+import { isCart } from "../../types/cart";
 import React from "react";
 import { isProduct } from "../../types/product";
 
@@ -15,18 +15,26 @@ interface CartItemPros {
 const CartItem = ({ id, cartId }: CartItemPros) => {
   const { product } = useProduct(id);
   const { getCart, changeCartStock, changeCartChecked, deleteCart } = useCart();
-  const cart = getCart(cartId) as CartType;
+  const cart = getCart(cartId);
+  let stock = 0,
+    isChecked = false;
+
+  if (isCart(cart)) {
+    stock = cart.stock;
+    isChecked = cart.isChecked;
+  }
+
   let imgUrl = "",
     price = 0,
     title = "";
 
   const handleUpStockButton = () => {
-    changeCartStock(cartId, cart.stock + 1);
+    changeCartStock(cartId, stock + 1);
   };
 
   const handleDownStockButton = () => {
-    if (cart?.stock <= 1) return;
-    changeCartStock(cartId, cart.stock - 1);
+    if (stock <= 1) return;
+    changeCartStock(cartId, stock - 1);
   };
 
   const handleChangeNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +47,7 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
   };
 
   const handleDeleteButton = () => {
-    deleteCart(cart.id);
+    deleteCart(cartId);
   };
 
   if (!Object.keys(product).length) {
@@ -59,23 +67,19 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
   return (
     <S.CartItemContainer>
       <S.ItemContainer>
-        <Checkbox
-          id={id}
-          value={cart?.isChecked}
-          handleChange={handleChangeClick}
-        />
+        <Checkbox id={id} value={isChecked} handleChange={handleChangeClick} />
         <S.ItemImage src={imgUrl} alt={`${title}이미지`} />
         <span>{title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
         <S.CartButton onClick={handleDeleteButton}>🗑</S.CartButton>
         <NumberInputButton
-          value={cart?.stock}
+          value={stock}
           downButtonClick={handleDownStockButton}
           upButtonClick={handleUpStockButton}
           handleChange={handleChangeNumber}
         />
-        <p>{(price * cart?.stock).toLocaleString("ko-kr")}원</p>
+        <p>{(price * stock).toLocaleString("ko-kr")}원</p>
       </S.ItemRightContainer>
     </S.CartItemContainer>
   );
