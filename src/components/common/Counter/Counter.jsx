@@ -1,12 +1,13 @@
 import React from 'react';
-import * as Styled from './Counter.style';
 
-function Counter({ count, increase, decrease }) {
+import * as Styled from 'components/common/Counter/Counter.style';
+
+function Counter({ count, onIncrement, onDecrement }) {
   return (
     <Styled.CounterContainer>
-      <Styled.CounterButton onClick={decrease}>-</Styled.CounterButton>
+      <Styled.CounterButton onClick={onDecrement}>-</Styled.CounterButton>
       <Styled.Count>{count}</Styled.Count>
-      <Styled.CounterButton onClick={increase}>+</Styled.CounterButton>
+      <Styled.CounterButton onClick={onIncrement}>+</Styled.CounterButton>
     </Styled.CounterContainer>
   );
 }

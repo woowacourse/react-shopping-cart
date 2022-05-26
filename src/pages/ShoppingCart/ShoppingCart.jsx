@@ -1,11 +1,18 @@
 import React from 'react';
-import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
+
+import { CartProductList, OrderContainer } from 'components/cart';
+import { PageTemplate, PageTitle } from 'components/common';
+
+import * as Styled from 'pages/ShoppingCart/ShoppingCart.style';
 
 function ShoppingCart() {
   return (
     <PageTemplate>
-      <ErrorMessage>🚧 아직 준비 중인 서비스입니다. 🚧 </ErrorMessage>
+      <PageTitle>장바구니</PageTitle>
+      <Styled.ContentContainer>
+        <CartProductList />
+        <OrderContainer />
+      </Styled.ContentContainer>
     </PageTemplate>
   );
 }

@@ -1,10 +1,13 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import { useSelector } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
-import * as Styled from './Pagination.style';
+import { productCountSelector } from 'store/selector';
+
+import * as Styled from 'components/common/Pagination/Pagination.style';
 
 function Pagination() {
-  const pageCount = useSelector(({ product }) => product.pageCount);
+  const pageCount = useSelector(productCountSelector);
 
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get('page') ?? 1;
@@ -12,11 +15,20 @@ function Pagination() {
   return (
     <Styled.Container>
       <Styled.Inner>
-        {Array.from({ length: pageCount }).map((_, index) => (
-          <Link key={index} to={`./?page=${index + 1}`}>
-            <Styled.Button isCurrent={index + 1 === Number(currentPage)}>{index + 1}</Styled.Button>
-          </Link>
-        ))}
+        {Array.from({ length: pageCount }).map((_, index) => {
+          const pageNumber = index + 1;
+          const isCurrent = pageNumber === Number(currentPage);
+
+          return (
+            <Styled.CustomLink
+              key={index}
+              to={`./?page=${pageNumber}`}
+              $isCurrent={isCurrent}
+            >
+              <Styled.Button $isCurrent={isCurrent}>{pageNumber}</Styled.Button>
+            </Styled.CustomLink>
+          );
+        })}
       </Styled.Inner>
     </Styled.Container>
   );

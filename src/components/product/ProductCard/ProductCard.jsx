@@ -1,16 +1,20 @@
-import Image from '../../common/Image/Image';
-import * as Styled from './ProductCard.style';
-import * as GlobalStyled from '../../../styles/GlobalStyles';
-import Icon from '../../common/Icon/Icon';
-import Modal from '../../common/Modal/Modal';
-import { useModal } from '../../../hooks/useModal';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import CartAdd from '../CartAdd/CartAdd';
+
+import { useModal } from 'hooks/useModal';
+
+import { Image, Icon, Modal } from 'components/common';
+
+import { CartAddForm } from 'components/product';
+
+import * as Styled from 'components/product/ProductCard/ProductCard.style';
+import { color } from 'styles/Theme';
+import * as GlobalStyled from 'styles/GlobalStyles';
 
 function ProductCard({ product }) {
   const { id, imageURL, name, price } = product;
 
-  const [isShowModal, openModal, closeModal] = useModal();
+  const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const onClickCard = () => {
@@ -35,13 +39,13 @@ function ProductCard({ product }) {
 
       <GlobalStyled.Position position="absolute" bottom="5px" right="5px">
         <Styled.TransparentButton type="button" onClick={onClickCartButton}>
-          <Icon iconName="cart" />
+          <Icon iconName="Cart" fill={color.DARK_GRAY} />
         </Styled.TransparentButton>
       </GlobalStyled.Position>
 
-      {isShowModal && (
+      {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <CartAdd product={product} closeModal={closeModal} />
+          <CartAddForm product={product} closeModal={closeModal} />
         </Modal>
       )}
     </GlobalStyled.Position>

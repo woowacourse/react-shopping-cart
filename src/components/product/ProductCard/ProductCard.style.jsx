@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { color } from 'styles/Theme';
 
 export const Container = styled.div`
   display: flex;
@@ -42,10 +43,10 @@ export const TransparentButton = styled.button`
 `;
 
 export const Placeholder = styled.div`
-  border-radius: 4px;
   width: 100%;
   aspect-ratio: ${({ shape }) => (shape === 'square' ? '1 / 1' : '10 / 1')};
-  background-image: linear-gradient(90deg, #e0e0e0 0px, #ededed 30px, #e0e0e0 60px);
+  background-image: ${({ theme: { colorConfig } }) =>
+    `linear-gradient(90deg, ${colorConfig.skeleton} 0, ${color.NEAR_WHITE_02} 30px, ${colorConfig.skeleton} 60px)`};
   animation: refresh 2s infinite ease-out;
 
   @keyframes refresh {

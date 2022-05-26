@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -20,9 +21,11 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Position = styled.div`
-  position: ${({ position = 'relative' }) => position};
-  top: ${({ top }) => top};
-  bottom: ${({ bottom }) => bottom};
-  left: ${({ left }) => left};
-  right: ${({ right }) => right};
+  ${({ position = 'relative', top, bottom, left, right }) => css`
+    position: ${position};
+    top: ${top};
+    bottom: ${bottom};
+    left: ${left};
+    right: ${right};
+  `}
 `;

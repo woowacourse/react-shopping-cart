@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as Styled from './Modal.style';
+
+import * as Styled from 'components/common/Modal/Modal.style';
 
 function Modal({ children, closeModal }) {
-  const onClickDimmed = e => {
+  const handleModalClose = (e) => {
     if (e.target === e.currentTarget) {
       closeModal();
     }
   };
+
   return ReactDOM.createPortal(
-    <Styled.Dimmed onClick={onClickDimmed}>
+    <Styled.Root>
       <Styled.Container>{children}</Styled.Container>
-    </Styled.Dimmed>,
+      <Styled.Backdrop onClick={handleModalClose} />
+    </Styled.Root>,
     document.querySelector('#root'),
   );
 }

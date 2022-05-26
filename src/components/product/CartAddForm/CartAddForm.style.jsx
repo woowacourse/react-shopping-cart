@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { css } from 'styled-components';
 
 export const Container = styled.div`
   min-width: 250px;
@@ -33,8 +34,10 @@ export const Title = styled.p``;
 export const TotalPrice = styled.h1``;
 
 export const Button = styled.button`
-  background-color: ${({ theme }) => theme.mainColor};
-  color: ${({ theme }) => theme.textColorWhite};
+  ${({ theme }) => css`
+    background-color: ${theme.colorConfig.primary};
+    color: ${theme.colorConfig.textWhite};
+  `}
   font-weight: bold;
 
   border: 0;

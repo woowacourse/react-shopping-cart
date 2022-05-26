@@ -4,10 +4,11 @@ export const CounterContainer = styled.div`
   display: flex;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.mainColor};
+  border: 1px solid ${({ theme }) => theme.colorConfig.primary};
 `;
 
 export const CounterButton = styled.button`
+  width: 30px;
   background-color: transparent;
   font-weight: bold;
   cursor: pointer;

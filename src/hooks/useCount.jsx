@@ -1,12 +1,14 @@
 import { useState } from 'react';
 
+import { WARNING_MESSAGES } from 'constants/messages';
+
 export const useCount = ({ initialValue, min, max }) => {
   const [count, setCount] = useState(initialValue);
 
-  const increaseCount = () => {
-    setCount(prev => {
+  const handleIncrement = () => {
+    setCount((prev) => {
       if (prev === max) {
-        alert('구입할 수 있는 최대 수량입니다.');
+        alert(WARNING_MESSAGES.MAX_QUANTITY);
         return prev;
       }
 
@@ -14,10 +16,10 @@ export const useCount = ({ initialValue, min, max }) => {
     });
   };
 
-  const decreaseCount = () => {
-    setCount(prev => {
+  const handleDecrement = () => {
+    setCount((prev) => {
       if (prev === min) {
-        alert('구입할 수 있는 최소 수량입니다.');
+        alert(WARNING_MESSAGES.MIN_QUANTITY);
         return prev;
       }
 
@@ -25,5 +27,5 @@ export const useCount = ({ initialValue, min, max }) => {
     });
   };
 
-  return [count, increaseCount, decreaseCount];
+  return [count, handleIncrement, handleDecrement];
 };

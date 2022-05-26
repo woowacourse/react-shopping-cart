@@ -1,12 +1,15 @@
-import * as Styled from './PageTemplate.style';
-import Header from '../Header/Header';
+import React from 'react';
+
+import { Header } from 'components/common';
+
+import * as Styled from 'components/common/PageTemplate/PageTemplate.style';
 
 function PageTemplate({ children }) {
   return (
-    <>
+    <div className="app">
       <Header />
       <Styled.Main>{children}</Styled.Main>
-    </>
+    </div>
   );
 }
 

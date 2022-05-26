@@ -1,13 +1,22 @@
 import React from 'react';
-import * as Styled from './CartAdd.style';
-import * as GlobalStyled from '../../../styles/GlobalStyles';
-import Counter from '../../common/Counter/Counter';
-import { useCount } from '../../../hooks/useCount';
-function CartAdd({ product: { name, price, quantity }, closeModal }) {
-  const [count, increase, decrease] = useCount({ initialValue: 1, min: 1, max: quantity });
+
+import { Counter } from 'components/common';
+import { useCount } from 'hooks/useCount';
+
+import * as Styled from 'components/product/CartAddForm/CartAddForm.style';
+import * as GlobalStyled from 'styles/GlobalStyles';
+import useCart from 'hooks/useCart';
+
+function CartAddForm({ product: { id, name, price, quantity }, closeModal }) {
+  const [count, handleIncrement, handleDecrement] = useCount({
+    initialValue: 1,
+    min: 1,
+    max: quantity,
+  });
+  const { addProduct } = useCart();
 
   const onClickCartAdd = () => {
-    alert(`${count}개의 상품이 장바구니에 추가되었습니다. (추후 구현)`);
+    addProduct({ id, name, count });
     closeModal();
   };
 
@@ -18,7 +27,11 @@ function CartAdd({ product: { name, price, quantity }, closeModal }) {
           <Styled.Name>{name}</Styled.Name>
           <Styled.Price>{price} 원</Styled.Price>
           <GlobalStyled.Position position="absolute" right="0" bottom="0">
-            <Counter count={count} increase={increase} decrease={decrease} />
+            <Counter
+              count={count}
+              onIncrement={handleIncrement}
+              onDecrement={handleDecrement}
+            />
           </GlobalStyled.Position>
         </Styled.ProductInfoWrapper>
       </GlobalStyled.Position>
@@ -33,4 +46,4 @@ function CartAdd({ product: { name, price, quantity }, closeModal }) {
   );
 }
 
-export default CartAdd;
+export default CartAddForm;

@@ -1,11 +1,10 @@
 import React from 'react';
-import ErrorMessage from '../../components/common/ErrorMessage/ErrorMessage';
-import PageTemplate from '../../components/common/PageTemplate/PageTemplate';
+import { ErrorContainer, PageTemplate } from 'components/common';
 
 function OrderList() {
   return (
     <PageTemplate>
-      <ErrorMessage>🚧 아직 준비 중인 서비스입니다. 🚧 </ErrorMessage>
+      <ErrorContainer>🚧 아직 준비 중인 서비스입니다. 🚧 </ErrorContainer>
     </PageTemplate>
   );
 }
