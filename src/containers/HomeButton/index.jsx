@@ -3,12 +3,12 @@ import React from 'react';
 import Image from 'components/Image';
 import WhiteButton from 'components/WhiteButton';
 import MarginWrapper from 'components/MarginWrapper';
-import FlexWrapper from 'components/FlexWrapper';
 import { Link } from 'react-router-dom';
+import HomeButtonStyled from './style';
 
 function HomeButton() {
   return (
-    <FlexWrapper alignItmes="center">
+    <HomeButtonStyled>
       <MarginWrapper marginRight="14px">
         <Link to="/react-shopping-cart">
           <Image
@@ -24,7 +24,7 @@ function HomeButton() {
           APEACH SHOP
         </WhiteButton>
       </Link>
-    </FlexWrapper>
+    </HomeButtonStyled>
   );
 }
 

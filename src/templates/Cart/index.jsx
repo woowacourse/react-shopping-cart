@@ -6,35 +6,38 @@ import AllCheckbox from 'containers/AllCheckbox';
 import DeleteProductButton from 'containers/DeleteProductButton';
 import CartProduct from 'templates/CartProduct';
 import ExpectedPriceBox from 'containers/ExpectedPriceBox';
-import FlexWrapper from 'components/FlexWrapper';
-import { CartStyled, CartProductStyled } from './style';
-import MarginWrapper from 'components/MarginWrapper';
+import {
+  CartLayoutStyled,
+  MainTitleWrapper,
+  LineWrapper,
+  BodyWrapper,
+  MenuWrapper,
+  MenuTitleWrapper,
+  LeftWrapper,
+} from './style';
 import { useSelector } from 'react-redux';
 
 function Cart() {
   const carts = useSelector((state) => state.cart.carts);
 
   return (
-    <CartStyled>
-      <BlackText fontSize="32px" fontWeight="700" textAlign="center">
-        <MarginWrapper marginTop="60px" marginBottom="30px">
-          장바구니
-        </MarginWrapper>
-      </BlackText>
-      <MarginWrapper marginBottom="50px">
+    <CartLayoutStyled>
+      <MainTitleWrapper>장바구니</MainTitleWrapper>
+      <LineWrapper>
         <Line width="1320px" height="3px" color="#333" />
-      </MarginWrapper>
-      <FlexWrapper justifyContent="space-between">
-        <CartProductStyled>
-          <MarginWrapper marginBottom="50px">
-            <FlexWrapper justifyContent="space-between">
+      </LineWrapper>
+      <BodyWrapper>
+        <LeftWrapper>
+          <div>
+            <MenuWrapper>
               <AllCheckbox />
               <DeleteProductButton />
-            </FlexWrapper>
-          </MarginWrapper>
-          <MarginWrapper marginBottom="15px">
-            <BlackText>든든배송 상품({carts.length})</BlackText>
-          </MarginWrapper>
+            </MenuWrapper>
+            <MenuTitleWrapper>
+              <BlackText>든든배송 상품({carts.length})</BlackText>
+            </MenuTitleWrapper>
+          </div>
+
           {carts.map((product) => (
             <CartProduct
               key={product.id}
@@ -44,10 +47,10 @@ function Cart() {
               total={product.total}
             />
           ))}
-        </CartProductStyled>
+        </LeftWrapper>
         <ExpectedPriceBox />
-      </FlexWrapper>
-    </CartStyled>
+      </BodyWrapper>
+    </CartLayoutStyled>
   );
 }
 
