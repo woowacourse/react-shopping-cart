@@ -1,37 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import useProduct from 'hooks/useProduct';
 import PropTypes from 'prop-types';
 
 import { Image, Counter, CheckBox } from 'components';
 
 import store from 'store/store';
-import {
-  doDeleteProductFromOrder,
-  doPutProductToCart,
-  doAddProdcutToOrder,
-  doDeleteProductFromCart,
-} from 'actions/actionCreator';
+import { doPutProductToCart, doDeleteProductFromCart } from 'actions/actionCreator';
 import autoComma from 'utils/autoComma';
 import Styled from 'components/CartProductItem/index.style';
+import useOrder from 'hooks/useOrder';
 
 const CartProductItem = ({ id, quantity }) => {
   const [{ name, price, image }] = useProduct(id);
-  const { order } = useSelector(state => state.reducer);
-  const [isInOrder, setIsInOrder] = useState(order.some(productId => productId === id));
-
-  const updateOrder = () => {
-    if (isInOrder) {
-      store.dispatch(doDeleteProductFromOrder({ id }));
-      return;
-    }
-
-    store.dispatch(doAddProdcutToOrder({ id }));
-  };
-
-  useEffect(() => {
-    setIsInOrder(order.some(productId => productId === id));
-  }, [order, id]);
+  const [isInOrder, updateOrder] = useOrder(id);
 
   return (
     <Styled.Container>

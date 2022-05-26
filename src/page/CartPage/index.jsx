@@ -29,6 +29,10 @@ const CartPage = () => {
     return total;
   }, [products, shoppingCart, order]);
 
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice());
+  }, [calculateTotalPrice]);
+
   const handleCheckboxClick = () => {
     if (shoppingCart.length === order.length) {
       store.dispatch(doInitializeOrder());
@@ -41,10 +45,6 @@ const CartPage = () => {
       }
     });
   };
-
-  useEffect(() => {
-    setTotalPrice(calculateTotalPrice());
-  }, [calculateTotalPrice]);
 
   return (
     <Styled.Container>
