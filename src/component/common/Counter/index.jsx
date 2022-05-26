@@ -8,12 +8,12 @@ export default function Counter({ count, onUPClick, onDownClick }) {
       <Styled.CounterButtonBox>
         <Button onClick={onUPClick}>
           <Styled.CounterButtonContent>
-            <img src="up.svg" />
+            <img src="up.svg" alt="count-up" />
           </Styled.CounterButtonContent>
         </Button>
         <Button onClick={onDownClick}>
           <Styled.CounterButtonContent>
-            <img src="down.svg" />
+            <img src="down.svg" alt="count-down" />
           </Styled.CounterButtonContent>
         </Button>
       </Styled.CounterButtonBox>

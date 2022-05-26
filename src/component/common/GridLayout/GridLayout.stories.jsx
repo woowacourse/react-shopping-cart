@@ -40,6 +40,8 @@ DefaultGridLayout.args = {
       price: 1300,
     },
   ].map(product => <Product key={product.id} product={product} />),
+  rowGap: '30px',
+  columnGap: '15px',
 };
 
 export { DefaultGridLayout as DefaulGridLayout };

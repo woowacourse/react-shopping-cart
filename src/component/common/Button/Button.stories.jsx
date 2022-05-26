@@ -12,12 +12,26 @@ export default {
   },
 };
 
-const Template = args => <Button {...args} />;
+const Template = args => (
+  <Button {...args}>
+    <div
+      style={{
+        backgroundColor: 'skyblue',
+        width: '150px',
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      장바구니
+    </div>
+  </Button>
+);
 
 const DefaultButton = Template.bind({});
 
 DefaultButton.args = {
-  children: '장바구니',
   type: 'button',
 };
 
