@@ -19,7 +19,7 @@ function useFetch(url) {
       }
     };
     requestData();
-  }, [url]);
+  }, []);
 
   return { data, isLoading, isError };
 }
