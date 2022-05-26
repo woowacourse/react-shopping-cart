@@ -8,12 +8,11 @@ export default {
   component: CartItem,
   title: 'CartItem',
   argTypes: {
-    id: {table: {disable: true}},
-    handleDeleteIconClick: {action: 'click', table: {disable: true}},
-    handleCheckedTrue: {action: 'click', table: {disable: true}},
-    handleCheckedFalse: {action: 'click', table: {disable: true}},
-    handleIncrease: {action: 'click', table: {disable: true}},
-    handleDecrease: {action: 'click', table: {disable: true}},
+    initialChecked: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -25,8 +24,11 @@ const Template = (args) => (
 
 export const Defaults = Template.bind({});
 Defaults.args = {
-  itemImgURL: MOCK_PRODUCT_LIST[0].image,
-  itemName: MOCK_PRODUCT_LIST[0].name,
-  itemPrice: MOCK_PRODUCT_LIST[0].price,
-  quantity: 1,
+  cartInfo: {
+    image: MOCK_PRODUCT_LIST[0].image,
+    name: MOCK_PRODUCT_LIST[0].name,
+    price: MOCK_PRODUCT_LIST[0].price,
+    quantity: 1,
+  },
+  initialChecked: false,
 };

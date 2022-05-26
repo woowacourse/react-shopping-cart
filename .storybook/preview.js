@@ -4,8 +4,7 @@ import {ThemeProvider} from 'styled-components';
 import theme from 'theme/theme';
 
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import reduxThunk from 'redux-thunk';
+import {createStore, combineReducers} from 'redux';
 
 import productListReducer from 'store/modules/productList';
 import cartReducer from 'store/modules/cart';
@@ -19,7 +18,7 @@ const rootReducer = combineReducers({
   selectedItemReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(reduxThunk));
+const store = createStore(rootReducer);
 
 addDecorator((story) => (
   <Provider store={store}>
