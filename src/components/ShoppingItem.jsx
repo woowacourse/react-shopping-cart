@@ -28,7 +28,7 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedIt
   };
 
   const deleteItem = () => {
-    if (window.confirm(MESSAGE.DELETE)) {
+    if (window.confirm(MESSAGE.CHECK_DELETE)) {
       deleteCartItem(id);
       removeSelectedItem(id);
     }

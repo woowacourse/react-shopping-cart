@@ -26,7 +26,7 @@ function ShoppingCart() {
   const deleteSelectedItems = () => {
     if (selectedItems.length === 0) return;
 
-    if (window.confirm(MESSAGE.DELETE)) {
+    if (window.confirm(MESSAGE.CHECK_DELETE)) {
       selectedItems.forEach((id) => deleteCartItem(id));
       setSelectedItems([]);
     }

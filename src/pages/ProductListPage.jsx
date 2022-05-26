@@ -1,11 +1,27 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from '../components/Product';
 import useFetch from '../hooks/useFetch';
 import Loading from '../components/Loading';
-import { SERVER_PATH } from '../constant';
+import { MESSAGE, SERVER_PATH } from '../constant';
+import useAddCartItem from '../hooks/useAddCartItem';
+import useDeleteCartItem from '../hooks/useDeleteCartItem';
 
 function ProductListPage() {
   const { data: productList, isLoading, isError } = useFetch(SERVER_PATH.PRODUCTS);
+  const cartList = useSelector(({ cart }) => cart.cart);
+  const { addCartItem } = useAddCartItem();
+  const { deleteCartItem } = useDeleteCartItem();
+
+  const handleCartItem = (id, color) => {
+    if (color) {
+      deleteCartItem(id);
+      alert(MESSAGE.REMOVE);
+      return;
+    }
+    addCartItem(id);
+    alert(MESSAGE.ADD);
+  };
 
   if (isError) return <h1>error</h1>;
   if (isLoading) return <Loading />;
@@ -13,9 +29,17 @@ function ProductListPage() {
   return (
     <StyledContent>
       <StyledGridContainer>
-        {productList.map((product) => (
-          <Product key={product.id} productData={product} />
-        ))}
+        {productList.map((product) => {
+          const isCart = cartList.some(({ id }) => id === product.id);
+          return (
+            <Product
+              key={product.id}
+              productData={product}
+              handleCartItem={handleCartItem}
+              isCart={isCart}
+            />
+          );
+        })}
       </StyledGridContainer>
     </StyledContent>
   );

@@ -1,20 +1,15 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { StyledImageBox, StyledImg } from './common/Styled';
 import { ROUTES_PATH, SIZE } from '../constant/index';
 import { COLORS } from '../styles/theme';
-import useAddCartItem from '../hooks/useAddCartItem';
 
-function Product({ productData }) {
-  const [color, setColor] = useState('');
-  const { addCartItem } = useAddCartItem();
+function Product({ productData, handleCartItem, isCart }) {
   const { id, name, price, imageUrl } = productData;
 
-  const handleClickCart = () => {
-    color ? setColor('') : setColor(COLORS.PRIMARY);
-    addCartItem(id);
+  const onClickCartIcon = () => {
+    handleCartItem(id, isCart);
   };
 
   return (
@@ -31,7 +26,12 @@ function Product({ productData }) {
             <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
           </StyledItemInfo>
         </Link>
-        <GiShoppingCart className="cart" size={28} onClick={handleClickCart} color={color} />
+        <GiShoppingCart
+          className="cart"
+          size={28}
+          onClick={onClickCartIcon}
+          color={isCart ? COLORS.PRIMARY : ''}
+        />
       </StyledItemInfoBox>
     </StyledItem>
   );

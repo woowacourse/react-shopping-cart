@@ -17,7 +17,8 @@ const SIZE = {
 
 const MESSAGE = {
   ADD: '🧺 장바구니에 추가 되었습니다. 🧺',
-  DELETE: '🗑 정말로 삭제하시겠습니까? 🗑',
+  REMOVE: '장바구니에서 제거 되었습니다.',
+  CHECK_DELETE: '🗑 정말로 삭제하시겠습니까? 🗑',
 };
 
 export { SERVER_PATH, ROUTES_PATH, SIZE, MESSAGE };
