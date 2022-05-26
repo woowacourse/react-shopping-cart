@@ -10,9 +10,7 @@ const useProductList = () => {
   const dispatch = useAppDispatch<ProductListAction>();
 
   return {
-    isLoading: productList.isLoading,
-    data: productList.data,
-    isEnd: productList.isEnd,
+    ...productList,
     getProductsByPage: () => {
       dispatch(getProductsByPage());
     },
