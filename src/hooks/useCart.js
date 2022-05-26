@@ -1,13 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  addCartList,
-  getCartList,
-  removeCartItem,
-  removeCartItemList,
-  updateCartItem,
-} from 'actions/cart/thunk';
+import * as cartThunk from 'actions/cart/thunk';
 import { updateCartItemAllChecked, updateCartItemChecked } from 'actions/cart/action';
 
 function useCart() {
@@ -21,31 +15,10 @@ function useCart() {
       return;
     }
 
-    dispatch(getCartList());
+    dispatch(cartThunk.getList());
   }, []);
 
-  const addItem = ({ id, image, name, price, quantity }) =>
-    dispatch(addCartList({ id, image, name, price, quantity }));
-
-  const updateItem = (id, content) => dispatch(updateCartItem(id, content));
-
-  const updateItemChecked = (id, isChecked) => dispatch(updateCartItemChecked(id, isChecked));
-
-  const updateItemAllChecked = (isChecked) => dispatch(updateCartItemAllChecked(isChecked));
-
-  const removeItem = (id) => dispatch(removeCartItem(id));
-
-  const removeItemList = (idList) => dispatch(removeCartItemList(idList));
-
   return {
-    action: {
-      addItem,
-      updateItem,
-      updateItemChecked,
-      updateItemAllChecked,
-      removeItem,
-      removeItemList,
-    },
     state: {
       cartItems: cartItems.content,
       isLoading: cartItems.isLoading,

@@ -1,3 +1,8 @@
+import { useDispatch } from 'react-redux';
+
+import * as cartAction from 'actions/cart/action';
+import * as cartThunk from 'actions/cart/thunk';
+
 import useCart from 'hooks/useCart';
 import { getNumberFormatter } from 'lib/formatterUtils';
 
@@ -19,7 +24,9 @@ import { ICON_CODE } from 'constants/';
 import * as S from './styles';
 
 export function CartList() {
-  const { action: cartAction, state } = useCart();
+  const dispatch = useDispatch();
+
+  const { state } = useCart();
   const { cartItems, isLoading, isLoaded, errorMessage, checkedItemList } = state;
 
   const isSelectAllChecked = checkedItemList.length > 0;
@@ -29,15 +36,15 @@ export function CartList() {
   );
 
   const handleCheckItem = (id, isChecked) => {
-    cartAction.updateItemChecked(id, isChecked);
+    dispatch(cartAction.updateItemCheck(id, isChecked));
   };
 
   const handleAllCheckItem = () => {
-    cartAction.updateItemAllChecked(!isSelectAllChecked);
+    dispatch(cartAction.updateItemAllCheck(!isSelectAllChecked));
   };
 
   const handleChangeQuantity = (id, quantity) => {
-    cartAction.updateItem(id, { quantity }).then((status) => {
+    dispatch(cartThunk.updateItem(id, { quantity })).then((status) => {
       status === false && alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
     });
   };
@@ -47,7 +54,7 @@ export function CartList() {
       return;
     }
 
-    cartAction.removeItem(id).then((status) => {
+    dispatch(cartThunk.removeItem(id)).then((status) => {
       status ? alert('해당 상품을 제거하였습니다.') : alert('해당 상품 제거에 실패하였습니다.');
     });
   };
@@ -59,7 +66,7 @@ export function CartList() {
 
     const checkedIdList = checkedItemList.map(({ id }) => id);
 
-    cartAction.removeItemList(checkedIdList).then((status) => {
+    dispatch(cartThunk.removeItemList(checkedIdList)).then((status) => {
       status ? alert('선택한 상품이 제거되었습니다.') : alert('선택한 상품 제거에 실패하였습니다.');
     });
   };
