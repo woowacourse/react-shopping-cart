@@ -5,15 +5,14 @@ import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import { MAX_RESULT_ITEM_LIST } from 'constants/index';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
 import { CartListAction } from 'redux/cartList/action';
 import { getCartListRequest, postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
 import { getItemList } from 'redux/itemList/thunk';
+import { getPageItemListRequest } from 'redux/pageItemList/thunk';
 import styled from 'styled-components';
-import { Item } from 'types/domain';
 
 const ItemList = () => {
   const { id } = useParams();
@@ -22,7 +21,7 @@ const ItemList = () => {
     data: itemList,
     error: error_getItemList,
     loading,
-  } = useFetch<Item[]>(`/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
+  } = useThunkFetch(state => state.pageItemList, getPageItemListRequest(id));
   const { data: allItemList, error: error_getAllItemList } = useThunkFetch(
     state => state.itemList,
     getItemList()
