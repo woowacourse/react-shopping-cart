@@ -7,8 +7,6 @@ import ACTION_TYPE from 'redux/cart/cartActions';
 import { Button } from 'components/@common';
 import { CartProduct, PageLayout, Result, Selector } from 'components';
 
-import { getObjectArrayIdxOfValue } from 'utils';
-
 function ShoppingCart() {
   const { products, checkedProducts } = useSelector(store => store.cart);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -17,7 +15,7 @@ function ShoppingCart() {
 
   useEffect(() => {
     const total = checkedProducts.map(({ id }) => {
-      const productIdx = getObjectArrayIdxOfValue(products, { key: 'id', value: id });
+      const productIdx = products.findIndex(product => product.id === id);
       const { quantity, price } = products[productIdx];
 
       return quantity * price;

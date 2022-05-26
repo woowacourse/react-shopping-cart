@@ -8,7 +8,7 @@ import ACTION_TYPE from 'redux/cart/cartActions';
 import { Button } from 'components/@common';
 import { Selector } from 'components';
 
-import { addThousandUnitComma, isArrayIncludesObject } from 'utils';
+import { addThousandUnitComma } from 'utils';
 import { CART_PRODUCT } from 'constants';
 
 function CartProduct({ id, image, name, quantity, price }) {
@@ -17,7 +17,7 @@ function CartProduct({ id, image, name, quantity, price }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setChecked(isArrayIncludesObject(checkedProducts, { key: 'id', value: id }));
+    setChecked(checkedProducts.find(product => product.id === id) !== undefined);
   }, [checkedProducts]);
 
   const onChangeSelector = () => {

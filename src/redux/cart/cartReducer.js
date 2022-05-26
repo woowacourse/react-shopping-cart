@@ -1,5 +1,5 @@
 import ACTION_TYPE from 'redux/cart/cartActions';
-import { getObjectArrayIdxOfValue, getObjectArrayValuesOfKey, isArrayIncludesObject } from 'utils';
+import { getObjectArrayValuesOfKey } from 'utils';
 
 const initialState = {
   products: [],
@@ -15,7 +15,7 @@ const cartReducer = (state = initialState, action) => {
   switch (type) {
     case ACTION_TYPE.ADD_PRODUCT_TO_CART: {
       const newProducts = [...products];
-      const targetProductIdx = getObjectArrayIdxOfValue(products, { key: 'id', value: payload.id });
+      const targetProductIdx = products.findIndex(product => product.id === payload.id);
 
       if (targetProductIdx !== -1) {
         newProducts[targetProductIdx].quantity += 1;
@@ -31,7 +31,7 @@ const cartReducer = (state = initialState, action) => {
     }
     case ACTION_TYPE.SUBTRACT_CART_PRODUCT_QUANTITY: {
       const newProducts = [...products];
-      const targetProductIdx = getObjectArrayIdxOfValue(products, { key: 'id', value: payload.id });
+      const targetProductIdx = products.findIndex(product => product.id === payload.id);
 
       newProducts[targetProductIdx].quantity -= 1;
       newState.products = [...newProducts];
@@ -50,10 +50,7 @@ const cartReducer = (state = initialState, action) => {
       return newState;
     }
     case ACTION_TYPE.TOGGLE_CART_PRODUCT_CHECK: {
-      const isCheckedProduct = isArrayIncludesObject(checkedProducts, {
-        key: 'id',
-        value: payload.id,
-      });
+      const isCheckedProduct = checkedProducts.find(product => product.id === payload.id);
 
       if (isCheckedProduct) {
         newState.checkedProducts = checkedProducts.filter(product => product.id !== payload.id);
