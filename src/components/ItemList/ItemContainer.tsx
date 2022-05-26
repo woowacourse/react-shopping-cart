@@ -1,21 +1,25 @@
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import CroppedImage from 'components/common/CroppedImage';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { memo, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { CartListAction } from 'redux/cartList/action';
+import { postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
 import { PATH } from 'Routers';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
-import { Item } from 'types/domain';
+import { CartItem, Item } from 'types/domain';
 
 interface ItemContainerProps {
   item: Item;
-  onCartClick: () => void;
   openSnackbar: () => void;
+  cartItem: CartItem | undefined;
 }
 
-const ItemContainer = ({ item, onCartClick, openSnackbar }: ItemContainerProps) => {
+const ItemContainer = ({ item, openSnackbar, cartItem }: ItemContainerProps) => {
   const { id, thumbnailUrl, price, title } = item;
+  const dispatch = useAppDispatch<CartListAction>();
   const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     if (e.target instanceof SVGElement) {
       e.preventDefault();
@@ -23,7 +27,16 @@ const ItemContainer = ({ item, onCartClick, openSnackbar }: ItemContainerProps) 
   };
 
   const handleClickCartIcon = () => {
-    onCartClick();
+    if (cartItem) {
+      dispatch(
+        putCartItemRequest({
+          ...cartItem,
+          quantity: cartItem.quantity + 1,
+        })
+      );
+    } else {
+      dispatch(postCartItemRequest({ id: Number(id), quantity: 1, isSelected: true }));
+    }
     openSnackbar();
   };
 

@@ -4,19 +4,16 @@ import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import { MAX_RESULT_ITEM_LIST } from 'constants/index';
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { useParams } from 'react-router-dom';
-import { CartListAction } from 'redux/cartList/action';
-import { getCartListRequest, postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
+import { getCartListRequest } from 'redux/cartList/thunk';
 import { getItemList } from 'redux/itemList/thunk';
 import { getPageItemListRequest } from 'redux/pageItemList/thunk';
 import styled from 'styled-components';
 
 const ItemList = () => {
   const { id } = useParams();
-  const dispatch = useAppDispatch<CartListAction>();
   const {
     data: itemList,
     error: error_getItemList,
@@ -37,34 +34,14 @@ const ItemList = () => {
 
   return (
     <StyledRoot>
-      {itemList?.map(item => {
-        const id = item.id;
-        const targetCartItem = cartList.find(cartItem => cartItem.id === id);
-
-        const handleCartClick = () => {
-          if (targetCartItem) {
-            return () =>
-              dispatch(
-                putCartItemRequest({
-                  ...targetCartItem,
-                  quantity: targetCartItem.quantity + 1,
-                })
-              );
-          }
-
-          return () =>
-            dispatch(postCartItemRequest({ id: Number(id), quantity: 1, isSelected: true }));
-        };
-
-        return (
-          <ItemContainer
-            key={id}
-            item={item}
-            onCartClick={handleCartClick()}
-            openSnackbar={openSnackbar}
-          />
-        );
-      })}
+      {itemList?.map(item => (
+        <ItemContainer
+          key={item.id}
+          item={item}
+          cartItem={cartList.find(cartItem => cartItem.id === item.id)}
+          openSnackbar={openSnackbar}
+        />
+      ))}
       <Pagination
         count={10}
         lastIndex={Math.floor(allItemList.length / MAX_RESULT_ITEM_LIST) + 1}
