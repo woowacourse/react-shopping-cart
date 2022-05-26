@@ -12,14 +12,15 @@ function ProductItem({
   cartId,
   onClickCartButton,
 }) {
-  switch (direction) {
-    case 'vertical':
-      return <VerticalContent {...{ id, image, name, price, cartId, onClickCartButton }} />;
-    case 'horizontal':
-      return <HorizontalContent {...{ id, image, name, price }} />;
-
-    // no default
+  if (direction === 'vertical') {
+    return <VerticalContent {...{ id, image, name, price, cartId, onClickCartButton }} />;
   }
+
+  if (direction === 'horizontal') {
+    return <HorizontalContent {...{ id, image, name, price }} />;
+  }
+
+  throw new Error('상품 목록 컴포넌트에 지원되지 않는 방향이 입력되었습니다');
 }
 
 ProductItem.defaultProps = {
