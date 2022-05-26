@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const WhiteButtonStyled = styled.p(
+const WhiteButtonStyled = styled.button(
   ({ fontSize, fontWeight }) => `
   margin: 0;
   cursor: pointer;
@@ -8,6 +8,7 @@ const WhiteButtonStyled = styled.p(
   font-weight: ${fontWeight || 500};
   color: #FFF;
   border: none;
+  background: none;
 `,
 );
 
