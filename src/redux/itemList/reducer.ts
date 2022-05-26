@@ -9,7 +9,7 @@ export interface ItemListState {
 }
 
 const initialState: ItemListState = {
-  loading: false,
+  loading: true,
   error: null,
   data: [],
 };

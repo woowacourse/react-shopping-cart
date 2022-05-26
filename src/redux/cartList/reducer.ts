@@ -16,7 +16,7 @@ export interface CartListState {
 }
 
 export const initialState: CartListState = {
-  loading: null,
+  loading: 'getCartList',
   error: null,
   data: [],
 };
