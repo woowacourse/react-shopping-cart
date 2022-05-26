@@ -23,6 +23,11 @@ function ProductList() {
   };
 
   const handleClick = () => {
+    const isNonExistCheckedItem = cartList.every(
+      (item) => item.checked === false
+    );
+    if (isNonExistCheckedItem) return;
+
     dispatch(removeCheckedCartItem());
   };
 
