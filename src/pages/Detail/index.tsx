@@ -10,11 +10,8 @@ const Detail = () => {
   const { createNewCart } = useCartList();
   const { product } = useProduct(Number(id));
 
-  if (product.isLoading) {
-    return <div></div>;
-  }
-  if (product.error) {
-    return <div></div>;
+  if (product.isLoading || product.error) {
+    return null;
   }
   return (
     <S.DetailPageContainer>
