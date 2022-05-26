@@ -34,15 +34,11 @@ function useSelectShoppingBasketItem(shoppingBasketList) {
   };
 
   const selectProduct = id => {
-    const updatedSelectedProductList = selectedProductList.concat(id);
-
-    setSelectedProductList(updatedSelectedProductList);
+    setSelectedProductList([...selectedProductList, id]);
   };
 
   const deselectProduct = id => {
-    const updatedSelectedProductList = selectedProductList.filter(productId => productId !== id);
-
-    setSelectedProductList(updatedSelectedProductList);
+    setSelectedProductList(selectedProductList.filter(productId => productId !== id));
   };
 
   const clickAllCheckbox = checked => {
