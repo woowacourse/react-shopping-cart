@@ -25,11 +25,11 @@ const ItemList = () => {
   } = useFetch<Item[]>(`/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
   const { data: allItemList, error: error_getAllItemList } = useThunkFetch(
     state => state.itemList,
-    getItemList
+    getItemList()
   );
   const { data: cartList, error: error_getCartList } = useThunkFetch(
     state => state.cartList,
-    getCartListRequest
+    getCartListRequest()
   );
   const { isOpenSnackbar, openSnackbar } = useSnackBar();
 

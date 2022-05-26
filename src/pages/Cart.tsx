@@ -13,12 +13,12 @@ const Cart = () => {
     data: itemList,
     error: error_getItemList,
     loading: loading_itemList,
-  } = useThunkFetch(state => state.itemList, getItemList);
+  } = useThunkFetch(state => state.itemList, getItemList());
   const {
     data: cartList,
     error: error_getCartList,
     loading: loading_cartList,
-  } = useThunkFetch(state => state.cartList, getCartListRequest);
+  } = useThunkFetch(state => state.cartList, getCartListRequest());
 
   const itemListInCart = cartList.map(cartItem => {
     const itemInfo = itemList.find(item => item.id === cartItem.id);

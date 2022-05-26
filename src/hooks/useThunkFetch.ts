@@ -6,17 +6,21 @@ import { RootState } from 'redux/rootReducer';
 import { useAppDispatch } from './useAppDispatch';
 
 type Selector<T> = (state: RootState) => T;
-type ThunkActionCreator<T extends Action> = () => (dispatch: Dispatch<T>) => void;
+type ThunkActionCreator<T extends Action> = (dispatch: Dispatch<T>) => void;
 
-const useThunkFetch = <StateType, ActionType extends Action>(
+const useThunkFetch = <StateType, ActionType extends Action, ParamType>(
   selector: Selector<StateType>,
   thunkActionCreator: ThunkActionCreator<ActionType>
 ): StateType => {
-  const dispatch = useAppDispatch<ActionType>();
+  const dispatch = useAppDispatch<ActionType, ParamType>();
   const state = useSelector(selector);
 
+  console.log('state', state);
+
+  console.log('thunkActionCreator', thunkActionCreator);
+
   useEffect(() => {
-    dispatch(thunkActionCreator());
+    dispatch(thunkActionCreator);
   }, []);
 
   return state;
