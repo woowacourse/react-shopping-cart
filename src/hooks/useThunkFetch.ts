@@ -15,10 +15,6 @@ const useThunkFetch = <StateType, ActionType extends Action, ParamType>(
   const dispatch = useAppDispatch<ActionType, ParamType>();
   const state = useSelector(selector);
 
-  console.log('state', state);
-
-  console.log('thunkActionCreator', thunkActionCreator);
-
   useEffect(() => {
     dispatch(thunkActionCreator);
   }, []);
