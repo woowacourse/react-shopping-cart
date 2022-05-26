@@ -5,10 +5,10 @@ import ShoppingItem from '../components/ShoppingItem';
 import { COLORS } from '../styles/theme';
 import { StyledCheckbox } from '../components/common/Styled';
 import { MESSAGE } from '../constant';
-import useDeleteCartItem from '../hooks/useDeleteCartItem';
+import useCart from '../hooks/useCart';
 
 function ShoppingCart() {
-  const { deleteCartItem } = useDeleteCartItem();
+  const { deleteItem } = useCart();
   const [totalPrice, setTotalPrice] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
   const [isCheckedAll, setCheckedAll] = useReducer((checked) => !checked, true);
@@ -27,7 +27,7 @@ function ShoppingCart() {
     if (selectedItems.length === 0) return;
 
     if (window.confirm(MESSAGE.CHECK_DELETE)) {
-      selectedItems.forEach((id) => deleteCartItem(id));
+      selectedItems.forEach((id) => deleteItem(id));
       setSelectedItems([]);
     }
   };

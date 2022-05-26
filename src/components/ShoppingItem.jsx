@@ -4,12 +4,10 @@ import { StyledCheckbox } from './common/Styled';
 import { BsTrash } from 'react-icons/bs';
 import { COLORS } from '../styles/theme';
 import { MESSAGE } from '../constant';
-import useDeleteCartItem from '../hooks/useDeleteCartItem';
-import useUpdateItemQuantity from '../hooks/useUpdateQuantity';
+import useCart from '../hooks/useCart';
 
 function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedItem }) {
-  const { deleteCartItem } = useDeleteCartItem();
-  const { updateItemQuantity } = useUpdateItemQuantity();
+  const { deleteItem, updateItemQuantity } = useCart();
   const [isChecked, setChecked] = useState(isCheckedAll);
   const { id, name, price, imageUrl, quantity } = item;
 
@@ -27,9 +25,9 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedIt
     setChecked(!isChecked);
   };
 
-  const deleteItem = () => {
+  const onClickDeleteIcon = () => {
     if (window.confirm(MESSAGE.CHECK_DELETE)) {
-      deleteCartItem(id);
+      deleteItem(id);
       removeSelectedItem(id);
     }
   };
@@ -51,7 +49,7 @@ function ShoppingItem({ item, isCheckedAll, handleSelectedItem, removeSelectedIt
         <span>{name}</span>
       </StyledProductLeft>
       <StyledProductRight>
-        <BsTrash className="logo" onClick={deleteItem} />
+        <BsTrash className="logo" onClick={onClickDeleteIcon} />
         <StyledAmountContainer>
           <span>{quantity}</span>
           <div>

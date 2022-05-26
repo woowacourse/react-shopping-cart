@@ -4,22 +4,20 @@ import Product from '../components/Product';
 import useFetch from '../hooks/useFetch';
 import Loading from '../components/Loading';
 import { MESSAGE, SERVER_PATH } from '../constant';
-import useAddCartItem from '../hooks/useAddCartItem';
-import useDeleteCartItem from '../hooks/useDeleteCartItem';
+import useCart from '../hooks/useCart';
 
 function ProductListPage() {
   const { data: productList, isLoading, isError } = useFetch(SERVER_PATH.PRODUCTS);
   const cartList = useSelector(({ cart }) => cart.cart);
-  const { addCartItem } = useAddCartItem();
-  const { deleteCartItem } = useDeleteCartItem();
+  const { addItem, deleteItem } = useCart();
 
   const handleCartItem = (id, color) => {
     if (color) {
-      deleteCartItem(id);
+      deleteItem(id);
       alert(MESSAGE.REMOVE);
       return;
     }
-    addCartItem(id);
+    addItem(id);
     alert(MESSAGE.ADD);
   };
 

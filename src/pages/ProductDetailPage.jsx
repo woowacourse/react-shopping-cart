@@ -5,17 +5,17 @@ import { MESSAGE, SERVER_PATH } from '../constant';
 import { COLORS } from '../styles/theme';
 import Loading from '../components/Loading';
 import { SIZE } from '../constant';
-import useAddCartItem from '../hooks/useAddCartItem';
 import useFetch from '../hooks/useFetch';
+import useCart from '../hooks/useCart';
 
 function ProductDetailPage() {
   const { id } = useParams();
   const { data: product, isLoading, isError } = useFetch(`${SERVER_PATH.PRODUCTS}/${id}`);
-  const { addCartItem } = useAddCartItem();
+  const { addItem } = useCart();
 
   const onClickCartButton = () => {
     alert(MESSAGE.ADD);
-    addCartItem(id);
+    addItem(id);
   };
 
   if (isError) return <h1>error</h1>;
