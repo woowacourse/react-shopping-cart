@@ -16,7 +16,7 @@ import Counter from './common/Counter';
 import DeleteIconButton from './common/DeleteIconButton';
 import PriceBox from './common/PriceBox';
 
-function CartList({ products, checkedIds, count }) {
+function CartList({ products, checkedIds, count, orderDetail }) {
   const dispatch = useDispatch();
   const [allChecked, setAllChecked] = useState(true);
 
@@ -79,14 +79,19 @@ function CartList({ products, checkedIds, count }) {
         </StyledCartListTitle>
         <StyledCartList>
           {products.map((product) => {
+            const { id } = product;
+            const { quantity, price } = orderDetail[id];
+
             return (
               <CartListItem
-                key={product.id}
+                key={id}
                 dispatch={dispatch}
                 product={product}
-                isClicked={checkedIds.includes(product.id)}
-                onClickCheck={() => onClickCheckProduct(product.id)}
-                onClickUnCheck={() => onClickUnCheckProduct(product.id)}
+                price={price}
+                quantity={quantity}
+                isClicked={checkedIds.includes(id)}
+                onClickCheck={() => onClickCheckProduct(id)}
+                onClickUnCheck={() => onClickUnCheckProduct(id)}
               />
             );
           })}
@@ -96,9 +101,16 @@ function CartList({ products, checkedIds, count }) {
   );
 }
 
-const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnCheck }) => {
-  const [itemPrice, setItemPrice] = useState(0);
-  const { id, name, price, imageUrl } = product;
+const CartListItem = ({
+  dispatch,
+  product,
+  price,
+  quantity,
+  isClicked,
+  onClickCheck,
+  onClickUnCheck,
+}) => {
+  const { id, name, price: retailPrice, imageUrl } = product;
 
   const handleRemoveItem = (id) => {
     const isRemove = window.confirm('해당 상품을 장바구니에서 삭제 하시겠습니까?');
@@ -106,16 +118,13 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
   };
 
   const onClickCounterCallback = (count) => {
-    const paymentAmount = price * count;
     dispatch(
       setOrderDetail({
         id,
         quantity: count,
-        price,
-        paymentAmount,
+        price: retailPrice * count,
       })
     );
-    setItemPrice(paymentAmount);
   };
 
   const onClickCheckCallback = (isCheck) => {
@@ -125,10 +134,6 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
     }
     onClickUnCheck();
   };
-
-  useEffect(() => {
-    setItemPrice(price);
-  }, []);
 
   return (
     <StyledCartListItem>
@@ -145,8 +150,8 @@ const CartListItem = ({ dispatch, product, isClicked, onClickCheck, onClickUnChe
       </StyledItemInfoWrapper>
       <StyledItemControlBox>
         <DeleteIconButton onClickCallback={() => handleRemoveItem(id)} />
-        <Counter onClickCallback={onClickCounterCallback} />
-        <PriceBox price={itemPrice} />
+        <Counter onClickCallback={onClickCounterCallback} count={quantity} />
+        <PriceBox price={price} />
       </StyledItemControlBox>
     </StyledCartListItem>
   );

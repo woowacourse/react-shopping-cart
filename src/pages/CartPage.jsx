@@ -11,15 +11,15 @@ function CartPage() {
 
   const cartResult = checkedIds.reduce(
     (payment, id) => {
-      const { quantity, paymentAmount } = orderDetail[id];
+      const { quantity, price } = orderDetail[id];
 
       return {
-        totalPaymentAmount: payment.totalPaymentAmount + Number(paymentAmount),
+        totalPrice: payment.totalPrice + Number(price),
         totalOrders: payment.totalOrders + Number(quantity),
       };
     },
     {
-      totalPaymentAmount: 0,
+      totalPrice: 0,
       totalOrders: 0,
     }
   );
@@ -35,10 +35,15 @@ function CartPage() {
           <StyledHeaderTitle>장바구니</StyledHeaderTitle>
         </StyledContentHeader>
         <StyledContent>
-          <CartList products={products} checkedIds={checkedIds} count={count} />
+          <CartList
+            products={products}
+            checkedIds={checkedIds}
+            count={count}
+            orderDetail={orderDetail}
+          />
           <OrderBox
             titleText={'결제예상금액'}
-            price={cartResult.totalPaymentAmount}
+            price={cartResult.totalPrice}
             orders={cartResult.totalOrders}
           />
         </StyledContent>

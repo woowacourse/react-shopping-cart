@@ -20,7 +20,6 @@ function reducer(state = initialState, action) {
             id: product.id,
             quantity: 1,
             price: product.price,
-            paymentAmount: product.price,
           };
 
           return target;

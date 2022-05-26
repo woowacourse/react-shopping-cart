@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import styled from 'styled-components';
 
-function Counter({ onClickCallback }) {
-  const [count, setCount] = useState(1);
-
+function Counter({ onClickCallback, count }) {
   const handlUp = (count) => {
-    setCount((prev) => prev + 1);
     onClickCallback(count + 1);
   };
 
   const handleDown = (count) => {
     if (count === 1) return;
-    setCount((prev) => prev - 1);
     onClickCallback(count - 1);
   };
 

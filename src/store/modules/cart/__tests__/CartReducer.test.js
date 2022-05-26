@@ -32,7 +32,6 @@ const cartStoreState = {
       id: '1',
       quantity: 1,
       price: '51000',
-      paymentAmount: '51000',
     },
   },
 };
@@ -65,7 +64,6 @@ const addCartStoreState = {
       id: '1',
       quantity: 1,
       price: '51000',
-      paymentAmount: '51000',
     },
   },
 };
@@ -243,8 +241,7 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] 상품 �
     const myOrderDetail = {
       id: '1',
       quantity: '2',
-      price: '51000',
-      paymentAmount: '102000',
+      price: '102000',
     };
 
     const orderDetail = {
@@ -255,7 +252,6 @@ describe('[장바구니 페이지에서 사용되는 Reducer 데이터] 상품 �
         id: '5',
         quantity: 1,
         price: '30500',
-        paymentAmount: '30500',
       },
     };
 
