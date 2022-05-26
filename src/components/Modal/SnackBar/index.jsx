@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSnackBarTypeRemove } from "../../modules/snackBar";
+import { setSnackBarTypeRemove } from "../../../modules/snackBar";
 
 import * as S from "./index.styles";
 

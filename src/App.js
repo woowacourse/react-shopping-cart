@@ -5,8 +5,8 @@ import ProductListPage from "./pages/ProductListPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorPage from "./pages/ErrorPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
-import SnackBar from "./modal/SnackBar";
-import ModalPortal from "./modal/ModalPortal";
+import SnackBar from "./components/Modal/SnackBar";
+import ModalPortal from "./components/Modal/SnackBar";
 
 function App() {
   return (
