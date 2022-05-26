@@ -34,9 +34,9 @@ const createAsyncState = {
     content: defaultContent,
     error: null,
   }),
-  pending: () => ({ isLoading: true, error: null }),
-  success: () => ({ isLoading: false, error: null, isLoaded: true }),
-  error: (error) => ({ isLoading: false, error }),
+  pending: () => ({ isLoading: true, isLoaded: false, error: null }),
+  success: () => ({ isLoading: false, isLoaded: true, error: null }),
+  error: (error) => ({ isLoading: false, isLoaded: false, error }),
 };
 
 export { request, createAsyncState };
