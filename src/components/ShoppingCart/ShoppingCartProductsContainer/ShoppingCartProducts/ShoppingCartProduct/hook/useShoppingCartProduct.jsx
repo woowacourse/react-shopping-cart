@@ -6,6 +6,7 @@ import {
   updateCartProductQuantity,
   removeCartProduct,
 } from "../../../../../../modules/cartProducts";
+import { setSnackBarTypeFail } from "../../../../../../modules/snackBar";
 
 const useShoppingCartProduct = (id, checked, price, quantity) => {
   const [isChecked, setChecked] = useState(true);
@@ -48,7 +49,7 @@ const useShoppingCartProduct = (id, checked, price, quantity) => {
   };
 
   const handleRemoveProduct = () => {
-    dispatch(removeCartProduct(id));
+    dispatch(removeCartProduct(id, setSnackBarTypeFail));
   };
 
   useEffect(() => {

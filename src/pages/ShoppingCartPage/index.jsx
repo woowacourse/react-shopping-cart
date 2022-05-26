@@ -7,6 +7,7 @@ import {
   removeCartProducts,
 } from "../../modules/cartProducts";
 import { addIds, removeIds } from "../../modules/checkedIds";
+import { setSnackBarTypeFail } from "../../modules/snackBar";
 import * as S from "./index.styles";
 
 const ShoppingCartPage = () => {
@@ -28,7 +29,7 @@ const ShoppingCartPage = () => {
   };
 
   const handleRemoveProducts = () => {
-    dispatch(removeCartProducts());
+    dispatch(removeCartProducts(setSnackBarTypeFail));
   };
 
   useEffect(() => {

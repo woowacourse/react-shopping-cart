@@ -43,7 +43,9 @@ export const postCartProduct =
       newProduct.isInShoppingCart = false;
       await API.removeShoppingCartProduct(id);
 
-      dispatch(failCallback(SNACK_BAR_MESSAGE.FAIL_PUT_IN_SHOPPING_CART));
+      dispatch(
+        failCallback(SNACK_BAR_MESSAGE.TAKE_OUT_PRODUCT_FROM_SHOPPING_CART)
+      );
     } finally {
       const replaceProducts = products.data.map((product) => {
         if (product.id === id) return newProduct;
@@ -57,68 +59,78 @@ export const postCartProduct =
     }
   };
 
-export const removeCartProducts = () => async (dispatch, getState) => {
-  try {
-    const { shoppingCartProducts, checkedProductIds, products } = getState();
-    const remainProducts = [...shoppingCartProducts.data];
-    const newProducts = [...products.data];
-    const removeProducts = [];
+export const removeCartProducts =
+  (removeCallback) => async (dispatch, getState) => {
+    try {
+      const { shoppingCartProducts, checkedProductIds, products } = getState();
+      const remainProducts = [...shoppingCartProducts.data];
+      const newProducts = [...products.data];
+      const removeProducts = [];
 
-    checkedProductIds.forEach((id) => {
-      remainProducts.forEach((product, index) => {
-        if (id === product.id) {
-          removeProducts.push(remainProducts.splice(index, 1)[0]);
-        }
+      checkedProductIds.forEach((id) => {
+        remainProducts.forEach((product, index) => {
+          if (id === product.id) {
+            removeProducts.push(remainProducts.splice(index, 1)[0]);
+          }
+        });
       });
-    });
 
-    Promise.all(
-      checkedProductIds.map((id) => API.removeShoppingCartProduct(id))
-    );
+      Promise.all(
+        checkedProductIds.map((id) => API.removeShoppingCartProduct(id))
+      );
 
-    const replaceProducts = newProducts.map((product) => {
-      if (checkedProductIds.includes(product.id)) {
-        product.isInShoppingCart = false;
+      const replaceProducts = newProducts.map((product) => {
+        if (checkedProductIds.includes(product.id)) {
+          product.isInShoppingCart = false;
+          return product;
+        }
         return product;
-      }
-      return product;
-    });
+      });
 
-    dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
-    dispatch({
-      type: REMOVE_SHOPPING_CART_PRODUCTS,
-      newShoppingCartProducts: remainProducts,
-    });
-  } catch (error) {
-    dispatch({ type: GET_CART_PRODUCTS_ERROR });
-  }
-};
+      dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
+      dispatch({
+        type: REMOVE_SHOPPING_CART_PRODUCTS,
+        newShoppingCartProducts: remainProducts,
+      });
+      dispatch(
+        removeCallback(
+          SNACK_BAR_MESSAGE.REMOVE_SELECTED_PRODUCT_FROM_SHOPPING_CART
+        )
+      );
+    } catch (error) {
+      dispatch({ type: GET_CART_PRODUCTS_ERROR });
+    }
+  };
 
-export const removeCartProduct = (id) => async (dispatch, getState) => {
-  try {
-    const { shoppingCartProducts, products } = getState();
-    const newShoppingCartProducts = shoppingCartProducts.data.filter(
-      (product) => product.id !== id
-    );
-    const removeProduct = shoppingCartProducts.data.filter(
-      (product) => product.id === id
-    )[0];
-    removeProduct.isInShoppingCart = false;
+export const removeCartProduct =
+  (id, removeCallback) => async (dispatch, getState) => {
+    try {
+      const { shoppingCartProducts, products } = getState();
+      const newShoppingCartProducts = shoppingCartProducts.data.filter(
+        (product) => product.id !== id
+      );
+      const removeProduct = shoppingCartProducts.data.filter(
+        (product) => product.id === id
+      )[0];
+      removeProduct.isInShoppingCart = false;
 
-    await API.removeShoppingCartProduct(id);
+      await API.removeShoppingCartProduct(id);
 
-    const replaceProducts = products.data.map((product) => {
-      if (product.id === id) return removeProduct;
-      return product;
-    });
+      const replaceProducts = products.data.map((product) => {
+        if (product.id === id) return removeProduct;
+        return product;
+      });
 
-    dispatch({ type: REMOVE_SHOPPING_CART_PRODUCT, newShoppingCartProducts });
-    dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
-    dispatch({ type: REMOVE_PRODUCT_ID, removeId: id });
-  } catch (error) {
-    dispatch({ type: GET_CART_PRODUCTS_ERROR });
-  }
-};
+      dispatch({ type: REMOVE_SHOPPING_CART_PRODUCT, newShoppingCartProducts });
+      dispatch({ type: REPLACE_PRODUCTS, replaceProducts });
+      dispatch({ type: REMOVE_PRODUCT_ID, removeId: id });
+      dispatch(
+        removeCallback(SNACK_BAR_MESSAGE.TAKE_OUT_PRODUCT_FROM_SHOPPING_CART)
+      );
+    } catch (error) {
+      dispatch({ type: GET_CART_PRODUCTS_ERROR });
+    }
+  };
 
 export const updateCartProductQuantity =
   (id, type, currentValue) => async (dispatch, getState) => {

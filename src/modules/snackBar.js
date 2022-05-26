@@ -20,7 +20,7 @@ export const setSnackBarTypeFail = (message) => ({
     message,
     isOpen: true,
     duration: 3000,
-    isSuccess: false,
+    isSuccess: true,
   },
 });
 
