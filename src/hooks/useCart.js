@@ -1,4 +1,4 @@
-const { useSelector } = require('react-redux');
+import { useSelector } from 'react-redux';
 
 const useCart = id => {
   const { shoppingCart } = useSelector(state => state.reducer);
