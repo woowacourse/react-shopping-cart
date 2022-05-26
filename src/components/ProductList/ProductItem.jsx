@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-
-import { addProductToCarts, deleteProductFromCarts } from 'store/carts';
 
 import { CART_SIZE, COLOR } from 'constants/styles';
 import PATH from 'constants/path';
@@ -11,34 +8,27 @@ import PATH from 'constants/path';
 import { BasicImage, BasicButton, Flex } from 'components/shared/basics';
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 
-import useStoreProduct from 'hooks/useStoreProduct';
-import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
-import useDebounce from 'hooks/useDebounce';
+import useCartsApi from 'hooks/useCartsApi';
 
 function ProductItem({ id, src, price, title, isStored }) {
-  const dispatch = useDispatch();
-  const debounce = useDebounce();
-
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const { addToCart } = useStoreProduct(id);
-  const { deleteFromCart } = useDeleteProductFromCart(id);
-
-  const handleCartClick = () => {
-    if (!isLoggedIn) {
-      window.alert('로그인 해주세요.');
-      return;
-    }
-
-    debounce(() => {
-      if (isStored) {
-        deleteFromCart();
-        dispatch(deleteProductFromCarts(id));
-      } else {
-        addToCart();
-        dispatch(addProductToCarts(id));
-      }
-    }, 500);
-  };
+  const { Inner, onClickButton } = useCartsApi({
+    id,
+    isStored,
+    Clicked: (
+      <CartIcon
+        width={CART_SIZE.SMALL.WIDTH}
+        height={CART_SIZE.SMALL.HEIGHT}
+        fill={COLOR.PRIMARY}
+      />
+    ),
+    Unclicked: (
+      <CartIcon
+        width={CART_SIZE.SMALL.WIDTH}
+        height={CART_SIZE.SMALL.HEIGHT}
+        fill={COLOR.BLACK}
+      />
+    ),
+  });
 
   return (
     <div>
@@ -52,13 +42,7 @@ function ProductItem({ id, src, price, title, isStored }) {
           <Styled.ProductName>{title}</Styled.ProductName>
           <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Flex>
-        <Styled.CartButton onClick={handleCartClick}>
-          <CartIcon
-            width={CART_SIZE.SMALL.WIDTH}
-            height={CART_SIZE.SMALL.HEIGHT}
-            fill={isStored ? COLOR.PRIMARY : COLOR.BLACK}
-          />
-        </Styled.CartButton>
+        <Styled.CartButton onClick={onClickButton}>{Inner}</Styled.CartButton>
       </Styled.ProductInfoFlexContainer>
     </div>
   );

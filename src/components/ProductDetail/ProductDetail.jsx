@@ -1,8 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropType from 'prop-types';
-
-import { addProductToCarts, deleteProductFromCarts } from 'store/carts';
 
 import {
   BasicButton,
@@ -13,40 +10,18 @@ import {
 
 import { COLOR } from 'constants/styles';
 
-import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
-import useStoreProduct from 'hooks/useStoreProduct';
-import useDebounce from 'hooks/useDebounce';
 import Spinner from 'components/shared/Spinner';
+import useCartsApi from 'hooks/useCartsApi';
 
 function ProductDetail({ id, src, title, price, isStored }) {
-  const dispatch = useDispatch();
-  const debounce = useDebounce();
-
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const { isCartAddLoading, addToCart, cartAddError } = useStoreProduct(id);
-  const { isCartDeleteLoading, deleteFromCart, deleteProductFromCartError } =
-    useDeleteProductFromCart(id);
-
-  const handleCartButtonClick = () => {
-    if (!isLoggedIn) {
-      alert('로그인 해주세요.');
-      return;
-    }
-
-    debounce(() => {
-      if (isStored) {
-        deleteFromCart();
-        dispatch(deleteProductFromCarts(id));
-      } else {
-        addToCart();
-        dispatch(addProductToCarts(id));
-      }
-    }, 500);
-  };
-
-  const isLoading = isCartAddLoading || isCartDeleteLoading;
-  const buttonText = isStored ? '장바구니 취소' : '장바구니 담기';
-  const isError = deleteProductFromCartError || cartAddError;
+  const { Inner, onClickButton } = useCartsApi({
+    id,
+    Loading: <Spinner />,
+    Error: '전송 중 에러가 발생했습니다.',
+    Unclicked: '장바구니 담기',
+    Clicked: '장바구니 취소',
+    isStored,
+  });
 
   return (
     <Style.ProductDetailFlexBox direction="column" align="center">
@@ -59,9 +34,8 @@ function ProductDetail({ id, src, title, price, isStored }) {
           <Style.ProductDetailPrice>{price}원</Style.ProductDetailPrice>
         </Flex>
       </Style.ProductDetailInfo>
-      <Style.ProductDetailCartButton onClick={handleCartButtonClick}>
-        {isLoading && !isError ? <Spinner /> : buttonText}
-        {isError && ' 에러가 발생했습니다.'}
+      <Style.ProductDetailCartButton onClick={onClickButton}>
+        {Inner}
       </Style.ProductDetailCartButton>
     </Style.ProductDetailFlexBox>
   );
