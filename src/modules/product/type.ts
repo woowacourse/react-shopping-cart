@@ -8,7 +8,7 @@ export enum ProductActionType {
 
 export interface Product {
   isLoading: boolean;
-  data: ProductType;
+  data: ProductType | {};
   error: null | string;
 }
 

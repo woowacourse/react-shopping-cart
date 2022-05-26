@@ -6,3 +6,7 @@ export interface ProductType {
   stock: number;
   isInShoppingCart: boolean;
 }
+
+export function isProduct(product: ProductType | {}): product is ProductType {
+  return (product as ProductType).id !== undefined;
+}

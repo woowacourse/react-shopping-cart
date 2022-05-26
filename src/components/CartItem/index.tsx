@@ -5,6 +5,7 @@ import useProduct from "../../hooks/useProduct";
 import useCart from "../../hooks/useCart";
 import { CartType } from "../../types/cart";
 import React from "react";
+import { isProduct } from "../../types/product";
 
 interface CartItemPros {
   id: number;
@@ -15,6 +16,9 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
   const { product } = useProduct(id);
   const { getCart, changeCartStock, changeCartChecked, deleteCart } = useCart();
   const cart = getCart(cartId) as CartType;
+  let imgUrl = "",
+    price = 0,
+    title = "";
 
   const handleUpStockButton = () => {
     changeCartStock(cartId, cart.stock + 1);
@@ -46,6 +50,12 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
     return <div></div>;
   }
 
+  if (isProduct(product.data)) {
+    imgUrl = product.data.imgUrl;
+    title = product.data.title;
+    price = product.data.price;
+  }
+
   return (
     <S.CartItemContainer>
       <S.ItemContainer>
@@ -54,11 +64,8 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
           value={cart?.isChecked}
           handleChange={handleChangeClick}
         />
-        <S.ItemImage
-          src={product.data?.imgUrl}
-          alt={`${product.data?.title}이미지`}
-        />
-        <span>{product.data?.title}</span>
+        <S.ItemImage src={imgUrl} alt={`${title}이미지`} />
+        <span>{title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
         <S.CartButton onClick={handleDeleteButton}>🗑</S.CartButton>
@@ -68,7 +75,7 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
           upButtonClick={handleUpStockButton}
           handleChange={handleChangeNumber}
         />
-        <p>{(product.data?.price * cart?.stock).toLocaleString("ko-kr")}원</p>
+        <p>{(price * cart?.stock).toLocaleString("ko-kr")}원</p>
       </S.ItemRightContainer>
     </S.CartItemContainer>
   );

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
 import useCart from "../../hooks/useCart";
 import useProduct from "../../hooks/useProduct";
+import { isProduct } from "../../types/product";
 import * as S from "./index.styles";
 
 const Detail = () => {
@@ -18,11 +19,13 @@ const Detail = () => {
   return (
     <S.DetailPageContainer>
       <S.DetailContainer>
-        {product?.isLoading || (
+        {product.isLoading || (
           <ItemDetails
-            {...product?.data}
+            {...product.data}
             onClickShoppingCartButton={() => {
-              createNewCart(Number(id), product.data.price);
+              if (isProduct(product.data)) {
+                createNewCart(Number(id), product.data.price);
+              }
             }}
           />
         )}
