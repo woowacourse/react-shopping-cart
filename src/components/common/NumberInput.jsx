@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  StyledArrowButton,
-  StyledArrowButtonContainer,
-  StyledInput,
-  StyledNumberInputContainer,
-} from "./NumberInput.styled";
+import * as S from "./NumberInput.styled";
 
 function NumberInput({
   value,
@@ -14,18 +9,13 @@ function NumberInput({
   ...rest
 }) {
   return (
-    <StyledNumberInputContainer>
-      <StyledInput
-        type="number"
-        value={value}
-        onChange={onChangeValue}
-        {...rest}
-      />
-      <StyledArrowButtonContainer>
-        <StyledArrowButton onClick={onClickIncreaseButton}>▲</StyledArrowButton>
-        <StyledArrowButton onClick={onClickDecreaseButton}>▼</StyledArrowButton>
-      </StyledArrowButtonContainer>
-    </StyledNumberInputContainer>
+    <S.NumberInputContainer>
+      <S.Input type="number" value={value} onChange={onChangeValue} {...rest} />
+      <S.ArrowButtonContainer>
+        <S.ArrowButton onClick={onClickIncreaseButton}>▲</S.ArrowButton>
+        <S.ArrowButton onClick={onClickDecreaseButton}>▼</S.ArrowButton>
+      </S.ArrowButtonContainer>
+    </S.NumberInputContainer>
   );
 }
 

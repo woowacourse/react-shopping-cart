@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+const Button = styled.button`
   width: ${({ width }) => width || "100%"};
   height: ${({ height }) => height || "auto"};
 
@@ -21,4 +21,4 @@ const StyledButton = styled.button`
   }
 `;
 
-export { StyledButton };
+export { Button };

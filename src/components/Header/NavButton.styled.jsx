@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledNavButton = styled.button`
+const NavButton = styled.button`
   padding: 0 4px 4px;
 
   background-color: transparent;
@@ -15,4 +15,4 @@ const StyledNavButton = styled.button`
   }
 `;
 
-export { StyledNavButton };
+export { NavButton };

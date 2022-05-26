@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const StyledNumberInputContainer = styled.div`
+const NumberInputContainer = styled.div`
   display: flex;
 
   width: 112px;
   height: 60px;
 `;
 
-const StyledInput = styled.input`
+const Input = styled.input`
   text-align: center;
 
   width: 72px;
@@ -30,7 +30,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledArrowButtonContainer = styled.div`
+const ArrowButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,7 +39,7 @@ const StyledArrowButtonContainer = styled.div`
   border: none;
 `;
 
-const StyledArrowButton = styled.button`
+const ArrowButton = styled.button`
   width: 40px;
   height: 50%;
 
@@ -52,9 +52,4 @@ const StyledArrowButton = styled.button`
   }
 `;
 
-export {
-  StyledNumberInputContainer,
-  StyledInput,
-  StyledArrowButtonContainer,
-  StyledArrowButton,
-};
+export { NumberInputContainer, Input, ArrowButtonContainer, ArrowButton };

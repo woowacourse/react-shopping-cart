@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledCheckBoxInput = styled.input`
+const CheckBoxInput = styled.input`
   appearance: none;
 
   width: 28px;
@@ -22,4 +22,4 @@ const StyledCheckBoxInput = styled.input`
   }
 `;
 
-export { StyledCheckBoxInput };
+export { CheckBoxInput };

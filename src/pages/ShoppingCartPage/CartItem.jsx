@@ -6,12 +6,7 @@ import { useNumberInput } from "../../hooks/useNumberInput";
 import IconButton from "../../components/common/IconButton";
 import CheckBox from "../../components/common/CheckBox";
 import NumberInput from "../../components/common/NumberInput";
-import {
-  StyledCartItemContainer,
-  StyledProductName,
-  StyledProductPrice,
-  StyledProductQuantityManagement,
-} from "./CartItem.styled";
+import * as S from "./CartItem.styled";
 
 import { PRODUCT_QUANTITY_CONDITION } from "../../constants";
 import { PATH } from "../../constants/index";
@@ -38,7 +33,7 @@ function CartItem({
   });
 
   return (
-    <StyledCartItemContainer>
+    <S.CartItemContainer>
       <CheckBox checked={selected} onClick={onClickCheckBox} />
 
       <Link to={PATH.PRODUCT_DETAIL_WITH_ID(product.id)}>
@@ -48,13 +43,13 @@ function CartItem({
           width="144px"
           height="144px"
         />
-        <StyledProductName>{product.name}</StyledProductName>
+        <S.ProductName>{product.name}</S.ProductName>
       </Link>
 
-      <StyledProductPrice>
+      <S.ProductPrice>
         {(product.price * quantity).toLocaleString()}원
-      </StyledProductPrice>
-      <StyledProductQuantityManagement>
+      </S.ProductPrice>
+      <S.ProductQuantityManagement>
         <DeleteFromCartButton
           onClick={() => {
             // eslint-disable-next-line no-restricted-globals
@@ -68,8 +63,8 @@ function CartItem({
           onClickIncreaseButton={handleIncreaseButtonClick}
           onClickDecreaseButton={handleDecreaseButtonClick}
         />
-      </StyledProductQuantityManagement>
-    </StyledCartItemContainer>
+      </S.ProductQuantityManagement>
+    </S.CartItemContainer>
   );
 }
 

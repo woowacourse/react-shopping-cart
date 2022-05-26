@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledPaymentBoxContainer = styled.div`
+const PaymentBoxContainer = styled.div`
   position: sticky;
   top: 300px;
 
@@ -10,7 +10,7 @@ const StyledPaymentBoxContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.color.grey_lighter};
 `;
 
-const StyledTitle = styled.h3`
+const Title = styled.h3`
   height: 40px;
   margin-bottom: 20px;
 
@@ -20,7 +20,7 @@ const StyledTitle = styled.h3`
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-const StyledLine = styled.hr`
+const Line = styled.hr`
   position: relative;
   left: -30px;
 
@@ -31,7 +31,7 @@ const StyledLine = styled.hr`
   border: none;
 `;
 
-const StyledHighlightedTextContainer = styled.div`
+const HighlightedTextContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,9 +40,4 @@ const StyledHighlightedTextContainer = styled.div`
   padding-top: 34px;
 `;
 
-export {
-  StyledPaymentBoxContainer,
-  StyledTitle,
-  StyledLine,
-  StyledHighlightedTextContainer,
-};
+export { PaymentBoxContainer, Title, Line, HighlightedTextContainer };

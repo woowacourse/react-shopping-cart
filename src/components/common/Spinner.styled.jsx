@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledSpinnerContainer = styled.div`
+const SpinnerContainer = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -8,7 +8,7 @@ const StyledSpinnerContainer = styled.div`
   left: 0;
 `;
 
-const StyledSpinner = styled.div`
+const Spinner = styled.div`
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -36,4 +36,4 @@ const StyledSpinner = styled.div`
   }
 `;
 
-export { StyledSpinnerContainer, StyledSpinner };
+export { SpinnerContainer, Spinner };

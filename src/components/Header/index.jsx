@@ -2,22 +2,19 @@ import React from "react";
 
 import Logo from "./Logo";
 import NavButton from "./NavButton";
-import {
-  StyledHeaderContainer,
-  StyledNavButtonContainer,
-} from "./index.styled";
+import * as S from "./index.styled";
 
 import { PATH } from "./../../constants/index";
 
 function Header() {
   return (
-    <StyledHeaderContainer>
+    <S.HeaderContainer>
       <Logo />
-      <StyledNavButtonContainer>
+      <S.NavButtonContainer>
         <NavButton to={PATH.CART}>장바구니</NavButton>
         <NavButton to={PATH.ORDER_LIST}>주문목록</NavButton>
-      </StyledNavButtonContainer>
-    </StyledHeaderContainer>
+      </S.NavButtonContainer>
+    </S.HeaderContainer>
   );
 }
 

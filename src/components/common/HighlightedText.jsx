@@ -1,11 +1,11 @@
 import React from "react";
-import { StyledTextWrapper, StyledText } from "./HighlightedText.styled";
+import * as S from "./HighlightedText.styled";
 
 function HighlightedText({ highlightColor, children }) {
   return (
-    <StyledTextWrapper highlightColor={highlightColor}>
-      <StyledText>{children}</StyledText>
-    </StyledTextWrapper>
+    <S.TextWrapper highlightColor={highlightColor}>
+      <S.Text>{children}</S.Text>
+    </S.TextWrapper>
   );
 }
 

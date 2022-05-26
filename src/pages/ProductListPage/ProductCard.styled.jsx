@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledProductCardContainer = styled.li`
+const ProductCardContainer = styled.li`
   display: flex;
   flex-direction: column;
   width: 280px;
@@ -10,13 +10,13 @@ const StyledProductCardContainer = styled.li`
   cursor: pointer;
 `;
 
-const StyledProductImageWrapper = styled.div`
+const ProductImageWrapper = styled.div`
   width: 100%;
   height: 278px;
   overflow: hidden;
 `;
 
-const StyledProductThumbnail = styled.img`
+const ProductThumbnail = styled.img`
   width: 100%;
   transition: transform 0.3s;
   object-fit: cover;
@@ -26,7 +26,7 @@ const StyledProductThumbnail = styled.img`
   }
 `;
 
-const StyledProductCardBottom = styled.div`
+const ProductCardBottom = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,11 +36,11 @@ const StyledProductCardBottom = styled.div`
   padding: 0 12px;
 `;
 
-const StyledProductTextInfoContainer = styled.div`
+const ProductTextInfoContainer = styled.div`
   max-width: 70%;
 `;
 
-const StyledProductName = styled.p`
+const ProductName = styled.p`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.grey_darker};
   padding: 2px 0;
@@ -50,17 +50,17 @@ const StyledProductName = styled.p`
   text-overflow: ellipsis;
 `;
 
-const StyledProductPrice = styled.p`
+const ProductPrice = styled.p`
   font-size: 1.25rem;
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 export {
-  StyledProductCardContainer,
-  StyledProductImageWrapper,
-  StyledProductThumbnail,
-  StyledProductCardBottom,
-  StyledProductTextInfoContainer,
-  StyledProductName,
-  StyledProductPrice,
+  ProductCardContainer,
+  ProductImageWrapper,
+  ProductThumbnail,
+  ProductCardBottom,
+  ProductTextInfoContainer,
+  ProductName,
+  ProductPrice,
 };

@@ -1,5 +1,5 @@
-import { StyledButton } from "./Button.styled";
+import * as S from "./Button.styled";
 
-const Button = StyledButton;
+const Button = S.Button;
 
 export default Button;

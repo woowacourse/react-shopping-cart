@@ -11,15 +11,7 @@ import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
 import Button from "../../components/common/Button";
-import {
-  StyledBottomSection,
-  StyledContainer,
-  StyledProductImg,
-  StyledProductName,
-  StyledProductPrice,
-  StyledProductPriceText,
-  StyledTopSection,
-} from "./index.styled";
+import * as S from "./index.styled";
 
 import {
   ACTION_SUCCESS_MESSAGE,
@@ -74,21 +66,19 @@ function ProductDetailPage() {
     cartItemListIndex === -1 ? 0 : cartItemList[cartItemListIndex].quantity;
 
   return (
-    <StyledContainer>
-      <StyledTopSection>
-        <StyledProductImg src={product.thumbnailUrl} alt={product.name} />
-        <StyledProductName>{product.name}</StyledProductName>
-      </StyledTopSection>
-      <StyledBottomSection>
-        <StyledProductPriceText>금액</StyledProductPriceText>
-        <StyledProductPrice>
-          {product.price.toLocaleString()}원
-        </StyledProductPrice>
-      </StyledBottomSection>
+    <S.Container>
+      <S.TopSection>
+        <S.ProductImg src={product.thumbnailUrl} alt={product.name} />
+        <S.ProductName>{product.name}</S.ProductName>
+      </S.TopSection>
+      <S.BottomSection>
+        <S.ProductPriceText>금액</S.ProductPriceText>
+        <S.ProductPrice>{product.price.toLocaleString()}원</S.ProductPrice>
+      </S.BottomSection>
       <AddToCartButton
         onClick={handleClickAddToCartButton(product.id, quantity + 1)}
       />
-    </StyledContainer>
+    </S.Container>
   );
 }
 

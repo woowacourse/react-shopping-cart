@@ -1,11 +1,11 @@
 import React from "react";
-import { StyledIconButton, StyledIconButtonImg } from "./IconButton.styled";
+import * as S from "./IconButton.styled";
 
 function IconButton({ title, onClick, iconImgSrc, iconImgAlt, width }) {
   return (
-    <StyledIconButton title={title} onClick={onClick} width={width}>
-      <StyledIconButtonImg src={iconImgSrc} alt={iconImgAlt} width={width} />
-    </StyledIconButton>
+    <S.IconButton title={title} onClick={onClick} width={width}>
+      <S.IconButtonImg src={iconImgSrc} alt={iconImgAlt} width={width} />
+    </S.IconButton>
   );
 }
 

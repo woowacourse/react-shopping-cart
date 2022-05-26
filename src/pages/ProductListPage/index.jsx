@@ -10,7 +10,7 @@ import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
 import ProductCard from "./ProductCard";
-import { StyledGridList } from "./index.styled";
+import * as S from "./index.styled";
 
 import {
   ACTION_SUCCESS_MESSAGE,
@@ -68,7 +68,7 @@ function ProductListPage() {
   });
 
   return (
-    <StyledGridList>
+    <S.GridList>
       {ProductListWithQuantity.map((product) => (
         <ProductCard
           key={product.id}
@@ -79,7 +79,7 @@ function ProductListPage() {
           )}
         />
       ))}
-    </StyledGridList>
+    </S.GridList>
   );
 }
 

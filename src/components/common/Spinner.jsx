@@ -1,11 +1,11 @@
 import React from "react";
-import { StyledSpinner, StyledSpinnerContainer } from "./Spinner.styled";
+import * as S from "./Spinner.styled";
 
 function Spinner() {
   return (
-    <StyledSpinnerContainer>
-      <StyledSpinner />
-    </StyledSpinnerContainer>
+    <S.SpinnerContainer>
+      <S.Spinner />
+    </S.SpinnerContainer>
   );
 }
 

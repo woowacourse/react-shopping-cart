@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledHeaderContainer = styled.header`
+const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@ const StyledHeaderContainer = styled.header`
   box-shadow: 0 4px 10px 2px #bbb;
 `;
 
-const StyledNavButtonContainer = styled.nav`
+const NavButtonContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,4 +25,4 @@ const StyledNavButtonContainer = styled.nav`
   width: 220px;
 `;
 
-export { StyledHeaderContainer, StyledNavButtonContainer };
+export { HeaderContainer, NavButtonContainer };

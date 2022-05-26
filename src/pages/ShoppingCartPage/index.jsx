@@ -15,14 +15,7 @@ import {
   postCartItemByProductList,
 } from "../../store/cartReducer";
 
-import {
-  StyledCartItemList,
-  StyledLabel,
-  StyledListTitle,
-  StyledPageContentContainer,
-  StyledPageTitle,
-  StyledSelectedProductManagementContainer,
-} from "./index.styled";
+import * as S from "./index.styled";
 
 function ShoppingCartPage() {
   const dispatch = useDispatch();
@@ -79,17 +72,17 @@ function ShoppingCartPage() {
 
   return (
     <div>
-      <StyledPageTitle>장바구니</StyledPageTitle>
-      <StyledPageContentContainer>
+      <S.PageTitle>장바구니</S.PageTitle>
+      <S.PageContentContainer>
         <div>
-          <StyledSelectedProductManagementContainer>
-            <StyledLabel>
+          <S.SelectedProductManagementContainer>
+            <S.Label>
               <CheckBox
                 checked={isAllSelected}
                 onClick={handleSelectAllCheckBoxClick}
               />
               전체 선택
-            </StyledLabel>
+            </S.Label>
             <Button
               width="117px"
               height="50px"
@@ -99,12 +92,12 @@ function ShoppingCartPage() {
             >
               선택 상품 삭제
             </Button>
-          </StyledSelectedProductManagementContainer>
+          </S.SelectedProductManagementContainer>
           <div>
-            <StyledListTitle>
+            <S.ListTitle>
               장바구니 상품목록({cartItemList.length}개)
-            </StyledListTitle>
-            <StyledCartItemList>
+            </S.ListTitle>
+            <S.CartItemList>
               {cartItemList.map((product) => (
                 <CartItem
                   key={product.id}
@@ -115,14 +108,14 @@ function ShoppingCartPage() {
                   deleteSelf={deleteCartItem(product.id)}
                 />
               ))}
-            </StyledCartItemList>
+            </S.CartItemList>
           </div>
         </div>
         <PaymentBox
           amount={paymentAmount}
           quantity={selectedCartItemList.length}
         />
-      </StyledPageContentContainer>
+      </S.PageContentContainer>
     </div>
   );
 }

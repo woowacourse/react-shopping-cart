@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledCartItemContainer = styled.li`
+const CartItemContainer = styled.li`
   position: relative;
 
   display: flex;
@@ -19,13 +19,13 @@ const StyledCartItemContainer = styled.li`
   }
 `;
 
-const StyledProductName = styled.p`
+const ProductName = styled.p`
   font-size: 20px;
   line-height: 24px;
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-const StyledProductPrice = styled.p`
+const ProductPrice = styled.p`
   position: absolute;
   bottom: 25px;
   right: 0;
@@ -35,7 +35,7 @@ const StyledProductPrice = styled.p`
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-const StyledProductQuantityManagement = styled.div`
+const ProductQuantityManagement = styled.div`
   position: absolute;
   top: 25px;
   right: 0;
@@ -47,8 +47,8 @@ const StyledProductQuantityManagement = styled.div`
 `;
 
 export {
-  StyledCartItemContainer,
-  StyledProductName,
-  StyledProductPrice,
-  StyledProductQuantityManagement,
+  CartItemContainer,
+  ProductName,
+  ProductPrice,
+  ProductQuantityManagement,
 };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledGridList = styled.ul`
+const GridList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
@@ -10,4 +10,4 @@ const StyledGridList = styled.ul`
   gap: 28px 12px;
 `;
 
-export { StyledGridList };
+export { GridList };

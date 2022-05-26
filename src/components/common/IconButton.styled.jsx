@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-const StyledIconButton = styled.button`
+const IconButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
 `;
 
-const StyledIconButtonImg = styled.img`
+const IconButtonImg = styled.img`
   width: ${({ width }) => width};
   &:hover {
     transform: scale(1.05);
   }
 `;
 
-export { StyledIconButton, StyledIconButtonImg };
+export { IconButton, IconButtonImg };

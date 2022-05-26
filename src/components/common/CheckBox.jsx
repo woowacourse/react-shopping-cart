@@ -1,13 +1,9 @@
 import React from "react";
-import { StyledCheckBoxInput } from "./CheckBox.styled";
+import * as S from "./CheckBox.styled";
 
 function CheckBox({ checked, onClick }) {
   return (
-    <StyledCheckBoxInput
-      type={"checkbox"}
-      checked={checked}
-      onClick={onClick}
-    />
+    <S.CheckBoxInput type={"checkbox"} checked={checked} onClick={onClick} />
   );
 }
 

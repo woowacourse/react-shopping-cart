@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const StyledContainer = styled.section`
+const Container = styled.section`
   width: 400px;
 `;
 
-const StyledTopSection = styled.div`
+const TopSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,41 +14,41 @@ const StyledTopSection = styled.div`
   padding: 16px;
 `;
 
-const StyledBottomSection = styled.div`
+const BottomSection = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 16px 16px 20px;
 `;
 
-const StyledProductImg = styled.img`
+const ProductImg = styled.img`
   width: 100%;
   object-fit: cover;
 `;
 
-const StyledProductName = styled.p`
+const ProductName = styled.p`
   font-size: 1.25rem;
   font-weight: 700;
   color: ${({ theme }) => theme.color.grey_darker};
   padding: 8px 0;
 `;
 
-const StyledProductPriceText = styled.span`
+const ProductPriceText = styled.span`
   font-size: 1rem;
   color: ${({ theme }) => theme.color.grey_darker};
   margin: auto 0;
 `;
 
-const StyledProductPrice = styled.p`
+const ProductPrice = styled.p`
   font-size: 1.25rem;
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
 export {
-  StyledContainer,
-  StyledTopSection,
-  StyledBottomSection,
-  StyledProductImg,
-  StyledProductName,
-  StyledProductPriceText,
-  StyledProductPrice,
+  Container,
+  TopSection,
+  BottomSection,
+  ProductImg,
+  ProductName,
+  ProductPriceText,
+  ProductPrice,
 };

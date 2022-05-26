@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledTextWrapper = styled.p`
+const TextWrapper = styled.p`
   height: 8px;
   margin-top: 14px;
   padding: 0 2px;
@@ -9,7 +9,7 @@ const StyledTextWrapper = styled.p`
     highlightColor || theme.color.primary_light};
 `;
 
-const StyledText = styled.span`
+const Text = styled.span`
   position: relative;
   top: -200%;
 
@@ -18,4 +18,4 @@ const StyledText = styled.span`
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-export { StyledTextWrapper, StyledText };
+export { TextWrapper, Text };

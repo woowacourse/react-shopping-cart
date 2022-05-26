@@ -2,15 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import IconButton from "../../components/common/IconButton";
-import {
-  StyledProductCardBottom,
-  StyledProductCardContainer,
-  StyledProductImageWrapper,
-  StyledProductName,
-  StyledProductPrice,
-  StyledProductTextInfoContainer,
-  StyledProductThumbnail,
-} from "./ProductCard.styled";
+import * as S from "./ProductCard.styled";
 
 import { PATH } from "../../constants";
 import shoppingCartIconBlack from "../../asset/shopping-cart-icon-black.svg";
@@ -21,25 +13,25 @@ function ProductCard({
 }) {
   return (
     <Link to={PATH.PRODUCT_DETAIL_WITH_ID(id)}>
-      <StyledProductCardContainer>
-        <StyledProductImageWrapper>
-          <StyledProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
-        </StyledProductImageWrapper>
-        <StyledProductCardBottom>
-          <StyledProductTextInfoContainer>
-            <StyledProductName>{name ?? "%Error%"}</StyledProductName>
-            <StyledProductPrice>
+      <S.ProductCardContainer>
+        <S.ProductImageWrapper>
+          <S.ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
+        </S.ProductImageWrapper>
+        <S.ProductCardBottom>
+          <S.ProductTextInfoContainer>
+            <S.ProductName>{name ?? "%Error%"}</S.ProductName>
+            <S.ProductPrice>
               {price.toLocaleString() ?? "%Error%"}원
-            </StyledProductPrice>
-          </StyledProductTextInfoContainer>
+            </S.ProductPrice>
+          </S.ProductTextInfoContainer>
           <AddToCartButton
             onClick={(e) => {
               e.preventDefault();
               onClickAddToCartButton();
             }}
           />
-        </StyledProductCardBottom>
-      </StyledProductCardContainer>
+        </S.ProductCardBottom>
+      </S.ProductCardContainer>
     </Link>
   );
 }

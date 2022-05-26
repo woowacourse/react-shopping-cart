@@ -2,24 +2,19 @@ import React from "react";
 
 import Button from "../../components/common/Button";
 import HighlightedText from "../../components/common/HighlightedText";
-import {
-  StyledPaymentBoxContainer,
-  StyledTitle,
-  StyledLine,
-  StyledHighlightedTextContainer,
-} from "./PaymentBox.styled";
+import * as S from "./PaymentBox.styled";
 
 function PaymentBox({ amount, quantity }) {
   return (
-    <StyledPaymentBoxContainer>
-      <StyledTitle>결제예상금액</StyledTitle>
-      <StyledLine />
-      <StyledHighlightedTextContainer>
+    <S.PaymentBoxContainer>
+      <S.Title>결제예상금액</S.Title>
+      <S.Line />
+      <S.HighlightedTextContainer>
         <HighlightedText>결제예상금액</HighlightedText>
         <HighlightedText>{amount.toLocaleString()}원</HighlightedText>
-      </StyledHighlightedTextContainer>
+      </S.HighlightedTextContainer>
       <OrderButton>주문하기({quantity}개)</OrderButton>
-    </StyledPaymentBoxContainer>
+    </S.PaymentBoxContainer>
   );
 }
 

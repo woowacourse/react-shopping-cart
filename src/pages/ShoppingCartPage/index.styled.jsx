@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledPageTitle = styled.h2`
+const PageTitle = styled.h2`
   margin-bottom: 30px;
 
   text-align: center;
@@ -10,7 +10,7 @@ const StyledPageTitle = styled.h2`
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-const StyledPageContentContainer = styled.div`
+const PageContentContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -25,7 +25,7 @@ const StyledPageContentContainer = styled.div`
   }
 `;
 
-const StyledSelectedProductManagementContainer = styled.div`
+const SelectedProductManagementContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -35,7 +35,7 @@ const StyledSelectedProductManagementContainer = styled.div`
   margin-bottom: 26px;
 `;
 
-const StyledLabel = styled.label`
+const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -45,7 +45,7 @@ const StyledLabel = styled.label`
   }
 `;
 
-const StyledListTitle = styled.h3`
+const ListTitle = styled.h3`
   height: 40px;
   margin-bottom: 16px;
 
@@ -55,7 +55,7 @@ const StyledListTitle = styled.h3`
   color: ${({ theme }) => theme.color.grey_darker};
 `;
 
-const StyledCartItemList = styled.ul`
+const CartItemList = styled.ul`
   display: flex;
   flex-direction: column;
 
@@ -66,10 +66,10 @@ const StyledCartItemList = styled.ul`
 `;
 
 export {
-  StyledPageTitle,
-  StyledPageContentContainer,
-  StyledSelectedProductManagementContainer,
-  StyledLabel,
-  StyledListTitle,
-  StyledCartItemList,
+  PageTitle,
+  PageContentContainer,
+  SelectedProductManagementContainer,
+  Label,
+  ListTitle,
+  CartItemList,
 };
