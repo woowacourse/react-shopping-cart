@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from 'actions/products/thunk';
 
-import useReduxState from 'hooks/useReduxState';
 import useCart from 'hooks/useCart';
 
 import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
@@ -11,11 +11,13 @@ import ProductItem from 'components/ProductItem';
 import * as S from './styles';
 
 export function ProductList() {
-  const { state, dispatch } = useReduxState('products');
+  const dispatch = useDispatch();
+
+  const productState = useSelector((state) => state.products);
+  const { content: products, isLoading, error: errorMessage } = productState.productInfo;
+
   const { action: cartAction, state: cartState } = useCart();
   const { cartItems } = cartState;
-
-  const { content: products, isLoading, error: errorMessage } = state.productInfo;
 
   useEffect(() => {
     dispatch(getProductList());
