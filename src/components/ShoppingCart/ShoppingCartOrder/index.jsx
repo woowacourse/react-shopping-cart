@@ -6,25 +6,19 @@ const ShoppingCartOrder = ({ products, checkedProductIds }) => {
   const [totalQuantity, setTotalQuantity] = useState(0);
 
   useEffect(() => {
-    const totalProductsAmount = products.reduce(
-      (totalAmount, currentProduct) => {
-        if (checkedProductIds.includes(currentProduct.id)) {
-          return totalAmount + currentProduct.price * currentProduct.quantity;
-        }
+    const [totalProductsAmount, totalProductsQuantity] = products.reduce(
+      (totalArray, currentProduct) => {
+        const [totalAmount, totalQuantity] = totalArray;
 
-        return totalAmount;
-      },
-      0
-    );
-    const totalProductsQuantity = products.reduce(
-      (totalQuantity, currentProduct) => {
         if (checkedProductIds.includes(currentProduct.id)) {
-          return totalQuantity + currentProduct.quantity;
+          return [
+            totalAmount + currentProduct.price * currentProduct.quantity,
+            totalQuantity + currentProduct.quantity,
+          ];
         }
-
-        return totalQuantity;
+        return totalArray;
       },
-      0
+      [0, 0]
     );
 
     setTotalAmount(totalProductsAmount);
