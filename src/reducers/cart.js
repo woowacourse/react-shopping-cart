@@ -6,56 +6,41 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
-  const modifiedItems = [];
 
   switch (type) {
     case 장바구니_액션.ADD_NEW_PRODUCT:
       return { items: [...state.items, payload] };
 
     case 장바구니_액션.ADD_EXIST_PRODUCT:
-      [...state.items].forEach((item) => {
-        if (item.id === payload.id) {
-          modifiedItems.push(payload);
-          return;
-        }
-        modifiedItems.push(item);
-      });
+      return {
+        items: [...state.items].map((item) => {
+          if (item.id === payload.id) {
+            return payload;
+          }
 
-      return { items: modifiedItems };
+          return item;
+        }),
+      };
 
     case 장바구니_액션.DELETE_PRODUCT:
-      [...state.items].forEach((item) => {
-        let isExist = false;
-        payload.forEach((willDeleteItem) => {
-          if (isExist) {
-            return;
-          }
-
-          if (item.id === willDeleteItem) {
-            isExist = true;
-          }
-        });
-
-        if (isExist) {
-          return;
-        }
-        modifiedItems.push(item);
-      });
-
-      return { items: modifiedItems };
+      return {
+        items: [...state.items].filter((item) =>
+          payload.every((willDeleteItem) => item.id !== willDeleteItem),
+        ),
+      };
 
     case 장바구니_액션.MODIFY_PRODUCT_COUNT:
-      [...state.items].forEach((item) => {
-        if (item.id === payload.productId) {
-          const prevStateItem = item;
-          prevStateItem.count = payload.count;
-          modifiedItems.push(prevStateItem);
-          return;
-        }
-        modifiedItems.push(item);
-      });
+      return {
+        items: [...state.items].map((item) => {
+          if (item.id === payload.productId) {
+            const modifiedItem = item;
+            modifiedItem.count = payload.count;
+            return modifiedItem;
+          }
 
-      return { items: modifiedItems };
+          return item;
+        }),
+      };
 
     default:
       return state;
