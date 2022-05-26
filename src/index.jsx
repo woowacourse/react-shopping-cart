@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import App from "@/App";
 
 import "@/style.scss";
-import Loading from "@/pages/loading/Loading";
+import Loading from "@/components/loading/Loading";
 import configureStore from "@/redux/rootReducer";
 
 const { store, persistor } = configureStore();

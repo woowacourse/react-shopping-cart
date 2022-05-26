@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductList } from "@/redux/actions";
 
-import Loading from "@/pages/loading/Loading";
+import Loading from "@/components/loading/Loading";
 import Error from "@/pages/error/Error";
 
 import StyledProductList from "@/pages/home/components/product-list/ProductList.styled";
