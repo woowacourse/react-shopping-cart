@@ -34,12 +34,8 @@ function CartItem({
     min: PRODUCT_QUANTITY_CONDITION.MIN,
     max: PRODUCT_QUANTITY_CONDITION.MAX,
     step: PRODUCT_QUANTITY_CONDITION.STEP,
+    onChangeValue: updateQuantity,
   });
-
-  useEffect(() => {
-    if (!product || !quantity) return;
-    updateQuantity(quantity);
-  }, [quantity]);
 
   return (
     <StyledCartItemContainer>

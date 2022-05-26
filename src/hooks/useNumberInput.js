@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export const useNumberInput = ({ initialValue, min, max, step }) => {
+export const useNumberInput = ({
+  initialValue,
+  min,
+  max,
+  step,
+  onChangeValue,
+}) => {
   const [value, setValue] = useState(Number(initialValue));
 
   const handleInputChange = ({ target }) => {
@@ -10,13 +16,18 @@ export const useNumberInput = ({ initialValue, min, max, step }) => {
 
     const newValue = Math.max(Math.min(targetValue, max), min);
     setValue(newValue);
+    onChangeValue(newValue);
   };
 
   const handleIncreaseButtonClick = () => {
     setValue((prevValue) => {
       const newValue = prevValue + step;
 
-      if (newValue > max) return prevValue;
+      if (newValue > max) {
+        onChangeValue(prevValue);
+        return prevValue;
+      }
+      onChangeValue(newValue);
       return newValue;
     });
   };
@@ -25,7 +36,11 @@ export const useNumberInput = ({ initialValue, min, max, step }) => {
     setValue((prevValue) => {
       const newValue = prevValue - step;
 
-      if (newValue < min) return prevValue;
+      if (newValue < min) {
+        onChangeValue(prevValue);
+        return prevValue;
+      }
+      onChangeValue(newValue);
       return newValue;
     });
   };
