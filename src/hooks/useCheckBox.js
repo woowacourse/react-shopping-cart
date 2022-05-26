@@ -1,64 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
-export const useCheckBox = (state) => {
-  const [selectAllChecked, setSelectAllChecked] = useState(false);
-  const [checkedList, setCheckedList] = useState([]);
+export const useCheckBox = (boxItems) => {
+  const [checkboxItems, setCheckboxItems] = useState(() => boxItems.map((item) => item.id));
+  const isAllChecked = useMemo(
+    () => boxItems.length === checkboxItems.length,
+    [boxItems.length, checkboxItems.length],
+  );
 
   useEffect(() => {
-    if (state.length === 0) {
-      return;
-    }
-    if (checkedList.length === state.length) {
-      setSelectAllChecked(true);
-    } else {
-      setSelectAllChecked(false);
-    }
-  }, [state, checkedList]);
+    console.log(checkboxItems);
+  });
 
   const handleChecked = (productId) => {
-    const prevState = [...checkedList];
-    const itemIndex = checkedList.findIndex((id) => id === productId);
+    const prevState = [...checkboxItems];
+    const itemIndex = checkboxItems.findIndex((id) => id === productId);
 
     if (itemIndex === -1) {
-      setCheckedList([...prevState, productId]);
+      setCheckboxItems([...prevState, productId]);
       return;
     }
 
-    setCheckedList(() => {
+    setCheckboxItems(() => {
       const nextState = prevState.filter((_, i) => i !== itemIndex);
       return nextState;
     });
   };
 
-  const isChecked = (productId) => checkedList.findIndex((id) => id === productId) !== -1;
+  const isChecked = (productId) => checkboxItems.findIndex((id) => id === productId) !== -1;
 
   const checkAllSelectButton = () => {
-    if (state.length <= 0) {
-      setSelectAllChecked(!selectAllChecked);
+    if (boxItems.length <= 0) {
       return;
     }
 
-    if (checkedList.length >= state.length) {
-      setCheckedList([]);
-      setSelectAllChecked(false);
+    if (checkboxItems.length >= boxItems.length) {
+      setCheckboxItems([]);
       return;
     }
 
-    setCheckedList(state.map((item) => item.id));
-    setSelectAllChecked(true);
+    setCheckboxItems(boxItems.map((item) => item.id));
   };
 
   const clearCheckBoxItems = () => {
-    if (checkedList <= 0) {
+    if (checkboxItems <= 0) {
       return;
     }
 
-    setCheckedList([]);
+    setCheckboxItems([]);
   };
 
   return {
-    checkedList,
-    selectAllChecked,
+    checkboxItems,
+    isAllChecked,
     handleChecked,
     isChecked,
     checkAllSelectButton,

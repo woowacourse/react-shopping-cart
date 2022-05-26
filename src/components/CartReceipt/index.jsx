@@ -6,7 +6,7 @@ import { COLORS } from 'styles/theme';
 import * as CommonStyled from 'components/@common/CommonStyle/styles';
 import * as Styled from './styles';
 
-const CartReceipt = ({ totalPrice, checkedListCount }) => (
+const CartReceipt = ({ totalPrice, checkboxItemCount }) => (
   <Styled.CartListReceiptContainer>
     <CommonStyled.FlexWrapper padding="1.5rem">
       <CommonStyled.Text>결제예상금액</CommonStyled.Text>
@@ -21,7 +21,7 @@ const CartReceipt = ({ totalPrice, checkedListCount }) => (
           {totalPrice ? totalPrice.toLocaleString('ko-KR') : 0}원
         </CommonStyled.Text>
       </CommonStyled.FlexWrapper>
-      {checkedListCount === 0 ? (
+      {checkboxItemCount === 0 ? (
         <Button
           height="60px"
           margin="3rem 0 0 0"
@@ -32,11 +32,11 @@ const CartReceipt = ({ totalPrice, checkedListCount }) => (
           color={COLORS.GRAY_300}
           hoverColor={COLORS.GRAY_100}
         >
-          주문하기({checkedListCount || 0}종)
+          주문하기({checkboxItemCount || 0}종)
         </Button>
       ) : (
         <Button height="60px" margin="3rem 0 0 0" size="1.2rem" weight="normal">
-          주문하기({checkedListCount || 0}종)
+          주문하기({checkboxItemCount || 0}종)
         </Button>
       )}
     </CommonStyled.FlexWrapper>
@@ -45,12 +45,12 @@ const CartReceipt = ({ totalPrice, checkedListCount }) => (
 
 CartReceipt.propTypes = {
   totalPrice: PropTypes.number,
-  checkedListCount: PropTypes.number,
+  checkboxItemCount: PropTypes.number,
 };
 
 CartReceipt.defaultProps = {
   totalPrice: 0,
-  checkedListCount: 0,
+  checkboxItemCount: 0,
 };
 
 export default CartReceipt;

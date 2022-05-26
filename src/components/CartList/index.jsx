@@ -9,8 +9,8 @@ import * as CommonStyled from 'components/@common/CommonStyle/styles';
 
 const CartList = ({
   cartList,
-  selectAllChecked,
-  checkedListCount,
+  isAllChecked,
+  checkboxItemCount,
   checkAllSelectButton,
   deleteSelectedItem,
   isChecked,
@@ -19,10 +19,10 @@ const CartList = ({
 }) => (
   <>
     <CommonStyled.FlexWrapper justifyContent="space-between" margin="1rem 0 2rem 0">
-      <CheckBox checkState={selectAllChecked} handleChecked={checkAllSelectButton()}>
-        {selectAllChecked ? '선택해제' : '전체선택'}
+      <CheckBox checkState={isAllChecked} handleChecked={checkAllSelectButton()}>
+        {isAllChecked ? '선택해제' : '전체선택'}
       </CheckBox>
-      {checkedListCount === 0 ? (
+      {checkboxItemCount === 0 ? (
         <Button
           width="7rem"
           height="40px"
@@ -74,7 +74,7 @@ const CartList = ({
 
 CartList.propTypes = {
   cartList: PropTypes.array,
-  selectAllChecked: PropTypes.bool,
+  isAllChecked: PropTypes.bool,
   checkAllSelectButton: PropTypes.func,
   deleteSelectedItem: PropTypes.func,
   isChecked: PropTypes.func,
@@ -84,7 +84,7 @@ CartList.propTypes = {
 
 CartList.defaultProps = {
   cartList: {},
-  selectAllChecked: false,
+  isAllChecked: false,
   checkAllSelectButton: () => {},
   deleteSelectedItem: () => {},
   isChecked: () => {},

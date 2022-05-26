@@ -16,8 +16,8 @@ import * as Styled from './styles';
 const Cart = () => {
   const cartList = useCartItem();
   const {
-    checkedList,
-    selectAllChecked,
+    checkboxItems,
+    isAllChecked,
     handleChecked,
     isChecked,
     checkAllSelectButton,
@@ -28,21 +28,24 @@ const Cart = () => {
 
   useEffect(() => {
     let calculateTotalPrice = 0;
+    console.log(checkboxItems);
 
-    checkedList.forEach((productId) => {
+    checkboxItems.forEach((productId) => {
+      console.log('id : ', productId);
       const currentProduct = cartList.find((checkedProduct) => checkedProduct.id === productId);
+      console.log(currentProduct);
       calculateTotalPrice += currentProduct.price * currentProduct.count;
     });
 
     setTotalPrice(calculateTotalPrice);
-  }, [cartList, checkedList]);
+  }, [cartList, checkboxItems]);
 
   const deleteSelectedItem = () => {
-    if (checkedList.length <= 0) {
+    if (checkboxItems.length <= 0) {
       return;
     }
 
-    dispatch(deleteCartItem(checkedList));
+    dispatch(deleteCartItem(checkboxItems));
     clearCheckBoxItems();
     dispatch(snackbar.pushMessageSnackbar(알림_메시지.장바구니_다중_삭제));
   };
@@ -59,8 +62,8 @@ const Cart = () => {
           <CommonStyled.FlexWrapper margin="2rem" flexDirection="column" alignItems="flex-start">
             <CartList
               cartList={cartList}
-              selectAllChecked={selectAllChecked}
-              checkedListCount={checkedList.length}
+              isAllChecked={isAllChecked}
+              checkboxItemCount={checkboxItems.length}
               checkAllSelectButton={() => checkAllSelectButton}
               deleteSelectedItem={() => deleteSelectedItem}
               isChecked={isChecked}
@@ -68,7 +71,7 @@ const Cart = () => {
               handleItemCount={() => handleItemCount}
             />
           </CommonStyled.FlexWrapper>
-          <CartReceipt totalPrice={totalPrice} checkedListCount={checkedList.length} />
+          <CartReceipt totalPrice={totalPrice} checkboxItemCount={checkboxItems.length} />
         </CommonStyled.FlexWrapper>
       </Styled.CartListContainer>
     </Layout>
