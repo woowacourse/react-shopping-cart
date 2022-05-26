@@ -1,6 +1,6 @@
 import { buildThunkActionGroup } from 'redux/utils';
 import { CartItem } from 'types/domain';
-import { Valueof } from 'types/utilitys';
+import { Valueof } from 'types/utilities';
 
 export const CartListActionType = {
   GET_CART_LIST: 'cart/GET_CART_LIST',
