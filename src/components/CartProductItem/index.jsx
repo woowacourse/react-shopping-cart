@@ -26,7 +26,11 @@ const CartProductItem = ({ id, quantity }) => {
         <Counter
           quantity={quantity}
           increase={() => store.dispatch(doPutProductToCart({ id, quantity: quantity + 1 }))}
-          decrease={() => store.dispatch(doPutProductToCart({ id, quantity: quantity - 1 }))}
+          decrease={() => {
+            if (quantity > 1) {
+              store.dispatch(doPutProductToCart({ id, quantity: quantity - 1 }));
+            }
+          }}
         />
         {autoComma(price)}원
       </Styled.RightSide>
