@@ -50,12 +50,8 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
     deleteCart(cartId);
   };
 
-  if (!Object.keys(product).length) {
-    return <div></div>;
-  }
-
-  if (product.isLoading) {
-    return <div></div>;
+  if (!Object.keys(product).length || product.isLoading) {
+    return null;
   }
 
   if (isProduct(product.data)) {
