@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { COLOR } from 'constants';
+import { useAddCartEvent } from 'hooks/cart';
 import { getProduct } from 'reduxModule/product';
 
 import { CardDetailButton, flexSpaceBetween } from 'components/common/Styled';
@@ -54,9 +54,10 @@ const Styled = {
   `,
 };
 
-const ProductDetail = ({ onAddCartButtonClick }) => {
+const ProductDetail = () => {
   const { id: productId } = useParams();
   const { product, loading, error } = useSelector(({ productReducer }) => productReducer.posts);
+  const [onAddClick] = useAddCartEvent();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -88,17 +89,13 @@ const ProductDetail = ({ onAddCartButtonClick }) => {
       </Styled.Content>
       <CardDetailButton
         onClick={() => {
-          onAddCartButtonClick(Number(productId));
+          onAddClick(Number(productId));
         }}
       >
         장바구니
       </CardDetailButton>
     </Styled.Wrapper>
   );
-};
-
-ProductDetail.propTypes = {
-  onAddCartButtonClick: PropTypes.func,
 };
 
 export default ProductDetail;

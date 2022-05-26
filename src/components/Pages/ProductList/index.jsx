@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from 'reduxModule/productList';
+import { useAddCartEvent } from 'hooks/cart';
 
 import Product from 'components/Pages/ProductList/Product';
 import LoadingSpinner from 'components/common/Styled/LoadingSpinner';
@@ -25,9 +25,9 @@ const Styled = {
   `,
 };
 
-const ProductList = ({ onAddCartButtonClick }) => {
+const ProductList = () => {
   const dispatch = useDispatch();
-
+  const [onAddClick] = useAddCartEvent();
   const { productList, loading, error } = useSelector(
     ({ productListReducer }) => productListReducer.posts,
   );
@@ -57,7 +57,7 @@ const ProductList = ({ onAddCartButtonClick }) => {
             name={name}
             price={Number(price)}
             thumbnail={thumbnail}
-            onClick={onAddCartButtonClick}
+            onClick={onAddClick}
           />
         ))
       ) : (
@@ -65,10 +65,6 @@ const ProductList = ({ onAddCartButtonClick }) => {
       )}
     </Styled.ProductBox>
   );
-};
-
-ProductList.propTypes = {
-  onAddCartButtonClick: PropTypes.func,
 };
 
 export default ProductList;
