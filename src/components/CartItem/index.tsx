@@ -12,18 +12,17 @@ interface CartItemPros {
   cartId: string;
 }
 
-let imgUrl = "",
-  price = 0,
-  title = "";
-let stock = 0,
-  isChecked = false;
-
 const CartItem = ({ id, cartId }: CartItemPros) => {
+  let imgUrl = "",
+    price = 0,
+    title = "";
+  let stock = 0,
+    isChecked = false;
+
   const { product } = useProduct(id);
   const { getCart, changeCartStock, changeCartChecked, deleteCart } =
     useCartItem(cartId);
   const cart = getCart();
-
   if (isCart(cart)) {
     stock = cart.stock;
     isChecked = cart.isChecked;
