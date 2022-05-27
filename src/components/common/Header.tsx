@@ -9,18 +9,16 @@ const Header = () => {
 
   return (
     <StyledRoot>
-      <div>
-        <Link to={PATH.getMain(1)}>
-          <StyledLogo>
-            <CartIcon fill='white' />
-            <StyledBrandName>Woowa Shop</StyledBrandName>
-          </StyledLogo>
-        </Link>
-        <StyledNav>
-          <button onClick={() => navigate(PATH.cart)}>장바구니</button>
-          <button>주문목록</button>
-        </StyledNav>
-      </div>
+      <Link to={PATH.getMain(1)}>
+        <StyledLogo>
+          <CartIcon fill='white' />
+          <StyledBrandName>Woowa Shop</StyledBrandName>
+        </StyledLogo>
+      </Link>
+      <StyledNav>
+        <button onClick={() => navigate(PATH.cart)}>장바구니</button>
+        <button>주문목록</button>
+      </StyledNav>
     </StyledRoot>
   );
 };
@@ -32,14 +30,10 @@ const StyledRoot = styled.header`
   height: 8rem;
   background-color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 6rem;
-  ${flexCenter}
 
-  & > div {
-    width: ${({ theme }) => theme.size.fullContentWidth};
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const StyledLogo = styled.div``;

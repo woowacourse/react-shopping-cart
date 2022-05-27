@@ -1,8 +1,4 @@
-import Cart from 'pages/Cart';
-import ItemDetail from 'pages/ItemDetail';
-import Main from 'pages/ItemList';
-import NotFound from 'pages/NotFound';
-import { ReactElement } from 'react';
+import { lazy, ReactElement } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const PATH = {
@@ -27,9 +23,14 @@ interface RoutesType {
   element: ReactElement;
 }
 
+const ItemList = lazy(() => import('pages/ItemList'));
+const ItemDetail = lazy(() => import('pages/ItemDetail'));
+const Cart = lazy(() => import('pages/Cart'));
+const NotFound = lazy(() => import('pages/NotFound'));
+
 const ROUTES: RoutesType[] = [
   { path: PATH.home, element: <Navigate replace to='/main/1' /> },
-  { path: PATH.main, element: <Main /> },
+  { path: PATH.main, element: <ItemList /> },
   { path: PATH.itemDetail, element: <ItemDetail /> },
   { path: PATH.cart, element: <Cart /> },
   { path: PATH.notFound, element: <NotFound /> },

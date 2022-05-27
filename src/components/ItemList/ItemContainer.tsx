@@ -1,29 +1,25 @@
 import { ReactComponent as CartIcon } from 'assets/cartIcon.svg';
 import CroppedImage from 'components/common/CroppedImage';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { memo, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { CartListAction } from 'redux/cartList/action';
+import { postCartItemRequest, putCartItemRequest } from 'redux/cartList/thunk';
 import { PATH } from 'Routers';
 import styled from 'styled-components';
 import { flexCenter } from 'styles/mixin';
 import theme from 'styles/theme';
+import { CartItem, Item } from 'types/domain';
 
 interface ItemContainerProps {
-  id: number;
-  thumbnailUrl: string;
-  title: string;
-  price: number;
-  updateCartItemQuantity?: (id: number) => void;
+  item: Item;
   openSnackbar: () => void;
+  cartItem: CartItem | undefined;
 }
 
-const ItemContainer = ({
-  id,
-  thumbnailUrl,
-  title,
-  price,
-  updateCartItemQuantity,
-  openSnackbar,
-}: ItemContainerProps) => {
+const ItemContainer = ({ item, openSnackbar, cartItem }: ItemContainerProps) => {
+  const { id, thumbnailUrl, price, title } = item;
+  const dispatch = useAppDispatch<CartListAction>();
   const handleClickItemContainer = (e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     if (e.target instanceof SVGElement) {
       e.preventDefault();
@@ -31,7 +27,16 @@ const ItemContainer = ({
   };
 
   const handleClickCartIcon = () => {
-    updateCartItemQuantity?.(id);
+    if (cartItem) {
+      dispatch(
+        putCartItemRequest({
+          ...cartItem,
+          quantity: cartItem.quantity + 1,
+        })
+      );
+    } else {
+      dispatch(postCartItemRequest({ id: Number(id), quantity: 1, isSelected: true }));
+    }
     openSnackbar();
   };
 
@@ -44,7 +49,7 @@ const ItemContainer = ({
             <StyledTitle>{title}</StyledTitle>
             <StyledPrice>{price.toLocaleString()}</StyledPrice>
           </StyledDescription>
-          <StyledCartIcon width='31px' fill={theme.colors.font} onClick={handleClickCartIcon} />
+          <StyledCartIcon width='31px' fill={theme.colors.GRAY_333} onClick={handleClickCartIcon} />
         </StyledBottom>
       </StyledRoot>
     </Link>

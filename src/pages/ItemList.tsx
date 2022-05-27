@@ -1,58 +1,49 @@
-import { BASE_URL } from 'apis';
 import Loading from 'components/common/Loading';
 import Pagination from 'components/common/Pagination';
 import RequestFail from 'components/common/RequestFail';
 import Snackbar, { MESSAGE } from 'components/common/Snackbar';
 import ItemContainer from 'components/ItemList/ItemContainer';
 import { MAX_RESULT_ITEM_LIST } from 'constants/index';
-import { useFetch } from 'hooks/useFetch';
 import useSnackBar from 'hooks/useSnackBar';
 import useThunkFetch from 'hooks/useThunkFetch';
-import useUpdateCartItem from 'hooks/useUpdateCartItem';
 import { useParams } from 'react-router-dom';
-import { getCartList } from 'redux/action-creators/cartListThunk';
-import { getItemList } from 'redux/action-creators/itemListThunk';
-import { CartListAction } from 'redux/actions/cartList';
-import { ItemListAction } from 'redux/actions/itemList';
+import { getCartListRequest } from 'redux/cartList/thunk';
+import { getItemList } from 'redux/itemList/thunk';
+import { getPageItemListRequest } from 'redux/pageItemList/thunk';
 import styled from 'styled-components';
-import { Item } from 'types/domain';
 
 const ItemList = () => {
   const { id } = useParams();
-  const { isOpenSnackbar, openSnackbar } = useSnackBar();
-
   const {
     data: itemList,
-    error: itemListError,
+    error: error_getItemList,
     loading,
-  } = useFetch<Item[]>(`${BASE_URL}/itemList?_page=${id}&_limit=${MAX_RESULT_ITEM_LIST}`);
-  const { data: allItemList, error: allItemListError } = useThunkFetch<ItemListAction>(
-    state => state.itemListReducer,
-    getItemList
+  } = useThunkFetch(state => state.pageItemList, getPageItemListRequest(id));
+  const { data: allItemList, error: error_getAllItemList } = useThunkFetch(
+    state => state.itemList,
+    getItemList()
   );
-  const { data: cartList, error: cartListError } = useThunkFetch<CartListAction>(
-    state => state.cartListReducer,
-    getCartList
+  const { data: cartList, error: error_getCartList } = useThunkFetch(
+    state => state.cartList,
+    getCartListRequest()
   );
-  const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const { isOpenSnackbar, openSnackbar } = useSnackBar();
 
   if (loading) return <Loading />;
-  if (itemListError || allItemListError || cartListError) return <RequestFail />;
+  if (error_getItemList || error_getAllItemList || error_getCartList) return <RequestFail />;
 
   return (
     <StyledRoot>
-      {itemList.map(item => (
+      {itemList?.map(item => (
         <ItemContainer
           key={item.id}
-          id={item.id}
-          thumbnailUrl={item.thumbnailUrl}
-          price={item.price}
-          title={item.title}
-          updateCartItemQuantity={updateCartItemQuantity}
+          item={item}
+          cartItem={cartList.find(cartItem => cartItem.id === item.id)}
           openSnackbar={openSnackbar}
         />
       ))}
       <Pagination
+        endpoint='main'
         count={10}
         lastIndex={Math.floor(allItemList.length / MAX_RESULT_ITEM_LIST) + 1}
       />

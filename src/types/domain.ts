@@ -8,4 +8,7 @@ export interface Item {
 export interface CartItem {
   id: number;
   quantity: number;
+  isSelected: boolean;
 }
+
+export type ItemInCart = Item & CartItem;

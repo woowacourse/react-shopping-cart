@@ -1,8 +1,11 @@
 const colors = {
   primary: '#2AC1BC',
-  font: '#333333',
-  divisionLine: '#AAAAAA',
   brown: '#73675C',
+  GRAY_ddd: '#DDDDDD',
+  GRAY_ccc: '#CCCCCC',
+  GRAY_bbb: '#BBBBBB',
+  GRAY_aaa: '#AAAAAA',
+  GRAY_333: '#333333',
 };
 
 const size = {

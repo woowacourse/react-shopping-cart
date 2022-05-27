@@ -1,18 +1,24 @@
-import usePagination from 'pages/usePagination';
+import usePagination from 'hooks/usePagination';
+import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 interface PaginationProps {
+  endpoint: string;
   lastIndex: number;
   count: number;
 }
 
-const Pagination = ({ count, lastIndex }: PaginationProps) => {
-  const { currentPage, pageStartNumber, handleClickNumber, handleClickPrev, handleClickNext } =
-    usePagination({ count, lastIndex });
+const Pagination = ({ endpoint, count, lastIndex }: PaginationProps) => {
+  const id = Number(useParams().id);
+  const { pageStartNumber, handleChange } = usePagination({
+    endpoint,
+    count,
+    lastIndex,
+  });
 
   return (
     <StyledRoot>
-      <StyledPageIndicator onClick={handleClickPrev}>이전</StyledPageIndicator>
+      <StyledPageIndicator onClick={handleChange(id - 1)}>이전</StyledPageIndicator>
       {Array.from({ length: count }, (_, index: number) => {
         const page = pageStartNumber + index + 1;
         const shouldShowPage = page <= lastIndex;
@@ -20,16 +26,12 @@ const Pagination = ({ count, lastIndex }: PaginationProps) => {
         if (!shouldShowPage) return null;
 
         return (
-          <StyledPageIndicator
-            key={index}
-            selected={currentPage === page}
-            onClick={() => handleClickNumber(page)}
-          >
+          <StyledPageIndicator key={index} selected={id === page} onClick={handleChange(page)}>
             {page}
           </StyledPageIndicator>
         );
       })}
-      <StyledPageIndicator onClick={handleClickNext}>다음</StyledPageIndicator>
+      <StyledPageIndicator onClick={handleChange(id + 1)}>다음</StyledPageIndicator>
     </StyledRoot>
   );
 };

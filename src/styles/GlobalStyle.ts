@@ -8,12 +8,21 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 62.5%
+    font-size: 62.5%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   body {
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
+  }
+  
+  #root, body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   button {
@@ -26,6 +35,17 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input {
+    outline: none;
+    color: inherit;
   }
 `;
 

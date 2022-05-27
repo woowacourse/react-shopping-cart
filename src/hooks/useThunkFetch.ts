@@ -1,22 +1,25 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import type { Action } from 'redux';
-import { RootState } from 'redux/reducers';
+import type { Action, Dispatch } from 'redux';
+import { RootState } from 'redux/rootReducer';
 
 import { useAppDispatch } from './useAppDispatch';
 
-type Selector = (state: RootState) => any;
+type Selector<T> = (state: RootState) => T;
+type ThunkActionCreator<T extends Action> = (dispatch: Dispatch<T>) => void;
 
-// @TODO : selector, data 타입 지정
-const useThunkFetch = <ActionType extends Action>(selector: Selector, thunkActionCreator) => {
-  const dispatch = useAppDispatch<ActionType>();
-  const { data, error, loading } = useSelector(selector);
+const useThunkFetch = <StateType, ActionType extends Action, ParamType>(
+  selector: Selector<StateType>,
+  thunkActionCreator: ThunkActionCreator<ActionType>
+): StateType => {
+  const dispatch = useAppDispatch<ActionType, ParamType>();
+  const state = useSelector(selector);
 
   useEffect(() => {
-    dispatch(thunkActionCreator());
+    dispatch(thunkActionCreator);
   }, []);
 
-  return { data, error, loading };
+  return state;
 };
 
 export default useThunkFetch;
