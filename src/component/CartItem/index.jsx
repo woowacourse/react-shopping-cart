@@ -1,41 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-import Button from 'component/common/Button';
 import CheckBox from 'component/common/CheckBox';
+import QuantityBox from 'component/common/QuantityBox';
 
-import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
+import useSelectedItem from 'hook/useSelectedItem';
+import useCartItem from 'hook/useCartItem';
+
 import * as S from 'component/CartItem/style';
 
-export default function CartItem({
-  itemImgURL,
-  itemName,
-  itemPrice,
-  count,
-  id,
-  handleDeleteIconClick = () => void 0,
-}) {
+import {PATH} from 'constant';
+
+export default function CartItem({cartInfo, initialChecked = false}) {
+  const {addSelectedItem, deleteSelectedItem} = useSelectedItem();
+
+  const {deleteCartItem, increaseQuantity, decreaseQuantity} = useCartItem();
+
+  const {image, name, price, quantity, id} = cartInfo;
+
   return (
     <S.CartItemLayout>
-      <CheckBox id={id} />
-      <img src={itemImgURL} alt={itemName} width="144px" height="144px" />
-      <S.ItemNameParagraph>{itemName}</S.ItemNameParagraph>
+      <CheckBox
+        initialChecked={initialChecked}
+        productId={Number.parseInt(id)}
+        handleCheckedTrue={addSelectedItem}
+        handleCheckedFalse={deleteSelectedItem}
+      />
+      <Link to={`${PATH.DETAIL}/${id}`}>
+        <img src={image} alt="장바구니 상품 이미지" width="144px" height="144px" />
+      </Link>
+      <S.ItemNameParagraph>{name}</S.ItemNameParagraph>
       <S.EditQuantityBox>
-        <Button onClick={handleDeleteIconClick}>
-          <DeleteIcon />
-        </Button>
-        <div>{count} 개</div>
-        <div>{itemPrice.toLocaleString()}원</div>
+        <S.StyledDeleteIcon onClick={() => deleteCartItem(id)} />
+        <QuantityBox
+          quantity={quantity}
+          handleIncrease={() => increaseQuantity({quantity, id})}
+          handleDecrease={() => decreaseQuantity({quantity, id})}
+        />
+        <S.PriceSpan>{price.toLocaleString()}원</S.PriceSpan>
       </S.EditQuantityBox>
     </S.CartItemLayout>
   );
 }
 
 CartItem.propTypes = {
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.number,
-  count: PropTypes.number,
-  id: PropTypes.number,
-  handleDeleteIconClick: PropTypes.func,
+  cartInfo: PropTypes.object,
+  initialChecked: PropTypes.bool,
 };

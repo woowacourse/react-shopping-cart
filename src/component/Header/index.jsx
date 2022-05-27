@@ -12,17 +12,16 @@ export default function Header() {
   const navigation = useNavigate();
 
   const handleLogoClick = () => navigation(PATH.HOME);
-  const handleCartButtonClick = () => navigation(PATH.CART);
 
   return (
     <S.HeaderLayout>
       <Button onClick={handleLogoClick}>
         <LogoIcon />
       </Button>
-      <S.HeaderButtonBox>
-        <Button onClick={handleCartButtonClick}>장바구니</Button>
-        <Button>주문목록</Button>
-      </S.HeaderButtonBox>
+      <S.HeaderNavBox>
+        <S.NavText to={PATH.CART}>장바구니</S.NavText>
+        <S.NavText to={PATH.ORDER}>구매목록</S.NavText>
+      </S.HeaderNavBox>
     </S.HeaderLayout>
   );
 }

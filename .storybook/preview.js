@@ -8,10 +8,12 @@ import {createStore, combineReducers} from 'redux';
 
 import productListReducer from 'store/modules/productList';
 import cartReducer from 'store/modules/cart';
+import selectedItemReducer from 'store/modules/selectedItem';
 
 const rootReducer = combineReducers({
   productListReducer,
   cartReducer,
+  selectedItemReducer,
 });
 
 const store = createStore(rootReducer);
@@ -26,7 +28,6 @@ addDecorator((story) => (
 ));
 
 export const parameters = {
-  actions: {argTypesRegex: '^on[A-Z].*'},
   controls: {
     matchers: {
       color: /(background|color)$/i,

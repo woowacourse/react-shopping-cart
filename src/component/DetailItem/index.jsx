@@ -1,33 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import Button from 'component/common/Button';
 
+import useCartItem from 'hook/useCartItem';
+
 import * as S from 'component/DetailItem/style';
-import {Font} from 'style/common';
+
 import theme from 'theme/theme';
 
-export default function DetailItem({
-  itemImgURL,
-  itemName,
-  itemPrice,
-  disabled,
-  handleCartButtonClick = () => void 0,
-}) {
+export default function DetailItem({productInfo}) {
+  const {addCartItem} = useCartItem();
+
+  const cartItem = useSelector((state) => state.cartReducer.cart);
+
+  const {image, name, price, id} = productInfo;
+
+  const isInCart = cartItem.some((item) => item.id === Number.parseInt(id));
+
+  const handleCartButtonClick = () => {
+    const cartInfo = {
+      image,
+      name,
+      price,
+      id: Number.parseInt(id),
+      quantity: 1,
+    };
+
+    addCartItem(cartInfo);
+  };
+
   return (
     <S.DetailItemLayout>
-      <img src={itemImgURL} alt={itemName} width="570px" height="570px" />
-      <S.ItemNameSpan>{itemName}</S.ItemNameSpan>
+      <img src={image} alt="상품 이미지" width="570px" height="570px" />
+      <S.ItemNameSpan>{name}</S.ItemNameSpan>
       <S.ItemPriceBox>
         <span>금액</span>
-        <Font fontSize="32px">{itemPrice.toLocaleString()}원</Font>
+        <S.PriceFont fontSize="32px">{price.toLocaleString()}원</S.PriceFont>
       </S.ItemPriceBox>
       <Button
         backgroundColor={theme.GRAY_BROWN}
         width="640px"
         height="100px"
         onClick={handleCartButtonClick}
-        disabled={disabled}
+        disabled={isInCart}
       >
         장바구니
       </Button>
@@ -36,10 +53,5 @@ export default function DetailItem({
 }
 
 DetailItem.propTypes = {
-  id: PropTypes.number,
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.number,
-  disabled: PropTypes.bool,
-  handleCartButtonClick: PropTypes.func,
+  productInfo: PropTypes.object,
 };

@@ -1,70 +1,98 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CheckBox from 'component/common/CheckBox';
-import Button from 'component/common/Button';
-import AmountBox from 'component/AmountBox';
+import ContentBox from 'component/common/ContentBox';
 import CartItem from 'component/CartItem';
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
 
+import NotFoundPage from 'page/NotFoundPage';
 import * as S from 'page/ProductCartPage/style';
+
 import useCartItem from 'hook/useCartItem';
+import useSelectedItem from 'hook/useSelectedItem';
 
 export default function ProductCartPage() {
   const cartItem = useSelector((state) => state.cartReducer.cart);
-  const {deleteCartItem} = useCartItem();
+  const error = useSelector((state) => state.cartReducer.error);
+  const pending = useSelector((state) => state.cartReducer.pending);
+  const selectedItem = useSelector((state) => state.selectedItemReducer.selectedItem);
 
-  const {totalCount, totalPrice} = cartItem.reduce(
+  const {initializeCart, deleteSelectedCart} = useCartItem();
+
+  const {selectAllItem, unselectAllItem} = useSelectedItem();
+
+  useEffect(() => {
+    initializeCart();
+  }, [initializeCart]);
+
+  const selectedCartItem = cartItem.filter(({id}) => selectedItem.includes(id));
+
+  const {totalQuantity, totalPrice} = selectedCartItem.reduce(
     (prev, cur) => {
       return {
-        totalCount: cur.count + prev.totalCount,
-        totalPrice: cur.itemPrice * cur.count + prev.totalPrice,
+        totalQuantity: cur.quantity + prev.totalQuantity,
+        totalPrice: cur.price * cur.quantity + prev.totalPrice,
       };
     },
-    {totalCount: 0, totalPrice: 0},
+    {totalQuantity: 0, totalPrice: 0},
   );
+
+  const isAllChecked = cartItem.length === selectedItem.length && selectedItem.length > 0;
 
   return (
     <S.ProductCartPageLayout>
-      <S.HeaederSpan>장바구니</S.HeaederSpan>
+      <S.HeaderSpan>장바구니</S.HeaderSpan>
       <S.CartInfoBox>
         <S.SelectCartBox>
           <S.SelectDeleteRow>
             <S.CheckBoxRow>
-              <CheckBox id="check" />
-              선택해제
+              <CheckBox
+                initialChecked={isAllChecked}
+                handleCheckedTrue={() => selectAllItem(cartItem)}
+                handleCheckedFalse={unselectAllItem}
+              />
+              {isAllChecked ? '선택해제' : '전체선택'}
             </S.CheckBoxRow>
-            <Button>상품삭제</Button>
+            <S.DeleteButton onClick={() => deleteSelectedCart(selectedItem)}>
+              상품삭제
+            </S.DeleteButton>
           </S.SelectDeleteRow>
 
-          <S.ListHeaderSpan>장바구니 상품 (개)</S.ListHeaderSpan>
+          <S.ListHeaderSpan>장바구니 상품 ({cartItem.length}개)</S.ListHeaderSpan>
           <S.CartListBox>
-            {cartItem.map(({itemImgURL, itemName, itemPrice, count, id}) => (
-              <React.Fragment key={id}>
-                <CartItem
-                  itemImgURL={itemImgURL}
-                  itemName={itemName}
-                  itemPrice={itemPrice}
-                  count={count}
-                  id={id}
-                  handleDeleteIconClick={() => {
-                    deleteCartItem(id);
-                  }}
-                />
-                <hr />
-              </React.Fragment>
-            ))}
+            <ErrorPendingBoundary
+              error={error}
+              pending={pending}
+              fallback={<NotFoundPage>에러가 발생했어요.</NotFoundPage>}
+            >
+              {cartItem.map((cartInfo) => {
+                const initialChecked = selectedItem.includes(cartInfo.id);
+                return (
+                  <React.Fragment key={cartInfo.id}>
+                    <CartItem cartInfo={cartInfo} initialChecked={initialChecked} />
+                    <hr />
+                  </React.Fragment>
+                );
+              })}
+            </ErrorPendingBoundary>
           </S.CartListBox>
         </S.SelectCartBox>
 
-        <AmountBox type="expect" totalCount={totalCount} totalPrice={totalPrice} />
+        <ContentBox
+          headerText="결제예상금액"
+          leftContent="결제예상금액"
+          rightContent={`${totalPrice.toLocaleString()}원`}
+          buttonText={`주문하기 (${totalQuantity}개)`}
+        />
       </S.CartInfoBox>
     </S.ProductCartPageLayout>
   );
 }
 
 ProductCartPage.propTypes = {
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.string,
 };

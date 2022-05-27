@@ -1,3 +1,4 @@
+import {ReactComponent as DeleteIcon} from 'assets/deleteIcon.svg';
 import {FlexColumn, FlexRow} from 'style/common';
 import styled from 'styled-components';
 
@@ -20,4 +21,21 @@ const EditQuantityBox = styled(FlexColumn)`
   width: 115px;
 `;
 
-export {CartItemLayout, EditQuantityBox, ItemNameParagraph};
+const PriceSpan = styled.span`
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+`;
+
+const StyledDeleteIcon = styled(DeleteIcon)`
+  cursor: pointer;
+
+  &:hover {
+    filter: invert(100%);
+  }
+`;
+
+export {CartItemLayout, EditQuantityBox, ItemNameParagraph, PriceSpan, StyledDeleteIcon};

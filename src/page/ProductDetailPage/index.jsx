@@ -1,56 +1,50 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-
-import DetailItem from 'component/DetailItem';
-
-import * as S from 'page/ProductDetailPage/style';
-import useCartItem from 'hook/useCartItem';
-import useFetch from 'constant/useFetch';
 import {useParams} from 'react-router-dom';
-import Loader from 'component/Loader';
-import ErrorBoundary from 'component/ErrorBoundary';
+
+import ErrorPendingBoundary from 'component/common/ErrorPendingBoundary';
+import DetailItem from 'component/DetailItem';
 import NotFoundPage from 'page/NotFoundPage';
+import * as S from 'page/ProductDetailPage/style';
+
+import useFetch from 'hook/useFetch';
+import useCartItem from 'hook/useCartItem';
 
 export default function ProductDetailPage() {
-  const [disableStatus, setDisableStatus] = useState(false);
-  const {addCartItem} = useCartItem();
   const {id} = useParams();
-  const {pending, data, error} = useFetch(`${process.env.REACT_APP_PRODUCT_API_URL}/${id}`);
+
+  const {initializeCart} = useCartItem();
+
+  const {
+    pending: detailPending,
+    data: detailProduct,
+    error: detailError,
+    fetch: fetchProductDetail,
+  } = useFetch('get');
+
+  useEffect(() => {
+    initializeCart();
+  }, [initializeCart]);
+
+  useEffect(() => {
+    fetchProductDetail({API_URL: `${process.env.REACT_APP_PRODUCT_API_URL}/${id}`});
+  }, [fetchProductDetail, id]);
 
   return (
     <S.DetailItemPageLayout>
-      {pending && <Loader />}
-      <ErrorBoundary
+      <ErrorPendingBoundary
         fallback={<NotFoundPage>해당 상품이 없어요😢</NotFoundPage>}
-        pending={pending}
-        error={error}
+        pending={detailPending}
+        error={detailError}
       >
-        {data && (
-          <DetailItem
-            itemImgURL={data.image}
-            itemName={data.name}
-            itemPrice={data.price}
-            id={id}
-            disabled={disableStatus}
-            handleCartButtonClick={() => {
-              addCartItem({
-                itemImgURL: data.image,
-                itemName: data.name,
-                itemPrice: data.price,
-                id,
-                count: 1,
-              });
-              setDisableStatus(true);
-            }}
-          />
-        )}
-      </ErrorBoundary>
+        {detailProduct && <DetailItem productInfo={detailProduct} />}
+      </ErrorPendingBoundary>
     </S.DetailItemPageLayout>
   );
 }
 
 ProductDetailPage.propTypes = {
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.string,
 };

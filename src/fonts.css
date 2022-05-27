@@ -2,3 +2,8 @@
   font-family: 'BMDOHYEON';
   src: url('assets/fonts/BMDOHYEON.ttf');
 }
+
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/fonts/Lato.ttf');
+}

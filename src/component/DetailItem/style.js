@@ -1,4 +1,4 @@
-import {FlexColumn, FlexRow} from 'style/common';
+import {FlexColumn, FlexRow, Font} from 'style/common';
 import styled from 'styled-components';
 
 const DetailItemLayout = styled(FlexColumn)`
@@ -36,4 +36,12 @@ const ItemPriceBox = styled(FlexRow)`
   border-top: ${({theme}) => `4px solid ${theme.GRAY_700}`};
 `;
 
-export {DetailItemLayout, ItemNameSpan, ItemPriceBox};
+const PriceFont = styled(Font)`
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 27px;
+  letter-spacing: 0.5px;
+`;
+export {DetailItemLayout, ItemNameSpan, ItemPriceBox, PriceFont};

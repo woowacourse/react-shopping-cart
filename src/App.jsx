@@ -12,8 +12,12 @@ import {GlobalStyles} from 'style/globalStyle';
 
 import {PATH} from 'constant';
 
-import 'App.css';
 import NotFoundPage from 'page/NotFoundPage';
+
+if (process.env.NODE_ENV === 'development') {
+  const {worker} = require('./mocks/browsers');
+  worker.start();
+}
 
 export default function App() {
   return (
@@ -23,9 +27,13 @@ export default function App() {
           <GlobalStyles />
           <Header />
           <Routes>
-            <Route exact path={PATH.HOME} element={<ProductListPage />}></Route>
-            <Route exact path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
-            <Route exact path={PATH.CART} element={<ProductCartPage />}></Route>
+            <Route path={PATH.HOME} element={<ProductListPage />}></Route>
+            <Route path={`${PATH.DETAIL}/:id`} element={<ProductDetailPage />}></Route>
+            <Route path={PATH.CART} element={<ProductCartPage />}></Route>
+            <Route
+              path={PATH.ORDER}
+              element={<NotFoundPage> 아직 개발중인 페이지입니다🔨</NotFoundPage>}
+            ></Route>
             <Route path="*" element={<NotFoundPage> 잘못 들어왔어요😢</NotFoundPage>}></Route>
           </Routes>
         </ThemeProvider>

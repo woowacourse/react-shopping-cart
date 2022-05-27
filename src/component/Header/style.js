@@ -1,3 +1,4 @@
+import {NavLink} from 'react-router-dom';
 import {FlexRow} from 'style/common';
 import styled from 'styled-components';
 
@@ -18,10 +19,24 @@ const HeaderLayout = styled(FlexRow)`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 
   z-index: 1;
+
+  .active {
+    transform: scale(1.1);
+    font-weight: bold;
+  }
 `;
 
-const HeaderButtonBox = styled.div`
+const HeaderNavBox = styled.div`
   display: flex;
 `;
 
-export {HeaderLayout, HeaderButtonBox};
+const NavText = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  font-size: 24px;
+  color: ${({theme}) => theme.WHITE};
+`;
+
+export {HeaderLayout, HeaderNavBox, NavText};

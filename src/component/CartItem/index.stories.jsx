@@ -1,21 +1,34 @@
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 
 import CartItem from 'component/CartItem';
+import {MOCK_PRODUCT_LIST} from 'mocks/mockData';
 
 export default {
   component: CartItem,
   title: 'CartItem',
+  argTypes: {
+    initialChecked: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
 };
 
-const Template = (args) => <CartItem {...args} />;
+const Template = (args) => (
+  <BrowserRouter>
+    <CartItem {...args} />
+  </BrowserRouter>
+);
 
-export const DefaultCardItem = Template.bind({});
-DefaultCardItem.args = {
-  itemImgURL:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png',
-  itemName: 'PET보틀-정사각(420ml)',
-  itemPrice: 43400,
-  count: 1,
-  id: 1,
-  handleDeleteIconClick: () => void 0,
+export const Defaults = Template.bind({});
+Defaults.args = {
+  cartInfo: {
+    image: MOCK_PRODUCT_LIST[0].image,
+    name: MOCK_PRODUCT_LIST[0].name,
+    price: MOCK_PRODUCT_LIST[0].price,
+    quantity: 1,
+  },
+  initialChecked: false,
 };

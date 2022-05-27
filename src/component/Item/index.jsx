@@ -1,52 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import {ReactComponent as BlackCartIcon} from 'assets/blackCartIcon.svg';
-import Button from 'component/common/Button';
 
-import {PATH} from 'constant';
+import useCartItem from 'hook/useCartItem';
 
 import * as S from 'component/Item/style';
 
-export default function Item({
-  itemImgURL,
-  itemName,
-  itemPrice,
-  id,
-  disabled,
-  handleImageClick = () => void 0,
-  handleIconClick = () => void 0,
-}) {
+import {PATH} from 'constant';
+
+export default function Item({productInfo}) {
+  const navigation = useNavigate();
+
+  const cart = useSelector((state) => state.cartReducer.cart);
+
+  const {addCartItem, deleteCartItem} = useCartItem();
+
+  const {image, name, price, id} = productInfo;
+
+  const isInCart = cart.some((cartItem) => cartItem.id === id);
+
+  const handleImageClick = ({id}) => navigation(`${PATH.DETAIL}/${id}`);
+
+  const handleIconClick = ({image, name, price, id}, isInCart) => {
+    if (isInCart) {
+      deleteCartItem(Number.parseInt(id));
+      return;
+    }
+
+    addCartItem({
+      image,
+      name,
+      price,
+      id: Number.parseInt(id),
+      quantity: 1,
+    });
+  };
+
   return (
     <S.ItemLayout>
-      <img
-        src={itemImgURL}
-        alt={itemName}
+      <S.ItemImage
+        src={image}
+        alt="상품 이미지"
         width="282px"
         height="282px"
-        onClick={handleImageClick}
+        onClick={() => handleImageClick(productInfo)}
       />
       <S.InfoBox>
         <S.NamePriceBox>
-          <S.ItemNameLink to={`${PATH.DETAIL}/${id}`} state={{itemImgURL, itemName, itemPrice, id}}>
-            {itemName}
-          </S.ItemNameLink>
-          <S.ItemPriceSpan>{itemPrice.toLocaleString()} 원</S.ItemPriceSpan>
+          <S.ItemNameLink to={`${PATH.DETAIL}/${id}`}>{name}</S.ItemNameLink>
+          <S.ItemPriceSpan>{price.toLocaleString()} 원</S.ItemPriceSpan>
         </S.NamePriceBox>
-        <Button disabled={disabled} onClick={handleIconClick}>
+        <S.DeleteButton isInCart={isInCart} onClick={() => handleIconClick(productInfo, isInCart)}>
           <BlackCartIcon />
-        </Button>
+        </S.DeleteButton>
       </S.InfoBox>
     </S.ItemLayout>
   );
 }
 
 Item.propTypes = {
-  id: PropTypes.number,
-  itemImgURL: PropTypes.string,
-  itemName: PropTypes.string,
-  itemPrice: PropTypes.number,
-  disabled: PropTypes.bool,
-  handleImageClick: PropTypes.func,
-  handleIconClick: PropTypes.func,
+  productInfo: PropTypes.object,
 };
