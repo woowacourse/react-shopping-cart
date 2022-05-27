@@ -1,17 +1,28 @@
-import { Product } from 'types';
+import { CartStoreState, Product } from 'types/index';
+
 import ProductCard from 'components/ProductCard/ProductCard';
+import isProductInCart from 'utils/validator';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 type Props = {
-  productList: Array<Partial<Product>>;
+  productList: Array<Product>;
 };
 
 function ProductCardGrid({ productList }: Props) {
+  const cart = useSelector(
+    (state: { cart: CartStoreState }) => state.cart.cart
+  );
+
   return (
     <StyledProductCardGrid>
       {productList.length > 0 ? (
         productList.map((product) => (
-          <ProductCard product={product} key={product.id} />
+          <ProductCard
+            product={product}
+            isInCart={isProductInCart(product.id, cart)}
+            key={product.id}
+          />
         ))
       ) : (
         <Message>상품이 없어요 😢</Message>
@@ -30,10 +41,14 @@ const StyledProductCardGrid = styled.div`
   `};
 
   ${({ theme: { media } }) => media.md`
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   `};
 
   ${({ theme: { media } }) => media.lg`
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  `};
+
+  ${({ theme: { media } }) => media.xl`
     grid-template-columns: repeat(4, minmax(0, 1fr));
   `};
 `;

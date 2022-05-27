@@ -1,8 +1,10 @@
-import { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CART_MESSAGE from 'constants/message';
 import CONDITION from 'constants/condition';
-import { StoreState } from 'types';
+import { ProductStoreState } from 'types/index';
+import { cartActions } from 'redux/actions';
 import { getProduct } from 'redux/thunks';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -10,14 +12,27 @@ import { useParams } from 'react-router-dom';
 function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const condition = useSelector((state: StoreState) => state.condition);
-  const productDetail = useSelector((state: StoreState) => state.productDetail);
+  const condition = useSelector(
+    (state: { product: ProductStoreState }) => state.product.condition
+  );
+  const productDetail = useSelector(
+    (state: { product: ProductStoreState }) => state.product.productDetail
+  );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
-      getProduct(dispatch, id);
+      getProduct(dispatch, Number(id));
     }
   }, [dispatch, id]);
+
+  const onClickCartButton = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      dispatch(cartActions.addToCart(Number(id)));
+      alert(CART_MESSAGE.SUCCESS_ADD);
+    },
+    [dispatch, id]
+  );
 
   const renderSwitch = useCallback(() => {
     switch (condition) {
@@ -39,7 +54,9 @@ function ProductPage() {
               <dt>제품 설명</dt>
               <dd>{productDetail.description}</dd>
             </dl>
-            <StyledAddToCartButton>장바구니</StyledAddToCartButton>
+            <StyledAddToCartButton onClick={onClickCartButton}>
+              장바구니
+            </StyledAddToCartButton>
           </>
         ) : null;
       case CONDITION.ERROR:
@@ -47,23 +64,25 @@ function ProductPage() {
           <Message>상품 정보를 가져오는데 오류가 발생하였습니다 😱</Message>
         );
     }
-  }, [condition, productDetail]);
+  }, [condition, productDetail, onClickCartButton]);
 
   return <StyledPage>{renderSwitch()}</StyledPage>;
 }
 
 const StyledPage = styled.div`
-  width: 570px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px auto;
+
+  width: 400px;
+  margin: 40px auto;
   gap: 20px;
 
   h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    line-height: 2.7rem;
+    line-height: 30px;
+
+    font-size: 20px;
+    font-weight: 600;
   }
 
   hr {
@@ -71,10 +90,16 @@ const StyledPage = styled.div`
   }
 
   dl {
-    width: 100%;
     display: flex;
     justify-content: space-between;
-    font-size: 1.2rem;
+
+    width: 100%;
+
+    font-size: 15px;
+  }
+
+  dt {
+    width: 100px;
   }
 `;
 
@@ -88,12 +113,14 @@ const StyledImageContainer = styled.div`
 `;
 
 const StyledAddToCartButton = styled.button`
-  background: ${({ theme: { colors } }) => colors.black};
-  color: ${({ theme: { colors } }) => colors.white};
-  width: 200px;
-  height: 60px;
+  width: 170px;
+  height: 50px;
   margin-top: 20px;
-  font-size: 1.2rem;
+
+  background: ${({ theme: { colors } }) => colors.redPink};
+  color: ${({ theme: { colors } }) => colors.white};
+
+  font-size: 15px;
   font-weight: 600;
 `;
 

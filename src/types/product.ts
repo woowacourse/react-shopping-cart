@@ -1,5 +1,5 @@
 import CONDITION from 'constants/condition';
-import { types } from 'redux/actions/actions';
+import { productTypes } from 'redux/actions';
 
 export type Product = {
   id: number;
@@ -8,19 +8,16 @@ export type Product = {
   image: string;
   description: string;
   stock: number;
-  brandId: number;
-  categoryId: number;
-  createdAt: number;
 };
 
-export type Action = {
-  type: typeof types[keyof typeof types];
-  payload: any;
+export type ProductAction = {
+  type: typeof productTypes[keyof typeof productTypes];
+  payload?: any;
 };
 
 type condition = typeof CONDITION[keyof typeof CONDITION];
 
-export type StoreState = {
+export type ProductStoreState = {
   condition: condition;
   productList: Array<Product>;
   productDetail: Product | null;

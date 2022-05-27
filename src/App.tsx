@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import CartPage from 'pages/CartPage/CartPage';
 import GlobalStyle from 'styles/GlobalStyle';
 import Header from 'components/Layout/Header/Header';
 import MainPage from 'pages/MainPage/MainPage';
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path={PATH.BASE} element={<MainPage />} />
           <Route path={`${PATH.PRODUCT}/:id`} element={<ProductPage />} />
+          <Route path={PATH.CART} element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ThemeProvider>

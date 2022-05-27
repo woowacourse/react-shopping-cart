@@ -1,18 +1,29 @@
-import Link from 'components/Link/Link';
+import CART_MESSAGE from 'constants/message';
+import Link from 'components/@shared/Link';
 import PATH from 'constants/path';
-import { Product } from 'types';
-import ShoppingCart from 'assets/shoppingCart';
+import { Product } from 'types/index';
+import ShoppingCart from 'components/@shared/ShoppingCart';
+import { cartActions } from 'redux/actions';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
 type Props = {
-  product: Partial<Product>;
+  product: Product;
+  isInCart: boolean;
 };
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product, isInCart }: Props) {
   const { id, name, price, stock, description, image } = {
     ...product,
     stock: Number(product.stock),
     price: Number(product.price),
+  };
+  const dispatch = useDispatch();
+
+  const onClickCartButton = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    dispatch(cartActions.addToCart(id));
+    alert(CART_MESSAGE.SUCCESS_ADD);
   };
 
   return (
@@ -22,7 +33,7 @@ function ProductCard({ product }: Props) {
           {stock > 0 ? (
             <CardImageOverlay>
               <p>{description}</p>
-              <div>구매하기</div>
+              <div onClick={onClickCartButton}>구매하기</div>
             </CardImageOverlay>
           ) : (
             <OutOfStockOverlay>품절</OutOfStockOverlay>
@@ -31,11 +42,14 @@ function ProductCard({ product }: Props) {
         </CardImageContainer>
         <CardDescriptionContainer>
           <h3>{name}</h3>
-          <p>{price?.toLocaleString('ko-KR')} 원</p>
+          <p>{price.toLocaleString('ko-KR')} 원</p>
         </CardDescriptionContainer>
         <CardButtonContainer>
-          <button>
-            <ShoppingCart width="100%" fill="currentColor" />
+          <button onClick={onClickCartButton}>
+            <ShoppingCart
+              width="100%"
+              fill={isInCart ? '#ff9c9c' : 'currentColor'}
+            />
           </button>
         </CardButtonContainer>
       </StyledProductCard>
@@ -44,52 +58,62 @@ function ProductCard({ product }: Props) {
 }
 
 const OutOfStockOverlay = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
-  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+  z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
+
+  background: rgba(0, 0, 0, 0.3);
   color: ${({ theme: { colors } }) => colors.white};
-  font-size: 2rem;
+
+  font-size: 25px;
   font-weight: 700;
 `;
 
 const CardImageOverlay = styled.div`
+  position: absolute;
   box-sizing: border-box;
+
   width: 100%;
   height: 100%;
-  position: absolute;
   z-index: ${({ theme: { zPriorities } }) => zPriorities.front};
 
   background: rgba(0, 0, 0, 0.3);
 
   p {
     inset: 30px 30px 60px;
-    color: white;
     position: absolute;
-
-    line-height: 1.4rem;
-
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+
+    line-height: 1.4rem;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
   }
 
   div {
     position: absolute;
+
     bottom: 0px;
     right: 0px;
-    font-size: 24px;
-    color: white;
     padding: 10px;
+
     background: ${({ theme: { colors } }) => colors.black};
+    color: ${({ theme: { colors } }) => colors.white};
+
+    font-size: 16px;
   }
 `;
 
@@ -118,13 +142,13 @@ const CardDescriptionContainer = styled.div`
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    font-size: 16px;
+    font-size: 13px;
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
 
@@ -149,7 +173,7 @@ const StyledProductCard = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: repeat(5, 1fr);
   grid-gap: 10px;
-  width: 282px;
+  width: 200px;
   color: ${({ theme: { colors } }) => colors.black};
 
   :not(:hover) {

@@ -1,20 +1,26 @@
-import { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CONDITION from 'constants/condition';
 import ProductCardGrid from 'components/ProductCardGrid/ProductCardGrid';
-import { StoreState } from 'types';
+import { ProductStoreState } from 'types/index';
 import { getProducts } from 'redux/thunks';
 import styled from 'styled-components';
 
 function MainPage() {
-  const condition = useSelector((state: StoreState) => state.condition);
-  const productList = useSelector((state: StoreState) => state.productList);
+  const condition = useSelector(
+    (state: { product: ProductStoreState }) => state.product.condition
+  );
+  const productList = useSelector(
+    (state: { product: ProductStoreState }) => state.product.productList
+  );
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    getProducts(dispatch);
-  }, [dispatch]);
+  useEffect(() => {
+    if (productList.length < 1) {
+      getProducts(dispatch);
+    }
+  }, [dispatch, productList]);
 
   const renderSwitch = useCallback(() => {
     switch (condition) {

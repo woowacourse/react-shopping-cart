@@ -1,12 +1,11 @@
 import { applyMiddleware, createStore } from 'redux';
 
 import ReduxThunk from 'redux-thunk';
-import promiseMiddleware from 'redux-promise-middleware';
+import { persistStore } from 'redux-persist';
 import rootReducer from 'redux/reducers';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(promiseMiddleware, ReduxThunk)
-);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

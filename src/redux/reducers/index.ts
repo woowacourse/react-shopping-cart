@@ -1,45 +1,20 @@
-import { Action, StoreState } from 'types';
+import cart from './cart';
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import product from './product';
+import storage from 'redux-persist/lib/storage';
 
-import CONDITION from 'constants/condition';
-import { types } from 'redux/actions/actions';
-
-const initialState: StoreState = {
-  condition: CONDITION.NONE,
-  productList: [],
-  productDetail: null,
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['cart'],
 };
 
-const rootReducer = (state = initialState, action: Action) => {
-  switch (action.type) {
-    case types.GET_PRODUCT_LIST: {
-      return { ...state, condition: CONDITION.LOADING };
-    }
-    case types.GET_PRODUCT_LIST_SUCCESS: {
-      return {
-        ...state,
-        condition: CONDITION.COMPLETE,
-        productList: action.payload,
-      };
-    }
-    case types.GET_PRODUCT_LIST_ERROR: {
-      return { ...state, condition: CONDITION.ERROR, productList: [] };
-    }
-    case types.GET_PRODUCT_DETAIL: {
-      return { ...state, condition: CONDITION.LOADING };
-    }
-    case types.GET_PRODUCT_DETAIL_SUCCESS: {
-      return {
-        ...state,
-        condition: CONDITION.COMPLETE,
-        productDetail: action.payload,
-      };
-    }
-    case types.GET_PRODUCT_DETAIL_ERROR: {
-      return { ...state, condition: CONDITION.ERROR, productDetail: null };
-    }
-    default:
-      return state;
-  }
-};
+const rootReducer = combineReducers({
+  product,
+  cart,
+});
 
-export default rootReducer;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export default persistedReducer;

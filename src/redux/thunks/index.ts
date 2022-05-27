@@ -1,32 +1,32 @@
 import { Dispatch } from 'redux';
 import PATH from 'constants/path';
-import SERVER_URL from 'configs/api';
-import { actions } from 'redux/actions/actions';
-import axios from 'axios';
+import { Product } from 'types/index';
+import axios from 'configs/api';
+import { productActions } from 'redux/actions';
 
 const getProducts = (dispatch: Dispatch) => {
-  dispatch(actions.getProductList());
+  dispatch(productActions.getProductList());
 
   axios
-    .get(`${SERVER_URL}${PATH.REQUEST_PRODUCT}`)
+    .get(`${PATH.REQUEST_PRODUCT}`)
     .then((res) => {
-      dispatch(actions.getProductListSuccess(res.data));
+      dispatch(productActions.getProductListSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(actions.getProductListError());
+      dispatch(productActions.getProductListError());
     });
 };
 
-const getProduct = (dispatch: Dispatch, id: string) => {
-  dispatch(actions.getProductDetail());
+const getProduct = (dispatch: Dispatch, id: Product['id']) => {
+  dispatch(productActions.getProductDetail());
 
   axios
-    .get(`${SERVER_URL}${PATH.REQUEST_PRODUCT}/${id}`)
+    .get(`${PATH.REQUEST_PRODUCT}/${id}`)
     .then((res) => {
-      dispatch(actions.getProductDetailSuccess(res.data));
+      dispatch(productActions.getProductDetailSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(actions.getProductDetailError());
+      dispatch(productActions.getProductDetailError());
     });
 };
 
