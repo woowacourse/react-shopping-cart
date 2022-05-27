@@ -47,7 +47,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
     150,
   );
 
-  const handleClickRecycleBin = useCallback(async () => {
+  const handleClickDeleteButton = useCallback(async () => {
     await dispatch(deleteCart(id)).unwrap();
     dispatch(deleteOneCart(id));
     dispatch(onMessage(SNACKBAR_MESSAGE.clearProduct(title)));
@@ -63,7 +63,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
         <p className="title">{title}</p>
       </div>
       <div className="right">
-        <img src="img/Recycle_Bin.png" alt="휴지통" onClick={handleClickRecycleBin} />
+        <img src="img/Recycle_Bin.png" alt="휴지통" onClick={handleClickDeleteButton} />
         <div className="quantity-wrapper">
           <div className="quantity">
             <p>{quantity}</p>
