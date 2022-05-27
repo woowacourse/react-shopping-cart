@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+
 import StyledLogoLink from "@/components/header/logo-link/LogoLink.styled";
 
-function LogoLink({ src, href, className = "logo-link" }) {
+function LogoLink() {
   return (
-    <StyledLogoLink href={href} className={className}>
-      <img src={src} alt="" />
+    <StyledLogoLink>
+      <Link className="logo-link" to="/">
+        MINCHO SHOP
+      </Link>
     </StyledLogoLink>
   );
 }

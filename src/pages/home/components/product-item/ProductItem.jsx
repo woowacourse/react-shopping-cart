@@ -1,47 +1,37 @@
-import { useDispatch, useSelector } from "react-redux";
-import Cart from "@/assets/images/cart.svg";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "@/redux/modules/cartList";
+
 import StyledProductItem from "@/pages/home/components/product-item/ProductItem.styled";
 import Thumbnail from "@/pages/home/components/thumbnail/Thumbnail";
 import ImageButton from "@/pages/home/components/image-button/ImageButton";
-import createAction from "@/redux/createAction";
-import { ADD_PRODUCT_TO_CART } from "@/redux/actions";
-import { BASE_URL } from "@/constants";
+import CartIcon from "@/assets/images/cart.svg";
+import StyledProductDetail from "./ProductDetail.styled";
 
-function ProductItem({ id, name, price, stock, thumbnail_url }) {
+function ProductItem({ id, name, price, imgUrl }) {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-
-  const existInCart = (cart, id) => {
-    const isInclude = Object.keys(cart).includes(`${id}`);
-    return isInclude;
-  };
 
   const handleClick = () => {
-    dispatch(createAction(ADD_PRODUCT_TO_CART, id));
+    dispatch(addProductToCart({ id, name, price, imgUrl }));
   };
 
   return (
     <StyledProductItem>
-      <Thumbnail src={`${BASE_URL}/${thumbnail_url}`} />
+      <Thumbnail src={`${imgUrl}`} name={name} />
       <div className="content">
-        <div className="product-detail">
+        <StyledProductDetail>
           <div className="l-left">
             <div className="product-title">{name}</div>
-            <div className="product-price">{price}원</div>
+            <div className="product-price">
+              {price.toLocaleString("ko-KR")}원
+            </div>
           </div>
           <div className="l-right">
-            {stock > 0 && (
-              <ImageButton
-                onClick={handleClick}
-                included={existInCart(cart, id)}
-              >
-                <Cart width="36px" height="36px" fill="#00cc00" />
-              </ImageButton>
-            )}
+            <ImageButton onClick={handleClick}>
+              <CartIcon />
+            </ImageButton>
           </div>
-        </div>
+        </StyledProductDetail>
       </div>
-      <div className="overlay" />
     </StyledProductItem>
   );
 }
