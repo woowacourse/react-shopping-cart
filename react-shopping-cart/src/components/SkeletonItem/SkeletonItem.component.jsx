@@ -1,5 +1,5 @@
-import Skeleton from 'components/@shared/Skeleton/Skeleton.component';
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
+import Skeleton from 'components/@shared/Skeleton/Skeleton.component';
 
 function SkeletonItem() {
   return (

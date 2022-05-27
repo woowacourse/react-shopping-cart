@@ -1,7 +1,12 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import Image from 'components/@shared/Image/Image.component';
 import TextBox from 'components/@shared/TextBox/TextBox.component';
+
+import { addItem, deleteItem } from 'redux/actions/shoppingCart.action';
+
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 
 const ItemContainer = styled.div`
@@ -38,8 +43,13 @@ const ItemContainer = styled.div`
   }
 `;
 
-function ProductListItem({ id, thumbnail, name, price, isContained, handleToggleShoppingCart }) {
-  const onClick = useCallback(() => handleToggleShoppingCart(id, isContained), [id, isContained]);
+function ProductListItem({ id, thumbnail, name, price }) {
+  const dispatch = useDispatch();
+  const shoppingCart = useSelector(state => state.shoppingCart);
+
+  const isContained = shoppingCart.find(itemInfo => itemInfo.id === id) !== undefined;
+
+  const onClick = () => dispatch(isContained ? deleteItem(id) : addItem(id));
 
   return (
     <ItemContainer isContained={isContained}>
@@ -50,7 +60,7 @@ function ProductListItem({ id, thumbnail, name, price, isContained, handleToggle
       <TextBox className="product-price" fontSize="medium">
         {price.toLocaleString()}원
       </TextBox>
-      <ShoppingCart style={{ cursor: 'pointer' }} onClick={onClick} />
+      <ShoppingCart role="button" style={{ cursor: 'pointer' }} onClick={onClick} />
     </ItemContainer>
   );
 }

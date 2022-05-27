@@ -24,7 +24,9 @@ export const decorators = [
       <GlobalStyle />
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <Story />
+          <ErrorBoundary fallback={<ErrorPage>오류가 발생했습니다</ErrorPage>}>
+            <Story />
+          </ErrorBoundary>
         </ThemeProvider>
       </BrowserRouter>
     </Provider>

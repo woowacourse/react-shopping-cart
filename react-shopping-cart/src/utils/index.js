@@ -5,3 +5,17 @@ export function withOpacityValue(hexCode, opacity) {
 
   return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 }
+
+export function addQuantityData(cartItem, data) {
+  const productData = data.find(datum => cartItem.id === datum.id);
+  return { ...productData, quantity: cartItem.quantity };
+}
+
+export function calculatePrice(data, shoppingCart, orderList) {
+  const orderItemData = data.filter(({ id }) => orderList.includes(id));
+  const orderItemInfoList = shoppingCart
+    .filter(cartItem => orderList.includes(cartItem.id))
+    .map(orderItem => addQuantityData(orderItem, orderItemData));
+
+  return orderItemInfoList.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
+}

@@ -1,4 +1,4 @@
-export default [
+export const products = [
   {
     id: 1,
     thumbnail: 'https://cdn-mart.baemin.com/sellergoods/bulk/20220502-173334/12619-main-01.jpg',

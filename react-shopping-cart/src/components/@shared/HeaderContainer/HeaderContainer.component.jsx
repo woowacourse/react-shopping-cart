@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { LAYER } from 'constants';
+
 import FlexBox from 'components/@shared/FlexBox/FlexBox.component';
+
+import { LAYER } from 'constants/index';
 import { withOpacityValue } from 'utils';
 
 const HeaderContainer = styled(FlexBox).attrs(props => ({

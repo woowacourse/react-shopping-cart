@@ -1,4 +1,5 @@
 import Image from './Image.component';
+
 import DefaultImage from 'assets/images/baeminImage.png';
 
 export default {

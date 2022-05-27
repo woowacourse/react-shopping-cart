@@ -1,26 +1,24 @@
-import styled from 'styled-components';
-import ProductListItem from 'components/ProductListItem/ProductListItem.component';
 import Error from 'components/@shared/Error/Error.component';
-import ProductListBox from 'components/ProductListBox/ProductListBox.component';
 
-function ProductListContainer({ data, handleToggleShoppingCart, checkContainedProduct }) {
+import ProductListBox from 'components/ProductListBox/ProductListBox.component';
+import ProductListItem from 'components/ProductListItem/ProductListItem.component';
+
+function ProductListContainer({ data }) {
   return (
-    <>
+    <main>
+      <h1 hidden>상품 리스트</h1>
       {Array.isArray(data) && data.length === 0 ? (
         <Error>상품이 존재하지 않습니다</Error>
       ) : (
-        <ProductListBox>
+        <ProductListBox as="ul">
           {data.map(itemInfo => (
-            <ProductListItem
-              key={itemInfo.id}
-              {...itemInfo}
-              isContained={checkContainedProduct(itemInfo.id)}
-              handleToggleShoppingCart={handleToggleShoppingCart}
-            />
+            <li key={itemInfo.id}>
+              <ProductListItem {...itemInfo} />
+            </li>
           ))}
         </ProductListBox>
       )}
-    </>
+    </main>
   );
 }
 
