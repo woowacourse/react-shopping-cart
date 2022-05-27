@@ -13,4 +13,16 @@ const ExpectedPriceBoxStyled = styled.div`
   }
 `;
 
-export default ExpectedPriceBoxStyled;
+const OrderButtonStyled = styled.button(
+  ({ theme }) => `
+  background: ${theme.mainColor};
+  font-size: 24px;
+  color: #fff;
+  width: 388px;
+  height: 73px;
+  border: none;
+  cursor: pointer;
+`,
+);
+
+export { ExpectedPriceBoxStyled, OrderButtonStyled };

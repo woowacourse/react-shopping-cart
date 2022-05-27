@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BoxButton from 'components/BoxButton';
 import { requestCheckedProductDelete } from 'modules/cart/cart';
 import { useDispatch } from 'react-redux';
 import MESSAGE from 'constants';
+import DeleteProductButtonStyled from './style';
 
 function DeleteProductButton() {
   const dispatch = useDispatch();
@@ -15,16 +15,9 @@ function DeleteProductButton() {
   };
 
   return (
-    <BoxButton
-      color="#FFF"
-      message="상품삭제"
-      fontSize="16px"
-      width="117px"
-      height="50px"
-      border="#BBB"
-      fontColor="#333"
-      onClick={handleClickDeleteButton}
-    />
+    <DeleteProductButtonStyled onClick={handleClickDeleteButton}>
+      상품삭제
+    </DeleteProductButtonStyled>
   );
 }
 
