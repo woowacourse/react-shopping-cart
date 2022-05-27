@@ -11,7 +11,7 @@ function CartList({
   decreaseCartItemCount,
   increaseCartItemCount,
   deleteCartItem,
-  deleteEveryCartItem,
+  deleteSelectedCartItem,
   selectCartItem,
   selectEveryCartItem,
 }) {
@@ -20,7 +20,11 @@ function CartList({
   };
 
   const onClickDeleteAllButton = () => {
-    deleteEveryCartItem();
+    try {
+      deleteSelectedCartItem();
+    } catch ({ message }) {
+      alert(message);
+    }
   };
 
   return (
@@ -33,7 +37,7 @@ function CartList({
           padding="10px"
           onClick={onClickDeleteAllButton}
         >
-          전체삭제
+          선택 삭제
         </Button>
       </Styled.SelectWrapper>
       <Styled.Amount>배송 상품 ({cartList.length}개)</Styled.Amount>

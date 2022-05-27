@@ -5,14 +5,14 @@ interface CartState {
   readonly cartList: ProductType[];
   readonly isLoading: boolean;
   readonly loadingCartProductId: number | null;
-  readonly checkedCartItem: number[];
+  readonly selectedCartItem: number[];
 }
 
 const initialState: CartState = {
   cartList: [],
   isLoading: false,
   loadingCartProductId: null,
-  checkedCartItem: [],
+  selectedCartItem: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -50,15 +50,24 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     }
 
-    case CartActionType.DELETE_EVERY_CART_ITEM_START: {
+    case CartActionType.DELETE_SELECTED_CART_ITEM_START: {
       return { ...state, isLoading: true };
     }
 
-    case CartActionType.DELETE_EVERY_CART_ITEM_SUCCEEDED: {
-      return { ...state, isLoading: false, cartList: [], checkedCartItem: [] };
+    case CartActionType.DELETE_SELECTED_CART_ITEM_SUCCEEDED: {
+      const {
+        payload: { selectedCartItem },
+      } = action;
+
+      return {
+        ...state,
+        isLoading: false,
+        cartList: state.cartList.filter(cart => !selectedCartItem.includes(cart.id)),
+        selectedCartItem: [],
+      };
     }
 
-    case CartActionType.DELETE_EVERY_CART_ITEM_FAILED: {
+    case CartActionType.DELETE_SELECTED_CART_ITEM_FAILED: {
       return { ...state, isLoading: false };
     }
 
@@ -89,31 +98,31 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, loadingCartProductId: null };
     }
 
-    case CartActionType.CHECK_CART_ITEM: {
+    case CartActionType.SELECT_CART_ITEM: {
       const {
         payload: { id },
       } = action;
 
-      if (state.checkedCartItem.includes(id)) {
+      if (state.selectedCartItem.includes(id)) {
         return {
           ...state,
-          checkedCartItem: state.checkedCartItem.filter(checkedId => checkedId !== id),
+          selectedCartItem: state.selectedCartItem.filter(selectedId => selectedId !== id),
         };
       }
-      return { ...state, checkedCartItem: [...state.checkedCartItem, id] };
+      return { ...state, selectedCartItem: [...state.selectedCartItem, id] };
     }
 
-    case CartActionType.CHECK_EVERY_CART_ITEM: {
-      if (state.checkedCartItem.length === state.cartList.length) {
+    case CartActionType.SELECT_EVERY_CART_ITEM: {
+      if (state.selectedCartItem.length === state.cartList.length) {
         return {
           ...state,
-          checkedCartItem: [],
+          selectedCartItem: [],
         };
       }
 
       return {
         ...state,
-        checkedCartItem: state.cartList.map(cart => cart.id),
+        selectedCartItem: state.cartList.map(cart => cart.id),
       };
     }
 

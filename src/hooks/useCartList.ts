@@ -1,14 +1,14 @@
 import {
   CartActionType,
   fetchDeleteCartAsync,
-  fetchDeleteEveryCartItemAsync,
+  fetchDeleteSelectedCartItemAsync,
   fetchPatchCartAsync,
 } from '@/store/cart/action';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const useCartList = () => {
-  const { loadingCartProductId, checkedCartItem, cartList } = useSelector(
+  const { loadingCartProductId, selectedCartItem, cartList } = useSelector(
     (state: any) => state.cart,
   );
 
@@ -16,10 +16,10 @@ export const useCartList = () => {
     () =>
       cartList.reduce(
         (prev, cart) =>
-          checkedCartItem.includes(cart.id) ? prev + cart.price * cart.quantity : prev,
+          selectedCartItem.includes(cart.id) ? prev + cart.price * cart.quantity : prev,
         0,
       ),
-    [cartList, checkedCartItem],
+    [cartList, selectedCartItem],
   );
 
   const dispatch = useDispatch();
@@ -29,11 +29,11 @@ export const useCartList = () => {
     [loadingCartProductId],
   );
 
-  const checkCartItemChecked = useCallback(id => checkedCartItem.includes(id), [checkedCartItem]);
+  const checkCartItemChecked = useCallback(id => selectedCartItem.includes(id), [selectedCartItem]);
 
   const checkEveryCartItemChecked = useCallback(
-    () => cartList.length === checkedCartItem.length,
-    [cartList, checkedCartItem],
+    () => cartList.length === selectedCartItem.length,
+    [cartList, selectedCartItem],
   );
 
   const decreaseCartItemCount = useCallback(cart => {
@@ -56,20 +56,24 @@ export const useCartList = () => {
     }
   }, []);
 
-  const deleteEveryCartItem = useCallback(() => {
-    if (confirm('정말로 삭제하시겠습니까?')) {
-      dispatch(fetchDeleteEveryCartItemAsync(checkedCartItem) as any);
+  const deleteSelectedCartItem = useCallback(() => {
+    if (selectedCartItem.length === 0) {
+      throw new Error('선택된 상품이 없습니다.');
     }
-  }, [checkedCartItem]);
+
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      dispatch(fetchDeleteSelectedCartItemAsync(selectedCartItem) as any);
+    }
+  }, [selectedCartItem]);
 
   const selectCartItem = useCallback(cart => {
     const { id } = cart;
 
-    dispatch({ type: CartActionType.CHECK_CART_ITEM, payload: { id } });
+    dispatch({ type: CartActionType.SELECT_CART_ITEM, payload: { id } });
   }, []);
 
   const selectEveryCartItem = useCallback(() => {
-    dispatch({ type: CartActionType.CHECK_EVERY_CART_ITEM });
+    dispatch({ type: CartActionType.SELECT_EVERY_CART_ITEM });
   }, []);
 
   return {
@@ -84,7 +88,7 @@ export const useCartList = () => {
       decreaseCartItemCount,
       increaseCartItemCount,
       deleteCartItem,
-      deleteEveryCartItem,
+      deleteSelectedCartItem,
       selectCartItem,
       selectEveryCartItem,
     },
