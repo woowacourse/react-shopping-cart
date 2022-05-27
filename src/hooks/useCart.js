@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import * as cartAction from 'actions/cart/action';
 import * as cartThunk from 'actions/cart/thunk';
 
 function useCart() {
@@ -18,6 +19,8 @@ function useCart() {
   }, []);
 
   return {
+    cartAction,
+    cartThunk,
     state: {
       cartItems: cartItems.content,
       isLoading: cartItems.isLoading,

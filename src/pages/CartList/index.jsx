@@ -1,8 +1,5 @@
 import { useDispatch } from 'react-redux';
 
-import * as cartAction from 'actions/cart/action';
-import * as cartThunk from 'actions/cart/thunk';
-
 import useCart from 'hooks/useCart';
 import { getNumberFormatter } from 'lib/formatterUtils';
 
@@ -26,7 +23,7 @@ import * as S from './styles';
 export function CartList() {
   const dispatch = useDispatch();
 
-  const { state } = useCart();
+  const { cartAction, cartThunk, state } = useCart();
   const { cartItems, isLoading, isLoaded, errorMessage, checkedItemList } = state;
 
   const isSelectAllChecked = checkedItemList.length > 0;
