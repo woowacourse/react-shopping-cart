@@ -6,7 +6,7 @@ const CheckBox = ({ id, checked, onChange }) => {
   return (
     <>
       <CheckBoxStyled id={id} checked={checked} onChange={onChange} />
-      <label htmlFor={id}></label>
+      <label htmlFor={id} />
     </>
   );
 };
