@@ -12,7 +12,7 @@ import Skeleton from 'skeletons/CartSkeleton';
 import Wrapper from './style';
 
 import { getCarts, selectAllCart, clearAllCart, deleteSeveralCarts } from 'reducers/carts';
-import { deleteCarts } from 'reducers/cudCart';
+import { deleteCarts } from 'reducers/addUpdateDeleteCart';
 import { onMessage } from 'reducers/snackbar';
 
 import { SNACKBAR_MESSAGE } from 'constants';

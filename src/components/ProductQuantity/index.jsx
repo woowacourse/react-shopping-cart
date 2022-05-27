@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import Wrapper from './style';
 
-import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/cudCart';
+import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/addUpdateDeleteCart';
 import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';

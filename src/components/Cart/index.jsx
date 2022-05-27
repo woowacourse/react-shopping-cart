@@ -13,7 +13,7 @@ import {
   downOneQuantity,
   deleteOneCart,
 } from 'reducers/carts';
-import { addMoreCart, downCart, deleteCart } from 'reducers/cudCart';
+import { addMoreCart, downCart, deleteCart } from 'reducers/addUpdateDeleteCart';
 import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';
