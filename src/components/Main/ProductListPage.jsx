@@ -18,7 +18,7 @@ function ProductListPage() {
     dispatch(loadProducts());
 
     return () => {
-      dispatch(loadCarts(cartsActionCreators.cleanError()));
+      dispatch(cartsActionCreators.cleanError());
     };
   }, []);
 
