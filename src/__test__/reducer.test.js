@@ -1,4 +1,4 @@
-import cart from 'modules/cart';
+import cart from 'modules/cart/cart';
 
 describe('cart reducer 테스트 (action에 맞춰서, 상태를 의도한대로 잘 변경할 수 있다.)', () => {
   test('카트를 클릭하면, 해당 상품을 정상적으로 장바구니 상태에 추가해야 한다.', () => {

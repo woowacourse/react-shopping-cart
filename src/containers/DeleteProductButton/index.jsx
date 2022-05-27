@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BoxButton from 'components/BoxButton';
-import { requestCheckedProductDelete } from 'modules/cart';
+import { requestCheckedProductDelete } from 'modules/cart/cart';
 import { useDispatch } from 'react-redux';
 import MESSAGE from 'constants';
 

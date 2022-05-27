@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Image from 'components/Image';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestCartAdd, requestCartAddFail, requestExistProductAdd } from 'modules/cart';
+import { requestCartAdd, requestCartAddFail, requestExistProductAdd } from 'modules/cart/cart';
 import CartButtonStyled from './style';
 
 function CartButton({ id }) {

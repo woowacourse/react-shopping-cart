@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'components/Image';
 import TrashcanButtonStyled from './style';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestProductDelete } from 'modules/cart';
+import { requestProductDelete } from 'modules/cart/cart';
 import MESSAGE from 'constants';
 
 function TrashcanButton({ productId }) {

@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-import { requestProductsAdd, requestProductsAddFail, requestIsLoadingTrue } from 'modules/product';
+import {
+  requestProductsAdd,
+  requestProductsAddFail,
+  requestIsLoadingTrue,
+} from 'modules/product/product';
 
-import { requestCartAdd, requestCartAddFail } from 'modules/cart';
+import { requestCartAdd, requestCartAddFail } from 'modules/cart/cart';
 
 function useGetProductList() {
   const dispatch = useDispatch();
