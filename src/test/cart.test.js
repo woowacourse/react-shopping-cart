@@ -1,4 +1,5 @@
-import { cartsReducer, cartsActionCreators } from 'store/carts';
+import { cartsActionCreators } from 'store/carts/action';
+import { cartsReducer } from 'store/carts/reducer';
 
 const product = {
   id: '11',
@@ -51,7 +52,7 @@ describe('장바구니 리듀서 테스트', () => {
     };
 
     // when
-    const action = cartsActionCreators.updateCartQuantity({
+    const action = cartsActionCreators.updateCart({
       ...product,
       quantity: 2,
     });
