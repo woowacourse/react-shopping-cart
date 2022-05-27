@@ -28,12 +28,9 @@ const Cart = () => {
 
   useEffect(() => {
     let calculateTotalPrice = 0;
-    console.log(checkboxItems);
 
     checkboxItems.forEach((productId) => {
-      console.log('id : ', productId);
       const currentProduct = cartList.find((checkedProduct) => checkedProduct.id === productId);
-      console.log(currentProduct);
       calculateTotalPrice += currentProduct.price * currentProduct.count;
     });
 

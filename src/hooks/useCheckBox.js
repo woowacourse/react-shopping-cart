@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
 export const useCheckBox = (boxItems) => {
   const [checkboxItems, setCheckboxItems] = useState(() => boxItems.map((item) => item.id));
@@ -6,10 +6,6 @@ export const useCheckBox = (boxItems) => {
     () => boxItems.length === checkboxItems.length,
     [boxItems.length, checkboxItems.length],
   );
-
-  useEffect(() => {
-    console.log(checkboxItems);
-  });
 
   const handleChecked = (productId) => {
     const prevState = [...checkboxItems];

@@ -82,7 +82,7 @@ CartProducItem.defaultProps = {
   name: '이름이 지정되지 않았습니다.',
   price: -1,
   count: 1,
-  isChecked: (id) => true,
+  isChecked: () => true,
   handleChecked: () => {},
   handleItemCount: () => {},
 };
