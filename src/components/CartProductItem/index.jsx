@@ -35,32 +35,34 @@ const CartProducItem = ({
   };
 
   return (
-    <Styled.Container>
+    <CommonStyled.Container width="100%" margin="0">
       <CheckBox checkState={isChecked(id)} handleChecked={() => handleChecked(id)} />
       <Styled.ImageWrapper>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
-      <CommonStyled.FlexWrapper
+      <CommonStyled.Container
+        width="100%"
         height="100px"
         justifyContent="flex-end"
         alignItems="flex-end"
         flexDirection="column"
+        margin="0"
         padding="0 1rem"
       >
-        <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="space-between">
+        <CommonStyled.Container width="100%" margin="0" justifyContent="space-between">
           <Styled.Title>{name}</Styled.Title>
           <IconButton onClick={onClickDeleteButton} icon={아이콘_코드.DELETE} />
-        </CommonStyled.FlexWrapper>
+        </CommonStyled.Container>
         <CommonStyled.FlexWrapper margin="0" width="120px" justifyContent="flex-end">
           <Counter id={id} count={count} handleItemCount={handleItemCount()} />
         </CommonStyled.FlexWrapper>
-        <CommonStyled.FlexWrapper margin="0" width="100%" justifyContent="flex-end">
+        <Styled.Container margin="0" width="100%" justifyContent="flex-end">
           <CommonStyled.Text padding="0.5rem 0">
             {price.toLocaleString('ko-KR')}원
           </CommonStyled.Text>
-        </CommonStyled.FlexWrapper>
-      </CommonStyled.FlexWrapper>
-    </Styled.Container>
+        </Styled.Container>
+      </CommonStyled.Container>
+    </CommonStyled.Container>
   );
 };
 

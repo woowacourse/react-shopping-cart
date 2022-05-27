@@ -22,7 +22,7 @@ const DetailProductItem = ({ id, thumbnail, name, price }) => {
   };
 
   return (
-    <Styled.Container>
+    <CommonStyled.Container flexDirection="column">
       <Styled.ImageWrapper>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
@@ -30,14 +30,14 @@ const DetailProductItem = ({ id, thumbnail, name, price }) => {
         <Styled.Info>
           <Styled.Title>{name}</Styled.Title>
           <CommonStyled.HR />
-          <CommonStyled.FlexWrapper width="90%" justifyContent="space-between">
+          <CommonStyled.Container width="90%" margin="0 auto" justifyContent="space-between">
             <p>금액 </p>
             <p>{price.toLocaleString('ko-KR')}원</p>
-          </CommonStyled.FlexWrapper>
+          </CommonStyled.Container>
         </Styled.Info>
         <Button onClick={onClickAddCartButton}>장바구니</Button>
       </Styled.Description>
-    </Styled.Container>
+    </CommonStyled.Container>
   );
 };
 

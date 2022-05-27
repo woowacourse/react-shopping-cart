@@ -12,6 +12,17 @@ const FlexWrapper = styled.div`
   justify-content: ${(props) => props.justifyContent};
 `;
 
+const Container = styled.div`
+  display: flex;
+  margin: ${(props) => props.margin || '0 0 2rem 0'};
+  padding: ${(props) => props.padding || '0'};
+  flex-direction: ${(props) => props.flexDirection || 'row'};
+  width: ${(props) => props.width || '50%'};
+  height: ${(props) => props.height || 'unset'};
+  align-items: ${(props) => props.alignItems || 'flex-start'};
+  justify-content: ${(props) => props.justifyContent || 'unset'};
+`;
+
 const HR = styled.hr`
   width: 100%;
   border: ${(props) => props.size || '2px'} solid ${(props) => props.color || COLORS.GRAY_300};
@@ -38,4 +49,4 @@ const Input = styled.input`
   font-size: ${(props) => props.size || '1rem'};
 `;
 
-export { FlexWrapper, HR, PageTitle, Text, Input };
+export { FlexWrapper, Container, HR, PageTitle, Text, Input };

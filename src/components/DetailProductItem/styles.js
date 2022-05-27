@@ -1,10 +1,5 @@
 import styled from '@emotion/styled';
 
-const Container = styled.div`
-  margin-bottom: 2rem;
-  width: 50%;
-`;
-
 const ImageWrapper = styled.div`
   cursor: pointer;
 
@@ -40,6 +35,7 @@ const Description = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Info = styled.div`
@@ -62,4 +58,4 @@ const Title = styled.p`
   padding: 0.5rem 0;
 `;
 
-export { Container, ImageWrapper, Description, Info, Title };
+export { ImageWrapper, Description, Info, Title };

@@ -27,11 +27,16 @@ const ProductItem = ({ id, thumbnail, name, price }) => {
   };
 
   return (
-    <Styled.Container>
+    <CommonStyled.Container width="100%" flexDirection="column">
       <Styled.ImageWrapper onClick={onClickProduct}>
         <img src={thumbnail} alt="product thumbnail" />
       </Styled.ImageWrapper>
-      <CommonStyled.FlexWrapper justifyContents="space-between">
+      <CommonStyled.Container
+        justifyContents="space-between"
+        width="100%"
+        alignItems="center"
+        margin="0"
+      >
         <Styled.Info onClick={onClickProduct}>
           <Styled.Title>{name}</Styled.Title>
           <p>{price.toLocaleString('ko-KR')}원</p>
@@ -39,8 +44,8 @@ const ProductItem = ({ id, thumbnail, name, price }) => {
         <CommonStyled.FlexWrapper width="auto">
           <IconButton onClick={onClickAddCartButton} icon={아이콘_코드.CART} />
         </CommonStyled.FlexWrapper>
-      </CommonStyled.FlexWrapper>
-    </Styled.Container>
+      </CommonStyled.Container>
+    </CommonStyled.Container>
   );
 };
 

@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import { COLORS } from 'styles/theme';
 
-const Container = styled.div`
-  margin-bottom: 2rem;
-`;
-
 const ImageWrapper = styled.div`
   cursor: pointer;
 
@@ -57,4 +53,4 @@ const Title = styled.p`
   padding: 0.5rem 0;
 `;
 
-export { Container, ImageWrapper, Info, Title };
+export { ImageWrapper, Info, Title };

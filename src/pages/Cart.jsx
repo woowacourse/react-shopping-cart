@@ -58,7 +58,7 @@ const Cart = () => {
     <Layout>
       <Styled.CartListContainer>
         <PageHeader pageTitle="장바구니" />
-        <CommonStyled.FlexWrapper alignItems="flex-start">
+        <CommonStyled.Container alignItems="flex-start" width="100%" margin="0">
           <CommonStyled.FlexWrapper margin="2rem" flexDirection="column" alignItems="flex-start">
             <CartList
               cartList={cartList}
@@ -72,7 +72,7 @@ const Cart = () => {
             />
           </CommonStyled.FlexWrapper>
           <CartReceipt totalPrice={totalPrice} checkboxItemCount={checkboxItems.length} />
-        </CommonStyled.FlexWrapper>
+        </CommonStyled.Container>
       </Styled.CartListContainer>
     </Layout>
   );
