@@ -11,13 +11,13 @@ const getResult = async (execute) => {
 };
 
 export const getApi = async (endPoint, data = {}) =>
-  getResult(async () => axios.get(`/${endPoint}`), data);
+  getResult(() => axios.get(`/${endPoint}`), data);
 
 export const postApi = async (endPoint, data = {}) =>
-  getResult(async () => axios.post(`/${endPoint}`, data));
+  getResult(() => axios.post(`/${endPoint}`, data));
 
 export const putApi = async (endPoint, data = {}) =>
-  getResult(async () => axios.put(`/${endPoint}`, data));
+  getResult(() => axios.put(`/${endPoint}`, data));
 
 export const deleteApi = async (endPoint, data = {}) =>
-  getResult(async () => axios.delete(`/${endPoint}`, data));
+  getResult(() => axios.delete(`/${endPoint}`, data));
