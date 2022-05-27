@@ -8,9 +8,8 @@ import CheckBox from 'components/CheckBox/CheckBox';
 
 import useDeleteProductFromCart from 'hooks/useDeleteProductFromCart';
 
-function CheckedItemsController({ checkedCarts }) {
+function CheckedItemsController({ checkedCarts, allChecked }) {
   const deleteCarts = checkedCarts.map((cart) => cart.id).join('&');
-
   const { deleteFromCart } = useDeleteProductFromCart(deleteCarts);
 
   const dispatch = useDispatch();
@@ -40,6 +39,7 @@ function CheckedItemsController({ checkedCarts }) {
     <Style.CheckBoxFlexContainer justify="space-between" align="center">
       <Flex align="center">
         <CheckBox
+          checked={allChecked}
           onCheck={handleCheckAllProducts}
           onUncheck={handleUncheckAllProducts}
         />

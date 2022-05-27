@@ -36,6 +36,9 @@ function Carts() {
     checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
   );
 
+  const allChecked = carts.length === checkedCarts.length;
+
+  console.log('allChecked', allChecked);
   return (
     <Style.Container>
       <Style.Header>
@@ -45,7 +48,10 @@ function Carts() {
 
       <Style.CartListContainer justify="space-between">
         <Style.CartListWrapper>
-          <CheckedItemsController checkedCarts={checkedCarts} />
+          <CheckedItemsController
+            allChecked={allChecked}
+            checkedCarts={checkedCarts}
+          />
           <span>든든배송 상품 {totalQuantity}개</span>
           <BasicDivideLine weight="bold" color="lightgray" mv="10" />
           <CartListContainer
