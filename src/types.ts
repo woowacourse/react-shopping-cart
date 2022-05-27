@@ -24,7 +24,6 @@ export type Action = {
 };
 
 export type StoreState = {
-  userId: string;
   isLoading: boolean;
   error: any;
   productList: Product[];

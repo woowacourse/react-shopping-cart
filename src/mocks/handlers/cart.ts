@@ -3,10 +3,10 @@ import SERVER_URL from '../../configs/api';
 import * as db from '../db.json';
 
 const { cart, products } = db;
+const userId = '1';
 
 const cartHandlers = [
-  rest.get(`${SERVER_URL}/cart/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
+  rest.get(`${SERVER_URL}/cart`, (req, res, ctx) => {
     const items = cart.find((cartItem) => cartItem.userId === userId)?.items;
 
     if (!items) {
@@ -21,9 +21,7 @@ const cartHandlers = [
 
     return res(ctx.status(200), ctx.json(joinedCart));
   }),
-  rest.post(`${SERVER_URL}/cart/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
-
+  rest.post(`${SERVER_URL}/cart`, (req, res, ctx) => {
     if (!req.body) {
       return res(ctx.status(400), ctx.json(new Error('body is required')));
     }
@@ -46,9 +44,7 @@ const cartHandlers = [
 
     return res(ctx.status(200), ctx.json(joinedCart));
   }),
-  rest.patch(`${SERVER_URL}/cart/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
-
+  rest.patch(`${SERVER_URL}/cart`, (req, res, ctx) => {
     if (!req.body) {
       return res(ctx.status(400), ctx.json(new Error('body is required')));
     }
@@ -80,8 +76,7 @@ const cartHandlers = [
 
     return res(ctx.status(200), ctx.json(joinedCart));
   }),
-  rest.delete(`${SERVER_URL}/cart/:userId`, (req, res, ctx) => {
-    const { userId } = req.params;
+  rest.delete(`${SERVER_URL}/cart`, (req, res, ctx) => {
     const productIdList = req.url.searchParams.getAll('id');
 
     const items = cart.find((cartItem) => cartItem.userId === userId)?.items;

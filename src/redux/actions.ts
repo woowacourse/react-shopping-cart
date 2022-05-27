@@ -42,16 +42,14 @@ const actions = {
 
     return { type: TYPES.GET_PRODUCT_DETAIL, payload: request };
   },
-  getCart: (userId: string) => {
-    const request = axios
-      .get(`${SERVER_URL}/cart/${userId}`)
-      .then((res) => res.data);
+  getCart: () => {
+    const request = axios.get(`${SERVER_URL}/cart`).then((res) => res.data);
 
     return { type: TYPES.GET_CART, payload: request };
   },
-  addItemToCart: (userId: string, productId: string, quantity: number) => {
+  addItemToCart: (productId: string, quantity: number) => {
     const request = axios
-      .post(`${SERVER_URL}/cart/${userId}`, {
+      .post(`${SERVER_URL}/cart`, {
         productId,
         quantity,
       })
@@ -59,18 +57,18 @@ const actions = {
 
     return { type: TYPES.ADD_ITEM_TO_CART, payload: request };
   },
-  removeCartItem: (userId: string, productId: string | string[]) => {
+  removeCartItem: (productId: string | string[]) => {
     const productIdList = Array.isArray(productId) ? productId : [productId];
     const query = productIdList.map((productId) => `id=${productId}`).join('&');
     const request = axios
-      .delete(`${SERVER_URL}/cart/${userId}?${query}`)
+      .delete(`${SERVER_URL}/cart?${query}`)
       .then((res) => res.data);
 
     return { type: TYPES.REMOVE_CART_ITEM, payload: request };
   },
-  updateQuantity: (userId: string, productId: string, quantity: string) => {
+  updateQuantity: (productId: string, quantity: string) => {
     const request = axios
-      .patch(`${SERVER_URL}/cart/${userId}`, {
+      .patch(`${SERVER_URL}/cart`, {
         productId,
         quantity,
       })

@@ -2,7 +2,6 @@ import { StoreState, Action } from '../types';
 import { TYPES } from './actions';
 
 const initialState: StoreState = {
-  userId: '1',
   isLoading: false,
   error: null,
   productList: [],

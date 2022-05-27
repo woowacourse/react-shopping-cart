@@ -5,9 +5,8 @@ import { StoreState } from '../../types';
 
 const useProductDetail = (id: string) => {
   const dispatch = useDispatch();
-  const { userId, isLoading, productDetail, error, cart } = useSelector(
+  const { isLoading, productDetail, error, cart } = useSelector(
     (state: StoreState) => ({
-      userId: state.userId,
       isLoading: state.isLoading,
       productDetail: state.productDetail,
       error: state.error,
@@ -27,7 +26,7 @@ const useProductDetail = (id: string) => {
     error,
     isAlreadyAdded: !!cart.find(({ product }) => product.id === id),
     addItemToCart: () => {
-      dispatch(actions.addItemToCart(userId, id, 1));
+      dispatch(actions.addItemToCart(id, 1));
     },
   };
 };

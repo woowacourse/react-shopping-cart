@@ -6,21 +6,18 @@ import { StoreState } from '../../types';
 const useCart = () => {
   const dispatch = useDispatch();
 
-  const { userId, isLoading, error, cart } = useSelector(
-    (state: StoreState) => ({
-      userId: '1',
-      isLoading: state.isLoading,
-      error: state.error,
-      cart: state.cart,
-    })
-  );
+  const { isLoading, error, cart } = useSelector((state: StoreState) => ({
+    isLoading: state.isLoading,
+    error: state.error,
+    cart: state.cart,
+  }));
 
   console.log(cart);
   const [checkedFlags, setCheckedFlags] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    dispatch(actions.getCart(userId));
-  }, [dispatch, userId]);
+    dispatch(actions.getCart());
+  }, [dispatch]);
 
   return {
     isLoading,
@@ -36,7 +33,7 @@ const useCart = () => {
       ),
     handleChangeQuantity:
       (id: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(actions.updateQuantity(userId, id, e.target.value));
+        dispatch(actions.updateQuantity(id, e.target.value));
       },
     handleCheck: (id: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setCheckedFlags((prev) => ({ ...prev, [id]: e.target.checked }));
@@ -53,13 +50,13 @@ const useCart = () => {
       });
     },
     removeCartItem: (id: string | Array<string>) => () => {
-      dispatch(actions.removeCartItem(userId, id));
+      dispatch(actions.removeCartItem(id));
     },
     removeAllCartItem: () => {
       const productIdList = cart
         .filter(({ checked }) => checked)
         .map(({ product }) => product.id);
-      dispatch(actions.removeCartItem(userId, productIdList));
+      dispatch(actions.removeCartItem(productIdList));
     },
   };
 };
