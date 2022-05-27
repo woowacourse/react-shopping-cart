@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import PropType from 'prop-types';
 
 function Order({ checkedList }) {
-  const getExpectedPrice = () =>
-    checkedList.reduce(
-      (sum, current) => sum + Number(current.price) * current.quantity,
-      0,
-    );
+  const expectedPrice = checkedList.reduce(
+    (sum, current) => sum + Number(current.price) * current.quantity,
+    0,
+  );
 
   return (
     <Styled.OrderContainer>
@@ -18,7 +17,7 @@ function Order({ checkedList }) {
       <div>
         <Styled.ExpectedPriceWrapper>
           <Styled.HilightText>결제예상금액</Styled.HilightText>
-          <Styled.HilightText>{`${getExpectedPrice()}원`}</Styled.HilightText>
+          <Styled.HilightText>{`${expectedPrice}원`}</Styled.HilightText>
         </Styled.ExpectedPriceWrapper>
         <Styled.OrderButtonWrapper>
           <Styled.OrderButton>{`주문하기(${checkedList.length}개)`}</Styled.OrderButton>
