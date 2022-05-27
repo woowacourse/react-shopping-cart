@@ -2,23 +2,44 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import smallCart from 'assets/svg/smallCart.svg';
-import { PATH } from 'constants/path';
+import { API_PATH, PATH } from 'constants/path';
+import usePost from 'hooks/shared/usePost';
+import useGetCartList from 'hooks/useGetCartList';
 
 const ProductItem = ({ id, name, price, imgUrl }) => {
   const navigate = useNavigate();
+  const { callPostApi: postCartList } = usePost(API_PATH.CART_LIST, {
+    id,
+    cartQuantity: 1,
+  });
+
+  const { cartList, getCartList } = useGetCartList();
+
   const handleClickProduct = () => {
     navigate(`${PATH.PRODUCT}/${id}`);
   };
 
+  const handleClickCart = async () => {
+    await postCartList();
+    getCartList();
+  };
+
   return (
-    <Styled.Wrapper onClick={handleClickProduct}>
-      <Styled.ProductImage src={imgUrl} />
+    <Styled.Wrapper>
+      <Styled.ProductImage
+        src={imgUrl}
+        alt={name}
+        onClick={handleClickProduct}
+      />
       <Styled.ProductDetail>
-        <Styled.ProductInfo>
+        <Styled.ProductInfo onClick={handleClickProduct}>
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{price}원</Styled.ProductPrice>
         </Styled.ProductInfo>
-        <Styled.CartButton>
+        <Styled.CartButton
+          onClick={handleClickCart}
+          isInCart={cartList.find((item) => item.id === id)}
+        >
           <Styled.CartSvg src={smallCart} />
         </Styled.CartButton>
       </Styled.ProductDetail>
@@ -39,12 +60,16 @@ const Styled = {
     cursor: pointer;
   `,
   ProductImage: styled.img`
+    border-radius: 4px;
     max-width: 100%;
+    &:hover {
+      filter: brightness(90%);
+    }
   `,
   ProductDetail: styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 5px 0 5px 5px;
     width: 100%;
   `,
   ProductInfo: styled.div`
@@ -63,9 +88,15 @@ const Styled = {
     font-size: 18px;
   `,
   CartButton: styled.button`
-    background-color: transparent;
+    background-color: ${({ isInCart }) =>
+      isInCart ? '#a7e2f75d' : 'transparent'};
+    border-radius: 7px;
     border: none;
+    padding: 6px;
     cursor: pointer;
+    &:hover {
+      background-color: #a7e2f75d;
+    }
   `,
   CartSvg: styled.img`
     max-width: 100%;

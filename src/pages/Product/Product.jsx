@@ -1,33 +1,32 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useGetProduct from 'hooks/useGetProduct';
 import ProductDetail from 'components/ProductDetail';
 import Skeleton from 'components/Skeleton';
-import errorApiImg from 'assets/png/errorApiImg.png';
 import ImgWrapper from 'components/ImgWrapper';
-import { PATH } from 'constants/path';
-import useProduct from 'hooks/useProduct';
 import comma from 'utils/comma';
+import errorApiImg from 'assets/png/errorApiImg.png';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Product = () => {
-  const { addCart, isLoading, product, isError } = useProduct();
-  const navigate = useNavigate();
+  const { getProduct, product, isProductLoading, isProductError } =
+    useGetProduct();
 
-  const handleClickCart = () => {
-    addCart();
-    navigate(PATH.CART);
-  };
+  const { id } = useParams();
+  useEffect(() => {
+    getProduct(id);
+  }, []);
 
   return (
     <Styled.Wrapper>
-      {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
-      {!isLoading && product && (
+      {isProductLoading && <Skeleton sizeType="large" />}
+      {isProductError && <ImgWrapper src={errorApiImg} alt="API 에러 이미지" />}
+      {!isProductLoading && product && (
         <ProductDetail
           imgUrl={product.imgUrl}
           name={product.name}
           price={comma(product.price)}
           id={product.id}
-          onClickCart={handleClickCart}
         />
       )}
     </Styled.Wrapper>

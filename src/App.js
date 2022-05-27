@@ -5,16 +5,20 @@ import ImgWrapper from 'components/ImgWrapper';
 import spinner from 'assets/svg/spinner.svg';
 import { PATH } from 'constants/path';
 import Layout from 'components/Layout';
+import Order from 'pages/Order';
 
 function App() {
   return (
-    <Suspense fallback={<ImgWrapper src={spinner} alt="로딩 스피너" />}>
+    <Suspense
+      fallback={<ImgWrapper isMini={true} src={spinner} alt="로딩 스피너" />}
+    >
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" exact element={<ProductList />} />
+            <Route path={PATH.ROOT} element={<ProductList />} />
             <Route path={`${PATH.PRODUCT}/:id`} element={<Product />} />
-            <Route path={PATH.CART} exact element={<Cart />} />
+            <Route path={PATH.CART} element={<Cart />} />
+            <Route path={PATH.ORDER} element={<Order />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

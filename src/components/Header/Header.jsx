@@ -1,18 +1,29 @@
 import styled from 'styled-components';
-import MenuItem from 'components/MenuItem';
-import bigCart from 'assets/svg/bigCart.svg';
 import { Link } from 'react-router-dom';
+import useGetCartList from 'hooks/useGetCartList';
+import MenuItem from 'components/MenuItem';
+import Circle from 'components/Circle';
+import bigCart from 'assets/svg/bigCart.svg';
+import { PATH } from 'constants/path';
+import { useEffect } from 'react';
 
 const Header = () => {
+  const { getCartList, cartList } = useGetCartList();
+  useEffect(() => {
+    getCartList();
+  }, []);
+
   return (
     <Styled.Wrapper>
-      <Styled.Logo to="/">
+      <Styled.Logo to={PATH.ROOT}>
         <Styled.LogoImage src={bigCart} alt="로고" />
         <Styled.LogoText>WOOWA SHOP</Styled.LogoText>
       </Styled.Logo>
       <Styled.MenuContainer>
-        <MenuItem>장바구니</MenuItem>
-        <MenuItem>주문목록</MenuItem>
+        <MenuItem to={PATH.CART}>
+          장바구니<Circle>{cartList.length}</Circle>
+        </MenuItem>
+        <MenuItem to={PATH.ORDER}>주문목록</MenuItem>
       </Styled.MenuContainer>
     </Styled.Wrapper>
   );
@@ -21,7 +32,7 @@ const Header = () => {
 const Styled = {
   Wrapper: styled.header`
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 80px;
     background: #2ac1bc;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 30%);

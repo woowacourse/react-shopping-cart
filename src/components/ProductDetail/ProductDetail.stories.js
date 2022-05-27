@@ -1,4 +1,4 @@
-import ProductDetail from 'components/ProductDetail/ProductDetail';
+import ProductDetail from 'components/ProductDetail';
 
 export default {
   title: 'components/ProductDetail',

@@ -1,2 +1,1 @@
-import ProductDetail from './ProductDetail';
-export default ProductDetail;
+export { default } from './ProductDetail';
