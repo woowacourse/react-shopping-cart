@@ -6,10 +6,10 @@ import { ReactComponent as TrashButton } from 'components/CartPage/TrashButton.s
 import AmountController from 'components/CartPage/AmountController';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from 'store/carts/action';
+import { deleteCart, updateCart } from 'store/carts/action';
 import { NOTICE } from 'constants';
 
-function CartProduct({ product, checked, updateCheckedList }) {
+function CartProduct({ product }) {
   const dispatch = useDispatch();
 
   const deleteCartProduct = () => {
@@ -18,15 +18,15 @@ function CartProduct({ product, checked, updateCheckedList }) {
     }
   };
 
-  const updateCheckedListWithProduct = (isChecked) => {
-    updateCheckedList(product, isChecked);
+  const updateCartChecked = (isChecked) => {
+    dispatch(updateCart({ ...product, checked: !isChecked }));
   };
 
   return (
     <Styled.CartContainer>
       <React.Fragment key={product.id}>
         <Styled.ProductLeftWrapper>
-          <CheckBox checked={checked} onChange={updateCheckedListWithProduct} />
+          <CheckBox checked={product.checked} onChange={updateCartChecked} />
           <ProductImage
             src={product.src}
             size="small"
@@ -55,9 +55,8 @@ CartProduct.propTypes = {
     src: PropType.string.isRequired,
     title: PropType.string.isRequired,
     quantity: PropType.number.isRequired,
+    checked: PropType.bool.isRequired,
   }).isRequired,
-  checked: PropType.bool.isRequired,
-  updateCheckedList: PropType.func.isRequired,
 };
 
 const Styled = {

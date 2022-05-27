@@ -4,41 +4,29 @@ import CartProduct from 'components/CartPage/CartProduct';
 import Order from 'components/CartPage/Order';
 import CheckBox from 'components/CartPage/CheckBox';
 import { DivideUnderLine, DefaultButton } from 'components/shared/styles';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCart } from 'store/carts/action';
+import { deleteCart, updateCart } from 'store/carts/action';
 import { ERROR_MESSAGE, NOTICE } from 'constants';
+import { getCheckedCarts } from 'utils';
 
 function CartPage() {
   const { carts } = useSelector((state) => state.carts);
 
   const dispatch = useDispatch();
 
-  const [checkedList, setCheckedList] = useState(carts);
-
-  const updateCheckedList = (product, isChecked) => {
-    if (isChecked) {
-      setCheckedList(checkedList.filter((item) => item.id !== product.id));
-      return;
-    }
-    const newList = [...checkedList];
-
-    newList.push(product);
-    setCheckedList(newList);
-  };
-
   const selectAll = (isChecked) => {
-    if (isChecked) {
-      setCheckedList([]);
-      return;
-    }
-    setCheckedList(carts);
+    carts
+      .filter((cart) => cart.checked === isChecked)
+      .forEach((filteredCart) => {
+        dispatch(updateCart({ ...filteredCart, checked: !isChecked }));
+      });
   };
 
   const deleteCheckedProducts = () => {
-    if (checkedList.length) {
+    if (getCheckedCarts(carts).length) {
       if (window.confirm(NOTICE.DELETE_CONFIRM)) {
-        checkedList.forEach((product) => {
+        carts.forEach((product) => {
           dispatch(deleteCart(product.id));
         });
       }
@@ -46,10 +34,6 @@ function CartPage() {
     }
     alert(ERROR_MESSAGE.NON_SELECTED);
   };
-
-  useEffect(() => {
-    setCheckedList(carts);
-  }, [carts]);
 
   return (
     <Styled.CartSection>
@@ -59,7 +43,7 @@ function CartPage() {
           <Styled.CartSelectorWrapper>
             <Styled.CheckBoxContainer>
               <CheckBox
-                checked={carts.length === checkedList.length}
+                checked={carts.length === getCheckedCarts(carts).length}
                 onChange={selectAll}
               />
               <Styled.CancelSelectLabel htmlFor="checkbox">
@@ -74,16 +58,12 @@ function CartPage() {
           <Styled.CartDivideLine shape="greyThick" />
           {carts.map((product) => (
             <React.Fragment key={product.id}>
-              <CartProduct
-                product={product}
-                checked={checkedList.some((item) => item.id === product.id)}
-                updateCheckedList={updateCheckedList}
-              />
+              <CartProduct product={product} />
               <Styled.CartDivideLine shape="greyThin" />
             </React.Fragment>
           ))}
         </Styled.CartLeftSection>
-        <Order checkedList={checkedList} />
+        <Order />
       </Styled.CartBody>
     </Styled.CartSection>
   );

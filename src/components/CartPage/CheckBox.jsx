@@ -27,12 +27,8 @@ function CheckBox({ checked, onChange }) {
 export default CheckBox;
 
 CheckBox.propTypes = {
-  checked: PropType.bool,
+  checked: PropType.bool.isRequired,
   onChange: PropType.func.isRequired,
-};
-
-CheckBox.defaultProps = {
-  checked: false,
 };
 
 const Styled = {

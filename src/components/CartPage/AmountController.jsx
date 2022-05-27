@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { LIMIT } from 'constants';
 import PropType from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { updateCartQuantity } from 'store/carts/action';
+import { updateCart } from 'store/carts/action';
 import { DefaultButton } from 'components/shared/styles';
 
 function AmountController({ product }) {
@@ -10,17 +10,13 @@ function AmountController({ product }) {
 
   const increaseQuantity = () => {
     if (product.quantity < LIMIT.MAX_QUANTITY) {
-      dispatch(
-        updateCartQuantity({ ...product, quantity: product.quantity + 1 }),
-      );
+      dispatch(updateCart({ ...product, quantity: product.quantity + 1 }));
     }
   };
 
   const decreaseQuantity = () => {
     if (product.quantity > 1) {
-      dispatch(
-        updateCartQuantity({ ...product, quantity: product.quantity - 1 }),
-      );
+      dispatch(updateCart({ ...product, quantity: product.quantity - 1 }));
     }
   };
 

@@ -1,9 +1,12 @@
 import { DefaultButton, DivideUnderLine } from 'components/shared/styles';
 import styled from 'styled-components';
-import PropType from 'prop-types';
+import { useSelector } from 'react-redux';
+import { getCheckedCarts } from 'utils';
 
-function Order({ checkedList }) {
-  const expectedPrice = checkedList.reduce(
+function Order() {
+  const { carts } = useSelector((state) => state.carts);
+
+  const expectedPrice = getCheckedCarts(carts).reduce(
     (sum, current) => sum + Number(current.price) * current.quantity,
     0,
   );
@@ -20,7 +23,9 @@ function Order({ checkedList }) {
           <Styled.HilightText>{`${expectedPrice}원`}</Styled.HilightText>
         </Styled.ExpectedPriceWrapper>
         <Styled.OrderButtonWrapper>
-          <Styled.OrderButton>{`주문하기(${checkedList.length}개)`}</Styled.OrderButton>
+          <Styled.OrderButton>
+            {`주문하기(${getCheckedCarts(carts).length}개)`}
+          </Styled.OrderButton>
         </Styled.OrderButtonWrapper>
       </div>
     </Styled.OrderContainer>
@@ -28,18 +33,6 @@ function Order({ checkedList }) {
 }
 
 export default Order;
-
-Order.propTypes = {
-  checkedList: PropType.arrayOf(
-    PropType.shape({
-      id: PropType.string.isRequired,
-      price: PropType.string.isRequired,
-      quantity: PropType.number.isRequired,
-      src: PropType.string.isRequired,
-      title: PropType.string.isRequired,
-    }),
-  ).isRequired,
-};
 
 const Styled = {
   OrderContainer: styled.section`
