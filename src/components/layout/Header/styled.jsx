@@ -14,7 +14,7 @@ export const HeaderContainer = styled.header`
   height: 80px;
   padding: 0 20px;
   background-color: ${({ theme: { color } }) => color.point};
-  box-shadow: 0 4px 10px 2px ${({ theme: { color } }) => color.shadow};
+  box-shadow: 0 4px 10px 2px ${({ theme: { color } }) => color.gray02};
 `;
 
 export const NavButtonContainer = styled.nav`

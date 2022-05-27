@@ -5,12 +5,14 @@ const BoxButton = styled.button`
   width: 100%;
   padding: 16px 8px;
 
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
-  font-weight: 700;
-  color: ${({ theme: { color } }) => color.main};
-  border: none;
-  background-color: ${({ theme: { color }, bgColor }) =>
-    bgColor || color.point};
+  ${({ theme: { color, fontSize }, bgColor }) => `
+    font-size: ${fontSize.medium};
+    font-weight: 700;
+    color: ${color.main};
+    border: none;
+    background-color: ${bgColor || color.point};
+  `}
+
   cursor: pointer;
 
   :hover {

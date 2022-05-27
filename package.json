@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "homepage": "https://nan-noo.github.io/react-shopping-cart",
+  "homepage": ".",
   "description": "<우아한테크코스 4기 프론트엔드> level 2 - 장바구니",
   "version": "0.1.0",
   "private": true,
@@ -14,8 +14,8 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "redux-thunk": "^2.4.1",
     "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
@@ -42,6 +42,22 @@
         "rules": {
           "import/no-anonymous-default-export": "off"
         }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
       }
     ]
   },
@@ -58,18 +74,24 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.4.22",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/builder-webpack5": "^6.4.22",
-    "@storybook/manager-webpack5": "^6.4.22",
-    "@storybook/node-logger": "^6.4.22",
+    "@storybook/addon-actions": "^6.5.3",
+    "@storybook/addon-essentials": "^6.5.3",
+    "@storybook/addon-interactions": "^6.5.3",
+    "@storybook/addon-links": "^6.5.3",
+    "@storybook/builder-webpack5": "^6.5.3",
+    "@storybook/manager-webpack5": "^6.5.3",
+    "@storybook/node-logger": "^6.5.3",
     "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.4.22",
+    "@storybook/react": "^6.5.3",
     "@storybook/testing-library": "^0.0.11",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^6.5.4",
     "gh-pages": "^4.0.0",
-    "webpack": "^5.72.0"
+    "msw": "^0.40.0",
+    "prop-types": "^15.8.1",
+    "webpack": "^5.72.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

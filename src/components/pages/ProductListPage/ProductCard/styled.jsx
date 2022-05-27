@@ -5,12 +5,12 @@ export const CardContainer = styled.li`
   flex-direction: column;
   width: 280px;
   height: 360px;
-  border: 1px solid ${({ theme: { color } }) => color.border};
+  border: 1px solid ${({ theme: { color } }) => color.gray03};
 
   cursor: pointer;
 
   :hover {
-    box-shadow: 0 0 10px 0 ${({ theme: { color } }) => color.shadow};
+    box-shadow: 0 0 10px 0 ${({ theme: { color } }) => color.gray02};
   }
 `;
 
@@ -52,7 +52,7 @@ export const InfoWrapper = styled.div`
 
 export const ProductName = styled.p`
   font-size: ${({ theme: { fontSize } }) => fontSize.small};
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
   padding: 2px 0;
 
   overflow: hidden;
@@ -61,6 +61,6 @@ export const ProductName = styled.p`
 `;
 
 export const ProductPrice = styled.p`
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
-  color: ${({ theme: { color } }) => color.text};
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
+  color: ${({ theme: { color } }) => color.gray01};
 `;

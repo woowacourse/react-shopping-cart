@@ -1,4 +1,4 @@
-import { BASE_SERVER_URL, PRODUCT_LIST_PATH } from "../constants";
+import { getBaseServerProductList } from "util/fetch";
 
 const PRODUCT_LIST_ACTION = {
   GET_LIST: "productList/GET_LIST",
@@ -7,20 +7,9 @@ const PRODUCT_LIST_ACTION = {
 };
 
 export const getProductList = () => async (dispatch) => {
-  const productListURL = `${BASE_SERVER_URL}${PRODUCT_LIST_PATH}`;
-
   dispatch({ type: PRODUCT_LIST_ACTION.GET_LIST });
   try {
-    const response = await fetch(productListURL);
-
-    if (!response.ok) {
-      throw new Error(`fetch error`);
-    }
-
-    const data = await response.json();
-    if (!data) {
-      throw new Error(`No Data`);
-    }
+    const data = await getBaseServerProductList();
 
     dispatch({
       type: PRODUCT_LIST_ACTION.GET_LIST_SUCCESS,

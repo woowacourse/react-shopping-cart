@@ -1,8 +1,8 @@
 import React from "react";
-import Spinner from "../components/common/Spinner";
+import Spinner from "components/common/Spinner";
 
 export default {
-  title: "Component/Spinner",
+  title: "Component/Common/Spinner",
   component: Spinner,
 };
 

@@ -1,6 +1,6 @@
-import OrderListPage from "../pages/OrderListPage";
-import ProductListPage from "../pages/ProductListPage";
-import ProductDetailPage from "../pages/ProductDetailPage";
-import ProductCartPage from "../pages/ProductCartPage";
+import OrderListPage from "./OrderListPage";
+import ProductListPage from "./ProductListPage";
+import ProductDetailPage from "./ProductDetailPage";
+import ProductCartPage from "./ProductCartPage";
 
 export { OrderListPage, ProductListPage, ProductDetailPage, ProductCartPage };

@@ -6,7 +6,7 @@ export const Top = styled.div`
   justify-content: center;
   align-items: center;
 
-  border-bottom: 1px solid ${({ theme: { color } }) => color.text};
+  border-bottom: 1px solid ${({ theme: { color } }) => color.gray01};
   padding: 16px;
 `;
 
@@ -22,19 +22,19 @@ export const ProductImage = styled.img`
 `;
 
 export const ProductName = styled.p`
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
   font-weight: 700;
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
   padding: 8px 0;
 `;
 
-export const DetailSpan = styled.span`
+export const ProductPriceTitle = styled.span`
   font-size: ${({ theme: { fontSize } }) => fontSize.small};
-  color: ${({ theme: { color } }) => color.text};
+  color: ${({ theme: { color } }) => color.gray01};
   margin: auto 0;
 `;
 
 export const ProductPrice = styled.p`
-  font-size: ${({ theme: { fontSize } }) => fontSize.default};
-  color: ${({ theme: { color } }) => color.text};
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
+  color: ${({ theme: { color } }) => color.gray01};
 `;

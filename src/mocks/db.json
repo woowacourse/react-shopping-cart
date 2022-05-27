@@ -1,0 +1,215 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/92438f0e-0c4b-425e-b03b-999cee7cdca2.jpg",
+      "name": "[든든] 칠레산 코호 냉동 연어필렛 trim D(껍질있음) 1.1~1.3kg",
+      "price": 24500,
+      "quantity": 10
+    },
+    {
+      "id": 2,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/03751585-2305-4999-85dd-7d3aba184fe6.jpg",
+      "name": "[든든] LEROY 노르웨이 생연어 원물 1마리 6~7kg",
+      "price": 193800,
+      "quantity": 10
+    },
+    {
+      "id": 3,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220203-195555/23358-main-01.jpg",
+      "name": "[든든] 옥구농협 못잊어 신동진(신동진/보통/21년)20KG",
+      "price": 54300,
+      "quantity": 10
+    },
+    {
+      "id": 4,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2a69b1c6-fa88-49f0-b049-0259674580f8.png",
+      "name": "[든든] 국내산 양상추 300g이상 1개",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 5,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2bb8dfcb-e4b0-48ff-a028-05aa9d9c2f19.jpg",
+      "name": "[든든] 페루산 냉동 애플망고(2cmx2cm다이스) 1kg",
+      "price": 5090,
+      "quantity": 10
+    },
+    {
+      "id": 6,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20200902-201039/14900-main-01.jpg",
+      "name": "[든든] 국내산 팽이버섯 150g",
+      "price": 570,
+      "quantity": 10
+    },
+    {
+      "id": 7,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/d71a6c1d-2ff4-421f-bfa0-1080bcdaaa06.jpg",
+      "name": "[든든] 냉동 브로콜리 (중국산) 1kg",
+      "price": 2820,
+      "quantity": 10
+    },
+    {
+      "id": 8,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/a7b26c35-e160-4d54-8889-bf2bf361e273.jpg",
+      "name": "[든든] 천일 갈릭라이스N 200g",
+      "price": 870,
+      "quantity": 10
+    },
+    {
+      "id": 9,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220331-112605/24908-main-01.jpg",
+      "name": "[든든] 냉동다진마늘 1kg",
+      "price": 2670,
+      "quantity": 10
+    },
+    {
+      "id": 10,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/197d5058-373b-4bea-9a79-a0a30576765c.jpg",
+      "name": "[든든] 카벤디쉬 크링클컷 2kg",
+      "price": 6890,
+      "quantity": 10
+    },
+    {
+      "id": 11,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/92438f0e-0c4b-425e-b03b-999cee7cdca2.jpg",
+      "name": "[든든] 칠레산 코호 냉동 연어필렛 trim D(껍질있음) 1.1~1.3kg",
+      "price": 24500,
+      "quantity": 10
+    },
+    {
+      "id": 12,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/03751585-2305-4999-85dd-7d3aba184fe6.jpg",
+      "name": "[든든] LEROY 노르웨이 생연어 원물 1마리 6~7kg",
+      "price": 193800,
+      "quantity": 10
+    },
+    {
+      "id": 13,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220203-195555/23358-main-01.jpg",
+      "name": "[든든] 옥구농협 못잊어 신동진(신동진/보통/21년)20KG",
+      "price": 54300,
+      "quantity": 10
+    },
+    {
+      "id": 14,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2a69b1c6-fa88-49f0-b049-0259674580f8.png",
+      "name": "[든든] 국내산 양상추 300g이상 1개",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 15,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2bb8dfcb-e4b0-48ff-a028-05aa9d9c2f19.jpg",
+      "name": "[든든] 페루산 냉동 애플망고(2cmx2cm다이스) 1kg",
+      "price": 5090,
+      "quantity": 10
+    },
+    {
+      "id": 16,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20200902-201039/14900-main-01.jpg",
+      "name": "[든든] 국내산 팽이버섯 150g",
+      "price": 570,
+      "quantity": 10
+    },
+    {
+      "id": 17,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/d71a6c1d-2ff4-421f-bfa0-1080bcdaaa06.jpg",
+      "name": "[든든] 냉동 브로콜리 (중국산) 1kg",
+      "price": 2820,
+      "quantity": 10
+    },
+    {
+      "id": 18,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/a7b26c35-e160-4d54-8889-bf2bf361e273.jpg",
+      "name": "[든든] 천일 갈릭라이스N 200g",
+      "price": 870,
+      "quantity": 10
+    },
+    {
+      "id": 19,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220331-112605/24908-main-01.jpg",
+      "name": "[든든] 냉동다진마늘 1kg",
+      "price": 2670,
+      "quantity": 10
+    },
+    {
+      "id": 20,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/197d5058-373b-4bea-9a79-a0a30576765c.jpg",
+      "name": "[든든] 카벤디쉬 크링클컷 2kg",
+      "price": 6890,
+      "quantity": 10
+    },
+    {
+      "id": 21,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/92438f0e-0c4b-425e-b03b-999cee7cdca2.jpg",
+      "name": "[든든] 칠레산 코호 냉동 연어필렛 trim D(껍질있음) 1.1~1.3kg",
+      "price": 24500,
+      "quantity": 10
+    },
+    {
+      "id": 22,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/03751585-2305-4999-85dd-7d3aba184fe6.jpg",
+      "name": "[든든] LEROY 노르웨이 생연어 원물 1마리 6~7kg",
+      "price": 193800,
+      "quantity": 10
+    },
+    {
+      "id": 23,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220203-195555/23358-main-01.jpg",
+      "name": "[든든] 옥구농협 못잊어 신동진(신동진/보통/21년)20KG",
+      "price": 54300,
+      "quantity": 10
+    },
+    {
+      "id": 24,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2a69b1c6-fa88-49f0-b049-0259674580f8.png",
+      "name": "[든든] 국내산 양상추 300g이상 1개",
+      "price": 2500,
+      "quantity": 10
+    },
+    {
+      "id": 25,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/2bb8dfcb-e4b0-48ff-a028-05aa9d9c2f19.jpg",
+      "name": "[든든] 페루산 냉동 애플망고(2cmx2cm다이스) 1kg",
+      "price": 5090,
+      "quantity": 10
+    },
+    {
+      "id": 26,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20200902-201039/14900-main-01.jpg",
+      "name": "[든든] 국내산 팽이버섯 150g",
+      "price": 570,
+      "quantity": 10
+    },
+    {
+      "id": 27,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/d71a6c1d-2ff4-421f-bfa0-1080bcdaaa06.jpg",
+      "name": "[든든] 냉동 브로콜리 (중국산) 1kg",
+      "price": 2820,
+      "quantity": 10
+    },
+    {
+      "id": 28,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/a7b26c35-e160-4d54-8889-bf2bf361e273.jpg",
+      "name": "[든든] 천일 갈릭라이스N 200g",
+      "price": 870,
+      "quantity": 10
+    },
+    {
+      "id": 29,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/bulk/20220331-112605/24908-main-01.jpg",
+      "name": "[든든] 냉동다진마늘 1kg",
+      "price": 2670,
+      "quantity": 10
+    },
+    {
+      "id": 30,
+      "thumbnailUrl": "https://cdn-mart.baemin.com/sellergoods/main/197d5058-373b-4bea-9a79-a0a30576765c.jpg",
+      "name": "[든든] 카벤디쉬 크링클컷 2kg",
+      "price": 6890,
+      "quantity": 10
+    }
+  ],
+  "carts": []
+}

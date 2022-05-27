@@ -16,6 +16,6 @@ export const IconImg = styled.img`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: ${({ theme: { fontSize } }) => fontSize.title};
+  font-size: ${({ theme: { fontSize } }) => fontSize.veryLarge};
   font-weight: 900;
 `;

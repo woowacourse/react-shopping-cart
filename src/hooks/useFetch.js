@@ -1,31 +1,24 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (url, initialData = {}) => {
+export const useFetch = (getFunc, initialData = {}, isEffect = true) => {
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const getItems = async () => {
+    try {
+      const data = await getFunc();
+      setData(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setErrorMessage(error.message);
+    }
+  };
+
   useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`fetch error`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (!data) {
-          throw new Error(`No Data`);
-        }
-        setData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setErrorMessage(error.message);
-        return {};
-      });
+    isEffect && getItems();
   }, []);
 
-  return { data, isLoading, errorMessage };
+  return { data, isLoading, errorMessage, getItems };
 };

@@ -7,16 +7,16 @@ const Button = styled.button`
   cursor: pointer;
 
   img {
-    width: ${(props) => props.width};
+    width: ${({ width }) => width};
     :hover {
       transform: scale(1.05);
     }
   }
 `;
 
-function IconButton({ src, alt, onClick, title, width }) {
+function IconButton({ src, alt, onClick, width }) {
   return (
-    <Button title={title} onClick={onClick} width={width}>
+    <Button onClick={onClick} width={width}>
       <img src={src} alt={alt} />
     </Button>
   );
