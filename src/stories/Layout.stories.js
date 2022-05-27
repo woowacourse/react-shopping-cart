@@ -1,11 +1,4 @@
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import Layout from 'components/Layout';
-
-import { Global } from '@emotion/react';
-import GlobalStyles from 'styles/GlobalStyles';
-import store from 'store';
 
 export default {
   title: 'Component/Layout',
@@ -15,18 +8,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <>
-    <Global styles={GlobalStyles} />
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<Layout {...args} />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </>
-);
+const Template = (args) => <Layout {...args} />;
 
 export const DefaultTemplate = Template.bind({});
 

@@ -1,11 +1,4 @@
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Global } from '@emotion/react';
-
 import CartReceipt from 'components/CartReceipt';
-import store from 'store';
-
-import GlobalStyles from 'styles/GlobalStyles';
 
 export default {
   title: 'Component/CartReceipt',
@@ -22,16 +15,7 @@ export default {
   ],
 };
 
-const Template = (args) => (
-  <Provider store={store}>
-    <Global styles={GlobalStyles} />
-    <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<CartReceipt {...args} />} />
-      </Routes>
-    </BrowserRouter>
-  </Provider>
-);
+const Template = (args) => <CartReceipt {...args} />;
 
 export const DefaultTemplate = Template.bind({});
 
