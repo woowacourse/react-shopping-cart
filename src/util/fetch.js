@@ -1,101 +1,70 @@
 import { BASE_SERVER_URL, SERVER_PATH } from "constants";
 
-const getServer = (hostUrl) => (path) => (id) => async () => {
-  const url = id ? `${hostUrl}${path}/${id}` : `${hostUrl}${path}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+const fetchServer =
+  ({ method, path, headers }) =>
+  (params) =>
+  async (body) => {
+    const url = params
+      ? `${BASE_SERVER_URL}${path}/${params}`
+      : `${BASE_SERVER_URL}${path}`;
 
-  if (!response.ok) {
-    throw new Error(`fetch error`);
-  }
-
-  const data = await response.json();
-  if (!data) {
-    throw new Error(`No Data`);
-  }
-  return data;
-};
-
-const postServer = (hostUrl) => (path) => async (body) => {
-  const url = `${hostUrl}${path}`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body,
-  });
-
-  if (!response.ok) {
-    throw new Error(`fetch error`);
-  }
-
-  const data = await response.json();
-  if (!data) {
-    throw new Error(`No Data`);
-  }
-  return data;
-};
-
-const deleteServer = (hostUrl) => (path) => (id) => async () => {
-  const url = `${hostUrl}${path}/${id}`;
-  const response = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`fetch error`);
-  }
-
-  const data = await response.json();
-  if (!data) {
-    throw new Error(`No Data`);
-  }
-  return data;
-};
-
-const patchServer =
-  (hostUrl) =>
-  (path) =>
-  ({ type, id }) =>
-  async () => {
-    const url = `${hostUrl}${path}/${type}/${id}`;
     const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      method,
+      headers,
+      body,
     });
 
     if (!response.ok) {
-      throw new Error(`fetch error`);
+      throw new Error(`문제가 발생했습니다. 잠시 후에 다시 시도해 주세요 :(`);
     }
 
     const data = await response.json();
     if (!data) {
-      throw new Error(`No Data`);
+      throw new Error(`저장된 정보가 없습니다. 다시 시도해 주세요 :(`);
     }
     return data;
   };
 
-const getBaseServer = getServer(BASE_SERVER_URL);
-const postBaseServer = postServer(BASE_SERVER_URL);
-const deleteBaseServer = deleteServer(BASE_SERVER_URL);
-const patchBaseServer = patchServer(BASE_SERVER_URL);
+export const getBaseServerProductList = fetchServer({
+  method: "GET",
+  path: SERVER_PATH.PRODUCT_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})();
+export const getBaseServerProductItem = fetchServer({
+  method: "GET",
+  path: SERVER_PATH.PRODUCT_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export const getBaseServerProductList = getBaseServer(
-  SERVER_PATH.PRODUCT_LIST
-)();
-export const getBaseServerProductItem = getBaseServer(SERVER_PATH.PRODUCT_LIST);
-
-export const getBaseServerCartList = getBaseServer(SERVER_PATH.CART_LIST);
-export const postBaseServerCartItem = postBaseServer(SERVER_PATH.CART_LIST);
-export const deleteBaseServerCartItem = deleteBaseServer(SERVER_PATH.CART_LIST);
-export const patchBaseServerCartItem = patchBaseServer(SERVER_PATH.CART_LIST);
+export const getBaseServerCartList = fetchServer({
+  method: "GET",
+  path: SERVER_PATH.CART_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const postBaseServerCartItem = fetchServer({
+  method: "POST",
+  path: SERVER_PATH.CART_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})();
+export const deleteBaseServerCartItem = fetchServer({
+  method: "DELETE",
+  path: SERVER_PATH.CART_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export const patchBaseServerCartItem = fetchServer({
+  method: "PATCH",
+  path: SERVER_PATH.CART_LIST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

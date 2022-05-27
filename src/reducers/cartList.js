@@ -58,7 +58,7 @@ export const deleteCartList =
   };
 
 export const updateCartCount = (id, type) => async (dispatch) => {
-  await updateStoreState(patchBaseServerCartItem({ type, id }), dispatch, {
+  await updateStoreState(patchBaseServerCartItem(`${type}/${id}`), dispatch, {
     start: CART_LIST_ACTION.UPDATE_ITEM_COUNT,
     success: CART_LIST_ACTION.UPDATE_ITEM_COUNT_SUCCESS,
     error: CART_LIST_ACTION.UPDATE_ITEM_COUNT_ERROR,
