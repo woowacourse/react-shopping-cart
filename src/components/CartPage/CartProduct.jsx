@@ -27,9 +27,7 @@ function CartProduct({ product, checkedList, updateCheckedList }) {
       <React.Fragment key={product.id}>
         <Styled.ProductLeftWrapper>
           <CheckBox
-            checked={Boolean(
-              checkedList.find((item) => item.id === product.id),
-            )}
+            checked={checkedList.some((item) => item.id === product.id)}
             list={checkedList}
             updateList={updateCheckedListWithProduct}
           />
