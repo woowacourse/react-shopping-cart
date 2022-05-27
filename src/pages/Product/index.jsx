@@ -1,32 +1,37 @@
-import Styled from './style';
-import ProductDetail from 'components/ProductDetail/ProductDetail';
-import Skeleton from 'components/Skeleton/Skeleton';
+import * as Styled from './style';
+import ProductDetail from 'components/Product/ProductDetail/ProductDetail';
+import Skeleton from 'components/Common/Skeleton/Skeleton';
 import errorApiImg from 'assets/png/errorApiImg.png';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useProduct from 'hooks/useProduct';
-import { useNavigate } from 'react-router-dom';
-import { PATH_NAME } from 'constants';
+import ImgWrapper from 'components/Common/ImgWrapper/ImgWrapper';
+import useProductPage from 'hooks/pages/useProductPage';
+import itemAltImg from 'assets/png/itemAltImg.png';
 
 const Product = () => {
-  const { isLoading, isError, product, handleAddCart } = useProduct();
-  const navigate = useNavigate();
+  const { isLoading, isError, product, handleClickCartButton } =
+    useProductPage();
+  if (isLoading)
+    return (
+      <Styled.Wrapper>
+        <Skeleton sizeType="large" />
+      </Styled.Wrapper>
+    );
 
-  const handleClickCartButton = () => {
-    handleAddCart();
-    navigate(PATH_NAME.CART);
-  };
+  if (isError)
+    return (
+      <Styled.Wrapper>
+        <ImgWrapper src={errorApiImg} />
+      </Styled.Wrapper>
+    );
 
   return (
     <Styled.Wrapper>
-      {isLoading && <Skeleton sizeType="large" />}
-      {isError && <ImgWrapper src={errorApiImg} />}
-      {!isLoading && product && (
+      {product && (
         <ProductDetail
-          imgUrl={product.imgUrl}
+          id={product.id}
+          imgUrl={product.imgUrl || itemAltImg}
           name={product.name}
           price={product.price}
-          id={product.id}
-          onClick={handleClickCartButton}
+          onClickCartButton={handleClickCartButton}
         />
       )}
     </Styled.Wrapper>

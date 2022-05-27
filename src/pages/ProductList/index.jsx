@@ -1,42 +1,41 @@
 import errorApiImg from 'assets/png/errorApiImg.png';
 import emptyImg from 'assets/png/emptyImg.png';
-import ProductContainer from 'components/ProductContainer/ProductContainer';
-import ProductItem from 'components/ProductItem/ProductItem';
-import Skeleton from 'components/Skeleton/Skeleton';
-import ImgWrapper from 'components/ImgWrapper/ImgWrapper';
-import useProducts from 'hooks/useProducts';
+import ProductContainer from 'components/Product/ProductContainer/ProductContainer';
+import ProductItem from 'components/Product/ProductItem/ProductItem';
+import Skeleton from 'components/Common/Skeleton/Skeleton';
+import ImgWrapper from 'components/Common/ImgWrapper/ImgWrapper';
+import useProductListPage from 'hooks/pages/useProductListPage';
+import itemAltImg from 'assets/png/itemAltImg.png';
 
 const ProductList = () => {
-  const { isLoading, isError, products } = useProducts();
-  const isEmpty = !isLoading && products.length === 0;
+  const { isLoading, isError, products, isEmpty, handleClickCartButton } =
+    useProductListPage();
 
-  const getLoadingStatus = () => {
-    return Array.from({ length: 8 }).map((_, index) => (
-      <Skeleton key={index} sizeType="small" />
-    ));
-  };
+  if (isError) return <ImgWrapper src={errorApiImg} />;
+  if (isEmpty) return <ImgWrapper src={emptyImg} />;
+  if (isLoading)
+    return (
+      <ProductContainer>
+        {Array.from({ length: 8 }).map((_, index) => (
+          <Skeleton key={index} sizeType="small" />
+        ))}
+      </ProductContainer>
+    );
 
   return (
-    <>
-      {isError ? (
-        <ImgWrapper src={errorApiImg} />
-      ) : isEmpty ? (
-        <ImgWrapper src={emptyImg} />
-      ) : (
-        <ProductContainer>
-          {isLoading && getLoadingStatus()}
-          {products.map(({ name, price, imgUrl, id }) => (
-            <ProductItem
-              id={id}
-              name={name}
-              price={price}
-              imgUrl={imgUrl}
-              key={id}
-            />
-          ))}
-        </ProductContainer>
-      )}
-    </>
+    <ProductContainer>
+      {products &&
+        products.map(({ name, price, imgUrl, id }) => (
+          <ProductItem
+            id={id}
+            name={name}
+            price={price}
+            imgUrl={imgUrl || itemAltImg}
+            key={id}
+            onClickCartButton={handleClickCartButton(id)}
+          />
+        ))}
+    </ProductContainer>
   );
 };
 

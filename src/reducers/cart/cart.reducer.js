@@ -1,29 +1,18 @@
-import actionTypes from 'reducers/cart/cart.actionTypes';
+import { actionTypes } from 'reducers/cart/cart.actions';
 
-const initialState = {
-  data: [],
+export const initialState = {
+  data: null,
   isLoading: false,
   isError: false,
 };
 
-const addCart = (cartList, newCartItem) => {
-  const isExisted =
-    cartList.findIndex(({ id }) => id === newCartItem.id) !== -1;
-
-  if (isExisted) {
-    return cartList.map((item) => {
-      if (item.id === newCartItem.id) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    });
-  }
-  return [...cartList, newCartItem];
-};
-
 const cartReducer = (state = initialState, action) => {
-  if (action.type === actionTypes.GET_CART) {
-    return { ...state, isLoading: true };
+  if (action.type === actionTypes.GET_CART_REQUEST) {
+    return {
+      ...state,
+      isLoading: true,
+      isError: false,
+    };
   }
 
   if (action.type === actionTypes.GET_CART_SUCCESS) {
@@ -42,12 +31,13 @@ const cartReducer = (state = initialState, action) => {
     };
   }
 
-  if (action.type === actionTypes.ADD_CART_ITEM) {
+  if (action.type === actionTypes.SET_CART) {
     return {
       ...state,
-      data: addCart(state.data, action.item),
+      data: action.data,
     };
   }
+
   return state;
 };
 

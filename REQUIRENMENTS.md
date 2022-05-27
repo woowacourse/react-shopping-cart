@@ -1,4 +1,4 @@
-# 장바구니
+# Step1
 
 - [x] CDD - 컴포넌트 개발
   - [x] Header 컴포넌트 만들기
@@ -32,4 +32,22 @@
 
 - [x] cart 리듀서 만들기
 - [x] 장바구니 넣기 기능(같은 아이템을 중복으로 장바구니에 넣을 경우 수량을 1개씩 증가한다)
-- [ ] 장바구니 페이지
+
+<br/>
+
+# Step 2
+
+- [x] MSW를 활용해 API mocking
+  - [x] 상품 리스트 가져오는 API 작성 (GET)
+  - [x] 개별 상품 가져오는 API 작성 (GET)
+  - [x] 장바구니 담기 API 작성 (POST)
+  - [x] 장바구니 가져오는 API 작성 (GET)
+- [x] 장바구니 페이지
+  - [x] CartItem 컴포넌트 만들기
+  - [x] CartContainer 컴포넌트 만들기
+  - [x] PaymentBox 컴포넌트 만들기
+  - [x] Title 컴포넌트 만들기
+  - [x] CheckBox 컴포넌트 만들기
+- [x] 단위 테스트 작성
+  - [x] 리듀서 테스트
+  - [x] useReduxState 테스트
