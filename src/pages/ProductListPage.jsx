@@ -1,53 +1,78 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { GiShoppingCart } from 'react-icons/gi';
 import { BASE_COMPONENT, StyledImageWrapper, StyledImg } from '../components/common';
 import useRequest from '../hooks/useRequest';
 import { getProductList } from '../api';
+import CartIconButton from '../components/common/CartIconButton';
+import { AddProductToCartAsync, removeProductToCartAsync } from '../store/modules/cart/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import FloatingActionButton from '../components/common/FloatingActionButton';
+import Loading from '../components/common/Loading';
 
 function ProductListPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { count, products: productsInCart } = useSelector((state) => state.cart);
   const { data: productList, loading } = useRequest(getProductList);
 
-  const handleClickItem = async (id) => {
-    navigate(`${id}`);
+  const idsInCart = useMemo(() => productsInCart.map((product) => product.id), [productsInCart]);
+
+  const handleClickItem = (id) => navigate(`${id}`);
+
+  const onClickCartIcon = ({ tryAdd, product }) => {
+    if (tryAdd) {
+      dispatch(AddProductToCartAsync(product));
+      return;
+    }
+    dispatch(removeProductToCartAsync(product.id));
   };
 
-  const handleClickCart = () => {
-    alert('기능 추가중...');
-  };
-
-  if (loading) return null;
+  if (loading) return <Loading />;
 
   return (
     <StyledContent>
       <StyledGridContainer>
         {productList.map((product) => {
-          const { id, name, price, imageUrl } = product;
           return (
-            <StyledItem key={id}>
-              <StyledImageWrapper
-                width={'middle'}
-                height={'middle'}
-                onClick={() => handleClickItem(id)}>
-                <StyledImg width={'middle'} src={imageUrl} />
-              </StyledImageWrapper>
-              <StyledItemInfoBox>
-                <StyledItemInfo onClick={() => handleClickItem(id)}>
-                  <StyledItemName>{name}</StyledItemName>
-                  <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
-                </StyledItemInfo>
-                <StyledIconButton onClick={handleClickCart}>
-                  <GiShoppingCart size={25} />
-                </StyledIconButton>
-              </StyledItemInfoBox>
-            </StyledItem>
+            <ProductContainer
+              key={product.id}
+              product={product}
+              handleClickItem={handleClickItem}
+              onClickCartIcon={onClickCartIcon}
+              productsInCart={productsInCart}
+              idsInCart={idsInCart}
+            />
           );
         })}
       </StyledGridContainer>
+      <Link to={'/cart'}>
+        <FloatingActionButton count={count} />
+      </Link>
     </StyledContent>
   );
 }
+
+const ProductContainer = ({ product, handleClickItem, onClickCartIcon, idsInCart }) => {
+  const { id, name, price, imageUrl } = product;
+
+  const isInCart = idsInCart.includes(id);
+
+  return (
+    <StyledItem key={id}>
+      <StyledImageWrapper width={'middle'} height={'middle'} onClick={() => handleClickItem(id)}>
+        <StyledImg width={'middle'} src={imageUrl} />
+      </StyledImageWrapper>
+      <StyledItemInfoBox>
+        <StyledItemInfo onClick={() => handleClickItem(id)}>
+          <StyledItemName>{name}</StyledItemName>
+          <StyledItemPrice>{Number(price).toLocaleString()} 원</StyledItemPrice>
+        </StyledItemInfo>
+        <CartIconButton product={product} onClickCallback={onClickCartIcon} isInCart={isInCart} />
+      </StyledItemInfoBox>
+    </StyledItem>
+  );
+};
 
 const StyledContent = styled.div`
   width: 100%;
@@ -61,7 +86,7 @@ const StyledGridContainer = styled.div`
   width: 80%;
   grid-template-columns: repeat(4, 1fr);
   margin: auto;
-  overflow-y: auto;
+  overflow: auto;
 `;
 
 const StyledItem = styled.div`
@@ -92,12 +117,4 @@ const StyledItemPrice = styled.span`
   letter-spacing: 0.5px;
 `;
 
-const StyledIconButton = styled.button`
-  border: none;
-  background: none;
-  &:hover {
-    transform: scale(1.1);
-    color: ${({ theme }) => theme.COLORS.PRIMARY};
-  }
-`;
 export default ProductListPage;

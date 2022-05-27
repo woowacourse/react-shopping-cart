@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Loading from '../components/common/Loading';
 import { setCartProductListAsync } from '../store/modules/cart/actions';
 
-function DefaultLayout() {
+function CartPageLayout() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,4 +24,4 @@ function DefaultLayout() {
 
 const LayoutRoot = styled.div``;
 
-export default DefaultLayout;
+export default CartPageLayout;

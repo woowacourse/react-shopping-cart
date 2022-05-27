@@ -1,9 +1,11 @@
 import { Suspense, lazy } from 'react';
 import DefaultLayout from './layouts/DefaultLayout';
+import CartPageLayout from './layouts/CartPageLayout';
+import Loading from './components/common/Loading';
 
 const Loadable = (Component) => (props) =>
   (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <Component {...props} />
     </Suspense>
   );
@@ -11,7 +13,8 @@ const Loadable = (Component) => (props) =>
 const Home = Loadable(lazy(() => import('./pages/Home')));
 const ProductListPage = Loadable(lazy(() => import('./pages/ProductListPage')));
 const ProductDetailPage = Loadable(lazy(() => import('./pages/ProductDetailPage')));
-const NotPage = Loadable(lazy(() => import('./pages/NotPage')));
+const CartPage = Loadable(lazy(() => import('./pages/CartPage')));
+const NotFoundPage = Loadable(lazy(() => import('./pages/NotFoundPage')));
 
 const routes = [
   {
@@ -35,11 +38,21 @@ const routes = [
           },
         ],
       },
+      {
+        path: 'cart',
+        element: <CartPageLayout />,
+        children: [
+          {
+            path: '',
+            element: <CartPage />,
+          },
+        ],
+      },
     ],
   },
   {
     path: '*',
-    element: <NotPage />,
+    element: <NotFoundPage />,
   },
 ];
 
