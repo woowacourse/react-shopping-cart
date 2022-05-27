@@ -34,8 +34,6 @@ export const cartsReducer = (state = initialState, action) => {
       };
     case TYPE.CARTS_ERROR:
       return { ...state, cartsError: action.payload };
-    case TYPE.CARTS_CLEAN_ERROR:
-      return { ...state, cartsError: null };
     default:
       return state;
   }

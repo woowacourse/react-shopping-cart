@@ -7,7 +7,6 @@ export const TYPE = {
   CARTS_DELETE: 'carts/delete',
   CARTS_UPDATE: 'carts/update',
   CARTS_ERROR: 'carts/error',
-  CARTS_CLEAN_ERROR: 'carts/clean',
 };
 
 export const cartsActionCreators = {
@@ -16,7 +15,6 @@ export const cartsActionCreators = {
   deleteCart: (payload) => ({ type: TYPE.CARTS_DELETE, payload }),
   updateCart: (payload) => ({ type: TYPE.CARTS_UPDATE, payload }),
   error: (payload) => ({ type: TYPE.CARTS_ERROR, payload }),
-  cleanError: (payload) => ({ type: TYPE.CARTS_CLEAN_ERROR, payload }),
 };
 
 export const loadCarts = () => async (dispatch) => {
@@ -39,6 +37,7 @@ export const addCart = (product) => async (dispatch) => {
     dispatch(cartsActionCreators.addCart(data));
   } catch (error) {
     dispatch(cartsActionCreators.error(ERROR_MESSAGE.ADD_CART));
+    alert(ERROR_MESSAGE.ADD_CART);
   }
 };
 
@@ -52,6 +51,7 @@ export const deleteCart = (id) => async (dispatch) => {
     dispatch(cartsActionCreators.deleteCart(id));
   } catch (error) {
     dispatch(cartsActionCreators.error(ERROR_MESSAGE.DELETE_CART));
+    alert(ERROR_MESSAGE.DELETE_CART);
   }
 };
 
@@ -65,5 +65,6 @@ export const updateCart = (product) => async (dispatch) => {
     dispatch(cartsActionCreators.updateCart(product));
   } catch (error) {
     dispatch(cartsActionCreators.error(ERROR_MESSAGE.UPDATE_CART_QUANTITY));
+    alert(ERROR_MESSAGE.UPDATE_CART_QUANTITY);
   }
 };
