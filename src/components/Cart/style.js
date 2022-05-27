@@ -15,14 +15,14 @@ export default styled.div`
     display: flex;
   }
 
-  .left img {
+  .cart-product {
     width: 144px;
     height: 147px;
     margin: 0 20px 0 15px;
     transition: transform 0.2s;
   }
 
-  .left img:hover {
+  .cart-product:hover {
     transform: scale(1.2);
   }
 

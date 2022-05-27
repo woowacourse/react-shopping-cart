@@ -58,7 +58,7 @@ const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
       <div className="left">
         <CheckBox id={`cart${id}`} checked={selected} onChange={handleChangeCheckBox} />
         <Link to={`/product/${id}`}>
-          <img src={imgSrc} alt="장바구니에 담긴 상품" />
+          <img className="cart-product" src={imgSrc} alt="장바구니에 담긴 상품" />
         </Link>
         <p className="title">{title}</p>
       </div>

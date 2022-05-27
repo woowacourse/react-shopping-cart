@@ -63,4 +63,11 @@ export default styled.div`
     width: 33%;
     padding-top: 103px;
   }
+
+  @media screen and (max-width: 900px) {
+    .cart-product {
+      width: 100px;
+      height: 97px;
+    }
+  }
 `;
