@@ -45,9 +45,17 @@ const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) =>
     150,
   );
 
-  const handleClickCartImage = useCallback(() => {
+  const handleClickCartImage = useCallback(async () => {
+    if (quantity === 0 && !showQuantity) {
+      await dispatch(addCart(productId)).unwrap();
+      setQuantity(quantity + 1);
+    }
+
     setShowQuantity(!showQuantity);
-  }, [showQuantity]);
+    quantity === 0 &&
+      !showQuantity &&
+      dispatch(onMessage(SNACKBAR_MESSAGE.addProduct(productTitle)));
+  }, [showQuantity, quantity]);
 
   return (
     <Wrapper showQuantity={showQuantity}>
