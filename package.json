@@ -74,7 +74,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
-    "msw": "^0.41.0",
+    "msw": "^0.40.1",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
   },
