@@ -8,16 +8,23 @@ import {
 import { REQUEST_STATUS } from 'constants/';
 import * as cartActions from './action';
 
-const getList = () => async (dispatch) => {
-  dispatch(cartActions.getList.pending());
+const getList =
+  (force = false) =>
+  async (dispatch, getState) => {
+    const { isLoading, isLoaded } = getState().cart.items;
+    if (force === false && (isLoading || isLoaded === true)) {
+      return;
+    }
 
-  const { status, content } = await requestGetCartList();
+    dispatch(cartActions.getList.pending());
 
-  (status === REQUEST_STATUS.SUCCESS && dispatch(cartActions.getList.success(content))) ||
-    (status === REQUEST_STATUS.FAIL && dispatch(cartActions.getList.error(content)));
+    const { status, content } = await requestGetCartList();
 
-  return true;
-};
+    (status === REQUEST_STATUS.SUCCESS && dispatch(cartActions.getList.success(content))) ||
+      (status === REQUEST_STATUS.FAIL && dispatch(cartActions.getList.error(content)));
+
+    return true;
+  };
 
 const addList =
   ({ id, image, name, price, quantity = 1 }) =>

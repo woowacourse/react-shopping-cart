@@ -11,10 +11,6 @@ function useCart() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cartItems.isLoaded === true) {
-      return;
-    }
-
     dispatch(cartThunk.getList());
   }, []);
 
