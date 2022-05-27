@@ -1,18 +1,21 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import productsAsyncThunk from 'redux/products/productsThunk';
+import productAPI from 'apis/productAPI';
+
+import { useEffect, useState } from 'react';
 
 import { GridLayout } from 'components/@common';
 import { ListProduct, LoadingSpinner, PageLayout } from 'components';
 
 function ProductList() {
-  const products = useSelector(store => store.products);
-  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    if (products.length) return;
+    const updateProducts = async () => {
+      const newProducts = await productAPI.getProducts();
 
-    dispatch(productsAsyncThunk());
+      setProducts(newProducts);
+    };
+
+    updateProducts();
   }, []);
 
   if (!products.length) {
