@@ -12,6 +12,8 @@ export const useCartList = () => {
     (state: any) => state.cart,
   );
 
+  const dispatch = useDispatch();
+
   const amount = useMemo(
     () =>
       cartList.reduce(
@@ -21,8 +23,6 @@ export const useCartList = () => {
       ),
     [cartList, selectedCartItem],
   );
-
-  const dispatch = useDispatch();
 
   const checkCartItemLoading = useCallback(
     id => loadingCartProductId === id,
