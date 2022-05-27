@@ -12,7 +12,7 @@ export const useNumberInput = ({
   const handleInputChange = ({ target }) => {
     const targetValue = Number(target.value);
 
-    if (Number.isInteger(targetValue)) return;
+    if (!Number.isInteger(targetValue)) return;
 
     const newValue = Math.max(Math.min(targetValue, max), min);
     setValue(newValue);
