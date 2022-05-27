@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ListProduct = styled.div`
+  position: relative;
   width: 282px;
   height: 358px;
   display: flex;

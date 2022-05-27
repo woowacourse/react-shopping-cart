@@ -5,11 +5,10 @@ const colors = {
   gray_600: '#ccc',
   gray_500: '#ddd',
 
-  red: 'red',
-
   cyan_dark: '#22a6a2',
   cyan: '#2ac1bc',
 
+  orange: '#ff4500',
   white: '#fff',
 };
 

@@ -1,6 +1,6 @@
 const CART_PRODUCT = {
   MIN_QUANTITY: 1,
-  MAX_QUANTITY: 100,
+  MAX_QUANTITY: 99,
 };
 
 const FRUITS = ['🍅', '🍑', '🥝', '🥥'];

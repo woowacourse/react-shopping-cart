@@ -1,15 +1,22 @@
 import * as S from './ListProduct.styles';
 import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from 'redux/cart/cartActions';
 
-import { Button } from 'components/@common';
+import { Badge, Button } from 'components/@common';
 
 import { addThousandUnitComma } from 'utils';
 
 function ListProduct({ id, image, name, price }) {
+  const { products } = useSelector(store => store.cart);
+  const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setQuantity(products.find(product => product.id === id)?.quantity);
+  }, [products]);
 
   const onClickShoppingCartIcon = () => {
     dispatch(addProductToCart(id, image, name, price));
@@ -26,6 +33,7 @@ function ListProduct({ id, image, name, price }) {
         <Button onClick={onClickShoppingCartIcon}>
           <S.ShoppingCartIcon>🛒</S.ShoppingCartIcon>
         </Button>
+        {quantity && <Badge>{quantity}</Badge>}
       </S.DescriptionBox>
     </S.ListProduct>
   );
