@@ -1,19 +1,16 @@
-import { API_SERVER } from "./constants";
+import { REQUEST_METHOD } from "./constants";
 
-const { BASE_URL, PATH } = API_SERVER;
+export const fetchData = async (method, requestUrl = "", requestData = {}) => {
+  const fetchInitOption = { method };
+  if (method !== REQUEST_METHOD.GET) {
+    fetchInitOption.body = JSON.stringify(requestData);
+  }
 
-const productListUrl = `${BASE_URL}${PATH.PRODUCT_LIST}`;
-const productDetailUrl = (id) => `${BASE_URL}${PATH.PRODUCT_LIST}/${id}`;
-
-export const fetchData = async (requestUrl) => {
-  const response = await fetch(requestUrl);
-  if (!response.ok) throw new Error("fetch error");
+  const response = await fetch(requestUrl, fetchInitOption);
+  if (!response.ok) throw new Error("Fetch error");
 
   const data = await response.json();
   if (!data) throw new Error("No Data");
 
   return data;
 };
-
-export const fetchProductList = () => fetchData(productListUrl);
-export const fetchProductDetail = (id) => fetchData(productDetailUrl(id));

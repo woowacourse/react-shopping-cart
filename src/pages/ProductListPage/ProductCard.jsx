@@ -1,87 +1,51 @@
 import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import AddToCartButton from "./AddToCartButton";
+import IconButton from "../../components/common/IconButton";
+import * as S from "./ProductCard.styled";
 
 import { PATH } from "../../constants";
+import shoppingCartIconBlack from "../../asset/shopping-cart-icon-black.svg";
 
-function ProductCard({ product: { id, thumbnailUrl, name, price } }) {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate(PATH.PRODUCT_DETAIL_WITH_ID(id));
-  };
-
+function ProductCard({
+  product: { id, thumbnailUrl, name, price, quantity },
+  onClickAddToCartButton,
+}) {
   return (
-    <Container onClick={onClick}>
-      <ImageWrapper>
-        <ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
-      </ImageWrapper>
-      <CardBottom>
-        <TextInfoContainer>
-          <ProductName>{name ?? "%Error%"}</ProductName>
-          <ProductPrice>{price.toLocaleString() ?? "%Error%"}원</ProductPrice>
-        </TextInfoContainer>
-        <AddToCartButton />
-      </CardBottom>
-    </Container>
+    <Link to={PATH.PRODUCT_DETAIL_WITH_ID(id)}>
+      <S.ProductCardContainer>
+        <S.ProductImageWrapper>
+          <S.ProductThumbnail src={thumbnailUrl ?? ""} alt={name} />
+        </S.ProductImageWrapper>
+        <S.ProductCardBottom>
+          <S.ProductTextInfoContainer>
+            <S.ProductName>{name ?? "%Error%"}</S.ProductName>
+            <S.ProductPrice>
+              {price.toLocaleString() ?? "%Error%"}원
+            </S.ProductPrice>
+          </S.ProductTextInfoContainer>
+          <AddToCartButton
+            onClick={(e) => {
+              e.preventDefault();
+              onClickAddToCartButton();
+            }}
+          />
+        </S.ProductCardBottom>
+      </S.ProductCardContainer>
+    </Link>
   );
 }
 
-const Container = styled.li`
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  height: 360px;
-  border: 1px solid #ddd;
-
-  cursor: pointer;
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 278px;
-  overflow: hidden;
-`;
-
-const ProductThumbnail = styled.img`
-  width: 100%;
-  transition: transform 0.3s;
-  object-fit: cover;
-
-  :hover {
-    transform: scale(1.1);
-  }
-`;
-
-const CardBottom = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 100%;
-  flex-grow: 1;
-  padding: 0 12px;
-`;
-
-const TextInfoContainer = styled.div`
-  max-width: 70%;
-`;
-
-const ProductName = styled.p`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.color.darkGrey};
-  padding: 2px 0;
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const ProductPrice = styled.p`
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.color.darkGrey};
-`;
+function AddToCartButton({ ...props }) {
+  return (
+    <IconButton
+      title="장바구니 담기"
+      iconImgSrc={shoppingCartIconBlack}
+      iconImgAlt="장바구니 담기"
+      width="30px"
+      {...props}
+    />
+  );
+}
 
 export default ProductCard;

@@ -2,9 +2,6 @@ import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
-import { Provider } from "react-redux";
-import { store } from "./store";
-
 import Header from "./components/Header";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -18,22 +15,20 @@ import { PATH } from "./constants";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Header />
-        <Main>
-          <Routes>
-            <Route path={PATH.ROOT} element={<ProductListPage />} />
-            <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
-            <Route
-              path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
-              element={<ProductDetailPage />}
-            />
-            <Route path={PATH.CART} element={<ShoppingCartPage />} />
-            <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </Main>
-      </Provider>
+      <Header />
+      <Main>
+        <Routes>
+          <Route path={PATH.ROOT} element={<ProductListPage />} />
+          <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
+          <Route
+            path={PATH.PRODUCT_DETAIL_WITH_ID(":id")}
+            element={<ProductDetailPage />}
+          />
+          <Route path={PATH.CART} element={<ShoppingCartPage />} />
+          <Route path={PATH.ORDER_LIST} element={<OrderListPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Main>
     </ThemeProvider>
   );
 }
@@ -45,8 +40,6 @@ const Main = styled.main`
 
   max-width: 1320px;
   margin: 140px auto 60px;
-
-  overflow-y: auto;
 `;
 
 export default App;

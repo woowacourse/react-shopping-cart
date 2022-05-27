@@ -1,35 +1,86 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  getCartItemList,
+  postCartItemByProductList,
+} from "../../store/cartReducer";
+
+import { useFetch } from "../../hooks/useFetch";
 
 import Spinner from "../../components/common/Spinner";
 import ProductCard from "./ProductCard";
-import { useProductList } from "../../hooks/useProductList";
+import * as S from "./index.styled";
+
+import {
+  ACTION_SUCCESS_MESSAGE,
+  API_SERVER,
+  REQUEST_METHOD,
+} from "../../constants";
+
+const REQUEST_PRODUCT_LIST_URL = `${API_SERVER.BASE_URL}${API_SERVER.PATH.PRODUCTS}`;
 
 function ProductListPage() {
-  const { productList, isLoading, errorMessage } = useProductList();
+  const dispatch = useDispatch();
 
-  if (isLoading) return <Spinner />;
-  if (errorMessage) return <div>😱 Error: {errorMessage} 😱</div>;
+  const {
+    data: productList,
+    fetch: getProductList,
+    isLoading: isProductListLoading,
+    errorMessage: productListErrorMessage,
+  } = useFetch(REQUEST_METHOD.GET, REQUEST_PRODUCT_LIST_URL, []);
+
+  const {
+    data: cartItemList,
+    loading: isCartItemListLoading,
+    errorMessage: cartItemErrorMessage,
+  } = useSelector((state) => state.cartReducer);
+
+  const handleClickAddToCartButton = (id, quantity) => () => {
+    dispatch(
+      postCartItemByProductList(
+        [{ id, quantity }],
+        ACTION_SUCCESS_MESSAGE.POST_CART_ITEM_SUCCESS_WITH_QUANTITY(quantity)
+      )
+    );
+  };
+
+  useEffect(() => {
+    getProductList();
+    dispatch(getCartItemList());
+  }, []);
+
+  if (isProductListLoading || isCartItemListLoading) return <Spinner />;
+  if (productListErrorMessage || cartItemErrorMessage)
+    return (
+      <div>😱 Error: {productListErrorMessage || cartItemErrorMessage} 😱</div>
+    );
 
   if (productList?.length === 0) return <h2>😱 텅 비었어요~~ 😱</h2>;
 
+  const ProductListWithQuantity = productList?.map((product) => {
+    const cartItemListIndex = cartItemList?.findIndex(
+      (cartItem) => cartItem.id === product.id
+    );
+    const quantity =
+      cartItemListIndex === -1 ? 0 : cartItemList[cartItemListIndex].quantity;
+    return { ...product, quantity };
+  });
+
   return (
-    <GridList>
-      {productList.map((product) => (
-        <ProductCard key={product.id} product={product} />
+    <S.GridList>
+      {ProductListWithQuantity.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={{ ...product }}
+          onClickAddToCartButton={handleClickAddToCartButton(
+            product.id,
+            product.quantity + 1
+          )}
+        />
       ))}
-    </GridList>
+    </S.GridList>
   );
 }
-
-const GridList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  height: 100%;
-  gap: 28px 12px;
-`;
 
 export default ProductListPage;

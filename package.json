@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "homepage": "https://soyi47.github.io/react-shopping-cart",
+  "homepage": ".",
   "description": "<우아한테크코스 4기 프론트엔드> level 2 - 장바구니",
   "version": "0.1.0",
   "private": true,
@@ -70,6 +70,10 @@
     "@storybook/testing-library": "^0.0.11",
     "chromatic": "^6.5.4",
     "gh-pages": "^4.0.0",
+    "msw": "^0.40.0",
     "webpack": "^5.72.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
