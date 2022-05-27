@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
@@ -13,6 +13,14 @@ const useProductDetail = (id: string) => {
       cart: state.cart,
     })
   );
+  const isAlreadyAdded = useMemo(
+    () => !!cart.find(({ product }) => product.id === id),
+    [cart, id]
+  );
+
+  const addItemToCart = () => {
+    dispatch(actions.addItemToCart(id, 1));
+  };
 
   useEffect(() => {
     if (id) {
@@ -24,10 +32,8 @@ const useProductDetail = (id: string) => {
     isLoading,
     productDetail,
     error,
-    isAlreadyAdded: !!cart.find(({ product }) => product.id === id),
-    addItemToCart: () => {
-      dispatch(actions.addItemToCart(id, 1));
-    },
+    isAlreadyAdded,
+    addItemToCart,
   };
 };
 
