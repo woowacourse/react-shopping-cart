@@ -1,11 +1,11 @@
-import * as Styled from "./styles";
+import { SnackBarWrapper } from "./styles";
 
 interface SnackBarProps {
   message: string;
 }
 
 function SnackBar({ message }: SnackBarProps) {
-  return <Styled.SnackBar>{message}</Styled.SnackBar>;
+  return <SnackBarWrapper>{message}</SnackBarWrapper>;
 }
 
 export default SnackBar;

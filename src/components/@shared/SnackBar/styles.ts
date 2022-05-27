@@ -22,7 +22,7 @@ const FadeOut = keyframes`
   }
 `;
 
-const SnackBar = styled.div`
+const SnackBarWrapper = styled.div`
   min-width: 250px;
   margin-left: -125px;
   background-color: ${({ theme }) => theme.colors.GRAY_800};
@@ -38,4 +38,4 @@ const SnackBar = styled.div`
   animation-fill-mode: forwards;
 `;
 
-export { SnackBar };
+export { SnackBarWrapper };

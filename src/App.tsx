@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import OrderList from "./pages/OrderList";
 import ProductList from "./pages/ProductList";
 import NotFound from "./pages/NotFound";
+import routes from "./routes";
 
 function App() {
   const { isShowSnackBar, message } = useSelector((state: RootState) => state.snackBar);
@@ -18,11 +19,10 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Header />
       <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/product-list" element={<ProductList />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/order-list" element={<OrderList />} />
+        <Route path={routes.home} element={<ProductList />} />
+        <Route path={routes.productDetail()} element={<ProductDetail />} />
+        <Route path={routes.cart} element={<Cart />} />
+        <Route path={routes.orderList} element={<OrderList />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       {isShowSnackBar && <SnackBar key={Date.now()} message={message} />}

@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
-import * as Styled from "./styles";
+import routes from "../../routes";
+import { HeaderContainer, HeaderTitle, HeaderMenu } from "./styles";
 
 function Header() {
   return (
-    <Styled.HeaderWrapper justifyContent="space-around" alignItems="center">
-      <Styled.HeaderTitle to={"/"}>
+    <HeaderContainer>
+      <HeaderTitle to={routes.home}>
         <img alt="Logo" src={Logo} />
         <h1>WOOWA SHOP</h1>
-      </Styled.HeaderTitle>
-      <Styled.HeaderMenu>
-        <Link to={"/cart"}>장바구니</Link>
-        <Link to={"/order-list"}>주문목록</Link>
-      </Styled.HeaderMenu>
-    </Styled.HeaderWrapper>
+      </HeaderTitle>
+      <HeaderMenu>
+        <Link to={routes.cart}>장바구니</Link>
+        <Link to={routes.orderList}>주문목록</Link>
+      </HeaderMenu>
+    </HeaderContainer>
   );
 }
 

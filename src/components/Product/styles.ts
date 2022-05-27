@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from "styled-components";
-import FlexBox from "../../styles/FlexBox";
+import { alignCenter, directionColumn, spaceBetween } from "../../styles/mixin";
 
 const CartShake = keyframes`
   0%, 50%{
@@ -24,7 +24,9 @@ const CartCounterMoveUp = keyframes`
   }
 `;
 
-const CartCounter = styled(FlexBox)<{ isShowCartCounter: boolean }>`
+const CartCounter = styled.div<{ isShowCartCounter: boolean }>`
+  ${alignCenter};
+  justify-content: space-evenly;
   background-color: ${({ theme }) => theme.colors.GRAY_50};
   border: 2px solid ${({ theme }) => theme.colors.TEAL_400};
   box-shadow: 0px 3px 3px ${({ theme }) => theme.colors.GRAY_800};
@@ -41,11 +43,17 @@ const CartCounter = styled(FlexBox)<{ isShowCartCounter: boolean }>`
       ${CartCounterMoveUp} 0.5s
     `};
   animation-fill-mode: forwards;
-`;
 
-const CartImage = styled.img`
-  width: 25px;
-  height: 25px;
+  button {
+    background-color: ${({ theme }) => theme.colors.TEAL_400};
+    border: none;
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.GRAY_50};
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    border-radius: 15px;
+  }
 `;
 
 const CartImageBadge = styled.div`
@@ -62,18 +70,13 @@ const CartImageBadge = styled.div`
 const CartImageWrapper = styled.div`
   cursor: pointer;
   position: relative;
-  &:hover ${CartImage} {
+  &:hover img {
     animation: ${CartShake} 2s infinite linear alternate;
   }
 `;
 
-const ProductImage = styled.img`
-  width: 220px;
-  height: 220px;
-  cursor: pointer;
-`;
-
-const ProductWrapper = styled(FlexBox)`
+const ProductContainer = styled.div`
+  ${directionColumn};
   width: 220px;
   height: 288px;
 `;
@@ -84,21 +87,37 @@ const ProductImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0px 2px 2px ${({ theme }) => theme.colors.GRAY_300};
-  &:hover {
-    ${ProductImage} {
-      transform: scale(1.1);
-    }
+
+  img {
+    width: 220px;
+    height: 220px;
+    cursor: pointer;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
   }
 `;
 
-const ProductInfoWrapper = styled(FlexBox)`
+const ProductInfoContainer = styled.div`
+  ${spaceBetween};
+  align-items: center;
   position: relative;
   padding: 0 10px;
 `;
 
-const ProductInfo = styled(FlexBox)`
+const ProductInfo = styled.div`
+  ${directionColumn};
   margin-top: 12px;
   padding-right: 10px;
+
+  span + span {
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
   &:hover {
     text-decoration: underline;
   }
@@ -106,34 +125,14 @@ const ProductInfo = styled(FlexBox)`
     font-size: 14px;
     cursor: pointer;
   }
-  & span + span {
-    margin-top: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;
-
-const CartCounterButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.TEAL_400};
-  border: none;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.GRAY_50};
-  cursor: pointer;
-  width: 25px;
-  height: 20px;
-  border-radius: 15px;
 `;
 
 export {
-  ProductWrapper,
-  ProductInfoWrapper,
+  ProductContainer,
+  ProductInfoContainer,
   ProductInfo,
   ProductImageWrapper,
-  ProductImage,
-  CartImage,
   CartCounter,
-  CartCounterButton,
   CartImageWrapper,
   CartImageBadge,
 };

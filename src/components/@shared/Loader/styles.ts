@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import FlexBox from "../../../styles/FlexBox";
+import { flexColumnCenter } from "../../../styles/mixin";
 
 const Spin = keyframes`
 0% { 
@@ -10,11 +10,12 @@ const Spin = keyframes`
  }
 `;
 
-const LoaderWrapper = styled(FlexBox)`
+const LoaderWrapper = styled.div`
+  ${flexColumnCenter};
   width: 100vw;
   height: 50vh;
 
-  & div {
+  div {
     border: 16px solid #f3f3f3;
     border-top: 16px solid ${({ theme }) => theme.colors.TEAL_400};
     border-radius: 50%;

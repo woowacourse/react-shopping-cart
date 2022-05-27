@@ -3,10 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem, decrement, deleteItem, increment } from "../../redux/modules/cart";
 import { show } from "../../redux/modules/snackBar";
-
 import { useCartItemSelector, useCartListSelector } from "../../hooks/useCartSelector";
+import routes from "../../routes";
+import { INFO_MESSAGES, CART, PRODUCT } from "../../constants";
+
 import cart from "../../assets/cart.svg";
-import * as Styled from "./styles";
+import {
+  CartCounter,
+  CartImageBadge,
+  CartImageWrapper,
+  ProductContainer,
+  ProductImageWrapper,
+  ProductInfo,
+  ProductInfoContainer,
+} from "./styles";
 
 export type ProductType = {
   name: string;
@@ -29,10 +39,10 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
   const onClickCartImage = () => {
     setIsShowCartCounter((prev) => !prev);
     if (!cartItemList.some((item) => item.id === id)) {
-      const newItem = { name, price, img, id, amount: 1 };
+      const newItem = { name, price, img, id, amount: 1, isSelected: false };
 
       dispatch(addItem(newItem));
-      dispatch(show("장바구니에 추가되었습니다. 😍"));
+      dispatch(show(INFO_MESSAGES.ADDED_TO_CART));
     }
   };
 
@@ -41,16 +51,16 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       clearTimeout(timeout.current);
     }
 
-    if (cartItem?.amount === 1) {
+    if (cartItem?.amount === PRODUCT.MIN_COUNT) {
       dispatch(deleteItem(id));
       setIsShowCartCounter(false);
-      dispatch(show("장바구니에서 삭제되었습니다. 🥲"));
+      dispatch(show(INFO_MESSAGES.DELETED_FROM_CART));
       return;
     }
     dispatch(decrement(id));
   };
 
-  const conClickIncreaseCounter = () => {
+  const onClickIncreaseCounter = () => {
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
@@ -59,42 +69,38 @@ function Product({ productInfo: { name, price, img, id } }: ProductProps) {
       dispatch(increment(id));
       return;
     }
-    dispatch(addItem({ name, price, img, id, amount: 1 }));
+    dispatch(addItem({ name, price, img, id, amount: 1, isSelected: false }));
   };
 
   useEffect(() => {
     if (isShowCartCounter) {
       timeout.current = setTimeout(() => {
         setIsShowCartCounter(false);
-      }, 3000);
+      }, CART.COUNTER_DISPLAY_TIME);
     }
   }, [isShowCartCounter, cartItem?.amount]);
 
   return (
-    <Styled.ProductWrapper flexDirection="column">
-      <Styled.ProductImageWrapper>
-        <Styled.ProductImage onClick={() => navigate(`/product/${id}`)} src={img} alt={name} />
-      </Styled.ProductImageWrapper>
-      <Styled.ProductInfoWrapper justifyContent="space-between" alignItems="center">
-        <Styled.ProductInfo onClick={() => navigate(`/product/${id}`)} flexDirection="column">
+    <ProductContainer>
+      <ProductImageWrapper>
+        <img onClick={() => navigate(routes.productDetail(id))} src={img} alt={name} />
+      </ProductImageWrapper>
+      <ProductInfoContainer>
+        <ProductInfo onClick={() => navigate(routes.productDetail(id))}>
           <span>{name}</span>
           <span>{price.toLocaleString()}원</span>
-        </Styled.ProductInfo>
-        <Styled.CartImageWrapper>
-          {cartItem?.amount && <Styled.CartImageBadge />}
-          <Styled.CartImage onClick={onClickCartImage} src={cart} alt="장바구니" />
-        </Styled.CartImageWrapper>
-        <Styled.CartCounter
-          isShowCartCounter={isShowCartCounter}
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
-          <Styled.CartCounterButton onClick={onClickDecreaseCounter}>-</Styled.CartCounterButton>
+        </ProductInfo>
+        <CartImageWrapper>
+          {cartItem?.amount && <CartImageBadge />}
+          <img onClick={onClickCartImage} src={cart} alt="장바구니" />
+        </CartImageWrapper>
+        <CartCounter isShowCartCounter={isShowCartCounter}>
+          <button onClick={onClickDecreaseCounter}>-</button>
           <span>{cartItem?.amount ?? 0}</span>
-          <Styled.CartCounterButton onClick={conClickIncreaseCounter}>+</Styled.CartCounterButton>
-        </Styled.CartCounter>
-      </Styled.ProductInfoWrapper>
-    </Styled.ProductWrapper>
+          <button onClick={onClickIncreaseCounter}>+</button>
+        </CartCounter>
+      </ProductInfoContainer>
+    </ProductContainer>
   );
 }
 

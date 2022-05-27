@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import FlexBox from "../../styles/FlexBox";
+import { alignCenter, flexCenter, spaceBetween } from "../../styles/mixin";
 
-const HeaderWrapper = styled(FlexBox)`
+const HeaderContainer = styled.div`
+  ${alignCenter};
+  justify-content: space-around;
   width: 100%;
   height: 60px;
   background: ${({ theme }) => theme.colors.TEAL_400};
@@ -11,19 +13,17 @@ const HeaderWrapper = styled(FlexBox)`
 `;
 
 const HeaderTitle = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter};
   width: 300px;
   height: 40px;
   text-decoration: none;
 
-  & img {
+  img {
     width: 40px;
     height: 36px;
   }
 
-  & h1 {
+  h1 {
     padding: 10px 0 0 10px;
     font-size: 30px;
     font-weight: 900;
@@ -34,17 +34,16 @@ const HeaderTitle = styled(Link)`
 `;
 
 const HeaderMenu = styled.div`
-  display: flex;
+  ${spaceBetween};
   width: 160px;
-  justify-content: space-between;
   font-weight: 500;
   font-size: 20px;
   color: ${({ theme }) => theme.colors.GRAY_50};
 
-  & a {
+  a {
     text-decoration: none;
     color: inherit;
   }
 `;
 
-export { HeaderWrapper, HeaderTitle, HeaderMenu };
+export { HeaderContainer, HeaderTitle, HeaderMenu };

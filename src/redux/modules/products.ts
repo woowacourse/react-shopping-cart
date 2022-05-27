@@ -37,7 +37,10 @@ const loadProductsSuccess = (productList: Product[]) => ({
   type: LOAD_PRODUCTS_SUCCESS,
   payload: { productList },
 });
-const loadProductsFailed = (error: Error) => ({ type: LOAD_PRODUCTS_FAILED, payload: { error } });
+const loadProductsFailed = (error: Error) => ({
+  type: LOAD_PRODUCTS_FAILED,
+  payload: { error },
+});
 
 // thunk
 export const loadProductsAPI = (): any => async (dispatch: AppDispatch) => {
@@ -74,5 +77,7 @@ const productsReducer = (state = initialState, action: Action) => {
 };
 
 export const selectProductState = (state: RootState) => state.products;
+
+export { loadProductsSuccess, loadProductsFailed };
 
 export default productsReducer;
