@@ -18,7 +18,7 @@ import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';
 
-import SNACKBAR_MESSAGE from 'constants';
+import { SNACKBAR_MESSAGE } from 'constants';
 
 const Cart = ({ id, imgSrc, title, quantity, price, selected }) => {
   const dispatch = useDispatch();

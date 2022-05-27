@@ -4,9 +4,9 @@ import { getApi } from 'service';
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async (_, { rejectWithValue }) => {
+  async (page, { rejectWithValue }) => {
     try {
-      const products = await getApi('products');
+      const products = await getApi(`products/${page}`);
 
       return products;
     } catch (error) {
@@ -20,6 +20,7 @@ const productsSlice = createSlice({
   initialState: {
     loading: true,
     data: [],
+    totalCount: 0,
     error: false,
   },
   extraReducers: {
@@ -30,7 +31,8 @@ const productsSlice = createSlice({
     [getProducts.fulfilled]: (state, action) => {
       state.loading = false;
       state.error = false;
-      state.data = action.payload;
+      state.data = action.payload.products;
+      state.totalCount = action.payload.totalCount;
     },
 
     [getProducts.rejected]: (state) => {

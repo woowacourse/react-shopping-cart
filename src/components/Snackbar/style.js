@@ -2,22 +2,22 @@ import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
  from {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
     opacity: 0;
   }
   to {
-    transform: translateY(-50px);
+    transform: translate(-50%, -50px);
     opacity: 1;
   }
 `;
 
 const fadeOut = keyframes`
   from {
-    transform: translateY(-50px);
+    transform: translate(-50%, -50px);
     opacity: 1;
   }
   to {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
     opacity: 0;
   }
 `;
@@ -32,15 +32,7 @@ export default styled.div`
   z-index: 1;
   background-color: ${({ theme }) => theme.green};
   color: white;
+  font-size: 1.8rem;
   animation: ${fadeIn} 0.5s, ${fadeOut} 0.5s 2.7s;
   animation-fill-mode: forwards;
 `;
-
-// animation: ${fadeIn} 0.5s, ${fadeOut} 0.5s 2.7s;
-
-// ${({ show }) =>
-//   show &&
-//   css`
-//     visibility: visible;
-//     animation: ${fadeIn} 0.5s, ${fadeOut} 0.5s 2.7s;
-//   `}

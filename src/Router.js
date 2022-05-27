@@ -21,6 +21,7 @@ const Router = () => {
       <Body>
         <Routes>
           <Route path="/" element={<ProductsPage />} />
+          <Route path="/products/:page" element={<ProductsPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/carts" element={<CartsPage />} />
           <Route path="*" element={<NotFoundPage />} />

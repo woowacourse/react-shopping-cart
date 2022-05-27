@@ -15,7 +15,7 @@ import { getCarts, selectAllCart, clearAllCart, deleteSeveralCarts } from 'reduc
 import { deleteCarts } from 'reducers/cudCart';
 import { onMessage } from 'reducers/snackbar';
 
-import SNACKBAR_MESSAGE from 'constants';
+import { SNACKBAR_MESSAGE } from 'constants';
 
 const CartsPage = () => {
   const dispatch = useDispatch();

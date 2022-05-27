@@ -26,4 +26,8 @@ export default styled.div`
   .price {
     font-size: 2rem;
   }
+
+  .product-rest-info {
+    width: calc(100% - 50px);
+  }
 `;

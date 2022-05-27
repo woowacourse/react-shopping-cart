@@ -10,7 +10,8 @@ const getResult = async (execute) => {
   }
 };
 
-export const getApi = async (endPoint) => getResult(async () => axios.get(`/${endPoint}`));
+export const getApi = async (endPoint, data = {}) =>
+  getResult(async () => axios.get(`/${endPoint}`), data);
 
 export const postApi = async (endPoint, data = {}) =>
   getResult(async () => axios.post(`/${endPoint}`, data));

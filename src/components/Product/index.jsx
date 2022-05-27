@@ -12,7 +12,7 @@ const Product = ({ id, imgSrc, title, price, cartQuantity }) => {
         <img className="thumbnail" src={imgSrc} alt={`${title} 상품`} />
       </Link>
       <ProductQuantity productId={id} productTitle={title} cartQuantity={cartQuantity}>
-        <div>
+        <div className="product-rest-info">
           <Link to={`/product/${id}`}>
             <p className="title">{title}</p>
           </Link>

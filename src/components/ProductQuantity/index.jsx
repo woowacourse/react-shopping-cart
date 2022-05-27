@@ -8,7 +8,7 @@ import { onMessage } from 'reducers/snackbar';
 
 import debounce from 'utils';
 
-import SNACKBAR_MESSAGE from 'constants';
+import { SNACKBAR_MESSAGE } from 'constants';
 
 const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) =>
         await dispatch(deleteCart(productId)).unwrap();
       }
 
-      setQuantity((prevQuantity) => prevQuantity - 1);
+      setQuantity(quantity - 1);
       dispatch(onMessage(SNACKBAR_MESSAGE.deleteProduct(productTitle)));
     }, [dispatch, productId, quantity]),
     150,
@@ -39,7 +39,7 @@ const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) =>
         await dispatch(addCart(productId)).unwrap();
       }
 
-      setQuantity((prevQuantity) => prevQuantity + 1);
+      setQuantity(quantity + 1);
       dispatch(onMessage(SNACKBAR_MESSAGE.addProduct(productTitle)));
     }, [dispatch, productId, quantity]),
     150,
