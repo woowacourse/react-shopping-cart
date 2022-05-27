@@ -12,16 +12,17 @@ function CartList({
   increaseCartItemCount,
   deleteCartItem,
   deleteEveryCartItem,
-  checkCartItem,
-  checkEveryCartItem,
+  selectCartItem,
+  selectEveryCartItem,
 }) {
   const onClickCheckBox = () => {
-    checkEveryCartItem();
+    selectEveryCartItem();
   };
 
   const onClickDeleteAllButton = () => {
     deleteEveryCartItem();
   };
+
   return (
     <Styled.Container>
       <Styled.SelectWrapper>
@@ -45,7 +46,7 @@ function CartList({
           onClickDecreaseButton={() => decreaseCartItemCount(cart)}
           onClickIncreaseButton={() => increaseCartItemCount(cart)}
           onClickDeleteButton={() => deleteCartItem(cart)}
-          onClickCheckBox={() => checkCartItem(cart)}
+          onClickCheckBox={() => selectCartItem(cart)}
         />
       ))}
     </Styled.Container>

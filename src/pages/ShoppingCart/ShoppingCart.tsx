@@ -15,18 +15,7 @@ function ShoppingCart() {
     deps: [],
   });
 
-  const {
-    amount,
-    cartItemStatusUtil: { checkCartItemLoading, checkCartItemChecked, checkEveryCartItemChecked },
-    cartItemEvent: {
-      decreaseCartItemCount,
-      increaseCartItemCount,
-      deleteCartItem,
-      deleteEveryCartItem,
-      checkCartItem,
-      checkEveryCartItem,
-    },
-  } = useCartList();
+  const { amount, cartItemStatusUtil, cartItemEvent } = useCartList();
 
   if (isLoading) {
     return (
@@ -54,18 +43,7 @@ function ShoppingCart() {
       <Styled.Container>
         <Styled.Title>장바구니</Styled.Title>
         <Styled.Wrapper>
-          <CartList
-            cartList={cartList}
-            checkCartItemLoading={checkCartItemLoading}
-            checkCartItemChecked={checkCartItemChecked}
-            checkEveryCartItemChecked={checkEveryCartItemChecked}
-            decreaseCartItemCount={decreaseCartItemCount}
-            increaseCartItemCount={increaseCartItemCount}
-            deleteCartItem={deleteCartItem}
-            deleteEveryCartItem={deleteEveryCartItem}
-            checkCartItem={checkCartItem}
-            checkEveryCartItem={checkEveryCartItem}
-          />
+          <CartList cartList={cartList} {...cartItemEvent} {...cartItemStatusUtil} />
           <OrderForm amount={amount} />
         </Styled.Wrapper>
       </Styled.Container>

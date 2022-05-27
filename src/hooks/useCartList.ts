@@ -62,13 +62,13 @@ export const useCartList = () => {
     }
   }, [checkedCartItem]);
 
-  const checkCartItem = useCallback(cart => {
+  const selectCartItem = useCallback(cart => {
     const { id } = cart;
 
     dispatch({ type: CartActionType.CHECK_CART_ITEM, payload: { id } });
   }, []);
 
-  const checkEveryCartItem = useCallback(() => {
+  const selectEveryCartItem = useCallback(() => {
     dispatch({ type: CartActionType.CHECK_EVERY_CART_ITEM });
   }, []);
 
@@ -85,8 +85,8 @@ export const useCartList = () => {
       increaseCartItemCount,
       deleteCartItem,
       deleteEveryCartItem,
-      checkCartItem,
-      checkEveryCartItem,
+      selectCartItem,
+      selectEveryCartItem,
     },
   };
 };
