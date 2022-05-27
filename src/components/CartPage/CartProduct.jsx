@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { deleteCart } from 'store/carts/action';
 import { NOTICE } from 'constants';
 
-function CartProduct({ product, checkedList, updateCheckedList }) {
+function CartProduct({ product, checked, updateCheckedList }) {
   const dispatch = useDispatch();
 
   const deleteCartProduct = () => {
@@ -26,10 +26,7 @@ function CartProduct({ product, checkedList, updateCheckedList }) {
     <Styled.CartContainer>
       <React.Fragment key={product.id}>
         <Styled.ProductLeftWrapper>
-          <CheckBox
-            checked={checkedList.some((item) => item.id === product.id)}
-            onChange={updateCheckedListWithProduct}
-          />
+          <CheckBox checked={checked} onChange={updateCheckedListWithProduct} />
           <ProductImage
             src={product.src}
             size="small"
@@ -59,15 +56,7 @@ CartProduct.propTypes = {
     title: PropType.string.isRequired,
     quantity: PropType.number.isRequired,
   }).isRequired,
-  checkedList: PropType.arrayOf(
-    PropType.shape({
-      id: PropType.string.isRequired,
-      price: PropType.string.isRequired,
-      src: PropType.string.isRequired,
-      title: PropType.string.isRequired,
-      quantity: PropType.number.isRequired,
-    }),
-  ).isRequired,
+  checked: PropType.bool.isRequired,
   updateCheckedList: PropType.func.isRequired,
 };
 

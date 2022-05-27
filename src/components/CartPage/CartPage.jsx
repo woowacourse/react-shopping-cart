@@ -76,7 +76,7 @@ function CartPage() {
             <React.Fragment key={product.id}>
               <CartProduct
                 product={product}
-                checkedList={checkedList}
+                checked={checkedList.some((item) => item.id === product.id)}
                 updateCheckedList={updateCheckedList}
               />
               <Styled.CartDivideLine shape="greyThin" />
