@@ -21,6 +21,10 @@ const getProductList = () => async (dispatch) => {
 };
 
 const getProduct = (id) => async (dispatch) => {
+  dispatch({
+    type: 상품_불러오기_액션.PENDING,
+  });
+
   const response = await requestGetProduct(id);
 
   if (response.status === 비동기_요청.FAILURE) {

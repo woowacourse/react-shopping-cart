@@ -1,6 +1,7 @@
 const createAsyncAction = (actionName) => ({
   SUCCESS: `${actionName}_성공`,
   FAILURE: `${actionName}_실패`,
+  PENDING: `${actionName}_요청`,
 });
 
 const 상품리스트_불러오기_액션 = createAsyncAction('상품리스트_불러오기');
