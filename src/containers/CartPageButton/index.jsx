@@ -6,6 +6,7 @@ import WhiteButton from 'components/WhiteButton';
 import { useSelector } from 'react-redux';
 import Circle from 'components/Circle';
 import CartPageButtonStyled from './style';
+import FlexWrapper from 'components/FlexWrapper';
 
 function CartPageButton() {
   const carts = useSelector((state) => state.cart.carts);
@@ -13,12 +14,14 @@ function CartPageButton() {
   return (
     <CartPageButtonStyled>
       <MarginWrapper marginRight="4px">
-        <MarginWrapper marginRight="4px">
-          <Link to="/cart-list">
-            <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
-          </Link>
-        </MarginWrapper>
-        <Circle>{carts.length}</Circle>
+        <FlexWrapper>
+          <MarginWrapper marginRight="4px">
+            <Link to="/cart-list">
+              <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
+            </Link>
+          </MarginWrapper>
+          <Circle>{carts.length}</Circle>
+        </FlexWrapper>
       </MarginWrapper>
     </CartPageButtonStyled>
   );
