@@ -1,72 +1,23 @@
-import { useDispatch } from 'react-redux';
-
 import useCart from 'hooks/useCart';
 import { getNumberFormatter } from 'lib/formatterUtils';
 
-import { Case, SwitchAsync } from 'components/@common/SwitchAsync';
-import {
-  Button,
-  Checkbox,
-  FlexContainer,
-  ToolTip,
-  Title,
-  TextUnderline,
-  StatusMessage,
-  Icon,
-} from 'components/@common';
-import CartItem from 'components/CartItem';
+import { Button, FlexContainer, Title, TextUnderline, Icon } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
 
 import * as S from './styles';
+import ItemManage from './Containers/ItemManage';
+import ItemList from './Containers/ItemList';
 
 export function CartList() {
-  const dispatch = useDispatch();
-
-  const { cartAction, cartThunk, state } = useCart();
-  const { cartItems, isLoading, isLoaded, errorMessage, checkedItemList } = state;
+  const { state } = useCart();
+  const { cartItems, isLoaded, checkedItemList } = state;
 
   const isSelectAllChecked = checkedItemList.length > 0;
   const totalAmount = checkedItemList.reduce(
     (previous, { price, quantity }) => previous + price * quantity,
     0,
   );
-
-  const handleCheckItem = (id, isChecked) => {
-    dispatch(cartAction.updateItemCheck(id, isChecked));
-  };
-
-  const handleAllCheckItem = () => {
-    dispatch(cartAction.updateItemAllCheck(!isSelectAllChecked));
-  };
-
-  const handleChangeQuantity = (id, quantity) => {
-    dispatch(cartThunk.updateItem(id, { quantity })).then((status) => {
-      status === false && alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
-    });
-  };
-
-  const handleRemoveItem = (id) => {
-    if (!confirm('정말 해당 상품을 장바구니에서 제거하시겠습니까?')) {
-      return;
-    }
-
-    dispatch(cartThunk.removeItem(id)).then((status) => {
-      status ? alert('해당 상품을 제거하였습니다.') : alert('해당 상품 제거에 실패하였습니다.');
-    });
-  };
-
-  const handleRemoveItemList = () => {
-    if (!confirm('정말 선택한 상품을 모두 제거하시겠습니까?')) {
-      return;
-    }
-
-    const checkedIdList = checkedItemList.map(({ id }) => id);
-
-    dispatch(cartThunk.removeItemList(checkedIdList)).then((status) => {
-      status ? alert('선택한 상품이 제거되었습니다.') : alert('선택한 상품 제거에 실패하였습니다.');
-    });
-  };
 
   return (
     <>
@@ -77,16 +28,7 @@ export function CartList() {
 
       <S.Container>
         <FlexContainer gap={16}>
-          <S.ControllerContainer>
-            <Checkbox size="medium" checked={isSelectAllChecked} onChange={handleAllCheckItem}>
-              {isSelectAllChecked ? '선택 해제' : '전체 선택'}
-            </Checkbox>
-            <ToolTip text="선택한 상품을 장바구니에서 삭제합니다." align="bottom">
-              <Button icon={ICON_CODE.TRASH} onClick={handleRemoveItemList}>
-                선택 삭제
-              </Button>
-            </ToolTip>
-          </S.ControllerContainer>
+          <ItemManage isAllChecked={isSelectAllChecked} />
 
           <FlexContainer>
             <Title type="content" size={14}>
@@ -96,41 +38,7 @@ export function CartList() {
               </TextUnderline>
             </Title>
 
-            <FlexContainer direction="column" justify="center">
-              <SwitchAsync
-                isLoading={isLoading}
-                isError={!!errorMessage}
-                isContentLoaded={isLoaded}
-              >
-                <Case.Success>
-                  {(cartItems.length > 0 &&
-                    cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
-                      <CartItem
-                        key={id}
-                        id={id}
-                        image={image}
-                        name={name}
-                        price={price}
-                        quantity={quantity}
-                        isChecked={isChecked}
-                        onChangeCheckBox={handleCheckItem}
-                        onChangeCounter={handleChangeQuantity}
-                        onClickRemove={handleRemoveItem}
-                      />
-                    ))) || (
-                    <StatusMessage status="empty">텅! 장바구니에 담은 상품이 없어요!</StatusMessage>
-                  )}
-                </Case.Success>
-
-                <Case.Loading>
-                  <StatusMessage status="loading">장바구니 목록을 불러오고 있습니다.</StatusMessage>
-                </Case.Loading>
-
-                <Case.Error>
-                  <StatusMessage status="error">{errorMessage}</StatusMessage>
-                </Case.Error>
-              </SwitchAsync>
-            </FlexContainer>
+            <ItemList />
           </FlexContainer>
         </FlexContainer>
 

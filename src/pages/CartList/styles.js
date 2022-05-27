@@ -14,15 +14,6 @@ const Container = styled.div`
   }
 `;
 
-const ControllerContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  font-size: 0.875rem;
-  color: ${COLORS.GRAY_30};
-`;
-
 const OrderContainer = styled.div`
   display: flex;
   position: sticky;
@@ -37,4 +28,4 @@ const OrderContainer = styled.div`
   }
 `;
 
-export { Container, ControllerContainer, OrderContainer };
+export { Container, OrderContainer };
