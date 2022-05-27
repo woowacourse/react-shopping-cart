@@ -5,6 +5,7 @@ import product from './product';
 import addUpdateDeleteCart from './addUpdateDeleteCart';
 import carts from './carts';
 import cart from './cart';
+import productQuantity from './productQuantity';
 import snackbar from './snackbar';
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   addUpdateDeleteCart,
   carts,
   cart,
+  productQuantity,
   snackbar,
 });

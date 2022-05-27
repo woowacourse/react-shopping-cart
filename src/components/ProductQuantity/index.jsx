@@ -1,10 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import { flushSync } from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Wrapper from './style';
 
 import { addCart, addMoreCart, deleteCart, downCart } from 'reducers/addUpdateDeleteCart';
 import { onMessage } from 'reducers/snackbar';
+import { open, close } from 'reducers/productQuantity';
 
 import debounce from 'utils';
 
@@ -14,6 +16,7 @@ const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) =>
   const dispatch = useDispatch();
   const [showQuantity, setShowQuantity] = useState(false);
   const [quantity, setQuantity] = useState(cartQuantity);
+  const { isOpended } = useSelector((state) => state.productQuantity);
 
   const handleClickMinusButton = debounce(
     useCallback(async () => {
@@ -51,11 +54,21 @@ const ProductQuantity = ({ productId, productTitle, cartQuantity, children }) =>
       setQuantity(quantity + 1);
     }
 
+    flushSync(() => {
+      dispatch(showQuantity ? close() : open());
+    });
+
     setShowQuantity(!showQuantity);
     quantity === 0 &&
       !showQuantity &&
       dispatch(onMessage(SNACKBAR_MESSAGE.addProduct(productTitle)));
   }, [showQuantity, quantity]);
+
+  useEffect(() => {
+    if (isOpended) {
+      setShowQuantity(false);
+    }
+  }, [isOpended]);
 
   return (
     <Wrapper showQuantity={showQuantity}>
