@@ -28,7 +28,6 @@ function CartProduct({ product, checkedList, updateCheckedList }) {
         <Styled.ProductLeftWrapper>
           <CheckBox
             checked={checkedList.some((item) => item.id === product.id)}
-            list={checkedList}
             updateList={updateCheckedListWithProduct}
           />
           <ProductImage
