@@ -14,6 +14,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
@@ -25,7 +26,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build:storybook": "build-storybook -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "chromatic": "npx chromatic --project-token=d263479ace54"
   },
   "eslintConfig": {
     "extends": [
@@ -76,8 +78,12 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-storybook": "^0.5.11",
     "gh-pages": "^4.0.0",
+    "msw": "^0.41.0",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://woose28.github.io/react-shopping-cart"
+  "homepage": "https://woose28.github.io/react-shopping-cart",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

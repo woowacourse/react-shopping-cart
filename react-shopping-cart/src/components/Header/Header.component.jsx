@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { HeaderContainer, HeaderLink } from 'components/@shared';
 import { ReactComponent as ShoppingCart } from 'assets/images/shoppingCart.svg';
 import RESPONSIVE_SIZE from 'constants/responsiveSize';
+import PATH from 'constants/path';
 
 const HeaderTitleBox = styled.div`
   display: flex;
@@ -26,17 +27,17 @@ const ShoppingCartSvg = styled(ShoppingCart)`
 function Header() {
   return (
     <HeaderContainer>
-      <HeaderLink to="/" type="title">
+      <HeaderLink to={PATH.MAIN} type="title">
         <HeaderTitleBox>
           <ShoppingCartSvg fill="#fff" />
           WOOWA SHOP
         </HeaderTitleBox>
       </HeaderLink>
       <HeaderNavBox>
-        <HeaderLink to="/" type="nav">
+        <HeaderLink to={PATH.SHOPPING_BASKET} type="nav">
           장바구니
         </HeaderLink>
-        <HeaderLink to="/" type="nav">
+        <HeaderLink to={PATH.MAIN} type="nav">
           주문목록
         </HeaderLink>
       </HeaderNavBox>

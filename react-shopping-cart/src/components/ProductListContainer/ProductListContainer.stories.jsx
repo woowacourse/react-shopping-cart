@@ -8,7 +8,7 @@ export default {
 
 export const Default = args => <ProductListContainer {...args} />;
 Default.args = {
-  data: [
+  productList: [
     {
       id: 1,
       thumbnail: 'https://cdn-mart.baemin.com/sellergoods/bulk/20220502-173334/12619-main-01.jpg',

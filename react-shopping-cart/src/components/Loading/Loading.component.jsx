@@ -22,9 +22,9 @@ const LoadingSpinner = styled.div`
   -webkit-animation: ${spin} 1s ease-in-out infinite;
 `;
 
-function Loading() {
+function Loading({ style }) {
   return (
-    <LoadingBox>
+    <LoadingBox style={style}>
       <LoadingSpinner />
       <p>로딩 중입니다.</p>
     </LoadingBox>
