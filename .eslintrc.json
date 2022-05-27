@@ -28,6 +28,8 @@
     "function-paren-newline": "warn",
     "global-require": "warn",
     "no-use-before-define": "warn",
-    "no-undef": "off"
+    "no-undef": "off",
+    "operator-linebreak": "off",
+    "react/jsx-one-expression-per-line": "off"
   }
 }

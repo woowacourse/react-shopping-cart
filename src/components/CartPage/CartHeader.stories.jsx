@@ -10,5 +10,3 @@ function Template(args) {
 }
 
 export const DefaultCartHeader = Template.bind({});
-
-DefaultCartHeader.args = {};

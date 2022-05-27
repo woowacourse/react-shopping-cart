@@ -33,6 +33,4 @@ DefaultCartProduct.args = {
     title: '콜드 브루 몰트',
     quantity: 3,
   },
-  checked: true,
-  updateCheckedList: () => {},
 };

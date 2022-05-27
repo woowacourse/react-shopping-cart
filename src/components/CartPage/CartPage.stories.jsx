@@ -10,5 +10,3 @@ function Template(args) {
 }
 
 export const DefaultCartPage = Template.bind({});
-
-DefaultCartPage.args = {};

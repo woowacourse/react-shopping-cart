@@ -14,7 +14,7 @@ export const cartsActionCreators = {
   loadCarts: (payload) => ({ type: TYPE.CARTS_LOAD, payload }),
   addCart: (payload) => ({ type: TYPE.CARTS_ADD, payload }),
   deleteCart: (payload) => ({ type: TYPE.CARTS_DELETE, payload }),
-  updateCartQuantity: (payload) => ({ type: TYPE.CARTS_UPDATE, payload }),
+  updateCart: (payload) => ({ type: TYPE.CARTS_UPDATE, payload }),
   error: (payload) => ({ type: TYPE.CARTS_ERROR, payload }),
   cleanError: (payload) => ({ type: TYPE.CARTS_CLEAN_ERROR, payload }),
 };
@@ -33,7 +33,7 @@ export const addCart = (product) => async (dispatch) => {
   try {
     const { data } = await axios({
       url: `${SERVER_URL}${PATH.CARTS}`,
-      data: { ...product, quantity: 1 },
+      data: { ...product, quantity: 1, checked: true },
       method: 'POST',
     });
     dispatch(cartsActionCreators.addCart(data));
@@ -55,14 +55,14 @@ export const deleteCart = (id) => async (dispatch) => {
   }
 };
 
-export const updateCartQuantity = (product) => async (dispatch) => {
+export const updateCart = (product) => async (dispatch) => {
   try {
     await axios({
       url: `${SERVER_URL}${PATH.CARTS}/${product.id}`,
       data: { ...product },
       method: 'PUT',
     });
-    dispatch(cartsActionCreators.updateCartQuantity(product));
+    dispatch(cartsActionCreators.updateCart(product));
   } catch (error) {
     dispatch(cartsActionCreators.error(ERROR_MESSAGE.UPDATE_CART_QUANTITY));
   }
