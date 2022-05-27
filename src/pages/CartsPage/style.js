@@ -64,10 +64,17 @@ export default styled.div`
     padding-top: 103px;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1100px) {
     .cart-product {
       width: 100px;
       height: 97px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .cart-product {
+      width: 90px;
+      height: 87px;
     }
   }
 `;
