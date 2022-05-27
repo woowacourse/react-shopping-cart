@@ -73,6 +73,7 @@ function CartProduct({ id, image, name, quantity, price }) {
 }
 
 CartProduct.propTypes = {
+  id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
