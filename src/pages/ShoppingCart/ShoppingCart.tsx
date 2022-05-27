@@ -17,8 +17,15 @@ function ShoppingCart() {
 
   const {
     amount,
-    cartItemStatusUtil: { checkCartItemLoading, checkCartItemChecked },
-    cartItemEvent: { decreaseCartItemCount, increaseCartItemCount, deleteCartItem, checkCartItem },
+    cartItemStatusUtil: { checkCartItemLoading, checkCartItemChecked, checkEveryCartItemChecked },
+    cartItemEvent: {
+      decreaseCartItemCount,
+      increaseCartItemCount,
+      deleteCartItem,
+      deleteEveryCartItem,
+      checkCartItem,
+      checkEveryCartItem,
+    },
   } = useCartList();
 
   if (isLoading) {
@@ -51,10 +58,13 @@ function ShoppingCart() {
             cartList={cartList}
             checkCartItemLoading={checkCartItemLoading}
             checkCartItemChecked={checkCartItemChecked}
+            checkEveryCartItemChecked={checkEveryCartItemChecked}
             decreaseCartItemCount={decreaseCartItemCount}
             increaseCartItemCount={increaseCartItemCount}
             deleteCartItem={deleteCartItem}
+            deleteEveryCartItem={deleteEveryCartItem}
             checkCartItem={checkCartItem}
+            checkEveryCartItem={checkEveryCartItem}
           />
           <OrderForm amount={amount} />
         </Styled.Wrapper>

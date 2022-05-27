@@ -12,3 +12,17 @@ export const Amount = styled.div`
   padding: 20px 0;
   border-bottom: 2px solid ${({ theme }) => theme.greyColor_1};
 `;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ButtonForm = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+  line-height: 0;
+`;

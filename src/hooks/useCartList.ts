@@ -1,4 +1,9 @@
-import { CartActionType, fetchDeleteCartAsync, fetchPatchCartAsync } from '@/store/cart/action';
+import {
+  CartActionType,
+  fetchDeleteCartAsync,
+  fetchDeleteEveryCartItemAsync,
+  fetchPatchCartAsync,
+} from '@/store/cart/action';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +31,11 @@ export const useCartList = () => {
 
   const checkCartItemChecked = useCallback(id => checkedCartItem.includes(id), [checkedCartItem]);
 
+  const checkEveryCartItemChecked = useCallback(
+    () => cartList.length === checkedCartItem.length,
+    [cartList, checkedCartItem],
+  );
+
   const decreaseCartItemCount = useCallback(cart => {
     const { id, quantity } = cart;
 
@@ -46,10 +56,20 @@ export const useCartList = () => {
     }
   }, []);
 
+  const deleteEveryCartItem = useCallback(() => {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      dispatch(fetchDeleteEveryCartItemAsync(checkedCartItem) as any);
+    }
+  }, [checkedCartItem]);
+
   const checkCartItem = useCallback(cart => {
     const { id } = cart;
 
     dispatch({ type: CartActionType.CHECK_CART_ITEM, payload: { id } });
+  }, []);
+
+  const checkEveryCartItem = useCallback(() => {
+    dispatch({ type: CartActionType.CHECK_EVERY_CART_ITEM });
   }, []);
 
   return {
@@ -58,12 +78,15 @@ export const useCartList = () => {
     cartItemStatusUtil: {
       checkCartItemLoading,
       checkCartItemChecked,
+      checkEveryCartItemChecked,
     },
     cartItemEvent: {
       decreaseCartItemCount,
       increaseCartItemCount,
       deleteCartItem,
+      deleteEveryCartItem,
       checkCartItem,
+      checkEveryCartItem,
     },
   };
 };

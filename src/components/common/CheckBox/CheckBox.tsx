@@ -13,6 +13,8 @@ const CheckBoxLabel = styled.label`
   padding: 10px;
   border-radius: 4px;
 
+  max-height: 22px;
+
   ${({ checked }: { checked: boolean }) =>
     checked &&
     css`
@@ -27,7 +29,7 @@ const CheckBoxLabel = styled.label`
 
         transform: translate(-50%, -50%);
       }
-    `}
+    `};
 `;
 
 function CheckBox({ isChecked, onClick }) {
