@@ -10,11 +10,16 @@ export const enum CartActionType {
   DELETE_CART_SUCCEEDED = 'cart/DELETE_CART_SUCCEEDED',
   DELETE_CART_FAILED = 'cart/DELETE_CART_FAILED',
 
+  DELETE_EVERY_CART_ITEM_START = 'cart/DELETE_EVERY_CART_ITEM_START',
+  DELETE_EVERY_CART_ITEM_SUCCEEDED = 'cart/DELETE_EVERY_CART_ITEM_SUCCEEDED',
+  DELETE_EVERY_CART_ITEM_FAILED = 'cart/DELETE_EVERY_CART_ITEM_FAILED',
+
   PATCH_CART_START = 'cart/PATCH_CART_START',
   PATCH_CART_SUCCEEDED = 'cart/PATCH_CART_SUCCEEDED',
   PATCH_CART_FAILED = 'cart/PATCH_CART_FAILED',
 
   CHECK_CART_ITEM = 'cart/CHECK_CART_ITEM',
+  CHECK_EVERY_CART_ITEM = 'cart/CHECK_EVERY_CART_ITEM',
 }
 
 interface GetCartStart {
@@ -45,6 +50,18 @@ interface DeleteCartFailed {
   type: CartActionType.DELETE_CART_FAILED;
 }
 
+interface DeleteEveryCartItemStart {
+  type: CartActionType.DELETE_EVERY_CART_ITEM_START;
+}
+
+interface DeleteEveryCartItemSucceeded {
+  type: CartActionType.DELETE_EVERY_CART_ITEM_SUCCEEDED;
+}
+
+interface DeleteEveryCartItemFailed {
+  type: CartActionType.DELETE_EVERY_CART_ITEM_FAILED;
+}
+
 interface PatchCartStart {
   type: CartActionType.PATCH_CART_START;
 }
@@ -62,6 +79,10 @@ interface CheckCartItem {
   payalod: { id: number };
 }
 
+interface CheckEveryCartItem {
+  type: CartActionType.CHECK_EVERY_CART_ITEM;
+}
+
 export type CartAction =
   | GetCartStart
   | GetCartSucceeded
@@ -69,10 +90,14 @@ export type CartAction =
   | DeleteCartStart
   | DeleteCartSucceeded
   | DeleteCartFailed
+  | DeleteEveryCartItemStart
+  | DeleteEveryCartItemSucceeded
+  | DeleteEveryCartItemFailed
   | PatchCartStart
   | PatchCartSucceeded
   | PatchCartFailed
-  | CheckCartItem;
+  | CheckCartItem
+  | CheckEveryCartItem;
 
 export const fetchGetCartAsync = () => async (dispatch: Dispatch<CartAction>) => {
   dispatch({ type: CartActionType.GET_CART_START });
@@ -97,6 +122,21 @@ export const fetchDeleteCartAsync = id => async (dispatch: Dispatch<CartAction>)
     dispatch({ type: CartActionType.DELETE_CART_FAILED });
   }
 };
+
+export const fetchDeleteEveryCartItemAsync =
+  checkedCartItem => async (dispatch: Dispatch<CartAction>) => {
+    dispatch({ type: CartActionType.DELETE_EVERY_CART_ITEM_START });
+
+    try {
+      await Promise.all(checkedCartItem.map(id => deleteCart(id)));
+
+      dispatch({
+        type: CartActionType.DELETE_EVERY_CART_ITEM_SUCCEEDED,
+      });
+    } catch ({ message }) {
+      dispatch({ type: CartActionType.DELETE_EVERY_CART_ITEM_FAILED });
+    }
+  };
 
 export const fetchPatchCartAsync =
   (id, newCartProduct) => async (dispatch: Dispatch<CartAction>) => {

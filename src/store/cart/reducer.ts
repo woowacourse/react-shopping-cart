@@ -50,6 +50,18 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     }
 
+    case CartActionType.DELETE_EVERY_CART_ITEM_START: {
+      return { ...state, isLoading: true };
+    }
+
+    case CartActionType.DELETE_EVERY_CART_ITEM_SUCCEEDED: {
+      return { ...state, isLoading: false, cartList: [], checkedCartItem: [] };
+    }
+
+    case CartActionType.DELETE_EVERY_CART_ITEM_FAILED: {
+      return { ...state, isLoading: false };
+    }
+
     case CartActionType.PATCH_CART_START: {
       const {
         payload: { id },
@@ -89,6 +101,20 @@ const cartReducer = (state = initialState, action) => {
         };
       }
       return { ...state, checkedCartItem: [...state.checkedCartItem, id] };
+    }
+
+    case CartActionType.CHECK_EVERY_CART_ITEM: {
+      if (state.checkedCartItem.length === state.cartList.length) {
+        return {
+          ...state,
+          checkedCartItem: [],
+        };
+      }
+
+      return {
+        ...state,
+        checkedCartItem: state.cartList.map(cart => cart.id),
+      };
     }
 
     default: {
