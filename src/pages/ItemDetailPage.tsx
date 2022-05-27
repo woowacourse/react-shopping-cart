@@ -11,6 +11,7 @@ import Loading from 'components/common/Loading';
 import useThunkFetch from 'hooks/useThunkFetch';
 import { CartListAction } from 'redux/actions/cartList';
 import { getCartList } from 'redux/action-creators/cartListThunk';
+import useSnackBar from 'hooks/useSnackBar';
 
 const ItemDetail = () => {
   const params = useParams();
@@ -21,6 +22,12 @@ const ItemDetail = () => {
     getCartList
   );
   const { updateCartItemQuantity } = useUpdateCartItem(cartList);
+  const { openSnackbar } = useSnackBar();
+
+  const onClick = () => {
+    updateCartItemQuantity(id);
+    openSnackbar('cart');
+  };
 
   if (loading) return <Loading />;
   if (error) return <RequestFail />;
@@ -35,8 +42,8 @@ const ItemDetail = () => {
         <StyledPriceDescription>금액</StyledPriceDescription>
         <StyledPriceValue>{price}</StyledPriceValue>
       </StyldPrice>
-      <Button size='large' backgroundColor='brown' onClick={() => updateCartItemQuantity(id)}>
-        장바구니
+      <Button size='large' backgroundColor='brown' onClick={onClick}>
+        장바구니에 담기
       </Button>
     </StyledRoot>
   );

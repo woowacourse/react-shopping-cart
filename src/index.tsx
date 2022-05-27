@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 
@@ -15,6 +14,16 @@ import { Provider } from 'react-redux';
 
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+
+  worker.start({
+    serviceWorker: {
+      url: '/react-shopping-cart/mockServiceWorker.js',
+    },
+  });
+}
 
 root.render(
   <Provider store={store}>

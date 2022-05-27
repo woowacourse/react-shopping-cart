@@ -7,11 +7,11 @@ export const Contents = {
   purchase: '상품을 구매하였습니다',
 };
 
-const Snackbar = () => {
+const Modal = () => {
   return <Portal>{<StyledSnackbarContents>{Contents.cart}</StyledSnackbarContents>}</Portal>;
 };
 
-export default Snackbar;
+export default Modal;
 
 const snackbarShow = keyframes`
   0% { bottom:-7rem; opacity:0 }

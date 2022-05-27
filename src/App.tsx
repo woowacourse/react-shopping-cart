@@ -1,13 +1,9 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import ItemDetail from 'pages/ItemDetailPage';
-import NotFound from 'pages/NotFoundPage';
-import ItemListPage from 'pages/ItemListPage';
+import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
-import Snackbar from 'components/common/Snackbar';
+import Modal from 'components/common/Snackbar';
 import { useAppSelector } from 'hooks/useAppSelector';
-import Cart from 'pages/CartPage';
-import useSnackBar from 'hooks/useSnackBar';
+import Router from 'Router';
 
 function App() {
   const { isSnackbarOpen } = useAppSelector(state => state.snackbarReducer);
@@ -17,16 +13,10 @@ function App() {
       <StyledRoot>
         <Header />
         <StyledMain>
-          <Routes>
-            <Route path='/' element={<Navigate replace to='/main/1' />} />
-            <Route path='/main/:id' element={<ItemListPage />} />
-            <Route path='/item_detail/:id' element={<ItemDetail />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
+          <Router />
         </StyledMain>
       </StyledRoot>
-      {isSnackbarOpen && <Snackbar />}
+      {isSnackbarOpen && <Modal />}
     </BrowserRouter>
   );
 }

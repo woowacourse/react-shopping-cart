@@ -24,7 +24,7 @@ const ItemList = ({ fullItemList }: { fullItemList: Item[] }) => {
 
   if (fullItemList.length === 0) return null;
 
-  const itemList = fullItemList.slice(id * contentsNumLimit, (id + 1) * contentsNumLimit);
+  const itemList = fullItemList.slice((id - 1) * contentsNumLimit, id * contentsNumLimit);
 
   return (
     <StyledRoot>
@@ -44,6 +44,7 @@ const ItemList = ({ fullItemList }: { fullItemList: Item[] }) => {
 };
 
 const StyledRoot = styled.div`
+  height: 1128px;
   width: 1300px;
   display: flex;
   flex-wrap: wrap;

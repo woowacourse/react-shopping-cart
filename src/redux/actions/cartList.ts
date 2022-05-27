@@ -12,6 +12,10 @@ export enum CartListActionType {
   POST_CART_ITEM_START = 'cart/POST_CART_ITEM_START',
   POST_CART_ITEM_SUCCESS = 'cart/POST_CART_ITEM_SUCCESS',
   POST_CART_ITEM_FAILURE = 'cart/POST_CART_ITEM_FAILURE',
+
+  REMOVE_CART_ITEM_START = 'cart/REMOVE_CART_ITEM_START',
+  REMOVE_CART_ITEM_SUCCESS = 'cart/REMOVE_CART_ITEM_SUCCESS',
+  REMOVE_CART_ITEM_FAILURE = 'cart/REMOVE_CART_ITEM_FALIURE',
 }
 
 interface GetCartListStart {
@@ -56,6 +60,20 @@ interface PostCartItemFailure {
   payload: string;
 }
 
+interface RemoveCartItemStart {
+  type: CartListActionType.REMOVE_CART_ITEM_START;
+}
+
+interface RemoveCartItemSuccess {
+  type: CartListActionType.REMOVE_CART_ITEM_SUCCESS;
+  payload: CartItem;
+}
+
+interface RemoveCartItemFailure {
+  type: CartListActionType.REMOVE_CART_ITEM_FAILURE;
+  payload: string;
+}
+
 export type CartListAction =
   | GetCartListStart
   | GetCartListSuccess
@@ -65,4 +83,7 @@ export type CartListAction =
   | PutCartItemFailure
   | PostCartItemStart
   | PostCartItemSuccess
-  | PostCartItemFailure;
+  | PostCartItemFailure
+  | RemoveCartItemStart
+  | RemoveCartItemSuccess
+  | RemoveCartItemFailure;

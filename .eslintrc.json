@@ -28,6 +28,7 @@
     ],
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-var-requires": 0,
     "react/prop-types": "off",
     "quotes": ["error", "single"],
     "react/react-in-jsx-scope": "off",
