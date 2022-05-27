@@ -38,7 +38,6 @@ function Carts() {
 
   const allChecked = carts.length === checkedCarts.length;
 
-  console.log('allChecked', allChecked);
   return (
     <Style.Container>
       <Style.Header>
