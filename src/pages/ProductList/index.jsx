@@ -13,10 +13,10 @@ function ProductList() {
   const isLoading = useSelector((state) => state.product.isLoading);
   const isError = useSelector((state) => state.product.isError);
 
-  const test = useGetProductList();
+  const productsList = useGetProductList();
 
   useEffect(() => {
-    test();
+    productsList();
   }, []);
 
   if (isLoading) {
