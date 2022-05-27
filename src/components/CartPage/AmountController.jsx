@@ -1,44 +1,41 @@
 import styled from 'styled-components';
 import { LIMIT } from 'constants';
 import PropType from 'prop-types';
-import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateCartQuantity } from 'store/carts/action';
 import { DefaultButton } from 'components/shared/styles';
 
 function AmountController({ product }) {
-  const [quantity, setQuantity] = useState(product.quantity);
-
   const dispatch = useDispatch();
 
   const increaseQuantity = () => {
-    if (quantity < LIMIT.MAX_QUANTITY) {
-      setQuantity((prevState) => prevState + 1);
+    if (product.quantity < LIMIT.MAX_QUANTITY) {
+      dispatch(
+        updateCartQuantity({ ...product, quantity: product.quantity + 1 }),
+      );
     }
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevState) => prevState - 1);
+    if (product.quantity > 1) {
+      dispatch(
+        updateCartQuantity({ ...product, quantity: product.quantity - 1 }),
+      );
     }
   };
 
-  useEffect(() => {
-    dispatch(updateCartQuantity({ ...product, quantity }));
-  }, [quantity]);
-
   return (
     <Styled.NumberInputContainer>
-      <Styled.NumberInput type="number" value={quantity} disabled />
+      <Styled.NumberInput type="number" value={product.quantity} disabled />
       <div>
         <Styled.ContollerButton
-          disabled={quantity === LIMIT.MAX_QUANTITY}
+          disabled={product.quantity === LIMIT.MAX_QUANTITY}
           onClick={increaseQuantity}
         >
           ▲
         </Styled.ContollerButton>
         <Styled.ContollerButton
-          disabled={quantity === LIMIT.MIN_QUANTITY}
+          disabled={product.quantity === LIMIT.MIN_QUANTITY}
           onClick={decreaseQuantity}
         >
           ▼
