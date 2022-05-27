@@ -12,7 +12,6 @@ const useCart = () => {
     cart: state.cart,
   }));
 
-  console.log(cart);
   const [checkedFlags, setCheckedFlags] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
