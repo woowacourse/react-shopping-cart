@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const NavBar = styled.div`
+  z-index: 1;
   height: 80px;
   display: flex;
   justify-content: center;
