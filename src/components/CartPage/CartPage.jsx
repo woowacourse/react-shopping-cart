@@ -60,7 +60,7 @@ function CartPage() {
             <Styled.CheckBoxContainer>
               <CheckBox
                 checked={carts.length === checkedList.length}
-                updateList={selectAll}
+                onChange={selectAll}
               />
               <Styled.CancelSelectLabel htmlFor="checkbox">
                 선택해제

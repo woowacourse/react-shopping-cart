@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import PropType from 'prop-types';
 import { useEffect, useState } from 'react';
 
-function CheckBox({ checked, updateList }) {
+function CheckBox({ checked, onChange }) {
   const [isChecked, setIsChecked] = useState(checked);
 
   const toggleCheckBox = () => {
     setIsChecked((prevState) => !prevState);
-    updateList(isChecked);
+    onChange(isChecked);
   };
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default CheckBox;
 
 CheckBox.propTypes = {
   checked: PropType.bool,
-  updateList: PropType.func.isRequired,
+  onChange: PropType.func.isRequired,
 };
 
 CheckBox.defaultProps = {
