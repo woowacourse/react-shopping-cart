@@ -1,9 +1,9 @@
 import React from 'react';
 
-import CartProduct from 'templates/CartProduct';
+import CartProduct from 'containers/CartProduct';
 
 export default {
-  title: 'Template/CartProduct',
+  title: 'Container/CartProduct',
   component: CartProduct,
   argTypes: {
     imgSrc: { controls: 'text' },

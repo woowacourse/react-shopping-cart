@@ -3,7 +3,7 @@ import React from 'react';
 import QuantityInput from 'containers/QuantityInput';
 
 export default {
-  title: 'Template/QuantityInput',
+  title: 'Container/QuantityInput',
   component: QuantityInput,
 };
 

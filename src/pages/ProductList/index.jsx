@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import ProductListStyled from './style';
-import Product from 'templates/Product';
 import StateMessage from 'containers/StateMessage';
 
 import MESSAGE from 'constants';
 import { useGetProductList } from 'hooks/useDataFetch';
+import Product from 'containers/Product';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);

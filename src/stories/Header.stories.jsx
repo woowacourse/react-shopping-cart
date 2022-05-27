@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Header from 'templates/Header';
+import Header from 'containers/Header';
 
 export default {
-  title: 'Template/Header',
+  title: 'Container/Header',
   component: Header,
 };
 

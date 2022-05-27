@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Product from 'templates/Product';
+import Product from 'containers/Product';
 
 export default {
-  title: 'Template/Product',
+  title: 'Container/Product',
   component: Product,
 };
 

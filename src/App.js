@@ -10,7 +10,7 @@ import theme from 'style/theme';
 import GlobalStyle from 'style/GlobalStyle';
 import ProductList from 'pages/ProductList';
 import rootReducer from 'modules';
-import Header from 'templates/Header';
+import Header from 'containers/Header';
 import CartList from 'pages/CartList';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
