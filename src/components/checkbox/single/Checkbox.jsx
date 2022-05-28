@@ -5,12 +5,7 @@ import styles from "./checkbox.module";
 function Checkbox({ id, onChange, checked, className }) {
   return (
     <div className={cn(styles.checkbox, className)}>
-      <input
-        type="checkbox"
-        id={id}
-        onChange={onChange}
-        {...(checked ? { checked: true } : {})}
-      />
+      <input type="checkbox" id={id} onChange={onChange} checked={checked} />
       <label htmlFor={id} />
     </div>
   );
