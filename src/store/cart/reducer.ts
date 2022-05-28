@@ -33,6 +33,22 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, isLoading: false };
     }
 
+    case CartActionType.ADD_CART_START: {
+      return { ...state, isLoading: true };
+    }
+
+    case CartActionType.ADD_CART_SUCCEEDED: {
+      const {
+        payload: { product },
+      } = action;
+
+      return { ...state, cartList: [...state.cartList, product], isLoading: false };
+    }
+
+    case CartActionType.ADD_CART_FAILED: {
+      return { ...state, isLoading: false };
+    }
+
     case CartActionType.DELETE_CART_START: {
       return { ...state, isLoading: true };
     }
