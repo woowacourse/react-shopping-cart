@@ -1,42 +1,11 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { BasicDivideLine } from 'components/shared/basics';
 import CartListContainer from 'components/CartsList/CartListContainer';
-import CheckedItemsController from 'components/CheckBox/CheckedItemsController';
-import { BasicDivideLine, Flex } from 'components/shared/basics';
-import TotalPrice from 'components/TotalPrice/TotalPrice';
-
-import { findByIdInObjectArray, isContainedInObjectArray } from 'utils';
+import useLoadProducts from 'hooks/useLoadProducts';
 
 function Carts() {
-  const { carts, checkedCarts } = useSelector((state) => state.carts);
-  const { isLoading: isProductsLoading, products } = useSelector(
-    (state) => state.products
-  );
-
-  const storedProducts = carts
-    .map((cart) => cart.id)
-    .map((id) => ({
-      ...findByIdInObjectArray(products, id),
-      quantity: findByIdInObjectArray(carts, id).quantity,
-      isStored: isContainedInObjectArray(checkedCarts, id),
-    }));
-  const checkedProducts = checkedCarts
-    .map((cart) => cart.id)
-    .map((id) => ({
-      ...findByIdInObjectArray(products, id),
-      quantity: findByIdInObjectArray(carts, id).quantity,
-    }));
-
-  const totalPrice = Number(
-    checkedProducts?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
-  );
-
-  const totalQuantity = Number(
-    checkedProducts?.reduce((acc, cur) => acc + +cur.quantity, 0)
-  );
-
-  const allChecked = carts.length === checkedCarts.length;
+  useLoadProducts();
 
   return (
     <Style.Container>
@@ -44,25 +13,7 @@ function Carts() {
         <Style.Title>장바구니</Style.Title>
         <BasicDivideLine weight="bold" mv="20" />
       </Style.Header>
-
-      <Style.CartListContainer justify="space-between">
-        <Style.CartListWrapper>
-          <CheckedItemsController
-            allChecked={allChecked}
-            checkedCarts={checkedCarts}
-          />
-          <span>든든배송 상품 {totalQuantity}개</span>
-          <BasicDivideLine weight="bold" color="lightgray" mv="10" />
-          <CartListContainer
-            isLoading={isProductsLoading}
-            storedProducts={storedProducts}
-          />
-        </Style.CartListWrapper>
-        <TotalPrice
-          total={isNaN(totalPrice) ? '0' : totalPrice.toLocaleString('ko-kr')}
-          quantity={totalQuantity}
-        />
-      </Style.CartListContainer>
+      <CartListContainer />
     </Style.Container>
   );
 }
@@ -82,11 +33,5 @@ const Style = {
     font-size: 24px;
     font-weight: 600;
     text-align: center;
-  `,
-  CartListContainer: styled(Flex)`
-    padding: 0 20px;
-  `,
-  CartListWrapper: styled.div`
-    width: 60%;
   `,
 };

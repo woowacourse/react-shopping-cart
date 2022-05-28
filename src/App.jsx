@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from 'components/Header/Header';
@@ -13,23 +11,7 @@ import GlobalStyle from 'GlobalStyle';
 
 import PATH from 'constants/path';
 
-import { loadProducts } from 'store/products';
-import { clearCarts, loadCarts } from 'store/carts';
-
 function App() {
-  const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch(loadProducts());
-
-    if (isLoggedIn) {
-      dispatch(loadCarts());
-    } else {
-      dispatch(clearCarts());
-    }
-  }, [isLoggedIn]);
-
   return (
     <BrowserRouter>
       <GlobalStyle />
