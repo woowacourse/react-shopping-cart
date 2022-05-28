@@ -8,7 +8,7 @@ import { ICON_CODE } from 'constants/';
 
 import * as S from './styles';
 
-function ItemManage({ isAllChecked }) {
+function CartItemManage({ isAllChecked }) {
   const dispatch = useDispatch();
   const { cartAction, cartThunk, state } = useCart();
 
@@ -43,12 +43,12 @@ function ItemManage({ isAllChecked }) {
   );
 }
 
-ItemManage.defaultProps = {
+CartItemManage.defaultProps = {
   isAllChecked: PropTypes.bool,
 };
 
-ItemManage.propTypes = {
+CartItemManage.propTypes = {
   isAllChecked: PropTypes.bool,
 };
 
-export default ItemManage;
+export default CartItemManage;

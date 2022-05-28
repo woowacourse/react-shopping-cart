@@ -6,7 +6,7 @@ import { FlexContainer, StatusMessage } from 'components/@common';
 import { Case, SwitchAsync } from 'components/@common/SwitchAsync';
 import CartItem from 'components/CartItem';
 
-function ItemList() {
+function CartItemList() {
   const dispatch = useDispatch();
 
   const { cartAction, cartThunk, state } = useCart();
@@ -65,4 +65,4 @@ function ItemList() {
   );
 }
 
-export default ItemList;
+export default CartItemList;

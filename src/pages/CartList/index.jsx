@@ -1,23 +1,19 @@
 import useCart from 'hooks/useCart';
-import { getNumberFormatter } from 'lib/formatterUtils';
 
-import { Button, FlexContainer, Title, TextUnderline, Icon } from 'components/@common';
+import { FlexContainer, Title, TextUnderline, Icon } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
 
+import CartItemManage from './Containers/CartItemManage';
+import CartItemList from './Containers/CartItemList';
+import ProductOrder from './Containers/ProductOrder';
 import * as S from './styles';
-import ItemManage from './Containers/ItemManage';
-import ItemList from './Containers/ItemList';
 
 export function CartList() {
   const { state } = useCart();
   const { cartItems, isLoaded, checkedItemList } = state;
 
   const isSelectAllChecked = checkedItemList.length > 0;
-  const totalAmount = checkedItemList.reduce(
-    (previous, { price, quantity }) => previous + price * quantity,
-    0,
-  );
 
   return (
     <>
@@ -28,7 +24,7 @@ export function CartList() {
 
       <S.Container>
         <FlexContainer gap={16}>
-          <ItemManage isAllChecked={isSelectAllChecked} />
+          <CartItemManage isAllChecked={isSelectAllChecked} />
 
           <FlexContainer>
             <Title type="content" size={14}>
@@ -38,25 +34,12 @@ export function CartList() {
               </TextUnderline>
             </Title>
 
-            <ItemList />
+            <CartItemList />
           </FlexContainer>
         </FlexContainer>
 
         <FlexContainer direction="column">
-          <S.OrderContainer>
-            <Title type="content" size={18}>
-              상품 주문하기
-            </Title>
-
-            <FlexContainer direction="row" justify="space-between">
-              <TextUnderline>결제 예상 금액</TextUnderline>
-              <TextUnderline>{`${getNumberFormatter(totalAmount)}원`}</TextUnderline>
-            </FlexContainer>
-
-            <FlexContainer>
-              <Button state="primary">주문하기 ({checkedItemList.length}개)</Button>
-            </FlexContainer>
-          </S.OrderContainer>
+          <ProductOrder />
         </FlexContainer>
       </S.Container>
     </>
