@@ -5,9 +5,8 @@ import { useCount } from '../../../hooks/useCount';
 import { ProductType } from '@/domain/product';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@/route';
-import { addCart } from '@/api/cart';
-import { useState } from 'react';
-import Loading from '@/components/common/Loading/Loading';
+import { useDispatch } from 'react-redux';
+import { fetchAddCartAsync } from '@/store/cart/action';
 interface CartAddPropsType {
   product: Pick<ProductType, 'name' | 'price' | 'quantity'>;
   closeModal: () => void;
@@ -15,6 +14,8 @@ interface CartAddPropsType {
 
 function CartAdd({ product, closeModal }: CartAddPropsType) {
   const { name, price, quantity } = product;
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -24,20 +25,14 @@ function CartAdd({ product, closeModal }: CartAddPropsType) {
     max: quantity,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const onClickCartAdd = () => {
+    dispatch(fetchAddCartAsync({ ...product, quantity: count }) as any);
 
-  const onClickCartAdd = async () => {
-    setIsLoading(true);
-    try {
-      await addCart({ ...product, quantity: count });
-
-      closeModal();
+    if (confirm('장바구니로 이동하시겠습니까?')) {
       navigate(ROUTE.ShoppingCart);
-    } catch ({ message }) {
-      alert(message);
-    } finally {
-      setIsLoading(false);
     }
+
+    closeModal();
   };
 
   return (
@@ -58,8 +53,6 @@ function CartAdd({ product, closeModal }: CartAddPropsType) {
       </Styled.TotalPriceWrapper>
 
       <Styled.Button onClick={onClickCartAdd}>장바구니에 담기</Styled.Button>
-
-      {isLoading && <Loading type="page">👻</Loading>}
     </Styled.Container>
   );
 }
