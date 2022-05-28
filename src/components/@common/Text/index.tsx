@@ -1,9 +1,9 @@
 import React from 'react';
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css, DefaultTheme, CSSProperties } from 'styled-components';
 import { Colors } from 'styles/theme';
 
-type Weight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'normal' | 'bold';
-type Align = 'start' | 'end' | 'center' | 'justify';
+type Align = CSSProperties['textAlign'];
+type Weight = CSSProperties['fontWeight'];
 
 interface TextProps {
   theme: DefaultTheme;

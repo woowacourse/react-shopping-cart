@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
+import styled, { css, CSSProperties } from 'styled-components';
 
-type Direction = 'row' | 'row-reverse' | 'column' | 'column-reverse';
-type Wrap = 'nowrap' | 'wrap' | 'wrap-reverse';
-type Justify = 'normal' | 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
-type Align = 'normal' | 'center' | 'start' | 'flex-start' | 'end' | 'flex-end' | 'stretch';
+type Direction = CSSProperties['flexDirection'];
+type Wrap = CSSProperties['flexWrap'];
+type Justify = CSSProperties['justifyContent'];
+type Align = CSSProperties['alignItems'];
 
 interface FlexProps {
   w?: string;
