@@ -19,7 +19,7 @@ const cartHandlers = [
       return { product, quantity };
     });
 
-    return res(ctx.status(200), ctx.json(joinedCart));
+    return res(ctx.delay(2000), ctx.status(200), ctx.json(joinedCart));
   }),
   rest.post(`${SERVER_URL}/cart`, (req, res, ctx) => {
     if (!req.body) {

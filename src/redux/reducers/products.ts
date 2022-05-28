@@ -1,11 +1,14 @@
-import { Action } from '../../types';
+import { Action, Product } from '../../types';
 import { TYPES } from '../actions';
 
-const initialState = {
+const initialState: {
+  isLoading: boolean;
+  error: any;
+  productList: Product[];
+} = {
   isLoading: false,
   error: null,
   productList: [],
-  productDetail: null,
 };
 
 const products = (state = initialState, action: Action) => {
@@ -17,15 +20,6 @@ const products = (state = initialState, action: Action) => {
       return { ...state, isLoading: false, productList: action.payload };
     }
     case `${TYPES.GET_PRODUCT_LIST}_REJECTED`: {
-      return { ...state, isLoading: false, error: action.payload };
-    }
-    case `${TYPES.GET_PRODUCT_DETAIL}_PENDING`: {
-      return { ...state, isLoading: true, error: null };
-    }
-    case `${TYPES.GET_PRODUCT_DETAIL}_FULFILLED`: {
-      return { ...state, isLoading: false, productDetail: action.payload };
-    }
-    case `${TYPES.GET_PRODUCT_DETAIL}_REJECTED`: {
       return { ...state, isLoading: false, error: action.payload };
     }
     default:

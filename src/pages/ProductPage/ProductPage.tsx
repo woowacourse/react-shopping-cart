@@ -5,8 +5,9 @@ import useProductDetail from './useProductDetail';
 
 function ProductPage() {
   const { id } = useParams();
-  const { isLoading, productDetail, error, isAlreadyAdded, addItemToCart } =
-    useProductDetail(id as string);
+  const { isLoading, productDetail, error, addItemToCart } = useProductDetail(
+    id as string
+  );
 
   if (error) {
     alert(error);
@@ -32,7 +33,7 @@ function ProductPage() {
           <dt>제품 설명</dt>
           <dd>{productDetail.description}</dd>
         </dl>
-        {isAlreadyAdded ? (
+        {productDetail.isAddedToCart ? (
           <StyledAddToCartButton disabled>이미 추가됨</StyledAddToCartButton>
         ) : (
           <StyledAddToCartButton onClick={addItemToCart}>

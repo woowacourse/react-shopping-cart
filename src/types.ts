@@ -11,6 +11,7 @@ export type Product = {
   brandId: string;
   categoryId: string;
   createdAt: number;
+  isAddedToCart?: boolean;
 };
 
 export type CartItem = {
@@ -28,6 +29,10 @@ export type StoreState = {
     isLoading: boolean;
     error: any;
     productList: Product[];
+  };
+  productDetailState: {
+    isLoading: boolean;
+    error: any;
     productDetail: Product | null;
   };
   cartState: {

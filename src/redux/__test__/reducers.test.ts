@@ -7,6 +7,10 @@ const initialState = {
     isLoading: false,
     error: null,
     productList: [],
+  },
+  productDetailState: {
+    isLoading: false,
+    error: null,
     productDetail: null,
   },
   cartState: {

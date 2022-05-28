@@ -9,17 +9,8 @@ import MainPage from './pages/MainPage/MainPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import CartPage from './pages/CartPage/CartPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from './redux/actions';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(actions.getCart());
-  }, [dispatch]);
-
   return (
     <>
       <GlobalStyle />
