@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CartItem from '../../components/CartItem/CartItem';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import Spinner from '../../components/Spinner/Spinner';
-import DivideLine from '../DivideLine/DivideLine';
+import DivideLine from '../../components/DivideLine/DivideLine';
 import useCart from './useCart';
 
 function CartPage() {
