@@ -7,18 +7,19 @@ import { CART_SIZE, COLOR } from 'constants/styles';
 
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
 import { BasicButton, Flex } from 'components/shared/basics';
-import { logIn, logOut } from 'store/user';
+import useUser from 'hooks/useUser';
 
 function Header() {
-  const dispatch = useDispatch();
+  const { login, logout } = useUser();
+
   const { carts } = useSelector((state) => state.carts);
   const { isLoggedIn } = useSelector((state) => state.user);
 
   const handleClickLogin = () => {
     if (isLoggedIn) {
-      dispatch(logOut());
+      logout();
     } else {
-      dispatch(logIn('a1b2c3d4'));
+      login();
     }
   };
 

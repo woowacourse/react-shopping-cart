@@ -4,7 +4,7 @@ export const API = {
   CARTS: 'carts',
   PRODUCTS: 'products',
   PRODUCT: 'product',
-  CARTSINFO: 'cartsInfo',
+  AUTH: 'auth',
 };
 
 export default API_URL;
