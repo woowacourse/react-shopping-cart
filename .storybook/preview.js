@@ -1,14 +1,12 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-
+import { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/globalStyles';
+import theme from 'styles/theme';
 
 import rootReducer from 'store';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { setProductList } from 'store/productList/actions';
-import { ThemeProvider } from 'styled-components';
-import theme from 'styles/theme';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -21,19 +19,6 @@ export const parameters = {
 };
 
 const store = createStore(rootReducer, composeWithDevTools());
-
-const loadProductList = () => {
-  fetch(`${process.env.REACT_APP_BASE_URL}/productList`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((res) => store.dispatch(setProductList(res)));
-};
-
-loadProductList();
 
 export const decorators = [
   (Story) => (
