@@ -10,7 +10,7 @@ function CartItemList() {
   const dispatch = useDispatch();
 
   const { cartAction, cartThunk, state } = useCart();
-  const { cartItems, isLoading, isLoaded, errorMessage } = state;
+  const { cartItems, cartListAsyncState } = state;
 
   const handleCheckItem = (id, isChecked) => {
     dispatch(cartAction.updateItemCheck(id, isChecked));
@@ -34,7 +34,11 @@ function CartItemList() {
 
   return (
     <FlexContainer direction="column" justify="center">
-      <SwitchAsync isLoading={isLoading} isError={!!errorMessage} isContentLoaded={isLoaded}>
+      <SwitchAsync
+        isLoading={cartListAsyncState.isLoading}
+        isError={!!cartListAsyncState.error}
+        isContentLoaded={cartListAsyncState.isLoaded}
+      >
         <Case.Success>
           {(cartItems.length > 0 &&
             cartItems.map(({ id, image, name, price, quantity, isChecked }) => (
@@ -58,7 +62,7 @@ function CartItemList() {
         </Case.Loading>
 
         <Case.Error>
-          <StatusMessage status="error">{errorMessage}</StatusMessage>
+          <StatusMessage status="error">{cartListAsyncState.error}</StatusMessage>
         </Case.Error>
       </SwitchAsync>
     </FlexContainer>

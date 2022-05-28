@@ -16,10 +16,10 @@ export function ProductList() {
   const dispatch = useDispatch();
 
   const productState = useSelector((state) => state.products);
-  const { content: products, isLoading, error: errorMessage } = productState.productInfo;
+  const { productList, listAsyncState: productsAsyncState } = productState;
 
   const { state: cartState } = useCart();
-  const { cartItems } = cartState;
+  const { cartItems, cartListAsyncState } = cartState;
 
   useEffect(() => {
     dispatch(productsThunk.getList());
@@ -27,26 +27,26 @@ export function ProductList() {
 
   const handleAddCart = ({ id, image, name, price }) => {
     dispatch(cartThunk.addList({ id, image, name, price })).then(() => {
-      cartState.isLoaded && alert('해당 상품을 장바구니에 추가하였습니다.');
+      cartListAsyncState.isLoaded && alert('해당 상품을 장바구니에 추가하였습니다.');
     });
   };
 
   const handleRemoveCart = ({ id }) => {
     dispatch(cartThunk.removeItem(id)).then(() => {
-      cartState.isLoaded && alert('해당 상품을 장바구니에서 제거하였습니다.');
+      cartListAsyncState.isLoaded && alert('해당 상품을 장바구니에서 제거하였습니다.');
     });
   };
 
   return (
     <SwitchAsync
-      isLoading={isLoading}
-      isError={!!errorMessage}
-      isContentLoaded={products.length > 0}
+      isLoading={productsAsyncState.isLoading}
+      isError={!!productsAsyncState.errorMessage}
+      isContentLoaded={productList.length > 0}
     >
       <Case.Success>
         <S.Container>
-          {products &&
-            products.map(({ id, name, goodsPrice, listImage }) => {
+          {productList &&
+            productList.map(({ id, name, goodsPrice, listImage }) => {
               const cartItem = cartItems.find(({ product }) => product === id);
 
               return (
@@ -71,7 +71,7 @@ export function ProductList() {
       </Case.Loading>
 
       <Case.Error>
-        <StatusMessage status="error">{errorMessage}</StatusMessage>
+        <StatusMessage status="error">{productsAsyncState.errorMessage}</StatusMessage>
       </Case.Error>
     </SwitchAsync>
   );

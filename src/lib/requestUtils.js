@@ -28,10 +28,9 @@ const request = async (url, option) => {
 };
 
 const createAsyncState = {
-  initial: (defaultContent) => ({
+  initial: () => ({
     isLoading: false,
     isLoaded: false,
-    content: defaultContent,
     error: null,
   }),
   pending: () => ({ isLoading: true, isLoaded: false, error: null }),

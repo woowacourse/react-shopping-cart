@@ -5,7 +5,8 @@ import { PRODUCTS_ACTIONS } from 'actions/types';
 import { createAsyncState } from 'lib/requestUtils';
 
 const initialState = {
-  productInfo: createAsyncState.initial([]),
+  productList: [],
+  listAsyncState: createAsyncState.initial(),
 };
 
 export default (state = initialState, action) => {
@@ -14,12 +15,12 @@ export default (state = initialState, action) => {
   switch (type) {
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_PENDING:
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_ERROR:
-      return { ...state, productInfo: { ...state.productInfo, ...async } };
+      return { ...state, listAsyncState: async };
 
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS:
       return produce(state, (draft) => {
-        draft.productInfo = { ...draft.productInfo, ...async };
-        draft.productInfo.content = payload;
+        draft.productList = payload;
+        draft.listAsyncState = async;
       });
 
     default:

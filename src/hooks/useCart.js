@@ -5,10 +5,11 @@ import * as cartAction from 'actions/cart/action';
 import * as cartThunk from 'actions/cart/thunk';
 
 function useCart() {
-  const { items: cartItems } = useSelector((state) => state.cart);
-  const checkedItemList = cartItems.content.filter(({ isChecked }) => isChecked === true);
-
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart);
+  const { items, listAsyncState } = cartState;
+
+  const checkedItemList = items.filter(({ isChecked }) => isChecked === true);
 
   useEffect(() => {
     dispatch(cartThunk.getList());
@@ -17,13 +18,7 @@ function useCart() {
   return {
     cartAction,
     cartThunk,
-    state: {
-      cartItems: cartItems.content,
-      isLoading: cartItems.isLoading,
-      isLoaded: cartItems.isLoaded,
-      errorMessage: cartItems.error,
-      checkedItemList,
-    },
+    state: { cartItems: items, cartListAsyncState: listAsyncState, checkedItemList },
   };
 }
 
