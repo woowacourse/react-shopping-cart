@@ -27,13 +27,15 @@ export function ProductList() {
 
   const handleAddCart = ({ id, image, name, price }) => {
     dispatch(cartThunk.addList({ id, image, name, price })).then(() => {
-      cartListAsyncState.isLoaded && alert('해당 상품을 장바구니에 추가하였습니다.');
+      cartListAsyncState.isLoaded === false &&
+        alert(`장바구니 상품 추가에 실패하였습니다.\n오류 내용 : ${cartListAsyncState.error}`);
     });
   };
 
   const handleRemoveCart = ({ id }) => {
     dispatch(cartThunk.removeItem(id)).then(() => {
-      cartListAsyncState.isLoaded && alert('해당 상품을 장바구니에서 제거하였습니다.');
+      cartListAsyncState.isLoaded === false &&
+        alert(`장바구니 상품 제거에 실패하였습니다.\n오류 내용 : ${cartListAsyncState.error}`);
     });
   };
 
