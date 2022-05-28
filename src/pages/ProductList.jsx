@@ -9,12 +9,12 @@ import { getProductList } from 'actions/products';
 
 import * as Styled from './styles';
 
-export const ProductList = () => {
+const ProductList = () => {
   const { items: productList, errorMessage } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProductList());
+    if (productList.length === 0) dispatch(getProductList());
   }, []);
 
   return (
@@ -23,7 +23,7 @@ export const ProductList = () => {
         {errorMessage && <h1>{errorMessage}</h1>}
         {productList ? (
           productList.map(({ id, name, price, thumbnail }) => (
-            <ProductItem key={id} id={id} image={thumbnail} name={name} price={price} />
+            <ProductItem key={id} id={id} thumbnail={thumbnail} name={name} price={price} />
           ))
         ) : (
           <EmptyProductItem />
@@ -32,4 +32,5 @@ export const ProductList = () => {
     </Layout>
   );
 };
+
 export default ProductList;

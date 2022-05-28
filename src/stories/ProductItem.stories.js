@@ -1,7 +1,4 @@
-import { Provider } from 'react-redux';
-
 import ProductItem from '../components/ProductItem';
-import store from 'store';
 
 export default {
   title: 'Component/ProductItem',
@@ -11,15 +8,13 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <Provider store={store}>
-    <ProductItem {...args} />
-  </Provider>
-);
+const Template = (args) => <ProductItem {...args} />;
 
 export const DefaultTemplate = Template.bind({});
+
 DefaultTemplate.args = {
-  image: '기본 이미지 URL',
+  thumbnail: 'https://storybook.takealook.kr/image/potato.jpg',
   name: '감자',
   price: 50000,
+  id: 0,
 };

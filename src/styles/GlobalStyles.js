@@ -15,7 +15,13 @@ const GlobalStyles = css`
   }
 
   body {
-    background-color: ${COLORS.GRAY_001};
+    background-color: ${COLORS.GRAY_100};
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;
 

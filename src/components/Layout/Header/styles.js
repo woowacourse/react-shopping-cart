@@ -9,7 +9,7 @@ const Container = styled.header`
   grid-template-columns: repeat(3, 1fr);
   background-color: ${COLORS.WHITE};
   padding: 1.7rem 1.2rem;
-  border-bottom: 1px solid ${COLORS.GRAY_003};
+  border-bottom: 1px solid ${COLORS.GRAY_300};
 `;
 
 const LeftMenuButton = styled.button`
@@ -30,7 +30,9 @@ const LeftMenuButton = styled.button`
 `;
 
 const Logo = styled(CommonStyled.FlexWrapper)`
+  cursor: pointer;
   justify-content: center;
+  height: 100%;
   background-image: url(${logo});
   background-size: 70%;
   background-repeat: no-repeat;
@@ -45,9 +47,10 @@ const RightMenu = styled.ul`
 `;
 
 const RightMenuButton = styled.li`
+  cursor: pointer;
   font-size: 0.9rem;
   padding: 1rem;
-  color: ${COLORS.GRAY_005};
+  color: ${COLORS.GRAY_500};
 
   &::before {
     font-family: 'Font Awesome 6 Free';
@@ -56,6 +59,10 @@ const RightMenuButton = styled.li`
 
     padding-right: 0.625rem;
     content: '\\${(props) => props.icon}';
+  }
+
+  &:hover {
+    color: ${COLORS.GRAY_400};
   }
 `;
 

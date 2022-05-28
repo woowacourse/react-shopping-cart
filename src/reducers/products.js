@@ -10,10 +10,10 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case 상품리스트_불러오기_액션.SUCCESS:
-      return { ...state, items: [...state.items, ...payload] };
+      return { items: [...state.items, ...payload] };
 
     case 상품리스트_불러오기_액션.FAILURE:
-      return { ...state, errorMessage: payload };
+      return { errorMessage: payload };
 
     default:
       return state;

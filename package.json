@@ -6,6 +6,8 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -26,10 +28,12 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.5.0-beta.7",
     "@storybook/testing-library": "^0.0.11",
+    "chromatic": "^6.5.4",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
+    "msw": "^0.39.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "webpack": "^5.72.0"
@@ -42,7 +46,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "chromatic": "npx chromatic --project-token="
   },
   "browserslist": {
     "production": [
@@ -55,5 +60,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
