@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Layout from 'components/@common/Layout';
 import ProductListPage from 'pages/ProductListPage';
+import LoadingSpinner from 'components/@common/LoadingSpinner';
 
 const ProductDetailPage = lazy(() => import('pages/ProductDetailPage'));
 const CartPage = lazy(() => import('pages/CartPage'));
@@ -11,7 +12,7 @@ const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 const Routers = () => {
   return (
     <BrowserRouter basename="/react-shopping-cart">
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="" element={<ProductListPage />} />
