@@ -74,5 +74,6 @@ const Style = {
   `,
   CartListWrapper: styled.div`
     width: 60%;
+    min-width: 480px;
   `,
 };

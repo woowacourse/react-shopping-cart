@@ -34,6 +34,7 @@ export default TotalPrice;
 const Style = {
   TotalPriceContainer: styled.section`
     width: 35%;
+    min-width: 280px;
     height: 260px;
     margin-top: 80px;
 

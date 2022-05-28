@@ -22,7 +22,9 @@ export default Carts;
 
 const Style = {
   Container: styled.section`
-    padding: 24px 300px;
+    width: 60%;
+    min-width: 800px;
+    margin: 0 auto;
   `,
   Header: styled.header`
     display: flex;
