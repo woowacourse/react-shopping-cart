@@ -82,6 +82,7 @@ export const removeCartProducts =
       const replaceProducts = newProducts.map((product) => {
         if (checkedProductIds.includes(product.id)) {
           product.isInShoppingCart = false;
+
           return product;
         }
         return product;

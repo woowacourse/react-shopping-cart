@@ -30,6 +30,7 @@ const ShoppingCartPage = () => {
 
   const handleRemoveProducts = () => {
     dispatch(removeCartProducts(setSnackBarTypeFail));
+    dispatch(removeIds());
   };
 
   useEffect(() => {
