@@ -29,6 +29,7 @@ Counter.Input = function InputCounter({
     isErrorInput: false,
   });
 
+  /** error input 인 경우 블러되더라도 input은 사라지지 않는다. 사용자 경험 고려 */
   const onBlur = () => {
     setCountInput(prev => ({
       ...prev,
