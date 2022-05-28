@@ -8,7 +8,7 @@ import useCart from '../hooks/useCart';
 
 function ProductListPage() {
   const { data: productList, isLoading, isError } = useFetch(SERVER_PATH.PRODUCTS);
-  const cartList = useSelector(({ cart }) => cart.cart);
+  const cartList = useSelector(({ cart }) => cart.data);
   const { addItem, deleteItem } = useCart();
 
   const handleCartItem = (id, isCart) => {

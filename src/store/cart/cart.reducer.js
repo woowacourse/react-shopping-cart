@@ -1,20 +1,40 @@
 import { actionTypes } from './cart.actions';
 
 const initialState = {
-  cart: [],
+  data: [],
+  isLoading: false,
+  isError: false,
 };
 
-function cartReducer(state = initialState, action) {
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_CART:
-      return { ...state, cart: [...action.payload] };
     case actionTypes.DELETE_CART:
-      return { ...state, cart: [...action.payload] };
     case actionTypes.UPDATE_ITEM_QUANTITY:
-      return { ...state, cart: [...action.payload] };
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case actionTypes.ADD_CART_SUCCESS:
+    case actionTypes.DELETE_CART_SUCCESS:
+    case actionTypes.UPDATE_ITEM_QUANTITY_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        isLoading: false,
+      };
+    case actionTypes.ADD_CART_ERROR:
+    case actionTypes.DELETE_CART_ERROR:
+    case actionTypes.UPDATE_ITEM_QUANTITY_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
     default:
       return state;
   }
-}
+};
 
 export default cartReducer;
