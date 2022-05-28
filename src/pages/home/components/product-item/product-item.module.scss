@@ -37,6 +37,7 @@
 
 .productDetail {
   display: flex;
+  align-items: flex-end;
   padding: 10px 0px 10px 15px;
   & > .lLeft {
     width: 100%;
