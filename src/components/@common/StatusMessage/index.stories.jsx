@@ -16,6 +16,12 @@ Loading.args = {
   children: '로딩 상태를 출력하는 컴포넌트입니다.',
 };
 
+export const ContentEmpty = Template.bind({});
+ContentEmpty.args = {
+  status: 'empty',
+  children: '텅! 장바구니에 담은 상품이 없어요!',
+};
+
 export const Error = Template.bind({});
 Error.args = {
   status: 'error',

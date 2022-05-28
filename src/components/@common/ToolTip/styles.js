@@ -1,5 +1,5 @@
-import styled from '@emotion/styled/macro';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled/macro';
 
 import { COLORS, LAYOUT } from 'styles/theme';
 
@@ -10,7 +10,7 @@ const ALIGN_TRANSFORM = {
     transform: translateX(-50%) translateY(-100%);
 
     &::after {
-      border-top: 5px solid ${COLORS.LIGHTEN_MIN};
+      border-top: 5px solid ${COLORS.BLACK};
       border-right: 5px solid transparent;
       border-left: 5px solid transparent;
       bottom: -4px;
@@ -26,7 +26,7 @@ const ALIGN_TRANSFORM = {
     transform: translateX(-50%) translateY(100%);
 
     &::after {
-      border-bottom: 5px solid ${COLORS.LIGHTEN_MIN};
+      border-bottom: 5px solid ${COLORS.BLACK};
       border-right: 5px solid transparent;
       border-left: 5px solid transparent;
       top: -4px;
@@ -44,7 +44,7 @@ const ALIGN_TRANSFORM = {
     &::after {
       border-bottom: 5px solid transparent;
       border-top: 5px solid transparent;
-      border-left: 5px solid ${COLORS.LIGHTEN_MIN};
+      border-left: 5px solid ${COLORS.BLACK};
       right: -4px;
 
       top: 50%;
@@ -60,7 +60,7 @@ const ALIGN_TRANSFORM = {
     &::after {
       border-bottom: 5px solid transparent;
       border-top: 5px solid transparent;
-      border-right: 5px solid ${COLORS.LIGHTEN_MIN};
+      border-right: 5px solid ${COLORS.BLACK};
       left: -4px;
 
       top: 50%;
@@ -74,14 +74,16 @@ const Text = styled.div`
   visibility: hidden;
   border-radius: ${LAYOUT.BORDER_RADIUS}px;
   text-align: center;
-  background-color: ${COLORS.LIGHTEN_MIN};
-  color: ${COLORS.LIGHTEN_MAX};
+  background-color: ${COLORS.BLACK};
+  color: ${COLORS.WHITE};
   white-space: nowrap;
   padding: 0.425rem;
   font-size: 0.75rem;
 
   opacity: 0;
   transition: opacity 0.3s ease;
+
+  z-index: 5;
 
   ${({ isDisabled }) =>
     isDisabled &&

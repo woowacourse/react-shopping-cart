@@ -1,10 +1,11 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import animate from 'styles/utils/animate';
 
-import LoadingCharacter from 'assets/image/loading.png';
+import EmptyCharacter from 'assets/image/empty.png';
 import ErrorCharacter from 'assets/image/error.png';
+import LoadingCharacter from 'assets/image/loading.png';
 
 const CONTAINER_BEFORE = {
   LOADING: css`
@@ -24,6 +25,13 @@ const CONTAINER_BEFORE = {
         }
       `,
     )}
+  `,
+
+  EMPTY: css`
+    background-image: url(${EmptyCharacter});
+
+    width: 10rem;
+    height: 10rem;
   `,
 
   ERROR: css`
@@ -56,7 +64,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: 'Kirang Haerang';
+  font-family: 'Kirang Haerang', '맑은 고딕', sans-serif;
   font-size: 1.5rem;
   color: #000;
   letter-spacing: 3px;

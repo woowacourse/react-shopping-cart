@@ -1,59 +1,82 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getProductList } from 'actions/products';
-import { addCartList } from 'actions/cart';
+import { useDispatch, useSelector } from 'react-redux';
 
-import StatusMessage from 'components/@common/StatusMessage';
+import * as cartThunk from 'actions/cart/thunk';
+import * as productsThunk from 'actions/products/thunk';
+
+import useCart from 'hooks/useCart';
+
+import { StatusMessage } from 'components/@common';
+import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
+
 import ProductItem from 'components/ProductItem';
-import useAsyncContainer from 'hooks/useAsyncContainer';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 export function ProductList() {
   const dispatch = useDispatch();
 
+  const productState = useSelector((state) => state.products);
+  const { productList, listAsyncState: productsAsyncState } = productState;
+
+  const { state: cartState } = useCart();
+  const { cartItems, cartListAsyncState } = cartState;
+
   useEffect(() => {
-    dispatch(getProductList());
+    dispatch(productsThunk.getList());
   }, []);
 
-  const {
-    content: productList,
-    isLoading,
-    error: errorMessage,
-  } = useSelector((state) => state.products.products);
-
-  const AsyncContainer = useAsyncContainer({
-    isLoading,
-    isError: !!errorMessage,
-    isContentLoaded: productList.length > 0,
-  });
-
   const handleAddCart = ({ id, image, name, price }) => {
-    dispatch(addCartList({ id, image, name, price }));
-    alert(`${name}가 장바구니에 추가되었습니다 🧺`);
+    dispatch(cartThunk.addList({ id, image, name, price })).then(() => {
+      cartListAsyncState.isLoaded === false &&
+        alert(`장바구니 상품 추가에 실패하였습니다.\n오류 내용 : ${cartListAsyncState.error}`);
+    });
+  };
+
+  const handleRemoveCart = ({ id }) => {
+    dispatch(cartThunk.removeItem(id)).then(() => {
+      cartListAsyncState.isLoaded === false &&
+        alert(`장바구니 상품 제거에 실패하였습니다.\n오류 내용 : ${cartListAsyncState.error}`);
+    });
   };
 
   return (
-    <AsyncContainer
-      loadingFallback={
-        <StatusMessage status="loading">상품 목록을 불러오고 있습니다.</StatusMessage>
-      }
-      errorFallback={<StatusMessage status="error">{errorMessage}</StatusMessage>}
+    <SwitchAsync
+      isLoading={productsAsyncState.isLoading}
+      isError={!!productsAsyncState.errorMessage}
+      isContentLoaded={productList.length > 0}
     >
-      <Styled.ProductListWrapper>
-        {productList &&
-          productList.map(({ id, name, goodsPrice, listImage }) => (
-            <ProductItem
-              key={id}
-              id={id}
-              image={listImage}
-              name={name}
-              price={goodsPrice}
-              onClick={handleAddCart}
-            />
-          ))}
-      </Styled.ProductListWrapper>
-    </AsyncContainer>
+      <Case.Success>
+        <S.Container>
+          {productList &&
+            productList.map(({ id, name, goodsPrice, listImage }) => {
+              const cartItem = cartItems.find(({ product }) => product === id);
+
+              return (
+                <ProductItem
+                  key={id}
+                  id={id}
+                  image={listImage}
+                  name={name}
+                  price={goodsPrice}
+                  cartId={cartItem ? cartItem.id : null}
+                  onClickCartButton={
+                    cartItem ? () => handleRemoveCart({ id: cartItem.id }) : handleAddCart
+                  }
+                />
+              );
+            })}
+        </S.Container>
+      </Case.Success>
+
+      <Case.Loading>
+        <StatusMessage status="loading">상품 목록을 불러오고 있습니다.</StatusMessage>
+      </Case.Loading>
+
+      <Case.Error>
+        <StatusMessage status="error">{productsAsyncState.errorMessage}</StatusMessage>
+      </Case.Error>
+    </SwitchAsync>
   );
 }
 export default ProductList;

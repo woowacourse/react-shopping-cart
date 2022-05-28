@@ -1,26 +1,28 @@
 import PropTypes from 'prop-types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
-function Button({ className, type, icon, onClick, children }) {
+function Button({ className, type, state, icon, onClick, children }) {
   const containerType = children ? 'BUTTON' : 'ICON';
 
   return (
-    <Styled.Container
+    <S.Container
       className={className}
       type={type}
+      state={state}
       icon={icon}
       containerType={containerType}
       onClick={onClick}
     >
       {children}
-    </Styled.Container>
+    </S.Container>
   );
 }
 
 Button.defaultProps = {
   className: '',
   type: 'button',
+  state: 'default',
   icon: '',
   onClick: () => {},
 };
@@ -28,7 +30,7 @@ Button.defaultProps = {
 Button.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
-
+  state: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'info']),
   icon: PropTypes.string,
   onClick: PropTypes.func,
 };

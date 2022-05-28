@@ -13,6 +13,10 @@ module.exports = {
   core: {
     builder: '@storybook/builder-webpack5',
   },
+  babel: async (options) => ({
+    ...options,
+    plugins: ['@emotion'],
+  }),
   webpackFinal: async (config) => ({
     ...config,
     resolve: {

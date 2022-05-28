@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 function ToolTip({ text, align, isDisabled, children }) {
   return (
-    <Styled.Container text={text} isDisabled={isDisabled}>
-      <Styled.Text align={align}>{text}</Styled.Text>
+    <S.Container text={text} isDisabled={isDisabled}>
+      <S.Text align={align}>{text}</S.Text>
       {children}
-    </Styled.Container>
+    </S.Container>
   );
 }
 

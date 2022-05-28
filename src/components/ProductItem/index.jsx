@@ -1,49 +1,43 @@
 import PropTypes from 'prop-types';
 
-import Button from 'components/@common/Button';
-import ToolTip from 'components/@common/ToolTip';
+import HorizontalContent from './HorizontalContent';
+import VerticalContent from './VerticalContent';
 
-import { ICON_CODE } from 'constants/';
-import * as Styled from './styles';
+function ProductItem({
+  direction = 'vertical',
+  id,
+  image,
+  name,
+  price,
+  cartId,
+  onClickCartButton,
+}) {
+  if (direction === 'vertical') {
+    return <VerticalContent {...{ id, image, name, price, cartId, onClickCartButton }} />;
+  }
 
-function ProductItem({ id, image, name, price, onClick }) {
-  const handleClickAddCartButton = () => {
-    onClick({ id, image, name, price });
-  };
+  if (direction === 'horizontal') {
+    return <HorizontalContent {...{ id, image, name, price }} />;
+  }
 
-  return (
-    <Styled.Container>
-      <Styled.ImageContainer>
-        <Styled.Image src={image} alt="product thumbnail" />
-      </Styled.ImageContainer>
-
-      <Styled.Description>
-        <Styled.ItemInfo>
-          <Styled.Title>{name}</Styled.Title>
-          <Styled.Price>{price.toLocaleString('ko-KR')}원</Styled.Price>
-        </Styled.ItemInfo>
-
-        <Styled.ButtonContainer>
-          <ToolTip text="장바구니 담기" align="bottom">
-            <Button className="cart" onClick={handleClickAddCartButton} icon={ICON_CODE.CART} />
-          </ToolTip>
-        </Styled.ButtonContainer>
-      </Styled.Description>
-    </Styled.Container>
-  );
+  throw new Error('상품 목록 컴포넌트에 지원되지 않는 방향이 입력되었습니다');
 }
 
-ProductItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-};
-
 ProductItem.defaultProps = {
+  direction: 'vertical',
   image: '기본 이미지 URL',
   name: '이름이 지정되지 않았습니다.',
   price: -1,
+  cartId: null,
+};
+
+ProductItem.propTypes = {
+  direction: PropTypes.oneOf(['vertical', 'horizontal']),
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  cartId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ProductItem;

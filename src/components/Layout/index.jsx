@@ -1,19 +1,18 @@
 import { Outlet } from 'react-router-dom';
 
-import Header from './Header';
 import Footer from './Footer';
-
-import * as Styled from './styles';
+import Header from './Header';
+import * as S from './styles';
 
 function Layout() {
   return (
-    <Styled.Container>
+    <S.Container>
       <Header />
-      <Styled.Content>
+      <S.Content>
         <Outlet />
-      </Styled.Content>
+      </S.Content>
       <Footer />
-    </Styled.Container>
+    </S.Container>
   );
 }
 

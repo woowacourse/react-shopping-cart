@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    [
+      "@emotion",
+      {
+        "autoLabel": "dev-only",
+        "labelFormat": "-Component_[dirname]--Variable_[local]"
+      }
+    ]
+  ]
+}

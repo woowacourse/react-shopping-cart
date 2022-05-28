@@ -1,18 +1,34 @@
-import * as Styled from './styles';
+import { Link } from 'react-router-dom';
 
-const Header = () => (
-  <Styled.Container>
-    <Styled.LeftMenu>
-      <Styled.MenuButton type="button">전체 카테고리</Styled.MenuButton>
-    </Styled.LeftMenu>
+import useCart from 'hooks/useCart';
 
-    <Styled.Logo />
+import { PAGE_LIST } from 'constants/';
 
-    <Styled.RightMenu>
-      <Styled.RightMenuList className="cart">장바구니</Styled.RightMenuList>
-      <Styled.RightMenuList className="order-list">주문 목록</Styled.RightMenuList>
-    </Styled.RightMenu>
-  </Styled.Container>
-);
+import * as S from './styles';
+
+function Header() {
+  const { state: cartState } = useCart();
+
+  return (
+    <S.Container>
+      <S.LeftMenu>
+        <S.MenuButton type="button">전체 카테고리</S.MenuButton>
+      </S.LeftMenu>
+
+      <Link to={PAGE_LIST.HOME}>
+        <S.Logo />
+      </Link>
+
+      <S.RightMenu>
+        <Link to={PAGE_LIST.CART_LIST}>
+          <S.RightMenuList className="cart" count={cartState.cartItems.length}>
+            장바구니
+          </S.RightMenuList>
+        </Link>
+        <S.RightMenuList className="order-list">주문 목록</S.RightMenuList>
+      </S.RightMenu>
+    </S.Container>
+  );
+}
 
 export default Header;
