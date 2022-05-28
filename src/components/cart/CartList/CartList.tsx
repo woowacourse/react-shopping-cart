@@ -10,6 +10,7 @@ function CartList({
   checkEveryCartItemChecked,
   decreaseCartItemCount,
   increaseCartItemCount,
+  changeCartItemCount,
   deleteCartItem,
   deleteSelectedCartItem,
   selectCartItem,
@@ -49,6 +50,7 @@ function CartList({
           isChecked={checkCartItemChecked(cart.id)}
           onClickDecreaseButton={() => decreaseCartItemCount(cart)}
           onClickIncreaseButton={() => increaseCartItemCount(cart)}
+          onChangeCount={count => changeCartItemCount(cart, count)}
           onClickDeleteButton={() => deleteCartItem(cart)}
           onClickCheckBox={() => selectCartItem(cart)}
         />

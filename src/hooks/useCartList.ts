@@ -48,6 +48,17 @@ export const useCartList = () => {
     dispatch(fetchPatchCartAsync(id, { ...cart, quantity: quantity + 1 }) as any);
   }, []);
 
+  const changeCartItemCount = useCallback((cart, count) => {
+    const { id } = cart;
+    if (count <= 0 || count >= 100) {
+      throw new Error('1이상 99이하의 숫자를 입력해주세요');
+    }
+
+    if (confirm('수량을 변경하시겠습니까?')) {
+      dispatch(fetchPatchCartAsync(id, { ...cart, quantity: count }) as any);
+    }
+  }, []);
+
   const deleteCartItem = useCallback(cart => {
     const { id } = cart;
 
@@ -87,6 +98,7 @@ export const useCartList = () => {
     cartItemEvent: {
       decreaseCartItemCount,
       increaseCartItemCount,
+      changeCartItemCount,
       deleteCartItem,
       deleteSelectedCartItem,
       selectCartItem,

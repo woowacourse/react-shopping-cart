@@ -14,6 +14,7 @@ function CartItem({
   isChecked,
   onClickDecreaseButton,
   onClickIncreaseButton,
+  onChangeCount,
   onClickDeleteButton,
   onClickCheckBox,
 }) {
@@ -51,10 +52,11 @@ function CartItem({
           {isLoading ? (
             <Loading type="ui">👻</Loading>
           ) : (
-            <Counter
+            <Counter.Input
               count={quantity}
               increaseCount={onClickIncreaseButton}
               decreaseCount={onClickDecreaseButton}
+              changeCount={onChangeCount}
             />
           )}
         </Styled.CounterWrapper>
