@@ -71,7 +71,7 @@
     "redux-devtools-extension": "^2.13.9",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://kkojae91.github.io/react-shopping-cart/",
+  "homepage": "https://kkojae91.github.io/react-shopping-cart",
   "msw": {
     "workerDirectory": "public"
   }

@@ -10,29 +10,39 @@ import createThunkMiddleware from "./lib/thunk";
 import ThemeProvider from "./ThemeProvider";
 import appReducer from "./modules";
 
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/browser");
+async function main() {
+  if (process.env.NODE_ENV === "development") {
+    if (window.location.pathname === "/react-shopping-cart") {
+      window.location.pathname = "/react-shopping-cart/";
 
-  worker.start({
-    serviceWorker: {
-      url: "/react-shopping-cart/mockServiceWorker.js",
-    },
-  });
+      return;
+    }
+
+    const { worker } = require("./mocks/browser");
+
+    await worker.start({
+      serviceWorker: {
+        url: "/react-shopping-cart/mockServiceWorker.js",
+      },
+    });
+
+    const store = createStore(
+      appReducer,
+      composeWithDevTools(applyMiddleware(createThunkMiddleware()))
+    );
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Provider store={store}>
+          <ThemeProvider>
+            <GlobalStyles />
+            <App />
+          </ThemeProvider>
+        </Provider>
+      </BrowserRouter>
+    );
+  }
 }
 
-const store = createStore(
-  appReducer,
-  composeWithDevTools(applyMiddleware(createThunkMiddleware()))
-);
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <Provider store={store}>
-      <ThemeProvider>
-        <GlobalStyles />
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </BrowserRouter>
-);
+main();
