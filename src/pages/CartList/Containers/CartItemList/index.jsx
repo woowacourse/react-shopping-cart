@@ -10,15 +10,16 @@ function CartItemList() {
   const dispatch = useDispatch();
 
   const { cartAction, cartThunk, state } = useCart();
-  const { cartItems, cartListAsyncState } = state;
+  const { cartItems, cartListAsyncState, cartCurdAsyncState } = state;
 
   const handleCheckItem = (id, isChecked) => {
     dispatch(cartAction.updateItemCheck(id, isChecked));
   };
 
   const handleChangeQuantity = (id, quantity) => {
-    dispatch(cartThunk.updateItem(id, { quantity })).then((status) => {
-      status === false && alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
+    dispatch(cartThunk.updateItem(id, { quantity })).then(() => {
+      cartCurdAsyncState.isLoaded === false &&
+        alert('서버 오류로 인해 상품 정보 갱신에 실패하였습니다.');
     });
   };
 
@@ -27,8 +28,10 @@ function CartItemList() {
       return;
     }
 
-    dispatch(cartThunk.removeItem(id)).then((status) => {
-      status ? alert('해당 상품을 제거하였습니다.') : alert('해당 상품 제거에 실패하였습니다.');
+    dispatch(cartThunk.removeItem(id)).then(() => {
+      cartCurdAsyncState.isLoaded
+        ? alert('해당 상품을 제거하였습니다.')
+        : alert('해당 상품 제거에 실패하였습니다.');
     });
   };
 

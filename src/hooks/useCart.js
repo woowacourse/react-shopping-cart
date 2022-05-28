@@ -7,7 +7,7 @@ import * as cartThunk from 'actions/cart/thunk';
 function useCart() {
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state.cart);
-  const { items, listAsyncState } = cartState;
+  const { items, listAsyncState, curdAsyncState } = cartState;
 
   const checkedItemList = items.filter(({ isChecked }) => isChecked === true);
 
@@ -18,7 +18,12 @@ function useCart() {
   return {
     cartAction,
     cartThunk,
-    state: { cartItems: items, cartListAsyncState: listAsyncState, checkedItemList },
+    state: {
+      cartItems: items,
+      cartListAsyncState: listAsyncState,
+      cartCurdAsyncState: curdAsyncState,
+      checkedItemList,
+    },
   };
 }
 
