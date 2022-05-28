@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { COLORS } from 'styles/theme';
 
 import * as S from './styles';

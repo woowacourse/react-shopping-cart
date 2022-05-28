@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-import VerticalContent from './VerticalContent';
 import HorizontalContent from './HorizontalContent';
+import VerticalContent from './VerticalContent';
 
 function ProductItem({
   direction = 'vertical',

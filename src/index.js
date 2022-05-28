@@ -1,15 +1,16 @@
-import ReactDOM from 'react-dom/client';
 import ShoppingCartApp from 'ShoppingCartApp';
-import { BrowserRouter } from 'react-router-dom';
-
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import store from 'store';
 
-import imagePreload from 'lib/imagePreload';
-import * as preloadAssets from 'assets/preloadAssets';
-
 import { Global } from '@emotion/react';
+
 import GlobalStyles from 'styles/GlobalStyles';
+
+import * as preloadAssets from 'assets/preloadAssets';
+import imagePreload from 'lib/imagePreload';
+
+import ReactDOM from 'react-dom/client';
 
 if (process.env.NODE_ENV === 'development') {
   const MSW_TARGET_PATH = `${process.env.PUBLIC_URL}/`;

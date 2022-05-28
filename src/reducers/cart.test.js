@@ -1,5 +1,7 @@
 import { CARTS_ACTIONS } from 'actions/types';
+
 import { createAsyncState } from 'lib/requestUtils';
+
 import cartReducer from './cart';
 
 describe('장바구니 영역 상태 CURD 테스트', () => {

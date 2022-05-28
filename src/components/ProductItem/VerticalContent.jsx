@@ -1,7 +1,8 @@
-import { getNumberFormatter } from 'lib/formatterUtils';
 import { Button, ToolTip } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
+import { getNumberFormatter } from 'lib/formatterUtils';
+
 import * as S from './styles';
 
 function VerticalContent({ id, image, name, price, cartId, onClickCartButton }) {

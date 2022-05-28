@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
+
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import { ICON_CODE } from 'constants/';
 import { getPixelToRem } from 'lib/formatterUtils';

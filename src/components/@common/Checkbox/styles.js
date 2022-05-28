@@ -1,7 +1,8 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 import { BRAND_COLORS, COLORS, LAYOUT } from 'styles/theme';
+
 import { ICON_CODE } from 'constants/';
 import { getPixelToRem } from 'lib/formatterUtils';
 

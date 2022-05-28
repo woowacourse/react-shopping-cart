@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import * as S from './styles';
 
 function Checkbox({ size, checked, onChange, children }) {

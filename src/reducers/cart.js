@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import produce from 'immer';
+
 import { CARTS_ACTIONS } from 'actions/types';
+
 import { createAsyncState } from 'lib/requestUtils';
 
 const initialState = {

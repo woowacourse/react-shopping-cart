@@ -4,8 +4,8 @@ import { FlexContainer, Title, TextUnderline, Icon } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
 
-import CartItemManage from './Containers/CartItemManage';
 import CartItemList from './Containers/CartItemList';
+import CartItemManage from './Containers/CartItemManage';
 import ProductOrder from './Containers/ProductOrder';
 import * as S from './styles';
 

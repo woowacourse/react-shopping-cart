@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
 import { BRAND_COLORS, COLORS } from 'styles/theme';
 
 import logo from 'assets/image/logo.png';

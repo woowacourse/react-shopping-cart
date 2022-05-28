@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Layout from 'components/Layout';
-
-import ProductList from 'pages/ProductList';
 import CartList from 'pages/CartList';
 import NotFound from 'pages/NotFound';
+import ProductList from 'pages/ProductList';
+
+import Layout from 'components/Layout';
 
 import { PAGE_LIST } from 'constants/';
 

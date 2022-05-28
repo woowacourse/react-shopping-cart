@@ -1,6 +1,7 @@
 import styled from '@emotion/styled/macro';
 
 import FlexContainer from 'components/@common/FlexContainer';
+
 import { COLORS } from 'styles/theme';
 
 const OrderContainer = styled.div`

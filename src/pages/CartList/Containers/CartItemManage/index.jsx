@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import useCart from 'hooks/useCart';
 
 import { Button, Checkbox, ToolTip } from 'components/@common';
+
 import { ICON_CODE } from 'constants/';
 
 import * as S from './styles';

@@ -1,4 +1,5 @@
 import { ICON_CODE } from 'constants/';
+
 import Icon from './index';
 
 export default {

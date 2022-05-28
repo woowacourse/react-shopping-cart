@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+
 import { Icon } from 'components/@common';
 
 import { ICON_CODE } from 'constants/';
+
 import * as S from './styles';
 
 function Counter({ count, onChange }) {

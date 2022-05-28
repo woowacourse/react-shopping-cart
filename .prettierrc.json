@@ -5,5 +5,19 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "printWidth": 100,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "importOrder": [
+    "^((?!/).)*$",
+    "^(@|pages)(.*|$)",
+    "^(@|actions/)(.*|$)",
+    "^(@|reducers/)(.*|$)",
+    "^(@|hooks)(.*|$)",
+    "^(@|components/@common)(.*|$)",
+    "^(@|components)(.*|$)",
+    "^(@|styles)(.*|$)",
+    "^(@|(assets|constants|lib|api))(.*|$)",
+    "^(@|.)(.*|$)",
+    "^(@|..)(.*|$)"
+  ],
+  "importOrderSeparation": true
 }

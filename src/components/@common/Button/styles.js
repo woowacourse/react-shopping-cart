@@ -1,5 +1,5 @@
-import styled from '@emotion/styled/macro';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled/macro';
 
 import { LAYOUT, COLORS, BRAND_COLORS } from 'styles/theme';
 

@@ -1,10 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import { Button, Checkbox, Counter, FlexContainer, ToolTip } from 'components/@common';
+
 import ProductItem from 'components/ProductItem';
 
 import { ICON_CODE } from 'constants/';
+
 import * as S from './styles';
 
 function CartItem({

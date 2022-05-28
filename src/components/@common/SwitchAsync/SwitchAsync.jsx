@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import LoadingCase from './LoadingCase';
 import ErrorCase from './ErrorCase';
+import LoadingCase from './LoadingCase';
 import SuccessCase from './SuccessCase';
 
 function SwitchAsync({ isLoading, isError, isContentLoaded = true, children }) {

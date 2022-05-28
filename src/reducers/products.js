@@ -2,6 +2,7 @@
 import produce from 'immer';
 
 import { PRODUCTS_ACTIONS } from 'actions/types';
+
 import { createAsyncState } from 'lib/requestUtils';
 
 const initialState = {

@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as productsThunk from 'actions/products/thunk';
 import * as cartThunk from 'actions/cart/thunk';
+import * as productsThunk from 'actions/products/thunk';
 
 import useCart from 'hooks/useCart';
 
-import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
 import { StatusMessage } from 'components/@common';
+import { SwitchAsync, Case } from 'components/@common/SwitchAsync';
+
 import ProductItem from 'components/ProductItem';
 
 import * as S from './styles';

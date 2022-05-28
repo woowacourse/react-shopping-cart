@@ -1,10 +1,11 @@
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import { getPixelToRem } from 'lib/formatterUtils';
 import Icon from 'components/@common/Icon';
 
 import { BRAND_COLORS, COLORS } from 'styles/theme';
+
+import { getPixelToRem } from 'lib/formatterUtils';
 
 const TITLE_TYPE = {
   PAGE: css`

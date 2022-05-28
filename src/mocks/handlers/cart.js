@@ -1,5 +1,6 @@
 /* eslint-disable arrow-body-style */
 import { rest } from 'msw';
+
 import { MOCK_DB } from 'mocks/db';
 
 const cartDB = MOCK_DB.cart;

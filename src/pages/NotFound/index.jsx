@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, StatusMessage } from 'components/@common';
 
 import { ICON_CODE, PAGE_LIST } from 'constants/';
+
 import * as S from './styles';
 
 export function NotFound() {

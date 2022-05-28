@@ -6,6 +6,7 @@ import {
   requestUpdateCartItem,
 } from 'api/cart';
 import { REQUEST_STATUS } from 'constants/';
+
 import * as cartActions from './action';
 
 const getList =
