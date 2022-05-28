@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import produce from 'immer';
 import { CARTS_ACTIONS } from 'actions/types';
 import { createAsyncState } from 'lib/requestUtils';
 
@@ -12,65 +13,58 @@ export default (state = initialState, action) => {
   const { type, payload = {}, async = {} } = action;
 
   switch (type) {
-    case CARTS_ACTIONS.UPDATE_CART_LIST_SUCCESS: {
-      const updateCartList = payload.map((item) => ({ ...item, isChecked: true }));
-      return {
-        ...state,
-        items: updateCartList,
-        listAsyncState: async,
-      };
-    }
+    case CARTS_ACTIONS.UPDATE_CART_LIST_SUCCESS:
+      return produce(state, (draft) => {
+        draft.items = payload.map((item) => ({ ...item, isChecked: true }));
+        draft.listAsyncState = async;
+      });
+
     case CARTS_ACTIONS.UPDATE_CART_LIST_PENDING:
     case CARTS_ACTIONS.UPDATE_CART_LIST_ERROR:
-      return { ...state, listAsyncState: async };
+      return produce(state, (draft) => {
+        draft.listAsyncState = async;
+      });
 
-    case CARTS_ACTIONS.ADD_CART_LIST_SUCCESS: {
-      const updateCartList = [...state.items];
-      updateCartList.push({ ...payload, isChecked: true });
+    case CARTS_ACTIONS.ADD_CART_LIST_SUCCESS:
+      return produce(state, (draft) => {
+        draft.items.push({ ...payload, isChecked: true });
+        draft.curdAsyncState = async;
+      });
 
-      return { ...state, items: updateCartList, curdAsyncState: async };
-    }
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_SUCCESS:
+      return produce(state, (draft) => {
+        const { id: updatedId } = payload;
+        const targetIndex = state.items.findIndex(({ id }) => id === updatedId);
 
-    case CARTS_ACTIONS.UPDATE_CART_ITEM_SUCCESS: {
-      const { id: updatedId } = payload;
-      const targetIndex = state.items.findIndex(({ id }) => id === updatedId);
+        draft.items[targetIndex] = { ...draft.items[targetIndex], ...payload };
+        draft.curdAsyncState = async;
+      });
 
-      const updateCartList = [...state.items];
-      updateCartList[targetIndex] = { ...updateCartList[targetIndex], ...payload };
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_CHECKED:
+      return produce(state, (draft) => {
+        const { id: updatedId, isChecked } = payload;
+        const targetIndex = state.items.findIndex(({ id }) => id === updatedId);
 
-      return { ...state, items: updateCartList, curdAsyncState: async };
-    }
+        draft.items[targetIndex].isChecked = isChecked;
+      });
 
-    case CARTS_ACTIONS.UPDATE_CART_ITEM_CHECKED: {
-      const { id: updatedId, isChecked } = payload;
-      const targetIndex = state.items.findIndex(({ id }) => id === updatedId);
+    case CARTS_ACTIONS.UPDATE_CART_ITEM_ALL_CHECKED:
+      return produce(state, (draft) => {
+        const { isChecked } = payload;
+        draft.items = draft.items.map((item) => ({ ...item, isChecked }));
+      });
 
-      const updateCartList = [...state.items];
-      updateCartList[targetIndex].isChecked = isChecked;
+    case CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS:
+      return produce(state, (draft) => {
+        const { id: updatedId } = payload;
+        draft.items = draft.items.filter(({ id }) => id !== updatedId);
+      });
 
-      return { ...state, items: updateCartList };
-    }
-
-    case CARTS_ACTIONS.UPDATE_CART_ITEM_ALL_CHECKED: {
-      const { isChecked } = payload;
-      const updateCartList = [...state.items].map((item) => ({ ...item, isChecked }));
-
-      return { ...state, items: updateCartList };
-    }
-
-    case CARTS_ACTIONS.REMOVE_CART_ITEM_SUCCESS: {
-      const { id: updatedId } = payload;
-      const updateCartList = [...state.items].filter(({ id }) => id !== updatedId);
-
-      return { ...state, items: updateCartList, curdAsyncState: async };
-    }
-
-    case CARTS_ACTIONS.REMOVE_CART_ITEM_LIST_SUCCESS: {
-      const { idList } = payload;
-      const updateCartList = [...state.items].filter(({ id }) => !idList.includes(id));
-
-      return { ...state, items: updateCartList, curdAsyncState: async };
-    }
+    case CARTS_ACTIONS.REMOVE_CART_ITEM_LIST_SUCCESS:
+      return produce(state, (draft) => {
+        const { idList } = payload;
+        draft.items = draft.items.filter(({ id }) => !idList.includes(id));
+      });
 
     default:
       return state;
