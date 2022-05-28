@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
 import { addId, removeId } from "../../../../../../modules/checkedIds";
 import {
   updateCartProductQuantity,
@@ -8,9 +7,7 @@ import {
 } from "../../../../../../modules/cartProducts";
 import { setSnackBarTypeFail } from "../../../../../../modules/snackBar";
 
-const useShoppingCartProduct = (id, checked, price, quantity) => {
-  const [isChecked, setChecked] = useState(true);
-  const [productPrice, setProductPrice] = useState(0);
+const useShoppingCartProduct = (id, isChecked, productPrice) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,14 +48,6 @@ const useShoppingCartProduct = (id, checked, price, quantity) => {
   const handleRemoveProduct = () => {
     dispatch(removeCartProduct(id, setSnackBarTypeFail));
   };
-
-  useEffect(() => {
-    setChecked(checked);
-  }, [checked]);
-
-  useEffect(() => {
-    setProductPrice(price * quantity);
-  }, [price, quantity]);
 
   return {
     handleItemClick,

@@ -2,6 +2,7 @@ import * as S from "./index.styles";
 import RemoveIcon from "../../../../RemoveIcon";
 import useShoppingCartProduct from "./hook/useShoppingCartProduct";
 import ProductImage from "../../../../ProductImage";
+import { useEffect, useState } from "react";
 
 const ProductInfoContainer = ({
   id,
@@ -71,6 +72,9 @@ const ShoppingCartProduct = ({
   quantity,
   id,
 }) => {
+  const [isChecked, setChecked] = useState(true);
+  const [productPrice, setProductPrice] = useState(0);
+
   const {
     handleChecked,
     handleIncrement,
@@ -79,9 +83,16 @@ const ShoppingCartProduct = ({
     handleBackspaceByUser,
     handleRemoveProduct,
     handleItemClick,
-    isChecked,
-    productPrice,
-  } = useShoppingCartProduct(id, checked, price, quantity);
+  } = useShoppingCartProduct(id, isChecked, productPrice);
+
+  useEffect(() => {
+    setChecked(checked);
+  }, [checked]);
+
+  useEffect(() => {
+    setProductPrice(price * quantity);
+  }, [price, quantity]);
+
   return (
     <S.ShoppingCartProduct>
       <ProductInfoContainer
