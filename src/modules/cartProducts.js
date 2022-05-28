@@ -48,13 +48,13 @@ export const postCartProduct =
       );
     } finally {
       const replaceProducts = products.data.map((product) => {
-        if (product.id === id) return newProduct;
+        if (product.id === Number(id)) return newProduct;
         return product;
       });
 
       dispatch({
         type: REPLACE_PRODUCTS,
-        replaceProducts: replaceProducts,
+        replaceProducts,
       });
     }
   };

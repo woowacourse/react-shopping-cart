@@ -47,6 +47,7 @@ export const handlers = [
     const { id } = req.params;
     const newProducts = shoppingCart.current.map((product) => {
       if (product.id === Number(id)) return req.body;
+
       return product;
     });
     shoppingCart.current = newProducts;
@@ -70,6 +71,7 @@ export const handlers = [
     const replaceProducts = shoppingCart.current.filter(
       (product) => product.id !== Number(id)
     );
+
     shoppingCart.current = replaceProducts;
 
     return res();
