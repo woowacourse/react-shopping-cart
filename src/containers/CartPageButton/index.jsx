@@ -13,16 +13,14 @@ function CartPageButton() {
 
   return (
     <CartPageButtonStyled>
-      <MarginWrapper marginRight="4px">
-        <FlexWrapper>
-          <MarginWrapper marginRight="4px">
-            <Link to="/cart-list">
-              <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
-            </Link>
-          </MarginWrapper>
-          <Circle>{carts.length}</Circle>
-        </FlexWrapper>
-      </MarginWrapper>
+      <FlexWrapper>
+        <MarginWrapper marginRight="4px">
+          <Link to="/cart-list">
+            <WhiteButton fontSize="1.5rem">장바구니</WhiteButton>
+          </Link>
+        </MarginWrapper>
+        <Circle>{carts.length}</Circle>
+      </FlexWrapper>
     </CartPageButtonStyled>
   );
 }
