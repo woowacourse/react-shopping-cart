@@ -15,7 +15,9 @@ export default (state = initialState, action) => {
   switch (type) {
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_PENDING:
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_ERROR:
-      return { ...state, listAsyncState: async };
+      return produce(state, (draft) => {
+        draft.listAsyncState = async;
+      });
 
     case PRODUCTS_ACTIONS.UPDATE_PRODUCT_LIST_SUCCESS:
       return produce(state, (draft) => {
