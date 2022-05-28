@@ -1,7 +1,9 @@
-import 'index.css';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
+import GlobalStyle from 'styles/GlobalStyle';
 
 import { Provider } from 'react-redux';
-import { store } from 'store/store';
+import { store } from 'redux/store';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,8 +17,11 @@ export const parameters = {
 
 export const decorators = [
   Story => (
-    <Provider store={store}>
-      <Story />
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <GlobalStyle />
+        <Story />
+      </Provider>
+    </ThemeProvider>
   ),
 ];
