@@ -1,22 +1,17 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import productObjsEquality from "@redux/equalities/productObjsEquality";
 import createAction from "@redux/createAction";
 import ACTION_TYPE from "@redux/actions";
 import Button from "@shared/button/Button";
 import LabeledCheckbox from "@shared/checkbox/labeled-checkbox/LabeledCheckbox";
-import cartEquality from "@redux/equalities/cartEquality";
 import getSelectedProductIds from "@cart/utils/getSelectedProductIds";
 import CartItem from "../cart-item/CartItem";
 import styles from "./cart-form.module";
 
 function CartForm({ className }) {
   const dispatch = useDispatch();
-  const productObjs = useSelector(
-    (state) => state.productObjs,
-    productObjsEquality
-  );
-  const cart = useSelector((state) => state.cart, cartEquality);
+  const productObjs = useSelector((state) => state.productObjs);
+  const cart = useSelector((state) => state.cart);
   const productIdsInCart = Object.keys(cart);
   const selectedProductIds = getSelectedProductIds(cart);
   const isAllSelected =
