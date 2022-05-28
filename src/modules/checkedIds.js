@@ -28,7 +28,10 @@ export const addId = (id) => ({
 const removeProductId = (state, action) => {
   const removeIndex = state.findIndex((id) => id === action.removeId);
   const newState = [...state];
-  newState.splice(removeIndex, 1);
+
+  if (removeIndex !== -1) {
+    newState.splice(removeIndex, 1);
+  }
 
   return newState;
 };
