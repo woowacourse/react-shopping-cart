@@ -1,20 +1,23 @@
 import axios from 'axios';
 
-const client = async (endPoint) => {
-  const config = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
+const getResult = async (execute) => {
+  try {
+    const res = await execute();
 
-  const res = await axios.get(`http://localhost:4000/${endPoint}`, config);
-
-  if (res.statusText !== 'OK') {
-    throw new Error();
+    return res.data;
+  } catch (error) {
+    throw new Error(error.response.data.error);
   }
-
-  return res.data;
 };
 
-export default client;
+export const getApi = async (endPoint, data = {}) =>
+  getResult(() => axios.get(`/${endPoint}`), data);
+
+export const postApi = async (endPoint, data = {}) =>
+  getResult(() => axios.post(`/${endPoint}`, data));
+
+export const putApi = async (endPoint, data = {}) =>
+  getResult(() => axios.put(`/${endPoint}`, data));
+
+export const deleteApi = async (endPoint, data = {}) =>
+  getResult(() => axios.delete(`/${endPoint}`, data));

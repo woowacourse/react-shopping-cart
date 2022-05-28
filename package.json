@@ -35,6 +35,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
+    "msw": "^0.40.0",
     "redux-devtools": "^3.7.0",
     "webpack": "^5.72.0"
   },
@@ -102,5 +103,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

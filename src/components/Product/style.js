@@ -8,26 +8,26 @@ export default styled.div`
     width: 100%;
     height: 260px;
     margin-bottom: 18px;
+    transition: transform 0.2s;
   }
 
   .thumbnail:hover {
     transform: scale(1.2);
   }
 
-  .bottom {
-    color: ${({ theme }) => theme.black};
+  .title {
+    font-size: 1.6rem;
+  }
 
-    .title {
-      font-size: 1.6rem;
-    }
+  .title:hover {
+    text-decoration: underline;
+  }
 
-    .price {
-      font-size: 2rem;
-    }
+  .price {
+    font-size: 2rem;
+  }
 
-    img {
-      width: 30px;
-      height: 30px;
-    }
+  .product-rest-info {
+    width: calc(100% - 50px);
   }
 `;

@@ -60,7 +60,7 @@
       "title": "배달이친구들 지금뭐해 피규어. 감자의 수확하는 계절",
       "price": 3500
     },
-        {
+    {
       "id": 11,
       "imgSrc": "https://cdn-mart.baemin.com/sellergoods/main/52e07957-c5ab-4f0c-862b-9dc6318dfffa.png",
       "title": "엽서. 복",
@@ -78,5 +78,7 @@
       "title": "발로텔리",
       "price": 30000
     }
+  ],
+  "carts": [
   ]
 }
