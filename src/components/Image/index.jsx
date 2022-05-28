@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import ImageStyled from './style';
-function Image({ src, width, height, alt }) {
-  const fallback =
-    'https://www.peregrine-bryant.co.uk/img/uploadsfiles/2018/05/placeholder-test.png';
+function Image({ src, width, height, alt, onClick }) {
+  const fallback = process.env.PUBLIC_URL + '/img/fallback.png';
   const [imgSrc, setImgSrc] = useState(src);
   const onError = () => setImgSrc(fallback);
 
@@ -14,6 +13,7 @@ function Image({ src, width, height, alt }) {
       width={width}
       height={height}
       alt={alt}
+      onClick={onClick}
     />
   );
 }

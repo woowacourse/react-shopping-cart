@@ -2,9 +2,13 @@ import React from 'react';
 
 import MarginWrapperStyled from './style';
 
-function MarginWrapper({ children, marginRight, marginBottom }) {
+function MarginWrapper({ children, marginTop, marginRight, marginBottom }) {
   return (
-    <MarginWrapperStyled marginRight={marginRight} marginBottom={marginBottom}>
+    <MarginWrapperStyled
+      marginTop={marginTop}
+      marginRight={marginRight}
+      marginBottom={marginBottom}
+    >
       {children}
     </MarginWrapperStyled>
   );

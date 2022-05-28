@@ -2,9 +2,13 @@ import React from 'react';
 
 import FlexWrapperStyled from './style';
 
-function FlexWrapper({ children, alignItems, justifyContent }) {
+function FlexWrapper({ children, flexDirection, alignItems, justifyContent }) {
   return (
-    <FlexWrapperStyled alignItems={alignItems} justifyContent={justifyContent}>
+    <FlexWrapperStyled
+      flexDirection={flexDirection}
+      alignItems={alignItems}
+      justifyContent={justifyContent}
+    >
       {children}
     </FlexWrapperStyled>
   );

@@ -1,44 +1,34 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import { ProductListStyled, MessageWrapperStyled } from './style';
-import Product from 'templates/Product';
-import { requestProductsAdd } from 'modules/product';
-import BlackText from 'components/BlackText';
+import ProductListStyled from './style';
+import StateMessage from 'containers/StateMessage';
 
-import useDataFetch from 'hooks/useDataFetch';
+import MESSAGE from 'constants';
+import { useGetProductList } from 'hooks/useDataFetch';
+import Product from 'containers/Product';
 
 function ProductList() {
   const products = useSelector((state) => state.product.products);
+  const isLoading = useSelector((state) => state.product.isLoading);
+  const isError = useSelector((state) => state.product.isError);
 
-  const dispatch = useDispatch();
+  const productsList = useGetProductList();
 
-  const [{ data, isLoading, isError }] = useDataFetch(process.env.REACT_APP_DATA_SERVER, products);
-  dispatch(requestProductsAdd(data));
+  useEffect(() => {
+    productsList();
+  }, []);
 
   if (isLoading) {
-    return (
-      <MessageWrapperStyled>
-        <BlackText fontSize="30px" fontWeight="800">
-          로딩중...
-        </BlackText>
-      </MessageWrapperStyled>
-    );
+    return <StateMessage message={MESSAGE.LOADING} />;
   }
 
   if (isError) {
-    return (
-      <MessageWrapperStyled>
-        <BlackText fontSize="30px" fontWeight="800">
-          에러! 개발자에게 문의하세요.
-        </BlackText>
-      </MessageWrapperStyled>
-    );
+    return <StateMessage message={MESSAGE.ERROR} />;
   }
-
   return (
     <ProductListStyled>
-      {data.map((product) => (
+      {products.map((product) => (
         <Product key={product.id} {...product} />
       ))}
     </ProductListStyled>

@@ -11,20 +11,18 @@ import ProductTitle from 'containers/ProductTitle';
 
 import ProductStyled from './style';
 
-function Product({ imgSrc, title, price }) {
-  const handleProductClick = () => {};
-
+function Product({ id, imgSrc, title, price }) {
   return (
     <ProductStyled>
       <MarginWrapper marginBottom="18px">
-        <Link onClick={handleProductClick} to="">
+        <Link to="">
           <Image src={imgSrc} width="100%" height="14.24vmax" alt="상품 이미지" />
         </Link>
       </MarginWrapper>
       <FlexWrapper alignItems="center" justifyContent="center">
         <div>
           <MarginWrapper marginBottom="6px">
-            <Link className="link-text" onClick={handleProductClick} to="">
+            <Link className="link-text" to="">
               <ProductTitle>{title}</ProductTitle>
             </Link>
           </MarginWrapper>
@@ -32,7 +30,7 @@ function Product({ imgSrc, title, price }) {
             {price.toLocaleString()}원
           </BlackText>
         </div>
-        <CartButton />
+        <CartButton id={id} />
       </FlexWrapper>
     </ProductStyled>
   );
