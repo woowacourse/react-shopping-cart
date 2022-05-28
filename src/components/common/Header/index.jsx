@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
+
 import { ROUTE, COLOR } from 'constants';
+import { ReactComponent as CartIcon } from 'assets/icon/Cart.svg';
 
 const Styled = {
   Wrapper: styled.header`
@@ -12,7 +13,7 @@ const Styled = {
     background: ${COLOR.HEADER_BACKGROUND};
     width: 100%;
     height: 80px;
-    color: ${COLOR.HEADER_FONT};
+    color: ${COLOR.DEFAULT_FONT};
     margin-bottom: 60px;
   `,
   LogoBox: styled(Link)`

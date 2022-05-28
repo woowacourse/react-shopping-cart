@@ -20,3 +20,4 @@ npm-debug.log*
 
 # storybook
 build-storybook.log
+storybook-static

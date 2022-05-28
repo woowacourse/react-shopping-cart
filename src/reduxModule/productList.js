@@ -1,16 +1,23 @@
 const GET_PRODUCT_LIST = 'productList/GET_PRODUCT_LIST';
 const GET_PRODUCT_LIST_SUCCESS = 'productList/GET_PRODUCT_LIST_SUCCESS';
 const GET_PRODUCT_LIST_ERROR = 'productList/GET_PRODUCT_LIST_ERROR';
+const CACHE_PRODUCT_LIST = 'productList/CACHE_PRODUCT_LIST';
 
-export const getProductList = () => async (dispatch) => {
+export const getProductList = () => async (dispatch, getState) => {
+  const productList = getState().productListReducer.posts.productList;
+  if (productList.length !== 0) {
+    dispatch({ type: CACHE_PRODUCT_LIST });
+    return;
+  }
   dispatch({ type: GET_PRODUCT_LIST });
+
   try {
     const response = await loadProductList();
     if (!response.ok) {
       throw new Error(response);
     }
-    const productList = await response.json();
-    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList });
+    const db = await response.json();
+    dispatch({ type: GET_PRODUCT_LIST_SUCCESS, productList: db.productList });
   } catch (e) {
     dispatch({ type: GET_PRODUCT_LIST_ERROR, error: e });
   }
@@ -55,6 +62,9 @@ const productListReducer = (state = initialState, action) => {
       },
     };
   }
+  if (action.type === CACHE_PRODUCT_LIST) {
+    return state;
+  }
   return state;
 };
 
@@ -65,7 +75,6 @@ export const loadProductList = async () => {
       'Content-Type': 'application/json',
     },
   });
-
   return response;
 };
 

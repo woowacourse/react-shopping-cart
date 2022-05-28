@@ -21,6 +21,56 @@ export const CardDetailButton = styled(StyledButton)`
   }
 `;
 
+export const OrderButton = styled(StyledButton)`
+  width: 404px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 22px;
+  color: ${COLOR.DEFAULT_FONT};
+  background: ${COLOR.ORDER_BUTTON};
+
+  :hover {
+    background: ${COLOR.ORDER_BUTTON_HOVER};
+  }
+`;
+
+export const UpCountButton = styled(StyledButton)`
+  width: 42px;
+  height: 30px;
+  border: 1px solid #dddddd;
+
+  :hover {
+    background: #2ac1bc;
+    color: #fff;
+  }
+`;
+
+export const DownCountButton = styled(UpCountButton)`
+  transform: rotate(180deg);
+`;
+
+export const DeleteTrashButton = styled(StyledButton)`
+  width: fit-content;
+  height: fit-content;
+  font-size: 22px;
+  background: transparent;
+
+  &:hover {
+    background: gray;
+  }
+`;
+
+export const DeleteButton = styled(StyledButton)`
+  width: 117px;
+  height: 30px;
+  border: 1px solid #bbbbbb;
+
+  &:hover {
+    background: gray;
+    color: #fff;
+  }
+`;
+
 export const flexCenter = styled.div`
   display: flex;
   justify-content: center;

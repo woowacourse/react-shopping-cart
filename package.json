@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.1.1",
+    "@testing-library/user-event": "^13.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
@@ -30,6 +33,7 @@
     "eslint-plugin-storybook": "^0.5.11",
     "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
+    "msw": "^0.39.2",
     "prettier": "^2.6.2",
     "webpack": "^5.72.1"
   },
@@ -42,8 +46,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build:storybook": "build-storybook -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "build-storybook": "build-storybook -s public"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +54,30 @@
       "react-app/jest"
     ],
     "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
       {
         "files": [
           "**/*.stories.*"
@@ -137,5 +164,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "."
+  "homepage": ".",
+  "msw": {
+    "workerDirectory": "pulic"
+  }
 }

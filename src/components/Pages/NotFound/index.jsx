@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { ROUTE } from 'constants';
+import { flexColumnCenter } from 'components/common/Styled';
+
 import HomeButtonImage from 'assets/image/home_button.png';
 import NotFoundImage from 'assets/image/not_found.png';
-import { flexColumnCenter } from 'components/common/Styled';
-import { ROUTE } from 'constants';
 
 const Styled = {
   Wrapper: styled(flexColumnCenter)`

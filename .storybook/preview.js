@@ -1,12 +1,12 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import GlobalStyles from 'styles/globalStyles';
 
 import rootReducer from 'modules';
-import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { setProductList } from 'modules/productList';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -18,20 +18,7 @@ export const parameters = {
   },
 };
 
-const store = createStore(rootReducer, composeWithDevTools());
-
-const loadProductList = () => {
-  fetch('http://localhost:8080/productList', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((res) => store.dispatch(setProductList(res)));
-};
-
-loadProductList();
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 export const decorators = [
   (Story) => (
