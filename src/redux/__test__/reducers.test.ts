@@ -1,6 +1,20 @@
-import rootReducer, { initialState } from '../reducers';
+import rootReducer from '../reducers';
 import { TYPES } from '../actions';
 import { products } from '../../mocks/db.json';
+
+const initialState = {
+  productsState: {
+    isLoading: false,
+    error: null,
+    productList: [],
+    productDetail: null,
+  },
+  cartState: {
+    isLoading: false,
+    error: null,
+    cart: [],
+  },
+};
 
 describe('전체 상품 목록을 불러올 수 있다.', () => {
   const expectedActions = {

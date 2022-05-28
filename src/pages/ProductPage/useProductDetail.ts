@@ -3,16 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
 
+type SelectedState = {
+  isLoading: StoreState['productsState']['isLoading'];
+  error: StoreState['productsState']['error'];
+  productDetail: StoreState['productsState']['productDetail'];
+  cart: StoreState['cartState']['cart'];
+};
+
 const useProductDetail = (id: string) => {
   const dispatch = useDispatch();
-  const { isLoading, productDetail, error, cart } = useSelector(
-    (state: StoreState) => ({
-      isLoading: state.isLoading,
-      productDetail: state.productDetail,
-      error: state.error,
-      cart: state.cart,
-    })
-  );
+  const { isLoading, error, productDetail, cart } = useSelector<
+    StoreState,
+    SelectedState
+  >(({ productsState, cartState }) => ({
+    isLoading: productsState.isLoading,
+    productDetail: productsState.productDetail,
+    error: productsState.error,
+    cart: cartState.cart,
+  }));
   const isAlreadyAdded = useMemo(
     () => !!cart.find(({ product }) => product.id === id),
     [cart, id]

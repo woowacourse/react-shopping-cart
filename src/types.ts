@@ -24,11 +24,17 @@ export type Action = {
 };
 
 export type StoreState = {
-  isLoading: boolean;
-  error: any;
-  productList: Product[];
-  productDetail: Product | null;
-  cart: { product: Product; quantity: number; checked: boolean }[];
+  productsState: {
+    isLoading: boolean;
+    error: any;
+    productList: Product[];
+    productDetail: Product | null;
+  };
+  cartState: {
+    isLoading: boolean;
+    error: any;
+    cart: { product: Product; quantity: number; checked: boolean }[];
+  };
 };
 
 export type Theme = typeof theme;

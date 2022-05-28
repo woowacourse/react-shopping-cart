@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
 
+type SelectedState = StoreState['cartState'];
+
 const useCart = () => {
   const dispatch = useDispatch();
-  const { isLoading, error, cart } = useSelector((state: StoreState) => ({
-    isLoading: state.isLoading,
-    error: state.error,
-    cart: state.cart,
-  }));
+  const { isLoading, error, cart } = useSelector<StoreState, SelectedState>(
+    ({ cartState }) => ({
+      isLoading: cartState.isLoading,
+      error: cartState.error,
+      cart: cartState.cart,
+    })
+  );
   const [checkedFlags, setCheckedFlags] = useState<Record<string, boolean>>({});
   const totalPrice = useMemo(
     () =>
