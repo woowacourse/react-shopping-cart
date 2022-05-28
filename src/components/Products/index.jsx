@@ -15,7 +15,7 @@ const Products = ({ products }) => {
         <Product
           product={product}
           key={product.id}
-          handleItemClick={handleItemClick(product.id)}
+          onItemClick={handleItemClick(product.id)}
           {...product}
         />
       ))}

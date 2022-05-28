@@ -13,7 +13,7 @@ const Product = ({
   imgUrl,
   title,
   price,
-  handleItemClick,
+  onItemClick,
   product,
   isInShoppingCart,
   id,
@@ -21,7 +21,7 @@ const Product = ({
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const handlePutInShoppingCart = () => {
+  const handleCartClick = () => {
     dispatch(
       postCartProduct(id, product, setSnackBarTypeSuccess, setSnackBarTypeFail)
     );
@@ -29,17 +29,13 @@ const Product = ({
 
   return (
     <S.ProductContainer>
-      <ProductImage
-        imgUrl={imgUrl}
-        title={title}
-        handleItemClick={handleItemClick}
-      />
+      <ProductImage imgUrl={imgUrl} title={title} onItemClick={onItemClick} />
       <S.ProductInfoWrapper>
-        <div onClick={handleItemClick}>
+        <div onClick={onItemClick}>
           <S.ProductInfo>{title}</S.ProductInfo>
           <S.ProductInfo>{price}원</S.ProductInfo>
         </div>
-        <button type="button" onClick={handlePutInShoppingCart}>
+        <button type="button" onClick={handleCartClick}>
           <ShoppingCartIcon
             width="30px"
             height="30px"

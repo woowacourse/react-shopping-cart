@@ -15,7 +15,7 @@ const useShoppingCartProduct = (id, isChecked, productPrice) => {
     navigate(`/product/${id}`);
   };
 
-  const handleChecked = (id) => {
+  const handleProductCheckBoxClick = (id) => {
     if (isChecked) {
       dispatch(removeId(id));
       return;
@@ -23,19 +23,19 @@ const useShoppingCartProduct = (id, isChecked, productPrice) => {
     dispatch(addId(id));
   };
 
-  const handleIncrement = () => {
+  const handleIncreaseIconClick = () => {
     dispatch(updateCartProductQuantity(id, "increment"));
   };
 
-  const handleDecrement = () => {
+  const handleDecreaseIconClick = () => {
     dispatch(updateCartProductQuantity(id, "decrement"));
   };
 
-  const handleUpdateQuantityByUser = ({ target }) => {
+  const handleUpdateQuantityChange = ({ target }) => {
     dispatch(updateCartProductQuantity(id, "ByUserInput", target.value));
   };
 
-  const handleBackspaceByUser = (event) => {
+  const handleBackspaceKeyDown = (event) => {
     const { key, target } = event;
 
     if (key !== "Backspace") return;
@@ -45,18 +45,18 @@ const useShoppingCartProduct = (id, isChecked, productPrice) => {
     target.select();
   };
 
-  const handleRemoveProduct = () => {
+  const handleRemoveIconClick = () => {
     dispatch(removeCartProduct(id, setSnackBarTypeFail));
   };
 
   return {
+    handleProductCheckBoxClick,
+    handleIncreaseIconClick,
+    handleDecreaseIconClick,
     handleItemClick,
-    handleChecked,
-    handleIncrement,
-    handleDecrement,
-    handleUpdateQuantityByUser,
-    handleBackspaceByUser,
-    handleRemoveProduct,
+    handleUpdateQuantityChange,
+    handleBackspaceKeyDown,
+    handleRemoveIconClick,
     isChecked,
     productPrice,
   };

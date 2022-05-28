@@ -17,7 +17,7 @@ const ProductDetailsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handlePutInShoppingCart = () => {
+  const handleCartClick = () => {
     dispatch(
       postCartProduct(
         id,
@@ -38,10 +38,7 @@ const ProductDetailsPage = () => {
   return (
     <S.DetailPageContainer>
       <S.DetailContainer>
-        <ProductDetails
-          handlePutInShoppingCart={handlePutInShoppingCart}
-          {...product.data}
-        />
+        <ProductDetails onCartClick={handleCartClick} {...product.data} />
       </S.DetailContainer>
     </S.DetailPageContainer>
   );

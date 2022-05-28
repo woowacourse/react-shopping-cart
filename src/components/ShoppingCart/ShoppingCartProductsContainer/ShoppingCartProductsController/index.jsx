@@ -3,8 +3,8 @@ import * as S from "./index.styles";
 
 const ShoppingCartProductsController = ({
   isAllChecked,
-  handleAllChecked,
-  handleRemoveProducts,
+  onAllCheckedClick,
+  onRemoveAllItemClick,
 }) => {
   return (
     <S.ProductsControlContainer>
@@ -14,13 +14,13 @@ const ShoppingCartProductsController = ({
           id="total-check"
           name="total-check"
           checked={isAllChecked}
-          onChange={handleAllChecked}
+          onChange={onAllCheckedClick}
         />
         <label htmlFor="total-check">
           {isAllChecked ? "선택해제" : "전체선택"}
         </label>
       </S.ProductsCheckBoxContainer>
-      <S.ProductsRemoveButton onClick={handleRemoveProducts} type="button">
+      <S.ProductsRemoveButton onClick={onRemoveAllItemClick} type="button">
         상품삭제
       </S.ProductsRemoveButton>
     </S.ProductsControlContainer>

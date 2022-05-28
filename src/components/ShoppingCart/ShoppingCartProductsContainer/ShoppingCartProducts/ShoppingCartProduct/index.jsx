@@ -9,21 +9,17 @@ const ProductInfoContainer = ({
   imgUrl,
   title,
   isChecked,
-  handleChecked,
-  handleItemClick,
+  onProductCheckBoxClick,
+  onItemClick,
 }) => {
   return (
     <S.ProductInfoContainer>
       <S.ProductCheckBox
         type="checkbox"
         checked={isChecked}
-        onChange={() => handleChecked(id)}
+        onChange={() => onProductCheckBoxClick(id)}
       />
-      <ProductImage
-        imgUrl={imgUrl}
-        title={title}
-        handleItemClick={handleItemClick}
-      />
+      <ProductImage imgUrl={imgUrl} title={title} onItemClick={onItemClick} />
       <S.ProductTitle>{title}</S.ProductTitle>
     </S.ProductInfoContainer>
   );
@@ -32,29 +28,29 @@ const ProductInfoContainer = ({
 const ProductQuantityControlContainer = ({
   price,
   productQuantity,
-  handleIncrement,
-  handleDecrement,
-  handleUpdateQuantityByUser,
-  handleBackspaceByUser,
-  handleRemoveProduct,
+  onIncreaseIconClick,
+  onDecreaseIconClick,
+  onUpdateQuantityChange,
+  onBackspaceKeyDown,
+  onRemoveIconClick,
 }) => {
   return (
     <S.ProductQuantityControlContainer>
-      <button onClick={handleRemoveProduct} type="button">
+      <button onClick={onRemoveIconClick} type="button">
         <RemoveIcon fill="#666" alt="삭제 버튼" />
       </button>
       <S.QuantityButtonControlContainer>
         <S.ProductQuantityInput
           type="number"
           value={productQuantity}
-          onChange={handleUpdateQuantityByUser}
-          onKeyDown={handleBackspaceByUser}
+          onChange={onUpdateQuantityChange}
+          onKeyDown={onBackspaceKeyDown}
         />
         <S.ButtonContainer>
-          <S.QuantityButton type="button" onClick={handleIncrement}>
+          <S.QuantityButton type="button" onClick={onIncreaseIconClick}>
             🔼
           </S.QuantityButton>
-          <S.QuantityButton type="button" onClick={handleDecrement}>
+          <S.QuantityButton type="button" onClick={onDecreaseIconClick}>
             🔽
           </S.QuantityButton>
         </S.ButtonContainer>
@@ -76,12 +72,12 @@ const ShoppingCartProduct = ({
   const [productPrice, setProductPrice] = useState(0);
 
   const {
-    handleChecked,
-    handleIncrement,
-    handleDecrement,
-    handleUpdateQuantityByUser,
-    handleBackspaceByUser,
-    handleRemoveProduct,
+    handleProductCheckBoxClick,
+    handleIncreaseIconClick,
+    handleDecreaseIconClick,
+    handleUpdateQuantityChange,
+    handleBackspaceKeyDown,
+    handleRemoveIconClick,
     handleItemClick,
   } = useShoppingCartProduct(id, isChecked, productPrice);
 
@@ -99,18 +95,18 @@ const ShoppingCartProduct = ({
         id={id}
         imgUrl={imgUrl}
         title={title}
-        handleChecked={handleChecked}
-        handleItemClick={handleItemClick(id)}
+        onProductCheckBoxClick={handleProductCheckBoxClick}
+        onItemClick={handleItemClick(id)}
         isChecked={isChecked}
       />
       <ProductQuantityControlContainer
         price={productPrice}
         productQuantity={quantity}
-        handleIncrement={handleIncrement}
-        handleDecrement={handleDecrement}
-        handleUpdateQuantityByUser={handleUpdateQuantityByUser}
-        handleBackspaceByUser={handleBackspaceByUser}
-        handleRemoveProduct={handleRemoveProduct}
+        onIncreaseIconClick={handleIncreaseIconClick}
+        onDecreaseIconClick={handleDecreaseIconClick}
+        onUpdateQuantityChange={handleUpdateQuantityChange}
+        onBackspaceKeyDown={handleBackspaceKeyDown}
+        onRemoveIconClick={handleRemoveIconClick}
       />
     </S.ShoppingCartProduct>
   );

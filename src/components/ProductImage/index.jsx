@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import noImagePng from "../../assets/image/no-image.png";
 import * as S from "./index.styles";
 
-const ProductImage = ({ title, imgUrl, handleItemClick }) => {
+const ProductImage = ({ title, imgUrl, onItemClick }) => {
   const [imgSrc, setImgSrc] = useState(imgUrl);
 
   const handleImageError = () => {
@@ -14,7 +14,7 @@ const ProductImage = ({ title, imgUrl, handleItemClick }) => {
       onError={handleImageError}
       src={imgSrc}
       alt={`${title} 이미지`}
-      onClick={handleItemClick}
+      onClick={onItemClick}
     />
   );
 };

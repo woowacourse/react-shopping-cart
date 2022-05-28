@@ -18,7 +18,7 @@ const ShoppingCartPage = () => {
   );
   const dispatch = useDispatch();
 
-  const handleAllChecked = () => {
+  const handleAllCheckedClick = () => {
     if (isAllChecked) {
       dispatch(removeIds());
     } else {
@@ -28,7 +28,7 @@ const ShoppingCartPage = () => {
     setAllChecked((prevState) => !prevState);
   };
 
-  const handleRemoveProducts = () => {
+  const handleRemoveAllItemClick = () => {
     dispatch(removeCartProducts(setSnackBarTypeFail));
     dispatch(removeIds());
   };
@@ -49,11 +49,11 @@ const ShoppingCartPage = () => {
       <S.ShoppingCartTitle>장바구니</S.ShoppingCartTitle>
       <S.ShoppingCartPaymentContainer>
         <ShoppingCartProductsContainer
-          handleAllChecked={handleAllChecked}
+          onAllCheckedClick={handleAllCheckedClick}
           isAllChecked={isAllChecked}
           checkedProductIds={checkedProductIds}
           products={shoppingCartProducts.data}
-          handleRemoveProducts={handleRemoveProducts}
+          onRemoveAllItemClick={handleRemoveAllItemClick}
         />
         <ShoppingCartOrder
           products={shoppingCartProducts.data}

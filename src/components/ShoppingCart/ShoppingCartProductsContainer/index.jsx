@@ -4,17 +4,17 @@ import * as S from "./index.styles";
 
 const ShoppingCartProductsContainer = ({
   products,
-  handleAllChecked,
+  onAllCheckedClick,
   isAllChecked,
   checkedProductIds,
-  handleRemoveProducts,
+  onRemoveAllItemClick,
 }) => {
   return (
     <S.ShoppingCartProductsContainer>
       <ShoppingCartProductsController
         isAllChecked={isAllChecked}
-        handleAllChecked={handleAllChecked}
-        handleRemoveProducts={handleRemoveProducts}
+        onAllCheckedClick={onAllCheckedClick}
+        onRemoveAllItemClick={onRemoveAllItemClick}
       />
       <S.ProductsTotalQuantity>
         든든배송 상품 ({products.length}개)
