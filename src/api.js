@@ -4,30 +4,30 @@ export const getProducts = async () => {
   return axios.get("/products");
 };
 
-export const getProductsByPage = async (page) => {
+export const getProductsByPage = (page) => {
   return axios.get(`/products?_page=${page}&_limit=10`);
 };
 
-export const getProductById = async (id) => {
+export const getProductById = (id) => {
   return axios.get(`/products/${id}`);
 };
 
-export const patchProductById = async (id, newState) => {
+export const patchProductById = (id, newState) => {
   return axios.patch(`/products/${id}`, newState);
 };
 
-export const getShoppingCartProducts = async () => {
+export const getShoppingCartProducts = () => {
   return axios.get("/shopping-cart");
 };
 
-export const patchShoppingCartProduct = async (id, newState) => {
+export const patchShoppingCartProduct = (id, newState) => {
   return axios.patch(`/shopping-cart/${id}`, newState);
 };
 
-export const removeShoppingCartProduct = async (id) => {
+export const removeShoppingCartProduct = (id) => {
   return axios.delete(`/shopping-cart/${id}`);
 };
 
-export const postShoppingCartProduct = async (newState) => {
+export const postShoppingCartProduct = (newState) => {
   return axios.post(`/shopping-cart`, newState);
 };
