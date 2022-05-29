@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import CartItem from '../../components/CartItem/CartItem';
 import CheckBox from '../../components/CheckBox/CheckBox';
