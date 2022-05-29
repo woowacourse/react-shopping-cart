@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PATH from '../constants/path';
+import { API } from 'constants/api';
 
 const LOAD_PRODUCTS_START = 'products/LOAD_START';
 const LOAD_PRODUCTS_SUCCESS = 'products/LOAD_SUCCESS';
@@ -40,12 +40,14 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export const loadProducts = () => async (dispatch) => {
+export const loadProducts = () => async (dispatch, getState) => {
+  const userId = getState().user.userId;
+
   dispatch(loadProductsStart());
   try {
-    const products = await axios(
-      `${process.env.REACT_APP_SERVER_URL}/${PATH.PRODUCTS}`
-    );
+    const products = await axios.get(`/${API.PRODUCTS}`, {
+      headers: { userId },
+    });
     dispatch(loadProductsSuccess(products.data));
   } catch (error) {
     dispatch(loadProductsFail(error));

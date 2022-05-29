@@ -1,17 +1,32 @@
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import PATH from '../../constants/path';
-import { CART_SIZE, COLOR } from '../../constants/styles';
+import PATH from 'constants/path';
+import { CART_SIZE, COLOR } from 'constants/styles';
 
-import { ReactComponent as CartIcon } from '../shared/CartIcon.svg';
-import { BasicButton } from '../shared/basics';
+import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
+import { BasicButton, Flex } from 'components/shared/basics';
+import useUser from 'hooks/useUser';
 
 function Header() {
+  const { login, logout } = useUser();
+
+  const { carts } = useSelector((state) => state.carts);
+  const { isLoggedIn } = useSelector((state) => state.user);
+
+  const handleClickLogin = () => {
+    if (isLoggedIn) {
+      logout();
+    } else {
+      login();
+    }
+  };
+
   return (
     <header>
-      <Styled.Nav>
-        <Styled.NavTitleWrapper>
+      <Styled.NavFlex justify="space-around">
+        <Flex align="center">
           <Link to={PATH.ROOT}>
             <CartIcon
               width={CART_SIZE.LARGE.WIDTH}
@@ -20,16 +35,24 @@ function Header() {
             />
             <Styled.NavTitle>WOOWA SHOP</Styled.NavTitle>
           </Link>
-        </Styled.NavTitleWrapper>
-        <Styled.NavButtonWrapper>
+        </Flex>
+        <Flex align="center" gap="15px">
           <Link to={PATH.CARTS}>
-            <Styled.NavButton type="button">장바구니</Styled.NavButton>
+            <Styled.NavCartButtonWrapper>
+              <Styled.NavButton type="button">장바구니</Styled.NavButton>
+              <Styled.BadgeFlex align="center" justify="center">
+                {carts.length}
+              </Styled.BadgeFlex>
+            </Styled.NavCartButtonWrapper>
           </Link>
           <Link to={PATH.ORDERS}>
             <Styled.NavButton type="button">주문목록</Styled.NavButton>
           </Link>
-        </Styled.NavButtonWrapper>
-      </Styled.Nav>
+          <Styled.NavButton onClick={handleClickLogin} type="button">
+            {isLoggedIn ? '로그아웃' : '로그인'}
+          </Styled.NavButton>
+        </Flex>
+      </Styled.NavFlex>
     </header>
   );
 }
@@ -37,18 +60,12 @@ function Header() {
 export default Header;
 
 const Styled = {
-  Nav: styled.nav`
-    display: flex;
-    justify-content: space-around;
+  NavFlex: styled(Flex)`
     width: 100%;
     height: 80px;
 
     background: ${COLOR.PRIMARY};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  `,
-  NavTitleWrapper: styled.div`
-    display: flex;
-    align-items: center;
   `,
   NavTitle: styled.h1`
     display: inline;
@@ -58,16 +75,23 @@ const Styled = {
     color: #ffffff;
     margin-left: 15px;
   `,
-
-  NavButtonWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  NavCartButtonWrapper: styled.div`
+    position: relative;
   `,
   NavButton: styled(BasicButton)`
     font-weight: 500;
     font-size: 24px;
 
     color: #ffffff;
+  `,
+  BadgeFlex: styled(Flex)`
+    position: absolute;
+    color: white;
+    top: -15px;
+    right: -15px;
+    border-radius: 50%;
+    background-color: red;
+    width: 25px;
+    height: 25px;
   `,
 };
