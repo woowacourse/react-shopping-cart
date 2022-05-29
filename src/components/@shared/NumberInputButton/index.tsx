@@ -1,6 +1,6 @@
 import * as S from "./index.styles";
-import upButton from "../../assets/image/up-button.png";
-import downButton from "../../assets/image/down-button.png";
+import upButton from "../../../assets/image/up-button.png";
+import downButton from "../../../assets/image/down-button.png";
 import React from "react";
 
 interface NumberInputButtonProps {

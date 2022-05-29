@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReactComponent as ShoppingCart } from "../../assets/image/cart.svg";
+import { ReactComponent as ShoppingCart } from "../../../assets/image/cart.svg";
 
 const ShoppingCartIcon = ({
   hover,
