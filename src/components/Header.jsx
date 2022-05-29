@@ -2,20 +2,22 @@ import styled from 'styled-components';
 import { GiShoppingCart } from 'react-icons/gi';
 import { COLORS } from '../styles/theme';
 import { Link } from 'react-router-dom';
-import { PATH } from '../constant';
+import { ROUTES_PATH } from '../constants';
 
 function Header() {
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <Link to={PATH.HOME}>
+        <Link to={ROUTES_PATH.HOME}>
           <StyledTitleWrapper>
             <GiShoppingCart />
             <StyledTitle>WOOWA SHOP</StyledTitle>
           </StyledTitleWrapper>
         </Link>
         <StyledNavWrapper>
-          <StyledNavButton>장바구니</StyledNavButton>
+          <Link to={ROUTES_PATH.CART}>
+            <StyledNavButton>장바구니</StyledNavButton>
+          </Link>
           <StyledNavButton>주문목록</StyledNavButton>
         </StyledNavWrapper>
       </StyledHeaderWrapper>
