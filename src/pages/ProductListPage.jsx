@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from '../components/Product';
@@ -10,6 +11,8 @@ function ProductListPage() {
   const { data: productList, isLoading, isError } = useFetch(SERVER_PATH.PRODUCTS);
   const cartList = useSelector(({ cart }) => cart.data);
   const { addItem, deleteItem } = useCart();
+
+  const idSetInCart = useMemo(() => new Set(cartList.map((cart) => cart.id)), [cartList]);
 
   const handleCartItem = (id, isCart) => {
     if (isCart) {
@@ -27,17 +30,14 @@ function ProductListPage() {
   return (
     <StyledContent>
       <StyledGridContainer>
-        {productList.map((product) => {
-          const isCart = cartList.some(({ id }) => id === product.id);
-          return (
-            <Product
-              key={product.id}
-              productData={product}
-              handleCartItem={handleCartItem}
-              isCart={isCart}
-            />
-          );
-        })}
+        {productList.map((product) => (
+          <Product
+            key={product.id}
+            productData={product}
+            handleCartItem={handleCartItem}
+            isCart={idSetInCart.has(product.id)}
+          />
+        ))}
       </StyledGridContainer>
     </StyledContent>
   );
