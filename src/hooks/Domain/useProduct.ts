@@ -12,7 +12,8 @@ const useProduct = (id: number) => {
   const fetchData = useCallback(async () => {
     const { data } = await getProductById(id);
     setProductData(() => ({ isLoading: false, data, error: null }));
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     try {
@@ -29,7 +30,8 @@ const useProduct = (id: number) => {
         error: e.message,
       }));
     }
-  }, [fetchData, id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     product: productData,
