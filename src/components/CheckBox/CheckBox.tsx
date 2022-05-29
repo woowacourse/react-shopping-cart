@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function CheckBox(props) {
+type InputProps = React.HTMLProps<HTMLInputElement>;
+
+function CheckBox({ ref, as, ...props }: InputProps) {
   return <StyledCheckbox {...props} type="checkbox" />;
 }
 
