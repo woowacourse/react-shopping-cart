@@ -51,7 +51,7 @@ function CartPage() {
             </RemoveSelectedButtonContainer>
           </CartControlContainer>
           <StyledH3>든든배송 상품 ({cart.length}개)</StyledH3>
-          <DivideLine variant="gray" />
+          <DivideLine color="gray" />
           <ul>
             {cart.map(({ product, quantity }) => (
               <li key={product.id}>
@@ -63,7 +63,7 @@ function CartPage() {
                   onCheck={handleCheck(product.id)}
                   onClickRemove={removeCartItem(product.id)}
                 />
-                <DivideLine variant="thin" />
+                <DivideLine thickness="thin" />
               </li>
             ))}
           </ul>
@@ -72,7 +72,7 @@ function CartPage() {
           <CartRightSectionTop>
             <StyledH3>결제예상금액</StyledH3>
           </CartRightSectionTop>
-          <DivideLine variant="thin" />
+          <DivideLine thickness="thin" />
           <TotalPriceContainer>
             <HighlightText>결제예상금액</HighlightText>
             <HighlightText>
