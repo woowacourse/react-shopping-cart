@@ -9,6 +9,7 @@ import MainPage from './pages/MainPage/MainPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import CartPage from './pages/CartPage/CartPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import PATHS from './constants/paths';
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
         <Header />
         <StyledContent>
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={PATHS.INDEX} element={<MainPage />} />
+            <Route path={PATHS.PRODUCT} element={<ProductPage />} />
+            <Route path={PATHS.CART} element={<CartPage />} />
+            <Route path={PATHS.DEFAULT} element={<NotFoundPage />} />
           </Routes>
         </StyledContent>
       </ThemeProvider>

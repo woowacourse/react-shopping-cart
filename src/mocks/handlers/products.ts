@@ -1,12 +1,12 @@
 import { rest } from 'msw';
-import SERVER_URL from '../../configs/api';
+import API from '../../configs/api';
 import * as db from '../db.json';
 
 const { products, cart } = db;
 const userId = '1';
 
 const productsHandlers = [
-  rest.get(`${SERVER_URL}/products/:id`, (req, res, ctx) => {
+  rest.get(`${API.PRODUCTS}/:id`, (req, res, ctx) => {
     const { id } = req.params;
     const cartItem = cart.find((cartItem) => cartItem.userId === userId);
 
@@ -29,7 +29,7 @@ const productsHandlers = [
       );
     }
   }),
-  rest.get(`${SERVER_URL}/products`, (req, res, ctx) => {
+  rest.get(API.PRODUCTS, (req, res, ctx) => {
     const ids = req.url.searchParams.getAll('id');
 
     if (ids.length > 0) {

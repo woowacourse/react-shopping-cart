@@ -1,5 +1,5 @@
 import axios from 'axios';
-import SERVER_URL from '../configs/api';
+import API from '../configs/api';
 
 const TYPES = {
   GET_PRODUCT_LIST: 'GET_PRODUCT_LIST',
@@ -30,26 +30,24 @@ const actions = {
   getProductList: (ids?: Array<String>) => {
     const query = ids ? `?${ids.map((id) => `id=${id}`).join('&')}` : '';
     const request = axios
-      .get(`${SERVER_URL}/products${query}`)
+      .get(`${API.PRODUCTS}${query}`)
       .then((res) => res.data);
 
     return { type: TYPES.GET_PRODUCT_LIST, payload: request };
   },
   getProductDetail: (id: string) => {
-    const request = axios
-      .get(`${SERVER_URL}/products/${id}`)
-      .then((res) => res.data);
+    const request = axios.get(`${API.PRODUCTS}/${id}`).then((res) => res.data);
 
     return { type: TYPES.GET_PRODUCT_DETAIL, payload: request };
   },
   getCart: () => {
-    const request = axios.get(`${SERVER_URL}/cart`).then((res) => res.data);
+    const request = axios.get(API.CART).then((res) => res.data);
 
     return { type: TYPES.GET_CART, payload: request };
   },
   addItemToCart: (productId: string, quantity: number) => {
     const request = axios
-      .post(`${SERVER_URL}/cart`, {
+      .post(API.CART, {
         productId,
         quantity,
       })
@@ -61,14 +59,14 @@ const actions = {
     const productIdList = Array.isArray(productId) ? productId : [productId];
     const query = productIdList.map((productId) => `id=${productId}`).join('&');
     const request = axios
-      .delete(`${SERVER_URL}/cart?${query}`)
+      .delete(`${API.CART}?${query}`)
       .then((res) => res.data);
 
     return { type: TYPES.REMOVE_CART_ITEM, payload: request };
   },
   updateQuantity: (productId: string, quantity: string) => {
     const request = axios
-      .patch(`${SERVER_URL}/cart`, {
+      .patch(API.CART, {
         productId,
         quantity,
       })
