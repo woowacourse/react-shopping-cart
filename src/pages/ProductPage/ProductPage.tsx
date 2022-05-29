@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '../../components/Button/Button';
 import Spinner from '../../components/Spinner/Spinner';
 import useProductDetail from './useProductDetail';
 
@@ -34,11 +35,9 @@ function ProductPage() {
           <dd>{productDetail.description}</dd>
         </dl>
         {productDetail.isAddedToCart ? (
-          <StyledAddToCartButton disabled>이미 추가됨</StyledAddToCartButton>
+          <Button disabled>이미 추가됨</Button>
         ) : (
-          <StyledAddToCartButton onClick={addItemToCart}>
-            장바구니
-          </StyledAddToCartButton>
+          <Button onClick={addItemToCart}>장바구니</Button>
         )}
       </StyledPage>
     );
@@ -86,16 +85,6 @@ const StyledImageContainer = styled.div`
   img {
     width: 100%;
   }
-`;
-
-const StyledAddToCartButton = styled.button`
-  background: ${({ theme: { colors } }) => colors.black};
-  color: ${({ theme: { colors } }) => colors.white};
-  width: 200px;
-  height: 60px;
-  margin-top: 20px;
-  font-size: 1.2rem;
-  font-weight: 600;
 `;
 
 const EmptyProductImage = styled.div`

@@ -4,6 +4,7 @@ import CartItem from '../../components/CartItem/CartItem';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import Spinner from '../../components/Spinner/Spinner';
 import DivideLine from '../../components/DivideLine/DivideLine';
+import Button from '../../components/Button/Button';
 import useCart from './useCart';
 
 function CartPage() {
@@ -80,11 +81,11 @@ function CartPage() {
             </HighlightText>
           </TotalPriceContainer>
           <OrderButtonContainer>
-            <PrimaryButton>
+            <Button>
               주문하기 (
               {Object.values(checkedFlags).filter((checked) => checked).length}
               개)
-            </PrimaryButton>
+            </Button>
           </OrderButtonContainer>
         </CartRightSection>
       </CartSectionsContainer>
@@ -214,14 +215,6 @@ const OrderButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 30px 30px 0 30px;
-`;
-
-const PrimaryButton = styled.button`
-  font-size: 24px;
-  width: 100%;
-  padding: 16px;
-  background: ${({ theme: { colors } }) => colors.emerald};
-  color: ${({ theme: { colors } }) => colors.white};
 `;
 
 export default CartPage;
