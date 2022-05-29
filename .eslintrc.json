@@ -13,14 +13,23 @@
   },
   "plugins": ["react"],
   "rules": {
-    "react/react-in-jsx-scope": "warn",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "warn",
     "object-curly-newline": "warn",
     "indent": "warn",
     "no-confusing-arrow": "warn",
     "no-unused-vars": "warn",
     "default-param-last": "warn",
-    "import/prefer-default-export": "warn",
-    "import/no-unresolved": "off"
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
+    "react/destructuring-assignment": "warn",
+    "implicit-arrow-linebreak": "warn",
+    "import/no-extraneous-dependencies": "warn",
+    "function-paren-newline": "warn",
+    "global-require": "warn",
+    "no-use-before-define": "warn",
+    "no-undef": "off",
+    "operator-linebreak": "off",
+    "react/jsx-one-expression-per-line": "off"
   }
 }

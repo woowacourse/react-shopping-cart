@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.27.2",
+    "jest": "^28.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -73,7 +74,11 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
+    "msw": "^0.40.1",
     "prettier": "^2.6.2",
     "webpack": "^5.72.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

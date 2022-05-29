@@ -9,6 +9,6 @@ function Template() {
   return <Header />;
 }
 
-export const Default = Template.bind({});
+export const DefaultHeader = Template.bind({});
 
-Default.args = {};
+DefaultHeader.args = {};

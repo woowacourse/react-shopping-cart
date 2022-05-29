@@ -15,7 +15,7 @@ export const COLOR = {
   PRIMARY: '#2AC1BC',
 };
 
-export const SERVER_URL = 'https://hui-shopping-cart.herokuapp.com';
+export const SERVER_URL = 'http://localhost:4000';
 
 export const PATH = {
   ROOT: '/',
@@ -30,4 +30,16 @@ export const ERROR_MESSAGE = {
     '서버에서 장바구니 리스트를 불러오지 못했습니다. 다시 시도해주세요.',
   ADD_CART: '장바구니 추가에 실패했습니다. 다시 시도해주세요.',
   DELETE_CART: '장바구니에서 제품을 제거하지 못했습니다. 다시 시도해주세요.',
+  UPDATE_CART_QUANTITY:
+    '장바구니 제품의 수량을 조정하지 못했습니다. 다시 시도해주세요.',
+  NON_SELECTED: '선택된 상품이 없습니다.',
+};
+
+export const LIMIT = {
+  MIN_QUANTITY: 1,
+  MAX_QUANTITY: 10,
+};
+
+export const NOTICE = {
+  DELETE_CONFIRM: '해당 상품을 장바구니에서 제거하시겠습니까?',
 };

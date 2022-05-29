@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Product from 'components/Main/Product';
-import { loadCarts, cartsActionCreators } from 'store/carts';
-import { loadProducts } from 'store/products';
+import { loadCarts } from 'store/carts/action';
+import { loadProducts } from 'store/products/action';
 
-function ProductListContainer() {
+function ProductListPage() {
   const { products, loading, productsError } = useSelector(
     (state) => state.products,
   );
@@ -16,22 +16,13 @@ function ProductListContainer() {
   useEffect(() => {
     dispatch(loadCarts());
     dispatch(loadProducts());
-
-    return () => {
-      dispatch(loadCarts(cartsActionCreators.cleanError()));
-    };
   }, []);
 
-  useEffect(() => {
-    if (cartsError) {
-      alert(cartsError);
-    }
-  }, [cartsError]);
-
   return (
-    <Styled.ProductListContainer>
+    <Styled.ProductListPage>
       {loading && <h2>Loading...</h2>}
       {productsError && <h2>{productsError}</h2>}
+      {cartsError && <h2>{cartsError}</h2>}
       {!loading && !productsError && products?.length === 0 ? (
         <h2>상품이 없습니다.</h2>
       ) : (
@@ -46,12 +37,12 @@ function ProductListContainer() {
           />
         ))
       )}
-    </Styled.ProductListContainer>
+    </Styled.ProductListPage>
   );
 }
 
 const Styled = {
-  ProductListContainer: styled.section`
+  ProductListPage: styled.section`
     display: flex;
     justify-content: center;
 
@@ -61,4 +52,4 @@ const Styled = {
   `,
 };
 
-export default ProductListContainer;
+export default ProductListPage;

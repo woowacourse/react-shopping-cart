@@ -4,20 +4,20 @@ import PropType from 'prop-types';
 import ProductImage from 'components/Main/ProductImage';
 import { CART_SIZE, COLOR } from 'constants';
 import { ReactComponent as CartIcon } from 'components/shared/CartIcon.svg';
-import { StyledDefaultButton } from 'components/shared/styles';
+import { DefaultButton } from 'components/shared/styles';
 import { useDispatch } from 'react-redux';
-import { addCart, deleteCart } from 'store/carts';
+import { addCart, deleteCart } from 'store/carts/action';
 
 function Product({ id, src, price, title, isStored }) {
   const [isClicked, setIsClicked] = useState(isStored);
 
   const dispatch = useDispatch();
 
-  const handleCartClick = async () => {
+  const handleCartClick = () => {
     if (isClicked) {
       dispatch(deleteCart(id));
     } else {
-      dispatch(addCart(id));
+      dispatch(addCart({ id, src, price, title }));
     }
 
     setIsClicked((prev) => !prev);
@@ -83,7 +83,7 @@ const Styled = {
     font-size: 16px;
     line-height: 22px;
   `,
-  CartButton: styled(StyledDefaultButton)`
+  CartButton: styled(DefaultButton)`
     &:hover {
       opacity: 0.6;
     }
