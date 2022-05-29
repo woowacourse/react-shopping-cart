@@ -1,6 +1,7 @@
 import GlobalStyle from 'GlobalStyle';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
+import { BrowserRouter } from 'react-router-dom';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,8 +16,10 @@ export const parameters = {
 export const decorators = [
   Story => (
     <Provider store={store}>
-      <GlobalStyle />
-      <Story />
+      <BrowserRouter>
+        <GlobalStyle />
+        <Story />
+      </BrowserRouter>
     </Provider>
   ),
 ];

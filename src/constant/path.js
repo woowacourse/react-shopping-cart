@@ -1,6 +1,7 @@
 const PATH = {
-  PRODUCT_LIST: 'react-shopping-cart/ProductList',
-  SHOPPING_CART: 'react-shopping-cart/ShoppingCart',
+  PRODUCT_LIST: '/product-list',
+  SHOPPING_CART: '/shopping-cart',
+  PRODUCT_DETAIL: '/product-detail',
 };
 
 export { PATH };

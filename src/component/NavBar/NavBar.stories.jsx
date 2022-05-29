@@ -1,4 +1,4 @@
-import { NavBar } from 'component';
+import NavBar from '.';
 
 export default {
   title: 'Component/NavBar',
