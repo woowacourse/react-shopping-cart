@@ -50,7 +50,7 @@ function CartPage() {
               상품삭제
             </RemoveSelectedButtonContainer>
           </CartControlContainer>
-          <StyledH3>든든배송 상품 ({cart.length}개)</StyledH3>
+          <CartSubtitle>든든배송 상품 ({cart.length}개)</CartSubtitle>
           <DivideLine color="gray" />
           <ul>
             {cart.map(({ product, quantity }) => (
@@ -70,7 +70,7 @@ function CartPage() {
         </CartLeftSection>
         <CartRightSection>
           <CartRightSectionTop>
-            <StyledH3>결제예상금액</StyledH3>
+            <CartSubtitle>결제예상금액</CartSubtitle>
           </CartRightSectionTop>
           <DivideLine thickness="thin" />
           <TotalPriceContainer>
@@ -174,7 +174,7 @@ const CartRightSectionTop = styled.div`
   padding: 16px 30px;
 `;
 
-const StyledH3 = styled.h3`
+const CartSubtitle = styled.h3`
   display: flex;
   align-items: center;
   font-size: 20px;
