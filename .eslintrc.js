@@ -58,6 +58,7 @@ module.exports = {
       },
     ],
     "no-func-assign": "off",
+    "dot-notation": "off",
   },
   settings: {
     "import/resolver": {
