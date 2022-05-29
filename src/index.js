@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import reportWebVitals from 'reportWebVitals';
-
 import App from 'App';
-
 import store from 'store/store';
+import axios from 'axios';
+import { SERVER_URL } from 'constants';
+
+axios.defaults.baseURL = SERVER_URL;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

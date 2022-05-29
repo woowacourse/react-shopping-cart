@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Styled = {
   Image: styled.img(
-    ({ size }) => `
-    width: ${size || '282px'};
-    height: ${size || '282px'};
-  `,
+    ({ size }) => css`
+      width: ${size};
+      height: ${size};
+    `,
   ),
 };
 

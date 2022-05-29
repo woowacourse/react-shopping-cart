@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
@@ -22,12 +23,25 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=874e4a557e1b"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -43,7 +57,21 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "@storybook/addon-actions": "^6.5.3",
+    "@storybook/addon-essentials": "^6.5.3",
+    "@storybook/addon-interactions": "^6.5.3",
+    "@storybook/addon-links": "^6.5.3",
+    "@storybook/builder-webpack5": "^6.5.3",
+    "@storybook/manager-webpack5": "^6.5.3",
+    "@storybook/node-logger": "^6.5.3",
+    "@storybook/preset-create-react-app": "^4.1.0",
+    "@storybook/react": "^6.5.3",
+    "@storybook/testing-library": "^0.0.11",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.5.4",
+    "gh-pages": "^4.0.0",
+    "msw": "^0.41.0",
+    "webpack": "^5.72.1"
   },
   "homepage": "http://byhhh2.github.io/react-shopping-cart"
 }

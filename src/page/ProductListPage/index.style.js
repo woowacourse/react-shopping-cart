@@ -20,6 +20,12 @@ const Styled = {
     grid-template-columns: repeat(4, 1fr);
     gap: 47px;
   `,
+
+  Loading: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `,
 };
 
 export default Styled;
