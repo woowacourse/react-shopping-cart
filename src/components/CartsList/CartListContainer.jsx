@@ -17,7 +17,7 @@ function CartListContainer() {
     .map((id) => ({
       ...findByIdInObjectArray(products, id),
       quantity: findByIdInObjectArray(carts, id).quantity,
-      isStored: isContainedInObjectArray(checkedCarts, id),
+      isChecked: isContainedInObjectArray(checkedCarts, id),
     }));
   const checkedProducts = checkedCarts
     .map((cart) => cart.id)
