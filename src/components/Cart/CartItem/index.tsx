@@ -6,6 +6,7 @@ import useCartItem from "../../../hooks/Domain/useCart";
 import { isCart } from "../../../types/cart";
 import React from "react";
 import { isProduct } from "../../../types/product";
+import Button from "../../@shared/Button";
 
 interface CartItemPros {
   id: number;
@@ -68,7 +69,9 @@ const CartItem = ({ id, cartId }: CartItemPros) => {
         <span>{title}</span>
       </S.ItemContainer>
       <S.ItemRightContainer>
-        <S.CartButton onClick={handleDeleteButton}>🗑</S.CartButton>
+        <Button css={S.CartButtonStyle} onClick={handleDeleteButton}>
+          🗑
+        </Button>
         <NumberInputButton
           value={stock}
           downButtonClick={handleDownStockButton}

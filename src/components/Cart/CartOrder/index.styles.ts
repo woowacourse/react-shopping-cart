@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const CartOrderContainer = styled.div`
@@ -34,6 +35,16 @@ export const OrderButton = styled.button<{ buttonColor: string }>`
   border: none;
   margin-bottom: 1em;
 `;
+
+export const OrderButtonStyle = css({
+  textAlign: "center",
+  width: "90%",
+  padding: " 0.7em",
+  color: "white",
+  fontSize: "1.2rem",
+  border: "none",
+  marginBottom: "1em",
+});
 
 export const Price = styled.p<{
   linearColorFrom: string;

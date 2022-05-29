@@ -56,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@storybook/addon-actions": "^6.5.3",
     "@storybook/addon-essentials": "^6.5.3",
     "@storybook/addon-interactions": "^6.5.3",
@@ -72,7 +73,6 @@
     "@types/react-dom": "^18.0.4",
     "@types/storybook__react": "^5.2.1",
     "@types/uuid": "^8.3.4",
-    "typescript": "^4.6.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.5",
     "babel-plugin-emotion": "^11.0.0",
@@ -80,6 +80,7 @@
     "gh-pages": "^4.0.0",
     "msw": "^0.41.0",
     "redux-devtools-extension": "^2.13.9",
+    "typescript": "^4.6.4",
     "webpack": "^5.72.0"
   },
   "homepage": "https://judonghyeok.github.io/react-shopping-cart/",

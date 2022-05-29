@@ -1,5 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { themeType } from "../../../ThemeProvider";
+import Button from "../../@shared/Button";
 import * as S from "./index.styles";
 
 interface CartOrderProps {
@@ -9,10 +10,8 @@ interface CartOrderProps {
 
 const CartOrder = ({ itemAmount, price }: CartOrderProps) => {
   const {
-    color: { primary, gray, white },
+    color: { primary, white },
   } = useTheme() as themeType;
-
-  const buttonColor = itemAmount > 0 ? primary : gray;
 
   return (
     <S.CartOrderContainer>
@@ -26,9 +25,13 @@ const CartOrder = ({ itemAmount, price }: CartOrderProps) => {
           linearColorTo={primary}
         >{`${price.toLocaleString("ko-kr")}원`}</S.Price>
       </S.PriceContainer>
-      <S.OrderButton
+      <Button
+        disabled={itemAmount > 0}
+        css={S.OrderButtonStyle}
+      >{`주문하기(${itemAmount}개)`}</Button>
+      {/* <S.OrderButton
         buttonColor={buttonColor}
-      >{`주문하기(${itemAmount}개)`}</S.OrderButton>
+      >{`주문하기(${itemAmount}개)`}</S.OrderButton> */}
     </S.CartOrderContainer>
   );
 };

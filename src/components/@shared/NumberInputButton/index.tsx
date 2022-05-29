@@ -2,6 +2,7 @@ import * as S from "./index.styles";
 import upButton from "../../../assets/image/up-button.png";
 import downButton from "../../../assets/image/down-button.png";
 import React from "react";
+import Button from "../Button";
 
 interface NumberInputButtonProps {
   value?: number;
@@ -28,12 +29,18 @@ const NumberInputButton = ({
         onKeyDown={block}
       />
       <S.ButtonContainer>
-        <S.operatorButton onClick={upButtonClick}>
-          <S.Image src={upButton} alt="UpButton" />
-        </S.operatorButton>
-        <S.operatorButton onClick={downButtonClick}>
-          <S.Image src={downButton} alt="DownButton" />
-        </S.operatorButton>
+        <Button
+          onClick={upButtonClick}
+          icon={upButton}
+          alt={"UpButton"}
+          css={S.operatorButtonStyle}
+        />
+        <Button
+          onClick={downButtonClick}
+          icon={downButton}
+          alt={"DownButton"}
+          css={S.operatorButtonStyle}
+        />
       </S.ButtonContainer>
     </S.NumberInputButtonContainer>
   );

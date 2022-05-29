@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const CartItemContainer = styled.div`
@@ -28,7 +29,7 @@ export const ItemRightContainer = styled.div`
   gap: 20px;
 `;
 
-export const CartButton = styled.button`
+export const CartButtonStyle = css`
   border: none;
   background-color: inherit;
   font-size: 2rem;
