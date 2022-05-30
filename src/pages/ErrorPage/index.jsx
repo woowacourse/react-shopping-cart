@@ -2,16 +2,16 @@ import { useTheme } from "@emotion/react";
 import React from "react";
 import * as S from "./index.styles";
 
-const AxiosErrorPage = () => {
+const ErrorPage = () => {
   const theme = useTheme();
   return (
-    <S.AxiosErrorContainer>
+    <S.ErrorContainer>
       <p>서버에러</p>
       <S.HomeButton to="/" color={theme.color.primary}>
         홈으로 돌아가기
       </S.HomeButton>
-    </S.AxiosErrorContainer>
+    </S.ErrorContainer>
   );
 };
 
-export default AxiosErrorPage;
+export default ErrorPage;

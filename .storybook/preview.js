@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import GlobalStyles from "../src/globalStyles";
 import createThunkMiddleware from "../src/lib/thunk";

@@ -67,8 +67,12 @@
     "@storybook/testing-library": "^0.0.11",
     "chromatic": "^6.5.4",
     "gh-pages": "^4.0.0",
+    "msw": "^0.41.0",
     "redux-devtools-extension": "^2.13.9",
     "webpack": "^5.72.0"
   },
-  "homepage": "https://kkojae91.github.io/react-shopping-cart/"
+  "homepage": "https://kkojae91.github.io/react-shopping-cart",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

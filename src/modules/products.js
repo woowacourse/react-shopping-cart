@@ -1,31 +1,12 @@
-import * as productAPI from "../api";
+import * as API from "../api";
 import createReducer from "./createReducer";
 import { LOAD_ITEM_AMOUNT } from "../constants/constants";
 
 const GET_PRODUCTS = "products/GET_PRODUCTS";
-const GET_PRODUCT = "product/GET_PRODUCT";
-
-const GET_PRODUCT_SUCCESS = "product/GET_PRODUCT_SUCCESS";
 const GET_PRODUCTS_SUCCESS = "products/GET_PRODUCTS_SUCCESS";
-
-const GET_PRODUCT_ERROR = "product/GET_PRODUCT_ERROR";
 const GET_PRODUCTS_ERROR = "products/GET_PRODUCTS_ERROR";
 const GET_PRODUCTS_END = "products/GET_PRODUCTS_END";
-
-const initialState = {
-  product: {
-    loading: false,
-    data: {},
-    error: null,
-  },
-  products: {
-    loading: false,
-    data: [],
-    error: null,
-    isEnd: false,
-    page: 1,
-  },
-};
+export const REPLACE_PRODUCTS = "products/REPLACE_PRODUCTS";
 
 export const getProductsByPage = () => async (dispatch, getState) => {
   const {
@@ -37,7 +18,7 @@ export const getProductsByPage = () => async (dispatch, getState) => {
   dispatch({ type: GET_PRODUCTS });
 
   try {
-    const products = await productAPI.getProductsByPage(page);
+    const products = await API.getProductsByPage(page);
 
     if (products.data.length < LOAD_ITEM_AMOUNT) {
       return dispatch({ type: GET_PRODUCTS_END, products: products.data });
@@ -45,16 +26,6 @@ export const getProductsByPage = () => async (dispatch, getState) => {
     dispatch({ type: GET_PRODUCTS_SUCCESS, products: products.data });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR, error });
-  }
-};
-
-export const getProductById = (id) => async (dispatch) => {
-  dispatch({ type: GET_PRODUCT });
-  try {
-    const product = await productAPI.getProductById(id);
-    dispatch({ type: GET_PRODUCT_SUCCESS, product: product.data });
-  } catch (error) {
-    dispatch({ type: GET_PRODUCT_ERROR, error });
   }
 };
 
@@ -86,22 +57,9 @@ const getProductsEnd = (productsState, action) => ({
   isEnd: true,
 });
 
-const getProduct = () => ({
-  loading: true,
-  data: {},
-  error: null,
-});
-
-const getProductSuccess = (_, action) => ({
-  loading: false,
-  data: action.product,
-  error: null,
-});
-
-const getProductError = () => ({
-  loading: false,
-  data: {},
-  error: true,
+const replaceProducts = (productsState, action) => ({
+  ...productsState,
+  data: action.replaceProducts,
 });
 
 const productsReducer = createReducer(
@@ -111,21 +69,8 @@ const productsReducer = createReducer(
     [GET_PRODUCTS_SUCCESS]: getProductsSuccess,
     [GET_PRODUCTS_ERROR]: getProductsError,
     [GET_PRODUCTS_END]: getProductsEnd,
+    [REPLACE_PRODUCTS]: replaceProducts,
   }
 );
 
-const productReducer = createReducer(
-  {},
-  {
-    [GET_PRODUCT]: getProduct,
-    [GET_PRODUCT_SUCCESS]: getProductSuccess,
-    [GET_PRODUCT_ERROR]: getProductError,
-  }
-);
-
-export default function appReducer(state = initialState, action = {}) {
-  return {
-    products: productsReducer(state.products, action),
-    product: productReducer(state.product, action),
-  };
-}
+export default productsReducer;
