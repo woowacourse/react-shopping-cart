@@ -3,15 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../redux/actions';
 import { StoreState, Product } from '../../types';
 
+type SelectedState = Pick<
+  StoreState['productsState'],
+  'isLoading' | 'productList' | 'error'
+>;
+
 const useProductList = () => {
   const dispatch = useDispatch();
-  const { isLoading, productList, error } = useSelector(
-    (state: StoreState) => ({
-      isLoading: state.isLoading,
-      productList: state.productList,
-      error: state.error,
-    })
-  );
+  const { isLoading, productList, error } = useSelector<
+    StoreState,
+    SelectedState
+  >(({ productsState }) => ({
+    isLoading: productsState.isLoading,
+    productList: productsState.productList,
+    error: productsState.error,
+  }));
 
   useEffect(() => {
     dispatch(actions.getProductList());

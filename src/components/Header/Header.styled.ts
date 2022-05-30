@@ -1,20 +1,6 @@
 import styled from 'styled-components';
-import PlainLink from '../../PlainLink/PlainLink';
-import Logo from '../../Logo/Logo';
-import RightMenu from './RightMenu';
 
-function Header() {
-  return (
-    <StyledHeader>
-      <PlainLink to="/">
-        <Logo />
-      </PlainLink>
-      <RightMenu />
-    </StyledHeader>
-  );
-}
-
-const StyledHeader = styled.div`
+export const HeaderBox = styled.div`
   padding: 0 10%;
   display: flex;
   flex-direction: row;
@@ -30,8 +16,6 @@ const StyledHeader = styled.div`
   background: ${({ theme: { colors } }) => colors.emerald};
 
   ${({ theme: { media } }) => media.sm`
-    padding: 0 20px;
-  `};
+  padding: 0 20px;
+`};
 `;
-
-export default Header;

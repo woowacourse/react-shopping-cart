@@ -2,12 +2,12 @@ import theme from '../src/styles/theme';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../src/styles/GlobalStyle';
 import { MemoryRouter } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import ReduxThunk from 'redux-thunk';
 import rootReducer from '../src/redux/reducers';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -24,7 +24,10 @@ const store = createStore(
   applyMiddleware(promiseMiddleware, ReduxThunk)
 );
 
+initialize();
+
 export const decorators = [
+  mswDecorator,
   (Story) => (
     <MemoryRouter initialEntries={['/']}>
       <Provider store={store}>

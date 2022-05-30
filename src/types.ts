@@ -2,15 +2,21 @@ import { TYPES } from './redux/actions';
 import theme from './styles/theme';
 
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
   description: string;
   stock: number;
-  brandId: number;
-  categoryId: number;
+  brandId: string;
+  categoryId: string;
   createdAt: number;
+  isAddedToCart?: boolean;
+};
+
+export type CartItem = {
+  userId: string;
+  quantity: number;
 };
 
 export type Action = {
@@ -19,10 +25,25 @@ export type Action = {
 };
 
 export type StoreState = {
-  isLoading: boolean;
-  error: any;
-  productList: Array<Product>;
-  productDetail: Product | null;
+  productsState: {
+    isLoading: boolean;
+    error: any;
+    productList: Product[];
+  };
+  productDetailState: {
+    isLoading: boolean;
+    error: any;
+    productDetail: Product | null;
+  };
+  cartState: {
+    isLoading: boolean;
+    error: any;
+    cart: { product: Product; quantity: number; checked: boolean }[];
+  };
 };
 
 export type Theme = typeof theme;
+
+export type Routes<T> = {
+  [property in keyof T]: string;
+};

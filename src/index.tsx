@@ -8,12 +8,17 @@ import ReduxThunk from 'redux-thunk';
 
 import App from './App';
 import rootReducer from './redux/reducers';
+import worker from './mocks/browser';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 const store = createStore(
   rootReducer,
   applyMiddleware(promiseMiddleware, ReduxThunk)
 );
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start().catch((err) => console.error(err));
+}
 
 root.render(
   <React.StrictMode>

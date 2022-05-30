@@ -1,19 +1,24 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { actions } from '../../redux/actions';
 import { StoreState } from '../../types';
 
-const useProductPage = () => {
+type SelectedState = StoreState['productDetailState'];
+
+const useProductDetail = (id: string) => {
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const { isLoading, productDetail, error } = useSelector(
-    (state: StoreState) => ({
-      isLoading: state.isLoading,
-      productDetail: state.productDetail,
-      error: state.error,
-    })
-  );
+  const { isLoading, error, productDetail } = useSelector<
+    StoreState,
+    SelectedState
+  >(({ productDetailState }) => ({
+    isLoading: productDetailState.isLoading,
+    productDetail: productDetailState.productDetail,
+    error: productDetailState.error,
+  }));
+
+  const addItemToCart = () => {
+    dispatch(actions.addItemToCart(id, 1));
+  };
 
   useEffect(() => {
     if (id) {
@@ -21,7 +26,12 @@ const useProductPage = () => {
     }
   }, [id, dispatch]);
 
-  return { isLoading, productDetail, error };
+  return {
+    isLoading,
+    productDetail,
+    error,
+    addItemToCart,
+  };
 };
 
-export default useProductPage;
+export default useProductDetail;
