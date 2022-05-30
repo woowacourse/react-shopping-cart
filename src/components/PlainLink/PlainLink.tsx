@@ -13,4 +13,5 @@ const PlainLink = styled(Link)<Props>`
 
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `;
+
 export default PlainLink;

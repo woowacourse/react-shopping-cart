@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import DivideLine from '../../components/DivideLine/DivideLine';
 import Spinner from '../../components/Spinner/Spinner';
 import useProductDetail from './useProductDetail';
+import * as S from './ProductPage.styled';
 
 function ProductPage() {
   const { id } = useParams();
@@ -20,83 +21,36 @@ function ProductPage() {
 
   if (productDetail) {
     return (
-      <StyledPage>
-        <StyledImageContainer>
+      <S.PageBox>
+        <S.ImageBox>
           <img src={productDetail.image} alt={productDetail.name} />
-        </StyledImageContainer>
-        <h2>{productDetail.name}</h2>
-        <hr />
-        <dl>
+        </S.ImageBox>
+        <S.Title>{productDetail.name}</S.Title>
+        <DivideLine color="gray" thickness="thin" />
+        <S.DescriptionList>
           <dt>가격</dt>
           <dd>{productDetail.price.toLocaleString('ko-KR')} 원</dd>
-        </dl>
-        <dl>
+        </S.DescriptionList>
+        <S.DescriptionList>
           <dt>제품 설명</dt>
           <dd>{productDetail.description}</dd>
-        </dl>
+        </S.DescriptionList>
         {productDetail.isAddedToCart ? (
           <Button disabled>이미 추가됨</Button>
         ) : (
           <Button onClick={addItemToCart}>장바구니</Button>
         )}
-      </StyledPage>
+      </S.PageBox>
     );
   }
 
   return (
-    <StyledPage>
-      <StyledImageContainer>
-        <EmptyProductImage>존재하지 않는 상품입니다.</EmptyProductImage>
-      </StyledImageContainer>
-    </StyledPage>
+    <S.PageBox>
+      <S.ImageBox>
+        <S.EmptyImageBox>존재하지 않는 상품입니다.</S.EmptyImageBox>
+      </S.ImageBox>
+    </S.PageBox>
   );
 }
-
-const StyledPage = styled.div`
-  width: 570px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-
-  h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    line-height: 2.7rem;
-  }
-
-  hr {
-    width: 100%;
-  }
-
-  dl {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2rem;
-  }
-`;
-
-const StyledImageContainer = styled.div`
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  width: 100%;
-
-  img {
-    width: 100%;
-  }
-`;
-
-const EmptyProductImage = styled.div`
-  background: ${({ theme: { colors } }) => colors.gray};
-  color: ${({ theme: { colors } }) => colors.white};
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: 700;
-`;
 
 export default ProductPage;

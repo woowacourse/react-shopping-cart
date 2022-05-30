@@ -1,37 +1,12 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import ICONS from '../../constants/icons';
 import { Theme } from '../../types';
-import PlainLink from '../PlainLink/PlainLink';
 
 type StyledUlProps = {
   isDrawerOpened: boolean;
   theme: Theme;
 };
 
-function RightMenu() {
-  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsDrawerOpened((prev) => !prev);
-  };
-
-  return (
-    <StyledNav>
-      <StyledButton onClick={toggleDrawer}>{ICONS.MENU}</StyledButton>
-      <StyledUl isDrawerOpened={isDrawerOpened}>
-        <li>
-          <PlainLink to="/cart">장바구니</PlainLink>
-        </li>
-        <li>
-          <PlainLink to="/orders">주문목록</PlainLink>
-        </li>
-      </StyledUl>
-    </StyledNav>
-  );
-}
-
-const StyledNav = styled.nav`
+export const Nav = styled.nav`
   font-size: 24px;
   font-weight: 500;
 
@@ -41,7 +16,7 @@ const StyledNav = styled.nav`
   `)};
 `;
 
-const StyledButton = styled.button`
+export const Button = styled.button`
   display: none;
   color: white;
   background: transparent;
@@ -52,7 +27,7 @@ const StyledButton = styled.button`
     `)}
 `;
 
-const StyledUl = styled.ul<StyledUlProps>`
+export const Ul = styled.ul<StyledUlProps>`
   display: flex;
   flex-direction: row;
   gap: 44px;
@@ -78,5 +53,3 @@ const StyledUl = styled.ul<StyledUlProps>`
         text-align: right;
   `)};
 `;
-
-export default RightMenu;

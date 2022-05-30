@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Product } from '../../types';
 import Input from '../Input/Input';
-import Checkbox from '../CheckBox/CheckBox';
+import Checkbox from '../Checkbox/Checkbox';
 import ICONS from '../../constants/icons';
+import * as S from './CartItem.styled';
 
 type Props = {
   product: Product;
@@ -23,16 +23,16 @@ function CartItem({
   onClickRemove,
 }: Props) {
   return (
-    <StyledCartItemContainer>
-      <StyledCartItemInformation>
+    <S.CartItemBox>
+      <S.CartItemInformationBox>
         <Checkbox checked={checked} onChange={onCheck} />
-        <StyledImageContainer>
+        <S.ImageBox>
           <img src={product.image} alt={product.name} />
-        </StyledImageContainer>
+        </S.ImageBox>
         <p>{product.name}</p>
-      </StyledCartItemInformation>
-      <StyledCartItemControl>
-        <StyledButton onClick={onClickRemove}>{ICONS.REMOVE}</StyledButton>
+      </S.CartItemInformationBox>
+      <S.CartItemControlBox>
+        <S.Button onClick={onClickRemove}>{ICONS.REMOVE}</S.Button>
         <Input
           type="number"
           min="1"
@@ -44,41 +44,9 @@ function CartItem({
         <p style={{ alignSelf: 'flex-end' }}>
           {(product.price * quantity).toLocaleString('ko-KR')}원
         </p>
-      </StyledCartItemControl>
-    </StyledCartItemContainer>
+      </S.CartItemControlBox>
+    </S.CartItemBox>
   );
 }
-
-const StyledCartItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledCartItemInformation = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const StyledImageContainer = styled.div`
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  min-width: 144px;
-  height: 144px;
-
-  img {
-    width: 100%;
-  }
-`;
-
-const StyledCartItemControl = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const StyledButton = styled.button`
-  width: fit-content;
-  align-self: flex-end;
-`;
 
 export default CartItem;
