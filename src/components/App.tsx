@@ -5,6 +5,10 @@ import OrderList from '@/pages/OrderList/OrderList';
 import { ROUTE } from '@/route';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from '@/pages/NotFound/NotFound';
+import SignUp from '@/pages/Customers/SignUp/SignUp';
+import Login from '@/pages/Customers/Login/Login';
+import Edit from '@/pages/Customers/Edit/Edit';
+import Leave from '@/pages/Customers/Leave/Leave';
 
 function App() {
   return (
@@ -14,6 +18,12 @@ function App() {
         <Route path={ROUTE.ShoppingCart} element={<ShoppingCart />} />
         <Route path={ROUTE.OrderList} element={<OrderList />} />
         <Route path={ROUTE.ProductDetail} element={<ProductDetail />} />
+
+        <Route path={ROUTE.SignUp} element={<SignUp />} />
+        <Route path={ROUTE.Login} element={<Login />} />
+        <Route path={ROUTE.Edit} element={<Edit />} />
+        <Route path={ROUTE.Leave} element={<Leave />} />
+
         <Route path={ROUTE.NotFound} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
