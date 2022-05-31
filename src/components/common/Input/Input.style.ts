@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{ isError: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -8,22 +8,26 @@ export const InputWrapper = styled.div`
   & > input {
     padding: 8px;
     border-radius: 4px;
-    ${({ theme }) => css`
+    ${({ theme, isError }) => css`
       border: 1px solid ${theme.greyColor_1};
       color: ${theme.blackColor_1};
-      outline-color: #141852;
+      outline-color: ${isError ? theme.redColor_1 : theme.brandColor_1};
     `};
   }
 
   & > label {
-    color: ${({ theme }) => theme.blackColor_1};
     font-size: 0.95rem;
     font-weight: 600;
+    ${({ theme, isError }) => css`
+      color: ${isError ? theme.redColor_1 : theme.blackColor_1};
+    `};
   }
 
   & > p {
     font-size: 0.7rem;
-    color: ${({ theme }) => theme.greyColor_3};
+    ${({ theme, isError }) => css`
+      color: ${isError ? theme.redColor_1 : theme.brandColor_1};
+    `};
   }
 
   & > input[type='number']::-webkit-inner-spin-button,

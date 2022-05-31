@@ -7,6 +7,7 @@ type InputProps = {
   required?: boolean;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  isError?: boolean;
   description?: string;
   labelText: string;
 };
@@ -18,11 +19,12 @@ function Input({
   required = true,
   value,
   onChange,
+  isError = false,
   description,
   labelText,
 }: InputProps) {
   return (
-    <Styled.InputWrapper>
+    <Styled.InputWrapper isError={isError}>
       <label htmlFor={id}>{labelText}</label>
 
       {description && <p>{description}</p>}
