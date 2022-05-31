@@ -5,13 +5,14 @@ import Input from '@/components/common/Input/Input';
 import { useSignUp } from '@/hooks/useSignUp';
 function SignUp() {
   const {
-    formValue: { name, phoneNumber, address, password, passwordConfirm },
+    formValue: { username, phoneNumber, address, password, passwordConfirm },
     formHandler: {
-      onChangeName,
+      onChangeUsername,
       onChangeAddress,
       onChangePhoneNumber,
       onChangePassword,
       onChangePasswordConfirm,
+      onSubmitSignUpForm,
     },
   } = useSignUp();
 
@@ -19,13 +20,13 @@ function SignUp() {
     <PageTemplate>
       <Styled.Container>
         <Styled.PageTitle>회원가입</Styled.PageTitle>
-        <Styled.Form>
+        <Styled.Form onSubmit={onSubmitSignUpForm}>
           <Input
             id="name"
             placeholder="유저 네임"
-            value={name.value}
-            onChange={onChangeName}
-            isError={name.isError}
+            value={username.value}
+            onChange={onChangeUsername}
+            isError={username.isError}
             description="영어와 숫자로 구성하여 3자이상 20자 이하로 입력해주세요"
             labelText="유저 네임"
           />
