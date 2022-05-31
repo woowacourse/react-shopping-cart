@@ -2,7 +2,7 @@ import { ProductType } from '@/domain/product';
 import { ProductActionType } from '@/store/product/action';
 import { PRODUCT_LIST_PAGE_LIMIT } from '../../api/constants';
 
-interface ProductState {
+export interface ProductState {
   readonly productList: ProductType[];
   readonly totalProductCount: number;
   readonly pageCount: number;
@@ -16,7 +16,7 @@ const initialState: ProductState = {
   isLoading: false,
 };
 
-const productReducer = (state = initialState, action) => {
+const productReducer = (state = initialState, action): ProductState => {
   switch (action.type) {
     case ProductActionType.GET_PRODUCT_LIST_START: {
       return {

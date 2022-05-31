@@ -1,7 +1,7 @@
 import { ProductType } from '@/domain/product';
 import { CartActionType } from '@/store/cart/action';
 
-interface CartState {
+export interface CartState {
   readonly cartList: ProductType[];
   readonly isLoading: boolean;
   readonly loadingCartProductId: number | null;
@@ -15,7 +15,7 @@ const initialState: CartState = {
   selectedCartItem: [],
 };
 
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action): CartState => {
   switch (action.type) {
     case CartActionType.GET_CART_START: {
       return { ...state, isLoading: true };
