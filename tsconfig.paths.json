@@ -5,5 +5,5 @@
       "@/*": ["src/*"]
     }
   },
-  "includes": ["src"]
+  "include": ["src"]
 }

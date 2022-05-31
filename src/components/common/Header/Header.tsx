@@ -9,7 +9,7 @@ function Header() {
         <Styled.NavLink to={ROUTE.Home}>
           <Styled.Logo>
             <Icon iconName="tent" size="30" />
-            BLZZI&apos;S CAMPING
+            KKOZZI&apos;S CAMPING
           </Styled.Logo>
         </Styled.NavLink>
 
