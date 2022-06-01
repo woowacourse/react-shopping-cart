@@ -1,4 +1,5 @@
-import { signUpAsync } from '@/store/customer/action';
+import { ROUTE } from '@/route';
+import { loginAsync, signUpAsync } from '@/store/customer/action';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -121,12 +122,15 @@ export const useCustomerForm = ({
       return;
     }
     dispatch(
-      signUpAsync({
-        username: username.value,
-        password: password.value,
-        phoneNumber: phoneNumber.value,
-        address: address.value,
-      }) as any,
+      signUpAsync(
+        {
+          username: username.value,
+          password: password.value,
+          phoneNumber: phoneNumber.value,
+          address: address.value,
+        },
+        () => navigate(ROUTE.Login, { replace: true }),
+      ) as any,
     );
   };
 
@@ -135,10 +139,14 @@ export const useCustomerForm = ({
     // navigate => 마이 프로필
   };
 
-  const onSubmitLoginForm = e => {
+  const onSubmitLoginForm = async e => {
     e.preventDefault();
 
-    // navigate => 이전 라우트, 없으면 홈
+    dispatch(
+      loginAsync({ username: username.value, password: password.value }, () =>
+        navigate(ROUTE.Home, { replace: true }),
+      ) as any,
+    );
   };
 
   return {

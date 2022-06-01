@@ -8,12 +8,12 @@ import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/Cus
 function Login() {
   const {
     formValue: { username, password },
-    formHandler: { onChangeUsername, onChangePassword, onSubmitEditForm },
+    formHandler: { onChangeUsername, onChangePassword, onSubmitLoginForm },
   } = useCustomerForm();
 
   return (
     <PageTemplate>
-      <CustomerFormTemplate formTitle="로그인" onSubmit={onSubmitEditForm}>
+      <CustomerFormTemplate formTitle="로그인" onSubmit={onSubmitLoginForm}>
         <Input
           id="name"
           placeholder="유저 네임"
