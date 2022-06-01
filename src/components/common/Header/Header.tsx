@@ -18,7 +18,9 @@ function Header() {
 
         <Styled.NavButton>
           <Styled.NavLink to={ROUTE.ShoppingCart}>장바구니</Styled.NavLink>
+
           <Styled.NavLink to={ROUTE.OrderList}>주문목록</Styled.NavLink>
+
           {isLoggedIn ? (
             <Styled.NavLink to={ROUTE.Edit}>프로필</Styled.NavLink>
           ) : (
