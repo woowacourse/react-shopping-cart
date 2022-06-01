@@ -25,6 +25,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
       return {
         ...state,
         isLoading: false,
+        errorMessage: '',
       };
 
     case CustomerActionType.SIGN_UP_FAILED: {
@@ -49,6 +50,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
         ...state,
         isLoading: false,
         isLoggedIn: true,
+        errorMessage: '',
       };
 
     case CustomerActionType.LOGIN_FAILED: {
@@ -74,7 +76,8 @@ const customerReducer = (state = initialState, action): CustomerState => {
       return {
         ...state,
         isLoading: false,
-        isLoggedIn: true,
+        isLoggedIn: false,
+        errorMessage: '',
       };
 
     case CustomerActionType.DELETE_USER_FAILED: {
@@ -85,8 +88,15 @@ const customerReducer = (state = initialState, action): CustomerState => {
       return {
         ...state,
         isLoading: false,
-        isLoggedIn: false,
         errorMessage,
+      };
+    }
+
+    case CustomerActionType.LOGOUT_USER: {
+      return {
+        ...state,
+        isLoggedIn: false,
+        errorMessage: '',
       };
     }
 

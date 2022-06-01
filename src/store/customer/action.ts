@@ -14,6 +14,8 @@ export const enum CustomerActionType {
   DELETE_USER_START = 'customer/DELETE_USER_START',
   DELETE_USER_SUCCEEDED = 'customer/DELETE_USER_SUCCEEDED',
   DELETE_USER_FAILED = 'customer/DELETE_USER_FAILED',
+
+  LOGOUT_USER = 'customer/LOGOUT_USER',
 }
 
 interface SignUpStart {
@@ -61,6 +63,9 @@ interface DeleteUserFailed {
   };
 }
 
+interface LogoutUser {
+  type: CustomerActionType.LOGOUT_USER;
+}
 export type CustomerAction =
   | SignUpStart
   | SignUpSucceeded
@@ -70,7 +75,8 @@ export type CustomerAction =
   | LoginFailed
   | DeleteUserStart
   | DeleteUserSucceeded
-  | DeleteUserFailed;
+  | DeleteUserFailed
+  | LogoutUser;
 
 export const signUpAsync =
   (userInformation, navigate) => async (dispatch: Dispatch<CustomerAction>) => {
