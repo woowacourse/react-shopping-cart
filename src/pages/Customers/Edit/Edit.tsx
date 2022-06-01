@@ -3,6 +3,8 @@ import PageTemplate from '@/components/common/PageTemplate/PageTemplate';
 import Input from '@/components/common/Input/Input';
 import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/CustomerFormTemplate';
 import { useCustomerForm } from '@/hooks/useCustomerForm';
+import { ROUTE } from '@/route';
+import { Link } from 'react-router-dom';
 function Edit() {
   const {
     formValue: { phoneNumber, address },
@@ -35,6 +37,11 @@ function Edit() {
         />
 
         <Button padding="8px">확인</Button>
+
+        <p>
+          <Link to={ROUTE.EditPassword}>비밀번호 변경</Link>
+          <Link to={ROUTE.Leave}>회원 탈퇴</Link>
+        </p>
       </CustomerFormTemplate>
     </PageTemplate>
   );
