@@ -9,6 +9,7 @@ import SignUp from '@/pages/Customers/SignUp/SignUp';
 import Login from '@/pages/Customers/Login/Login';
 import Edit from '@/pages/Customers/Edit/Edit';
 import Leave from '@/pages/Customers/Leave/Leave';
+import EditPassword from '@/pages/Customers/EditPassword/EditPassword';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path={ROUTE.Login} element={<Login />} />
         <Route path={ROUTE.Edit} element={<Edit />} />
         <Route path={ROUTE.Leave} element={<Leave />} />
+        <Route path={ROUTE.EditPassword} element={<EditPassword />} />
 
         <Route path={ROUTE.NotFound} element={<NotFound />} />
       </Routes>
