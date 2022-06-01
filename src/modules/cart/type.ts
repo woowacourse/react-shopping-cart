@@ -1,0 +1,81 @@
+import { CartType } from "../../types/cart";
+
+export enum CartActionType {
+  GET_CART_LIST = "cart/GET_CART_LIST",
+  POST_CART = "cart/POST_CART",
+  POST_CART_SUCCESS = "cart/POST_CART_SUCCESS",
+  POST_CART_ERROR = "cart/POST_CART_ERROR",
+  PATCH_CART_STOCK = "cart/PATCH_CART_STOCK",
+  PATCH_CART_CHECK = "cart/PATCH_CART_CHECK",
+  PATCH_CART_ALL_CHECK = "cart/PATCH_CART_ALL_CHECK",
+  DELETE_CART = "cart/DELETE_CART",
+  DELETE_ALL_CHECKED_CART = "cart/DELETE_ALL_CHECKED_CART",
+}
+
+export interface Cart {
+  isLoading: boolean;
+  data: CartType[] | [];
+  error: null | string;
+}
+
+export interface GetCartList {
+  type: CartActionType.GET_CART_LIST;
+}
+
+export interface PostCart {
+  type: CartActionType.POST_CART;
+  payload: CartType;
+}
+
+export interface PostCartSuccess {
+  type: CartActionType.POST_CART_SUCCESS;
+  payload: CartType;
+}
+
+export interface PostCartError {
+  type: CartActionType.POST_CART_ERROR;
+  error: string;
+}
+
+interface PatchCartStockPayload {
+  targetId: string;
+  stockChanged: number;
+}
+
+export interface PatchCartStock {
+  type: CartActionType.PATCH_CART_STOCK;
+  payload: PatchCartStockPayload;
+}
+
+interface PatchCartCheckedPayload {
+  targetId: string;
+  isChecked: boolean;
+}
+export interface PatchCartCheck {
+  type: CartActionType.PATCH_CART_CHECK;
+  payload: PatchCartCheckedPayload;
+}
+export interface PatchCartALLCheck {
+  type: CartActionType.PATCH_CART_ALL_CHECK;
+  payload: boolean;
+}
+
+export interface DeleteCart {
+  type: CartActionType.DELETE_CART;
+  payload: string;
+}
+
+export interface DeleteAllCheckedCart {
+  type: CartActionType.DELETE_ALL_CHECKED_CART;
+}
+
+export type CartAction =
+  | GetCartList
+  | PostCart
+  | PostCartSuccess
+  | PostCartError
+  | PatchCartStock
+  | PatchCartCheck
+  | PatchCartALLCheck
+  | DeleteCart
+  | DeleteAllCheckedCart;
