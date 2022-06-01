@@ -13,7 +13,7 @@ export const Container = styled.div`
 
   border-radius: 4px;
 
-  -webkit-box-shadow: 2px 3px 6px 0px rgba(20, 24, 82, 0.27);
+  -webkit-box-shadow: 1px 1.5px 3px 0px rgba(20, 24, 82, 0.27);
   box-shadow: 2px 3px 6px 0px rgba(20, 24, 82, 0.27);
 `;
 
@@ -36,6 +36,7 @@ export const Form = styled.form`
 
   & > p {
     display: flex;
+    justify-content: center;
     gap: 10px;
     & > a {
       text-decoration: underline;
