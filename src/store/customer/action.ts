@@ -1,4 +1,5 @@
-import { login, signUp } from '@/api/customers';
+import { deleteCookie, setCookie } from '@/api/cookie';
+import { deleteUser, login, signUp } from '@/api/customers';
 import { Dispatch } from 'redux';
 
 export const enum CustomerActionType {
@@ -9,6 +10,10 @@ export const enum CustomerActionType {
   LOGIN_START = 'customer/LOGIN_START',
   LOGIN_SUCCEEDED = 'customer/LOGIN_SUCCEEDED',
   LOGIN_FAILED = 'customer/LOGIN_FAILED',
+
+  DELETE_USER_START = 'customer/DELETE_USER_START',
+  DELETE_USER_SUCCEEDED = 'customer/DELETE_USER_SUCCEEDED',
+  DELETE_USER_FAILED = 'customer/DELETE_USER_FAILED',
 }
 
 interface SignUpStart {
@@ -21,6 +26,9 @@ interface SignUpSucceeded {
 
 interface SignUpFailed {
   type: CustomerActionType.SIGN_UP_FAILED;
+  payload: {
+    errorMessage: string;
+  };
 }
 
 interface LoginStart {
@@ -33,6 +41,24 @@ interface LoginSucceeded {
 
 interface LoginFailed {
   type: CustomerActionType.LOGIN_FAILED;
+  payload: {
+    errorMessage: string;
+  };
+}
+
+interface DeleteUserStart {
+  type: CustomerActionType.DELETE_USER_START;
+}
+
+interface DeleteUserSucceeded {
+  type: CustomerActionType.DELETE_USER_SUCCEEDED;
+}
+
+interface DeleteUserFailed {
+  type: CustomerActionType.DELETE_USER_FAILED;
+  payload: {
+    errorMessage: string;
+  };
 }
 
 export type CustomerAction =
@@ -41,7 +67,10 @@ export type CustomerAction =
   | SignUpFailed
   | LoginStart
   | LoginSucceeded
-  | LoginFailed;
+  | LoginFailed
+  | DeleteUserStart
+  | DeleteUserSucceeded
+  | DeleteUserFailed;
 
 export const signUpAsync =
   (userInformation, navigate) => async (dispatch: Dispatch<CustomerAction>) => {
@@ -51,9 +80,17 @@ export const signUpAsync =
       await signUp(userInformation);
 
       dispatch({ type: CustomerActionType.SIGN_UP_SUCCEEDED });
+
       navigate();
-    } catch ({ message }) {
-      dispatch({ type: CustomerActionType.SIGN_UP_FAILED });
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }) {
+      dispatch({
+        type: CustomerActionType.SIGN_UP_FAILED,
+        payload: { errorMessage: error?.messages[0] },
+      });
     }
   };
 
@@ -64,15 +101,40 @@ export const loginAsync =
     try {
       const responseData = await login(userInformation);
 
-      // 토큰 저장하는 로직 추가?!
-      console.log(responseData.data.accessToken);
-
       dispatch({ type: CustomerActionType.LOGIN_SUCCEEDED });
-      navigate();
-    } catch ({ response }) {
-      // error일 경우 toast UI 추가?!
-      console.log(response.data.error.message);
 
-      dispatch({ type: CustomerActionType.LOGIN_FAILED });
+      setCookie('access-token', responseData.data.accessToken, 3600);
+      navigate();
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }) {
+      dispatch({
+        type: CustomerActionType.LOGIN_FAILED,
+        payload: { errorMessage: error?.messages[0] },
+      });
     }
   };
+
+export const leaveUserAsync = navigate => async (dispatch: Dispatch<CustomerAction>) => {
+  dispatch({ type: CustomerActionType.DELETE_USER_START });
+
+  try {
+    await deleteUser();
+
+    dispatch({ type: CustomerActionType.DELETE_USER_SUCCEEDED });
+
+    deleteCookie('access-token');
+    navigate();
+  } catch ({
+    response: {
+      data: { error },
+    },
+  }) {
+    dispatch({
+      type: CustomerActionType.DELETE_USER_FAILED,
+      payload: { errorMessage: error?.messages[0] },
+    });
+  }
+};
