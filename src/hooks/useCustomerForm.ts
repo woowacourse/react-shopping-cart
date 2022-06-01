@@ -1,3 +1,4 @@
+import { changePassword, editUser } from '@/api/customers';
 import { ROUTE } from '@/route';
 import { loginAsync, signUpAsync } from '@/store/customer/action';
 import { useState } from 'react';
@@ -134,12 +135,13 @@ export const useCustomerForm = ({
     );
   };
 
-  const onSubmitEditForm = e => {
+  const onSubmitEditForm = async e => {
     e.preventDefault();
-    // navigate => 마이 프로필
+
+    await editUser({ phoneNumber: phoneNumber.value, address: address.value });
   };
 
-  const onSubmitLoginForm = async e => {
+  const onSubmitLoginForm = e => {
     e.preventDefault();
 
     dispatch(
@@ -147,6 +149,14 @@ export const useCustomerForm = ({
         navigate(ROUTE.Home, { replace: true }),
       ) as any,
     );
+  };
+
+  const onSubmitChangePasswordForm = async e => {
+    e.preventDefault();
+
+    await changePassword({ password: password.value });
+
+    navigate(ROUTE.Edit, { replace: true });
   };
 
   return {
@@ -166,6 +176,7 @@ export const useCustomerForm = ({
       onSubmitSignUpForm,
       onSubmitEditForm,
       onSubmitLoginForm,
+      onSubmitChangePasswordForm,
     },
   };
 };
