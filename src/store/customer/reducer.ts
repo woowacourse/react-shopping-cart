@@ -30,6 +30,26 @@ const customerReducer = (state = initialState, action): CustomerState => {
         isLoading: false,
       };
 
+    case CustomerActionType.LOGIN_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case CustomerActionType.LOGIN_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+      };
+
+    case CustomerActionType.LOGIN_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+      };
+
     default:
       return state;
   }
