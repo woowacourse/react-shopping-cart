@@ -1,18 +1,17 @@
+import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../../../../assets/images/cart.svg";
-import Thumbnail from "../thumbnail/Thumbnail";
-import ImageButton from "../image-button/ImageButton";
-import createAction from "../../../../redux/createAction";
-import ACTION_TYPE from "../../../../redux/actions";
-import styles from "./product-item.module.scss";
-
-const cn = require("classnames");
+import priceToDollar from "@utils/priceToDollar";
+import Cart from "@assets/images/cart.svg";
+import ImageButton from "@home/components/image-button/ImageButton";
+import createAction from "@redux/createAction";
+import ACTION_TYPE from "@redux/actions";
+import styles from "@home/components/product-item/product-item.module";
+import LoadingThumbnail from "@shared/loading-thumbnail/LoadingThumbnail";
 
 function ProductItem({
-  id,
-  title,
+  sku: productId,
+  name,
   price,
-  quantity,
   thumbnail_image: { url: thumbnailUrl, alt },
   className,
 }) {
@@ -25,36 +24,33 @@ function ProductItem({
   };
 
   const handleClick = () => {
-    dispatch(createAction(ACTION_TYPE.ADD_PRODUCT_TO_CART, id));
+    dispatch(createAction(ACTION_TYPE.ADD_PRODUCT_TO_CART, productId));
   };
 
   return (
-    <div className={cn("product-item", styles["product-item"], className)}>
-      <Thumbnail
+    <div className={cn(styles.productItem, className)}>
+      <LoadingThumbnail
         src={`${thumbnailUrl}`}
         className={styles.thumbnail}
         alt={alt}
+        minHeight="295"
       />
-      <div className={cn("content", styles.content)}>
-        <div className={cn("product-detail", styles["product-detail"])}>
-          <div className={cn("l-left", styles["l-left"])}>
-            <div className={cn("product-title", styles["product-title"])}>
-              {title}
-            </div>
-            <div className={cn("product-price", styles["product-price"])}>
-              {price}
+      <div className={cn(styles.content)}>
+        <div className={cn(styles.productDetail)}>
+          <div className={cn(styles.lLeft)}>
+            <div className={cn(styles.productTitle)}>{name}</div>
+            <div className={cn(styles.productPrice)}>
+              {priceToDollar(price)}
             </div>
           </div>
-          <div className="l-right">
-            {quantity > 0 && (
-              <ImageButton
-                onClick={handleClick}
-                included={existInCart(cart, id)}
-                className={cn("add-to-cart-btn", styles["add-to-cart-btn"])}
-              >
-                <Cart width="36px" height="36px" fill="#00cc00" />
-              </ImageButton>
-            )}
+          <div className="lRight">
+            <ImageButton
+              onClick={handleClick}
+              included={existInCart(cart, productId)}
+              className={cn("addToCartBtn", styles.addToCartBtn)}
+            >
+              <Cart width="36px" height="36px" fill="#00cc00" />
+            </ImageButton>
           </div>
         </div>
       </div>

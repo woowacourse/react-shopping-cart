@@ -1,0 +1,48 @@
+@import "@scss/responsive";
+
+.cart {
+  display: block;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartForm {
+  width: 100%;
+  padding-right: 100px;
+}
+
+.cartTotal {
+  position: sticky;
+  top: 100px;
+  min-width: 400px;
+  place-self: start;
+}
+
+@include media("<=lg") {
+  .cartForm {
+    padding-right: 60px;
+  }
+  .cartTotal {
+    min-width: 300px;
+  }
+}
+
+@include media("<=md") {
+  .container {
+    display: block;
+  }
+  .cartForm {
+    padding-right: 0;
+    margin-bottom: 60px;
+  }
+  .cartTotal {
+    width: 100%;
+    min-width: auto;
+    position: static;
+  }
+}

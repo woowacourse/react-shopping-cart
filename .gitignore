@@ -1,15 +1,29 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Created by https://www.toptal.com/developers/gitignore/api/react,storybookjs
+# Edit at https://www.toptal.com/developers/gitignore?templates=react,storybookjs
 
-# dependencies
-/node_modules
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
 
-# production
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
+
 /build
 /dist
 
-# misc
-.DS_Store
+### StorybookJs ###
+# gitignore template for the Storybook, UI guide for front apps
+# website: https://storybook.js.org/
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+storybook-static/
+
+# End of https://www.toptal.com/developers/gitignore/api/react,storybookjs

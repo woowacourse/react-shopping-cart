@@ -1,0 +1,9 @@
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+
+  & > label {
+    cursor: pointer;
+    padding-left: 10px;
+  }
+}

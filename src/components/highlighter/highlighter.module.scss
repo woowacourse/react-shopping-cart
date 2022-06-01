@@ -1,0 +1,17 @@
+@import "@scss/colors";
+
+.highlighter {
+  display: inline-block;
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    height: 40%;
+    opacity: 0.4;
+    z-index: 1;
+    background-color: $green800;
+  }
+}

@@ -1,16 +1,13 @@
-import styles from "./menu.module.scss";
-
-const cn = require("classnames");
+import cn from "classnames";
+import styles from "@shared/header/menu/menu.module";
+import { Link } from "react-router-dom";
 
 function Menu({ className }) {
   return (
-    <div className={cn("menu", styles.menu, className)}>
+    <div className={cn(styles.menu, className)}>
       <ul className={styles.ul}>
         <li>
-          <a href="/">장바구니</a>
-        </li>
-        <li>
-          <a href="/">주문목록</a>
+          <Link to="/cart">장바구니</Link>
         </li>
       </ul>
     </div>

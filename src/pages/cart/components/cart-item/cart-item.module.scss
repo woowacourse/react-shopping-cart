@@ -1,0 +1,46 @@
+@import "@scss/responsive";
+
+.cartItem {
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  .checkbox {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+}
+
+.content {
+  display: flex;
+  .thumbnail {
+    max-width: 150px;
+  }
+  .productName {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .middle {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+@include media("<=sm") {
+  .content {
+    .thumbnail {
+      min-height: auto;
+      min-width: 80px;
+      width: 80px;
+    }
+    .productName {
+      font-size: 16px;
+    }
+  }
+}

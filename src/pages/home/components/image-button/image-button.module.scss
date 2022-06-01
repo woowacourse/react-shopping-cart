@@ -1,6 +1,6 @@
-@import "../../../../scss/colors.scss";
+@import "@scss/colors";
 
-.image-button {
+.imageButton {
   &:disabled {
     svg path {
       fill: $gray900;

@@ -1,14 +1,16 @@
 ## 요구 사항
 ### 필수 요구 사항
-- [x] Redux를 활용한 상태 관리
-- [x] REQUIREMENTS.md에 요구 사항 도출
-- [x] Mock Data 활용 (Schema 설계까지)
-  - [x] Local JSON
-    - 장바구니구현을 위해 local storage를 사용했습니다
-  - [x] JSON Server
-    - json server로부터 제품 정보를 가져왔습니다
+- [x] 작성 가능한 단위의 테스트를 직접 선정하여 진행
+- [x] MSW를 활용해 API mocking
+  - [x] 실제 서버 API주소와 개발 서버 API주소 Switching이 가능하다
+  - [x] Real API 없이 로컬에서만 동작하는 상태로 리뷰 받는 것이 기본 원칙입니다
+
 ### 필수 구현 페이지
-- [x] 상품 목록
+- [x] 장바구니
+storybook
+ MSW를 활용해 API mocking
+ Endpoint만 변경하면 언제든 Real API를 바라볼 수 있다고 가정하고 상상합니다.
+ Real API 없이 로컬에서만 동작하는 상태로 리뷰 받는 것이 기본 원칙입니다.
 
 ### 심화 요구 사항
 - [ ] 도출된 요구사항을 기반으로 User Flow Diagram 혹은 Flow Chart 작성

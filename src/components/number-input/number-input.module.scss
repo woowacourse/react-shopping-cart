@@ -1,0 +1,45 @@
+@import "@scss/no-style";
+
+.numberInput {
+  position: relative;
+  display: inline-flex;
+
+  input {
+    width: 50px;
+    border: none;
+    border: 1px solid black;
+    padding: 0 4px;
+    font-size: 16px;
+    &:focus {
+      outline: initial;
+      border: 1px solid black;
+    }
+  }
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-left: none;
+}
+
+.divider {
+  height: 1px;
+  background-color: black;
+}
+
+.up, .down {
+  @include button-no-style;
+  width: 25px;
+  height: 15px;
+  position: relative;
+}
+
+.up svg,
+.down svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
