@@ -4,8 +4,12 @@ import Input from '@/components/common/Input/Input';
 import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/CustomerFormTemplate';
 import { useCustomerForm } from '@/hooks/useCustomerForm';
 import { ROUTE } from '@/route';
+import { deleteCookie } from '@/api/cookie';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { CustomerActionType } from '@/store/customer/action';
 function Edit() {
+  const dispatch = useDispatch();
   const {
     formValue: { phoneNumber, address },
     formHandler: { onChangeAddress, onChangePhoneNumber, onSubmitEditForm },
@@ -14,6 +18,11 @@ function Edit() {
     addressValue: '서울시 노원구',
     phoneNumberValue: '01027717502',
   });
+
+  const onClickLogout = () => {
+    deleteCookie('access-token');
+    dispatch({ type: CustomerActionType.LOGOUT_USER });
+  };
 
   return (
     <PageTemplate>
@@ -41,6 +50,9 @@ function Edit() {
         <p>
           <Link to={ROUTE.EditPassword}>비밀번호 변경</Link>
           <Link to={ROUTE.Leave}>회원 탈퇴</Link>
+          <Link to={ROUTE.Home} onClick={onClickLogout}>
+            로그아웃
+          </Link>
         </p>
       </CustomerFormTemplate>
     </PageTemplate>

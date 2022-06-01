@@ -6,10 +6,12 @@ import * as Styled from './Leave.style';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@/route';
-import { deleteUser } from '@/api/customers';
+import { useDispatch } from 'react-redux';
+import { leaveUserAsync } from '@/store/customer/action';
 
 function Leave() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [{ leaveReason, resignUpAgreement, pointRuleAgreement }, setLeaveState] = useState({
     leaveReason: '',
@@ -29,7 +31,7 @@ function Leave() {
     setLeaveState(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const onSubmitLeaveForm = async e => {
+  const onSubmitLeaveForm = e => {
     e.preventDefault();
 
     if (leaveReason.length === 0 || resignUpAgreement === false || pointRuleAgreement === false) {
@@ -37,13 +39,12 @@ function Leave() {
       return;
     }
 
-    await deleteUser();
-    navigate(ROUTE.Home, { replace: true });
+    dispatch(leaveUserAsync(() => navigate(ROUTE.Home, { replace: true })) as any);
   };
 
   return (
     <PageTemplate>
-      <CustomerFormTemplate formTitle="사유서 작성하기" onSubmit={onSubmitLeaveForm}>
+      <CustomerFormTemplate formTitle="반성문" onSubmit={onSubmitLeaveForm}>
         <Styled.TextArea
           value={leaveReason}
           onChange={onChangeLeaveTextArea}
