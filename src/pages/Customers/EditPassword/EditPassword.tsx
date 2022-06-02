@@ -3,8 +3,13 @@ import PageTemplate from '@/components/common/PageTemplate/PageTemplate';
 import Input from '@/components/common/Input/Input';
 import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/CustomerFormTemplate';
 import { useCustomerForm } from '@/hooks/useCustomerForm';
+import { useSelector } from 'react-redux';
+import Loading from '@/components/common/Loading/Loading';
+import { withLogin } from '@/components/helper/withLogin';
 
 function EditPassword() {
+  const { isLoading } = useSelector((state: any) => state.customer);
+
   const {
     formValue: { password, passwordConfirm },
     formHandler: { onChangePassword, onChangePasswordConfirm, onSubmitChangePasswordForm },
@@ -34,8 +39,14 @@ function EditPassword() {
         />
         <Button padding="8px">확인</Button>
       </CustomerFormTemplate>
+
+      {isLoading && (
+        <Loading type="page" fontSize="2rem">
+          👻
+        </Loading>
+      )}
     </PageTemplate>
   );
 }
 
-export default EditPassword;
+export default withLogin(EditPassword, true);

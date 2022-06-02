@@ -5,7 +5,11 @@ import { useCustomerForm } from '@/hooks/useCustomerForm';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '@/route';
 import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/CustomerFormTemplate';
+import { useSelector } from 'react-redux';
+import Loading from '@/components/common/Loading/Loading';
+import { withLogin } from '@/components/helper/withLogin';
 function Login() {
+  const { isLoading } = useSelector((state: any) => state.customer);
   const {
     formValue: { username, password },
     formHandler: { onChangeUsername, onChangePassword, onSubmitLoginForm },
@@ -36,8 +40,14 @@ function Login() {
           <Link to={ROUTE.SignUp}>회원가입 하기</Link>
         </p>
       </CustomerFormTemplate>
+
+      {isLoading && (
+        <Loading type="page" fontSize="2rem">
+          👻
+        </Loading>
+      )}
     </PageTemplate>
   );
 }
 
-export default Login;
+export default withLogin(Login, false);

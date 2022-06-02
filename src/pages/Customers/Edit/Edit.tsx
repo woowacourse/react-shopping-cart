@@ -6,11 +6,14 @@ import { useCustomerForm } from '@/hooks/useCustomerForm';
 import { ROUTE } from '@/route';
 import { deleteCookie } from '@/api/cookie';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CustomerActionType, getCustomerAsync } from '@/store/customer/action';
 import { useThunkFetch } from '@/hooks/useFecth';
 import { useEffect } from 'react';
+import Loading from '@/components/common/Loading/Loading';
+import { withLogin } from '@/components/helper/withLogin';
 function Edit() {
+  const { isLoading } = useSelector((state: any) => state.customer);
   const dispatch = useDispatch();
   const { loggedCustomer: customer } = useThunkFetch({
     selector: state => state.customer,
@@ -70,8 +73,14 @@ function Edit() {
           </Link>
         </p>
       </CustomerFormTemplate>
+
+      {isLoading && (
+        <Loading type="page" fontSize="2rem">
+          👻
+        </Loading>
+      )}
     </PageTemplate>
   );
 }
 
-export default Edit;
+export default withLogin(Edit, true);

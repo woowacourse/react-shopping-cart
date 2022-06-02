@@ -6,12 +6,15 @@ import * as Styled from './Leave.style';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '@/route';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { leaveUserAsync } from '@/store/customer/action';
+import Loading from '@/components/common/Loading/Loading';
+import { withLogin } from '@/components/helper/withLogin';
 
 function Leave() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state: any) => state.customer);
 
   const [{ leaveReason, resignUpAgreement, pointRuleAgreement }, setLeaveState] = useState({
     leaveReason: '',
@@ -74,8 +77,14 @@ function Leave() {
 
         <Button padding="8px">탈퇴하기</Button>
       </CustomerFormTemplate>
+
+      {isLoading && (
+        <Loading type="page" fontSize="2rem">
+          👻
+        </Loading>
+      )}
     </PageTemplate>
   );
 }
 
-export default Leave;
+export default withLogin(Leave, true);
