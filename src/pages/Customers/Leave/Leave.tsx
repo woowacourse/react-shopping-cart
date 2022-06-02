@@ -3,47 +3,18 @@ import CheckBox from '@/components/common/CheckBox/CheckBox';
 import PageTemplate from '@/components/common/PageTemplate/PageTemplate';
 import CustomerFormTemplate from '@/components/customer/CustomerFormTemplate/CustomerFormTemplate';
 import * as Styled from './Leave.style';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ROUTE } from '@/route';
-import { useDispatch, useSelector } from 'react-redux';
-import { leaveUserAsync } from '@/store/customer/action';
+import { useSelector } from 'react-redux';
 import Loading from '@/components/common/Loading/Loading';
 import { withLogin } from '@/components/helper/withLogin';
+import { useCustomerLeaveForm } from '@/hooks/useCustomerLeaveForm';
 
 function Leave() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { isLoading } = useSelector((state: any) => state.customer);
 
-  const [{ leaveReason, resignUpAgreement, pointRuleAgreement }, setLeaveState] = useState({
-    leaveReason: '',
-    resignUpAgreement: false,
-    pointRuleAgreement: false,
-  });
-
-  const onChangeLeaveTextArea = e => {
-    const {
-      target: { value },
-    } = e;
-
-    setLeaveState(prev => ({ ...prev, leaveReason: value }));
-  };
-
-  const onClickAgreeCheckBox = key => {
-    setLeaveState(prev => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const onSubmitLeaveForm = e => {
-    e.preventDefault();
-
-    if (leaveReason.length === 0 || resignUpAgreement === false || pointRuleAgreement === false) {
-      alert('폼을 완성해주세요');
-      return;
-    }
-
-    dispatch(leaveUserAsync(() => navigate(ROUTE.Home, { replace: true })) as any);
-  };
+  const {
+    formState: { leaveReason, resignUpAgreement, pointRuleAgreement },
+    formHandler: { onChangeLeaveTextArea, onClickAgreeCheckBox, onSubmitLeaveForm },
+  } = useCustomerLeaveForm();
 
   return (
     <PageTemplate>
