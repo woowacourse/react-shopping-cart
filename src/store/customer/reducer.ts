@@ -5,16 +5,38 @@ export interface CustomerState {
   readonly isLoading: boolean;
   readonly isLoggedIn: boolean;
   readonly errorMessage: string;
+  readonly loggedCustomer: any;
 }
 
 const initialState: CustomerState = {
   isLoading: false,
   isLoggedIn: getCookie('access-token') ? true : false,
   errorMessage: '',
+  loggedCustomer: null,
 };
 
 const customerReducer = (state = initialState, action): CustomerState => {
   switch (action.type) {
+    case CustomerActionType.GET_CUSTOMER_START: {
+      return { ...state, isLoading: true };
+    }
+
+    case CustomerActionType.GET_CUSTOMER_SUCCEEDED: {
+      const {
+        payload: { loggedCustomer },
+      } = action;
+
+      return { ...state, isLoading: false, loggedCustomer };
+    }
+
+    case CustomerActionType.GET_CUSTOMER_FAILED: {
+      const {
+        payload: { errorMessage },
+      } = action;
+
+      return { ...state, isLoading: false, errorMessage };
+    }
+
     case CustomerActionType.SIGN_UP_START:
       return {
         ...state,
@@ -63,6 +85,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
         isLoading: false,
         isLoggedIn: false,
         errorMessage,
+        loggedCustomer: null,
       };
     }
 
@@ -78,6 +101,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
         isLoading: false,
         isLoggedIn: false,
         errorMessage: '',
+        loggedCustomer: null,
       };
 
     case CustomerActionType.DELETE_USER_FAILED: {
@@ -97,6 +121,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
         ...state,
         isLoggedIn: false,
         errorMessage: '',
+        loggedCustomer: null,
       };
     }
 

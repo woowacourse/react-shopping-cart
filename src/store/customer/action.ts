@@ -1,8 +1,12 @@
 import { deleteCookie, setCookie } from '@/api/cookie';
-import { deleteUser, login, signUp } from '@/api/customers';
+import { deleteUser, getCustomer, login, signUp } from '@/api/customers';
 import { Dispatch } from 'redux';
 
 export const enum CustomerActionType {
+  GET_CUSTOMER_START = 'customer/GET_CUSTOMER_START',
+  GET_CUSTOMER_SUCCEEDED = 'customer/GET_CUSTOMER_SUCCEEDED',
+  GET_CUSTOMER_FAILED = 'customer/GET_CUSTOMER_FAILED',
+
   SIGN_UP_START = 'customer/SIGN_UP_START',
   SIGN_UP_SUCCEEDED = 'customer/SIGN_UP_SUCCEEDED',
   SIGN_UP_FAILED = 'customer/SIGN_UP_FAILED',
@@ -16,6 +20,22 @@ export const enum CustomerActionType {
   DELETE_USER_FAILED = 'customer/DELETE_USER_FAILED',
 
   LOGOUT_USER = 'customer/LOGOUT_USER',
+}
+
+interface GetCustomerStart {
+  type: CustomerActionType.GET_CUSTOMER_START;
+}
+interface GetCustomerSucceeded {
+  type: CustomerActionType.GET_CUSTOMER_SUCCEEDED;
+  payload: {
+    loggedCustomer: any;
+  };
+}
+interface GetCustomerFailed {
+  type: CustomerActionType.GET_CUSTOMER_FAILED;
+  payload: {
+    errorMessage: string;
+  };
 }
 
 interface SignUpStart {
@@ -67,6 +87,9 @@ interface LogoutUser {
   type: CustomerActionType.LOGOUT_USER;
 }
 export type CustomerAction =
+  | GetCustomerStart
+  | GetCustomerSucceeded
+  | GetCustomerFailed
   | SignUpStart
   | SignUpSucceeded
   | SignUpFailed
@@ -141,6 +164,34 @@ export const leaveUserAsync = navigate => async (dispatch: Dispatch<CustomerActi
     dispatch({
       type: CustomerActionType.DELETE_USER_FAILED,
       payload: { errorMessage: error?.messages[0] },
+    });
+  }
+};
+
+export const getCustomerAsync = () => async (dispatch: Dispatch<CustomerAction>) => {
+  dispatch({ type: CustomerActionType.GET_CUSTOMER_START });
+
+  try {
+    const {
+      data: { customer },
+    } = await getCustomer();
+
+    dispatch({
+      type: CustomerActionType.GET_CUSTOMER_SUCCEEDED,
+      payload: {
+        loggedCustomer: customer,
+      },
+    });
+  } catch ({
+    response: {
+      data: { error },
+    },
+  }) {
+    dispatch({
+      type: CustomerActionType.GET_CUSTOMER_FAILED,
+      payload: {
+        errorMessage: error?.messages[0],
+      },
     });
   }
 };

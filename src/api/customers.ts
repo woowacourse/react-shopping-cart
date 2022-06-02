@@ -7,6 +7,7 @@ const customersAPI = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 export const signUp = userInformation => {
@@ -24,7 +25,6 @@ export const editUser = userInformation => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-    withCredentials: true,
   });
 };
 
@@ -35,7 +35,6 @@ export const changePassword = userInformation => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-    withCredentials: true,
   });
 };
 
@@ -46,6 +45,15 @@ export const deleteUser = () => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-    withCredentials: true,
+  });
+};
+
+export const getCustomer = () => {
+  const accessToken = getCookie('access-token');
+
+  return customersAPI.get('/', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 };
