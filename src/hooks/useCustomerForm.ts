@@ -1,7 +1,7 @@
 import { changePassword, editUser } from '@/api/customers';
 import { ROUTE } from '@/route';
 import { loginAsync, signUpAsync } from '@/store/customer/action';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,13 +26,15 @@ interface UserInformation {
   passwordConfirmValue?: string;
 }
 
-export const useCustomerForm = ({
-  usernameValue = '',
-  addressValue = '',
-  phoneNumberValue = '',
-  passwordValue = '',
-  passwordConfirmValue = '',
-}: UserInformation = {}) => {
+export const useCustomerForm = (userInformation: UserInformation = {}) => {
+  const {
+    usernameValue = '',
+    addressValue = '',
+    phoneNumberValue = '',
+    passwordValue = '',
+    passwordConfirmValue = '',
+  } = userInformation;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -159,7 +161,16 @@ export const useCustomerForm = ({
     navigate(ROUTE.Edit, { replace: true });
   };
 
+  const initializeCustomerInformation = ({ phoneNumberValue = '', addressValue = '' }) => {
+    setInputData(prev => ({
+      ...prev,
+      phoneNumber: { value: phoneNumberValue, isError: false },
+      address: { value: addressValue, isError: false },
+    }));
+  };
+
   return {
+    initializeCustomerInformation,
     formValue: {
       username,
       phoneNumber,
