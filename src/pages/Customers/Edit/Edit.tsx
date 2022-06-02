@@ -7,17 +7,32 @@ import { ROUTE } from '@/route';
 import { deleteCookie } from '@/api/cookie';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { CustomerActionType } from '@/store/customer/action';
+import { CustomerActionType, getCustomerAsync } from '@/store/customer/action';
+import { useThunkFetch } from '@/hooks/useFecth';
+import { useEffect } from 'react';
 function Edit() {
   const dispatch = useDispatch();
+  const { loggedCustomer: customer } = useThunkFetch({
+    selector: state => state.customer,
+    deps: [],
+    thunkAction: getCustomerAsync,
+  });
+
   const {
+    initializeCustomerInformation,
     formValue: { phoneNumber, address },
     formHandler: { onChangeAddress, onChangePhoneNumber, onSubmitEditForm },
-  } = useCustomerForm({
-    usernameValue: '준찌',
-    addressValue: '서울시 노원구',
-    phoneNumberValue: '01027717502',
-  });
+  } = useCustomerForm();
+
+  useEffect(() => {
+    // 인자가 변경되어 호출될때 수행.
+    if (customer) {
+      initializeCustomerInformation({
+        phoneNumberValue: customer?.phoneNumber,
+        addressValue: customer?.address,
+      });
+    }
+  }, [customer]);
 
   const onClickLogout = () => {
     deleteCookie('access-token');
