@@ -19,9 +19,11 @@ export const customerHanlders = [
     return res(
       ctx.status(200, 'ok'),
       ctx.json({
-        username: customer.username,
-        phoneNumber: customer.phoneNumber,
-        address: customer.address,
+        customer: {
+          username: customer.username,
+          phoneNumber: customer.phoneNumber,
+          address: customer.address,
+        },
       }),
     );
   }),
