@@ -1,7 +1,8 @@
 import { changePassword, editUser } from '@/api/customers';
+import { useSnackbar } from '@/hooks/useSnackbar';
 import { ROUTE } from '@/route';
 import { loginAsync, signUpAsync } from '@/store/customer/action';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,13 +11,6 @@ const isValidNameInput = value => /^[0-9a-zA-Z]{3,20}$/.test(value);
 const isValidPhoneNumberInput = value => /^[0-9]{11}$/.test(value);
 
 const isValidPasswordInput = value => /^(?=.*[0-9])(?=.*[a-zA-Z])[A-Za-z0-9]{8,20}$/.test(value);
-
-const validate = {
-  username: value => !isValidNameInput(value),
-  phoneNumber: value => !isValidPhoneNumberInput(value),
-  password: value => !isValidPasswordInput(value),
-  passwordConfirm: (value, password) => !isValidPasswordInput(value) && value !== password,
-};
 
 interface UserInformation {
   usernameValue?: string;
@@ -37,6 +31,7 @@ export const useCustomerForm = (userInformation: UserInformation = {}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { triggerFailedSnackbar, triggerSucceededSnackbar } = useSnackbar();
 
   const [inputData, setInputData] = useState({
     username: { value: usernameValue, isError: false },
@@ -119,44 +114,66 @@ export const useCustomerForm = (userInformation: UserInformation = {}) => {
     e.preventDefault();
 
     if (Object.values(inputData).some(({ isError }) => isError)) {
-      alert('에러 존재');
-
-      // navigate => 로그인으로
+      triggerFailedSnackbar('양식을 지켜주세요 👻');
       return;
     }
+
     dispatch(
-      signUpAsync(
-        {
+      signUpAsync({
+        userInformation: {
           username: username.value,
           password: password.value,
           phoneNumber: phoneNumber.value,
           address: address.value,
         },
-        () => navigate(ROUTE.Login, { replace: true }),
-      ) as any,
+        navigate: () => navigate(ROUTE.Login, { replace: true }),
+        triggerFailedSnackbar,
+        triggerSucceededSnackbar,
+      }) as any,
     );
   };
 
   const onSubmitEditForm = async e => {
     e.preventDefault();
 
-    await editUser({ phoneNumber: phoneNumber.value, address: address.value });
+    try {
+      await editUser({ phoneNumber: phoneNumber.value, address: address.value });
+      triggerSucceededSnackbar('정보수정에 성공하였습니다.');
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }) {
+      triggerFailedSnackbar(error?.messages[0]);
+    }
   };
 
   const onSubmitLoginForm = e => {
     e.preventDefault();
 
     dispatch(
-      loginAsync({ username: username.value, password: password.value }, () =>
-        navigate(ROUTE.Home, { replace: true }),
-      ) as any,
+      loginAsync({
+        userInformation: { username: username.value, password: password.value },
+        navigate: () => navigate(ROUTE.Home, { replace: true }),
+        triggerFailedSnackbar,
+        triggerSucceededSnackbar,
+      }) as any,
     );
   };
 
   const onSubmitChangePasswordForm = async e => {
     e.preventDefault();
 
-    await changePassword({ password: password.value });
+    try {
+      await changePassword({ password: password.value });
+      triggerSucceededSnackbar('비밀번호 변경에 성공하셨습니다.');
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }) {
+      triggerFailedSnackbar(error);
+    }
 
     navigate(ROUTE.Edit, { replace: true });
   };
