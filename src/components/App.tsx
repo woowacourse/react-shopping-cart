@@ -10,6 +10,7 @@ import Login from '@/pages/Customers/Login/Login';
 import Edit from '@/pages/Customers/Edit/Edit';
 import Leave from '@/pages/Customers/Leave/Leave';
 import EditPassword from '@/pages/Customers/EditPassword/EditPassword';
+import SnackBar from '@/components/common/Snackbar/Snackbar';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
         <Route path={ROUTE.NotFound} element={<NotFound />} />
       </Routes>
+      <SnackBar />
     </BrowserRouter>
   );
 }
