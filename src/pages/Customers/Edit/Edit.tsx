@@ -12,13 +12,16 @@ import { useThunkFetch } from '@/hooks/useFecth';
 import { useEffect } from 'react';
 import Loading from '@/components/common/Loading/Loading';
 import { withLogin } from '@/components/helper/withLogin';
+import { useSnackbar } from '@/hooks/useSnackbar';
 function Edit() {
   const { isLoading } = useSelector((state: any) => state.customer);
   const dispatch = useDispatch();
+  const { triggerFailedSnackbar } = useSnackbar();
+
   const { loggedCustomer: customer } = useThunkFetch({
     selector: state => state.customer,
     deps: [],
-    thunkAction: getCustomerAsync,
+    thunkAction: () => getCustomerAsync({ triggerFailedSnackbar }),
   });
 
   const {
