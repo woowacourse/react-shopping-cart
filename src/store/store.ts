@@ -5,8 +5,10 @@ import { combineReducers } from 'redux';
 import productReducer from '@/store/product/reducer';
 import cartReducer from '@/store/cart/reducer';
 import customerReducer from '@/store/customer/reducer';
+import globalReducer from '@/store/global/reducer';
 
 const rootReducer = combineReducers({
+  global: globalReducer,
   product: productReducer,
   cart: cartReducer,
   customer: customerReducer,

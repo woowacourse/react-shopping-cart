@@ -4,14 +4,12 @@ import { CustomerActionType } from '@/store/customer/action';
 export interface CustomerState {
   readonly isLoading: boolean;
   readonly isLoggedIn: boolean;
-  readonly errorMessage: string;
   readonly loggedCustomer: any;
 }
 
 const initialState: CustomerState = {
   isLoading: false,
   isLoggedIn: getCookie('access-token') ? true : false,
-  errorMessage: '',
   loggedCustomer: null,
 };
 
@@ -30,11 +28,7 @@ const customerReducer = (state = initialState, action): CustomerState => {
     }
 
     case CustomerActionType.GET_CUSTOMER_FAILED: {
-      const {
-        payload: { errorMessage },
-      } = action;
-
-      return { ...state, isLoading: false, errorMessage };
+      return { ...state, isLoading: false };
     }
 
     case CustomerActionType.SIGN_UP_START:
@@ -47,17 +41,12 @@ const customerReducer = (state = initialState, action): CustomerState => {
       return {
         ...state,
         isLoading: false,
-        errorMessage: '',
       };
 
     case CustomerActionType.SIGN_UP_FAILED: {
-      const {
-        payload: { errorMessage },
-      } = action;
       return {
         ...state,
         isLoading: false,
-        errorMessage,
       };
     }
 
@@ -72,19 +61,13 @@ const customerReducer = (state = initialState, action): CustomerState => {
         ...state,
         isLoading: false,
         isLoggedIn: true,
-        errorMessage: '',
       };
 
     case CustomerActionType.LOGIN_FAILED: {
-      const {
-        payload: { errorMessage },
-      } = action;
-
       return {
         ...state,
         isLoading: false,
         isLoggedIn: false,
-        errorMessage,
         loggedCustomer: null,
       };
     }
@@ -100,19 +83,13 @@ const customerReducer = (state = initialState, action): CustomerState => {
         ...state,
         isLoading: false,
         isLoggedIn: false,
-        errorMessage: '',
         loggedCustomer: null,
       };
 
     case CustomerActionType.DELETE_USER_FAILED: {
-      const {
-        payload: { errorMessage },
-      } = action;
-
       return {
         ...state,
         isLoading: false,
-        errorMessage,
       };
     }
 
@@ -120,7 +97,6 @@ const customerReducer = (state = initialState, action): CustomerState => {
       return {
         ...state,
         isLoggedIn: false,
-        errorMessage: '',
         loggedCustomer: null,
       };
     }

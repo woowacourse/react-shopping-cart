@@ -33,9 +33,6 @@ interface GetCustomerSucceeded {
 }
 interface GetCustomerFailed {
   type: CustomerActionType.GET_CUSTOMER_FAILED;
-  payload: {
-    errorMessage: string;
-  };
 }
 
 interface SignUpStart {
@@ -48,9 +45,6 @@ interface SignUpSucceeded {
 
 interface SignUpFailed {
   type: CustomerActionType.SIGN_UP_FAILED;
-  payload: {
-    errorMessage: string;
-  };
 }
 
 interface LoginStart {
@@ -63,9 +57,6 @@ interface LoginSucceeded {
 
 interface LoginFailed {
   type: CustomerActionType.LOGIN_FAILED;
-  payload: {
-    errorMessage: string;
-  };
 }
 
 interface DeleteUserStart {
@@ -78,9 +69,6 @@ interface DeleteUserSucceeded {
 
 interface DeleteUserFailed {
   type: CustomerActionType.DELETE_USER_FAILED;
-  payload: {
-    errorMessage: string;
-  };
 }
 
 interface LogoutUser {
@@ -102,7 +90,8 @@ export type CustomerAction =
   | LogoutUser;
 
 export const signUpAsync =
-  (userInformation, navigate) => async (dispatch: Dispatch<CustomerAction>) => {
+  ({ userInformation, navigate, triggerFailedSnackbar, triggerSucceededSnackbar }) =>
+  async (dispatch: Dispatch<CustomerAction>) => {
     dispatch({ type: CustomerActionType.SIGN_UP_START });
 
     try {
@@ -111,6 +100,8 @@ export const signUpAsync =
       dispatch({ type: CustomerActionType.SIGN_UP_SUCCEEDED });
 
       navigate();
+
+      triggerSucceededSnackbar('회원가입에 성공하셨습니다. 로그인 후 서비스를 이용해주세요.');
     } catch ({
       response: {
         data: { error },
@@ -118,13 +109,15 @@ export const signUpAsync =
     }) {
       dispatch({
         type: CustomerActionType.SIGN_UP_FAILED,
-        payload: { errorMessage: error?.messages[0] },
       });
+
+      triggerFailedSnackbar(error?.messages[0]);
     }
   };
 
 export const loginAsync =
-  (userInformation, navigate) => async (dispatch: Dispatch<CustomerAction>) => {
+  ({ userInformation, navigate, triggerFailedSnackbar, triggerSucceededSnackbar }) =>
+  async (dispatch: Dispatch<CustomerAction>) => {
     dispatch({ type: CustomerActionType.LOGIN_START });
 
     try {
@@ -133,7 +126,10 @@ export const loginAsync =
       dispatch({ type: CustomerActionType.LOGIN_SUCCEEDED });
 
       setCookie('access-token', responseData.data.accessToken, 3600);
+
       navigate();
+
+      triggerSucceededSnackbar('로그인에 성공하셨습니다.');
     } catch ({
       response: {
         data: { error },
@@ -141,57 +137,65 @@ export const loginAsync =
     }) {
       dispatch({
         type: CustomerActionType.LOGIN_FAILED,
-        payload: { errorMessage: error?.messages[0] },
       });
+
+      triggerFailedSnackbar(error?.messages[0]);
     }
   };
 
-export const leaveUserAsync = navigate => async (dispatch: Dispatch<CustomerAction>) => {
-  dispatch({ type: CustomerActionType.DELETE_USER_START });
+export const leaveUserAsync =
+  ({ navigate, triggerFailedSnackbar, triggerSucceededSnackbar }) =>
+  async (dispatch: Dispatch<CustomerAction>) => {
+    dispatch({ type: CustomerActionType.DELETE_USER_START });
 
-  try {
-    await deleteUser();
+    try {
+      await deleteUser();
 
-    dispatch({ type: CustomerActionType.DELETE_USER_SUCCEEDED });
+      dispatch({ type: CustomerActionType.DELETE_USER_SUCCEEDED });
 
-    deleteCookie('access-token');
-    navigate();
-  } catch ({
-    response: {
-      data: { error },
-    },
-  }) {
-    dispatch({
-      type: CustomerActionType.DELETE_USER_FAILED,
-      payload: { errorMessage: error?.messages[0] },
-    });
-  }
-};
+      deleteCookie('access-token');
 
-export const getCustomerAsync = () => async (dispatch: Dispatch<CustomerAction>) => {
-  dispatch({ type: CustomerActionType.GET_CUSTOMER_START });
+      navigate();
 
-  try {
-    const {
-      data: { customer },
-    } = await getCustomer();
-
-    dispatch({
-      type: CustomerActionType.GET_CUSTOMER_SUCCEEDED,
-      payload: {
-        loggedCustomer: customer,
+      triggerSucceededSnackbar('회원 탈퇴에 성공하였습니다');
+    } catch ({
+      response: {
+        data: { error },
       },
-    });
-  } catch ({
-    response: {
-      data: { error },
-    },
-  }) {
-    dispatch({
-      type: CustomerActionType.GET_CUSTOMER_FAILED,
-      payload: {
-        errorMessage: error?.messages[0],
+    }) {
+      dispatch({
+        type: CustomerActionType.DELETE_USER_FAILED,
+      });
+
+      triggerFailedSnackbar(error?.messages[0]);
+    }
+  };
+
+export const getCustomerAsync =
+  ({ triggerFailedSnackbar }) =>
+  async (dispatch: Dispatch<CustomerAction>) => {
+    dispatch({ type: CustomerActionType.GET_CUSTOMER_START });
+
+    try {
+      const {
+        data: { customer },
+      } = await getCustomer();
+
+      dispatch({
+        type: CustomerActionType.GET_CUSTOMER_SUCCEEDED,
+        payload: {
+          loggedCustomer: customer,
+        },
+      });
+    } catch ({
+      response: {
+        data: { error },
       },
-    });
-  }
-};
+    }) {
+      dispatch({
+        type: CustomerActionType.GET_CUSTOMER_FAILED,
+      });
+
+      triggerFailedSnackbar(error?.messages[0]);
+    }
+  };
