@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 282px;
+
+  font-family: 'Noto Sans KR';
+}
+
+.image {
+  width: 282px;
+  height: 282px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 22px;
+  padding: 18px;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+
+  color: var(--primary-color);
+}
+
+.item-info > div {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.item-info :last-child {
+  font-size: 20px;
+  line-height: 20px;
+}

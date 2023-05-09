@@ -1,9 +1,4 @@
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-};
+import type { Product } from '../components/ProductItem/types';
 
 export const products: Product[] = [
   {
