@@ -8,6 +8,8 @@ export const Root = styled.div`
   height: 10rem;
   width: 100%;
 
+  margin-bottom: 5rem;
+
   border-bottom: solid 5px black;
 `;
 
