@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/shopping-cart.svg';
+import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/logo.svg';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -19,14 +19,14 @@ const Header = ({ children }: HeaderProps) => {
 
 const Styled = {
   Container: styled.div`
-    background: #333333;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     margin: 0;
     padding: 18px 15%;
+
+    background: #333333;
   `,
 
   HomeButton: styled.button`

@@ -1,8 +1,8 @@
 # 컴포넌트 & 기능 요구사항
 
-- [ ] Header
+- [x] Header
   - [ ] 홈 버튼을 누르면 메인페이지로 이동한다.
-- [ ] CartTextButton
+- [x] CartTextButton
   - [ ] 장바구니에 담긴 수량을 확인할 수 있다.
 - [ ] CartIconButton
   - [ ] 클릭 시 QuantityInput으로 스위치된다.

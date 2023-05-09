@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     border: 0;
     box-sizing: border-box;
+    color: #333333
   }
   body {
     margin: 0;
@@ -19,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 button{
   all: unset;
 }
+
 `;
 
 export default GlobalStyle;
