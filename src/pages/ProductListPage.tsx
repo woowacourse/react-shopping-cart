@@ -2,16 +2,23 @@ import { atom } from 'recoil';
 
 import Header from '../components/Header/Header';
 import ProductList from '../components/ProductList/ProductList';
+import initialListData from '../data/mockData.json';
+import { ProductInformation } from '../types';
 
-export const productListState = atom({
+export const productListState = atom<ProductInformation[]>({
   key: 'productList',
-  default: [
-    {
-      id: 3,
-      name: '맛있는 삼겹살',
-      price: 10000,
-      imageUrl:
-        'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201702/27/117f5b49-1d09-4550-8ab7-87c0d82614de.jpg',
+  default: [],
+  effects: [
+    ({ setSelf, onSet }) => {
+      const storeKey = 'productList';
+      const savedValue = localStorage.getItem(storeKey); // 로컬 setSelf json 데이터
+      savedValue !== null ? setSelf(JSON.parse(savedValue)) : setSelf(initialListData);
+
+      onSet((newValue, _, isReset) => {
+        isReset
+          ? localStorage.removeItem(storeKey)
+          : localStorage.setItem(storeKey, JSON.stringify(newValue));
+      });
     },
   ],
 });
