@@ -20,6 +20,14 @@ export const ProductItemImage = styled.img`
 export const ProductDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 16px;
+`;
+
+export const ProductName = styled.div`
+  font-size: 16px;
+`;
+export const ProductPrice = styled.div`
+  font-size: 20px;
 `;
 
 export const ProductInfo = styled.div``;

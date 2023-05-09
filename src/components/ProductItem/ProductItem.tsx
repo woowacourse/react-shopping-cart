@@ -1,10 +1,8 @@
+import * as T from '../../types/ProductType';
+import CartController from '../CartController';
 import * as S from './ProductItem.style';
 
-interface ProductItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+interface ProductItemProps extends T.ProductItem {
   quantity: number;
 }
 
@@ -16,10 +14,10 @@ function ProductItem({ id, name, price, imageUrl, quantity }: ProductItemProps) 
       </S.ProductItemImageBox>
       <S.ProductDetails>
         <S.ProductInfo>
-          <div>{name}</div>
-          <div>{price}</div>
+          <S.ProductName>{name}</S.ProductName>
+          <S.ProductPrice>{price}원</S.ProductPrice>
         </S.ProductInfo>
-        {quantity > 0 ? <input type="number" /> : <button>🛒</button>}
+        <CartController quantity={quantity} />
       </S.ProductDetails>
     </S.ProductItemBox>
   );
