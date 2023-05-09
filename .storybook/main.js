@@ -1,7 +1,7 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
 
-const config = {
+module.exports = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -14,9 +14,11 @@ const config = {
     name: '@storybook/react-webpack5',
     options: {},
   },
+
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
   },
+
   staticDirs: ['../public'],
 
   webpackFinal: async (config) => {
@@ -28,4 +30,3 @@ const config = {
     return config;
   },
 };
-export default config;
