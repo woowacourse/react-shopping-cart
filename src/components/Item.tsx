@@ -18,7 +18,7 @@ const Item = ({ name, price, imageUrl, count = 0 }: ItemType) => {
       <NameWrapper>{name}</NameWrapper>
       <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
       <IconWrapper>
-        {count === 1 ? (
+        {count === 0 ? (
           <img src={CartGrayIcon} alt={"카트"} />
         ) : (
           <Counter
@@ -59,6 +59,7 @@ const IconWrapper = styled.div`
   position: absolute;
   bottom: 20px;
   right: 10px;
+  cursor: pointer;
 
   & > img {
     width: 24px;
