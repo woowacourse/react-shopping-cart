@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { HEADER_LOGO } from '@assets';
+import { styled } from 'styled-components';
 import { theme } from '@styles/theme';
 
 const Header = () => {
