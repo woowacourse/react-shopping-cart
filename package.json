@@ -1,0 +1,24 @@
+{
+  "name": "react-shopping-cart",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run dev -- --open",
+    "dev": "NODE_ENV=development webpack serve",
+    "build": "NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.9"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@types/styled-components": "^5.1.26",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
+  }
+}
