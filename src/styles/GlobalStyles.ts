@@ -14,6 +14,10 @@ const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  :root{
+    --header-height: 80px;
+  }
 `;
 
 export default GlobalStyles;
