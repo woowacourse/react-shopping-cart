@@ -26,9 +26,10 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderContent = styled.div`
-  max-width: 1200px;
+  max-width: 1250px;
   height: 100%;
   margin: 0 auto;
+  padding: 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,13 +59,15 @@ const MoveCartPageBtn = styled.button`
   font-weight: 500;
 `;
 
-const ProductCountAlert = styled.div`
+const ProductCountAlert = styled.p`
   width: 26px;
   height: 26px;
   margin-left: 6px;
   text-align: center;
   border-radius: 50%;
   background-color: var(--alert-color);
+  line-height: 26px;
+  font-size: 16px;
 `;
 
 export default Header;
