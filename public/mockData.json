@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": 0,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 1,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 2,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 3,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 4,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 5,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 6,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 7,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 8,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 9,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 10,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    },
+    {
+      "id": 11,
+      "name": "순살치킨 1KG",
+      "price": 9900,
+      "imageSrc": "https://cdn-mart.baemin.com/sellergoods/main/c6f2f083-a8b8-4799-834b-444b5eaeb532.png?h=400&w=400"
+    }
+  ]
+}
