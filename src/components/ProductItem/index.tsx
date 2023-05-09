@@ -7,14 +7,14 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { name, imageUrl, price } = product;
+  const { name, imageUrl, price, id } = product;
   return (
     <div className={styles.container}>
       <img src={imageUrl} alt={name} className={styles.image} />
       <div className={styles['item-info']}>
         <div>
           <div>{name}</div>
-          <AddCartButton />
+          <AddCartButton id={id} />
         </div>
         <div>{price.toLocaleString()} 원</div>
       </div>

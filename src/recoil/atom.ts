@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const CartCount = atom({
+export const $CartCount = atom<Record<number, number>>({
   key: 'CartCount',
-  default: 0,
+  default: {},
 });
