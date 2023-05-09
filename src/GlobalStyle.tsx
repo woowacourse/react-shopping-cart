@@ -19,7 +19,14 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: var(--background-color);
-    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR'
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR';
+    color: var(--primary-color);
+  }
+
+  button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
 `;
 
