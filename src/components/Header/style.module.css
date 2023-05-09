@@ -17,3 +17,15 @@
 .container button {
   margin-left: auto;
 }
+
+.cartItemCount {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+  background-color: #04c09e;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
