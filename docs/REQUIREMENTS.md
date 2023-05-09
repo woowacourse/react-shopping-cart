@@ -12,7 +12,7 @@
 
 - [ ] 상품 목록 페이지에 필요한 UI 마크업
   - [ ] Header
-  - [ ] ProductList
+  - [x] ProductList
   - [x] ProductItem
   - [ ] AmountCounter
 

@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
     color: var(--primary-color);
   }
 
+  ol,ul,li {
+    list-style: none;
+  }
+
   button{
     background-color: transparent;
     border: none;
