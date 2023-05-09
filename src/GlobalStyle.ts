@@ -22,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
+    width: 16px;
     height: 24px;
     margin: 0;
     padding: 2px 5px;

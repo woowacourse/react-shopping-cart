@@ -5,22 +5,23 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 const QuantityInput = () => {
   return (
     <S.Wrapper>
-      <Input type="number" inputStyle={Style} min={1} max={99} />
+      <Input type="number" inputStyle={QuantityInputStyle} min={1} max={99} />
       <FaCaretUp />
       <FaCaretDown />
     </S.Wrapper>
   );
 };
+
 const S = {
   Wrapper: styled.div`
     position: absolute;
 
     & svg {
+      position: absolute;
+      z-index: -1;
       width: 26px;
       max-width: 26px;
-      position: absolute;
       right: 0;
-      z-index: -1;
       border: 1px solid var(--gray-color-200);
     }
 
@@ -34,7 +35,7 @@ const S = {
   `,
 };
 
-const Style = css`
+const QuantityInputStyle = css`
   width: 80px;
   height: 32px;
   font-size: 13px;
