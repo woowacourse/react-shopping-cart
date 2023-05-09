@@ -1,4 +1,4 @@
-interface ProductInformation {
+interface ProductItemData {
   id: number;
   name: string;
   price: number;

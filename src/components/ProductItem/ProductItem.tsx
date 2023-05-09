@@ -1,12 +1,8 @@
+import { ProductItemData } from '../../types';
 import styles from './style.module.css';
 
 interface ProductItemProps {
-  information: {
-    id: number;
-    name: string;
-    price: number;
-    imageUrl: string;
-  };
+  information: ProductItemData;
 }
 
 const ProductItem = ({ information }: ProductItemProps) => {
@@ -15,8 +11,8 @@ const ProductItem = ({ information }: ProductItemProps) => {
       <img src={information.imageUrl} alt={information.name} className={styles.image} />
       <div className={styles.informationContainer}>
         <div>
-          <h4>{information.name}</h4>
-          <h4>{information.price}원</h4>
+          <h4 className={styles.name}>{information.name}</h4>
+          <h4 className={styles.price}>{information.price}원</h4>
         </div>
         <button>카트</button>
       </div>

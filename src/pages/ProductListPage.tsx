@@ -3,9 +3,9 @@ import { atom } from 'recoil';
 import Header from '../components/Header/Header';
 import ProductList from '../components/ProductList/ProductList';
 import initialListData from '../data/mockData.json';
-import { ProductInformation } from '../types';
+import { ProductItemData } from '../types';
 
-export const productListState = atom<ProductInformation[]>({
+export const productListState = atom<ProductItemData[]>({
   key: 'productList',
   default: [],
   effects: [
