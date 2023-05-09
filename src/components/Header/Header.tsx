@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CartIcon } from '../assets/icons';
+import { CartIcon } from '../../assets/icons';
 
 const Header = () => {
   return (
