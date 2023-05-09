@@ -21,7 +21,7 @@ const HeaderWrapper = styled.section`
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 100px;
+  padding: 0 10%;
   width: 100%;
   height: 70px;
   background: #333333;
