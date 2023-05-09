@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { LogoImage } from '../types/image';
 import { Text as LogoTitle } from './common/Text';
 
-export const Logo = () => {
+export const Logo = ({ $color }: { $color: string }) => {
   return (
     <LogoWrapper>
-      <img src={LogoImage} />
-      <LogoTitle size={'40px'} weight={'900'} $color={'#ffffff'}>
+      <LogoImage fill={$color} />
+      <LogoTitle size={'40px'} weight={'900'} $color={$color}>
         SHOP
       </LogoTitle>
     </LogoWrapper>
@@ -18,7 +18,7 @@ const LogoWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  img {
-    margin-right: 24px;
+  p {
+    margin-left: 24px;
   }
 `;
