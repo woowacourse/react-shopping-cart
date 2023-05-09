@@ -12,7 +12,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "styled-reset": "^4.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.5",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "babel-loader": "^9.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.1",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
