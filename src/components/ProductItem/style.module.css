@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  background-color: aliceblue;
+}
+
+.informationContainer {
+  display: flex;
+  justify-content: space-between;
+}
