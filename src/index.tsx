@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
-import GlobalStyle from './styles/globalStyle';
-import { theme } from './styles/theme';
+import GlobalStyle from '@styles/globalStyle';
+import { theme } from '@styles/theme';
 
 const router = createBrowserRouter([
   {
