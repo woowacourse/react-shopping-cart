@@ -1,5 +1,15 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import ProductsListPage from './pages/ProductsListPage';
+
 function App() {
-  return <div className='App'>장바구니</div>;
+  return (
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Routes>
+        <Route path='/' element={<ProductsListPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
