@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-001.svg",
+    "count": 0
+  },
+  {
+    "id": 2,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-002.svg",
+    "count": 2
+  },
+  {
+    "id": 3,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-003.svg",
+    "count": 3
+  },
+  {
+    "id": 4,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-004.svg",
+    "count": 0
+  },
+  {
+    "id": 5,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-005.svg",
+    "count": 0
+  },
+  {
+    "id": 6,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-006.svg",
+    "count": 0
+  },
+  {
+    "id": 7,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-007.svg",
+    "count": 0
+  },
+  {
+    "id": 8,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-008.svg",
+    "count": 0
+  },
+  {
+    "id": 9,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-009.svg",
+    "count": 0
+  },
+  {
+    "id": 10,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 33900,
+    "imageUrl": "items/item-010.svg",
+    "count": 0
+  },
+  {
+    "id": 11,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 10000,
+    "imageUrl": "items/item-011.svg",
+    "count": 0
+  },
+  {
+    "id": 12,
+    "name": "PET보틀-원형(420ml)",
+    "price": 44500,
+    "imageUrl": "items/item-012.svg",
+    "count": 0
+  }
+]
