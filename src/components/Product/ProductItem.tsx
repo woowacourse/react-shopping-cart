@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CartIcon } from '../../assets';
+import CartIcon from '../../assets/CartIcon';
 import type { Product } from '../../types/product';
 
 interface ProductItemProps {
@@ -19,7 +19,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <ProductPrice>{price.toLocaleString('ko-KR')} 원</ProductPrice>
         </dl>
         <ProductCartBtn type='button'>
-          <CartIcon />
+          <CartIcon width={25} height={22} color='var(--gray-400)' />
         </ProductCartBtn>
       </ProductInfoContainer>
     </ProductContainer>
