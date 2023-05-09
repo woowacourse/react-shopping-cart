@@ -4,9 +4,6 @@ import Flex from '../../common/Flex';
 export const Root = styled.article`
   display: flex;
   flex-direction: column;
-
-  width: 28.3rem;
-  height: 35.8rem;
 `;
 
 export const Thumbnail = styled.img`
