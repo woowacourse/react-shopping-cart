@@ -1,5 +1,5 @@
 {
-  "name": "temp",
+  "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,7 +12,9 @@
     "@types/react-dom": "^18.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.0.0-rc.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -39,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }
