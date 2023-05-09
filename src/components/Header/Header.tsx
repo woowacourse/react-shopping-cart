@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <img src={Logo} alt="logo" />
-      <button type="button" className={styles.cartButton}>
+      <button type="button">
         장바구니 <span>0</span>
       </button>
     </header>
