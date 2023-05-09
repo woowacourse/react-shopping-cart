@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import Button from './common/Button';
 
 interface Props {
   initCount: number;
@@ -22,15 +23,21 @@ export default function Counter({ initCount }: Props) {
     return false;
   };
 
+  const isMaxCount = () => {
+    if (count === 99) return true;
+
+    return false;
+  };
+
   return (
     <Style.Container>
-      <button disabled={isMinCount()} onClick={decreaseCount}>
+      <Button designType="square" disabled={isMinCount()} onClick={decreaseCount}>
         -
-      </button>
-      <Style.NumberWrapper>
-        <span>{count}</span>
-      </Style.NumberWrapper>
-      <button onClick={increaseCount}>+</button>
+      </Button>
+      <Style.CountInput value={count} />
+      <Button designType="square" disabled={isMaxCount()} onClick={increaseCount}>
+        +
+      </Button>
     </Style.Container>
   );
 }
@@ -38,16 +45,26 @@ export default function Counter({ initCount }: Props) {
 const Style = {
   Container: styled.div`
     display: flex;
-    justify-content: space-between;
 
-    width: 65px;
-    background-color: white;
-    border: 1px solid black;
+    width: 80px;
+    height: 30px;
+    background-color: var(--grey-100);
+    border: 1px solid var(--grey-200);
+    border-radius: 7px;
+
+    & > * {
+      flex: 1;
+    }
   `,
 
-  NumberWrapper: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  CountInput: styled.input`
+    border: none;
+    width: 0;
+
+    text-align: center;
+
+    &:focus {
+      outline: none;
+    }
   `,
 };
