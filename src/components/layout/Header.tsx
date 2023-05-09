@@ -1,13 +1,14 @@
 import { PropsWithChildren } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import ROUTE_PATH from 'constants/routePath';
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
     <HeaderContainer>
       <FlexLink to={ROUTE_PATH.root}>
-        <Logo src={`${process.env.PUBLIC_URL}/assets/cart-icon.svg`} />
+        <CartIcon width="50px" height="44px" />
         <Title>{children}</Title>
       </FlexLink>
       <FlexLink to={ROUTE_PATH.cart}>
@@ -36,11 +37,6 @@ const HeaderContainer = styled.header`
 const Title = styled.h1`
   font-size: 40px;
   color: #ffffff;
-`;
-
-const Logo = styled.img`
-  width: 50px;
-  height: 44px;
 `;
 
 const CartTitle = styled.span`
