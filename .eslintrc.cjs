@@ -35,6 +35,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     "quotes": ["error", "single"],
     '@typescript-eslint/no-empty-function': 'off',
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
   },
   settings: {
     react: {
