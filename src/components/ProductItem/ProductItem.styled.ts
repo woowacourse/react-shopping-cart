@@ -8,11 +8,11 @@ export const ProductDetailWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  padding: 10px 0;
+  padding: 8px 0;
 `;
 
 export const NameParagraph = styled.p`
-  width: 175.17px;
+  width: 100%;
   height: 25.02px;
 
   font-family: 'Noto Sans KR';
@@ -26,7 +26,7 @@ export const NameParagraph = styled.p`
 `;
 
 export const PriceParagraph = styled.p`
-  width: 73.15px;
+  width: 100%;
   height: 32.72px;
 
   font-family: 'Noto Sans KR';

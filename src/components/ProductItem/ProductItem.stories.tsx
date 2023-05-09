@@ -5,6 +5,10 @@ import catImage from '../../assets/cat.png';
 
 import ProductItem from './ProductItem';
 
+/**
+ * 설명창
+ */
+
 const meta: Meta<typeof ProductItem> = {
   title: 'ProductItem',
   component: ProductItem,
@@ -23,6 +27,10 @@ export default meta;
 
 type Story = StoryObj<typeof ProductItem>;
 
+/**
+ * 테스트
+ */
+
 export const Default: Story = {
   args: {
     product: {
@@ -34,4 +42,13 @@ export const Default: Story = {
   },
 };
 
-// export const Clicked: Story = {};
+export const Clicked: Story = {
+  args: {
+    product: {
+      id: 1,
+      name: '1',
+      price: 1,
+      imageUrl: catImage,
+    },
+  },
+};
