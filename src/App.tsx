@@ -1,5 +1,20 @@
-const App = () => {
-  return <div className='App'>test!!!</div>
-}
+import { Routes, Route } from 'react-router-dom';
+import GlobalStyles from 'styles/GlobalStyles';
+import Layout from 'components/layout/Layout';
+import ROUTE_PATH from 'constants/routePath';
 
-export default App
+const App = () => {
+  return (
+    <>
+      <GlobalStyles />
+      <Routes>
+        <Route path={ROUTE_PATH.root} element={<Layout />}>
+          <Route index element={<div>itemList</div>} />
+          <Route path={ROUTE_PATH.cart} element={<div>cart</div>} />
+        </Route>
+      </Routes>
+    </>
+  );
+};
+
+export default App;
