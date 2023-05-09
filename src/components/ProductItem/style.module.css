@@ -1,16 +1,32 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: 200px;
 }
 
 .image {
-  width: 250px;
-  height: 250px;
-  object-fit: contain;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
   background-color: aliceblue;
 }
 
 .informationContainer {
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
+}
+
+.informationContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.informationContainer h4 {
+  font-size: 16px;
+}
+
+.name {
+  font-weight: normal;
 }
