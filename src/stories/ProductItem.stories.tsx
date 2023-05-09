@@ -12,7 +12,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockCard = {
+const mockProduct = {
   id: 1,
   name: 'PET보틀-정사각(420ml)',
   price: 43400,
@@ -21,6 +21,6 @@ const mockCard = {
 
 export const Default: Story = {
   args: {
-    product: mockCard,
+    product: mockProduct,
   },
 };
