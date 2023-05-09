@@ -1,0 +1,13 @@
+import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
+import * as S from './Button.styles';
+
+interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
+  size: 'SS' | 'S' | 'M' | 'L';
+  view: 'white' | 'black';
+}
+
+const Button = (props: PropsWithChildren<ButtonProps>) => {
+  return <S.Button {...props}>{props.children}</S.Button>;
+};
+
+export default Button;
