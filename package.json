@@ -76,6 +76,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prop-types": "^15.8.1",
+    "react-router-dom": "^6.11.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   }
