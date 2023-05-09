@@ -1,5 +1,11 @@
+@font-face {
+  font-family: 'notosanskr';
+  src: url(./assets/fonts/NotoSansKR-Regular.otf);
+}
+
 :root {
   --vh: 100%;
+  --font-notosanskr: 'notosanskr';
 }
 
 html,
@@ -112,6 +118,8 @@ section {
 body {
   touch-action: manipulation;
   line-height: 1;
+
+  overflow-x: hidden;
 }
 menu,
 ol,
@@ -145,7 +153,7 @@ html {
 
   scroll-behavior: smooth;
 
-  font-family: sans-serif;
+  font-family: var(--font-notosanskr);
   /* font-size: 62.5%; */
   user-select: none;
   @media (min-width: 1800px) {
