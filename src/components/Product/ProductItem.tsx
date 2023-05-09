@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { CartIcon } from '../../assets';
-import { Product } from '../../types/product';
+import type { Product } from '../../types/product';
 
 interface ProductItemProps {
   product: Product;
@@ -54,11 +54,6 @@ const ProductCartBtn = styled.button`
   position: absolute;
   top: 0;
   right: 14px;
-
-  :hover {
-    transform: scale(1.1);
-    transition: all 100ms ease-in;
-  }
 `;
 
 export default ProductItem;
