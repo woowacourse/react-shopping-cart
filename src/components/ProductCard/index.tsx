@@ -18,7 +18,7 @@ const ProductCard = () => {
 };
 
 const Styled = {
-  Container: styled.div`
+  Container: styled.li`
     display: flex;
     flex-direction: column;
     gap: 16px;
