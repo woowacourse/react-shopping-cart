@@ -1,0 +1,17 @@
+.container {
+  position: fixed;
+  top: 0;
+  padding: 24px 0;
+  width: 1080px;
+  height: 64px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.container img {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  height: 48px;
+}
