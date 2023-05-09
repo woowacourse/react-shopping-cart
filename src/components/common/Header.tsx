@@ -1,21 +1,21 @@
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
-import { HeaderIc } from "../asset";
+import { HeaderIc } from "../../asset";
 
 export default function Header({ children }: PropsWithChildren) {
   return (
-    <StyledHeader>
-      <StyledTitleWrapper>
+    <HeaderContainer>
+      <TitleWrapper>
         <HeaderIc />
-        <StyledTitle>SHOP</StyledTitle>
-      </StyledTitleWrapper>
+        <Title>SHOP</Title>
+      </TitleWrapper>
       {children}
-    </StyledHeader>
+    </HeaderContainer>
   );
 }
 
-const StyledHeader = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,12 +23,12 @@ const StyledHeader = styled.header`
   padding: 0.8rem 30rem;
 `;
 
-const StyledTitle = styled.h1`
+const Title = styled.h1`
   ${({ theme }) => theme.fonts.h1}
   color: ${({ theme }) => theme.colors.white};
   margin-left: 2.6rem;
 `;
 
-const StyledTitleWrapper = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
 `;

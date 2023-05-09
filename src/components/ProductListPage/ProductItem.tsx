@@ -1,14 +1,24 @@
 import styled from "styled-components";
 import { AddCartIc } from "../../asset";
 
-export function ProductItem() {
+interface ProductItemProps {
+  imageUrl: string;
+  name: string;
+  price: number;
+}
+// TODO: 원단위 표시
+export default function ProductItem({
+  imageUrl,
+  name,
+  price,
+}: ProductItemProps) {
   return (
     <ProductItemContainer>
-      <ProductImage />
+      <ProductImage src={imageUrl} />
       <InfoBox>
         <ProductInfo>
-          <Name>밀크티(370ml)</Name>
-          <Price>78,000원</Price>
+          <Name>{name}</Name>
+          <Price>{price.toLocaleString()}원</Price>
         </ProductInfo>
         <AddCartButton>
           <AddCartIc />
