@@ -1,14 +1,8 @@
 import { styled } from 'styled-components';
 import { SmallCartIcon } from '../../assets/icons';
+import type { Product } from '../../types/product';
 
-interface ProductItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageSrc: string;
-}
-
-const ProductItem = ({ id, name, price, imageSrc }: ProductItemProps) => {
+const ProductItem = ({ id, name, price, imageSrc }: Product) => {
   const formatPrice = (price: number) => {
     return `${price.toLocaleString('ko-KR')} 원`;
   };
