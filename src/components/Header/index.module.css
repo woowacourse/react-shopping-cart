@@ -7,15 +7,8 @@
   align-items: center;
   padding: 0 96px;
   color: var(--white-color);
-  background-color: var(--primary-color);
-}
-
-.title {
-  display: flex;
-  font-weight: 900;
-  font-size: 40px;
-  line-height: 58px;
-  column-gap: 12px;
+  background-color: var(--white-color-001);
+  border-bottom: 2px solid var(--white-color-002);
 }
 
 .cart {
@@ -36,6 +29,5 @@
 button {
   font-weight: 500;
   line-height: 12px;
-  color: var(--white-color);
   font-size: 24px;
 }
