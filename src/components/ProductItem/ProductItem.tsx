@@ -14,7 +14,9 @@ const ProductItem = ({ information }: ProductItemProps) => {
           <h4 className={styles.name}>{information.name}</h4>
           <h4 className={styles.price}>{information.price}원</h4>
         </div>
-        <button>카트</button>
+        <button type="button" onClick={handleCartListAdd}>
+          <img src={CartIcon} alt="cart icon" />
+        </button>
       </div>
     </div>
   );
