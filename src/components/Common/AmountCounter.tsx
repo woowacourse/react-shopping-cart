@@ -3,15 +3,25 @@ import styled from 'styled-components';
 import ArrowUpIcon from '../../assets/ArrowUpIcon';
 import ArrowDownIcon from '../../assets/ArrowDownIcon';
 
-const AmountCounter = () => {
+interface AmountCounterProps {
+  count: number;
+  addCount: () => void;
+  subtractCount: () => void;
+}
+
+const AmountCounter = ({
+  count,
+  addCount,
+  subtractCount,
+}: AmountCounterProps) => {
   return (
     <InputGroup>
-      <CounterInput type='number' readOnly />
+      <CounterInput type='number' value={count} readOnly />
       <CountBtnContainer>
-        <CountBtn>
+        <CountBtn onClick={addCount}>
           <ArrowUpIcon />
         </CountBtn>
-        <CountBtn>
+        <CountBtn onClick={subtractCount}>
           <ArrowDownIcon />
         </CountBtn>
       </CountBtnContainer>
