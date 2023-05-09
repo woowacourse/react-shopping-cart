@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
   li {
   list-style: none;
 }
+
+button{
+  all: unset;
+}
 `;
 
 export default GlobalStyle;
