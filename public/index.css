@@ -1,11 +1,18 @@
 @font-face {
   font-family: 'notosanskr';
-  src: url(./assets/fonts/NotoSansKR-Regular.otf);
+  src: url(./fonts/NotoSansKR-Regular.otf);
+}
+
+@font-face {
+  font-family: 'baemin';
+  src: url(./fonts/BMEULJIRO.otf);
 }
 
 :root {
   --vh: 100%;
   --font-notosanskr: 'notosanskr';
+  --font-baemin: 'baemin';
+  --font-test: 'test';
 }
 
 html,
@@ -153,7 +160,8 @@ html {
 
   scroll-behavior: smooth;
 
-  font-family: var(--font-notosanskr);
+  font-family: var(--font-baemin);
+  font-weight: 200;
   /* font-size: 62.5%; */
   user-select: none;
   @media (min-width: 1800px) {

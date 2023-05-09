@@ -61,7 +61,7 @@ const Style = {
     padding: 0;
 
     font-size: 40px;
-    font-weight: 900;
+    font-weight: 300;
 
     color: white;
   `,
@@ -75,7 +75,7 @@ const Style = {
     padding: 0;
 
     font-size: 24px;
-    font-weight: 900;
+    font-weight: 300;
 
     color: white;
   `,

@@ -64,6 +64,7 @@ const Style = {
     display: flex;
     flex-direction: column;
 
+    width: 201px;
     gap: 10px;
   `,
   Name: styled.span`
