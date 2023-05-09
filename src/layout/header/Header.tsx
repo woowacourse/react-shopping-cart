@@ -1,18 +1,30 @@
 import styled from 'styled-components';
-import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
+import { LogoIcon } from '../../assets/ShoppingCartIcon';
+import { selector, useRecoilValue } from 'recoil';
+import { cartListState } from '../../App';
+
+const cartAmountState = selector<number>({
+  key: 'cartAmountState',
+  get: ({ get }) => {
+    const list = get(cartListState);
+
+    return list.length;
+  },
+});
 
 export const Header = () => {
+  const cartAmount = useRecoilValue(cartAmountState);
+
   return (
     <Style.Container>
       <Style.ContentWrapper>
         <Style.LogoContainer>
-          {ShoppingCartIcon}
-          <Style.Logo>SHOP</Style.Logo>
+          {LogoIcon}
+          <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
-
         <Style.CartContainer>
           <Style.Cart>장바구니</Style.Cart>
-          <Style.CartAmount>3</Style.CartAmount>
+          <Style.CartAmount>{cartAmount}</Style.CartAmount>
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>
@@ -26,7 +38,7 @@ const Style = {
     align-items: center;
 
     height: 80px;
-    width: 100%;
+    width: 100vw;
 
     background-color: #333333;
 
