@@ -1,17 +1,22 @@
 import styles from './style.module.css';
 
-const ProductItem = () => {
+interface ProductItemProps {
+  information: {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string;
+  };
+}
+
+const ProductItem = ({ information }: ProductItemProps) => {
   return (
     <div className={styles.container}>
-      <img
-        src="https://sitem.ssgcdn.com/04/30/92/item/1000047923004_i1_1100.jpg"
-        alt="food"
-        className={styles.image}
-      />
+      <img src={information.imageUrl} alt={information.name} className={styles.image} />
       <div className={styles.informationContainer}>
         <div>
-          <h6>삽겹살</h6>
-          <h4>40,000원</h4>
+          <h4>{information.name}</h4>
+          <h4>{information.price}원</h4>
         </div>
         <button>카트</button>
       </div>
