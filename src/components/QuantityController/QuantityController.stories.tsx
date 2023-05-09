@@ -15,5 +15,13 @@ export default meta;
 type Story = StoryObj<typeof QuantityController>;
 
 export const DefaultQuantityController: Story = {
-  args: {},
+  args: { quantity: 1 },
+};
+
+export const ZeroQuantityController: Story = {
+  args: { quantity: 0 },
+};
+
+export const MaxQuantityController: Story = {
+  args: { quantity: 99 },
 };
