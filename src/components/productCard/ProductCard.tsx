@@ -22,7 +22,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 };
 
 const Style = {
-  Container: styled.div`
+  Container: styled.li`
     width: 283px;
     height: 358px;
 

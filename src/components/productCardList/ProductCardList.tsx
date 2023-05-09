@@ -1,0 +1,26 @@
+import styled from 'styled-components';
+import { Product } from '../../types/Product';
+
+import { ProductCard } from '../productCard/ProductCard';
+
+interface ProductCardListProps {
+  products: Product[];
+}
+
+export const ProductCardList = ({ products }: ProductCardListProps) => {
+  return (
+    <Style.Container>
+      {products.map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </Style.Container>
+  );
+};
+
+const Style = {
+  Container: styled.ul`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+  `,
+};
