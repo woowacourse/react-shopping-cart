@@ -38,7 +38,7 @@ const ShoppingItemImage = styled.img`
 
 const ShoppingItemContents = styled.div`
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 200px auto;
   align-items: flex-start;
   column-gap: 20px;
   color: #4f4f4f;
@@ -50,6 +50,7 @@ const ShoppingItemLayout = styled.div`
 
 const ShoppingItemName = styled.div`
   line-height: 20px;
+  word-break: break-all;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

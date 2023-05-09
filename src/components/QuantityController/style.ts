@@ -59,4 +59,5 @@ export const ShoppingCartIcon = styled.img`
   width: 30px;
   height: 24px;
   cursor: pointer;
+  justify-self: flex-end;
 `;
