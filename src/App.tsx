@@ -1,11 +1,13 @@
 import React from "react";
 import Main from "./pages/Main";
+import { RecoilRoot } from "recoil";
+
 
 const App = () => {
   return (
-    <div>
+    <RecoilRoot>
       <Main />
-    </div>
+    </RecoilRoot>
   );
 };
 
