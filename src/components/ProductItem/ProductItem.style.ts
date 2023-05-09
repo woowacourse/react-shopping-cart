@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 export const ProductItemBox = styled.div`
   width: 300px;
-  height: 400px;
+  height: 350px;
   padding: 16px;
-  background-color: red;
 `;
 
 export const ProductItemImageBox = styled.div`
