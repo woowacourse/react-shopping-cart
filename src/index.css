@@ -23,6 +23,8 @@ body {
 }
 
 main {
+  position: relative;
+  top: 136px;
   width: 1080px;
 }
 
