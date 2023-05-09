@@ -2,7 +2,7 @@ import React from "react";
 import { CartIcon } from "../assets";
 import styled from "styled-components";
 
-const Header = () => {
+const Header = ({cartCount}: {cartCount: number}) => {
   return (
     <HeaderWrapper>
       <TitleWrapper>
@@ -10,7 +10,7 @@ const Header = () => {
         <p>SHOP</p>
       </TitleWrapper>
       <CartWrapper>
-        장바구니<div>2</div>
+        장바구니<div>{cartCount}</div>
       </CartWrapper>
     </HeaderWrapper>
   );
