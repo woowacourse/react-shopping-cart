@@ -8,6 +8,7 @@
     "airbnb",
     "airbnb/hooks",
     "plugin:react/jsx-runtime",
+    "plugin:storybook/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "prettier"
@@ -39,5 +40,16 @@
         "namedComponents": "arrow-function"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.stories.*"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "react-hooks/rules-of-hooks": "off"
+      }
+    }
+  ]
 }
