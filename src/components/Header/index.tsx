@@ -1,31 +1,31 @@
 import { styled } from 'styled-components';
 import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/shopping-cart.svg';
 
-const Header = () => {
+interface HeaderProps {
+  children: React.ReactNode;
+}
+
+const Header = ({ children }: HeaderProps) => {
   return (
     <Styled.Container>
       <Styled.HomeButton>
         <ShoppingCartIcon />
         <Styled.Title>SHOP</Styled.Title>
       </Styled.HomeButton>
+      <>{children}</>
     </Styled.Container>
   );
 };
 
 const Styled = {
   Container: styled.div`
-    position: absolute;
-    width: 1920px;
-    height: 80px;
-    left: 0px;
-    top: 0px;
-
     background: #333333;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    margin: 0;
     padding: 18px 15%;
   `,
 

@@ -12,7 +12,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      defaultViewport: 'iphone6',
+      defaultViewport: 'Desktop',
       viewports: {
         iphone6: {
           name: 'iPhone 6',
