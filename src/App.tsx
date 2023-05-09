@@ -1,14 +1,9 @@
-import ProductItem from './components/ProductItem';
+import ProductList from './components/ProductList';
 
 const App = () => {
   return (
     <>
-      <ProductItem
-        imgSrc={`${process.env.PUBLIC_URL}/assets/product1.svg`}
-        name="test"
-        price={1000}
-        isSelected={false}
-      />
+      <ProductList />
     </>
   );
 };

@@ -16,7 +16,7 @@ const Icon = ({ width, height, color, path, viewBox, svgStyle }: Props) => {
       height={height}
       viewBox={viewBox}
       xmlns="http://www.w3.org/2000/svg"
-      svgStyle={svgStyle}
+      styled={svgStyle}
     >
       <path d={path} fill={color} />
     </S.Svg>
@@ -24,8 +24,8 @@ const Icon = ({ width, height, color, path, viewBox, svgStyle }: Props) => {
 };
 
 const S = {
-  Svg: styled.svg<{ svgStyle: CSSProp }>`
-    ${(props) => props.svgStyle}
+  Svg: styled.svg<{ styled: CSSProp }>`
+    ${(props) => props.styled}
   `,
 };
 
