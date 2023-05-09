@@ -29,6 +29,8 @@ const Styled = {
   Img: styled.img`
     width: 282px;
     height: 282px;
+
+    cursor: pointer;
   `,
 
   ProductDetail: styled.div`

@@ -7,9 +7,9 @@
 - [ ] CartIconButton
   - [ ] 클릭 시 QuantityInput으로 스위치된다.
   - [ ] 클릭 시 CartTextButton의 수량이 올라간다.
-- [ ] ProductCard
+- [x] ProductCard
   - [ ] 상품 이미지, 상품명, 가격을 확인할 수 있다.
-- [ ] ProductCardList
+- [x] ProductCardList
   - [ ] 12개의 상품을 확인할 수 있다.
 - [ ] QuantityInput
   - [ ] 수량을 조절할 수 있다.

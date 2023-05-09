@@ -5,7 +5,7 @@ const ProductCardList = () => {
   return (
     <Styled.Container>
       {Array(12)
-        .fill('')
+        .fill(null)
         .map((_, index) => (
           <ProductCard key={index} />
         ))}
