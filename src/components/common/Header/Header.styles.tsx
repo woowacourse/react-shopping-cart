@@ -3,13 +3,11 @@ import styled from 'styled-components';
 
 export const Root = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
   height: 80px;
-
-  padding: 0 30rem;
 
   background-color: black;
 `;
