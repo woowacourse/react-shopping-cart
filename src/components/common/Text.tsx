@@ -15,7 +15,7 @@ export const Text = ({ children, size, weight, $color }: TextProps) => {
   );
 };
 
-const StyledText = styled.p<{
+export const StyledText = styled.p<{
   size?: string;
   weight?: string;
   $color?: string;

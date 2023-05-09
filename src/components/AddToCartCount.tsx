@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface AddToCartCount {
   onDeleteCart: () => void;
@@ -21,7 +22,13 @@ export const AddToCartCount = ({ onDeleteCart }: AddToCartCount) => {
 
   return (
     <div>
-      <input type="number" value={count} onChange={handle} />
+      <CountInput type="number" value={count} onChange={handle} />
     </div>
   );
 };
+
+const CountInput = styled.input`
+  width: 68px;
+  border: 1px solid #333333;
+  text-align: center;
+`;

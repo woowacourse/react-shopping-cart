@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 43000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 1,
+    "name": "PET보틀-밀크티(370ml)",
+    "price": 73400,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 2,
+    "name": "PET보틀-정사각(370ml)",
+    "price": 41000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 3,
+    "name": "PET보틀-납작(450ml)",
+    "price": 39000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 4,
+    "name": "PET보틀-단지(480ml)",
+    "price": 41000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 5,
+    "name": "PET보틀-납작(260ml)",
+    "price": 61800,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 6,
+    "name": "PET보틀-원형(500ml)",
+    "price": 42200,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 7,
+    "name": "PET보틀-원형(600ml)",
+    "price": 44500,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 8,
+    "name": "PET보틀-네모(450ml)",
+    "price": 43500,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 9,
+    "name": "PET보틀-육각(560ml)",
+    "price": 53000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 10,
+    "name": "PET보틀-동글(180ml)",
+    "price": 21000,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  },
+  {
+    "id": 11,
+    "name": "PET보틀-직사각(400ml)",
+    "price": 39900,
+    "imageUrl": "https://image.idus.com/image/files/819fc904143c42d3bc973a07a089faff_720.jpg"
+  }
+]
