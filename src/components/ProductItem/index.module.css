@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 18px;
+  padding: 18px 4px;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
@@ -26,8 +26,9 @@
 
 .item-info > div {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
+  height: 26px;
 }
 
 .item-info :last-child {
