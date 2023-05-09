@@ -3,8 +3,12 @@ import { Logo } from './Logo';
 import { TotalCartCount } from './TotalCartCount';
 import { Button as CartButton } from './common/Button';
 import { Text as AddToCartTitle } from './common/Text';
+import { useRecoilValue } from 'recoil';
+import { addedCartState } from '../atoms/AddedCartState';
 
 export const Header = () => {
+  const AddedCardState = useRecoilValue(addedCartState);
+
   return (
     <HeaderWrapper>
       <StyledHeader>
@@ -17,7 +21,7 @@ export const Header = () => {
           <AddToCartTitle size={'24px'} $color={'#ffffff'}>
             장바구니
           </AddToCartTitle>
-          <TotalCartCount count={3} />
+          {AddedCardState !== 0 && <TotalCartCount count={AddedCardState} />}
         </CartButton>
       </StyledHeader>
     </HeaderWrapper>
