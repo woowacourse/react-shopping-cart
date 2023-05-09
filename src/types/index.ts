@@ -5,4 +5,10 @@ interface ProductInformation {
   imageUrl: string;
 }
 
-export type { ProductInformation };
+interface CartItemData {
+  id: number;
+  quantity: number;
+  product: ProductItemData;
+}
+
+export type { ProductItemData, CartItemData };
