@@ -41,6 +41,7 @@
       }
     ],
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-use-before-define": "off"
   }
 }
