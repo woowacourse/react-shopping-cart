@@ -34,7 +34,11 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const QuantityControlButton = styled.button`
+type QuantityControlButtonProps = {
+  disabled: boolean;
+};
+
+export const QuantityControlButton = styled.button<QuantityControlButtonProps>`
   background-color: #ffffff;
   border: none;
   border-left: 1px solid #dddddd;
@@ -42,11 +46,17 @@ export const QuantityControlButton = styled.button`
   font-size: 8px;
   text-align: center;
   padding: 2px 0px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'init' : 'pointer')};
   :first-child {
     border-bottom: 0.5px solid #dddddd;
   }
   :last-child {
     border-top: 0.5px solid #dddddd;
   }
+`;
+
+export const ShoppingCartIcon = styled.img`
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
 `;
