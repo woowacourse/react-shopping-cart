@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyles from 'styles/GlobalStyles';
-import Layout from 'components/layout/Layout';
+import Layout from 'components/Layout/Layout';
 import ROUTE_PATH from 'constants/routePath';
 
 const App = () => {
