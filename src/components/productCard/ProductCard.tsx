@@ -5,33 +5,26 @@ import { useRecoilState } from 'recoil';
 import { cartListState } from '../../App';
 import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
 
-interface ProductCardProps {
-  product: Product;
-}
-
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
 
   const addProductToCartList = () => {
-    if (!cartList.includes(product.id))
-      setCartList((current) => [...current, product.id]);
+    if (!cartList.includes(id)) setCartList((current) => [...current, id]);
   };
 
   const removeItemFromCartList = () => {
-    setCartList((current) =>
-      current.filter((productId) => productId !== product.id)
-    );
+    setCartList((current) => current.filter((productId) => productId !== id));
   };
 
   return (
     <Style.Container>
-      <Style.Image src={product.imageUrl} alt="상품 이미지" />
+      <Style.Image src={imageUrl} alt="상품 이미지" />
       <Style.DescriptionContainer>
         <Style.NamePriceContainer>
-          <Style.Name>{product.name}</Style.Name>
-          <Style.Price>{product.price}원</Style.Price>
+          <Style.Name>{name}</Style.Name>
+          <Style.Price>{price}원</Style.Price>
         </Style.NamePriceContainer>
-        {cartList.includes(product.id) ? (
+        {cartList.includes(id) ? (
           <Counter removeItemFromCartList={removeItemFromCartList} />
         ) : (
           <ShoppingCartIcon handleClick={addProductToCartList} />

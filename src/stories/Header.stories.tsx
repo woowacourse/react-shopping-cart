@@ -7,24 +7,28 @@ import styled from 'styled-components';
 const meta = {
   title: 'Header',
   component: Header,
-} satisfies Meta<typeof Header>;
+  decorators: [
+    (Story) => {
+      return <RecoilRoot>{Story()}</RecoilRoot>;
+    },
+  ],
+} as Meta;
 
 export default meta;
 
 export const HeaderComponent = () => {
   return (
-    <RecoilRoot>
-      <HeaderWithRecoil />
-    </RecoilRoot>
+    <>
+      <Header />
+      <Counter />
+    </>
   );
 };
 
-const HeaderWithRecoil = () => {
+const Counter = () => {
   const [cartList, setCartList] = useRecoilState(cartListState);
-
   return (
     <>
-      <Header />
       <Button
         onClick={() => {
           setCartList((current) => [...current, 1]);

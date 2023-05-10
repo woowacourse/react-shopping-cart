@@ -11,7 +11,7 @@ export const ProductCardList = ({ products }: ProductCardListProps) => {
   return (
     <Style.Container>
       {products.map((product) => (
-        <ProductCard product={product} />
+        <ProductCard {...product} />
       ))}
     </Style.Container>
   );
