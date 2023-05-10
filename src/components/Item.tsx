@@ -3,13 +3,14 @@ import type { ItemType } from "../types/domain";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
 import { useSetRecoilState } from "recoil";
-import { itemCountSelector } from "../recoil/selector";
+import { itemQuantitySelector } from "../recoil/selector";
+import { MIN_QUANTITY } from "../constants";
 
-const Item = ({ id, name, price, imageUrl, count }: ItemType) => {
-  const setItemCount = useSetRecoilState(itemCountSelector);
+const Item = ({ id, name, price, imageUrl, quantity }: ItemType) => {
+  const setItemQuantity = useSetRecoilState(itemQuantitySelector);
 
-  const increaseItemCount = () => {
-    setItemCount({ id: id, count: Number(count) + 1 });
+  const increaseItemQuantity = () => {
+    setItemQuantity({ id: id, quantity: Number(quantity) + 1 });
   };
 
   return (
@@ -18,8 +19,8 @@ const Item = ({ id, name, price, imageUrl, count }: ItemType) => {
       <NameWrapper>{name}</NameWrapper>
       <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
       <IconWrapper>
-        {count === "0" ? (
-          <img src={CartGrayIcon} alt={"카트"} onClick={increaseItemCount} />
+        {quantity === MIN_QUANTITY.toString() ? (
+          <img src={CartGrayIcon} alt={"카트"} onClick={increaseItemQuantity} />
         ) : (
           <Counter itemId={id} />
         )}

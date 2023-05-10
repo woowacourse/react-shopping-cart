@@ -3,5 +3,5 @@ export interface ItemType {
   name: string;
   price: number;
   imageUrl: string;
-  count: string;
+  quantity: string;
 }

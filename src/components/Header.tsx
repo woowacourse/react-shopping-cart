@@ -2,19 +2,20 @@ import React from "react";
 import { CartIcon } from "../assets";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
-import { itemCountSelector } from "../recoil/selector";
+import { itemQuantitySelector } from "../recoil/selector";
 
 const Header = () => {
-  const itemCount = useRecoilValue(itemCountSelector);
+  const itemQuantity = useRecoilValue(itemQuantitySelector);
 
   return (
     <HeaderWrapper>
       <TitleWrapper>
-        <img src={CartIcon} alt={"카트"} width={"46px"} height={"46px"} />
+        <img src={CartIcon} alt={"카트"} />
         <p>SHOP</p>
       </TitleWrapper>
       <CartWrapper>
-        장바구니<ItemCountWrapper>{itemCount}</ItemCountWrapper>
+        장바구니
+        <ItemQuantityWrapper>{itemQuantity}</ItemQuantityWrapper>
       </CartWrapper>
     </HeaderWrapper>
   );
@@ -41,6 +42,11 @@ const TitleWrapper = styled.section`
     font-weight: 900;
     font-size: 38px;
   }
+
+  & > img {
+    width: 46px;
+    height: 46px;
+  }
 `;
 
 const CartWrapper = styled.section`
@@ -53,7 +59,7 @@ const CartWrapper = styled.section`
   color: white;
 `;
 
-const ItemCountWrapper = styled.div`
+const ItemQuantityWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

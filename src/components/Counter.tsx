@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { itemCountSelector } from "../recoil/selector";
+import { itemQuantitySelector } from "../recoil/selector";
 import { itemsState } from "../recoil/atom";
+import { ItemType } from "../types/domain";
+import { MAX_QUANTITY, MIN_QUANTITY } from "../constants";
 
 interface CounterProps {
   itemId: number;
 }
 
 const Counter = ({ itemId }: CounterProps) => {
-  const setItemCount = useSetRecoilState(itemCountSelector);
+  const setitemQuantity = useSetRecoilState(itemQuantitySelector);
   const items = useRecoilValue(itemsState);
-  const [quantity, setQuantity] = useState(items[itemId - 1].count);
+  const [quantity, setQuantity] = useState(
+    items.find((item: ItemType) => item.id === itemId).quantity
+  );
 
-  const handleCountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(e.target.value);
   };
 
-  const handleCountBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (quantity === "" || Number(quantity) < 0) e.target.value = "0";
-    if (Number(quantity) > 99) e.target.value = "99";
-    setItemCount({ id: itemId, count: e.target.value });
+  const handleQuantityBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (quantity === "" || Number(quantity) < MIN_QUANTITY)
+      e.target.value = MIN_QUANTITY.toString();
+    if (Number(quantity) > MAX_QUANTITY) e.target.value = MAX_QUANTITY.toString();
+    setitemQuantity({ id: itemId, quantity: e.target.value });
   };
 
-  const increaseItemCount = () => {
-    setItemCount({ id: itemId, count: Number(quantity) + 1 });
+  const increaseItemQuantity = () => {
+    setitemQuantity({ id: itemId, quantity: Number(quantity) + 1 });
   };
 
-  const decreaseItemCount = () => {
-    setItemCount({ id: itemId, count: Number(quantity) - 1 });
+  const decreaseItemQuantity = () => {
+    setitemQuantity({ id: itemId, quantity: Number(quantity) - 1 });
   };
 
   return (
@@ -36,12 +41,12 @@ const Counter = ({ itemId }: CounterProps) => {
       <CountBox
         type="number"
         value={quantity}
-        onChange={handleCountChanged}
-        onBlur={handleCountBlured}
+        onChange={handleQuantityChanged}
+        onBlur={handleQuantityBlured}
       />
       <ArrowWrapper>
-        <ArrowBox onClick={increaseItemCount}>▾</ArrowBox>
-        <ArrowBox onClick={decreaseItemCount}>▾</ArrowBox>
+        <ArrowBox onClick={increaseItemQuantity}>▾</ArrowBox>
+        <ArrowBox onClick={decreaseItemQuantity}>▾</ArrowBox>
       </ArrowWrapper>
     </CounterWrapper>
   );

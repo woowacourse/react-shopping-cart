@@ -5,6 +5,6 @@ import { ItemType } from "../types/domain";
 export const itemsState = atom({
   key: "items",
   default: structuredClone(mockData).map((item: ItemType) => {
-    return { ...item, count: "0" };
+    return { ...item, quantity: "0" };
   }),
 });
