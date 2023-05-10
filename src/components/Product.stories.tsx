@@ -1,6 +1,5 @@
-import React from "react";
+import type { StoryFn } from "@storybook/react";
 import Product from "./Product";
-import { StoryFn } from "@storybook/react";
 
 export default {
   title: "Product",
@@ -16,5 +15,5 @@ Controls.args = {
   id: 0,
   name: "PET보틀-정사각(420ml)",
   price: 43400,
-  imageUrl: "juice.png",
+  imageUrl: "PET보틀-정사각(420ml).png",
 };
