@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Cart } from '../assets/icons/cart.svg';
+import cartState from '../recoil/atoms/cartState';
 import type { Product } from '../type';
 import Stepper from './Stepper';
 
@@ -55,8 +56,32 @@ type ProductItemProps = {
   product: Product;
 };
 
-const ProductItem = ({ product }: ProductItemProps) => {
-  const [quantity, setQuantity] = useState(0);
+const ProductItem = (props: ProductItemProps) => {
+  const { product } = props;
+  const [cart, setCart] = useRecoilState(cartState);
+
+  const cartProduct = cart.find((it) => it.productId === product.id) ?? null;
+
+  const setQuantity = (quantity: number) => {
+    if (cartProduct === null) {
+      setCart([
+        ...cart,
+        { id: Math.round(Math.random() * 100000), quantity, productId: product.id },
+      ]);
+      return;
+    }
+
+    const cartProductIndex = cart.findIndex((it) => it.id === cartProduct.id);
+    const newCart = [
+      ...cart.slice(0, cartProductIndex),
+      {
+        ...cartProduct,
+        quantity,
+      },
+      ...cart.slice(cartProductIndex + 1),
+    ].filter((it) => it.quantity > 0);
+    setCart(newCart);
+  };
 
   return (
     <ProductItemContainer>
@@ -67,12 +92,12 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <ProductItemPrice>{product.price.toLocaleString('ko-KR')}</ProductItemPrice>
         </ProductItemInfo>
         <StepperContainer>
-          {quantity === 0 ? (
+          {cartProduct === null ? (
             <AddCartButton onClick={() => setQuantity(1)}>
               <Cart />
             </AddCartButton>
           ) : (
-            <Stepper min={0} value={quantity} onChange={setQuantity} />
+            <Stepper min={0} value={cartProduct.quantity} onChange={setQuantity} />
           )}
         </StepperContainer>
       </ProductInfoContainer>
