@@ -13,6 +13,14 @@ const ProductItem = (product: Product) => {
   const [cart, setCart] = useRecoilState(cartState);
   const [quantityInCart, setQuantityInCart] = useState(0);
 
+  useEffect(() => {
+    const product = cart.find((cartProduct) => cartProduct.product.id === id);
+
+    if (!product) return;
+
+    setQuantityInCart(product.quantity);
+  }, [cart]);
+
   const addProduct = (product: Product) => {
     setCart((prevCart) => {
       return [
