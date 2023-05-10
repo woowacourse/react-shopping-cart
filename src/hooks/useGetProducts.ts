@@ -9,7 +9,7 @@ interface Product {
 
 export default function useGetProducts(url: string) {
   const [value, setValue] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -17,11 +17,9 @@ export default function useGetProducts(url: string) {
       try {
         const json = await fetch(url);
         const data = await json.json();
-        console.log(data);
         setValue(data);
         setLoading(false);
       } catch (err) {
-        console.log(err);
         setLoading(false);
         setError(true);
       }
