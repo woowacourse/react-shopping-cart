@@ -21,9 +21,11 @@ export const Header = () => {
           <AddToCartTitle size={'24px'} $color={'#ffffff'}>
             장바구니
           </AddToCartTitle>
-          {AddedCardState.length !== 0 && (
-            <TotalCartCount count={AddedCardState.length} />
-          )}
+          <TotalCartCountWrapper>
+            {AddedCardState.length !== 0 && (
+              <TotalCartCount count={AddedCardState.length} />
+            )}
+          </TotalCartCountWrapper>
         </CartButton>
       </StyledHeader>
     </HeaderWrapper>
@@ -44,4 +46,9 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const TotalCartCountWrapper = styled.div`
+  width: 32px;
+  height: 26px;
 `;
