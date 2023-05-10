@@ -1,16 +1,12 @@
 import { forwardRef } from "react";
 import styled from "styled-components";
 import { DownButtonIc, UpButtonIc } from "../../asset";
+import { validateNumberRange } from "../../utils/validation";
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
   props,
   quantityRef
 ) {
-  const validateNumberRange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rule = /[^0-9]+/g;
-    e.target.value = e.target.value.replaceAll(rule, "");
-  };
-
   const increaseQuantity = () => {
     if (
       typeof quantityRef === "function" ||
