@@ -25,6 +25,7 @@ const Style = {
     background-color: var(--grey-100);
 
     color: var(--grey-100);
+    cursor: pointer;
 
     &.square {
       color: var(--grey-600);

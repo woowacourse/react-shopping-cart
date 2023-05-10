@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
 import Header from '../components/Header';
 
 const meta = {
@@ -9,13 +8,6 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
 } satisfies Meta<typeof Header>;
 
 export default meta;

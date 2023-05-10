@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
 import GlobalStyle from '../src/GlobalStyle';
+import { RecoilRoot } from 'recoil';
+import { BrowserRouter } from 'react-router-dom';
 
 const preview: Preview = {
   parameters: {
@@ -16,7 +18,11 @@ const preview: Preview = {
     (Story) => (
       <>
         <GlobalStyle />
-        <Story />
+        <RecoilRoot>
+          <BrowserRouter>
+            <Story />
+          </BrowserRouter>
+        </RecoilRoot>
       </>
     ),
   ],

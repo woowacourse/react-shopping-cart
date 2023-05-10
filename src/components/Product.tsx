@@ -1,18 +1,34 @@
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
+import { countInCartState } from '../atom';
+import Stepper from './Stepper';
 
 export default function Product({ data }: any) {
+  const [, setCountInCart] = useRecoilState(countInCartState);
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleClickCartIcon = () => {
+    setCountInCart((prev) => prev + 1);
+    setIsSelected(true);
+  };
+
   return (
     <Style.Container>
       <Style.ProductImage path={data.imageUrl} />
       <Style.ProductInfo>
         <div>
           <Style.ProductName>{data.name}</Style.ProductName>
-          <Style.ProductPrice>{data.price}원</Style.ProductPrice>
+          <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
-        <Style.CartIconWrapper>
-          <CartIcon fill="#AAAAAA" />
-        </Style.CartIconWrapper>
+        {isSelected ? (
+          <Stepper initCount={1} />
+        ) : (
+          <Style.CartIconWrapper onClick={handleClickCartIcon}>
+            <CartIcon fill="#AAAAAA" />
+          </Style.CartIconWrapper>
+        )}
       </Style.ProductInfo>
     </Style.Container>
   );
