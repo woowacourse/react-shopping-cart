@@ -5,18 +5,6 @@ import { useRecoilState } from 'recoil';
 const useShoppingBasket = () => {
   const [shoppingBasket, setShoppingBasket] = useRecoilState<ShoppingBasketProduct[]>(shoppingBasketState);
 
-  const getShoppingItemsAmount = () => {
-    return shoppingBasket.length;
-  };
-
-  const getQuantity = (productId: number) => {
-    const shoppingItem = shoppingBasket.find((item) => item.product.id === productId);
-
-    if (shoppingItem) return shoppingItem.quantity;
-
-    return 0;
-  };
-
   const updateShoppingBasket: UpdateShoppingBasket = (product, quantity) => {
     const shoppingItem = shoppingBasket.find((item) => item.product.id === product.id);
 
@@ -43,7 +31,7 @@ const useShoppingBasket = () => {
     }
   };
 
-  return { shoppingBasket, updateShoppingBasket, getQuantity, getShoppingItemsAmount };
+  return { shoppingBasket, updateShoppingBasket };
 };
 
 export default useShoppingBasket;
