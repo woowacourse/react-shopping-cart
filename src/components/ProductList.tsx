@@ -8,17 +8,21 @@ interface ProductListProps {
 
 export default function ProductList({ products }: ProductListProps) {
   return (
-    <$Wrapper>
+    <S.Wrapper>
       {products.map((product) => (
         <Product key={product.id} {...product}></Product>
       ))}
-    </$Wrapper>
+    </S.Wrapper>
   );
 }
 
-const $Wrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 282px);
   grid-column-gap: 48px;
   grid-row-gap: 64px;
 `;
+
+const S = {
+  Wrapper,
+};

@@ -6,22 +6,22 @@ export default function Header() {
   const cartCount = useRecoilValue(cartCountState);
 
   return (
-    <$Wrapper>
-      <$ContentBox>
-        <$LogoBox>
+    <S.Wrapper>
+      <S.ContentBox>
+        <S.LogoBox>
           <img src="./assets/logo.svg" />
-          <$LogoTitle>SHOP</$LogoTitle>
-        </$LogoBox>
-        <$CartBox>
+          <S.LogoTitle>SHOP</S.LogoTitle>
+        </S.LogoBox>
+        <S.CartBox>
           장바구니
-          <$CartCount>{cartCount}</$CartCount>
-        </$CartBox>
-      </$ContentBox>
-    </$Wrapper>
+          <S.CartCount>{cartCount}</S.CartCount>
+        </S.CartBox>
+      </S.ContentBox>
+    </S.Wrapper>
   );
 }
 
-const $Wrapper = styled.header`
+const Wrapper = styled.header`
   position: fixed;
   top: 0;
 
@@ -36,7 +36,7 @@ const $Wrapper = styled.header`
   color: white;
 `;
 
-const $ContentBox = styled.div`
+const ContentBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,7 +45,7 @@ const $ContentBox = styled.div`
   height: 100%;
 `;
 
-const $LogoBox = styled.div`
+const LogoBox = styled.div`
   display: flex;
   align-items: center;
 
@@ -53,20 +53,20 @@ const $LogoBox = styled.div`
   font-weight: 900;
 `;
 
-const $LogoTitle = styled.h1`
+const LogoTitle = styled.h1`
   margin-left: 24px;
 
   vertical-align: center;
 `;
 
-const $CartBox = styled.div`
+const CartBox = styled.div`
   display: flex;
 
   font-size: 24px;
   font-weight: 500;
 `;
 
-const $CartCount = styled.div`
+const CartCount = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,3 +81,12 @@ const $CartCount = styled.div`
   font-size: 14px;
   font-weight: 700;
 `;
+
+const S = {
+  Wrapper,
+  ContentBox,
+  LogoBox,
+  LogoTitle,
+  CartBox,
+  CartCount,
+};

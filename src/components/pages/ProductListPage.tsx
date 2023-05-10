@@ -6,16 +6,16 @@ export default function ProductListPage() {
   const products = mockProduct;
 
   return (
-    <$Wrapper>
+    <S.Wrapper>
       <Header />
       <main>
         <ProductList products={products} />
       </main>
-    </$Wrapper>
+    </S.Wrapper>
   );
 }
 
-const $Wrapper = styled.div`
+const Wrapper = styled.div`
   position: relative;
 
   display: flex;
@@ -30,3 +30,7 @@ const $Wrapper = styled.div`
     padding: 60px 0;
   }
 `;
+
+const S = {
+  Wrapper,
+};

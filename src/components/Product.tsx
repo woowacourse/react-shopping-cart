@@ -54,46 +54,46 @@ export default function Product(props: ProductProps) {
   }, [quantityInput]);
 
   return (
-    <$Wrapper>
-      <$Img src={`./assets/mockImages/${imageUrl}`} />
-      <$InfoBox>
-        <$LabelBox>
-          <$Name>{name}</$Name>
-          <$Price>{price.toLocaleString()} 원</$Price>
-        </$LabelBox>
-        <$ControlBox>
+    <S.Wrapper>
+      <S.Img src={`./assets/mockImages/${imageUrl}`} />
+      <S.InfoBox>
+        <S.LabelBox>
+          <S.Name>{name}</S.Name>
+          <S.Price>{price.toLocaleString()} 원</S.Price>
+        </S.LabelBox>
+        <S.ControlBox>
           {order ? (
-            <$Counter
+            <S.Counter
               type="number"
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
             />
           ) : (
-            <$CartIcon
+            <S.CartIcon
               src="./assets/cart.svg"
               onClick={handleClickIcon}
-            ></$CartIcon>
+            ></S.CartIcon>
           )}
-        </$ControlBox>
-      </$InfoBox>
-    </$Wrapper>
+        </S.ControlBox>
+      </S.InfoBox>
+    </S.Wrapper>
   );
 }
 
-const $Wrapper = styled.div`
+const Wrapper = styled.div`
   width: 282px;
   height: 362px;
 
   color: #333333;
 `;
 
-const $Img = styled.img`
+const Img = styled.img`
   width: 100%;
   height: 282px;
 `;
 
-const $InfoBox = styled.div`
+const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -103,20 +103,20 @@ const $InfoBox = styled.div`
   padding-left: 18px;
 `;
 
-const $LabelBox = styled.div`
+const LabelBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const $Name = styled.p`
+const Name = styled.p`
   margin-top: 4px;
 
   font-size: 16px;
   font-weight: 400;
 `;
 
-const $Price = styled.p`
+const Price = styled.p`
   margin-top: 10px;
 
   vertical-align: center;
@@ -124,7 +124,7 @@ const $Price = styled.p`
   font-weight: 400;
 `;
 
-const $CartIcon = styled.img`
+const CartIcon = styled.img`
   width: 26px;
   height: 24px;
   margin-right: 10px;
@@ -132,11 +132,11 @@ const $CartIcon = styled.img`
   cursor: pointer;
 `;
 
-const $ControlBox = styled.div`
+const ControlBox = styled.div`
   width: auto;
 `;
 
-const $Counter = styled.input`
+const Counter = styled.input`
   width: 64px;
   height: 28px;
   border: 1px solid #dddddd;
@@ -149,3 +149,15 @@ const $Counter = styled.input`
     height: 28px;
   }
 `;
+
+const S = {
+  Wrapper,
+  Img,
+  InfoBox,
+  LabelBox,
+  Name,
+  Price,
+  CartIcon,
+  ControlBox,
+  Counter,
+};
