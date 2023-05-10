@@ -15,7 +15,7 @@ export const Standard: Story = {
   args: {
     productImage:
       "https://user-images.githubusercontent.com/87642422/237034964-aae42f44-a957-4083-b2ed-d1a65b91f7f7.png",
-    proudctName: "소고기",
+    productName: "소고기",
     productPrice: 43400,
   },
 };
