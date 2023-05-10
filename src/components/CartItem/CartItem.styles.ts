@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const ItemWrapper = styled.div`
-  width: 282px;
-  height: 360px;
+  width: 224px;
+  height: 320px;
 `;
 
 export const ItemImage = styled.img`
-  width: 282px;
+  width: 224px;
 `;
 
 export const ProductWrapper = styled.div`

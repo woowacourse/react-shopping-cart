@@ -7,7 +7,7 @@ const Header = () => {
       <S.HeaderContentContainer>
         <S.HeaderWrapper gap={20}>
           <Svg type="header-cart" width={50} height={44} />
-          <S.Logo>SHOP</S.Logo>
+          <S.Logo>THE 춘식</S.Logo>
         </S.HeaderWrapper>
         <S.HeaderWrapper gap={8}>
           <S.CartTitle>장바구니</S.CartTitle>
