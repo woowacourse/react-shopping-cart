@@ -2,14 +2,20 @@ import styled from 'styled-components';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
-const ProductItem = () => {
+interface ProductItemProps {
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+const ProductItem = ({ name, price, imageUrl }: ProductItemProps) => {
   return (
     <Wrapper>
-      <Picture />
+      <Picture src={imageUrl} alt={name} />
       <InformationWrapper>
         <TitleAndPriceWrapper>
-          <Title>PET보틀-정사각(420ml)</Title>
-          <Price>43,400 원</Price>
+          <Title>{name}</Title>
+          <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
         <AddCartButton />
       </InformationWrapper>
@@ -19,15 +25,13 @@ const ProductItem = () => {
 
 const Wrapper = styled.div`
   width: 282px;
-`
+`;
 
-const Picture = styled.div`
+const Picture = styled.img`
   width: 282px;
   height: 282px;
 
   margin-bottom: 18px;
-
-  background: rgba(128, 0, 160, 1);
 `;
 
 const InformationWrapper = styled.div`

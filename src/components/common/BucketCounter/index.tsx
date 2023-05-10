@@ -11,12 +11,24 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
 
   useEffect(() => {
     if (!setIsClicked) return;
-    if (bucketCount === 0) setIsClicked(false);
+    if (bucketCount < 0) setIsClicked(false);
   }, [bucketCount, setIsClicked]);
+
+  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const onlyNumberExpression = /[^0-9]/g;
+
+    if (onlyNumberExpression.test(value)) return;
+
+    setBucketCount(Number(event.target.value));
+  };
 
   return (
     <Wrapper>
-      <Count>{bucketCount}</Count>
+      <Count
+        value={bucketCount === 0 ? '' : bucketCount}
+        onChange={changeCountEvent}
+      ></Count>
       <Counter>
         <TopButton onClick={() => setBucketCount((prev) => prev + 1)}>
           <Image src={TOP_ARROW} alt="증가" />
@@ -39,7 +51,7 @@ const Wrapper = styled.div`
   border: 1px solid #dddddd;
 `;
 
-const Count = styled.div`
+const Count = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +59,9 @@ const Count = styled.div`
   width: 42px;
   height: 28px;
 
-  border-right: 1px solid #dddddd;
+  border: 1px solid #dddddd;
+
+  outline: none;
 `;
 
 const Counter = styled.div`
