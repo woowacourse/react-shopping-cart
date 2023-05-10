@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 
   border: 1px solid rgb(221, 223, 225);
@@ -14,15 +14,16 @@ export const Wrapper = styled.div`
 `;
 
 export const CalcButton = styled.button`
-  width: 28px;
-  height: 28px;
+  width: 40%;
+  height: 100%;
 
   font-size: 16px;
   text-align: center;
 
   vertical-align: top;
 
-  &:disabled {
-    color: #dddddd;
+  cursor: pointer;
+  &:hover {
+    background: rgba(220, 223, 225, 0.3s);
   }
 `;
