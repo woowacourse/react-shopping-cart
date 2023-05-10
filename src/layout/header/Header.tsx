@@ -39,10 +39,10 @@ const Style = {
 
     height: 80px;
     width: 100vw;
+    position: fixed;
+    top: 0;
 
     background-color: #333333;
-
-    margin-bottom: 61px;
   `,
   ContentWrapper: styled.div`
     display: flex;
@@ -53,8 +53,9 @@ const Style = {
   `,
   LogoContainer: styled.div`
     display: flex;
+    align-items: center;
 
-    gap: 26px;
+    gap: 15px;
   `,
   Logo: styled.h1`
     margin: 0;
@@ -87,6 +88,8 @@ const Style = {
     width: 26px;
     height: 26px;
     border-radius: 26px;
+
+    padding-top: 3px;
 
     background-color: #04c09e;
     color: white;
