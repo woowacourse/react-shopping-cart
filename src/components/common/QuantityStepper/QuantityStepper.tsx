@@ -13,17 +13,16 @@ const QuantityStepper = ({ label }: { label: string }) => {
   const decrease = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
   };
+
   return (
     <Flex>
+      <Button size="S" view="white" onClick={decrease}>
+        ▼
+      </Button>
       <S.Quantity value={quantity} onChange={() => {}} name={label} />
-      <Flex dir="column" height="100%">
-        <Button size="SS" view="white" onClick={increase}>
-          ▲
-        </Button>
-        <Button size="SS" view="white" onClick={decrease}>
-          ▼
-        </Button>
-      </Flex>
+      <Button size="S" view="white" onClick={increase}>
+        ▲
+      </Button>
     </Flex>
   );
 };

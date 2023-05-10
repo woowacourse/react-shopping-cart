@@ -6,6 +6,8 @@ export const CartButton = styled.button`
   border: none;
   background-color: white;
   padding: 0;
+
+  cursor: pointer;
 `;
 
 export const CartImg = styled.img`
@@ -15,11 +17,15 @@ export const CartImg = styled.img`
 export const Box = styled.form`
   display: flex;
 
-  height: 15rem;
+  height: 50rem;
 
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const Thumbnail = styled.img`
+  width: 80%;
 `;
 
 export const Name = styled.div`

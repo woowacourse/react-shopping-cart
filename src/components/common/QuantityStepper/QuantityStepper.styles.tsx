@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Quantity = styled.input`
   width: 4.1rem;
-  height: 2.8rem;
+  height: 3rem;
   line-height: 2.8rem;
 
   padding: 0;
