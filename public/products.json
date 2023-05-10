@@ -16,5 +16,59 @@
     "name": "족발",
     "price": 40000,
     "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 1,
+    "name": "치킨",
+    "price": 10000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 2,
+    "name": "피자",
+    "price": 20000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 3,
+    "name": "족발",
+    "price": 40000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 1,
+    "name": "치킨",
+    "price": 10000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 2,
+    "name": "피자",
+    "price": 20000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 3,
+    "name": "족발",
+    "price": 40000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 1,
+    "name": "치킨",
+    "price": 10000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 2,
+    "name": "피자",
+    "price": 20000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
+  },
+  {
+    "id": 3,
+    "name": "족발",
+    "price": 40000,
+    "imageUrl": "https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_1171644_20230502084407617.png"
   }
 ]
