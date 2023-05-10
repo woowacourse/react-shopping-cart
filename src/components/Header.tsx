@@ -1,8 +1,12 @@
 import React from "react";
 import { CartIcon } from "../assets";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { itemCountSelector } from "../recoil/selector";
 
-const Header = ({cartCount}: {cartCount: number}) => {
+const Header = () => {
+  const itemCount = useRecoilValue(itemCountSelector);
+
   return (
     <HeaderWrapper>
       <TitleWrapper>
@@ -10,7 +14,7 @@ const Header = ({cartCount}: {cartCount: number}) => {
         <p>SHOP</p>
       </TitleWrapper>
       <CartWrapper>
-        장바구니<div>{cartCount}</div>
+        장바구니<ItemCountWrapper>{itemCount}</ItemCountWrapper>
       </CartWrapper>
     </HeaderWrapper>
   );
@@ -47,20 +51,20 @@ const CartWrapper = styled.section`
   font-size: 24px;
   font-weight: 500;
   color: white;
+`;
 
-  & > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
+const ItemCountWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
 
-    background: #04c09e;
-    border-radius: 50%;
-    font-size: 16px;
-    font-weight: 500;
-    color: #ffffff;
-  }
+  background: #04c09e;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
 `;
 
 export default Header;

@@ -2,14 +2,18 @@ import { styled } from "styled-components";
 import type { ItemType } from "../types/domain";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
+import { useSetRecoilState } from "recoil";
+import { itemCountSelector } from "../recoil/selector";
 
-const Item = ({ name, price, imageUrl, count = 0 }: ItemType) => {
-  const handleCountIncreased = () => {
-    console.log(1);
+const Item = ({ id, name, price, imageUrl, count = 0 }: ItemType) => {
+  const setItemCount = useSetRecoilState(itemCountSelector);
+
+  const increaseItemCount = () => {
+    setItemCount({ id: id, count: count + 1 });
   };
 
-  const handleCountDecreased = () => {
-    console.log(1);
+  const decreaseItemCount = () => {
+    setItemCount({ id: id, count: count - 1 });
   };
 
   return (
@@ -19,12 +23,12 @@ const Item = ({ name, price, imageUrl, count = 0 }: ItemType) => {
       <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
       <IconWrapper>
         {count === 0 ? (
-          <img src={CartGrayIcon} alt={"카트"} />
+          <img src={CartGrayIcon} alt={"카트"} onClick={increaseItemCount} />
         ) : (
           <Counter
             count={count}
-            increase={handleCountIncreased}
-            decrease={handleCountDecreased}
+            increase={increaseItemCount}
+            decrease={decreaseItemCount}
           />
         )}
       </IconWrapper>

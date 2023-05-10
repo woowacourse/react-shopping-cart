@@ -1,24 +1,18 @@
-import Header from "../components/Header";
-import { useRecoilState } from "recoil";
-import { itemsState } from "../store";
-import ItemList from "../components/ItemList";
-import Page from "../components/Page";
-import { ItemType } from "../types/domain";
+import { useRecoilValue } from "recoil";
+import { itemsState } from "../recoil/atom";
+import { Header, Page, ItemList } from "../components";
+import type { ItemType } from "../types/domain";
 
 const Main = () => {
-  const [items, setItems] = useRecoilState<ItemType[]>(itemsState);
-
-  const countCartItems = () => {
-    return items.filter((item) => item.count).length;
-  }
+  const items = useRecoilValue<ItemType[]>(itemsState);
 
   return (
-    <div>
-      <Header cartCount={countCartItems()}/>
+    <>
+      <Header />
       <Page>
         <ItemList items={items} />
       </Page>
-    </div>
+    </>
   );
 };
 

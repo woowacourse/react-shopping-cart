@@ -9,7 +9,7 @@ interface CounterProps {
 const Counter = ({ count, increase, decrease }: CounterProps) => {
   return (
     <CounterWrapper>
-      <CountBox value={count} />
+      <CountBox defaultValue={count} />
       <ArrowWrapper>
         <ArrowBox onClick={increase}>▾</ArrowBox>
         <ArrowBox onClick={decrease}>▾</ArrowBox>
@@ -47,6 +47,9 @@ const ArrowWrapper = styled.div`
 
   & > :first-child {
     transform: scaleY(-1);
+  }
+  :active {
+    
   }
 `;
 

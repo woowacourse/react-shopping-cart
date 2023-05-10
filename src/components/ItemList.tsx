@@ -6,7 +6,7 @@ const ItemList = ({ items }: { items: ItemType[] }) => {
   return (
     <ItemListWrapper>
       {items.map((item) => (
-        <Item {...item} />
+        <Item key={crypto.randomUUID()} {...item} />
       ))}
     </ItemListWrapper>
   );
