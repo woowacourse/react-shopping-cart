@@ -9,7 +9,9 @@ export default function ProductList() {
 
   return (
     <ProductListContainer>
-      {products && products.map((product: any) => <ProductItem {...product} />)}
+      {products.map((product: any) => (
+        <ProductItem {...product} />
+      ))}
     </ProductListContainer>
   );
 }
