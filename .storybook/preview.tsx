@@ -1,4 +1,7 @@
 import type { Preview } from '@storybook/react';
+import React from 'react';
+import GlobalStyle from '../src/styles/GlobalStyle';
+import ResetStyle from '../src/styles/ResetStyle';
 
 const preview: Preview = {
   parameters: {
@@ -10,6 +13,15 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <>
+        <ResetStyle />
+        <GlobalStyle />
+        <Story />
+      </>
+    ),
+  ],
 };
 
 export default preview;
