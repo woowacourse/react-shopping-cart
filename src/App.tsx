@@ -1,7 +1,26 @@
-import './App.css';
+import ResetStyle from './styles/ResetStyle.tsx';
+import Header from './components/Header/Header.tsx';
+import Layout from './components/@common/Layout/Layout.tsx';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ListPage from './pages/ListPage/ListPage.tsx';
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
-  return <h1>App</h1>;
+  return (
+    <>
+      <RecoilRoot>
+        <ResetStyle />
+        <Header />
+        <Layout>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<ListPage />} />
+            </Routes>
+          </BrowserRouter>
+        </Layout>
+      </RecoilRoot>
+    </>
+  );
 };
 
 export default App;
