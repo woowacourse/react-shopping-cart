@@ -2,7 +2,7 @@ import { ChangeEventHandler, InputHTMLAttributes, forwardRef } from 'react';
 import styled, { CSSProp } from 'styled-components';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  inputStyle: CSSProp;
+  styled: CSSProp;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -13,8 +13,8 @@ const Input = forwardRef<Ref, InputProps>(({ ...props }, ref) => {
 });
 
 const S = {
-  Input: styled.input<{ inputStyle: CSSProp }>`
-    ${(props) => props.inputStyle}
+  Input: styled.input<{ styled: CSSProp }>`
+    ${(props) => props.styled}
   `,
 };
 

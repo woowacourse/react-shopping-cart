@@ -21,7 +21,7 @@ const meta = {
   tags: ['autodocs'],
 
   argTypes: {
-    inputStyle: {
+    styled: {
       options: {},
       control: {
         type: 'radio',
@@ -79,7 +79,7 @@ export const QuantityInput: Story = {
   args: {
     type: 'number',
     inputMode: 'numeric',
-    inputStyle: QuantityInputStyle,
+    styled: QuantityInputStyle,
     min: 1,
     max: 99,
   },
