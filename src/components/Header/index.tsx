@@ -35,6 +35,8 @@ const Styled = {
     gap: 12px;
 
     background-color: transparent;
+
+    cursor: pointer;
   `,
 
   Title: styled.h1`

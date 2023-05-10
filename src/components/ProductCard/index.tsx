@@ -1,15 +1,21 @@
 import styled from 'styled-components';
-import Sample from '../../assets/img/sample.svg';
 import { ReactComponent as ShoppingCart } from '../../assets/icon/shopping-cart.svg';
+import { Product } from '../../types/product';
 
-const ProductCard = () => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard = ({
+  product: { name, price, imageUrl },
+}: ProductCardProps) => {
   return (
     <Styled.Container>
-      <Styled.Img src={Sample} />
+      <Styled.Img src={imageUrl} />
       <Styled.ProductDetail>
         <Styled.ProductInfo>
-          <Styled.ProductName>PET보틀-정사각(420ml)</Styled.ProductName>
-          <Styled.ProductPrice>43,400 원</Styled.ProductPrice>
+          <Styled.ProductName>{name}</Styled.ProductName>
+          <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
         </Styled.ProductInfo>
         <ShoppingCart />
       </Styled.ProductDetail>

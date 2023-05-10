@@ -1,14 +1,25 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import fetchProductList from '../../api/productList';
+import { Product } from '../../types/product';
 import ProductCard from '../ProductCard';
 
 const ProductCardList = () => {
+  const [productList, setProductList] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const data = await fetchProductList<Product[]>();
+      setProductList(data);
+    };
+    getProduct();
+  }, [productList]);
+
   return (
     <Styled.Container>
-      {Array(12)
-        .fill(null)
-        .map((_, index) => (
-          <ProductCard key={index} />
-        ))}
+      {productList.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </Styled.Container>
   );
 };
@@ -18,8 +29,6 @@ const Styled = {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 80px 45px;
-
-    width: 80%;
   `,
 };
 export default ProductCardList;

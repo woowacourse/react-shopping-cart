@@ -10,10 +10,12 @@ const CartTextButton = () => {
 };
 
 const Styled = {
-  Container: styled.div`
+  Container: styled.button`
     display: flex;
     align-items: center;
     gap: 8px;
+
+    cursor: pointer;
   `,
 
   ShoppingCart: styled.h2`
