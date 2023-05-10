@@ -9,12 +9,39 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
     const rule = /[^0-9]+/g;
     e.target.value = e.target.value.replaceAll(rule, "");
   };
+
+  const increaseQuantity = () => {
+    if (
+      typeof quantityRef === "function" ||
+      !quantityRef ||
+      !quantityRef.current
+    )
+      return;
+    const prevValue = +quantityRef.current.value;
+    quantityRef.current.value = (prevValue + 1).toString();
+  };
+
+  const decreaseQuantity = () => {
+    if (
+      typeof quantityRef === "function" ||
+      !quantityRef ||
+      !quantityRef.current
+    )
+      return;
+    if (+quantityRef.current.value < 1) return;
+    const prevValue = +quantityRef.current.value;
+    quantityRef.current.value = (prevValue - 1).toString();
+  };
   return (
     <QuantityCounterContainer>
-      <QuantityInput ref={quantityRef} onChange={validateNumberRange} />
+      <QuantityInput
+        ref={quantityRef}
+        onChange={validateNumberRange}
+        defaultValue="1"
+      />
       <ButtonWrapper>
-        <IncreaseButton>▴</IncreaseButton>
-        <DecreaseButton>▾</DecreaseButton>
+        <IncreaseButton onClick={increaseQuantity}>▴</IncreaseButton>
+        <DecreaseButton onClick={decreaseQuantity}>▾</DecreaseButton>
       </ButtonWrapper>
     </QuantityCounterContainer>
   );
