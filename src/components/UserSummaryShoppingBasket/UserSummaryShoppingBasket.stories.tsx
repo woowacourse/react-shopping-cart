@@ -16,6 +16,6 @@ type Story = StoryObj<typeof UserSummaryShoppingBasket>;
 
 export const DefaultUserSummaryShoppingBasket: Story = {
   args: {
-    quantity: 3,
+    quantity: 99,
   },
 };
