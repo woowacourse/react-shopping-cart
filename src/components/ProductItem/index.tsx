@@ -1,5 +1,4 @@
-import { useRecoilState } from 'recoil';
-import { cartListAtom } from 'src/recoil/cartList';
+import useProductSelect from 'src/hooks/useProductSelect';
 import { Product } from 'src/types';
 import Svg from '../@common/Svg';
 import Counter from '../Counter';
@@ -10,47 +9,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const [cartList, setCartList] = useRecoilState(cartListAtom);
-
-  const currentCartItem = cartList.find(
-    (item) => item.product.id === product.id
-  );
-
-  const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
-    setCartList((prev) => [...prev, { id: product.id, quantity: 1, product }]);
-  };
-
-  const add: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setCartList((cur) =>
-      cur.map((cart) =>
-        cart.product.id === product.id
-          ? {
-              ...cart,
-              quantity: cart.quantity + 1,
-            }
-          : cart
-      )
-    );
-  };
-
-  const remove: React.MouseEventHandler<HTMLButtonElement> = () => {
-    if (currentCartItem?.quantity === 1) {
-      setCartList((cur) =>
-        cur.filter((item) => item.product.id !== product.id)
-      );
-      return;
-    }
-    setCartList((cur) =>
-      cur.map((cart) =>
-        cart.product.id === product.id
-          ? {
-              ...cart,
-              quantity: cart.quantity - 1,
-            }
-          : cart
-      )
-    );
-  };
+  const { currentCartItem, remove, add, onSelectItem } =
+    useProductSelect(product);
 
   const productSelect = currentCartItem ? (
     <Counter count={currentCartItem.quantity} add={add} remove={remove} />
