@@ -1,11 +1,15 @@
 import Input from './common/Input';
 import { css, styled } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
-import { WheelEventHandler } from 'react';
+import { WheelEventHandler, ChangeEventHandler } from 'react';
 
-const QuantityInput = () => {
-  const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = (event) => {
-    event.currentTarget.blur();
+interface Props {
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
+const QuantityInput = ({ onChange }: Props) => {
+  const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
+    currentTarget.blur();
   };
 
   return (
@@ -13,10 +17,11 @@ const QuantityInput = () => {
       <Input
         type="number"
         styled={QuantityInputStyle}
-        min={1}
+        min={0}
         max={99}
         defaultValue={1}
         onWheel={handleScrollPrevent}
+        onChange={onChange}
       />
       <FaCaretUp />
       <FaCaretDown />

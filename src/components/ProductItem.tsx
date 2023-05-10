@@ -2,7 +2,7 @@ import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
-import { useState } from 'react';
+import { useState, ChangeEventHandler } from 'react';
 
 interface Props {
   imgUrl: string;
@@ -17,6 +17,12 @@ const ProductItem = ({ imgUrl, name, price }: Props) => {
     setIsSelected(true);
   };
 
+  const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    const { value } = target;
+
+    if (value === '0') setIsSelected(false);
+  };
+
   return (
     <S.ItemWrapper>
       <S.Image src={imgUrl} />
@@ -29,7 +35,7 @@ const ProductItem = ({ imgUrl, name, price }: Props) => {
           </S.Price>
         </div>
         {isSelected ? (
-          <QuantityInput />
+          <QuantityInput onChange={handleNumberInputChange} />
         ) : (
           <Icon
             width="30"
