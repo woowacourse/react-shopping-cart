@@ -13,7 +13,7 @@ export const ShoppingItemImage = styled.img`
 
 export const ShoppingItemContents = styled.div`
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 196px auto;
   align-items: flex-start;
   column-gap: 20px;
   color: #4f4f4f;

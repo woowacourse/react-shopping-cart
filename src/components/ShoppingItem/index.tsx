@@ -17,7 +17,7 @@ function ShoppingItem({ id, price, name, imageUrl }: ShoppingItemProps) {
           <S.ShoppingItemName aria-label="판매 품목 이름">{name}</S.ShoppingItemName>
           <S.ShoppingItemPrice aria-label="판매 품목 가격">{price.toLocaleString()} 원</S.ShoppingItemPrice>
         </S.ShoppingItemLayout>
-        <QuantityController quantity={99} />
+        <QuantityController quantity={1} />
       </S.ShoppingItemContents>
     </S.Container>
   );
