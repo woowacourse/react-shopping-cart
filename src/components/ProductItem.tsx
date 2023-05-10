@@ -2,15 +2,21 @@ import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
+import { useState } from 'react';
 
 interface Props {
   imgSrc: string;
   name: string;
   price: number;
-  isSelected: boolean;
 }
 
-const ProductItem = ({ imgSrc, name, price, isSelected }: Props) => {
+const ProductItem = ({ imgSrc, name, price }: Props) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleCartClick = () => {
+    setIsSelected(true);
+  };
+
   return (
     <S.ItemWrapper>
       <S.Image src={imgSrc} />
@@ -32,6 +38,7 @@ const ProductItem = ({ imgSrc, name, price, isSelected }: Props) => {
             path={CART_PATH}
             viewBox="0 0 51 44"
             svgStyle={svgStyle}
+            onClick={handleCartClick}
           />
         )}
       </S.InfoWrapper>
@@ -57,6 +64,10 @@ const S = {
 
     & > :last-child {
       right: 6px;
+    }
+
+    & > svg:last-child {
+      cursor: pointer;
     }
   `,
 
