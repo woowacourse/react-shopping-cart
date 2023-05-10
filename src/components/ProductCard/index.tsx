@@ -53,6 +53,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             type='number'
             defaultValue={1}
             min={0}
+            max={99}
             onChange={updateQuantity}
           />
         ) : (

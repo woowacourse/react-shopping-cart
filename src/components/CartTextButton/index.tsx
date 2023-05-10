@@ -8,7 +8,9 @@ const CartTextButton = () => {
   return (
     <Styled.Container>
       <Styled.ShoppingCart>장바구니</Styled.ShoppingCart>
-      <Styled.CartQuantity>{cartQuantity}</Styled.CartQuantity>
+      {cartQuantity ? (
+        <Styled.CartQuantity>{cartQuantity}</Styled.CartQuantity>
+      ) : null}
     </Styled.Container>
   );
 };
@@ -18,6 +20,8 @@ const Styled = {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    width: 130px;
 
     cursor: pointer;
   `,
