@@ -6,7 +6,7 @@ interface Props {
   initCount: number;
 }
 
-export default function Counter({ initCount }: Props) {
+export default function Stepper({ initCount }: Props) {
   const [count, setCount] = useState(initCount);
 
   const increaseCount = () => {

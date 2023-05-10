@@ -1,18 +1,18 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import Counter from '../../components/Counter';
+import Stepper from '../../components/Stepper';
 
 const meta = {
-  title: 'ShoppingCart/common',
-  component: Counter,
+  title: 'ShoppingCart/common/Stepper',
+  component: Stepper,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Counter>;
+} satisfies Meta<typeof Stepper>;
 
 export default meta;
 type Story = StoryFn<typeof meta>;
 
 export const Default: Story = () => {
-  return <Counter initCount={1} />;
+  return <Stepper initCount={1} />;
 };
