@@ -1,68 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
 import Counter from '../Counter/Counter';
-import { useRecoilState } from 'recoil';
-import { cartState } from '../../atoms';
-import { uuid } from '../../utils/uuid';
+import useCartService from '../../hooks/useCartService';
+import { productQuantityInCart } from '../../selectors';
 import type { Product } from '../../types/product';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
-  const [cart, setCart] = useRecoilState(cartState);
-  const [quantityInCart, setQuantityInCart] = useState(0);
-
-  useEffect(() => {
-    const product = cart.find((cartProduct) => cartProduct.product.id === id);
-
-    if (!product) return;
-
-    setQuantityInCart(product.quantity);
-  }, [cart]);
-
-  const addProduct = (product: Product) => {
-    setCart((prevCart) => {
-      return [
-        ...prevCart,
-        {
-          id: uuid(),
-          quantity: 1,
-          product,
-        },
-      ];
-    });
-  };
-
-  const updateProductQuantity = (targetId: number, quantity: number) => {
-    setCart((prevCart) => {
-      return prevCart.map((cartProduct) => {
-        if (cartProduct.product.id !== targetId) return cartProduct;
-
-        return {
-          ...cartProduct,
-          quantity,
-        };
-      });
-    });
-  };
-
-  const removeProduct = (targetId: number) => {
-    setCart((prevCart) =>
-      prevCart.filter((cartProduct) => cartProduct.product.id !== targetId),
-    );
-  };
+  const { addProductToCart, updateProductQuantity, removeProductFromCart } =
+    useCartService();
+  const quantityInCart = useRecoilValue(productQuantityInCart(id));
 
   const handleClickCartButton = () => {
-    setQuantityInCart(1);
-    addProduct(product);
+    addProductToCart(product);
   };
 
   const handleChangeQuantity = (count: number) => {
-    setQuantityInCart(count);
-
     if (count === 0) {
-      removeProduct(id);
+      removeProductFromCart(id);
       return;
     }
 
