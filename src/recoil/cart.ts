@@ -1,23 +1,15 @@
-import { CartItem } from './../types/cart';
-import { selector } from 'recoil';
-import axios, { AxiosResponse } from 'axios';
+import { selector, atom } from 'recoil';
+import axios from 'axios';
+import { CartItem } from '../types/cart';
 
-export const cartState = selector({
+export const cartState = atom({
   key: 'cart',
-  get: async (): Promise<AxiosResponse<{ cart: CartItem[] }>> => {
-    const cart = await axios('/data/mockCart.json');
+  default: selector({
+    key: 'getMockCart',
+    get: async (): Promise<CartItem[]> => {
+      const { data } = await axios<{ cart: CartItem[] }>('/data/mockCart.json');
 
-    return cart;
-  },
-});
-
-export const cartQuantityBadgeState = selector({
-  key: 'cartQuantityBadge',
-  get: ({ get }) => {
-    const {
-      data: { cart },
-    } = get(cartState);
-
-    return cart.length;
-  },
+      return data.cart;
+    },
+  }),
 });
