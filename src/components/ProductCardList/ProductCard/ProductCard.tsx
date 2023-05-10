@@ -1,22 +1,74 @@
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import FlexBox from 'components/@common/FlexBox';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
-import { Product } from 'types/product';
+import type { Product } from 'types/product';
 import styled from 'styled-components';
+import { cartState, filteredCartProductState } from 'state/CartAtom';
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const [cart, setCart] = useRecoilState(cartState);
   const { id, price, name, imageUrl } = product;
+  const filteredCartProduct = useRecoilValue(filteredCartProductState(id));
+  const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
+
+  const openQuantityStepper = () => {
+    setIsAddCartButtonActive(true);
+  };
+
+  const closeQuantityStepper = () => {
+    setIsAddCartButtonActive(false);
+  };
+
+  const initialAddCartProduct = () => {
+    openQuantityStepper();
+
+    setCart((prev) => [...prev, { id, quantity: 1, product }]);
+  };
+
+  const decreaseQuantity = () => {
+    const decreased = cart.map((product) => {
+      if (product.id !== id) return product;
+      return { ...product, quantity: product.quantity - 1 };
+    });
+
+    if (filteredCartProduct?.quantity === 1) closeQuantityStepper();
+
+    setCart(decreased);
+  };
+
+  const increaseQuantity = () => {
+    const increased = cart.map((product) => {
+      if (product.id !== id) return product;
+      return { ...product, quantity: product.quantity + 1 };
+    });
+
+    setCart(increased);
+  };
 
   return (
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
-        <AddCartButton>
-          <MiniCartIcon />
-        </AddCartButton>
+        {isAddCartButtonActive ? (
+          <QuantityStepper tabIndex={1} onBlur={closeQuantityStepper}>
+            <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
+            <Quantity>{filteredCartProduct?.quantity}</Quantity>
+            <IncreaseButton onClick={increaseQuantity}>+</IncreaseButton>
+          </QuantityStepper>
+        ) : filteredCartProduct ? (
+          <AddCartButton onClick={openQuantityStepper}>
+            <Quantity>{filteredCartProduct.quantity}</Quantity>
+          </AddCartButton>
+        ) : (
+          <AddCartButton onClick={initialAddCartProduct}>
+            <MiniCartIcon />
+          </AddCartButton>
+        )}
       </ProductImgContainer>
       <FlexBox padding="0 4px">
         <FlexBox flexDirection="column" align="flex-start">
@@ -62,6 +114,55 @@ const AddCartButton = styled.button`
   border-radius: 50%;
   background-color: #2ac1bc;
   cursor: pointer;
+`;
+
+const QuantityStepper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  width: 100px;
+  height: 36px;
+  padding: 5px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #2ac1bc;
+`;
+
+const DecreaseButton = styled.button`
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background-color: #2ac1bc;
+  color: #ffffff;
+  font-size: 26px;
+  line-height: 20px;
+
+  :hover {
+    filter: brightness(0.9);
+  }
+`;
+
+const Quantity = styled.span`
+  margin: 0 auto;
+`;
+
+const IncreaseButton = styled.button`
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background-color: #2ac1bc;
+  color: #ffffff;
+  font-size: 26px;
+  line-height: 20px;
+
+  :hover {
+    filter: brightness(0.9);
+  }
 `;
 
 export default ProductCard;
