@@ -24,7 +24,7 @@ body {
 
 main {
   position: relative;
-  top: 136px;
+  padding-top: 136px;
   width: 1080px;
 }
 
@@ -38,4 +38,5 @@ button {
   background-color: transparent;
   border: none;
   outline: 0;
+  cursor: pointer;
 }
