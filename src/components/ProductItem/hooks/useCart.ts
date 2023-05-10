@@ -11,9 +11,6 @@ const useCart = (cartState: RecoilState<Cart[]>, product: Product) => {
   const updateCart = (quantity: number) => {
     const index = cart.findIndex((item) => item.product.id === product.id);
 
-    console.log('[cart]', cart);
-    console.log('[index]', index);
-
     const newCart = replaceItemIndexAt(cart, index, {
       ...cart[index],
       quantity,
