@@ -1,8 +1,5 @@
-import { useRecoilState } from 'recoil';
-
 import CartIcon from '../../assets/cart-icon.svg';
 import { useModal } from '../../hooks/useModal';
-import { cartListState } from '../../pages/ProductListPage';
 import { ProductItemData } from '../../types';
 import Modal from '../Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
@@ -13,13 +10,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ information }: ProductItemProps) => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
   const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
-
-  const handleCartListAdd = () => {
-    // product id를 가지는 카트 아이템 있는지 확인하기 -> 그다음에 올리기
-    setCartList([...cartList, { id: 1, quantity: 1, product: information }]);
-  };
 
   return (
     <div className={styles.container}>
@@ -35,12 +26,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
       </div>
       {isModalOpen && (
         <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress}>
-          <ProductAddition
-            closeModalByClick={handleModalClose}
-            productName={information.name}
-            productImage={information.imageUrl}
-            price={information.price}
-          />
+          <ProductAddition closeModalByClick={handleModalClose} productInformation={information} />
         </Modal>
       )}
     </div>
