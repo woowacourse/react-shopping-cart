@@ -1,10 +1,26 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
-import { MyProduct } from '../types/Product';
+import { MyCart } from '../types/Product';
 
-const myCartState = atom<MyProduct[]>({
+const myCartState = atom<MyCart>({
   key: 'myCartState',
-  default: [],
+  default: {},
+});
+
+export const makeProductCountSelector = (targetId: string) => {
+  return selector({
+    key: 'productCountSelector',
+    get: ({ get }) => {
+      const product = get(myCartState)[targetId];
+
+      return product ? product.count : 0;
+    },
+  });
+};
+
+export const cartLengthSelector = selector({
+  key: 'cartLengthSelector',
+  get: ({ get }) => Object.keys(get(myCartState)).length,
 });
 
 export default myCartState;

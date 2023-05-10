@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import myCartState from '../../recoil/myCartState';
 import { Product } from '../../types/Product';
@@ -14,19 +14,34 @@ interface ProductItemProps {
 }
 
 const ProductItem = (props: ProductItemProps) => {
-  const {
-    product: { id, name, price, imageUrl },
-  } = props;
+  const { product: thisProduct } = props;
+  const { id, name, price, imageUrl } = thisProduct;
 
-  const product = useRecoilValue(myCartState).find(
-    product => product.id === id
-  );
+  const [myCart, setMyCart] = useRecoilState(myCartState);
 
-  const [count, setCount] = useState(product ? product.count : 0);
+  const [productCount, setProductCount] = useState(() => {
+    const thisProduct = myCart[id];
+
+    return thisProduct ? thisProduct.count : 0;
+  });
 
   const handleCartButtonClick = () => {
-    setCount(prev => prev + 1);
+    setProductCount(prev => prev + 1);
   };
+
+  useEffect(() => {
+    setMyCart(prevCart => {
+      const newCart = { ...prevCart };
+
+      newCart[id] = { ...thisProduct, count: productCount };
+
+      if (productCount === 0) {
+        delete newCart[id];
+      }
+
+      return newCart;
+    });
+  }, [productCount]);
 
   return (
     <Styled.ProductItem>
@@ -38,10 +53,13 @@ const ProductItem = (props: ProductItemProps) => {
             {price.toLocaleString('ko-KR')} 원
           </Styled.PriceParagraph>
         </div>
-        {count === 0 ? (
+        {productCount === 0 ? (
           <CartButton onClick={handleCartButtonClick} />
         ) : (
-          <Stepper count={count} setCount={setCount} />
+          <Stepper
+            productCount={productCount}
+            setProductCount={setProductCount}
+          />
         )}
       </Styled.ProductDetailWrapper>
     </Styled.ProductItem>
