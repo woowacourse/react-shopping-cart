@@ -1,10 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 import ProductList from "../../src/components/ProductListPage/ProductList";
 export default function ProductListPage() {
   return (
-    <ProductListWrapper>
-      <ProductList />
-    </ProductListWrapper>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <ProductListWrapper>
+        <ProductList />
+      </ProductListWrapper>
+    </React.Suspense>
   );
 }
 

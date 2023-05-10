@@ -1,21 +1,15 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import useGetProducts from "../../hooks/useGetProducts";
 import ProductItem from "./ProductItem";
+import { products as productList } from "../../atoms/productState";
+import React from "react";
 
 export default function ProductList() {
-  const { value: products, loading, error } = useGetProducts("products.json");
-
-  if (error) {
-    return <div>Error!</div>;
-  }
-
-  if (loading) {
-    return <div>loading...</div>;
-  }
+  const products = useRecoilValue(productList);
 
   return (
     <ProductListContainer>
-      {products && products.map((product) => <ProductItem {...product} />)}
+      {products && products.map((product: any) => <ProductItem {...product} />)}
     </ProductListContainer>
   );
 }
