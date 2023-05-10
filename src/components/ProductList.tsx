@@ -1,20 +1,31 @@
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
+import { fetchData } from '../utils/fetchData';
+import { Product } from '../types';
+import { mockDataUrl } from '../constants/url';
 
 const ProductList = () => {
-  const productList = Array.from({ length: 12 }).map((_, index) => {
-    return (
-      <ProductItem
-        key={index}
-        imgSrc={`${process.env.PUBLIC_URL}/assets/product1.svg`}
-        name="test"
-        price={1000}
-        isSelected={false}
-      />
-    );
-  });
+  const [productList, setProductList] = useState<Product[]>([]);
 
-  return <S.Wrapper>{productList}</S.Wrapper>;
+  const productData = process.env.PUBLIC_URL + mockDataUrl;
+
+  useEffect(() => {
+    fetchData(productData, setProductList);
+  }, []);
+
+  return (
+    <S.Wrapper>
+      {productList.map((product) => (
+        <ProductItem
+          key={product.id}
+          imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
+          name={product.name}
+          price={product.price}
+        />
+      ))}
+    </S.Wrapper>
+  );
 };
 
 const S = {

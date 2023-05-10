@@ -5,12 +5,12 @@ import { CART_PATH } from '../constants/svgPath';
 import { useState } from 'react';
 
 interface Props {
-  imgSrc: string;
+  imgUrl: string;
   name: string;
   price: number;
 }
 
-const ProductItem = ({ imgSrc, name, price }: Props) => {
+const ProductItem = ({ imgUrl, name, price }: Props) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCartClick = () => {
@@ -19,7 +19,7 @@ const ProductItem = ({ imgSrc, name, price }: Props) => {
 
   return (
     <S.ItemWrapper>
-      <S.Image src={imgSrc} />
+      <S.Image src={imgUrl} />
       <S.InfoWrapper>
         <div>
           <S.Name>{name}</S.Name>
