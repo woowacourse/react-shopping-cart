@@ -5,19 +5,15 @@ export const $CartCount = atom<Record<number, number>>({
   default: {},
 });
 
-export const products = atom({
+export const $Products = atom({
   key: 'products',
   default: [],
 });
 
-export const getProductSelector = selector({
-  key: 'products/get',
-  get: async ({ get }) => {
-    try {
-      const data = await fetch('/products').then(res => res.json());
-      return data;
-    } catch (e) {
-      throw new Error();
-    }
+export const $CartCountTotal = selector({
+  key: 'CartCountTotal',
+  get: ({ get }) => {
+    const total = Object.values(get($CartCount)).reduce((acc, count) => acc + count, 0);
+    return total;
   },
 });
