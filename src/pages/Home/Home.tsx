@@ -12,14 +12,7 @@ function Home() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
       {productList.map((product) => (
-        <ProductItem
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          price={product.price}
-          imageUrl="http://placekitten.com/200/200"
-          quantity={0}
-        />
+        <ProductItem key={product.id} product={product} />
       ))}
     </div>
   );

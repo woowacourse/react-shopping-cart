@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import * as S from './Header.style';
 import cartIcon from '../../assets/cart.svg';
 import { useNavigate } from 'react-router-dom';
+import useCart from '../../hooks/useCart';
 
 function Header() {
   const navigate = useNavigate();
-  const [foo, setFoo] = useState(0);
+  const { cartList } = useCart();
   return (
     <S.Navbar>
       <S.Container>
@@ -17,7 +17,7 @@ function Header() {
           <S.CartWrapper onClick={() => navigate('/cart')}>
             <S.CartTitle>장바구니</S.CartTitle>
             <S.CartCountWrapper>
-              <S.CartCount>{foo}</S.CartCount>
+              <S.CartCount>{cartList.length}</S.CartCount>
             </S.CartCountWrapper>
           </S.CartWrapper>
         </S.HeaderWrapper>

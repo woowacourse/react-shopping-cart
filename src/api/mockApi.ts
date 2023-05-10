@@ -14,3 +14,15 @@ export const fetchMockProductList = () => {
     )
   );
 };
+
+export const fetchMock = () => {
+  return new Promise<Response>((resolve) =>
+    setTimeout(
+      () =>
+        resolve({
+          data: '',
+        }),
+      1000
+    )
+  );
+};

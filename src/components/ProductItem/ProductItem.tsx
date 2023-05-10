@@ -2,11 +2,12 @@ import * as T from '../../types/ProductType';
 import CartController from '../CartController';
 import * as S from './ProductItem.style';
 
-interface ProductItemProps extends T.ProductItem {
-  quantity: number;
+interface ProductItemProps {
+  product: T.ProductItem;
 }
 
-function ProductItem({ id, name, price, imageUrl, quantity }: ProductItemProps) {
+function ProductItem({ product }: ProductItemProps) {
+  const { id, name, price, imageUrl } = product;
   return (
     <S.ProductItemBox>
       <S.ProductItemImageBox>
@@ -17,7 +18,7 @@ function ProductItem({ id, name, price, imageUrl, quantity }: ProductItemProps) 
           <S.ProductName>{name}</S.ProductName>
           <S.ProductPrice>{price}원</S.ProductPrice>
         </S.ProductInfo>
-        <CartController quantity={quantity} />
+        <CartController product={product} />
       </S.ProductDetails>
     </S.ProductItemBox>
   );

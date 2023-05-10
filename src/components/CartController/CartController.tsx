@@ -1,9 +1,26 @@
 import * as S from './CartController.style';
+import * as T from '../../types/ProductType';
+import useCart from '../../hooks/useCart';
+import { useEffect, useState } from 'react';
+
 interface CartControllerProps {
-  quantity: number;
+  product: T.ProductItem;
 }
 
-function CartController({ quantity }: CartControllerProps) {
+function CartController({ product }: CartControllerProps) {
+  const [quantity, setQuantity] = useState(0);
+
+  const { cartList, addCart, getQuantityByProductId } = useCart();
+
+  const handleClickCart = () => {
+    console.log('dd');
+    addCart(product);
+  };
+
+  useEffect(() => {
+    setQuantity(getQuantityByProductId(product.id));
+  }, [cartList]);
+
   return (
     <>
       {quantity > 0 ? (
@@ -15,7 +32,7 @@ function CartController({ quantity }: CartControllerProps) {
           </S.ButtonBox>
         </S.CartBox>
       ) : (
-        <button>🛒</button>
+        <button onClick={handleClickCart}>🛒</button>
       )}
     </>
   );
