@@ -9,7 +9,13 @@ export const ProductList = () => {
   return (
     <ProductListWrapper>
       {getMockData.map(({ id, name, price, imageUrl }) => (
-        <ProductItem id={id} name={name} price={price} imageUrl={imageUrl} />
+        <ProductItem
+          key={id}
+          id={id}
+          name={name}
+          price={price}
+          imageUrl={imageUrl}
+        />
       ))}
     </ProductListWrapper>
   );
