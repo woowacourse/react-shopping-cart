@@ -30,7 +30,7 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   width: 100%;
   height: var(--header-height);
-  padding: 0 16.66%;
+  padding: 0 8.33%;
   background-color: #333333;
 `;
 
