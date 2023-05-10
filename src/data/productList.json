@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "사세 버팔로윙 1kg * 10봉",
+    "price": 141000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/b6710e67-a322-4818-aae0-0c6f6b6110b9.png?h=300&w=300"
+  },
+  {
+    "id": 2,
+    "name": "해물총각 날치알 골드 800g",
+    "price": 186000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/f5fda2fd-9a46-4545-823f-cbed0ac6409d.jpg?h=300&w=300"
+  },
+  {
+    "id": 3,
+    "name": "CJ 스팸 클래식 300g",
+    "price": 3590,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/63076fdc-43b6-4b88-bfa8-97e513662fb8.jpg?h=300&w=300"
+  },
+  {
+    "id": 4,
+    "name": "[1+1] 신선애 깍두기 김치 10kg",
+    "price": 25700,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/7b526420-89ba-4b61-b43d-bd765d1a3769.jpg?h=300&w=300"
+  },
+  {
+    "id": 5,
+    "name": "유캔 캔시머 페트 투명캔 500ml",
+    "price": 30500,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/291ee4b4-a24c-4af3-b20c-8005f9089d84.jpg?h=300&w=300"
+  },
+  {
+    "id": 6,
+    "name": "천일 김치 볶음밥N 300g",
+    "price": 1680,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/84503bab-f741-455e-ab8e-c38af6b4adf8.jpg?h=300&w=300"
+  },
+  {
+    "id": 7,
+    "name": "초밥용기 (SL-H15s)",
+    "price": 87360,
+    "imageUrl": "https://cdn-mart.baemin.com/goods/97/1570166553470m0.jpg?h=300&w=300"
+  },
+  {
+    "id": 8,
+    "name": "이츠웰 오곡초코크런키바(30g*12개 360g/EA)",
+    "price": 6710,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/b4461d01-a43c-4672-9a35-a744b777abd0.jpg?h=400&w=400"
+  },
+  {
+    "id": 9,
+    "name": "가나 아이스 바 1박스 (24개입)",
+    "price": 18600,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/1a4811b9-3e4c-4337-9f81-b5d00607206d.jpg?h=400&w=400"
+  },
+  {
+    "id": 10,
+    "name": "해물총각 타코야끼 (20gx50개입) 1kg 10봉",
+    "price": 47500,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/b2646d24-f7cf-480f-9c2f-59a7a1b79184.jpg?h=400&w=400"
+  },
+  {
+    "id": 11,
+    "name": "서울식품 미니 크로와상 골드 생지 22g 80개입 X 3봉",
+    "price": 59000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/681f2a3e-259d-4f15-8461-35f3524f3709.jpg?h=400&w=400"
+  },
+  {
+    "id": 12,
+    "name": "허쉬 초콜릿칩 모찌쿠키 240g x 10개",
+    "price": 32000,
+    "imageUrl": "https://cdn-mart.baemin.com/sellergoods/main/e99a458a-1b96-451b-ad62-952396643847.jpg?h=400&w=400"
+  }
+]
