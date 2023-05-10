@@ -2,19 +2,19 @@ import styled from "styled-components";
 
 interface ProductCardProps {
   productImage: string;
-  proudctName: string;
+  productName: string;
   productPrice: number;
 }
 
 const ProductCard = ({
   productImage,
-  proudctName,
+  productName,
   productPrice,
 }: ProductCardProps) => {
   return (
     <ProductCardContainer>
       <ProductImage src={productImage} alt="productImage" />
-      <ProductName>{proudctName}</ProductName>
+      <ProductName>{productName}</ProductName>
       <ProductPrice>{productPrice.toLocaleString()} 원</ProductPrice>
     </ProductCardContainer>
   );
@@ -25,7 +25,6 @@ const ProductCardContainer = styled.div`
   flex-direction: column;
   width: 282px;
   height: 358.03px;
-  border: 1px solid red;
 `;
 
 const ProductImage = styled.img`
