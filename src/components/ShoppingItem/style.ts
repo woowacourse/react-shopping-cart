@@ -1,25 +1,27 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 282px;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 export const ShoppingItemImage = styled.img`
-  height: 282px;
+  height: 260px;
   margin-bottom: 18px;
 `;
 
 export const ShoppingItemContents = styled.div`
+  min-width: 100%;
   display: grid;
-  grid-template-columns: 196px auto;
+  grid-template-columns: 1fr auto;
   align-items: flex-start;
   column-gap: 20px;
   color: #4f4f4f;
 `;
 
 export const ShoppingItemLayout = styled.div`
+  min-width: 100%;
   margin-left: 10px;
 `;
 

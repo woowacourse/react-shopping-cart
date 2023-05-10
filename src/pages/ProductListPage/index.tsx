@@ -1,5 +1,17 @@
+import styled from 'styled-components';
+import ProductList from './ProductList';
+
 function ProductListPage() {
-  return <div>리스트를 넣으면 됨</div>;
+  return (
+    <Container>
+      <ProductList />
+    </Container>
+  );
 }
 
 export default ProductListPage;
+
+const Container = styled.div`
+  width: 70%;
+  margin: auto;
+`;
