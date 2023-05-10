@@ -1,26 +1,28 @@
-import { atom } from 'recoil';
+import { atom, useRecoilValue } from 'recoil';
 
 import Header from '../components/Header/Header';
 import ProductList from '../components/ProductList/ProductList';
 import initialListData from '../data/mockData.json';
 import { CartItemData, ProductItemData } from '../types';
 
-export const productListState = atom<ProductItemData[]>({
-  key: 'productList',
-  default: [],
+export const cartAdditionState = atom<boolean>({
+  key: 'cartAddition',
+  default: false,
   effects: [
     ({ setSelf, onSet }) => {
-      const storeKey = 'productList';
-      const savedValue = localStorage.getItem(storeKey); // 로컬 setSelf json 데이터
-      savedValue !== null ? setSelf(JSON.parse(savedValue)) : setSelf(initialListData);
-
-      onSet((newValue, _, isReset) => {
-        isReset
-          ? localStorage.removeItem(storeKey)
-          : localStorage.setItem(storeKey, JSON.stringify(newValue));
+      onSet(() => {
+        setTimeout(() => {
+          setSelf(false);
+        }, 2500);
       });
     },
   ],
+});
+
+export const productListState = atom<ProductItemData[]>({
+  key: 'productList',
+  default: [],
+  effects: [({ setSelf }) => setSelf(initialListData)],
 });
 
 export const cartListState = atom<CartItemData[]>({
@@ -47,12 +49,16 @@ export const cartListState = atom<CartItemData[]>({
 });
 
 const ProductListPage = () => {
+  const cartAddition = useRecoilValue(cartAdditionState);
+
   return (
     <>
       <Header />
+
       <main>
         <ProductList />
       </main>
+      {cartAddition ? <div className="added-message">장바구니에 상품을 추가했습니다.</div> : ''}
     </>
   );
 };

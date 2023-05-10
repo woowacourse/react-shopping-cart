@@ -13,6 +13,7 @@ interface ProductAdditionProps {
 
 const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
+  const setCartAddition = useSetRecoilState(cartAdditionState);
   const [quantity, setQuantity] = useState(1);
 
   const handleCartAdd = useCallback(() => {
@@ -36,6 +37,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         quantity,
       };
       setCartList(updatedCartList);
+      setCartAddition(true);
     }
 
     closeModalByClick();
