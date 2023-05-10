@@ -30,6 +30,17 @@ export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
   };
 
   const decreaseCount = () => {
+    const addedCartList = addedCartStates.map((item: AddedProductList) => {
+      if (item.id === id)
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+
+      return item;
+    });
+    setAddedCartStates(addedCartList);
+
     if (quantity === 1) {
       onDeleteCart();
     }
