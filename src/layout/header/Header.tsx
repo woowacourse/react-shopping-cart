@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { LogoIcon } from '../../assets/ShoppingCartIcon';
 import { useCartList } from '../../hooks/useCartList';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
+  const navigate = useNavigate();
+
   const { cartList } = useCartList();
 
   return (
     <Style.Container>
       <Style.ContentWrapper>
-        <Style.LogoContainer>
+        <Style.LogoContainer onClick={() => navigate('/')}>
           <LogoIcon />
           <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
@@ -47,6 +50,8 @@ const Style = {
     align-items: center;
 
     gap: 15px;
+
+    cursor: pointer;
   `,
   Logo: styled.h1`
     margin: 0;
