@@ -4,4 +4,5 @@
   place-items: center;
   row-gap: 24px;
   column-gap: 16px;
+  align-items: start;
 }
