@@ -1,10 +1,19 @@
 import { styled } from 'styled-components';
 import { SmallCartIcon } from '../../assets/icons';
+import { formatPrice } from '../../utils/formatPrice';
 import type { Product } from '../../types/product';
+import Counter from '../Counter/Counter';
+import { useState } from 'react';
 
 const ProductItem = ({ id, name, price, imageSrc }: Product) => {
-  const formatPrice = (price: number) => {
-    return `${price.toLocaleString('ko-KR')} 원`;
+  const [quantityInCart, setQuantityInCart] = useState(0);
+
+  const handleClickCartButton = () => {
+    setQuantityInCart(1);
+  };
+
+  const handleChangeQuantity = (count: number) => {
+    setQuantityInCart(count);
   };
 
   return (
@@ -19,9 +28,21 @@ const ProductItem = ({ id, name, price, imageSrc }: Product) => {
           <Title>{name}</Title>
           <Price>{formatPrice(price)}</Price>
         </div>
-        <CartButton type="button" aria-label="장바구니에 추가하기">
-          <SmallCartIcon />
-        </CartButton>
+
+        {quantityInCart ? (
+          <Counter
+            count={quantityInCart}
+            onChangeCount={handleChangeQuantity}
+          />
+        ) : (
+          <CartButton
+            type="button"
+            aria-label="장바구니에 추가하기"
+            onClick={handleClickCartButton}
+          >
+            <SmallCartIcon />
+          </CartButton>
+        )}
       </Contents>
     </ItemContainer>
   );
