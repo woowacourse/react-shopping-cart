@@ -12,17 +12,25 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
-      <ProductImage src={imageUrl} />
+      <ProductImgContainer>
+        <ProductImage src={imageUrl} />
+        <AddCartButton>
+          <MiniCartIcon />
+        </AddCartButton>
+      </ProductImgContainer>
       <FlexBox padding="0 4px">
         <FlexBox flexDirection="column" align="flex-start">
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')}원</Price>
         </FlexBox>
-        <MiniCartIcon width="24px" height="24px" />
       </FlexBox>
     </FlexBox>
   );
 };
+
+const ProductImgContainer = styled.div`
+  position: relative;
+`;
 
 const ProductImage = styled.img`
   width: 200px;
@@ -39,6 +47,21 @@ const Price = styled.span`
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.4px;
+`;
+
+const AddCartButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background-color: #2ac1bc;
+  cursor: pointer;
 `;
 
 export default ProductCard;
