@@ -1,7 +1,11 @@
+import { useRecoilValue } from 'recoil';
+import { countCartListSelector } from 'src/recoil/cartList';
 import Svg from '../@common/Svg';
 import * as S from './Header.styles';
 
 const Header = () => {
+  const cartCount = useRecoilValue(countCartListSelector);
+
   return (
     <S.HeaderContainer>
       <S.HeaderContentContainer>
@@ -11,7 +15,7 @@ const Header = () => {
         </S.HeaderWrapper>
         <S.HeaderWrapper gap={8}>
           <S.CartTitle>장바구니</S.CartTitle>
-          <S.CartCounter>2</S.CartCounter>
+          <S.CartCounter>{cartCount}</S.CartCounter>
         </S.HeaderWrapper>
       </S.HeaderContentContainer>
     </S.HeaderContainer>

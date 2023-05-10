@@ -1,5 +1,5 @@
 import ContentLayout from 'src/components/@common/ContentLayout';
-import CartItem from 'src/components/CartItem';
+import ProductItem from 'src/components/ProductItem';
 import Header from 'src/components/Header';
 import { useFetch } from 'src/hooks/useFetch';
 import { Product } from 'src/types';
@@ -12,7 +12,7 @@ const ProductList = () => {
   );
 
   const fetchedProductList = data.choonsik.map((product) => (
-    <CartItem key={product.id} product={product} />
+    <ProductItem key={product.id} product={product} />
   ));
 
   return (
