@@ -16,7 +16,7 @@ export const Header = () => {
           <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
         <Style.CartContainer>
-          <Style.Cart>장바구니</Style.Cart>
+          <Style.Cart onClick={() => navigate('/test')}>장바구니</Style.Cart>
           <Style.CartAmount>{cartList.length}</Style.CartAmount>
         </Style.CartContainer>
       </Style.ContentWrapper>
