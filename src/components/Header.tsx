@@ -1,13 +1,10 @@
-import { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';
 import { CartLogo } from '../assets/svg';
 import { Link } from 'react-router-dom';
 
-interface Props extends HTMLAttributes<HTMLElement> {}
-
-export default function Header({ ...props }: Partial<Props>) {
+export default function Header() {
   return (
-    <Style.Container {...props}>
+    <Style.Container>
       <Style.Content>
         <Style.Title to="/">
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
