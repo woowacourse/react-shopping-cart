@@ -6,6 +6,8 @@ export const Button = styled.button<{
 }>`
   padding: 0;
 
+  cursor: pointer;
+
   ${({ size }) => {
     switch (size) {
       case 'SS':
