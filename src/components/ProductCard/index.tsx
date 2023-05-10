@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ShoppingCart } from '../../assets/icon/shopping-cart.svg';
 import { Product } from '../../types/product';
+import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 
 interface ProductCardProps {
   product: Product;
@@ -9,6 +10,8 @@ interface ProductCardProps {
 const ProductCard = ({
   product: { name, price, imageUrl },
 }: ProductCardProps) => {
+  const [isCartClicked, setIsCartClicked] = useState(false);
+
   return (
     <Styled.Container>
       <Styled.Img src={imageUrl} />
@@ -17,7 +20,13 @@ const ProductCard = ({
           <Styled.ProductName>{name}</Styled.ProductName>
           <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
         </Styled.ProductInfo>
-        <ShoppingCart />
+        {isCartClicked ? (
+          <Styled.QuantityInput type='number' defaultValue={1} min={0} />
+        ) : (
+          <Styled.ShoppingCart onClick={() => setIsCartClicked(true)}>
+            <ShoppingCartImg />
+          </Styled.ShoppingCart>
+        )}
       </Styled.ProductDetail>
     </Styled.Container>
   );
@@ -64,6 +73,21 @@ const Styled = {
     font-size: 20px;
 
     letter-spacing: 0.5px;
+  `,
+
+  QuantityInput: styled.input.attrs({ type: 'number' })`
+    width: 64px;
+    height: 28px;
+
+    border: 1px solid #dddddd;
+
+    padding-left: 8px;
+  `,
+
+  ShoppingCart: styled.button`
+    display: flex;
+
+    cursor: pointer;
   `,
 };
 export default ProductCard;

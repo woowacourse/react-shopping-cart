@@ -12,7 +12,7 @@
 - [x] ProductCardList
   - [x] 12개의 상품을 확인할 수 있다.
 - [ ] QuantityInput
-  - [ ] 수량을 조절할 수 있다.
+  - [x] 수량을 조절할 수 있다.
   - [ ] 0일 경우 CartIconButton으로 스위치된다(미정)
 - [ ] LocalStorage 저장 기능
   - [ ] 새로고침 해도 장바구니에 담긴 수량이 유지된다.
