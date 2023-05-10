@@ -1,14 +1,24 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
 
 import type { Product } from '../../types/product';
 
-interface ProductListProps {
-  products: Product[];
-}
+const URL = `${process.env.PUBLIC_URL}/data/products.json`;
 
-const ProductList = ({ products }: ProductListProps) => {
+const ProductList = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(URL);
+      const data = await response.json();
+      setProducts(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <ProductListContainer>
       {products.map((product) => (
