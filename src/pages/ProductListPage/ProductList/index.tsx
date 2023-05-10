@@ -2,7 +2,7 @@ import ShoppingItem from '@Components/ShoppingItem';
 import mockData from '../../../mockData.json';
 
 import * as S from './style';
-import useShoppingBasket from '@Hooks/useShoppingBasketHook';
+import useShoppingBasket from '@Hooks/useShoppingBasket';
 
 function ProductList() {
   const { updateShoppingBasket, getQuantity } = useShoppingBasket();
