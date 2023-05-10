@@ -26,7 +26,7 @@ const StepperButton = ({ count, setCount }: StepperButtonProps) => {
       <button
         type="button"
         className={styles.decreaseButton}
-        disabled={count === 0}
+        disabled={count === 1}
         onClick={handleDecrease}
       >
         <MinusIcon />
