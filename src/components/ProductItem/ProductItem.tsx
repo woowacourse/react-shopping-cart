@@ -1,15 +1,32 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
-import type { Product } from '../../types/product';
 import Counter from '../Counter/Counter';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { cartState } from '../../atoms';
+import type { Product } from '../../types/product';
 
-const ProductItem = ({ id, name, price, imageSrc }: Product) => {
+const ProductItem = (product: Product) => {
+  const { id, name, price, imageSrc } = product;
+  const [cart, setCart] = useRecoilState(cartState);
   const [quantityInCart, setQuantityInCart] = useState(0);
 
+  const addProduct = (product: Product) => {
+    setCart((prevCart) => {
+      return [
+        ...prevCart,
+        {
+          id: uuid(),
+          quantity: 1,
+          product,
+        },
+      ];
+    });
+  };
   const handleClickCartButton = () => {
     setQuantityInCart(1);
+    addProduct(product);
   };
 
   const handleChangeQuantity = (count: number) => {
