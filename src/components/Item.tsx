@@ -2,15 +2,15 @@ import { styled } from "styled-components";
 import type { ItemType } from "../types/domain";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
-import { useSetRecoilState } from "recoil";
-import { itemQuantitySelector } from "../recoil/selector";
+
 import { MIN_QUANTITY } from "../constants";
+import { useQuantity } from "../hooks/useQuantity";
 
-const Item = ({ id, name, price, imageUrl, quantity }: ItemType) => {
-  const setItemQuantity = useSetRecoilState(itemQuantitySelector);
+const Item = ({ id, name, price, imageUrl }: ItemType) => {
+  const { quantity, setNewQuantity } = useQuantity(id);
 
-  const increaseItemQuantity = () => {
-    setItemQuantity({ id: id, quantity: Number(quantity) + 1 });
+  const handleCartClicked = () => {
+    setNewQuantity(Number(quantity) + 1);
   };
 
   return (
@@ -20,7 +20,7 @@ const Item = ({ id, name, price, imageUrl, quantity }: ItemType) => {
       <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
       <IconWrapper>
         {quantity === MIN_QUANTITY.toString() ? (
-          <img src={CartGrayIcon} alt={"카트"} onClick={increaseItemQuantity} />
+          <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
         ) : (
           <Counter itemId={id} />
         )}
@@ -61,7 +61,12 @@ const IconWrapper = styled.div`
   & > img {
     width: 24px;
     height: 24px;
-    transform: scaleX(-1);
+    transition: all 0.4s ease-out;
+
+    &:hover {
+      transform: scale(1.12);
+      opacity: 60%;
+    }
   }
 `;
 

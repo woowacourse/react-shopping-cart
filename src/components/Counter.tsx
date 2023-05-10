@@ -1,39 +1,21 @@
-import React, { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React from "react";
 import { styled } from "styled-components";
-import { itemQuantitySelector } from "../recoil/selector";
-import { itemsState } from "../recoil/atom";
-import { ItemType } from "../types/domain";
-import { MAX_QUANTITY, MIN_QUANTITY } from "../constants";
+import { useQuantity } from "../hooks/useQuantity";
 
 interface CounterProps {
   itemId: number;
 }
 
 const Counter = ({ itemId }: CounterProps) => {
-  const setitemQuantity = useSetRecoilState(itemQuantitySelector);
-  const items = useRecoilValue(itemsState);
-  const [quantity, setQuantity] = useState(
-    items.find((item: ItemType) => item.id === itemId).quantity
-  );
+  const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
+    useQuantity(itemId);
 
-  const handleQuantityChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(e.target.value);
+  const handleUpArrowBox = () => {
+    setNewQuantity(Number(quantity) + 1);
   };
 
-  const handleQuantityBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (quantity === "" || Number(quantity) < MIN_QUANTITY)
-      e.target.value = MIN_QUANTITY.toString();
-    if (Number(quantity) > MAX_QUANTITY) e.target.value = MAX_QUANTITY.toString();
-    setitemQuantity({ id: itemId, quantity: e.target.value });
-  };
-
-  const increaseItemQuantity = () => {
-    setitemQuantity({ id: itemId, quantity: Number(quantity) + 1 });
-  };
-
-  const decreaseItemQuantity = () => {
-    setitemQuantity({ id: itemId, quantity: Number(quantity) - 1 });
+  const handleDownArrowBox = () => {
+    setNewQuantity(Number(quantity) - 1);
   };
 
   return (
@@ -45,8 +27,8 @@ const Counter = ({ itemId }: CounterProps) => {
         onBlur={handleQuantityBlured}
       />
       <ArrowWrapper>
-        <ArrowBox onClick={increaseItemQuantity}>▾</ArrowBox>
-        <ArrowBox onClick={decreaseItemQuantity}>▾</ArrowBox>
+        <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
+        <ArrowBox onClick={handleDownArrowBox}>▾</ArrowBox>
       </ArrowWrapper>
     </CounterWrapper>
   );
