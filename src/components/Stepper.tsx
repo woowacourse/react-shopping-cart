@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { styled } from 'styled-components';
 import Button from './common/Button';
 
@@ -29,12 +29,22 @@ export default function Stepper({ initCount }: Props) {
     return false;
   };
 
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (!/^[0-9]*$/.test(target.value)) return;
+
+    const value = Number(target.value);
+    if (value > 99) return setCount(99);
+    if (value < 1) return setCount(1);
+
+    setCount(value);
+  };
+
   return (
     <Style.Container>
-      <Button designType="square" disabled={isMinCount()} onClick={decreaseCount}>
+      <Button bgColor="primary" designType="square" disabled={isMinCount()} onClick={decreaseCount}>
         -
       </Button>
-      <Style.CountInput value={count} />
+      <Style.CountInput value={count} onChange={handleChange} />
       <Button designType="square" disabled={isMaxCount()} onClick={increaseCount}>
         +
       </Button>
