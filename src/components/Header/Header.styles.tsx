@@ -2,10 +2,20 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   background: #333333;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 1750px) {
+    padding: 0 80px;
+  }
+`;
+
+export const HeaderWrapper = styled.div`
+  width: 100%;
+  max-width: 1600px;
   display: flex;
   justify-content: space-between;
-  padding: 0 300px;
-  height: 80px;
 `;
 
 export const LogoButton = styled.button`
@@ -41,4 +51,15 @@ export const ShoppingCartButtonText = styled.span`
   line-height: 12px;
   color: #fff;
   margin-right: 6px;
+`;
+
+export const ShoppingCartQuantity = styled.div`
+  background-color: #04c09e;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -5,14 +5,16 @@ import ShoppingCartStatus from './ShoppingCartStatus/ShoppingCartStatus.tsx';
 const Header = () => {
   return (
     <Styled.HeaderContainer>
-      <Styled.LogoButton>
-        <Styled.LogoImage src={Logo} alt='SHOP' />
-        <Styled.LogoTitle>SHOP</Styled.LogoTitle>
-      </Styled.LogoButton>
-      <Styled.ShoppingCartButton>
-        <Styled.ShoppingCartButtonText>장바구니</Styled.ShoppingCartButtonText>
-        <ShoppingCartStatus />
-      </Styled.ShoppingCartButton>
+      <Styled.HeaderWrapper>
+        <Styled.LogoButton>
+          <Styled.LogoImage src={Logo} alt='SHOP' />
+          <Styled.LogoTitle>SHOP</Styled.LogoTitle>
+        </Styled.LogoButton>
+        <Styled.ShoppingCartButton>
+          <Styled.ShoppingCartButtonText>장바구니</Styled.ShoppingCartButtonText>
+          <ShoppingCartStatus />
+        </Styled.ShoppingCartButton>
+      </Styled.HeaderWrapper>
     </Styled.HeaderContainer>
   );
 };
