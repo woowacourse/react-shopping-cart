@@ -27,19 +27,20 @@ const useShoppingBasket = () => {
         product,
       };
       setShoppingBasket([...shoppingBasket, newShoppingItem]);
-      return;
+    } else if (quantity !== 0) {
+      setShoppingBasket((prev) =>
+        prev.map((item) => {
+          if (item.product.id !== shoppingItem.product.id) return item;
+          return {
+            id: shoppingItem.id,
+            quantity,
+            product,
+          };
+        }),
+      );
+    } else {
+      setShoppingBasket((prev) => prev.filter((item) => item.product.id !== shoppingItem.product.id));
     }
-
-    setShoppingBasket((prev) => {
-      return prev.map((item) => {
-        if (item.product.id !== shoppingItem.product.id) return item;
-        return {
-          id: shoppingItem.id,
-          quantity,
-          product,
-        };
-      });
-    });
   };
 
   return { shoppingBasket, updateShoppingBasket, getQuantity, getShoppingItemsAmount };
