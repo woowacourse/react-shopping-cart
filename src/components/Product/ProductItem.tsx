@@ -1,63 +1,19 @@
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
-import type { CartProduct, Product } from '../../types/product';
+import type { Product } from '../../types/product';
 import AmountCounter from '../Common/AmountCounter';
-import { cartProductState } from '../../states/cartProductState';
-import { useEffect } from 'react';
+
+import useCartProducts from '../../hooks/useCartProducts';
 
 interface ProductItemProps {
   product: Product;
 }
 
-const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.find((cartProduct) => id === cartProduct.product.id);
-
-const deleteProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
-
-const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-    }
-    return cartProduct;
-  });
-
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { id, imageUrl, name, price } = product;
-  const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
-
-  const addCount = () => {
-    setCartProducts((prev) => addTargetQuantity(prev, id));
-  };
-
-  const subtractCount = () => {
-    setCartProducts((prev) =>
-      prev.map((cartProduct) => {
-        if (cartProduct.product.id === id) {
-          return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-        }
-        return cartProduct;
-      })
-    );
-  };
-
-  const addProduct = () => {
-    setCartProducts((prev) => [
-      ...prev,
-      { id: Date.now(), quantity: 1, product },
-    ]);
-  };
-
-  const target = findTargetProduct(cartProducts, id);
-
-  useEffect(() => {
-    if (target?.quantity === 0) {
-      setCartProducts((prev) => deleteProduct(prev, id));
-    }
-  }, [id, setCartProducts, target?.quantity]);
+  const { imageUrl, name, price } = product;
+  const { target, addProduct, addCount, subtractCount } =
+    useCartProducts(product);
 
   return (
     <ProductContainer>
@@ -73,7 +29,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           </ProductCartBtn>
         ) : (
           <AmountCounter
-            count={target ? target.quantity : 0}
+            count={target.quantity}
             addCount={addCount}
             subtractCount={subtractCount}
           />
