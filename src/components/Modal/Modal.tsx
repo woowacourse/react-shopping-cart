@@ -16,9 +16,11 @@ const Modal = ({ children, closeModalByClick, closeModalByPress, ...attributes }
   }, []);
 
   return createPortal(
-    <div ref={modalRef} className={styles.container} tabIndex={0} onKeyDown={closeModalByPress}>
+    <div className={styles.container} onKeyDown={closeModalByPress}>
       <div className={styles.backdrop} onClick={closeModalByClick} />
-      <div className={styles.content}>{children}</div>
+      <div ref={modalRef} className={styles.content} tabIndex={0}>
+        {children}
+      </div>
     </div>,
     document.body
   );
