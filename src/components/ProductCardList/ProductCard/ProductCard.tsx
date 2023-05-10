@@ -11,7 +11,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { id, price, name, imageUrl } = product;
 
   return (
-    <FlexBox flexDirection="column" gap="8px" role="list">
+    <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImage src={imageUrl} />
       <FlexBox padding="0 4px">
         <FlexBox flexDirection="column" align="flex-start">
@@ -25,8 +25,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
 };
 
 const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 4px;
+  filter: brightness(96%);
 `;
 
 const Title = styled.span`
