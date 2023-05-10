@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { cartCountState } from "../recoil/state";
@@ -55,7 +54,6 @@ const $LogoBox = styled.div`
 `;
 
 const $LogoTitle = styled.h1`
-  margin-top: 6px;
   margin-left: 24px;
 
   vertical-align: center;
@@ -73,13 +71,13 @@ const $CartCount = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   margin-left: 8px;
   border-radius: 50%;
 
   background: #04c09e;
 
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 700;
 `;
