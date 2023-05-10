@@ -14,9 +14,12 @@ export const Counter = ({ removeItemFromCartList }: CounterProps) => {
   };
 
   const handleDecrease = () => {
-    inputRef.current?.stepDown();
+    if (inputRef.current?.value === '0') {
+      removeItemFromCartList();
+      return;
+    }
 
-    if (inputRef.current?.value === '0') removeItemFromCartList();
+    inputRef.current?.stepDown();
   };
 
   return (

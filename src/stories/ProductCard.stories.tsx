@@ -1,8 +1,6 @@
-import { RecoilRoot, useRecoilState } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import { ProductCard } from '../components/productCard/ProductCard';
 import { Meta, StoryObj } from '@storybook/react';
-import { cartListState } from '../App';
-import styled from 'styled-components';
 import mockData from '../assets/mockData.json';
 
 const meta = {

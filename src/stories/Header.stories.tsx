@@ -26,7 +26,7 @@ export const HeaderComponent = () => {
 };
 
 const Counter = () => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
+  const [, setCartList] = useRecoilState(cartListState);
   return (
     <>
       <Button
