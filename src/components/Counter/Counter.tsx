@@ -13,7 +13,7 @@ interface CounterProps {
 }
 
 const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
-  const { increaseCount, decreaseCount, handleCountChange } = useCounter(
+  const { increaseCount, decreaseCount, updateCount } = useCounter(
     count,
     onChangeCount,
   );
@@ -21,7 +21,7 @@ const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!isNumber(e.target.value)) return;
 
-    handleCountChange(Number(e.target.value));
+    updateCount(Number(e.target.value));
   };
 
   return (

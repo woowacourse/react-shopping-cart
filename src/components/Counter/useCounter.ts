@@ -11,14 +11,14 @@ const useCounter = (count: number, onChangeCount: (count: number) => void) => {
     onChangeCount(count - 1);
   };
 
-  const handleCountChange = (count: number) => {
+  const updateCount = (count: number) => {
     onChangeCount(Number(count));
   };
 
   return {
     increaseCount,
     decreaseCount,
-    handleCountChange,
+    updateCount,
   } as const;
 };
 
