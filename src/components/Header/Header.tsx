@@ -4,7 +4,7 @@ import cartTitleLogo from "../../assets/images/cart-large.png";
 const Header = () => {
   return (
     <Container>
-      <CartTitleLogo />
+      <CartTitleLogo src={cartTitleLogo} />
       <Title>SHOP</Title>
     </Container>
   );
@@ -20,9 +20,7 @@ const Container = styled.div`
   padding-left: 300px;
 `;
 
-const CartTitleLogo = styled.img.attrs({
-  src: cartTitleLogo,
-})`
+const CartTitleLogo = styled.img`
   width: 49.98px;
   height: 44px;
 `;
