@@ -21,7 +21,9 @@ export const Header = () => {
           <AddToCartTitle size={'24px'} $color={'#ffffff'}>
             장바구니
           </AddToCartTitle>
-          {AddedCardState !== 0 && <TotalCartCount count={AddedCardState} />}
+          {AddedCardState.length !== 0 && (
+            <TotalCartCount count={AddedCardState.length} />
+          )}
         </CartButton>
       </StyledHeader>
     </HeaderWrapper>

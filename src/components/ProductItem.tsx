@@ -1,15 +1,13 @@
-import React from 'react';
 import { AddToCartButton } from './AddToCartButton';
 import { Text as ProductPrice, StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import styled from 'styled-components';
-
-interface ProductItemProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
+import { useRecoilState } from 'recoil';
+import { addedCartState } from '../atoms/AddedCartState';
+import {
+  AddedProductList,
+  ProductItem as ProductItemProps,
+} from '../types/productType';
 
 export const ProductItem = ({
   id,
@@ -17,6 +15,31 @@ export const ProductItem = ({
   price,
   imageUrl,
 }: ProductItemProps) => {
+  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+
+  const handleAddCartState = () => {
+    setAddedCartStates([
+      ...addedCartStates,
+      {
+        id,
+        quantity: 1,
+        product: {
+          id,
+          name,
+          price,
+          imageUrl,
+        },
+      },
+    ]);
+  };
+
+  const handleDeleteCartState = () => {
+    const deleteItemId = addedCartStates.filter(
+      (item: AddedProductList) => item.id !== id
+    );
+    setAddedCartStates(deleteItemId);
+  };
+
   return (
     <ProductItemWrapper key={id}>
       <ProductImage
@@ -34,7 +57,11 @@ export const ProductItem = ({
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
-        <AddToCartButton />
+        <AddToCartButton
+          id={id}
+          handleAddCartState={handleAddCartState}
+          handleDeleteCartState={handleDeleteCartState}
+        />
       </ProductTextWrapper>
     </ProductItemWrapper>
   );

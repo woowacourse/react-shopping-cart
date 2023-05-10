@@ -1,34 +1,80 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { DecreaseButtonImage, IncreaseButtonImage } from '../types/image';
+import { useRecoilState } from 'recoil';
+import { addedCartState } from '../atoms/AddedCartState';
+import { AddedProductList } from '../types/productType';
 
 interface AddToCartCountProps {
+  id: number;
   onDeleteCart: () => void;
 }
 
-export const AddToCartCount = ({ onDeleteCart }: AddToCartCountProps) => {
-  const [count, setCount] = useState('1');
+export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
+  const [quantity, setQuantity] = useState<number>(1);
+  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
 
-  const handle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
+  const increaseCount = () => {
+    setQuantity(quantity + 1);
 
-    if (value === 0) {
+    const addedCartList = addedCartStates.map((item: AddedProductList) => {
+      if (item.id === id)
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+
+      return item;
+    });
+    setAddedCartStates(addedCartList);
+  };
+
+  const decreaseCount = () => {
+    if (quantity === 1) {
       onDeleteCart();
     }
 
-    if (value < 0) return;
-
-    setCount(e.target.value);
+    setQuantity(quantity - 1);
   };
 
   return (
-    <div>
-      <CountInput type="number" value={count} onChange={handle} />
-    </div>
+    <Wrapper>
+      <CountValue>{quantity}</CountValue>
+      <div>
+        <IncreaseCountButton onClick={increaseCount}>
+          <IncreaseButtonImage />
+        </IncreaseCountButton>
+        <DecreaseCountButton onClick={decreaseCount}>
+          <DecreaseButtonImage />
+        </DecreaseCountButton>
+      </div>
+    </Wrapper>
   );
 };
 
-const CountInput = styled.input`
+const Wrapper = styled.div`
+  width: 80px;
+  border: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const CountValue = styled.div`
   width: 68px;
-  border: 1px solid #333333;
   text-align: center;
+`;
+
+const DecreaseCountButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 15px;
+  cursor: pointer;
+  border-left: 1px solid #dddddd;
+`;
+
+const IncreaseCountButton = styled(DecreaseCountButton)`
+  border-bottom: 1px solid #dddddd;
 `;

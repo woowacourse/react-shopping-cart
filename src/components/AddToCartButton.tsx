@@ -1,27 +1,32 @@
 import { useState } from 'react';
 import { AddToCartButtonImage } from '../types/image';
 import { AddToCartCount } from './AddToCartCount';
-import { useSetRecoilState } from 'recoil';
-import { addedCartState } from '../atoms/AddedCartState';
 
-export const AddToCartButton = () => {
+export const AddToCartButton = ({
+  handleAddCartState,
+  handleDeleteCartState,
+  id,
+}: {
+  handleAddCartState: () => void;
+  handleDeleteCartState: () => void;
+  id: number;
+}) => {
   const [isAdded, setIsAdded] = useState(false);
-  const setAddedCartState = useSetRecoilState(addedCartState);
 
   const handleAddToCart = () => {
     setIsAdded(true);
-    setAddedCartState((prev) => prev + 1);
+    handleAddCartState();
   };
 
   const handleDeleteCart = () => {
     setIsAdded(false);
-    setAddedCartState((prev) => prev - 1);
+    handleDeleteCartState();
   };
 
   return (
     <>
       {isAdded ? (
-        <AddToCartCount onDeleteCart={handleDeleteCart} />
+        <AddToCartCount id={id} onDeleteCart={handleDeleteCart} />
       ) : (
         <AddToCartButtonImage onClick={handleAddToCart} />
       )}
