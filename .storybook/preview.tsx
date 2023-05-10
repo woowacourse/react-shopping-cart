@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
 import { GlobalStyle } from '../src/styles/GlobalStyles';
+import { RecoilRoot } from 'recoil';
 
 const preview: Preview = {
   parameters: {
@@ -14,10 +15,10 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <>
+      <RecoilRoot>
         <GlobalStyle />
         <Story />
-      </>
+      </RecoilRoot>
     ),
   ],
 };
