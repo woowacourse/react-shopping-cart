@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { cartState } from "../recoil/state";
 import useCart from "../hooks/useCart";
 
 interface ProductProps {
@@ -24,13 +22,19 @@ export default function Product(props: ProductProps) {
     setQuantityInput("1");
   };
 
+  const isValid = (value: string) => {
+    return value.split("").every((char) => "0123456789".includes(char));
+  };
+
   const handleChangeCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantityInput(e.target.value);
+    if (isValid(e.target.value) || e.target.value === "") {
+      const value = Number(e.target.value) > 1000 ? "1000" : e.target.value;
+      setQuantityInput(value);
+    }
   };
 
   const handleBlurCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!(e.target.value === "")) return;
-    removeOrder(id);
+    if (e.target.value === "") removeOrder(id);
   };
 
   useEffect(() => {
@@ -46,7 +50,7 @@ export default function Product(props: ProductProps) {
 
   return (
     <$Wrapper>
-      <$Img src={`./assets/${imageUrl}`} />
+      <$Img src={`./assets/mockImages/${imageUrl}`} />
       <$InfoBox>
         <$LabelBox>
           <$Name>{name}</$Name>
@@ -56,8 +60,6 @@ export default function Product(props: ProductProps) {
           {order ? (
             <$Counter
               type="number"
-              min={0}
-              max={100}
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
