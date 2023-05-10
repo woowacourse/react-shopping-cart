@@ -1,19 +1,28 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import './index.css';
 import App from './App';
 import GlobalStyle from './GlobalStyle';
-import { RecoilRoot } from 'recoil';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
 root.render(
   <React.StrictMode>
     <GlobalStyle />
     <RecoilRoot>
       <Suspense>
-        <App />
+        <RouterProvider router={router} />
       </Suspense>
     </RecoilRoot>
   </React.StrictMode>,
