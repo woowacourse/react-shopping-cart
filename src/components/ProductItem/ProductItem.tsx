@@ -23,7 +23,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
   const CartButton = () => {
     return (
       <Styled.CartButton onClick={handleAddToCartButton}>
-        <ShoppingCartLogo isFlipped={true} width={24} height={22} />
+        <ShoppingCartLogo isFlipped={true} width={24} height={22} fill='#AAAAAA' />
       </Styled.CartButton>
     );
   };
@@ -34,15 +34,17 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
 
   return (
     <Styled.ProductItemWrapper>
-      <Styled.ImageContainer>
-        <Styled.ProductItemImage src={imageUrl} />
-      </Styled.ImageContainer>
+      <Styled.ImageOverflowContainer>
+        <Styled.ImageContainer>
+          <Styled.ProductItemImage src={imageUrl} />
+        </Styled.ImageContainer>
+      </Styled.ImageOverflowContainer>
       <Styled.ProductItemInfo>
         <Styled.ProductItemInfoUpperBoundary>
           <Styled.ProductItemTitle>{name}</Styled.ProductItemTitle>
           {productQuantity === 0 ? <CartButton /> : <StepperInput value={productQuantity} onChange={handleStepperInputChange} />}
         </Styled.ProductItemInfoUpperBoundary>
-        <Styled.ProductItemPrice>{price}원</Styled.ProductItemPrice>
+        <Styled.ProductItemPrice>{price.toLocaleString()}원</Styled.ProductItemPrice>
       </Styled.ProductItemInfo>
     </Styled.ProductItemWrapper>
   );
