@@ -29,7 +29,22 @@
             "position": "before"
           },
           {
+            "pattern": "@recoil/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@components/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@type/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@assets",
             "group": "internal",
             "position": "after"
           },

@@ -5,7 +5,9 @@
       "@assets": ["assets/index.ts"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@recoil/*": ["recoil/*"],
+      "@type/*": ["types/*"]
     }
   }
 }
