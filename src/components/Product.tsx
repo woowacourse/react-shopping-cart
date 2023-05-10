@@ -22,14 +22,19 @@ export default function Product(props: ProductProps) {
     setQuantityInput("1");
   };
 
-  const isValid = (value: string) => {
-    return value.split("").every((char) => "0123456789".includes(char));
+  const isNumeric = (value: string) => {
+    return (
+      value !== "" &&
+      value.split("").every((char) => "0123456789".includes(char))
+    );
   };
 
   const handleChangeCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isValid(e.target.value) || e.target.value === "") {
-      const value = Number(e.target.value) > 1000 ? "1000" : e.target.value;
-      setQuantityInput(value);
+    const value = e.target.value;
+    if (value === "") {
+      setQuantityInput("");
+    } else if (isNumeric(value)) {
+      setQuantityInput(Number(value) > 1000 ? "1000" : value);
     }
   };
 
@@ -38,7 +43,7 @@ export default function Product(props: ProductProps) {
   };
 
   useEffect(() => {
-    if (!"1234567890".split("").includes(quantityInput)) return;
+    if (!isNumeric(quantityInput)) return;
 
     const quantity = Number(quantityInput);
     if (quantity === 0) {
