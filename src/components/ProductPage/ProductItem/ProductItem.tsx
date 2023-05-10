@@ -1,18 +1,12 @@
-import SHOPPING_CART from '../../../assets/png/cart-icon.png';
+import { Product } from '../../../types/products';
 import Flex from '../../common/Flex';
+import ItemCartDialog from '../ItemCartDialog/ItemCartDialog';
 import * as S from './ProductItem.styles';
 
-interface Item {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
-interface ProductItemProps extends Item {}
+interface ProductItemProps extends Product {}
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
-  const { name, price, imageUrl } = props;
+  const { id, name, price, imageUrl } = props;
   return (
     <S.Root>
       <S.Thumbnail alt={name} src={imageUrl} />
@@ -21,9 +15,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
           <S.Name>{name}</S.Name>
           <S.Price>{price.toLocaleString()} 원</S.Price>
         </Flex>
-        <S.CartButton>
-          <S.CartImg alt="cart" src={SHOPPING_CART} />
-        </S.CartButton>
+        <ItemCartDialog id={id} name={name} price={price} />
       </S.Info>
     </S.Root>
   );
