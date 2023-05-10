@@ -1,14 +1,14 @@
 type SvgIdProps = 'header-cart' | 'cart-icon';
 
-interface SvgProps {
+interface SvgProps extends React.SVGAttributes<SVGElement> {
   type: SvgIdProps;
   width: number;
   height: number;
 }
 
-const Svg = ({ type, width, height }: SvgProps) => {
+const Svg = ({ type, width, height, ...props }: SvgProps) => {
   return (
-    <svg width={width} height={height} cursor="pointer">
+    <svg width={width} height={height} cursor="pointer" {...props}>
       <use href={`#${type}`} />
     </svg>
   );
