@@ -22,7 +22,16 @@ export default function ProductList() {
 
 const ProductListContainer = styled.ul`
   display: grid;
-  padding: 6rem 10rem;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  padding: 6rem;
+  grid-template-columns: repeat(4, 28.2rem);
+
+  gap: 4rem;
+
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (max-width: 840px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

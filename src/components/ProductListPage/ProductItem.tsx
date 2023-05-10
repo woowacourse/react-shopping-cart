@@ -50,20 +50,26 @@ export default function ProductItem({
         {isSelected ? (
           <>
             <QuantityCounter ref={quantityRef} />
-            <button onClick={addCartProductItem}>확인</button>
           </>
         ) : (
-          <AddCartButton onClick={selectProductItem}>
+          <CartButton onClick={selectProductItem}>
             <AddCartIc />
-          </AddCartButton>
+          </CartButton>
         )}
       </InfoBox>
+      {isSelected && (
+        <AddCartButton onClick={addCartProductItem}>
+          장바구니 추가
+        </AddCartButton>
+      )}
     </ProductItemContainer>
   );
 }
 
 // width: 28.2rem;
-const ProductItemContainer = styled.li``;
+const ProductItemContainer = styled.li`
+  width: 28.2rem;
+`;
 
 const ProductImage = styled.img`
   width: 28.2rem;
@@ -73,8 +79,7 @@ const ProductImage = styled.img`
 const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
-
-  padding: 1.8rem 1rem 0;
+  padding: 1.8rem 0;
 `;
 
 const ProductInfo = styled.div``;
@@ -87,10 +92,18 @@ const Price = styled.p`
   ${({ theme }) => theme.fonts.price}
 `;
 
-const AddCartButton = styled.button`
+const CartButton = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
   background-color: transparent;
+`;
+
+const AddCartButton = styled.button`
+  width: 100%;
+  height: 4rem;
+
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
 `;

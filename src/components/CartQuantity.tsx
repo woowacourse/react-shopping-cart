@@ -34,6 +34,7 @@ const Quantity = styled.div`
   width: 2.6rem;
   height: 2.6rem;
   padding-top: 0.3rem;
+  margin-left: 2rem;
 
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.blue_green};

@@ -31,7 +31,7 @@ function FONT({ family, weight, size, lineHeight }: FontType): string {
 const fonts: StyleType = {
   h1: FONT({
     family: "Noto Sans KR, sans-serif",
-    weight: 900,
+    weight: 600,
     size: 4,
     lineHeight: 5.8,
   }),

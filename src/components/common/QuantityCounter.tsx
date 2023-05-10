@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import styled from "styled-components";
+import { DownButtonIc, UpButtonIc } from "../../asset";
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
   props,
@@ -40,8 +41,12 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
         defaultValue="1"
       />
       <ButtonWrapper>
-        <IncreaseButton onClick={increaseQuantity}>▴</IncreaseButton>
-        <DecreaseButton onClick={decreaseQuantity}>▾</DecreaseButton>
+        <CountButton onClick={increaseQuantity}>
+          <UpButtonIc />
+        </CountButton>
+        <CountButton onClick={decreaseQuantity}>
+          <DownButtonIc />
+        </CountButton>
       </ButtonWrapper>
     </QuantityCounterContainer>
   );
@@ -53,7 +58,7 @@ const QuantityCounterContainer = styled.div`
   display: flex;
 
   width: 6.4rem;
-  height: 2.8rem;
+  height: 4.3rem;
 `;
 
 const QuantityInput = styled.input`
@@ -70,15 +75,12 @@ const ButtonWrapper = styled.div`
   width: 2.4rem;
 `;
 
-const IncreaseButton = styled.button`
-  height: 1.4rem;
+const CountButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: transparent;
-  border: 0.1rem solid ${({ theme }) => theme.colors.gray100};
-`;
-
-const DecreaseButton = styled.button`
-  height: 1.4rem;
+  height: 50%;
 
   background-color: transparent;
   border: 0.1rem solid ${({ theme }) => theme.colors.gray100};

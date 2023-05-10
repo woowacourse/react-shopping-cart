@@ -8,7 +8,7 @@ export default function Header({ children }: PropsWithChildren) {
     <HeaderContainer>
       <TitleWrapper>
         <HeaderIc />
-        <Title>SHOP</Title>
+        <Title>WOOSINSA</Title>
       </TitleWrapper>
       {children}
     </HeaderContainer>
@@ -20,7 +20,8 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
-  padding: 0.8rem 30rem;
+  padding: 0.8rem 15vw;
+  width: 100%;
 `;
 
 const Title = styled.h1`
