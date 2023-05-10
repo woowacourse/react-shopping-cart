@@ -16,6 +16,25 @@ type Story = StoryObj<typeof UserSummaryShoppingBasket>;
 
 export const DefaultUserSummaryShoppingBasket: Story = {
   args: {
-    quantity: 99,
+    quantity: 3,
+  },
+};
+
+export const LoginUserSummaryShoppingBasket: Story = {
+  args: {
+    username: '다크론',
+    quantity: 3,
+  },
+};
+
+export const ZeroSummaryShoppingBasket: Story = {
+  args: {
+    quantity: 0,
+  },
+};
+
+export const AboveTheUpperLimitSummaryShoppingBasket: Story = {
+  args: {
+    quantity: 100,
   },
 };
