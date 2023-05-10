@@ -31,7 +31,7 @@ export const ProductItem = ({
             {name}
           </ProductTitle>
           <ProductPrice size={'20px'} weight={'600'}>
-            {`${price}원`}
+            {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
         <AddToCartButton />
