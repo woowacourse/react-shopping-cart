@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Text } from '../Text';
+import { Text } from '../Text/Text';
 import { CartIcon } from '../../../assets';
 import UserCartInfo from './UserCartInfo';
 
@@ -8,8 +8,8 @@ const Header = () => {
     <HeaderWrapper>
       <HeaderInner>
         <LogoWrapper>
-          <CartIcon style={{ marginRight: '20px' }} />
-          <Text color="#ffffff" size="largest" weight="bold" lineHeight="58px">
+          <CartIcon fill="#FFFFFF" style={{ marginRight: '20px' }} />
+          <Text color="#FFFFFF" size="largest" weight="bold" lineHeight="58px">
             SHOP
           </Text>
         </LogoWrapper>
