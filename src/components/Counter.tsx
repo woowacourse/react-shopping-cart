@@ -1,18 +1,47 @@
+import React, { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { itemCountSelector } from "../recoil/selector";
+import { itemsState } from "../recoil/atom";
 
 interface CounterProps {
-  count: number;
-  increase: () => void;
-  decrease: () => void;
+  itemId: number;
 }
 
-const Counter = ({ count, increase, decrease }: CounterProps) => {
+const Counter = ({ itemId }: CounterProps) => {
+  const setItemCount = useSetRecoilState(itemCountSelector);
+  const items = useRecoilValue(itemsState);
+  const [quantity, setQuantity] = useState(items[itemId - 1].count);
+
+  const handleCountChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(e.target.value);
+  };
+
+  const handleCountBlured = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (quantity === "" || Number(quantity) < 0) e.target.value = "0";
+    if (Number(quantity) > 99) e.target.value = "99";
+    setItemCount({ id: itemId, count: e.target.value });
+  };
+
+  const increaseItemCount = () => {
+    setItemCount({ id: itemId, count: Number(quantity) + 1 });
+  };
+
+  const decreaseItemCount = () => {
+    setItemCount({ id: itemId, count: Number(quantity) - 1 });
+  };
+
   return (
     <CounterWrapper>
-      <CountBox defaultValue={count} />
+      <CountBox
+        type="number"
+        value={quantity}
+        onChange={handleCountChanged}
+        onBlur={handleCountBlured}
+      />
       <ArrowWrapper>
-        <ArrowBox onClick={increase}>▾</ArrowBox>
-        <ArrowBox onClick={decrease}>▾</ArrowBox>
+        <ArrowBox onClick={increaseItemCount}>▾</ArrowBox>
+        <ArrowBox onClick={decreaseItemCount}>▾</ArrowBox>
       </ArrowWrapper>
     </CounterWrapper>
   );
@@ -31,6 +60,12 @@ const CountBox = styled.input`
   &:focus {
     outline: none;
   }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 const ArrowBox = styled.button`
@@ -45,11 +80,12 @@ const ArrowWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+  :active {
+    opacity: 50%;
+  }
+
   & > :first-child {
     transform: scaleY(-1);
-  }
-  :active {
-    
   }
 `;
 
