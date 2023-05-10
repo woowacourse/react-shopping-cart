@@ -6,3 +6,14 @@ export const cartListAtom = atom<CartList>({
   key: 'cartListAtom',
   default: {},
 });
+
+export const carListTotalQuantitySelector = selector({
+  key: 'carListTotalQuantitySelector',
+  get: ({ get }) => {
+    const cartList = get(cartListAtom);
+
+    return Object.keys(cartList).reduce((acc, curr) => {
+      return acc + cartList[parseInt(curr, 10)].quantity;
+    }, 0);
+  },
+});
