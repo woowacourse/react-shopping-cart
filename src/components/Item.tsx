@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import type { ItemType } from "../types/domain";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
-
 import { MIN_QUANTITY } from "../constants";
 import { useQuantity } from "../hooks/useQuantity";
 
@@ -33,7 +32,7 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 282px;
+  width: auto;
   height: auto;
 
   & > img {
@@ -45,11 +44,19 @@ const ItemWrapper = styled.div`
 const NameWrapper = styled.p`
   margin: 15px 0 10px 10px;
   font-size: 16px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 13px;
+  }
 `;
 
 const PriceWrapper = styled.p`
   margin-left: 10px;
   font-size: 20px;
+
+  @media screen and (max-width: 800px) {
+    font-size: 16px;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -67,6 +74,9 @@ const IconWrapper = styled.div`
       transform: scale(1.12);
       opacity: 60%;
     }
+  }
+  @media screen and (max-width: 1200px) {
+    bottom: -5px;
   }
 `;
 

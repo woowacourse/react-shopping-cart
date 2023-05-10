@@ -32,7 +32,7 @@ const HeaderWrapper = styled.section`
 
   padding: 0 10%;
   width: 100%;
-  height: 70px;
+  min-height: 70px;
   background: #333333;
 `;
 
@@ -44,7 +44,7 @@ const TitleWrapper = styled.section`
   & > p {
     color: white;
     font-weight: 900;
-    font-size: 38px;
+    font-size: 2rem;
   }
 
   & > img {

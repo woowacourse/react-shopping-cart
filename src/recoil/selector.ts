@@ -1,11 +1,12 @@
 import { selector } from "recoil";
 import { ItemType } from "../types/domain";
 import { itemsState } from "./atom";
+import { MIN_QUANTITY } from "../constants";
 
 export const itemQuantitySelector = selector({
   key: "itemQuantity",
   get: ({ get }) => {
-    return get(itemsState).filter((item: ItemType) => item.quantity !== "0");
+    return get(itemsState).filter((item: ItemType) => item.quantity !== MIN_QUANTITY.toString());
   },
   set: ({ get, set }, newItem) => {
     const items = get(itemsState);
@@ -15,7 +16,7 @@ export const itemQuantitySelector = selector({
         : item
     );
     
-    const cartItems = newItems.filter((item: ItemType) => item.quantity !== "0");
+    const cartItems = newItems.filter((item: ItemType) => item.quantity !== MIN_QUANTITY.toString());
     localStorage.setItem("cart", JSON.stringify(cartItems));
     return set(itemsState, newItems);
   },

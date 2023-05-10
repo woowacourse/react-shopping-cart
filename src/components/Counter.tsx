@@ -10,6 +10,11 @@ const Counter = ({ itemId }: CounterProps) => {
   const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
     useQuantity(itemId);
 
+  const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!(e.target instanceof HTMLInputElement) || e.key !== "Enter") return;
+    e.target.blur();
+  };
+
   const handleUpArrowBox = () => {
     setNewQuantity(Number(quantity) + 1);
   };
@@ -20,10 +25,11 @@ const Counter = ({ itemId }: CounterProps) => {
 
   return (
     <CounterWrapper>
-      <CountBox
+      <CountInput
         type="number"
         value={quantity}
         onChange={handleQuantityChanged}
+        onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}
       />
       <ArrowWrapper>
@@ -38,7 +44,7 @@ const CounterWrapper = styled.div`
   display: flex;
 `;
 
-const CountBox = styled.input`
+const CountInput = styled.input`
   width: 41.6px;
   height: 28px;
   border: 1px solid #dddddd;
