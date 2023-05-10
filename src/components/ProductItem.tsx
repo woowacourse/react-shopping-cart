@@ -1,7 +1,6 @@
-import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as Cart } from '../assets/icons/cart.svg';
-import cartState from '../recoil/atoms/cartState';
+import useCartProduct from '../hooks/useCart';
 import type { Product } from '../type';
 import Stepper from './Stepper';
 
@@ -58,30 +57,7 @@ type ProductItemProps = {
 
 const ProductItem = (props: ProductItemProps) => {
   const { product } = props;
-  const [cart, setCart] = useRecoilState(cartState);
-
-  const cartProduct = cart.find((it) => it.productId === product.id) ?? null;
-
-  const setQuantity = (quantity: number) => {
-    if (cartProduct === null) {
-      setCart([
-        ...cart,
-        { id: Math.round(Math.random() * 100000), quantity, productId: product.id },
-      ]);
-      return;
-    }
-
-    const cartProductIndex = cart.findIndex((it) => it.id === cartProduct.id);
-    const newCart = [
-      ...cart.slice(0, cartProductIndex),
-      {
-        ...cartProduct,
-        quantity,
-      },
-      ...cart.slice(cartProductIndex + 1),
-    ].filter((it) => it.quantity > 0);
-    setCart(newCart);
-  };
+  const { cartProduct, setQuantity } = useCartProduct(product.id);
 
   return (
     <ProductItemContainer>
