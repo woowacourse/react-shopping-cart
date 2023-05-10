@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import fetchProductList from '../../api/productList';
-import { Product } from '../../types/product';
+import { fetchedProductListState } from '../../recoil/selectors/fetchSelectors';
 import ProductCard from '../ProductCard';
 
 const ProductCardList = () => {
-  const [productList, setProductList] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const getProduct = async () => {
-      const data = await fetchProductList<Product[]>();
-      setProductList(data);
-    };
-    getProduct();
-  }, [productList]);
+  const fetchedProductList = useRecoilValue(fetchedProductListState);
 
   return (
     <Styled.Container>
-      {productList.map((product) => (
+      {fetchedProductList.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </Styled.Container>
