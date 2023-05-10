@@ -1,7 +1,7 @@
-import { Product } from '@Pages/ProductListPage/ProductList';
 import * as S from './style';
 
 import ShoppingCart from '@Asset/ShoppingCart.png';
+import { Product } from '@Types/index';
 import { useState } from 'react';
 
 type QuantityControllerProps = {

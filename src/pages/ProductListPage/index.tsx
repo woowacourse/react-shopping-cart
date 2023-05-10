@@ -1,18 +1,13 @@
-import styled from 'styled-components';
 import ProductList from './ProductList';
+
+import * as S from './style';
 
 function ProductListPage() {
   return (
-    <Container>
+    <S.Container>
       <ProductList />
-    </Container>
+    </S.Container>
   );
 }
 
 export default ProductListPage;
-
-const Container = styled.div`
-  width: 60%;
-  min-width: 1024px;
-  margin: auto;
-`;

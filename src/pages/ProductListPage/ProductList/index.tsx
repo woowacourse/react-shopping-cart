@@ -1,20 +1,9 @@
 import ShoppingItem from '@Components/ShoppingItem';
 import mockData from '../../../mockData.json';
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export type Product = {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-};
-
-type ShoppingBasketProduct = {
-  id: number;
-  quantity: number;
-  product: Product;
-};
+import * as S from './style';
+import { Product, ShoppingBasketProduct } from '@Types/index';
 
 const useShoppingBasket = () => {
   const [shoppingBasket, setShoppingBasket] = useState<ShoppingBasketProduct[]>([]);
@@ -52,18 +41,14 @@ const useShoppingBasket = () => {
     });
   };
 
-  // useEffect(() => {}, [shoppingBasket]);
-
   return { shoppingBasket, updateShoppingBasket, getQuantity };
 };
 
 function ProductList() {
-  const { shoppingBasket, updateShoppingBasket, getQuantity } = useShoppingBasket();
-
-  console.log(shoppingBasket);
+  const { updateShoppingBasket, getQuantity } = useShoppingBasket();
 
   return (
-    <ProductListContainer>
+    <S.ProductListContainer>
       {mockData.map((data) => {
         return (
           <ShoppingItem
@@ -74,16 +59,8 @@ function ProductList() {
           />
         );
       })}
-    </ProductListContainer>
+    </S.ProductListContainer>
   );
 }
 
 export default ProductList;
-
-const ProductListContainer = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 60px;
-  row-gap: 80px;
-  margin-bottom: 160px;
-`;

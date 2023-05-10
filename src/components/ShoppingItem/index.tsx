@@ -1,6 +1,6 @@
 import QuantityController from '@Components/QuantityController';
 import * as S from './style';
-import { Product } from '@Pages/ProductListPage/ProductList';
+import { Product } from '@Types/index';
 
 type ShoppingItemProps = {
   product: {
