@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import resetStyle from './resetStyle';
 
 const GlobalStyle = createGlobalStyle`
@@ -7,6 +7,13 @@ const GlobalStyle = createGlobalStyle`
     button {
         border:none;
     }
+`;
+
+export const CommonPageStyle = styled.div`
+  width: 60%;
+  min-width: 1024px;
+  margin: auto;
+  padding-top: 120px;
 `;
 
 export default GlobalStyle;

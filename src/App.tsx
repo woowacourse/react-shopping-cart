@@ -1,5 +1,5 @@
 import Header from '@Components/Header';
-import GlobalStyle from '@Styles/GlobalStyle';
+import GlobalStyle, { CommonPageStyle } from '@Styles/GlobalStyle';
 import { Outlet } from 'react-router-dom';
 
 function App() {
@@ -7,7 +7,9 @@ function App() {
     <>
       <GlobalStyle />
       <Header />
-      <Outlet />
+      <CommonPageStyle>
+        <Outlet />
+      </CommonPageStyle>
     </>
   );
 }

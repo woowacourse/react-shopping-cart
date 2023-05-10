@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 export const ShoppingItemImage = styled.img`
-  height: 260px;
+  height: 250px;
   margin-bottom: 18px;
 `;
 

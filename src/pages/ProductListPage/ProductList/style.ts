@@ -5,5 +5,5 @@ export const ProductListContainer = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 60px;
   row-gap: 80px;
-  margin-bottom: 160px;
+  margin-bottom: 100px;
 `;
