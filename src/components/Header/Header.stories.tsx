@@ -14,6 +14,4 @@ export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const DefaultHeader: Story = {
-  args: {},
-};
+export const DefaultHeader: Story = {};
