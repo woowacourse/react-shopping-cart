@@ -8,4 +8,4 @@ export interface MyProduct extends Product {
   count: number;
 }
 
-export type MyCart = Record<number, MyProduct>;
+export type MyCart = Record<number, number>;

@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { CART } from '../../assets';
 
-const CartButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const StepperEntryButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { onClick } = props;
 
   return (
@@ -11,4 +11,4 @@ const CartButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   );
 };
 
-export default CartButton;
+export default StepperEntryButton;

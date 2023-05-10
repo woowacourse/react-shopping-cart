@@ -2,7 +2,7 @@ import * as Styled from './Stepper.styled';
 
 interface StepperProps {
   productCount: number;
-  setProductCount: (productCount: number) => void;
+  setProductCount: (count: number) => void;
 }
 
 const Stepper = (props: StepperProps) => {
