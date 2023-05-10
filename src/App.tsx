@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import Header from './components/Header';
 import ProductItem from './components/ProductItem';
 import ProductList from './components/ProductList';
-import products from './fixtures/products.json';
 import GlobalStyle from './styles/GlobalStyle';
 import ResetStyle from './styles/ResetStyle';
+import type { Product } from './type';
 
 const Content = styled.main`
   margin: 0 auto;
@@ -15,6 +16,26 @@ const Content = styled.main`
 `;
 
 const App = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const getProducts = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('./products.json');
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      const error = err as Error;
+      console.log(err);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <>
       <ResetStyle />
@@ -24,9 +45,11 @@ const App = () => {
 
       <Content>
         <ProductList>
-          {products.map((product) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
+          {loading ? (
+            <div>loading</div>
+          ) : (
+            products.map((product) => <ProductItem key={product.id} product={product} />)
+          )}
         </ProductList>
       </Content>
     </>
