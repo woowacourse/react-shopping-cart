@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const ProductItem = styled.li`
-  width: 285px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ProductDetailDiv = styled.div`

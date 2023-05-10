@@ -15,7 +15,7 @@ const Header = () => {
       </Styled.TitleDiv>
 
       <Styled.CartButton>
-        장바구니
+        <p>장바구니</p>
         <Styled.CartLengthDiv>{cartLength}</Styled.CartLengthDiv>
       </Styled.CartButton>
     </Styled.Header>

@@ -35,7 +35,7 @@ const ProductStepper = (props: ProductStepperProps) => {
 
       return newCart;
     });
-  }, [productCount]);
+  }, [productCount, productId, setMyCart]);
 
   return productCount === 0 ? (
     <StepperEntryButton onClick={handleCartButtonClick} />

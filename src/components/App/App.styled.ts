@@ -4,6 +4,8 @@ export const App = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 100vw;
+  gap: 60px;
+
+  width: 100%;
   height: 100vh;
 `;

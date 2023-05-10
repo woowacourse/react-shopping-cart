@@ -6,12 +6,12 @@ import ProductsPage from '../pages/ProductsPage/ProductsPage';
 
 const App = () => {
   return (
-    <Styled.App>
-      <RecoilRoot>
+    <RecoilRoot>
+      <Styled.App>
         <Header />
         <ProductsPage />
-      </RecoilRoot>
-    </Styled.App>
+      </Styled.App>
+    </RecoilRoot>
   );
 };
 

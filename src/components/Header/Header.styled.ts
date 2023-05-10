@@ -5,16 +5,23 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
+  width: 100%;
   height: 80px;
+
+  padding: 10px 100px;
 
   background-color: #333333;
   color: #ffffff;
+
+  @media screen and (max-width: 650px) {
+    padding: 10px 50px;
+  }
 `;
 
 export const TitleDiv = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 28px;
 `;
 
 export const TitleHeading = styled.h1`
@@ -23,20 +30,25 @@ export const TitleHeading = styled.h1`
   width: 145px;
   height: 57px;
 
+  text-align: center;
+
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 900;
   font-size: 40px;
 
   line-height: 58px;
-  text-align: center;
+
+  @media screen and (max-width: 450px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const CartButton = styled.button`
   display: flex;
+  align-items: center;
   column-gap: 10px;
 
-  align-items: center;
   text-align: center;
 
   font-family: 'Noto Sans KR';
@@ -46,6 +58,17 @@ export const CartButton = styled.button`
   line-height: 12px;
 
   color: #ffffff;
+
+  @media screen and (max-width: 450px) {
+    & > p {
+      display: none;
+    }
+
+    & > div {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
 
 export const CartLengthDiv = styled.div`
