@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Icon from './Icon';
 import { CART_PATH } from '../../constants/svgPath';
+import Cart from '../Cart';
 
 interface Props {
   title: string;
@@ -18,6 +19,7 @@ const Header = ({ title }: Props) => {
         svgStyle={svgStyle}
       />
       <span>{title}</span>
+      <Cart />
     </S.Header>
   );
 };
