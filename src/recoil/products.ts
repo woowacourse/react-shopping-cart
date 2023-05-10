@@ -5,7 +5,7 @@ import { Product } from '../types/products';
 export const products = selector({
   key: 'products',
   get: async (): Promise<AxiosResponse<{ items: Product[] }>> => {
-    const products = await axios('./data/mockData.json');
+    const products = await axios('./data/mockProducts.json');
 
     return products;
   },
