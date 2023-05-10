@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 import { productsInCartState } from '../atom';
 import Button from './common/Button';
 
@@ -83,6 +83,17 @@ export default function Stepper({ initCount, productId }: Props) {
   );
 }
 
+const drawStepper = keyframes`
+  from {
+    width:30px;
+    opacity: 0;
+  }
+  to {
+    width:80px;
+    opacity: 1;
+  }
+`;
+
 const Style = {
   Container: styled.div`
     display: flex;
@@ -96,6 +107,8 @@ const Style = {
     & > * {
       flex: 1;
     }
+
+    animation: ${drawStepper} 0.3s ease-in-out;
   `,
 
   CountInput: styled.input`
