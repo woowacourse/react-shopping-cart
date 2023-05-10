@@ -11,7 +11,7 @@ export const ProductCardList = ({ products }: ProductCardListProps) => {
   return (
     <Style.Container>
       {products.map((product) => (
-        <ProductCard {...product} />
+        <ProductCard key={product.id} {...product} />
       ))}
     </Style.Container>
   );

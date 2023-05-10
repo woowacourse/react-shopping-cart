@@ -1,26 +1,16 @@
 import styled from 'styled-components';
 
-import { useRef } from 'react';
+import { useCounterInput } from '../../hooks/useCounterInput';
 
 interface CounterProps {
   removeItemFromCartList: () => void;
 }
 
 export const Counter = ({ removeItemFromCartList }: CounterProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleIncrease = () => {
-    inputRef.current?.stepUp();
-  };
-
-  const handleDecrease = () => {
-    if (inputRef.current?.value === '0') {
-      removeItemFromCartList();
-      return;
-    }
-
-    inputRef.current?.stepDown();
-  };
+  const { inputRef, handleDecrease, handleIncrease } = useCounterInput({
+    min: 0,
+    handleMinValueExceeded: removeItemFromCartList,
+  });
 
   return (
     <Style.Container>
