@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 import { Text } from '../Text/Text';
+import { cartItemTotalQuantityState } from '../../../service/atom';
 
 const UserCartInfo = () => {
+  const cartTotalQuantity = useRecoilValue(cartItemTotalQuantityState);
+
   return (
     <CardCounterWrapper>
       <Text color="#ffffff" size="large" lineHeight="12px">
@@ -9,7 +13,7 @@ const UserCartInfo = () => {
       </Text>
       <CartCounter>
         <Text size="smallest" color="#ffffff">
-          1
+          {cartTotalQuantity > 99 ? 99 : cartTotalQuantity}
         </Text>
       </CartCounter>
     </CardCounterWrapper>

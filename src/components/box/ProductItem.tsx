@@ -1,12 +1,52 @@
 import styled from '@emotion/styled';
-// import { CartIcon } from '../../assets';
-import { useState } from 'react';
-import type { Product } from '../../types/types';
+import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { CartIcon } from '../../assets';
+import type { CartItem, Product } from '../../types/types';
 import { Text } from '../common/Text/Text';
 import InputStepper from '../common/InputStepper/InputStepper';
+import { cartListState } from '../../service/atom';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const [cartList, setCartList] = useRecoilState(cartListState);
+
+  const updateCartList = () => {
+    const newCartItem: CartItem = {
+      quantity,
+      product,
+    };
+
+    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
+
+    if (existItemIndex !== -1) {
+      const newCartList = cartList.slice();
+      newCartList.splice(existItemIndex, 1, newCartItem);
+      setCartList(newCartList);
+      return;
+    }
+
+    setCartList([...cartList, newCartItem]);
+  };
+
+  const deleteCartItem = () => {
+    const existItemIndex = cartList.findIndex((cartItem) => cartItem.product.id === product.id);
+
+    if (existItemIndex !== -1) {
+      const newCartList = cartList.slice();
+      newCartList.splice(existItemIndex, 1);
+      setCartList(newCartList);
+    }
+  };
+
+  useEffect(() => {
+    if (quantity !== 0) {
+      updateCartList();
+      return;
+    }
+    deleteCartItem();
+  }, [quantity]);
 
   return (
     <ProductWrapper>
@@ -20,8 +60,21 @@ const ProductItem = ({ product }: { product: Product }) => {
             {product.price} 원
           </Text>
         </ProductTextWrapper>
-        <InputStepper size="small" quantity={quantity} setQuantity={(value) => setQuantity(value)}/>
-        {/* <CartIcon width={25} height={22} fill="#AAAAAA" style={{ transform: 'scaleX(-1)' }} /> */}
+        {quantity === 0 ? (
+          <CartIcon
+            width={25}
+            height={22}
+            fill="#AAAAAA"
+            style={{ transform: 'scaleX(-1)', cursor: 'pointer' }}
+            onClick={() => setQuantity(1)}
+          />
+        ) : (
+          <InputStepper
+            size="small"
+            quantity={quantity}
+            setQuantity={(value: number) => setQuantity(value)}
+          />
+        )}
       </ProductInfoWrapper>
     </ProductWrapper>
   );
