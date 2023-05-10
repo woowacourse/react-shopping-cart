@@ -46,7 +46,7 @@ const ProductItem = (props: ProductItemProps) => {
   return (
     <Styled.ProductItem>
       <SquareImage src={imageUrl} alt={name} size="xl" />
-      <Styled.ProductDetailWrapper>
+      <Styled.ProductDetailDiv>
         <div>
           <Styled.NameParagraph>{name}</Styled.NameParagraph>
           <Styled.PriceParagraph>
@@ -61,7 +61,7 @@ const ProductItem = (props: ProductItemProps) => {
             setProductCount={setProductCount}
           />
         )}
-      </Styled.ProductDetailWrapper>
+      </Styled.ProductDetailDiv>
     </Styled.ProductItem>
   );
 };

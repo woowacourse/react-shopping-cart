@@ -14,9 +14,11 @@ export default meta;
 type Story = StoryObj<typeof Stepper>;
 
 const Wrapper = () => {
-  const [count, setCount] = useState(1);
+  const [productCount, setProductCount] = useState(1);
 
-  return <Stepper count={count} setCount={setCount} />;
+  return (
+    <Stepper productCount={productCount} setProductCount={setProductCount} />
+  );
 };
 
 export const Default: Story = {

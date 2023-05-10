@@ -4,7 +4,7 @@ export const ProductItem = styled.li`
   width: 285px;
 `;
 
-export const ProductDetailWrapper = styled.div`
+export const ProductDetailDiv = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -34,7 +34,6 @@ export const PriceParagraph = styled.p`
   font-weight: 400;
   font-size: 20px;
   line-height: 27px;
-  /* or 133% */
 
   letter-spacing: 0.5px;
 
