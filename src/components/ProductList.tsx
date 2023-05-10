@@ -1,27 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { atom, useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
 import { fetchData } from '../utils/fetchData';
 import { Product } from '../types';
-import { mockDataUrl } from '../constants/url';
+import { MOCK_DATA_URL } from '../constants/url';
+
+const productListState = atom({
+  key: 'productListState',
+  default: [] as Product[],
+});
 
 const ProductList = () => {
-  const [productList, setProductList] = useState<Product[]>([]);
+  const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  const productData = process.env.PUBLIC_URL + mockDataUrl;
+  const productData = process.env.PUBLIC_URL + MOCK_DATA_URL;
 
   useEffect(() => {
     fetchData<Product[]>(productData, setProductList);
-  }, [productData]);
+  }, [productData, setProductList]);
 
   return (
     <S.Wrapper>
       {productList.map((product) => (
         <ProductItem
           key={product.id}
-          imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
           name={product.name}
           price={product.price}
+          imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}
         />
       ))}
     </S.Wrapper>

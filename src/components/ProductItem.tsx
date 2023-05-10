@@ -1,8 +1,8 @@
 import { css, styled } from 'styled-components';
+import { useState, ChangeEventHandler } from 'react';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
-import { useState, ChangeEventHandler } from 'react';
 
 interface Props {
   imgUrl: string;
