@@ -1,9 +1,14 @@
-import React from 'react';
-import GlobalStyle from '../src/GlobalStyle'
+import React from "react";
+import GlobalStyle from "../src/GlobalStyle";
+import { RecoilRoot } from "recoil";
 
 export const decorators = [
-  (Story) => (<>
-    <GlobalStyle />
-    <Story /></>
+  (Story) => (
+    <>
+      <GlobalStyle />
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    </>
   ),
 ];
