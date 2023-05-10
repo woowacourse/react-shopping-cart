@@ -24,6 +24,9 @@ header {
 .container button {
   position: absolute;
   right: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .cartItemCount {
