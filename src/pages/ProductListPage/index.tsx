@@ -12,6 +12,7 @@ function ProductListPage() {
 export default ProductListPage;
 
 const Container = styled.div`
-  width: 70%;
+  width: 60%;
+  min-width: 1024px;
   margin: auto;
 `;

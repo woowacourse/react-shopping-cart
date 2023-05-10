@@ -1,23 +1,28 @@
 import QuantityController from '@Components/QuantityController';
 import * as S from './style';
+import { Product } from '@Pages/ProductListPage/ProductList';
 
 type ShoppingItemProps = {
-  id: number;
-  price: number;
-  name: string;
-  imageUrl: string;
+  product: {
+    id: number;
+    price: number;
+    name: string;
+    imageUrl: string;
+  };
+  quantity: number;
+  updateShoppingBasket: (product: Product, quantity: number) => void;
 };
 
-function ShoppingItem({ id, price, name, imageUrl }: ShoppingItemProps) {
+function ShoppingItem({ product, quantity, updateShoppingBasket }: ShoppingItemProps) {
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
-      <S.ShoppingItemImage src={imageUrl} alt={name}></S.ShoppingItemImage>
+      <S.ShoppingItemImage src={product.imageUrl} alt={product.name}></S.ShoppingItemImage>
       <S.ShoppingItemContents>
         <S.ShoppingItemLayout>
-          <S.ShoppingItemName aria-label="판매 품목 이름">{name}</S.ShoppingItemName>
-          <S.ShoppingItemPrice aria-label="판매 품목 가격">{price.toLocaleString()} 원</S.ShoppingItemPrice>
+          <S.ShoppingItemName aria-label="판매 품목 이름">{product.name}</S.ShoppingItemName>
+          <S.ShoppingItemPrice aria-label="판매 품목 가격">{product.price.toLocaleString()} 원</S.ShoppingItemPrice>
         </S.ShoppingItemLayout>
-        <QuantityController quantity={1} />
+        <QuantityController quantity={quantity} updateShoppingBasket={updateShoppingBasket} product={product} />
       </S.ShoppingItemContents>
     </S.Container>
   );
