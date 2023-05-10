@@ -1,20 +1,10 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { CartIcon } from '../../assets/icons';
-import { useEffect, useState } from 'react';
-import { cartState } from '../../atoms';
-import { useRecoilValue } from 'recoil';
+import { totalQuantityInCart } from '../../selectors';
 
 const Header = () => {
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const cart = useRecoilValue(cartState);
-
-  useEffect(() => {
-    const total = cart.reduce((prev, cartProduct) => {
-      return prev + cartProduct.quantity;
-    }, 0);
-
-    setTotalQuantity(total);
-  }, [cart]);
+  const totalQuantity = useRecoilValue(totalQuantityInCart);
 
   return (
     <HeaderContainer>
