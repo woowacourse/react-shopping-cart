@@ -4,3 +4,11 @@ export interface ProductType {
   price: number;
   imageUrl: string;
 }
+
+export interface OrderType {
+  id: number;
+  quantity: number;
+  product: ProductType;
+}
+
+export interface CartType extends Array<OrderType> {}
