@@ -15,12 +15,14 @@ export default function ProductList() {
 
   return (
     <ProductListContainer>
-      {products &&
-        products.map(({ id, name, price, imageUrl }) => (
-          <ProductItem price={price} name={name} imageUrl={imageUrl} />
-        ))}
+      {products && products.map((product) => <ProductItem {...product} />)}
     </ProductListContainer>
   );
 }
 
-const ProductListContainer = styled.ul``;
+const ProductListContainer = styled.ul`
+  display: grid;
+  padding: 6rem 10rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+`;
