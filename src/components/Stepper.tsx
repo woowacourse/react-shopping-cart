@@ -1,20 +1,41 @@
 import { ChangeEvent, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
+import { productsInCartState } from '../atom';
 import Button from './common/Button';
 
 interface Props {
   initCount: number;
+  productId: number;
 }
 
-export default function Stepper({ initCount }: Props) {
+export default function Stepper({ initCount, productId }: Props) {
   const [count, setCount] = useState(initCount);
+  const setProductsInCart = useSetRecoilState(productsInCartState);
 
   const increaseCount = () => {
     setCount((prev) => prev + 1);
+
+    setProductsInCart((prev) => {
+      return prev.map((productInCart) => {
+        if (productInCart.id === productId)
+          return { ...productInCart, quantity: productInCart.quantity + 1 };
+
+        return productInCart;
+      });
+    });
   };
 
   const decreaseCount = () => {
     setCount((prev) => prev - 1);
+    setProductsInCart((prev) => {
+      return prev.map((productInCart) => {
+        if (productInCart.id === productId)
+          return { ...productInCart, quantity: productInCart.quantity - 1 };
+
+        return productInCart;
+      });
+    });
   };
 
   const isMinCount = () => {
@@ -33,10 +54,20 @@ export default function Stepper({ initCount }: Props) {
     if (!/^[0-9]*$/.test(target.value)) return;
 
     const value = Number(target.value);
-    if (value > 99) return setCount(99);
-    if (value < 1) return setCount(1);
 
-    setCount(value);
+    if (value < 1) setCount(1);
+    else if (value > 99) setCount(99);
+    else setCount(value);
+
+    setProductsInCart((prev) => {
+      return prev.map((productInCart) => {
+        console.log(typeof productInCart);
+        console.log(typeof productId);
+        if (productInCart.id === productId) return { ...productInCart, quantity: value };
+
+        return productInCart;
+      });
+    });
   };
 
   return (

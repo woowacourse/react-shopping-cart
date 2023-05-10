@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     initCount: 1,
+    productId: 1,
   },
 };
 
@@ -27,6 +28,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const ClickPlusButton: Story = {
   args: {
     initCount: 1,
+    productId: 1,
   },
 
   play: async ({ canvasElement }) => {
@@ -45,6 +47,7 @@ export const ClickPlusButton: Story = {
 export const ClickMinusButton: Story = {
   args: {
     initCount: 5,
+    productId: 1,
   },
 
   play: async ({ canvasElement }) => {
@@ -63,6 +66,7 @@ export const ClickMinusButton: Story = {
 export const ButtonToDisableIfMinCount: Story = {
   args: {
     initCount: 2,
+    productId: 1,
   },
 
   play: async ({ canvasElement }) => {
@@ -82,6 +86,7 @@ export const ButtonToDisableIfMinCount: Story = {
 export const ButtonToDisableIfMaxCount: Story = {
   args: {
     initCount: 98,
+    productId: 1,
   },
 
   play: async ({ canvasElement }) => {
@@ -101,6 +106,7 @@ export const ButtonToDisableIfMaxCount: Story = {
 export const CanNotBeOverMaxCount: Story = {
   args: {
     initCount: 1,
+    productId: 1,
   },
 
   play: async ({ canvasElement }) => {

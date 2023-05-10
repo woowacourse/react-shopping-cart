@@ -1,17 +1,26 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
-import { countInCartState } from '../atom';
+import { countInCartState, productsInCartState } from '../atom';
 import Stepper from './Stepper';
 
 export default function Product({ data }: any) {
-  const [, setCountInCart] = useRecoilState(countInCartState);
-  const [isSelected, setIsSelected] = useState(false);
+  const setCountInCart = useSetRecoilState(countInCartState);
+  const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
+  const foundedProduct = productsInCart.find((product) => product.id === data.id);
+  const [isSelected, setIsSelected] = useState(Boolean(foundedProduct));
 
   const handleClickCartIcon = () => {
     setCountInCart((prev) => prev + 1);
     setIsSelected(true);
+    setProductsInCart((prev) => [
+      ...prev,
+      {
+        id: data.id,
+        quantity: 1,
+      },
+    ]);
   };
 
   return (
@@ -23,7 +32,7 @@ export default function Product({ data }: any) {
           <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
         {isSelected ? (
-          <Stepper initCount={1} />
+          <Stepper productId={data.id} initCount={foundedProduct?.quantity || 1} />
         ) : (
           <Style.CartIconWrapper onClick={handleClickCartIcon}>
             <CartIcon fill="#AAAAAA" />
