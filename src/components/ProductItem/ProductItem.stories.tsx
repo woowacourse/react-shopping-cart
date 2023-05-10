@@ -1,9 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ProductItem from './ProductItem';
+import Providers from '../../stories/Providers';
 
 const meta = {
   component: ProductItem,
   title: 'ProductItem',
+  decorators: [
+    (Story) => (
+      <Providers>
+        <Story />
+      </Providers>
+    ),
+  ],
 } satisfies Meta<typeof ProductItem>;
 
 export default meta;
