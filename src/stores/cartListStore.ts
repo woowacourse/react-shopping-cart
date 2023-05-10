@@ -1,10 +1,10 @@
 import { atom, selector, selectorFamily } from 'recoil';
-
-type CartList = { [key: number]: { quantity: number } };
+import { CartList } from '../types/CartList.ts';
+import { getCartListFromLocalStorage } from '../utils/localStorageCartList.ts';
 
 export const cartListAtom = atom<CartList>({
   key: 'cartListAtom',
-  default: {},
+  default: getCartListFromLocalStorage(),
 });
 
 export const carListTotalQuantitySelector = selector({
