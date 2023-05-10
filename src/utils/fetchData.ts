@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Product } from '../types';
 
-export const fetchData = async (url: string, setData: Dispatch<SetStateAction<Product[]>>) => {
+type SetDataType<T> = Dispatch<SetStateAction<T>>;
+
+export const fetchData = async <T>(url: string, setData: SetDataType<T>) => {
   try {
     const response = await fetch(url);
     const data = await validateResponse(response);

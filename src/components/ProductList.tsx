@@ -11,8 +11,8 @@ const ProductList = () => {
   const productData = process.env.PUBLIC_URL + mockDataUrl;
 
   useEffect(() => {
-    fetchData(productData, setProductList);
-  }, []);
+    fetchData<Product[]>(productData, setProductList);
+  }, [productData]);
 
   return (
     <S.Wrapper>
@@ -33,7 +33,7 @@ const S = {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 16px;
+    gap: 86px 48px;
     width: 1270px;
     margin: 0 auto;
   `,
