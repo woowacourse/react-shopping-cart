@@ -7,11 +7,7 @@ export default {
   component: Header,
 };
 
-const Template: StoryFn<React.ComponentProps<typeof Header>> = (args) => (
-  <Header {...args} />
-);
+const Template: StoryFn<React.ComponentProps<typeof Header>> = () => <Header />;
 
 export const Controls = Template.bind({});
-Controls.args = {
-  cartCount: 2,
-};
+Controls.args = {};

@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { cartCountState } from "../recoil/state";
 
-interface HeaderProps {
-  cartCount: number;
-}
-export default function Header({ cartCount }: HeaderProps) {
+export default function Header() {
+  const cartCount = useRecoilValue(cartCountState);
+
   return (
     <$Wrapper>
       <$ContentBox>
@@ -22,6 +23,9 @@ export default function Header({ cartCount }: HeaderProps) {
 }
 
 const $Wrapper = styled.header`
+  position: fixed;
+  top: 0;
+
   display: flex;
   justify-content: center;
 
@@ -38,7 +42,7 @@ const $ContentBox = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 1200px;
+  width: 1272px;
   height: 100%;
 `;
 
