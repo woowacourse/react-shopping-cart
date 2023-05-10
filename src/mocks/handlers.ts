@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { products } from '../data/mockData';
-import { Product } from '../components/ProductItem/types';
+import { Product } from '../types';
 
 export const handlers = [
   // 제품 목록

@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
 import ProductItem from '../ProductItem';
-import { Product } from '../ProductItem/types';
 import styles from './index.module.css';
 import { getProductSelector } from '../../recoil/atom';
+import type { Product } from '../../types';
 
 const ProductItemList = () => {
   const products = useRecoilValue(getProductSelector);
