@@ -8,7 +8,7 @@ export interface Props extends SVGProps<SVGSVGElement> {
   path: string;
   viewBox: string;
   svgStyle: CSSProp;
-  onClick: MouseEventHandler<SVGSVGElement>;
+  onClick?: MouseEventHandler<SVGSVGElement>;
 }
 
 const Icon = ({ svgStyle, onClick, ...props }: Props) => {

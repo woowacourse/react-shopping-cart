@@ -6,7 +6,7 @@ import { fetchData } from '../utils/fetchData';
 import { Product } from '../types';
 import { MOCK_DATA_URL } from '../constants/url';
 
-const productListState = atom({
+export const productListState = atom({
   key: 'productListState',
   default: [] as Product[],
 });
@@ -25,6 +25,7 @@ const ProductList = () => {
       {productList.map((product) => (
         <ProductItem
           key={product.id}
+          id={product.id}
           name={product.name}
           price={product.price}
           imgUrl={`${process.env.PUBLIC_URL}${product.imageUrl}`}

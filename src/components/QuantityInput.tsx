@@ -4,10 +4,11 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { WheelEventHandler, ChangeEventHandler } from 'react';
 
 interface Props {
+  value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const QuantityInput = ({ onChange }: Props) => {
+const QuantityInput = ({ value, onChange }: Props) => {
   const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     currentTarget.blur();
   };
@@ -16,13 +17,19 @@ const QuantityInput = ({ onChange }: Props) => {
     <S.Wrapper>
       <Input
         type="number"
+        value={value}
         styled={QuantityInputStyle}
         min={0}
         max={99}
-        defaultValue={1}
         onWheel={handleScrollPrevent}
         onChange={onChange}
+        onKeyDown={(event) => {
+          if (event.key === '-' || event.key === '+' || event.key === 'e' || event.key === '.') {
+            event.preventDefault();
+          }
+        }}
       />
+
       <FaCaretUp />
       <FaCaretDown />
     </S.Wrapper>

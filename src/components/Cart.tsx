@@ -1,10 +1,24 @@
 import { styled } from 'styled-components';
+import { cartState } from './ProductItem';
+import { selector, useRecoilValue } from 'recoil';
+
+export const cartSelector = selector({
+  key: 'cartSelector',
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const distinctProducts = new Set(cart);
+
+    return distinctProducts.size;
+  },
+});
 
 const Cart = () => {
+  const total = useRecoilValue(cartSelector);
+
   return (
     <S.Wrapper>
       <S.Button>장바구니</S.Button>
-      <S.Badge>0</S.Badge>
+      <S.Badge>{total}</S.Badge>
     </S.Wrapper>
   );
 };
