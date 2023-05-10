@@ -1,3 +1,4 @@
+import type { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
 
 interface InputStepperProps {
@@ -7,17 +8,18 @@ interface InputStepperProps {
 }
 
 const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
+  const changeText = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!/^\d*$/.test(e.target.value)) return;
+    if (e.target.value.length < 1 || e.target.value.length > 2) return;
+
+    if (Number(e.target.value) !== quantity) {
+      setQuantity(Number(e.target.value));
+    }
+  };
+
   return (
     <InputStepperWrapper>
-      <InputStyle
-        $size={size}
-        type="number"
-        step="1"
-        value={quantity}
-        min="0"
-        max="99"
-        onChange={(e) => setQuantity(Number(e.target.value))}
-      />
+      <InputStyle $size={size} type="text" value={quantity} onChange={changeText} />
       <StepperButtonWrapper>
         <StepperUpButton $size={size} onClick={() => setQuantity(quantity + 1)}>
           &#9662;
