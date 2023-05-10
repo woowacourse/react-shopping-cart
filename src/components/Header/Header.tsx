@@ -10,11 +10,11 @@ function Header() {
     <S.Navbar>
       <S.Container>
         <S.HeaderWrapper>
-          <S.LogoWrapper onClick={() => navigate('')}>
+          <S.LogoWrapper onClick={() => navigate('/')}>
             <S.CartIcon src={cartIcon} />
             <S.Logo>SHOP</S.Logo>
           </S.LogoWrapper>
-          <S.CartWrapper onClick={() => navigate('cart')}>
+          <S.CartWrapper onClick={() => navigate('/cart')}>
             <S.CartTitle>장바구니</S.CartTitle>
             <S.CartCountWrapper>
               <S.CartCount>{foo}</S.CartCount>
