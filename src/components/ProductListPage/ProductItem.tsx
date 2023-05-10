@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { AddCartIc } from "../../asset";
 import { cartState } from "../../atoms/cartState";
-import { CartType } from "../../type/cart";
+import type { CartType } from "../../type/cart";
 import QuantityCounter from "../common/QuantityCounter";
 
 interface ProductItemProps {
@@ -12,6 +12,7 @@ interface ProductItemProps {
   name: string;
   price: number;
 }
+
 // TODO: 원단위 표시
 export default function ProductItem({
   id,
@@ -22,6 +23,20 @@ export default function ProductItem({
   const [isSelected, setIsSelected] = useState(false);
   const [cart, setCart] = useRecoilState<CartType[]>(cartState);
   const quantityRef = useRef<HTMLInputElement>(null);
+
+  const createChangedCart = (prevCart: CartType[], cartItem: CartType) => {
+    const index = prevCart.findIndex(
+      (prevItem) => prevItem.productId === cartItem.productId
+    );
+    if (index === -1) return [...prevCart, cartItem];
+
+    return [
+      ...prevCart.slice(0, index),
+      cartItem,
+      ...prevCart.slice(index + 1),
+    ];
+  };
+
   const selectProductItem = () => {
     setIsSelected(true);
   };
@@ -36,7 +51,7 @@ export default function ProductItem({
       cartItem.quantity = +quantityRef.current.value;
     }
 
-    setCart((prev) => [...prev, cartItem]);
+    setCart((prev) => createChangedCart(prev, cartItem));
   };
 
   return (
