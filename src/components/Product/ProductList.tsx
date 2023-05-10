@@ -3,20 +3,19 @@ import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
 
+import { fetchProducts } from '../../apis/products';
 import type { Product } from '../../types/product';
-
-const URL = `${process.env.PUBLIC_URL}/data/products.json`;
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(URL);
-      const data = await response.json();
+    const getProducts = async () => {
+      const data = await fetchProducts();
       setProducts(data);
     };
-    fetchData();
+
+    getProducts();
   }, []);
 
   return (
