@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
+import { useRecoilValue } from 'recoil';
+import { totalCartProductState } from '../../states/cartProductState';
 
 const Header = () => {
+  const totalCartProduct = useRecoilValue(totalCartProductState);
+
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -12,7 +16,7 @@ const Header = () => {
         </LogoContainer>
         <MoveCartPageBtn>
           장바구니
-          <ProductCountAlert>2</ProductCountAlert>
+          <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
         </MoveCartPageBtn>
       </HeaderContent>
     </HeaderContainer>

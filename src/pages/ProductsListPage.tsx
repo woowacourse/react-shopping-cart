@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { RecoilRoot } from 'recoil';
 
 import Header from '../components/Common/Header';
 import ProductList from '../components/Product/ProductList';
@@ -7,12 +8,12 @@ import products from '../data/products.json';
 
 const ProductsListPage = () => {
   return (
-    <>
+    <RecoilRoot>
       <Header />
       <Main>
         <ProductList products={products} />
       </Main>
-    </>
+    </RecoilRoot>
   );
 };
 

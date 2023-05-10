@@ -1,26 +1,55 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
-import type { Product } from '../../types/product';
+import type { CartProduct, Product } from '../../types/product';
 import AmountCounter from '../Common/AmountCounter';
+import { cartProductState } from '../../states/cartProductState';
 
 interface ProductItemProps {
   product: Product;
 }
 
-const ProductItem = ({ product }: ProductItemProps) => {
-  const { imageUrl, name, price } = product;
+const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
+  cartProducts.find((cartProduct) => id === cartProduct.product.id);
 
-  const [count, setCount] = useState(0);
+const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
+  cartProducts.map((cartProduct) => {
+    if (cartProduct.product.id === id) {
+      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
+    }
+    return cartProduct;
+  });
+
+const ProductItem = ({ product }: ProductItemProps) => {
+  const { id, imageUrl, name, price } = product;
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
 
   const addCount = () => {
-    setCount((prev) => prev + 1);
+    setCartProducts((prev) => addTargetQuantity(prev, id));
   };
 
   const subtractCount = () => {
-    setCount((prev) => prev - 1);
+    setCartProducts((prev) =>
+      prev.map((cartProduct) => {
+        if (cartProduct.product.id === id) {
+          return { ...cartProduct, quantity: cartProduct.quantity - 1 };
+        }
+        return cartProduct;
+      })
+    );
   };
+
+  const addProduct = () => {
+    setCartProducts((prev) => {
+      if (findTargetProduct(prev, id)) {
+        return addTargetQuantity(prev, id);
+      }
+      return [...prev, { id: Date.now(), quantity: 1, product }];
+    });
+  };
+
+  const target = findTargetProduct(cartProducts, id);
 
   return (
     <ProductContainer>
@@ -30,13 +59,13 @@ const ProductItem = ({ product }: ProductItemProps) => {
           <ProductName>{name}</ProductName>
           <ProductPrice>{price.toLocaleString('ko-KR')} 원</ProductPrice>
         </dl>
-        {count === 0 ? (
-          <ProductCartBtn type='button' onClick={addCount}>
+        {!target || target.quantity === 0 ? (
+          <ProductCartBtn type='button' onClick={addProduct}>
             <CartIcon width={25} height={22} color='var(--gray-400)' />
           </ProductCartBtn>
         ) : (
           <AmountCounter
-            count={count}
+            count={target ? target.quantity : 0}
             addCount={addCount}
             subtractCount={subtractCount}
           />
