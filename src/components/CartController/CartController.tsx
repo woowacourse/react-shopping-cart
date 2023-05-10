@@ -1,34 +1,47 @@
 import * as S from './CartController.style';
 import * as T from '../../types/ProductType';
 import useCart from '../../hooks/useCart';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface CartControllerProps {
   product: T.ProductItem;
 }
 
 function CartController({ product }: CartControllerProps) {
-  const [quantity, setQuantity] = useState(0);
-
-  const { cartList, addCart, getQuantityByProductId } = useCart();
+  const { addCart, increaseCart, getQuantityByProductId, decreaseCart, setCartQuantity } =
+    useCart();
+  const [quantity, setQuantity] = useState(() => getQuantityByProductId(product.id));
 
   const handleClickCart = () => {
-    console.log('dd');
+    setQuantity(1);
     addCart(product);
   };
 
-  useEffect(() => {
-    setQuantity(getQuantityByProductId(product.id));
-  }, [cartList]);
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1);
+    increaseCart(product.id);
+  };
+
+  const handleDecreaseQuantity = () => {
+    setQuantity(quantity - 1);
+
+    decreaseCart(product.id);
+  };
+
+  const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
+    const quantity = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
+    setQuantity(quantity);
+    setCartQuantity(product.id, quantity);
+  };
 
   return (
     <>
       {quantity > 0 ? (
         <S.CartBox>
-          <S.QuantityInput value={quantity} />
+          <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
           <S.ButtonBox>
-            <S.QuantityControlButton>⏶</S.QuantityControlButton>
-            <S.QuantityControlButton>⏷</S.QuantityControlButton>
+            <S.QuantityControlButton onClick={handleIncreaseQuantity}>⏶</S.QuantityControlButton>
+            <S.QuantityControlButton onClick={handleDecreaseQuantity}>⏷</S.QuantityControlButton>
           </S.ButtonBox>
         </S.CartBox>
       ) : (
