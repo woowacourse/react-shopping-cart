@@ -1,11 +1,11 @@
-import ProductIteList from '../components/ProductItemList';
+import ProductItemList from '../components/ProductItemList';
 import type { Meta, StoryObj } from '@storybook/react';
 import { products } from '../data/mockData';
 
-type Story = StoryObj<typeof ProductIteList>;
-const meta: Meta<typeof ProductIteList> = {
-  title: 'ProductIteList',
-  component: ProductIteList,
+type Story = StoryObj<typeof ProductItemList>;
+const meta: Meta<typeof ProductItemList> = {
+  title: 'ProductItemList',
+  component: ProductItemList,
 };
 export default meta;
 
