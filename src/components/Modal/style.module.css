@@ -12,6 +12,7 @@
   left: 0;
   background: rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  animation: showAnimation 0.2s;
 }
 
 .content {
@@ -23,4 +24,15 @@
   padding: 24px;
   background-color: white;
   border-radius: 8px;
+  animation: showAnimation 0.2s ease-in 0.05s forwards;
+  opacity: 0;
+}
+
+@keyframes showAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
