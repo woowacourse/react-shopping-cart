@@ -17,8 +17,8 @@ type StyledTextProps = {
 
 const fontSizes: Record<StyledTextProps['$size'], string> = {
   smallest: '16px',
-  small: '12px',
-  medium: '14px',
+  small: '20px',
+  medium: '22px',
   large: '24px',
   largest: '40px',
 };
