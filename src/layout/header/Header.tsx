@@ -1,30 +1,20 @@
 import styled from 'styled-components';
 import { LogoIcon } from '../../assets/ShoppingCartIcon';
-import { selector, useRecoilValue } from 'recoil';
-import { cartListState } from '../../App';
-
-const cartAmountState = selector<number>({
-  key: 'cartAmountState',
-  get: ({ get }) => {
-    const list = get(cartListState);
-
-    return list.length;
-  },
-});
+import { useCartList } from '../../hooks/useCartList';
 
 export const Header = () => {
-  const cartAmount = useRecoilValue(cartAmountState);
+  const { cartList } = useCartList();
 
   return (
     <Style.Container>
       <Style.ContentWrapper>
         <Style.LogoContainer>
-          {LogoIcon}
+          <LogoIcon />
           <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
         <Style.CartContainer>
           <Style.Cart>장바구니</Style.Cart>
-          <Style.CartAmount>{cartAmount}</Style.CartAmount>
+          <Style.CartAmount>{cartList.length}</Style.CartAmount>
         </Style.CartContainer>
       </Style.ContentWrapper>
     </Style.Container>

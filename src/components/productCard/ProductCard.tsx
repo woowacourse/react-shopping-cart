@@ -1,20 +1,12 @@
 import styled from 'styled-components';
 import { Product } from '../../types/Product';
 import { Counter } from './Counter';
-import { useRecoilState } from 'recoil';
-import { cartListState } from '../../App';
 import { ShoppingCartIcon } from '../../assets/ShoppingCartIcon';
+import { useCartList } from '../../hooks/useCartList';
 
 export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
-
-  const addProductToCartList = () => {
-    if (!cartList.includes(id)) setCartList((current) => [...current, id]);
-  };
-
-  const removeItemFromCartList = () => {
-    setCartList((current) => current.filter((productId) => productId !== id));
-  };
+  const { cartList, addProductToCartList, removeProductFromCartList } =
+    useCartList(id);
 
   return (
     <Style.Container>
@@ -25,7 +17,7 @@ export const ProductCard = ({ id, name, price, imageUrl }: Product) => {
           <Style.Price>{price}원</Style.Price>
         </Style.NamePriceContainer>
         {cartList.includes(id) ? (
-          <Counter removeItemFromCartList={removeItemFromCartList} />
+          <Counter removeItemFromCartList={removeProductFromCartList} />
         ) : (
           <ShoppingCartIcon handleClick={addProductToCartList} />
         )}
