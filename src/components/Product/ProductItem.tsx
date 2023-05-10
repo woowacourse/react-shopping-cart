@@ -5,6 +5,7 @@ import CartIcon from '../../assets/CartIcon';
 import type { CartProduct, Product } from '../../types/product';
 import AmountCounter from '../Common/AmountCounter';
 import { cartProductState } from '../../states/cartProductState';
+import { useEffect } from 'react';
 
 interface ProductItemProps {
   product: Product;
@@ -12,6 +13,9 @@ interface ProductItemProps {
 
 const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
   cartProducts.find((cartProduct) => id === cartProduct.product.id);
+
+const deleteProduct = (cartProducts: CartProduct[], id: number) =>
+  cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
   cartProducts.map((cartProduct) => {
@@ -41,15 +45,19 @@ const ProductItem = ({ product }: ProductItemProps) => {
   };
 
   const addProduct = () => {
-    setCartProducts((prev) => {
-      if (findTargetProduct(prev, id)) {
-        return addTargetQuantity(prev, id);
-      }
-      return [...prev, { id: Date.now(), quantity: 1, product }];
-    });
+    setCartProducts((prev) => [
+      ...prev,
+      { id: Date.now(), quantity: 1, product },
+    ]);
   };
 
   const target = findTargetProduct(cartProducts, id);
+
+  useEffect(() => {
+    if (target?.quantity === 0) {
+      setCartProducts((prev) => deleteProduct(prev, id));
+    }
+  }, [id, setCartProducts, target?.quantity]);
 
   return (
     <ProductContainer>
