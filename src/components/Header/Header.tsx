@@ -8,7 +8,10 @@ const Header = () => {
         <CartIcon />
         <Title>SHOP</Title>
       </Logo>
-      <CartButton>장바구니</CartButton>
+      <CartButton>
+        장바구니
+        <CartTotalQuantity>3</CartTotalQuantity>
+      </CartButton>
     </HeaderContainer>
   );
 };
@@ -43,9 +46,25 @@ const Title = styled.h1`
 `;
 
 const CartButton = styled.div`
+  display: flex;
+  column-gap: 6px;
   font-size: 24px;
 
   cursor: pointer;
+`;
+
+const CartTotalQuantity = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 26px;
+  height: 26px;
+
+  border-radius: 50%;
+  background: #04c09e;
+
+  font-size: 16px;
 `;
 
 export default Header;
