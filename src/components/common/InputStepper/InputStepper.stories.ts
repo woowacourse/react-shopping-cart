@@ -14,11 +14,15 @@ type Story = StoryObj<typeof meta>;
 export const SmallInputStepper: Story = {
   args: {
     size: 'small',
+    quantity: 1,
+    setQuantity: () => {},
   },
 };
 
 export const BigInputStepper: Story = {
   args: {
     size: 'big',
+    quantity: 1,
+    setQuantity: () => {},
   },
 };
