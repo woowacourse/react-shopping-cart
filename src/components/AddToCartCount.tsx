@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-interface AddToCartCount {
+interface AddToCartCountProps {
   onDeleteCart: () => void;
 }
 
-export const AddToCartCount = ({ onDeleteCart }: AddToCartCount) => {
+export const AddToCartCount = ({ onDeleteCart }: AddToCartCountProps) => {
   const [count, setCount] = useState('1');
 
   const handle = (e: React.ChangeEvent<HTMLInputElement>) => {
