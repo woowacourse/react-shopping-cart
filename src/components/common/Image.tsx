@@ -10,7 +10,7 @@ interface ImageProps {
 export const Image = ({ $width, $height, source, alternative }: ImageProps) => {
   return (
     <StyledImage $width={$width} $height={$height}>
-      <img src={source} alt={alternative}></img>
+      <img src={`${process.env.PUBLIC_URL}/${source}`} alt={alternative}></img>
     </StyledImage>
   );
 };
