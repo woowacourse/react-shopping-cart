@@ -5,15 +5,11 @@ import Counter from "./Counter";
 import { useSetRecoilState } from "recoil";
 import { itemCountSelector } from "../recoil/selector";
 
-const Item = ({ id, name, price, imageUrl, count = 0 }: ItemType) => {
+const Item = ({ id, name, price, imageUrl, count }: ItemType) => {
   const setItemCount = useSetRecoilState(itemCountSelector);
 
   const increaseItemCount = () => {
-    setItemCount({ id: id, count: count + 1 });
-  };
-
-  const decreaseItemCount = () => {
-    setItemCount({ id: id, count: count - 1 });
+    setItemCount({ id: id, count: Number(count) + 1 });
   };
 
   return (
@@ -22,14 +18,10 @@ const Item = ({ id, name, price, imageUrl, count = 0 }: ItemType) => {
       <NameWrapper>{name}</NameWrapper>
       <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
       <IconWrapper>
-        {count === 0 ? (
+        {count === "0" ? (
           <img src={CartGrayIcon} alt={"카트"} onClick={increaseItemCount} />
         ) : (
-          <Counter
-            count={count}
-            increase={increaseItemCount}
-            decrease={decreaseItemCount}
-          />
+          <Counter itemId={id} />
         )}
       </IconWrapper>
     </ItemWrapper>
