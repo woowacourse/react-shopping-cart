@@ -1,5 +1,8 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { ReactComponent as HomeIcon } from '../assets/icons/home-icon.svg';
+import cartCountState from '../recoil/selectors/cartCountState';
+import Badge from './Badge';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -42,11 +45,17 @@ const Menu = styled.nav`
 `;
 
 const MenuButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
   font-size: 24px;
   font-weight: 500;
 `;
 
 const Header = () => {
+  const cartCount = useRecoilValue(cartCountState);
+
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -55,7 +64,9 @@ const Header = () => {
           <HomeButtonText>SHOP</HomeButtonText>
         </HomeButton>
         <Menu>
-          <MenuButton>장바구니</MenuButton>
+          <MenuButton>
+            장바구니 <Badge>{cartCount}</Badge>
+          </MenuButton>
         </Menu>
       </HeaderContent>
     </HeaderContainer>
