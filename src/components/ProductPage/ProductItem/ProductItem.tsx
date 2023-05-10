@@ -15,7 +15,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
           <S.Name>{name}</S.Name>
           <S.Price>{price.toLocaleString()} 원</S.Price>
         </Flex>
-        <ItemCartDialog id={id} name={name} price={price} />
+        <ItemCartDialog {...props} />
       </S.Info>
     </S.Root>
   );
