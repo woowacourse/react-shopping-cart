@@ -1,21 +1,48 @@
 import * as Styled from './ProductItem.styles.tsx';
-import bagel from '../../assets/itemImages/bagel.png';
 import ShoppingCartLogo from '../@common/ShoppingCartLogo.tsx';
+import useUpdateCartList from '../../hooks/useUpdateCartList.ts';
+import { useRecoilValue } from 'recoil';
+import { productQuantitySelector } from '../../stores/cartListStore.ts';
+import StepperInput from '../@common/StepperInput/StepperInput.tsx';
 
-const ProductItem = () => {
+type ProductItemProps = {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+};
+
+const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
+  const { updateCartList } = useUpdateCartList();
+  const productQuantity = useRecoilValue(productQuantitySelector(id));
+
+  const handleAddToCartButton = () => {
+    updateCartList({ itemId: id, value: 1 });
+  };
+
+  const CartButton = () => {
+    return (
+      <Styled.CartButton onClick={handleAddToCartButton}>
+        <ShoppingCartLogo isFlipped={true} width={24} height={22} />
+      </Styled.CartButton>
+    );
+  };
+
+  const handleStepperInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateCartList({ itemId: id, value: parseInt(e.target.value, 10) });
+  };
+
   return (
     <Styled.ProductItemWrapper>
       <Styled.ImageContainer>
-        <Styled.ProductItemImage src={bagel} />
+        <Styled.ProductItemImage src={imageUrl} />
       </Styled.ImageContainer>
       <Styled.ProductItemInfo>
         <Styled.ProductItemInfoUpperBoundary>
-          <Styled.ProductItemTitle>밀크티</Styled.ProductItemTitle>
-          <Styled.CartButton>
-            <ShoppingCartLogo isFlipped={true} width={24} height={22} />
-          </Styled.CartButton>
+          <Styled.ProductItemTitle>{name}</Styled.ProductItemTitle>
+          {productQuantity === 0 ? <CartButton /> : <StepperInput value={productQuantity} onChange={handleStepperInputChange} />}
         </Styled.ProductItemInfoUpperBoundary>
-        <Styled.ProductItemPrice>1000원</Styled.ProductItemPrice>
+        <Styled.ProductItemPrice>{price}원</Styled.ProductItemPrice>
       </Styled.ProductItemInfo>
     </Styled.ProductItemWrapper>
   );
