@@ -10,7 +10,7 @@ const ProductCardList = ({ products }: ProductCardListProps) => {
   return (
     <ProductGrid>
       {products.map((product) => (
-        <ProductCard product={product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </ProductGrid>
   );
