@@ -1,29 +1,28 @@
-import { useState } from 'react';
 import styled from '@emotion/styled';
 
 interface InputStepperProps {
   size: 'small' | 'big';
+  quantity: number;
+  setQuantity: (value: number) => void;
 }
 
-const InputStepper = ({ size }: InputStepperProps) => {
-  const [count, setCount] = useState<number>(1);
-
+const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   return (
     <InputStepperWrapper>
       <InputStyle
         $size={size}
         type="number"
         step="1"
-        value={count}
+        value={quantity}
         min="0"
         max="99"
-        onChange={(e) => setCount(Number(e.target.value))}
+        onChange={(e) => setQuantity(Number(e.target.value))}
       />
       <StepperButtonWrapper>
-        <StepperUpButton $size={size} onClick={() => setCount(count + 1)}>
+        <StepperUpButton $size={size} onClick={() => setQuantity(quantity + 1)}>
           &#9662;
         </StepperUpButton>
-        <StepperDownButton $size={size} onClick={() => setCount(count - 1)}>
+        <StepperDownButton $size={size} onClick={() => setQuantity(quantity - 1)}>
           &#9662;
         </StepperDownButton>
       </StepperButtonWrapper>

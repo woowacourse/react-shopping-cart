@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 // import { CartIcon } from '../../assets';
+import { useState } from 'react';
 import type { Product } from '../../types/types';
 import { Text } from '../common/Text/Text';
 import InputStepper from '../common/InputStepper/InputStepper';
 
 const ProductItem = ({ product }: { product: Product }) => {
+  const [quantity, setQuantity] = useState<number>(1);
+
   return (
     <ProductWrapper>
       <ProductImage src={product.imageUrl} alt={product.name} />
@@ -17,7 +20,7 @@ const ProductItem = ({ product }: { product: Product }) => {
             {product.price} 원
           </Text>
         </ProductTextWrapper>
-        <InputStepper size="small" />
+        <InputStepper size="small" quantity={quantity} setQuantity={(value) => setQuantity(value)}/>
         {/* <CartIcon width={25} height={22} fill="#AAAAAA" style={{ transform: 'scaleX(-1)' }} /> */}
       </ProductInfoWrapper>
     </ProductWrapper>
