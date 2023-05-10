@@ -14,4 +14,8 @@ export default meta;
 
 type Story = StoryObj<typeof UserSummaryShoppingBasket>;
 
-export const DefaultUserSummaryShoppingBasket: Story = {};
+export const DefaultUserSummaryShoppingBasket: Story = {
+  args: {
+    quantity: 3,
+  },
+};
