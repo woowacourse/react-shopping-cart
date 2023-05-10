@@ -1,11 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import { AddIcon, MinusIcon } from '../../assets';
 import styles from './style.module.css';
 
-const StepperButton = () => {
-  const [count, setCount] = useState(0);
+interface StepperButtonProps {
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
 
+const StepperButton = ({ count, setCount }: StepperButtonProps) => {
   const handleDecrease = () => {
     setCount((prevCount) => prevCount - 1);
   };

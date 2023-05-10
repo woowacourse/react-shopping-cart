@@ -5,6 +5,7 @@ import { useModal } from '../../hooks/useModal';
 import { cartListState } from '../../pages/ProductListPage';
 import { ProductItemData } from '../../types';
 import Modal from '../Modal/Modal';
+import ProductAddition from '../ProductAddition/ProductAddition';
 import styles from './style.module.css';
 
 interface ProductItemProps {
@@ -33,7 +34,14 @@ const ProductItem = ({ information }: ProductItemProps) => {
         </button>
       </div>
       {isModalOpen && (
-        <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress} />
+        <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress}>
+          <ProductAddition
+            closeModalByClick={handleModalClose}
+            productName={information.name}
+            productImage={information.imageUrl}
+            price={information.price}
+          />
+        </Modal>
       )}
     </div>
   );
