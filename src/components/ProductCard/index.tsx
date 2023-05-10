@@ -1,16 +1,44 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { Product } from '../../types/product';
+import { Product, Cart } from '../../types/product';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
+import { cartAtom } from '../../recoil/cartState';
 
 interface ProductCardProps {
   product: Product;
 }
 
-const ProductCard = ({
-  product: { name, price, imageUrl },
-}: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
+  const [cart, setCart] = useRecoilState(cartAtom);
   const [isCartClicked, setIsCartClicked] = useState(false);
+  const { id, name, price, imageUrl } = product;
+
+  const addToCart = () => {
+    const newProduct: Cart = {
+      id,
+      quantity: 1,
+      product,
+    };
+    setCart((cart) => [...cart, newProduct]);
+    setIsCartClicked(true);
+  };
+
+  const updateQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const targetProductIndex = cart.findIndex((item) => item.id === id);
+    if (targetProductIndex === -1) return;
+
+    const updatedCartProduct: Cart = {
+      ...cart[targetProductIndex],
+      quantity: Number(e.target.value),
+    };
+
+    setCart((cart) => [
+      ...cart.slice(0, targetProductIndex),
+      updatedCartProduct,
+      ...cart.slice(targetProductIndex + 1),
+    ]);
+  };
 
   return (
     <Styled.Container>
@@ -21,9 +49,14 @@ const ProductCard = ({
           <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
         </Styled.ProductInfo>
         {isCartClicked ? (
-          <Styled.QuantityInput type='number' defaultValue={1} min={0} />
+          <Styled.QuantityInput
+            type='number'
+            defaultValue={1}
+            min={0}
+            onChange={updateQuantity}
+          />
         ) : (
-          <Styled.ShoppingCart onClick={() => setIsCartClicked(true)}>
+          <Styled.ShoppingCart onClick={addToCart}>
             <ShoppingCartImg />
           </Styled.ShoppingCart>
         )}

@@ -3,17 +3,16 @@
 - [x] Header
   - [ ] 홈 버튼을 누르면 메인페이지로 이동한다.
 - [x] CartTextButton
-  - [ ] 장바구니에 담긴 수량을 확인할 수 있다.
-- [ ] CartIconButton
-  - [ ] 클릭 시 QuantityInput으로 스위치된다.
-  - [ ] 클릭 시 CartTextButton의 수량이 올라간다.
+  - [x] 장바구니에 담긴 수량을 확인할 수 있다.
+- [x] CartIconButton
+  - [x] 클릭 시 QuantityInput으로 스위치된다.
+  - [x] 클릭 시 CartTextButton의 수량이 올라간다.
 - [x] ProductCard
   - [x] 상품 이미지, 상품명, 가격을 확인할 수 있다.
 - [x] ProductCardList
   - [x] 12개의 상품을 확인할 수 있다.
-- [ ] QuantityInput
+- [x] QuantityInput
   - [x] 수량을 조절할 수 있다.
-  - [ ] 0일 경우 CartIconButton으로 스위치된다(미정)
 - [ ] LocalStorage 저장 기능
   - [ ] 새로고침 해도 장바구니에 담긴 수량이 유지된다.
 
