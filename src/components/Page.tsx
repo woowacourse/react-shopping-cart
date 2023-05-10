@@ -7,7 +7,7 @@ const Page = ({ children }: { children: ReactNode }) => {
 
 const PageWrapper = styled.section`
   display: flex;
-  padding: 50px 5%;
+  padding: 110px 5%;
 `;
 
 export default Page;

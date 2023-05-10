@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { itemQuantitySelector } from "../recoil/selector";
 
 const Header = () => {
-  const itemQuantity = useRecoilValue(itemQuantitySelector);
+  const cartItems = useRecoilValue(itemQuantitySelector);
 
   return (
     <HeaderWrapper>
@@ -15,7 +15,7 @@ const Header = () => {
       </TitleWrapper>
       <CartWrapper>
         장바구니
-        <ItemQuantityWrapper>{itemQuantity}</ItemQuantityWrapper>
+        <ItemQuantityWrapper>{cartItems.length}</ItemQuantityWrapper>
       </CartWrapper>
     </HeaderWrapper>
   );
@@ -25,6 +25,10 @@ const HeaderWrapper = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: fixed;
+  z-index: 1;
+  top: 0;
 
   padding: 0 10%;
   width: 100%;
