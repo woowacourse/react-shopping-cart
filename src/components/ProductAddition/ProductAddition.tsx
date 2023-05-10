@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { cartListState } from '../../pages/ProductListPage';
+import { cartAdditionState, cartListState } from '../../pages/ProductListPage';
 import { ProductItemData } from '../../types';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
@@ -41,7 +41,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
     }
 
     closeModalByClick();
-  }, [cartList, closeModalByClick, productInformation, quantity, setCartList]);
+  }, [cartList, closeModalByClick, productInformation, quantity, setCartList, setCartAddition]);
 
   return (
     <div className={styles.container}>
@@ -49,8 +49,10 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
       <div className={styles.informationContainer}>
         <img src={productInformation.imageUrl} alt={productInformation.name} />
         <div>
-          <h4 className={styles.productName}>{productInformation.name}</h4>
-          <h4 className={styles.productPrice}>{productInformation.price}원</h4>
+          <div>
+            <h4 className={styles.productName}>{productInformation.name}</h4>
+            <h4 className={styles.productPrice}>{productInformation.price}원</h4>
+          </div>
           <StepperButton count={quantity} setCount={setQuantity} />
         </div>
       </div>

@@ -7,6 +7,7 @@
 
 .informationContainer {
   display: flex;
+  align-items: flex-start;
   gap: 20px;
 }
 
@@ -17,13 +18,16 @@
   border-radius: 4px;
 }
 
+.informationContainer > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .productName {
   font-weight: 500;
   margin-bottom: 4px;
-}
-
-.productPrice {
-  margin-bottom: 16px;
 }
 
 .totalPriceContainer {
