@@ -5,6 +5,7 @@ import { formatPrice } from '../../utils/formatPrice';
 import Counter from '../Counter/Counter';
 import { useRecoilState } from 'recoil';
 import { cartState } from '../../atoms';
+import { uuid } from '../../utils/uuid';
 import type { Product } from '../../types/product';
 
 const ProductItem = (product: Product) => {
@@ -24,6 +25,19 @@ const ProductItem = (product: Product) => {
       ];
     });
   };
+
+  const updateProductQuantity = (targetId: number, quantity: number) => {
+    setCart((prevCart) => {
+      return prevCart.map((cartProduct) => {
+        if (cartProduct.product.id !== targetId) return cartProduct;
+
+        return {
+          ...cartProduct,
+          quantity,
+        };
+      });
+    });
+  };
   const handleClickCartButton = () => {
     setQuantityInCart(1);
     addProduct(product);
@@ -31,6 +45,8 @@ const ProductItem = (product: Product) => {
 
   const handleChangeQuantity = (count: number) => {
     setQuantityInCart(count);
+
+    updateProductQuantity(id, count);
   };
 
   return (
