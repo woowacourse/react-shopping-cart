@@ -5,27 +5,35 @@ import { useRecoilValue } from 'recoil';
 import quantityState from '../../selector/quantityState';
 
 type ShoppingItemProps = {
-  product: {
+  product?: {
     id: number;
     price: number;
     name: string;
     imageUrl: string;
   };
+  isLoading: boolean;
 };
 
-function ShoppingItem({ product }: ShoppingItemProps) {
+function ShoppingItem({ product, isLoading }: ShoppingItemProps) {
+  console.log(isLoading);
   const { updateShoppingBasket } = useShoppingBasket();
-  const quantity = useRecoilValue(quantityState(product.id));
+  const quantity = product && useRecoilValue(quantityState(product.id));
 
   return (
-    <S.Container aria-label="하나의 판매 품목 정보">
-      <S.ShoppingItemImage src={product.imageUrl} alt={product.name}></S.ShoppingItemImage>
+    <S.Container aria-label={isLoading ? '하나의 판매 품목 정보 로딩 중' : '하나의 판매 품목 정보'}>
+      <S.ShoppingItemImage src={product && product.imageUrl} alt={product && product.name}></S.ShoppingItemImage>
       <S.ShoppingItemContents>
         <S.ShoppingItemLayout>
-          <S.ShoppingItemName aria-label="판매 품목 이름">{product.name}</S.ShoppingItemName>
-          <S.ShoppingItemPrice aria-label="판매 품목 가격">{product.price.toLocaleString()} 원</S.ShoppingItemPrice>
+          <S.ShoppingItemName aria-label={product && '판매 품목 이름'} isLoading={isLoading}>
+            {product && product.name}
+          </S.ShoppingItemName>
+          <S.ShoppingItemPrice aria-label={product && '판매 품목 가격'} isLoading={isLoading}>
+            {product && product.price.toLocaleString()} 원
+          </S.ShoppingItemPrice>
         </S.ShoppingItemLayout>
-        <QuantityController quantity={quantity} updateShoppingBasket={updateShoppingBasket} product={product} />
+        {product && (
+          <QuantityController quantity={quantity} updateShoppingBasket={updateShoppingBasket} product={product} />
+        )}
       </S.ShoppingItemContents>
     </S.Container>
   );

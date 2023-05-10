@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 type QuantityControllerProps = {
   product: Product;
-  quantity: number;
+  quantity?: number;
   updateShoppingBasket: UpdateShoppingBasket;
 };
 
-function QuantityController({ product, quantity, updateShoppingBasket }: QuantityControllerProps) {
+function QuantityController({ product, quantity = 0, updateShoppingBasket }: QuantityControllerProps) {
   const [isBlur, setIsBlur] = useState(false);
 
   const handleClickButton = (type: 'plus' | 'minus') => {
