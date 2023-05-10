@@ -1,13 +1,14 @@
 import * as S from './style';
 
 import ShoppingCart from '@Asset/ShoppingCart.png';
-import { Product } from '@Types/index';
+
+import { Product, UpdateShoppingBasket } from '@Types/index';
 import { useState } from 'react';
 
 type QuantityControllerProps = {
   product: Product;
   quantity: number;
-  updateShoppingBasket: (product: Product, quantity: number) => void;
+  updateShoppingBasket: UpdateShoppingBasket;
 };
 
 function QuantityController({ product, quantity, updateShoppingBasket }: QuantityControllerProps) {

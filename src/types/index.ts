@@ -10,3 +10,5 @@ export type ShoppingBasketProduct = {
   quantity: number;
   product: Product;
 };
+
+export type UpdateShoppingBasket = (product: Product, quantity: number) => void;

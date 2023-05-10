@@ -1,8 +1,9 @@
-import { Product, ShoppingBasketProduct } from '@Types/index';
-import { useState } from 'react';
+import { ShoppingBasketProduct, UpdateShoppingBasket } from '@Types/index';
+import shoppingBasketState from '../../atoms/shoppingBasketState';
+import { useRecoilState } from 'recoil';
 
 const useShoppingBasket = () => {
-  const [shoppingBasket, setShoppingBasket] = useState<ShoppingBasketProduct[]>([]);
+  const [shoppingBasket, setShoppingBasket] = useRecoilState<ShoppingBasketProduct[]>(shoppingBasketState);
 
   const getQuantity = (productId: number) => {
     const shoppingItem = shoppingBasket.find((item) => item.product.id === productId);
@@ -12,7 +13,7 @@ const useShoppingBasket = () => {
     return 0;
   };
 
-  const updateShoppingBasket = (product: Product, quantity: number) => {
+  const updateShoppingBasket: UpdateShoppingBasket = (product, quantity) => {
     const shoppingItem = shoppingBasket.find((item) => item.product.id === product.id);
 
     if (!shoppingItem) {

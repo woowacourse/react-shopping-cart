@@ -1,6 +1,6 @@
 import QuantityController from '@Components/QuantityController';
 import * as S from './style';
-import { Product } from '@Types/index';
+import useShoppingBasket from '@Hooks/useShoppingBasket';
 
 type ShoppingItemProps = {
   product: {
@@ -9,11 +9,11 @@ type ShoppingItemProps = {
     name: string;
     imageUrl: string;
   };
-  quantity: number;
-  updateShoppingBasket: (product: Product, quantity: number) => void;
 };
 
-function ShoppingItem({ product, quantity, updateShoppingBasket }: ShoppingItemProps) {
+function ShoppingItem({ product }: ShoppingItemProps) {
+  const { getQuantity, updateShoppingBasket } = useShoppingBasket();
+
   return (
     <S.Container aria-label="하나의 판매 품목 정보">
       <S.ShoppingItemImage src={product.imageUrl} alt={product.name}></S.ShoppingItemImage>
@@ -22,7 +22,11 @@ function ShoppingItem({ product, quantity, updateShoppingBasket }: ShoppingItemP
           <S.ShoppingItemName aria-label="판매 품목 이름">{product.name}</S.ShoppingItemName>
           <S.ShoppingItemPrice aria-label="판매 품목 가격">{product.price.toLocaleString()} 원</S.ShoppingItemPrice>
         </S.ShoppingItemLayout>
-        <QuantityController quantity={quantity} updateShoppingBasket={updateShoppingBasket} product={product} />
+        <QuantityController
+          quantity={getQuantity(product.id)}
+          updateShoppingBasket={updateShoppingBasket}
+          product={product}
+        />
       </S.ShoppingItemContents>
     </S.Container>
   );
