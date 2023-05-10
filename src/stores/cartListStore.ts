@@ -17,3 +17,14 @@ export const carListTotalQuantitySelector = selector({
     }, 0);
   },
 });
+
+export const productQuantitySelector = selectorFamily({
+  key: 'productQuantitySelector',
+  get:
+    (itemId: number) =>
+    ({ get }) => {
+      const cartList = get(cartListAtom);
+
+      return cartList[itemId]?.quantity ?? 0;
+    },
+});
