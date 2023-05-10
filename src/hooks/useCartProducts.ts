@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
+import useCartProductStorage from './useCartProductStorage';
 import { cartProductState } from '../states/cartProductState';
 import type { CartProduct, Product } from '../types/product';
 
@@ -29,6 +30,7 @@ const subtractTargetQuantity = (cartProducts: CartProduct[], id: number) =>
 const useCartProducts = (product: Product) => {
   const { id } = product;
   const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
+  const [storedCartProducts, setStoredCartProducts] = useCartProductStorage();
 
   const addCount = () => {
     setCartProducts((prev) => addTargetQuantity(prev, id));
@@ -54,6 +56,20 @@ const useCartProducts = (product: Product) => {
       setCartProducts((prev) => deleteProduct(prev, id));
     }
   }, [id, setCartProducts, target]);
+
+  useEffect(() => {
+    if (cartProducts.length !== 0) {
+      setStoredCartProducts(cartProducts);
+    }
+  }, [cartProducts, setStoredCartProducts]);
+
+  useEffect(() => {
+    if (cartProducts.length > 0) return;
+
+    if (storedCartProducts.length !== 0) {
+      setCartProducts(storedCartProducts);
+    }
+  }, [cartProducts.length, setCartProducts, storedCartProducts]);
 
   return { target, addProduct, addCount, subtractCount };
 };
