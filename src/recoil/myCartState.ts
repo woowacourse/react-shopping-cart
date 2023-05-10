@@ -7,7 +7,7 @@ const myCartState = atom<MyCart>({
   default: {},
 });
 
-export const makeProductCountSelector = (targetId: string) => {
+export const makeProductCountSelector = (targetId: number) => {
   return selector({
     key: 'productCountSelector',
     get: ({ get }) => {

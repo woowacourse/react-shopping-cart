@@ -34,7 +34,7 @@ type Story = StoryObj<typeof ProductItem>;
 export const Default: Story = {
   args: {
     product: {
-      id: '1',
+      id: 1,
       name: '1',
       price: 1,
       imageUrl: catImage,
@@ -45,7 +45,7 @@ export const Default: Story = {
 export const Clicked: Story = {
   args: {
     product: {
-      id: '1',
+      id: 1,
       name: '1',
       price: 1,
       imageUrl: catImage,

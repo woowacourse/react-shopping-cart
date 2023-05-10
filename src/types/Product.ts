@@ -1,16 +1,11 @@
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
-
-export interface ApiData extends Omit<Product, 'id'> {
-  id: number;
-}
-
 export interface MyProduct extends Product {
   count: number;
 }
 
-export type MyCart = Record<string, MyProduct>;
+export type MyCart = Record<number, MyProduct>;
