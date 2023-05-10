@@ -1,5 +1,3 @@
-import { isNumber } from '../../utils/isNumber';
-
 const useCounter = (count: number, onChangeCount: (count: number) => void) => {
   const increaseCount = () => {
     if (count >= 99) return;
@@ -13,10 +11,8 @@ const useCounter = (count: number, onChangeCount: (count: number) => void) => {
     onChangeCount(count - 1);
   };
 
-  const handleCountChange = (value: string) => {
-    if (!isNumber(value)) return;
-
-    onChangeCount(Number(value));
+  const handleCountChange = (count: number) => {
+    onChangeCount(Number(count));
   };
 
   return {
