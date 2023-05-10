@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import Logo from '../../assets/logo.png';
@@ -19,4 +20,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

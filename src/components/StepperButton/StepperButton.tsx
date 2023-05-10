@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 
 import { AddIcon, MinusIcon } from '../../assets';
 import styles from './style.module.css';
@@ -9,17 +9,20 @@ interface StepperButtonProps {
 }
 
 const StepperButton = ({ count, setCount }: StepperButtonProps) => {
-  const handleDecrease = () => {
+  const handleDecrease = useCallback(() => {
     setCount((prevCount) => prevCount - 1);
-  };
+  }, [setCount]);
 
-  const handleIncrease = () => {
+  const handleIncrease = useCallback(() => {
     setCount((prevCount) => prevCount + 1);
-  };
+  }, [setCount]);
 
-  const handleCountChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCount(Number(event.target.value));
-  };
+  const handleCountChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setCount(Number(event.target.value));
+    },
+    [setCount]
+  );
 
   return (
     <div className={styles.container}>

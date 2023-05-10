@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { cartListState } from '../../pages/ProductListPage';
@@ -15,7 +15,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
   const [cartList, setCartList] = useRecoilState(cartListState);
   const [quantity, setQuantity] = useState(1);
 
-  const handleCartAdd = () => {
+  const handleCartAdd = useCallback(() => {
     const compareProductId = productInformation.id;
     const selectedCartItemIndex = cartList.findIndex(
       (cartItem) => cartItem.product.id === compareProductId
@@ -39,7 +39,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
     }
 
     closeModalByClick();
-  };
+  }, [cartList, closeModalByClick, productInformation, quantity, setCartList]);
 
   return (
     <div className={styles.container}>

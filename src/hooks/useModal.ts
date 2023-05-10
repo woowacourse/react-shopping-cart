@@ -1,21 +1,21 @@
-import { KeyboardEvent, useState } from 'react';
+import { KeyboardEvent, useCallback, useState } from 'react';
 
 const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleModalClose = () => {
+  const handleModalClose = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleModalClosePress = (event: KeyboardEvent<HTMLElement>) => {
+  const handleModalClosePress = useCallback((event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Escape') {
       setIsModalOpen(false);
     }
-  };
+  }, []);
 
   return [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] as const;
 };
