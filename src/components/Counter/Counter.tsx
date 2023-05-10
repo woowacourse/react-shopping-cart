@@ -63,6 +63,7 @@ const CounterContainer = styled.span<{ size: CounterSize }>`
     (size === 'medium' &&
       css`
         width: 120px;
+        height: 42px;
 
         & > * {
           width: 40px;
