@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import myCartState from '../../recoil/myCartState';
 
+import * as Styled from './ProductStepper.styled';
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
 import Stepper from '../commons/Stepper/Stepper';
 
@@ -37,10 +38,17 @@ const ProductStepper = (props: ProductStepperProps) => {
     });
   }, [productCount, productId, setMyCart]);
 
-  return productCount === 0 ? (
-    <StepperEntryButton onClick={handleCartButtonClick} />
-  ) : (
-    <Stepper productCount={productCount} setProductCount={setProductCount} />
+  return (
+    <Styled.ProductStepper>
+      {productCount === 0 ? (
+        <StepperEntryButton onClick={handleCartButtonClick} />
+      ) : (
+        <Stepper
+          productCount={productCount}
+          setProductCount={setProductCount}
+        />
+      )}
+    </Styled.ProductStepper>
   );
 };
 
