@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 43400,
+    "imageUrl": "http://example.com/1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "PET보틀-밀크티(370ml)",
+    "price": 73400,
+    "imageUrl": "http://example.com/2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "PET보틀-정사각(370ml)",
+    "price": 41000,
+    "imageUrl": "http://example.com/3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "PET보틀-납작(450ml)",
+    "price": 10000,
+    "imageUrl": "http://example.com/4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "PET보틀-단지(480ml)",
+    "price": 41000,
+    "imageUrl": "http://example.com/5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "PET보틀-납작(260ml)",
+    "price": 61800,
+    "imageUrl": "http://example.com/6.jpg"
+  },
+  {
+    "id": 7,
+    "name": "PET보틀-원형(500ml)",
+    "price": 42200,
+    "imageUrl": "http://example.com/7.jpg"
+  },
+  {
+    "id": 8,
+    "name": "PET보틀-원형(600ml)",
+    "price": 44500,
+    "imageUrl": "http://example.com/8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "PET보틀-정사각(420ml)",
+    "price": 43400,
+    "imageUrl": "http://example.com/9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "PET보틀-밀크티(370ml)",
+    "price": 73400,
+    "imageUrl": "http://example.com/10.jpg"
+  },
+  {
+    "id": 11,
+    "name": "PET보틀-정사각(370ml)",
+    "price": 41000,
+    "imageUrl": "http://example.com/11.jpg"
+  },
+  {
+    "id": 12,
+    "name": "PET보틀-납작(450ml)",
+    "price": 39900,
+    "imageUrl": "http://example.com/12.jpg"
+  }
+]
