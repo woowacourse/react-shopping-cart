@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import ROUTE_PATH from 'constants/routePath';
+import { useRecoilValue } from 'recoil';
+import { cartQuantityState } from 'state/CartAtom';
 
 const Header = ({ children }: PropsWithChildren) => {
+  const cartQuantity = useRecoilValue(cartQuantityState);
+
   return (
     <HeaderContainer>
       <FlexLink to={ROUTE_PATH.root}>
@@ -13,7 +17,7 @@ const Header = ({ children }: PropsWithChildren) => {
       </FlexLink>
       <FlexLink to={ROUTE_PATH.cart}>
         <CartTitle>장바구니</CartTitle>
-        <CartQuantity>2</CartQuantity>
+        <CartQuantity>{cartQuantity}</CartQuantity>
       </FlexLink>
     </HeaderContainer>
   );
