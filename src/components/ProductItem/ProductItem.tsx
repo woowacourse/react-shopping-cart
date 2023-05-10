@@ -1,11 +1,11 @@
 import * as Styled from './ProductItem.styles.tsx';
-import ShoppingCartLogo from '../@common/ShoppingCartLogo.tsx';
+import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo';
 import useUpdateCartList from '../../hooks/useUpdateCartList.ts';
 import { useRecoilValue } from 'recoil';
 import { productQuantitySelector } from '../../stores/cartListStore.ts';
 import StepperInput from '../@common/StepperInput/StepperInput.tsx';
 
-type ProductItemProps = {
+export type ProductItemProps = {
   id: number;
   name: string;
   price: number;
