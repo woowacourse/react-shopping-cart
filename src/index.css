@@ -25,6 +25,7 @@ body {
 main {
   position: relative;
   padding-top: 136px;
+  padding-bottom: 100px;
   width: 1080px;
 }
 
