@@ -38,6 +38,13 @@ const ProductItem = (product: Product) => {
       });
     });
   };
+
+  const removeProduct = (targetId: number) => {
+    setCart((prevCart) =>
+      prevCart.filter((cartProduct) => cartProduct.product.id !== targetId),
+    );
+  };
+
   const handleClickCartButton = () => {
     setQuantityInCart(1);
     addProduct(product);
@@ -45,6 +52,11 @@ const ProductItem = (product: Product) => {
 
   const handleChangeQuantity = (count: number) => {
     setQuantityInCart(count);
+
+    if (count === 0) {
+      removeProduct(id);
+      return;
+    }
 
     updateProductQuantity(id, count);
   };
