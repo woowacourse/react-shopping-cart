@@ -7,8 +7,6 @@ export const cartState = atom<CartProduct[]>({
   effects: [
     ({ onSet, setSelf }) => {
       onSet((newValue) => {
-        if (newValue.every((v) => v.quantity > 0)) return;
-
         setSelf(newValue.filter((v) => v.quantity > 0));
       });
     },
