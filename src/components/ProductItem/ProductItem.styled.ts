@@ -13,7 +13,7 @@ export const ProductDetailDiv = styled.div`
 `;
 
 export const NameParagraph = styled.p`
-  width: 100%;
+  max-width: 186px;
   height: 25.02px;
 
   font-family: 'Noto Sans KR';
@@ -22,12 +22,15 @@ export const NameParagraph = styled.p`
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   color: #333333;
 `;
 
 export const PriceParagraph = styled.p`
-  width: 100%;
+  max-width: 186px;
   height: 32.72px;
 
   font-family: 'Noto Sans KR';
@@ -35,6 +38,9 @@ export const PriceParagraph = styled.p`
   font-weight: 400;
   font-size: 20px;
   line-height: 27px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   letter-spacing: 0.5px;
 

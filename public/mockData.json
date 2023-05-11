@@ -8,7 +8,7 @@
   {
     "id": 2,
     "name": "참새",
-    "price": 12000,
+    "price": 2147483647,
     "imageUrl": "https://images.unsplash.com/photo-1606071548917-78ed9809141f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80"
   },
   {
@@ -61,7 +61,7 @@
   },
   {
     "id": 11,
-    "name": "비둘기",
+    "name": "동물계 척삭동물문 조강 비둘기목 비둘기과 비둘기",
     "price": 5000,
     "imageUrl": "https://images.unsplash.com/photo-1507126882445-434b04530d1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   },
