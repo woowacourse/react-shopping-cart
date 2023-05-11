@@ -12,6 +12,8 @@ const useDataFetching = <T>(path: string) => {
       .get(path)
       .then((result) => setData(result.data))
       .catch((error) => {
+        // netWork error 확인하기 위해
+        // eslint-disable-next-line no-console
         console.log(error);
       });
 
