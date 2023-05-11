@@ -54,6 +54,11 @@
             "position": "after"
           },
           {
+            "pattern": "@constants/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
             "pattern": "@assets",
             "group": "internal",
             "position": "after"

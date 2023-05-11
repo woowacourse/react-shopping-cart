@@ -9,7 +9,8 @@
       "@styles/*": ["styles/*"],
       "@recoil/*": ["recoil/*"],
       "@type/*": ["types/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@constants/*": ["constants/*"],
     }
   }
 }
