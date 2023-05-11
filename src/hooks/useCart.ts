@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
 import * as T from '../types/ProductType';
-import mockApi, { fetchMock } from '../api/mockApi';
+import mockApi from '../api/mockApi';
 
 interface Cart {
   id: number;
@@ -34,7 +34,8 @@ function useCart() {
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
-    await fetchMock();
+    const response = await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
+    console.log(response.data);
   };
 
   const updateCartListQuantity = (id: number, newQuantity: number) =>

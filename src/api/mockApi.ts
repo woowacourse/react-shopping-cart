@@ -3,24 +3,12 @@ interface Response {
   data: string;
 }
 
-export const fetchMock = () => {
-  return new Promise<Response>((resolve) =>
-    setTimeout(
-      () =>
-        resolve({
-          data: '',
-        }),
-      1000
-    )
-  );
-};
-
 interface Options {
   body: string;
 }
 
 function mockApi(endpoint: string, options?: Options) {
-  const delay = Math.floor(Math.random() * 1000);
+  const delay = 100;
   return new Promise<Response>((resolve, reject) => {
     setTimeout(() => {
       switch (endpoint) {
@@ -54,8 +42,8 @@ function mockApi(endpoint: string, options?: Options) {
 
         case '/cart-items/update-quantity':
           if (options) {
-            const productJSON = options.body;
-            const { id, quantity } = JSON.parse(productJSON);
+            const body = options.body;
+            const { id, quantity } = JSON.parse(body);
             const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
             const itemIndex = cartItems.findIndex((item: any) => item.id === id);
             cartItems[itemIndex].quantity = quantity;
@@ -65,6 +53,20 @@ function mockApi(endpoint: string, options?: Options) {
             reject(new Error(`잘못된 요청 : ${endpoint}`));
           }
           break;
+
+        case '/cart-items/remove':
+          if (options) {
+            const body = options.body;
+            const { id } = JSON.parse(body);
+            const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
+            const removedCartItems = cartItems.filter((item: any) => item.id !== id);
+            localStorage.setItem('cart-items', JSON.stringify(removedCartItems));
+            resolve({ data: 'success' });
+          } else {
+            reject(new Error(`잘못된 요청 : ${endpoint}`));
+          }
+          break;
+
         default:
           reject(new Error(`잘못된 요청 : ${endpoint}`));
           break;
