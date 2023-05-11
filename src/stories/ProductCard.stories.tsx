@@ -14,6 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
   args: {
+    productId: 1,
     productImage:
       "https://user-images.githubusercontent.com/87642422/237034964-aae42f44-a957-4083-b2ed-d1a65b91f7f7.png",
     productName: "소고기",
