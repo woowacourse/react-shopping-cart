@@ -34,7 +34,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
       const updatedCartList = [...cartList];
       updatedCartList[selectedCartItemIndex] = {
         ...updatedCartList[selectedCartItemIndex],
-        quantity,
+        quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
       };
       setCartList(updatedCartList);
       setCartAddition(true);
