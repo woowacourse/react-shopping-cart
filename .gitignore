@@ -25,3 +25,5 @@ yarn-error.log*
 .gitmessage.txt
 
 .vscode/settings.json
+
+/storybook-static
