@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-
-import myCartState from '../../recoil/myCartState';
+import useProductCount from '../../hooks/useProductCount';
 
 import * as Styled from './ProductStepper.styled';
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
@@ -13,35 +10,12 @@ interface ProductStepperProps {
 
 const ProductStepper = (props: ProductStepperProps) => {
   const { productId } = props;
-
-  const [myCart, setMyCart] = useRecoilState(myCartState);
-
-  const [productCount, setProductCount] = useState(
-    () => myCart[productId] ?? 0
-  );
-
-  const handleCartButtonClick = () => {
-    setProductCount(prev => prev + 1);
-  };
-
-  useEffect(() => {
-    setMyCart(prevCart => {
-      const newCart = { ...prevCart };
-
-      newCart[productId] = productCount;
-
-      if (productCount === 0) {
-        delete newCart[productId];
-      }
-
-      return newCart;
-    });
-  }, [productCount, productId, setMyCart]);
+  const { productCount, setProductCount } = useProductCount(productId);
 
   return (
     <Styled.ProductStepper>
       {productCount === 0 ? (
-        <StepperEntryButton onClick={handleCartButtonClick} />
+        <StepperEntryButton onClick={() => setProductCount(prev => prev + 1)} />
       ) : (
         <Stepper
           productCount={productCount}
