@@ -33,66 +33,40 @@ function useCart() {
     await fetchMock();
   };
 
-  const increaseCart = async (id: number) => {
-    const increasedCartList = cartList.map((cart) => {
-      if (cart.id === id) {
-        return {
-          ...cart,
-          quantity: cart.quantity + 1,
-        };
-      } else {
-        return cart;
-      }
-    });
-
-    setCartList(increasedCartList);
-    await fetchMock();
-  };
-
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
     await fetchMock();
   };
 
-  const decreaseCart = async (id: number) => {
-    const quantity = getQuantityByProductId(id);
-    if (quantity === 1) {
-      removeCart(id);
-    } else {
-      const decreasedCartList = cartList.map((cart) => {
-        if (cart.id === id) {
-          return {
-            ...cart,
-            quantity: cart.quantity - 1,
-          };
-        } else {
-          return cart;
-        }
-      });
-      setCartList(decreasedCartList);
-      await fetchMock();
-    }
-  };
+  const updateCartListQuantity = (id: number, newQuantity: number) =>
+    cartList.map((cart) => {
+      if (cart.id === id) {
+        return {
+          ...cart,
+          quantity: newQuantity,
+        };
+      } else {
+        return cart;
+      }
+    });
 
   const setCartQuantity = async (id: number, quantity: number) => {
     if (quantity === 0) {
       removeCart(id);
     } else {
-      const changedCartList = cartList.map((cart) => {
-        if (cart.id === id) {
-          return {
-            ...cart,
-            quantity: quantity,
-          };
-        } else {
-          return cart;
-        }
-      });
-
+      const changedCartList = updateCartListQuantity(id, quantity);
       setCartList(changedCartList);
       await fetchMock();
     }
+  };
+
+  const increaseCart = async (id: number) => {
+    setCartQuantity(id, getQuantityByProductId(id) + 1);
+  };
+
+  const decreaseCart = async (id: number) => {
+    setCartQuantity(id, getQuantityByProductId(id) - 1);
   };
 
   return {
