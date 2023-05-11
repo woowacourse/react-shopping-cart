@@ -1,12 +1,15 @@
 export interface CartItem {
-  id: number;
+  id: CartId;
   quantity: number;
   product: Product;
 }
 
 export interface Product {
-  id: number;
+  id: ProductId;
   price: number;
   name: string;
   imageUrl: string;
 }
+
+export type CartId = number;
+export type ProductId = number;

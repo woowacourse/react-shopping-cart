@@ -5,10 +5,9 @@ import {
   selector,
   selectorFamily,
 } from 'recoil';
-import { CartItem } from 'src/types';
+import { CartId, CartItem, ProductId } from 'src/types';
 
-export const cartIdMap = atom<Map<number, number>>({
-  // <productId, cartId>
+export const cartIdMap = atom<Map<ProductId, CartId>>({
   key: 'cartId',
   default: new Map(),
 });
