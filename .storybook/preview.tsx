@@ -2,8 +2,10 @@ import type { Preview } from '@storybook/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 
-import '../src/index.css';
+import GlobalStyle from '../src/styles/GlobalStyle';
+import theme from '../src/styles/theme';
 
 const customViewports = {
   Default: {
@@ -42,7 +44,10 @@ export const decorators = [
   (Story) => (
     <MemoryRouter initialEntries={['/']}>
       <RecoilRoot>
-        <Story />
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Story />
+        </ThemeProvider>
       </RecoilRoot>
     </MemoryRouter>
   ),
