@@ -26,9 +26,9 @@ function QuantityController({ product, quantity = 0, updateShoppingBasket }: Qua
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
-    if (newValue > 99) return alert('한 계정당 한 품목을 100개 이상 구입할 수 없습니다.');
+    if (newValue >= 100) return alert('한 계정당 한 품목을 100개 이상 구입할 수 없습니다.');
 
-    updateShoppingBasket(product, newValue);
+    updateShoppingBasket(product, Math.floor(newValue));
   };
 
   return quantity === 0 && !isBlur ? (
