@@ -1,51 +1,35 @@
-import { useRecoilState } from 'recoil';
-import { cartListAtom } from 'src/recoil/cartList';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { cartIdMap, updateCart } from 'src/recoil/cartList';
 import { Product } from 'src/types';
 
 const useProductSelect = (product: Product) => {
-  const [cartList, setCartList] = useRecoilState(cartListAtom);
-
-  const currentCartItem = cartList.find(
-    (item) => item.product.id === product.id
-  );
+  const setCartIdMap = useSetRecoilState(cartIdMap);
+  const [cartItem, setCartItem] = useRecoilState(updateCart(product.id));
 
   const onSelectItem: React.MouseEventHandler<SVGElement> = () => {
-    setCartList((prev) => [...prev, { id: product.id, quantity: 1, product }]);
+    const cartId = Number(new Date());
+    setCartItem({ id: cartId, quantity: 1, product });
+    setCartIdMap((prev) => new Map([...prev, [product.id, cartId]]));
   };
 
   const add: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setCartList((cur) =>
-      cur.map((cart) =>
-        cart.product.id === product.id
-          ? {
-              ...cart,
-              quantity: cart.quantity + 1,
-            }
-          : cart
-      )
-    );
+    if (!cartItem) return;
+    setCartItem({ ...cartItem, quantity: cartItem.quantity + 1 });
   };
 
   const remove: React.MouseEventHandler<HTMLButtonElement> = () => {
-    if (currentCartItem?.quantity === 1) {
-      setCartList((cur) =>
-        cur.filter((item) => item.product.id !== product.id)
-      );
-      return;
+    if (!cartItem) return;
+    if (cartItem.quantity === 1) {
+      setCartIdMap((prev) => {
+        const newState = new Map(prev);
+        newState.delete(product.id);
+        return newState;
+      });
     }
-    setCartList((cur) =>
-      cur.map((cart) =>
-        cart.product.id === product.id
-          ? {
-              ...cart,
-              quantity: cart.quantity - 1,
-            }
-          : cart
-      )
-    );
+    setCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
   };
 
-  return { currentCartItem, remove, add, onSelectItem };
+  return { currentCartItem: cartItem, remove, add, onSelectItem };
 };
 
 export default useProductSelect;
