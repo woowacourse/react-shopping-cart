@@ -7,7 +7,7 @@ interface ProductItemProps {
 }
 
 function ProductItem({ product }: ProductItemProps) {
-  const { id, name, price, imageUrl } = product;
+  const { name, price, imageUrl } = product;
   return (
     <S.ProductItemBox>
       <S.ProductItemImageBox>
