@@ -13,7 +13,6 @@ export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
   const [cart, addOrder, removeOrder, updateQuantity] = useCart();
   const [quantityInput, setQuantityInput] = useState("");
-
   const order = cart.find((order) => order.product.id === id);
 
   const handleClickIcon = () => {
@@ -52,6 +51,10 @@ export default function Product(props: ProductProps) {
       updateQuantity(id, quantity);
     }
   }, [quantityInput]);
+
+  useEffect(() => {
+    if (order) setQuantityInput(String(order.quantity));
+  }, []);
 
   return (
     <S.Wrapper>
