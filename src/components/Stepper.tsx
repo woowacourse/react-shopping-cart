@@ -1,17 +1,17 @@
 import { ChangeEvent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { keyframes, styled } from 'styled-components';
+import { styled } from 'styled-components';
 import { productsInCartState } from '../atom';
 import Button from './common/Button';
 
 interface Props {
-  initCount: number;
+  initCount?: number;
   productId: number;
 }
 
 export default function Stepper({ initCount, productId }: Props) {
-  const [count, setCount] = useState(initCount);
   const setProductsInCart = useSetRecoilState(productsInCartState);
+  const [count, setCount] = useState(initCount || 1);
 
   const increaseCount = () => {
     setCount((prev) => prev + 1);
@@ -61,8 +61,6 @@ export default function Stepper({ initCount, productId }: Props) {
 
     setProductsInCart((prev) => {
       return prev.map((productInCart) => {
-        console.log(typeof productInCart);
-        console.log(typeof productId);
         if (productInCart.id === productId) return { ...productInCart, quantity: value };
 
         return productInCart;
@@ -83,17 +81,6 @@ export default function Stepper({ initCount, productId }: Props) {
   );
 }
 
-const drawStepper = keyframes`
-  from {
-    width:30px;
-    opacity: 0;
-  }
-  to {
-    width:80px;
-    opacity: 1;
-  }
-`;
-
 const Style = {
   Container: styled.div`
     display: flex;
@@ -107,8 +94,6 @@ const Style = {
     & > * {
       flex: 1;
     }
-
-    animation: ${drawStepper} 0.3s ease-in-out;
   `,
 
   CountInput: styled.input`
