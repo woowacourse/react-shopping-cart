@@ -3,19 +3,28 @@ import { CartIcon } from "../assets";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { itemQuantitySelector } from "../recoil/selector";
+import { useNavigate } from "react-router-dom";
+import { ROUTER_PATH } from "../router";
 
 const Header = () => {
+  const navigate = useNavigate();
   const cartItems = useRecoilValue(itemQuantitySelector);
+
+  const handleTitleClicked = () => {
+    navigate(ROUTER_PATH.Main);
+  };
 
   return (
     <HeaderWrapper>
-      <TitleWrapper>
+      <TitleWrapper onClick={handleTitleClicked}>
         <img src={CartIcon} alt={"카트"} />
         <p>SHOP</p>
       </TitleWrapper>
       <CartWrapper>
         장바구니
-        <ItemQuantityWrapper>{cartItems.length}</ItemQuantityWrapper>
+        {cartItems.length > 0 && (
+          <ItemQuantityWrapper>{cartItems.length}</ItemQuantityWrapper>
+        )}
       </CartWrapper>
     </HeaderWrapper>
   );
@@ -40,6 +49,8 @@ const TitleWrapper = styled.section`
   display: flex;
   align-items: end;
   gap: 20px;
+
+  cursor: pointer;
 
   & > p {
     color: white;
