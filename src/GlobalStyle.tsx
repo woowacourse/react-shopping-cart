@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import BMEULJIRO from './assets/fonts/BMEULJIRO.otf';
 
-console.log(BMEULJIRO);
-
 export const GlobalStyle = createGlobalStyle`
     @font-face {
     font-family: 'notosanskr';
