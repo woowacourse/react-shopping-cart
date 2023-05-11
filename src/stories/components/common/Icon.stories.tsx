@@ -76,3 +76,78 @@ export const Cart: Story = {
     },
   },
 };
+
+// export const HeaderIcon = () => {
+//   return (
+//     <div
+//       style={{
+//         display: 'flex',
+//         justifyContent: 'center',
+//         width: 'calc(100vw - 32vw)',
+//         padding: '20px',
+//         background: '#333',
+//       }}
+//     >
+//       <IconComponent width="50" height="40" color="#fff" path={CART_PATH} viewBox="0 0 51 44" />
+//     </div>
+//   );
+// };
+
+export const HeaderCart: Story = {
+  decorators: [
+    (Story) => {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: 'calc(100vw - 32vw)',
+            padding: '20px',
+            background: '#333',
+          }}
+        >
+          <Story />
+        </div>
+      );
+    },
+  ],
+
+  args: {
+    width: '50',
+    height: '44',
+    color: '#fff',
+    path: CART_PATH,
+    viewBox: '0 0 51 44',
+  },
+
+  argTypes: {
+    width: {
+      control: {
+        type: 'text',
+      },
+    },
+    color: {
+      control: {
+        type: 'color',
+      },
+    },
+    path: {
+      options: {
+        'Cart Icon': CART_PATH,
+      },
+      control: {
+        type: 'radio',
+      },
+    },
+    svgStyle: {
+      control: {
+        disable: true,
+      },
+    },
+    onClick: {
+      control: {
+        disable: true,
+      },
+    },
+  },
+};
