@@ -37,37 +37,37 @@
   },
   {
     "id": 7,
-    "name": "알루미늄병-순도100%(500ml)",
+    "name": "[새콤달콤] 자동에이드",
     "price": 15000,
     "imageUrl": "https://images.unsplash.com/photo-1592858521880-ce49b8e9194b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
   },
   {
     "id": 8,
-    "name": "알루미늄병-순도100%(750ml)",
+    "name": "[자연 그대로] 오렌지에이드",
     "price": 18000,
     "imageUrl": "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
   },
   {
     "id": 9,
-    "name": "스테인리스병-한국제작(500ml)",
+    "name": "[2+1] 특가 세일 에이드 세트",
     "price": 18000,
     "imageUrl": "https://images.unsplash.com/photo-1497534446932-c925b458314e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1372&q=80"
   },
   {
     "id": 10,
-    "name": "스테인리스병-한국제작(750ml)",
+    "name": "[고급선물] 라임+자몽 에이드",
     "price": 22000,
     "imageUrl": "https://images.unsplash.com/photo-1609951651556-5334e2706168?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
   },
   {
     "id": 11,
-    "name": "지퍼백-스몰사이즈(300ml)",
+    "name": "[청량그자체] 탄산수",
     "price": 5000,
     "imageUrl": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
   },
   {
     "id": 12,
-    "name": "지퍼백-라지사이즈(1000ml)",
+    "name": "[세상에] 고수가 들어가 아아",
     "price": 10000,
     "imageUrl": "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80"
   }

@@ -1,4 +1,5 @@
 import shoppingBasketState from '@Atoms/shoppingBasketState';
+import { SHOPPING_QUANTITY } from '@Constants/index';
 import { ShoppingBasketProduct, UpdateShoppingBasket } from '@Types/index';
 
 import { useRecoilState } from 'recoil';
@@ -16,7 +17,7 @@ const useShoppingBasket = () => {
         product,
       };
       setShoppingBasket([...shoppingBasket, newShoppingItem]);
-    } else if (quantity !== 0) {
+    } else if (quantity !== SHOPPING_QUANTITY.MIN) {
       setShoppingBasket((prev) =>
         prev.map((item) => {
           if (item.product.id !== shoppingItem.product.id) return item;

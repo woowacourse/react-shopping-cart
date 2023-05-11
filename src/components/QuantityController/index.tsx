@@ -3,6 +3,8 @@ import * as S from './style';
 import ShoppingCart from '@Asset/ShoppingCart.png';
 
 import { Product, UpdateShoppingBasket } from '@Types/index';
+import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
+
 import { useState } from 'react';
 
 type QuantityControllerProps = {
@@ -11,27 +13,33 @@ type QuantityControllerProps = {
   updateShoppingBasket: UpdateShoppingBasket;
 };
 
-function QuantityController({ product, quantity = 0, updateShoppingBasket }: QuantityControllerProps) {
-  const [isBlur, setIsBlur] = useState(false);
+type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
 
-  const handleClickButton = (type: 'plus' | 'minus') => {
-    if (type === 'plus') updateShoppingBasket(product, quantity + 1);
-    else updateShoppingBasket(product, quantity - 1);
+function QuantityController({
+  product,
+  quantity = SHOPPING_QUANTITY.MIN,
+  updateShoppingBasket,
+}: QuantityControllerProps) {
+  const [isBlur, setIsBlur] = useState(true);
+
+  const handleClickQuantityControlButton = (type: QuantityControlButton) => {
+    if (type === QUANTITY_CONTROL_BUTTON.PLUS) updateShoppingBasket(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+    else updateShoppingBasket(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
   };
 
   const handleClickCartIcon = () => {
-    updateShoppingBasket(product, 1);
+    updateShoppingBasket(product, SHOPPING_QUANTITY.DEFAULT);
   };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(event.target.value);
 
-    if (newValue >= 100) return alert('한 계정당 한 품목을 100개 이상 구입할 수 없습니다.');
+    if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
 
     updateShoppingBasket(product, Math.floor(newValue));
   };
 
-  return quantity === 0 && !isBlur ? (
+  return quantity === SHOPPING_QUANTITY.MIN && isBlur ? (
     <S.ShoppingCartIcon src={ShoppingCart} onClick={handleClickCartIcon}></S.ShoppingCartIcon>
   ) : (
     <S.Container>
@@ -41,17 +49,23 @@ function QuantityController({ product, quantity = 0, updateShoppingBasket }: Qua
         onChange={handleChangeInput}
         onFocus={(event: React.FocusEvent<HTMLInputElement>) => {
           event.target.select();
-          setIsBlur(true);
+          setIsBlur(false);
         }}
         onBlur={() => {
-          setIsBlur(false);
+          setIsBlur(true);
         }}
       />
       <S.ButtonWrapper>
-        <S.QuantityControlButton onClick={() => handleClickButton('plus')} disabled={quantity >= 99}>
+        <S.QuantityControlButton
+          onClick={() => handleClickQuantityControlButton(QUANTITY_CONTROL_BUTTON.PLUS)}
+          disabled={quantity >= SHOPPING_QUANTITY.MAX}
+        >
           ▲
         </S.QuantityControlButton>
-        <S.QuantityControlButton onClick={() => handleClickButton('minus')} disabled={quantity <= 0}>
+        <S.QuantityControlButton
+          onClick={() => handleClickQuantityControlButton(QUANTITY_CONTROL_BUTTON.MINUS)}
+          disabled={quantity <= SHOPPING_QUANTITY.MIN}
+        >
           ▼
         </S.QuantityControlButton>
       </S.ButtonWrapper>

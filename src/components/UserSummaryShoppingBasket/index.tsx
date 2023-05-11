@@ -1,3 +1,4 @@
+import { SHOPPING_QUANTITY } from '@Constants/index';
 import * as S from './style';
 
 type UserSummaryShoppingBasketProps = {
@@ -9,8 +10,10 @@ function UserSummaryShoppingBasket({ username, quantity }: UserSummaryShoppingBa
   return (
     <S.Container>
       <S.Username>{username && `${username}의 `}장바구니</S.Username>
-      <S.Quantity>{quantity > 99 ? '99' : quantity}</S.Quantity>
-      {quantity > 99 && <S.PlusIcon aria-label="99개 이상입니다.">+</S.PlusIcon>}
+      <S.Quantity>{quantity > SHOPPING_QUANTITY.MAX ? `${SHOPPING_QUANTITY.MAX}` : quantity}</S.Quantity>
+      {quantity > SHOPPING_QUANTITY.MAX && (
+        <S.PlusIcon aria-label={`${SHOPPING_QUANTITY.MAX}개 이상입니다.`}>+</S.PlusIcon>
+      )}
     </S.Container>
   );
 }
