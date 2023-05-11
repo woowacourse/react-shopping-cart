@@ -11,12 +11,11 @@
   - [x] 상품 이미지, 상품명, 가격을 확인할 수 있다.
 - [x] ProductCardList
   - [x] 12개의 상품을 확인할 수 있다.
-- [x] QuantityInput
+- [x] Counter
   - [x] 수량을 조절할 수 있다.
+  - [x] 수량이 0일때 CartIconButton으로 돌아온다.
 - [ ] LocalStorage 저장
   - [ ] 새로고침 해도 장바구니에 담긴 수량이 유지된다.
-
-<br>
 
 # 필수 요구사항
 

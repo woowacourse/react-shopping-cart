@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Product, Cart } from '../../types/product';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom } from '../../recoil/cartState';
+import Counter from '../Counter';
 
 interface ProductCardProps {
   product: Product;
@@ -24,20 +25,25 @@ const ProductCard = ({ product }: ProductCardProps) => {
     setIsCartClicked(true);
   };
 
-  const updateQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const targetProductIndex = cart.findIndex((item) => item.id === id);
-    if (targetProductIndex === -1) return;
+  const plusOne = () => {
+    const newProduct = cart.map((cart) => {
+      if (cart.id !== id) return cart;
+      return { ...cart, quantity: cart.quantity + 1 };
+    });
+    setCart(() => [...newProduct]);
+  };
 
-    const updatedCartProduct: Cart = {
-      ...cart[targetProductIndex],
-      quantity: Number(e.target.value),
-    };
+  const minusOne = () => {
+    const newProdoct = cart
+      .map((cart) => {
+        if (cart.id !== id) return cart;
+        return { ...cart, quantity: cart.quantity - 1 };
+      })
+      .filter((cart) => cart.quantity > 0);
 
-    setCart((cart) => [
-      ...cart.slice(0, targetProductIndex),
-      updatedCartProduct,
-      ...cart.slice(targetProductIndex + 1),
-    ]);
+    setCart(() => [...newProdoct]);
+
+    if (!newProdoct.find((item) => item.id === id)) setIsCartClicked(false);
   };
 
   return (
@@ -49,12 +55,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
         </Styled.ProductInfo>
         {isCartClicked ? (
-          <Styled.QuantityInput
-            type='number'
-            defaultValue={1}
-            min={0}
-            max={99}
-            onChange={updateQuantity}
+          <Counter
+            plusOne={plusOne}
+            minusOne={minusOne}
+            quantity={cart.find((item) => item.id === id)?.quantity}
           />
         ) : (
           <Styled.ShoppingCart onClick={addToCart}>
@@ -107,15 +111,6 @@ const Styled = {
     font-size: 20px;
 
     letter-spacing: 0.5px;
-  `,
-
-  QuantityInput: styled.input.attrs({ type: 'number' })`
-    width: 64px;
-    height: 28px;
-
-    border: 1px solid #dddddd;
-
-    padding-left: 8px;
   `,
 
   ShoppingCart: styled.button`
