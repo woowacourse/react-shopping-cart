@@ -3,7 +3,7 @@ import { Header } from '../components/Header';
 
 const meta = {
   component: Header,
-  title: 'Common/Header',
+  title: 'Components/Header',
 } satisfies Meta<typeof Header>;
 
 export default meta;
