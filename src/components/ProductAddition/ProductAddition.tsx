@@ -62,10 +62,14 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         <h3>{priceFormatter(productInformation.price * quantity)} 원</h3>
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton} onClick={closeModalByClick}>
+        <button
+          className={styles.cancelButton}
+          aria-label="close modal"
+          onClick={closeModalByClick}
+        >
           취소
         </button>
-        <button className={styles.addButton} onClick={handleCartAdd}>
+        <button className={styles.addButton} aria-label="add item" onClick={handleCartAdd}>
           장바구니 담기
         </button>
       </div>

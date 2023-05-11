@@ -33,13 +33,26 @@ const StepperButton = ({ count, minCount = 1, maxCount = 99, setCount }: Stepper
       <button
         type="button"
         className={styles.decreaseButton}
+        aria-label="decrease"
         disabled={count === minCount}
         onClick={handleDecrease}
       >
         <MinusIcon />
       </button>
-      <input className={styles.count} value={count} onChange={handleCountChange}></input>
-      <button type="button" className={styles.increaseButton} onClick={handleIncrease}>
+      <input
+        name="count"
+        className={styles.count}
+        value={count}
+        aria-label="count input"
+        onChange={handleCountChange}
+      ></input>
+      <button
+        type="button"
+        className={styles.increaseButton}
+        aria-label="increase"
+        disabled={count === maxCount}
+        onClick={handleIncrease}
+      >
         <AddIcon />
       </button>
     </div>
