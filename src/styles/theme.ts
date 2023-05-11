@@ -3,13 +3,13 @@ import { DefaultTheme } from 'styled-components';
 const color = {
   white: '#FFFFFF',
   primary: '#333333',
-  secondary: '#04C09E',
+  secondary: '#fed777',
 };
 
 const font = {
-  product: 'normal 400 16x/22px Noto Sans KR',
-  header: 'normal 900 40px/58px Noto Sans KR',
-  price: 'normal 400 20px/26px Noto Sans KR',
+  product: 'normal 400 16px/22px BM-HANNA',
+  header: 'normal 900 40px/58px BM-HANNA',
+  price: 'normal 400 20px/26px BM-HANNA',
 };
 
 const theme: DefaultTheme = {

@@ -13,6 +13,13 @@ const GlobalStyle = createGlobalStyle`
     button, input {
         all:unset;
     }
+    
+    @font-face {
+        font-family: 'BM-HANNA';
+        src: url('https://cdn.jsdelivr.net/gh/wizfile/font/BM-HANNA.eot');
+        src:url('https://cdn.jsdelivr.net/gh/wizfile/font/BM-HANNA.woff') format('woff');
+        font-style: normal;
+    }
 `;
 
 export default GlobalStyle;
