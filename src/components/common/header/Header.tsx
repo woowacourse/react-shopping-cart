@@ -13,7 +13,9 @@ const Header = () => {
             SHOP
           </Text>
         </LogoWrapper>
-        <UserCartInfo />
+        <CartWrapper>
+          <UserCartInfo />
+        </CartWrapper>
       </HeaderInner>
     </HeaderWrapper>
   );
@@ -27,18 +29,24 @@ const HeaderWrapper = styled.div`
   background-color: #333333;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const HeaderInner = styled.div`
-  width: 100%;
+  width: 1300px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
+  position: relative;
+  justify-content: space-between;
 `;
 
 const LogoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const CartWrapper = styled.div`
+  display: flex;
 `;
