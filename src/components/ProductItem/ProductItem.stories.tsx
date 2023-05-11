@@ -20,20 +20,22 @@ type Story = StoryObj<typeof meta>;
 
 export const QuantityZero = {
   args: {
-    id: 1,
-    name: '귀여운 고양이',
-    price: 100000000,
-    imageUrl: 'https://placekitten.com/300/300',
-    quantity: 0,
+    product: {
+      id: 1,
+      name: '귀여운 고양이',
+      price: 100000000,
+      imageUrl: 'https://placekitten.com/300/300',
+    },
   },
 } satisfies Story;
 
 export const QuantityOverZero = {
   args: {
-    id: 2,
-    name: '매서운 강아지',
-    price: 1324000000,
-    imageUrl: 'https://placedog.net/300/300',
-    quantity: 1,
+    product: {
+      id: 2,
+      name: '매서운 강아지',
+      price: 1324000000,
+      imageUrl: 'https://placedog.net/300/300',
+    },
   },
 } satisfies Story;
