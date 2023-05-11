@@ -26,15 +26,14 @@ function useCart() {
   };
 
   const addCart = async (product: T.ProductItem) => {
-    // await fetchMock();
     if (cartList.findIndex((c) => c.id === product.id) !== -1) {
       return;
     }
     setCartList([...cartList, { id: product.id, quantity: 1, product }]);
+    await fetchMock();
   };
 
   const increaseCart = async (id: number) => {
-    // await fetchMock();
     const increasedCartList = cartList.map((cart) => {
       if (cart.id === id) {
         return {
@@ -47,15 +46,16 @@ function useCart() {
     });
 
     setCartList(increasedCartList);
+    await fetchMock();
   };
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
+    await fetchMock();
   };
 
   const decreaseCart = async (id: number) => {
-    // await fetchMock();
     const quantity = getQuantityByProductId(id);
     if (quantity === 1) {
       removeCart(id);
@@ -71,6 +71,7 @@ function useCart() {
         }
       });
       setCartList(decreasedCartList);
+      await fetchMock();
     }
   };
 
@@ -90,6 +91,7 @@ function useCart() {
       });
 
       setCartList(changedCartList);
+      await fetchMock();
     }
   };
 
