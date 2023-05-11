@@ -1,8 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import Baemin from './fonts/Baemin.ttf';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+
+  @font-face {
+    font-family: 'Baemin';
+    src: url(${Baemin});
+  }
 
   :root {
     --primary-color: #5f0080;
@@ -18,9 +24,8 @@ const GlobalStyle = createGlobalStyle`
 
   }
 
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  body{
+    font-family: 'Baemin';
   }
 
   a {
@@ -32,6 +37,17 @@ const GlobalStyle = createGlobalStyle`
   a:hover, a:active {
     text-decoration: none;
   }
+
+  @keyframes drawStepper {
+      from {
+        width: 30px;
+        opacity: 0;
+      }
+      to {
+        width: 80px;
+        opacity: 1;
+      }
+    }
 `;
 
 export default GlobalStyle;
