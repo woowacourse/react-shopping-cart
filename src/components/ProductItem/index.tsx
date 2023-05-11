@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Cart } from '../../assets/카트.svg';
 import { Product } from '../../types/product';
@@ -10,8 +10,10 @@ type ProductItemProps = {
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
-  const [count, setCount] = useState(0);
-  const { addCart, updateCart, deleteCart } = useCart(cartState, product);
+  const { cart, addCart, updateCart, deleteCart } = useCart(cartState, product);
+  const productItemQuantity = cart.find((c) => c.product.id === product.id)?.quantity;
+
+  const [count, setCount] = useState(productItemQuantity || 0);
 
   const { name, price, imageUrl } = product;
 
@@ -20,13 +22,27 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     setCount(1);
   };
 
-  const handleCartAmountChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const limitInputNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 3) {
+      e.target.value = e.target.value.slice(0, 3);
+    }
+  };
+
+  const handleCartAmountChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    limitInputNumber(e);
     const newCount = Number(e.target.value);
 
     updateCart(newCount);
     setCount(newCount);
 
     if (newCount === 0) deleteCart();
+  };
+
+  const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    if (Number(e.target.value) < 1) {
+      setCount(0);
+      deleteCart();
+    }
   };
 
   return (
@@ -41,7 +57,14 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           {count === 0 ? (
             <Cart data-cy="add-cart" onClick={handleCartAmount} />
           ) : (
-            <StyledCountInput type="number" value={count} onChange={handleCartAmountChange} min={0} max={100} />
+            <StyledCountInput
+              type="number"
+              value={count}
+              onChange={handleCartAmountChange}
+              min={0}
+              max={100}
+              onBlur={handleBlur}
+            />
           )}
         </StyledAddToCart>
       </StyledInfoWrapper>
