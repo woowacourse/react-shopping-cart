@@ -1,77 +1,5 @@
 [
   {
-<<<<<<< HEAD
-    "id": 0,
-    "name": "PET보틀-정사각(420ml)",
-    "price": 43400,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 1,
-    "name": "PET보틀-밀크티(370ml)",
-    "price": 73400,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 2,
-    "name": "PET보틀-정사각(370ml)",
-    "price": 41000,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 3,
-    "name": "PET보틀-납작(450ml)",
-    "price": 39000,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 4,
-    "name": "PET보틀-단지(480ml)",
-    "price": 41000,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 5,
-    "name": "PET보틀-납작(260ml)",
-    "price": 61800,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 6,
-    "name": "PET보틀-원형(500ml)",
-    "price": 42200,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 7,
-    "name": "PET보틀-원형(600ml)",
-    "price": 44500,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 8,
-    "name": "PET보틀-정사각(420ml)",
-    "price": 43400,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 9,
-    "name": "PET보틀-밀크티(370ml)",
-    "price": 73400,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 10,
-    "name": "PET보틀-정사각(370ml)",
-    "price": 41000,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-  },
-  {
-    "id": 11,
-    "name": "PET보틀-납작(450ml)",
-    "price": 39900,
-    "imageUrl": "https://picsum.photos/id/63/280/280"
-=======
     "id": 96,
     "name": "SONY 컨트롤러",
     "price": 104000,
@@ -118,6 +46,5 @@
     "name": "풀무원 완두콩",
     "price": 200,
     "imageUrl": "https://picsum.photos/id/627/300"
->>>>>>> f80d2c03521c18356d749cfb9bd64dbdf2d0ab44
   }
 ]
