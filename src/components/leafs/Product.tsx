@@ -4,6 +4,8 @@ import useCart from '../../hooks/useCart';
 import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
 
+import cartImg from '../../../public/assets/cart.svg';
+
 interface ProductProps {
   id: number;
   name: string;
@@ -68,7 +70,7 @@ export default function Product(props: ProductProps) {
               onBlur={handleBlurCounter}
             />
           ) : (
-            <CartIcon src="./assets/cart.svg" onClick={handleClickIcon}></CartIcon>
+            <CartIcon src={cartImg} onClick={handleClickIcon}></CartIcon>
           )}
         </ControlBox>
       </InfoBox>
