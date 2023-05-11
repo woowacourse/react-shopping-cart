@@ -53,7 +53,7 @@ export default function Product(props: ProductProps) {
 
   return (
     <Wrapper>
-      <Img src={`./assets/mockImages/${imageUrl}`} />
+      <Img src={`/assets/mockImages/${imageUrl}`} />
       <InfoBox>
         <LabelBox>
           <Name>{name}</Name>
