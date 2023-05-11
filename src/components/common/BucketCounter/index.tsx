@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 import { styled } from 'styled-components';
+import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
   setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +20,7 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
 
     if (onlyNumberExpression.test(value)) return;
 
-    setBucketCount(Number(event.target.value));
+    setBucketCount(Number(value));
   };
 
   return (

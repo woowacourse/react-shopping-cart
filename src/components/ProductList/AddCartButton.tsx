@@ -1,23 +1,29 @@
 import { useState } from 'react';
-import { BUCKET_BUTTON } from '@assets';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
+import { BUCKET_BUTTON } from '@assets';
 
-const AddCartButton = () => {
+interface AddCartButtonProps {
+  addProductToCart: () => void;
+}
+
+const AddCartButton = ({ addProductToCart }: AddCartButtonProps) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  const toggleClick = () => {
-    setIsClicked((prev) => !prev);
+  const toggleCounter = () => {
+    setIsClicked(true);
+
+    addProductToCart();
   };
 
   return (
     <Wrapper>
       {!isClicked && (
-        <Button type="button" onClick={toggleClick}>
+        <Button type="button" onClick={toggleCounter}>
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
-      {isClicked && <BucketCounter setIsClicked={setIsClicked}/>}
+      {isClicked && <BucketCounter setIsClicked={setIsClicked} />}
     </Wrapper>
   );
 };

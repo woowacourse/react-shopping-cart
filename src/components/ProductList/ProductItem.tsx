@@ -1,14 +1,30 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { cartAtom } from '@recoil/atoms/cartAtom';
+import { CartInformation } from '@type/types';
 import { theme } from '@styles/theme';
 import AddCartButton from './AddCartButton';
 
 interface ProductItemProps {
+  id: number;
   name: string;
   price: number;
   imageUrl: string;
 }
 
-const ProductItem = ({ name, price, imageUrl }: ProductItemProps) => {
+const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
+  const [cart, setCart] = useRecoilState(cartAtom);
+
+  const addProductToCart = () => {
+    const product: CartInformation = {
+      id,
+      product: { name, price, imageUrl, id },
+      quantity: 1,
+    };
+
+    setCart([...cart, product]);
+  };
+  
   return (
     <Wrapper>
       <Picture src={imageUrl} alt={name} />
@@ -17,7 +33,7 @@ const ProductItem = ({ name, price, imageUrl }: ProductItemProps) => {
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
-        <AddCartButton />
+        <AddCartButton addProductToCart={addProductToCart} />
       </InformationWrapper>
     </Wrapper>
   );

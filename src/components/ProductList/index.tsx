@@ -7,6 +7,7 @@ const ProductList = () => {
     <Container>
       {PRODUCT_LIST.productList.map((product) => (
         <ProductItem
+          id={product.id}
           name={product.name}
           imageUrl={product.imageUrl}
           price={product.price}
