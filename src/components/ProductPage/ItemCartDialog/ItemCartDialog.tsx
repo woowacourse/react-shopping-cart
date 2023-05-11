@@ -46,7 +46,6 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
       <Dialog.Portal>
         <Dialog.BackDrop />
         <Dialog.Content>
-          x
           <S.Box>
             <S.Thumbnail src={imageUrl} alt={name} />
             <S.Name>{name}</S.Name>
