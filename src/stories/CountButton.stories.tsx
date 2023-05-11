@@ -1,4 +1,3 @@
-import { within } from '@testing-library/react';
 import CountButton from '../components/CountButton';
 import type { Meta, StoryObj } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
@@ -14,7 +13,7 @@ export const Default: Story = {
   args: {
     getCount: () => {},
   },
-  play: async ({}) => {
+  play: async () => {
     userEvent.tab();
     await new Promise(resolve => {
       setTimeout(resolve, 200);
