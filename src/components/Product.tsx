@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { CartIcon } from '../assets/svg';
-import { productsInCartState } from '../atom';
+import { useCart } from '../hooks/useCart';
 import Stepper from './Stepper';
 
-function Product({ data }: any) {
-  const [productsInCart, setProductsInCart] = useRecoilState(productsInCartState);
-  const [productInCart] = useState(productsInCart.find((product) => product.id === data.id));
+interface IProduct {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
+
+interface Props {
+  data: IProduct;
+}
+
+export default function Product({ data }: Props) {
+  const { addToCart, findProductInCart, isSelected } = useCart();
+  const productInCart = findProductInCart(data.id);
   const isInCart = Boolean(productInCart);
-
-  const [isSelected, setIsSelected] = useState(isInCart);
-
-  const handleClickCartIcon = () => {
-    setIsSelected(true);
-    setProductsInCart((prev) => [
-      ...prev,
-      {
-        id: data.id,
-        quantity: 1,
-      },
-    ]);
-  };
 
   return (
     <Style.Container>
@@ -31,12 +27,12 @@ function Product({ data }: any) {
           <Style.ProductName>{data.name}</Style.ProductName>
           <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
         </div>
-        {isSelected ? (
+        {isSelected(data.id) ? (
           <Style.StepperWrapper isInCart={isInCart}>
             <Stepper initCount={productInCart?.quantity} productId={data.id} />
           </Style.StepperWrapper>
         ) : (
-          <Style.CartIconWrapper onClick={handleClickCartIcon}>
+          <Style.CartIconWrapper onClick={() => addToCart(data.id)}>
             <CartIcon fill="#AAAAAA" />
           </Style.CartIconWrapper>
         )}
@@ -44,8 +40,6 @@ function Product({ data }: any) {
     </Style.Container>
   );
 }
-
-export default React.memo(Product);
 
 const Style = {
   Container: styled.div`
@@ -79,8 +73,7 @@ const Style = {
   `,
 
   StepperWrapper: styled.div<{ isInCart: boolean }>`
-    /* animation: drawStepper 0.3s ease-in-out; */
-    /* animation: ${(props) => !props.isInCart && 'drawStepper 0.3s ease-in-out'}; */
+    animation: ${(props) => !props.isInCart && 'drawStepper 0.3s ease-in-out'};
   `,
 
   CartIconWrapper: styled.button`
