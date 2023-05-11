@@ -1,6 +1,6 @@
 describe('정상 작동 기능 테스트', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173');
+    cy.visit('http://localhost:3000');
     cy.get('[data-cy="productItem"]').first().as('firstProductItem');
   });
 

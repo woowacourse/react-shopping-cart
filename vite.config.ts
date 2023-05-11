@@ -5,6 +5,9 @@ export default defineConfig(({ command }) => {
   const isBuild = command === 'build';
 
   return {
+    server: {
+      port: 3000,
+    },
     plugins: [
       react({
         babel: {
