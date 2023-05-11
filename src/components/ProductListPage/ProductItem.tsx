@@ -1,9 +1,7 @@
-import { useState, useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useRef } from "react";
 import styled from "styled-components";
 import { AddCartIc } from "../../asset";
-import { cartState } from "../../atoms/cartState";
-import type { CartType } from "../../type/cart";
+import { useAddCart } from "../../hooks/useAddCart";
 import QuantityCounter from "../common/QuantityCounter";
 
 interface ProductItemProps {
@@ -13,46 +11,14 @@ interface ProductItemProps {
   price: number;
 }
 
-// TODO: 원단위 표시
 export default function ProductItem({
   id,
   imageUrl,
   name,
   price,
 }: ProductItemProps) {
-  const [isSelected, setIsSelected] = useState(false);
-  const [cart, setCart] = useRecoilState<CartType[]>(cartState);
   const quantityRef = useRef<HTMLInputElement>(null);
-
-  const createChangedCart = (prevCart: CartType[], cartItem: CartType) => {
-    const index = prevCart.findIndex(
-      (prevItem) => prevItem.productId === cartItem.productId
-    );
-    if (index === -1) return [...prevCart, cartItem];
-
-    return [
-      ...prevCart.slice(0, index),
-      cartItem,
-      ...prevCart.slice(index + 1),
-    ];
-  };
-
-  const selectProductItem = () => {
-    setIsSelected(true);
-  };
-
-  const addCartProductItem = () => {
-    setIsSelected(false);
-    const cartItem: CartType = {
-      productId: id,
-      quantity: 0,
-    };
-    if (quantityRef.current) {
-      cartItem.quantity = +quantityRef.current.value;
-    }
-
-    setCart((prev) => createChangedCart(prev, cartItem));
-  };
+  const { isSelected, selectProductItem, addCartProductItem } = useAddCart();
 
   return (
     <ProductItemContainer>
@@ -73,7 +39,7 @@ export default function ProductItem({
         )}
       </InfoBox>
       {isSelected && (
-        <AddCartButton onClick={addCartProductItem}>
+        <AddCartButton onClick={() => addCartProductItem(id, quantityRef)}>
           장바구니 추가
         </AddCartButton>
       )}
@@ -81,7 +47,6 @@ export default function ProductItem({
   );
 }
 
-// width: 28.2rem;
 const ProductItemContainer = styled.li`
   width: 28.2rem;
 `;
