@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { RecoilRoot } from 'recoil';
 
 import Header from '.';
-import { RecoilRoot } from 'recoil';
 
 /**
  * `Header`은 페이지의 헤더 컴포넌트입니다.

@@ -1,6 +1,8 @@
-import shoppingCartState from '@Atoms/shoppingCartState';
-import { SHOPPING_QUANTITY } from '@Constants/index';
 import { selectorFamily } from 'recoil';
+
+import shoppingCartState from '@Atoms/shoppingCartState';
+
+import { SHOPPING_QUANTITY } from '@Constants/index';
 
 const quantityState = selectorFamily({
   key: 'quantityState',

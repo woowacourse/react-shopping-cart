@@ -1,5 +1,6 @@
-import { ShoppingCartProduct } from '@Types/index';
 import { atom } from 'recoil';
+
+import { ShoppingCartProduct } from '@Types/index';
 
 const shoppingCartState = atom({
   key: 'shoppingCartState',

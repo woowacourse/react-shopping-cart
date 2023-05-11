@@ -1,8 +1,12 @@
-import QuantityController from '@Components/QuantityController';
-import * as S from './style';
-import useShoppingCart from '@Hooks/useShoppingCart';
 import { useRecoilValue } from 'recoil';
+
+import QuantityController from '@Components/QuantityController';
+
+import useShoppingCart from '@Hooks/useShoppingCart';
+
 import quantityState from '@Selector/quantityState';
+
+import * as S from './style';
 
 type ProductItemProps = {
   product?: {

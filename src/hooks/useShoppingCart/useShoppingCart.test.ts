@@ -1,6 +1,6 @@
-// recoilHooks.test.js
 import { renderHook, act } from '@testing-library/react-hooks';
 import { RecoilRoot } from 'recoil';
+
 import useShoppingCart from '.';
 
 describe('장바구니에 넣은 물품 품목 훅 테스트', () => {

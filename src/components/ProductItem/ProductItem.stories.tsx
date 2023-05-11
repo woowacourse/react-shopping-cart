@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { within } from '@storybook/testing-library';
+import { RecoilRoot } from 'recoil';
 
 import ProductItem from '.';
-import { RecoilRoot } from 'recoil';
-import { within } from '@storybook/testing-library';
 
 /**
  * `ProductItem`은 하나의 쇼핑 품목을 나타내는 컴포넌트입니다.

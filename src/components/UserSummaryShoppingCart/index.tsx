@@ -1,4 +1,5 @@
 import { SHOPPING_QUANTITY } from '@Constants/index';
+
 import * as S from './style';
 
 type UserSummaryShoppingCartProps = {

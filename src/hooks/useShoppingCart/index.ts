@@ -1,8 +1,10 @@
-import shoppingCartState from '@Atoms/shoppingCartState';
-import { SHOPPING_QUANTITY } from '@Constants/index';
+import { useRecoilState } from 'recoil';
+
 import { ShoppingCartProduct, UpdateShoppingCart } from '@Types/index';
 
-import { useRecoilState } from 'recoil';
+import shoppingCartState from '@Atoms/shoppingCartState';
+
+import { SHOPPING_QUANTITY } from '@Constants/index';
 
 const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useRecoilState<ShoppingCartProduct[]>(shoppingCartState);
