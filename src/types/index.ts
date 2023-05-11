@@ -5,10 +5,10 @@ export interface ProductType {
   imageUrl: string;
 }
 
-export interface OrderType {
+export interface CartItemType {
   id: number;
   quantity: number;
   product: ProductType;
 }
 
-export interface CartType extends Array<OrderType> {}
+export interface CartType extends Array<CartItemType> {}

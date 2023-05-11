@@ -12,13 +12,13 @@ interface ProductProps {
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
-  const [cart, addOrder, removeOrder, updateQuantity] = useCart();
+  const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
   const [quantityInput, setQuantityInput] = useState("");
-  const order = cart.find((order) => order.product.id === id);
+  const cartItem = cart.find((item) => item.product.id === id);
 
   const handleClickIcon = () => {
-    const newOrder = { id: Date.now(), quantity: 1, product: props };
-    addOrder(newOrder);
+    const newCartItem = { id: Date.now(), quantity: 1, product: props };
+    addCartItem(newCartItem);
     setQuantityInput("1");
   };
 
@@ -32,7 +32,7 @@ export default function Product(props: ProductProps) {
   };
 
   const handleBlurCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") removeOrder(id);
+    if (e.target.value === "") removeCartItem(id);
   };
 
   useEffect(() => {
@@ -40,14 +40,14 @@ export default function Product(props: ProductProps) {
 
     const quantity = Number(quantityInput);
     if (quantity === 0) {
-      removeOrder(id);
+      removeCartItem(id);
     } else {
       updateQuantity(id, quantity);
     }
   }, [quantityInput]);
 
   useEffect(() => {
-    if (order) setQuantityInput(String(order.quantity));
+    if (cartItem) setQuantityInput(String(cartItem.quantity));
   }, []);
 
   return (
@@ -59,7 +59,7 @@ export default function Product(props: ProductProps) {
           <S.Price>{price.toLocaleString()} 원</S.Price>
         </S.LabelBox>
         <S.ControlBox>
-          {order ? (
+          {cartItem ? (
             <S.Counter
               type="number"
               value={quantityInput}
