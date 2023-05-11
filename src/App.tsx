@@ -5,11 +5,16 @@ import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <RecoilRoot>
         <Routes>
           <Route path="/" element={<ProductPage />} />
-          <Route path="*" element={<NotFoundPage>요청하신 페이지를 찾을 수 없습니다.</NotFoundPage>} />
+          <Route
+            path="*"
+            element={
+              <NotFoundPage>요청하신 페이지를 찾을 수 없습니다.</NotFoundPage>
+            }
+          />
         </Routes>
       </RecoilRoot>
     </BrowserRouter>
