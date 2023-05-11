@@ -6,7 +6,7 @@ interface ProductItemProps {
   product: Product;
 }
 
-const ProductItem = ({ product }: ProductItemProps) => {
+function ProductItem({ product }: ProductItemProps) {
   const { name, imageUrl, price, id } = product;
   return (
     <div className={styles.container}>
@@ -20,6 +20,6 @@ const ProductItem = ({ product }: ProductItemProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default ProductItem;

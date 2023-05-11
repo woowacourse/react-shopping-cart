@@ -5,7 +5,7 @@ import { $Products } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 import { Product } from '../../types';
 
-const ProductItemList = () => {
+function ProductItemList() {
   const [products, setProducts] = useRecoilState($Products);
 
   useEffect(() => {
@@ -21,6 +21,6 @@ const ProductItemList = () => {
       ))}
     </section>
   );
-};
+}
 
 export default ProductItemList;

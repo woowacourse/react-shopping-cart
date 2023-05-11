@@ -10,7 +10,7 @@ interface AddCardButtonProps {
   id: number;
 }
 
-const AddCartButton = ({ id }: AddCardButtonProps) => {
+function AddCartButton({ id }: AddCardButtonProps) {
   const { value: clicked, setValue: setClicked } = useBooleanState(false);
   const setCartCount = useSetRecoilState($CartCount);
 
@@ -55,6 +55,6 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
       )}
     </div>
   );
-};
+}
 
 export default AddCartButton;

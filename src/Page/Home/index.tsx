@@ -1,12 +1,12 @@
 import ProductItemList from '../../components/ProductItemList';
 import styles from './index.module.scss';
 
-const Home = () => {
+function Home() {
   return (
     <main className={styles['main-container']}>
       <ProductItemList />
     </main>
   );
-};
+}
 
 export default Home;

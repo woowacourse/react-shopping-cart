@@ -7,7 +7,7 @@ interface CountButtonProps {
   getCount: (count: number) => void;
 }
 
-const CountButton = ({ getCount }: CountButtonProps) => {
+function CountButton({ getCount }: CountButtonProps) {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
@@ -33,6 +33,6 @@ const CountButton = ({ getCount }: CountButtonProps) => {
       </button>
     </div>
   );
-};
+}
 
 export default CountButton;

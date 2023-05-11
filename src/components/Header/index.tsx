@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import { $CartCountTotal } from '../../recoil/atom';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+function Header() {
   const cartCountTotal = useRecoilValue($CartCountTotal);
   return (
     <header className={styles.container}>
@@ -17,6 +17,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

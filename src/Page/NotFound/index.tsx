@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 
-const NotFound = () => {
+function NotFound() {
   return (
     <div className={styles.container}>
       <h2>오모나... 여기는 없는 페이지입니다. 😭</h2>
@@ -9,6 +9,6 @@ const NotFound = () => {
       <a href="/">홈으로 돌아가기</a>
     </div>
   );
-};
+}
 
 export default NotFound;
