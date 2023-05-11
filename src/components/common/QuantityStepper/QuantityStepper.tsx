@@ -11,7 +11,7 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
     const [quantity, setQuantity] = useState(1);
 
     const increase = () => {
-      setQuantity((prev) => prev + 1);
+      setQuantity((prev) => (prev < 100 ? prev + 1 : prev));
     };
 
     const decrease = () => {
