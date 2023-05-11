@@ -1,6 +1,7 @@
 import { ChangeEvent, useCallback } from 'react';
 
 import { AddIcon, MinusIcon } from '../../assets';
+import { STEPPER_BUTTON_MAX_COUNT, STEPPER_BUTTON_MIN_COUNT } from '../../constants';
 import styles from './style.module.css';
 
 interface StepperButtonProps {
@@ -10,7 +11,12 @@ interface StepperButtonProps {
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const StepperButton = ({ count, minCount = 1, maxCount = 99, setCount }: StepperButtonProps) => {
+const StepperButton = ({
+  count,
+  minCount = STEPPER_BUTTON_MIN_COUNT,
+  maxCount = STEPPER_BUTTON_MAX_COUNT,
+  setCount,
+}: StepperButtonProps) => {
   const handleDecrease = useCallback(() => {
     setCount((prevCount) => prevCount - 1);
   }, [setCount]);
