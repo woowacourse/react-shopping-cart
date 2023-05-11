@@ -64,5 +64,5 @@
 
 ## 🖥️ 배포 페이지
 
-- [장바구니 페이지]()
-- [스토리북]()
+- [장바구니 페이지](https://yeopto.github.io/react-shopping-cart/)
+- [스토리북](https://645c9d635f73a5f38686c40f-vqhzeqkvkg.chromatic.com/)
