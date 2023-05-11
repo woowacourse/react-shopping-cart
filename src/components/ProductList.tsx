@@ -1,5 +1,8 @@
-import type { PropsWithChildren } from 'react';
+// eslint-disable-next-line camelcase
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import productsQuery from '../recoil/queries/productsQuery';
+import ProductItem from './ProductItem';
 
 const StyledProductList = styled.ul`
   display: grid;
@@ -8,12 +11,16 @@ const StyledProductList = styled.ul`
   row-gap: 80px;
 `;
 
-type ProductListProps = PropsWithChildren;
+const ProductList = () => {
+  const products = useRecoilValue(productsQuery);
 
-const ProductList = (props: ProductListProps) => {
-  const { children } = props;
-
-  return <StyledProductList>{children}</StyledProductList>;
+  return (
+    <StyledProductList>
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </StyledProductList>
+  );
 };
 
 export default ProductList;
