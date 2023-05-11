@@ -1,4 +1,4 @@
-import * as S from './PageName.styles';
+import * as S from './PageTitle.styles';
 
 const PageName = () => {
   return (

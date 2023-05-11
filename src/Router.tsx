@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, Suspense } from 'react';
 import Header from './components/common/Header/Header';
-import PageName from './components/common/PageName/PageName';
+import PageName from './components/common/PageTitle/PageTitle';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Flex from './components/common/Flex';
 import styled from 'styled-components';
