@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
@@ -83,6 +83,6 @@
     "webpack": "^5.82.0"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{ts,tsx}": "eslint --cache --fix"
   }
 }
