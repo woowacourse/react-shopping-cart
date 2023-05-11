@@ -1,4 +1,5 @@
 {
+  "homepage": "https://tkdrb12.github.io/react-shopping-cart/",
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
@@ -17,6 +18,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -63,6 +66,7 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/recoil": "^0.0.9",
     "@types/styled-components": "^5.1.26",
+    "gh-pages": "^5.0.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.11.1",
