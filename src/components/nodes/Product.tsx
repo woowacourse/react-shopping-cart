@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useCart from "../../hooks/useCart";
 import { isNumeric } from "../../utils/validator";
+import { MAX_QUANTITY } from "../../constants";
 
 interface ProductProps {
   id: number;
@@ -27,7 +28,9 @@ export default function Product(props: ProductProps) {
     if (value === "") {
       setQuantityInput("");
     } else if (isNumeric(value)) {
-      setQuantityInput(Number(value) > 1000 ? "1000" : value);
+      setQuantityInput(
+        Number(value) > MAX_QUANTITY ? MAX_QUANTITY.toString() : value
+      );
     }
   };
 

@@ -1,7 +1,8 @@
 import type { CartItemType } from "../types";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { cartState } from "../recoil/state";
-import { useEffect } from "react";
+import { LOCAL_STORAGE_KEY } from "../constants";
 
 export default function useCart() {
   const [cart, setCart] = useRecoilState(cartState);
@@ -28,7 +29,7 @@ export default function useCart() {
   };
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(LOCAL_STORAGE_KEY.cart, JSON.stringify(cart));
   }, [cart]);
 
   return [cart, addCartItem, removeCartItem, updateQuantity] as const;
