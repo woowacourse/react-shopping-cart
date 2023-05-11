@@ -8,7 +8,7 @@ interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   closeModalByPress: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
-const Modal = ({ children, closeModalByClick, closeModalByPress, ...attributes }: ModalProps) => {
+const Modal = ({ children, closeModalByClick, closeModalByPress }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,9 +16,9 @@ const Modal = ({ children, closeModalByClick, closeModalByPress, ...attributes }
   }, []);
 
   return createPortal(
-    <div className={styles.container} onKeyDown={closeModalByPress}>
+    <div className={styles.container}>
       <div className={styles.backdrop} onClick={closeModalByClick} />
-      <div ref={modalRef} className={styles.content} tabIndex={0}>
+      <div ref={modalRef} className={styles.content} tabIndex={0} onKeyDown={closeModalByPress}>
         {children}
       </div>
     </div>,
