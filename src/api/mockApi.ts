@@ -9,6 +9,7 @@ interface Options {
 
 function mockApi(endpoint: string, options?: Options) {
   const delay = 100;
+
   return new Promise<Response>((resolve, reject) => {
     setTimeout(() => {
       switch (endpoint) {
