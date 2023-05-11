@@ -32,8 +32,6 @@ const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: auto;
-  height: auto;
 
   & > img {
     width: 100%;
@@ -41,9 +39,14 @@ const ItemWrapper = styled.div`
   }
 `;
 
-const NameWrapper = styled.p`
+const NameWrapper = styled.div`
+  width: 190px;
   margin: 15px 0 10px 10px;
   font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 
   @media screen and (max-width: 800px) {
     font-size: 13px;
