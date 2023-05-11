@@ -1,6 +1,6 @@
 import { selector, selectorFamily } from 'recoil';
 import { cartState } from '../atoms';
-import { Product } from '../types/product';
+import { Product } from '../../types/product';
 
 export const productListQuery = selector<Product[]>({
   key: 'productList',

@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { CartIcon } from '../../assets/icons';
-import { totalQuantityInCart } from '../../selectors';
+import { totalQuantityInCart } from '../../recoil/selectors';
 
 const Header = () => {
   const totalQuantity = useRecoilValue(totalQuantityInCart);

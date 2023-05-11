@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { productListQuery } from './selectors';
+import { productListQuery } from './recoil/selectors';
 import Header from './components/Header/Header';
 import ProductList from './components/ProductList/ProductList';
 

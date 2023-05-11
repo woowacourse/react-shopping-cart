@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { cartState } from '../atoms';
+import { cartState } from '../recoil/atoms';
 import { uuid } from '../utils/uuid';
 import type { Product } from '../types/product';
 

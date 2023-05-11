@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import type { AtomEffect } from 'recoil';
-import type { CartItem } from '../types/product';
+import type { CartItem } from '../../types/product';
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
