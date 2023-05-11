@@ -1,7 +1,7 @@
 import { DOMAttributes } from 'react';
 import styled from 'styled-components';
 
-interface Flex extends DOMAttributes<HTMLDivElement> {
+interface FlexProps extends DOMAttributes<HTMLDivElement> {
   width?: string;
   height?: string;
   dir?: 'row' | 'column';
@@ -16,7 +16,7 @@ interface Flex extends DOMAttributes<HTMLDivElement> {
   scroll?: boolean;
 }
 
-const Flex = styled.div<Flex>`
+const Flex = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${({ dir = 'row' }) => dir};
 
