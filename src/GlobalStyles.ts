@@ -15,7 +15,11 @@ const GlobalStyles = createGlobalStyle`
 		width: 100%;
 		height: 100%;
 
-		font-family: "Roboto", sans-serif;
+		font-family: 'Noto Sans KR';
+  	font-style: normal;
+		font-weight: 400;
+  	letter-spacing: 0.5px;
+  	color: #333333;
   } 
 
 	#root {

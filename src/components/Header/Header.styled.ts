@@ -11,7 +11,7 @@ export const Header = styled.header`
   padding: 10px 100px;
 
   background-color: #333333;
-  color: #ffffff;
+  color: white;
 
   @media screen and (max-width: 650px) {
     padding: 10px 50px;
@@ -32,11 +32,7 @@ export const TitleHeading = styled.h1`
 
   text-align: center;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 900;
   font-size: 40px;
-
   line-height: 58px;
 
   @media screen and (max-width: 450px) {
