@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { LogoIcon } from '../../assets/ShoppingCartIcon';
-import { useCartList } from '../../hooks/useCartList';
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import { LogoIcon } from "../../assets/ShoppingCartIcon";
+import { useCartList } from "../../hooks/useCartList";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ export const Header = () => {
   return (
     <Style.Container>
       <Style.ContentWrapper>
-        <Style.LogoContainer onClick={() => navigate('/')}>
+        <Style.LogoContainer onClick={() => navigate("/")}>
           <LogoIcon />
           <Style.Logo>배민문방구</Style.Logo>
         </Style.LogoContainer>
         <Style.CartContainer>
-          <Style.Cart>장바구니</Style.Cart>
+          <Style.Cart onClick={() => navigate("/test")}>장바구니</Style.Cart>
           <Style.CartAmount>{cartList.length}</Style.CartAmount>
         </Style.CartContainer>
       </Style.ContentWrapper>
