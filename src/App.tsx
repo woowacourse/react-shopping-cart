@@ -1,9 +1,13 @@
 import Header from "./components/Header/Header";
-
-import "./App.css";
+import ProductCardList from "./components/ProductCardList/ProductCardList";
 
 function App() {
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <ProductCardList />
+    </>
+  );
 }
 
 export default App;
