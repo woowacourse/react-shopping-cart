@@ -1,8 +1,8 @@
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import { productListQuery } from './selectors';
 import Header from './components/Header/Header';
 import ProductList from './components/ProductList/ProductList';
-import { useRecoilValue } from 'recoil';
-import { productListQuery } from './selectors';
 
 function App() {
   const products = useRecoilValue(productListQuery);
@@ -18,7 +18,7 @@ function App() {
 }
 
 const Layout = styled.main`
-  padding: 60px 0;
+  padding: 140px 0 60px 0;
 
   @media screen and (min-width: 1200px) {
     display: flex;
