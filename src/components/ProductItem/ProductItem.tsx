@@ -1,8 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+import Counter from '../Counter/Counter';
+import ProductImage from '../ProductImage/ProductImage';
 import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
-import Counter from '../Counter/Counter';
 import useCartService from '../../hooks/useCartService';
 import { productQuantityInCart } from '../../selectors';
 import type { Product } from '../../types/product';
@@ -28,31 +29,30 @@ const ProductItem = (product: Product) => {
 
   return (
     <ItemContainer>
-      <ImageWrapper>
-        <Image src={imageSrc} loading="lazy" alt={name} />
-        <ImageBackground />
-      </ImageWrapper>
-
+      <ProductImageWrapper>
+        <ProductImage src={imageSrc} alt={name} size="large" />
+        <CartButtonWrapper>
+          {quantityInCart ? (
+            <Counter
+              count={quantityInCart}
+              onChangeCount={handleChangeQuantity}
+            />
+          ) : (
+            <CartButton
+              type="button"
+              aria-label="장바구니에 추가하기"
+              onClick={handleClickCartButton}
+            >
+              <SmallCartIcon />
+            </CartButton>
+          )}
+        </CartButtonWrapper>
+      </ProductImageWrapper>
       <Contents>
         <div>
           <Title>{name}</Title>
           <Price>{formatPrice(price)}</Price>
         </div>
-
-        {quantityInCart ? (
-          <Counter
-            count={quantityInCart}
-            onChangeCount={handleChangeQuantity}
-          />
-        ) : (
-          <CartButton
-            type="button"
-            aria-label="장바구니에 추가하기"
-            onClick={handleClickCartButton}
-          >
-            <SmallCartIcon />
-          </CartButton>
-        )}
       </Contents>
     </ItemContainer>
   );
@@ -66,25 +66,14 @@ const ItemContainer = styled.div`
   height: 358px;
 `;
 
-const ImageWrapper = styled.div`
-  display: flex;
+const ProductImageWrapper = styled.div`
   position: relative;
-  overflow: hidden;
 `;
 
-const Image = styled.img`
-  width: 282px;
-  height: 282px;
-`;
-
-const ImageBackground = styled.div`
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
+const CartButtonWrapper = styled.div`
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  background-color: rgba(0, 0, 0, 0.05);
+  right: 8px;
+  bottom: 8px;
 `;
 
 const Contents = styled.div`
