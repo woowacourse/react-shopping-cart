@@ -12,7 +12,7 @@ export const cartIdMap = atom<Map<ProductId, CartId>>({
   default: new Map(),
 });
 
-export const cartItemAtom = atomFamily<CartItem | null, number>({
+export const cartItemAtom = atomFamily<CartItem | null, CartId>({
   key: 'cartItem',
   default: null,
 });
@@ -32,7 +32,7 @@ export const countCartListSelector = selector({
 export const updateCart = selectorFamily({
   key: 'updateCart',
   get:
-    (productId: number) =>
+    (productId: ProductId) =>
     ({ get }) => {
       const ids = get(cartIdMap);
       const cartId = ids.get(productId);
@@ -41,7 +41,7 @@ export const updateCart = selectorFamily({
     },
 
   set:
-    (productId: number) =>
+    (productId: ProductId) =>
     ({ set, get, reset }, item) => {
       if (!item || item instanceof DefaultValue) return;
       const ids = get(cartIdMap);
