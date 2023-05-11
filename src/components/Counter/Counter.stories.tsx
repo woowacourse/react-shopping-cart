@@ -4,7 +4,7 @@ import Counter from '.';
 
 const counter = {
   component: Counter,
-  title: 'Counter',
+  title: 'Common/Counter',
   tags: ['autodocs'],
   args: {
     count: 0,

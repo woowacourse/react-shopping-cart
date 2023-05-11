@@ -13,7 +13,7 @@ const mock: Product = {
 
 const productItem = {
   component: ProductItem,
-  title: 'ProductItem',
+  title: 'Cart/ProductItem',
   tags: ['autodocs'],
   args: {
     product: mock,
