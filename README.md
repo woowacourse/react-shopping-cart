@@ -1,25 +1,72 @@
 <p align="middle" >
   <img src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/3e6c6f30b11d4b098b5a3e81be19ce3a" width="400">
 </p>
-<h2 align="middle">Level2 - 장바구니</h2>
-<p align="middle">React & Recoil 데스크탑 장바구니 애플리케이션</p>
-</p>
+<h1 align="middle">장바구니</h1>
+<p align="middle">우아한테크코스 레벨2 장바구니 미션</p>
 
-## 🚀 Getting Started
+<br>
+<br>
 
-> 다수의 컴포넌트를 페이지로 구성하고 복잡해진 상태를 관리합니다.
+### 🧑‍🤝‍🧑 페어 (페어 프로그래밍으로 개발)
 
-✔️ `데스크탑 타겟`의 웹 앱을 구현하며 구매로 이어지는 것에 끊김이 없고 `재방문을 고려한 UI/UX`에 대해 고민해봅니다.  
-✔️ 상태 관리를 위해 `Flux Architecture` 기반의 `Redux`를 활용합니다.  
-✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.  
-✔️ [배민상회](https://mart.baemin.com) 서비스 참고
-
-## 👏 Contributing
-
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
+<table>
+  <tr>
+    <td align="center" width="120px">
+      <a href="https://github.com/woo-jk" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/73513965?v=4" alt="룩소(우정균) 프로필" />
+      </a>
+    </td>
+    <td align="center" width="120px">
+      <a href="https://github.com/suyoungj" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/19235163?v=4" alt="유스(정수영) 프로필" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/woo-jk" target="_blank">
+      룩소(우정균)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/suyoungj" target="_blank">
+        유스(정수영) 
+      </a>
+    </td>
+  </tr>
+</table>
 
 <br>
 
-## 🐞 Bug Report
+### 📍 학습 목표
 
-버그를 발견한다면, [Issues](https://github.com/woowacourse/react-shopping-cart/issues)에 등록해주세요.
+다수의 컴포넌트를 페이지로 구성하고 복잡해진 상태를 관리합니다.
+
+✔️ `데스크탑` 타겟의 웹 앱을 구현합니다.
+✔️ 상태 관리를 위해 `Recoil`을 활용합니다.
+✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.
+✔️ 배민상회 서비스 참고
+
+<br>
+
+### 📝 실행 방법
+
+- <a href="https://woo-jk.github.io/react-shopping-cart/">앱 바로 실행하기</a>
+
+- 터미널에서 npm 설치(`npm install`) 후 `npm start` 커맨드로 앱을 실행할 수 있다.
+
+<br>
+
+### 📝 실행 방법
+
+- <a href="http://localhost:6006/?path=/docs/counter--docs">스토리북 보기</a>
+
+- 터미널에서 npm 설치(`npm install`) 후 `npm run storybook` 커맨드로 스토리북을 실행할 수 있다.
+
+<br>
+
+<br>
+
+---
+
+<a href="https://github.com/woowacourse">@woowacourse</a>
