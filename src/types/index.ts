@@ -4,3 +4,9 @@ export interface Product {
   name: string;
   price: number;
 }
+
+export interface CartItem {
+  id: number;
+  quantity: number;
+  product: Product[];
+}

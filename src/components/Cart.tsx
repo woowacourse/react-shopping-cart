@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { cartState } from './ProductItem';
 import { selector, useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
+import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
 
 export const cartBadgeSelector = selector({
   key: 'cartBadgeSelector',
@@ -9,23 +10,22 @@ export const cartBadgeSelector = selector({
     const cart = get(cartState);
     const selectedProducts = new Set(cart);
 
-    return selectedProducts.size;
+    return selectedProducts;
   },
 });
 
 const Cart = () => {
-  const total = useRecoilValue(cartBadgeSelector);
+  const selectedProducts = useRecoilValue(cartBadgeSelector);
   const cart = useRecoilValue(cartState);
-  const selectedCartList = Array.from(new Set(cart));
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(selectedCartList));
-  }, [selectedCartList]);
+    setDataInLocalStorage('cart', cart);
+  }, [cart]);
 
   return (
     <S.Wrapper>
       <S.Button>장바구니</S.Button>
-      <S.Badge>{total}</S.Badge>
+      <S.Badge>{selectedProducts.size}</S.Badge>
     </S.Wrapper>
   );
 };
