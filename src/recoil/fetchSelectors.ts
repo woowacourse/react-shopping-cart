@@ -9,3 +9,14 @@ export const fetchedProductListSelector = selector({
     return data;
   },
 });
+
+export const targetProductSelector = selector({
+  key: 'targetProduct',
+  get:
+    ({ get }) =>
+    (id: number) => {
+      return get(fetchedProductListSelector).find(
+        (product) => product.id === id
+      ) as Product;
+    },
+});

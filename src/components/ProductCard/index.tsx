@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { memo, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Product, Cart } from '../../types/product';
+import { Cart } from '../../types/product';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom } from '../../recoil/cartState';
 import Counter from '../Counter';
+import { targetProductSelector } from '../../recoil/fetchSelectors';
 
 interface ProductCardProps {
-  product: Product;
+  productId: number;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ productId }: ProductCardProps) => {
   const [cart, setCart] = useRecoilState(cartAtom);
+  const product = useRecoilValue(targetProductSelector)(productId);
   const { id, name, price, imageUrl } = product;
   const productInCart = cart.find((item) => item.id === id);
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
@@ -120,4 +122,4 @@ const Styled = {
     cursor: pointer;
   `,
 };
-export default ProductCard;
+export default memo(ProductCard);

@@ -11,7 +11,6 @@ export const cartQuantitySelector = selector({
   get: ({ get }) => {
     const carts = get(cartAtom);
     const quantity = carts.reduce((result, cart) => result + cart.quantity, 0);
-
     return quantity < 100 ? quantity : '99';
   },
 });
