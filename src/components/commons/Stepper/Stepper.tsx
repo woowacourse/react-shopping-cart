@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 import * as Styled from './Stepper.styled';
 
 interface StepperProps {
@@ -8,14 +10,37 @@ interface StepperProps {
 const Stepper = (props: StepperProps) => {
   const { productCount, setProductCount } = props;
 
+  const handleNumberInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(target.value);
+
+    if (Number.isNaN(value) || value < 0 || value > 99) {
+      return;
+    }
+
+    setProductCount(value);
+  };
+
   return (
-    <Styled.Input
-      type="number"
-      inputMode="numeric"
-      min="0"
-      value={productCount}
-      onChange={e => setProductCount(Number(e.target.value))}
-    />
+    <Styled.StepperDiv>
+      <Styled.Input
+        type="text"
+        inputMode="numeric"
+        value={productCount}
+        onChange={handleNumberInput}
+      />
+      <Styled.UpButton
+        type="button"
+        onClick={() => setProductCount(productCount + 1)}
+      >
+        ▲
+      </Styled.UpButton>
+      <Styled.DownButton
+        type="button"
+        onClick={() => setProductCount(productCount - 1)}
+      >
+        ▼
+      </Styled.DownButton>
+    </Styled.StepperDiv>
   );
 };
 
