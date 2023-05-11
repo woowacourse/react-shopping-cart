@@ -5,7 +5,7 @@ const cartProductsCountState = selector({
   key: "cartProductsCountState",
   get: ({ get }) => {
     const products = get(cartProductsState);
-    return Object.keys(products).length;
+    return Object.values(products).filter((quantity) => quantity > 0).length;
   },
 });
 
