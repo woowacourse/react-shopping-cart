@@ -6,23 +6,22 @@ import { Product } from '../../../types/products';
 import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
+import { useRef } from 'react';
 
 interface ItemCartDialogProps extends Product {}
 
 const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
   const setCart = useSetRecoilState(cartState);
-  const has = useRecoilValue(hasItemInCart(id));
+  const quantityRef = useRef<Readonly<{ quantity: number }>>(null);
 
-  const addItemToCart = (e: React.FormEvent) => {
-    e.preventDefault();
+  const alreadyHasItem = useRecoilValue(hasItemInCart(id));
 
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
-    const fields = Object.fromEntries(formData);
-    const quantity = Number(fields['item-quantity'] as String);
+  const addItemToCart = () => {
+    const quantity = quantityRef.current!.quantity;
+
     setCart((cart) => {
-      if (has) {
+      if (alreadyHasItem) {
         return cart.map((item) =>
           item.id === id
             ? { ...item, quantity: item.quantity + quantity }
@@ -47,13 +46,14 @@ const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
       <Dialog.Portal>
         <Dialog.BackDrop />
         <Dialog.Content>
-          <S.Box onSubmit={addItemToCart}>
+          x
+          <S.Box>
             <S.Thumbnail src={imageUrl} alt={name} />
             <S.Name>{name}</S.Name>
             <S.Price>{price.toLocaleString()} 원</S.Price>
-            <QuantityStepper label="item-quantity" />
-            <Dialog.Close asChild>
-              <Button size="M" view="black" type="submit">
+            <QuantityStepper ref={quantityRef} label="item-quantity" />
+            <Dialog.Close asChild onClick={addItemToCart}>
+              <Button size="M" view="black">
                 추가하기
               </Button>
             </Dialog.Close>

@@ -14,7 +14,7 @@ export const CartImg = styled.img`
   width: 100%;
 `;
 
-export const Box = styled.form`
+export const Box = styled.div`
   display: flex;
 
   height: 50rem;
