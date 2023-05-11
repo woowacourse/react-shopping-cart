@@ -3,21 +3,7 @@ import { atom, selectorFamily } from 'recoil';
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemData } from '../types';
 
-export const cartAdditionState = atom<boolean>({
-  key: 'cartAddition',
-  default: false,
-  effects: [
-    ({ setSelf, onSet }) => {
-      onSet(() => {
-        setTimeout(() => {
-          setSelf(false);
-        }, 2500);
-      });
-    },
-  ],
-});
-
-export const cartListState = atom<CartItemData[]>({
+const cartListState = atom<CartItemData[]>({
   key: 'cartList',
   default: [],
   effects: [
@@ -38,7 +24,7 @@ export const cartListState = atom<CartItemData[]>({
   ],
 });
 
-export const cartItemQuantityState = selectorFamily({
+const cartItemQuantityState = selectorFamily({
   key: 'cartItemQuantity',
   get:
     (productId) =>
@@ -48,3 +34,19 @@ export const cartItemQuantityState = selectorFamily({
       return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity;
     },
 });
+
+const cartAdditionState = atom({
+  key: 'cartAddition',
+  default: false,
+  effects: [
+    ({ setSelf, onSet }) => {
+      onSet(() => {
+        setTimeout(() => {
+          setSelf(false);
+        }, 2500);
+      });
+    },
+  ],
+});
+
+export { cartAdditionState, cartListState, cartItemQuantityState };
