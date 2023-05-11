@@ -27,27 +27,28 @@ const S = {
   Wrapper: styled.div`
     display: flex;
     align-items: center;
-    margin: 0 227px 0 auto;
+    margin-left: auto;
   `,
 
   Button: styled.button`
+    padding: 0;
     margin-right: 8px;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     background: none;
     color: #fff;
   `,
 
   Badge: styled.div`
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     background: #04c09e;
-    color: #fff;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 400;
     text-align: center;
-    line-height: 26px;
+    line-height: 24px;
+    color: #fff;
   `,
 };
 

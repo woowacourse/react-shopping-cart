@@ -40,9 +40,10 @@ const S = {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 86px 48px;
-    width: 1270px;
+    gap: 86px 4%;
+    max-width: 1270px;
     margin: 0 auto;
+    padding: 0 20px 120px;
   `,
 };
 

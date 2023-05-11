@@ -7,7 +7,7 @@ export interface Props extends SVGProps<SVGSVGElement> {
   color: string;
   path: string;
   viewBox: string;
-  svgStyle: CSSProp;
+  svgStyle?: CSSProp;
   onClick?: MouseEventHandler<SVGSVGElement>;
 }
 
@@ -20,7 +20,7 @@ const Icon = ({ svgStyle, onClick, ...props }: Props) => {
 };
 
 const S = {
-  Svg: styled.svg<{ styled: CSSProp }>`
+  Svg: styled.svg<{ styled?: CSSProp }>`
     ${(props) => props.styled}
   `,
 };

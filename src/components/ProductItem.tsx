@@ -50,7 +50,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   };
 
   return (
-    <S.ItemWrapper>
+    <div>
       <S.Image src={imgUrl} />
       <S.InfoWrapper>
         <div>
@@ -74,18 +74,13 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
           />
         )}
       </S.InfoWrapper>
-    </S.ItemWrapper>
+    </div>
   );
 };
 
 const S = {
-  ItemWrapper: styled.div`
-    width: 282px;
-  `,
-
   Image: styled.img`
-    width: 282px;
-    height: 282px;
+    width: 100%;
   `,
 
   InfoWrapper: styled.div`
@@ -105,6 +100,7 @@ const S = {
 
   Name: styled.p`
     font-weight: 400;
+    line-height: 1.4;
     letter-spacing: 0.5px;
     color: var(--text-color);
     opacity: 0.9;
@@ -113,7 +109,7 @@ const S = {
   Price: styled.p`
     margin-top: 8px;
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0.5px;
     color: var(--text-color);
 

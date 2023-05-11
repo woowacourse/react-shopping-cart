@@ -4,7 +4,7 @@ import Header from './components/common/Header';
 const App = () => {
   return (
     <>
-      <Header title="SHOP" />
+      <Header title="STORE" />
       <ProductList />
     </>
   );
