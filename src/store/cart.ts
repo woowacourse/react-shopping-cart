@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selectorFamily } from 'recoil';
 
 import { CartItemData } from '../types';
 
@@ -35,4 +35,15 @@ export const cartListState = atom<CartItemData[]>({
       });
     },
   ],
+});
+
+export const cartItemQuantityState = selectorFamily({
+  key: 'cartItemQuantity',
+  get:
+    (productId) =>
+    ({ get }) => {
+      const cartList = get(cartListState);
+
+      return cartList.find((cartItem) => cartItem.product.id === productId)?.quantity;
+    },
 });

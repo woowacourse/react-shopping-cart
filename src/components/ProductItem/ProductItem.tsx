@@ -1,5 +1,8 @@
-import CartIcon from '../../assets/cart-icon.svg';
+import { useRecoilValue } from 'recoil';
+
+import { AddIcon } from '../../assets';
 import { useModal } from '../../hooks/useModal';
+import { cartItemQuantityState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import Modal from '../Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
@@ -10,20 +13,25 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ information }: ProductItemProps) => {
+  const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
   const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
 
   return (
     <div className={styles.container}>
-      <img src={information.imageUrl} alt={information.name} className={styles.image} />
-      <div className={styles.informationContainer}>
-        <div>
-          <h4 className={styles.name}>{information.name}</h4>
-          <h4 className={styles.price}>{information.price}원</h4>
-        </div>
-        <button type="button" onClick={handleModalOpen}>
-          <img src={CartIcon} alt="cart icon" />
+      <div className={styles.imageContainer}>
+        <img src={information.imageUrl} alt={information.name} className={styles.image} />
+        <button
+          type="button"
+          className={`${styles.itemButton} ${
+            cartItemQuantity ? styles.quantityButton : styles.addButton
+          }`}
+          onClick={handleModalOpen}
+        >
+          {cartItemQuantity ? cartItemQuantity : <AddIcon width={16} height={16} />}
         </button>
       </div>
+      <h4 className={styles.name}>{information.name}</h4>
+      <h4 className={styles.price}>{information.price}원</h4>
       {isModalOpen && (
         <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress}>
           <ProductAddition closeModalByClick={handleModalClose} productInformation={information} />
