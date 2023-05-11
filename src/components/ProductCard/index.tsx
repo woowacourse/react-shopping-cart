@@ -1,9 +1,8 @@
 import React, { memo, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Cart } from '../../types/product';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
-import { cartAtom } from '../../recoil/cartState';
+import { cartAtom, cartAtomState } from '../../recoil/cartState';
 import Counter from '../Counter';
 import ProductImg from './ProductImg';
 import ProductInfo from './ProductInfo';
@@ -14,41 +13,26 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ productId }: ProductCardProps) => {
-  const [cart, setCart] = useRecoilState(cartAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
   const { id, name, price, imageUrl } = product;
-  const productInCart = cart.find((item) => item.id === id);
+  const [cart, setCart] = useRecoilState(cartAtom);
+  const [productInCart, setProductInCart] = useRecoilState(cartAtomState(id));
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
   const addToCart = () => {
-    const newProduct: Cart = {
-      id,
-      quantity: 1,
-      product,
-    };
-    setCart((cart) => [...cart, newProduct]);
+    setProductInCart((prev) => ({ ...prev, quantity: 1 }));
+    setCart((prev) => [...prev, id]);
     setIsCartClicked(true);
   };
 
   const plusOne = () => {
-    const newProduct = cart.map((cart) => {
-      if (cart.id !== id) return cart;
-      return { ...cart, quantity: cart.quantity + 1 };
-    });
-    setCart(() => [...newProduct]);
+    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
   };
 
   const minusOne = () => {
-    const newProdoct = cart
-      .map((cart) => {
-        if (cart.id !== id) return cart;
-        return { ...cart, quantity: cart.quantity - 1 };
-      })
-      .filter((cart) => cart.quantity > 0);
-
-    setCart(() => [...newProdoct]);
-
-    if (!newProdoct.find((item) => item.id === id)) setIsCartClicked(false);
+    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity - 1 }));
+    if (productInCart.quantity === 0)
+      setCart((prev) => [...prev.filter((num) => num !== id)]);
   };
 
   return (

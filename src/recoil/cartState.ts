@@ -1,16 +1,23 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 import { Cart } from '../types/product';
 
-export const cartAtom = atom<Cart[]>({
+export const cartAtom = atom<number[]>({
   key: 'cart',
-  default: JSON.parse(localStorage.getItem('cart') || '[]'),
+  default: [],
+});
+
+export const cartAtomState = atomFamily<Cart, number>({
+  key: 'cart',
+  default: (id) =>
+    JSON.parse(localStorage.getItem('cart') || '[]').find(
+      (cart: Cart) => cart.id === id
+    ),
 });
 
 export const cartQuantitySelector = selector({
   key: 'cartQuantitySelector',
   get: ({ get }) => {
     const carts = get(cartAtom);
-    const quantity = carts.reduce((result, cart) => result + cart.quantity, 0);
-    return quantity < 100 ? quantity : '99';
+    return carts.reduce((a, b) => a + get(cartAtomState(b)).quantity, 0);
   },
 });
