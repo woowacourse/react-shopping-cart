@@ -10,5 +10,5 @@ export default meta;
 type Story = StoryObj<typeof ProductItem>;
 
 export const Default: Story = {
-  args: {},
+  args: { id: 1, name: '콜라', price: 1600, imageUrl: '' },
 };

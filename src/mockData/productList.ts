@@ -1,14 +1,21 @@
-import { A_MOCK, B_MOCK, C_MOCK, D_MOCK, E_MOCK, F_MOCK, G_MOCK, H_MOCK, I_MOCK, J_MOCK, K_MOCK, L_MOCK } from '@assets';
+import { ProductInformation } from 'types/types';
+import {
+  A_MOCK,
+  B_MOCK,
+  C_MOCK,
+  D_MOCK,
+  E_MOCK,
+  F_MOCK,
+  G_MOCK,
+  H_MOCK,
+  I_MOCK,
+  J_MOCK,
+  K_MOCK,
+  L_MOCK,
+} from '@assets';
 
 interface ProductListProps {
-  productList: ProductProps[];
-}
-
-interface ProductProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+  productList: ProductInformation[];
 }
 
 export const PRODUCT_LIST: ProductListProps = {

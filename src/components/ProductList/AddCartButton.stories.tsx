@@ -10,5 +10,5 @@ export default meta;
 type Story = StoryObj<typeof AddCartButton>;
 
 export const Default: Story = {
-  args: {},
+  args: { addProductToCart: () => {} },
 };
