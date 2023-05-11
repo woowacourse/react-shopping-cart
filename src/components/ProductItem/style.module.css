@@ -50,9 +50,15 @@
 
 .container h4 {
   margin-top: 2px;
-  font-size: 16px;
 }
 
 .name {
+  font-size: 14px;
   font-weight: normal;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
 }
