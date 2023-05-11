@@ -1,4 +1,5 @@
 import React, { forwardRef, useState } from 'react';
+import useCounter from '../../../hooks/common/useCounter';
 import Button from '../Button/Button';
 import Flex from '../Flex';
 import * as S from './QuantityStepper.styles';
@@ -8,15 +9,10 @@ interface QuantityStepperProps {
 }
 const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
   ({ label }, ref) => {
-    const [quantity, setQuantity] = useState(1);
-
-    const increase = () => {
-      setQuantity((prev) => (prev < 100 ? prev + 1 : prev));
-    };
-
-    const decrease = () => {
-      setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
-    };
+    const [quantity, increase, decrease] = useCounter({
+      max: 100,
+      min: 1,
+    });
 
     return (
       <Flex>
