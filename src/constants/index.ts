@@ -17,3 +17,5 @@ export const QUANTITY_CONTROL_UNIT = {
   INCREASE: 1,
   DECREASE: 1,
 } as const;
+
+export const MOCK_DATA_URL = 'data/mockData.json';

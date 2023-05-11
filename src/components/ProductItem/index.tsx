@@ -1,6 +1,6 @@
 import QuantityController from '@Components/QuantityController';
 import * as S from './style';
-import useShoppingBasket from '@Hooks/useShoppingBasket';
+import useShoppingCart from '@Hooks/useShoppingCart';
 import { useRecoilValue } from 'recoil';
 import quantityState from '@Selector/quantityState';
 
@@ -15,7 +15,7 @@ type ProductItemProps = {
 };
 
 function ProductItem({ product, isLoading }: ProductItemProps) {
-  const { updateShoppingBasket } = useShoppingBasket();
+  const { updateShoppingCart } = useShoppingCart();
   const quantity = product && useRecoilValue(quantityState(product.id));
 
   return (
@@ -31,7 +31,7 @@ function ProductItem({ product, isLoading }: ProductItemProps) {
           </S.ProductItemPrice>
         </S.ProductItemLayout>
         {product && (
-          <QuantityController quantity={quantity} updateShoppingBasket={updateShoppingBasket} product={product} />
+          <QuantityController quantity={quantity} updateShoppingCart={updateShoppingCart} product={product} />
         )}
       </S.ProductItemContents>
     </S.Container>

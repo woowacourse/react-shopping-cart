@@ -20,7 +20,7 @@ type Story = StoryObj<typeof QuantityController>;
 export const DefaultQuantityController: Story = {
   args: {
     quantity: 1,
-    updateShoppingBasket: () => {
+    updateShoppingCart: () => {
       return;
     },
   },
@@ -32,7 +32,7 @@ export const DefaultQuantityController: Story = {
 export const ZeroQuantityController: Story = {
   args: {
     quantity: 0,
-    updateShoppingBasket: () => {
+    updateShoppingCart: () => {
       return;
     },
   },
@@ -44,7 +44,7 @@ export const ZeroQuantityController: Story = {
 export const MaxQuantityController: Story = {
   args: {
     quantity: 99,
-    updateShoppingBasket: () => {
+    updateShoppingCart: () => {
       return;
     },
   },

@@ -2,7 +2,7 @@ import * as S from './style';
 
 import ShoppingCart from '@Asset/ShoppingCart.png';
 
-import { Product, UpdateShoppingBasket } from '@Types/index';
+import { Product, UpdateShoppingCart } from '@Types/index';
 import { ALERT_MESSAGE, QUANTITY_CONTROL_BUTTON, QUANTITY_CONTROL_UNIT, SHOPPING_QUANTITY } from '@Constants/index';
 
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 type QuantityControllerProps = {
   product: Product;
   quantity?: number;
-  updateShoppingBasket: UpdateShoppingBasket;
+  updateShoppingCart: UpdateShoppingCart;
 };
 
 type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANTITY_CONTROL_BUTTON];
@@ -18,17 +18,17 @@ type QuantityControlButton = (typeof QUANTITY_CONTROL_BUTTON)[keyof typeof QUANT
 function QuantityController({
   product,
   quantity = SHOPPING_QUANTITY.MIN,
-  updateShoppingBasket,
+  updateShoppingCart,
 }: QuantityControllerProps) {
   const [isBlur, setIsBlur] = useState(true);
 
   const handleClickQuantityControlButton = (type: QuantityControlButton) => {
-    if (type === QUANTITY_CONTROL_BUTTON.PLUS) updateShoppingBasket(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
-    else updateShoppingBasket(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
+    if (type === QUANTITY_CONTROL_BUTTON.PLUS) updateShoppingCart(product, quantity + QUANTITY_CONTROL_UNIT.INCREASE);
+    else updateShoppingCart(product, quantity - QUANTITY_CONTROL_UNIT.DECREASE);
   };
 
   const handleClickCartIcon = () => {
-    updateShoppingBasket(product, SHOPPING_QUANTITY.DEFAULT);
+    updateShoppingCart(product, SHOPPING_QUANTITY.DEFAULT);
   };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ function QuantityController({
 
     if (newValue > SHOPPING_QUANTITY.MAX) return alert(ALERT_MESSAGE.OVER_MAX_QUANTITY);
 
-    updateShoppingBasket(product, Math.floor(newValue));
+    updateShoppingCart(product, Math.floor(newValue));
   };
 
   return quantity === SHOPPING_QUANTITY.MIN && isBlur ? (

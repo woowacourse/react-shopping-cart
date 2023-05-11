@@ -1,9 +1,9 @@
 import Logo from '@Asset/Logo.png';
-import UserSummaryShoppingBasket from '@Components/UserSummaryShoppingBasket';
 
 import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import shoppingItemsAmountState from '@Selector/shoppingItemsAmountState';
+import UserSummaryShoppingCart from '@Components/UserSummaryShoppingCart';
 
 function Header() {
   const shoppingItemsAmount = useRecoilValue(shoppingItemsAmountState);
@@ -15,7 +15,7 @@ function Header() {
           <S.LogoImg src={Logo} alt="장바구니 로고" />
           <S.LogoText>SHOP</S.LogoText>
         </S.LogoWrapper>
-        <UserSummaryShoppingBasket quantity={shoppingItemsAmount} />
+        <UserSummaryShoppingCart quantity={shoppingItemsAmount} />
       </S.Layout>
     </S.Container>
   );

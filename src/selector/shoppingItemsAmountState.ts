@@ -1,13 +1,13 @@
-import shoppingBasketState from '@Atoms/shoppingBasketState';
+import shoppingCartState from '@Atoms/shoppingCartState';
 import { selector } from 'recoil';
 
 const shoppingItemsAmountState = selector({
   key: 'shoppingItemsAmountState',
 
   get: ({ get }) => {
-    const shoppingBasket = get(shoppingBasketState);
+    const shoppingCart = get(shoppingCartState);
 
-    return shoppingBasket.length;
+    return shoppingCart.length;
   },
 });
 

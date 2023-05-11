@@ -5,10 +5,10 @@ export type Product = {
   imageUrl: string;
 };
 
-export type ShoppingBasketProduct = {
+export type ShoppingCartProduct = {
   id: number;
   quantity: number;
   product: Product;
 };
 
-export type UpdateShoppingBasket = (product: Product, quantity: number) => void;
+export type UpdateShoppingCart = (product: Product, quantity: number) => void;

@@ -1,4 +1,4 @@
-import shoppingBasketState from '@Atoms/shoppingBasketState';
+import shoppingCartState from '@Atoms/shoppingCartState';
 import { SHOPPING_QUANTITY } from '@Constants/index';
 import { selectorFamily } from 'recoil';
 
@@ -8,9 +8,9 @@ const quantityState = selectorFamily({
   get:
     (productId: number) =>
     ({ get }) => {
-      const shoppingBasket = get(shoppingBasketState);
+      const shoppingCart = get(shoppingCartState);
 
-      const shoppingItem = shoppingBasket.find((item) => item.product.id === productId);
+      const shoppingItem = shoppingCart.find((item) => item.product.id === productId);
 
       if (shoppingItem) return shoppingItem.quantity;
       return SHOPPING_QUANTITY.MIN;
