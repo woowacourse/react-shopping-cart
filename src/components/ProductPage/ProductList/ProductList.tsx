@@ -8,8 +8,6 @@ const ProductList = () => {
     data: { items },
   } = useRecoilValue(products);
 
-  if (!items) return null;
-
   return (
     <S.List>
       {items.map((product) => (
