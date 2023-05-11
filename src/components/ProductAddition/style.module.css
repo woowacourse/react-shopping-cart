@@ -64,6 +64,11 @@
 .addButton {
   background-color: #04c09e;
   color: white;
+  transition: all 0.2s ease-in;
+}
+
+.addButton:hover {
+  background-color: #05b696;
 }
 
 .cancelButton {
