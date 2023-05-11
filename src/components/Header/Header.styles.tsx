@@ -26,7 +26,7 @@ export const LogoButton = styled.button`
 `;
 
 export const LogoTitle = styled.h1`
-  color: var(--color-white)
+  color: var(--color-white);
   font-weight: 900;
   font-size: 40px;
   line-height: 58px;
