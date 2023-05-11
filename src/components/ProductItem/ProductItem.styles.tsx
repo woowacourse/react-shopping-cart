@@ -21,7 +21,7 @@ export const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     opacity: 0.1;
-    background-color: #ddd4ba;
+    background-color: var(--color-image-overlay);
     background-size: 100%;
     z-index: 1;
   }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
-  background: #333333;
+  background: var(--color-header);
   height: 80px;
   display: flex;
   justify-content: center;
@@ -26,7 +26,7 @@ export const LogoButton = styled.button`
 `;
 
 export const LogoTitle = styled.h1`
-  color: #fff;
+  color: var(--color-white)
   font-weight: 900;
   font-size: 40px;
   line-height: 58px;
@@ -49,16 +49,16 @@ export const ShoppingCartButtonText = styled.span`
   font-weight: 500;
   font-size: 24px;
   line-height: 12px;
-  color: #fff;
+  color: var(--color-white);
   margin-right: 6px;
 `;
 
 export const ShoppingCartQuantity = styled.div`
-  background-color: #04c09e;
+  background-color: var(--color-shopping-cart-quantity);
   border-radius: 50%;
   width: 26px;
   height: 26px;
-  color: #fff;
+  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
