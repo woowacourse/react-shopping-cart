@@ -52,9 +52,9 @@
 
 ### 📝 실행 방법
 
-- <a href="">앱 바로 실행하기</a>
+- <a href="https://hae-on.github.io/react-shopping-cart/">앱 바로 실행하기</a>
 
-- <a href="">스토리북 바로 실행하기</a>
+- <a href="https://hae-on.github.io/react-shopping-cart/storybook">스토리북 바로 실행하기</a>
 
 - 터미널에서 npm 설치(`npm install`) 후 `npm start` 커맨드로 앱을 실행할 수 있다.
 
