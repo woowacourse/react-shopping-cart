@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         <StyledTitle>SHOP</StyledTitle>
         <StyledCartWrapper>
           <StyledCart>장바구니</StyledCart>
-          <StyledCartAmount>{totalAmount}</StyledCartAmount>
+          <StyledCartAmount data-cy="cart-amount">{totalAmount}</StyledCartAmount>
         </StyledCartWrapper>
       </StyledHeaderBox>
     </StyledHeaderWrapper>

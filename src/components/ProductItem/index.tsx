@@ -30,7 +30,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   };
 
   return (
-    <StyledProductItemWrapper>
+    <StyledProductItemWrapper data-cy="product-item">
       <StyledThumbnail src={imageUrl} alt="납작" />
       <StyledInfoWrapper>
         <div>
@@ -39,7 +39,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
         </div>
         <StyledAddToCart>
           {count === 0 ? (
-            <Cart onClick={handleCartAmount} />
+            <Cart data-cy="add-cart" onClick={handleCartAmount} />
           ) : (
             <StyledCountInput type="number" value={count} onChange={handleCartAmountChange} min={0} max={100} />
           )}
