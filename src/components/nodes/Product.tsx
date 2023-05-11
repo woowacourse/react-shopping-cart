@@ -52,27 +52,27 @@ export default function Product(props: ProductProps) {
   }, []);
 
   return (
-    <S.Wrapper>
-      <S.Img src={`./assets/mockImages/${imageUrl}`} />
-      <S.InfoBox>
-        <S.LabelBox>
-          <S.Name>{name}</S.Name>
-          <S.Price>{price.toLocaleString()} 원</S.Price>
-        </S.LabelBox>
-        <S.ControlBox>
+    <Wrapper>
+      <Img src={`./assets/mockImages/${imageUrl}`} />
+      <InfoBox>
+        <LabelBox>
+          <Name>{name}</Name>
+          <Price>{price.toLocaleString()} 원</Price>
+        </LabelBox>
+        <ControlBox>
           {cartItem ? (
-            <S.Counter
+            <Counter
               type="number"
               value={quantityInput}
               onChange={handleChangeCounter}
               onBlur={handleBlurCounter}
             />
           ) : (
-            <S.CartIcon src="./assets/cart.svg" onClick={handleClickIcon}></S.CartIcon>
+            <CartIcon src="./assets/cart.svg" onClick={handleClickIcon}></CartIcon>
           )}
-        </S.ControlBox>
-      </S.InfoBox>
-    </S.Wrapper>
+        </ControlBox>
+      </InfoBox>
+    </Wrapper>
   );
 }
 
@@ -144,15 +144,3 @@ const Counter = styled.input`
     height: 28px;
   }
 `;
-
-const S = {
-  Wrapper,
-  Img,
-  InfoBox,
-  LabelBox,
-  Name,
-  Price,
-  CartIcon,
-  ControlBox,
-  Counter,
-};

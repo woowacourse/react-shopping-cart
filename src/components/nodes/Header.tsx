@@ -6,18 +6,18 @@ export default function Header() {
   const cartCount = useRecoilValue(cartCountState);
 
   return (
-    <S.Wrapper>
-      <S.ContentBox>
-        <S.LogoBox>
+    <Wrapper>
+      <ContentBox>
+        <LogoBox>
           <img src="./assets/logo.svg" />
-          <S.LogoTitle>SHOP</S.LogoTitle>
-        </S.LogoBox>
-        <S.CartBox>
+          <LogoTitle>SHOP</LogoTitle>
+        </LogoBox>
+        <CartBox>
           장바구니
-          <S.CartCount>{cartCount}</S.CartCount>
-        </S.CartBox>
-      </S.ContentBox>
-    </S.Wrapper>
+          <CartCount>{cartCount}</CartCount>
+        </CartBox>
+      </ContentBox>
+    </Wrapper>
   );
 }
 
@@ -81,12 +81,3 @@ const CartCount = styled.div`
   font-size: 14px;
   font-weight: 700;
 `;
-
-const S = {
-  Wrapper,
-  ContentBox,
-  LogoBox,
-  LogoTitle,
-  CartBox,
-  CartCount,
-};
