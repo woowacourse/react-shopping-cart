@@ -9,5 +9,5 @@ export default ContentLayout;
 
 const ContentSection = styled.section`
   width: 1200px;
-  margin: 0 auto;
+  margin: 140px auto 0 auto;
 `;

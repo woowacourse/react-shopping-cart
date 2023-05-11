@@ -20,10 +20,8 @@ export const CalcButton = styled.button`
   font-size: 16px;
   text-align: center;
 
-  vertical-align: top;
-
   cursor: pointer;
   &:hover {
-    background: rgba(220, 223, 225, 0.3s);
+    background: rgba(220, 223, 225, 0.3);
   }
 `;
