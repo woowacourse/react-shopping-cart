@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { cartAdditionState, cartListState } from '../../pages/ProductListPage';
+import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';

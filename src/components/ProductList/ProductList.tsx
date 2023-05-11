@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { productListState } from '../../pages/ProductListPage';
+import { productListState } from '../../store/product';
 import ProductItem from '../ProductItem/ProductItem';
 import styles from './styles.module.css';
 

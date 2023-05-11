@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import CartIcon from '../../assets/cart-icon.svg';
 import Logo from '../../assets/logo.png';
-import { cartListState } from '../../pages/ProductListPage';
+import { cartListState } from '../../store/cart';
 import styles from './style.module.css';
 
 const Header = () => {
