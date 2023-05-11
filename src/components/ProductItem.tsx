@@ -1,11 +1,11 @@
-import { useState, ChangeEventHandler } from 'react';
+import { useState, ChangeEventHandler, useEffect } from 'react';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
 import { INITIAL_QUANTITY, NONE_QUANTITY } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilValue, useRecoilState } from 'recoil';
 import { Product } from '../types';
 import { productListState } from './ProductList';
 
@@ -18,7 +18,7 @@ interface Props {
 
 export const cartState = atom({
   key: 'cartState',
-  default: [] as Product[],
+  default: JSON.parse(localStorage.getItem('cart') ?? '[]') as Product[],
 });
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
@@ -26,7 +26,11 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const [value, setValue] = useState(INITIAL_QUANTITY);
   const productList = useRecoilValue<Product[]>(productListState);
 
-  const setCart = useSetRecoilState<Product[]>(cartState);
+  const [cart, setCart] = useRecoilState<Product[]>(cartState);
+
+  useEffect(() => {
+    if (cart.filter((cart) => cart.id === id).length) setIsSelected(true);
+  }, [cart, id]);
 
   const handleCartClick = () => {
     setIsSelected(true);

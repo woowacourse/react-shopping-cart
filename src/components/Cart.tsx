@@ -1,19 +1,26 @@
 import { styled } from 'styled-components';
 import { cartState } from './ProductItem';
 import { selector, useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
 
-export const cartSelector = selector({
-  key: 'cartSelector',
+export const cartBadgeSelector = selector({
+  key: 'cartBadgeSelector',
   get: ({ get }) => {
     const cart = get(cartState);
-    const distinctProducts = new Set(cart);
+    const selectedProducts = new Set(cart);
 
-    return distinctProducts.size;
+    return selectedProducts.size;
   },
 });
 
 const Cart = () => {
-  const total = useRecoilValue(cartSelector);
+  const total = useRecoilValue(cartBadgeSelector);
+  const cart = useRecoilValue(cartState);
+  const selectedCartList = Array.from(new Set(cart));
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(selectedCartList));
+  }, [selectedCartList]);
 
   return (
     <S.Wrapper>
