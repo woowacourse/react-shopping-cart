@@ -31,7 +31,7 @@ jobs:
       - run: yarn
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - run: npm predeploy
+      - run: yarn build
 
       - uses: peaceiris/actions-gh-pages@v3
         with:
