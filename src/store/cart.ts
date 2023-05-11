@@ -8,8 +8,7 @@ const cartListState = atom<CartItemData[]>({
   default: [],
   effects: [
     ({ setSelf, onSet }) => {
-      const storeKey = CART_LIST_LOCAL_STORAGE_KEY;
-      const savedValue = localStorage.getItem(storeKey);
+      const savedValue = localStorage.getItem(CART_LIST_LOCAL_STORAGE_KEY);
 
       if (savedValue !== null) {
         setSelf(JSON.parse(savedValue));
@@ -17,8 +16,8 @@ const cartListState = atom<CartItemData[]>({
 
       onSet((newValue, _, isReset) => {
         isReset
-          ? localStorage.removeItem(storeKey)
-          : localStorage.setItem(storeKey, JSON.stringify(newValue));
+          ? localStorage.removeItem(CART_LIST_LOCAL_STORAGE_KEY)
+          : localStorage.setItem(CART_LIST_LOCAL_STORAGE_KEY, JSON.stringify(newValue));
       });
     },
   ],
