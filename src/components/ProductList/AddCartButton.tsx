@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
+import { ADD_CART_BUTTON } from '@constants/testId';
 import { BUCKET_BUTTON } from '@assets';
 
 interface AddCartButtonProps {
@@ -31,16 +32,26 @@ const AddCartButton = ({
     }
 
     addProductToCart();
-  }, [isClicked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isClicked, flag]);
 
   return (
     <Wrapper>
       {!isClicked && (
-        <Button type="button" onClick={toggleCounter}>
+        <Button
+          type="button"
+          onClick={toggleCounter}
+          data-testid={ADD_CART_BUTTON}
+        >
           <Image src={BUCKET_BUTTON} alt="장바구니 버튼" />
         </Button>
       )}
-      {isClicked && <BucketCounter setIsClicked={setIsClicked} />}
+      {isClicked && (
+        <BucketCounter
+          removeProductFromCart={removeProductFromCart}
+          setIsClicked={setIsClicked}
+        />
+      )}
     </Wrapper>
   );
 };
