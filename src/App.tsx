@@ -1,8 +1,21 @@
 import React from 'react';
-import Header from '@components/common/Header';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomePage from '@pages/HomePage';
+import Layout from '@components/common/Layout';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+]);
 
 function App() {
-  return <Header />;
+  return (
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
+  );
 }
 
 export default App;

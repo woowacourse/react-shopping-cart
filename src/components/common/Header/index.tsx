@@ -31,6 +31,8 @@ const Wrapper = styled.header`
   padding: 0 300px;
 
   background: ${theme.colors.primaryBlack};
+
+  z-index: 1;
 `;
 
 const Container = styled.div`
