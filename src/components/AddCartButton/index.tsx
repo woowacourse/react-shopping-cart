@@ -16,18 +16,20 @@ const AddCartButton = ({ id }: AddCardButtonProps) => {
 
   const getCount = async (count: number) => {
     setCartCount(prev => ({ ...prev, [id]: count }));
+    if (count === 0) {
+      await fetch(`/cart-items/${id}`, {
+        method: 'DELETE',
+      });
+      setClicked(false);
+      return;
+    }
+
     await fetch(`/cart-items/${id}`, {
       method: 'PATCH',
       body: JSON.stringify({
         quantity: count,
       }),
     });
-    if (count === 0) {
-      await fetch(`/cart-items/${id}`, {
-        method: 'DELETE',
-      });
-      setClicked(false);
-    }
   };
 
   const handleClick = async () => {
