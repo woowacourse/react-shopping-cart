@@ -1,60 +1,93 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import cartImage from "../../assets/images/cart.png";
+import arrowUpImage from "../../assets/images/arrow-up.png";
+import arrowDownImage from "../../assets/images/arrow-down.png";
 import { useState } from "react";
-import cartProductsState from "../../store/cartProductAtom";
 import { useRecoilState } from "recoil";
+import cartProductsState from "../../store/cartProductAtom";
 
 interface ProductQuantityInputProps {
   productId: number;
 }
 
+const removeNaN = (value: string) => {
+  return value.replace(/[^0-9]/g, "");
+};
+
 const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
-  const [quantity, setQuantity] = useState(0);
-  const [isEditing, setIsEditing] = useState(false);
+  const [quantity, setQuantity] = useState("0");
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
 
+  const setQuantityToOne = () => {
+    setQuantity(() => "1");
+    submitQuantityByValue("1");
+  };
+
+  const increaseQuantity = () => {
+    const increasedValue = (Number(quantity) + 1).toString();
+    setQuantity(() => {
+      submitQuantityByValue(increasedValue);
+      return increasedValue;
+    });
+  };
+
+  const decreaseQuantity = () => {
+    const decreasedValue = (Number(quantity) - 1).toString();
+    setQuantity(() => {
+      submitQuantityByValue(decreasedValue);
+      return decreasedValue;
+    });
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(() => Number(e.target.value));
+    setQuantity(() => removeNaN(e.target.value));
   };
 
-  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsEditing(false);
-    setCartProducts({ ...cartProducts, [productId]: Number(e.target.value) });
+  const submitQuantityByEvent = (e: React.FocusEvent<HTMLInputElement>) => {
+    setCartProducts({
+      ...cartProducts,
+      [productId]: Number(removeNaN(e.target.value)),
+    });
   };
 
-  const handleButtonClick = () => {
-    setIsEditing(true);
+  const submitQuantityByValue = (value: string) => {
+    setCartProducts({
+      ...cartProducts,
+      [productId]: Number(value),
+    });
   };
 
   return (
-    <ButtonContainer>
-      {!isEditing && quantity === 0 ? (
-        <Button type="button" onClick={handleButtonClick}>
+    <Container>
+      {quantity === "0" ? (
+        <ButtonMode type="button" onClick={setQuantityToOne}>
           <ButtonIcon src={cartImage} />
-        </Button>
+        </ButtonMode>
       ) : (
-        <Input
-          type="number"
-          value={quantity}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
-        />
+        <InputMode>
+          <IncreaseButton onClick={increaseQuantity} />
+          <Input
+            value={quantity}
+            onChange={handleInputChange}
+            onBlur={submitQuantityByEvent}
+          />
+          <DecreaseButton onClick={decreaseQuantity} />
+        </InputMode>
       )}
-    </ButtonContainer>
+    </Container>
   );
 };
 
-const ButtonContainer = styled.div`
-  width: 54px;
-  height: 25px;
+const Container = styled.div`
+  width: 29.98px;
+  height: 60px;
   text-align: center;
 `;
 
-const Button = styled.button`
-  width: 24.99px;
-  height: 22px;
-  margin: 0;
-  padding: 0;
+const ButtonMode = styled.button`
+  width: 30px;
+  height: 26.4px;
+  margin: 16.8px 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -65,9 +98,70 @@ const ButtonIcon = styled.img`
   height: 100%;
 `;
 
+const InputMode = styled.div`
+  position: relative;
+`;
+
 const Input = styled.input`
-  width: 54px;
-  height: 25px;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin: 15px 0;
+  background-color: #222222;
+  border-radius: 6px;
+  border: none;
+  text-align: center;
+  color: white;
+  font-family: "Prata";
+  z-index: 1;
+`;
+
+const moveUpAnimation = keyframes`
+  from {
+    top: 30%;
+  }
+  to {
+    top: 0%;
+  }
+`;
+
+const moveDownAnimation = keyframes`
+  from {
+    bottom: 30%;
+  }
+  to {
+    bottom: 0%;
+  }
+`;
+
+const IncreaseButton = styled.button`
+  position: absolute;
+  background: url(${arrowUpImage});
+  background-size: 70% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 30px;
+  height: 11px;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  animation: ${moveUpAnimation} 0.2s;
+`;
+
+const DecreaseButton = styled.button`
+  position: absolute;
+  background: url(${arrowDownImage});
+  background-size: 70% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 30px;
+  height: 11px;
+  cursor: pointer;
+  bottom: 0;
+  left: 0;
+  animation: ${moveDownAnimation} 0.2s;
 `;
 
 export default ProductQuantityInput;

@@ -18,7 +18,9 @@ const ProductCard = ({
       <ProductImage src={productImage} alt="productImage" />
       <ProductDetailWrapper>
         <ProductName title={productName}>{productName}</ProductName>
-        <QuantityInput productId={productId} />
+        <InputWrapper>
+          <ProductQuantityInput productId={productId} />
+        </InputWrapper>
         <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
       </ProductDetailWrapper>
     </ProductCardContainer>
@@ -49,7 +51,7 @@ const ProductDetailWrapper = styled.div`
   grid-template-columns: 4fr 1fr;
   grid-template-areas:
     "name input"
-    "price price";
+    "price input";
 `;
 
 const ProductName = styled.span`
@@ -71,8 +73,10 @@ const ProductPrice = styled.span`
   font-family: "Prata";
 `;
 
-const QuantityInput = styled(ProductQuantityInput)`
+const InputWrapper = styled.div`
   grid-area: input;
+  display: flex;
+  justify-content: center;
 `;
 
 export default ProductCard;
