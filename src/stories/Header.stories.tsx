@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Header from "../components/Header/Header";
 
 /**
- * `Hello, World` 를 출력
+  페이지 상단에 위치한 Header 컴포넌트입니다.
  */
 const meta = {
   title: "Header",

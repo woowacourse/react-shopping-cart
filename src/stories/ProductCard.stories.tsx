@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard/ProductCard";
 
 /** 
   각각의 제품 정보를 나타내는 ProductCard 컴포넌트입니다.
-  @param adas
+
 */
 const meta = {
   title: "ProductCard",
