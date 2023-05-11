@@ -14,14 +14,38 @@ export default meta;
 
 type Story = StoryObj<typeof QuantityController>;
 
+/**
+ * 장바구량에 담긴 물품의 수량이 1인 경우의 스토리입니다.
+ */
 export const DefaultQuantityController: Story = {
-  args: { quantity: 1 },
+  args: {
+    quantity: 1,
+    updateShoppingBasket: () => {
+      return;
+    },
+  },
 };
 
+/**
+ * 장바구량에 담긴 물품의 수량이 0인 경우의 스토리입니다.
+ */
 export const ZeroQuantityController: Story = {
-  args: { quantity: 0 },
+  args: {
+    quantity: 0,
+    updateShoppingBasket: () => {
+      return;
+    },
+  },
 };
 
+/**
+ * 장바구량에 담긴 물품의 수량이 99인 경우의 스토리입니다.
+ */
 export const MaxQuantityController: Story = {
-  args: { quantity: 99 },
+  args: {
+    quantity: 99,
+    updateShoppingBasket: () => {
+      return;
+    },
+  },
 };
