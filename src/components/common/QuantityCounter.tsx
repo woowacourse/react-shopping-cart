@@ -6,7 +6,7 @@ import { DownButtonIc, UpButtonIc } from "../../asset";
 import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
 import { ERROR } from "../../constants/error";
 import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
-import { validateNumberRange } from "../../utils/validation";
+import { fillBlankInput, validateNumberRange } from "../../utils/validation";
 
 const unknownCountAction = (action: never): never => {
   throw new Error(ERROR.INVALID_ACTION);
@@ -19,7 +19,7 @@ const changeCount = (current: HTMLInputElement, action: CounterAction) => {
       current.value = (prevValue + 1).toString();
       break;
     case ACTION_DECREASE:
-      if (prevValue < 1) return;
+      if (prevValue < 2) return;
       current.value = (prevValue - 1).toString();
       break;
     default:
@@ -50,6 +50,7 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
         ref={quantityRef}
         onChange={validateNumberRange}
         defaultValue="1"
+        onBlur={fillBlankInput}
       />
       <ButtonWrapper>
         <CountButton onClick={increaseQuantity}>
