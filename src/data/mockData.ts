@@ -1,4 +1,4 @@
-import type { Product } from '../types';
+import type { CartItem, Product } from '../types';
 
 export const products: Product[] = [
   {
@@ -74,3 +74,5 @@ export const products: Product[] = [
     imageUrl: 'https://cdn-mart.baemin.com/sellergoods/main/d07bec18-ce84-41c2-8903-61cbd10712b6.jpg?h=300&w=300',
   },
 ];
+
+export const cartItems: CartItem[] = [];
