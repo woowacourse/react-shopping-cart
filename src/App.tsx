@@ -1,12 +1,11 @@
 import React from "react";
-import Main from "./pages/Main";
 import { RecoilRoot } from "recoil";
-
+import { PageRouterProvider } from "./router";
 
 const App = () => {
   return (
     <RecoilRoot>
-      <Main />
+      <PageRouterProvider />
     </RecoilRoot>
   );
 };
