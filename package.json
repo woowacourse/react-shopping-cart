@@ -1,8 +1,10 @@
 {
+  "homepage": "https://nlom0218.github.io/react-shopping-cart/",
   "name": "my",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
@@ -17,7 +19,9 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "sb": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -48,13 +52,6 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.27",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
     "@storybook/addon-controls": "^7.0.9",
     "@storybook/addon-essentials": "^7.0.9",
     "@storybook/addon-interactions": "^7.0.9",
@@ -64,6 +61,14 @@
     "@storybook/react": "^7.0.9",
     "@storybook/react-webpack5": "^7.0.9",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.27",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "^5.59.5",
