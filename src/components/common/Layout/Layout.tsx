@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, Suspense } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 import Flex from '../Flex';
 import Header from '../Header/Header';
@@ -8,9 +8,7 @@ import * as S from './Layout.styles';
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <S.Root>
-      <Suspense fallback={null}>
-        <Header />
-      </Suspense>
+      <Header />
       {children}
     </S.Root>
   );
@@ -20,9 +18,7 @@ export const Content = () => {
   return (
     <Flex dir="column" width="80%" style={{ margin: '0 auto' }}>
       <PageTitle />
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </Flex>
   );
 };

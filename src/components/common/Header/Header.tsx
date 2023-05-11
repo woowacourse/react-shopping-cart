@@ -1,13 +1,11 @@
-import { useRecoilValue } from 'recoil';
 import Logo from '../../../assets/png/logo.png';
-import { cartState } from '../../../recoil/cart';
+import CartBadge from '../CartBadge/CartBadge';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 import Flex from '../Flex';
 import * as S from './Header.styles';
 
 const Header = () => {
-  const cartItem = useRecoilValue(cartState);
-
   return (
     <S.Root>
       <Flex width="80%" justify="space-between" align="center">
@@ -17,7 +15,9 @@ const Header = () => {
         </S.LinkToHome>
         <Flex>
           <S.LinkToCart to="/">장바구니</S.LinkToCart>
-          {cartItem.length && <S.Badge>{cartItem.length}</S.Badge>}
+          <ErrorBoundary>
+            <CartBadge />
+          </ErrorBoundary>
         </Flex>
       </Flex>
     </S.Root>
