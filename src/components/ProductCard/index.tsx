@@ -5,6 +5,8 @@ import { Cart } from '../../types/product';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom } from '../../recoil/cartState';
 import Counter from '../Counter';
+import ProductImg from './ProductImg';
+import ProductInfo from './ProductInfo';
 import { targetProductSelector } from '../../recoil/fetchSelectors';
 
 interface ProductCardProps {
@@ -51,12 +53,9 @@ const ProductCard = ({ productId }: ProductCardProps) => {
 
   return (
     <Styled.Container>
-      <Styled.Img src={imageUrl} />
+      <ProductImg imageUrl={imageUrl} />
       <Styled.ProductDetail>
-        <Styled.ProductInfo>
-          <Styled.ProductName>{name}</Styled.ProductName>
-          <Styled.ProductPrice>{price.toLocaleString()}원</Styled.ProductPrice>
-        </Styled.ProductInfo>
+        <ProductInfo name={name} price={price} />
         {isCartClicked ? (
           <Counter
             plusOne={plusOne}
@@ -82,38 +81,9 @@ const Styled = {
     width: 282px;
   `,
 
-  Img: styled.img`
-    width: 282px;
-    height: 282px;
-
-    cursor: pointer;
-  `,
-
   ProductDetail: styled.div`
     display: flex;
     justify-content: space-between;
-  `,
-
-  ProductInfo: styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    padding-left: 16px;
-  `,
-
-  ProductName: styled.span`
-    font-weight: 400;
-    font-size: 16px;
-
-    letter-spacing: 0.5px;
-  `,
-
-  ProductPrice: styled.span`
-    font-weight: 400;
-    font-size: 20px;
-
-    letter-spacing: 0.5px;
   `,
 
   ShoppingCart: styled.button`
