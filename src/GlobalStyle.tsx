@@ -15,12 +15,18 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
 
   body {
     background-color: var(--background-color);
     font-family: 'Apple SD Gothic Neo', 'Noto Sans KR';
     color: var(--primary-color);
+  }
+
+  a {
+    text-decoration: none;
+    outline: none;
   }
 
   ol,ul,li {
