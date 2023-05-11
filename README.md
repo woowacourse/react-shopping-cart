@@ -21,33 +21,6 @@
 
 ---
 
-<table>
-  <tr>
-    <td align=“center” width=“120px”>
-      <a href="https://github.com/woo-jk" target="_blank">
-        <img src="https://avatars.githubusercontent.com/u/73513965?v=4" alt="룩소(우정균) 프로필" />
-      </a>
-    </td>
-    <td align=“center” width=“120px”>
-      <a href=“https://github.com/suyoungj target=“_blank”>
-        <img src="https://avatars.githubusercontent.com/u/19235163?v=4" alt="룩소(우정균) 프로필" />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td align=“center”>
-      <a href=“https://github.com/woo-jk” target=“_blank”>
-      룩소(우정균)
-      </a>
-    </td>
-    <td align=“center”>
-      <a href=“https://github.com/suyoungj target=“_blank”>
-        유스(정수영)
-      </a>
-    </td>
-  </tr>
-</table>
-
 ## ✅ 요구사항 목록
 
 1. 상품 목록 페이지
