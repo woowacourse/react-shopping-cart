@@ -75,8 +75,12 @@ export const Interaction: Story = {
     await userEvent.click(increaseButton);
     expect(countInput).toHaveValue('3');
 
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     await userEvent.type(countInput, '4', { delay: 200 });
     expect(countInput).toHaveValue('34');
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     await userEvent.click(decreaseButton);
     expect(countInput).toHaveValue('33');
