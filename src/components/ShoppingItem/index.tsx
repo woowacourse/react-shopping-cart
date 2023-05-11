@@ -15,7 +15,6 @@ type ShoppingItemProps = {
 };
 
 function ShoppingItem({ product, isLoading }: ShoppingItemProps) {
-  console.log(isLoading);
   const { updateShoppingBasket } = useShoppingBasket();
   const quantity = product && useRecoilValue(quantityState(product.id));
 
@@ -25,10 +24,10 @@ function ShoppingItem({ product, isLoading }: ShoppingItemProps) {
       <S.ShoppingItemContents>
         <S.ShoppingItemLayout>
           <S.ShoppingItemName aria-label={product && '판매 품목 이름'} isLoading={isLoading}>
-            {product && product.name}
+            {product ? product.name : '로딩중입니다.'}
           </S.ShoppingItemName>
           <S.ShoppingItemPrice aria-label={product && '판매 품목 가격'} isLoading={isLoading}>
-            {product && product.price.toLocaleString()} 원
+            {product ? `${product.price.toLocaleString()} 원` : '로딩중입니다.'}
           </S.ShoppingItemPrice>
         </S.ShoppingItemLayout>
         {product && (

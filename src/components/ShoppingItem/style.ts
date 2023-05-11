@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const Container = styled.div`
   min-width: 100%;
@@ -10,10 +10,29 @@ type LoadingProps = {
   isLoading?: boolean;
 };
 
-export const ShoppingItemImage = styled.img`
+const SkeletonAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const ImageSkeletonStyle = css`
+  background: linear-gradient(-90deg, #dee2e6, #f0f0f0, #dee2e6, #f0f0f0);
+  background-size: 400%;
+  animation: ${SkeletonAnimation} 5s infinite ease-in-out;
+`;
+
+export const ShoppingItemImage = styled.img<LoadingProps>`
   height: 250px;
   margin-bottom: 18px;
-  background-color: #e0e0e0;
+
+  ${ImageSkeletonStyle};
 `;
 
 export const ShoppingItemContents = styled.div`
@@ -36,11 +55,18 @@ export const ShoppingItemName = styled.div<LoadingProps>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: ${(props) => (props.isLoading ? '#e0e0e0' : 'rgba(0,0,0,0)')};
+  ${(props) => props.isLoading && TextSkeletonStyle}
 `;
 
 export const ShoppingItemPrice = styled.div<LoadingProps>`
   font-size: 20px;
   margin-top: 5px;
-  background-color: ${(props) => (props.isLoading ? '#e0e0e0' : 'rgba(0,0,0,0)')};
+  ${(props) => props.isLoading && TextSkeletonStyle}
+`;
+
+const TextSkeletonStyle = css`
+  color: transparent;
+  background: linear-gradient(-90deg, #dee2e6, #f0f0f0, #dee2e6, #f0f0f0);
+  background-size: 400%;
+  animation: ${SkeletonAnimation} 5s infinite ease-in-out;
 `;

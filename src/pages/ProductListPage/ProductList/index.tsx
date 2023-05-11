@@ -6,13 +6,12 @@ import useFetch from '@Hooks/useFetch';
 
 function ProductList() {
   const { data, isLoading } = useFetch<Product[]>('data/mockData.json');
+  console.log(isLoading);
 
   return (
     <S.ProductListContainer>
-      {data &&
-        data.map((data) => {
-          return <ShoppingItem product={data} key={data.id} isLoading={isLoading} />;
-        })}
+      {data && data.map((data) => <ShoppingItem product={data} key={data.id} isLoading={isLoading} />)}
+      {isLoading && new Array(12).fill(undefined).map((_, index) => <ShoppingItem key={index} isLoading={isLoading} />)}
     </S.ProductListContainer>
   );
 }
