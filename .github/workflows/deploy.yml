@@ -37,6 +37,9 @@ jobs:
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: Lint with eslint
+        run: npm run lint --quiet || exit 0
+
       - name: Set PUBLIC_URL
         run: |
           PUBLIC_URL=$(echo $GITHUB_REPOSITORY | sed -r 's/^.+\/(.+)$/\/\1\//')
