@@ -1,4 +1,4 @@
-import ShoppingItem from '@Components/ShoppingItem';
+import ProductItem from '@Components/ProductItem';
 
 import { Product } from '@Types/index';
 import * as S from './style';
@@ -9,8 +9,8 @@ function ProductList() {
 
   return (
     <S.ProductListContainer>
-      {data && data.map((data) => <ShoppingItem product={data} key={data.id} isLoading={isLoading} />)}
-      {isLoading && new Array(12).fill(undefined).map((_, index) => <ShoppingItem key={index} isLoading={isLoading} />)}
+      {data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
+      {isLoading && new Array(12).fill(undefined).map((_, index) => <ProductItem key={index} isLoading={isLoading} />)}
     </S.ProductListContainer>
   );
 }

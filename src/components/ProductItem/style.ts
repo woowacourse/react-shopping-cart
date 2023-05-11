@@ -11,13 +11,13 @@ type LoadingProps = {
   isLoading?: boolean;
 };
 
-export const ShoppingItemImage = styled.img<LoadingProps>`
+export const ProductItemImage = styled.img<LoadingProps>`
   height: 250px;
   margin-bottom: 18px;
   ${ImageSkeletonStyle};
 `;
 
-export const ShoppingItemContents = styled.div`
+export const ProductItemContents = styled.div`
   min-width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -26,12 +26,12 @@ export const ShoppingItemContents = styled.div`
   color: #4f4f4f;
 `;
 
-export const ShoppingItemLayout = styled.div`
+export const ProductItemLayout = styled.div`
   min-width: 100%;
   margin-left: 10px;
 `;
 
-export const ShoppingItemName = styled.div<LoadingProps>`
+export const ProductItemName = styled.div<LoadingProps>`
   line-height: 20px;
   word-break: break-all;
   white-space: nowrap;
@@ -40,7 +40,7 @@ export const ShoppingItemName = styled.div<LoadingProps>`
   ${(props) => props.isLoading && TextSkeletonStyle}
 `;
 
-export const ShoppingItemPrice = styled.div<LoadingProps>`
+export const ProductItemPrice = styled.div<LoadingProps>`
   font-size: 20px;
   margin-top: 5px;
   ${(props) => props.isLoading && TextSkeletonStyle}

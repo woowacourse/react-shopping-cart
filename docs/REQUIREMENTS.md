@@ -60,7 +60,7 @@
 
 ### 리팩터링
 
-- [ ] 컴포넌트 네이밍 수정 - Product
+- [x] 컴포넌트 네이밍 수정 - Product
 - [ ] 상수화
 - [x] 절대경로 - atoms, selector / Domain 절대 경로 삭제
 
