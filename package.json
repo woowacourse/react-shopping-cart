@@ -1,9 +1,10 @@
 {
-  "homepage": "https://nlom0218.github.io/react-shopping-cart/",
+  "homepage": ".",
   "name": "my",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
