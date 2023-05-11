@@ -2,10 +2,10 @@ import { styled } from 'styled-components';
 import { CartLogo } from '../assets/svg';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { countInCartState } from '../atom';
+import { productsInCartState } from '../atom';
 
 export default function Header() {
-  const [countInCart] = useRecoilState(countInCartState);
+  const [productsInCart] = useRecoilState(productsInCartState);
 
   return (
     <Style.Container>
@@ -14,7 +14,7 @@ export default function Header() {
           <CartLogo fill="var(--grey-100)" style={{ width: '40px' }} />
         </Style.Title>
         <Style.CartLink to="/">
-          <Style.CountInCart>{countInCart}</Style.CountInCart>
+          <Style.CountInCart>{productsInCart.length}</Style.CountInCart>
         </Style.CartLink>
       </Style.Content>
     </Style.Container>
@@ -59,7 +59,6 @@ const Style = {
     display: flex;
     align-items: center;
 
-    font-size: 18px;
     font-weight: 500;
 
     &::before {
@@ -73,8 +72,8 @@ const Style = {
     justify-content: center;
     align-items: center;
 
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
 
     border-radius: 50%;
 

@@ -6,12 +6,6 @@ interface ProductInCart {
   quantity: number;
 }
 
-export const countInCartState = atom({
-  key: 'countInCart',
-  default: 0,
-  effects: [localStorageEffect<number>('countInCart')],
-});
-
 export const productsInCartState = atom({
   key: 'productsInCart',
   default: [],
