@@ -14,31 +14,55 @@
 ✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.  
 ✔️ [배민상회](https://mart.baemin.com) 서비스 참고
 
-## Step 1 필수 요구 사항
+## ✨ Step 1 필수 요구 사항
 
 1. 상품 목록 페이지
 
-- 상품 목록 페이지에 필요한 UI 마크업
-- header의 숫자 표시를 통해 장바구니에 담긴 품목의 갯수 표시
+- [x] 상품 목록 페이지에 필요한 UI 마크업
+- [x] header의 숫자 표시를 통해 장바구니에 담긴 품목의 갯수 표시
 
 2. 전역 상태 관리
 
-- recoil을 사용하여 전역 상태 관리
+- [x] recoil을 사용하여 전역 상태 관리
 
 3. mock 데이터 활용
 
-- Mock 데이터를 활용하여 상품 데이터를 처리한다. 협업 미션을 고려하여 장바구니 API 예상 명세 참고
+- [x] Mock 데이터를 활용하여 상품 데이터를 처리한다. 협업 미션을 고려하여 장바구니 API 예상 명세 참고
 
 4. 테스트 도구 선정
 
-- 적합한 테스트 도구를 선택하여 사용하고, 중요한 테스트 케이스를 정의하여 테스트 진행
+- [x] 적합한 테스트 도구를 선택하여 사용하고, 중요한 테스트 케이스를 정의하여 테스트 진행
 
-## 👏 Contributing
+## 👏 Step 1 Pair
 
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
+<table>
+  <tr>
+    <td align="center" width="140px">
+      <a href="https://github.com/yeopto" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/78894403?v=4" alt="엽토(김건엽) 프로필" />
+      </a>
+    </td>
+    <td align="center" width="140px">
+      <a href="https://github.com/ksone02" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/72087183?v=4" alt="에디(강상원) 프로필" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/yeopto" target="_blank">
+        엽토(김건엽)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ksone02" target="_blank">
+        에디(강상원) 
+      </a>
+    </td>
+  </tr>
+</table>
 
-<br>
+## 🖥️ 배포 페이지
 
-## 🐞 Bug Report
-
-버그를 발견한다면, [Issues](https://github.com/woowacourse/react-shopping-cart/issues)에 등록해주세요.
+- [장바구니 페이지]()
+- [스토리북]()
