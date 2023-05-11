@@ -1,4 +1,4 @@
-declare module '*png';
+declare module '*.png';
 
 export interface ProductType {
   id: number;

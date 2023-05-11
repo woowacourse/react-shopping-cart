@@ -10,8 +10,8 @@ const Template: StoryFn<React.ComponentProps<typeof Product>> = (props) => <Prod
 
 export const Controls = Template.bind({});
 Controls.args = {
-  id: 0,
-  name: 'PET보틀-정사각(420ml)',
-  price: 43400,
-  imageUrl: 'PET보틀-정사각(420ml).png',
+  id: 96,
+  name: 'SONY 컨트롤러',
+  price: 104000,
+  imageUrl: 'https://picsum.photos/id/96/300',
 };

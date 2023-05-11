@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { cartCountState } from '../../recoil/state';
-import logo from '../../../public/assets/logo.svg';
 
 export default function Header() {
   const cartCount = useRecoilValue(cartCountState);
@@ -10,7 +9,7 @@ export default function Header() {
     <Wrapper>
       <ContentBox>
         <LogoBox>
-          <img src={logo} />
+          <img src="./logo.svg" />
           <LogoTitle>SHOP</LogoTitle>
         </LogoBox>
         <CartBox>
