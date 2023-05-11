@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import mockProducts from '../../data/mockProducts.json';
 import ProductItem from '../ProductItem';
+import { useRecoilValue } from 'recoil';
+import { fetchProductSelector } from '../../atoms/product';
 
 const ProductList: React.FC = () => {
-  const products = mockProducts;
+  const products = useRecoilValue(fetchProductSelector);
 
   return (
     <StyledProductListWrapper>
