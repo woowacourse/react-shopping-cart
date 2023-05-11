@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
-import Item from "./Item";
+import styled from "styled-components";
 import type { ItemType } from "../types/domain";
+import Item from "./Item";
 
 const ItemList = ({ items }: { items: ItemType[] }) => {
   return (

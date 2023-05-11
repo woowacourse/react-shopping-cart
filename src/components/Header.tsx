@@ -1,6 +1,6 @@
 import React from "react";
-import { CartIcon } from "../assets";
 import styled from "styled-components";
+import { CartIcon } from "../assets";
 import { useRecoilValue } from "recoil";
 import { itemQuantitySelector } from "../recoil/selector";
 import { useNavigate } from "react-router-dom";

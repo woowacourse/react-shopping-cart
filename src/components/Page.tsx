@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const Page = ({ children }: { children: ReactNode }) => {
   return <Wrapper>{children}</Wrapper>;
@@ -7,7 +7,7 @@ const Page = ({ children }: { children: ReactNode }) => {
 
 const Wrapper = styled.section`
   display: flex;
-  
+
   padding: 90px 5%;
 `;
 

@@ -1,9 +1,9 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import type { ItemType } from "../types/domain";
+import { useQuantity } from "../hooks/useQuantity";
 import { CartGrayIcon } from "../assets";
 import Counter from "./Counter";
 import { MIN_QUANTITY } from "../constants";
-import { useQuantity } from "../hooks/useQuantity";
 
 const Item = ({ id, name, price, imageUrl }: ItemType) => {
   const { quantity, setNewQuantity } = useQuantity(id);
