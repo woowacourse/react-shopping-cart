@@ -3,7 +3,7 @@ import ProductList from 'src/pages/ProductList';
 
 const CartRouter = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<ProductList />} />
       </Routes>
