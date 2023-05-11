@@ -13,10 +13,16 @@ export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
     <Wrapper>
       <CountValue>{quantity}</CountValue>
       <div>
-        <IncreaseCountButton onClick={increaseCount}>
+        <IncreaseCountButton
+          data-testid="increase-button"
+          onClick={increaseCount}
+        >
           <IncreaseButtonImage />
         </IncreaseCountButton>
-        <DecreaseCountButton onClick={decreaseCount}>
+        <DecreaseCountButton
+          data-testid="decrease-button"
+          onClick={decreaseCount}
+        >
           <DecreaseButtonImage />
         </DecreaseCountButton>
       </div>
