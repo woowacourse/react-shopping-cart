@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 type ImageSize = 'large' | 'medium' | 'small';
 
@@ -8,7 +8,11 @@ interface ProductImageProps {
   size?: ImageSize;
 }
 
-const ProductImage = ({ src, alt, size = 'medium' }: ProductImageProps) => {
+const ProductImage = ({
+  src,
+  alt = '',
+  size = 'medium',
+}: ProductImageProps) => {
   return (
     <ImageWrapper>
       <Image src={src} loading="lazy" alt={alt} size={size} />
@@ -23,28 +27,17 @@ const ImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-const Image = styled.img<{ size: ImageSize }>`
-  width: ${({ size }) => {
-    switch (size) {
-      case 'large':
-        return '282px';
-      case 'medium':
-        return '145px';
-      case 'small':
-        return '70px';
-    }
-  }};
+const imageSizeMapper = {
+  large: '282px',
+  medium: '145px',
+  small: '70px',
+};
 
-  height: ${({ size }) => {
-    switch (size) {
-      case 'large':
-        return '282px';
-      case 'medium':
-        return '145px';
-      case 'small':
-        return '70px';
-    }
-  }};
+const Image = styled.img<{ size: ImageSize }>`
+  ${({ size }) => css`
+    width: ${imageSizeMapper[size]};
+    height: ${imageSizeMapper[size]};
+  `}
 `;
 
 const ImageBackground = styled.div`
