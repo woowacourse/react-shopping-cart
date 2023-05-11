@@ -1,8 +1,10 @@
 import { atom } from "recoil";
 
+const emptyValue: Record<string, number> = {};
+
 const cartProductsState = atom({
   key: "cartProductsState",
-  default: {},
+  default: emptyValue,
 });
 
 export default cartProductsState;
