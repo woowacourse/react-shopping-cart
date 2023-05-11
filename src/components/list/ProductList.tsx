@@ -7,27 +7,21 @@ import { Text } from '../common/Text/Text';
 
 const ProductList = () => {
   const { data, isLoading } = useDataFetching<Product[]>('./mock/mockData.json');
-
+  if (isLoading) {
+    return <Text>로딩중...</Text>;
+  }
+  if (!data) {
+    return <ErrorBox errorType="network" />;
+  }
+  if (data.length === 0) {
+    return <ErrorBox errorType="emptyList" />;
+  }
   return (
-    <>
-      {!isLoading ? (
-        data ? (
-          data.length > 0 ? (
-            <ProductListWrapper>
-              {data.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))}
-            </ProductListWrapper>
-          ) : (
-            <ErrorBox errorType="emptyList" />
-          )
-        ) : (
-          <ErrorBox errorType="network" />
-        )
-      ) : (
-        <Text>로딩중...</Text>
-      )}
-    </>
+    <ProductListWrapper>
+      {data.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </ProductListWrapper>
   );
 };
 
