@@ -1,9 +1,10 @@
 import { forwardRef } from "react";
 import styled from "styled-components";
+
+import type { CounterAction } from "../../type/counter";
 import { DownButtonIc, UpButtonIc } from "../../asset";
 import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
 import { ERROR } from "../../constants/error";
-import { CounterAction } from "../../type/counter";
 import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
 import { validateNumberRange } from "../../utils/validation";
 

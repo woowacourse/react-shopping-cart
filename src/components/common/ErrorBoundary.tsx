@@ -1,8 +1,11 @@
 import React, { ErrorInfo, PropsWithChildren } from "react";
 
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
 export default class ErrorBoundary extends React.Component<
   PropsWithChildren,
-  { hasError: boolean }
+  ErrorBoundaryState
 > {
   constructor(props: PropsWithChildren) {
     super(props);

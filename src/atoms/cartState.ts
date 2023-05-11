@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+
 import type { CartType } from "../type/cart";
 
 export const cartState = atom<CartType[]>({

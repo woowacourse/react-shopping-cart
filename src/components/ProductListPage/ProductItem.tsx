@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import styled from "styled-components";
+
 import { AddCartIc } from "../../asset";
 import { useAddCart } from "../../hooks/useAddCart";
 import QuantityCounter from "../common/QuantityCounter";

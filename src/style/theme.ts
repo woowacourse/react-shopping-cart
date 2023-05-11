@@ -1,8 +1,6 @@
 import { DefaultTheme } from "styled-components";
 
-interface StyleType {
-  [key: string]: string;
-}
+import type { FontType, StyleType } from "../type/theme";
 
 const colors: StyleType = {
   primary: "#333333",
@@ -11,13 +9,6 @@ const colors: StyleType = {
   blue_green: "#04c09e",
   white: "#ffffff",
 };
-
-interface FontType {
-  family: string;
-  weight: number;
-  size: number;
-  lineHeight: number;
-}
 
 function FONT({ family, weight, size, lineHeight }: FontType): string {
   return `

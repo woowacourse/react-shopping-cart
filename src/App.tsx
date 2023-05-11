@@ -1,9 +1,8 @@
-import React from "react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { Outlet } from "react-router-dom";
-import CartQuantity from "./components/CartQuantity";
 
+import CartQuantity from "./components/CartQuantity";
 import Header from "./components/common/Header";
 import { GlobalStyle } from "./style/globalStyle";
 import { theme } from "./style/theme";
