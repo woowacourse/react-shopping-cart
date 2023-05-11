@@ -3,9 +3,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom, cartAtomState } from '../../recoil/cartState';
-import Counter from '../Counter';
-import ProductImg from './ProductImg';
-import ProductInfo from './ProductInfo';
+import Counter from '../Counter/Counter';
+import ProductImg from './ProductImg/ProductImg';
+import ProductInfo from './ProductInfo/ProductInfo';
 import { targetProductSelector } from '../../recoil/fetchSelectors';
 
 interface ProductCardProps {

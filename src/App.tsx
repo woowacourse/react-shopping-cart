@@ -1,7 +1,7 @@
 import { RecoilRoot } from 'recoil';
 import { styled } from 'styled-components';
-import CartTextButton from './components/CartTextButton';
-import Header from './components/Header';
+import CartTextButton from './components/CartTextButton/CartTextButton';
+import Header from './components/Header/Header';
 import ProductPage from './pages/ProductPage';
 
 function App() {
