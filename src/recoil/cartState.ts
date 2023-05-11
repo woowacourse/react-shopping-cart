@@ -3,7 +3,7 @@ import { Cart } from '../types/product';
 
 export const cartAtom = atom<Cart[]>({
   key: 'cart',
-  default: [],
+  default: JSON.parse(localStorage.getItem('cart') || '[]'),
 });
 
 export const cartQuantitySelector = selector({

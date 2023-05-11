@@ -12,8 +12,9 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [cart, setCart] = useRecoilState(cartAtom);
-  const [isCartClicked, setIsCartClicked] = useState(false);
   const { id, name, price, imageUrl } = product;
+  const productInCart = cart.find((item) => item.id === id);
+  const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
   const addToCart = () => {
     const newProduct: Cart = {
@@ -58,7 +59,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Counter
             plusOne={plusOne}
             minusOne={minusOne}
-            quantity={cart.find((item) => item.id === id)?.quantity}
+            quantity={productInCart?.quantity}
           />
         ) : (
           <Styled.ShoppingCart onClick={addToCart}>
