@@ -23,6 +23,8 @@ const Header = () => {
 };
 
 const HeaderContainer = styled.header`
+  position: fixed;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,6 +37,8 @@ const HeaderContainer = styled.header`
   background-color: #333;
 
   color: #fff;
+
+  z-index: 1;
 `;
 
 const Logo = styled.div`
