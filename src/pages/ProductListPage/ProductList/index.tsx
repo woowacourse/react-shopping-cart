@@ -6,7 +6,6 @@ import useFetch from '@Hooks/useFetch';
 
 function ProductList() {
   const { data, isLoading } = useFetch<Product[]>('data/mockData.json');
-  console.log(isLoading);
 
   return (
     <S.ProductListContainer>
