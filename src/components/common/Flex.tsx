@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface Flex extends DOMAttributes<HTMLDivElement> {
   width?: string;
+  height?: string;
   dir?: 'row' | 'column';
   justify?:
     | 'start'
@@ -23,6 +24,7 @@ const Flex = styled.div<Flex>`
   align-items: ${({ align = 'stretch' }) => align};
 
   width: ${({ width = 'auto' }) => width};
+  height: ${({ height = 'auto' }) => height};
 `;
 
 export default Flex;
