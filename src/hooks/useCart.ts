@@ -16,14 +16,6 @@ export const cartState = atom<Cart[]>({
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
 
-  const loadCartList = async () => {
-    console.log('loaded');
-    // mock API 연결해주기
-    const response = await mockApi('/cart-items');
-    const cartList = response.data;
-    setCartList(JSON.parse(cartList));
-  };
-
   const getQuantityByProductId = (id: number) => {
     const targetCart = cartList.find((cart) => cart.id === id);
     return targetCart ? targetCart.quantity : 0;
@@ -63,7 +55,7 @@ function useCart() {
     } else {
       const changedCartList = updateCartListQuantity(id, quantity);
       setCartList(changedCartList);
-      await fetchMock();
+      await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
     }
   };
 
@@ -78,7 +70,6 @@ function useCart() {
   return {
     cartList,
     getQuantityByProductId,
-    loadCartList,
     addCart,
     increaseCart,
     decreaseCart,

@@ -52,10 +52,24 @@ function mockApi(endpoint: string, options?: Options) {
             const newCartItem = {
               id: product.id,
               quantity: product.quantity,
-              product: JSON.parse(product.product),
+              product: product.product,
             };
             const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
             cartItems.push(newCartItem);
+            localStorage.setItem('cart-items', JSON.stringify(cartItems));
+            resolve({ data: 'success' });
+          } else {
+            reject(new Error(`잘못된 요청 : ${endpoint}`));
+          }
+          break;
+
+        case '/cart-items/update-quantity':
+          if (options) {
+            const productJSON = options.body;
+            const { id, quantity } = JSON.parse(productJSON);
+            const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
+            const itemIndex = cartItems.findIndex((item: any) => item.id === id);
+            cartItems[itemIndex].quantity = quantity;
             localStorage.setItem('cart-items', JSON.stringify(cartItems));
             resolve({ data: 'success' });
           } else {
