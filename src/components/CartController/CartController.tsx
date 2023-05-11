@@ -11,7 +11,9 @@ interface CartControllerProps {
 function CartController({ product }: CartControllerProps) {
   const { addCart, increaseCart, getQuantityByProductId, decreaseCart, setCartQuantity } =
     useCart();
+
   const quantity = getQuantityByProductId(product.id);
+  const isQuantityZero = quantity > 0;
 
   const handleClickCart = () => {
     addCart(product);
@@ -27,12 +29,18 @@ function CartController({ product }: CartControllerProps) {
 
   const handleChangeQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantity = Number(event.target.value.replaceAll('/', '').replace(/\D/g, ''));
+    if (quantity < 0 || quantity > 99) {
+      return;
+    }
+
+    console.log(quantity);
+
     setCartQuantity(product.id, quantity);
   };
 
   return (
     <S.ControllerWrapper>
-      {quantity > 0 ? (
+      {isQuantityZero ? (
         <S.CartBox>
           <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
           <S.ButtonBox>

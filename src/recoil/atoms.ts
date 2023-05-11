@@ -1,10 +1,15 @@
 import { atom } from 'recoil';
-import { ProductItem } from '../types/ProductType';
-import mockData from '../assets/mockData.json';
+import * as T from '../types/ProductType';
 
-const productListState = atom<ProductItem[]>({
-  key: 'productListState',
-  default: mockData as ProductItem[],
+interface Cart {
+  id: number;
+  quantity: number;
+  product: T.ProductItem;
+}
+
+const cartState = atom<Cart[]>({
+  key: 'cartState',
+  default: [],
 });
 
-export default productListState;
+export default cartState;

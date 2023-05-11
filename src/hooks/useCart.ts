@@ -1,17 +1,7 @@
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import * as T from '../types/ProductType';
 import mockApi from '../api/mockApi';
-
-interface Cart {
-  id: number;
-  quantity: number;
-  product: T.ProductItem;
-}
-
-export const cartState = atom<Cart[]>({
-  key: 'cartState',
-  default: [],
-});
+import cartState from '../recoil/atoms';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
@@ -22,20 +12,18 @@ function useCart() {
   };
 
   const addCart = async (product: T.ProductItem) => {
-    if (cartList.findIndex((c) => c.id === product.id) !== -1) {
+    if (cartList.findIndex((cart) => cart.id === product.id) !== -1) {
       return;
     }
     const newCartItem = { id: product.id, quantity: 1, product };
     setCartList([...cartList, newCartItem]);
-    const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
-    console.log(response.data);
+    await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
   };
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
-    const response = await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
-    console.log(response.data);
+    await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
   };
 
   const updateCartListQuantity = (id: number, newQuantity: number) =>
