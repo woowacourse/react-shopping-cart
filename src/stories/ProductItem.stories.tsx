@@ -17,7 +17,7 @@ export const Default: Story = {
     id: 0,
     name: 'PET보틀-밀크티(370ml)',
     price: 73400,
-    imageUrl: '../assets/2.png',
+    imageUrl: '/assets/2.png',
   },
 };
 
