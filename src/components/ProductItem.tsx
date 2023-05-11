@@ -2,43 +2,13 @@ import { AddToCartButton } from './AddToCartButton';
 import { Text as ProductPrice, StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { addedCartState } from '../atoms/AddedCartState';
-import {
-  AddedProductList,
-  ProductItem as ProductItemProps,
-} from '../types/productType';
+import { ProductItem as ProductItemProps } from '../types/productType';
+import { useCartState } from './hooks/useCartState';
 
-export const ProductItem = ({
-  id,
-  name,
-  price,
-  imageUrl,
-}: ProductItemProps) => {
-  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+export const ProductItem = (props: ProductItemProps) => {
+  const { id, name, price, imageUrl } = props;
 
-  const handleAddCartState = () => {
-    setAddedCartStates([
-      ...addedCartStates,
-      {
-        id,
-        quantity: 1,
-        product: {
-          id,
-          name,
-          price,
-          imageUrl,
-        },
-      },
-    ]);
-  };
-
-  const handleDeleteCartState = () => {
-    const deleteItemId = addedCartStates.filter(
-      (item: AddedProductList) => item.id !== id
-    );
-    setAddedCartStates(deleteItemId);
-  };
+  const { handleAddCartState, handleDeleteCartState } = useCartState(props);
 
   return (
     <ProductItemWrapper key={id}>
