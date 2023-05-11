@@ -4,15 +4,17 @@ import styles from './index.module.scss';
 import { $Products } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 import { Product } from '../../types';
+import useGetApi from '../../hooks/useGetApi';
 
 function ProductItemList() {
   const [products, setProducts] = useRecoilState($Products);
+  const { data: productsData, loading } = useGetApi<Product[]>('./products');
 
   useEffect(() => {
-    fetch('./products/')
-      .then(res => res.json())
-      .then(data => setProducts(data));
-  }, [setProducts]);
+    if (productsData && !loading) {
+      setProducts(productsData);
+    }
+  }, []);
 
   return (
     <section className={styles.container}>
