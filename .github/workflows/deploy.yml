@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Deploy
 
 on:
   push:
@@ -11,12 +11,14 @@ jobs:
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     strategy:
       matrix:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Use repository source
+        uses: actions/checkout@v3
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -35,17 +37,17 @@ jobs:
       - name: Install Dependencies
 
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci --legacy-peer-deps
+        run: npm ci
 
-      - name: Build
-        run: CI='' npm run build
+      - name: Build App
+        run: npm run build
 
-      - name: Build storybook
+      - name: Build Storybook
         run: |
           npm run build-storybook
           mv ./storybook-static ./build/storybook
 
-      - name: Deploy
+      - name: Deploy To 'gh-pages' Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
