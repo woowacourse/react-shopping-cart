@@ -51,15 +51,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
     setCart(increased);
   };
 
+  const handleCloseStepperOnBlur = (e: React.FocusEvent) => {
+    if (e.relatedTarget === e.currentTarget || e.currentTarget.contains(e.relatedTarget)) return;
+
+    closeQuantityStepper();
+  };
+
   return (
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
         {isAddCartButtonActive ? (
-          <QuantityStepper>
+          <QuantityStepper tabIndex={1} onBlur={handleCloseStepperOnBlur}>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
-            <Quantity>{filteredCartProduct?.quantity}</Quantity>
-            <IncreaseButton onClick={increaseQuantity}>+</IncreaseButton>
+            <Quantity tabIndex={2}>{filteredCartProduct?.quantity}</Quantity>
+            <IncreaseButton autoFocus onClick={increaseQuantity}>
+              +
+            </IncreaseButton>
           </QuantityStepper>
         ) : isProductAlreadyExistInCart ? (
           <AddCartButton onClick={openQuantityStepper}>
