@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const ProductItemBox = styled.div`
-  width: 300px;
-  height: 350px;
-  padding: 16px;
+  /*  height: 350px; */
+  padding: 8px;
 `;
 
 export const ProductItemImageBox = styled.div`
@@ -12,8 +11,8 @@ export const ProductItemImageBox = styled.div`
 `;
 
 export const ProductItemImage = styled.img`
-  width: 282px;
-  height: 282px;
+  width: 100%;
+  aspect-ratio: 1/1;
 `;
 
 export const ProductDetails = styled.div`

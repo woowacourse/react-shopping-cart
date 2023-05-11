@@ -2,6 +2,7 @@ import ProductItem from '../../components/ProductItem';
 import { useEffect } from 'react';
 import useProduct from '../../hooks/useProduct';
 import useCart from '../../hooks/useCart';
+import { Column, Row } from '../../style/style';
 
 function Home() {
   const { productList, loadProductList } = useProduct();
@@ -10,14 +11,16 @@ function Home() {
   useEffect(() => {
     loadProductList();
     loadCartList();
-  }, [loadProductList]);
+  }, [loadProductList, loadCartList]);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }}>
+    <Row>
       {productList.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <Column key={product.id}>
+          <ProductItem product={product} />
+        </Column>
       ))}
-    </div>
+    </Row>
   );
 }
 

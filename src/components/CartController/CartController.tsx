@@ -1,7 +1,8 @@
+import { ChangeEvent } from 'react';
 import * as S from './CartController.style';
 import * as T from '../../types/ProductType';
+import cartIcon from '../../assets/cart.svg';
 import useCart from '../../hooks/useCart';
-import { ChangeEvent } from 'react';
 
 interface CartControllerProps {
   product: T.ProductItem;
@@ -40,7 +41,9 @@ function CartController({ product }: CartControllerProps) {
           </S.ButtonBox>
         </S.CartBox>
       ) : (
-        <button onClick={handleClickCart}>🛒</button>
+        <button onClick={handleClickCart}>
+          <img src={cartIcon}></img>
+        </button>
       )}
     </>
   );

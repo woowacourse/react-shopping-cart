@@ -6,13 +6,6 @@ export const Navbar = styled.div`
   color: ${({ theme }) => theme.lightColor};
 `;
 
-export const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  box-sizing: border-box;
-`;
-
 export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
