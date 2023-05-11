@@ -13,24 +13,25 @@ const Item = ({ id, name, price, imageUrl }: ItemType) => {
   };
 
   return (
-    <ItemWrapper>
+    <Wrapper>
       <img src={imageUrl} alt="상품이미지" />
-      <NameWrapper>{name}</NameWrapper>
-      <PriceWrapper>{price.toLocaleString()}원</PriceWrapper>
-      <IconWrapper>
+      <NameBox>{name}</NameBox>
+      <PriceBox>{price.toLocaleString()}원</PriceBox>
+      <IconContainer>
         {quantity === MIN_QUANTITY.toString() ? (
           <img src={CartGrayIcon} alt={"카트"} onClick={handleCartClicked} />
         ) : (
           <Counter itemId={id} />
         )}
-      </IconWrapper>
-    </ItemWrapper>
+      </IconContainer>
+    </Wrapper>
   );
 };
 
-const ItemWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+
   position: relative;
 
   & > img {
@@ -39,22 +40,25 @@ const ItemWrapper = styled.div`
   }
 `;
 
-const NameWrapper = styled.div`
+const NameBox = styled.div`
   width: 190px;
   margin: 15px 0 10px 10px;
+
   font-size: 16px;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+
   word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   @media screen and (max-width: 800px) {
     font-size: 13px;
   }
 `;
 
-const PriceWrapper = styled.p`
+const PriceBox = styled.p`
   margin-left: 10px;
+
   font-size: 20px;
 
   @media screen and (max-width: 800px) {
@@ -62,15 +66,17 @@ const PriceWrapper = styled.p`
   }
 `;
 
-const IconWrapper = styled.div`
+const IconContainer = styled.div`
   position: absolute;
-  bottom: 20px;
   right: 10px;
+  bottom: 20px;
+
   cursor: pointer;
 
   & > img {
     width: 24px;
     height: 24px;
+
     transition: all 0.4s ease-out;
 
     &:hover {
@@ -78,6 +84,7 @@ const IconWrapper = styled.div`
       opacity: 60%;
     }
   }
+
   @media screen and (max-width: 1200px) {
     bottom: -5px;
   }

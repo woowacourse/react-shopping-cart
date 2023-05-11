@@ -24,7 +24,7 @@ const Counter = ({ itemId }: CounterProps) => {
   };
 
   return (
-    <CounterWrapper>
+    <Wrapper>
       <CountInput
         type="number"
         value={quantity}
@@ -32,21 +32,22 @@ const Counter = ({ itemId }: CounterProps) => {
         onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}
       />
-      <ArrowWrapper>
+      <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
         <ArrowBox onClick={handleDownArrowBox}>▾</ArrowBox>
-      </ArrowWrapper>
-    </CounterWrapper>
+      </ArrowBoxContainer>
+    </Wrapper>
   );
 };
 
-const CounterWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
 `;
 
 const CountInput = styled.input`
-  width: 41.6px;
+  width: 41px;
   height: 28px;
+
   border: 1px solid #dddddd;
   text-align: center;
 
@@ -61,15 +62,7 @@ const CountInput = styled.input`
   }
 `;
 
-const ArrowBox = styled.button`
-  width: 23px;
-  height: 14px;
-  border: 1px solid #dddddd;
-  background: transparent;
-  font-size: 5px;
-`;
-
-const ArrowWrapper = styled.div`
+const ArrowBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -80,6 +73,16 @@ const ArrowWrapper = styled.div`
   & > :first-child {
     transform: scaleY(-1);
   }
+`;
+
+const ArrowBox = styled.button`
+  width: 23px;
+  height: 14px;
+
+  border: 1px solid #dddddd;
+  background: transparent;
+
+  font-size: 5px;
 `;
 
 export default Counter;

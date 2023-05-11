@@ -4,22 +4,21 @@ import type { ItemType } from "../types/domain";
 
 const ItemList = ({ items }: { items: ItemType[] }) => {
   return (
-    <ItemListWrapper>
+    <Wrapper>
       {items.map((item) => (
         <Item key={crypto.randomUUID()} {...item} />
       ))}
-    </ItemListWrapper>
+    </Wrapper>
   );
 };
 
-const ItemListWrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   place-items: center;
   grid-template-columns: repeat(4, 1fr);
 
-  grid-column-gap: 20px;
-  grid-row-gap: 60px;
   width: 100%;
+  grid-gap: 60px 20px;
 
   @media screen and (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
@@ -28,7 +27,6 @@ const ItemListWrapper = styled.div`
   @media screen and (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  transition: all 0.3s ease;
 `;
 
 export default ItemList;

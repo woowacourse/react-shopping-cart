@@ -2,11 +2,12 @@ import { ReactNode } from "react";
 import { styled } from "styled-components";
 
 const Page = ({ children }: { children: ReactNode }) => {
-  return <PageWrapper>{children}</PageWrapper>;
+  return <Wrapper>{children}</Wrapper>;
 };
 
-const PageWrapper = styled.section`
+const Wrapper = styled.section`
   display: flex;
+  
   padding: 90px 5%;
 `;
 

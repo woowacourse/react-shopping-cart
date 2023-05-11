@@ -15,22 +15,22 @@ const Header = () => {
   };
 
   return (
-    <HeaderWrapper>
-      <TitleWrapper onClick={handleTitleClicked}>
+    <Wrapper>
+      <TitleContainer onClick={handleTitleClicked}>
         <img src={CartIcon} alt={"카트"} />
         <p>SHOP</p>
-      </TitleWrapper>
-      <CartWrapper>
+      </TitleContainer>
+      <CartContainer>
         장바구니
         {cartItems.length > 0 && (
-          <ItemQuantityWrapper>{cartItems.length}</ItemQuantityWrapper>
+          <ItemQuantityBox>{cartItems.length}</ItemQuantityBox>
         )}
-      </CartWrapper>
-    </HeaderWrapper>
+      </CartContainer>
+    </Wrapper>
   );
 };
 
-const HeaderWrapper = styled.section`
+const Wrapper = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,13 +39,14 @@ const HeaderWrapper = styled.section`
   z-index: 1;
   top: 0;
 
-  padding: 0 10%;
   width: 100%;
   min-height: 70px;
+  padding: 0 10%;
+
   background: #333333;
 `;
 
-const TitleWrapper = styled.section`
+const TitleContainer = styled.section`
   display: flex;
   align-items: end;
   gap: 20px;
@@ -64,7 +65,7 @@ const TitleWrapper = styled.section`
   }
 `;
 
-const CartWrapper = styled.section`
+const CartContainer = styled.section`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -74,7 +75,7 @@ const CartWrapper = styled.section`
   color: white;
 `;
 
-const ItemQuantityWrapper = styled.div`
+const ItemQuantityBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,6 +84,7 @@ const ItemQuantityWrapper = styled.div`
 
   background: #04c09e;
   border-radius: 50%;
+
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
