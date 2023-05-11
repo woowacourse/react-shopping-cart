@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import useCounter from '../../../hooks/common/useCounter';
 import Button from '../Button/Button';
 import Flex from '../Flex';

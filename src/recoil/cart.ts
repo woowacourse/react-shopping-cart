@@ -14,6 +14,13 @@ export const cartState = atom({
   }),
 });
 
+export const cartBadge = selector({
+  key: 'cartBadge',
+  get: ({ get }) => {
+    return get(cartState).length;
+  },
+});
+
 export const hasItemInCart = selectorFamily({
   key: 'hasItemInCart',
   get:
