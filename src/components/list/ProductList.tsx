@@ -1,27 +1,28 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import type { Product } from '../../types/types';
 import ProductItem from '../box/ProductItem';
+import useDataFetching from '../../hooks/useDataFetching';
+import type { Product } from '../../types/types';
+import ErrorBox from '../common/ErrorBox/ErrorBox';
 
 const ProductList = () => {
-  const [data, setData] = useState<Product[]>([]);
-
-  const getData = async () => {
-    const res = await axios.get('/mock/mockData.json');
-    setData(res.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const { data } = useDataFetching<Product[]>('./mock/mockData.json');
 
   return (
-    <ProductListWrapper>
-      {data.map((product) => (
-        <ProductItem key={product.id} product={product} />
-      ))}
-    </ProductListWrapper>
+    <>
+      {data ? (
+        data.length > 0 ? (
+          <ProductListWrapper>
+            {data.map((product) => (
+              <ProductItem key={product.id} product={product} />
+            ))}
+          </ProductListWrapper>
+        ) : (
+          <ErrorBox errorType="emptyList" />
+        )
+      ) : (
+        <ErrorBox errorType="network" />
+      )}
+    </>
   );
 };
 
