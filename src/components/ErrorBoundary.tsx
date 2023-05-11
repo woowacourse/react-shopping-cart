@@ -19,11 +19,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.log(errorInfo.componentStack);
   }
 
-  render() {
+  override render() {
     const { fallback, children } = this.props;
     const { hasError } = this.state;
 
