@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { isNotNumber } from '@utils/common';
+import { isNotNumber, showInputErorrMessage } from '@utils/common';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
@@ -8,10 +8,12 @@ interface BucketCounterProps {
 }
 
 const MAX_BUCKET_COUNT = 1000;
-const SHOW_ERROR_BUCKET_COUNT = 10000;
+const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
+const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
 const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
   const [bucketCount, setBucketCount] = useState(1);
+  const countRef = useRef<HTMLInputElement>(null);
 
   const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -19,27 +21,43 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
 
     if (isNotNumber(value)) return;
 
-    showErorrMessage(count, event);
+    showInputErorrMessage(isNotError(count), event.target, ERROR_MESSAGE);
 
-    if (count >= SHOW_ERROR_BUCKET_COUNT) return;
+    if (count >= MAX_WRITE_INPUT_BUCKET_COUNT) return;
 
     setBucketCount(count);
   };
 
-  const showErorrMessage = (
-    count: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (count <= MAX_BUCKET_COUNT) {
-      event.target.setCustomValidity('');
+  const showCounterErrorMessage = useCallback(() => {
+    if (!countRef.current) return;
+
+    showInputErorrMessage(
+      isNotError(bucketCount),
+      countRef.current,
+      ERROR_MESSAGE
+    );
+  }, [bucketCount]);
+
+  const increaseCount = () => {
+    if (bucketCount + 1 >= MAX_WRITE_INPUT_BUCKET_COUNT) {
+      showCounterErrorMessage();
       return;
     }
 
-    event.target.setCustomValidity(
-      '장바구니 수량은 1000개 이하까지 가능합니다.'
-    );
-    event.target.reportValidity();
+    setBucketCount((prev) => prev + 1);
   };
+
+  const decreaseCount = () => {
+    setBucketCount((prev) => prev - 1);
+  };
+
+  const isNotError = (count: number) => {
+    return count <= MAX_BUCKET_COUNT;
+  };
+
+  useEffect(() => {
+    showCounterErrorMessage();
+  }, [bucketCount, showCounterErrorMessage]);
 
   useEffect(() => {
     if (!setIsClicked) return;
@@ -51,12 +69,13 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
       <Count
         value={bucketCount === 0 ? '' : bucketCount}
         onChange={changeCountEvent}
+        ref={countRef}
       ></Count>
       <Counter>
-        <TopButton onClick={() => setBucketCount((prev) => prev + 1)}>
+        <TopButton onClick={increaseCount}>
           <Image src={TOP_ARROW} alt="증가" />
         </TopButton>
-        <BottomButton onClick={() => setBucketCount((prev) => prev - 1)}>
+        <BottomButton onClick={decreaseCount}>
           <Image src={BOTTOM_ARROW} alt="감소" />
         </BottomButton>
       </Counter>
