@@ -13,12 +13,12 @@ export const productListQuery = selector({
 });
 
 export const totalQuantityInCart = selector({
-  key: 'TotalQuantityInCart',
+  key: 'totalQuantityInCart',
   get: ({ get }) => {
     const cart = get(cartState);
 
-    return cart.reduce((prev, cartProduct) => {
-      return prev + cartProduct.quantity;
+    return cart.reduce((prev, cartItem) => {
+      return prev + cartItem.quantity;
     }, 0);
   },
 });
@@ -31,7 +31,7 @@ export const productQuantityInCart = selectorFamily({
       const cart = get(cartState);
 
       const product = cart.find(
-        (cartProduct) => cartProduct.product.id === productId,
+        (cartItem) => cartItem.product.id === productId,
       );
 
       if (!product) return 0;

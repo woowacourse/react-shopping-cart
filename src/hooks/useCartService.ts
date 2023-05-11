@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { cartState } from '../atoms';
-import type { Product } from '../types/product';
 import { uuid } from '../utils/uuid';
+import type { Product } from '../types/product';
 
 const useCartService = () => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -21,11 +21,11 @@ const useCartService = () => {
 
   const updateProductQuantity = (targetId: number, quantity: number) => {
     setCart((prevCart) => {
-      return prevCart.map((cartProduct) => {
-        if (cartProduct.product.id !== targetId) return cartProduct;
+      return prevCart.map((cartItem) => {
+        if (cartItem.product.id !== targetId) return cartItem;
 
         return {
-          ...cartProduct,
+          ...cartItem,
           quantity,
         };
       });
@@ -34,7 +34,7 @@ const useCartService = () => {
 
   const removeProductFromCart = (targetId: number) => {
     setCart((prevCart) =>
-      prevCart.filter((cartProduct) => cartProduct.product.id !== targetId),
+      prevCart.filter((cartItem) => cartItem.product.id !== targetId),
     );
   };
 
