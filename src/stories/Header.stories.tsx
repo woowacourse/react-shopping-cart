@@ -1,13 +1,22 @@
 import { RecoilRoot } from 'recoil';
 import { Header } from '../layout/header/Header';
 import { Meta } from '@storybook/react';
+import { GlobalStyle } from '../GlobalStyle';
+import { BrowserRouter } from 'react-router-dom';
 
 const meta = {
   title: 'Header',
   component: Header,
   decorators: [
     (Story) => {
-      return <RecoilRoot>{Story()}</RecoilRoot>;
+      return (
+        <BrowserRouter>
+          <RecoilRoot>
+            <GlobalStyle />
+            <Story />
+          </RecoilRoot>
+        </BrowserRouter>
+      );
     },
   ],
 } as Meta;

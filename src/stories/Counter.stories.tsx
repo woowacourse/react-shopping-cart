@@ -1,9 +1,18 @@
+import { GlobalStyle } from '../GlobalStyle';
 import { Counter } from '../components/productCard/Counter';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Counter',
   component: Counter,
+  decorators: [
+    (Story) => (
+      <>
+        <GlobalStyle />
+        <Story />
+      </>
+    ),
+  ],
 } as Meta;
 
 export default meta;

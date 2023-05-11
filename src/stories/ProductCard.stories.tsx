@@ -2,13 +2,19 @@ import { RecoilRoot } from 'recoil';
 import { ProductCard } from '../components/productCard/ProductCard';
 import { Meta, StoryObj } from '@storybook/react';
 import mockData from '../assets/mockData.json';
+import { GlobalStyle } from '../GlobalStyle';
 
 const meta = {
   title: 'ProductCard',
   component: ProductCard,
   decorators: [
     (Story) => {
-      return <RecoilRoot>{Story()}</RecoilRoot>;
+      return (
+        <RecoilRoot>
+          <GlobalStyle />
+          <Story />
+        </RecoilRoot>
+      );
     },
   ],
   argTypes: {
