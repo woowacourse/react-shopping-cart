@@ -2,14 +2,13 @@ import ProductItem from '@Components/ProductItem';
 
 import { Product } from '@Types/index';
 
-import useFetch from '@Hooks/useFetch';
-
-import { MOCK_DATA_URL } from '@Constants/index';
+import { useMockFetch } from '@Hooks/useMockFetch';
 
 import * as S from './style';
+import MockData from '../../../mockData.json';
 
 function ProductList() {
-  const { data, isLoading } = useFetch<Product[]>(MOCK_DATA_URL);
+  const { data, isLoading } = useMockFetch<Product[]>(MockData);
 
   return (
     <S.ProductListContainer>

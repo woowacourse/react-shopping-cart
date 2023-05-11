@@ -39,6 +39,8 @@
 
 - 터미널에서 yarn 설치(`yarn`) 후 `yarn start` 커맨드로 앱을 실행할 수 있다.
 
+- <a href="https://645ca2eaf1be7c5699754358-ewtxhnktyd.chromatic.com/">스토리북 바로가기</a>
+
 <br>
 <br>
 
