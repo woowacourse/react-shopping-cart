@@ -5,6 +5,7 @@ import ProductItem from './ProductItem';
 
 import { fetchProducts } from '../../apis/products';
 import type { Product } from '../../types/product';
+import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -17,6 +18,8 @@ const ProductList = () => {
 
     getProducts();
   }, []);
+
+  useCartProductUpdate();
 
   return (
     <ProductListContainer>
