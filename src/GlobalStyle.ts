@@ -39,15 +39,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @keyframes drawStepper {
-      from {
-        width: 30px;
-        opacity: 0;
-      }
-      to {
-        width: 80px;
-        opacity: 1;
-      }
+    from {
+      width: 30px;
+      opacity: 0;
     }
+    to {
+      width: 80px;
+      opacity: 1;
+    }
+  }
 `;
 
 export default GlobalStyle;
