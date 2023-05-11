@@ -1,5 +1,7 @@
-import type { Preview } from '@storybook/react';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
 import '../src/styles/index.css';
+import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
   parameters: {
@@ -12,5 +14,13 @@ const preview: Preview = {
     },
   },
 };
+
+export const decorators = [
+  Story => (
+    <RecoilRoot>
+      <Story />
+    </RecoilRoot>
+  ),
+];
 
 export default preview;
