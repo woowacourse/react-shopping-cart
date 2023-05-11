@@ -82,6 +82,7 @@ export const QuantityInput: Story = {
     styled: QuantityInputStyle,
     min: 1,
     max: 99,
+    defaultValue: 1,
   },
 
   decorators: [

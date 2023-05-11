@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
-import HeaderComponent from '../../../components/common/Header';
 import { RecoilRoot } from 'recoil';
+import HeaderComponent from '../../../components/common/Header';
 
 const meta = {
   component: HeaderComponent,
@@ -29,6 +29,10 @@ const meta = {
 
 export default meta;
 
-export const Cart = (args: any) => {
+interface CartProps {
+  title: string;
+}
+
+export const Cart = (args: CartProps) => {
   return <HeaderComponent title={args.title} />;
 };

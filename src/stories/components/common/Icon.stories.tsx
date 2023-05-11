@@ -3,6 +3,10 @@ import { css } from 'styled-components';
 import IconComponent from '../../../components/common/Icon';
 import { CART_PATH } from '../../../constants/svgPath';
 
+const mirrorReversal = css`
+  transform: scaleX(-1);
+`;
+
 const meta = {
   component: IconComponent,
   title: 'Components/Icon',
@@ -20,10 +24,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof IconComponent>;
-
-const mirrorReversal = css`
-  transform: scaleX(-1);
-`;
 
 export const Cart: Story = {
   args: {
@@ -77,22 +77,6 @@ export const Cart: Story = {
   },
 };
 
-// export const HeaderIcon = () => {
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         justifyContent: 'center',
-//         width: 'calc(100vw - 32vw)',
-//         padding: '20px',
-//         background: '#333',
-//       }}
-//     >
-//       <IconComponent width="50" height="40" color="#fff" path={CART_PATH} viewBox="0 0 51 44" />
-//     </div>
-//   );
-// };
-
 export const HeaderCart: Story = {
   decorators: [
     (Story) => {
@@ -101,7 +85,7 @@ export const HeaderCart: Story = {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            width: 'calc(100vw - 32vw)',
+            width: 'calc(100vw - 36vw)',
             padding: '20px',
             background: '#333',
           }}
