@@ -5,10 +5,12 @@ import styles from './style.module.css';
 
 interface StepperButtonProps {
   count: number;
+  minCount?: number;
+  maxCount?: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const StepperButton = ({ count, setCount }: StepperButtonProps) => {
+const StepperButton = ({ count, minCount = 1, maxCount = 99, setCount }: StepperButtonProps) => {
   const handleDecrease = useCallback(() => {
     setCount((prevCount) => prevCount - 1);
   }, [setCount]);
@@ -19,9 +21,11 @@ const StepperButton = ({ count, setCount }: StepperButtonProps) => {
 
   const handleCountChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
+      if (Number(event.target.value) < minCount || Number(event.target.value) > maxCount) return;
+
       setCount(Number(event.target.value));
     },
-    [setCount]
+    [maxCount, minCount, setCount]
   );
 
   return (
@@ -29,7 +33,7 @@ const StepperButton = ({ count, setCount }: StepperButtonProps) => {
       <button
         type="button"
         className={styles.decreaseButton}
-        disabled={count === 1}
+        disabled={count === minCount}
         onClick={handleDecrease}
       >
         <MinusIcon />
