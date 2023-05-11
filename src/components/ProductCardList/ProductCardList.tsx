@@ -10,9 +10,19 @@ const ProductCardList = () => {
 
   return (
     <Styled.Container>
-      {fetchedProductList.map((product) => (
-        <ProductCard key={product.id} productId={product.id} />
-      ))}
+      {fetchedProductList.map((product) => {
+        const { id, name, price, imageUrl } = product;
+
+        return (
+          <ProductCard
+            key={product.id}
+            id={id}
+            name={name}
+            price={price}
+            imageUrl={imageUrl}
+          />
+        );
+      })}
     </Styled.Container>
   );
 };
