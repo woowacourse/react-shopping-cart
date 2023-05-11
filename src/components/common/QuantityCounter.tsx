@@ -1,33 +1,46 @@
 import { forwardRef } from "react";
 import styled from "styled-components";
 import { DownButtonIc, UpButtonIc } from "../../asset";
+import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
+import { CounterAction } from "../../type/counter";
+import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
 import { validateNumberRange } from "../../utils/validation";
+
+const unknownCountAction = (action: never): never => {
+  throw new Error("잘못된 action 이 전달되었습니다.");
+};
+
+const changeCount = (current: HTMLInputElement, action: CounterAction) => {
+  const prevValue = +current.value;
+  switch (action) {
+    case ACTION_INCREASE:
+      current.value = (prevValue + 1).toString();
+      break;
+    case ACTION_DECREASE:
+      if (prevValue < 1) return;
+      current.value = (prevValue - 1).toString();
+      break;
+    default:
+      unknownCountAction(action);
+  }
+};
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
   props,
   quantityRef
 ) {
   const increaseQuantity = () => {
-    if (
-      typeof quantityRef === "function" ||
-      !quantityRef ||
-      !quantityRef.current
-    )
-      return;
-    const prevValue = +quantityRef.current.value;
-    quantityRef.current.value = (prevValue + 1).toString();
+    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
+    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
+
+    changeCount(quantityRef.current, "INCREASE");
   };
 
   const decreaseQuantity = () => {
-    if (
-      typeof quantityRef === "function" ||
-      !quantityRef ||
-      !quantityRef.current
-    )
-      return;
-    if (+quantityRef.current.value < 1) return;
-    const prevValue = +quantityRef.current.value;
-    quantityRef.current.value = (prevValue - 1).toString();
+    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
+    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
+
+    changeCount(quantityRef.current, "DECREASE");
   };
   return (
     <QuantityCounterContainer>
