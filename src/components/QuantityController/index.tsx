@@ -40,7 +40,11 @@ function QuantityController({
   };
 
   return quantity === SHOPPING_QUANTITY.MIN && isBlur ? (
-    <S.ShoppingCartIcon src={ShoppingCart} onClick={handleClickCartIcon}></S.ShoppingCartIcon>
+    <S.ShoppingCartIcon
+      src={ShoppingCart}
+      onClick={handleClickCartIcon}
+      data-testid="shopping-cart-icon"
+    ></S.ShoppingCartIcon>
   ) : (
     <S.Container>
       <S.QuantityInput
