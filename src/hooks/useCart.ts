@@ -1,31 +1,35 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilCallback } from 'recoil';
 import cartState from '../recoil/atoms/cartState';
 import type { Product } from '../type';
 
 const useCartProduct = (productId: Product['id']) => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const setQuantity = useRecoilCallback(
+    ({ set }) =>
+      (quantity: number) => {
+        set(cartState, (cart) => {
+          const cartProduct = cart.find((it) => it.productId === productId) ?? null;
 
-  const cartProduct = cart.find((it) => it.productId === productId) ?? null;
+          if (cartProduct === null) {
+            return [...cart, { id: Math.round(Math.random() * 100000), quantity, productId }];
+          }
 
-  const setQuantity = (quantity: number) => {
-    if (cartProduct === null) {
-      setCart([...cart, { id: Math.round(Math.random() * 100000), quantity, productId }]);
-      return;
-    }
+          const cartProductIndex = cart.findIndex((it) => it.id === cartProduct.id);
+          const newCart = [
+            ...cart.slice(0, cartProductIndex),
+            {
+              ...cartProduct,
+              quantity,
+            },
+            ...cart.slice(cartProductIndex + 1),
+          ].filter((it) => it.quantity > 0);
 
-    const cartProductIndex = cart.findIndex((it) => it.id === cartProduct.id);
-    const newCart = [
-      ...cart.slice(0, cartProductIndex),
-      {
-        ...cartProduct,
-        quantity,
+          return newCart;
+        });
       },
-      ...cart.slice(cartProductIndex + 1),
-    ].filter((it) => it.quantity > 0);
-    setCart(newCart);
-  };
+    [],
+  );
 
-  return { cartProduct, setQuantity };
+  return { setQuantity };
 };
 
 export default useCartProduct;
