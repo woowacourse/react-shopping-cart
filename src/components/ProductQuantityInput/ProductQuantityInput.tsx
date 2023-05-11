@@ -4,18 +4,32 @@ import { useState } from "react";
 
 const ProductQuantityInput = () => {
   const [quantity, setQuantity] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(e.target.value));
+  };
+
+  const handleInputBlur = () => {
+    setIsEditing(false);
+  };
+
+  const handleButtonClick = () => {
+    setIsEditing(true);
+  };
 
   return (
     <ButtonContainer>
-      {quantity === 0 ? (
-        <Button type="button" onClick={() => setQuantity(() => 1)}>
+      {!isEditing && quantity === 0 ? (
+        <Button type="button" onClick={handleButtonClick}>
           <ButtonIcon src={cartImage} />
         </Button>
       ) : (
         <Input
           type="number"
           value={quantity}
-          onChange={(e) => setQuantity(() => Number(e.target.value))}
+          onChange={handleInputChange}
+          onBlur={handleInputBlur}
         />
       )}
     </ButtonContainer>
