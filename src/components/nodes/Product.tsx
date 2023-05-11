@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useCart from "../hooks/useCart";
+import useCart from "../../hooks/useCart";
 
 interface ProductProps {
   id: number;
