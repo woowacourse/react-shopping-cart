@@ -3,7 +3,7 @@ import UserSummaryShoppingBasket from '@Components/UserSummaryShoppingBasket';
 
 import * as S from './style';
 import { useRecoilValue } from 'recoil';
-import shoppingItemsAmountState from '../../selector/shoppingItemsAmountState';
+import shoppingItemsAmountState from '@Selector/shoppingItemsAmountState';
 
 function Header() {
   const shoppingItemsAmount = useRecoilValue(shoppingItemsAmountState);

@@ -1,5 +1,6 @@
+import shoppingBasketState from '@Atoms/shoppingBasketState';
 import { ShoppingBasketProduct, UpdateShoppingBasket } from '@Types/index';
-import shoppingBasketState from '../../atoms/shoppingBasketState';
+
 import { useRecoilState } from 'recoil';
 
 const useShoppingBasket = () => {

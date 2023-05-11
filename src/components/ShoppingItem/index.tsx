@@ -2,7 +2,7 @@ import QuantityController from '@Components/QuantityController';
 import * as S from './style';
 import useShoppingBasket from '@Hooks/useShoppingBasket';
 import { useRecoilValue } from 'recoil';
-import quantityState from '../../selector/quantityState';
+import quantityState from '@Selector/quantityState';
 
 type ShoppingItemProps = {
   product?: {

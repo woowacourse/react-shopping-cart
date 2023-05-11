@@ -5,10 +5,10 @@
       "@Components/*": ["./components/*"],
       "@Constants/*": ["./constants/*"],
       "@Hooks/*": ["./hooks/*"],
+      "@Atoms/*": ["./atoms/*"],
+      "@Selector/*": ["./selector/*"],
       "@Pages/*": ["./pages/*"],
-      "@Utils/*": ["./utils/*"],
       "@Types/*": ["./types/*"],
-      "@Domains/*": ["./domains/*"],
       "@Asset/*": ["./assets/*"],
       "@Styles/*": ["./styles/*"]
     }

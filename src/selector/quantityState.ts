@@ -1,5 +1,5 @@
+import shoppingBasketState from '@Atoms/shoppingBasketState';
 import { selectorFamily } from 'recoil';
-import shoppingBasketState from '../atoms/shoppingBasketState';
 
 const quantityState = selectorFamily({
   key: 'quantityState',

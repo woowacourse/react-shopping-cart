@@ -1,4 +1,4 @@
-import shoppingBasketState from '../atoms/shoppingBasketState';
+import shoppingBasketState from '@Atoms/shoppingBasketState';
 import { selector } from 'recoil';
 
 const shoppingItemsAmountState = selector({
