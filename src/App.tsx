@@ -1,13 +1,7 @@
-import ProductList from './components/ProductList';
-import Header from './components/common/Header';
+import MainPage from './pages/MainPage';
 
 const App = () => {
-  return (
-    <>
-      <Header title="STORE" />
-      <ProductList />
-    </>
-  );
+  return <MainPage />;
 };
 
 export default App;

@@ -66,6 +66,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
     addToCart(value);
+    console.log(cart);
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 
