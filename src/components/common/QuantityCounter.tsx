@@ -28,7 +28,7 @@ const changeCount = (current: HTMLInputElement, action: CounterAction) => {
 };
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
-  props,
+  _,
   quantityRef
 ) {
   const increaseQuantity = () => {
