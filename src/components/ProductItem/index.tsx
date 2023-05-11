@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Cart } from '../../assets/카트.svg';
+import { ReactComponent as Cart } from '../../assets/cart.svg';
 import { Product } from '../../types/product';
 import useCart from './hooks/useCart';
 import { cartState } from '../../atoms/cart';
@@ -11,7 +11,9 @@ type ProductItemProps = {
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const { cart, addCart, updateCart, deleteCart } = useCart(cartState, product);
-  const productItemQuantity = cart.find((c) => c.product.id === product.id)?.quantity;
+  const productItemQuantity = cart.find(
+    (c) => c.product.id === product.id
+  )?.quantity;
 
   const [count, setCount] = useState(productItemQuantity || 0);
 
@@ -28,7 +30,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     }
   };
 
-  const handleCartAmountChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleCartAmountChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
     limitInputNumber(e);
     const newCount = Number(e.target.value);
 
