@@ -26,8 +26,8 @@ export const filteredCartProductState = selectorFamily({
     },
 });
 
-export const cartQuantityState = selector<number>({
-  key: 'cartQuantityState',
+export const cartProductCountState = selector<number>({
+  key: 'cartProductCountState',
   get: ({ get }) => {
     return get(cartState).length;
   },

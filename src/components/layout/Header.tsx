@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { ReactComponent as CartIcon } from 'assets/cart-icon.svg';
 import ROUTE_PATH from 'constants/routePath';
 import { useRecoilValue } from 'recoil';
-import { cartQuantityState } from 'state/CartAtom';
+import { cartProductCountState } from 'state/CartAtom';
 
 const Header = ({ children }: PropsWithChildren) => {
-  const cartQuantity = useRecoilValue(cartQuantityState);
+  const cartProductCount = useRecoilValue(cartProductCountState);
 
   return (
     <HeaderContainer>
@@ -17,7 +17,7 @@ const Header = ({ children }: PropsWithChildren) => {
       </FlexLink>
       <FlexLink to={ROUTE_PATH.cart}>
         <CartTitle>장바구니</CartTitle>
-        <CartQuantity>{cartQuantity}</CartQuantity>
+        <CartProductCount>{cartProductCount}</CartProductCount>
       </FlexLink>
     </HeaderContainer>
   );
@@ -50,7 +50,7 @@ const CartTitle = styled.span`
   font-size: 24px;
 `;
 
-const CartQuantity = styled.span`
+const CartProductCount = styled.span`
   width: 26px;
   height: 26px;
   border-radius: 50%;
