@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react';
 import React from 'react';
 import { ResetStyle } from '../src/styles/ResetStyle';
+import { RecoilRoot } from 'recoil';
 
 const preview: Preview = {
   parameters: {
@@ -15,8 +16,10 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <>
-        <ResetStyle />
-        <Story />
+        <RecoilRoot>
+          <ResetStyle />
+          <Story />
+        </RecoilRoot>
       </>
     ),
   ],
