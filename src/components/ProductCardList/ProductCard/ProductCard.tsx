@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import FlexBox from 'components/@common/FlexBox';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
@@ -15,6 +15,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { id, price, name, imageUrl } = product;
   const filteredCartProduct = useRecoilValue(filteredCartProductState(id));
   const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
+  const isProductAlreadyExistInCart = !!filteredCartProduct;
 
   const openQuantityStepper = () => {
     setIsAddCartButtonActive(true);
@@ -55,12 +56,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
         {isAddCartButtonActive ? (
-          <QuantityStepper tabIndex={1} onBlur={closeQuantityStepper}>
+          <QuantityStepper>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
             <Quantity>{filteredCartProduct?.quantity}</Quantity>
             <IncreaseButton onClick={increaseQuantity}>+</IncreaseButton>
           </QuantityStepper>
-        ) : filteredCartProduct ? (
+        ) : isProductAlreadyExistInCart ? (
           <AddCartButton onClick={openQuantityStepper}>
             <Quantity>{filteredCartProduct.quantity}</Quantity>
           </AddCartButton>
@@ -148,6 +149,7 @@ const DecreaseButton = styled.button`
 
 const Quantity = styled.span`
   margin: 0 auto;
+  font-size: 16px;
 `;
 
 const IncreaseButton = styled.button`
