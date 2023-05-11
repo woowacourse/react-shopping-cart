@@ -33,8 +33,6 @@ function CartController({ product }: CartControllerProps) {
       return;
     }
 
-    console.log(quantity);
-
     setCartQuantity(product.id, quantity);
   };
 
