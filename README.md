@@ -42,17 +42,16 @@
 
 다수의 컴포넌트를 페이지로 구성하고 복잡해진 상태를 관리합니다.
 
-✔️ `데스크탑` 타겟의 웹 앱을 구현합니다.
-✔️ 상태 관리를 위해 `Recoil`을 활용합니다.
-✔️ `Router`를 활용해 여러 페이지 전환을 고려합니다.
-✔️ 배민상회 서비스 참고
+- `데스크탑` 타겟의 웹 앱을 구현합니다.
+- 상태 관리를 위해 `Recoil`을 활용합니다.
+- `Router`를 활용해 여러 페이지 전환을 고려합니다.
+- 배민상회 서비스 참고
 
 <br>
 
 ### 📝 실행 방법
 
 - <a href="https://woo-jk.github.io/react-shopping-cart/">앱 바로 실행하기</a>
-
 - 터미널에서 npm 설치(`npm install`) 후 `npm start` 커맨드로 앱을 실행할 수 있다.
 
 <br>
@@ -60,7 +59,6 @@
 ### 📝 실행 방법
 
 - <a href="http://localhost:6006/?path=/docs/counter--docs">스토리북 보기</a>
-
 - 터미널에서 npm 설치(`npm install`) 후 `npm run storybook` 커맨드로 스토리북을 실행할 수 있다.
 
 <br>
