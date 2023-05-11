@@ -1,5 +1,7 @@
 import { KeyboardEvent, useCallback, useState } from 'react';
 
+import { ESC_KEY } from '../constants';
+
 const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -12,7 +14,7 @@ const useModal = () => {
   }, []);
 
   const handleModalClosePress = useCallback((event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === 'Escape') {
+    if (event.key === ESC_KEY) {
       setIsModalOpen(false);
     }
   }, []);
