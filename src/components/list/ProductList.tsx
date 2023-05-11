@@ -3,24 +3,28 @@ import ProductItem from '../box/ProductItem';
 import useDataFetching from '../../hooks/useDataFetching';
 import type { Product } from '../../types/types';
 import ErrorBox from '../common/ErrorBox/ErrorBox';
+import { Text } from '../common/Text/Text';
 
 const ProductList = () => {
-  const { data } = useDataFetching<Product[]>('./mock/mockData.json');
-
+  const { data, isLoading } = useDataFetching<Product[]>('./mock/mockData.json');
   return (
     <>
-      {data ? (
-        data.length > 0 ? (
-          <ProductListWrapper>
-            {data.map((product) => (
-              <ProductItem key={product.id} product={product} />
-            ))}
-          </ProductListWrapper>
+      {!isLoading ? (
+        data ? (
+          data.length > 0 ? (
+            <ProductListWrapper>
+              {data.map((product) => (
+                <ProductItem key={product.id} product={product} />
+              ))}
+            </ProductListWrapper>
+          ) : (
+            <ErrorBox errorType="emptyList" />
+          )
         ) : (
-          <ErrorBox errorType="emptyList" />
+          <ErrorBox errorType="network" />
         )
       ) : (
-        <ErrorBox errorType="network" />
+        <Text>로딩중...</Text>
       )}
     </>
   );
