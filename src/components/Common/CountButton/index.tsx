@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { ReactComponent as ArrowDown } from '../../assets/arrow-down.svg';
-import { ReactComponent as ArrowUp } from '../../assets/arrow-up.svg';
+import { ReactComponent as ArrowDown } from '../../../assets/arrow-down.svg';
+import { ReactComponent as ArrowUp } from '../../../assets/arrow-up.svg';
 
 interface CountButtonProps {
   getCount: (count: number) => void;

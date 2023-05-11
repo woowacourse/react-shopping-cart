@@ -3,7 +3,7 @@ import useBooleanState from '../../hooks/useBooleanState';
 import styles from './index.module.scss';
 import { useSetRecoilState } from 'recoil';
 import { $CartCount } from '../../recoil/atom';
-import CountButton from '../CountButton';
+import CountButton from '../Common/CountButton';
 import { cartItems } from '../../data/mockData';
 
 interface AddCardButtonProps {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import ProductItem from '../ProductItem';
 import styles from './index.module.scss';

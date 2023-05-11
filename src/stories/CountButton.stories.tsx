@@ -1,4 +1,4 @@
-import CountButton from '../components/CountButton';
+import CountButton from '../components/Common/CountButton';
 import type { Meta, StoryObj } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
 
