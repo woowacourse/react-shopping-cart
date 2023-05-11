@@ -1,9 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Main from "../pages/Main";
+import NotFound from "../pages/NotFound";
 
 export const ROUTER_PATH = {
   Main: "/",
+  NotFound: "/*",
 };
 
 export const PageRouterProvider = () => {
@@ -12,6 +14,7 @@ export const PageRouterProvider = () => {
       path: ROUTER_PATH.Main,
       element: <Main />,
     },
+    { path: ROUTER_PATH.NotFound, element: <NotFound /> },
   ]);
   return <RouterProvider router={router} />;
 };
