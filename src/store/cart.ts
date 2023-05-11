@@ -1,4 +1,4 @@
-import { atom, selectorFamily } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 
 import { CART_LIST_LOCAL_STORAGE_KEY } from '../constants';
 import { CartItemData } from '../types';
@@ -22,6 +22,11 @@ const cartListState = atom<CartItemData[]>({
       });
     },
   ],
+});
+
+const cartListItemCountState = selector({
+  key: 'cartListItemCount',
+  get: ({ get }) => get(cartListState).length,
 });
 
 const cartItemQuantityState = selectorFamily({
@@ -49,4 +54,4 @@ const cartAdditionState = atom({
   ],
 });
 
-export { cartAdditionState, cartListState, cartItemQuantityState };
+export { cartListItemCountState, cartListState, cartItemQuantityState, cartAdditionState };
