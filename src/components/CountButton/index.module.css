@@ -1,7 +1,6 @@
 .counter-container {
   display: grid;
   max-height: 26px;
-  justify-content: right;
   grid-template-columns: 40px 20px;
   grid-template-rows: 13px 13px;
 }
