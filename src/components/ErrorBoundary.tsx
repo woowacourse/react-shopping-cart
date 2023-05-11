@@ -1,4 +1,4 @@
-import type { ErrorInfo, PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import React from 'react';
 
 type ErrorBoundaryState = {
@@ -15,12 +15,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
-  }
-
-  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.log(errorInfo.componentStack);
   }
 
   override render() {
