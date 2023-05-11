@@ -79,6 +79,7 @@
     "msw": "^1.2.1",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.11.1",
+    "scss": "^0.2.4",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
   },
