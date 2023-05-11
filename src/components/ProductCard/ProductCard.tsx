@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import ProductQuantityInput from "../ProductQuantityInput/ProductQuantityInput";
 interface ProductCardProps {
+  productId: number;
   productImage: string;
   productName: string;
   productPrice: number;
 }
 
 const ProductCard = ({
+  productId,
   productImage,
   productName,
   productPrice,
@@ -16,7 +18,7 @@ const ProductCard = ({
       <ProductImage src={productImage} alt="productImage" />
       <ProductDetailWrapper>
         <ProductName title={productName}>{productName}</ProductName>
-        <QuantityInput />
+        <QuantityInput productId={productId} />
         <ProductPrice>{productPrice.toLocaleString()} 원</ProductPrice>
       </ProductDetailWrapper>
     </ProductCardContainer>

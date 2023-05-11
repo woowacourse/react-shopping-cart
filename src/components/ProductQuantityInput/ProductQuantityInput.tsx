@@ -1,17 +1,26 @@
 import styled from "styled-components";
 import cartImage from "../../assets/images/cart.png";
 import { useState } from "react";
+import cartProductsState from "../../store/cartProductAtom";
+import { useRecoilState } from "recoil";
 
-const ProductQuantityInput = () => {
+interface ProductQuantityInputProps {
+  productId: number;
+}
+
+const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
   const [quantity, setQuantity] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
+  console.log(cartProducts);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(e.target.value));
+    setQuantity(() => Number(e.target.value));
   };
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsEditing(false);
+    setCartProducts({ ...cartProducts, [productId]: Number(e.target.value) });
   };
 
   const handleButtonClick = () => {

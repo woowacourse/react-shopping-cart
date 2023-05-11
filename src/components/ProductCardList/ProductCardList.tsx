@@ -9,6 +9,7 @@ const ProductCardList = () => {
       {mockData.map((product) => (
         <ProductCard
           key={product.id}
+          productId={product.id}
           productImage={product.imageUrl}
           productName={product.name}
           productPrice={product.price}
