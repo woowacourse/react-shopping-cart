@@ -1,6 +1,6 @@
 import { ReactComponent as ShopIcon } from '../../assets/mini-shop-icon.svg';
 import useBooleanState from '../../hooks/useBooleanState';
-import styles from './index.module.css';
+import styles from './index.module.scss';
 import { useSetRecoilState } from 'recoil';
 import { $CartCount } from '../../recoil/atom';
 import CountButton from '../CountButton';

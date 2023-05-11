@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: var(--primary-color);
+
+  h1 {
+    font-size: 160px;
+    margin-bottom: 6px;
+    font-weight: 900;
+    letter-spacing: 20px;
+    color: var(--mint-color);
+  }
+
+  a {
+    text-decoration: none;
+    background: var(--mint-color);
+    color: var(--white-color);
+    padding: 12px 24px;
+    display: inline-block;
+    border-radius: 25px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: 0.4s;
+    margin-top: 18px;
+
+    &:hover {
+      background: var(--mint-color-hover);
+    }
+  }
+}

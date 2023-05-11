@@ -1,5 +1,5 @@
 import AddCartButton from '../AddCartButton';
-import styles from './index.module.css';
+import styles from './index.module.scss';
 import type { Product } from '../../types';
 
 interface ProductItemProps {

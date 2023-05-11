@@ -1,3 +1,9 @@
+button {
+  font-weight: 500;
+  line-height: 12px;
+  font-size: 24px;
+}
+
 .container {
   font-family: 'Noto Sans KR';
   width: 100%;
@@ -24,10 +30,4 @@
   height: 26px;
   border-radius: 50%;
   background-color: var(--mint-color);
-}
-
-button {
-  font-weight: 500;
-  line-height: 12px;
-  font-size: 24px;
 }

@@ -3,8 +3,6 @@
   flex-direction: column;
   align-items: center;
   width: 242px;
-
-  font-family: 'Noto Sans KR';
 }
 
 .image {
@@ -22,16 +20,16 @@
   letter-spacing: 0.5px;
 
   color: var(--primary-color);
-}
 
-.item-info > div {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 26px;
-}
+  & > div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 26px;
+  }
 
-.item-info :last-child {
-  font-size: 20px;
-  line-height: 20px;
+  & :last-child {
+    font-size: 20px;
+    line-height: 20px;
+  }
 }

@@ -1,5 +1,5 @@
 import ProductItemList from '../../components/ProductItemList';
-import styles from './index.module.css';
+import styles from './index.module.scss';
 
 const Home = () => {
   return (

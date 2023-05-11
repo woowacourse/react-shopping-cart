@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import ProductItem from '../ProductItem';
-
-import styles from './index.module.css';
+import styles from './index.module.scss';
 import { $Products } from '../../recoil/atom';
 import { useRecoilState } from 'recoil';
 import { Product } from '../../types';

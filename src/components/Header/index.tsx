@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import styles from './index.module.css';
+import styles from './index.module.scss';
 import { $CartCountTotal } from '../../recoil/atom';
 import { Link } from 'react-router-dom';
 
