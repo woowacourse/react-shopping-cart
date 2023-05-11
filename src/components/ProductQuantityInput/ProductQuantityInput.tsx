@@ -12,7 +12,6 @@ const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
   const [quantity, setQuantity] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [cartProducts, setCartProducts] = useRecoilState(cartProductsState);
-  console.log(cartProducts);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(() => Number(e.target.value));
