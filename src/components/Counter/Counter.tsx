@@ -27,11 +27,11 @@ const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
   return (
     <CounterContainer size={size}>
       <CounterButton onClick={decreaseCount}>
-        <MinusIcon size={size} />
+        <MinusIcon />
       </CounterButton>
       <Input type="text" maxLength={2} value={count} onChange={handleChange} />
       <CounterButton onClick={increaseCount}>
-        <PlusIcon size={size} />
+        <PlusIcon />
       </CounterButton>
     </CounterContainer>
   );
@@ -57,7 +57,7 @@ const CounterContainer = styled.span<{ size: CounterSize }>`
       `) ||
     (size === 'small' &&
       css`
-        width: 90px;
+        width: 92px;
 
         & > * {
           width: 30px;
