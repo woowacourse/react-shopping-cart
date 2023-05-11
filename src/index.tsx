@@ -8,14 +8,19 @@ import GlobalStyles from './GlobalStyles';
 import ProductsPage from './components/pages/ProductsPage/ProductsPage';
 import ErrorPage from './components/pages/ErrorPage/ErrorPage';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      errorElement: <ErrorPage />,
+      children: [{ path: '', element: <ProductsPage /> }],
+    },
+  ],
   {
-    path: '/',
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [{ path: '', element: <ProductsPage /> }],
+    basename: '/react-shopping-cart',
   },
-]);
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
