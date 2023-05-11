@@ -1,20 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Product } from 'types/product';
 import ProductCardList from 'components/ProductCardList/ProductCardList';
+import useProductsFetch from 'hooks/useProductsFetch';
 
 const ProductListPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch(`${process.env.PUBLIC_URL}/data/mockProducts.json`);
-      const products = await response.json();
-
-      setProducts(products);
-    };
-
-    fetchProducts();
-  }, []);
+  const { products } = useProductsFetch();
 
   return <ProductCardList products={products} />;
 };
