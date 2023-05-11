@@ -5,15 +5,16 @@ import type { Product } from '../../types/product';
 import AmountCounter from '../Common/AmountCounter';
 
 import useCartProducts from '../../hooks/useCartProducts';
+import useProductQuantity from '../../hooks/useProductQuantity';
 
 interface ProductItemProps {
   product: Product;
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { imageUrl, name, price } = product;
-  const { target, addProduct, addCount, subtractCount } =
-    useCartProducts(product);
+  const { id, imageUrl, name, price } = product;
+  const { target, addProduct } = useCartProducts(product);
+  const { addCount, subtractCount } = useProductQuantity(id);
 
   return (
     <ProductContainer>

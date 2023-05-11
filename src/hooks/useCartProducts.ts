@@ -11,34 +11,10 @@ const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
 const deleteProduct = (cartProducts: CartProduct[], id: number) =>
   cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
 
-const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-    }
-    return cartProduct;
-  });
-
-const subtractTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-    }
-    return cartProduct;
-  });
-
 const useCartProducts = (product: Product) => {
   const { id } = product;
   const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
   const [storedCartProducts, setStoredCartProducts] = useCartProductStorage();
-
-  const addCount = () => {
-    setCartProducts((prev) => addTargetQuantity(prev, id));
-  };
-
-  const subtractCount = () => {
-    setCartProducts((prev) => subtractTargetQuantity(prev, id));
-  };
 
   const addProduct = () => {
     setCartProducts((prev) => [
@@ -71,7 +47,7 @@ const useCartProducts = (product: Product) => {
     }
   }, [cartProducts.length, setCartProducts, storedCartProducts]);
 
-  return { target, addProduct, addCount, subtractCount };
+  return { target, addProduct };
 };
 
 export default useCartProducts;
