@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
 import * as T from '../types/ProductType';
-import { fetchMock } from '../api/mockApi';
+import mockApi, { fetchMock } from '../api/mockApi';
 
 interface Cart {
   id: number;
@@ -8,7 +8,7 @@ interface Cart {
   product: T.ProductItem;
 }
 
-const cartState = atom<Cart[]>({
+export const cartState = atom<Cart[]>({
   key: 'cartState',
   default: [],
 });
@@ -17,7 +17,11 @@ function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);
 
   const loadCartList = async () => {
+    console.log('loaded');
     // mock API 연결해주기
+    const response = await mockApi('/cart-items');
+    const cartList = response.data;
+    setCartList(JSON.parse(cartList));
   };
 
   const getQuantityByProductId = (id: number) => {
@@ -29,8 +33,10 @@ function useCart() {
     if (cartList.findIndex((c) => c.id === product.id) !== -1) {
       return;
     }
-    setCartList([...cartList, { id: product.id, quantity: 1, product }]);
-    await fetchMock();
+    const newCartItem = { id: product.id, quantity: 1, product };
+    setCartList([...cartList, newCartItem]);
+    const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
+    console.log(response.data);
   };
 
   const removeCart = async (id: number) => {
