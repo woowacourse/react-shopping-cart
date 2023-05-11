@@ -1,20 +1,7 @@
 /* eslint-disable no-case-declarations */
-import mockData from '../assets/mockData.json';
 interface Response {
   data: string;
 }
-
-export const fetchMockProductList = () => {
-  return new Promise<Response>((resolve) =>
-    setTimeout(
-      () =>
-        resolve({
-          data: JSON.stringify(mockData),
-        }),
-      1000
-    )
-  );
-};
 
 export const fetchMock = () => {
   return new Promise<Response>((resolve) =>
@@ -41,10 +28,12 @@ function mockApi(endpoint: string, options?: Options) {
           const products = localStorage.getItem('products') || '[]';
           resolve({ data: products });
           break;
+
         case '/cart-items':
           const cartItems = localStorage.getItem('cart-items') || '[]';
           resolve({ data: cartItems });
           break;
+
         case '/cart-items/add':
           if (options) {
             const productJSON = options.body;
