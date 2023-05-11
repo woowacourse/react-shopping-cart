@@ -4,6 +4,7 @@ import { AddIcon } from '../../assets';
 import { useModal } from '../../hooks/useModal';
 import { cartItemQuantityState } from '../../store/cart';
 import { ProductItemData } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import Modal from '../Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
 import styles from './style.module.css';
@@ -31,7 +32,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
         </button>
       </div>
       <h4 className={styles.name}>{information.name}</h4>
-      <h4 className={styles.price}>{information.price}원</h4>
+      <h4 className={styles.price}>{priceFormatter(information.price)}원</h4>
       {isModalOpen && (
         <Modal closeModalByClick={handleModalClose} closeModalByPress={handleModalClosePress}>
           <ProductAddition closeModalByClick={handleModalClose} productInformation={information} />

@@ -3,6 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import StepperButton from '../StepperButton/StepperButton';
 import styles from './style.module.css';
 
@@ -51,14 +52,14 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         <div>
           <div>
             <h4 className={styles.productName}>{productInformation.name}</h4>
-            <h4 className={styles.productPrice}>{productInformation.price}원</h4>
+            <h4 className={styles.productPrice}>{priceFormatter(productInformation.price)}원</h4>
           </div>
           <StepperButton count={quantity} setCount={setQuantity} />
         </div>
       </div>
       <div className={styles.totalPriceContainer}>
         <h5>합계</h5>
-        <h3>{productInformation.price * quantity} 원</h3>
+        <h3>{priceFormatter(productInformation.price * quantity)} 원</h3>
       </div>
       <div className={styles.buttonContainer}>
         <button className={styles.cancelButton} onClick={closeModalByClick}>
