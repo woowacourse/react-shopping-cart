@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
-import { ReactComponent as ShoppingCartIcon } from '../../assets/icon/logo.svg';
+import { Link } from "react-router-dom";
+import { styled } from "styled-components";
+import { ReactComponent as ShoppingCartIcon } from "../../assets/icon/logo.svg";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header = ({ children }: HeaderProps) => {
   return (
     <Styled.Container>
-      <Link to='/'>
+      <Link to="/">
         <Styled.HomeButton>
           <ShoppingCartIcon />
           <Styled.Title>SHOP</Styled.Title>

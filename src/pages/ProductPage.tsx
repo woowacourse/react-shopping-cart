@@ -1,4 +1,4 @@
-import ProductCardList from '../components/ProductCardList';
+import ProductCardList from "../components/ProductCardList";
 
 const ProductPage = () => {
   return (

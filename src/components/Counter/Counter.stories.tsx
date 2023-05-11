@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Counter from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Counter from ".";
 
 const meta: Meta<typeof Counter> = {
-  title: 'Counter',
+  title: "Counter",
   component: Counter,
 };
 

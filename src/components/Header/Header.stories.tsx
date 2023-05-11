@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Header from '.';
-import CartTextButton from '../CartTextButton';
+import type { Meta, StoryObj } from "@storybook/react";
+import Header from ".";
+import CartTextButton from "../CartTextButton";
 
 const meta: Meta<typeof Header> = {
-  title: 'Header',
+  title: "Header",
   component: Header,
 };
 
