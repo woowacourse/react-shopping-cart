@@ -5,7 +5,7 @@ import Icon from './common/Icon';
 import { CART_PATH } from '../constants/svgPath';
 import { INITIAL_QUANTITY, NONE_QUANTITY } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { atom, useRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Product } from '../types';
 import { productListState } from './ProductList';
 
@@ -24,9 +24,9 @@ export const cartState = atom({
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const [isSelected, setIsSelected] = useState(false);
   const [value, setValue] = useState(INITIAL_QUANTITY);
-  const [productList, setProductList] = useRecoilState<Product[]>(productListState);
+  const productList = useRecoilValue<Product[]>(productListState);
 
-  const [cart, setCart] = useRecoilState<Product[]>(cartState);
+  const setCart = useSetRecoilState<Product[]>(cartState);
 
   const handleCartClick = () => {
     setIsSelected(true);
