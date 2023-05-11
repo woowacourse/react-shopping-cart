@@ -66,5 +66,5 @@
 
 ### 테스트
 
-- [ ] custom hook 테스트
+- [x] custom hook 테스트
 - [ ] storybook 인터렉션 테스트

@@ -13,4 +13,16 @@ module.exports = {
       },
     },
   ],
+
+  jest: {
+    configure: {
+      moduleNameMapper: {
+        '^\\@Domains/(.*)$': '<rootDir>/src/domains/$1',
+        '^\\@Constants/(.*)$': '<rootDir>/src/constants/$1',
+        '^\\@Hooks/(.*)$': '<rootDir>/src/hooks/$1',
+        '^\\@Contexts/(.*)$': '<rootDir>/src/contexts/$1',
+        '^\\@Atoms/(.*)$': '<rootDir>/src/atoms/$1',
+      },
+    },
+  },
 };
