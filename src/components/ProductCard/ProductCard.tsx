@@ -19,7 +19,7 @@ const ProductCard = ({
       <ProductDetailWrapper>
         <ProductName title={productName}>{productName}</ProductName>
         <QuantityInput productId={productId} />
-        <ProductPrice>{productPrice.toLocaleString()} 원</ProductPrice>
+        <ProductPrice>₩ {productPrice.toLocaleString()}</ProductPrice>
       </ProductDetailWrapper>
     </ProductCardContainer>
   );
@@ -30,11 +30,15 @@ const ProductCardContainer = styled.div`
   flex-direction: column;
   width: 282px;
   height: 358.03px;
+  margin: 0 auto;
+  background-color: #131313;
+  border: 2px solid #202020;
+  box-sizing: border-box;
 `;
 
 const ProductImage = styled.img`
-  width: 282px;
-  height: 282px;
+  width: 280px;
+  height: 280px;
 `;
 
 const ProductDetailWrapper = styled.div`
@@ -56,12 +60,15 @@ const ProductName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #dddddd;
 `;
 
 const ProductPrice = styled.span`
-  font-size: 20px;
+  font-size: 22px;
   padding-left: 10px;
   grid-area: price;
+  color: #ffdf7e;
+  font-family: "Prata";
 `;
 
 const QuantityInput = styled(ProductQuantityInput)`

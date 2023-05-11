@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <Container>
       <CartTitleLogo src={cartTitleLogo} />
-      <Title>SHOP</Title>
+      <Title>Shop</Title>
       <CartNotificationButton />
     </Container>
   );
@@ -14,13 +14,12 @@ const Header = () => {
 
 const Container = styled.div`
   display: flex;
-  background-color: #333333;
+  background-color: #131313;
   width: 100%;
   height: 80px;
   align-items: center;
   gap: 31.24px;
-  padding-left: 300px;
-  padding-right: 300px;
+  padding: 0 50px;
 `;
 
 const CartTitleLogo = styled.img`
@@ -33,7 +32,8 @@ const Title = styled.h1`
   color: #ffffff;
   height: 57px;
   line-height: 57px;
-  font-weight: 900;
+  font-family: "Prata";
+  font-weight: 100;
 `;
 
 export default Header;
