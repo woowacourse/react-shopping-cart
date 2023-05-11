@@ -53,7 +53,7 @@ export default function Product(props: ProductProps) {
 
   return (
     <Wrapper>
-      <Img src={`./assets/mockImages/${imageUrl}`} />
+      <Img src={imageUrl} />
       <InfoBox>
         <LabelBox>
           <Name>{name}</Name>
@@ -68,7 +68,7 @@ export default function Product(props: ProductProps) {
               onBlur={handleBlurCounter}
             />
           ) : (
-            <CartIcon src="./assets/cart.svg" onClick={handleClickIcon}></CartIcon>
+            <CartIcon src="./cart.svg" onClick={handleClickIcon}></CartIcon>
           )}
         </ControlBox>
       </InfoBox>
