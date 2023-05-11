@@ -7,7 +7,7 @@ const meta = {
   component: Button,
   tags: ['autodocs'],
   args: {
-    children: 'sample',
+    children: 'btn',
   },
 } satisfies Meta<typeof Button>;
 
