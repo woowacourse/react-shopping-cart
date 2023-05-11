@@ -13,12 +13,11 @@ interface ItemCartDialogProps extends Product {}
 const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
   const setCart = useSetRecoilState(cartState);
-  const quantityRef = useRef<Readonly<{ quantity: number }>>(null);
-
+  const quantityRef = useRef<HTMLInputElement>(null);
   const alreadyHasItem = useRecoilValue(hasItemInCart(id));
 
   const addItemToCart = () => {
-    const quantity = quantityRef.current!.quantity;
+    const quantity = Number(quantityRef.current!.value);
 
     setCart((cart) => {
       if (alreadyHasItem) {

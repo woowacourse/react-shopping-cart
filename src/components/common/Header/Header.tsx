@@ -1,7 +1,6 @@
 import Logo from '../../../assets/png/logo.png';
 import CartBadge from '../CartBadge/CartBadge';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-
 import Flex from '../Flex';
 import * as S from './Header.styles';
 
