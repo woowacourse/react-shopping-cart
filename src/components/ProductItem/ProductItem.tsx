@@ -18,13 +18,13 @@ const ProductItem = (product: Product) => {
     addProductToCart(product);
   };
 
-  const handleChangeQuantity = (count: number) => {
-    if (count === 0) {
+  const handleChangeQuantity = (quantity: number) => {
+    if (quantity === 0) {
       removeProductFromCart(id);
       return;
     }
 
-    updateProductQuantity(id, count);
+    updateProductQuantity(id, quantity);
   };
 
   return (
