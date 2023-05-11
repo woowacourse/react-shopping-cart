@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import FlexBox from 'components/@common/FlexBox';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
