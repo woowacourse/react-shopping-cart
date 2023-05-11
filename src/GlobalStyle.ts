@@ -1,10 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+
 import Baemin from './fonts/Baemin.ttf';
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
-
   @font-face {
     font-family: 'Baemin';
     src: url(${Baemin});
@@ -20,12 +18,23 @@ const GlobalStyle = createGlobalStyle`
   }
 
   *, *::before, *::after {
+    padding: 0;
+        margin: 0;
     box-sizing: border-box;
 
   }
 
   body{
     font-family: 'Baemin';
+  }
+
+  ul,
+  li {
+      list-style: none;
+  }
+  
+  button, input {
+      all:unset;
   }
 
   a {

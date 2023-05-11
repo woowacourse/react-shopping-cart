@@ -44,7 +44,7 @@ jobs:
         # cache hit이 발생한 경우 (즉 package-lock.json이 변경되지 않은 경우)
         # npm ci 실행은 skip
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci --force # package-lock.json에 적혀있는 패키지를 그대로 설치
+        run: npm ci # package-lock.json에 적혀있는 패키지를 그대로 설치
 
       - name: Build App
         run: npm run build # package.json에 빌드 스크립트 여기에 적기
