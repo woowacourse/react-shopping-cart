@@ -1,27 +1,50 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import { isNotNumber } from '@utils/common';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
   setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const MAX_BUCKET_COUNT = 1000;
+const SHOW_ERROR_BUCKET_COUNT = 10000;
+
 const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
   const [bucketCount, setBucketCount] = useState(1);
+
+  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const count = Number(value);
+
+    if (isNotNumber(value)) return;
+
+    showErorrMessage(count, event);
+
+    if (count >= SHOW_ERROR_BUCKET_COUNT) return;
+
+    setBucketCount(count);
+  };
+
+  const showErorrMessage = (
+    count: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (count <= MAX_BUCKET_COUNT) {
+      event.target.setCustomValidity('');
+      return;
+    }
+
+    event.target.setCustomValidity(
+      '장바구니 수량은 1000개 이하까지 가능합니다.'
+    );
+    event.target.reportValidity();
+  };
 
   useEffect(() => {
     if (!setIsClicked) return;
     if (bucketCount < 0) setIsClicked(false);
   }, [bucketCount, setIsClicked]);
-
-  const changeCountEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    const onlyNumberExpression = /[^0-9]/g;
-
-    if (onlyNumberExpression.test(value)) return;
-
-    setBucketCount(Number(value));
-  };
 
   return (
     <Wrapper>
