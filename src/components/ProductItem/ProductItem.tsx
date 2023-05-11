@@ -95,8 +95,10 @@ const Price = styled.p`
 `;
 
 const CartButton = styled.button`
-  background: none;
-  border: none;
+  background: #fff;
+  border: 1px solid #dddddd;
+
+  padding: 7px;
 
   cursor: pointer;
 `;
