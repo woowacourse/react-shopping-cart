@@ -1,20 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import BucketCounter from '@components/common/BucketCounter';
 import { BUCKET_BUTTON } from '@assets';
 
 interface AddCartButtonProps {
   addProductToCart: () => void;
+  removeProductFromCart: () => void;
 }
 
-const AddCartButton = ({ addProductToCart }: AddCartButtonProps) => {
+const AddCartButton = ({
+  addProductToCart,
+  removeProductFromCart,
+}: AddCartButtonProps) => {
+  const [flag, setFlag] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 
   const toggleCounter = () => {
     setIsClicked(true);
+  };
+
+  useEffect(() => {
+    if (flag) {
+      setFlag(false);
+      return;
+    }
+
+    if (!isClicked) {
+      removeProductFromCart();
+      return;
+    }
 
     addProductToCart();
-  };
+  }, [isClicked]);
 
   return (
     <Wrapper>

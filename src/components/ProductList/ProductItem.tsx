@@ -24,6 +24,12 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
 
     setCart([...cart, product]);
   };
+
+  const removeProductFromCart = () => {
+    const updatedCart = cart.filter((product)=> id !== product.id)
+
+    setCart(updatedCart)
+  }
   
   return (
     <Wrapper>
@@ -33,7 +39,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
-        <AddCartButton addProductToCart={addProductToCart} />
+        <AddCartButton addProductToCart={addProductToCart} removeProductFromCart={removeProductFromCart}/>
       </InformationWrapper>
     </Wrapper>
   );
