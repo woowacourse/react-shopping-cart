@@ -35,7 +35,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
       <h4 className={styles.price}>{priceFormatter(information.price)}원</h4>
       {isModalOpen && (
         <Modal handleClose={handleModalClose} handleClosePress={handleModalClosePress}>
-          <ProductAddition closeModalByClick={handleModalClose} productInformation={information} />
+          <ProductAddition handleModalClose={handleModalClose} productInformation={information} />
         </Modal>
       )}
     </div>

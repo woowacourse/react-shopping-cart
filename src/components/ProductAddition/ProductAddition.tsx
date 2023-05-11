@@ -9,10 +9,10 @@ import styles from './style.module.css';
 
 interface ProductAdditionProps {
   productInformation: ProductItemData;
-  closeModalByClick: () => void;
+  handleModalClose: () => void;
 }
 
-const ProductAddition = ({ productInformation, closeModalByClick }: ProductAdditionProps) => {
+const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditionProps) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
   const setCartAddition = useSetRecoilState(cartAdditionState);
   const [quantity, setQuantity] = useState(1);
@@ -41,8 +41,8 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
       setCartAddition(true);
     }
 
-    closeModalByClick();
-  }, [cartList, closeModalByClick, productInformation, quantity, setCartList, setCartAddition]);
+    handleModalClose();
+  }, [cartList, handleModalClose, productInformation, quantity, setCartList, setCartAddition]);
 
   return (
     <div className={styles.container}>
@@ -62,11 +62,7 @@ const ProductAddition = ({ productInformation, closeModalByClick }: ProductAddit
         <h3>{priceFormatter(productInformation.price * quantity)} 원</h3>
       </div>
       <div className={styles.buttonContainer}>
-        <button
-          className={styles.cancelButton}
-          aria-label="close modal"
-          onClick={closeModalByClick}
-        >
+        <button className={styles.cancelButton} aria-label="close modal" onClick={handleModalClose}>
           취소
         </button>
         <button className={styles.addButton} aria-label="add item" onClick={handleCartAdd}>
