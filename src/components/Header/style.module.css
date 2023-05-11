@@ -17,26 +17,52 @@ header {
   align-items: center;
 }
 
-.container img {
+.logo {
   height: 48px;
 }
 
 .container button {
   position: absolute;
   right: 0;
+  padding: 12px;
   display: flex;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
-  gap: 4px;
+  cursor: pointer;
 }
 
 .cartItemCount {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  color: #ffffff;
-  background-color: #04c09e;
-  border-radius: 50%;
-  display: inline-flex;
+  position: absolute;
+  height: 14px;
+  right: 10px;
+  top: 9px;
+  padding: 0px 4px;
+
+  display: flex;
   justify-content: center;
   align-items: center;
+
+  background-color: rgb(255, 102, 16);
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  line-height: 12px;
+  border-radius: 7px;
+  letter-spacing: -0.2px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(calc(50% - 7px));
+}
+
+.cartIcon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 400;
 }
