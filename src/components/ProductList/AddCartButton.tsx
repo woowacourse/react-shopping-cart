@@ -32,7 +32,7 @@ const AddCartButton = ({
     }
 
     addProductToCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClicked, flag]);
 
   return (
