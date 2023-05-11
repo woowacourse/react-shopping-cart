@@ -5,7 +5,7 @@ import ProductList from './ProductList';
 import { cartLengthSelector } from '../../recoil/myCartState';
 
 /**
- * 설명창
+ * 상품 목록 컴포넌트
  */
 
 const meta: Meta<typeof ProductList> = {
@@ -27,10 +27,14 @@ export default meta;
 type Story = StoryObj<typeof ProductList>;
 
 /**
- * 테스트
+ * 기본형
  */
 
 export const Default: Story = {};
+
+/**
+ * 왼쪽 상단에 현재 장바구니에 담긴 물건 종류 표시
+ */
 
 const Wrapper = () => {
   const cartLength = useRecoilValue(cartLengthSelector);

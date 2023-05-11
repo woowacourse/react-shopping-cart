@@ -24,19 +24,23 @@ const Stepper = (props: StepperProps) => {
     <Styled.StepperDiv>
       <Styled.Input
         type="text"
+        role="textbox"
         inputMode="numeric"
         value={productCount}
         onChange={handleNumberInput}
+        aria-label="상품 개수 입력"
       />
       <Styled.UpButton
         type="button"
         onClick={() => setProductCount(productCount + 1)}
+        aria-label="상품 1개 추가"
       >
         ▲
       </Styled.UpButton>
       <Styled.DownButton
         type="button"
         onClick={() => setProductCount(productCount - 1)}
+        aria-label="상품 1개 삭제"
       >
         ▼
       </Styled.DownButton>
