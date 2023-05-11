@@ -70,5 +70,6 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
     "webpack": "^5.82.0"
-  }
+  },
+  "homepage": "https://feb-dain.github.io/react-shopping-cart/"
 }
