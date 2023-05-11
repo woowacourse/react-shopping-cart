@@ -1,10 +1,10 @@
 import ProductItem from '../../components/ProductItem';
 import { useCallback, useEffect } from 'react';
 import useProduct from '../../hooks/useProduct';
-import { cartState } from '../../hooks/useCart';
 import { Column, Row } from '../../style/style';
 import { useSetRecoilState } from 'recoil';
 import mockApi from '../../api/mockApi';
+import { cartState } from '../../recoil/atoms';
 
 function Home() {
   const { productList, loadProductList } = useProduct();

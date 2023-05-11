@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import mockApi from '../api/mockApi';
-import * as T from '../types/ProductType';
+import * as T from '../types/types';
 
 function useProduct() {
   const [productList, setProductList] = useState<T.ProductItem[]>([]);

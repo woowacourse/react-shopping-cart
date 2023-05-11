@@ -1,17 +1,7 @@
-import { atom, useRecoilState } from 'recoil';
-import * as T from '../types/ProductType';
+import { useRecoilState } from 'recoil';
+import * as T from '../types/types';
 import mockApi from '../api/mockApi';
-
-interface Cart {
-  id: number;
-  quantity: number;
-  product: T.ProductItem;
-}
-
-export const cartState = atom<Cart[]>({
-  key: 'cartState',
-  default: [],
-});
+import { cartState } from '../recoil/atoms';
 
 function useCart() {
   const [cartList, setCartList] = useRecoilState(cartState);

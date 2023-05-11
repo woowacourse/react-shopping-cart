@@ -1,4 +1,4 @@
-import * as T from '../../types/ProductType';
+import * as T from '../../types/types';
 import CartController from '../CartController';
 import * as S from './ProductItem.style';
 
