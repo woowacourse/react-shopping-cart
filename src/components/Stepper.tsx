@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { ChangeEvent, MouseEvent } from 'react';
 import { styled } from 'styled-components';
-import { productsInCartState } from '../atom';
+import { useCart } from '../hooks/useCart';
+import { useCountInput } from '../hooks/useCountInput';
 import Button from './common/Button';
 
 interface Props {
@@ -9,72 +9,48 @@ interface Props {
   productId: number;
 }
 
-export default function Stepper({ initCount, productId }: Props) {
-  const setProductsInCart = useSetRecoilState(productsInCartState);
-  const [count, setCount] = useState(initCount || 1);
+export default function Stepper({ productId }: Props) {
+  const {
+    findProductInCart,
+    updateProductQuantity,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+  } = useCart();
 
-  const increaseCount = () => {
-    setCount((prev) => prev + 1);
+  const { count, setCount, increaseCount, decreaseCount } = useCountInput(
+    findProductInCart(productId)?.quantity
+  );
 
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity + 1 };
-
-        return productInCart;
-      });
-    });
+  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setCount(value);
+    updateProductQuantity(productId, Number(value));
   };
 
-  const decreaseCount = () => {
-    setCount((prev) => prev - 1);
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId)
-          return { ...productInCart, quantity: productInCart.quantity - 1 };
+  const onClickButton = ({ currentTarget: { id } }: MouseEvent<HTMLButtonElement>) => {
+    if (id === 'increase') {
+      increaseCount();
+      increaseProductQuantity(productId);
 
-        return productInCart;
-      });
-    });
-  };
+      return;
+    }
 
-  const isMinCount = () => {
-    if (count === 1) return true;
-
-    return false;
-  };
-
-  const isMaxCount = () => {
-    if (count === 99) return true;
-
-    return false;
-  };
-
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    if (!/^[0-9]*$/.test(target.value)) return;
-
-    const value = Number(target.value);
-
-    if (value < 1) setCount(1);
-    else if (value > 99) setCount(99);
-    else setCount(value);
-
-    setProductsInCart((prev) => {
-      return prev.map((productInCart) => {
-        if (productInCart.id === productId) return { ...productInCart, quantity: value };
-
-        return productInCart;
-      });
-    });
+    decreaseCount();
+    decreaseProductQuantity(productId);
   };
 
   return (
     <Style.Container>
-      <Button bgColor="primary" designType="square" disabled={isMinCount()} onClick={decreaseCount}>
+      <Button
+        id="decrease"
+        bgColor="primary"
+        designType="square"
+        disabled={count === 1}
+        onClick={onClickButton}
+      >
         -
       </Button>
       <Style.CountInput value={count} onChange={handleChange} />
-      <Button designType="square" disabled={isMaxCount()} onClick={increaseCount}>
+      <Button id="increase" designType="square" disabled={count === 99} onClick={onClickButton}>
         +
       </Button>
     </Style.Container>
