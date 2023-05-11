@@ -30,9 +30,14 @@ const ProductCard = ({ productId }: ProductCardProps) => {
   };
 
   const minusOne = () => {
-    setProductInCart((prev) => ({ ...prev, quantity: prev.quantity - 1 }));
-    if (productInCart.quantity === 0)
+    setProductInCart((prev) => ({
+      ...prev,
+      quantity: prev.quantity - 1 < 0 ? 0 : prev.quantity - 1,
+    }));
+    if (productInCart.quantity <= 1) {
       setCart((prev) => [...prev.filter((num) => num !== id)]);
+      setIsCartClicked(false);
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ const ProductCard = ({ productId }: ProductCardProps) => {
           <Counter
             plusOne={plusOne}
             minusOne={minusOne}
-            quantity={productInCart?.quantity}
+            quantity={productInCart.quantity}
           />
         ) : (
           <Styled.ShoppingCart onClick={addToCart}>

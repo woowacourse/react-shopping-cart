@@ -5,18 +5,21 @@ import App from './App';
 import ProductPage from './pages/ProductPage';
 import GlobalStyle from './styles/GlobalStyle';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        path: '',
-        element: <ProductPage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      children: [
+        {
+          path: '',
+          element: <ProductPage />,
+        },
+      ],
+    },
+  ],
+  { basename: process.env.PUBLIC_URL }
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

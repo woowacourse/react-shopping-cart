@@ -1,6 +1,7 @@
 {
   "name": "react-shopping-cart",
   "version": "0.1.0",
+  "homepage": "https://shackstack.github.io/react-shopping-cart",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -26,7 +27,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +75,7 @@
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.9",
-    "webpack": "^5.82.0"
+    "webpack": "^5.82.0",
+    "gh-pages": "^5.0.0"
   }
 }
