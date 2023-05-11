@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import useCart from "../../hooks/useCart";
-import { isNumeric } from "../../utils/validator";
-import { MAX_QUANTITY } from "../../constants";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import useCart from '../../hooks/useCart';
+import { isNumeric } from '../../utils/validator';
+import { MAX_QUANTITY } from '../../constants';
 
 interface ProductProps {
   id: number;
@@ -14,28 +14,26 @@ interface ProductProps {
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
   const [cart, addCartItem, removeCartItem, updateQuantity] = useCart();
-  const [quantityInput, setQuantityInput] = useState("");
+  const [quantityInput, setQuantityInput] = useState('');
   const cartItem = cart.find((item) => item.product.id === id);
 
   const handleClickIcon = () => {
     const newCartItem = { id: Date.now(), quantity: 1, product: props };
     addCartItem(newCartItem);
-    setQuantityInput("1");
+    setQuantityInput('1');
   };
 
   const handleChangeCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value === "") {
-      setQuantityInput("");
+    if (value === '') {
+      setQuantityInput('');
     } else if (isNumeric(value)) {
-      setQuantityInput(
-        Number(value) > MAX_QUANTITY ? MAX_QUANTITY.toString() : value
-      );
+      setQuantityInput(Number(value) > MAX_QUANTITY ? MAX_QUANTITY.toString() : value);
     }
   };
 
   const handleBlurCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") removeCartItem(id);
+    if (e.target.value === '') removeCartItem(id);
   };
 
   useEffect(() => {
@@ -70,10 +68,7 @@ export default function Product(props: ProductProps) {
               onBlur={handleBlurCounter}
             />
           ) : (
-            <S.CartIcon
-              src="./assets/cart.svg"
-              onClick={handleClickIcon}
-            ></S.CartIcon>
+            <S.CartIcon src="./assets/cart.svg" onClick={handleClickIcon}></S.CartIcon>
           )}
         </S.ControlBox>
       </S.InfoBox>

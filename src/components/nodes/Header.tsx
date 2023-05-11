@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { cartCountState } from "../../recoil/state";
+import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { cartCountState } from '../../recoil/state';
 
 export default function Header() {
   const cartCount = useRecoilValue(cartCountState);

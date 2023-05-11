@@ -1,9 +1,9 @@
-import type { StoryFn } from "@storybook/react";
+import type { StoryFn } from '@storybook/react';
 
-import Header from "./Header";
+import Header from './Header';
 
 export default {
-  title: "Header",
+  title: 'Header',
   component: Header,
 };
 

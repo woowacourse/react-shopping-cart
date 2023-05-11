@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
-import ProductListPage from "./components/pages/ProductListPage";
+import { createBrowserRouter } from 'react-router-dom';
+import ProductListPage from './components/pages/ProductListPage';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <ProductListPage />,
   },
 ]);

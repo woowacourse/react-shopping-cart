@@ -1,8 +1,8 @@
-import type { CartItemType } from "../types";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { cartState } from "../recoil/state";
-import { LOCAL_STORAGE_KEY } from "../constants";
+import type { CartItemType } from '../types';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { cartState } from '../recoil/state';
+import { LOCAL_STORAGE_KEY } from '../constants';
 
 export default function useCart() {
   const [cart, setCart] = useRecoilState(cartState);
@@ -16,9 +16,7 @@ export default function useCart() {
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
-    const orderIndex = cart.findIndex(
-      (order) => order.product.id === productId
-    );
+    const orderIndex = cart.findIndex((order) => order.product.id === productId);
     const newCart = [...cart];
     newCart[orderIndex] = {
       ...cart[orderIndex],
