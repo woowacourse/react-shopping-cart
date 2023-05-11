@@ -2,12 +2,13 @@ import { forwardRef } from "react";
 import styled from "styled-components";
 import { DownButtonIc, UpButtonIc } from "../../asset";
 import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
+import { ERROR } from "../../constants/error";
 import { CounterAction } from "../../type/counter";
 import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
 import { validateNumberRange } from "../../utils/validation";
 
 const unknownCountAction = (action: never): never => {
-  throw new Error("잘못된 action 이 전달되었습니다.");
+  throw new Error(ERROR.INVALID_ACTION);
 };
 
 const changeCount = (current: HTMLInputElement, action: CounterAction) => {
