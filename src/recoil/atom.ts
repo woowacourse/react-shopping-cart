@@ -1,13 +1,14 @@
 import { atom, selector } from 'recoil';
+import type { Product } from '../types';
+
+export const $Products = atom<Product[]>({
+  key: 'products',
+  default: [],
+});
 
 export const $CartCount = atom<Record<number, number>>({
   key: 'CartCount',
   default: {},
-});
-
-export const $Products = atom({
-  key: 'products',
-  default: [],
 });
 
 export const $CartCountTotal = selector({
