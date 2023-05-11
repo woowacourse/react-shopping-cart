@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useCart from "../../hooks/useCart";
+import { isNumeric } from "../../utils/validator";
 
 interface ProductProps {
   id: number;
@@ -19,13 +20,6 @@ export default function Product(props: ProductProps) {
     const newOrder = { id: Date.now(), quantity: 1, product: props };
     addOrder(newOrder);
     setQuantityInput("1");
-  };
-
-  const isNumeric = (value: string) => {
-    return (
-      value !== "" &&
-      value.split("").every((char) => "0123456789".includes(char))
-    );
   };
 
   const handleChangeCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
