@@ -3,7 +3,7 @@ import Flex from '../../common/Flex';
 import ItemCartDialog from '../ItemCartDialog/ItemCartDialog';
 import * as S from './ProductItem.styles';
 
-interface ProductItemProps extends Product {}
+type ProductItemProps = Product;
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
   const { name, price, imageUrl } = props;

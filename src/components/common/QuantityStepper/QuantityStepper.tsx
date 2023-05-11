@@ -28,4 +28,6 @@ const QuantityStepper = forwardRef<HTMLInputElement, QuantityStepperProps>(
   }
 );
 
+QuantityStepper.displayName = 'QuantityStepper';
+
 export default QuantityStepper;

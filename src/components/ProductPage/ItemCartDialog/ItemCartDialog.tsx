@@ -8,7 +8,7 @@ import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
 import { useRef } from 'react';
 
-interface ItemCartDialogProps extends Product {}
+type ItemCartDialogProps = Product;
 
 const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
