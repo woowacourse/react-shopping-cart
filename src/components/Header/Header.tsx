@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <Styled.HeaderContainer>
       <Styled.HeaderWrapper>
-        <Styled.LogoButton>
+        <Styled.LogoButton data-cy='headerlogo'>
           <Styled.LogoImage src={Logo} alt='SHOP' />
           <Styled.LogoTitle>SHOP</Styled.LogoTitle>
         </Styled.LogoButton>

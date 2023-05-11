@@ -33,7 +33,7 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
   };
 
   return (
-    <Styled.ProductItemWrapper>
+    <Styled.ProductItemWrapper data-cy='productItem'>
       <Styled.ImageOverflowContainer>
         <Styled.ImageContainer>
           <Styled.ProductItemImage src={imageUrl} />

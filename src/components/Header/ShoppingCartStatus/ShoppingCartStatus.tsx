@@ -7,7 +7,7 @@ const ShoppingCartStatus = () => {
 
   return (
     <Styled.ShoppingCartQuantity>
-      <span>{totalNumber}</span>
+      <span data-cy='totalQuantity'>{totalNumber}</span>
     </Styled.ShoppingCartQuantity>
   );
 };
