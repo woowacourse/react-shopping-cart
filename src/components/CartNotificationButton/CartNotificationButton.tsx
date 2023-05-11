@@ -1,12 +1,10 @@
 import styled from "styled-components";
+import cartProductsCountState from "../../store/cartProductSelector";
+import { useRecoilValue } from "recoil";
 
-interface CartNotificationButtonProps {
-  productCount: number;
-}
+const CartNotificationButton = () => {
+  const productCount = useRecoilValue(cartProductsCountState);
 
-const CartNotificationButton = ({
-  productCount,
-}: CartNotificationButtonProps) => {
   return (
     <Button>
       <Title>장바구니</Title>
