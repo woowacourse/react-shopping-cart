@@ -10,6 +10,10 @@ const color = {
   gray6: '#363636',
   black: '#0e0e0e',
 
+  primaryLight1: '#f7faf9',
+  primary: '#04c09e',
+  primaryDark: '#05b696',
+
   lightRed1: '#fff6f6',
   lightRed2: '#ffecec',
   lightRed3: '#eb7171',
@@ -17,8 +21,14 @@ const color = {
   darkRed: '#9f0000',
 };
 
+const borderRadius = {
+  small: '4px',
+  medium: '8px',
+};
+
 const theme: DefaultTheme = {
   color,
+  borderRadius,
 };
 
 export default theme;
