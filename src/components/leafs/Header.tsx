@@ -9,7 +9,7 @@ export default function Header() {
     <Wrapper>
       <ContentBox>
         <LogoBox>
-          <img src="./assets/logo.svg" />
+          <img src="./logo.svg" />
           <LogoTitle>SHOP</LogoTitle>
         </LogoBox>
         <CartBox>
