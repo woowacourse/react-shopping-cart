@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { cartAtom } from '@recoil/atoms/cartAtom';
@@ -15,7 +16,7 @@ interface ProductItemProps {
 const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
   const [cart, setCart] = useRecoilState(cartAtom);
 
-  const addProductToCart = () => {
+  const addProductToCart = useCallback(() => {
     const product: CartInformation = {
       id,
       product: { name, price, imageUrl, id },
@@ -23,14 +24,14 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
     };
 
     setCart([...cart, product]);
-  };
+  }, [cart, id, imageUrl, name, price, setCart]);
 
-  const removeProductFromCart = () => {
-    const updatedCart = cart.filter((product)=> id !== product.id)
+  const removeProductFromCart = useCallback(() => {
+    const updatedCart = cart.filter((product) => id !== product.id);
 
-    setCart(updatedCart)
-  }
-  
+    setCart(updatedCart);
+  }, [cart, id, setCart]);
+
   return (
     <Wrapper>
       <Picture src={imageUrl} alt={name} />
@@ -39,7 +40,10 @@ const ProductItem = ({ id, name, price, imageUrl }: ProductItemProps) => {
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')} 원</Price>
         </TitleAndPriceWrapper>
-        <AddCartButton addProductToCart={addProductToCart} removeProductFromCart={removeProductFromCart}/>
+        <AddCartButton
+          addProductToCart={addProductToCart}
+          removeProductFromCart={removeProductFromCart}
+        />
       </InformationWrapper>
     </Wrapper>
   );

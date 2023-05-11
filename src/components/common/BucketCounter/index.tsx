@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { isNotNumber, showInputErorrMessage } from '@utils/common';
+import {
+  BUCKET_COUNTER_BOTTOM_BUTTON,
+  BUCKET_COUNTER_TOP_BUTTON,
+  CART_COUNT_INPUT,
+} from '@constants/testId';
 import { BOTTOM_ARROW, TOP_ARROW } from '@assets';
 
 interface BucketCounterProps {
+  removeProductFromCart: () => void;
   setIsClicked?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -11,7 +17,9 @@ const MAX_BUCKET_COUNT = 1000;
 const MAX_WRITE_INPUT_BUCKET_COUNT = 10000;
 const ERROR_MESSAGE = '장바구니 수량은 1000개 이하까지 가능합니다.';
 
-const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
+const BucketCounter = ({
+  setIsClicked,
+}: BucketCounterProps) => {
   const [bucketCount, setBucketCount] = useState(1);
   const countRef = useRef<HTMLInputElement>(null);
 
@@ -48,7 +56,24 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
   };
 
   const decreaseCount = () => {
+    if (bucketCount - 1 === 0) {
+      if (!setIsClicked) return;
+      setIsClicked(false);
+    }
     setBucketCount((prev) => prev - 1);
+  };
+
+  const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { relatedTarget, target } = event;
+
+    if (relatedTarget?.parentElement?.parentElement === target.parentElement)
+      return;
+
+    if (bucketCount === 0) {
+      if (!setIsClicked) return;
+
+      setIsClicked(false);
+    }
   };
 
   const isNotError = (count: number) => {
@@ -67,15 +92,24 @@ const BucketCounter = ({ setIsClicked }: BucketCounterProps) => {
   return (
     <Wrapper>
       <Count
+        inputMode="numeric"
         value={bucketCount === 0 ? '' : bucketCount}
         onChange={changeCountEvent}
         ref={countRef}
-      ></Count>
+        onBlur={onBlur}
+        data-testid={CART_COUNT_INPUT}
+      />
       <Counter>
-        <TopButton onClick={increaseCount}>
+        <TopButton
+          data-testid={BUCKET_COUNTER_TOP_BUTTON}
+          onClick={increaseCount}
+        >
           <Image src={TOP_ARROW} alt="증가" />
         </TopButton>
-        <BottomButton onClick={decreaseCount}>
+        <BottomButton
+          data-testid={BUCKET_COUNTER_BOTTOM_BUTTON}
+          onClick={decreaseCount}
+        >
           <Image src={BOTTOM_ARROW} alt="감소" />
         </BottomButton>
       </Counter>
