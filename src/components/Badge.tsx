@@ -1,7 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import { styled } from 'styled-components';
 
-const BadgeContainer = styled.div`
+type BadgeContainerProps = {
+  $show?: boolean;
+};
+
+const BadgeContainer = styled.div<BadgeContainerProps>`
   display: inline-flex;
   justify-content: center;
 
@@ -13,14 +17,19 @@ const BadgeContainer = styled.div`
   font-size: 16px;
   font-weight: 500;
   color: white;
+
+  transform: scale(${(props) => (props.$show ? '1' : '0')});
+  transition: transform 0.05s;
 `;
 
-type BadgeProps = PropsWithChildren;
+type BadgeProps = PropsWithChildren<{
+  show?: boolean;
+}>;
 
 const Badge = (props: BadgeProps) => {
-  const { children } = props;
+  const { show = true, children } = props;
 
-  return <BadgeContainer>{children}</BadgeContainer>;
+  return <BadgeContainer $show={show}>{children}</BadgeContainer>;
 };
 
 export default Badge;

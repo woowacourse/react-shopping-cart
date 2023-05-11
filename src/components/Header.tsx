@@ -65,7 +65,7 @@ const Header = () => {
         </HomeButton>
         <Menu>
           <MenuButton>
-            장바구니 <Badge>{cartCount}</Badge>
+            장바구니 <Badge show={cartCount > 0}>{cartCount}</Badge>
           </MenuButton>
         </Menu>
       </HeaderContent>
