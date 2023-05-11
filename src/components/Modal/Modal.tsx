@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, KeyboardEvent, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+import { useScrollStop } from '../../hooks/useScrollStop';
 import styles from './style.module.css';
 
 interface ModalProps extends ComponentPropsWithoutRef<'div'> {
@@ -10,6 +11,7 @@ interface ModalProps extends ComponentPropsWithoutRef<'div'> {
 
 const Modal = ({ children, handleClose, handleClosePress }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  useScrollStop(true);
 
   useEffect(() => {
     modalRef.current?.focus();

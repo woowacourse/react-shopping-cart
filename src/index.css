@@ -62,3 +62,7 @@ button {
     display: none;
   }
 }
+
+.hide-overflow {
+  overflow: hidden;
+}
