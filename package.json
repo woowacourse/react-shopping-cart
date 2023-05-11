@@ -2,6 +2,7 @@
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hyeryongchoi.github.io/react-shopping-cart/",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
