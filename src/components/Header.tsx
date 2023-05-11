@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <Wrapper>
       <TitleContainer onClick={handleTitleClicked}>
-        <img src={CartIcon} alt={"카트"} />
+        <img src={CartIcon} alt="홈카트" />
         <p>SHOP</p>
       </TitleContainer>
       <CartContainer>

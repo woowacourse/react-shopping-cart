@@ -8,7 +8,7 @@ import { MAX_QUANTITY, MIN_QUANTITY } from "../constants";
 export const useQuantity = (itemId: number) => {
   const setItemQuantity = useSetRecoilState(itemQuantitySelector);
   const items = useRecoilValue(itemsState);
-  const [quantity, setQuantity] = useState(
+  const [quantity, setQuantity] = useState<string>(
     items.find((item: ItemType) => item.id === itemId).quantity
   );
 

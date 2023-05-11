@@ -31,6 +31,7 @@ const Counter = ({ itemId }: CounterProps) => {
         onChange={handleQuantityChanged}
         onKeyDown={handleCountInputKey}
         onBlur={handleQuantityBlured}
+        placeholder="수량"
       />
       <ArrowBoxContainer>
         <ArrowBox onClick={handleUpArrowBox}>▾</ArrowBox>
@@ -59,6 +60,10 @@ const CountInput = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  &::placeholder {
+    font-size: 11px;
   }
 `;
 

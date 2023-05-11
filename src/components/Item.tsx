@@ -37,6 +37,13 @@ const Wrapper = styled.div`
   & > img {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 10px -3px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
   }
 `;
 
