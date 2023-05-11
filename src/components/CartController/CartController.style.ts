@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ControllerWrapper = styled.div`
+  display: flex;
+  align-items: start;
+`;
 export const CartBox = styled.div`
   display: flex;
 `;
@@ -7,12 +11,16 @@ export const CartBox = styled.div`
 export const QuantityInput = styled.input`
   height: 28px;
   width: 42px;
+  padding: 0px 5px;
+  border: 1px solid ${({ theme }) => theme.secondaryColor};
 `;
 
 export const QuantityControlButton = styled.button`
   height: 14px;
   width: 24px;
   padding: 0px;
+  border: 1px solid ${({ theme }) => theme.secondaryColor};
+  line-height: 0px;
 `;
 
 export const ButtonBox = styled.div`

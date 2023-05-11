@@ -31,7 +31,7 @@ function CartController({ product }: CartControllerProps) {
   };
 
   return (
-    <>
+    <S.ControllerWrapper>
       {quantity > 0 ? (
         <S.CartBox>
           <S.QuantityInput value={quantity} onChange={handleChangeQuantity} />
@@ -45,7 +45,7 @@ function CartController({ product }: CartControllerProps) {
           <img src={cartIcon}></img>
         </button>
       )}
-    </>
+    </S.ControllerWrapper>
   );
 }
 
