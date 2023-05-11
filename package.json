@@ -1,4 +1,5 @@
 {
+  "homepage": "https://jeonjeunghoon.github.io/react-shopping-cart",
   "name": "react-shopping-cart",
   "version": "0.1.0",
   "private": true,
@@ -40,6 +41,7 @@
     "eslint-plugin-functional": "5.0.8",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
+    "gh-pages": "5.0.0",
     "prettier": "2.8.7",
     "prop-types": "15.8.1",
     "storybook": "7.0.9",
@@ -51,7 +53,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
