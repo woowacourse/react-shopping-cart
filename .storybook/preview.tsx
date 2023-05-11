@@ -33,6 +33,11 @@ const preview: Preview = {
 
 export default preview;
 
+const localStorageResetDecorator = (Story) => {
+  window.localStorage.clear();
+  return <Story />;
+};
+
 export const decorators = [
   (Story) => (
     <MemoryRouter initialEntries={['/']}>
@@ -41,4 +46,5 @@ export const decorators = [
       </RecoilRoot>
     </MemoryRouter>
   ),
+  localStorageResetDecorator,
 ];
