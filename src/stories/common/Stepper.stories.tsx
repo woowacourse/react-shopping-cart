@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Stepper from '../../components/Stepper';
 import { expect } from '@storybook/jest';
-import { within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent, within } from '@storybook/testing-library';
 
 const meta = {
   title: 'ShoppingCart/common/Stepper',
