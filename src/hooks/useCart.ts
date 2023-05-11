@@ -18,14 +18,18 @@ function useCart() {
     const newCartItem = { id: product.id, quantity: 1, product };
     setCartList([...cartList, newCartItem]);
     const response = await mockApi('/cart-items/add', { body: JSON.stringify(newCartItem) });
-    console.log(response.data);
+    if (response.data !== 'success') {
+      console.log(response.data);
+    }
   };
 
   const removeCart = async (id: number) => {
     const removedCartList = cartList.filter((cart) => cart.id !== id);
     setCartList(removedCartList);
     const response = await mockApi('/cart-items/remove', { body: JSON.stringify({ id }) });
-    console.log(response.data);
+    if (response.data !== 'success') {
+      console.log(response.data);
+    }
   };
 
   const updateCartListQuantity = (id: number, newQuantity: number) =>
@@ -46,7 +50,11 @@ function useCart() {
     } else {
       const changedCartList = updateCartListQuantity(id, quantity);
       setCartList(changedCartList);
-      await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
+      const response = await mockApi('/cart-items/update-quantity', { body: JSON.stringify({ id, quantity }) });
+      if (response.data !== 'success') {
+        console.log(response.data);
+      }
+
     }
   };
 
