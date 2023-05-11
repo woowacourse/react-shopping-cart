@@ -6,7 +6,7 @@ import * as S from './ProductItem.styles';
 interface ProductItemProps extends Product {}
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
-  const { id, name, price, imageUrl } = props;
+  const { name, price, imageUrl } = props;
   return (
     <S.Root>
       <S.Thumbnail alt={name} src={imageUrl} />

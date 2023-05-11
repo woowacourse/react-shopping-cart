@@ -1,15 +1,15 @@
 import { selector, atom, selectorFamily } from 'recoil';
-import axios from 'axios';
 import { CartItem } from '../types/cart';
+import { fetchCart } from '../apis/cart';
 
 export const cartState = atom({
   key: 'cart',
   default: selector({
     key: 'getMockCart',
-    get: async (): Promise<CartItem[]> => {
-      const { data } = await axios<{ cart: CartItem[] }>('/data/mockCart.json');
+    get: async () => {
+      const { cart } = await fetchCart();
 
-      return data.cart;
+      return cart;
     },
   }),
 });
