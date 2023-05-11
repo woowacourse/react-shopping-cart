@@ -1,10 +1,10 @@
-import { styled } from 'styled-components';
-import { Logo } from './Logo';
-import { TotalCartCount } from './TotalCartCount';
 import { Button as CartButton } from './common/Button';
 import { Text as AddToCartTitle } from './common/Text';
-import { useRecoilValue } from 'recoil';
+import { Logo } from './Logo';
+import { TotalCartCount } from './TotalCartCount';
 import { addedCartState } from '../atoms/AddedCartState';
+import { useRecoilValue } from 'recoil';
+import { styled } from 'styled-components';
 
 export const Header = () => {
   const AddedCardState = useRecoilValue(addedCartState);

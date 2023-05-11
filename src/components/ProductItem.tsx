@@ -1,9 +1,9 @@
-import { AddToCartButton } from './AddToCartButton';
 import { Text as ProductPrice, StyledText } from './common/Text';
 import { Image as ProductImage } from './common/Image';
-import styled from 'styled-components';
+import { AddToCartButton } from './AddToCartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
 import { useCartState } from './hooks/useCartState';
+import styled from 'styled-components';
 
 export const ProductItem = (props: ProductItemProps) => {
   const { id, name, price, imageUrl } = props;

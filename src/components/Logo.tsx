@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { LogoImage } from '../types/image';
 import { Text as LogoTitle } from './common/Text';
+import { LogoImage } from '../types/image';
+import styled from 'styled-components';
 
 export const Logo = ({ $color }: { $color: string }) => {
   return (

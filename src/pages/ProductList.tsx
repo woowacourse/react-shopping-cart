@@ -1,4 +1,3 @@
-import React from 'react';
 import { ProductItem } from '../components/ProductItem';
 import mockData from '../data/mockData.json';
 import styled from 'styled-components';
