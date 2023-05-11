@@ -158,6 +158,7 @@ const DecreaseButton = styled.button`
 const Quantity = styled.span`
   margin: 0 auto;
   font-size: 16px;
+  color: #ffffff;
 `;
 
 const IncreaseButton = styled.button`
