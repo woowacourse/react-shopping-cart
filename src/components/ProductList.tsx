@@ -1,4 +1,3 @@
-// eslint-disable-next-line camelcase
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import productsQuery from '../recoil/queries/productsQuery';
