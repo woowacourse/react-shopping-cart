@@ -2,7 +2,7 @@ import * as S from './Heading.styles';
 
 export interface HeadingProps {
   size?: 'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge';
-  children: string;
+  children: string | string[];
 }
 
 const HEADING_TAG_BY_SIZE = {
