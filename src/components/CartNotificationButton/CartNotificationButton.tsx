@@ -13,6 +13,12 @@ const CartNotificationButton = () => {
   );
 };
 
+const colors = {
+  pureWhite: "#fff",
+  gold: "#ffdf7e",
+  darkGray: "#222",
+};
+
 const Button = styled.button`
   display: flex;
   align-items: center;
@@ -27,7 +33,7 @@ const Title = styled.span`
   display: inline-block;
   width: 100px;
   height: 32px;
-  color: white;
+  color: ${colors.pureWhite};
   line-height: 32px;
   font-family: "Noto Sans KR";
   font-size: 22px;
@@ -38,9 +44,11 @@ const Count = styled.span`
   width: 25px;
   height: 25px;
   line-height: 25px;
-  background-color: #04c09e;
-  color: white;
-  font-family: "Noto Sans KR";
+  background-color: ${colors.gold};
+  color: ${colors.darkGray};
+  font-family: "Rubik";
+  font-weight: 800;
+  font-size: 16px;
   border-radius: 13px;
 `;
 

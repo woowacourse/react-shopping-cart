@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProductCard from "../ProductCard/ProductCard";
+import ProductCard from "./ProductCard";
 import mockData from "../../mockData/mockData.json";
 
 const ProductCardList = () => {
@@ -20,7 +20,7 @@ const ProductCardList = () => {
 
 const ProductCardListContainer = styled.div`
   display: grid;
-  padding-top: 61.16px;
+  padding-top: 141.16px;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 47.16px;
   grid-row-gap: 85.81px;

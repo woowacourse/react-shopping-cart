@@ -27,15 +27,23 @@ const ProductCard = ({
   );
 };
 
+const colors = {
+  slightDarkWhite: "#ddd",
+  gold: "#ffdf7e",
+  slightLightBlack: "#131313",
+  darkGray: "#222",
+};
+
 const ProductCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 282px;
   height: 358.03px;
   margin: 0 auto;
-  background-color: #131313;
-  border: 2px solid #202020;
+  background-color: ${colors.slightLightBlack};
+  border: 2px solid ${colors.darkGray};
   box-sizing: border-box;
+  transition: 0.3s;
 `;
 
 const ProductImage = styled.img`
@@ -62,14 +70,14 @@ const ProductName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #dddddd;
+  color: ${colors.slightDarkWhite};
 `;
 
 const ProductPrice = styled.span`
   font-size: 22px;
   padding-left: 10px;
   grid-area: price;
-  color: #ffdf7e;
+  color: ${colors.gold};
   font-family: "Prata";
 `;
 

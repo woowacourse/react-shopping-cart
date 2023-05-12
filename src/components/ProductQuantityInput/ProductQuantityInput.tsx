@@ -78,6 +78,11 @@ const ProductQuantityInput = ({ productId }: ProductQuantityInputProps) => {
   );
 };
 
+const colors = {
+  pureWhite: "#fff",
+  darkGray: "#222",
+};
+
 const Container = styled.div`
   width: 29.98px;
   height: 60px;
@@ -93,9 +98,22 @@ const ButtonMode = styled.button`
   cursor: pointer;
 `;
 
+const zoomInOutAnimation = keyframes`
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+  100% {
+    scale: 1;
+  }
+`;
+
 const ButtonIcon = styled.img`
   width: 100%;
   height: 100%;
+  animation: ${zoomInOutAnimation} 0.3s;
 `;
 
 const InputMode = styled.div`
@@ -107,12 +125,12 @@ const Input = styled.input`
   width: 30px;
   height: 30px;
   margin: 15px 0;
-  background-color: #222222;
+  background-color: ${colors.darkGray};
   border-radius: 6px;
   border: none;
   text-align: center;
-  color: white;
-  font-family: "Prata";
+  color: ${colors.pureWhite};
+  font-family: "Rubik";
   z-index: 1;
 `;
 
