@@ -2,14 +2,14 @@ import { useState, ChangeEventHandler, useEffect } from 'react';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
 import Icon from './common/Icon';
-import { CART_PATH } from '../constants/svgPath';
-import { INITIAL_QUANTITY, NONE_QUANTITY, NOT_NUMBER } from '../constants';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { atom, useRecoilValue, useRecoilState } from 'recoil';
 import { Product, CartItem } from '../types';
 import { productListState } from './ProductList';
 import { useSetCart } from '../hooks/useSetCart';
 import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
+import { CART_PATH } from '../constants/svgPath';
+import { QUANTITY, NOT_NUMBER } from '../constants';
 
 interface Props {
   id: number;
@@ -32,7 +32,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const [quantity, setQuantity] = useState(
     cart.filter((item: CartItem) => item.id === id).length
       ? cart.filter((item: CartItem) => item.id === id)[0].quantity
-      : INITIAL_QUANTITY
+      : QUANTITY.INITIAL
   );
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { value } = target;
 
-    if (value === NONE_QUANTITY) {
+    if (value === QUANTITY.NONE) {
       setIsSelected(false);
 
       removeProductItemFromCart();
@@ -61,7 +61,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
       };
       setCart((prev: Product[]) => removeProductFromCart(prev));
 
-      return setQuantity(INITIAL_QUANTITY);
+      return setQuantity(QUANTITY.INITIAL);
     }
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));

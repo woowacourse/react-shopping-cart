@@ -2,7 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartState } from '../components/ProductItem';
 import { productListState } from '../components/ProductList';
 import { CartItem, Product } from '../types';
-import { CART_ITEM_EXISTS, ONE_ITEM_IN_CART } from '../constants';
+import { FIRST_INDEX, ONE_ITEM_IN_CART } from '../constants';
 
 export const useSetCart = (id: number) => {
   const productList = useRecoilValue<Product[]>(productListState);
@@ -19,7 +19,7 @@ export const useSetCart = (id: number) => {
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, updatedCart } = findCartItemIndexAndUpdatedCart(prev);
 
-      if (cartItemIndex >= CART_ITEM_EXISTS) {
+      if (cartItemIndex >= FIRST_INDEX) {
         const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
         updatedCart[cartItemIndex] = updatedItem;
 
@@ -40,7 +40,7 @@ export const useSetCart = (id: number) => {
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, updatedCart } = findCartItemIndexAndUpdatedCart(prev);
 
-      if (cartItemIndex >= CART_ITEM_EXISTS) {
+      if (cartItemIndex >= FIRST_INDEX) {
         updatedCart.splice(cartItemIndex, ONE_ITEM_IN_CART);
 
         return updatedCart;
