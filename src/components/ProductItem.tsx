@@ -18,12 +18,10 @@ export const ProductItem = (props: ProductItemProps) => {
         source={imageUrl}
         alternative="상품 이미지"
       />
-      <ProductTextWrapper>
+      <ProductInfoWrapper>
         <div>
-          <ProductTitle size={'16px'} weight={'600'}>
-            {name}
-          </ProductTitle>
-          <ProductPrice size={'20px'} weight={'600'}>
+          <ProductTitle size="16px">{name}</ProductTitle>
+          <ProductPrice size="20px">
             {`${price.toLocaleString('ko-KR')} 원`}
           </ProductPrice>
         </div>
@@ -32,23 +30,27 @@ export const ProductItem = (props: ProductItemProps) => {
           handleAddCartState={handleAddCartState}
           handleDeleteCartState={handleDeleteCartState}
         />
-      </ProductTextWrapper>
+      </ProductInfoWrapper>
     </ProductItemWrapper>
   );
 };
 
 const ProductItemWrapper = styled.div`
+  height: 352px;
   margin-bottom: 20px;
 `;
 
-const ProductTextWrapper = styled.div`
+const ProductInfoWrapper = styled.div`
   width: 282px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px 10px 10px 10px;
+  margin-top: 8px;
+
+  > div:nth-child(1) {
+    width: 200px;
+  }
 `;
 
 const ProductTitle = styled(StyledText)`
-  margin: 0 0 10px 0;
+  margin-bottom: 8px;
 `;
