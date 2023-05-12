@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 
-import { ButtonProps } from '../common/Button/Button';
 import { Button } from '../common/Button/Button.styles';
 import { Text } from '../common/Text/Text.styles';
-
-interface ItemButtonProps extends ButtonProps {
-  isAdded: boolean;
-}
 
 const ProductItemContainer = styled.li`
   display: flex;
@@ -20,7 +15,7 @@ const ItemImageContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacer.spacing2};
 `;
 
-const ItemButton = styled(Button)<ItemButtonProps>`
+const ItemButton = styled(Button)`
   position: absolute;
   bottom: ${({ theme }) => theme.spacer.spacing2};
   right: ${({ theme }) => theme.spacer.spacing2};
@@ -31,7 +26,8 @@ const ItemButton = styled(Button)<ItemButtonProps>`
   height: fit-content;
   margin: 0;
   padding: 8px;
-  background-color: ${({ isAdded, theme }) => (isAdded ? theme.color.primary : theme.color.white)};
+  background-color: ${({ value, theme }) =>
+    Number(value) > 0 ? theme.color.primary : theme.color.white};
   font-size: 18px;
   font-weight: normal;
   white-space: normal;

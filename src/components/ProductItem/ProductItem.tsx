@@ -23,7 +23,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
         <S.ItemImage src={information.imageUrl} alt={information.name} />
         <S.ItemButton
           type="button"
-          isAdded={!!cartItemQuantity}
+          value={cartItemQuantity || 0}
           variant={cartItemQuantity ? 'primary' : 'textButton'}
           onClick={handleModalOpen}
         >
