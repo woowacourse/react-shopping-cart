@@ -17,7 +17,7 @@ const useCounter = (
   };
 
   const updateCount = (count: number) => {
-    onChangeCount(Number(count));
+    onChangeCount(count);
   };
 
   return {
