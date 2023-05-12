@@ -1,10 +1,10 @@
-import { ComponentPropsWithoutRef, KeyboardEvent, useEffect, useRef } from 'react';
+import { KeyboardEvent, PropsWithChildren, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { useScrollStop } from '../../../hooks/useScrollStop';
 import * as S from './Modal.styles';
 
-interface ModalProps extends ComponentPropsWithoutRef<'div'> {
+interface ModalProps extends PropsWithChildren {
   handleClose: () => void;
   handleClosePress: (event: KeyboardEvent<HTMLElement>) => void;
 }
