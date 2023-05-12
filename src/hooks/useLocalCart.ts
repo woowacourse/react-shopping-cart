@@ -5,7 +5,6 @@ import { cartAllSelector } from "../recoil/cartState";
 const useLocalCart = () => {
   const cart = useRecoilValue(cartAllSelector);
 
-  console.log(cart);
   useEffect(() => {
     const handleLocalStorage = () => {
       localStorage.setItem("cart", JSON.stringify(cart));

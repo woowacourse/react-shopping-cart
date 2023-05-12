@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import CartTextButton from "./components/CartTextButton";
 import Header from "./components/Header";
 import ProductPage from "./pages/ProductPage";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <CartTextButton />
       </Header>
       <Layout>
-        <ProductPage />
+        <Outlet />
       </Layout>
     </RecoilRoot>
   );

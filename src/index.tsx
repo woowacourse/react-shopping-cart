@@ -12,7 +12,7 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         {
-          path: process.env.PUBLIC_URL,
+          index: true,
           element: <ProductPage />,
         },
       ],
