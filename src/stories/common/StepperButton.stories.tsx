@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
 import { useState } from 'react';
 
-import StepperButton from '../components/StepperButton/StepperButton';
+import StepperButton from '../../components/common/StepperButton/StepperButton';
 
 const meta = {
   title: 'ShoppingCart/StepperButton',
@@ -19,8 +19,12 @@ const meta = {
       control: { type: 'number' },
     },
     setCount: {
-      table: { disable: true },
+      control: false,
     },
+  },
+  args: {
+    minCount: 0,
+    maxCount: 100,
   },
 } satisfies Meta<typeof StepperButton>;
 
@@ -40,17 +44,9 @@ export const Default: Story = {
       />
     );
   },
-  args: {
-    minCount: 0,
-    maxCount: 100,
-  },
 };
 
 export const Interaction: Story = {
-  args: {
-    minCount: 0,
-    maxCount: 100,
-  },
   render: ({ ...args }) => {
     const [count, setCount] = useState(0);
 
