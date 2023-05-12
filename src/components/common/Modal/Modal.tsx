@@ -18,7 +18,7 @@ const Modal = ({ children, handleClose, handleClosePress }: ModalProps) => {
   }, []);
 
   return createPortal(
-    <S.ModalContainer>
+    <S.ModalContainer role="dialog" aria-modal>
       <S.ModalBackdrop onClick={handleClose} />
       <S.ModalContent ref={modalRef} tabIndex={0} onKeyDown={handleClosePress}>
         {children}
