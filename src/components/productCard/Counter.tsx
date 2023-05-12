@@ -15,7 +15,12 @@ export const Counter = ({ removeItemFromCartList }: CounterProps) => {
   return (
     <Style.Container>
       <Style.Button onClick={handleDecrease}>➖</Style.Button>
-      <Style.Input value={1} ref={inputRef} type="number" readOnly />
+      <Style.Input
+        value={inputRef.current?.value ? inputRef.current.value : 1}
+        ref={inputRef}
+        type="number"
+        readOnly
+      />
       <Style.Button onClick={handleIncrease}>➕</Style.Button>
     </Style.Container>
   );
