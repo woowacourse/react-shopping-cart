@@ -22,19 +22,21 @@ const ItemImageContainer = styled.div`
 
 const ItemButton = styled(Button)<ItemButtonProps>`
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  width: 45px;
-  height: 45px;
+  bottom: ${({ theme }) => theme.spacer.spacing2};
+  right: ${({ theme }) => theme.spacer.spacing2};
+  width: fit-content;
+  min-width: 45px;
+  max-width: calc(100% - ${({ theme }) => theme.spacer.spacing3});
+  min-height: 45px;
+  height: fit-content;
   margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 8px;
   background-color: ${({ isAdded, theme }) => (isAdded ? theme.color.primary : theme.color.white)};
   font-size: 18px;
   font-weight: normal;
-  border-radius: 50%;
+  white-space: normal;
+  word-wrap: break-word;
+  border-radius: 45px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
 
   & > svg path {
