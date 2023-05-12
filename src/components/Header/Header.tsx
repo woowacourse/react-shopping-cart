@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import CartIcon from '../../assets/icons/CartIcon';
-import totalQuantityInCart from '../../globalState/selectors/totalQuantityInCart';
+import cartState from '../../globalState/atoms/cartState';
 
 const Header = () => {
-  const totalQuantity = useRecoilValue(totalQuantityInCart);
+  const numberOfCartItem = useRecoilValue(cartState).length;
 
   return (
     <HeaderContainer>
@@ -14,8 +14,8 @@ const Header = () => {
       </Logo>
       <CartButton>
         장바구니
-        {totalQuantity > 0 && (
-          <CartTotalQuantity>{totalQuantity}</CartTotalQuantity>
+        {numberOfCartItem > 0 && (
+          <CartTotalQuantity>{numberOfCartItem}</CartTotalQuantity>
         )}
       </CartButton>
     </HeaderContainer>
