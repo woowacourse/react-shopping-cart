@@ -7,6 +7,12 @@ const useCartService = () => {
   const [cart, setCart] = useRecoilState(cartState);
 
   const addProductToCart = (product: Product) => {
+    const isAlreadyExists = cart.some(
+      (cartItem) => cartItem.product.id === product.id,
+    );
+
+    if (isAlreadyExists) return;
+
     setCart((prevCart) => {
       return [
         ...prevCart,
