@@ -4,7 +4,7 @@ import FlexBox from 'components/@common/FlexBox';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
 import type { Product } from 'types/product';
 import styled from 'styled-components';
-import { cartState, filteredCartProductState } from 'state/CartAtom';
+import { cartState, getCartProductById } from 'state/CartAtom';
 
 type ProductCardProps = {
   product: Product;
@@ -13,9 +13,9 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const [cart, setCart] = useRecoilState(cartState);
   const { id, price, name, imageUrl } = product;
-  const filteredCartProduct = useRecoilValue(filteredCartProductState(id));
+  const targetCartProduct = useRecoilValue(getCartProductById(id));
   const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
-  const isProductAlreadyExistInCart = !!filteredCartProduct;
+  const isProductAlreadyExistInCart = !!targetCartProduct;
 
   const openQuantityStepper = () => {
     setIsAddCartButtonActive(true);
@@ -37,7 +37,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       return { ...product, quantity: product.quantity - 1 };
     });
 
-    if (filteredCartProduct?.quantity === 1) closeQuantityStepper();
+    if (targetCartProduct?.quantity === 1) closeQuantityStepper();
 
     setCart(decreased);
   };
@@ -64,14 +64,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {isAddCartButtonActive ? (
           <QuantityStepper tabIndex={1} onBlur={handleCloseStepperOnBlur}>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
-            <Quantity tabIndex={2}>{filteredCartProduct?.quantity}</Quantity>
+            <Quantity tabIndex={2}>{targetCartProduct?.quantity}</Quantity>
             <IncreaseButton autoFocus onClick={increaseQuantity}>
               +
             </IncreaseButton>
           </QuantityStepper>
         ) : isProductAlreadyExistInCart ? (
           <AddCartButton onClick={openQuantityStepper}>
-            <Quantity>{filteredCartProduct.quantity}</Quantity>
+            <Quantity>{targetCartProduct.quantity}</Quantity>
           </AddCartButton>
         ) : (
           <AddCartButton onClick={initialAddCartProduct}>

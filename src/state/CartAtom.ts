@@ -28,8 +28,8 @@ export const cartState = atom<CartProduct[]>({
   effects: [zeroQuantityFilterEffect, localStorageEffect<CartProduct[]>(CART_KEY, [])],
 });
 
-export const filteredCartProductState = selectorFamily({
-  key: 'filteredCartProductState',
+export const getCartProductById = selectorFamily({
+  key: 'getCartProductById',
   get:
     (id: CartProduct['id']) =>
     ({ get }) => {
