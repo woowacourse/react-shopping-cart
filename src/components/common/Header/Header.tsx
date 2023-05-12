@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
@@ -25,4 +24,4 @@ const Header = () => {
   );
 };
 
-export default memo(Header);
+export default Header;
