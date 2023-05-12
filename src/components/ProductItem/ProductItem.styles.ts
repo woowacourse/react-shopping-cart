@@ -38,7 +38,7 @@ const ItemButton = styled(Button)<ItemButtonProps>`
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
 
   & > svg path {
-    stroke: #04c09e;
+    stroke: ${({ theme }) => theme.color.primary};
     stroke-width: 2;
   }
 `;
