@@ -1,18 +1,27 @@
-const useCounter = (count: number, onChangeCount: (count: number) => void) => {
+interface UseCounterProps {
+  count: number;
+  onChange: (count: number) => void;
+  onBlur: (count: number) => void;
+}
+
+const useCounter = ({ count, onChange, onBlur }: UseCounterProps) => {
   const increaseCount = () => {
     if (count >= 99) return;
 
-    onChangeCount(count + 1);
+    onChange(count + 1);
   };
 
   const decreaseCount = () => {
-    if (count <= 0) return;
+    if (count <= 1) {
+      onBlur(0);
+      return;
+    }
 
-    onChangeCount(count - 1);
+    onChange(count - 1);
   };
 
   const updateCount = (count: number) => {
-    onChangeCount(count);
+    onChange(count);
   };
 
   return {

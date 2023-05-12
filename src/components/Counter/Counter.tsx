@@ -1,23 +1,29 @@
 import { css, styled } from 'styled-components';
-import { MinusIcon, PlusIcon } from '../../assets/icons';
+import { MinusIcon, PlusIcon } from '../../assets';
 import useCounter from './useCounter';
-import { isNumber } from '../../utils/isNumber';
-import type { ChangeEventHandler } from 'react';
 import { isNumericString } from '../../utils/isNumericString';
+import type { ChangeEventHandler, FocusEventHandler } from 'react';
 
 export type CounterSize = 'medium' | 'small';
 
 interface CounterProps {
   count: number;
-  onChangeCount: (count: number) => void;
+  onChange: (count: number) => void;
+  onBlur: (count: number) => void;
   size?: CounterSize;
 }
 
-const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
-  const { increaseCount, decreaseCount, updateCount } = useCounter(
+const Counter = ({
+  count,
+  onChange,
+  onBlur,
+  size = 'medium',
+}: CounterProps) => {
+  const { increaseCount, decreaseCount, updateCount } = useCounter({
     count,
-    onChangeCount,
-  );
+    onChange,
+    onBlur,
+  });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!isNumericString(e.target.value)) return;
@@ -25,12 +31,22 @@ const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
     updateCount(Number(e.target.value));
   };
 
+  const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    onBlur(Number(e.target.value));
+  };
+
   return (
     <CounterContainer size={size}>
       <CounterButton onClick={decreaseCount}>
         <MinusIcon />
       </CounterButton>
-      <Input type="text" maxLength={2} value={count} onChange={handleChange} />
+      <Input
+        type="text"
+        maxLength={2}
+        value={count}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
       <CounterButton onClick={increaseCount}>
         <PlusIcon />
       </CounterButton>

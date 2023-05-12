@@ -9,7 +9,9 @@ interface CounterWithStateProps {
 
 const CounterWithState = ({ size }: CounterWithStateProps) => {
   const [count, setCount] = useState(1);
-  return <Counter count={count} onChangeCount={setCount} size={size} />;
+  return (
+    <Counter count={count} onChange={setCount} size={size} onBlur={() => {}} />
+  );
 };
 
 const meta = {

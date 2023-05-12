@@ -2,16 +2,21 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../Counter/Counter';
 import Image from '../Image/Image';
-import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
 import { productQuantityInCart } from '../../recoil/selectors';
+import { SmallCartIcon } from '../../assets';
 import type { Product } from '../../types/product';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
-  const { addProductToCart, updateProductQuantity, removeProductFromCart } =
-    useCartService();
+  const {
+    cart,
+    addProductToCart,
+    updateProductQuantity,
+    removeProductFromCart,
+  } = useCartService();
+  const productInCart = cart.find((cartItem) => cartItem.product.id === id);
   const quantityInCart = useRecoilValue(productQuantityInCart(id));
 
   const handleClickCartButton = () => {
@@ -19,24 +24,25 @@ const ProductItem = (product: Product) => {
   };
 
   const handleChangeQuantity = (quantity: number) => {
+    updateProductQuantity(id, quantity);
+  };
+
+  const handleRemoveProduct = (quantity: number) => {
     if (quantity === 0) {
       removeProductFromCart(id);
-      return;
     }
-
-    updateProductQuantity(id, quantity);
   };
 
   return (
     <ItemContainer>
       <ProductImageWrapper>
-        <ProductImage src={imageSrc} alt={name} size="large" />
         <Image src={imageSrc} loading="lazy" alt={name} size="large" />
         <CartButtonWrapper>
-          {quantityInCart ? (
+          {productInCart ? (
             <Counter
               count={quantityInCart}
-              onChangeCount={handleChangeQuantity}
+              onChange={handleChangeQuantity}
+              onBlur={handleRemoveProduct}
             />
           ) : (
             <CartButton
