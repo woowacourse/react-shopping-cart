@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ProductImage from './ProductImage';
+import Image from './Image';
 
 const meta = {
-  title: 'ProductImage',
-  component: ProductImage,
+  title: 'Image',
+  component: Image,
   tags: ['autodocs'],
-} satisfies Meta<typeof ProductImage>;
+} satisfies Meta<typeof Image>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

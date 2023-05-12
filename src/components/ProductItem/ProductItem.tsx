@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../Counter/Counter';
-import ProductImage from '../ProductImage/ProductImage';
+import Image from '../Image/Image';
 import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
@@ -31,6 +31,7 @@ const ProductItem = (product: Product) => {
     <ItemContainer>
       <ProductImageWrapper>
         <ProductImage src={imageSrc} alt={name} size="large" />
+        <Image src={imageSrc} loading="lazy" alt={name} size="large" />
         <CartButtonWrapper>
           {quantityInCart ? (
             <Counter

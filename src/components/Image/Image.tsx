@@ -1,21 +1,24 @@
+import { ImgHTMLAttributes } from 'react';
 import { css, styled } from 'styled-components';
 
 type ImageSize = 'large' | 'medium' | 'small';
 
-interface ProductImageProps {
+interface ImageProps {
   src: string;
+  loading?: ImgHTMLAttributes<HTMLImageElement>['loading'];
   alt?: string;
   size?: ImageSize;
 }
 
-const ProductImage = ({
+const Image = ({
   src,
+  loading = 'eager',
   alt = '',
   size = 'medium',
-}: ProductImageProps) => {
+}: ImageProps) => {
   return (
     <ImageWrapper>
-      <Image src={src} loading="lazy" alt={alt} size={size} />
+      <Img src={src} loading={loading} alt={alt} size={size} />
       <ImageBackground />
     </ImageWrapper>
   );
@@ -33,7 +36,7 @@ const imageSizeMapper = {
   small: '70px',
 };
 
-const Image = styled.img<{ size: ImageSize }>`
+const Img = styled.img<{ size: ImageSize }>`
   ${({ size }) => css`
     width: ${imageSizeMapper[size]};
     height: ${imageSizeMapper[size]};
@@ -50,4 +53,4 @@ const ImageBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
 `;
 
-export default ProductImage;
+export default Image;
