@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import Heading from '../../components/common/Heading/Heading';
+import Heading, { HeadingProps } from '../../components/common/Heading/Heading';
 import { StoryContainer, StoryInfoContainer } from '../styles';
 
 const meta = {
@@ -30,6 +30,17 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const createHeadingStory = (size: HeadingProps['size']) => ({
+  args: {
+    size,
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+});
 
 export const Playground: Story = {};
 
@@ -71,68 +82,14 @@ export const Sizes: Story = {
   },
 };
 
-export const XSmall: Story = {
-  args: {
-    size: 'xSmall',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const XSmall: Story = createHeadingStory('xSmall');
 
-export const Small: Story = {
-  args: {
-    size: 'small',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Small: Story = createHeadingStory('small');
 
-export const Medium: Story = {
-  args: {
-    size: 'medium',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Medium: Story = createHeadingStory('medium');
 
-export const Large: Story = {
-  args: {
-    size: 'large',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Large: Story = createHeadingStory('large');
 
-export const XLarge: Story = {
-  args: {
-    size: 'xLarge',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const XLarge: Story = createHeadingStory('xLarge');
 
-export const XXLarge: Story = {
-  args: {
-    size: 'xxLarge',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const XXLarge: Story = createHeadingStory('xxLarge');
