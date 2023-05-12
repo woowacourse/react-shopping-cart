@@ -1,5 +1,3 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartState, hasItemInCart } from '../../../recoil/cart';
 import { Dialog } from 'react-tiny-dialog';
 import SHOPPING_CART from '../../../assets/png/cart-icon.png';
 import { Product } from '../../../types/products';
@@ -7,32 +5,19 @@ import { Button } from '../../common/Button/Button.styles';
 import QuantityStepper from '../../common/QuantityStepper/QuantityStepper';
 import * as S from './ItemCartDialog.styles';
 import { useRef } from 'react';
+import useCart from '../../../hooks/cart/useCart';
 
 type ItemCartDialogProps = Product;
 
 const ItemCartDialog: React.FC<ItemCartDialogProps> = (props) => {
   const { id, name, price, imageUrl } = props;
-  const setCart = useSetRecoilState(cartState);
   const quantityRef = useRef<HTMLInputElement>(null);
-  const alreadyHasItem = useRecoilValue(hasItemInCart(id));
+  const { addInCart } = useCart();
 
   const addItemToCart = () => {
     const quantity = Number(quantityRef.current!.value);
 
-    setCart((cart) => {
-      if (alreadyHasItem) {
-        return cart.map((item) =>
-          item.id === id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-
-      return [
-        ...cart,
-        { id, quantity, product: { id, name, price, imageUrl } },
-      ];
-    });
+    addInCart({ id, name, price, imageUrl }, quantity);
   };
 
   return (
