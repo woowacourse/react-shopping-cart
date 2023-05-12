@@ -3,28 +3,33 @@ import { Product } from 'types/product';
 
 const useProductsFetch = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, isSetLoading] = useState(false);
-  const [errorState, setErrorState] = useState<{ isError: boolean; error: Error }>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      isSetLoading(true);
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    setError(null);
+    setTimeout(async () => {
       try {
         const response = await fetch(`${process.env.PUBLIC_URL}/data/mockProducts.json`);
         const products = await response.json();
 
+        if (!response.ok) throw response;
+
         setProducts(products);
       } catch (error) {
-        setErrorState({ isError: true, error: error as Error });
+        if (error instanceof Error) setError(error);
       } finally {
-        isSetLoading(false);
+        setIsLoading(false);
       }
-    };
+    }, 1000);
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
-  return { products, isLoading, errorState };
+  return { products, isLoading, error, fetchProducts };
 };
 
 export default useProductsFetch;
