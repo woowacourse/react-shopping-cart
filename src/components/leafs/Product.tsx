@@ -3,13 +3,9 @@ import styled from 'styled-components';
 import useCart from '../../hooks/useCart';
 import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
+import { ProductType } from '../../types';
 
-interface ProductProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
+type ProductProps = ProductType;
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
