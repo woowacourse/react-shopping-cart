@@ -1,4 +1,4 @@
-import { MouseEventHandler, SVGProps } from 'react';
+import { SVGProps } from 'react';
 import { CSSProp, styled } from 'styled-components';
 
 export interface Props extends SVGProps<SVGSVGElement> {
@@ -8,12 +8,11 @@ export interface Props extends SVGProps<SVGSVGElement> {
   path: string;
   viewBox: string;
   svgStyle?: CSSProp;
-  onClick?: MouseEventHandler<SVGSVGElement>;
 }
 
-const Icon = ({ svgStyle, onClick, ...props }: Props) => {
+const Icon = ({ svgStyle, ...props }: Props) => {
   return (
-    <S.Svg {...props} styled={svgStyle} onClick={onClick}>
+    <S.Svg {...props} styled={svgStyle}>
       <path d={props.path} fill={props.color} />
     </S.Svg>
   );

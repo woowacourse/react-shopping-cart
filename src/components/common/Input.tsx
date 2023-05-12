@@ -1,11 +1,9 @@
-import { ChangeEventHandler, InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 import styled, { CSSProp } from 'styled-components';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   styled: CSSProp;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-
 type Ref = HTMLInputElement;
 
 const Input = forwardRef<Ref, InputProps>(({ ...props }, ref) => {
