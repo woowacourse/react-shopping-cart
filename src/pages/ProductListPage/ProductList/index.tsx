@@ -13,8 +13,7 @@ function ProductList() {
   return (
     <S.ProductListContainer>
       {data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
-      {isLoading &&
-        new Array(12).fill(undefined).map((_: undefined, index) => <ProductItem key={index} isLoading={isLoading} />)}
+      {isLoading && Array.from({ length: 12 }, (_, index) => <ProductItem key={index} isLoading={isLoading} />)}
     </S.ProductListContainer>
   );
 }
