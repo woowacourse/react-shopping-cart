@@ -62,9 +62,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <ProductImgContainer>
         <ProductImage src={imageUrl} />
         {isAddCartButtonActive ? (
-          <QuantityStepper tabIndex={1} onBlur={handleCloseStepperOnBlur}>
+          <QuantityStepper tabIndex={0} onBlur={handleCloseStepperOnBlur}>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
-            <Quantity tabIndex={2}>{filteredCartProduct?.quantity}</Quantity>
+            <Quantity tabIndex={0}>{filteredCartProduct?.quantity}</Quantity>
             <IncreaseButton autoFocus onClick={increaseQuantity}>
               +
             </IncreaseButton>
