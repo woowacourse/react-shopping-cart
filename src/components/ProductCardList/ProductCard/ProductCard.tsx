@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import FlexBox from 'components/@common/FlexBox';
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
-import type { Product } from 'types/product';
+import type { CartProduct, Product } from 'types/product';
 import styled from 'styled-components';
 import { cartState, filteredCartProductState } from 'state/CartAtom';
 
@@ -26,9 +26,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const initialAddCartProduct = () => {
-    openQuantityStepper();
+    const createCartProductFirst = () => {
+      setCart((prev) => [...prev, { id, quantity: 1, product }]);
+    };
 
-    setCart((prev) => [...prev, { id, quantity: 1, product }]);
+    openQuantityStepper();
+    createCartProductFirst();
   };
 
   const decreaseQuantity = () => {
