@@ -10,7 +10,7 @@ root.render(
   <React.StrictMode>
     <GlobalStyles />
     <RecoilRoot>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router} />
     </RecoilRoot>
   </React.StrictMode>
 );
