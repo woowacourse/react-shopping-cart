@@ -38,6 +38,8 @@ const Image = styled.img<{ size: ImageSize }>`
     width: ${imageSizeMapper[size]};
     height: ${imageSizeMapper[size]};
   `}
+
+  object-fit: cover;
 `;
 
 const ImageBackground = styled.div`
