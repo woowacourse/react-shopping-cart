@@ -6,7 +6,7 @@ import { useState } from 'react';
 import StepperButton from '../../components/common/StepperButton/StepperButton';
 
 const meta = {
-  title: 'ShoppingCart/StepperButton',
+  title: 'ShoppingCart/common/StepperButton',
   component: StepperButton,
   argTypes: {
     count: {
