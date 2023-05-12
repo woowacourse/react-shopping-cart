@@ -5,7 +5,7 @@ import ProductImage from '../ProductImage/ProductImage';
 import { SmallCartIcon } from '../../assets/icons';
 import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
-import { productQuantityInCart } from '../../selectors';
+import productQuantityInCart from '../../globalState/selectors/productQuantityInCart';
 import type { Product } from '../../types/product';
 
 const ProductItem = (product: Product) => {
