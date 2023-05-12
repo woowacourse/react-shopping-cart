@@ -9,13 +9,13 @@ interface TextProps {
 
 export const Text = ({ children, size, weight, $color }: TextProps) => {
   return (
-    <StyledText size={size} weight={weight} $color={$color}>
+    <StyledParagraph size={size} weight={weight} $color={$color}>
       {children}
-    </StyledText>
+    </StyledParagraph>
   );
 };
 
-export const StyledText = styled.p<{
+export const StyledParagraph = styled.p<{
   size?: string;
   weight?: string;
   $color?: string;

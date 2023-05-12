@@ -11,7 +11,7 @@ export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
 
   return (
     <Wrapper>
-      <CountValue>{quantity}</CountValue>
+      <QuantityText>{quantity}</QuantityText>
       <div>
         <IncreaseCountButton
           data-testid="increase-button"
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const CountValue = styled.div`
+const QuantityText = styled.div`
   width: 68px;
   text-align: center;
 `;

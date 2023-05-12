@@ -1,4 +1,4 @@
-import { Text as ProductPrice, StyledText } from './common/Text';
+import { Text as ProductPrice, StyledParagraph } from './common/Text';
 import { Image as ProductImage } from './common/Image';
 import { AddToCartButton } from './AddToCartButton';
 import { ProductItem as ProductItemProps } from '../types/productType';
@@ -11,7 +11,7 @@ export const ProductItem = (props: ProductItemProps) => {
   const { handleAddCartState, handleDeleteCartState } = useCartState(props);
 
   return (
-    <ProductItemWrapper key={id}>
+    <Wrapper key={id}>
       <ProductImage
         $width={'282px'}
         $height={'282px'}
@@ -31,11 +31,11 @@ export const ProductItem = (props: ProductItemProps) => {
           handleDeleteCartState={handleDeleteCartState}
         />
       </ProductInfoWrapper>
-    </ProductItemWrapper>
+    </Wrapper>
   );
 };
 
-const ProductItemWrapper = styled.div`
+const Wrapper = styled.div`
   height: 352px;
   margin-bottom: 20px;
 `;
@@ -51,6 +51,6 @@ const ProductInfoWrapper = styled.div`
   }
 `;
 
-const ProductTitle = styled(StyledText)`
+const ProductTitle = styled(StyledParagraph)`
   margin-bottom: 8px;
 `;

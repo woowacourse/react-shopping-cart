@@ -5,10 +5,10 @@ interface TotalCartCountProps {
 }
 
 export const TotalCartCount = ({ count }: TotalCartCountProps) => {
-  return <StyledTotalCartCount>{count}</StyledTotalCartCount>;
+  return <StyledParagraph>{count}</StyledParagraph>;
 };
 
-const StyledTotalCartCount = styled.div`
+const StyledParagraph = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
