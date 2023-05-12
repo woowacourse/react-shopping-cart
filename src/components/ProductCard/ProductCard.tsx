@@ -3,18 +3,12 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom, cartAtomState } from '../../recoil/cartState';
+import { Product } from '../../types/product';
 import Counter from '../Counter/Counter';
 import ProductImg from './ProductImg/ProductImg';
 import ProductInfo from './ProductInfo/ProductInfo';
 
-interface ProductCardProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
-
-const ProductCard = ({ id, name, price, imageUrl }: ProductCardProps) => {
+const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   const setCart = useSetRecoilState(cartAtom);
   const [productInCart, setProductInCart] = useRecoilState(cartAtomState(id));
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
@@ -27,6 +21,7 @@ const ProductCard = ({ id, name, price, imageUrl }: ProductCardProps) => {
 
   const plusOne = () => {
     setProductInCart((prev) => ({ ...prev, quantity: prev.quantity + 1 }));
+    console.log(productInCart);
   };
 
   const minusOne = () => {
@@ -38,6 +33,7 @@ const ProductCard = ({ id, name, price, imageUrl }: ProductCardProps) => {
       setCart((prev) => [...prev.filter((num) => num !== id)]);
       setIsCartClicked(false);
     }
+    console.log(productInCart);
   };
 
   return (

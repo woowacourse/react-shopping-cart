@@ -1,21 +1,21 @@
+import { Outlet } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { styled } from 'styled-components';
 import CartTextButton from './components/CartTextButton/CartTextButton';
 import Header from './components/Header/Header';
-import ProductPage from './pages/ProductPage';
 
-function App() {
+const App = ({ children }: React.PropsWithChildren) => {
   return (
     <RecoilRoot>
       <Header>
         <CartTextButton />
       </Header>
       <Layout>
-        <ProductPage />
+        <Outlet />
       </Layout>
     </RecoilRoot>
   );
-}
+};
 
 export default App;
 
