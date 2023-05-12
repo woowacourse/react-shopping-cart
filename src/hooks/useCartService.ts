@@ -6,20 +6,23 @@ import type { Product } from '../types/product';
 const useCartService = () => {
   const [cart, setCart] = useRecoilState(cartState);
 
-  const addProductToCart = (product: Product) => {
+  const getNewCartItem = (product: Product) => {
+    return {
+      id: uuid(),
+      quantity: 1,
+      product,
+    };
+  };
+
+  const addCartItem = (product: Product) => {
     setCart((prevCart) => {
-      return [
-        ...prevCart,
-        {
-          id: uuid(),
-          quantity: 1,
-          product,
-        },
-      ];
+      const newCartItem = getNewCartItem(product);
+
+      return [...prevCart, newCartItem];
     });
   };
 
-  const updateProductQuantity = (targetId: number, quantity: number) => {
+  const updateCartItemQuantity = (targetId: number, quantity: number) => {
     setCart((prevCart) => {
       return prevCart.map((cartItem) => {
         if (cartItem.product.id !== targetId) return cartItem;
@@ -32,7 +35,7 @@ const useCartService = () => {
     });
   };
 
-  const removeProductFromCart = (targetId: number) => {
+  const removeCartItem = (targetId: number) => {
     setCart((prevCart) =>
       prevCart.filter((cartItem) => cartItem.product.id !== targetId),
     );
@@ -40,9 +43,9 @@ const useCartService = () => {
 
   return {
     cart,
-    addProductToCart,
-    updateProductQuantity,
-    removeProductFromCart,
+    addCartItem,
+    updateCartItemQuantity,
+    removeCartItem,
   } as const;
 };
 export default useCartService;
