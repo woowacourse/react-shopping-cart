@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Header from ".";
 import CartTextButton from "../CartTextButton";
 
@@ -15,4 +16,11 @@ export const Default: Story = {
   args: {
     children: <CartTextButton />,
   },
+  decorators: [
+    (Story) => (
+      <Router>
+        <Story />
+      </Router>
+    ),
+  ],
 };
