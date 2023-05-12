@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../Counter/Counter';
@@ -7,7 +8,6 @@ import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
 import productQuantityInCart from '../../globalState/selectors/productQuantityInCart';
 import type { Product } from '../../types/product';
-import { useState } from 'react';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
