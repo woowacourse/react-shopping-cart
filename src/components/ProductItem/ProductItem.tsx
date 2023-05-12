@@ -7,7 +7,7 @@ import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import ProductAddition from '../ProductAddition/ProductAddition';
 import Modal from '../common/Modal/Modal';
-import styles from './style.module.css';
+import * as S from './ProductItem.styles';
 
 interface ProductItemProps {
   information: ProductItemData;
@@ -18,27 +18,26 @@ const ProductItem = ({ information }: ProductItemProps) => {
   const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
 
   return (
-    <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <img src={information.imageUrl} alt={information.name} className={styles.image} />
-        <button
+    <S.ProductItemContainer>
+      <S.ItemImageContainer>
+        <S.ItemImage src={information.imageUrl} alt={information.name} />
+        <S.ItemButton
           type="button"
-          className={`${styles.itemButton} ${
-            cartItemQuantity ? styles.quantityButton : styles.addButton
-          }`}
+          isAdded={!!cartItemQuantity}
+          variant={cartItemQuantity ? 'primary' : 'textButton'}
           onClick={handleModalOpen}
         >
           {cartItemQuantity ? cartItemQuantity : <AddIcon width={16} height={16} />}
-        </button>
-      </div>
-      <h4 className={styles.name}>{information.name}</h4>
-      <h4 className={styles.price}>{priceFormatter(information.price)}원</h4>
+        </S.ItemButton>
+      </S.ItemImageContainer>
+      <S.ItemName size="small">{information.name}</S.ItemName>
+      <S.ItemPrice size="large">{priceFormatter(information.price)}원</S.ItemPrice>
       {isModalOpen && (
         <Modal handleClose={handleModalClose} handleClosePress={handleModalClosePress}>
           <ProductAddition handleModalClose={handleModalClose} productInformation={information} />
         </Modal>
       )}
-    </div>
+    </S.ProductItemContainer>
   );
 };
 
