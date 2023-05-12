@@ -1,13 +1,16 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import router from 'Router';
+import { RecoilRoot } from 'recoil';
+import GlobalStyles from 'styles/GlobalStyles';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <App />
-    </BrowserRouter>
+    <GlobalStyles />
+    <RecoilRoot>
+      <RouterProvider router={router}></RouterProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
