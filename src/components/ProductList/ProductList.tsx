@@ -1,12 +1,11 @@
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
-import type { Product } from '../../types/product';
+import { useRecoilValue } from 'recoil';
+import { productListQuery } from '../../recoil/selectors';
 
-interface ProductListProps {
-  products: Product[];
-}
+const ProductList = () => {
+  const products = useRecoilValue(productListQuery);
 
-const ProductList = ({ products }: ProductListProps) => {
   return (
     <section>
       <ProductListContainer>
