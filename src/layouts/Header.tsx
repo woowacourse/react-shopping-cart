@@ -50,5 +50,5 @@ const StyledHeader = styled.div`
 
 const TotalCartCountWrapper = styled.div`
   width: 32px;
-  height: 26px;
+  height: 32px;
 `;
