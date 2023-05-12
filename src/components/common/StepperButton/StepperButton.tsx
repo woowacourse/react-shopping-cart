@@ -1,37 +1,33 @@
 import { ChangeEvent, useCallback } from 'react';
 
 import { AddIcon, MinusIcon } from '../../../assets';
-import { STEPPER_BUTTON_MAX_COUNT, STEPPER_BUTTON_MIN_COUNT } from '../../../constants';
+import { DEFAULT_MAX_COUNT, DEFAULT_MIN_COUNT, DEFAULT_STEP } from '../../../constants';
 import * as S from './StepperButton.styles';
 
 interface StepperButtonProps {
   count: number;
   minCount?: number;
   maxCount?: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  step?: number;
+  handleDecreaseCount: (step: number) => void;
+  handleIncreaseCount: (step: number) => void;
+  handleCountChange: (input: string, minCount: number, maxCount: number) => void;
 }
 
 const StepperButton = ({
   count,
-  minCount = STEPPER_BUTTON_MIN_COUNT,
-  maxCount = STEPPER_BUTTON_MAX_COUNT,
-  setCount,
+  minCount = DEFAULT_MIN_COUNT,
+  maxCount = DEFAULT_MAX_COUNT,
+  step = DEFAULT_STEP,
+  handleDecreaseCount,
+  handleIncreaseCount,
+  handleCountChange,
 }: StepperButtonProps) => {
-  const handleDecrease = useCallback(() => {
-    setCount((prevCount) => prevCount - 1);
-  }, [setCount]);
-
-  const handleIncrease = useCallback(() => {
-    setCount((prevCount) => prevCount + 1);
-  }, [setCount]);
-
-  const handleCountChange = useCallback(
+  const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      if (Number(event.target.value) < minCount || Number(event.target.value) > maxCount) return;
-
-      setCount(Number(event.target.value));
+      handleCountChange(event.target.value, minCount, maxCount);
     },
-    [maxCount, minCount, setCount]
+    [handleCountChange, minCount, maxCount]
   );
 
   return (
@@ -42,7 +38,7 @@ const StepperButton = ({
         disabled={count === minCount}
         variant="textButton"
         size="small"
-        onClick={handleDecrease}
+        onClick={() => handleDecreaseCount(step)}
       >
         <MinusIcon />
       </S.StepperButton>
@@ -50,7 +46,7 @@ const StepperButton = ({
         name="count"
         value={count}
         aria-label="count input"
-        onChange={handleCountChange}
+        onChange={onChange}
       ></S.StepperInput>
       <S.StepperButton
         type="button"
@@ -58,7 +54,7 @@ const StepperButton = ({
         disabled={count === maxCount}
         variant="textButton"
         size="small"
-        onClick={handleIncrease}
+        onClick={() => handleIncreaseCount(step)}
       >
         <AddIcon />
       </S.StepperButton>

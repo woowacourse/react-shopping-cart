@@ -1,6 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { DEFAULT_MIN_COUNT } from '../../constants';
+import { useCount } from '../../hooks/useCount';
 import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
@@ -17,7 +19,12 @@ interface ProductAdditionProps {
 const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditionProps) => {
   const [cartList, setCartList] = useRecoilState(cartListState);
   const setCartAddition = useSetRecoilState(cartAdditionState);
-  const [quantity, setQuantity] = useState(1);
+  const {
+    count: quantity,
+    handleDecreaseCount,
+    handleIncreaseCount,
+    handleCountChange,
+  } = useCount(DEFAULT_MIN_COUNT);
 
   const handleCartAdd = useCallback(() => {
     const compareProductId = productInformation.id;
@@ -56,7 +63,12 @@ const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditi
             <S.ProductName>{productInformation.name}</S.ProductName>
             <S.ProductPrice>{priceFormatter(productInformation.price)}원</S.ProductPrice>
           </div>
-          <StepperButton count={quantity} setCount={setQuantity} />
+          <StepperButton
+            count={quantity}
+            handleDecreaseCount={handleDecreaseCount}
+            handleIncreaseCount={handleIncreaseCount}
+            handleCountChange={handleCountChange}
+          />
         </div>
       </S.ProductInformationContainer>
       <S.TotalPriceContainer>
