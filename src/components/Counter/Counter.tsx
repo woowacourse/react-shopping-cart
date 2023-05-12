@@ -1,37 +1,58 @@
 import { css, styled } from 'styled-components';
 import PlusIcon from '../../assets/icons/PlusIcon';
 import MinusIcon from '../../assets/icons/MinusIcon';
-import useCounter from './useCounter';
-import { isNumber } from '../../utils/isNumber';
-import type { ChangeEventHandler } from 'react';
+import useCounterHandler from './useCounterHandler';
 
 export type CounterSize = 'medium' | 'small';
 
 interface CounterProps {
   count: number;
-  onChangeCount: (count: number) => void;
+  updateCount: (count: number) => void;
+  onClickedButton?: (quantity: number) => void;
+  onChangedInput?: (quantity: number) => void;
+  onBlurredInput?: (quantity: number) => void;
   size?: CounterSize;
+  min?: number;
+  max?: number;
 }
 
-const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
-  const { increaseCount, decreaseCount, updateCount } = useCounter(
+const Counter = ({
+  count,
+  updateCount,
+  onClickedButton,
+  onChangedInput,
+  onBlurredInput,
+  size = 'medium',
+  min = 0,
+  max = 99,
+}: CounterProps) => {
+  const {
+    handleDecreaseButtonClick,
+    handleIncreaseButtonClick,
+    handleInputBlur,
+    handleInputChange,
+  } = useCounterHandler(
     count,
-    onChangeCount,
+    updateCount,
+    onClickedButton,
+    onChangedInput,
+    onBlurredInput,
+    min,
+    max,
   );
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!isNumber(e.target.value)) return;
-
-    updateCount(Number(e.target.value));
-  };
 
   return (
     <CounterContainer size={size}>
-      <CounterButton onClick={decreaseCount}>
+      <CounterButton onClick={handleDecreaseButtonClick}>
         <MinusIcon />
       </CounterButton>
-      <Input type="text" maxLength={2} value={count} onChange={handleChange} />
-      <CounterButton onClick={increaseCount}>
+      <Input
+        type="text"
+        value={count}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+      />
+      <CounterButton onClick={handleIncreaseButtonClick}>
         <PlusIcon />
       </CounterButton>
     </CounterContainer>
