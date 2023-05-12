@@ -3,6 +3,7 @@ import { MinusIcon, PlusIcon } from '../../assets/icons';
 import useCounter from './useCounter';
 import { isNumber } from '../../utils/isNumber';
 import type { ChangeEventHandler } from 'react';
+import { isNumericString } from '../../utils/isNumericString';
 
 export type CounterSize = 'medium' | 'small';
 
@@ -19,7 +20,7 @@ const Counter = ({ count, onChangeCount, size = 'medium' }: CounterProps) => {
   );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!isNumber(e.target.value)) return;
+    if (!isNumericString(e.target.value)) return;
 
     updateCount(Number(e.target.value));
   };
