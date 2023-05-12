@@ -13,8 +13,10 @@ const StoryInfoContainer = styled.div`
   gap: 12px;
 
   & > h6 {
-    font-size: 16px;
-    font-weight: 500;
+    color: ${({ theme }) => theme.color.gray5};
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
   }
 `;
 
