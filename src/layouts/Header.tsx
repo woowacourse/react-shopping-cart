@@ -1,7 +1,7 @@
-import { Button as CartButton } from './common/Button';
-import { Text as AddToCartTitle } from './common/Text';
-import { Logo } from './Logo';
-import { TotalCartCount } from './TotalCartCount';
+import { Button as CartButton } from '../components/common/Button';
+import { Text as AddToCartTitle } from '../components/common/Text';
+import { Logo } from '../components/Logo';
+import { TotalCartCount } from '../components/TotalCartCount';
 import { addedCartState } from '../atoms/AddedCartState';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
@@ -18,7 +18,7 @@ export const Header = () => {
             return;
           }}
         >
-          <AddToCartTitle size={'24px'} $color={'#ffffff'}>
+          <AddToCartTitle size="24px" $color="#ffffff">
             장바구니
           </AddToCartTitle>
           <TotalCartCountWrapper>
