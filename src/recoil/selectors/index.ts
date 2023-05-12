@@ -17,17 +17,6 @@ export const productListQuery = selector<Product[]>({
   },
 });
 
-export const totalQuantityInCart = selector({
-  key: 'totalQuantityInCart',
-  get: ({ get }) => {
-    const cart = get(cartState);
-
-    return cart.reduce((prev, cartItem) => {
-      return prev + cartItem.quantity;
-    }, 0);
-  },
-});
-
 export const productQuantityInCart = selectorFamily({
   key: 'productQuantityInCart',
   get:

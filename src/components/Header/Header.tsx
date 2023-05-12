@@ -1,10 +1,9 @@
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { CartIcon } from '../../assets/icons';
-import { totalQuantityInCart } from '../../recoil/selectors';
+import useCartService from '../../hooks/useCartService';
 
 const Header = () => {
-  const totalQuantity = useRecoilValue(totalQuantityInCart);
+  const { cart } = useCartService();
 
   return (
     <HeaderContainer>
@@ -14,8 +13,8 @@ const Header = () => {
       </Logo>
       <CartButton>
         장바구니
-        {totalQuantity > 0 && (
-          <CartTotalQuantity>{totalQuantity}</CartTotalQuantity>
+        {cart.length > 0 && (
+          <CartTotalQuantity>{cart.length}</CartTotalQuantity>
         )}
       </CartButton>
     </HeaderContainer>
