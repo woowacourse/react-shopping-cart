@@ -1,38 +1,42 @@
-header {
+import styled from 'styled-components';
+
+import { Button } from '../Button/Button.styles';
+
+const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
   padding: 24px 0;
-  background-color: white;
-  border-bottom: 1px solid #e9e9e9;
+  background-color: ${({ theme }) => theme.color.white};
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray2};
   z-index: 2;
-}
+`;
 
-.container {
+const HeaderContentContainer = styled.div`
   position: relative;
   width: 1080px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+`;
 
-.logo {
+const Logo = styled.img`
   height: 48px;
-}
+`;
 
-.container button {
+const CartButton = styled(Button)`
   position: absolute;
   right: 0;
+  width: initial;
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  cursor: pointer;
-}
+`;
 
-.cartItemCount {
+const CartItemCount = styled.span`
   position: absolute;
   height: 14px;
   right: 10px;
@@ -43,8 +47,8 @@ header {
   justify-content: center;
   align-items: center;
 
-  background-color: rgb(255, 102, 16);
-  color: white;
+  background-color: ${({ theme }) => theme.color.orange};
+  color: ${({ theme }) => theme.color.white};
   text-align: center;
   font-size: 10px;
   line-height: 12px;
@@ -54,15 +58,25 @@ header {
   white-space: nowrap;
   pointer-events: none;
   transform: translateX(calc(50% - 7px));
-}
+`;
 
-.cartIcon {
+const CartIcon = styled.img`
   width: 32px;
   height: 32px;
   margin-bottom: 4px;
-}
+`;
 
-.label {
+const HeaderButtonLabel = styled.span`
   font-size: 10px;
   font-weight: 400;
-}
+`;
+
+export {
+  HeaderContainer,
+  HeaderContentContainer,
+  Logo,
+  CartButton,
+  CartItemCount,
+  CartIcon,
+  HeaderButtonLabel,
+};
