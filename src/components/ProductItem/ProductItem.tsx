@@ -7,24 +7,25 @@ import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
 import productQuantityInCart from '../../globalState/selectors/productQuantityInCart';
 import type { Product } from '../../types/product';
+import { useState } from 'react';
 
 const ProductItem = (product: Product) => {
   const { id, name, price, imageSrc } = product;
   const { addCartItem, updateCartItemQuantity, removeCartItem } =
     useCartService();
   const quantityInCart = useRecoilValue(productQuantityInCart(id));
+  const [isDisplayCounter, setIsDisplayCounter] = useState(!!quantityInCart);
 
-  const handleClickCartButton = () => {
+  const handleAddCartItem = () => {
     addCartItem(product);
+    setIsDisplayCounter(true);
   };
 
-  const handleChangeQuantity = (quantity: number) => {
-    if (quantity === 0) {
-      removeCartItem(id);
-      return;
-    }
+  const handleRemoveCartItem = (quantity: number) => {
+    if (quantity !== 0) return;
 
-    updateCartItemQuantity(id, quantity);
+    removeCartItem(id);
+    setIsDisplayCounter(false);
   };
 
   return (
@@ -32,16 +33,18 @@ const ProductItem = (product: Product) => {
       <ProductImageWrapper>
         <ProductImage src={imageSrc} alt={name} size="large" />
         <CartButtonWrapper>
-          {quantityInCart ? (
+          {isDisplayCounter ? (
             <Counter
               count={quantityInCart}
-              onChangeCount={handleChangeQuantity}
+              updateCount={updateCartItemQuantity(id)}
+              onClickedButton={handleRemoveCartItem}
+              onBlurredInput={handleRemoveCartItem}
             />
           ) : (
             <CartButton
               type="button"
               aria-label="장바구니에 추가하기"
-              onClick={handleClickCartButton}
+              onClick={handleAddCartItem}
             >
               <SmallCartIcon />
             </CartButton>
