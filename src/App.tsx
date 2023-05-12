@@ -1,17 +1,13 @@
-import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import { productListQuery } from './selectors';
 import Header from './components/Header/Header';
 import ProductList from './components/ProductList/ProductList';
 
 function App() {
-  const products = useRecoilValue(productListQuery);
-
   return (
     <div className="App">
       <Header />
       <Layout>
-        <ProductList products={products} />
+        <ProductList />
       </Layout>
     </div>
   );

@@ -1,16 +1,14 @@
 import { styled } from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
-import type { Product } from '../../types/product';
+import useFetchProductList from './useFetchProductList';
 
-interface ProductListProps {
-  products: Product[];
-}
+const ProductList = () => {
+  const productList = useFetchProductList();
 
-const ProductList = ({ products }: ProductListProps) => {
   return (
     <section>
       <ProductListContainer>
-        {products.map((product) => (
+        {productList.map((product) => (
           <li key={product.id}>
             <ProductItem {...product} />
           </li>
