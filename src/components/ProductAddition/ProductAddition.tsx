@@ -4,8 +4,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
+import Button from '../common/Button/Button';
+import Heading from '../common/Heading/Heading';
 import StepperButton from '../common/StepperButton/StepperButton';
-import styles from './style.module.css';
+import * as S from './ProductAddition.styles';
 
 interface ProductAdditionProps {
   productInformation: ProductItemData;
@@ -45,31 +47,35 @@ const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditi
   }, [cartList, handleModalClose, productInformation, quantity, setCartList, setCartAddition]);
 
   return (
-    <div className={styles.container}>
-      <h4 className={styles.header}>장바구니 담기</h4>
-      <div className={styles.informationContainer}>
-        <img src={productInformation.imageUrl} alt={productInformation.name} />
+    <S.ProductAdditionContainer>
+      <S.Header>장바구니 담기</S.Header>
+      <S.ProductInformationContainer>
+        <S.ProductImage src={productInformation.imageUrl} alt={productInformation.name} />
         <div>
           <div>
-            <h4 className={styles.productName}>{productInformation.name}</h4>
-            <h4 className={styles.productPrice}>{priceFormatter(productInformation.price)}원</h4>
+            <S.ProductName>{productInformation.name}</S.ProductName>
+            <S.ProductPrice>{priceFormatter(productInformation.price)}원</S.ProductPrice>
           </div>
           <StepperButton count={quantity} setCount={setQuantity} />
         </div>
-      </div>
-      <div className={styles.totalPriceContainer}>
-        <h5>합계</h5>
-        <h3>{priceFormatter(productInformation.price * quantity)} 원</h3>
-      </div>
-      <div className={styles.buttonContainer}>
-        <button className={styles.cancelButton} aria-label="close modal" onClick={handleModalClose}>
+      </S.ProductInformationContainer>
+      <S.TotalPriceContainer>
+        <S.TotalPriceLabel as="h6" id="total-price-label">
+          합계
+        </S.TotalPriceLabel>
+        <Heading aria-labelledby="total-price-label">
+          {priceFormatter(productInformation.price * quantity)} 원
+        </Heading>
+      </S.TotalPriceContainer>
+      <S.ButtonContainer>
+        <Button aria-label="close modal" onClick={handleModalClose}>
           취소
-        </button>
-        <button className={styles.addButton} aria-label="add item" onClick={handleCartAdd}>
+        </Button>
+        <Button variant="primary" aria-label="add item" onClick={handleCartAdd}>
           장바구니 담기
-        </button>
-      </div>
-    </div>
+        </Button>
+      </S.ButtonContainer>
+    </S.ProductAdditionContainer>
   );
 };
 
