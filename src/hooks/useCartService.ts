@@ -22,7 +22,7 @@ const useCartService = () => {
     });
   };
 
-  const updateCartItemQuantity = (targetId: number, quantity: number) => {
+  const updateCartItemQuantity = (targetId: number) => (quantity: number) => {
     setCart((prevCart) => {
       return prevCart.map((cartItem) => {
         if (cartItem.product.id !== targetId) return cartItem;
