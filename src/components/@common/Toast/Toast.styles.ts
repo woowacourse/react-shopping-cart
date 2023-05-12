@@ -1,4 +1,4 @@
-import { styled, keyframes } from 'styled-components';
+import { styled, keyframes, css } from 'styled-components';
 
 const fadeInUp = keyframes`
   0% {
@@ -13,14 +13,19 @@ const fadeInUp = keyframes`
 
 const fadeOut = keyframes`
   from {
+    transform: translateX(-50%) translateY(0%);
     opacity: 1;
   }
   to {
+    transform: translateX(-50%) translateY(0%);
     opacity: 0;
   }
 `;
 
-export const ToastWrapper = styled.div<{ type: 'error' | 'success' }>`
+export const ToastWrapper = styled.div<{
+  type: 'error' | 'success';
+  isShown: boolean;
+}>`
   position: fixed;
   bottom: 100px;
   left: 50%;
@@ -38,11 +43,14 @@ export const ToastWrapper = styled.div<{ type: 'error' | 'success' }>`
   color: ${(props) => props.theme.color.white};
   border-radius: 10px;
 
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  animation: ${fadeInUp} 0.3s ease-in-out forwards;
-
-  &.hide {
-    animation: ${fadeOut} 1s linear;
-    visibility: hidden;
-  }
+  ${(props) => {
+    return props.isShown
+      ? css`
+          transition: transform 0.5s ease, opacity 0.5s ease;
+          animation: ${fadeInUp} 0.5s ease-in-out forwards;
+        `
+      : css`
+          animation: ${fadeOut} 0.5s linear forwards;
+        `;
+  }}
 `;

@@ -8,19 +8,17 @@ interface ToastProps {
 }
 
 const Toast = ({ message, type }: ToastProps) => {
-  const [show, setShow] = useState(true);
+  const [isShown, setIsShown] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setShow(false), 2000);
+    setTimeout(() => setIsShown(false), 2000);
   }, []);
 
   return (
-    <>
-      <S.ToastWrapper type={type} className={show ? '' : 'hide'}>
-        <Svg type={type} width={20} height={20} />
-        {message}
-      </S.ToastWrapper>
-    </>
+    <S.ToastWrapper type={type} isShown={isShown}>
+      <Svg type={type} width={20} height={20} />
+      {message}
+    </S.ToastWrapper>
   );
 };
 
