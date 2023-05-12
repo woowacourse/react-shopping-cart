@@ -39,11 +39,22 @@ const S = {
   Wrapper: styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     gap: 86px 4%;
     max-width: 1270px;
     margin: 0 auto;
     padding: 0 20px 120px;
+
+    @media (max-width: 1270px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   `,
 };
 
