@@ -1,6 +1,6 @@
 import type { StoryFn } from '@storybook/react';
 
-import Header from './Header';
+import Header from '../components/leafs/Header';
 
 export default {
   title: 'Header',

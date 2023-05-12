@@ -1,5 +1,5 @@
 import type { StoryFn } from '@storybook/react';
-import Product from './Product';
+import Product from '../components/leafs/Product';
 
 export default {
   title: 'Product',
