@@ -15,8 +15,8 @@ export const ProductItem = (props: ProductItemProps) => {
       <ProductImage
         $width={'282px'}
         $height={'282px'}
-        source={imageUrl}
-        alternative="상품 이미지"
+        src={imageUrl}
+        alt="상품 이미지"
       />
       <ProductInfoWrapper>
         <div>

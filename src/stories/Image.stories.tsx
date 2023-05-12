@@ -14,8 +14,8 @@ export const Small: Story = {
   args: {
     $width: '144px',
     $height: '144px',
-    source: '/assets/2.png',
-    alternative: '상품 이미지',
+    src: '/assets/2.png',
+    alt: '상품 이미지',
   },
 };
 
@@ -23,7 +23,7 @@ export const Large: Story = {
   args: {
     $width: '282px',
     $height: '282px',
-    source: '/assets/2.png',
-    alternative: '상품 이미지',
+    src: '/assets/2.png',
+    alt: '상품 이미지',
   },
 };

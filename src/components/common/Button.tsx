@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick: () => void;
-  $width?: string;
-  $height?: string;
+  width?: string;
+  height?: string;
   backgroundColor?: string;
   borderColor?: string;
 }
@@ -13,16 +12,16 @@ interface ButtonProps {
 export const Button = ({
   children,
   onClick,
-  $width,
-  $height,
+  width,
+  height,
   backgroundColor,
   borderColor,
 }: ButtonProps) => {
   return (
     <StyledButton
       onClick={onClick}
-      $width={$width}
-      $height={$height}
+      $width={width}
+      $height={height}
       backgroundColor={backgroundColor}
       borderColor={borderColor}
     >
