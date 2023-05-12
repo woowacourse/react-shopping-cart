@@ -17,7 +17,7 @@ const meta = {
   },
   args: {
     size: 'medium',
-    children: 'text',
+    children: 'Text',
   },
   decorators: [
     (Story) => (
@@ -59,6 +59,50 @@ export const Sizes: Story = {
         </StoryInfoContainer>
       </>
     );
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+};
+
+export const XSmall: Story = {
+  args: {
+    size: 'xSmall',
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+};
+
+export const Small: Story = {
+  args: {
+    size: 'small',
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    size: 'medium',
+  },
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+};
+
+export const Large: Story = {
+  args: {
+    size: 'large',
   },
   argTypes: {
     size: {
