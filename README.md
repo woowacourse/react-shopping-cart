@@ -58,7 +58,7 @@
 
 ### 📝 실행 방법
 
-- <a href="http://localhost:6006/?path=/docs/counter--docs">스토리북 보기</a>
+- <a href="https://645c7e56e3f80fce1d22940b-ckosctseds.chromatic.com/?path=/docs/counter--docs">스토리북 보기</a>
 - 터미널에서 npm 설치(`npm install`) 후 `npm run storybook` 커맨드로 스토리북을 실행할 수 있다.
 
 <br>
