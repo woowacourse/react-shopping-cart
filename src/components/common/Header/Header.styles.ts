@@ -6,7 +6,7 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 24px 0;
+  padding: ${({ theme }) => theme.spacer.spacing4} 0;
   background-color: ${({ theme }) => theme.color.white};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray2};
   z-index: 2;
@@ -41,7 +41,7 @@ const CartItemCount = styled.span`
   height: 14px;
   right: 10px;
   top: 9px;
-  padding: 0px 4px;
+  padding: 0px ${({ theme }) => theme.spacer.spacing1};
 
   display: flex;
   justify-content: center;
@@ -63,7 +63,7 @@ const CartItemCount = styled.span`
 const CartIcon = styled.img`
   width: 32px;
   height: 32px;
-  margin-bottom: 4px;
+  margin-bottom: ${({ theme }) => theme.spacer.spacing1};
 `;
 
 const HeaderButtonLabel = styled.span`

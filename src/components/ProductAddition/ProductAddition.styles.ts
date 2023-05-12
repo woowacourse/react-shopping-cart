@@ -8,22 +8,22 @@ const ProductAdditionContainer = styled.div`
 
 const Header = styled.div`
   text-align: center;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  margin-bottom: ${({ theme }) => theme.spacer.spacing3};
+  padding-bottom: ${({ theme }) => theme.spacer.spacing3};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray3};
 `;
 
 const ProductInformationContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: ${({ theme }) => theme.spacer.spacing3};
 
   & > div {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 16px;
+    gap: ${({ theme }) => theme.spacer.spacing3};
   }
 `;
 
@@ -35,7 +35,7 @@ const ProductImage = styled.img`
 `;
 
 const ProductName = styled(Text)`
-  margin-bottom: 4px;
+  margin-bottom: ${({ theme }) => theme.spacer.spacing1};
 `;
 
 const ProductPrice = styled(Text)`
@@ -43,7 +43,7 @@ const ProductPrice = styled(Text)`
 `;
 
 const TotalPriceContainer = styled.div`
-  margin-top: 36px;
+  margin-top: ${({ theme }) => theme.spacer.spacing5};
   display: flex;
   justify-content: space-between;
 `;
@@ -53,10 +53,10 @@ const TotalPriceLabel = styled(Text)`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 18px;
+  margin-top: ${({ theme }) => theme.spacer.spacing4};
   display: flex;
-  gap: 8px;
   align-items: flex-end;
+  gap: ${({ theme }) => theme.spacer.spacing2};
 `;
 
 export {

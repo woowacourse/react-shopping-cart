@@ -14,11 +14,22 @@ const color = {
   primary: '#04c09e',
   primaryDark: '#05b696',
 
+  orange: '#ff6610',
+
   lightRed1: '#fff6f6',
   lightRed2: '#ffecec',
   lightRed3: '#eb7171',
   red: '#ce0000',
   darkRed: '#9f0000',
+};
+
+const spacer = {
+  spacing1: '4px',
+  spacing2: '8px',
+  spacing3: '16px',
+  spacing4: '24px',
+  spacing5: '32px',
+  spacing6: '64px',
 };
 
 const borderRadius = {
@@ -28,6 +39,7 @@ const borderRadius = {
 
 const theme: DefaultTheme = {
   color,
+  spacer,
   borderRadius,
 };
 

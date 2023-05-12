@@ -29,12 +29,12 @@ const StepperButton = styled(Button)`
 const StepperInput = styled.input`
   width: 40px;
   height: 24px;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   font-weight: 400;
   text-align: center;
   border: none;
-  padding: 0;
-  margin: 0;
   outline: none;
 `;
 

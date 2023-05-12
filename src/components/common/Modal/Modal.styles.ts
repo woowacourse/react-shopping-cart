@@ -23,7 +23,7 @@ const ModalContent = styled.div`
   position: fixed;
   left: 50%;
   top: 50%;
-  padding: 24px;
+  padding: ${({ theme }) => theme.spacer.spacing4};
   background-color: ${({ theme }) => theme.color.white};
   opacity: 0;
   border-radius: ${({ theme }) => theme.borderRadius.medium};

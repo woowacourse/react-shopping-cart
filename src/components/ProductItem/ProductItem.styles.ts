@@ -17,7 +17,7 @@ const ItemImageContainer = styled.div`
   position: relative;
   width: 200px;
   height: 200px;
-  margin-bottom: 10px;
+  margin-bottom: ${({ theme }) => theme.spacer.spacing2};
 `;
 
 const ItemButton = styled(Button)<ItemButtonProps>`
@@ -49,7 +49,7 @@ const ItemImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   background-color: ${({ theme }) => theme.color.gray2};
 `;
 

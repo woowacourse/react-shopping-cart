@@ -66,12 +66,12 @@ const getVariantStyling = (variant: ButtonProps['variant']) => {
 const getSizeStyling = (size: ButtonProps['size']) => {
   const style = {
     small: css`
-      padding: 12px 12px;
+      padding: 12px;
       font-size: 14px;
       font-weight: 500;
     `,
     medium: css`
-      padding: 12px 12px;
+      padding: 14px;
       font-size: 16px;
     `,
     large: css`
