@@ -8,8 +8,8 @@ export default {
 
 const Template: StoryFn<React.ComponentProps<typeof Product>> = (props) => <Product {...props} />;
 
-export const Controls = Template.bind({});
-Controls.args = {
+export const DefaultProduct = Template.bind({});
+DefaultProduct.args = {
   id: 96,
   name: 'SONY 컨트롤러',
   price: 104000,

@@ -9,5 +9,5 @@ export default {
 
 const Template: StoryFn<React.ComponentProps<typeof Header>> = () => <Header />;
 
-export const Controls = Template.bind({});
-Controls.args = {};
+export const DefaultHeader = Template.bind({});
+DefaultHeader.args = {};
