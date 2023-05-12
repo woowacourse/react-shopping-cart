@@ -1,3 +1,7 @@
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+
 interface ProductItemData {
   id: number;
   name: string;
@@ -11,4 +15,4 @@ interface CartItemData {
   product: ProductItemData;
 }
 
-export type { ProductItemData, CartItemData };
+export type { Required, ProductItemData, CartItemData };
