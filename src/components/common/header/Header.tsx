@@ -33,12 +33,24 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderInner = styled.div`
-  width: 1300px;
+  width: 1280px;
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
   justify-content: space-between;
+
+  @media screen and (max-width: 1320px) {
+    width: 940px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 620px;
+  }
+
+  @media screen and (max-width: 660px) {
+    width: 330px;
+  }
 `;
 
 const LogoWrapper = styled.div`

@@ -103,6 +103,11 @@ const ProductWrapper = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   height: 282px;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
 `;
 
 const ProductInfoWrapper = styled.div`
