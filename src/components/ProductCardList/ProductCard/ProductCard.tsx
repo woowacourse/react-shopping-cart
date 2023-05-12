@@ -79,7 +79,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </AddCartButton>
         )}
       </ProductImgContainer>
-      <FlexBox padding="0 4px">
+      <FlexBox>
         <FlexBox flexDirection="column" align="flex-start">
           <Title>{name}</Title>
           <Price>{price.toLocaleString('ko-KR')}원</Price>
