@@ -16,9 +16,11 @@ const getVariantStyling = (variant: ButtonProps['variant']) => {
     primary: css`
       background-color: ${({ theme }) => theme.color.primary};
       color: ${({ theme }) => theme.color.white};
+      border: 1px solid ${({ theme }) => theme.color.primary};
 
       &:hover:enabled {
         background-color: ${({ theme }) => theme.color.primaryDark};
+        border: 1px solid ${({ theme }) => theme.color.primaryDark};
       }
 
       &:focus {
