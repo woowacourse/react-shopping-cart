@@ -66,7 +66,6 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
     addToCart(value);
-    console.log(cart);
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 
@@ -120,7 +119,6 @@ const S = {
   `,
 
   Name: styled.p`
-    max-width: calc(100% - 80px);
     font-weight: 400;
     line-height: 1.4;
     letter-spacing: 0.5px;

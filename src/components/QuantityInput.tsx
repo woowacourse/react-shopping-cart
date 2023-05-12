@@ -18,6 +18,7 @@ const QuantityInput = ({ value, onChange }: Props) => {
       <Input
         type="number"
         value={value}
+        inputMode="numeric"
         styled={QuantityInputStyle}
         min={0}
         max={99}
@@ -38,23 +39,17 @@ const QuantityInput = ({ value, onChange }: Props) => {
 
 const S = {
   Wrapper: styled.div`
-    position: absolute;
-
     & svg {
       position: absolute;
       z-index: -1;
       width: 26px;
       max-width: 26px;
-      right: 0;
+      right: 6px;
       border: 1px solid var(--gray-color-200);
     }
 
-    & svg:nth-child(2) {
-      top: 0;
-    }
-
     & svg:nth-child(3) {
-      top: 16px;
+      top: 28px;
     }
   `,
 };
