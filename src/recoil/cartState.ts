@@ -18,6 +18,6 @@ export const cartQuantitySelector = selector({
   key: 'cartQuantitySelector',
   get: ({ get }) => {
     const carts = get(cartAtom);
-    return carts.reduce((a, b) => a + get(cartAtomState(b)).quantity, 0);
+    return carts.length;
   },
 });

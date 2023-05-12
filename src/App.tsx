@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import CartTextButton from './components/CartTextButton/CartTextButton';
 import Header from './components/Header/Header';
 
-const App = ({ children }: React.PropsWithChildren) => {
+const App = () => {
   return (
     <RecoilRoot>
       <Header>
