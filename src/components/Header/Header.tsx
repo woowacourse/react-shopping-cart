@@ -14,9 +14,7 @@ const Header = () => {
       </Logo>
       <CartButton>
         장바구니
-        {numberOfCartItem > 0 && (
-          <CartTotalQuantity>{numberOfCartItem}</CartTotalQuantity>
-        )}
+        <CartTotalQuantity>{numberOfCartItem}</CartTotalQuantity>
       </CartButton>
     </HeaderContainer>
   );
