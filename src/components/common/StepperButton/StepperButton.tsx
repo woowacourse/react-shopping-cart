@@ -1,8 +1,8 @@
 import { ChangeEvent, useCallback } from 'react';
 
-import { AddIcon, MinusIcon } from '../../assets';
-import { STEPPER_BUTTON_MAX_COUNT, STEPPER_BUTTON_MIN_COUNT } from '../../constants';
-import styles from './style.module.css';
+import { AddIcon, MinusIcon } from '../../../assets';
+import { STEPPER_BUTTON_MAX_COUNT, STEPPER_BUTTON_MIN_COUNT } from '../../../constants';
+import * as S from './StepperButton.styles';
 
 interface StepperButtonProps {
   count: number;
@@ -35,33 +35,34 @@ const StepperButton = ({
   );
 
   return (
-    <div className={styles.container}>
-      <button
+    <S.StepperContainer>
+      <S.StepperButton
         type="button"
-        className={styles.decreaseButton}
         aria-label="decrease"
         disabled={count === minCount}
+        variant="textButton"
+        size="small"
         onClick={handleDecrease}
       >
         <MinusIcon />
-      </button>
-      <input
+      </S.StepperButton>
+      <S.StepperInput
         name="count"
-        className={styles.count}
         value={count}
         aria-label="count input"
         onChange={handleCountChange}
-      ></input>
-      <button
+      ></S.StepperInput>
+      <S.StepperButton
         type="button"
-        className={styles.increaseButton}
         aria-label="increase"
         disabled={count === maxCount}
+        variant="textButton"
+        size="small"
         onClick={handleIncrease}
       >
         <AddIcon />
-      </button>
-    </div>
+      </S.StepperButton>
+    </S.StepperContainer>
   );
 };
 

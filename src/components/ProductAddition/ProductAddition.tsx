@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
-import StepperButton from '../StepperButton/StepperButton';
+import StepperButton from '../common/StepperButton/StepperButton';
 import styles from './style.module.css';
 
 interface ProductAdditionProps {
