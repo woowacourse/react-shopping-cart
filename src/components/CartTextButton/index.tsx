@@ -8,9 +8,9 @@ const CartTextButton = () => {
   return (
     <Styled.Container>
       <Styled.ShoppingCart>장바구니</Styled.ShoppingCart>
-      {cartQuantity ? (
+      {cartQuantity && (
         <Styled.CartQuantity>{cartQuantity}</Styled.CartQuantity>
-      ) : null}
+      )}
     </Styled.Container>
   );
 };

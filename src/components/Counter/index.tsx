@@ -1,17 +1,17 @@
 import { styled } from "styled-components";
 
 interface CounterProps {
-  plusOne: () => void;
-  minusOne: () => void;
+  plusQuantity: () => void;
+  minusQuantity: () => void;
   quantity?: number;
 }
 
-const Counter = ({ plusOne, minusOne, quantity }: CounterProps) => {
+const Counter = ({ plusQuantity, minusQuantity, quantity }: CounterProps) => {
   return (
     <Styled.Container>
-      <Styled.Button onClick={minusOne}>-</Styled.Button>
+      <Styled.Button onClick={minusQuantity}>-</Styled.Button>
       <Styled.Count>{quantity}</Styled.Count>
-      <Styled.Button onClick={plusOne}>+</Styled.Button>
+      <Styled.Button onClick={plusQuantity}>+</Styled.Button>
     </Styled.Container>
   );
 };

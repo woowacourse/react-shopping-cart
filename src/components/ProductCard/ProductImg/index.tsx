@@ -1,12 +1,8 @@
-import { memo } from "react";
+import { memo, ImgHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface ProductImgProps {
-  imageUrl: string;
-}
-
-const ProductImg = ({ imageUrl }: ProductImgProps) => {
-  return <Styled.Img src={imageUrl} />;
+const ProductImg = ({ ...props }: ImgHTMLAttributes<HTMLImageElement>) => {
+  return <Styled.Img {...props} />;
 };
 
 const Styled = {

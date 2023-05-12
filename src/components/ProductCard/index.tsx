@@ -32,41 +32,41 @@ const ProductCard = ({ productId }: ProductCardProps) => {
     setIsCartClicked(true);
   };
 
-  const plusOne = () => {
-    const newProduct: Cart = {
+  const plusQuantity = () => {
+    const updateProduct: Cart = {
       id,
       quantity: cart.quantity + 1,
       product,
     };
 
-    setCart(newProduct);
+    setCart(updateProduct);
   };
 
-  const minusOne = () => {
-    const newProduct: Cart = {
+  const minusQuantity = () => {
+    const updateProduct: Cart = {
       id,
       quantity: cart.quantity - 1,
       product,
     };
 
-    if (newProduct.quantity === 0) {
+    if (updateProduct.quantity === 0) {
       setIsCartClicked(false);
       const newCartID = cartID.filter((id) => id !== productId);
       setCartID(newCartID);
     }
 
-    setCart(newProduct);
+    setCart(updateProduct);
   };
 
   return (
     <Styled.Container>
-      <ProductImg imageUrl={imageUrl} />
+      <ProductImg src={imageUrl} alt={name} />
       <Styled.ProductDetail>
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (
           <Counter
-            plusOne={plusOne}
-            minusOne={minusOne}
+            plusQuantity={plusQuantity}
+            minusQuantity={minusQuantity}
             quantity={cart.quantity}
           />
         ) : (

@@ -10,10 +10,10 @@ const Header = ({ children }: HeaderProps) => {
   return (
     <Styled.Container>
       <Link to="/">
-        <Styled.HomeButton>
+        <Styled.Logo>
           <ShoppingCartIcon />
           <Styled.Title>SHOP</Styled.Title>
-        </Styled.HomeButton>
+        </Styled.Logo>
       </Link>
       <>{children}</>
     </Styled.Container>
@@ -32,7 +32,7 @@ const Styled = {
     background: #333333;
   `,
 
-  HomeButton: styled.button`
+  Logo: styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
