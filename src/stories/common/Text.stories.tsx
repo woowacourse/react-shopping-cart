@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Text } from '../../components/common/Text/Text.styles';
+import { Text, TextProps } from '../../components/common/Text/Text.styles';
 import { StoryContainer, StoryInfoContainer } from '../styles';
 
 const meta = {
@@ -31,11 +31,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  render: ({ size, children }) => {
-    return <Text size={size}>{children}</Text>;
+const createTextStory = (size: TextProps['size']) => ({
+  args: {
+    size,
   },
-};
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+});
+
+export const Playground: Story = {};
 
 export const Sizes: Story = {
   render: ({ children }) => {
@@ -67,46 +74,10 @@ export const Sizes: Story = {
   },
 };
 
-export const XSmall: Story = {
-  args: {
-    size: 'xSmall',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const XSmall: Story = createTextStory('xSmall');
 
-export const Small: Story = {
-  args: {
-    size: 'small',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Small: Story = createTextStory('small');
 
-export const Medium: Story = {
-  args: {
-    size: 'medium',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Medium: Story = createTextStory('medium');
 
-export const Large: Story = {
-  args: {
-    size: 'large',
-  },
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-};
+export const Large: Story = createTextStory('large');

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { Required } from '../../../types';
 
-interface TextProps {
+export interface TextProps {
   size?: 'xSmall' | 'small' | 'medium' | 'large';
 }
 
