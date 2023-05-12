@@ -7,16 +7,20 @@ import { useModal } from '../../hooks/useModal';
 const meta = {
   title: 'ShoppingCart/Common/Modal',
   component: Modal,
+  argTypes: {
+    children: {
+      control: { type: 'text' },
+    },
+  },
+  args: {
+    children: 'Modal Content',
+  },
 } satisfies Meta<typeof Modal>;
 
 export default meta;
-type Story = StoryObj<typeof Modal>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    children: <div style={{ width: '400px', height: '200px' }}>Modal Content</div>,
-  },
-
   render: ({ children }) => {
     const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
 
@@ -27,7 +31,7 @@ export const Default: Story = {
         </Button>
         {isModalOpen && (
           <Modal handleClose={handleModalClose} handleClosePress={handleModalClosePress}>
-            {children}
+            <div style={{ width: '400px', height: '200px' }}>{children}</div>
           </Modal>
         )}
       </>
