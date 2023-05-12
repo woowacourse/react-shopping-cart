@@ -19,6 +19,8 @@ const QuantityInput = ({ value, onChange }: Props) => {
         type="number"
         value={value}
         inputMode="numeric"
+        name="quantity"
+        aria-label="quantity-input"
         styled={QuantityInputStyle}
         min={0}
         max={99}
@@ -31,8 +33,8 @@ const QuantityInput = ({ value, onChange }: Props) => {
         }}
       />
 
-      <FaCaretUp />
-      <FaCaretDown />
+      <FaCaretUp aria-label="button-to-raise-quantity" />
+      <FaCaretDown aria-label="button-to-lower-quantity" />
     </S.Wrapper>
   );
 };

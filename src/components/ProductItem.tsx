@@ -89,6 +89,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
             color="#AAA"
             path={CART_PATH}
             viewBox="0 0 51 44"
+            aria-label="cart-icon-button"
             svgStyle={svgStyle}
             onClick={handleCartClick}
           />
@@ -108,10 +109,6 @@ const S = {
     display: flex;
     justify-content: space-between;
     padding: 12px 6px 0;
-
-    & > :last-child {
-      right: 6px;
-    }
 
     & > svg:last-child {
       cursor: pointer;
