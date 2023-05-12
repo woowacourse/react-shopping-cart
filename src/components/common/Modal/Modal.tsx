@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef, KeyboardEvent, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useScrollStop } from '../../hooks/useScrollStop';
-import styles from './style.module.css';
+import { useScrollStop } from '../../../hooks/useScrollStop';
+import * as S from './Modal.styles';
 
 interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   handleClose: () => void;
@@ -18,12 +18,12 @@ const Modal = ({ children, handleClose, handleClosePress }: ModalProps) => {
   }, []);
 
   return createPortal(
-    <div className={styles.container}>
-      <div className={styles.backdrop} onClick={handleClose} />
-      <div ref={modalRef} className={styles.content} tabIndex={0} onKeyDown={handleClosePress}>
+    <S.ModalContainer>
+      <S.ModalBackdrop onClick={handleClose} />
+      <S.ModalContent ref={modalRef} tabIndex={0} onKeyDown={handleClosePress}>
         {children}
-      </div>
-    </div>,
+      </S.ModalContent>
+    </S.ModalContainer>,
     document.body
   );
 };

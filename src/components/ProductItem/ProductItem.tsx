@@ -5,8 +5,8 @@ import { useModal } from '../../hooks/useModal';
 import { cartItemQuantityState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
-import Modal from '../Modal/Modal';
 import ProductAddition from '../ProductAddition/ProductAddition';
+import Modal from '../common/Modal/Modal';
 import styles from './style.module.css';
 
 interface ProductItemProps {
