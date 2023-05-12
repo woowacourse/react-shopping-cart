@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { CartIcon } from '../../assets/icons';
+import CartIcon from '../../assets/icons/CartIcon';
 import totalQuantityInCart from '../../globalState/selectors/totalQuantityInCart';
 
 const Header = () => {

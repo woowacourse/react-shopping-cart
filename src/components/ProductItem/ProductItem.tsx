@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import Counter from '../Counter/Counter';
 import ProductImage from '../ProductImage/ProductImage';
-import { SmallCartIcon } from '../../assets/icons';
+import SmallCartIcon from '../../assets/icons/SmallCartIcon';
 import { formatPrice } from '../../utils/formatPrice';
 import useCartService from '../../hooks/useCartService';
 import productQuantityInCart from '../../globalState/selectors/productQuantityInCart';

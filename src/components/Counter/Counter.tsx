@@ -1,5 +1,6 @@
 import { css, styled } from 'styled-components';
-import { MinusIcon, PlusIcon } from '../../assets/icons';
+import PlusIcon from '../../assets/icons/PlusIcon';
+import MinusIcon from '../../assets/icons/MinusIcon';
 import useCounter from './useCounter';
 import { isNumber } from '../../utils/isNumber';
 import type { ChangeEventHandler } from 'react';
