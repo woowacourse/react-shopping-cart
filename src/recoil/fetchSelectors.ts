@@ -5,8 +5,13 @@ import { Product } from "../types/product";
 export const fetchedProductListSelector = selector({
   key: "fetchedProductList",
   get: async () => {
-    const data = await fetchProductList<Product[]>();
-    return data;
+    try {
+      const data = await fetchProductList<Product[]>();
+      return data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   },
 });
 

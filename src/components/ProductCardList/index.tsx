@@ -6,8 +6,8 @@ import ProductCard from "../ProductCard";
 
 const ProductCardList = () => {
   const fetchedProductList = useRecoilValue(fetchedProductListSelector);
-  useLocalCart();
 
+  useLocalCart();
   return (
     <Styled.Container>
       {fetchedProductList.map((product) => (

@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { Cart } from "../../types/product";
 import { ReactComponent as ShoppingCartImg } from "../../assets/icon/shopping-cart.svg";
-import { cartAtom } from "../../recoil/cartState";
+import { cartAtomFamily, cartIDAtom } from "../../recoil/cartState";
 import Counter from "../Counter";
 import ProductImg from "./ProductImg";
 import ProductInfo from "./ProductInfo";
@@ -14,10 +14,11 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ productId }: ProductCardProps) => {
-  const [cart, setCart] = useRecoilState(cartAtom);
+  const [cart, setCart] = useRecoilState(cartAtomFamily(productId));
+  const [cartID, setCartID] = useRecoilState(cartIDAtom);
   const product = useRecoilValue(targetProductSelector)(productId);
   const { id, name, price, imageUrl } = product;
-  const productInCart = cart.find((item) => item.id === id);
+  const productInCart = cart ? true : false;
   const [isCartClicked, setIsCartClicked] = useState(Boolean(productInCart));
 
   const addToCart = () => {
@@ -26,29 +27,35 @@ const ProductCard = ({ productId }: ProductCardProps) => {
       quantity: 1,
       product,
     };
-    setCart((cart) => [...cart, newProduct]);
+    setCart(newProduct);
+    setCartID([...cartID, productId]);
     setIsCartClicked(true);
   };
 
   const plusOne = () => {
-    const newProduct = cart.map((cart) => {
-      if (cart.id !== id) return cart;
-      return { ...cart, quantity: cart.quantity + 1 };
-    });
-    setCart(() => [...newProduct]);
+    const newProduct: Cart = {
+      id,
+      quantity: cart.quantity + 1,
+      product,
+    };
+
+    setCart(newProduct);
   };
 
   const minusOne = () => {
-    const newProdoct = cart
-      .map((cart) => {
-        if (cart.id !== id) return cart;
-        return { ...cart, quantity: cart.quantity - 1 };
-      })
-      .filter((cart) => cart.quantity > 0);
+    const newProduct: Cart = {
+      id,
+      quantity: cart.quantity - 1,
+      product,
+    };
 
-    setCart(() => [...newProdoct]);
+    if (newProduct.quantity === 0) {
+      setIsCartClicked(false);
+      const newCartID = cartID.filter((id) => id !== productId);
+      setCartID(newCartID);
+    }
 
-    if (!newProdoct.find((item) => item.id === id)) setIsCartClicked(false);
+    setCart(newProduct);
   };
 
   return (
@@ -60,7 +67,7 @@ const ProductCard = ({ productId }: ProductCardProps) => {
           <Counter
             plusOne={plusOne}
             minusOne={minusOne}
-            quantity={productInCart?.quantity}
+            quantity={cart.quantity}
           />
         ) : (
           <Styled.ShoppingCart onClick={addToCart}>
