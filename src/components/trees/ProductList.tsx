@@ -18,9 +18,19 @@ export default function ProductList({ products }: ProductListProps) {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 282px);
+  grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 48px;
   grid-row-gap: 64px;
+
+  @media screen and (max-width: 1025px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 38px;
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 28px;
+  }
 `;
 
 const S = {

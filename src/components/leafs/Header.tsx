@@ -7,16 +7,14 @@ export default function Header() {
 
   return (
     <Wrapper>
-      <ContentBox>
-        <LogoBox>
-          <img src="./logo.svg" />
-          <LogoTitle>SHOP</LogoTitle>
-        </LogoBox>
-        <CartBox>
-          장바구니
-          <CartCount>{cartCount}</CartCount>
-        </CartBox>
-      </ContentBox>
+      <LogoBox>
+        <img src="./logo.svg" />
+        <LogoTitle>SHOP</LogoTitle>
+      </LogoBox>
+      <CartBox>
+        <Title>장바구니</Title>
+        <CartCount>{cartCount}</CartCount>
+      </CartBox>
     </Wrapper>
   );
 }
@@ -26,7 +24,7 @@ const Wrapper = styled.header`
   top: 0;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 
   width: 100%;
   height: 80px;
@@ -34,15 +32,6 @@ const Wrapper = styled.header`
   background: #333333;
 
   color: white;
-`;
-
-const ContentBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 1272px;
-  height: 100%;
 `;
 
 const LogoBox = styled.div`
@@ -57,13 +46,25 @@ const LogoTitle = styled.h1`
   margin-left: 24px;
 
   vertical-align: center;
+
+  @media screen and (max-width: 767px) {
+    visibility: hidden;
+  }
 `;
 
 const CartBox = styled.div`
   display: flex;
 
+  margin-top: 25px;
+
   font-size: 24px;
   font-weight: 500;
+`;
+
+const Title = styled.div`
+  @media screen and (max-width: 767px) {
+    visibility: hidden;
+  }
 `;
 
 const CartCount = styled.div`

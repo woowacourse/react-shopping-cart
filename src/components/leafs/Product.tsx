@@ -77,22 +77,27 @@ export default function Product(props: ProductProps) {
 }
 
 const Wrapper = styled.div`
-  width: 282px;
-  height: 362px;
+  width: 200px;
+  height: 282px;
 
   color: #333333;
+
+  @media screen and (max-width: 767px) {
+    width: 150px;
+    height: 212px;
+  }
 `;
 
 const Img = styled.img`
   width: 100%;
-  height: 282px;
+  height: 75%;
 `;
 
 const InfoBox = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 282px;
+  width: 100%;
 
   padding-top: 18px;
   padding-left: 18px;
@@ -109,6 +114,10 @@ const Name = styled.p`
 
   font-size: 16px;
   font-weight: 400;
+
+  @media screen and (max-width: 767px) {
+    font-size: 11px;
+  }
 `;
 
 const Price = styled.p`
@@ -117,6 +126,10 @@ const Price = styled.p`
   vertical-align: center;
   font-size: 20px;
   font-weight: 400;
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const CartIcon = styled.img`

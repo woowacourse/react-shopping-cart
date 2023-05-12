@@ -8,9 +8,9 @@ export default function ProductListPage() {
   return (
     <S.Wrapper>
       <Header />
-      <main>
+      <S.Main>
         <ProductList products={products} />
-      </main>
+      </S.Main>
     </S.Wrapper>
   );
 }
@@ -24,13 +24,17 @@ const Wrapper = styled.div`
 
   width: 100%;
   padding-top: 80px;
+`;
 
-  main {
-    width: 1272px;
-    padding: 60px 0;
-  }
+const Main = styled.main`
+  display: flex;
+  justify-content: center;
+  margin: auto;
+
+  padding: 60px 0;
 `;
 
 const S = {
   Wrapper,
+  Main,
 };
