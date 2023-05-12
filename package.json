@@ -1,6 +1,5 @@
 {
   "name": "react-shopping-cart",
-  "homepage": "https://creative-lee.github.io/react-shopping-cart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
