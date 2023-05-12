@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ProductCard from "../components/ProductCard/ProductCard";
 
 /** 
-  각각의 제품 정보를 나타내는 ProductCard 컴포넌트입니다.
-
+  `ProductCard` 는 품목 하나에 대한 정보를 포함하고 있는 컴포넌트입니다.
 */
 const meta = {
   title: "ProductCard",

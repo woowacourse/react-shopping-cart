@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ProductCardList from "../components/ProductCardList/ProductCardList";
 
-/**
- 각 제품의 전체 정보를 담고 있는 ProductCardList 컴포넌트입니다.
- */
+/** 
+  `ProductCardList` 는 `ProductCard` 컴포넌트 하나 또는 여러 개로 구성된, 품목들을 나열하여 보여주기 위한 컴포넌트입니다.
+*/
 const meta = {
   title: "ProductCardList",
   component: ProductCardList,

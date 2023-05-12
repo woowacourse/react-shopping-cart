@@ -2,9 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react";
 import CartNotificationButton from "../components/CartNotificationButton/CartNotificationButton";
 
 /**
- * 장바구니에 제품이 추가되면 카운트하고 보여주는 역할을 하는 컴포넌트입니다.
+ * `CartNotificationButton` 은 사용자를 특정 주소로 안내하는 역할을 수행하면서, 특정 알림의 개수도 보여주도록 하고 싶을 때 사용할 수 있는 컴포넌트입니다.
+ * 알림의 개수는 props의 인자로 넘겨 주는 것이 아닌, `recoil` 과 같은 상태관리 라이브러리를 사용하여 업데이트하는 방식입니다.
+ *
+ * 검은 배경은 컴포넌트를 보여주기 위함이며, 컴포넌트에 포함되지 않음에 주의하시기 바랍니다.
  */
-
 const meta = {
   title: "CartNotificationButton",
   component: CartNotificationButton,
