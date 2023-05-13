@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 import CartIcon from '../../assets/CartIcon';
-import { useRecoilValue } from 'recoil';
-import { totalCartProductState } from '../../states/cartProductState';
+import useCartProductCount from '../../hooks/useCartProductCount';
 
 const Header = () => {
-  const totalCartProduct = useRecoilValue(totalCartProductState);
+  const cartProductCount = useCartProductCount();
 
   return (
     <HeaderContainer>
@@ -16,7 +15,7 @@ const Header = () => {
         </LogoContainer>
         <MoveCartPageBtn>
           장바구니
-          <ProductCountAlert>{totalCartProduct}</ProductCountAlert>
+          <ProductCountAlert>{cartProductCount}</ProductCountAlert>
         </MoveCartPageBtn>
       </HeaderContent>
     </HeaderContainer>
