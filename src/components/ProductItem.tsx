@@ -5,7 +5,7 @@ import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { atom, useRecoilValue, useRecoilState } from 'recoil';
 import { Product, CartItem } from '../types';
 import { productListState } from './ProductList';
-import { useSetCart } from '../hooks/useSetCart';
+import { useSetCart } from '../hooks/useCart';
 import {
   getDataFromLocalStorage,
   setDataInLocalStorage,
