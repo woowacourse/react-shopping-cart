@@ -9,3 +9,4 @@ export const NOT_NUMBER = /[^0-9]/g;
 
 export const FIRST_INDEX = 0;
 export const ONE_ITEM_IN_CART = 1;
+export const MAX_NUMBER_LENGTH = 2;
