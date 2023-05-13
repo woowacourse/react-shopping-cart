@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import Colors from '../../constants/Colors';
 
 export const Header = styled.header`
+  position: sticky;
+  top: 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
