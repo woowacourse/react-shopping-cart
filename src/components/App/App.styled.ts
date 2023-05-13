@@ -7,5 +7,4 @@ export const App = styled.div`
   gap: 60px;
 
   width: 100%;
-  height: 100vh;
 `;
