@@ -5,13 +5,8 @@ import {
   cartProductState,
   targetCartProductState,
 } from '../states/cartProducts';
-import type { CartProduct, Product } from '../types/product';
-
-const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.find((cartProduct) => id === cartProduct.product.id);
-
-const deleteProduct = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.filter((cartProduct) => cartProduct.product.id !== id);
+import { deleteTargetProduct } from '../states/cartProducts/util';
+import type { Product } from '../types/product';
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
@@ -29,7 +24,7 @@ const useCartProducts = (product: Product) => {
     if (!targetProduct) return;
 
     if (targetProduct.quantity === 0) {
-      setCartProducts((prev) => deleteProduct(prev, id));
+      setCartProducts((prev) => deleteTargetProduct(prev, id));
     }
   }, [id, setCartProducts, targetProduct]);
 

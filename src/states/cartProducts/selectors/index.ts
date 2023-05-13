@@ -1,14 +1,11 @@
 import { selector, selectorFamily } from 'recoil';
 
 import { cartProductState } from '../atoms';
+import { findTargetProduct } from '../util';
 
 export const cartProductCountState = selector({
   key: 'cartProductCountState',
-  get: ({ get }) => {
-    const cartProducts = get(cartProductState);
-
-    return cartProducts.length;
-  },
+  get: ({ get }) => get(cartProductState).length,
 });
 
 export const targetCartProductState = selectorFamily({
@@ -16,7 +13,5 @@ export const targetCartProductState = selectorFamily({
   get:
     (id: number) =>
     ({ get }) =>
-      get(cartProductState).find(
-        (cartProduct) => id === cartProduct.product.id
-      ),
+      findTargetProduct(get(cartProductState), id),
 });

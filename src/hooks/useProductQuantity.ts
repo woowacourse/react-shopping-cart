@@ -1,23 +1,10 @@
 import { useSetRecoilState } from 'recoil';
 
 import { cartProductState } from '../states/cartProducts';
-import type { CartProduct } from '../types/product';
-
-const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-    }
-    return cartProduct;
-  });
-
-const subtractTargetQuantity = (cartProducts: CartProduct[], id: number) =>
-  cartProducts.map((cartProduct) => {
-    if (cartProduct.product.id === id) {
-      return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-    }
-    return cartProduct;
-  });
+import {
+  addTargetQuantity,
+  subtractTargetQuantity,
+} from '../states/cartProducts/util';
 
 const useProductQuantity = (id: number) => {
   const setCartProducts = useSetRecoilState(cartProductState);
