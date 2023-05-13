@@ -1,15 +1,11 @@
+import type { ProductType } from '../../types';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useCart from '../../hooks/useCart';
 import { isNumeric } from '../../utils/validator';
 import { MAX_QUANTITY } from '../../constants';
 
-interface ProductProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-}
+interface ProductProps extends ProductType {};
 
 export default function Product(props: ProductProps) {
   const { id, name, price, imageUrl } = props;
@@ -23,12 +19,11 @@ export default function Product(props: ProductProps) {
     setQuantityInput('1');
   };
 
-  const handleChangeCounter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '') {
-      setQuantityInput('');
-    } else if (isNumeric(value)) {
+  const handleChangeCounter = ({ target : { value }}: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNumeric(value)) {
       setQuantityInput(Number(value) > MAX_QUANTITY ? MAX_QUANTITY.toString() : value);
+    } else if (value === '') {
+      setQuantityInput('');
     }
   };
 
