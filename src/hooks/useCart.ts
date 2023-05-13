@@ -20,27 +20,32 @@ export const useSetCart = (id: number) => {
     return cart;
   };
 
+  const updateCart = (prev: CartItem[], value: string) => {
+    return [
+      ...prev,
+      {
+        id: id,
+        quantity: Number(value),
+        product: selectedProduct,
+      },
+    ];
+  };
+
   const addToCart = (value: string) => {
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, cart } = findCartItemIndex(prev);
 
       if (value === '') return removeProduct(cart, cartItemIndex);
 
-      if (cartItemIndex >= FIRST_INDEX) {
+      const alreadyHasCartItem = cartItemIndex >= FIRST_INDEX;
+      if (alreadyHasCartItem) {
         const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
         cart[cartItemIndex] = updatedItem;
 
         return cart;
       }
 
-      return [
-        ...prev,
-        {
-          id: id,
-          quantity: Number(value),
-          product: selectedProduct,
-        },
-      ];
+      return updateCart(prev, value);
     });
   };
 
