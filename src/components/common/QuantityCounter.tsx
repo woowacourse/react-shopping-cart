@@ -1,12 +1,12 @@
-import { forwardRef } from "react";
-import styled from "styled-components";
+import { forwardRef } from 'react';
+import styled from 'styled-components';
 
-import type { CounterAction } from "../../type/counter";
-import { DownButtonIc, UpButtonIc } from "../../asset";
-import { ACTION_DECREASE, ACTION_INCREASE } from "../../constants/counter";
-import { ERROR } from "../../constants/error";
-import { isForwardedRef, isRefCurrent } from "../../utils/refTypeGuard";
-import { fillBlankInput, validateNumberRange } from "../../utils/validation";
+import type { CounterAction } from '../../type/counter';
+import { DownButtonIc, UpButtonIc } from '../../asset';
+import { ACTION_DECREASE, ACTION_INCREASE } from '../../constants/counter';
+import { ERROR } from '../../constants/error';
+import { isForwardedRef, isRefCurrent } from '../../utils/refTypeGuard';
+import { fillBlankInput, validateNumberRange } from '../../utils/validation';
 
 const unknownCountAction = (action: never): never => {
   throw new Error(ERROR.INVALID_ACTION);
@@ -27,29 +27,26 @@ const changeCount = (current: HTMLInputElement, action: CounterAction) => {
   }
 };
 
-const QuantityCounter = forwardRef<HTMLInputElement>(function QuantityCounter(
-  _,
-  quantityRef
-) {
+const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
   const increaseQuantity = () => {
     if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
     if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
 
-    changeCount(quantityRef.current, "INCREASE");
+    changeCount(quantityRef.current, 'INCREASE');
   };
 
   const decreaseQuantity = () => {
     if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
     if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
 
-    changeCount(quantityRef.current, "DECREASE");
+    changeCount(quantityRef.current, 'DECREASE');
   };
   return (
     <QuantityCounterContainer>
       <QuantityInput
         ref={quantityRef}
         onChange={validateNumberRange}
-        defaultValue="1"
+        defaultValue='1'
         onBlur={fillBlankInput}
       />
       <ButtonWrapper>
