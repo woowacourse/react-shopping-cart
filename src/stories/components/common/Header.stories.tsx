@@ -33,6 +33,6 @@ interface CartProps {
   title: string;
 }
 
-export const Cart = (args: CartProps) => {
+export const Header = (args: CartProps) => {
   return <HeaderComponent title={args.title} />;
 };
