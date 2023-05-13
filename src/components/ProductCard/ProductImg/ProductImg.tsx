@@ -3,18 +3,18 @@ import styled from 'styled-components';
 
 interface ProductImgProps {
   imageUrl: string;
+  size: { width: string; height: string };
 }
 
-const ProductImg = ({ imageUrl }: ProductImgProps) => {
-  return <Styled.Img src={imageUrl} />;
+const ProductImg = ({ imageUrl, size }: ProductImgProps) => {
+  return <Img src={imageUrl} width={size.width} height={size.height} />;
 };
 
-const Styled = {
-  Img: styled.img`
-    width: 282px;
-    height: 282px;
+const Img = styled.img<{ width: string; height: string }>`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
 
-    cursor: pointer;
-  `,
-};
+  cursor: pointer;
+`;
+
 export default memo(ProductImg);

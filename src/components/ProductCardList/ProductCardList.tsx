@@ -9,7 +9,7 @@ const ProductCardList = () => {
   useLocalCart();
 
   return (
-    <Styled.Container>
+    <Container>
       {fetchedProductList.map((product) => {
         const { id, name, price, imageUrl } = product;
 
@@ -23,15 +23,14 @@ const ProductCardList = () => {
           />
         );
       })}
-    </Styled.Container>
+    </Container>
   );
 };
 
-const Styled = {
-  Container: styled.ul`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 80px 45px;
-  `,
-};
+const Container = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 80px 45px;
+`;
+
 export default ProductCardList;

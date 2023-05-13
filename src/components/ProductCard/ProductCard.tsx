@@ -37,9 +37,12 @@ const ProductCard = ({ id, name, price, imageUrl }: Product) => {
   };
 
   return (
-    <Styled.Container>
-      <ProductImg imageUrl={imageUrl} />
-      <Styled.ProductDetail>
+    <Container>
+      <ProductImg
+        imageUrl={imageUrl}
+        size={{ width: '282px', height: '282px' }}
+      />
+      <ProductDetail>
         <ProductInfo name={name} price={price} />
         {isCartClicked ? (
           <Counter
@@ -48,33 +51,32 @@ const ProductCard = ({ id, name, price, imageUrl }: Product) => {
             quantity={productInCart.quantity}
           />
         ) : (
-          <Styled.ShoppingCart onClick={addToCart}>
+          <ShoppingCart onClick={addToCart}>
             <ShoppingCartImg />
-          </Styled.ShoppingCart>
+          </ShoppingCart>
         )}
-      </Styled.ProductDetail>
-    </Styled.Container>
+      </ProductDetail>
+    </Container>
   );
 };
 
-const Styled = {
-  Container: styled.li`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+const Container = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-    width: 282px;
-  `,
+  width: 282px;
+`;
 
-  ProductDetail: styled.div`
-    display: flex;
-    justify-content: space-between;
-  `,
+const ProductDetail = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-  ShoppingCart: styled.button`
-    display: flex;
+const ShoppingCart = styled.button`
+  display: flex;
 
-    cursor: pointer;
-  `,
-};
+  cursor: pointer;
+`;
+
 export default memo(ProductCard);
