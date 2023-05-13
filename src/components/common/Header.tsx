@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Icon from './Icon';
-import { CART_PATH } from '../../constants/svgPath';
 import Cart from '../Cart';
+import CartIcon from '../icons/CartIcon';
 
 interface Props {
   title: string;
@@ -11,7 +10,7 @@ const Header = ({ title }: Props) => {
   return (
     <S.Header>
       <S.Wrapper>
-        <Icon width="44" height="36" color="#FFF" path={CART_PATH} viewBox="0 0 51 44" />
+        <CartIcon width="44" height="36" fill="#FFF" />
         <span>{title}</span>
         <Cart />
       </S.Wrapper>

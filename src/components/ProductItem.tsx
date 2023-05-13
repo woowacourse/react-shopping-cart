@@ -1,15 +1,14 @@
 import { useState, ChangeEventHandler, useEffect } from 'react';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import Icon from './common/Icon';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
 import { atom, useRecoilValue, useRecoilState } from 'recoil';
 import { Product, CartItem } from '../types';
 import { productListState } from './ProductList';
 import { useSetCart } from '../hooks/useSetCart';
 import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
-import { CART_PATH } from '../constants/svgPath';
 import { QUANTITY, NOT_NUMBER } from '../constants';
+import CartIcon from './icons/CartIcon';
 
 interface Props {
   id: number;
@@ -83,16 +82,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
         {isSelected ? (
           <QuantityInput value={quantity} onChange={handleNumberInputChange} />
         ) : (
-          <Icon
-            width="30"
-            height="27"
-            color="#AAA"
-            path={CART_PATH}
-            viewBox="0 0 51 44"
-            aria-label="cart-icon-button"
-            svgStyle={svgStyle}
-            onClick={handleCartClick}
-          />
+          <CartIcon svgStyle={svgStyle} onClick={handleCartClick} />
         )}
       </S.InfoWrapper>
     </div>

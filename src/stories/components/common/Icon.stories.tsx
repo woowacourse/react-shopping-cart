@@ -29,7 +29,7 @@ export const Cart: Story = {
   args: {
     width: '30',
     height: '27',
-    color: '#AAA',
+    fill: '#AAA',
     path: CART_PATH,
     viewBox: '0 0 51 44',
     svgStyle: mirrorReversal,
@@ -45,7 +45,7 @@ export const Cart: Story = {
     height: {
       description: '숫자를 입력하여 아이콘의 높이(height)를 정할 수 있습니다.',
     },
-    color: {
+    fill: {
       control: {
         type: 'color',
       },
@@ -99,7 +99,7 @@ export const HeaderCart: Story = {
   args: {
     width: '50',
     height: '44',
-    color: '#fff',
+    fill: '#fff',
     path: CART_PATH,
     viewBox: '0 0 51 44',
   },
@@ -110,7 +110,7 @@ export const HeaderCart: Story = {
         type: 'text',
       },
     },
-    color: {
+    fill: {
       control: {
         type: 'color',
       },

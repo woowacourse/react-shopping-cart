@@ -1,19 +1,10 @@
-import { SVGProps } from 'react';
 import { CSSProp, styled } from 'styled-components';
+import { IconProps } from '../../types';
 
-export interface Props extends SVGProps<SVGSVGElement> {
-  width: string;
-  height: string;
-  color: string;
-  path: string;
-  viewBox: string;
-  svgStyle?: CSSProp;
-}
-
-const Icon = ({ svgStyle, ...props }: Props) => {
+const Icon = ({ svgStyle, ...props }: IconProps) => {
   return (
     <S.Svg {...props} styled={svgStyle}>
-      <path d={props.path} fill={props.color} />
+      <path d={props.path} />
     </S.Svg>
   );
 };
