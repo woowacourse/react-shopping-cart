@@ -4,7 +4,7 @@ import useProductsFetch from 'hooks/useProductsFetch';
 const ProductListPage = () => {
   const { products } = useProductsFetch();
 
-  return <ProductCardList products={products} />;
+  return <ProductCardList products={products ?? []} />;
 };
 
 export default ProductListPage;

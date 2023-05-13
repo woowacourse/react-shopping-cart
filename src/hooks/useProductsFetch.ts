@@ -1,28 +1,16 @@
-import { useEffect, useState } from 'react';
 import { Product } from 'types/product';
+import useFetch from './useFetch';
 
 const useProductsFetch = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, isSetLoading] = useState(false);
-  const [errorState, setErrorState] = useState<{ isError: boolean; error: Error }>();
+  const fetcher = async (): Promise<Product[]> => {
+    const response = await fetch(`${process.env.PUBLIC_URL}/data/mockProducts.json`);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      isSetLoading(true);
-      try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/data/mockProducts.json`);
-        const products = await response.json();
+    if (!response.ok) throw new Error('데이터 요청에 실패했습니다');
 
-        setProducts(products);
-      } catch (error) {
-        setErrorState({ isError: true, error: error as Error });
-      } finally {
-        isSetLoading(false);
-      }
-    };
+    return response.json();
+  };
 
-    fetchProducts();
-  }, []);
+  const { data: products, isLoading, errorState } = useFetch<Product[]>(fetcher);
 
   return { products, isLoading, errorState };
 };
