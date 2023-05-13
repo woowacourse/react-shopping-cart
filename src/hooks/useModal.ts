@@ -1,6 +1,4 @@
-import { KeyboardEvent, useCallback, useState } from 'react';
-
-import { ESC_KEY } from '../constants';
+import { useCallback, useState } from 'react';
 
 const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,13 +11,7 @@ const useModal = () => {
     setIsModalOpen(false);
   }, []);
 
-  const handleModalClosePress = useCallback((event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === ESC_KEY) {
-      setIsModalOpen(false);
-    }
-  }, []);
-
-  return [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] as const;
+  return { isModalOpen, handleModalOpen, handleModalClose };
 };
 
 export { useModal };

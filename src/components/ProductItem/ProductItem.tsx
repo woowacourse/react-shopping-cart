@@ -18,7 +18,7 @@ interface ProductItemProps {
 const ProductItem = ({ information }: ProductItemProps) => {
   const cartItemQuantity = useRecoilValue(cartItemQuantityState(information.id));
   const { isAdded, setCartItemQuantity } = useCartAddition(information.id);
-  const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
+  const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
   return (
     <>
@@ -37,7 +37,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
         <S.ItemName size="small">{information.name}</S.ItemName>
         <S.ItemPrice size="large">{priceFormatter(information.price)}원</S.ItemPrice>
         {isModalOpen && (
-          <Modal handleClose={handleModalClose} handleClosePress={handleModalClosePress}>
+          <Modal handleClose={handleModalClose}>
             <ProductAddition
               handleModalClose={handleModalClose}
               productInformation={information}
