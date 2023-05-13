@@ -1,16 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
-
-type SetDataType<T> = Dispatch<SetStateAction<T>>;
-
-export const fetchData = async <T>(url: string, setData: SetDataType<T>) => {
+export const fetchData = async (url: string) => {
   try {
     const response = await fetch(url);
     const data = await validateResponse(response);
 
-    setData(data);
+    return data;
   } catch (error) {
     console.log(error);
-    return [];
   }
 };
 
