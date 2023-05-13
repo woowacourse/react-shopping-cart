@@ -7,9 +7,12 @@ const path = require('path'); // 절대 경로를 참조하기 위해
 // 자세한 설명 링크: https://webpack.kr/plugins/html-webpack-plugin/
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// ts-loader의 성능 향상을 위한 라이브러리
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 module.exports = {
   // Bundle(하나로 합치기)을 만들기 위한 시작 파일
-  entry: ['./src/index.jsx'],
+  entry: ['./src/index.tsx'],
 
   // 생성된 번들 파일은 /dist폴더에 생성됩니다.
   // publicPath를 지정함으로써 HTML 등
@@ -31,8 +34,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        use: ['babel-loader'],
+        test: /\.(ts|tsx)$/,
+        use: [
+          'babel-loader',
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],
@@ -45,5 +56,7 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
     }),
+
+    new ForkTsCheckerWebpackPlugin(),
   ],
 };

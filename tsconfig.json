@@ -1,0 +1,47 @@
+// 디렉터리에 tsconfig.json 파일이 있으면 해당 디렉터리가 typescript프로젝트 루트라는 것을 뜻한다.
+// tsconfig.json 파일은 프로젝트를 컴파일하는데 필요한 루트 파일과 컴파일러 옵션을 지정
+
+// 참고 자료 https://inpa.tistory.com/entry/TS-%F0%9F%93%98-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-tsconfigjson-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0-%EC%B4%9D%EC%A0%95%EB%A6%AC
+{
+  "include": ["./src/**/*"],
+  "exclude": [
+    "node_modules",
+    "./node_modules/**/*",
+    "build",
+    "webpack",
+    "jest",
+    "dist"
+  ],
+  "compilerOptions": {
+    "target": "es5", // ts파일 변환 시 어떤 버전의 js로
+    "module": "esnext", // import 문법을 어떻게 할 것이냐
+    "moduleResolution": "node",
+
+    // lib옵션은 컴파일에 필요한 JAVAScrtip 내장 라이브러리를 지정할 수 있다.
+    // 이 프로퍼티가 지정되어 있지 않다면 'target' 프로퍼티에 지정된 버전에 따라 필요한 타입 정의들에 대한 정보가 자동 지정된다.
+    // target이 es3 -> lib.d.ts 사용
+    // target이 es5 -> dom, es5, scripthost 사용
+    // target이 es6 -> dom, es6, dom.iterable, scripthost 사용
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["node_modules/@types", "src/@type"],
+    "allowSyntheticDefaultImports": true,
+
+    // tsx 확장자의 컴파일 결과 jsx 코드를 어떻게 컴파일할지 결정
+    // 1. react: js파일로 컴파일 -> React.createElement() 함수로 변환
+    // 2. react-jsx: .js 파일로 컴파일 -> JSX _jsx() 함수로 변환
+    // 3. react.jsxdev: .js 파일로 컴파일 -> JSX _jsx() 함수로 변환
+    // 4. preserve: .jsx파일로 컴파일 -> JSX 코드 유지
+    "jsx": "preserve",
+    "sourceMap": true, // 타입스크립트 파일에 잘못된 부분이 있으면 직접 디버깅 가능
+
+    "removeComments": true, // 컴파일 시 주석 제거
+    "declaration": true, // 이 옵션을  true로 하면 TS파일을 JS로 컴파일하는 과정에서 JS파일과 함께 d.ts 파일이 생성되게 한다.
+
+    /* ts 엄격한 설정 */
+    "strict": true, // ts 엄격한 유형 검사 옵션 활성화
+    "strictNullChecks": false, // null 및 undefined 값에 대한 유형을 조정
+    "strictFunctionTypes": false, // 함수 타입 대입 가능?
+
+    "skipLibCheck": true // 선언 파일(라이브러리) 유형 검사 스킵
+  }
+}
