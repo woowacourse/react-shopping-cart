@@ -12,7 +12,7 @@ const isInputValueDigit = (inputValue: string): boolean => {
 };
 
 const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
-  const changeText = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
     if (!isInputValueDigit(inputValue)) return;
@@ -23,14 +23,22 @@ const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
     }
   };
 
+  const handleOnClickStepperUpButton = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleOnClickStepperDownButton = () => {
+    setQuantity(quantity - 1);
+  };
+
   return (
     <InputStepperWrapper>
-      <InputStyle $size={size} type="text" value={quantity} onChange={changeText} />
+      <InputStyle $size={size} type="text" value={quantity} onChange={handleOnChangeText} />
       <StepperButtonWrapper>
-        <StepperUpButton $size={size} onClick={() => setQuantity(quantity + 1)}>
+        <StepperUpButton $size={size} onClick={handleOnClickStepperUpButton}>
           &#9662;
         </StepperUpButton>
-        <StepperDownButton $size={size} onClick={() => setQuantity(quantity - 1)}>
+        <StepperDownButton $size={size} onClick={handleOnClickStepperDownButton}>
           &#9662;
         </StepperDownButton>
       </StepperButtonWrapper>

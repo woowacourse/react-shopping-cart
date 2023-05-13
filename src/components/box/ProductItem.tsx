@@ -8,6 +8,14 @@ import useCartList from '../../hooks/useCartList';
 const ProductItem = ({ product }: { product: Product }) => {
   const { quantity, setQuantity } = useCartList(product);
 
+  const handleOnClickToCartIcon = () => {
+    setQuantity(1);
+  };
+
+  const handleSetQuantityOnInputStepper = (value: number) => {
+    setQuantity(value);
+  };
+
   return (
     <ProductWrapper>
       <ProductImage src={product.imageUrl} alt={product.name} />
@@ -26,13 +34,13 @@ const ProductItem = ({ product }: { product: Product }) => {
             height={22}
             fill="#AAAAAA"
             style={{ transform: 'scaleX(-1)', cursor: 'pointer' }}
-            onClick={() => setQuantity(1)}
+            onClick={handleOnClickToCartIcon}
           />
         ) : (
           <InputStepper
             size="small"
             quantity={quantity}
-            setQuantity={(value) => setQuantity(value)}
+            setQuantity={handleSetQuantityOnInputStepper}
           />
         )}
       </ProductInfoWrapper>
