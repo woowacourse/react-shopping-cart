@@ -6,8 +6,11 @@ import { atom, useRecoilValue, useRecoilState } from 'recoil';
 import { Product, CartItem } from '../types';
 import { productListState } from './ProductList';
 import { useSetCart } from '../hooks/useSetCart';
-import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
-import { QUANTITY, NOT_NUMBER } from '../constants';
+import {
+  getDataFromLocalStorage,
+  setDataInLocalStorage,
+} from '../utils/getAndSetDataInLocalStorage';
+import { QUANTITY, NOT_NUMBER, KEY_CART } from '../constants';
 import CartIcon from './icons/CartIcon';
 
 interface Props {
@@ -19,7 +22,7 @@ interface Props {
 
 export const cartState = atom({
   key: 'cartState',
-  default: JSON.parse(localStorage.getItem('cart') ?? '[]'),
+  default: JSON.parse(getDataFromLocalStorage(KEY_CART) ?? '[]'),
 });
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
@@ -44,7 +47,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     const selectedProduct = initialProductList.filter((product) => product.id === id);
     setCart((prev: Product[]) => [...prev, ...selectedProduct]);
     addToCart(quantity);
-    setDataInLocalStorage<CartItem[]>('cart', cart);
+    setDataInLocalStorage<CartItem[]>(KEY_CART, cart);
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -65,7 +68,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
     addToCart(value);
-    setDataInLocalStorage<CartItem[]>('cart', cart);
+    setDataInLocalStorage<CartItem[]>(KEY_CART, cart);
   };
 
   return (

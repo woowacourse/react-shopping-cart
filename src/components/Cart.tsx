@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
+import { selector, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { cartState } from './ProductItem';
-import { selector, useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
-import { setDataInLocalStorage } from '../utils/setDataInLocalStorage';
+import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
+import { KEY_CART } from '../constants';
 
 export const cartBadgeSelector = selector({
   key: 'cartBadgeSelector',
@@ -19,7 +20,7 @@ const Cart = () => {
   const cart = useRecoilValue(cartState);
 
   useEffect(() => {
-    setDataInLocalStorage('cart', cart);
+    setDataInLocalStorage(KEY_CART, cart);
   }, [cart]);
 
   return (

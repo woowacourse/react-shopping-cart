@@ -1,3 +1,5 @@
+export const KEY_CART = 'cart';
+
 export const QUANTITY: Readonly<Record<string, string>> = {
   INITIAL: '1',
   NONE: '0',
