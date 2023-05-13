@@ -10,7 +10,7 @@ const Header = ({ title }: Props) => {
   return (
     <S.Header>
       <S.Wrapper>
-        <CartIcon width="44" height="36" fill="#FFF" />
+        <CartIcon width="44" height="36" fill="#FFF" aria-label="logo-cart-icon" />
         <span>{title}</span>
         <Cart />
       </S.Wrapper>

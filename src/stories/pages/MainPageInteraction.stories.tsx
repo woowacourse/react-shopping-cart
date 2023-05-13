@@ -30,21 +30,21 @@ export const SuccessInteraction: Story = {
     localStorage.clear();
 
     const purchaseProduct = (productOrder: number) => {
-      const allCartIcons = canvas.getAllByLabelText('cart-icon-button');
-      const selectedCartIcon = allCartIcons[productOrder];
+      const allCartIconButtons = canvas.getAllByLabelText('cart-icon-button');
+      const selectedCartIconButton = allCartIconButtons[productOrder];
 
-      expect(selectedCartIcon).toBeVisible();
+      expect(selectedCartIconButton).toBeVisible();
 
-      return selectedCartIcon;
+      return selectedCartIconButton;
     };
 
     await step('Purchase Product', async () => {
       await waitFor(() => {
         localStorage.clear();
 
-        const secondCartIcon = purchaseProduct(1);
+        const secondCartIconButton = purchaseProduct(1);
 
-        userEvent.click(secondCartIcon);
+        userEvent.click(secondCartIconButton);
       });
     });
 
@@ -69,9 +69,9 @@ export const SuccessInteraction: Story = {
       window.scrollTo({ top: 900, behavior: 'smooth' });
 
       await waitFor(() => {
-        const ninthCartIcon = purchaseProduct(7);
+        const ninthCartIconButton = purchaseProduct(7);
 
-        userEvent.click(ninthCartIcon);
+        userEvent.click(ninthCartIconButton);
       });
     });
 
