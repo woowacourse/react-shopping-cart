@@ -8,7 +8,7 @@ const StepperContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
 `;
 
 const StepperButton = styled(Button)`
