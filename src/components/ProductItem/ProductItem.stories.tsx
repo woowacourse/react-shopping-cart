@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 
-import catImage from '../../assets/cat.png';
+import catImage from '../../../public/cat0.png';
 
 import ProductItem from './ProductItem';
 
