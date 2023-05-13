@@ -33,9 +33,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof StepperButton>;
 
-export const Default: Story = {
+const createStepperButtonStory = () => ({
   render: ({ ...args }) => {
-    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(0);
+    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(
+      args.minCount
+    );
 
     return (
       <StepperButton
@@ -49,24 +51,12 @@ export const Default: Story = {
       />
     );
   },
-};
+});
+
+export const Default: Story = createStepperButtonStory();
 
 export const Interaction: Story = {
-  render: ({ ...args }) => {
-    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(0);
-
-    return (
-      <StepperButton
-        count={count}
-        minCount={args.minCount}
-        maxCount={args.maxCount}
-        step={args.step}
-        handleDecreaseCount={handleDecreaseCount}
-        handleIncreaseCount={handleIncreaseCount}
-        handleCountChange={handleCountChange}
-      />
-    );
-  },
+  ...createStepperButtonStory(),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
