@@ -22,17 +22,17 @@ const useMyCartUpdater = (
 
   const increaseValue = useCallback(() => {
     setValue((prev) => Math.min(prev + step, max));
-  }, [step, max, productId]);
+  }, [step, max, setValue]);
 
   const decreaseValue = useCallback(() => {
     setValue((prev) => Math.max(prev - step, min));
-  }, [step, min, productId]);
+  }, [step, min, setValue]);
 
   const setValueToNearestStep = useCallback((newValue: number) => {
     if (Number.isNaN(newValue) || newValue < min || newValue > max) return;
     
     setValue(Math.round(newValue / step) * step);
-  }, [step, max, min, productId]);
+  }, [step, max, min, setValue]);
 
   return {
     value,
