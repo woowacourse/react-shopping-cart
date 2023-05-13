@@ -28,12 +28,14 @@ const ItemButton = styled(Button)`
   padding: 8px;
   background-color: ${({ value, theme }) =>
     Number(value) > 0 ? theme.color.primary : theme.color.white};
+  color: ${({ value, theme }) => (Number(value) > 0 ? theme.color.white : theme.color.primary)};
   font-size: 18px;
   font-weight: normal;
   white-space: normal;
   word-wrap: break-word;
   border-radius: 45px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+  transition: all 0.1s ease-in;
 
   & > svg path {
     stroke: ${({ theme }) => theme.color.primary};
