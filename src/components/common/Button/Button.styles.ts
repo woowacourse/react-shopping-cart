@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { ButtonProps } from './Button';
 
-const getVariantStyling = (variant: ButtonProps['variant']) => {
+const getVariantStyling = (variant: Required<ButtonProps>['variant']) => {
   const style = {
     default: css`
       background-color: ${({ theme }) => theme.color.white};
@@ -60,10 +60,10 @@ const getVariantStyling = (variant: ButtonProps['variant']) => {
     `,
   };
 
-  return style[variant!];
+  return style[variant];
 };
 
-const getSizeStyling = (size: ButtonProps['size']) => {
+const getSizeStyling = (size: Required<ButtonProps>['size']) => {
   const style = {
     small: css`
       padding: 12px;
@@ -80,7 +80,7 @@ const getSizeStyling = (size: ButtonProps['size']) => {
     `,
   };
 
-  return style[size!];
+  return style[size];
 };
 
 const Button = styled.button<ButtonProps>`
@@ -92,8 +92,8 @@ const Button = styled.button<ButtonProps>`
   outline: 0 solid ${({ theme }) => theme.color.white};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  ${({ variant }) => getVariantStyling(variant)}
-  ${({ size }) => getSizeStyling(size)}
+  ${({ variant = 'default' }) => getVariantStyling(variant)}
+  ${({ size = 'medium' }) => getSizeStyling(size)}
 
   &:focus {
     outline: 1px solid ${({ theme }) => theme.color.white};
