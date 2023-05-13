@@ -2,15 +2,15 @@ import { useRecoilValue } from 'recoil';
 
 import { cartLengthSelector } from '../../recoil/myCartState';
 
-import * as Styled from './CartButton.styled';
+import { StyledCartButton, StyledCartLengthDiv } from './CartButton.styled';
 
 const CartButton = () => {
   const cartLength = useRecoilValue(cartLengthSelector);
   return (
-    <Styled.CartButton>
+    <StyledCartButton>
       <p>장바구니</p>
-      <Styled.CartLengthDiv>{cartLength}</Styled.CartLengthDiv>
-    </Styled.CartButton>
+      <StyledCartLengthDiv>{cartLength}</StyledCartLengthDiv>
+    </StyledCartButton>
   );
 };
 

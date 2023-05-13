@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StepperDiv = styled.div`
+export const StyledStepperDiv = styled.div`
   display: grid;
   grid-template:
     'a a b' 20px
@@ -8,24 +8,24 @@ export const StepperDiv = styled.div`
     /32px 32px 32px;
 `;
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
   grid-area: a;
 
   border: 1px solid #dddddd;
   text-align: center;
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   border: 1px solid #dddddd;
   color: #333333;
 
   font-size: xx-small;
 `;
 
-export const UpButton = styled(Button)`
+export const StyledUpButton = styled(StyledButton)`
   grid-area: b;
 `;
 
-export const DownButton = styled(Button)`
+export const StyledDownButton = styled(StyledButton)`
   grid-area: c;
 `;

@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom';
 
-import * as Styled from './App.styled';
+import { StyledApp } from './App.styled';
 import Header from '../Header/Header';
 
 const App = () => {
   return (
-    <Styled.App>
+    <StyledApp>
       <Header />
       <Outlet />
-    </Styled.App>
+    </StyledApp>
   );
 };
 

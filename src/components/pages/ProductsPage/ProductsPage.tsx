@@ -1,11 +1,11 @@
-import * as Styled from './ProductsPage.styled';
+import { StyledProductsPage } from './ProductsPage.styled';
 import ProductList from '../../ProductList/ProductList';
 
 const ProductsPage = () => {
   return (
-    <Styled.ProductsPage>
+    <StyledProductsPage>
       <ProductList />
-    </Styled.ProductsPage>
+    </StyledProductsPage>
   );
 };
 

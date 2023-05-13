@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
+export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,13 +18,13 @@ export const Header = styled.header`
   }
 `;
 
-export const TitleDiv = styled.div`
+export const StyledTitleDiv = styled.div`
   display: flex;
   align-items: center;
   column-gap: 28px;
 `;
 
-export const TitleHeading = styled.h1`
+export const StyledTitleHeading = styled.h1`
   display: flex;
 
   width: 145px;

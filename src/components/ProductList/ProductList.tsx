@@ -1,18 +1,18 @@
-import * as Styled from './ProductList.styled';
-import ProductItem from '../ProductItem/ProductItem';
-
 import { Product } from '../../types/Product';
 import useFetch from '../../hooks/useFetch';
+
+import { StyledProductList } from './ProductList.styled';
+import ProductItem from '../ProductItem/ProductItem';
 
 const ProductList = () => {
   const productList = useFetch<Product[]>('./mockData.json', []);
 
   return (
-    <Styled.ProductList>
+    <StyledProductList>
       {productList.map(data => (
         <ProductItem key={data.id} product={{ ...data }} />
       ))}
-    </Styled.ProductList>
+    </StyledProductList>
   );
 };
 

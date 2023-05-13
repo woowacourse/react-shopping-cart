@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CartButton = styled.button`
+export const StyledCartButton = styled.button`
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -27,7 +27,7 @@ export const CartButton = styled.button`
   }
 `;
 
-export const CartLengthDiv = styled.div`
+export const StyledCartLengthDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

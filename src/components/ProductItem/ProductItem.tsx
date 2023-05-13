@@ -1,6 +1,11 @@
 import { Product } from '../../types/Product';
 
-import * as Styled from './ProductItem.styled';
+import {
+  StyledNameParagraph,
+  StyledPriceParagraph,
+  StyledProductDetailDiv,
+  StyledProductItem,
+} from './ProductItem.styled';
 import SquareImage from '../commons/SquareImage/SquareImage';
 import ProductStepper from '../ProductStepper/ProductStepper';
 
@@ -13,18 +18,18 @@ const ProductItem = (props: ProductItemProps) => {
   const { id, name, price, imageUrl } = thisProduct;
 
   return (
-    <Styled.ProductItem>
+    <StyledProductItem>
       <SquareImage src={imageUrl} alt={name} size="xl" />
-      <Styled.ProductDetailDiv>
+      <StyledProductDetailDiv>
         <div>
-          <Styled.NameParagraph>{name}</Styled.NameParagraph>
-          <Styled.PriceParagraph>
+          <StyledNameParagraph>{name}</StyledNameParagraph>
+          <StyledPriceParagraph>
             {price.toLocaleString('ko-KR')} 원
-          </Styled.PriceParagraph>
+          </StyledPriceParagraph>
         </div>
         <ProductStepper productId={id} />
-      </Styled.ProductDetailDiv>
-    </Styled.ProductItem>
+      </StyledProductDetailDiv>
+    </StyledProductItem>
   );
 };
 

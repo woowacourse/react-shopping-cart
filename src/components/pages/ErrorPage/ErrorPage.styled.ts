@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ErrorPage = styled.div`
+export const StyledErrorPage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,7 @@ export const ErrorPage = styled.div`
   height: 100vh;
 `;
 
-export const ErrorSection = styled.section`
+export const StyledErrorSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,7 +28,7 @@ export const ErrorSection = styled.section`
   }
 `;
 
-export const HomeEntryButton = styled.button`
+export const StyledHomeEntryButton = styled.button`
   padding: 20px;
 
   color: white;

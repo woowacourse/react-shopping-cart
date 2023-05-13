@@ -1,6 +1,6 @@
 import useProductCount from '../../hooks/useProductCount';
 
-import * as Styled from './ProductStepper.styled';
+import { StyledProductStepper } from './ProductStepper.styled';
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
 import Stepper from '../commons/Stepper/Stepper';
 
@@ -13,7 +13,7 @@ const ProductStepper = (props: ProductStepperProps) => {
   const { productCount, setProductCount } = useProductCount(productId);
 
   return (
-    <Styled.ProductStepper>
+    <StyledProductStepper>
       {productCount === 0 ? (
         <StepperEntryButton onClick={() => setProductCount(prev => prev + 1)} />
       ) : (
@@ -22,7 +22,7 @@ const ProductStepper = (props: ProductStepperProps) => {
           setProductCount={setProductCount}
         />
       )}
-    </Styled.ProductStepper>
+    </StyledProductStepper>
   );
 };
 

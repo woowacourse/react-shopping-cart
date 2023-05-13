@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const App = styled.div`
+export const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
 

@@ -8,7 +8,7 @@ const sizePixelMap = {
   xl: '282px',
 };
 
-export const SquareImage = styled.img<SquareImageProps>`
+export const StyledSquareImage = styled.img<SquareImageProps>`
   width: ${props => sizePixelMap[props.size]};
   height: ${props => sizePixelMap[props.size]};
 `;

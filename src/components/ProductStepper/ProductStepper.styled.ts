@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProductStepper = styled.div`
+export const StyledProductStepper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

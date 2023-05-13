@@ -1,17 +1,22 @@
 import { LOGO } from '../../assets';
+
+import {
+  StyledHeader,
+  StyledTitleDiv,
+  StyledTitleHeading,
+} from './Header.styled';
 import CartButton from '../CartButton/CartButton';
-import * as Styled from './Header.styled';
 
 const Header = () => {
   return (
-    <Styled.Header>
-      <Styled.TitleDiv>
+    <StyledHeader>
+      <StyledTitleDiv>
         <LOGO />
-        <Styled.TitleHeading>SHOP</Styled.TitleHeading>
-      </Styled.TitleDiv>
+        <StyledTitleHeading>SHOP</StyledTitleHeading>
+      </StyledTitleDiv>
 
       <CartButton />
-    </Styled.Header>
+    </StyledHeader>
   );
 };
 

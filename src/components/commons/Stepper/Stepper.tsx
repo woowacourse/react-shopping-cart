@@ -1,6 +1,11 @@
 import { ChangeEvent } from 'react';
 
-import * as Styled from './Stepper.styled';
+import {
+  StyledDownButton,
+  StyledInput,
+  StyledStepperDiv,
+  StyledUpButton,
+} from './Stepper.styled';
 
 interface StepperProps {
   productCount: number;
@@ -21,8 +26,8 @@ const Stepper = (props: StepperProps) => {
   };
 
   return (
-    <Styled.StepperDiv>
-      <Styled.Input
+    <StyledStepperDiv>
+      <StyledInput
         type="text"
         role="textbox"
         inputMode="numeric"
@@ -30,21 +35,21 @@ const Stepper = (props: StepperProps) => {
         onChange={handleNumberInput}
         aria-label="상품 개수 입력"
       />
-      <Styled.UpButton
+      <StyledUpButton
         type="button"
         onClick={() => setProductCount(productCount + 1)}
         aria-label="상품 1개 추가"
       >
         ▲
-      </Styled.UpButton>
-      <Styled.DownButton
+      </StyledUpButton>
+      <StyledDownButton
         type="button"
         onClick={() => setProductCount(productCount - 1)}
         aria-label="상품 1개 삭제"
       >
         ▼
-      </Styled.DownButton>
-    </Styled.StepperDiv>
+      </StyledDownButton>
+    </StyledStepperDiv>
   );
 };
 
