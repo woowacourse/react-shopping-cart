@@ -60,4 +60,8 @@ module.exports = {
 
     new ForkTsCheckerWebpackPlugin(),
   ],
+
+  devServer: {
+    historyApiFallback: true,
+  },
 };
