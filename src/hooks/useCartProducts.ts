@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { cartProductState } from '../states/cartProductState';
+import {
+  cartProductState,
+  targetCartProductState,
+} from '../states/cartProductState';
 import type { CartProduct, Product } from '../types/product';
 
 const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
@@ -12,7 +15,8 @@ const deleteProduct = (cartProducts: CartProduct[], id: number) =>
 
 const useCartProducts = (product: Product) => {
   const { id } = product;
-  const [cartProducts, setCartProducts] = useRecoilState(cartProductState);
+  const setCartProducts = useSetRecoilState(cartProductState);
+  const targetProduct = useRecoilValue(targetCartProductState(id));
 
   const addProduct = () => {
     setCartProducts((prev) => [
@@ -21,17 +25,15 @@ const useCartProducts = (product: Product) => {
     ]);
   };
 
-  const target = findTargetProduct(cartProducts, id);
-
   useEffect(() => {
-    if (!target) return;
+    if (!targetProduct) return;
 
-    if (target.quantity === 0) {
+    if (targetProduct.quantity === 0) {
       setCartProducts((prev) => deleteProduct(prev, id));
     }
-  }, [id, setCartProducts, target]);
+  }, [id, setCartProducts, targetProduct]);
 
-  return { target, addProduct };
+  return { targetProduct, addProduct };
 };
 
 export default useCartProducts;
