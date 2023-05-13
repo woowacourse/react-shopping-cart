@@ -29,13 +29,9 @@ const useMyCartUpdater = (
   }, [step, min, productId]);
 
   const setValueToNearestStep = useCallback((newValue: number) => {
-    if (Number.isNaN(newValue)) return;
-
-    const normalizedValue = Math.round(newValue / step) * step;
-    const topLimitedValue = Math.min(normalizedValue, max);
-    const bottomLimitedValue = Math.max(topLimitedValue, min);
-
-    setValue(bottomLimitedValue);
+    if (Number.isNaN(newValue) || newValue < min || newValue > max) return;
+    
+    setValue(Math.round(newValue / step) * step);
   }, [step, max, min, productId]);
 
   return {
