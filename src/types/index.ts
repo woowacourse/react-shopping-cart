@@ -12,7 +12,7 @@ interface ProductItemData {
 interface CartItemData {
   id: number;
   quantity: number;
-  product: ProductItemData;
+  productId: ProductItemData['id'];
 }
 
 export type { Required, ProductItemData, CartItemData };

@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { DEFAULT_MIN_COUNT } from '../../constants';
+import { useCart } from '../../hooks/useCart';
 import { useCount } from '../../hooks/useCount';
-import { cartAdditionState, cartListState } from '../../store/cart';
 import { ProductItemData } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import Button from '../common/Button/Button';
@@ -17,8 +16,7 @@ interface ProductAdditionProps {
 }
 
 const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditionProps) => {
-  const [cartList, setCartList] = useRecoilState(cartListState);
-  const setCartAddition = useSetRecoilState(cartAdditionState);
+  const { setCartItemQuantity } = useCart();
   const {
     count: quantity,
     handleDecreaseCount,
@@ -27,31 +25,9 @@ const ProductAddition = ({ productInformation, handleModalClose }: ProductAdditi
   } = useCount(DEFAULT_MIN_COUNT);
 
   const handleCartAdd = useCallback(() => {
-    const compareProductId = productInformation.id;
-    const selectedCartItemIndex = cartList.findIndex(
-      (cartItem) => cartItem.product.id === compareProductId
-    );
-
-    if (selectedCartItemIndex === -1) {
-      const newCartId = Number(new Date());
-      const newCartItem = {
-        id: newCartId,
-        quantity,
-        product: productInformation,
-      };
-      setCartList([...cartList, newCartItem]);
-    } else {
-      const updatedCartList = [...cartList];
-      updatedCartList[selectedCartItemIndex] = {
-        ...updatedCartList[selectedCartItemIndex],
-        quantity: updatedCartList[selectedCartItemIndex].quantity + quantity,
-      };
-      setCartList(updatedCartList);
-      setCartAddition(true);
-    }
-
+    setCartItemQuantity(productInformation.id, quantity);
     handleModalClose();
-  }, [cartList, handleModalClose, productInformation, quantity, setCartList, setCartAddition]);
+  }, [handleModalClose, productInformation.id, quantity, setCartItemQuantity]);
 
   return (
     <S.ProductAdditionContainer>
