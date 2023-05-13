@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
 import { useSetFetchedData } from '../hooks/useSetFetchedData';
 import { Product } from '../types';
-import { MOCK_DATA_URL } from '../constants/url';
+import { PRODUCT_LIST_URL } from '../constants/url';
 
 export const productListState = atom<Product[]>({
   key: 'productListState',
@@ -13,9 +13,7 @@ export const productListState = atom<Product[]>({
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  const productListUrl = process.env.PUBLIC_URL + MOCK_DATA_URL;
-
-  useSetFetchedData<Product[]>(productListUrl, setProductList);
+  useSetFetchedData<Product[]>(PRODUCT_LIST_URL, setProductList);
 
   return (
     <S.Wrapper>
