@@ -14,7 +14,7 @@ export const PageRouterProvider = () => {
       path: ROUTER_PATH.Main,
       element: <Main />,
     },
-    { path: ROUTER_PATH.NotFound, element: <NotFound /> },
+    { path: ROUTER_PATH.NotFound, errorElement: <NotFound /> },
   ]);
   return <RouterProvider router={router} />;
 };
