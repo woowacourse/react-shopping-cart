@@ -4,16 +4,16 @@ import * as S from './style';
 
 type UserShoppingCartBadgeProps = {
   username?: string;
-  quantity: number;
+  shoppingCartAmount: string;
 };
 
-function UserShoppingCartBadge({ username, quantity }: UserShoppingCartBadgeProps) {
+function UserShoppingCartBadge({ username, shoppingCartAmount }: UserShoppingCartBadgeProps) {
   return (
     <S.Container>
       <S.Username>{username && `${username}의 `}장바구니</S.Username>
-      <S.Quantity isEmpty={quantity === 0}>
-        {quantity > SHOPPING_QUANTITY.MAX ? `${SHOPPING_QUANTITY.MAX}+` : quantity}
-      </S.Quantity>
+      <S.ShoppingCartAmount isEmpty={shoppingCartAmount === String(SHOPPING_QUANTITY.MIN)}>
+        {shoppingCartAmount}
+      </S.ShoppingCartAmount>
     </S.Container>
   );
 }

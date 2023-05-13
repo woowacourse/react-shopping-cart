@@ -23,7 +23,7 @@ type Story = StoryObj<typeof UserShoppingCartBadgeProps>;
 
 export const DefaultUserShoppingCartBadgeProps: Story = {
   args: {
-    quantity: 3,
+    shoppingCartAmount: '3',
   },
 };
 
@@ -33,7 +33,7 @@ export const DefaultUserShoppingCartBadgeProps: Story = {
 export const LoginUserShoppingCartBadgeProps: Story = {
   args: {
     username: '다크론',
-    quantity: 3,
+    shoppingCartAmount: '3',
   },
 };
 
@@ -42,7 +42,7 @@ export const LoginUserShoppingCartBadgeProps: Story = {
  */
 export const ZeroSummaryShoppingCart: Story = {
   args: {
-    quantity: 0,
+    shoppingCartAmount: '0',
   },
 };
 
@@ -51,7 +51,7 @@ export const ZeroSummaryShoppingCart: Story = {
  */
 export const OneSummaryShoppingCart: Story = {
   args: {
-    quantity: 1,
+    shoppingCartAmount: '1',
   },
 };
 
@@ -60,6 +60,6 @@ export const OneSummaryShoppingCart: Story = {
  */
 export const AboveTheUpperLimitSummaryShoppingCart: Story = {
   args: {
-    quantity: 100,
+    shoppingCartAmount: '99+',
   },
 };
