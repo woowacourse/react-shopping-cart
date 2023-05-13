@@ -6,13 +6,14 @@ import { fetchData } from '../utils/fetchData';
 import { Product } from '../types';
 import { MOCK_DATA_URL } from '../constants/url';
 
-export const productListState = atom({
+export const productListState = atom<Product[]>({
   key: 'productListState',
-  default: [] as Product[],
+  default: [],
 });
 
 const ProductList = () => {
-  const [productList, setProductList] = useRecoilState<Product[]>(productListState);
+  const [productList, setProductList] =
+    useRecoilState<Product[]>(productListState);
 
   const productData = process.env.PUBLIC_URL + MOCK_DATA_URL;
 
