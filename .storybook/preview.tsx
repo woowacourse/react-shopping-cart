@@ -1,7 +1,10 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../src/GlobalStyle';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 import type { Preview } from '@storybook/react';
+
+initialize();
 
 const preview: Preview = {
   parameters: {
@@ -22,6 +25,7 @@ export const decorators = [
       <Story />
     </RecoilRoot>
   ),
+  mswDecorator,
 ];
 
 export default preview;
