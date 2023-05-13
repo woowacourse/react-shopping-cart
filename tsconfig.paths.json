@@ -10,7 +10,8 @@
       "@Pages/*": ["./pages/*"],
       "@Types/*": ["./types/*"],
       "@Asset/*": ["./assets/*"],
-      "@Styles/*": ["./styles/*"]
+      "@Styles/*": ["./styles/*"],
+      "@Animations/*": ["./animations/*"]
     }
   }
 }

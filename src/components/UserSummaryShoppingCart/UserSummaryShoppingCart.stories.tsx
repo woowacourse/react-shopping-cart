@@ -1,15 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import styled from 'styled-components';
 
 import UserSummaryShoppingCart from '.';
 
+const Layout = styled.div`
+  background-color: #333333;
+  padding: 20px;
+`;
+
 /**
  * `UserSummaryShoppingCart`은 사용자의 장바구니 내 물품종류의 수량을 나타내는 컴포넌트입니다.
- *
- * 기본 색상이 white이므로 Dark 모드로 변경하여 해당 스토리를 보시는 것을 추천합니다.
  */
 const meta: Meta<typeof UserSummaryShoppingCart> = {
   title: 'UserSummaryShoppingCart',
   component: UserSummaryShoppingCart,
+  decorators: [(storyFn) => <Layout>{storyFn()}</Layout>],
 };
 
 export default meta;
@@ -38,6 +43,15 @@ export const LoginUserSummaryShoppingCart: Story = {
 export const ZeroSummaryShoppingCart: Story = {
   args: {
     quantity: 0,
+  },
+};
+
+/**
+ * 장바구니에 담긴 물품이 하나일 때의 스토리입니다.
+ */
+export const OneSummaryShoppingCart: Story = {
+  args: {
+    quantity: 1,
   },
 };
 

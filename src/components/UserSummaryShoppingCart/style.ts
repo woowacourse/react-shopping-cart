@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { appearAnimation, disappearAnimation } from '@Animations/index';
+
 export const Container = styled.div`
   display: flex;
   align-items: center;
@@ -10,7 +12,11 @@ export const Username = styled.div`
   color: #ffffff;
 `;
 
-export const Quantity = styled.div`
+type QuantityProps = {
+  isEmpty: boolean;
+};
+
+export const Quantity = styled.div<QuantityProps>`
   background-color: #06c09e;
   color: #ffffff;
 
@@ -28,13 +34,8 @@ export const Quantity = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
 
-export const PlusIcon = styled.span`
-  position: relative;
-  bottom: 9px;
-  right: 1px;
-
-  color: #ffffff;
-  font-weight: 700;
+  opacity: ${(props) => props.isEmpty && '0'};
+  animation: ${(props) => (props.isEmpty ? disappearAnimation : appearAnimation)} 0.3s ease forwards;
+  transition: opacity 0.3s ease;
 `;
