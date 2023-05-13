@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as ShoppingCartImg } from '../../assets/icon/shopping-cart.svg';
 import { cartAtom, cartAtomState } from '../../recoil/cartState';
 import { Product } from '../../types/product';
-import Counter from '../Counter/Counter';
+import Counter from '../common/Counter/Counter';
 import ProductImg from './ProductImg/ProductImg';
 import ProductInfo from './ProductInfo/ProductInfo';
 
