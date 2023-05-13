@@ -19,7 +19,7 @@ const ProductStepper = (props: ProductStepperProps) => {
     <Styled.ProductStepper>
       {
         value
-        ? <Stepper productId={productId} />
+        ? <Stepper productId={productId} min={0} max={99} step={1} />
         : <StepperEntryButton onClick={increaseValue} />
       }
     </Styled.ProductStepper>

@@ -4,17 +4,20 @@ import * as Styled from './Stepper.styled';
 
 interface StepperProps {
   productId: number;
+  min: number;
+  max: number;
+  step: number;
 }
 
 const Stepper = (props: StepperProps) => {
-  const { productId } = props;
+  const { productId, min, max, step } = props;
 
   const {
     value,
     increaseValue,
     decreaseValue,
     setValue,
-  } = useMyCartUpdater(productId, { min: 0, max: 99, step: 1 });
+  } = useMyCartUpdater(productId, { min, max, step });
 
   return (
     <Styled.StepperDiv>
