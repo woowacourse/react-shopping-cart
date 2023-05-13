@@ -50,15 +50,6 @@ export const LongNameProductItem: Story = {
 };
 
 /**
- * 상품이 로딩 될 때 나타나는 스켈레톤 스토리입니다.
- */
-export const SkeletonProductItem: Story = {
-  args: {
-    isLoading: true,
-  },
-};
-
-/**
  * 상품의 카트 이미지를 누르면 구매 수량이 1이 되는 인터렉션 스토리입니다.
  */
 export const InteractionProductItem: Story = {
