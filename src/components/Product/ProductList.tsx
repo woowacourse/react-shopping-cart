@@ -2,13 +2,10 @@ import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
 
-import useCartProductUpdate from '../../hooks/useCartProductUpdate';
 import useProducts from '../../hooks/useProducts';
 
 const ProductList = () => {
   const products = useProducts();
-
-  useCartProductUpdate();
 
   return (
     <ProductListContainer>
