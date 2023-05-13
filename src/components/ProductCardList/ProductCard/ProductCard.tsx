@@ -1,4 +1,5 @@
 import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
+import productThumbnail from 'assets/product-thumbnail.png';
 import FlexBox from 'components/@common/FlexBox';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -60,10 +61,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
     closeQuantityStepper();
   };
 
+  const renderDefaultThumbnail: React.ReactEventHandler<HTMLImageElement> = (e) => {
+    e.currentTarget.src = productThumbnail;
+  };
+
   return (
     <FlexBox flexDirection="column" justify="flex-start" gap="8px" role="list">
       <ProductImgContainer>
-        <ProductImage src={imageUrl} />
+        <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
         {isAddCartButtonActive ? (
           <QuantityStepper tabIndex={0} onBlur={handleCloseStepperOnBlur}>
             <DecreaseButton onClick={decreaseQuantity}>-</DecreaseButton>
