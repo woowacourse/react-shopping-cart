@@ -8,6 +8,8 @@
 <br>
 
 <p align="middle" >
+  <img src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/9876415b-1c43-41c1-9885-ac9585aabf5b" alt="장바구니 앱 이용 과정 예시" >
+  <img src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/fe945777-cf77-4cf7-9639-6dba586aa6bc" alt="장바구니 앱 스크린샷 (반응형)" >
 </p>
 
 <br>
