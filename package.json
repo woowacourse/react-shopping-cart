@@ -1,5 +1,5 @@
 {
-  "homepage": ".",
+  "homepage": "https://chsua.github.io/react-shopping-cart",
   "name": "my",
   "version": "0.1.0",
   "private": true,
@@ -12,7 +12,8 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "recoil": "^0.7.7"
   },
   "scripts": {
     "start": "craco start",
@@ -82,7 +83,6 @@
     "prettier": "^2.8.8",
     "prop-types": "^15.8.1",
     "react-app-alias": "^2.2.2",
-    "recoil": "^0.7.7",
     "storybook": "^7.0.9",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "webpack": "^5.82.0"
