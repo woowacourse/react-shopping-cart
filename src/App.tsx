@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import Check from '@/components/Check';
 
 function App() {
-  return <StyledAppTest>hi</StyledAppTest>;
+  return (
+    <StyledAppTest>
+      <Check />
+    </StyledAppTest>
+  );
 }
 
 const StyledAppTest = styled.div`
-  border: 1px solid red;
   font-size: 20px;
-  background: green;
 `;
 
 export default App;

@@ -16,7 +16,10 @@
     "target": "es5", // ts파일 변환 시 어떤 버전의 js로
     "module": "esnext", // import 문법을 어떻게 할 것이냐
     "moduleResolution": "node",
-
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
     // lib옵션은 컴파일에 필요한 JAVAScrtip 내장 라이브러리를 지정할 수 있다.
     // 이 프로퍼티가 지정되어 있지 않다면 'target' 프로퍼티에 지정된 버전에 따라 필요한 타입 정의들에 대한 정보가 자동 지정된다.
     // target이 es3 -> lib.d.ts 사용

@@ -6,6 +6,15 @@
     ],
     "@babel/react"
   ],
+  "plugins": [
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathPrefix": "@",
+        "rootPathSuffix": "src"
+      }
+    ]
+  ],
   "env": {
     "development": {
       "plugins": ["babel-plugin-styled-components"]
