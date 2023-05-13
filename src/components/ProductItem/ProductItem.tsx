@@ -46,7 +46,7 @@ const ProductItem = ({ information }: ProductItemProps) => {
           </Modal>
         )}
       </S.ProductItemContainer>
-      {isAdded && <Toast status="success">장바구니에 상품을 추가했습니다.</Toast>}
+      {isAdded && <Toast>장바구니에 상품을 추가했습니다.</Toast>}
     </>
   );
 };

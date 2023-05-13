@@ -5,10 +5,10 @@ import { TOAST_SHOW_DURATION } from '../../../constants';
 import * as S from './Toast.styles';
 
 export interface ToastProps extends PropsWithChildren {
-  status: 'success' | 'error';
+  status?: 'success' | 'error';
 }
 
-const Toast = ({ status, children }: ToastProps) => {
+const Toast = ({ status = 'success', children }: ToastProps) => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
