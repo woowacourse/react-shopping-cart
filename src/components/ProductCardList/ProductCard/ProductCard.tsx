@@ -12,9 +12,9 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [cart, setCart] = useRecoilState(cartState);
+  const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
   const { id, price, name, imageUrl } = product;
   const targetCartProduct = useRecoilValue(getCartProductById(id));
-  const [isAddCartButtonActive, setIsAddCartButtonActive] = useState(false);
   const isProductAlreadyExistInCart = !!targetCartProduct;
 
   const openQuantityStepper = () => {
