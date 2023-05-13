@@ -9,21 +9,14 @@ const useCartProductUpdate = () => {
   const [storedCartProducts, setStoredCartProducts] = useCartProductStorage();
 
   useEffect(() => {
+    setCartProducts(storedCartProducts);
+  }, []);
+
+  useEffect(() => {
     if (cartProducts.length >= 0) {
       setStoredCartProducts(cartProducts);
     }
   }, [cartProducts, setStoredCartProducts]);
-
-  useEffect(() => {
-    if (cartProducts.length > 0) return;
-
-    if (
-      storedCartProducts.length > 0 &&
-      storedCartProducts.length !== cartProducts.length
-    ) {
-      setCartProducts(storedCartProducts);
-    }
-  }, []);
 };
 
 export default useCartProductUpdate;
