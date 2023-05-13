@@ -1,8 +1,13 @@
 import { ImageSkeletonStyle, TextSkeletonStyle } from '@Styles/common/skeleton';
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  min-width: 100%;
+type ContainerProps = {
+  width?: string;
+};
+
+export const Container = styled.div<ContainerProps>`
+  max-width: ${(props) => (props.width ? props.width : '100%')};
+  min-width: ${(props) => (props.width ? props.width : '100%')};
   display: flex;
   flex-direction: column;
 `;

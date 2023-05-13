@@ -16,14 +16,15 @@ type ProductItemProps = {
     imageUrl: string;
   };
   isLoading: boolean;
+  width?: string;
 };
 
-function ProductItem({ product, isLoading }: ProductItemProps) {
+function ProductItem({ product, isLoading, width }: ProductItemProps) {
   const { updateShoppingCart } = useShoppingCart();
   const quantity = product && useRecoilValue(quantityState(product.id));
 
   return (
-    <S.Container aria-label={isLoading ? '하나의 판매 품목 정보 로딩 중' : '하나의 판매 품목 정보'}>
+    <S.Container aria-label={isLoading ? '하나의 판매 품목 정보 로딩 중' : '하나의 판매 품목 정보'} width={width}>
       <S.ProductItemImage src={product && product.imageUrl} alt={product && product.name}></S.ProductItemImage>
       <S.ProductItemContents>
         <S.ProductItemLayout>
