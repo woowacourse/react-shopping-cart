@@ -62,7 +62,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
         {isSelected ? (
           <QuantityInput value={quantity} onChange={handleNumberInputChange} />
         ) : (
-          <CartIcon svgStyle={svgStyle} onClick={handleCartClick} />
+          <CartIcon css={svgStyle} onClick={handleCartClick} />
         )}
       </S.InfoWrapper>
     </div>

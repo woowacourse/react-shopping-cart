@@ -2,7 +2,7 @@ import Icon from '../common/Icon';
 import { IconProps } from '../../types';
 import { CART_PATH } from '../../constants/svgPath';
 
-const CartIcon = ({ svgStyle, ...props }: IconProps) => {
+const CartIcon = ({ css, ...props }: IconProps) => {
   return (
     <Icon
       width="30"
@@ -11,7 +11,7 @@ const CartIcon = ({ svgStyle, ...props }: IconProps) => {
       path={CART_PATH}
       viewBox="0 0 51 44"
       aria-label="cart-icon-button"
-      svgStyle={svgStyle}
+      css={css}
       {...props}
     />
   );

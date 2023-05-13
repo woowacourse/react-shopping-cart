@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { CSSProp } from 'styled-components';
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
-  svgStyle?: CSSProp;
+  css?: CSSProp;
 }
 
 export interface Product {

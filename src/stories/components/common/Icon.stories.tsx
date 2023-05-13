@@ -32,7 +32,7 @@ export const Cart: Story = {
     fill: '#AAA',
     path: CART_PATH,
     viewBox: '0 0 51 44',
-    svgStyle: mirrorReversal,
+    css: mirrorReversal,
   },
 
   argTypes: {
@@ -64,7 +64,7 @@ export const Cart: Story = {
       description:
         'view-box는 아이콘이 보여지는 영역에서, 아이콘의 크기를 확대 또는 축소 그리고 위치를 조정할 수 있는 속성입니다.<br>(일종의 좌표 평면이라고 할 수 있다.)<br> 네 개의 숫자는 각각 view-box의 `min-x`(아이콘이 그려지는 영역의 시작점), `min-y`(왼쪽 상단의 꼭짓점), `width`, `height`을 의미합니다.',
     },
-    svgStyle: {
+    css: {
       options: {
         원본: '',
         '좌우 반전': mirrorReversal,
@@ -123,7 +123,7 @@ export const HeaderCart: Story = {
         type: 'radio',
       },
     },
-    svgStyle: {
+    css: {
       control: {
         disable: true,
       },

@@ -1,17 +1,17 @@
 import { CSSProp, styled } from 'styled-components';
 import { IconProps } from '../../types';
 
-const Icon = ({ svgStyle, ...props }: IconProps) => {
+const Icon = ({ css, ...props }: IconProps) => {
   return (
-    <S.Svg {...props} styled={svgStyle}>
+    <S.Svg {...props} css={css}>
       <path d={props.path} />
     </S.Svg>
   );
 };
 
 const S = {
-  Svg: styled.svg<{ styled?: CSSProp }>`
-    ${(props) => props.styled}
+  Svg: styled.svg<{ css?: CSSProp }>`
+    ${(props) => props.css}
   `,
 };
 
