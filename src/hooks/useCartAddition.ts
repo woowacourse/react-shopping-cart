@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilCallback } from 'recoil';
 
+import { TOAST_SHOW_DURATION } from '../constants';
 import { cartListState } from '../store/cart';
 import { ProductItemData } from '../types';
 
@@ -14,7 +15,7 @@ const useCartAddition = (productId: ProductItemData['id']) => {
 
       timeout.current = setTimeout(() => {
         setIsAdded(false);
-      }, 2000);
+      }, TOAST_SHOW_DURATION);
     }
   }, [isAdded]);
 
