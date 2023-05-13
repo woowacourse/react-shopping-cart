@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import styled from 'styled-components';
 
-import UserSummaryShoppingCart from '.';
+import UserShoppingCartBadgeProps from '.';
 
 const Layout = styled.div`
   background-color: #333333;
@@ -9,19 +9,19 @@ const Layout = styled.div`
 `;
 
 /**
- * `UserSummaryShoppingCart`은 사용자의 장바구니 내 물품종류의 수량을 나타내는 컴포넌트입니다.
+ * `UserShoppingCartBadgeProps`은 사용자의 장바구니 내 물품종류의 수량을 나타내는 컴포넌트입니다.
  */
-const meta: Meta<typeof UserSummaryShoppingCart> = {
-  title: 'UserSummaryShoppingCart',
-  component: UserSummaryShoppingCart,
+const meta: Meta<typeof UserShoppingCartBadgeProps> = {
+  title: 'UserShoppingCartBadgeProps',
+  component: UserShoppingCartBadgeProps,
   decorators: [(storyFn) => <Layout>{storyFn()}</Layout>],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof UserSummaryShoppingCart>;
+type Story = StoryObj<typeof UserShoppingCartBadgeProps>;
 
-export const DefaultUserSummaryShoppingCart: Story = {
+export const DefaultUserShoppingCartBadgeProps: Story = {
   args: {
     quantity: 3,
   },
@@ -30,7 +30,7 @@ export const DefaultUserSummaryShoppingCart: Story = {
 /**
  * 로그인이 된 이후의 모습을 나타낸 스토리입니다.
  */
-export const LoginUserSummaryShoppingCart: Story = {
+export const LoginUserShoppingCartBadgeProps: Story = {
   args: {
     username: '다크론',
     quantity: 3,

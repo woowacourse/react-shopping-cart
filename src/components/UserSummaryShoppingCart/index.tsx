@@ -2,12 +2,12 @@ import { SHOPPING_QUANTITY } from '@Constants/index';
 
 import * as S from './style';
 
-type UserSummaryShoppingCartProps = {
+type UserShoppingCartBadgeProps = {
   username?: string;
   quantity: number;
 };
 
-function UserSummaryShoppingCart({ username, quantity }: UserSummaryShoppingCartProps) {
+function UserShoppingCartBadge({ username, quantity }: UserShoppingCartBadgeProps) {
   return (
     <S.Container>
       <S.Username>{username && `${username}의 `}장바구니</S.Username>
@@ -18,4 +18,4 @@ function UserSummaryShoppingCart({ username, quantity }: UserSummaryShoppingCart
   );
 }
 
-export default UserSummaryShoppingCart;
+export default UserShoppingCartBadge;
