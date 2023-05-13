@@ -8,10 +8,11 @@ export const useSetCart = (id: number) => {
   const selectedProduct = useRecoilValue(productSelector(id));
 
   const findCartItemIndex = (prev: CartItem[]) => {
-    const cartItemIndex = prev.findIndex((item) => item.id === id);
     const cart = [...prev];
+    const cartItemIndex = prev.findIndex((item) => item.id === id);
+    const alreadyHasCartItem = cartItemIndex >= FIRST_INDEX;
 
-    return { cartItemIndex, cart };
+    return { cart, cartItemIndex, alreadyHasCartItem };
   };
 
   const removeProduct = (cart: CartItem[], cartItemIndex: number) => {
@@ -33,11 +34,10 @@ export const useSetCart = (id: number) => {
 
   const addToCart = (value: string) => {
     setCart((prev: CartItem[]) => {
-      const { cartItemIndex, cart } = findCartItemIndex(prev);
+      const { cart, cartItemIndex, alreadyHasCartItem } = findCartItemIndex(prev);
 
       if (value === '') return removeProduct(cart, cartItemIndex);
 
-      const alreadyHasCartItem = cartItemIndex >= FIRST_INDEX;
       if (alreadyHasCartItem) {
         const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
         cart[cartItemIndex] = updatedItem;
@@ -51,9 +51,9 @@ export const useSetCart = (id: number) => {
 
   const removeItemFromCart = () => {
     setCart((prev: CartItem[]) => {
-      const { cartItemIndex, cart } = findCartItemIndex(prev);
+      const { cart, cartItemIndex, alreadyHasCartItem } = findCartItemIndex(prev);
 
-      if (cartItemIndex >= FIRST_INDEX) return removeProduct(cart, cartItemIndex);
+      if (alreadyHasCartItem) return removeProduct(cart, cartItemIndex);
 
       return prev;
     });
