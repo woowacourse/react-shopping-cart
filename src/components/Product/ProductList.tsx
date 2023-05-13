@@ -1,23 +1,12 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ProductItem from './ProductItem';
 
-import { fetchProducts } from '../../apis/products';
-import type { Product } from '../../types/product';
 import useCartProductUpdate from '../../hooks/useCartProductUpdate';
+import useProducts from '../../hooks/useProducts';
 
 const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await fetchProducts();
-      setProducts(data);
-    };
-
-    getProducts();
-  }, []);
+  const products = useProducts();
 
   useCartProductUpdate();
 
