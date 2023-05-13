@@ -1,14 +1,13 @@
 import { useState, ChangeEventHandler, useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import { cartState, productListState } from '../recoil';
+import { cartState } from '../recoil';
 import CartIcon from './icons/CartIcon';
 import { useSetCart } from '../hooks/useCart';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
-import { Product, CartItem } from '../types';
-import { QUANTITY, NOT_NUMBER, KEY_CART } from '../constants';
+import { CartItem } from '../types';
+import { QUANTITY, NOT_NUMBER } from '../constants';
 
 interface Props {
   id: number;
@@ -18,10 +17,9 @@ interface Props {
 }
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const cart = useRecoilValue(cartState);
   const { addToCart, removeProductItemFromCart } = useSetCart(id);
   const [isSelected, setIsSelected] = useState(false);
-  const initialProductList = useRecoilValue<Product[]>(productListState);
 
   const [quantity, setQuantity] = useState(
     cart.filter((item: CartItem) => item.id === id).length
@@ -30,16 +28,13 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   );
 
   useEffect(() => {
-    if (cart.filter((product: CartItem) => product.id === id).length) setIsSelected(true);
+    if (cart.find((product: CartItem) => product.id === id)) setIsSelected(true);
   }, [cart, id]);
 
   const handleCartClick = () => {
     setIsSelected(true);
 
-    const selectedProduct = initialProductList.filter((product) => product.id === id);
-    setCart((prev: Product[]) => [...prev, ...selectedProduct]);
-    addToCart(quantity);
-    setDataInLocalStorage<CartItem[]>(KEY_CART, cart);
+    addToCart(QUANTITY.INITIAL);
   };
 
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -50,17 +45,11 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
 
       removeProductItemFromCart();
 
-      const removeProductFromCart = (prev: Product[]) => {
-        return prev.filter((product) => product.id !== id);
-      };
-      setCart((prev: Product[]) => removeProductFromCart(prev));
-
       return setQuantity(QUANTITY.INITIAL);
     }
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
     addToCart(value);
-    setDataInLocalStorage<CartItem[]>(KEY_CART, cart);
   };
 
   return (

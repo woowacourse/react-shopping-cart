@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { getDataFromLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 import { KEY_CART } from '../constants';
 import { Product } from '../types';
@@ -6,6 +6,18 @@ import { Product } from '../types';
 export const productListState = atom<Product[]>({
   key: 'productListState',
   default: [],
+});
+
+export const productSelector = selectorFamily({
+  key: 'productSelector',
+  get:
+    (id) =>
+    ({ get }) => {
+      const productList = get(productListState);
+      const selectedProduct = productList.find((product) => product.id === id);
+
+      return selectedProduct;
+    },
 });
 
 export const cartState = atom({

@@ -7,7 +7,7 @@ import { Product } from '../types';
 import { PRODUCT_LIST_URL } from '../constants/url';
 
 const ProductList = () => {
-  const [productList, setProductList] = useRecoilState<Product[]>(productListState);
+  const [productList, setProductList] = useRecoilState(productListState);
 
   useSetFetchedData<Product[]>(PRODUCT_LIST_URL, setProductList);
 
