@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
-import { fetchData } from '../utils/fetchData';
+import { useSetFetchedData } from '../hooks/useSetFetchedData';
 import { Product } from '../types';
 import { MOCK_DATA_URL } from '../constants/url';
 
@@ -14,11 +13,9 @@ export const productListState = atom<Product[]>({
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);
 
-  const productData = process.env.PUBLIC_URL + MOCK_DATA_URL;
+  const productListUrl = process.env.PUBLIC_URL + MOCK_DATA_URL;
 
-  useEffect(() => {
-    fetchData<Product[]>(productData, setProductList);
-  }, [productData, setProductList]);
+  useSetFetchedData<Product[]>(productListUrl, setProductList);
 
   return (
     <S.Wrapper>
