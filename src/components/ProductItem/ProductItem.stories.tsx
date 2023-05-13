@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 
 import catImage from '../../../public/cat0.png';
 
@@ -13,14 +12,6 @@ const meta: Meta<typeof ProductItem> = {
   title: 'ProductItem',
   component: ProductItem,
   tags: ['autodocs'],
-
-  decorators: [
-    Story => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 };
 
 export default meta;

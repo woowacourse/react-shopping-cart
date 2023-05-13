@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import ProductList from './ProductList';
 import { cartLengthSelector } from '../../recoil/myCartState';
@@ -12,14 +12,6 @@ const meta: Meta<typeof ProductList> = {
   title: 'ProductList',
   component: ProductList,
   tags: ['autodocs'],
-
-  decorators: [
-    Story => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 };
 
 export default meta;

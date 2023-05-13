@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 
 import Header from './Header';
 
@@ -11,14 +10,6 @@ const meta: Meta<typeof Header> = {
   title: 'Header',
   component: Header,
   tags: ['autodocs'],
-
-  decorators: [
-    Story => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 };
 
 export default meta;

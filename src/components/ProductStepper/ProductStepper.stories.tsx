@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RecoilRoot } from 'recoil';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
@@ -13,14 +12,6 @@ const meta: Meta<typeof ProductStepper> = {
   title: 'ProductStepper',
   component: ProductStepper,
   tags: ['autodocs'],
-
-  decorators: [
-    Story => (
-      <RecoilRoot>
-        <Story />
-      </RecoilRoot>
-    ),
-  ],
 };
 
 export default meta;

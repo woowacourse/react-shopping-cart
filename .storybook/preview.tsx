@@ -1,7 +1,9 @@
+import React from 'react';
+import { RecoilRoot } from 'recoil';
 import type { Preview } from '@storybook/react';
-import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 
 import GlobalStyles from '../src/GlobalStyles';
+// import { withThemeFromJSXProvider } from '@storybook/addon-styling';
 
 const preview: Preview = {
   parameters: {
@@ -13,7 +15,15 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [withThemeFromJSXProvider({ GlobalStyles })],
+  // decorators: [withThemeFromJSXProvider({ GlobalStyles })],
+  decorators: [
+    Story => (
+      <RecoilRoot>
+        <GlobalStyles />
+        <Story />
+      </RecoilRoot>
+    ),
+  ],
 };
 
 export default preview;
