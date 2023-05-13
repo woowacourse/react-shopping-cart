@@ -39,18 +39,4 @@ const cartItemQuantityState = selectorFamily({
     },
 });
 
-const cartAdditionState = atom({
-  key: 'cartAddition',
-  default: false,
-  effects: [
-    ({ setSelf, onSet }) => {
-      onSet(() => {
-        setTimeout(() => {
-          setSelf(false);
-        }, 2500);
-      });
-    },
-  ],
-});
-
-export { cartListItemCountState, cartListState, cartItemQuantityState, cartAdditionState };
+export { cartListItemCountState, cartListState, cartItemQuantityState };
