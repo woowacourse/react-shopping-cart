@@ -1,8 +1,12 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { itemsState } from "../recoil/atom";
 import type { ItemListType } from "../types/domain";
 import Item from "./Item";
 
-const ItemList = ({ items }: { items: ItemListType }) => {
+const ItemList = () => {
+  const items = useRecoilValue<ItemListType>(itemsState);
+
   return (
     <Wrapper>
       {items.map((item) => (
