@@ -7,13 +7,19 @@ interface InputStepperProps {
   setQuantity: (value: number) => void;
 }
 
+const isInputValueDigit = (inputValue: string): boolean => {
+  return /^\d*$/.test(inputValue);
+};
+
 const InputStepper = ({ size, quantity, setQuantity }: InputStepperProps) => {
   const changeText = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d*$/.test(e.target.value)) return;
-    if (e.target.value.length < 1 || e.target.value.length > 2) return;
+    const inputValue = e.target.value;
 
-    if (Number(e.target.value) !== quantity) {
-      setQuantity(Number(e.target.value));
+    if (!isInputValueDigit(inputValue)) return;
+    if (inputValue.length < 1 || inputValue.length > 2) return;
+
+    if (Number(inputValue) !== quantity) {
+      setQuantity(Number(inputValue));
     }
   };
 
