@@ -1,9 +1,9 @@
 import { expect } from '@storybook/jest';
 import type { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
-import { useState } from 'react';
 
 import StepperButton from '../../components/common/StepperButton/StepperButton';
+import { useCount } from '../../hooks/useCount';
 import { delay } from '../../utils/delay';
 
 const meta = {
@@ -11,7 +11,7 @@ const meta = {
   component: StepperButton,
   argTypes: {
     count: {
-      table: { disable: true },
+      control: false,
     },
     minCount: {
       control: { type: 'number' },
@@ -19,13 +19,14 @@ const meta = {
     maxCount: {
       control: { type: 'number' },
     },
-    setCount: {
-      control: false,
+    step: {
+      control: { type: 'number' },
     },
   },
   args: {
     minCount: 0,
     maxCount: 100,
+    step: 1,
   },
 } satisfies Meta<typeof StepperButton>;
 
@@ -34,14 +35,17 @@ type Story = StoryObj<typeof StepperButton>;
 
 export const Default: Story = {
   render: ({ ...args }) => {
-    const [count, setCount] = useState(0);
+    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(0);
 
     return (
       <StepperButton
         count={count}
-        setCount={setCount}
         minCount={args.minCount}
         maxCount={args.maxCount}
+        step={args.step}
+        handleDecreaseCount={handleDecreaseCount}
+        handleIncreaseCount={handleIncreaseCount}
+        handleCountChange={handleCountChange}
       />
     );
   },
@@ -49,14 +53,17 @@ export const Default: Story = {
 
 export const Interaction: Story = {
   render: ({ ...args }) => {
-    const [count, setCount] = useState(0);
+    const { count, handleDecreaseCount, handleIncreaseCount, handleCountChange } = useCount(0);
 
     return (
       <StepperButton
         count={count}
-        setCount={setCount}
         minCount={args.minCount}
         maxCount={args.maxCount}
+        step={args.step}
+        handleDecreaseCount={handleDecreaseCount}
+        handleIncreaseCount={handleIncreaseCount}
+        handleCountChange={handleCountChange}
       />
     );
   },
