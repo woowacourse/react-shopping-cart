@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const useFetch = <T>(url: string, initialValue: T): T => {
+const useFetchData = <T>(url: string, initialValue: T): T => {
   const [data, setData] = useState<T>(initialValue);
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const useFetch = <T>(url: string, initialValue: T): T => {
   return data;
 };
 
-export default useFetch;
+export default useFetchData;
