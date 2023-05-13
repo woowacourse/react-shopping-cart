@@ -1,6 +1,6 @@
-import { Product } from 'types/product';
 import ProductCard from './ProductCard/ProductCard';
 import styled from 'styled-components';
+import { Product } from 'types/product';
 
 type ProductCardListProps = {
   products: Product[];

@@ -1,10 +1,10 @@
+import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
+import FlexBox from 'components/@common/FlexBox';
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import FlexBox from 'components/@common/FlexBox';
-import { ReactComponent as MiniCartIcon } from 'assets/mini-cart-icon.svg';
-import type { CartProduct, Product } from 'types/product';
-import styled from 'styled-components';
 import { cartState, filteredCartProductState } from 'state/CartAtom';
+import styled from 'styled-components';
+import type { CartProduct, Product } from 'types/product';
 
 type ProductCardProps = {
   product: Product;
