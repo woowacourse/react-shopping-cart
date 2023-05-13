@@ -45,8 +45,8 @@ const HomeLink = styled(Link)`
   margin: 36px 0 0 0;
   text-align: center;
   line-height: 40px;
-  color: var(--background-color);
-  background: var(--alert-color);
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: 4px;
 `;
 

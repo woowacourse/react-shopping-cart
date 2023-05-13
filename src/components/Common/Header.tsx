@@ -10,7 +10,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderContent>
         <LogoContainer>
-          <CartIcon width={51} height={44} color='var(--background-color)' />
+          <CartIcon width={51} height={44} color='white' />
           <Logo>SHOP</Logo>
         </LogoContainer>
         <MoveCartPageBtn>
@@ -25,7 +25,7 @@ const Header = () => {
 const HeaderContainer = styled.header`
   width: 100%;
   height: 80px;
-  background-color: var(--primary-color);
+  background-color: ${({ theme }) => theme.colors.black};
 `;
 
 const HeaderContent = styled.div`
@@ -48,7 +48,7 @@ const LogoContainer = styled.div`
 `;
 
 const Logo = styled.h1`
-  color: var(--background-color);
+  color: ${({ theme }) => theme.colors.white};
   font-size: 40px;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -57,7 +57,7 @@ const Logo = styled.h1`
 
 const MoveCartPageBtn = styled.button`
   display: flex;
-  color: var(--background-color);
+  color: ${({ theme }) => theme.colors.white};
   font-size: 24px;
   font-weight: 500;
 `;
@@ -68,7 +68,7 @@ const ProductCountAlert = styled.p`
   margin-left: 6px;
   text-align: center;
   border-radius: 50%;
-  background-color: var(--alert-color);
+  background-color: ${({ theme }) => theme.colors.primary};
   line-height: 26px;
   font-size: 16px;
 `;
