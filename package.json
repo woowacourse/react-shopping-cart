@@ -4,9 +4,9 @@
   "description": "우테코 장바구니 미션",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --open",
     "prebuild": "rimraf dist",
-    "build": "webpack --progress --mode production"
+    "build": "cross-env NODE_ENV=production webpack --progress"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,14 @@
     "@babel/preset-typescript": "^7.21.5",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
+    "@types/styled-components": "^5.1.26",
     "babel-loader": "^9.1.2",
+    "babel-plugin-styled-components": "^2.1.1",
+    "cross-env": "^7.0.3",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.1",
     "rimraf": "^5.0.0",
+    "styled-components": "^5.3.10",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack": "^5.82.1",
