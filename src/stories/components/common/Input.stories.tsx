@@ -79,9 +79,10 @@ export const QuantityInput: Story = {
   args: {
     type: 'number',
     inputMode: 'numeric',
-    styled: QuantityInputStyle,
+    autoComplete: 'on',
     min: 1,
     max: 99,
+    styled: QuantityInputStyle,
     defaultValue: 1,
   },
 

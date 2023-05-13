@@ -4,10 +4,9 @@ import styled, { CSSProp } from 'styled-components';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   styled: CSSProp;
 }
-type Ref = HTMLInputElement;
 
-const Input = forwardRef<Ref, InputProps>(({ ...props }, ref) => {
-  return <S.Input ref={ref} {...props} autoComplete="on" />;
+const Input = forwardRef<HTMLInputElement, InputProps>(({ ...props }, ref) => {
+  return <S.Input ref={ref} {...props} />;
 });
 
 const S = {

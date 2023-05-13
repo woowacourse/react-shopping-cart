@@ -1,7 +1,7 @@
-import Input from './common/Input';
-import { css, styled } from 'styled-components';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { WheelEventHandler, ChangeEventHandler } from 'react';
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { css, styled } from 'styled-components';
+import Input from './common/Input';
 
 interface Props {
   value: string;
@@ -21,9 +21,10 @@ const QuantityInput = ({ value, onChange }: Props) => {
         inputMode="numeric"
         name="quantity"
         aria-label="quantity-input"
-        styled={QuantityInputStyle}
+        autoComplete="on"
         min={0}
         max={99}
+        styled={QuantityInputStyle}
         onWheel={handleScrollPrevent}
         onChange={onChange}
         onKeyDown={(event) => {
