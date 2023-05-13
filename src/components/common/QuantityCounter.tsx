@@ -28,19 +28,13 @@ const changeCount = (current: HTMLInputElement, action: CounterAction) => {
 };
 
 const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
-  const increaseQuantity = () => {
+  const changeQuantityByAction = (action: CounterAction) => {
     if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
     if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
 
-    changeCount(quantityRef.current, 'INCREASE');
+    changeCount(quantityRef.current, action);
   };
 
-  const decreaseQuantity = () => {
-    if (!isForwardedRef<HTMLInputElement>(quantityRef)) return;
-    if (!isRefCurrent<HTMLInputElement>(quantityRef.current)) return;
-
-    changeCount(quantityRef.current, 'DECREASE');
-  };
   return (
     <QuantityCounterContainer>
       <QuantityInput
@@ -50,10 +44,10 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
         onBlur={fillBlankInput}
       />
       <ButtonWrapper>
-        <CountButton onClick={increaseQuantity}>
+        <CountButton onClick={() => changeQuantityByAction(ACTION_INCREASE)}>
           <UpButtonIc />
         </CountButton>
-        <CountButton onClick={decreaseQuantity}>
+        <CountButton onClick={() => changeQuantityByAction(ACTION_DECREASE)}>
           <DownButtonIc />
         </CountButton>
       </ButtonWrapper>
