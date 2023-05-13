@@ -19,7 +19,10 @@ const useShoppingCart = () => {
         product,
       };
       setShoppingCart([...shoppingCart, newShoppingItem]);
-    } else if (quantity !== SHOPPING_QUANTITY.MIN) {
+      return;
+    }
+
+    if (quantity !== SHOPPING_QUANTITY.MIN) {
       setShoppingCart((prev) =>
         prev.map((item) => {
           if (item.product.id !== shoppingItem.product.id) return item;
@@ -30,9 +33,10 @@ const useShoppingCart = () => {
           };
         }),
       );
-    } else {
-      setShoppingCart((prev) => prev.filter((item) => item.product.id !== shoppingItem.product.id));
+      return;
     }
+
+    setShoppingCart((prev) => prev.filter((item) => item.product.id !== shoppingItem.product.id));
   };
 
   return { shoppingCart, updateShoppingCart };
