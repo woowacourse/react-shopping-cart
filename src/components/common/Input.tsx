@@ -2,7 +2,7 @@ import { InputHTMLAttributes, forwardRef } from 'react';
 import styled, { CSSProp } from 'styled-components';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  styled: CSSProp;
+  css: CSSProp;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ ...props }, ref) => {
@@ -10,8 +10,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ ...props }, ref) => {
 });
 
 const S = {
-  Input: styled.input<{ styled: CSSProp }>`
-    ${(props) => props.styled}
+  Input: styled.input<{ css: CSSProp }>`
+    ${(props) => props.css}
   `,
 };
 

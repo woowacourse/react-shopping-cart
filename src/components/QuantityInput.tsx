@@ -28,7 +28,7 @@ const QuantityInput = ({ value, onChange }: Props) => {
         autoComplete="on"
         min={0}
         max={99}
-        styled={QuantityInputStyle}
+        css={QuantityInputStyle}
         onWheel={handleScrollPrevent}
         onChange={onChange}
         onKeyDown={handleDotPrevent}

@@ -21,7 +21,7 @@ const meta = {
   tags: ['autodocs'],
 
   argTypes: {
-    styled: {
+    css: {
       options: {},
       control: {
         type: 'radio',
@@ -82,7 +82,7 @@ export const QuantityInput: Story = {
     autoComplete: 'on',
     min: 1,
     max: 99,
-    styled: QuantityInputStyle,
+    css: QuantityInputStyle,
     defaultValue: 1,
   },
 
