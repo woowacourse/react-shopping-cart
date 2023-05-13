@@ -47,7 +47,7 @@ const useCartAddition = (productId: ProductItemData['id']) => {
           return updatedCartList;
         });
       },
-    []
+    [productId]
   );
 
   return { isAdded, setCartItemQuantity };
