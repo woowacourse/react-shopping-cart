@@ -1,17 +1,14 @@
 import { useState, ChangeEventHandler, useEffect } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { atom, useRecoilValue, useRecoilState } from 'recoil';
-import { Product, CartItem } from '../types';
-import { productListState } from './ProductList';
-import { useSetCart } from '../hooks/useCart';
-import {
-  getDataFromLocalStorage,
-  setDataInLocalStorage,
-} from '../utils/getAndSetDataInLocalStorage';
-import { QUANTITY, NOT_NUMBER, KEY_CART } from '../constants';
+import { cartState, productListState } from '../recoil';
 import CartIcon from './icons/CartIcon';
+import { useSetCart } from '../hooks/useCart';
+import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
+import { setDataInLocalStorage } from '../utils/getAndSetDataInLocalStorage';
+import { Product, CartItem } from '../types';
+import { QUANTITY, NOT_NUMBER, KEY_CART } from '../constants';
 
 interface Props {
   id: number;
@@ -19,11 +16,6 @@ interface Props {
   price: number;
   imgUrl: string;
 }
-
-export const cartState = atom({
-  key: 'cartState',
-  default: JSON.parse(getDataFromLocalStorage(KEY_CART) ?? '[]'),
-});
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const [cart, setCart] = useRecoilState(cartState);

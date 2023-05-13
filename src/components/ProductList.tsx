@@ -1,14 +1,10 @@
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import ProductItem from './ProductItem';
+import { productListState } from '../recoil';
 import { useSetFetchedData } from '../hooks/useSetFetchedData';
 import { Product } from '../types';
 import { PRODUCT_LIST_URL } from '../constants/url';
-
-export const productListState = atom<Product[]>({
-  key: 'productListState',
-  default: [],
-});
 
 const ProductList = () => {
   const [productList, setProductList] = useRecoilState<Product[]>(productListState);

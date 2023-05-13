@@ -1,6 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cartState } from '../components/ProductItem';
-import { productListState } from '../components/ProductList';
+import { cartState, productListState } from '../recoil';
 import { CartItem, Product } from '../types';
 import { FIRST_INDEX, ONE_ITEM_IN_CART } from '../constants';
 
