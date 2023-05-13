@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: ({ children }) => {
-    const [isModalOpen, handleModalOpen, handleModalClose, handleModalClosePress] = useModal();
+    const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
     return (
       <>
@@ -30,7 +30,7 @@ export const Default: Story = {
           Click
         </Button>
         {isModalOpen && (
-          <Modal handleClose={handleModalClose} handleClosePress={handleModalClosePress}>
+          <Modal handleClose={handleModalClose}>
             <div style={{ width: '400px', height: '200px' }}>{children}</div>
           </Modal>
         )}
