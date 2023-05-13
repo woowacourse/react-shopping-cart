@@ -3,9 +3,14 @@ import ProductItem from '../ProductItem/ProductItem';
 
 import { Product } from '../../../../types/Product';
 import useFetchData from '../../../../hooks/useFetchData';
+import ErrorPage from '../../ErrorPage/ErrorPage';
 
 const ProductList = () => {
-  const productList = useFetchData<Product[]>('./mockData.json', []);
+  const { data: productList, status} = useFetchData<Product[]>('./mockData.json', []);
+
+  if (status < 200 || status > 299) {
+    return <ErrorPage />;
+  }
 
   return (
     <Styled.ProductList>
