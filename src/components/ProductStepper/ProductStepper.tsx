@@ -1,8 +1,10 @@
-import useProductCount from '../../hooks/useProductCount';
+// import useProductCount from '../../hooks/useProductCount';
 
 import * as Styled from './ProductStepper.styled';
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
 import Stepper from '../commons/Stepper/Stepper';
+import { useRecoilState } from 'recoil';
+import { productCountSelector } from '../../recoil/myCartState';
 
 interface ProductStepperProps {
   productId: number;
@@ -10,7 +12,8 @@ interface ProductStepperProps {
 
 const ProductStepper = (props: ProductStepperProps) => {
   const { productId } = props;
-  const { productCount, setProductCount } = useProductCount(productId);
+  
+  const [productCount, setProductCount] = useRecoilState(productCountSelector(productId));
 
   return (
     <Styled.ProductStepper>
