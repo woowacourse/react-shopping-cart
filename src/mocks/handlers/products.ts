@@ -10,11 +10,14 @@ export const productsHandlers = [
 
   // 상품 조회 API
   rest.get(`${PRODUCTS_BASE_URL}/:id`, (req, res, ctx) => {
-    const { id } = req.params;
-    const product = products.find((product) => String(product.id) === id);
+    const productId = Number(req.params.id);
+    const product = products.find((product) => product.id === productId);
 
     if (product === undefined) {
-      return res(ctx.status(404));
+      return res(
+        ctx.status(404),
+        ctx.json({ message: '해당 상품이 존재하지 않습니다.' }),
+      );
     }
 
     return res(ctx.status(200), ctx.json(product));
