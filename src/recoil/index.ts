@@ -1,7 +1,7 @@
 import { atom, selector, selectorFamily } from 'recoil';
 import { getDataFromLocalStorage } from '../utils/getAndSetDataInLocalStorage';
 import { KEY_CART } from '../constants';
-import { Product } from '../types';
+import { CartItem, Product } from '../types';
 
 export const productListState = atom<Product[]>({
   key: 'productListState',
@@ -23,6 +23,18 @@ export const productSelector = selectorFamily({
 export const cartState = atom({
   key: 'cartState',
   default: JSON.parse(getDataFromLocalStorage(KEY_CART) ?? '[]'),
+});
+
+export const productInCartSelector = selectorFamily({
+  key: 'productInCartSelector',
+  get:
+    (id) =>
+    ({ get }) => {
+      const cart = get(cartState);
+      const foundProductInCart = cart.find((item: CartItem) => item.id === id);
+
+      return foundProductInCart
+    },
 });
 
 export const cartBadgeSelector = selector({

@@ -2,11 +2,10 @@ import { useState, ChangeEventHandler, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { css, styled } from 'styled-components';
 import QuantityInput from './QuantityInput';
-import { cartState } from '../recoil';
+import { productInCartSelector } from '../recoil';
 import CartIcon from './icons/CartIcon';
 import { useSetCart } from '../hooks/useCart';
 import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { CartItem } from '../types';
 import { QUANTITY, NOT_NUMBER } from '../constants';
 
 interface Props {
@@ -17,19 +16,17 @@ interface Props {
 }
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const cart = useRecoilValue(cartState);
-  const { addToCart, removeProductItemFromCart } = useSetCart(id);
+  const foundProductInCart = useRecoilValue(productInCartSelector(id));
+  const { addToCart, removeItemFromCart } = useSetCart(id);
   const [isSelected, setIsSelected] = useState(false);
 
   const [quantity, setQuantity] = useState(
-    cart.filter((item: CartItem) => item.id === id).length
-      ? cart.filter((item: CartItem) => item.id === id)[0].quantity
-      : QUANTITY.INITIAL
+    foundProductInCart ? foundProductInCart.quantity : QUANTITY.INITIAL
   );
 
   useEffect(() => {
-    if (cart.find((product: CartItem) => product.id === id)) setIsSelected(true);
-  }, [cart, id]);
+    if (foundProductInCart) setIsSelected(true);
+  }, [foundProductInCart]);
 
   const handleCartClick = () => {
     setIsSelected(true);
@@ -43,7 +40,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
     if (value === QUANTITY.NONE) {
       setIsSelected(false);
 
-      removeProductItemFromCart();
+      removeItemFromCart();
 
       return setQuantity(QUANTITY.INITIAL);
     }

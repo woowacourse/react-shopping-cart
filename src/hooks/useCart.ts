@@ -14,9 +14,17 @@ export const useSetCart = (id: number) => {
     return { cartItemIndex, cart };
   };
 
+  const removeProduct = (cart: CartItem[], cartItemIndex: number) => {
+    cart.splice(cartItemIndex, ONE_ITEM_IN_CART);
+
+    return cart;
+  };
+
   const addToCart = (value: string) => {
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, cart } = findCartItemIndex(prev);
+
+      if (value === '') return removeProduct(cart, cartItemIndex);
 
       if (cartItemIndex >= FIRST_INDEX) {
         const updatedItem = { ...prev[cartItemIndex], quantity: Number(value) };
@@ -36,19 +44,15 @@ export const useSetCart = (id: number) => {
     });
   };
 
-  const removeProductItemFromCart = () => {
+  const removeItemFromCart = () => {
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, cart } = findCartItemIndex(prev);
 
-      if (cartItemIndex >= FIRST_INDEX) {
-        cart.splice(cartItemIndex, ONE_ITEM_IN_CART);
-
-        return cart;
-      }
+      if (cartItemIndex >= FIRST_INDEX) return removeProduct(cart, cartItemIndex);
 
       return prev;
     });
   };
 
-  return { addToCart, removeProductItemFromCart };
+  return { addToCart, removeItemFromCart };
 };
