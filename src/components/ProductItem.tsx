@@ -116,11 +116,20 @@ const S = {
   `,
 
   Name: styled.p`
+    margin-right: 4px;
     font-weight: 400;
     line-height: 1.4;
     letter-spacing: 0.5px;
     color: var(--text-color);
     opacity: 0.9;
+
+    @media (max-width: 1270px) {
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
   `,
 
   Price: styled.p`
@@ -133,6 +142,17 @@ const S = {
     & span {
       font-size: 17px;
       vertical-align: top;
+    }
+
+    @media (max-width: 1270px) {
+      font-size: 16px;
+      & span {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      font-size: 15px;
     }
   `,
 };
