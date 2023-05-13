@@ -7,8 +7,8 @@ const useFetch = <T>(url: string) => {
   useEffect(() => {
     setIsLoading(true);
 
-    async function fetchData() {
-      await fetch(url)
+    function fetchData() {
+      fetch(url)
         .then((res) => res.json())
         .then((json: T) => {
           setData(json);
