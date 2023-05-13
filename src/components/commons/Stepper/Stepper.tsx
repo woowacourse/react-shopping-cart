@@ -1,24 +1,20 @@
-import { ChangeEvent } from 'react';
+import useMyCartUpdater from '../../../hooks/useMyCartUpdater';
 
 import * as Styled from './Stepper.styled';
 
 interface StepperProps {
-  productCount: number;
-  setProductCount: (count: number) => void;
+  productId: number;
 }
 
 const Stepper = (props: StepperProps) => {
-  const { productCount, setProductCount } = props;
+  const { productId } = props;
 
-  const handleNumberInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(target.value);
-
-    if (Number.isNaN(value) || value < 0 || value > 99) {
-      return;
-    }
-
-    setProductCount(value);
-  };
+  const {
+    value,
+    increaseValue,
+    decreaseValue,
+    setValue,
+  } = useMyCartUpdater(productId, { min: 0, max: 99, step: 1 });
 
   return (
     <Styled.StepperDiv>
@@ -26,20 +22,20 @@ const Stepper = (props: StepperProps) => {
         type="text"
         role="textbox"
         inputMode="numeric"
-        value={productCount}
-        onChange={handleNumberInput}
+        value={value}
+        onChange={({ target: { value } }) => setValue(Number(value))}
         aria-label="상품 개수 입력"
       />
       <Styled.UpButton
         type="button"
-        onClick={() => setProductCount(productCount + 1)}
+        onClick={increaseValue}
         aria-label="상품 1개 추가"
       >
         ▲
       </Styled.UpButton>
       <Styled.DownButton
         type="button"
-        onClick={() => setProductCount(productCount - 1)}
+        onClick={decreaseValue}
         aria-label="상품 1개 삭제"
       >
         ▼

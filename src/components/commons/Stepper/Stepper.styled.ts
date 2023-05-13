@@ -21,6 +21,10 @@ export const Button = styled.button`
   color: ${Colors.PRIMARY_COLOR_DARK};
 
   font-size: xx-small;
+
+  &:hover {
+    background-color: ${Colors.STEPPER_BORDER};
+  }
 `;
 
 export const UpButton = styled(Button)`

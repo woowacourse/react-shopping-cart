@@ -1,10 +1,10 @@
-// import useProductCount from '../../hooks/useProductCount';
+import React from 'react';
 
 import * as Styled from './ProductStepper.styled';
+
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
 import Stepper from '../commons/Stepper/Stepper';
-import { useRecoilState } from 'recoil';
-import { productCountSelector } from '../../recoil/myCartState';
+import useMyCartUpdater from '../../hooks/useMyCartUpdater';
 
 interface ProductStepperProps {
   productId: number;
@@ -13,20 +13,17 @@ interface ProductStepperProps {
 const ProductStepper = (props: ProductStepperProps) => {
   const { productId } = props;
   
-  const [productCount, setProductCount] = useRecoilState(productCountSelector(productId));
+  const { value, increaseValue } = useMyCartUpdater(productId, { min: 0, max: 99, step: 1 });
 
   return (
     <Styled.ProductStepper>
-      {productCount === 0 ? (
-        <StepperEntryButton onClick={() => setProductCount(prev => prev + 1)} />
-      ) : (
-        <Stepper
-          productCount={productCount}
-          setProductCount={setProductCount}
-        />
-      )}
+      {
+        value
+        ? <Stepper productId={productId} />
+        : <StepperEntryButton onClick={increaseValue} />
+      }
     </Styled.ProductStepper>
   );
 };
 
-export default ProductStepper;
+export default React.memo(ProductStepper);
