@@ -18,32 +18,37 @@ interface Props {
   imgUrl: string;
 }
 
-export const cartState = atom({
+export const cartState = atom<CartItem[]>({
   key: 'cartState',
   default: JSON.parse(localStorage.getItem('cart') ?? '[]'),
 });
 
 const ProductItem = ({ id, imgUrl, name, price }: Props) => {
-  const [cart, setCart] = useRecoilState(cartState);
-  const { addToCart, removeProductItemFromCart } = useSetCart(id);
-  const [isSelected, setIsSelected] = useState(false);
   const initialProductList = useRecoilValue<Product[]>(productListState);
 
+  const [cart, setCart] = useRecoilState(cartState);
+  const { addToCart, removeProductItemFromCart } = useSetCart(id);
+
+  const [isSelected, setIsSelected] = useState(false);
+
   const [quantity, setQuantity] = useState(
-    cart.filter((item: CartItem) => item.id === id).length
-      ? cart.filter((item: CartItem) => item.id === id)[0].quantity
-      : INITIAL_QUANTITY
+    cart.find((item: CartItem) => item.id === id)
+      ? cart.find((item: CartItem) => item.id === id)!.quantity
+      : INITIAL_QUANTITY,
   );
 
   useEffect(() => {
-    if (cart.filter((product: CartItem) => product.id === id).length) setIsSelected(true);
+    if (cart.filter((item: CartItem) => item.id === id).length) setIsSelected(true);
   }, [cart, id]);
 
   const handleCartClick = () => {
     setIsSelected(true);
 
-    const selectedProduct = initialProductList.filter((product) => product.id === id);
-    setCart((prev: Product[]) => [...prev, ...selectedProduct]);
+    const selectedProduct = initialProductList.find((product) => product.id === id);
+    setCart((prev: CartItem[]) => [
+      ...prev,
+      { id: selectedProduct!.id, quantity: quantity, product: selectedProduct! },
+    ]);
     addToCart(quantity);
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
@@ -51,22 +56,22 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
   const handleNumberInputChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { value } = target;
 
-    if (value === NONE_QUANTITY) {
+    if (Number(value) === NONE_QUANTITY) {
       setIsSelected(false);
 
       removeProductItemFromCart();
 
-      const removeProductFromCart = (prev: Product[]) => {
-        return prev.filter((product) => product.id !== id);
+      const removeProductFromCart = (prev: CartItem[]) => {
+        return prev.filter((item) => item.id !== id);
       };
-      setCart((prev: Product[]) => removeProductFromCart(prev));
+      setCart((prev: CartItem[]) => removeProductFromCart(prev));
 
       return setQuantity(INITIAL_QUANTITY);
     }
 
     setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
-    addToCart(value);
-    console.log(cart);
+    addToCart(Number(value));
+
     setDataInLocalStorage<CartItem[]>('cart', cart);
   };
 

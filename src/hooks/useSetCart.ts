@@ -15,7 +15,7 @@ export const useSetCart = (id: number) => {
     return { cartItemIndex, updatedCart };
   };
 
-  const addToCart = (value: string) =>
+  const addToCart = (value: number) =>
     setCart((prev: CartItem[]) => {
       const { cartItemIndex, updatedCart } = findCartItemIndexAndUpdatedCart(prev);
 
@@ -25,13 +25,12 @@ export const useSetCart = (id: number) => {
 
         return updatedCart;
       }
-
       return [
         ...prev,
         {
           id: id,
           quantity: Number(value),
-          product: productList.filter((item) => item.id === id),
+          product: productList.find((item) => item.id === id)!,
         },
       ];
     });
