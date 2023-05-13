@@ -6,11 +6,6 @@ import { StoryContainer, StoryInfoContainer } from '../styles';
 const meta = {
   title: 'ShoppingCart/Common/Button',
   component: Button,
-  args: {
-    variant: 'default',
-    size: 'medium',
-    children: 'Button',
-  },
   argTypes: {
     variant: {
       control: { type: 'radio' },
@@ -23,6 +18,11 @@ const meta = {
     children: {
       control: { type: 'text' },
     },
+  },
+  args: {
+    variant: 'default',
+    size: 'medium',
+    children: 'Button',
   },
   decorators: [
     (Story) => (

@@ -5,12 +5,6 @@ import ProductAddition from '../components/ProductAddition/ProductAddition';
 const meta = {
   title: 'ShoppingCart/ProductAdditionModal',
   component: ProductAddition,
-} satisfies Meta<typeof ProductAddition>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
   args: {
     productInformation: {
       id: 3,
@@ -21,4 +15,9 @@ export const Default: Story = {
     },
     handleModalClose: () => {},
   },
-};
+} satisfies Meta<typeof ProductAddition>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
