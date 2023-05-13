@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { Required } from '../../../types';
 import { HeadingProps } from './Heading';
 
 const getSizeStyling = (size: Required<HeadingProps>['size']) => {
