@@ -5,15 +5,15 @@ import { Product } from '../../types/product';
 export const productListQuery = selector<Product[]>({
   key: 'productList',
   get: async () => {
-    const response = await fetch('./mockData.json');
+    const response = await fetch('/api/products');
 
     if (!response.ok) {
       throw new Error('상품 목록을 불러올 수 없습니다.');
     }
 
-    const mockData = await response.json();
+    const products = await response.json();
 
-    return mockData.products;
+    return products;
   },
 });
 
