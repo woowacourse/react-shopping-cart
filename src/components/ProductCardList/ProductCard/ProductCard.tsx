@@ -1,51 +1,26 @@
+import { ProductCardErrorBoundary } from '../ProductCardErrorBoundary';
 import productThumbnail from 'assets/product-thumbnail.png';
 import FlexBox from 'components/@common/FlexBox';
 import { Stepper } from 'components/ProductCardList/ProductCard/Stepper';
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { cartState, filteredCartProductState } from 'state/CartAtom';
+import { useCartProduct } from 'hooks/useCartProduct';
+import { useRecoilValue } from 'recoil';
+import { filteredCartProductState } from 'state/CartAtom';
 import styled from 'styled-components';
-import type { CartProduct, Product } from 'types/product';
+import type { Product } from 'types/product';
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [cart, setCart] = useRecoilState(cartState);
+  const { addCartProduct, decreaseQuantity, increaseQuantity } = useCartProduct(product);
   const { id, price, name, imageUrl } = product;
   const filteredCartProduct = useRecoilValue(filteredCartProductState(id));
 
   const filteredCartProductQuantity = filteredCartProduct?.quantity ?? 0;
 
-  const initialAddCartProduct = () => {
-    const createCartProductFirst = () => {
-      setCart((prev) => [...prev, { id, quantity: 1, product }]);
-    };
-
-    createCartProductFirst();
-  };
-
   const renderDefaultThumbnail: React.ReactEventHandler<HTMLImageElement> = (e) => {
     e.currentTarget.src = productThumbnail;
-  };
-
-  const decreaseQuantity = () => {
-    const decreased = cart.map((product) => {
-      if (product.id !== id) return product;
-      return { ...product, quantity: product.quantity - 1 };
-    });
-
-    setCart(decreased);
-  };
-
-  const increaseQuantity = () => {
-    const increased = cart.map((product) => {
-      if (product.id !== id) return product;
-      return { ...product, quantity: product.quantity + 1 };
-    });
-
-    setCart(increased);
   };
 
   return (
@@ -54,7 +29,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <ProductImage src={imageUrl} alt={name} onError={renderDefaultThumbnail} />
         <Stepper
           value={filteredCartProductQuantity}
-          onClickClosed={initialAddCartProduct}
+          onClickClosed={addCartProduct}
           onClickDecreaseButton={decreaseQuantity}
           onClickIncreaseButton={increaseQuantity}
         />
