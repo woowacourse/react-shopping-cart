@@ -1,6 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 
-import { cartProductState } from '../states/cartProductState';
+import { cartProductState } from '../states/cartProducts';
 import type { CartProduct } from '../types/product';
 
 const addTargetQuantity = (cartProducts: CartProduct[], id: number) =>

@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   cartProductState,
   targetCartProductState,
-} from '../states/cartProductState';
+} from '../states/cartProducts';
 import type { CartProduct, Product } from '../types/product';
 
 const findTargetProduct = (cartProducts: CartProduct[], id: number) =>
