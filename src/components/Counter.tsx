@@ -7,8 +7,12 @@ interface CounterProps {
 }
 
 const Counter = ({ itemId }: CounterProps) => {
-  const { quantity, setNewQuantity, handleQuantityChanged, handleQuantityBlured } =
-    useQuantity(itemId);
+  const {
+    quantity,
+    setNewQuantity,
+    handleQuantityChanged,
+    handleQuantityBlured,
+  } = useQuantity(itemId);
 
   const handleCountInputKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement) || e.key !== "Enter") return;
@@ -49,7 +53,7 @@ const CountInput = styled.input`
   width: 41px;
   height: 28px;
 
-  border: 1px solid #dddddd;
+  border: 1px solid var(--light-gray);
   text-align: center;
 
   &:focus {
@@ -84,7 +88,7 @@ const ArrowBox = styled.button`
   width: 23px;
   height: 14px;
 
-  border: 1px solid #dddddd;
+  border: 1px solid var(--light-gray);
   background: transparent;
 
   font-size: 5px;

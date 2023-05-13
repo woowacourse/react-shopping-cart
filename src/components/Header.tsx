@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { CartIcon } from "../assets";
 import { useRecoilValue } from "recoil";
@@ -43,7 +42,7 @@ const Wrapper = styled.section`
   min-height: 70px;
   padding: 0 10%;
 
-  background: #333333;
+  background: var(--dark-gray);
 `;
 
 const TitleContainer = styled.section`
@@ -82,12 +81,12 @@ const ItemQuantityBox = styled.div`
   width: 26px;
   height: 26px;
 
-  background: #04c09e;
+  background: var(--mintish-green);
   border-radius: 50%;
 
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  color: white;
 `;
 
 export default Header;

@@ -129,7 +129,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
+:root {
+  --dark-gray: #333333;
+  --light-gray: #dddddd;
+  --mintish-green: #04c09e;
+  --shadow-gray: rgba(0, 0, 0, 0.25);
+  }
 * {
   box-sizing: border-box;
 }

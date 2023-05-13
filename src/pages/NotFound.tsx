@@ -47,12 +47,12 @@ const HomeButton = styled.button`
   border-radius: 5px;
   width: 20%;
   height: 40px;
-  background: #333333;
+  background: var(--dark-gray);
   color: white;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 10px 10px -3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 10px -3px var(--shadow-gray);
     transition: all 0.3s ease;
   }
 `;

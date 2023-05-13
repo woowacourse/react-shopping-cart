@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import type { ItemType } from "../types/domain";
+import type { ItemListType } from "../types/domain";
 import Item from "./Item";
 
-const ItemList = ({ items }: { items: ItemType[] }) => {
+const ItemList = ({ items }: { items: ItemListType }) => {
   return (
     <Wrapper>
       {items.map((item) => (
