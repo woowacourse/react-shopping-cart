@@ -1,6 +1,14 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
+import { forwardRef } from 'react';
+import styled from 'styled-components';
 
+import type { CounterAction } from '../../type/counter';
+import { DownButtonIc, UpButtonIc } from '../../asset';
+import { ACTION_DECREASE, ACTION_INCREASE } from '../../constants/counter';
+import { ERROR } from '../../constants/error';
+import { isForwardedRef, isRefCurrent } from '../../utils/refTypeGuard';
+import { fillBlankInput, validateNumberRange } from '../../utils/validation';
 import type { CounterAction } from '../../type/counter';
 import { DownButtonIc, UpButtonIc } from '../../asset';
 import { ACTION_DECREASE, ACTION_INCREASE } from '../../constants/counter';
@@ -40,6 +48,7 @@ const QuantityCounter = forwardRef<HTMLInputElement>(function (_, quantityRef) {
       <QuantityInput
         ref={quantityRef}
         onChange={validateNumberRange}
+        defaultValue='1'
         defaultValue='1'
         onBlur={fillBlankInput}
       />
