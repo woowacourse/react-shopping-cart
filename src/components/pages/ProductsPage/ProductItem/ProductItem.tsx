@@ -1,7 +1,7 @@
-import { Product } from '../../types/Product';
+import { Product } from '../../../../types/Product';
 
 import * as Styled from './ProductItem.styled';
-import SquareImage from '../commons/SquareImage/SquareImage';
+import SquareImage from '../../../commons/SquareImage/SquareImage';
 import ProductStepper from '../ProductStepper/ProductStepper';
 
 interface ProductItemProps {

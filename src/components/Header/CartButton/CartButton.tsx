@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { cartLengthSelector } from '../../recoil/myCartState';
+import { cartLengthSelector } from '../../../recoil/myCartState';
 
 import * as Styled from './CartButton.styled';
 

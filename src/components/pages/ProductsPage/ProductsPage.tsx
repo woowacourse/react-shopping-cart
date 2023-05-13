@@ -1,5 +1,5 @@
 import * as Styled from './ProductsPage.styled';
-import ProductList from '../../ProductList/ProductList';
+import ProductList from './ProductList/ProductList';
 
 const ProductsPage = () => {
   return (

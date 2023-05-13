@@ -3,10 +3,10 @@ import React from 'react';
 import * as Styled from './ProductStepper.styled';
 
 import StepperEntryButton from '../StepperEntryButton/StepperEntryButton';
-import Stepper from '../commons/Stepper/Stepper';
-import useMyCartUpdater from '../../hooks/useMyCartUpdater';
+import Stepper from '../../../commons/Stepper/Stepper';
+import useMyCartUpdater from '../../../../hooks/useMyCartUpdater';
 
-import StepperSettings from '../../constants/StepperSettings';
+import StepperSettings from '../../../../constants/StepperSettings';
 
 interface ProductStepperProps {
   productId: number;

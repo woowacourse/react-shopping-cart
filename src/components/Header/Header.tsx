@@ -1,5 +1,5 @@
 import { LOGO } from '../../assets';
-import CartButton from '../CartButton/CartButton';
+import CartButton from './CartButton/CartButton';
 import * as Styled from './Header.styled';
 
 const Header = () => {
