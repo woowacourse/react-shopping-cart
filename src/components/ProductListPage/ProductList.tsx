@@ -1,15 +1,16 @@
-import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 
-import ProductItem from "./ProductItem";
-import { products as productList } from "../../atoms/productState";
+import ProductItem from './ProductItem';
+import { products as productList } from '../../atoms/productState';
+import { Product } from '../../type/product';
 
 export default function ProductList() {
-  const products = useRecoilValue(productList);
+  const products = useRecoilValue<Product[]>(productList);
 
   return (
     <ProductListContainer>
-      {products.map((product: any) => (
+      {products.map((product) => (
         <ProductItem {...product} />
       ))}
     </ProductListContainer>
