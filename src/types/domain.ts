@@ -5,3 +5,5 @@ export interface ItemType {
   imageUrl: string;
   quantity: string;
 }
+
+export interface ItemListType extends Array<ItemType> {}
