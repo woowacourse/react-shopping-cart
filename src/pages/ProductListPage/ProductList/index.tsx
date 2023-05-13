@@ -1,4 +1,5 @@
-import ProductItem from '@Components/ProductItem';
+import SkeletonProductItem from '@Components/ProductItem/Skeleton';
+import ProductItem from '@Components/ProductItem/index';
 
 import { Product } from '@Types/index';
 
@@ -13,9 +14,9 @@ function ProductList() {
 
   return (
     <S.ProductListContainer>
-      {data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
+      {!isLoading && data && data.map((data) => <ProductItem product={data} key={data.id} isLoading={isLoading} />)}
       {isLoading &&
-        new Array(12).fill(undefined).map((_: undefined, index) => <ProductItem key={index} isLoading={isLoading} />)}
+        new Array(12).fill(undefined).map((_, index) => <SkeletonProductItem key={index} isLoading={isLoading} />)}
     </S.ProductListContainer>
   );
 }
