@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../constants/Colors';
 
 export const Header = styled.header`
   display: flex;
@@ -10,8 +11,8 @@ export const Header = styled.header`
 
   padding: 10px 100px;
 
-  background-color: #333333;
-  color: #ffffff;
+  background-color: ${Colors.PRIMARY_COLOR_DARK};
+  color: ${Colors.FONT_WHITE};
 
   @media screen and (max-width: 650px) {
     padding: 10px 50px;

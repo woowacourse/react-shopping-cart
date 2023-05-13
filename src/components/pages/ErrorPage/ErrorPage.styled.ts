@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../../constants/Colors';
 
 export const ErrorPage = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ export const HomeEntryButton = styled.button`
   padding: 20px;
 
   color: white;
-  background-color: #04c09e;
+  background-color: ${Colors.PRIMARY_COLOR_HIGHLIGHT};
 
   border-radius: 8px;
 

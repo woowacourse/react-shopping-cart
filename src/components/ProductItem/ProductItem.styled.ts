@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../constants/Colors';
 
 export const ProductItem = styled.li`
   width: 100%;
@@ -26,7 +27,7 @@ export const NameParagraph = styled.p`
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  color: #333333;
+  color: ${Colors.PRIMARY_COLOR_DARK};
 `;
 
 export const PriceParagraph = styled.p`
@@ -44,5 +45,5 @@ export const PriceParagraph = styled.p`
 
   letter-spacing: 0.5px;
 
-  color: #333333;
+  color: ${Colors.PRIMARY_COLOR_DARK};
 `;

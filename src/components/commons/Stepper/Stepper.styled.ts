@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../../constants/Colors';
 
 export const StepperDiv = styled.div`
   display: grid;
@@ -11,13 +12,13 @@ export const StepperDiv = styled.div`
 export const Input = styled.input`
   grid-area: a;
 
-  border: 1px solid #dddddd;
+  border: 1px solid ${Colors.STEPPER_BORDER};
   text-align: center;
 `;
 
 export const Button = styled.button`
-  border: 1px solid #dddddd;
-  color: #333333;
+  border: 1px solid ${Colors.STEPPER_BORDER};
+  color: ${Colors.PRIMARY_COLOR_DARK};
 
   font-size: xx-small;
 `;

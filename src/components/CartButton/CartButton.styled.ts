@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colors from '../../constants/Colors';
 
 export const CartButton = styled.button`
   display: flex;
@@ -13,7 +14,7 @@ export const CartButton = styled.button`
   font-size: 24px;
   line-height: 12px;
 
-  color: #ffffff;
+  color: ${Colors.FONT_WHITE};
 
   @media screen and (max-width: 450px) {
     & > p {
@@ -36,7 +37,7 @@ export const CartLengthDiv = styled.div`
   height: 28px;
 
   border-radius: 50%;
-  background-color: #04c09e;
+  background-color: ${Colors.PRIMARY_COLOR_HIGHLIGHT};
   text-align: center;
 
   font-size: 16px;
