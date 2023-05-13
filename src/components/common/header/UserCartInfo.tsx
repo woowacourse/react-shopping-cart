@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { Text } from '../Text/Text';
-import { cartItemTotalQuantityState } from '../../../service/atom';
+import { cartListState } from '../../../store/atom';
 
 const UserCartInfo = () => {
-  const cartTotalQuantity = useRecoilValue(cartItemTotalQuantityState);
+  const cartList = useRecoilValue(cartListState);
 
   return (
     <CardCounterWrapper>
       <Text color="#ffffff" size="large" lineHeight="12px">
         장바구니
       </Text>
-      {cartTotalQuantity > 0 && (
+      {cartList.length > 0 && (
         <CartCounter>
           <Text size="smallest" color="#ffffff">
-            {cartTotalQuantity > 99 ? 99 : cartTotalQuantity}
+            {cartList.length > 99 ? 99 : cartList.length}
           </Text>
         </CartCounter>
       )}
