@@ -3,7 +3,7 @@ import mockData from "../mockData.json";
 import { ItemType } from "../types/domain";
 import { getLocalStorage } from "../utils";
 
-const cartItems = getLocalStorage<ItemType[]>("cart");
+const cartItems = getLocalStorage<ItemType[]>("cart", []);
 
 export const itemsState = atom({
   key: "items",
