@@ -1,4 +1,4 @@
-import { WheelEventHandler, ChangeEventHandler } from 'react';
+import { WheelEventHandler, ChangeEventHandler, KeyboardEventHandler } from 'react';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { css, styled } from 'styled-components';
 import Input from './common/Input';
@@ -11,6 +11,10 @@ interface Props {
 const QuantityInput = ({ value, onChange }: Props) => {
   const handleScrollPrevent: WheelEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     currentTarget.blur();
+  };
+
+  const handleDotPrevent: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === '.') event.preventDefault();
   };
 
   return (
@@ -27,11 +31,7 @@ const QuantityInput = ({ value, onChange }: Props) => {
         styled={QuantityInputStyle}
         onWheel={handleScrollPrevent}
         onChange={onChange}
-        onKeyDown={(event) => {
-          if (event.key === '-' || event.key === '+' || event.key === 'e' || event.key === '.') {
-            event.preventDefault();
-          }
-        }}
+        onKeyDown={handleDotPrevent}
       />
 
       <FaCaretUp aria-label="button-to-raise-quantity" />

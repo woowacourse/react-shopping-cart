@@ -5,8 +5,7 @@ import QuantityInput from './QuantityInput';
 import { productInCartSelector } from '../recoil';
 import CartIcon from './icons/CartIcon';
 import { useSetCart } from '../hooks/useCart';
-import { changeInvalidValueToBlank } from '../utils/changeInvalidValueToBlank';
-import { QUANTITY, NOT_NUMBER } from '../constants';
+import { QUANTITY } from '../constants';
 
 interface Props {
   id: number;
@@ -45,7 +44,7 @@ const ProductItem = ({ id, imgUrl, name, price }: Props) => {
       return setQuantity(QUANTITY.INITIAL);
     }
 
-    setQuantity(changeInvalidValueToBlank(value, NOT_NUMBER));
+    setQuantity(parseInt(value.slice(0, 2)));
     addToCart(value);
   };
 
