@@ -13,7 +13,7 @@
   <br>
 
   <img src="https://github.com/feb-dain/react-shopping-cart/assets/108778921/fe945777-cf77-4cf7-9639-6dba586aa6bc" alt="장바구니 앱 스크린샷 (반응형)" >
-  <p>이 앱은 반응형으로 제작되었습니다.</p>
+  <span>이 앱은 반응형으로 제작되었습니다.</span>
 </p>
 
 <br>
