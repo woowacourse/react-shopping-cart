@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RecoilRoot } from 'recoil';
 
-import Header from '@Components/Header';
-
-import GlobalStyle, { CommonPageStyle } from '@Styles/GlobalStyle';
+import { CommonPageStyle } from '@Styles/GlobalStyle';
 
 import ProductList from '.';
 
@@ -15,8 +13,6 @@ const meta: Meta<typeof ProductList> = {
   decorators: [
     (storyFn) => (
       <RecoilRoot>
-        <GlobalStyle />
-        <Header />
         <CommonPageStyle>{storyFn()}</CommonPageStyle>
       </RecoilRoot>
     ),
