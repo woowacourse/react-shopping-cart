@@ -1,15 +1,17 @@
 import React from 'react';
 import { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { ThemeProvider } from 'styled-components';
 
-import GlobalStyle from '../src/GlobalStyle';
+import GlobalStyle from '../src/styles';
+import theme from '../src/styles/theme';
 
 export const decorators = [
   (Story) => (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Story />
-    </>
+    </ThemeProvider>
   ),
 ];
 
