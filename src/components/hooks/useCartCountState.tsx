@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { addedCartState } from '../../atoms/AddedCartState';
-import { AddedProductList } from '../../types/productType';
 import { AddToCartCountProps } from '../../types/addToCartCountType';
+import { CartProductList } from '../../types/productType';
+import { cartState } from '../../atoms/CartState';
 
 export const useCartCountState = ({
   id,
   onDeleteCart,
 }: AddToCartCountProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+  const [cartProductList, setCartProductList] = useRecoilState(cartState);
 
   const increaseCount = () => {
     setQuantity(quantity + 1);
 
-    const addedCartList = addedCartStates.map((item: AddedProductList) => {
+    const updatedCartList = cartProductList.map((item: CartProductList) => {
       if (item.id === id)
         return {
           ...item,
@@ -23,11 +23,11 @@ export const useCartCountState = ({
 
       return item;
     });
-    setAddedCartStates(addedCartList);
+    setCartProductList(updatedCartList);
   };
 
   const decreaseCount = () => {
-    const addedCartList = addedCartStates.map((item: AddedProductList) => {
+    const updatedCartList = cartProductList.map((item: CartProductList) => {
       if (item.id === id)
         return {
           ...item,
@@ -36,7 +36,7 @@ export const useCartCountState = ({
 
       return item;
     });
-    setAddedCartStates(addedCartList);
+    setCartProductList(updatedCartList);
 
     if (quantity === 1) {
       onDeleteCart();

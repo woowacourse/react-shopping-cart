@@ -1,14 +1,14 @@
 import { useRecoilState } from 'recoil';
-import { addedCartState } from '../../atoms/AddedCartState';
-import { AddedProductList, ProductItem } from '../../types/productType';
+import { CartProductList, ProductItem } from '../../types/productType';
+import { cartState } from '../../atoms/CartState';
 
 export const useCartState = (props: ProductItem) => {
   const { id } = props;
-  const [addedCartStates, setAddedCartStates] = useRecoilState(addedCartState);
+  const [cartProductList, setCartProductList] = useRecoilState(cartState);
 
   const handleAddCartState = () => {
-    setAddedCartStates([
-      ...addedCartStates,
+    setCartProductList([
+      ...cartProductList,
       {
         id,
         quantity: 1,
@@ -18,10 +18,10 @@ export const useCartState = (props: ProductItem) => {
   };
 
   const handleDeleteCartState = () => {
-    const deleteItemId = addedCartStates.filter(
-      (item: AddedProductList) => item.id !== id
+    const deleteItemId = cartProductList.filter(
+      (item: CartProductList) => item.id !== id
     );
-    setAddedCartStates(deleteItemId);
+    setCartProductList(deleteItemId);
   };
 
   return { handleAddCartState, handleDeleteCartState };
