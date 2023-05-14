@@ -60,8 +60,9 @@ export default function Stepper({ productId }: Props) {
 const Style = {
   Container: styled.div`
     display: flex;
+    align-items: center;
 
-    width: 80px;
+    width: 70px;
     height: 30px;
     background-color: var(--grey-100);
     border: 1px solid var(--grey-200);
@@ -76,6 +77,7 @@ const Style = {
     border: none;
     width: 0;
 
+    font-size: 12px;
     text-align: center;
 
     &:focus {

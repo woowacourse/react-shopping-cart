@@ -3,9 +3,16 @@ import { createGlobalStyle } from 'styled-components';
 import Baemin from './fonts/Baemin.ttf';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Baemin';
-    src: url(${Baemin});
+  * {
+    margin:0;
+    padding:0;
+    font:inherit;
+    color:inherit;
+  }
+
+  *, :after, :before {
+    box-sizing:border-box;
+    flex-shrink:0;
   }
 
   :root {
@@ -15,36 +22,49 @@ const GlobalStyle = createGlobalStyle`
     --grey-300: #aaaaaa;
     --grey-400: #333333;
     --grey-500: #000000;
+
+    -webkit-tap-highlight-color:transparent;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    line-height:1.5;
+    overflow-wrap:break-word;
+    word-break:break-word;
+    tab-size:4;
+    cursor:default;
   }
 
-  *, *::before, *::after {
-    padding: 0;
-        margin: 0;
-    box-sizing: border-box;
-
+  html, body {
+    height:100%;
+    font-family: 'Baemin', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  body{
-    font-family: 'Baemin';
+  img, picture, video, canvas, svg {
+    display: block;max-width:100%;
+  }
+
+  button {
+    background:none;
+    border:0;
+    cursor:pointer;
+  }
+
+  a {
+    text-decoration:none;
+  }
+
+  table {
+    border-collapse:collapse;
+    border-spacing:0
   }
 
   ul,
   li {
       list-style: none;
   }
-  
-  button, input {
-      all:unset;
-  }
 
-  a {
-    text-decoration: none;
-    outline: none;
-    color:inherit;
-  }
-
-  a:hover, a:active {
-    text-decoration: none;
+  @font-face {
+    font-family: 'Baemin';
+    src: url(${Baemin});
   }
 
   @keyframes drawStepper {

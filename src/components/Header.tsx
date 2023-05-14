@@ -27,11 +27,18 @@ const Style = {
     justify-content: center;
     align-items: center;
 
-    width: 100vw;
+    width: 100%;
+    min-width: 992px;
     height: 80px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
     background-color: var(--grey-500);
 
     color: var(--grey-100);
+
+    z-index: 1000;
   `,
 
   Content: styled.div`
@@ -39,7 +46,7 @@ const Style = {
     justify-content: space-between;
     align-items: center;
 
-    width: 1263px;
+    width: 932px;
   `,
 
   Title: styled(Link)`

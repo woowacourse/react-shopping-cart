@@ -21,21 +21,23 @@ export default function Product({ data }: Props) {
 
   return (
     <Style.Container>
-      <Style.ProductImage path={data.imageUrl} />
+      <Style.ProductImageWrapper>
+        <Style.ProductImage src={data.imageUrl} alt={data.name} loading="lazy" />
+      </Style.ProductImageWrapper>
       <Style.ProductInfo>
-        <div>
-          <Style.ProductName>{data.name}</Style.ProductName>
-          <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
-        </div>
-        {isSelected(data.id) ? (
-          <Style.StepperWrapper isInCart={isInCart}>
-            <Stepper initCount={productInCart?.quantity} productId={data.id} />
-          </Style.StepperWrapper>
-        ) : (
-          <Style.CartIconWrapper onClick={() => addToCart(data.id)}>
-            <CartIcon fill="#AAAAAA" />
-          </Style.CartIconWrapper>
-        )}
+        <Style.ProductNameAndStepperContainer>
+          <Style.ProductName title={data.name}>{data.name}</Style.ProductName>
+          {isSelected(data.id) ? (
+            <Style.StepperWrapper isInCart={isInCart}>
+              <Stepper initCount={productInCart?.quantity} productId={data.id} />
+            </Style.StepperWrapper>
+          ) : (
+            <Style.CartIconWrapper onClick={() => addToCart(data.id)}>
+              <CartIcon fill="#AAAAAA" />
+            </Style.CartIconWrapper>
+          )}
+        </Style.ProductNameAndStepperContainer>
+        <Style.ProductPrice>{data.price.toLocaleString('ko-KR')}원</Style.ProductPrice>
       </Style.ProductInfo>
     </Style.Container>
   );
@@ -43,29 +45,43 @@ export default function Product({ data }: Props) {
 
 const Style = {
   Container: styled.div`
-    width: 282px;
+    cursor: pointer;
   `,
 
-  ProductImage: styled.div<{ path: string }>`
-    width: 282px;
-    height: 282px;
+  ProductImageWrapper: styled.div`
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+  `,
 
-    background-image: ${(props) => `url(${props.path})`};
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  ProductImage: styled.img`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   `,
 
   ProductInfo: styled.div`
-    display: flex;
-    justify-content: space-between;
-
-    padding: 18px 12px 0 12px;
+    padding: 18px 0 0 0;
     letter-spacing: 0.5px;
   `,
 
-  ProductName: styled.p`
+  ProductNameAndStepperContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     margin-bottom: 8px;
+  `,
+
+  ProductName: styled.p`
+    max-width: 120px;
+    overflow: hidden;
+
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   `,
 
   ProductPrice: styled.p`

@@ -7,7 +7,9 @@ export default function Home() {
     <>
       <Header />
       <Style.Main>
-        <ProductList />
+        <Style.Content>
+          <ProductList />
+        </Style.Content>
       </Style.Main>
     </>
   );
@@ -18,6 +20,14 @@ const Style = {
     display: flex;
     justify-content: center;
 
-    padding: 60px 0;
+    width: 100%;
+    min-width: 992px;
+
+    padding: 60px 30px;
+    padding: 140px 30px 60px 30px;
+  `,
+
+  Content: styled.div`
+    width: 932px;
   `,
 };

@@ -29,6 +29,8 @@ const Style = {
 
     &.square {
       color: var(--grey-600);
+      text-align: center;
+      line-height: 28px;
     }
 
     &.rectangle {
