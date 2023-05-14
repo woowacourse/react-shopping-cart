@@ -23,12 +23,14 @@ export const LogoButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
+  padding-bottom: 4px;
 `;
 
 export const LogoTitle = styled.h1`
+  margin: 4px 0 0 12px;
   color: var(--color-white);
   font-weight: 900;
-  font-size: 40px;
+  font-size: 36px;
   line-height: 58px;
 `;
 

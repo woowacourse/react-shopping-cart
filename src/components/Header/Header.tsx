@@ -1,4 +1,4 @@
-import Logo from '../../assets/Logo.svg';
+import ShoppingCartLogo from '../@common/ShoppingCartLogo/ShoppingCartLogo.tsx';
 import * as Styled from './Header.styles';
 import ShoppingCartStatus from './ShoppingCartStatus/ShoppingCartStatus.tsx';
 
@@ -7,7 +7,7 @@ const Header = () => {
     <Styled.HeaderContainer>
       <Styled.HeaderWrapper>
         <Styled.LogoButton data-cy='headerlogo'>
-          <Styled.LogoImage src={Logo} alt='SHOP' />
+          <ShoppingCartLogo fill='#FFF' width={44} height={40} />
           <Styled.LogoTitle>SHOP</Styled.LogoTitle>
         </Styled.LogoButton>
         <Styled.ShoppingCartButton>
