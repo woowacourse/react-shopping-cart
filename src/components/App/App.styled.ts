@@ -4,8 +4,14 @@ export const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 60px;
-
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+
+  & > main {
+    height: calc(100% - 80px);
+
+    padding: 40px 0;
+
+    overflow: auto;
+  }
 `;

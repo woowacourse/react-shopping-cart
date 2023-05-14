@@ -7,7 +7,9 @@ const App = () => {
   return (
     <StyledApp>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </StyledApp>
   );
 };
