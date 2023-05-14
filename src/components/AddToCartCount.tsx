@@ -2,33 +2,36 @@ import { useCartCountState } from './hooks/useCartCountState';
 import { AddToCartCountProps } from '../types/addToCartCountType';
 import { DecreaseButtonImage, IncreaseButtonImage } from '../types/image';
 import styled from 'styled-components';
+import { memo } from 'react';
 
-export const AddToCartCount = ({ id, onDeleteCart }: AddToCartCountProps) => {
-  const { increaseCount, decreaseCount, quantity } = useCartCountState({
-    id,
-    onDeleteCart,
-  });
+export const AddToCartCount = memo(
+  ({ id, onDeleteCart }: AddToCartCountProps) => {
+    const { increaseCount, decreaseCount, quantity } = useCartCountState({
+      id,
+      onDeleteCart,
+    });
 
-  return (
-    <Wrapper>
-      <QuantityText>{quantity}</QuantityText>
-      <div>
-        <IncreaseCountButton
-          data-testid="increase-button"
-          onClick={increaseCount}
-        >
-          <IncreaseButtonImage />
-        </IncreaseCountButton>
-        <DecreaseCountButton
-          data-testid="decrease-button"
-          onClick={decreaseCount}
-        >
-          <DecreaseButtonImage />
-        </DecreaseCountButton>
-      </div>
-    </Wrapper>
-  );
-};
+    return (
+      <Wrapper>
+        <QuantityText>{quantity}</QuantityText>
+        <div>
+          <IncreaseCountButton
+            data-testid="increase-button"
+            onClick={increaseCount}
+          >
+            <IncreaseButtonImage />
+          </IncreaseCountButton>
+          <DecreaseCountButton
+            data-testid="decrease-button"
+            onClick={decreaseCount}
+          >
+            <DecreaseButtonImage />
+          </DecreaseCountButton>
+        </div>
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.div`
   width: 80px;

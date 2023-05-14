@@ -1,5 +1,5 @@
 import { AddToCartCount } from './AddToCartCount';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { AddToCartButtonImage } from '../types/image';
 import styled from 'styled-components';
 
@@ -14,15 +14,15 @@ export const AddToCartButton = ({
 }) => {
   const [isAdded, setIsAdded] = useState(false);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     setIsAdded(true);
     handleAddCartState();
-  };
+  }, []);
 
-  const handleDeleteCart = () => {
+  const handleDeleteCart = useCallback(() => {
     setIsAdded(false);
     handleDeleteCartState();
-  };
+  }, []);
 
   return (
     <>
